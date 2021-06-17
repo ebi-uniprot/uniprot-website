@@ -1,4 +1,7 @@
-import { act, render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+
+import customRender from '../../../../shared/__test-helpers__/customRender';
+
 import CatalyticActivityView, {
   getRheaId,
   isRheaReactionReference,
@@ -6,41 +9,34 @@ import CatalyticActivityView, {
   ReactionDirection,
   ZoomModalContent,
 } from '../CatalyticActivityView';
-import catalyticActivityUIDataJson from './__mocks__/catalyticActivityUIData.json';
-import { removeProperty } from '../../../../shared/utils/utils';
-import customRender from '../../../../shared/__test-helpers__/customRender';
+
+import catalyticActivityUIData from './__mocks__/catalyticActivityUIData';
 
 describe('CatalyticActivityView component', () => {
   test('should render catalytic activity', () => {
     const { asFragment } = customRender(
       <CatalyticActivityView
-        comments={catalyticActivityUIDataJson}
+        comments={catalyticActivityUIData}
         title="Catalytic activity"
       />
     );
     expect(asFragment()).toMatchSnapshot();
   });
   test('should render catalytic activity when comment does not have reactionCrossReferences', () => {
-    const comment = catalyticActivityUIDataJson[0];
-    const commentWithoutReactionReferences = {
-      ...comment,
-      reaction: removeProperty(comment.reaction, 'reactionCrossReferences'),
-    };
+    const comment = catalyticActivityUIData[0];
     const { asFragment } = customRender(
-      <CatalyticActivityView comments={[commentWithoutReactionReferences]} />
+      <CatalyticActivityView comments={[comment]} />
     );
     expect(asFragment()).toMatchSnapshot();
   });
 });
 
 describe('RheaReactionVisualizer component', () => {
-  test('should render RheaReactionVisualizer', async () => {
-    await act(async () => {
-      const { asFragment } = render(
-        <RheaReactionVisualizer rheaId={12345} show={false} />
-      );
-      expect(asFragment()).toMatchSnapshot();
-    });
+  test('should render RheaReactionVisualizer', () => {
+    const { asFragment } = render(
+      <RheaReactionVisualizer rheaId={12345} show={false} />
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 });
 
@@ -67,7 +63,7 @@ describe('isRheaReactReference function', () => {
 });
 
 describe('ReactionDirection component', () => {
-  const { physiologicalReactions } = catalyticActivityUIDataJson[0];
+  const { physiologicalReactions } = catalyticActivityUIData[0];
 
   afterEach(() => {
     jest.clearAllMocks();
@@ -76,18 +72,20 @@ describe('ReactionDirection component', () => {
   test('should render ReactionDirection when one physiologicalReactions is present', () => {
     const { asFragment } = customRender(
       <ReactionDirection
-        physiologicalReactions={physiologicalReactions.slice(0, 1)}
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        physiologicalReactions={physiologicalReactions!.slice(0, 1)}
       />
     );
     expect(asFragment()).toMatchSnapshot();
   });
 
   test('should render ReactionDirection when two physiologicalReactions are present and should be in correct order (forwards then backwards)', () => {
-    const { asFragment, getAllByTestId } = customRender(
-      <ReactionDirection physiologicalReactions={physiologicalReactions} />
+    const { asFragment } = customRender(
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      <ReactionDirection physiologicalReactions={physiologicalReactions!} />
     );
     expect(asFragment()).toMatchSnapshot();
-    const directions = getAllByTestId('direction-text');
+    const directions = screen.getAllByTestId('direction-text');
     expect(directions[0].textContent).toBe('forward');
     expect(directions[1].textContent).toBe('backward');
   });
@@ -98,8 +96,10 @@ describe('ReactionDirection component', () => {
     const { asFragment } = customRender(
       <ReactionDirection
         physiologicalReactions={[
-          ...physiologicalReactions,
-          ...physiologicalReactions,
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          ...physiologicalReactions!,
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          ...physiologicalReactions!,
         ]}
       />
     );

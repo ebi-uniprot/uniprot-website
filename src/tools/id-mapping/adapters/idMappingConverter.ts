@@ -3,23 +3,23 @@ import { processUrlTemplate } from '../../../uniprotkb/components/protein-data-v
 import { DatabaseInfoPoint } from '../../../uniprotkb/types/databaseRefs';
 import { MappingAPIModel, MappingFlat } from '../types/idMappingSearchResults';
 
-const idMappingConverter = (dbInfo?: DatabaseInfoPoint) => (
-  data: MappingAPIModel[]
-): MappingFlat[] =>
-  data.map((row) => {
-    if (typeof row.to === 'string') {
-      const url = dbInfo
-        ? processUrlTemplate(dbInfo.uriLink, { id: row.to })
-        : undefined;
+const idMappingConverter =
+  (dbInfo?: DatabaseInfoPoint) =>
+  (data: MappingAPIModel[]): MappingFlat[] =>
+    data.map((row) => {
+      if (typeof row.to === 'string') {
+        const url = dbInfo
+          ? processUrlTemplate(dbInfo.uriLink, { id: row.to })
+          : undefined;
+        return {
+          ...row,
+          url,
+        };
+      }
       return {
-        ...row,
-        url,
+        from: row.from,
+        ...row.to,
       };
-    }
-    return {
-      from: row.from,
-      ...row.to,
-    };
-  }) as MappingFlat[];
+    }) as MappingFlat[];
 
 export default idMappingConverter;

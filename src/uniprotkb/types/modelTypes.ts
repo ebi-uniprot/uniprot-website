@@ -1,12 +1,12 @@
 export type Evidence = {
-  evidenceCode: string; // TODO this needs to be an ECO instead of string
+  evidenceCode: `ECO:${number}`;
   source?: string;
   id?: string;
 };
 
 export type ValueWithEvidence = {
   value: string;
-  evidences: Evidence[];
+  evidences?: Evidence[];
 };
 
 export enum PropertyKey {

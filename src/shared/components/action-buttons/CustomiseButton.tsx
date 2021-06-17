@@ -5,7 +5,7 @@ import SlidingPanel, { Position } from '../layouts/SlidingPanel';
 
 import lazy from '../../utils/lazy';
 
-const CustomiseComponent = lazy(
+const CustomiseTable = lazy(
   () =>
     import(
       /* webpackChunkName: "customise" */ '../customise-table/CustomiseTable'
@@ -24,16 +24,14 @@ const CustomiseButton = () => {
             yScrollable
             onClose={() => setDisplayCustomisePanel(false)}
           >
-            <CustomiseComponent
-              onSave={() => setDisplayCustomisePanel(false)}
-            />
+            <CustomiseTable onSave={() => setDisplayCustomisePanel(false)} />
           </SlidingPanel>
         </Suspense>
       )}
       <Button
         variant="tertiary"
-        onPointerOver={CustomiseComponent.preload}
-        onFocus={CustomiseComponent.preload}
+        onPointerOver={CustomiseTable.preload}
+        onFocus={CustomiseTable.preload}
         onClick={() => setDisplayCustomisePanel(!displayCustomisePanel)}
       >
         <EditIcon />

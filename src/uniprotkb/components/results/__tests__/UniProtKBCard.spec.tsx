@@ -4,22 +4,16 @@ import UniProtKBCard from '../UniProtKBCard';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
 
-import { UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
-
-import data from '../../../__mocks__/entryModelData.json';
+import data from '../../../__mocks__/uniProtKBEntryModelData';
 
 const handleEntrySelection = jest.fn();
 
-let rendered;
+let rendered: ReturnType<typeof customRender>;
 
 describe('UniProtKBCard component', () => {
   beforeEach(() => {
     rendered = customRender(
-      <UniProtKBCard
-        // TODO: check mock data to see if it fits model, something's off...
-        data={data as UniProtkbAPIModel}
-        handleEntrySelection={handleEntrySelection}
-      />
+      <UniProtKBCard data={data} handleEntrySelection={handleEntrySelection} />
     );
   });
 
@@ -29,7 +23,7 @@ describe('UniProtKBCard component', () => {
   });
 
   test('should select a row', () => {
-    const checkbox = screen.getByTestId('up-card-checkbox');
+    const checkbox = screen.getByRole('checkbox');
     fireEvent.click(checkbox);
     expect(handleEntrySelection).toHaveBeenCalled();
   });

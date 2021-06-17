@@ -3,6 +3,8 @@ import { Link, LinkProps, useRouteMatch } from 'react-router-dom';
 import { DropdownButton, LongNumber } from 'franklin-sites';
 import { SetOptional } from 'type-fest';
 
+import { pluralise } from '../../../shared/utils/utils';
+
 import {
   allSupportingDataEntryLocations,
   LocationToPath,
@@ -27,8 +29,8 @@ const configMap = new Map<
       label: 'UniProtKB',
       text: (count) => (
         <>
-          <LongNumber>{count}</LongNumber> UniProtKB entr
-          {count === 1 ? 'y' : 'ies'}
+          <LongNumber>{count}</LongNumber> UniProtKB{' '}
+          {pluralise('entry', count, 'entries')}
         </>
       ),
       to: (fieldName, accession) => ({
@@ -43,8 +45,8 @@ const configMap = new Map<
       label: 'UniProtKB reviewed (Swiss-Prot)',
       text: (count) => (
         <>
-          <LongNumber>{count}</LongNumber> reviewed UniProtKB entr
-          {count === 1 ? 'y' : 'ies'}
+          <LongNumber>{count}</LongNumber> reviewed UniProtKB{' '}
+          {pluralise('entry', count, 'entries')}
         </>
       ),
       to: (fieldName, accession) => ({
@@ -59,8 +61,8 @@ const configMap = new Map<
       label: 'UniProtKB unreviewed (TrEMBL)',
       text: (count) => (
         <>
-          <LongNumber>{count}</LongNumber> unreviewed UniProtKB entr
-          {count === 1 ? 'y' : 'ies'}
+          <LongNumber>{count}</LongNumber> unreviewed UniProtKB{' '}
+          {pluralise('entry', count, 'entries')}
         </>
       ),
       to: (fieldName, accession) => ({
@@ -76,8 +78,8 @@ const configMap = new Map<
       label: 'Computationally mapped proteins',
       text: (count) => (
         <>
-          <LongNumber>{count}</LongNumber> computationally mapped protein
-          {count === 1 ? '' : 's'}
+          <LongNumber>{count}</LongNumber> computationally mapped{' '}
+          {pluralise('protein', count)}
         </>
       ),
       to: (_, accession) => ({
@@ -93,8 +95,8 @@ const configMap = new Map<
       label: 'Community mapped proteins',
       text: (count) => (
         <>
-          <LongNumber>{count}</LongNumber> community mapped protein
-          {count === 1 ? '' : 's'}
+          <LongNumber>{count}</LongNumber> community mapped{' '}
+          {pluralise('protein', count)}
         </>
       ),
       to: (_, accession) => ({
@@ -111,7 +113,7 @@ const configMap = new Map<
       label: 'Proteomes',
       text: (count) => (
         <>
-          <LongNumber>{count}</LongNumber> proteome{count === 1 ? '' : 's'}
+          <LongNumber>{count}</LongNumber> {pluralise('proteome', count)}
         </>
       ),
       to: (fieldName, accession) => ({
@@ -126,8 +128,8 @@ const configMap = new Map<
       label: 'Reference proteomes',
       text: (count) => (
         <>
-          <LongNumber>{count}</LongNumber> reference proteome
-          {count === 1 ? '' : 's'}
+          <LongNumber>{count}</LongNumber> reference{' '}
+          {pluralise('proteome', count)}
         </>
       ),
       to: (fieldName, accession) => ({
@@ -177,22 +179,21 @@ const enrichStatistics = (
     ]);
   }
 
-  const mapped: Array<
-    SetOptional<EnrichedStatistics, 'count'> | undefined
-  > = entries.map(([key, value]) => {
-    const config = configMap.get(key as keyof Statistics | 'proteinCount');
-    if (!config) {
-      return;
-    }
-    // eslint-disable-next-line consistent-return
-    return {
-      key: key as keyof Statistics | 'proteinCount',
-      count: value,
-      label: config.label,
-      text: config.text(value || 0),
-      to: config.to(fieldName, accession),
-    };
-  });
+  const mapped: Array<SetOptional<EnrichedStatistics, 'count'> | undefined> =
+    entries.map(([key, value]) => {
+      const config = configMap.get(key as keyof Statistics | 'proteinCount');
+      if (!config) {
+        return;
+      }
+      // eslint-disable-next-line consistent-return
+      return {
+        key: key as keyof Statistics | 'proteinCount',
+        count: value,
+        label: config.label,
+        text: config.text(value || 0),
+        to: config.to(fieldName, accession),
+      };
+    });
   // filter out undefined and zero counts
   return mapped.filter(statFilter);
 };

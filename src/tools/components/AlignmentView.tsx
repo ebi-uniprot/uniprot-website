@@ -31,9 +31,9 @@ import {
 
 import FeatureType from '../../uniprotkb/types/featureType';
 import { ProcessedFeature } from '../../shared/components/views/FeaturesView';
+import { prepareFeatureForTooltip } from '../utils/feature';
 
 import './styles/AlignmentView.scss';
-import { prepareFeatureForTooltip } from '../utils/feature';
 
 export type ConservationOptions = {
   'calculate-conservation'?: true;
@@ -112,18 +112,18 @@ type UpdateTooltip = (arg: {
   event: CustomEvent<NightingaleChangeEvent>;
 }) => void;
 
-export const handleEvent = (updateTooltip: UpdateTooltip) => (
-  event: CustomEvent<NightingaleChangeEvent>
-) => {
-  if (event?.detail?.eventtype === 'click') {
-    updateTooltip({
-      event,
-      id: event.detail.feature.protvistaFeatureId,
-      x: event.detail.coords[0],
-      y: event.detail.coords[1],
-    });
-  }
-};
+export const handleEvent =
+  (updateTooltip: UpdateTooltip) =>
+  (event: CustomEvent<NightingaleChangeEvent>) => {
+    if (event?.detail?.eventtype === 'click') {
+      updateTooltip({
+        event,
+        id: event.detail.feature.protvistaFeatureId,
+        x: event.detail.coords[0],
+        y: event.detail.coords[1],
+      });
+    }
+  };
 
 const AlignmentView: FC<{
   alignment: MSAInput[];
@@ -142,9 +142,10 @@ const AlignmentView: FC<{
   handleEntrySelection,
   containerSelector,
 }) => {
-  const [tooltipContent, setTooltipContent] = useState<{
-    __html: string;
-  } | null>();
+  const [tooltipContent, setTooltipContent] =
+    useState<{
+      __html: string;
+    } | null>();
   const tooltipRef = useRef<JSX.IntrinsicElements['protvista-tooltip']>();
 
   const tooltipDefined = useCustomElement(
@@ -169,9 +170,9 @@ const AlignmentView: FC<{
         .map((sequence) => ({
           label: sequence.name,
           id: sequence.accession,
-          items: Array.from(
-            new Set(sequence.features?.map((f) => f.type))
-          ).map((label) => ({ label, id: `${sequence.accession}|${label}` })),
+          items: Array.from(new Set(sequence.features?.map((f) => f.type))).map(
+            (label) => ({ label, id: `${sequence.accession}|${label}` })
+          ),
         }))
         .filter(isNonEmptyMenuItem),
     [alignment]
@@ -192,7 +193,7 @@ const AlignmentView: FC<{
   );
   const annotationChanged = useRef(false);
   const [highlightProperty, setHighlightProperty] = useState<MsaColorScheme>(
-    MsaColorScheme.CONSERVATION
+    MsaColorScheme.CLUSTAL
   );
   const highlightChanged = useRef(false);
   const [activeId, setActiveId] = useState<string | undefined>(
@@ -367,7 +368,7 @@ const AlignmentView: FC<{
 
   const tooltipVisibility = tooltipContent ? { visible: true } : {};
 
-  const defaultActiveNodes = useMemo(() => [MsaColorScheme.CONSERVATION], []);
+  const defaultActiveNodes = useMemo(() => [MsaColorScheme.CLUSTAL], []);
 
   if (!tooltipDefined) {
     return <Loader />;

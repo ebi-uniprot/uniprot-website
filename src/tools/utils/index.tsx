@@ -1,13 +1,15 @@
 import { Link, generatePath } from 'react-router-dom';
 import { AxiosResponse } from 'axios';
 
+import { pluralise } from '../../shared/utils/utils';
+
+import { Location, jobTypeToPath } from '../../app/config/urls';
+
 import {
   MessageFormat,
   MessageLevel,
   MessageTag,
 } from '../../messages/types/messagesTypes';
-
-import { Location, jobTypeToPath } from '../../app/config/urls';
 
 import { Job } from '../types/toolsJob';
 import { JobTypes } from '../types/toolsJobTypes';
@@ -102,7 +104,9 @@ export const getStatusFromResponse = async (
 const parseXML = (xml: string) =>
   new window.DOMParser().parseFromString(xml, 'text/xml');
 
-type ServerError = { response: AxiosResponse<string | { messages: string[] }> };
+export type ServerError = {
+  response: AxiosResponse<string | { messages: string[] }>;
+};
 
 export const getServerErrorDescription = (error: ServerError) => {
   const data = error?.response?.data;
@@ -164,7 +168,7 @@ export const getJobMessage = ({
   }
   let hitsMessage = '';
   if (typeof nHits !== 'undefined') {
-    hitsMessage = `, found ${nHits} hit${nHits === 1 ? '' : 's'}`;
+    hitsMessage = `, found ${nHits} ${pluralise('hit', nHits)}`;
   }
 
   return {

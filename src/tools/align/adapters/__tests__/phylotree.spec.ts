@@ -4,9 +4,11 @@ import { promisify } from 'util';
 
 import phylotree from '../phylotree';
 
+import { PhyloTreeNode } from '../../types/alignResults';
+
 const readFile = promisify(fs.readFile);
 
-function* traverseTree(tree) {
+function* traverseTree(tree: PhyloTreeNode): Generator<PhyloTreeNode> {
   for (const child of tree.children || []) {
     // and recursively do the same for all the children
     yield* traverseTree(child);
@@ -15,7 +17,9 @@ function* traverseTree(tree) {
 }
 
 describe('phylotree', () => {
-  let file1, file2, file3;
+  let file1: string;
+  let file2: string;
+  let file3: string;
 
   beforeAll(async () => {
     file1 = await readFile(

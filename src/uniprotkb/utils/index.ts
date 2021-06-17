@@ -40,7 +40,7 @@ export const getListOfIsoformAccessions = (data?: UniProtkbAPIModel) => {
   }
   for (const comment of data.comments) {
     // filter out all the non-"Alternative Products" comments
-    if (comment.commentType !== CommentType.ALTERNATIVE_PRODUCTS) {
+    if (comment.commentType !== 'ALTERNATIVE PRODUCTS') {
       continue; // eslint-disable-line no-continue
     }
     for (const isoform of comment.isoforms) {
@@ -75,4 +75,5 @@ export const getPropertyValue = (
 
 // The regex that matches uniprot accession. Taken from:
 // https://www.uniprot.org/help/accession_numbers
-export const uniProtKBAccessionRegEx = /[OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9]([A-Z][A-Z0-9]{2}[0-9]){1,2}/i;
+export const uniProtKBAccessionRegEx =
+  /[OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9]([A-Z][A-Z0-9]{2}[0-9]){1,2}/i;

@@ -23,6 +23,8 @@ import SequenceSearchLoader, {
   ParsedSequence,
 } from '../../components/SequenceSearchLoader';
 
+import { pluralise } from '../../../shared/utils/utils';
+
 import { addMessage } from '../../../messages/state/messagesActions';
 
 import useReducedMotion from '../../../shared/hooks/useReducedMotion';
@@ -47,8 +49,8 @@ import {
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
 
-import '../../styles/ToolsForm.scss';
 import '../../../shared/styles/sticky.scss';
+import '../../styles/ToolsForm.scss';
 
 const ALIGN_LIMIT = 100;
 
@@ -62,7 +64,7 @@ const FormSelect: FC<{
   const label = AlignFields[formValue.fieldName as keyof typeof AlignFields];
   return (
     <section className="tools-form-section__item">
-      <label htmlFor={label}>
+      <label>
         {label}
         <select
           value={formValue.selected as string}
@@ -141,7 +143,7 @@ const AlignForm = () => {
 
     // imperatively reset SequenceSearchLoader... 😷
     // eslint-disable-next-line no-unused-expressions
-    ((sslRef.current as unknown) as { reset: () => void }).reset();
+    (sslRef.current as unknown as { reset: () => void }).reset();
   };
 
   // the only thing to do here would be to check the values and prevent
@@ -193,9 +195,10 @@ const AlignForm = () => {
             potentialJobName += ` +${parsedSequences.length - 1}`;
           }
         } else if (parsedSequences.length) {
-          potentialJobName = `${parsedSequences.length} sequence${
-            parsedSequences.length === 1 ? '' : 's'
-          }`;
+          potentialJobName = `${parsedSequences.length} ${pluralise(
+            'sequence',
+            parsedSequences.length
+          )}`;
         }
         setJobName((jobName) => {
           if (jobName.selected === potentialJobName) {

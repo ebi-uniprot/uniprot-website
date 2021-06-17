@@ -271,8 +271,7 @@ const mappingResults = {
           {
             commentType: 'CATALYTIC ACTIVITY',
             reaction: {
-              name:
-                'ATP + L-seryl-[protein] = ADP + H(+) + O-phospho-L-seryl-[protein]',
+              name: 'ATP + L-seryl-[protein] = ADP + H(+) + O-phospho-L-seryl-[protein]',
               reactionCrossReferences: [
                 {
                   database: 'Rhea',
@@ -313,8 +312,7 @@ const mappingResults = {
           {
             commentType: 'CATALYTIC ACTIVITY',
             reaction: {
-              name:
-                'ATP + L-threonyl-[protein] = ADP + H(+) + O-phospho-L-threonyl-[protein]',
+              name: 'ATP + L-threonyl-[protein] = ADP + H(+) + O-phospho-L-threonyl-[protein]',
               reactionCrossReferences: [
                 {
                   database: 'Rhea',
@@ -2334,8 +2332,7 @@ const mappingResults = {
           {
             commentType: 'CATALYTIC ACTIVITY',
             reaction: {
-              name:
-                'ATP + L-seryl-[protein] = ADP + H(+) + O-phospho-L-seryl-[protein]',
+              name: 'ATP + L-seryl-[protein] = ADP + H(+) + O-phospho-L-seryl-[protein]',
               reactionCrossReferences: [
                 {
                   database: 'Rhea',
@@ -2376,8 +2373,7 @@ const mappingResults = {
           {
             commentType: 'CATALYTIC ACTIVITY',
             reaction: {
-              name:
-                'ATP + L-threonyl-[protein] = ADP + H(+) + O-phospho-L-threonyl-[protein]',
+              name: 'ATP + L-threonyl-[protein] = ADP + H(+) + O-phospho-L-threonyl-[protein]',
               reactionCrossReferences: [
                 {
                   database: 'Rhea',
@@ -6630,8 +6626,7 @@ const mappingResults = {
           {
             commentType: 'CATALYTIC ACTIVITY',
             reaction: {
-              name:
-                'ATP + L-seryl-[protein] = ADP + H(+) + O-phospho-L-seryl-[protein]',
+              name: 'ATP + L-seryl-[protein] = ADP + H(+) + O-phospho-L-seryl-[protein]',
               reactionCrossReferences: [
                 {
                   database: 'Rhea',
@@ -6672,8 +6667,7 @@ const mappingResults = {
           {
             commentType: 'CATALYTIC ACTIVITY',
             reaction: {
-              name:
-                'ATP + L-threonyl-[protein] = ADP + H(+) + O-phospho-L-threonyl-[protein]',
+              name: 'ATP + L-threonyl-[protein] = ADP + H(+) + O-phospho-L-threonyl-[protein]',
               reactionCrossReferences: [
                 {
                   database: 'Rhea',
@@ -8719,8 +8713,7 @@ const mappingResults = {
           {
             commentType: 'CATALYTIC ACTIVITY',
             reaction: {
-              name:
-                'ATP + L-seryl-[protein] = ADP + H(+) + O-phospho-L-seryl-[protein]',
+              name: 'ATP + L-seryl-[protein] = ADP + H(+) + O-phospho-L-seryl-[protein]',
               reactionCrossReferences: [
                 {
                   database: 'Rhea',
@@ -8761,8 +8754,7 @@ const mappingResults = {
           {
             commentType: 'CATALYTIC ACTIVITY',
             reaction: {
-              name:
-                'ATP + L-threonyl-[protein] = ADP + H(+) + O-phospho-L-threonyl-[protein]',
+              name: 'ATP + L-threonyl-[protein] = ADP + H(+) + O-phospho-L-threonyl-[protein]',
               reactionCrossReferences: [
                 {
                   database: 'Rhea',

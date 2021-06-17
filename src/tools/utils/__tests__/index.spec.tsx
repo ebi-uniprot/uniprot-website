@@ -1,11 +1,11 @@
-import { MemoryRouter as Router } from 'react-router-dom';
-import { render } from '@testing-library/react';
+import customRender from '../../../shared/__test-helpers__/customRender';
 
 import {
   getServerErrorDescription,
   getJobMessage,
   isValidServerID,
   truncateTaxonLabel,
+  ServerError,
 } from '..';
 
 import { JobTypes } from '../../types/toolsJobTypes';
@@ -43,7 +43,7 @@ describe('getServerErrorDescription', () => {
       <description>Invalid parameters: 
         Sequence -> Error in reading input sequence. Please check your input.</description>
     </error>`;
-    const error = { response: { data } };
+    const error = { response: { data } } as ServerError;
     expect(getServerErrorDescription(error)).toEqual(`Invalid parameters: 
         Sequence → Error in reading input sequence. Please check your input.`);
   });
@@ -71,18 +71,15 @@ describe('getJobMessage', () => {
       job: runningJob,
       nHits: 100,
     });
-    const { asFragment } = render(
-      <Router>{jobMessage.content as JSX.Element}</Router>
-    );
-    expect(asFragment()).toMatchSnapshot();
-    delete jobMessage.content;
-    expect(jobMessage).toEqual({
+    expect(jobMessage).toMatchObject({
       id: 'local-97e5ab00-9ff0-11ea-baf5-bf14c9060612',
       format: 'POP_UP',
       tag: 'JOB',
       omitAndDeleteAtLocations: ['Dashboard'],
       level: 'success',
     });
+    const { asFragment } = customRender(<>{jobMessage.content}</>);
+    expect(asFragment()).toMatchSnapshot();
   });
 });
 

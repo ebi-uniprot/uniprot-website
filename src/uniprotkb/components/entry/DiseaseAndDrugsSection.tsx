@@ -13,11 +13,7 @@ import EntrySection, {
 import { hasContent } from '../../../shared/utils/utils';
 import { UIModel } from '../../adapters/sectionConverter';
 
-import {
-  CommentType,
-  DiseaseComment,
-  FreeTextComment,
-} from '../../types/commentTypes';
+import { DiseaseComment, FreeTextComment } from '../../types/commentTypes';
 
 type Props = {
   data: UIModel;
@@ -46,37 +42,27 @@ const DiseaseAndDrugsSection = ({
       data-entry-section
     >
       <DiseaseInvolvementView
-        comments={
-          data.commentsData.get(CommentType.DISEASE) as DiseaseComment[]
-        }
+        comments={data.commentsData.get('DISEASE') as DiseaseComment[]}
         primaryAccession={primaryAccession}
         includeTitle
       />
       <FreeTextView
-        comments={
-          data.commentsData.get(CommentType.ALLERGEN) as FreeTextComment[]
-        }
-        title={CommentType.ALLERGEN.toLowerCase()}
+        comments={data.commentsData.get('ALLERGEN') as FreeTextComment[]}
+        title="allergen"
       />
       <FreeTextView
         comments={
-          data.commentsData.get(
-            CommentType.DISRUPTION_PHENOTYPE
-          ) as FreeTextComment[]
+          data.commentsData.get('DISRUPTION PHENOTYPE') as FreeTextComment[]
         }
-        title={CommentType.DISRUPTION_PHENOTYPE.toLowerCase()}
+        title="disruption phenotype"
       />
       <FreeTextView
-        comments={
-          data.commentsData.get(CommentType.PHARMACEUTICAL) as FreeTextComment[]
-        }
-        title={CommentType.PHARMACEUTICAL.toLowerCase()}
+        comments={data.commentsData.get('PHARMACEUTICAL') as FreeTextComment[]}
+        title="pharmaceutical"
       />
       <FreeTextView
-        comments={
-          data.commentsData.get(CommentType.TOXIC_DOSE) as FreeTextComment[]
-        }
-        title={CommentType.TOXIC_DOSE.toLowerCase()}
+        comments={data.commentsData.get('TOXIC DOSE') as FreeTextComment[]}
+        title="toxic dose"
       />
       <FeaturesView features={data.featuresData} sequence={sequence} />
       <VariationView primaryAccession={primaryAccession} title="Variants" />

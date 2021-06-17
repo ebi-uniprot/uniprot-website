@@ -6,35 +6,34 @@ import { ReactElement, Component } from 'react';
 import { Router, Route } from 'react-router-dom';
 import { createMemoryHistory, MemoryHistory, LocationState } from 'history';
 import { Provider as ReduxProvider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, Store } from 'redux';
 import { render, RenderOptions } from '@testing-library/react';
 import { SetRequired, JsonValue } from 'type-fest';
 
 import rootReducer from '../../app/state/rootReducer';
+
+import { RootState } from '../../app/state/rootInitialState';
 
 type ExtraRenderOptions = {
   // For react-router
   history?: MemoryHistory<LocationState>;
   path?: string;
   /**
-   * For custom user preferences (used by useUserPreferences)
+   * For custom user preferences (used by useLocalStorage)
    */
-  initialUserPreferences?: Record<string, JsonValue>;
+  initialLocalStorage?: Record<string, JsonValue>;
   // For redux
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  store?: any;
+  store?: Store<RootState>;
 };
 
 type WrapperProps = RenderOptions &
-  SetRequired<
-    ExtraRenderOptions,
-    'history' | 'initialUserPreferences' | 'store'
-  >;
+  SetRequired<ExtraRenderOptions, 'history' | 'initialLocalStorage' | 'store'>;
 
 class Wrapper extends Component<WrapperProps> {
   constructor(props: WrapperProps) {
     super(props);
-    for (const [key, value] of Object.entries(props.initialUserPreferences)) {
+    for (const [key, value] of Object.entries(props.initialLocalStorage)) {
       window.localStorage.setItem(key, JSON.stringify(value));
     }
   }
@@ -61,7 +60,7 @@ const customRender = (
     route = '',
     path,
     history = createMemoryHistory({ initialEntries: [route] }),
-    initialUserPreferences = {},
+    initialLocalStorage = {},
     initialState,
     store = createStore(rootReducer, initialState),
     ...options
@@ -77,7 +76,7 @@ const customRender = (
       <Wrapper
         path={path}
         history={history}
-        initialUserPreferences={initialUserPreferences}
+        initialLocalStorage={initialLocalStorage}
         store={store}
         {...props}
       />

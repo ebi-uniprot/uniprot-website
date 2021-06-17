@@ -1,12 +1,12 @@
 // import { Link } from 'react-router-dom';
 import { Button, ExternalLink } from 'franklin-sites';
 
-import useUserPreferences from '../../hooks/useUserPreferences';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 import './styles/gdpr.scss';
 
 const GDPR = () => {
-  const [token, setToken] = useUserPreferences<null | boolean>('gdpr', null);
+  const [token, setToken] = useLocalStorage<null | boolean>('gdpr', null);
 
   if (token === true) {
     return null;

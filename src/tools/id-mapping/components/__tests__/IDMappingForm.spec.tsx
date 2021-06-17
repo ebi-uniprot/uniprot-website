@@ -88,7 +88,7 @@ describe('IDMappingForm test', () => {
     fireEvent.click(initialFromDatabaseButton);
     const geneNameButton = screen.getByRole('button', { name: 'Gene Name' });
     fireEvent.click(geneNameButton);
-    expect(screen.queryByText('UniProtKB AC/ID')).toBeNull();
+    expect(screen.queryByText('UniProtKB AC/ID')).not.toBeInTheDocument();
     const resetButton = screen.getByRole('button', { name: 'Reset' });
     fireEvent.click(resetButton);
     expect(idInput.value).toBeFalsy();

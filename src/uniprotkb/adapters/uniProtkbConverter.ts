@@ -35,6 +35,8 @@ import { Keyword } from '../utils/KeywordsUtil';
 import { UIModel } from './sectionConverter';
 import { transfromProperties } from '../utils';
 import { Property } from '../types/modelTypes';
+import { GeneLocation } from '../types/geneLocationType';
+import { InternalSectionType } from '../types/internalSectionType';
 import { XrefUIModel } from '../utils/xrefUtils';
 import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import {
@@ -47,11 +49,16 @@ type UniProtKBReference = Omit<Reference, 'citationId'> & {
   citation: Citation;
 };
 
+// Specific to the API, will be transformed by the adaptor into something usable
+type UniProtKBXref = Omit<Xref, 'properties'> & {
+  properties?: Array<{ key: string; value: string }>;
+};
+
 export type UniProtkbAPIModel = {
   proteinDescription?: ProteinNamesData;
   genes?: GeneNamesData;
   organism?: TaxonomyDatum;
-  virusHosts?: TaxonomyDatum[];
+  organismHosts?: TaxonomyDatum[];
   primaryAccession: string;
   secondaryAccessions?: string[];
   uniProtkbId: string;
@@ -60,20 +67,18 @@ export type UniProtkbAPIModel = {
   inactiveReason?: InactiveEntryReason;
   comments?: Comment[];
   keywords?: Keyword[];
+  geneLocations?: GeneLocation[];
   features?: FeatureData;
-  uniProtKBCrossReferences?: Xref[];
+  uniProtKBCrossReferences?: UniProtKBXref[];
   sequence: SequenceData;
+  internalSection?: InternalSectionType;
   annotationScore: number;
   entryAudit?: EntryAudit;
   references?: UniProtKBReference[];
   lineages?: Lineage[];
   extraAttributes?: {
-    countByCommentType?: {
-      [key in CommentType]?: number;
-    };
-    countByFeatureType?: {
-      [key in FeatureType]?: number;
-    };
+    countByCommentType?: Partial<Record<CommentType, number | undefined>>;
+    countByFeatureType?: Partial<Record<FeatureType, number | undefined>>;
     uniParcId?: string;
   };
   from?: string; // ID Mapping results
@@ -86,6 +91,7 @@ export type UniProtkbUIModel = {
   entryType?: EntryType;
   inactiveReason?: InactiveEntryReason;
   annotationScore: number;
+  uniProtKBCrossReferences?: Xref[];
   [EntrySection.Function]: UIModel;
   [EntrySection.NamesAndTaxonomy]: NamesAndTaxonomyUIModel;
   [EntrySection.SubCellularLocation]: UIModel;
@@ -118,21 +124,22 @@ export type InactiveEntryReason = {
   mergeDemergeTo?: string[];
 };
 
-export const convertXrefProperties = (xrefs: Xref[]) =>
-  xrefs.map((xref) => ({
+export const convertXrefProperties = (
+  xrefs?: UniProtKBXref[]
+): Xref[] | undefined =>
+  xrefs?.map((xref) => ({
     ...xref,
     properties: xref.properties
-      ? transfromProperties((xref.properties as unknown) as Property[])
+      ? transfromProperties(xref.properties as unknown as Property[])
       : {},
   }));
 
 const uniProtKbConverter = (data: UniProtkbAPIModel): UniProtkbUIModel => {
-  const dataCopy = { ...data };
-  if (dataCopy.uniProtKBCrossReferences) {
-    dataCopy.uniProtKBCrossReferences = convertXrefProperties(
-      dataCopy.uniProtKBCrossReferences
-    );
-  }
+  const { ...dataCopy } = data;
+
+  const uniProtKBCrossReferences = convertXrefProperties(
+    dataCopy.uniProtKBCrossReferences
+  );
 
   return {
     primaryAccession: dataCopy.primaryAccession,
@@ -141,18 +148,55 @@ const uniProtKbConverter = (data: UniProtkbAPIModel): UniProtkbUIModel => {
     entryType: getEntryTypeFromString(dataCopy.entryType),
     annotationScore: dataCopy.annotationScore,
     inactiveReason: dataCopy.inactiveReason,
-    [EntrySection.Function]: convertFunction(dataCopy),
-    [EntrySection.NamesAndTaxonomy]: convertNamesAndTaxonomy(dataCopy),
-    [EntrySection.SubCellularLocation]: convertSubcellularLocation(dataCopy),
-    [EntrySection.DiseaseAndDrugs]: convertDiseaseAndDrugs(dataCopy),
-    [EntrySection.Phenotypes]: convertDiseaseAndDrugs(dataCopy),
-    [EntrySection.ProteinProcessing]: convertProteinProcessing(dataCopy),
-    [EntrySection.Expression]: convertExpression(dataCopy),
-    [EntrySection.Interaction]: convertInteraction(dataCopy),
-    [EntrySection.Structure]: convertStructure(dataCopy),
-    [EntrySection.Sequence]: convertSequence(dataCopy),
-    [EntrySection.FamilyAndDomains]: convertFamilyAndDomains(dataCopy),
-    [EntrySection.ExternalLinks]: convertExternalLinks(dataCopy),
+    uniProtKBCrossReferences,
+    [EntrySection.Function]: convertFunction(
+      dataCopy,
+      uniProtKBCrossReferences
+    ),
+    [EntrySection.NamesAndTaxonomy]: convertNamesAndTaxonomy(
+      dataCopy,
+      uniProtKBCrossReferences
+    ),
+    [EntrySection.SubCellularLocation]: convertSubcellularLocation(
+      dataCopy,
+      uniProtKBCrossReferences
+    ),
+    [EntrySection.DiseaseAndDrugs]: convertDiseaseAndDrugs(
+      dataCopy,
+      uniProtKBCrossReferences
+    ),
+    [EntrySection.Phenotypes]: convertDiseaseAndDrugs(
+      dataCopy,
+      uniProtKBCrossReferences
+    ),
+    [EntrySection.ProteinProcessing]: convertProteinProcessing(
+      dataCopy,
+      uniProtKBCrossReferences
+    ),
+    [EntrySection.Expression]: convertExpression(
+      dataCopy,
+      uniProtKBCrossReferences
+    ),
+    [EntrySection.Interaction]: convertInteraction(
+      dataCopy,
+      uniProtKBCrossReferences
+    ),
+    [EntrySection.Structure]: convertStructure(
+      dataCopy,
+      uniProtKBCrossReferences
+    ),
+    [EntrySection.Sequence]: convertSequence(
+      dataCopy,
+      uniProtKBCrossReferences
+    ),
+    [EntrySection.FamilyAndDomains]: convertFamilyAndDomains(
+      dataCopy,
+      uniProtKBCrossReferences
+    ),
+    [EntrySection.ExternalLinks]: convertExternalLinks(
+      dataCopy,
+      uniProtKBCrossReferences
+    ),
     [EntrySection.SimilarProteins]: extractIsoforms(dataCopy),
     references: dataCopy.references || [],
     extraAttributes: data.extraAttributes,
@@ -164,5 +208,5 @@ export default uniProtKbConverter;
 
 // TODO this needs to be removed once added
 // entrySectionToKeywordCategories.set(EntrySection.Miscellaneous, [
-//   KeywordCategory.TECHNICAL_TERM,
+//   'Technical term',
 // ]);

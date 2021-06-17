@@ -81,8 +81,11 @@ const apiUrls = {
   // "itemType": "database",
   databaseFields: joinUrl(apiPrefix, '/configure/uniprotkb/databasefields'),
   // All result fields except supporting data reference fields
-  resultsFields: (namespace: Namespace) =>
-    joinUrl(apiPrefix, `/configure/${namespace}/result-fields`),
+  resultsFields: (namespace: Namespace, isEntry?: boolean) =>
+    joinUrl(
+      apiPrefix,
+      `/configure/${namespace}/${isEntry ? 'entry-' : ''}result-fields`
+    ),
   // Retrieve results
   search: (namespace: Namespace = Namespace.uniprotkb) =>
     joinUrl(apiPrefix, `/${namespace}/search`),
@@ -236,7 +239,7 @@ type GetOptions = {
   selectedFacets?: SelectedFacet[];
   sortColumn?: SortableColumn;
   sortDirection?: SortDirection;
-  facets?: Facets[];
+  facets?: Facets[] | null;
   size?: number;
 };
 

@@ -1,4 +1,4 @@
-import { queryByTestId } from '@testing-library/react';
+import { getByTestId } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
 
 import './__mocks__/relListSupportMock';
@@ -12,16 +12,14 @@ describe('usePrefetch hook', () => {
   test('no URL', async () => {
     renderHook(() => usePrefetch());
 
-    const link = queryByTestId(document, 'prefetch');
-    expect(link).not.toBeNull();
+    const link = getByTestId(document.head, 'prefetch');
     expect(link.getAttribute('href')).toBeFalsy();
   });
 
   test('basic case', async () => {
     renderHook(() => usePrefetch(url));
 
-    const link = queryByTestId(document, 'prefetch');
-    expect(link).not.toBeNull();
+    const link = getByTestId(document.head, 'prefetch');
     expect(link.getAttribute('rel')).toBe('prefetch');
     expect(link.getAttribute('href')).toBe(url);
   });
@@ -31,14 +29,13 @@ describe('usePrefetch hook', () => {
       initialProps: { url },
     });
 
-    const link = queryByTestId(document, 'prefetch');
-    expect(link).not.toBeNull();
+    const link = getByTestId(document.head, 'prefetch');
     expect(link.getAttribute('rel')).toBe('prefetch');
     expect(link.getAttribute('href')).toBe(url);
 
     rerender({ url: url2 });
 
-    const link2 = queryByTestId(document, 'prefetch');
+    const link2 = getByTestId(document.head, 'prefetch');
     expect(link2).toBe(link);
     expect(link.getAttribute('href')).toBe(url2);
   });

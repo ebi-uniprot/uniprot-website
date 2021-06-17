@@ -1,13 +1,9 @@
 /**
  * @jest-environment node
  */
-import { renderHook, cleanup, act } from '@testing-library/react-hooks';
+import { renderHook, act } from '@testing-library/react-hooks';
 
 import useSafeState from '../useSafeState';
-
-afterAll(() => {
-  cleanup();
-});
 
 describe('useSafeState hook', () => {
   test('basic usage, value', () => {

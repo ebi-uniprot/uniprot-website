@@ -1,14 +1,14 @@
-import { render, cleanup } from '@testing-library/react';
-import FeaturesView from '../UniProtKBFeaturesView';
-import FeaturesUIDataJson from './__mocks__/featuresUIData.json';
+import { render } from '@testing-library/react';
 
-afterEach(cleanup);
+import FeaturesView from '../UniProtKBFeaturesView';
+
+import FeaturesUIData from './__mocks__/featuresUIData';
 
 describe('FeaturesView component', () => {
   test('it renders without crashing', () => {
     const { asFragment } = render(
       <FeaturesView
-        features={FeaturesUIDataJson}
+        features={FeaturesUIData}
         sequence="ASDASDASASDASDASDSASD"
       />
     );

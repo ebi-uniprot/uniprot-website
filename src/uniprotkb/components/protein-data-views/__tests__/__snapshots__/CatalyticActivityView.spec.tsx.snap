@@ -87,7 +87,7 @@ exports[`CatalyticActivityView component should render catalytic activity when c
       forward
     </span>
     <button
-      aria-controls="2"
+      aria-controls="0"
       aria-expanded="false"
       class="svg-colour-reviewed evidence-tag"
       data-testid="evidence-tag-trigger"
@@ -106,7 +106,7 @@ exports[`CatalyticActivityView component should render catalytic activity when c
     <div
       class="evidence-tag-content "
       data-testid="evidence-tag-content"
-      id="2"
+      id="0"
     />
      and the 
     <span
@@ -115,7 +115,7 @@ exports[`CatalyticActivityView component should render catalytic activity when c
       backward
     </span>
     <button
-      aria-controls="3"
+      aria-controls="1"
       aria-expanded="false"
       class="svg-colour-reviewed evidence-tag"
       data-testid="evidence-tag-trigger"
@@ -134,7 +134,7 @@ exports[`CatalyticActivityView component should render catalytic activity when c
     <div
       class="evidence-tag-content "
       data-testid="evidence-tag-content"
-      id="3"
+      id="1"
     />
      directions 
   </span>
@@ -151,7 +151,7 @@ exports[`ReactionDirection component should render ReactionDirection when one ph
   </span>
    direction 
   <button
-    aria-controls="4"
+    aria-controls="0"
     aria-expanded="false"
     class="svg-colour-reviewed evidence-tag"
     data-testid="evidence-tag-trigger"
@@ -170,7 +170,7 @@ exports[`ReactionDirection component should render ReactionDirection when one ph
   <div
     class="evidence-tag-content "
     data-testid="evidence-tag-content"
-    id="4"
+    id="0"
   />
 </DocumentFragment>
 `;
@@ -184,7 +184,7 @@ exports[`ReactionDirection component should render ReactionDirection when two ph
     forward
   </span>
   <button
-    aria-controls="5"
+    aria-controls="0"
     aria-expanded="false"
     class="svg-colour-reviewed evidence-tag"
     data-testid="evidence-tag-trigger"
@@ -203,7 +203,7 @@ exports[`ReactionDirection component should render ReactionDirection when two ph
   <div
     class="evidence-tag-content "
     data-testid="evidence-tag-content"
-    id="5"
+    id="0"
   />
    and the 
   <span
@@ -212,7 +212,7 @@ exports[`ReactionDirection component should render ReactionDirection when two ph
     backward
   </span>
   <button
-    aria-controls="6"
+    aria-controls="1"
     aria-expanded="false"
     class="svg-colour-reviewed evidence-tag"
     data-testid="evidence-tag-trigger"
@@ -231,13 +231,22 @@ exports[`ReactionDirection component should render ReactionDirection when two ph
   <div
     class="evidence-tag-content "
     data-testid="evidence-tag-content"
-    id="6"
+    id="1"
   />
    directions 
 </DocumentFragment>
 `;
 
-exports[`RheaReactionVisualizer component should render RheaReactionVisualizer 1`] = `<DocumentFragment />`;
+exports[`RheaReactionVisualizer component should render RheaReactionVisualizer 1`] = `
+<DocumentFragment>
+  <button
+    class="button tertiary rhea-reaction-visualizer__button"
+    type="button"
+  >
+    View Rhea reaction
+  </button>
+</DocumentFragment>
+`;
 
 exports[`ZoomModalContent component should render 1`] = `
 <DocumentFragment>

@@ -1,16 +1,14 @@
 import { convertNamesAndTaxonomy } from '../namesAndTaxonomyConverter';
-import modelData from '../../__mocks__/entryModelData.json';
-import { convertXrefProperties } from '../../adapters/uniProtkbConverter';
+import { convertXrefProperties } from '../uniProtkbConverter';
+
+import modelData from '../../__mocks__/uniProtKBEntryModelData';
 
 describe('Names and taxonomy data converter', () => {
-  beforeAll(() => {
-    modelData.uniProtKBCrossReferences = convertXrefProperties(
-      modelData.uniProtKBCrossReferences
-    );
-  });
-
   test('should convert the data', () => {
-    const convertedData = convertNamesAndTaxonomy(modelData);
+    const convertedData = convertNamesAndTaxonomy(
+      modelData,
+      convertXrefProperties(modelData.uniProtKBCrossReferences)
+    );
     expect(convertedData).toEqual({
       geneNamesData: [
         {
@@ -469,7 +467,7 @@ describe('Names and taxonomy data converter', () => {
           },
         ],
       },
-      virusHosts: [
+      organismHosts: [
         {
           commonName: 'common name',
           scientificName: 'scientific name',

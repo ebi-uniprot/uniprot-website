@@ -31,21 +31,15 @@ export type KineticParameters = {
     constant: number;
     unit: string;
     substrate: string;
+    evidences?: Evidence[];
+  }[];
+  maximumVelocities?: {
+    velocity: number;
+    unit: string;
+    enzyme: string;
     evidences: Evidence[];
   }[];
-  note: {
-    texts: TextWithEvidence[];
-  };
-};
-
-export type CofactorComment = {
-  commentType: CommentType.COFACTOR;
-  cofactors?: {
-    name: string;
-    evidences?: Evidence[];
-    cofactorCrossReference?: Xref;
-  }[];
-  note: {
+  note?: {
     texts: TextWithEvidence[];
   };
 };
@@ -77,89 +71,103 @@ export type FunctionUIModel = {
   goTerms?: GroupedGoTerms;
 } & UIModel;
 
-const keywordsCategories = [
-  KeywordCategory.MOLECULAR_FUNCTION,
-  KeywordCategory.BIOLOGICAL_PROCESS,
-  KeywordCategory.LIGAND,
+const keywordsCategories: KeywordCategory[] = [
+  'Molecular function',
+  'Biological process',
+  'Ligand',
 ];
 
-const featuresCategories = [
-  FeatureType.DOMAIN,
-  FeatureType.REPEAT,
-  FeatureType.CA_BIND,
-  FeatureType.ZN_FING,
-  FeatureType.DNA_BIND,
-  FeatureType.NP_BINDL,
-  FeatureType.REGION,
-  FeatureType.COILED,
-  FeatureType.MOTIF,
-  FeatureType.ACT_SITE,
-  FeatureType.METAL,
-  FeatureType.BINDING,
-  FeatureType.SITE,
+const featuresCategories: FeatureType[] = [
+  'Domain',
+  'Repeat',
+  'Calcium binding',
+  'Zinc finger',
+  'DNA binding',
+  'Nucleotide binding',
+  'Region',
+  'Coiled coil',
+  'Motif',
+  'Active site',
+  'Metal binding',
+  'Binding site',
+  'Site',
 ];
 
-const commentsCategories = [
-  CommentType.FUNCTION,
-  CommentType.CATALYTIC_ACTIVITY,
-  CommentType.COFACTOR,
-  CommentType.ACTIVITY_REGULATION,
-  CommentType.BIOPHYSICOCHEMICAL_PROPERTIES,
-  CommentType.PATHWAY,
-  CommentType.CAUTION,
-  CommentType.MISCELLANEOUS,
-  CommentType.BIOTECHNOLOGY,
+const commentsCategories: CommentType[] = [
+  'FUNCTION',
+  'CATALYTIC ACTIVITY',
+  'COFACTOR',
+  'ACTIVITY REGULATION',
+  'BIOPHYSICOCHEMICAL PROPERTIES',
+  'PATHWAY',
+  'CAUTION',
+  'MISCELLANEOUS',
+  'BIOTECHNOLOGY',
 ];
 
-const convertFunction = (data: UniProtkbAPIModel) => {
+const convertFunction = (
+  data: UniProtkbAPIModel,
+  uniProtKBCrossReferences?: Xref[]
+) => {
   const convertedSection = convertSection(
     data,
     commentsCategories,
     keywordsCategories,
     featuresCategories,
-    EntrySection.Function
+    EntrySection.Function,
+    uniProtKBCrossReferences
   ) as FunctionUIModel;
   const bpcProperties = convertedSection.commentsData.get(
-    CommentType.BIOPHYSICOCHEMICAL_PROPERTIES
+    'BIOPHYSICOCHEMICAL PROPERTIES'
   );
   convertedSection.bioPhysicoChemicalProperties = {};
   if (bpcProperties) {
     bpcProperties.forEach((bpcProperty) => {
       if ((bpcProperty as AbsorptionComment).absorption) {
-        convertedSection.bioPhysicoChemicalProperties.absorption = (bpcProperty as AbsorptionComment).absorption;
+        convertedSection.bioPhysicoChemicalProperties.absorption = (
+          bpcProperty as AbsorptionComment
+        ).absorption;
       }
       if ((bpcProperty as KineticsComment).kineticParameters) {
-        convertedSection.bioPhysicoChemicalProperties.kinetics = (bpcProperty as KineticsComment).kineticParameters;
+        convertedSection.bioPhysicoChemicalProperties.kinetics = (
+          bpcProperty as KineticsComment
+        ).kineticParameters;
       }
       if ((bpcProperty as pHDependenceComment).phDependence) {
-        convertedSection.bioPhysicoChemicalProperties.pHDependence = (bpcProperty as pHDependenceComment).phDependence.texts;
+        convertedSection.bioPhysicoChemicalProperties.pHDependence = (
+          bpcProperty as pHDependenceComment
+        ).phDependence.texts;
       }
       if ((bpcProperty as RedoxPotentialComment).redoxPotential) {
-        convertedSection.bioPhysicoChemicalProperties.redoxPotential = (bpcProperty as RedoxPotentialComment).redoxPotential.texts;
+        convertedSection.bioPhysicoChemicalProperties.redoxPotential = (
+          bpcProperty as RedoxPotentialComment
+        ).redoxPotential.texts;
       }
       if ((bpcProperty as TemperatureDependenceComment).temperatureDependence) {
-        convertedSection.bioPhysicoChemicalProperties.temperatureDependence = (bpcProperty as TemperatureDependenceComment).temperatureDependence.texts;
+        convertedSection.bioPhysicoChemicalProperties.temperatureDependence = (
+          bpcProperty as TemperatureDependenceComment
+        ).temperatureDependence.texts;
       }
     });
   }
-  convertedSection.commentsData.delete(
-    CommentType.BIOPHYSICOCHEMICAL_PROPERTIES
-  );
+  convertedSection.commentsData.delete('BIOPHYSICOCHEMICAL PROPERTIES');
 
   // Remove isoform MISCELLANEOUS comments as they go in the Sequence section
   const miscellaneousComments = convertedSection.commentsData
-    ?.get(CommentType.MISCELLANEOUS)
+    ?.get('MISCELLANEOUS')
     ?.filter((comment) => !(comment as FreeTextComment).molecule);
 
   convertedSection.commentsData.set(
-    CommentType.MISCELLANEOUS,
+    'MISCELLANEOUS',
     miscellaneousComments || []
   );
 
-  if (data.uniProtKBCrossReferences) {
-    const goTerms = (data.uniProtKBCrossReferences.filter(
-      (xref) => xref.database === 'GO' && xref.properties
-    ) as GoTerm[]).map((term) => {
+  if (uniProtKBCrossReferences) {
+    const goTerms = (
+      uniProtKBCrossReferences.filter(
+        (xref) => xref.database === 'GO' && xref.properties
+      ) as GoTerm[]
+    ).map((term) => {
       const goTermProperty = term.properties && term.properties.GoTerm;
       const aspect = goTermProperty && goTermProperty.substring(0, 1);
       const termDescription = goTermProperty && goTermProperty.substring(2);

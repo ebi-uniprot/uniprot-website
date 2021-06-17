@@ -2,6 +2,7 @@ import { formatFASTA } from 'franklin-sites';
 
 import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
 import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
+import { UniRefAPIModel } from '../../uniref/adapters/uniRefConverter';
 import {
   getEntryTypeFromString,
   EntryType,
@@ -15,10 +16,13 @@ type Modifications = { subsets: Subset[] }; // keep open for variant for example
 // build a "nicely"-formatted FASTA string
 // See https://www.uniprot.org/help/fasta-headers for current headers
 const entryToFASTAWithHeaders = (
-  entry: UniProtkbAPIModel | UniParcAPIModel | APISequenceData,
+  entry: UniProtkbAPIModel | UniParcAPIModel | APISequenceData | UniRefAPIModel,
   modifications?: Modifications
 ): string => {
-  let sequence = entry.sequence.value || '';
+  let sequence =
+    ('representativeMember' in entry
+      ? entry.representativeMember.sequence.value
+      : entry.sequence.value) || '';
 
   const subsets = [];
   // if any change is required on the sequence, do it here
@@ -35,14 +39,23 @@ const entryToFASTAWithHeaders = (
 
   try {
     if ('uniParcId' in entry) {
+      // UniParc entry
       sequence = `>${entry.uniParcId}${
         entry.uniParcCrossReferences
           ? ` status=${entry.uniParcCrossReferences.some(
               (xref) => xref.active
             )}`
           : ''
-      } \n${sequence}`;
+      }\n${sequence}`;
+    } else if ('representativeMember' in entry) {
+      // UniRef entry
+      sequence = `>${entry.id} ${entry.name.replace('Cluster: ', '')} n=${
+        entry.memberCount
+      } Tax=${entry.commonTaxon} TaxID=${entry.commonTaxonId} RepID=${
+        entry.representativeMember.memberId
+      }\n${sequence}`;
     } else {
+      // UniProtKB entry
       let db;
       switch (getEntryTypeFromString(entry.entryType)) {
         case EntryType.REVIEWED:

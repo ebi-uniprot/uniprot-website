@@ -3,7 +3,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 import useDataApi from './useDataApi';
 import useNS from './useNS';
-import useUserPreferences from './useUserPreferences';
+import useLocalStorage from './useLocalStorage';
 
 import {
   getLocationObjForParams,
@@ -49,10 +49,10 @@ import {
 } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 import { MappingAPIModel } from '../../tools/id-mapping/types/idMappingSearchResults';
 
-export type ColumnDescriptor = {
+export type ColumnDescriptor<Datum = APIModel> = {
   name: string;
   label: ReactNode;
-  render: (row: APIModel) => ReactNode;
+  render: (row: Datum) => ReactNode;
   sortable?: true;
   sorted?: SortDirection;
 };
@@ -148,17 +148,16 @@ const useColumns = (
   const history = useHistory();
   const namespace = useNS() || namespaceFallback || Namespace.uniprotkb;
   const location = useLocation();
-  const [usersColumns] = useUserPreferences<Column[]>(
+  const [usersColumns] = useLocalStorage<Column[]>(
     `table columns for ${namespace}` as const,
-    nsToDefaultColumns[namespace]
+    nsToDefaultColumns(namespace)
   );
 
   const [columns, setColumns] = useState<ColumnDescriptor[]>([]);
 
   const { search: queryParamFromUrl } = location;
-  const { query, selectedFacets, sortColumn, sortDirection } = getParamsFromURL(
-    queryParamFromUrl
-  );
+  const { query, selectedFacets, sortColumn, sortDirection } =
+    getParamsFromURL(queryParamFromUrl);
 
   const { data: dataResultFields } = useDataApi<ReceivedFieldData>(
     // No configure endpoint for supporting data

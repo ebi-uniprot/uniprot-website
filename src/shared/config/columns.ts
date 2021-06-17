@@ -2,67 +2,72 @@ import { Namespace } from '../types/namespaces';
 import { UniProtKBColumn } from '../../uniprotkb/types/columnTypes';
 import {
   defaultColumns as defaultUniProtKBColumns,
-  primaryKeyColumn as primaryKeyColumnUniProtKB,
+  primaryKeyColumns as primaryKeyColumnsUniProtKB,
   UniProtKBColumnConfiguration,
 } from '../../uniprotkb/config/UniProtKBColumnConfiguration';
 import {
   UniRefColumn,
   defaultColumns as defaultUniRefColumns,
-  primaryKeyColumn as primaryKeyColumnUniRef,
+  primaryKeyColumns as primaryKeyColumnsUniRef,
   UniRefColumnConfiguration,
 } from '../../uniref/config/UniRefColumnConfiguration';
 import {
   UniParcColumn,
   defaultColumns as defaultUniParcColumns,
-  primaryKeyColumn as primaryKeyColumnUniParc,
+  primaryKeyColumns as primaryKeyColumnsUniParc,
   UniParcColumnConfiguration,
 } from '../../uniparc/config/UniParcColumnConfiguration';
 import {
+  UniParcXRefsColumn,
+  defaultColumns as defaultUniParcEntryColumns,
+  primaryKeyColumns as primaryKeyColumnsUniParcEntry,
+} from '../../uniparc/config/UniParcXRefsColumnConfiguration';
+import {
   ProteomesColumn,
   defaultColumns as defaultProteomesColumns,
-  primaryKeyColumn as primaryKeyColumnProteomes,
+  primaryKeyColumns as primaryKeyColumnsProteomes,
   ProteomesColumnConfiguration,
 } from '../../proteomes/config/ProteomesColumnConfiguration';
 import {
   TaxonomyColumn,
   defaultColumns as defaultTaxonomyColumns,
-  primaryKeyColumn as primaryKeyColumnTaxonomy,
+  primaryKeyColumns as primaryKeyColumnsTaxonomy,
   TaxonomyColumnConfiguration,
 } from '../../supporting-data/taxonomy/config/TaxonomyColumnConfiguration';
 import {
   KeywordsColumn,
   defaultColumns as defaultKeywordsColumns,
-  primaryKeyColumn as primaryKeyColumnKeywords,
+  primaryKeyColumns as primaryKeyColumnsKeywords,
   KeywordsColumnConfiguration,
 } from '../../supporting-data/keywords/config/KeywordsColumnConfiguration';
 import {
   CitationsColumn,
   defaultColumns as defaultCitationsColumns,
-  primaryKeyColumn as primaryKeyColumnCitations,
+  primaryKeyColumns as primaryKeyColumnsCitations,
   CitationsColumnConfiguration,
 } from '../../supporting-data/citations/config/CitationsColumnConfiguration';
 import {
   DiseasesColumn,
   defaultColumns as defaultDiseasesColumns,
-  primaryKeyColumn as primaryKeyColumnDiseases,
+  primaryKeyColumns as primaryKeyColumnsDiseases,
   DiseasesColumnConfiguration,
 } from '../../supporting-data/diseases/config/DiseasesColumnConfiguration';
 import {
   DatabaseColumn,
   defaultColumns as defaultDatabaseColumns,
-  primaryKeyColumn as primaryKeyColumnDatabase,
+  primaryKeyColumns as primaryKeyColumnsDatabase,
   DatabaseColumnConfiguration,
 } from '../../supporting-data/database/config/DatabaseColumnConfiguration';
 import {
   LocationsColumn,
   defaultColumns as defaultLocationsColumns,
-  primaryKeyColumn as primaryKeyColumnLocations,
+  primaryKeyColumns as primaryKeyColumnsLocations,
   LocationsColumnConfiguration,
 } from '../../supporting-data/locations/config/LocationsColumnConfiguration';
 import {
   IDMappingColumn,
   defaultColumns as defaultIdMappingColumns,
-  primaryKeyColumn as primaryKeyIdMapping,
+  primaryKeyColumns as primaryKeyColumnsIdMapping,
   IdMappingColumnConfiguration,
 } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 import { ColumnConfiguration } from '../types/columnConfiguration';
@@ -71,6 +76,7 @@ export type Column =
   | UniProtKBColumn
   | UniRefColumn
   | UniParcColumn
+  | UniParcXRefsColumn
   | ProteomesColumn
   | TaxonomyColumn
   | KeywordsColumn
@@ -80,47 +86,97 @@ export type Column =
   | LocationsColumn
   | IDMappingColumn;
 
-export const nsToDefaultColumns: Record<Namespace, Column[]> = {
-  [Namespace.uniprotkb]: defaultUniProtKBColumns,
-  [Namespace.uniref]: defaultUniRefColumns,
-  [Namespace.uniparc]: defaultUniParcColumns,
-  [Namespace.proteomes]: defaultProteomesColumns,
-  [Namespace.taxonomy]: defaultTaxonomyColumns,
-  [Namespace.keywords]: defaultKeywordsColumns,
-  [Namespace.citations]: defaultCitationsColumns,
-  [Namespace.diseases]: defaultDiseasesColumns,
-  [Namespace.database]: defaultDatabaseColumns,
-  [Namespace.locations]: defaultLocationsColumns,
-  [Namespace.idmapping]: defaultIdMappingColumns,
+export const nsToDefaultColumns = (
+  namespace: Namespace,
+  isEntry?: boolean
+): Column[] => {
+  if (isEntry) {
+    switch (namespace) {
+      case Namespace.uniparc:
+        return defaultUniParcEntryColumns;
+      default:
+        return [];
+    }
+  }
+  switch (namespace) {
+    case Namespace.uniprotkb:
+      return defaultUniProtKBColumns;
+    case Namespace.uniref:
+      return defaultUniRefColumns;
+    case Namespace.uniparc:
+      return defaultUniParcColumns;
+    case Namespace.proteomes:
+      return defaultProteomesColumns;
+    case Namespace.taxonomy:
+      return defaultTaxonomyColumns;
+    case Namespace.keywords:
+      return defaultKeywordsColumns;
+    case Namespace.citations:
+      return defaultCitationsColumns;
+    case Namespace.diseases:
+      return defaultDiseasesColumns;
+    case Namespace.database:
+      return defaultDatabaseColumns;
+    case Namespace.locations:
+      return defaultLocationsColumns;
+    case Namespace.idmapping:
+      return defaultIdMappingColumns;
+    default:
+      return [];
+  }
 };
 
-export const nsToPrimaryKeyColumn: Record<Namespace, Column> = {
-  [Namespace.uniprotkb]: primaryKeyColumnUniProtKB,
-  [Namespace.uniref]: primaryKeyColumnUniRef,
-  [Namespace.uniparc]: primaryKeyColumnUniParc,
-  [Namespace.proteomes]: primaryKeyColumnProteomes,
-  [Namespace.taxonomy]: primaryKeyColumnTaxonomy,
-  [Namespace.keywords]: primaryKeyColumnKeywords,
-  [Namespace.citations]: primaryKeyColumnCitations,
-  [Namespace.diseases]: primaryKeyColumnDiseases,
-  [Namespace.database]: primaryKeyColumnDatabase,
-  [Namespace.locations]: primaryKeyColumnLocations,
-  [Namespace.idmapping]: primaryKeyIdMapping,
+export const nsToPrimaryKeyColumns = (
+  namespace: Namespace,
+  isEntry?: boolean
+): Column[] => {
+  if (isEntry) {
+    switch (namespace) {
+      case Namespace.uniparc:
+        return primaryKeyColumnsUniParcEntry;
+      default:
+        return [];
+    }
+  }
+  switch (namespace) {
+    case Namespace.uniprotkb:
+      return primaryKeyColumnsUniProtKB;
+    case Namespace.uniref:
+      return primaryKeyColumnsUniRef;
+    case Namespace.uniparc:
+      return primaryKeyColumnsUniParc;
+    case Namespace.proteomes:
+      return primaryKeyColumnsProteomes;
+    case Namespace.taxonomy:
+      return primaryKeyColumnsTaxonomy;
+    case Namespace.keywords:
+      return primaryKeyColumnsKeywords;
+    case Namespace.citations:
+      return primaryKeyColumnsCitations;
+    case Namespace.diseases:
+      return primaryKeyColumnsDiseases;
+    case Namespace.database:
+      return primaryKeyColumnsDatabase;
+    case Namespace.locations:
+      return primaryKeyColumnsLocations;
+    case Namespace.idmapping:
+      return primaryKeyColumnsIdMapping;
+    default:
+      return [];
+  }
 };
 
-export const nsToColumnConfig: Record<
-  Namespace,
-  ColumnConfiguration<Column>
-> = {
-  [Namespace.uniprotkb]: UniProtKBColumnConfiguration,
-  [Namespace.uniref]: UniRefColumnConfiguration,
-  [Namespace.uniparc]: UniParcColumnConfiguration,
-  [Namespace.proteomes]: ProteomesColumnConfiguration,
-  [Namespace.taxonomy]: TaxonomyColumnConfiguration,
-  [Namespace.keywords]: KeywordsColumnConfiguration,
-  [Namespace.citations]: CitationsColumnConfiguration,
-  [Namespace.diseases]: DiseasesColumnConfiguration,
-  [Namespace.database]: DatabaseColumnConfiguration,
-  [Namespace.locations]: LocationsColumnConfiguration,
-  [Namespace.idmapping]: IdMappingColumnConfiguration,
-};
+export const nsToColumnConfig: Record<Namespace, ColumnConfiguration<Column>> =
+  {
+    [Namespace.uniprotkb]: UniProtKBColumnConfiguration,
+    [Namespace.uniref]: UniRefColumnConfiguration,
+    [Namespace.uniparc]: UniParcColumnConfiguration,
+    [Namespace.proteomes]: ProteomesColumnConfiguration,
+    [Namespace.taxonomy]: TaxonomyColumnConfiguration,
+    [Namespace.keywords]: KeywordsColumnConfiguration,
+    [Namespace.citations]: CitationsColumnConfiguration,
+    [Namespace.diseases]: DiseasesColumnConfiguration,
+    [Namespace.database]: DatabaseColumnConfiguration,
+    [Namespace.locations]: LocationsColumnConfiguration,
+    [Namespace.idmapping]: IdMappingColumnConfiguration,
+  };

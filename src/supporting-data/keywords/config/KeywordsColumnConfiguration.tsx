@@ -31,7 +31,7 @@ export const defaultColumns = [
   KeywordsColumn.geneOntologies,
 ];
 
-export const primaryKeyColumn = KeywordsColumn.id;
+export const primaryKeyColumns = [KeywordsColumn.id];
 
 const getEntryPath = getEntryPathFor(Namespace.keywords);
 

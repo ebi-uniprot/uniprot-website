@@ -63,8 +63,8 @@ import {
 } from '../../../messages/types/messagesTypes';
 import { SelectedTaxon } from '../../types/toolsFormData';
 
-import '../../styles/ToolsForm.scss';
 import '../../../shared/styles/sticky.scss';
+import '../../styles/ToolsForm.scss';
 
 const BLAST_LIMIT = 20;
 
@@ -92,7 +92,7 @@ const FormSelect: FC<{
   const label = BlastFields[formValue.fieldName as keyof typeof BlastFields];
   return (
     <section className="tools-form-section__item">
-      <label htmlFor={label}>
+      <label>
         {label}
         <select
           value={formValue.selected as string}

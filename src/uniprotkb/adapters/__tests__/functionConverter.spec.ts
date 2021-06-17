@@ -1,21 +1,13 @@
 import convertFunction from '../functionConverter';
-import modelData from '../../__mocks__/entryModelData.json';
-import { CommentType } from '../../types/commentTypes';
-import { convertXrefProperties } from '../../adapters/uniProtkbConverter';
 
-let data;
+import modelData from '../../__mocks__/uniProtKBEntryModelData';
+
+const data = convertFunction(modelData);
 
 describe('Function data converter', () => {
-  beforeAll(() => {
-    modelData.uniProtKBCrossReferences = convertXrefProperties(
-      modelData.uniProtKBCrossReferences
-    );
-    data = convertFunction(modelData);
-  });
-
   test('should convert cofactors', () => {
     const { commentsData } = data;
-    expect(commentsData.get(CommentType.COFACTOR)).toEqual([
+    expect(commentsData.get('COFACTOR')).toEqual([
       {
         cofactors: [
           {
@@ -52,7 +44,7 @@ describe('Function data converter', () => {
 
   test('should convert cofactors', () => {
     const { commentsData } = data;
-    expect(commentsData.get(CommentType.CATALYTIC_ACTIVITY)).toEqual([
+    expect(commentsData.get('CATALYTIC ACTIVITY')).toEqual([
       {
         commentType: 'CATALYTIC ACTIVITY',
         molecule: 'Isoform 3',

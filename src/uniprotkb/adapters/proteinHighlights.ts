@@ -3,6 +3,8 @@ import { generatePath } from 'react-router-dom';
 
 import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
 
+import { pluralise } from '../../shared/utils/utils';
+
 import { Namespace } from '../../shared/types/namespaces';
 import { TabLocation } from '../components/entry/Entry';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
@@ -11,8 +13,6 @@ import {
   getEntryTypeFromString,
 } from '../../shared/components/entry/EntryTypeIcon';
 import EntrySection, { getEntrySectionNameAndId } from '../types/entrySection';
-import FeatureType from '../types/featureType';
-import { CommentType } from '../types/commentTypes';
 
 enum highlightSection {
   domains = 'domain',
@@ -99,41 +99,35 @@ const getProteinHighlights = ({
   > = [
     // FEATURES
     // domains
-    [
-      highlightSection.domains,
-      extraAttributes?.countByFeatureType?.[FeatureType.DOMAIN],
-    ],
+    [highlightSection.domains, extraAttributes?.countByFeatureType?.Domain],
     // PTMs
     [
       highlightSection.PTM,
-      extraAttributes?.countByFeatureType?.[FeatureType.MOD_RES],
+      extraAttributes?.countByFeatureType?.['Modified residue'],
     ],
     // variants
     [
       highlightSection.variants,
-      extraAttributes?.countByFeatureType?.[FeatureType.VARIANT],
+      extraAttributes?.countByFeatureType?.['Natural variant'],
     ],
     // active sites
     [
       highlightSection.activeSites,
-      extraAttributes?.countByFeatureType?.[FeatureType.ACT_SITE],
+      extraAttributes?.countByFeatureType?.['Active site'],
     ],
     // COMMENTS
     // isoforms
     [
       highlightSection.isoforms,
-      extraAttributes?.countByCommentType?.[CommentType.ALTERNATIVE_PRODUCTS],
+      extraAttributes?.countByCommentType?.['ALTERNATIVE PRODUCTS'],
     ],
     // interactions
     [
       highlightSection.interactions,
-      extraAttributes?.countByCommentType?.[CommentType.INTERACTION],
+      extraAttributes?.countByCommentType?.INTERACTION,
     ],
     // diseases
-    [
-      highlightSection.disease,
-      extraAttributes?.countByCommentType?.[CommentType.DISEASE],
-    ],
+    [highlightSection.disease, extraAttributes?.countByCommentType?.DISEASE],
     // XREFS
     // 3D structures
     [
@@ -154,9 +148,8 @@ const getProteinHighlights = ({
   return highlightTuples
     .filter(([, count]) => count)
     .map(([entryHighlightSection, count]) => {
-      const { link, prefixResolver } = highlightToEntrySection[
-        entryHighlightSection
-      ];
+      const { link, prefixResolver } =
+        highlightToEntrySection[entryHighlightSection];
       const locationObject =
         typeof link === 'function'
           ? link(primaryAccession, organism?.taxonId)
@@ -166,9 +159,10 @@ const getProteinHighlights = ({
           pathname: entryPathname,
           ...locationObject,
         },
-        name: `${count} ${
-          prefixResolver?.(entryType) ?? ''
-        }${entryHighlightSection}${count && count > 1 ? 's' : ''}`,
+        name: `${count} ${prefixResolver?.(entryType) ?? ''}${pluralise(
+          entryHighlightSection,
+          count || 0
+        )}`,
       };
     });
 };

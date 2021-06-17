@@ -4,7 +4,7 @@ import { Loader, CodeBlock, Button, LongNumber } from 'franklin-sites';
 
 import ColumnSelect from '../column-select/ColumnSelect';
 
-import useUserPreferences from '../../hooks/useUserPreferences';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 import { urlsAreEqual } from '../../utils/url';
 import fetchData from '../../utils/fetchData';
@@ -14,7 +14,7 @@ import { getDownloadUrl } from '../../config/apiUrls';
 import {
   Column,
   nsToDefaultColumns,
-  nsToPrimaryKeyColumn,
+  nsToPrimaryKeyColumns,
 } from '../../config/columns';
 import {
   fileFormatsWithColumns,
@@ -25,8 +25,8 @@ import {
 import { ContentType, FileFormat } from '../../types/resultsDownload';
 import { Namespace } from '../../types/namespaces';
 
-import './styles/download.scss';
 import '../../styles/sticky.scss';
+import './styles/download.scss';
 
 export const getPreviewFileFormat = (fileFormat: FileFormat) =>
   fileFormat === FileFormat.excel ? FileFormat.tsv : fileFormat;
@@ -54,9 +54,9 @@ const Download: FC<DownloadProps> = ({
   accessions,
   base,
 }) => {
-  const [columns] = useUserPreferences(
+  const [columns] = useLocalStorage(
     `table columns for ${namespace}` as const,
-    nsToDefaultColumns[namespace]
+    nsToDefaultColumns(namespace)
   );
 
   const fileFormats = nsToFileFormatsResultsDownload[namespace] as FileFormat[];
@@ -79,7 +79,7 @@ const Download: FC<DownloadProps> = ({
     sortDirection,
   } = getParamsFromURL(queryParamFromUrl);
 
-  const selectedIdField = nsToPrimaryKeyColumn[namespace] as Column;
+  const [selectedIdField] = nsToPrimaryKeyColumns(namespace);
 
   // This logic is needed specifically for the proteomes components
   let urlQuery: string;

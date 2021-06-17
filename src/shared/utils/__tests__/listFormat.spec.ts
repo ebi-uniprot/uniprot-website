@@ -2,8 +2,12 @@ import listFormat from '../listFormat';
 
 const list = ['one', 'two', 'three', 'four'];
 
-const reducer = (acc, current, index, array) =>
-  acc + listFormat(index, array) + current;
+const reducer = (
+  acc: string,
+  current: string,
+  index: number,
+  array: string[]
+) => acc + listFormat(index, array) + current;
 
 describe('listFormat', () => {
   test('1 item', () => {

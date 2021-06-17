@@ -231,7 +231,7 @@ const FooterShortcuts = () => (
             <span className={helper['no-wrap']}>
               UniProt
               <sup>
-                <CitedIcon width="1.5ch" />
+                <CitedIcon width="1em" />
               </sup>
             </span>
           </ExternalLink>

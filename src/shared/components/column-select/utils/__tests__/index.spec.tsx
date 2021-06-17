@@ -1,6 +1,8 @@
 import { prepareFieldData, getFieldDataForColumns } from '..';
+
 import { UniProtKBColumn } from '../../../../../uniprotkb/types/columnTypes';
-import fieldData from './__mocks__/fieldData.json';
+
+import fieldData from './__mocks__/fieldData';
 
 describe('prepareFieldData', () => {
   test('should return prepared field data', () => {
@@ -35,7 +37,7 @@ describe('prepareFieldData', () => {
   });
 
   test('should exclude column', () => {
-    expect(prepareFieldData(fieldData, UniProtKBColumn.geneNames)).toEqual({
+    expect(prepareFieldData(fieldData, [UniProtKBColumn.geneNames])).toEqual({
       links: [
         {
           id: 'sequence',

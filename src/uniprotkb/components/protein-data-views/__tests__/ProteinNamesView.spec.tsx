@@ -1,11 +1,13 @@
 import { render } from '@testing-library/react';
+
 import EntryProteinNames from '../ProteinNamesView';
-import ProteinNamesUIData from '../../__mocks__/proteinNamesUIData.json';
+
+import ProteinNamesUIData from '../../__mocks__/proteinNamesUIData';
 
 describe('ProteinNames', () => {
   test('should render protein_name', () => {
     const { asFragment } = render(
-      <EntryProteinNames {...ProteinNamesUIData} />
+      <EntryProteinNames proteinNames={ProteinNamesUIData} />
     );
     expect(asFragment()).toMatchSnapshot();
   });

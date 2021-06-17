@@ -16,15 +16,14 @@ import {
   BioPhysicoChemicalProperties,
   Absorption,
   KineticParameters,
-  CofactorComment,
 } from '../../adapters/functionConverter';
 
 import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
 import {
-  CommentType,
   CatalyticActivityComment,
+  CofactorComment,
   FreeTextComment,
 } from '../../types/commentTypes';
 
@@ -158,69 +157,53 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
       id={EntrySection.Function}
       data-entry-section
     >
-      {data.commentsData.get(CommentType.CAUTION)?.length ? (
+      {data.commentsData.get('CAUTION')?.length ? (
         <Message level="warning">
           <h4>Caution</h4>
           <FreeTextView
-            comments={
-              data.commentsData.get(CommentType.CAUTION) as FreeTextComment[]
-            }
+            comments={data.commentsData.get('CAUTION') as FreeTextComment[]}
           />
         </Message>
       ) : undefined}
       <FreeTextView
-        comments={
-          data.commentsData.get(CommentType.FUNCTION) as FreeTextComment[]
-        }
+        comments={data.commentsData.get('FUNCTION') as FreeTextComment[]}
       />
       <CatalyticActivityView
         comments={
           data.commentsData.get(
-            CommentType.CATALYTIC_ACTIVITY
+            'CATALYTIC ACTIVITY'
           ) as CatalyticActivityComment[]
         }
-        title={CommentType.CATALYTIC_ACTIVITY.toLocaleLowerCase()}
+        title="catalytic activity"
       />
       <CofactorView
-        cofactors={
-          data.commentsData.get(CommentType.COFACTOR) as CofactorComment[]
-        }
-        title={CommentType.COFACTOR.toLowerCase()}
+        cofactors={data.commentsData.get('COFACTOR') as CofactorComment[]}
+        title="cofactor"
       />
       <FreeTextView
-        comments={
-          data.commentsData.get(CommentType.PATHWAY) as FreeTextComment[]
-        }
-        title={CommentType.PATHWAY.toLowerCase()}
+        comments={data.commentsData.get('PATHWAY') as FreeTextComment[]}
+        title="pathway"
       />
       <FreeTextView
-        comments={
-          data.commentsData.get(CommentType.MISCELLANEOUS) as FreeTextComment[]
-        }
-        title={CommentType.MISCELLANEOUS.toLowerCase()}
+        comments={data.commentsData.get('MISCELLANEOUS') as FreeTextComment[]}
+        title="miscellaneous"
       />
       <FreeTextView
-        comments={
-          data.commentsData.get(CommentType.BIOTECHNOLOGY) as FreeTextComment[]
-        }
-        title={CommentType.BIOTECHNOLOGY.toLowerCase()}
+        comments={data.commentsData.get('BIOTECHNOLOGY') as FreeTextComment[]}
+        title="biotechnology"
       />
       <BioPhysicoChemicalPropertiesView
         data={data.bioPhysicoChemicalProperties}
       />
       <FreeTextView
-        comments={
-          data.commentsData.get(CommentType.PATHWAY) as FreeTextComment[]
-        }
-        title={CommentType.PATHWAY.toLowerCase()}
+        comments={data.commentsData.get('PATHWAY') as FreeTextComment[]}
+        title="pathway"
       />
       <FreeTextView
         comments={
-          data.commentsData.get(
-            CommentType.ACTIVITY_REGULATION
-          ) as FreeTextComment[]
+          data.commentsData.get('ACTIVITY REGULATION') as FreeTextComment[]
         }
-        title={CommentType.ACTIVITY_REGULATION.toLowerCase()}
+        title="activity regulation"
       />
       <FeaturesView features={data.featuresData} sequence={sequence} />
       <ErrorBoundary>

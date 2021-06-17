@@ -1,0 +1,16 @@
+@import 'franklin-sites/src/styles/colours';
+
+.container {
+  position: relative;
+  height: 1em;
+  min-width: 5em;
+  background: $colour-sea-blue;
+}
+
+.xref {
+  height: inherit;
+  position: absolute;
+  background: $colour-uniparc;
+  width: 50%;
+  left: 25%;
+}

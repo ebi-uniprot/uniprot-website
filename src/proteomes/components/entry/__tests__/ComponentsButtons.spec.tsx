@@ -1,6 +1,7 @@
-import { fireEvent, render, screen } from '@testing-library/react';
-import { MemoryRouter as Router } from 'react-router-dom';
+import { fireEvent, screen } from '@testing-library/react';
 import queryString from 'query-string';
+
+import customRender from '../../../../shared/__test-helpers__/customRender';
 
 import ComponentsButtons from '../ComponentsButtons';
 import { Component } from '../../../adapters/proteomesConverter';
@@ -22,15 +23,13 @@ describe('ComponentsButtons', () => {
   test.each(testCases)(
     'should create correct view link and text with %p components and selected components: %p',
     (components, selectedComponents, expectedQuery) => {
-      render(
-        <Router>
-          <ComponentsButtons
-            id="id"
-            components={components as Component[]}
-            selectedEntries={selectedComponents}
-            proteinCount={100}
-          />
-        </Router>
+      customRender(
+        <ComponentsButtons
+          id="id"
+          components={components as Component[]}
+          selectedEntries={selectedComponents}
+          proteinCount={100}
+        />
       );
       const link = screen.getByRole('link', {
         name: 'View proteins',
@@ -46,24 +45,20 @@ describe('ComponentsButtons', () => {
   );
 
   it('should render nothing when no components are passed', () => {
-    const { container } = render(
-      <Router>
-        <ComponentsButtons id="id" proteinCount={100} selectedEntries={[]} />
-      </Router>
+    const { container } = customRender(
+      <ComponentsButtons id="id" proteinCount={100} selectedEntries={[]} />
     );
-    expect(container.firstChild).toBeNull();
+    expect(container).toBeEmptyDOMElement();
   });
 
   it('should open download sliding panel', () => {
-    render(
-      <Router>
-        <ComponentsButtons
-          id="id"
-          proteinCount={100}
-          selectedEntries={[]}
-          components={getComponents(10) as Component[]}
-        />
-      </Router>
+    customRender(
+      <ComponentsButtons
+        id="id"
+        proteinCount={100}
+        selectedEntries={[]}
+        components={getComponents(10) as Component[]}
+      />
     );
     const downloadButton = screen.getByRole('button', { name: 'Download' });
     fireEvent.click(downloadButton);

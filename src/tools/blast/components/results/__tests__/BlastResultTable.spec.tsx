@@ -1,38 +1,43 @@
-import { fireEvent } from '@testing-library/react';
-import BlastResultTable from '../BlastResultTable';
+import { screen, fireEvent } from '@testing-library/react';
 
-import blastResultsMockData from '../../../../__mocks__/server-jobs/example-truncated.json';
 import customRender from '../../../../../shared/__test-helpers__/customRender';
 
-import { BlastResults } from '../../../types/blastResults';
+import BlastResultTable from '../BlastResultTable';
 
-let component;
+import data from '../../../../__mocks__/server-jobs/example-truncated';
+import noHits from '../../../../__mocks__/server-jobs/example-empty';
 
 describe('BlastResultTable tests', () => {
-  beforeEach(() => {
-    component = customRender(
+  it('should render, and toggle the extra HSPs', async () => {
+    const { asFragment } = customRender(
       <BlastResultTable
-        data={blastResultsMockData as BlastResults}
+        data={data}
         selectedEntries={[]}
         handleEntrySelection={jest.fn()}
         setHspDetailPanel={jest.fn()}
         loading={false}
       />
     );
-  });
-
-  it('should render the results table', () => {
-    const { asFragment } = component;
     expect(asFragment()).toMatchSnapshot();
+
+    expect(screen.getByTestId('blast-summary-track')).toBeInTheDocument();
+    const toggle = screen.getByRole('button', { name: '+1 more' });
+    fireEvent.click(toggle);
+    const hspTracks = screen.getAllByTestId('blast-summary-track');
+    expect(hspTracks.length).toBe(2);
   });
 
-  it('should toggle the extra hss', async () => {
-    const { getByText, findAllByTestId } = component;
-    let hspTracks = await findAllByTestId('blast-summary-track');
-    expect(hspTracks.length).toBe(1);
-    const toggle = getByText('+1 more');
-    fireEvent.click(toggle);
-    hspTracks = await findAllByTestId('blast-summary-track');
-    expect(hspTracks.length).toBe(2);
+  it('should render without any hits', () => {
+    const { asFragment } = customRender(
+      <BlastResultTable
+        data={noHits}
+        selectedEntries={[]}
+        handleEntrySelection={jest.fn()}
+        setHspDetailPanel={jest.fn()}
+        loading={false}
+      />
+    );
+    expect(asFragment()).toMatchSnapshot();
+    expect(screen.queryByTestId('blast-summary-track')).not.toBeInTheDocument();
   });
 });

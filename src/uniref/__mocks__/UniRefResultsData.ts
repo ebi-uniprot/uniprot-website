@@ -14,17 +14,16 @@ const mock: Payload = {
       name: 'identity',
       allowMultipleSelection: true,
       values: [
-        { label: '100%', value: '1.0', count: 728513 },
-        { label: '90%', value: '0.9', count: 288809 },
-        { label: '50%', value: '0.5', count: 37152 },
+        { label: '100%', value: '1.0', count: 742581 },
+        { label: '90%', value: '0.9', count: 292322 },
+        { label: '50%', value: '0.5', count: 37529 },
       ],
     },
   ],
   results: [
     {
       id: 'UniRef100_A0A0B7GQ86',
-      name:
-        'Cluster: PTS system glucose-specific EIICBA component [includes: glucose permease IIC component glucose-specific phosphotransferase enzyme IIB component glucose-specific phosphotransferase enzyme IIA compon...',
+      name: 'Cluster: PTS system glucose-specific EIICBA component [includes: glucose permease IIC component glucose-specific phosphotransferase enzyme IIB component glucose-specific phosphotransferase enzyme IIA compon...',
       updated: '2021-02-10',
       entryType: 'UniRef100',
       commonTaxon: { scientificName: 'Streptococcus sanguinis', taxonId: 1305 },

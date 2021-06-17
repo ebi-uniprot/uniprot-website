@@ -27,7 +27,7 @@ export const isOfLineageType = (
   return false;
 };
 
-type TaxonomyBase = {
+type Taxonomy = {
   taxonId: number;
   scientificName?: string;
   synonyms?: string[];
@@ -39,14 +39,17 @@ type TaxonomyBase = {
   rank?: Rank;
 };
 
-export type TaxonomyDatum =
-  | TaxonomyBase
-  | (TaxonomyBase & {
-      /**
-       * @deprecated "lineage should be of type 'Lineage'"
-       */
-      lineage?: string[];
-    });
+/**
+ * @deprecated "lineage should be of type 'Lineage'"
+ */
+type TaxonomyOld = Omit<Taxonomy, 'lineage'> & {
+  /**
+   * @deprecated "lineage should be of type 'Lineage'"
+   */
+  lineage?: string[];
+};
+
+export type TaxonomyDatum = Taxonomy | TaxonomyOld;
 
 export type Rank =
   | 'forma'
@@ -82,7 +85,7 @@ export type Rank =
   | 'no rank';
 
 export type TaxonomyAPIModel = SetRequired<
-  TaxonomyDatum,
+  Taxonomy,
   'mnemonic' | 'hidden' | 'rank' | 'lineage'
 > & {
   parent: TaxonomyDatum;

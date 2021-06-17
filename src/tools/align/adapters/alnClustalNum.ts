@@ -10,7 +10,8 @@ import { isEmpty } from 'lodash-es';
 import { AlnClustalNum } from '../types/alignResults';
 
 const HEADER = /^CLUSTAL.*/;
-const SEQ_LINE = /(?<name>[^\s]+)(?<gap>\s+)(?<sequence>[^\s]+)\s+(?<count>\d+)/i;
+const SEQ_LINE =
+  /(?<name>[^\s]+)(?<gap>\s+)(?<sequence>[^\s]+)\s+(?<count>\d+)/i;
 const CONSERVATION = /^[*:.\s]+/;
 
 const alnClustalNum = (string?: string): AlnClustalNum | null => {

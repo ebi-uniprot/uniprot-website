@@ -9,7 +9,7 @@ import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
 import { XrefUIModel, XrefsGoupedByDatabase } from '../../utils/xrefUtils';
-import { CommentType, WebResourceComment } from '../../types/commentTypes';
+import { WebResourceComment } from '../../types/commentTypes';
 import { DatabaseCategory } from '../../types/databaseRefs';
 
 type EntryExternalLinksProps = {
@@ -43,7 +43,7 @@ const EntryExternalLinks = ({ transformedData }: EntryExternalLinksProps) => {
   } = transformedData;
   // Needed for SMR implicit xref
   const crc64 = sequence && sequence.crc64;
-  const webResourceComments = data.commentsData.get(CommentType.WEB_RESOURCE);
+  const webResourceComments = data.commentsData.get('WEB RESOURCE');
 
   // Merge all of the external links from the entry page sections
   const databaseCategoryToXrefsGoupedByDatabase = new Map<
@@ -53,9 +53,8 @@ const EntryExternalLinks = ({ transformedData }: EntryExternalLinksProps) => {
   Object.values(EntrySection).forEach((entrySection) => {
     transformedData[entrySection as EntrySection].xrefData?.forEach(
       ({ category, databases }) => {
-        const currentDatabases = databaseCategoryToXrefsGoupedByDatabase.get(
-          category
-        );
+        const currentDatabases =
+          databaseCategoryToXrefsGoupedByDatabase.get(category);
         const newDatabases = currentDatabases
           ? [...currentDatabases, ...databases]
           : databases;

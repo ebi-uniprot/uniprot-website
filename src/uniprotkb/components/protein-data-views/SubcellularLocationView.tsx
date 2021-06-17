@@ -25,7 +25,10 @@ const SubcellularLocationView: FC<{
                 <div
                   // id is used in the case that this component is used in conjunction
                   // with @swissprot/swissbiopics-visualizer
-                  id={getSwissBioPicLocationId(subcellularLocation.location.id)}
+                  id={
+                    subcellularLocation.location.id &&
+                    getSwissBioPicLocationId(subcellularLocation.location.id)
+                  }
                   key={`${subcellularLocation.location.value}${
                     subcellularLocation.topology &&
                     subcellularLocation.topology.value

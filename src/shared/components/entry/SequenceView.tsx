@@ -15,6 +15,8 @@ import AlignButton from '../action-buttons/Align';
 
 import useDataApi from '../../hooks/useDataApi';
 
+import { pluralise } from '../../utils/utils';
+
 import externalUrls from '../../config/externalUrls';
 import apiUrls from '../../config/apiUrls';
 
@@ -42,6 +44,7 @@ export type SequenceData = {
   length: number;
   molWeight: number;
   crc64: string;
+  md5: string;
 };
 
 type SequenceViewProps = {
@@ -261,7 +264,7 @@ export const RNAEditingView: FC<{ data: RNAEditingComment[] }> = ({ data }) => (
       >
         {item.positions && (
           <div>
-            {'Edited at positions '}
+            {`Edited at ${pluralise('position', item.positions.length)} `}
             {item.positions.map((position) => (
               <span key={position.position}>
                 {position.position}{' '}
@@ -396,9 +399,10 @@ const SequenceView: FC<SequenceViewProps> = ({ accession, data }) => {
       <div className="button-group">
         <BlastButton
           selectedEntries={allIsoformIds}
-          textSuffix={`${allIsoformIds.length} isoform${
-            allIsoformIds.length === 1 ? '' : 's'
-          }`}
+          textSuffix={`${allIsoformIds.length} ${pluralise(
+            'isoform',
+            allIsoformIds.length
+          )}`}
         />
         <AlignButton
           selectedEntries={allIsoformIds}

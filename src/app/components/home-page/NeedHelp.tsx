@@ -144,14 +144,14 @@ const NeedHelp = () => {
           title="UniProt posts on Twitter"
           noIcon
         >
-          <TwitterLogo width="3ch" />
+          <TwitterLogo width="2em" />
         </ExternalLink>
         <ExternalLink
           url="https://www.facebook.com/uniprot.org"
           title="UniProt posts on Facebook"
           noIcon
         >
-          <FacebookLogo width="3ch" />
+          <FacebookLogo width="2em" />
         </ExternalLink>
       </div>
       <div
@@ -207,19 +207,19 @@ const NeedHelp = () => {
           url="https://www.youtube.com/c/uniprotvideos/featured"
           noIcon
         >
-          <CameraIcon width="2ch" /> Tutorial &amp; videos
+          <CameraIcon width="1.5em" /> Tutorial &amp; videos
         </ExternalLink>
         <ExternalLink
           url="https://www.youtube.com/watch?v=1swnzBM7eZo&list=PLk96kjgxotiZrj6GWC2SFoOKfB1H3tyxt"
           noIcon
         >
-          <CameraIcon width="2ch" /> Past webinars
+          <CameraIcon width="1.5em" /> Past webinars
         </ExternalLink>
         <ExternalLink
           url="https://www.ebi.ac.uk/training/search-results?query=uniprot&domain=ebiweb_training&page=1&facets="
           noIcon
         >
-          <WorldIcon width="2ch" /> Online courses
+          <WorldIcon width="1.5em" /> Online courses
         </ExternalLink>
       </div>
       <div

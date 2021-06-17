@@ -58,7 +58,7 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
             <strong>
               UniprotKB entries: 
             </strong>
-            2 reviewed and 6 unreviewed
+            2 reviewed and 7 unreviewed
           </span>
         </div>
         <div
@@ -83,9 +83,9 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
               Last seen: 
             </strong>
             <time
-              datetime="2021-02-10T00:00:00.000Z"
+              datetime="2021-04-07T00:00:00.000Z"
             >
-              2021-02-10
+              2021-04-07
             </time>
           </span>
           <span
