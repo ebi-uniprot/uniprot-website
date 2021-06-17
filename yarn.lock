@@ -8692,13 +8692,13 @@ protvista-proteomics-adapter@^2.18.0:
     protvista-feature-adapter "^2.18.0"
     uuid "^8.1.0"
 
-protvista-sequence@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/protvista-sequence/-/protvista-sequence-3.0.0.tgz#c23beb62a1e1afb7bf5cd8a042779454f0a57db6"
-  integrity sha512-lO7aa0Y44jyiyvx4Kg+kZuhG3UYWb4/izTA9Tm3lSiQbzU7Gdt9DDmZNugGO9svy8YVQrG9+UVfCJKHuqfXQ+g==
+protvista-sequence@3.2.14:
+  version "3.2.14"
+  resolved "https://registry.yarnpkg.com/protvista-sequence/-/protvista-sequence-3.2.14.tgz#10501e956e3bb75bae0ab986509e742ff77a304f"
+  integrity sha512-UBrJq4AR8KztpLpLdeuP0l4Pa1Z9QF6qL51buURTaW4C8zyQQkTv3bU3Fot0afICxUCa14MHXj5+V3EuBQz7FQ==
   dependencies:
     lodash-es "^4.17.11"
-    protvista-zoomable "^3.0.0"
+    protvista-zoomable "^3.2.14"
 
 protvista-sequence@^2.18.0:
   version "2.18.0"
@@ -8865,7 +8865,7 @@ protvista-zoomable@^2.18.0:
     protvista-utils "^2.18.0"
     resize-observer-polyfill "^1.5.0"
 
-protvista-zoomable@^3.0.0, protvista-zoomable@^3.2.14:
+protvista-zoomable@^3.2.14:
   version "3.2.14"
   resolved "https://registry.yarnpkg.com/protvista-zoomable/-/protvista-zoomable-3.2.14.tgz#d7f1f7977a5a3b415500ce726db45c6c151f0627"
   integrity sha512-tvRGIyhNO5wJxVGjH/bqUQClmHwSk/usTDGT4AsULk7PMQbTQa45RCFp5uu/jdeHP0KMw8L9eJjwh+Gikz0SBA==
