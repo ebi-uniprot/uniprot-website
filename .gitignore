@@ -23,6 +23,6 @@ __diff_output__
 /tests/.tmp/
 report.*.json
 
-# Yalc (yarn alternative)
+# Yalc (yarn link alternative)
 .yalc/
 yalc.lock
