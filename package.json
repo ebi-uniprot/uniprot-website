@@ -180,7 +180,7 @@
     "@webpack-cli/serve": "^1.4.0",
     "assert": "2.0.0",
     "axios-mock-adapter": "1.19.0",
-    "babel-jest": "26.6.3",
+    "babel-jest": "27.0.2",
     "babel-loader": "8.2.2",
     "css-loader": "5.2.6",
     "eslint": "7.28.0",
