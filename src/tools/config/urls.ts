@@ -78,14 +78,11 @@ function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
           // The cachebust extra query is just here to avoid using cached value
           `${baseURL}/status/${jobId}?cachebust=${new Date().getTime()}`,
         resultUrl: (redirectUrl, { facets, size, selectedFacets = [] }) =>
-          joinUrl(
-            apiPrefix,
-            `${redirectUrl}?${queryString.stringify({
-              size,
-              facets: facets?.join(','),
-              query: createFacetsQueryString(selectedFacets),
-            })}`
-          ),
+          `${redirectUrl}?${queryString.stringify({
+            size,
+            facets: facets?.join(','),
+            query: createFacetsQueryString(selectedFacets),
+          })}`,
         detailsUrl: (jobId) => `${baseURL}/details/${jobId}`,
       });
     case JobTypes.PEPTIDE_SEARCH:
