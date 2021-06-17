@@ -6,6 +6,7 @@ import {
   EnvelopeIcon,
   BasketIcon,
   ToolboxIcon,
+  Bubble,
 } from 'franklin-sites';
 
 import SearchContainer from '../search/SearchContainer';
@@ -53,17 +54,18 @@ const Basket = () => {
 
   const count = useMemo(
     () =>
-      Object.values(basket)
+      Array.from(basket.values())
         .map((ns) => ns.size)
         .reduce((total, current) => total + current, 0),
     [basket]
   );
 
-  console.log('basket count:', count);
-
   return (
     <span title="Basket">
       <BasketIcon width={secondaryItemIconSize} />
+      {count ? (
+        <Bubble colourClass="colour-yankees-blue" size="small" value={count} />
+      ) : null}
     </span>
   );
 };

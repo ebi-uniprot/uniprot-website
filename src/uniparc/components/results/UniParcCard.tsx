@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { Card, LongNumber } from 'franklin-sites';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
+import BasketStatus from '../../../shared/components/BasketStatus';
 
 import {
   UniParcAPIModel,
@@ -69,6 +70,7 @@ const UniParcCard = ({ data, selected, handleEntrySelection }: Props) => {
           <h2 className="tiny">
             <EntryTitle mainTitle={id} entryType={EntryType.UNIPARC} />
           </h2>
+          <BasketStatus id={id} />
         </>
       }
       headerSeparator={false}

@@ -1,18 +1,17 @@
 import { FC } from 'react';
 import { BasketIcon, Button } from 'franklin-sites';
-import { ValueOf } from 'type-fest';
+import { groupBy } from 'lodash-es';
 
-import useNS from '../../hooks/useNS';
-import useBasket, { Basket, basketableNS } from '../../hooks/useBasket';
+import useBasket from '../../hooks/useBasket';
+
+import accessionToNamespace from '../../utils/accessionToNamespace';
 
 import { pluralise } from '../../utils/utils';
+import { Namespace } from '../../types/namespaces';
 
-type AddToBasketButtonProps = {
-  selectedEntries: string[];
-};
+type AddToBasketButtonProps = { selectedEntries: string[] };
 
 const AddToBasketButton: FC<AddToBasketButtonProps> = ({ selectedEntries }) => {
-  const ns = useNS();
   const [, setBasket] = useBasket();
 
   const n = selectedEntries.length;
@@ -24,21 +23,31 @@ const AddToBasketButton: FC<AddToBasketButtonProps> = ({ selectedEntries }) => {
     : 'Select at least one entry to add to the basket';
 
   const handleClick = () => {
-    if (!(ns && basketableNS.has(ns))) {
+    if (!selectedEntries.length) {
       return;
     }
-    setBasket((currentBasket) => {
-      const key = ns as keyof Basket;
-      const newSubBasket: ValueOf<Basket> = new Set([
-        ...currentBasket[key],
-        ...selectedEntries,
-      ]);
-      const newBasket = {
-        ...currentBasket,
-        [key]: newSubBasket,
-      };
-      return newBasket;
-    });
+    const grouped = groupBy(selectedEntries, accessionToNamespace);
+    setBasket(
+      (currentBasket) =>
+        new Map([
+          // current namespaces, untouched
+          ...currentBasket,
+          // namespaces to update
+          ...Object.entries(grouped).map(
+            ([ns, entries]) =>
+              [
+                ns as Namespace,
+                // new Set, out of...
+                new Set([
+                  // ... the previous Set for this namespace and...
+                  ...(currentBasket.get(ns as Namespace) || []),
+                  // ... the new entries to add
+                  ...entries,
+                ]),
+              ] as const
+          ),
+        ])
+    );
   };
 
   return (

@@ -3951,7 +3951,7 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
           <td>
             <div
-              class="accession-view"
+              class="no-wrap"
             >
               <a
                 href="/uniprotkb/P35575"
@@ -3971,7 +3971,7 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
           <td>
             <div
-              class="accession-view"
+              class="no-wrap"
             >
               <a
                 href="/uniprotkb/O43826"
@@ -3991,7 +3991,7 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
           <td>
             <div
-              class="accession-view"
+              class="no-wrap"
             >
               <a
                 href="/uniprotkb/P11166"
@@ -4011,7 +4011,7 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
           <td>
             <div
-              class="accession-view"
+              class="no-wrap"
             >
               <a
                 href="/uniprotkb/P11169"
@@ -4031,7 +4031,7 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
           <td>
             <div
-              class="accession-view"
+              class="no-wrap"
             >
               <a
                 href="/uniprotkb/P13866"
@@ -4051,7 +4051,7 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
           <td>
             <div
-              class="accession-view"
+              class="no-wrap"
             >
               <a
                 href="/uniprotkb/Q9BUM1"
@@ -4071,7 +4071,7 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
           <td>
             <div
-              class="accession-view"
+              class="no-wrap"
             >
               <a
                 href="/uniprotkb/P14672"
@@ -4091,7 +4091,7 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
           <td>
             <div
-              class="accession-view"
+              class="no-wrap"
             >
               <a
                 href="/uniprotkb/Q9NY64"
@@ -4111,7 +4111,7 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
           <td>
             <div
-              class="accession-view"
+              class="no-wrap"
             >
               <a
                 href="/uniprotkb/Q9NRM0"
@@ -4131,7 +4131,7 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
           <td>
             <div
-              class="accession-view"
+              class="no-wrap"
             >
               <a
                 href="/uniprotkb/Q9NQR9"
@@ -4151,7 +4151,7 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
           <td>
             <div
-              class="accession-view"
+              class="no-wrap"
             >
               <a
                 href="/uniprotkb/P11168"
@@ -4171,7 +4171,7 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
           <td>
             <div
-              class="accession-view"
+              class="no-wrap"
             >
               <a
                 href="/uniprotkb/Q9NYU1"
@@ -4191,7 +4191,7 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
           <td>
             <div
-              class="accession-view"
+              class="no-wrap"
             >
               <a
                 href="/uniprotkb/O95528"
@@ -4211,7 +4211,7 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
           <td>
             <div
-              class="accession-view"
+              class="no-wrap"
             >
               <a
                 href="/uniprotkb/P22732"
@@ -4231,7 +4231,7 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
           <td>
             <div
-              class="accession-view"
+              class="no-wrap"
             >
               <a
                 href="/uniprotkb/Q16851"
@@ -4251,7 +4251,7 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
           <td>
             <div
-              class="accession-view"
+              class="no-wrap"
             >
               <a
                 href="/uniprotkb/Q8WWX8"
@@ -4271,7 +4271,7 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
           <td>
             <div
-              class="accession-view"
+              class="no-wrap"
             >
               <a
                 href="/uniprotkb/Q9BYW1"
@@ -4291,7 +4291,7 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
           <td>
             <div
-              class="accession-view"
+              class="no-wrap"
             >
               <a
                 href="/uniprotkb/Q9NYU2"
@@ -4311,7 +4311,7 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
           <td>
             <div
-              class="accession-view"
+              class="no-wrap"
             >
               <a
                 href="/uniprotkb/P31639"
@@ -4331,7 +4331,7 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
           <td>
             <div
-              class="accession-view"
+              class="no-wrap"
             >
               <a
                 href="/uniprotkb/P11413"
@@ -4351,7 +4351,7 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
           <td>
             <div
-              class="accession-view"
+              class="no-wrap"
             >
               <a
                 href="/uniprotkb/P69786"
@@ -4371,7 +4371,7 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
           <td>
             <div
-              class="accession-view"
+              class="no-wrap"
             >
               <a
                 href="/uniprotkb/P15280"
@@ -4391,7 +4391,7 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
           <td>
             <div
-              class="accession-view"
+              class="no-wrap"
             >
               <a
                 href="/uniprotkb/Q6PXP3"
@@ -4411,7 +4411,7 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
           <td>
             <div
-              class="accession-view"
+              class="no-wrap"
             >
               <a
                 href="/uniprotkb/O94964"
@@ -4431,7 +4431,7 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
           <td>
             <div
-              class="accession-view"
+              class="no-wrap"
             >
               <a
                 href="/uniprotkb/O95479"

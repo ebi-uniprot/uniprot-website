@@ -8,6 +8,7 @@ import {
   EntryTypeIcon,
 } from '../../shared/components/entry/EntryTypeIcon';
 import TaxonomyView from '../../shared/components/entry/TaxonomyView';
+import BasketStatus from '../../shared/components/BasketStatus';
 
 import { getEntryPath } from '../../app/config/urls';
 
@@ -107,15 +108,18 @@ const getAccessionColumn =
     ) {
       // internal link
       cell = (
-        <Link
-          /**
-           * TODO: when we have entry history pages, we need to handle it
-           * differently (current website points to `/<accession>?version=*`)
-           */
-          to={getEntryPath(Namespace.uniprotkb, xref.id)}
-        >
-          {xref.id}
-        </Link>
+        <>
+          {xref.active && <BasketStatus id={xref.id} />}
+          <Link
+            /**
+             * TODO: when we have entry history pages, we need to handle it
+             * differently (current website points to `/<accession>?version=*`)
+             */
+            to={getEntryPath(Namespace.uniprotkb, xref.id)}
+          >
+            {xref.id}
+          </Link>
+        </>
       );
     } else {
       const template = xref.database && templateMap.get(xref.database);

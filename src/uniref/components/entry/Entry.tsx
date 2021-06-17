@@ -3,18 +3,13 @@ import { useDispatch } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
 import { Loader } from 'franklin-sites';
 
-import {
-  MessageLevel,
-  MessageFormat,
-  MessageType,
-  MessageTag,
-} from '../../../messages/types/messagesTypes';
-import { Namespace } from '../../../shared/types/namespaces';
-
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import Overview from '../data-views/Overview';
 import EntryMain from './EntryMain';
 import MembersFacets from './MembersFacets';
+import BasketStatus from '../../../shared/components/BasketStatus';
+import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
+import BlastButton from '../../../shared/components/action-buttons/Blast';
 
 import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
@@ -30,6 +25,13 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import uniRefConverter, {
   UniRefAPIModel,
 } from '../../adapters/uniRefConverter';
+import {
+  MessageLevel,
+  MessageFormat,
+  MessageType,
+  MessageTag,
+} from '../../../messages/types/messagesTypes';
+import { Namespace } from '../../../shared/types/namespaces';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
 
@@ -80,8 +82,13 @@ const Entry: FC = () => {
               mainTitle="UniRef"
               optionalTitle={`${transformedData.id} (${transformedData.identity}%)`}
             />
+            <BasketStatus id={accession} />
           </h1>
           <Overview transformedData={transformedData} />
+          <div className="button-group">
+            <BlastButton selectedEntries={[accession]} />
+            <AddToBasketButton selectedEntries={[accession]} />
+          </div>
         </ErrorBoundary>
       }
     >

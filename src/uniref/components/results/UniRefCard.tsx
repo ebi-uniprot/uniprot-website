@@ -2,6 +2,7 @@ import { Card } from 'franklin-sites';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import RenderColumnsInCard from '../../../shared/components/results/RenderColumnsInCard';
+import BasketStatus from '../../../shared/components/BasketStatus';
 
 import { getEntryPath } from '../../../app/config/urls';
 import { getIdKeyFor } from '../../../shared/utils/getIdKeyForNamespace';
@@ -46,6 +47,7 @@ const UniRefCard = ({ data, selected, handleEntrySelection }: Props) => {
           <h2 className="tiny">
             <EntryTitle mainTitle={id} entryType={data.memberIdTypes} />
           </h2>
+          <BasketStatus id={id} />
         </>
       }
       headerSeparator={false}
