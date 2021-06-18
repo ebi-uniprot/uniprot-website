@@ -15,7 +15,7 @@ Array [
       "label": "Gene Ontology [GO]",
       "siblings": Array [
         Object {
-          "autoComplete": "/uniprot/api/suggester?dict=go&query=?",
+          "autoComplete": "/suggester?dict=go&query=?",
           "autoCompleteQueryTerm": "go",
           "dataType": "string",
           "example": "0009986",
@@ -48,83 +48,83 @@ Array [
               "groupName": "Manual assertions",
               "items": Array [
                 Object {
-                  "code": "EXP",
+                  "code": "exp",
                   "name": "Inferred from experiment [EXP]",
                 },
                 Object {
-                  "code": "IBA",
+                  "code": "iba",
                   "name": "Inferred from biological aspect of ancestor [IBA]",
                 },
                 Object {
-                  "code": "IC",
+                  "code": "ic",
                   "name": "Inferred by curator [IC]",
                 },
                 Object {
-                  "code": "IDA",
+                  "code": "ida",
                   "name": "Inferred from direct assay [IDA]",
                 },
                 Object {
-                  "code": "IEP",
+                  "code": "iep",
                   "name": "Inferred from expression pattern [IEP]",
                 },
                 Object {
-                  "code": "IGC",
+                  "code": "igc",
                   "name": "Inferred from genomic context [IGC]",
                 },
                 Object {
-                  "code": "IGI",
+                  "code": "igi",
                   "name": "Inferred from genetic interaction [IGI]",
                 },
                 Object {
-                  "code": "IMP",
+                  "code": "imp",
                   "name": "Inferred from mutant phenotype [IMP]",
                 },
                 Object {
-                  "code": "IPI",
+                  "code": "ipi",
                   "name": "Inferred from physical interaction [IPI]",
                 },
                 Object {
-                  "code": "ISA",
+                  "code": "isa",
                   "name": "Inferred from sequence alignment [ISA]",
                 },
                 Object {
-                  "code": "ISM",
+                  "code": "ism",
                   "name": "Inferred from sequence mode [ISM]",
                 },
                 Object {
-                  "code": "ISO",
+                  "code": "iso",
                   "name": "Inferred from sequence orthology [ISO]",
                 },
                 Object {
-                  "code": "ISS",
+                  "code": "iss",
                   "name": "Inferred from sequence or structural similarity [ISS]",
                 },
                 Object {
-                  "code": "NAS",
+                  "code": "nas",
                   "name": "Non-traceable author statement [NAS]",
                 },
                 Object {
-                  "code": "TAS",
+                  "code": "tas",
                   "name": "Traceable author statement [TAS]",
                 },
                 Object {
-                  "code": "HDA",
+                  "code": "hda",
                   "name": "Inferred from high throughput direct assay [HDA]",
                 },
                 Object {
-                  "code": "HMP",
+                  "code": "hmp",
                   "name": "Inferred from high throughput mutant phenotype [HMP]",
                 },
                 Object {
-                  "code": "HGI",
+                  "code": "hgi",
                   "name": "Inferred from high throughput genetic interaction [HGI]",
                 },
                 Object {
-                  "code": "HEP",
+                  "code": "hep",
                   "name": "Interred from high throughput expression pattern [HEP]",
                 },
                 Object {
-                  "code": "HTP",
+                  "code": "htp",
                   "name": "Inferred from high throughput experiment [HTP]",
                 },
               ],
@@ -133,7 +133,7 @@ Array [
               "groupName": "Automatic assertions",
               "items": Array [
                 Object {
-                  "code": "IEA",
+                  "code": "iea",
                   "name": "Inferred from electronic annotation [IEA]",
                 },
               ],
