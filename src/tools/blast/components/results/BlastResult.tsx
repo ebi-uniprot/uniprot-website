@@ -42,6 +42,7 @@ import { PublicServerParameters } from '../../types/blastServerParameters';
 // what we import are types, even if they are in adapter file
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 
+import helper from '../../../../shared/styles/helper.module.scss';
 import '../../../../shared/styles/sticky.scss';
 
 const jobType = JobTypes.BLAST;
@@ -172,10 +173,8 @@ const BlastResult = () => {
   const location = useLocation();
 
   const [selectedEntries, handleEntrySelection] = useItemSelect();
-  const [
-    hspDetailPanel,
-    setHspDetailPanel,
-  ] = useState<HSPDetailPanelProps | null>();
+  const [hspDetailPanel, setHspDetailPanel] =
+    useState<HSPDetailPanelProps | null>();
 
   // if URL doesn't finish with "overview" redirect to /overview by default
   useEffect(() => {
@@ -327,7 +326,10 @@ const BlastResult = () => {
       sidebar={sidebar}
       className="sticky-tabs-container"
     >
-      <Tabs active={match.params.subPage}>
+      <Tabs
+        active={match.params.subPage}
+        className={accessionsLoading ? helper.stale : undefined}
+      >
         <Tab
           id={TabLocation.Overview}
           title={

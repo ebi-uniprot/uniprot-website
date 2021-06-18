@@ -41,12 +41,17 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
     referenceComments,
     source,
     sourceCategories,
+    communityAnnotation,
+    annotation,
   } = reference;
 
   const url = useMemo(() => {
-    const databaseInfo = getDatabaseInfoByName(source.name);
-    if (databaseInfo && source.id) {
+    const databaseInfo = source && getDatabaseInfoByName(source.name);
+    if (databaseInfo && source?.id) {
       return processUrlTemplate(databaseInfo.uriLink, { id: source.id });
+    }
+    if (source?.name === 'GeneRif') {
+      return `https://www.ncbi.nlm.nih.gov/gene?Db=gene&Cmd=DetailsSearch&Term=${source.id}`;
     }
     return null;
   }, [source]);
@@ -54,7 +59,7 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
   const infoListData = [
     {
       title: 'Source',
-      content: (
+      content: source && (
         <>
           <EntryTypeIcon entryType={source.name} />
           {url ? (
@@ -64,6 +69,10 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
           )}
           {source.name === 'ORCID' && (
             <>
+              {' '}
+              <ExternalLink url={`https://orcid.org/${source.id}`}>
+                {source.id}
+              </ExternalLink>
               {' ('}
               <ExternalLink
                 url={`//community.uniprot.org/bbsub/bbsubinfo.html?accession=${accession}`}
@@ -83,6 +92,19 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
     {
       title: 'Tissue',
       content: referenceComments?.map(({ value }) => value).join(', '),
+    },
+    {
+      title: 'Annotation',
+      // both mutually exclusive
+      content: annotation || communityAnnotation?.comment,
+    },
+    {
+      title: 'Function',
+      content: communityAnnotation?.function,
+    },
+    {
+      title: 'Disease',
+      content: communityAnnotation?.disease,
     },
     {
       title: 'Categories',
@@ -115,13 +137,15 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
   }>(() => ({ total: 0, nextUrl: undefined }));
   usePrefetch(metaData.nextUrl);
 
-  const { data, loading, status, error, headers } = useDataApi<{
-    results: CitationsAPIModel[];
-  }>(url);
+  const { data, loading, status, error, headers } =
+    useDataApi<{
+      results: CitationsAPIModel[];
+    }>(url);
 
-  const resultsWithReferences = useMemo(() => allResults.filter(hasReference), [
-    allResults,
-  ]);
+  const resultsWithReferences = useMemo(
+    () => allResults.filter(hasReference),
+    [allResults]
+  );
 
   useEffect(() => {
     setAllResults([]);

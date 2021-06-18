@@ -2,7 +2,7 @@ import customRender from '../../../../shared/__test-helpers__/customRender';
 
 import ProteinOverview from '../ProteinOverviewView';
 
-import swissprotData from '../../__mocks__/swissprotEntry.json';
+import swissprotData from '../../__mocks__/swissprotEntry';
 
 describe('ProteinOverview component', () => {
   test('should render', () => {

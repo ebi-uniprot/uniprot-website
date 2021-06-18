@@ -94,7 +94,7 @@ describe('QueryBuilder', () => {
     );
     fireEvent.click(entryNameFieldOption);
     entryNameField = screen.queryByPlaceholderText('P53_HUMAN');
-    expect(entryNameField).toBeTruthy();
+    expect(entryNameField).toBeInTheDocument();
   });
 
   test('should submit a simple query', async () => {

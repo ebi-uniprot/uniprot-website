@@ -10,6 +10,7 @@ import {
   SwissProtIcon,
   TremblIcon,
   ExternalLink,
+  EllipsisReveal,
 } from 'franklin-sites';
 import { SetOptional } from 'type-fest';
 
@@ -37,12 +38,11 @@ const getLinkToAuthor = (author: string) => ({
 });
 
 const Authors: FC<AuthorProps> = ({ authors, limit = 10 }) => {
-  const tooMany = authors.length > limit;
+  const cutoff = authors.length > limit ? authors.length : limit;
 
-  const [collapsed, setCollapsed] = useState(tooMany);
-
-  const lastAuthor = authors[authors.length - 1];
-  const displayedAuthors = collapsed ? authors.slice(0, limit - 1) : authors;
+  const displayedAuthors = authors.slice(0, limit - 1);
+  const hiddenAuthors = authors.slice(limit - 1, cutoff - 1);
+  const lastAuthor = authors.slice(cutoff - 1);
 
   return (
     <div className="publication__authors">
@@ -53,15 +53,22 @@ const Authors: FC<AuthorProps> = ({ authors, limit = 10 }) => {
           <Link to={getLinkToAuthor(author)}>{author}</Link>
         </Fragment>
       ))}
-      {collapsed ? (
+      {hiddenAuthors.length > 0 && (
+        <EllipsisReveal>
+          {hiddenAuthors.map((author, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <Fragment key={index}>
+              , <Link to={getLinkToAuthor(author)}>{author}</Link>
+            </Fragment>
+          ))}
+        </EllipsisReveal>
+      )}
+      {lastAuthor.length === 1 && (
         <>
-          <Button variant="tertiary" onClick={() => setCollapsed(false)}>
-            [...]
-          </Button>
           {', '}
-          <Link to={getLinkToAuthor(lastAuthor)}>{lastAuthor}</Link>
+          <Link to={getLinkToAuthor(lastAuthor[0])}>{lastAuthor[0]}</Link>
         </>
-      ) : null}
+      )}
     </div>
   );
 };
@@ -75,17 +82,16 @@ const Abstract: FC<AbstractProps> = ({ abstract, open = false }) => {
   const [display, setDisplay] = useState(open);
   return (
     <div className="publication__abstract">
-      {display ? (
+      <Button variant="tertiary" onClick={() => setDisplay(!display)}>
+        {display ? 'Hide' : 'View'} abstract
+      </Button>
+      {display && (
         <p
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{
             __html: cleanText(abstract),
           }}
         />
-      ) : (
-        <Button variant="tertiary" onClick={() => setDisplay(true)}>
-          View abstract [...]
-        </Button>
       )}
     </div>
   );

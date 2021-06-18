@@ -6,6 +6,10 @@ This is a non exhaustive list of features which will be added to the website in 
 
 - The website is not responsive yet, and best viewed on laptop/desktops with a resolution above 1024x768px until then.
 - Only "modern" browsers such as Chrome, Firefox, Safari, Edge, etc... are supported. Internet Explorer is not supported.
+                       
+## Performance
+- There is a known issue with response caching (at the traffic manager level), meaning searches are not performing as
+  quickly as they should be. We are working on a solution to this.
 
 ## Homepage
 
@@ -16,11 +20,8 @@ This is a non exhaustive list of features which will be added to the website in 
 ## Query builder
 
 - Search with genome location
-- [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-21994) AND/OR shouldn't be displayed for the first option.
 - [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-23247) / [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-25581) GO term search syntax is wrong
-- [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-25557) Change namespace when on other namespace results page causes it to search in that namespace instead.
 - [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-25580) Searching for " \* " in database xref generates the wrong query string.
-- [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-25888) Double quotes get added to some search fields.
 - [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-25889) Proteomes Taxonomy suggester not working for non-UniProtKB searches.
 
 ## UniProtKB Results
@@ -36,6 +37,8 @@ This is a non exhaustive list of features which will be added to the website in 
 - Inline PubMed IDs to be turned into links.
 - "Search for EC number" link
 - Suggested terms - TRM-20293
+- "Add a publication" button missing
+- Sometimes the publication section displays an error
 - [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-25578) Scroll to hash not always working (impact on protein highlights from results card).
 
 ## UniRef Results
@@ -68,16 +71,18 @@ This is a non exhaustive list of features which will be added to the website in 
 - Currently missing BLAST against UniRef/UniParc.
 - "Filter by Taxonomy" to be able to add any taxonomy node as a filter, not only suggested ones.
 - Sort (TBD)
+- Alignment visualisation sometimes jumps by a few pixels when interacting
 
 ## Align
+- Alignment visualisation sometimes jumps by a few pixels when interacting
 
 ## Peptide Search
 
-- Results
+- Missing sequence matching column
 
 ## Upload Lists / ID Mapping
 
--Results
+- Column selection for UniParc and UniRef results 
 
 ## Tools Results (Dashboard)
 

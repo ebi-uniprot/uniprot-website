@@ -10,7 +10,7 @@ import KeywordView from '../protein-data-views/KeywordView';
 import XRefView from '../protein-data-views/XRefView';
 
 import { UIModel } from '../../adapters/sectionConverter';
-import { CommentType, FreeTextComment } from '../../types/commentTypes';
+import { FreeTextComment } from '../../types/commentTypes';
 
 type Props = {
   data: UIModel;
@@ -29,25 +29,19 @@ const ExpressionSection = ({ data, primaryAccession }: Props) => {
     >
       <FreeTextView
         comments={
-          data.commentsData.get(
-            CommentType.TISSUE_SPECIFICITY
-          ) as FreeTextComment[]
+          data.commentsData.get('TISSUE SPECIFICITY') as FreeTextComment[]
         }
-        title={CommentType.TISSUE_SPECIFICITY.toLowerCase()}
+        title="tissue specificity"
+      />
+      <FreeTextView
+        comments={data.commentsData.get('INDUCTION') as FreeTextComment[]}
+        title="induction"
       />
       <FreeTextView
         comments={
-          data.commentsData.get(CommentType.INDUCTION) as FreeTextComment[]
+          data.commentsData.get('DEVELOPMENTAL STAGE') as FreeTextComment[]
         }
-        title={CommentType.INDUCTION.toLowerCase()}
-      />
-      <FreeTextView
-        comments={
-          data.commentsData.get(
-            CommentType.DEVELOPMENTAL_STAGE
-          ) as FreeTextComment[]
-        }
-        title={CommentType.DEVELOPMENTAL_STAGE.toLowerCase()}
+        title="developmental stage"
       />
       <KeywordView keywords={data.keywordData} />
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />

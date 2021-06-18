@@ -12,9 +12,9 @@ const AccessionsView: FC<{ data: NamesAndTaxonomyUIModel }> = ({ data }) => (
       },
       {
         title: `Secondary accessions`,
-        content: data.secondaryAccessions && (
+        content: (
           <ExpandableList descriptionString="accessions">
-            {data.secondaryAccessions.map((accession) => (
+            {data.secondaryAccessions?.map((accession) => (
               <Fragment key={accession}>{accession}</Fragment>
             ))}
           </ExpandableList>

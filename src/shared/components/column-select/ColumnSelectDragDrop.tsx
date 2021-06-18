@@ -10,7 +10,7 @@ import { Column } from '../../config/columns';
 
 import './styles/column-select-drag-drop.scss';
 
-type ColumnSelectDragDropProps = {
+export type ColumnSelectDragDropProps = {
   columns: SelectedColumn[];
   onDragDrop: (srcIndex: number, destIndex: number) => void;
   onRemove: (columnId: Column) => void;

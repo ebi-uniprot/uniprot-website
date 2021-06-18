@@ -41,16 +41,10 @@ const columns = [
 const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   const accession = props.match?.params.accession;
 
-  const {
-    data,
-    loading,
-    error,
-    status,
-    progress,
-    isStale,
-  } = useDataApiWithStale<TaxonomyAPIModel>(
-    apiUrls.entry(accession, Namespace.taxonomy)
-  );
+  const { data, loading, error, status, progress, isStale } =
+    useDataApiWithStale<TaxonomyAPIModel>(
+      apiUrls.entry(accession, Namespace.taxonomy)
+    );
 
   /* Temporary workaround to get "View proteins" at least */
   /* istanbul ignore next */

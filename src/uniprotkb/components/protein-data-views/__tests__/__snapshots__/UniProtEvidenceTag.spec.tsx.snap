@@ -33,7 +33,7 @@ Array [
 exports[`UniProtKBEvidenceTag components should render automatic  1`] = `
 <DocumentFragment>
   <button
-    aria-controls="2"
+    aria-controls="0"
     aria-expanded="false"
     class="svg-colour-unreviewed evidence-tag"
     data-testid="evidence-tag-trigger"
@@ -52,7 +52,7 @@ exports[`UniProtKBEvidenceTag components should render automatic  1`] = `
   <div
     class="evidence-tag-content "
     data-testid="evidence-tag-content"
-    id="2"
+    id="0"
   />
 </DocumentFragment>
 `;
@@ -87,7 +87,7 @@ exports[`UniProtKBEvidenceTag components should render automatic annotation 1`] 
 exports[`UniProtKBEvidenceTag components should render publications count 1`] = `
 <DocumentFragment>
   <button
-    aria-controls="1"
+    aria-controls="0"
     aria-expanded="false"
     class="svg-colour-reviewed evidence-tag"
     data-testid="evidence-tag-trigger"
@@ -106,7 +106,7 @@ exports[`UniProtKBEvidenceTag components should render publications count 1`] = 
   <div
     class="evidence-tag-content "
     data-testid="evidence-tag-content"
-    id="1"
+    id="0"
   />
 </DocumentFragment>
 `;

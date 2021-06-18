@@ -73,7 +73,9 @@ exports[`Publication component should render 1`] = `
             Sato H.
           </a>
           <button
-            class="button tertiary"
+            aria-expanded="false"
+            class="button tertiary ellipsis-reveal"
+            title="Show more"
             type="button"
           >
             [...]
@@ -92,7 +94,7 @@ exports[`Publication component should render 1`] = `
             class="button tertiary"
             type="button"
           >
-            View abstract [...]
+            View abstract
           </button>
         </div>
       </div>

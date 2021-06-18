@@ -20,13 +20,17 @@ import ClauseList from './ClauseList';
 import useDataApi from '../../shared/hooks/useDataApi';
 
 import { createEmptyClause, defaultQueryFor, getNextId } from '../utils/clause';
+import { pluralise } from '../../shared/utils/utils';
 import { stringify } from '../utils/queryStringProcessor';
 import parseAndMatchQuery from '../utils/parseAndMatchQuery';
 
 import { addMessage } from '../../messages/state/messagesActions';
 
 import apiUrls from '../../shared/config/apiUrls';
-import { Namespace, NamespaceLabels } from '../../shared/types/namespaces';
+import {
+  NamespaceLabels,
+  SearchableNamespace,
+} from '../../shared/types/namespaces';
 import { SearchResultsLocations } from '../../app/config/urls';
 
 import {
@@ -50,7 +54,7 @@ type Props = {
   /**
    * The namespace to initialise the dropdown with
    */
-  initialNamespace: Namespace;
+  initialNamespace: SearchableNamespace;
 };
 interface Style extends CSSProperties {
   // TODO: define and extend the supported custom properties in franklin
@@ -114,9 +118,12 @@ const QueryBuilder: FC<Props> = ({
           dispatch(
             addMessage({
               id: Array.isArray(query) ? query[0] : query ?? v1(),
-              content: `Found ${invalidClauses.length} invalid query term${
-                invalidClauses.length === 1 ? '' : 's'
-              } for ${namespace}: ${invalidClauses
+              content: `Found ${
+                invalidClauses.length
+              } invalid query ${pluralise(
+                'term',
+                invalidClauses.length
+              )} for ${namespace}: ${invalidClauses
                 .map((invalid) => `"${invalid.searchTerm.term}"`)
                 .join(', ')}`,
               format: MessageFormat.POP_UP,
@@ -213,12 +220,14 @@ const QueryBuilder: FC<Props> = ({
             Searching in
             <select
               id="namespace-select"
-              onChange={(e) => setNamespace(e.target.value as Namespace)}
+              onChange={(e) =>
+                setNamespace(e.target.value as SearchableNamespace)
+              }
               value={namespace}
             >
               {Object.keys(NamespaceLabels).map((key) => (
                 <option value={key} key={key}>
-                  {NamespaceLabels[key as Namespace]}
+                  {NamespaceLabels[key as SearchableNamespace]}
                 </option>
               ))}
             </select>

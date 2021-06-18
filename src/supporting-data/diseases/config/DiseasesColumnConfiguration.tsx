@@ -27,7 +27,7 @@ export const defaultColumns = [
   DiseasesColumn.keywords,
 ];
 
-export const primaryKeyColumn = DiseasesColumn.id;
+export const primaryKeyColumns = [DiseasesColumn.id];
 
 const getEntryPath = getEntryPathFor(Namespace.diseases);
 const getEntryPathForKeyword = getEntryPathFor(Namespace.keywords);
@@ -45,35 +45,33 @@ DiseasesColumnConfiguration.set(DiseasesColumn.acronym, {
 
 DiseasesColumnConfiguration.set(DiseasesColumn.alternativeNames, {
   label: 'Alternative names',
-  render: ({ alternativeNames }) =>
-    alternativeNames?.length && (
-      <ExpandableList
-        descriptionString="alternative names"
-        displayNumberOfHiddenItems
-      >
-        {alternativeNames}
-      </ExpandableList>
-    ),
+  render: ({ alternativeNames }) => (
+    <ExpandableList
+      descriptionString="alternative names"
+      displayNumberOfHiddenItems
+    >
+      {alternativeNames}
+    </ExpandableList>
+  ),
 });
 
 // NOTE: should probably be links
 DiseasesColumnConfiguration.set(DiseasesColumn.crossReferences, {
   label: 'Cross references',
   // TODO: https://www.ebi.ac.uk/panda/jira/browse/TRM-25838
-  render: ({ crossReferences }) =>
-    crossReferences?.length && (
-      <ExpandableList
-        descriptionString="cross references"
-        displayNumberOfHiddenItems
-      >
-        {crossReferences.map(
-          ({ databaseType, id, properties }) =>
-            `${databaseType}: ${id}${
-              properties?.length ? ` (${properties.join(', ')})` : ''
-            }`
-        )}
-      </ExpandableList>
-    ),
+  render: ({ crossReferences }) => (
+    <ExpandableList
+      descriptionString="cross references"
+      displayNumberOfHiddenItems
+    >
+      {crossReferences?.map(
+        ({ databaseType, id, properties }) =>
+          `${databaseType}: ${id}${
+            properties?.length ? ` (${properties.join(', ')})` : ''
+          }`
+      )}
+    </ExpandableList>
+  ),
 });
 
 DiseasesColumnConfiguration.set(DiseasesColumn.definition, {
@@ -93,16 +91,15 @@ DiseasesColumnConfiguration.set(DiseasesColumn.id, {
 
 DiseasesColumnConfiguration.set(DiseasesColumn.keywords, {
   label: 'Keywords',
-  render: ({ keywords }) =>
-    keywords?.length && (
-      <ExpandableList descriptionString="keywords" displayNumberOfHiddenItems>
-        {keywords.map(({ name, id }) => (
-          <Link key={id} to={getEntryPathForKeyword(id)}>
-            {name}
-          </Link>
-        ))}
-      </ExpandableList>
-    ),
+  render: ({ keywords }) => (
+    <ExpandableList descriptionString="keywords" displayNumberOfHiddenItems>
+      {keywords?.map(({ name, id }) => (
+        <Link key={id} to={getEntryPathForKeyword(id)}>
+          {name}
+        </Link>
+      ))}
+    </ExpandableList>
+  ),
 });
 
 DiseasesColumnConfiguration.set(DiseasesColumn.name, {

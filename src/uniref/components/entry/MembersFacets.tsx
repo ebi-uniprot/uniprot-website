@@ -27,9 +27,8 @@ const MembersFacet = memo<{ accession: string }>(({ accession }) => {
     size: 0,
   });
 
-  const { loading, data, isStale } = useDataApiWithStale<UniRefMembersResults>(
-    facetsURL
-  );
+  const { loading, data, isStale } =
+    useDataApiWithStale<UniRefMembersResults>(facetsURL);
 
   if (loading && !data) {
     return <Loader />;

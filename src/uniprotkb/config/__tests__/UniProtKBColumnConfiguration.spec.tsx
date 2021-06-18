@@ -1,29 +1,26 @@
-import { MemoryRouter } from 'react-router-dom';
-
 import UniProtKBColumnConfiguration from '../UniProtKBColumnConfiguration';
 
 import uniProtKbConverter from '../../adapters/uniProtkbConverter';
 import customRender from '../../../shared/__test-helpers__/customRender';
 
-import { resetUuidV1 } from '../../../../__mocks__/uuid';
-
-import data from '../../__mocks__/entryModelData.json';
+import data from '../../__mocks__/uniProtKBEntryModelData';
 
 jest.mock('../../../tools/utils/storage');
 
 describe('UniProtKBColumnConfiguration component', () => {
-  let transformedData;
-
   beforeAll(() => {
-    transformedData = uniProtKbConverter(data);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     window.SVGElement.prototype.getBBox = () => ({
       width: 10,
       height: 10,
     });
   });
 
-  beforeEach(() => {
-    resetUuidV1();
+  afterAll(() => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    delete window.SVGElement.prototype.getBBox;
   });
 
   // TODO: find mock data to generate non-null snapshot for:
@@ -32,7 +29,7 @@ describe('UniProtKBColumnConfiguration component', () => {
     `should render column "%s"`,
     (key, column) => {
       const { asFragment } = customRender(
-        <MemoryRouter>{column.render(transformedData)}</MemoryRouter>
+        <>{column.render(uniProtKbConverter(data))}</>
       );
       expect(asFragment()).toMatchSnapshot(key);
     }

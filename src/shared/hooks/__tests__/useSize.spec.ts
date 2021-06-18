@@ -1,17 +1,6 @@
-import { renderHook, cleanup, act } from '@testing-library/react-hooks';
+import { renderHook, act } from '@testing-library/react-hooks';
 
 import useSize from '../useSize';
-
-let element;
-
-beforeAll(() => {
-  element = document.createElement('p');
-});
-
-afterAll(() => {
-  element = null;
-  cleanup();
-});
 
 /**
  * JSDOM doesn't render elements and gives them no size, so we're not going to
@@ -20,14 +9,14 @@ afterAll(() => {
 
 describe('useSize', () => {
   test('basic usage', () => {
-    const ref = { current: element };
+    const ref = { current: document.createElement('p') };
     const { result, rerender } = renderHook(() => useSize(ref));
 
     const firstSize = result.current[0];
 
     expect(typeof firstSize).toBe('object');
     // only testing this as this is what we'll need
-    expect(firstSize.width).toBe(0);
+    expect(firstSize?.width).toBe(0);
 
     // rerender, as if for whatever reason, not resizing-related
     rerender(ref);

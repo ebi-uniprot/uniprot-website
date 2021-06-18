@@ -34,7 +34,7 @@ export const defaultColumns = [
   TaxonomyColumn.lineage,
 ];
 
-export const primaryKeyColumn = TaxonomyColumn.id;
+export const primaryKeyColumns = [TaxonomyColumn.id];
 
 const getEntryPath = getEntryPathFor(Namespace.taxonomy);
 
@@ -51,16 +51,15 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.commonName, {
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.hosts, {
   label: 'Hosts',
-  render: ({ hosts }) =>
-    hosts?.length && (
-      <ExpandableList descriptionString="hosts" displayNumberOfHiddenItems>
-        {hosts.map(({ taxonId, scientificName, commonName }) => (
-          <Link key={taxonId} to={getEntryPath(taxonId)}>
-            {commonName || scientificName || taxonId}
-          </Link>
-        ))}
-      </ExpandableList>
-    ),
+  render: ({ hosts }) => (
+    <ExpandableList descriptionString="hosts" displayNumberOfHiddenItems>
+      {hosts?.map(({ taxonId, scientificName, commonName }) => (
+        <Link key={taxonId} to={getEntryPath(taxonId)}>
+          {commonName || scientificName || taxonId}
+        </Link>
+      ))}
+    </ExpandableList>
+  ),
 });
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.id, {
@@ -88,14 +87,13 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.lineage, {
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.links, {
   label: 'Links',
-  render: ({ links }) =>
-    links?.length && (
-      <ExpandableList descriptionString="links" displayNumberOfHiddenItems>
-        {links.map((link) => (
-          <ExternalLink key={link} url={link} tidyUrl />
-        ))}
-      </ExpandableList>
-    ),
+  render: ({ links }) => (
+    <ExpandableList descriptionString="links" displayNumberOfHiddenItems>
+      {links?.map((link) => (
+        <ExternalLink key={link} url={link} tidyUrl />
+      ))}
+    </ExpandableList>
+  ),
 });
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.mnemonic, {
@@ -105,12 +103,11 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.mnemonic, {
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.otherNames, {
   label: 'Other names',
-  render: ({ otherNames }) =>
-    otherNames?.length && (
-      <ExpandableList descriptionString="names" displayNumberOfHiddenItems>
-        {otherNames}
-      </ExpandableList>
-    ),
+  render: ({ otherNames }) => (
+    <ExpandableList descriptionString="names" displayNumberOfHiddenItems>
+      {otherNames}
+    </ExpandableList>
+  ),
 });
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.parent, {
@@ -135,27 +132,25 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.scientificName, {
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.strains, {
   label: 'Strains',
-  render: ({ strains }) =>
-    strains?.length && (
-      <ExpandableList descriptionString="strains" displayNumberOfHiddenItems>
-        {strains.map((strain) => (
-          <>
-            {strain.name}
-            {strain.synonyms?.length && ` (${strain.synonyms.join(', ')})`}
-          </>
-        ))}
-      </ExpandableList>
-    ),
+  render: ({ strains }) => (
+    <ExpandableList descriptionString="strains" displayNumberOfHiddenItems>
+      {strains?.map((strain) => (
+        <>
+          {strain.name}
+          {strain.synonyms?.length && ` (${strain.synonyms.join(', ')})`}
+        </>
+      ))}
+    </ExpandableList>
+  ),
 });
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.synonyms, {
   label: 'Synonyms',
-  render: ({ synonyms }) =>
-    synonyms?.length && (
-      <ExpandableList descriptionString="synonyms" displayNumberOfHiddenItems>
-        {synonyms}
-      </ExpandableList>
-    ),
+  render: ({ synonyms }) => (
+    <ExpandableList descriptionString="synonyms" displayNumberOfHiddenItems>
+      {synonyms}
+    </ExpandableList>
+  ),
 });
 
 export default TaxonomyColumnConfiguration;

@@ -1,19 +1,17 @@
-import { fireEvent } from '@testing-library/react';
+import { screen, fireEvent } from '@testing-library/react';
 
 import customRender from '../../../shared/__test-helpers__/customRender';
 
-import AlignmentView, { Tool, View } from '../AlignmentView';
+import AlignmentView, { MSAInput, Tool, View } from '../AlignmentView';
 
 import mockData from '../__mocks__/msaMocks.json';
-import { resetUuidV1 } from '../../../../__mocks__/uuid';
 
 describe('AlignmentView', () => {
   describe('BLAST', () => {
-    let rendered;
-    let alignment;
+    let rendered: ReturnType<typeof customRender>;
+    let alignment: MSAInput[];
     beforeEach(() => {
-      resetUuidV1();
-      alignment = mockData.BLAST;
+      alignment = mockData.BLAST as MSAInput[];
       rendered = customRender(
         <div className="main-content-and-footer">
           <AlignmentView
@@ -32,12 +30,11 @@ describe('AlignmentView', () => {
     });
 
     it('should update annotation on selection', () => {
-      const { getByText, getByTestId } = rendered;
-      const annotationMenu = getByText('Select annotation');
+      const annotationMenu = screen.getByText('Select annotation');
       fireEvent.click(annotationMenu);
-      const regionButton = getByText('Nucleotide binding');
+      const regionButton = screen.getByText('Nucleotide binding');
       fireEvent.click(regionButton);
-      const trackLabel = getByTestId('track-label');
+      const trackLabel = screen.getByTestId('track-label');
       // Need to get the 2nd alignment data as that's the match track with
       // feature data
       expect(trackLabel.textContent).toBe(
@@ -47,12 +44,11 @@ describe('AlignmentView', () => {
   });
 
   describe('Align', () => {
-    let rendered;
-    let alignment;
+    let rendered: ReturnType<typeof customRender>;
+    let alignment: MSAInput[];
     const handleEntrySelection = jest.fn();
     beforeEach(() => {
-      resetUuidV1();
-      alignment = mockData.Align;
+      alignment = mockData.Align as MSAInput[];
       rendered = customRender(
         <div className="main-content-and-footer">
           <AlignmentView
@@ -73,12 +69,11 @@ describe('AlignmentView', () => {
     });
 
     it('should update annotation on selection', () => {
-      const { getByText, getByTestId } = rendered;
-      const annotationMenu = getByText('Select annotation');
+      const annotationMenu = screen.getByText('Select annotation');
       fireEvent.click(annotationMenu);
-      const regionButton = getByText('Nucleotide binding');
+      const regionButton = screen.getByText('Nucleotide binding');
       fireEvent.click(regionButton);
-      const trackLabel = getByTestId('track-label');
+      const trackLabel = screen.getByTestId('track-label');
       expect(trackLabel.textContent).toBe(
         `${alignment[0].accession}:Nucleotide binding`
       );

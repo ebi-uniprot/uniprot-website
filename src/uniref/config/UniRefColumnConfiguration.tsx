@@ -7,6 +7,9 @@ import TaxonomyView from '../../shared/components/entry/TaxonomyView';
 
 import { getEntryPath } from '../../app/config/urls';
 import parseDate from '../../shared/utils/parseDate';
+import { pluralise } from '../../shared/utils/utils';
+
+import { fromColumnConfig } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 
 import { Namespace } from '../../shared/types/namespaces';
 import { UniRefLiteAPIModel } from '../adapters/uniRefConverter';
@@ -26,6 +29,7 @@ export enum UniRefColumn {
   members = 'members',
   count = 'count',
   created = 'created',
+  from = 'from',
 }
 
 export const defaultColumns = [
@@ -38,7 +42,7 @@ export const defaultColumns = [
   UniRefColumn.identity,
 ];
 
-export const primaryKeyColumn = UniRefColumn.id;
+export const primaryKeyColumns = [UniRefColumn.id];
 
 export const UniRefColumnConfiguration: ColumnConfiguration<
   UniRefColumn,
@@ -181,8 +185,8 @@ UniRefColumnConfiguration.set(UniRefColumn.members, {
             variant="tertiary"
             to={getEntryPath(Namespace.uniref, id)}
           >
-            {memberCount - CUT_OFF} more member
-            {memberCount - CUT_OFF === 1 ? '' : 's'}
+            {memberCount - CUT_OFF} more{' '}
+            {pluralise('member', memberCount - CUT_OFF)}
           </Button>
         )}
       </ul>
@@ -194,7 +198,7 @@ UniRefColumnConfiguration.set(UniRefColumn.count, {
   render: ({ memberCount }) =>
     memberCount && (
       <>
-        {memberCount} member{memberCount > 1 && 's'}
+        {memberCount} {pluralise('member', memberCount)}
       </>
     ),
 });
@@ -206,5 +210,7 @@ UniRefColumnConfiguration.set(UniRefColumn.created, {
       <time dateTime={parseDate(updated)?.toISOString()}>{updated}</time>
     ),
 });
+
+UniRefColumnConfiguration.set(UniRefColumn.from, fromColumnConfig);
 
 export default UniRefColumnConfiguration;

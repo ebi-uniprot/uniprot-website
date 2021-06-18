@@ -3,7 +3,7 @@
  */
 import {
   hasContent,
-  removeProperty,
+  pluralise,
   getBEMClassName,
   formatPercentage,
   isSameEntry,
@@ -39,11 +39,18 @@ describe('Model Utils', () => {
   });
 });
 
-test('removeProperty removes only specified property and returns a deep copy of object ', () => {
-  const obj = { foo: { bar: [1] }, baz: -1 };
-  const objWithoutProprety = removeProperty(obj, 'baz');
-  expect(objWithoutProprety).toEqual({ foo: { bar: [1] } });
-  expect(objWithoutProprety).not.toBe(obj);
+describe('pluralise', () => {
+  it("shouldn't pluralise if count is one", () => {
+    expect(pluralise('cat', 1)).toBe('cat');
+    expect(pluralise('mouse', 1, 'mice')).toBe('mouse');
+  });
+
+  it('should pluralise if count is not one', () => {
+    expect(pluralise('cat', 0)).toBe('cats');
+    expect(pluralise('mouse', 0, 'mice')).toBe('mice');
+    expect(pluralise('cat', 2)).toBe('cats');
+    expect(pluralise('mouse', 2, 'mice')).toBe('mice');
+  });
 });
 
 describe('getBEMClassName', () => {

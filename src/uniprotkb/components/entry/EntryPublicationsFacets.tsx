@@ -20,13 +20,15 @@ const EntryPublicationsFacets: FC<{ accession: string }> = ({ accession }) => {
   const { selectedFacets } = getParamsFromURL(search);
   const url = getUniProtPublicationsQueryUrl({
     accession,
+    facets: ['types', 'categories', 'is_large_scale'],
     selectedFacets,
     size: 0,
   });
 
-  const { loading, data, status, error, isStale } = useDataApiWithStale<{
-    facets: FacetObject[];
-  }>(url);
+  const { loading, data, status, error, isStale } =
+    useDataApiWithStale<{
+      facets: FacetObject[];
+    }>(url);
 
   if (error) {
     return <ErrorHandler status={status} />;

@@ -24,17 +24,17 @@ export const NameWithEvidence: FC<{ data: ValueWithEvidence }> = ({ data }) => (
 
 const ProteinNamesViewFlat: FC<{
   names?: ProteinNames;
-  includeEvidence?: boolean;
-}> = ({ names, includeEvidence = false }) => {
+  noEvidence?: boolean;
+}> = ({ names, noEvidence = false }) => {
   if (!names) {
     return null;
   }
   return (
     <>
-      {includeEvidence ? (
-        <NameWithEvidence data={names.fullName} />
-      ) : (
+      {noEvidence ? (
         `${names.fullName.value}`
+      ) : (
+        <NameWithEvidence data={names.fullName} />
       )}
       {names.shortNames && (
         <>
@@ -44,10 +44,10 @@ const ProteinNamesViewFlat: FC<{
               // eslint-disable-next-line react/no-array-index-key
               <Fragment key={index}>
                 {index > 0 && '; '}
-                {includeEvidence ? (
-                  <NameWithEvidence data={shortName} />
-                ) : (
+                {noEvidence ? (
                   `${shortName.value}`
+                ) : (
+                  <NameWithEvidence data={shortName} />
                 )}
               </Fragment>
             )
@@ -87,33 +87,29 @@ const ProteinDescriptionView: FC<{
 };
 
 export const ECNumbersView: FC<{
-  ecNumbers: ValueWithEvidence[];
-  isCompact?: boolean;
-}> = ({ ecNumbers, isCompact = false }) => (
+  ecNumbers?: ValueWithEvidence[];
+  noEvidence?: boolean;
+}> = ({ ecNumbers, noEvidence = false }) => (
   <>
-    {ecNumbers.map(
-      (ecNumber, index): JSX.Element =>
-        isCompact ? (
-          // eslint-disable-next-line react/no-array-index-key
-          <Fragment key={index}>{ecNumber.value}</Fragment>
-        ) : (
-          // eslint-disable-next-line react/no-array-index-key
-          <NameWithEvidence data={ecNumber} key={index} />
-        )
-    )}
+    {ecNumbers?.map((ecNumber, index) => (
+      // eslint-disable-next-line react/no-array-index-key
+      <Fragment key={index}>
+        {noEvidence ? ecNumber.value : <NameWithEvidence data={ecNumber} />}
+      </Fragment>
+    ))}
   </>
 );
 
 const getInfoListForNames = (
   name: ProteinNames,
-  isCompact: boolean
+  noEvidence: boolean
 ): { title: string; content: JSX.Element }[] => {
   const infoData = [];
 
   if (name.fullName) {
     infoData.push({
       title: 'Recommended name',
-      content: isCompact ? (
+      content: noEvidence ? (
         <>{name.fullName.value}</>
       ) : (
         <NameWithEvidence data={name.fullName} />
@@ -124,7 +120,7 @@ const getInfoListForNames = (
     infoData.push({
       title: 'EC number',
       content: (
-        <ECNumbersView ecNumbers={name.ecNumbers} isCompact={isCompact} />
+        <ECNumbersView ecNumbers={name.ecNumbers} noEvidence={noEvidence} />
       ),
     });
   }
@@ -138,7 +134,7 @@ const getInfoListForNames = (
               // eslint-disable-next-line react/no-array-index-key
               <Fragment key={i}>
                 {i > 0 && '; '}
-                {isCompact ? (
+                {noEvidence ? (
                   shortName.value
                 ) : (
                   <NameWithEvidence data={shortName} />
@@ -153,21 +149,23 @@ const getInfoListForNames = (
   return infoData;
 };
 
-const ProteinNamesView: FC<{
+type ProteinNamesViewProps = {
   proteinNames?: ProteinNamesData;
-  isCompact?: boolean;
+  noEvidence?: boolean;
   noTitles?: boolean;
-}> = ({
+};
+
+const ProteinNamesView = ({
   proteinNames,
-  isCompact = false,
+  noEvidence = false,
   noTitles = false,
-}): JSX.Element | null => {
+}: ProteinNamesViewProps) => {
   if (!proteinNames) {
     return null;
   }
   let infoData: { title: string; content: JSX.Element }[] = [];
   if (proteinNames.recommendedName) {
-    infoData = getInfoListForNames(proteinNames.recommendedName, isCompact);
+    infoData = getInfoListForNames(proteinNames.recommendedName, noEvidence);
   }
   if (proteinNames.alternativeNames) {
     infoData.push({
@@ -178,7 +176,7 @@ const ProteinNamesView: FC<{
             <ProteinNamesViewFlat
               key={index} // eslint-disable-line react/no-array-index-key
               names={alternativeName}
-              includeEvidence={!isCompact}
+              noEvidence={noEvidence}
             />
           ))}
         </ExpandableList>
@@ -207,7 +205,7 @@ const ProteinNamesView: FC<{
             <ProteinNamesViewFlat
               key={index} // eslint-disable-line react/no-array-index-key
               names={submission}
-              includeEvidence={!isCompact}
+              noEvidence={noEvidence}
             />
           ))}
         </ExpandableList>
@@ -217,7 +215,7 @@ const ProteinNamesView: FC<{
   if (proteinNames.biotechName) {
     infoData.push({
       title: 'Biotech name',
-      content: isCompact ? (
+      content: noEvidence ? (
         <>{proteinNames.biotechName.value}</>
       ) : (
         <NameWithEvidence data={proteinNames.biotechName} />
@@ -228,10 +226,20 @@ const ProteinNamesView: FC<{
   if (proteinNames.cdAntigenNames) {
     infoData.push({
       title: 'CD Antigen Name',
-      content: isCompact ? (
-        <>{proteinNames.cdAntigenNames.value}</>
-      ) : (
-        <NameWithEvidence data={proteinNames.cdAntigenNames} />
+      content: (
+        <ExpandableList descriptionString="CD antigen names">
+          {proteinNames.cdAntigenNames.map((cdAntigenName, index) => (
+            <Fragment
+              key={index} // eslint-disable-line react/no-array-index-key
+            >
+              {noEvidence ? (
+                cdAntigenName.value
+              ) : (
+                <NameWithEvidence data={cdAntigenName} />
+              )}
+            </Fragment>
+          ))}
+        </ExpandableList>
       ),
     });
   }
@@ -239,10 +247,16 @@ const ProteinNamesView: FC<{
   if (proteinNames.innNames) {
     infoData.push({
       title: 'INN Name',
-      content: isCompact ? (
-        <>{proteinNames.innNames.value}</>
-      ) : (
-        <NameWithEvidence data={proteinNames.innNames} />
+      content: (
+        <ExpandableList descriptionString="INN names">
+          {proteinNames.innNames.map((innName, index) => (
+            <Fragment
+              key={index} // eslint-disable-line react/no-array-index-key
+            >
+              {noEvidence ? innName.value : <NameWithEvidence data={innName} />}
+            </Fragment>
+          ))}
+        </ExpandableList>
       ),
     });
   }
@@ -250,8 +264,8 @@ const ProteinNamesView: FC<{
   return (
     <InfoList
       infoData={infoData}
-      isCompact={isCompact}
-      highlightFirstItem={isCompact}
+      isCompact={noEvidence}
+      highlightFirstItem={noEvidence}
       noTitles={noTitles}
     />
   );

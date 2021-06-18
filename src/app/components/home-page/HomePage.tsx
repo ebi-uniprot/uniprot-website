@@ -14,7 +14,10 @@ import ErrorBoundary from '../../../shared/components/error-component/ErrorBound
 
 import useReducedMotion from '../../../shared/hooks/useReducedMotion';
 
-import { Namespace } from '../../../shared/types/namespaces';
+import {
+  Namespace,
+  SearchableNamespace,
+} from '../../../shared/types/namespaces';
 
 import helper from '../../../shared/styles/helper.module.scss';
 import './styles/home-page.scss';
@@ -33,14 +36,14 @@ const mission = (
       <span className={helper['no-wrap']}>
         UniProt&nbsp;
         <sup>
-          <CitedIcon width="1.5ch" />
+          <CitedIcon width="1em" />
         </sup>
       </span>
     </a>
   </>
 );
 
-const namespaceFindYour: Record<Namespace, string> = {
+const namespaceFindYour: Record<SearchableNamespace, string> = {
   // Main data
   [Namespace.uniprotkb]: 'protein',
   [Namespace.uniref]: 'protein cluster',
@@ -58,9 +61,8 @@ const namespaceFindYour: Record<Namespace, string> = {
 const HomePageHeader = memo(() => {
   const prefersReducedMotion = useReducedMotion();
 
-  const [selectedNamespace, setSelectedNamespace] = useState(
-    Namespace.uniprotkb
-  );
+  const [selectedNamespace, setSelectedNamespace] =
+    useState<SearchableNamespace>(Namespace.uniprotkb);
 
   const text = namespaceFindYour[selectedNamespace];
 

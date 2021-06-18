@@ -11,10 +11,21 @@ import { Namespace } from '../../types/namespaces';
 const ResultsDataHeader: FC<{
   total?: number;
   selectedEntries: string[];
+  namespaceFallback?: Namespace;
   titlePostscript?: ReactNode;
   accessions?: string[];
-}> = ({ total = 0, selectedEntries, titlePostscript, accessions }) => {
-  const namespace = useNS() || Namespace.uniprotkb;
+  base?: string;
+  disableCardToggle?: boolean; // Note: remove if we have card view for id mapping
+}> = ({
+  total = 0,
+  selectedEntries,
+  namespaceFallback,
+  titlePostscript,
+  accessions,
+  base,
+  disableCardToggle = false,
+}) => {
+  const namespace = useNS() || namespaceFallback || Namespace.uniprotkb;
   const title = useMemo(() => namespaceToolTitles[namespace], [namespace]);
 
   return (
@@ -28,6 +39,9 @@ const ResultsDataHeader: FC<{
         total={total}
         selectedEntries={selectedEntries}
         accessions={accessions}
+        namespaceFallback={namespace}
+        disableCardToggle={disableCardToggle}
+        base={base}
       />
     </>
   );

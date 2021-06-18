@@ -1,4 +1,11 @@
-import { IDMappingNamespace } from '../id-mapping/types/idMappingServerParameters';
+import queryString from 'query-string';
+
+import {
+  createFacetsQueryString,
+  apiPrefix,
+} from '../../shared/config/apiUrls';
+import joinUrl from '../../shared/config/testingApiUrls'; // TODO: revert import to: import joinUrl from 'url-join'
+import { SelectedFacet } from '../../uniprotkb/types/resultsTypes';
 import { JobTypes } from '../types/toolsJobTypes';
 
 type CommonResultFormats =
@@ -43,9 +50,15 @@ type Return<T extends JobTypes> = Readonly<{
   runUrl: string;
   statusUrl: (jobId: string) => string;
   resultUrl: (
-    jobId: string,
-    extra: { idMappingTarget?: IDMappingNamespace; format?: ResultFormat[T] }
+    redirectUrl: string,
+    extra: {
+      format?: ResultFormat[T];
+      facets?: string[];
+      size?: number;
+      selectedFacets?: SelectedFacet[];
+    }
   ) => string;
+  detailsUrl?: (jobId: string) => string;
 }>;
 
 function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
@@ -58,15 +71,19 @@ function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
       baseURL = 'https://www.ebi.ac.uk/Tools/services/rest/ncbiblast';
       break;
     case JobTypes.ID_MAPPING:
-      // TODO: change to non VPN URL
-      baseURL = 'http://wp-np2-be.ebi.ac.uk:8096/uniprot/api/idmapping';
+      baseURL = joinUrl(apiPrefix, '/idmapping');
       return Object.freeze({
         runUrl: `${baseURL}/run`,
-        statusUrl: (jobId) => `${baseURL}/status/${jobId}`,
-        resultUrl: (jobId, { idMappingTarget }) =>
-          `${baseURL}${
-            idMappingTarget ? `/${idMappingTarget}` : ''
-          }/results/${jobId}`,
+        statusUrl: (jobId) =>
+          // The cachebust extra query is just here to avoid using cached value
+          `${baseURL}/status/${jobId}?cachebust=${new Date().getTime()}`,
+        resultUrl: (redirectUrl, { facets, size, selectedFacets = [] }) =>
+          `${redirectUrl}?${queryString.stringify({
+            size,
+            facets: facets?.join(','),
+            query: createFacetsQueryString(selectedFacets),
+          })}`,
+        detailsUrl: (jobId) => `${baseURL}/details/${jobId}`,
       });
     case JobTypes.PEPTIDE_SEARCH:
       baseURL =

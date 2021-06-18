@@ -1,60 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UniParcColumnConfiguration component should render column "CDD": CDD 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  />
-</DocumentFragment>
-`;
+exports[`UniParcColumnConfiguration component should render column "CDD": CDD 1`] = `<DocumentFragment />`;
 
-exports[`UniParcColumnConfiguration component should render column "Gene3D": Gene3D 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  />
-</DocumentFragment>
-`;
+exports[`UniParcColumnConfiguration component should render column "Gene3D": Gene3D 1`] = `<DocumentFragment />`;
 
-exports[`UniParcColumnConfiguration component should render column "HAMAP": HAMAP 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  />
-</DocumentFragment>
-`;
+exports[`UniParcColumnConfiguration component should render column "HAMAP": HAMAP 1`] = `<DocumentFragment />`;
 
-exports[`UniParcColumnConfiguration component should render column "PANTHER": PANTHER 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  />
-</DocumentFragment>
-`;
+exports[`UniParcColumnConfiguration component should render column "PANTHER": PANTHER 1`] = `<DocumentFragment />`;
 
-exports[`UniParcColumnConfiguration component should render column "PIRSF": PIRSF 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  />
-</DocumentFragment>
-`;
+exports[`UniParcColumnConfiguration component should render column "PIRSF": PIRSF 1`] = `<DocumentFragment />`;
 
-exports[`UniParcColumnConfiguration component should render column "PRINTS": PRINTS 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  />
-</DocumentFragment>
-`;
+exports[`UniParcColumnConfiguration component should render column "PRINTS": PRINTS 1`] = `<DocumentFragment />`;
 
-exports[`UniParcColumnConfiguration component should render column "PROSITE": PROSITE 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  />
-</DocumentFragment>
-`;
+exports[`UniParcColumnConfiguration component should render column "PROSITE": PROSITE 1`] = `<DocumentFragment />`;
 
 exports[`UniParcColumnConfiguration component should render column "Pfam": Pfam 1`] = `
 <DocumentFragment>
@@ -97,37 +55,13 @@ exports[`UniParcColumnConfiguration component should render column "Pfam": Pfam 
 </DocumentFragment>
 `;
 
-exports[`UniParcColumnConfiguration component should render column "SFLD": SFLD 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  />
-</DocumentFragment>
-`;
+exports[`UniParcColumnConfiguration component should render column "SFLD": SFLD 1`] = `<DocumentFragment />`;
 
-exports[`UniParcColumnConfiguration component should render column "SMART": SMART 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  />
-</DocumentFragment>
-`;
+exports[`UniParcColumnConfiguration component should render column "SMART": SMART 1`] = `<DocumentFragment />`;
 
-exports[`UniParcColumnConfiguration component should render column "SUPFAM": SUPFAM 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  />
-</DocumentFragment>
-`;
+exports[`UniParcColumnConfiguration component should render column "SUPFAM": SUPFAM 1`] = `<DocumentFragment />`;
 
-exports[`UniParcColumnConfiguration component should render column "TIGRFAMs": TIGRFAMs 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  />
-</DocumentFragment>
-`;
+exports[`UniParcColumnConfiguration component should render column "TIGRFAMs": TIGRFAMs 1`] = `<DocumentFragment />`;
 
 exports[`UniParcColumnConfiguration component should render column "accession": accession 1`] = `
 <DocumentFragment>
@@ -175,6 +109,19 @@ exports[`UniParcColumnConfiguration component should render column "accession": 
     </li>
     <li>
       <a
+        href="/uniprotkb/A0A7I8V511"
+      >
+        <span
+          class="entry-title__status icon--unreviewed"
+          title="This marks an unreviewed UniProtKB entry"
+        >
+          <test-file-stub />
+        </span>
+        A0A7I8V511
+      </a>
+    </li>
+    <li>
+      <a
         href="/uniprotkb/Q0GNZ6"
       >
         <span
@@ -187,25 +134,12 @@ exports[`UniParcColumnConfiguration component should render column "accession": 
       </a>
     </li>
     <li>
-      <a
-        href="/uniprotkb/Q6RZL4"
-      >
-        <span
-          class="entry-title__status icon--unreviewed"
-          title="This marks an unreviewed UniProtKB entry"
-        >
-          <test-file-stub />
-        </span>
-        Q6RZL4
-      </a>
-    </li>
-    <li>
       <button
         class="button tertiary expandable-list__action"
         data-testid="expandable-message"
         type="button"
       >
-        3 more entries
+        4 more entries
       </button>
     </li>
   </ul>
@@ -228,6 +162,8 @@ exports[`UniParcColumnConfiguration component should render column "first_seen":
 </DocumentFragment>
 `;
 
+exports[`UniParcColumnConfiguration component should render column "from": from 1`] = `<DocumentFragment />`;
+
 exports[`UniParcColumnConfiguration component should render column "gene": gene 1`] = `
 <DocumentFragment>
   <ul
@@ -240,13 +176,13 @@ exports[`UniParcColumnConfiguration component should render column "gene": gene 
       L1R
     </li>
     <li>
+      VACV VK01 RKI-115 CDS
+    </li>
+    <li>
       RPXV077
     </li>
     <li>
       N1R
-    </li>
-    <li>
-      CPXV_FIN2000_MAN_093
     </li>
     <li>
       <button
@@ -264,9 +200,9 @@ exports[`UniParcColumnConfiguration component should render column "gene": gene 
 exports[`UniParcColumnConfiguration component should render column "last_seen": last_seen 1`] = `
 <DocumentFragment>
   <time
-    datetime="2021-02-10T00:00:00.000Z"
+    datetime="2021-04-07T00:00:00.000Z"
   >
-    2021-02-10
+    2021-04-07
   </time>
 </DocumentFragment>
 `;
@@ -292,6 +228,14 @@ exports[`UniParcColumnConfiguration component should render column "organism": o
     </li>
     <li>
       <a
+        href="/taxonomy/9606"
+        title="Homo sapiens (Human), taxon ID 9606"
+      >
+        Homo sapiens (Human)
+      </a>
+    </li>
+    <li>
+      <a
         href="/taxonomy/397342"
         title="Horsepox virus (HSPV), taxon ID 397342"
       >
@@ -312,14 +256,6 @@ exports[`UniParcColumnConfiguration component should render column "organism": o
         title="Vaccinia virus, taxon ID 10245"
       >
         Vaccinia virus
-      </a>
-    </li>
-    <li>
-      <a
-        href="/taxonomy/10243"
-        title="Cowpox virus (CPV), taxon ID 10243"
-      >
-        Cowpox virus (CPV)
       </a>
     </li>
     <li>
@@ -350,6 +286,14 @@ exports[`UniParcColumnConfiguration component should render column "organism_id"
     </li>
     <li>
       <a
+        href="/taxonomy/9606"
+        title="Homo sapiens (Human), taxon ID 9606"
+      >
+        9606
+      </a>
+    </li>
+    <li>
+      <a
         href="/taxonomy/397342"
         title="Horsepox virus (HSPV), taxon ID 397342"
       >
@@ -370,14 +314,6 @@ exports[`UniParcColumnConfiguration component should render column "organism_id"
         title="Vaccinia virus, taxon ID 10245"
       >
         10245
-      </a>
-    </li>
-    <li>
-      <a
-        href="/taxonomy/10243"
-        title="Cowpox virus (CPV), taxon ID 10243"
-      >
-        10243
       </a>
     </li>
     <li>
@@ -405,13 +341,13 @@ exports[`UniParcColumnConfiguration component should render column "protein": pr
       IMV membrane protein
     </li>
     <li>
+      Polyprotein
+    </li>
+    <li>
       HSPV089
     </li>
     <li>
       RPXV077
-    </li>
-    <li>
-      L1R
     </li>
     <li>
       <button

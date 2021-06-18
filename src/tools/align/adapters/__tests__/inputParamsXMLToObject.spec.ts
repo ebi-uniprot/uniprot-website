@@ -6,9 +6,8 @@ import inputParamsXMLToObject from '../inputParamsXMLToObject';
 
 const readFile = promisify(fs.readFile);
 
-let inputParams;
-let inputParamsWithTaxons;
-let sequence;
+let inputParams: string;
+let sequence: string;
 
 beforeAll(async () => {
   inputParams = await readFile(

@@ -69,7 +69,10 @@ export const UniProtEvidenceTagContent: FC<{
   );
 };
 
-const UniProtKBEvidenceTag: FC<{ evidences: Evidence[] }> = ({ evidences }) => {
+const UniProtKBEvidenceTag = ({ evidences }: { evidences?: Evidence[] }) => {
+  if (!evidences) {
+    return null;
+  }
   const evidenceObj = groupBy(evidences, (evidence) => evidence.evidenceCode);
   const evidenceTags = Object.entries(evidenceObj).map(
     ([evidenceCode, references]) => {

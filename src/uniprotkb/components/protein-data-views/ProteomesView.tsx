@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { InfoList, ExpandableList } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
@@ -8,42 +7,33 @@ import { Namespace } from '../../../shared/types/namespaces';
 
 import { Xref } from '../../../shared/types/apiModel';
 
-const ProteomesId: FC<{ id?: string }> = ({ id }) =>
-  id ? <Link to={getEntryPath(Namespace.proteomes, id)}>{id}</Link> : null;
-
-const ProteomesComponents: FC<{
-  components?: { [key: string]: string };
-}> = ({ components }) => (
-  <>{components && Object.values(components).join(', ')}</>
-);
-
-const ProteomesView: FC<{ data?: Xref[]; isCompact?: boolean }> = ({
-  data,
-  isCompact = false,
-}) => {
-  if (!data) {
-    return null;
-  }
-  return (
-    <ExpandableList descriptionString="proteomes" displayNumberOfHiddenItems>
-      {data.map((proteome) => (
-        <InfoList
-          key={`${proteome.id}-${proteome.properties?.Component}`}
-          isCompact={isCompact}
-          infoData={[
-            {
-              title: 'Identifier',
-              content: <ProteomesId id={proteome.id} />,
-            },
-            {
-              title: 'Component',
-              content: <ProteomesComponents components={proteome.properties} />,
-            },
-          ]}
-        />
-      ))}
-    </ExpandableList>
-  );
+type Props = {
+  data?: Xref[];
+  isCompact?: boolean;
 };
+const ProteomesView = ({ data, isCompact = false }: Props) => (
+  <ExpandableList descriptionString="proteomes" displayNumberOfHiddenItems>
+    {data?.map((proteome) => (
+      <InfoList
+        key={`${proteome.id}-${proteome.properties?.Component}`}
+        isCompact={isCompact}
+        infoData={[
+          {
+            title: 'Identifier',
+            content: proteome.id && (
+              <Link to={getEntryPath(Namespace.proteomes, proteome.id)}>
+                {proteome.id}
+              </Link>
+            ),
+          },
+          {
+            title: 'Component',
+            content: proteome.properties?.Component,
+          },
+        ]}
+      />
+    ))}
+  </ExpandableList>
+);
 
 export default ProteomesView;

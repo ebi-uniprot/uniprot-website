@@ -11,19 +11,23 @@ export type StructureUIModel = {
   structures?: GroupedStructureInfo;
 } & UIModel;
 
-const featuresCategories = [FeatureType.HELIX, FeatureType.STRAND];
+const featuresCategories: FeatureType[] = ['Helix', 'Beta strand'];
 
-const convertStructure = (data: UniProtkbAPIModel) => {
+const convertStructure = (
+  data: UniProtkbAPIModel,
+  uniProtKBCrossReferences?: Xref[]
+) => {
   const structureData: StructureUIModel = convertSection(
     data,
     undefined,
     undefined,
     featuresCategories,
-    EntrySection.Structure
+    EntrySection.Structure,
+    uniProtKBCrossReferences
   );
   // Extract xrefs to PDB
-  if (data.uniProtKBCrossReferences) {
-    const structureInfo = data.uniProtKBCrossReferences
+  if (uniProtKBCrossReferences) {
+    const structureInfo = uniProtKBCrossReferences
       .filter((ref) => ref.database === 'PDB')
       .map((item) => {
         const method = item.properties && item.properties.Method;

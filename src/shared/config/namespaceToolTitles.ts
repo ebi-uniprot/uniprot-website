@@ -14,10 +14,11 @@ const titles: Record<Namespace | JobTypes, string> = {
   [Namespace.diseases]: 'Human diseases',
   [Namespace.database]: 'Cross-referenced databases',
   [Namespace.locations]: 'Subcellular locations',
+  [Namespace.idmapping]: 'ID mapping',
   // Tools
+  [JobTypes.ID_MAPPING]: 'Retrieve/ID mapping',
   [JobTypes.ALIGN]: 'Align',
   [JobTypes.BLAST]: 'BLAST',
-  [JobTypes.ID_MAPPING]: 'Retrieve/ID mapping',
   [JobTypes.PEPTIDE_SEARCH]: 'Peptide search',
 };
 

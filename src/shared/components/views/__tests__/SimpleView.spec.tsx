@@ -1,5 +1,7 @@
 import { render } from '@testing-library/react';
-import { MemoryRouter as Router } from 'react-router-dom';
+
+import customRender from '../../../__test-helpers__/customRender';
+
 import SimpleView from '../SimpleView';
 
 describe('SimpleView component', () => {
@@ -8,10 +10,8 @@ describe('SimpleView component', () => {
     expect(asFragment()).toMatchSnapshot();
   });
   test('should render with link', () => {
-    const { asFragment } = render(
-      <Router>
-        <SimpleView termValue="blah" linkTo="linkto" />
-      </Router>
+    const { asFragment } = customRender(
+      <SimpleView termValue="blah" linkTo="linkto" />
     );
     expect(asFragment()).toMatchSnapshot();
   });

@@ -1,9 +1,8 @@
-const evidenceUrls: { [key: string]: string } = {
+const evidenceUrls: Record<string, string> = {
   Araport: 'https://apps.araport.org/thalemine/portal.do?externalids=%value',
   CGD: 'http://www.candidagenome.org/cgi-bin/locus.pl?dbid=%value',
   EMBL: 'https://www.ebi.ac.uk/ena/data/view/%value',
-  EPD:
-    'ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/proteomics_mapping/README',
+  EPD: 'ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/proteomics_mapping/README',
   Ensembl: 'https://www.ensembl.org/id/%value',
   EnsemblBacteria: 'http://www.ensemblgenomes.org/id/%value',
   EnsemblFungi: 'http://www.ensemblgenomes.org/id/%value',
@@ -36,8 +35,7 @@ const evidenceUrls: { [key: string]: string } = {
   SGD: 'https://www.yeastgenome.org/locus/%value',
   SMART: 'http://smart.embl.de/smart/do_annotation.pl?DOMAIN=%value',
   UniRule: 'https://www.uniprot.org/unirule/%value',
-  VGNC:
-    'https://vertebrate.genenames.org/data/gene-symbol-report/#!/vgnc_id/%value',
+  VGNC: 'https://vertebrate.genenames.org/data/gene-symbol-report/#!/vgnc_id/%value',
   VectorBase: 'https://www.vectorbase.org/id/%value',
   WBParaSite: 'http://parasite.wormbase.org/id/%value',
   WormBase: 'https://wormbase.org/species/c_elegans/cds/%value',

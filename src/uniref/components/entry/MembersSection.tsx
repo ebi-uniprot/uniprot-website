@@ -12,6 +12,7 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import usePrefetch from '../../../shared/hooks/usePrefetch';
 import useItemSelect from '../../../shared/hooks/useItemSelect';
 
+import { pluralise } from '../../../shared/utils/utils';
 import getNextURLFromHeaders from '../../../shared/utils/getNextURLFromHeaders';
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 import {
@@ -302,9 +303,10 @@ export const MembersSection = ({
   return (
     <Card
       header={
-        <h2>{`${total} ${getEntrySectionNameAndId(EntrySection.Members).name}${
-          total === 1 ? '' : 's'
-        }`}</h2>
+        <h2>{`${total} ${pluralise(
+          getEntrySectionNameAndId(EntrySection.Members).name,
+          total
+        )}`}</h2>
       }
       id={EntrySection.Members}
     >

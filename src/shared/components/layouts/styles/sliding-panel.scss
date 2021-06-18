@@ -73,7 +73,7 @@
   &--left,
   &--right {
     height: 100vh;
-    width: 40vw;
+    width: min(max(40vw, 55rem), calc(90vw));
     top: 0;
   }
 

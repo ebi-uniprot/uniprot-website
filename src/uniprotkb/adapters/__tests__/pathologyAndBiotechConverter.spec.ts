@@ -1,16 +1,14 @@
 import diseaseAndDrugs from '../diseaseAndDrugs';
-import modelData from '../../__mocks__/entryModelData.json';
-import { convertXrefProperties } from '../../adapters/uniProtkbConverter';
+import { convertXrefProperties } from '../uniProtkbConverter';
+
+import modelData from '../../__mocks__/uniProtKBEntryModelData';
 
 describe('Disease and Drugs data converter', () => {
-  beforeAll(() => {
-    modelData.uniProtKBCrossReferences = convertXrefProperties(
-      modelData.uniProtKBCrossReferences
-    );
-  });
-
   test('should convert the data', () => {
-    const convertedData = diseaseAndDrugs(modelData);
+    const convertedData = diseaseAndDrugs(
+      modelData,
+      convertXrefProperties(modelData.uniProtKBCrossReferences)
+    );
     expect(convertedData).toEqual({
       commentsData: new Map([
         [
@@ -64,6 +62,22 @@ describe('Disease and Drugs data converter', () => {
                       evidenceCode: 'ECO:0000256',
                       id: 'PIRNR001360',
                       source: 'PIRNR',
+                    },
+                  ],
+                  value: 'value',
+                },
+              ],
+            },
+            {
+              commentType: 'DISRUPTION PHENOTYPE',
+              molecule: 'Isoform 4 dfs',
+              texts: [
+                {
+                  evidences: [
+                    {
+                      evidenceCode: 'ECO:0000256',
+                      source: 'PIRNR',
+                      id: 'PIRNR001365',
                     },
                   ],
                   value: 'value',

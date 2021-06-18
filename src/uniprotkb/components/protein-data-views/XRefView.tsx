@@ -2,6 +2,8 @@ import { Fragment, FC } from 'react';
 import { sortBy } from 'lodash-es';
 import { InfoList, ExternalLink, ExpandableList } from 'franklin-sites';
 
+import { pluralise } from '../../../shared/utils/utils';
+
 import {
   databaseCategoryToString,
   databaseToDatabaseInfo,
@@ -25,7 +27,7 @@ import externalUrls from '../../../shared/config/externalUrls';
 
 export const processUrlTemplate = (
   urlTemplate: string,
-  params: { [key: string]: string }
+  params: Record<string, string>
 ) => {
   let url = urlTemplate;
   Object.entries(params).forEach(([param, value]) => {
@@ -44,7 +46,7 @@ const formatSuffixWithCount = (prefix: string, number: string) => {
   if (count <= 0) {
     return '';
   }
-  return ` ${count} ${prefix}${count > 1 ? 's' : ''}`;
+  return ` ${count} ${pluralise(prefix, count)}`;
 };
 
 export const getPropertyString = (key?: string, value?: string) => {
@@ -183,7 +185,7 @@ export const XRef: FC<XRefProps> = ({
     );
   }
 
-  const params: { [key: string]: string } = {
+  const params: Record<string, string> = {
     primaryAccession,
     ...properties,
   };
@@ -298,31 +300,27 @@ type StructureXRefsGroupedByCategoryProps = {
   crc64?: string;
 };
 
-const StructureXRefsGroupedByCategory: FC<StructureXRefsGroupedByCategoryProps> = ({
-  databases,
-  primaryAccession,
-  crc64,
-}) => {
-  const { PDBDatabase, otherStructureDatabases } = partitionStructureDatabases(
-    databases
-  );
-  let PDBViewNode;
-  if (PDBDatabase && PDBDatabase.xrefs.length) {
-    PDBViewNode = <PDBView xrefs={PDBDatabase.xrefs} noStructure />;
-  }
-  return (
-    <>
-      {PDBViewNode}
-      {otherStructureDatabases && otherStructureDatabases.length && (
-        <XRefsGroupedByCategory
-          databases={otherStructureDatabases}
-          primaryAccession={primaryAccession}
-          crc64={crc64}
-        />
-      )}
-    </>
-  );
-};
+const StructureXRefsGroupedByCategory: FC<StructureXRefsGroupedByCategoryProps> =
+  ({ databases, primaryAccession, crc64 }) => {
+    const { PDBDatabase, otherStructureDatabases } =
+      partitionStructureDatabases(databases);
+    let PDBViewNode;
+    if (PDBDatabase && PDBDatabase.xrefs.length) {
+      PDBViewNode = <PDBView xrefs={PDBDatabase.xrefs} noStructure />;
+    }
+    return (
+      <>
+        {PDBViewNode}
+        {otherStructureDatabases && otherStructureDatabases.length && (
+          <XRefsGroupedByCategory
+            databases={otherStructureDatabases}
+            primaryAccession={primaryAccession}
+            crc64={crc64}
+          />
+        )}
+      </>
+    );
+  };
 
 type XRefViewProps = {
   xrefs: XrefUIModel[];
@@ -334,35 +332,33 @@ const XRefView: FC<XRefViewProps> = ({ xrefs, primaryAccession, crc64 }) => {
   if (!xrefs) {
     return null;
   }
-  const nodes = xrefs.map(
-    ({ databases, category }, index): JSX.Element => {
-      const xrefsNode =
-        category === DatabaseCategory.STRUCTURE ? (
-          <StructureXRefsGroupedByCategory
-            databases={databases}
-            primaryAccession={primaryAccession}
-            crc64={crc64}
-          />
-        ) : (
-          <XRefsGroupedByCategory
-            databases={databases}
-            primaryAccession={primaryAccession}
-            crc64={crc64}
-          />
-        );
-      let title;
-      if (category && databaseCategoryToString[category]) {
-        title = databaseCategoryToString[category];
-      }
-      return (
-        // eslint-disable-next-line react/no-array-index-key
-        <Fragment key={index}>
-          <h3>{title}</h3>
-          {xrefsNode}
-        </Fragment>
+  const nodes = xrefs.map(({ databases, category }, index): JSX.Element => {
+    const xrefsNode =
+      category === DatabaseCategory.STRUCTURE ? (
+        <StructureXRefsGroupedByCategory
+          databases={databases}
+          primaryAccession={primaryAccession}
+          crc64={crc64}
+        />
+      ) : (
+        <XRefsGroupedByCategory
+          databases={databases}
+          primaryAccession={primaryAccession}
+          crc64={crc64}
+        />
       );
+    let title;
+    if (category && databaseCategoryToString[category]) {
+      title = databaseCategoryToString[category];
     }
-  );
+    return (
+      // eslint-disable-next-line react/no-array-index-key
+      <Fragment key={index}>
+        <h3>{title}</h3>
+        {xrefsNode}
+      </Fragment>
+    );
+  });
   return <>{nodes}</>;
 };
 

@@ -23,6 +23,11 @@ export const buscoPartitionToColor: Record<BuscoPartition, string> = {
   missing: '#314BB4',
 };
 
+const trackLength = 100;
+
+const getPercentageOfTotal = (total: number) => (x: number) =>
+  (100 * x) / total;
+
 const BuscoView: FC<{ report: BuscoReport }> = ({ report }) => {
   const ceDefined = useCustomElement(
     /* istanbul ignore next */
@@ -30,22 +35,17 @@ const BuscoView: FC<{ report: BuscoReport }> = ({ report }) => {
     'protvista-track'
   );
 
-  const trackLength = 100;
-
-  const getPercentageOfTotal = useCallback(
-    (x: number) => (100 * x) / report.total,
-    [report]
-  );
-
-  const buscoPartitionPercentages: Record<BuscoPartition, number> = useMemo(
-    () => ({
-      completeSingle: getPercentageOfTotal(report.completeSingle),
-      completeDuplicated: getPercentageOfTotal(report.completeDuplicated),
-      fragmented: getPercentageOfTotal(report.fragmented),
-      missing: getPercentageOfTotal(report.missing),
-    }),
-    [report, getPercentageOfTotal]
-  );
+  const buscoPartitionPercentages: Record<BuscoPartition, number> =
+    useMemo(() => {
+      const getPercentage = getPercentageOfTotal(report.total);
+      return {
+        complete: getPercentage(report.complete),
+        completeSingle: getPercentage(report.completeSingle),
+        completeDuplicated: getPercentage(report.completeDuplicated),
+        fragmented: getPercentage(report.fragmented),
+        missing: getPercentage(report.missing),
+      };
+    }, [report]);
 
   const setTrackData = useCallback(
     (node): void => {
@@ -68,7 +68,7 @@ const BuscoView: FC<{ report: BuscoReport }> = ({ report }) => {
     [buscoPartitionPercentages, ceDefined]
   );
 
-  const C = formatPercentage(getPercentageOfTotal(report.complete));
+  const C = formatPercentage(buscoPartitionPercentages.complete);
   const S = formatPercentage(buscoPartitionPercentages.completeSingle);
   const D = formatPercentage(buscoPartitionPercentages.completeDuplicated);
   const F = formatPercentage(buscoPartitionPercentages.fragmented);

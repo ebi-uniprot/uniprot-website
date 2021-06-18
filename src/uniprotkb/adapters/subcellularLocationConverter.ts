@@ -1,29 +1,42 @@
+import { convertSection, UIModel } from './sectionConverter';
+import { hasContent } from '../../shared/utils/utils';
+
+import { UniProtkbAPIModel } from './uniProtkbConverter';
+import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { Xref } from '../../shared/types/apiModel';
 import KeywordCategory from '../types/keywordCategory';
 import FeatureType from '../types/featureType';
-import { convertSection, UIModel } from './sectionConverter';
-import { UniProtkbAPIModel } from './uniProtkbConverter';
 import { CommentType } from '../types/commentTypes';
-import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
-const commentCategories = [CommentType.SUBCELLULAR_LOCATION];
+const commentCategories: CommentType[] = ['SUBCELLULAR LOCATION'];
 
-const keywordsCategories = [KeywordCategory.CELLULAR_COMPONENT];
+const keywordsCategories: KeywordCategory[] = ['Cellular component'];
 
-const featuresCategories = [FeatureType.TOPO_DOM, FeatureType.TRANSMEM];
+const featuresCategories: FeatureType[] = [
+  'Topological domain',
+  'Transmembrane',
+];
 
 export type SubcellularLocationUIModel = {
   organismData?: TaxonomyDatum;
 } & UIModel;
 
-const convertSubcellularLocation = (data: UniProtkbAPIModel) => {
+const convertSubcellularLocation = (
+  data: UniProtkbAPIModel,
+  uniProtKBCrossReferences?: Xref[]
+) => {
   const subcellularLocationData: SubcellularLocationUIModel = convertSection(
     data,
     commentCategories,
     keywordsCategories,
     featuresCategories,
-    undefined
+    undefined,
+    uniProtKBCrossReferences
   );
-  if (data.organism) {
+
+  // If there is no subcellular data, don't add organism data which will cause
+  // the section render to falsely believe the section should be rendered
+  if (hasContent(subcellularLocationData) && data.organism) {
     subcellularLocationData.organismData = data.organism;
   }
   return subcellularLocationData;

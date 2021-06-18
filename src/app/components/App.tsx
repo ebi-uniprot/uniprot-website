@@ -124,12 +124,12 @@ const AlignForm = lazy(
     )
 );
 
-// const IDMappingResult = lazy(
-//   () =>
-//     import(
-//       /* webpackChunkName: "id-mapping-result" */ '../../tools/id-mapping/components/results/IDMappingResult'
-//     )
-// );
+const IDMappingResult = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "id-mapping-result" */ '../../tools/id-mapping/components/results/IDMappingResult'
+    )
+);
 
 const IDMappingForm = lazy(
   () =>
@@ -281,10 +281,10 @@ const App = () => {
                   </SingleColumnLayout>
                 )}
               />
-              {/* <Route
-              path={LocationToPath[Location.IDMappingResult]}
-              component={IDMappingResult}
-            /> */}
+              <Route
+                path={LocationToPath[Location.IDMappingResult]}
+                component={IDMappingResult}
+              />
               <Route
                 path={LocationToPath[Location.IDMapping]}
                 render={() => (
@@ -323,7 +323,7 @@ const App = () => {
         href="https://goo.gl/forms/VrAGbqg2XFg6Mpbh1"
         rel="noopener noreferrer"
       >
-        Report bug
+        Submit feedback
       </a>
     </FranklinSite>
   );

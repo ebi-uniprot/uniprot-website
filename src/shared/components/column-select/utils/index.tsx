@@ -19,7 +19,7 @@ type PreparedField = {
   key: string;
 };
 
-export const prepareFields = (fields: ReceivedField[], exclude?: Column) =>
+export const prepareFields = (fields: ReceivedField[], exclude?: Column[]) =>
   (exclude ? fields.filter(({ name }) => !exclude.includes(name)) : fields).map(
     ({ label, name, id }) =>
       ({
@@ -31,8 +31,8 @@ export const prepareFields = (fields: ReceivedField[], exclude?: Column) =>
 
 export const prepareFieldDataFromColumnConfig = (
   columnConfig: ColumnConfiguration<Column>,
-  // Exclude primaryKeyColumn which should not be user-selectable eg accession
-  exclude?: Column
+  // Exclude primaryKeyColumns which should not be user-selectable eg accession
+  exclude?: Column[]
 ): FieldData => {
   const fields: FieldDatum = {
     id: 'datum',
@@ -40,7 +40,7 @@ export const prepareFieldDataFromColumnConfig = (
     items: [],
   };
   for (const [column, { label }] of columnConfig.entries()) {
-    if (column === exclude) {
+    if (exclude?.includes(column)) {
       continue; // eslint-disable-line no-continue
     }
     fields.items.push({
@@ -56,8 +56,8 @@ export const prepareFieldDataFromColumnConfig = (
 
 export const prepareFieldData = (
   fieldData?: ReceivedFieldData,
-  // Exclude primaryKeyColumn which should not be user-selectable eg accession
-  exclude?: Column
+  // Exclude primaryKeyColumns which should not be user-selectable eg accession
+  exclude?: Column[]
 ): FieldData => {
   if (!fieldData?.length) {
     return {};

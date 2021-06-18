@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Timeline component should render properly 1`] = `
+<DocumentFragment>
+  <div
+    class="container"
+    title="UniParc entry life span: 2000-01-01 to 2021-06-07."
+  >
+    <span
+      class="xref"
+      style="width: 87.11037301992846%; left: 5.81246806336229%;"
+      title="Cross-reference life span within this UniParc entry: 2001-03-31 to 2019-12-01."
+    />
+  </div>
+</DocumentFragment>
+`;

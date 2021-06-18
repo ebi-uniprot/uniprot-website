@@ -5,15 +5,15 @@ import alnClustalNum from '../alnClustalNum';
 
 const readFile = promisify(fs.readFile);
 
-const readMock = (filename) =>
+const readMock = (filename: string) =>
   readFile(path.join(__dirname, '..', '__mocks__', filename), 'utf8');
 
 describe('alnClustalNum parser', () => {
-  let wellFormed;
-  let toy;
-  let noHeader;
-  let inconsitentColumnStart;
-  let inconsitentNumberSequences;
+  let wellFormed: string;
+  let toy: string;
+  let noHeader: string;
+  let inconsitentColumnStart: string;
+  let inconsitentNumberSequences: string;
 
   beforeAll(async () => {
     wellFormed = await readMock('alg-clustal_num.txt');

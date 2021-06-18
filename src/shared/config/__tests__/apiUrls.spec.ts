@@ -36,7 +36,7 @@ describe('createFacetsQueryString', () => {
 });
 
 describe('apiUrls', () => {
-  const getLastPath = (url) => url.substr(url.lastIndexOf('/') + 1);
+  const getLastPath = (url: string) => url.substr(url.lastIndexOf('/') + 1);
   const accession = 'P123456';
   const testCases = [
     {

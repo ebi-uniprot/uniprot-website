@@ -1,4 +1,4 @@
-import { Fragment, FC } from 'react';
+import { FC } from 'react';
 import { InfoList, ExpandableList } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
@@ -33,31 +33,21 @@ export const KeywordList: FC<KeywordListProps> = ({
   keywords,
   idOnly,
   inline,
-}) => {
-  if (!keywords) {
-    return null;
-  }
-
-  return (
-    <ExpandableList
-      descriptionString={idOnly ? 'keyword IDs' : 'keywords'}
-      className={cn({ 'keyword-view--inline': inline })}
-    >
-      {keywords.map((keyword, index) => {
-        const { id, name } = keyword;
-        if (!id || !name) {
-          return null;
-        }
-        return (
-          // eslint-disable-next-line react/no-array-index-key
-          <Fragment key={index}>
-            <KeywordItem id={id} value={idOnly ? id : name} />
-          </Fragment>
-        );
-      })}
-    </ExpandableList>
-  );
-};
+}) => (
+  <ExpandableList
+    descriptionString={idOnly ? 'keyword IDs' : 'keywords'}
+    className={cn({ 'keyword-view--inline': inline })}
+  >
+    {keywords.map((keyword, index) => {
+      const { id, name } = keyword;
+      if (!id || !name) {
+        return null;
+      }
+      // eslint-disable-next-line react/no-array-index-key
+      return <KeywordItem key={index} id={id} value={idOnly ? id : name} />;
+    })}
+  </ExpandableList>
+);
 
 const KeywordView: FC<{ keywords: KeywordUIModel[] }> = ({ keywords }) => {
   if (!keywords?.length) {

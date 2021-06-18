@@ -1,16 +1,14 @@
 import { convertSequence } from '../sequenceConverter';
-import modelData from '../../__mocks__/entryModelData.json';
-import { convertXrefProperties } from '../../adapters/uniProtkbConverter';
+import { convertXrefProperties } from '../uniProtkbConverter';
+
+import modelData from '../../__mocks__/uniProtKBEntryModelData';
 
 describe('Sequence data converter', () => {
-  beforeAll(() => {
-    modelData.uniProtKBCrossReferences = convertXrefProperties(
-      modelData.uniProtKBCrossReferences
-    );
-  });
-
   test('should convert the data', () => {
-    const convertedData = convertSequence(modelData);
+    const convertedData = convertSequence(
+      modelData,
+      convertXrefProperties(modelData.uniProtKBCrossReferences)
+    );
     expect(convertedData).toEqual({
       alternativeProducts: {
         commentType: 'ALTERNATIVE PRODUCTS',
@@ -130,7 +128,7 @@ describe('Sequence data converter', () => {
                   source: 'PIRNR',
                 },
               ],
-              position: 'rna position',
+              position: 1,
             },
           ],
         },
@@ -151,7 +149,7 @@ describe('Sequence data converter', () => {
           molecule: 'Isoform 2',
           note: 'Text note',
           sequence: 'sequence',
-          sequenceCautionType: 'Erroneous initiation',
+          sequenceCautionType: 'Erroneous gene model prediction',
         },
       ],
       status: 'Fragment',
@@ -171,9 +169,12 @@ describe('Sequence data converter', () => {
                       source: 'PubMed',
                     },
                   ],
-                  id: 'id value',
+                  id: 'idEnsembl',
                   isoformId: 'Q9NXB0-1',
-                  properties: { ProteinId: 'description value' },
+                  properties: {
+                    Method: 'Model',
+                    ProteinId: 'description value',
+                  },
                 },
               ],
             },

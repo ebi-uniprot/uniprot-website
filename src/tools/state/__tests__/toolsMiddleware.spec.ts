@@ -4,7 +4,7 @@
 import { sleep } from 'timing-functions';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { Store, AnyAction } from 'redux';
+import { Store } from 'redux';
 
 import toolsMiddleware from '../toolsMiddleware';
 

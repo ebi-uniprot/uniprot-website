@@ -13,7 +13,7 @@ import { mockSuggesterApi } from '../../../../query-builder/components/__tests__
 import mockIDMappingFormConfig from './__mocks__/idMappingFormConfig';
 
 const mock = new MockAdapter(axios);
-mock.onGet(/\/uniprot\/api\/suggester/).reply(200, mockSuggesterApi.response);
+mock.onGet(/\/api\/suggester/).reply(200, mockSuggesterApi.response);
 mock
   .onGet(/\/configure\/idmapping\/fields/)
   .reply(200, mockIDMappingFormConfig);
@@ -88,7 +88,7 @@ describe('IDMappingForm test', () => {
     fireEvent.click(initialFromDatabaseButton);
     const geneNameButton = screen.getByRole('button', { name: 'Gene Name' });
     fireEvent.click(geneNameButton);
-    expect(screen.queryByText('UniProtKB AC/ID')).toBeNull();
+    expect(screen.queryByText('UniProtKB AC/ID')).not.toBeInTheDocument();
     const resetButton = screen.getByRole('button', { name: 'Reset' });
     fireEvent.click(resetButton);
     expect(idInput.value).toBeFalsy();

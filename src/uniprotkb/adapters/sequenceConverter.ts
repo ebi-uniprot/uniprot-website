@@ -14,7 +14,6 @@ import {
 import EntrySection from '../types/entrySection';
 import { SequenceData } from '../../shared/components/entry/SequenceView';
 import {
-  CommentType,
   AlternativeProductsComment,
   SequenceCautionComment,
   MassSpectrometryComment,
@@ -22,14 +21,14 @@ import {
   RNAEditingComment,
 } from '../types/commentTypes';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
+import { Xref } from '../../shared/types/apiModel';
 
-export enum Flag {
-  PRECURSOR = 'Precursor',
-  FRAGMENT = 'Fragment',
-  FRAGMENTS = 'Fragments',
-  FRAGMENT_PRECURSOR = 'Fragment,Precursor',
-  FRAGMENTS_PRECURSOR = 'Fragments,Precursor',
-}
+export type Flag =
+  | 'Precursor'
+  | 'Fragment'
+  | 'Fragments'
+  | 'Fragment,Precursor'
+  | 'Fragments,Precursor';
 
 export type EntryAudit = {
   firstPublicDate: string;
@@ -60,22 +59,37 @@ export type SequenceUIModel = {
   isoformNotes?: IsoformNotes;
 };
 
-const keywordsCategories = [
-  KeywordCategory.CODING_SEQUENCE_DIVERSITY,
-  KeywordCategory.TECHNICAL_TERM,
+const keywordsCategories: KeywordCategory[] = [
+  'Coding sequence diversity',
+  'Technical term',
 ];
 
-const featuresCategories = [
-  FeatureType.COMPBIAS,
-  FeatureType.NON_STD,
-  FeatureType.UNSURE,
-  FeatureType.CONFLICT,
-  FeatureType.NON_CONS,
-  FeatureType.NON_TER,
-  FeatureType.VAR_SEQ,
+const featuresCategories: FeatureType[] = [
+  'Compositional bias',
+  'Non-standard residue',
+  'Sequence uncertainty',
+  'Sequence conflict',
+  'Non-adjacent residues',
+  'Non-terminal residue',
+  'Alternative sequence',
 ];
 
-export const convertSequence = (data: UniProtkbAPIModel) => {
+export const fragmentFlags = new Set<Flag>([
+  'Fragment',
+  'Fragments',
+  'Fragment,Precursor',
+  'Fragments,Precursor',
+]);
+const precursorFlags = new Set<Flag>([
+  'Precursor',
+  'Fragment,Precursor',
+  'Fragments,Precursor',
+]);
+
+export const convertSequence = (
+  data: UniProtkbAPIModel,
+  uniProtKBCrossReferences?: Xref[]
+) => {
   const sequenceData: SequenceUIModel = {
     sequence: data.sequence,
     keywordData: [],
@@ -91,20 +105,11 @@ export const convertSequence = (data: UniProtkbAPIModel) => {
   if (data.proteinDescription && data.proteinDescription.flag) {
     sequenceData.flag = data.proteinDescription.flag;
 
-    sequenceData.status = [
-      Flag.FRAGMENT,
-      Flag.FRAGMENTS,
-      Flag.FRAGMENTS_PRECURSOR,
-      Flag.FRAGMENT_PRECURSOR,
-    ].includes(data.proteinDescription.flag)
+    sequenceData.status = fragmentFlags.has(data.proteinDescription.flag)
       ? data.proteinDescription.flag
       : 'Complete';
 
-    sequenceData.processing = [
-      Flag.PRECURSOR,
-      Flag.FRAGMENTS_PRECURSOR,
-      Flag.FRAGMENT_PRECURSOR,
-    ].includes(data.proteinDescription.flag)
+    sequenceData.processing = precursorFlags.has(data.proteinDescription.flag)
       ? 'The displayed sequence is further processed into a mature form.'
       : undefined;
   }
@@ -118,30 +123,31 @@ export const convertSequence = (data: UniProtkbAPIModel) => {
   // Trembl entries only have a canonical sequence
   if (data.comments) {
     const alternativeProducts = data.comments.find(
-      (comment) => comment.commentType === CommentType.ALTERNATIVE_PRODUCTS
+      (comment) => comment.commentType === 'ALTERNATIVE PRODUCTS'
     );
-    sequenceData.alternativeProducts = alternativeProducts as AlternativeProductsComment;
+    sequenceData.alternativeProducts =
+      alternativeProducts as AlternativeProductsComment;
     const sequenceCaution = data.comments.filter(
-      (comment) => comment.commentType === CommentType.SEQUENCE_CAUTION
+      (comment) => comment.commentType === 'SEQUENCE CAUTION'
     );
     sequenceData.sequenceCaution = sequenceCaution as SequenceCautionComment[];
     const massSpec = data.comments.filter(
-      (comment) => comment.commentType === CommentType.MASS_SPECTROMETRY
+      (comment) => comment.commentType === 'MASS SPECTROMETRY'
     );
     sequenceData.massSpectrometry = massSpec as MassSpectrometryComment[];
     const polymorphysm = data.comments.filter(
-      (comment) => comment.commentType === CommentType.POLYMORPHISM
+      (comment) => comment.commentType === 'POLYMORPHISM'
     );
     sequenceData.polymorphysm = polymorphysm as FreeTextComment[];
     const rnaEditing = data.comments.filter(
-      (comment) => comment.commentType === CommentType.RNA_EDITING
+      (comment) => comment.commentType === 'RNA EDITING'
     );
     sequenceData.rnaEditing = rnaEditing as RNAEditingComment[];
 
     // Retrieve notes for isoforms
     const notes = data.comments.filter(
       (comment) =>
-        comment.commentType === CommentType.MISCELLANEOUS &&
+        comment.commentType === 'MISCELLANEOUS' &&
         (comment as FreeTextComment).molecule
     ) as FreeTextComment[];
     sequenceData.isoformNotes = groupBy(notes, (note) => note.molecule);
@@ -164,10 +170,10 @@ export const convertSequence = (data: UniProtkbAPIModel) => {
     // Add VAR_SEQ to corresponding isoforms
     if (features && sequenceData.alternativeProducts) {
       const varSeqs = features.filter(
-        (feature) => feature.type === FeatureType.VAR_SEQ
+        (feature) => feature.type === 'Alternative sequence'
       );
-      sequenceData.alternativeProducts.isoforms = sequenceData.alternativeProducts.isoforms.map(
-        (isoform) => {
+      sequenceData.alternativeProducts.isoforms =
+        sequenceData.alternativeProducts.isoforms.map((isoform) => {
           const varSeqsToAdd: FeatureData = [];
           if (isoform.sequenceIds && varSeqs.length !== 0) {
             isoform.sequenceIds.forEach((sequenceId) => {
@@ -180,19 +186,16 @@ export const convertSequence = (data: UniProtkbAPIModel) => {
             });
           }
           return { ...isoform, varSeqs: varSeqsToAdd };
-        }
-      );
+        });
     }
   }
-  if (data.uniProtKBCrossReferences) {
+  if (uniProtKBCrossReferences) {
     // Some EMBL xrefs need to be merged
     const joined = getJoinedXrefs(
-      data.uniProtKBCrossReferences.filter((xref) => xref.database === 'EMBL')
+      uniProtKBCrossReferences.filter((xref) => xref.database === 'EMBL')
     );
     const newXrefs = [
-      ...data.uniProtKBCrossReferences.filter(
-        (xref) => xref.database !== 'EMBL'
-      ),
+      ...uniProtKBCrossReferences.filter((xref) => xref.database !== 'EMBL'),
       ...joined,
     ];
     const xrefs = getXrefsForSection(

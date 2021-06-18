@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react';
+import { screen, fireEvent, render } from '@testing-library/react';
 import ResultDownload from '../ResultDownload';
 import { JobTypes } from '../../types/toolsJobTypes';
 
@@ -9,7 +9,7 @@ describe('Blast results download', () => {
   it('should change the format; download link have the correct resource/format; not display explanation when table results have not been filtered', () => {
     const onCloseMock = jest.fn();
 
-    const { getByTestId, queryByText, getAllByText } = render(
+    render(
       <ResultDownload
         jobType={JobTypes.BLAST}
         id="1234"
@@ -19,17 +19,19 @@ describe('Blast results download', () => {
         isTableRowSelected={false}
       />
     );
-    const select = getByTestId('file-format-select');
+    const select = screen.getByTestId('file-format-select');
     fireEvent.change(select, { target: { value: 'accs' } });
-    const downloadLink = getAllByText('Download')[1];
+    const downloadLink = screen.getByRole('link', {
+      name: 'Download',
+    }) as HTMLAnchorElement;
     fireEvent.click(downloadLink);
     expect(onCloseMock).toHaveBeenCalled();
     expect(downloadLink.href).toEqual(
       'https://www.ebi.ac.uk/Tools/services/rest/ncbiblast/result/1234/accs'
     );
 
-    const nDownloadExplanation = queryByText(nDownloadedExplanationRe);
-    expect(nDownloadExplanation).toBeNull();
+    const nDownloadExplanation = screen.queryByText(nDownloadedExplanationRe);
+    expect(nDownloadExplanation).not.toBeInTheDocument();
   });
 
   it('should display explanation when table results have been filtered and a row has been selected', () => {
@@ -46,6 +48,6 @@ describe('Blast results download', () => {
       />
     );
     const nDownloadExplanation = getByText(nDownloadedExplanationRe);
-    expect(nDownloadExplanation).toBeTruthy();
+    expect(nDownloadExplanation).toBeInTheDocument();
   });
 });

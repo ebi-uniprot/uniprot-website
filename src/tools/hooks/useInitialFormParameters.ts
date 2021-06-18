@@ -30,8 +30,9 @@ function useInitialFormParameters<
   const history = useHistory();
   const initialValues = useMemo(() => {
     // NOTE: we should use a similar logic to pre-fill fields based on querystring
-    const parametersFromHistoryState = (history.location
-      ?.state as CustomLocationState<FormParameters>)?.parameters;
+    const parametersFromHistoryState = (
+      history.location?.state as CustomLocationState<FormParameters>
+    )?.parameters;
     if (parametersFromHistoryState) {
       // if we get here, we got parameters passed with the location update to
       // use as pre-filled fields

@@ -31,16 +31,10 @@ const columns = [
 const DiseasesEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   const accession = props.match?.params.accession;
 
-  const {
-    data,
-    loading,
-    error,
-    status,
-    progress,
-    isStale,
-  } = useDataApiWithStale<DiseasesAPIModel>(
-    apiUrls.entry(accession, Namespace.diseases)
-  );
+  const { data, loading, error, status, progress, isStale } =
+    useDataApiWithStale<DiseasesAPIModel>(
+      apiUrls.entry(accession, Namespace.diseases)
+    );
 
   if (error || !accession || (!loading && !data)) {
     return <ErrorHandler status={status} />;

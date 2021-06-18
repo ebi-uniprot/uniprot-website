@@ -1,18 +1,20 @@
 import entryToFASTAWithHeaders from '../entryToFASTAWithHeaders';
 
-import uniProtKBModelData from '../../../uniprotkb/__mocks__/entryModelData.json';
-import uniParcModelData from '../../../uniparc/__mocks__/entryModelData';
+import uniProtKBEntryModelData from '../../../uniprotkb/__mocks__/uniProtKBEntryModelData';
+import uniParcModelData from '../../../uniparc/__mocks__/uniParcEntryModelData';
 
 describe('entryToFASTAWithHeaders', () => {
   describe('UniProtKB entry', () => {
     it('should handle reviewed entries', () => {
-      expect(entryToFASTAWithHeaders(uniProtKBModelData)).toMatchSnapshot();
+      expect(
+        entryToFASTAWithHeaders(uniProtKBEntryModelData)
+      ).toMatchSnapshot();
     });
 
     it('should handle unreviewed entries', () => {
       expect(
         entryToFASTAWithHeaders({
-          ...uniProtKBModelData,
+          ...uniProtKBEntryModelData,
           entryType: 'UniProtKB unreviewed (TrEMBL)',
         })
       ).toMatchSnapshot();
@@ -26,14 +28,18 @@ describe('entryToFASTAWithHeaders', () => {
   describe('fallback gracefully when lacking metadata', () => {
     it('should handle only sequence data', () => {
       expect(
-        entryToFASTAWithHeaders({ sequence: uniProtKBModelData.sequence })
+        // Ignoring because we know we don't pass the full object for the pupose
+        // of this specific test, it should fallback gracefully
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        entryToFASTAWithHeaders({ sequence: uniProtKBEntryModelData.sequence })
       ).toMatchSnapshot();
     });
 
     it('should handle invalid entry types', () => {
       expect(
         entryToFASTAWithHeaders({
-          ...uniProtKBModelData,
+          ...uniProtKBEntryModelData,
           entryType: 'blabla',
         })
       ).toMatchSnapshot();
@@ -43,7 +49,7 @@ describe('entryToFASTAWithHeaders', () => {
   describe('modification', () => {
     it('should handle subsets', () => {
       expect(
-        entryToFASTAWithHeaders(uniProtKBModelData, {
+        entryToFASTAWithHeaders(uniProtKBEntryModelData, {
           subsets: [{ start: 5, end: 7 }],
         })
       ).toMatchSnapshot();

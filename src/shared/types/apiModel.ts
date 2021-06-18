@@ -11,6 +11,8 @@ import { CitationsAPIModel } from '../../supporting-data/citations/adapters/cita
 import { DiseasesAPIModel } from '../../supporting-data/diseases/adapters/diseasesConverter';
 import { DatabaseAPIModel } from '../../supporting-data/database/adapters/databaseConverter';
 import { LocationsAPIModel } from '../../supporting-data/locations/adapters/locationsConverter';
+import { Evidence } from '../../uniprotkb/types/modelTypes';
+import { MappingAPIModel } from '../../tools/id-mapping/types/idMappingSearchResults';
 
 export type APIModel =
   | UniProtkbAPIModel
@@ -22,7 +24,8 @@ export type APIModel =
   | CitationsAPIModel
   | DiseasesAPIModel
   | DatabaseAPIModel
-  | LocationsAPIModel;
+  | LocationsAPIModel
+  | MappingAPIModel;
 
 export type Statistics = {
   reviewedProteinCount: number;
@@ -48,7 +51,8 @@ export type Lineage = {
 export type Xref = {
   database?: string;
   id?: string;
-  properties?: { [key: string]: string };
+  properties?: Record<string, string>;
+  evidences?: Evidence[];
   additionalIds?: string[];
   isoformId?: string;
   implicit?: true;

@@ -14,6 +14,7 @@ import TaxonomyView from '../../shared/components/entry/TaxonomyView';
 
 import externalUrls from '../../shared/config/externalUrls';
 import { getEntryPath } from '../../app/config/urls';
+import { fromColumnConfig } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 
 import parseDate from '../../shared/utils/parseDate';
 import xrefGetter from '../utils/xrefGetter';
@@ -57,6 +58,7 @@ export enum UniParcColumn {
   smart = 'SMART',
   supfam = 'SUPFAM',
   tigrfams = 'TIGRFAMs',
+  from = 'from',
 }
 
 export const defaultColumns = [
@@ -68,42 +70,47 @@ export const defaultColumns = [
   UniParcColumn.lastSeen,
 ];
 
-export const primaryKeyColumn = UniParcColumn.upi;
+export const primaryKeyColumns = [UniParcColumn.upi];
 
 export const UniParcColumnConfiguration: ColumnConfiguration<
   UniParcColumn,
   UniParcAPIModel
 > = new Map();
 
-const familyAndDomainRenderer = (
-  db: SequenceFeature['database'],
-  externalURLAccessor: keyof typeof externalUrls
-) => (data: UniParcAPIModel) => (
-  <ExpandableList displayNumberOfHiddenItems>
-    {data.sequenceFeatures
-      ?.filter((feature): feature is SequenceFeature => feature.database === db)
-      .map((feature) => (
-        <span title={feature.interproGroup?.name} key={feature.databaseId}>
-          <ExternalLink
-            url={externalUrls[externalURLAccessor](feature.databaseId)}
-          >
-            {feature.databaseId}
-          </ExternalLink>
-          {feature.interproGroup && (
-            <>
-              &nbsp;(&nbsp;
+const familyAndDomainRenderer =
+  (
+    db: SequenceFeature['database'],
+    externalURLAccessor: keyof typeof externalUrls
+  ) =>
+  (data: UniParcAPIModel) =>
+    (
+      <ExpandableList displayNumberOfHiddenItems>
+        {data.sequenceFeatures
+          ?.filter(
+            (feature): feature is SequenceFeature => feature.database === db
+          )
+          .map((feature) => (
+            <span title={feature.interproGroup?.name} key={feature.databaseId}>
               <ExternalLink
-                url={externalUrls.InterProEntry(feature.interproGroup.id)}
+                url={externalUrls[externalURLAccessor](feature.databaseId)}
               >
-                {feature.interproGroup.id}
+                {feature.databaseId}
               </ExternalLink>
-              )
-            </>
-          )}
-        </span>
-      ))}
-  </ExpandableList>
-);
+              {feature.interproGroup && (
+                <>
+                  &nbsp;(&nbsp;
+                  <ExternalLink
+                    url={externalUrls.InterProEntry(feature.interproGroup.id)}
+                  >
+                    {feature.interproGroup.id}
+                  </ExternalLink>
+                  )
+                </>
+              )}
+            </span>
+          ))}
+      </ExpandableList>
+    );
 
 // COLUMN RENDERERS BELOW
 UniParcColumnConfiguration.set(UniParcColumn.upi, {
@@ -225,6 +232,7 @@ UniParcColumnConfiguration.set(UniParcColumn.accession, {
 UniParcColumnConfiguration.set(UniParcColumn.firstSeen, {
   label: 'First seen',
   render(data) {
+    // TODO: use `xref.oldestCrossRefCreated` whenever returned by backend
     const created = xrefGetter(data, 'created');
     if (!created?.length) {
       return null;
@@ -239,6 +247,7 @@ UniParcColumnConfiguration.set(UniParcColumn.firstSeen, {
 UniParcColumnConfiguration.set(UniParcColumn.lastSeen, {
   label: 'Last seen',
   render(data) {
+    // TODO: use `xref.mostRecentCrossRefUpdated` whenever returned by backend
     const lastUpdated = xrefGetter(data, 'lastUpdated');
     if (!lastUpdated?.length) {
       return null;
@@ -309,5 +318,7 @@ UniParcColumnConfiguration.set(UniParcColumn.tigrfams, {
   label: 'TIGRFAMs',
   render: familyAndDomainRenderer('TIGRFAMs', 'TIGRFAMsEntry'),
 });
+
+UniParcColumnConfiguration.set(UniParcColumn.from, fromColumnConfig);
 
 export default UniParcColumnConfiguration;

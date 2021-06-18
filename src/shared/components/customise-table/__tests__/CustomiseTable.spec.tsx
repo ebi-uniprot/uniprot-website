@@ -1,4 +1,9 @@
-import { fireEvent, waitFor, screen } from '@testing-library/react';
+import {
+  fireEvent,
+  waitFor,
+  screen,
+  getByTestId,
+} from '@testing-library/react';
 
 import CustomiseTable from '../CustomiseTable';
 
@@ -13,7 +18,7 @@ import { Namespace } from '../../../types/namespaces';
 const route = SearchResultsLocations[Namespace.uniprotkb];
 
 describe('CustomiseTable component', () => {
-  let rendered;
+  let rendered: ReturnType<typeof customRender>;
   const onSave = jest.fn();
   const selectedColumns = [
     UniProtKBColumn.accession,
@@ -24,7 +29,7 @@ describe('CustomiseTable component', () => {
   beforeEach(async () => {
     rendered = customRender(<CustomiseTable onSave={onSave} />, {
       route,
-      initialUserPreferences: {
+      initialLocalStorage: {
         'table columns for uniprotkb': selectedColumns,
       },
     });
@@ -53,7 +58,7 @@ describe('CustomiseTable component', () => {
       name: 'Protein names',
       hidden: false,
     })[1];
-    fireEvent.click(selectionChip.querySelector('[data-testid="remove-icon"]'));
+    fireEvent.click(getByTestId(selectionChip, 'remove-icon'));
     expect(
       screen.queryByRole('button', { name: 'Protein names', hidden: false })
     ).not.toBeInTheDocument();

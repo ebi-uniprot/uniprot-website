@@ -13,7 +13,6 @@
     "jest": true
   },
   "parserOptions": {
-    "project": "./tsconfig.eslint.json",
     "ecmaVersion": 2019,
     "sourceType": "module"
   },

@@ -6,7 +6,7 @@ import UniParcCard from '../UniParcCard';
 
 import { UniParcAPIModel } from '../../../adapters/uniParcConverter';
 
-import data from '../../../__mocks__/entryModelData';
+import data from '../../../__mocks__/uniParcEntryModelData';
 
 describe('UniRefCard tests', () => {
   it('should render and match snapshot', () => {

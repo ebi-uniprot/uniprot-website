@@ -25,7 +25,7 @@ import { jobTypeToPath } from '../../../app/config/urls';
 
 import useReducedMotion from '../../../shared/hooks/useReducedMotion';
 
-import { getBEMClassName as bem } from '../../../shared/utils/utils';
+import { getBEMClassName as bem, pluralise } from '../../../shared/utils/utils';
 import parseDate from '../../../shared/utils/parseDate';
 
 import { Job } from '../../types/toolsJob';
@@ -151,7 +151,7 @@ const NiceStatus = ({ job, jobLink }: NiceStatusProps) => {
           expectedHits = job.parameters.ids.length;
         }
         if (expectedHits !== undefined && actualHits !== expectedHits) {
-          const hitText = `hit${actualHits === 1 ? '' : 's'}`;
+          const hitText = pluralise('hit', actualHits);
           return (
             <>
               {link}{' '}
@@ -264,7 +264,10 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
 
   let jobLink: string | undefined;
   if ('remoteID' in job && job.status === Status.FINISHED && !hasExpired) {
-    if (job.type === JobTypes.PEPTIDE_SEARCH) {
+    if (
+      job.type === JobTypes.ID_MAPPING ||
+      job.type === JobTypes.PEPTIDE_SEARCH
+    ) {
       jobLink = `${jobTypeToPath(job.type)}/${job.remoteID}`;
     } else {
       jobLink = `${jobTypeToPath(job.type)}/${job.remoteID}/overview`;

@@ -1,29 +1,19 @@
 /**
  * @jest-environment node
  */
-import { renderHook, cleanup } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react-hooks';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-
-import { resetUuidV1 } from '../../../../__mocks__/uuid';
 
 import useDataApi from '../useDataApi';
 import useDataApiWithStale from '../useDataApiWithStale';
 
 const url = '/some/path';
 const url2 = '/some/other/path';
-let mock;
+let mock = new MockAdapter(axios);
 
 const mockDispatch = jest.fn();
 jest.mock('react-redux', () => ({ useDispatch: () => mockDispatch }));
-
-beforeEach(() => {
-  resetUuidV1();
-});
-
-beforeAll(() => {
-  mock = new MockAdapter(axios);
-});
 
 afterEach(() => {
   mock.reset();
@@ -31,7 +21,6 @@ afterEach(() => {
 });
 
 afterAll(() => {
-  cleanup();
   mock.restore();
 });
 
@@ -69,7 +58,6 @@ describe('useDataApi hook', () => {
 
     expect(result.current).toEqual({
       loading: false,
-      progress: 0,
       url,
       error: new Error('Network Error'),
     });
@@ -85,7 +73,6 @@ describe('useDataApi hook', () => {
 
     expect(result.current).toEqual({
       loading: false,
-      progress: 0,
       url,
       error: new Error('timeout of 0ms exceeded'),
     });
@@ -113,7 +100,6 @@ describe('useDataApi hook', () => {
     expect(result.current).toEqual({
       error: new Error('Request failed with status code 400'),
       loading: false,
-      progress: 0,
       url,
       status: 400,
     });
@@ -129,7 +115,6 @@ describe('useDataApi hook', () => {
 
     expect(result.current).toEqual({
       loading: false,
-      progress: 0,
       url,
       status: 404,
       error: new Error('Request failed with status code 404'),

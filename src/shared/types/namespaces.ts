@@ -11,6 +11,7 @@ export enum Namespace {
   diseases = 'diseases',
   database = 'database',
   locations = 'locations',
+  idmapping = 'id-mapping',
 }
 
 export const mainNamespaces = new Set<Namespace>([
@@ -29,7 +30,9 @@ export const supportingDataNamespaces = new Set<Namespace>([
   Namespace.locations,
 ]);
 
-export const NamespaceLabels: Record<Namespace, string> = {
+export type SearchableNamespace = Exclude<Namespace, Namespace.idmapping>;
+
+export const NamespaceLabels: Record<SearchableNamespace, string> = {
   // Main data
   [Namespace.uniprotkb]: 'UniProtKB',
   [Namespace.uniref]: 'UniRef',

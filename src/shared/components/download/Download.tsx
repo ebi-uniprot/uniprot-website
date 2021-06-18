@@ -4,7 +4,7 @@ import { Loader, CodeBlock, Button, LongNumber } from 'franklin-sites';
 
 import ColumnSelect from '../column-select/ColumnSelect';
 
-import useUserPreferences from '../../hooks/useUserPreferences';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 import { urlsAreEqual } from '../../utils/url';
 import fetchData from '../../utils/fetchData';
@@ -14,7 +14,7 @@ import { getDownloadUrl } from '../../config/apiUrls';
 import {
   Column,
   nsToDefaultColumns,
-  nsToPrimaryKeyColumn,
+  nsToPrimaryKeyColumns,
 } from '../../config/columns';
 import {
   fileFormatsWithColumns,
@@ -25,8 +25,8 @@ import {
 import { ContentType, FileFormat } from '../../types/resultsDownload';
 import { Namespace } from '../../types/namespaces';
 
-import './styles/download.scss';
 import '../../styles/sticky.scss';
+import './styles/download.scss';
 
 export const getPreviewFileFormat = (fileFormat: FileFormat) =>
   fileFormat === FileFormat.excel ? FileFormat.tsv : fileFormat;
@@ -40,6 +40,7 @@ type DownloadProps = {
   namespace: Namespace;
   onClose: () => void;
   accessions?: string[];
+  base?: string;
 };
 
 const Download: FC<DownloadProps> = ({
@@ -51,10 +52,11 @@ const Download: FC<DownloadProps> = ({
   onClose,
   namespace,
   accessions,
+  base,
 }) => {
-  const [columns] = useUserPreferences(
+  const [columns] = useLocalStorage(
     `table columns for ${namespace}` as const,
-    nsToDefaultColumns[namespace]
+    nsToDefaultColumns(namespace)
   );
 
   const fileFormats = nsToFileFormatsResultsDownload[namespace] as FileFormat[];
@@ -77,7 +79,7 @@ const Download: FC<DownloadProps> = ({
     sortDirection,
   } = getParamsFromURL(queryParamFromUrl);
 
-  const selectedIdField = nsToPrimaryKeyColumn[namespace] as Column;
+  const [selectedIdField] = nsToPrimaryKeyColumns(namespace);
 
   // This logic is needed specifically for the proteomes components
   let urlQuery: string;
@@ -107,6 +109,7 @@ const Download: FC<DownloadProps> = ({
     selectedIdField,
     namespace,
     accessions,
+    base,
   });
 
   const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) =>
@@ -134,6 +137,7 @@ const Download: FC<DownloadProps> = ({
     selectedIdField,
     namespace,
     accessions,
+    base,
   });
   // TODO: this should useDataApi but this hook requires modification to
   // change the headers so whenever this is done replace fetchData with
@@ -249,16 +253,17 @@ const Download: FC<DownloadProps> = ({
           No
         </label>
       </fieldset>
-      {fileFormatsWithColumns.includes(fileFormat) && (
-        <>
-          <legend>Customize data</legend>
-          <ColumnSelect
-            onChange={setSelectedColumns}
-            selectedColumns={selectedColumns}
-            namespace={namespace}
-          />
-        </>
-      )}
+      {fileFormatsWithColumns.includes(fileFormat) &&
+        namespace !== Namespace.idmapping && (
+          <>
+            <legend>Customize data</legend>
+            <ColumnSelect
+              onChange={setSelectedColumns}
+              selectedColumns={selectedColumns}
+              namespace={namespace}
+            />
+          </>
+        )}
       <section className="button-group sliding-panel__button-row sticky-bottom-right">
         <Button variant="secondary" onClick={onClose}>
           Cancel
