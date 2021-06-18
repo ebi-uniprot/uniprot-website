@@ -58,7 +58,7 @@ const testData = [
           dataType: 'string',
           fieldType: 'general',
           example: 'saccharomyces',
-          autoComplete: '/uniprot/api/suggester?dict=organism&query=?',
+          autoComplete: '/uniprot/beta/api/suggester?dict=organism&query=?',
           autoCompleteQueryTerm: 'organism_id',
         },
         queryBits: {
@@ -81,7 +81,7 @@ const testData = [
           dataType: 'string',
           fieldType: 'general',
           example: 'saccharomyces',
-          autoComplete: '/uniprot/api/suggester?dict=organism&query=?',
+          autoComplete: '/uniprot/beta/api/suggester?dict=organism&query=?',
           autoCompleteQueryTerm: 'organism_id',
         },
         queryBits: {
@@ -333,7 +333,7 @@ const testData = [
               dataType: 'string',
               fieldType: 'general',
               example: '29105',
-              autoComplete: '/uniprot/api/suggester?dict=chebi&query=?',
+              autoComplete: '/uniprot/beta/api/suggester?dict=chebi&query=?',
               autoCompleteQueryTerm: 'cc_cofactor_chebi',
             },
             {

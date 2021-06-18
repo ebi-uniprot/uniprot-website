@@ -59,72 +59,51 @@ import {
   defaultFacets as locationsDefaultFacets,
 } from '../../supporting-data/locations/config/LocationsFacetConfiguration';
 
-export const devPrefix = 'https://wwwdev.ebi.ac.uk';
-export const prodPrefix = 'https://www.ebi.ac.uk';
+// Injected by webpack
+export const apiPrefix = API_PREFIX;
 
 const apiUrls = {
   // uniprotkb query builder terms
   queryBuilderTerms: (namespace: Namespace) =>
-    joinUrl(devPrefix, `/uniprot/api/configure/${namespace}/search-fields`),
+    joinUrl(apiPrefix, `/configure/${namespace}/search-fields`),
   // Annotation evidence used by query builder
   evidences: {
-    annotation: joinUrl(
-      devPrefix,
-      '/uniprot/api/configure/uniprotkb/annotation_evidences'
-    ),
+    annotation: joinUrl(apiPrefix, '/configure/uniprotkb/annotation_evidences'),
     // Go evidences used by advanced go search
     // "itemType": "goterm",
-    go: joinUrl(devPrefix, '/uniprot/api/configure/uniprotkb/go_evidences'),
+    go: joinUrl(apiPrefix, '/configure/uniprotkb/go_evidences'),
   },
   // Database cross references used in the UniParc entry page
-  allUniParcDatabases: joinUrl(
-    devPrefix,
-    'uniprot/api/configure/uniparc/allDatabases'
-  ),
+  allUniParcDatabases: joinUrl(apiPrefix, '/configure/uniparc/allDatabases'),
   // Database cross references used by query builder
-  databaseXrefs: joinUrl(
-    devPrefix,
-    '/uniprot/api/configure/uniprotkb/databases'
-  ),
+  databaseXrefs: joinUrl(apiPrefix, '/configure/uniprotkb/databases'),
   // Database cross reference fields in result column configure
   // "itemType": "database",
-  databaseFields: joinUrl(
-    devPrefix,
-    '/uniprot/api/configure/uniprotkb/databasefields'
-  ),
+  databaseFields: joinUrl(apiPrefix, '/configure/uniprotkb/databasefields'),
   // All result fields except supporting data reference fields
   resultsFields: (namespace: Namespace, isEntry?: boolean) =>
     joinUrl(
-      devPrefix,
-      `/uniprot/api/configure/${namespace}/${
-        isEntry ? 'entry-' : ''
-      }result-fields`
+      apiPrefix,
+      `/configure/${namespace}/${isEntry ? 'entry-' : ''}result-fields`
     ),
   // Retrieve results
   search: (namespace: Namespace = Namespace.uniprotkb) =>
-    joinUrl(devPrefix, `/uniprot/api/${namespace}/search`),
+    joinUrl(apiPrefix, `/${namespace}/search`),
   download: (namespace: Namespace) =>
-    joinUrl(devPrefix, `/uniprot/api/${namespace}/stream`),
-  variation: joinUrl(prodPrefix, '/proteins/api/variation'),
-  features: joinUrl(prodPrefix, '/proteins/api/features'),
-  accessions: joinUrl(devPrefix, '/uniprot/api/uniprotkb/accessions'),
+    joinUrl(apiPrefix, `/${namespace}/stream`),
+  variation: 'https://www.ebi.ac.uk/proteins/api/variation', // TODO: Back end plan to add this endpoint to the k8s deployment (uniprot/beta/api). When this happens update this URL accordingly
+  accessions: joinUrl(apiPrefix, '/uniprotkb/accessions'),
   genecentric: (accession: string) =>
-    joinUrl(devPrefix, '/uniprot/api/genecentric/', accession),
-  idMappingFields: joinUrl(
-    devPrefix,
-    '/uniprot/api/configure/idmapping/fields'
-  ),
-
+    joinUrl(apiPrefix, '/genecentric/', accession),
+  idMappingFields: joinUrl(apiPrefix, '/configure/idmapping/fields'),
   entry: (id: string | undefined, namespace: Namespace) =>
     id &&
     joinUrl(
-      devPrefix,
+      apiPrefix,
       // NOTE: The inclusion of /accession/ subpath for uniprotkb is going to be reviewed by backend
       // and potentially removed to bring it in line with the other namespaces
       // NOTE: uniparc entry isn't working/deployed yet
-      `/uniprot/api/${namespace}/${
-        namespace === Namespace.uniprotkb ? 'accession/' : ''
-      }`,
+      `/${namespace}/${namespace === Namespace.uniprotkb ? 'accession/' : ''}`,
       id
     ),
   sequenceFasta: (accession: string) =>
@@ -144,21 +123,21 @@ const apiUrls = {
           fileFormatToUrlParameter[format]
         }`,
   entryPublications: (accession: string) =>
-    joinUrl(
-      devPrefix,
-      '/uniprot/api/uniprotkb/accession',
-      accession,
-      '/publications'
-    ),
-  taxonomySuggester: '/uniprot/api/suggester?dict=taxonomy&query=?',
-  organismSuggester: '/uniprot/api/suggester?dict=organism&query=?',
+    joinUrl(apiPrefix, '/uniprotkb/accession', accession, '/publications'),
+  taxonomySuggester: 'suggester?dict=taxonomy&query=?',
+  organismSuggester: 'suggester?dict=organism&query=?',
+
+  // TODO: move that to UniParc-specific file?
+  uniparc: {
+    entry: (id?: string) => id && joinUrl(apiPrefix, '/uniparc', id),
+  },
 };
 
 export default apiUrls;
 
 const RE_QUERY = /\?$/;
 export const getSuggesterUrl = (url: string, value: string) =>
-  joinUrl(devPrefix, url.replace(RE_QUERY, value));
+  joinUrl(apiPrefix, url.replace(RE_QUERY, value));
 
 export const createFacetsQueryString = (facets: SelectedFacet[]) =>
   /**
@@ -254,16 +233,6 @@ export const getAPIQueryUrl = ({
 const localBlastFacets = Object.values(BlastFacet) as string[];
 const excludeLocalBlastFacets = ({ name }: SelectedFacet) =>
   !localBlastFacets.includes(name);
-
-export const getFeaturesURL = (accessions?: string[]) => {
-  if (!(accessions && accessions.length)) {
-    return null;
-  }
-  return `${apiUrls.features}?${queryString.stringify({
-    // sort to improve possible cache hit
-    accession: Array.from(accessions).sort().join(','),
-  })}`;
-};
 
 type GetOptions = {
   columns?: string[];
@@ -376,7 +345,7 @@ export const getDownloadUrl = ({
   if (accessions) {
     endpoint = apiUrls.accessions;
   } else if (base) {
-    endpoint = joinUrl(devPrefix, base);
+    endpoint = joinUrl(apiPrefix, base);
   } else if (size) {
     endpoint = apiUrls.search(namespace);
   } else {
@@ -428,8 +397,8 @@ export const getProteinsApiUrl = (accession: string) =>
 
 export const getClustersForProteins = (accessions: string[]) =>
   joinUrl(
-    devPrefix,
-    `/uniprot/api/uniref/search?query=(${accessions
+    apiPrefix,
+    `/uniref/search?query=(${accessions
       .map((accession) => `uniprot_id:${accession}`)
       .join(' OR ')})`
   );

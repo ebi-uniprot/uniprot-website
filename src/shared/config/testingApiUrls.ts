@@ -1,6 +1,6 @@
 // TODO: eventually delete this file
 import urlJoin from 'url-join';
-import { devPrefix } from './apiUrls';
+import { apiPrefix } from './apiUrls';
 
 // set to true if testing new API changes
 const apiTesting = false;
@@ -28,9 +28,9 @@ const joinUrlForApiTesting = (prefix: string, ...paths: string[]) => {
   };
   const defaultEndpointToPort = 8095; // default to 8095 for all support data and configure
   let newPrefix = prefix;
-  if (apiTesting && prefix === devPrefix && paths?.[0]) {
-    const reEndpoint = /\/uniprot\/api\/([^/]+)/;
-    const endpoint = paths[0].match(reEndpoint)?.[1];
+  if (apiTesting && prefix === apiPrefix && paths?.[0]) {
+    // joinUrl(apiPrefix, `/${namespace}/search`),
+    const endpoint = paths[0].split('/').filter(Boolean)[0];
     if (endpoint) {
       const port =
         endpointToPort[endpoint as keyof typeof endpointToPort] ||

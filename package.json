@@ -76,7 +76,8 @@
       "^lodash-es$": "lodash"
     },
     "globals": {
-      "BASE_URL": "/"
+      "BASE_URL": "/",
+      "API_PREFIX": "/<testing>/api"
     },
     "snapshotSerializers": [
       "<rootDir>/jest.serializer.ts"
