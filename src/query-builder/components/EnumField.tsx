@@ -20,7 +20,6 @@ const EnumField: FC<{
       handleChange({ [field.term]: trimmed });
     }
   }, [field, value, handleChange]);
-
   return (
     <label>
       {field.label}

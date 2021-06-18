@@ -53,8 +53,8 @@ const parseAndMatchQuery = (
     );
     // if it exists, assign it 'searchTerm'
     if (matching.length) {
-      if (matching.length === 1) {
-        // only one search term matching
+      if (matching.length === 1 || clause.searchTerm.term === 'go') {
+        // only one search term matching or this is GO in which case only add the parent SearchTerm
         validatedQuery.push({
           ...clause,
           searchTerm: matching[0].parent || matching[0],

@@ -17,6 +17,10 @@ const initializer = (
     return initialValue?.All || '';
   }
 
+  if (initialValue && field.id === 'go_evidence') {
+    return initialValue.go_evidence;
+  }
+
   // Deal with autocomplete fields (they use 'autoCompleteQueryTerm')
   // instead of 'term'
   if (

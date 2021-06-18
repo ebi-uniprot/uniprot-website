@@ -26,10 +26,12 @@ const AutocompleteField: FC<{
   };
 
   useEffect(() => {
+    // Don't reset for GO as we need the evidence
+    const reset = term !== 'go';
     if (selectedId && autoCompleteQueryTerm) {
-      handleChange({ [autoCompleteQueryTerm]: selectedId }, true);
+      handleChange({ [autoCompleteQueryTerm]: selectedId }, reset);
     } else if (value) {
-      handleChange({ [term]: value }, true);
+      handleChange({ [term]: value }, reset);
     }
   }, [id, term, autoCompleteQueryTerm, selectedId, value, handleChange]);
 

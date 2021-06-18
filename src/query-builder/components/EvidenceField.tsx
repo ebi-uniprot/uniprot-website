@@ -14,9 +14,12 @@ const EvidenceField: FC<{
   );
 
   useEffect(() => {
-    const trimmed = value.trim();
+    const trimmed = value?.trim();
     if (trimmed) {
-      handleChange({ [field.term]: trimmed });
+      // GO has term:go for both GO-ID and evidence so use go_evidence for the query bit key instead
+      const queryBitKey =
+        field.id === 'go_evidence' ? 'go_evidence' : field.term;
+      handleChange({ [queryBitKey]: trimmed });
     }
   }, [field, value, handleChange]);
 
