@@ -354,9 +354,7 @@ const IDMappingForm = () => {
                     });
                   }}
                   label={fromDbInfo.displayName}
-                  defaultActiveNodes={
-                    fromDb.selected ? [fromDb.selected.toString()] : undefined
-                  }
+                  defaultActiveNodes={[fromDb.selected as string]}
                 />
               </section>
               <section className="tools-form-section__item">
@@ -370,9 +368,7 @@ const IDMappingForm = () => {
                     setToDb((toDb) => ({ ...toDb, selected: id }));
                   }}
                   label={toDbInfo.displayName}
-                  defaultActiveNodes={
-                    toDb.selected ? [toDb.selected.toString()] : undefined
-                  }
+                  defaultActiveNodes={[toDb.selected as string]}
                 />
               </section>
               {ruleInfo.taxonId && (
