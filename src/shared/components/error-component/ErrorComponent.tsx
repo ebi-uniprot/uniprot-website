@@ -5,7 +5,7 @@ import './styles/error-component.scss';
 const ErrorComponent = () => (
   <div className="error-component">
     <Message level="failure">
-      <h5>An unexpected issue occured</h5>
+      <h5>An unexpected issue occurred</h5>
       <p>
         You can try to reload the page, use the rest of this page, or go back to
         the previous page.
