@@ -189,7 +189,6 @@ const Download: FC<DownloadProps> = ({
 
   return (
     <>
-      <h2>Download</h2>
       <label htmlFor="data-selection-false">
         <input
           id="data-selection-false"

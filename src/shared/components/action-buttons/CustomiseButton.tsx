@@ -1,7 +1,5 @@
 import { Suspense, useState } from 'react';
-import { Button, EditIcon } from 'franklin-sites';
-
-import SlidingPanel from '../layouts/SlidingPanel';
+import { Button, EditIcon, SlidingPanel } from 'franklin-sites';
 
 import lazy from '../../utils/lazy';
 
@@ -20,6 +18,7 @@ const CustomiseButton = () => {
       {displayCustomisePanel && (
         <Suspense fallback={null}>
           <SlidingPanel
+            title="Customize Data"
             position="left"
             yScrollable
             onClose={() => setDisplayCustomisePanel(false)}

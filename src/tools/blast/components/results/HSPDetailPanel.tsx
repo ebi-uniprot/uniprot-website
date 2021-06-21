@@ -1,8 +1,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable camelcase */
 import { FC, useMemo } from 'react';
-import { Loader, CloseIcon } from 'franklin-sites';
-import SlidingPanel from '../../../../shared/components/layouts/SlidingPanel';
+import { Loader, SlidingPanel } from 'franklin-sites';
 import { BlastHsp } from '../../types/blastResults';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
@@ -111,12 +110,6 @@ const HSPDetailPanel: FC<HSPDetailPanelProps> = ({
   } else {
     content = (
       <>
-        <div className="hsp-detail-panel__header">
-          <h4>{title}</h4>
-          <button type="button" onClick={onClose}>
-            <CloseIcon width="16" height="16" />
-          </button>
-        </div>
         <div className="hsp-detail-panel__body">
           <AlignmentView
             alignmentLength={hsp_align_len}
@@ -132,6 +125,8 @@ const HSPDetailPanel: FC<HSPDetailPanelProps> = ({
 
   return (
     <SlidingPanel
+      title={title}
+      withCloseButton
       position="bottom"
       className={containerClass}
       onClose={onClose}

@@ -4,9 +4,6 @@ import styles from './styles/basket.module.scss';
 
 const Basket = () => (
   <div className={styles.basket}>
-    <div className={styles['basket__header']}>
-      <h1 className="medium">My Basket</h1>
-    </div>
     <Tabs>
       <Tab title="UniProtKB">
         Results component with custom column config and override useNS?

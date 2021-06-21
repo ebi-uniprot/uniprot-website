@@ -6,9 +6,9 @@ import {
   TableIcon,
   ListIcon,
   Button,
+  SlidingPanel,
 } from 'franklin-sites';
 
-import SlidingPanel from '../layouts/SlidingPanel';
 import BlastButton from '../action-buttons/Blast';
 import AlignButton from '../action-buttons/Align';
 import AddToBasketButton from '../action-buttons/AddToBasket';
@@ -64,6 +64,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
       {displayDownloadPanel && (
         <Suspense fallback={null}>
           <SlidingPanel
+            title="Download"
             position="left"
             yScrollable
             onClose={() => setDisplayDownloadPanel(false)}

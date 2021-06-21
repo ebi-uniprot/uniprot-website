@@ -1,8 +1,6 @@
 import { FC, useState, Suspense, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, DownloadIcon } from 'franklin-sites';
-
-import SlidingPanel from '../../../shared/components/layouts/SlidingPanel';
+import { Button, DownloadIcon, SlidingPanel } from 'franklin-sites';
 
 import lazy from '../../../shared/utils/lazy';
 
@@ -63,6 +61,7 @@ const ComponentsButtons: FC<
       {displayDownloadPanel && (
         <Suspense fallback={null}>
           <SlidingPanel
+            title="Download"
             position="left"
             onClose={() => setDisplayDownloadPanel(false)}
             yScrollable

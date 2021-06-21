@@ -1,9 +1,7 @@
 import { Suspense, useState, useCallback, FC } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { parse as qsParse, stringify as qsStringify } from 'query-string';
-import { Button } from 'franklin-sites';
-
-import SlidingPanel from '../layouts/SlidingPanel';
+import { Button, SlidingPanel } from 'franklin-sites';
 
 import lazy from '../../utils/lazy';
 

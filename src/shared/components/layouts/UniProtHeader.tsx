@@ -6,10 +6,12 @@ import {
   EnvelopeIcon,
   BasketIcon,
   ToolboxIcon,
+  Button,
+  CloseIcon,
+  SlidingPanel,
 } from 'franklin-sites';
 
 import SearchContainer from '../search/SearchContainer';
-import SlidingPanel from './SlidingPanel';
 import Basket from '../basket/Basket';
 
 import useNS from '../../hooks/useNS';
@@ -124,6 +126,8 @@ const UniProtHeader = () => {
       />
       {displayBasket && (
         <SlidingPanel
+          title="My Basket"
+          withCloseButton
           position="right"
           onClose={() => setDisplayBasket(!!displayBasket)}
           yScrollable
