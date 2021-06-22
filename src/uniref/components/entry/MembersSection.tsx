@@ -6,6 +6,7 @@ import AddToBasket from '../../../shared/components/action-buttons/AddToBasket';
 import AlignButton from '../../../shared/components/action-buttons/Align';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
+import BasketStatus from '../../../shared/components/BasketStatus';
 import MemberLink from './MemberLink';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -33,6 +34,8 @@ import {
 } from '../../adapters/uniRefConverter';
 import { UniRefMembersResults } from '../../types/membersEndpoint';
 
+import helper from '../../../shared/styles/helper.module.scss';
+
 // OK so, if it's UniProt KB, use first accession as unique key and as first
 // column, if it's UniParc use ID (see entryname renderer lower for counterpart)
 const getKey = (member: UniRefMember) =>
@@ -55,7 +58,15 @@ const columns: ColumDescriptor[] = [
   {
     name: 'members',
     label: 'Cluster Members',
-    render: (member) => <MemberLink accession={getKey(member)} />,
+    render: (member) => {
+      const id = getKey(member);
+      return (
+        <div className={helper['no-wrap']}>
+          <BasketStatus id={id} />
+          <MemberLink accession={id} />
+        </div>
+      );
+    },
   },
   {
     name: 'entryNames',

@@ -13,7 +13,7 @@ import { mockSuggesterApi } from '../../../../query-builder/components/__tests__
 import mockIDMappingFormConfig from './__mocks__/idMappingFormConfig';
 
 const mock = new MockAdapter(axios);
-mock.onGet(/\/uniprot\/api\/suggester/).reply(200, mockSuggesterApi.response);
+mock.onGet(/\/api\/suggester/).reply(200, mockSuggesterApi.response);
 mock
   .onGet(/\/configure\/idmapping\/fields/)
   .reply(200, mockIDMappingFormConfig);

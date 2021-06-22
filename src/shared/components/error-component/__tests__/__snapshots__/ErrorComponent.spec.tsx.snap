@@ -21,7 +21,7 @@ exports[`ErrorComponent should render 1`] = `
       >
         <small>
           <h5>
-            An unexpected issue occured
+            An unexpected issue occurred
           </h5>
           <p>
             You can try to reload the page, use the rest of this page, or go back to the previous page.

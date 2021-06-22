@@ -1,4 +1,11 @@
+import { keyBy } from 'lodash-es';
+
 import { Clause } from '../../../types/searchTypes';
+
+import searchTerms from '../../../components/__tests__/__mocks__/configureSearchTerms';
+import { getAllTerm } from '../../clause';
+
+const idToSearchTerm = keyBy(searchTerms, ({ id }) => id);
 
 const testData = [
   {
@@ -7,15 +14,7 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: {
-          id: 'id_field',
-          label: 'Entry Name [ID]',
-          itemType: 'single',
-          term: 'id',
-          dataType: 'string',
-          fieldType: 'general',
-          example: 'P53_HUMAN',
-        },
+        searchTerm: idToSearchTerm.id_field,
         queryBits: {
           id: 'blah blah',
         },
@@ -28,15 +27,7 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: {
-          id: 'id_field',
-          label: 'Entry Name [ID]',
-          itemType: 'single',
-          term: 'id',
-          dataType: 'string',
-          fieldType: 'general',
-          example: 'P53_HUMAN',
-        },
+        searchTerm: idToSearchTerm.id_field,
         logicOperator: 'NOT',
         queryBits: {
           id: 'blah',
@@ -50,17 +41,7 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: {
-          id: 'organism_name_field',
-          label: 'Organism [OS]',
-          itemType: 'single',
-          term: 'organism_name',
-          dataType: 'string',
-          fieldType: 'general',
-          example: 'saccharomyces',
-          autoComplete: '/uniprot/api/suggester?dict=organism&query=?',
-          autoCompleteQueryTerm: 'organism_id',
-        },
+        searchTerm: idToSearchTerm.organism_name_field,
         queryBits: {
           organism_name: 'Homo sap',
         },
@@ -73,17 +54,7 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: {
-          id: 'organism_name_field',
-          label: 'Organism [OS]',
-          itemType: 'single',
-          term: 'organism_name',
-          dataType: 'string',
-          fieldType: 'general',
-          example: 'saccharomyces',
-          autoComplete: '/uniprot/api/suggester?dict=organism&query=?',
-          autoCompleteQueryTerm: 'organism_id',
-        },
+        searchTerm: idToSearchTerm.organism_name_field,
         queryBits: {
           organism_id: '9606',
         },
@@ -96,14 +67,7 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: {
-          id: 'ftlen_sites',
-          itemType: 'single',
-          term: 'ftlen_sites',
-          dataType: 'integer',
-          fieldType: 'range',
-          example: '[0 TO 100]',
-        },
+        searchTerm: idToSearchTerm.ftlen_sites,
         queryBits: {
           ftlen_sites: '[10 TO 100]',
         },
@@ -116,14 +80,7 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: {
-          id: 'ftlen_sites',
-          itemType: 'single',
-          term: 'ftlen_sites',
-          dataType: 'integer',
-          fieldType: 'range',
-          example: '[0 TO *]',
-        },
+        searchTerm: idToSearchTerm.ftlen_sites,
         queryBits: {
           ftlen_sites: '[10 TO *]',
         },
@@ -136,15 +93,7 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: {
-          id: 'date_created',
-          label: 'Date Of Creation',
-          itemType: 'single',
-          term: 'date_created',
-          dataType: 'date',
-          fieldType: 'range',
-          example: '[2018-03-04 TO 2018-03-08]',
-        },
+        searchTerm: idToSearchTerm.date_created,
         queryBits: {
           date_created: '[2018-03-04 TO 2018-03-08]',
         },
@@ -157,37 +106,7 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: {
-          id: 'existence',
-          label: 'Protein Existence [PE]',
-          itemType: 'single',
-          term: 'existence',
-          dataType: 'enum',
-          fieldType: 'general',
-          example: '1',
-          values: [
-            {
-              name: 'Evidence at protein level',
-              value: 'protein_level',
-            },
-            {
-              name: 'Evidence at transcript level',
-              value: 'transcript_level',
-            },
-            {
-              name: 'Inferred from homology',
-              value: 'homology',
-            },
-            {
-              name: 'Predicted',
-              value: 'predicted',
-            },
-            {
-              name: 'Uncertain',
-              value: 'uncertain',
-            },
-          ],
-        },
+        searchTerm: idToSearchTerm.existence,
         queryBits: {
           existence: 'predicted',
         },
@@ -200,15 +119,7 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: {
-          id: 'xref_pdb',
-          label: 'PDB',
-          itemType: 'single',
-          term: 'xref',
-          dataType: 'string',
-          fieldType: 'general',
-          valuePrefix: 'pdb-',
-        },
+        searchTerm: idToSearchTerm.xref_pdb,
         queryBits: {
           xref: 'pdb-Something',
         },
@@ -221,14 +132,7 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: {
-          id: 'id_xref_any',
-          label: 'Any cross-reference',
-          itemType: 'database',
-          term: 'xref',
-          dataType: 'string',
-          valuePrefix: 'any-',
-        },
+        searchTerm: idToSearchTerm.id_xref_any,
         queryBits: {
           xref: 'Something',
         },
@@ -242,14 +146,7 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: {
-          id: 'id_all',
-          label: 'All',
-          itemType: 'single',
-          term: 'All',
-          dataType: 'string',
-          example: 'a4_human, P05067, cdc7 human',
-        },
+        searchTerm: getAllTerm(),
         queryBits: {
           All: 'blah',
         },
@@ -263,14 +160,7 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: {
-          id: 'id_xref_embl',
-          label: 'EMBL',
-          itemType: 'database',
-          term: 'xref',
-          dataType: 'string',
-          valuePrefix: 'embl-',
-        },
+        searchTerm: idToSearchTerm.id_xref_embl,
         queryBits: {
           database: 'embl',
         },
@@ -283,30 +173,14 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: {
-          id: 'id_field',
-          label: 'Entry Name [ID]',
-          itemType: 'single',
-          term: 'id',
-          dataType: 'string',
-          fieldType: 'general',
-          example: 'P53_HUMAN',
-        },
+        searchTerm: idToSearchTerm.id_field,
         queryBits: {
           id: 'blah',
         },
       },
       {
         id: 1,
-        searchTerm: {
-          id: 'protein_name_field',
-          label: 'Protein Name [DE]',
-          itemType: 'single',
-          term: 'protein_name',
-          dataType: 'string',
-          fieldType: 'general',
-          example: 'mas5',
-        },
+        searchTerm: idToSearchTerm.protein_name_field,
         logicOperator: 'OR',
         queryBits: {
           protein_name: 'My protein',
@@ -321,54 +195,7 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: {
-          id: 'chebi_term',
-          label: 'ChEBI term',
-          itemType: 'sibling_group',
-          siblings: [
-            {
-              id: 'cc_cofactor_chebi',
-              itemType: 'single',
-              term: 'cc_cofactor_chebi',
-              dataType: 'string',
-              fieldType: 'general',
-              example: '29105',
-              autoComplete: '/uniprot/api/suggester?dict=chebi&query=?',
-              autoCompleteQueryTerm: 'cc_cofactor_chebi',
-            },
-            {
-              id: 'ccev_cofactor_chebi',
-              itemType: 'single',
-              term: 'ccev_cofactor_chebi',
-              dataType: 'string',
-              fieldType: 'evidence',
-              example: 'manual',
-              evidenceGroups: [
-                {
-                  groupName: 'Any',
-                  items: [
-                    {
-                      name: 'Any assertion method',
-                      code: 'any',
-                    },
-                    {
-                      name: 'Any manual assertion',
-                      code: 'manual',
-                    },
-                    {
-                      name: 'Any automatic assertion',
-                      code: 'automatic',
-                    },
-                    {
-                      name: 'Any experimental assertion',
-                      code: 'experimental',
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
+        searchTerm: idToSearchTerm.chebi_term,
         queryBits: {
           cc_cofactor_chebi: 'CHEBI:12345',
           ccev_cofactor_chebi: 'manual',
@@ -383,67 +210,7 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: {
-          id: 'sites',
-          label: 'Sites',
-          itemType: 'group',
-          siblings: [
-            {
-              id: 'sites_any',
-              label: 'Any',
-              itemType: 'sibling_group',
-              items: [
-                {
-                  id: 'ft_sites',
-                  itemType: 'single',
-                  term: 'ft_sites',
-                  dataType: 'string',
-                  fieldType: 'general',
-                  example: 'translocation',
-                },
-                {
-                  id: 'ftlen_sites',
-                  itemType: 'single',
-                  term: 'ftlen_sites',
-                  dataType: 'integer',
-                  fieldType: 'range',
-                  example: '[0 TO 100]',
-                },
-                {
-                  id: 'ftev_sites',
-                  itemType: 'single',
-                  term: 'ftev_sites',
-                  dataType: 'string',
-                  fieldType: 'evidence',
-                  example: 'manual',
-                  evidenceGroups: [
-                    {
-                      groupName: 'Any',
-                      items: [
-                        {
-                          name: 'Any assertion method',
-                          code: 'any',
-                        },
-                        {
-                          name: 'Any manual assertion',
-                          code: 'manual',
-                        },
-                        {
-                          name: 'Any automatic assertion',
-                          code: 'automatic',
-                        },
-                        {
-                          name: 'Any experimental assertion',
-                          code: 'experimental',
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
+        searchTerm: idToSearchTerm.sites,
         queryBits: {
           ft_sites: 'my_site',
           ftlen_sites: '[10 TO 20]',
@@ -452,19 +219,40 @@ const testData = [
       },
       {
         id: 1,
-        searchTerm: {
-          id: 'gene_field',
-          label: 'Gene Name [GN]',
-          itemType: 'single',
-          term: 'gene',
-          dataType: 'string',
-          fieldType: 'general',
-          example: 'ydj1',
-        },
+        searchTerm: idToSearchTerm.gene_field,
         logicOperator: 'AND',
         queryBits: {
           gene: 'my_gene',
         },
+      },
+    ],
+  },
+  {
+    description: 'should handle GO term with experimental evidence level',
+    queryString: '(go_exp:0002381)',
+    clauses: [
+      {
+        id: 0,
+        searchTerm: idToSearchTerm.gene_ontology,
+        queryBits: {
+          go: '0002381',
+          go_evidence: 'exp',
+        },
+        logicOperator: 'AND',
+      },
+    ],
+  },
+  {
+    description: 'should handle GO term with any evidence level and any GO id',
+    queryString: '(go:*)',
+    clauses: [
+      {
+        id: 0,
+        searchTerm: idToSearchTerm.gene_ontology,
+        queryBits: {
+          go: '*',
+        },
+        logicOperator: 'AND',
       },
     ],
   },

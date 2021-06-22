@@ -11,4 +11,4 @@ export const googleFontsStylesheets = /^https:\/\/fonts\.googleapis\.com/;
 export const googleFontsFiles = /^https:\/\/fonts\.gstatic\.com/;
 
 export const uniprotAPIs =
-  /^https?:\/\/www(dev)?.ebi\.ac\.uk\/(proteins|uniprot)\/api\//;
+  /^https?:\/\/www(dev)?.ebi\.ac\.uk\/(proteins|uniprot)(\/beta)?\/api\//;

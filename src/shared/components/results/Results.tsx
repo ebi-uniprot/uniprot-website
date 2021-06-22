@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { Loader } from 'franklin-sites';
 
 import useDataApiWithStale from '../../hooks/useDataApiWithStale';
@@ -14,7 +13,7 @@ import ResultsDataHeader from './ResultsDataHeader';
 
 import Response from '../../../uniprotkb/types/responseTypes';
 
-const Results: FC = () => {
+const Results = () => {
   const [selectedEntries, handleEntrySelection] = useItemSelect();
 
   // Query for facets

@@ -46,7 +46,7 @@ describe('Download component', () => {
       />,
       {
         route: '/uniprotkb?query=nod2',
-        initialUserPreferences: {
+        initialLocalStorage: {
           'table columns for uniprotkb': initialColumns,
         },
       }
@@ -154,7 +154,7 @@ describe('Download with passed query and selectedQuery props', () => {
       />,
       {
         route: '/proteomes/UP000002494',
-        initialUserPreferences: {
+        initialLocalStorage: {
           'table columns for uniprotkb': initialColumns,
         },
       }

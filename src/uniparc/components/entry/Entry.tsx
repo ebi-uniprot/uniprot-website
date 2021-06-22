@@ -13,13 +13,16 @@ import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import EntryMain from './EntryMain';
 import UniParcFeaturesView from './UniParcFeaturesView';
 import XRefsFacets from './XRefsFacets';
+import BasketStatus from '../../../shared/components/BasketStatus';
+import BlastButton from '../../../shared/components/action-buttons/Blast';
+import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 
 import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
-import useUserPreferences from '../../../shared/hooks/useUserPreferences';
+import useLocalStorage from '../../../shared/hooks/useLocalStorage';
 
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 import apiUrls from '../../../shared/config/apiUrls';
@@ -48,7 +51,7 @@ const Entry: FC = () => {
   const history = useHistory();
   const { search } = useLocation();
 
-  const [columns] = useUserPreferences(
+  const [columns] = useLocalStorage(
     `table columns for ${Namespace.uniparc} entry page` as const,
     defaultColumns
   );
@@ -135,6 +138,7 @@ const Entry: FC = () => {
               mainTitle="UniParc"
               optionalTitle={transformedData.uniParcId}
             />
+            <BasketStatus id={transformedData.uniParcId} />
           </h1>
         </ErrorBoundary>
       }
@@ -154,6 +158,10 @@ const Entry: FC = () => {
           }
           id={TabLocation.Entry}
         >
+          <div className="button-group">
+            <BlastButton selectedEntries={[match.params.accession]} />
+            <AddToBasketButton selectedEntries={[match.params.accession]} />
+          </div>
           <EntryMain
             transformedData={transformedData}
             xrefs={xrefsDataObject}

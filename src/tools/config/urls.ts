@@ -2,7 +2,7 @@ import queryString from 'query-string';
 
 import {
   createFacetsQueryString,
-  devPrefix,
+  apiPrefix,
 } from '../../shared/config/apiUrls';
 import joinUrl from '../../shared/config/testingApiUrls'; // TODO: revert import to: import joinUrl from 'url-join'
 import { SelectedFacet } from '../../uniprotkb/types/resultsTypes';
@@ -71,21 +71,18 @@ function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
       baseURL = 'https://www.ebi.ac.uk/Tools/services/rest/ncbiblast';
       break;
     case JobTypes.ID_MAPPING:
-      baseURL = joinUrl(devPrefix, '/uniprot/api/idmapping');
+      baseURL = joinUrl(apiPrefix, '/idmapping');
       return Object.freeze({
         runUrl: `${baseURL}/run`,
         statusUrl: (jobId) =>
           // The cachebust extra query is just here to avoid using cached value
           `${baseURL}/status/${jobId}?cachebust=${new Date().getTime()}`,
         resultUrl: (redirectUrl, { facets, size, selectedFacets = [] }) =>
-          joinUrl(
-            devPrefix,
-            `${redirectUrl}?${queryString.stringify({
-              size,
-              facets: facets?.join(','),
-              query: createFacetsQueryString(selectedFacets),
-            })}`
-          ),
+          `${redirectUrl}?${queryString.stringify({
+            size,
+            facets: facets?.join(','),
+            query: createFacetsQueryString(selectedFacets),
+          })}`,
         detailsUrl: (jobId) => `${baseURL}/details/${jobId}`,
       });
     case JobTypes.PEPTIDE_SEARCH:

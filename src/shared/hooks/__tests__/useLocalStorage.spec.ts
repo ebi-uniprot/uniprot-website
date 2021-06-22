@@ -1,16 +1,17 @@
 import { renderHook, act } from '@testing-library/react-hooks';
 import { JsonValue } from 'type-fest';
 
-import useUserPreferences from '../useUserPreferences';
+import useLocalStorage, { localStorageCache } from '../useLocalStorage';
 
-describe('useUserPreferences hook', () => {
+describe('useLocalStorage hook', () => {
   afterEach(() => {
     window.localStorage.clear();
+    localStorageCache.clear();
   });
 
   test('get value, basic, first time', async () => {
     const { result } = renderHook(() =>
-      useUserPreferences('gdpr', 'default value')
+      useLocalStorage('gdpr', 'default value')
     );
 
     expect(result.current[0]).toEqual('default value');
@@ -23,7 +24,7 @@ describe('useUserPreferences hook', () => {
   test('get value, basic, first time, already saved', () => {
     window.localStorage.setItem('gdpr', JSON.stringify('previous value'));
     const { result } = renderHook(() =>
-      useUserPreferences('gdpr', 'default value')
+      useLocalStorage('gdpr', 'default value')
     );
 
     expect(result.current[0]).toEqual('previous value');
@@ -32,7 +33,7 @@ describe('useUserPreferences hook', () => {
   test('set value, basic, already saved', async () => {
     window.localStorage.setItem('gdpr', JSON.stringify('previous value'));
     const { result } = renderHook(() =>
-      useUserPreferences<string>('gdpr', 'default value')
+      useLocalStorage<string>('gdpr', 'default value')
     );
 
     act(() => result.current[1]('other value'));
@@ -47,7 +48,7 @@ describe('useUserPreferences hook', () => {
   test('set value, through function of current value', async () => {
     window.localStorage.setItem('gdpr', JSON.stringify('other value'));
     const { result } = renderHook(() =>
-      useUserPreferences<string>('gdpr', 'default value')
+      useLocalStorage<string>('gdpr', 'default value')
     );
 
     act(() =>
@@ -63,7 +64,7 @@ describe('useUserPreferences hook', () => {
 
   test('set value, types', async () => {
     const { result } = renderHook(() =>
-      useUserPreferences<JsonValue>('gdpr', 'default value')
+      useLocalStorage<JsonValue>('gdpr', 'default value')
     );
 
     act(() => result.current[1](0));
@@ -87,7 +88,7 @@ describe('useUserPreferences hook', () => {
 
   test('sync value from storage event', async () => {
     const { result } = renderHook(() =>
-      useUserPreferences('gdpr', 'default value')
+      useLocalStorage('gdpr', 'default value')
     );
 
     expect(result.current[0]).toEqual('default value');

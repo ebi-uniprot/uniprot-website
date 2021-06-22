@@ -1,5 +1,156 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`query parser and validator with GO field 1`] = `
+Array [
+  Object {
+    "id": 0,
+    "logicOperator": "AND",
+    "queryBits": Object {
+      "go": "0002381",
+      "go_evidence": "exp",
+    },
+    "searchTerm": Object {
+      "id": "gene_ontology",
+      "itemType": "sibling_group",
+      "label": "Gene Ontology [GO]",
+      "siblings": Array [
+        Object {
+          "autoComplete": "/suggester?dict=go&query=?",
+          "autoCompleteQueryTerm": "go",
+          "dataType": "string",
+          "example": "0009986",
+          "fieldType": "general",
+          "id": "go_field",
+          "itemType": "single",
+          "term": "go",
+        },
+        Object {
+          "dataType": "string",
+          "evidenceGroups": Array [
+            Object {
+              "groupName": "Any",
+              "items": Array [
+                Object {
+                  "code": "any",
+                  "name": "Any assertion method",
+                },
+                Object {
+                  "code": "manual",
+                  "name": "Any manual assertion",
+                },
+                Object {
+                  "code": "automatic",
+                  "name": "Any automatic assertion",
+                },
+              ],
+            },
+            Object {
+              "groupName": "Manual assertions",
+              "items": Array [
+                Object {
+                  "code": "exp",
+                  "name": "Inferred from experiment [EXP]",
+                },
+                Object {
+                  "code": "iba",
+                  "name": "Inferred from biological aspect of ancestor [IBA]",
+                },
+                Object {
+                  "code": "ic",
+                  "name": "Inferred by curator [IC]",
+                },
+                Object {
+                  "code": "ida",
+                  "name": "Inferred from direct assay [IDA]",
+                },
+                Object {
+                  "code": "iep",
+                  "name": "Inferred from expression pattern [IEP]",
+                },
+                Object {
+                  "code": "igc",
+                  "name": "Inferred from genomic context [IGC]",
+                },
+                Object {
+                  "code": "igi",
+                  "name": "Inferred from genetic interaction [IGI]",
+                },
+                Object {
+                  "code": "imp",
+                  "name": "Inferred from mutant phenotype [IMP]",
+                },
+                Object {
+                  "code": "ipi",
+                  "name": "Inferred from physical interaction [IPI]",
+                },
+                Object {
+                  "code": "isa",
+                  "name": "Inferred from sequence alignment [ISA]",
+                },
+                Object {
+                  "code": "ism",
+                  "name": "Inferred from sequence mode [ISM]",
+                },
+                Object {
+                  "code": "iso",
+                  "name": "Inferred from sequence orthology [ISO]",
+                },
+                Object {
+                  "code": "iss",
+                  "name": "Inferred from sequence or structural similarity [ISS]",
+                },
+                Object {
+                  "code": "nas",
+                  "name": "Non-traceable author statement [NAS]",
+                },
+                Object {
+                  "code": "tas",
+                  "name": "Traceable author statement [TAS]",
+                },
+                Object {
+                  "code": "hda",
+                  "name": "Inferred from high throughput direct assay [HDA]",
+                },
+                Object {
+                  "code": "hmp",
+                  "name": "Inferred from high throughput mutant phenotype [HMP]",
+                },
+                Object {
+                  "code": "hgi",
+                  "name": "Inferred from high throughput genetic interaction [HGI]",
+                },
+                Object {
+                  "code": "hep",
+                  "name": "Interred from high throughput expression pattern [HEP]",
+                },
+                Object {
+                  "code": "htp",
+                  "name": "Inferred from high throughput experiment [HTP]",
+                },
+              ],
+            },
+            Object {
+              "groupName": "Automatic assertions",
+              "items": Array [
+                Object {
+                  "code": "iea",
+                  "name": "Inferred from electronic annotation [IEA]",
+                },
+              ],
+            },
+          ],
+          "example": "manual",
+          "fieldType": "evidence",
+          "id": "go_evidence",
+          "itemType": "single",
+          "term": "go",
+        },
+      ],
+    },
+  },
+]
+`;
+
 exports[`query parser and validator with autocomplete field 1`] = `
 Array [
   Object {
@@ -9,7 +160,7 @@ Array [
       "taxonomy_id": "9606",
     },
     "searchTerm": Object {
-      "autoComplete": "/uniprot/api/suggester?dict=taxonomy&query=?",
+      "autoComplete": "/suggester?dict=taxonomy&query=?",
       "autoCompleteQueryTerm": "taxonomy_id",
       "dataType": "string",
       "example": "human",

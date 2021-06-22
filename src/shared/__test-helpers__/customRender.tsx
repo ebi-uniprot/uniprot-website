@@ -19,24 +19,21 @@ type ExtraRenderOptions = {
   history?: MemoryHistory<LocationState>;
   path?: string;
   /**
-   * For custom user preferences (used by useUserPreferences)
+   * For custom user preferences (used by useLocalStorage)
    */
-  initialUserPreferences?: Record<string, JsonValue>;
+  initialLocalStorage?: Record<string, JsonValue>;
   // For redux
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   store?: Store<RootState>;
 };
 
 type WrapperProps = RenderOptions &
-  SetRequired<
-    ExtraRenderOptions,
-    'history' | 'initialUserPreferences' | 'store'
-  >;
+  SetRequired<ExtraRenderOptions, 'history' | 'initialLocalStorage' | 'store'>;
 
 class Wrapper extends Component<WrapperProps> {
   constructor(props: WrapperProps) {
     super(props);
-    for (const [key, value] of Object.entries(props.initialUserPreferences)) {
+    for (const [key, value] of Object.entries(props.initialLocalStorage)) {
       window.localStorage.setItem(key, JSON.stringify(value));
     }
   }
@@ -63,7 +60,7 @@ const customRender = (
     route = '',
     path,
     history = createMemoryHistory({ initialEntries: [route] }),
-    initialUserPreferences = {},
+    initialLocalStorage = {},
     initialState,
     store = createStore(rootReducer, initialState),
     ...options
@@ -79,7 +76,7 @@ const customRender = (
       <Wrapper
         path={path}
         history={history}
-        initialUserPreferences={initialUserPreferences}
+        initialLocalStorage={initialLocalStorage}
         store={store}
         {...props}
       />

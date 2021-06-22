@@ -40,6 +40,7 @@ import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
 import ObsoleteEntryPage from '../../../shared/components/error-pages/ObsoleteEntryPage';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
+import BasketStatus from '../../../shared/components/BasketStatus';
 
 import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 
@@ -219,6 +220,7 @@ const Entry: FC = () => {
               optionalTitle={data.uniProtkbId}
               entryType={data.entryType}
             />
+            <BasketStatus id={data.primaryAccession} />
           </h1>
           <ProteinOverview data={data} />
         </ErrorBoundary>

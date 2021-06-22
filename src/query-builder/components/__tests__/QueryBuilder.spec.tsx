@@ -9,7 +9,7 @@ import {
 import QueryBuilder from '../QueryBuilder';
 
 import customRender from '../../../shared/__test-helpers__/customRender';
-import searchTermData from './__mocks__/configure_search-term';
+import searchTermData from './__mocks__/configureSearchTerms';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../shared/types/namespaces';

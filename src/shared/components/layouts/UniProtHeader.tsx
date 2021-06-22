@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import {
   Header,
@@ -7,12 +7,14 @@ import {
   BasketIcon,
   ToolboxIcon,
   SlidingPanel,
+  Bubble,
 } from 'franklin-sites';
 
 import SearchContainer from '../search/SearchContainer';
 import Basket from '../basket/Basket';
 
 import useNS from '../../hooks/useNS';
+import useBasket from '../../hooks/useBasket';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -71,8 +73,17 @@ const SearchContainerWithNamespace = () => {
 
 const UniProtHeader = () => {
   const homeMatch = useRouteMatch(LocationToPath[Location.Home]);
+
+  const [basket] = useBasket();
   const [displayBasket, setDisplayBasket] = useState(false);
   const [basketButtonX, setBasketButtonX] = useState<number | undefined>();
+  const basketCount = useMemo(
+    () =>
+      Array.from(basket.values())
+        .map((ns) => ns.size)
+        .reduce((total, current) => total + current, 0),
+    [basket]
+  );
 
   const basketButtonRef = useCallback((node) => {
     if (node) {
@@ -84,43 +95,53 @@ const UniProtHeader = () => {
 
   const isHomePage = Boolean(homeMatch?.isExact);
 
-  const secondaryItems = [
-    // TODO: update link
-    {
-      label: (
-        <span title="Help">
-          <HelpIcon width={secondaryItemIconSize} />
-        </span>
-      ),
-      href: '//www.uniprot.org/help',
-    },
-    {
-      label: (
-        <span title="Contact">
-          <EnvelopeIcon width={secondaryItemIconSize} />
-        </span>
-      ),
-      href: '//www.uniprot.org/contact',
-    },
-    {
-      label: (
-        <span title="Tools dashboard">
-          <ToolboxIcon width={secondaryItemIconSize} />
-        </span>
-      ),
-      path: LocationToPath[Location.Dashboard],
-    },
-    {
-      label: (
-        <span title="Basket" ref={basketButtonRef}>
-          <BasketIcon width={secondaryItemIconSize} />
-        </span>
-      ),
-      onClick: () => {
-        setDisplayBasket(true);
+  const secondaryItems = useMemo(
+    () => [
+      // TODO: update link
+      {
+        label: (
+          <span title="Help">
+            <HelpIcon width={secondaryItemIconSize} />
+          </span>
+        ),
+        href: '//www.uniprot.org/help',
       },
-    },
-  ];
+      {
+        label: (
+          <span title="Contact">
+            <EnvelopeIcon width={secondaryItemIconSize} />
+          </span>
+        ),
+        href: '//www.uniprot.org/contact',
+      },
+      {
+        label: (
+          <span title="Tools dashboard">
+            <ToolboxIcon width={secondaryItemIconSize} />
+          </span>
+        ),
+        path: LocationToPath[Location.Dashboard],
+      },
+      {
+        label: (
+          <span title="Basket" ref={basketButtonRef}>
+            <BasketIcon width={secondaryItemIconSize} />
+            {basketCount ? (
+              <Bubble
+                colourClass="colour-yankees-blue"
+                size="small"
+                value={basketCount}
+              />
+            ) : null}
+          </span>
+        ),
+        onClick: () => {
+          setDisplayBasket(true);
+        },
+      },
+    ],
+    [basketButtonRef, basketCount]
+  );
 
   return (
     <>

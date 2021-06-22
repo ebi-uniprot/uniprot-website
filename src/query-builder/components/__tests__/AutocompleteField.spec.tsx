@@ -1,8 +1,10 @@
 import { render, screen } from '@testing-library/react';
+import urlJoin from 'url-join';
 
 import AutocompleteField from '../AutocompleteField';
 
 import { DataType, FieldType, ItemType } from '../../types/searchTypes';
+import apiUrls, { apiPrefix } from '../../../shared/config/apiUrls';
 
 const field = {
   id: 'organism_name_field',
@@ -12,7 +14,7 @@ const field = {
   dataType: DataType.string,
   fieldType: FieldType.general,
   example: 'saccharomyces',
-  autoComplete: '/uniprot/api/suggester?dict=organism&query=?',
+  autoComplete: urlJoin(apiPrefix, apiUrls.organismSuggester),
   autoCompleteQueryTerm: 'organism_id',
 };
 
