@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import {
   Header,
@@ -6,8 +6,6 @@ import {
   EnvelopeIcon,
   BasketIcon,
   ToolboxIcon,
-  Button,
-  CloseIcon,
   SlidingPanel,
 } from 'franklin-sites';
 
@@ -74,6 +72,15 @@ const SearchContainerWithNamespace = () => {
 const UniProtHeader = () => {
   const homeMatch = useRouteMatch(LocationToPath[Location.Home]);
   const [displayBasket, setDisplayBasket] = useState(false);
+  const [basketButtonX, setBasketButtonX] = useState<number | undefined>();
+
+  const basketButtonRef = useCallback((node) => {
+    if (node) {
+      const iconWidth = node.getBoundingClientRect().width;
+      const xPos = node.getBoundingClientRect().x;
+      setBasketButtonX(xPos + iconWidth / 2 - 16); // 1rem=16px
+    }
+  }, []);
 
   const isHomePage = Boolean(homeMatch?.isExact);
 
@@ -105,7 +112,7 @@ const UniProtHeader = () => {
     },
     {
       label: (
-        <span title="Basket">
+        <span title="Basket" ref={basketButtonRef}>
           <BasketIcon width={secondaryItemIconSize} />
         </span>
       ),
@@ -129,10 +136,12 @@ const UniProtHeader = () => {
           title="My Basket"
           withCloseButton
           position="right"
-          onClose={() => setDisplayBasket(!!displayBasket)}
+          size="small"
+          onClose={() => setDisplayBasket(false)}
           yScrollable
+          arrowX={basketButtonX}
         >
-          <Basket onClose={() => setDisplayBasket(!!displayBasket)} />
+          <Basket />
         </SlidingPanel>
       )}
     </>
