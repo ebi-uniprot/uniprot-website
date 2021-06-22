@@ -138,7 +138,7 @@ const Entry: FC = () => {
               mainTitle="UniParc"
               optionalTitle={transformedData.uniParcId}
             />
-            <BasketStatus id={transformedData.uniParcId} />
+            <BasketStatus id={transformedData.uniParcId} className="big" />
           </h1>
         </ErrorBoundary>
       }
@@ -160,7 +160,7 @@ const Entry: FC = () => {
         >
           <div className="button-group">
             <BlastButton selectedEntries={[match.params.accession]} />
-            <AddToBasketButton selectedEntries={[match.params.accession]} />
+            <AddToBasketButton selectedEntries={match.params.accession} />
           </div>
           <EntryMain
             transformedData={transformedData}

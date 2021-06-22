@@ -109,7 +109,6 @@ const getAccessionColumn =
       // internal link
       cell = (
         <>
-          {xref.active && <BasketStatus id={xref.id} />}
           <Link
             /**
              * TODO: when we have entry history pages, we need to handle it
@@ -119,6 +118,7 @@ const getAccessionColumn =
           >
             {xref.id}
           </Link>
+          {xref.active && <BasketStatus id={xref.id} />}
         </>
       );
     } else {
