@@ -12,10 +12,12 @@ import AlignmentView, {
   View,
   Tool,
 } from '../../../components/AlignmentView';
+import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 
-import './styles/HSPDetailPanel.scss';
 import { removeFeaturesWithUnknownModifier } from '../../../utils/sequences';
 import { processFeaturesData } from '../../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
+
+import './styles/HSPDetailPanel.scss';
 
 type UniProtkbAccessionsAPI = {
   results: UniProtkbAPIModel[];
@@ -131,7 +133,7 @@ const HSPDetailPanel: FC<HSPDetailPanelProps> = ({
       className={containerClass}
       onClose={onClose}
     >
-      {content}
+      <ErrorBoundary>{content}</ErrorBoundary>
     </SlidingPanel>
   );
 };

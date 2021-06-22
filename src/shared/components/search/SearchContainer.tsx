@@ -13,6 +13,7 @@ import queryString from 'query-string';
 import { MainSearch, Button, SlidingPanel } from 'franklin-sites';
 
 import lazy from '../../utils/lazy';
+import ErrorBoundary from '../error-component/ErrorBoundary';
 
 import {
   Location,
@@ -214,7 +215,12 @@ const SearchContainer: FC<
             position="left"
             onClose={handleClose}
           >
-            <QueryBuilder onCancel={handleClose} initialNamespace={namespace} />
+            <ErrorBoundary>
+              <QueryBuilder
+                onCancel={handleClose}
+                initialNamespace={namespace}
+              />
+            </ErrorBoundary>
           </SlidingPanel>
         </Suspense>
       )}

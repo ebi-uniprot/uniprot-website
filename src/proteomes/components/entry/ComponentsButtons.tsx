@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button, DownloadIcon, SlidingPanel } from 'franklin-sites';
 
 import lazy from '../../../shared/utils/lazy';
+import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
 import { createSelectedQueryString } from '../../../shared/config/apiUrls';
 
@@ -65,15 +66,17 @@ const ComponentsButtons: FC<
             position="left"
             onClose={() => setDisplayDownloadPanel(false)}
           >
-            <DownloadComponent
-              query={allQuery}
-              selectedEntries={selectedEntries}
-              selectedQuery={selectedQuery}
-              numberSelectedEntries={numberSelectedProteins || 10} // TODO: this hardcoded number is temporary until proteinCount is available in the API
-              totalNumberResults={proteinCount || 1000} // TODO: ☝️ Same as above
-              onClose={() => setDisplayDownloadPanel(false)}
-              namespace={Namespace.uniprotkb}
-            />
+            <ErrorBoundary>
+              <DownloadComponent
+                query={allQuery}
+                selectedEntries={selectedEntries}
+                selectedQuery={selectedQuery}
+                numberSelectedEntries={numberSelectedProteins || 10} // TODO: this hardcoded number is temporary until proteinCount is available in the API
+                totalNumberResults={proteinCount || 1000} // TODO: ☝️ Same as above
+                onClose={() => setDisplayDownloadPanel(false)}
+                namespace={Namespace.uniprotkb}
+              />
+            </ErrorBoundary>
           </SlidingPanel>
         </Suspense>
       )}

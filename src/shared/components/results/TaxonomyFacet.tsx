@@ -4,6 +4,7 @@ import { parse as qsParse, stringify as qsStringify } from 'query-string';
 import { Button, SlidingPanel } from 'franklin-sites';
 
 import lazy from '../../utils/lazy';
+import ErrorBoundary from '../error-component/ErrorBoundary';
 
 import {
   parse,
@@ -79,11 +80,13 @@ const TaxonomyFacet: FC<{ namespace: SearchableNamespace }> = ({
       {displayQueryBuilder && (
         <Suspense fallback={null}>
           <SlidingPanel position="left" onClose={handleClose}>
-            <QueryBuilder
-              onCancel={handleClose}
-              fieldToAdd="taxonomy_name"
-              initialNamespace={namespace}
-            />
+            <ErrorBoundary>
+              <QueryBuilder
+                onCancel={handleClose}
+                fieldToAdd="taxonomy_name"
+                initialNamespace={namespace}
+              />
+            </ErrorBoundary>
           </SlidingPanel>
         </Suspense>
       )}

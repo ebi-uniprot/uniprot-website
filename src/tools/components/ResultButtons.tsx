@@ -11,6 +11,7 @@ import {
 import BlastButton from '../../shared/components/action-buttons/Blast';
 import AlignButton from '../../shared/components/action-buttons/Align';
 import AddToBasketButton from '../../shared/components/action-buttons/AddToBasket';
+import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
 
 import { serverParametersToFormParameters } from '../adapters/parameters';
 
@@ -128,16 +129,18 @@ const ResultButtons: FC<ResultButtonsProps<JobTypes>> = ({
             position="left"
             onClose={() => setDisplayDownloadPanel(false)}
           >
-            <ResultDownload
-              jobType={jobType}
-              id={jobId}
-              onToggleDisplay={() =>
-                setDisplayDownloadPanel(!displayDownloadPanel)
-              }
-              nHits={nHits}
-              isTableResultsFiltered={isTableResultsFiltered}
-              isTableRowSelected={selectedEntries.length > 0}
-            />
+            <ErrorBoundary>
+              <ResultDownload
+                jobType={jobType}
+                id={jobId}
+                onToggleDisplay={() =>
+                  setDisplayDownloadPanel(!displayDownloadPanel)
+                }
+                nHits={nHits}
+                isTableResultsFiltered={isTableResultsFiltered}
+                isTableRowSelected={selectedEntries.length > 0}
+              />
+            </ErrorBoundary>
           </SlidingPanel>
         </Suspense>
       )}

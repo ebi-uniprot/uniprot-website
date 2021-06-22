@@ -2,6 +2,7 @@ import { Suspense, useState } from 'react';
 import { Button, EditIcon, SlidingPanel } from 'franklin-sites';
 
 import lazy from '../../utils/lazy';
+import ErrorBoundary from '../error-component/ErrorBoundary';
 
 const CustomiseTable = lazy(
   () =>
@@ -22,7 +23,9 @@ const CustomiseButton = () => {
             position="left"
             onClose={() => setDisplayCustomisePanel(false)}
           >
-            <CustomiseTable onSave={() => setDisplayCustomisePanel(false)} />
+            <ErrorBoundary>
+              <CustomiseTable onSave={() => setDisplayCustomisePanel(false)} />
+            </ErrorBoundary>
           </SlidingPanel>
         </Suspense>
       )}

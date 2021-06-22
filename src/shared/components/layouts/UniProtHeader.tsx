@@ -24,6 +24,7 @@ import Logo from '../../../images/uniprot-logo.svg';
 import ReleaseInfo from './ReleaseInfo';
 
 import './styles/uniprot-header.scss';
+import ErrorBoundary from '../error-component/ErrorBoundary';
 
 const secondaryItemIconSize = '1.4em';
 
@@ -161,7 +162,9 @@ const UniProtHeader = () => {
           onClose={() => setDisplayBasket(false)}
           arrowX={basketButtonX}
         >
-          <Basket />
+          <ErrorBoundary>
+            <Basket />
+          </ErrorBoundary>
         </SlidingPanel>
       )}
     </>
