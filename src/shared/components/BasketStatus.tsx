@@ -9,7 +9,7 @@ import styles from './styles/basket-status.module.scss';
 type Props = { id?: string };
 
 const BasketStatus = ({ id }: Props) => {
-  const [basket, setBasket] = useBasket();
+  const [basket /* , setBasket */] = useBasket();
 
   if (!id) {
     return null;
@@ -23,16 +23,19 @@ const BasketStatus = ({ id }: Props) => {
     return null;
   }
 
+  // TODO: for Xavier to replace with "open basket" logic
+  // const removeEntry = () => {
+  //   setBasket((currentBasket) => {
+  //     const newSet = new Set(currentBasket.get(namespace));
+  //     newSet.delete(id);
+  //     return new Map([...currentBasket, [namespace, newSet]]);
+  //   });
+  // }
+
   return (
     <Button
       className={styles['basket-status']}
-      onClick={() => {
-        setBasket((currentBasket) => {
-          const newSet = new Set(currentBasket.get(namespace));
-          newSet.delete(id);
-          return new Map([...currentBasket, [namespace, newSet]]);
-        });
-      }}
+      // onClick={removeEntry}
       variant="tertiary"
       title={`Remove ${id} from basket`}
     >
