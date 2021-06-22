@@ -39,12 +39,11 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
         <test-file-stub />
         Add
       </button>
-      <button
-        class="button tertiary"
-        type="button"
+      <a
+        href="/uniprotkb?query=(accession:A0A0A0MRG2 OR accession:E9PG40 OR accession:H7C0V9 OR accession:H7C2L2)"
       >
         View all
-      </button>
+      </a>
     </div>
     <table
       class="data-table data-table--compact"
@@ -61,6 +60,9 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
           >
             Entry
           </th>
+          <th
+            class=""
+          />
           <th
             class=""
           >
@@ -88,17 +90,23 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
             />
           </td>
           <td>
-            <a
-              href="/uniprotkb/A0A0A0MRG2"
+            <div
+              class="no-wrap"
             >
-              <span
-                class="entry-title__status icon--unreviewed"
-                title="This marks an unreviewed UniProtKB entry"
+              <a
+                href="/uniprotkb/A0A0A0MRG2"
               >
-                <test-file-stub />
-              </span>
-              A0A0A0MRG2
-            </a>
+                A0A0A0MRG2
+              </a>
+            </div>
+          </td>
+          <td>
+            <span
+              class="entry-title__status icon--unreviewed"
+              title="This marks an unreviewed UniProtKB entry"
+            >
+              <test-file-stub />
+            </span>
           </td>
           <td>
             A0A0A0MRG2_HUMAN
@@ -119,17 +127,23 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
             />
           </td>
           <td>
-            <a
-              href="/uniprotkb/E9PG40"
+            <div
+              class="no-wrap"
             >
-              <span
-                class="entry-title__status icon--unreviewed"
-                title="This marks an unreviewed UniProtKB entry"
+              <a
+                href="/uniprotkb/E9PG40"
               >
-                <test-file-stub />
-              </span>
-              E9PG40
-            </a>
+                E9PG40
+              </a>
+            </div>
+          </td>
+          <td>
+            <span
+              class="entry-title__status icon--unreviewed"
+              title="This marks an unreviewed UniProtKB entry"
+            >
+              <test-file-stub />
+            </span>
           </td>
           <td>
             E9PG40_HUMAN
@@ -150,17 +164,23 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
             />
           </td>
           <td>
-            <a
-              href="/uniprotkb/H7C0V9"
+            <div
+              class="no-wrap"
             >
-              <span
-                class="entry-title__status icon--unreviewed"
-                title="This marks an unreviewed UniProtKB entry"
+              <a
+                href="/uniprotkb/H7C0V9"
               >
-                <test-file-stub />
-              </span>
-              H7C0V9
-            </a>
+                H7C0V9
+              </a>
+            </div>
+          </td>
+          <td>
+            <span
+              class="entry-title__status icon--unreviewed"
+              title="This marks an unreviewed UniProtKB entry"
+            >
+              <test-file-stub />
+            </span>
           </td>
           <td>
             H7C0V9_HUMAN
@@ -181,17 +201,23 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
             />
           </td>
           <td>
-            <a
-              href="/uniprotkb/H7C2L2"
+            <div
+              class="no-wrap"
             >
-              <span
-                class="entry-title__status icon--unreviewed"
-                title="This marks an unreviewed UniProtKB entry"
+              <a
+                href="/uniprotkb/H7C2L2"
               >
-                <test-file-stub />
-              </span>
-              H7C2L2
-            </a>
+                H7C2L2
+              </a>
+            </div>
+          </td>
+          <td>
+            <span
+              class="entry-title__status icon--unreviewed"
+              title="This marks an unreviewed UniProtKB entry"
+            >
+              <test-file-stub />
+            </span>
           </td>
           <td>
             H7C2L2_HUMAN

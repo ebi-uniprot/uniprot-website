@@ -1,14 +1,13 @@
 import { FC } from 'react';
 import { DataTable, Loader, Message } from 'franklin-sites';
-import { Link } from 'react-router-dom';
 
 import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
 import TaxonomyView from '../../../../shared/components/entry/TaxonomyView';
+import AccessionView from '../../../../shared/components/results/AccessionView';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 
 import { getAccessionsURL } from '../../../../shared/config/apiUrls';
-import { getEntryPath } from '../../../../app/config/urls';
 
 import { Namespace } from '../../../../shared/types/namespaces';
 
@@ -29,12 +28,17 @@ const columnConfig = [
     label: 'Accession',
     name: 'accession',
     render: (row: UniProtkbAPIModel) => (
-      <>
-        <EntryTypeIcon entryType={row.entryType} />
-        <Link to={getEntryPath(Namespace.uniprotkb, row.primaryAccession)}>
-          {row.primaryAccession}
-        </Link>
-      </>
+      <AccessionView
+        id={row.primaryAccession}
+        namespace={Namespace.uniprotkb}
+      />
+    ),
+  },
+  {
+    label: '',
+    name: 'reviewed',
+    render: (row: UniProtkbAPIModel) => (
+      <EntryTypeIcon entryType={row.entryType} />
     ),
   },
   {

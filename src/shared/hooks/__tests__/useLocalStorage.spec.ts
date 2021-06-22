@@ -1,11 +1,12 @@
 import { renderHook, act } from '@testing-library/react-hooks';
 import { JsonValue } from 'type-fest';
 
-import useLocalStorage from '../useLocalStorage';
+import useLocalStorage, { localStorageCache } from '../useLocalStorage';
 
 describe('useLocalStorage hook', () => {
   afterEach(() => {
     window.localStorage.clear();
+    localStorageCache.clear();
   });
 
   test('get value, basic, first time', async () => {

@@ -1,5 +1,4 @@
-import { screen, fireEvent } from '@testing-library/react';
-import { createMemoryHistory } from 'history';
+import { screen } from '@testing-library/react';
 
 import ComputationalyMappedSequences from '../ComputationallyMappedSequences';
 
@@ -57,15 +56,13 @@ describe('Computationally mapped isoforms', () => {
 
   test('Should go to results with all accessions', async () => {
     (useDataApi as jest.Mock).mockReturnValue({ loading: false, data });
-    const history = createMemoryHistory();
 
-    customRender(<ComputationalyMappedSequences primaryAccession="P05067" />, {
-      history,
-    });
-    const button = await screen.findByRole('button', { name: /View all/i });
-    fireEvent.click(button);
-    expect(history.location.search).toEqual(
-      '?query=(accession:A0A0A0MRG2 OR accession:E9PG40 OR accession:H7C0V9 OR accession:H7C2L2)'
+    customRender(<ComputationalyMappedSequences primaryAccession="P05067" />);
+    const link = (await screen.findByRole('link', {
+      name: /View all/i,
+    })) as HTMLAnchorElement;
+    expect(link.href).toContain(
+      '?query=(accession:A0A0A0MRG2%20OR%20accession:E9PG40%20OR%20accession:H7C0V9%20OR%20accession:H7C2L2)'
     );
   });
 });

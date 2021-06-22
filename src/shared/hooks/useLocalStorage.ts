@@ -22,6 +22,11 @@ export type UserPreferenceKey =
   // basket content
   | 'basket';
 
+// Shared cache to avoid reading from disk in a blocking way multiple times when
+// multiple hooks are used across the page.
+// Exporting for test usage only
+export const localStorageCache = new Map<UserPreferenceKey, string>();
+
 // Custom hook to be used whenever a persistent user preference is needed
 function useLocalStorage<T extends JsonValue>(
   key: UserPreferenceKey,
@@ -29,9 +34,12 @@ function useLocalStorage<T extends JsonValue>(
 ): [state: T, setState: Dispatch<SetStateAction<T>>] {
   const [state, setState] = useState<T>(() => {
     // Initialisation
-    const inStore = window.localStorage.getItem(key);
+    const inStore =
+      localStorageCache.get(key) ?? window.localStorage.getItem(key);
     if (typeof inStore !== 'string') {
-      window.localStorage.setItem(key, JSON.stringify(defaultValue));
+      const stringified = JSON.stringify(defaultValue);
+      localStorageCache.set(key, stringified);
+      window.localStorage.setItem(key, stringified);
       return defaultValue;
     }
     return JSON.parse(inStore);
@@ -47,6 +55,7 @@ function useLocalStorage<T extends JsonValue>(
             ? valueOrSetter(currentState)
             : valueOrSetter;
         const stringified = JSON.stringify(valueToStore);
+        localStorageCache.set(key, stringified);
         window.localStorage.setItem(key, stringified);
         // Dispatch asyncronously because otherwise the react logic wouldn't let
         // us setState in the event listener
@@ -79,7 +88,9 @@ function useLocalStorage<T extends JsonValue>(
         // value was removed
         // reset state with default value, but trigger usage of default value
         setState(defaultValue);
-        window.localStorage.setItem(key, JSON.stringify(defaultValue));
+        const stringified = JSON.stringify(defaultValue);
+        localStorageCache.set(key, stringified);
+        window.localStorage.setItem(key, stringified);
       } else {
         const parsed = JSON.parse(newValue);
         // update state accordingly

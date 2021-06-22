@@ -1,0 +1,17 @@
+.basket-status {
+  margin: 0 0 0 auto;
+  animation: appear 1 0.5s both ease-out;
+}
+
+:global(.data-table) .basket-status {
+  margin-bottom: 0.25em;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

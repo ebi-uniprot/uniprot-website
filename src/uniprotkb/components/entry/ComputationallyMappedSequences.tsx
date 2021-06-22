@@ -1,12 +1,12 @@
-/* eslint-disable react/no-unused-prop-types */
-import { useCallback, useMemo, FC, ReactNode } from 'react';
-import { DataTable, Message, Button } from 'franklin-sites';
-import { Link, useHistory } from 'react-router-dom';
+import { useMemo, FC, ReactNode } from 'react';
+import { Link } from 'react-router-dom';
+import { DataTable, Message } from 'franklin-sites';
 
 import AddToBasket from '../../../shared/components/action-buttons/AddToBasket';
 import AlignButton from '../../../shared/components/action-buttons/Align';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 
+import AccessionView from '../../../shared/components/results/AccessionView';
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -15,11 +15,7 @@ import useItemSelect from '../../../shared/hooks/useItemSelect';
 
 import { pluralise } from '../../../shared/utils/utils';
 
-import {
-  getEntryPath,
-  Location,
-  LocationToPath,
-} from '../../../app/config/urls';
+import { Location, LocationToPath } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
 
 import { MessageLevel } from '../../../messages/types/messagesTypes';
@@ -52,7 +48,7 @@ const ComputationalyMappedSequences: FC<{ primaryAccession: string }> = ({
 
   const columns = useMemo<
     Array<{
-      label: string;
+      label: ReactNode;
       name: string;
       render: (data: ProteinEntryLight) => ReactNode;
     }>
@@ -61,12 +57,14 @@ const ComputationalyMappedSequences: FC<{ primaryAccession: string }> = ({
       {
         label: 'Entry',
         name: 'accession',
-        render: ({ id: accession, entryType }) => (
-          <Link to={getEntryPath(Namespace.uniprotkb, accession)}>
-            <EntryTypeIcon entryType={entryType} />
-            {accession}
-          </Link>
+        render: ({ id }) => (
+          <AccessionView id={id} namespace={Namespace.uniprotkb} />
         ),
+      },
+      {
+        label: null,
+        name: 'reviewed',
+        render: ({ entryType }) => <EntryTypeIcon entryType={entryType} />,
       },
       {
         label: 'Entry name',
@@ -88,7 +86,6 @@ const ComputationalyMappedSequences: FC<{ primaryAccession: string }> = ({
   );
 
   // Hooks
-  const history = useHistory();
   const { data, loading, error, status } = useDataApi<GeneCentricData>(
     apiUrls.genecentric(primaryAccession)
   );
@@ -100,19 +97,6 @@ const ComputationalyMappedSequences: FC<{ primaryAccession: string }> = ({
       ),
     [primaryAccession, data]
   );
-
-  const handleViewAll = useCallback(() => {
-    if (!filteredData) {
-      return;
-    }
-    const queryString = filteredData
-      ?.map(({ id }) => `accession:${id}`)
-      .join(' OR ');
-    history.push({
-      pathname: LocationToPath[Location.UniProtKBResults],
-      search: `query=(${queryString})`,
-    });
-  }, [history, filteredData]);
 
   if (loading) {
     return null;
@@ -144,9 +128,17 @@ const ComputationalyMappedSequences: FC<{ primaryAccession: string }> = ({
                 <BlastButton selectedEntries={selectedEntries} />
                 <AlignButton selectedEntries={selectedEntries} />
                 <AddToBasket selectedEntries={selectedEntries} />
-                <Button variant="tertiary" onClick={handleViewAll}>
+                <Link
+                  to={{
+                    pathname: LocationToPath[Location.UniProtKBResults],
+                    search: `query=(${filteredData
+                      ?.map(({ id }) => `accession:${id}`)
+                      .sort()
+                      .join(' OR ')})`,
+                  }}
+                >
                   View all
-                </Button>
+                </Link>
               </div>
 
               <DataTable

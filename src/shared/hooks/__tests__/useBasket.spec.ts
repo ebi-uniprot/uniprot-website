@@ -4,19 +4,24 @@ import { Namespace } from '../../types/namespaces';
 
 import useBasket from '../useBasket';
 
+import { localStorageCache } from '../useLocalStorage';
+
 describe('useBasket hook', () => {
   afterEach(() => {
     window.localStorage.clear();
+    localStorageCache.clear();
   });
 
   test('get value, basic, first time', async () => {
     const { result } = renderHook(() => useBasket());
 
-    expect(result.current[0]).toEqual({
-      [Namespace.uniprotkb]: new Set(),
-      [Namespace.uniref]: new Set(),
-      [Namespace.uniparc]: new Set(),
-    });
+    expect(result.current[0]).toEqual(
+      new Map([
+        [Namespace.uniprotkb, new Set()],
+        [Namespace.uniref, new Set()],
+        [Namespace.uniparc, new Set()],
+      ])
+    );
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(JSON.parse(window.localStorage.getItem('basket')!)).toEqual({
       [Namespace.uniprotkb]: [],
@@ -36,11 +41,13 @@ describe('useBasket hook', () => {
     );
     const { result } = renderHook(() => useBasket());
 
-    expect(result.current[0]).toEqual({
-      [Namespace.uniprotkb]: new Set(['P05067']),
-      [Namespace.uniref]: new Set(),
-      [Namespace.uniparc]: new Set(['UPI0000000001', 'UPI0000000002']),
-    });
+    expect(result.current[0]).toEqual(
+      new Map([
+        [Namespace.uniprotkb, new Set(['P05067'])],
+        [Namespace.uniref, new Set()],
+        [Namespace.uniparc, new Set(['UPI0000000001', 'UPI0000000002'])],
+      ])
+    );
   });
 
   test('set value, basic, already saved', async () => {
@@ -55,18 +62,22 @@ describe('useBasket hook', () => {
     const { result } = renderHook(() => useBasket());
 
     act(() =>
-      result.current[1]({
-        [Namespace.uniprotkb]: new Set(),
-        [Namespace.uniref]: new Set(),
-        [Namespace.uniparc]: new Set(['UPI0000000001', 'UPI0000000002']),
-      })
+      result.current[1](
+        new Map([
+          [Namespace.uniprotkb, new Set()],
+          [Namespace.uniref, new Set()],
+          [Namespace.uniparc, new Set(['UPI0000000001', 'UPI0000000002'])],
+        ])
+      )
     );
 
-    expect(result.current[0]).toEqual({
-      [Namespace.uniprotkb]: new Set(),
-      [Namespace.uniref]: new Set(),
-      [Namespace.uniparc]: new Set(['UPI0000000001', 'UPI0000000002']),
-    });
+    expect(result.current[0]).toEqual(
+      new Map([
+        [Namespace.uniprotkb, new Set()],
+        [Namespace.uniref, new Set()],
+        [Namespace.uniparc, new Set(['UPI0000000001', 'UPI0000000002'])],
+      ])
+    );
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(JSON.parse(window.localStorage.getItem('basket')!)).toEqual({
       [Namespace.uniprotkb]: [],
@@ -87,17 +98,19 @@ describe('useBasket hook', () => {
     const { result } = renderHook(() => useBasket());
 
     act(() =>
-      result.current[1]((currentValue) => ({
-        ...currentValue,
-        [Namespace.uniprotkb]: new Set(),
-      }))
+      result.current[1](
+        (currentValue) =>
+          new Map([...currentValue, [Namespace.uniprotkb, new Set()]])
+      )
     );
 
-    expect(result.current[0]).toEqual({
-      [Namespace.uniprotkb]: new Set([]),
-      [Namespace.uniref]: new Set([]),
-      [Namespace.uniparc]: new Set(['UPI0000000001', 'UPI0000000002']),
-    });
+    expect(result.current[0]).toEqual(
+      new Map([
+        [Namespace.uniprotkb, new Set([])],
+        [Namespace.uniref, new Set([])],
+        [Namespace.uniparc, new Set(['UPI0000000001', 'UPI0000000002'])],
+      ])
+    );
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(JSON.parse(window.localStorage.getItem('basket')!)).toEqual({
       [Namespace.uniprotkb]: [],

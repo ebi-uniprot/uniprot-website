@@ -302,7 +302,7 @@ exports[`ProteomesColumnConfiguration component should render column "protein_co
 exports[`ProteomesColumnConfiguration component should render column "upid": upid 1`] = `
 <DocumentFragment>
   <div
-    class="accession-view"
+    class="no-wrap"
   >
     <span
       class="entry-title__status icon--reference-proteome"

@@ -4,31 +4,36 @@ import useLocalStorage from './useLocalStorage';
 
 import { Namespace } from '../types/namespaces';
 
-export type Basket = {
-  [Namespace.uniprotkb]: Set<string>;
-  [Namespace.uniref]: Set<`UniRef${50 | 90 | 100}_${string}`>;
-  [Namespace.uniparc]: Set<`UPI${string}`>;
-};
+export type Basket = Map<Namespace, Set<string>>;
 
-type StringifiableBasket = {
-  [Namespace.uniprotkb]: Array<string>;
-  [Namespace.uniref]: Array<`UniRef${50 | 90 | 100}_${string}`>;
-  [Namespace.uniparc]: Array<`UPI${string}`>;
-};
+type StringifiableBasket = { [key in Namespace]?: Array<string> };
 
 const deserialise = (stringifiableBasket: StringifiableBasket): Basket => {
   const entries = Object.entries(stringifiableBasket);
-  const object = Object.fromEntries(
-    entries.map(([key, value]) => [key, new Set(value.filter(Boolean))])
-  ) as Basket;
+  const object: Basket = new Map(
+    entries.map(([key, value]) => [
+      key as Namespace,
+      new Set(value?.filter(Boolean)),
+    ])
+  );
   return object;
 };
 
+const basketableNS = new Set([
+  Namespace.uniprotkb,
+  Namespace.uniref,
+  Namespace.uniparc,
+]);
+
 const serialise = (basket: Basket): StringifiableBasket => {
-  const entries = Object.entries(basket);
-  const object = Object.fromEntries(
-    entries.map(([key, value]) => [key, Array.from(value).filter(Boolean)])
-  ) as StringifiableBasket;
+  const entries = Array.from(basket.entries());
+  const object: StringifiableBasket = Object.fromEntries(
+    entries
+      // Safeguard, make sure to only store namespaces that belong in the basket
+      .filter(([key]) => basketableNS.has(key))
+      // Transform Array into Set, removes possibly empty values (safeguard)
+      .map(([key, value]) => [key, Array.from(value).filter(Boolean)])
+  );
   return object;
 };
 
@@ -36,11 +41,10 @@ const useBasket = (): [
   state: Basket,
   setState: Dispatch<SetStateAction<Basket>>
 ] => {
-  const [state, setState] = useLocalStorage<StringifiableBasket>('basket', {
-    [Namespace.uniprotkb]: [],
-    [Namespace.uniref]: [],
-    [Namespace.uniparc]: [],
-  });
+  const [state, setState] = useLocalStorage<StringifiableBasket>(
+    'basket',
+    Object.fromEntries(Array.from(basketableNS).map((key) => [key, []]))
+  );
 
   const basket = useMemo(() => deserialise(state), [state]);
 
