@@ -89,7 +89,7 @@ const UniProtHeader = () => {
     if (node) {
       const iconWidth = node.getBoundingClientRect().width;
       const xPos = node.getBoundingClientRect().x;
-      setBasketButtonX(xPos + iconWidth / 2 - 16); // 1rem=16px
+      setBasketButtonX(xPos + iconWidth / 2);
     }
   }, []);
 
@@ -159,7 +159,6 @@ const UniProtHeader = () => {
           position="right"
           size="small"
           onClose={() => setDisplayBasket(false)}
-          yScrollable
           arrowX={basketButtonX}
         >
           <Basket />

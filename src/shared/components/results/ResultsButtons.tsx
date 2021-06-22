@@ -66,7 +66,6 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
           <SlidingPanel
             title="Download"
             position="left"
-            yScrollable
             onClose={() => setDisplayDownloadPanel(false)}
           >
             <DownloadComponent

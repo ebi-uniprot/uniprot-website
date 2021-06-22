@@ -78,7 +78,7 @@ const TaxonomyFacet: FC<{ namespace: SearchableNamespace }> = ({
       </ul>
       {displayQueryBuilder && (
         <Suspense fallback={null}>
-          <SlidingPanel position="left" yScrollable onClose={handleClose}>
+          <SlidingPanel position="left" onClose={handleClose}>
             <QueryBuilder
               onCancel={handleClose}
               fieldToAdd="taxonomy_name"

@@ -212,7 +212,6 @@ const SearchContainer: FC<
           <SlidingPanel
             title="Advanced Search"
             position="left"
-            yScrollable
             onClose={handleClose}
           >
             <QueryBuilder onCancel={handleClose} initialNamespace={namespace} />

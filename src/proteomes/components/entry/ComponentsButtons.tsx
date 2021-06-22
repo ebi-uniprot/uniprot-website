@@ -64,7 +64,6 @@ const ComponentsButtons: FC<
             title="Download"
             position="left"
             onClose={() => setDisplayDownloadPanel(false)}
-            yScrollable
           >
             <DownloadComponent
               query={allQuery}

@@ -20,7 +20,6 @@ const CustomiseButton = () => {
           <SlidingPanel
             title="Customize Data"
             position="left"
-            yScrollable
             onClose={() => setDisplayCustomisePanel(false)}
           >
             <CustomiseTable onSave={() => setDisplayCustomisePanel(false)} />
