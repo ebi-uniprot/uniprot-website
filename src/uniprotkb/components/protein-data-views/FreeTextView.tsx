@@ -10,7 +10,10 @@ import { FreeTextComment, TextWithEvidence } from '../../types/commentTypes';
 
 const pubMedIDRE = /\d{7,8}/;
 // Capturing group will allow split to conserve that bit in the split parts
-const pubMedRE = /(?<=pubmed:)(\d{7,8})/i;
+/** NOTE:
+ * Should be using a lookbehind `/(?<=pubmed:)(\d{7,8})/i` but it is not
+ * supported in Safari yet. It's OK, we just get more chunks when splitting */
+const pubMedRE = /(pubmed:)(\d{7,8})/i;
 const needsNewLineRE = /^\).\s+/;
 
 const getEntryPathForCitation = getEntryPathFor(Namespace.citations);
