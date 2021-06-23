@@ -64,7 +64,9 @@ const Basket = () => {
     <span title="Basket">
       <BasketIcon width={secondaryItemIconSize} />
       {count ? (
-        <Bubble colourClass="colour-yankees-blue" size="small" value={count} />
+        <Bubble className="colour-yankees-blue" size="small">
+          {count}
+        </Bubble>
       ) : null}
     </span>
   );
