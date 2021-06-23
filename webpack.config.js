@@ -55,11 +55,17 @@ module.exports = (env, argv) => {
     },
     devtool: (() => {
       // no sourcemap for tests
-      if (isTest) return;
+      if (isTest) {
+        return;
+      }
       // live reload, slowest first build, fast rebuild, full original source
-      if (isLiveReload) return 'eval-source-map';
+      if (isLiveReload) {
+        return 'eval-source-map';
+      }
       // dev, slow everything, but original source
-      if (isDev) return 'source-map';
+      if (isDev) {
+        return 'source-map';
+      }
       // else, prod, slow everything, but original source
       return 'source-map';
     })(),
@@ -143,6 +149,7 @@ module.exports = (env, argv) => {
             fs.realpathSync(`${__dirname}/node_modules/franklin-sites`),
             fs.realpathSync(`${__dirname}/node_modules/rheostat`),
             fs.realpathSync(`${__dirname}/node_modules/litemol/dist/css`),
+            fs.realpathSync(`${__dirname}/node_modules/molstar/build`),
             fs.realpathSync(
               `${__dirname}/node_modules/@geneontology/ribbon/es`
             ),
