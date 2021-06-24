@@ -49,6 +49,11 @@
   &__statistics {
     display: flex;
 
+    .bubble--small {
+      --main-bubble-color: #{$colour-pastel-blue};
+      color: $colour-yankees-blue;
+    }
+
     & > *:not(:last-child) {
       margin-right: $global-margin;
     }

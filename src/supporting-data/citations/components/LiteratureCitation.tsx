@@ -173,9 +173,7 @@ const Statistics: FC<StatisticsProps> = ({ statistics, id }) => {
             }}
             title={`UniProtKB reviewed entries: ${reviewedProteinCount}`}
           >
-            <Bubble className="colour-pastel-blue" size="small">
-              {reviewedProteinCount}
-            </Bubble>
+            <Bubble size="small">{reviewedProteinCount}</Bubble>
             <SwissProtIcon
               className="publication__statistics--reviewed"
               height="1em"
@@ -190,9 +188,7 @@ const Statistics: FC<StatisticsProps> = ({ statistics, id }) => {
             }}
             title={`UniProtKB unreviewed entries: ${unreviewedProteinCount}`}
           >
-            <Bubble className="colour-pastel-blue" size="small">
-              {unreviewedProteinCount}
-            </Bubble>
+            <Bubble size="small">{unreviewedProteinCount}</Bubble>
             <TremblIcon
               className="publication__statistics--unreviewed"
               height="1em"
@@ -208,9 +204,7 @@ const Statistics: FC<StatisticsProps> = ({ statistics, id }) => {
             }}
             title={`Computationally mapped entries: ${computationallyMappedProteinCount}`}
           >
-            <Bubble className="colour-pastel-blue" size="small">
-              {computationallyMappedProteinCount}
-            </Bubble>
+            <Bubble size="small">{computationallyMappedProteinCount}</Bubble>
             <ComputerMappedIcon height="1em" />
           </Link>
         ) : undefined}
@@ -223,9 +217,7 @@ const Statistics: FC<StatisticsProps> = ({ statistics, id }) => {
             }}
             title={`Community mapped entries: ${communityMappedProteinCount}`}
           >
-            <Bubble className="colour-pastel-blue" size="small">
-              {communityMappedProteinCount}
-            </Bubble>
+            <Bubble size="small">{communityMappedProteinCount}</Bubble>
             <CommunityAnnotationIcon height="1em" />
           </Link>
         ) : undefined}

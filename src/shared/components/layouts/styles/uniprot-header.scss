@@ -1,6 +1,13 @@
+@import 'franklin-sites/src/styles/colours';
+
 header {
   .header__secondary svg {
     width: initial;
     height: initial;
+  }
+
+  .bubble {
+    --main-bubble-color: #{$colour-pastel-blue};
+    color: $colour-yankees-blue;
   }
 }
