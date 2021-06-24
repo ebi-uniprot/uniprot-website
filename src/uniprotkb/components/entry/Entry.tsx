@@ -220,7 +220,7 @@ const Entry: FC = () => {
               optionalTitle={data.uniProtkbId}
               entryType={data.entryType}
             />
-            <BasketStatus id={data.primaryAccession} />
+            <BasketStatus id={data.primaryAccession} className="big" />
           </h1>
           <ProteinOverview data={data} />
         </ErrorBoundary>
@@ -275,7 +275,7 @@ const Entry: FC = () => {
                 </ul>
               </div>
             </DropdownButton>
-            <AddToBasketButton selectedEntries={[match.params.accession]} />
+            <AddToBasketButton selectedEntries={match.params.accession} />
           </div>
           <EntryMain transformedData={transformedData} />
         </Tab>

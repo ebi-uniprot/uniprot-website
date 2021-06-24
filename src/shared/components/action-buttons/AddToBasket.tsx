@@ -9,24 +9,37 @@ import accessionToNamespace from '../../utils/accessionToNamespace';
 import { pluralise } from '../../utils/utils';
 import { Namespace } from '../../types/namespaces';
 
-type AddToBasketButtonProps = { selectedEntries: string[] };
+type AddToBasketButtonProps = { selectedEntries: string | string[] };
 
 const AddToBasketButton: FC<AddToBasketButtonProps> = ({ selectedEntries }) => {
-  const [, setBasket] = useBasket();
+  const [basket, setBasket] = useBasket();
 
-  const n = selectedEntries.length;
+  const isSingleEntry = !Array.isArray(selectedEntries);
+
+  const accessions = Array.isArray(selectedEntries)
+    ? selectedEntries
+    : [selectedEntries];
+
+  const n = accessions.length;
 
   const disabled = !n;
 
-  const title = n
-    ? `Add ${n} ${pluralise('entry', n, 'entries')} to the basket`
-    : 'Select at least one entry to add to the basket';
+  const remove =
+    isSingleEntry &&
+    basket.get(accessionToNamespace(accessions[0]))?.has(accessions[0]);
 
-  const handleClick = () => {
-    if (!selectedEntries.length) {
+  let title = 'Select at least one entry to add to the basket';
+  if (remove) {
+    title = 'Remove this entry from the basket';
+  } else if (n) {
+    title = `Add ${n} ${pluralise('entry', n, 'entries')} to the basket`;
+  }
+
+  const addToBasket = () => {
+    if (!accessions.length) {
       return;
     }
-    const grouped = groupBy(selectedEntries, accessionToNamespace);
+    const grouped = groupBy(accessions, accessionToNamespace);
     setBasket(
       (currentBasket) =>
         new Map([
@@ -50,15 +63,32 @@ const AddToBasketButton: FC<AddToBasketButtonProps> = ({ selectedEntries }) => {
     );
   };
 
+  const removeFromBasket = () => {
+    const ns = accessionToNamespace(accessions[0]);
+    if (!ns) {
+      return;
+    }
+    setBasket((currentBasket) => {
+      const newSet = new Set(currentBasket.get(ns));
+      newSet.delete(accessions[0]);
+      return new Map([
+        // current namespaces, untouched
+        ...currentBasket,
+        // namespace to update
+        [ns, newSet],
+      ]);
+    });
+  };
+
   return (
     <Button
       variant="tertiary"
       title={title}
       disabled={disabled}
-      onClick={handleClick}
+      onClick={remove ? removeFromBasket : addToBasket}
     >
       <BasketIcon />
-      Add
+      {remove ? 'Remove' : 'Add'}
     </Button>
   );
 };
