@@ -17,7 +17,11 @@ test:
   extends: .js
   stage: test
   script:
-    - echo $CI_PIPELINE_SOURCE $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME $CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+    - echo $CI_PIPELINE_SOURCE
+    - echo $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME
+    - echo $CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+    - echo $CI_EXTERNAL_PULL_REQUEST_SOURCE_BRANCH_NAME
+    - echo $CI_EXTERNAL_PULL_REQUEST_TARGET_BRANCH_NAME
     - yarn
     - yarn test
 
@@ -28,9 +32,9 @@ merge_and_test:
   extends: .js
   stage: test
   script:
-    - echo Merging $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME into $CI_MERGE_REQUEST_TARGET_BRANCH_NAME to test upstream effects
-    - git checkout $CI_MERGE_REQUEST_TARGET_BRANCH_NAME
-    - git merge $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME -m "Merge and test"
+    - echo Merging $CI_EXTERNAL_PULL_REQUEST_SOURCE_BRANCH_NAME into $CI_EXTERNAL_PULL_REQUEST_TARGET_BRANCH_NAME to test upstream effects
+    - git checkout $CI_EXTERNAL_PULL_REQUEST_TARGET_BRANCH_NAME
+    - git merge $CI_EXTERNAL_PULL_REQUEST_SOURCE_BRANCH_NAME -m "Merge and test"
     - test -n "$(git status --porcelain)" && exit 1 # Exit if merge has conflicts
     - yarn
     - yarn test
