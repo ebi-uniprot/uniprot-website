@@ -104,15 +104,16 @@ export const getTabTitle = (
     })}
   >
     {tabId}
-    <span
+    <Bubble
+      size="small"
       className={bem({
         b: 'column-select',
         e: ['tab-title', 'count'],
         m: columns.length ? 'visible' : 'hidden',
       })}
     >
-      <Bubble size="small">{columns.length}</Bubble>
-    </span>
+      {columns.length}
+    </Bubble>
   </div>
 );
 

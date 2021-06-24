@@ -78,13 +78,9 @@ exports[`ColumnSelect component should render 1`] = `
           >
             data
             <span
-              class="column-select__tab-title__count column-select__tab-title__count--visible"
+              class="column-select__tab-title__count column-select__tab-title__count--visible bubble--small"
             >
-              <span
-                class="bubble--small"
-              >
-                2
-              </span>
+              2
             </span>
           </div>
         </div>
@@ -101,13 +97,9 @@ exports[`ColumnSelect component should render 1`] = `
           >
             links
             <span
-              class="column-select__tab-title__count column-select__tab-title__count--hidden"
+              class="column-select__tab-title__count column-select__tab-title__count--hidden bubble--small"
             >
-              <span
-                class="bubble--small"
-              >
-                0
-              </span>
+              0
             </span>
           </div>
         </div>
