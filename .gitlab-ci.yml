@@ -21,8 +21,9 @@ test:
     - yarn test
 
 merge_and_test:
-  only:
-    - merge_requests
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: always
   extends: .js
   stage: test
   script:
