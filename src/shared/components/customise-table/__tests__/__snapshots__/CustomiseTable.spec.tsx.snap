@@ -85,7 +85,7 @@ exports[`CustomiseTable component should render 1`] = `
                 class="column-select__tab-title__count column-select__tab-title__count--visible"
               >
                 <span
-                  class="bubble--small colour-sea-blue"
+                  class="bubble--small"
                 >
                   2
                 </span>
@@ -108,7 +108,7 @@ exports[`CustomiseTable component should render 1`] = `
                 class="column-select__tab-title__count column-select__tab-title__count--hidden"
               >
                 <span
-                  class="bubble--small colour-sea-blue"
+                  class="bubble--small"
                 >
                   0
                 </span>
@@ -166,13 +166,9 @@ exports[`CustomiseTable component should render 1`] = `
                   class="accordion__title__side"
                 >
                   <span
-                    class="accordion__title__side__count"
+                    class="accordion__title__side__count bubble--small"
                   >
-                    <span
-                      class="bubble--small colour-sea-blue"
-                    >
-                      1
-                    </span>
+                    1
                   </span>
                   <test-file-stub
                     classname="accordion__title__side__chevron"
@@ -1013,13 +1009,9 @@ exports[`CustomiseTable component should render 1`] = `
                   class="accordion__title__side"
                 >
                   <span
-                    class="accordion__title__side__count"
+                    class="accordion__title__side__count bubble--small"
                   >
-                    <span
-                      class="bubble--small colour-sea-blue"
-                    >
-                      1
-                    </span>
+                    1
                   </span>
                   <test-file-stub
                     classname="accordion__title__side__chevron"

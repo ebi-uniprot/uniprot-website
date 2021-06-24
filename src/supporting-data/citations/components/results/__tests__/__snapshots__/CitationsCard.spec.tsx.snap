@@ -188,7 +188,7 @@ exports[`CitationsCard tests should render the card component 1`] = `
                       title="UniProtKB reviewed entries: 32172"
                     >
                       <span
-                        class="bubble--small colour-pastel-blue"
+                        class="bubble--small"
                       >
                         99+
                       </span>
@@ -202,7 +202,7 @@ exports[`CitationsCard tests should render the card component 1`] = `
                       title="UniProtKB unreviewed entries: 2615"
                     >
                       <span
-                        class="bubble--small colour-pastel-blue"
+                        class="bubble--small"
                       >
                         99+
                       </span>

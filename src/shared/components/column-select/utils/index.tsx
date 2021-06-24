@@ -111,7 +111,7 @@ export const getTabTitle = (
         m: columns.length ? 'visible' : 'hidden',
       })}
     >
-      <Bubble size="small" value={columns.length} />
+      <Bubble size="small">{columns.length}</Bubble>
     </span>
   </div>
 );
