@@ -17,6 +17,7 @@ test:
   extends: .js
   stage: test
   script:
+    - echo $CI_PIPELINE_SOURCE $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME $CI_MERGE_REQUEST_TARGET_BRANCH_NAME
     - yarn
     - yarn test
 
