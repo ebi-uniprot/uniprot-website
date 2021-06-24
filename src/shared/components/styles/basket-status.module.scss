@@ -21,10 +21,12 @@
     color: white;
     animation: appear 1 0.5s both ease-out;
 
+    // in entry pages
     :global(.big) & {
-      width: 1em;
-      height: 1em;
+      width: 0.8em;
+      height: 0.8em;
       padding: 0.2ch;
+      margin-bottom: 0.2em;
     }
   }
 }
