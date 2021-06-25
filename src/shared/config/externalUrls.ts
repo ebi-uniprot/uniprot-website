@@ -44,7 +44,7 @@ const externalUrls: Record<string, (id: string | number) => string> = {
   PubMed: (id) => `https://pubmed.ncbi.nlm.nih.gov/${id}`,
   EuropePMC: (id) => `//europepmc.org/article/MED/${id}`,
   CommunityCurationGet: (id) =>
-    ` https://community.uniprot.org/bbsub/bbsubinfo.html?accession=${id}`,
+    `https://community.uniprot.org/cgi-bin/bbsub_query?accession=${id}`,
   CommunityCurationAdd: (id) =>
     `https://community.uniprot.org/bbsub/bbsub.html?accession=${id}`,
 };
