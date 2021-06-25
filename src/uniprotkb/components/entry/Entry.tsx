@@ -13,6 +13,8 @@ import {
   DropdownButton,
   Tabs,
   Tab,
+  Button,
+  CommunityAnnotationIcon,
 } from 'franklin-sites';
 
 import EntrySection, {
@@ -63,6 +65,7 @@ import { EntryType } from '../../../shared/components/entry/EntryTypeIcon';
 
 import '../../../shared/styles/sticky.scss';
 import '../../../shared/components/entry/styles/entry-page.scss';
+import externalUrls from '../../../shared/config/externalUrls';
 
 export enum TabLocation {
   Entry = 'entry',
@@ -276,6 +279,23 @@ const Entry: FC = () => {
               </div>
             </DropdownButton>
             <AddToBasketButton selectedEntries={match.params.accession} />
+            <a
+              href={externalUrls.CommunityCurationGet(match.params.accession)}
+              className="button tertiary"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <CommunityAnnotationIcon />
+              Community curation (3)
+            </a>
+            <a
+              href={externalUrls.CommunityCurationAdd(match.params.accession)}
+              className="button tertiary"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Add a publication
+            </a>
           </div>
           <EntryMain transformedData={transformedData} />
         </Tab>
