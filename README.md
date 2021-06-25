@@ -1,3 +1,5 @@
+This better work.
+
 ### Installing JavaScript Dependencies
 
 To install JavaScript dependencies, first make sure you are in the root directory of your `uniprot-website` project -- this directory should contain a file named `package.json`, then type `yarn` in the command-line and press return. This should download and install the required JavaScript packages -- this may take a few minutes to finish.
