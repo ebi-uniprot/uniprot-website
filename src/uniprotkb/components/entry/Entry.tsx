@@ -43,6 +43,7 @@ import ObsoleteEntryPage from '../../../shared/components/error-pages/ObsoleteEn
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import BasketStatus from '../../../shared/components/BasketStatus';
+import CommunityAnnotationLink from './CommunityAnnotationLink';
 
 import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 
@@ -279,15 +280,7 @@ const Entry: FC = () => {
               </div>
             </DropdownButton>
             <AddToBasketButton selectedEntries={match.params.accession} />
-            <a
-              href={externalUrls.CommunityCurationGet(match.params.accession)}
-              className="button tertiary"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <CommunityAnnotationIcon />
-              Community curation (3)
-            </a>
+            <CommunityAnnotationLink accession={match.params.accession} />
             <a
               href={externalUrls.CommunityCurationAdd(match.params.accession)}
               className="button tertiary"
