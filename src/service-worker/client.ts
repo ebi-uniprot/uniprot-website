@@ -65,7 +65,7 @@ export function register() {
 
   workbox.register();
 
-  setTimeout(() => {
+  setInterval(() => {
     workbox.update();
   }, ONE_DAY);
 }
