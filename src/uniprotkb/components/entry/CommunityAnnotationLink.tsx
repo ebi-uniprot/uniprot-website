@@ -13,6 +13,7 @@ const fetchOptions: { method: Method } = {
 type CommunityAnnotationLinkProps = {
   accession: string;
 };
+
 const CommunityAnnotationLink: FC<CommunityAnnotationLinkProps> = ({
   accession,
 }) => {
