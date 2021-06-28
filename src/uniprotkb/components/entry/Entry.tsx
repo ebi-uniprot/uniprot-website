@@ -50,6 +50,7 @@ import { addMessage } from '../../../messages/state/messagesActions';
 import { hasExternalLinks, getListOfIsoformAccessions } from '../../utils';
 import { hasContent } from '../../../shared/utils/utils';
 import apiUrls from '../../../shared/config/apiUrls';
+import externalUrls from '../../../shared/config/externalUrls';
 import { fileFormatEntryDownload } from '../../config/download';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -64,7 +65,6 @@ import { EntryType } from '../../../shared/components/entry/EntryTypeIcon';
 
 import '../../../shared/styles/sticky.scss';
 import '../../../shared/components/entry/styles/entry-page.scss';
-import externalUrls from '../../../shared/config/externalUrls';
 
 export enum TabLocation {
   Entry = 'entry',
