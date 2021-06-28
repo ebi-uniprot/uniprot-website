@@ -210,6 +210,7 @@ describe('checkJobStatus', () => {
           status: Status.FINISHED,
           timeLastUpdate: Date.now(),
           timeFinished: Date.now(),
+          seen: false,
           data: { hits: 1 },
         },
       },
