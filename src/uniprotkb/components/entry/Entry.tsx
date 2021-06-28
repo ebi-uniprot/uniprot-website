@@ -13,8 +13,6 @@ import {
   DropdownButton,
   Tabs,
   Tab,
-  Button,
-  CommunityAnnotationIcon,
 } from 'franklin-sites';
 
 import EntrySection, {
