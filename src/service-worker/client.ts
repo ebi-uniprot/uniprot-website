@@ -18,6 +18,8 @@ const dropCache = async (cacheName: string) => {
   await Promise.all(keys.map((key) => cache.delete(key)));
 };
 
+const ONE_DAY = 1000 * 60 * 60 * 24;
+
 export function register() {
   if (LIVE_RELOAD) {
     return;
@@ -62,6 +64,10 @@ export function register() {
   });
 
   workbox.register();
+
+  setTimeout(() => {
+    workbox.update();
+  }, ONE_DAY);
 }
 
 // will remove any existing service worker.
