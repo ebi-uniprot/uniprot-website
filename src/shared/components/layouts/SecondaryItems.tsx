@@ -1,5 +1,6 @@
 import { CSSProperties, useMemo } from 'react';
 import { useSelector } from 'react-redux';
+import { sumBy } from 'lodash-es';
 import {
   HelpIcon,
   EnvelopeIcon,
@@ -68,10 +69,7 @@ export const Basket = () => {
   const [basket] = useBasket();
 
   const count = useMemo(
-    () =>
-      Array.from(basket.values())
-        .map((ns) => ns.size)
-        .reduce((total, current) => total + current, 0),
+    () => sumBy(Array.from(basket.values()), 'size'),
     [basket]
   );
 
