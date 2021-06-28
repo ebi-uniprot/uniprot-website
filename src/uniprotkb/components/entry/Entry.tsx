@@ -41,6 +41,7 @@ import ObsoleteEntryPage from '../../../shared/components/error-pages/ObsoleteEn
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import BasketStatus from '../../../shared/components/BasketStatus';
+import CommunityAnnotationLink from './CommunityAnnotationLink';
 
 import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 
@@ -49,6 +50,7 @@ import { addMessage } from '../../../messages/state/messagesActions';
 import { hasExternalLinks, getListOfIsoformAccessions } from '../../utils';
 import { hasContent } from '../../../shared/utils/utils';
 import apiUrls from '../../../shared/config/apiUrls';
+import externalUrls from '../../../shared/config/externalUrls';
 import { fileFormatEntryDownload } from '../../config/download';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -276,6 +278,15 @@ const Entry: FC = () => {
               </div>
             </DropdownButton>
             <AddToBasketButton selectedEntries={match.params.accession} />
+            <CommunityAnnotationLink accession={match.params.accession} />
+            <a
+              href={externalUrls.CommunityCurationAdd(match.params.accession)}
+              className="button tertiary"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Add a publication
+            </a>
           </div>
           <EntryMain transformedData={transformedData} />
         </Tab>
