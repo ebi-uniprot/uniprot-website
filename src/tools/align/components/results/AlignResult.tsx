@@ -17,6 +17,7 @@ import useDataApi, {
 } from '../../../../shared/hooks/useDataApi';
 import useSequenceInfo from '../../utils/useSequenceInfo';
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
+import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 
 import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
 
@@ -139,12 +140,14 @@ const AlignResult = () => {
 
   // get data from the align endpoint
   const { loading, data, error, status } = useDataApi<AlignResults>(
-    urls.resultUrl(match?.params.id || '', { format: 'aln-clustal_num' })
+    urls.resultUrl(match.params.id || '', { format: 'aln-clustal_num' })
   );
 
   const inputParamsData = useParamsData(match?.params.id || '');
 
   const sequenceInfo = useSequenceInfo(inputParamsData.data?.sequence);
+
+  useMarkJobAsSeen(data, match.params.id);
 
   if (loading) {
     return <Loader />;

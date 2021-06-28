@@ -117,6 +117,7 @@ const getCheckJobStatus =
           updateJob(job.internalID, {
             timeLastUpdate: now,
             timeFinished: now,
+            seen: false,
             status,
             data: { hits: results.hits.length },
           })
@@ -163,6 +164,7 @@ const getCheckJobStatus =
           updateJob(job.internalID, {
             timeLastUpdate: now,
             timeFinished: now,
+            seen: false,
             status,
             data: { hits: +hits },
           })
@@ -182,6 +184,7 @@ const getCheckJobStatus =
           updateJob(job.internalID, {
             timeLastUpdate: now,
             timeFinished: now,
+            seen: false,
             status,
             data: { hits },
           })
@@ -194,6 +197,7 @@ const getCheckJobStatus =
           updateJob(job.internalID, {
             timeLastUpdate: now,
             timeFinished: now,
+            seen: false,
             status,
           })
         );

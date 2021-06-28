@@ -4,28 +4,29 @@ import { useSelector } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
 import { truncate } from 'lodash-es';
 
-import useDataApi from '../../../shared/hooks/useDataApi';
-import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
-import useNSQuery from '../../../shared/hooks/useNSQuery';
-import useItemSelect from '../../../shared/hooks/useItemSelect';
-import usePagination from '../../../shared/hooks/usePagination';
+import useDataApi from '../../../../shared/hooks/useDataApi';
+import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
+import useNSQuery from '../../../../shared/hooks/useNSQuery';
+import useItemSelect from '../../../../shared/hooks/useItemSelect';
+import usePagination from '../../../../shared/hooks/usePagination';
+import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 
-import ResultsData from '../../../shared/components/results/ResultsData';
-import ResultsFacets from '../../../shared/components/results/ResultsFacets';
-import ResultsDataHeader from '../../../shared/components/results/ResultsDataHeader';
-import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
-import NoResultsPage from '../../../shared/components/error-pages/NoResultsPage';
-import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
+import ResultsData from '../../../../shared/components/results/ResultsData';
+import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
+import ResultsDataHeader from '../../../../shared/components/results/ResultsDataHeader';
+import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
+import NoResultsPage from '../../../../shared/components/error-pages/NoResultsPage';
+import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 
-import toolsURLs from '../../config/urls';
-import { LocationToPath, Location } from '../../../app/config/urls';
+import toolsURLs from '../../../config/urls';
+import { LocationToPath, Location } from '../../../../app/config/urls';
 
-import Response from '../../../uniprotkb/types/responseTypes';
-import { PeptideSearchResults } from '../types/peptideSearchResults';
-import { JobTypes } from '../../types/toolsJobTypes';
-import { RootState } from '../../../app/state/rootInitialState';
-import { Job } from '../../types/toolsJob';
-import { Status } from '../../types/toolsStatuses';
+import Response from '../../../../uniprotkb/types/responseTypes';
+import { PeptideSearchResults } from '../../types/peptideSearchResults';
+import { JobTypes } from '../../../types/toolsJobTypes';
+import { RootState } from '../../../../app/state/rootInitialState';
+import { Job } from '../../../types/toolsJob';
+import { Status } from '../../../types/toolsStatuses';
 
 const jobType = JobTypes.PEPTIDE_SEARCH;
 const urls = toolsURLs(jobType);
@@ -76,6 +77,8 @@ const PeptideSearchResult: FC = () => {
     total: resultsDataTotal,
     progress: resultsDataProgress,
   } = resultsDataObject;
+
+  useMarkJobAsSeen(resultsDataObject.allResults.length, match?.params.id);
 
   let total: undefined | number;
   if (facetTotal !== undefined) {

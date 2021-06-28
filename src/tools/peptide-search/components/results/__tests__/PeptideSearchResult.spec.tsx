@@ -2,15 +2,15 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { screen } from '@testing-library/react';
 
-import customRender from '../../../../shared/__test-helpers__/customRender';
+import customRender from '../../../../../shared/__test-helpers__/customRender';
 
 import PeptideSearchResult from '../PeptideSearchResult';
 
-import { FinishedJob } from '../../../types/toolsJob';
-import { JobTypes } from '../../../types/toolsJobTypes';
-import { Status } from '../../../types/toolsStatuses';
+import { FinishedJob } from '../../../../types/toolsJob';
+import { JobTypes } from '../../../../types/toolsJobTypes';
+import { Status } from '../../../../types/toolsStatuses';
 
-import uniprotkbResults from '../../../../uniprotkb/components/__mocks__/results';
+import uniprotkbResults from '../../../../../uniprotkb/components/__mocks__/results';
 
 const mockJob: FinishedJob<JobTypes.PEPTIDE_SEARCH> = {
   internalID: 'local-id',
@@ -27,6 +27,7 @@ const mockJob: FinishedJob<JobTypes.PEPTIDE_SEARCH> = {
   timeFinished: 1620216241725,
   timeLastUpdate: 1620216241725,
   timeSubmitted: 1620215833848,
+  seen: false,
   title: 'title',
   type: JobTypes.PEPTIDE_SEARCH,
 };

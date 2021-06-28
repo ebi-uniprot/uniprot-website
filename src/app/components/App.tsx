@@ -142,7 +142,7 @@ const IDMappingForm = lazy(
 const PeptideSearchResult = lazy(
   () =>
     import(
-      /* webpackChunkName: "peptide-search-result" */ '../../tools/peptide-search/components/PeptideSearchResult'
+      /* webpackChunkName: "peptide-search-result" */ '../../tools/peptide-search/components/results/PeptideSearchResult'
     )
 );
 
