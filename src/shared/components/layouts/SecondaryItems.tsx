@@ -14,10 +14,11 @@ import useBasket from '../../hooks/useBasket';
 import { pluralise } from '../../utils/utils';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
+
 import { RootState } from '../../../app/state/rootInitialState';
+import { Status } from '../../../tools/types/toolsStatuses';
 
 import styles from './styles/secondary-items.module.scss';
-import { Status } from '../../../tools/types/toolsStatuses';
 
 interface Style extends CSSProperties {
   // TODO: define and extend the supported custom properties in franklin
