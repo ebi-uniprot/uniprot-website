@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { Method } from 'axios';
 import { CommunityAnnotationIcon } from 'franklin-sites';
 
@@ -9,21 +10,22 @@ const fetchOptions: { method: Method } = {
   method: 'HEAD',
 };
 
-const CommunityAnnotationLink = ({ accession }: { accession: string }) => {
+type CommunityAnnotationLinkProps = {
+  accession: string;
+};
+const CommunityAnnotationLink: FC<CommunityAnnotationLinkProps> = ({
+  accession,
+}) => {
   const url = externalUrls.CommunityCurationGet(accession);
   const { headers } = useDataApi(url, fetchOptions);
   const nSubmissions = +(headers?.['x-total-results'] || 0);
+  if (!nSubmissions) {
+    return null;
+  }
   return (
-    !!nSubmissions && (
-      <a
-        href={url}
-        className="button tertiary"
-        target="_blank"
-        rel="noreferrer"
-      >
-        <CommunityAnnotationIcon /> {`Community curation (${nSubmissions})`}
-      </a>
-    )
+    <a href={url} className="button tertiary" target="_blank" rel="noreferrer">
+      <CommunityAnnotationIcon /> {`Community curation (${nSubmissions})`}
+    </a>
   );
 };
 
