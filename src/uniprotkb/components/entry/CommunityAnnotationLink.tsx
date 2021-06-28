@@ -12,7 +12,7 @@ const fetchOptions: { method: Method } = {
 const CommunityAnnotationLink = ({ accession }: { accession: string }) => {
   const url = externalUrls.CommunityCurationGet(accession);
   const { headers } = useDataApi(url, fetchOptions);
-  const nSubmissions = +(headers?.['x-total-results'] || NaN);
+  const nSubmissions = +(headers?.['x-total-results'] || 0);
   return (
     !!nSubmissions && (
       <a
