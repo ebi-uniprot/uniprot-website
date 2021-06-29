@@ -2,8 +2,9 @@ import { FC, useState, Suspense, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, DownloadIcon, SlidingPanel } from 'franklin-sites';
 
-import lazy from '../../../shared/utils/lazy';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
+
+import lazy from '../../../shared/utils/lazy';
 
 import { createSelectedQueryString } from '../../../shared/config/apiUrls';
 
