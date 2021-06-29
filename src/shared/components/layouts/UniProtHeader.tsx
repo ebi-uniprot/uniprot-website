@@ -69,7 +69,7 @@ const UniProtHeader = () => {
       isNegative={isHomePage}
       search={isHomePage ? <ReleaseInfo /> : <SearchContainerWithNamespace />}
       logo={<Logo width={120} height={50} aria-label="UniProt home page" />}
-      secondaryItems={secondaryItems}
+      secondaryItems={secondaryItems()}
     />
   );
 };

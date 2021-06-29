@@ -5,7 +5,7 @@ import { Namespace } from '../../types/namespaces';
 
 import styles from './styles/basket.module.scss';
 
-const Basket = () => {
+const BasketContent = () => {
   const [basket] = useBasket();
 
   const uniprotkbIds = basket.get(Namespace.uniprotkb);
@@ -22,17 +22,19 @@ const Basket = () => {
         <Tab title="UniProtKB">
           <ul>
             {uniprotkbIds &&
-              Array.from(uniprotkbIds).map((id) => <li>{id}</li>)}
+              Array.from(uniprotkbIds).map((id) => <li key={id}>{id}</li>)}
           </ul>
         </Tab>
         <Tab title="UniRef">
           <ul>
-            {unirefIds && Array.from(unirefIds).map((id) => <li>{id}</li>)}
+            {unirefIds &&
+              Array.from(unirefIds).map((id) => <li key={id}>{id}</li>)}
           </ul>
         </Tab>
         <Tab title="UniParc">
           <ul>
-            {uniparcIds && Array.from(uniparcIds).map((id) => <li>{id}</li>)}
+            {uniparcIds &&
+              Array.from(uniparcIds).map((id) => <li key={id}>{id}</li>)}
           </ul>
         </Tab>
       </Tabs>
@@ -40,4 +42,4 @@ const Basket = () => {
   );
 };
 
-export default Basket;
+export default BasketContent;

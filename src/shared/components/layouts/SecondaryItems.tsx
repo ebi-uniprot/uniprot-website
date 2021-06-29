@@ -1,4 +1,12 @@
-import { CSSProperties, useCallback, useMemo, useState } from 'react';
+import {
+  CSSProperties,
+  useMemo,
+  useState,
+  useRef,
+  useEffect,
+  Dispatch,
+  SetStateAction,
+} from 'react';
 import { useSelector } from 'react-redux';
 import { sumBy } from 'lodash-es';
 import {
@@ -8,7 +16,6 @@ import {
   ToolboxIcon,
   Bubble,
   SlidingPanel,
-  Button,
 } from 'franklin-sites';
 import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
 
@@ -70,18 +77,38 @@ const ToolsDashboard = () => {
   );
 };
 
-export const Basket = () => {
+const repositionArrow = (element: HTMLSpanElement) => {
+  const bcr = element.getBoundingClientRect();
+  const iconWidth = bcr.width;
+  const xPos = bcr.x;
+  return xPos + iconWidth / 2;
+};
+
+export const Basket = ({
+  display,
+  setDisplay,
+}: {
+  display: boolean;
+  setDisplay: Dispatch<SetStateAction<boolean>>;
+}) => {
   const [basket] = useBasket();
-  const [displayBasket, setDisplayBasket] = useState(false);
   const [basketButtonX, setBasketButtonX] = useState<number>();
 
-  const basketButtonRef = useCallback((node) => {
-    if (node) {
-      const iconWidth = node.getBoundingClientRect().width;
-      const xPos = node.getBoundingClientRect().x;
-      setBasketButtonX(xPos + iconWidth / 2);
+  const spanRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    if (!display) {
+      return;
     }
-  }, []);
+    const ro = new window.ResizeObserver(() => {
+      if (spanRef.current) {
+        setBasketButtonX(repositionArrow(spanRef.current));
+      }
+    });
+    ro.observe(document.body);
+    // eslint-disable-next-line consistent-return
+    return () => ro.unobserve(document.body);
+  }, [display, setBasketButtonX]);
 
   const count = useMemo(
     () => sumBy(Array.from(basket.values()), 'size'),
@@ -90,13 +117,7 @@ export const Basket = () => {
 
   return (
     <>
-      <Button
-        title="Basket"
-        className={styles['secondary-item']}
-        onClick={(event) => {
-          setDisplayBasket((display) => !display);
-        }}
-      >
+      <span title="Basket" className={styles['secondary-item']} ref={spanRef}>
         <BasketIcon width={secondaryItemIconSize} />
         {count ? (
           <Bubble
@@ -107,14 +128,14 @@ export const Basket = () => {
             {count}
           </Bubble>
         ) : null}
-      </Button>
-      {displayBasket && (
+      </span>
+      {display && (
         <SlidingPanel
           title="My Basket"
           withCloseButton
           position="right"
           size="small"
-          onClose={() => setDisplayBasket(false)}
+          onClose={() => setDisplay(false)}
           arrowX={basketButtonX}
         >
           <ErrorBoundary>
@@ -126,35 +147,41 @@ export const Basket = () => {
   );
 };
 
-const secondaryItems = [
-  {
-    label: (
-      <span title="Help" className={styles['secondary-item']}>
-        <HelpIcon width={secondaryItemIconSize} />
-      </span>
-    ),
-    // TODO: update link
-    href: '//www.uniprot.org/help',
-  },
-  {
-    label: (
-      <span title="Contact" className={styles['secondary-item']}>
-        <EnvelopeIcon width={secondaryItemIconSize} />
-      </span>
-    ),
-    // TODO: update link
-    href: '//www.uniprot.org/contact',
-  },
-  {
-    label: <ToolsDashboard />,
-    path: LocationToPath[Location.Dashboard],
-  },
-  {
-    label: <Basket />,
-    onClick: () => {
-      /* */
-    },
-  },
-];
+const SecondaryItems = () => {
+  const [displayBasket, setDisplayBasket] = useState(false);
 
-export default secondaryItems;
+  return [
+    {
+      label: (
+        <span title="Help" className={styles['secondary-item']}>
+          <HelpIcon width={secondaryItemIconSize} />
+        </span>
+      ),
+      // TODO: update link
+      href: '//www.uniprot.org/help',
+    },
+    {
+      label: (
+        <span title="Contact" className={styles['secondary-item']}>
+          <EnvelopeIcon width={secondaryItemIconSize} />
+        </span>
+      ),
+      // TODO: update link
+      href: '//www.uniprot.org/contact',
+    },
+    {
+      label: <ToolsDashboard />,
+      path: LocationToPath[Location.Dashboard],
+    },
+    {
+      label: <Basket display={displayBasket} setDisplay={setDisplayBasket} />,
+      onClick: () => {
+        if (!displayBasket) {
+          setDisplayBasket(true);
+        }
+      },
+    },
+  ];
+};
+
+export default SecondaryItems;
