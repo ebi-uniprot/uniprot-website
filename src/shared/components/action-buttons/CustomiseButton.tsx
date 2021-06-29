@@ -1,8 +1,9 @@
 import { Suspense, useState } from 'react';
 import { Button, EditIcon, SlidingPanel } from 'franklin-sites';
 
-import lazy from '../../utils/lazy';
 import ErrorBoundary from '../error-component/ErrorBoundary';
+
+import lazy from '../../utils/lazy';
 
 const CustomiseTable = lazy(
   () =>

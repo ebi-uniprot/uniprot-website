@@ -12,8 +12,9 @@ import { useHistory, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import { MainSearch, Button, SlidingPanel } from 'franklin-sites';
 
-import lazy from '../../utils/lazy';
 import ErrorBoundary from '../error-component/ErrorBoundary';
+
+import lazy from '../../utils/lazy';
 
 import {
   Location,

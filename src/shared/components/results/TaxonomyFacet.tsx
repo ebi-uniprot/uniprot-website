@@ -3,8 +3,9 @@ import { Link, useLocation } from 'react-router-dom';
 import { parse as qsParse, stringify as qsStringify } from 'query-string';
 import { Button, SlidingPanel } from 'franklin-sites';
 
-import lazy from '../../utils/lazy';
 import ErrorBoundary from '../error-component/ErrorBoundary';
+
+import lazy from '../../utils/lazy';
 
 import {
   parse,
