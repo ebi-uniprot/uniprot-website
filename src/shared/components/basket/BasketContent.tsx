@@ -1,6 +1,7 @@
 import { Tabs, Tab } from 'franklin-sites';
 
 import useBasket from '../../hooks/useBasket';
+
 import { Namespace } from '../../types/namespaces';
 
 import styles from './styles/basket.module.scss';

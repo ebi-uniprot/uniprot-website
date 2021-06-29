@@ -1,21 +1,23 @@
-/* eslint-disable no-param-reassign */
 /* eslint-disable camelcase */
 import { FC, useMemo } from 'react';
 import { Loader, SlidingPanel } from 'franklin-sites';
-import { BlastHsp } from '../../types/blastResults';
-import useDataApi from '../../../../shared/hooks/useDataApi';
-import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
-import { getAccessionsURL } from '../../../../shared/config/apiUrls';
+
+import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import AlignmentView, {
   MSAInput,
   View,
   Tool,
 } from '../../../components/AlignmentView';
-import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 
+import useDataApi from '../../../../shared/hooks/useDataApi';
+
+import { getAccessionsURL } from '../../../../shared/config/apiUrls';
 import { removeFeaturesWithUnknownModifier } from '../../../utils/sequences';
 import { processFeaturesData } from '../../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
+
+import { BlastHsp } from '../../types/blastResults';
+import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 
 import './styles/HSPDetailPanel.scss';
 
