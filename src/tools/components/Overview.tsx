@@ -1,5 +1,4 @@
 /* eslint-disable no-param-reassign */
-/* eslint-disable camelcase */
 import { FC, useCallback, useMemo, useRef, useState } from 'react';
 import { Loader } from 'franklin-sites';
 import useEventListener from '@use-it/event-listener';
@@ -48,8 +47,9 @@ const AlignOverview: FC<AlignmentComponentProps> = ({
 }) => {
   const containerRef = useRef(null);
   const [highlightPosition, setHighlighPosition] = useState('');
-  const [initialDisplayEnd, setInitialDisplayEnd] =
-    useState<number | undefined>();
+  const [initialDisplayEnd, setInitialDisplayEnd] = useState<
+    number | undefined
+  >();
   const [displayEnd, setDisplayEnd] = useState<number>();
   const tracksOffset = Math.max(...alignment.map(({ from }) => from));
   const findHighlightPositions = useCallback(

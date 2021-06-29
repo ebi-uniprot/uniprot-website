@@ -2,15 +2,6 @@
 
 exports[`QueryBuilder should render 1`] = `
 <DocumentFragment>
-  <div
-    class="page-intro"
-  >
-    <h1
-      class="big"
-    >
-      Query builder
-    </h1>
-  </div>
   <form
     aria-label="Query builder form"
     class="query-builder"

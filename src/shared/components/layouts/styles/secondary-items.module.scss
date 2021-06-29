@@ -20,3 +20,13 @@
 
   --main-bubble-color: #{$colour-success};
 }
+
+.link-in-panel-title {
+  color: $colour-sky-white;
+
+  &:hover,
+  &:focus {
+    color: $colour-sky-white;
+    border-bottom: 1px solid currentColor;
+  }
+}

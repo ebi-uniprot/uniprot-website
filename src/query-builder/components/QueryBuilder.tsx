@@ -206,8 +206,6 @@ const QueryBuilder: FC<Props> = ({
 
   return (
     <>
-      <PageIntro title="Query builder" />
-
       <form
         className="query-builder"
         onSubmit={handleSubmit}

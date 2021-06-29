@@ -1,7 +1,7 @@
 import { Suspense, useState } from 'react';
-import { Button, EditIcon } from 'franklin-sites';
+import { Button, EditIcon, SlidingPanel } from 'franklin-sites';
 
-import SlidingPanel, { Position } from '../layouts/SlidingPanel';
+import ErrorBoundary from '../error-component/ErrorBoundary';
 
 import lazy from '../../utils/lazy';
 
@@ -20,11 +20,13 @@ const CustomiseButton = () => {
       {displayCustomisePanel && (
         <Suspense fallback={null}>
           <SlidingPanel
-            position={Position.left}
-            yScrollable
+            title="Customize Data"
+            position="left"
             onClose={() => setDisplayCustomisePanel(false)}
           >
-            <CustomiseTable onSave={() => setDisplayCustomisePanel(false)} />
+            <ErrorBoundary>
+              <CustomiseTable onSave={() => setDisplayCustomisePanel(false)} />
+            </ErrorBoundary>
           </SlidingPanel>
         </Suspense>
       )}

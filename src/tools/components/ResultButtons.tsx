@@ -1,14 +1,17 @@
 import { FC, useState, Suspense } from 'react';
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
-import { Button, DownloadIcon, ReSubmitIcon } from 'franklin-sites';
+import {
+  Button,
+  DownloadIcon,
+  ReSubmitIcon,
+  SlidingPanel,
+} from 'franklin-sites';
 
-import SlidingPanel, {
-  Position,
-} from '../../shared/components/layouts/SlidingPanel';
 import BlastButton from '../../shared/components/action-buttons/Blast';
 import AlignButton from '../../shared/components/action-buttons/Align';
 import AddToBasketButton from '../../shared/components/action-buttons/AddToBasket';
+import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
 
 import { serverParametersToFormParameters } from '../adapters/parameters';
 
@@ -123,19 +126,21 @@ const ResultButtons: FC<ResultButtonsProps<JobTypes>> = ({
       {displayDownloadPanel && (
         <Suspense fallback={null}>
           <SlidingPanel
-            position={Position.left}
+            position="left"
             onClose={() => setDisplayDownloadPanel(false)}
           >
-            <ResultDownload
-              jobType={jobType}
-              id={jobId}
-              onToggleDisplay={() =>
-                setDisplayDownloadPanel(!displayDownloadPanel)
-              }
-              nHits={nHits}
-              isTableResultsFiltered={isTableResultsFiltered}
-              isTableRowSelected={selectedEntries.length > 0}
-            />
+            <ErrorBoundary>
+              <ResultDownload
+                jobType={jobType}
+                id={jobId}
+                onToggleDisplay={() =>
+                  setDisplayDownloadPanel(!displayDownloadPanel)
+                }
+                nHits={nHits}
+                isTableResultsFiltered={isTableResultsFiltered}
+                isTableRowSelected={selectedEntries.length > 0}
+              />
+            </ErrorBoundary>
           </SlidingPanel>
         </Suspense>
       )}

@@ -62,9 +62,7 @@ describe('Download component', () => {
   it('should call onClose and download link have href with JSON format when format is selected and Download button is clicked', () => {
     const formatSelect = screen.getByTestId('file-format-select');
     fireEvent.change(formatSelect, { target: { value: FileFormat.json } });
-    const downloadLink = screen.getAllByText(
-      'Download'
-    )[1] as HTMLAnchorElement;
+    const downloadLink = screen.getByRole('link') as HTMLAnchorElement;
     fireEvent.click(downloadLink);
     expect(downloadLink.href).toEqual(expect.stringContaining('format=json'));
     expect(onCloseMock).toHaveBeenCalled();
@@ -72,9 +70,7 @@ describe('Download component', () => {
 
   it('should call onClose and download link to have href without compressed=true when selected false in the form and Download button is clicked', () => {
     fireEvent.click(screen.getByLabelText('No'));
-    const downloadLink = screen.getAllByText(
-      'Download'
-    )[1] as HTMLAnchorElement;
+    const downloadLink = screen.getByRole('link') as HTMLAnchorElement;
     fireEvent.click(downloadLink);
     expect(downloadLink.href).toEqual(
       expect.not.stringContaining('compressed')
@@ -109,15 +105,13 @@ describe('Download component', () => {
   it('should change the column selection before preview and download', async () => {
     const formatSelect = screen.getByTestId('file-format-select');
     fireEvent.change(formatSelect, { target: { value: FileFormat.tsv } });
-    let downloadLink = screen.getAllByText('Download')[1] as HTMLAnchorElement;
+    let downloadLink = screen.getByRole('link') as HTMLAnchorElement;
     expect(downloadLink.href).toEqual(
       expect.stringContaining('fields=accession%2Creviewed%2Cgene_names')
     );
     const removeButton = await screen.findAllByTestId('remove-icon');
     fireEvent.click(removeButton[0]);
-    downloadLink = (
-      await screen.findAllByText('Download')
-    )[1] as HTMLAnchorElement;
+    downloadLink = screen.getByRole('link') as HTMLAnchorElement;
     expect(downloadLink.href).toEqual(
       expect.stringContaining('fields=accession%2Cgene_names')
     );
@@ -159,14 +153,14 @@ describe('Download with passed query and selectedQuery props', () => {
         },
       }
     );
-    let downloadLink = screen.getAllByText('Download')[1] as HTMLAnchorElement;
+    let downloadLink = screen.getByRole('link') as HTMLAnchorElement;
     expect(downloadLink.href).toEqual(
       expect.stringContaining(queryString.stringify({ query }))
     );
     fireEvent.click(
       screen.getByLabelText(`Download selected (${numberSelectedEntries})`)
     );
-    downloadLink = screen.getAllByText('Download')[1] as HTMLAnchorElement;
+    downloadLink = screen.getByRole('link') as HTMLAnchorElement;
     expect(downloadLink.href).toEqual(
       expect.stringContaining(queryString.stringify({ query: selectedQuery }))
     );

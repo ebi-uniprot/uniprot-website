@@ -6,13 +6,14 @@ import {
   TableIcon,
   ListIcon,
   Button,
+  SlidingPanel,
 } from 'franklin-sites';
 
-import SlidingPanel, { Position } from '../layouts/SlidingPanel';
 import BlastButton from '../action-buttons/Blast';
 import AlignButton from '../action-buttons/Align';
 import AddToBasketButton from '../action-buttons/AddToBasket';
 import CustomiseButton from '../action-buttons/CustomiseButton';
+import ErrorBoundary from '../error-component/ErrorBoundary';
 
 import useLocalStorage from '../../hooks/useLocalStorage';
 import useNS from '../../hooks/useNS';
@@ -64,18 +65,20 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
       {displayDownloadPanel && (
         <Suspense fallback={null}>
           <SlidingPanel
-            position={Position.left}
-            yScrollable
+            title="Download"
+            position="left"
             onClose={() => setDisplayDownloadPanel(false)}
           >
-            <DownloadComponent
-              selectedEntries={selectedEntries}
-              accessions={accessions}
-              totalNumberResults={total}
-              onClose={() => setDisplayDownloadPanel(false)}
-              namespace={namespace}
-              base={base}
-            />
+            <ErrorBoundary>
+              <DownloadComponent
+                selectedEntries={selectedEntries}
+                accessions={accessions}
+                totalNumberResults={total}
+                onClose={() => setDisplayDownloadPanel(false)}
+                namespace={namespace}
+                base={base}
+              />
+            </ErrorBoundary>
           </SlidingPanel>
         </Suspense>
       )}

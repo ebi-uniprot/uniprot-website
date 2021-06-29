@@ -25,7 +25,7 @@ const EXPIRED_TIME = 1000 * 60 * 60 * 24 * 7; // 1 week
 
 const sortNewestFirst = (a: Job, b: Job) => b.timeCreated - a.timeCreated;
 
-const Dashboard = () => {
+const Dashboard = ({ inPanel }: { inPanel?: boolean }) => {
   const [activeJobs, expiredJobs] = useSelector<RootState, [Job[], Job[]]>(
     (state) => {
       const jobs = Array.from(Object.values(state.tools)).sort(sortNewestFirst);
@@ -47,7 +47,7 @@ const Dashboard = () => {
     );
     return (
       <>
-        <PageIntro title="Tool results" />
+        {inPanel ? null : <PageIntro title="Tool results" />}
         <div className="error-page-container">
           <ArtWork className="error-page-container__art-work" />
           <Message level="warning" subtitle={noResultsSubtitle} forFullPage>
@@ -60,7 +60,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <PageIntro title="Tool results" />
+      {inPanel ? null : <PageIntro title="Tool results" />}
       <p>
         Your tool analysis results from the last{' '}
         <ClockIcon height="1em" width="3ch" /> 7 days are listed below. For any

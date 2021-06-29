@@ -1,9 +1,9 @@
 import { Suspense, useState, useCallback, FC } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { parse as qsParse, stringify as qsStringify } from 'query-string';
-import { Button } from 'franklin-sites';
+import { Button, SlidingPanel } from 'franklin-sites';
 
-import SlidingPanel, { Position } from '../layouts/SlidingPanel';
+import ErrorBoundary from '../error-component/ErrorBoundary';
 
 import lazy from '../../utils/lazy';
 
@@ -80,16 +80,14 @@ const TaxonomyFacet: FC<{ namespace: SearchableNamespace }> = ({
       </ul>
       {displayQueryBuilder && (
         <Suspense fallback={null}>
-          <SlidingPanel
-            position={Position.left}
-            yScrollable
-            onClose={handleClose}
-          >
-            <QueryBuilder
-              onCancel={handleClose}
-              fieldToAdd="taxonomy_name"
-              initialNamespace={namespace}
-            />
+          <SlidingPanel position="left" onClose={handleClose}>
+            <ErrorBoundary>
+              <QueryBuilder
+                onCancel={handleClose}
+                fieldToAdd="taxonomy_name"
+                initialNamespace={namespace}
+              />
+            </ErrorBoundary>
           </SlidingPanel>
         </Suspense>
       )}

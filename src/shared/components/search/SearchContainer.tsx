@@ -10,9 +10,9 @@ import {
 } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
-import { MainSearch, Button } from 'franklin-sites';
+import { MainSearch, Button, SlidingPanel } from 'franklin-sites';
 
-import SlidingPanel, { Position } from '../layouts/SlidingPanel';
+import ErrorBoundary from '../error-component/ErrorBoundary';
 
 import lazy from '../../utils/lazy';
 
@@ -213,11 +213,16 @@ const SearchContainer: FC<
       {displayQueryBuilder && (
         <Suspense fallback={null}>
           <SlidingPanel
-            position={Position.left}
-            yScrollable
+            title="Advanced Search"
+            position="left"
             onClose={handleClose}
           >
-            <QueryBuilder onCancel={handleClose} initialNamespace={namespace} />
+            <ErrorBoundary>
+              <QueryBuilder
+                onCancel={handleClose}
+                initialNamespace={namespace}
+              />
+            </ErrorBoundary>
           </SlidingPanel>
         </Suspense>
       )}

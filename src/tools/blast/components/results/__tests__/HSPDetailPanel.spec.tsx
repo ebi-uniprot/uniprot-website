@@ -60,6 +60,6 @@ describe('HSPDetailPanel', () => {
     // that might be different across different runs ("sliding" effect)
     expect(screen.getByTestId('alignment-wrapped-view')).toBeInTheDocument();
     const slidingPanel = screen.getByTestId('sliding-panel');
-    expect(slidingPanel.firstElementChild).toMatchSnapshot();
+    expect(slidingPanel).toMatchSnapshot();
   });
 });

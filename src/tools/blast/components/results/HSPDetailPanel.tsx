@@ -1,14 +1,8 @@
-/* eslint-disable no-param-reassign */
 /* eslint-disable camelcase */
 import { FC, useMemo } from 'react';
-import { Loader, CloseIcon } from 'franklin-sites';
-import SlidingPanel, {
-  Position,
-} from '../../../../shared/components/layouts/SlidingPanel';
-import { BlastHsp } from '../../types/blastResults';
-import useDataApi from '../../../../shared/hooks/useDataApi';
-import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
-import { getAccessionsURL } from '../../../../shared/config/apiUrls';
+import { Loader, SlidingPanel } from 'franklin-sites';
+
+import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import AlignmentView, {
   MSAInput,
@@ -16,9 +10,16 @@ import AlignmentView, {
   Tool,
 } from '../../../components/AlignmentView';
 
-import './styles/HSPDetailPanel.scss';
+import useDataApi from '../../../../shared/hooks/useDataApi';
+
+import { getAccessionsURL } from '../../../../shared/config/apiUrls';
 import { removeFeaturesWithUnknownModifier } from '../../../utils/sequences';
 import { processFeaturesData } from '../../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
+
+import { BlastHsp } from '../../types/blastResults';
+import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
+
+import './styles/HSPDetailPanel.scss';
 
 type UniProtkbAccessionsAPI = {
   results: UniProtkbAPIModel[];
@@ -113,12 +114,6 @@ const HSPDetailPanel: FC<HSPDetailPanelProps> = ({
   } else {
     content = (
       <>
-        <div className="hsp-detail-panel__header">
-          <h4>{title}</h4>
-          <button type="button" onClick={onClose}>
-            <CloseIcon width="16" height="16" />
-          </button>
-        </div>
         <div className="hsp-detail-panel__body">
           <AlignmentView
             alignmentLength={hsp_align_len}
@@ -134,11 +129,13 @@ const HSPDetailPanel: FC<HSPDetailPanelProps> = ({
 
   return (
     <SlidingPanel
-      position={Position.bottom}
+      title={title}
+      withCloseButton
+      position="bottom"
       className={containerClass}
       onClose={onClose}
     >
-      {content}
+      <ErrorBoundary>{content}</ErrorBoundary>
     </SlidingPanel>
   );
 };
