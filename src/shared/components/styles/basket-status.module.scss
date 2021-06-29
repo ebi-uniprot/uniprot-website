@@ -1,17 +1,43 @@
-.basket-status {
-  margin: 0 0 0 auto;
-  animation: appear 1 0.5s both ease-out;
-}
+@import 'franklin-sites/src/styles/colours';
 
-:global(.data-table) .basket-status {
-  margin-bottom: 0.25em;
+.basket-status {
+  display: contents;
+
+  &:hover,
+  &:focus {
+    svg {
+      background-color: $colour-sea-blue;
+    }
+  }
+
+  svg {
+    overflow: visible;
+    width: 1.5em;
+    height: 1.5em;
+    margin: 0 0.5ch;
+    padding: 0.4ch;
+    border-radius: 50%;
+    background-color: $colour-sapphire-blue;
+    color: white;
+    animation: appear 1 0.5s both ease-out;
+
+    // in entry pages
+    :global(.big) & {
+      width: 0.8em;
+      height: 0.8em;
+      padding: 0.2ch;
+      margin-bottom: 0.2em;
+    }
+  }
 }
 
 @keyframes appear {
   from {
+    clip-path: circle(0);
     opacity: 0;
   }
   to {
+    clip-path: circle(100%);
     opacity: 1;
   }
 }

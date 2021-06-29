@@ -6,7 +6,7 @@ const puppeteer = require('puppeteer');
 const express = require('express');
 const getPort = require('get-port');
 
-const webpackConfig = require('../webpack.config');
+const webpackConfig = require('../../webpack.config');
 
 const webpackAsync = promisify(webpack);
 

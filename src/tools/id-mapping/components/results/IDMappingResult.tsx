@@ -6,6 +6,7 @@ import useItemSelect from '../../../../shared/hooks/useItemSelect';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import usePagination from '../../../../shared/hooks/usePagination';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
+import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 
 import toolsURLs from '../../../config/urls';
 import idMappingConverter from '../../adapters/idMappingConverter';
@@ -97,6 +98,8 @@ const IDMappingResult = () => {
 
   const { loading: facetInititialLoading, isStale: facetHasStaleData } =
     facetsData;
+
+  useMarkJobAsSeen(resultsDataObject.allResults.length, match?.params.id);
 
   if (
     facetInititialLoading &&

@@ -173,11 +173,7 @@ const Statistics: FC<StatisticsProps> = ({ statistics, id }) => {
             }}
             title={`UniProtKB reviewed entries: ${reviewedProteinCount}`}
           >
-            <Bubble
-              colourClass="colour-pastel-blue"
-              size="small"
-              value={reviewedProteinCount}
-            />
+            <Bubble size="small">{reviewedProteinCount}</Bubble>
             <SwissProtIcon
               className="publication__statistics--reviewed"
               height="1em"
@@ -192,11 +188,7 @@ const Statistics: FC<StatisticsProps> = ({ statistics, id }) => {
             }}
             title={`UniProtKB unreviewed entries: ${unreviewedProteinCount}`}
           >
-            <Bubble
-              colourClass="colour-pastel-blue"
-              size="small"
-              value={unreviewedProteinCount}
-            />
+            <Bubble size="small">{unreviewedProteinCount}</Bubble>
             <TremblIcon
               className="publication__statistics--unreviewed"
               height="1em"
@@ -212,11 +204,7 @@ const Statistics: FC<StatisticsProps> = ({ statistics, id }) => {
             }}
             title={`Computationally mapped entries: ${computationallyMappedProteinCount}`}
           >
-            <Bubble
-              colourClass="colour-pastel-blue"
-              size="small"
-              value={computationallyMappedProteinCount}
-            />
+            <Bubble size="small">{computationallyMappedProteinCount}</Bubble>
             <ComputerMappedIcon height="1em" />
           </Link>
         ) : undefined}
@@ -229,11 +217,7 @@ const Statistics: FC<StatisticsProps> = ({ statistics, id }) => {
             }}
             title={`Community mapped entries: ${communityMappedProteinCount}`}
           >
-            <Bubble
-              colourClass="colour-pastel-blue"
-              size="small"
-              value={communityMappedProteinCount}
-            />
+            <Bubble size="small">{communityMappedProteinCount}</Bubble>
             <CommunityAnnotationIcon height="1em" />
           </Link>
         ) : undefined}

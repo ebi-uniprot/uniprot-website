@@ -82,12 +82,12 @@ const Entry: FC = () => {
               mainTitle="UniRef"
               optionalTitle={`${transformedData.id} (${transformedData.identity}%)`}
             />
-            <BasketStatus id={accession} />
+            <BasketStatus id={accession} className="big" />
           </h1>
           <Overview transformedData={transformedData} />
           <div className="button-group">
             <BlastButton selectedEntries={[accession]} />
-            <AddToBasketButton selectedEntries={[accession]} />
+            <AddToBasketButton selectedEntries={accession} />
           </div>
         </ErrorBoundary>
       }

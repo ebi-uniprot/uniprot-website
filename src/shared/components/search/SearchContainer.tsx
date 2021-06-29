@@ -72,14 +72,14 @@ const examples: Record<SearchableNamespace, string[]> = {
 };
 
 type Props = {
-  includeFooter?: boolean;
+  isOnHomePage?: boolean;
   namespace: SearchableNamespace;
   onNamespaceChange: (namespace: SearchableNamespace) => void;
 };
 
 const SearchContainer: FC<
   Props & Exclude<HTMLAttributes<HTMLDivElement>, 'role'>
-> = ({ includeFooter, namespace, onNamespaceChange, ...props }) => {
+> = ({ isOnHomePage, namespace, onNamespaceChange, ...props }) => {
   const history = useHistory();
   const location = useLocation();
   const [displayQueryBuilder, setDisplayQueryBuilder] = useState(false);
@@ -172,8 +172,9 @@ const SearchContainer: FC<
           onNamespaceChange={setNamespace}
           selectedNamespace={namespace}
           secondaryButtons={secondaryButtons}
+          autoFocus={isOnHomePage}
         />
-        {includeFooter && (
+        {isOnHomePage && (
           <div className="search-container-footer">
             <div>
               {examples[namespace] && (

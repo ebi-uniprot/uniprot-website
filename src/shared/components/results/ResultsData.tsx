@@ -17,7 +17,7 @@ import cardRenderer from '../../config/resultsCardRenderers';
 
 import { Namespace, SearchableNamespace } from '../../types/namespaces';
 import { APIModel } from '../../types/apiModel';
-import { UsePagination } from '../../hooks/usePagination';
+import { PaginatedResults } from '../../hooks/usePagination';
 
 import './styles/warning.scss';
 import './styles/results-data.scss';
@@ -28,7 +28,7 @@ export enum ViewMode {
 }
 
 const ResultsData: FC<{
-  resultsDataObject: UsePagination;
+  resultsDataObject: PaginatedResults;
   direct?: boolean;
   selectedEntries: string[];
   handleEntrySelection: (id: string) => void;

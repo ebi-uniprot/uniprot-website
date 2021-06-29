@@ -12,7 +12,7 @@ describe('Search shallow components', () => {
   beforeEach(() => {
     rendered = customRender(
       <SearchContainer
-        includeFooter
+        isOnHomePage
         namespace={Namespace.uniprotkb}
         onNamespaceChange={jest.fn()}
       />

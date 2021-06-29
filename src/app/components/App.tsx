@@ -10,6 +10,7 @@ import GDPR from '../../shared/components/gdpr/GDPR';
 import history from '../../shared/utils/browserHistory';
 
 import useScrollToTop from '../../shared/hooks/useScrollToTop';
+import useReloadApp from '../../shared/hooks/useReloadApp';
 
 import {
   allSearchResultLocations,
@@ -141,7 +142,7 @@ const IDMappingForm = lazy(
 const PeptideSearchResult = lazy(
   () =>
     import(
-      /* webpackChunkName: "peptide-search-result" */ '../../tools/peptide-search/components/PeptideSearchResult'
+      /* webpackChunkName: "peptide-search-result" */ '../../tools/peptide-search/components/results/PeptideSearchResult'
     )
 );
 
@@ -183,6 +184,7 @@ const reportBugLinkStyles: CSSProperties = {
 
 const App = () => {
   useScrollToTop(history);
+  useReloadApp(history);
 
   return (
     <FranklinSite>
