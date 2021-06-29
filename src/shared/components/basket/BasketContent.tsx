@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import { Tabs, Tab } from 'franklin-sites';
 
 import useBasket from '../../hooks/useBasket';
@@ -19,20 +20,30 @@ const BasketContent = () => {
   return (
     <div className={styles.basket}>
       <Tabs>
-        {/* TODO: support "disabled" attribute in Tab */}
-        <Tab title="UniProtKB">
+        <Tab
+          title={`UniProtKB${
+            uniprotkbIds?.size ? ` (${uniprotkbIds.size})` : ''
+          }`}
+          className={cn({ [styles.disabled]: !uniprotkbIds?.size })}
+        >
           <ul>
             {uniprotkbIds &&
               Array.from(uniprotkbIds).map((id) => <li key={id}>{id}</li>)}
           </ul>
         </Tab>
-        <Tab title="UniRef">
+        <Tab
+          title={`UniRef${unirefIds?.size ? ` (${unirefIds.size})` : ''}`}
+          className={cn({ [styles.disabled]: !unirefIds?.size })}
+        >
           <ul>
             {unirefIds &&
               Array.from(unirefIds).map((id) => <li key={id}>{id}</li>)}
           </ul>
         </Tab>
-        <Tab title="UniParc">
+        <Tab
+          title={`UniParc${uniparcIds?.size ? ` (${uniparcIds.size})` : ''}`}
+          className={cn({ [styles.disabled]: !uniparcIds?.size })}
+        >
           <ul>
             {uniparcIds &&
               Array.from(uniparcIds).map((id) => <li key={id}>{id}</li>)}
