@@ -33,8 +33,8 @@ const getInteractionColumns = (primaryAccession: string) => ({
     label: 'Entry 1',
     resolver: (d: Interaction) =>
       html`
-        <a href="/uniprotkb/${d.interactantOne.uniProtkbAccession}"
-          >${d.interactantOne.uniProtkbAccession}</a
+        <a href="/uniprotkb/${d.interactantOne.uniProtKBAccession}"
+          >${d.interactantOne.uniProtKBAccession}</a
         >
         ${d.interactantOne.geneName} ${d.interactantOne.chainId}
       `,
@@ -43,8 +43,8 @@ const getInteractionColumns = (primaryAccession: string) => ({
     label: 'Entry 2',
     resolver: (d: Interaction) =>
       html`
-        <a href="/uniprotkb/${d.interactantTwo.uniProtkbAccession}"
-          >${d.interactantTwo.uniProtkbAccession}</a
+        <a href="/uniprotkb/${d.interactantTwo.uniProtKBAccession}"
+          >${d.interactantTwo.uniProtKBAccession}</a
         >
         ${d.interactantTwo.geneName} ${d.interactantTwo.chainId}
       `,
@@ -58,7 +58,7 @@ const getInteractionColumns = (primaryAccession: string) => ({
     resolver: (d: Interaction) =>
       html`
         <a
-          href=${d.interactantOne.uniProtkbAccession
+          href=${d.interactantOne.uniProtKBAccession
             ? getIntActQueryUrl(
                 d.interactantOne.intActId,
                 d.interactantTwo.intActId

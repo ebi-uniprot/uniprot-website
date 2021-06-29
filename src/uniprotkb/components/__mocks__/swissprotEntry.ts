@@ -383,11 +383,11 @@ const mock: UniProtkbAPIModel = {
       interactions: [
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9NY61',
+            uniProtKBAccession: 'Q9NY61',
             geneName: 'AATF',
             intActId: 'EBI-372428',
           },
@@ -396,11 +396,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P16112',
+            uniProtKBAccession: 'P16112',
             geneName: 'ACAN',
             intActId: 'EBI-9076211',
           },
@@ -409,11 +409,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P60709',
+            uniProtKBAccession: 'P60709',
             geneName: 'ACTB',
             intActId: 'EBI-353944',
           },
@@ -422,11 +422,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P61158',
+            uniProtKBAccession: 'P61158',
             geneName: 'ACTR3',
             intActId: 'EBI-351428',
           },
@@ -435,11 +435,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O14672',
+            uniProtKBAccession: 'O14672',
             geneName: 'ADAM10',
             intActId: 'EBI-1536151',
           },
@@ -448,11 +448,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'A0AVL1',
+            uniProtKBAccession: 'A0AVL1',
             geneName: 'ADAM9',
             intActId: 'EBI-25935864',
           },
@@ -461,11 +461,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P18509',
+            uniProtKBAccession: 'P18509',
             geneName: 'ADCYAP1',
             intActId: 'EBI-8588930',
           },
@@ -474,11 +474,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P41586-2',
+            uniProtKBAccession: 'P41586-2',
             geneName: 'ADCYAP1R1',
             intActId: 'EBI-17241711',
           },
@@ -487,11 +487,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q15109',
+            uniProtKBAccession: 'Q15109',
             geneName: 'AGER',
             intActId: 'EBI-1646426',
           },
@@ -500,11 +500,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q13155',
+            uniProtKBAccession: 'Q13155',
             geneName: 'AIMP2',
             intActId: 'EBI-745226',
           },
@@ -513,11 +513,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P63010-2',
+            uniProtKBAccession: 'P63010-2',
             geneName: 'AP2B1',
             intActId: 'EBI-11529439',
           },
@@ -526,11 +526,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q02410',
+            uniProtKBAccession: 'Q02410',
             geneName: 'APBA1',
             intActId: 'EBI-368690',
           },
@@ -539,11 +539,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q99767',
+            uniProtKBAccession: 'Q99767',
             geneName: 'APBA2',
             intActId: 'EBI-81711',
           },
@@ -552,11 +552,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O96018',
+            uniProtKBAccession: 'O96018',
             geneName: 'APBA3',
             intActId: 'EBI-6115839',
           },
@@ -565,11 +565,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O00213',
+            uniProtKBAccession: 'O00213',
             geneName: 'APBB1',
             intActId: 'EBI-81694',
           },
@@ -578,11 +578,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O00213-2',
+            uniProtKBAccession: 'O00213-2',
             geneName: 'APBB1',
             intActId: 'EBI-13307975',
           },
@@ -591,11 +591,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q92870',
+            uniProtKBAccession: 'Q92870',
             geneName: 'APBB2',
             intActId: 'EBI-79277',
           },
@@ -604,11 +604,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q92870-2',
+            uniProtKBAccession: 'Q92870-2',
             geneName: 'APBB2',
             intActId: 'EBI-21535880',
           },
@@ -617,11 +617,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O95704',
+            uniProtKBAccession: 'O95704',
             geneName: 'APBB3',
             intActId: 'EBI-286427',
           },
@@ -630,11 +630,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P02743',
+            uniProtKBAccession: 'P02743',
             geneName: 'APCS',
             intActId: 'EBI-2115799',
           },
@@ -643,11 +643,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q96BI3',
+            uniProtKBAccession: 'Q96BI3',
             geneName: 'APH1A',
             intActId: 'EBI-2606935',
           },
@@ -656,11 +656,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q8WW43',
+            uniProtKBAccession: 'Q8WW43',
             geneName: 'APH1B',
             intActId: 'EBI-2606497',
           },
@@ -669,11 +669,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q06481-5',
+            uniProtKBAccession: 'Q06481-5',
             geneName: 'APLP2',
             intActId: 'EBI-25646567',
           },
@@ -682,11 +682,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P02647',
+            uniProtKBAccession: 'P02647',
             geneName: 'APOA1',
             intActId: 'EBI-701692',
           },
@@ -695,11 +695,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             geneName: 'APP',
             intActId: 'EBI-77613',
           },
@@ -708,11 +708,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q92624',
+            uniProtKBAccession: 'Q92624',
             geneName: 'APPBP2',
             intActId: 'EBI-743771',
           },
@@ -721,11 +721,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q6P4J0',
+            uniProtKBAccession: 'Q6P4J0',
             geneName: 'ARD1A',
             intActId: 'EBI-10252815',
           },
@@ -734,11 +734,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P61204',
+            uniProtKBAccession: 'P61204',
             geneName: 'ARF3',
             intActId: 'EBI-641535',
           },
@@ -747,11 +747,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q0P5N6',
+            uniProtKBAccession: 'Q0P5N6',
             geneName: 'ARL16',
             intActId: 'EBI-10186132',
           },
@@ -760,11 +760,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P56211',
+            uniProtKBAccession: 'P56211',
             geneName: 'ARPP19',
             intActId: 'EBI-5773880',
           },
@@ -773,11 +773,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P05026',
+            uniProtKBAccession: 'P05026',
             geneName: 'ATP1B1',
             intActId: 'EBI-714630',
           },
@@ -786,11 +786,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P54253',
+            uniProtKBAccession: 'P54253',
             geneName: 'ATXN1',
             intActId: 'EBI-930964',
           },
@@ -799,11 +799,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P56817',
+            uniProtKBAccession: 'P56817',
             geneName: 'BACE1',
             intActId: 'EBI-2433139',
           },
@@ -812,11 +812,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9Y5Z0',
+            uniProtKBAccession: 'Q9Y5Z0',
             geneName: 'BACE2',
             intActId: 'EBI-11282723',
           },
@@ -825,11 +825,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q92934',
+            uniProtKBAccession: 'Q92934',
             geneName: 'BAD',
             intActId: 'EBI-700771',
           },
@@ -838,11 +838,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P46379-2',
+            uniProtKBAccession: 'P46379-2',
             geneName: 'BAG6',
             intActId: 'EBI-10988864',
           },
@@ -851,11 +851,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q96GW7',
+            uniProtKBAccession: 'Q96GW7',
             geneName: 'BCAN',
             intActId: 'EBI-2690445',
           },
@@ -864,11 +864,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P51572',
+            uniProtKBAccession: 'P51572',
             geneName: 'BCAP31',
             intActId: 'EBI-77683',
           },
@@ -877,11 +877,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P10415',
+            uniProtKBAccession: 'P10415',
             geneName: 'BCL2',
             intActId: 'EBI-77694',
           },
@@ -890,11 +890,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P23560-2',
+            uniProtKBAccession: 'P23560-2',
             geneName: 'BDNF',
             intActId: 'EBI-12275524',
           },
@@ -903,11 +903,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O15392',
+            uniProtKBAccession: 'O15392',
             geneName: 'BIRC5',
             intActId: 'EBI-518823',
           },
@@ -916,11 +916,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q13867',
+            uniProtKBAccession: 'Q13867',
             geneName: 'BLMH',
             intActId: 'EBI-718504',
           },
@@ -929,11 +929,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P35613',
+            uniProtKBAccession: 'P35613',
             geneName: 'BSG',
             intActId: 'EBI-750709',
           },
@@ -942,11 +942,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q8IU99',
+            uniProtKBAccession: 'Q8IU99',
             geneName: 'CALHM1',
             intActId: 'EBI-1790341',
           },
@@ -955,11 +955,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P0DP25',
+            uniProtKBAccession: 'P0DP25',
             geneName: 'CALM3',
             intActId: 'EBI-397435',
           },
@@ -968,11 +968,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P27797',
+            uniProtKBAccession: 'P27797',
             geneName: 'CALR',
             intActId: 'EBI-1049597',
           },
@@ -981,11 +981,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O43852-3',
+            uniProtKBAccession: 'O43852-3',
             geneName: 'CALU',
             intActId: 'EBI-11536607',
           },
@@ -994,11 +994,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9UQM7',
+            uniProtKBAccession: 'Q9UQM7',
             geneName: 'CAMK2A',
             intActId: 'EBI-1383687',
           },
@@ -1007,11 +1007,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P27824-2',
+            uniProtKBAccession: 'P27824-2',
             geneName: 'CANX',
             intActId: 'EBI-25890990',
           },
@@ -1020,11 +1020,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P07384',
+            uniProtKBAccession: 'P07384',
             geneName: 'CAPN1',
             intActId: 'EBI-1542113',
           },
@@ -1033,11 +1033,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P29466-3',
+            uniProtKBAccession: 'P29466-3',
             geneName: 'CASP1',
             intActId: 'EBI-12248206',
           },
@@ -1046,11 +1046,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P42574',
+            uniProtKBAccession: 'P42574',
             geneName: 'CASP3',
             intActId: 'EBI-524064',
           },
@@ -1059,11 +1059,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q14790',
+            uniProtKBAccession: 'Q14790',
             geneName: 'CASP8',
             intActId: 'EBI-78060',
           },
@@ -1072,11 +1072,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q03135',
+            uniProtKBAccession: 'Q03135',
             geneName: 'CAV1',
             intActId: 'EBI-603614',
           },
@@ -1085,11 +1085,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P83916',
+            uniProtKBAccession: 'P83916',
             geneName: 'CBX1',
             intActId: 'EBI-78129',
           },
@@ -1098,11 +1098,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P40227',
+            uniProtKBAccession: 'P40227',
             geneName: 'CCT6A',
             intActId: 'EBI-356687',
           },
@@ -1111,11 +1111,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P16671',
+            uniProtKBAccession: 'P16671',
             geneName: 'CD36',
             intActId: 'EBI-2808214',
           },
@@ -1124,11 +1124,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q08722-3',
+            uniProtKBAccession: 'Q08722-3',
             geneName: 'CD47',
             intActId: 'EBI-17263290',
           },
@@ -1137,11 +1137,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P06493',
+            uniProtKBAccession: 'P06493',
             geneName: 'CDK1',
             intActId: 'EBI-444308',
           },
@@ -1150,11 +1150,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q00535',
+            uniProtKBAccession: 'Q00535',
             geneName: 'CDK5',
             intActId: 'EBI-1041567',
           },
@@ -1163,11 +1163,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P42773',
+            uniProtKBAccession: 'P42773',
             geneName: 'CDKN2C',
             intActId: 'EBI-711290',
           },
@@ -1176,11 +1176,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P43681',
+            uniProtKBAccession: 'P43681',
             geneName: 'CHRNA4',
             intActId: 'EBI-7132379',
           },
@@ -1189,11 +1189,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P36544',
+            uniProtKBAccession: 'P36544',
             geneName: 'CHRNA7',
             intActId: 'EBI-79333',
           },
@@ -1202,11 +1202,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q16740',
+            uniProtKBAccession: 'Q16740',
             geneName: 'CLPP',
             intActId: 'EBI-1056029',
           },
@@ -1215,11 +1215,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O94985-2',
+            uniProtKBAccession: 'O94985-2',
             geneName: 'CLSTN1',
             intActId: 'EBI-16041593',
           },
@@ -1228,11 +1228,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q8IUW6',
+            uniProtKBAccession: 'Q8IUW6',
             geneName: 'CLSTN3',
             intActId: 'EBI-25832219',
           },
@@ -1241,11 +1241,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P10909',
+            uniProtKBAccession: 'P10909',
             geneName: 'CLU',
             intActId: 'EBI-1104674',
           },
@@ -1254,11 +1254,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P26441',
+            uniProtKBAccession: 'P26441',
             geneName: 'CNTF',
             intActId: 'EBI-1050897',
           },
@@ -1267,11 +1267,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q02246',
+            uniProtKBAccession: 'Q02246',
             geneName: 'CNTN2',
             intActId: 'EBI-4397248',
           },
@@ -1280,11 +1280,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q8NE08',
+            uniProtKBAccession: 'Q8NE08',
             geneName: 'COL25A1',
             intActId: 'EBI-25836642',
           },
@@ -1293,11 +1293,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q96A83-2',
+            uniProtKBAccession: 'Q96A83-2',
             geneName: 'COL26A1',
             intActId: 'EBI-21553822',
           },
@@ -1306,11 +1306,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P29400-2',
+            uniProtKBAccession: 'P29400-2',
             geneName: 'COL4A5',
             intActId: 'EBI-12211159',
           },
@@ -1319,11 +1319,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q14031',
+            uniProtKBAccession: 'Q14031',
             geneName: 'COL4A6',
             intActId: 'EBI-2432407',
           },
@@ -1332,11 +1332,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P31146',
+            uniProtKBAccession: 'P31146',
             geneName: 'CORO1A',
             intActId: 'EBI-1046676',
           },
@@ -1345,11 +1345,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P20674',
+            uniProtKBAccession: 'P20674',
             geneName: 'COX5A',
             intActId: 'EBI-715032',
           },
@@ -1358,11 +1358,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P15086',
+            uniProtKBAccession: 'P15086',
             geneName: 'CPB1',
             intActId: 'EBI-25936844',
           },
@@ -1371,11 +1371,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P02511',
+            uniProtKBAccession: 'P02511',
             geneName: 'CRYAB',
             intActId: 'EBI-739060',
           },
@@ -1384,11 +1384,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P48730',
+            uniProtKBAccession: 'P48730',
             geneName: 'CSNK1D',
             intActId: 'EBI-751621',
           },
@@ -1397,11 +1397,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P48730-2',
+            uniProtKBAccession: 'P48730-2',
             geneName: 'CSNK1D',
             intActId: 'EBI-9087876',
           },
@@ -1410,11 +1410,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P68400',
+            uniProtKBAccession: 'P68400',
             geneName: 'CSNK2A1',
             intActId: 'EBI-347804',
           },
@@ -1423,11 +1423,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P01034',
+            uniProtKBAccession: 'P01034',
             geneName: 'CST3',
             intActId: 'EBI-948622',
           },
@@ -1436,11 +1436,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P49711',
+            uniProtKBAccession: 'P49711',
             geneName: 'CTCF',
             intActId: 'EBI-932887',
           },
@@ -1449,11 +1449,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P07339',
+            uniProtKBAccession: 'P07339',
             geneName: 'CTSD',
             intActId: 'EBI-2115097',
           },
@@ -1462,11 +1462,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P99999',
+            uniProtKBAccession: 'P99999',
             geneName: 'CYCS',
             intActId: 'EBI-446479',
           },
@@ -1475,11 +1475,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O75553-4',
+            uniProtKBAccession: 'O75553-4',
             geneName: 'DAB1',
             intActId: 'EBI-21246842',
           },
@@ -1488,11 +1488,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P98082',
+            uniProtKBAccession: 'P98082',
             geneName: 'DAB2',
             intActId: 'EBI-1171238',
           },
@@ -1501,11 +1501,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q14203-5',
+            uniProtKBAccession: 'Q14203-5',
             geneName: 'DCTN1',
             intActId: 'EBI-25840379',
           },
@@ -1514,11 +1514,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q13561',
+            uniProtKBAccession: 'Q13561',
             geneName: 'DCTN2',
             intActId: 'EBI-715074',
           },
@@ -1527,11 +1527,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q6I9W9',
+            uniProtKBAccession: 'Q6I9W9',
             geneName: 'DKFZP586N0721',
             intActId: 'EBI-25927172',
           },
@@ -1540,11 +1540,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O14645',
+            uniProtKBAccession: 'O14645',
             geneName: 'DNALI1',
             intActId: 'EBI-395638',
           },
@@ -1553,11 +1553,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q01658',
+            uniProtKBAccession: 'Q01658',
             geneName: 'DR1',
             intActId: 'EBI-750300',
           },
@@ -1566,11 +1566,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P21917',
+            uniProtKBAccession: 'P21917',
             geneName: 'DRD4',
             intActId: 'EBI-8592297',
           },
@@ -1579,11 +1579,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q16828',
+            uniProtKBAccession: 'Q16828',
             geneName: 'DUSP6',
             intActId: 'EBI-746870',
           },
@@ -1592,11 +1592,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q92997',
+            uniProtKBAccession: 'Q92997',
             geneName: 'DVL3',
             intActId: 'EBI-739789',
           },
@@ -1605,11 +1605,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O14576-2',
+            uniProtKBAccession: 'O14576-2',
             geneName: 'DYNC1I1',
             intActId: 'EBI-25840445',
           },
@@ -1618,11 +1618,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O14576-5',
+            uniProtKBAccession: 'O14576-5',
             geneName: 'DYNC1I1',
             intActId: 'EBI-25936079',
           },
@@ -1631,11 +1631,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q01094',
+            uniProtKBAccession: 'Q01094',
             geneName: 'E2F1',
             intActId: 'EBI-448924',
           },
@@ -1644,11 +1644,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q3B7T1',
+            uniProtKBAccession: 'Q3B7T1',
             geneName: 'EDRF1',
             intActId: 'EBI-2870947',
           },
@@ -1657,11 +1657,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P20042',
+            uniProtKBAccession: 'P20042',
             geneName: 'EIF2S2',
             intActId: 'EBI-711977',
           },
@@ -1670,11 +1670,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P19419',
+            uniProtKBAccession: 'P19419',
             geneName: 'ELK1',
             intActId: 'EBI-726632',
           },
@@ -1683,11 +1683,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P11171-2',
+            uniProtKBAccession: 'P11171-2',
             geneName: 'EPB41',
             intActId: 'EBI-10197451',
           },
@@ -1696,11 +1696,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P11171-7',
+            uniProtKBAccession: 'P11171-7',
             geneName: 'EPB41',
             intActId: 'EBI-25852354',
           },
@@ -1709,11 +1709,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9BS26',
+            uniProtKBAccession: 'Q9BS26',
             geneName: 'ERP44',
             intActId: 'EBI-541644',
           },
@@ -1722,11 +1722,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P00748',
+            uniProtKBAccession: 'P00748',
             geneName: 'F12',
             intActId: 'EBI-6378830',
           },
@@ -1735,11 +1735,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P00734',
+            uniProtKBAccession: 'P00734',
             geneName: 'F2',
             intActId: 'EBI-297094',
           },
@@ -1748,11 +1748,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P23142-4',
+            uniProtKBAccession: 'P23142-4',
             geneName: 'FBLN1',
             intActId: 'EBI-11956479',
           },
@@ -1761,11 +1761,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q92915',
+            uniProtKBAccession: 'Q92915',
             geneName: 'FGF14',
             intActId: 'EBI-10489272',
           },
@@ -1774,11 +1774,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P62942',
+            uniProtKBAccession: 'P62942',
             geneName: 'FKBP1A',
             intActId: 'EBI-1027571',
           },
@@ -1787,11 +1787,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P21333-2',
+            uniProtKBAccession: 'P21333-2',
             geneName: 'FLNA',
             intActId: 'EBI-9641086',
           },
@@ -1800,11 +1800,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O75955',
+            uniProtKBAccession: 'O75955',
             geneName: 'FLOT1',
             intActId: 'EBI-603643',
           },
@@ -1813,11 +1813,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9BTI6',
+            uniProtKBAccession: 'Q9BTI6',
             geneName: 'FLOT2',
             intActId: 'EBI-23703366',
           },
@@ -1826,11 +1826,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P01100',
+            uniProtKBAccession: 'P01100',
             geneName: 'FOS',
             intActId: 'EBI-852851',
           },
@@ -1839,11 +1839,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P25090',
+            uniProtKBAccession: 'P25090',
             geneName: 'FPR2',
             intActId: 'EBI-17291771',
           },
@@ -1852,11 +1852,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P09958',
+            uniProtKBAccession: 'P09958',
             geneName: 'FURIN',
             intActId: 'EBI-1056807',
           },
@@ -1865,11 +1865,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P06241',
+            uniProtKBAccession: 'P06241',
             geneName: 'FYN',
             intActId: 'EBI-515315',
           },
@@ -1878,11 +1878,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P04406',
+            uniProtKBAccession: 'P04406',
             geneName: 'GAPDH',
             intActId: 'EBI-354056',
           },
@@ -1891,11 +1891,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9UJY5-4',
+            uniProtKBAccession: 'Q9UJY5-4',
             geneName: 'GGA1',
             intActId: 'EBI-12108696',
           },
@@ -1904,11 +1904,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q05586',
+            uniProtKBAccession: 'Q05586',
             geneName: 'GRIN1',
             intActId: 'EBI-998542',
           },
@@ -1917,11 +1917,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P25098',
+            uniProtKBAccession: 'P25098',
             geneName: 'GRK2',
             intActId: 'EBI-3904795',
           },
@@ -1930,11 +1930,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P43250',
+            uniProtKBAccession: 'P43250',
             geneName: 'GRK6',
             intActId: 'EBI-722747',
           },
@@ -1943,11 +1943,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P43250-2',
+            uniProtKBAccession: 'P43250-2',
             geneName: 'GRK6',
             intActId: 'EBI-6428342',
           },
@@ -1956,11 +1956,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'A4D1B5',
+            uniProtKBAccession: 'A4D1B5',
             geneName: 'GSAP',
             intActId: 'EBI-15875313',
           },
@@ -1969,11 +1969,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P49841-2',
+            uniProtKBAccession: 'P49841-2',
             geneName: 'GSK3B',
             intActId: 'EBI-15870655',
           },
@@ -1982,11 +1982,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q03013',
+            uniProtKBAccession: 'Q03013',
             geneName: 'GSTM4',
             intActId: 'EBI-713363',
           },
@@ -1995,11 +1995,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q00403',
+            uniProtKBAccession: 'Q00403',
             geneName: 'GTF2B',
             intActId: 'EBI-389564',
           },
@@ -2008,11 +2008,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9Y5Q9',
+            uniProtKBAccession: 'Q9Y5Q9',
             geneName: 'GTF3C3',
             intActId: 'EBI-1054873',
           },
@@ -2021,11 +2021,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P09429',
+            uniProtKBAccession: 'P09429',
             geneName: 'HMGB1',
             intActId: 'EBI-389432',
           },
@@ -2034,11 +2034,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P30519',
+            uniProtKBAccession: 'P30519',
             geneName: 'HMOX2',
             intActId: 'EBI-712096',
           },
@@ -2047,11 +2047,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9UJC3',
+            uniProtKBAccession: 'Q9UJC3',
             geneName: 'HOOK1',
             intActId: 'EBI-746704',
           },
@@ -2060,11 +2060,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q99714',
+            uniProtKBAccession: 'Q99714',
             geneName: 'HSD17B10',
             intActId: 'EBI-79964',
           },
@@ -2073,11 +2073,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q99714-2',
+            uniProtKBAccession: 'Q99714-2',
             geneName: 'HSD17B10',
             intActId: 'EBI-25939412',
           },
@@ -2086,11 +2086,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P07900',
+            uniProtKBAccession: 'P07900',
             geneName: 'HSP90AA1',
             intActId: 'EBI-296047',
           },
@@ -2099,11 +2099,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P14625',
+            uniProtKBAccession: 'P14625',
             geneName: 'HSP90B1',
             intActId: 'EBI-359129',
           },
@@ -2112,11 +2112,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P11021',
+            uniProtKBAccession: 'P11021',
             geneName: 'HSPA5',
             intActId: 'EBI-354921',
           },
@@ -2125,11 +2125,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P11142',
+            uniProtKBAccession: 'P11142',
             geneName: 'HSPA8',
             intActId: 'EBI-351896',
           },
@@ -2138,11 +2138,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P04792',
+            uniProtKBAccession: 'P04792',
             geneName: 'HSPB1',
             intActId: 'EBI-352682',
           },
@@ -2151,11 +2151,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q16082',
+            uniProtKBAccession: 'Q16082',
             geneName: 'HSPB2',
             intActId: 'EBI-739395',
           },
@@ -2164,11 +2164,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P10809',
+            uniProtKBAccession: 'P10809',
             geneName: 'HSPD1',
             intActId: 'EBI-352528',
           },
@@ -2177,11 +2177,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P42858',
+            uniProtKBAccession: 'P42858',
             geneName: 'HTT',
             intActId: 'EBI-466029',
           },
@@ -2190,11 +2190,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9UMF0',
+            uniProtKBAccession: 'Q9UMF0',
             geneName: 'ICAM5',
             intActId: 'EBI-6398041',
           },
@@ -2203,11 +2203,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P14735',
+            uniProtKBAccession: 'P14735',
             geneName: 'IDE',
             intActId: 'EBI-2556886',
           },
@@ -2216,11 +2216,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q16352',
+            uniProtKBAccession: 'Q16352',
             geneName: 'INA',
             intActId: 'EBI-366258',
           },
@@ -2229,11 +2229,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q6DN90-2',
+            uniProtKBAccession: 'Q6DN90-2',
             geneName: 'IQSEC1',
             intActId: 'EBI-21911304',
           },
@@ -2242,11 +2242,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P05556',
+            uniProtKBAccession: 'P05556',
             geneName: 'ITGB1',
             intActId: 'EBI-703066',
           },
@@ -2255,11 +2255,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9Y287',
+            uniProtKBAccession: 'Q9Y287',
             geneName: 'ITM2B',
             intActId: 'EBI-2866431',
           },
@@ -2268,11 +2268,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P05412',
+            uniProtKBAccession: 'P05412',
             geneName: 'JUN',
             intActId: 'EBI-852823',
           },
@@ -2281,11 +2281,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P17535',
+            uniProtKBAccession: 'P17535',
             geneName: 'JUND',
             intActId: 'EBI-2682803',
           },
@@ -2294,11 +2294,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q92993',
+            uniProtKBAccession: 'Q92993',
             geneName: 'KAT5',
             intActId: 'EBI-399080',
           },
@@ -2307,11 +2307,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q92993-2',
+            uniProtKBAccession: 'Q92993-2',
             geneName: 'KAT5',
             intActId: 'EBI-20795332',
           },
@@ -2320,11 +2320,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q13303',
+            uniProtKBAccession: 'Q13303',
             geneName: 'KCNAB2',
             intActId: 'EBI-948729',
           },
@@ -2333,11 +2333,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9Y2W7',
+            uniProtKBAccession: 'Q9Y2W7',
             geneName: 'KCNIP3',
             intActId: 'EBI-751501',
           },
@@ -2346,11 +2346,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O60333-2',
+            uniProtKBAccession: 'O60333-2',
             geneName: 'KIF1B',
             intActId: 'EBI-10975473',
           },
@@ -2359,11 +2359,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q07866-2',
+            uniProtKBAccession: 'Q07866-2',
             geneName: 'KLC1',
             intActId: 'EBI-11979975',
           },
@@ -2372,11 +2372,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O14901',
+            uniProtKBAccession: 'O14901',
             geneName: 'KLF11',
             intActId: 'EBI-948266',
           },
@@ -2385,11 +2385,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q92876',
+            uniProtKBAccession: 'Q92876',
             geneName: 'KLK6',
             intActId: 'EBI-2432309',
           },
@@ -2398,11 +2398,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P01116-2',
+            uniProtKBAccession: 'P01116-2',
             geneName: 'KRAS',
             intActId: 'EBI-367427',
           },
@@ -2411,11 +2411,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q16363-3',
+            uniProtKBAccession: 'Q16363-3',
             geneName: 'LAMA4',
             intActId: 'EBI-17719490',
           },
@@ -2424,11 +2424,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9BYZ2',
+            uniProtKBAccession: 'Q9BYZ2',
             geneName: 'LDHAL6B',
             intActId: 'EBI-1108377',
           },
@@ -2437,11 +2437,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q96FE5',
+            uniProtKBAccession: 'Q96FE5',
             geneName: 'LINGO1',
             intActId: 'EBI-719955',
           },
@@ -2450,11 +2450,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q07954-2',
+            uniProtKBAccession: 'Q07954-2',
             geneName: 'LRP1',
             intActId: 'EBI-25833471',
           },
@@ -2463,11 +2463,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9NZR2',
+            uniProtKBAccession: 'Q9NZR2',
             geneName: 'LRP1B',
             intActId: 'EBI-1642131',
           },
@@ -2476,11 +2476,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P30533',
+            uniProtKBAccession: 'P30533',
             geneName: 'LRPAP1',
             intActId: 'EBI-715927',
           },
@@ -2489,11 +2489,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P42704',
+            uniProtKBAccession: 'P42704',
             geneName: 'LRPPRC',
             intActId: 'EBI-1050853',
           },
@@ -2502,11 +2502,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P07948',
+            uniProtKBAccession: 'P07948',
             geneName: 'LYN',
             intActId: 'EBI-79452',
           },
@@ -2515,11 +2515,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9GZQ8',
+            uniProtKBAccession: 'Q9GZQ8',
             geneName: 'MAP1LC3B',
             intActId: 'EBI-373144',
           },
@@ -2528,11 +2528,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P36507',
+            uniProtKBAccession: 'P36507',
             geneName: 'MAP2K2',
             intActId: 'EBI-1056930',
           },
@@ -2541,11 +2541,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P28482',
+            uniProtKBAccession: 'P28482',
             geneName: 'MAPK1',
             intActId: 'EBI-959949',
           },
@@ -2554,11 +2554,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P53778',
+            uniProtKBAccession: 'P53778',
             geneName: 'MAPK12',
             intActId: 'EBI-602406',
           },
@@ -2567,11 +2567,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P10636',
+            uniProtKBAccession: 'P10636',
             geneName: 'MAPT',
             intActId: 'EBI-366182',
           },
@@ -2580,11 +2580,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9P0L2',
+            uniProtKBAccession: 'Q9P0L2',
             geneName: 'MARK1',
             intActId: 'EBI-968587',
           },
@@ -2593,11 +2593,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q6IPE9',
+            uniProtKBAccession: 'Q6IPE9',
             geneName: 'MARK4',
             intActId: 'EBI-10250211',
           },
@@ -2606,11 +2606,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q96L34',
+            uniProtKBAccession: 'Q96L34',
             geneName: 'MARK4',
             intActId: 'EBI-302319',
           },
@@ -2619,11 +2619,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q00266',
+            uniProtKBAccession: 'Q00266',
             geneName: 'MAT1A',
             intActId: 'EBI-967087',
           },
@@ -2632,11 +2632,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P02686-2',
+            uniProtKBAccession: 'P02686-2',
             geneName: 'MBP',
             intActId: 'EBI-12159027',
           },
@@ -2645,11 +2645,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q93074',
+            uniProtKBAccession: 'Q93074',
             geneName: 'MED12',
             intActId: 'EBI-394357',
           },
@@ -2658,11 +2658,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q8TDB4',
+            uniProtKBAccession: 'Q8TDB4',
             geneName: 'MGARP',
             intActId: 'EBI-4397720',
           },
@@ -2671,11 +2671,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O94851',
+            uniProtKBAccession: 'O94851',
             geneName: 'MICAL2',
             intActId: 'EBI-2804835',
           },
@@ -2684,11 +2684,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'A4FUJ8',
+            uniProtKBAccession: 'A4FUJ8',
             geneName: 'MKL1',
             intActId: 'EBI-21250407',
           },
@@ -2697,11 +2697,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P08473',
+            uniProtKBAccession: 'P08473',
             geneName: 'MME',
             intActId: 'EBI-353759',
           },
@@ -2710,11 +2710,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P08253',
+            uniProtKBAccession: 'P08253',
             geneName: 'MMP2',
             intActId: 'EBI-1033518',
           },
@@ -2723,11 +2723,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q99547',
+            uniProtKBAccession: 'Q99547',
             geneName: 'MPHOSPH6',
             intActId: 'EBI-373187',
           },
@@ -2736,11 +2736,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q8N594',
+            uniProtKBAccession: 'Q8N594',
             geneName: 'MPND',
             intActId: 'EBI-2512452',
           },
@@ -2749,11 +2749,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P41227',
+            uniProtKBAccession: 'P41227',
             geneName: 'NAA10',
             intActId: 'EBI-747693',
           },
@@ -2762,11 +2762,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q13765',
+            uniProtKBAccession: 'Q13765',
             geneName: 'NACA',
             intActId: 'EBI-712216',
           },
@@ -2775,11 +2775,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q13564',
+            uniProtKBAccession: 'Q13564',
             geneName: 'NAE1',
             intActId: 'EBI-718631',
           },
@@ -2788,11 +2788,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P41271-2',
+            uniProtKBAccession: 'P41271-2',
             geneName: 'NBL1',
             intActId: 'EBI-12135485',
           },
@@ -2801,11 +2801,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P19404',
+            uniProtKBAccession: 'P19404',
             geneName: 'NDUFV2',
             intActId: 'EBI-713665',
           },
@@ -2814,11 +2814,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O76041',
+            uniProtKBAccession: 'O76041',
             geneName: 'NEBL',
             intActId: 'EBI-2880203',
           },
@@ -2827,11 +2827,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P12036',
+            uniProtKBAccession: 'P12036',
             geneName: 'NEFH',
             intActId: 'EBI-2880271',
           },
@@ -2840,11 +2840,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'I6L9F6',
+            uniProtKBAccession: 'I6L9F6',
             geneName: 'NEFL',
             intActId: 'EBI-10178578',
           },
@@ -2853,11 +2853,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P21359',
+            uniProtKBAccession: 'P21359',
             geneName: 'NF1',
             intActId: 'EBI-1172917',
           },
@@ -2866,11 +2866,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P01138',
+            uniProtKBAccession: 'P01138',
             geneName: 'NGF',
             intActId: 'EBI-1028250',
           },
@@ -2879,11 +2879,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P08138',
+            uniProtKBAccession: 'P08138',
             geneName: 'NGFR',
             intActId: 'EBI-1387782',
           },
@@ -2892,11 +2892,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q6IAD4',
+            uniProtKBAccession: 'Q6IAD4',
             geneName: 'NOTCH1',
             intActId: 'EBI-25860267',
           },
@@ -2905,11 +2905,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q99466',
+            uniProtKBAccession: 'Q99466',
             geneName: 'NOTCH4',
             intActId: 'EBI-7970822',
           },
@@ -2918,11 +2918,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P43354',
+            uniProtKBAccession: 'P43354',
             geneName: 'NR4A2',
             intActId: 'EBI-2681738',
           },
@@ -2931,11 +2931,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q6PK61',
+            uniProtKBAccession: 'Q6PK61',
             geneName: 'NRG1',
             intActId: 'EBI-25938844',
           },
@@ -2944,11 +2944,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q02818',
+            uniProtKBAccession: 'Q02818',
             geneName: 'NUCB1',
             intActId: 'EBI-2622179',
           },
@@ -2957,11 +2957,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P49757-8',
+            uniProtKBAccession: 'P49757-8',
             geneName: 'NUMB',
             intActId: 'EBI-25937715',
           },
@@ -2970,11 +2970,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P04181',
+            uniProtKBAccession: 'P04181',
             geneName: 'OAT',
             intActId: 'EBI-721662',
           },
@@ -2983,11 +2983,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q96FW1',
+            uniProtKBAccession: 'Q96FW1',
             geneName: 'OTUB1',
             intActId: 'EBI-1058491',
           },
@@ -2996,11 +2996,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P11940',
+            uniProtKBAccession: 'P11940',
             geneName: 'PABPC1',
             intActId: 'EBI-81531',
           },
@@ -3009,11 +3009,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O96013-2',
+            uniProtKBAccession: 'O96013-2',
             geneName: 'PAK4',
             intActId: 'EBI-21659863',
           },
@@ -3022,11 +3022,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q99497',
+            uniProtKBAccession: 'Q99497',
             geneName: 'PARK7',
             intActId: 'EBI-1164361',
           },
@@ -3035,11 +3035,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q6ZW49',
+            uniProtKBAccession: 'Q6ZW49',
             geneName: 'PAXIP1',
             intActId: 'EBI-743225',
           },
@@ -3048,11 +3048,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P61457',
+            uniProtKBAccession: 'P61457',
             geneName: 'PCBD1',
             intActId: 'EBI-740475',
           },
@@ -3061,11 +3061,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P16234-2',
+            uniProtKBAccession: 'P16234-2',
             geneName: 'PDGFRA',
             intActId: 'EBI-13380852',
           },
@@ -3074,11 +3074,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P09619',
+            uniProtKBAccession: 'P09619',
             geneName: 'PDGFRB',
             intActId: 'EBI-641237',
           },
@@ -3087,11 +3087,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P30101',
+            uniProtKBAccession: 'P30101',
             geneName: 'PDIA3',
             intActId: 'EBI-979862',
           },
@@ -3100,11 +3100,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q15084',
+            uniProtKBAccession: 'Q15084',
             geneName: 'PDIA6',
             intActId: 'EBI-1043087',
           },
@@ -3113,11 +3113,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q15118',
+            uniProtKBAccession: 'Q15118',
             geneName: 'PDK1',
             intActId: 'EBI-7016221',
           },
@@ -3126,11 +3126,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q13113',
+            uniProtKBAccession: 'Q13113',
             geneName: 'PDZK1IP1',
             intActId: 'EBI-716063',
           },
@@ -3139,11 +3139,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P18669',
+            uniProtKBAccession: 'P18669',
             geneName: 'PGAM1',
             intActId: 'EBI-717905',
           },
@@ -3152,11 +3152,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q8WUB8-2',
+            uniProtKBAccession: 'Q8WUB8-2',
             geneName: 'PHF10',
             intActId: 'EBI-10276329',
           },
@@ -3165,11 +3165,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q8N2W9',
+            uniProtKBAccession: 'Q8N2W9',
             geneName: 'PIAS4',
             intActId: 'EBI-473160',
           },
@@ -3178,11 +3178,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P42338',
+            uniProtKBAccession: 'P42338',
             geneName: 'PIK3CB',
             intActId: 'EBI-2609540',
           },
@@ -3191,11 +3191,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P48736',
+            uniProtKBAccession: 'P48736',
             geneName: 'PIK3CG',
             intActId: 'EBI-1030384',
           },
@@ -3204,11 +3204,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P27986-2',
+            uniProtKBAccession: 'P27986-2',
             geneName: 'PIK3R1',
             intActId: 'EBI-9090282',
           },
@@ -3217,11 +3217,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q13526',
+            uniProtKBAccession: 'Q13526',
             geneName: 'PIN1',
             intActId: 'EBI-714158',
           },
@@ -3230,11 +3230,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9BXM7',
+            uniProtKBAccession: 'Q9BXM7',
             geneName: 'PINK1',
             intActId: 'EBI-2846068',
           },
@@ -3243,11 +3243,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q16512',
+            uniProtKBAccession: 'Q16512',
             geneName: 'PKN1',
             intActId: 'EBI-602382',
           },
@@ -3256,11 +3256,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P00749',
+            uniProtKBAccession: 'P00749',
             geneName: 'PLAU',
             intActId: 'EBI-3905042',
           },
@@ -3269,11 +3269,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q13393',
+            uniProtKBAccession: 'Q13393',
             geneName: 'PLD1',
             intActId: 'EBI-2827556',
           },
@@ -3282,11 +3282,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O14939',
+            uniProtKBAccession: 'O14939',
             geneName: 'PLD2',
             intActId: 'EBI-1053996',
           },
@@ -3295,11 +3295,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P53350',
+            uniProtKBAccession: 'P53350',
             geneName: 'PLK1',
             intActId: 'EBI-476768',
           },
@@ -3308,11 +3308,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O14494',
+            uniProtKBAccession: 'O14494',
             geneName: 'PLPP1',
             intActId: 'EBI-2865290',
           },
@@ -3321,11 +3321,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O15162',
+            uniProtKBAccession: 'O15162',
             geneName: 'PLSCR1',
             intActId: 'EBI-740019',
           },
@@ -3334,11 +3334,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q8WVK1',
+            uniProtKBAccession: 'Q8WVK1',
             geneName: 'PLSCR1',
             intActId: 'EBI-10238872',
           },
@@ -3347,11 +3347,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'D3DTS7',
+            uniProtKBAccession: 'D3DTS7',
             geneName: 'PMP22',
             intActId: 'EBI-25882629',
           },
@@ -3360,11 +3360,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P00491',
+            uniProtKBAccession: 'P00491',
             geneName: 'PNP',
             intActId: 'EBI-712238',
           },
@@ -3373,11 +3373,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P62937',
+            uniProtKBAccession: 'P62937',
             geneName: 'PPIA',
             intActId: 'EBI-437708',
           },
@@ -3386,11 +3386,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P62136',
+            uniProtKBAccession: 'P62136',
             geneName: 'PPP1CA',
             intActId: 'EBI-357253',
           },
@@ -3399,11 +3399,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P41236',
+            uniProtKBAccession: 'P41236',
             geneName: 'PPP1R2',
             intActId: 'EBI-1056517',
           },
@@ -3412,11 +3412,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P67775',
+            uniProtKBAccession: 'P67775',
             geneName: 'PPP2CA',
             intActId: 'EBI-712311',
           },
@@ -3425,11 +3425,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P63151',
+            uniProtKBAccession: 'P63151',
             geneName: 'PPP2R2A',
             intActId: 'EBI-1048931',
           },
@@ -3438,11 +3438,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q00005',
+            uniProtKBAccession: 'Q00005',
             geneName: 'PPP2R2B',
             intActId: 'EBI-1052159',
           },
@@ -3451,11 +3451,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q15172',
+            uniProtKBAccession: 'Q15172',
             geneName: 'PPP2R5A',
             intActId: 'EBI-641666',
           },
@@ -3464,11 +3464,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P48454',
+            uniProtKBAccession: 'P48454',
             geneName: 'PPP3CC',
             intActId: 'EBI-2827192',
           },
@@ -3477,11 +3477,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P17612',
+            uniProtKBAccession: 'P17612',
             geneName: 'PRKACA',
             intActId: 'EBI-476586',
           },
@@ -3490,11 +3490,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P22694',
+            uniProtKBAccession: 'P22694',
             geneName: 'PRKACB',
             intActId: 'EBI-2679622',
           },
@@ -3503,11 +3503,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P22694-8',
+            uniProtKBAccession: 'P22694-8',
             geneName: 'PRKACB',
             intActId: 'EBI-25937151',
           },
@@ -3516,11 +3516,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P22612',
+            uniProtKBAccession: 'P22612',
             geneName: 'PRKACG',
             intActId: 'EBI-3907086',
           },
@@ -3529,11 +3529,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9UGJ0-3',
+            uniProtKBAccession: 'Q9UGJ0-3',
             geneName: 'PRKAG2',
             intActId: 'EBI-25939641',
           },
@@ -3542,11 +3542,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q05655',
+            uniProtKBAccession: 'Q05655',
             geneName: 'PRKCD',
             intActId: 'EBI-704279',
           },
@@ -3555,11 +3555,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q02156',
+            uniProtKBAccession: 'Q02156',
             geneName: 'PRKCE',
             intActId: 'EBI-706254',
           },
@@ -3568,11 +3568,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O60260-5',
+            uniProtKBAccession: 'O60260-5',
             geneName: 'PRKN',
             intActId: 'EBI-21251460',
           },
@@ -3581,11 +3581,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P04156',
+            uniProtKBAccession: 'P04156',
             geneName: 'PRNP',
             intActId: 'EBI-977302',
           },
@@ -3594,11 +3594,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P60891',
+            uniProtKBAccession: 'P60891',
             geneName: 'PRPS1',
             intActId: 'EBI-749195',
           },
@@ -3607,11 +3607,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P07602',
+            uniProtKBAccession: 'P07602',
             geneName: 'PSAP',
             intActId: 'EBI-716699',
           },
@@ -3620,11 +3620,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P49768',
+            uniProtKBAccession: 'P49768',
             geneName: 'PSEN1',
             intActId: 'EBI-297277',
           },
@@ -3633,11 +3633,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P49768-2',
+            uniProtKBAccession: 'P49768-2',
             geneName: 'PSEN1',
             intActId: 'EBI-11047108',
           },
@@ -3646,11 +3646,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P49810',
+            uniProtKBAccession: 'P49810',
             geneName: 'PSEN2',
             intActId: 'EBI-2010251',
           },
@@ -3659,11 +3659,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9NZ42',
+            uniProtKBAccession: 'Q9NZ42',
             geneName: 'PSENEN',
             intActId: 'EBI-998468',
           },
@@ -3672,11 +3672,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P28062-2',
+            uniProtKBAccession: 'P28062-2',
             geneName: 'PSMB8',
             intActId: 'EBI-372312',
           },
@@ -3685,11 +3685,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P17980',
+            uniProtKBAccession: 'P17980',
             geneName: 'PSMC3',
             intActId: 'EBI-359720',
           },
@@ -3698,11 +3698,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q14289',
+            uniProtKBAccession: 'Q14289',
             geneName: 'PTK2B',
             intActId: 'EBI-298640',
           },
@@ -3711,11 +3711,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P20340-2',
+            uniProtKBAccession: 'P20340-2',
             geneName: 'RAB6A',
             intActId: 'EBI-8840191',
           },
@@ -3724,11 +3724,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P63000',
+            uniProtKBAccession: 'P63000',
             geneName: 'RAC1',
             intActId: 'EBI-413628',
           },
@@ -3737,11 +3737,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P04049',
+            uniProtKBAccession: 'P04049',
             geneName: 'RAF1',
             intActId: 'EBI-365996',
           },
@@ -3750,11 +3750,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q96S59',
+            uniProtKBAccession: 'Q96S59',
             geneName: 'RANBP9',
             intActId: 'EBI-636085',
           },
@@ -3763,11 +3763,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9Y272',
+            uniProtKBAccession: 'Q9Y272',
             geneName: 'RASD1',
             intActId: 'EBI-740818',
           },
@@ -3776,11 +3776,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P61586',
+            uniProtKBAccession: 'P61586',
             geneName: 'RHOA',
             intActId: 'EBI-446668',
           },
@@ -3789,11 +3789,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9Y3C5',
+            uniProtKBAccession: 'Q9Y3C5',
             geneName: 'RNF11',
             intActId: 'EBI-396669',
           },
@@ -3802,11 +3802,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q6ZNA4-2',
+            uniProtKBAccession: 'Q6ZNA4-2',
             geneName: 'RNF111',
             intActId: 'EBI-21535400',
           },
@@ -3815,11 +3815,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9ULX5',
+            uniProtKBAccession: 'Q9ULX5',
             geneName: 'RNF112',
             intActId: 'EBI-25829984',
           },
@@ -3828,11 +3828,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O75116',
+            uniProtKBAccession: 'O75116',
             geneName: 'ROCK2',
             intActId: 'EBI-366288',
           },
@@ -3841,11 +3841,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P46779',
+            uniProtKBAccession: 'P46779',
             geneName: 'RPL28',
             intActId: 'EBI-366357',
           },
@@ -3854,11 +3854,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q15349',
+            uniProtKBAccession: 'Q15349',
             geneName: 'RPS6KA2',
             intActId: 'EBI-1384149',
           },
@@ -3867,11 +3867,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P23443-4',
+            uniProtKBAccession: 'P23443-4',
             geneName: 'RPS6KB1',
             intActId: 'EBI-25882353',
           },
@@ -3880,11 +3880,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P04271',
+            uniProtKBAccession: 'P04271',
             geneName: 'S100B',
             intActId: 'EBI-458391',
           },
@@ -3893,11 +3893,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P21673',
+            uniProtKBAccession: 'P21673',
             geneName: 'SAT1',
             intActId: 'EBI-711613',
           },
@@ -3906,11 +3906,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q6AZY7-2',
+            uniProtKBAccession: 'Q6AZY7-2',
             geneName: 'SCARA3',
             intActId: 'EBI-21598366',
           },
@@ -3919,11 +3919,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q8WTV0',
+            uniProtKBAccession: 'Q8WTV0',
             geneName: 'SCARB1',
             intActId: 'EBI-78657',
           },
@@ -3932,11 +3932,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P18827',
+            uniProtKBAccession: 'P18827',
             geneName: 'SDC1',
             intActId: 'EBI-2855248',
           },
@@ -3945,11 +3945,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q15019-3',
+            uniProtKBAccession: 'Q15019-3',
             geneName: 'SEPTIN2',
             intActId: 'EBI-11525407',
           },
@@ -3958,11 +3958,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O43236',
+            uniProtKBAccession: 'O43236',
             geneName: 'SEPTIN4',
             intActId: 'EBI-1047513',
           },
@@ -3971,11 +3971,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q99719',
+            uniProtKBAccession: 'Q99719',
             geneName: 'SEPTIN5',
             intActId: 'EBI-373345',
           },
@@ -3984,11 +3984,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q92599-3',
+            uniProtKBAccession: 'Q92599-3',
             geneName: 'SEPTIN8',
             intActId: 'EBI-25891137',
           },
@@ -3997,11 +3997,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P01011',
+            uniProtKBAccession: 'P01011',
             geneName: 'SERPINA3',
             intActId: 'EBI-296557',
           },
@@ -4010,11 +4010,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P29353',
+            uniProtKBAccession: 'P29353',
             geneName: 'SHC1',
             intActId: 'EBI-78835',
           },
@@ -4023,11 +4023,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q92529',
+            uniProtKBAccession: 'Q92529',
             geneName: 'SHC3',
             intActId: 'EBI-79084',
           },
@@ -4036,11 +4036,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q8IUQ4-2',
+            uniProtKBAccession: 'Q8IUQ4-2',
             geneName: 'SIAH1',
             intActId: 'EBI-11522811',
           },
@@ -4049,11 +4049,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q7Z2H8',
+            uniProtKBAccession: 'Q7Z2H8',
             geneName: 'SLC36A1',
             intActId: 'EBI-9978258',
           },
@@ -4062,11 +4062,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9NP59',
+            uniProtKBAccession: 'Q9NP59',
             geneName: 'SLC40A1',
             intActId: 'EBI-725153',
           },
@@ -4075,11 +4075,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P84022',
+            uniProtKBAccession: 'P84022',
             geneName: 'SMAD3',
             intActId: 'EBI-347161',
           },
@@ -4088,11 +4088,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q13485',
+            uniProtKBAccession: 'Q13485',
             geneName: 'SMAD4',
             intActId: 'EBI-347263',
           },
@@ -4101,11 +4101,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P37840',
+            uniProtKBAccession: 'P37840',
             geneName: 'SNCA',
             intActId: 'EBI-985879',
           },
@@ -4114,11 +4114,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q16143',
+            uniProtKBAccession: 'Q16143',
             geneName: 'SNCB',
             intActId: 'EBI-727106',
           },
@@ -4127,11 +4127,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q15036',
+            uniProtKBAccession: 'Q15036',
             geneName: 'SNX17',
             intActId: 'EBI-1752620',
           },
@@ -4140,11 +4140,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O60749',
+            uniProtKBAccession: 'O60749',
             geneName: 'SNX2',
             intActId: 'EBI-1046690',
           },
@@ -4153,11 +4153,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q8WV41',
+            uniProtKBAccession: 'Q8WV41',
             geneName: 'SNX33',
             intActId: 'EBI-2481535',
           },
@@ -4166,11 +4166,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9UNH7',
+            uniProtKBAccession: 'Q9UNH7',
             geneName: 'SNX6',
             intActId: 'EBI-949294',
           },
@@ -4179,11 +4179,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q92673',
+            uniProtKBAccession: 'Q92673',
             geneName: 'SORL1',
             intActId: 'EBI-1171329',
           },
@@ -4192,11 +4192,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q99932-2',
+            uniProtKBAccession: 'Q99932-2',
             geneName: 'SPAG8',
             intActId: 'EBI-11959123',
           },
@@ -4205,11 +4205,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P11277',
+            uniProtKBAccession: 'P11277',
             geneName: 'SPTB',
             intActId: 'EBI-514908',
           },
@@ -4218,11 +4218,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q13501',
+            uniProtKBAccession: 'Q13501',
             geneName: 'SQSTM1',
             intActId: 'EBI-307104',
           },
@@ -4231,11 +4231,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P61278',
+            uniProtKBAccession: 'P61278',
             geneName: 'SST',
             intActId: 'EBI-20823968',
           },
@@ -4244,11 +4244,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P32745',
+            uniProtKBAccession: 'P32745',
             geneName: 'SSTR3',
             intActId: 'EBI-6266935',
           },
@@ -4257,11 +4257,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P40763-2',
+            uniProtKBAccession: 'P40763-2',
             geneName: 'STAT3',
             intActId: 'EBI-10692009',
           },
@@ -4270,11 +4270,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q8IWL8',
+            uniProtKBAccession: 'Q8IWL8',
             geneName: 'STH',
             intActId: 'EBI-12843506',
           },
@@ -4283,11 +4283,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O14662-5',
+            uniProtKBAccession: 'O14662-5',
             geneName: 'STX16',
             intActId: 'EBI-9089968',
           },
@@ -4296,11 +4296,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q13190-4',
+            uniProtKBAccession: 'Q13190-4',
             geneName: 'STX5',
             intActId: 'EBI-25938350',
           },
@@ -4309,11 +4309,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O43752',
+            uniProtKBAccession: 'O43752',
             geneName: 'STX6',
             intActId: 'EBI-2695795',
           },
@@ -4322,11 +4322,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P61764',
+            uniProtKBAccession: 'P61764',
             geneName: 'STXBP1',
             intActId: 'EBI-960169',
           },
@@ -4335,11 +4335,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9Y5B9',
+            uniProtKBAccession: 'Q9Y5B9',
             geneName: 'SUPT16H',
             intActId: 'EBI-1046849',
           },
@@ -4348,11 +4348,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P43405',
+            uniProtKBAccession: 'P43405',
             geneName: 'SYK',
             intActId: 'EBI-78302',
           },
@@ -4361,11 +4361,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P43405-2',
+            uniProtKBAccession: 'P43405-2',
             geneName: 'SYK',
             intActId: 'EBI-25892332',
           },
@@ -4374,11 +4374,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P08247',
+            uniProtKBAccession: 'P08247',
             geneName: 'SYP',
             intActId: 'EBI-9071725',
           },
@@ -4387,11 +4387,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q13148',
+            uniProtKBAccession: 'Q13148',
             geneName: 'TARDBP',
             intActId: 'EBI-372899',
           },
@@ -4400,11 +4400,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P20226',
+            uniProtKBAccession: 'P20226',
             geneName: 'TBP',
             intActId: 'EBI-355371',
           },
@@ -4413,11 +4413,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q16650',
+            uniProtKBAccession: 'Q16650',
             geneName: 'TBR1',
             intActId: 'EBI-1047158',
           },
@@ -4426,11 +4426,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O43680',
+            uniProtKBAccession: 'O43680',
             geneName: 'TCF21',
             intActId: 'EBI-723267',
           },
@@ -4439,11 +4439,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P01137',
+            uniProtKBAccession: 'P01137',
             geneName: 'TGFB1',
             intActId: 'EBI-779636',
           },
@@ -4452,11 +4452,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P61812',
+            uniProtKBAccession: 'P61812',
             geneName: 'TGFB2',
             intActId: 'EBI-779581',
           },
@@ -4465,11 +4465,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q15583',
+            uniProtKBAccession: 'Q15583',
             geneName: 'TGIF1',
             intActId: 'EBI-714215',
           },
@@ -4478,11 +4478,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q15583-2',
+            uniProtKBAccession: 'Q15583-2',
             geneName: 'TGIF1',
             intActId: 'EBI-12691451',
           },
@@ -4491,11 +4491,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P04216',
+            uniProtKBAccession: 'P04216',
             geneName: 'THY1',
             intActId: 'EBI-9071715',
           },
@@ -4504,11 +4504,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P04183',
+            uniProtKBAccession: 'P04183',
             geneName: 'TK1',
             intActId: 'EBI-712550',
           },
@@ -4517,11 +4517,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9BX74',
+            uniProtKBAccession: 'Q9BX74',
             geneName: 'TM2D1',
             intActId: 'EBI-25832057',
           },
@@ -4530,11 +4530,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P49755',
+            uniProtKBAccession: 'P49755',
             geneName: 'TMED10',
             intActId: 'EBI-998422',
           },
@@ -4543,11 +4543,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9BTD3',
+            uniProtKBAccession: 'Q9BTD3',
             geneName: 'TMEM121',
             intActId: 'EBI-12155101',
           },
@@ -4556,11 +4556,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P62328',
+            uniProtKBAccession: 'P62328',
             geneName: 'TMSB4X',
             intActId: 'EBI-712598',
           },
@@ -4569,11 +4569,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P01375',
+            uniProtKBAccession: 'P01375',
             geneName: 'TNF',
             intActId: 'EBI-359977',
           },
@@ -4582,11 +4582,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O43508',
+            uniProtKBAccession: 'O43508',
             geneName: 'TNFSF12',
             intActId: 'EBI-6932080',
           },
@@ -4595,11 +4595,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O75888-3',
+            uniProtKBAccession: 'O75888-3',
             geneName: 'TNFSF13',
             intActId: 'EBI-12856452',
           },
@@ -4608,11 +4608,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q96GM8',
+            uniProtKBAccession: 'Q96GM8',
             geneName: 'TOE1',
             intActId: 'EBI-717460',
           },
@@ -4621,11 +4621,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O14656',
+            uniProtKBAccession: 'O14656',
             geneName: 'TOR1A',
             intActId: 'EBI-524257',
           },
@@ -4634,11 +4634,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O14656-2',
+            uniProtKBAccession: 'O14656-2',
             geneName: 'TOR1A',
             intActId: 'EBI-25847109',
           },
@@ -4647,11 +4647,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q05BL1',
+            uniProtKBAccession: 'Q05BL1',
             geneName: 'TP53BP2',
             intActId: 'EBI-11952721',
           },
@@ -4660,11 +4660,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q13625',
+            uniProtKBAccession: 'Q13625',
             geneName: 'TP53BP2',
             intActId: 'EBI-77642',
           },
@@ -4673,11 +4673,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9C026',
+            uniProtKBAccession: 'Q9C026',
             geneName: 'TRIM9',
             intActId: 'EBI-720828',
           },
@@ -4686,11 +4686,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q15714-2',
+            uniProtKBAccession: 'Q15714-2',
             geneName: 'TSC22D1',
             intActId: 'EBI-12034704',
           },
@@ -4699,11 +4699,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P02766',
+            uniProtKBAccession: 'P02766',
             geneName: 'TTR',
             intActId: 'EBI-711909',
           },
@@ -4712,11 +4712,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q71U36',
+            uniProtKBAccession: 'Q71U36',
             geneName: 'TUBA1A',
             intActId: 'EBI-302552',
           },
@@ -4725,11 +4725,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P68363',
+            uniProtKBAccession: 'P68363',
             geneName: 'TUBA1B',
             intActId: 'EBI-487083',
           },
@@ -4738,11 +4738,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P68366',
+            uniProtKBAccession: 'P68366',
             geneName: 'TUBA4A',
             intActId: 'EBI-351772',
           },
@@ -4751,11 +4751,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P07437',
+            uniProtKBAccession: 'P07437',
             geneName: 'TUBB',
             intActId: 'EBI-350864',
           },
@@ -4764,11 +4764,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q8TBC4',
+            uniProtKBAccession: 'Q8TBC4',
             geneName: 'UBA3',
             intActId: 'EBI-717567',
           },
@@ -4777,11 +4777,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P0CG47',
+            uniProtKBAccession: 'P0CG47',
             geneName: 'UBB',
             intActId: 'EBI-413034',
           },
@@ -4790,11 +4790,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P62837',
+            uniProtKBAccession: 'P62837',
             geneName: 'UBE2D2',
             intActId: 'EBI-347677',
           },
@@ -4803,11 +4803,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9UMX0',
+            uniProtKBAccession: 'Q9UMX0',
             geneName: 'UBQLN1',
             intActId: 'EBI-741480',
           },
@@ -4816,11 +4816,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P09936',
+            uniProtKBAccession: 'P09936',
             geneName: 'UCHL1',
             intActId: 'EBI-714860',
           },
@@ -4829,11 +4829,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P13051-2',
+            uniProtKBAccession: 'P13051-2',
             geneName: 'UNG',
             intActId: 'EBI-25834258',
           },
@@ -4842,11 +4842,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O75604-3',
+            uniProtKBAccession: 'O75604-3',
             geneName: 'USP2',
             intActId: 'EBI-10696113',
           },
@@ -4855,11 +4855,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9BVJ6',
+            uniProtKBAccession: 'Q9BVJ6',
             geneName: 'UTP14A',
             intActId: 'EBI-473284',
           },
@@ -4868,11 +4868,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9H270',
+            uniProtKBAccession: 'Q9H270',
             geneName: 'VPS11',
             intActId: 'EBI-373380',
           },
@@ -4881,11 +4881,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q8N0S8',
+            uniProtKBAccession: 'Q8N0S8',
             geneName: 'VPS29',
             intActId: 'EBI-25892084',
           },
@@ -4894,11 +4894,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q96AX1',
+            uniProtKBAccession: 'Q96AX1',
             geneName: 'VPS33A',
             intActId: 'EBI-2527283',
           },
@@ -4907,11 +4907,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q96QK1',
+            uniProtKBAccession: 'Q96QK1',
             geneName: 'VPS35',
             intActId: 'EBI-1054634',
           },
@@ -4920,11 +4920,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9GZS3',
+            uniProtKBAccession: 'Q9GZS3',
             geneName: 'WDR61',
             intActId: 'EBI-358545',
           },
@@ -4933,11 +4933,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O76024',
+            uniProtKBAccession: 'O76024',
             geneName: 'WFS1',
             intActId: 'EBI-720609',
           },
@@ -4946,11 +4946,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O00744',
+            uniProtKBAccession: 'O00744',
             geneName: 'WNT10B',
             intActId: 'EBI-21797207',
           },
@@ -4959,11 +4959,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P19544-6',
+            uniProtKBAccession: 'P19544-6',
             geneName: 'WT1',
             intActId: 'EBI-11745701',
           },
@@ -4972,11 +4972,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P31946',
+            uniProtKBAccession: 'P31946',
             geneName: 'YWHAB',
             intActId: 'EBI-359815',
           },
@@ -4985,11 +4985,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P17028',
+            uniProtKBAccession: 'P17028',
             geneName: 'ZNF24',
             intActId: 'EBI-707773',
           },
@@ -4998,11 +4998,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q8N895',
+            uniProtKBAccession: 'Q8N895',
             geneName: 'ZNF366',
             intActId: 'EBI-2813661',
           },
@@ -5011,11 +5011,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q8NHT4',
+            uniProtKBAccession: 'Q8NHT4',
             intActId: 'EBI-25939025',
           },
           numberOfExperiments: 3,
@@ -5023,11 +5023,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O35431',
+            uniProtKBAccession: 'O35431',
             geneName: 'Apba2',
             intActId: 'EBI-2028211',
           },
@@ -5036,11 +5036,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P15253',
+            uniProtKBAccession: 'P15253',
             geneName: 'CALR',
             intActId: 'EBI-9005200',
           },
@@ -5049,11 +5049,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q8BGY9',
+            uniProtKBAccession: 'Q8BGY9',
             geneName: 'Slc5a7',
             intActId: 'EBI-2010752',
           },
@@ -5062,11 +5062,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q306T3',
+            uniProtKBAccession: 'Q306T3',
             intActId: 'EBI-8294101',
           },
           numberOfExperiments: 3,
@@ -5074,11 +5074,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-2',
+            uniProtKBAccession: 'P05067-2',
             intActId: 'EBI-17264467',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9H7C9',
+            uniProtKBAccession: 'Q9H7C9',
             geneName: 'AAMDC',
             intActId: 'EBI-10308705',
           },
@@ -5087,11 +5087,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-2',
+            uniProtKBAccession: 'P05067-2',
             intActId: 'EBI-17264467',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P63010-2',
+            uniProtKBAccession: 'P63010-2',
             geneName: 'AP2B1',
             intActId: 'EBI-11529439',
           },
@@ -5100,11 +5100,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-2',
+            uniProtKBAccession: 'P05067-2',
             intActId: 'EBI-17264467',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q0P5N6',
+            uniProtKBAccession: 'Q0P5N6',
             geneName: 'ARL16',
             intActId: 'EBI-10186132',
           },
@@ -5113,11 +5113,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-2',
+            uniProtKBAccession: 'P05067-2',
             intActId: 'EBI-17264467',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O15392',
+            uniProtKBAccession: 'O15392',
             geneName: 'BIRC5',
             intActId: 'EBI-518823',
           },
@@ -5126,11 +5126,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-2',
+            uniProtKBAccession: 'P05067-2',
             intActId: 'EBI-17264467',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9UHY8',
+            uniProtKBAccession: 'Q9UHY8',
             geneName: 'FEZ2',
             intActId: 'EBI-396453',
           },
@@ -5139,11 +5139,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-2',
+            uniProtKBAccession: 'P05067-2',
             intActId: 'EBI-17264467',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P06241-3',
+            uniProtKBAccession: 'P06241-3',
             geneName: 'FYN',
             intActId: 'EBI-10691738',
           },
@@ -5152,11 +5152,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-2',
+            uniProtKBAccession: 'P05067-2',
             intActId: 'EBI-17264467',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q12891',
+            uniProtKBAccession: 'Q12891',
             geneName: 'HYAL2',
             intActId: 'EBI-2806068',
           },
@@ -5165,11 +5165,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-2',
+            uniProtKBAccession: 'P05067-2',
             intActId: 'EBI-17264467',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q6DN90-2',
+            uniProtKBAccession: 'Q6DN90-2',
             geneName: 'IQSEC1',
             intActId: 'EBI-21911304',
           },
@@ -5178,11 +5178,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-2',
+            uniProtKBAccession: 'P05067-2',
             intActId: 'EBI-17264467',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9BYQ4',
+            uniProtKBAccession: 'Q9BYQ4',
             geneName: 'KRTAP9-2',
             intActId: 'EBI-1044640',
           },
@@ -5191,11 +5191,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-2',
+            uniProtKBAccession: 'P05067-2',
             intActId: 'EBI-17264467',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O95447',
+            uniProtKBAccession: 'O95447',
             geneName: 'LCA5L',
             intActId: 'EBI-8473670',
           },
@@ -5204,11 +5204,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-2',
+            uniProtKBAccession: 'P05067-2',
             intActId: 'EBI-17264467',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9BYZ2',
+            uniProtKBAccession: 'Q9BYZ2',
             geneName: 'LDHAL6B',
             intActId: 'EBI-1108377',
           },
@@ -5217,11 +5217,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-2',
+            uniProtKBAccession: 'P05067-2',
             intActId: 'EBI-17264467',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q8TDB4',
+            uniProtKBAccession: 'Q8TDB4',
             geneName: 'MGARP',
             intActId: 'EBI-4397720',
           },
@@ -5230,11 +5230,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-2',
+            uniProtKBAccession: 'P05067-2',
             intActId: 'EBI-17264467',
           },
           interactantTwo: {
-            uniProtkbAccession: 'A4FUJ8',
+            uniProtKBAccession: 'A4FUJ8',
             geneName: 'MKL1',
             intActId: 'EBI-21250407',
           },
@@ -5243,11 +5243,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-2',
+            uniProtKBAccession: 'P05067-2',
             intActId: 'EBI-17264467',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P15941-11',
+            uniProtKBAccession: 'P15941-11',
             geneName: 'MUC1',
             intActId: 'EBI-17263240',
           },
@@ -5256,11 +5256,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-2',
+            uniProtKBAccession: 'P05067-2',
             intActId: 'EBI-17264467',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q13113',
+            uniProtKBAccession: 'Q13113',
             geneName: 'PDZK1IP1',
             intActId: 'EBI-716063',
           },
@@ -5269,11 +5269,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-2',
+            uniProtKBAccession: 'P05067-2',
             intActId: 'EBI-17264467',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q6ZNA4-2',
+            uniProtKBAccession: 'Q6ZNA4-2',
             geneName: 'RNF111',
             intActId: 'EBI-21535400',
           },
@@ -5282,11 +5282,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-2',
+            uniProtKBAccession: 'P05067-2',
             intActId: 'EBI-17264467',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9ULX5',
+            uniProtKBAccession: 'Q9ULX5',
             geneName: 'RNF112',
             intActId: 'EBI-25829984',
           },
@@ -5295,11 +5295,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-2',
+            uniProtKBAccession: 'P05067-2',
             intActId: 'EBI-17264467',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q2NKQ1-4',
+            uniProtKBAccession: 'Q2NKQ1-4',
             geneName: 'SGSM1',
             intActId: 'EBI-10182463',
           },
@@ -5308,11 +5308,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-2',
+            uniProtKBAccession: 'P05067-2',
             intActId: 'EBI-17264467',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q8IUQ4-2',
+            uniProtKBAccession: 'Q8IUQ4-2',
             geneName: 'SIAH1',
             intActId: 'EBI-11522811',
           },
@@ -5321,11 +5321,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-2',
+            uniProtKBAccession: 'P05067-2',
             intActId: 'EBI-17264467',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q99932-2',
+            uniProtKBAccession: 'Q99932-2',
             geneName: 'SPAG8',
             intActId: 'EBI-11959123',
           },
@@ -5334,11 +5334,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-2',
+            uniProtKBAccession: 'P05067-2',
             intActId: 'EBI-17264467',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q8IUW3',
+            uniProtKBAccession: 'Q8IUW3',
             geneName: 'SPATA2L',
             intActId: 'EBI-2510414',
           },
@@ -5347,11 +5347,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-2',
+            uniProtKBAccession: 'P05067-2',
             intActId: 'EBI-17264467',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q13148',
+            uniProtKBAccession: 'Q13148',
             geneName: 'TARDBP',
             intActId: 'EBI-372899',
           },
@@ -5360,11 +5360,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-2',
+            uniProtKBAccession: 'P05067-2',
             intActId: 'EBI-17264467',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q16650',
+            uniProtKBAccession: 'Q16650',
             geneName: 'TBR1',
             intActId: 'EBI-1047158',
           },
@@ -5373,11 +5373,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-2',
+            uniProtKBAccession: 'P05067-2',
             intActId: 'EBI-17264467',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q5HYA8',
+            uniProtKBAccession: 'Q5HYA8',
             geneName: 'TMEM67',
             intActId: 'EBI-11334880',
           },
@@ -5386,11 +5386,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-2',
+            uniProtKBAccession: 'P05067-2',
             intActId: 'EBI-17264467',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P09936',
+            uniProtKBAccession: 'P09936',
             geneName: 'UCHL1',
             intActId: 'EBI-714860',
           },
@@ -5399,11 +5399,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-2',
+            uniProtKBAccession: 'P05067-2',
             intActId: 'EBI-17264467',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9GZS3',
+            uniProtKBAccession: 'Q9GZS3',
             geneName: 'WDR61',
             intActId: 'EBI-358545',
           },
@@ -5412,11 +5412,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-4',
+            uniProtKBAccession: 'P05067-4',
             intActId: 'EBI-302641',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O00213',
+            uniProtKBAccession: 'O00213',
             geneName: 'APBB1',
             intActId: 'EBI-81694',
           },
@@ -5425,11 +5425,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-4',
+            uniProtKBAccession: 'P05067-4',
             intActId: 'EBI-302641',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P51693',
+            uniProtKBAccession: 'P51693',
             geneName: 'APLP1',
             intActId: 'EBI-74648',
           },
@@ -5438,11 +5438,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-4',
+            uniProtKBAccession: 'P05067-4',
             intActId: 'EBI-302641',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q06481',
+            uniProtKBAccession: 'Q06481',
             geneName: 'APLP2',
             intActId: 'EBI-79306',
           },
@@ -5451,11 +5451,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-4',
+            uniProtKBAccession: 'P05067-4',
             intActId: 'EBI-302641',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P05067-4',
+            uniProtKBAccession: 'P05067-4',
             geneName: 'APP',
             intActId: 'EBI-302641',
           },
@@ -5464,11 +5464,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-4',
+            uniProtKBAccession: 'P05067-4',
             intActId: 'EBI-302641',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q13867',
+            uniProtKBAccession: 'Q13867',
             geneName: 'BLMH',
             intActId: 'EBI-718504',
           },
@@ -5477,11 +5477,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-4',
+            uniProtKBAccession: 'P05067-4',
             intActId: 'EBI-302641',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9NZU0',
+            uniProtKBAccession: 'Q9NZU0',
             geneName: 'FLRT3',
             intActId: 'EBI-1057092',
           },
@@ -5490,11 +5490,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-4',
+            uniProtKBAccession: 'P05067-4',
             intActId: 'EBI-302641',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P46089',
+            uniProtKBAccession: 'P46089',
             geneName: 'GPR3',
             intActId: 'EBI-3909653',
           },
@@ -5503,11 +5503,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-4',
+            uniProtKBAccession: 'P05067-4',
             intActId: 'EBI-302641',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O43736',
+            uniProtKBAccession: 'O43736',
             geneName: 'ITM2A',
             intActId: 'EBI-2431769',
           },
@@ -5516,11 +5516,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-4',
+            uniProtKBAccession: 'P05067-4',
             intActId: 'EBI-302641',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q68DU8',
+            uniProtKBAccession: 'Q68DU8',
             geneName: 'KCTD16',
             intActId: 'EBI-20768174',
           },
@@ -5529,11 +5529,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-4',
+            uniProtKBAccession: 'P05067-4',
             intActId: 'EBI-302641',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q96FE5',
+            uniProtKBAccession: 'Q96FE5',
             geneName: 'LINGO1',
             intActId: 'EBI-719955',
           },
@@ -5542,11 +5542,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-4',
+            uniProtKBAccession: 'P05067-4',
             intActId: 'EBI-302641',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P04629',
+            uniProtKBAccession: 'P04629',
             geneName: 'NTRK1',
             intActId: 'EBI-1028226',
           },
@@ -5555,11 +5555,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-4',
+            uniProtKBAccession: 'P05067-4',
             intActId: 'EBI-302641',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q13526',
+            uniProtKBAccession: 'Q13526',
             geneName: 'PIN1',
             intActId: 'EBI-714158',
           },
@@ -5568,11 +5568,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-4',
+            uniProtKBAccession: 'P05067-4',
             intActId: 'EBI-302641',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P60201',
+            uniProtKBAccession: 'P60201',
             geneName: 'PLP1',
             intActId: 'EBI-8653150',
           },
@@ -5581,11 +5581,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-4',
+            uniProtKBAccession: 'P05067-4',
             intActId: 'EBI-302641',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P04156',
+            uniProtKBAccession: 'P04156',
             geneName: 'PRNP',
             intActId: 'EBI-977302',
           },
@@ -5594,11 +5594,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-4',
+            uniProtKBAccession: 'P05067-4',
             intActId: 'EBI-302641',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P49768',
+            uniProtKBAccession: 'P49768',
             geneName: 'PSEN1',
             intActId: 'EBI-297277',
           },
@@ -5607,11 +5607,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-4',
+            uniProtKBAccession: 'P05067-4',
             intActId: 'EBI-302641',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q92673',
+            uniProtKBAccession: 'Q92673',
             geneName: 'SORL1',
             intActId: 'EBI-1171329',
           },
@@ -5620,11 +5620,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-4',
+            uniProtKBAccession: 'P05067-4',
             intActId: 'EBI-302641',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q99523',
+            uniProtKBAccession: 'Q99523',
             geneName: 'SORT1',
             chainId: 'PRO_0000033163',
             intActId: 'EBI-21467118',
@@ -5634,11 +5634,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-4',
+            uniProtKBAccession: 'P05067-4',
             intActId: 'EBI-302641',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9HCB6',
+            uniProtKBAccession: 'Q9HCB6',
             geneName: 'SPON1',
             intActId: 'EBI-2431846',
           },
@@ -5647,11 +5647,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-4',
+            uniProtKBAccession: 'P05067-4',
             intActId: 'EBI-302641',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O95793',
+            uniProtKBAccession: 'O95793',
             geneName: 'STAU1',
             intActId: 'EBI-358174',
           },
@@ -5660,11 +5660,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-4',
+            uniProtKBAccession: 'P05067-4',
             intActId: 'EBI-302641',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q8VEK0',
+            uniProtKBAccession: 'Q8VEK0',
             geneName: 'Tmem30a',
             intActId: 'EBI-8381028',
           },
@@ -5673,11 +5673,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-8',
+            uniProtKBAccession: 'P05067-8',
             intActId: 'EBI-302661',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P17677',
+            uniProtKBAccession: 'P17677',
             geneName: 'GAP43',
             intActId: 'EBI-1267511',
           },
@@ -5686,11 +5686,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-8',
+            uniProtKBAccession: 'P05067-8',
             intActId: 'EBI-302661',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9NSC5',
+            uniProtKBAccession: 'Q9NSC5',
             geneName: 'HOMER3',
             intActId: 'EBI-748420',
           },
@@ -5699,11 +5699,11 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P05067-8',
+            uniProtKBAccession: 'P05067-8',
             intActId: 'EBI-302661',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9Y287',
+            uniProtKBAccession: 'Q9Y287',
             geneName: 'ITM2B',
             intActId: 'EBI-2866431',
           },
@@ -5716,7 +5716,7 @@ const mock: UniProtkbAPIModel = {
             intActId: 'EBI-20829246',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O95631',
+            uniProtKBAccession: 'O95631',
             geneName: 'NTN1',
             intActId: 'EBI-2678626',
           },
@@ -5729,7 +5729,7 @@ const mock: UniProtkbAPIModel = {
             intActId: 'EBI-21194918',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q9UIK5',
+            uniProtKBAccession: 'Q9UIK5',
             geneName: 'TMEFF2',
             intActId: 'EBI-11423693',
           },
@@ -5742,7 +5742,7 @@ const mock: UniProtkbAPIModel = {
             intActId: 'EBI-3894543',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q92673',
+            uniProtKBAccession: 'Q92673',
             geneName: 'SORL1',
             intActId: 'EBI-1171329',
           },
@@ -5755,7 +5755,7 @@ const mock: UniProtkbAPIModel = {
             intActId: 'EBI-3894543',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q8K3H7',
+            uniProtKBAccession: 'Q8K3H7',
             geneName: 'CALR',
             intActId: 'EBI-9005068',
           },
@@ -5768,7 +5768,7 @@ const mock: UniProtkbAPIModel = {
             intActId: 'EBI-3894543',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q8VEK0',
+            uniProtKBAccession: 'Q8VEK0',
             geneName: 'Tmem30a',
             intActId: 'EBI-8381028',
           },
@@ -5778,7 +5778,7 @@ const mock: UniProtkbAPIModel = {
         {
           interactantOne: { chainId: 'PRO_0000000092', intActId: 'EBI-821758' },
           interactantTwo: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             geneName: 'APP',
             chainId: 'PRO_0000000092',
             intActId: 'EBI-821758',
@@ -5789,7 +5789,7 @@ const mock: UniProtkbAPIModel = {
         {
           interactantOne: { chainId: 'PRO_0000000092', intActId: 'EBI-821758' },
           interactantTwo: {
-            uniProtkbAccession: 'P48047',
+            uniProtKBAccession: 'P48047',
             geneName: 'ATP5PO',
             intActId: 'EBI-355815',
           },
@@ -5799,7 +5799,7 @@ const mock: UniProtkbAPIModel = {
         {
           interactantOne: { chainId: 'PRO_0000000092', intActId: 'EBI-821758' },
           interactantTwo: {
-            uniProtkbAccession: 'P36544',
+            uniProtKBAccession: 'P36544',
             geneName: 'CHRNA7',
             intActId: 'EBI-79333',
           },
@@ -5809,7 +5809,7 @@ const mock: UniProtkbAPIModel = {
         {
           interactantOne: { chainId: 'PRO_0000000092', intActId: 'EBI-821758' },
           interactantTwo: {
-            uniProtkbAccession: 'P10909-5',
+            uniProtKBAccession: 'P10909-5',
             geneName: 'CLU',
             intActId: 'EBI-10961636',
           },
@@ -5819,7 +5819,7 @@ const mock: UniProtkbAPIModel = {
         {
           interactantOne: { chainId: 'PRO_0000000092', intActId: 'EBI-821758' },
           interactantTwo: {
-            uniProtkbAccession: 'P39060',
+            uniProtKBAccession: 'P39060',
             geneName: 'COL18A1',
             chainId: 'PRO_0000005794',
             intActId: 'EBI-2566375',
@@ -5830,7 +5830,7 @@ const mock: UniProtkbAPIModel = {
         {
           interactantOne: { chainId: 'PRO_0000000092', intActId: 'EBI-821758' },
           interactantTwo: {
-            uniProtkbAccession: 'O00230',
+            uniProtKBAccession: 'O00230',
             geneName: 'CORT',
             chainId: 'PRO_0000033156',
             intActId: 'EBI-20824092',
@@ -5841,7 +5841,7 @@ const mock: UniProtkbAPIModel = {
         {
           interactantOne: { chainId: 'PRO_0000000092', intActId: 'EBI-821758' },
           interactantTwo: {
-            uniProtkbAccession: 'Q99714',
+            uniProtKBAccession: 'Q99714',
             geneName: 'HSD17B10',
             intActId: 'EBI-79964',
           },
@@ -5851,7 +5851,7 @@ const mock: UniProtkbAPIModel = {
         {
           interactantOne: { chainId: 'PRO_0000000092', intActId: 'EBI-821758' },
           interactantTwo: {
-            uniProtkbAccession: 'Q8N423',
+            uniProtKBAccession: 'Q8N423',
             geneName: 'LILRB2',
             intActId: 'EBI-2816428',
           },
@@ -5861,7 +5861,7 @@ const mock: UniProtkbAPIModel = {
         {
           interactantOne: { chainId: 'PRO_0000000092', intActId: 'EBI-821758' },
           interactantTwo: {
-            uniProtkbAccession: 'P10636',
+            uniProtKBAccession: 'P10636',
             geneName: 'MAPT',
             intActId: 'EBI-366182',
           },
@@ -5871,7 +5871,7 @@ const mock: UniProtkbAPIModel = {
         {
           interactantOne: { chainId: 'PRO_0000000092', intActId: 'EBI-821758' },
           interactantTwo: {
-            uniProtkbAccession: 'P08253',
+            uniProtKBAccession: 'P08253',
             geneName: 'MMP2',
             intActId: 'EBI-1033518',
           },
@@ -5881,7 +5881,7 @@ const mock: UniProtkbAPIModel = {
         {
           interactantOne: { chainId: 'PRO_0000000092', intActId: 'EBI-821758' },
           interactantTwo: {
-            uniProtkbAccession: 'Q9NZV6',
+            uniProtKBAccession: 'Q9NZV6',
             geneName: 'MSRB1',
             intActId: 'EBI-12330065',
           },
@@ -5891,7 +5891,7 @@ const mock: UniProtkbAPIModel = {
         {
           interactantOne: { chainId: 'PRO_0000000092', intActId: 'EBI-821758' },
           interactantTwo: {
-            uniProtkbAccession: 'P03897',
+            uniProtKBAccession: 'P03897',
             geneName: 'MT-ND3',
             intActId: 'EBI-1246249',
           },
@@ -5901,7 +5901,7 @@ const mock: UniProtkbAPIModel = {
         {
           interactantOne: { chainId: 'PRO_0000000092', intActId: 'EBI-821758' },
           interactantTwo: {
-            uniProtkbAccession: 'Q8IVG9',
+            uniProtKBAccession: 'Q8IVG9',
             geneName: 'MT-RNR2',
             intActId: 'EBI-8643752',
           },
@@ -5911,7 +5911,7 @@ const mock: UniProtkbAPIModel = {
         {
           interactantOne: { chainId: 'PRO_0000000092', intActId: 'EBI-821758' },
           interactantTwo: {
-            uniProtkbAccession: 'O95631',
+            uniProtKBAccession: 'O95631',
             geneName: 'NTN1',
             intActId: 'EBI-2678626',
           },
@@ -5921,7 +5921,7 @@ const mock: UniProtkbAPIModel = {
         {
           interactantOne: { chainId: 'PRO_0000000092', intActId: 'EBI-821758' },
           interactantTwo: {
-            uniProtkbAccession: 'Q15113',
+            uniProtKBAccession: 'Q15113',
             geneName: 'PCOLCE',
             intActId: 'EBI-8869614',
           },
@@ -5931,7 +5931,7 @@ const mock: UniProtkbAPIModel = {
         {
           interactantOne: { chainId: 'PRO_0000000092', intActId: 'EBI-821758' },
           interactantTwo: {
-            uniProtkbAccession: 'Q08752',
+            uniProtKBAccession: 'Q08752',
             geneName: 'PPID',
             intActId: 'EBI-716596',
           },
@@ -5941,7 +5941,7 @@ const mock: UniProtkbAPIModel = {
         {
           interactantOne: { chainId: 'PRO_0000000092', intActId: 'EBI-821758' },
           interactantTwo: {
-            uniProtkbAccession: 'P30405',
+            uniProtKBAccession: 'P30405',
             geneName: 'PPIF',
             intActId: 'EBI-5544229',
           },
@@ -5951,7 +5951,7 @@ const mock: UniProtkbAPIModel = {
         {
           interactantOne: { chainId: 'PRO_0000000092', intActId: 'EBI-821758' },
           interactantTwo: {
-            uniProtkbAccession: 'P04156',
+            uniProtKBAccession: 'P04156',
             geneName: 'PRNP',
             intActId: 'EBI-977302',
           },
@@ -5961,7 +5961,7 @@ const mock: UniProtkbAPIModel = {
         {
           interactantOne: { chainId: 'PRO_0000000092', intActId: 'EBI-821758' },
           interactantTwo: {
-            uniProtkbAccession: 'P11686-1',
+            uniProtKBAccession: 'P11686-1',
             geneName: 'SFTPC',
             intActId: 'EBI-16143688',
           },
@@ -5971,7 +5971,7 @@ const mock: UniProtkbAPIModel = {
         {
           interactantOne: { chainId: 'PRO_0000000092', intActId: 'EBI-821758' },
           interactantTwo: {
-            uniProtkbAccession: 'P61278',
+            uniProtKBAccession: 'P61278',
             geneName: 'SST',
             chainId: 'PRO_0000033088',
             intActId: 'EBI-20824010',
@@ -5982,7 +5982,7 @@ const mock: UniProtkbAPIModel = {
         {
           interactantOne: { chainId: 'PRO_0000000092', intActId: 'EBI-821758' },
           interactantTwo: {
-            uniProtkbAccession: 'P21980',
+            uniProtKBAccession: 'P21980',
             geneName: 'TGM2',
             intActId: 'EBI-727668',
           },
@@ -5992,7 +5992,7 @@ const mock: UniProtkbAPIModel = {
         {
           interactantOne: { chainId: 'PRO_0000000092', intActId: 'EBI-821758' },
           interactantTwo: {
-            uniProtkbAccession: 'O95411',
+            uniProtKBAccession: 'O95411',
             geneName: 'TIAF1',
             intActId: 'EBI-302378',
           },
@@ -6002,7 +6002,7 @@ const mock: UniProtkbAPIModel = {
         {
           interactantOne: { chainId: 'PRO_0000000092', intActId: 'EBI-821758' },
           interactantTwo: {
-            uniProtkbAccession: 'O60602',
+            uniProtKBAccession: 'O60602',
             geneName: 'TLR5',
             intActId: 'EBI-3505951',
           },
@@ -6012,7 +6012,7 @@ const mock: UniProtkbAPIModel = {
         {
           interactantOne: { chainId: 'PRO_0000000092', intActId: 'EBI-821758' },
           interactantTwo: {
-            uniProtkbAccession: 'Q9NZC2',
+            uniProtKBAccession: 'Q9NZC2',
             geneName: 'TREM2',
             intActId: 'EBI-14036387',
           },
@@ -6022,7 +6022,7 @@ const mock: UniProtkbAPIModel = {
         {
           interactantOne: { chainId: 'PRO_0000000092', intActId: 'EBI-821758' },
           interactantTwo: {
-            uniProtkbAccession: 'P02766',
+            uniProtKBAccession: 'P02766',
             geneName: 'TTR',
             intActId: 'EBI-711909',
           },
@@ -6032,7 +6032,7 @@ const mock: UniProtkbAPIModel = {
         {
           interactantOne: { chainId: 'PRO_0000000092', intActId: 'EBI-821758' },
           interactantTwo: {
-            uniProtkbAccession: 'P15253',
+            uniProtKBAccession: 'P15253',
             geneName: 'CALR',
             intActId: 'EBI-9005200',
           },
@@ -6042,7 +6042,7 @@ const mock: UniProtkbAPIModel = {
         {
           interactantOne: { chainId: 'PRO_0000000092', intActId: 'EBI-821758' },
           interactantTwo: {
-            uniProtkbAccession: 'Q05941',
+            uniProtKBAccession: 'Q05941',
             geneName: 'Chrna7',
             intActId: 'EBI-79422',
           },
@@ -6052,7 +6052,7 @@ const mock: UniProtkbAPIModel = {
         {
           interactantOne: { chainId: 'PRO_0000000092', intActId: 'EBI-821758' },
           interactantTwo: {
-            uniProtkbAccession: 'P97484',
+            uniProtKBAccession: 'P97484',
             geneName: 'Lilrb3',
             intActId: 'EBI-15728641',
           },
@@ -6062,7 +6062,7 @@ const mock: UniProtkbAPIModel = {
         {
           interactantOne: { chainId: 'PRO_0000000092', intActId: 'EBI-821758' },
           interactantTwo: {
-            uniProtkbAccession: 'Q99NH8',
+            uniProtKBAccession: 'Q99NH8',
             geneName: 'Trem2',
             intActId: 'EBI-15982016',
           },
@@ -6075,7 +6075,7 @@ const mock: UniProtkbAPIModel = {
             intActId: 'EBI-2431589',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P02649',
+            uniProtKBAccession: 'P02649',
             geneName: 'APOE',
             intActId: 'EBI-1222467',
           },
@@ -6088,7 +6088,7 @@ const mock: UniProtkbAPIModel = {
             intActId: 'EBI-2431589',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P05067',
+            uniProtKBAccession: 'P05067',
             geneName: 'APP',
             chainId: 'PRO_0000000093',
             intActId: 'EBI-2431589',
@@ -6102,7 +6102,7 @@ const mock: UniProtkbAPIModel = {
             intActId: 'EBI-2431589',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P10909',
+            uniProtKBAccession: 'P10909',
             geneName: 'CLU',
             intActId: 'EBI-1104674',
           },
@@ -6115,7 +6115,7 @@ const mock: UniProtkbAPIModel = {
             intActId: 'EBI-2431589',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P49840',
+            uniProtKBAccession: 'P49840',
             geneName: 'GSK3A',
             intActId: 'EBI-1044067',
           },
@@ -6128,7 +6128,7 @@ const mock: UniProtkbAPIModel = {
             intActId: 'EBI-2431589',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P49841',
+            uniProtKBAccession: 'P49841',
             geneName: 'GSK3B',
             intActId: 'EBI-373586',
           },
@@ -6141,7 +6141,7 @@ const mock: UniProtkbAPIModel = {
             intActId: 'EBI-2431589',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P14735-1',
+            uniProtKBAccession: 'P14735-1',
             geneName: 'IDE',
             intActId: 'EBI-15607031',
           },
@@ -6154,7 +6154,7 @@ const mock: UniProtkbAPIModel = {
             intActId: 'EBI-2431589',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P08253',
+            uniProtKBAccession: 'P08253',
             geneName: 'MMP2',
             intActId: 'EBI-1033518',
           },
@@ -6167,7 +6167,7 @@ const mock: UniProtkbAPIModel = {
             intActId: 'EBI-2431589',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P08138',
+            uniProtKBAccession: 'P08138',
             geneName: 'NGFR',
             intActId: 'EBI-1387782',
           },
@@ -6180,7 +6180,7 @@ const mock: UniProtkbAPIModel = {
             intActId: 'EBI-2431589',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q5JRX3-1',
+            uniProtKBAccession: 'Q5JRX3-1',
             geneName: 'PITRM1',
             intActId: 'EBI-16109799',
           },
@@ -6193,7 +6193,7 @@ const mock: UniProtkbAPIModel = {
             intActId: 'EBI-2431589',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q08752',
+            uniProtKBAccession: 'Q08752',
             geneName: 'PPID',
             intActId: 'EBI-716596',
           },
@@ -6206,7 +6206,7 @@ const mock: UniProtkbAPIModel = {
             intActId: 'EBI-2431589',
           },
           interactantTwo: {
-            uniProtkbAccession: 'Q92673',
+            uniProtKBAccession: 'Q92673',
             geneName: 'SORL1',
             intActId: 'EBI-1171329',
           },
@@ -6219,7 +6219,7 @@ const mock: UniProtkbAPIModel = {
             intActId: 'EBI-2431589',
           },
           interactantTwo: {
-            uniProtkbAccession: 'O60602',
+            uniProtKBAccession: 'O60602',
             geneName: 'TLR5',
             intActId: 'EBI-3505951',
           },
@@ -6232,7 +6232,7 @@ const mock: UniProtkbAPIModel = {
             intActId: 'EBI-2431589',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P31696',
+            uniProtKBAccession: 'P31696',
             geneName: 'AGRN',
             intActId: 'EBI-457650',
           },
@@ -6245,7 +6245,7 @@ const mock: UniProtkbAPIModel = {
             intActId: 'EBI-2431589',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P15253',
+            uniProtKBAccession: 'P15253',
             geneName: 'CALR',
             intActId: 'EBI-9005200',
           },
@@ -6258,7 +6258,7 @@ const mock: UniProtkbAPIModel = {
             intActId: 'EBI-2431589',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P07174',
+            uniProtKBAccession: 'P07174',
             geneName: 'Ngfr',
             intActId: 'EBI-1038810',
           },
