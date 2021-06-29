@@ -8,6 +8,7 @@ import {
   SetStateAction,
 } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { sumBy } from 'lodash-es';
 import {
   HelpIcon,
@@ -19,8 +20,9 @@ import {
 } from 'franklin-sites';
 import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
 
-import ErrorBoundary from '../error-component/ErrorBoundary';
 import BasketContent from '../basket/BasketContent';
+import Dashboard from '../../../tools/dashboard/components/Dashboard';
+import ErrorBoundary from '../error-component/ErrorBoundary';
 
 import useBasket from '../../hooks/useBasket';
 
@@ -41,7 +43,19 @@ interface Style extends CSSProperties {
 
 const secondaryItemIconSize = '1.4em';
 
-const ToolsDashboard = () => {
+const getArrowX = (element: HTMLSpanElement) => {
+  const bcr = element.getBoundingClientRect();
+  const iconWidth = bcr.width;
+  const xPos = bcr.x;
+  return xPos + iconWidth / 2;
+};
+
+type Props = {
+  display: boolean;
+  setDisplay: Dispatch<SetStateAction<boolean>>;
+};
+
+const ToolsDashboard = ({ display, setDisplay }: Props) => {
   const [count, failure] = useSelector<
     RootState,
     [count: number, failure: boolean]
@@ -55,42 +69,74 @@ const ToolsDashboard = () => {
       unseenJobs.some((job) => job.status === Status.FAILURE),
     ];
   });
+  const [dashboardButtonX, setDashboardButtonX] = useState<number>();
+
+  const spanRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    if (!display) {
+      return;
+    }
+    const ro = new window.ResizeObserver(() => {
+      if (spanRef.current) {
+        setDashboardButtonX(getArrowX(spanRef.current));
+      }
+    });
+    ro.observe(document.body);
+    // eslint-disable-next-line consistent-return
+    return () => ro.unobserve(document.body);
+  }, [display, setDashboardButtonX]);
 
   return (
-    <span title="Tools dashboard" className={styles['secondary-item']}>
-      <ToolboxIcon width={secondaryItemIconSize} />
-      {count ? (
-        <Bubble
-          className={styles.bubble}
-          style={
-            failure
-              ? ({ '--main-bubble-color': colors.failure } as Style)
-              : undefined
+    <>
+      <span
+        title="Tools dashboard"
+        className={styles['secondary-item']}
+        ref={spanRef}
+      >
+        <ToolboxIcon width={secondaryItemIconSize} />
+        {count ? (
+          <Bubble
+            className={styles.bubble}
+            style={
+              failure
+                ? ({ '--main-bubble-color': colors.failure } as Style)
+                : undefined
+            }
+            size="small"
+            title={`${count} new job ${pluralise('result', count)}`}
+          >
+            {count}
+          </Bubble>
+        ) : null}
+      </span>
+      {display && (
+        <SlidingPanel
+          title={
+            <Link
+              className={styles['link-in-panel-title']}
+              to={LocationToPath[Location.Dashboard]}
+              onClick={() => setDisplay(false)}
+            >
+              Tool results
+            </Link>
           }
-          size="small"
-          title={`${count} new job ${pluralise('result', count)}`}
+          withCloseButton
+          position="right"
+          size="medium"
+          onClose={() => setDisplay(false)}
+          arrowX={dashboardButtonX}
         >
-          {count}
-        </Bubble>
-      ) : null}
-    </span>
+          <ErrorBoundary>
+            <Dashboard inPanel />
+          </ErrorBoundary>
+        </SlidingPanel>
+      )}
+    </>
   );
 };
 
-const repositionArrow = (element: HTMLSpanElement) => {
-  const bcr = element.getBoundingClientRect();
-  const iconWidth = bcr.width;
-  const xPos = bcr.x;
-  return xPos + iconWidth / 2;
-};
-
-export const Basket = ({
-  display,
-  setDisplay,
-}: {
-  display: boolean;
-  setDisplay: Dispatch<SetStateAction<boolean>>;
-}) => {
+export const Basket = ({ display, setDisplay }: Props) => {
   const [basket] = useBasket();
   const [basketButtonX, setBasketButtonX] = useState<number>();
 
@@ -102,7 +148,7 @@ export const Basket = ({
     }
     const ro = new window.ResizeObserver(() => {
       if (spanRef.current) {
-        setBasketButtonX(repositionArrow(spanRef.current));
+        setBasketButtonX(getArrowX(spanRef.current));
       }
     });
     ro.observe(document.body);
@@ -149,6 +195,7 @@ export const Basket = ({
 
 const SecondaryItems = () => {
   const [displayBasket, setDisplayBasket] = useState(false);
+  const [displayDashboard, setDisplayDashboard] = useState(false);
 
   return [
     {
@@ -170,8 +217,17 @@ const SecondaryItems = () => {
       href: '//www.uniprot.org/contact',
     },
     {
-      label: <ToolsDashboard />,
-      path: LocationToPath[Location.Dashboard],
+      label: (
+        <ToolsDashboard
+          display={displayDashboard}
+          setDisplay={setDisplayDashboard}
+        />
+      ),
+      onClick: () => {
+        if (!displayDashboard) {
+          setDisplayDashboard(true);
+        }
+      },
     },
     {
       label: <Basket display={displayBasket} setDisplay={setDisplayBasket} />,
