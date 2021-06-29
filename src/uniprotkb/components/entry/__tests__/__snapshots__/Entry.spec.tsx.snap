@@ -299,6 +299,14 @@ exports[`Entry basic should render main 1`] = `
               <test-file-stub />
               Add
             </button>
+            <a
+              class="button tertiary"
+              href="https://community.uniprot.org/bbsub/bbsub.html?accession=P21802"
+              rel="noreferrer"
+              target="_blank"
+            >
+              Add a publication
+            </a>
           </div>
           <section
             class="card"

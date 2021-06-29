@@ -1,5 +1,7 @@
 import { Workbox } from 'workbox-window';
 
+import { needsReload } from './reload-flag';
+
 // No need to test if serviceWorker is supported, we tested that before loading
 // this chunk so we are sure it exists by now
 
@@ -16,11 +18,9 @@ const dropCache = async (cacheName: string) => {
   await Promise.all(keys.map((key) => cache.delete(key)));
 };
 
-export type SWConfig = {
-  onWaiting?: (acceptCallback: () => void) => void;
-};
+const ONE_DAY = 1000 * 60 * 60 * 24;
 
-export function register(config: SWConfig) {
+export function register() {
   if (LIVE_RELOAD) {
     return;
   }
@@ -47,10 +47,11 @@ export function register(config: SWConfig) {
     dropCache(cacheName);
   });
 
-  // Helper function, ask sw to skip waiting, and reload page when controlling
+  // Helper function, when the new SW is controlling, set a flag saying to the
+  // app that a full reload is needed whenever it sees fit
   const skipWaiting = () => {
     workbox.addEventListener('controlling', () => {
-      window.location.reload();
+      needsReload.current = true;
     });
 
     workbox.messageSkipWaiting();
@@ -59,14 +60,14 @@ export function register(config: SWConfig) {
   // See here for related documentation
   // https://developers.google.com/web/tools/workbox/guides/advanced-recipes#offer_a_page_reload_for_users
   workbox.addEventListener('waiting', () => {
-    if (config.onWaiting) {
-      config.onWaiting(skipWaiting);
-    } else {
-      skipWaiting();
-    }
+    skipWaiting();
   });
 
   workbox.register();
+
+  setInterval(() => {
+    workbox.update();
+  }, ONE_DAY);
 }
 
 // will remove any existing service worker.

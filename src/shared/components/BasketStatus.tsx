@@ -1,4 +1,5 @@
 import { Button, BasketIcon } from 'franklin-sites';
+import cn from 'classnames';
 
 import useBasket from '../hooks/useBasket';
 
@@ -6,9 +7,9 @@ import accessionToNamespace from '../utils/accessionToNamespace';
 
 import styles from './styles/basket-status.module.scss';
 
-type Props = { id?: string };
+type Props = { id?: string; className?: string };
 
-const BasketStatus = ({ id }: Props) => {
+const BasketStatus = ({ id, className, ...props }: Props) => {
   const [basket /* , setBasket */] = useBasket();
 
   if (!id) {
@@ -34,10 +35,11 @@ const BasketStatus = ({ id }: Props) => {
 
   return (
     <Button
-      className={styles['basket-status']}
+      className={cn(className, styles['basket-status'])}
       // onClick={removeEntry}
       variant="tertiary"
       title={`Remove ${id} from basket`}
+      {...props}
     >
       <BasketIcon width="1ch" height="1ch" />
     </Button>

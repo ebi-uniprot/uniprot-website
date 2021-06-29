@@ -1,0 +1,22 @@
+@import 'franklin-sites/src/styles/colours';
+
+@import '../../../../shared/styles/settings';
+
+.secondary-item {
+  position: relative;
+
+  svg {
+    width: initial;
+    height: initial;
+  }
+}
+
+.bubble {
+  position: absolute;
+  left: 0;
+  top: -1em;
+  z-index: $z-index-low;
+  transform: scale(0.75);
+
+  --main-bubble-color: #{$colour-success};
+}

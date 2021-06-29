@@ -45,6 +45,7 @@ export interface FinishedJob<T extends JobTypes> extends BaseJob<T> {
   remoteID: string;
   timeSubmitted: number;
   timeFinished: number;
+  seen: boolean;
   // just data needed for the dashboard, not more than this
   data?: DataForDashboard[T];
 }

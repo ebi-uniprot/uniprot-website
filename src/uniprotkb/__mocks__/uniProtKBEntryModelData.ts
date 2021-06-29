@@ -800,13 +800,13 @@ const mock: UniProtkbAPIModel = {
       interactions: [
         {
           interactantOne: {
-            uniProtkbAccession: 'P12345',
+            uniProtKBAccession: 'P12345',
             geneName: 'gen',
             chainId: 'PROC_12344',
             intActId: 'EBI-0001',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P12345-1',
+            uniProtKBAccession: 'P12345-1',
             geneName: 'gene1',
             chainId: 'PROC_12347',
             intActId: 'EBI-0002',
@@ -816,13 +816,13 @@ const mock: UniProtkbAPIModel = {
         },
         {
           interactantOne: {
-            uniProtkbAccession: 'P12345',
+            uniProtKBAccession: 'P12345',
             geneName: 'gen',
             chainId: 'PROC_12345',
             intActId: 'EBI-00011',
           },
           interactantTwo: {
-            uniProtkbAccession: 'P12346',
+            uniProtKBAccession: 'P12346',
             geneName: 'gene1',
             chainId: 'PROC_123454',
             intActId: 'EBI-00012',

@@ -203,6 +203,7 @@ const SubCellViz: FC<Props> = memo(({ comments, taxonId, children }) => {
           fill-opacity: 1 !important;
         }
         #swissbiopic > svg {
+          width: 100%;
           position: sticky;
           top: ${pictureTop};
         }

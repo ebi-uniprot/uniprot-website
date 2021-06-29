@@ -130,7 +130,7 @@ const HomePageHeader = memo(() => {
             textInput?.focus();
           }, [])}
           className="uniprot-grid-cell--span-12"
-          includeFooter
+          isOnHomePage
         />
       </div>
     </HeroHeader>

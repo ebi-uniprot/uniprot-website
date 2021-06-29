@@ -62,8 +62,8 @@ const columns: ColumDescriptor[] = [
       const id = getKey(member);
       return (
         <div className={helper['no-wrap']}>
-          <BasketStatus id={id} />
           <MemberLink accession={id} />
+          <BasketStatus id={id} />
         </div>
       );
     },

@@ -2437,11 +2437,11 @@ const mappingResults = {
             interactions: [
               {
                 interactantOne: {
-                  uniProtkbAccession: 'O00311',
+                  uniProtKBAccession: 'O00311',
                   intActId: 'EBI-374980',
                 },
                 interactantTwo: {
-                  uniProtkbAccession: 'Q8N9N5-2',
+                  uniProtKBAccession: 'Q8N9N5-2',
                   geneName: 'BANP',
                   intActId: 'EBI-11524452',
                 },
@@ -2450,11 +2450,11 @@ const mappingResults = {
               },
               {
                 interactantOne: {
-                  uniProtkbAccession: 'O00311',
+                  uniProtKBAccession: 'O00311',
                   intActId: 'EBI-374980',
                 },
                 interactantTwo: {
-                  uniProtkbAccession: 'Q13137',
+                  uniProtKBAccession: 'Q13137',
                   geneName: 'CALCOCO2',
                   intActId: 'EBI-739580',
                 },
@@ -2463,11 +2463,11 @@ const mappingResults = {
               },
               {
                 interactantOne: {
-                  uniProtkbAccession: 'O00311',
+                  uniProtKBAccession: 'O00311',
                   intActId: 'EBI-374980',
                 },
                 interactantTwo: {
-                  uniProtkbAccession: 'Q9UBU7',
+                  uniProtKBAccession: 'Q9UBU7',
                   geneName: 'DBF4',
                   intActId: 'EBI-372690',
                 },
@@ -2476,11 +2476,11 @@ const mappingResults = {
               },
               {
                 interactantOne: {
-                  uniProtkbAccession: 'O00311',
+                  uniProtKBAccession: 'O00311',
                   intActId: 'EBI-374980',
                 },
                 interactantTwo: {
-                  uniProtkbAccession: 'Q9UBU7-1',
+                  uniProtKBAccession: 'Q9UBU7-1',
                   geneName: 'DBF4',
                   intActId: 'EBI-16017435',
                 },
@@ -2489,11 +2489,11 @@ const mappingResults = {
               },
               {
                 interactantOne: {
-                  uniProtkbAccession: 'O00311',
+                  uniProtKBAccession: 'O00311',
                   intActId: 'EBI-374980',
                 },
                 interactantTwo: {
-                  uniProtkbAccession: 'P51114-2',
+                  uniProtKBAccession: 'P51114-2',
                   geneName: 'FXR1',
                   intActId: 'EBI-11022345',
                 },
@@ -2502,11 +2502,11 @@ const mappingResults = {
               },
               {
                 interactantOne: {
-                  uniProtkbAccession: 'O00311',
+                  uniProtKBAccession: 'O00311',
                   intActId: 'EBI-374980',
                 },
                 interactantTwo: {
-                  uniProtkbAccession: 'Q9UKD1',
+                  uniProtKBAccession: 'Q9UKD1',
                   geneName: 'GMEB2',
                   intActId: 'EBI-948296',
                 },
@@ -2515,11 +2515,11 @@ const mappingResults = {
               },
               {
                 interactantOne: {
-                  uniProtkbAccession: 'O00311',
+                  uniProtKBAccession: 'O00311',
                   intActId: 'EBI-374980',
                 },
                 interactantTwo: {
-                  uniProtkbAccession: 'Q08379',
+                  uniProtKBAccession: 'Q08379',
                   geneName: 'GOLGA2',
                   intActId: 'EBI-618309',
                 },
@@ -2528,11 +2528,11 @@ const mappingResults = {
               },
               {
                 interactantOne: {
-                  uniProtkbAccession: 'O00311',
+                  uniProtKBAccession: 'O00311',
                   intActId: 'EBI-374980',
                 },
                 interactantTwo: {
-                  uniProtkbAccession: 'Q9NYA3',
+                  uniProtKBAccession: 'Q9NYA3',
                   geneName: 'GOLGA6A',
                   intActId: 'EBI-11163335',
                 },
@@ -2541,11 +2541,11 @@ const mappingResults = {
               },
               {
                 interactantOne: {
-                  uniProtkbAccession: 'O00311',
+                  uniProtKBAccession: 'O00311',
                   intActId: 'EBI-374980',
                 },
                 interactantTwo: {
-                  uniProtkbAccession: 'Q6NT76',
+                  uniProtKBAccession: 'Q6NT76',
                   geneName: 'HMBOX1',
                   intActId: 'EBI-2549423',
                 },
@@ -2554,11 +2554,11 @@ const mappingResults = {
               },
               {
                 interactantOne: {
-                  uniProtkbAccession: 'O00311',
+                  uniProtKBAccession: 'O00311',
                   intActId: 'EBI-374980',
                 },
                 interactantTwo: {
-                  uniProtkbAccession: 'P42858',
+                  uniProtKBAccession: 'P42858',
                   geneName: 'HTT',
                   intActId: 'EBI-466029',
                 },
@@ -2567,11 +2567,11 @@ const mappingResults = {
               },
               {
                 interactantOne: {
-                  uniProtkbAccession: 'O00311',
+                  uniProtKBAccession: 'O00311',
                   intActId: 'EBI-374980',
                 },
                 interactantTwo: {
-                  uniProtkbAccession: 'Q13422-7',
+                  uniProtKBAccession: 'Q13422-7',
                   geneName: 'IKZF1',
                   intActId: 'EBI-11522367',
                 },
@@ -2580,11 +2580,11 @@ const mappingResults = {
               },
               {
                 interactantOne: {
-                  uniProtkbAccession: 'O00311',
+                  uniProtKBAccession: 'O00311',
                   intActId: 'EBI-374980',
                 },
                 interactantTwo: {
-                  uniProtkbAccession: 'Q9UKT9',
+                  uniProtKBAccession: 'Q9UKT9',
                   geneName: 'IKZF3',
                   intActId: 'EBI-747204',
                 },
@@ -2593,11 +2593,11 @@ const mappingResults = {
               },
               {
                 interactantOne: {
-                  uniProtkbAccession: 'O00311',
+                  uniProtKBAccession: 'O00311',
                   intActId: 'EBI-374980',
                 },
                 interactantTwo: {
-                  uniProtkbAccession: 'Q9H2S9',
+                  uniProtKBAccession: 'Q9H2S9',
                   geneName: 'IKZF4',
                   intActId: 'EBI-1640423',
                 },
@@ -2606,11 +2606,11 @@ const mappingResults = {
               },
               {
                 interactantOne: {
-                  uniProtkbAccession: 'O00311',
+                  uniProtKBAccession: 'O00311',
                   intActId: 'EBI-374980',
                 },
                 interactantTwo: {
-                  uniProtkbAccession: 'Q9Y250',
+                  uniProtKBAccession: 'Q9Y250',
                   geneName: 'LZTS1',
                   intActId: 'EBI-1216080',
                 },
@@ -2619,11 +2619,11 @@ const mappingResults = {
               },
               {
                 interactantOne: {
-                  uniProtkbAccession: 'O00311',
+                  uniProtKBAccession: 'O00311',
                   intActId: 'EBI-374980',
                 },
                 interactantTwo: {
-                  uniProtkbAccession: 'Q9BTE3',
+                  uniProtKBAccession: 'Q9BTE3',
                   geneName: 'MCMBP',
                   intActId: 'EBI-749378',
                 },
@@ -2632,11 +2632,11 @@ const mappingResults = {
               },
               {
                 interactantOne: {
-                  uniProtkbAccession: 'O00311',
+                  uniProtKBAccession: 'O00311',
                   intActId: 'EBI-374980',
                 },
                 interactantTwo: {
-                  uniProtkbAccession: 'Q6FHY5',
+                  uniProtKBAccession: 'Q6FHY5',
                   geneName: 'MEOX2',
                   intActId: 'EBI-16439278',
                 },
@@ -2645,11 +2645,11 @@ const mappingResults = {
               },
               {
                 interactantOne: {
-                  uniProtkbAccession: 'O00311',
+                  uniProtKBAccession: 'O00311',
                   intActId: 'EBI-374980',
                 },
                 interactantTwo: {
-                  uniProtkbAccession: 'Q5JR59-3',
+                  uniProtKBAccession: 'Q5JR59-3',
                   geneName: 'MTUS2',
                   intActId: 'EBI-11522433',
                 },
@@ -2658,11 +2658,11 @@ const mappingResults = {
               },
               {
                 interactantOne: {
-                  uniProtkbAccession: 'O00311',
+                  uniProtKBAccession: 'O00311',
                   intActId: 'EBI-374980',
                 },
                 interactantTwo: {
-                  uniProtkbAccession: 'Q14140',
+                  uniProtKBAccession: 'Q14140',
                   geneName: 'SERTAD2',
                   intActId: 'EBI-2822051',
                 },
@@ -2671,11 +2671,11 @@ const mappingResults = {
               },
               {
                 interactantOne: {
-                  uniProtkbAccession: 'O00311',
+                  uniProtKBAccession: 'O00311',
                   intActId: 'EBI-374980',
                 },
                 interactantTwo: {
-                  uniProtkbAccession: 'O75886',
+                  uniProtKBAccession: 'O75886',
                   geneName: 'STAM2',
                   intActId: 'EBI-373258',
                 },
@@ -2684,11 +2684,11 @@ const mappingResults = {
               },
               {
                 interactantOne: {
-                  uniProtkbAccession: 'O00311',
+                  uniProtKBAccession: 'O00311',
                   intActId: 'EBI-374980',
                 },
                 interactantTwo: {
-                  uniProtkbAccession: 'P55061',
+                  uniProtKBAccession: 'P55061',
                   geneName: 'TMBIM6',
                   intActId: 'EBI-1045825',
                 },
@@ -2697,11 +2697,11 @@ const mappingResults = {
               },
               {
                 interactantOne: {
-                  uniProtkbAccession: 'O00311',
+                  uniProtKBAccession: 'O00311',
                   intActId: 'EBI-374980',
                 },
                 interactantTwo: {
-                  uniProtkbAccession: 'P14373',
+                  uniProtKBAccession: 'P14373',
                   geneName: 'TRIM27',
                   intActId: 'EBI-719493',
                 },
@@ -2710,11 +2710,11 @@ const mappingResults = {
               },
               {
                 interactantOne: {
-                  uniProtkbAccession: 'O00311',
+                  uniProtKBAccession: 'O00311',
                   intActId: 'EBI-374980',
                 },
                 interactantTwo: {
-                  uniProtkbAccession: 'O94972',
+                  uniProtKBAccession: 'O94972',
                   geneName: 'TRIM37',
                   intActId: 'EBI-741602',
                 },
@@ -2723,11 +2723,11 @@ const mappingResults = {
               },
               {
                 interactantOne: {
-                  uniProtkbAccession: 'O00311',
+                  uniProtKBAccession: 'O00311',
                   intActId: 'EBI-374980',
                 },
                 interactantTwo: {
-                  uniProtkbAccession: 'Q2TAA8',
+                  uniProtKBAccession: 'Q2TAA8',
                   geneName: 'TSNAXIP1',
                   intActId: 'EBI-6872498',
                 },
@@ -2736,11 +2736,11 @@ const mappingResults = {
               },
               {
                 interactantOne: {
-                  uniProtkbAccession: 'O00311',
+                  uniProtKBAccession: 'O00311',
                   intActId: 'EBI-374980',
                 },
                 interactantTwo: {
-                  uniProtkbAccession: 'P0CW01',
+                  uniProtKBAccession: 'P0CW01',
                   geneName: 'TSPY10',
                   intActId: 'EBI-19697726',
                 },
@@ -2749,11 +2749,11 @@ const mappingResults = {
               },
               {
                 interactantOne: {
-                  uniProtkbAccession: 'O00311',
+                  uniProtKBAccession: 'O00311',
                   intActId: 'EBI-374980',
                 },
                 interactantTwo: {
-                  uniProtkbAccession: 'Q9Y6T4',
+                  uniProtKBAccession: 'Q9Y6T4',
                   geneName: 'WUGSC:H_DJ0726N20.gs.b',
                   intActId: 'EBI-12369705',
                 },
@@ -2762,11 +2762,11 @@ const mappingResults = {
               },
               {
                 interactantOne: {
-                  uniProtkbAccession: 'O00311',
+                  uniProtKBAccession: 'O00311',
                   intActId: 'EBI-374980',
                 },
                 interactantTwo: {
-                  uniProtkbAccession: 'Q96DT7-3',
+                  uniProtKBAccession: 'Q96DT7-3',
                   geneName: 'ZBTB10',
                   intActId: 'EBI-12017160',
                 },
@@ -2775,11 +2775,11 @@ const mappingResults = {
               },
               {
                 interactantOne: {
-                  uniProtkbAccession: 'O00311',
+                  uniProtKBAccession: 'O00311',
                   intActId: 'EBI-374980',
                 },
                 interactantTwo: {
-                  uniProtkbAccession: 'Q9HCK0',
+                  uniProtKBAccession: 'Q9HCK0',
                   geneName: 'ZBTB26',
                   intActId: 'EBI-3918996',
                 },
@@ -2788,11 +2788,11 @@ const mappingResults = {
               },
               {
                 interactantOne: {
-                  uniProtkbAccession: 'O00311',
+                  uniProtKBAccession: 'O00311',
                   intActId: 'EBI-374980',
                 },
                 interactantTwo: {
-                  uniProtkbAccession: 'Q8NAP8',
+                  uniProtKBAccession: 'Q8NAP8',
                   geneName: 'ZBTB8B',
                   intActId: 'EBI-17494306',
                 },
@@ -6735,11 +6735,11 @@ const mappingResults = {
             interactions: [
               {
                 interactantOne: {
-                  uniProtkbAccession: 'P06243',
+                  uniProtKBAccession: 'P06243',
                   intActId: 'EBI-4451',
                 },
                 interactantTwo: {
-                  uniProtkbAccession: 'P32562',
+                  uniProtKBAccession: 'P32562',
                   geneName: 'CDC5',
                   intActId: 'EBI-4440',
                 },
@@ -6748,11 +6748,11 @@ const mappingResults = {
               },
               {
                 interactantOne: {
-                  uniProtkbAccession: 'P06243',
+                  uniProtKBAccession: 'P06243',
                   intActId: 'EBI-4451',
                 },
                 interactantTwo: {
-                  uniProtkbAccession: 'P06243',
+                  uniProtKBAccession: 'P06243',
                   geneName: 'CDC7',
                   intActId: 'EBI-4451',
                 },
@@ -6761,11 +6761,11 @@ const mappingResults = {
               },
               {
                 interactantOne: {
-                  uniProtkbAccession: 'P06243',
+                  uniProtKBAccession: 'P06243',
                   intActId: 'EBI-4451',
                 },
                 interactantTwo: {
-                  uniProtkbAccession: 'P32325',
+                  uniProtKBAccession: 'P32325',
                   geneName: 'DBF4',
                   intActId: 'EBI-5575',
                 },
@@ -6774,11 +6774,11 @@ const mappingResults = {
               },
               {
                 interactantOne: {
-                  uniProtkbAccession: 'P06243',
+                  uniProtKBAccession: 'P06243',
                   intActId: 'EBI-4451',
                 },
                 interactantTwo: {
-                  uniProtkbAccession: 'Q04087',
+                  uniProtKBAccession: 'Q04087',
                   geneName: 'LRS4',
                   intActId: 'EBI-32189',
                 },

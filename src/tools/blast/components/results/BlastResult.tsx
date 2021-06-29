@@ -19,6 +19,7 @@ import useDataApi, {
   UseDataAPIState,
 } from '../../../../shared/hooks/useDataApi';
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
+import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 
 import {
   getParamsFromURL,
@@ -268,6 +269,8 @@ const BlastResult = () => {
     () => (data?.hits ? data.hits.filter((hit) => hit.extra) : []),
     [data]
   );
+
+  useMarkJobAsSeen(data, match.params.id);
 
   const inputParamsData = useParamsData(match?.params.id || '');
 

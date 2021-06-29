@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CommunityAnnotationLink should render with >0 number of submissions 1`] = `
+<DocumentFragment>
+  <a
+    class="button tertiary"
+    href="https://community.uniprot.org/cgi-bin/bbsub_query?accession=P05067"
+    rel="noreferrer"
+    target="_blank"
+  >
+    <test-file-stub />
+     Community curation (3)
+  </a>
+</DocumentFragment>
+`;

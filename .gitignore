@@ -22,3 +22,7 @@ __diff_output__
 # Tests temp directory
 /tests/.tmp/
 report.*.json
+
+# Yalc (yarn link alternative)
+.yalc/
+yalc.lock

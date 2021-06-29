@@ -6,7 +6,7 @@ import { APIModel } from '../types/apiModel';
 import useDataApi from './useDataApi';
 import getNextURLFromHeaders from '../utils/getNextURLFromHeaders';
 
-export type UsePagination = {
+export type PaginatedResults = {
   allResults: APIModel[];
   initialLoading: boolean;
   progress?: number;
@@ -19,7 +19,7 @@ export type UsePagination = {
 const usePagination = <T extends APIModel, R extends APIModel>(
   initialApiUrl?: string,
   converter?: (data: T[]) => R[]
-): UsePagination => {
+): PaginatedResults => {
   const [url, setUrl] = useState(initialApiUrl);
   const [metaData, setMetaData] = useState<{
     total?: number;
@@ -35,11 +35,10 @@ const usePagination = <T extends APIModel, R extends APIModel>(
     setUrl(initialApiUrl);
   }, [initialApiUrl]);
 
-  const { data, loading, progress, headers } =
-    useDataApi<{
-      results: APIModel[];
-      failedIds?: string[];
-    }>(url);
+  const { data, loading, progress, headers } = useDataApi<{
+    results: APIModel[];
+    failedIds?: string[];
+  }>(url);
 
   useEffect(() => {
     if (!data) {
