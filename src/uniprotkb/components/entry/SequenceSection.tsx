@@ -64,10 +64,10 @@ const SequenceSection = ({ data, primaryAccession }: Props) => {
           <MassSpectrometryView data={data.massSpectrometry} />
         </>
       )}
-      {data.polymorphysm && data.polymorphysm.length > 0 && (
+      {data.polymorphism && data.polymorphism.length > 0 && (
         <>
-          <h3>Polymorphysm</h3>
-          <FreeTextView comments={data.polymorphysm} />
+          <h3>Polymorphism</h3>
+          <FreeTextView comments={data.polymorphism} />
         </>
       )}
       {data.rnaEditing && data.rnaEditing.length > 0 && (

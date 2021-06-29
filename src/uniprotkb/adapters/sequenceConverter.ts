@@ -49,7 +49,7 @@ export type SequenceUIModel = {
   alternativeProducts?: AlternativeProductsComment;
   sequenceCaution?: SequenceCautionComment[];
   massSpectrometry?: MassSpectrometryComment[];
-  polymorphysm?: FreeTextComment[];
+  polymorphism?: FreeTextComment[];
   rnaEditing?: RNAEditingComment[];
   featuresData?: FeatureData;
   xrefData?: XrefUIModel[];
@@ -135,10 +135,10 @@ export const convertSequence = (
       (comment) => comment.commentType === 'MASS SPECTROMETRY'
     );
     sequenceData.massSpectrometry = massSpec as MassSpectrometryComment[];
-    const polymorphysm = data.comments.filter(
+    const polymorphism = data.comments.filter(
       (comment) => comment.commentType === 'POLYMORPHISM'
     );
-    sequenceData.polymorphysm = polymorphysm as FreeTextComment[];
+    sequenceData.polymorphism = polymorphism as FreeTextComment[];
     const rnaEditing = data.comments.filter(
       (comment) => comment.commentType === 'RNA EDITING'
     );

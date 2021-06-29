@@ -98,7 +98,7 @@ describe('Sequence data converter', () => {
         },
       ],
       molWeight: 1185,
-      polymorphysm: [],
+      polymorphism: [],
       processing: undefined,
       rnaEditing: [
         {

@@ -417,10 +417,10 @@ UniProtKBColumnConfiguration.set(
 );
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPolymorphism, {
-  label: 'Polymorphysm',
+  label: 'polymorphism',
   render: (data) => {
-    const { polymorphysm } = data[EntrySection.Sequence];
-    return <FreeTextView comments={polymorphysm} noEvidence />;
+    const { polymorphism } = data[EntrySection.Sequence];
+    return <FreeTextView comments={polymorphism} noEvidence />;
   },
 });
 
