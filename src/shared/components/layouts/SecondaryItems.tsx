@@ -8,10 +8,12 @@ import {
   ToolboxIcon,
   Bubble,
   SlidingPanel,
+  Button,
 } from 'franklin-sites';
 import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
 
 import ErrorBoundary from '../error-component/ErrorBoundary';
+import BasketContent from '../basket/BasketContent';
 
 import useBasket from '../../hooks/useBasket';
 
@@ -87,22 +89,25 @@ export const Basket = () => {
   );
 
   return (
-    <span
-      title="Basket"
-      className={styles['secondary-item']}
-      onClick={() => setDisplayBasket((display) => !display)}
-      ref={basketButtonRef}
-    >
-      <BasketIcon width={secondaryItemIconSize} />
-      {count ? (
-        <Bubble
-          className={styles.bubble}
-          size="small"
-          title={`${count} ${pluralise('item', count)} in the basket`}
-        >
-          {count}
-        </Bubble>
-      ) : null}
+    <>
+      <Button
+        title="Basket"
+        className={styles['secondary-item']}
+        onClick={(event) => {
+          setDisplayBasket((display) => !display);
+        }}
+      >
+        <BasketIcon width={secondaryItemIconSize} />
+        {count ? (
+          <Bubble
+            className={styles.bubble}
+            size="small"
+            title={`${count} ${pluralise('item', count)} in the basket`}
+          >
+            {count}
+          </Bubble>
+        ) : null}
+      </Button>
       {displayBasket && (
         <SlidingPanel
           title="My Basket"
@@ -113,11 +118,11 @@ export const Basket = () => {
           arrowX={basketButtonX}
         >
           <ErrorBoundary>
-            <Basket />
+            <BasketContent />
           </ErrorBoundary>
         </SlidingPanel>
       )}
-    </span>
+    </>
   );
 };
 
