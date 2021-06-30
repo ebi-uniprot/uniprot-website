@@ -92,7 +92,6 @@ const apiUrls = {
   download: (namespace: Namespace) =>
     joinUrl(apiPrefix, `/${namespace}/stream`),
   variation: 'https://www.ebi.ac.uk/proteins/api/variation', // TODO: Back end plan to add this endpoint to the k8s deployment (uniprot/beta/api). When this happens update this URL accordingly
-  accessions: joinUrl(apiPrefix, '/uniprotkb/accessions'),
   genecentric: (accession: string) =>
     joinUrl(apiPrefix, '/genecentric/', accession),
   idMappingFields: joinUrl(apiPrefix, '/configure/idmapping/fields'),
@@ -235,6 +234,7 @@ const excludeLocalBlastFacets = ({ name }: SelectedFacet) =>
   !localBlastFacets.includes(name);
 
 type GetOptions = {
+  namespace?: Namespace;
   columns?: string[];
   selectedFacets?: SelectedFacet[];
   sortColumn?: SortableColumn;
@@ -246,6 +246,7 @@ type GetOptions = {
 export const getAccessionsURL = (
   accessions?: string[],
   {
+    namespace = Namespace.uniprotkb,
     columns = [],
     selectedFacets = [],
     sortColumn = undefined,
@@ -257,19 +258,29 @@ export const getAccessionsURL = (
   if (!(accessions && accessions.length)) {
     return undefined;
   }
-  return `${apiUrls.accessions}?${queryString.stringify({
-    size,
-    // sort to improve possible cache hit
-    accessions: Array.from(accessions).sort().join(','),
-    facetFilter:
-      createFacetsQueryString(selectedFacets.filter(excludeLocalBlastFacets)) ||
-      undefined,
-    fields: (columns && columns.join(',')) || undefined,
-    facets: facets?.join(',') || undefined,
-    sort:
-      sortColumn &&
-      `${sortColumn} ${getApiSortDirection(SortDirection[sortDirection])}`,
-  })}`;
+  // for UniProtKB
+  let key = 'accessions'; // This changes depending on the endpoint...
+  if (namespace === Namespace.uniref) {
+    key = 'ids';
+  } else if (namespace === Namespace.uniparc) {
+    key = 'upis';
+  }
+  return `${joinUrl(apiPrefix, `/${namespace}/${key}`)}?${queryString.stringify(
+    {
+      size,
+      // sort to improve possible cache hit
+      [key]: Array.from(accessions).sort().join(','),
+      facetFilter:
+        createFacetsQueryString(
+          selectedFacets.filter(excludeLocalBlastFacets)
+        ) || undefined,
+      fields: (columns && columns.join(',')) || undefined,
+      facets: facets?.join(',') || undefined,
+      sort:
+        sortColumn &&
+        `${sortColumn} ${getApiSortDirection(SortDirection[sortDirection])}`,
+    }
+  )}`;
 };
 
 type GetUniProtPublicationsQueryUrl = {
