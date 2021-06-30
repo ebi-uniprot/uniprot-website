@@ -1,5 +1,11 @@
 @import 'franklin-sites/src/styles/colours';
 
+:global(.sliding-panel) {
+  .basket-status {
+    display: none;
+  }
+}
+
 .basket-status {
   display: contents;
 

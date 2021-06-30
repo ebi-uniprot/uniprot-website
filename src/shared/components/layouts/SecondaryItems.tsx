@@ -183,6 +183,7 @@ export const Basket = ({ display, setDisplay }: Props) => {
           size="small"
           onClose={() => setDisplay(false)}
           arrowX={basketButtonX}
+          className={styles['basket-panel']}
         >
           <ErrorBoundary>
             <BasketContent />

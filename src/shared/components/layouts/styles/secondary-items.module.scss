@@ -21,6 +21,10 @@
   --main-bubble-color: #{$colour-success};
 }
 
+.basket-panel :global(.sliding-panel__content) {
+  padding: 0;
+}
+
 .link-in-panel-title {
   color: $colour-sky-white;
 

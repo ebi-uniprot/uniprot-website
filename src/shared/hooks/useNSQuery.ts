@@ -17,13 +17,15 @@ const useNSQuery = ({
   withFacets = false,
   withColumns = true,
   accessions = [],
+  overrideNS,
 }: {
   size?: number;
   withFacets?: boolean;
   withColumns?: boolean;
   accessions?: string[];
+  overrideNS?: Namespace;
 } = {}) => {
-  const namespace = useNS() || Namespace.uniprotkb;
+  const namespace = useNS(overrideNS) || Namespace.uniprotkb;
   const location = useLocation();
   const [viewMode] = useLocalStorage<ViewMode>('view-mode', ViewMode.CARD);
   const [columns] = useLocalStorage<Column[]>(
