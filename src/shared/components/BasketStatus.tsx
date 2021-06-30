@@ -4,6 +4,7 @@ import cn from 'classnames';
 import useBasket from '../hooks/useBasket';
 
 import accessionToNamespace from '../utils/accessionToNamespace';
+import { findAndOpenBasket } from './layouts/SecondaryItems';
 
 import styles from './styles/basket-status.module.scss';
 
@@ -24,21 +25,12 @@ const BasketStatus = ({ id, className, ...props }: Props) => {
     return null;
   }
 
-  // TODO: for Xavier to replace with "open basket" logic
-  // const removeEntry = () => {
-  //   setBasket((currentBasket) => {
-  //     const newSet = new Set(currentBasket.get(namespace));
-  //     newSet.delete(id);
-  //     return new Map([...currentBasket, [namespace, newSet]]);
-  //   });
-  // }
-
   return (
     <Button
       className={cn(className, styles['basket-status'])}
-      // onClick={removeEntry}
+      onClick={findAndOpenBasket}
       variant="tertiary"
-      title={`Remove ${id} from basket`}
+      title="Open basket"
       {...props}
     >
       <BasketIcon width="1ch" height="1ch" />
