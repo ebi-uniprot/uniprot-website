@@ -307,6 +307,8 @@ export const getUniProtPublicationsQueryUrl = ({
 type Parameters = {
   query?: string;
   accessions?: string;
+  upis?: string;
+  ids?: string;
   format: string;
   // TODO: change to set of possible fields (if possible, depending on namespace)
   fields?: string;
@@ -352,9 +354,18 @@ export const getDownloadUrl = ({
 }: GetDownloadUrlProps) => {
   // If the consumer of this fn has passed specified a size we have to use the search endpoint
   // otherwise use download/stream which is much quicker but doesn't allow specification of size
+
+  // for UniProtKB
+  let accessionKey: keyof Parameters = 'accessions'; // This changes depending on the endpoint...
+  if (namespace === Namespace.uniref) {
+    accessionKey = 'ids';
+  } else if (namespace === Namespace.uniparc) {
+    accessionKey = 'upis';
+  }
+
   let endpoint;
   if (accessions) {
-    endpoint = apiUrls.accessions;
+    endpoint = joinUrl(apiPrefix, `/${namespace}/${accessionKey}`);
   } else if (base) {
     endpoint = joinUrl(apiPrefix, base);
   } else if (size) {
@@ -368,7 +379,9 @@ export const getDownloadUrl = ({
     download: true,
   };
   if (accessions) {
-    parameters.accessions = Array.from(selected.length ? selected : accessions)
+    parameters[accessionKey] = Array.from(
+      selected.length ? selected : accessions
+    )
       .sort()
       .join(',');
     if (selectedFacets.length) {
