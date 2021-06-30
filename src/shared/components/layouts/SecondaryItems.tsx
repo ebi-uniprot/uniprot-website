@@ -10,7 +10,6 @@ import {
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { sumBy } from 'lodash-es';
-import { v1 } from 'uuid';
 import {
   HelpIcon,
   EnvelopeIcon,
@@ -137,11 +136,6 @@ const ToolsDashboard = ({ display, setDisplay }: Props) => {
   );
 };
 
-const basketID = v1();
-
-export const findAndOpenBasket = () =>
-  document.getElementById(basketID)?.click();
-
 export const Basket = ({ display, setDisplay }: Props) => {
   const [basket] = useBasket();
   const [basketButtonX, setBasketButtonX] = useState<number>();
@@ -169,12 +163,7 @@ export const Basket = ({ display, setDisplay }: Props) => {
 
   return (
     <>
-      <span
-        id={basketID}
-        title="Basket"
-        className={styles['secondary-item']}
-        ref={spanRef}
-      >
+      <span title="Basket" className={styles['secondary-item']} ref={spanRef}>
         <BasketIcon width={secondaryItemIconSize} />
         {count ? (
           <Bubble
