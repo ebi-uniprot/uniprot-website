@@ -5271,10 +5271,10 @@ fragment-cache@^0.2.1:
   dependencies:
     map-cache "^0.2.2"
 
-franklin-sites@0.0.142:
-  version "0.0.142"
-  resolved "https://registry.yarnpkg.com/franklin-sites/-/franklin-sites-0.0.142.tgz#5c2caacdfe23e1e6e4875dd471f25530cba91c56"
-  integrity sha512-LvpAoF4XnkeFIt2BI30Y0sP1TqG0nzgBS2F53mXBXXKj85Rwh2sv7QVeEUHX4tJL4Oz6bAjfqfRoiygOR5tETA==
+franklin-sites@0.0.145:
+  version "0.0.145"
+  resolved "https://registry.yarnpkg.com/franklin-sites/-/franklin-sites-0.0.145.tgz#10573182912c4cf0a1d6d51034bebe3bf5a12c5a"
+  integrity sha512-5IrBxTWcWTHo0GJ2EFOK/IHIvd0K8+amqP1srMTGiHwCDPaYruSHpAs5UEUACArvfqhQV+4dxEHrlU9oa/kzmw==
   dependencies:
     classnames "2.3.1"
     d3 "5.16.0"
@@ -10938,11 +10938,6 @@ type-fest@1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-1.2.1.tgz#232990aa513f3f5223abf54363975dfe3a121a2e"
   integrity sha512-SbmIRuXhJs8KTneu77Ecylt9zuqL683tuiLYpTRil4H++eIhqCmx6ko6KAFem9dty8sOdnEiX7j4K1nRE628fQ==
-
-type-fest@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-1.2.0.tgz#4cdf38ef9b047922c26038080cb269752ae359a2"
-  integrity sha512-++0N6KyAj0t2webXst0PE0xuXb4Dv3z1Z+4SGzK+j/epeWBZCfkQbkW/ezscZwpinmBQ5wu/l4TqagKSVcAGCA==
 
 type-fest@^0.16.0:
   version "0.16.0"
