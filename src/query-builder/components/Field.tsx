@@ -15,7 +15,7 @@ import {
 
 type FieldProps = {
   field: SearchTermType;
-  handleChange: (updatedQueryBit: QueryBit) => void;
+  handleChange: (updatedQueryBit: QueryBit, reset?: boolean) => void;
   initialValue?: QueryBit;
 };
 
