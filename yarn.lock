@@ -8814,14 +8814,14 @@ protvista-manager@^2.16.3:
   dependencies:
     lodash-es "^4.17.11"
 
-protvista-msa@3.2.14:
-  version "3.2.14"
-  resolved "https://registry.yarnpkg.com/protvista-msa/-/protvista-msa-3.2.14.tgz#fc3487fa74690f6999bad392ee33a85ff0cb58cf"
-  integrity sha512-npc3a/hSaI35K1xsyYQMSr/n/nFL1Qv8SDl4tPB3FbiigiVjj1puBwNRyMU/+1fwwY/SbBcHKWwOKbNtD3lLsQ==
+protvista-msa@3.2.16:
+  version "3.2.16"
+  resolved "https://registry.yarnpkg.com/protvista-msa/-/protvista-msa-3.2.16.tgz#683d2238e42e0dc5ebc688bd494322355e540315"
+  integrity sha512-7Erg3z95y0cfVhnrWrJ4pefvUEqEo4lq1O0FjDooo8STP34u8iKv0Wd2cuXaLI0+VXmCekzYYxbQN06WpsKavA==
   dependencies:
     protvista-utils "^3.2.14"
     protvista-zoomable "^3.2.14"
-    react-msa-viewer "https://github.com/ebi-webcomponents/react-msa-viewer#semver:1.6.2"
+    react-msa-viewer "https://github.com/ebi-webcomponents/react-msa-viewer#semver:1.6.3"
 
 protvista-navigation@3.2.14:
   version "3.2.14"
@@ -9243,9 +9243,9 @@ react-markdown@6.0.2:
     unist-util-visit "^2.0.0"
     vfile "^4.0.0"
 
-"react-msa-viewer@https://github.com/ebi-webcomponents/react-msa-viewer#semver:1.6.2":
-  version "1.6.2"
-  resolved "https://github.com/ebi-webcomponents/react-msa-viewer#9017df6f0d214fbd27cc5180e71bf9c3f8f626aa"
+"react-msa-viewer@git+https://github.com/ebi-webcomponents/react-msa-viewer.git#semver:1.6.3":
+  version "1.6.3"
+  resolved "git+https://github.com/ebi-webcomponents/react-msa-viewer.git#827ae186e11539bbaf211dd8168635c48a1dcc78"
   dependencies:
     lodash-es "4.17.15"
     plotly-icons "1.3.14"
