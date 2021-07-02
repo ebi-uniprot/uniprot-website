@@ -21,6 +21,10 @@ const initializer = (
     return initialValue.go_evidence;
   }
 
+  if (field.term === 'xref' && initialValue?.database) {
+    return '*';
+  }
+
   // Deal with autocomplete fields (they use 'autoCompleteQueryTerm')
   // instead of 'term'
   if (
