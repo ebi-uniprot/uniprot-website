@@ -1,5 +1,12 @@
 import { Fragment, useState, useCallback, useRef, FC } from 'react';
-import { useModal, ModalBackdrop, Window, Loader } from 'franklin-sites';
+import {
+  useModal,
+  ModalBackdrop,
+  Window,
+  Loader,
+  ChevronDownIcon,
+  ChevronUpIcon,
+} from 'franklin-sites';
 import '@swissprot/rhea-reaction-visualizer';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
@@ -88,20 +95,23 @@ export const RheaReactionVisualizer: FC<RheaReactionVisualizerProps> = ({
 
   return (
     <>
-      <button
-        type="button"
-        className="button tertiary rhea-reaction-visualizer__button"
-        onClick={() => setShow(!show)}
-      >
-        {`${show ? 'Hide' : 'View'} Rhea reaction`}
-      </button>
+      <div className="rhea-reaction-visualizer__toggle">
+        {show ? <ChevronUpIcon width="1ch" /> : <ChevronDownIcon width="1ch" />}
+        <button
+          type="button"
+          className="button tertiary"
+          onClick={() => setShow(!show)}
+        >
+          {`${show ? 'Hide' : 'View'} Rhea reaction`}
+        </button>
+      </div>
       {show && (
         <>
           <div className="rhea-reaction-visualizer__component">
             <rhea-reaction
               rheaid={rheaId}
               zoom
-              showids
+              // showids
               ref={callback}
               usehost="https://api.rhea-db.org"
             />
