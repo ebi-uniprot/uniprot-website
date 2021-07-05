@@ -116,7 +116,7 @@ export const RheaReactionVisualizer: FC<RheaReactionVisualizerProps> = ({
           <div className="rhea-reaction-visualizer__component">
             <rhea-reaction
               rheaid={rheaId}
-              // showIds // Shows rhea ID as well as CHEBI IDs in images
+              showIds
               zoom
               ref={callback}
               usehost="https://api.rhea-db.org"
@@ -237,6 +237,7 @@ const CatalyticActivityView: FC<CatalyticActivityProps> = ({
                 physiologicalReactions={physiologicalReactions}
               />
             )}
+
             {reaction.ecNumber && (
               <div>
                 <span className="ec-number">EC: {reaction.ecNumber}</span>
@@ -254,17 +255,25 @@ const CatalyticActivityView: FC<CatalyticActivityProps> = ({
                   ENZYME
                 </ExternalLink>
                 {'| '}
-                <ExternalLink url={externalUrls.Rhea(reaction.ecNumber)}>
+                <ExternalLink url={externalUrls.RheaSearch(reaction.ecNumber)}>
                   Rhea
                 </ExternalLink>
                 )
               </div>
             )}
             {!!rheaId && (
-              <RheaReactionVisualizer
-                rheaId={rheaId}
-                show={rheaId === firstRheaId}
-              />
+              <>
+                <div>
+                  <strong>Source: </strong>
+                  <ExternalLink url={externalUrls.RheaEntry(rheaId)}>
+                    Rhea {rheaId}
+                  </ExternalLink>
+                </div>
+                <RheaReactionVisualizer
+                  rheaId={rheaId}
+                  show={rheaId === firstRheaId}
+                />
+              </>
             )}
           </span>
         );
