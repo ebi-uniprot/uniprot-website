@@ -48,7 +48,8 @@ const externalUrls: Record<string, (id: string | number) => string> = {
   CommunityCurationAdd: (id) =>
     `https://community.uniprot.org/bbsub/bbsub.html?accession=${id}`,
   ENZYME: (id) => `https://enzyme.expasy.org/EC/${id}`,
-  Rhea: (id) => `https://www.rhea-db.org/rhea?query=ec:${id}`,
+  RheaSearch: (id) => `https://www.rhea-db.org/rhea?query=ec:${id}`,
+  RheaEntry: (id) => `https://www.rhea-db.org/rhea/${id}`,
 };
 
 export const getIntActQueryForAccessionUrl = (accession: string) =>
