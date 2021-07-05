@@ -1,4 +1,5 @@
 import { Fragment, useState, useCallback, useRef, FC } from 'react';
+import { Link } from 'react-router-dom';
 import {
   useModal,
   ModalBackdrop,
@@ -6,10 +7,15 @@ import {
   Loader,
   ChevronDownIcon,
   ChevronUpIcon,
+  SearchIcon,
+  ExternalLink,
 } from 'franklin-sites';
 import '@swissprot/rhea-reaction-visualizer';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
+
+import { Location, LocationToPath } from '../../../app/config/urls';
+import externalUrls from '../../../shared/config/externalUrls';
 
 import {
   CatalyticActivityComment,
@@ -19,7 +25,7 @@ import {
 
 import './styles/catalytic-activity-view.scss';
 
-// example accession to view this component: P31937
+// example accessions to view this component: P31937, P0A879
 
 export const getRheaId = (referenceId: string) => {
   const re = /^RHEA:(\d+)$/i;
@@ -110,8 +116,8 @@ export const RheaReactionVisualizer: FC<RheaReactionVisualizerProps> = ({
           <div className="rhea-reaction-visualizer__component">
             <rhea-reaction
               rheaid={rheaId}
+              // showIds // Shows rhea ID as well as CHEBI IDs in images
               zoom
-              // showids
               ref={callback}
               usehost="https://api.rhea-db.org"
             />
@@ -222,9 +228,6 @@ const CatalyticActivityView: FC<CatalyticActivityProps> = ({
         }
         return (
           <span className="text-block" key={reaction.ecNumber || index}>
-            <strong>{reaction.ecNumber}</strong>
-            {/* Need a link to search for EC in UniProtKB:
-             https://www.ebi.ac.uk/panda/jira/browse/TRM-23597 */}
             {` ${reaction.name}`}
             {reaction.evidences && (
               <UniProtKBEvidenceTag evidences={reaction.evidences} />
@@ -233,6 +236,29 @@ const CatalyticActivityView: FC<CatalyticActivityProps> = ({
               <ReactionDirection
                 physiologicalReactions={physiologicalReactions}
               />
+            )}
+            {reaction.ecNumber && (
+              <div>
+                <span className="ec-number">EC: {reaction.ecNumber}</span>
+                {' ( '}
+                <Link
+                  to={{
+                    pathname: LocationToPath[Location.UniProtKBResults],
+                    search: `query=(ec:${reaction.ecNumber})`,
+                  }}
+                >
+                  UniProtKB <SearchIcon width="1.333ch" />
+                </Link>
+                {' | '}
+                <ExternalLink url={externalUrls.ENZYME(reaction.ecNumber)}>
+                  ENZYME
+                </ExternalLink>
+                {'| '}
+                <ExternalLink url={externalUrls.Rhea(reaction.ecNumber)}>
+                  Rhea
+                </ExternalLink>
+                )
+              </div>
             )}
             {!!rheaId && (
               <RheaReactionVisualizer
