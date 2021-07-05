@@ -26,9 +26,6 @@ exports[`Entry view should render 1`] = `
         <span
           class="text-block"
         >
-          <strong>
-            1.2.4.5
-          </strong>
            some reaction
           <button
             aria-controls="0"
@@ -81,6 +78,49 @@ exports[`Entry view should render 1`] = `
             data-testid="evidence-tag-content"
             id="1"
           />
+          <div>
+            <span
+              class="ec-number"
+            >
+              EC: 1.2.4.5
+            </span>
+             ( 
+            <a
+              href="/uniprotkb?query=(ec:1.2.4.5)"
+            >
+              UniProtKB 
+              <test-file-stub
+                width="1.333ch"
+              />
+            </a>
+             | 
+            <a
+              class="external-link"
+              href="https://enzyme.expasy.org/EC/1.2.4.5"
+              rel="noopener"
+              target="_blank"
+            >
+              ENZYME
+              <test-file-stub
+                data-testid="external-link-icon"
+                width="12.5"
+              />
+            </a>
+            | 
+            <a
+              class="external-link"
+              href="https://www.rhea-db.org/rhea?query=ec:1.2.4.5"
+              rel="noopener"
+              target="_blank"
+            >
+              Rhea
+              <test-file-stub
+                data-testid="external-link-icon"
+                width="12.5"
+              />
+            </a>
+            )
+          </div>
         </span>
         <h3>
           cofactor
@@ -2426,7 +2466,6 @@ exports[`Entry view should render for non-human entry 1`] = `
         <span
           class="text-block"
         >
-          <strong />
            an N-acetyl-alpha-D-galactosaminyl-(1-&gt;3)-[alpha-L-fucosyl-(1-&gt;2)]-beta-D-galactosyl derivative + H2O = acetate + an alpha-D-galactosaminyl-(1-&gt;3)-[alpha-L-fucosyl-(1-&gt;2)]-beta-D-galactosyl derivative
           <button
             aria-controls="1"
@@ -2450,12 +2489,36 @@ exports[`Entry view should render for non-human entry 1`] = `
             data-testid="evidence-tag-content"
             id="1"
           />
-          <button
-            class="button tertiary rhea-reaction-visualizer__button"
-            type="button"
+          <div>
+            <strong>
+              Source: 
+            </strong>
+            <a
+              class="external-link"
+              href="https://www.rhea-db.org/rhea/14869"
+              rel="noopener"
+              target="_blank"
+            >
+              Rhea 14869
+              <test-file-stub
+                data-testid="external-link-icon"
+                width="12.5"
+              />
+            </a>
+          </div>
+          <div
+            class="rhea-reaction-visualizer__toggle"
           >
-            Hide Rhea reaction
-          </button>
+            <test-file-stub
+              width="1ch"
+            />
+            <button
+              class="button tertiary"
+              type="button"
+            >
+              Hide Rhea reaction
+            </button>
+          </div>
           <div
             class="rhea-reaction-visualizer__component"
           >
