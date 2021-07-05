@@ -53,7 +53,19 @@ const parseAndMatchQuery = (
     );
     // if it exists, assign it 'searchTerm'
     if (matching.length) {
-      if (matching.length === 1 || clause.searchTerm.term === 'go') {
+      if (clause.queryBits.database) {
+        const matchingXref = matching.find(
+          ({ valuePrefix }) => valuePrefix === `${clause.queryBits.database}-`
+        );
+        if (matchingXref) {
+          validatedQuery.push({
+            ...clause,
+            searchTerm: matchingXref,
+          });
+        } else {
+          invalid.push(clause);
+        }
+      } else if (matching.length === 1 || clause.searchTerm.term === 'go') {
         // only one search term matching or this is GO in which case only add the parent SearchTerm
         validatedQuery.push({
           ...clause,

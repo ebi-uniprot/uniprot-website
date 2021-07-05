@@ -33,9 +33,12 @@ describe('TextField', () => {
     const inputElt = screen.getByRole('textbox') as HTMLInputElement;
     expect(inputElt.value).toBe('');
     fireEvent.change(inputElt, { target: { value: updatedValue } });
-    expect(props.handleChange).toBeCalledWith({
-      [props.field.term]: updatedValue.trim(),
-    });
+    expect(props.handleChange).toBeCalledWith(
+      {
+        [props.field.term]: updatedValue.trim(),
+      },
+      false
+    );
   });
 
   test("should generate correct query for 'All'", () => {
@@ -58,9 +61,12 @@ describe('TextField', () => {
       name: propsAll.field.label,
     });
     fireEvent.change(inputElt, { target: { value: updatedValue } });
-    expect(propsAll.handleChange).toBeCalledWith({
-      [propsAll.field.term]: `${updatedValue}`,
-    });
+    expect(propsAll.handleChange).toBeCalledWith(
+      {
+        [propsAll.field.term]: `${updatedValue}`,
+      },
+      false
+    );
   });
 
   test('should generate correct query with prefix', () => {
@@ -84,10 +90,13 @@ describe('TextField', () => {
       name: propsPrefix.field.label,
     });
     fireEvent.change(inputElt, { target: { value: updatedValue } });
-    expect(propsPrefix.handleChange).toBeCalledWith({
-      [propsPrefix.field
-        .term]: `${propsPrefix.field.valuePrefix}${updatedValue}`,
-    });
+    expect(propsPrefix.handleChange).toBeCalledWith(
+      {
+        [propsPrefix.field
+          .term]: `${propsPrefix.field.valuePrefix}${updatedValue}`,
+      },
+      false
+    );
   });
 
   test('should generate correct query for database *', () => {
@@ -110,9 +119,12 @@ describe('TextField', () => {
       name: propsPrefix.field.label,
     });
     fireEvent.change(inputElt, { target: { value: '*' } });
-    expect(propsPrefix.handleChange).toBeCalledWith({
-      database: 'embl',
-    });
+    expect(propsPrefix.handleChange).toBeCalledWith(
+      {
+        database: 'embl',
+      },
+      true
+    );
   });
 
   test('should validate initial query with regex', () => {

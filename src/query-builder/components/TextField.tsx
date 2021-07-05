@@ -6,7 +6,7 @@ import { DataType, QueryBit, SearchTermType } from '../types/searchTypes';
 
 const TextField: FC<{
   field: SearchTermType;
-  handleChange: (queryBit: QueryBit) => void;
+  handleChange: (queryBit: QueryBit, reset?: boolean) => void;
   initialValue?: QueryBit;
 }> = ({ field, handleChange, initialValue }) => {
   const [value, setValue] = useState(
@@ -16,15 +16,15 @@ const TextField: FC<{
   useEffect(() => {
     const trimmed = value.trim();
     if (trimmed.length) {
-      if (field.valuePrefix && field.term === 'xref' && trimmed === '*') {
-        // Query is faster with this hack: using 'database' instead
-        // Remove last '-' from the the prefix, and don't include '*'
-        handleChange({ database: `${field.valuePrefix.replace(/-$/, '')}` });
-      } else {
-        handleChange({
-          [field.term]: `${field.valuePrefix || ''}${trimmed}`,
-        });
-      }
+      // Query is faster with this hack: using 'database' instead
+      // Remove last '-' from the the prefix, and don't include '*'
+      const queryBit =
+        field.valuePrefix && field.term === 'xref' && trimmed === '*'
+          ? { database: `${field.valuePrefix.replace(/-$/, '')}` }
+          : {
+              [field.term]: `${field.valuePrefix || ''}${trimmed}`,
+            };
+      handleChange(queryBit, field.term === 'xref');
     }
   }, [field, value, handleChange]);
 
