@@ -112,6 +112,7 @@ export const formatCitationData = (citation: Citation) => {
     lastPage: citation.lastPage,
     publicationDate: citation.publicationDate,
     doiId: doiXref?.id,
+    submissionDatabase: citation?.submissionDatabase,
   };
   return { pubmedId, journalInfo };
 };
