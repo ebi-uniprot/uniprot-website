@@ -105,8 +105,8 @@ exports[`BlastForm test Renders the form 1`] = `
                 UniProtKB with 3D structure (PDB)
               </option>
               <option
-                data-testid="Target database-uniprotkb_reference_proteomes "
-                value="uniprotkb_reference_proteomes "
+                data-testid="Target database-uniprotkb_reference_proteomes"
+                value="uniprotkb_reference_proteomes"
               >
                 UniProtKB reference proteomes
               </option>
