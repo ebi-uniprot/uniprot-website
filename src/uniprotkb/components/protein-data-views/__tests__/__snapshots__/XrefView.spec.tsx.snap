@@ -93,20 +93,3 @@ exports[`XRefView should render section 1`] = `
   </ul>
 </DocumentFragment>
 `;
-
-exports[`getPropertyLink should create snapshot 1`] = `
-<DocumentFragment>
-  <a
-    class="external-link"
-    href="https://www.ensembl.org/id/ENSG00000142192"
-    rel="noopener"
-    target="_blank"
-  >
-    ENSG00000142192
-    <test-file-stub
-      data-testid="external-link-icon"
-      width="12.5"
-    />
-  </a>
-</DocumentFragment>
-`;

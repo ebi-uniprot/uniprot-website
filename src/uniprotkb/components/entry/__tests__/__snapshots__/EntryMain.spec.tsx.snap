@@ -2362,7 +2362,6 @@ exports[`Entry view should render 1`] = `
                         width="12.5"
                       />
                     </a>
-                     
                     <a
                       class="external-link"
                       href="https://www.ensembl.org/id/description value"
@@ -2375,7 +2374,7 @@ exports[`Entry view should render 1`] = `
                         width="12.5"
                       />
                     </a>
-                    Model [
+                     Model [
                     <a
                       href="#Q9NXB0-1"
                     >
