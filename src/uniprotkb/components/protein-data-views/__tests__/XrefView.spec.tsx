@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { screen, render } from '@testing-library/react';
 
 import XRefView, {
   getPropertyString,
@@ -7,19 +7,21 @@ import XRefView, {
   getDatabaseInfoAttribute,
 } from '../XRefView';
 
-import { XrefUIModel } from '../../../utils/xrefUtils';
 import { PropertyKey } from '../../../types/modelTypes';
 import { DatabaseInfoPoint } from '../../../types/databaseRefs';
 
-import xrefUIData from './__mocks__/xrefUIData.json';
+import xrefs from './__mocks__/xrefUIData';
 
 describe('XRefView', () => {
   test(`should render section`, () => {
-    const xrefs = xrefUIData as XrefUIModel[];
     const { asFragment } = render(
-      <XRefView xrefs={xrefs} primaryAccession="P01234" />
+      <XRefView xrefs={xrefs.normal} primaryAccession="P01234" />
     );
     expect(asFragment()).toMatchSnapshot();
+  });
+  test(`should remove duplicate links`, () => {
+    render(<XRefView xrefs={xrefs.duplicateLink} primaryAccession="P0A879" />);
+    expect(screen.getAllByText(/BAA14793/)).toHaveLength(1);
   });
 });
 
