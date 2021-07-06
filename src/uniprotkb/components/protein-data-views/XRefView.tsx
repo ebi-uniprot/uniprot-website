@@ -1,5 +1,5 @@
 import { Fragment, FC } from 'react';
-import { sortBy } from 'lodash-es';
+import { isEqual, sortBy, uniqWith } from 'lodash-es';
 import { InfoList, ExternalLink, ExpandableList } from 'franklin-sites';
 
 import { pluralise } from '../../../shared/utils/utils';
@@ -62,7 +62,7 @@ export const getPropertyString = (key?: string, value?: string) => {
   return value;
 };
 
-export const getPropertyLink = (
+export const getPropertyLinkAttributes = (
   databaseInfo: DatabaseInfoPoint,
   property: PropertyKey,
   xref: Xref
@@ -81,11 +81,10 @@ export const getPropertyLink = (
     return null;
   }
   const url = processUrlTemplate(attribute.uriLink, { [property]: id });
-  return (
-    <ExternalLink key={url} url={url}>
-      {id}
-    </ExternalLink>
-  );
+  return {
+    url,
+    text: id,
+  };
 };
 
 type XRefProps = {
@@ -111,6 +110,22 @@ const EMBLXref: FC<{
     console.warn(
       'GenBank or DDBJ database information not found in drlineconiguration'
     );
+  }
+  let proteinIdPropertyLink;
+  if (properties && properties.ProteinId && properties.ProteinId !== '-') {
+    const linkAttributes = getPropertyLinkAttributes(
+      databaseInfo,
+      PropertyKey.ProteinId,
+      xref
+    );
+    if (linkAttributes) {
+      const { url, text } = linkAttributes;
+      proteinIdPropertyLink = (
+        <ExternalLink key={url} url={url}>
+          {text}
+        </ExternalLink>
+      );
+    }
   }
   return (
     <>
@@ -141,10 +156,7 @@ const EMBLXref: FC<{
             properties.MoleculeType as keyof typeof EMBLXrefProperties
           ]
         }: `}
-      {properties &&
-        properties.ProteinId &&
-        properties.ProteinId !== '-' &&
-        getPropertyLink(databaseInfo, PropertyKey.ProteinId, xref)}
+      {proteinIdPropertyLink}
       {properties &&
         properties.Status &&
         EMBLXrefProperties[
@@ -167,13 +179,25 @@ export const XRef: FC<XRefProps> = ({
   if (!database || !primaryAccession) {
     return null;
   }
-  let propertiesNode;
+  const propertyLinkAttributes = [];
+  const propertyStrings = [];
   if (properties && !implicit) {
-    propertiesNode = Object.keys(properties).map((key) =>
-      [PropertyKey.ProteinId, PropertyKey.GeneId].includes(key as PropertyKey)
-        ? getPropertyLink(databaseInfo, key as PropertyKey, xref)
-        : getPropertyString(key, properties[key])
-    );
+    for (const [key, value] of Object.entries(properties)) {
+      if (
+        [PropertyKey.ProteinId, PropertyKey.GeneId].includes(key as PropertyKey)
+      ) {
+        const attrs = getPropertyLinkAttributes(
+          databaseInfo,
+          key as PropertyKey,
+          xref
+        );
+        if (attrs) {
+          propertyLinkAttributes.push(attrs);
+        }
+      } else {
+        propertyStrings.push(getPropertyString(key, value));
+      }
+    }
   }
 
   let isoformNode;
@@ -218,12 +242,26 @@ export const XRef: FC<XRefProps> = ({
     text = id;
   }
 
+  // Remove links from the xref which are the same (ie same url and text).
+  // An example of where duplicate links would displayed is P0A879
+  const links = uniqWith(
+    [
+      // Main link
+      { url: processUrlTemplate(uriLink, params), text },
+      // Other links
+      ...propertyLinkAttributes,
+    ],
+    isEqual
+  );
+
   return (
     <>
-      <ExternalLink url={processUrlTemplate(uriLink, params)}>
-        {text}
-      </ExternalLink>{' '}
-      {propertiesNode} {isoformNode}
+      {links.map(({ url, text }) => (
+        <ExternalLink url={url} key={url}>
+          {text}
+        </ExternalLink>
+      ))}{' '}
+      {propertyStrings} {isoformNode}
     </>
   );
 };
@@ -275,22 +313,26 @@ const XRefsGroupedByCategory: FC<XRefsGroupedByCategoryProps> = ({
   const infoData = sortBy(databases, ({ database }) => [
     databaseToDatabaseInfo?.[database].implicit,
     database,
-  ]).map((database): {
-    title: string;
-    content: JSX.Element;
-  } => {
-    const databaseInfo = databaseToDatabaseInfo[database.database];
-    return {
-      title: databaseInfo.displayName,
-      content: (
-        <DatabaseList
-          xrefsGoupedByDatabase={database}
-          primaryAccession={primaryAccession}
-          crc64={crc64}
-        />
-      ),
-    };
-  });
+  ]).map(
+    (
+      database
+    ): {
+      title: string;
+      content: JSX.Element;
+    } => {
+      const databaseInfo = databaseToDatabaseInfo[database.database];
+      return {
+        title: databaseInfo.displayName,
+        content: (
+          <DatabaseList
+            xrefsGoupedByDatabase={database}
+            primaryAccession={primaryAccession}
+            crc64={crc64}
+          />
+        ),
+      };
+    }
+  );
   return <InfoList infoData={infoData} columns />;
 };
 
