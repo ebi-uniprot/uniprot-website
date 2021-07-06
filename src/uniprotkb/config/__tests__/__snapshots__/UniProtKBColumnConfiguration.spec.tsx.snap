@@ -482,7 +482,6 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_disease
               width="12.5"
             />
           </a>
-            
         </div>
       </div>
     </li>

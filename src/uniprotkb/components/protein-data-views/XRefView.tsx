@@ -243,12 +243,12 @@ export const XRef: FC<XRefProps> = ({
   }
 
   // Remove links from the xref which are the same (ie same url and text).
-  // An example of where duplicate links would displayed is P0A879
+  // An example of where duplicate links would be displayed is P0A879
   const links = uniqWith(
     [
       // Main link
       { url: processUrlTemplate(uriLink, params), text },
-      // Other links
+      // Property links
       ...propertyLinkAttributes,
     ],
     isEqual
@@ -260,8 +260,9 @@ export const XRef: FC<XRefProps> = ({
         <ExternalLink url={url} key={url}>
           {text}
         </ExternalLink>
-      ))}{' '}
-      {propertyStrings} {isoformNode}
+      ))}
+      {propertyStrings}
+      {isoformNode && <> {isoformNode}</>}
     </>
   );
 };

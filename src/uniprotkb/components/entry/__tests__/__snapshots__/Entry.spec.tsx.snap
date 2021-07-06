@@ -750,7 +750,6 @@ exports[`Entry basic should render main 1`] = `
                                 width="12.5"
                               />
                             </a>
-                              
                           </li>
                         </ul>
                       </div>
@@ -1912,7 +1911,6 @@ exports[`Entry basic should render main 1`] = `
                             width="12.5"
                           />
                         </a>
-                          
                       </div>
                     </div>
                   </li>
@@ -2149,7 +2147,6 @@ exports[`Entry basic should render main 1`] = `
                                 width="12.5"
                               />
                             </a>
-                              
                           </li>
                         </ul>
                       </div>
@@ -2187,7 +2184,6 @@ exports[`Entry basic should render main 1`] = `
                                 width="12.5"
                               />
                             </a>
-                              
                           </li>
                         </ul>
                       </div>
@@ -2290,7 +2286,6 @@ exports[`Entry basic should render main 1`] = `
                                 width="12.5"
                               />
                             </a>
-                              
                           </li>
                         </ul>
                       </div>
@@ -2328,7 +2323,6 @@ exports[`Entry basic should render main 1`] = `
                                 width="12.5"
                               />
                             </a>
-                              
                           </li>
                         </ul>
                       </div>
@@ -2677,7 +2671,7 @@ exports[`Entry basic should render main 1`] = `
                                 width="12.5"
                               />
                             </a>
-                             Model [
+                            Model [
                             <a
                               href="#Q9NXB0-1"
                             >
