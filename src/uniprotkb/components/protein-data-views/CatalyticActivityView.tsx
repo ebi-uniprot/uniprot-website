@@ -211,7 +211,7 @@ const CatalyticActivityView: FC<CatalyticActivityProps> = ({
   return (
     <>
       {title && <h3>{title}</h3>}
-      {comments.map(({ reaction, physiologicalReactions }, index) => {
+      {comments.map(({ reaction, physiologicalReactions }) => {
         if (!reaction) {
           return null;
         }
@@ -227,7 +227,7 @@ const CatalyticActivityView: FC<CatalyticActivityProps> = ({
           firstRheaId = rheaId;
         }
         return (
-          <span className="text-block" key={reaction.ecNumber || index}>
+          <span className="text-block" key={reaction.name}>
             {` ${reaction.name}`}
             {reaction.evidences && (
               <UniProtKBEvidenceTag evidences={reaction.evidences} />
