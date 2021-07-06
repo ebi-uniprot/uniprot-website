@@ -25,6 +25,7 @@ const created: CreatedJob = {
   timeCreated: ONE_MINUTE_AGO,
   timeLastUpdate: ONE_MINUTE_AGO,
   saved: false,
+  seen: false,
 };
 
 export default created;

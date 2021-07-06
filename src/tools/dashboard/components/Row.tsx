@@ -17,6 +17,8 @@ import {
   SpinnerIcon,
   EditIcon,
   WarningTriangleIcon,
+  Bubble,
+  Button,
 } from 'franklin-sites';
 
 import { updateJob, deleteJob } from '../../state/toolsActions';
@@ -28,7 +30,7 @@ import useReducedMotion from '../../../shared/hooks/useReducedMotion';
 import { getBEMClassName as bem, pluralise } from '../../../shared/utils/utils';
 import parseDate from '../../../shared/utils/parseDate';
 
-import { Job } from '../../types/toolsJob';
+import { FailedJob, Job, FinishedJob } from '../../types/toolsJob';
 import { Status } from '../../types/toolsStatuses';
 import { JobTypes } from '../../types/toolsJobTypes';
 
@@ -100,6 +102,29 @@ const Time = ({ children }: TimeProps) => {
   );
 };
 
+const Seen = ({ job }: { job: FailedJob | FinishedJob<JobTypes> }) => {
+  const dispatch = useDispatch();
+
+  if (job.seen) {
+    return null;
+  }
+
+  const markAsRead = () => {
+    dispatch(updateJob(job.internalID, { seen: true }));
+  };
+
+  return (
+    <Button
+      onClick={markAsRead}
+      variant="tertiary"
+      className="dashboard__body__bubble"
+      title={`new job result (click to mark job as "seen")`}
+    >
+      <Bubble size="small" />
+    </Button>
+  );
+};
+
 interface NiceStatusProps {
   job: Job;
   jobLink?: string;
@@ -122,7 +147,7 @@ const NiceStatus = ({ job, jobLink }: NiceStatusProps) => {
     case Status.ERRORED:
       return (
         <>
-          Failed
+          Failed <Seen job={job} />
           {'errorDescription' in job && (
             <>
               <br />
@@ -136,8 +161,10 @@ const NiceStatus = ({ job, jobLink }: NiceStatusProps) => {
     case Status.NOT_FOUND:
       return <>Job not found on the server</>;
     case Status.FINISHED: {
-      // eslint-disable-next-line uniprot-website/use-config-location
-      const link = jobLink ? <Link to={jobLink}>Successful</Link> : null;
+      const status = jobLink ? (
+        // eslint-disable-next-line uniprot-website/use-config-location
+        <Link to={jobLink}>Successful</Link>
+      ) : null;
       // either a BLAST or ID Mapping job could have those
       if ('data' in job && job.data && 'hits' in job.data) {
         const actualHits = job.data.hits;
@@ -154,17 +181,23 @@ const NiceStatus = ({ job, jobLink }: NiceStatusProps) => {
           const hitText = pluralise('hit', actualHits);
           return (
             <>
-              {link}{' '}
+              {status}{' '}
               <span
                 title={`${actualHits} ${hitText} results found instead of the requested ${expectedHits}`}
               >
                 ({job.data.hits} {hitText})
               </span>
+              <Seen job={job} />
             </>
           );
         }
       }
-      return link;
+      return (
+        <>
+          {status}
+          <Seen job={job} />
+        </>
+      );
     }
     default:
       return null;
