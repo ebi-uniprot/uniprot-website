@@ -244,9 +244,9 @@ export const XRef: FC<XRefProps> = ({
 
   // Remove links from the xref which are the same (ie same url and text).
   // An example of where duplicate links would be displayed is P0A879
-  const links = uniqWith(
+  const linkAttributes = uniqWith(
     [
-      // Main link
+      // Main link attributes
       { url: processUrlTemplate(uriLink, params), text },
       // Property links
       ...propertyLinkAttributes,
@@ -256,7 +256,7 @@ export const XRef: FC<XRefProps> = ({
 
   return (
     <>
-      {links.map(({ url, text }) => (
+      {linkAttributes.map(({ url, text }) => (
         <ExternalLink url={url} key={url}>
           {text}
         </ExternalLink>
