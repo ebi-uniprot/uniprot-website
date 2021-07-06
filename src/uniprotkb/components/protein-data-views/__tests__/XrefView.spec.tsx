@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import XRefView, {
   getPropertyString,
   processUrlTemplate,
-  getPropertyLink,
+  getPropertyLinkAttributes,
   getDatabaseInfoAttribute,
 } from '../XRefView';
 
@@ -34,7 +34,7 @@ describe('processUrlTemplate', () => {
   });
 });
 
-describe('getPropertyLink', () => {
+describe('getPropertyLinkAttributes', () => {
   test('should create snapshot', () => {
     const databaseInfoPoint: DatabaseInfoPoint = {
       name: 'Ensembl eukaryotic genome annotation project',
@@ -64,10 +64,12 @@ describe('getPropertyLink', () => {
       },
       isoformId: 'P05067-11',
     };
-    const { asFragment } = render(
-      <>{getPropertyLink(databaseInfoPoint, property, xref)}</>
-    );
-    expect(asFragment()).toMatchSnapshot();
+    expect(
+      getPropertyLinkAttributes(databaseInfoPoint, property, xref)
+    ).toEqual({
+      text: 'ENSG00000142192',
+      url: 'https://www.ensembl.org/id/ENSG00000142192',
+    });
   });
 });
 
