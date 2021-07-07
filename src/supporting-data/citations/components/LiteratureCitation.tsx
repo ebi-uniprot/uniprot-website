@@ -105,11 +105,20 @@ type JournalInfoProps = {
     lastPage?: string;
     volume?: string;
     doiId?: string;
+    submissionDatabase?: string;
   };
 };
 
 export const JournalInfo: FC<JournalInfoProps> = ({
-  journalInfo: { publicationDate, journal, firstPage, lastPage, volume, doiId },
+  journalInfo: {
+    publicationDate,
+    journal,
+    firstPage,
+    lastPage,
+    volume,
+    doiId,
+    submissionDatabase,
+  },
 }) => {
   const name = journal || doiId;
   let page = null;
@@ -138,6 +147,7 @@ export const JournalInfo: FC<JournalInfoProps> = ({
       {name} {volume}
       {volume && page && ':'}
       {page}
+      {submissionDatabase && `Submitted to ${submissionDatabase} `}
       {date}
     </>
   );
