@@ -3,11 +3,12 @@ import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import {
   Card,
-  PageIntro,
-  ClockIcon,
-  Message,
-  ReSubmitIcon,
   Button,
+  PageIntro,
+  Message,
+  ClockIcon,
+  ReSubmitIcon,
+  FullViewIcon,
 } from 'franklin-sites';
 import { partition } from 'lodash-es';
 
@@ -120,6 +121,7 @@ const Dashboard = ({ closePanel }: { closePanel?: () => void }) => {
             variant="secondary"
             to={LocationToPath[Location.Dashboard]}
           >
+            <FullViewIcon height="1em" width="1em" />
             Full view
           </Button>
         </div>
