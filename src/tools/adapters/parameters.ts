@@ -93,6 +93,7 @@ export function formParametersToServerParameters<T extends JobTypes>(
           program,
           matrix,
           alignments: hits,
+          scores: hits,
           exp: threshold,
           filter,
           gapalign: gapped,
