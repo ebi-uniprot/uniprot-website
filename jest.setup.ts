@@ -6,7 +6,7 @@ const nodeCrypto = require('crypto');
 
 global.crypto = {
   ...global.crypto,
-  getRandomValues: function (buffer) {
+  getRandomValues(buffer) {
     return nodeCrypto.randomFillSync(buffer);
   },
 };
@@ -20,3 +20,5 @@ jest.mock('/shared/hooks/useCustomElement', () => ({
 global.beforeEach(() => {
   resetUuidV1();
 });
+
+jest.setTimeout(30000);
