@@ -2,7 +2,9 @@
 
 exports[`XRefView should render section 1`] = `
 <DocumentFragment>
-  <h3 />
+  <h3>
+    Chemistry
+  </h3>
   <ul
     class="info-list info-list--columns"
   >
@@ -91,22 +93,5 @@ exports[`XRefView should render section 1`] = `
       </div>
     </li>
   </ul>
-</DocumentFragment>
-`;
-
-exports[`getPropertyLink should create snapshot 1`] = `
-<DocumentFragment>
-  <a
-    class="external-link"
-    href="https://www.ensembl.org/id/ENSG00000142192"
-    rel="noopener"
-    target="_blank"
-  >
-    ENSG00000142192
-    <test-file-stub
-      data-testid="external-link-icon"
-      width="12.5"
-    />
-  </a>
 </DocumentFragment>
 `;

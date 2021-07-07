@@ -77,7 +77,6 @@ exports[`Entry - External Links view should render 1`] = `
                         width="12.5"
                       />
                     </a>
-                      
                   </li>
                 </ul>
               </div>
@@ -122,7 +121,6 @@ exports[`Entry - External Links view should render 1`] = `
                         width="12.5"
                       />
                     </a>
-                      
                   </li>
                 </ul>
               </div>
@@ -160,7 +158,6 @@ exports[`Entry - External Links view should render 1`] = `
                         width="12.5"
                       />
                     </a>
-                      
                   </li>
                 </ul>
               </div>
@@ -205,7 +202,6 @@ exports[`Entry - External Links view should render 1`] = `
                         width="12.5"
                       />
                     </a>
-                     
                     <a
                       class="external-link"
                       href="https://www.ensembl.org/id/description value"
@@ -269,7 +265,6 @@ exports[`Entry - External Links view should render 1`] = `
                         width="12.5"
                       />
                     </a>
-                      
                   </li>
                 </ul>
               </div>
@@ -307,7 +302,6 @@ exports[`Entry - External Links view should render 1`] = `
                         width="12.5"
                       />
                     </a>
-                      
                   </li>
                 </ul>
               </div>

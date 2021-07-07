@@ -1,25 +1,27 @@
-import { render } from '@testing-library/react';
+import { screen, render } from '@testing-library/react';
 
 import XRefView, {
   getPropertyString,
   processUrlTemplate,
-  getPropertyLink,
+  getPropertyLinkAttributes,
   getDatabaseInfoAttribute,
 } from '../XRefView';
 
-import { XrefUIModel } from '../../../utils/xrefUtils';
 import { PropertyKey } from '../../../types/modelTypes';
 import { DatabaseInfoPoint } from '../../../types/databaseRefs';
 
-import xrefUIData from './__mocks__/xrefUIData.json';
+import xrefs from './__mocks__/xrefUIData';
 
 describe('XRefView', () => {
   test(`should render section`, () => {
-    const xrefs = xrefUIData as XrefUIModel[];
     const { asFragment } = render(
-      <XRefView xrefs={xrefs} primaryAccession="P01234" />
+      <XRefView xrefs={xrefs.standard} primaryAccession="P01234" />
     );
     expect(asFragment()).toMatchSnapshot();
+  });
+  test(`should remove duplicate links`, () => {
+    render(<XRefView xrefs={xrefs.duplicateLink} primaryAccession="P0A879" />);
+    expect(screen.getAllByText(/BAA14793/)).toHaveLength(1);
   });
 });
 
@@ -34,7 +36,7 @@ describe('processUrlTemplate', () => {
   });
 });
 
-describe('getPropertyLink', () => {
+describe('getPropertyLinkAttributes', () => {
   test('should create snapshot', () => {
     const databaseInfoPoint: DatabaseInfoPoint = {
       name: 'Ensembl eukaryotic genome annotation project',
@@ -64,10 +66,12 @@ describe('getPropertyLink', () => {
       },
       isoformId: 'P05067-11',
     };
-    const { asFragment } = render(
-      <>{getPropertyLink(databaseInfoPoint, property, xref)}</>
-    );
-    expect(asFragment()).toMatchSnapshot();
+    expect(
+      getPropertyLinkAttributes(databaseInfoPoint, property, xref)
+    ).toEqual({
+      text: 'ENSG00000142192',
+      url: 'https://www.ensembl.org/id/ENSG00000142192',
+    });
   });
 });
 
