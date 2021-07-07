@@ -21,8 +21,6 @@ This is a non exhaustive list of features which will be added to the website in 
 ## Query builder
 
 - Search with genome location
-- [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-23247) / [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-25581) GO term search syntax is wrong
-- [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-25580) Searching for " \* " in database xref generates the wrong query string.
 - [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-25889) Proteomes Taxonomy suggester not working for non-UniProtKB searches.
 
 ## UniProtKB Results
@@ -35,7 +33,6 @@ This is a non exhaustive list of features which will be added to the website in 
 
 - GO terms is currently using the GO Ribbons widget and displaying data from AGR. We will update this and display UniProt data instead.
 - Entry history.
-- "Search for EC number" link
 - Suggested terms - TRM-20293
 - [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-25578) Scroll to hash not always working (impact on protein highlights from results card).
 
