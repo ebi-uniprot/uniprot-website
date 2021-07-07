@@ -15,7 +15,7 @@ import xrefs from './__mocks__/xrefUIData';
 describe('XRefView', () => {
   test(`should render section`, () => {
     const { asFragment } = render(
-      <XRefView xrefs={xrefs.normal} primaryAccession="P01234" />
+      <XRefView xrefs={xrefs.standard} primaryAccession="P01234" />
     );
     expect(asFragment()).toMatchSnapshot();
   });
