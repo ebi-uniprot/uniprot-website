@@ -138,17 +138,24 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinName, {
         [
           proteinNamesData?.recommendedName,
           ...(proteinNamesData?.alternativeNames || []),
-        ].flatMap((name) => [
-          name?.fullName.value,
-          ...(name?.shortNames?.map((name) => name.value) || []),
-          ...(name?.ecNumbers?.map((name) => name.value) || []),
-        ])
+          ...(proteinNamesData?.submissionNames || []),
+        ]
+          .flatMap((name) => [
+            name?.fullName.value,
+            ...(name?.shortNames?.map((name) => name.value) || []),
+            ...(name?.ecNumbers?.map((name) => name.value) || []),
+          ])
+          .filter(Boolean)
       )
     );
 
     return (
       <>
-        <strong>{uniqueNames[0]}</strong>
+        {proteinNamesData?.recommendedName ? (
+          <strong>{uniqueNames[0]}</strong>
+        ) : (
+          uniqueNames[0]
+        )}
         {uniqueNames.length > 1 && (
           <EllipsisReveal>
             {', '}
