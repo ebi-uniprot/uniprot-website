@@ -1,4 +1,5 @@
-import queryStringModule from 'query-string';
+import qs from 'query-string';
+
 import { Column } from '../../shared/config/columns';
 import { SortableColumn } from '../types/columnTypes';
 import {
@@ -26,8 +27,7 @@ export type URLResultParams = {
 };
 
 export const getParamsFromURL = (url: string): URLResultParams => {
-  const urlParams = queryStringModule.parse(url, { parseBooleans: true });
-  const { query, facets, sort, dir, activeFacet, direct } = urlParams;
+  const { query, facets, sort, dir, activeFacet, direct } = qs.parse(url);
 
   let selectedFacets: SelectedFacet[] = [];
   if (facets && typeof facets === 'string') {
@@ -42,7 +42,8 @@ export const getParamsFromURL = (url: string): URLResultParams => {
     selectedFacets,
     sortColumn: sort as SortableColumn,
     sortDirection: sortDirection && SortDirection[sortDirection],
-    direct: Boolean(direct),
+    // flag, so if '?direct' we get null, if not in querystring we get undefined
+    direct: direct !== undefined,
   };
 };
 

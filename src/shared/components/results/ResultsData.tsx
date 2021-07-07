@@ -30,14 +30,12 @@ export enum ViewMode {
 
 const ResultsData: FC<{
   resultsDataObject: PaginatedResults;
-  direct?: boolean;
   selectedEntries: string[];
   handleEntrySelection: (id: string) => void;
   namespaceFallback?: Namespace;
   displayIdMappingColumns?: boolean;
 }> = ({
   resultsDataObject,
-  direct,
   selectedEntries,
   handleEntrySelection,
   namespaceFallback,
@@ -46,7 +44,7 @@ const ResultsData: FC<{
   const namespace = useNS() || namespaceFallback || Namespace.uniprotkb;
   const [viewMode] = useLocalStorage<ViewMode>('view-mode', ViewMode.CARD);
   const history = useHistory();
-  const { query } = getParamsFromURL(useLocation().search);
+  const { query, direct } = getParamsFromURL(useLocation().search);
   const [columns, updateColumnSort] = useColumns(
     namespaceFallback,
     displayIdMappingColumns

@@ -40,7 +40,7 @@ const useNSQuery = ({
   }
 
   const { search: queryParamFromUrl } = location;
-  const { query, selectedFacets, sortColumn, sortDirection, direct } =
+  const { query, selectedFacets, sortColumn, sortDirection } =
     getParamsFromURL(queryParamFromUrl);
 
   const url = useMemo(() => {
@@ -73,7 +73,7 @@ const useNSQuery = ({
     accessions,
   ]);
 
-  return { url, direct };
+  return url;
 };
 
 export default useNSQuery;
