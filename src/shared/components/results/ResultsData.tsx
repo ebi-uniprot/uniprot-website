@@ -4,13 +4,14 @@ import {
   DataListWithLoader,
   Loader,
 } from 'franklin-sites';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import useNS from '../../hooks/useNS';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import useColumns from '../../hooks/useColumns';
 
 import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
+import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 
 import { getEntryPathFor } from '../../../app/config/urls';
 import cardRenderer from '../../config/resultsCardRenderers';
@@ -45,6 +46,7 @@ const ResultsData: FC<{
   const namespace = useNS() || namespaceFallback || Namespace.uniprotkb;
   const [viewMode] = useLocalStorage<ViewMode>('view-mode', ViewMode.CARD);
   const history = useHistory();
+  const { query } = getParamsFromURL(useLocation().search);
   const [columns, updateColumnSort] = useColumns(
     namespaceFallback,
     displayIdMappingColumns
@@ -63,13 +65,32 @@ const ResultsData: FC<{
     return [getIdKey, (entry: APIModel) => getEntryPath(getIdKey(entry))];
   }, [namespace]);
 
-  // redirect to entry directly when only 1 result and query marked as "direct"
+  // redirect to entry when directly when...
   useEffect(() => {
-    if (direct && !hasMoreData && allResults.length === 1) {
+    // ... only 1 result and ...
+    if (!hasMoreData && allResults.length === 1) {
       const uniqueItem = allResults[0];
-      history.replace(getEntryPathForEntry(uniqueItem));
+      const trimmedQuery = query.toUpperCase().trim();
+      if (
+        // ... and query marked as "direct" ...
+        direct ||
+        // ... or the result's ID or accession matches the query ...
+        getIdKey(uniqueItem).toUpperCase() === trimmedQuery ||
+        // ... or matches the UniProtKB ID ...
+        ('uniProtkbId' in uniqueItem && uniqueItem.uniProtkbId === trimmedQuery)
+      ) {
+        history.replace(getEntryPathForEntry(uniqueItem));
+      }
     }
-  }, [history, direct, hasMoreData, allResults, getEntryPathForEntry]);
+  }, [
+    history,
+    direct,
+    hasMoreData,
+    allResults,
+    getEntryPathForEntry,
+    getIdKey,
+    query,
+  ]);
 
   const loadComponent = (
     <Loader progress={progress !== 1 ? progress : undefined} />
