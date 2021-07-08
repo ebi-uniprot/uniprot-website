@@ -7,6 +7,7 @@ import {
   getBEMClassName,
   formatPercentage,
   isSameEntry,
+  deepFindAllByKey,
 } from '../utils';
 
 describe('Model Utils', () => {
@@ -152,5 +153,23 @@ describe('isSameEntry', () => {
         { transformedData: { id: 'P54321' } }
       )
     ).toBeFalsy();
+  });
+});
+
+describe('deepFindAllByKey', () => {
+  it('should find all keys in nested object', () => {
+    expect(deepFindAllByKey({ a: 1, b: { c: { d: { a: 2 } } } }, 'a')).toEqual([
+      1, 2,
+    ]);
+  });
+  it('should find all keys in array of nested objects', () => {
+    expect(
+      deepFindAllByKey([{ a: 1 }, { b: { c: { d: { a: 2 } } } }], 'a')
+    ).toEqual([1, 2]);
+  });
+  it('should find no keys if not present', () => {
+    expect(
+      deepFindAllByKey([{ a: 1 }, { b: { c: { d: { a: 2 } } } }], 'z')
+    ).toEqual([]);
   });
 });
