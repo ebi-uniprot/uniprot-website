@@ -528,9 +528,9 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_interac
     <li>
       <div>
         <a
-          href="/uniprotkb/P12345"
+          href="/uniprotkb/P12345-1"
         >
-          P12345
+          P12345-1
         </a>
       </div>
     </li>

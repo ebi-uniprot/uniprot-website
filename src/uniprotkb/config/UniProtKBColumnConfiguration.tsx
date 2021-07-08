@@ -703,33 +703,67 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
     const interactionComments = data[EntrySection.Interaction].commentsData.get(
       'INTERACTION'
     ) as InteractionComment[];
-    return (
-      <ExpandableList displayNumberOfHiddenItems>
-        {interactionComments?.map((interactionCC) =>
-          interactionCC.interactions.map((interaction) => (
-            <div
-              key={
-                interaction.type === InteractionType.SELF
-                  ? 'self'
-                  : `${interaction.interactantOne.uniProtKBAccession}-${interaction.interactantTwo.uniProtKBAccession}`
-              }
-            >
-              {interaction.type === InteractionType.SELF
-                ? 'Itself'
-                : interaction.interactantOne.uniProtKBAccession && (
-                    <Link
-                      to={getEntryPath(
-                        Namespace.uniprotkb,
-                        interaction.interactantOne.uniProtKBAccession
-                      )}
-                    >
-                      {interaction.interactantOne.uniProtKBAccession}
-                    </Link>
+    const { primaryAccession } = data;
+
+    const interactionElements = interactionComments
+      ?.map((interactionCC) =>
+        interactionCC.interactions.map((interaction) => {
+          if (interaction.type === InteractionType.SELF) {
+            return 'self';
+          }
+          if (
+            interaction.interactantOne.uniProtKBAccession ===
+              primaryAccession &&
+            interaction.interactantTwo.uniProtKBAccession
+          ) {
+            return (
+              <div
+                key={`${interaction.interactantOne.uniProtKBAccession}-${interaction.interactantTwo.uniProtKBAccession}`}
+              >
+                <Link
+                  to={getEntryPath(
+                    Namespace.uniprotkb,
+                    interaction.interactantTwo.uniProtKBAccession
                   )}
-            </div>
-          ))
-        )}
-      </ExpandableList>
+                >
+                  {interaction.interactantTwo.uniProtKBAccession}
+                </Link>
+              </div>
+            );
+          }
+          if (
+            interaction.interactantTwo.uniProtKBAccession ===
+              primaryAccession &&
+            interaction.interactantOne.uniProtKBAccession
+          ) {
+            return (
+              <div
+                key={`${interaction.interactantOne.uniProtKBAccession}-${interaction.interactantTwo.uniProtKBAccession}`}
+              >
+                <Link
+                  to={getEntryPath(
+                    Namespace.uniprotkb,
+                    interaction.interactantOne.uniProtKBAccession
+                  )}
+                >
+                  {interaction.interactantOne.uniProtKBAccession}
+                </Link>
+              </div>
+            );
+          }
+          // Some of the interactions are second level so don't feature the primaryAccession
+          // just ignore them.
+          return null;
+        })
+      )
+      .flat();
+
+    return (
+      interactionElements && (
+        <ExpandableList displayNumberOfHiddenItems>
+          {interactionElements.map((element) => element)}
+        </ExpandableList>
+      )
     );
   },
 });
