@@ -972,9 +972,11 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_zn_fing
 
 exports[`UniProtKBColumnConfiguration component should render column "gene_names": gene_names 1`] = `
 <DocumentFragment>
-  <strong>
+  <span
+    style="font-weight: bolder;"
+  >
     some Gene
-  </strong>
+  </span>
   <button
     aria-expanded="false"
     class="button tertiary ellipsis-reveal"
@@ -1304,9 +1306,11 @@ exports[`UniProtKBColumnConfiguration component should render column "protein_ex
 
 exports[`UniProtKBColumnConfiguration component should render column "protein_name": protein_name 1`] = `
 <DocumentFragment>
-  <strong>
+  <span
+    style="font-weight: bolder;"
+  >
     rec full Name
-  </strong>
+  </span>
   <button
     aria-expanded="false"
     class="button tertiary ellipsis-reveal"
