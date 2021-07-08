@@ -131,7 +131,6 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinName, {
     return (
       <CSVView
         data={omit(proteinNamesData, 'contains')}
-        keyPredicate="value"
         bolderFirst={Boolean(proteinNamesData?.recommendedName)}
       />
     );
@@ -143,7 +142,6 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneNames, {
   render: (data) => (
     <CSVView
       data={data[EntrySection.NamesAndTaxonomy].geneNamesData}
-      keyPredicate="value"
       bolderFirst
     />
   ),

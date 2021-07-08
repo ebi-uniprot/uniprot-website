@@ -6,11 +6,15 @@ import { deepFindAllByKey } from '../../../shared/utils/utils';
 
 type CSVViewProps = {
   data?: Record<string, unknown> | Record<string, unknown>[];
-  bolderFirst: boolean;
-  keyPredicate: string;
+  bolderFirst?: boolean;
+  keyPredicate?: string;
 };
 
-const CSVView: FC<CSVViewProps> = ({ data, bolderFirst, keyPredicate }) => {
+const CSVView: FC<CSVViewProps> = ({
+  data,
+  bolderFirst = false,
+  keyPredicate = 'value',
+}) => {
   if (!data) {
     return null;
   }
