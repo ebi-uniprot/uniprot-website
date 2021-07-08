@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { uniq } from 'lodash-es';
 import { EllipsisReveal } from 'franklin-sites';
 
 import { deepFindAllByKey } from '../../../shared/utils/utils';
@@ -18,7 +17,9 @@ const CSVView: FC<CSVViewProps> = ({
   if (!data) {
     return null;
   }
-  const uniqueValues = uniq(deepFindAllByKey(data, keyPredicate));
+  const uniqueValues = Array.from(
+    new Set(deepFindAllByKey(data, keyPredicate))
+  );
   return (
     <>
       <span

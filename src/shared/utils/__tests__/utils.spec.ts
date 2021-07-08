@@ -91,6 +91,7 @@ describe('getBEMClassName', () => {
         m: [
           true && 'modifier_1',
           false && 'modifier_2',
+          // eslint-disable-next-line no-constant-condition
           true ? 'modifier_3a' : 'modifier_3b',
         ],
       })
@@ -158,18 +159,22 @@ describe('isSameEntry', () => {
 
 describe('deepFindAllByKey', () => {
   it('should find all keys in nested object', () => {
-    expect(deepFindAllByKey({ a: 1, b: { c: { d: { a: 2 } } } }, 'a')).toEqual([
-      1, 2,
-    ]);
+    expect(
+      Array.from(deepFindAllByKey({ a: 1, b: { c: { d: { a: 2 } } } }, 'a'))
+    ).toEqual([1, 2]);
   });
   it('should find all keys in array of nested objects', () => {
     expect(
-      deepFindAllByKey([{ a: 1 }, { b: { c: { d: { a: 2 } } } }], 'a')
+      Array.from(
+        deepFindAllByKey([{ a: 1 }, { b: { c: { d: { a: 2 } } } }], 'a')
+      )
     ).toEqual([1, 2]);
   });
   it('should find no keys if not present', () => {
     expect(
-      deepFindAllByKey([{ a: 1 }, { b: { c: { d: { a: 2 } } } }], 'z')
+      Array.from(
+        deepFindAllByKey([{ a: 1 }, { b: { c: { d: { a: 2 } } } }], 'z')
+      )
     ).toEqual([]);
   });
 });
