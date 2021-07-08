@@ -988,6 +988,17 @@ exports[`UniProtKBColumnConfiguration component should render column "gene_names
 </DocumentFragment>
 `;
 
+exports[`UniProtKBColumnConfiguration component should render column "gene_names": gene_names-expanded 1`] = `
+<DocumentFragment>
+  <span
+    style="font-weight: bolder;"
+  >
+    some Gene
+  </span>
+  , some Syn, some locus, some orf
+</DocumentFragment>
+`;
+
 exports[`UniProtKBColumnConfiguration component should render column "gene_oln": gene_oln 1`] = `
 <DocumentFragment>
   <ul
@@ -1236,6 +1247,73 @@ exports[`UniProtKBColumnConfiguration component should render column "lit_pubmed
 </DocumentFragment>
 `;
 
+exports[`UniProtKBColumnConfiguration component should render column "lit_pubmed_id": lit_pubmed_id-expanded 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      <a
+        href="/citations/12345"
+      >
+        12345
+      </a>
+    </li>
+    <li>
+      <a
+        href="/citations/12346"
+      >
+        12346
+      </a>
+    </li>
+    <li>
+      <a
+        href="/citations/12347"
+      >
+        12347
+      </a>
+    </li>
+    <li>
+      <a
+        href="/citations/12348"
+      >
+        12348
+      </a>
+    </li>
+    <li>
+      <a
+        href="/citations/12349"
+      >
+        12349
+      </a>
+    </li>
+    <li>
+      <a
+        href="/citations/12340"
+      >
+        12340
+      </a>
+    </li>
+    <li>
+      <a
+        href="/citations/12341"
+      >
+        12341
+      </a>
+    </li>
+    <li>
+      <button
+        class="button tertiary expandable-list__action"
+        data-testid="expandable-message"
+        type="button"
+      >
+        Less IDs
+      </button>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
 exports[`UniProtKBColumnConfiguration component should render column "mapped_pubmed_id": mapped_pubmed_id 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "mass": mass 1`] = `
@@ -1319,6 +1397,17 @@ exports[`UniProtKBColumnConfiguration component should render column "protein_na
   >
     [...]
   </button>
+</DocumentFragment>
+`;
+
+exports[`UniProtKBColumnConfiguration component should render column "protein_name": protein_name-expanded 1`] = `
+<DocumentFragment>
+  <span
+    style="font-weight: bolder;"
+  >
+    rec full Name
+  </span>
+  , recommended short name, 1.2.3.4, a full alt Name, short alt name1, 1.2.3.3, allergen, biotech, cd antigen, inn antigen, sub full Name, 1.2.3.5, includesrec full Name, includesrecommended short name, includesa full alt Name, includesshort alt name1
 </DocumentFragment>
 `;
 

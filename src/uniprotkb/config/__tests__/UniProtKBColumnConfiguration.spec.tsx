@@ -1,3 +1,5 @@
+import { screen } from '@testing-library/react';
+
 import UniProtKBColumnConfiguration from '../UniProtKBColumnConfiguration';
 
 import uniProtKbConverter from '../../adapters/uniProtkbConverter';
@@ -32,6 +34,13 @@ describe('UniProtKBColumnConfiguration component', () => {
         <>{column.render(uniProtKbConverter(data))}</>
       );
       expect(asFragment()).toMatchSnapshot(key);
+      const showMore =
+        screen.queryByTitle('Show more') ||
+        screen.queryByTestId('expandable-message');
+      if (showMore) {
+        showMore.click();
+        expect(asFragment()).toMatchSnapshot(`${key}-expanded`);
+      }
     }
   );
 });
