@@ -28,20 +28,22 @@ export enum ViewMode {
   CARD,
 }
 
-const ResultsData: FC<{
+type Props = {
   resultsDataObject: PaginatedResults;
   selectedEntries: string[];
   handleEntrySelection: (id: string) => void;
   namespaceFallback?: Namespace;
   displayIdMappingColumns?: boolean;
-}> = ({
+};
+
+const ResultsData = ({
   resultsDataObject,
   selectedEntries,
   handleEntrySelection,
   namespaceFallback,
   displayIdMappingColumns,
-}) => {
-  const namespace = useNS() || namespaceFallback || Namespace.uniprotkb;
+}: Props) => {
+  const namespace = useNS(namespaceFallback) || Namespace.uniprotkb;
   const [viewMode] = useLocalStorage<ViewMode>('view-mode', ViewMode.CARD);
   const history = useHistory();
   const { query, direct } = getParamsFromURL(useLocation().search);

@@ -25,7 +25,7 @@ const ResultsDataHeader: FC<{
   base,
   disableCardToggle = false,
 }) => {
-  const namespace = useNS() || namespaceFallback || Namespace.uniprotkb;
+  const namespace = useNS(namespaceFallback) || Namespace.uniprotkb;
   const title = useMemo(() => namespaceToolTitles[namespace], [namespace]);
 
   return (

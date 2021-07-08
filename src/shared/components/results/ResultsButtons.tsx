@@ -48,7 +48,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
   disableCardToggle = false,
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-  const namespace = useNS() || namespaceFallback || Namespace.uniprotkb;
+  const namespace = useNS(namespaceFallback) || Namespace.uniprotkb;
   const [viewMode, setViewMode] = useLocalStorage<ViewMode>(
     'view-mode',
     ViewMode.CARD

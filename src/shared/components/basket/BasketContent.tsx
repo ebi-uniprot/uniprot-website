@@ -34,6 +34,7 @@ const MiniResultTable = ({
       resultsDataObject={resultsDataObject}
       selectedEntries={selectedEntries}
       handleEntrySelection={handleEntrySelection}
+      namespaceFallback={namespace}
     />
   );
 };

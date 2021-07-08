@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useMemo, useState } from 'react';
+import { useMemo, ReactNode } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import useDataApi from './useDataApi';
@@ -146,20 +146,18 @@ const useColumns = (
   displayIdMappingColumns = false
 ): [ColumnDescriptor[], (columnName: string) => void] => {
   const history = useHistory();
-  const namespace = useNS() || namespaceFallback || Namespace.uniprotkb;
+  const namespace = useNS(namespaceFallback) || Namespace.uniprotkb;
   const location = useLocation();
   const [usersColumns] = useLocalStorage<Column[]>(
     `table columns for ${namespace}` as const,
     nsToDefaultColumns(namespace)
   );
 
-  const [columns, setColumns] = useState<ColumnDescriptor[]>([]);
-
   const { search: queryParamFromUrl } = location;
   const { query, selectedFacets, sortColumn, sortDirection } =
     getParamsFromURL(queryParamFromUrl);
 
-  const { data: dataResultFields } = useDataApi<ReceivedFieldData>(
+  const { data: dataResultFields, loading } = useDataApi<ReceivedFieldData>(
     // No configure endpoint for supporting data
     namespace !== 'id-mapping' && mainNamespaces.has(namespace)
       ? apiUrls.resultsFields(namespace)
@@ -167,12 +165,12 @@ const useColumns = (
   );
 
   const sortableColumnToSortColumn = useMemo(
-    () => getSortableColumnToSortColumn(dataResultFields),
-    [dataResultFields]
+    () => getSortableColumnToSortColumn(loading ? undefined : dataResultFields),
+    [loading, dataResultFields]
   );
 
-  useEffect(() => {
-    setColumns(
+  const columns = useMemo(
+    () =>
       getColumnsToDisplay(
         namespace,
         displayIdMappingColumns && namespace !== Namespace.idmapping
@@ -181,43 +179,42 @@ const useColumns = (
         sortableColumnToSortColumn,
         sortColumn,
         sortDirection
-      )
-    );
-  }, [
-    namespace,
-    usersColumns,
-    sortColumn,
-    sortDirection,
-    sortableColumnToSortColumn,
-    displayIdMappingColumns,
-  ]);
+      ),
+    [
+      namespace,
+      usersColumns,
+      sortColumn,
+      sortDirection,
+      sortableColumnToSortColumn,
+      displayIdMappingColumns,
+    ]
+  );
 
   const updateColumnSort = (columnName: string) => {
     // No sorting for id mapping
-    if (namespace !== Namespace.idmapping) {
-      const newSortColumn = sortableColumnToSortColumn.get(
-        columnName as Column
-      );
-      if (!newSortColumn) {
-        return;
-      }
-
-      // Change sort direction
-      const updatedSortDirection =
-        !sortDirection || sortDirection === SortDirection.descend
-          ? SortDirection.ascend
-          : SortDirection.descend;
-
-      history.push(
-        getLocationObjForParams({
-          pathname: SearchResultsLocations[namespace],
-          query,
-          selectedFacets,
-          sortColumn: newSortColumn,
-          sortDirection: updatedSortDirection,
-        })
-      );
+    if (namespace === Namespace.idmapping) {
+      return;
     }
+    const newSortColumn = sortableColumnToSortColumn.get(columnName as Column);
+    if (!newSortColumn) {
+      return;
+    }
+
+    // Change sort direction
+    const updatedSortDirection =
+      !sortDirection || sortDirection === SortDirection.descend
+        ? SortDirection.ascend
+        : SortDirection.descend;
+
+    history.push(
+      getLocationObjForParams({
+        pathname: SearchResultsLocations[namespace],
+        query,
+        selectedFacets,
+        sortColumn: newSortColumn,
+        sortDirection: updatedSortDirection,
+      })
+    );
   };
   return [columns, updateColumnSort];
 };
