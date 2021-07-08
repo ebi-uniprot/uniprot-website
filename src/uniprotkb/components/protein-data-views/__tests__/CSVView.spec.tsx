@@ -6,7 +6,7 @@ describe('CSVView', () => {
     const { container } = render(<CSVView data={undefined} />);
     expect(container).toBeEmptyDOMElement();
   });
-  it('should make first element is bolder', () => {
+  it('should make first element bolder', () => {
     render(<CSVView data={[{ value: 'foo' }, { value: 'bar' }]} bolderFirst />);
     expect(screen.getByText('foo')).toHaveStyle({ 'font-weight': 'bolder' });
   });
