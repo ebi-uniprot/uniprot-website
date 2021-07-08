@@ -1,30 +1,22 @@
-import KeywordsColumnConfiguration from '../KeywordsColumnConfiguration';
+import KeywordsColumnConfiguration, {
+  KeywordsColumn,
+} from '../KeywordsColumnConfiguration';
 
 import citationsConverter, {
   KeywordsAPIModel,
   KeywordsUIModel,
 } from '../../adapters/keywordsConverter';
-import customRender from '../../../../shared/__test-helpers__/customRender';
 
 import data from '../../__mocks__/keywordsModelData';
+import testColumnConfiguration from '../../../../shared/__test-helpers__/testColumnConfiguration';
 
 jest.mock('../../../../tools/utils/storage');
 
+const transformedData: KeywordsUIModel = citationsConverter(data[0]);
 describe('KeywordsColumnConfiguration component', () => {
-  let transformedData: KeywordsUIModel;
-
-  beforeAll(() => {
-    transformedData = citationsConverter(data[0] as KeywordsAPIModel);
-  });
-
   // TODO: find mock data to create non-null parent, sites, synonym snapshots
-  test.each(Array.from(KeywordsColumnConfiguration.entries()))(
-    `should render column "%s"`,
-    (key, column) => {
-      const { asFragment } = customRender(
-        <>{column.render(transformedData)}</>
-      );
-      expect(asFragment()).toMatchSnapshot(key);
-    }
+  testColumnConfiguration<KeywordsColumn, Partial<KeywordsAPIModel>>(
+    KeywordsColumnConfiguration,
+    transformedData
   );
 });

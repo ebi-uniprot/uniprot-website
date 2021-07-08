@@ -1,13 +1,17 @@
-import { screen } from '@testing-library/react';
-
 import UniProtKBColumnConfiguration from '../UniProtKBColumnConfiguration';
 
-import uniProtKbConverter from '../../adapters/uniProtkbConverter';
-import customRender from '../../../shared/__test-helpers__/customRender';
+import uniProtKbConverter, {
+  UniProtkbUIModel,
+} from '../../adapters/uniProtkbConverter';
+import testColumnConfiguration from '../../../shared/__test-helpers__/testColumnConfiguration';
+
+import { UniProtKBColumn } from '../../types/columnTypes';
 
 import data from '../../__mocks__/uniProtKBEntryModelData';
 
 jest.mock('../../../tools/utils/storage');
+
+const transformedData: UniProtkbUIModel = uniProtKbConverter(data);
 
 describe('UniProtKBColumnConfiguration component', () => {
   beforeAll(() => {
@@ -27,20 +31,8 @@ describe('UniProtKBColumnConfiguration component', () => {
 
   // TODO: find mock data to generate non-null snapshot for:
   // go_id, go, and many others
-  test.each(Array.from(UniProtKBColumnConfiguration.entries()))(
-    `should render column "%s"`,
-    (key, column) => {
-      const { asFragment } = customRender(
-        <>{column.render(uniProtKbConverter(data))}</>
-      );
-      expect(asFragment()).toMatchSnapshot(key);
-      const showMore =
-        screen.queryByTitle('Show more') ||
-        screen.queryByTestId('expandable-message');
-      if (showMore) {
-        showMore.click();
-        expect(asFragment()).toMatchSnapshot(`${key}-expanded`);
-      }
-    }
+  testColumnConfiguration<UniProtKBColumn, UniProtkbUIModel>(
+    UniProtKBColumnConfiguration,
+    transformedData
   );
 });
