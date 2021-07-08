@@ -2,10 +2,10 @@ import { screen } from '@testing-library/react';
 import { ColumnConfiguration } from '../types/columnConfiguration';
 import customRender from './customRender';
 
-function testColumnConfiguration<Column, UIModel>(
-  columnConfiguration: ColumnConfiguration<Column, UIModel>,
-  data: UIModel
-) {
+function testColumnConfiguration<
+  Column,
+  UIModel extends Record<string, unknown>
+>(columnConfiguration: ColumnConfiguration<Column, UIModel>, data: UIModel) {
   test.each(Array.from(columnConfiguration.entries()))(
     `should render column "%s"`,
     (key, column) => {
