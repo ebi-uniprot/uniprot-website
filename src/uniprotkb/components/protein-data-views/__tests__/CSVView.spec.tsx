@@ -4,7 +4,7 @@ import CSVView from '../CSVView';
 describe('CSVView', () => {
   it('should return nothing if no data provided', () => {
     const { container } = render(<CSVView data={undefined} />);
-    expect(container.firstChild).toBeNull();
+    expect(container).toBeEmptyDOMElement();
   });
   it('should make first element is bolder', () => {
     render(<CSVView data={[{ value: 'foo' }, { value: 'bar' }]} bolderFirst />);
