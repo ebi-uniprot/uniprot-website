@@ -1,12 +1,8 @@
 /* eslint-disable camelcase */
-import {
-  EllipsisReveal,
-  ExpandableList,
-  LongNumber,
-  Sequence,
-} from 'franklin-sites';
+import { ExpandableList, LongNumber, Sequence } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
+import { omit } from 'lodash-es';
 import SimpleView from '../../shared/components/views/SimpleView';
 import { ECNumbersView } from '../components/protein-data-views/ProteinNamesView';
 import TaxonomyView, {
@@ -75,6 +71,7 @@ import { fromColumnConfig } from '../../tools/id-mapping/config/IdMappingColumnC
 import { Namespace } from '../../shared/types/namespaces';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
 import AccessionView from '../../shared/components/results/AccessionView';
+import CSVView from '../components/protein-data-views/CSVView';
 
 export const defaultColumns = [
   UniProtKBColumn.accession,
@@ -131,72 +128,25 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinName, {
   label: 'Protein Names',
   render: (data) => {
     const { proteinNamesData } = data[EntrySection.NamesAndTaxonomy];
-
-    // Note this should be in ProteinNamesView eventually
-    const uniqueNames = Array.from(
-      new Set(
-        [
-          proteinNamesData?.recommendedName,
-          ...(proteinNamesData?.alternativeNames || []),
-          ...(proteinNamesData?.submissionNames || []),
-        ]
-          .flatMap((name) => [
-            name?.fullName.value,
-            ...(name?.shortNames?.map((name) => name.value) || []),
-            ...(name?.ecNumbers?.map((name) => name.value) || []),
-          ])
-          .filter(Boolean)
-      )
-    );
-
     return (
-      <>
-        {proteinNamesData?.recommendedName ? (
-          <strong>{uniqueNames[0]}</strong>
-        ) : (
-          uniqueNames[0]
-        )}
-        {uniqueNames.length > 1 && (
-          <EllipsisReveal>
-            {', '}
-            {uniqueNames.splice(1).join(', ')}
-          </EllipsisReveal>
-        )}
-      </>
+      <CSVView
+        data={omit(proteinNamesData, 'contains')}
+        keyPredicate="value"
+        bolderFirst={Boolean(proteinNamesData?.recommendedName)}
+      />
     );
   },
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.geneNames, {
   label: 'Gene Names',
-  render: (data) => {
-    const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
-
-    // Note this should be in GeneNamesView eventually
-    const uniqueNames = Array.from(
-      new Set(
-        geneNamesData?.flatMap((geneNames) => [
-          geneNames.geneName?.value,
-          ...(geneNames.synonyms?.map((synonym) => synonym.value) || []),
-          ...(geneNames.orderedLocusNames?.map((synonym) => synonym.value) ||
-            []),
-          ...(geneNames.orfNames?.map((synonym) => synonym.value) || []),
-        ])
-      )
-    ).filter((name) => name);
-
-    return (
-      <>
-        <strong>{uniqueNames[0]}</strong>
-        {uniqueNames.length > 1 && (
-          <EllipsisReveal>
-            {', '}
-            {uniqueNames.splice(1).join(', ')}
-          </EllipsisReveal>
-        )}
-      </>
-    );
-  },
+  render: (data) => (
+    <CSVView
+      data={data[EntrySection.NamesAndTaxonomy].geneNamesData}
+      keyPredicate="value"
+      bolderFirst
+    />
+  ),
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.organismName, {
