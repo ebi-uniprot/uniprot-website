@@ -90,19 +90,21 @@ export const isSameEntry = (
     ? prev.primaryAccession === next.primaryAccession
     : prev.id === next.id;
 
-export const deepFindAllByKey = (
-  o: Record<string, unknown> | Record<string, unknown>[],
-  predicateKey: string,
-  accum: string[] = []
-) => {
-  if (typeof o === 'object') {
-    Object?.entries(o).forEach(([key, value]) => {
+export function* deepFindAllByKey<T = string>(
+  input: unknown,
+  predicateKey: string
+): Generator<T, void, never> {
+  if (Array.isArray(input)) {
+    for (const item of input) {
+      yield* deepFindAllByKey<T>(item, predicateKey);
+    }
+  } else if (input && typeof input === 'object') {
+    for (const [key, value] of Object.entries(input)) {
       if (key === predicateKey) {
-        accum.push(value as string);
+        yield value;
       } else {
-        deepFindAllByKey(value as Record<string, unknown>, predicateKey, accum);
+        yield* deepFindAllByKey(value, predicateKey);
       }
-    });
+    }
   }
-  return accum;
-};
+}
