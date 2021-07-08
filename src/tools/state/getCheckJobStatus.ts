@@ -1,4 +1,5 @@
 import { AnyAction, MiddlewareAPI, Dispatch } from 'redux';
+import { AxiosResponse } from 'axios';
 
 import fetchData from '../../shared/utils/fetchData';
 import { getStatusFromResponse, getJobMessage } from '../utils';
@@ -84,11 +85,17 @@ const getCheckJobStatus =
       // job finished, handle differently depending on job type
       if (job.type === JobTypes.BLAST) {
         // only BLAST jobs
-        const response = await fetchData<BlastResults>(
-          urlConfig.resultUrl(job.remoteID, { format: 'json' })
-        );
+        let response: AxiosResponse<BlastResults> | null = null;
+        try {
+          response = await fetchData<BlastResults>(
+            urlConfig.resultUrl(job.remoteID, { format: 'json' })
+          );
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.error(error);
+        }
 
-        const results = response.data;
+        const results = response?.data;
 
         // get a new reference to the job
         currentStateOfJob = getState().tools[job.internalID];
@@ -99,7 +106,7 @@ const getCheckJobStatus =
 
         const now = Date.now();
 
-        if (!results.hits) {
+        if (!results?.hits) {
           dispatch(
             updateJob(job.internalID, {
               timeLastUpdate: now,
@@ -107,9 +114,10 @@ const getCheckJobStatus =
             })
           );
           throw new Error(
-            `"${JSON.stringify(
-              response.data
-            )}" is not a valid result for this job`
+            response?.data &&
+              `"${JSON.stringify(
+                response?.data
+              )}" is not a valid result for this job`
           );
         }
 

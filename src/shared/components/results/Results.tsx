@@ -17,7 +17,7 @@ const Results = () => {
   const [selectedEntries, handleEntrySelection] = useItemSelect();
 
   // Query for facets
-  const { url: initialApiFacetUrl } = useNSQuery({
+  const initialApiFacetUrl = useNSQuery({
     size: 0,
     withFacets: true,
     withColumns: false,
@@ -33,7 +33,7 @@ const Results = () => {
   const facetTotal = facetHeaders?.['x-total-records'];
 
   // Query for results data
-  const { url: initialApiUrl, direct } = useNSQuery({ withFacets: false });
+  const initialApiUrl = useNSQuery({ withFacets: false });
   const resultsDataObject = usePagination(initialApiUrl);
   const {
     initialLoading: resultsDataInitialLoading,
@@ -69,7 +69,6 @@ const Results = () => {
       <ResultsDataHeader total={total} selectedEntries={selectedEntries} />
       <ResultsData
         resultsDataObject={resultsDataObject}
-        direct={direct}
         selectedEntries={selectedEntries}
         handleEntrySelection={handleEntrySelection}
       />

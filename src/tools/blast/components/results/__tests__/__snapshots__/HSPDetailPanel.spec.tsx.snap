@@ -8,21 +8,17 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
   <div
     class="sliding-panel__header"
   >
-    <h1
-      class="small"
+    <span
+      class="small sliding-panel__header__title"
     >
       U6MKN0 · rec full Name · scientific name
-    </h1>
-    <div
-      class="sliding-panel__header__buttons"
+    </span>
+    <button
+      class="button tertiary sliding-panel__header__buttons"
+      type="button"
     >
-      <button
-        class="button tertiary"
-        type="button"
-      >
-        <test-file-stub />
-      </button>
-    </div>
+      <test-file-stub />
+    </button>
   </div>
   <div
     class="sliding-panel__content"
@@ -113,10 +109,12 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
             class="track"
           >
             <protvista-msa
-              colorscheme="clustal"
+              calculate-conservation="true"
+              colorscheme="conservation"
               height="40"
               hidelabel="true"
               length="45"
+              overlay-conservation="true"
             />
           </div>
           <span
@@ -163,21 +161,17 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
   <div
     class="sliding-panel__header"
   >
-    <h1
-      class="small"
+    <span
+      class="small sliding-panel__header__title"
     >
       U6MKN0 · rec full Name · scientific name
-    </h1>
-    <div
-      class="sliding-panel__header__buttons"
+    </span>
+    <button
+      class="button tertiary sliding-panel__header__buttons"
+      type="button"
     >
-      <button
-        class="button tertiary"
-        type="button"
-      >
-        <test-file-stub />
-      </button>
-    </div>
+      <test-file-stub />
+    </button>
   </div>
   <div
     class="sliding-panel__content"
@@ -314,10 +308,12 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
                 length="28"
               />
               <protvista-msa
-                colorscheme="clustal"
+                calculate-conservation="true"
+                colorscheme="conservation"
                 height="40"
                 hidelabel="true"
                 length="28"
+                overlay-conservation="true"
               />
             </protvista-manager>
           </div>

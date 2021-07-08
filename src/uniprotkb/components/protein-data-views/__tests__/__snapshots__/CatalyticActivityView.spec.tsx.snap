@@ -8,9 +8,6 @@ exports[`CatalyticActivityView component should render catalytic activity 1`] = 
   <span
     class="text-block"
   >
-    <strong>
-      EC:12112
-    </strong>
      Reaction nameThis reaction proceeds in the 
     <span
       data-testid="direction-text"
@@ -68,6 +65,49 @@ exports[`CatalyticActivityView component should render catalytic activity 1`] = 
       id="1"
     />
      directions 
+    <div>
+      <span
+        class="ec-number"
+      >
+        EC: EC:12112
+      </span>
+       ( 
+      <a
+        href="/uniprotkb?query=(ec:EC:12112)"
+      >
+        UniProtKB 
+        <test-file-stub
+          width="1.333ch"
+        />
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="https://enzyme.expasy.org/EC/EC:12112"
+        rel="noopener"
+        target="_blank"
+      >
+        ENZYME
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+      | 
+      <a
+        class="external-link"
+        href="https://www.rhea-db.org/rhea?query=ec:EC:12112"
+        rel="noopener"
+        target="_blank"
+      >
+        Rhea
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+      )
+    </div>
   </span>
 </DocumentFragment>
 `;
@@ -77,9 +117,6 @@ exports[`CatalyticActivityView component should render catalytic activity when c
   <span
     class="text-block"
   >
-    <strong>
-      EC:12112
-    </strong>
      Reaction nameThis reaction proceeds in the 
     <span
       data-testid="direction-text"
@@ -137,6 +174,49 @@ exports[`CatalyticActivityView component should render catalytic activity when c
       id="1"
     />
      directions 
+    <div>
+      <span
+        class="ec-number"
+      >
+        EC: EC:12112
+      </span>
+       ( 
+      <a
+        href="/uniprotkb?query=(ec:EC:12112)"
+      >
+        UniProtKB 
+        <test-file-stub
+          width="1.333ch"
+        />
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="https://enzyme.expasy.org/EC/EC:12112"
+        rel="noopener"
+        target="_blank"
+      >
+        ENZYME
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+      | 
+      <a
+        class="external-link"
+        href="https://www.rhea-db.org/rhea?query=ec:EC:12112"
+        rel="noopener"
+        target="_blank"
+      >
+        Rhea
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+      )
+    </div>
   </span>
 </DocumentFragment>
 `;
@@ -239,12 +319,19 @@ exports[`ReactionDirection component should render ReactionDirection when two ph
 
 exports[`RheaReactionVisualizer component should render RheaReactionVisualizer 1`] = `
 <DocumentFragment>
-  <button
-    class="button tertiary rhea-reaction-visualizer__button"
-    type="button"
+  <div
+    class="rhea-reaction-visualizer__toggle"
   >
-    View Rhea reaction
-  </button>
+    <test-file-stub
+      width="1ch"
+    />
+    <button
+      class="button tertiary"
+      type="button"
+    >
+      View Rhea reaction
+    </button>
+  </div>
 </DocumentFragment>
 `;
 

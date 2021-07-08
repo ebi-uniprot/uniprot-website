@@ -1,8 +1,21 @@
 import { Fragment, useState, useCallback, useRef, FC } from 'react';
-import { useModal, ModalBackdrop, Window, Loader } from 'franklin-sites';
+import { Link } from 'react-router-dom';
+import {
+  useModal,
+  ModalBackdrop,
+  Window,
+  Loader,
+  ChevronDownIcon,
+  ChevronUpIcon,
+  SearchIcon,
+  ExternalLink,
+} from 'franklin-sites';
 import '@swissprot/rhea-reaction-visualizer';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
+
+import { Location, LocationToPath } from '../../../app/config/urls';
+import externalUrls from '../../../shared/config/externalUrls';
 
 import {
   CatalyticActivityComment,
@@ -12,7 +25,7 @@ import {
 
 import './styles/catalytic-activity-view.scss';
 
-// example accession to view this component: P31937
+// example accessions to view this component: P31937, P0A879
 
 export const getRheaId = (referenceId: string) => {
   const re = /^RHEA:(\d+)$/i;
@@ -88,20 +101,23 @@ export const RheaReactionVisualizer: FC<RheaReactionVisualizerProps> = ({
 
   return (
     <>
-      <button
-        type="button"
-        className="button tertiary rhea-reaction-visualizer__button"
-        onClick={() => setShow(!show)}
-      >
-        {`${show ? 'Hide' : 'View'} Rhea reaction`}
-      </button>
+      <div className="rhea-reaction-visualizer__toggle">
+        {show ? <ChevronUpIcon width="1ch" /> : <ChevronDownIcon width="1ch" />}
+        <button
+          type="button"
+          className="button tertiary"
+          onClick={() => setShow(!show)}
+        >
+          {`${show ? 'Hide' : 'View'} Rhea reaction`}
+        </button>
+      </div>
       {show && (
         <>
           <div className="rhea-reaction-visualizer__component">
             <rhea-reaction
               rheaid={rheaId}
+              showIds
               zoom
-              showids
               ref={callback}
               usehost="https://api.rhea-db.org"
             />
@@ -195,7 +211,7 @@ const CatalyticActivityView: FC<CatalyticActivityProps> = ({
   return (
     <>
       {title && <h3>{title}</h3>}
-      {comments.map(({ reaction, physiologicalReactions }, index) => {
+      {comments.map(({ reaction, physiologicalReactions }) => {
         if (!reaction) {
           return null;
         }
@@ -211,10 +227,7 @@ const CatalyticActivityView: FC<CatalyticActivityProps> = ({
           firstRheaId = rheaId;
         }
         return (
-          <span className="text-block" key={reaction.ecNumber || index}>
-            <strong>{reaction.ecNumber}</strong>
-            {/* Need a link to search for EC in UniProtKB:
-             https://www.ebi.ac.uk/panda/jira/browse/TRM-23597 */}
+          <span className="text-block" key={reaction.name}>
             {` ${reaction.name}`}
             {reaction.evidences && (
               <UniProtKBEvidenceTag evidences={reaction.evidences} />
@@ -224,11 +237,43 @@ const CatalyticActivityView: FC<CatalyticActivityProps> = ({
                 physiologicalReactions={physiologicalReactions}
               />
             )}
+
+            {reaction.ecNumber && (
+              <div>
+                <span className="ec-number">EC: {reaction.ecNumber}</span>
+                {' ( '}
+                <Link
+                  to={{
+                    pathname: LocationToPath[Location.UniProtKBResults],
+                    search: `query=(ec:${reaction.ecNumber})`,
+                  }}
+                >
+                  UniProtKB <SearchIcon width="1.333ch" />
+                </Link>
+                {' | '}
+                <ExternalLink url={externalUrls.ENZYME(reaction.ecNumber)}>
+                  ENZYME
+                </ExternalLink>
+                {'| '}
+                <ExternalLink url={externalUrls.RheaSearch(reaction.ecNumber)}>
+                  Rhea
+                </ExternalLink>
+                )
+              </div>
+            )}
             {!!rheaId && (
-              <RheaReactionVisualizer
-                rheaId={rheaId}
-                show={rheaId === firstRheaId}
-              />
+              <>
+                <div>
+                  <strong>Source: </strong>
+                  <ExternalLink url={externalUrls.RheaEntry(rheaId)}>
+                    Rhea {rheaId}
+                  </ExternalLink>
+                </div>
+                <RheaReactionVisualizer
+                  rheaId={rheaId}
+                  show={rheaId === firstRheaId}
+                />
+              </>
             )}
           </span>
         );

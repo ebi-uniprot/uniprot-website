@@ -219,10 +219,12 @@ exports[`AlignmentView Align should render 1`] = `
               length="957"
             />
             <protvista-msa
-              colorscheme="clustal"
+              calculate-conservation="true"
+              colorscheme="conservation"
               height="80"
               hidelabel="true"
               length="957"
+              overlay-conservation="true"
             />
           </protvista-manager>
         </div>
@@ -389,10 +391,12 @@ exports[`AlignmentView BLAST should render 1`] = `
               length="565"
             />
             <protvista-msa
-              colorscheme="clustal"
+              calculate-conservation="true"
+              colorscheme="conservation"
               height="40"
               hidelabel="true"
               length="565"
+              overlay-conservation="true"
             />
           </protvista-manager>
         </div>

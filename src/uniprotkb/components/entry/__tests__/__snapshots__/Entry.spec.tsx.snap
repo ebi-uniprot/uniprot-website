@@ -332,9 +332,6 @@ exports[`Entry basic should render main 1`] = `
                 <span
                   class="text-block"
                 >
-                  <strong>
-                    1.2.4.5
-                  </strong>
                    some reaction
                   <button
                     aria-controls="1"
@@ -387,6 +384,49 @@ exports[`Entry basic should render main 1`] = `
                     data-testid="evidence-tag-content"
                     id="2"
                   />
+                  <div>
+                    <span
+                      class="ec-number"
+                    >
+                      EC: 1.2.4.5
+                    </span>
+                     ( 
+                    <a
+                      href="/uniprotkb?query=(ec:1.2.4.5)"
+                    >
+                      UniProtKB 
+                      <test-file-stub
+                        width="1.333ch"
+                      />
+                    </a>
+                     | 
+                    <a
+                      class="external-link"
+                      href="https://enzyme.expasy.org/EC/1.2.4.5"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      ENZYME
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                    | 
+                    <a
+                      class="external-link"
+                      href="https://www.rhea-db.org/rhea?query=ec:1.2.4.5"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      Rhea
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                    )
+                  </div>
                 </span>
                 <h3>
                   cofactor
@@ -710,7 +750,6 @@ exports[`Entry basic should render main 1`] = `
                                 width="12.5"
                               />
                             </a>
-                              
                           </li>
                         </ul>
                       </div>
@@ -1872,7 +1911,6 @@ exports[`Entry basic should render main 1`] = `
                             width="12.5"
                           />
                         </a>
-                          
                       </div>
                     </div>
                   </li>
@@ -2109,7 +2147,6 @@ exports[`Entry basic should render main 1`] = `
                                 width="12.5"
                               />
                             </a>
-                              
                           </li>
                         </ul>
                       </div>
@@ -2147,7 +2184,6 @@ exports[`Entry basic should render main 1`] = `
                                 width="12.5"
                               />
                             </a>
-                              
                           </li>
                         </ul>
                       </div>
@@ -2250,7 +2286,6 @@ exports[`Entry basic should render main 1`] = `
                                 width="12.5"
                               />
                             </a>
-                              
                           </li>
                         </ul>
                       </div>
@@ -2288,7 +2323,6 @@ exports[`Entry basic should render main 1`] = `
                                 width="12.5"
                               />
                             </a>
-                              
                           </li>
                         </ul>
                       </div>
@@ -2625,7 +2659,6 @@ exports[`Entry basic should render main 1`] = `
                                 width="12.5"
                               />
                             </a>
-                             
                             <a
                               class="external-link"
                               href="https://www.ensembl.org/id/description value"

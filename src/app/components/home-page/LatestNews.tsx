@@ -8,7 +8,7 @@ import styles from './styles/non-critical.module.scss';
 // TODO: Dynamically load content (TRM-25618 & TRM-25619)
 
 const spotlightAbstract =
-  "Sometimes, it takes very little to change the course of things. Though frequently it may require the presence of another. Take two people who become lovers and whose destinies change after having met by chance at a friend's house. Or two artists who recognise in each other a similar understanding of things and whose meeting causes something very different to emerge - Georges Braque and Pablo Picasso, Lee Krasner and Jackson Pollock, or Elaine and Willem de Kooning for instance. Or two scientists, for that matter. James Watson and Francis Crick will have no doubt fed on each other's enthusiasm to elucidate the structure of DNA. The same occurs in the world of proteins. It is no secret that proteins frequently work in twos - or indeed threes or more - by binding to one another to perform an overall function. Each individual protein, however, usually has a very distinctive part to play. On more rare occasions, bonding can influence a protein to act differently. This is what happens when two proteins, known as HPF1 and PARP1 (or 2), meet. PARP1/2 is known to act in one way, but when HPF1 binds to it, like two pieces of a jigsaw puzzle that lock to become a different shape, their active sites add up to create a novel one and, in so doing, PARP1/2 behaves differently";
+  'The space humans evolve in is divided into parts. It makes life easier. Each part is dedicated to a certain activity. We have homes to live in, pools to swim in, restaurants to socialise in, trains to travel on, roads to drive along and offices to work in. Cells, too, are divided into parts, and these are known as organelles or compartments. Mitochondria and chloroplasts produce energy, the nucleus transcribes DNA, the endoplasmic reticulum is the seat of protein trafficking, and vacuoles are destined for breaking down cellular waste. Like all cells, bacteria also have their compartments. Carboxysomes are a particularly intriguing example. Why? Because not only is their architecture reminiscent of crystals - sporting layers, straight lines, tips and angles - but their shells are built with proteins. One of the major shell proteins, dubbed CcmK2, assembles into cyclic hexamers which link to one another to form a twenty-facetted polyhedron.';
 
 const drosophilaAbstract =
   'In February, the month of love, we’ll take a brief look at the weird and wonderful courtship behaviour of one of the model organisms we annotate at UniProt, the amorous arthropod Drosophila melanogaster, and explore how studying their courtship song helps researchers understand the genetic and neural underpinnings of behaviour. The study of proteins from well characterised model organisms such as the fruit fly D.melanogaster (Drosophila protein annotation project) helps in understanding insect biology, allowing us to control their populations by manipulating processes such as reproduction, and also enables scientists to model human physiology and disease.';
@@ -82,6 +82,28 @@ const LatestNews = () => {
                 )}
               >
                 Planned changes for UniProt
+              </p>
+            </article>
+          </li>
+          <li>
+            <article>
+              <h3 className="micro">
+                <ExternalLink
+                  url="https://www.uniprot.org/news/2021/06/02/release"
+                  noIcon
+                >
+                  UniProt release 2021_03
+                </ExternalLink>
+              </h3>
+              <p
+                className={cn(
+                  styles['latest-news__abstract'],
+                  styles['latest-news__abstract--2-lines']
+                )}
+              >
+                The importance of being disordered | MobiDB-lite predictions for
+                intrinsically disordered regions | UniProtKB via AWS Open Data
+                and Amazo...
               </p>
             </article>
           </li>
@@ -181,14 +203,14 @@ const LatestNews = () => {
       >
         <article>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/235/"
+            url="https://www.proteinspotlight.org/back_issues/237/"
             noIcon
             aria-hidden="true"
             tabIndex={-1}
           >
             <img
               loading="lazy"
-              src="https://www.proteinspotlight.org/images/sptlt235.jpg"
+              src="https://www.proteinspotlight.org/images/sptlt237.jpg"
               alt=""
               width="184.305"
               height="127.29"
@@ -196,10 +218,10 @@ const LatestNews = () => {
           </ExternalLink>
           <h3 className="micro">
             <ExternalLink
-              url="https://www.proteinspotlight.org/back_issues/235/"
+              url="https://www.proteinspotlight.org/back_issues/237/"
               noIcon
             >
-              Catalysis
+              A peculiar architecture
             </ExternalLink>
           </h3>
           <p

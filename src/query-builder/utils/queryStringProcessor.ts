@@ -146,7 +146,11 @@ export const parse = (queryString = '', startId = 0): Clause[] => {
         };
       } else {
         // term
-        currentClause.searchTerm.term = key || 'All';
+        if (key === 'database') {
+          currentClause.searchTerm.term = 'xref';
+        } else {
+          currentClause.searchTerm.term = key || 'All';
+        }
         // "default"
         if (key) {
           currentClause.queryBits[key] = value;

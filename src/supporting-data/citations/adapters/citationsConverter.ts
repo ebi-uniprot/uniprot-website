@@ -15,11 +15,21 @@ export type CitationXRef = {
   id?: string;
 };
 
+export type CitationType =
+  | 'journal article'
+  | 'book'
+  | 'online journal article'
+  | 'patent'
+  | 'submission'
+  | 'thesis'
+  | 'UniProt indexed literatures'
+  | 'unpublished observations';
+
 export type Citation = {
   // Either a pubmed ID, or a CI-<hash> internal hash if pubmed unavailable, or
   // IND<...> also available in the data
   id: `${number}` | `CI-${string}` | `IND${string}`;
-  citationType?: string;
+  citationType?: CitationType;
   authors?: string[];
   citationCrossReferences?: CitationXRef[];
   title?: string;
@@ -102,6 +112,7 @@ export const formatCitationData = (citation: Citation) => {
     lastPage: citation.lastPage,
     publicationDate: citation.publicationDate,
     doiId: doiXref?.id,
+    submissionDatabase: citation?.submissionDatabase,
   };
   return { pubmedId, journalInfo };
 };

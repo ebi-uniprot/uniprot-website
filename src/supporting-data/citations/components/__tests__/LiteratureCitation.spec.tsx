@@ -13,7 +13,7 @@ let rendered: ReturnType<typeof customRender>;
 describe('Publication component', () => {
   beforeEach(() => {
     rendered = customRender(
-      <LiteratureCitation data={literatureCitationData} />
+      <LiteratureCitation data={literatureCitationData['14702039']} />
     );
   });
 
@@ -43,5 +43,12 @@ describe('Publication component', () => {
     expect(screen.queryByText(/noncoding cDNAs/)).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'View abstract' }));
     expect(screen.getByText(/noncoding cDNAs/)).toBeInTheDocument();
+  });
+
+  test('Publication component with submissionDatabase if present', () => {
+    rendered.rerender(
+      <LiteratureCitation data={literatureCitationData['CI-5GBDQ6B103N1E']} />
+    );
+    expect(screen.getByText(/Submitted to/)).toBeInTheDocument();
   });
 });

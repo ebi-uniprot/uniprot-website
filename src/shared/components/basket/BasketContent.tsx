@@ -21,7 +21,7 @@ const MiniResultTable = ({
 }) => {
   const [selectedEntries, handleEntrySelection] = useItemSelect();
 
-  const { url: initialApiUrl, direct } = useNSQuery({
+  const initialApiUrl = useNSQuery({
     accessions,
     overrideNS: namespace,
     withFacets: false,
@@ -32,7 +32,6 @@ const MiniResultTable = ({
   return (
     <ResultsData
       resultsDataObject={resultsDataObject}
-      direct={direct}
       selectedEntries={selectedEntries}
       handleEntrySelection={handleEntrySelection}
     />

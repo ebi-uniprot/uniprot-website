@@ -26,9 +26,6 @@ exports[`Entry view should render 1`] = `
         <span
           class="text-block"
         >
-          <strong>
-            1.2.4.5
-          </strong>
            some reaction
           <button
             aria-controls="0"
@@ -81,6 +78,49 @@ exports[`Entry view should render 1`] = `
             data-testid="evidence-tag-content"
             id="1"
           />
+          <div>
+            <span
+              class="ec-number"
+            >
+              EC: 1.2.4.5
+            </span>
+             ( 
+            <a
+              href="/uniprotkb?query=(ec:1.2.4.5)"
+            >
+              UniProtKB 
+              <test-file-stub
+                width="1.333ch"
+              />
+            </a>
+             | 
+            <a
+              class="external-link"
+              href="https://enzyme.expasy.org/EC/1.2.4.5"
+              rel="noopener"
+              target="_blank"
+            >
+              ENZYME
+              <test-file-stub
+                data-testid="external-link-icon"
+                width="12.5"
+              />
+            </a>
+            | 
+            <a
+              class="external-link"
+              href="https://www.rhea-db.org/rhea?query=ec:1.2.4.5"
+              rel="noopener"
+              target="_blank"
+            >
+              Rhea
+              <test-file-stub
+                data-testid="external-link-icon"
+                width="12.5"
+              />
+            </a>
+            )
+          </div>
         </span>
         <h3>
           cofactor
@@ -410,7 +450,6 @@ exports[`Entry view should render 1`] = `
                         width="12.5"
                       />
                     </a>
-                      
                   </li>
                 </ul>
               </div>
@@ -1560,7 +1599,6 @@ exports[`Entry view should render 1`] = `
                     width="12.5"
                   />
                 </a>
-                  
               </div>
             </div>
           </li>
@@ -1806,7 +1844,6 @@ exports[`Entry view should render 1`] = `
                         width="12.5"
                       />
                     </a>
-                      
                   </li>
                 </ul>
               </div>
@@ -1844,7 +1881,6 @@ exports[`Entry view should render 1`] = `
                         width="12.5"
                       />
                     </a>
-                      
                   </li>
                 </ul>
               </div>
@@ -1947,7 +1983,6 @@ exports[`Entry view should render 1`] = `
                         width="12.5"
                       />
                     </a>
-                      
                   </li>
                 </ul>
               </div>
@@ -1985,7 +2020,6 @@ exports[`Entry view should render 1`] = `
                         width="12.5"
                       />
                     </a>
-                      
                   </li>
                 </ul>
               </div>
@@ -2322,7 +2356,6 @@ exports[`Entry view should render 1`] = `
                         width="12.5"
                       />
                     </a>
-                     
                     <a
                       class="external-link"
                       href="https://www.ensembl.org/id/description value"
@@ -2426,7 +2459,6 @@ exports[`Entry view should render for non-human entry 1`] = `
         <span
           class="text-block"
         >
-          <strong />
            an N-acetyl-alpha-D-galactosaminyl-(1-&gt;3)-[alpha-L-fucosyl-(1-&gt;2)]-beta-D-galactosyl derivative + H2O = acetate + an alpha-D-galactosaminyl-(1-&gt;3)-[alpha-L-fucosyl-(1-&gt;2)]-beta-D-galactosyl derivative
           <button
             aria-controls="1"
@@ -2450,12 +2482,36 @@ exports[`Entry view should render for non-human entry 1`] = `
             data-testid="evidence-tag-content"
             id="1"
           />
-          <button
-            class="button tertiary rhea-reaction-visualizer__button"
-            type="button"
+          <div>
+            <strong>
+              Source: 
+            </strong>
+            <a
+              class="external-link"
+              href="https://www.rhea-db.org/rhea/14869"
+              rel="noopener"
+              target="_blank"
+            >
+              Rhea 14869
+              <test-file-stub
+                data-testid="external-link-icon"
+                width="12.5"
+              />
+            </a>
+          </div>
+          <div
+            class="rhea-reaction-visualizer__toggle"
           >
-            Hide Rhea reaction
-          </button>
+            <test-file-stub
+              width="1ch"
+            />
+            <button
+              class="button tertiary"
+              type="button"
+            >
+              Hide Rhea reaction
+            </button>
+          </div>
           <div
             class="rhea-reaction-visualizer__component"
           >
@@ -2839,7 +2895,6 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
-                      
                   </li>
                 </ul>
               </div>
@@ -3401,7 +3456,6 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
-                      
                   </li>
                 </ul>
               </div>
@@ -3439,7 +3493,6 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
-                      
                   </li>
                 </ul>
               </div>
@@ -3477,7 +3530,6 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
-                      
                   </li>
                 </ul>
               </div>
@@ -3668,7 +3720,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
-                      1 hit 
+                     1 hit
                   </li>
                   <li>
                     <a
@@ -3683,7 +3735,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
-                      2 hits 
+                     2 hits
                   </li>
                 </ul>
               </div>
@@ -3735,7 +3787,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
-                     Big_2 
+                    Big_2
                   </li>
                   <li>
                     <a
@@ -3750,7 +3802,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
-                     FA58C 
+                    FA58C
                   </li>
                   <li>
                     <a
@@ -3765,7 +3817,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
-                     Galactose-bd-like_sf 
+                    Galactose-bd-like_sf
                   </li>
                   <li>
                     <a
@@ -3780,7 +3832,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
-                     Glyco_hydro_beta-prop_sf 
+                    Glyco_hydro_beta-prop_sf
                   </li>
                   <li>
                     <button
@@ -3841,7 +3893,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
-                     FA58C_3 1 hit 
+                    FA58C_3 1 hit
                   </li>
                 </ul>
               </div>
@@ -3893,7 +3945,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
-                     Big_2 1 hit 
+                    Big_2 1 hit
                   </li>
                   <li>
                     <a
@@ -3908,7 +3960,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
-                     F5_F8_type_C 1 hit 
+                    F5_F8_type_C 1 hit
                   </li>
                 </ul>
               </div>
@@ -3960,7 +4012,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
-                     BID_2 1 hit 
+                    BID_2 1 hit
                   </li>
                 </ul>
               </div>
@@ -3998,7 +4050,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
-                     SSF49373 1 hit 
+                    SSF49373 1 hit
                   </li>
                   <li>
                     <a
@@ -4013,7 +4065,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
-                     SSF49785 1 hit 
+                    SSF49785 1 hit
                   </li>
                   <li>
                     <a
@@ -4028,7 +4080,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
-                     SSF50939 1 hit 
+                    SSF50939 1 hit
                   </li>
                   <li>
                     <a
@@ -4043,7 +4095,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
-                     SSF75005 1 hit 
+                    SSF75005 1 hit
                   </li>
                 </ul>
               </div>
@@ -4081,7 +4133,6 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
-                      
                   </li>
                 </ul>
               </div>
@@ -4119,7 +4170,6 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
-                      
                   </li>
                 </ul>
               </div>
@@ -4367,7 +4417,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
-                     NZ_WKPS01000046.1 
+                    NZ_WKPS01000046.1
                   </li>
                 </ul>
               </div>

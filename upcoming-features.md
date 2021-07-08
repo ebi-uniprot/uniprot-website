@@ -6,8 +6,9 @@ This is a non exhaustive list of features which will be added to the website in 
 
 - The website is not responsive yet, and best viewed on laptop/desktops with a resolution above 1024x768px until then.
 - Only "modern" browsers such as Chrome, Firefox, Safari, Edge, etc... are supported. Internet Explorer is not supported.
-                       
+
 ## Performance
+
 - There is a known issue with response caching (at the traffic manager level), meaning searches are not performing as
   quickly as they should be. We are working on a solution to this.
 
@@ -20,8 +21,6 @@ This is a non exhaustive list of features which will be added to the website in 
 ## Query builder
 
 - Search with genome location
-- [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-23247) / [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-25581) GO term search syntax is wrong
-- [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-25580) Searching for " \* " in database xref generates the wrong query string.
 - [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-25889) Proteomes Taxonomy suggester not working for non-UniProtKB searches.
 
 ## UniProtKB Results
@@ -34,11 +33,7 @@ This is a non exhaustive list of features which will be added to the website in 
 
 - GO terms is currently using the GO Ribbons widget and displaying data from AGR. We will update this and display UniProt data instead.
 - Entry history.
-- Inline PubMed IDs to be turned into links.
-- "Search for EC number" link
 - Suggested terms - TRM-20293
-- "Add a publication" button missing
-- Sometimes the publication section displays an error
 - [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-25578) Scroll to hash not always working (impact on protein highlights from results card).
 
 ## UniRef Results
@@ -74,6 +69,7 @@ This is a non exhaustive list of features which will be added to the website in 
 - Alignment visualisation sometimes jumps by a few pixels when interacting
 
 ## Align
+
 - Alignment visualisation sometimes jumps by a few pixels when interacting
 
 ## Peptide Search
@@ -82,13 +78,14 @@ This is a non exhaustive list of features which will be added to the website in 
 
 ## Upload Lists / ID Mapping
 
-- Column selection for UniParc and UniRef results 
+- Column selection for UniParc and UniRef results
 
 ## Tools Results (Dashboard)
 
 ## Basket
 
-- Not yet implemented
+- Display of basket contents as table
+- Basket buttons
 
 ## "View by" functionality (renamed to "Statistics")
 

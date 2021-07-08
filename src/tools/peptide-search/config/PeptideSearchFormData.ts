@@ -33,16 +33,20 @@ const formData: Readonly<PeptideSearchFormValues> = Object.freeze({
   [PeptideSearchFields.lEQi]: Object.freeze({
     fieldName: 'lEQi',
     selected: 'off',
-    values: Object.freeze([{ value: 'on' }, { value: 'off' }] as Array<{
-      value: FormParameters['lEQi'];
-    }>),
+    values: Object.freeze<
+      Array<{
+        value: FormParameters['lEQi'];
+      }>
+    >([{ value: 'on' }, { value: 'off' }]),
   }),
   [PeptideSearchFields.spOnly]: Object.freeze({
     fieldName: 'spOnly',
     selected: 'off',
-    values: Object.freeze([{ value: 'on' }, { value: 'off' }] as Array<{
-      value: FormParameters['spOnly'];
-    }>),
+    values: Object.freeze<
+      Array<{
+        value: FormParameters['spOnly'];
+      }>
+    >([{ value: 'on' }, { value: 'off' }]),
   }),
   [PeptideSearchFields.name]: Object.freeze({
     fieldName: 'name',

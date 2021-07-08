@@ -1,6 +1,14 @@
 .rhea-reaction-visualizer {
-  &__button {
-    margin: 0.5rem;
+  &__toggle {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    svg {
+      position: relative;
+      top: -0.5rem;
+      margin-right: 0.25rem;
+    }
   }
 
   &__component {
@@ -17,4 +25,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.ec-number {
+  font-weight: bold;
+  padding-right: 0.333rem;
+}
+
+.rhea-reaction-source {
+  display: none;
 }

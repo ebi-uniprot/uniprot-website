@@ -15,7 +15,7 @@ export const urlsAreEqual = (
   }
   const paramsIntersection = uniq([
     ...Object.keys(urlObject1.query),
-    ...Object.keys(urlObject1.query),
+    ...Object.keys(urlObject2.query),
   ]);
   return paramsIntersection.every(
     (param) =>
