@@ -13,12 +13,10 @@ const ProteinOverview: FC<{
   // or refactoring UniProtKBColumnConfiguration to use UniProtkbAPIModel.
   data: UniProtkbAPIModel;
 }> = ({ data }) => {
-  let recommendedNameNode;
-  const recommendedName =
-    data.proteinDescription?.recommendedName?.fullName.value;
-  if (recommendedName) {
-    recommendedNameNode = `${recommendedName} · `;
-  }
+  const name =
+    data.proteinDescription?.recommendedName?.fullName.value ||
+    data.proteinDescription?.submissionNames?.[0].fullName.value;
+  const nameNode = name && `${name} · `;
 
   const ecNumberNode = data.proteinDescription?.recommendedName?.ecNumbers && (
     <>
@@ -78,7 +76,7 @@ const ProteinOverview: FC<{
 
   return (
     <section>
-      {recommendedNameNode}
+      {nameNode}
       {organismNameNode}
       {ecNumberNode}
       {geneNameListNode}
