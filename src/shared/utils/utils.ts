@@ -89,3 +89,22 @@ export const isSameEntry = (
   prev?.primaryAccession !== undefined
     ? prev.primaryAccession === next.primaryAccession
     : prev.id === next.id;
+
+export function* deepFindAllByKey<T = string>(
+  input: unknown,
+  predicateKey: string
+): Generator<T, void, never> {
+  if (Array.isArray(input)) {
+    for (const item of input) {
+      yield* deepFindAllByKey<T>(item, predicateKey);
+    }
+  } else if (input && typeof input === 'object') {
+    for (const [key, value] of Object.entries(input)) {
+      if (key === predicateKey) {
+        yield value;
+      } else {
+        yield* deepFindAllByKey(value, predicateKey);
+      }
+    }
+  }
+}

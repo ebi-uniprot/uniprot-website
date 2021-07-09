@@ -1,29 +1,22 @@
-import ProteomesColumnConfiguration from '../ProteomesColumnConfiguration';
+import ProteomesColumnConfiguration, {
+  ProteomesColumn,
+} from '../ProteomesColumnConfiguration';
 
 import proteomesConverter, {
   ProteomesAPIModel,
   ProteomesUIModel,
 } from '../../adapters/proteomesConverter';
-import customRender from '../../../shared/__test-helpers__/customRender';
+import testColumnConfiguration from '../../../shared/__test-helpers__/testColumnConfiguration';
 
 import data from '../../__mocks__/proteomesEntryModelData';
 
 jest.mock('../../../tools/utils/storage');
 
+const transformedData: ProteomesUIModel = proteomesConverter(data);
+
 describe('ProteomesColumnConfiguration component', () => {
-  let transformedData: ProteomesUIModel;
-
-  beforeAll(() => {
-    transformedData = proteomesConverter(data as ProteomesAPIModel);
-  });
-
-  test.each(Array.from(ProteomesColumnConfiguration.entries()))(
-    `should render column "%s"`,
-    (key, column) => {
-      const { asFragment } = customRender(
-        <>{column.render(transformedData)}</>
-      );
-      expect(asFragment()).toMatchSnapshot(key);
-    }
+  testColumnConfiguration<ProteomesColumn, ProteomesAPIModel>(
+    ProteomesColumnConfiguration,
+    transformedData
   );
 });
