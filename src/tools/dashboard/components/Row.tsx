@@ -20,6 +20,7 @@ import {
   Bubble,
   Button,
 } from 'franklin-sites';
+import { LocationDescriptor } from 'history';
 
 import { updateJob, deleteJob } from '../../state/toolsActions';
 
@@ -33,6 +34,7 @@ import parseDate from '../../../shared/utils/parseDate';
 import { FailedJob, Job, FinishedJob } from '../../types/toolsJob';
 import { Status } from '../../types/toolsStatuses';
 import { JobTypes } from '../../types/toolsJobTypes';
+import { LocationStateFromJobLink } from '../../hooks/useMarkJobAsSeen';
 
 import './styles/Dashboard.scss';
 
@@ -127,7 +129,7 @@ const Seen = ({ job }: { job: FailedJob | FinishedJob<JobTypes> }) => {
 
 interface NiceStatusProps {
   job: Job;
-  jobLink?: string;
+  jobLink?: LocationDescriptor;
 }
 
 const NiceStatus = ({ job, jobLink }: NiceStatusProps) => {
@@ -295,15 +297,21 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
   const dispatch = useDispatch();
   const reducedMotion = useReducedMotion();
 
-  let jobLink: string | undefined;
+  let jobLink: LocationDescriptor<LocationStateFromJobLink> | undefined;
   if ('remoteID' in job && job.status === Status.FINISHED && !hasExpired) {
     if (
       job.type === JobTypes.ID_MAPPING ||
       job.type === JobTypes.PEPTIDE_SEARCH
     ) {
-      jobLink = `${jobTypeToPath(job.type)}/${job.remoteID}`;
+      jobLink = {
+        pathname: `${jobTypeToPath(job.type)}/${job.remoteID}`,
+        state: { internalID: job.internalID },
+      };
     } else {
-      jobLink = `${jobTypeToPath(job.type)}/${job.remoteID}/overview`;
+      jobLink = {
+        pathname: `${jobTypeToPath(job.type)}/${job.remoteID}/overview`,
+        state: { internalID: job.internalID },
+      };
     }
   }
 
