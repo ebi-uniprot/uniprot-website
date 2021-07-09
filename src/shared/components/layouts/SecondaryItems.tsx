@@ -22,6 +22,7 @@ import { pluralise } from '../../utils/utils';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { RootState } from '../../../app/state/rootInitialState';
+import { Status } from '../../../tools/types/toolsStatuses';
 
 import styles from './styles/secondary-items.module.scss';
 
@@ -39,11 +40,20 @@ type Props = {
   close: () => void;
 };
 
+const statusesToNotify = new Set([
+  Status.FINISHED,
+  Status.FAILURE,
+  Status.ERRORED,
+]);
+
 const ToolsDashboard = ({ display, close }: Props) => {
   const count = useSelector<RootState, number>(
     (state) =>
       Object.values(state.tools).filter(
-        (job) => 'seen' in job && job.seen === false
+        (job) =>
+          'seen' in job &&
+          job.seen === false &&
+          statusesToNotify.has(job.status)
       ).length
   );
   const [dashboardButtonX, setDashboardButtonX] = useState<number>();
