@@ -54,7 +54,7 @@ const PeptideSearchResult: FC = () => {
   const accessions = jobData?.split(',').filter(Boolean);
 
   // Query for facets
-  const { url: initialApiFacetUrl } = useNSQuery({
+  const initialApiFacetUrl = useNSQuery({
     size: 0,
     withFacets: true,
     withColumns: false,
@@ -70,7 +70,7 @@ const PeptideSearchResult: FC = () => {
   const facetTotal = facetHeaders?.['x-total-records'];
 
   // Query for results data
-  const { url: initialApiUrl, direct } = useNSQuery({ accessions });
+  const initialApiUrl = useNSQuery({ accessions });
   const resultsDataObject = usePagination(initialApiUrl);
   const {
     initialLoading: resultsDataInitialLoading,
@@ -128,7 +128,6 @@ const PeptideSearchResult: FC = () => {
       />
       <ResultsData
         resultsDataObject={resultsDataObject}
-        direct={direct}
         selectedEntries={selectedEntries}
         handleEntrySelection={handleEntrySelection}
       />

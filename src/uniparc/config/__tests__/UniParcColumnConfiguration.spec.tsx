@@ -3,29 +3,22 @@ import UniParcColumnConfiguration, {
 } from '../UniParcColumnConfiguration';
 
 import uniParcConverter, {
+  UniParcAPIModel,
   UniParcUIModel,
 } from '../../adapters/uniParcConverter';
 import customRender from '../../../shared/__test-helpers__/customRender';
+import testColumnConfiguration from '../../../shared/__test-helpers__/testColumnConfiguration';
 
 import data from '../../__mocks__/uniParcEntryModelData';
 
 jest.mock('../../../tools/utils/storage');
 
+const transformedData: UniParcUIModel = uniParcConverter(data);
+
 describe('UniParcColumnConfiguration component', () => {
-  let transformedData: UniParcUIModel;
-
-  beforeAll(() => {
-    transformedData = uniParcConverter(data);
-  });
-
-  test.each(Array.from(UniParcColumnConfiguration.entries()))(
-    `should render column "%s"`,
-    (key, column) => {
-      const { asFragment } = customRender(
-        <>{column.render(transformedData)}</>
-      );
-      expect(asFragment()).toMatchSnapshot(key);
-    }
+  testColumnConfiguration<UniParcColumn, UniParcAPIModel>(
+    UniParcColumnConfiguration,
+    transformedData
   );
 
   describe('edge cases', () => {

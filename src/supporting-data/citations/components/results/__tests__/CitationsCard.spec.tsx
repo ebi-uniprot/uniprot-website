@@ -8,14 +8,19 @@ import citationData from '../../__mocks__/literatureCitationData';
 
 describe('CitationsCard tests', () => {
   it('should render the card component', () => {
-    const { asFragment } = customRender(<CitationsCard data={citationData} />);
+    const { asFragment } = customRender(
+      <CitationsCard data={citationData['14702039']} />
+    );
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('should allow card selection and navigation', () => {
     const handleClick = jest.fn();
     const { history } = customRender(
-      <CitationsCard data={citationData} handleEntrySelection={handleClick} />
+      <CitationsCard
+        data={citationData['14702039']}
+        handleEntrySelection={handleClick}
+      />
     );
     fireEvent.click(screen.getByRole('checkbox'));
     expect(handleClick).toHaveBeenCalled();

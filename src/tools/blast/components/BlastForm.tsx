@@ -275,8 +275,7 @@ const BlastForm = () => {
           ? getAutoMatrixFor(sequence.selected as string)
           : (matrix.selected as Matrix),
       filter: filter.selected as Filter,
-      // transform string into boolean
-      gapped: (gapped.selected === 'true') as GapAlign,
+      gapped: gapped.selected as GapAlign,
       // transform string into number
       hits: parseInt(hits.selected as string, 10) as Scores,
     };
