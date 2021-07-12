@@ -7,6 +7,7 @@ import {
   getBEMClassName,
   formatPercentage,
   isSameEntry,
+  deepFindAllByKey,
 } from '../utils';
 
 describe('Model Utils', () => {
@@ -90,6 +91,7 @@ describe('getBEMClassName', () => {
         m: [
           true && 'modifier_1',
           false && 'modifier_2',
+          // eslint-disable-next-line no-constant-condition
           true ? 'modifier_3a' : 'modifier_3b',
         ],
       })
@@ -152,5 +154,27 @@ describe('isSameEntry', () => {
         { transformedData: { id: 'P54321' } }
       )
     ).toBeFalsy();
+  });
+});
+
+describe('deepFindAllByKey', () => {
+  it('should find all keys in nested object', () => {
+    expect(
+      Array.from(deepFindAllByKey({ a: 1, b: { c: { d: { a: 2 } } } }, 'a'))
+    ).toEqual([1, 2]);
+  });
+  it('should find all keys in array of nested objects', () => {
+    expect(
+      Array.from(
+        deepFindAllByKey([{ a: 1 }, { b: { c: { d: { a: 2 } } } }], 'a')
+      )
+    ).toEqual([1, 2]);
+  });
+  it('should find no keys if not present', () => {
+    expect(
+      Array.from(
+        deepFindAllByKey([{ a: 1 }, { b: { c: { d: { a: 2 } } } }], 'z')
+      )
+    ).toEqual([]);
   });
 });
