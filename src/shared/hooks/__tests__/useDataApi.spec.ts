@@ -10,7 +10,7 @@ import useDataApiWithStale from '../useDataApiWithStale';
 
 const url = '/some/path';
 const url2 = '/some/other/path';
-let mock = new MockAdapter(axios);
+const mock = new MockAdapter(axios);
 
 const mockDispatch = jest.fn();
 jest.mock('react-redux', () => ({ useDispatch: () => mockDispatch }));
