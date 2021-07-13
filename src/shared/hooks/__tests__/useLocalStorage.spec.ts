@@ -1,7 +1,10 @@
 import { renderHook, act } from '@testing-library/react-hooks';
 import { JsonValue } from 'type-fest';
 
-import useLocalStorage, { localStorageCache } from '../useLocalStorage';
+import useLocalStorage, {
+  localStorageCache,
+  UserPreferenceKey,
+} from '../useLocalStorage';
 
 describe('useLocalStorage hook', () => {
   afterEach(() => {
@@ -28,6 +31,26 @@ describe('useLocalStorage hook', () => {
     );
 
     expect(result.current[0]).toEqual('previous value');
+  });
+
+  test('get 2 values with same hook, basic, first time, already saved', async () => {
+    window.localStorage.setItem('gdpr', JSON.stringify('previous value'));
+    window.localStorage.setItem('view-mode', JSON.stringify('previous view'));
+    const { result, rerender } = renderHook<
+      { key: UserPreferenceKey },
+      [
+        state: JsonValue,
+        setState: React.Dispatch<React.SetStateAction<JsonValue>>
+      ]
+    >((props) => useLocalStorage<JsonValue>(props.key, 'default value'), {
+      initialProps: { key: 'gdpr' as const },
+    });
+
+    expect(result.current[0]).toEqual('previous value');
+
+    rerender({ key: 'view-mode' as const });
+
+    expect(result.current[0]).toEqual('previous view');
   });
 
   test('set value, basic, already saved', async () => {
