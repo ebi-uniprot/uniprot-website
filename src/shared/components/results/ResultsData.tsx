@@ -1,4 +1,4 @@
-import { useEffect, useMemo, FC, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import {
   DataTableWithLoader,
   DataListWithLoader,
