@@ -2,10 +2,12 @@
 import {
   EllipsisReveal,
   ExpandableList,
+  ExternalLink,
   LongNumber,
   Sequence,
 } from 'franklin-sites';
 import { Link } from 'react-router-dom';
+import { Fragment } from 'react';
 
 import SimpleView from '../../shared/components/views/SimpleView';
 import { ECNumbersView } from '../components/protein-data-views/ProteinNamesView';
@@ -75,6 +77,8 @@ import { fromColumnConfig } from '../../tools/id-mapping/config/IdMappingColumnC
 import { Namespace } from '../../shared/types/namespaces';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
 import AccessionView from '../../shared/components/results/AccessionView';
+
+import { Interactant } from '../adapters/interactionConverter';
 
 export const defaultColumns = [
   UniProtKBColumn.accession,
@@ -705,65 +709,67 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
     ) as InteractionComment[];
     const { primaryAccession } = data;
 
-    const interactionElements = interactionComments
-      ?.map((interactionCC) =>
-        interactionCC.interactions.map((interaction) => {
-          if (interaction.type === InteractionType.SELF) {
-            return 'self';
-          }
-          if (
-            interaction.interactantOne.uniProtKBAccession ===
-              primaryAccession &&
-            interaction.interactantTwo.uniProtKBAccession
-          ) {
-            return (
-              <div
-                key={`${interaction.interactantOne.uniProtKBAccession}-${interaction.interactantTwo.uniProtKBAccession}`}
-              >
-                <Link
-                  to={getEntryPath(
-                    Namespace.uniprotkb,
-                    interaction.interactantTwo.uniProtKBAccession
-                  )}
-                >
-                  {interaction.interactantTwo.uniProtKBAccession}
-                </Link>
-              </div>
-            );
-          }
-          if (
-            interaction.interactantTwo.uniProtKBAccession ===
-              primaryAccession &&
-            interaction.interactantOne.uniProtKBAccession
-          ) {
-            return (
-              <div
-                key={`${interaction.interactantOne.uniProtKBAccession}-${interaction.interactantTwo.uniProtKBAccession}`}
-              >
-                <Link
-                  to={getEntryPath(
-                    Namespace.uniprotkb,
-                    interaction.interactantOne.uniProtKBAccession
-                  )}
-                >
-                  {interaction.interactantOne.uniProtKBAccession}
-                </Link>
-              </div>
-            );
-          }
-          // Some of the interactions are second level so don't feature the primaryAccession
-          // just ignore them.
-          return null;
-        })
-      )
-      .flat();
+    const interactionSet = new Set(
+      interactionComments
+        ?.map(
+          (interactionCC) =>
+            interactionCC.interactions
+              .map((interaction) => {
+                if (interaction.type === InteractionType.SELF) {
+                  return 'self';
+                }
+                if (
+                  interaction.interactantOne.uniProtKBAccession ===
+                    primaryAccession &&
+                  interaction.interactantTwo.uniProtKBAccession
+                ) {
+                  return interaction.interactantTwo;
+                }
+                if (
+                  interaction.interactantTwo.uniProtKBAccession ===
+                    primaryAccession &&
+                  interaction.interactantOne.uniProtKBAccession
+                ) {
+                  return interaction.interactantOne;
+                }
+                // Some of the interactions are second level so don't feature the primaryAccession
+                // just ignore them.
+                return null;
+              })
+              .filter((item) => item) // filter out null|undefined
+        )
+        .flat() as (string | Interactant)[]
+    );
 
     return (
-      interactionElements && (
-        <ExpandableList displayNumberOfHiddenItems>
-          {interactionElements.map((element) => element)}
-        </ExpandableList>
-      )
+      <ExpandableList displayNumberOfHiddenItems>
+        {Array.from(interactionSet).map((interactant) =>
+          typeof interactant === 'string' ? (
+            // SELF
+            interactant
+          ) : (
+            <Fragment key={interactant.uniProtKBAccession}>
+              {interactant.uniProtKBAccession && (
+                <Link
+                  to={getEntryPath(
+                    Namespace.uniprotkb,
+                    interactant.uniProtKBAccession
+                  )}
+                >
+                  {interactant.uniProtKBAccession}
+                </Link>
+              )}{' '}
+              {interactant?.geneName} (
+              <ExternalLink
+                url={`https://www.ebi.ac.uk/intact/query/id:${interactant?.intActId}`}
+              >
+                {interactant?.intActId}
+              </ExternalLink>
+              )
+            </Fragment>
+          )
+        )}
+      </ExpandableList>
     );
   },
 });
