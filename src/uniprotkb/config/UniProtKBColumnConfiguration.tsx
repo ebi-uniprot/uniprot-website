@@ -2,7 +2,6 @@
 import {
   EllipsisReveal,
   ExpandableList,
-  ExternalLink,
   LongNumber,
   Sequence,
 } from 'franklin-sites';
@@ -709,41 +708,52 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
     ) as InteractionComment[];
     const { primaryAccession } = data;
 
-    const interactionSet = new Set(
-      interactionComments
-        ?.map(
-          (interactionCC) =>
-            interactionCC.interactions
-              .map((interaction) => {
-                if (interaction.type === InteractionType.SELF) {
-                  return 'self';
-                }
-                if (
-                  interaction.interactantOne.uniProtKBAccession ===
-                    primaryAccession &&
-                  interaction.interactantTwo.uniProtKBAccession
-                ) {
-                  return interaction.interactantTwo;
-                }
-                if (
-                  interaction.interactantTwo.uniProtKBAccession ===
-                    primaryAccession &&
-                  interaction.interactantOne.uniProtKBAccession
-                ) {
-                  return interaction.interactantOne;
-                }
-                // Some of the interactions are second level so don't feature the primaryAccession
-                // just ignore them.
-                return null;
-              })
-              .filter((item) => item) // filter out null|undefined
-        )
-        .flat() as (string | Interactant)[]
+    const interactionDataMap = new Map();
+
+    interactionComments?.forEach((interactionCC) =>
+      interactionCC.interactions.forEach((interaction) => {
+        if (interaction.type === InteractionType.SELF) {
+          interactionDataMap.set('self', 'self');
+        }
+        if (
+          interaction.interactantOne.uniProtKBAccession === primaryAccession &&
+          interaction.interactantTwo.uniProtKBAccession
+        ) {
+          interactionDataMap.set(
+            interaction.interactantTwo.uniProtKBAccession,
+            interaction.interactantTwo
+          );
+        }
+        if (
+          interaction.interactantTwo.uniProtKBAccession === primaryAccession &&
+          interaction.interactantOne.uniProtKBAccession
+        ) {
+          interactionDataMap.set(
+            interaction.interactantOne.uniProtKBAccession,
+            interaction.interactantOne
+          );
+        }
+        // Some of the interactions are second level so don't feature the primaryAccession
+        // just ignore them.
+      })
+    );
+
+    const sortedInteractions = Array.from(interactionDataMap.values()).sort(
+      (a, b) => {
+        if (typeof a !== 'string' && typeof b !== 'string') {
+          return (
+            (a as Interactant).geneName?.localeCompare(
+              (b as Interactant).geneName || ''
+            ) || -1
+          );
+        }
+        return -1;
+      }
     );
 
     return (
       <ExpandableList displayNumberOfHiddenItems>
-        {Array.from(interactionSet).map((interactant) =>
+        {sortedInteractions.map((interactant) =>
           typeof interactant === 'string' ? (
             // SELF
             interactant
@@ -759,13 +769,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
                   {interactant.uniProtKBAccession}
                 </Link>
               )}{' '}
-              {interactant?.geneName} (
-              <ExternalLink
-                url={`https://www.ebi.ac.uk/intact/query/id:${interactant?.intActId}`}
-              >
-                {interactant?.intActId}
-              </ExternalLink>
-              )
+              {interactant?.geneName}
             </Fragment>
           )
         )}

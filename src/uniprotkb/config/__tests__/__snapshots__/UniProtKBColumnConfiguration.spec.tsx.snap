@@ -527,45 +527,19 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_interac
   >
     <li>
       <a
-        href="/uniprotkb/P12345-1"
-      >
-        P12345-1
-      </a>
-       gene1 (
-      <a
-        class="external-link"
-        href="https://www.ebi.ac.uk/intact/query/id:EBI-0002"
-        rel="noopener"
-        target="_blank"
-      >
-        EBI-0002
-        <test-file-stub
-          data-testid="external-link-icon"
-          width="12.5"
-        />
-      </a>
-      )
-    </li>
-    <li>
-      <a
         href="/uniprotkb/P12345"
       >
         P12345
       </a>
-       gen (
+       gen
+    </li>
+    <li>
       <a
-        class="external-link"
-        href="https://www.ebi.ac.uk/intact/query/id:EBI-00011"
-        rel="noopener"
-        target="_blank"
+        href="/uniprotkb/P12345-1"
       >
-        EBI-00011
-        <test-file-stub
-          data-testid="external-link-icon"
-          width="12.5"
-        />
+        P12345-1
       </a>
-      )
+       gene1
     </li>
   </ul>
 </DocumentFragment>
