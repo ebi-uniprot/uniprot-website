@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
-import BasketStatus from '../BasketStatus';
+import BasketStatus from '../basket/BasketStatus';
 import EntryTypeIcon, { EntryType } from '../entry/EntryTypeIcon';
 
 import { getEntryPath } from '../../../app/config/urls';

@@ -1,9 +1,10 @@
 import {
-  CSSProperties,
   useMemo,
   useState,
   useRef,
   useEffect,
+  Suspense,
+  CSSProperties,
   Dispatch,
   SetStateAction,
 } from 'react';
@@ -17,15 +18,15 @@ import {
   ToolboxIcon,
   Bubble,
   SlidingPanel,
+  Loader,
 } from 'franklin-sites';
 import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
 
-import BasketContent from '../basket/BasketContent';
-import Dashboard from '../../../tools/dashboard/components/Dashboard';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 
 import useBasket from '../../hooks/useBasket';
 
+import lazy from '../../utils/lazy';
 import { pluralise } from '../../utils/utils';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
@@ -40,6 +41,17 @@ interface Style extends CSSProperties {
   // TODO: find a way to expose them globally when using franklin elements
   '--main-bubble-color': string;
 }
+
+const BasketContent = lazy(
+  () => import(/* webpackChunkName: "basket" */ '../basket/BasketContent')
+);
+
+const Dashboard = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "dashboard" */ '../../../tools/dashboard/components/Dashboard'
+    )
+);
 
 const secondaryItemIconSize = '1.4em';
 
@@ -71,7 +83,7 @@ const ToolsDashboard = ({ display, setDisplay }: Props) => {
   });
   const [dashboardButtonX, setDashboardButtonX] = useState<number>();
 
-  const spanRef = useRef<HTMLSpanElement>(null);
+  const spanRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     if (!display) {
@@ -93,6 +105,10 @@ const ToolsDashboard = ({ display, setDisplay }: Props) => {
         title="Tools dashboard"
         className={styles['secondary-item']}
         ref={spanRef}
+        onPointerOver={Dashboard.preload}
+        // Not a focus target, so no need, do that when we can use a link as a
+        // secondary item (after franklin's Header refactor/simplification)
+        // onFocus={Dashboard.preload}
       >
         <ToolboxIcon width={secondaryItemIconSize} />
         {count ? (
@@ -128,7 +144,9 @@ const ToolsDashboard = ({ display, setDisplay }: Props) => {
           arrowX={dashboardButtonX}
         >
           <ErrorBoundary>
-            <Dashboard inPanel />
+            <Suspense fallback={<Loader />}>
+              <Dashboard inPanel />
+            </Suspense>
           </ErrorBoundary>
         </SlidingPanel>
       )}
@@ -163,7 +181,15 @@ export const Basket = ({ display, setDisplay }: Props) => {
 
   return (
     <>
-      <span title="Basket" className={styles['secondary-item']} ref={spanRef}>
+      <span
+        title="Basket"
+        className={styles['secondary-item']}
+        ref={spanRef}
+        onPointerOver={BasketContent.preload}
+        // Not a focus target, so no need, do that when we can use a link as a
+        // secondary item (after franklin's Header refactor/simplification)
+        // onFocus={BasketContent.preload}
+      >
         <BasketIcon width={secondaryItemIconSize} />
         {count ? (
           <Bubble
@@ -177,16 +203,26 @@ export const Basket = ({ display, setDisplay }: Props) => {
       </span>
       {display && (
         <SlidingPanel
-          title="My Basket"
+          title={
+            <Link
+              className={styles['link-in-panel-title']}
+              to={LocationToPath[Location.Basket]}
+              onClick={() => setDisplay(false)}
+            >
+              My Basket
+            </Link>
+          }
           withCloseButton
           position="right"
-          size="small"
+          size="medium"
           onClose={() => setDisplay(false)}
           arrowX={basketButtonX}
           className={styles['basket-panel']}
         >
           <ErrorBoundary>
-            <BasketContent />
+            <Suspense fallback={<Loader />}>
+              <BasketContent inPanel />
+            </Suspense>
           </ErrorBoundary>
         </SlidingPanel>
       )}

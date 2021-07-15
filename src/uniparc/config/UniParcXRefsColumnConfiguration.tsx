@@ -8,7 +8,7 @@ import {
   EntryTypeIcon,
 } from '../../shared/components/entry/EntryTypeIcon';
 import TaxonomyView from '../../shared/components/entry/TaxonomyView';
-import BasketStatus from '../../shared/components/BasketStatus';
+import BasketStatus from '../../shared/components/basket/BasketStatus';
 
 import { getEntryPath } from '../../app/config/urls';
 

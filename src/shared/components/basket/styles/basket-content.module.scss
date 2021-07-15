@@ -1,0 +1,15 @@
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  user-select: none;
+}
+
+.basket-in-sliding-panel {
+  &:global(.data-table) th {
+    top: 0 !important;
+  }
+
+  & > section {
+    margin-left: 1rem;
+  }
+}

@@ -34,6 +34,7 @@ export enum Location {
   LocationsEntry = 'LocationsEntry',
   LocationsResults = 'LocationsResults',
   // Tools
+  Basket = 'Basket',
   Dashboard = 'Dashboard',
   Align = 'Align',
   AlignResult = 'AlignResult',
@@ -70,6 +71,7 @@ export const LocationToPath: Record<Location, string> = {
   [Location.LocationsEntry]: `/${Namespace.locations}/:accession`,
   [Location.LocationsResults]: `/${Namespace.locations}`,
   // Tools
+  [Location.Basket]: '/basket',
   [Location.Dashboard]: '/tool-dashboard',
   [Location.AlignResult]: '/align/:id/:subPage?',
   [Location.Align]: '/align',

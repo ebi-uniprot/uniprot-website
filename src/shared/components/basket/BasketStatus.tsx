@@ -1,9 +1,9 @@
 import { BasketIcon } from 'franklin-sites';
 import cn from 'classnames';
 
-import useBasket from '../hooks/useBasket';
+import useBasket from '../../hooks/useBasket';
 
-import accessionToNamespace from '../utils/accessionToNamespace';
+import accessionToNamespace from '../../utils/accessionToNamespace';
 
 import styles from './styles/basket-status.module.scss';
 

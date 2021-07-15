@@ -16,7 +16,7 @@ const useNSQuery = ({
   size,
   withFacets = false,
   withColumns = true,
-  accessions = [],
+  accessions,
   overrideNS,
 }: {
   size?: number;
@@ -46,7 +46,7 @@ const useNSQuery = ({
     getParamsFromURL(queryParamFromUrl);
 
   const url = useMemo(() => {
-    if (!query && !accessions.length) {
+    if (!(query || accessions)) {
       return undefined;
     }
     const options = {
@@ -59,7 +59,7 @@ const useNSQuery = ({
       sortDirection,
       size,
     };
-    return accessions.length
+    return accessions
       ? getAccessionsURL(accessions, options)
       : getAPIQueryUrl(options);
   }, [

@@ -107,12 +107,12 @@ const ColumnConfigurations: Partial<Record<Namespace, Map<any, any>>> = {
   [Namespace.idmapping]: IdMappingColumnConfiguration,
 };
 
-const getColumnsToDisplay = (
+export const getColumnsToDisplay = (
   namespace: Namespace,
   columns: Column[] | undefined,
-  sortableColumnToSortColumn: Map<Column, string>,
-  sortColumn: SortableColumn,
-  sortDirection: SortDirection
+  sortableColumnToSortColumn?: Map<Column, string>,
+  sortColumn?: SortableColumn,
+  sortDirection?: SortDirection
 ): ColumnDescriptor[] =>
   columns?.map((columnName) => {
     const columnConfig = ColumnConfigurations[namespace]?.get(columnName);
@@ -123,7 +123,7 @@ const getColumnsToDisplay = (
         render: (row: APIModel) =>
           columnConfig.render(convertRow(row, namespace)),
       };
-      if (sortableColumnToSortColumn.has(columnName)) {
+      if (sortableColumnToSortColumn?.has(columnName)) {
         return {
           ...columnDescriptor,
           sortable: true,

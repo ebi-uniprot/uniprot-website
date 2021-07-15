@@ -153,6 +153,13 @@ const PeptideSearchForm = lazy(
     )
 );
 
+const BasketContent = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "basket" */ '../../shared/components/basket/BasketContent'
+    )
+);
+
 const Dashboard = lazy(
   () =>
     import(
@@ -292,6 +299,14 @@ const App = () => {
                 render={() => (
                   <SingleColumnLayout>
                     <IDMappingForm />
+                  </SingleColumnLayout>
+                )}
+              />
+              <Route
+                path={LocationToPath[Location.Basket]}
+                render={() => (
+                  <SingleColumnLayout>
+                    <BasketContent />
                   </SingleColumnLayout>
                 )}
               />

@@ -1,25 +1,14 @@
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import {
-  Card,
-  PageIntro,
-  ClockIcon,
-  Message,
-  ReSubmitIcon,
-} from 'franklin-sites';
+import { Card, PageIntro, ClockIcon, ReSubmitIcon } from 'franklin-sites';
 import { partition } from 'lodash-es';
 
 import Row from './Row';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
+import EmptyDashboard from './EmptyDashboard';
 
 import { RootState } from '../../../app/state/rootInitialState';
 import { Job } from '../../types/toolsJob';
 
-import ArtWork from '../../svg/no-blast-results.svg';
-
 import './styles/Dashboard.scss';
-import '../../../shared/components/error-pages/styles/error-pages.scss';
 
 const EXPIRED_TIME = 1000 * 60 * 60 * 24 * 7; // 1 week
 
@@ -35,25 +24,10 @@ const Dashboard = ({ inPanel }: { inPanel?: boolean }) => {
   );
 
   if (!(activeJobs.length || expiredJobs.length)) {
-    const noResultsSubtitle = (
-      <div>
-        Try using <Link to={LocationToPath[Location.Blast]}>BLAST</Link>,{' '}
-        <Link to={LocationToPath[Location.Align]}>Align</Link>,{' '}
-        <Link to={LocationToPath[Location.IDMapping]}>Retrieve/ID Mapping</Link>{' '}
-        or{' '}
-        <Link to={LocationToPath[Location.PeptideSearch]}>Peptide Search</Link>{' '}
-        to begin
-      </div>
-    );
     return (
       <>
         {inPanel ? null : <PageIntro title="Tool results" />}
-        <div className="error-page-container">
-          <ArtWork className="error-page-container__art-work" />
-          <Message level="warning" subtitle={noResultsSubtitle} forFullPage>
-            No results available. Your UniProt tool results will be shown here
-          </Message>
-        </div>
+        <EmptyDashboard />
       </>
     );
   }

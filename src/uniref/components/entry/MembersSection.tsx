@@ -6,7 +6,7 @@ import AddToBasket from '../../../shared/components/action-buttons/AddToBasket';
 import AlignButton from '../../../shared/components/action-buttons/Align';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
-import BasketStatus from '../../../shared/components/BasketStatus';
+import BasketStatus from '../../../shared/components/basket/BasketStatus';
 import MemberLink from './MemberLink';
 
 import useDataApi from '../../../shared/hooks/useDataApi';

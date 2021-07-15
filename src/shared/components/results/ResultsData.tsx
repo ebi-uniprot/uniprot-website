@@ -8,7 +8,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 import useNS from '../../hooks/useNS';
 import useLocalStorage from '../../hooks/useLocalStorage';
-import useColumns from '../../hooks/useColumns';
+import useColumns, { ColumnDescriptor } from '../../hooks/useColumns';
 
 import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
@@ -33,7 +33,9 @@ type Props = {
   selectedEntries: string[];
   handleEntrySelection: (id: string) => void;
   namespaceFallback?: Namespace;
+  columnsFallback?: ColumnDescriptor<APIModel>[];
   displayIdMappingColumns?: boolean;
+  className?: string;
 };
 
 const ResultsData = ({
@@ -41,7 +43,9 @@ const ResultsData = ({
   selectedEntries,
   handleEntrySelection,
   namespaceFallback,
+  columnsFallback,
   displayIdMappingColumns,
+  className,
 }: Props) => {
   const namespace = useNS(namespaceFallback) || Namespace.uniprotkb;
   const [viewMode] = useLocalStorage<ViewMode>('view-mode', ViewMode.CARD);
@@ -75,7 +79,7 @@ const ResultsData = ({
         // ... and query marked as "direct" ...
         direct ||
         // ... or the result's ID or accession matches the query ...
-        getIdKey(uniqueItem).toUpperCase() === trimmedQuery ||
+        getIdKey(uniqueItem)?.toUpperCase() === trimmedQuery ||
         // ... or matches the UniProtKB ID ...
         ('uniProtkbId' in uniqueItem && uniqueItem.uniProtkbId === trimmedQuery)
       ) {
@@ -121,7 +125,7 @@ const ResultsData = ({
     namespace !== Namespace.idmapping ? (
       <DataTableWithLoader
         getIdKey={getIdKey}
-        columns={columns}
+        columns={columnsFallback || columns}
         data={allResults}
         loading={loading}
         selected={selectedEntries}
@@ -130,17 +134,19 @@ const ResultsData = ({
         onLoadMoreItems={handleLoadMoreRows}
         hasMoreData={hasMoreData}
         loaderComponent={loadComponent}
+        className={className}
       />
     ) : (
       <DataTableWithLoader
         getIdKey={getIdKey}
-        columns={columns}
+        columns={columnsFallback || columns}
         data={allResults}
         loading={loading}
         onHeaderClick={updateColumnSort}
         onLoadMoreItems={handleLoadMoreRows}
         hasMoreData={hasMoreData}
         loaderComponent={loadComponent}
+        className={className}
       />
     );
 
@@ -159,6 +165,7 @@ const ResultsData = ({
           onLoadMoreItems={handleLoadMoreRows}
           hasMoreData={hasMoreData}
           loaderComponent={loadComponent}
+          className={className}
         />
       ) : (
         dataTableWithLoader

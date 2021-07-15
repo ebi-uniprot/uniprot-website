@@ -1,23 +1,54 @@
+import { Fragment, useMemo, Dispatch, SetStateAction } from 'react';
 import cn from 'classnames';
-import { Tabs, Tab } from 'franklin-sites';
+import { Tabs, Tab, BinIcon, Button } from 'franklin-sites';
 
 import ResultsData from '../results/ResultsData';
+import EmptyBasket from './EmptyBasket';
 
-import useBasket from '../../hooks/useBasket';
+import useBasket, { Basket } from '../../hooks/useBasket';
 import useItemSelect from '../../hooks/useItemSelect';
 import usePagination from '../../hooks/usePagination';
 import useNSQuery from '../../hooks/useNSQuery';
 
-import { Namespace } from '../../types/namespaces';
+import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
 
-import styles from './styles/basket.module.scss';
+import { Namespace } from '../../types/namespaces';
+import { ColumnDescriptor, getColumnsToDisplay } from '../../hooks/useColumns';
+import { APIModel } from '../../types/apiModel';
+import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
+import { UniRefColumn } from '../../../uniref/config/UniRefColumnConfiguration';
+import { UniParcColumn } from '../../../uniparc/config/UniParcColumnConfiguration';
+
+import styles from './styles/basket-content.module.scss';
+
+const uniProtKBColumns = [
+  UniProtKBColumn.accession,
+  UniProtKBColumn.id,
+  UniProtKBColumn.organismName,
+];
+
+const uniRefColumns = [
+  UniRefColumn.id,
+  UniRefColumn.name,
+  UniRefColumn.organism,
+];
+
+const uniParcColumns = [
+  UniParcColumn.upi,
+  UniParcColumn.organism,
+  UniParcColumn.accession,
+];
 
 const MiniResultTable = ({
   accessions,
   namespace,
+  columnNames,
+  setBasket,
 }: {
   accessions: string[];
   namespace: Namespace;
+  columnNames?: Array<UniProtKBColumn | UniRefColumn | UniParcColumn>;
+  setBasket: Dispatch<SetStateAction<Basket>>;
 }) => {
   const [selectedEntries, handleEntrySelection] = useItemSelect();
 
@@ -29,25 +60,60 @@ const MiniResultTable = ({
   });
   const resultsDataObject = usePagination(initialApiUrl);
 
+  const columns = useMemo<undefined | Array<ColumnDescriptor<APIModel>>>(
+    () =>
+      columnNames && [
+        ...getColumnsToDisplay(namespace, columnNames),
+        {
+          name: 'remove',
+          label: null,
+          render: (datum) => (
+            <Button
+              variant="tertiary"
+              onClick={() =>
+                setBasket((currentBasket) => {
+                  const basketSubset = new Set(currentBasket.get(namespace));
+                  basketSubset?.delete(getIdKeyFor(namespace)(datum));
+                  return new Map([
+                    // other namespaces, untouched
+                    ...currentBasket,
+                    [namespace, basketSubset],
+                  ]);
+                })
+              }
+            >
+              <BinIcon width="1.5em" />
+            </Button>
+          ),
+        },
+      ],
+    [namespace, columnNames, setBasket]
+  );
+
   return (
     <ResultsData
       resultsDataObject={resultsDataObject}
       selectedEntries={selectedEntries}
       handleEntrySelection={handleEntrySelection}
       namespaceFallback={namespace}
+      columnsFallback={columns}
+      className={styles['basket-in-sliding-panel']}
     />
   );
 };
 
-const BasketContent = () => {
-  const [basket] = useBasket();
+const BasketContent = ({ inPanel }: { inPanel?: boolean }) => {
+  const [basket, setBasket] = useBasket();
 
   const uniprotkbIds = basket.get(Namespace.uniprotkb);
   const unirefIds = basket.get(Namespace.uniref);
   const uniparcIds = basket.get(Namespace.uniparc);
+
+  if (!uniprotkbIds?.size && !unirefIds?.size && !uniparcIds?.size) {
+    return <EmptyBasket />;
+  }
+
   // TODO
-  // Create query for the accessions endpoint
-  // Wire in datatables
   // Wire in buttons
   return (
     <Tabs>
@@ -57,33 +123,49 @@ const BasketContent = () => {
         }`}
         className={cn({ [styles.disabled]: !uniprotkbIds?.size })}
       >
-        {uniprotkbIds && (
+        {uniprotkbIds?.size ? (
           <MiniResultTable
             accessions={Array.from(uniprotkbIds)}
             namespace={Namespace.uniprotkb}
+            columnNames={inPanel ? uniProtKBColumns : undefined}
+            setBasket={setBasket}
           />
+        ) : (
+          <Fragment />
         )}
       </Tab>
       <Tab
         title={`UniRef${unirefIds?.size ? ` (${unirefIds.size})` : ''}`}
         className={cn({ [styles.disabled]: !unirefIds?.size })}
+        // If the previous doesn't have content, select this one
+        defaultSelected={!uniprotkbIds?.size}
       >
-        {unirefIds && (
+        {unirefIds?.size ? (
           <MiniResultTable
             accessions={Array.from(unirefIds)}
             namespace={Namespace.uniref}
+            columnNames={inPanel ? uniRefColumns : undefined}
+            setBasket={setBasket}
           />
+        ) : (
+          <Fragment />
         )}
       </Tab>
       <Tab
         title={`UniParc${uniparcIds?.size ? ` (${uniparcIds.size})` : ''}`}
         className={cn({ [styles.disabled]: !uniparcIds?.size })}
+        // If none of the previous has content, select this one
+        defaultSelected={!(uniprotkbIds?.size || unirefIds?.size)}
       >
-        {uniparcIds && (
+        {uniparcIds?.size ? (
           <MiniResultTable
             accessions={Array.from(uniparcIds)}
             namespace={Namespace.uniparc}
+            columnNames={inPanel ? uniParcColumns : undefined}
+            setBasket={setBasket}
           />
+        ) : (
+          <Fragment />
         )}
       </Tab>
     </Tabs>
