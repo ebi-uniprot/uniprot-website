@@ -83,7 +83,7 @@ const ToolsDashboard = ({ display, setDisplay }: Props) => {
   });
   const [dashboardButtonX, setDashboardButtonX] = useState<number>();
 
-  const spanRef = useRef<HTMLAnchorElement>(null);
+  const spanRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     if (!display) {

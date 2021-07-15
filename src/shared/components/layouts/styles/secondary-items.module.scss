@@ -5,16 +5,6 @@
 .secondary-item {
   position: relative;
 
-  &,
-  &:hover,
-  &:focus-within {
-    color: $colour-sky-white;
-  }
-
-  :global(.header--negative) & {
-    color: $colour-link;
-  }
-
   svg {
     width: initial;
     height: initial;
