@@ -1,15 +1,25 @@
+@import 'franklin-sites/src/styles/settings';
+
 .disabled {
   opacity: 0.5;
   pointer-events: none;
   user-select: none;
 }
 
-.basket-in-sliding-panel {
+:global(.sliding-panel) .basket-content {
   &:global(.data-table) th {
     top: 0 !important;
   }
 
-  & > section {
-    margin-left: 1rem;
+  & :global(.card) {
+    // remove the fake margin on the right of the cards
+    width: initial;
+
+    margin-left: $global-margin;
+    margin-right: $global-margin;
+  }
+
+  & :global(.button-group) {
+    margin-right: $global-margin;
   }
 }

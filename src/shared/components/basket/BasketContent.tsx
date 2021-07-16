@@ -6,9 +6,9 @@ import {
   Dispatch,
   SetStateAction,
 } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import cn from 'classnames';
-import { Tabs, Tab, BinIcon, Button } from 'franklin-sites';
+import { Tabs, Tab, BinIcon, Button, FullViewIcon } from 'franklin-sites';
 
 import ResultsData from '../results/ResultsData';
 import EmptyBasket from './EmptyBasket';
@@ -19,6 +19,7 @@ import usePagination from '../../hooks/usePagination';
 import useNSQuery from '../../hooks/useNSQuery';
 
 import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
+import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { Namespace } from '../../types/namespaces';
 import { ColumnDescriptor, getColumnsToDisplay } from '../../hooks/useColumns';
@@ -99,14 +100,37 @@ const MiniResultTable = ({
   );
 
   return (
-    <ResultsData
-      resultsDataObject={resultsDataObject}
-      selectedEntries={selectedEntries}
-      handleEntrySelection={handleEntrySelection}
-      namespaceFallback={namespace}
-      columnsFallback={columns}
-      className={styles['basket-in-sliding-panel']}
-    />
+    <span className={styles['basket-content']}>
+      <ResultsData
+        resultsDataObject={resultsDataObject}
+        selectedEntries={selectedEntries}
+        handleEntrySelection={handleEntrySelection}
+        namespaceFallback={namespace}
+        columnsFallback={columns}
+      />
+      {/* both classnames from Franklin */}
+      <div className="button-group sliding-panel__button-row">
+        <Button
+          variant="secondary"
+          onClick={() => {
+            setBasket((basket) => new Map([...basket, [namespace, new Set()]]));
+          }}
+        >
+          <BinIcon height="1em" width="1em" />
+          {selectedEntries.length
+            ? `Remove (${selectedEntries.length})`
+            : `Clear all (${accessions.length})`}
+        </Button>
+        <Button
+          element={Link}
+          variant="secondary"
+          to={LocationToPath[Location.Basket]}
+        >
+          <FullViewIcon height="1em" width="1em" />
+          Full view
+        </Button>
+      </div>
+    </span>
   );
 };
 
