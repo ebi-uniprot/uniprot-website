@@ -1,5 +1,5 @@
 import { PageIntro } from 'franklin-sites';
-import { FC, memo, useMemo, ReactNode } from 'react';
+import { FC, memo, ReactNode } from 'react';
 
 import ResultsButtons from './ResultsButtons';
 
@@ -26,12 +26,11 @@ const ResultsDataHeader: FC<{
   disableCardToggle = false,
 }) => {
   const namespace = useNS(namespaceFallback) || Namespace.uniprotkb;
-  const title = useMemo(() => namespaceToolTitles[namespace], [namespace]);
 
   return (
     <>
       <PageIntro
-        title={title}
+        title={namespaceToolTitles[namespace]}
         titlePostscript={titlePostscript}
         resultsCount={total}
       />

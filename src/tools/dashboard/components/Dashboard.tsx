@@ -103,6 +103,7 @@ const Dashboard = ({ closePanel }: { closePanel?: () => void }) => {
             element={Link}
             variant="secondary"
             to={LocationToPath[Location.Dashboard]}
+            onClick={closePanel}
           >
             <FullViewIcon height="1em" width="1em" />
             Full view

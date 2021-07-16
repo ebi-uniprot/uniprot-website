@@ -251,13 +251,15 @@ export const getAccessionsURL = (
     selectedFacets = [],
     sortColumn = undefined,
     sortDirection = SortDirection.ascend,
-    facets = defaultFacets.get(Namespace.uniprotkb),
+    facets,
     size,
   }: GetOptions = {}
 ) => {
   if (!(accessions && accessions.length)) {
     return undefined;
   }
+  const finalFacets =
+    facets === undefined ? defaultFacets.get(namespace) : facets;
   // for UniProtKB
   let key = 'accessions'; // This changes depending on the endpoint...
   if (namespace === Namespace.uniref) {
@@ -275,7 +277,7 @@ export const getAccessionsURL = (
           selectedFacets.filter(excludeLocalBlastFacets)
         ) || undefined,
       fields: (columns && columns.join(',')) || undefined,
-      facets: facets?.join(',') || undefined,
+      facets: finalFacets?.join(',') || undefined,
       sort:
         sortColumn &&
         `${sortColumn} ${getApiSortDirection(SortDirection[sortDirection])}`,

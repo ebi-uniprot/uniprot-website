@@ -1,8 +1,10 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { Dispatch, SetStateAction, useEffect, useMemo, useRef } from 'react';
 import {
   DataTableWithLoader,
   DataListWithLoader,
   Loader,
+  Button,
+  BinIcon,
 } from 'franklin-sites';
 import { useHistory, useLocation } from 'react-router-dom';
 
@@ -19,6 +21,7 @@ import cardRenderer from '../../config/resultsCardRenderers';
 import { Namespace, SearchableNamespace } from '../../types/namespaces';
 import { APIModel } from '../../types/apiModel';
 import { PaginatedResults } from '../../hooks/usePagination';
+import { Basket } from '../../hooks/useBasket';
 
 import './styles/warning.scss';
 import './styles/results-data.scss';
@@ -35,6 +38,7 @@ type Props = {
   namespaceFallback?: Namespace;
   columnsFallback?: ColumnDescriptor<APIModel>[];
   displayIdMappingColumns?: boolean;
+  basketSetter?: Dispatch<SetStateAction<Basket>>;
   className?: string;
 };
 
@@ -45,6 +49,7 @@ const ResultsData = ({
   namespaceFallback,
   columnsFallback,
   displayIdMappingColumns,
+  basketSetter,
   className,
 }: Props) => {
   const namespace = useNS(namespaceFallback) || Namespace.uniprotkb;
@@ -114,6 +119,35 @@ const ResultsData = ({
     prevViewMode.current !== viewMode ||
     prevNamespace.current !== namespace;
 
+  const finalColumns = useMemo(() => {
+    if (basketSetter) {
+      const removeColumn: ColumnDescriptor<APIModel> = {
+        name: 'remove',
+        label: null,
+        render: (datum) => (
+          <Button
+            variant="tertiary"
+            onClick={() =>
+              basketSetter((currentBasket) => {
+                const basketSubset = new Set(currentBasket.get(namespace));
+                basketSubset?.delete(getIdKeyFor(namespace)(datum));
+                return new Map([
+                  // other namespaces, untouched
+                  ...currentBasket,
+                  [namespace, basketSubset],
+                ]);
+              })
+            }
+          >
+            <BinIcon width="1.5em" />
+          </Button>
+        ),
+      };
+      return [...(columnsFallback || columns), removeColumn];
+    }
+    return columnsFallback || columns;
+  }, [basketSetter, columns, columnsFallback, namespace]);
+
   if (
     // if loading the first page of results
     loading
@@ -125,7 +159,7 @@ const ResultsData = ({
     namespace !== Namespace.idmapping ? (
       <DataTableWithLoader
         getIdKey={getIdKey}
-        columns={columnsFallback || columns}
+        columns={finalColumns}
         data={allResults}
         loading={loading}
         selected={selectedEntries}
@@ -139,7 +173,7 @@ const ResultsData = ({
     ) : (
       <DataTableWithLoader
         getIdKey={getIdKey}
-        columns={columnsFallback || columns}
+        columns={finalColumns}
         data={allResults}
         loading={loading}
         onHeaderClick={updateColumnSort}

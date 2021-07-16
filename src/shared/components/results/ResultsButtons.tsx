@@ -37,6 +37,8 @@ type ResultsButtonsProps = {
   namespaceFallback?: Namespace;
   base?: string;
   disableCardToggle?: boolean; // Note: remove if we have card view for id mapping
+  inBasket?: boolean;
+  notCustomisable?: boolean;
 };
 
 const ResultsButtons: FC<ResultsButtonsProps> = ({
@@ -46,6 +48,8 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
   namespaceFallback,
   base,
   disableCardToggle = false,
+  inBasket = false,
+  notCustomisable = false,
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const namespace = useNS(namespaceFallback) || Namespace.uniprotkb;
@@ -53,10 +57,6 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
     'view-mode',
     ViewMode.CARD
   );
-
-  if (!namespace) {
-    throw new Error('No namespace provided');
-  }
 
   const isMain = mainNamespaces.has(namespace);
 
@@ -99,9 +99,12 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
           Download
         </Button>
         {isMain && namespace !== Namespace.proteomes && (
-          <AddToBasketButton selectedEntries={selectedEntries} />
+          <AddToBasketButton
+            selectedEntries={selectedEntries}
+            remove={inBasket}
+          />
         )}
-        {isMain && (
+        {!inBasket && isMain && (
           <Button variant="tertiary" disabled>
             <StatisticsIcon />
             Statistics
@@ -132,9 +135,9 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
             })}
           />
         </Button>
-        {viewMode === ViewMode.TABLE && namespace !== Namespace.idmapping && (
-          <CustomiseButton />
-        )}
+        {!notCustomisable &&
+          viewMode === ViewMode.TABLE &&
+          namespace !== Namespace.idmapping && <CustomiseButton />}
       </div>
     </>
   );

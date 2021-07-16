@@ -6,19 +6,19 @@ import {
   Dispatch,
   SetStateAction,
 } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { generatePath, Link, useLocation } from 'react-router-dom';
 import cn from 'classnames';
 import { Tabs, Tab, BinIcon, Button, FullViewIcon } from 'franklin-sites';
 
 import ResultsData from '../results/ResultsData';
 import EmptyBasket from './EmptyBasket';
+import ResultsButtons from '../results/ResultsButtons';
 
 import useBasket, { Basket } from '../../hooks/useBasket';
 import useItemSelect from '../../hooks/useItemSelect';
 import usePagination from '../../hooks/usePagination';
 import useNSQuery from '../../hooks/useNSQuery';
 
-import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { Namespace } from '../../types/namespaces';
@@ -28,7 +28,8 @@ import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
 import { UniRefColumn } from '../../../uniref/config/UniRefColumnConfiguration';
 import { UniParcColumn } from '../../../uniparc/config/UniParcColumnConfiguration';
 
-import styles from './styles/basket-content.module.scss';
+import helper from '../../styles/helper.module.scss';
+import styles from './styles/basket-mini-view.module.scss';
 
 const uniProtKBColumns = [
   UniProtKBColumn.accession,
@@ -48,17 +49,21 @@ const uniParcColumns = [
   UniParcColumn.accession,
 ];
 
-const MiniResultTable = ({
+type BasketMiniViewTabProps = {
+  accessions: string[];
+  namespace: Namespace;
+  columnNames: Array<UniProtKBColumn | UniRefColumn | UniParcColumn>;
+  setBasket: Dispatch<SetStateAction<Basket>>;
+  closePanel: () => void;
+};
+
+const BasketMiniViewTab = ({
   accessions,
   namespace,
   columnNames,
   setBasket,
-}: {
-  accessions: string[];
-  namespace: Namespace;
-  columnNames?: Array<UniProtKBColumn | UniRefColumn | UniParcColumn>;
-  setBasket: Dispatch<SetStateAction<Basket>>;
-}) => {
+  closePanel,
+}: BasketMiniViewTabProps) => {
   const [selectedEntries, handleEntrySelection] = useItemSelect();
 
   const initialApiUrl = useNSQuery({
@@ -69,44 +74,28 @@ const MiniResultTable = ({
   });
   const resultsDataObject = usePagination(initialApiUrl);
 
-  const columns = useMemo<undefined | Array<ColumnDescriptor<APIModel>>>(
-    () =>
-      columnNames && [
-        ...getColumnsToDisplay(namespace, columnNames),
-        {
-          name: 'remove',
-          label: null,
-          render: (datum) => (
-            <Button
-              variant="tertiary"
-              onClick={() =>
-                setBasket((currentBasket) => {
-                  const basketSubset = new Set(currentBasket.get(namespace));
-                  basketSubset?.delete(getIdKeyFor(namespace)(datum));
-                  return new Map([
-                    // other namespaces, untouched
-                    ...currentBasket,
-                    [namespace, basketSubset],
-                  ]);
-                })
-              }
-            >
-              <BinIcon width="1.5em" />
-            </Button>
-          ),
-        },
-      ],
-    [namespace, columnNames, setBasket]
+  const columns = useMemo<Array<ColumnDescriptor<APIModel>>>(
+    () => columnNames && getColumnsToDisplay(namespace, columnNames),
+    [namespace, columnNames]
   );
 
   return (
-    <span className={styles['basket-content']}>
+    <>
+      <ResultsButtons
+        total={accessions.length}
+        selectedEntries={selectedEntries}
+        accessions={accessions}
+        namespaceFallback={namespace}
+        inBasket
+        notCustomisable
+      />
       <ResultsData
         resultsDataObject={resultsDataObject}
         selectedEntries={selectedEntries}
         handleEntrySelection={handleEntrySelection}
         namespaceFallback={namespace}
         columnsFallback={columns}
+        basketSetter={setBasket}
       />
       {/* both classnames from Franklin */}
       <div className="button-group sliding-panel__button-row">
@@ -124,18 +113,23 @@ const MiniResultTable = ({
         <Button
           element={Link}
           variant="secondary"
-          to={LocationToPath[Location.Basket]}
+          to={generatePath(LocationToPath[Location.Basket], { namespace })}
+          onClick={closePanel}
         >
           <FullViewIcon height="1em" width="1em" />
           Full view
         </Button>
       </div>
-    </span>
+    </>
   );
 };
 
-const BasketContent = ({ closePanel }: { closePanel?: () => void }) => {
+const BasketMiniView = ({ closePanel }: { closePanel: () => void }) => {
   const [basket, setBasket] = useBasket();
+
+  const uniprotkbIds = basket.get(Namespace.uniprotkb);
+  const unirefIds = basket.get(Namespace.uniref);
+  const uniparcIds = basket.get(Namespace.uniparc);
 
   // All of this should probably part of the sliding panel logic
   // See https://www.ebi.ac.uk/panda/jira/browse/TRM-26294
@@ -145,71 +139,73 @@ const BasketContent = ({ closePanel }: { closePanel?: () => void }) => {
     if (firstTime.current) {
       firstTime.current = false;
     } else {
-      closePanel?.();
+      closePanel();
     }
     // keep pathname below, this is to trigger the effect when it changes
   }, [closePanel, pathname]);
-
-  const uniprotkbIds = basket.get(Namespace.uniprotkb);
-  const unirefIds = basket.get(Namespace.uniref);
-  const uniparcIds = basket.get(Namespace.uniparc);
 
   if (!uniprotkbIds?.size && !unirefIds?.size && !uniparcIds?.size) {
     return <EmptyBasket />;
   }
 
-  // TODO
-  // Wire in buttons
+  // TODO: logic to choose default tab depending on which URL we're at
+
   return (
-    <Tabs>
+    <Tabs className={styles['basket-content']}>
       <Tab
         title={`UniProtKB${
           uniprotkbIds?.size ? ` (${uniprotkbIds.size})` : ''
         }`}
-        className={cn({ [styles.disabled]: !uniprotkbIds?.size })}
+        className={cn({ [helper.disabled]: !uniprotkbIds?.size })}
       >
         {uniprotkbIds?.size ? (
-          <MiniResultTable
+          <BasketMiniViewTab
             accessions={Array.from(uniprotkbIds)}
             namespace={Namespace.uniprotkb}
-            columnNames={closePanel ? uniProtKBColumns : undefined}
+            columnNames={uniProtKBColumns}
             setBasket={setBasket}
+            closePanel={closePanel}
           />
         ) : (
+          // Fragment instead of null because Franklin's Tab is not happy
           <Fragment />
         )}
       </Tab>
       <Tab
         title={`UniRef${unirefIds?.size ? ` (${unirefIds.size})` : ''}`}
-        className={cn({ [styles.disabled]: !unirefIds?.size })}
+        className={cn({ [helper.disabled]: !unirefIds?.size })}
         // If the previous doesn't have content, select this one
         defaultSelected={!uniprotkbIds?.size}
       >
         {unirefIds?.size ? (
-          <MiniResultTable
+          <BasketMiniViewTab
             accessions={Array.from(unirefIds)}
             namespace={Namespace.uniref}
-            columnNames={closePanel ? uniRefColumns : undefined}
+            columnNames={uniRefColumns}
             setBasket={setBasket}
+            closePanel={closePanel}
           />
         ) : (
+          // Fragment instead of null because Franklin's Tab is not happy
           <Fragment />
         )}
       </Tab>
       <Tab
         title={`UniParc${uniparcIds?.size ? ` (${uniparcIds.size})` : ''}`}
-        className={cn({ [styles.disabled]: !uniparcIds?.size })}
+        className={cn({ [helper.disabled]: !uniparcIds?.size })}
         // If none of the previous has content, select this one
         defaultSelected={!(uniprotkbIds?.size || unirefIds?.size)}
       >
         {uniparcIds?.size ? (
-          <MiniResultTable
+          <BasketMiniViewTab
             accessions={Array.from(uniparcIds)}
             namespace={Namespace.uniparc}
-            columnNames={closePanel ? uniParcColumns : undefined}
+            columnNames={uniParcColumns}
             setBasket={setBasket}
+            closePanel={closePanel}
           />
         ) : (
+          // Fragment instead of null because Franklin's Tab is not happy
           <Fragment />
         )}
       </Tab>
@@ -217,4 +213,4 @@ const BasketContent = ({ closePanel }: { closePanel?: () => void }) => {
   );
 };
 
-export default BasketContent;
+export default BasketMiniView;

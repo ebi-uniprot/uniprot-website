@@ -1,14 +1,13 @@
 @import 'franklin-sites/src/styles/settings';
 
-.disabled {
-  opacity: 0.5;
-  pointer-events: none;
-  user-select: none;
-}
-
+// Overrides a lot of stuff...
 :global(.sliding-panel) .basket-content {
-  &:global(.data-table) th {
+  & :global(.data-table) th {
     top: 0 !important;
+  }
+
+  & :global(.tabs__header) {
+    margin-bottom: 0;
   }
 
   & :global(.card) {
@@ -21,5 +20,9 @@
 
   & :global(.button-group) {
     margin-right: $global-margin;
+  }
+
+  & :global(.results-buttons) {
+    position: initial;
   }
 }

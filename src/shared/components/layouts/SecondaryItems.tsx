@@ -7,7 +7,7 @@ import {
   Suspense,
 } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router-dom';
 import { sumBy } from 'lodash-es';
 import {
   HelpIcon,
@@ -28,13 +28,17 @@ import { pluralise } from '../../utils/utils';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
+import { Namespace } from '../../types/namespaces';
 import { RootState } from '../../../app/state/rootInitialState';
 import { Status } from '../../../tools/types/toolsStatuses';
 
 import styles from './styles/secondary-items.module.scss';
 
-const BasketContent = lazy(
-  () => import(/* webpackChunkName: "basket" */ '../basket/BasketContent')
+const BasketMiniView = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "basket-mini-view" */ '../basket/BasketMiniView'
+    )
 );
 
 const Dashboard = lazy(
@@ -120,7 +124,7 @@ const ToolsDashboard = ({ display, close }: Props) => {
               to={LocationToPath[Location.Dashboard]}
               onClick={close}
             >
-              Tool results
+              <ToolboxIcon width="0.8em" /> Tool results
             </Link>
           }
           withCloseButton
@@ -171,10 +175,10 @@ export const Basket = ({ display, close }: Props) => {
         title="Basket"
         className={styles['secondary-item']}
         ref={spanRef}
-        onPointerOver={BasketContent.preload}
+        onPointerOver={BasketMiniView.preload}
         // Not a focus target, so no need, do that when we can use a link as a
         // secondary item (after franklin's Header refactor/simplification)
-        // onFocus={BasketContent.preload}
+        // onFocus={BasketMiniView.preload}
       >
         <BasketIcon width={secondaryItemIconSize} />
         {count ? (
@@ -192,10 +196,12 @@ export const Basket = ({ display, close }: Props) => {
           title={
             <Link
               className={styles['link-in-panel-title']}
-              to={LocationToPath[Location.Basket]}
+              to={generatePath(LocationToPath[Location.Basket], {
+                namespace: Namespace.uniprotkb,
+              })}
               onClick={close}
             >
-              My Basket
+              <BasketIcon width="0.8em" /> My Basket
             </Link>
           }
           withCloseButton
@@ -207,7 +213,7 @@ export const Basket = ({ display, close }: Props) => {
         >
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
-              <BasketContent closePanel={close} />
+              <BasketMiniView closePanel={close} />
             </Suspense>
           </ErrorBoundary>
         </SlidingPanel>
