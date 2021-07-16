@@ -1,11 +1,14 @@
+import { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {
   Card,
+  Button,
   PageIntro,
-  ClockIcon,
   Message,
+  ClockIcon,
   ReSubmitIcon,
+  FullViewIcon,
 } from 'franklin-sites';
 import { partition } from 'lodash-es';
 
@@ -25,7 +28,7 @@ const EXPIRED_TIME = 1000 * 60 * 60 * 24 * 7; // 1 week
 
 const sortNewestFirst = (a: Job, b: Job) => b.timeCreated - a.timeCreated;
 
-const Dashboard = ({ inPanel }: { inPanel?: boolean }) => {
+const Dashboard = ({ closePanel }: { closePanel?: () => void }) => {
   const [activeJobs, expiredJobs] = useSelector<RootState, [Job[], Job[]]>(
     (state) => {
       const jobs = Array.from(Object.values(state.tools)).sort(sortNewestFirst);
@@ -33,6 +36,19 @@ const Dashboard = ({ inPanel }: { inPanel?: boolean }) => {
       return partition(jobs, (job) => now - job.timeCreated < EXPIRED_TIME);
     }
   );
+
+  // All of this should probably part of the sliding panel logic
+  // See https://www.ebi.ac.uk/panda/jira/browse/TRM-26294
+  const { pathname } = useLocation();
+  const firstTime = useRef(true);
+  useEffect(() => {
+    if (firstTime.current) {
+      firstTime.current = false;
+    } else {
+      closePanel?.();
+    }
+    // keep pathname below, this is to trigger the effect when it changes
+  }, [closePanel, pathname]);
 
   if (!(activeJobs.length || expiredJobs.length)) {
     const noResultsSubtitle = (
@@ -47,7 +63,7 @@ const Dashboard = ({ inPanel }: { inPanel?: boolean }) => {
     );
     return (
       <>
-        {inPanel ? null : <PageIntro title="Tool results" />}
+        {closePanel ? null : <PageIntro title="Tool results" />}
         <div className="error-page-container">
           <ArtWork className="error-page-container__art-work" />
           <Message level="warning" subtitle={noResultsSubtitle} forFullPage>
@@ -60,7 +76,7 @@ const Dashboard = ({ inPanel }: { inPanel?: boolean }) => {
 
   return (
     <>
-      {inPanel ? null : <PageIntro title="Tool results" />}
+      {closePanel ? null : <PageIntro title="Tool results" />}
       <p>
         Your tool analysis results from the last{' '}
         <ClockIcon height="1em" width="3ch" /> 7 days are listed below. For any
@@ -98,6 +114,19 @@ const Dashboard = ({ inPanel }: { inPanel?: boolean }) => {
           </>
         ) : null}
       </div>
+      {closePanel && (
+        // both classnames from Franklin
+        <div className="button-group sliding-panel__button-row">
+          <Button
+            element={Link}
+            variant="secondary"
+            to={LocationToPath[Location.Dashboard]}
+          >
+            <FullViewIcon height="1em" width="1em" />
+            Full view
+          </Button>
+        </div>
+      )}
     </>
   );
 };

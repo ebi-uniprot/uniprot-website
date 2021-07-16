@@ -30,6 +30,7 @@ const failedAfterSubmission: FailedJob = {
   timeSubmitted: TWO_MINUTES_AGO,
   timeLastUpdate: ONE_MINUTE_AGO,
   saved: false,
+  seen: false,
 };
 
 export default failedAfterSubmission;

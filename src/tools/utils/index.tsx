@@ -1,5 +1,6 @@
 import { Link, generatePath } from 'react-router-dom';
 import { AxiosResponse } from 'axios';
+import { LocationDescriptor } from 'history';
 
 import { pluralise } from '../../shared/utils/utils';
 
@@ -14,6 +15,7 @@ import {
 import { Job } from '../types/toolsJob';
 import { JobTypes } from '../types/toolsJobTypes';
 import { Status } from '../types/toolsStatuses';
+import { LocationStateFromJobLink } from '../hooks/useMarkJobAsSeen';
 
 const validServerID: Record<JobTypes, RegExp> = {
   [JobTypes.ALIGN]: /^clustalo-R\d{8}(-\w+){4}$/,
@@ -159,12 +161,15 @@ export const getJobMessage = ({
     jobName = '';
   }
 
-  let href;
+  let location: LocationDescriptor<LocationStateFromJobLink> | undefined;
   if ('remoteID' in job && job.remoteID) {
-    href = generatePath(jobTypeToPath(job.type, true), {
-      id: job.remoteID,
-      subPage: 'overview',
-    });
+    location = {
+      pathname: generatePath(jobTypeToPath(job.type, true), {
+        id: job.remoteID,
+        subPage: 'overview',
+      }),
+      state: { internalID: job.internalID },
+    };
   }
   let hitsMessage = '';
   if (typeof nHits !== 'undefined') {
@@ -175,7 +180,8 @@ export const getJobMessage = ({
     ...message,
     content: (
       <>
-        {job.type} job {href ? <Link to={href}>{jobName}</Link> : { jobName }}
+        {job.type} job{' '}
+        {location ? <Link to={location}>{jobName}</Link> : { jobName }}
         {` finished${hitsMessage}`}
       </>
     ),
