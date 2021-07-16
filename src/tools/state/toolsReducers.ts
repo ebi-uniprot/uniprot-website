@@ -40,6 +40,7 @@ const toolsReducers = (
         timeCreated: now,
         timeLastUpdate: now,
         saved: false,
+        seen: false,
       };
 
       store.set(newJob.internalID, newJob);

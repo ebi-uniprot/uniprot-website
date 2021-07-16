@@ -1,4 +1,12 @@
-import { Fragment, useMemo, Dispatch, SetStateAction } from 'react';
+import {
+  useMemo,
+  useRef,
+  useEffect,
+  Fragment,
+  Dispatch,
+  SetStateAction,
+} from 'react';
+import { useLocation } from 'react-router-dom';
 import cn from 'classnames';
 import { Tabs, Tab, BinIcon, Button } from 'franklin-sites';
 
@@ -102,8 +110,21 @@ const MiniResultTable = ({
   );
 };
 
-const BasketContent = ({ inPanel }: { inPanel?: boolean }) => {
+const BasketContent = ({ closePanel }: { closePanel?: () => void }) => {
   const [basket, setBasket] = useBasket();
+
+  // All of this should probably part of the sliding panel logic
+  // See https://www.ebi.ac.uk/panda/jira/browse/TRM-26294
+  const { pathname } = useLocation();
+  const firstTime = useRef(true);
+  useEffect(() => {
+    if (firstTime.current) {
+      firstTime.current = false;
+    } else {
+      closePanel?.();
+    }
+    // keep pathname below, this is to trigger the effect when it changes
+  }, [closePanel, pathname]);
 
   const uniprotkbIds = basket.get(Namespace.uniprotkb);
   const unirefIds = basket.get(Namespace.uniref);
@@ -127,7 +148,7 @@ const BasketContent = ({ inPanel }: { inPanel?: boolean }) => {
           <MiniResultTable
             accessions={Array.from(uniprotkbIds)}
             namespace={Namespace.uniprotkb}
-            columnNames={inPanel ? uniProtKBColumns : undefined}
+            columnNames={closePanel ? uniProtKBColumns : undefined}
             setBasket={setBasket}
           />
         ) : (
@@ -144,7 +165,7 @@ const BasketContent = ({ inPanel }: { inPanel?: boolean }) => {
           <MiniResultTable
             accessions={Array.from(unirefIds)}
             namespace={Namespace.uniref}
-            columnNames={inPanel ? uniRefColumns : undefined}
+            columnNames={closePanel ? uniRefColumns : undefined}
             setBasket={setBasket}
           />
         ) : (
@@ -161,7 +182,7 @@ const BasketContent = ({ inPanel }: { inPanel?: boolean }) => {
           <MiniResultTable
             accessions={Array.from(uniparcIds)}
             namespace={Namespace.uniparc}
-            columnNames={inPanel ? uniParcColumns : undefined}
+            columnNames={closePanel ? uniParcColumns : undefined}
             setBasket={setBasket}
           />
         ) : (

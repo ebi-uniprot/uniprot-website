@@ -14,6 +14,7 @@ interface BaseJob<T extends JobTypes> {
   timeCreated: number;
   timeLastUpdate: number;
   saved: boolean;
+  seen: boolean;
 }
 
 export interface CreatedJob extends BaseJob<JobTypes> {
@@ -45,7 +46,6 @@ export interface FinishedJob<T extends JobTypes> extends BaseJob<T> {
   remoteID: string;
   timeSubmitted: number;
   timeFinished: number;
-  seen: boolean;
   // just data needed for the dashboard, not more than this
   data?: DataForDashboard[T];
 }
