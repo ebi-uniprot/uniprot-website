@@ -71,12 +71,11 @@ import EntryTypeIcon, {
 
 import { getEntryPath } from '../../app/config/urls';
 import { fromColumnConfig } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
+import { sortInteractionData } from '../utils/resultsUtils';
 
 import { Namespace } from '../../shared/types/namespaces';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
 import AccessionView from '../../shared/components/results/AccessionView';
-
-import { Interactant } from '../adapters/interactionConverter';
 
 import helper from '../../shared/styles/helper.module.scss';
 
@@ -741,18 +740,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
       })
     );
 
-    const sortedInteractions = Array.from(interactionDataMap.values()).sort(
-      (a, b) => {
-        if (typeof a !== 'string' && typeof b !== 'string') {
-          return (
-            (a as Interactant).geneName?.localeCompare(
-              (b as Interactant).geneName || ''
-            ) || -1
-          );
-        }
-        return -2;
-      }
-    );
+    const sortedInteractions = sortInteractionData(interactionDataMap);
 
     return (
       <ExpandableList displayNumberOfHiddenItems>

@@ -7,6 +7,7 @@ import {
   SortDirection,
   ReceivedFieldData,
 } from '../types/resultsTypes';
+import { Interactant } from '../adapters/interactionConverter';
 
 const facetsAsArray = (facetString: string): SelectedFacet[] =>
   facetString.split(',').map((stringItem) => {
@@ -99,3 +100,17 @@ export const getSortableColumnToSortColumn = (
   });
   return sortableColumnToSortColumn;
 };
+
+export const sortInteractionData = (
+  interactionDataMap: Map<string, Interactant | string>
+) =>
+  Array.from(interactionDataMap.values()).sort((a, b) => {
+    if (typeof a !== 'string' && typeof b !== 'string') {
+      return (
+        (a as Interactant).geneName?.localeCompare(
+          (b as Interactant).geneName || ''
+        ) || -1
+      );
+    }
+    return -2;
+  });
