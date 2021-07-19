@@ -7,7 +7,7 @@ import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import Overview from '../data-views/Overview';
 import EntryMain from './EntryMain';
 import MembersFacets from './MembersFacets';
-import BasketStatus from '../../../shared/components/basket/BasketStatus';
+import BasketStatus from '../../../basket/BasketStatus';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 

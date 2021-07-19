@@ -37,7 +37,7 @@ import styles from './styles/secondary-items.module.scss';
 const BasketMiniView = lazy(
   () =>
     import(
-      /* webpackChunkName: "basket-mini-view" */ '../basket/BasketMiniView'
+      /* webpackChunkName: "basket-mini-view" */ '../../../basket/BasketMiniView'
     )
 );
 

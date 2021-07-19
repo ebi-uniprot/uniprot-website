@@ -1,27 +1,23 @@
 import { useRouteMatch } from 'react-router-dom';
 import { Loader, PageIntro } from 'franklin-sites';
 
-import ResultsData from '../results/ResultsData';
+import ResultsData from '../shared/components/results/ResultsData';
 import EmptyBasket from './EmptyBasket';
-import SideBarLayout from '../layouts/SideBarLayout';
-import ResultsFacets from '../results/ResultsFacets';
-import ResultsButtons from '../results/ResultsButtons';
+import SideBarLayout from '../shared/components/layouts/SideBarLayout';
+import ResultsFacets from '../shared/components/results/ResultsFacets';
+import ResultsButtons from '../shared/components/results/ResultsButtons';
 
-import useBasket from '../../hooks/useBasket';
-import useItemSelect from '../../hooks/useItemSelect';
-import usePagination from '../../hooks/usePagination';
-import useNSQuery from '../../hooks/useNSQuery';
-import useDataApiWithStale from '../../hooks/useDataApiWithStale';
+import useBasket from '../shared/hooks/useBasket';
+import useItemSelect from '../shared/hooks/useItemSelect';
+import usePagination from '../shared/hooks/usePagination';
+import useNSQuery from '../shared/hooks/useNSQuery';
+import useDataApiWithStale from '../shared/hooks/useDataApiWithStale';
 
-import {
-  LocationToPath,
-  Location,
-  basketNamespaces,
-} from '../../../app/config/urls';
-import namespaceToolTitles from '../../config/namespaceToolTitles';
+import { LocationToPath, Location, basketNamespaces } from '../app/config/urls';
+import namespaceToolTitles from '../shared/config/namespaceToolTitles';
 
-import { Namespace } from '../../types/namespaces';
-import Response from '../../../uniprotkb/types/responseTypes';
+import { Namespace } from '../shared/types/namespaces';
+import Response from '../uniprotkb/types/responseTypes';
 
 const BasketFullView = () => {
   // Basket specific data

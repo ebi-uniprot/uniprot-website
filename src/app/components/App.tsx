@@ -156,7 +156,7 @@ const PeptideSearchForm = lazy(
 const BasketFullView = lazy(
   () =>
     import(
-      /* webpackChunkName: "basket-full-view" */ '../../shared/components/basket/BasketFullView'
+      /* webpackChunkName: "basket-full-view" */ '../../basket/BasketFullView'
     )
 );
 

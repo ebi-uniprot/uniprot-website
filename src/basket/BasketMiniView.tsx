@@ -10,25 +10,28 @@ import { generatePath, Link, useLocation } from 'react-router-dom';
 import cn from 'classnames';
 import { Tabs, Tab, BinIcon, Button, FullViewIcon } from 'franklin-sites';
 
-import ResultsData from '../results/ResultsData';
+import ResultsData from '../shared/components/results/ResultsData';
 import EmptyBasket from './EmptyBasket';
-import ResultsButtons from '../results/ResultsButtons';
+import ResultsButtons from '../shared/components/results/ResultsButtons';
 
-import useBasket, { Basket } from '../../hooks/useBasket';
-import useItemSelect from '../../hooks/useItemSelect';
-import usePagination from '../../hooks/usePagination';
-import useNSQuery from '../../hooks/useNSQuery';
+import useBasket, { Basket } from '../shared/hooks/useBasket';
+import useItemSelect from '../shared/hooks/useItemSelect';
+import usePagination from '../shared/hooks/usePagination';
+import useNSQuery from '../shared/hooks/useNSQuery';
 
-import { LocationToPath, Location } from '../../../app/config/urls';
+import { LocationToPath, Location } from '../app/config/urls';
 
-import { Namespace } from '../../types/namespaces';
-import { ColumnDescriptor, getColumnsToDisplay } from '../../hooks/useColumns';
-import { APIModel } from '../../types/apiModel';
-import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
-import { UniRefColumn } from '../../../uniref/config/UniRefColumnConfiguration';
-import { UniParcColumn } from '../../../uniparc/config/UniParcColumnConfiguration';
+import { Namespace } from '../shared/types/namespaces';
+import {
+  ColumnDescriptor,
+  getColumnsToDisplay,
+} from '../shared/hooks/useColumns';
+import { APIModel } from '../shared/types/apiModel';
+import { UniProtKBColumn } from '../uniprotkb/types/columnTypes';
+import { UniRefColumn } from '../uniref/config/UniRefColumnConfiguration';
+import { UniParcColumn } from '../uniparc/config/UniParcColumnConfiguration';
 
-import helper from '../../styles/helper.module.scss';
+import helper from '../shared/styles/helper.module.scss';
 import styles from './styles/basket-mini-view.module.scss';
 
 const uniProtKBColumns = [

@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import { Message } from 'franklin-sites';
 
-import ErrorPage from '../error-pages/ErrorPage';
+import ErrorPage from '../shared/components/error-pages/ErrorPage';
 
-import { LocationToPath, Location } from '../../../app/config/urls';
+import { LocationToPath, Location } from '../app/config/urls';
 
 import ArtWork from './svgs/empty-basket.svg';
 

@@ -13,7 +13,7 @@ import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import EntryMain from './EntryMain';
 import UniParcFeaturesView from './UniParcFeaturesView';
 import XRefsFacets from './XRefsFacets';
-import BasketStatus from '../../../shared/components/basket/BasketStatus';
+import BasketStatus from '../../../basket/BasketStatus';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 
