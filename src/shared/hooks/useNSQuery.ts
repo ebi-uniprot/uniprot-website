@@ -46,7 +46,7 @@ const useNSQuery = ({
     getParamsFromURL(queryParamFromUrl);
 
   const url = useMemo(() => {
-    if (!(query || accessions)) {
+    if (!(query || accessions?.length)) {
       return undefined;
     }
     const options = {
