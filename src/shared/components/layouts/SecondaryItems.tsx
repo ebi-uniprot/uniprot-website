@@ -1,12 +1,4 @@
-import {
-  CSSProperties,
-  useMemo,
-  useState,
-  useRef,
-  useEffect,
-  Dispatch,
-  SetStateAction,
-} from 'react';
+import { useMemo, useState, useRef, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { sumBy } from 'lodash-es';
@@ -18,7 +10,6 @@ import {
   Bubble,
   SlidingPanel,
 } from 'franklin-sites';
-import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
 
 import BasketContent from '../basket/BasketContent';
 import Dashboard from '../../../tools/dashboard/components/Dashboard';
@@ -35,12 +26,6 @@ import { Status } from '../../../tools/types/toolsStatuses';
 
 import styles from './styles/secondary-items.module.scss';
 
-interface Style extends CSSProperties {
-  // TODO: define and extend the supported custom properties in franklin
-  // TODO: find a way to expose them globally when using franklin elements
-  '--main-bubble-color': string;
-}
-
 const secondaryItemIconSize = '1.4em';
 
 const getArrowX = (element: HTMLSpanElement) => {
@@ -52,23 +37,25 @@ const getArrowX = (element: HTMLSpanElement) => {
 
 type Props = {
   display: boolean;
-  setDisplay: Dispatch<SetStateAction<boolean>>;
+  close: () => void;
 };
 
-const ToolsDashboard = ({ display, setDisplay }: Props) => {
-  const [count, failure] = useSelector<
-    RootState,
-    [count: number, failure: boolean]
-  >((state) => {
-    const unseenJobs = Object.values(state.tools).filter(
-      (job) => 'seen' in job && job.seen === false
-    );
-    return [
-      unseenJobs.length,
-      // at the moment, will always be false
-      unseenJobs.some((job) => job.status === Status.FAILURE),
-    ];
-  });
+const statusesToNotify = new Set([
+  Status.FINISHED,
+  Status.FAILURE,
+  Status.ERRORED,
+]);
+
+const ToolsDashboard = ({ display, close }: Props) => {
+  const count = useSelector<RootState, number>(
+    (state) =>
+      Object.values(state.tools).filter(
+        (job) =>
+          'seen' in job &&
+          job.seen === false &&
+          statusesToNotify.has(job.status)
+      ).length
+  );
   const [dashboardButtonX, setDashboardButtonX] = useState<number>();
 
   const spanRef = useRef<HTMLSpanElement>(null);
@@ -98,16 +85,9 @@ const ToolsDashboard = ({ display, setDisplay }: Props) => {
         {count ? (
           <Bubble
             className={styles.bubble}
-            style={
-              failure
-                ? ({ '--main-bubble-color': colors.failure } as Style)
-                : undefined
-            }
             size="small"
             title={`${count} new job ${pluralise('result', count)}`}
-          >
-            {count}
-          </Bubble>
+          />
         ) : null}
       </span>
       {display && (
@@ -116,7 +96,7 @@ const ToolsDashboard = ({ display, setDisplay }: Props) => {
             <Link
               className={styles['link-in-panel-title']}
               to={LocationToPath[Location.Dashboard]}
-              onClick={() => setDisplay(false)}
+              onClick={close}
             >
               Tool results
             </Link>
@@ -124,11 +104,11 @@ const ToolsDashboard = ({ display, setDisplay }: Props) => {
           withCloseButton
           position="right"
           size="medium"
-          onClose={() => setDisplay(false)}
+          onClose={close}
           arrowX={dashboardButtonX}
         >
           <ErrorBoundary>
-            <Dashboard inPanel />
+            <Dashboard closePanel={close} />
           </ErrorBoundary>
         </SlidingPanel>
       )}
@@ -136,7 +116,7 @@ const ToolsDashboard = ({ display, setDisplay }: Props) => {
   );
 };
 
-export const Basket = ({ display, setDisplay }: Props) => {
+export const Basket = ({ display, close }: Props) => {
   const [basket] = useBasket();
   const [basketButtonX, setBasketButtonX] = useState<number>();
 
@@ -181,7 +161,7 @@ export const Basket = ({ display, setDisplay }: Props) => {
           withCloseButton
           position="right"
           size="small"
-          onClose={() => setDisplay(false)}
+          onClose={close}
           arrowX={basketButtonX}
         >
           <ErrorBoundary>
@@ -195,7 +175,12 @@ export const Basket = ({ display, setDisplay }: Props) => {
 
 const SecondaryItems = () => {
   const [displayBasket, setDisplayBasket] = useState(false);
+  const closeDisplayBasket = useCallback(() => setDisplayBasket(false), []);
   const [displayDashboard, setDisplayDashboard] = useState(false);
+  const closeDisplayDashboard = useCallback(
+    () => setDisplayDashboard(false),
+    []
+  );
 
   return [
     {
@@ -220,7 +205,7 @@ const SecondaryItems = () => {
       label: (
         <ToolsDashboard
           display={displayDashboard}
-          setDisplay={setDisplayDashboard}
+          close={closeDisplayDashboard}
         />
       ),
       onClick: () => {
@@ -230,7 +215,7 @@ const SecondaryItems = () => {
       },
     },
     {
-      label: <Basket display={displayBasket} setDisplay={setDisplayBasket} />,
+      label: <Basket display={displayBasket} close={closeDisplayBasket} />,
       onClick: () => {
         if (!displayBasket) {
           setDisplayBasket(true);

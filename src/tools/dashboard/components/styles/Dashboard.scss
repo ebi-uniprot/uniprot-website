@@ -13,9 +13,24 @@
   &__body {
     min-width: fit-content;
 
+    // By default, a job will be successful, so set the bubble colour to success
+    --main-bubble-color: #{$colour-success};
+
+    &__status button {
+      margin-bottom: 0;
+    }
+
+    &__bubble {
+      margin: 0;
+      transform: scale(0.5);
+    }
+
     & .card--failure {
       border: 1px solid $colour-failure;
       border-left: 0.25rem solid $colour-failure;
+
+      // But if not successful, change the bubble colour to failure
+      --main-bubble-color: #{$colour-failure};
 
       & * {
         outline-color: $colour-failure;

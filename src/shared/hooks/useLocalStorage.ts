@@ -27,23 +27,38 @@ export type UserPreferenceKey =
 // Exporting for test usage only
 export const localStorageCache = new Map<UserPreferenceKey, string>();
 
+const initialiser = <T extends JsonValue>(
+  key: UserPreferenceKey,
+  defaultValueStr: string
+): T => {
+  // Initialisation
+  const inStore =
+    localStorageCache.get(key) ?? window.localStorage.getItem(key);
+  if (typeof inStore !== 'string') {
+    localStorageCache.set(key, defaultValueStr);
+    window.localStorage.setItem(key, defaultValueStr);
+    return JSON.parse(defaultValueStr);
+  }
+  return JSON.parse(inStore);
+};
+
 // Custom hook to be used whenever a persistent user preference is needed
 function useLocalStorage<T extends JsonValue>(
   key: UserPreferenceKey,
   defaultValue: T
 ): [state: T, setState: Dispatch<SetStateAction<T>>] {
-  const [state, setState] = useState<T>(() => {
-    // Initialisation
-    const inStore =
-      localStorageCache.get(key) ?? window.localStorage.getItem(key);
-    if (typeof inStore !== 'string') {
-      const stringified = JSON.stringify(defaultValue);
-      localStorageCache.set(key, stringified);
-      window.localStorage.setItem(key, stringified);
-      return defaultValue;
-    }
-    return JSON.parse(inStore);
-  });
+  // stringify it here because it might be a complex object but we depend on it
+  // it for multiple useEffect dependency array
+  const defaultValueStr = JSON.stringify(defaultValue);
+
+  const [state, setState] = useState<T>(() =>
+    initialiser<T>(key, defaultValueStr)
+  );
+
+  // effect in order to change the value returned when the hook's key changes
+  useEffect(() => {
+    setState(initialiser<T>(key, defaultValueStr));
+  }, [key, defaultValueStr]);
 
   // Setter exposed to the user of the hook, in charge of keeping localStorage
   // up to date with the user preferences
@@ -87,8 +102,8 @@ function useLocalStorage<T extends JsonValue>(
       if (newValue === null) {
         // value was removed
         // reset state with default value, but trigger usage of default value
-        setState(defaultValue);
-        const stringified = JSON.stringify(defaultValue);
+        setState(JSON.parse(defaultValueStr));
+        const stringified = defaultValueStr;
         localStorageCache.set(key, stringified);
         window.localStorage.setItem(key, stringified);
       } else {
@@ -101,7 +116,7 @@ function useLocalStorage<T extends JsonValue>(
     return () => {
       window.removeEventListener('storage', handleStorageEvent);
     };
-  }, [key, defaultValue]);
+  }, [key, defaultValueStr]);
 
   return [state, setStateAndPersist];
 }

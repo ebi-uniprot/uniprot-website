@@ -17,7 +17,10 @@ import {
   SpinnerIcon,
   EditIcon,
   WarningTriangleIcon,
+  Bubble,
+  Button,
 } from 'franklin-sites';
+import { LocationDescriptor } from 'history';
 
 import { updateJob, deleteJob } from '../../state/toolsActions';
 
@@ -28,9 +31,10 @@ import useReducedMotion from '../../../shared/hooks/useReducedMotion';
 import { getBEMClassName as bem, pluralise } from '../../../shared/utils/utils';
 import parseDate from '../../../shared/utils/parseDate';
 
-import { Job } from '../../types/toolsJob';
+import { FailedJob, Job, FinishedJob } from '../../types/toolsJob';
 import { Status } from '../../types/toolsStatuses';
 import { JobTypes } from '../../types/toolsJobTypes';
+import { LocationStateFromJobLink } from '../../hooks/useMarkJobAsSeen';
 
 import './styles/Dashboard.scss';
 
@@ -69,7 +73,7 @@ const Name = ({ children, id }: NameProps) => {
         value={text}
         maxLength={100}
       />
-      <EditIcon width="2ch" />
+      <EditIcon width="1em" height="2em" />
     </label>
   );
 };
@@ -100,9 +104,32 @@ const Time = ({ children }: TimeProps) => {
   );
 };
 
+const Seen = ({ job }: { job: FailedJob | FinishedJob<JobTypes> }) => {
+  const dispatch = useDispatch();
+
+  if (job.seen) {
+    return null;
+  }
+
+  const markAsRead = () => {
+    dispatch(updateJob(job.internalID, { seen: true }));
+  };
+
+  return (
+    <Button
+      onClick={markAsRead}
+      variant="tertiary"
+      className="dashboard__body__bubble"
+      title={`new job result (click to mark job as "seen")`}
+    >
+      <Bubble size="small" />
+    </Button>
+  );
+};
+
 interface NiceStatusProps {
   job: Job;
-  jobLink?: string;
+  jobLink?: LocationDescriptor;
 }
 
 const NiceStatus = ({ job, jobLink }: NiceStatusProps) => {
@@ -122,7 +149,7 @@ const NiceStatus = ({ job, jobLink }: NiceStatusProps) => {
     case Status.ERRORED:
       return (
         <>
-          Failed
+          Failed <Seen job={job} />
           {'errorDescription' in job && (
             <>
               <br />
@@ -136,8 +163,10 @@ const NiceStatus = ({ job, jobLink }: NiceStatusProps) => {
     case Status.NOT_FOUND:
       return <>Job not found on the server</>;
     case Status.FINISHED: {
-      // eslint-disable-next-line uniprot-website/use-config-location
-      const link = jobLink ? <Link to={jobLink}>Successful</Link> : null;
+      const status = jobLink ? (
+        // eslint-disable-next-line uniprot-website/use-config-location
+        <Link to={jobLink}>Successful</Link>
+      ) : null;
       // either a BLAST or ID Mapping job could have those
       if ('data' in job && job.data && 'hits' in job.data) {
         const actualHits = job.data.hits;
@@ -154,17 +183,23 @@ const NiceStatus = ({ job, jobLink }: NiceStatusProps) => {
           const hitText = pluralise('hit', actualHits);
           return (
             <>
-              {link}{' '}
+              {status}{' '}
               <span
                 title={`${actualHits} ${hitText} results found instead of the requested ${expectedHits}`}
               >
                 ({job.data.hits} {hitText})
               </span>
+              <Seen job={job} />
             </>
           );
         }
       }
-      return link;
+      return (
+        <>
+          {status}
+          <Seen job={job} />
+        </>
+      );
     }
     default:
       return null;
@@ -262,15 +297,21 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
   const dispatch = useDispatch();
   const reducedMotion = useReducedMotion();
 
-  let jobLink: string | undefined;
+  let jobLink: LocationDescriptor<LocationStateFromJobLink> | undefined;
   if ('remoteID' in job && job.status === Status.FINISHED && !hasExpired) {
     if (
       job.type === JobTypes.ID_MAPPING ||
       job.type === JobTypes.PEPTIDE_SEARCH
     ) {
-      jobLink = `${jobTypeToPath(job.type)}/${job.remoteID}`;
+      jobLink = {
+        pathname: `${jobTypeToPath(job.type)}/${job.remoteID}`,
+        state: { internalID: job.internalID },
+      };
     } else {
-      jobLink = `${jobTypeToPath(job.type)}/${job.remoteID}/overview`;
+      jobLink = {
+        pathname: `${jobTypeToPath(job.type)}/${job.remoteID}/overview`,
+        state: { internalID: job.internalID },
+      };
     }
   }
 

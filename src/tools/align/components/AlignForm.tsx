@@ -14,6 +14,7 @@ import {
   PageIntro,
   SpinnerIcon,
   sequenceProcessor,
+  ExternalLink,
 } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
@@ -262,8 +263,12 @@ const AlignForm = () => {
         <fieldset>
           <section className="tools-form-section__item">
             <legend>
-              Find a protein sequence to run BLAST sequence similarity search by
-              UniProt ID (e.g. P05067 or A4_HUMAN or UPI0000000001).
+              Find a protein sequence by UniProt ID (e.g. P05067 or A4_HUMAN or
+              UPI0000000001) to align with the{' '}
+              <ExternalLink url="http://www.clustal.org/">
+                Clustal Omega program
+              </ExternalLink>
+              .
               <br />
               You can also paste a list of IDs.
             </legend>
