@@ -1,5 +1,6 @@
-import { useMemo, ReactNode } from 'react';
+import { useMemo, ReactNode, Dispatch, SetStateAction } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import { BinIcon, Button } from 'franklin-sites';
 
 import useDataApi from './useDataApi';
 import useNS from './useNS';
@@ -15,6 +16,7 @@ import { SearchResultsLocations } from '../../app/config/urls';
 import uniProtKbConverter, {
   UniProtkbAPIModel,
 } from '../../uniprotkb/adapters/uniProtkbConverter';
+import { getIdKeyFor } from '../utils/getIdKeyForNamespace';
 
 import { mainNamespaces, Namespace } from '../types/namespaces';
 import { Column, nsToDefaultColumns } from '../config/columns';
@@ -48,6 +50,7 @@ import {
   IdMappingColumnConfiguration,
 } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 import { MappingAPIModel } from '../../tools/id-mapping/types/idMappingSearchResults';
+import { Basket } from './useBasket';
 
 export type ColumnDescriptor<Datum = APIModel> = {
   name: string;
@@ -143,7 +146,9 @@ export const getColumnsToDisplay = (
 
 const useColumns = (
   namespaceOverride?: Namespace,
-  displayIdMappingColumns = false
+  displayIdMappingColumns = false,
+  basketSetter?: Dispatch<SetStateAction<Basket>>,
+  columnsOverride?: ColumnDescriptor[]
 ): [ColumnDescriptor[], (columnName: string) => void] => {
   const history = useHistory();
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
@@ -169,26 +174,60 @@ const useColumns = (
     [loading, dataResultFields]
   );
 
-  const columns = useMemo(
-    () =>
-      getColumnsToDisplay(
-        namespace,
+  const columns = useMemo(() => {
+    let columns = columnsOverride;
+    if (!columns) {
+      const columnNames =
         displayIdMappingColumns && namespace !== Namespace.idmapping
           ? [IDMappingColumn.from, ...usersColumns]
-          : usersColumns,
+          : usersColumns;
+      columns = getColumnsToDisplay(
+        namespace,
+        columnNames,
         sortableColumnToSortColumn,
         sortColumn,
         sortDirection
-      ),
-    [
-      namespace,
-      usersColumns,
-      sortColumn,
-      sortDirection,
-      sortableColumnToSortColumn,
-      displayIdMappingColumns,
-    ]
-  );
+      );
+    }
+    // If in a basket view
+    if (basketSetter) {
+      const getIdKey = getIdKeyFor(namespace);
+      const removeColumn: ColumnDescriptor<APIModel> = {
+        name: 'remove',
+        label: null,
+        render: (datum) => (
+          <Button
+            variant="tertiary"
+            onClick={() =>
+              basketSetter((currentBasket) => {
+                const basketSubset = new Set(currentBasket.get(namespace));
+                basketSubset?.delete(getIdKey(datum));
+                return new Map([
+                  // other namespaces, untouched
+                  ...currentBasket,
+                  [namespace, basketSubset],
+                ]);
+              })
+            }
+          >
+            <BinIcon width="1.5em" />
+          </Button>
+        ),
+      };
+      // Add a remove column at the end
+      return [...columns, removeColumn];
+    }
+    return columns;
+  }, [
+    columnsOverride,
+    basketSetter,
+    displayIdMappingColumns,
+    namespace,
+    usersColumns,
+    sortableColumnToSortColumn,
+    sortColumn,
+    sortDirection,
+  ]);
 
   const updateColumnSort = (columnName: string) => {
     // No sorting for id mapping

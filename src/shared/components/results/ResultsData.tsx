@@ -3,8 +3,6 @@ import {
   DataTableWithLoader,
   DataListWithLoader,
   Loader,
-  Button,
-  BinIcon,
 } from 'franklin-sites';
 import { useHistory, useLocation } from 'react-router-dom';
 
@@ -58,7 +56,9 @@ const ResultsData = ({
   const { query, direct } = getParamsFromURL(useLocation().search);
   const [columns, updateColumnSort] = useColumns(
     namespaceOverride,
-    displayIdMappingColumns
+    displayIdMappingColumns,
+    basketSetter,
+    columnsOverride
   );
   const {
     allResults,
@@ -119,35 +119,6 @@ const ResultsData = ({
     prevViewMode.current !== viewMode ||
     prevNamespace.current !== namespace;
 
-  const finalColumns = useMemo(() => {
-    if (basketSetter) {
-      const removeColumn: ColumnDescriptor<APIModel> = {
-        name: 'remove',
-        label: null,
-        render: (datum) => (
-          <Button
-            variant="tertiary"
-            onClick={() =>
-              basketSetter((currentBasket) => {
-                const basketSubset = new Set(currentBasket.get(namespace));
-                basketSubset?.delete(getIdKeyFor(namespace)(datum));
-                return new Map([
-                  // other namespaces, untouched
-                  ...currentBasket,
-                  [namespace, basketSubset],
-                ]);
-              })
-            }
-          >
-            <BinIcon width="1.5em" />
-          </Button>
-        ),
-      };
-      return [...(columnsOverride || columns), removeColumn];
-    }
-    return columnsOverride || columns;
-  }, [basketSetter, columns, columnsOverride, namespace]);
-
   if (
     // if loading the first page of results
     loading
@@ -159,7 +130,7 @@ const ResultsData = ({
     namespace !== Namespace.idmapping ? (
       <DataTableWithLoader
         getIdKey={getIdKey}
-        columns={finalColumns}
+        columns={columns}
         data={allResults}
         loading={loading}
         selected={selectedEntries}
@@ -173,7 +144,7 @@ const ResultsData = ({
     ) : (
       <DataTableWithLoader
         getIdKey={getIdKey}
-        columns={finalColumns}
+        columns={columns}
         data={allResults}
         loading={loading}
         onHeaderClick={updateColumnSort}
