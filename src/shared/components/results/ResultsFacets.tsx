@@ -32,11 +32,11 @@ const getDecoratedFacetLabel = (facetValue: FacetValue) => {
 
 type Props = {
   dataApiObject: UseDataAPIWithStaleState<Response['data']>;
-  namespaceFallback?: Namespace;
+  namespaceOverride?: Namespace;
 };
 
-const ResultsFacets = ({ dataApiObject, namespaceFallback }: Props) => {
-  const namespace = useNS(namespaceFallback);
+const ResultsFacets = ({ dataApiObject, namespaceOverride }: Props) => {
+  const namespace = useNS(namespaceOverride);
   const { data, isStale, loading, progress } = dataApiObject;
 
   // TODO: show loading when a brand new search query (and not just a facet modification) is being fetched

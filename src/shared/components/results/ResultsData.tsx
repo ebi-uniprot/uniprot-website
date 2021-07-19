@@ -35,8 +35,8 @@ type Props = {
   resultsDataObject: PaginatedResults;
   selectedEntries: string[];
   handleEntrySelection: (id: string) => void;
-  namespaceFallback?: Namespace;
-  columnsFallback?: ColumnDescriptor<APIModel>[];
+  namespaceOverride?: Namespace;
+  columnsOverride?: ColumnDescriptor<APIModel>[];
   displayIdMappingColumns?: boolean;
   basketSetter?: Dispatch<SetStateAction<Basket>>;
   className?: string;
@@ -46,18 +46,18 @@ const ResultsData = ({
   resultsDataObject,
   selectedEntries,
   handleEntrySelection,
-  namespaceFallback,
-  columnsFallback,
+  namespaceOverride,
+  columnsOverride,
   displayIdMappingColumns,
   basketSetter,
   className,
 }: Props) => {
-  const namespace = useNS(namespaceFallback) || Namespace.uniprotkb;
+  const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
   const [viewMode] = useLocalStorage<ViewMode>('view-mode', ViewMode.CARD);
   const history = useHistory();
   const { query, direct } = getParamsFromURL(useLocation().search);
   const [columns, updateColumnSort] = useColumns(
-    namespaceFallback,
+    namespaceOverride,
     displayIdMappingColumns
   );
   const {
@@ -143,10 +143,10 @@ const ResultsData = ({
           </Button>
         ),
       };
-      return [...(columnsFallback || columns), removeColumn];
+      return [...(columnsOverride || columns), removeColumn];
     }
-    return columnsFallback || columns;
-  }, [basketSetter, columns, columnsFallback, namespace]);
+    return columnsOverride || columns;
+  }, [basketSetter, columns, columnsOverride, namespace]);
 
   if (
     // if loading the first page of results

@@ -88,7 +88,7 @@ const BasketMiniViewTab = ({
         total={accessions.length}
         selectedEntries={selectedEntries}
         accessions={accessions}
-        namespaceFallback={namespace}
+        namespaceOverride={namespace}
         inBasket
         notCustomisable
       />
@@ -96,8 +96,8 @@ const BasketMiniViewTab = ({
         resultsDataObject={resultsDataObject}
         selectedEntries={selectedEntries}
         handleEntrySelection={handleEntrySelection}
-        namespaceFallback={namespace}
-        columnsFallback={columns}
+        namespaceOverride={namespace}
+        columnsOverride={columns}
         basketSetter={setBasket}
       />
       {/* both classnames from Franklin */}

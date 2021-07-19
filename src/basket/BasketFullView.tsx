@@ -71,7 +71,7 @@ const BasketFullView = () => {
       sidebar={
         <ResultsFacets
           dataApiObject={facetApiObject}
-          namespaceFallback={namespace}
+          namespaceOverride={namespace}
         />
       }
     >
@@ -84,14 +84,14 @@ const BasketFullView = () => {
         total={accessions.length}
         selectedEntries={selectedEntries}
         accessions={accessions}
-        namespaceFallback={namespace}
+        namespaceOverride={namespace}
         inBasket
       />
       <ResultsData
         resultsDataObject={resultsDataObject}
         selectedEntries={selectedEntries}
         handleEntrySelection={handleEntrySelection}
-        namespaceFallback={namespace}
+        namespaceOverride={namespace}
         basketSetter={setBasket}
       />
     </SideBarLayout>

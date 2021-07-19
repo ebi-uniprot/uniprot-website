@@ -142,11 +142,11 @@ export const getColumnsToDisplay = (
   }) || [];
 
 const useColumns = (
-  namespaceFallback?: Namespace,
+  namespaceOverride?: Namespace,
   displayIdMappingColumns = false
 ): [ColumnDescriptor[], (columnName: string) => void] => {
   const history = useHistory();
-  const namespace = useNS(namespaceFallback) || Namespace.uniprotkb;
+  const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
   const location = useLocation();
   const [usersColumns] = useLocalStorage<Column[]>(
     `table columns for ${namespace}` as const,

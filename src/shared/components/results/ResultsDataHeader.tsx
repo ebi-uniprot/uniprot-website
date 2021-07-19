@@ -11,7 +11,7 @@ import { Namespace } from '../../types/namespaces';
 const ResultsDataHeader: FC<{
   total?: number;
   selectedEntries: string[];
-  namespaceFallback?: Namespace;
+  namespaceOverride?: Namespace;
   titlePostscript?: ReactNode;
   accessions?: string[];
   base?: string;
@@ -19,13 +19,13 @@ const ResultsDataHeader: FC<{
 }> = ({
   total = 0,
   selectedEntries,
-  namespaceFallback,
+  namespaceOverride,
   titlePostscript,
   accessions,
   base,
   disableCardToggle = false,
 }) => {
-  const namespace = useNS(namespaceFallback) || Namespace.uniprotkb;
+  const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
 
   return (
     <>
@@ -38,7 +38,7 @@ const ResultsDataHeader: FC<{
         total={total}
         selectedEntries={selectedEntries}
         accessions={accessions}
-        namespaceFallback={namespace}
+        namespaceOverride={namespace}
         disableCardToggle={disableCardToggle}
         base={base}
       />

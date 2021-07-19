@@ -66,27 +66,27 @@ const IDMappingResult = () => {
     total,
   } = resultsDataObject;
 
-  let namespaceFallback;
+  let namespaceOverride;
   switch (detailsData?.to.toLowerCase()) {
     case Namespace.uniprotkb:
     case 'uniprotkb-swiss-prot':
-      namespaceFallback = Namespace.uniprotkb;
+      namespaceOverride = Namespace.uniprotkb;
       break;
     case Namespace.uniref:
     case 'uniref50':
     case 'uniref90':
     case 'uniref100':
-      namespaceFallback = Namespace.uniref;
+      namespaceOverride = Namespace.uniref;
       break;
     case Namespace.uniparc:
-      namespaceFallback = Namespace.uniparc;
+      namespaceOverride = Namespace.uniparc;
       break;
     default:
-      namespaceFallback = Namespace.idmapping;
+      namespaceOverride = Namespace.idmapping;
   }
 
   // Run facet query
-  const facets = defaultFacets.get(namespaceFallback);
+  const facets = defaultFacets.get(namespaceOverride);
   const facetsUrl =
     detailsData?.redirectURL &&
     urls.resultUrl(detailsData.redirectURL, {
@@ -114,7 +114,7 @@ const IDMappingResult = () => {
       <ResultsDataHeader
         selectedEntries={selectedEntries}
         total={total}
-        namespaceFallback={namespaceFallback}
+        namespaceOverride={namespaceOverride}
         disableCardToggle
         titlePostscript={
           total && (
@@ -138,7 +138,7 @@ const IDMappingResult = () => {
         resultsDataObject={resultsDataObject}
         selectedEntries={selectedEntries}
         handleEntrySelection={handleEntrySelection}
-        namespaceFallback={namespaceFallback}
+        namespaceOverride={namespaceOverride}
         displayIdMappingColumns
       />
     </SideBarLayout>
