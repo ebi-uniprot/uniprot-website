@@ -9,6 +9,7 @@ import {
   Alignments,
   Program,
   Sequence,
+  HSPs,
 } from './blastServerParameters';
 import { SelectedTaxon } from '../../types/toolsFormData';
 
@@ -24,4 +25,5 @@ export type FormParameters = {
   filter: Filter;
   gapped: GapAlign;
   hits: Scores | Alignments;
+  hsps: HSPs;
 };

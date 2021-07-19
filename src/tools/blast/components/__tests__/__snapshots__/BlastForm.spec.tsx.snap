@@ -448,6 +448,57 @@ exports[`BlastForm test Renders the form 1`] = `
               </select>
             </label>
           </section>
+          <section
+            class="tools-form-section__item"
+          >
+            <label>
+              HSPs per hit
+              <select>
+                <option
+                  data-testid="HSPs per hit-undefined"
+                  value="undefined"
+                >
+                  All
+                </option>
+                <option
+                  data-testid="HSPs per hit-1"
+                  value="1"
+                >
+                  1
+                </option>
+                <option
+                  data-testid="HSPs per hit-2"
+                  value="2"
+                >
+                  2
+                </option>
+                <option
+                  data-testid="HSPs per hit-5"
+                  value="5"
+                >
+                  5
+                </option>
+                <option
+                  data-testid="HSPs per hit-10"
+                  value="10"
+                >
+                  10
+                </option>
+                <option
+                  data-testid="HSPs per hit-50"
+                  value="50"
+                >
+                  50
+                </option>
+                <option
+                  data-testid="HSPs per hit-100"
+                  value="100"
+                >
+                  100
+                </option>
+              </select>
+            </label>
+          </section>
         </section>
       </details>
       <section
