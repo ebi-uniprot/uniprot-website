@@ -73,7 +73,7 @@ const Name = ({ children, id }: NameProps) => {
         value={text}
         maxLength={100}
       />
-      <EditIcon width="1em" />
+      <EditIcon width="1em" height="2em" />
     </label>
   );
 };
