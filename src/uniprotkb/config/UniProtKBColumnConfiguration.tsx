@@ -6,7 +6,6 @@ import {
   Sequence,
 } from 'franklin-sites';
 import { Link } from 'react-router-dom';
-import { Fragment } from 'react';
 
 import SimpleView from '../../shared/components/views/SimpleView';
 import { ECNumbersView } from '../components/protein-data-views/ProteinNamesView';
@@ -78,6 +77,8 @@ import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
 import AccessionView from '../../shared/components/results/AccessionView';
 
 import { Interactant } from '../adapters/interactionConverter';
+
+import helper from '../../shared/styles/helper.module.scss';
 
 export const defaultColumns = [
   UniProtKBColumn.accession,
@@ -712,10 +713,13 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
 
     interactionComments?.forEach((interactionCC) =>
       interactionCC.interactions.forEach((interaction) => {
-        if (interaction.type === InteractionType.SELF) {
-          interactionDataMap.set('self', 'self');
-        }
         if (
+          interaction.type === InteractionType.SELF ||
+          (interaction.interactantOne.uniProtKBAccession === primaryAccession &&
+            interaction.interactantTwo.uniProtKBAccession === primaryAccession)
+        ) {
+          interactionDataMap.set('self', 'self');
+        } else if (
           interaction.interactantOne.uniProtKBAccession === primaryAccession &&
           interaction.interactantTwo.uniProtKBAccession
         ) {
@@ -723,8 +727,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
             interaction.interactantTwo.uniProtKBAccession,
             interaction.interactantTwo
           );
-        }
-        if (
+        } else if (
           interaction.interactantTwo.uniProtKBAccession === primaryAccession &&
           interaction.interactantOne.uniProtKBAccession
         ) {
@@ -747,7 +750,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
             ) || -1
           );
         }
-        return -1;
+        return -2;
       }
     );
 
@@ -756,9 +759,12 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
         {sortedInteractions.map((interactant) =>
           typeof interactant === 'string' ? (
             // SELF
-            interactant
+            'Itself'
           ) : (
-            <Fragment key={interactant.uniProtKBAccession}>
+            <div
+              key={interactant.uniProtKBAccession}
+              className={helper['no-wrap']}
+            >
               {interactant.uniProtKBAccession && (
                 <Link
                   to={getEntryPath(
@@ -769,8 +775,8 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
                   {interactant.uniProtKBAccession}
                 </Link>
               )}{' '}
-              {interactant?.geneName}
-            </Fragment>
+              {interactant.geneName && `(${interactant.geneName})`}
+            </div>
           )
         )}
       </ExpandableList>
