@@ -29,6 +29,7 @@ const DownloadComponent = lazy(
   /* istanbul ignore next */
   () => import(/* webpackChunkName: "download" */ '../download/Download')
 );
+import MapIDButton from '../action-buttons/MapID';
 
 type ResultsButtonsProps = {
   selectedEntries: string[];
@@ -88,6 +89,12 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
         )}
         {isMain && namespace !== Namespace.proteomes && (
           <AlignButton selectedEntries={selectedEntries} />
+        )}
+        {isMain && namespace !== Namespace.proteomes && (
+          <MapIDButton
+            selectedEntries={selectedEntries}
+            namespace={namespace}
+          />
         )}
         <Button
           variant="tertiary"

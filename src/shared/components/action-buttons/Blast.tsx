@@ -1,5 +1,3 @@
-import { FC } from 'react';
-
 import ToolsButton from './ToolsButton';
 
 import { Location } from '../../../app/config/urls';
@@ -11,7 +9,7 @@ type BlastButtonProps = {
   textSuffix?: string;
 };
 
-const BlastButton: FC<BlastButtonProps> = ({ selectedEntries, textSuffix }) => {
+const BlastButton = ({ selectedEntries, textSuffix }: BlastButtonProps) => {
   const n = selectedEntries.length;
 
   const disabled = !n || n > BLAST_LIMIT;
