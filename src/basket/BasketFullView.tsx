@@ -43,8 +43,12 @@ const BasketFullView = () => {
   const facetApiObject =
     useDataApiWithStale<Response['data']>(initialApiFacetUrl);
 
-  const { loading: facetInitialLoading, isStale: facetHasStaleData } =
-    facetApiObject;
+  const {
+    loading: facetInitialLoading,
+    headers: facetHeaders,
+    isStale: facetHasStaleData,
+  } = facetApiObject;
+  const facetTotal = facetHeaders?.['x-total-records'];
 
   // Query for basket data
   const initialApiUrl = useNSQuery({
@@ -55,11 +59,20 @@ const BasketFullView = () => {
   const resultsDataObject = usePagination(initialApiUrl);
   const {
     initialLoading: resultsDataInitialLoading,
+    total: resultsDataTotal,
     progress: resultsDataProgress,
   } = resultsDataObject;
 
   if (!accessions.length) {
     return <EmptyBasket />;
+  }
+
+  let total: undefined | number = accessions.length;
+  if (facetTotal !== undefined) {
+    total = +facetTotal;
+  }
+  if (resultsDataTotal !== undefined) {
+    total = +resultsDataTotal;
   }
 
   if (facetInitialLoading && resultsDataInitialLoading && !facetHasStaleData) {
@@ -78,10 +91,10 @@ const BasketFullView = () => {
       <PageIntro
         title={namespaceToolTitles[namespace]}
         titlePostscript={<small> in your basket</small>}
-        resultsCount={accessions.length}
+        resultsCount={total}
       />
       <ResultsButtons
-        total={accessions.length}
+        total={total}
         selectedEntries={selectedEntries}
         accessions={accessions}
         namespaceOverride={namespace}
