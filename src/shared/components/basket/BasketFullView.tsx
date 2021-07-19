@@ -55,7 +55,6 @@ const BasketFullView = () => {
     accessions,
     overrideNS: namespace,
     withFacets: false,
-    withColumns: false,
   });
   const resultsDataObject = usePagination(initialApiUrl);
   const {
