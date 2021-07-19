@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { AxiosRequestConfig } from 'axios';
 
 import useDataApi, { UseDataAPIState } from './useDataApi';
 
@@ -11,11 +12,12 @@ export type UseDataAPIWithStaleState<T> = UseDataAPIState<T> & {
  * it, marking it as stale through the `isStale` field.
  */
 function useDataApiWithStale<T>(
-  url?: string | null
+  url?: string | null,
+  options?: AxiosRequestConfig
 ): UseDataAPIWithStaleState<T> {
   const staleDataRef = useRef<T>();
 
-  const state = useDataApi<T>(url);
+  const state = useDataApi<T>(url, options);
 
   if (state.data) {
     // fresh data available
