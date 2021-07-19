@@ -671,6 +671,8 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
 
     interactionComments?.forEach((interactionCC) =>
       interactionCC.interactions.forEach((interaction) => {
+        // Note: currently the interaction type is missing from the request.
+        // Check again when it has been added.
         if (
           interaction.type === InteractionType.SELF ||
           (interaction.interactantOne.uniProtKBAccession === primaryAccession &&
