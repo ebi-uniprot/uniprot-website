@@ -1,6 +1,16 @@
 import { useMemo } from 'react';
-import { ExpandableList, HeroContainer, Loader } from 'franklin-sites';
+import {
+  ExpandableList,
+  HeroContainer,
+  Loader,
+  PageIntro,
+} from 'franklin-sites';
 import { useLocation, useRouteMatch } from 'react-router-dom';
+
+import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
+import ResultsData from '../../../../shared/components/results/ResultsData';
+import ResultsButtons from '../../../../shared/components/results/ResultsButtons';
+import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
 
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
 import useDataApi from '../../../../shared/hooks/useDataApi';
@@ -12,22 +22,19 @@ import toolsURLs from '../../../config/urls';
 import idMappingConverter from '../../adapters/idMappingConverter';
 import { databaseToDatabaseInfo } from '../../../../uniprotkb/config/database';
 import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
-
-import ResultsData from '../../../../shared/components/results/ResultsData';
+import namespaceToolTitles from '../../../../shared/config/namespaceToolTitles';
+import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
+import { defaultFacets } from '../../../../shared/config/apiUrls';
 
 import { JobTypes } from '../../../types/toolsJobTypes';
 import { Location, LocationToPath } from '../../../../app/config/urls';
-import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
 import {
   MappingAPIModel,
   MappingDetails,
   MappingFlat,
 } from '../../types/idMappingSearchResults';
 import { Namespace } from '../../../../shared/types/namespaces';
-import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
-import { defaultFacets } from '../../../../shared/config/apiUrls';
 import Response from '../../../../uniprotkb/types/responseTypes';
-import ResultsDataHeader from '../../../../shared/components/results/ResultsDataHeader';
 
 const jobType = JobTypes.ID_MAPPING;
 const urls = toolsURLs(jobType);
@@ -109,13 +116,12 @@ const IDMappingResult = () => {
     return <Loader />;
   }
 
+  const getIdKey = getIdKeyFor(namespaceOverride);
+
   return (
     <SideBarLayout sidebar={<ResultsFacets dataApiObject={facetsData} />}>
-      <ResultsDataHeader
-        selectedEntries={selectedEntries}
-        total={total}
-        namespaceOverride={namespaceOverride}
-        disableCardToggle
+      <PageIntro
+        title={namespaceToolTitles[namespaceOverride]}
         titlePostscript={
           total && (
             <small>
@@ -123,14 +129,24 @@ const IDMappingResult = () => {
             </small>
           )
         }
-        base={detailsData?.redirectURL}
+        resultsCount={total}
       />
+      <ResultsButtons
+        total={total || 0}
+        selectedEntries={selectedEntries}
+        accessions={resultsDataObject.allResults.map(getIdKey)}
+        namespaceOverride={namespaceOverride}
+        disableCardToggle
+        base={detailsData?.redirectURL}
+        notCustomisable={namespaceOverride === Namespace.idmapping}
+      />
+
       {failedIds && (
         <HeroContainer>
           <strong>{failedIds.length}</strong> id
           {failedIds.length === 1 ? ' is' : 's were'} not mapped:
           <ExpandableList descriptionString="ids" numberCollapsedItems={0}>
-            {failedIds.map((id) => id)}
+            {failedIds}
           </ExpandableList>
         </HeroContainer>
       )}
