@@ -50,7 +50,6 @@ import {
 import AnnotationScoreDoughnutChart, {
   DoughnutChartSize,
 } from '../components/protein-data-views/AnnotationScoreDoughnutChart';
-import { getAllKeywords } from '../utils/KeywordsUtil';
 import { KeywordList } from '../components/protein-data-views/KeywordView';
 import { DatabaseList } from '../components/protein-data-views/XRefView';
 import {
@@ -64,18 +63,20 @@ import VariationView from '../components/protein-data-views/VariationView';
 import { StructureUIModel } from '../adapters/structureConverter';
 import SubcellularLocationView from '../components/protein-data-views/SubcellularLocationView';
 import { GOTermsView } from '../components/protein-data-views/GOView';
-import externalUrls from '../../shared/config/externalUrls';
 import EntryTypeIcon, {
   EntryType,
 } from '../../shared/components/entry/EntryTypeIcon';
+import AccessionView from '../../shared/components/results/AccessionView';
 
+import { getAllKeywords } from '../utils/KeywordsUtil';
+import externalUrls from '../../shared/config/externalUrls';
 import { getEntryPath } from '../../app/config/urls';
 import { fromColumnConfig } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 import { sortInteractionData } from '../utils/resultsUtils';
 
 import { Namespace } from '../../shared/types/namespaces';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
-import AccessionView from '../../shared/components/results/AccessionView';
+import { Interactant } from '../adapters/interactionConverter';
 
 import helper from '../../shared/styles/helper.module.scss';
 
@@ -708,7 +709,10 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
     ) as InteractionComment[];
     const { primaryAccession } = data;
 
-    const interactionDataMap = new Map();
+    const interactionDataMap = new Map<
+      string,
+      Interactant | InteractionType.SELF
+    >();
 
     interactionComments?.forEach((interactionCC) =>
       interactionCC.interactions.forEach((interaction) => {
@@ -717,7 +721,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
           (interaction.interactantOne.uniProtKBAccession === primaryAccession &&
             interaction.interactantTwo.uniProtKBAccession === primaryAccession)
         ) {
-          interactionDataMap.set('self', 'self');
+          interactionDataMap.set(InteractionType.SELF, InteractionType.SELF);
         } else if (
           interaction.interactantOne.uniProtKBAccession === primaryAccession &&
           interaction.interactantTwo.uniProtKBAccession
@@ -745,8 +749,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
     return (
       <ExpandableList displayNumberOfHiddenItems>
         {sortedInteractions.map((interactant) =>
-          typeof interactant === 'string' ? (
-            // SELF
+          interactant === InteractionType.SELF ? (
             'Itself'
           ) : (
             <div

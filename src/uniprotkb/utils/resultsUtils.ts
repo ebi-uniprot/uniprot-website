@@ -8,6 +8,7 @@ import {
   ReceivedFieldData,
 } from '../types/resultsTypes';
 import { Interactant } from '../adapters/interactionConverter';
+import { InteractionType } from '../types/commentTypes';
 
 const facetsAsArray = (facetString: string): SelectedFacet[] =>
   facetString.split(',').map((stringItem) => {
@@ -101,16 +102,20 @@ export const getSortableColumnToSortColumn = (
   return sortableColumnToSortColumn;
 };
 
+/**
+ * First SELF
+ * Then accessions without genes, as is
+ * Then accessions with genes, ordered by gene name
+ */
 export const sortInteractionData = (
-  interactionDataMap: Map<string, Interactant | string>
+  interactionDataMap: Map<string, Interactant | InteractionType.SELF>
 ) =>
   Array.from(interactionDataMap.values()).sort((a, b) => {
-    if (typeof a !== 'string' && typeof b !== 'string') {
-      return (
-        (a as Interactant).geneName?.localeCompare(
-          (b as Interactant).geneName || ''
-        ) || -1
-      );
+    if (a !== InteractionType.SELF && b !== InteractionType.SELF) {
+      return a.geneName?.localeCompare(b.geneName || '') || -1;
     }
-    return -2;
+    if (a === InteractionType.SELF) {
+      return -1;
+    }
+    return 1;
   });
