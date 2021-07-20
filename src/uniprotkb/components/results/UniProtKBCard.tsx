@@ -4,7 +4,7 @@ import { Card } from 'franklin-sites';
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import { KeywordList } from '../protein-data-views/KeywordView';
 import ProteinOverview from '../protein-data-views/ProteinOverviewView';
-import BasketStatus from '../../../shared/components/BasketStatus';
+import BasketStatus from '../../../basket/BasketStatus';
 
 import getProteinHighlights from '../../adapters/proteinHighlights';
 import { getKeywordsForCategories } from '../../utils/KeywordsUtil';

@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { Facets, Facet, Loader } from 'franklin-sites';
 
 import useNS from '../../hooks/useNS';
@@ -6,7 +5,11 @@ import useNS from '../../hooks/useNS';
 import TaxonomyFacet from './TaxonomyFacet';
 import EntryTypeIcon from '../entry/EntryTypeIcon';
 
-import { mainNamespaces, SearchableNamespace } from '../../types/namespaces';
+import {
+  mainNamespaces,
+  Namespace,
+  SearchableNamespace,
+} from '../../types/namespaces';
 
 import { UseDataAPIWithStaleState } from '../../hooks/useDataApiWithStale';
 import Response, { FacetValue } from '../../../uniprotkb/types/responseTypes';
@@ -27,10 +30,13 @@ const getDecoratedFacetLabel = (facetValue: FacetValue) => {
   return label;
 };
 
-const ResultsFacets: FC<{
+type Props = {
   dataApiObject: UseDataAPIWithStaleState<Response['data']>;
-}> = ({ dataApiObject }) => {
-  const namespace = useNS();
+  namespaceOverride?: Namespace;
+};
+
+const ResultsFacets = ({ dataApiObject, namespaceOverride }: Props) => {
+  const namespace = useNS(namespaceOverride);
   const { data, isStale, loading, progress } = dataApiObject;
 
   // TODO: show loading when a brand new search query (and not just a facet modification) is being fetched

@@ -26,7 +26,7 @@ const Results = () => {
     useDataApiWithStale<Response['data']>(initialApiFacetUrl);
 
   const {
-    loading: facetInititialLoading,
+    loading: facetInitialLoading,
     headers: facetHeaders,
     isStale: facetHasStaleData,
   } = facetApiObject;
@@ -49,16 +49,12 @@ const Results = () => {
     total = +resultsDataTotal;
   }
 
-  if (
-    facetInititialLoading &&
-    resultsDataInitialLoading &&
-    !facetHasStaleData
-  ) {
+  if (facetInitialLoading && resultsDataInitialLoading && !facetHasStaleData) {
     return <Loader progress={resultsDataProgress} />;
   }
 
   if (
-    (!resultsDataInitialLoading && !facetInititialLoading && !total) ||
+    (!resultsDataInitialLoading && !facetInitialLoading && !total) ||
     total === 0
   ) {
     return <NoResultsPage />;

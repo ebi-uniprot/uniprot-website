@@ -11,6 +11,7 @@ import {
 
 import BlastButton from '../action-buttons/Blast';
 import AlignButton from '../action-buttons/Align';
+import MapIDButton from '../action-buttons/MapID';
 import AddToBasketButton from '../action-buttons/AddToBasket';
 import CustomiseButton from '../action-buttons/CustomiseButton';
 import ErrorBoundary from '../error-component/ErrorBoundary';
@@ -34,29 +35,29 @@ type ResultsButtonsProps = {
   selectedEntries: string[];
   total: number;
   accessions?: string[];
-  namespaceFallback?: Namespace;
+  namespaceOverride?: Namespace;
   base?: string;
   disableCardToggle?: boolean; // Note: remove if we have card view for id mapping
+  inBasket?: boolean;
+  notCustomisable?: boolean;
 };
 
 const ResultsButtons: FC<ResultsButtonsProps> = ({
   total,
   selectedEntries,
   accessions,
-  namespaceFallback,
+  namespaceOverride,
   base,
   disableCardToggle = false,
+  inBasket = false,
+  notCustomisable = false,
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-  const namespace = useNS() || namespaceFallback || Namespace.uniprotkb;
+  const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
   const [viewMode, setViewMode] = useLocalStorage<ViewMode>(
     'view-mode',
     ViewMode.CARD
   );
-
-  if (!namespace) {
-    throw new Error('No namespace provided');
-  }
 
   const isMain = mainNamespaces.has(namespace);
 
@@ -89,6 +90,12 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
         {isMain && namespace !== Namespace.proteomes && (
           <AlignButton selectedEntries={selectedEntries} />
         )}
+        {isMain && namespace !== Namespace.proteomes && (
+          <MapIDButton
+            selectedEntries={selectedEntries}
+            namespace={namespace}
+          />
+        )}
         <Button
           variant="tertiary"
           onPointerOver={DownloadComponent.preload}
@@ -99,9 +106,12 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
           Download
         </Button>
         {isMain && namespace !== Namespace.proteomes && (
-          <AddToBasketButton selectedEntries={selectedEntries} />
+          <AddToBasketButton
+            selectedEntries={selectedEntries}
+            remove={inBasket}
+          />
         )}
-        {isMain && (
+        {!inBasket && isMain && (
           <Button variant="tertiary" disabled>
             <StatisticsIcon />
             Statistics
@@ -132,9 +142,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
             })}
           />
         </Button>
-        {viewMode === ViewMode.TABLE && namespace !== Namespace.idmapping && (
-          <CustomiseButton />
-        )}
+        {!notCustomisable && viewMode === ViewMode.TABLE && <CustomiseButton />}
       </div>
     </>
   );

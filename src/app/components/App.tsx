@@ -153,6 +153,13 @@ const PeptideSearchForm = lazy(
     )
 );
 
+const BasketFullView = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "basket-full-view" */ '../../basket/BasketFullView'
+    )
+);
+
 const Dashboard = lazy(
   () =>
     import(
@@ -294,6 +301,10 @@ const App = () => {
                     <IDMappingForm />
                   </SingleColumnLayout>
                 )}
+              />
+              <Route
+                path={LocationToPath[Location.Basket]}
+                component={BasketFullView}
               />
               <Route
                 path={LocationToPath[Location.Dashboard]}

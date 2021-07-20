@@ -1,5 +1,3 @@
-import { FC } from 'react';
-
 import ToolsButton from './ToolsButton';
 
 import { Location } from '../../../app/config/urls';
@@ -11,7 +9,7 @@ type AlignButtonProps = {
   textSuffix?: string;
 };
 
-const AlignButton: FC<AlignButtonProps> = ({ selectedEntries, textSuffix }) => {
+const AlignButton = ({ selectedEntries, textSuffix }: AlignButtonProps) => {
   const n = selectedEntries.length;
 
   const disabled = n <= 1 || n > ALIGN_LIMIT;

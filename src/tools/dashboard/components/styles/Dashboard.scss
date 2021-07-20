@@ -218,6 +218,13 @@
   }
 }
 
+// In the sliding panel
+// from franklin: .sliding-panel and .card
+.sliding-panel .dashboard .card {
+  // remove the fake margin on the right of the cards
+  width: initial;
+}
+
 // switch to narrow view before content starts escaping the cards
 @media only screen and (max-width: 50em) {
   .dashboard {

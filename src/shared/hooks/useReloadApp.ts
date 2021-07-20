@@ -9,7 +9,6 @@ const useReloadApp = (history: History) => {
     const unlisten = history.listen((location) => {
       // if the path changes, and the app needs a reload
       if (previousPathname !== location.pathname && needsReload.current) {
-        console.log('reloading!!!');
         window.location.reload();
       }
       previousPathname = location.pathname;

@@ -5,7 +5,6 @@ import {
   Card,
   Button,
   PageIntro,
-  Message,
   ClockIcon,
   ReSubmitIcon,
   FullViewIcon,
@@ -13,16 +12,14 @@ import {
 import { partition } from 'lodash-es';
 
 import Row from './Row';
+import EmptyDashboard from './EmptyDashboard';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { RootState } from '../../../app/state/rootInitialState';
 import { Job } from '../../types/toolsJob';
 
-import ArtWork from '../../svg/no-blast-results.svg';
-
 import './styles/Dashboard.scss';
-import '../../../shared/components/error-pages/styles/error-pages.scss';
 
 const EXPIRED_TIME = 1000 * 60 * 60 * 24 * 7; // 1 week
 
@@ -51,25 +48,10 @@ const Dashboard = ({ closePanel }: { closePanel?: () => void }) => {
   }, [closePanel, pathname]);
 
   if (!(activeJobs.length || expiredJobs.length)) {
-    const noResultsSubtitle = (
-      <div>
-        Try using <Link to={LocationToPath[Location.Blast]}>BLAST</Link>,{' '}
-        <Link to={LocationToPath[Location.Align]}>Align</Link>,{' '}
-        <Link to={LocationToPath[Location.IDMapping]}>Retrieve/ID Mapping</Link>{' '}
-        or{' '}
-        <Link to={LocationToPath[Location.PeptideSearch]}>Peptide Search</Link>{' '}
-        to begin
-      </div>
-    );
     return (
       <>
         {closePanel ? null : <PageIntro title="Tool results" />}
-        <div className="error-page-container">
-          <ArtWork className="error-page-container__art-work" />
-          <Message level="warning" subtitle={noResultsSubtitle} forFullPage>
-            No results available. Your UniProt tool results will be shown here
-          </Message>
-        </div>
+        <EmptyDashboard />
       </>
     );
   }
@@ -121,6 +103,7 @@ const Dashboard = ({ closePanel }: { closePanel?: () => void }) => {
             element={Link}
             variant="secondary"
             to={LocationToPath[Location.Dashboard]}
+            onClick={closePanel}
           >
             <FullViewIcon height="1em" width="1em" />
             Full view

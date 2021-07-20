@@ -3,10 +3,14 @@ import { allSearchResultLocations } from '../../app/config/urls';
 
 import { Namespace } from '../types/namespaces';
 
-const useNS = (): Namespace | undefined => {
+const useNS = (override?: Namespace): Namespace | undefined => {
   const match = useRouteMatch<{
     namespace: Namespace;
   }>(allSearchResultLocations);
+
+  if (override) {
+    return override;
+  }
 
   if (!match) {
     return undefined;
