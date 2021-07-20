@@ -1,5 +1,11 @@
-import { lazy, Suspense, CSSProperties } from 'react';
-import { Router, Route, Switch } from 'react-router-dom';
+import {
+  lazy,
+  Suspense,
+  CSSProperties,
+  ReactComponentElement,
+  FC,
+} from 'react';
+import { Router, Route, Switch, RouteChildrenProps } from 'react-router-dom';
 import { FranklinSite, Loader } from 'franklin-sites';
 
 import BaseLayout from '../../shared/components/layouts/BaseLayout';
@@ -124,32 +130,35 @@ const AlignForm = lazy(
       /* webpackChunkName: "align-form" */ '../../tools/align/components/AlignForm'
     )
 );
-
 const IDMappingResult = lazy(
   () =>
     import(
       /* webpackChunkName: "id-mapping-result" */ '../../tools/id-mapping/components/results/IDMappingResult'
     )
 );
-
 const IDMappingForm = lazy(
   () =>
     import(
       /* webpackChunkName: "id-mapping-form" */ '../../tools/id-mapping/components/IDMappingForm'
     )
 );
-
 const PeptideSearchResult = lazy(
   () =>
     import(
       /* webpackChunkName: "peptide-search-result" */ '../../tools/peptide-search/components/results/PeptideSearchResult'
     )
 );
-
 const PeptideSearchForm = lazy(
   () =>
     import(
       /* webpackChunkName: "peptide-search-form" */ '../../tools/peptide-search/components/PeptideSearchForm'
+    )
+);
+
+const Dashboard = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "dashboard" */ '../../tools/dashboard/components/Dashboard'
     )
 );
 
@@ -160,10 +169,15 @@ const BasketFullView = lazy(
     )
 );
 
-const Dashboard = lazy(
+// Help
+const HelpEntryPage = lazy(
+  () =>
+    import(/* webpackChunkName: "help-entry" */ '../../help/components/Entry')
+);
+const HelpResults = lazy(
   () =>
     import(
-      /* webpackChunkName: "dashboard" */ '../../tools/dashboard/components/Dashboard'
+      /* webpackChunkName: "help-results" */ '../../help/components/results/Results'
     )
 );
 
@@ -188,6 +202,17 @@ const reportBugLinkStyles: CSSProperties = {
   textOrientation: 'sideways',
   zIndex: 99,
 };
+
+// Helper component to render a landing page or the results page depending on
+// the presence of absence of a querystring
+const ResultsOrLanding =
+  (ResultsPage: FC<RouteChildrenProps>, LandingPage: FC<RouteChildrenProps>) =>
+  (props: RouteChildrenProps) =>
+    props.location.search ? (
+      <ResultsPage {...props} />
+    ) : (
+      <LandingPage {...props} />
+    );
 
 const App = () => {
   useScrollToTop(history);
@@ -303,16 +328,24 @@ const App = () => {
                 )}
               />
               <Route
-                path={LocationToPath[Location.Basket]}
-                component={BasketFullView}
-              />
-              <Route
                 path={LocationToPath[Location.Dashboard]}
                 render={() => (
                   <SingleColumnLayout>
                     <Dashboard />
                   </SingleColumnLayout>
                 )}
+              />
+              <Route
+                path={LocationToPath[Location.Basket]}
+                component={BasketFullView}
+              />
+              <Route
+                path={LocationToPath[Location.HelpEntry]}
+                component={HelpEntryPage}
+              />
+              <Route
+                path={LocationToPath[Location.HelpResults]}
+                component={ResultsOrLanding(HelpResults, () => 'Landing page')}
               />
               {/* Catch-all handler -> Redirect or not found */}
               <Route

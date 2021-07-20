@@ -428,3 +428,57 @@ export const getClustersForProteins = (accessions: string[]) =>
       .map((accession) => `uniprot_id:${accession}`)
       .join(' OR ')})`
   );
+
+//   query *
+// string
+// (query)
+
+// Criteria to search help centre. It can take any valid Lucene query.
+// sort
+// string
+// (query)
+
+// Name of the field to be sorted on
+// fields
+// string
+// (query)
+
+// Comma separated list of fields to be returned in response
+// facets
+// string
+// (query)
+
+// Comma separated list of facets to search
+// size
+
+type HelpSearchProps = {
+  query?: string;
+  sort?: string;
+  fields?: string;
+  facets?: string;
+  size?: number;
+  [ignoredKey: string]: unknown;
+};
+
+export const help = {
+  accession: (accession: string) => joinUrl(apiPrefix, '/help', accession),
+  search: (
+    { query, sort, fields, facets, size }: HelpSearchProps,
+    forFacet = false
+  ) =>
+    `${joinUrl(apiPrefix, '/help/search')}?${queryString.stringify({
+      query: [
+        query || '*',
+        ...(facets || '')
+          .split(',')
+          .filter(Boolean)
+          .map((facet) => `(${facet})`),
+      ]
+        .filter(Boolean)
+        .join(' AND '),
+      sort,
+      fields,
+      facets: forFacet ? ['category'] : undefined,
+      size: forFacet ? 0 : size,
+    })}`,
+};
