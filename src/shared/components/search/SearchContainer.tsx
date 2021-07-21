@@ -94,6 +94,9 @@ const SearchContainer: FC<
       const { query } = queryString.parse(history.location.search, {
         decode: true,
       });
+      if (history.location.pathname.includes('help')) {
+        return '';
+      }
       if (Array.isArray(query)) {
         return query[0];
       }
@@ -155,12 +158,16 @@ const SearchContainer: FC<
   // URL. That includes removing the text when browsing to a non-search page.
   useEffect(() => {
     const { query } = queryString.parse(location.search, { decode: true });
+    // Using history here because history won't change, while location will
+    if (history.location.pathname.includes('help')) {
+      return;
+    }
     if (Array.isArray(query)) {
       setSearchTerm(query[0]);
       return;
     }
     setSearchTerm(query || '');
-  }, [location]);
+  }, [history, location.search]);
 
   return (
     <>

@@ -59,6 +59,9 @@ import {
   defaultFacets as locationsDefaultFacets,
 } from '../../supporting-data/locations/config/LocationsFacetConfiguration';
 
+// Help
+import { defaultFacets as helpDefaultFacets } from '../../help/config/HelpFacetConfiguration';
+
 // Injected by webpack
 export const apiPrefix = API_PREFIX;
 
@@ -429,56 +432,31 @@ export const getClustersForProteins = (accessions: string[]) =>
       .join(' OR ')})`
   );
 
-//   query *
-// string
-// (query)
-
-// Criteria to search help centre. It can take any valid Lucene query.
-// sort
-// string
-// (query)
-
-// Name of the field to be sorted on
-// fields
-// string
-// (query)
-
-// Comma separated list of fields to be returned in response
-// facets
-// string
-// (query)
-
-// Comma separated list of facets to search
-// size
-
-type HelpSearchProps = {
-  query?: string;
-  sort?: string;
-  fields?: string;
-  facets?: string;
-  size?: number;
-  [ignoredKey: string]: unknown;
-};
-
+// Help endpoints
 export const help = {
   accession: (accession: string) => joinUrl(apiPrefix, '/help', accession),
-  search: (
-    { query, sort, fields, facets, size }: HelpSearchProps,
-    forFacet = false
-  ) =>
-    `${joinUrl(apiPrefix, '/help/search')}?${queryString.stringify({
+  search: (searchString: string) => {
+    const { query, sort, fields, facets, size } =
+      queryString.parse(searchString);
+    return `${joinUrl(apiPrefix, '/help/search')}?${queryString.stringify({
       query: [
         query || '*',
-        ...(facets || '')
+        ...((Array.isArray(facets) ? facets.join(',') : facets) || '')
           .split(',')
           .filter(Boolean)
+          // Sort in order to improve cache hits
+          .sort()
           .map((facet) => `(${facet})`),
       ]
         .filter(Boolean)
         .join(' AND '),
       sort,
       fields,
-      facets: forFacet ? ['category'] : undefined,
-      size: forFacet ? 0 : size,
-    })}`,
+      facets: helpDefaultFacets,
+      // At the moment, only 254 pages available
+      // Getting all of them allows us to not use the pagination logic in this
+      // section of the website, isolating it more from the rest
+      size: size || 500,
+    })}`;
+  },
 };

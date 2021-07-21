@@ -1,10 +1,4 @@
-import {
-  lazy,
-  Suspense,
-  CSSProperties,
-  ReactComponentElement,
-  FC,
-} from 'react';
+import { lazy, Suspense, CSSProperties, FC } from 'react';
 import { Router, Route, Switch, RouteChildrenProps } from 'react-router-dom';
 import { FranklinSite, Loader } from 'franklin-sites';
 
@@ -345,7 +339,9 @@ const App = () => {
               />
               <Route
                 path={LocationToPath[Location.HelpResults]}
-                component={ResultsOrLanding(HelpResults, () => 'Landing page')}
+                component={ResultsOrLanding(HelpResults, () => (
+                  <>Help landing page</>
+                ))}
               />
               {/* Catch-all handler -> Redirect or not found */}
               <Route
