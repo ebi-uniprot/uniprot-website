@@ -68,7 +68,14 @@ const Results = ({ history, location }: RouteChildrenProps) => {
       <DataList
         getIdKey={getIdKey}
         data={dataObject.data.results}
-        dataRenderer={(article) => <HelpCard data={article} />}
+        dataRenderer={(article) => (
+          <HelpCard
+            id={article.id}
+            title={article.title}
+            titleMatch={article.matches?.title?.[0]}
+            contentMatch={article.matches?.content?.[0]}
+          />
+        )}
       />
     );
   }

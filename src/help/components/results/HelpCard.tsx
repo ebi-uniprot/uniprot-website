@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import { generatePath, Link } from 'react-router-dom';
 import { Card } from 'franklin-sites';
 import marked from 'marked';
 
@@ -6,7 +7,7 @@ import cleanText, {
   cleanTextDefaultOptions,
 } from '../../../shared/utils/cleanText';
 
-import { HelpAPIModel } from '../../adapters/helpConverter';
+import { LocationToPath, Location } from '../../../app/config/urls';
 
 import styles from './styles/help-card.module.scss';
 
@@ -18,28 +19,56 @@ const cleanTextOptions = {
   },
 };
 
-const Preview = memo(({ children }: { children: string }) => (
-  <div
-    // eslint-disable-next-line react/no-danger
-    dangerouslySetInnerHTML={{
-      __html: cleanText(marked.parseInline(children), cleanTextOptions),
-    }}
-  />
-));
-
 type Props = {
-  data: HelpAPIModel;
+  id: string;
+  title: string;
+  titleMatch?: string;
+  contentMatch?: string;
 };
 
-const HelpCard = ({ data }: Props) => (
-  <Card
-    header={<h2 className="tiny">{data.title}</h2>}
-    headerSeparator={false}
-    to={/* getEntryPath(Namespace.citations, id) */ ''}
-    className={styles['help-card']}
-  >
-    <Preview>{Object.values(data.matches || {})[0]?.[0] || ''}</Preview>
-  </Card>
-);
+const HelpCard = ({ id, title, titleMatch, contentMatch }: Props) => {
+  const to = generatePath(LocationToPath[Location.HelpEntry], {
+    accession: id,
+  });
 
-export default HelpCard;
+  return (
+    <Card
+      header={
+        <h2 className="tiny">
+          <Link to={to}>
+            {titleMatch ? (
+              <span
+                // eslint-disable-next-line react/no-danger
+                dangerouslySetInnerHTML={{
+                  __html: cleanText(
+                    marked.parseInline(titleMatch),
+                    cleanTextOptions
+                  ),
+                }}
+              />
+            ) : (
+              title
+            )}
+          </Link>
+        </h2>
+      }
+      headerSeparator={false}
+      to={to}
+      className={styles['help-card']}
+    >
+      {contentMatch && (
+        <div
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: cleanText(
+              marked.parseInline(contentMatch),
+              cleanTextOptions
+            ),
+          }}
+        />
+      )}
+    </Card>
+  );
+};
+
+export default memo(HelpCard);
