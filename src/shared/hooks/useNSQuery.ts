@@ -16,14 +16,16 @@ const useNSQuery = ({
   size,
   withFacets = false,
   withColumns = true,
-  accessions = [],
+  accessions,
+  overrideNS,
 }: {
   size?: number;
   withFacets?: boolean;
   withColumns?: boolean;
   accessions?: string[];
+  overrideNS?: Namespace;
 } = {}) => {
-  const namespace = useNS() || Namespace.uniprotkb;
+  const namespace = useNS(overrideNS) || Namespace.uniprotkb;
   const location = useLocation();
   const [viewMode] = useLocalStorage<ViewMode>('view-mode', ViewMode.CARD);
   const [columns] = useLocalStorage<Column[]>(
@@ -44,7 +46,7 @@ const useNSQuery = ({
     getParamsFromURL(queryParamFromUrl);
 
   const url = useMemo(() => {
-    if (!query && !accessions.length) {
+    if (!(query || accessions?.length)) {
       return undefined;
     }
     const options = {
@@ -57,7 +59,7 @@ const useNSQuery = ({
       sortDirection,
       size,
     };
-    return accessions.length
+    return accessions
       ? getAccessionsURL(accessions, options)
       : getAPIQueryUrl(options);
   }, [

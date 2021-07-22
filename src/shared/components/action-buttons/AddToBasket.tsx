@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { BasketIcon, Button } from 'franklin-sites';
 import { groupBy } from 'lodash-es';
 
@@ -9,9 +8,15 @@ import accessionToNamespace from '../../utils/accessionToNamespace';
 import { pluralise } from '../../utils/utils';
 import { Namespace } from '../../types/namespaces';
 
-type AddToBasketButtonProps = { selectedEntries: string | string[] };
+type AddToBasketButtonProps = {
+  selectedEntries: string | string[];
+  remove?: boolean;
+};
 
-const AddToBasketButton: FC<AddToBasketButtonProps> = ({ selectedEntries }) => {
+const AddToBasketButton = ({
+  selectedEntries,
+  remove,
+}: AddToBasketButtonProps) => {
   const [basket, setBasket] = useBasket();
 
   const isSingleEntry = !Array.isArray(selectedEntries);
@@ -24,15 +29,20 @@ const AddToBasketButton: FC<AddToBasketButtonProps> = ({ selectedEntries }) => {
 
   const disabled = !n;
 
-  const remove =
-    isSingleEntry &&
-    basket.get(accessionToNamespace(accessions[0]))?.has(accessions[0]);
+  const finalRemove =
+    remove ||
+    (isSingleEntry &&
+      basket.get(accessionToNamespace(accessions[0]))?.has(accessions[0]));
 
-  let title = 'Select at least one entry to add to the basket';
-  if (remove) {
-    title = 'Remove this entry from the basket';
-  } else if (n) {
-    title = `Add ${n} ${pluralise('entry', n, 'entries')} to the basket`;
+  let title = `Select at least one entry to ${
+    finalRemove ? 'remove from' : 'add to'
+  } the basket`;
+  if (n) {
+    title = `${finalRemove ? 'Remove' : 'Add'} ${n} ${pluralise(
+      'entry',
+      n,
+      'entries'
+    )} ${finalRemove ? 'from' : 'to'} the basket`;
   }
 
   const addToBasket = () => {
@@ -70,7 +80,10 @@ const AddToBasketButton: FC<AddToBasketButtonProps> = ({ selectedEntries }) => {
     }
     setBasket((currentBasket) => {
       const newSet = new Set(currentBasket.get(ns));
-      newSet.delete(accessions[0]);
+      for (const accession of accessions) {
+        newSet.delete(accession);
+      }
+
       return new Map([
         // current namespaces, untouched
         ...currentBasket,
@@ -85,10 +98,10 @@ const AddToBasketButton: FC<AddToBasketButtonProps> = ({ selectedEntries }) => {
       variant="tertiary"
       title={title}
       disabled={disabled}
-      onClick={remove ? removeFromBasket : addToBasket}
+      onClick={finalRemove ? removeFromBasket : addToBasket}
     >
       <BasketIcon />
-      {remove ? 'Remove' : 'Add'}
+      {finalRemove ? 'Remove' : 'Add'}
     </Button>
   );
 };

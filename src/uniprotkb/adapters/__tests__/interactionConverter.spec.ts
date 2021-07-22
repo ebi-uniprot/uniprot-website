@@ -22,7 +22,7 @@ describe('Interaction data converter', () => {
                     chainId: 'PROC_12344',
                     geneName: 'gen',
                     intActId: 'EBI-0001',
-                    uniProtKBAccession: 'P12345',
+                    uniProtKBAccession: 'P21802',
                   },
                   interactantTwo: {
                     chainId: 'PROC_12347',
@@ -44,7 +44,7 @@ describe('Interaction data converter', () => {
                     chainId: 'PROC_123454',
                     geneName: 'gene1',
                     intActId: 'EBI-00012',
-                    uniProtKBAccession: 'P12346',
+                    uniProtKBAccession: 'P21802',
                   },
                   numberOfExperiments: 6,
                   organismDiffer: true,

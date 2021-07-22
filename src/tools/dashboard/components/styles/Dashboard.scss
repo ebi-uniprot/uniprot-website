@@ -16,6 +16,10 @@
     // By default, a job will be successful, so set the bubble colour to success
     --main-bubble-color: #{$colour-success};
 
+    &__status button {
+      margin-bottom: 0;
+    }
+
     &__bubble {
       margin: 0;
       transform: scale(0.5);
@@ -212,6 +216,13 @@
       transition: opacity ease-in-out 100ms;
     }
   }
+}
+
+// In the sliding panel
+// from franklin: .sliding-panel and .card
+.sliding-panel .dashboard .card {
+  // remove the fake margin on the right of the cards
+  width: initial;
 }
 
 // switch to narrow view before content starts escaping the cards

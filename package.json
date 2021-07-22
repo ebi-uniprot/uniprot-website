@@ -36,10 +36,10 @@
     ],
     "coverageThreshold": {
       "global": {
-        "lines": 83.72,
-        "statements": 83.7,
-        "functions": 84.2,
-        "branches": 73.45
+        "lines": 83.49,
+        "statements": 83.48,
+        "functions": 84.01,
+        "branches": 73.32
       }
     },
     "transform": {
@@ -105,7 +105,7 @@
     "classnames": "2.3.1",
     "core-js": "3.15.2",
     "d3": "5.16.0",
-    "franklin-sites": "0.0.149",
+    "franklin-sites": "0.0.151",
     "history": "4.10.1",
     "idb": "6.1.2",
     "interaction-viewer": "3.1.2",

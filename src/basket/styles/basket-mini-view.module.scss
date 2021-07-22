@@ -1,0 +1,28 @@
+@import 'franklin-sites/src/styles/settings';
+
+// Overrides a lot of stuff...
+:global(.sliding-panel) .basket-content {
+  & :global(.data-table) th {
+    top: 0 !important;
+  }
+
+  & :global(.tabs__header) {
+    margin-bottom: 0;
+  }
+
+  & :global(.card) {
+    // remove the fake margin on the right of the cards
+    width: initial;
+
+    margin-left: $global-margin;
+    margin-right: $global-margin;
+  }
+
+  & :global(.button-group) {
+    margin-right: $global-margin;
+  }
+
+  & :global(.results-buttons) {
+    position: initial;
+  }
+}

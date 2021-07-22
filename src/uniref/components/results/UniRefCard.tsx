@@ -2,7 +2,7 @@ import { Card } from 'franklin-sites';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import RenderColumnsInCard from '../../../shared/components/results/RenderColumnsInCard';
-import BasketStatus from '../../../shared/components/BasketStatus';
+import BasketStatus from '../../../basket/BasketStatus';
 
 import { getEntryPath } from '../../../app/config/urls';
 import { getIdKeyFor } from '../../../shared/utils/getIdKeyForNamespace';

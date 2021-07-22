@@ -9,6 +9,19 @@ import {
   supportingDataNamespaces,
 } from '../../shared/types/namespaces';
 
+export const IDMappingNamespaces = [
+  Namespace.uniprotkb,
+  Namespace.uniref,
+  Namespace.uniparc,
+  Namespace.idmapping,
+] as const;
+
+export const basketNamespaces = [
+  Namespace.uniprotkb,
+  Namespace.uniref,
+  Namespace.uniparc,
+] as const;
+
 export enum Location {
   Home = 'Home',
   // Main data
@@ -34,6 +47,7 @@ export enum Location {
   LocationsEntry = 'LocationsEntry',
   LocationsResults = 'LocationsResults',
   // Tools
+  Basket = 'Basket',
   Dashboard = 'Dashboard',
   Align = 'Align',
   AlignResult = 'AlignResult',
@@ -70,6 +84,7 @@ export const LocationToPath: Record<Location, string> = {
   [Location.LocationsEntry]: `/${Namespace.locations}/:accession`,
   [Location.LocationsResults]: `/${Namespace.locations}`,
   // Tools
+  [Location.Basket]: `/basket/:namespace(${basketNamespaces.join('|')})`,
   [Location.Dashboard]: '/tool-dashboard',
   [Location.AlignResult]: '/align/:id/:subPage?',
   [Location.Align]: '/align',
@@ -95,13 +110,6 @@ export const SearchResultsLocations: Record<SearchableNamespace, string> = {
   [Namespace.database]: LocationToPath[Location.DatabaseResults],
   [Namespace.locations]: LocationToPath[Location.LocationsResults],
 };
-
-export const IDMappingNamespaces = [
-  Namespace.uniprotkb,
-  Namespace.uniref,
-  Namespace.uniparc,
-  Namespace.idmapping,
-];
 
 // "/:namespace(uniprotkb|uniparc|........)"
 export const allSearchResultLocations = `/:namespace(${Object.keys(

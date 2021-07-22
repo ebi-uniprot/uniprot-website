@@ -46,7 +46,6 @@ import {
 import AnnotationScoreDoughnutChart, {
   DoughnutChartSize,
 } from '../components/protein-data-views/AnnotationScoreDoughnutChart';
-import { getAllKeywords } from '../utils/KeywordsUtil';
 import { KeywordList } from '../components/protein-data-views/KeywordView';
 import { DatabaseList } from '../components/protein-data-views/XRefView';
 import {
@@ -60,18 +59,23 @@ import VariationView from '../components/protein-data-views/VariationView';
 import { StructureUIModel } from '../adapters/structureConverter';
 import SubcellularLocationView from '../components/protein-data-views/SubcellularLocationView';
 import { GOTermsView } from '../components/protein-data-views/GOView';
-import externalUrls from '../../shared/config/externalUrls';
 import EntryTypeIcon, {
   EntryType,
 } from '../../shared/components/entry/EntryTypeIcon';
+import AccessionView from '../../shared/components/results/AccessionView';
+import CSVView from '../components/protein-data-views/CSVView';
 
+import { getAllKeywords } from '../utils/KeywordsUtil';
+import externalUrls from '../../shared/config/externalUrls';
 import { getEntryPath } from '../../app/config/urls';
 import { fromColumnConfig } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
+import { sortInteractionData } from '../utils/resultsUtils';
 
 import { Namespace } from '../../shared/types/namespaces';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
-import AccessionView from '../../shared/components/results/AccessionView';
-import CSVView from '../components/protein-data-views/CSVView';
+import { Interactant } from '../adapters/interactionConverter';
+
+import helper from '../../shared/styles/helper.module.scss';
 
 export const defaultColumns = [
   UniProtKBColumn.accession,
@@ -658,31 +662,70 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
     const interactionComments = data[EntrySection.Interaction].commentsData.get(
       'INTERACTION'
     ) as InteractionComment[];
+    const { primaryAccession } = data;
+
+    const interactionDataMap = new Map<
+      string,
+      Interactant | InteractionType.SELF
+    >();
+
+    interactionComments?.forEach((interactionCC) =>
+      interactionCC.interactions.forEach((interaction) => {
+        // Note: currently the interaction type is missing from the request.
+        // Check again when it has been added.
+        if (
+          interaction.type === InteractionType.SELF ||
+          (interaction.interactantOne.uniProtKBAccession === primaryAccession &&
+            interaction.interactantTwo.uniProtKBAccession === primaryAccession)
+        ) {
+          interactionDataMap.set(InteractionType.SELF, InteractionType.SELF);
+        } else if (
+          interaction.interactantOne.uniProtKBAccession === primaryAccession &&
+          interaction.interactantTwo.uniProtKBAccession
+        ) {
+          interactionDataMap.set(
+            interaction.interactantTwo.uniProtKBAccession,
+            interaction.interactantTwo
+          );
+        } else if (
+          interaction.interactantTwo.uniProtKBAccession === primaryAccession &&
+          interaction.interactantOne.uniProtKBAccession
+        ) {
+          interactionDataMap.set(
+            interaction.interactantOne.uniProtKBAccession,
+            interaction.interactantOne
+          );
+        }
+        // Some of the interactions are second level so don't feature the primaryAccession
+        // just ignore them.
+      })
+    );
+
+    const sortedInteractions = sortInteractionData(interactionDataMap);
+
     return (
       <ExpandableList displayNumberOfHiddenItems>
-        {interactionComments?.map((interactionCC) =>
-          interactionCC.interactions.map((interaction) => (
+        {sortedInteractions.map((interactant) =>
+          interactant === InteractionType.SELF ? (
+            'Itself'
+          ) : (
             <div
-              key={
-                interaction.type === InteractionType.SELF
-                  ? 'self'
-                  : `${interaction.interactantOne.uniProtKBAccession}-${interaction.interactantTwo.uniProtKBAccession}`
-              }
+              key={interactant.uniProtKBAccession}
+              className={helper['no-wrap']}
             >
-              {interaction.type === InteractionType.SELF
-                ? 'Itself'
-                : interaction.interactantOne.uniProtKBAccession && (
-                    <Link
-                      to={getEntryPath(
-                        Namespace.uniprotkb,
-                        interaction.interactantOne.uniProtKBAccession
-                      )}
-                    >
-                      {interaction.interactantOne.uniProtKBAccession}
-                    </Link>
+              {interactant.uniProtKBAccession && (
+                <Link
+                  to={getEntryPath(
+                    Namespace.uniprotkb,
+                    interactant.uniProtKBAccession
                   )}
+                >
+                  {interactant.uniProtKBAccession}
+                </Link>
+              )}{' '}
+              {interactant.geneName && `(${interactant.geneName})`}
             </div>
-          ))
+          )
         )}
       </ExpandableList>
     );

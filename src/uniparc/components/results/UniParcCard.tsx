@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { Card, LongNumber } from 'franklin-sites';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
-import BasketStatus from '../../../shared/components/BasketStatus';
+import BasketStatus from '../../../basket/BasketStatus';
 
 import {
   UniParcAPIModel,

@@ -1,6 +1,13 @@
-import { useMemo, useState, useRef, useEffect, useCallback } from 'react';
+import {
+  useMemo,
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  Suspense,
+} from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router-dom';
 import { sumBy } from 'lodash-es';
 import {
   HelpIcon,
@@ -9,22 +16,37 @@ import {
   ToolboxIcon,
   Bubble,
   SlidingPanel,
+  Loader,
 } from 'franklin-sites';
 
-import BasketContent from '../basket/BasketContent';
-import Dashboard from '../../../tools/dashboard/components/Dashboard';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 
 import useBasket from '../../hooks/useBasket';
 
+import lazy from '../../utils/lazy';
 import { pluralise } from '../../utils/utils';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
+import { Namespace } from '../../types/namespaces';
 import { RootState } from '../../../app/state/rootInitialState';
 import { Status } from '../../../tools/types/toolsStatuses';
 
 import styles from './styles/secondary-items.module.scss';
+
+const BasketMiniView = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "basket-mini-view" */ '../../../basket/BasketMiniView'
+    )
+);
+
+const Dashboard = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "dashboard" */ '../../../tools/dashboard/components/Dashboard'
+    )
+);
 
 const secondaryItemIconSize = '1.4em';
 
@@ -80,6 +102,10 @@ const ToolsDashboard = ({ display, close }: Props) => {
         title="Tools dashboard"
         className={styles['secondary-item']}
         ref={spanRef}
+        onPointerOver={Dashboard.preload}
+        // Not a focus target, so no need, do that when we can use a link as a
+        // secondary item (after franklin's Header refactor/simplification)
+        // onFocus={Dashboard.preload}
       >
         <ToolboxIcon width={secondaryItemIconSize} />
         {count ? (
@@ -98,7 +124,7 @@ const ToolsDashboard = ({ display, close }: Props) => {
               to={LocationToPath[Location.Dashboard]}
               onClick={close}
             >
-              Tool results
+              <ToolboxIcon width="0.8em" /> Tool results
             </Link>
           }
           withCloseButton
@@ -108,7 +134,9 @@ const ToolsDashboard = ({ display, close }: Props) => {
           arrowX={dashboardButtonX}
         >
           <ErrorBoundary>
-            <Dashboard closePanel={close} />
+            <Suspense fallback={<Loader />}>
+              <Dashboard closePanel={close} />
+            </Suspense>
           </ErrorBoundary>
         </SlidingPanel>
       )}
@@ -143,7 +171,15 @@ export const Basket = ({ display, close }: Props) => {
 
   return (
     <>
-      <span title="Basket" className={styles['secondary-item']} ref={spanRef}>
+      <span
+        title="Basket"
+        className={styles['secondary-item']}
+        ref={spanRef}
+        onPointerOver={BasketMiniView.preload}
+        // Not a focus target, so no need, do that when we can use a link as a
+        // secondary item (after franklin's Header refactor/simplification)
+        // onFocus={BasketMiniView.preload}
+      >
         <BasketIcon width={secondaryItemIconSize} />
         {count ? (
           <Bubble
@@ -157,15 +193,28 @@ export const Basket = ({ display, close }: Props) => {
       </span>
       {display && (
         <SlidingPanel
-          title="My Basket"
+          title={
+            <Link
+              className={styles['link-in-panel-title']}
+              to={generatePath(LocationToPath[Location.Basket], {
+                namespace: Namespace.uniprotkb,
+              })}
+              onClick={close}
+            >
+              <BasketIcon width="0.8em" /> My Basket
+            </Link>
+          }
           withCloseButton
           position="right"
-          size="small"
+          size="medium"
           onClose={close}
           arrowX={basketButtonX}
+          className={styles['basket-panel']}
         >
           <ErrorBoundary>
-            <BasketContent />
+            <Suspense fallback={<Loader />}>
+              <BasketMiniView closePanel={close} />
+            </Suspense>
           </ErrorBoundary>
         </SlidingPanel>
       )}

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, FC, useRef } from 'react';
+import { Dispatch, SetStateAction, useEffect, useMemo, useRef } from 'react';
 import {
   DataTableWithLoader,
   DataListWithLoader,
@@ -8,7 +8,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 import useNS from '../../hooks/useNS';
 import useLocalStorage from '../../hooks/useLocalStorage';
-import useColumns from '../../hooks/useColumns';
+import useColumns, { ColumnDescriptor } from '../../hooks/useColumns';
 
 import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
@@ -19,6 +19,7 @@ import cardRenderer from '../../config/resultsCardRenderers';
 import { Namespace, SearchableNamespace } from '../../types/namespaces';
 import { APIModel } from '../../types/apiModel';
 import { PaginatedResults } from '../../hooks/usePagination';
+import { Basket } from '../../hooks/useBasket';
 
 import './styles/warning.scss';
 import './styles/results-data.scss';
@@ -28,26 +29,36 @@ export enum ViewMode {
   CARD,
 }
 
-const ResultsData: FC<{
+type Props = {
   resultsDataObject: PaginatedResults;
   selectedEntries: string[];
   handleEntrySelection: (id: string) => void;
-  namespaceFallback?: Namespace;
+  namespaceOverride?: Namespace;
+  columnsOverride?: ColumnDescriptor<APIModel>[];
   displayIdMappingColumns?: boolean;
-}> = ({
+  basketSetter?: Dispatch<SetStateAction<Basket>>;
+  className?: string;
+};
+
+const ResultsData = ({
   resultsDataObject,
   selectedEntries,
   handleEntrySelection,
-  namespaceFallback,
+  namespaceOverride,
+  columnsOverride,
   displayIdMappingColumns,
-}) => {
-  const namespace = useNS() || namespaceFallback || Namespace.uniprotkb;
+  basketSetter,
+  className,
+}: Props) => {
+  const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
   const [viewMode] = useLocalStorage<ViewMode>('view-mode', ViewMode.CARD);
   const history = useHistory();
   const { query, direct } = getParamsFromURL(useLocation().search);
   const [columns, updateColumnSort] = useColumns(
-    namespaceFallback,
-    displayIdMappingColumns
+    namespaceOverride,
+    displayIdMappingColumns,
+    basketSetter,
+    columnsOverride
   );
   const {
     allResults,
@@ -73,7 +84,7 @@ const ResultsData: FC<{
         // ... and query marked as "direct" ...
         direct ||
         // ... or the result's ID or accession matches the query ...
-        getIdKey(uniqueItem).toUpperCase() === trimmedQuery ||
+        getIdKey(uniqueItem)?.toUpperCase() === trimmedQuery ||
         // ... or matches the UniProtKB ID ...
         ('uniProtkbId' in uniqueItem && uniqueItem.uniProtkbId === trimmedQuery)
       ) {
@@ -128,6 +139,7 @@ const ResultsData: FC<{
         onLoadMoreItems={handleLoadMoreRows}
         hasMoreData={hasMoreData}
         loaderComponent={loadComponent}
+        className={className}
       />
     ) : (
       <DataTableWithLoader
@@ -139,6 +151,7 @@ const ResultsData: FC<{
         onLoadMoreItems={handleLoadMoreRows}
         hasMoreData={hasMoreData}
         loaderComponent={loadComponent}
+        className={className}
       />
     );
 
@@ -157,6 +170,7 @@ const ResultsData: FC<{
           onLoadMoreItems={handleLoadMoreRows}
           hasMoreData={hasMoreData}
           loaderComponent={loadComponent}
+          className={className}
         />
       ) : (
         dataTableWithLoader

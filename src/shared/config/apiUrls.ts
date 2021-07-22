@@ -92,7 +92,6 @@ const apiUrls = {
   download: (namespace: Namespace) =>
     joinUrl(apiPrefix, `/${namespace}/stream`),
   variation: 'https://www.ebi.ac.uk/proteins/api/variation', // TODO: Back end plan to add this endpoint to the k8s deployment (uniprot/beta/api). When this happens update this URL accordingly
-  accessions: joinUrl(apiPrefix, '/uniprotkb/accessions'),
   genecentric: (accession: string) =>
     joinUrl(apiPrefix, '/genecentric/', accession),
   idMappingFields: joinUrl(apiPrefix, '/configure/idmapping/fields'),
@@ -235,6 +234,7 @@ const excludeLocalBlastFacets = ({ name }: SelectedFacet) =>
   !localBlastFacets.includes(name);
 
 type GetOptions = {
+  namespace?: Namespace;
   columns?: string[];
   selectedFacets?: SelectedFacet[];
   sortColumn?: SortableColumn;
@@ -246,30 +246,43 @@ type GetOptions = {
 export const getAccessionsURL = (
   accessions?: string[],
   {
+    namespace = Namespace.uniprotkb,
     columns = [],
     selectedFacets = [],
     sortColumn = undefined,
     sortDirection = SortDirection.ascend,
-    facets = defaultFacets.get(Namespace.uniprotkb),
+    facets,
     size,
   }: GetOptions = {}
 ) => {
   if (!(accessions && accessions.length)) {
     return undefined;
   }
-  return `${apiUrls.accessions}?${queryString.stringify({
-    size,
-    // sort to improve possible cache hit
-    accessions: Array.from(accessions).sort().join(','),
-    facetFilter:
-      createFacetsQueryString(selectedFacets.filter(excludeLocalBlastFacets)) ||
-      undefined,
-    fields: (columns && columns.join(',')) || undefined,
-    facets: facets?.join(',') || undefined,
-    sort:
-      sortColumn &&
-      `${sortColumn} ${getApiSortDirection(SortDirection[sortDirection])}`,
-  })}`;
+  const finalFacets =
+    facets === undefined ? defaultFacets.get(namespace) : facets;
+  // for UniProtKB
+  let key = 'accessions'; // This changes depending on the endpoint...
+  if (namespace === Namespace.uniref) {
+    key = 'ids';
+  } else if (namespace === Namespace.uniparc) {
+    key = 'upis';
+  }
+  return `${joinUrl(apiPrefix, `/${namespace}/${key}`)}?${queryString.stringify(
+    {
+      size,
+      // sort to improve possible cache hit
+      [key]: Array.from(accessions).sort().join(','),
+      facetFilter:
+        createFacetsQueryString(
+          selectedFacets.filter(excludeLocalBlastFacets)
+        ) || undefined,
+      fields: (columns && columns.join(',')) || undefined,
+      facets: finalFacets?.join(',') || undefined,
+      sort:
+        sortColumn &&
+        `${sortColumn} ${getApiSortDirection(SortDirection[sortDirection])}`,
+    }
+  )}`;
 };
 
 type GetUniProtPublicationsQueryUrl = {
@@ -296,6 +309,8 @@ export const getUniProtPublicationsQueryUrl = ({
 type Parameters = {
   query?: string;
   accessions?: string;
+  upis?: string;
+  ids?: string;
   format: string;
   // TODO: change to set of possible fields (if possible, depending on namespace)
   fields?: string;
@@ -341,9 +356,18 @@ export const getDownloadUrl = ({
 }: GetDownloadUrlProps) => {
   // If the consumer of this fn has passed specified a size we have to use the search endpoint
   // otherwise use download/stream which is much quicker but doesn't allow specification of size
+
+  // for UniProtKB
+  let accessionKey: keyof Parameters = 'accessions'; // This changes depending on the endpoint...
+  if (namespace === Namespace.uniref) {
+    accessionKey = 'ids';
+  } else if (namespace === Namespace.uniparc) {
+    accessionKey = 'upis';
+  }
+
   let endpoint;
   if (accessions) {
-    endpoint = apiUrls.accessions;
+    endpoint = joinUrl(apiPrefix, `/${namespace}/${accessionKey}`);
   } else if (base) {
     endpoint = joinUrl(apiPrefix, base);
   } else if (size) {
@@ -357,7 +381,9 @@ export const getDownloadUrl = ({
     download: true,
   };
   if (accessions) {
-    parameters.accessions = Array.from(selected.length ? selected : accessions)
+    parameters[accessionKey] = Array.from(
+      selected.length ? selected : accessions
+    )
       .sort()
       .join(',');
     if (selectedFacets.length) {

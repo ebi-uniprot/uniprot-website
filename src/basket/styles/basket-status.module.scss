@@ -1,5 +1,11 @@
 @import 'franklin-sites/src/styles/colours';
 
+:global(.sliding-panel) {
+  .basket-status {
+    display: none;
+  }
+}
+
 .basket-status {
   display: contents;
 
@@ -23,10 +29,9 @@
 
     // in entry pages
     :global(.big) & {
-      width: 0.8em;
-      height: 0.8em;
+      width: 0.7em;
+      height: 0.7em;
       padding: 0.2ch;
-      margin-bottom: 0.2em;
     }
   }
 }

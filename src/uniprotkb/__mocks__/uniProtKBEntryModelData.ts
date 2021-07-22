@@ -800,7 +800,7 @@ const mock: UniProtkbAPIModel = {
       interactions: [
         {
           interactantOne: {
-            uniProtKBAccession: 'P12345',
+            uniProtKBAccession: 'P21802',
             geneName: 'gen',
             chainId: 'PROC_12344',
             intActId: 'EBI-0001',
@@ -822,7 +822,7 @@ const mock: UniProtkbAPIModel = {
             intActId: 'EBI-00011',
           },
           interactantTwo: {
-            uniProtKBAccession: 'P12346',
+            uniProtKBAccession: 'P21802',
             geneName: 'gene1',
             chainId: 'PROC_123454',
             intActId: 'EBI-00012',
