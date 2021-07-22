@@ -1,5 +1,5 @@
 import { Loader, Message, Tabs, Tab, Card, Button } from 'franklin-sites';
-import { useMemo } from 'react';
+import { Fragment, useMemo } from 'react';
 import { groupBy } from 'lodash-es';
 import { Link } from 'react-router-dom';
 
@@ -38,10 +38,9 @@ const SimilarProteins = ({ isoforms, primaryAccession }: Props) => {
   const searchUrl = getClustersForProteins(allAccessions);
 
   // Get the clusters in which the canonical and isoforms are found
-  const { loading, data, error } =
-    useDataApi<{
-      results: UniRefLiteAPIModel[];
-    }>(searchUrl);
+  const { loading, data, error } = useDataApi<{
+    results: UniRefLiteAPIModel[];
+  }>(searchUrl);
 
   const clusterData = useMemo(() => {
     if (data) {
@@ -101,7 +100,7 @@ const SimilarProteins = ({ isoforms, primaryAccession }: Props) => {
           {Object.entries(uniRefEntryTypeToPercent).map(
             ([clusterType, percentValue]) =>
               clusterType in clusterData &&
-              clusterData[clusterType as UniRefEntryType] && (
+              clusterData[clusterType as UniRefEntryType] ? (
                 <Tab
                   id={clusterType}
                   title={`${percentValue} identity`}
@@ -154,6 +153,8 @@ const SimilarProteins = ({ isoforms, primaryAccession }: Props) => {
                     View all
                   </Button>
                 </Tab>
+              ) : (
+                <Fragment />
               )
           )}
         </Tabs>
