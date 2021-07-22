@@ -293,7 +293,7 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const firstTime = useRef<boolean>(true);
 
-  const history = useHistory();
+  const history = useHistory<CustomLocationState | undefined>();
   const dispatch = useDispatch();
   const reducedMotion = useReducedMotion();
 
@@ -333,11 +333,7 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
     if (!(ref.current && 'animate' in ref.current)) {
       return;
     }
-    if (
-      !(history.location?.state as CustomLocationState)?.parameters?.includes(
-        job.parameters
-      )
-    ) {
+    if (!history.location?.state?.parameters?.includes?.(job.parameters)) {
       return;
     }
     ref.current.animate(
