@@ -21,6 +21,7 @@ const created: CreatedJob = {
     filter: 'T',
     gapped: true,
     hits: 20,
+    hsps: undefined,
   },
   timeCreated: ONE_MINUTE_AGO,
   timeLastUpdate: ONE_MINUTE_AGO,

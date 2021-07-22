@@ -23,6 +23,7 @@ const failedBeforeSubmission: FailedJob = {
     filter: 'F',
     gapped: false,
     hits: 50,
+    hsps: undefined,
   },
   timeCreated: TWO_MINUTES_AGO,
   timeLastUpdate: ONE_MINUTE_AGO,

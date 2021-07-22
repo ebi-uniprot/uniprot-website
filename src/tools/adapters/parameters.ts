@@ -85,6 +85,7 @@ export function formParametersToServerParameters<T extends JobTypes>(
           stype,
           sequence,
           database,
+          hsps,
         } = formParameters as FormParameters[JobTypes.BLAST];
 
         serverParameters = {
@@ -102,6 +103,7 @@ export function formParametersToServerParameters<T extends JobTypes>(
           stype,
           sequence,
           database,
+          hsps,
         } as ServerParameters[T];
       }
       break;
@@ -186,6 +188,7 @@ export function serverParametersToFormParameters<T extends JobTypes>(
           stype,
           sequence,
           database,
+          hsps,
         } = serverParameters as PublicServerParameters[JobTypes.BLAST];
 
         if (scores !== alignments) {
@@ -207,6 +210,7 @@ export function serverParametersToFormParameters<T extends JobTypes>(
           stype,
           sequence,
           database,
+          hsps,
         } as FormParameters[T];
       }
       break;
