@@ -283,7 +283,7 @@ const BlastForm = () => {
       gapped: gapped.selected as GapAlign,
       // transform string into number
       hits: parseInt(hits.selected as string, 10) as Scores,
-      hsps: hsps.selected as HSPs,
+      hsps: (parseInt(hsps.selected as string, 10) || undefined) as HSPs,
     };
 
     const multipleParameters = parsedSequences.map((parsedSequence) => ({
