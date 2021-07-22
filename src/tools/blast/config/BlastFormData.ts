@@ -22,6 +22,7 @@ export enum BlastFields {
   filter = 'Filter',
   gapped = 'Gapped',
   hits = 'Hits',
+  hsps = 'HSPs per hit',
   name = 'Name',
 }
 
@@ -146,6 +147,21 @@ const formData: Readonly<BlastFormValues> = Object.freeze({
       { value: 500 },
       { value: 750 },
       { value: 1000 },
+    ]),
+  }),
+  [BlastFields.hsps]: Object.freeze({
+    fieldName: 'hsps',
+    selected: undefined,
+    values: Object.freeze<
+      Array<{ value: FormParameters['hsps']; label?: string }>
+    >([
+      { value: undefined, label: 'All' },
+      { value: 1 },
+      { value: 2 },
+      { value: 5 },
+      { value: 10 },
+      { value: 50 },
+      { value: 100 },
     ]),
   }),
   [BlastFields.name]: Object.freeze({

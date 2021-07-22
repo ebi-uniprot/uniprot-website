@@ -25,6 +25,7 @@ const running: RunningJob = {
     filter: 'T',
     gapped: false,
     hits: 100,
+    hsps: undefined,
   },
   timeCreated: THREE_MINUTES_AGO,
   timeSubmitted: TWO_MINUTES_AGO,

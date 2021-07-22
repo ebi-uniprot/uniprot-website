@@ -28,6 +28,7 @@ const finished: FinishedJob<JobTypes.BLAST> = {
     filter: 'F',
     gapped: true,
     hits: 50,
+    hsps: undefined,
   },
   timeCreated: THREE_MINUTES_AGO,
   timeSubmitted: TWO_MINUTES_AGO,

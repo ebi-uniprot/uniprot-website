@@ -266,6 +266,10 @@ export type Database =
   | 'uniref50'
   | 'uniref90';
 
+// https://www.ebi.ac.uk/Tools/services/rest/ncbiblast/parameterdetails/hsps
+// HSPs: max number of alignments for each hit; undefined = all
+export type HSPs = undefined | number;
+
 export type ServerParameters = {
   program: Program; // program
   task?: Task;
@@ -290,6 +294,7 @@ export type ServerParameters = {
   stype: SType; // stype
   sequence: Sequence; // sequence
   database: Database;
+  hsps: HSPs; // alignments per hit
 };
 
 export type PublicServerParameters = Omit<ServerParameters, 'email'>;

@@ -47,6 +47,7 @@ import {
   Exp,
   Filter,
   Scores,
+  HSPs,
 } from '../types/blastServerParameters';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
@@ -184,6 +185,9 @@ const BlastForm = () => {
   const [hits, setHits] = useState(
     initialFormValues[BlastFields.hits] as BlastFormValues[BlastFields.hits]
   );
+  const [hsps, setHsps] = useState(
+    initialFormValues[BlastFields.hsps] as BlastFormValues[BlastFields.hsps]
+  );
 
   // extra job-related fields
   const [jobName, setJobName] = useState(
@@ -238,6 +242,7 @@ const BlastForm = () => {
     setFilter(defaultFormValues[BlastFields.filter]);
     setGapped(defaultFormValues[BlastFields.gapped]);
     setHits(defaultFormValues[BlastFields.hits]);
+    setHsps(defaultFormValues[BlastFields.hsps]);
 
     setJobName(defaultFormValues[BlastFields.name]);
 
@@ -278,6 +283,7 @@ const BlastForm = () => {
       gapped: gapped.selected as GapAlign,
       // transform string into number
       hits: parseInt(hits.selected as string, 10) as Scores,
+      hsps: (parseInt(hsps.selected as string, 10) || undefined) as HSPs,
     };
 
     const multipleParameters = parsedSequences.map((parsedSequence) => ({
@@ -501,6 +507,7 @@ const BlastForm = () => {
                 [filter, setFilter],
                 [gapped, setGapped],
                 [hits, setHits],
+                [hsps, setHsps],
               ].map(([stateItem, setStateItem]) => (
                 <FormSelect
                   key={(stateItem as BlastFormValue).fieldName}

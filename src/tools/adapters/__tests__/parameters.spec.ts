@@ -74,6 +74,7 @@ describe('tools adapter tests', () => {
           stype: 'protein',
           sequence: 'ATGC',
           database: 'uniprotkb',
+          hsps: undefined,
         };
 
         const formData = formParametersToServerParameters(
@@ -115,6 +116,7 @@ describe('tools adapter tests', () => {
           sequence:
             '>sp|P06787|CALM_YEAST Calmodulin OS=Saccharomyces cerevisiae (strain ATCC 204508 / S288c) OX=559292 PE=1 SV=1↵MSSNLTEEQIAEFKEAFALFDKDNNGSISSSELATVMRSLGLSPSEAEVNDLMNEIDVDG↵NHQIEFSEFLALMSRQLKSNDSEQELLEAFKVFDKNGDGLISAAELKHVLTSIGEKLTDA↵EVDDMLREVSDGSGEINIQQFAALLSK↵',
           stype: 'protein',
+          hsps: undefined,
         };
 
         const mapping = new Map([['9606', 'Homo Sapiens [9606]']]);
@@ -154,6 +156,7 @@ describe('tools adapter tests', () => {
           sequence:
             '>sp|P06787|CALM_YEAST Calmodulin OS=Saccharomyces cerevisiae (strain ATCC 204508 / S288c) OX=559292 PE=1 SV=1↵MSSNLTEEQIAEFKEAFALFDKDNNGSISSSELATVMRSLGLSPSEAEVNDLMNEIDVDG↵NHQIEFSEFLALMSRQLKSNDSEQELLEAFKVFDKNGDGLISAAELKHVLTSIGEKLTDA↵EVDDMLREVSDGSGEINIQQFAALLSK↵',
           stype: 'protein',
+          hsps: undefined,
         };
 
         const formParams = serverParametersToFormParameters(
