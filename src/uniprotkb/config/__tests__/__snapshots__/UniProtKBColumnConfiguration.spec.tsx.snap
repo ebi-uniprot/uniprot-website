@@ -526,21 +526,27 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_interac
     class="expandable-list no-bullet"
   >
     <li>
-      <div>
+      <div
+        class="no-wrap"
+      >
         <a
           href="/uniprotkb/P12345"
         >
           P12345
         </a>
+         (gen)
       </div>
     </li>
     <li>
-      <div>
+      <div
+        class="no-wrap"
+      >
         <a
-          href="/uniprotkb/P12345"
+          href="/uniprotkb/P12345-1"
         >
-          P12345
+          P12345-1
         </a>
+         (gene1)
       </div>
     </li>
   </ul>
