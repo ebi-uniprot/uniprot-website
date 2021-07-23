@@ -1,11 +1,4 @@
-import {
-  useMemo,
-  useRef,
-  useEffect,
-  Fragment,
-  Dispatch,
-  SetStateAction,
-} from 'react';
+import { useMemo, useRef, useEffect, Dispatch, SetStateAction } from 'react';
 import { generatePath, Link, useLocation } from 'react-router-dom';
 import cn from 'classnames';
 import { Tabs, Tab, BinIcon, Button, FullViewIcon } from 'franklin-sites';
@@ -170,10 +163,7 @@ const BasketMiniView = ({ closePanel }: { closePanel: () => void }) => {
             setBasket={setBasket}
             closePanel={closePanel}
           />
-        ) : (
-          // Fragment instead of null because Franklin's Tab is not happy
-          <Fragment />
-        )}
+        ) : null}
       </Tab>
       <Tab
         title={`UniRef${unirefIds?.size ? ` (${unirefIds.size})` : ''}`}
@@ -189,10 +179,7 @@ const BasketMiniView = ({ closePanel }: { closePanel: () => void }) => {
             setBasket={setBasket}
             closePanel={closePanel}
           />
-        ) : (
-          // Fragment instead of null because Franklin's Tab is not happy
-          <Fragment />
-        )}
+        ) : null}
       </Tab>
       <Tab
         title={`UniParc${uniparcIds?.size ? ` (${uniparcIds.size})` : ''}`}
@@ -208,10 +195,7 @@ const BasketMiniView = ({ closePanel }: { closePanel: () => void }) => {
             setBasket={setBasket}
             closePanel={closePanel}
           />
-        ) : (
-          // Fragment instead of null because Franklin's Tab is not happy
-          <Fragment />
-        )}
+        ) : null}
       </Tab>
     </Tabs>
   );
