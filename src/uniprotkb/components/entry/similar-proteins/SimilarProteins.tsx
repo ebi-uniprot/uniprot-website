@@ -1,5 +1,5 @@
 import { Loader, Message, Tabs, Tab, Card, Button } from 'franklin-sites';
-import { Fragment, useMemo } from 'react';
+import { useMemo } from 'react';
 import { groupBy } from 'lodash-es';
 import { Link } from 'react-router-dom';
 
@@ -153,9 +153,7 @@ const SimilarProteins = ({ isoforms, primaryAccession }: Props) => {
                     View all
                   </Button>
                 </Tab>
-              ) : (
-                <Fragment />
-              )
+              ) : null
           )}
         </Tabs>
       ) : (

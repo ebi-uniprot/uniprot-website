@@ -67,7 +67,8 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
         <Suspense fallback={null}>
           <SlidingPanel
             title="Download"
-            position="left"
+            // Meaning, in basket mini view, slide from the right
+            position={notCustomisable && inBasket ? 'right' : 'left'}
             onClose={() => setDisplayDownloadPanel(false)}
           >
             <ErrorBoundary>

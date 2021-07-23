@@ -12,19 +12,23 @@ import { Column, nsToDefaultColumns } from '../config/columns';
 import { ViewMode } from '../components/results/ResultsData';
 import { Namespace } from '../types/namespaces';
 
+type Arg = {
+  size?: number;
+  withFacets?: boolean;
+  withColumns?: boolean;
+  accessions?: string[];
+  overrideNS?: Namespace;
+  facetsNotApplied?: boolean;
+};
+
 const useNSQuery = ({
   size,
   withFacets = false,
   withColumns = true,
   accessions,
   overrideNS,
-}: {
-  size?: number;
-  withFacets?: boolean;
-  withColumns?: boolean;
-  accessions?: string[];
-  overrideNS?: Namespace;
-} = {}) => {
+  facetsNotApplied,
+}: Arg = {}) => {
   const namespace = useNS(overrideNS) || Namespace.uniprotkb;
   const location = useLocation();
   const [viewMode] = useLocalStorage<ViewMode>('view-mode', ViewMode.CARD);
@@ -53,7 +57,7 @@ const useNSQuery = ({
       namespace,
       query,
       columns: withColumns ? queryColumns : undefined,
-      selectedFacets,
+      selectedFacets: facetsNotApplied ? undefined : selectedFacets,
       facets: withFacets ? undefined : null,
       sortColumn,
       sortDirection,
