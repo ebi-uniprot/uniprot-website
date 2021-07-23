@@ -12,7 +12,7 @@ import HelpCard from './HelpCard';
 
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 
-import { help } from '../../../shared/config/apiUrls';
+import { help as helpURL } from '../../../shared/config/apiUrls';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { HelpAPIModel, HelpSearchResponse } from '../../adapters/helpConverter';
@@ -34,7 +34,7 @@ const Results = ({ history, location }: RouteChildrenProps) => {
   });
 
   const dataObject = useDataApiWithStale<HelpSearchResponse>(
-    help.search(location.search)
+    helpURL.search(location.search)
   );
 
   const replaceLocation = useMemo(

@@ -1,3 +1,5 @@
+import { SetRequired } from 'type-fest';
+
 import { FacetObject } from '../../uniprotkb/types/responseTypes';
 
 export type HelpAPIModel = {
@@ -23,7 +25,10 @@ export type HelpSearchResponse = {
   facets?: FacetObject[];
 };
 
-export type HelpEntryResponse = Omit<HelpAPIModel, 'matches'>;
+export type HelpEntryResponse = SetRequired<
+  Omit<HelpAPIModel, 'matches'>,
+  'content'
+>;
 
 const helpConverter = (data: HelpAPIModel): HelpUIModel => ({
   ...data,

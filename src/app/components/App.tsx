@@ -166,7 +166,9 @@ const BasketFullView = lazy(
 // Help
 const HelpEntryPage = lazy(
   () =>
-    import(/* webpackChunkName: "help-entry" */ '../../help/components/Entry')
+    import(
+      /* webpackChunkName: "help-entry" */ '../../help/components/entry/Entry'
+    )
 );
 const HelpResults = lazy(
   () =>

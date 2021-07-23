@@ -434,7 +434,8 @@ export const getClustersForProteins = (accessions: string[]) =>
 
 // Help endpoints
 export const help = {
-  accession: (accession: string) => joinUrl(apiPrefix, '/help', accession),
+  accession: (accession?: string) =>
+    accession && joinUrl(apiPrefix, '/help', accession),
   search: (searchString: string) => {
     const { query, sort, fields, facets, size } =
       queryString.parse(searchString);
