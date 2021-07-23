@@ -81,12 +81,19 @@ const Results = ({ history, location }: RouteChildrenProps) => {
   }
 
   return (
-    <SideBarLayout sidebar={<ResultsFacets dataApiObject={dataObject} />}>
+    <SideBarLayout
+      sidebar={
+        <>
+          <h1 className="big">Help results</h1>
+          <ResultsFacets dataApiObject={dataObject} />
+        </>
+      }
+    >
       <div className={styles['results-header']}>
         <HelperImage className={styles.helper} />
-        <h2 className={cn('tiny', styles.title)}>
+        <strong className={cn('tiny', styles.title)}>
           <HelpIcon width="0.7em" height="0.7em" /> Help search results
-        </h2>
+        </strong>
         <SearchInput
           isLoading={dataObject.loading}
           onChange={(event: ChangeEvent<HTMLInputElement>) =>
