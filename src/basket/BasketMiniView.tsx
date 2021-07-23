@@ -74,6 +74,7 @@ const BasketMiniViewTab = ({
     overrideNS: namespace,
     withFacets: false,
     withColumns: false,
+    facetsNotApplied: true,
   });
   const resultsDataObject = usePagination(initialApiUrl);
 
