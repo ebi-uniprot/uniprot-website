@@ -14,6 +14,7 @@ import { help as helpURL } from '../../../shared/config/apiUrls';
 import cleanText, {
   cleanTextDefaultOptions,
 } from '../../../shared/utils/cleanText';
+import parseDate from '../../../shared/utils/parseDate';
 
 import { HelpEntryResponse } from '../../adapters/helpConverter';
 
@@ -85,9 +86,21 @@ const HelpEntry = (props: RouteChildrenProps<{ accession: string }>) => {
     return <ErrorHandler status={status} />;
   }
 
+  const lastModifed = parseDate(data.lastModified);
+
   return (
     <SingleColumnLayout>
-      <h1 className="big">{data.title}</h1>
+      <h1 className={data.categories.includes('faq') ? 'medium' : 'big'}>
+        {data.title}
+      </h1>
+      {lastModifed && (
+        <span>
+          Last modified:{' '}
+          <time dateTime={lastModifed.toISOString()}>
+            {lastModifed.toDateString()}
+          </time>
+        </span>
+      )}
       <Card className={cn({ [helper.stale]: isStale })}>
         {/* event delegation here, not actually doing anything with the div */}
         {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
