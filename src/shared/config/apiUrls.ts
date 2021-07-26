@@ -153,7 +153,7 @@ export const createFacetsQueryString = (facets: SelectedFacet[]) =>
     .map(
       (facet) =>
         `(${facet.name}:${
-          facet.value.indexOf(' ') >= 0 && !facet.value.match(/^\[.*\]$/)
+          facet.value.includes(' ') && !facet.value.match(/^\[.*\]$/)
             ? `"${facet.value}"`
             : facet.value
         })`
@@ -447,7 +447,12 @@ export const help = {
           .filter(Boolean)
           // Sort in order to improve cache hits
           .sort()
-          .map((facet) => `(${facet})`),
+          .map((facet) => {
+            const [facetName, facetValue] = facet.split(':');
+            return `(${facetName}:${
+              facetValue.includes(' ') ? `"${facetValue}"` : facetValue
+            })`;
+          }),
       ]
         .filter(Boolean)
         .join(' AND '),
