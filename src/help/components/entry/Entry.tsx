@@ -1,10 +1,9 @@
 import { useCallback, MouseEventHandler } from 'react';
 import { Loader, Card } from 'franklin-sites';
 import marked from 'marked';
-import { Attributes, defaults } from 'sanitize-html';
+import { Attributes, defaults, Transformer } from 'sanitize-html';
 import cn from 'classnames';
 import { RouteChildrenProps } from 'react-router-dom';
-import urlJoin from 'url-join';
 
 import SingleColumnLayout from '../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
@@ -19,32 +18,43 @@ import cleanText, {
 import { HelpEntryResponse } from '../../adapters/helpConverter';
 
 import helper from '../../../shared/styles/helper.module.scss';
+import styles from './styles/entry.module.scss';
+
+const internalRE = /^(https?:)?\/\/www.uniprot.org\//i;
+const absoluteURL = /^(https?:)?\/\//i;
 
 // TODO: probably need to play with the options here in order to make it look OK
+const aTransformer: Transformer = (_: string, attribs: Attributes) => {
+  const href = attribs.href.replace(internalRE, '/');
+  const isExternal = href === attribs.href;
+  return {
+    tagName: 'a',
+    attribs: {
+      ...attribs,
+      title: 'link',
+      class: isExternal ? styles.external : '',
+      href,
+    },
+  };
+};
+
+const allowedClasses = (cleanTextDefaultOptions.allowedClasses?.['*'] ||
+  []) as string[];
 const cleanTextOptions = {
   ...cleanTextDefaultOptions,
   allowedTags: defaults.allowedTags,
+  allowedClasses: {
+    '*': [
+      ...allowedClasses,
+      ...Object.values(helper),
+      ...Object.values(styles),
+    ],
+  },
   transformTags: {
     ...cleanTextDefaultOptions.transformTags,
-    a(_: string, attribs: Attributes) {
-      const href = attribs.href.replace(
-        /^(https?:)?\/\/www.uniprot.org\//i,
-        ''
-      );
-      console.log(href, attribs.href);
-      const isExternal = href === attribs.href;
-      return {
-        tagName: 'a',
-        attribs: {
-          ...attribs,
-          href: isExternal ? href : urlJoin(BASE_URL, href),
-        },
-      };
-    },
+    a: aTransformer,
   },
 };
-
-console.log('first time');
 
 const HelpEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   const accession = props.match?.params.accession;
@@ -58,10 +68,10 @@ const HelpEntry = (props: RouteChildrenProps<{ accession: string }>) => {
       const target = event.target as HTMLElement;
       if (target.tagName === 'A') {
         const { href } = target as HTMLAnchorElement;
-        const url = new URL(href);
-        console.log('pushing', href);
-        event.preventDefault();
-        props.history.push(href);
+        if (!absoluteURL.test(href)) {
+          event.preventDefault();
+          props.history.push(href);
+        }
       }
     },
     [props.history]
@@ -79,6 +89,8 @@ const HelpEntry = (props: RouteChildrenProps<{ accession: string }>) => {
     <SingleColumnLayout>
       <h1 className="big">{data.title}</h1>
       <Card className={cn({ [helper.stale]: isStale })}>
+        {/* event delegation here, not actually doing anything with the div */}
+        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
         <div
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{
