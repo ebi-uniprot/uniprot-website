@@ -20,22 +20,22 @@ const headingToStrong = (_: string, attribs: Attributes) => ({
 export const cleanTextDefaultOptions = deepFreeze<IOptions>({
   // https://github.com/apostrophecms/sanitize-html/blob/main/index.js#L691-L710
   allowedTags: defaults.allowedTags.filter((tag) => !excludedTags.has(tag)),
-  allowedClasses: Object.freeze({
+  allowedClasses: {
     // Allow only the class names that we add here from the CSS module imported
     '*': Object.values(styles),
-  }),
-  allowedAttributes: Object.freeze({
+  },
+  allowedAttributes: {
     ...defaults.allowedAttributes,
     '*': ['id'],
-  }),
-  transformTags: Object.freeze({
+  },
+  transformTags: {
     h1: headingToStrong,
     h2: headingToStrong,
     h3: headingToStrong,
     h4: headingToStrong,
     h5: headingToStrong,
     h6: headingToStrong,
-  }),
+  },
 }) as IOptions;
 
 const cleanText = (

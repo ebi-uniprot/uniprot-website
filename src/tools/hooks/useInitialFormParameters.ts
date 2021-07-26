@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
+import deepFreeze from 'deep-freeze';
 
 import { SelectedTaxon } from '../types/toolsFormData';
 
@@ -9,13 +10,9 @@ interface CustomLocationState<T> {
 
 type FormValue = {
   fieldName: string;
-  selected?:
-    | string
-    | string[]
-    | number
-    | boolean
-    | SelectedTaxon
-    | SelectedTaxon[];
+  selected?: Readonly<
+    string | string[] | number | boolean | SelectedTaxon | SelectedTaxon[]
+  >;
   values?: Readonly<
     Array<{ label?: string; value?: string | boolean | number }>
   >;
@@ -41,15 +38,15 @@ function useInitialFormParameters<
       // for every field of the form, get its value from the history state if
       // present, otherwise go for the default one
       for (const [key, field] of defaultValuesEntries) {
-        formValues[key as Fields] = Object.freeze({
+        formValues[key as Fields] = {
           ...field,
           selected:
             parametersFromHistoryState[
               field.fieldName as keyof FormParameters
             ] || field.selected,
-        } as FormValue);
+        } as FormValue;
       }
-      return Object.freeze(formValues as FormValues<Fields>);
+      return deepFreeze(formValues as FormValues<Fields>);
     }
     // otherwise, pass the default values
     return defaultFormValues;

@@ -1,3 +1,5 @@
+import deepFreeze from 'deep-freeze';
+
 import {
   BlastFacet,
   BlastHit,
@@ -120,9 +122,9 @@ export const getFacetBounds = (facets: SelectedFacet[]) => {
   );
   // for every facet in the URL
   for (const { name, min, max } of parseLocalFacets(facets)) {
-    output[name] = Object.freeze({ min, max });
+    output[name] = { min, max };
   }
-  return Object.freeze(output);
+  return deepFreeze(output);
 };
 
 export const getBounds = (hits: BlastHit[]) => {
@@ -145,9 +147,9 @@ export const getBounds = (hits: BlastHit[]) => {
         }
       }
     }
-    output[facet] = Object.freeze(current);
+    output[facet] = current;
   }
-  return Object.freeze(output);
+  return deepFreeze(output);
 };
 
 export const getDataPoints = (hits: BlastHit[]) => {
@@ -167,5 +169,5 @@ export const getDataPoints = (hits: BlastHit[]) => {
     }
     output[facet] = current;
   }
-  return Object.freeze(output);
+  return deepFreeze(output);
 };
