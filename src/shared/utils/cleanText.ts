@@ -2,8 +2,8 @@
  * See https://github.com/apostrophecms/sanitize-html#sanitize-html for the
  * library's configuration
  */
+import deepFreeze from 'deep-freeze';
 import sanitizeHtml, { defaults, IOptions, Attributes } from 'sanitize-html';
-
 import styles from './styles/clean-text.module.scss';
 
 // List of tags to remove from the library default accepted set
@@ -17,7 +17,7 @@ const headingToStrong = (_: string, attribs: Attributes) => ({
   },
 });
 
-export const cleanTextDefaultOptions = Object.freeze<IOptions>({
+export const cleanTextDefaultOptions = deepFreeze<IOptions>({
   // https://github.com/apostrophecms/sanitize-html/blob/main/index.js#L691-L710
   allowedTags: defaults.allowedTags.filter((tag) => !excludedTags.has(tag)),
   allowedClasses: Object.freeze({
@@ -36,7 +36,7 @@ export const cleanTextDefaultOptions = Object.freeze<IOptions>({
     h5: headingToStrong,
     h6: headingToStrong,
   }),
-});
+}) as IOptions;
 
 const cleanText = (
   text?: string | null,
