@@ -37,6 +37,30 @@ const Results = ({ history, location }: RouteChildrenProps) => {
     helpURL.search(location.search)
   );
 
+  const fallBackAppliedFacets = useMemo(() => {
+    const { facets } = qs.parse(location.search);
+    const facetValues =
+      (Array.isArray(facets) ? facets.join(',') : facets) || '';
+    return {
+      loading: false,
+      data: facetValues
+        ? {
+            facets: [
+              {
+                label: 'Category',
+                name: 'category',
+                allowMultipleSelection: true,
+                values: facetValues.split(',').map((value) => ({
+                  value: value.replace('category:', ''),
+                  count: 0,
+                })),
+              },
+            ],
+          }
+        : undefined,
+    };
+  }, [location.search]);
+
   const replaceLocation = useMemo(
     () =>
       debounce((searchValue: string) => {
@@ -85,7 +109,11 @@ const Results = ({ history, location }: RouteChildrenProps) => {
       sidebar={
         <>
           <h1 className="big">Help results</h1>
-          <ResultsFacets dataApiObject={dataObject} />
+          <ResultsFacets
+            dataApiObject={
+              dataObject.data?.facets ? dataObject : fallBackAppliedFacets
+            }
+          />
         </>
       }
     >
