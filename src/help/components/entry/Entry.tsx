@@ -101,7 +101,7 @@ const HelpEntry = (props: RouteChildrenProps<{ accession: string }>) => {
           </time>
         </span>
       )}
-      <Card className={cn({ [helper.stale]: isStale })}>
+      <Card className={cn(styles.content, { [helper.stale]: isStale })}>
         {/* event delegation here, not actually doing anything with the div */}
         {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
         <div
