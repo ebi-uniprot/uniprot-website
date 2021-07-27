@@ -94,7 +94,9 @@ const SearchContainer: FC<
       const { query } = queryString.parse(history.location.search, {
         decode: true,
       });
-      if (history.location.pathname.includes('help')) {
+      if (
+        history.location.pathname.includes(LocationToPath[Location.HelpResults])
+      ) {
         return '';
       }
       if (Array.isArray(query)) {
@@ -159,7 +161,9 @@ const SearchContainer: FC<
   useEffect(() => {
     const { query } = queryString.parse(location.search, { decode: true });
     // Using history here because history won't change, while location will
-    if (history.location.pathname.includes('help')) {
+    if (
+      history.location.pathname.includes(LocationToPath[Location.HelpResults])
+    ) {
       return;
     }
     if (Array.isArray(query)) {
