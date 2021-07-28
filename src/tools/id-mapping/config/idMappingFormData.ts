@@ -1,8 +1,10 @@
+import deepFreeze from 'deep-freeze';
+
 import { SelectedTaxon } from '../../types/toolsFormData';
 
 export type IDMappingFormValue = {
   fieldName: string;
-  selected?: string | string[] | number | SelectedTaxon;
+  selected?: Readonly<string | string[] | number | SelectedTaxon>;
 };
 
 export enum IDMappingFields {
@@ -18,26 +20,26 @@ export type IDMappingFormValues = Record<
   Readonly<IDMappingFormValue>
 >;
 
-const formData: Readonly<IDMappingFormValues> = Object.freeze({
-  [IDMappingFields.ids]: Object.freeze({
+const formData: Readonly<IDMappingFormValues> = deepFreeze({
+  [IDMappingFields.ids]: {
     fieldName: 'ids',
     selected: [],
-  }),
-  [IDMappingFields.fromDb]: Object.freeze({
+  },
+  [IDMappingFields.fromDb]: {
     fieldName: 'from',
     selected: 'UniProtKB_AC-ID',
-  }),
-  [IDMappingFields.toDb]: Object.freeze({
+  },
+  [IDMappingFields.toDb]: {
     fieldName: 'to',
     selected: 'UniRef90',
-  }),
-  [IDMappingFields.name]: Object.freeze({
+  },
+  [IDMappingFields.name]: {
     fieldName: 'name',
     selected: '',
-  }),
-  [IDMappingFields.taxons]: Object.freeze({
+  },
+  [IDMappingFields.taxons]: {
     fieldName: 'taxId',
-  }),
+  },
 });
 
 export default formData;
