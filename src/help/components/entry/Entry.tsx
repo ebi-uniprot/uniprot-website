@@ -24,7 +24,6 @@ import styles from './styles/entry.module.scss';
 const internalRE = /^(https?:)?\/\/www.uniprot.org\//i;
 const absoluteURL = /^(https?:)?\/\//i;
 
-// TODO: probably need to play with the options here in order to make it look OK
 const aTransformer: Transformer = (_: string, attribs: Attributes) => {
   const href = attribs.href.replace(internalRE, '/');
   const isExternal = href === attribs.href;
@@ -41,9 +40,12 @@ const aTransformer: Transformer = (_: string, attribs: Attributes) => {
 
 const allowedClasses = (cleanTextDefaultOptions.allowedClasses?.['*'] ||
   []) as string[];
+
+// TODO: probably need to play with the options here in order to make it look OK
 const cleanTextOptions = {
   ...cleanTextDefaultOptions,
   allowedTags: defaults.allowedTags,
+  // none by default, so explicitely accept only the ones from the stylesheets
   allowedClasses: {
     '*': [
       ...allowedClasses,
