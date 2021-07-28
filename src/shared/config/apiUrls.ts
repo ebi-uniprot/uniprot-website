@@ -442,8 +442,7 @@ export const help = {
     return `${joinUrl(apiPrefix, '/help/search')}?${queryString.stringify({
       query: [
         query || '*',
-        ...((Array.isArray(facets) ? facets.join(',') : facets) || '')
-          .split(',')
+        ...(Array.isArray(facets) ? facets : (facets || '').split(','))
           .filter(Boolean)
           // Sort in order to improve cache hits
           .sort()
