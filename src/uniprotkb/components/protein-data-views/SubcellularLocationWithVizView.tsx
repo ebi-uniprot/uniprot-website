@@ -29,28 +29,33 @@ const SubcellularLocationWithVizView: FC<
   if (!comments?.length) {
     return null;
   }
+
   const uniprotTextContent = <SubcellularLocationView comments={comments} />;
 
   // If we can render a visualisation, wrap the text content as a child
-  const uniprotNode =
-    lineage && taxonId && !isVirus(lineage as string[]) ? (
-      <Suspense fallback={uniprotTextContent}>
-        <SubCellViz comments={comments} taxonId={taxonId}>
-          {uniprotTextContent}
-        </SubCellViz>
-      </Suspense>
-    ) : (
-      uniprotTextContent
-    );
+  // const uniprotNode =
+  //   lineage && taxonId && !isVirus(lineage as string[]) ? (
+  //  ) : (
+  //     uniprotTextContent
+  //   );
 
   const goNode = <SubcellularLocationGOView goXrefs={goXrefs} />;
 
   return (
-    (uniprotNode || goNode) && (
-      <Tabs>
-        {goNode && <Tab title="GO Cellular Component">{goNode}</Tab>}
-        {uniprotNode && <Tab title="UniProt Annotation">{uniprotNode}</Tab>}
-      </Tabs>
+    lineage &&
+    taxonId &&
+    !isVirus(lineage as string[]) && (
+      <>
+        <Suspense fallback={null}>
+          <SubCellViz comments={comments} taxonId={taxonId} />
+        </Suspense>
+        <Tabs>
+          {goNode && <Tab title="GO Cellular Component">{goNode}</Tab>}
+          {uniprotTextContent && (
+            <Tab title="UniProt Annotation">{uniprotTextContent}</Tab>
+          )}
+        </Tabs>
+      </>
     )
   );
 };

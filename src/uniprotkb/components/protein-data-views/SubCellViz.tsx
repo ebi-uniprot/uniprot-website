@@ -5,6 +5,7 @@ import '@swissprot/swissbiopics-visualizer';
 import 'tippy.js/dist/tippy.css';
 import './styles/sub-cell-viz.scss';
 
+import { sleep } from 'timing-functions';
 import { SubcellularLocationComment } from '../../types/commentTypes';
 
 /*
@@ -284,17 +285,20 @@ const SubCellViz: FC<Props> = memo(({ comments, taxonId, children }) => {
     };
   }, []);
 
+  // uniprotSubcellText doesn't exist yet so SwissBioPics doesn't display
+  console.log(document.querySelectorAll('#uniprotSubcellText'));
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const Instance = (props: any) => <instanceName.current {...props} />;
-
+  // await sleep(1000);
   return (
     <>
       {/** if this is not somewhere in the document, it doesn't add one of its 2
        * custom style tags... */}
       <template id="sibSwissBioPicsStyle" />
       {/** insists on wanting to get stuff from the outside, give empty div */}
-      <div id="fakeContent" />
-      <Instance taxid={taxonId} sls={sls} contentid="fakeContent">
+      {/* <div id="fakeContent" /> */}
+      <Instance taxid={taxonId} sls={sls} contentid="uniprotSubcellText">
         {children}
       </Instance>
     </>
