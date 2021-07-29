@@ -1,5 +1,5 @@
-import { useMemo, useRef, useEffect, Dispatch, SetStateAction } from 'react';
-import { generatePath, Link, useLocation } from 'react-router-dom';
+import { useMemo, Dispatch, SetStateAction } from 'react';
+import { generatePath, Link } from 'react-router-dom';
 import cn from 'classnames';
 import { Tabs, Tab, BinIcon, Button, FullViewIcon } from 'franklin-sites';
 
