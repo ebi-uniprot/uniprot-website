@@ -34,19 +34,6 @@ const Dashboard = ({ closePanel }: { closePanel?: () => void }) => {
     }
   );
 
-  // All of this should probably part of the sliding panel logic
-  // See https://www.ebi.ac.uk/panda/jira/browse/TRM-26294
-  const { pathname } = useLocation();
-  const firstTime = useRef(true);
-  useEffect(() => {
-    if (firstTime.current) {
-      firstTime.current = false;
-    } else {
-      closePanel?.();
-    }
-    // keep pathname below, this is to trigger the effect when it changes
-  }, [closePanel, pathname]);
-
   if (!(activeJobs.length || expiredJobs.length)) {
     return (
       <>

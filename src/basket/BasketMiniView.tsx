@@ -128,19 +128,6 @@ const BasketMiniView = ({ closePanel }: { closePanel: () => void }) => {
   const unirefIds = basket.get(Namespace.uniref);
   const uniparcIds = basket.get(Namespace.uniparc);
 
-  // All of this should probably part of the sliding panel logic
-  // See https://www.ebi.ac.uk/panda/jira/browse/TRM-26294
-  const { pathname } = useLocation();
-  const firstTime = useRef(true);
-  useEffect(() => {
-    if (firstTime.current) {
-      firstTime.current = false;
-    } else {
-      closePanel();
-    }
-    // keep pathname below, this is to trigger the effect when it changes
-  }, [closePanel, pathname]);
-
   if (!uniprotkbIds?.size && !unirefIds?.size && !uniparcIds?.size) {
     return <EmptyBasket />;
   }
