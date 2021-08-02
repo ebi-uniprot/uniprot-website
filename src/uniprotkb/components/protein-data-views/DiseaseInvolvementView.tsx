@@ -82,7 +82,7 @@ export const DiseaseInvolvementEntry: FC<DiseaseInvolvementEntryProps> = ({
   return (
     <>
       <h3>{`${disease?.diseaseId || 'No disease ID'} ${
-        disease?.acronym || ''
+        `(${disease?.acronym})` || ''
       }`}</h3>
       <span className="text-block">{evidenceNodes}</span>
       <InfoList infoData={infoData} />
