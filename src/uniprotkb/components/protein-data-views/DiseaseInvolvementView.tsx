@@ -43,7 +43,12 @@ export const DiseaseInvolvementEntry: FC<DiseaseInvolvementEntryProps> = ({
           <ExpandableList descriptionString="notes">
             {texts.map((text, index) => (
               // eslint-disable-next-line react/no-array-index-key
-              <Fragment key={index}>{text.value}</Fragment>
+              <Fragment key={index}>
+                {text.value}
+                {text.evidences && (
+                  <UniProtKBEvidenceTag evidences={text.evidences} />
+                )}
+              </Fragment>
             ))}
           </ExpandableList>
         ),
