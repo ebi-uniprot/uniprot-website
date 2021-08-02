@@ -23,23 +23,15 @@ export const DiseaseInvolvementEntry: FC<DiseaseInvolvementEntryProps> = ({
   accession,
 }) => {
   const { disease, note } = comment;
-  if (!disease) {
+
+  if (!disease && !note) {
     return null;
   }
-  const {
-    diseaseId,
-    acronym = '',
-    evidences,
-    description,
-    diseaseCrossReference,
-  } = disease;
-  if (!diseaseId) {
-    return null;
-  }
+
   const infoData = [];
 
-  const evidenceNodes = evidences && (
-    <UniProtKBEvidenceTag evidences={evidences} />
+  const evidenceNodes = disease?.evidences && (
+    <UniProtKBEvidenceTag evidences={disease.evidences} />
   );
 
   if (note) {
@@ -59,31 +51,34 @@ export const DiseaseInvolvementEntry: FC<DiseaseInvolvementEntryProps> = ({
     }
   }
 
-  if (description) {
+  if (disease?.description) {
     infoData.push({
       title: 'Description',
-      content: description,
+      content: disease.description,
     });
   }
 
-  if (diseaseCrossReference) {
-    const { database, id } = diseaseCrossReference;
+  if (disease?.diseaseCrossReference) {
+    const { database, id } = disease.diseaseCrossReference;
     if (database && id && databaseToDatabaseInfo[database]) {
       infoData.push({
         title: 'See also',
         content: (
           <XRef
             database={database}
-            xref={diseaseCrossReference}
+            xref={disease.diseaseCrossReference}
             primaryAccession={accession}
           />
         ),
       });
     }
   }
+
   return (
     <>
-      <h3>{`${diseaseId} ${acronym && `(${acronym})`}`}</h3>
+      <h3>{`${disease?.diseaseId || 'No disease ID'} ${
+        disease?.acronym || ''
+      }`}</h3>
       <span className="text-block">{evidenceNodes}</span>
       <InfoList infoData={infoData} />
     </>
