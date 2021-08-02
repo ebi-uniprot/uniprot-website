@@ -233,15 +233,6 @@ const SecondaryItems = () => {
   return [
     {
       label: (
-        <span title="Contact" className={styles['secondary-item']}>
-          <EnvelopeIcon width={secondaryItemIconSize} />
-        </span>
-      ),
-      // TODO: update link
-      href: '//www.uniprot.org/contact',
-    },
-    {
-      label: (
         <ToolsDashboard
           display={displayDashboard}
           close={closeDisplayDashboard}
@@ -260,6 +251,15 @@ const SecondaryItems = () => {
           setDisplayBasket(true);
         }
       },
+    },
+    {
+      label: (
+        <span title="Contact" className={styles['secondary-item']}>
+          <EnvelopeIcon width={secondaryItemIconSize} />
+        </span>
+      ),
+      // TODO: update link
+      href: '//www.uniprot.org/contact',
     },
     {
       label: (
