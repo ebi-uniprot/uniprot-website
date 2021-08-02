@@ -1,16 +1,12 @@
 import EntrySection from '../types/entrySection';
-import { DatabaseCategory, DatabaseInfo } from '../types/databaseRefs';
+import { DatabaseCategory } from '../types/databaseRefs';
 import {
   getDatabaseInfoMaps,
   selectDatabases,
   getEntrySectionToDatabaseCategoryOrder,
 } from '../utils/database';
-// TODO: there is an endpoint for that
-// https://wwwdev.ebi.ac.uk/uniprot/api/configure/uniprotkb/allDatabases
-import databaseInfoJson from './databaseInfo.json';
+import databaseInfo from './databaseInfo';
 import externalUrls from '../../shared/config/externalUrls';
-
-const databaseInfo: DatabaseInfo = databaseInfoJson;
 
 export const databaseCategoryToString = {
   [DatabaseCategory.CHEMISTRY]: 'Chemistry',
