@@ -210,7 +210,7 @@ const CatalyticActivityView: FC<CatalyticActivityProps> = ({
   let firstRheaId: number;
   return (
     <>
-      {title && <h3>{title}</h3>}
+      {title && <h3 className="capitalize">{title}</h3>}
       {comments.map(({ reaction, physiologicalReactions }) => {
         if (!reaction) {
           return null;

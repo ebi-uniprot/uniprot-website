@@ -90,7 +90,7 @@ const FreeTextView: FC<FreeTextProps> = ({
 
   return (
     <>
-      {title && <h3 style={{ textTransform: 'capitalize' }}>{title}</h3>}
+      {title && <h3 className="capitalize">{title}</h3>}
       {freeTextData}
     </>
   );

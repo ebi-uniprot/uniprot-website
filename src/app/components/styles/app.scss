@@ -24,6 +24,10 @@
   }
 }
 
+.capitalize {
+  text-transform: capitalize;
+}
+
 // Debug utility to show heading levels
 // @for $i from 1 through 6 {
 //   h#{$i} {
