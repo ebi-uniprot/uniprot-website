@@ -20,7 +20,9 @@ exports[`Entry view should render 1`] = `
       <div
         class="card__content"
       >
-        <h3>
+        <h3
+          class="capitalize"
+        >
           catalytic activity
         </h3>
         <span
@@ -122,7 +124,9 @@ exports[`Entry view should render 1`] = `
             )
           </div>
         </span>
-        <h3>
+        <h3
+          class="capitalize"
+        >
           cofactor
         </h3>
         <section
@@ -1604,7 +1608,7 @@ exports[`Entry view should render 1`] = `
           </li>
         </ul>
         <h3
-          style="text-transform: capitalize;"
+          class="capitalize"
         >
           disruption phenotype
         </h3>
@@ -2453,7 +2457,9 @@ exports[`Entry view should render for non-human entry 1`] = `
             id="0"
           />
         </div>
-        <h3>
+        <h3
+          class="capitalize"
+        >
           catalytic activity
         </h3>
         <span
@@ -2523,7 +2529,9 @@ exports[`Entry view should render for non-human entry 1`] = `
             />
           </div>
         </span>
-        <h3>
+        <h3
+          class="capitalize"
+        >
           cofactor
         </h3>
         <section
@@ -2556,7 +2564,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           </span>
         </section>
         <h3
-          style="text-transform: capitalize;"
+          class="capitalize"
         >
           miscellaneous
         </h3>
@@ -2588,7 +2596,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           />
         </div>
         <h3
-          style="text-transform: capitalize;"
+          class="capitalize"
         >
           biotechnology
         </h3>
@@ -2693,7 +2701,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           />
         </div>
         <h3
-          style="text-transform: capitalize;"
+          class="capitalize"
         >
           activity regulation
         </h3>
@@ -3614,7 +3622,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           />
         </protvista-manager>
         <h3
-          style="text-transform: capitalize;"
+          class="capitalize"
         >
           domain
         </h3>
