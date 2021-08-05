@@ -13,8 +13,6 @@ import UniProtkbMappingDetails from '../__mocks__/UniProtkbMappingDetails';
 import { ViewMode } from '../../../../../shared/components/results/ResultsData';
 
 const mock = new MockAdapter(axios);
-mock.onGet(/\/api\/idmapping\/results\/id1/).reply(200, SimpleMappingData);
-mock.onGet(/\/api\/idmapping\/details\/id1/).reply(200, SimpleMappingDetails);
 mock
   .onGet(/\/api\/idmapping\/results\/id1/)
   .reply(200, SimpleMappingData)
