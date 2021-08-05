@@ -229,6 +229,7 @@ const IDMappingForm = () => {
     setFromDb(defaultFormValues[IDMappingFields.fromDb]);
     setToDb(defaultFormValues[IDMappingFields.toDb]);
     setJobName(defaultFormValues[IDMappingFields.name]);
+    setTaxID(defaultFormValues[IDMappingFields.taxons]);
   };
 
   const handleTaxonFormValue = (path: string, id?: string) => {
