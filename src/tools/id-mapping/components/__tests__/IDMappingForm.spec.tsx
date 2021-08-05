@@ -77,7 +77,8 @@ describe('IDMappingForm test', () => {
     expect(jobNameInput.value).toEqual('P31946 +1 UniProtKB_AC-ID → UniRef90');
   });
 
-  it('Resets the form', () => {
+  it('Resets the form', async () => {
+    // Set input form values
     const idInput = screen.getByPlaceholderText(
       'P31946 P62258 ALBU_HUMAN EFTU_ECOLI'
     ) as HTMLInputElement;
@@ -86,16 +87,37 @@ describe('IDMappingForm test', () => {
       name: 'UniProtKB AC/ID',
     });
     fireEvent.click(initialFromDatabaseButton);
-    const geneNameButton = screen.getByRole('button', { name: 'Gene Name' });
+    let geneNameButton = screen.getByRole('button', { name: 'Gene Name' });
     fireEvent.click(geneNameButton);
+    let autocompleteInput = (await screen.findByPlaceholderText(
+      'Enter taxon name or ID'
+    )) as HTMLInputElement;
+    fireEvent.change(autocompleteInput, {
+      target: { value: mockSuggesterApi.query },
+    });
     expect(screen.queryByText('UniProtKB AC/ID')).not.toBeInTheDocument();
+
+    // Reset the form
     const resetButton = screen.getByRole('button', { name: 'Reset' });
     fireEvent.click(resetButton);
+
+    // Check everything has been reset
     expect(idInput.value).toBeFalsy();
     expect(screen.queryByText('UniProtKB AC/ID')).toBeInTheDocument();
     expect(
       (screen.getByPlaceholderText('"my job title"') as HTMLInputElement).value
     ).toBeFalsy();
+    fireEvent.click(
+      screen.getByRole('button', {
+        name: 'UniProtKB AC/ID',
+      })
+    );
+    geneNameButton = screen.getByRole('button', { name: 'Gene Name' });
+    fireEvent.click(geneNameButton);
+    autocompleteInput = (await screen.findByPlaceholderText(
+      'Enter taxon name or ID'
+    )) as HTMLInputElement;
+    expect(autocompleteInput.value).toBeFalsy();
   });
 
   it('Adds and removes a taxon', async () => {
