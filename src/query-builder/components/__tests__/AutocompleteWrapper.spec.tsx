@@ -3,18 +3,18 @@ import axios from 'axios';
 
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 
-import AutocompleteWrapper from '../AutocompleteWrapper';
+import AutocompleteWrapper, { prepareData } from '../AutocompleteWrapper';
 
 import {
   mockSuggesterApi,
   preparedSuggestions,
 } from './__mocks__/autocompleteWrapperData';
 
-describe('Autocomplete Wrapper static methods', () => {
-  test('should prepare API data for Autocomplete', () => {
-    expect(
-      AutocompleteWrapper.prepareData(mockSuggesterApi.response.suggestions)
-    ).toEqual(preparedSuggestions);
+describe('prepareData', () => {
+  it('should prepare API data for Autocomplete', () => {
+    expect(prepareData(mockSuggesterApi.response.suggestions)).toEqual(
+      preparedSuggestions
+    );
   });
 });
 
@@ -29,12 +29,12 @@ const mock = new MockAdapter(axios);
 mock.onGet(mockSuggesterApi.request).reply(200, mockSuggesterApi.response);
 
 describe('Autocomplete Wrapper', () => {
-  test('should render', () => {
+  it('should render', () => {
     const { asFragment } = render(<AutocompleteWrapper {...props} />);
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test('should render the correct number of AutocompleteItems when input is human', async () => {
+  it('should render the correct number of AutocompleteItems when input is human', async () => {
     render(<AutocompleteWrapper {...props} />);
     const searchInput = screen.getByRole('textbox');
     fireEvent.change(searchInput, {
@@ -48,7 +48,7 @@ describe('Autocomplete Wrapper', () => {
     );
   });
 
-  test('should not render AutocompleteItems when input is less than minCharsToShowDropdown (=3)', async () => {
+  it('should not render AutocompleteItems when input is less than minCharsToShowDropdown (=3)', async () => {
     render(<AutocompleteWrapper {...props} />);
     const searchInput = screen.getByRole('textbox');
     const value = 'hu';
