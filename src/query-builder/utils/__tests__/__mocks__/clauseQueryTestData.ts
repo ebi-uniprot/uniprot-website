@@ -256,6 +256,20 @@ const testData = [
       },
     ],
   },
+  {
+    description: 'should handle free text query with spaces and quotations',
+    queryString: '"homo sapiens"',
+    clauses: [
+      {
+        id: 0,
+        searchTerm: idToSearchTerm.gene_ontology,
+        queryBits: {
+          All: 'homo sapiens',
+        },
+        logicOperator: 'AND',
+      },
+    ],
+  },
 ] as Array<{ description: string; queryString: string; clauses: Clause[] }>;
 
 export default testData;
