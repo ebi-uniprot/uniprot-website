@@ -15,13 +15,13 @@ import { Graph, Thing, WithContext } from 'schema-dts';
  * in case we need to tune the priority of rendering of a specific component
  */
 const useStructuredData = <Schema extends Thing>(
-  structuredData?: WithContext<Schema>,
+  structuredData?: WithContext<Schema> | Graph,
   throttleTime = 250
 ) => {
   const script = useRef<HTMLScriptElement>();
 
   const inject = useRef(
-    throttle((value?: WithContext<Schema>) => {
+    throttle((value?: WithContext<Schema> | Graph) => {
       if (!script.current) {
         return;
       }

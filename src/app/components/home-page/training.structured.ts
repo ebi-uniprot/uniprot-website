@@ -1,4 +1,4 @@
-import { WithContext, Consortium, Course, Event } from 'schema-dts';
+import { WithContext, Consortium, Course, Event, Graph } from 'schema-dts';
 
 import parseDate from '../../../shared/utils/parseDate';
 
@@ -6,7 +6,7 @@ import { PayloadEBISearch } from './NeedHelp';
 
 const dataToSchema = (
   data: PayloadEBISearch['entries'][0]
-): WithContext<Course> | WithContext<Event> | undefined => {
+): WithContext<Course> | Graph | undefined => {
   const title = `${data.fields.title}${
     data.fields.subtitle[0] ? ` - ${data.fields.subtitle[0]}` : ''
   }`;
