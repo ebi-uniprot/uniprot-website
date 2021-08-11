@@ -326,7 +326,9 @@ exports[`Entry basic should render main 1`] = `
               <div
                 class="card__content"
               >
-                <h3>
+                <h3
+                  class="capitalize"
+                >
                   catalytic activity
                 </h3>
                 <span
@@ -428,7 +430,9 @@ exports[`Entry basic should render main 1`] = `
                     )
                   </div>
                 </span>
-                <h3>
+                <h3
+                  class="capitalize"
+                >
                   cofactor
                 </h3>
                 <section
@@ -1916,7 +1920,7 @@ exports[`Entry basic should render main 1`] = `
                   </li>
                 </ul>
                 <h3
-                  style="text-transform: capitalize;"
+                  class="capitalize"
                 >
                   disruption phenotype
                 </h3>
