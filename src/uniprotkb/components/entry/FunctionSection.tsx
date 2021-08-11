@@ -27,6 +27,8 @@ import {
   FreeTextComment,
 } from '../../types/commentTypes';
 
+import helper from '../../../shared/styles/helper.module.scss';
+
 const GoRibbon = lazy(
   () => import(/* webpackChunkName: "go-ribbon" */ './GoRibbon')
 );
@@ -119,7 +121,7 @@ export const CofactorView = ({ cofactors, title }: CofactorViewProps) => {
   }
   return (
     <>
-      {title && <h3 className="capitalize">{title}</h3>}
+      {title && <h3 className={helper.capitalize}>{title}</h3>}
       {cofactors.map((cofactorComment, index) => (
         // eslint-disable-next-line react/no-array-index-key
         <section className="text-block" key={index}>
