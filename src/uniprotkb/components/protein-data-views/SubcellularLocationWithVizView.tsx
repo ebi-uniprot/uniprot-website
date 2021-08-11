@@ -1,6 +1,6 @@
-import { FC, Suspense, lazy } from 'react';
+import { FC, Suspense, lazy, useState } from 'react';
 
-import { Tab, Tabs } from 'franklin-sites';
+import { TabsOld } from 'franklin-sites';
 import SubcellularLocationView from './SubcellularLocationView';
 
 import { SubcellularLocationComment } from '../../types/commentTypes';
@@ -26,6 +26,7 @@ const SubcellularLocationWithVizView: FC<
     goXrefs: GoXref[];
   } & Partial<Pick<TaxonomyDatum, 'taxonId' | 'lineage'>>
 > = ({ comments, taxonId, lineage, goXrefs }) => {
+  const [activeTab, setActiveTab] = useState(0);
   if (!comments?.length) {
     return null;
   }
@@ -39,24 +40,58 @@ const SubcellularLocationWithVizView: FC<
   //     uniprotTextContent
   //   );
 
-  const goNode = <SubcellularLocationGOView goXrefs={goXrefs} />;
+  console.log(goXrefs);
+  const goTextContent = <SubcellularLocationGOView goXrefs={goXrefs} />;
 
+  if (
+    !lineage ||
+    !taxonId ||
+    !(uniprotTextContent || goTextContent) ||
+    isVirus(lineage as string[])
+  ) {
+    return null;
+  }
+  console.log(activeTab);
   return (
-    lineage &&
-    taxonId &&
-    !isVirus(lineage as string[]) && (
-      <>
-        <Suspense fallback={null}>
-          <SubCellViz comments={comments} taxonId={taxonId} />
-        </Suspense>
-        <Tabs>
-          {goNode && <Tab title="GO Cellular Component">{goNode}</Tab>}
-          {uniprotTextContent && (
-            <Tab title="UniProt Annotation">{uniprotTextContent}</Tab>
-          )}
-        </Tabs>
-      </>
-    )
+    <>
+      <Suspense fallback={null}>
+        <TabsOld
+          onClick={setActiveTab}
+          tabData={[
+            {
+              title: 'UniProt Annotation',
+              content: (
+                <SubCellViz
+                  comments={comments}
+                  taxonId={taxonId}
+                  activeTab={activeTab}
+                  goXrefs={goXrefs}
+                  id="uni"
+                >
+                  {uniprotTextContent}
+                </SubCellViz>
+              ),
+              id: 'uni',
+            },
+            {
+              title: 'GO Annotation',
+              content: (
+                <SubCellViz
+                  comments={comments}
+                  taxonId={taxonId}
+                  activeTab={activeTab}
+                  goXrefs={goXrefs}
+                  id="go"
+                >
+                  {uniprotTextContent}
+                </SubCellViz>
+              ),
+              id: 'go',
+            },
+          ]}
+        />
+      </Suspense>
+    </>
   );
 };
 

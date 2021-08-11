@@ -17,12 +17,11 @@ const SubcellularLocationGOView: FC<{
   return (
     <>
       {goXrefs.map(({ id, properties }) => (
-        <div>
+        <div key={id}>
           <ExternalLink
             // id is used in the case that this component is used in conjunction
             // with @swissprot/swissbiopics-visualizer
             className={getSwissBioPicLocationId(id)}
-            key={id}
             url={externalUrls.QuickGO(id)}
           >
             {properties.GoTerm}
