@@ -1,11 +1,11 @@
-import { FC, Suspense, lazy, useState } from 'react';
+import { FC, Suspense, lazy } from 'react';
 
 import { TabsOld } from 'franklin-sites';
 import SubcellularLocationView from './SubcellularLocationView';
+import SubcellularLocationGOView from './SubcellularLocationGOView';
 
 import { SubcellularLocationComment } from '../../types/commentTypes';
 import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
-import SubcellularLocationGOView from './SubcellularLocationGOView';
 import { GoXref } from '../../adapters/subcellularLocationConverter';
 
 // Import it lazily in order to isolate the libraries used only for this
@@ -17,8 +17,18 @@ enum Superkingdom {
   Viruses = 'Viruses',
 }
 
+export enum VizTab {
+  UniProt = 'uniprot',
+  GO = 'go',
+}
+
 const isVirus = ([superkingdom]: string[]) =>
   superkingdom === Superkingdom.Viruses;
+
+const getSubcellularLocationId = (id: string) => id.match(/SL-(\d+)/)?.[1];
+
+const getGoId = (id: string) =>
+  id.match(/GO:(\d+)/)?.[1]?.replaceAll('^0+', '');
 
 const SubcellularLocationWithVizView: FC<
   {
@@ -26,72 +36,65 @@ const SubcellularLocationWithVizView: FC<
     goXrefs: GoXref[];
   } & Partial<Pick<TaxonomyDatum, 'taxonId' | 'lineage'>>
 > = ({ comments, taxonId, lineage, goXrefs }) => {
-  const [activeTab, setActiveTab] = useState(0);
-  if (!comments?.length) {
+  if (!comments?.length && !goXrefs?.length) {
     return null;
   }
 
   const uniprotTextContent = <SubcellularLocationView comments={comments} />;
-
-  // If we can render a visualisation, wrap the text content as a child
-  // const uniprotNode =
-  //   lineage && taxonId && !isVirus(lineage as string[]) ? (
-  //  ) : (
-  //     uniprotTextContent
-  //   );
-
-  console.log(goXrefs);
   const goTextContent = <SubcellularLocationGOView goXrefs={goXrefs} />;
+
+  const uniProtLocationIds = (comments || [])
+    .flatMap(({ subcellularLocations }) =>
+      subcellularLocations?.map(
+        ({ location }) => location.id && getSubcellularLocationId(location.id)
+      )
+    )
+    .filter(Boolean)
+    .join(',');
+
+  const goLocationIds = goXrefs
+    .map(({ id }) => getGoId(id))
+    .filter(Boolean)
+    .join(',');
 
   if (
     !lineage ||
     !taxonId ||
-    !(uniprotTextContent || goTextContent) ||
-    isVirus(lineage as string[])
+    isVirus(lineage as string[]) ||
+    !(uniprotTextContent && goTextContent) ||
+    (!uniProtLocationIds?.length && !goLocationIds?.length)
   ) {
     return null;
   }
-  console.log(activeTab);
+
   return (
-    <>
-      <Suspense fallback={null}>
-        <TabsOld
-          onClick={setActiveTab}
-          tabData={[
-            {
-              title: 'UniProt Annotation',
-              content: (
-                <SubCellViz
-                  comments={comments}
-                  taxonId={taxonId}
-                  activeTab={activeTab}
-                  goXrefs={goXrefs}
-                  id="uni"
-                >
-                  {uniprotTextContent}
-                </SubCellViz>
-              ),
-              id: 'uni',
-            },
-            {
-              title: 'GO Annotation',
-              content: (
-                <SubCellViz
-                  comments={comments}
-                  taxonId={taxonId}
-                  activeTab={activeTab}
-                  goXrefs={goXrefs}
-                  id="go"
-                >
-                  {uniprotTextContent}
-                </SubCellViz>
-              ),
-              id: 'go',
-            },
-          ]}
-        />
-      </Suspense>
-    </>
+    <Suspense fallback={null}>
+      <TabsOld
+        tabData={[
+          {
+            title: 'UniProt Annotation',
+            content: (
+              <SubCellViz
+                uniProtLocationIds={uniProtLocationIds}
+                taxonId={taxonId}
+              >
+                {uniprotTextContent}
+              </SubCellViz>
+            ),
+            id: VizTab.UniProt,
+          },
+          {
+            title: 'GO Annotation',
+            content: (
+              <SubCellViz goLocationIds={goLocationIds} taxonId={taxonId}>
+                {goTextContent}
+              </SubCellViz>
+            ),
+            id: VizTab.GO,
+          },
+        ]}
+      />
+    </Suspense>
   );
 };
 

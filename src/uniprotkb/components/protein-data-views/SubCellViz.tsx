@@ -5,9 +5,8 @@ import '@swissprot/swissbiopics-visualizer';
 import 'tippy.js/dist/tippy.css';
 import './styles/sub-cell-viz.scss';
 
-import { sleep } from 'timing-functions';
-import { SubcellularLocationComment } from '../../types/commentTypes';
-import { GoXref } from '../../adapters/subcellularLocationConverter';
+import { RequireExactlyOne } from 'type-fest';
+import { VizTab } from './SubcellularLocationWithVizView';
 
 /*
   The logic implemented here to get our data into @swissprot/swissbiopics-visualizer has been lifted
@@ -51,17 +50,6 @@ const canonicalName = 'sib-swissbiopics-sl';
 const CanonicalDefinition: CanonicalDefinitionT =
   customElements.get(canonicalName);
 let counter = 0;
-
-const getSubcellularLocationId = (id: string) => {
-  const match = id.match(/SL-(\d+)/);
-  if (match?.[1]) {
-    return match[1];
-  }
-  return null;
-};
-
-const getGoId = (id: string) =>
-  id.match(/GO:(\d+)/)?.[1]?.replaceAll('^0+', '');
 
 const getGoTermClassNames = (locationGroup: Element) =>
   Array.from(locationGroup.classList.values())
@@ -117,32 +105,28 @@ const attachTooltips = (
   });
 };
 
-type Props = {
-  comments: SubcellularLocationComment[];
-  taxonId: number;
-  goXrefs: GoXref[];
-};
+type Props = RequireExactlyOne<
+  {
+    taxonId: number;
+    uniProtLocationIds: string;
+    goLocationIds: string;
+  },
+  'uniProtLocationIds' | 'goLocationIds'
+>;
 
 // TODO: add additional GO template which will also require GO term data
 // TODO: handle this case as seen in the source code 'svg .membranes .membrane.subcell_present' eg A1L3X0 doesn't work
 const SubCellViz: FC<Props> = memo(
-  ({ comments, taxonId, children, goXrefs, id }) => {
-    const instanceName = useRef(`${canonicalName}-${id}-${counter}`);
+  ({ uniProtLocationIds, goLocationIds, taxonId, children }) => {
+    const instanceName = useRef(
+      `${canonicalName}-${
+        uniProtLocationIds?.length ? VizTab.UniProt : VizTab.GO
+      }-${counter}`
+    );
     useEffect(() => {
       // eslint-disable-next-line no-plusplus
       counter++;
     }, []);
-
-    const sls = comments
-      ?.flatMap(({ subcellularLocations }) =>
-        subcellularLocations?.map(
-          ({ location }) => location.id && getSubcellularLocationId(location.id)
-        )
-      )
-      .filter(Boolean)
-      .join(',');
-
-    const gos = goXrefs.map(({ id }) => getGoId(id));
 
     /**
      * NOTE: whole lot of mitigation logic because of the way the custom element
@@ -295,21 +279,22 @@ const SubCellViz: FC<Props> = memo(
       };
     }, []);
 
-    // uniprotSubcellText doesn't exist yet so SwissBioPics doesn't display
-    console.log(document.querySelectorAll('#uniprotSubcellText'));
-
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const Instance = (props: any) => <instanceName.current {...props} />;
-    // await sleep(1000);
+
+    const locationIds = {
+      sls: uniProtLocationIds,
+      gos: goLocationIds,
+    };
+
     return (
       <>
         {/** if this is not somewhere in the document, it doesn't add one of its 2
          * custom style tags... */}
         <template id="sibSwissBioPicsStyle" />
         {/** insists on wanting to get stuff from the outside, give empty div */}
-        {/* <div id="fakeContent" /> */}
-        <Instance taxid={taxonId} sls={sls} contentid="uniprotSubcellText">
-          {/* <Instance taxid={taxonId} gos={gos} contentid="fakeContent"> */}
+        <div id="fakeContent" />
+        <Instance taxid={taxonId} contentid="fakeContent" {...locationIds}>
           {children}
         </Instance>
       </>

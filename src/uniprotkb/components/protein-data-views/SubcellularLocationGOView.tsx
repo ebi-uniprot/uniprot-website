@@ -15,9 +15,9 @@ const SubcellularLocationGOView: FC<{
     return null;
   }
   return (
-    <>
+    <ul className="no-bullet">
       {goXrefs.map(({ id, properties }) => (
-        <div key={id}>
+        <li key={id}>
           <ExternalLink
             // id is used in the case that this component is used in conjunction
             // with @swissprot/swissbiopics-visualizer
@@ -26,9 +26,9 @@ const SubcellularLocationGOView: FC<{
           >
             {properties.GoTerm}
           </ExternalLink>
-        </div>
+        </li>
       ))}
-    </>
+    </ul>
   );
 };
 

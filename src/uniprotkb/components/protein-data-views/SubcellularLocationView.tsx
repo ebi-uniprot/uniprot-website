@@ -14,7 +14,7 @@ const SubcellularLocationView: FC<{
     return null;
   }
   return (
-    <div id="uniprotSubcellText">
+    <>
       {comments.map(
         (subcellData, index) =>
           subcellData.subcellularLocations && (
@@ -51,7 +51,7 @@ const SubcellularLocationView: FC<{
             </section>
           )
       )}
-    </div>
+    </>
   );
 };
 
