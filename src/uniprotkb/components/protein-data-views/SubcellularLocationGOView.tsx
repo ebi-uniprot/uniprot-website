@@ -6,7 +6,10 @@ import { ExternalLink } from 'franklin-sites';
 import externalUrls from '../../../shared/config/externalUrls';
 import { GoXref } from '../../adapters/subcellularLocationConverter';
 
-const getSwissBioPicLocationId = (id: string) => id.replace(':', '');
+const getSwissBioPicLocationId = (id: string) => {
+  const [go, number] = id.split(':');
+  return `${go}${+number}`;
+};
 
 const SubcellularLocationGOView: FC<{
   goXrefs: GoXref[];
@@ -14,16 +17,17 @@ const SubcellularLocationGOView: FC<{
   if (!goXrefs?.length) {
     return null;
   }
+
   return (
     <ul className="no-bullet">
       {goXrefs.map(({ id, properties }) => (
-        <li key={id}>
-          <ExternalLink
-            // id is used in the case that this component is used in conjunction
-            // with @swissprot/swissbiopics-visualizer
-            className={getSwissBioPicLocationId(id)}
-            url={externalUrls.QuickGO(id)}
-          >
+        <li
+          key={id}
+          // used in the case that this component is used in conjunction
+          // with @swissprot/swissbiopics-visualizer
+          id={getSwissBioPicLocationId(id)}
+        >
+          <ExternalLink url={externalUrls.QuickGO(id)}>
             {properties.GoTerm}
           </ExternalLink>
         </li>
