@@ -25,7 +25,7 @@ const SubcellularLocationGOView: FC<{
           key={id}
           // used in the case that this component is used in conjunction
           // with @swissprot/swissbiopics-visualizer
-          id={getSwissBioPicLocationId(id)}
+          className={getSwissBioPicLocationId(id)}
         >
           <ExternalLink url={externalUrls.QuickGO(id)}>
             {properties.GoTerm}

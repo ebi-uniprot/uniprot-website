@@ -54,7 +54,7 @@ let counter = 0;
 const getGoTermClassNames = (locationGroup: Element) =>
   Array.from(locationGroup.classList.values())
     .filter((className) => className.startsWith('GO'))
-    .map((className) => `.${className}`);
+    .map((goId) => `.${goId}`);
 
 const attachTooltips = (
   locationGroup: Element,
@@ -141,31 +141,33 @@ const SubCellViz: FC<Props> = memo(
       class InstanceClass extends CanonicalDefinition {
         // logic for highlighting
         highLight(
-          e: HTMLElement | SVGElement | null | undefined,
-          target: HTMLElement | SVGElement | null | undefined,
+          text: HTMLElement | SVGElement | null | undefined,
+          image: HTMLElement | SVGElement | null | undefined,
           selector: string
         ) {
-          super.highLight(e, target, selector);
-          if (target) {
+          super.highLight(text, image, selector);
+          if (image) {
+            // Add "lookedAt" classname to image SVG
             // eslint-disable-next-line react/no-this-in-sfc
-            this.querySelector(`#${target.id}term`)?.classList.add('lookedAt');
+            this.querySelector(`#${image.id}term`)?.classList.add('lookedAt');
           }
         }
 
         // Note that there is no "h" in the middle of this method name
         // This is probably a typo that needs correcting
         removeHiglight(
-          e: HTMLElement | SVGElement | null | undefined,
-          target: HTMLElement | SVGElement | null | undefined,
+          text: HTMLElement | SVGElement | null | undefined,
+          image: HTMLElement | SVGElement | null | undefined,
           selector: string
         ) {
-          if (target) {
+          if (image) {
+            // Remove "lookedAt" classname from image SVG
             // eslint-disable-next-line react/no-this-in-sfc
-            this.querySelector(`#${target.id}term`)?.classList.remove(
+            this.querySelector(`#${image.id}term`)?.classList.remove(
               'lookedAt'
             );
           }
-          super.removeHiglight(e, target, selector);
+          super.removeHiglight(text, image, selector);
         }
       }
       /**
@@ -226,50 +228,56 @@ const SubCellViz: FC<Props> = memo(
           return;
         }
         for (const subcellularPresentSVG of subcellularPresentSVGs) {
-          // The text location in the righthand column
-          const locationText = instance?.querySelector<HTMLElement>(
-            `#${subcellularPresentSVG.id}term`
-          );
-          if (locationText) {
-            locationText.classList.add('inpicture');
-            // TODO: need to remove event listeners on unmount. Will leave for now until
-            // to see what changes are made to @swissprot/swissbiopics-visualizer
-            locationText.addEventListener('mouseenter', () => {
-              instance?.highLight(
-                locationText,
-                shadowRoot?.querySelector<SVGElement>(
-                  `#${subcellularPresentSVG.id}`
-                ),
-                shapesSelector
-              );
-            });
-            locationText.addEventListener('mouseleave', () => {
-              instance?.removeHiglight(
-                locationText,
-                shadowRoot?.querySelector<SVGElement>(
-                  `#${subcellularPresentSVG.id}`
-                ),
-                shapesSelector
-              );
-            });
-            // Get all of the SVG elements in the picture that should open a tooltip
-            let triggerTargetSvgs: NodeListOf<SVGElement> | undefined =
-              subcellularPresentSVG.querySelectorAll<SVGElement>(
-                scopedShapesSelector
-              );
-            if (!triggerTargetSvgs.length) {
-              // If nothing found (as with happens with eg Cell surface) try the parentElement
-              triggerTargetSvgs =
-                subcellularPresentSVG.parentElement?.querySelectorAll<SVGElement>(
+          // The text location in the righthand column which in our case will either
+          // be of the form \d+term or GO\d+ depending on what props has been provided
+          const textSelectors = uniProtLocationIds?.length
+            ? [`#${subcellularPresentSVG.id}term`]
+            : getGoTermClassNames(subcellularPresentSVG);
+
+          for (const textSelector of textSelectors) {
+            const locationText =
+              instance?.querySelector<HTMLElement>(textSelector);
+            if (locationText) {
+              locationText.classList.add('inpicture');
+              // TODO: need to remove event listeners on unmount. Will leave for now until
+              // to see what changes are made to @swissprot/swissbiopics-visualizer
+              locationText.addEventListener('mouseenter', () => {
+                instance?.highLight(
+                  locationText,
+                  shadowRoot?.querySelector<SVGElement>(
+                    `#${subcellularPresentSVG.id}`
+                  ),
+                  shapesSelector
+                );
+              });
+              locationText.addEventListener('mouseleave', () => {
+                instance?.removeHiglight(
+                  locationText,
+                  shadowRoot?.querySelector<SVGElement>(
+                    `#${subcellularPresentSVG.id}`
+                  ),
+                  shapesSelector
+                );
+              });
+              // Get all of the SVG elements in the picture that should open a tooltip
+              let triggerTargetSvgs: NodeListOf<SVGElement> | undefined =
+                subcellularPresentSVG.querySelectorAll<SVGElement>(
                   scopedShapesSelector
                 );
+              if (!triggerTargetSvgs.length) {
+                // If nothing found (as with happens with eg Cell surface) try the parentElement
+                triggerTargetSvgs =
+                  subcellularPresentSVG.parentElement?.querySelectorAll<SVGElement>(
+                    scopedShapesSelector
+                  );
+              }
+              attachTooltips(
+                subcellularPresentSVG,
+                instance,
+                triggerTargetSvgs,
+                false
+              );
             }
-            attachTooltips(
-              subcellularPresentSVG,
-              instance,
-              triggerTargetSvgs,
-              false
-            );
           }
         }
       };
@@ -277,7 +285,7 @@ const SubCellViz: FC<Props> = memo(
       return () => {
         shadowRoot?.removeEventListener('svgloaded', onSvgLoaded);
       };
-    }, []);
+    }, [uniProtLocationIds?.length]);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const Instance = (props: any) => <instanceName.current {...props} />;
