@@ -76,9 +76,8 @@ const AutocompleteWrapper: FC<AutocompleteWrapperProps> = ({
         const suggesterUrl = getSuggesterUrl(url, textInputValue);
         setLoading(true);
         fetchData<Suggestions>(suggesterUrl)
-          .then((response) => prepareData(response.data.suggestions))
-          .then((responseData) => {
-            setData(responseData);
+          .then((response) => {
+            setData(prepareData(response.data.suggestions));
             setLoading(false);
           })
           // eslint-disable-next-line no-console
