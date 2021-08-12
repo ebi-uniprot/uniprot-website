@@ -1,6 +1,5 @@
 import { FC, useEffect, useCallback, useState } from 'react';
 import { Autocomplete } from 'franklin-sites';
-import { v1 } from 'uuid';
 
 import fetchData from '../../shared/utils/fetchData';
 import { getSuggesterUrl } from '../../shared/config/apiUrls';
@@ -41,7 +40,7 @@ export const prepareData = (suggestions: Suggestion[]) =>
       pathLabel: `${suggestion.value} [${suggestion.id}]`,
       itemLabel: suggestion.value,
       apiId: suggestion.id,
-      id: v1(),
+      id: suggestion.id,
     })
   );
 
