@@ -230,6 +230,7 @@ const Entry: FC = () => {
     >
       <Tabs active={match.params.subPage}>
         <Tab
+          cache
           title={
             <Link
               to={(location) => ({
