@@ -1,6 +1,6 @@
 import { FC, Suspense, lazy } from 'react';
 
-import { TabsOld } from 'franklin-sites';
+import { Tabs, Tab } from 'franklin-sites';
 import SubcellularLocationView from './SubcellularLocationView';
 import SubcellularLocationGOView from './SubcellularLocationGOView';
 
@@ -69,31 +69,18 @@ const SubcellularLocationWithVizView: FC<
 
   return (
     <Suspense fallback={null}>
-      <TabsOld
-        tabData={[
-          {
-            title: 'UniProt Annotation',
-            content: (
-              <SubCellViz
-                uniProtLocationIds={uniProtLocationIds}
-                taxonId={taxonId}
-              >
-                {uniprotTextContent}
-              </SubCellViz>
-            ),
-            id: VizTab.UniProt,
-          },
-          {
-            title: 'GO Annotation',
-            content: (
-              <SubCellViz goLocationIds={goLocationIds} taxonId={taxonId}>
-                {goTextContent}
-              </SubCellViz>
-            ),
-            id: VizTab.GO,
-          },
-        ]}
-      />
+      <Tabs>
+        <Tab cache title="UniProt Annotation">
+          <SubCellViz uniProtLocationIds={uniProtLocationIds} taxonId={taxonId}>
+            {uniprotTextContent}
+          </SubCellViz>
+        </Tab>
+        <Tab cache title="GO Annotation">
+          <SubCellViz goLocationIds={goLocationIds} taxonId={taxonId}>
+            {goTextContent}
+          </SubCellViz>
+        </Tab>
+      </Tabs>
     </Suspense>
   );
 };
