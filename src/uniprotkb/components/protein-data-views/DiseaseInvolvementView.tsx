@@ -23,23 +23,15 @@ export const DiseaseInvolvementEntry: FC<DiseaseInvolvementEntryProps> = ({
   accession,
 }) => {
   const { disease, note } = comment;
-  if (!disease) {
+
+  if (!disease && !note) {
     return null;
   }
-  const {
-    diseaseId,
-    acronym = '',
-    evidences,
-    description,
-    diseaseCrossReference,
-  } = disease;
-  if (!diseaseId) {
-    return null;
-  }
+
   const infoData = [];
 
-  const evidenceNodes = evidences && (
-    <UniProtKBEvidenceTag evidences={evidences} />
+  const evidenceNodes = disease?.evidences && (
+    <UniProtKBEvidenceTag evidences={disease.evidences} />
   );
 
   if (note) {
@@ -51,7 +43,12 @@ export const DiseaseInvolvementEntry: FC<DiseaseInvolvementEntryProps> = ({
           <ExpandableList descriptionString="notes">
             {texts.map((text, index) => (
               // eslint-disable-next-line react/no-array-index-key
-              <Fragment key={index}>{text.value}</Fragment>
+              <Fragment key={index}>
+                {text.value}
+                {text.evidences && (
+                  <UniProtKBEvidenceTag evidences={text.evidences} />
+                )}
+              </Fragment>
             ))}
           </ExpandableList>
         ),
@@ -59,22 +56,22 @@ export const DiseaseInvolvementEntry: FC<DiseaseInvolvementEntryProps> = ({
     }
   }
 
-  if (description) {
+  if (disease?.description) {
     infoData.push({
       title: 'Description',
-      content: description,
+      content: disease.description,
     });
   }
 
-  if (diseaseCrossReference) {
-    const { database, id } = diseaseCrossReference;
+  if (disease?.diseaseCrossReference) {
+    const { database, id } = disease.diseaseCrossReference;
     if (database && id && databaseToDatabaseInfo[database]) {
       infoData.push({
         title: 'See also',
         content: (
           <XRef
             database={database}
-            xref={diseaseCrossReference}
+            xref={disease.diseaseCrossReference}
             primaryAccession={accession}
           />
         ),
@@ -83,7 +80,10 @@ export const DiseaseInvolvementEntry: FC<DiseaseInvolvementEntryProps> = ({
   }
   return (
     <>
-      <h3>{`${diseaseId} ${acronym && `(${acronym})`}`}</h3>
+      <h3>
+        {disease?.diseaseId || <em>No disease ID</em>}
+        {disease?.acronym && ` (${disease?.acronym})`}
+      </h3>
       <span className="text-block">{evidenceNodes}</span>
       <InfoList infoData={infoData} />
     </>
