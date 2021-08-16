@@ -134,7 +134,7 @@ const Entry: FC = () => {
         };
       });
     }
-    return false;
+    return [];
   }, [transformedData]);
 
   const listOfIsoformAccessions = useMemo(

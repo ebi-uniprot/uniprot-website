@@ -1,3 +1,5 @@
+import deepFreeze from 'deep-freeze';
+
 import { FormParameters } from '../types/peptideSearchFormParameters';
 import { SelectedTaxon } from '../../types/toolsFormData';
 
@@ -22,36 +24,28 @@ export type PeptideSearchFormValues = Record<
   Readonly<PeptideSearchFormValue>
 >;
 
-const formData: Readonly<PeptideSearchFormValues> = Object.freeze({
-  [PeptideSearchFields.peps]: Object.freeze({
+const formData: Readonly<PeptideSearchFormValues> = deepFreeze({
+  [PeptideSearchFields.peps]: {
     fieldName: 'peps',
     selected: '',
-  }),
-  [PeptideSearchFields.taxIds]: Object.freeze({
+  },
+  [PeptideSearchFields.taxIds]: {
     fieldName: 'taxIds',
-  }),
-  [PeptideSearchFields.lEQi]: Object.freeze({
+  },
+  [PeptideSearchFields.lEQi]: {
     fieldName: 'lEQi',
     selected: 'off',
-    values: Object.freeze<
-      Array<{
-        value: FormParameters['lEQi'];
-      }>
-    >([{ value: 'on' }, { value: 'off' }]),
-  }),
-  [PeptideSearchFields.spOnly]: Object.freeze({
+    values: [{ value: 'on' }, { value: 'off' }],
+  },
+  [PeptideSearchFields.spOnly]: {
     fieldName: 'spOnly',
     selected: 'off',
-    values: Object.freeze<
-      Array<{
-        value: FormParameters['spOnly'];
-      }>
-    >([{ value: 'on' }, { value: 'off' }]),
-  }),
-  [PeptideSearchFields.name]: Object.freeze({
+    values: [{ value: 'on' }, { value: 'off' }],
+  },
+  [PeptideSearchFields.name]: {
     fieldName: 'name',
     selected: '',
-  }),
+  },
 });
 
 export default formData;

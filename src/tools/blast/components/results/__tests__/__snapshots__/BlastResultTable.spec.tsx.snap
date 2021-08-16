@@ -173,21 +173,18 @@ Hit length: 486"
                 >
                   <button
                     class="chip chip--compact hsp_identity primary"
-                    title="Identity"
                     type="button"
                   >
                     7.1%
                   </button>
                   <button
                     class="chip chip--compact hsp_bit_score secondary"
-                    title="Score"
                     type="button"
                   >
                     41.5874
                   </button>
                   <button
                     class="chip chip--compact hsp_expect secondary"
-                    title="E-value"
                     type="button"
                   >
                     0.0048

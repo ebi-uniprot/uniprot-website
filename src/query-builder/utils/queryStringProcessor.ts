@@ -35,7 +35,8 @@ export const stringify = (clauses: Clause[] = []): string => {
             // contains ' ' or ':'
             /[ :]/.test(value) &&
             // but isn't of the form '[... TO ...]';
-            !(value.startsWith('[') && value.endsWith(']'));
+            !(value.startsWith('[') && value.endsWith(']')) &&
+            !(value.startsWith('"') && value.endsWith('"'));
           const quote = needsQuotes ? '"' : '';
 
           // free-text search

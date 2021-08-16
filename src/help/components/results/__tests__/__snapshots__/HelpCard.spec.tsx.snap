@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HelpCard tests should render the card component 1`] = `
+<DocumentFragment>
+  <section
+    class="help-card card card--has-link"
+  >
+    <a
+      aria-hidden="true"
+      class="card__link"
+      data-testid="background-link"
+      href="/help/help-page"
+      tabindex="-1"
+    />
+    <div
+      class="card__container"
+    >
+      <div
+        class="card__header"
+      >
+        <h2
+          class="tiny"
+        >
+          <a
+            href="/help/help-page"
+          >
+            This is an help page
+          </a>
+        </h2>
+      </div>
+      <div
+        class="card__content"
+      />
+    </div>
+  </section>
+</DocumentFragment>
+`;
+
+exports[`HelpCard tests should render the card component and find highlights 1`] = `
+<DocumentFragment>
+  <section
+    class="help-card card card--has-link"
+  >
+    <a
+      aria-hidden="true"
+      class="card__link"
+      data-testid="background-link"
+      href="/help/help-page"
+      tabindex="-1"
+    />
+    <div
+      class="card__container"
+    >
+      <div
+        class="card__header"
+      >
+        <h2
+          class="tiny"
+        >
+          <a
+            href="/help/help-page"
+          >
+            This is an help page
+          </a>
+        </h2>
+      </div>
+      <div
+        class="card__content"
+      >
+        <div>
+          content match
+        </div>
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;

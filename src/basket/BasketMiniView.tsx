@@ -1,12 +1,5 @@
-import {
-  useMemo,
-  useRef,
-  useEffect,
-  Fragment,
-  Dispatch,
-  SetStateAction,
-} from 'react';
-import { generatePath, Link, useLocation } from 'react-router-dom';
+import { useMemo, Dispatch, SetStateAction } from 'react';
+import { generatePath, Link } from 'react-router-dom';
 import cn from 'classnames';
 import { Tabs, Tab, BinIcon, Button, FullViewIcon } from 'franklin-sites';
 
@@ -74,6 +67,7 @@ const BasketMiniViewTab = ({
     overrideNS: namespace,
     withFacets: false,
     withColumns: false,
+    facetsNotApplied: true,
   });
   const resultsDataObject = usePagination(initialApiUrl);
 
@@ -134,19 +128,6 @@ const BasketMiniView = ({ closePanel }: { closePanel: () => void }) => {
   const unirefIds = basket.get(Namespace.uniref);
   const uniparcIds = basket.get(Namespace.uniparc);
 
-  // All of this should probably part of the sliding panel logic
-  // See https://www.ebi.ac.uk/panda/jira/browse/TRM-26294
-  const { pathname } = useLocation();
-  const firstTime = useRef(true);
-  useEffect(() => {
-    if (firstTime.current) {
-      firstTime.current = false;
-    } else {
-      closePanel();
-    }
-    // keep pathname below, this is to trigger the effect when it changes
-  }, [closePanel, pathname]);
-
   if (!uniprotkbIds?.size && !unirefIds?.size && !uniparcIds?.size) {
     return <EmptyBasket />;
   }
@@ -169,10 +150,7 @@ const BasketMiniView = ({ closePanel }: { closePanel: () => void }) => {
             setBasket={setBasket}
             closePanel={closePanel}
           />
-        ) : (
-          // Fragment instead of null because Franklin's Tab is not happy
-          <Fragment />
-        )}
+        ) : null}
       </Tab>
       <Tab
         title={`UniRef${unirefIds?.size ? ` (${unirefIds.size})` : ''}`}
@@ -188,10 +166,7 @@ const BasketMiniView = ({ closePanel }: { closePanel: () => void }) => {
             setBasket={setBasket}
             closePanel={closePanel}
           />
-        ) : (
-          // Fragment instead of null because Franklin's Tab is not happy
-          <Fragment />
-        )}
+        ) : null}
       </Tab>
       <Tab
         title={`UniParc${uniparcIds?.size ? ` (${uniparcIds.size})` : ''}`}
@@ -207,10 +182,7 @@ const BasketMiniView = ({ closePanel }: { closePanel: () => void }) => {
             setBasket={setBasket}
             closePanel={closePanel}
           />
-        ) : (
-          // Fragment instead of null because Franklin's Tab is not happy
-          <Fragment />
-        )}
+        ) : null}
       </Tab>
     </Tabs>
   );

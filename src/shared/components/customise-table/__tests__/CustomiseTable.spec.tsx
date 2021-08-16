@@ -39,11 +39,10 @@ describe('CustomiseTable component', () => {
   test('should render', () => {
     const { asFragment } = rendered;
     expect(asFragment()).toMatchSnapshot();
-    // get the 2nd one because the drag and drop library also wraps in a button
-    const selectionChip = screen.getAllByRole('button', {
+    const selectionChip = screen.getByRole('button', {
       name: 'Protein names',
       hidden: false,
-    })[1];
+    });
     expect(selectionChip).toBeInTheDocument();
   });
 
@@ -53,11 +52,10 @@ describe('CustomiseTable component', () => {
   });
 
   test('should remove chip when clicked on', () => {
-    // get the 2nd one because the drag and drop library also wraps in a button
-    const selectionChip = screen.getAllByRole('button', {
+    const selectionChip = screen.getByRole('button', {
       name: 'Protein names',
       hidden: false,
-    })[1];
+    });
     fireEvent.click(getByTestId(selectionChip, 'remove-icon'));
     expect(
       screen.queryByRole('button', { name: 'Protein names', hidden: false })

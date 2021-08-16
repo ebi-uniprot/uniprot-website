@@ -1,3 +1,5 @@
+import deepFreeze from 'deep-freeze';
+
 import { Program } from '../types/blastServerParameters';
 import { FormParameters } from '../types/blastFormParameters';
 import { SelectedTaxon } from '../../types/toolsFormData';
@@ -28,36 +30,28 @@ export enum BlastFields {
 
 export type BlastFormValues = Record<BlastFields, Readonly<BlastFormValue>>;
 
-const formData: Readonly<BlastFormValues> = Object.freeze({
-  [BlastFields.program]: Object.freeze({
+const formData: Readonly<BlastFormValues> = deepFreeze({
+  [BlastFields.program]: {
     fieldName: 'program',
-    values: Object.freeze<
-      Array<{
-        value: FormParameters['program'];
-      }>
-    >([{ value: 'blastp' }, { value: 'blastx' }]),
+    values: [{ value: 'blastp' }, { value: 'blastx' }],
     selected: 'blastp' as Program,
-  }),
-  [BlastFields.stype]: Object.freeze({
+  },
+  [BlastFields.stype]: {
     fieldName: 'stype',
-    values: Object.freeze<
-      Array<{ label: string; value: FormParameters['stype'] }>
-    >([
+    values: [
       { value: 'protein', label: 'Protein' },
       { value: 'dna', label: 'DNA/RNA' },
-    ]),
+    ],
     selected: 'protein' as FormParameters['stype'],
-  }),
-  [BlastFields.sequence]: Object.freeze({
+  },
+  [BlastFields.sequence]: {
     fieldName: 'sequence',
     selected: '',
-  }),
-  [BlastFields.database]: Object.freeze({
+  },
+  [BlastFields.database]: {
     fieldName: 'database',
     selected: 'uniprotkb_refprotswissprot',
-    values: Object.freeze<
-      Array<{ label: string; value: FormParameters['database'] }>
-    >([
+    values: [
       {
         value: 'uniprotkb_refprotswissprot',
         label: 'UniProtKB reference proteomes + Swiss-Prot',
@@ -73,21 +67,19 @@ const formData: Readonly<BlastFormValues> = Object.freeze({
       { value: 'uniref90', label: 'UniRef90' },
       { value: 'uniref50', label: 'UniRef50' },
       { value: 'uniparc', label: 'UniParc' },
-    ]),
-  }),
-  [BlastFields.taxons]: Object.freeze({
+    ],
+  },
+  [BlastFields.taxons]: {
     fieldName: 'taxIDs',
-  }),
-  [BlastFields.excludedtaxons]: Object.freeze({
+  },
+  [BlastFields.excludedtaxons]: {
     fieldName: 'negativeTaxIDs',
-  }),
+  },
   // 'exp' parameter
-  [BlastFields.threshold]: Object.freeze({
+  [BlastFields.threshold]: {
     fieldName: 'threshold',
     selected: '10',
-    values: Object.freeze<
-      Array<{ label?: string; value: FormParameters['threshold'] }>
-    >([
+    values: [
       { label: '0.0001', value: '1e-4' },
       { label: '0.001', value: '1e-3' },
       { label: '0.01', value: '1e-2' },
@@ -96,14 +88,12 @@ const formData: Readonly<BlastFormValues> = Object.freeze({
       { value: '10' },
       { value: '100' },
       { value: '1000' },
-    ]),
-  }),
-  [BlastFields.matrix]: Object.freeze({
+    ],
+  },
+  [BlastFields.matrix]: {
     fieldName: 'matrix',
     selected: 'auto',
-    values: Object.freeze<
-      Array<{ label?: string; value: FormParameters['matrix'] | 'auto' }>
-    >([
+    values: [
       // "auto" will be replaced by the correct matrix value on submission
       // but we need to have a distinc value here to not have 2 <option> with
       // same values
@@ -113,48 +103,42 @@ const formData: Readonly<BlastFormValues> = Object.freeze({
       { value: 'BLOSUM80' },
       { value: 'PAM70' },
       { value: 'PAM30' },
-    ]),
-  }),
-  [BlastFields.filter]: Object.freeze({
+    ],
+  },
+  [BlastFields.filter]: {
     fieldName: 'filter',
     selected: 'F',
-    values: Object.freeze<
-      Array<{ label: string; value: FormParameters['filter'] }>
-    >([
+    values: [
       { value: 'F', label: 'None' },
       { value: 'T', label: 'Filter low complexity regions' },
-    ]),
-  }),
+    ],
+  },
   // 'gapalign'
-  [BlastFields.gapped]: Object.freeze({
+  [BlastFields.gapped]: {
     fieldName: 'gapped',
     selected: true,
-    values: Object.freeze<
-      Array<{ label: string; value: FormParameters['gapped'] }>
-    >([
+    values: [
       { value: true, label: 'yes' },
       { value: false, label: 'no' },
-    ]),
-  }),
+    ],
+  },
   // Note: this corresponds to BOTH 'alignments' AND 'scores' AT THE SAME TIME!
-  [BlastFields.hits]: Object.freeze({
+  [BlastFields.hits]: {
     fieldName: 'hits',
     selected: 250,
-    values: Object.freeze<Array<{ value: FormParameters['hits'] }>>([
+    values: [
       { value: 50 },
       { value: 100 },
       { value: 250 },
       { value: 500 },
       { value: 750 },
       { value: 1000 },
-    ]),
-  }),
-  [BlastFields.hsps]: Object.freeze({
+    ],
+  },
+  [BlastFields.hsps]: {
     fieldName: 'hsps',
     selected: undefined,
-    values: Object.freeze<
-      Array<{ value: FormParameters['hsps']; label?: string }>
-    >([
+    values: [
       { value: undefined, label: 'All' },
       { value: 1 },
       { value: 2 },
@@ -162,12 +146,12 @@ const formData: Readonly<BlastFormValues> = Object.freeze({
       { value: 10 },
       { value: 50 },
       { value: 100 },
-    ]),
-  }),
-  [BlastFields.name]: Object.freeze({
+    ],
+  },
+  [BlastFields.name]: {
     fieldName: 'name',
     selected: '',
-  }),
+  },
 });
 
 export default formData;

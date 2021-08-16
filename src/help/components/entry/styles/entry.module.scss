@@ -1,0 +1,37 @@
+@import 'franklin-sites/src/styles/colours';
+@import 'franklin-sites/src/styles/settings';
+
+.content {
+  table {
+    border-spacing: 0;
+    border: 1px solid $colour-sea-blue;
+  }
+
+  thead {
+    color: $colour-sky-white;
+    background: $colour-sea-blue;
+  }
+
+  th,
+  td {
+    padding: $global-padding * 0.25 $global-padding * 0.5;
+    border: 1px solid $colour-sea-blue;
+    border-collapse: collapse;
+  }
+
+  code {
+    background: $colour-platinum;
+  }
+}
+
+.external {
+  &::after {
+    // NOTE: cannot colour the svg when using url(...)
+    content: url('../../../../../node_modules/franklin-sites/src/svg/external-link.svg');
+
+    display: inline-block;
+    width: 0.75em;
+    height: 0.75em;
+    margin-left: 0.75ch;
+  }
+}

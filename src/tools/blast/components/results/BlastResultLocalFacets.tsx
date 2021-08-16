@@ -32,7 +32,7 @@ type LocalFacetProps = {
   facetBounds: { min: number; max: number };
   hitsFilteredByServer: BlastHit[];
   selectedFacets: SelectedFacet[];
-  unfilteredValues: number[];
+  unfilteredValues: Readonly<number[]>;
   optimisedBinNumber: number;
 };
 const LocalFacet: FC<LocalFacetProps> = ({

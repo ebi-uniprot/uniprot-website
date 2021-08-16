@@ -3,24 +3,27 @@ import { InfoList, ExpandableList } from 'franklin-sites';
 
 import { NamesAndTaxonomyUIModel } from '../../adapters/namesAndTaxonomyConverter';
 
-const AccessionsView: FC<{ data: NamesAndTaxonomyUIModel }> = ({ data }) => (
-  <InfoList
-    infoData={[
-      {
-        title: `Primary accession`,
-        content: data.primaryAccession,
-      },
-      {
-        title: `Secondary accessions`,
-        content: (
-          <ExpandableList descriptionString="accessions">
-            {data.secondaryAccessions?.map((accession) => (
-              <Fragment key={accession}>{accession}</Fragment>
-            ))}
-          </ExpandableList>
-        ),
-      },
-    ]}
-  />
-);
+const AccessionsView: FC<{ data: NamesAndTaxonomyUIModel }> = ({ data }) => {
+  const secondaryAccessions = data.secondaryAccessions?.map((accession) => (
+    <Fragment key={accession}>{accession}</Fragment>
+  ));
+  return (
+    <InfoList
+      infoData={[
+        {
+          title: `Primary accession`,
+          content: data.primaryAccession,
+        },
+        {
+          title: `Secondary accessions`,
+          content: secondaryAccessions && (
+            <ExpandableList descriptionString="accessions">
+              {secondaryAccessions}
+            </ExpandableList>
+          ),
+        },
+      ]}
+    />
+  );
+};
 export default AccessionsView;

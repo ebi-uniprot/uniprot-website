@@ -12,7 +12,10 @@ import {
 } from '../../types/namespaces';
 
 import { UseDataAPIWithStaleState } from '../../hooks/useDataApiWithStale';
-import Response, { FacetValue } from '../../../uniprotkb/types/responseTypes';
+import {
+  FacetObject,
+  FacetValue,
+} from '../../../uniprotkb/types/responseTypes';
 
 import helper from '../../styles/helper.module.scss';
 import './styles/results-data.scss';
@@ -31,7 +34,7 @@ const getDecoratedFacetLabel = (facetValue: FacetValue) => {
 };
 
 type Props = {
-  dataApiObject: UseDataAPIWithStaleState<Response['data']>;
+  dataApiObject: UseDataAPIWithStaleState<{ facets?: FacetObject[] }>;
   namespaceOverride?: Namespace;
 };
 

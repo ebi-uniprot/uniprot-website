@@ -1,4 +1,4 @@
-import { FormParameters } from '../types/alignFormParameters';
+import deepFreeze from 'deep-freeze';
 
 export enum AlignFieldTypes {
   textarea,
@@ -22,37 +22,35 @@ export enum AlignFields {
 
 export type AlignFormValues = Record<AlignFields, Readonly<AlignFormValue>>;
 
-const formData: Readonly<AlignFormValues> = Object.freeze({
-  [AlignFields.sequence]: Object.freeze({
+const formData: Readonly<AlignFormValues> = deepFreeze({
+  [AlignFields.sequence]: {
     fieldName: 'sequence',
     selected: '',
-  }),
-  [AlignFields.name]: Object.freeze({
+  },
+  [AlignFields.name]: {
     fieldName: 'name',
     selected: '',
-  }),
-  [AlignFields.order]: Object.freeze({
+  },
+  [AlignFields.order]: {
     fieldName: 'order',
-    values: Object.freeze<
-      Array<{ label: string; value: FormParameters['order'] }>
-    >([
+    values: [
       { value: 'aligned', label: 'from alignment' },
       { value: 'input', label: 'same as input' },
-    ]),
+    ],
     selected: 'aligned',
-  }),
-  [AlignFields.iterations]: Object.freeze({
+  },
+  [AlignFields.iterations]: {
     fieldName: 'iterations',
-    values: Object.freeze<Array<{ value: FormParameters['iterations'] }>>([
+    values: [
       { value: 0 },
       { value: 1 },
       { value: 2 },
       { value: 3 },
       { value: 4 },
       { value: 5 },
-    ]),
+    ],
     selected: 0,
-  }),
+  },
 });
 
 export default formData;

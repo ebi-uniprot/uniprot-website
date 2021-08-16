@@ -1,0 +1,37 @@
+@import 'franklin-sites/src/styles/colours';
+
+.results-header {
+  display: grid;
+  column-gap: 1em;
+  align-items: center;
+  justify-items: center;
+
+  grid-template-columns: auto 1fr;
+
+  // from franklin
+
+  & > :global(.search-input) {
+    grid-column: 2 / span 1;
+    grid-row: 2 / span 1;
+
+    & > input {
+      margin: 0;
+    }
+  }
+}
+
+.helper {
+  grid-column: 2 / span 1;
+  grid-row: 1 / span 1;
+}
+
+.title {
+  grid-column: 0 / span 1;
+  grid-row: 2 / span 1;
+
+  margin: 0;
+
+  & > svg {
+    color: $colour-help-green;
+  }
+}

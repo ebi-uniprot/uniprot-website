@@ -57,6 +57,9 @@ export enum Location {
   PeptideSearchResult = 'PeptideSearchResult',
   IDMapping = 'IDMapping',
   IDMappingResult = 'IDMappingResult',
+  // Help
+  HelpEntry = 'HelpEntry',
+  HelpResults = 'HelpResults',
 }
 
 export const LocationToPath: Record<Location, string> = {
@@ -94,6 +97,9 @@ export const LocationToPath: Record<Location, string> = {
   [Location.PeptideSearch]: '/peptide-search',
   [Location.IDMappingResult]: '/id-mapping/:id',
   [Location.IDMapping]: '/id-mapping',
+  // Help
+  [Location.HelpEntry]: '/help/:accession',
+  [Location.HelpResults]: '/help',
 };
 
 export const SearchResultsLocations: Record<SearchableNamespace, string> = {

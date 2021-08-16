@@ -59,6 +59,9 @@ import {
   defaultFacets as locationsDefaultFacets,
 } from '../../supporting-data/locations/config/LocationsFacetConfiguration';
 
+// Help
+import { defaultFacets as helpDefaultFacets } from '../../help/config/HelpFacetConfiguration';
+
 // Injected by webpack
 export const apiPrefix = API_PREFIX;
 
@@ -150,7 +153,7 @@ export const createFacetsQueryString = (facets: SelectedFacet[]) =>
     .map(
       (facet) =>
         `(${facet.name}:${
-          facet.value.indexOf(' ') >= 0 && !facet.value.match(/^\[.*\]$/)
+          facet.value.includes(' ') && !facet.value.match(/^\[.*\]$/)
             ? `"${facet.value}"`
             : facet.value
         })`
@@ -428,3 +431,37 @@ export const getClustersForProteins = (accessions: string[]) =>
       .map((accession) => `uniprot_id:${accession}`)
       .join(' OR ')})`
   );
+
+// Help endpoints
+export const help = {
+  accession: (accession?: string) =>
+    accession && joinUrl(apiPrefix, '/help', accession),
+  search: (searchString: string) => {
+    const { query, sort, fields, facets, size } =
+      queryString.parse(searchString);
+    return `${joinUrl(apiPrefix, '/help/search')}?${queryString.stringify({
+      query: [
+        query || '*',
+        ...(Array.isArray(facets) ? facets : (facets || '').split(','))
+          .filter(Boolean)
+          // Sort in order to improve cache hits
+          .sort()
+          .map((facet) => {
+            const [facetName, facetValue] = facet.split(':');
+            return `(${facetName}:${
+              facetValue.includes(' ') ? `"${facetValue}"` : facetValue
+            })`;
+          }),
+      ]
+        .filter(Boolean)
+        .join(' AND '),
+      sort,
+      fields,
+      facets: helpDefaultFacets,
+      // At the moment, only 254 pages available
+      // Getting all of them allows us to not use the pagination logic in this
+      // section of the website, isolating it more from the rest
+      size: size || 500,
+    })}`;
+  },
+};

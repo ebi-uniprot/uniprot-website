@@ -10,7 +10,6 @@ import { useSelector } from 'react-redux';
 import { generatePath, Link } from 'react-router-dom';
 import { sumBy } from 'lodash-es';
 import {
-  HelpIcon,
   EnvelopeIcon,
   BasketIcon,
   ToolboxIcon,
@@ -234,24 +233,6 @@ const SecondaryItems = () => {
   return [
     {
       label: (
-        <span title="Help" className={styles['secondary-item']}>
-          <HelpIcon width={secondaryItemIconSize} />
-        </span>
-      ),
-      // TODO: update link
-      href: '//www.uniprot.org/help',
-    },
-    {
-      label: (
-        <span title="Contact" className={styles['secondary-item']}>
-          <EnvelopeIcon width={secondaryItemIconSize} />
-        </span>
-      ),
-      // TODO: update link
-      href: '//www.uniprot.org/contact',
-    },
-    {
-      label: (
         <ToolsDashboard
           display={displayDashboard}
           close={closeDisplayDashboard}
@@ -270,6 +251,24 @@ const SecondaryItems = () => {
           setDisplayBasket(true);
         }
       },
+    },
+    {
+      label: (
+        <span title="Contact" className={styles['secondary-item']}>
+          <EnvelopeIcon width={secondaryItemIconSize} />
+        </span>
+      ),
+      // TODO: update link
+      href: '//www.uniprot.org/contact',
+    },
+    {
+      label: (
+        <span title="Help" className={styles['secondary-item']}>
+          Help
+        </span>
+      ),
+      // TODO: update link
+      href: '//www.uniprot.org/help',
     },
   ];
 };

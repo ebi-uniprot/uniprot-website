@@ -1,4 +1,5 @@
 import queryString from 'query-string';
+import deepFreeze from 'deep-freeze';
 
 import {
   createFacetsQueryString,
@@ -72,7 +73,7 @@ function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
       break;
     case JobTypes.ID_MAPPING:
       baseURL = joinUrl(apiPrefix, '/idmapping');
-      return Object.freeze({
+      return deepFreeze({
         runUrl: `${baseURL}/run`,
         statusUrl: (jobId) =>
           // The cachebust extra query is just here to avoid using cached value
@@ -88,7 +89,7 @@ function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
     case JobTypes.PEPTIDE_SEARCH:
       baseURL =
         'https://research.bioinformatics.udel.edu/peptidematchws/asyncrest';
-      return Object.freeze({
+      return deepFreeze({
         runUrl: baseURL,
         statusUrl: (jobId) => `${baseURL}/jobs/${jobId}`,
         resultUrl: (jobId) => `${baseURL}/jobs/${jobId}`,
@@ -96,7 +97,7 @@ function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
     default:
     //
   }
-  return Object.freeze({
+  return deepFreeze({
     runUrl: `${baseURL}/run`,
     statusUrl: (jobId) => `${baseURL}/status/${jobId}`,
     resultUrl: (jobId, { format }) => `${baseURL}/result/${jobId}/${format}`,

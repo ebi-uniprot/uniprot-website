@@ -1,6 +1,5 @@
-import { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   Card,
   Button,
@@ -33,19 +32,6 @@ const Dashboard = ({ closePanel }: { closePanel?: () => void }) => {
       return partition(jobs, (job) => now - job.timeCreated < EXPIRED_TIME);
     }
   );
-
-  // All of this should probably part of the sliding panel logic
-  // See https://www.ebi.ac.uk/panda/jira/browse/TRM-26294
-  const { pathname } = useLocation();
-  const firstTime = useRef(true);
-  useEffect(() => {
-    if (firstTime.current) {
-      firstTime.current = false;
-    } else {
-      closePanel?.();
-    }
-    // keep pathname below, this is to trigger the effect when it changes
-  }, [closePanel, pathname]);
 
   if (!(activeJobs.length || expiredJobs.length)) {
     return (
