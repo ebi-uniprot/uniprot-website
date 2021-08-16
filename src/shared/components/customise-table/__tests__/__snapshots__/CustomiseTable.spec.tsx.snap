@@ -24,15 +24,14 @@ exports[`CustomiseTable component should render 1`] = `
           role="button"
           tabindex="0"
         >
-          <button
+          <span
             class="chip"
-            type="button"
           >
             Protein names
             <test-file-stub
               data-testid="remove-icon"
             />
-          </button>
+          </span>
         </div>
         <div
           aria-describedby="rbd-hidden-text-0-hidden-text-0"
@@ -44,15 +43,14 @@ exports[`CustomiseTable component should render 1`] = `
           role="button"
           tabindex="0"
         >
-          <button
+          <span
             class="chip"
-            type="button"
           >
             Protein existence
             <test-file-stub
               data-testid="remove-icon"
             />
-          </button>
+          </span>
         </div>
       </div>
       <button
