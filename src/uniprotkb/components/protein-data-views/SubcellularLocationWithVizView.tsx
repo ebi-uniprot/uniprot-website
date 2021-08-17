@@ -25,10 +25,10 @@ export enum VizTab {
 const isVirus = ([superkingdom]: string[]) =>
   superkingdom === Superkingdom.Viruses;
 
-const getSubcellularLocationId = (id: string) => id.match(/SL-(\d+)/)?.[1];
+export const getSubcellularLocationId = (id: string) =>
+  id.match(/SL-(\d+)/)?.[1];
 
-const getGoId = (id: string) =>
-  id.match(/GO:(\d+)/)?.[1]?.replaceAll('^0+', '');
+export const getGoId = (id: string) => id.match(/GO:(\d+)/)?.[1];
 
 const SubcellularLocationWithVizView: FC<
   {

@@ -50,8 +50,10 @@ export type Property =
     }
   | {
       key: PropertyKey.GoEvidenceType;
-      value: `${GoEvidenceCodes}:${string}`; // eg IDA:ARUK-UCL, TAS:Reactome
+      value: GoEvidenceType;
     };
+
+export type GoEvidenceType = `${GoEvidenceCodes}:${string}`; // eg IDA:ARUK-UCL, TAS:Reactome
 
 // Source: https://github.com/ebi-uniprot/uniprot-core/blob/master/core-domain/src/main/java/org/uniprot/core/cv/go/GoEvidenceType.java
 export type GoEvidenceCodes =

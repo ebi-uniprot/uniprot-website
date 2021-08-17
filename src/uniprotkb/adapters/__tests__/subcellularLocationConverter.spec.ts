@@ -1,10 +1,13 @@
-import convertSubcellularLocation from '../subcellularLocationConverter';
+import convertSubcellularLocation, {
+  getAndPrepareSubcellGoXrefs,
+} from '../subcellularLocationConverter';
 import { convertXrefProperties } from '../uniProtkbConverter';
 
 import modelData from '../../__mocks__/uniProtKBEntryModelData';
+import mockGoXrefs from '../../__mocks__/goXrefs';
 
 describe('Subcellular data converter', () => {
-  test('should convert the data', () => {
+  it('should convert the data', () => {
     const convertedData = convertSubcellularLocation(
       modelData,
       convertXrefProperties(modelData.uniProtKBCrossReferences)
@@ -91,5 +94,31 @@ describe('Subcellular data converter', () => {
       },
       xrefData: [],
     });
+  });
+});
+
+describe('getAndPrepareSubcellGoXrefs', () => {
+  it('should get GO xrefs and prepare them by remove the C: from GoTerm', () => {
+    expect(getAndPrepareSubcellGoXrefs(mockGoXrefs)).toEqual([
+      {
+        database: 'GO',
+        id: 'GO:0005576',
+        properties: {
+          GoTerm: 'extracellular region',
+          GoEvidenceType: 'TAS:Reactome',
+        },
+      },
+      {
+        database: 'GO',
+        id: 'GO:0005615',
+        properties: {
+          GoTerm: 'extracellular space',
+          GoEvidenceType: 'IBA:GO_Central',
+        },
+        evidences: [
+          { evidenceCode: 'ECO:0000269', source: 'PubMed', id: '21873635' },
+        ],
+      },
+    ]);
   });
 });

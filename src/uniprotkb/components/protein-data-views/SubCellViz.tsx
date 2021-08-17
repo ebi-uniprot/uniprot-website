@@ -51,6 +51,8 @@ const CanonicalDefinition: CanonicalDefinitionT =
   customElements.get(canonicalName);
 let counter = 0;
 
+// Note that these are without leading zeros eg: GO1 (and not GO0000001) so make sure
+// the correct classnames are supplied in SubcellularLocationGOView
 const getGoTermClassNames = (locationGroup: Element) =>
   Array.from(locationGroup.classList.values())
     .filter((className) => className.startsWith('GO'))

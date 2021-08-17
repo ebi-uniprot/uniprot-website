@@ -8,7 +8,7 @@ import { GoXref } from '../../adapters/subcellularLocationConverter';
 
 const getSwissBioPicLocationId = (id: string) => {
   const [go, number] = id.split(':');
-  // Casting to int to get rid of leading 0s
+  // Casting to int to get rid of leading 0s which is expect in SubCellViz
   return `${go}${+number}`;
 };
 
