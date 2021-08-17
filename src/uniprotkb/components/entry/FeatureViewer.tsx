@@ -30,7 +30,6 @@ const FeatureViewer: FC<{ accession: string }> = ({ accession }) => {
 
   return (
     <section>
-      <h2>ProtVista visualisation for {accession}</h2>
       <protvista-uniprot accession={accession} />
     </section>
   );
