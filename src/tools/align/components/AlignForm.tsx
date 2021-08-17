@@ -103,7 +103,7 @@ const AlignForm = () => {
   const initialFormValues = useInitialFormParameters(defaultFormValues);
 
   // used when the form submission needs to be disabled
-  const [submitDisabled, setSubmitDisabled] = useState(false);
+  const [submitDisabled, setSubmitDisabled] = useState(true);
   // used when the form is about to be submitted to the server
   const [sending, setSending] = useState(false);
   // flag to see if the user manually changed the title
@@ -220,7 +220,7 @@ const AlignForm = () => {
       setSubmitDisabled(
         parsedSequences.length > ALIGN_LIMIT ||
           parsedSequences.some((parsedSequence) => !parsedSequence.valid) ||
-          parsedSequences.length === 1
+          parsedSequences.length <= 1
       );
     },
     [jobNameEdited]

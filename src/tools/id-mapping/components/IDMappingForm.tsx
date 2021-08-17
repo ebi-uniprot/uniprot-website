@@ -246,6 +246,8 @@ const IDMappingForm = () => {
     });
   };
 
+  useEffect(() => setSubmitDisabled(textIDs.trim().length === 0), [textIDs]);
+
   useTextFileInput({
     inputRef: fileInputRef,
     onFileContent: setTextIDs,
