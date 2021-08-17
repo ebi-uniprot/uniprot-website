@@ -13,7 +13,7 @@ const getSwissBioPicLocationId = (id: string) => {
 };
 
 const SubcellularLocationGOView: FC<{
-  goXrefs: GoXref[];
+  goXrefs?: GoXref[];
 }> = ({ goXrefs }) => {
   if (!goXrefs?.length) {
     return null;

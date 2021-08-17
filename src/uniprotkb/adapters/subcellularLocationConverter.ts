@@ -27,12 +27,12 @@ export type GoXref = {
 
 export type SubcellularLocationUIModel = {
   organismData?: TaxonomyDatum;
-  goXrefs?: Xref[];
+  goXrefs?: GoXref[];
 } & UIModel;
 
 const convertSubcellularLocation = (
   data: UniProtkbAPIModel,
-  uniProtKBCrossReferences?: GoXref[]
+  uniProtKBCrossReferences?: Xref[]
 ) => {
   const subcellularLocationData: SubcellularLocationUIModel = convertSection(
     data,
@@ -47,20 +47,20 @@ const convertSubcellularLocation = (
   // P: biological process
   // C: cellular component
   // F: molecular function
-  const goXrefs = uniProtKBCrossReferences
-    ?.filter(
+  const goXrefs = (
+    uniProtKBCrossReferences?.filter(
       (xref) =>
         xref.database === 'GO' &&
         xref.properties?.GoTerm.startsWith('C:') &&
         xref.id
-    )
-    .map((xref) => ({
-      ...xref,
-      properties: {
-        ...xref.properties,
-        GoTerm: xref.properties.GoTerm.replace('C:', ''),
-      },
-    }));
+    ) as GoXref[]
+  )?.map((xref) => ({
+    ...xref,
+    properties: {
+      ...xref.properties,
+      GoTerm: xref.properties.GoTerm.replace('C:', ''),
+    },
+  }));
   subcellularLocationData.goXrefs = goXrefs;
 
   // If there is no subcellular data, don't add organism data which will cause

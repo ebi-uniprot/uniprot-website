@@ -33,7 +33,7 @@ const getGoId = (id: string) =>
 const SubcellularLocationWithVizView: FC<
   {
     comments?: SubcellularLocationComment[];
-    goXrefs: GoXref[];
+    goXrefs?: GoXref[];
   } & Partial<Pick<TaxonomyDatum, 'taxonId' | 'lineage'>>
 > = ({ comments, taxonId, lineage, goXrefs }) => {
   if (!comments?.length && !goXrefs?.length) {
@@ -52,7 +52,7 @@ const SubcellularLocationWithVizView: FC<
     .filter(Boolean)
     .join(',');
 
-  const goLocationIds = goXrefs
+  const goLocationIds = (goXrefs || [])
     .map(({ id }) => getGoId(id))
     .filter(Boolean)
     .join(',');
