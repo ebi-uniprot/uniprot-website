@@ -34,7 +34,7 @@ const CustomiseButton = () => {
         variant="tertiary"
         onPointerOver={CustomiseTable.preload}
         onFocus={CustomiseTable.preload}
-        onClick={() => setDisplayCustomisePanel(!displayCustomisePanel)}
+        onClick={() => setDisplayCustomisePanel((value) => !value)}
       >
         <EditIcon />
         Customize data

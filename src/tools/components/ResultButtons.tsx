@@ -134,7 +134,7 @@ const ResultButtons: FC<ResultButtonsProps<JobTypes>> = ({
                 jobType={jobType}
                 id={jobId}
                 onToggleDisplay={() =>
-                  setDisplayDownloadPanel(!displayDownloadPanel)
+                  setDisplayDownloadPanel((value) => !value)
                 }
                 nHits={nHits}
                 isTableResultsFiltered={isTableResultsFiltered}
@@ -151,7 +151,7 @@ const ResultButtons: FC<ResultButtonsProps<JobTypes>> = ({
           variant="tertiary"
           onPointerOver={ResultDownload.preload}
           onFocus={ResultDownload.preload}
-          onClick={() => setDisplayDownloadPanel(!displayDownloadPanel)}
+          onClick={() => setDisplayDownloadPanel((value) => !value)}
         >
           <DownloadIcon />
           Download

@@ -86,9 +86,7 @@ const ComponentsButtons: FC<
           variant="tertiary"
           onPointerOver={DownloadComponent.preload}
           onFocus={DownloadComponent.preload}
-          onClick={() => {
-            setDisplayDownloadPanel(!displayDownloadPanel);
-          }}
+          onClick={() => setDisplayDownloadPanel((value) => !value)}
         >
           <DownloadIcon />
           Download
