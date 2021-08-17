@@ -73,6 +73,7 @@ describe('Subcellular data converter', () => {
         ],
       ]),
       featuresData: [],
+      goXrefs: [],
       keywordData: [],
       organismData: {
         commonName: 'common name',
