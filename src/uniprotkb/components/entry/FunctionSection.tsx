@@ -153,12 +153,32 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
   if (!hasContent(data)) {
     return null;
   }
+
+  /*
+    Current site order (eg https://www.uniprot.org/uniprot/P67910)
+      General Function
+      Miscellaneous
+      Caution
+      Catalytic activity
+      Cofactor
+      Activity regulation
+      BioPhysicoChemicalBio
+      Pathway
+  */
+
   return (
     <Card
       header={<h2>{getEntrySectionNameAndId(EntrySection.Function).name}</h2>}
       id={EntrySection.Function}
       data-entry-section
     >
+      <FreeTextView
+        comments={data.commentsData.get('FUNCTION') as FreeTextComment[]}
+      />
+      <FreeTextView
+        comments={data.commentsData.get('MISCELLANEOUS') as FreeTextComment[]}
+        title="miscellaneous"
+      />
       {data.commentsData.get('CAUTION')?.length ? (
         <Message level="warning">
           <h4>Caution</h4>
@@ -167,9 +187,6 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
           />
         </Message>
       ) : undefined}
-      <FreeTextView
-        comments={data.commentsData.get('FUNCTION') as FreeTextComment[]}
-      />
       <CatalyticActivityView
         comments={
           data.commentsData.get(
@@ -183,12 +200,10 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
         title="cofactor"
       />
       <FreeTextView
-        comments={data.commentsData.get('PATHWAY') as FreeTextComment[]}
-        title="pathway"
-      />
-      <FreeTextView
-        comments={data.commentsData.get('MISCELLANEOUS') as FreeTextComment[]}
-        title="miscellaneous"
+        comments={
+          data.commentsData.get('ACTIVITY REGULATION') as FreeTextComment[]
+        }
+        title="activity regulation"
       />
       <FreeTextView
         comments={data.commentsData.get('BIOTECHNOLOGY') as FreeTextComment[]}
@@ -198,10 +213,8 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
         data={data.bioPhysicoChemicalProperties}
       />
       <FreeTextView
-        comments={
-          data.commentsData.get('ACTIVITY REGULATION') as FreeTextComment[]
-        }
-        title="activity regulation"
+        comments={data.commentsData.get('PATHWAY') as FreeTextComment[]}
+        title="pathway"
       />
       <FeaturesView features={data.featuresData} sequence={sequence} />
       <ErrorBoundary>

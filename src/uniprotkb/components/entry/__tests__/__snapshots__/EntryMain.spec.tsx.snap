@@ -2482,12 +2482,12 @@ exports[`Entry view should render for non-human entry 1`] = `
         <h3
           class="capitalize"
         >
-          catalytic activity
+          miscellaneous
         </h3>
-        <span
+        <div
           class="text-block"
         >
-           an N-acetyl-alpha-D-galactosaminyl-(1-&gt;3)-[alpha-L-fucosyl-(1-&gt;2)]-beta-D-galactosyl derivative + H2O = acetate + an alpha-D-galactosaminyl-(1-&gt;3)-[alpha-L-fucosyl-(1-&gt;2)]-beta-D-galactosyl derivative
+          DNA was isolated from a male human fecal sample of AB+ blood type, the sequence was given to UniProtKB by the submitters
           <button
             aria-controls="1"
             aria-expanded="false"
@@ -2509,6 +2509,38 @@ exports[`Entry view should render for non-human entry 1`] = `
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
             id="1"
+          />
+        </div>
+        <h3
+          class="capitalize"
+        >
+          catalytic activity
+        </h3>
+        <span
+          class="text-block"
+        >
+           an N-acetyl-alpha-D-galactosaminyl-(1-&gt;3)-[alpha-L-fucosyl-(1-&gt;2)]-beta-D-galactosyl derivative + H2O = acetate + an alpha-D-galactosaminyl-(1-&gt;3)-[alpha-L-fucosyl-(1-&gt;2)]-beta-D-galactosyl derivative
+          <button
+            aria-controls="2"
+            aria-expanded="false"
+            class="svg-colour-reviewed evidence-tag"
+            data-testid="evidence-tag-trigger"
+            type="button"
+          >
+            <test-file-stub
+              height="12"
+              width="12"
+            />
+            <span
+              class="evidence-tag__label"
+            >
+              1 publication
+            </span>
+          </button>
+          <div
+            class="evidence-tag-content "
+            data-testid="evidence-tag-content"
+            id="2"
           />
           <div>
             <strong>
@@ -2562,7 +2594,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           <span>
             a divalent metal cation 
             <button
-              aria-controls="2"
+              aria-controls="3"
               aria-expanded="false"
               class="svg-colour-reviewed evidence-tag"
               data-testid="evidence-tag-trigger"
@@ -2581,51 +2613,19 @@ exports[`Entry view should render for non-human entry 1`] = `
             <div
               class="evidence-tag-content "
               data-testid="evidence-tag-content"
-              id="2"
+              id="3"
             />
           </span>
         </section>
         <h3
           class="capitalize"
         >
-          miscellaneous
+          activity regulation
         </h3>
         <div
           class="text-block"
         >
-          DNA was isolated from a male human fecal sample of AB+ blood type, the sequence was given to UniProtKB by the submitters
-          <button
-            aria-controls="3"
-            aria-expanded="false"
-            class="svg-colour-reviewed evidence-tag"
-            data-testid="evidence-tag-trigger"
-            type="button"
-          >
-            <test-file-stub
-              height="12"
-              width="12"
-            />
-            <span
-              class="evidence-tag__label"
-            >
-              1 publication
-            </span>
-          </button>
-          <div
-            class="evidence-tag-content "
-            data-testid="evidence-tag-content"
-            id="3"
-          />
-        </div>
-        <h3
-          class="capitalize"
-        >
-          biotechnology
-        </h3>
-        <div
-          class="text-block"
-        >
-          5 ug/ml of this enzyme pair converts A blood type to O blood type in an hour, and can be removed by centrifugation, showing the pair can be used for production of universal type donor blood
+          Inhibited by EDTA
           <button
             aria-controls="4"
             aria-expanded="false"
@@ -2649,58 +2649,17 @@ exports[`Entry view should render for non-human entry 1`] = `
             id="4"
           />
         </div>
-        <h3>
-          Kinetics
-        </h3>
-        <section
-          class="text-block"
+        <h3
+          class="capitalize"
         >
-          <ul
-            class="no-bullet"
-          >
-            <li>
-              K
-              <sub>
-                M
-              </sub>
-              =340uM for A antigen type 1 penta-MU 
-              <button
-                aria-controls="5"
-                aria-expanded="false"
-                class="svg-colour-reviewed evidence-tag"
-                data-testid="evidence-tag-trigger"
-                type="button"
-              >
-                <test-file-stub
-                  height="12"
-                  width="12"
-                />
-                <span
-                  class="evidence-tag__label"
-                >
-                  1 publication
-                </span>
-              </button>
-              <div
-                class="evidence-tag-content "
-                data-testid="evidence-tag-content"
-                id="5"
-              />
-            </li>
-          </ul>
-        </section>
-        <section
-          class="text-block"
-        />
-        <h3>
-          pH Dependence
+          biotechnology
         </h3>
         <div
           class="text-block"
         >
-          Optimum pH is 8.0.
+          5 ug/ml of this enzyme pair converts A blood type to O blood type in an hour, and can be removed by centrifugation, showing the pair can be used for production of universal type donor blood
           <button
-            aria-controls="6"
+            aria-controls="5"
             aria-expanded="false"
             class="svg-colour-reviewed evidence-tag"
             data-testid="evidence-tag-trigger"
@@ -2719,18 +2678,59 @@ exports[`Entry view should render for non-human entry 1`] = `
           <div
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
-            id="6"
+            id="5"
           />
         </div>
-        <h3
-          class="capitalize"
+        <h3>
+          Kinetics
+        </h3>
+        <section
+          class="text-block"
         >
-          activity regulation
+          <ul
+            class="no-bullet"
+          >
+            <li>
+              K
+              <sub>
+                M
+              </sub>
+              =340uM for A antigen type 1 penta-MU 
+              <button
+                aria-controls="6"
+                aria-expanded="false"
+                class="svg-colour-reviewed evidence-tag"
+                data-testid="evidence-tag-trigger"
+                type="button"
+              >
+                <test-file-stub
+                  height="12"
+                  width="12"
+                />
+                <span
+                  class="evidence-tag__label"
+                >
+                  1 publication
+                </span>
+              </button>
+              <div
+                class="evidence-tag-content "
+                data-testid="evidence-tag-content"
+                id="6"
+              />
+            </li>
+          </ul>
+        </section>
+        <section
+          class="text-block"
+        />
+        <h3>
+          pH Dependence
         </h3>
         <div
           class="text-block"
         >
-          Inhibited by EDTA
+          Optimum pH is 8.0.
           <button
             aria-controls="7"
             aria-expanded="false"
