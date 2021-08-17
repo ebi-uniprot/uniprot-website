@@ -6,10 +6,10 @@ import { ExternalLink } from 'franklin-sites';
 import externalUrls from '../../../shared/config/externalUrls';
 import { GoXref } from '../../adapters/subcellularLocationConverter';
 
-const getSwissBioPicLocationId = (id: string) => {
-  const [go, number] = id.split(':');
-  // Casting to int to get rid of leading 0s which is expect in SubCellViz
-  return `${go}${+number}`;
+export const getSwissBioPicLocationId = (id: string) => {
+  // Casting to int to get rid of leading 0s which is expected in SubCellViz
+  const match = id.match(/GO:0*(\d+)/);
+  return match?.[1] ? `GO${match?.[1]}` : undefined;
 };
 
 const SubcellularLocationGOView: FC<{
