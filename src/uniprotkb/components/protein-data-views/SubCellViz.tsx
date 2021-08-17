@@ -1,3 +1,4 @@
+/* eslint-disable react/no-this-in-sfc */
 import { FC, memo, useEffect, useRef } from 'react';
 import tippy from 'tippy.js';
 import '@swissprot/swissbiopics-visualizer';
@@ -142,16 +143,26 @@ const SubCellViz: FC<Props> = memo(
       // cannot reuse the same class with different name, so create a new one
       class InstanceClass extends CanonicalDefinition {
         // logic for highlighting
+        getHighlights(image: HTMLElement | SVGElement | null | undefined) {
+          if (!image) {
+            return [];
+          }
+          const selectors = getGoTermClassNames(image);
+          if (image?.id) {
+            selectors.push(`#${image.id}term`);
+          }
+          return this.querySelectorAll(selectors.join(','));
+        }
+
         highLight(
           text: HTMLElement | SVGElement | null | undefined,
           image: HTMLElement | SVGElement | null | undefined,
           selector: string
         ) {
           super.highLight(text, image, selector);
-          if (image) {
-            // Add "lookedAt" classname to image SVG
-            // eslint-disable-next-line react/no-this-in-sfc
-            this.querySelector(`#${image.id}term`)?.classList.add('lookedAt');
+          // Add "lookedAt" classname to image SVG and text
+          for (const highlight of this.getHighlights(image)) {
+            highlight?.classList.add('lookedAt');
           }
         }
 
@@ -162,12 +173,9 @@ const SubCellViz: FC<Props> = memo(
           image: HTMLElement | SVGElement | null | undefined,
           selector: string
         ) {
-          if (image) {
-            // Remove "lookedAt" classname from image SVG
-            // eslint-disable-next-line react/no-this-in-sfc
-            this.querySelector(`#${image.id}term`)?.classList.remove(
-              'lookedAt'
-            );
+          // Remove "lookedAt" classname from image SVG and text
+          for (const highlight of this.getHighlights(image)) {
+            highlight?.classList.remove('lookedAt');
           }
           super.removeHiglight(text, image, selector);
         }
