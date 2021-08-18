@@ -136,7 +136,7 @@ const PDBView: FC<{
   const firstId = sortedIds && sortedIds.length ? sortedIds[0] : '';
   return (
     <protvista-manager attributes="pdb-id">
-      <protvista-structure pdb-id={firstId} accession={primaryAccession} />
+      <protvista-structure structureid={firstId} accession={primaryAccession} />
       <protvista-datatable
         ref={setTableData}
         selectedId={firstId}

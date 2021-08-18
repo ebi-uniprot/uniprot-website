@@ -3421,7 +3421,7 @@ exports[`Entry view should render for non-human entry 1`] = `
         >
           <protvista-structure
             accession="P0DTR4"
-            pdb-id="6N1A"
+            structureid="6N1A"
           />
           <protvista-datatable
             filter-scroll="true"
