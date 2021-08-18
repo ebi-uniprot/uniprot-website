@@ -513,6 +513,7 @@ exports[`BlastForm test Renders the form 1`] = `
           />
           <button
             class="button primary"
+            disabled=""
             type="submit"
           >
             Run BLAST
