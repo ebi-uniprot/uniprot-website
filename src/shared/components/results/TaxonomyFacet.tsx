@@ -72,7 +72,7 @@ const TaxonomyFacet: FC<{ namespace: SearchableNamespace }> = ({
             className="expandable-list__action"
             onPointerOver={QueryBuilder.preload}
             onFocus={QueryBuilder.preload}
-            onClick={() => setDisplayQueryBuilder(true)}
+            onClick={() => setDisplayQueryBuilder((value) => !value)}
           >
             Filter by taxonomy
           </Button>
