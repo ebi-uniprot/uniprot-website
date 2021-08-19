@@ -7,7 +7,7 @@ import fieldData from './__mocks__/fieldData';
 describe('prepareFieldData', () => {
   test('should return prepared field data', () => {
     expect(prepareFieldData(fieldData)).toEqual({
-      data: [
+      Data: [
         {
           id: 'names_&_taxonomy',
           items: [
@@ -20,7 +20,7 @@ describe('prepareFieldData', () => {
           title: 'Names & Taxonomy',
         },
       ],
-      links: [
+      'External links': [
         {
           id: 'sequence',
           items: [
@@ -38,7 +38,7 @@ describe('prepareFieldData', () => {
 
   test('should exclude column', () => {
     expect(prepareFieldData(fieldData, [UniProtKBColumn.geneNames])).toEqual({
-      links: [
+      'External links': [
         {
           id: 'sequence',
           items: [
@@ -65,7 +65,7 @@ describe('getFieldDataForColumns', () => {
         accordionId: 'names_&_taxonomy',
         itemId: 'gene_names',
         label: 'Gene Names',
-        tabId: 'data',
+        tabId: 'Data',
       },
     ]);
   });
@@ -73,14 +73,14 @@ describe('getFieldDataForColumns', () => {
     expect(
       getFieldDataForColumns([UniProtKBColumn.xrefCcds], {
         ...prepared,
-        data: undefined,
+        Data: undefined,
       })
     ).toEqual([
       {
         accordionId: 'sequence',
         itemId: 'xref_ccds',
         label: 'CCDS',
-        tabId: 'links',
+        tabId: 'External links',
       },
     ]);
   });

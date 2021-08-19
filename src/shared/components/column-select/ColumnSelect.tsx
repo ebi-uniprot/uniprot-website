@@ -1,5 +1,5 @@
 import { FC, useCallback, useMemo } from 'react';
-import { AccordionSearch, Tabs, Tab, Loader, Button } from 'franklin-sites';
+import { AccordionSearch, Tabs, Tab, Loader } from 'franklin-sites';
 import { difference } from 'lodash-es';
 
 import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
@@ -11,7 +11,6 @@ import apiUrls from '../../config/apiUrls';
 import {
   Column,
   nsToPrimaryKeyColumns,
-  nsToDefaultColumns,
   nsToColumnConfig,
 } from '../../config/columns';
 
@@ -33,6 +32,7 @@ import {
   ColumnSelectTab,
 } from '../../../uniprotkb/types/resultsTypes';
 
+import '../../styles/sticky.scss';
 import './styles/column-select.scss';
 
 type ColumnSelectProps = {
@@ -49,7 +49,6 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
   isEntryPage,
 }) => {
   const primaryKeyColumns = nsToPrimaryKeyColumns(namespace, isEntryPage);
-  const defaultColumns = nsToDefaultColumns(namespace, isEntryPage);
 
   // remove the entry field from the choices as this must always be present
   // in the url fields parameter when making the search request ie
@@ -86,7 +85,7 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
     [handleChange, removableSelectedColumns]
   );
 
-  const { loading, data } = useDataApi<ReceivedFieldData>(
+  const { loading, data, progress } = useDataApi<ReceivedFieldData>(
     // No configure endpoint for supporting data
     namespace && mainNamespaces.has(namespace)
       ? apiUrls.resultsFields(namespace, isEntryPage)
@@ -106,7 +105,7 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
   );
 
   if (loading) {
-    return <Loader />;
+    return <Loader progress={progress} />;
   }
 
   const fieldDataForSelectedColumns = getFieldDataForColumns(
@@ -142,14 +141,9 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
         onDragDrop={handleDragDrop}
         onRemove={handleSelect}
       />
-      <Button
-        variant="secondary"
-        onClick={() => onChange(defaultColumns)}
-        data-testid="column-select-reset-button"
-      >
-        Reset to default
-      </Button>
-      {tabs.length ? <Tabs>{tabs}</Tabs> : undefined}
+      {tabs.length ? (
+        <Tabs className="sticky-tabs-container">{tabs}</Tabs>
+      ) : undefined}
     </div>
   );
 };

@@ -12,9 +12,6 @@ import { allEntryPages } from '../../../app/config/urls';
 
 import { Namespace } from '../../types/namespaces';
 
-import '../../styles/sticky.scss';
-import './styles/customise-table.scss';
-
 type CustomiseTableProps = {
   onSave: () => void;
 };
@@ -22,11 +19,12 @@ type CustomiseTableProps = {
 const CustomiseTable = ({ onSave }: CustomiseTableProps) => {
   const namespace = useNS() || Namespace.uniprotkb;
   const isEntryPage = Boolean(useRouteMatch(allEntryPages));
+  const defaultColumns = nsToDefaultColumns(namespace, isEntryPage);
   const [columns, setColumns] = useLocalStorage(
     `table columns for ${namespace}${
       isEntryPage ? ' entry page' : ''
     }` as const,
-    nsToDefaultColumns(namespace, isEntryPage)
+    defaultColumns
   );
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -34,10 +32,15 @@ const CustomiseTable = ({ onSave }: CustomiseTableProps) => {
     onSave();
   };
 
+  const handleReset = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setColumns(defaultColumns);
+  };
+
   return (
     <form
       onSubmit={handleSubmit}
-      className="customise-table"
+      onReset={handleReset}
       aria-label={`Customise ${namespace}${
         isEntryPage ? '' : ' result'
       } table columns form`}
@@ -49,6 +52,9 @@ const CustomiseTable = ({ onSave }: CustomiseTableProps) => {
         isEntryPage={isEntryPage}
       />
       <div className="button-group sticky-bottom-right sliding-panel__button-row">
+        <Button variant="secondary" type="reset">
+          Reset to default
+        </Button>
         <Button type="submit">Close</Button>
       </div>
     </form>
