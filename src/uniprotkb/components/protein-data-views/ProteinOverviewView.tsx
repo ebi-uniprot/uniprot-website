@@ -7,6 +7,8 @@ import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
+const existenceRE = /^\d: /;
+
 const ProteinOverview: FC<{
   // Note: it would be good to eventually use RenderColumnsInCard here
   // which would involve either converting UniProtkbAPIModel to UniProtkbUIModel
@@ -81,7 +83,8 @@ const ProteinOverview: FC<{
       {ecNumberNode}
       {geneNameListNode}
       {sequenceLengthNode}
-      {data.proteinExistence && `${data.proteinExistence} · `}
+      {data.proteinExistence &&
+        `${data.proteinExistence.replace(existenceRE, '')} · `}
       {annotationScoreNode}
     </section>
   );
