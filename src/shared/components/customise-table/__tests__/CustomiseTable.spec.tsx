@@ -90,7 +90,7 @@ describe('CustomiseTable component', () => {
       checked: true,
     });
 
-    // Expect all fromt the initial test state minus the accession
+    // Expect all from the initial test state minus the accession
     expect(initiallyCheckedCheckboxes).toHaveLength(selectedColumns.length - 1);
 
     const uncheckedCheckboxes = screen.getAllByRole('checkbox', {
