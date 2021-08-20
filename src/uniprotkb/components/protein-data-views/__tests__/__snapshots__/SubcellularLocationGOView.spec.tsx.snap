@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[` 1`] = `
+exports[`SubcellularLocationGOView should render 1`] = `
 <DocumentFragment>
   <ul
     class="no-bullet"

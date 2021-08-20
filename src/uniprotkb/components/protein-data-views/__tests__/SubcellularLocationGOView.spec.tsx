@@ -13,12 +13,14 @@ describe('getSwissBioPicLocationId', () => {
   });
 });
 
-describe('fo', () => {
-  const { asFragment } = customRender(
-    <SubcellularLocationGOView
-      primaryAccession="P12345"
-      goXrefs={getAndPrepareSubcellGoXrefs(mockGoXrefs)}
-    />
-  );
-  expect(asFragment()).toMatchSnapshot();
+describe('SubcellularLocationGOView', () => {
+  it('should render', () => {
+    const { asFragment } = customRender(
+      <SubcellularLocationGOView
+        primaryAccession="P12345"
+        goXrefs={getAndPrepareSubcellGoXrefs(mockGoXrefs)}
+      />
+    );
+    expect(asFragment()).toMatchSnapshot();
+  });
 });
