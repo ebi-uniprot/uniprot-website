@@ -187,7 +187,9 @@ const getCheckJobStatus =
             data: { hits },
           })
         );
-        dispatch(addMessage(getJobMessage({ job: currentStateOfJob })));
+        dispatch(
+          addMessage(getJobMessage({ job: currentStateOfJob, nHits: hits }))
+        );
       } else {
         // Align
         const now = Date.now();
