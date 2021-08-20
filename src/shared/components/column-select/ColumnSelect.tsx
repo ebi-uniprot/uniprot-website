@@ -47,6 +47,7 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
   onChange,
   namespace,
   isEntryPage,
+  children,
 }) => {
   const primaryKeyColumns = nsToPrimaryKeyColumns(namespace, isEntryPage);
 
@@ -135,16 +136,19 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
   });
 
   return (
-    <div className="column-select">
-      <ColumnSelectDragDrop
-        columns={fieldDataForSelectedColumns}
-        onDragDrop={handleDragDrop}
-        onRemove={handleSelect}
-      />
-      {tabs.length ? (
-        <Tabs className={sticky['sticky-tabs-container']}>{tabs}</Tabs>
-      ) : undefined}
-    </div>
+    <>
+      <div className="column-select">
+        <ColumnSelectDragDrop
+          columns={fieldDataForSelectedColumns}
+          onDragDrop={handleDragDrop}
+          onRemove={handleSelect}
+        />
+        {tabs.length ? (
+          <Tabs className={sticky['sticky-tabs-container']}>{tabs}</Tabs>
+        ) : undefined}
+      </div>
+      {children}
+    </>
   );
 };
 

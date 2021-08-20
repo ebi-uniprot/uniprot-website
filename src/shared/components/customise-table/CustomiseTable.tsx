@@ -53,19 +53,20 @@ const CustomiseTable = ({ onSave }: CustomiseTableProps) => {
         selectedColumns={columns}
         namespace={namespace}
         isEntryPage={isEntryPage}
-      />
-      <div
-        className={cn(
-          'button-group',
-          'sliding-panel__button-row',
-          sticky['sticky-bottom-right']
-        )}
       >
-        <Button variant="secondary" type="reset">
-          Reset to default
-        </Button>
-        <Button type="submit">Close</Button>
-      </div>
+        <div
+          className={cn(
+            'button-group',
+            'sliding-panel__button-row',
+            sticky['sticky-bottom-right']
+          )}
+        >
+          <Button variant="secondary" type="reset">
+            Reset to default
+          </Button>
+          <Button type="submit">Close</Button>
+        </div>
+      </ColumnSelect>
     </form>
   );
 };
