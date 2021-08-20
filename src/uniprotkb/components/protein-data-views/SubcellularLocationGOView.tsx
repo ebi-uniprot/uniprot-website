@@ -1,10 +1,11 @@
 import { FC } from 'react';
 import { ExternalLink } from 'franklin-sites';
 
-// import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
-
 import externalUrls from '../../../shared/config/externalUrls';
+
 import { GoXref } from '../../adapters/subcellularLocationConverter';
+
+import styles from './styles/subcellular-location-go-view.module.scss';
 
 export const getSwissBioPicLocationId = (id: string) => {
   // Casting to int to get rid of leading 0s which is expected in SubCellViz
@@ -14,26 +15,37 @@ export const getSwissBioPicLocationId = (id: string) => {
 
 const SubcellularLocationGOView: FC<{
   goXrefs?: GoXref[];
-}> = ({ goXrefs }) => {
+  primaryAccession?: string;
+}> = ({ goXrefs, primaryAccession }) => {
   if (!goXrefs?.length) {
     return null;
   }
 
   return (
-    <ul className="no-bullet">
-      {goXrefs.map(({ id, properties }) => (
-        <li
-          key={id}
-          // used in the case that this component is used in conjunction
-          // with @swissprot/swissbiopics-visualizer
-          className={getSwissBioPicLocationId(id)}
-        >
-          <ExternalLink url={externalUrls.QuickGO(id)}>
-            {properties.GoTerm}
+    <>
+      <ul className="no-bullet">
+        {goXrefs.map(({ id, properties }) => (
+          <li
+            key={id}
+            // used in the case that this component is used in conjunction
+            // with @swissprot/swissbiopics-visualizer
+            className={getSwissBioPicLocationId(id)}
+          >
+            <ExternalLink url={externalUrls.QuickGO(id)}>
+              {properties.GoTerm}
+            </ExternalLink>
+          </li>
+        ))}
+      </ul>
+      {primaryAccession && (
+        <div className={styles['go-annotation-link']}>
+          <hr />
+          <ExternalLink url={externalUrls.QuickGOAnnotations(primaryAccession)}>
+            Complete GO annotation on QuickGO
           </ExternalLink>
-        </li>
-      ))}
-    </ul>
+        </div>
+      )}
+    </>
   );
 };
 

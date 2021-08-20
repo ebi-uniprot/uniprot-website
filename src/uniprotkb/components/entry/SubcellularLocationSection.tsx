@@ -32,6 +32,7 @@ const SubcellularLocationSection = ({ data, sequence }: Props) => {
       data-entry-section
     >
       <SubcellularLocationWithVizView
+        primaryAccession={data.primaryAccession}
         comments={
           data.commentsData.get(
             'SUBCELLULAR LOCATION'

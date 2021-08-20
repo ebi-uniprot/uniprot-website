@@ -48,6 +48,7 @@ export type GoXref = {
 };
 
 export type SubcellularLocationUIModel = {
+  primaryAccession?: string;
   organismData?: TaxonomyDatum;
   goXrefs?: GoXref[];
 } & UIModel;
@@ -64,6 +65,7 @@ const convertSubcellularLocation = (
     undefined,
     uniProtKBCrossReferences
   );
+  subcellularLocationData.primaryAccession = data.primaryAccession;
   subcellularLocationData.goXrefs = getAndPrepareSubcellGoXrefs(
     uniProtKBCrossReferences
   );

@@ -32,16 +32,22 @@ export const getGoId = (id: string) => id.match(/GO:(\d+)/)?.[1];
 
 const SubcellularLocationWithVizView: FC<
   {
+    primaryAccession?: string;
     comments?: SubcellularLocationComment[];
     goXrefs?: GoXref[];
   } & Partial<Pick<TaxonomyDatum, 'taxonId' | 'lineage'>>
-> = ({ comments, taxonId, lineage, goXrefs }) => {
+> = ({ primaryAccession, comments, taxonId, lineage, goXrefs }) => {
   if (!comments?.length && !goXrefs?.length) {
     return null;
   }
 
   const uniprotTextContent = <SubcellularLocationView comments={comments} />;
-  const goTextContent = <SubcellularLocationGOView goXrefs={goXrefs} />;
+  const goTextContent = (
+    <SubcellularLocationGOView
+      primaryAccession={primaryAccession}
+      goXrefs={goXrefs}
+    />
+  );
 
   const uniProtLocationIds = (comments || [])
     .flatMap(({ subcellularLocations }) =>
