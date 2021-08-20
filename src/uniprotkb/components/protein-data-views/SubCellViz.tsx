@@ -2,12 +2,12 @@
 import { FC, memo, useEffect, useRef } from 'react';
 import tippy from 'tippy.js';
 import '@swissprot/swissbiopics-visualizer';
+import { RequireExactlyOne } from 'type-fest';
+
+import { VizTab } from './SubcellularLocationWithVizView';
 
 import 'tippy.js/dist/tippy.css';
 import './styles/sub-cell-viz.scss';
-
-import { RequireExactlyOne } from 'type-fest';
-import { VizTab } from './SubcellularLocationWithVizView';
 
 /*
   The logic implemented here to get our data into @swissprot/swissbiopics-visualizer has been lifted
