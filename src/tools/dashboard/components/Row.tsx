@@ -163,10 +163,9 @@ const NiceStatus = ({ job, jobLink }: NiceStatusProps) => {
     case Status.NOT_FOUND:
       return <>Job not found on the server</>;
     case Status.FINISHED: {
-      const status = jobLink ? (
-        // eslint-disable-next-line uniprot-website/use-config-location
-        <Link to={jobLink}>Completed</Link>
-      ) : null;
+      if (!jobLink) {
+        return null;
+      }
       // either a BLAST or ID Mapping job could have those
       if ('data' in job && job.data && 'hits' in job.data) {
         const actualHits = job.data.hits;
@@ -183,11 +182,16 @@ const NiceStatus = ({ job, jobLink }: NiceStatusProps) => {
           const hitText = pluralise('hit', actualHits);
           return (
             <>
-              {status}{' '}
+              {actualHits === 0 ? (
+                <span>Completed</span>
+              ) : (
+                // eslint-disable-next-line uniprot-website/use-config-location
+                <Link to={jobLink}>Completed</Link>
+              )}{' '}
               <span
                 title={`${actualHits} ${hitText} results found instead of the requested ${expectedHits}`}
               >
-                ({job.data.hits} {hitText})
+                ({actualHits} {hitText})
               </span>
               <Seen job={job} />
             </>
@@ -196,7 +200,8 @@ const NiceStatus = ({ job, jobLink }: NiceStatusProps) => {
       }
       return (
         <>
-          {status}
+          {/* eslint-disable-next-line uniprot-website/use-config-location */}
+          <Link to={jobLink}>Completed</Link>
           <Seen job={job} />
         </>
       );
@@ -358,9 +363,12 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
     );
   }, [job.status]);
 
+  const noResults =
+    'data' in job && job.data && 'hits' in job.data && job.data.hits === 0;
+
   return (
     <Card
-      to={jobLink}
+      to={noResults ? undefined : jobLink}
       ref={ref}
       className={bem({
         b: 'card',
