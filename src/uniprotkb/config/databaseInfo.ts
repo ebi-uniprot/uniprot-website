@@ -1278,10 +1278,12 @@ const databaseInfo: DatabaseInfo = [
     uriLink: 'https://signor.uniroma2.it/relation_result.php?id=%id',
     attributes: [{ name: 'Description', xmlTag: 'description' }],
   },
+  // TODO: this uriLink should be updated at some point
   {
     name: 'UniPathway',
     displayName: 'UniPathway',
     category: 'EAP',
+    uriLink: '',
     attributes: [{ name: 'RectionId', xmlTag: 'reaction ID' }],
     idMappingName: 'UNIPATHWAY_ID',
   },
