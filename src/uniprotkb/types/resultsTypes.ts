@@ -18,8 +18,8 @@ export const getApiSortDirection = (direction: SortDirection) =>
 export type SelectedFacet = { name: string; value: string };
 
 export enum ColumnSelectTab {
-  data = 'data',
-  links = 'links',
+  data = 'Data',
+  links = 'External links',
 }
 
 export type SelectedColumn = {

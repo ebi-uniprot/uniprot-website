@@ -7,7 +7,7 @@ import {
   useCallback,
 } from 'react';
 import { useDispatch } from 'react-redux';
-import { v1 } from 'uuid';
+import { useHistory } from 'react-router-dom';
 import {
   PageIntro,
   Message,
@@ -16,7 +16,8 @@ import {
   Loader,
 } from 'franklin-sites';
 import { sleep } from 'timing-functions';
-import { useHistory } from 'react-router-dom';
+import { v1 } from 'uuid';
+import cn from 'classnames';
 
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
 
@@ -54,7 +55,7 @@ import {
 import { FormParameters } from '../types/idMappingFormParameters';
 import { SelectedTaxon } from '../../types/toolsFormData';
 
-import '../../../shared/styles/sticky.scss';
+import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 
 export type TreeDataNode = {
@@ -229,6 +230,7 @@ const IDMappingForm = () => {
     setFromDb(defaultFormValues[IDMappingFields.fromDb]);
     setToDb(defaultFormValues[IDMappingFields.toDb]);
     setJobName(defaultFormValues[IDMappingFields.name]);
+    setTaxID(defaultFormValues[IDMappingFields.taxons]);
   };
 
   const handleTaxonFormValue = (path: string, id?: string) => {
@@ -244,6 +246,8 @@ const IDMappingForm = () => {
       selected: { id, label },
     });
   };
+
+  useEffect(() => setSubmitDisabled(textIDs.trim().length === 0), [textIDs]);
 
   useTextFileInput({
     inputRef: fileInputRef,
@@ -410,7 +414,12 @@ const IDMappingForm = () => {
                 </label>
               </section>
             </section>
-            <section className="tools-form-section sticky-bottom-right">
+            <section
+              className={cn(
+                'tools-form-section',
+                sticky['sticky-bottom-right']
+              )}
+            >
               <section className="button-group tools-form-section__buttons">
                 {sending && !reducedMotion && (
                   <>

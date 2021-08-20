@@ -1,9 +1,10 @@
 import joinUrl from 'url-join';
 
 const IntActBase = '//www.ebi.ac.uk/intact/';
-
 const externalUrls: Record<string, (id: string | number) => string> = {
   QuickGO: (id) => `//www.ebi.ac.uk/QuickGO/term/${id}`,
+  QuickGOAnnotations: (id) =>
+    `//www.ebi.ac.uk/QuickGO/annotations?geneProductId=${id}`,
   NCBI: (id) =>
     `https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?lvl=0&id=${id}`,
   ENA: (id) => `//www.ebi.ac.uk/ena/data/view/${id}`,

@@ -14,6 +14,7 @@ import { Chip, PageIntro, SpinnerIcon } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
 import { v1 } from 'uuid';
+import cn from 'classnames';
 
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
 
@@ -45,7 +46,7 @@ import {
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
 
-import '../../../shared/styles/sticky.scss';
+import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 
 // just because, no known actual limit
@@ -100,7 +101,7 @@ const PeptideSearchForm = () => {
   const initialFormValues = useInitialFormParameters(defaultFormValues);
 
   // used when the form submission needs to be disabled
-  const [submitDisabled, setSubmitDisabled] = useState(false);
+  const [submitDisabled, setSubmitDisabled] = useState(true);
   // used when the form is about to be submitted to the server
   const [sending, setSending] = useState(false);
   // flag to see if the user manually changed the title
@@ -250,7 +251,8 @@ const PeptideSearchForm = () => {
 
   useEffect(() => {
     setSubmitDisabled(
-      parsedSequences.length > PEPTIDE_SEARCH_LIMIT ||
+      parsedSequences.length === 0 ||
+        parsedSequences.length > PEPTIDE_SEARCH_LIMIT ||
         parsedSequences.some((parsedSequence) => parsedSequence.length < 2)
     );
   }, [parsedSequences]);
@@ -381,7 +383,9 @@ const PeptideSearchForm = () => {
               ))}
             </section>
           </details>
-          <section className="tools-form-section sticky-bottom-right">
+          <section
+            className={cn('tools-form-section', sticky['sticky-bottom-right'])}
+          >
             <section className="button-group tools-form-section__buttons">
               {sending && !reducedMotion && (
                 <>

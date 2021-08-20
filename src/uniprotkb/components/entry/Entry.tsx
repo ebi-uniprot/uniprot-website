@@ -14,6 +14,7 @@ import {
   Tabs,
   Tab,
 } from 'franklin-sites';
+import cn from 'classnames';
 
 import EntrySection, {
   getEntrySectionNameAndId,
@@ -63,7 +64,7 @@ import { LocationToPath, Location } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
 import { EntryType } from '../../../shared/components/entry/EntryTypeIcon';
 
-import '../../../shared/styles/sticky.scss';
+import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../../shared/components/entry/styles/entry-page.scss';
 
 export enum TabLocation {
@@ -134,7 +135,7 @@ const Entry: FC = () => {
         };
       });
     }
-    return false;
+    return [];
   }, [transformedData]);
 
   const listOfIsoformAccessions = useMemo(
@@ -213,7 +214,7 @@ const Entry: FC = () => {
   return (
     <SideBarLayout
       sidebar={sidebar}
-      className="entry-page sticky-tabs-container"
+      className={cn('entry-page', sticky['sticky-tabs-container'])}
       title={
         <ErrorBoundary>
           <h1 className="big">
@@ -230,6 +231,7 @@ const Entry: FC = () => {
     >
       <Tabs active={match.params.subPage}>
         <Tab
+          cache
           title={
             <Link
               to={(location) => ({

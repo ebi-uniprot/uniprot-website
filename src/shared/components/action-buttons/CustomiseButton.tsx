@@ -5,6 +5,8 @@ import ErrorBoundary from '../error-component/ErrorBoundary';
 
 import lazy from '../../utils/lazy';
 
+import styles from './styles/customise-button.module.scss';
+
 const CustomiseTable = lazy(
   () =>
     import(
@@ -23,9 +25,10 @@ const CustomiseButton = () => {
             title="Customize Data"
             position="left"
             onClose={() => setDisplayCustomisePanel(false)}
+            className={styles['customise-table-panel']}
           >
             <ErrorBoundary>
-              <CustomiseTable onSave={() => setDisplayCustomisePanel(false)} />
+              <CustomiseTable onClose={() => setDisplayCustomisePanel(false)} />
             </ErrorBoundary>
           </SlidingPanel>
         </Suspense>
@@ -34,7 +37,7 @@ const CustomiseButton = () => {
         variant="tertiary"
         onPointerOver={CustomiseTable.preload}
         onFocus={CustomiseTable.preload}
-        onClick={() => setDisplayCustomisePanel(!displayCustomisePanel)}
+        onClick={() => setDisplayCustomisePanel((value) => !value)}
       >
         <EditIcon />
         Customize data

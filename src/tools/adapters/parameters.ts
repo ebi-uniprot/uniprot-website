@@ -109,12 +109,13 @@ export function formParametersToServerParameters<T extends JobTypes>(
       break;
     case JobTypes.ID_MAPPING:
       {
-        const { from, to, ids } =
+        const { from, to, ids, taxId } =
           formParameters as FormParameters[JobTypes.ID_MAPPING];
         serverParameters = {
           from,
           to,
           ids: ids.join(','),
+          taxId: taxId?.id,
         } as ServerParameters[T];
       }
       break;

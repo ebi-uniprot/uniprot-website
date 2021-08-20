@@ -143,7 +143,7 @@ const SearchContainer: FC<
         // </span>
         'Advanced',
       action: () => {
-        setDisplayQueryBuilder(true);
+        setDisplayQueryBuilder((value) => !value);
       },
     },
     {

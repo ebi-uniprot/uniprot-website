@@ -19,6 +19,7 @@ import {
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
 import { v1 } from 'uuid';
+import cn from 'classnames';
 
 import SequenceSearchLoader, {
   ParsedSequence,
@@ -50,7 +51,7 @@ import {
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
 
-import '../../../shared/styles/sticky.scss';
+import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 
 const ALIGN_LIMIT = 100;
@@ -103,7 +104,7 @@ const AlignForm = () => {
   const initialFormValues = useInitialFormParameters(defaultFormValues);
 
   // used when the form submission needs to be disabled
-  const [submitDisabled, setSubmitDisabled] = useState(false);
+  const [submitDisabled, setSubmitDisabled] = useState(true);
   // used when the form is about to be submitted to the server
   const [sending, setSending] = useState(false);
   // flag to see if the user manually changed the title
@@ -220,7 +221,7 @@ const AlignForm = () => {
       setSubmitDisabled(
         parsedSequences.length > ALIGN_LIMIT ||
           parsedSequences.some((parsedSequence) => !parsedSequence.valid) ||
-          parsedSequences.length === 1
+          parsedSequences.length <= 1
       );
     },
     [jobNameEdited]
@@ -343,7 +344,9 @@ const AlignForm = () => {
               ))}
             </section>
           </details>
-          <section className="tools-form-section sticky-bottom-right">
+          <section
+            className={cn('tools-form-section', sticky['sticky-bottom-right'])}
+          >
             <section className="button-group tools-form-section__buttons">
               {sending && !reducedMotion && (
                 <>

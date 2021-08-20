@@ -20,7 +20,9 @@ exports[`Entry view should render 1`] = `
       <div
         class="card__content"
       >
-        <h3>
+        <h3
+          class="capitalize"
+        >
           catalytic activity
         </h3>
         <span
@@ -122,7 +124,9 @@ exports[`Entry view should render 1`] = `
             )
           </div>
         </span>
-        <h3>
+        <h3
+          class="capitalize"
+        >
           cofactor
         </h3>
         <section
@@ -1381,95 +1385,7 @@ exports[`Entry view should render 1`] = `
       </div>
       <div
         class="card__content"
-      >
-        <section
-          class="text-block"
-        >
-          <h3>
-            molecule value
-          </h3>
-          <div
-            id="id1term"
-          >
-            <strong>
-              location value
-            </strong>
-             
-            <button
-              aria-controls="29"
-              aria-expanded="false"
-              class="svg-colour-unreviewed evidence-tag"
-              data-testid="evidence-tag-trigger"
-              type="button"
-            >
-              <test-file-stub
-                height="12"
-                width="12"
-              />
-              <span
-                class="evidence-tag__label"
-              >
-                1 automatic annotation
-              </span>
-            </button>
-            <div
-              class="evidence-tag-content "
-              data-testid="evidence-tag-content"
-              id="29"
-            />
-            : topology value 
-            <button
-              aria-controls="30"
-              aria-expanded="false"
-              class="svg-colour-unreviewed evidence-tag"
-              data-testid="evidence-tag-trigger"
-              type="button"
-            >
-              <test-file-stub
-                height="12"
-                width="12"
-              />
-              <span
-                class="evidence-tag__label"
-              >
-                1 automatic annotation
-              </span>
-            </button>
-            <div
-              class="evidence-tag-content "
-              data-testid="evidence-tag-content"
-              id="30"
-            />
-          </div>
-          <div
-            class="text-block"
-          >
-            value
-            <button
-              aria-controls="31"
-              aria-expanded="false"
-              class="svg-colour-unreviewed evidence-tag"
-              data-testid="evidence-tag-trigger"
-              type="button"
-            >
-              <test-file-stub
-                height="12"
-                width="12"
-              />
-              <span
-                class="evidence-tag__label"
-              >
-                1 automatic annotation
-              </span>
-            </button>
-            <div
-              class="evidence-tag-content "
-              data-testid="evidence-tag-content"
-              id="31"
-            />
-          </div>
-        </section>
-      </div>
+      />
     </div>
   </section>
   <section
@@ -1500,7 +1416,7 @@ exports[`Entry view should render 1`] = `
           class="text-block"
         >
           <button
-            aria-controls="32"
+            aria-controls="29"
             aria-expanded="false"
             class="svg-colour-unreviewed evidence-tag"
             data-testid="evidence-tag-trigger"
@@ -1519,7 +1435,7 @@ exports[`Entry view should render 1`] = `
           <div
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
-            id="32"
+            id="29"
           />
         </span>
         <ul
@@ -1546,6 +1462,28 @@ exports[`Entry view should render 1`] = `
                 >
                   <li>
                     value2
+                    <button
+                      aria-controls="30"
+                      aria-expanded="false"
+                      class="svg-colour-unreviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 automatic annotation
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="30"
+                    />
                   </li>
                 </ul>
               </div>
@@ -1604,7 +1542,7 @@ exports[`Entry view should render 1`] = `
           </li>
         </ul>
         <h3
-          style="text-transform: capitalize;"
+          class="capitalize"
         >
           disruption phenotype
         </h3>
@@ -1618,7 +1556,7 @@ exports[`Entry view should render 1`] = `
         >
           value
           <button
-            aria-controls="33"
+            aria-controls="31"
             aria-expanded="false"
             class="svg-colour-unreviewed evidence-tag"
             data-testid="evidence-tag-trigger"
@@ -1637,7 +1575,7 @@ exports[`Entry view should render 1`] = `
           <div
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
-            id="33"
+            id="31"
           />
         </div>
         <h3
@@ -1650,7 +1588,7 @@ exports[`Entry view should render 1`] = `
         >
           value
           <button
-            aria-controls="34"
+            aria-controls="32"
             aria-expanded="false"
             class="svg-colour-unreviewed evidence-tag"
             data-testid="evidence-tag-trigger"
@@ -1669,7 +1607,7 @@ exports[`Entry view should render 1`] = `
           <div
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
-            id="34"
+            id="32"
           />
         </div>
         <div
@@ -2201,7 +2139,7 @@ exports[`Entry view should render 1`] = `
           </a>
            differs from that shown. Reason: Erroneous gene model prediction Text note
           <button
-            aria-controls="35"
+            aria-controls="33"
             aria-expanded="false"
             class="svg-colour-unreviewed evidence-tag"
             data-testid="evidence-tag-trigger"
@@ -2220,7 +2158,7 @@ exports[`Entry view should render 1`] = `
           <div
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
-            id="35"
+            id="33"
           />
         </section>
         <h3>
@@ -2234,7 +2172,7 @@ exports[`Entry view should render 1`] = `
           </h3>
           Molecular mass is 2.1 Da. Determined by LSI. note value
           <button
-            aria-controls="36"
+            aria-controls="34"
             aria-expanded="false"
             class="svg-colour-unreviewed evidence-tag"
             data-testid="evidence-tag-trigger"
@@ -2253,7 +2191,7 @@ exports[`Entry view should render 1`] = `
           <div
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
-            id="36"
+            id="34"
           />
         </section>
         <h3>
@@ -2267,7 +2205,7 @@ exports[`Entry view should render 1`] = `
             <span>
               1 
               <button
-                aria-controls="37"
+                aria-controls="35"
                 aria-expanded="false"
                 class="svg-colour-unreviewed evidence-tag"
                 data-testid="evidence-tag-trigger"
@@ -2286,7 +2224,7 @@ exports[`Entry view should render 1`] = `
               <div
                 class="evidence-tag-content "
                 data-testid="evidence-tag-content"
-                id="37"
+                id="35"
               />
             </span>
           </div>
@@ -2294,7 +2232,7 @@ exports[`Entry view should render 1`] = `
             <span>
               value 
               <button
-                aria-controls="38"
+                aria-controls="36"
                 aria-expanded="false"
                 class="svg-colour-unreviewed evidence-tag"
                 data-testid="evidence-tag-trigger"
@@ -2313,7 +2251,7 @@ exports[`Entry view should render 1`] = `
               <div
                 class="evidence-tag-content "
                 data-testid="evidence-tag-content"
-                id="38"
+                id="36"
               />
             </span>
           </div>
@@ -2453,13 +2391,15 @@ exports[`Entry view should render for non-human entry 1`] = `
             id="0"
           />
         </div>
-        <h3>
-          catalytic activity
+        <h3
+          class="capitalize"
+        >
+          miscellaneous
         </h3>
-        <span
+        <div
           class="text-block"
         >
-           an N-acetyl-alpha-D-galactosaminyl-(1-&gt;3)-[alpha-L-fucosyl-(1-&gt;2)]-beta-D-galactosyl derivative + H2O = acetate + an alpha-D-galactosaminyl-(1-&gt;3)-[alpha-L-fucosyl-(1-&gt;2)]-beta-D-galactosyl derivative
+          DNA was isolated from a male human fecal sample of AB+ blood type, the sequence was given to UniProtKB by the submitters
           <button
             aria-controls="1"
             aria-expanded="false"
@@ -2481,6 +2421,38 @@ exports[`Entry view should render for non-human entry 1`] = `
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
             id="1"
+          />
+        </div>
+        <h3
+          class="capitalize"
+        >
+          catalytic activity
+        </h3>
+        <span
+          class="text-block"
+        >
+           an N-acetyl-alpha-D-galactosaminyl-(1-&gt;3)-[alpha-L-fucosyl-(1-&gt;2)]-beta-D-galactosyl derivative + H2O = acetate + an alpha-D-galactosaminyl-(1-&gt;3)-[alpha-L-fucosyl-(1-&gt;2)]-beta-D-galactosyl derivative
+          <button
+            aria-controls="2"
+            aria-expanded="false"
+            class="svg-colour-reviewed evidence-tag"
+            data-testid="evidence-tag-trigger"
+            type="button"
+          >
+            <test-file-stub
+              height="12"
+              width="12"
+            />
+            <span
+              class="evidence-tag__label"
+            >
+              1 publication
+            </span>
+          </button>
+          <div
+            class="evidence-tag-content "
+            data-testid="evidence-tag-content"
+            id="2"
           />
           <div>
             <strong>
@@ -2523,7 +2495,9 @@ exports[`Entry view should render for non-human entry 1`] = `
             />
           </div>
         </span>
-        <h3>
+        <h3
+          class="capitalize"
+        >
           cofactor
         </h3>
         <section
@@ -2532,7 +2506,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           <span>
             a divalent metal cation 
             <button
-              aria-controls="2"
+              aria-controls="3"
               aria-expanded="false"
               class="svg-colour-reviewed evidence-tag"
               data-testid="evidence-tag-trigger"
@@ -2551,51 +2525,19 @@ exports[`Entry view should render for non-human entry 1`] = `
             <div
               class="evidence-tag-content "
               data-testid="evidence-tag-content"
-              id="2"
+              id="3"
             />
           </span>
         </section>
         <h3
-          style="text-transform: capitalize;"
+          class="capitalize"
         >
-          miscellaneous
+          activity regulation
         </h3>
         <div
           class="text-block"
         >
-          DNA was isolated from a male human fecal sample of AB+ blood type, the sequence was given to UniProtKB by the submitters
-          <button
-            aria-controls="3"
-            aria-expanded="false"
-            class="svg-colour-reviewed evidence-tag"
-            data-testid="evidence-tag-trigger"
-            type="button"
-          >
-            <test-file-stub
-              height="12"
-              width="12"
-            />
-            <span
-              class="evidence-tag__label"
-            >
-              1 publication
-            </span>
-          </button>
-          <div
-            class="evidence-tag-content "
-            data-testid="evidence-tag-content"
-            id="3"
-          />
-        </div>
-        <h3
-          style="text-transform: capitalize;"
-        >
-          biotechnology
-        </h3>
-        <div
-          class="text-block"
-        >
-          5 ug/ml of this enzyme pair converts A blood type to O blood type in an hour, and can be removed by centrifugation, showing the pair can be used for production of universal type donor blood
+          Inhibited by EDTA
           <button
             aria-controls="4"
             aria-expanded="false"
@@ -2619,58 +2561,17 @@ exports[`Entry view should render for non-human entry 1`] = `
             id="4"
           />
         </div>
-        <h3>
-          Kinetics
-        </h3>
-        <section
-          class="text-block"
+        <h3
+          class="capitalize"
         >
-          <ul
-            class="no-bullet"
-          >
-            <li>
-              K
-              <sub>
-                M
-              </sub>
-              =340uM for A antigen type 1 penta-MU 
-              <button
-                aria-controls="5"
-                aria-expanded="false"
-                class="svg-colour-reviewed evidence-tag"
-                data-testid="evidence-tag-trigger"
-                type="button"
-              >
-                <test-file-stub
-                  height="12"
-                  width="12"
-                />
-                <span
-                  class="evidence-tag__label"
-                >
-                  1 publication
-                </span>
-              </button>
-              <div
-                class="evidence-tag-content "
-                data-testid="evidence-tag-content"
-                id="5"
-              />
-            </li>
-          </ul>
-        </section>
-        <section
-          class="text-block"
-        />
-        <h3>
-          pH Dependence
+          biotechnology
         </h3>
         <div
           class="text-block"
         >
-          Optimum pH is 8.0.
+          5 ug/ml of this enzyme pair converts A blood type to O blood type in an hour, and can be removed by centrifugation, showing the pair can be used for production of universal type donor blood
           <button
-            aria-controls="6"
+            aria-controls="5"
             aria-expanded="false"
             class="svg-colour-reviewed evidence-tag"
             data-testid="evidence-tag-trigger"
@@ -2689,18 +2590,59 @@ exports[`Entry view should render for non-human entry 1`] = `
           <div
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
-            id="6"
+            id="5"
           />
         </div>
-        <h3
-          style="text-transform: capitalize;"
+        <h3>
+          Kinetics
+        </h3>
+        <section
+          class="text-block"
         >
-          activity regulation
+          <ul
+            class="no-bullet"
+          >
+            <li>
+              K
+              <sub>
+                M
+              </sub>
+              =340uM for A antigen type 1 penta-MU 
+              <button
+                aria-controls="6"
+                aria-expanded="false"
+                class="svg-colour-reviewed evidence-tag"
+                data-testid="evidence-tag-trigger"
+                type="button"
+              >
+                <test-file-stub
+                  height="12"
+                  width="12"
+                />
+                <span
+                  class="evidence-tag__label"
+                >
+                  1 publication
+                </span>
+              </button>
+              <div
+                class="evidence-tag-content "
+                data-testid="evidence-tag-content"
+                id="6"
+              />
+            </li>
+          </ul>
+        </section>
+        <section
+          class="text-block"
+        />
+        <h3>
+          pH Dependence
         </h3>
         <div
           class="text-block"
         >
-          Inhibited by EDTA
+          Optimum pH is 8.0.
           <button
             aria-controls="7"
             aria-expanded="false"
@@ -3201,26 +3143,28 @@ exports[`Entry view should render for non-human entry 1`] = `
               </div>
             </div>
           </li>
-          <li>
-            <div
-              class="decorated-list-item"
-            >
-              <div
-                class="decorated-list-item__title"
-              >
-                <h5
-                  class="bold"
-                >
-                  Secondary accessions
-                </h5>
-              </div>
-              <div
-                class="decorated-list-item__content"
-              />
-            </div>
-          </li>
         </ul>
       </div>
+    </div>
+  </section>
+  <section
+    class="card"
+    data-entry-section="true"
+    id="subcellular-location"
+  >
+    <div
+      class="card__container"
+    >
+      <div
+        class="card__header card__header--with-separator"
+      >
+        <h2>
+          Subcellular Location
+        </h2>
+      </div>
+      <div
+        class="card__content"
+      />
     </div>
   </section>
   <section
@@ -3407,15 +3351,9 @@ exports[`Entry view should render for non-human entry 1`] = `
         <protvista-manager
           attributes="pdb-id"
         >
-          <protvista-structure
+          <protvista-uniprot-structure
             accession="P0DTR4"
-            pdb-id="6N1A"
-          />
-          <protvista-datatable
-            filter-scroll="true"
-            nodeselect="true"
-            noscrolltorow="true"
-            selectedid="6N1A"
+            structureid="6N1A"
           />
         </protvista-manager>
         <h3>
@@ -3614,7 +3552,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           />
         </protvista-manager>
         <h3
-          style="text-transform: capitalize;"
+          class="capitalize"
         >
           domain
         </h3>

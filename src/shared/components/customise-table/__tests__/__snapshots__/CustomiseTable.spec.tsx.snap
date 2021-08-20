@@ -4,7 +4,6 @@ exports[`CustomiseTable component should render 1`] = `
 <DocumentFragment>
   <form
     aria-label="Customise uniprotkb result table columns form"
-    class="customise-table"
   >
     <div
       class="column-select"
@@ -24,15 +23,14 @@ exports[`CustomiseTable component should render 1`] = `
           role="button"
           tabindex="0"
         >
-          <button
+          <span
             class="chip"
-            type="button"
           >
             Protein names
             <test-file-stub
               data-testid="remove-icon"
             />
-          </button>
+          </span>
         </div>
         <div
           aria-describedby="rbd-hidden-text-0-hidden-text-0"
@@ -44,26 +42,18 @@ exports[`CustomiseTable component should render 1`] = `
           role="button"
           tabindex="0"
         >
-          <button
+          <span
             class="chip"
-            type="button"
           >
             Protein existence
             <test-file-stub
               data-testid="remove-icon"
             />
-          </button>
+          </span>
         </div>
       </div>
-      <button
-        class="button secondary"
-        data-testid="column-select-reset-button"
-        type="button"
-      >
-        Reset to default
-      </button>
       <div
-        class="tabs"
+        class="tabs sticky-tabs-container"
       >
         <div
           class="tabs__header"
@@ -80,7 +70,7 @@ exports[`CustomiseTable component should render 1`] = `
             <div
               class="column-select__tab-title"
             >
-              data
+              Data
               <span
                 class="column-select__tab-title__count column-select__tab-title__count--visible bubble--small"
               >
@@ -99,7 +89,7 @@ exports[`CustomiseTable component should render 1`] = `
             <div
               class="column-select__tab-title"
             >
-              links
+              External links
               <span
                 class="column-select__tab-title__count column-select__tab-title__count--hidden bubble--small"
               >
@@ -2313,8 +2303,14 @@ exports[`CustomiseTable component should render 1`] = `
       </div>
     </div>
     <div
-      class="button-group sticky-bottom-right sliding-panel__button-row"
+      class="button-group sliding-panel__button-row sticky-bottom-right"
     >
+      <button
+        class="button secondary"
+        type="reset"
+      >
+        Reset to default
+      </button>
       <button
         class="button primary"
         type="submit"

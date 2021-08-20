@@ -27,6 +27,8 @@ import {
   FreeTextComment,
 } from '../../types/commentTypes';
 
+import helper from '../../../shared/styles/helper.module.scss';
+
 const GoRibbon = lazy(
   () => import(/* webpackChunkName: "go-ribbon" */ './GoRibbon')
 );
@@ -119,7 +121,7 @@ export const CofactorView = ({ cofactors, title }: CofactorViewProps) => {
   }
   return (
     <>
-      {title && <h3>{title}</h3>}
+      {title && <h3 className={helper.capitalize}>{title}</h3>}
       {cofactors.map((cofactorComment, index) => (
         // eslint-disable-next-line react/no-array-index-key
         <section className="text-block" key={index}>
@@ -151,12 +153,32 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
   if (!hasContent(data)) {
     return null;
   }
+
+  /*
+    Current site order (eg https://www.uniprot.org/uniprot/P67910)
+      General Function
+      Miscellaneous
+      Caution
+      Catalytic activity
+      Cofactor
+      Activity regulation
+      BioPhysicoChemicalBio
+      Pathway
+  */
+
   return (
     <Card
       header={<h2>{getEntrySectionNameAndId(EntrySection.Function).name}</h2>}
       id={EntrySection.Function}
       data-entry-section
     >
+      <FreeTextView
+        comments={data.commentsData.get('FUNCTION') as FreeTextComment[]}
+      />
+      <FreeTextView
+        comments={data.commentsData.get('MISCELLANEOUS') as FreeTextComment[]}
+        title="miscellaneous"
+      />
       {data.commentsData.get('CAUTION')?.length ? (
         <Message level="warning">
           <h4>Caution</h4>
@@ -165,9 +187,6 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
           />
         </Message>
       ) : undefined}
-      <FreeTextView
-        comments={data.commentsData.get('FUNCTION') as FreeTextComment[]}
-      />
       <CatalyticActivityView
         comments={
           data.commentsData.get(
@@ -181,12 +200,10 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
         title="cofactor"
       />
       <FreeTextView
-        comments={data.commentsData.get('PATHWAY') as FreeTextComment[]}
-        title="pathway"
-      />
-      <FreeTextView
-        comments={data.commentsData.get('MISCELLANEOUS') as FreeTextComment[]}
-        title="miscellaneous"
+        comments={
+          data.commentsData.get('ACTIVITY REGULATION') as FreeTextComment[]
+        }
+        title="activity regulation"
       />
       <FreeTextView
         comments={data.commentsData.get('BIOTECHNOLOGY') as FreeTextComment[]}
@@ -198,12 +215,6 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
       <FreeTextView
         comments={data.commentsData.get('PATHWAY') as FreeTextComment[]}
         title="pathway"
-      />
-      <FreeTextView
-        comments={
-          data.commentsData.get('ACTIVITY REGULATION') as FreeTextComment[]
-        }
-        title="activity regulation"
       />
       <FeaturesView features={data.featuresData} sequence={sequence} />
       <ErrorBoundary>

@@ -11,7 +11,6 @@ import ColumnSelect from '../ColumnSelect';
 
 import { Namespace } from '../../../types/namespaces';
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
-import { nsToDefaultColumns } from '../../../config/columns';
 
 import { SearchResultsLocations } from '../../../../app/config/urls';
 
@@ -49,12 +48,12 @@ describe('ColumnSelect component', () => {
     jest.clearAllMocks();
   });
 
-  test('should render', () => {
+  it('should render', () => {
     const { asFragment } = rendered;
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test('should call to get field data and have the correct number of "data" list items', () => {
+  it('should call to get field data and have the correct number of "data" list items', () => {
     const items = screen.getAllByTestId('accordion-search-list-item');
     // Only "data" (ie not DB links) are visible so only count these and
     // subtract one for the accession column which shouldn't be listed as the
@@ -68,7 +67,7 @@ describe('ColumnSelect component', () => {
     expect(items.length).toBe(nDataListItems - 1);
   });
 
-  test('should call onChange when unselected item is clicked and do so with selected columns and new item', () => {
+  it('should call onChange when unselected item is clicked and do so with selected columns and new item', () => {
     const item = screen.getByText('Gene Names');
     fireEvent.click(item);
     expect(onChange).toHaveBeenCalledWith([
@@ -77,7 +76,7 @@ describe('ColumnSelect component', () => {
     ]);
   });
 
-  test('should call onChange when already selected item is clicked and do so with selected columns without clicked item', () => {
+  it('should call onChange when already selected item is clicked and do so with selected columns without clicked item', () => {
     // Getting the 2nd item as the 1st one is the drag-and-drop button
     const item = screen.getAllByText('Protein existence')[1];
     fireEvent.click(item);
@@ -86,13 +85,7 @@ describe('ColumnSelect component', () => {
     );
   });
 
-  test('should call onChange with default columns when "Reset to default" button clicked', () => {
-    const button = screen.getByText('Reset to default');
-    fireEvent.click(button);
-    expect(onChange).toHaveBeenCalledWith(nsToDefaultColumns(namespace));
-  });
-
-  test('should call onChange with the correct column order when "Protein name" is dragged to the right', async () => {
+  it('should call onChange with the correct column order when "Protein name" is dragged to the right', async () => {
     const dragEl = screen
       .getAllByText('Protein names')[0]
       .closest(DND_DRAGGABLE_DATA_ATTR);

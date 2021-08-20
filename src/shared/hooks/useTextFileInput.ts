@@ -34,39 +34,47 @@ const useTextFileInput = ({
   const onErrorRef = useRef(onError);
   onErrorRef.current = onError;
 
-  const handleNewFile = useCallback((file?: File) => {
-    if (!file) {
-      return;
-    }
-    let didCancel = false;
+  const handleNewFile = useCallback(
+    (file?: File) => {
+      if (!file) {
+        return;
+      }
+      let didCancel = false;
 
-    const fr = new FileReader();
-    fr.onload = () => {
-      if (!didCancel) {
-        const text = fr.result as string;
-        const NumberOKCharacters = text.match(writableRE)?.length ?? 0;
-        if (NumberOKCharacters / text.length < 0.9) {
-          // more than 90% of characters are not writable, bail
-          onErrorRef.current?.(
-            new TypeError(
-              `The file "${file.name}" doesn't appear to be in the correct format. It needs to be a plain text file.`
-            )
-          );
-        } else {
-          onFileContentRef.current(text);
+      const fr = new FileReader();
+      fr.onload = () => {
+        if (!didCancel) {
+          const text = fr.result as string;
+          const NumberOKCharacters = text.match(writableRE)?.length ?? 0;
+          if (NumberOKCharacters / text.length < 0.9) {
+            // more than 90% of characters are not writable, bail
+            onErrorRef.current?.(
+              new TypeError(
+                `The file "${file.name}" doesn't appear to be in the correct format. It needs to be a plain text file.`
+              )
+            );
+          } else {
+            onFileContentRef.current(text);
+            // Reset input ref to handle the case that a user loads the same file twice
+            if (inputRef?.current) {
+              // eslint-disable-next-line no-param-reassign
+              inputRef.current.value = '';
+            }
+          }
         }
-      }
-    };
-    fr.readAsText(file);
+      };
+      fr.readAsText(file);
 
-    // eslint-disable-next-line consistent-return
-    return () => {
-      didCancel = true;
-      if (fr) {
-        fr.abort();
-      }
-    };
-  }, []);
+      // eslint-disable-next-line consistent-return
+      return () => {
+        didCancel = true;
+        if (fr) {
+          fr.abort();
+        }
+      };
+    },
+    [inputRef]
+  );
 
   const handleDrop = useCallback(
     (files: FileList) => {

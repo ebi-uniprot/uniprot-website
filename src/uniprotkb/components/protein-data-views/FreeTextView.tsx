@@ -8,6 +8,8 @@ import { getEntryPathFor } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
 import { FreeTextComment, TextWithEvidence } from '../../types/commentTypes';
 
+import helper from '../../../shared/styles/helper.module.scss';
+
 const pubMedIDRE = /\d{7,8}/;
 // Capturing group will allow split to conserve that bit in the split parts
 /** NOTE:
@@ -90,7 +92,7 @@ const FreeTextView: FC<FreeTextProps> = ({
 
   return (
     <>
-      {title && <h3 style={{ textTransform: 'capitalize' }}>{title}</h3>}
+      {title && <h3 className={helper.capitalize}>{title}</h3>}
       {freeTextData}
     </>
   );

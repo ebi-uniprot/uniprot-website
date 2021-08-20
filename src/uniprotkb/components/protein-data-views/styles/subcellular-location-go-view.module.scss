@@ -1,0 +1,10 @@
+@import 'franklin-sites/src/styles/colours';
+
+.go-annotation-link {
+  hr {
+    border: none;
+    height: 0.0625rem;
+    background-color: $colour-platinum;
+    margin-bottom: 0.25rem;
+  }
+}
