@@ -89,9 +89,9 @@ const PDBView: FC<{
     /* istanbul ignore next */
     () =>
       import(
-        /* webpackChunkName: "protvista-structure" */ 'protvista-structure'
-      ),
-    'protvista-structure'
+        /* webpackChunkName: "protvista-uniprot" */ 'protvista-uniprot'
+      ).then((module) => ({ default: module.ProtvistaUniprotStructure })),
+    'protvista-uniprot-structure'
   );
   const managerDefined = useCustomElement(
     /* istanbul ignore next */
@@ -136,13 +136,9 @@ const PDBView: FC<{
   const firstId = sortedIds && sortedIds.length ? sortedIds[0] : '';
   return (
     <protvista-manager attributes="pdb-id">
-      <protvista-structure structureid={firstId} accession={primaryAccession} />
-      <protvista-datatable
-        ref={setTableData}
-        selectedId={firstId}
-        noScrollToRow
-        noDeselect
-        filter-scroll
+      <protvista-uniprot-structure
+        structureid={firstId}
+        accession={primaryAccession}
       />
     </protvista-manager>
   );

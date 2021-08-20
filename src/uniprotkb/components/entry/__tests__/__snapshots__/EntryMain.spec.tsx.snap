@@ -3351,15 +3351,9 @@ exports[`Entry view should render for non-human entry 1`] = `
         <protvista-manager
           attributes="pdb-id"
         >
-          <protvista-structure
+          <protvista-uniprot-structure
             accession="P0DTR4"
             structureid="6N1A"
-          />
-          <protvista-datatable
-            filter-scroll="true"
-            nodeselect="true"
-            noscrolltorow="true"
-            selectedid="6N1A"
           />
         </protvista-manager>
         <h3>
