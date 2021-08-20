@@ -28,7 +28,7 @@ const CustomiseButton = () => {
             className={styles['customise-table-panel']}
           >
             <ErrorBoundary>
-              <CustomiseTable onSave={() => setDisplayCustomisePanel(false)} />
+              <CustomiseTable onClose={() => setDisplayCustomisePanel(false)} />
             </ErrorBoundary>
           </SlidingPanel>
         </Suspense>

@@ -22,7 +22,7 @@ const storageKey = `table columns for ${Namespace.uniprotkb}` as const;
 
 describe('CustomiseTable component', () => {
   let rendered: ReturnType<typeof customRender>;
-  const onSave = jest.fn();
+  const onClose = jest.fn();
   const selectedColumns = [
     UniProtKBColumn.accession,
     UniProtKBColumn.proteinName,
@@ -30,7 +30,7 @@ describe('CustomiseTable component', () => {
   ];
 
   beforeEach(async () => {
-    rendered = customRender(<CustomiseTable onSave={onSave} />, {
+    rendered = customRender(<CustomiseTable onClose={onClose} />, {
       route,
       initialLocalStorage: {
         [storageKey]: selectedColumns,
@@ -42,7 +42,7 @@ describe('CustomiseTable component', () => {
   afterEach(() => {
     window.localStorage.clear();
     localStorageCache.clear();
-    onSave.mockReset();
+    onClose.mockReset();
   });
 
   it('should render', () => {
@@ -55,9 +55,9 @@ describe('CustomiseTable component', () => {
     expect(selectionChip).toBeInTheDocument();
   });
 
-  it('should call onSave prop corresponding button is pressed', () => {
+  it('should call onClose prop corresponding button is pressed', () => {
     fireEvent.click(screen.getByText('Close'));
-    expect(onSave).toHaveBeenCalled();
+    expect(onClose).toHaveBeenCalled();
   });
 
   it('should remove chip when clicked on', async () => {
@@ -70,7 +70,7 @@ describe('CustomiseTable component', () => {
       screen.queryByRole('button', { name: 'Protein names', hidden: false })
     ).not.toBeInTheDocument();
     fireEvent.submit(screen.getByRole('form'));
-    expect(onSave).toHaveBeenCalled();
+    expect(onClose).toHaveBeenCalled();
 
     // Give a chance to write to localStorage before having to do clean-up
     await waitFor(() =>

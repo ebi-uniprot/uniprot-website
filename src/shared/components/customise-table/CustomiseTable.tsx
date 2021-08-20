@@ -2,6 +2,7 @@ import { FormEvent } from 'react';
 import { Button } from 'franklin-sites';
 import { useRouteMatch } from 'react-router-dom';
 import cn from 'classnames';
+import { frame } from 'timing-functions';
 
 import ColumnSelect from '../column-select/ColumnSelect';
 
@@ -16,10 +17,10 @@ import { Namespace } from '../../types/namespaces';
 import sticky from '../../styles/sticky.module.scss';
 
 type CustomiseTableProps = {
-  onSave: () => void;
+  onClose: () => void;
 };
 
-const CustomiseTable = ({ onSave }: CustomiseTableProps) => {
+const CustomiseTable = ({ onClose }: CustomiseTableProps) => {
   const namespace = useNS() || Namespace.uniprotkb;
   const isEntryPage = Boolean(useRouteMatch(allEntryPages));
   const defaultColumns = nsToDefaultColumns(namespace, isEntryPage);
@@ -32,12 +33,14 @@ const CustomiseTable = ({ onSave }: CustomiseTableProps) => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSave();
+    onClose();
   };
 
   const handleReset = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setColumns(defaultColumns);
+    // Have to delay closing otherwise sometimes it doesn't save
+    frame().then(onClose);
   };
 
   return (
