@@ -19,6 +19,7 @@ import {
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
 import { v1 } from 'uuid';
+import cn from 'classnames';
 
 import SequenceSearchLoader, {
   ParsedSequence,
@@ -50,7 +51,7 @@ import {
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
 
-import '../../../shared/styles/sticky.scss';
+import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 
 const ALIGN_LIMIT = 100;
@@ -343,7 +344,9 @@ const AlignForm = () => {
               ))}
             </section>
           </details>
-          <section className="tools-form-section sticky-bottom-right">
+          <section
+            className={cn('tools-form-section', sticky['sticky-bottom-right'])}
+          >
             <section className="button-group tools-form-section__buttons">
               {sending && !reducedMotion && (
                 <>

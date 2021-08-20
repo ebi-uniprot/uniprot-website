@@ -1,6 +1,7 @@
 import { FormEvent } from 'react';
 import { Button } from 'franklin-sites';
 import { useRouteMatch } from 'react-router-dom';
+import cn from 'classnames';
 
 import ColumnSelect from '../column-select/ColumnSelect';
 
@@ -11,6 +12,8 @@ import { nsToDefaultColumns } from '../../config/columns';
 import { allEntryPages } from '../../../app/config/urls';
 
 import { Namespace } from '../../types/namespaces';
+
+import sticky from '../../styles/sticky.module.scss';
 
 type CustomiseTableProps = {
   onSave: () => void;
@@ -51,7 +54,13 @@ const CustomiseTable = ({ onSave }: CustomiseTableProps) => {
         namespace={namespace}
         isEntryPage={isEntryPage}
       />
-      <div className="button-group sticky-bottom-right sliding-panel__button-row">
+      <div
+        className={cn(
+          'button-group',
+          'sliding-panel__button-row',
+          sticky['sticky-bottom-right']
+        )}
+      >
         <Button variant="secondary" type="reset">
           Reset to default
         </Button>

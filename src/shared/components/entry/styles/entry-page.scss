@@ -8,7 +8,7 @@
     scroll-margin-top: calc(#{$header-height} + #{$global-margin * 0.5});
   }
 
-  &.sticky-tabs-container .tabs__header {
+  & .tabs__header {
     margin: 1rem 0.125rem;
     width: calc(100% - 1rem);
   }

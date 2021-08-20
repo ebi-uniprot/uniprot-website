@@ -32,7 +32,7 @@ import {
   ColumnSelectTab,
 } from '../../../uniprotkb/types/resultsTypes';
 
-import '../../styles/sticky.scss';
+import sticky from '../../styles/sticky.module.scss';
 import './styles/column-select.scss';
 
 type ColumnSelectProps = {
@@ -142,7 +142,7 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
         onRemove={handleSelect}
       />
       {tabs.length ? (
-        <Tabs className="sticky-tabs-container">{tabs}</Tabs>
+        <Tabs className={sticky['sticky-tabs-container']}>{tabs}</Tabs>
       ) : undefined}
     </div>
   );

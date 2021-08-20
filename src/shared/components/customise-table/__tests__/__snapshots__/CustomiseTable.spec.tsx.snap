@@ -2303,7 +2303,7 @@ exports[`CustomiseTable component should render 1`] = `
       </div>
     </div>
     <div
-      class="button-group sticky-bottom-right sliding-panel__button-row"
+      class="button-group sliding-panel__button-row sticky-bottom-right"
     >
       <button
         class="button secondary"

@@ -28,7 +28,7 @@ import { AlignResults } from '../../types/alignResults';
 import { JobTypes } from '../../../types/toolsJobTypes';
 import { PublicServerParameters } from '../../types/alignServerParameters';
 
-import '../../../../shared/styles/sticky.scss';
+import sticky from '../../../../shared/styles/sticky.module.scss';
 
 const jobType = JobTypes.ALIGN;
 const urls = toolsURLs(jobType);
@@ -167,7 +167,7 @@ const AlignResult = () => {
   );
 
   return (
-    <SingleColumnLayout className="sticky-tabs-container">
+    <SingleColumnLayout className={sticky['sticky-tabs-container']}>
       <PageIntro title="Align Results" />
       <Tabs active={match.params.subPage}>
         <Tab
