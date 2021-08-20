@@ -3,6 +3,6 @@ declare module 'protvista-structure';
 
 declare namespace JSX {
   interface IntrinsicElements {
-    'protvista-structure': any;
+    'protvista-uniprot-structure': any;
   }
 }

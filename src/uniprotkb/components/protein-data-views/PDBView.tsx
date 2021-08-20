@@ -136,13 +136,9 @@ const PDBView: FC<{
   const firstId = sortedIds && sortedIds.length ? sortedIds[0] : '';
   return (
     <protvista-manager attributes="pdb-id">
-      <protvista-structure structureid={firstId} accession={primaryAccession} />
-      <protvista-datatable
-        ref={setTableData}
-        selectedId={firstId}
-        noScrollToRow
-        noDeselect
-        filter-scroll
+      <protvista-uniprot-structure
+        structureid={firstId}
+        accession={primaryAccession}
       />
     </protvista-manager>
   );
