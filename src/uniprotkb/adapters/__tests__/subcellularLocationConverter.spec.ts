@@ -92,6 +92,7 @@ describe('Subcellular data converter', () => {
         synonyms: ['synonyms 1'],
         taxonId: 9606,
       },
+      primaryAccession: 'P21802',
       xrefData: [],
     });
   });
