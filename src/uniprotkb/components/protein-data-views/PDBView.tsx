@@ -89,9 +89,9 @@ const PDBView: FC<{
     /* istanbul ignore next */
     () =>
       import(
-        /* webpackChunkName: "protvista-structure" */ 'protvista-structure'
-      ),
-    'protvista-structure'
+        /* webpackChunkName: "protvista-uniprot" */ 'protvista-uniprot'
+      ).then((module) => ({ default: module.ProtvistaUniprotStructure })),
+    'protvista-uniprot-structure'
   );
   const managerDefined = useCustomElement(
     /* istanbul ignore next */
