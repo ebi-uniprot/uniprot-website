@@ -1,7 +1,7 @@
 @import 'franklin-sites/src/styles/colours';
 
 .sticky-tabs-container {
-  & .tabs__header {
+  & :global(.tabs__header) {
     z-index: 100;
     position: sticky;
     top: 0;

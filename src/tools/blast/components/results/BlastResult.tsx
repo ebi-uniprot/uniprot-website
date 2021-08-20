@@ -44,7 +44,7 @@ import { PublicServerParameters } from '../../types/blastServerParameters';
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 
 import helper from '../../../../shared/styles/helper.module.scss';
-import '../../../../shared/styles/sticky.scss';
+import sticky from '../../../../shared/styles/sticky.module.scss';
 
 const jobType = JobTypes.BLAST;
 const urls = toolsURLs(jobType);
@@ -327,7 +327,7 @@ const BlastResult = () => {
         <PageIntro title="BLAST Results" resultsCount={hitsFiltered.length} />
       }
       sidebar={sidebar}
-      className="sticky-tabs-container"
+      className={sticky['sticky-tabs-container']}
     >
       <Tabs
         active={match.params.subPage}

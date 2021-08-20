@@ -49,15 +49,8 @@ exports[`ColumnSelect component should render 1`] = `
         </span>
       </div>
     </div>
-    <button
-      class="button secondary"
-      data-testid="column-select-reset-button"
-      type="button"
-    >
-      Reset to default
-    </button>
     <div
-      class="tabs"
+      class="tabs sticky-tabs-container"
     >
       <div
         class="tabs__header"
@@ -74,7 +67,7 @@ exports[`ColumnSelect component should render 1`] = `
           <div
             class="column-select__tab-title"
           >
-            data
+            Data
             <span
               class="column-select__tab-title__count column-select__tab-title__count--visible bubble--small"
             >
@@ -93,7 +86,7 @@ exports[`ColumnSelect component should render 1`] = `
           <div
             class="column-select__tab-title"
           >
-            links
+            External links
             <span
               class="column-select__tab-title__count column-select__tab-title__count--hidden bubble--small"
             >

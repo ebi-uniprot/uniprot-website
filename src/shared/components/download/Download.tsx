@@ -1,6 +1,7 @@
 import { useCallback, useState, FC, ChangeEvent } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Loader, CodeBlock, Button, LongNumber } from 'franklin-sites';
+import cn from 'classnames';
 
 import ColumnSelect from '../column-select/ColumnSelect';
 
@@ -25,7 +26,7 @@ import {
 import { ContentType, FileFormat } from '../../types/resultsDownload';
 import { Namespace } from '../../types/namespaces';
 
-import '../../styles/sticky.scss';
+import sticky from '../../styles/sticky.module.scss';
 import './styles/download.scss';
 
 export const getPreviewFileFormat = (fileFormat: FileFormat) =>
@@ -263,7 +264,13 @@ const Download: FC<DownloadProps> = ({
             />
           </>
         )}
-      <section className="button-group sliding-panel__button-row sticky-bottom-right">
+      <section
+        className={cn(
+          'button-group',
+          'sliding-panel__button-row',
+          sticky['sticky-bottom-right']
+        )}
+      >
         <Button variant="secondary" onClick={onClose}>
           Cancel
         </Button>
