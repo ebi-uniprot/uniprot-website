@@ -181,6 +181,7 @@ export interface RNAEditingComment extends GenericComment<'RNA EDITING'> {
 export interface SubcellularLocationComment
   extends GenericComment<'SUBCELLULAR LOCATION'> {
   note?: { texts: TextWithEvidence[] };
+  molecule?: string;
   subcellularLocations?: {
     location: TextWithEvidence;
     topology?: TextWithEvidence;

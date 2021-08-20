@@ -1385,95 +1385,7 @@ exports[`Entry view should render 1`] = `
       </div>
       <div
         class="card__content"
-      >
-        <section
-          class="text-block"
-        >
-          <h3>
-            molecule value
-          </h3>
-          <div
-            id="id1term"
-          >
-            <strong>
-              location value
-            </strong>
-             
-            <button
-              aria-controls="29"
-              aria-expanded="false"
-              class="svg-colour-unreviewed evidence-tag"
-              data-testid="evidence-tag-trigger"
-              type="button"
-            >
-              <test-file-stub
-                height="12"
-                width="12"
-              />
-              <span
-                class="evidence-tag__label"
-              >
-                1 automatic annotation
-              </span>
-            </button>
-            <div
-              class="evidence-tag-content "
-              data-testid="evidence-tag-content"
-              id="29"
-            />
-            : topology value 
-            <button
-              aria-controls="30"
-              aria-expanded="false"
-              class="svg-colour-unreviewed evidence-tag"
-              data-testid="evidence-tag-trigger"
-              type="button"
-            >
-              <test-file-stub
-                height="12"
-                width="12"
-              />
-              <span
-                class="evidence-tag__label"
-              >
-                1 automatic annotation
-              </span>
-            </button>
-            <div
-              class="evidence-tag-content "
-              data-testid="evidence-tag-content"
-              id="30"
-            />
-          </div>
-          <div
-            class="text-block"
-          >
-            value
-            <button
-              aria-controls="31"
-              aria-expanded="false"
-              class="svg-colour-unreviewed evidence-tag"
-              data-testid="evidence-tag-trigger"
-              type="button"
-            >
-              <test-file-stub
-                height="12"
-                width="12"
-              />
-              <span
-                class="evidence-tag__label"
-              >
-                1 automatic annotation
-              </span>
-            </button>
-            <div
-              class="evidence-tag-content "
-              data-testid="evidence-tag-content"
-              id="31"
-            />
-          </div>
-        </section>
-      </div>
+      />
     </div>
   </section>
   <section
@@ -1504,7 +1416,7 @@ exports[`Entry view should render 1`] = `
           class="text-block"
         >
           <button
-            aria-controls="32"
+            aria-controls="29"
             aria-expanded="false"
             class="svg-colour-unreviewed evidence-tag"
             data-testid="evidence-tag-trigger"
@@ -1523,7 +1435,7 @@ exports[`Entry view should render 1`] = `
           <div
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
-            id="32"
+            id="29"
           />
         </span>
         <ul
@@ -1551,7 +1463,7 @@ exports[`Entry view should render 1`] = `
                   <li>
                     value2
                     <button
-                      aria-controls="33"
+                      aria-controls="30"
                       aria-expanded="false"
                       class="svg-colour-unreviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -1570,7 +1482,7 @@ exports[`Entry view should render 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="33"
+                      id="30"
                     />
                   </li>
                 </ul>
@@ -1644,7 +1556,7 @@ exports[`Entry view should render 1`] = `
         >
           value
           <button
-            aria-controls="34"
+            aria-controls="31"
             aria-expanded="false"
             class="svg-colour-unreviewed evidence-tag"
             data-testid="evidence-tag-trigger"
@@ -1663,7 +1575,7 @@ exports[`Entry view should render 1`] = `
           <div
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
-            id="34"
+            id="31"
           />
         </div>
         <h3
@@ -1676,7 +1588,7 @@ exports[`Entry view should render 1`] = `
         >
           value
           <button
-            aria-controls="35"
+            aria-controls="32"
             aria-expanded="false"
             class="svg-colour-unreviewed evidence-tag"
             data-testid="evidence-tag-trigger"
@@ -1695,7 +1607,7 @@ exports[`Entry view should render 1`] = `
           <div
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
-            id="35"
+            id="32"
           />
         </div>
         <div
@@ -2227,7 +2139,7 @@ exports[`Entry view should render 1`] = `
           </a>
            differs from that shown. Reason: Erroneous gene model prediction Text note
           <button
-            aria-controls="36"
+            aria-controls="33"
             aria-expanded="false"
             class="svg-colour-unreviewed evidence-tag"
             data-testid="evidence-tag-trigger"
@@ -2246,7 +2158,7 @@ exports[`Entry view should render 1`] = `
           <div
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
-            id="36"
+            id="33"
           />
         </section>
         <h3>
@@ -2260,7 +2172,7 @@ exports[`Entry view should render 1`] = `
           </h3>
           Molecular mass is 2.1 Da. Determined by LSI. note value
           <button
-            aria-controls="37"
+            aria-controls="34"
             aria-expanded="false"
             class="svg-colour-unreviewed evidence-tag"
             data-testid="evidence-tag-trigger"
@@ -2279,7 +2191,7 @@ exports[`Entry view should render 1`] = `
           <div
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
-            id="37"
+            id="34"
           />
         </section>
         <h3>
@@ -2293,7 +2205,7 @@ exports[`Entry view should render 1`] = `
             <span>
               1 
               <button
-                aria-controls="38"
+                aria-controls="35"
                 aria-expanded="false"
                 class="svg-colour-unreviewed evidence-tag"
                 data-testid="evidence-tag-trigger"
@@ -2312,7 +2224,7 @@ exports[`Entry view should render 1`] = `
               <div
                 class="evidence-tag-content "
                 data-testid="evidence-tag-content"
-                id="38"
+                id="35"
               />
             </span>
           </div>
@@ -2320,7 +2232,7 @@ exports[`Entry view should render 1`] = `
             <span>
               value 
               <button
-                aria-controls="39"
+                aria-controls="36"
                 aria-expanded="false"
                 class="svg-colour-unreviewed evidence-tag"
                 data-testid="evidence-tag-trigger"
@@ -2339,7 +2251,7 @@ exports[`Entry view should render 1`] = `
               <div
                 class="evidence-tag-content "
                 data-testid="evidence-tag-content"
-                id="39"
+                id="36"
               />
             </span>
           </div>
@@ -3233,6 +3145,26 @@ exports[`Entry view should render for non-human entry 1`] = `
           </li>
         </ul>
       </div>
+    </div>
+  </section>
+  <section
+    class="card"
+    data-entry-section="true"
+    id="subcellular-location"
+  >
+    <div
+      class="card__container"
+    >
+      <div
+        class="card__header card__header--with-separator"
+      >
+        <h2>
+          Subcellular Location
+        </h2>
+      </div>
+      <div
+        class="card__content"
+      />
     </div>
   </section>
   <section

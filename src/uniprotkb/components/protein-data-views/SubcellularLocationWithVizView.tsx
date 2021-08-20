@@ -1,9 +1,12 @@
 import { FC, Suspense, lazy } from 'react';
 
+import { Tabs, Tab } from 'franklin-sites';
 import SubcellularLocationView from './SubcellularLocationView';
+import SubcellularLocationGOView from './SubcellularLocationGOView';
 
 import { SubcellularLocationComment } from '../../types/commentTypes';
 import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { GoXref } from '../../adapters/subcellularLocationConverter';
 
 // Import it lazily in order to isolate the libraries used only for this
 const SubCellViz = lazy(
@@ -14,33 +17,78 @@ enum Superkingdom {
   Viruses = 'Viruses',
 }
 
+export enum VizTab {
+  UniProt = 'uniprot',
+  GO = 'go',
+}
+
 const isVirus = ([superkingdom]: string[]) =>
   superkingdom === Superkingdom.Viruses;
 
+export const getSubcellularLocationId = (id: string) =>
+  id.match(/SL-(\d+)/)?.[1];
+
+export const getGoId = (id: string) => id.match(/GO:(\d+)/)?.[1];
+
 const SubcellularLocationWithVizView: FC<
   {
+    primaryAccession?: string;
     comments?: SubcellularLocationComment[];
+    goXrefs?: GoXref[];
   } & Partial<Pick<TaxonomyDatum, 'taxonId' | 'lineage'>>
-> = ({ comments, taxonId, lineage }) => {
-  if (!comments?.length) {
+> = ({ primaryAccession, comments, taxonId, lineage, goXrefs }) => {
+  if (!comments?.length && !goXrefs?.length) {
     return null;
   }
 
-  const textContent = <SubcellularLocationView comments={comments} />;
+  const uniprotTextContent = <SubcellularLocationView comments={comments} />;
+  const goTextContent = (
+    <SubcellularLocationGOView
+      primaryAccession={primaryAccession}
+      goXrefs={goXrefs}
+    />
+  );
 
-  // If we can render a visualisation, wrap the text content as a child
-  if (lineage && taxonId && !isVirus(lineage as string[])) {
-    return (
-      <Suspense fallback={textContent}>
-        <SubCellViz comments={comments} taxonId={taxonId}>
-          {textContent}
-        </SubCellViz>
-      </Suspense>
-    );
+  const uniProtLocationIds = (comments || [])
+    .flatMap(({ subcellularLocations }) =>
+      subcellularLocations?.map(
+        ({ location }) => location.id && getSubcellularLocationId(location.id)
+      )
+    )
+    .filter(Boolean)
+    .join(',');
+
+  const goLocationIds = (goXrefs || [])
+    .map(({ id }) => getGoId(id))
+    .filter(Boolean)
+    .join(',');
+
+  if (
+    !lineage ||
+    !taxonId ||
+    isVirus(lineage as string[]) ||
+    !(uniprotTextContent && goTextContent) ||
+    (!uniProtLocationIds?.length && !goLocationIds?.length)
+  ) {
+    return null;
   }
 
-  // Otherwise, just return the text content
-  return textContent;
+  return (
+    <Suspense fallback={null}>
+      <Tabs>
+        <Tab cache title="UniProt Annotation">
+          <SubCellViz uniProtLocationIds={uniProtLocationIds} taxonId={taxonId}>
+            {uniprotTextContent}
+          </SubCellViz>
+        </Tab>
+        <Tab cache title="GO Annotation">
+          <SubCellViz goLocationIds={goLocationIds} taxonId={taxonId}>
+            {goTextContent}
+          </SubCellViz>
+        </Tab>
+      </Tabs>
+    </Suspense>
+  );
 };
 
 export default SubcellularLocationWithVizView;

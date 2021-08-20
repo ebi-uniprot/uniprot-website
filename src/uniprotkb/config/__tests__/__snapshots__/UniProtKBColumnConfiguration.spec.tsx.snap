@@ -768,7 +768,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_subcell
         data-testid="evidence-tag-content"
         id="0"
       />
-      : topology value 
+      ; topology value 
       <button
         aria-controls="1"
         aria-expanded="false"

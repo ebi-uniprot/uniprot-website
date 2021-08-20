@@ -7,6 +7,7 @@ import { Xref } from '../../shared/types/apiModel';
 import KeywordCategory from '../types/keywordCategory';
 import FeatureType from '../types/featureType';
 import { CommentType } from '../types/commentTypes';
+import { Evidence, GoEvidenceType } from '../types/modelTypes';
 
 const commentCategories: CommentType[] = ['SUBCELLULAR LOCATION'];
 
@@ -17,8 +18,39 @@ const featuresCategories: FeatureType[] = [
   'Transmembrane',
 ];
 
+// Select xref go terms which are cellular components and discard the rest.
+// P: biological process
+// C: cellular component
+// F: molecular function
+export const getAndPrepareSubcellGoXrefs = (
+  uniProtKBCrossReferences?: Xref[]
+) =>
+  (
+    uniProtKBCrossReferences?.filter(
+      (xref) =>
+        xref.database === 'GO' &&
+        xref.properties?.GoTerm.startsWith('C:') &&
+        xref.id
+    ) as GoXref[]
+  )?.map((xref) => ({
+    ...xref,
+    properties: {
+      ...xref.properties,
+      GoTerm: xref.properties.GoTerm.replace('C:', ''),
+    },
+  }));
+
+export type GoXref = {
+  database: 'GO';
+  id: string;
+  properties: { GoTerm: string; GoEvidenceType: GoEvidenceType };
+  evidences?: Evidence[];
+};
+
 export type SubcellularLocationUIModel = {
+  primaryAccession?: string;
   organismData?: TaxonomyDatum;
+  goXrefs?: GoXref[];
 } & UIModel;
 
 const convertSubcellularLocation = (
@@ -33,9 +65,13 @@ const convertSubcellularLocation = (
     undefined,
     uniProtKBCrossReferences
   );
+  subcellularLocationData.primaryAccession = data.primaryAccession;
+  subcellularLocationData.goXrefs = getAndPrepareSubcellGoXrefs(
+    uniProtKBCrossReferences
+  );
 
   // If there is no subcellular data, don't add organism data which will cause
-  // the section render to falsely believe the section should be rendered
+  // the section renderer to falsely believe the section should be rendered
   if (hasContent(subcellularLocationData) && data.organism) {
     subcellularLocationData.organismData = data.organism;
   }
