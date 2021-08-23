@@ -162,7 +162,7 @@ export const getJobMessage = ({
   }
 
   let location: LocationDescriptor<LocationStateFromJobLink> | undefined;
-  if ('remoteID' in job && job.remoteID) {
+  if ('remoteID' in job && job.remoteID && nHits !== 0) {
     location = {
       pathname: generatePath(jobTypeToPath(job.type, true), {
         id: job.remoteID,
@@ -181,7 +181,7 @@ export const getJobMessage = ({
     content: (
       <>
         {job.type} job{' '}
-        {location ? <Link to={location}>{jobName}</Link> : { jobName }}
+        {location ? <Link to={location}>{jobName}</Link> : jobName}
         {` finished${hitsMessage}`}
       </>
     ),
