@@ -191,7 +191,7 @@ const NiceStatus = ({ job, jobLink }: NiceStatusProps) => {
               <span
                 title={`${actualHits} ${hitText} results found instead of the requested ${expectedHits}`}
               >
-                ({actualHits} {hitText})
+                ({actualHits ? `${actualHits} ${hitText}` : 'No results found'})
               </span>
               <Seen job={job} />
             </>
