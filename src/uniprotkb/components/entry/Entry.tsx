@@ -1,4 +1,4 @@
-import { useMemo, useEffect, FC } from 'react';
+import { useMemo, useEffect, FC, Suspense } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   Link,
@@ -28,11 +28,8 @@ import {
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import ProteinOverview from '../protein-data-views/ProteinOverviewView';
-import FeatureViewer from './FeatureViewer';
 import EntryPublicationsFacets from './EntryPublicationsFacets';
-import EntryPublications from './EntryPublications';
 import EntryMain from './EntryMain';
-import EntryExternalLinks from './EntryExternalLinks';
 
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import AlignButton from '../../../shared/components/action-buttons/Align';
@@ -50,6 +47,7 @@ import { addMessage } from '../../../messages/state/messagesActions';
 
 import { hasExternalLinks, getListOfIsoformAccessions } from '../../utils';
 import { hasContent } from '../../../shared/utils/utils';
+import lazy from '../../../shared/utils/lazy';
 import apiUrls from '../../../shared/config/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
 import { fileFormatEntryDownload } from '../../config/download';
@@ -72,7 +70,34 @@ export enum TabLocation {
   FeatureViewer = 'feature-viewer',
   Publications = 'publications',
   ExternalLinks = 'external-links',
+  History = 'history',
 }
+
+const FeatureViewer = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "uniprotkb-entry-feature-viewer" */ './FeatureViewer'
+    )
+);
+
+const EntryPublications = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "uniprotkb-entry-history" */ './EntryPublications'
+    )
+);
+
+const EntryExternalLinks = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "uniprotkb-entry-external-links" */ './EntryExternalLinks'
+    )
+);
+
+const EntryHistory = lazy(
+  () =>
+    import(/* webpackChunkName: "uniprotkb-entry-history" */ './EntryHistory')
+);
 
 const Entry: FC = () => {
   const dispatch = useDispatch();
@@ -199,6 +224,7 @@ const Entry: FC = () => {
   switch (match.params.subPage) {
     case TabLocation.FeatureViewer:
     case TabLocation.ExternalLinks:
+    case TabLocation.History:
       sidebar = emptySidebar;
       break;
 
@@ -234,11 +260,10 @@ const Entry: FC = () => {
           cache
           title={
             <Link
-              to={(location) => ({
-                ...location,
+              to={{
                 pathname: `/uniprotkb/${match.params.accession}/${TabLocation.Entry}`,
                 hash: undefined,
-              })}
+              }}
             >
               Entry
             </Link>
@@ -295,50 +320,78 @@ const Entry: FC = () => {
         <Tab
           title={
             <Link
-              to={(location) => ({
-                ...location,
+              to={{
                 pathname: `/uniprotkb/${match.params.accession}/${TabLocation.FeatureViewer}`,
                 hash: undefined,
-              })}
+              }}
             >
               Feature viewer
             </Link>
           }
           id={TabLocation.FeatureViewer}
+          onPointerOver={FeatureViewer.preload}
+          onFocus={FeatureViewer.preload}
         >
-          <FeatureViewer accession={match.params.accession} />
+          <Suspense fallback={<Loader />}>
+            <FeatureViewer accession={match.params.accession} />
+          </Suspense>
         </Tab>
         <Tab
           title={
             <Link
-              to={(location) => ({
-                ...location,
+              to={{
                 pathname: `/uniprotkb/${match.params.accession}/${TabLocation.Publications}`,
                 hash: undefined,
-              })}
+              }}
             >
               Publications
             </Link>
           }
           id={TabLocation.Publications}
+          onPointerOver={EntryPublications.preload}
+          onFocus={EntryPublications.preload}
         >
-          <EntryPublications accession={match.params.accession} />
+          <Suspense fallback={<Loader />}>
+            <EntryPublications accession={match.params.accession} />
+          </Suspense>
         </Tab>
         <Tab
           title={
             <Link
-              to={(location) => ({
-                ...location,
+              to={{
                 pathname: `/uniprotkb/${match.params.accession}/${TabLocation.ExternalLinks}`,
                 hash: undefined,
-              })}
+              }}
             >
               External links
             </Link>
           }
           id={TabLocation.ExternalLinks}
+          onPointerOver={EntryExternalLinks.preload}
+          onFocus={EntryExternalLinks.preload}
         >
-          <EntryExternalLinks transformedData={transformedData} />
+          <Suspense fallback={<Loader />}>
+            <EntryExternalLinks transformedData={transformedData} />
+          </Suspense>
+        </Tab>
+        <Tab
+          title={
+            <Link
+              to={{
+                pathname: `/uniprotkb/${match.params.accession}/${TabLocation.History}`,
+                hash: undefined,
+              }}
+            >
+              History
+            </Link>
+          }
+          id={TabLocation.History}
+          onPointerOver={EntryHistory.preload}
+          onFocus={EntryHistory.preload}
+        >
+          <Suspense fallback={<Loader />}>
+            <EntryHistory transformedData={transformedData} />
+          </Suspense>
         </Tab>
       </Tabs>
     </SideBarLayout>
