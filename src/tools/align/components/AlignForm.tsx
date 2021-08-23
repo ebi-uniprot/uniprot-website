@@ -9,6 +9,7 @@ import {
   SetStateAction,
 } from 'react';
 import { useDispatch } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import {
   SequenceSubmission,
   PageIntro,
@@ -55,6 +56,8 @@ import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 
 const ALIGN_LIMIT = 100;
+
+const title = namespaceToolTitles[JobTypes.ALIGN];
 
 const FormSelect: FC<{
   formValue: AlignFormValue;
@@ -251,10 +254,11 @@ const AlignForm = () => {
     dndOverlay: <span>Drop your input file anywhere on this page</span>,
   });
 
-  const title = namespaceToolTitles[JobTypes.ALIGN];
-
   return (
     <>
+      <Helmet>
+        <title>{title}</title>
+      </Helmet>
       <PageIntro title={title} />
       <form
         onSubmit={submitAlignJob}

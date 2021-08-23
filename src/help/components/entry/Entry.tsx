@@ -1,4 +1,5 @@
 import { useCallback, MouseEventHandler } from 'react';
+import { Helmet } from 'react-helmet';
 import { Loader, Card } from 'franklin-sites';
 import marked from 'marked';
 import { Attributes, defaults, Transformer } from 'sanitize-html';
@@ -92,6 +93,9 @@ const HelpEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   return (
     <SingleColumnLayout>
+      <Helmet>
+        <title>{data.title} | UniProt help</title>
+      </Helmet>
       <h1 className={data.categories.includes('faq') ? 'medium' : 'big'}>
         {data.title}
       </h1>

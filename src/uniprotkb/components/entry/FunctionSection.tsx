@@ -1,4 +1,5 @@
 import { lazy, Suspense } from 'react';
+import { Helmet } from 'react-helmet';
 import { Card, Loader, Message } from 'franklin-sites';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
@@ -166,12 +167,22 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
       Pathway
   */
 
+  // Use the first available function as a description
+  const firstFunction = (
+    data.commentsData.get('FUNCTION') as FreeTextComment[] | undefined
+  )?.[0]?.texts?.[0]?.value;
+
   return (
     <Card
       header={<h2>{getEntrySectionNameAndId(EntrySection.Function).name}</h2>}
       id={EntrySection.Function}
       data-entry-section
     >
+      {firstFunction && (
+        <Helmet>
+          <meta name="description" content={firstFunction} />
+        </Helmet>
+      )}
       <FreeTextView
         comments={data.commentsData.get('FUNCTION') as FreeTextComment[]}
       />

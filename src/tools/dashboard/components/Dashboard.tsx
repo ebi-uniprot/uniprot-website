@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import {
   Card,
   Button,
@@ -33,10 +34,17 @@ const Dashboard = ({ closePanel }: { closePanel?: () => void }) => {
     }
   );
 
+  const isFullPage = !closePanel;
+
   if (!(activeJobs.length || expiredJobs.length)) {
     return (
       <>
-        {closePanel ? null : <PageIntro title="Tool results" />}
+        {isFullPage && <PageIntro title="Tool results" />}
+        {isFullPage && (
+          <Helmet>
+            <title>Tool results</title>
+          </Helmet>
+        )}
         <EmptyDashboard />
       </>
     );
@@ -44,7 +52,12 @@ const Dashboard = ({ closePanel }: { closePanel?: () => void }) => {
 
   return (
     <>
-      {closePanel ? null : <PageIntro title="Tool results" />}
+      {isFullPage && <PageIntro title="Tool results" />}
+      {isFullPage && (
+        <Helmet>
+          <title>Tool results</title>
+        </Helmet>
+      )}
       <p>
         Your tool analysis results from the last{' '}
         <ClockIcon height="1em" width="3ch" /> 7 days are listed below. For any
@@ -82,7 +95,7 @@ const Dashboard = ({ closePanel }: { closePanel?: () => void }) => {
           </>
         ) : null}
       </div>
-      {closePanel && (
+      {!isFullPage && (
         // both classnames from Franklin
         <div className="button-group sliding-panel__button-row">
           <Button

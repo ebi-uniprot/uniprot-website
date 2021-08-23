@@ -5,6 +5,7 @@ import {
   useHistory,
   generatePath,
 } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import { Loader, PageIntro, Tabs, Tab } from 'franklin-sites';
 
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
@@ -23,6 +24,7 @@ import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
 
 import { Location, LocationToPath } from '../../../../app/config/urls';
 import toolsURLs from '../../../config/urls';
+import namespaceToolTitles from '../../../../shared/config/namespaceToolTitles';
 
 import { AlignResults } from '../../types/alignResults';
 import { JobTypes } from '../../../types/toolsJobTypes';
@@ -32,6 +34,7 @@ import sticky from '../../../../shared/styles/sticky.module.scss';
 
 const jobType = JobTypes.ALIGN;
 const urls = toolsURLs(jobType);
+const title = `${namespaceToolTitles[jobType]} results`;
 
 // overview
 const AlignResultOverview = lazy(
@@ -139,7 +142,7 @@ const AlignResult = () => {
   }, [match, history]);
 
   // get data from the align endpoint
-  const { loading, data, error, status } = useDataApi<AlignResults>(
+  const { loading, data, error, status, progress } = useDataApi<AlignResults>(
     urls.resultUrl(match.params.id || '', { format: 'aln-clustal_num' })
   );
 
@@ -150,7 +153,7 @@ const AlignResult = () => {
   useMarkJobAsSeen(data, match.params.id);
 
   if (loading) {
-    return <Loader />;
+    return <Loader progress={progress} />;
   }
 
   if (error || !data || !match) {
@@ -168,6 +171,9 @@ const AlignResult = () => {
 
   return (
     <SingleColumnLayout className={sticky['sticky-tabs-container']}>
+      <Helmet>
+        <title>{title}</title>
+      </Helmet>
       <PageIntro title="Align Results" />
       <Tabs active={match.params.subPage}>
         <Tab
@@ -208,6 +214,9 @@ const AlignResult = () => {
             </Link>
           }
         >
+          <Helmet>
+            <title>{title} | Phylogenetic Tree</title>
+          </Helmet>
           {actionBar}
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
@@ -233,6 +242,9 @@ const AlignResult = () => {
             </Link>
           }
         >
+          <Helmet>
+            <title>{title} | Phylogenetic Tree</title>
+          </Helmet>
           {actionBar}
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
@@ -258,6 +270,9 @@ const AlignResult = () => {
             </Link>
           }
         >
+          <Helmet>
+            <title>{title} | Text Output</title>
+          </Helmet>
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
               <TextOutput id={match.params.id} jobType={jobType} />
@@ -277,6 +292,9 @@ const AlignResult = () => {
             </Link>
           }
         >
+          <Helmet>
+            <title>{title} | Input Parameters</title>
+          </Helmet>
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
               <InputParameters
@@ -300,6 +318,9 @@ const AlignResult = () => {
             </Link>
           }
         >
+          <Helmet>
+            <title>{title} | API Request</title>
+          </Helmet>
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
               <APIRequest jobType={jobType} inputParamsData={inputParamsData} />

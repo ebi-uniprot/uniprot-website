@@ -1,5 +1,6 @@
 import { ChangeEvent, useState, useEffect, useMemo, ReactNode } from 'react';
 import { RouteChildrenProps } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import { DataList, HelpIcon, Loader, SearchInput } from 'franklin-sites';
 import qs from 'query-string';
 import cn from 'classnames';
@@ -117,6 +118,9 @@ const Results = ({ history, location }: RouteChildrenProps) => {
         </>
       }
     >
+      <Helmet>
+        <title>{searchValue} in UniProt help</title>
+      </Helmet>
       <div className={styles['results-header']}>
         <HelperImage className={styles.helper} />
         <strong className={cn('tiny', styles.title)}>

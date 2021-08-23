@@ -1,7 +1,8 @@
 import { FC } from 'react';
-import { Loader } from 'franklin-sites';
 import { useSelector } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
+import { Loader } from 'franklin-sites';
 import { truncate } from 'lodash-es';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
@@ -19,6 +20,7 @@ import NoResultsPage from '../../../../shared/components/error-pages/NoResultsPa
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 
 import toolsURLs from '../../../config/urls';
+import namespaceToolTitles from '../../../../shared/config/namespaceToolTitles';
 import { LocationToPath, Location } from '../../../../app/config/urls';
 
 import Response from '../../../../uniprotkb/types/responseTypes';
@@ -30,6 +32,7 @@ import { Status } from '../../../types/toolsStatuses';
 
 const jobType = JobTypes.PEPTIDE_SEARCH;
 const urls = toolsURLs(jobType);
+const title = `${namespaceToolTitles[jobType]} results`;
 
 const PeptideSearchResult: FC = () => {
   const [selectedEntries, handleEntrySelection] = useItemSelect();
@@ -112,6 +115,9 @@ const PeptideSearchResult: FC = () => {
 
   return (
     <SideBarLayout sidebar={<ResultsFacets dataApiObject={facetApiObject} />}>
+      <Helmet>
+        <title>{title}</title>
+      </Helmet>
       <ResultsDataHeader
         total={total}
         selectedEntries={selectedEntries}

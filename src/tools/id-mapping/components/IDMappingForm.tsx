@@ -8,6 +8,7 @@ import {
 } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import {
   PageIntro,
   Message,
@@ -57,6 +58,8 @@ import { SelectedTaxon } from '../../types/toolsFormData';
 
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
+
+const title = namespaceToolTitles[JobTypes.ID_MAPPING];
 
 export type TreeDataNode = {
   label: string;
@@ -264,8 +267,6 @@ const IDMappingForm = () => {
     dndOverlay: <span>Drop your input file anywhere on this page</span>,
   });
 
-  const title = namespaceToolTitles[JobTypes.ID_MAPPING];
-
   const fromDbInfo = dbNameToDbInfo?.[fromDb.selected as string];
   const toDbInfo = dbNameToDbInfo?.[toDb.selected as string];
   const ruleInfo = fromDbInfo?.ruleId && ruleIdToRuleInfo?.[fromDbInfo.ruleId];
@@ -283,6 +284,9 @@ const IDMappingForm = () => {
 
   return (
     <>
+      <Helmet>
+        <title>{title}</title>
+      </Helmet>
       <PageIntro title={title} />
       <form
         onSubmit={submitIDMappingJob}

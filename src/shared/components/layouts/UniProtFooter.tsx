@@ -369,7 +369,7 @@ const FooterFunding = () => (
       url="https://www.sbfi.admin.ch/sbfi/en/home.html"
       title="State Secretariat for Education, Research and Innovation SERI"
     >
-      <img src={SERILogo} loading="lazy" alt="" />
+      <img src={SERILogo} width="288" height="48" loading="lazy" alt="" />
     </ExternalLink>
   </div>
 );

@@ -10,6 +10,7 @@ import {
   SetStateAction,
 } from 'react';
 import { useDispatch } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import {
   Chip,
   SequenceSubmission,
@@ -69,6 +70,8 @@ import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 
 const BLAST_LIMIT = 20;
+
+const title = namespaceToolTitles[JobTypes.BLAST];
 
 // https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3848038/
 const getAutoMatrixFor = (sequence: string): FormParameters['matrix'] => {
@@ -402,10 +405,11 @@ const BlastForm = () => {
     dndOverlay: <span>Drop your input file anywhere on this page</span>,
   });
 
-  const title = namespaceToolTitles[JobTypes.BLAST];
-
   return (
     <>
+      <Helmet>
+        <title>{title}</title>
+      </Helmet>
       <PageIntro title={title} />
       <form
         onSubmit={submitBlastJob}

@@ -1,4 +1,5 @@
 import { RouteChildrenProps } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import { Loader, Card, InfoList } from 'franklin-sites';
 import cn from 'classnames';
 import { pick } from 'lodash-es';
@@ -12,8 +13,12 @@ import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 
 import apiUrls, { getAPIQueryUrl } from '../../../../shared/config/apiUrls';
+import generatePageTitle from '../../adapters/generatePageTitle';
 
-import { Namespace } from '../../../../shared/types/namespaces';
+import {
+  Namespace,
+  NamespaceLabels,
+} from '../../../../shared/types/namespaces';
 import { TaxonomyAPIModel } from '../../adapters/taxonomyConverter';
 import TaxonomyColumnConfiguration, {
   TaxonomyColumn,
@@ -102,9 +107,12 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   return (
     <SingleColumnLayout>
+      <Helmet>
+        <title>{generatePageTitle(data)}</title>
+      </Helmet>
       <h1 className="big">
-        Taxonomy - {data.scientificName || data.taxonId}{' '}
-        <small>({data.rank})</small>
+        {NamespaceLabels[Namespace.taxonomy]} -{' '}
+        {data.scientificName || data.taxonId} <small>({data.rank})</small>
       </h1>
       <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
         <div className="button-group">

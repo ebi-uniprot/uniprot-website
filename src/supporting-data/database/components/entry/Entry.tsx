@@ -1,4 +1,5 @@
 import { RouteChildrenProps } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import { Loader, Card, InfoList } from 'franklin-sites';
 import cn from 'classnames';
 
@@ -11,7 +12,10 @@ import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
 import apiUrls from '../../../../shared/config/apiUrls';
 
-import { Namespace } from '../../../../shared/types/namespaces';
+import {
+  Namespace,
+  NamespaceLabels,
+} from '../../../../shared/types/namespaces';
 import { DatabaseAPIModel } from '../../adapters/databaseConverter';
 import DatabaseColumnConfiguration, {
   DatabaseColumn,
@@ -58,6 +62,13 @@ const DatabaseEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   return (
     <SingleColumnLayout>
+      <Helmet>
+        <title>
+          {data.abbrev} | {NamespaceLabels[Namespace.database]}
+        </title>
+        <meta name="description" content={data.name} />
+      </Helmet>
+      {/* Here we don't want to use the full label atm */}
       <h1 className="big">Database - {data.abbrev}</h1>
       <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
         <div className="button-group">

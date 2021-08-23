@@ -6,6 +6,7 @@ import {
   useLocation,
   generatePath,
 } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import { Loader, PageIntro, Tabs, Tab } from 'franklin-sites';
 
 import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
@@ -35,6 +36,7 @@ import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
 import { Location, LocationToPath } from '../../../../app/config/urls';
 import toolsURLs from '../../../config/urls';
 import { getAccessionsURL } from '../../../../shared/config/apiUrls';
+import namespaceToolTitles from '../../../../shared/config/namespaceToolTitles';
 
 import { BlastResults, BlastHit } from '../../types/blastResults';
 import Response from '../../../../uniprotkb/types/responseTypes';
@@ -48,6 +50,7 @@ import sticky from '../../../../shared/styles/sticky.module.scss';
 
 const jobType = JobTypes.BLAST;
 const urls = toolsURLs(jobType);
+const title = `${namespaceToolTitles[jobType]} results`;
 
 // overview
 const BlastResultTable = lazy(
@@ -239,19 +242,6 @@ const BlastResult = () => {
     )
   );
 
-  // list of all the accessions returned by the accessions endpoint
-  // const accessionsFilteredByServer = useMemo(
-  //   () =>
-  //     new Set(
-  //       (accessionsData &&
-  //         accessionsData.results.map(
-  //           ({ primaryAccession }) => primaryAccession
-  //         )) ||
-  //         []
-  //     ),
-  //   [accessionsData]
-  // );
-
   // filter BLAST results according to facets (through accession endpoint and other BLAST facets facets)
   const filteredBlastData =
     blastData &&
@@ -323,12 +313,13 @@ const BlastResult = () => {
   );
   return (
     <SideBarLayout
-      title={
-        <PageIntro title="BLAST Results" resultsCount={hitsFiltered.length} />
-      }
+      title={<PageIntro title={title} resultsCount={hitsFiltered.length} />}
       sidebar={sidebar}
       className={sticky['sticky-tabs-container']}
     >
+      <Helmet>
+        <title>{title}</title>
+      </Helmet>
       <Tabs
         active={match.params.subPage}
         className={accessionsLoading ? helper.stale : undefined}
@@ -379,6 +370,9 @@ const BlastResult = () => {
             </Link>
           }
         >
+          <Helmet>
+            <title>{title} | Taxonomy</title>
+          </Helmet>
           {actionBar}
           <BlastResultTaxonomy data={data} />
         </Tab>
@@ -395,6 +389,9 @@ const BlastResult = () => {
             </Link>
           }
         >
+          <Helmet>
+            <title>{title} | Hit Distribution</title>
+          </Helmet>
           {actionBar}
           <BlastResultHitDistribution
             loading={blastLoading || accessionsLoading}
@@ -415,6 +412,9 @@ const BlastResult = () => {
             </Link>
           }
         >
+          <Helmet>
+            <title>{title} | Text Output</title>
+          </Helmet>
           <Suspense fallback={<Loader />}>
             <TextOutput id={match.params.id} jobType={jobType} />
           </Suspense>
@@ -432,6 +432,9 @@ const BlastResult = () => {
             </Link>
           }
         >
+          <Helmet>
+            <title>{title} | Input Parameters</title>
+          </Helmet>
           <Suspense fallback={<Loader />}>
             <InputParameters
               id={match.params.id}
@@ -453,6 +456,9 @@ const BlastResult = () => {
             </Link>
           }
         >
+          <Helmet>
+            <title>{title} | API Request</title>
+          </Helmet>
           <Suspense fallback={<Loader />}>
             <APIRequest jobType={jobType} inputParamsData={inputParamsData} />
           </Suspense>

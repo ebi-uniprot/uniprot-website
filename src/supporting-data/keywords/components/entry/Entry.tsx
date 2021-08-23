@@ -1,4 +1,5 @@
 import { RouteChildrenProps } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import { Loader, Card, InfoList } from 'franklin-sites';
 import cn from 'classnames';
 
@@ -11,7 +12,10 @@ import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
 import apiUrls from '../../../../shared/config/apiUrls';
 
-import { Namespace } from '../../../../shared/types/namespaces';
+import {
+  Namespace,
+  NamespaceLabels,
+} from '../../../../shared/types/namespaces';
 import { KeywordsAPIModel } from '../../adapters/keywordsConverter';
 import KeywordsColumnConfiguration, {
   KeywordsColumn,
@@ -58,7 +62,15 @@ const KeywordsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   return (
     <SingleColumnLayout>
-      <h1 className="big">Keyword - {data.keyword.name}</h1>
+      <Helmet>
+        <title>
+          {data.keyword.name} | {NamespaceLabels[Namespace.keywords]}
+        </title>
+        <meta name="description" content={data.definition} />
+      </Helmet>
+      <h1 className="big">
+        {NamespaceLabels[Namespace.keywords]} - {data.keyword.name}
+      </h1>
       <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
         <div className="button-group">
           <EntryDownload />

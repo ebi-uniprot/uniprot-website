@@ -1,4 +1,5 @@
 import { Redirect, useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import { Message } from 'franklin-sites';
 
 import ErrorPage from './ErrorPage';
@@ -67,11 +68,17 @@ const ResourceNotFoundPage = () => {
   }
 
   return (
-    <ErrorPage
-      artwork={<ArtWork />}
-      message={<ErrorMessage />}
-      data-testid="error-page"
-    />
+    <>
+      <Helmet>
+        {/* Don't index 4xx pages */}
+        <meta name="robots" content="noindex" />
+      </Helmet>
+      <ErrorPage
+        artwork={<ArtWork />}
+        message={<ErrorMessage />}
+        data-testid="error-page"
+      />
+    </>
   );
 };
 

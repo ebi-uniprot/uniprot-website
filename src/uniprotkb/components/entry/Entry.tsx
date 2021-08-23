@@ -6,6 +6,7 @@ import {
   useHistory,
   generatePath,
 } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import {
   InPageNav,
   Loader,
@@ -59,6 +60,7 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import uniProtKbConverter, {
   UniProtkbAPIModel,
 } from '../../adapters/uniProtkbConverter';
+import generatePageTitle from '../../adapters/generatePageTitle';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
@@ -99,10 +101,13 @@ const Entry: FC = () => {
       apiUrls.entry(match?.params.accession, Namespace.uniprotkb)
     );
 
-  const transformedData = useMemo(
-    () => data && uniProtKbConverter(data),
-    [data]
-  );
+  const [transformedData, pageTitle] = useMemo(() => {
+    if (!data) {
+      return [];
+    }
+    const transformedData = uniProtKbConverter(data);
+    return [transformedData, generatePageTitle(transformedData)];
+  }, [data]);
 
   const sections = useMemo(() => {
     if (transformedData) {
@@ -217,6 +222,9 @@ const Entry: FC = () => {
       className={cn('entry-page', sticky['sticky-tabs-container'])}
       title={
         <ErrorBoundary>
+          <Helmet>
+            <title>{pageTitle}</title>
+          </Helmet>
           <h1 className="big">
             <EntryTitle
               mainTitle={data.primaryAccession}
@@ -306,6 +314,9 @@ const Entry: FC = () => {
           }
           id={TabLocation.FeatureViewer}
         >
+          <Helmet>
+            <title>{pageTitle} | Feature viewer</title>
+          </Helmet>
           <FeatureViewer accession={match.params.accession} />
         </Tab>
         <Tab
@@ -322,6 +333,9 @@ const Entry: FC = () => {
           }
           id={TabLocation.Publications}
         >
+          <Helmet>
+            <title>{pageTitle} | Publications</title>
+          </Helmet>
           <EntryPublications accession={match.params.accession} />
         </Tab>
         <Tab
@@ -338,6 +352,9 @@ const Entry: FC = () => {
           }
           id={TabLocation.ExternalLinks}
         >
+          <Helmet>
+            <title>{pageTitle} | External links</title>
+          </Helmet>
           <EntryExternalLinks transformedData={transformedData} />
         </Tab>
       </Tabs>

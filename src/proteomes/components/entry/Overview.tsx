@@ -1,4 +1,5 @@
 import { FC, useMemo } from 'react';
+import { Helmet } from 'react-helmet';
 import { Card, InfoList, ExternalLink, LongNumber } from 'franklin-sites';
 
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
@@ -115,6 +116,9 @@ export const Overview: FC<{
       <InfoList columns isCompact infoData={infoData} />
       {data.description && (
         <div className="description">
+          <Helmet>
+            <meta name="description" content={data.description} />
+          </Helmet>
           <hr />
           <p>{data.description}</p>
         </div>

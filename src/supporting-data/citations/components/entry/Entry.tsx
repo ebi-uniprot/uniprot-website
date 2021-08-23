@@ -1,4 +1,5 @@
 import { RouteChildrenProps } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import { Loader, Card } from 'franklin-sites';
 import { SetOptional } from 'type-fest';
 
@@ -11,7 +12,10 @@ import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
 import apiUrls from '../../../../shared/config/apiUrls';
 
-import { Namespace } from '../../../../shared/types/namespaces';
+import {
+  Namespace,
+  NamespaceLabels,
+} from '../../../../shared/types/namespaces';
 import { CitationsAPIModel } from '../../adapters/citationsConverter';
 
 import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
@@ -33,7 +37,13 @@ const CitationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   return (
     <SingleColumnLayout>
-      <h1 className="big">Literature citation</h1>
+      <Helmet>
+        <title>
+          {data.citation.title} | {NamespaceLabels[Namespace.citations]}
+        </title>
+        <meta name="description" content={data.citation.literatureAbstract} />
+      </Helmet>
+      <h1 className="big">{NamespaceLabels[Namespace.citations]}</h1>
       <Card className={entryPageStyles.card}>
         <div className="button-group">
           <EntryDownload />

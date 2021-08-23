@@ -6,6 +6,7 @@ import {
   useHistory,
   generatePath,
 } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import { stringify } from 'query-string';
 import { Loader, Tabs, Tab } from 'franklin-sites';
 
@@ -35,7 +36,7 @@ import { LocationToPath, Location } from '../../../app/config/urls';
 import uniParcConverter, {
   UniParcAPIModel,
 } from '../../adapters/uniParcConverter';
-import { Namespace } from '../../../shared/types/namespaces';
+import { Namespace, NamespaceLabels } from '../../../shared/types/namespaces';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
 
@@ -133,6 +134,13 @@ const Entry: FC = () => {
       className="entry-page"
       title={
         <ErrorBoundary>
+          <Helmet>
+            <title>
+              {`${transformedData.uniParcId} | ${
+                NamespaceLabels[Namespace.uniparc]
+              }`}
+            </title>
+          </Helmet>
           <h1 className="big">
             <EntryTitle
               mainTitle="UniParc"
@@ -182,11 +190,22 @@ const Entry: FC = () => {
           }
           id={TabLocation.FeatureViewer}
         >
-          {transformedData.sequenceFeatures && (
-            <UniParcFeaturesView
-              data={transformedData.sequenceFeatures}
-              sequence={transformedData.sequence.value}
-            />
+          {transformedData.sequenceFeatures ? (
+            <>
+              <Helmet>
+                <title>
+                  {`${transformedData.uniParcId} | ${
+                    NamespaceLabels[Namespace.uniparc]
+                  } | Feature viewer`}
+                </title>
+              </Helmet>
+              <UniParcFeaturesView
+                data={transformedData.sequenceFeatures}
+                sequence={transformedData.sequence.value}
+              />
+            </>
+          ) : (
+            'No features available'
           )}
         </Tab>
       </Tabs>

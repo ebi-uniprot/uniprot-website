@@ -6,6 +6,7 @@ import {
   PageIntro,
 } from 'franklin-sites';
 import { useLocation, useRouteMatch } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
 import ResultsData from '../../../../shared/components/results/ResultsData';
@@ -38,6 +39,7 @@ import Response from '../../../../uniprotkb/types/responseTypes';
 
 const jobType = JobTypes.ID_MAPPING;
 const urls = toolsURLs(jobType);
+const title = `${namespaceToolTitles[jobType]} results`;
 
 const IDMappingResult = () => {
   const match = useRouteMatch<{ id: string }>(
@@ -120,6 +122,14 @@ const IDMappingResult = () => {
 
   return (
     <SideBarLayout sidebar={<ResultsFacets dataApiObject={facetsData} />}>
+      <Helmet>
+        <title>
+          {title}
+          {namespaceOverride !== Namespace.idmapping
+            ? ` | ${namespaceToolTitles[namespaceOverride]}`
+            : ''}
+        </title>
+      </Helmet>
       <PageIntro
         title={namespaceToolTitles[namespaceOverride]}
         titlePostscript={
