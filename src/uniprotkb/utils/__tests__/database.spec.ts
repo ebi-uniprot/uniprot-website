@@ -48,8 +48,8 @@ test('selectDatabases', () => {
   const select = selectDatabases(databaseCategoryToNames);
   const selected = select({
     categories: [DatabaseCategory.STRUCTURE],
-    whitelist: ['EvolutionaryTrace'],
-    blacklist: ['PDB', 'PDBsum'],
+    include: ['EvolutionaryTrace'],
+    exclude: ['PDB', 'PDBsum'],
   });
   expect(selected).toEqual([
     'ModBase',

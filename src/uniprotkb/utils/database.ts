@@ -43,12 +43,12 @@ export const selectDatabases =
   (databaseCategoryToNames: Map<DatabaseCategory, string[]>) =>
   ({
     categories = [],
-    whitelist = [],
-    blacklist = [],
+    include = [],
+    exclude = [],
   }: {
     categories?: string[];
-    whitelist?: string[];
-    blacklist?: string[];
+    include?: string[];
+    exclude?: string[];
   }) =>
     [
       ...flatten(
@@ -57,8 +57,8 @@ export const selectDatabases =
             databaseCategoryToNames.get(category as DatabaseCategory) || []
         )
       ),
-      ...whitelist,
-    ].filter((db) => !blacklist.includes(db));
+      ...include,
+    ].filter((db) => !exclude.includes(db));
 
 export const getEntrySectionToDatabaseCategoryOrder = (
   entrySectionToDatabaseNames: Map<EntrySection, string[]>,

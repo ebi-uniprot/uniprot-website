@@ -48,14 +48,14 @@ entrySectionToDatabaseNames.set(
   EntrySection.Expression,
   databaseSelector({
     categories: [DatabaseCategory.EXPRESSION],
-    whitelist: ['HPA'],
+    include: ['HPA'],
   })
 );
 entrySectionToDatabaseNames.set(
   EntrySection.FamilyAndDomains,
   databaseSelector({
     categories: [DatabaseCategory.PHYLOGENOMIC, DatabaseCategory.DOMAIN],
-    whitelist: [
+    include: [
       'MobiDB', // Implicit
       'ProtoNet', // Implicit
       'GPCRDB', // Implicit
@@ -66,14 +66,14 @@ entrySectionToDatabaseNames.set(
   EntrySection.Function,
   databaseSelector({
     categories: [DatabaseCategory.PATHWAY, DatabaseCategory.FAMILY],
-    whitelist: ['SwissLipids'],
+    include: ['SwissLipids'],
   })
 );
 entrySectionToDatabaseNames.set(
   EntrySection.Interaction,
   databaseSelector({
     categories: [DatabaseCategory.INTERACTION],
-    whitelist: ['BindingDB'],
+    include: ['BindingDB'],
   })
 );
 entrySectionToDatabaseNames.set(EntrySection.NamesAndTaxonomy, [
@@ -127,7 +127,7 @@ entrySectionToDatabaseNames.set(
       DatabaseCategory.GEL,
       DatabaseCategory.PTM,
     ],
-    whitelist: ['PMAP-CutDB'],
+    include: ['PMAP-CutDB'],
   })
 );
 entrySectionToDatabaseNames.set(
@@ -140,7 +140,7 @@ entrySectionToDatabaseNames.set(
   EntrySection.Structure,
   databaseSelector({
     categories: [DatabaseCategory.STRUCTURE],
-    whitelist: [
+    include: [
       'EvolutionaryTrace',
       'ModBase', // Implicit
     ],
@@ -152,7 +152,7 @@ entrySectionToDatabaseNames.set(
   EntrySection.ExternalLinks,
   databaseSelector({
     categories: [DatabaseCategory.OTHER, DatabaseCategory.PROTOCOL],
-    whitelist: [
+    include: [
       'HUGE', // Implicit
       'Rouge', // Implicit
       'GenAtlas', // Implicit
