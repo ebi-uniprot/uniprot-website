@@ -500,8 +500,10 @@ exports[`HomePage component should render 1`] = `
         >
           <img
             alt=""
+            height="48"
             loading="lazy"
             src="test-file-stub"
+            width="288"
           />
         </a>
       </div>
