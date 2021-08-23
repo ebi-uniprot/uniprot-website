@@ -83,7 +83,7 @@ entrySectionToDatabaseNames.set(EntrySection.NamesAndTaxonomy, [
   'ConoServer',
   'dictyBase',
   'EcoGene',
-  'EuPathDB',
+  'VEuPathDB',
   'FlyBase',
   'Gramene',
   'HGNC',
@@ -154,7 +154,7 @@ entrySectionToDatabaseNames.set(
     categories: [DatabaseCategory.OTHER, DatabaseCategory.PROTOCOL],
     whitelist: [
       'HUGE', // Implicit
-      'ROUGE', // Implicit
+      'Rouge', // Implicit
       'GenAtlas', // Implicit
       ...PDBMirrors,
     ],
@@ -209,7 +209,7 @@ export const implicitDatabaseGenePatternOrganism = {
   pattern: /KIAA\d{4}/i,
   organism: {
     Human: 'HUGE', // eg Q96PV4
-    Mouse: 'ROUGE', // eg Q8CJ19
+    Mouse: 'Rouge', // eg Q8CJ19
   },
 };
 
