@@ -10,7 +10,7 @@ import toolsURLs from '../config/urls';
 import { PublicServerParameters } from '../types/toolsServerParameters';
 import { JobTypes } from '../types/toolsJobTypes';
 
-// black list data that is just there as information and cannot be set
+// exclude data that is just there as information and cannot be set
 const exclude = new Map<JobTypes, string[]>([
   [JobTypes.ALIGN, ['program', 'version']],
 ]);
