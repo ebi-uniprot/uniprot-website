@@ -236,7 +236,7 @@ export enum UniProtKBColumn {
   xrefMint = 'xref_mint',
   xrefMoondb = 'xref_moondb',
   xrefMoonprot = 'xref_moonprot',
-  xrefMycoclap = 'xref_mycoclap',
+  xrefClae = 'xref_clae',
   xrefNextprot = 'xref_nextprot',
   xrefNiagads = 'xref_niagads',
   xrefOgp = 'xref_ogp',
