@@ -1,10 +1,19 @@
 import { DatabaseInfo } from '../types/databaseRefs';
 
+/*
 // https://wwwdev.ebi.ac.uk/uniprot/api/configure/uniprotkb/allDatabases
 // JIRA: https://www.ebi.ac.uk/panda/jira/browse/TRM-24060
 
 // Source: https://www.ebi.ac.uk/uniprot/beta/api/configure/uniprotkb/allDatabases
-// Retrieved on 2021-08-20
+// Retrieved on 2021-08-21
+
+TODO: The folllowing changes have been applied here which are back end are going to incorporate in the served file too.
+Ensure that this has been done before switching over to using the allDatabases endpoint 
+ 1. All null and false values have been removed
+ 2. All uriLink param: %accession --> %primaryAccession
+ 3. All uriLink param: %src64 --> %crc64 
+ 4. PDBe-KB uriLink param: %id --> %primaryAccession 
+*/
 
 const databaseInfo: DatabaseInfo = [
   {
@@ -133,7 +142,7 @@ const databaseInfo: DatabaseInfo = [
     displayName: 'ModBase',
     category: '3DS',
     uriLink:
-      'http://salilab.org/modbase-cgi/model_search.cgi?searchkw=name&kword=%accession',
+      'http://salilab.org/modbase-cgi/model_search.cgi?searchkw=name&kword=%primaryAccession',
     attributes: [{ name: 'Description', xmlTag: 'description' }],
     implicit: true,
     linkedReason: 'All UniProtKB entries',
@@ -142,7 +151,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'SMR',
     displayName: 'SMR',
     category: '3DS',
-    uriLink: 'https://swissmodel.expasy.org/repository/uniprot/%id?csm=%src64',
+    uriLink: 'https://swissmodel.expasy.org/repository/uniprot/%id?csm=%crc64',
     attributes: [{ name: 'Description', xmlTag: 'description' }],
   },
   {
@@ -150,7 +159,7 @@ const databaseInfo: DatabaseInfo = [
     displayName: 'SWISS-MODEL-Workspace',
     category: '3DS',
     uriLink:
-      'http://salilab.org/modbase-cgi/model_search.cgi?searchkw=name&kword=%accession',
+      'http://salilab.org/modbase-cgi/model_search.cgi?searchkw=name&kword=%primaryAccession',
     attributes: [{ name: 'Description', xmlTag: 'description' }],
     implicit: true,
     linkedReason: 'DR:SMR<1',
@@ -159,7 +168,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'PDBe-KB',
     displayName: 'PDBe-KB',
     category: '3DS',
-    uriLink: 'https://pdbe-kb.org/proteins/%id',
+    uriLink: 'https://pdbe-kb.org/proteins/%primaryAccession',
     attributes: [{ name: 'Description', xmlTag: 'description' }],
     implicit: true,
     linkedReason: 'DR: PDB',
@@ -1168,7 +1177,7 @@ const databaseInfo: DatabaseInfo = [
     displayName: 'eggNOG',
     category: 'PLG',
     uriLink:
-      'http://eggnogdb.embl.de/#/app/results?seqid=%accession&target_nogs=%id',
+      'http://eggnogdb.embl.de/#/app/results?seqid=%primaryAccession&target_nogs=%id',
     attributes: [{ name: 'ToxonomicScope', xmlTag: 'taxonomic scope' }],
     idMappingName: 'EGGNOG_ID',
   },
@@ -1246,14 +1255,15 @@ const databaseInfo: DatabaseInfo = [
     displayName: 'BRENDA',
     category: 'EAP',
     uriLink:
-      'https://www.brenda-enzymes.org/enzyme.php?ecno=%id&UniProtAcc=%accession&OrganismID=%OrganismId',
+      'https://www.brenda-enzymes.org/enzyme.php?ecno=%id&UniProtAcc=%primaryAccession&OrganismID=%OrganismId',
     attributes: [{ name: 'OrganismId', xmlTag: 'organism ID' }],
   },
   {
     name: 'Reactome',
     displayName: 'Reactome',
     category: 'EAP',
-    uriLink: 'https://www.reactome.org/PathwayBrowser/#%id&FLG=%accession',
+    uriLink:
+      'https://www.reactome.org/PathwayBrowser/#%id&FLG=%primaryAccession',
     attributes: [{ name: 'PathwayName', xmlTag: 'pathway name' }],
     idMappingName: 'REACTOME_ID',
   },
@@ -1292,7 +1302,7 @@ const databaseInfo: DatabaseInfo = [
     displayName: 'PlantReactome',
     category: 'EAP',
     uriLink:
-      'https://plantreactome.gramene.org/PathwayBrowser/#/%id&FLG=%accession',
+      'https://plantreactome.gramene.org/PathwayBrowser/#/%id&FLG=%primaryAccession',
     attributes: [{ name: 'pathwayName', xmlTag: 'pathway name' }],
     idMappingName: 'PLANT_REACTOME_ID',
   },
@@ -1550,7 +1560,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'MobiDB',
     displayName: 'MobiDB',
     category: 'FMD',
-    uriLink: 'http://mobidb.bio.unipd.it/entries/%accession',
+    uriLink: 'http://mobidb.bio.unipd.it/entries/%primaryAccession',
     attributes: [{ name: 'Description', xmlTag: 'description' }],
     implicit: true,
     linkedReason: 'All UniProtKB entries',
@@ -1559,7 +1569,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'ProtoNet',
     displayName: 'ProtoNet',
     category: 'FMD',
-    uriLink: 'http://www.protonet.cs.huji.ac.il/sp.php?prot=%accession',
+    uriLink: 'http://www.protonet.cs.huji.ac.il/sp.php?prot=%primaryAccession',
     attributes: [{ name: 'Description', xmlTag: 'description' }],
     implicit: true,
     linkedReason: 'All UniProtKB entries',
