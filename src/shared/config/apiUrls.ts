@@ -465,3 +465,18 @@ export const help = {
     })}`;
   },
 };
+
+export const unisave = {
+  accession: (accession: string) =>
+    accession && joinUrl(apiPrefix, '/unisave', accession),
+  status: (accession: string) =>
+    accession && joinUrl(apiPrefix, '/unisave', accession, 'status'),
+  diff: (accession: string, version1: number, version2: number) =>
+    accession &&
+    `${joinUrl(
+      apiPrefix,
+      '/unisave',
+      accession,
+      'diff'
+    )}?version1=${version1}&version2=${version2}`,
+};
