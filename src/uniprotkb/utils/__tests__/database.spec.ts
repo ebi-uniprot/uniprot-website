@@ -50,6 +50,9 @@ test('selectDatabases', () => {
     exclude: ['PDB', 'PDBsum'],
   });
   expect(selected).toEqual([
+    'PCDDB',
+    'SASBDB',
+    'BMRB',
     'ModBase',
     'SMR',
     'SWISS-MODEL-Workspace',

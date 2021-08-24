@@ -1,11 +1,10 @@
 import { DatabaseInfo } from '../types/databaseRefs';
 
 /*
-// https://wwwdev.ebi.ac.uk/uniprot/api/configure/uniprotkb/allDatabases
-// JIRA: https://www.ebi.ac.uk/panda/jira/browse/TRM-24060
+JIRA: https://www.ebi.ac.uk/panda/jira/browse/TRM-24060
 
-// Source: https://www.ebi.ac.uk/uniprot/beta/api/configure/uniprotkb/allDatabases
-// Retrieved on 2021-08-21
+Source: https://www.ebi.ac.uk/uniprot/beta/api/configure/uniprotkb/allDatabases
+ Retrieved on 2021-08-21
 
 TODO: The folllowing changes have been applied here which are back end are going to incorporate in the served file too.
 Ensure that this has been done before switching over to using the allDatabases endpoint 
