@@ -190,7 +190,7 @@ export const expectedDatabaseCategoryToNames = [
       'SABIO-RK',
       'SignaLink',
       'SIGNOR',
-      'UniPathway',
+      // 'UniPathway', // TODO: update depending on outcome of https://www.ebi.ac.uk/panda/jira/browse/TRM-26489
       'PlantReactome',
       'ENZYME',
       'PathwayCommons',
@@ -383,7 +383,7 @@ export const expectedDatabaseNameToCategory = [
   ['SABIO-RK', 'EAP'],
   ['SignaLink', 'EAP'],
   ['SIGNOR', 'EAP'],
-  ['UniPathway', 'EAP'],
+  // ['UniPathway', 'EAP'], // TODO: update depending on outcome of https://www.ebi.ac.uk/panda/jira/browse/TRM-26489
   ['PlantReactome', 'EAP'],
   ['ENZYME', 'EAP'],
   ['ChiTaRS', 'OTHER'],
