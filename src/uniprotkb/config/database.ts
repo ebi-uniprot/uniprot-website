@@ -44,6 +44,22 @@ export const PDBMirrorsInfo = PDBMirrors.map(
 const databaseSelector = selectDatabases(databaseCategoryToNames);
 
 export const entrySectionToDatabaseNames = new Map<EntrySection, string[]>();
+entrySectionToDatabaseNames.set(EntrySection.DiseaseAndDrugs, [
+  'DisGeNET',
+  'GeneReviews',
+  'MalaCards',
+  'MIM',
+  'OpenTargets',
+  'Orphanet',
+  'PharmGKB',
+  'ChEMBL',
+  'DrugBank',
+  'GuidetoPHARMACOLOGY',
+  'BioMuta',
+  'DMDM',
+  'Allergome',
+  'PHI-base',
+]);
 entrySectionToDatabaseNames.set(
   EntrySection.Expression,
   databaseSelector({
@@ -103,21 +119,6 @@ entrySectionToDatabaseNames.set(EntrySection.NamesAndTaxonomy, [
   'WormBase',
   'Xenbase',
   'ZFIN',
-]);
-entrySectionToDatabaseNames.set(EntrySection.DiseaseAndDrugs, [
-  'DisGeNET',
-  'GeneReviews',
-  'MalaCards',
-  'MIM',
-  'OpenTargets',
-  'Orphanet',
-  'PharmGKB',
-  'ChEMBL',
-  'DrugBank',
-  'GuidetoPHARMACOLOGY',
-  'BioMuta',
-  'DMDM',
-  'Allergome',
 ]);
 entrySectionToDatabaseNames.set(
   EntrySection.ProteinProcessing,
