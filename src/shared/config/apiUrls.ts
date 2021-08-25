@@ -467,8 +467,30 @@ export const help = {
 };
 
 export const unisave = {
-  accession: (accession: string) =>
-    accession && joinUrl(apiPrefix, '/unisave', accession),
+  accession: (
+    accession: string,
+    {
+      format,
+      entryVersions,
+      download,
+      includeContent,
+    }: {
+      format: 'json' | 'fasta' | 'txt';
+      entryVersions?: number | number[];
+      download?: boolean;
+      includeContent?: boolean;
+    } = { format: 'json' }
+  ) =>
+    accession &&
+    `${joinUrl(apiPrefix, '/unisave', accession)}?${queryString.stringify(
+      {
+        format,
+        versions: entryVersions,
+        download: download ? 'true' : undefined,
+        includeContent: includeContent ? 'true' : undefined,
+      },
+      { arrayFormat: 'comma' }
+    )}`,
   status: (accession: string) =>
     accession && joinUrl(apiPrefix, '/unisave', accession, 'status'),
   diff: (accession: string, version1: number, version2: number) =>
@@ -478,5 +500,5 @@ export const unisave = {
       '/unisave',
       accession,
       'diff'
-    )}?version1=${version1}&version2=${version2}`,
+    )}?${queryString.stringify({ version1, version2 })}`,
 };

@@ -27,3 +27,17 @@ export type UniSaveStatus = {
   accession: string;
   events: UniSaveEvent[];
 };
+
+export type DiffEntry = {
+  content: string;
+  entryVersion: number;
+};
+
+export type UniSaveDiff = {
+  accession: string;
+  diffInfo: {
+    diff: string;
+    entry1: DiffEntry;
+    entry2: DiffEntry;
+  };
+};

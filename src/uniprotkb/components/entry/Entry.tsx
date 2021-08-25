@@ -390,7 +390,7 @@ const Entry: FC = () => {
           onFocus={EntryHistory.preload}
         >
           <Suspense fallback={<Loader />}>
-            <EntryHistory transformedData={transformedData} />
+            <EntryHistory accession={match.params.accession} />
           </Suspense>
         </Tab>
       </Tabs>
