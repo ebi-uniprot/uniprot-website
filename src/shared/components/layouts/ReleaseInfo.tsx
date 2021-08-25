@@ -7,6 +7,7 @@ import apiUrls from '../../config/apiUrls';
 
 import { Namespace } from '../../types/namespaces';
 
+import helper from '../../styles/helper.module.scss';
 import './styles/release-info.scss';
 
 const fetchOptions: { method: Method } = { method: 'HEAD' };
@@ -23,7 +24,7 @@ const ReleaseInfo = () => {
   const releaseNumber = headers?.['x-release-number'];
 
   return (
-    <span className="release-info">
+    <span className={cn('release-info', helper['no-wrap'])}>
       <span
         className={cn(
           { 'release-info__placeholder': !releaseNumber },
