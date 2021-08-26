@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import { CitedIcon, EnvelopeIcon, ExternalLink } from 'franklin-sites';
 
+import ReleaseInfo from './ReleaseInfo';
+
 import { Location, LocationToPath } from '../../../app/config/urls';
 
 import helper from '../../styles/helper.module.scss';
@@ -24,7 +26,6 @@ import SERILogo from '../../../images/seri-logo.png';
 
 import ElixirCDRLogo from '../../../images/elixir-cdr.png';
 import CTSLogo from '../../../images/core-trust-seal-logo.png';
-import ReleaseInfo from './ReleaseInfo';
 
 const FooterConsortium = () => (
   <div className="consortium">
