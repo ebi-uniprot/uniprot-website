@@ -727,10 +727,8 @@ exports[`non-critical HomePage component should render 1`] = `
       class="uniprot-grid-cell--span-3 need-help__need-help-bottom"
     >
       <a
-        class="external-link help-center-link"
-        href="https://www.uniprot.org/help/"
-        rel="noopener"
-        target="_blank"
+        class="help-center-link"
+        href="/help"
       >
         Help center
       </a>
@@ -934,10 +932,8 @@ exports[`non-critical HomePage component should render 1`] = `
         <test-file-stub />
       </div>
       <a
-        class="external-link tile__main-content"
-        href="https://www.uniprot.org/help/technical"
-        rel="noopener"
-        target="_blank"
+        class="tile__main-content"
+        href="/help/technical"
       >
         <span>
           <h3
@@ -964,10 +960,8 @@ exports[`non-critical HomePage component should render 1`] = `
         <test-file-stub />
       </div>
       <a
-        class="external-link tile__main-content"
-        href="https://www.uniprot.org/help/programmatic_access"
-        rel="noopener"
-        target="_blank"
+        class="tile__main-content"
+        href="/help/programmatic_access"
       >
         <span>
           <h3
@@ -994,10 +988,8 @@ exports[`non-critical HomePage component should render 1`] = `
         <test-file-stub />
       </div>
       <a
-        class="external-link tile__main-content"
-        href="https://www.uniprot.org/help/submissions"
-        rel="noopener"
-        target="_blank"
+        class="tile__main-content"
+        href="/help/submissions"
       >
         <span>
           <h3

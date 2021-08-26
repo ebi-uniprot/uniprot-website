@@ -86,29 +86,20 @@ exports[`HomePage component should render 1`] = `
       >
         <p>
           <a
-            class="external-link"
-            href="https://www.uniprot.org/help/about"
-            rel="noopener"
-            target="_blank"
+            href="/help/about"
           >
             © 2002 – 2021 UniProt consortium
           </a>
         </p>
         <p>
           <a
-            class="external-link"
-            href="https://www.uniprot.org/help/license"
-            rel="noopener"
-            target="_blank"
+            href="/help/license"
           >
             License & Disclaimer
           </a>
            | 
           <a
-            class="external-link"
-            href="https://www.uniprot.org/help/privacy"
-            rel="noopener"
-            target="_blank"
+            href="/help/privacy"
           >
             Privacy Notice
           </a>
@@ -268,10 +259,7 @@ exports[`HomePage component should render 1`] = `
           >
             <li>
               <a
-                class="external-link"
-                href="https://www.uniprot.org/help/publications"
-                rel="noopener"
-                target="_blank"
+                href="/help/publications"
               >
                 Cite 
                 <span
@@ -288,49 +276,34 @@ exports[`HomePage component should render 1`] = `
             </li>
             <li>
               <a
-                class="external-link"
-                href="https://www.uniprot.org/help/about"
-                rel="noopener"
-                target="_blank"
+                href="/help/about"
               >
                 About
               </a>
                & 
               <a
-                class="external-link"
-                href="https://www.uniprot.org/help"
-                rel="noopener"
-                target="_blank"
+                href="/help"
               >
                 Help
               </a>
             </li>
             <li>
               <a
-                class="external-link"
-                href="https://www.uniprot.org/help/?fil=section:manual"
-                rel="noopener"
-                target="_blank"
+                href="/help?query=*&facets=category:manual"
               >
                 UniProtKB manual
               </a>
             </li>
             <li>
               <a
-                class="external-link"
-                href="https://www.uniprot.org/help/technical"
-                rel="noopener"
-                target="_blank"
+                href="/help/technical"
               >
                 Technical corner
               </a>
             </li>
             <li>
               <a
-                class="external-link"
-                href="https://www.uniprot.org/help/?query=*&fil=section:biocuration"
-                rel="noopener"
-                target="_blank"
+                href="/help?query=*&facets=category:biocuration"
               >
                 Expert biocuration
               </a>
@@ -462,10 +435,7 @@ exports[`HomePage component should render 1`] = `
         <span>
           Main 
           <a
-            class="external-link"
-            href="https://www.uniprot.org/help/about"
-            rel="noopener"
-            target="_blank"
+            href="/help/about"
           >
             funding
           </a>
