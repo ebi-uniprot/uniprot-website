@@ -1,7 +1,5 @@
 import { UniProtkbUIModel } from './uniProtkbConverter';
 
-import { Namespace, NamespaceLabels } from '../../shared/types/namespaces';
-
 export default (data: UniProtkbUIModel) => {
   const geneName =
     data['names-and-taxonomy'].geneNamesData?.[0].geneName?.value;
@@ -25,7 +23,5 @@ export default (data: UniProtkbUIModel) => {
         data['names-and-taxonomy'].organismData?.taxonId;
     }
   }
-  return `${[geneName, proteinName, organismName]
-    .filter(Boolean)
-    .join(' - ')} | ${NamespaceLabels[Namespace.uniprotkb]}`;
+  return `${[geneName, proteinName, organismName].filter(Boolean).join(' - ')}`;
 };

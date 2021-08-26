@@ -1,11 +1,12 @@
 import { Redirect, useLocation } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
 import { Message } from 'franklin-sites';
 
+import HTMLHead from '../HTMLHead';
 import ErrorPage from './ErrorPage';
 
-import ArtWork from './svgs/404.svg';
 import { Namespace } from '../../types/namespaces';
+
+import ArtWork from './svgs/404.svg';
 
 // Regular expression magic incantations 🪄
 const redirectMap = new Map<RegExp, string>([
@@ -69,10 +70,10 @@ const ResourceNotFoundPage = () => {
 
   return (
     <>
-      <Helmet>
+      <HTMLHead>
         {/* Don't index 4xx pages */}
         <meta name="robots" content="noindex" />
-      </Helmet>
+      </HTMLHead>
       <ErrorPage
         artwork={<ArtWork />}
         message={<ErrorMessage />}

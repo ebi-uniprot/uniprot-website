@@ -1,9 +1,9 @@
 import { RouteChildrenProps } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
 import { Loader, Card, InfoList } from 'franklin-sites';
 import cn from 'classnames';
 import { pick } from 'lodash-es';
 
+import HTMLHead from '../../../../shared/components/HTMLHead';
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import EntryDownload from '../../../shared/components/EntryDownload';
@@ -107,9 +107,9 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   return (
     <SingleColumnLayout>
-      <Helmet>
-        <title>{generatePageTitle(data)}</title>
-      </Helmet>
+      <HTMLHead
+        title={[generatePageTitle(data), NamespaceLabels[Namespace.taxonomy]]}
+      />
       <h1 className="big">
         {NamespaceLabels[Namespace.taxonomy]} -{' '}
         {data.scientificName || data.taxonId} <small>({data.rank})</small>

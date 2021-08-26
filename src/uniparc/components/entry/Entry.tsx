@@ -6,10 +6,10 @@ import {
   useHistory,
   generatePath,
 } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
 import { stringify } from 'query-string';
 import { Loader, Tabs, Tab } from 'franklin-sites';
 
+import HTMLHead from '../../../shared/components/HTMLHead';
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import EntryMain from './EntryMain';
 import UniParcFeaturesView from './UniParcFeaturesView';
@@ -134,13 +134,12 @@ const Entry: FC = () => {
       className="entry-page"
       title={
         <ErrorBoundary>
-          <Helmet>
-            <title>
-              {`${transformedData.uniParcId} | ${
-                NamespaceLabels[Namespace.uniparc]
-              }`}
-            </title>
-          </Helmet>
+          <HTMLHead
+            title={[
+              transformedData.uniParcId,
+              NamespaceLabels[Namespace.uniparc],
+            ]}
+          />
           <h1 className="big">
             <EntryTitle
               mainTitle="UniParc"
@@ -192,13 +191,13 @@ const Entry: FC = () => {
         >
           {transformedData.sequenceFeatures ? (
             <>
-              <Helmet>
-                <title>
-                  {`${transformedData.uniParcId} | ${
-                    NamespaceLabels[Namespace.uniparc]
-                  } | Feature viewer`}
-                </title>
-              </Helmet>
+              <HTMLHead
+                title={[
+                  transformedData.uniParcId,
+                  'Feature viewer',
+                  NamespaceLabels[Namespace.uniparc],
+                ]}
+              />
               <UniParcFeaturesView
                 data={transformedData.sequenceFeatures}
                 sequence={transformedData.sequence.value}

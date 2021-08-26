@@ -9,7 +9,6 @@ import {
   SetStateAction,
 } from 'react';
 import { useDispatch } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import {
   SequenceSubmission,
   PageIntro,
@@ -22,6 +21,7 @@ import { sleep } from 'timing-functions';
 import { v1 } from 'uuid';
 import cn from 'classnames';
 
+import HTMLHead from '../../../shared/components/HTMLHead';
 import SequenceSearchLoader, {
   ParsedSequence,
 } from '../../components/SequenceSearchLoader';
@@ -256,9 +256,7 @@ const AlignForm = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{title}</title>
-      </Helmet>
+      <HTMLHead title={title} />
       <PageIntro title={title} />
       <form
         onSubmit={submitAlignJob}

@@ -218,9 +218,7 @@ const App = () => {
   return (
     <FranklinSite>
       <Router history={history}>
-        <Helmet>
-          {/* default title, to override wherever needed */}
-          <title>UniProt</title>
+        <Helmet titleTemplate="%s | UniProt" defaultTitle="UniProt">
           <meta
             name="description"
             // default description, to override wherever needed

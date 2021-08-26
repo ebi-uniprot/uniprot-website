@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
 import { Loader } from 'franklin-sites';
 
+import HTMLHead from '../../../shared/components/HTMLHead';
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import Overview from '../data-views/Overview';
 import EntryMain from './EntryMain';
@@ -78,13 +78,12 @@ const Entry: FC = () => {
       className="entry-page"
       title={
         <ErrorBoundary>
-          <Helmet>
-            <title>
-              {`${transformedData.name} - ${transformedData.id} (${
-                transformedData.identity
-              }%) | ${NamespaceLabels[Namespace.uniref]}`}
-            </title>
-          </Helmet>
+          <HTMLHead
+            title={[
+              `${transformedData.name} - ${transformedData.id} (${transformedData.identity}%)`,
+              NamespaceLabels[Namespace.uniref],
+            ]}
+          />
           <h1 className="big">
             <EntryTitle
               mainTitle="UniRef"

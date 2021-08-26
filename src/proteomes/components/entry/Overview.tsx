@@ -1,7 +1,7 @@
-import { FC, useMemo } from 'react';
-import { Helmet } from 'react-helmet';
+import { useMemo } from 'react';
 import { Card, InfoList, ExternalLink, LongNumber } from 'franklin-sites';
 
+import HTMLHead from '../../../shared/components/HTMLHead';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import { EntryTypeIcon } from '../../../shared/components/entry/EntryTypeIcon';
 import BuscoView from '../BuscoView';
@@ -18,9 +18,7 @@ import { ProteomesUIModel } from '../../adapters/proteomesConverter';
 
 import '../styles/overview.scss';
 
-export const Overview: FC<{
-  data: ProteomesUIModel;
-}> = ({ data }) => {
+export const Overview = ({ data }: { data: ProteomesUIModel }) => {
   const infoData = useMemo(() => {
     const renderColumnAsInfoListItem = (column: ProteomesColumn) => {
       const config = ProteomesColumnConfiguration.get(column);
@@ -116,9 +114,9 @@ export const Overview: FC<{
       <InfoList columns isCompact infoData={infoData} />
       {data.description && (
         <div className="description">
-          <Helmet>
+          <HTMLHead>
             <meta name="description" content={data.description} />
-          </Helmet>
+          </HTMLHead>
           <hr />
           <p>{data.description}</p>
         </div>

@@ -6,8 +6,8 @@ import {
   PageIntro,
 } from 'franklin-sites';
 import { useLocation, useRouteMatch } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
 
+import HTMLHead from '../../../../shared/components/HTMLHead';
 import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
 import ResultsData from '../../../../shared/components/results/ResultsData';
 import ResultsButtons from '../../../../shared/components/results/ResultsButtons';
@@ -122,14 +122,13 @@ const IDMappingResult = () => {
 
   return (
     <SideBarLayout sidebar={<ResultsFacets dataApiObject={facetsData} />}>
-      <Helmet>
-        <title>
-          {title}
-          {namespaceOverride !== Namespace.idmapping
-            ? ` | ${namespaceToolTitles[namespaceOverride]}`
-            : ''}
-        </title>
-      </Helmet>
+      <HTMLHead
+        title={[
+          title,
+          namespaceOverride !== Namespace.idmapping &&
+            namespaceToolTitles[namespaceOverride],
+        ]}
+      />
       <PageIntro
         title={namespaceToolTitles[namespaceOverride]}
         titlePostscript={

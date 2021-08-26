@@ -1,9 +1,9 @@
 import { lazy, Suspense } from 'react';
-import { Helmet } from 'react-helmet';
 import { Card, Loader, Message } from 'franklin-sites';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
+import HTMLHead from '../../../shared/components/HTMLHead';
 import FreeTextView, { TextView } from '../protein-data-views/FreeTextView';
 import CatalyticActivityView from '../protein-data-views/CatalyticActivityView';
 import KeywordView from '../protein-data-views/KeywordView';
@@ -179,9 +179,9 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
       data-entry-section
     >
       {firstFunction && (
-        <Helmet>
+        <HTMLHead>
           <meta name="description" content={firstFunction} />
-        </Helmet>
+        </HTMLHead>
       )}
       <FreeTextView
         comments={data.commentsData.get('FUNCTION') as FreeTextComment[]}

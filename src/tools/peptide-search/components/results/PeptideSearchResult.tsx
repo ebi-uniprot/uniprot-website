@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
 import { Loader } from 'franklin-sites';
 import { truncate } from 'lodash-es';
 
@@ -12,6 +11,7 @@ import useItemSelect from '../../../../shared/hooks/useItemSelect';
 import usePagination from '../../../../shared/hooks/usePagination';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 
+import HTMLHead from '../../../../shared/components/HTMLHead';
 import ResultsData from '../../../../shared/components/results/ResultsData';
 import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
 import ResultsDataHeader from '../../../../shared/components/results/ResultsDataHeader';
@@ -115,9 +115,7 @@ const PeptideSearchResult: FC = () => {
 
   return (
     <SideBarLayout sidebar={<ResultsFacets dataApiObject={facetApiObject} />}>
-      <Helmet>
-        <title>{title}</title>
-      </Helmet>
+      <HTMLHead title={title} />
       <ResultsDataHeader
         total={total}
         selectedEntries={selectedEntries}

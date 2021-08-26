@@ -1,7 +1,7 @@
 import { useRouteMatch } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
 import { Loader, PageIntro } from 'franklin-sites';
 
+import HTMLHead from '../shared/components/HTMLHead';
 import ResultsData from '../shared/components/results/ResultsData';
 import EmptyBasket from './EmptyBasket';
 import SideBarLayout from '../shared/components/layouts/SideBarLayout';
@@ -14,7 +14,6 @@ import usePagination from '../shared/hooks/usePagination';
 import useNSQuery from '../shared/hooks/useNSQuery';
 import useDataApiWithStale from '../shared/hooks/useDataApiWithStale';
 
-import { pluralise } from '../shared/utils/utils';
 import { LocationToPath, Location, basketNamespaces } from '../app/config/urls';
 import namespaceToolTitles from '../shared/config/namespaceToolTitles';
 
@@ -68,9 +67,7 @@ const BasketFullView = () => {
   if (!accessions.length) {
     return (
       <>
-        <Helmet>
-          <title>My basket</title>
-        </Helmet>
+        <HTMLHead title="My basket" />
         <EmptyBasket />
       </>
     );
@@ -97,13 +94,14 @@ const BasketFullView = () => {
         />
       }
     >
-      <Helmet>
-        <title>
-          {`${total} ${pluralise('entry', total, 'entries')} in ${
-            NamespaceLabels[namespace]
-          } | My basket`}
-        </title>
-      </Helmet>
+      <HTMLHead
+        title={[
+          `My entries in ${NamespaceLabels[namespace]}${
+            total !== undefined ? ` (${total})` : ''
+          }`,
+          'My basket',
+        ]}
+      />
       <PageIntro
         title={namespaceToolTitles[namespace]}
         titlePostscript={<small> in your basket</small>}

@@ -1,11 +1,11 @@
 import { ChangeEvent, useState, useEffect, useMemo, ReactNode } from 'react';
 import { RouteChildrenProps } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
 import { DataList, HelpIcon, Loader, SearchInput } from 'franklin-sites';
 import qs from 'query-string';
 import cn from 'classnames';
 import { debounce } from 'lodash-es';
 
+import HTMLHead from '../../../shared/components/HTMLHead';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
 import ResultsFacets from '../../../shared/components/results/ResultsFacets';
@@ -118,9 +118,8 @@ const Results = ({ history, location }: RouteChildrenProps) => {
         </>
       }
     >
-      <Helmet>
-        <title>{searchValue} in UniProt help</title>
-      </Helmet>
+      {/* TODO: check and chage this title when implementing Help */}
+      <HTMLHead title={`${searchValue} in UniProt help`} />
       <div className={styles['results-header']}>
         <HelperImage className={styles.helper} />
         <strong className={cn('tiny', styles.title)}>

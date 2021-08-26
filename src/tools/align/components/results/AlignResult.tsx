@@ -5,9 +5,9 @@ import {
   useHistory,
   generatePath,
 } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
 import { Loader, PageIntro, Tabs, Tab } from 'franklin-sites';
 
+import HTMLHead from '../../../../shared/components/HTMLHead';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
@@ -171,9 +171,7 @@ const AlignResult = () => {
 
   return (
     <SingleColumnLayout className={sticky['sticky-tabs-container']}>
-      <Helmet>
-        <title>{title}</title>
-      </Helmet>
+      <HTMLHead title={title} />
       <PageIntro title="Align Results" />
       <Tabs active={match.params.subPage}>
         <Tab
@@ -214,9 +212,7 @@ const AlignResult = () => {
             </Link>
           }
         >
-          <Helmet>
-            <title>{title} | Phylogenetic Tree</title>
-          </Helmet>
+          <HTMLHead title={[title, 'Phylogenetic Tree']} />
           {actionBar}
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
@@ -242,9 +238,7 @@ const AlignResult = () => {
             </Link>
           }
         >
-          <Helmet>
-            <title>{title} | Phylogenetic Tree</title>
-          </Helmet>
+          <HTMLHead title={[title, 'Phylogenetic Tree']} />
           {actionBar}
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
@@ -270,9 +264,7 @@ const AlignResult = () => {
             </Link>
           }
         >
-          <Helmet>
-            <title>{title} | Text Output</title>
-          </Helmet>
+          <HTMLHead title={[title, 'Text Output']} />
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
               <TextOutput id={match.params.id} jobType={jobType} />
@@ -292,9 +284,7 @@ const AlignResult = () => {
             </Link>
           }
         >
-          <Helmet>
-            <title>{title} | Input Parameters</title>
-          </Helmet>
+          <HTMLHead title={[title, 'Input Parameters']} />
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
               <InputParameters
@@ -318,9 +308,7 @@ const AlignResult = () => {
             </Link>
           }
         >
-          <Helmet>
-            <title>{title} | API Request</title>
-          </Helmet>
+          <HTMLHead title={[title, 'API Request']} />
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
               <APIRequest jobType={jobType} inputParamsData={inputParamsData} />

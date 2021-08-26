@@ -1,8 +1,8 @@
 import { RouteChildrenProps } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
 import { Loader, Card, InfoList } from 'franklin-sites';
 import cn from 'classnames';
 
+import HTMLHead from '../../../../shared/components/HTMLHead';
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import EntryDownload from '../../../shared/components/EntryDownload';
@@ -62,12 +62,11 @@ const KeywordsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   return (
     <SingleColumnLayout>
-      <Helmet>
-        <title>
-          {data.keyword.name} | {NamespaceLabels[Namespace.keywords]}
-        </title>
+      <HTMLHead
+        title={[data.keyword.name, NamespaceLabels[Namespace.keywords]]}
+      >
         <meta name="description" content={data.definition} />
-      </Helmet>
+      </HTMLHead>
       <h1 className="big">
         {NamespaceLabels[Namespace.keywords]} - {data.keyword.name}
       </h1>

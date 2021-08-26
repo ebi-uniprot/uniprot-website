@@ -6,7 +6,6 @@ import {
   useHistory,
   generatePath,
 } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
 import {
   InPageNav,
   Loader,
@@ -27,6 +26,7 @@ import {
   MessageTag,
 } from '../../../messages/types/messagesTypes';
 
+import HTMLHead from '../../../shared/components/HTMLHead';
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import ProteinOverview from '../protein-data-views/ProteinOverviewView';
 import FeatureViewer from './FeatureViewer';
@@ -63,7 +63,7 @@ import uniProtKbConverter, {
 import generatePageTitle from '../../adapters/generatePageTitle';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
-import { Namespace } from '../../../shared/types/namespaces';
+import { Namespace, NamespaceLabels } from '../../../shared/types/namespaces';
 import { EntryType } from '../../../shared/components/entry/EntryTypeIcon';
 
 import sticky from '../../../shared/styles/sticky.module.scss';
@@ -222,9 +222,7 @@ const Entry: FC = () => {
       className={cn('entry-page', sticky['sticky-tabs-container'])}
       title={
         <ErrorBoundary>
-          <Helmet>
-            <title>{pageTitle}</title>
-          </Helmet>
+          <HTMLHead title={[pageTitle, NamespaceLabels[Namespace.uniprotkb]]} />
           <h1 className="big">
             <EntryTitle
               mainTitle={data.primaryAccession}
@@ -314,9 +312,13 @@ const Entry: FC = () => {
           }
           id={TabLocation.FeatureViewer}
         >
-          <Helmet>
-            <title>{pageTitle} | Feature viewer</title>
-          </Helmet>
+          <HTMLHead
+            title={[
+              pageTitle,
+              'Feature viewer',
+              NamespaceLabels[Namespace.uniprotkb],
+            ]}
+          />
           <FeatureViewer accession={match.params.accession} />
         </Tab>
         <Tab
@@ -333,9 +335,13 @@ const Entry: FC = () => {
           }
           id={TabLocation.Publications}
         >
-          <Helmet>
-            <title>{pageTitle} | Publications</title>
-          </Helmet>
+          <HTMLHead
+            title={[
+              pageTitle,
+              'Publications',
+              NamespaceLabels[Namespace.uniprotkb],
+            ]}
+          />
           <EntryPublications accession={match.params.accession} />
         </Tab>
         <Tab
@@ -352,9 +358,13 @@ const Entry: FC = () => {
           }
           id={TabLocation.ExternalLinks}
         >
-          <Helmet>
-            <title>{pageTitle} | External links</title>
-          </Helmet>
+          <HTMLHead
+            title={[
+              pageTitle,
+              'External links',
+              NamespaceLabels[Namespace.uniprotkb],
+            ]}
+          />
           <EntryExternalLinks transformedData={transformedData} />
         </Tab>
       </Tabs>

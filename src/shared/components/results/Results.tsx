@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet';
 import { useLocation } from 'react-router-dom';
 import { Loader } from 'franklin-sites';
 
@@ -8,6 +7,7 @@ import useNSQuery from '../../hooks/useNSQuery';
 import useItemSelect from '../../hooks/useItemSelect';
 import usePagination from '../../hooks/usePagination';
 
+import HTMLHead from '../HTMLHead';
 import ResultsData from './ResultsData';
 import ResultsFacets from './ResultsFacets';
 import SideBarLayout from '../layouts/SideBarLayout';
@@ -57,12 +57,11 @@ const Results = () => {
   }
 
   const helmet = ns && (
-    <Helmet>
-      <title>
-        {getParamsFromURL(search).query} in{' '}
-        {NamespaceLabels[ns as SearchableNamespace]}
-      </title>
-    </Helmet>
+    <HTMLHead
+      title={`${getParamsFromURL(search).query} in ${
+        NamespaceLabels[ns as SearchableNamespace]
+      }${total !== undefined ? ` (${total})` : ''}`}
+    />
   );
 
   if (facetInitialLoading && resultsDataInitialLoading && !facetHasStaleData) {

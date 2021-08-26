@@ -6,9 +6,9 @@ import {
   useLocation,
   generatePath,
 } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
 import { Loader, PageIntro, Tabs, Tab } from 'franklin-sites';
 
+import HTMLHead from '../../../../shared/components/HTMLHead';
 import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
@@ -317,9 +317,7 @@ const BlastResult = () => {
       sidebar={sidebar}
       className={sticky['sticky-tabs-container']}
     >
-      <Helmet>
-        <title>{title}</title>
-      </Helmet>
+      <HTMLHead title={title} />
       <Tabs
         active={match.params.subPage}
         className={accessionsLoading ? helper.stale : undefined}
@@ -370,9 +368,7 @@ const BlastResult = () => {
             </Link>
           }
         >
-          <Helmet>
-            <title>{title} | Taxonomy</title>
-          </Helmet>
+          <HTMLHead title={[title, 'Taxonomy']} />
           {actionBar}
           <BlastResultTaxonomy data={data} />
         </Tab>
@@ -389,9 +385,7 @@ const BlastResult = () => {
             </Link>
           }
         >
-          <Helmet>
-            <title>{title} | Hit Distribution</title>
-          </Helmet>
+          <HTMLHead title={[title, 'Hit Distribution']} />
           {actionBar}
           <BlastResultHitDistribution
             loading={blastLoading || accessionsLoading}
@@ -412,9 +406,7 @@ const BlastResult = () => {
             </Link>
           }
         >
-          <Helmet>
-            <title>{title} | Text Output</title>
-          </Helmet>
+          <HTMLHead title={[title, 'Text Output']} />
           <Suspense fallback={<Loader />}>
             <TextOutput id={match.params.id} jobType={jobType} />
           </Suspense>
@@ -432,9 +424,7 @@ const BlastResult = () => {
             </Link>
           }
         >
-          <Helmet>
-            <title>{title} | Input Parameters</title>
-          </Helmet>
+          <HTMLHead title={[title, 'Input Parameters']} />
           <Suspense fallback={<Loader />}>
             <InputParameters
               id={match.params.id}
@@ -456,9 +446,7 @@ const BlastResult = () => {
             </Link>
           }
         >
-          <Helmet>
-            <title>{title} | API Request</title>
-          </Helmet>
+          <HTMLHead title={[title, 'API Request']} />
           <Suspense fallback={<Loader />}>
             <APIRequest jobType={jobType} inputParamsData={inputParamsData} />
           </Suspense>

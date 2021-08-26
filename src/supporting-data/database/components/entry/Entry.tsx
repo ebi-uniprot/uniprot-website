@@ -1,8 +1,8 @@
 import { RouteChildrenProps } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
 import { Loader, Card, InfoList } from 'franklin-sites';
 import cn from 'classnames';
 
+import HTMLHead from '../../../../shared/components/HTMLHead';
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import EntryDownload from '../../../shared/components/EntryDownload';
@@ -62,12 +62,9 @@ const DatabaseEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   return (
     <SingleColumnLayout>
-      <Helmet>
-        <title>
-          {data.abbrev} | {NamespaceLabels[Namespace.database]}
-        </title>
+      <HTMLHead title={[data.abbrev, NamespaceLabels[Namespace.database]]}>
         <meta name="description" content={data.name} />
-      </Helmet>
+      </HTMLHead>
       {/* Here we don't want to use the full label atm */}
       <h1 className="big">Database - {data.abbrev}</h1>
       <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>

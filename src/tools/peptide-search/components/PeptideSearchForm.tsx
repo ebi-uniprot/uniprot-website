@@ -11,12 +11,12 @@ import {
 } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
 import { Chip, PageIntro, SpinnerIcon } from 'franklin-sites';
 import { sleep } from 'timing-functions';
 import { v1 } from 'uuid';
 import cn from 'classnames';
 
+import HTMLHead from '../../../shared/components/HTMLHead';
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
 
 import { addMessage } from '../../../messages/state/messagesActions';
@@ -281,9 +281,7 @@ const PeptideSearchForm = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{title}</title>
-      </Helmet>
+      <HTMLHead title={title} />
       <PageIntro title={title} />
       <form
         onSubmit={submitPeptideSearchJob}
