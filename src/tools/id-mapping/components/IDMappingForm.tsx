@@ -19,6 +19,7 @@ import { sleep } from 'timing-functions';
 import { v1 } from 'uuid';
 import cn from 'classnames';
 
+import HTMLHead from '../../../shared/components/HTMLHead';
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
 
 import { pluralise } from '../../../shared/utils/utils';
@@ -57,6 +58,8 @@ import { SelectedTaxon } from '../../types/toolsFormData';
 
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
+
+const title = namespaceToolTitles[JobTypes.ID_MAPPING];
 
 export type TreeDataNode = {
   label: string;
@@ -264,8 +267,6 @@ const IDMappingForm = () => {
     dndOverlay: <span>Drop your input file anywhere on this page</span>,
   });
 
-  const title = namespaceToolTitles[JobTypes.ID_MAPPING];
-
   const fromDbInfo = dbNameToDbInfo?.[fromDb.selected as string];
   const toDbInfo = dbNameToDbInfo?.[toDb.selected as string];
   const ruleInfo = fromDbInfo?.ruleId && ruleIdToRuleInfo?.[fromDbInfo.ruleId];
@@ -283,6 +284,7 @@ const IDMappingForm = () => {
 
   return (
     <>
+      <HTMLHead title={title} />
       <PageIntro title={title} />
       <form
         onSubmit={submitIDMappingJob}

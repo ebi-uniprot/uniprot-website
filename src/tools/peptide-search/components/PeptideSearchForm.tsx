@@ -10,12 +10,13 @@ import {
   useEffect,
 } from 'react';
 import { useDispatch } from 'react-redux';
-import { Chip, PageIntro, SpinnerIcon } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
+import { Chip, PageIntro, SpinnerIcon } from 'franklin-sites';
 import { sleep } from 'timing-functions';
 import { v1 } from 'uuid';
 import cn from 'classnames';
 
+import HTMLHead from '../../../shared/components/HTMLHead';
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
 
 import { addMessage } from '../../../messages/state/messagesActions';
@@ -49,8 +50,10 @@ import {
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 
-// just because, no known actual limit
+// just because, no actual known limit
 const PEPTIDE_SEARCH_LIMIT = 100;
+
+const title = namespaceToolTitles[JobTypes.PEPTIDE_SEARCH];
 
 const FormSelect: FC<{
   formValue: PeptideSearchFormValue;
@@ -276,10 +279,9 @@ const PeptideSearchForm = () => {
     dndOverlay: <span>Drop your input file anywhere on this page</span>,
   });
 
-  const title = namespaceToolTitles[JobTypes.PEPTIDE_SEARCH];
-
   return (
     <>
+      <HTMLHead title={title} />
       <PageIntro title={title} />
       <form
         onSubmit={submitPeptideSearchJob}

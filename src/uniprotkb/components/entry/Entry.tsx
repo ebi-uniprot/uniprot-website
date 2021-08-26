@@ -26,6 +26,7 @@ import {
   MessageTag,
 } from '../../../messages/types/messagesTypes';
 
+import HTMLHead from '../../../shared/components/HTMLHead';
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import ProteinOverview from '../protein-data-views/ProteinOverviewView';
 import FeatureViewer from './FeatureViewer';
@@ -59,9 +60,10 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import uniProtKbConverter, {
   UniProtkbAPIModel,
 } from '../../adapters/uniProtkbConverter';
+import generatePageTitle from '../../adapters/generatePageTitle';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
-import { Namespace } from '../../../shared/types/namespaces';
+import { Namespace, NamespaceLabels } from '../../../shared/types/namespaces';
 import { EntryType } from '../../../shared/components/entry/EntryTypeIcon';
 
 import sticky from '../../../shared/styles/sticky.module.scss';
@@ -99,10 +101,13 @@ const Entry: FC = () => {
       apiUrls.entry(match?.params.accession, Namespace.uniprotkb)
     );
 
-  const transformedData = useMemo(
-    () => data && uniProtKbConverter(data),
-    [data]
-  );
+  const [transformedData, pageTitle] = useMemo(() => {
+    if (!data) {
+      return [];
+    }
+    const transformedData = uniProtKbConverter(data);
+    return [transformedData, generatePageTitle(transformedData)];
+  }, [data]);
 
   const sections = useMemo(() => {
     if (transformedData) {
@@ -217,6 +222,7 @@ const Entry: FC = () => {
       className={cn('entry-page', sticky['sticky-tabs-container'])}
       title={
         <ErrorBoundary>
+          <HTMLHead title={[pageTitle, NamespaceLabels[Namespace.uniprotkb]]} />
           <h1 className="big">
             <EntryTitle
               mainTitle={data.primaryAccession}
@@ -306,6 +312,13 @@ const Entry: FC = () => {
           }
           id={TabLocation.FeatureViewer}
         >
+          <HTMLHead
+            title={[
+              pageTitle,
+              'Feature viewer',
+              NamespaceLabels[Namespace.uniprotkb],
+            ]}
+          />
           <FeatureViewer accession={match.params.accession} />
         </Tab>
         <Tab
@@ -322,6 +335,13 @@ const Entry: FC = () => {
           }
           id={TabLocation.Publications}
         >
+          <HTMLHead
+            title={[
+              pageTitle,
+              'Publications',
+              NamespaceLabels[Namespace.uniprotkb],
+            ]}
+          />
           <EntryPublications accession={match.params.accession} />
         </Tab>
         <Tab
@@ -338,6 +358,13 @@ const Entry: FC = () => {
           }
           id={TabLocation.ExternalLinks}
         >
+          <HTMLHead
+            title={[
+              pageTitle,
+              'External links',
+              NamespaceLabels[Namespace.uniprotkb],
+            ]}
+          />
           <EntryExternalLinks transformedData={transformedData} />
         </Tab>
       </Tabs>
