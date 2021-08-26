@@ -13,6 +13,7 @@ import {
   DropdownButton,
   Tabs,
   Tab,
+  Button,
 } from 'franklin-sites';
 import cn from 'classnames';
 
@@ -119,7 +120,7 @@ const Entry: FC = () => {
     }
   }, [match, history]);
 
-  const { loading, data, status, error, redirectedTo } =
+  const { loading, data, status, error, redirectedTo, progress } =
     useDataApi<UniProtkbAPIModel>(
       apiUrls.entry(match?.params.accession, Namespace.uniprotkb)
     );
@@ -169,7 +170,7 @@ const Entry: FC = () => {
   );
 
   if (loading || !data) {
-    return <Loader />;
+    return <Loader progress={progress} />;
   }
 
   if (
@@ -338,14 +339,14 @@ const Entry: FC = () => {
         </Tab>
         <Tab
           title={
-            <Link
-              to={{
-                pathname: `/uniprotkb/${match.params.accession}/${TabLocation.Publications}`,
-                hash: undefined,
-              }}
+            <Button
+              variant="tertiary"
+              element={Link}
+              // disabled={subPage}
+              to={`/uniprotkb/${match.params.accession}/${TabLocation.Publications}`}
             >
               Publications
-            </Link>
+            </Button>
           }
           id={TabLocation.Publications}
           onPointerOver={EntryPublications.preload}

@@ -4,7 +4,6 @@ import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer';
 import { Button, Card, CodeBlock, DataTable, Loader } from 'franklin-sites';
 import qs from 'query-string';
 import { LocationDescriptorObject } from 'history';
-import { SetRequired } from 'type-fest';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
@@ -118,11 +117,11 @@ const ListOfEntries = ({
       <Fragment key={accession}>
         {listFormat(index, accessions)}
         <Link
-          to={
-            // eslint-disable-next-line uniprot-website/use-config-location
-            getEntryPath(Namespace.uniprotkb, accession) +
-            (toHistory ? '/history' : '')
-          }
+          to={getEntryPath(
+            Namespace.uniprotkb,
+            accession,
+            toHistory ? 'history' : undefined
+          )}
         >
           {accession}
         </Link>
@@ -145,11 +144,14 @@ const columns: ColumnDescriptor<UniSaveVersionWithEvents>[] = [
       <>
         {entry.entryVersion}&nbsp;
         <Link
-          // eslint-disable-next-line uniprot-website/use-config-location
-          to={(location) => ({
-            ...location,
+          to={{
+            pathname: getEntryPath(
+              Namespace.uniprotkb,
+              entry.accession,
+              'history'
+            ),
             search: `version=${entry.entryVersion}`,
-          })}
+          }}
         >
           (txt)
         </Link>
@@ -169,7 +171,6 @@ const columns: ColumnDescriptor<UniSaveVersionWithEvents>[] = [
       <>
         {entry.sequenceVersion}&nbsp;
         <a
-          // eslint-disable-next-line uniprot-website/use-config-location
           href={unisave.accession(entry.accession, {
             entryVersions: entry.entryVersion,
             format: 'fasta',
@@ -314,6 +315,7 @@ export const EntryHistoryList = ({ accession }: { accession: string }) => {
   }
 
   const compareDisabled = selected.length !== 2;
+  const pathname = getEntryPath(Namespace.uniprotkb, accession, 'history');
 
   return (
     <>
@@ -322,8 +324,8 @@ export const EntryHistoryList = ({ accession }: { accession: string }) => {
           variant="tertiary"
           element={Link}
           disabled={compareDisabled}
-          to={(location: LocationDescriptorObject) => ({
-            ...location,
+          to={{
+            pathname,
             search: compareDisabled
               ? undefined
               : `version=${
@@ -331,7 +333,7 @@ export const EntryHistoryList = ({ accession }: { accession: string }) => {
                 }&version=${
                   selected[0] < selected[1] ? selected[1] : selected[0]
                 }`,
-          })}
+          }}
           title={
             compareDisabled ? 'Please select 2 versions to compare' : undefined
           }
@@ -356,32 +358,37 @@ const EntryHistory = ({ accession }: { accession: string }) => {
 
   const title = <h2>Entry history</h2>;
 
+  const backToOverview = (
+    <div className="button-group">
+      <Button
+        variant="tertiary"
+        element={Link}
+        to={getEntryPath(Namespace.uniprotkb, accession, 'history')}
+      >
+        Back to overview
+      </Button>
+    </div>
+  );
+
   if (version && Array.isArray(version) && version.length === 2) {
     const min = Math.min(+version[0], +version[1]);
     const max = Math.max(+version[0], +version[1]);
+    const pathname = getEntryPath(Namespace.uniprotkb, accession, 'history');
     return (
       <Card
         header={
           <>
-            {title}&nbsp;Comparing version&nbsp;
+            {title}
             <span>
-              <Link
-                // eslint-disable-next-line uniprot-website/use-config-location
-                to={(location) => ({ ...location, search: `version=${min}` })}
-              >
-                {min}
-              </Link>
-              &nbsp;to version&nbsp;
-              <Link
-                // eslint-disable-next-line uniprot-website/use-config-location
-                to={(location) => ({ ...location, search: `version=${max}` })}
-              >
-                {max}
-              </Link>
+              {'Comparing version '}
+              <Link to={{ pathname, search: `version=${min}` }}>{min}</Link>
+              {' to version '}
+              <Link to={{ pathname, search: `version=${max}` }}>{max}</Link>
             </span>
           </>
         }
       >
+        {backToOverview}
         <EntryHistoryDiff accession={accession} version1={min} version2={max} />
       </Card>
     );
@@ -391,16 +398,25 @@ const EntryHistory = ({ accession }: { accession: string }) => {
       <Card
         header={
           <>
-            {title}&nbsp;Viewing version {version}
+            {title}
+            <span>Viewing version {version}</span>
           </>
         }
       >
+        {backToOverview}
         <EntryHistoryView accession={accession} version={version} />
       </Card>
     );
   }
   return (
-    <Card header={title}>
+    <Card
+      header={
+        <>
+          {title}
+          <span>overview</span>
+        </>
+      }
+    >
       <EntryHistoryList accession={accession} />
     </Card>
   );
