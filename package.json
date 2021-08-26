@@ -38,7 +38,7 @@
       "global": {
         "lines": 83.44,
         "statements": 83.4,
-        "functions": 83.74,
+        "functions": 83.35,
         "branches": 73.08
       }
     },
@@ -136,6 +136,7 @@
     "react-beautiful-dnd": "13.1.0",
     "react-diff-viewer": "3.1.1",
     "react-dom": "17.0.2",
+    "react-helmet": "6.1.0",
     "react-redux": "7.2.4",
     "react-router-dom": "5.2.0",
     "redux": "4.1.1",
@@ -176,6 +177,7 @@
     "@types/react": "17.0.16",
     "@types/react-beautiful-dnd": "13.1.1",
     "@types/react-dom": "17.0.9",
+    "@types/react-helmet": "6.1.2",
     "@types/react-redux": "7.1.18",
     "@types/react-router-dom": "5.1.8",
     "@types/sanitize-html": "2.3.2",

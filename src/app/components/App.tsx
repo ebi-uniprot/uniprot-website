@@ -1,5 +1,6 @@
 import { lazy, Suspense, CSSProperties, FC } from 'react';
 import { Router, Route, Switch, RouteChildrenProps } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import { FranklinSite, Loader } from 'franklin-sites';
 
 import BaseLayout from '../../shared/components/layouts/BaseLayout';
@@ -217,6 +218,13 @@ const App = () => {
   return (
     <FranklinSite>
       <Router history={history}>
+        <Helmet titleTemplate="%s | UniProt" defaultTitle="UniProt">
+          <meta
+            name="description"
+            // default description, to override wherever needed
+            content="UniProt is the world’s leading high-quality, comprehensive and freely accessible resource of protein sequence and functional information."
+          />
+        </Helmet>
         <BaseLayout>
           <Suspense fallback={<Loader />}>
             <Switch>

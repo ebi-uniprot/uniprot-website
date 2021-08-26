@@ -1,6 +1,7 @@
 import { useRouteMatch } from 'react-router-dom';
 import { Loader, PageIntro } from 'franklin-sites';
 
+import HTMLHead from '../shared/components/HTMLHead';
 import ResultsData from '../shared/components/results/ResultsData';
 import EmptyBasket from './EmptyBasket';
 import SideBarLayout from '../shared/components/layouts/SideBarLayout';
@@ -16,7 +17,7 @@ import useDataApiWithStale from '../shared/hooks/useDataApiWithStale';
 import { LocationToPath, Location, basketNamespaces } from '../app/config/urls';
 import namespaceToolTitles from '../shared/config/namespaceToolTitles';
 
-import { Namespace } from '../shared/types/namespaces';
+import { Namespace, NamespaceLabels } from '../shared/types/namespaces';
 import Response from '../uniprotkb/types/responseTypes';
 
 const BasketFullView = () => {
@@ -64,7 +65,12 @@ const BasketFullView = () => {
   } = resultsDataObject;
 
   if (!accessions.length) {
-    return <EmptyBasket />;
+    return (
+      <>
+        <HTMLHead title="My basket" />
+        <EmptyBasket />
+      </>
+    );
   }
 
   let total: undefined | number = accessions.length;
@@ -88,6 +94,14 @@ const BasketFullView = () => {
         />
       }
     >
+      <HTMLHead
+        title={[
+          `My entries in ${NamespaceLabels[namespace]}${
+            total !== undefined ? ` (${total})` : ''
+          }`,
+          'My basket',
+        ]}
+      />
       <PageIntro
         title={namespaceToolTitles[namespace]}
         titlePostscript={<small> in your basket</small>}

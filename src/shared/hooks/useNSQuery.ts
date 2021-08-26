@@ -67,16 +67,17 @@ const useNSQuery = ({
       ? getAccessionsURL(accessions, options)
       : getAPIQueryUrl(options);
   }, [
-    namespace,
     query,
+    accessions,
+    namespace,
     withColumns,
     queryColumns,
+    facetsNotApplied,
     selectedFacets,
     withFacets,
     sortColumn,
     sortDirection,
     size,
-    accessions,
   ]);
 
   return url;

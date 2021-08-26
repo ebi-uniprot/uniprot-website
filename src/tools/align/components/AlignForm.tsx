@@ -21,6 +21,7 @@ import { sleep } from 'timing-functions';
 import { v1 } from 'uuid';
 import cn from 'classnames';
 
+import HTMLHead from '../../../shared/components/HTMLHead';
 import SequenceSearchLoader, {
   ParsedSequence,
 } from '../../components/SequenceSearchLoader';
@@ -55,6 +56,8 @@ import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 
 const ALIGN_LIMIT = 100;
+
+const title = namespaceToolTitles[JobTypes.ALIGN];
 
 const FormSelect: FC<{
   formValue: AlignFormValue;
@@ -251,10 +254,9 @@ const AlignForm = () => {
     dndOverlay: <span>Drop your input file anywhere on this page</span>,
   });
 
-  const title = namespaceToolTitles[JobTypes.ALIGN];
-
   return (
     <>
+      <HTMLHead title={title} />
       <PageIntro title={title} />
       <form
         onSubmit={submitAlignJob}

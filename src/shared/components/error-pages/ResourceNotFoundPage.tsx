@@ -1,10 +1,12 @@
 import { Redirect, useLocation } from 'react-router-dom';
 import { Message } from 'franklin-sites';
 
+import HTMLHead from '../HTMLHead';
 import ErrorPage from './ErrorPage';
 
-import ArtWork from './svgs/404.svg';
 import { Namespace } from '../../types/namespaces';
+
+import ArtWork from './svgs/404.svg';
 
 // Regular expression magic incantations 🪄
 const redirectMap = new Map<RegExp, string>([
@@ -67,11 +69,17 @@ const ResourceNotFoundPage = () => {
   }
 
   return (
-    <ErrorPage
-      artwork={<ArtWork />}
-      message={<ErrorMessage />}
-      data-testid="error-page"
-    />
+    <>
+      <HTMLHead>
+        {/* Don't index 4xx pages */}
+        <meta name="robots" content="noindex" />
+      </HTMLHead>
+      <ErrorPage
+        artwork={<ArtWork />}
+        message={<ErrorMessage />}
+        data-testid="error-page"
+      />
+    </>
   );
 };
 

@@ -15,7 +15,7 @@ export type UniSaveAccession = {
   results: UniSaveVersion[];
 };
 
-export type UniSaveEventType = 'replacing';
+export type UniSaveEventType = 'replacing' | 'merged' | 'deleted';
 
 export type UniSaveEvent = {
   targetAccession: string;

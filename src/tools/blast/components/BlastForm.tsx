@@ -22,6 +22,7 @@ import { sleep } from 'timing-functions';
 import { v1 } from 'uuid';
 import cn from 'classnames';
 
+import HTMLHead from '../../../shared/components/HTMLHead';
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
 import SequenceSearchLoader, {
   ParsedSequence,
@@ -69,6 +70,8 @@ import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 
 const BLAST_LIMIT = 20;
+
+const title = namespaceToolTitles[JobTypes.BLAST];
 
 // https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3848038/
 const getAutoMatrixFor = (sequence: string): FormParameters['matrix'] => {
@@ -402,10 +405,9 @@ const BlastForm = () => {
     dndOverlay: <span>Drop your input file anywhere on this page</span>,
   });
 
-  const title = namespaceToolTitles[JobTypes.BLAST];
-
   return (
     <>
+      <HTMLHead title={title} />
       <PageIntro title={title} />
       <form
         onSubmit={submitBlastJob}

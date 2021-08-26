@@ -1,4 +1,4 @@
-import { FC, Fragment } from 'react';
+import { Fragment } from 'react';
 import { Message } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
@@ -11,18 +11,26 @@ import {
 } from '../../../app/config/urls';
 import { Namespace } from '../../types/namespaces';
 
-import {
-  InactiveEntryReason,
-  InactiveReasonType,
-} from '../../../uniprotkb/adapters/uniProtkbConverter';
+import { TabLocation } from '../../../uniprotkb/components/entry/Entry';
+import { InactiveEntryReason } from '../../../uniprotkb/adapters/uniProtkbConverter';
 
 import ArtWork from './svgs/obsolete-entry.svg';
 
 import './styles/error-pages.scss';
 
-const DeletedEntryMessage: FC<{ accession: string }> = ({ accession }) => (
+type DeletedEntryMessage = {
+  accession: string;
+  release?: string;
+  inHistory?: boolean;
+};
+
+export const DeletedEntryMessage = ({
+  accession,
+  release,
+  inHistory,
+}: DeletedEntryMessage) => (
   <Message level="info">
-    <h4>This entry is obsolete</h4>
+    <h4>This entry is obsolete{release && ` since release ${release}`}</h4>
     <p data-testid="deleted-entry-message">
       The protein sequence for this entry is available in{' '}
       <Link
@@ -33,34 +41,92 @@ const DeletedEntryMessage: FC<{ accession: string }> = ({ accession }) => (
       >
         UniParc
       </Link>
-      . For previous versions of this entry, please look at its{' '}
+      .
+      {inHistory || (
+        <>
+          {' '}
+          For previous versions of this entry, please look at its{' '}
+          <Link
+            to={getEntryPath(
+              Namespace.uniprotkb,
+              accession,
+              TabLocation.History
+            )}
+          >
+            history
+          </Link>
+          .
+        </>
+      )}
+    </p>
+  </Message>
+);
+
+type MergedEntryMessageProps = {
+  accession: string;
+  mergedInto: string;
+  release?: string;
+};
+
+export const MergedEntryMessage = ({
+  accession,
+  mergedInto,
+  release,
+}: MergedEntryMessageProps) => (
+  <Message level="info">
+    <h4>This entry is obsolete{release && ` since release ${release}`}</h4>
+    <p data-testid="demerged-entry-message">
+      It has now been merged into{' '}
+      <Link
+        to={getEntryPath(Namespace.uniprotkb, mergedInto, TabLocation.Entry)}
+      >
+        {mergedInto}
+      </Link>
+      .
+    </p>
+    <p>
+      The protein sequence for this entry is available in{' '}
       <Link
         to={{
-          pathname: getEntryPath(Namespace.uniprotkb, accession),
-          // TODO: actually implement this in the website
-          search: 'version=*',
+          pathname: LocationToPath[Location.UniParcResults],
+          search: `query=${accession}`,
         }}
       >
-        history
+        UniParc
       </Link>
       .
     </p>
   </Message>
 );
 
-const DemergedEntryMessage: FC<{
+type DemergedEntryMessageProps = {
   accession: string;
   demergedTo?: string[];
-}> = ({ accession, demergedTo }) => (
+  release?: string;
+  inHistory?: boolean;
+};
+
+export const DemergedEntryMessage = ({
+  accession,
+  demergedTo,
+  release,
+  inHistory,
+}: DemergedEntryMessageProps) => (
   <Message level="info">
-    <h4>This entry is obsolete</h4>
+    <h4>This entry is obsolete{release && ` since release ${release}`}</h4>
     {demergedTo?.length && (
       <p data-testid="demerged-entry-message">
         It can now be found as secondary accession in{' '}
         {demergedTo.map((newEntry, index) => (
           <Fragment key={newEntry}>
             {listFormat(index, demergedTo)}
-            <Link to={getEntryPath(Namespace.uniprotkb, newEntry)}>
+            <Link
+              to={getEntryPath(
+                Namespace.uniprotkb,
+                newEntry,
+                TabLocation.Entry
+              )}
+            >
               {newEntry}
             </Link>
           </Fragment>
@@ -69,7 +135,7 @@ const DemergedEntryMessage: FC<{
         <Link
           to={{
             pathname: LocationToPath[Location.UniProtKBResults],
-            search: `query=replaces:${accession}`,
+            search: `query=sec_acc:${accession}`,
           }}
         >
           List
@@ -87,40 +153,44 @@ const DemergedEntryMessage: FC<{
       >
         UniParc
       </Link>
-      . For previous versions of this entry, please look at its{' '}
-      <Link
-        to={{
-          pathname: getEntryPath(Namespace.uniprotkb, accession),
-          // TODO: actually implement this in the website
-          search: `version=*`,
-        }}
-      >
-        history
-      </Link>
       .
+      {inHistory || (
+        <>
+          {' '}
+          For previous versions of this entry, please look at its{' '}
+          <Link
+            to={getEntryPath(
+              Namespace.uniprotkb,
+              accession,
+              TabLocation.History
+            )}
+          >
+            history
+          </Link>
+          .
+        </>
+      )}
     </p>
   </Message>
 );
 
 type ObsoleteEntryPageProps = {
   accession: string;
-  details: InactiveEntryReason;
+  details?: InactiveEntryReason;
 };
 
-const ObsoleteEntryPage: FC<ObsoleteEntryPageProps> = ({
-  accession,
-  details,
-}) => (
+const ObsoleteEntryPage = ({ accession, details }: ObsoleteEntryPageProps) => (
   <div className="error-page-container">
     <ArtWork className="error-page-container__art-work" />
-    {details.inactiveReasonType === InactiveReasonType.DELETED ? (
-      <DeletedEntryMessage accession={accession} />
-    ) : (
-      <DemergedEntryMessage
-        accession={accession}
-        demergedTo={details.mergeDemergeTo}
-      />
-    )}
+    {details &&
+      (details.inactiveReasonType === 'DELETED' ? (
+        <DeletedEntryMessage accession={accession} />
+      ) : (
+        <DemergedEntryMessage
+          accession={accession}
+          demergedTo={details.mergeDemergeTo}
+        />
+      ))}
   </div>
 );
 

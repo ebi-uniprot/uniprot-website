@@ -13,9 +13,9 @@ import {
   DropdownButton,
   Tabs,
   Tab,
-  Button,
 } from 'franklin-sites';
 import cn from 'classnames';
+import { frame } from 'timing-functions';
 
 import EntrySection, {
   getEntrySectionNameAndId,
@@ -23,10 +23,10 @@ import EntrySection, {
 import {
   MessageLevel,
   MessageFormat,
-  MessageType,
   MessageTag,
 } from '../../../messages/types/messagesTypes';
 
+import HTMLHead from '../../../shared/components/HTMLHead';
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import ProteinOverview from '../protein-data-views/ProteinOverviewView';
 import EntryPublicationsFacets from './EntryPublicationsFacets';
@@ -58,11 +58,17 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import uniProtKbConverter, {
   UniProtkbAPIModel,
 } from '../../adapters/uniProtkbConverter';
+import generatePageTitle from '../../adapters/generatePageTitle';
 
-import { LocationToPath, Location } from '../../../app/config/urls';
-import { Namespace } from '../../../shared/types/namespaces';
+import {
+  LocationToPath,
+  Location,
+  getEntryPath,
+} from '../../../app/config/urls';
+import { Namespace, NamespaceLabels } from '../../../shared/types/namespaces';
 import { EntryType } from '../../../shared/components/entry/EntryTypeIcon';
 
+import helper from '../../../shared/styles/helper.module.scss';
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../../shared/components/entry/styles/entry-page.scss';
 
@@ -125,10 +131,13 @@ const Entry: FC = () => {
       apiUrls.entry(match?.params.accession, Namespace.uniprotkb)
     );
 
-  const transformedData = useMemo(
-    () => data && uniProtKbConverter(data),
-    [data]
-  );
+  const [transformedData, pageTitle] = useMemo(() => {
+    if (!data) {
+      return [];
+    }
+    const transformedData = uniProtKbConverter(data);
+    return [transformedData, generatePageTitle(transformedData)];
+  }, [data]);
 
   const sections = useMemo(() => {
     if (transformedData) {
@@ -169,43 +178,52 @@ const Entry: FC = () => {
     [data]
   );
 
-  if (loading || !data) {
+  useEffect(() => {
+    if (redirectedTo && match?.params.subPage !== TabLocation.History) {
+      const split = redirectedTo.split('/');
+      const newEntry = split[split.length - 1];
+      dispatch(
+        addMessage({
+          id: 'job-id',
+          content: `${match?.params.accession} has been merged into ${newEntry}. You have automatically been redirected.`,
+          format: MessageFormat.IN_PAGE,
+          level: MessageLevel.SUCCESS,
+          dateActive: Date.now(),
+          dateExpired: Date.now(),
+          tag: MessageTag.REDIRECT,
+        })
+      );
+      frame().then(() => {
+        history.replace(
+          getEntryPath(Namespace.uniprotkb, newEntry, TabLocation.Entry)
+        );
+      });
+    }
+    // (I hope) I know what I'm doing here, I want to stick with whatever value
+    // match?.params.subPage had when the component was mounted.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, redirectedTo]);
+
+  if (
+    loading ||
+    !data ||
+    // if we're gonna redirect, show loading in the meantime
+    (redirectedTo && match?.params.subPage !== TabLocation.History)
+  ) {
     return <Loader progress={progress} />;
   }
 
-  if (
-    transformedData &&
-    transformedData.entryType === EntryType.INACTIVE &&
-    transformedData.inactiveReason
-  ) {
-    if (!match) {
-      return <ErrorHandler />;
-    }
+  const isObsolete = Boolean(
+    transformedData?.entryType === EntryType.INACTIVE &&
+      transformedData.inactiveReason
+  );
 
-    return (
-      <ObsoleteEntryPage
-        accession={match.params.accession}
-        details={transformedData.inactiveReason}
-      />
-    );
-  }
+  const historyOldEntry =
+    isObsolete ||
+    (redirectedTo && match?.params.subPage === TabLocation.History);
 
   if (error || !match?.params.accession || !transformedData) {
     return <ErrorHandler status={status} />;
-  }
-
-  if (redirectedTo) {
-    const message: MessageType = {
-      id: 'job-id',
-      content: `You are seeing the results from: ${redirectedTo}.`,
-      format: MessageFormat.IN_PAGE,
-      level: MessageLevel.SUCCESS,
-      dateActive: Date.now(),
-      dateExpired: Date.now(),
-      tag: MessageTag.REDIRECT,
-    };
-
-    dispatch(addMessage(message));
   }
 
   const entrySidebar = (
@@ -220,22 +238,13 @@ const Entry: FC = () => {
     <div className="sidebar-layout__sidebar-content--empty" />
   );
 
-  let sidebar;
-
-  switch (match.params.subPage) {
-    case TabLocation.FeatureViewer:
-    case TabLocation.ExternalLinks:
-    case TabLocation.History:
-      sidebar = emptySidebar;
-      break;
-
-    case TabLocation.Publications:
+  let sidebar = emptySidebar;
+  if (!isObsolete) {
+    if (match.params.subPage === TabLocation.Publications) {
       sidebar = publicationsSideBar;
-      break;
-
-    default:
+    } else if (match.params.subPage === TabLocation.Entry) {
       sidebar = entrySidebar;
-      break;
+    }
   }
 
   return (
@@ -243,88 +252,112 @@ const Entry: FC = () => {
       sidebar={sidebar}
       className={cn('entry-page', sticky['sticky-tabs-container'])}
       title={
-        <ErrorBoundary>
-          <h1 className="big">
-            <EntryTitle
-              mainTitle={data.primaryAccession}
-              optionalTitle={data.uniProtkbId}
-              entryType={data.entryType}
+        historyOldEntry ? null : (
+          <ErrorBoundary>
+            <HTMLHead
+              title={[pageTitle, NamespaceLabels[Namespace.uniprotkb]]}
             />
-            <BasketStatus id={data.primaryAccession} className="big" />
-          </h1>
-          <ProteinOverview data={data} />
-        </ErrorBoundary>
+            <h1 className="big">
+              <EntryTitle
+                mainTitle={data.primaryAccession}
+                optionalTitle={data.uniProtkbId}
+                entryType={data.entryType}
+              />
+              <BasketStatus id={data.primaryAccession} className="big" />
+            </h1>
+            <ProteinOverview data={data} />
+          </ErrorBoundary>
+        )
       }
     >
       <Tabs active={match.params.subPage}>
         <Tab
-          cache
+          className={
+            historyOldEntry && !isObsolete ? helper.disabled : undefined
+          }
+          tabIndex={historyOldEntry && !isObsolete ? -1 : undefined}
+          cache={!historyOldEntry}
           title={
             <Link
-              to={{
-                pathname: `/uniprotkb/${match.params.accession}/${TabLocation.Entry}`,
-                hash: undefined,
-              }}
+              to={getEntryPath(
+                Namespace.uniprotkb,
+                match.params.accession,
+                TabLocation.Entry
+              )}
             >
               Entry
             </Link>
           }
           id={TabLocation.Entry}
         >
-          <div className="button-group">
-            <BlastButton selectedEntries={[match.params.accession]} />
-            <AlignButton
-              selectedEntries={[
-                match.params.accession,
-                ...listOfIsoformAccessions,
-              ]}
+          {isObsolete ? (
+            <ObsoleteEntryPage
+              accession={match.params.accession}
+              details={transformedData.inactiveReason}
             />
-            <DropdownButton
-              label={
-                <>
-                  <DownloadIcon />
-                  Download
-                </>
-              }
-              variant="tertiary"
-            >
-              <div className="dropdown-menu__content">
-                <ul>
-                  {fileFormatEntryDownload.map((fileFormat) => (
-                    <li key={fileFormat}>
-                      <a
-                        href={apiUrls.entryDownload(
-                          transformedData.primaryAccession,
-                          fileFormat
-                        )}
-                      >
-                        {fileFormat}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
+          ) : (
+            <>
+              <div className="button-group">
+                <BlastButton selectedEntries={[match.params.accession]} />
+                <AlignButton
+                  selectedEntries={[
+                    match.params.accession,
+                    ...listOfIsoformAccessions,
+                  ]}
+                />
+                <DropdownButton
+                  label={
+                    <>
+                      <DownloadIcon />
+                      Download
+                    </>
+                  }
+                  variant="tertiary"
+                >
+                  <div className="dropdown-menu__content">
+                    <ul>
+                      {fileFormatEntryDownload.map((fileFormat) => (
+                        <li key={fileFormat}>
+                          <a
+                            href={apiUrls.entryDownload(
+                              transformedData.primaryAccession,
+                              fileFormat
+                            )}
+                          >
+                            {fileFormat}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </DropdownButton>
+                <AddToBasketButton selectedEntries={match.params.accession} />
+                <CommunityAnnotationLink accession={match.params.accession} />
+                <a
+                  href={externalUrls.CommunityCurationAdd(
+                    match.params.accession
+                  )}
+                  className="button tertiary"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Add a publication
+                </a>
               </div>
-            </DropdownButton>
-            <AddToBasketButton selectedEntries={match.params.accession} />
-            <CommunityAnnotationLink accession={match.params.accession} />
-            <a
-              href={externalUrls.CommunityCurationAdd(match.params.accession)}
-              className="button tertiary"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Add a publication
-            </a>
-          </div>
-          <EntryMain transformedData={transformedData} />
+              <EntryMain transformedData={transformedData} />
+            </>
+          )}
         </Tab>
         <Tab
+          className={historyOldEntry ? helper.disabled : undefined}
+          tabIndex={historyOldEntry ? -1 : undefined}
           title={
             <Link
-              to={{
-                pathname: `/uniprotkb/${match.params.accession}/${TabLocation.FeatureViewer}`,
-                hash: undefined,
-              }}
+              to={getEntryPath(
+                Namespace.uniprotkb,
+                match.params.accession,
+                TabLocation.FeatureViewer
+              )}
             >
               Feature viewer
             </Link>
@@ -334,35 +367,55 @@ const Entry: FC = () => {
           onFocus={FeatureViewer.preload}
         >
           <Suspense fallback={<Loader />}>
+            <HTMLHead
+              title={[
+                pageTitle,
+                'Feature viewer',
+                NamespaceLabels[Namespace.uniprotkb],
+              ]}
+            />
             <FeatureViewer accession={match.params.accession} />
           </Suspense>
         </Tab>
         <Tab
           title={
-            <Button
-              variant="tertiary"
-              element={Link}
-              // disabled={subPage}
-              to={`/uniprotkb/${match.params.accession}/${TabLocation.Publications}`}
+            <Link
+              className={historyOldEntry ? helper.disabled : undefined}
+              tabIndex={historyOldEntry ? -1 : undefined}
+              to={getEntryPath(
+                Namespace.uniprotkb,
+                match.params.accession,
+                TabLocation.Publications
+              )}
             >
               Publications
-            </Button>
+            </Link>
           }
           id={TabLocation.Publications}
           onPointerOver={EntryPublications.preload}
           onFocus={EntryPublications.preload}
         >
           <Suspense fallback={<Loader />}>
+            <HTMLHead
+              title={[
+                pageTitle,
+                'Publications',
+                NamespaceLabels[Namespace.uniprotkb],
+              ]}
+            />
             <EntryPublications accession={match.params.accession} />
           </Suspense>
         </Tab>
         <Tab
+          className={historyOldEntry ? helper.disabled : undefined}
+          tabIndex={historyOldEntry ? -1 : undefined}
           title={
             <Link
-              to={{
-                pathname: `/uniprotkb/${match.params.accession}/${TabLocation.ExternalLinks}`,
-                hash: undefined,
-              }}
+              to={getEntryPath(
+                Namespace.uniprotkb,
+                match.params.accession,
+                TabLocation.ExternalLinks
+              )}
             >
               External links
             </Link>
@@ -372,16 +425,24 @@ const Entry: FC = () => {
           onFocus={EntryExternalLinks.preload}
         >
           <Suspense fallback={<Loader />}>
+            <HTMLHead
+              title={[
+                pageTitle,
+                'External links',
+                NamespaceLabels[Namespace.uniprotkb],
+              ]}
+            />
             <EntryExternalLinks transformedData={transformedData} />
           </Suspense>
         </Tab>
         <Tab
           title={
             <Link
-              to={{
-                pathname: `/uniprotkb/${match.params.accession}/${TabLocation.History}`,
-                hash: undefined,
-              }}
+              to={getEntryPath(
+                Namespace.uniprotkb,
+                match.params.accession,
+                TabLocation.History
+              )}
             >
               History
             </Link>
@@ -391,6 +452,13 @@ const Entry: FC = () => {
           onFocus={EntryHistory.preload}
         >
           <Suspense fallback={<Loader />}>
+            <HTMLHead
+              title={[
+                historyOldEntry ? match.params.accession : pageTitle,
+                'History',
+                NamespaceLabels[Namespace.uniprotkb],
+              ]}
+            />
             <EntryHistory accession={match.params.accession} />
           </Suspense>
         </Tab>

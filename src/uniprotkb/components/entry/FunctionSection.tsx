@@ -3,6 +3,7 @@ import { Card, Loader, Message } from 'franklin-sites';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
+import HTMLHead from '../../../shared/components/HTMLHead';
 import FreeTextView, { TextView } from '../protein-data-views/FreeTextView';
 import CatalyticActivityView from '../protein-data-views/CatalyticActivityView';
 import KeywordView from '../protein-data-views/KeywordView';
@@ -166,12 +167,22 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
       Pathway
   */
 
+  // Use the first available function as a description
+  const firstFunction = (
+    data.commentsData.get('FUNCTION') as FreeTextComment[] | undefined
+  )?.[0]?.texts?.[0]?.value;
+
   return (
     <Card
       header={<h2>{getEntrySectionNameAndId(EntrySection.Function).name}</h2>}
       id={EntrySection.Function}
       data-entry-section
     >
+      {firstFunction && (
+        <HTMLHead>
+          <meta name="description" content={firstFunction} />
+        </HTMLHead>
+      )}
       <FreeTextView
         comments={data.commentsData.get('FUNCTION') as FreeTextComment[]}
       />

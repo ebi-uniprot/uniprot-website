@@ -1,12 +1,16 @@
-import { Fragment, useMemo, useState } from 'react';
+import { Fragment, useMemo, useState, ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer';
 import { Button, Card, CodeBlock, DataTable, Loader } from 'franklin-sites';
 import qs from 'query-string';
-import { LocationDescriptorObject } from 'history';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
+import {
+  DeletedEntryMessage,
+  DemergedEntryMessage,
+  MergedEntryMessage,
+} from '../../../shared/components/error-pages/ObsoleteEntryPage';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
@@ -15,6 +19,7 @@ import listFormat from '../../../shared/utils/listFormat';
 import { unisave } from '../../../shared/config/apiUrls';
 import { getEntryPath } from '../../../app/config/urls';
 
+import { TabLocation } from './Entry';
 import {
   UniSaveAccession,
   UniSaveEventType,
@@ -120,7 +125,7 @@ const ListOfEntries = ({
           to={getEntryPath(
             Namespace.uniprotkb,
             accession,
-            toHistory ? 'history' : undefined
+            toHistory ? TabLocation.History : undefined
           )}
         >
           {accession}
@@ -148,7 +153,7 @@ const columns: ColumnDescriptor<UniSaveVersionWithEvents>[] = [
             pathname: getEntryPath(
               Namespace.uniprotkb,
               entry.accession,
-              'history'
+              TabLocation.History
             ),
             search: `version=${entry.entryVersion}`,
           }}
@@ -278,9 +283,9 @@ export const EntryHistoryList = ({ accession }: { accession: string }) => {
     [version1, version2]
   );
 
-  const data = useMemo<UniSaveVersionWithEvents[] | undefined>(
+  const data = useMemo<UniSaveVersionWithEvents[]>(
     () =>
-      statusData.data
+      (statusData.data
         ? accessionData.data?.results.map((version) => {
             const eventList =
               statusData.data?.events.filter(
@@ -302,7 +307,7 @@ export const EntryHistoryList = ({ accession }: { accession: string }) => {
               events: eventList.length ? events : undefined,
             };
           })
-        : accessionData.data?.results,
+        : accessionData.data?.results) || [],
     [accessionData.data, statusData.data]
   );
 
@@ -310,15 +315,75 @@ export const EntryHistoryList = ({ accession }: { accession: string }) => {
     return <Loader progress={accessionData.progress} />;
   }
 
-  if (accessionData.error || !data) {
-    return <ErrorHandler status={accessionData.status} />;
-  }
+  // Don't check accessionData.error!
+  // Might return 404 when no history, not a bug, just a weird edge case we need
+  // to take into account. Example: P50409
+  // Don't check statusData.error either!
+  // Might return 404 when no events in the data (most TrEMBL entries)
+  // if (statusData.error || !data) {
+  //   return <ErrorHandler status={accessionData.status} />;
+  // }
 
   const compareDisabled = selected.length !== 2;
-  const pathname = getEntryPath(Namespace.uniprotkb, accession, 'history');
+  const pathname = getEntryPath(
+    Namespace.uniprotkb,
+    accession,
+    TabLocation.History
+  );
+  const mergedEvents = statusData.data?.events.filter(
+    (e) => e.eventType === 'merged'
+  );
+  const deleteEvent = statusData.data?.events.find(
+    (e) => e.eventType === 'deleted'
+  );
+
+  // Sanity check
+  {
+    const unknownEvents = statusData.data?.events.filter(
+      (e) =>
+        e.eventType !== 'merged' &&
+        e.eventType !== 'deleted' &&
+        e.eventType !== 'replacing'
+    );
+    if (unknownEvents?.length) {
+      // eslint-disable-next-line no-console
+      console.warn('unknown events found:', unknownEvents);
+    }
+  }
+
+  let message: ReactNode;
+  if (mergedEvents?.length) {
+    if (mergedEvents.length === 1) {
+      message = (
+        <MergedEntryMessage
+          accession={accession}
+          mergedInto={mergedEvents[0].targetAccession}
+          release={mergedEvents[0].release}
+        />
+      );
+    } else {
+      message = (
+        <DemergedEntryMessage
+          accession={accession}
+          demergedTo={mergedEvents.map((e) => e.targetAccession)}
+          release={mergedEvents[0].release}
+          inHistory
+        />
+      );
+    }
+  } else if (deleteEvent) {
+    message = (
+      <DeletedEntryMessage
+        accession={accession}
+        release={deleteEvent.release}
+        inHistory
+      />
+    );
+  }
 
   return (
     <>
+      {message}
       <div className="button-group">
         <Button
           variant="tertiary"
@@ -341,14 +406,18 @@ export const EntryHistoryList = ({ accession }: { accession: string }) => {
           Compare
         </Button>
       </div>
-      <DataTable
-        columns={columns}
-        data={data}
-        getIdKey={getIdKey}
-        density="compact"
-        selected={selected}
-        onSelectRow={handleSelectRow}
-      />
+      {data.length ? (
+        <DataTable
+          columns={columns}
+          data={data}
+          getIdKey={getIdKey}
+          density="compact"
+          selected={selected}
+          onSelectRow={handleSelectRow}
+        />
+      ) : (
+        'Sorry, there is no history information to show'
+      )}
     </>
   );
 };
@@ -363,7 +432,7 @@ const EntryHistory = ({ accession }: { accession: string }) => {
       <Button
         variant="tertiary"
         element={Link}
-        to={getEntryPath(Namespace.uniprotkb, accession, 'history')}
+        to={getEntryPath(Namespace.uniprotkb, accession, TabLocation.History)}
       >
         Back to overview
       </Button>
@@ -373,7 +442,11 @@ const EntryHistory = ({ accession }: { accession: string }) => {
   if (version && Array.isArray(version) && version.length === 2) {
     const min = Math.min(+version[0], +version[1]);
     const max = Math.max(+version[0], +version[1]);
-    const pathname = getEntryPath(Namespace.uniprotkb, accession, 'history');
+    const pathname = getEntryPath(
+      Namespace.uniprotkb,
+      accession,
+      TabLocation.History
+    );
     return (
       <Card
         header={
@@ -409,14 +482,7 @@ const EntryHistory = ({ accession }: { accession: string }) => {
     );
   }
   return (
-    <Card
-      header={
-        <>
-          {title}
-          <span>overview</span>
-        </>
-      }
-    >
+    <Card header={title}>
       <EntryHistoryList accession={accession} />
     </Card>
   );

@@ -3,6 +3,7 @@ import { Loader, Card, InfoList } from 'franklin-sites';
 import cn from 'classnames';
 import { pick } from 'lodash-es';
 
+import HTMLHead from '../../../../shared/components/HTMLHead';
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import EntryDownload from '../../../shared/components/EntryDownload';
@@ -12,8 +13,12 @@ import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 
 import apiUrls, { getAPIQueryUrl } from '../../../../shared/config/apiUrls';
+import generatePageTitle from '../../adapters/generatePageTitle';
 
-import { Namespace } from '../../../../shared/types/namespaces';
+import {
+  Namespace,
+  NamespaceLabels,
+} from '../../../../shared/types/namespaces';
 import { TaxonomyAPIModel } from '../../adapters/taxonomyConverter';
 import TaxonomyColumnConfiguration, {
   TaxonomyColumn,
@@ -102,9 +107,12 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   return (
     <SingleColumnLayout>
+      <HTMLHead
+        title={[generatePageTitle(data), NamespaceLabels[Namespace.taxonomy]]}
+      />
       <h1 className="big">
-        Taxonomy - {data.scientificName || data.taxonId}{' '}
-        <small>({data.rank})</small>
+        {NamespaceLabels[Namespace.taxonomy]} -{' '}
+        {data.scientificName || data.taxonId} <small>({data.rank})</small>
       </h1>
       <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
         <div className="button-group">
