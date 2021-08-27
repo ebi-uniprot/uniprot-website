@@ -205,7 +205,13 @@ const columns: ColumnDescriptor<UniSaveVersionWithEvents>[] = [
   },
   {
     name: 'release-number',
-    label: 'Release number',
+    label: (
+      <>
+        Release numbers
+        <br />
+        (Swiss-Prot/TrEMBL)
+      </>
+    ),
     render: (entry) => (
       <span className={helper['no-wrap']}>{entry.firstRelease}</span>
     ),
