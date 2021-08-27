@@ -272,13 +272,13 @@ const Entry: FC = () => {
     >
       <Tabs active={match.params.subPage}>
         <Tab
-          className={
-            historyOldEntry && !isObsolete ? helper.disabled : undefined
-          }
-          tabIndex={historyOldEntry && !isObsolete ? -1 : undefined}
           cache={!historyOldEntry}
           title={
             <Link
+              className={
+                historyOldEntry && !isObsolete ? helper.disabled : undefined
+              }
+              tabIndex={historyOldEntry && !isObsolete ? -1 : undefined}
               to={getEntryPath(
                 Namespace.uniprotkb,
                 match.params.accession,
@@ -349,10 +349,10 @@ const Entry: FC = () => {
           )}
         </Tab>
         <Tab
-          className={historyOldEntry ? helper.disabled : undefined}
-          tabIndex={historyOldEntry ? -1 : undefined}
           title={
             <Link
+              className={historyOldEntry ? helper.disabled : undefined}
+              tabIndex={historyOldEntry ? -1 : undefined}
               to={getEntryPath(
                 Namespace.uniprotkb,
                 match.params.accession,
@@ -407,10 +407,10 @@ const Entry: FC = () => {
           </Suspense>
         </Tab>
         <Tab
-          className={historyOldEntry ? helper.disabled : undefined}
-          tabIndex={historyOldEntry ? -1 : undefined}
           title={
             <Link
+              className={historyOldEntry ? helper.disabled : undefined}
+              tabIndex={historyOldEntry ? -1 : undefined}
               to={getEntryPath(
                 Namespace.uniprotkb,
                 match.params.accession,
