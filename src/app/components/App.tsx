@@ -349,9 +349,8 @@ const App = () => {
               />
               <Route
                 path={LocationToPath[Location.HelpResults]}
-                component={ResultsOrLanding(HelpResults, () => (
-                  <>Help landing page</>
-                ))}
+                // TODO: Replace 2nd one when working on help centre
+                component={ResultsOrLanding(HelpResults, HelpResults)}
               />
               {/* Catch-all handler -> Redirect or not found */}
               <Route

@@ -7,6 +7,7 @@ import {
   useRef,
   useCallback,
 } from 'react';
+import { generatePath, Link } from 'react-router-dom';
 import { HeroHeader, Loader, CitedIcon } from 'franklin-sites';
 
 import SearchContainer from '../../../shared/components/search/SearchContainer';
@@ -14,6 +15,7 @@ import ErrorBoundary from '../../../shared/components/error-component/ErrorBound
 
 import useReducedMotion from '../../../shared/hooks/useReducedMotion';
 
+import { LocationToPath, Location } from '../../config/urls';
 import {
   Namespace,
   SearchableNamespace,
@@ -31,7 +33,12 @@ const mission = (
     UniProt is the world’s leading high-quality, comprehensive and freely
     accessible resource of protein sequence and functional information.{' '}
     {/* TODO: update link */}
-    <a href="https://www.uniprot.org/help/publications" className="cite-us">
+    <Link
+      to={generatePath(LocationToPath[Location.HelpEntry], {
+        accession: 'publications',
+      })}
+      className="cite-us"
+    >
       Cite{' '}
       <span className={helper['no-wrap']}>
         UniProt&nbsp;
@@ -39,7 +46,7 @@ const mission = (
           <CitedIcon width="1em" />
         </sup>
       </span>
-    </a>
+    </Link>
   </>
 );
 
