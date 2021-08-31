@@ -35,6 +35,7 @@ spec:
           volumeMounts:
             - name: uniprot-website-client-logs
               mountPath: /var/log/nginx
+          imagePullPolicy: Always
       imagePullSecrets:
         - name: gitlab-registry # Provided by GitLab, this allows K8s to connect to dockerhub.ebi.ac.uk
   volumeClaimTemplates:
