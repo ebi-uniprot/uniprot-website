@@ -13,6 +13,8 @@ K8S_CERTIFICATE=${DC}_K8S_CERTIFICATE
 K8S_URL=${DC}_K8S_URL
 K8S_USER_TOKEN=${DC}_K8S_USER_TOKEN
 
+env
+
 mkdir -p ~/.kube
 sed "s~__K8S_CERTIFICATE__~${!K8S_CERTIFICATE}~; s~__K8S_URL__~${!K8S_URL}~; s~__K8S_USER_TOKEN__~${!K8S_USER_TOKEN}~" deploy/wp-config-template.yml > ~/.kube/config
 chmod 700 ~/.kube/config
