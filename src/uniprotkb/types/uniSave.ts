@@ -1,6 +1,6 @@
 export type UniSaveVersion = {
   accession: string;
-  database: string; // 'Swiss-Prot' | 'TrEMBL';
+  database: 'Swiss-Prot' | 'TrEMBL';
   entryVersion: number;
   firstRelease: string; // release version
   firstReleaseDate: string; // DD-MMM-YYYY
