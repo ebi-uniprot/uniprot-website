@@ -38,7 +38,7 @@
       "global": {
         "lines": 83.44,
         "statements": 83.4,
-        "functions": 83.74,
+        "functions": 83.35,
         "branches": 73.08
       }
     },
@@ -134,6 +134,7 @@
     "query-string": "7.0.1",
     "react": "17.0.2",
     "react-beautiful-dnd": "13.1.0",
+    "react-diff-viewer": "3.1.1",
     "react-dom": "17.0.2",
     "react-helmet": "6.1.0",
     "react-redux": "7.2.4",
