@@ -22,7 +22,7 @@ import styles from './styles/results.module.scss';
 
 import HelperImage from './svgs/helper.svg';
 
-const getIdKey = (article: HelpAPIModel) => article.id;
+export const getIdKey = (article: HelpAPIModel) => article.id;
 
 const Results = ({ history, location }: RouteChildrenProps) => {
   const [searchValue, setSearchValue] = useState<string>(() => {
@@ -34,8 +34,9 @@ const Results = ({ history, location }: RouteChildrenProps) => {
     return searchValue;
   });
 
+  const parsed = qs.parse(location.search);
   const dataObject = useDataApiWithStale<HelpSearchResponse>(
-    helpURL.search(location.search)
+    helpURL.search(parsed)
   );
 
   const fallBackAppliedFacets = useMemo(() => {
