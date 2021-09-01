@@ -116,7 +116,7 @@ export const DemergedEntryMessage = ({
     <h4>This entry is obsolete{release && ` since release ${release}`}</h4>
     {demergedTo?.length && (
       <p data-testid="demerged-entry-message">
-        It can now be found as secondary accession in{' '}
+        Its accession has been set as secondary accession in{' '}
         {demergedTo.map((newEntry, index) => (
           <Fragment key={newEntry}>
             {listFormat(index, demergedTo)}
@@ -138,7 +138,7 @@ export const DemergedEntryMessage = ({
             search: `query=sec_acc:${accession}`,
           }}
         >
-          List
+          List of currently active entries
         </Link>
         ]
       </p>
