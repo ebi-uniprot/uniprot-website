@@ -165,6 +165,12 @@ const BasketFullView = lazy(
 );
 
 // Help
+const HelpLandingPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "help-entry" */ '../../help/components/HelpLandingPage'
+    )
+);
 const HelpEntryPage = lazy(
   () =>
     import(
@@ -351,6 +357,10 @@ const App = () => {
                 path={LocationToPath[Location.HelpResults]}
                 // TODO: Replace 2nd one when working on help centre
                 component={ResultsOrLanding(HelpResults, HelpResults)}
+              />
+              <Route
+                path={LocationToPath[Location.HelpLanding]}
+                component={HelpLandingPage}
               />
               {/* Catch-all handler -> Redirect or not found */}
               <Route
