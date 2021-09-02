@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 @import 'franklin-sites/src/styles/colours';
 @import 'franklin-sites/src/styles/settings';
 
@@ -17,7 +19,7 @@
   }
 
   &__authors {
-    margin-bottom: $global-margin/2;
+    margin-bottom: math.div($global-margin, 2);
 
     .button.tertiary {
       padding: 0 0.5rem;
@@ -25,7 +27,7 @@
   }
 
   &__abstract {
-    margin-bottom: $global-margin/2;
+    margin-bottom: math.div($global-margin, 2);
   }
 
   &__columns {
