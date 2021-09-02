@@ -1,0 +1,10 @@
+.help-autocomplete {
+  :global(input[type='text']) {
+    margin-bottom: 0.5rem;
+  }
+  :global(.card) {
+    // remove the fake margin on the right of the cards
+    width: initial;
+    margin: 0;
+  }
+}
