@@ -2,6 +2,7 @@ import { RouteChildrenProps } from 'react-router-dom';
 import { Loader, Card, InfoList } from 'franklin-sites';
 import cn from 'classnames';
 
+import HTMLHead from '../../../../shared/components/HTMLHead';
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import EntryDownload from '../../../shared/components/EntryDownload';
@@ -11,7 +12,10 @@ import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
 import apiUrls from '../../../../shared/config/apiUrls';
 
-import { Namespace } from '../../../../shared/types/namespaces';
+import {
+  Namespace,
+  NamespaceLabels,
+} from '../../../../shared/types/namespaces';
 import { LocationsAPIModel } from '../../adapters/locationsConverter';
 import LocationsColumnConfiguration, {
   LocationsColumn,
@@ -62,6 +66,10 @@ const LocationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   return (
     <SingleColumnLayout>
+      <HTMLHead title={[data.name, NamespaceLabels[Namespace.locations]]}>
+        <meta name="description" content={data.definition} />
+      </HTMLHead>
+      {/* Here we don't want to use the exact label atm */}
       <h1 className="big">Cellular component - {data.name}</h1>
       <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
         <div className="button-group">

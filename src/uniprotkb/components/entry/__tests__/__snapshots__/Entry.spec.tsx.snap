@@ -254,6 +254,19 @@ exports[`Entry basic should render main 1`] = `
               External links
             </a>
           </div>
+          <div
+            aria-controls="0"
+            class="tabs__header__item"
+            data-target="history"
+            data-testid="tab-title"
+            role="tab"
+          >
+            <a
+              href="/uniprotkb/P21802/history"
+            >
+              History
+            </a>
+          </div>
         </div>
         <div
           data-testid="tab-content"

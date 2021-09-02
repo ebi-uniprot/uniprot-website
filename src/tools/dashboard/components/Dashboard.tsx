@@ -10,6 +10,7 @@ import {
 } from 'franklin-sites';
 import { partition } from 'lodash-es';
 
+import HTMLHead from '../../../shared/components/HTMLHead';
 import Row from './Row';
 import EmptyDashboard from './EmptyDashboard';
 
@@ -33,10 +34,17 @@ const Dashboard = ({ closePanel }: { closePanel?: () => void }) => {
     }
   );
 
+  const fullPageContent = closePanel ? null : (
+    <>
+      <HTMLHead title="Tool results" />
+      <PageIntro title="Tool results" />
+    </>
+  );
+
   if (!(activeJobs.length || expiredJobs.length)) {
     return (
       <>
-        {closePanel ? null : <PageIntro title="Tool results" />}
+        {fullPageContent}
         <EmptyDashboard />
       </>
     );
@@ -44,7 +52,7 @@ const Dashboard = ({ closePanel }: { closePanel?: () => void }) => {
 
   return (
     <>
-      {closePanel ? null : <PageIntro title="Tool results" />}
+      {fullPageContent}
       <p>
         Your tool analysis results from the last{' '}
         <ClockIcon height="1em" width="3ch" /> 7 days are listed below. For any
@@ -82,7 +90,7 @@ const Dashboard = ({ closePanel }: { closePanel?: () => void }) => {
           </>
         ) : null}
       </div>
-      {closePanel && (
+      {!fullPageContent && (
         // both classnames from Franklin
         <div className="button-group sliding-panel__button-row">
           <Button

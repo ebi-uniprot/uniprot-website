@@ -1,5 +1,7 @@
-// import { Link } from 'react-router-dom';
-import { Button, ExternalLink } from 'franklin-sites';
+import { generatePath, Link } from 'react-router-dom';
+import { Button } from 'franklin-sites';
+
+import { LocationToPath, Location } from '../../../app/config/urls';
 
 import useLocalStorage from '../../hooks/useLocalStorage';
 
@@ -15,9 +17,13 @@ const GDPR = () => {
   return (
     <div className="gdpr-section">
       {`We'd like to inform you that we have updated our `}
-      <ExternalLink noIcon url="https://www.uniprot.org/help/privacy">
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'privacy',
+        })}
+      >
         Privacy Notice
-      </ExternalLink>
+      </Link>
       {` to
       comply with Europe’s new General Data Protection Regulation (GDPR) that
       applies since 25 May 2018.`}

@@ -1,5 +1,8 @@
 import { Tile, HeroContainer } from 'franklin-sites';
+import { generatePath } from 'react-router-dom';
 import cn from 'classnames';
+
+import { LocationToPath, Location } from '../../config/urls';
 
 import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
 
@@ -37,8 +40,9 @@ const UniProtData = () => (
       className="uniprot-grid-cell--span-3"
       backgroundImage={<TechDocIllustration />}
       backgroundColor={colors.independence}
-      // TODO: update link
-      url="https://www.uniprot.org/help/technical"
+      to={generatePath(LocationToPath[Location.HelpEntry], {
+        accession: 'technical',
+      })}
       gradient
     >
       Manuals, schemas and ontology descriptions
@@ -48,8 +52,9 @@ const UniProtData = () => (
       className="uniprot-grid-cell--span-3"
       backgroundImage={<ProgrammaticIllustration />}
       backgroundColor={colors.independence}
-      // TODO: update link
-      url="https://www.uniprot.org/help/programmatic_access"
+      to={generatePath(LocationToPath[Location.HelpEntry], {
+        accession: 'programmatic_access',
+      })}
       gradient
     >
       Query UniProt data using APIs providing REST, SPARQL and Java services
@@ -59,8 +64,9 @@ const UniProtData = () => (
       className="uniprot-grid-cell--span-3"
       backgroundImage={<SubmitDataIllustration />}
       backgroundColor={colors.independence}
-      // TODO: update link
-      url="https://www.uniprot.org/help/submissions"
+      to={generatePath(LocationToPath[Location.HelpEntry], {
+        accession: 'submissions',
+      })}
       gradient
     >
       Submit your sequences, publications and annotation updates

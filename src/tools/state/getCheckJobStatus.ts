@@ -156,17 +156,7 @@ const getCheckJobStatus =
 
         const now = Date.now();
 
-        const hits: string = response.headers['x-total-records'];
-
-        if (!hits) {
-          dispatch(
-            updateJob(job.internalID, {
-              timeLastUpdate: now,
-              status: Status.FAILURE,
-            })
-          );
-          throw new Error('There was no valid results for this job');
-        }
+        const hits: string = response.headers['x-total-records'] || '0';
 
         dispatch(
           updateJob(job.internalID, {
@@ -197,7 +187,9 @@ const getCheckJobStatus =
             data: { hits },
           })
         );
-        dispatch(addMessage(getJobMessage({ job: currentStateOfJob })));
+        dispatch(
+          addMessage(getJobMessage({ job: currentStateOfJob, nHits: hits }))
+        );
       } else {
         // Align
         const now = Date.now();

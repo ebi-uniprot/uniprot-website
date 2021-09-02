@@ -113,11 +113,10 @@ export type UniProtkbUIModel = {
   from?: string; // ID Mapping
 };
 
-export enum InactiveReasonType {
-  MERGED = 'MERGED', // We will never see this as this is followed by a 303 redirect
-  DEMERGED = 'DEMERGED',
-  DELETED = 'DELETED',
-}
+export type InactiveReasonType =
+  | 'MERGED' // We will never see this as this is followed by a 303 redirect
+  | 'DEMERGED'
+  | 'DELETED';
 
 export type InactiveEntryReason = {
   inactiveReasonType: InactiveReasonType;

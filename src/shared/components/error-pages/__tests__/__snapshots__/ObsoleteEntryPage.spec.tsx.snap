@@ -37,7 +37,7 @@ exports[`ObsoleteEntryPage component should render deleted page 1`] = `
             </a>
             . For previous versions of this entry, please look at its 
             <a
-              href="/uniprotkb/I8FBX0?version=*"
+              href="/uniprotkb/I8FBX0/history"
             >
               history
             </a>
@@ -79,23 +79,23 @@ exports[`ObsoleteEntryPage component should render demerged page 1`] = `
           <p
             data-testid="demerged-entry-message"
           >
-            It can now be found as secondary accession in 
+            Its accession has been set as secondary accession in 
             <a
-              href="/uniprotkb/P63151"
+              href="/uniprotkb/P63151/entry"
             >
               P63151
             </a>
              and 
             <a
-              href="/uniprotkb/P63150"
+              href="/uniprotkb/P63150/entry"
             >
               P63150
             </a>
             . [
             <a
-              href="/uniprotkb?query=replaces:Q00007"
+              href="/uniprotkb?query=sec_acc:Q00007"
             >
-              List
+              List of currently active entries
             </a>
             ]
           </p>
@@ -108,7 +108,7 @@ exports[`ObsoleteEntryPage component should render demerged page 1`] = `
             </a>
             . For previous versions of this entry, please look at its 
             <a
-              href="/uniprotkb/Q00007?version=*"
+              href="/uniprotkb/Q00007/history"
             >
               history
             </a>

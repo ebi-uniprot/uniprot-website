@@ -9,6 +9,7 @@ import {
 import { stringify } from 'query-string';
 import { Loader, Tabs, Tab } from 'franklin-sites';
 
+import HTMLHead from '../../../shared/components/HTMLHead';
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import EntryMain from './EntryMain';
 import UniParcFeaturesView from './UniParcFeaturesView';
@@ -30,12 +31,16 @@ import {
   defaultColumns,
   UniParcXRefsColumn,
 } from '../../config/UniParcXRefsColumnConfiguration';
-import { LocationToPath, Location } from '../../../app/config/urls';
+import {
+  LocationToPath,
+  Location,
+  getEntryPath,
+} from '../../../app/config/urls';
 
 import uniParcConverter, {
   UniParcAPIModel,
 } from '../../adapters/uniParcConverter';
-import { Namespace } from '../../../shared/types/namespaces';
+import { Namespace, NamespaceLabels } from '../../../shared/types/namespaces';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
 
@@ -133,6 +138,12 @@ const Entry: FC = () => {
       className="entry-page"
       title={
         <ErrorBoundary>
+          <HTMLHead
+            title={[
+              transformedData.uniParcId,
+              NamespaceLabels[Namespace.uniparc],
+            ]}
+          />
           <h1 className="big">
             <EntryTitle
               mainTitle="UniParc"
@@ -148,11 +159,11 @@ const Entry: FC = () => {
           cache
           title={
             <Link
-              to={(location) => ({
-                ...location,
-                pathname: `/uniparc/${match.params.accession}/${TabLocation.Entry}`,
-                hash: undefined,
-              })}
+              to={getEntryPath(
+                Namespace.uniparc,
+                match.params.accession,
+                TabLocation.Entry
+              )}
             >
               Entry
             </Link>
@@ -171,22 +182,33 @@ const Entry: FC = () => {
         <Tab
           title={
             <Link
-              to={(location) => ({
-                ...location,
-                pathname: `/uniparc/${match.params.accession}/${TabLocation.FeatureViewer}`,
-                hash: undefined,
-              })}
+              to={getEntryPath(
+                Namespace.uniparc,
+                match.params.accession,
+                TabLocation.FeatureViewer
+              )}
             >
               Feature viewer
             </Link>
           }
           id={TabLocation.FeatureViewer}
         >
-          {transformedData.sequenceFeatures && (
-            <UniParcFeaturesView
-              data={transformedData.sequenceFeatures}
-              sequence={transformedData.sequence.value}
-            />
+          {transformedData.sequenceFeatures ? (
+            <>
+              <HTMLHead
+                title={[
+                  transformedData.uniParcId,
+                  'Feature viewer',
+                  NamespaceLabels[Namespace.uniparc],
+                ]}
+              />
+              <UniParcFeaturesView
+                data={transformedData.sequenceFeatures}
+                sequence={transformedData.sequence.value}
+              />
+            </>
+          ) : (
+            'No features available'
           )}
         </Tab>
       </Tabs>

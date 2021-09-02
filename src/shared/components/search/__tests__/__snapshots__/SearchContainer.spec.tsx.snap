@@ -28,7 +28,7 @@ exports[`Search shallow components should render 1`] = `
       >
         <input
           aria-label="Text query in uniprotkb"
-          style="padding-right: 12ch;"
+          style="padding-right: 12ch; min-width: 14ch;"
           type="text"
           value=""
         />

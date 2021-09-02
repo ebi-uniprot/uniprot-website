@@ -48,6 +48,9 @@ type CanonicalDefinitionT = {
 };
 
 const canonicalName = 'sib-swissbiopics-sl';
+// FIXME: fix definition here, wasn't sure what to do when upgrating to TS 4.4
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 const CanonicalDefinition: CanonicalDefinitionT =
   customElements.get(canonicalName);
 let counter = 0;

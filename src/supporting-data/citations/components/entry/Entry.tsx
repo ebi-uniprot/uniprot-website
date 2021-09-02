@@ -2,6 +2,7 @@ import { RouteChildrenProps } from 'react-router-dom';
 import { Loader, Card } from 'franklin-sites';
 import { SetOptional } from 'type-fest';
 
+import HTMLHead from '../../../../shared/components/HTMLHead';
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import EntryDownload from '../../../shared/components/EntryDownload';
@@ -11,7 +12,10 @@ import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
 import apiUrls from '../../../../shared/config/apiUrls';
 
-import { Namespace } from '../../../../shared/types/namespaces';
+import {
+  Namespace,
+  NamespaceLabels,
+} from '../../../../shared/types/namespaces';
 import { CitationsAPIModel } from '../../adapters/citationsConverter';
 
 import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
@@ -33,7 +37,12 @@ const CitationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   return (
     <SingleColumnLayout>
-      <h1 className="big">Literature citation</h1>
+      <HTMLHead
+        title={[data.citation.title, NamespaceLabels[Namespace.citations]]}
+      >
+        <meta name="description" content={data.citation.literatureAbstract} />
+      </HTMLHead>
+      <h1 className="big">{NamespaceLabels[Namespace.citations]}</h1>
       <Card className={entryPageStyles.card}>
         <div className="button-group">
           <EntryDownload />

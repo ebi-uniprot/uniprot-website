@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import {
   HeroContainer,
   ExternalLink,
@@ -16,6 +17,8 @@ import useStructuredData from '../../../shared/hooks/useStructuredData';
 
 import parseDate from '../../../shared/utils/parseDate';
 import cleanText from '../../../shared/utils/cleanText';
+
+import { LocationToPath, Location } from '../../config/urls';
 
 import dataToSchema from './training.structured';
 
@@ -128,13 +131,12 @@ const NeedHelp = () => {
           styles['need-help__need-help-bottom']
         )}
       >
-        <ExternalLink
-          url="https://www.uniprot.org/help/"
-          noIcon
+        <Link
+          to={LocationToPath[Location.HelpResults]}
           className={cn(styles['help-center-link'])}
         >
           Help center
-        </ExternalLink>{' '}
+        </Link>{' '}
         <ExternalLink url="https://www.uniprot.org/contact" noIcon>
           Contact us
         </ExternalLink>

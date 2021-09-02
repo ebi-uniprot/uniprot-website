@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
 import { Loader } from 'franklin-sites';
 
+import HTMLHead from '../../../shared/components/HTMLHead';
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import Overview from '../data-views/Overview';
 import EntryMain from './EntryMain';
@@ -31,7 +32,7 @@ import {
   MessageType,
   MessageTag,
 } from '../../../messages/types/messagesTypes';
-import { Namespace } from '../../../shared/types/namespaces';
+import { Namespace, NamespaceLabels } from '../../../shared/types/namespaces';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
 
@@ -44,7 +45,7 @@ const Entry: FC = () => {
   const accession = match?.params.accession;
 
   const baseURL = apiUrls.entry(accession, Namespace.uniref);
-  const { loading, data, status, error, redirectedTo } =
+  const { loading, data, status, error, redirectedTo, progress } =
     useDataApi<UniRefAPIModel>(baseURL);
 
   if (error || !accession) {
@@ -52,7 +53,7 @@ const Entry: FC = () => {
   }
 
   if (loading || !data) {
-    return <Loader />;
+    return <Loader progress={progress} />;
   }
 
   if (redirectedTo) {
@@ -77,6 +78,12 @@ const Entry: FC = () => {
       className="entry-page"
       title={
         <ErrorBoundary>
+          <HTMLHead
+            title={[
+              `${transformedData.name} - ${transformedData.id} (${transformedData.identity}%)`,
+              NamespaceLabels[Namespace.uniref],
+            ]}
+          />
           <h1 className="big">
             <EntryTitle
               mainTitle="UniRef"

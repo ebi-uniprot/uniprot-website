@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom';
 import { Loader, PageIntro, Tabs, Tab } from 'franklin-sites';
 
+import HTMLHead from '../../../../shared/components/HTMLHead';
 import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
@@ -35,6 +36,7 @@ import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
 import { Location, LocationToPath } from '../../../../app/config/urls';
 import toolsURLs from '../../../config/urls';
 import { getAccessionsURL } from '../../../../shared/config/apiUrls';
+import namespaceToolTitles from '../../../../shared/config/namespaceToolTitles';
 
 import { BlastResults, BlastHit } from '../../types/blastResults';
 import Response from '../../../../uniprotkb/types/responseTypes';
@@ -48,6 +50,7 @@ import sticky from '../../../../shared/styles/sticky.module.scss';
 
 const jobType = JobTypes.BLAST;
 const urls = toolsURLs(jobType);
+const title = `${namespaceToolTitles[jobType]} results`;
 
 // overview
 const BlastResultTable = lazy(
@@ -239,19 +242,6 @@ const BlastResult = () => {
     )
   );
 
-  // list of all the accessions returned by the accessions endpoint
-  // const accessionsFilteredByServer = useMemo(
-  //   () =>
-  //     new Set(
-  //       (accessionsData &&
-  //         accessionsData.results.map(
-  //           ({ primaryAccession }) => primaryAccession
-  //         )) ||
-  //         []
-  //     ),
-  //   [accessionsData]
-  // );
-
   // filter BLAST results according to facets (through accession endpoint and other BLAST facets facets)
   const filteredBlastData =
     blastData &&
@@ -323,12 +313,11 @@ const BlastResult = () => {
   );
   return (
     <SideBarLayout
-      title={
-        <PageIntro title="BLAST Results" resultsCount={hitsFiltered.length} />
-      }
+      title={<PageIntro title={title} resultsCount={hitsFiltered.length} />}
       sidebar={sidebar}
       className={sticky['sticky-tabs-container']}
     >
+      <HTMLHead title={title} />
       <Tabs
         active={match.params.subPage}
         className={accessionsLoading ? helper.stale : undefined}
@@ -379,6 +368,7 @@ const BlastResult = () => {
             </Link>
           }
         >
+          <HTMLHead title={[title, 'Taxonomy']} />
           {actionBar}
           <BlastResultTaxonomy data={data} />
         </Tab>
@@ -395,6 +385,7 @@ const BlastResult = () => {
             </Link>
           }
         >
+          <HTMLHead title={[title, 'Hit Distribution']} />
           {actionBar}
           <BlastResultHitDistribution
             loading={blastLoading || accessionsLoading}
@@ -415,6 +406,7 @@ const BlastResult = () => {
             </Link>
           }
         >
+          <HTMLHead title={[title, 'Text Output']} />
           <Suspense fallback={<Loader />}>
             <TextOutput id={match.params.id} jobType={jobType} />
           </Suspense>
@@ -432,6 +424,7 @@ const BlastResult = () => {
             </Link>
           }
         >
+          <HTMLHead title={[title, 'Input Parameters']} />
           <Suspense fallback={<Loader />}>
             <InputParameters
               id={match.params.id}
@@ -453,6 +446,7 @@ const BlastResult = () => {
             </Link>
           }
         >
+          <HTMLHead title={[title, 'API Request']} />
           <Suspense fallback={<Loader />}>
             <APIRequest jobType={jobType} inputParamsData={inputParamsData} />
           </Suspense>

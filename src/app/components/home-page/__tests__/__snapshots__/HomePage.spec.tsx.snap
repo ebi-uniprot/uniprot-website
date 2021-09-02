@@ -52,7 +52,7 @@ exports[`HomePage component should render 1`] = `
               >
                 <input
                   aria-label="Text query in uniprotkb"
-                  style="padding-right: 12ch;"
+                  style="padding-right: 12ch; min-width: 14ch;"
                   type="text"
                   value=""
                 />
@@ -123,7 +123,7 @@ exports[`HomePage component should render 1`] = `
         UniProt is the world’s leading high-quality, comprehensive and freely accessible resource of protein sequence and functional information. 
         <a
           class="cite-us"
-          href="https://www.uniprot.org/help/publications"
+          href="/help/publications"
         >
           Cite 
           <span

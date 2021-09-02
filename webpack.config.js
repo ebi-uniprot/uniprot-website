@@ -315,17 +315,12 @@ module.exports = (env, argv) => {
         // 30k, default min size of chunks anyway
         minSize: 30 * 1024,
         // 244k, order of magnitude of recommendation for max size of chunks
-        maxSize: 244 * 1024,
+        // maxSize: 244 * 1024, // Molstar is so big there's no point really...
         minChunks: 1,
         maxAsyncRequests: 6,
         maxInitialRequests: 4,
         automaticNameDelimiter: '~',
         cacheGroups: {
-          sentry: {
-            test: /[\\/]node_modules[\\/]@sentry[\\/]/,
-            name: 'sentry',
-            chunks: 'all',
-          },
           geneontology: {
             // list the package to extract into its own bundle, plus all its
             // dependencies used *only* by it (use `yarn why <dependency>` to find)
@@ -343,21 +338,27 @@ module.exports = (env, argv) => {
             name: 'react',
             chunks: 'all',
           },
-          litemol: {
-            test: /[\\/]node_modules[\\/](litemol)[\\/]/,
-            name: 'litemol',
+          nightingale: {
+            test: /[\\/]node_modules[\\/](protvista-|nightingale-)/,
+            name: 'nightingale',
             chunks: 'all',
           },
-          defaultVendors: {
-            test: /[\\/]node_modules[\\/]/,
-            name: 'default-vendors',
-            priority: -10,
+          molstar: {
+            test: /[\\/]node_modules[\\/](molstar)[\\/]/,
+            name: 'molstar',
+            chunks: 'all',
           },
-          default: {
-            minChunks: 2,
-            priority: -20,
-            reuseExistingChunk: true,
-          },
+          // Commented, let webpack do it's optimisation/chunking job
+          // defaultVendors: {
+          //   test: /[\\/]node_modules[\\/]/,
+          //   name: 'default-vendors',
+          //   priority: -10,
+          // },
+          // default: {
+          //   minChunks: 2,
+          //   priority: -20,
+          //   reuseExistingChunk: true,
+          // },
         },
       },
     },

@@ -1,7 +1,9 @@
 import { memo, HTMLAttributes } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, generatePath } from 'react-router-dom';
 import cn from 'classnames';
 import { CitedIcon, EnvelopeIcon, ExternalLink } from 'franklin-sites';
+
+import ReleaseInfo from './ReleaseInfo';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 
@@ -24,7 +26,6 @@ import SERILogo from '../../../images/seri-logo.png';
 
 import ElixirCDRLogo from '../../../images/elixir-cdr.png';
 import CTSLogo from '../../../images/core-trust-seal-logo.png';
-import ReleaseInfo from './ReleaseInfo';
 
 const FooterConsortium = () => (
   <div className="consortium">
@@ -64,18 +65,30 @@ const FooterConsortium = () => (
 const FooterCopyrightAndMisc = () => (
   <div className="copyright-misc">
     <p>
-      <ExternalLink noIcon url="https://www.uniprot.org/help/about">
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'about',
+        })}
+      >
         © 2002 – {new Date().getFullYear()} UniProt consortium
-      </ExternalLink>
+      </Link>
     </p>
     <p>
-      <ExternalLink noIcon url="https://www.uniprot.org/help/license">
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'license',
+        })}
+      >
         License &amp; Disclaimer
-      </ExternalLink>{' '}
+      </Link>{' '}
       |{' '}
-      <ExternalLink noIcon url="https://www.uniprot.org/help/privacy">
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'privacy',
+        })}
+      >
         Privacy Notice
-      </ExternalLink>
+      </Link>
     </p>
   </div>
 );
@@ -226,7 +239,11 @@ const FooterShortcuts = () => (
       <span className="shortcuts__title">Information</span>
       <ul className="no-bullet">
         <li>
-          <ExternalLink noIcon url="https://www.uniprot.org/help/publications">
+          <Link
+            to={generatePath(LocationToPath[Location.HelpEntry], {
+              accession: 'publications',
+            })}
+          >
             Cite{' '}
             <span className={helper['no-wrap']}>
               UniProt
@@ -234,37 +251,46 @@ const FooterShortcuts = () => (
                 <CitedIcon width="1em" />
               </sup>
             </span>
-          </ExternalLink>
+          </Link>
         </li>
         <li>
-          <ExternalLink noIcon url="https://www.uniprot.org/help/about">
+          <Link
+            to={generatePath(LocationToPath[Location.HelpEntry], {
+              accession: 'about',
+            })}
+          >
             About
-          </ExternalLink>{' '}
-          &amp;{' '}
-          <ExternalLink noIcon url="https://www.uniprot.org/help">
-            Help
-          </ExternalLink>
+          </Link>{' '}
+          &amp; <Link to={LocationToPath[Location.HelpResults]}>Help</Link>
         </li>
         <li>
-          <ExternalLink
-            noIcon
-            url="https://www.uniprot.org/help/?fil=section:manual"
+          <Link
+            to={{
+              pathname: LocationToPath[Location.HelpResults],
+              search: '?query=*&facets=category:manual',
+            }}
           >
             UniProtKB manual
-          </ExternalLink>
+          </Link>
         </li>
         <li>
-          <ExternalLink noIcon url="https://www.uniprot.org/help/technical">
+          <Link
+            to={generatePath(LocationToPath[Location.HelpEntry], {
+              accession: 'technical',
+            })}
+          >
             Technical corner
-          </ExternalLink>
+          </Link>
         </li>
         <li>
-          <ExternalLink
-            noIcon
-            url="https://www.uniprot.org/help/?query=*&fil=section:biocuration"
+          <Link
+            to={{
+              pathname: LocationToPath[Location.HelpResults],
+              search: '?query=*&facets=category:biocuration',
+            }}
           >
             Expert biocuration
-          </ExternalLink>
+          </Link>
         </li>
         <li>
           <ExternalLink noIcon url="https://www.uniprot.org/statistics/">
@@ -349,9 +375,13 @@ const FooterFunding = () => (
   <div className="funding">
     <span>
       Main{' '}
-      <ExternalLink noIcon url="https://www.uniprot.org/help/about">
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'about',
+        })}
+      >
         funding
-      </ExternalLink>{' '}
+      </Link>{' '}
       by:
     </span>
     <ExternalLink noIcon url="https://www.nih.gov/">
@@ -369,7 +399,7 @@ const FooterFunding = () => (
       url="https://www.sbfi.admin.ch/sbfi/en/home.html"
       title="State Secretariat for Education, Research and Innovation SERI"
     >
-      <img src={SERILogo} loading="lazy" alt="" />
+      <img src={SERILogo} width="288" height="48" loading="lazy" alt="" />
     </ExternalLink>
   </div>
 );

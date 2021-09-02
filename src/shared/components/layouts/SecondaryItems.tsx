@@ -262,13 +262,8 @@ const SecondaryItems = () => {
       href: '//www.uniprot.org/contact',
     },
     {
-      label: (
-        <span title="Help" className={styles['secondary-item']}>
-          Help
-        </span>
-      ),
-      // TODO: update link
-      href: '//www.uniprot.org/help',
+      label: 'Help',
+      path: LocationToPath[Location.HelpResults],
     },
   ];
 };
