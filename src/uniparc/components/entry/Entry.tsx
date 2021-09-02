@@ -31,7 +31,11 @@ import {
   defaultColumns,
   UniParcXRefsColumn,
 } from '../../config/UniParcXRefsColumnConfiguration';
-import { LocationToPath, Location } from '../../../app/config/urls';
+import {
+  LocationToPath,
+  Location,
+  getEntryPath,
+} from '../../../app/config/urls';
 
 import uniParcConverter, {
   UniParcAPIModel,
@@ -155,11 +159,11 @@ const Entry: FC = () => {
           cache
           title={
             <Link
-              to={(location) => ({
-                ...location,
-                pathname: `/uniparc/${match.params.accession}/${TabLocation.Entry}`,
-                hash: undefined,
-              })}
+              to={getEntryPath(
+                Namespace.uniparc,
+                match.params.accession,
+                TabLocation.Entry
+              )}
             >
               Entry
             </Link>
@@ -178,11 +182,11 @@ const Entry: FC = () => {
         <Tab
           title={
             <Link
-              to={(location) => ({
-                ...location,
-                pathname: `/uniparc/${match.params.accession}/${TabLocation.FeatureViewer}`,
-                hash: undefined,
-              })}
+              to={getEntryPath(
+                Namespace.uniparc,
+                match.params.accession,
+                TabLocation.FeatureViewer
+              )}
             >
               Feature viewer
             </Link>
