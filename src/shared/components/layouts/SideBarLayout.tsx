@@ -8,7 +8,6 @@ import './styles/side-bar-layout.scss';
 type SideBarLayoutProps = {
   title?: ReactNode;
   sidebar: ReactNode;
-  invert?: boolean;
   className?: string;
 };
 
