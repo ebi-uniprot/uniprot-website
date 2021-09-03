@@ -1,16 +1,12 @@
 import EntrySection from '../types/entrySection';
-import { DatabaseCategory, DatabaseInfo } from '../types/databaseRefs';
+import { DatabaseCategory } from '../types/databaseRefs';
 import {
   getDatabaseInfoMaps,
   selectDatabases,
   getEntrySectionToDatabaseCategoryOrder,
 } from '../utils/database';
-// TODO: there is an endpoint for that
-// https://wwwdev.ebi.ac.uk/uniprot/api/configure/uniprotkb/allDatabases
-import databaseInfoJson from './databaseInfo.json';
+import databaseInfo from './databaseInfo';
 import externalUrls from '../../shared/config/externalUrls';
-
-const databaseInfo: DatabaseInfo = databaseInfoJson;
 
 export const databaseCategoryToString = {
   [DatabaseCategory.CHEMISTRY]: 'Chemistry',
@@ -48,18 +44,34 @@ export const PDBMirrorsInfo = PDBMirrors.map(
 const databaseSelector = selectDatabases(databaseCategoryToNames);
 
 export const entrySectionToDatabaseNames = new Map<EntrySection, string[]>();
+entrySectionToDatabaseNames.set(EntrySection.DiseaseAndDrugs, [
+  'DisGeNET',
+  'GeneReviews',
+  'MalaCards',
+  'MIM',
+  'OpenTargets',
+  'Orphanet',
+  'PharmGKB',
+  'ChEMBL',
+  'DrugBank',
+  'GuidetoPHARMACOLOGY',
+  'BioMuta',
+  'DMDM',
+  'Allergome',
+  'PHI-base',
+]);
 entrySectionToDatabaseNames.set(
   EntrySection.Expression,
   databaseSelector({
     categories: [DatabaseCategory.EXPRESSION],
-    whitelist: ['HPA'],
+    include: ['HPA'],
   })
 );
 entrySectionToDatabaseNames.set(
   EntrySection.FamilyAndDomains,
   databaseSelector({
     categories: [DatabaseCategory.PHYLOGENOMIC, DatabaseCategory.DOMAIN],
-    whitelist: [
+    include: [
       'MobiDB', // Implicit
       'ProtoNet', // Implicit
       'GPCRDB', // Implicit
@@ -70,14 +82,14 @@ entrySectionToDatabaseNames.set(
   EntrySection.Function,
   databaseSelector({
     categories: [DatabaseCategory.PATHWAY, DatabaseCategory.FAMILY],
-    whitelist: ['SwissLipids'],
+    include: ['SwissLipids'],
   })
 );
 entrySectionToDatabaseNames.set(
   EntrySection.Interaction,
   databaseSelector({
     categories: [DatabaseCategory.INTERACTION],
-    whitelist: ['BindingDB'],
+    include: ['BindingDB'],
   })
 );
 entrySectionToDatabaseNames.set(EntrySection.NamesAndTaxonomy, [
@@ -87,7 +99,7 @@ entrySectionToDatabaseNames.set(EntrySection.NamesAndTaxonomy, [
   'ConoServer',
   'dictyBase',
   'EcoGene',
-  'EuPathDB',
+  'VEuPathDB',
   'FlyBase',
   'Gramene',
   'HGNC',
@@ -108,21 +120,6 @@ entrySectionToDatabaseNames.set(EntrySection.NamesAndTaxonomy, [
   'Xenbase',
   'ZFIN',
 ]);
-entrySectionToDatabaseNames.set(EntrySection.DiseaseAndDrugs, [
-  'DisGeNET',
-  'GeneReviews',
-  'MalaCards',
-  'MIM',
-  'OpenTargets',
-  'Orphanet',
-  'PharmGKB',
-  'ChEMBL',
-  'DrugBank',
-  'GuidetoPHARMACOLOGY',
-  'BioMuta',
-  'DMDM',
-  'Allergome',
-]);
 entrySectionToDatabaseNames.set(
   EntrySection.ProteinProcessing,
   databaseSelector({
@@ -131,7 +128,7 @@ entrySectionToDatabaseNames.set(
       DatabaseCategory.GEL,
       DatabaseCategory.PTM,
     ],
-    whitelist: ['PMAP-CutDB'],
+    include: ['PMAP-CutDB'],
   })
 );
 entrySectionToDatabaseNames.set(
@@ -144,7 +141,7 @@ entrySectionToDatabaseNames.set(
   EntrySection.Structure,
   databaseSelector({
     categories: [DatabaseCategory.STRUCTURE],
-    whitelist: [
+    include: [
       'EvolutionaryTrace',
       'ModBase', // Implicit
     ],
@@ -156,9 +153,9 @@ entrySectionToDatabaseNames.set(
   EntrySection.ExternalLinks,
   databaseSelector({
     categories: [DatabaseCategory.OTHER, DatabaseCategory.PROTOCOL],
-    whitelist: [
+    include: [
       'HUGE', // Implicit
-      'ROUGE', // Implicit
+      'Rouge', // Implicit
       'GenAtlas', // Implicit
       ...PDBMirrors,
     ],
@@ -213,7 +210,7 @@ export const implicitDatabaseGenePatternOrganism = {
   pattern: /KIAA\d{4}/i,
   organism: {
     Human: 'HUGE', // eg Q96PV4
-    Mouse: 'ROUGE', // eg Q8CJ19
+    Mouse: 'Rouge', // eg Q8CJ19
   },
 };
 
