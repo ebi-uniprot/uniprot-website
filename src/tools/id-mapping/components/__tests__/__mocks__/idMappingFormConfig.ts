@@ -1,5 +1,6 @@
 import { IDMappingFormConfig } from '../../../types/idMappingFormConfig';
 
+// Source: https://www.ebi.ac.uk/uniprot/beta/api/configure/idmapping/fields
 const data: IDMappingFormConfig = {
   groups: [
     {
