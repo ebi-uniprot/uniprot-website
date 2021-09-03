@@ -149,7 +149,6 @@ module.exports = (env, argv) => {
             // We use realpathSync otherwise doesn't work with symlinks
             fs.realpathSync(`${__dirname}/node_modules/franklin-sites`),
             fs.realpathSync(`${__dirname}/node_modules/rheostat`),
-            fs.realpathSync(`${__dirname}/node_modules/litemol/dist/css`),
             fs.realpathSync(`${__dirname}/node_modules/molstar/build`),
             fs.realpathSync(
               `${__dirname}/node_modules/@geneontology/ribbon/es`
@@ -193,13 +192,7 @@ module.exports = (env, argv) => {
             },
           ],
         },
-        // SVGs in stylesheets
-        {
-          test: /\.svg$/i,
-          issuer: /\.(css|scss)?$/,
-          loader: 'svg-url-loader',
-        },
-        // rest of SVGs
+        // SVGs in app and in franklin
         {
           test: /\.svg$/i,
           include: [
@@ -207,29 +200,7 @@ module.exports = (env, argv) => {
             fs.realpathSync(`${__dirname}/node_modules/franklin-sites`),
           ],
           issuer: /\.(t|j)sx?$/,
-          use: [
-            {
-              loader: '@svgr/webpack',
-            },
-          ],
-        },
-        // Fonts
-        {
-          test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-          // NOTE: watch out, this *only* includes litemol, if we need to load
-          // NOTE: fonts from somewhere else we'll have to add it here.
-          include: [
-            fs.realpathSync(`${__dirname}/node_modules/litemol/dist/fonts`),
-          ],
-          use: [
-            {
-              loader: 'file-loader',
-              options: {
-                name: '[name].[contenthash:6].[ext]',
-                outputPath: 'fonts/',
-              },
-            },
-          ],
+          loader: '@svgr/webpack',
         },
         // SVGs from nightingale and protvista packages
         {
@@ -285,8 +256,8 @@ module.exports = (env, argv) => {
         new (require('workbox-webpack-plugin').InjectManifest)({
           swSrc: `${__dirname}/src/service-worker/service-worker.ts`,
           // TODO: remove limit when we manage to reduce size of entrypoint
-          // For now, 2MB in production (Litemol chunk is 1.3M!), 10M in dev
-          maximumFileSizeToCacheInBytes: 1024 * 1024 * 2 * (isDev ? 5 : 1),
+          // For now, 3MB in production (molstar chunk is 2.2M!), 16M in dev
+          maximumFileSizeToCacheInBytes: 1024 * 1024 * 3 * (isDev ? 4 : 1),
           // exclude fonts from precaching because one specific browser will
           // never need all fonts formats at the same time, will cache later
           // whichever is actually used. Exclude sourcemaps too.

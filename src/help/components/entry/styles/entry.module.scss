@@ -24,14 +24,18 @@
   }
 }
 
+// Reuse the SVG from franklin for the injected HTML for the help article
 .external {
   &::after {
-    // NOTE: cannot colour the svg when using url(...)
-    content: url('../../../../../node_modules/franklin-sites/src/svg/external-link.svg');
+    content: '';
+    // Below, hack to get a SVG used as an image to be coloured the same as text
+    background: currentColor;
+    -webkit-mask-image: url('../../../../../node_modules/franklin-sites/src/svg/external-link.svg');
+    mask-image: url('../../../../../node_modules/franklin-sites/src/svg/external-link.svg');
 
     display: inline-block;
     width: 0.75em;
     height: 0.75em;
-    margin-left: 0.75ch;
+    margin: 0 0.5ch;
   }
 }

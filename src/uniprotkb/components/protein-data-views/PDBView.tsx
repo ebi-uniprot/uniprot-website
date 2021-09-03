@@ -8,8 +8,6 @@ import { PDBMirrorsInfo } from '../../config/database';
 import { processUrlTemplate } from './XRefView';
 import { Xref } from '../../../shared/types/apiModel';
 
-import 'litemol/dist/css/LiteMol-plugin.css';
-
 const processData = (xrefs: Xref[]) =>
   xrefs.map(({ id, properties }) => {
     if (!properties) {

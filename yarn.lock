@@ -2531,13 +2531,6 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-dom@^15.5.6":
-  version "15.5.12"
-  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-15.5.12.tgz#890e144660bb4f811a354cbf9c38e52b3c7f163f"
-  integrity sha512-Em6KxsTfKdzGfgeuOmMQDjtOBCv6vf6yBCCK1K6jqc4cKrh0To0gIULkP6Wv3mI72a7iN5jPHH05LWUdMPuA+w==
-  dependencies:
-    "@types/react" "^15"
-
 "@types/react-helmet@6.1.2":
   version "6.1.2"
   resolved "https://registry.yarnpkg.com/@types/react-helmet/-/react-helmet-6.1.2.tgz#e9d7d16b29e4ec5716711c52c35c3cec45819eac"
@@ -2606,11 +2599,6 @@
     "@types/prop-types" "*"
     "@types/scheduler" "*"
     csstype "^3.0.2"
-
-"@types/react@^15", "@types/react@^15.6.16":
-  version "15.7.0"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-15.7.0.tgz#6bc6dda07c8eefe7c02bba083f5afa5e53022f7b"
-  integrity sha512-fROvMBKisHbCUGMRXqAVAhZeehNQkeLYRZW/PhYI+Ahd+HdC1DWNWktiFYUy44Iys7qvBo7O8J5UNneWEVxAQw==
 
 "@types/resolve@1.17.1":
   version "1.17.1"
@@ -7910,14 +7898,6 @@ lite-youtube-embed@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/lite-youtube-embed/-/lite-youtube-embed-0.2.0.tgz#db95eab9dd448f02e83de906383350a8033d54fe"
   integrity sha512-XXXAk5sbvtjjwbie3XG+6HppgTm1HTGL/Uk9z9NkJH53o7puZLur434heHzAjkS60hZB3vT4ls25zl5rMiX4EA==
-
-litemol@2.4.2:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/litemol/-/litemol-2.4.2.tgz#4a206cadb31659f7f3b13478020b97f373cbb815"
-  integrity sha512-wmgfl5SxJvkHdg0Tq39Y3Dx4D+74lS+M0fnPEpBlVWZM5xooDuxTZkHLDH9N3nFSQVqjHiT80GFBNL/t/APf5A==
-  dependencies:
-    "@types/react" "^15.6.16"
-    "@types/react-dom" "^15.5.6"
 
 load-json-file@^2.0.0:
   version "2.0.0"
