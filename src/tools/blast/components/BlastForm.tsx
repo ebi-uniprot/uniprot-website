@@ -70,6 +70,10 @@ import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 
 const BLAST_LIMIT = 20;
+const isInvalid = (parsedSequences: ParsedSequence[]) =>
+  !parsedSequences.length ||
+  parsedSequences.length > BLAST_LIMIT ||
+  parsedSequences.some((parsedSequence) => !parsedSequence.valid);
 
 const title = namespaceToolTitles[JobTypes.BLAST];
 
@@ -134,7 +138,12 @@ const BlastForm = () => {
   const initialFormValues = useInitialFormParameters(defaultFormValues);
 
   // used when the form submission needs to be disabled
-  const [submitDisabled, setSubmitDisabled] = useState(true);
+  const [submitDisabled, setSubmitDisabled] = useState(() =>
+    // default sequence value will tell us if submit should be disabled or not
+    isInvalid(
+      sequenceProcessor(initialFormValues[BlastFields.sequence].selected)
+    )
+  );
   // used when the form is about to be submitted to the server
   const [sending, setSending] = useState(false);
   // flag to see if the user manually changed the title
@@ -360,10 +369,7 @@ const BlastForm = () => {
 
       setParsedSequences(parsedSequences);
       setSequence((sequence) => ({ ...sequence, selected: rawSequence }));
-      setSubmitDisabled(
-        parsedSequences.length > BLAST_LIMIT ||
-          parsedSequences.some((parsedSequence) => !parsedSequence.valid)
-      );
+      setSubmitDisabled(isInvalid(parsedSequences));
 
       const mightBeDNA = parsedSequences[0]?.likelyType === 'na';
 
