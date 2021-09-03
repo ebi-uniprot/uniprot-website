@@ -1,4 +1,4 @@
-import { useCallback, MouseEventHandler } from 'react';
+import { useCallback, MouseEventHandler, useMemo } from 'react';
 import { Loader, Card } from 'franklin-sites';
 import marked from 'marked';
 import { Attributes, defaults, Transformer } from 'sanitize-html';
@@ -23,10 +23,11 @@ import helper from '../../../shared/styles/helper.module.scss';
 import styles from './styles/entry.module.scss';
 
 const internalRE = /^(https?:)?\/\/www.uniprot.org\//i;
-const absoluteURL = /^(https?:)?\/\//i;
+const sameAppURL = new RegExp(window.location.origin + BASE_URL, 'i');
+// NOTE: in production, internalRE and sameAppURL should be the same
 
 const aTransformer: Transformer = (_: string, attribs: Attributes) => {
-  const href = attribs.href.replace(internalRE, '/');
+  const href = attribs.href.replace(internalRE, BASE_URL);
   const isExternal = href === attribs.href;
   return {
     tagName: 'a',
@@ -66,30 +67,42 @@ const HelpEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   const { data, loading, error, status, progress, isStale } =
     useDataApiWithStale<HelpEntryResponse>(helpURL.accession(accession));
 
-  // Hijack clicks on links
+  // Hijack clicks on content
   const handleClick = useCallback<MouseEventHandler<HTMLElement>>(
     (event) => {
-      const target = event.target as HTMLElement;
-      if (target.tagName === 'A') {
-        const { href } = target as HTMLAnchorElement;
-        if (!absoluteURL.test(href)) {
+      // Hijack clicks on content but only interested in link clicks
+      if (event.target instanceof HTMLAnchorElement) {
+        const { href } = event.target;
+        // If clicks are within the UniProt client
+        if (sameAppURL.test(href)) {
+          // Don't navigate away!
           event.preventDefault();
-          props.history.push(href);
+          // And just replace the current URL with the next page
+          props.history.push(href.replace(sameAppURL, '/'));
         }
       }
     },
     [props.history]
   );
 
-  if (loading && !data) {
+  const [lastModifed, html] = useMemo(
+    () =>
+      data
+        ? [
+            parseDate(data.lastModified),
+            cleanText(marked(data.content), cleanTextOptions),
+          ]
+        : [],
+    [data]
+  );
+
+  if (loading && !data && !html) {
     return <Loader progress={progress} />;
   }
 
-  if (error || !data) {
+  if (error || !data || !html) {
     return <ErrorHandler status={status} />;
   }
-
-  const lastModifed = parseDate(data.lastModified);
 
   return (
     <SingleColumnLayout>
@@ -110,9 +123,7 @@ const HelpEntry = (props: RouteChildrenProps<{ accession: string }>) => {
         {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
         <div
           // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{
-            __html: cleanText(marked(data.content), cleanTextOptions),
-          }}
+          dangerouslySetInnerHTML={{ __html: html }}
           onClick={handleClick}
         />
       </Card>

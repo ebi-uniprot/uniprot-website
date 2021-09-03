@@ -10,8 +10,8 @@ import toolsURLs from '../config/urls';
 import { PublicServerParameters } from '../types/toolsServerParameters';
 import { JobTypes } from '../types/toolsJobTypes';
 
-// black list data that is just there as information and cannot be set
-const blacklist = new Map<JobTypes, string[]>([
+// exclude data that is just there as information and cannot be set
+const exclude = new Map<JobTypes, string[]>([
   [JobTypes.ALIGN, ['program', 'version']],
 ]);
 
@@ -30,10 +30,10 @@ function inputToCurl<T extends JobTypes>(
   input: Partial<PublicServerParameters[T]>,
   jobType: T
 ) {
-  const bl = blacklist.get(jobType) || [];
+  const excluded = exclude.get(jobType) || [];
   let command = "curl -F 'email=<enter your email here>' \\\n";
   for (const [key, value] of Object.entries(input)) {
-    if (!bl.includes(key)) {
+    if (!excluded.includes(key)) {
       command += `     -F '${key}=${value}' \\\n`;
     }
   }

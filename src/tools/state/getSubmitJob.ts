@@ -6,6 +6,7 @@ import {
   getRemoteIDFromResponse,
   getServerErrorDescription,
   getJobMessage,
+  ServerError,
 } from '../utils';
 
 import { addMessage } from '../../messages/state/messagesActions';
@@ -61,9 +62,13 @@ const getSubmitJob =
         })
       );
     } catch (error) {
-      const errorDescription =
-        getServerErrorDescription(error) ||
-        `Could not run job: ${error.message}`;
+      let errorDescription = 'Unexpected error';
+      if (error instanceof Object && 'response' in error) {
+        errorDescription =
+          getServerErrorDescription(error as ServerError) || errorDescription;
+      } else if (error instanceof Error) {
+        errorDescription = `Could not run job: ${error.message}`;
+      }
       // get a new reference to the job
       const currentStateOfJob = getState().tools[job.internalID];
       // check that the job is still in the state (it might have been removed)

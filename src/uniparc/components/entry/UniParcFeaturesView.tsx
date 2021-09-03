@@ -39,7 +39,7 @@ const convertData = (data: SequenceFeature[]): UniParcProcessedFeature[] =>
     'interproGroupName'
   );
 
-// DEfine columns
+// Define columns
 const columnConfig: ColumnConfig<UniParcProcessedFeature> = () => ({
   interproGroup: {
     label: 'InterPro Group',

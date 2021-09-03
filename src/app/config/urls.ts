@@ -152,8 +152,13 @@ export const EntryLocations: Record<SearchableNamespace, string> = {
 
 export const getEntryPath = (
   namespace: SearchableNamespace,
-  accession: string | number
-) => generatePath(EntryLocations[namespace], { accession: `${accession}` });
+  accession: string | number,
+  subPage?: string
+) =>
+  generatePath(EntryLocations[namespace], {
+    accession: `${accession}`,
+    subPage,
+  });
 
 // Same than above, but curried version
 export const getEntryPathFor = (namespace: SearchableNamespace) => {

@@ -462,3 +462,40 @@ export const help = {
       size: size || 500,
     })}`,
 };
+
+export const unisave = {
+  accession: (
+    accession: string,
+    {
+      format,
+      entryVersions,
+      download,
+      includeContent,
+    }: {
+      format: 'json' | 'fasta' | 'txt';
+      entryVersions?: number | number[];
+      download?: boolean;
+      includeContent?: boolean;
+    } = { format: 'json' }
+  ) =>
+    accession &&
+    `${joinUrl(apiPrefix, '/unisave', accession)}?${queryString.stringify(
+      {
+        format,
+        versions: entryVersions,
+        download: download ? 'true' : undefined,
+        includeContent: includeContent ? 'true' : undefined,
+      },
+      { arrayFormat: 'comma' }
+    )}`,
+  status: (accession: string) =>
+    accession && joinUrl(apiPrefix, '/unisave', accession, 'status'),
+  diff: (accession: string, version1: number, version2: number) =>
+    accession &&
+    `${joinUrl(
+      apiPrefix,
+      '/unisave',
+      accession,
+      'diff'
+    )}?${queryString.stringify({ version1, version2 })}`,
+};

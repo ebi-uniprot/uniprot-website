@@ -254,6 +254,19 @@ exports[`Entry basic should render main 1`] = `
               External links
             </a>
           </div>
+          <div
+            aria-controls="0"
+            class="tabs__header__item"
+            data-target="history"
+            data-testid="tab-title"
+            role="tab"
+          >
+            <a
+              href="/uniprotkb/P21802/history"
+            >
+              History
+            </a>
+          </div>
         </div>
         <div
           data-testid="tab-content"
@@ -2103,7 +2116,7 @@ exports[`Entry basic should render main 1`] = `
                             <li>
                               <a
                                 class="external-link"
-                                href="https://swissmodel.expasy.org/interactive/?ac=P21802"
+                                href="http://salilab.org/modbase-cgi/model_search.cgi?searchkw=name&kword=P21802"
                                 rel="noopener"
                                 target="_blank"
                               >

@@ -56,6 +56,10 @@ import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 
 const ALIGN_LIMIT = 100;
+const isInvalid = (parsedSequences: ParsedSequence[]) =>
+  parsedSequences.length > ALIGN_LIMIT ||
+  parsedSequences.some((parsedSequence) => !parsedSequence.valid) ||
+  parsedSequences.length <= 1;
 
 const title = namespaceToolTitles[JobTypes.ALIGN];
 
@@ -107,7 +111,12 @@ const AlignForm = () => {
   const initialFormValues = useInitialFormParameters(defaultFormValues);
 
   // used when the form submission needs to be disabled
-  const [submitDisabled, setSubmitDisabled] = useState(true);
+  const [submitDisabled, setSubmitDisabled] = useState(() =>
+    // default sequence value will tell us if submit should be disabled or not
+    isInvalid(
+      sequenceProcessor(initialFormValues[AlignFields.sequence].selected)
+    )
+  );
   // used when the form is about to be submitted to the server
   const [sending, setSending] = useState(false);
   // flag to see if the user manually changed the title
@@ -221,11 +230,7 @@ const AlignForm = () => {
           .map((parsedSequence) => parsedSequence.raw)
           .join('\n'),
       }));
-      setSubmitDisabled(
-        parsedSequences.length > ALIGN_LIMIT ||
-          parsedSequences.some((parsedSequence) => !parsedSequence.valid) ||
-          parsedSequences.length <= 1
-      );
+      setSubmitDisabled(isInvalid(parsedSequences));
     },
     [jobNameEdited]
   );
