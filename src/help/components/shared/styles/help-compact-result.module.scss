@@ -1,4 +1,5 @@
-:global(.card) .dropdown-result-list {
-  // remove the fake margin on the right of the cards
-  width: initial;
+.help-compact-result {
+  :global(.info-list .info-list--columns) {
+    column-count: initial !important;
+  }
 }
