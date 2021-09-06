@@ -35,6 +35,8 @@ const aTransformer: Transformer = (_: string, attribs: Attributes) => {
       ...attribs,
       title: 'link',
       class: isExternal ? styles.external : '',
+      target: isExternal ? '_blank' : '',
+      rel: isExternal ? 'noopener noreferrer' : '',
       href,
     },
   };
