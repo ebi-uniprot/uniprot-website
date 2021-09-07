@@ -1,7 +1,6 @@
 import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { generatePath, Link, useHistory, useLocation } from 'react-router-dom';
 import { Card, InfoList, SearchInput } from 'franklin-sites';
-import qs from 'query-string';
 import { debounce } from 'lodash-es';
 
 import CleanHighlightMarkDown from '../../utils/CleanHighlightMarkDown';
@@ -17,19 +16,16 @@ import styles from './styles/help-autocomplete.module.scss';
 
 const numberResultsInView = 5 as const;
 
+export type LocationState = { query: string };
+
 const HelpAutocomplete = () => {
-  const location = useLocation();
+  const location = useLocation<undefined | LocationState>();
   const history = useHistory();
 
-  const [searchValue, setSearchValue] = useState<string>(() => {
-    const { query } = qs.parse(location.search);
-    const searchValue = Array.isArray(query) ? query.join(' ') : query;
-    return searchValue || '';
-  });
-
-  const parsed = location.search && qs.parse(location.search);
+  const query = location?.state?.query || '';
+  const [searchValue, setSearchValue] = useState<string>(query);
   const dataObject = useDataApiWithStale<HelpSearchResponse>(
-    parsed && helpURL.search(parsed)
+    helpURL.search({ query })
   );
 
   const replaceLocation = useMemo(
@@ -37,10 +33,9 @@ const HelpAutocomplete = () => {
       debounce((searchValue: string) => {
         history.replace({
           pathname: LocationToPath[Location.HelpLanding],
-          search: qs.stringify({
-            ...qs.parse(history.location.search),
+          state: {
             query: searchValue || undefined,
-          }),
+          },
         });
       }, 500),
     [history]
