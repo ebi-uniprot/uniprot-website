@@ -1,7 +1,8 @@
-import { ChangeEvent, useEffect, useMemo, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { generatePath, Link, useHistory, useLocation } from 'react-router-dom';
 import { Card, InfoList, SearchInput } from 'franklin-sites';
 import { debounce } from 'lodash-es';
+import qs from 'query-string';
 
 import CleanHighlightMarkDown from '../../utils/CleanHighlightMarkDown';
 
@@ -46,6 +47,23 @@ const HelpAutocomplete = () => {
     return replaceLocation.cancel;
   }, [replaceLocation, searchValue]);
 
+  const allArticlesLocation = useMemo(
+    () => ({
+      pathname: LocationToPath[Location.HelpResults],
+      search: qs.stringify({ query }),
+    }),
+    [query]
+  );
+
+  const handleKeyDown = useCallback(
+    ({ key }: KeyboardEvent) => {
+      if (key === 'Enter') {
+        history.push(allArticlesLocation);
+      }
+    },
+    [allArticlesLocation, history]
+  );
+
   const allArticles = dataObject?.data?.results;
   const nAllArticles = allArticles?.length;
   const infoData = allArticles
@@ -76,6 +94,7 @@ const HelpAutocomplete = () => {
         }
         placeholder="Search"
         value={searchValue}
+        onKeyDown={handleKeyDown}
         autoFocus
       />
       {!!nAllArticles && !!infoData?.length && searchValue && (
@@ -85,12 +104,7 @@ const HelpAutocomplete = () => {
             infoData={infoData}
           />
           <div className={styles['help-autocomplete__all-link']}>
-            <Link
-              to={{
-                pathname: LocationToPath[Location.HelpResults],
-                search: location.search,
-              }}
-            >
+            <Link to={allArticlesLocation}>
               Show all results ({nAllArticles})
             </Link>
           </div>
