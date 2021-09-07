@@ -32,7 +32,7 @@ const HelpAutocomplete = () => {
     () =>
       debounce((searchValue: string) => {
         history.replace({
-          pathname: LocationToPath[Location.HelpLanding],
+          pathname: LocationToPath[Location.HelpResults],
           state: {
             query: searchValue || undefined,
           },
