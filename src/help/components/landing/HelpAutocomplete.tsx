@@ -15,7 +15,7 @@ import { HelpSearchResponse } from '../../adapters/helpConverter';
 
 import styles from './styles/help-autocomplete.module.scss';
 
-const numberResultsInView = 3 as const;
+const numberResultsInView = 5 as const;
 
 const HelpAutocomplete = () => {
   const location = useLocation();
@@ -48,12 +48,13 @@ const HelpAutocomplete = () => {
 
   useEffect(() => {
     replaceLocation(searchValue);
-
     return replaceLocation.cancel;
   }, [replaceLocation, searchValue]);
 
-  const articles = dataObject?.data?.results
-    .slice(0, numberResultsInView)
+  const allArticles = dataObject?.data?.results;
+  const nAllArticles = allArticles?.length;
+  const infoData = allArticles
+    ?.slice(0, numberResultsInView)
     .map(({ matches, title, id }) => {
       const titleMatch = matches?.title?.[0];
       const contentMatch = matches?.content?.[0];
@@ -83,9 +84,22 @@ const HelpAutocomplete = () => {
         value={searchValue}
         autoFocus
       />
-      {!!articles?.length && searchValue && (
+      {!!nAllArticles && !!infoData?.length && searchValue && (
         <Card>
-          <InfoList infoData={articles} />
+          <InfoList
+            className={styles['help-autocomplete__result-list']}
+            infoData={infoData}
+          />
+          <div className={styles['help-autocomplete__all-link']}>
+            <Link
+              to={{
+                pathname: LocationToPath[Location.HelpResults],
+                search: location.search,
+              }}
+            >
+              Show all results ({nAllArticles})
+            </Link>
+          </div>
         </Card>
       )}
     </div>

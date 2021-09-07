@@ -5,11 +5,18 @@
     margin-bottom: 0.5rem;
   }
 
+  &__result-list {
+    max-height: 30rem;
+    overflow-y: auto;
+  }
+
+  &__all-link {
+    text-align: right;
+  }
+
   :global(.card) {
     width: initial;
     margin-top: 0;
-    max-height: 30rem;
-    overflow-y: auto;
   }
 
   :global(.info-list) {
