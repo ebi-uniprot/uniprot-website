@@ -25,7 +25,7 @@ const HelpAutocomplete = () => {
   const query = location?.state?.query || '';
   const [searchValue, setSearchValue] = useState<string>(query);
   const dataObject = useDataApiWithStale<HelpSearchResponse>(
-    helpURL.search({ query })
+    query && helpURL.search({ query })
   );
 
   const replaceLocation = useMemo(
@@ -59,7 +59,6 @@ const HelpAutocomplete = () => {
       return {
         title: (
           <Link to={to}>
-            {' '}
             {titleMatch ? <CleanHighlightMarkDown md={titleMatch} /> : title}
           </Link>
         ),
