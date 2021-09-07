@@ -1,9 +1,9 @@
 import marked from 'marked';
 import cleanText, {
   cleanTextDefaultOptions,
-} from '../../shared/utils/cleanText';
+} from '../../../shared/utils/cleanText';
 
-import './highlight.scss';
+import './styles/highlight.scss';
 
 const cleanTextOptions = {
   ...cleanTextDefaultOptions,

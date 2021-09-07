@@ -101,7 +101,6 @@ export const LocationToPath: Record<Location, string> = {
   // Help
   [Location.HelpEntry]: '/help/:accession',
   [Location.HelpResults]: '/help',
-  [Location.HelpLanding]: '/help-landing',
 };
 
 export const SearchResultsLocations: Record<SearchableNamespace, string> = {

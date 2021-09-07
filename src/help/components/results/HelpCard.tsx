@@ -4,9 +4,7 @@ import { Card } from 'franklin-sites';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
-import CleanHighlightMarkDown from '../../utils/CleanHighlightMarkDown';
-
-import '../../utils/highlight.scss';
+import CleanHighlightMarkDown from './CleanHighlightMarkDown';
 
 type Props = {
   id: string;

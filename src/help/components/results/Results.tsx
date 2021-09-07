@@ -22,7 +22,7 @@ import styles from './styles/results.module.scss';
 
 import HelperImage from './svgs/helper.svg';
 
-export const getIdKey = (article: HelpAPIModel) => article.id;
+const getIdKey = (article: HelpAPIModel) => article.id;
 
 const Results = ({ history, location }: RouteChildrenProps) => {
   const [searchValue, setSearchValue] = useState<string>(() => {

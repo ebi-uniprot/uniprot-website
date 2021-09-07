@@ -4,7 +4,7 @@ import { Card, InfoList, SearchInput } from 'franklin-sites';
 import { debounce } from 'lodash-es';
 import qs from 'query-string';
 
-import CleanHighlightMarkDown from '../../utils/CleanHighlightMarkDown';
+import CleanHighlightMarkDown from '../results/CleanHighlightMarkDown';
 
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 
