@@ -15,6 +15,8 @@ import { HelpSearchResponse } from '../../adapters/helpConverter';
 
 import styles from './styles/help-autocomplete.module.scss';
 
+const numberResultsInView = 3 as const;
+
 const HelpAutocomplete = () => {
   const location = useLocation();
   const history = useHistory();
@@ -50,23 +52,25 @@ const HelpAutocomplete = () => {
     return replaceLocation.cancel;
   }, [replaceLocation, searchValue]);
 
-  const articles = dataObject?.data?.results.map(({ matches, title, id }) => {
-    const titleMatch = matches?.title?.[0];
-    const contentMatch = matches?.content?.[0];
-    const to = generatePath(LocationToPath[Location.HelpEntry], {
-      accession: id,
+  const articles = dataObject?.data?.results
+    .slice(0, numberResultsInView)
+    .map(({ matches, title, id }) => {
+      const titleMatch = matches?.title?.[0];
+      const contentMatch = matches?.content?.[0];
+      const to = generatePath(LocationToPath[Location.HelpEntry], {
+        accession: id,
+      });
+      return {
+        title: (
+          <Link to={to}>
+            {' '}
+            {titleMatch ? <CleanHighlightMarkDown md={titleMatch} /> : title}
+          </Link>
+        ),
+        content: contentMatch && <CleanHighlightMarkDown md={contentMatch} />,
+        to,
+      };
     });
-    return {
-      title: (
-        <Link to={to}>
-          {' '}
-          {titleMatch ? <CleanHighlightMarkDown md={titleMatch} /> : title}
-        </Link>
-      ),
-      content: contentMatch && <CleanHighlightMarkDown md={contentMatch} />,
-      to,
-    };
-  });
 
   return (
     <div className={styles['help-autocomplete']}>
