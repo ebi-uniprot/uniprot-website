@@ -82,7 +82,7 @@
       &:hover,
       &:focus,
       &:focus-within {
-        background: #d2dce3;
+        background: $colour-gainsborough;
 
         & .dashboard__body__name svg,
         & .dashboard__body__notify_message,

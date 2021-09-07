@@ -1,19 +1,31 @@
+@import 'franklin-sites/src/styles/colours';
+
 .help-autocomplete {
   :global(input[type='text']) {
     margin-bottom: 0.5rem;
   }
 
   :global(.card) {
-    // remove the fake margin on the right of the cards
     width: initial;
-    margin: 0;
+    margin-top: 0;
     max-height: 30rem;
     overflow-y: scroll;
   }
 
+  :global(.info-list) {
+    margin: 0rem;
+  }
+
+  :global(.decorated-list-item) {
+    padding: 0.5rem;
+  }
+
   :global(.decorated-list-item__title) {
-    flex-basis: 30vw;
+    flex-basis: 25vw;
     text-align: left;
-    border-right-color: #d2dce3;
+  }
+
+  :global(.decorated-list-item__content) {
+    border-left-color: $colour-gainsborough;
   }
 }
