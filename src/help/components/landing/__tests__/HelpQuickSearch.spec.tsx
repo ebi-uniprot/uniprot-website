@@ -1,16 +1,35 @@
-import { screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
 
+import { act } from 'react-dom/test-utils';
 import customRender from '../../../../shared/__test-helpers__/customRender';
 
 import HelpQuickSearch from '../HelpQuickSearch';
 
 // TODO: replace with mocks when API is stable
-// import helpData from '../../../__mocks__/helpModelData';
+import helpData from '../../__mocks__/helpModelData';
+
+jest.mock('lodash-es', () => ({
+  debounce: (fn: unknown) => fn,
+}));
+
+const mock = new MockAdapter(axios);
+
+mock
+  .onGet(/api\/help\/search\?facets=category&query=canonical&size=500/)
+  .reply(200, helpData);
 
 describe('HelpQuickSearch tests', () => {
-  it('should render', () => {
+  it('should render with input', async () => {
     const { asFragment } = customRender(<HelpQuickSearch />);
+    const input = screen.getByPlaceholderText('Search');
+    act(() => {
+      fireEvent.change(input, {
+        target: { value: 'canonical' },
+      });
+    });
+    await screen.findByText('Show all results (27)');
     expect(asFragment()).toMatchSnapshot();
-    // expect(screen.getByRole('heading', { name: title })).toBeInTheDocument();
   });
 });
