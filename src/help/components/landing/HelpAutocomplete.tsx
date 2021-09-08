@@ -65,7 +65,6 @@ const HelpAutocomplete = () => {
   );
 
   const allArticles = dataObject?.data?.results;
-  const nAllArticles = allArticles?.length || 0;
   const infoData = allArticles
     ?.slice(0, numberResultsInView)
     .map(({ matches, title, id }) => {
@@ -97,7 +96,7 @@ const HelpAutocomplete = () => {
         onKeyDown={handleKeyDown}
         autoFocus
       />
-      {nAllArticles && !!infoData?.length && searchValue && (
+      {!!allArticles?.length && !!infoData?.length && searchValue && (
         <Card>
           <InfoList
             className={styles['help-autocomplete__result-list']}
@@ -105,7 +104,7 @@ const HelpAutocomplete = () => {
           />
           <div className={styles['help-autocomplete__all-link']}>
             <Link to={allArticlesLocation}>
-              Show all results ({nAllArticles})
+              Show all results ({allArticles.length})
             </Link>
           </div>
         </Card>
