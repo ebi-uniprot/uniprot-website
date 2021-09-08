@@ -28,8 +28,7 @@ const HelpQuickSearch = () => {
   const dataObject = useDataApiWithStale<HelpSearchResponse>(
     query && helpURL.search({ query })
   );
-
-  const replaceLocation = useMemo(
+  const replaceQueryInHistory = useMemo(
     () =>
       debounce((searchValue: string) => {
         history.replace({
@@ -43,9 +42,9 @@ const HelpQuickSearch = () => {
   );
 
   useEffect(() => {
-    replaceLocation(searchValue);
-    return replaceLocation.cancel;
-  }, [replaceLocation, searchValue]);
+    replaceQueryInHistory(searchValue);
+    return replaceQueryInHistory.cancel;
+  }, [replaceQueryInHistory, searchValue]);
 
   const allArticlesLocation = useMemo(
     () => ({
