@@ -13,13 +13,13 @@ import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { HelpSearchResponse } from '../../adapters/helpConverter';
 
-import styles from './styles/help-autocomplete.module.scss';
+import styles from './styles/help-quick-search.module.scss';
 
 const numberResultsInView = 5 as const;
 
 export type LocationState = { query: string };
 
-const HelpAutocomplete = () => {
+const HelpQuickSearch = () => {
   const location = useLocation<undefined | LocationState>();
   const history = useHistory();
 
@@ -113,4 +113,4 @@ const HelpAutocomplete = () => {
   );
 };
 
-export default HelpAutocomplete;
+export default HelpQuickSearch;
