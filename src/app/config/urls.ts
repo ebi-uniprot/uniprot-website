@@ -186,5 +186,3 @@ export const jobTypeToPath = (type: JobTypes, result?: boolean) => {
   }
   throw new Error(`"${type}"invalid job type`);
 };
-
-export const PathToLocation = invert(LocationToPath);
