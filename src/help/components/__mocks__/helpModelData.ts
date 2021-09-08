@@ -2,7 +2,7 @@ import { HelpSearchResponse } from '../../adapters/helpConverter';
 
 // Retrieved 2021-09-08 from:
 // https://www.ebi.ac.uk/uniprot/beta/api/help/search?facets=category&query=canonical&size=500
-// TODO: this API is unstable so the mock data here will want to be updated
+// TODO: this API is unstable so the mock data here will want to be updated jira: https://www.ebi.ac.uk/panda/jira/browse/TRM-26569
 
 const helpModelData: HelpSearchResponse = {
   facets: [
