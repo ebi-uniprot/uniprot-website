@@ -1,4 +1,3 @@
-import { invert } from 'lodash-es';
 import { generatePath } from 'react-router-dom';
 
 import { JobTypes } from '../../tools/types/toolsJobTypes';
@@ -60,7 +59,6 @@ export enum Location {
   // Help
   HelpEntry = 'HelpEntry',
   HelpResults = 'HelpResults',
-  HelpLanding = 'HelpLanding',
 }
 
 export const LocationToPath: Record<Location, string> = {
