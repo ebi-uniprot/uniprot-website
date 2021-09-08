@@ -1,4 +1,11 @@
-import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  KeyboardEvent,
+} from 'react';
 import { generatePath, Link, useHistory, useLocation } from 'react-router-dom';
 import { Card, InfoList, SearchInput } from 'franklin-sites';
 import { debounce } from 'lodash-es';
@@ -55,7 +62,7 @@ const HelpQuickSearch = () => {
   );
 
   const handleKeyDown = useCallback(
-    ({ key }: KeyboardEvent) => {
+    ({ key }: KeyboardEvent<HTMLInputElement>) => {
       if (key === 'Enter') {
         history.push(allArticlesLocation);
       }
