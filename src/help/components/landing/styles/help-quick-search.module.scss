@@ -10,6 +10,10 @@
     text-align: right;
   }
 
+  :global(.search-input__suffix) {
+    color: $colour-help-green;
+  }
+
   :global(input[type='text']) {
     margin-bottom: 0.5rem;
   }
