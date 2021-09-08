@@ -17,7 +17,7 @@ import styles from './styles/help-quick-search.module.scss';
 
 const numberResultsInView = 5 as const;
 
-export type LocationState = { query: string };
+type LocationState = { query: string };
 
 const HelpQuickSearch = () => {
   const location = useLocation<undefined | LocationState>();
