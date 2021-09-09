@@ -1,4 +1,5 @@
 import HelpQuickSearch from './HelpQuickSearch';
+import { Contact } from '../../../shared/components/layouts/UniProtFooter';
 
 const HelpLandingPage = () => (
   <div className="uniprot-grid uniprot-grid--centered">
@@ -13,7 +14,7 @@ const HelpLandingPage = () => (
         <li>What is the canonical sequence? </li>
         <li>What are reference proteomes?</li>
       </ul>
-      <p>contact icons</p>
+      <Contact />
     </div>
     <div className="uniprot-grid-cell--span-9">Tiles</div>
     <div className="uniprot-grid-cell--span-3">

@@ -8,7 +8,7 @@ import ReleaseInfo from './ReleaseInfo';
 import { Location, LocationToPath } from '../../../app/config/urls';
 
 import helper from '../../styles/helper.module.scss';
-import './styles/footer.scss';
+import footer from './styles/footer.module.scss';
 
 import UniProtLogo from '../../../images/uniprot-logo.svg';
 
@@ -28,15 +28,15 @@ import ElixirCDRLogo from '../../../images/elixir-cdr.png';
 import CTSLogo from '../../../images/core-trust-seal-logo.png';
 
 const FooterConsortium = () => (
-  <div className="consortium">
+  <div className={footer.consortium}>
     <Link
       to={LocationToPath[Location.Home]}
-      className="consortium__uniprot"
+      className={footer.consortium__uniprot}
       title="UniProt home page"
     >
       <UniProtLogo />
     </Link>
-    <div className="consortium__members">
+    <div className={footer.consortium__members}>
       <ExternalLink
         noIcon
         url="https://www.ebi.ac.uk/"
@@ -63,7 +63,7 @@ const FooterConsortium = () => (
 );
 
 const FooterCopyrightAndMisc = () => (
-  <div className="copyright-misc">
+  <div className={footer['copyright-misc']}>
     <p>
       <Link
         to={generatePath(LocationToPath[Location.HelpEntry], {
@@ -94,15 +94,15 @@ const FooterCopyrightAndMisc = () => (
 );
 
 const ReleaseInfoSection = () => (
-  <div className="stats-release">
+  <div className={footer['stats-release']}>
     <ReleaseInfo />
   </div>
 );
 
 const FooterShortcuts = () => (
-  <ul className="no-bullet shortcuts">
-    <li className="shortcuts__core-data">
-      <span className="shortcuts__title">Core data</span>
+  <ul className={cn('no-bullet', footer.shortcuts)}>
+    <li className={footer['shortcuts__core-data']}>
+      <span className={footer.shortcuts__title}>Core data</span>
       <ul className="no-bullet">
         <li>
           <Link
@@ -147,7 +147,7 @@ const FooterShortcuts = () => (
       </ul>
     </li>
     <li>
-      <span className="shortcuts__title">Supporting data</span>
+      <span className={footer.shortcuts__title}>Supporting data</span>
       <ul className="no-bullet">
         <li>
           <Link
@@ -212,7 +212,7 @@ const FooterShortcuts = () => (
       </ul>
     </li>
     <li>
-      <span className="shortcuts__title">Tools</span>
+      <span className={footer.shortcuts__title}>Tools</span>
       <ul className="no-bullet">
         <li>
           <Link to={LocationToPath[Location.Blast]}>BLAST</Link>
@@ -236,7 +236,7 @@ const FooterShortcuts = () => (
       </ul>
     </li>
     <li>
-      <span className="shortcuts__title">Information</span>
+      <span className={footer.shortcuts__title}>Information</span>
       <ul className="no-bullet">
         <li>
           <Link
@@ -302,14 +302,14 @@ const FooterShortcuts = () => (
   </ul>
 );
 
-const FooterContactAndElixir = () => (
-  <div className="contact-elixir">
+export const Contact = () => (
+  <div>
     <p>
       <ExternalLink noIcon url="https://www.uniprot.org/contact">
         Get in touch <EnvelopeIcon width="2ch" />
       </ExternalLink>
     </p>
-    <p className="social">
+    <p className={footer.social}>
       <ExternalLink
         noIcon
         url="https://twitter.com/uniprot"
@@ -346,6 +346,12 @@ const FooterContactAndElixir = () => (
         <GGroupsLogo width="3ch" />
       </ExternalLink>
     </p>
+  </div>
+);
+
+const FooterContactAndElixir = () => (
+  <div className={footer['contact-elixir']}>
+    <Contact />
     <p>
       <ExternalLink
         noIcon
@@ -372,7 +378,7 @@ const FooterContactAndElixir = () => (
 );
 
 const FooterFunding = () => (
-  <div className="funding">
+  <div className={footer.funding}>
     <span>
       Main{' '}
       <Link
@@ -406,7 +412,7 @@ const FooterFunding = () => (
 
 const UniProtFooter = memo<HTMLAttributes<HTMLElement>>(
   ({ className, ...props }) => (
-    <footer className={cn(className, 'footer')} {...props}>
+    <footer className={cn(className, footer.footer)} {...props}>
       <div className="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed">
         <FooterConsortium />
         <ReleaseInfoSection />

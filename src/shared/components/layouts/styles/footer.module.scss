@@ -113,15 +113,6 @@ footer.footer {
       margin: 0.5ch;
       width: 3em;
     }
-
-    .social {
-      white-space: nowrap;
-
-      svg {
-        fill: $colour-weldon-blue;
-        color: $colour-weldon-blue;
-      }
-    }
   }
 
   // Funding
@@ -216,6 +207,16 @@ footer.footer {
     .funding {
       grid-area: 3 / 4 / span 1 / span 6;
     }
+  }
+}
+
+// Social
+.social {
+  white-space: nowrap;
+
+  svg {
+    fill: $colour-weldon-blue;
+    color: $colour-weldon-blue;
   }
 }
 
