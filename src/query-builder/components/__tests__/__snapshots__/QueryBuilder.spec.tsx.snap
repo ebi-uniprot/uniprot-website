@@ -65,6 +65,16 @@ exports[`QueryBuilder should render 1`] = `
           >
             Subcellular locations
           </option>
+          <option
+            value="unirule"
+          >
+            UniRule
+          </option>
+          <option
+            value="arba"
+          >
+            ARBA
+          </option>
         </select>
       </label>
     </fieldset>

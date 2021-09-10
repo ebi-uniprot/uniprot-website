@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ARBAColumnConfiguration component should render column "annotation_covered": annotation_covered 1`] = `<DocumentFragment />`;
+
+exports[`ARBAColumnConfiguration component should render column "predicted_protein_name": predicted_protein_name 1`] = `<DocumentFragment />`;
+
+exports[`ARBAColumnConfiguration component should render column "rule_id": rule_id 1`] = `
+<DocumentFragment>
+  <div
+    class="no-wrap accession-view"
+  >
+    <a
+      class="accession"
+      href="/arba/ARBA00013665"
+    >
+      ARBA00013665
+    </a>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ARBAColumnConfiguration component should render column "taxonomic_scope": taxonomic_scope 1`] = `<DocumentFragment />`;
+
+exports[`ARBAColumnConfiguration component should render column "template_entries": template_entries 1`] = `<DocumentFragment />`;

@@ -23,7 +23,7 @@ import {
 } from '../../../app/config/urls';
 import {
   Namespace,
-  NamespaceLabels,
+  SearchableNamespaceLabels,
   SearchableNamespace,
 } from '../../types/namespaces';
 
@@ -70,6 +70,9 @@ const examples: Record<SearchableNamespace, string[]> = {
   [Namespace.diseases]: ['Alzheimer disease 3', 'Breast cancer', 'Dementia'],
   [Namespace.database]: ['PDB', 'IntAct', 'Pfam', 'GO', 'OMIM'],
   [Namespace.locations]: ['Cell membrane', 'Golgi apparatus', 'Nucleus'],
+  // Annotations
+  [Namespace.unirule]: ['insulin'], // taxonomy:"Eukaryota+[2759]"
+  [Namespace.arba]: ['insulin'], // taxonomy:"Eukaryota+[2759]"
 };
 
 type Props = {
@@ -177,7 +180,7 @@ const SearchContainer: FC<
     <>
       <section role="search" {...props}>
         <MainSearch
-          namespaces={NamespaceLabels}
+          namespaces={SearchableNamespaceLabels}
           searchTerm={searchTerm}
           onTextChange={setSearchTerm}
           onSubmit={handleSubmit}

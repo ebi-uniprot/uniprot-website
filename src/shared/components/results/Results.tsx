@@ -15,7 +15,10 @@ import NoResultsPage from '../error-pages/NoResultsPage';
 import ResultsDataHeader from './ResultsDataHeader';
 
 import Response from '../../../uniprotkb/types/responseTypes';
-import { NamespaceLabels, SearchableNamespace } from '../../types/namespaces';
+import {
+  SearchableNamespaceLabels,
+  SearchableNamespace,
+} from '../../types/namespaces';
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 
 const Results = () => {
@@ -59,7 +62,7 @@ const Results = () => {
   const helmet = ns && (
     <HTMLHead
       title={`${getParamsFromURL(search).query} in ${
-        NamespaceLabels[ns as SearchableNamespace]
+        SearchableNamespaceLabels[ns as SearchableNamespace]
       }${total !== undefined ? ` (${total})` : ''}`}
     />
   );

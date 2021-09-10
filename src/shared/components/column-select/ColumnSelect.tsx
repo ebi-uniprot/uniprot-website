@@ -21,11 +21,7 @@ import {
   prepareFieldData,
   prepareFieldDataFromColumnConfig,
 } from './utils';
-import {
-  mainNamespaces,
-  Namespace,
-  supportingDataNamespaces,
-} from '../../types/namespaces';
+import { mainNamespaces, Namespace } from '../../types/namespaces';
 
 import {
   ReceivedFieldData,
@@ -87,7 +83,7 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
   );
 
   const { loading, data, progress } = useDataApi<ReceivedFieldData>(
-    // No configure endpoint for supporting data
+    // TODO: simplify when supporting data configure endpoints are stable
     namespace && mainNamespaces.has(namespace)
       ? apiUrls.resultsFields(namespace, isEntryPage)
       : null
@@ -96,12 +92,13 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
   // Exclude the primaryKeyColumns in the tabs as users can't toggle selection
   const fieldData = useMemo(
     () =>
-      supportingDataNamespaces.has(namespace)
-        ? prepareFieldDataFromColumnConfig(
+      // TODO: simplify when supporting data configure endpoints are stable
+      mainNamespaces.has(namespace)
+        ? prepareFieldData(data, primaryKeyColumns)
+        : prepareFieldDataFromColumnConfig(
             nsToColumnConfig[namespace],
             primaryKeyColumns
-          )
-        : prepareFieldData(data, primaryKeyColumns),
+          ),
     [namespace, data, primaryKeyColumns]
   );
 

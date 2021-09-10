@@ -6,7 +6,7 @@ import RenderColumnsInCard from '../../../../shared/components/results/RenderCol
 
 import { getEntryPath } from '../../../../app/config/urls';
 import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
-import { mapToLinks } from '../../../shared/components/MapTo';
+import { mapToLinks } from '../../../../shared/components/MapTo';
 
 import { Namespace } from '../../../../shared/types/namespaces';
 import { TaxonomyAPIModel } from '../../adapters/taxonomyConverter';

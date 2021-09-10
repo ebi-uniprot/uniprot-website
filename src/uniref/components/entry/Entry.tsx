@@ -32,7 +32,10 @@ import {
   MessageType,
   MessageTag,
 } from '../../../messages/types/messagesTypes';
-import { Namespace, NamespaceLabels } from '../../../shared/types/namespaces';
+import {
+  Namespace,
+  SearchableNamespaceLabels,
+} from '../../../shared/types/namespaces';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
 
@@ -81,7 +84,7 @@ const Entry: FC = () => {
           <HTMLHead
             title={[
               `${transformedData.name} - ${transformedData.id} (${transformedData.identity}%)`,
-              NamespaceLabels[Namespace.uniref],
+              SearchableNamespaceLabels[Namespace.uniref],
             ]}
           />
           <h1 className="big">

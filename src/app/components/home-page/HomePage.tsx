@@ -63,6 +63,9 @@ const namespaceFindYour: Record<SearchableNamespace, string> = {
   [Namespace.diseases]: 'disease',
   [Namespace.database]: 'cross-reference database',
   [Namespace.locations]: 'subcellular location',
+  // Annotations
+  [Namespace.unirule]: 'curated UniRule rule',
+  [Namespace.arba]: 'generated ARBA rule',
 };
 
 const HomePageHeader = memo(() => {
