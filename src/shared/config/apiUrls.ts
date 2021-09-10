@@ -436,10 +436,8 @@ export const getClustersForProteins = (accessions: string[]) =>
 export const help = {
   accession: (accession?: string) =>
     accession && joinUrl(apiPrefix, '/help', accession),
-  search: (searchString: string) => {
-    const { query, sort, fields, facets, size } =
-      queryString.parse(searchString);
-    return `${joinUrl(apiPrefix, '/help/search')}?${queryString.stringify({
+  search: ({ query, sort, fields, facets, size }: queryString.ParsedQuery) =>
+    `${joinUrl(apiPrefix, '/help/search')}?${queryString.stringify({
       query: [
         query || '*',
         ...(Array.isArray(facets) ? facets : (facets || '').split(','))
@@ -462,8 +460,7 @@ export const help = {
       // Getting all of them allows us to not use the pagination logic in this
       // section of the website, isolating it more from the rest
       size: size || 500,
-    })}`;
-  },
+    })}`,
 };
 
 export const unisave = {
