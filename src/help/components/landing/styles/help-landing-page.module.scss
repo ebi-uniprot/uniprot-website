@@ -1,5 +1,14 @@
 @import 'franklin-sites/src/styles/colours';
 
-// .help-landing-page{
+.help-landing {
+  &__faq-contact {
+    p {
+      margin-bottom: 0.5rem;
+    }
 
-// }
+    &__view-all {
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+    }
+  }
+}
