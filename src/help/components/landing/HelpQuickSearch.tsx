@@ -85,7 +85,11 @@ const HelpQuickSearch = () => {
             {titleMatch ? <CleanHighlightMarkDown md={titleMatch} /> : title}
           </Link>
         ),
-        content: contentMatch && <CleanHighlightMarkDown md={contentMatch} />,
+        content: contentMatch ? (
+          <CleanHighlightMarkDown md={contentMatch} />
+        ) : (
+          ' '
+        ),
         to,
       };
     });
