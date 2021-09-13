@@ -19,6 +19,7 @@ export type Information = {
     nters?: string[];
   };
   oldRuleNum?: string;
+  // NOTE: What is this? Nowhere to be found in data, duplicated with uniProAccessions?
   uniProtIds?: string[];
   names?: string[];
 };

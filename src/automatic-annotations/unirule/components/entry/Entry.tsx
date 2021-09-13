@@ -6,6 +6,7 @@ import HTMLHead from '../../../../shared/components/HTMLHead';
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 
+import TemplateEntries from './TemplateEntries';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
@@ -56,6 +57,7 @@ const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
             accession={data.uniRuleId}
           />
         </div>
+        <TemplateEntries entries={data.information.uniProtAccessions} />
       </Card>
     </SingleColumnLayout>
   );
