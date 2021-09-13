@@ -24,6 +24,8 @@ const TaxonomicScope = ({
         continue; // eslint-disable-line no-continue
       }
       for (const conditionValue of condition.conditionValues || []) {
+        // This shouldn't happen
+        /* istanbul ignore if */
         if (!conditionValue.cvId) {
           continue; // eslint-disable-line no-continue
         }
