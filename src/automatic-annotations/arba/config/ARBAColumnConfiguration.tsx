@@ -1,6 +1,7 @@
 // import { Link } from 'react-router-dom';
 
 import AccessionView from '../../../shared/components/results/AccessionView';
+import TaxonomicScope from '../../shared/column-renderers/TaxonomicScope';
 
 // import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -45,7 +46,7 @@ ARBAColumnConfiguration.set(ARBAColumn.ruleId, {
 
 ARBAColumnConfiguration.set(ARBAColumn.taxonomicScope, {
   label: 'Taxonomic scope',
-  render: () => null,
+  render: TaxonomicScope,
 });
 
 ARBAColumnConfiguration.set(ARBAColumn.annotationCovered, {
