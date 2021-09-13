@@ -42,7 +42,7 @@ exports[`UniRefColumnConfiguration component should render column "from": from 1
 
 exports[`UniRefColumnConfiguration component should render column "id": id 1`] = `
 <DocumentFragment>
-  <div
+  <span
     class="no-wrap accession-view"
   >
     <a
@@ -51,7 +51,7 @@ exports[`UniRefColumnConfiguration component should render column "id": id 1`] =
     >
       UniRef100_A0A0B7GQ86
     </a>
-  </div>
+  </span>
 </DocumentFragment>
 `;
 

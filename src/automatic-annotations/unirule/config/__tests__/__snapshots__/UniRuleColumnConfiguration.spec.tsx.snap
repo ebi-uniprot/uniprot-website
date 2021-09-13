@@ -6,7 +6,7 @@ exports[`UniRuleColumnConfiguration component should render column "predicted_pr
 
 exports[`UniRuleColumnConfiguration component should render column "rule_id": rule_id 1`] = `
 <DocumentFragment>
-  <div
+  <span
     class="no-wrap accession-view"
   >
     <a
@@ -15,7 +15,7 @@ exports[`UniRuleColumnConfiguration component should render column "rule_id": ru
     >
       UR000048432
     </a>
-  </div>
+  </span>
 </DocumentFragment>
 `;
 

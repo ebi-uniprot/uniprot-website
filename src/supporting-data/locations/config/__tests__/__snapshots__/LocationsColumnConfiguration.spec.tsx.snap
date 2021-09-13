@@ -43,7 +43,7 @@ exports[`LocationsColumnConfiguration component should render column "gene_ontol
 
 exports[`LocationsColumnConfiguration component should render column "id": id 1`] = `
 <DocumentFragment>
-  <div
+  <span
     class="no-wrap accession-view"
   >
     <a
@@ -52,7 +52,7 @@ exports[`LocationsColumnConfiguration component should render column "id": id 1`
     >
       SL-0099
     </a>
-  </div>
+  </span>
 </DocumentFragment>
 `;
 

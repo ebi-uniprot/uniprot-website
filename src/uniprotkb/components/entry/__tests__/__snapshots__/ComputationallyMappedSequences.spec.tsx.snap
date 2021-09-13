@@ -90,7 +90,7 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
             />
           </td>
           <td>
-            <div
+            <span
               class="no-wrap accession-view"
             >
               <a
@@ -99,7 +99,7 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
               >
                 A0A0A0MRG2
               </a>
-            </div>
+            </span>
           </td>
           <td>
             <span
@@ -128,7 +128,7 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
             />
           </td>
           <td>
-            <div
+            <span
               class="no-wrap accession-view"
             >
               <a
@@ -137,7 +137,7 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
               >
                 E9PG40
               </a>
-            </div>
+            </span>
           </td>
           <td>
             <span
@@ -166,7 +166,7 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
             />
           </td>
           <td>
-            <div
+            <span
               class="no-wrap accession-view"
             >
               <a
@@ -175,7 +175,7 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
               >
                 H7C0V9
               </a>
-            </div>
+            </span>
           </td>
           <td>
             <span
@@ -204,7 +204,7 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
             />
           </td>
           <td>
-            <div
+            <span
               class="no-wrap accession-view"
             >
               <a
@@ -213,7 +213,7 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
               >
                 H7C2L2
               </a>
-            </div>
+            </span>
           </td>
           <td>
             <span
