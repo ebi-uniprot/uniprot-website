@@ -1,9 +1,5 @@
-// import { Link } from 'react-router-dom';
-
 import AccessionView from '../../../shared/components/results/AccessionView';
 import TaxonomicScope from '../../shared/column-renderers/TaxonomicScope';
-
-// import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { ARBAAPIModel } from '../adapters/arbaConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
