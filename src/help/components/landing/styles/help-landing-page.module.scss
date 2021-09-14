@@ -1,6 +1,17 @@
 @import 'franklin-sites/src/styles/colours';
 
 .help-landing {
+  &__tiles {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    flex-wrap: wrap;
+    row-gap: 2rem;
+    column-gap: 0.5rem;
+    // flex: 0 30%;
+    justify-content: space-between;
+  }
+
   &__faq-contact {
     p {
       margin-bottom: 0.5rem;

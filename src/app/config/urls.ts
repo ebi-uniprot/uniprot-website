@@ -184,3 +184,8 @@ export const jobTypeToPath = (type: JobTypes, result?: boolean) => {
   }
   throw new Error(`"${type}"invalid job type`);
 };
+
+export const getHelpEntryPath = (entry: string) =>
+  generatePath(LocationToPath[Location.HelpEntry], {
+    accession: entry,
+  });
