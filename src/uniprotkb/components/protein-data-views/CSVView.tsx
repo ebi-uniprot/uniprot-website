@@ -17,8 +17,8 @@ const CSVView: FC<CSVViewProps> = ({
   if (!data) {
     return null;
   }
-  const [firstValue, ...restOfValues] = Array.from(
-    new Set(deepFindAllByKey(data, keyPredicate))
+  const [firstValue, ...restOfValues] = new Set(
+    deepFindAllByKey(data, keyPredicate)
   );
   return (
     <>
