@@ -2,7 +2,15 @@
 
 exports[`UniRuleColumnConfiguration component should render column "annotation_covered": annotation_covered 1`] = `<DocumentFragment />`;
 
-exports[`UniRuleColumnConfiguration component should render column "predicted_protein_name": predicted_protein_name 1`] = `<DocumentFragment />`;
+exports[`UniRuleColumnConfiguration component should render column "predicted_protein_name": predicted_protein_name 1`] = `
+<DocumentFragment>
+  <span
+    style="font-weight: bolder;"
+  >
+    Insulin-like peptide INSL6
+  </span>
+</DocumentFragment>
+`;
 
 exports[`UniRuleColumnConfiguration component should render column "rule_id": rule_id 1`] = `
 <DocumentFragment>

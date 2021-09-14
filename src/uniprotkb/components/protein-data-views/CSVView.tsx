@@ -17,7 +17,7 @@ const CSVView: FC<CSVViewProps> = ({
   if (!data) {
     return null;
   }
-  const uniqueValues = Array.from(
+  const [firstValue, ...restOfValues] = Array.from(
     new Set(deepFindAllByKey(data, keyPredicate))
   );
   return (
@@ -27,12 +27,12 @@ const CSVView: FC<CSVViewProps> = ({
           fontWeight: bolderFirst ? 'bolder' : 'initial',
         }}
       >
-        {uniqueValues[0]}
+        {firstValue}
       </span>
-      {uniqueValues.length > 1 && (
+      {restOfValues.length !== 0 && (
         <EllipsisReveal>
           {', '}
-          {uniqueValues.splice(1).join(', ')}
+          {restOfValues.join(', ')}
         </EllipsisReveal>
       )}
     </>
