@@ -1,5 +1,6 @@
 import AccessionView from '../../../shared/components/results/AccessionView';
 import TaxonomicScope from '../../shared/column-renderers/TaxonomicScope';
+import AnnotationCovered from '../../shared/column-renderers/AnnotationCovered';
 
 import { ARBAAPIModel } from '../adapters/arbaConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
@@ -45,7 +46,7 @@ ARBAColumnConfiguration.set(ARBAColumn.taxonomicScope, {
 
 ARBAColumnConfiguration.set(ARBAColumn.annotationCovered, {
   label: 'Annotation covered',
-  render: () => null,
+  render: AnnotationCovered,
 });
 
 export default ARBAColumnConfiguration;

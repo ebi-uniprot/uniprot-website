@@ -2,6 +2,7 @@ import { ExpandableList } from 'franklin-sites';
 
 import AccessionView from '../../../shared/components/results/AccessionView';
 import TaxonomicScope from '../../shared/column-renderers/TaxonomicScope';
+import AnnotationCovered from '../../shared/column-renderers/AnnotationCovered';
 import CSVView from '../../../uniprotkb/components/protein-data-views/CSVView';
 
 import { UniRuleAPIModel } from '../adapters/uniRuleConverter';
@@ -52,35 +53,7 @@ UniRuleColumnConfiguration.set(UniRuleColumn.taxonomicScope, {
 
 UniRuleColumnConfiguration.set(UniRuleColumn.annotationCovered, {
   label: 'Annotation covered',
-  render: ({ mainRule }) => {
-    const annotations = new Set<string>();
-
-    for (const annotation of mainRule?.annotations || []) {
-      if ('keyword' in annotation) {
-        annotations.add('keyword');
-      } else if ('proteinDescription' in annotation) {
-        annotations.add('protein name');
-      } else if ('gene' in annotation) {
-        annotations.add('gene name');
-      } else if (annotation.comment?.commentType) {
-        annotations.add(annotation.comment?.commentType.toLowerCase());
-      } else if (annotation.dbReference?.database === 'GO') {
-        annotations.add('GO (Gene Ontology) term');
-      } else {
-        // in case we're missing a case
-        console.warn(annotation); // eslint-disable-line no-console
-      }
-    }
-
-    return (
-      <ExpandableList
-        descriptionString="annotations"
-        displayNumberOfHiddenItems
-      >
-        {Array.from(annotations)}
-      </ExpandableList>
-    );
-  },
+  render: AnnotationCovered,
 });
 
 UniRuleColumnConfiguration.set(UniRuleColumn.predictedProteinName, {
