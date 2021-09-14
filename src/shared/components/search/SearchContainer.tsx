@@ -71,8 +71,8 @@ const examples: Record<SearchableNamespace, string[]> = {
   [Namespace.database]: ['PDB', 'IntAct', 'Pfam', 'GO', 'OMIM'],
   [Namespace.locations]: ['Cell membrane', 'Golgi apparatus', 'Nucleus'],
   // Annotations
-  [Namespace.unirule]: ['insulin'], // taxonomy:"Eukaryota+[2759]"
-  [Namespace.arba]: ['insulin'], // taxonomy:"Eukaryota+[2759]"
+  [Namespace.unirule]: ['Insulin', 'Eukaryota'],
+  [Namespace.arba]: ['Insulin', 'Eukaryota'],
 };
 
 type Props = {
