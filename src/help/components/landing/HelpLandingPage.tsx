@@ -1,4 +1,5 @@
 import { generatePath, Link } from 'react-router-dom';
+import { CommunityAnnotationIcon } from 'franklin-sites';
 import cn from 'classnames';
 
 import HelpQuickSearch from './HelpQuickSearch';
@@ -11,16 +12,17 @@ import {
   Location,
   getHelpEntryPath,
 } from '../../../app/config/urls';
-import DB from './svgs/db.svg';
-import landing from './styles/help-landing-page.module.scss';
-/*
 
-Get started
-Training
-Technical corner
-Biocuration
-About us
-*/
+import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
+
+import DB from './svgs/db.svg';
+import Cog from './svgs/cog.svg';
+import TalkingPerson from './svgs/talking-person.svg';
+import Terminal from './svgs/terminal.svg';
+import Reader from './svgs/reader.svg';
+
+import landing from './styles/help-landing-page.module.scss';
+
 const tileData = [
   {
     title: 'UniProt data',
@@ -50,35 +52,89 @@ const tileData = [
     linkList: [
       {
         to: getHelpEntryPath('uniprotkb_manual'),
-        label: NamespaceLabels.uniprotkb,
+        label: 'UniProtKB manual',
+      },
+      {
+        to: getHelpEntryPath('text-search'),
+        label: 'Text search and advanced search',
       },
     ],
-    moreTo: getHelpEntryPath('data'),
-    image: 'image',
+    moreTo: 'https://www.ebi.ac.uk/training/online/courses/uniprot-quick-tour',
+    image: <Cog />,
   },
   {
-    title: 'Biocuration',
+    title: 'Training',
     linkList: [
       {
-        to: getHelpEntryPath('uniprotkb_manual'),
-        label: NamespaceLabels.uniprotkb,
+        url: 'https://www.ebi.ac.uk/training/online/courses/uniprot-quick-tour',
+        label: 'Online training',
+      },
+      {
+        url: 'https://www.ebi.ac.uk/training/search-results?query=uniprot&domain=ebiweb_training&page=1&facets=',
+        label: 'Courses',
       },
     ],
     moreTo: generatePath(LocationToPath[Location.HelpEntry], {
       accession: 'data',
     }),
-    image: 'image',
+    image: <TalkingPerson />,
+  },
+  {
+    title: 'Technical corner',
+    linkList: [
+      {
+        to: getHelpEntryPath('programmatic_access'),
+        label: 'Programmatic access',
+      },
+      {
+        to: getHelpEntryPath('programmatic_access'),
+        label: 'UniProt JAPI',
+      },
+    ],
+    moreTo: getHelpEntryPath('technical'),
+    image: <Terminal />,
+  },
+  {
+    title: 'Biocuration',
+    linkList: [
+      {
+        to: getHelpEntryPath('biocuration'),
+        label: 'UniProt biocuration',
+      },
+      {
+        to: {
+          pathname: LocationToPath[Location.HelpResults],
+          search: '?query=*&facets=category:biocuration',
+        },
+        label: 'Biocuration projects',
+      },
+    ],
+    moreTo: getHelpEntryPath('biocuration'),
+    image: <Reader />,
   },
   {
     title: 'About us',
     linkList: [
       {
-        to: getHelpEntryPath('uniprotkb_manual'),
-        label: NamespaceLabels.uniprotkb,
+        to: getHelpEntryPath('about'),
+        label: 'About UniProt',
+      },
+      {
+        to: getHelpEntryPath('publications'),
+        label: 'How to cite us',
       },
     ],
-    moreTo: getHelpEntryPath('data'),
-    image: 'image',
+    moreTo: getHelpEntryPath('about'),
+    image: (
+      <div
+        style={{
+          opacity: 0.8, // To match the rest of the SVGs
+          color: colors.helpGreen,
+        }}
+      >
+        <CommunityAnnotationIcon />
+      </div>
+    ),
   },
 ];
 

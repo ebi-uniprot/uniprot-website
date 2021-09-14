@@ -17,9 +17,9 @@ const IllustratedListTile = ({ title, image, linkList, moreTo }) => (
           'no-bullet'
         )}
       >
-        {linkList.map(({ to, label }) => (
+        {linkList.map(({ label, to, url }) => (
           <li>
-            <Link to={to}>{label}</Link>
+            {to ? <Link to={to}>{label}</Link> : <a href={url}>{label}</a>}
           </li>
         ))}
       </ul>
