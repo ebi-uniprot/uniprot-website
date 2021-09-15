@@ -95,7 +95,7 @@ const HelpQuickSearch = () => {
     });
 
   return (
-    <div className={styles['help-autocomplete']}>
+    <div className={styles['help-quick-search']}>
       <SearchInput
         isLoading={dataObject.loading}
         onChange={(event: ChangeEvent<HTMLInputElement>) =>
@@ -107,17 +107,26 @@ const HelpQuickSearch = () => {
         autoFocus
       />
       {!!allArticles?.length && !!infoData?.length && searchValue && (
-        <Card>
-          <InfoList
-            className={styles['help-autocomplete__result-list']}
-            infoData={infoData}
-          />
-          <div className={styles['help-autocomplete__all-link']}>
-            <Link to={allArticlesLocation}>
-              Show all results ({allArticles.length})
-            </Link>
-          </div>
-        </Card>
+        <div style={{ position: 'relative', zIndex: 99 }}>
+          <Card
+            style={{
+              top: 0,
+              position: 'absolute',
+              width: '100%',
+              left: -2,
+            }}
+          >
+            <InfoList
+              className={styles['help-quick-search__result-list']}
+              infoData={infoData}
+            />
+            <div className={styles['help-quick-search__all-link']}>
+              <Link to={allArticlesLocation}>
+                Show all results ({allArticles.length})
+              </Link>
+            </div>
+          </Card>
+        </div>
       )}
     </div>
   );
