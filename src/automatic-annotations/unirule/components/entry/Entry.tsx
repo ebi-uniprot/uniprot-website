@@ -7,6 +7,7 @@ import SingleColumnLayout from '../../../../shared/components/layouts/SingleColu
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 
 import TemplateEntries from './TemplateEntries';
+import ConditionsAnnotations from './ConditionsAnnotations';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
@@ -58,6 +59,7 @@ const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
           />
         </div>
         <TemplateEntries entries={data.information.uniProtAccessions} />
+        <ConditionsAnnotations data={data} />
       </Card>
     </SingleColumnLayout>
   );
