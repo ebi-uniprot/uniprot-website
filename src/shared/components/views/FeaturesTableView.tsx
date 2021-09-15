@@ -1,5 +1,4 @@
 import { useCallback, useState } from 'react';
-import { TemplateResult } from 'lit-html';
 
 import { UniProtEvidenceTagContent } from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
 
@@ -7,22 +6,6 @@ import useCustomElement from '../../hooks/useCustomElement';
 
 import { EvidenceData } from '../../../uniprotkb/config/evidenceCodes';
 import { Evidence } from '../../../uniprotkb/types/modelTypes';
-import { ColumnConfig } from './FeaturesView';
-
-export type FeatureColumns<FeatureType> = {
-  [name: string]: {
-    label: string;
-    child?: boolean;
-    resolver: (
-      d: FeatureType
-    ) =>
-      | undefined
-      | string
-      | number
-      | TemplateResult
-      | Array<TemplateResult | undefined>;
-  };
-};
 
 export type FeaturesTableCallback = (
   evidenceData: EvidenceData,
@@ -75,7 +58,16 @@ const FeaturesTableView = <T extends Record<string, unknown>>({
 
   return (
     <>
-      <protvista-datatable ref={setTableData} filter-scroll />
+      <protvista-datatable ref={setTableData} filter-scroll>
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>{/* Iteration here */}</tbody>
+        </table>
+      </protvista-datatable>
       <div
         className={`evidence-tag-content ${
           showEvidenceTagData && 'evidence-tag-content--visible'

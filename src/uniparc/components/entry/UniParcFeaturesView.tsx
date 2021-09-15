@@ -1,10 +1,9 @@
-import { html } from 'lit-html';
 import { sortBy } from 'lodash-es';
 import { FC, useMemo } from 'react';
 
 import FeaturesView, {
-  ColumnConfig,
   ProcessedFeature,
+  TableConfig,
 } from '../../../shared/components/views/FeaturesView';
 import externalUrls from '../../../shared/config/externalUrls';
 import { stringToColour } from '../../../shared/utils/color';
@@ -39,45 +38,51 @@ const convertData = (data: SequenceFeature[]): UniParcProcessedFeature[] =>
     'interproGroupName'
   );
 
-// Define columns
-const columnConfig: ColumnConfig<UniParcProcessedFeature> = () => ({
-  interproGroup: {
-    label: 'InterPro Group',
-    resolver: (d) =>
-      d.interproGroupId
-        ? html`<a
-            href="${externalUrls.InterProEntry(d.interproGroupId)}"
-            target="_blank"
-            rel="noreferrer"
-            >${d.interproGroupName}</a
-          >`
-        : 'N/A',
+// Define table contents
+const tableConfig: TableConfig<UniParcProcessedFeature> = [
+  {
+    columnLabel: 'InterPro Group',
+    columnRenderer: (d) =>
+      d.interproGroupId ? (
+        <a
+          href={externalUrls.InterProEntry(d.interproGroupId)}
+          target="_blank"
+          rel="noreferrer"
+        >
+          {d.interproGroupName}
+        </a>
+      ) : (
+        'N/A'
+      ),
   },
-  positions: {
-    label: 'Positions',
-    resolver: (d) => `${d.start}-${d.end}`,
+  {
+    columnLabel: 'Positions',
+    columnRenderer: (d) => `${d.start}-${d.end}`,
   },
-  databaseId: {
-    label: 'Database identifier',
-    resolver: (d) => {
+  {
+    columnLabel: 'Database identifier',
+    columnRenderer: (d) => {
       const { database, databaseId } = d;
       const databaseInfo = databaseToDatabaseInfo[database];
       if (databaseInfo && databaseId) {
-        return html`<a
-          href="${processUrlTemplate(databaseInfo.uriLink, { id: databaseId })}"
-          target="_blank"
-          rel="norefferer"
-          >${databaseId}</a
-        >`;
+        return (
+          <a
+            href={processUrlTemplate(databaseInfo.uriLink, { id: databaseId })}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {databaseId}
+          </a>
+        );
       }
       return databaseId;
     },
   },
-  database: {
-    label: 'Database',
-    resolver: (d): string => d.database,
+  {
+    columnLabel: 'Database',
+    columnRenderer: (d): string => d.database,
   },
-});
+];
 
 const UniParcFeaturesView: FC<{
   data: SequenceFeature[];
@@ -87,7 +92,7 @@ const UniParcFeaturesView: FC<{
   return (
     <FeaturesView
       features={processedData}
-      columnConfig={columnConfig}
+      tableConfig={tableConfig}
       sequence={sequence}
     />
   );
