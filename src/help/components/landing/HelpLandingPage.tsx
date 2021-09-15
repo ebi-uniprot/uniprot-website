@@ -1,6 +1,7 @@
 import { generatePath, Link } from 'react-router-dom';
 import { CommunityAnnotationIcon } from 'franklin-sites';
 import cn from 'classnames';
+import 'lite-youtube-embed';
 
 import HelpQuickSearch from './HelpQuickSearch';
 import { Contact } from '../../../shared/components/layouts/UniProtFooter';
@@ -44,7 +45,10 @@ const tileData = [
         label: NamespaceLabels.uniparc,
       },
     ],
-    moreTo: getHelpEntryPath('data'),
+    moreTo: {
+      pathname: LocationToPath[Location.HelpResults],
+      search: '?query=data',
+    },
     image: <DB />,
   },
   {
@@ -74,9 +78,10 @@ const tileData = [
         label: 'Courses',
       },
     ],
-    moreTo: generatePath(LocationToPath[Location.HelpEntry], {
-      accession: 'data',
-    }),
+    moreTo: {
+      pathname: LocationToPath[Location.HelpResults],
+      search: '?query=training',
+    },
     image: <TalkingPerson />,
   },
   {
@@ -88,7 +93,7 @@ const tileData = [
       },
       {
         to: getHelpEntryPath('programmatic_access'),
-        label: 'UniProt JAPI',
+        label: 'UniProt JAPI', // TODO: this goes to the same place as above but these links are subject to change anyway
       },
     ],
     moreTo: getHelpEntryPath('technical'),
@@ -109,7 +114,10 @@ const tileData = [
         label: 'Biocuration projects',
       },
     ],
-    moreTo: getHelpEntryPath('biocuration'),
+    moreTo: {
+      pathname: LocationToPath[Location.HelpResults],
+      search: '?query=*&facets=category:biocuration',
+    },
     image: <Reader />,
   },
   {
@@ -124,7 +132,10 @@ const tileData = [
         label: 'How to cite us',
       },
     ],
-    moreTo: getHelpEntryPath('about'),
+    moreTo: {
+      pathname: LocationToPath[Location.HelpResults],
+      search: '?query=*&facets=category:About UniProt',
+    },
     image: (
       <div
         style={{
@@ -154,25 +165,45 @@ const HelpLandingPage = () => (
         ))}
       </div>
     </div>
-    <div
-      className={cn(
-        'uniprot-grid-cell--span-3',
-        landing['help-landing__faq-contact']
-      )}
-    >
-      <h4>Suggested FAQs</h4>
-      <ul className="no-bullet">
-        <li>How can I get all the proteins involved in a given disease?</li>
-        <li>What is the canonical sequence? </li>
-        <li>What are reference proteomes?</li>
-      </ul>
-      <div className={landing['help-landing__faq-contact__view-all']}>
-        View all FAQs
-      </div>
-      <Contact />
-    </div>
     <div className="uniprot-grid-cell--span-3">
-      <h4>Help videos</h4>
+      <div className={landing['help-landing__faqs']}>
+        <h4>Suggested FAQs</h4>
+        <ul className="no-bullet">
+          <li>
+            <Link to={getHelpEntryPath('disease_query')}>
+              How can I get all the proteins involved in a given disease?
+            </Link>
+          </li>
+          <li>
+            <Link to={getHelpEntryPath('canonical_and_isoforms')}>
+              What is the canonical sequence?
+            </Link>
+          </li>
+          <li>
+            <Link to={getHelpEntryPath('reference_proteome')}>
+              What are reference proteomes?
+            </Link>
+          </li>
+        </ul>
+        <Link
+          to={{
+            pathname: LocationToPath[Location.HelpResults],
+            search: '?query=*&facets=category:faq',
+          }}
+        >
+          View all FAQs
+        </Link>
+      </div>
+      <div className={landing['help-landing__contact']}>
+        <Contact />
+      </div>
+      <div className={landing['help-landing__help']}>
+        <h4>Help videos</h4>
+        <div className={landing['help-landing__help__videos']}>
+          <lite-youtube videoid="9IYI4QDVPa0" playlabel="UniProt intro" />
+          {/* TODO: include more videos as they become available */}
+        </div>
+      </div>
     </div>
   </div>
 );
