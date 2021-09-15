@@ -38,7 +38,7 @@ const QueryBuilder = lazy(
 
 const examples: Record<SearchableNamespace, string[]> = {
   // Main data
-  [Namespace.uniprotkb]: ['p53', 'Human EGFR', 'Albumin'],
+  [Namespace.uniprotkb]: ['Insulin', 'APP', 'Human', 'P05067', 'organism:9606'],
   [Namespace.uniref]: [
     'Transcription factors',
     'identity:1.0',
