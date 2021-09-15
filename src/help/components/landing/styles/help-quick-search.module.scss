@@ -1,8 +1,18 @@
 @import 'franklin-sites/src/styles/colours';
 @import '../../../../shared/styles/settings';
 
+@keyframes reveal {
+  from {
+    clip-path: circle(0% at 50% 0%);
+  }
+  to {
+    clip-path: circle(100% at 50% 0%);
+  }
+}
+
 .help-quick-search {
   &__results {
+    animation: 200ms reveal;
     position: relative;
     z-index: $z-index-low;
 
