@@ -2,12 +2,23 @@
 
 .help-quick-search {
   &__result-list {
-    max-height: 30rem;
-    overflow-y: auto;
-  }
+    position: relative;
+    z-index: 99;
 
-  &__all-link {
-    text-align: right;
+    &__card {
+      position: absolute;
+      top: 0;
+      width: 100%;
+
+      &__info-list {
+        max-height: 30rem;
+        overflow-y: auto;
+
+        &__all-link {
+          text-align: right;
+        }
+      }
+    }
   }
 
   :global(.search-input__suffix) {
