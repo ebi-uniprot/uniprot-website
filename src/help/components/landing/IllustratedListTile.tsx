@@ -1,10 +1,34 @@
 /* eslint-disable uniprot-website/use-config-location */
+import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
+import { RequireExactlyOne } from 'type-fest';
+import { LocationDescriptor } from 'history';
 
 import styles from './styles/illustrated-list-tile.module.scss';
 
-const IllustratedListTile = ({ title, image, linkList, moreTo }) => (
+type LinkOrHref = RequireExactlyOne<
+  {
+    label: string;
+    to: LocationDescriptor<unknown>;
+    url: string;
+  },
+  'to' | 'url'
+>;
+
+export type IllustratedListTileProps = {
+  title: string;
+  image: ReactElement;
+  linkList: LinkOrHref[];
+  moreTo: LocationDescriptor<unknown>;
+};
+
+const IllustratedListTile = ({
+  title,
+  image,
+  linkList,
+  moreTo,
+}: IllustratedListTileProps) => (
   <div className={styles['illustrated-list-tile']}>
     <h3>{title}</h3>
     <div className={styles['illustrated-list-tile__content']}>

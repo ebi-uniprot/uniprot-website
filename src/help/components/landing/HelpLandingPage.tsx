@@ -1,11 +1,13 @@
-import { generatePath, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { CommunityAnnotationIcon } from 'franklin-sites';
 import cn from 'classnames';
 import 'lite-youtube-embed';
 
 import HelpQuickSearch from './HelpQuickSearch';
 import { Contact } from '../../../shared/components/layouts/UniProtFooter';
-import IllustratedListTile from './IllustratedListTile';
+import IllustratedListTile, {
+  IllustratedListTileProps,
+} from './IllustratedListTile';
 
 import { NamespaceLabels } from '../../../shared/types/namespaces';
 import {
@@ -24,7 +26,7 @@ import Reader from './svgs/reader.svg';
 
 import landing from './styles/help-landing-page.module.scss';
 
-const tileData = [
+const tileData: IllustratedListTileProps[] = [
   {
     title: 'UniProt data',
     linkList: [
@@ -166,7 +168,7 @@ const HelpLandingPage = () => (
       </div>
     </div>
     <div className="uniprot-grid-cell--span-3">
-      <div className={landing['help-landing__faqs']}>
+      <section className={landing['help-landing__faqs']}>
         <h4>Suggested FAQs</h4>
         <ul className="no-bullet">
           <li>
@@ -193,17 +195,17 @@ const HelpLandingPage = () => (
         >
           View all FAQs
         </Link>
-      </div>
-      <div className={landing['help-landing__contact']}>
+      </section>
+      <section className={landing['help-landing__contact']}>
         <Contact />
-      </div>
-      <div className={landing['help-landing__help']}>
+      </section>
+      <section className={landing['help-landing__videos']}>
         <h4>Help videos</h4>
-        <div className={landing['help-landing__help__videos']}>
+        <div className={landing['help-landing__videos__list']}>
           <lite-youtube videoid="9IYI4QDVPa0" playlabel="UniProt intro" />
           {/* TODO: include more videos as they become available */}
         </div>
-      </div>
+      </section>
     </div>
   </div>
 );
