@@ -150,7 +150,7 @@ const HelpLandingPage = () => (
       <HelpQuickSearch />
       <div className={landing['help-landing__tiles']}>
         {tileData.map((data) => (
-          <IllustratedListTile {...data} />
+          <IllustratedListTile key={data.title} {...data} />
         ))}
       </div>
     </div>

@@ -18,7 +18,7 @@ const IllustratedListTile = ({ title, image, linkList, moreTo }) => (
         )}
       >
         {linkList.map(({ label, to, url }) => (
-          <li>
+          <li key={label}>
             {to ? <Link to={to}>{label}</Link> : <a href={url}>{label}</a>}
           </li>
         ))}

@@ -107,15 +107,10 @@ const HelpQuickSearch = () => {
         autoFocus
       />
       {!!allArticles?.length && !!infoData?.length && searchValue && (
-        <div className={styles['help-quick-search__result-list']}>
-          <Card className={styles['help-quick-search__result-list__card']}>
-            <InfoList
-              className={
-                styles['help-quick-search__result-list__card__info-list']
-              }
-              infoData={infoData}
-            />
-            <div className={styles['help-quick-search__all-link']}>
+        <div className={styles['help-quick-search__results']}>
+          <Card>
+            <InfoList infoData={infoData} />
+            <div className={styles['help-quick-search__results__all-link']}>
               <Link to={allArticlesLocation}>
                 Show all results ({allArticles.length})
               </Link>
