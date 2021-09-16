@@ -21,20 +21,9 @@ kubectl config set-context --current --namespace=uniprot-front-end
 printf "$(kubectl create secret docker-registry gitlab-registry --docker-server=$CI_REGISTRY --docker-username=$CI_DEPLOY_USER --docker-password=$CI_DEPLOY_PASSWORD --docker-email=$GITLAB_USER_EMAIL -o yaml --dry-run=client)" | kubectl apply -f -
 kubectl apply -f deploy/k8s_deploy.yml
 kubectl rollout restart statefulset.apps/uniprot-website-client
+kubectl rollout status statefulset.apps/uniprot-website-client || { echo 'Deployment failed!' ; exit 1; }
 
-MAX_ATTEMPTS=20
-COUNTER=0
-while [[ (( $COUNTER < $MAX_ATTEMPTS )) && $(kubectl get pods -o=jsonpath="{.items[0].status.phase}") != "Running" ]]
-do
-    echo "Waiting for pod" && sleep 5;
-    COUNTER=$(( $COUNTER + 1 ))
-done
-if (( $COUNTER == $MAX_ATTEMPTS ))
-then
-    echo "Deployment of ${DC} unsuccessful. Exiting."
-    exit 1
-fi
-
+echo "Deployment succeeded!"
 kubectl get all
 
 NODE_PORT=$(kubectl get services -o=jsonpath='{.items[0].spec.ports[0].nodePort}')
