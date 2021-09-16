@@ -8,6 +8,7 @@ import { Contact } from '../../../shared/components/layouts/UniProtFooter';
 import IllustratedListTile, {
   IllustratedListTileProps,
 } from './IllustratedListTile';
+import HTMLHead from '../../../shared/components/HTMLHead';
 
 import { NamespaceLabels } from '../../../shared/types/namespaces';
 import {
@@ -158,6 +159,7 @@ const HelpLandingPage = () => (
       landing['help-landing']
     )}
   >
+    <HTMLHead title="Help" />
     <h2 className="uniprot-grid-cell--span-12">Help center</h2>
     <div className="uniprot-grid-cell--span-9">
       <HelpQuickSearch />
