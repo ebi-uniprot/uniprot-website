@@ -14,8 +14,6 @@ export enum ARBAColumn {
   // statistics = 'statistics',
   taxonomicScope = 'taxonomic_scope',
   annotationCovered = 'annotation_covered',
-  predictedProteinName = 'predicted_protein_name',
-  templateEntries = 'template_entries',
 }
 
 export const defaultColumns = [
@@ -51,16 +49,6 @@ ARBAColumnConfiguration.set(ARBAColumn.taxonomicScope, {
 
 ARBAColumnConfiguration.set(ARBAColumn.annotationCovered, {
   label: 'Annotation covered',
-  render: () => null,
-});
-
-ARBAColumnConfiguration.set(ARBAColumn.predictedProteinName, {
-  label: 'Predicted protein name',
-  render: () => null,
-});
-
-ARBAColumnConfiguration.set(ARBAColumn.templateEntries, {
-  label: 'Template entries',
   render: () => null,
 });
 

@@ -397,7 +397,7 @@ exports[`ProteomesColumnConfiguration component should render column "protein_co
 
 exports[`ProteomesColumnConfiguration component should render column "upid": upid 1`] = `
 <DocumentFragment>
-  <div
+  <span
     class="no-wrap accession-view"
   >
     <span
@@ -412,6 +412,6 @@ exports[`ProteomesColumnConfiguration component should render column "upid": upi
     >
       UP000005640
     </a>
-  </div>
+  </span>
 </DocumentFragment>
 `;

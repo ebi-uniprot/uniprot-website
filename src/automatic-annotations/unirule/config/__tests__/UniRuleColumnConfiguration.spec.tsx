@@ -12,7 +12,7 @@ import data from '../../__mocks__/uniRuleModelData';
 
 jest.mock('../../../../tools/utils/storage');
 
-const transformedData: UniRuleUIModel = databaseConverter(data[0]);
+const transformedData: UniRuleUIModel = databaseConverter(data[1]);
 
 describe('UniRuleColumnConfiguration component', () => {
   testColumnConfiguration<UniRuleColumn, Partial<UniRuleAPIModel>>(

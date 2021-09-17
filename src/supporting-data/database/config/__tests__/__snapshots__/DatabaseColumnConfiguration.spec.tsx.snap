@@ -47,7 +47,7 @@ exports[`DatabaseColumnConfiguration component should render column "doi_id": do
 
 exports[`DatabaseColumnConfiguration component should render column "id": id 1`] = `
 <DocumentFragment>
-  <div
+  <span
     class="no-wrap accession-view"
   >
     <a
@@ -56,7 +56,7 @@ exports[`DatabaseColumnConfiguration component should render column "id": id 1`]
     >
       DB-0022
     </a>
-  </div>
+  </span>
 </DocumentFragment>
 `;
 

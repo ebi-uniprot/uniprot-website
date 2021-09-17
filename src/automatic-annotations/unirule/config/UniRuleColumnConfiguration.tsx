@@ -1,4 +1,5 @@
 // import { Link } from 'react-router-dom';
+import { ExpandableList } from 'franklin-sites';
 
 import AccessionView from '../../../shared/components/results/AccessionView';
 import TaxonomicScope from '../../shared/column-renderers/TaxonomicScope';
@@ -63,7 +64,17 @@ UniRuleColumnConfiguration.set(UniRuleColumn.predictedProteinName, {
 
 UniRuleColumnConfiguration.set(UniRuleColumn.templateEntries, {
   label: 'Template entries',
-  render: () => null,
+  render: ({ information }) => (
+    <ExpandableList descriptionString="entries" displayNumberOfHiddenItems>
+      {information?.uniProtAccessions?.map((accession) => (
+        <AccessionView
+          key={accession}
+          id={accession}
+          namespace={Namespace.uniprotkb}
+        />
+      ))}
+    </ExpandableList>
+  ),
 });
 
 export default UniRuleColumnConfiguration;

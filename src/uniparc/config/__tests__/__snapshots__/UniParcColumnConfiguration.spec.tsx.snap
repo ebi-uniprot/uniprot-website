@@ -971,7 +971,7 @@ exports[`UniParcColumnConfiguration component should render column "sequence": s
 
 exports[`UniParcColumnConfiguration component should render column "upi": upi 1`] = `
 <DocumentFragment>
-  <div
+  <span
     class="no-wrap accession-view"
   >
     <a
@@ -980,6 +980,6 @@ exports[`UniParcColumnConfiguration component should render column "upi": upi 1`
     >
       UPI0000000001
     </a>
-  </div>
+  </span>
 </DocumentFragment>
 `;

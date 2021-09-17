@@ -6,16 +6,16 @@ exports[`UniRuleColumnConfiguration component should render column "predicted_pr
 
 exports[`UniRuleColumnConfiguration component should render column "rule_id": rule_id 1`] = `
 <DocumentFragment>
-  <div
+  <span
     class="no-wrap accession-view"
   >
     <a
       class="accession"
-      href="/unirule/UR000048432"
+      href="/unirule/UR000189784"
     >
-      UR000048432
+      UR000189784
     </a>
-  </div>
+  </span>
 </DocumentFragment>
 `;
 
@@ -29,10 +29,10 @@ exports[`UniRuleColumnConfiguration component should render column "taxonomic_sc
         class="no-wrap"
       >
         <a
-          href="/taxonomy/117571"
-          title="Euteleostomi, taxon ID 117571"
+          href="/taxonomy/40674"
+          title="Mammalia, taxon ID 40674"
         >
-          Euteleostomi
+          Mammalia
         </a>
       </span>
     </li>
@@ -40,4 +40,35 @@ exports[`UniRuleColumnConfiguration component should render column "taxonomic_sc
 </DocumentFragment>
 `;
 
-exports[`UniRuleColumnConfiguration component should render column "template_entries": template_entries 1`] = `<DocumentFragment />`;
+exports[`UniRuleColumnConfiguration component should render column "template_entries": template_entries 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      <span
+        class="no-wrap accession-view"
+      >
+        <a
+          class="accession"
+          href="/uniprotkb/Q9QY05"
+        >
+          Q9QY05
+        </a>
+      </span>
+    </li>
+    <li>
+      <span
+        class="no-wrap accession-view"
+      >
+        <a
+          class="accession"
+          href="/uniprotkb/Q9Y581"
+        >
+          Q9Y581
+        </a>
+      </span>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
