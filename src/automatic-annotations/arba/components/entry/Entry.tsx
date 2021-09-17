@@ -48,6 +48,7 @@ const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
         <div className="button-group">
           <MapToDropdown
             statistics={{
+              // TODO: update when TRM-26560 is deployed
               reviewedProteinCount: 0,
               unreviewedProteinCount: data.proteinsAnnotatedCount,
             }}
