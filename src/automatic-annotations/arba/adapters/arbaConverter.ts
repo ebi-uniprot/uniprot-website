@@ -9,8 +9,8 @@ export type ARBAUIModel = ARBAAPIModel & {
   // any addition/change by the converter
 };
 
-const uniRuleConverter = (data: ARBAAPIModel): ARBAUIModel => ({
+const arbaConverter = (data: ARBAAPIModel): ARBAUIModel => ({
   ...data,
 });
 
-export default uniRuleConverter;
+export default arbaConverter;
