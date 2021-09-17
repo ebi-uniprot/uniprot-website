@@ -19,7 +19,7 @@ import generatePageTitle from '../../adapters/generatePageTitle';
 
 import {
   Namespace,
-  SearchableNamespaceLabels,
+  searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -51,11 +51,11 @@ const Entry = () => {
       <HTMLHead
         title={[
           generatePageTitle(transformedData),
-          SearchableNamespaceLabels[Namespace.proteomes],
+          searchableNamespaceLabels[Namespace.proteomes],
         ]}
       />
       <h1 className="big">
-        {SearchableNamespaceLabels[Namespace.proteomes]}
+        {searchableNamespaceLabels[Namespace.proteomes]}
         {' · '}
         <TaxonomyView data={data.taxonomy} noLink />
       </h1>

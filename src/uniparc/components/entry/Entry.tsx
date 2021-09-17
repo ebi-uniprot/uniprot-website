@@ -42,7 +42,7 @@ import uniParcConverter, {
 } from '../../adapters/uniParcConverter';
 import {
   Namespace,
-  SearchableNamespaceLabels,
+  searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
@@ -144,7 +144,7 @@ const Entry: FC = () => {
           <HTMLHead
             title={[
               transformedData.uniParcId,
-              SearchableNamespaceLabels[Namespace.uniparc],
+              searchableNamespaceLabels[Namespace.uniparc],
             ]}
           />
           <h1 className="big">
@@ -202,7 +202,7 @@ const Entry: FC = () => {
                 title={[
                   transformedData.uniParcId,
                   'Feature viewer',
-                  SearchableNamespaceLabels[Namespace.uniparc],
+                  searchableNamespaceLabels[Namespace.uniparc],
                 ]}
               />
               <UniParcFeaturesView

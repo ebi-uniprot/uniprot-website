@@ -16,7 +16,7 @@ import ResultsDataHeader from './ResultsDataHeader';
 
 import Response from '../../../uniprotkb/types/responseTypes';
 import {
-  SearchableNamespaceLabels,
+  searchableNamespaceLabels,
   SearchableNamespace,
 } from '../../types/namespaces';
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
@@ -62,7 +62,7 @@ const Results = () => {
   const helmet = ns && (
     <HTMLHead
       title={`${getParamsFromURL(search).query} in ${
-        SearchableNamespaceLabels[ns as SearchableNamespace]
+        searchableNamespaceLabels[ns as SearchableNamespace]
       }${total !== undefined ? ` (${total})` : ''}`}
     />
   );

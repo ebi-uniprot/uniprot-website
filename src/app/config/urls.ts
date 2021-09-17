@@ -3,7 +3,7 @@ import { generatePath } from 'react-router-dom';
 import { JobTypes } from '../../tools/types/toolsJobTypes';
 import {
   Namespace,
-  SearchableNamespaceLabels,
+  searchableNamespaceLabels,
   SearchableNamespace,
   supportingDataNamespaces,
   supportingDataAndAANamespaces,
@@ -132,12 +132,12 @@ export const SearchResultsLocations: Record<SearchableNamespace, string> = {
 
 // "/:namespace(uniprotkb|uniparc|........)"
 export const allSearchResultLocations = `/:namespace(${Object.keys(
-  SearchableNamespaceLabels
+  searchableNamespaceLabels
 ).join('|')})`;
 
 // "/:namespace(uniprotkb|uniparc|........)/accession"
 export const allEntryPages = `/:namespace(${Object.keys(
-  SearchableNamespaceLabels
+  searchableNamespaceLabels
 ).join('|')})/:accession`;
 
 // same as above, but only with supporting data namespaces, and with accession

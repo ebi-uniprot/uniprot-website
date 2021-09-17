@@ -17,7 +17,7 @@ import generatePageTitle from '../../adapters/generatePageTitle';
 
 import {
   Namespace,
-  SearchableNamespaceLabels,
+  searchableNamespaceLabels,
 } from '../../../../shared/types/namespaces';
 import { TaxonomyAPIModel } from '../../adapters/taxonomyConverter';
 import TaxonomyColumnConfiguration, {
@@ -110,11 +110,11 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
       <HTMLHead
         title={[
           generatePageTitle(data),
-          SearchableNamespaceLabels[Namespace.taxonomy],
+          searchableNamespaceLabels[Namespace.taxonomy],
         ]}
       />
       <h1 className="big">
-        {SearchableNamespaceLabels[Namespace.taxonomy]} -{' '}
+        {searchableNamespaceLabels[Namespace.taxonomy]} -{' '}
         {data.scientificName || data.taxonId} <small>({data.rank})</small>
       </h1>
       <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>

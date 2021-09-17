@@ -67,7 +67,7 @@ import {
 } from '../../../app/config/urls';
 import {
   Namespace,
-  SearchableNamespaceLabels,
+  searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
 import { EntryType } from '../../../shared/components/entry/EntryTypeIcon';
 
@@ -260,7 +260,7 @@ const Entry: FC = () => {
             <HTMLHead
               title={[
                 pageTitle,
-                SearchableNamespaceLabels[Namespace.uniprotkb],
+                searchableNamespaceLabels[Namespace.uniprotkb],
               ]}
             />
             <h1 className="big">
@@ -377,7 +377,7 @@ const Entry: FC = () => {
               title={[
                 pageTitle,
                 'Feature viewer',
-                SearchableNamespaceLabels[Namespace.uniprotkb],
+                searchableNamespaceLabels[Namespace.uniprotkb],
               ]}
             />
             <FeatureViewer accession={match.params.accession} />
@@ -406,7 +406,7 @@ const Entry: FC = () => {
               title={[
                 pageTitle,
                 'Publications',
-                SearchableNamespaceLabels[Namespace.uniprotkb],
+                searchableNamespaceLabels[Namespace.uniprotkb],
               ]}
             />
             <EntryPublications accession={match.params.accession} />
@@ -435,7 +435,7 @@ const Entry: FC = () => {
               title={[
                 pageTitle,
                 'External links',
-                SearchableNamespaceLabels[Namespace.uniprotkb],
+                searchableNamespaceLabels[Namespace.uniprotkb],
               ]}
             />
             <EntryExternalLinks transformedData={transformedData} />
@@ -462,7 +462,7 @@ const Entry: FC = () => {
               title={[
                 historyOldEntry ? match.params.accession : pageTitle,
                 'History',
-                SearchableNamespaceLabels[Namespace.uniprotkb],
+                searchableNamespaceLabels[Namespace.uniprotkb],
               ]}
             />
             <EntryHistory accession={match.params.accession} />

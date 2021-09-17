@@ -23,7 +23,7 @@ import {
 } from '../../../app/config/urls';
 import {
   Namespace,
-  SearchableNamespaceLabels,
+  searchableNamespaceLabels,
   SearchableNamespace,
 } from '../../types/namespaces';
 
@@ -180,7 +180,7 @@ const SearchContainer: FC<
     <>
       <section role="search" {...props}>
         <MainSearch
-          namespaces={SearchableNamespaceLabels}
+          namespaces={searchableNamespaceLabels}
           searchTerm={searchTerm}
           onTextChange={setSearchTerm}
           onSubmit={handleSubmit}
