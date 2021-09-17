@@ -27,16 +27,20 @@ const TaxonomicScope = ({
         // This shouldn't happen
         /* istanbul ignore if */
         if (!conditionValue.cvId) {
+          // eslint-disable-next-line no-console
+          console.warn(`No cvId field in taxon for "${conditionValue.value}"`);
           continue; // eslint-disable-line no-continue
         }
         const taxonId = +conditionValue.cvId;
-        taxonScopeMap.set(taxonId, {
-          negative: Boolean(condition.isNegative),
-          taxon: {
-            taxonId,
-            scientificName: conditionValue.value,
-          },
-        });
+        if (!taxonScopeMap.has(taxonId)) {
+          taxonScopeMap.set(taxonId, {
+            negative: Boolean(condition.isNegative),
+            taxon: {
+              taxonId,
+              scientificName: conditionValue.value,
+            },
+          });
+        }
       }
     }
   }
