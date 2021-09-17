@@ -35,13 +35,13 @@ import {
 } from '../../types/idMappingSearchResults';
 import {
   Namespace,
-  NamespaceAndToolsLabels,
+  namespaceAndToolsLabels,
 } from '../../../../shared/types/namespaces';
 import Response from '../../../../uniprotkb/types/responseTypes';
 
 const jobType = JobTypes.ID_MAPPING;
 const urls = toolsURLs(jobType);
-const title = `${NamespaceAndToolsLabels[jobType]} results`;
+const title = `${namespaceAndToolsLabels[jobType]} results`;
 
 const IDMappingResult = () => {
   const match = useRouteMatch<{ id: string }>(
@@ -128,11 +128,11 @@ const IDMappingResult = () => {
         title={[
           title,
           namespaceOverride !== Namespace.idmapping &&
-            NamespaceAndToolsLabels[namespaceOverride],
+            namespaceAndToolsLabels[namespaceOverride],
         ]}
       />
       <PageIntro
-        title={NamespaceAndToolsLabels[namespaceOverride]}
+        title={namespaceAndToolsLabels[namespaceOverride]}
         titlePostscript={
           total && (
             <small>

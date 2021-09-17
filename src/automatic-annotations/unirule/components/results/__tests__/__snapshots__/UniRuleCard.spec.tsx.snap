@@ -26,13 +26,7 @@ exports[`UniRuleCard tests should render the card component 1`] = `
       </div>
       <div
         class="card__content"
-      >
-        <div
-          class="result-card__info-container"
-        >
-          UR000048432
-        </div>
-      </div>
+      />
     </div>
     <div
       class="card__actions"

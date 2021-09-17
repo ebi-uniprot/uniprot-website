@@ -14,7 +14,7 @@ import apiUrls from '../../../../shared/config/apiUrls';
 
 import {
   Namespace,
-  SearchableNamespaceLabels,
+  searchableNamespaceLabels,
 } from '../../../../shared/types/namespaces';
 import { ARBAAPIModel } from '../../adapters/arbaConverter';
 
@@ -38,11 +38,11 @@ const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   return (
     <SingleColumnLayout>
       <HTMLHead
-        title={[data.uniRuleId, SearchableNamespaceLabels[Namespace.arba]]}
+        title={[data.uniRuleId, searchableNamespaceLabels[Namespace.arba]]}
       />
       {/* Here we don't want to use the full label atm */}
       <h1 className="big">
-        {SearchableNamespaceLabels[Namespace.arba]} - {data.uniRuleId}
+        {searchableNamespaceLabels[Namespace.arba]} - {data.uniRuleId}
       </h1>
       <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
         <div className="button-group">

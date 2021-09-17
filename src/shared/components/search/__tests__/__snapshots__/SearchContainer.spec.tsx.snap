@@ -72,21 +72,35 @@ exports[`Search shallow components should render 1`] = `
           class="button tertiary"
           type="button"
         >
-          p53
+          Insulin
         </button>
         , 
         <button
           class="button tertiary"
           type="button"
         >
-          Human EGFR
+          APP
         </button>
         , 
         <button
           class="button tertiary"
           type="button"
         >
-          Albumin
+          Human
+        </button>
+        , 
+        <button
+          class="button tertiary"
+          type="button"
+        >
+          P05067
+        </button>
+        , 
+        <button
+          class="button tertiary"
+          type="button"
+        >
+          organism:9606
         </button>
       </div>
     </div>

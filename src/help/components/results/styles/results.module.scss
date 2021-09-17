@@ -17,6 +17,10 @@
     & > input {
       margin: 0;
     }
+
+    :global(.search-input__suffix) {
+      color: $colour-help-green;
+    }
   }
 }
 

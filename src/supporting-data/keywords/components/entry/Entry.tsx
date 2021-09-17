@@ -14,7 +14,7 @@ import apiUrls from '../../../../shared/config/apiUrls';
 
 import {
   Namespace,
-  SearchableNamespaceLabels,
+  searchableNamespaceLabels,
 } from '../../../../shared/types/namespaces';
 import { KeywordsAPIModel } from '../../adapters/keywordsConverter';
 import KeywordsColumnConfiguration, {
@@ -65,13 +65,13 @@ const KeywordsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
       <HTMLHead
         title={[
           data.keyword.name,
-          SearchableNamespaceLabels[Namespace.keywords],
+          searchableNamespaceLabels[Namespace.keywords],
         ]}
       >
         <meta name="description" content={data.definition} />
       </HTMLHead>
       <h1 className="big">
-        {SearchableNamespaceLabels[Namespace.keywords]} - {data.keyword.name}
+        {searchableNamespaceLabels[Namespace.keywords]} - {data.keyword.name}
       </h1>
       <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
         <div className="button-group">

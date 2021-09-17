@@ -14,7 +14,7 @@ import apiUrls from '../../../../shared/config/apiUrls';
 
 import {
   Namespace,
-  SearchableNamespaceLabels,
+  searchableNamespaceLabels,
 } from '../../../../shared/types/namespaces';
 import { UniRuleAPIModel } from '../../adapters/uniRuleConverter';
 
@@ -40,11 +40,11 @@ const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   return (
     <SingleColumnLayout>
       <HTMLHead
-        title={[data.uniRuleId, SearchableNamespaceLabels[Namespace.unirule]]}
+        title={[data.uniRuleId, searchableNamespaceLabels[Namespace.unirule]]}
       />
       {/* Here we don't want to use the full label atm */}
       <h1 className="big">
-        {SearchableNamespaceLabels[Namespace.unirule]} - {data.uniRuleId}
+        {searchableNamespaceLabels[Namespace.unirule]} - {data.uniRuleId}
       </h1>
       <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
         <div className="button-group">

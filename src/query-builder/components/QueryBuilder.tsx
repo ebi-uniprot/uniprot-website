@@ -28,7 +28,7 @@ import { addMessage } from '../../messages/state/messagesActions';
 
 import apiUrls from '../../shared/config/apiUrls';
 import {
-  SearchableNamespaceLabels,
+  searchableNamespaceLabels,
   SearchableNamespace,
 } from '../../shared/types/namespaces';
 import { SearchResultsLocations } from '../../app/config/urls';
@@ -223,9 +223,9 @@ const QueryBuilder: FC<Props> = ({
               }
               value={namespace}
             >
-              {Object.keys(SearchableNamespaceLabels).map((key) => (
+              {Object.keys(searchableNamespaceLabels).map((key) => (
                 <option value={key} key={key}>
-                  {SearchableNamespaceLabels[key as SearchableNamespace]}
+                  {searchableNamespaceLabels[key as SearchableNamespace]}
                 </option>
               ))}
             </select>
