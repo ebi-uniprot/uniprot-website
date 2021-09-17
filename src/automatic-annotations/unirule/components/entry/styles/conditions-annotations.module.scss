@@ -1,4 +1,19 @@
-.side-by-side {
+.rule {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'conditions . annotations'
+    'exceptions exceptions exceptions';
+  grid-template-columns: 1fr 10px 1fr;
+}
+
+.conditions {
+  grid-area: conditions;
+}
+
+.annotations {
+  grid-area: annotations;
+}
+
+.exceptions {
+  grid-area: exceptions;
 }
