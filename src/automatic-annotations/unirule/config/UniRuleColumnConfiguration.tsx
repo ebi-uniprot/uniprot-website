@@ -1,11 +1,9 @@
-// import { Link } from 'react-router-dom';
 import { ExpandableList } from 'franklin-sites';
 
 import AccessionView from '../../../shared/components/results/AccessionView';
 import TaxonomicScope from '../../shared/column-renderers/TaxonomicScope';
+import AnnotationCovered from '../../shared/column-renderers/AnnotationCovered';
 import CSVView from '../../../uniprotkb/components/protein-data-views/CSVView';
-
-// import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { UniRuleAPIModel } from '../adapters/uniRuleConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
@@ -55,7 +53,7 @@ UniRuleColumnConfiguration.set(UniRuleColumn.taxonomicScope, {
 
 UniRuleColumnConfiguration.set(UniRuleColumn.annotationCovered, {
   label: 'Annotation covered',
-  render: () => null,
+  render: AnnotationCovered,
 });
 
 UniRuleColumnConfiguration.set(UniRuleColumn.predictedProteinName, {

@@ -1,6 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ARBAColumnConfiguration component should render column "annotation_covered": annotation_covered 1`] = `<DocumentFragment />`;
+exports[`ARBAColumnConfiguration component should render column "annotation_covered": annotation_covered 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      protein name
+    </li>
+  </ul>
+</DocumentFragment>
+`;
 
 exports[`ARBAColumnConfiguration component should render column "rule_id": rule_id 1`] = `
 <DocumentFragment>

@@ -1,6 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UniRuleColumnConfiguration component should render column "annotation_covered": annotation_covered 1`] = `<DocumentFragment />`;
+exports[`UniRuleColumnConfiguration component should render column "annotation_covered": annotation_covered 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      protein name
+    </li>
+    <li>
+      function
+    </li>
+    <li>
+      subcellular location
+    </li>
+    <li>
+      similarity
+    </li>
+    <li>
+      keyword
+    </li>
+    <li>
+      GO (Gene Ontology) term
+    </li>
+  </ul>
+</DocumentFragment>
+`;
 
 exports[`UniRuleColumnConfiguration component should render column "predicted_protein_name": predicted_protein_name 1`] = `
 <DocumentFragment>
