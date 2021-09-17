@@ -1,6 +1,6 @@
 import { FC, useMemo } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { HistogramFilter } from 'franklin-sites';
+import { Facets, HistogramFilter } from 'franklin-sites';
 
 import {
   getLocationObjForParams,
@@ -16,9 +16,11 @@ import {
   blastFacetToNiceName,
 } from '../../utils/blastFacetDataUtils';
 import { getAccessionsURL } from '../../../../shared/config/apiUrls';
+import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
+import { Namespace } from '../../../../shared/types/namespaces';
 import { BlastFacet, BlastHit } from '../../types/blastResults';
 import { SelectedFacet } from '../../../../uniprotkb/types/resultsTypes';
 import Response from '../../../../uniprotkb/types/responseTypes';
@@ -113,7 +115,8 @@ const LocalFacet: FC<LocalFacetProps> = ({
 
 const BlastResultLocalFacets: FC<{
   allHits: BlastHit[];
-}> = ({ allHits }) => {
+  namespace: Namespace;
+}> = ({ allHits, namespace }) => {
   const { search: queryParamFromUrl } = useLocation();
 
   const { selectedFacets } = getParamsFromURL(queryParamFromUrl);
@@ -125,11 +128,12 @@ const BlastResultLocalFacets: FC<{
         getAccessionsURL(
           allHits.map((hit) => hit.hit_acc),
           {
+            namespace,
             selectedFacets,
             facets: [],
           }
         ),
-      [allHits, selectedFacets]
+      [allHits, namespace, selectedFacets]
     )
   );
 
@@ -138,10 +142,10 @@ const BlastResultLocalFacets: FC<{
       return allHits;
     }
     const filteredAccessions = new Set(
-      data.results.map((entry) => entry.primaryAccession)
+      data.results.map(getIdKeyFor(namespace))
     );
     return allHits.filter((hit) => filteredAccessions.has(hit.hit_acc));
-  }, [data, allHits]);
+  }, [data, allHits, namespace]);
 
   const facetBounds = useMemo(
     () => getFacetBounds(selectedFacets),
@@ -164,23 +168,25 @@ const BlastResultLocalFacets: FC<{
   }
 
   return (
-    <div className={isStale ? helper.stale : undefined}>
-      <span className="facet-name">Blast parameters</span>
-      <ul className="expandable-list no-bullet blast-parameters-facet">
-        {localFacets.map((facet) => (
-          <LocalFacet
-            key={facet}
-            facet={facet}
-            bounds={bounds[facet]}
-            facetBounds={facetBounds[facet]}
-            hitsFilteredByServer={hitsFilteredByServer}
-            selectedFacets={selectedFacets}
-            unfilteredValues={unfilteredValues[facet]}
-            optimisedBinNumber={optimisedBinNumber}
-          />
-        ))}
-      </ul>
-    </div>
+    <Facets className={isStale ? helper.stale : undefined}>
+      <div>
+        <span className="facet-name">Blast parameters</span>
+        <ul className="expandable-list no-bullet blast-parameters-facet">
+          {localFacets.map((facet) => (
+            <LocalFacet
+              key={facet}
+              facet={facet}
+              bounds={bounds[facet]}
+              facetBounds={facetBounds[facet]}
+              hitsFilteredByServer={hitsFilteredByServer}
+              selectedFacets={selectedFacets}
+              unfilteredValues={unfilteredValues[facet]}
+              optimisedBinNumber={optimisedBinNumber}
+            />
+          ))}
+        </ul>
+      </div>
+    </Facets>
   );
 };
 

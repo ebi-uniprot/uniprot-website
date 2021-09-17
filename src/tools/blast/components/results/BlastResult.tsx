@@ -38,6 +38,7 @@ import toolsURLs from '../../../config/urls';
 import { getAccessionsURL } from '../../../../shared/config/apiUrls';
 import namespaceToolTitles from '../../../../shared/config/namespaceToolTitles';
 
+import { Namespace } from '../../../../shared/types/namespaces';
 import { BlastResults, BlastHit } from '../../types/blastResults';
 import Response from '../../../../uniprotkb/types/responseTypes';
 import { JobTypes } from '../../../types/toolsJobTypes';
@@ -228,6 +229,13 @@ const BlastResult = () => {
     [hitsFilteredByLocalFacets]
   );
 
+  let namespace = Namespace.uniprotkb;
+  if (blastData?.dbs[0].name.startsWith('uniref')) {
+    namespace = Namespace.uniref;
+  } else if (blastData?.dbs[0].name === 'uniparc') {
+    namespace = Namespace.uniparc;
+  }
+
   // get data from accessions endpoint with facets applied
   const { loading: accessionsLoading, data: accessionsData } = useDataApi<
     Response['data']
@@ -235,10 +243,11 @@ const BlastResult = () => {
     useMemo(
       () =>
         getAccessionsURL(accessionsFilteredByLocalFacets, {
+          namespace,
           selectedFacets: urlParams.selectedFacets,
           facets: [],
         }),
-      [accessionsFilteredByLocalFacets, urlParams.selectedFacets]
+      [accessionsFilteredByLocalFacets, namespace, urlParams.selectedFacets]
     )
   );
 
@@ -278,6 +287,7 @@ const BlastResult = () => {
       <BlastResultSidebar
         accessions={accessionsFilteredByLocalFacets}
         allHits={blastData.hits}
+        namespace={namespace}
       />
     </ErrorBoundary>
   );
@@ -334,6 +344,7 @@ const BlastResult = () => {
               Overview
             </Link>
           }
+          cache
         >
           {actionBar}
           <Suspense fallback={<Loader />}>
@@ -351,6 +362,7 @@ const BlastResult = () => {
                 selectedEntries={selectedEntries}
                 handleEntrySelection={handleEntrySelection}
                 setHspDetailPanel={setHspDetailPanel}
+                namespace={namespace}
               />
             </ErrorBoundary>
           </Suspense>
