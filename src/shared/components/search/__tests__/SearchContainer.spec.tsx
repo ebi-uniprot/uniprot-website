@@ -25,8 +25,8 @@ describe('Search shallow components', () => {
   });
 
   it('should change the search text when clicking on a suggestion', () => {
-    expect(screen.queryByDisplayValue('Albumin')).not.toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'Albumin' }));
-    expect(screen.getByDisplayValue('Albumin')).toBeInTheDocument();
+    expect(screen.queryByDisplayValue('Insulin')).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Insulin' }));
+    expect(screen.getByDisplayValue('Insulin')).toBeInTheDocument();
   });
 });

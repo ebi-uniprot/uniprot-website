@@ -1,4 +1,3 @@
-import { invert } from 'lodash-es';
 import { generatePath } from 'react-router-dom';
 
 import { JobTypes } from '../../tools/types/toolsJobTypes';
@@ -207,5 +206,3 @@ export const jobTypeToPath = (type: JobTypes, result?: boolean) => {
   }
   throw new Error(`"${type}"invalid job type`);
 };
-
-export const PathToLocation = invert(LocationToPath);

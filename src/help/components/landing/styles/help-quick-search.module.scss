@@ -1,0 +1,42 @@
+@import 'franklin-sites/src/styles/colours';
+
+.help-autocomplete {
+  &__result-list {
+    max-height: 30rem;
+    overflow-y: auto;
+  }
+
+  &__all-link {
+    text-align: right;
+  }
+
+  :global(.search-input__suffix) {
+    color: $colour-help-green;
+  }
+
+  :global(input[type='text']) {
+    margin-bottom: 0.5rem;
+  }
+
+  :global(.card) {
+    width: initial;
+    margin-top: 0;
+  }
+
+  :global(.info-list) {
+    margin: 0rem;
+  }
+
+  :global(.decorated-list-item) {
+    padding: 0.5rem;
+  }
+
+  :global(.decorated-list-item__title) {
+    flex-basis: 25vw;
+    text-align: left;
+  }
+
+  :global(.decorated-list-item__content) {
+    border-left-color: $colour-gainsborough;
+  }
+}

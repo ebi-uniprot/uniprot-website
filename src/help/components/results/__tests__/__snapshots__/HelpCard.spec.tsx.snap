@@ -3,7 +3,7 @@
 exports[`HelpCard tests should render the card component 1`] = `
 <DocumentFragment>
   <section
-    class="help-card card card--has-link"
+    class="card card--has-link"
   >
     <a
       aria-hidden="true"
@@ -39,7 +39,7 @@ exports[`HelpCard tests should render the card component 1`] = `
 exports[`HelpCard tests should render the card component and find highlights 1`] = `
 <DocumentFragment>
   <section
-    class="help-card card card--has-link"
+    class="card card--has-link"
   >
     <a
       aria-hidden="true"
@@ -67,9 +67,9 @@ exports[`HelpCard tests should render the card component and find highlights 1`]
       <div
         class="card__content"
       >
-        <div>
+        <span>
           content match
-        </div>
+        </span>
       </div>
     </div>
   </section>
