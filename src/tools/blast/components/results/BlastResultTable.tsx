@@ -341,7 +341,7 @@ const BlastResultTable: FC<{
       {
         label: 'Accession',
         name: 'accession',
-        render: ({ hit_acc, hit_db }: BlastHit | EnrichedBlastHit) => (
+        render: ({ hit_acc, hit_db }) => (
           <Link to={getEntryPath(namespace, hit_acc)}>
             <EntryTypeIcon entryType={hit_db} />
             {hit_acc}
@@ -352,19 +352,19 @@ const BlastResultTable: FC<{
       {
         label: 'Gene',
         name: 'gene',
-        render: ({ hit_uni_gn }: BlastHit | EnrichedBlastHit) => hit_uni_gn,
+        render: ({ hit_uni_gn }) => hit_uni_gn,
         width: '5rem',
       },
       {
         label: 'Protein',
         name: 'protein_name',
-        render: ({ hit_uni_de }: BlastHit | EnrichedBlastHit) => hit_uni_de,
+        render: ({ hit_uni_de }) => hit_uni_de,
         ellipsis: true,
       },
       {
         label: 'Organism',
         name: 'organism',
-        render: ({ hit_uni_ox, hit_uni_os }: BlastHit | EnrichedBlastHit) => (
+        render: ({ hit_uni_ox, hit_uni_os }) => (
           <Link to={getEntryPath(Namespace.taxonomy, hit_uni_ox)}>
             {hit_uni_os}
           </Link>
@@ -383,7 +383,7 @@ const BlastResultTable: FC<{
         ),
         name: 'alignment',
         width: '40vw',
-        render: (hit: BlastHit | EnrichedBlastHit) => (
+        render: (hit) => (
           <BlastSummaryHsps
             hsps={hit.hit_hsps}
             queryLength={queryLen}
