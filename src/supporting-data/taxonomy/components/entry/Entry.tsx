@@ -7,7 +7,7 @@ import HTMLHead from '../../../../shared/components/HTMLHead';
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import EntryDownload from '../../../shared/components/EntryDownload';
-import { MapToDropdown } from '../../../shared/components/MapTo';
+import { MapToDropdown } from '../../../../shared/components/MapTo';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 import useDataApi from '../../../../shared/hooks/useDataApi';
@@ -17,7 +17,7 @@ import generatePageTitle from '../../adapters/generatePageTitle';
 
 import {
   Namespace,
-  NamespaceLabels,
+  searchableNamespaceLabels,
 } from '../../../../shared/types/namespaces';
 import { TaxonomyAPIModel } from '../../adapters/taxonomyConverter';
 import TaxonomyColumnConfiguration, {
@@ -108,10 +108,13 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   return (
     <SingleColumnLayout>
       <HTMLHead
-        title={[generatePageTitle(data), NamespaceLabels[Namespace.taxonomy]]}
+        title={[
+          generatePageTitle(data),
+          searchableNamespaceLabels[Namespace.taxonomy],
+        ]}
       />
       <h1 className="big">
-        {NamespaceLabels[Namespace.taxonomy]} -{' '}
+        {searchableNamespaceLabels[Namespace.taxonomy]} -{' '}
         {data.scientificName || data.taxonId} <small>({data.rank})</small>
       </h1>
       <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>

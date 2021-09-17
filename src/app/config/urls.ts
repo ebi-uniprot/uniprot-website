@@ -3,9 +3,10 @@ import { generatePath } from 'react-router-dom';
 import { JobTypes } from '../../tools/types/toolsJobTypes';
 import {
   Namespace,
-  NamespaceLabels,
+  searchableNamespaceLabels,
   SearchableNamespace,
   supportingDataNamespaces,
+  supportingDataAndAANamespaces,
 } from '../../shared/types/namespaces';
 
 export const IDMappingNamespaces = [
@@ -45,6 +46,11 @@ export enum Location {
   DatabaseResults = 'DatabaseResults',
   LocationsEntry = 'LocationsEntry',
   LocationsResults = 'LocationsResults',
+  // Annotations
+  UniRuleEntry = 'UniRuleEntry',
+  UniRuleResults = 'UniRuleResults',
+  ARBAEntry = 'ARBAEntry',
+  ARBAResults = 'ARBAResults',
   // Tools
   Basket = 'Basket',
   Dashboard = 'Dashboard',
@@ -85,6 +91,11 @@ export const LocationToPath: Record<Location, string> = {
   [Location.DatabaseResults]: `/${Namespace.database}`,
   [Location.LocationsEntry]: `/${Namespace.locations}/:accession`,
   [Location.LocationsResults]: `/${Namespace.locations}`,
+  // Annotations
+  [Location.UniRuleEntry]: `/${Namespace.unirule}/:accession`,
+  [Location.UniRuleResults]: `/${Namespace.unirule}`,
+  [Location.ARBAEntry]: `/${Namespace.arba}/:accession`,
+  [Location.ARBAResults]: `/${Namespace.arba}`,
   // Tools
   [Location.Basket]: `/basket/:namespace(${basketNamespaces.join('|')})`,
   [Location.Dashboard]: '/tool-dashboard',
@@ -114,21 +125,29 @@ export const SearchResultsLocations: Record<SearchableNamespace, string> = {
   [Namespace.diseases]: LocationToPath[Location.DiseasesResults],
   [Namespace.database]: LocationToPath[Location.DatabaseResults],
   [Namespace.locations]: LocationToPath[Location.LocationsResults],
+  // Annotations
+  [Namespace.unirule]: LocationToPath[Location.UniRuleResults],
+  [Namespace.arba]: LocationToPath[Location.ARBAResults],
 };
 
 // "/:namespace(uniprotkb|uniparc|........)"
 export const allSearchResultLocations = `/:namespace(${Object.keys(
-  NamespaceLabels
+  searchableNamespaceLabels
 ).join('|')})`;
 
 // "/:namespace(uniprotkb|uniparc|........)/accession"
-export const allEntryPages = `/:namespace(${Object.keys(NamespaceLabels).join(
-  '|'
-)})/:accession`;
+export const allEntryPages = `/:namespace(${Object.keys(
+  searchableNamespaceLabels
+).join('|')})/:accession`;
 
 // same as above, but only with supporting data namespaces, and with accession
 export const allSupportingDataEntryLocations = `/:namespace(${Array.from(
   supportingDataNamespaces
+).join('|')})/:accession`;
+
+// same as above, but with automatic annotations, and with accession
+export const allSupportingDataAndAAEntryLocations = `/:namespace(${Array.from(
+  supportingDataAndAANamespaces
 ).join('|')})/:accession`;
 
 // All "entry" locations need to have a "accession" param in the pattern
@@ -145,6 +164,9 @@ export const EntryLocations: Record<SearchableNamespace, string> = {
   [Namespace.diseases]: LocationToPath[Location.DiseasesEntry],
   [Namespace.database]: LocationToPath[Location.DatabaseEntry],
   [Namespace.locations]: LocationToPath[Location.LocationsEntry],
+  // Annotations
+  [Namespace.unirule]: LocationToPath[Location.UniRuleEntry],
+  [Namespace.arba]: LocationToPath[Location.ARBAEntry],
 };
 
 export const getEntryPath = (

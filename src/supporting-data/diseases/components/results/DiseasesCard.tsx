@@ -3,7 +3,7 @@ import { Card } from 'franklin-sites';
 
 import { getEntryPath } from '../../../../app/config/urls';
 import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
-import { mapToLinks } from '../../../shared/components/MapTo';
+import { mapToLinks } from '../../../../shared/components/MapTo';
 
 import { DiseasesAPIModel } from '../../adapters/diseasesConverter';
 import { Namespace } from '../../../../shared/types/namespaces';

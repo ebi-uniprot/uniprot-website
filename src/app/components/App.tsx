@@ -100,6 +100,18 @@ const LocationsEntryPage = lazy(
       /* webpackChunkName: "locations-entry" */ '../../supporting-data/locations/components/entry/Entry'
     )
 );
+const UniRuleEntryPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "unirule-entry" */ '../../automatic-annotations/unirule/components/entry/Entry'
+    )
+);
+const ARBAEntryPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "arba-entry" */ '../../automatic-annotations/arba/components/entry/Entry'
+    )
+);
 // Tools
 const BlastResult = lazy(
   () =>
@@ -282,6 +294,15 @@ const App = () => {
               <Route
                 path={LocationToPath[Location.LocationsEntry]}
                 component={LocationsEntryPage}
+              />
+              {/* Annotations */}
+              <Route
+                path={LocationToPath[Location.UniRuleEntry]}
+                component={UniRuleEntryPage}
+              />
+              <Route
+                path={LocationToPath[Location.ARBAEntry]}
+                component={ARBAEntryPage}
               />
               {/* Result pages */}
               <Route

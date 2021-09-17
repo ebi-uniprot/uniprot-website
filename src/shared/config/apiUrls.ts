@@ -59,6 +59,15 @@ import {
   defaultFacets as locationsDefaultFacets,
 } from '../../supporting-data/locations/config/LocationsFacetConfiguration';
 
+import {
+  Facets as UniRuleFacets,
+  defaultFacets as uniRuleDefaultFacets,
+} from '../../automatic-annotations/unirule/config/UniRuleFacetConfiguration';
+import {
+  Facets as ARBAFacets,
+  defaultFacets as arbaDefaultFacets,
+} from '../../automatic-annotations/arba/config/ARBAFacetConfiguration';
+
 // Help
 import { defaultFacets as helpDefaultFacets } from '../../help/config/HelpFacetConfiguration';
 
@@ -176,7 +185,9 @@ type Facets =
   | CitationsFacets
   | DiseasesFacets
   | DatabaseFacets
-  | LocationsFacets;
+  | LocationsFacets
+  | UniRuleFacets
+  | ARBAFacets;
 
 export const defaultFacets = new Map<Namespace, Facets[]>([
   // Main data
@@ -191,6 +202,9 @@ export const defaultFacets = new Map<Namespace, Facets[]>([
   [Namespace.diseases, diseasesDefaultFacets],
   [Namespace.database, databaseDefaultFacets],
   [Namespace.locations, locationsDefaultFacets],
+  // Annotations
+  [Namespace.unirule, uniRuleDefaultFacets],
+  [Namespace.arba, arbaDefaultFacets],
 ]);
 type QueryUrlProps = {
   namespace?: Namespace;

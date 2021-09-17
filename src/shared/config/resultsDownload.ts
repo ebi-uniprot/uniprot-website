@@ -10,6 +10,8 @@ import { fileFormatsResultsDownload as fileFormatsResultsDownloadCitations } fro
 import { fileFormatsResultsDownload as fileFormatsResultsDownloadDiseases } from '../../supporting-data/diseases/config/download';
 import { fileFormatsResultsDownload as fileFormatsResultsDownloadDatabase } from '../../supporting-data/database/config/download';
 import { fileFormatsResultsDownload as fileFormatsResultsDownloadLocations } from '../../supporting-data/locations/config/download';
+import { fileFormatsResultsDownload as fileFormatsResultsDownloadUniRule } from '../../automatic-annotations/unirule/config/download';
+import { fileFormatsResultsDownload as fileFormatsResultsDownloadARBA } from '../../automatic-annotations/arba/config/download';
 import { fileFormatsResultsDownload as fileFormatsResultsDownloadIDMapping } from '../../tools/id-mapping/config/download';
 
 import { Namespace } from '../types/namespaces';
@@ -59,5 +61,7 @@ export const nsToFileFormatsResultsDownload: Record<Namespace, FileFormat[]> = {
   [Namespace.diseases]: fileFormatsResultsDownloadDiseases,
   [Namespace.database]: fileFormatsResultsDownloadDatabase,
   [Namespace.locations]: fileFormatsResultsDownloadLocations,
+  [Namespace.unirule]: fileFormatsResultsDownloadUniRule,
+  [Namespace.arba]: fileFormatsResultsDownloadARBA,
   [Namespace.idmapping]: fileFormatsResultsDownloadIDMapping,
 };

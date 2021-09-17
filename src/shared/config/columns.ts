@@ -65,6 +65,18 @@ import {
   LocationsColumnConfiguration,
 } from '../../supporting-data/locations/config/LocationsColumnConfiguration';
 import {
+  UniRuleColumn,
+  defaultColumns as defaultUniRuleColumns,
+  primaryKeyColumns as primaryKeyColumnsUniRule,
+  UniRuleColumnConfiguration,
+} from '../../automatic-annotations/unirule/config/UniRuleColumnConfiguration';
+import {
+  ARBAColumn,
+  defaultColumns as defaultARBAColumns,
+  primaryKeyColumns as primaryKeyColumnsARBA,
+  ARBAColumnConfiguration,
+} from '../../automatic-annotations/arba/config/ARBAColumnConfiguration';
+import {
   IDMappingColumn,
   defaultColumns as defaultIdMappingColumns,
   primaryKeyColumns as primaryKeyColumnsIdMapping,
@@ -84,6 +96,8 @@ export type Column =
   | DiseasesColumn
   | DatabaseColumn
   | LocationsColumn
+  | UniRuleColumn
+  | ARBAColumn
   | IDMappingColumn;
 
 export const nsToDefaultColumns = (
@@ -119,6 +133,10 @@ export const nsToDefaultColumns = (
       return defaultDatabaseColumns;
     case Namespace.locations:
       return defaultLocationsColumns;
+    case Namespace.unirule:
+      return defaultUniRuleColumns;
+    case Namespace.arba:
+      return defaultARBAColumns;
     case Namespace.idmapping:
       return defaultIdMappingColumns;
     default:
@@ -159,6 +177,10 @@ export const nsToPrimaryKeyColumns = (
       return primaryKeyColumnsDatabase;
     case Namespace.locations:
       return primaryKeyColumnsLocations;
+    case Namespace.unirule:
+      return primaryKeyColumnsUniRule;
+    case Namespace.arba:
+      return primaryKeyColumnsARBA;
     case Namespace.idmapping:
       return primaryKeyColumnsIdMapping;
     default:
@@ -166,17 +188,21 @@ export const nsToPrimaryKeyColumns = (
   }
 };
 
-export const nsToColumnConfig: Record<Namespace, ColumnConfiguration<Column>> =
-  {
-    [Namespace.uniprotkb]: UniProtKBColumnConfiguration,
-    [Namespace.uniref]: UniRefColumnConfiguration,
-    [Namespace.uniparc]: UniParcColumnConfiguration,
-    [Namespace.proteomes]: ProteomesColumnConfiguration,
-    [Namespace.taxonomy]: TaxonomyColumnConfiguration,
-    [Namespace.keywords]: KeywordsColumnConfiguration,
-    [Namespace.citations]: CitationsColumnConfiguration,
-    [Namespace.diseases]: DiseasesColumnConfiguration,
-    [Namespace.database]: DatabaseColumnConfiguration,
-    [Namespace.locations]: LocationsColumnConfiguration,
-    [Namespace.idmapping]: IdMappingColumnConfiguration,
-  };
+export const nsToColumnConfig: Record<
+  Namespace,
+  ColumnConfiguration<Column>
+> = {
+  [Namespace.uniprotkb]: UniProtKBColumnConfiguration,
+  [Namespace.uniref]: UniRefColumnConfiguration,
+  [Namespace.uniparc]: UniParcColumnConfiguration,
+  [Namespace.proteomes]: ProteomesColumnConfiguration,
+  [Namespace.taxonomy]: TaxonomyColumnConfiguration,
+  [Namespace.keywords]: KeywordsColumnConfiguration,
+  [Namespace.citations]: CitationsColumnConfiguration,
+  [Namespace.diseases]: DiseasesColumnConfiguration,
+  [Namespace.database]: DatabaseColumnConfiguration,
+  [Namespace.locations]: LocationsColumnConfiguration,
+  [Namespace.unirule]: UniRuleColumnConfiguration,
+  [Namespace.arba]: ARBAColumnConfiguration,
+  [Namespace.idmapping]: IdMappingColumnConfiguration,
+};

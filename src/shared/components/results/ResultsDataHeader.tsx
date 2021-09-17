@@ -5,8 +5,7 @@ import ResultsButtons from './ResultsButtons';
 
 import useNS from '../../hooks/useNS';
 
-import namespaceToolTitles from '../../config/namespaceToolTitles';
-import { Namespace } from '../../types/namespaces';
+import { Namespace, namespaceAndToolsLabels } from '../../types/namespaces';
 
 const ResultsDataHeader: FC<{
   total?: number;
@@ -30,7 +29,7 @@ const ResultsDataHeader: FC<{
   return (
     <>
       <PageIntro
-        title={namespaceToolTitles[namespace]}
+        title={namespaceAndToolsLabels[namespace]}
         titlePostscript={titlePostscript}
         resultsCount={total}
       />
