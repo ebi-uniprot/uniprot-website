@@ -3,6 +3,7 @@ import { ExpandableList } from 'franklin-sites';
 
 import AccessionView from '../../../shared/components/results/AccessionView';
 import TaxonomicScope from '../../shared/column-renderers/TaxonomicScope';
+import CSVView from '../../../uniprotkb/components/protein-data-views/CSVView';
 
 // import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -59,7 +60,20 @@ UniRuleColumnConfiguration.set(UniRuleColumn.annotationCovered, {
 
 UniRuleColumnConfiguration.set(UniRuleColumn.predictedProteinName, {
   label: 'Predicted protein name',
-  render: () => null,
+  render: ({ mainRule }) => {
+    const proteinDescription = mainRule?.annotations?.find(
+      (annotation) => annotation.proteinDescription
+    )?.proteinDescription;
+    if (!proteinDescription) {
+      return null;
+    }
+    return (
+      <CSVView
+        data={proteinDescription}
+        bolderFirst={Boolean(proteinDescription.recommendedName)}
+      />
+    );
+  },
 });
 
 UniRuleColumnConfiguration.set(UniRuleColumn.templateEntries, {
