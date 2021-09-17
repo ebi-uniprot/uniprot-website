@@ -23,7 +23,7 @@ import {
 } from '../../../app/config/urls';
 import {
   Namespace,
-  SearchableNamespaceLabels,
+  searchableNamespaceLabels,
   SearchableNamespace,
 } from '../../types/namespaces';
 
@@ -38,7 +38,7 @@ const QueryBuilder = lazy(
 
 const examples: Record<SearchableNamespace, string[]> = {
   // Main data
-  [Namespace.uniprotkb]: ['p53', 'Human EGFR', 'Albumin'],
+  [Namespace.uniprotkb]: ['Insulin', 'APP', 'Human', 'P05067', 'organism:9606'],
   [Namespace.uniref]: [
     'Transcription factors',
     'identity:1.0',
@@ -71,8 +71,8 @@ const examples: Record<SearchableNamespace, string[]> = {
   [Namespace.database]: ['PDB', 'IntAct', 'Pfam', 'GO', 'OMIM'],
   [Namespace.locations]: ['Cell membrane', 'Golgi apparatus', 'Nucleus'],
   // Annotations
-  [Namespace.unirule]: ['insulin'], // taxonomy:"Eukaryota+[2759]"
-  [Namespace.arba]: ['insulin'], // taxonomy:"Eukaryota+[2759]"
+  [Namespace.unirule]: ['Insulin', 'Eukaryota'],
+  [Namespace.arba]: ['Insulin', 'Eukaryota'],
 };
 
 type Props = {
@@ -180,7 +180,7 @@ const SearchContainer: FC<
     <>
       <section role="search" {...props}>
         <MainSearch
-          namespaces={SearchableNamespaceLabels}
+          namespaces={searchableNamespaceLabels}
           searchTerm={searchTerm}
           onTextChange={setSearchTerm}
           onSubmit={handleSubmit}

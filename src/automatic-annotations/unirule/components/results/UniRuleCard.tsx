@@ -8,8 +8,6 @@ import { mapToLinks } from '../../../../shared/components/MapTo';
 import { UniRuleAPIModel } from '../../adapters/uniRuleConverter';
 import { Namespace } from '../../../../shared/types/namespaces';
 
-import renderColumnsInCardStyles from '../../../../shared/components/results/styles/render-columns-in-card.module.scss';
-
 const getIdKey = getIdKeyFor(Namespace.unirule);
 
 type Props = {
@@ -24,6 +22,7 @@ const UniRuleCard = ({ data, selected, handleEntrySelection }: Props) => {
   const links = useMemo(
     () =>
       mapToLinks(Namespace.unirule, data.uniRuleId, {
+        // TODO: update when TRM-26560 is deployed
         reviewedProteinCount: 0,
         unreviewedProteinCount: data.proteinsAnnotatedCount,
       }),
@@ -48,11 +47,7 @@ const UniRuleCard = ({ data, selected, handleEntrySelection }: Props) => {
       headerSeparator={false}
       to={getEntryPath(Namespace.unirule, id)}
       links={links}
-    >
-      <div className={renderColumnsInCardStyles['result-card__info-container']}>
-        {data.uniRuleId}
-      </div>
-    </Card>
+    />
   );
 };
 

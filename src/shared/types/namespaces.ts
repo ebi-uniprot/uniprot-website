@@ -48,7 +48,7 @@ export const supportingDataAndAANamespaces = new Set<Namespace>([
 
 export type SearchableNamespace = Exclude<Namespace, Namespace.idmapping>;
 
-export const SearchableNamespaceLabels: Record<SearchableNamespace, string> = {
+export const searchableNamespaceLabels: Record<SearchableNamespace, string> = {
   // Main data
   [Namespace.uniprotkb]: 'UniProtKB',
   [Namespace.uniref]: 'UniRef',
@@ -66,8 +66,8 @@ export const SearchableNamespaceLabels: Record<SearchableNamespace, string> = {
   [Namespace.arba]: 'ARBA',
 };
 
-export const NamespaceAndToolsLabels: Record<Namespace | JobTypes, string> = {
-  ...SearchableNamespaceLabels,
+export const namespaceAndToolsLabels: Record<Namespace | JobTypes, string> = {
+  ...searchableNamespaceLabels,
   // Non-searchable namespace
   [Namespace.idmapping]: 'ID mapping',
   // Tools

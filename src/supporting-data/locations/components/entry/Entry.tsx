@@ -14,7 +14,7 @@ import apiUrls from '../../../../shared/config/apiUrls';
 
 import {
   Namespace,
-  SearchableNamespaceLabels,
+  searchableNamespaceLabels,
 } from '../../../../shared/types/namespaces';
 import { LocationsAPIModel } from '../../adapters/locationsConverter';
 import LocationsColumnConfiguration, {
@@ -67,7 +67,7 @@ const LocationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   return (
     <SingleColumnLayout>
       <HTMLHead
-        title={[data.name, SearchableNamespaceLabels[Namespace.locations]]}
+        title={[data.name, searchableNamespaceLabels[Namespace.locations]]}
       >
         <meta name="description" content={data.definition} />
       </HTMLHead>

@@ -26,13 +26,7 @@ exports[`ARBACard tests should render the card component 1`] = `
       </div>
       <div
         class="card__content"
-      >
-        <div
-          class="result-card__info-container"
-        >
-          ARBA00013665
-        </div>
-      </div>
+      />
     </div>
     <div
       class="card__actions"

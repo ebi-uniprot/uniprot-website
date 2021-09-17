@@ -34,8 +34,9 @@ const Results = ({ history, location }: RouteChildrenProps) => {
     return searchValue;
   });
 
+  const parsed = qs.parse(location.search);
   const dataObject = useDataApiWithStale<HelpSearchResponse>(
-    helpURL.search(location.search)
+    helpURL.search(parsed)
   );
 
   const fallBackAppliedFacets = useMemo(() => {

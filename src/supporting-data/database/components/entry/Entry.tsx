@@ -14,7 +14,7 @@ import apiUrls from '../../../../shared/config/apiUrls';
 
 import {
   Namespace,
-  SearchableNamespaceLabels,
+  searchableNamespaceLabels,
 } from '../../../../shared/types/namespaces';
 import { DatabaseAPIModel } from '../../adapters/databaseConverter';
 import DatabaseColumnConfiguration, {
@@ -63,7 +63,7 @@ const DatabaseEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   return (
     <SingleColumnLayout>
       <HTMLHead
-        title={[data.abbrev, SearchableNamespaceLabels[Namespace.database]]}
+        title={[data.abbrev, searchableNamespaceLabels[Namespace.database]]}
       >
         <meta name="description" content={data.name} />
       </HTMLHead>

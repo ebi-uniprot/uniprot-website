@@ -15,7 +15,7 @@ import apiUrls from '../../../../shared/config/apiUrls';
 
 import {
   Namespace,
-  SearchableNamespaceLabels,
+  searchableNamespaceLabels,
 } from '../../../../shared/types/namespaces';
 import { DiseasesAPIModel } from '../../adapters/diseasesConverter';
 import DiseasesColumnConfiguration, {
@@ -61,7 +61,7 @@ const DiseasesEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   return (
     <SingleColumnLayout>
       <HTMLHead
-        title={[data.name, SearchableNamespaceLabels[Namespace.diseases]]}
+        title={[data.name, searchableNamespaceLabels[Namespace.diseases]]}
       >
         <meta name="description" content={data.definition} />
       </HTMLHead>

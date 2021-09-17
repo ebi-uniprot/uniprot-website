@@ -18,8 +18,8 @@ import { LocationToPath, Location, basketNamespaces } from '../app/config/urls';
 
 import {
   Namespace,
-  SearchableNamespaceLabels,
-  NamespaceAndToolsLabels,
+  searchableNamespaceLabels,
+  namespaceAndToolsLabels,
 } from '../shared/types/namespaces';
 import Response from '../uniprotkb/types/responseTypes';
 
@@ -99,14 +99,14 @@ const BasketFullView = () => {
     >
       <HTMLHead
         title={[
-          `My entries in ${SearchableNamespaceLabels[namespace]}${
+          `My entries in ${searchableNamespaceLabels[namespace]}${
             total !== undefined ? ` (${total})` : ''
           }`,
           'My basket',
         ]}
       />
       <PageIntro
-        title={NamespaceAndToolsLabels[namespace]}
+        title={namespaceAndToolsLabels[namespace]}
         titlePostscript={<small> in your basket</small>}
         resultsCount={total}
       />
