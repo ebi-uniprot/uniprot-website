@@ -1,6 +1,7 @@
 // import { Link } from 'react-router-dom';
 
 import AccessionView from '../../../shared/components/results/AccessionView';
+import TaxonomicScope from '../../shared/column-renderers/TaxonomicScope';
 
 // import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -47,7 +48,7 @@ UniRuleColumnConfiguration.set(UniRuleColumn.ruleId, {
 
 UniRuleColumnConfiguration.set(UniRuleColumn.taxonomicScope, {
   label: 'Taxonomic scope',
-  render: () => null,
+  render: TaxonomicScope,
 });
 
 UniRuleColumnConfiguration.set(UniRuleColumn.annotationCovered, {
