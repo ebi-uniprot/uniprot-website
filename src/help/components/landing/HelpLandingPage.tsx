@@ -14,7 +14,7 @@ import { NamespaceLabels } from '../../../shared/types/namespaces';
 import {
   LocationToPath,
   Location,
-  getHelpEntryPath,
+  getLocationEntryPathFor,
 } from '../../../app/config/urls';
 
 import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
@@ -26,6 +26,8 @@ import Terminal from './svgs/terminal.svg';
 import Reader from './svgs/reader.svg';
 
 import landing from './styles/help-landing-page.module.scss';
+
+const getHelpEntryPath = getLocationEntryPathFor(Location.HelpEntry);
 
 const tileData: IllustratedListTileProps[] = [
   {

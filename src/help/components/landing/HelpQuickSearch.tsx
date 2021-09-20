@@ -6,7 +6,7 @@ import {
   useState,
   KeyboardEvent,
 } from 'react';
-import { generatePath, Link, useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { Card, InfoList, SearchInput } from 'franklin-sites';
 import { debounce } from 'lodash-es';
 import qs from 'query-string';
@@ -16,7 +16,11 @@ import CleanHighlightMarkDown from '../results/CleanHighlightMarkDown';
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 
 import { help as helpURL } from '../../../shared/config/apiUrls';
-import { LocationToPath, Location } from '../../../app/config/urls';
+import {
+  LocationToPath,
+  Location,
+  getLocationEntryPath,
+} from '../../../app/config/urls';
 
 import { HelpSearchResponse } from '../../adapters/helpConverter';
 
@@ -76,9 +80,7 @@ const HelpQuickSearch = () => {
     .map(({ matches, title, id }) => {
       const titleMatch = matches?.title?.[0];
       const contentMatch = matches?.content?.[0];
-      const to = generatePath(LocationToPath[Location.HelpEntry], {
-        accession: id,
-      });
+      const to = getLocationEntryPath(Location.HelpEntry, id);
       return {
         title: (
           <Link to={to}>
