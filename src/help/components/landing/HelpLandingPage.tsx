@@ -4,7 +4,7 @@ import cn from 'classnames';
 import 'lite-youtube-embed';
 
 import HelpQuickSearch from './HelpQuickSearch';
-import { Contact } from '../../../shared/components/layouts/UniProtFooter';
+import Contact from '../../../shared/components/layouts/Contact';
 import IllustratedListTile, {
   IllustratedListTileProps,
 } from './IllustratedListTile';

@@ -1,9 +1,10 @@
 import { memo, HTMLAttributes } from 'react';
 import { Link, generatePath } from 'react-router-dom';
 import cn from 'classnames';
-import { CitedIcon, EnvelopeIcon, ExternalLink } from 'franklin-sites';
+import { CitedIcon, ExternalLink } from 'franklin-sites';
 
 import ReleaseInfo from './ReleaseInfo';
+import Contact from './Contact';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 
@@ -11,19 +12,10 @@ import helper from '../../styles/helper.module.scss';
 import footer from './styles/footer.module.scss';
 
 import UniProtLogo from '../../../images/uniprot-logo.svg';
-
 import EMBLEBILogo from '../../../images/embl-ebi-logo.svg';
 import PIRLogo from '../../../images/pir-logo.jpg';
 import SIBLogo from '../../../images/sib-logo.png';
-
-import TwitterLogo from '../../../images/twitter-logo.svg';
-import FacebookLogo from '../../../images/facebook-logo.svg';
-import YouTubeLogo from '../../../images/youtube-logo.svg';
-import BloggerLogo from '../../../images/blogger-logo.svg';
-import GGroupsLogo from '../../../images/ggroups-logo.svg';
-
 import SERILogo from '../../../images/seri-logo.png';
-
 import ElixirCDRLogo from '../../../images/elixir-cdr.png';
 import CTSLogo from '../../../images/core-trust-seal-logo.png';
 
@@ -300,53 +292,6 @@ const FooterShortcuts = () => (
       </ul>
     </li>
   </ul>
-);
-
-export const Contact = () => (
-  <div>
-    <p>
-      <ExternalLink noIcon url="https://www.uniprot.org/contact">
-        Get in touch <EnvelopeIcon width="2ch" />
-      </ExternalLink>
-    </p>
-    <p className={footer.social}>
-      <ExternalLink
-        noIcon
-        url="https://twitter.com/uniprot"
-        title="UniProt posts on Twitter"
-      >
-        <TwitterLogo width="3ch" />
-      </ExternalLink>
-      <ExternalLink
-        noIcon
-        url="https://www.facebook.com/uniprot.org"
-        title="UniProt posts on Facebook"
-      >
-        <FacebookLogo width="3ch" />
-      </ExternalLink>
-      <ExternalLink
-        noIcon
-        url="https://www.youtube.com/user/uniprotvideos"
-        title="UniProt videos on YouTube"
-      >
-        <YouTubeLogo width="3ch" />
-      </ExternalLink>
-      <ExternalLink
-        noIcon
-        url="https://insideuniprot.blogspot.com/"
-        title="UniProt blog"
-      >
-        <BloggerLogo width="3ch" />
-      </ExternalLink>
-      <ExternalLink
-        noIcon
-        url="https://groups.google.com/forum/#!forum/ebi-proteins-api"
-        title="UniProt Google Group"
-      >
-        <GGroupsLogo width="3ch" />
-      </ExternalLink>
-    </p>
-  </div>
 );
 
 const FooterContactAndElixir = () => (

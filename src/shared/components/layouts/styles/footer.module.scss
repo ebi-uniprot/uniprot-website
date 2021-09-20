@@ -210,16 +210,6 @@ footer.footer {
   }
 }
 
-// Social
-.social {
-  white-space: nowrap;
-
-  svg {
-    fill: $colour-weldon-blue;
-    color: $colour-weldon-blue;
-  }
-}
-
 @keyframes appear {
   from {
     opacity: 0;
