@@ -43,7 +43,7 @@ describe('getLocationEntryPath', () => {
   });
 });
 
-describe('getLocationEntryPath', () => {
+describe('getLocationEntryPathFor', () => {
   const getLocationEntryPathForHelp = getLocationEntryPathFor(
     Location.HelpEntry
   );
