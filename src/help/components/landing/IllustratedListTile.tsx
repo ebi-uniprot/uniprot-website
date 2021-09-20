@@ -20,7 +20,7 @@ export type IllustratedListTileProps = {
   title: string;
   image: ReactElement;
   linkList: LinkOrHref[];
-  moreTo: LocationDescriptor<unknown>;
+  moreTo: LocationDescriptor;
 };
 
 const IllustratedListTile = ({
