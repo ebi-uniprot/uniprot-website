@@ -10,7 +10,7 @@ import styles from './styles/illustrated-list-tile.module.scss';
 type LinkOrHref = RequireExactlyOne<
   {
     label: string;
-    to: LocationDescriptor<unknown>;
+    to: LocationDescriptor;
     url: string;
   },
   'to' | 'url'
