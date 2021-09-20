@@ -10,7 +10,7 @@ import IllustratedListTile, {
 } from './IllustratedListTile';
 import HTMLHead from '../../../shared/components/HTMLHead';
 
-import { NamespaceLabels } from '../../../shared/types/namespaces';
+import { searchableNamespaceLabels } from '../../../shared/types/namespaces';
 import {
   LocationToPath,
   Location,
@@ -35,19 +35,19 @@ const tileData: IllustratedListTileProps[] = [
     linkList: [
       {
         to: getHelpEntryPath('uniprotkb_manual'),
-        label: NamespaceLabels.uniprotkb,
+        label: searchableNamespaceLabels.uniprotkb,
       },
       {
         to: getHelpEntryPath('proteomes_manual'),
-        label: NamespaceLabels.proteomes,
+        label: searchableNamespaceLabels.proteomes,
       },
       {
         to: getHelpEntryPath('uniref'),
-        label: NamespaceLabels.uniref,
+        label: searchableNamespaceLabels.uniref,
       },
       {
         to: getHelpEntryPath('uniparc'),
-        label: NamespaceLabels.uniparc,
+        label: searchableNamespaceLabels.uniparc,
       },
     ],
     moreTo: {
