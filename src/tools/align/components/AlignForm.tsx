@@ -46,7 +46,7 @@ import defaultFormValues, {
   AlignFormValue,
   AlignFields,
 } from '../config/AlignFormData';
-import namespaceToolTitles from '../../../shared/config/namespaceToolTitles';
+import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
 import {
   MessageFormat,
   MessageLevel,
@@ -61,7 +61,7 @@ const isInvalid = (parsedSequences: ParsedSequence[]) =>
   parsedSequences.some((parsedSequence) => !parsedSequence.valid) ||
   parsedSequences.length <= 1;
 
-const title = namespaceToolTitles[JobTypes.ALIGN];
+const title = namespaceAndToolsLabels[JobTypes.ALIGN];
 
 const FormSelect: FC<{
   formValue: AlignFormValue;

@@ -15,9 +15,12 @@ import useNSQuery from '../shared/hooks/useNSQuery';
 import useDataApiWithStale from '../shared/hooks/useDataApiWithStale';
 
 import { LocationToPath, Location, basketNamespaces } from '../app/config/urls';
-import namespaceToolTitles from '../shared/config/namespaceToolTitles';
 
-import { Namespace, NamespaceLabels } from '../shared/types/namespaces';
+import {
+  Namespace,
+  searchableNamespaceLabels,
+  namespaceAndToolsLabels,
+} from '../shared/types/namespaces';
 import Response from '../uniprotkb/types/responseTypes';
 
 const BasketFullView = () => {
@@ -96,14 +99,14 @@ const BasketFullView = () => {
     >
       <HTMLHead
         title={[
-          `My entries in ${NamespaceLabels[namespace]}${
+          `My entries in ${searchableNamespaceLabels[namespace]}${
             total !== undefined ? ` (${total})` : ''
           }`,
           'My basket',
         ]}
       />
       <PageIntro
-        title={namespaceToolTitles[namespace]}
+        title={namespaceAndToolsLabels[namespace]}
         titlePostscript={<small> in your basket</small>}
         resultsCount={total}
       />

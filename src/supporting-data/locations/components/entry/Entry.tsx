@@ -6,7 +6,7 @@ import HTMLHead from '../../../../shared/components/HTMLHead';
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import EntryDownload from '../../../shared/components/EntryDownload';
-import { MapToDropdown } from '../../../shared/components/MapTo';
+import { MapToDropdown } from '../../../../shared/components/MapTo';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
@@ -14,7 +14,7 @@ import apiUrls from '../../../../shared/config/apiUrls';
 
 import {
   Namespace,
-  NamespaceLabels,
+  searchableNamespaceLabels,
 } from '../../../../shared/types/namespaces';
 import { LocationsAPIModel } from '../../adapters/locationsConverter';
 import LocationsColumnConfiguration, {
@@ -66,7 +66,9 @@ const LocationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   return (
     <SingleColumnLayout>
-      <HTMLHead title={[data.name, NamespaceLabels[Namespace.locations]]}>
+      <HTMLHead
+        title={[data.name, searchableNamespaceLabels[Namespace.locations]]}
+      >
         <meta name="description" content={data.definition} />
       </HTMLHead>
       {/* Here we don't want to use the exact label atm */}

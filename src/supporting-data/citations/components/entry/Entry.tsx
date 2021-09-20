@@ -14,7 +14,7 @@ import apiUrls from '../../../../shared/config/apiUrls';
 
 import {
   Namespace,
-  NamespaceLabels,
+  searchableNamespaceLabels,
 } from '../../../../shared/types/namespaces';
 import { CitationsAPIModel } from '../../adapters/citationsConverter';
 
@@ -38,11 +38,14 @@ const CitationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   return (
     <SingleColumnLayout>
       <HTMLHead
-        title={[data.citation.title, NamespaceLabels[Namespace.citations]]}
+        title={[
+          data.citation.title,
+          searchableNamespaceLabels[Namespace.citations],
+        ]}
       >
         <meta name="description" content={data.citation.literatureAbstract} />
       </HTMLHead>
-      <h1 className="big">{NamespaceLabels[Namespace.citations]}</h1>
+      <h1 className="big">{searchableNamespaceLabels[Namespace.citations]}</h1>
       <Card className={entryPageStyles.card}>
         <div className="button-group">
           <EntryDownload />

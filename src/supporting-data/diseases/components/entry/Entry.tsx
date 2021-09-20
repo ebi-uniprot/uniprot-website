@@ -6,7 +6,7 @@ import HTMLHead from '../../../../shared/components/HTMLHead';
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import EntryDownload from '../../../shared/components/EntryDownload';
-import { MapToDropdown } from '../../../shared/components/MapTo';
+import { MapToDropdown } from '../../../../shared/components/MapTo';
 import MedicalDisclaimer from '../../../../shared/components/MedicalDisclaimer';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
@@ -15,7 +15,7 @@ import apiUrls from '../../../../shared/config/apiUrls';
 
 import {
   Namespace,
-  NamespaceLabels,
+  searchableNamespaceLabels,
 } from '../../../../shared/types/namespaces';
 import { DiseasesAPIModel } from '../../adapters/diseasesConverter';
 import DiseasesColumnConfiguration, {
@@ -60,7 +60,9 @@ const DiseasesEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   return (
     <SingleColumnLayout>
-      <HTMLHead title={[data.name, NamespaceLabels[Namespace.diseases]]}>
+      <HTMLHead
+        title={[data.name, searchableNamespaceLabels[Namespace.diseases]]}
+      >
         <meta name="description" content={data.definition} />
       </HTMLHead>
       {/* Here we don't want to use the full label atm */}

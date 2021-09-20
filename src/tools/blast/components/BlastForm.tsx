@@ -59,7 +59,7 @@ import defaultFormValues, {
   BlastFields,
 } from '../config/BlastFormData';
 import uniProtKBApiUrls from '../../../shared/config/apiUrls';
-import namespaceToolTitles from '../../../shared/config/namespaceToolTitles';
+import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
 import {
   MessageFormat,
   MessageLevel,
@@ -75,7 +75,7 @@ const isInvalid = (parsedSequences: ParsedSequence[]) =>
   parsedSequences.length > BLAST_LIMIT ||
   parsedSequences.some((parsedSequence) => !parsedSequence.valid);
 
-const title = namespaceToolTitles[JobTypes.BLAST];
+const title = namespaceAndToolsLabels[JobTypes.BLAST];
 
 // https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3848038/
 const getAutoMatrixFor = (sequence: string): FormParameters['matrix'] => {
