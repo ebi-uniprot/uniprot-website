@@ -1,0 +1,40 @@
+@import 'lite-youtube-embed/src/lite-yt-embed.css';
+@import 'franklin-sites/src/styles/colours';
+
+.help-landing {
+  &__tiles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    column-gap: 1rem;
+    row-gap: 1rem;
+  }
+
+  &__faqs {
+    margin-top: 0.5rem;
+    li {
+      margin-bottom: 0.5rem;
+    }
+    &__view-all {
+      margin-top: 1rem;
+    }
+  }
+
+  &__contact {
+    margin-top: 2rem;
+    p {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  &__videos {
+    margin-top: 2rem;
+    &__list {
+      max-height: 20rem;
+      overflow-y: auto;
+      & > * {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+}

@@ -2,7 +2,6 @@ import { fireEvent, screen } from '@testing-library/react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-// import { act } from 'react-dom/test-utils';
 import customRender from '../../../../shared/__test-helpers__/customRender';
 
 import HelpQuickSearch from '../HelpQuickSearch';
