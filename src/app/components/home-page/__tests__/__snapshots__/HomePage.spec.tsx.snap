@@ -124,7 +124,7 @@ exports[`HomePage component should render 1`] = `
                   class="button tertiary"
                   type="button"
                 >
-                  organism:9606
+                  organism_id:9606
                 </button>
               </div>
             </div>
