@@ -40,6 +40,8 @@ const externalUrls: Record<string, (id: string | number) => string> = {
   TIGRFAMsEntry: (id) =>
     `http://www.jcvi.org/cgi-bin/tigrfams/HmmReportPage.cgi?acc=${id}`,
   InterProEntry: (id) => `https://www.ebi.ac.uk/interpro/entry/InterPro/${id}/`,
+  InterProSearch: (searchTerm) =>
+    `https://www.ebi.ac.uk/interpro/search/text/${searchTerm}`,
   // citations
   DOI: (id) => `https://dx.doi.org/${id}`,
   PubMed: (id) => `https://pubmed.ncbi.nlm.nih.gov/${id}`,

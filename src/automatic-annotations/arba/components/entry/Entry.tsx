@@ -6,6 +6,7 @@ import HTMLHead from '../../../../shared/components/HTMLHead';
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 
+import ConditionsAnnotations from '../../../shared/entry/ConditionsAnnotations';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
@@ -55,6 +56,8 @@ const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
             accession={data.uniRuleId}
           />
         </div>
+        {/* there are no template entries for ARBA rules apparently */}
+        <ConditionsAnnotations data={data} />
       </Card>
     </SingleColumnLayout>
   );

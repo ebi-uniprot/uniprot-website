@@ -1,27 +1,36 @@
 import { Fragment, ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 import { Accordion, ExternalLink, Message } from 'franklin-sites';
 
-import TaxonomyView from '../../../../shared/components/entry/TaxonomyView';
-import AccessionView from '../../../../shared/components/results/AccessionView';
+import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
+import AccessionView from '../../../shared/components/results/AccessionView';
+import CSVView from '../../../uniprotkb/components/protein-data-views/CSVView';
 
-import listFormat from '../../../../shared/utils/listFormat';
-import { pluralise } from '../../../../shared/utils/utils';
+import listFormat from '../../../shared/utils/listFormat';
+import { pluralise } from '../../../shared/utils/utils';
+import externalUrls from '../../../shared/config/externalUrls';
+import { getEntryPath } from '../../../app/config/urls';
 
-import { UniRuleAPIModel } from '../../adapters/uniRuleConverter';
-import { ARBAAPIModel } from '../../../arba/adapters/arbaConverter';
+import { UniRuleAPIModel } from '../../unirule/adapters/uniRuleConverter';
+import { ARBAAPIModel } from '../../arba/adapters/arbaConverter';
 import {
   CaseRule,
   Rule,
   Condition,
   RuleException,
   Annotation,
-} from '../../../shared/model';
-import { Namespace } from '../../../../shared/types/namespaces';
+  ConditionSet,
+} from '../model';
+import { Namespace } from '../../../shared/types/namespaces';
 
-import helper from '../../../../shared/styles/helper.module.scss';
+import helper from '../../../shared/styles/helper.module.scss';
 import styles from './styles/conditions-annotations.module.scss';
 
+// Across values within a condition: OR
 const SingleCondition = ({ condition }: { condition: Condition }) => {
+  if (condition.type === 'fragment') {
+    return <>the sequence is fragmented</>;
+  }
   // Sequence length
   if (condition.type === 'sequence length') {
     return (
@@ -56,6 +65,7 @@ const SingleCondition = ({ condition }: { condition: Condition }) => {
       </>
     );
   }
+  // Signature match
   if (condition.type?.endsWith('id')) {
     const signatureDB = condition.type.replace(' id', '');
     return (
@@ -63,11 +73,12 @@ const SingleCondition = ({ condition }: { condition: Condition }) => {
         matches {signatureDB}{' '}
         {pluralise('signature', condition.conditionValues?.length || 0)}:{' '}
         {condition.conditionValues?.map(({ value }, index, array) => {
-          // TODO: find how to map this to an actual URL pattern
-          const url = '#';
+          if (!value) {
+            return null;
+          }
+          const url = externalUrls.InterProSearch(value);
           return (
             <Fragment key={value}>
-              {/* TODO: check, is it "and" or "or"? */}
               {listFormat(index, array, 'or')}
               <ExternalLink url={url}>{value}</ExternalLink>
             </Fragment>
@@ -78,51 +89,122 @@ const SingleCondition = ({ condition }: { condition: Condition }) => {
   }
   // in case we're missing a case
   console.warn(condition); // eslint-disable-line no-console
-  return <Fragment />;
+  return <>{JSON.stringify(condition, null, 2)}</>;
 };
 
+// Accross condition sets: OR
+// Across conditions within a condition set: AND
 const ConditionsComponent = ({
-  conditions,
+  conditionSets,
   extra,
 }: {
-  conditions?: Condition[];
+  conditionSets?: ConditionSet[];
   extra?: boolean;
 }) => (
   <div>
-    {conditions?.length ? (
-      <>
-        <p>
-          {extra
-            ? "Additionally to this rule's common conditions above, i"
-            : 'I'}
-          f a protein meets{' '}
-          {conditions.length === 1
-            ? 'the following condition'
-            : `all of the following ${conditions.length} conditions`}
-          :
-        </p>
-        <ul>
-          {conditions.map((condition, index, { length }) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <li key={index}>
-              <span className={helper.italic}>
-                {index !== 0 && 'and'}
-                {condition.isNegative && ' not'}
-                {index !== 0 && ', '}
-              </span>
-              <SingleCondition condition={condition} />
-              {index + 1 < length ? ';' : '.'}
-            </li>
-          ))}
-        </ul>
-      </>
-    ) : null}
+    {conditionSets?.map(({ conditions }, index) => {
+      if (!conditions?.length) {
+        return null;
+      }
+      let intro: string;
+      if (index === 0) {
+        // Start of the sentence, option 1
+        if (extra) {
+          intro =
+            "Additionally to this rule's common conditions at the top, if";
+        } else {
+          // Start of the sentence, option 2
+          intro = 'If';
+        }
+      } else {
+        // Start of the sentence, option 3
+        intro = 'Or, if';
+      }
+      // Common bit of the sentence
+      intro += ' a protein meets ';
+      if (conditions.length === 1) {
+        // End of the sentence, option 1
+        intro += 'the following condition:';
+      } else {
+        // End of the sentence, option 2
+        intro += `all of the following ${conditions.length} conditions:`;
+      }
+      return (
+        // eslint-disable-next-line react/no-array-index-key
+        <Fragment key={index}>
+          <p>{intro}</p>
+          <ul>
+            {conditions.map((condition, index, { length }) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <li key={index}>
+                <span className={helper.italic}>
+                  {index !== 0 && 'and'}
+                  {condition.isNegative && ' not'}
+                  {index !== 0 && ', '}
+                </span>
+                <SingleCondition condition={condition} />
+                {index + 1 < length ? ';' : '.'}
+              </li>
+            ))}
+          </ul>
+        </Fragment>
+      );
+    })}
   </div>
 );
 
-const SingleAnnotation = ({ annotation }: { annotation: Annotation }) => (
-  <>{JSON.stringify(annotation, null, 2)}</>
-);
+const SingleAnnotation = ({ annotation }: { annotation: Annotation }) => {
+  // Keyword
+  if (annotation.keyword?.id) {
+    return (
+      <>
+        keyword:{' '}
+        <Link to={getEntryPath(Namespace.keywords, annotation.keyword.id)}>
+          {annotation.keyword.name}
+        </Link>
+      </>
+    );
+  }
+  if (annotation.dbReference?.database === 'GO' && annotation.dbReference.id) {
+    return (
+      <>
+        GO term:{' '}
+        <ExternalLink url={externalUrls.QuickGO(annotation.dbReference.id)}>
+          {annotation.dbReference.id}
+        </ExternalLink>
+      </>
+    );
+  }
+  if (annotation.proteinDescription) {
+    return (
+      <>
+        protein names:{' '}
+        <CSVView
+          data={annotation.proteinDescription}
+          bolderFirst={Boolean(annotation.proteinDescription.recommendedName)}
+        />
+      </>
+    );
+  }
+  if (annotation.gene) {
+    return (
+      <>
+        gene names: <CSVView data={annotation.gene} />
+      </>
+    );
+  }
+  if (annotation.comment) {
+    return (
+      <>
+        {annotation.comment.commentType}:{' '}
+        {annotation.comment.texts?.map((text) => text.value).join('. ')}
+      </>
+    );
+  }
+  // in case we're missing a case
+  console.warn(annotation); // eslint-disable-line no-console
+  return <>{JSON.stringify(annotation, null, 2)}</>;
+};
 
 const AnnotationsComponent = ({
   annotations,
@@ -155,7 +237,7 @@ const AnnotationsComponent = ({
         {annotations.map((annotation, index, { length }) => (
           // eslint-disable-next-line react/no-array-index-key
           <li key={index}>
-            <span className={helper.italic}>{index !== 0 && 'and,'}</span>
+            <span className={helper.italic}>{index !== 0 && 'and, '}</span>
             <SingleAnnotation annotation={annotation} />
             {index + 1 < length ? ';' : '.'}
           </li>
@@ -169,7 +251,8 @@ const SingleException = ({ exception }: { exception: RuleException }) => (
     {exception.category}.<br />
     {exception.annotation && (
       <>
-        {JSON.stringify(exception.annotation, null, 2)}.<br />
+        <SingleAnnotation annotation={exception.annotation} />.
+        <br />
       </>
     )}
     {exception.accessions?.length ? (
@@ -236,12 +319,7 @@ const RuleComponent = ({
   extra?: boolean;
 }) => (
   <div className={styles.rule}>
-    <ConditionsComponent
-      conditions={rule.conditionSets?.flatMap(
-        (conditionSet) => conditionSet.conditions || []
-      )}
-      extra={extra}
-    />
+    <ConditionsComponent conditionSets={rule.conditionSets} extra={extra} />
     <AnnotationsComponent annotations={rule.annotations} extra={extra} />
     <ExceptionsComponent exceptions={rule.ruleExceptions} />
   </div>

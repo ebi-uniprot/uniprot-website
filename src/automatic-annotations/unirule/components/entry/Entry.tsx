@@ -7,7 +7,7 @@ import SingleColumnLayout from '../../../../shared/components/layouts/SingleColu
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 
 import TemplateEntries from './TemplateEntries';
-import ConditionsAnnotations from './ConditionsAnnotations';
+import ConditionsAnnotations from '../../../shared/entry/ConditionsAnnotations';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
