@@ -1,4 +1,5 @@
 import { generatePath } from 'react-router-dom';
+import { partial } from 'lodash-es';
 
 import { JobTypes } from '../../tools/types/toolsJobTypes';
 import {
@@ -157,12 +158,18 @@ export const getEntryPath = (
     subPage,
   });
 
-// Same than above, but curried version
-export const getEntryPathFor = (namespace: SearchableNamespace) => {
-  const entryLocation = EntryLocations[namespace];
-  return (accession: string | number) =>
-    generatePath(entryLocation, { accession: `${accession}` });
-};
+// Same as above but with partial function application
+export const getEntryPathFor = (namespace: SearchableNamespace) =>
+  partial(getEntryPath, namespace);
+
+export const getLocationEntryPath = (location: Location, accession: string) =>
+  generatePath(LocationToPath[location], {
+    accession: `${accession}`,
+  });
+
+// Same as above but with partial function application
+export const getLocationEntryPathFor = (location: Location) =>
+  partial(getLocationEntryPath, location);
 
 // eslint-disable-next-line consistent-return
 export const jobTypeToPath = (type: JobTypes, result?: boolean) => {
@@ -184,8 +191,3 @@ export const jobTypeToPath = (type: JobTypes, result?: boolean) => {
   }
   throw new Error(`"${type}"invalid job type`);
 };
-
-export const getHelpEntryPath = (entry: string) =>
-  generatePath(LocationToPath[Location.HelpEntry], {
-    accession: entry,
-  });
