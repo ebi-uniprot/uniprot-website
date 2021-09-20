@@ -197,6 +197,7 @@ const SubCellViz: FC<Props> = memo(
       );
       const shadowRoot = instance?.shadowRoot;
       const onSvgLoaded = () => {
+        console.log(uniProtLocationIds);
         const tabsHeaderHeight =
           document.querySelector('.tabs__header')?.clientHeight;
         const pictureTop = tabsHeaderHeight
@@ -222,6 +223,12 @@ const SubCellViz: FC<Props> = memo(
         }
         .subcell_description {
           display: none;
+        }
+
+        svg .mp_SL0097 .coloured {
+          stroke: black !important;
+          fill: #abc7d6 !important;
+          fill-opacity: 1 !important;
         }
       `;
         const style = document.createElement('style');
@@ -298,7 +305,7 @@ const SubCellViz: FC<Props> = memo(
       return () => {
         shadowRoot?.removeEventListener('svgloaded', onSvgLoaded);
       };
-    }, [uniProtLocationIds?.length]);
+    }, [uniProtLocationIds]);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const Instance = (props: any) => <instanceName.current {...props} />;
