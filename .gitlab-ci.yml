@@ -27,6 +27,9 @@ merge_and_test:
   stage: test
   script:
     - echo Merging $CI_COMMIT_SHORT_SHA into $CI_EXTERNAL_PULL_REQUEST_TARGET_BRANCH_NAME to test upstream effects
+    - git config --global user.email "uniprotci@gmail.com"
+    - git config --global user.name "UniProt CI"
+    - git fetch origin $CI_EXTERNAL_PULL_REQUEST_TARGET_BRANCH_NAME
     - git checkout $CI_EXTERNAL_PULL_REQUEST_TARGET_BRANCH_NAME
     - git merge $CI_COMMIT_SHA --no-ff -m "Merge and test"
     - test -n "$(git status --porcelain)" && exit 1 # Exit if merge has conflicts
