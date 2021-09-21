@@ -20,13 +20,8 @@ const ARBACard = ({ data, selected, handleEntrySelection }: Props) => {
   const id = getIdKey(data);
 
   const links = useMemo(
-    () =>
-      mapToLinks(Namespace.arba, data.uniRuleId, {
-        // TODO: update when TRM-26560 is deployed
-        reviewedProteinCount: 0,
-        unreviewedProteinCount: data.proteinsAnnotatedCount,
-      }),
-    [data.proteinsAnnotatedCount, data.uniRuleId]
+    () => mapToLinks(Namespace.arba, data.uniRuleId, data.statistics),
+    [data.uniRuleId, data.statistics]
   );
 
   return (
