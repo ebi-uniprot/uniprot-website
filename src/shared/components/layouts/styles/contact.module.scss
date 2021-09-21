@@ -1,0 +1,10 @@
+@import 'franklin-sites/src/styles/colours';
+
+.social {
+  white-space: nowrap;
+
+  svg {
+    fill: $colour-weldon-blue;
+    color: $colour-weldon-blue;
+  }
+}
