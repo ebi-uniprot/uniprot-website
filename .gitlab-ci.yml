@@ -85,6 +85,8 @@ deploy:
   stage: deploy
   extends: .kubectl
   script:
+    - env
+    - 'printf "$(kubectl create secret docker-registry gitlab-registry --docker-server=$CI_REGISTRY --docker-username=$CI_DEPLOY_USER --docker-password=$CI_DEPLOY_PASSWORD --docker-email=$GITLAB_USER_EMAIL -o yaml --dry-run=client)" | kubectl apply -f -'
     - ./deploy/deploy.sh HX # fallback
     - ./deploy/deploy.sh HH # main
 
