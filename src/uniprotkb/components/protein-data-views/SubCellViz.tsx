@@ -12,6 +12,8 @@ import './styles/sub-cell-viz.scss';
 /*
   The logic implemented here to get our data into @swissprot/swissbiopics-visualizer has been lifted
   from the source code at http://sp.sib.swiss/scripts/uniprot_entry-bundle.js with some modifications
+
+  Good membrane example: A1L3X0
 */
 
 const shapes = [
@@ -133,8 +135,6 @@ type Props = RequireExactlyOne<
   'uniProtLocationIds' | 'goLocationIds'
 >;
 
-// TODO: add additional GO template which will also require GO term data
-// TODO: handle this case as seen in the source code 'svg .membranes .membrane.subcell_present' eg A1L3X0 doesn't work
 const SubCellViz: FC<Props> = memo(
   ({ uniProtLocationIds, goLocationIds, taxonId, children }) => {
     const instanceName = useRef(
