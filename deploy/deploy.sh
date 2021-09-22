@@ -22,6 +22,7 @@ kubectl cluster-info || { echo 'Cannot reach cluster' ; exit 1; }
 kubectl config use-context team-admin-wp-webadmin-02
 kubectl config set-context --current --namespace=uniprot-front-end
 printf "$(kubectl create secret docker-registry gitlab-registry --docker-server=$CI_REGISTRY --docker-username=$CI_DEPLOY_USER --docker-password=$CI_DEPLOY_PASSWORD --docker-email=$GITLAB_USER_EMAIL -o yaml --dry-run=client)" | kubectl apply -f -
+kubectl get secrets gitlab-registry -o yaml
 kubectl apply -f deploy/k8s_deploy.yml
 kubectl rollout restart statefulset.apps/uniprot-website-client
 kubectl rollout status statefulset.apps/uniprot-website-client || { echo 'Deployment failed!' ; exit 1; }
