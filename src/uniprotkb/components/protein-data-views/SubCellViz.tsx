@@ -26,6 +26,8 @@ const shapes = [
 const shapesSelector = shapes.join(', ');
 const scopedShapesSelector = shapes.map((s) => `:scope ${s}`).join(', ');
 
+const reMpPart = /(mp|part)_(?<id>\w+)/;
+
 // Typing inspired from
 // https://github.com/ionic-team/stencil/blob/master/test/end-to-end/src/components.d.ts
 // this approach might be useful when we have to type more custom elements
@@ -62,6 +64,17 @@ const getGoTermClassNames = (locationGroup: Element) =>
     .filter((className) => className.startsWith('GO'))
     .map((goId) => `.${goId}`);
 
+const getUniProtTextSelectors = (subcellularPresentSVG: Element) =>
+  [
+    `#${subcellularPresentSVG.id}term`,
+    ...Array.from(subcellularPresentSVG.classList)
+      .map((className: string) => {
+        const id = className.match(reMpPart)?.groups?.id;
+        return id && `#${id}term`;
+      })
+      .filter(Boolean),
+  ] as string[];
+
 const attachTooltips = (
   locationGroup: Element,
   instance: Element | null,
@@ -85,7 +98,7 @@ const attachTooltips = (
   }
   const locationTextSelector = [
     ...getGoTermClassNames(locationGroup),
-    `#${locationGroup.id}term`,
+    ...getUniProtTextSelectors(locationGroup),
   ].join(',');
   const locationTextQueryResult =
     instance?.querySelectorAll(locationTextSelector);
@@ -197,7 +210,6 @@ const SubCellViz: FC<Props> = memo(
       );
       const shadowRoot = instance?.shadowRoot;
       const onSvgLoaded = () => {
-        console.log(uniProtLocationIds);
         const tabsHeaderHeight =
           document.querySelector('.tabs__header')?.clientHeight;
         const pictureTop = tabsHeaderHeight
@@ -224,13 +236,13 @@ const SubCellViz: FC<Props> = memo(
         .subcell_description {
           display: none;
         }
-
-        svg .mp_SL0097 .coloured {
+        [class*="mp_"] .coloured, svg [class*="part_"] .coloured {
           stroke: black !important;
           fill: #abc7d6 !important;
           fill-opacity: 1 !important;
         }
       `;
+
         const style = document.createElement('style');
         // inject more styles
         style.innerText = css;
@@ -241,41 +253,36 @@ const SubCellViz: FC<Props> = memo(
         terms?.appendChild(slot);
 
         // This finds all subcellular location SVGs that will require a tooltip
-        const subcellularPresentSVGs = shadowRoot?.querySelectorAll(
-          'svg .subcell_present:not(.membrane)'
-        );
-        if (!subcellularPresentSVGs) {
-          return;
-        }
+        const subcellularPresentSVGs =
+          shadowRoot?.querySelectorAll(
+            'svg .subcell_present, svg [class*="mp_"], svg [class*="part_"]'
+          ) || [];
+
         for (const subcellularPresentSVG of subcellularPresentSVGs) {
           // The text location in the righthand column which in our case will either
           // be of the form \d+term or GO\d+ depending on what props has been provided
           const textSelectors = uniProtLocationIds?.length
-            ? [`#${subcellularPresentSVG.id}term`]
+            ? getUniProtTextSelectors(subcellularPresentSVG)
             : getGoTermClassNames(subcellularPresentSVG);
 
           for (const textSelector of textSelectors) {
             const locationText =
               instance?.querySelector<HTMLElement>(textSelector);
+
             if (locationText) {
               locationText.classList.add('inpicture');
+              const locationSVG = shadowRoot?.querySelector<SVGElement>(
+                `#${subcellularPresentSVG.id}`
+              );
               // TODO: need to remove event listeners on unmount. Will leave for now until
               // to see what changes are made to @swissprot/swissbiopics-visualizer
               locationText.addEventListener('mouseenter', () => {
-                instance?.highLight(
-                  locationText,
-                  shadowRoot?.querySelector<SVGElement>(
-                    `#${subcellularPresentSVG.id}`
-                  ),
-                  shapesSelector
-                );
+                instance?.highLight(locationText, locationSVG, shapesSelector);
               });
               locationText.addEventListener('mouseleave', () => {
                 instance?.removeHiglight(
                   locationText,
-                  shadowRoot?.querySelector<SVGElement>(
-                    `#${subcellularPresentSVG.id}`
-                  ),
+                  locationSVG,
                   shapesSelector
                 );
               });
