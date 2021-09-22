@@ -85,6 +85,7 @@ deploy:
   stage: deploy
   extends: .kubectl
   script:
+    - env
     - ./deploy/deploy.sh HX # fallback
     - ./deploy/deploy.sh HH # main
 
