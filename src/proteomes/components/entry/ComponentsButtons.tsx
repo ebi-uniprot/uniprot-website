@@ -72,7 +72,7 @@ const ComponentsButtons: FC<
                 query={allQuery}
                 selectedEntries={selectedEntries}
                 selectedQuery={selectedQuery}
-                numberSelectedEntries={numberSelectedProteins || 10} // TODO: this hardcoded number is temporary until proteinCount is available in the API
+                numberSelectedEntries={numberSelectedProteins || 10} // TODO: this hardcoded number is temporary until proteinCount is available in the API JIRA: https://www.ebi.ac.uk/panda/jira/browse/TRM-26418
                 totalNumberResults={proteinCount || 1000} // TODO: ☝️ Same as above
                 onClose={() => setDisplayDownloadPanel(false)}
                 namespace={Namespace.uniprotkb}
