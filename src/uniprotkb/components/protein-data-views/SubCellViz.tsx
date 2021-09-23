@@ -66,16 +66,15 @@ const getGoTermClassNames = (locationGroup: Element) =>
     .filter((className) => className.startsWith('GO'))
     .map((goId) => `.${goId}`);
 
-const getUniProtTextSelectors = (subcellularPresentSVG: Element) =>
-  [
-    `#${subcellularPresentSVG.id}term`,
-    ...Array.from(subcellularPresentSVG.classList)
-      .map((className: string) => {
-        const id = className.match(reMpPart)?.groups?.id;
-        return id && `#${id}term`;
-      })
-      .filter(Boolean),
-  ] as string[];
+const getUniProtTextSelectors = (subcellularPresentSVG: Element): string[] => [
+  `#${subcellularPresentSVG.id}term`,
+  ...Array.from(subcellularPresentSVG.classList)
+    .map((className: string) => {
+      const id = className.match(reMpPart)?.groups?.id;
+      return id && `#${id}term`;
+    })
+    .filter((sel: string | undefined): sel is string => Boolean(sel)),
+];
 
 const attachTooltips = (
   locationGroup: Element,
