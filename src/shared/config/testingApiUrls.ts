@@ -22,7 +22,7 @@ const joinUrlForApiTesting = (prefix: string, ...paths: string[]) => {
     uniref: 30157,
     uniparc: 30092,
     proteomes: 31114,
-    unisave: 30157,
+    unisave: 31045,
     // supporting data
     taxonomy: 9606,
     keywords: 9606,
