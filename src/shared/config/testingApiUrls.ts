@@ -4,7 +4,7 @@ import urlJoin from 'url-join';
 import { apiPrefix } from './apiUrls';
 
 // set to true if testing new API changes
-const apiTesting = true;
+const apiTesting = false;
 
 if (apiTesting) {
   console.warn('❗❗❗ USING API TESTING ENDPOINT - DO NOT USE IN PRODUCTION');
