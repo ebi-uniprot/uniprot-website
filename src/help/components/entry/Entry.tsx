@@ -1,7 +1,7 @@
 import { useCallback, MouseEventHandler, useMemo } from 'react';
 import { Loader, Card } from 'franklin-sites';
 import marked from 'marked';
-import { Attributes, defaults, Transformer } from 'sanitize-html';
+import { Attributes, defaults, Tag, Transformer } from 'sanitize-html';
 import cn from 'classnames';
 import { RouteChildrenProps } from 'react-router-dom';
 
@@ -27,19 +27,24 @@ const sameAppURL = new RegExp(window.location.origin + BASE_URL, 'i');
 // NOTE: in production, internalRE and sameAppURL should be the same
 
 const aTransformer: Transformer = (_: string, attribs: Attributes) => {
-  const href = attribs.href.replace(internalRE, BASE_URL);
-  const isExternal = href === attribs.href;
-  return {
+  const output: Tag = {
     tagName: 'a',
     attribs: {
       ...attribs,
       title: 'link',
-      class: isExternal ? styles.external : '',
-      target: isExternal ? '_blank' : '',
-      rel: isExternal ? 'noopener noreferrer' : '',
-      href,
     },
   };
+  const href = attribs.href?.replace(internalRE, BASE_URL);
+  if (href) {
+    output.attribs.href = href;
+    // if external link
+    if (href === attribs.href) {
+      output.attribs.class = styles.external;
+      output.attribs.target = '_blank';
+      output.attribs.rel = 'noopener noreferrer';
+    }
+  }
+  return output;
 };
 
 const allowedClasses = (cleanTextDefaultOptions.allowedClasses?.['*'] ||
