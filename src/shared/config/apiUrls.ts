@@ -108,7 +108,7 @@ const apiUrls = {
     joinUrl(apiPrefix, '/genecentric/', accession),
   idMappingFields: joinUrl(apiPrefix, '/configure/idmapping/fields'),
   entry: (id: string | undefined, namespace: Namespace) =>
-    id && joinUrl(apiPrefix, `/${namespace}/`, id),
+    id && joinUrl(apiPrefix, namespace, id),
   sequenceFasta: (accession: string) =>
     `${apiUrls.entry(accession, Namespace.uniprotkb)}.fasta`,
   entryDownload: (
