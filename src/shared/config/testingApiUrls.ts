@@ -39,15 +39,13 @@ const joinUrlForApiTesting = (prefix: string, ...paths: string[]) => {
     unirule: 32137,
     configure: 30510,
   };
-  const defaultEndpointToPort = 9606; // default for all support data
   let newPrefix = prefix;
   if (apiTesting && prefix === apiPrefix && paths?.[0]) {
-    // joinUrl(apiPrefix, `/${namespace}/search`),
     const endpoint = paths[0]
       .split('/')
       .filter(Boolean)[0] as keyof typeof endpointToPort;
     if (endpoint && endpoint in endpointToPort) {
-      const port = endpointToPort[endpoint] || defaultEndpointToPort;
+      const port = endpointToPort[endpoint];
       newPrefix = apiTestingProtocolDomain(port);
     } else {
       console.error(`${endpoint} not in endpointToPort mapping`);
