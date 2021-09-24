@@ -50,7 +50,7 @@ export const getLocatorUrl = (
   }
   switch (name) {
     case 'Plant Gene Register':
-      return `${PGR_URL}${locator}`;
+      return `${PGR_URL}${locator}.html`;
     case "Worm Breeder's Gazette": {
       const regex = /(\d+)\((\d+)\):(\d+)/;
       const matches = locator?.match(regex);
