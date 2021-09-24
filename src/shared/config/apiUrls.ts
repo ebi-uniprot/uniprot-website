@@ -126,7 +126,7 @@ const apiUrls = {
           fileFormatToUrlParameter[format]
         }`,
   entryPublications: (accession: string) =>
-    joinUrl(apiPrefix, '/uniprotkb/', accession, '/publications'),
+    joinUrl(apiPrefix, 'uniprotkb', accession, '/publications'),
   taxonomySuggester: 'suggester?dict=taxonomy&query=?',
   organismSuggester: 'suggester?dict=organism&query=?',
 
