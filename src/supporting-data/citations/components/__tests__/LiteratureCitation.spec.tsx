@@ -57,7 +57,7 @@ describe('Publication component url', () => {
   test('Plant Gene Register', () => {
     const url = getLocatorUrl('PGR98-023', 'Plant Gene Register');
     expect(url).toEqual(
-      'https://www.ebi.ac.uk/~textman/pgr-htdocs/pgr/PGR98-023'
+      'https://www.ebi.ac.uk/~textman/pgr-htdocs/pgr/PGR98-023.html'
     );
   });
 
