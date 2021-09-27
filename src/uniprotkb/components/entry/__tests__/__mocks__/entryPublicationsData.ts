@@ -6,7 +6,7 @@ type Payload = {
   results: Partial<CitationsAPIModel>[];
 };
 
-// api/uniprotkb/accession/O43865/publications?facets=types%2Ccategories%2Cis_large_scale
+// api/uniprotkb/O43865/publications?facets=types%2Ccategories%2Cis_large_scale
 const mock: Payload = {
   facets: [
     {

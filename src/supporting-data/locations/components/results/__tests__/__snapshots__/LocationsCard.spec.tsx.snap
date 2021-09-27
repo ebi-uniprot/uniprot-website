@@ -53,19 +53,19 @@ exports[`CitationCard tests should render the card component 1`] = `
         class="card-action"
         href="/uniprotkb?query=(cc_scl_term:SL-0099)"
       >
-        8,751 UniProtKB entries
+        16,210 UniProtKB entries
       </a>
       <a
         class="card-action"
         href="/uniprotkb?facets=reviewed:true&query=(cc_scl_term:SL-0099)"
       >
-        235 reviewed UniProtKB entries
+        236 reviewed UniProtKB entries
       </a>
       <a
         class="card-action"
         href="/uniprotkb?facets=reviewed:false&query=(cc_scl_term:SL-0099)"
       >
-        8,516 unreviewed UniProtKB entries
+        15,974 unreviewed UniProtKB entries
       </a>
     </div>
   </section>

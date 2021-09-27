@@ -3,6 +3,7 @@ import { ExpandableList, ExternalLink } from 'franklin-sites';
 
 import { getEntryPathFor } from '../../../app/config/urls';
 import externalUrls from '../../../shared/config/externalUrls';
+import { mapToLinks } from '../../../shared/components/MapTo';
 
 import { KeywordsAPIModel } from '../adapters/keywordsConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
@@ -20,8 +21,7 @@ export enum KeywordsColumn {
   // Those are links, not biological sites
   links = 'links',
   statistics = 'statistics',
-  // This is a list of synonyms, regardless of the singular in the name
-  synonym = 'synonym',
+  synonyms = 'synonyms',
 }
 
 export const defaultColumns = [
@@ -113,11 +113,27 @@ KeywordsColumnConfiguration.set(KeywordsColumn.links, {
   ),
 });
 
-KeywordsColumnConfiguration.set(KeywordsColumn.synonym, {
+KeywordsColumnConfiguration.set(KeywordsColumn.synonyms, {
   label: 'Synonyms',
   render: ({ synonyms }) => (
     <ExpandableList descriptionString="synonyms" displayNumberOfHiddenItems>
       {synonyms}
+    </ExpandableList>
+  ),
+});
+
+KeywordsColumnConfiguration.set(KeywordsColumn.statistics, {
+  label: 'Statistics',
+  render: ({ keyword, statistics }) => (
+    <ExpandableList>
+      {mapToLinks(Namespace.keywords, keyword?.id, statistics)?.map(
+        ({ key, link, name }) => (
+          // eslint-disable-next-line uniprot-website/use-config-location
+          <Link key={key} to={link}>
+            {name}
+          </Link>
+        )
+      )}
     </ExpandableList>
   ),
 });

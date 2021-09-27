@@ -82,7 +82,7 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
                       >
                         canonical
                       </span>
-                       sequence? To reduce redundancy, the UniProtKB/Swiss-Prot policy is to
+                       sequence? To reduce redundancy, the UniProtKB/Swiss-Prot policy
                     </span>
                   </div>
                 </div>
@@ -142,45 +142,6 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
                     aria-hidden="true"
                     class="decorated-list-item__link"
                     data-testid="background-link"
-                    href="/help/retrieve_sets"
-                    tabindex="-1"
-                  />
-                  <div
-                    class="decorated-list-item__title"
-                  >
-                    <h5
-                      class="bold"
-                    >
-                      <a
-                        href="/help/retrieve_sets"
-                      >
-                        How to retrieve sets of protein sequences?
-                      </a>
-                    </h5>
-                  </div>
-                  <div
-                    class="decorated-list-item__content"
-                  >
-                    <span>
-                       entries in these formats each contain only one protein sequence, the so-called '
-                      <span
-                        class="match-highlight"
-                      >
-                        canonical
-                      </span>
-                      ' sequence
-                    </span>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div
-                  class="decorated-list-item decorated-list-item--has-link"
-                >
-                  <a
-                    aria-hidden="true"
-                    class="decorated-list-item__link"
-                    data-testid="background-link"
                     href="/help/conflict"
                     tabindex="-1"
                   />
@@ -220,7 +181,7 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
                     aria-hidden="true"
                     class="decorated-list-item__link"
                     data-testid="background-link"
-                    href="/help/proteome"
+                    href="/help/retrieve_sets"
                     tabindex="-1"
                   />
                   <div
@@ -230,9 +191,9 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
                       class="bold"
                     >
                       <a
-                        href="/help/proteome"
+                        href="/help/retrieve_sets"
                       >
-                        What are proteomes?
+                        How to retrieve sets of protein sequences?
                       </a>
                     </h5>
                   </div>
@@ -240,13 +201,52 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
                     class="decorated-list-item__content"
                   >
                     <span>
-                       of 
+                       entries in these formats each contain only one protein sequence, the so-called '
+                      <span
+                        class="match-highlight"
+                      >
+                        canonical'
+                      </span>
+                       sequence.
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    class="decorated-list-item__link"
+                    data-testid="background-link"
+                    href="/help/sequence_processing"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title"
+                  >
+                    <h5
+                      class="bold"
+                    >
+                      <a
+                        href="/help/sequence_processing"
+                      >
+                        Sequence processing
+                      </a>
+                    </h5>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                      This subsection of the Sequence section indicates if the 
                       <span
                         class="match-highlight"
                       >
                         canonical
                       </span>
-                       and additional sequences), gene mapping files, Coding DNA Sequence (CDS) FASTA files and
+                       sequence displayed by default
                     </span>
                   </div>
                 </div>
@@ -258,7 +258,7 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
               <a
                 href="/help?query=canonical"
               >
-                Show all results (27)
+                Show all results (25)
               </a>
             </div>
           </div>

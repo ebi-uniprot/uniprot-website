@@ -6,6 +6,7 @@ import { JournalInfo } from '../components/LiteratureCitation';
 import parseDate from '../../../shared/utils/parseDate';
 import cleanText from '../../../shared/utils/cleanText';
 import { getEntryPathFor } from '../../../app/config/urls';
+import { mapToLinks } from '../../../shared/components/MapTo';
 
 import {
   CitationsAPIModel,
@@ -140,6 +141,22 @@ CitationsColumnConfiguration.set(CitationsColumn.title, {
 CitationsColumnConfiguration.set(CitationsColumn.volume, {
   label: 'Volume',
   render: ({ citation }) => citation?.volume,
+});
+
+CitationsColumnConfiguration.set(CitationsColumn.statistics, {
+  label: 'Statistics',
+  render: ({ citation, statistics }) => (
+    <ExpandableList>
+      {mapToLinks(Namespace.citations, citation?.id, statistics)?.map(
+        ({ key, link, name }) => (
+          // eslint-disable-next-line uniprot-website/use-config-location
+          <Link key={key} to={link}>
+            {name}
+          </Link>
+        )
+      )}
+    </ExpandableList>
+  ),
 });
 
 export default CitationsColumnConfiguration;

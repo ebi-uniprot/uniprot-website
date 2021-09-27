@@ -50,12 +50,8 @@ const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
       <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
         <div className="button-group">
           <MapToDropdown
-            statistics={{
-              // TODO: update when TRM-26560 is deployed
-              reviewedProteinCount: 0,
-              unreviewedProteinCount: data.proteinsAnnotatedCount,
-            }}
-            accession={data.uniRuleId}
+            statistics={data.statistics}
+            accession={data.information.oldRuleNum || data.uniRuleId}
           />
         </div>
         <TemplateEntries entries={data.information.uniProtAccessions} />

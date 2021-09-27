@@ -26,7 +26,7 @@ import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
 
 const columns = [
   KeywordsColumn.definition,
-  KeywordsColumn.synonym,
+  KeywordsColumn.synonyms,
   KeywordsColumn.category,
   KeywordsColumn.geneOntologies,
   KeywordsColumn.parents,
