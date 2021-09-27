@@ -200,7 +200,7 @@ const Download: FC<DownloadProps> = ({
           onChange={handleDownloadAllChange}
           disabled={nSelectedEntries === 0}
         />
-        Download selected ({nSelectedEntries})
+        Download selected (<LongNumber>{nSelectedEntries}</LongNumber>)
       </label>
       <label htmlFor="data-selection-true">
         <input

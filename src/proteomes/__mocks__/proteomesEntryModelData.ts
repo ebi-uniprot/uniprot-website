@@ -1,5 +1,7 @@
 import { ProteomesAPIModel } from '../adapters/proteomesConverter';
 
+// Source: api/proteomes/UP000005640
+// Retrieved: 2021-09-23
 const mock: ProteomesAPIModel = {
   id: 'UP000005640',
   description:
@@ -10,261 +12,390 @@ const mock: ProteomesAPIModel = {
     taxonId: 9606,
     mnemonic: 'HUMAN',
   },
-  modified: '2021-01-29',
+  modified: '2021-03-07',
   proteomeType: 'Reference and representative proteome',
   components: [
     {
       name: 'Chromosome 1',
       description:
         'Homo sapiens chromosome 1, GRCh38 reference primary assembly.',
-      proteinCount: 6250,
-      genomeAnnotation: { source: 'Ensembl' },
+      proteinCount: 6361,
+      genomeAnnotation: {
+        source: 'Ensembl',
+      },
       proteomeCrossReferences: [
-        { database: 'GenomeAccession', id: 'CM000663' },
+        {
+          database: 'GenomeAccession',
+          id: 'CM000663',
+        },
       ],
     },
     {
       name: 'Chromosome 2',
       description:
         'Homo sapiens chromosome 2, GRCh38 reference primary assembly.',
-      proteinCount: 4970,
-      genomeAnnotation: { source: 'Ensembl' },
+      proteinCount: 5053,
+      genomeAnnotation: {
+        source: 'Ensembl',
+      },
       proteomeCrossReferences: [
-        { database: 'GenomeAccession', id: 'CM000664' },
+        {
+          database: 'GenomeAccession',
+          id: 'CM000664',
+        },
       ],
     },
     {
       name: 'Chromosome 3',
       description:
         'Homo sapiens chromosome 3, GRCh38 reference primary assembly.',
-      proteinCount: 4474,
-      genomeAnnotation: { source: 'Ensembl' },
+      proteinCount: 4562,
+      genomeAnnotation: {
+        source: 'Ensembl',
+      },
       proteomeCrossReferences: [
-        { database: 'GenomeAccession', id: 'CM000665' },
+        {
+          database: 'GenomeAccession',
+          id: 'CM000665',
+        },
       ],
     },
     {
       name: 'Chromosome 4',
       description:
         'Homo sapiens chromosome 4, GRCh38 reference primary assembly.',
-      proteinCount: 2868,
-      genomeAnnotation: { source: 'Ensembl' },
+      proteinCount: 2899,
+      genomeAnnotation: {
+        source: 'Ensembl',
+      },
       proteomeCrossReferences: [
-        { database: 'GenomeAccession', id: 'CM000666' },
+        {
+          database: 'GenomeAccession',
+          id: 'CM000666',
+        },
       ],
     },
     {
       name: 'Chromosome 5',
       description:
         'Homo sapiens chromosome 5, GRCh38 reference primary assembly.',
-      proteinCount: 3212,
-      genomeAnnotation: { source: 'Ensembl' },
+      proteinCount: 3284,
+      genomeAnnotation: {
+        source: 'Ensembl',
+      },
       proteomeCrossReferences: [
-        { database: 'GenomeAccession', id: 'CM000667' },
+        {
+          database: 'GenomeAccession',
+          id: 'CM000667',
+        },
       ],
     },
     {
       name: 'Chromosome 6',
       description:
         'Homo sapiens chromosome 6, GRCh38 reference primary assembly.',
-      proteinCount: 3881,
-      genomeAnnotation: { source: 'Ensembl' },
+      proteinCount: 3958,
+      genomeAnnotation: {
+        source: 'Ensembl',
+      },
       proteomeCrossReferences: [
-        { database: 'GenomeAccession', id: 'CM000668' },
+        {
+          database: 'GenomeAccession',
+          id: 'CM000668',
+        },
       ],
     },
     {
       name: 'Chromosome 7',
       description:
         'Homo sapiens chromosome 7, GRCh38 reference primary assembly.',
-      proteinCount: 3472,
-      genomeAnnotation: { source: 'Ensembl' },
+      proteinCount: 3540,
+      genomeAnnotation: {
+        source: 'Ensembl',
+      },
       proteomeCrossReferences: [
-        { database: 'GenomeAccession', id: 'CM000669' },
+        {
+          database: 'GenomeAccession',
+          id: 'CM000669',
+        },
       ],
     },
     {
       name: 'Chromosome 8',
       description:
         'Homo sapiens chromosome 8, GRCh38 reference primary assembly.',
-      proteinCount: 2884,
-      genomeAnnotation: { source: 'Ensembl' },
+      proteinCount: 2892,
+      genomeAnnotation: {
+        source: 'Ensembl',
+      },
       proteomeCrossReferences: [
-        { database: 'GenomeAccession', id: 'CM000670' },
+        {
+          database: 'GenomeAccession',
+          id: 'CM000670',
+        },
       ],
     },
     {
       name: 'Chromosome 9',
       description:
         'Homo sapiens chromosome 9, GRCh38 reference primary assembly.',
-      proteinCount: 2325,
-      genomeAnnotation: { source: 'Ensembl' },
+      proteinCount: 2369,
+      genomeAnnotation: {
+        source: 'Ensembl',
+      },
       proteomeCrossReferences: [
-        { database: 'GenomeAccession', id: 'CM000671' },
+        {
+          database: 'GenomeAccession',
+          id: 'CM000671',
+        },
       ],
     },
     {
       name: 'Chromosome 10',
       description:
         'Homo sapiens chromosome 10, GRCh38 reference primary assembly.',
-      proteinCount: 2465,
-      genomeAnnotation: { source: 'Ensembl' },
+      proteinCount: 2492,
+      genomeAnnotation: {
+        source: 'Ensembl',
+      },
       proteomeCrossReferences: [
-        { database: 'GenomeAccession', id: 'CM000672' },
+        {
+          database: 'GenomeAccession',
+          id: 'CM000672',
+        },
       ],
     },
     {
       name: 'Chromosome 11',
       description:
         'Homo sapiens chromosome 11, GRCh38 reference primary assembly.',
-      proteinCount: 4955,
-      genomeAnnotation: { source: 'Ensembl' },
+      proteinCount: 5073,
+      genomeAnnotation: {
+        source: 'Ensembl',
+      },
       proteomeCrossReferences: [
-        { database: 'GenomeAccession', id: 'CM000673' },
+        {
+          database: 'GenomeAccession',
+          id: 'CM000673',
+        },
       ],
     },
     {
       name: 'Chromosome 12',
       description:
         'Homo sapiens chromosome 12, GRCh38 reference primary assembly.',
-      proteinCount: 4546,
-      genomeAnnotation: { source: 'Ensembl' },
+      proteinCount: 4636,
+      genomeAnnotation: {
+        source: 'Ensembl',
+      },
       proteomeCrossReferences: [
-        { database: 'GenomeAccession', id: 'CM000674' },
+        {
+          database: 'GenomeAccession',
+          id: 'CM000674',
+        },
       ],
     },
     {
       name: 'Chromosome 13',
       description:
         'Homo sapiens chromosome 13, GRCh38 reference primary assembly.',
-      proteinCount: 957,
-      genomeAnnotation: { source: 'Ensembl' },
+      proteinCount: 979,
+      genomeAnnotation: {
+        source: 'Ensembl',
+      },
       proteomeCrossReferences: [
-        { database: 'GenomeAccession', id: 'CM000675' },
+        {
+          database: 'GenomeAccession',
+          id: 'CM000675',
+        },
       ],
     },
     {
       name: 'Chromosome 14',
       description:
         'Homo sapiens chromosome 14, GRCh38 reference primary assembly.',
-      proteinCount: 2962,
-      genomeAnnotation: { source: 'Ensembl' },
+      proteinCount: 3025,
+      genomeAnnotation: {
+        source: 'Ensembl',
+      },
       proteomeCrossReferences: [
-        { database: 'GenomeAccession', id: 'CM000676' },
+        {
+          database: 'GenomeAccession',
+          id: 'CM000676',
+        },
       ],
     },
     {
       name: 'Chromosome 15',
       description:
         'Homo sapiens chromosome 15, GRCh38 reference primary assembly.',
-      proteinCount: 2665,
-      genomeAnnotation: { source: 'Ensembl' },
+      proteinCount: 2667,
+      genomeAnnotation: {
+        source: 'Ensembl',
+      },
       proteomeCrossReferences: [
-        { database: 'GenomeAccession', id: 'CM000677' },
+        {
+          database: 'GenomeAccession',
+          id: 'CM000677',
+        },
       ],
     },
     {
       name: 'Chromosome 16',
       description:
         'Homo sapiens chromosome 16, GRCh38 reference primary assembly.',
-      proteinCount: 3992,
-      genomeAnnotation: { source: 'Ensembl' },
+      proteinCount: 3994,
+      genomeAnnotation: {
+        source: 'Ensembl',
+      },
       proteomeCrossReferences: [
-        { database: 'GenomeAccession', id: 'CM000678' },
+        {
+          database: 'GenomeAccession',
+          id: 'CM000678',
+        },
       ],
     },
     {
       name: 'Chromosome 17',
       description:
         'Homo sapiens chromosome 17, GRCh38 reference primary assembly.',
-      proteinCount: 5249,
-      genomeAnnotation: { source: 'Ensembl' },
+      proteinCount: 5326,
+      genomeAnnotation: {
+        source: 'Ensembl',
+      },
       proteomeCrossReferences: [
-        { database: 'GenomeAccession', id: 'CM000679' },
+        {
+          database: 'GenomeAccession',
+          id: 'CM000679',
+        },
       ],
     },
     {
       name: 'Chromosome 18',
       description:
         'Homo sapiens chromosome 18, GRCh38 reference primary assembly.',
-      proteinCount: 1289,
-      genomeAnnotation: { source: 'Ensembl' },
+      proteinCount: 1298,
+      genomeAnnotation: {
+        source: 'Ensembl',
+      },
       proteomeCrossReferences: [
-        { database: 'GenomeAccession', id: 'CM000680' },
+        {
+          database: 'GenomeAccession',
+          id: 'CM000680',
+        },
       ],
     },
     {
       name: 'Chromosome 19',
       description:
         'Homo sapiens chromosome 19, GRCh38 reference primary assembly.',
-      proteinCount: 6169,
-      genomeAnnotation: { source: 'Ensembl' },
+      proteinCount: 6204,
+      genomeAnnotation: {
+        source: 'Ensembl',
+      },
       proteomeCrossReferences: [
-        { database: 'GenomeAccession', id: 'CM000681' },
+        {
+          database: 'GenomeAccession',
+          id: 'CM000681',
+        },
       ],
     },
     {
       name: 'Chromosome 20',
       description:
         'Homo sapiens chromosome 20, GRCh38 reference primary assembly.',
-      proteinCount: 1653,
-      genomeAnnotation: { source: 'Ensembl' },
+      proteinCount: 1692,
+      genomeAnnotation: {
+        source: 'Ensembl',
+      },
       proteomeCrossReferences: [
-        { database: 'GenomeAccession', id: 'CM000682' },
+        {
+          database: 'GenomeAccession',
+          id: 'CM000682',
+        },
       ],
     },
     {
       name: 'Chromosome 21',
       description:
         'Homo sapiens chromosome 21, GRCh38 reference primary assembly.',
-      proteinCount: 672,
-      genomeAnnotation: { source: 'Ensembl' },
+      proteinCount: 674,
+      genomeAnnotation: {
+        source: 'Ensembl',
+      },
       proteomeCrossReferences: [
-        { database: 'GenomeAccession', id: 'CM000683' },
+        {
+          database: 'GenomeAccession',
+          id: 'CM000683',
+        },
       ],
     },
     {
       name: 'Chromosome 22',
       description:
         'Homo sapiens chromosome 22, GRCh38 reference primary assembly.',
-      proteinCount: 1688,
-      genomeAnnotation: { source: 'Ensembl' },
+      proteinCount: 1712,
+      genomeAnnotation: {
+        source: 'Ensembl',
+      },
       proteomeCrossReferences: [
-        { database: 'GenomeAccession', id: 'CM000684' },
+        {
+          database: 'GenomeAccession',
+          id: 'CM000684',
+        },
       ],
     },
     {
       name: 'Chromosome X',
       description:
         'Homo sapiens chromosome X, GRCh38 reference primary assembly.',
-      proteinCount: 2291,
-      genomeAnnotation: { source: 'Ensembl' },
+      proteinCount: 2321,
+      genomeAnnotation: {
+        source: 'Ensembl',
+      },
       proteomeCrossReferences: [
-        { database: 'GenomeAccession', id: 'CM000685' },
+        {
+          database: 'GenomeAccession',
+          id: 'CM000685',
+        },
       ],
     },
     {
       name: 'Chromosome Y',
       description:
         'Homo sapiens chromosome Y, GRCh38 reference primary assembly.',
-      proteinCount: 86,
-      genomeAnnotation: { source: 'Ensembl' },
+      proteinCount: 84,
+      genomeAnnotation: {
+        source: 'Ensembl',
+      },
       proteomeCrossReferences: [
-        { database: 'GenomeAccession', id: 'CM000686' },
+        {
+          database: 'GenomeAccession',
+          id: 'CM000686',
+        },
       ],
     },
     {
       name: 'Mitochondrion',
       description: 'Homo sapiens mitochondrion',
       proteinCount: 14,
-      genomeAnnotation: { source: 'Ensembl' },
-      proteomeCrossReferences: [{ database: 'GenomeAccession', id: 'J01415' }],
+      genomeAnnotation: {
+        source: 'Ensembl',
+      },
+      proteomeCrossReferences: [
+        {
+          database: 'GenomeAccession',
+          id: 'J01415',
+        },
+      ],
     },
     {
       name: 'Unplaced',
       description: 'HUMAN_unplaced',
-      proteinCount: 1047,
-      genomeAnnotation: { source: 'Ensembl' },
+      proteinCount: 1019,
+      genomeAnnotation: {
+        source: 'Ensembl',
+      },
     },
   ],
   citations: [
@@ -288,8 +419,14 @@ const mock: ProteomesAPIModel = {
         'Young I.G.',
       ],
       citationCrossReferences: [
-        { database: 'PubMed', id: '7219534' },
-        { database: 'DOI', id: '10.1038/290457a0' },
+        {
+          database: 'PubMed',
+          id: '7219534',
+        },
+        {
+          database: 'DOI',
+          id: '10.1038/290457a0',
+        },
       ],
       title: 'Sequence and organization of the human mitochondrial genome.',
       publicationDate: '1981',
@@ -529,8 +666,14 @@ const mock: ProteomesAPIModel = {
         'Wright H.',
       ],
       citationCrossReferences: [
-        { database: 'PubMed', id: '10591208' },
-        { database: 'DOI', id: '10.1038/990031' },
+        {
+          database: 'PubMed',
+          id: '10591208',
+        },
+        {
+          database: 'DOI',
+          id: '10.1038/990031',
+        },
       ],
       title: 'The DNA sequence of human chromosome 22.',
       publicationDate: '1999',
@@ -608,8 +751,14 @@ const mock: ProteomesAPIModel = {
         'Yaspo M.-L.',
       ],
       citationCrossReferences: [
-        { database: 'PubMed', id: '10830953' },
-        { database: 'DOI', id: '10.1038/35012518' },
+        {
+          database: 'PubMed',
+          id: '10830953',
+        },
+        {
+          database: 'DOI',
+          id: '10.1038/35012518',
+        },
       ],
       title: 'The DNA sequence of human chromosome 21.',
       publicationDate: '2000',
@@ -751,8 +900,14 @@ const mock: ProteomesAPIModel = {
         'Rogers J.',
       ],
       citationCrossReferences: [
-        { database: 'PubMed', id: '11780052' },
-        { database: 'DOI', id: '10.1038/414865a' },
+        {
+          database: 'PubMed',
+          id: '11780052',
+        },
+        {
+          database: 'DOI',
+          id: '10.1038/414865a',
+        },
       ],
       title:
         'The DNA sequence and comparative analysis of human chromosome 20.',
@@ -867,8 +1022,14 @@ const mock: ProteomesAPIModel = {
         'Weissenbach J.',
       ],
       citationCrossReferences: [
-        { database: 'PubMed', id: '12508121' },
-        { database: 'DOI', id: '10.1038/nature01348' },
+        {
+          database: 'PubMed',
+          id: '12508121',
+        },
+        {
+          database: 'DOI',
+          id: '10.1038/nature01348',
+        },
       ],
       title: 'The DNA sequence and analysis of human chromosome 14.',
       publicationDate: '2003',
@@ -923,8 +1084,14 @@ const mock: ProteomesAPIModel = {
         'Page D.C.',
       ],
       citationCrossReferences: [
-        { database: 'PubMed', id: '12815422' },
-        { database: 'DOI', id: '10.1038/nature01722' },
+        {
+          database: 'PubMed',
+          id: '12815422',
+        },
+        {
+          database: 'DOI',
+          id: '10.1038/nature01722',
+        },
       ],
       title:
         'The male-specific region of the human Y chromosome is a mosaic of discrete sequence classes.',
@@ -1047,8 +1214,14 @@ const mock: ProteomesAPIModel = {
         'Wilson R.K.',
       ],
       citationCrossReferences: [
-        { database: 'PubMed', id: '12853948' },
-        { database: 'DOI', id: '10.1038/nature01782' },
+        {
+          database: 'PubMed',
+          id: '12853948',
+        },
+        {
+          database: 'DOI',
+          id: '10.1038/nature01782',
+        },
       ],
       title: 'The DNA sequence of human chromosome 7.',
       publicationDate: '2003',
@@ -1234,8 +1407,14 @@ const mock: ProteomesAPIModel = {
         'Beck S.',
       ],
       citationCrossReferences: [
-        { database: 'PubMed', id: '14574404' },
-        { database: 'DOI', id: '10.1038/nature02055' },
+        {
+          database: 'PubMed',
+          id: '14574404',
+        },
+        {
+          database: 'DOI',
+          id: '10.1038/nature02055',
+        },
       ],
       title: 'The DNA sequence and analysis of human chromosome 6.',
       publicationDate: '2003',
@@ -1376,8 +1555,14 @@ const mock: ProteomesAPIModel = {
         'Ross M.T.',
       ],
       citationCrossReferences: [
-        { database: 'PubMed', id: '15057823' },
-        { database: 'DOI', id: '10.1038/nature02379' },
+        {
+          database: 'PubMed',
+          id: '15057823',
+        },
+        {
+          database: 'DOI',
+          id: '10.1038/nature02379',
+        },
       ],
       title: 'The DNA sequence and analysis of human chromosome 13.',
       publicationDate: '2004',
@@ -1490,8 +1675,14 @@ const mock: ProteomesAPIModel = {
         'Lucas S.M.',
       ],
       citationCrossReferences: [
-        { database: 'PubMed', id: '15057824' },
-        { database: 'DOI', id: '10.1038/nature02399' },
+        {
+          database: 'PubMed',
+          id: '15057824',
+        },
+        {
+          database: 'DOI',
+          id: '10.1038/nature02399',
+        },
       ],
       title: 'The DNA sequence and biology of human chromosome 19.',
       publicationDate: '2004',
@@ -1654,8 +1845,14 @@ const mock: ProteomesAPIModel = {
         'Dunham I.',
       ],
       citationCrossReferences: [
-        { database: 'PubMed', id: '15164053' },
-        { database: 'DOI', id: '10.1038/nature02465' },
+        {
+          database: 'PubMed',
+          id: '15164053',
+        },
+        {
+          database: 'DOI',
+          id: '10.1038/nature02465',
+        },
       ],
       title: 'DNA sequence and analysis of human chromosome 9.',
       publicationDate: '2004',
@@ -1806,8 +2003,14 @@ const mock: ProteomesAPIModel = {
         'Rogers J.',
       ],
       citationCrossReferences: [
-        { database: 'PubMed', id: '15164054' },
-        { database: 'DOI', id: '10.1038/nature02462' },
+        {
+          database: 'PubMed',
+          id: '15164054',
+        },
+        {
+          database: 'DOI',
+          id: '10.1038/nature02462',
+        },
       ],
       title:
         'The DNA sequence and comparative analysis of human chromosome 10.',
@@ -1899,8 +2102,14 @@ const mock: ProteomesAPIModel = {
         'Rubin E.M.',
       ],
       citationCrossReferences: [
-        { database: 'PubMed', id: '15372022' },
-        { database: 'DOI', id: '10.1038/nature02919' },
+        {
+          database: 'PubMed',
+          id: '15372022',
+        },
+        {
+          database: 'DOI',
+          id: '10.1038/nature02919',
+        },
       ],
       title: 'The DNA sequence and comparative analysis of human chromosome 5.',
       publicationDate: '2004',
@@ -2037,8 +2246,14 @@ const mock: ProteomesAPIModel = {
         'Pennacchio L.A.',
       ],
       citationCrossReferences: [
-        { database: 'PubMed', id: '15616553' },
-        { database: 'DOI', id: '10.1038/nature03187' },
+        {
+          database: 'PubMed',
+          id: '15616553',
+        },
+        {
+          database: 'DOI',
+          id: '10.1038/nature03187',
+        },
       ],
       title:
         'The sequence and analysis of duplication-rich human chromosome 16.',
@@ -2336,8 +2551,14 @@ const mock: ProteomesAPIModel = {
         'Bentley D.R.',
       ],
       citationCrossReferences: [
-        { database: 'PubMed', id: '15772651' },
-        { database: 'DOI', id: '10.1038/nature03440' },
+        {
+          database: 'PubMed',
+          id: '15772651',
+        },
+        {
+          database: 'DOI',
+          id: '10.1038/nature03440',
+        },
       ],
       title: 'The DNA sequence of the human X chromosome.',
       publicationDate: '2005',
@@ -2474,8 +2695,14 @@ const mock: ProteomesAPIModel = {
         'Wilson R.K.',
       ],
       citationCrossReferences: [
-        { database: 'PubMed', id: '15815621' },
-        { database: 'DOI', id: '10.1038/nature03466' },
+        {
+          database: 'PubMed',
+          id: '15815621',
+        },
+        {
+          database: 'DOI',
+          id: '10.1038/nature03466',
+        },
       ],
       title:
         'Generation and annotation of the DNA sequences of human chromosomes 2 and 4.',
@@ -2546,8 +2773,14 @@ const mock: ProteomesAPIModel = {
         'Lander E.S.',
       ],
       citationCrossReferences: [
-        { database: 'PubMed', id: '16177791' },
-        { database: 'DOI', id: '10.1038/nature03983' },
+        {
+          database: 'PubMed',
+          id: '16177791',
+        },
+        {
+          database: 'DOI',
+          id: '10.1038/nature03983',
+        },
       ],
       title: 'DNA sequence and analysis of human chromosome 18.',
       publicationDate: '2005',
@@ -2638,8 +2871,14 @@ const mock: ProteomesAPIModel = {
         'Lander E.S.',
       ],
       citationCrossReferences: [
-        { database: 'PubMed', id: '16421571' },
-        { database: 'DOI', id: '10.1038/nature04406' },
+        {
+          database: 'PubMed',
+          id: '16421571',
+        },
+        {
+          database: 'DOI',
+          id: '10.1038/nature04406',
+        },
       ],
       title: 'DNA sequence and analysis of human chromosome 8.',
       publicationDate: '2006',
@@ -2728,8 +2967,14 @@ const mock: ProteomesAPIModel = {
         'Nusbaum C.',
       ],
       citationCrossReferences: [
-        { database: 'PubMed', id: '16625196' },
-        { database: 'DOI', id: '10.1038/nature04689' },
+        {
+          database: 'PubMed',
+          id: '16625196',
+        },
+        {
+          database: 'DOI',
+          id: '10.1038/nature04689',
+        },
       ],
       title:
         'DNA sequence of human chromosome 17 and analysis of rearrangement in the human lineage.',
@@ -2859,8 +3104,14 @@ const mock: ProteomesAPIModel = {
         'Gibbs R.A.',
       ],
       citationCrossReferences: [
-        { database: 'PubMed', id: '16641997' },
-        { database: 'DOI', id: '10.1038/nature04728' },
+        {
+          database: 'PubMed',
+          id: '16641997',
+        },
+        {
+          database: 'DOI',
+          id: '10.1038/nature04728',
+        },
       ],
       title: 'The DNA sequence, annotation and analysis of human chromosome 3.',
       publicationDate: '2006',
@@ -3095,8 +3346,14 @@ const mock: ProteomesAPIModel = {
         'null.',
       ],
       citationCrossReferences: [
-        { database: 'PubMed', id: '16541075' },
-        { database: 'DOI', id: '10.1038/nature04569' },
+        {
+          database: 'PubMed',
+          id: '16541075',
+        },
+        {
+          database: 'DOI',
+          id: '10.1038/nature04569',
+        },
       ],
       title: 'The finished DNA sequence of human chromosome 12.',
       publicationDate: '2006',
@@ -3145,8 +3402,14 @@ const mock: ProteomesAPIModel = {
         'Sakaki Y.',
       ],
       citationCrossReferences: [
-        { database: 'PubMed', id: '16554811' },
-        { database: 'DOI', id: '10.1038/nature04632' },
+        {
+          database: 'PubMed',
+          id: '16554811',
+        },
+        {
+          database: 'DOI',
+          id: '10.1038/nature04632',
+        },
       ],
       title:
         'Human chromosome 11 DNA sequence and analysis including novel gene identification.',
@@ -3231,8 +3494,14 @@ const mock: ProteomesAPIModel = {
         'Nusbaum C.',
       ],
       citationCrossReferences: [
-        { database: 'PubMed', id: '16572171' },
-        { database: 'DOI', id: '10.1038/nature04601' },
+        {
+          database: 'PubMed',
+          id: '16572171',
+        },
+        {
+          database: 'DOI',
+          id: '10.1038/nature04601',
+        },
       ],
       title:
         'Analysis of the DNA sequence and duplication history of human chromosome 15.',
@@ -3427,8 +3696,14 @@ const mock: ProteomesAPIModel = {
         'Prigmore E.',
       ],
       citationCrossReferences: [
-        { database: 'PubMed', id: '16710414' },
-        { database: 'DOI', id: '10.1038/nature04727' },
+        {
+          database: 'PubMed',
+          id: '16710414',
+        },
+        {
+          database: 'DOI',
+          id: '10.1038/nature04727',
+        },
       ],
       title:
         'The DNA sequence and biological annotation of human chromosome 1.',
@@ -3439,22 +3714,22 @@ const mock: ProteomesAPIModel = {
       volume: '441',
     },
   ],
-  annotationScore: 4,
+  annotationScore: 3,
   superkingdom: 'eukaryota',
   proteomeCompletenessReport: {
     buscoReport: {
-      complete: 13716,
-      completeSingle: 5401,
-      completeDuplicated: 8315,
+      complete: 13714,
+      completeSingle: 5385,
+      completeDuplicated: 8329,
       fragmented: 6,
-      missing: 58,
+      missing: 60,
       total: 13780,
       lineageDb: 'primates_odb10',
       score: 99,
     },
     cpdReport: {
       proteomeCount: 31,
-      stdCdss: 0.0,
+      stdCdss: 0,
       averageCdss: 0,
       confidence: 0,
       status: 'Unknown',
@@ -3466,8 +3741,8 @@ const mock: ProteomesAPIModel = {
     level: 'full',
     source: 'Ensembl',
   },
-  geneCount: 20614,
-  proteinCount: 77036,
+  geneCount: 20600,
+  proteinCount: 78128,
   genomeAnnotation: {
     source: 'Ensembl',
     url: 'http://www.ensembl.org/Homo_sapiens/Info/Annotation',
@@ -3584,7 +3859,12 @@ const mock: ProteomesAPIModel = {
       rank: 'class',
       hidden: false,
     },
-    { scientificName: 'Theria', taxonId: 32525, rank: 'no rank', hidden: true },
+    {
+      scientificName: 'Theria',
+      taxonId: 32525,
+      rank: 'no rank',
+      hidden: true,
+    },
     {
       scientificName: 'Eutheria',
       commonName: 'placentals',
@@ -3604,7 +3884,12 @@ const mock: ProteomesAPIModel = {
       rank: 'superorder',
       hidden: false,
     },
-    { scientificName: 'Primates', taxonId: 9443, rank: 'order', hidden: false },
+    {
+      scientificName: 'Primates',
+      taxonId: 9443,
+      rank: 'order',
+      hidden: false,
+    },
     {
       scientificName: 'Haplorrhini',
       taxonId: 376913,
@@ -3643,7 +3928,12 @@ const mock: ProteomesAPIModel = {
       rank: 'subfamily',
       hidden: true,
     },
-    { scientificName: 'Homo', taxonId: 9605, rank: 'genus', hidden: false },
+    {
+      scientificName: 'Homo',
+      taxonId: 9605,
+      rank: 'genus',
+      hidden: false,
+    },
   ],
 };
 

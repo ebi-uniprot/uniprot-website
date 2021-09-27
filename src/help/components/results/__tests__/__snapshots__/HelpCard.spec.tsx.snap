@@ -4,6 +4,7 @@ exports[`HelpCard tests should render the card component 1`] = `
 <DocumentFragment>
   <section
     class="card card--has-link"
+    data-testid="help-card"
   >
     <a
       aria-hidden="true"
@@ -20,11 +21,12 @@ exports[`HelpCard tests should render the card component 1`] = `
       >
         <h2
           class="tiny"
+          data-testid="help-title"
         >
           <a
             href="/help/help-page"
           >
-            This is an help page
+            What is the canonical sequence? Are all isoforms described in one entry?
           </a>
         </h2>
       </div>
@@ -40,6 +42,7 @@ exports[`HelpCard tests should render the card component and find highlights 1`]
 <DocumentFragment>
   <section
     class="card card--has-link"
+    data-testid="help-card"
   >
     <a
       aria-hidden="true"
@@ -56,11 +59,20 @@ exports[`HelpCard tests should render the card component and find highlights 1`]
       >
         <h2
           class="tiny"
+          data-testid="help-title"
         >
           <a
             href="/help/help-page"
           >
-            This is an help page
+            <span>
+              What is the 
+              <span
+                class="match-highlight"
+              >
+                canonical
+              </span>
+               sequence? Are all isoforms described in one entry?
+            </span>
           </a>
         </h2>
       </div>
@@ -68,7 +80,13 @@ exports[`HelpCard tests should render the card component and find highlights 1`]
         class="card__content"
       >
         <span>
-          content match
+          What is the 
+          <span
+            class="match-highlight"
+          >
+            canonical
+          </span>
+           sequence? To reduce redundancy, the UniProtKB/Swiss-Prot policy
         </span>
       </div>
     </div>

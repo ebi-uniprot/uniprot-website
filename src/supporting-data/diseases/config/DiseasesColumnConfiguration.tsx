@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { ExpandableList } from 'franklin-sites';
 
 import { getEntryPathFor } from '../../../app/config/urls';
+import { mapToLinks } from '../../../shared/components/MapTo';
 
 import { DiseasesAPIModel } from '../adapters/diseasesConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
@@ -17,8 +18,12 @@ export enum DiseasesColumn {
   id = 'id',
   keywords = 'keywords',
   name = 'name',
+  // TODO: remove this once the backend is fixed https://www.ebi.ac.uk/panda/jira/browse/TRM-26601
   reviewedProteinCount = 'reviewed_protein_count',
+  // TODO: remove this once the backend is fixed https://www.ebi.ac.uk/panda/jira/browse/TRM-26601
   unreviewedProteinCount = 'unreviewed_protein_count',
+  // NOTE: once the backend is fixed, this will be available https://www.ebi.ac.uk/panda/jira/browse/TRM-26601
+  statistics = 'statistics',
 }
 
 export const defaultColumns = [
@@ -105,6 +110,22 @@ DiseasesColumnConfiguration.set(DiseasesColumn.keywords, {
 DiseasesColumnConfiguration.set(DiseasesColumn.name, {
   label: 'Name',
   render: ({ name }) => name,
+});
+
+DiseasesColumnConfiguration.set(DiseasesColumn.statistics, {
+  label: 'Statistics',
+  render: ({ id, statistics }) => (
+    <ExpandableList>
+      {mapToLinks(Namespace.diseases, id, statistics)?.map(
+        ({ key, link, name }) => (
+          // eslint-disable-next-line uniprot-website/use-config-location
+          <Link key={key} to={link}>
+            {name}
+          </Link>
+        )
+      )}
+    </ExpandableList>
+  ),
 });
 
 export default DiseasesColumnConfiguration;

@@ -1,9 +1,9 @@
 import { useCallback, MouseEventHandler, useMemo } from 'react';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 import { Loader, Card } from 'franklin-sites';
 import marked from 'marked';
-import { Attributes, defaults, Transformer } from 'sanitize-html';
+import { Attributes, defaults, Tag, Transformer } from 'sanitize-html';
 import cn from 'classnames';
-import { RouteChildrenProps } from 'react-router-dom';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
 import SingleColumnLayout from '../../../shared/components/layouts/SingleColumnLayout';
@@ -16,6 +16,7 @@ import cleanText, {
   cleanTextDefaultOptions,
 } from '../../../shared/utils/cleanText';
 import parseDate from '../../../shared/utils/parseDate';
+import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { HelpEntryResponse } from '../../adapters/helpConverter';
 
@@ -27,19 +28,24 @@ const sameAppURL = new RegExp(window.location.origin + BASE_URL, 'i');
 // NOTE: in production, internalRE and sameAppURL should be the same
 
 const aTransformer: Transformer = (_: string, attribs: Attributes) => {
-  const href = attribs.href.replace(internalRE, BASE_URL);
-  const isExternal = href === attribs.href;
-  return {
+  const output: Tag = {
     tagName: 'a',
     attribs: {
       ...attribs,
       title: 'link',
-      class: isExternal ? styles.external : '',
-      target: isExternal ? '_blank' : '',
-      rel: isExternal ? 'noopener noreferrer' : '',
-      href,
     },
   };
+  const href = attribs.href?.replace(internalRE, BASE_URL);
+  if (href) {
+    output.attribs.href = href;
+    // if external link
+    if (href === attribs.href) {
+      output.attribs.class = styles.external;
+      output.attribs.target = '_blank';
+      output.attribs.rel = 'noopener noreferrer';
+    }
+  }
+  return output;
 };
 
 const allowedClasses = (cleanTextDefaultOptions.allowedClasses?.['*'] ||
@@ -63,8 +69,13 @@ const cleanTextOptions = {
   },
 };
 
-const HelpEntry = (props: RouteChildrenProps<{ accession: string }>) => {
-  const accession = props.match?.params.accession;
+const HelpEntry = () => {
+  const history = useHistory();
+  const match = useRouteMatch<{ accession: string }>(
+    LocationToPath[Location.HelpEntry]
+  );
+
+  const accession = match?.params.accession;
 
   const { data, loading, error, status, progress, isStale } =
     useDataApiWithStale<HelpEntryResponse>(helpURL.accession(accession));
@@ -80,11 +91,12 @@ const HelpEntry = (props: RouteChildrenProps<{ accession: string }>) => {
           // Don't navigate away!
           event.preventDefault();
           // And just replace the current URL with the next page
-          props.history.push(href.replace(sameAppURL, '/'));
+          // eslint-disable-next-line uniprot-website/use-config-location
+          history.push(href.replace(sameAppURL, '/'));
         }
       }
     },
-    [props.history]
+    [history]
   );
 
   const [lastModifed, html] = useMemo(

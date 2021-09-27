@@ -108,15 +108,7 @@ const apiUrls = {
     joinUrl(apiPrefix, '/genecentric/', accession),
   idMappingFields: joinUrl(apiPrefix, '/configure/idmapping/fields'),
   entry: (id: string | undefined, namespace: Namespace) =>
-    id &&
-    joinUrl(
-      apiPrefix,
-      // NOTE: The inclusion of /accession/ subpath for uniprotkb is going to be reviewed by backend
-      // and potentially removed to bring it in line with the other namespaces
-      // NOTE: uniparc entry isn't working/deployed yet
-      `/${namespace}/${namespace === Namespace.uniprotkb ? 'accession/' : ''}`,
-      id
-    ),
+    id && joinUrl(apiPrefix, namespace, id),
   sequenceFasta: (accession: string) =>
     `${apiUrls.entry(accession, Namespace.uniprotkb)}.fasta`,
   entryDownload: (
@@ -134,7 +126,7 @@ const apiUrls = {
           fileFormatToUrlParameter[format]
         }`,
   entryPublications: (accession: string) =>
-    joinUrl(apiPrefix, '/uniprotkb/accession', accession, '/publications'),
+    joinUrl(apiPrefix, 'uniprotkb', accession, '/publications'),
   taxonomySuggester: 'suggester?dict=taxonomy&query=?',
   organismSuggester: 'suggester?dict=organism&query=?',
 
@@ -235,7 +227,7 @@ export const getAPIQueryUrl = ({
   }
   return `${apiUrls.search(namespace)}?${queryString.stringify({
     size,
-    query: `${[query || '*', createFacetsQueryString(selectedFacets)]
+    query: `${[`(${query})` || '*', createFacetsQueryString(selectedFacets)]
       .filter(Boolean)
       .join(' AND ')}`,
     fields: columns?.join(',') || undefined,
