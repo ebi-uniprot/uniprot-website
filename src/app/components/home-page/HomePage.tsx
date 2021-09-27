@@ -61,7 +61,7 @@ const namespaceFindYour: Record<SearchableNamespace, string> = {
   [Namespace.keywords]: 'keyword',
   [Namespace.citations]: 'publication',
   [Namespace.diseases]: 'disease',
-  [Namespace.database]: 'cross-reference database',
+  [Namespace.database]: 'cross-referenced database',
   [Namespace.locations]: 'subcellular location',
   // Annotations
   [Namespace.unirule]: 'curated UniRule rule',
