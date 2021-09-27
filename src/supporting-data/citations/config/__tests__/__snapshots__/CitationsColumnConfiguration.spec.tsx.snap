@@ -88,6 +88,29 @@ exports[`CitationsColumnConfiguration component should render column "reference"
 </DocumentFragment>
 `;
 
+exports[`CitationsColumnConfiguration component should render column "statistics": statistics 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      <a
+        href="/uniprotkb?query=(lit_citation_id:10196735)"
+      >
+        1 UniProtKB entry
+      </a>
+    </li>
+    <li>
+      <a
+        href="/uniprotkb?facets=reviewed:false&query=(lit_citation_id:10196735)"
+      >
+        1 unreviewed UniProtKB entry
+      </a>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
 exports[`CitationsColumnConfiguration component should render column "title": title 1`] = `
 <DocumentFragment>
   Cloning of soluble alkaline phosphatase cDNA and molecular basis of the polymorphic nature in alkaline phosphatase isozymes of Bombyx mori midgut.

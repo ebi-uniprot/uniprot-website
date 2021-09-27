@@ -89,4 +89,34 @@ exports[`KeywordsColumnConfiguration component should render column "name": name
 
 exports[`KeywordsColumnConfiguration component should render column "parents": parents 1`] = `<DocumentFragment />`;
 
-exports[`KeywordsColumnConfiguration component should render column "synonym": synonym 1`] = `<DocumentFragment />`;
+exports[`KeywordsColumnConfiguration component should render column "statistics": statistics 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      <a
+        href="/uniprotkb?query=(keyword:KW-0021)"
+      >
+        142,292 UniProtKB entries
+      </a>
+    </li>
+    <li>
+      <a
+        href="/uniprotkb?facets=reviewed:true&query=(keyword:KW-0021)"
+      >
+        2,482 reviewed UniProtKB entries
+      </a>
+    </li>
+    <li>
+      <a
+        href="/uniprotkb?facets=reviewed:false&query=(keyword:KW-0021)"
+      >
+        139,810 unreviewed UniProtKB entries
+      </a>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`KeywordsColumnConfiguration component should render column "synonyms": synonyms 1`] = `<DocumentFragment />`;

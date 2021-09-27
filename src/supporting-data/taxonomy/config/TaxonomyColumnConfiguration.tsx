@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ExpandableList, ExternalLink } from 'franklin-sites';
 
 import { getEntryPathFor } from '../../../app/config/urls';
+import { mapToLinks } from '../../../shared/components/MapTo';
 
 import { Lineage, TaxonomyAPIModel } from '../adapters/taxonomyConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
@@ -151,6 +152,38 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.synonyms, {
       {synonyms}
     </ExpandableList>
   ),
+});
+
+TaxonomyColumnConfiguration.set(TaxonomyColumn.statistics, {
+  label: 'Statistics',
+  render: ({ taxonId, statistics }) => (
+    <ExpandableList>
+      {mapToLinks(Namespace.taxonomy, `${taxonId}`, statistics)?.map(
+        ({ key, link, name }) => (
+          // eslint-disable-next-line uniprot-website/use-config-location
+          <Link key={key} to={link}>
+            {name}
+          </Link>
+        )
+      )}
+    </ExpandableList>
+  ),
+});
+
+TaxonomyColumnConfiguration.set(TaxonomyColumn.reviewed, {
+  label: 'Reviewed',
+  render: ({ taxonId, statistics }) => {
+    const reviewedLink = mapToLinks(
+      Namespace.taxonomy,
+      `${taxonId}`,
+      statistics
+    )?.find(({ key }) => key === 'reviewedProteinCount');
+    if (!reviewedLink) {
+      return null;
+    }
+    // eslint-disable-next-line uniprot-website/use-config-location
+    return <Link to={reviewedLink.link}>{reviewedLink.name}</Link>;
+  },
 });
 
 export default TaxonomyColumnConfiguration;

@@ -24,12 +24,12 @@ const joinUrlForApiTesting = (prefix: string, ...paths: string[]) => {
     proteomes: 31114,
     unisave: 31045,
     // supporting data
-    taxonomy: 9606,
-    keywords: 9606,
-    citations: 9606,
-    diseases: 9606,
-    database: 9606,
-    locations: 9606,
+    taxonomy: 30510,
+    keywords: 30510,
+    citations: 30510,
+    diseases: 30510,
+    database: 30510,
+    locations: 30510,
     // tools
     idmapping: 30361,
     // other
