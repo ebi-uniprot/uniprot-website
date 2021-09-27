@@ -118,10 +118,6 @@ const HomePageHeader = memo(() => {
                     {letter}
                   </span>
                 ))}
-                {/* mess up the keys in order to force new elements to render */}
-                <span key={Math.random()} className="cursor">
-                  |
-                </span>
               </>
             )}
           </span>
