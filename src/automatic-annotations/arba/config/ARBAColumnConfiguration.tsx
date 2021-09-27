@@ -1,6 +1,11 @@
+import { Link } from 'react-router-dom';
+import { ExpandableList } from 'franklin-sites';
+
 import AccessionView from '../../../shared/components/results/AccessionView';
 import TaxonomicScope from '../../shared/column-renderers/TaxonomicScope';
 import AnnotationCovered from '../../shared/column-renderers/AnnotationCovered';
+
+import { mapToLinks } from '../../../shared/components/MapTo';
 
 import { ARBAAPIModel } from '../adapters/arbaConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
@@ -8,9 +13,10 @@ import { Namespace } from '../../../shared/types/namespaces';
 
 export enum ARBAColumn {
   ruleId = 'rule_id',
-  // statistics = 'statistics',
   taxonomicScope = 'taxonomic_scope',
   annotationCovered = 'annotation_covered',
+  // NOTE: once the backend is fixed, this will be available https://www.ebi.ac.uk/panda/jira/browse/TRM-26560
+  statistics = 'statistics',
 }
 
 export const defaultColumns = [
@@ -34,11 +40,6 @@ ARBAColumnConfiguration.set(ARBAColumn.ruleId, {
     uniRuleId && <AccessionView id={uniRuleId} namespace={Namespace.arba} />,
 });
 
-// ARBAColumnConfiguration.set(ARBAColumn.statistics, {
-//   label: 'Statistics',
-//   render: () => null,
-// });
-
 ARBAColumnConfiguration.set(ARBAColumn.taxonomicScope, {
   label: 'Taxonomic scope',
   render: TaxonomicScope,
@@ -47,6 +48,22 @@ ARBAColumnConfiguration.set(ARBAColumn.taxonomicScope, {
 ARBAColumnConfiguration.set(ARBAColumn.annotationCovered, {
   label: 'Annotation covered',
   render: AnnotationCovered,
+});
+
+ARBAColumnConfiguration.set(ARBAColumn.statistics, {
+  label: 'Proteins annotated',
+  render: ({ uniRuleId, statistics }) => (
+    <ExpandableList>
+      {mapToLinks(Namespace.unirule, uniRuleId, statistics)?.map(
+        ({ key, link, name }) => (
+          // eslint-disable-next-line uniprot-website/use-config-location
+          <Link key={key} to={link}>
+            {name}
+          </Link>
+        )
+      )}
+    </ExpandableList>
+  ),
 });
 
 export default ARBAColumnConfiguration;

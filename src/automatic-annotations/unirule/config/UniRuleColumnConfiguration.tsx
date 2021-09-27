@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { ExpandableList } from 'franklin-sites';
 
 import AccessionView from '../../../shared/components/results/AccessionView';
@@ -5,17 +6,20 @@ import TaxonomicScope from '../../shared/column-renderers/TaxonomicScope';
 import AnnotationCovered from '../../shared/column-renderers/AnnotationCovered';
 import CSVView from '../../../uniprotkb/components/protein-data-views/CSVView';
 
+import { mapToLinks } from '../../../shared/components/MapTo';
+
 import { UniRuleAPIModel } from '../adapters/uniRuleConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 import { Namespace } from '../../../shared/types/namespaces';
 
 export enum UniRuleColumn {
   ruleId = 'rule_id',
-  // statistics = 'statistics',
   taxonomicScope = 'taxonomic_scope',
   annotationCovered = 'annotation_covered',
   predictedProteinName = 'predicted_protein_name',
   templateEntries = 'template_entries',
+  // NOTE: once the backend is fixed, this will be available https://www.ebi.ac.uk/panda/jira/browse/TRM-26560
+  statistics = 'statistics',
 }
 
 export const defaultColumns = [
@@ -40,11 +44,6 @@ UniRuleColumnConfiguration.set(UniRuleColumn.ruleId, {
   render: ({ uniRuleId }) =>
     uniRuleId && <AccessionView id={uniRuleId} namespace={Namespace.unirule} />,
 });
-
-// UniRuleColumnConfiguration.set(UniRuleColumn.statistics, {
-//   label: 'Statistics',
-//   render: () => null,
-// });
 
 UniRuleColumnConfiguration.set(UniRuleColumn.taxonomicScope, {
   label: 'Taxonomic scope',
@@ -84,6 +83,24 @@ UniRuleColumnConfiguration.set(UniRuleColumn.templateEntries, {
           id={accession}
           namespace={Namespace.uniprotkb}
         />
+      ))}
+    </ExpandableList>
+  ),
+});
+
+UniRuleColumnConfiguration.set(UniRuleColumn.statistics, {
+  label: 'Proteins annotated',
+  render: ({ uniRuleId, information, statistics }) => (
+    <ExpandableList>
+      {mapToLinks(
+        Namespace.unirule,
+        information?.oldRuleNum || uniRuleId,
+        statistics
+      )?.map(({ key, link, name }) => (
+        // eslint-disable-next-line uniprot-website/use-config-location
+        <Link key={key} to={link}>
+          {name}
+        </Link>
       ))}
     </ExpandableList>
   ),
