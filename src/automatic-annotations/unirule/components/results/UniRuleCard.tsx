@@ -20,8 +20,13 @@ const UniRuleCard = ({ data, selected, handleEntrySelection }: Props) => {
   const id = getIdKey(data);
 
   const links = useMemo(
-    () => mapToLinks(Namespace.unirule, data.uniRuleId, data.statistics),
-    [data.uniRuleId, data.statistics]
+    () =>
+      mapToLinks(
+        Namespace.unirule,
+        data.information.oldRuleNum || data.uniRuleId,
+        data.statistics
+      ),
+    [data]
   );
 
   return (

@@ -33,13 +33,13 @@ exports[`UniRuleCard tests should render the card component 1`] = `
     >
       <a
         class="card-action"
-        href="/uniprotkb?query=(source:UR000048432)"
+        href="/uniprotkb?query=(source:RU241113)"
       >
         1,296 UniProtKB entries
       </a>
       <a
         class="card-action"
-        href="/uniprotkb?facets=reviewed:false&query=(source:UR000048432)"
+        href="/uniprotkb?facets=reviewed:false&query=(source:RU241113)"
       >
         1,296 unreviewed UniProtKB entries
       </a>

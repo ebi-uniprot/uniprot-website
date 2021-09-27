@@ -51,7 +51,7 @@ const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
         <div className="button-group">
           <MapToDropdown
             statistics={data.statistics}
-            accession={data.uniRuleId}
+            accession={data.information.oldRuleNum || data.uniRuleId}
           />
         </div>
         <TemplateEntries entries={data.information.uniProtAccessions} />

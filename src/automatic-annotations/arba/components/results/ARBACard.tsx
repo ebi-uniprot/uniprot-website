@@ -21,7 +21,7 @@ const ARBACard = ({ data, selected, handleEntrySelection }: Props) => {
 
   const links = useMemo(
     () => mapToLinks(Namespace.arba, data.uniRuleId, data.statistics),
-    [data.uniRuleId, data.statistics]
+    [data]
   );
 
   return (
