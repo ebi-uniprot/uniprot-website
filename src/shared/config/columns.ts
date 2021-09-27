@@ -187,22 +187,3 @@ export const nsToPrimaryKeyColumns = (
       return [];
   }
 };
-
-export const nsToColumnConfig: Record<
-  Namespace,
-  ColumnConfiguration<Column>
-> = {
-  [Namespace.uniprotkb]: UniProtKBColumnConfiguration,
-  [Namespace.uniref]: UniRefColumnConfiguration,
-  [Namespace.uniparc]: UniParcColumnConfiguration,
-  [Namespace.proteomes]: ProteomesColumnConfiguration,
-  [Namespace.taxonomy]: TaxonomyColumnConfiguration,
-  [Namespace.keywords]: KeywordsColumnConfiguration,
-  [Namespace.citations]: CitationsColumnConfiguration,
-  [Namespace.diseases]: DiseasesColumnConfiguration,
-  [Namespace.database]: DatabaseColumnConfiguration,
-  [Namespace.locations]: LocationsColumnConfiguration,
-  [Namespace.unirule]: UniRuleColumnConfiguration,
-  [Namespace.arba]: ARBAColumnConfiguration,
-  [Namespace.idmapping]: IdMappingColumnConfiguration,
-};

@@ -8,20 +8,11 @@ import ColumnSelectDragDrop from './ColumnSelectDragDrop';
 import useDataApi from '../../hooks/useDataApi';
 
 import apiUrls from '../../config/apiUrls';
-import {
-  Column,
-  nsToPrimaryKeyColumns,
-  nsToColumnConfig,
-} from '../../config/columns';
+import { Column, nsToPrimaryKeyColumns } from '../../config/columns';
 
 import { moveItemInList, removeItemFromList } from '../../utils/utils';
-import {
-  getFieldDataForColumns,
-  getTabTitle,
-  prepareFieldData,
-  prepareFieldDataFromColumnConfig,
-} from './utils';
-import { mainNamespaces, Namespace } from '../../types/namespaces';
+import { getFieldDataForColumns, getTabTitle, prepareFieldData } from './utils';
+import { Namespace } from '../../types/namespaces';
 
 import {
   ReceivedFieldData,
