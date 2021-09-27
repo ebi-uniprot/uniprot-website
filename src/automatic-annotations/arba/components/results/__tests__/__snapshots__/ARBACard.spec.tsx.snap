@@ -35,13 +35,13 @@ exports[`ARBACard tests should render the card component 1`] = `
         class="card-action"
         href="/uniprotkb?query=(source:ARBA00013665)"
       >
-        609 UniProtKB entries
+        608 UniProtKB entries
       </a>
       <a
         class="card-action"
         href="/uniprotkb?facets=reviewed:false&query=(source:ARBA00013665)"
       >
-        609 unreviewed UniProtKB entries
+        608 unreviewed UniProtKB entries
       </a>
     </div>
   </section>

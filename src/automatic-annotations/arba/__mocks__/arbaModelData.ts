@@ -5,7 +5,6 @@ const mock: ARBAAPIModel[] = [
   {
     uniRuleId: 'ARBA00013665',
     information: { version: '0' },
-    ruleStatus: 'APPLY',
     mainRule: {
       conditionSets: [
         {
@@ -41,16 +40,13 @@ const mock: ARBAAPIModel[] = [
         },
       ],
     },
-    proteinsAnnotatedCount: 609,
-    createdBy: 'ARBA',
-    modifiedBy: 'ARBA',
+    statistics: { reviewedProteinCount: 0, unreviewedProteinCount: 608 },
     createdDate: '2020-05-12',
     modifiedDate: '2020-05-12',
   },
   {
     uniRuleId: 'ARBA00013675',
     information: { version: '0' },
-    ruleStatus: 'APPLY',
     mainRule: {
       conditionSets: [
         {
@@ -86,9 +82,7 @@ const mock: ARBAAPIModel[] = [
         },
       ],
     },
-    proteinsAnnotatedCount: 609,
-    createdBy: 'ARBA',
-    modifiedBy: 'ARBA',
+    statistics: { reviewedProteinCount: 0, unreviewedProteinCount: 613 },
     createdDate: '2020-05-12',
     modifiedDate: '2020-05-12',
   },
