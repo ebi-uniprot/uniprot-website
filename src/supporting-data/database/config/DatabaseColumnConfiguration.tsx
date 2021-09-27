@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ExternalLink, CodeBlock } from 'franklin-sites';
+import { ExternalLink, CodeBlock, ExpandableList } from 'franklin-sites';
 
 import AccessionView from '../../../shared/components/results/AccessionView';
 
@@ -9,6 +9,7 @@ import {
   getLocationObjForParams,
   getParamsFromURL,
 } from '../../../uniprotkb/utils/resultsUtils';
+import { mapToLinks } from '../../../shared/components/MapTo';
 
 import { DatabaseAPIModel } from '../adapters/databaseConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
@@ -26,6 +27,11 @@ export enum DatabaseColumn {
   pubmedId = 'pubmed_id',
   // URL of the home page of the database
   server = 'server',
+  // TODO: remove this once the backend is fixed https://www.ebi.ac.uk/panda/jira/browse/TRM-26601
+  reviewedProteinCount = 'reviewed_protein_count',
+  // TODO: remove this once the backend is fixed https://www.ebi.ac.uk/panda/jira/browse/TRM-26601
+  unreviewedProteinCount = 'unreviewed_protein_count',
+  // NOTE: once the backend is fixed, this will be available https://www.ebi.ac.uk/panda/jira/browse/TRM-26601
   statistics = 'statistics',
 }
 
@@ -113,6 +119,22 @@ DatabaseColumnConfiguration.set(DatabaseColumn.pubmedId, {
 DatabaseColumnConfiguration.set(DatabaseColumn.server, {
   label: 'Server',
   render: ({ server }) => server && <ExternalLink url={server} tidyUrl />,
+});
+
+DatabaseColumnConfiguration.set(DatabaseColumn.statistics, {
+  label: 'Statistics',
+  render: ({ id, statistics }) => (
+    <ExpandableList>
+      {mapToLinks(Namespace.database, id, statistics)?.map(
+        ({ key, link, name }) => (
+          // eslint-disable-next-line uniprot-website/use-config-location
+          <Link key={key} to={link}>
+            {name}
+          </Link>
+        )
+      )}
+    </ExpandableList>
+  ),
 });
 
 export default DatabaseColumnConfiguration;

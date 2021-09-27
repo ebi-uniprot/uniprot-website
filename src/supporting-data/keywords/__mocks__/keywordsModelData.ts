@@ -18,7 +18,7 @@ const mock: KeywordsAPIModel[] = [
           'Keywords assigned to proteins due to their particular molecular function.',
       },
     ],
-    statistics: { reviewedProteinCount: 2480, unreviewedProteinCount: 136191 },
+    statistics: { reviewedProteinCount: 2482, unreviewedProteinCount: 139810 },
   },
   {
     keyword: { name: 'Calcium/phospholipid-binding', id: 'KW-0111' },
@@ -46,7 +46,7 @@ const mock: KeywordsAPIModel[] = [
         ],
       },
     ],
-    statistics: { reviewedProteinCount: 102, unreviewedProteinCount: 11537 },
+    statistics: { reviewedProteinCount: 102, unreviewedProteinCount: 14480 },
   },
 ];
 

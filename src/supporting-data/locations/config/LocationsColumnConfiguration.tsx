@@ -5,6 +5,7 @@ import AccessionView from '../../../shared/components/results/AccessionView';
 
 import { getEntryPathFor } from '../../../app/config/urls';
 import externalUrls from '../../../shared/config/externalUrls';
+import { mapToLinks } from '../../../shared/components/MapTo';
 
 import { LocationsAPIModel } from '../adapters/locationsConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
@@ -151,6 +152,22 @@ LocationsColumnConfiguration.set(LocationsColumn.synonyms, {
   render: ({ synonyms }) => (
     <ExpandableList descriptionString="synonyms" displayNumberOfHiddenItems>
       {synonyms}
+    </ExpandableList>
+  ),
+});
+
+LocationsColumnConfiguration.set(LocationsColumn.statistics, {
+  label: 'Statistics',
+  render: ({ id, statistics }) => (
+    <ExpandableList>
+      {mapToLinks(Namespace.locations, id, statistics)?.map(
+        ({ key, link, name }) => (
+          // eslint-disable-next-line uniprot-website/use-config-location
+          <Link key={key} to={link}>
+            {name}
+          </Link>
+        )
+      )}
     </ExpandableList>
   ),
 });

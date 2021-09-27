@@ -83,23 +83,16 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
   );
 
   const { loading, data, progress } = useDataApi<ReceivedFieldData>(
-    // TODO: simplify when supporting data configure endpoints are stable
-    namespace && mainNamespaces.has(namespace)
-      ? apiUrls.resultsFields(namespace, isEntryPage)
-      : null
+    apiUrls
+      .resultsFields(namespace, isEntryPage)
+      // TODO: remove this when the backend is fixed https://www.ebi.ac.uk/panda/jira/browse/TRM-26571
+      .replace('/keywords/', '/keyword/')
   );
 
   // Exclude the primaryKeyColumns in the tabs as users can't toggle selection
   const fieldData = useMemo(
-    () =>
-      // TODO: simplify when supporting data configure endpoints are stable
-      mainNamespaces.has(namespace)
-        ? prepareFieldData(data, primaryKeyColumns)
-        : prepareFieldDataFromColumnConfig(
-            nsToColumnConfig[namespace],
-            primaryKeyColumns
-          ),
-    [namespace, data, primaryKeyColumns]
+    () => prepareFieldData(data, primaryKeyColumns),
+    [data, primaryKeyColumns]
   );
 
   if (loading) {
