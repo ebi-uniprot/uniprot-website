@@ -33,15 +33,9 @@ export type ProcessedFeature = {
   locations?: { fragments: Fragment[] }[];
 };
 
-export type TableConfig<FeatureType> = {
-  columnLabel: string; // Note: if change to ReactNode, need extra "id" field.
-  columnRenderer: (feature: FeatureType) => React.ReactNode;
-  hasFilter?: boolean;
-}[];
-
 type FeatureProps<T> = {
   features: T[];
-  tableConfig: TableConfig<T>;
+  table: JSX.Element;
   trackHeight?: number;
   sequence?: string;
 };
@@ -52,7 +46,7 @@ const FeaturesView = <
 >(
   props: FeatureProps<T>
 ) => {
-  const { sequence, features, tableConfig, trackHeight } = props;
+  const { sequence, features, table, trackHeight } = props;
   const navigationDefined = useCustomElement(
     /* istanbul ignore next */
     () =>
@@ -136,40 +130,7 @@ const FeaturesView = <
             />
           </>
         )}
-        <>
-          <protvista-datatable filter-scroll>
-            <table>
-              <thead>
-                <tr>
-                  {tableConfig.map(({ columnLabel }) => (
-                    <th key={columnLabel}>{columnLabel}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {features.map((feature) => (
-                  <tr key={feature.protvistaFeatureId}>
-                    {tableConfig.map(({ columnLabel, columnRenderer }) => (
-                      <td key={columnLabel}>{columnRenderer(feature)}</td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </protvista-datatable>
-          {/* <div
-            className={`evidence-tag-content ${
-              showEvidenceTagData && 'evidence-tag-content--visible'
-            }`}
-          >
-            {selectedEvidenceData && selectedReferences && (
-              <UniProtEvidenceTagContent
-                evidenceData={selectedEvidenceData}
-                evidences={selectedReferences}
-              />
-            )}
-          </div> */}
-        </>
+        <protvista-datatable filter-scroll>{table}</protvista-datatable>
       </protvista-manager>
     </>
   );
