@@ -1,10 +1,11 @@
 import { Fragment, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { Accordion, ExternalLink, Message } from 'franklin-sites';
+import { Card, ExternalLink, Message } from 'franklin-sites';
 
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import AccessionView from '../../../shared/components/results/AccessionView';
 import CSVView from '../../../uniprotkb/components/protein-data-views/CSVView';
+import CatalyticActivityView from '../../../uniprotkb/components/protein-data-views/CatalyticActivityView';
 
 import listFormat from '../../../shared/utils/listFormat';
 import { pluralise } from '../../../shared/utils/utils';
@@ -22,6 +23,7 @@ import {
   ConditionSet,
 } from '../model';
 import { Namespace } from '../../../shared/types/namespaces';
+import { CatalyticActivityComment } from '../../../uniprotkb/types/commentTypes';
 
 import helper from '../../../shared/styles/helper.module.scss';
 import styles from './styles/conditions-annotations.module.scss';
@@ -29,13 +31,19 @@ import styles from './styles/conditions-annotations.module.scss';
 // Across values within a condition: OR
 const SingleCondition = ({ condition }: { condition: Condition }) => {
   if (condition.type === 'fragment') {
-    return <>the sequence is fragmented</>;
+    return (
+      <>
+        is <strong>{condition.isNegative ? 'not ' : ''}fragmented</strong>
+      </>
+    );
   }
   // Sequence length
   if (condition.type === 'sequence length') {
     return (
       <>
-        sequence length: {condition.range?.start?.value}
+        <strong>{condition.isNegative ? 'does not have' : 'has'}</strong>{' '}
+        length:
+        {condition.range?.start?.value}
         {condition.range?.start?.value !== undefined &&
           condition.range?.end?.value !== undefined &&
           '-'}
@@ -47,6 +55,9 @@ const SingleCondition = ({ condition }: { condition: Condition }) => {
   if (condition.type === 'taxon') {
     return (
       <>
+        <strong>
+          {condition.isNegative ? 'is not found in' : 'is found in'}
+        </strong>{' '}
         taxon:{' '}
         {condition.conditionValues?.map(({ cvId, value }, index, array) => {
           let output: ReactNode = value;
@@ -70,8 +81,8 @@ const SingleCondition = ({ condition }: { condition: Condition }) => {
     const signatureDB = condition.type.replace(' id', '');
     return (
       <>
-        matches {signatureDB}{' '}
-        {pluralise('signature', condition.conditionValues?.length || 0)}:{' '}
+        <strong>{condition.isNegative ? 'does not match' : 'matches'}</strong>{' '}
+        {signatureDB} signature:{' '}
         {condition.conditionValues?.map(({ value }, index, array) => {
           if (!value) {
             return null;
@@ -101,33 +112,38 @@ const ConditionsComponent = ({
   conditionSets?: ConditionSet[];
   extra?: boolean;
 }) => (
-  <div>
+  <div className={styles.conditions}>
     {conditionSets?.map(({ conditions }, index) => {
       if (!conditions?.length) {
         return null;
       }
-      let intro: string;
+      const intro: ReactNode[] = [];
       if (index === 0) {
         // Start of the sentence, option 1
         if (extra) {
-          intro =
-            "Additionally to this rule's common conditions at the top, if";
+          intro.push(
+            <Fragment key="extra">
+              <strong>Additionally</strong>
+              {" to this rule's common conditions at the top, "}
+              <strong>if</strong>
+            </Fragment>
+          );
         } else {
           // Start of the sentence, option 2
-          intro = 'If';
+          intro.push(<strong key="main">If</strong>);
         }
       } else {
         // Start of the sentence, option 3
-        intro = 'Or, if';
+        intro.push(<strong key="complex">Or, if</strong>);
       }
       // Common bit of the sentence
-      intro += ' a protein meets ';
+      intro.push(' a protein meets ');
       if (conditions.length === 1) {
         // End of the sentence, option 1
-        intro += 'the following condition:';
+        intro.push('the following condition:');
       } else {
         // End of the sentence, option 2
-        intro += `all of the following ${conditions.length} conditions:`;
+        intro.push('all of the following conditions:');
       }
       return (
         // eslint-disable-next-line react/no-array-index-key
@@ -137,11 +153,7 @@ const ConditionsComponent = ({
             {conditions.map((condition, index, { length }) => (
               // eslint-disable-next-line react/no-array-index-key
               <li key={index}>
-                <span className={helper.italic}>
-                  {index !== 0 && 'and'}
-                  {condition.isNegative && ' not'}
-                  {index !== 0 && ', '}
-                </span>
+                <span className={helper.italic}>{index !== 0 && 'and, '}</span>
                 <SingleCondition condition={condition} />
                 {index + 1 < length ? ';' : '.'}
               </li>
@@ -153,57 +165,154 @@ const ConditionsComponent = ({
   </div>
 );
 
-const SingleAnnotation = ({ annotation }: { annotation: Annotation }) => {
+const GroupedAnnotation = ({
+  type,
+  annotations,
+}: {
+  type: string;
+  annotations: Annotation[];
+}) => {
   // Keyword
-  if (annotation.keyword?.id) {
+  if (type === 'keyword') {
     return (
       <>
-        keyword:{' '}
-        <Link to={getEntryPath(Namespace.keywords, annotation.keyword.id)}>
-          {annotation.keyword.name}
-        </Link>
+        {annotations.map(
+          (annotation, index, array) =>
+            annotation.keyword?.id && (
+              <Fragment key={annotation.keyword.id}>
+                {listFormat(index, array)}
+                <Link
+                  to={getEntryPath(Namespace.keywords, annotation.keyword.id)}
+                >
+                  {annotation.keyword.name}
+                </Link>
+              </Fragment>
+            )
+        )}
       </>
     );
   }
-  if (annotation.dbReference?.database === 'GO' && annotation.dbReference.id) {
+  if (type === 'GO (Gene Ontology) term') {
     return (
       <>
-        GO term:{' '}
-        <ExternalLink url={externalUrls.QuickGO(annotation.dbReference.id)}>
-          {annotation.dbReference.id}
-        </ExternalLink>
+        {annotations.map(
+          (annotation, index, array) =>
+            annotation.dbReference?.id && (
+              <Fragment key={annotation.dbReference.id}>
+                {listFormat(index, array)}
+                <ExternalLink
+                  url={externalUrls.QuickGO(annotation.dbReference.id)}
+                >
+                  {annotation.dbReference.id}
+                </ExternalLink>
+              </Fragment>
+            )
+        )}
       </>
     );
   }
-  if (annotation.proteinDescription) {
+  if (type === 'protein name') {
     return (
-      <>
-        protein names:{' '}
-        <CSVView
-          data={annotation.proteinDescription}
-          bolderFirst={Boolean(annotation.proteinDescription.recommendedName)}
-        />
-      </>
+      <ul>
+        {annotations.map((annotation, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <li key={index}>
+            <CSVView
+              data={annotation.proteinDescription}
+              bolderFirst={Boolean(
+                annotation.proteinDescription?.recommendedName
+              )}
+            />
+          </li>
+        ))}
+      </ul>
     );
   }
-  if (annotation.gene) {
+  if (type === 'gene name') {
     return (
-      <>
-        gene names: <CSVView data={annotation.gene} />
-      </>
+      <ul>
+        {annotations.map((annotation, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <li key={index}>
+            <CSVView data={annotation.gene} />
+          </li>
+        ))}
+      </ul>
     );
   }
-  if (annotation.comment) {
+  if (type === 'subcellular location') {
+    const locations = annotations.flatMap(
+      (annotation) => annotation.comment?.subcellularLocations
+    );
+    // NOTE: missing accessions in data here to generate links
     return (
-      <>
-        {annotation.comment.commentType}:{' '}
-        {annotation.comment.texts?.map((text) => text.value).join('. ')}
-      </>
+      <ul>
+        {locations.map(
+          (location) =>
+            location?.location?.value && (
+              <Fragment key={location.location.value}>
+                <li>{location.location.value}</li>
+                {location.topology?.value && <li>{location.topology.value}</li>}
+              </Fragment>
+            )
+        )}
+      </ul>
     );
   }
-  // in case we're missing a case
-  console.warn(annotation); // eslint-disable-line no-console
-  return <>{JSON.stringify(annotation, null, 2)}</>;
+  if (type === 'catalytic activity') {
+    return (
+      <CatalyticActivityView
+        comments={annotations.map(
+          (annotation) => annotation.comment as CatalyticActivityComment
+        )}
+        defaultHideAllReactions
+      />
+    );
+  }
+  // last case, free text comments
+  return (
+    <ul>
+      {annotations.map(
+        (annotation, index) =>
+          annotation.comment && (
+            // eslint-disable-next-line react/no-array-index-key
+            <li key={index}>
+              {annotation.comment.texts?.map((text) => text.value).join('. ')}
+            </li>
+          )
+      )}
+    </ul>
+  );
+};
+
+// See similar logic in AnnotationCovered.tsx common column renderer
+const groupAnnotations = (annotations: Annotation[]) => {
+  const map = new Map<string, Annotation[]>();
+
+  for (const annotation of annotations) {
+    let type: string | undefined;
+    if ('keyword' in annotation) {
+      type = 'keyword';
+    } else if ('proteinDescription' in annotation) {
+      type = 'protein name';
+    } else if ('gene' in annotation) {
+      type = 'gene name';
+    } else if (annotation.comment?.commentType) {
+      type = annotation.comment?.commentType.toLowerCase();
+    } else if (annotation.dbReference?.database === 'GO') {
+      type = 'GO (Gene Ontology) term';
+    } else {
+      // in case we're missing a case
+      console.warn(annotation); // eslint-disable-line no-console
+    }
+    if (type) {
+      const annotations = map.get(type) || [];
+      annotations.push(annotation);
+      map.set(type, annotations);
+    }
+  }
+
+  return map;
 };
 
 const AnnotationsComponent = ({
@@ -220,60 +329,76 @@ const AnnotationsComponent = ({
       </div>
     );
   }
+  const intro: ReactNode[] = [
+    <Fragment key="common">
+      <strong>Then</strong>,{' '}
+    </Fragment>,
+  ];
+  if (extra) {
+    intro.push(
+      <Fragment key="extra">
+        <strong>additionally</strong>
+        {" to this rule's common annotations above, "}
+      </Fragment>
+    );
+  }
+  if (annotations.length === 1) {
+    intro.push('this annotation is applied:');
+  } else {
+    intro.push('all these annotations are applied:');
+  }
+  const groupedAnnotationsTuples = Array.from(
+    groupAnnotations(annotations).entries()
+  );
   return (
     <div className={styles.annotations}>
-      <p>
-        Then
-        {extra
-          ? ", additionally to this rule's common annotations above, "
-          : ' '}
-        th
-        {annotations.length === 1
-          ? 'is annotation is applied'
-          : `ese ${annotations.length} annotations are applied`}
-        :
-      </p>
-      <ul>
-        {annotations.map((annotation, index, { length }) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <li key={index}>
-            <span className={helper.italic}>{index !== 0 && 'and, '}</span>
-            <SingleAnnotation annotation={annotation} />
-            {index + 1 < length ? ';' : '.'}
-          </li>
-        ))}
-      </ul>
+      <p>{intro}</p>
+      {groupedAnnotationsTuples.map(([type, annotations]) => (
+        <Fragment key={type}>
+          <h3 className="small">{type}:</h3>
+          <GroupedAnnotation type={type} annotations={annotations} />
+        </Fragment>
+      ))}
     </div>
   );
 };
-const SingleException = ({ exception }: { exception: RuleException }) => (
-  <>
-    {exception.category}.<br />
-    {exception.annotation && (
-      <>
-        <SingleAnnotation annotation={exception.annotation} />.
-        <br />
-      </>
-    )}
-    {exception.accessions?.length ? (
-      <>
-        This applies to the following{' '}
-        {exception.accessions.length === 1
-          ? ''
-          : `${exception.accessions.length} `}
-        {pluralise('entry', exception.accessions.length, 'entries')}:{' '}
-        {exception.accessions.map((accession, index, array) => (
-          <Fragment key={accession}>
-            {listFormat(index, array)}
-            <AccessionView id={accession} namespace={Namespace.uniprotkb} />
-          </Fragment>
-        ))}
-        .<br />
-      </>
-    ) : null}
-    {exception.note}
-  </>
-);
+const SingleException = ({ exception }: { exception: RuleException }) => {
+  const groupedAnnotationsTuple =
+    exception?.annotation &&
+    Array.from(groupAnnotations([exception.annotation]));
+  return (
+    <>
+      {exception.category}.<br />
+      {groupedAnnotationsTuple && (
+        <>
+          <GroupedAnnotation
+            type={groupedAnnotationsTuple[0][0]}
+            annotations={groupedAnnotationsTuple[0][1]}
+          />
+          .
+          <br />
+        </>
+      )}
+      {exception.accessions?.length ? (
+        <>
+          This applies to the following{' '}
+          {exception.accessions.length === 1
+            ? ''
+            : `${exception.accessions.length} `}
+          {pluralise('entry', exception.accessions.length, 'entries')}:{' '}
+          {exception.accessions.map((accession, index, array) => (
+            <Fragment key={accession}>
+              {listFormat(index, array)}
+              <AccessionView id={accession} namespace={Namespace.uniprotkb} />
+            </Fragment>
+          ))}
+          .<br />
+        </>
+      ) : null}
+      {exception.note}
+    </>
+  );
+};
 
 const ExceptionsComponent = ({
   exceptions,
@@ -283,20 +408,13 @@ const ExceptionsComponent = ({
   if (!exceptions?.length) {
     return null;
   }
-  const total = exceptions.reduce(
-    (sum, exception) => sum + (exception.accessions?.length || 0),
-    0
-  );
   return (
     <Message level="warning" className={styles.exceptions}>
       <p>
         Please note th
-        {total === 1
+        {exceptions.length === 1 && exceptions[0].accessions?.length === 1
           ? 'is exception'
-          : `ese ${total} exceptions across ${exceptions.length} ${pluralise(
-              'group',
-              exceptions.length
-            )}`}
+          : `ese exceptions`}
         :
       </p>
       <ul>
@@ -320,6 +438,7 @@ const RuleComponent = ({
 }) => (
   <div className={styles.rule}>
     <ConditionsComponent conditionSets={rule.conditionSets} extra={extra} />
+    <div className={styles.arrow}>➡️</div>
     <AnnotationsComponent annotations={rule.annotations} extra={extra} />
     <ExceptionsComponent exceptions={rule.ruleExceptions} />
   </div>
@@ -331,40 +450,40 @@ const ConditionsAnnotations = ({
   data: UniRuleAPIModel | ARBAAPIModel;
 }) => (
   <>
-    <Accordion
-      title={<h2 className="medium">Common conditions &amp; annotations</h2>}
+    <Card
+      header={<h2 className="medium">Common conditions &amp; annotations</h2>}
     >
       <RuleComponent rule={data.mainRule} />
-    </Accordion>
+    </Card>
     {data.otherRules?.map((otherRule, index) => (
-      <Accordion
+      <Card
         // eslint-disable-next-line react/no-array-index-key
         key={index}
-        title={
+        header={
           <h2 className="medium">{`Special condition set #${index + 1}`}</h2>
         }
       >
         <RuleComponent rule={otherRule} extra />
-      </Accordion>
+      </Card>
     ))}
     {data.positionFeatureSets?.map((positionalFeatureSet, index) => (
-      <Accordion
+      <Card
         // eslint-disable-next-line react/no-array-index-key
         key={index}
-        title={
+        header={
           <h2 className="medium">{`Special condition set #${
             (data.otherRules?.length || 0) + index + 1
           } (positional features)`}</h2>
         }
       >
         {JSON.stringify(positionalFeatureSet, null, 2)}
-      </Accordion>
+      </Card>
     ))}
     {data.samFeatureSets?.map((samFeatureSet, index) => (
-      <Accordion
+      <Card
         // eslint-disable-next-line react/no-array-index-key
         key={index}
-        title={
+        header={
           <h2 className="medium">{`Special condition set #${
             (data.otherRules?.length || 0) +
             (data.positionFeatureSets?.length || 0) +
@@ -374,7 +493,7 @@ const ConditionsAnnotations = ({
         }
       >
         {JSON.stringify(samFeatureSet, null, 2)}
-      </Accordion>
+      </Card>
     ))}
   </>
 );

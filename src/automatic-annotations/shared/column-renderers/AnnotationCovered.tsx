@@ -8,6 +8,7 @@ const AnnotationCovered = ({
 }: Partial<UniRuleAPIModel | ARBAAPIModel>) => {
   const annotations = new Set<string>();
 
+  // See similar logic in ConditionsAnnotations.tsx, groupAnnotations function
   for (const annotation of mainRule?.annotations || []) {
     if ('keyword' in annotation) {
       annotations.add('keyword');
