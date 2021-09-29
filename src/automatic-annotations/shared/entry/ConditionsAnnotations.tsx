@@ -438,7 +438,6 @@ const RuleComponent = ({
 }) => (
   <div className={styles.rule}>
     <ConditionsComponent conditionSets={rule.conditionSets} extra={extra} />
-    <div className={styles.arrow}>➡️</div>
     <AnnotationsComponent annotations={rule.annotations} extra={extra} />
     <ExceptionsComponent exceptions={rule.ruleExceptions} />
   </div>
