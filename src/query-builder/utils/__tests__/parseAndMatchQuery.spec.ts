@@ -17,15 +17,14 @@ describe('query parser and validator', () => {
     expect(invalid).toHaveLength(0);
   });
 
-  test('with xrefs, one invalid', () => {
+  test('with xrefs, two of which are any', () => {
     const [valid, invalid] = parseAndMatchQuery(
-      '(xref:pdb-gluco-fructose) AND (xref:embl-some value) AND (xref:invalid) AND (xref:xyz-value)',
+      '(xref:pdb-gluco-fructose) AND (xref:embl-some value) AND (xref:xyz) AND (xref:xyz-value)',
       searchTermsData
     );
-    expect(valid).toHaveLength(2);
+    expect(valid).toHaveLength(4);
     expect(valid).toMatchSnapshot();
-    expect(invalid).toHaveLength(2);
-    expect(invalid).toMatchSnapshot();
+    expect(invalid).toHaveLength(0);
   });
 
   test('with valid and invalid fields', () => {
