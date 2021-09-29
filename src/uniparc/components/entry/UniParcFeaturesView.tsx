@@ -1,3 +1,4 @@
+import { ExternalLink } from 'franklin-sites';
 import { sortBy } from 'lodash-es';
 import { FC, useMemo } from 'react';
 
@@ -55,43 +56,41 @@ const UniParcFeaturesView: FC<{
         </tr>
       </thead>
       <tbody>
-        {processedData.map((feature) => (
-          <tr key={feature.protvistaFeatureId}>
-            <td>
-              {feature.interproGroupId ? (
-                <a
-                  href={externalUrls.InterProEntry(feature.interproGroupId)}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {feature.interproGroupName}
-                </a>
-              ) : (
-                'N/A'
-              )}
-            </td>
-            <td>{`${feature.start}-${feature.end}`}</td>
-            <td>
-              {/* {
-      const { database, databaseId } = feature;
-      const databaseInfo = databaseToDatabaseInfo[database];
-      if (databaseInfo && databaseId) {
-        return (
-          <a
-            href={processUrlTemplate(databaseInfo.uriLink, { id: databaseId })}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {databaseId}
-          </a>
-        );
-      }
-      return databaseId;
-    } */}
-            </td>
-            <td>{feature.database}</td>
-          </tr>
-        ))}
+        {processedData.map((feature) => {
+          const { database, databaseId } = feature;
+          const databaseInfo = databaseToDatabaseInfo[database];
+
+          return (
+            <tr key={feature.protvistaFeatureId}>
+              <td>
+                {feature.interproGroupId ? (
+                  <a
+                    href={externalUrls.InterProEntry(feature.interproGroupId)}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {feature.interproGroupName}
+                  </a>
+                ) : (
+                  'N/A'
+                )}
+              </td>
+              <td>{`${feature.start}-${feature.end}`}</td>
+              <td>
+                {databaseInfo && databaseId && (
+                  <ExternalLink
+                    url={processUrlTemplate(databaseInfo.uriLink, {
+                      id: databaseId,
+                    })}
+                  >
+                    {databaseId}
+                  </ExternalLink>
+                )}
+              </td>
+              <td>{feature.database}</td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );

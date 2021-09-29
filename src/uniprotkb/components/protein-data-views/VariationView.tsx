@@ -200,7 +200,7 @@ const VariationView: FC<{
                   <div>
                     <strong>Disease association: </strong>
                     {variantFeature.association?.map((association) => (
-                      <p key={association.name}>
+                      <div key={association.name}>
                         {association.name}
                         <UniProtKBEvidenceTag
                           evidences={association.evidences.map((evidence) => ({
@@ -209,7 +209,7 @@ const VariationView: FC<{
                             source: evidence.source.name,
                           }))}
                         />
-                      </p>
+                      </div>
                     ))}
                   </div>
                 </td>
