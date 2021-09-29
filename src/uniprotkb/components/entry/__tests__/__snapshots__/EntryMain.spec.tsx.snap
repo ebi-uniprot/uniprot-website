@@ -1793,7 +1793,103 @@ exports[`Entry view should render 1`] = `
         />
         <protvista-datatable
           filter-scroll="true"
-        />
+        >
+          <table>
+            <thead>
+              <tr>
+                <th>
+                  Type
+                </th>
+                <th>
+                  Entry 1
+                </th>
+                <th>
+                  Entry 2
+                </th>
+                <th>
+                  Number of experiments
+                </th>
+                <th>
+                  Intact
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  XENO
+                </td>
+                <td>
+                  <a
+                    href="/uniprotkb/P21802"
+                  >
+                    gen PROC_12344 P21802
+                  </a>
+                </td>
+                <td>
+                  <a
+                    href="/uniprotkb/P12345-1"
+                  >
+                    gene1 PROC_12347 P12345-1
+                  </a>
+                </td>
+                <td>
+                  3
+                </td>
+                <td>
+                  <a
+                    class="external-link"
+                    href="//www.ebi.ac.uk/intact/query/(EBI-0001 AND EBI-0002)"
+                    rel="noopener"
+                    target="_blank"
+                  >
+                    EBI-0001, EBI-0002
+                    <test-file-stub
+                      data-testid="external-link-icon"
+                      width="12.5"
+                    />
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  XENO
+                </td>
+                <td>
+                  <a
+                    href="/uniprotkb/P12345"
+                  >
+                    gen PROC_12345 P12345
+                  </a>
+                </td>
+                <td>
+                  <a
+                    href="/uniprotkb/P21802"
+                  >
+                    gene1 PROC_123454 P21802
+                  </a>
+                </td>
+                <td>
+                  6
+                </td>
+                <td>
+                  <a
+                    class="external-link"
+                    href="//www.ebi.ac.uk/intact/query/(EBI-00011 AND EBI-00012)"
+                    rel="noopener"
+                    target="_blank"
+                  >
+                    EBI-00011, EBI-00012
+                    <test-file-stub
+                      data-testid="external-link-icon"
+                      width="12.5"
+                    />
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </protvista-datatable>
       </div>
     </div>
   </section>

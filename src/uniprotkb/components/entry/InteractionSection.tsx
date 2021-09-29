@@ -1,6 +1,5 @@
-import { useRef, useEffect } from 'react';
-import { Card, Loader } from 'franklin-sites';
-import { html, TemplateResult } from 'lit-html';
+import { Link } from 'react-router-dom';
+import { Card, ExternalLink, Loader } from 'franklin-sites';
 
 import EntrySection, {
   getEntrySectionNameAndId,
@@ -17,77 +16,10 @@ import {
   getIntActQueryForAccessionUrl,
 } from '../../../shared/config/externalUrls';
 
-import {
-  FreeTextComment,
-  InteractionComment,
-  Interaction,
-} from '../../types/commentTypes';
+import { FreeTextComment, InteractionComment } from '../../types/commentTypes';
 import { UIModel } from '../../adapters/sectionConverter';
-
-const getInteractionColumns = (primaryAccession: string) => ({
-  title: {
-    label: 'Type',
-    resolver: (d: Interaction) => d.type,
-  },
-  entry1: {
-    label: 'Entry 1',
-    resolver: (d: Interaction) =>
-      html`
-        <a href="/uniprotkb/${d.interactantOne.uniProtKBAccession}"
-          >${d.interactantOne.uniProtKBAccession}</a
-        >
-        ${d.interactantOne.geneName} ${d.interactantOne.chainId}
-      `,
-  },
-  entry2: {
-    label: 'Entry 2',
-    resolver: (d: Interaction) =>
-      html`
-        <a href="/uniprotkb/${d.interactantTwo.uniProtKBAccession}"
-          >${d.interactantTwo.uniProtKBAccession}</a
-        >
-        ${d.interactantTwo.geneName} ${d.interactantTwo.chainId}
-      `,
-  },
-  experiments: {
-    label: 'Number of experiments',
-    resolver: (d: Interaction) => d.numberOfExperiments,
-  },
-  intact: {
-    label: 'Intact',
-    resolver: (d: Interaction) =>
-      html`
-        <a
-          href=${d.interactantOne.uniProtKBAccession
-            ? getIntActQueryUrl(
-                d.interactantOne.intActId,
-                d.interactantTwo.intActId
-              )
-            : getIntActQueryForAccessionUrl(primaryAccession)}
-          target="_blank"
-          >${d.interactantOne.intActId}, ${d.interactantTwo.intActId}</a
-        >
-      `,
-  },
-  // NOTES SEEM TO BE MISSING FROM THE RESPONSE
-  // notes: {
-  //   label: 'Notes',
-  //   resolver: (d:Interaction) => d.
-  // }
-});
-
-interface HTMLInteractionDatatable extends HTMLElement {
-  data?: Interaction[];
-  columns?: Record<
-    string,
-    {
-      label: string;
-      resolver: (
-        d: Interaction
-      ) => undefined | string | number | TemplateResult | TemplateResult[];
-    }
-  >;
-}
+import { getEntryPath } from '../../../app/config/urls';
+import { Namespace } from '../../../shared/types/namespaces';
 
 type Props = {
   data: UIModel;
@@ -95,31 +27,16 @@ type Props = {
 };
 
 const InteractionSection = ({ data, primaryAccession }: Props) => {
-  const datatableContainer = useRef<HTMLInteractionDatatable>(null);
+  const interactionComment = data.commentsData.get(
+    'INTERACTION'
+  ) as InteractionComment[];
+
   const datatableDefined = useCustomElement(
     /* istanbul ignore next */
     () =>
       import(/* webpackChunkName: "protvista-track" */ 'protvista-datatable'),
     'protvista-datatable'
   );
-
-  useEffect(() => {
-    const interactionComment = data.commentsData.get(
-      'INTERACTION'
-    ) as InteractionComment[];
-    if (
-      datatableContainer.current &&
-      datatableDefined &&
-      interactionComment &&
-      interactionComment[0]
-    ) {
-      // eslint-disable-next-line no-param-reassign
-      datatableContainer.current.data = interactionComment[0].interactions;
-      // eslint-disable-next-line no-param-reassign
-      datatableContainer.current.columns =
-        getInteractionColumns(primaryAccession);
-    }
-  }, [datatableDefined, data.commentsData, primaryAccession]);
 
   const interactionViewerDefined = useCustomElement(
     /* istanbul ignore next */
@@ -147,7 +64,87 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
     >
       {comments && <FreeTextView comments={comments} title="subunit" />}
       <interaction-viewer accession={primaryAccession} />
-      <protvista-datatable ref={datatableContainer} filter-scroll />
+      <protvista-datatable filter-scroll>
+        <table>
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Entry 1</th>
+              <th>Entry 2</th>
+              <th>Number of experiments</th>
+              <th>Intact</th>
+            </tr>
+          </thead>
+          <tbody>
+            {interactionComment[0].interactions.map((interaction) => (
+              <tr
+                key={`${interaction.interactantOne.intActId}${interaction.interactantTwo.intActId}`}
+              >
+                <td>
+                  {/* NOTE: Add 'SELF' */}
+                  {interaction.organismDiffer ? 'XENO' : 'BINARY'}
+                </td>
+                <td>
+                  {interaction.interactantOne.uniProtKBAccession ? (
+                    <Link
+                      to={getEntryPath(
+                        Namespace.uniprotkb,
+                        interaction.interactantOne.uniProtKBAccession
+                      )}
+                    >
+                      {interaction.interactantOne.geneName}{' '}
+                      {interaction.interactantOne.chainId}{' '}
+                      {interaction.interactantOne.uniProtKBAccession}
+                    </Link>
+                  ) : (
+                    <>
+                      {interaction.interactantOne.geneName}{' '}
+                      {interaction.interactantOne.chainId}{' '}
+                      {interaction.interactantOne.uniProtKBAccession}
+                    </>
+                  )}
+                </td>
+                <td>
+                  {interaction.interactantTwo.uniProtKBAccession ? (
+                    <Link
+                      to={getEntryPath(
+                        Namespace.uniprotkb,
+                        interaction.interactantTwo.uniProtKBAccession
+                      )}
+                    >
+                      {interaction.interactantTwo.geneName}{' '}
+                      {interaction.interactantTwo.chainId}{' '}
+                      {interaction.interactantTwo.uniProtKBAccession}
+                    </Link>
+                  ) : (
+                    <>
+                      {interaction.interactantTwo.geneName}{' '}
+                      {interaction.interactantTwo.chainId}{' '}
+                      {interaction.interactantTwo.uniProtKBAccession}
+                    </>
+                  )}
+                </td>
+                <td>{interaction.numberOfExperiments}</td>
+                <td>
+                  <ExternalLink
+                    url={
+                      interaction.interactantOne.uniProtKBAccession
+                        ? getIntActQueryUrl(
+                            interaction.interactantOne.intActId,
+                            interaction.interactantTwo.intActId
+                          )
+                        : getIntActQueryForAccessionUrl(primaryAccession)
+                    }
+                  >
+                    {interaction.interactantOne.intActId},{' '}
+                    {interaction.interactantTwo.intActId}
+                  </ExternalLink>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </protvista-datatable>
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
     </Card>
   );
