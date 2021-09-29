@@ -156,7 +156,7 @@ const BasketMiniView = ({ closePanel }: { closePanel: () => void }) => {
         title={`UniRef${unirefIds?.size ? ` (${unirefIds.size})` : ''}`}
         className={cn({ [helper.disabled]: !unirefIds?.size })}
         // If the previous doesn't have content, select this one
-        defaultSelected={!uniprotkbIds?.size}
+        defaultSelected={!uniprotkbIds?.size && !!unirefIds?.size}
       >
         {unirefIds?.size ? (
           <BasketMiniViewTab
