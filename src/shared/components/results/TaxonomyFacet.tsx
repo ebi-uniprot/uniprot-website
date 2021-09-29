@@ -80,7 +80,11 @@ const TaxonomyFacet: FC<{ namespace: SearchableNamespace }> = ({
       </ul>
       {displayQueryBuilder && (
         <Suspense fallback={null}>
-          <SlidingPanel position="left" onClose={handleClose}>
+          <SlidingPanel
+            title="Advanced Search"
+            position="left"
+            onClose={handleClose}
+          >
             <ErrorBoundary>
               <QueryBuilder
                 onCancel={handleClose}
