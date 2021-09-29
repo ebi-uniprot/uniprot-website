@@ -99,7 +99,18 @@ const BasketMiniViewTab = ({
         <Button
           variant="secondary"
           onClick={() => {
-            setBasket((basket) => new Map([...basket, [namespace, new Set()]]));
+            setBasket((basket) => {
+              if (selectedEntries.length) {
+                // remove specific entries from basket
+                const nextSet = new Set(basket.get(namespace));
+                for (const entry of selectedEntries) {
+                  nextSet.delete(entry);
+                }
+                return new Map([...basket, [namespace, nextSet]]);
+              }
+              // else, clear whole basket
+              return new Map([...basket, [namespace, new Set()]]);
+            });
           }}
         >
           <BinIcon height="1em" width="1em" />
