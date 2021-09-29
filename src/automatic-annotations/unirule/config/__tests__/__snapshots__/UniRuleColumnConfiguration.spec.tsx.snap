@@ -21,7 +21,7 @@ exports[`UniRuleColumnConfiguration component should render column "annotation_c
       keyword
     </li>
     <li>
-      GO (Gene Ontology) term
+      GO term
     </li>
   </ul>
 </DocumentFragment>

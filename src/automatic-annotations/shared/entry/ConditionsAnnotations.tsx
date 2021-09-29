@@ -1,11 +1,12 @@
 import { Fragment, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, ExternalLink, Message } from 'franklin-sites';
+import { Card, ExternalLink, InfoList, Message } from 'franklin-sites';
 
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import AccessionView from '../../../shared/components/results/AccessionView';
 import CSVView from '../../../uniprotkb/components/protein-data-views/CSVView';
 import CatalyticActivityView from '../../../uniprotkb/components/protein-data-views/CatalyticActivityView';
+import { CofactorView } from '../../../uniprotkb/components/entry/FunctionSection';
 
 import listFormat from '../../../shared/utils/listFormat';
 import { pluralise } from '../../../shared/utils/utils';
@@ -23,7 +24,10 @@ import {
   ConditionSet,
 } from '../model';
 import { Namespace } from '../../../shared/types/namespaces';
-import { CatalyticActivityComment } from '../../../uniprotkb/types/commentTypes';
+import {
+  CatalyticActivityComment,
+  CofactorComment,
+} from '../../../uniprotkb/types/commentTypes';
 
 import helper from '../../../shared/styles/helper.module.scss';
 import styles from './styles/conditions-annotations.module.scss';
@@ -165,55 +169,47 @@ const ConditionsComponent = ({
   </div>
 );
 
-const GroupedAnnotation = ({
-  type,
-  annotations,
-}: {
-  type: string;
-  annotations: Annotation[];
-}) => {
+const groupedAnnotation = (type: string, annotations: Annotation[]) => {
   // Keyword
   if (type === 'keyword') {
     return (
-      <>
+      <ul className="no-bullet">
         {annotations.map(
-          (annotation, index, array) =>
+          (annotation) =>
             annotation.keyword?.id && (
-              <Fragment key={annotation.keyword.id}>
-                {listFormat(index, array)}
+              <li key={annotation.keyword.id}>
                 <Link
                   to={getEntryPath(Namespace.keywords, annotation.keyword.id)}
                 >
                   {annotation.keyword.name}
                 </Link>
-              </Fragment>
+              </li>
             )
         )}
-      </>
+      </ul>
     );
   }
-  if (type === 'GO (Gene Ontology) term') {
+  if (type === 'GO term') {
     return (
-      <>
+      <ul className="no-bullet">
         {annotations.map(
-          (annotation, index, array) =>
+          (annotation) =>
             annotation.dbReference?.id && (
-              <Fragment key={annotation.dbReference.id}>
-                {listFormat(index, array)}
+              <li key={annotation.dbReference.id}>
                 <ExternalLink
                   url={externalUrls.QuickGO(annotation.dbReference.id)}
                 >
                   {annotation.dbReference.id}
                 </ExternalLink>
-              </Fragment>
+              </li>
             )
         )}
-      </>
+      </ul>
     );
   }
   if (type === 'protein name') {
     return (
-      <ul>
+      <ul className="no-bullet">
         {annotations.map((annotation, index) => (
           // eslint-disable-next-line react/no-array-index-key
           <li key={index}>
@@ -230,7 +226,7 @@ const GroupedAnnotation = ({
   }
   if (type === 'gene name') {
     return (
-      <ul>
+      <ul className="no-bullet">
         {annotations.map((annotation, index) => (
           // eslint-disable-next-line react/no-array-index-key
           <li key={index}>
@@ -246,7 +242,7 @@ const GroupedAnnotation = ({
     );
     // NOTE: missing accessions in data here to generate links
     return (
-      <ul>
+      <ul className="no-bullet">
         {locations.map(
           (location) =>
             location?.location?.value && (
@@ -269,24 +265,39 @@ const GroupedAnnotation = ({
       />
     );
   }
-  // last case, free text comments
-  return (
-    <ul>
-      {annotations.map(
-        (annotation, index) =>
-          annotation.comment && (
-            // eslint-disable-next-line react/no-array-index-key
-            <li key={index}>
-              {annotation.comment.texts?.map((text) => text.value).join('. ')}
-            </li>
-          )
-      )}
-    </ul>
-  );
+  if (type === 'cofactor') {
+    return (
+      <CofactorView
+        cofactors={annotations.map(
+          (annotation) => annotation.comment as CofactorComment
+        )}
+      />
+    );
+  }
+  // last case, free text comments, check it contains texts anyway
+  if (annotations[0]?.comment?.texts?.length) {
+    return (
+      <ul className="no-bullet">
+        {annotations.map(
+          (annotation, index) =>
+            annotation.comment && (
+              // eslint-disable-next-line react/no-array-index-key
+              <li key={index}>
+                {annotation.comment.texts?.map((text) => text.value).join('. ')}
+              </li>
+            )
+        )}
+      </ul>
+    );
+  }
+  // If we arrived here, we missed a case
+  // eslint-disable-next-line no-console
+  console.warn(`missed ${type}: `, annotations);
+  return null;
 };
 
 // See similar logic in AnnotationCovered.tsx common column renderer
-const groupAnnotations = (annotations: Annotation[]) => {
+const annotationsToInfoData = (annotations: Annotation[]) => {
   const map = new Map<string, Annotation[]>();
 
   for (const annotation of annotations) {
@@ -300,7 +311,7 @@ const groupAnnotations = (annotations: Annotation[]) => {
     } else if (annotation.comment?.commentType) {
       type = annotation.comment?.commentType.toLowerCase();
     } else if (annotation.dbReference?.database === 'GO') {
-      type = 'GO (Gene Ontology) term';
+      type = 'GO term';
     } else {
       // in case we're missing a case
       console.warn(annotation); // eslint-disable-line no-console
@@ -312,7 +323,10 @@ const groupAnnotations = (annotations: Annotation[]) => {
     }
   }
 
-  return map;
+  return Array.from(map.entries()).map(([type, annotations]) => ({
+    title: type,
+    content: groupedAnnotation(type, annotations),
+  }));
 };
 
 const AnnotationsComponent = ({
@@ -323,81 +337,63 @@ const AnnotationsComponent = ({
   extra?: boolean;
 }) => {
   if (!annotations?.length) {
+    // Might be absurd, but we never know
     return (
       <div className={styles.annotations}>
         No specific annotations for this rule.
       </div>
     );
   }
-  const intro: ReactNode[] = [
-    <Fragment key="common">
-      <strong>Then</strong>,{' '}
-    </Fragment>,
-  ];
-  if (extra) {
-    intro.push(
-      <Fragment key="extra">
-        <strong>additionally</strong>
-        {" to this rule's common annotations above, "}
-      </Fragment>
-    );
-  }
-  if (annotations.length === 1) {
-    intro.push('this annotation is applied:');
-  } else {
-    intro.push('all these annotations are applied:');
-  }
-  const groupedAnnotationsTuples = Array.from(
-    groupAnnotations(annotations).entries()
-  );
   return (
     <div className={styles.annotations}>
-      <p>{intro}</p>
-      {groupedAnnotationsTuples.map(([type, annotations]) => (
+      <InfoList infoData={annotationsToInfoData(annotations)} />
+      {/* {groupedAnnotationsTuples.map(([type, annotations]) => (
         <Fragment key={type}>
           <h3 className="small">{type}:</h3>
           <GroupedAnnotation type={type} annotations={annotations} />
         </Fragment>
-      ))}
+      ))} */}
     </div>
   );
 };
 const SingleException = ({ exception }: { exception: RuleException }) => {
-  const groupedAnnotationsTuple =
-    exception?.annotation &&
-    Array.from(groupAnnotations([exception.annotation]));
-  return (
-    <>
-      {exception.category}.<br />
-      {groupedAnnotationsTuple && (
-        <>
-          <GroupedAnnotation
-            type={groupedAnnotationsTuple[0][0]}
-            annotations={groupedAnnotationsTuple[0][1]}
-          />
-          .
-          <br />
-        </>
-      )}
-      {exception.accessions?.length ? (
-        <>
-          This applies to the following{' '}
-          {exception.accessions.length === 1
-            ? ''
-            : `${exception.accessions.length} `}
-          {pluralise('entry', exception.accessions.length, 'entries')}:{' '}
-          {exception.accessions.map((accession, index, array) => (
-            <Fragment key={accession}>
-              {listFormat(index, array)}
-              <AccessionView id={accession} namespace={Namespace.uniprotkb} />
-            </Fragment>
-          ))}
-          .<br />
-        </>
-      ) : null}
-      {exception.note}
-    </>
-  );
+  console.log(exception);
+  return null;
+  // const groupedAnnotationsTuple =
+  //   exception?.annotation &&
+  //   Array.from(groupAnnotations([exception.annotation]));
+  // return (
+  //   <>
+  //     {exception.category}.<br />
+  //     {groupedAnnotationsTuple && (
+  //       <>
+  //         <GroupedAnnotation
+  //           type={groupedAnnotationsTuple[0][0]}
+  //           annotations={groupedAnnotationsTuple[0][1]}
+  //         />
+  //         .
+  //         <br />
+  //       </>
+  //     )}
+  //     {exception.accessions?.length ? (
+  //       <>
+  //         This applies to the following{' '}
+  //         {exception.accessions.length === 1
+  //           ? ''
+  //           : `${exception.accessions.length} `}
+  //         {pluralise('entry', exception.accessions.length, 'entries')}:{' '}
+  //         {exception.accessions.map((accession, index, array) => (
+  //           <Fragment key={accession}>
+  //             {listFormat(index, array)}
+  //             <AccessionView id={accession} namespace={Namespace.uniprotkb} />
+  //           </Fragment>
+  //         ))}
+  //         .<br />
+  //       </>
+  //     ) : null}
+  //     {exception.note}
+  //   </>
+  // );
 };
 
 const ExceptionsComponent = ({
