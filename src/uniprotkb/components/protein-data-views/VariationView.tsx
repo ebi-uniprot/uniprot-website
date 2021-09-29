@@ -23,8 +23,8 @@ import NightingaleZoomTool from './NightingaleZoomTool';
 const VariationView: FC<{
   primaryAccession: string;
   title?: string;
-  hasTable?: boolean;
-}> = ({ primaryAccession, title, hasTable = true }) => {
+  onlyTable?: boolean;
+}> = ({ primaryAccession, title, onlyTable = false }) => {
   const { loading, data, error, status } = useDataApi<ProteinsAPIVariation>(
     joinUrl(apiUrls.variation, primaryAccession)
   );
@@ -225,7 +225,7 @@ const VariationView: FC<{
     <div>
       {title && <h3>{title}</h3>}
       <protvista-manager attributes="highlight displaystart displayend activefilters filters selectedid">
-        {hasTable && (
+        {!onlyTable && (
           <div className="variation-view">
             <NightingaleZoomTool length={transformedData.sequence.length} />
             <protvista-navigation length={transformedData.sequence.length} />
