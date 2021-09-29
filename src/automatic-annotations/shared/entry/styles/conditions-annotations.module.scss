@@ -4,17 +4,21 @@
   display: grid;
   grid-template-areas:
     'conditions conditions'
-    '. annotations'
-    'exceptions exceptions';
-  grid-template-columns: 5em minmax(0, 1fr);
+    '. annotations';
+  // 12-column grid: 1 column, 11 columns
+  grid-template-columns: minmax(0, 1fr) minmax(0, 11fr);
   gap: 1em;
+
+  :global(.decorated-list-item__content) {
+    // Make it grow so that the floating exception button can go on the right
+    flex-grow: 1;
+  }
 }
 
 @include fs-breakpoints('large') {
   .rule {
-    grid-template-areas:
-      'conditions annotations'
-      'exceptions exceptions';
+    grid-template-areas: 'conditions annotations';
+    // 12-column grid: 4 column, 8 columns
     grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
   }
 }
@@ -28,5 +32,5 @@
 }
 
 .exceptions {
-  grid-area: exceptions;
+  float: right;
 }

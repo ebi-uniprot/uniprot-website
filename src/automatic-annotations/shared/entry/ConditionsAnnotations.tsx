@@ -1,6 +1,13 @@
 import { Fragment, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, ExternalLink, InfoList, Message } from 'franklin-sites';
+import {
+  Card,
+  ExternalLink,
+  InfoList,
+  EvidenceTag,
+  InformationIcon,
+} from 'franklin-sites';
+import { isEqual, pullAll } from 'lodash-es';
 
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import AccessionView from '../../../shared/components/results/AccessionView';
@@ -31,6 +38,8 @@ import {
 
 import helper from '../../../shared/styles/helper.module.scss';
 import styles from './styles/conditions-annotations.module.scss';
+
+type AnnotationWithExceptions = Annotation & { exceptions?: RuleException[] };
 
 // Across values within a condition: OR
 const SingleCondition = ({ condition }: { condition: Condition }) => {
@@ -169,7 +178,75 @@ const ConditionsComponent = ({
   </div>
 );
 
-const groupedAnnotation = (type: string, annotations: Annotation[]) => {
+const ExceptionComponent = ({
+  exceptions,
+}: {
+  exceptions?: Array<RuleException | undefined>;
+}) => {
+  const filteredExceptions = exceptions?.filter(
+    (e: RuleException | undefined): e is RuleException => e !== undefined
+  );
+  if (!filteredExceptions?.length) {
+    return null;
+  }
+  return (
+    <EvidenceTag
+      className={styles.exceptions}
+      label={pluralise('exception', filteredExceptions.length)}
+      iconComponent={<InformationIcon style={{ marginTop: '0.3em' }} />}
+    >
+      <ul>
+        {filteredExceptions.map((exception, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <li key={index}>
+            {exception.category}:<br />
+            {exception.accessions?.length ? (
+              <>
+                This applies to the following{' '}
+                {exception.accessions.length === 1
+                  ? ''
+                  : `${exception.accessions.length} `}
+                {pluralise('entry', exception.accessions.length, 'entries')}:{' '}
+                {exception.accessions.map((accession, index, array) => (
+                  <Fragment key={accession}>
+                    {listFormat(index, array)}
+                    <AccessionView
+                      id={accession}
+                      namespace={Namespace.uniprotkb}
+                    />
+                  </Fragment>
+                ))}
+                .<br />
+              </>
+            ) : null}
+            {exception.note && <span>Note: {exception.note}</span>}
+          </li>
+        ))}
+      </ul>
+    </EvidenceTag>
+    // <Button variant="tertiary" className={styles.exceptions}>
+    //   {pluralise('exception', filteredExceptions.length)}
+    //   {displayModal && (
+    //     <Modal
+    //       handleExitModal={() => setDisplayModal(false)}
+    //       title={title}
+    //       width={width}
+    //       height={height}
+    //       withHeaderCloseButton={withHeaderCloseButton}
+    //       withFooterCloseButton={withFooterCloseButton}
+    //       onWindowOpen={onWindowOpen}
+    //     >
+    //       {children}
+    //     </Modal>
+    //   )}
+    // </Button>
+  );
+};
+
+const groupedAnnotation = (
+  type: string,
+  annotations: AnnotationWithExceptions[]
+) => {
   // Keyword
   if (type === 'keyword') {
     return (
@@ -183,6 +260,7 @@ const groupedAnnotation = (type: string, annotations: Annotation[]) => {
                 >
                   {annotation.keyword.name}
                 </Link>
+                <ExceptionComponent exceptions={annotation.exceptions} />
               </li>
             )
         )}
@@ -201,6 +279,7 @@ const groupedAnnotation = (type: string, annotations: Annotation[]) => {
                 >
                   {annotation.dbReference.id}
                 </ExternalLink>
+                <ExceptionComponent exceptions={annotation.exceptions} />
               </li>
             )
         )}
@@ -219,6 +298,7 @@ const groupedAnnotation = (type: string, annotations: Annotation[]) => {
                 annotation.proteinDescription?.recommendedName
               )}
             />
+            <ExceptionComponent exceptions={annotation.exceptions} />
           </li>
         ))}
       </ul>
@@ -231,16 +311,19 @@ const groupedAnnotation = (type: string, annotations: Annotation[]) => {
           // eslint-disable-next-line react/no-array-index-key
           <li key={index}>
             <CSVView data={annotation.gene} />
+            <ExceptionComponent exceptions={annotation.exceptions} />
           </li>
         ))}
       </ul>
     );
   }
   if (type === 'subcellular location') {
+    // TODO: check what needs to be done here
     const locations = annotations.flatMap(
       (annotation) => annotation.comment?.subcellularLocations
     );
     // NOTE: missing accessions in data here to generate links
+    // NOTE: not handling possible exceptions here because we flattened
     return (
       <ul className="no-bullet">
         {locations.map(
@@ -257,21 +340,35 @@ const groupedAnnotation = (type: string, annotations: Annotation[]) => {
   }
   if (type === 'catalytic activity') {
     return (
-      <CatalyticActivityView
-        comments={annotations.map(
-          (annotation) => annotation.comment as CatalyticActivityComment
-        )}
-        defaultHideAllReactions
-      />
+      <>
+        <CatalyticActivityView
+          comments={annotations.map(
+            (annotation) => annotation.comment as CatalyticActivityComment
+          )}
+          defaultHideAllReactions
+        />
+        <ExceptionComponent
+          exceptions={annotations.flatMap(
+            (annotation) => annotation.exceptions
+          )}
+        />
+      </>
     );
   }
   if (type === 'cofactor') {
     return (
-      <CofactorView
-        cofactors={annotations.map(
-          (annotation) => annotation.comment as CofactorComment
-        )}
-      />
+      <>
+        <CofactorView
+          cofactors={annotations.map(
+            (annotation) => annotation.comment as CofactorComment
+          )}
+        />
+        <ExceptionComponent
+          exceptions={annotations.flatMap(
+            (annotation) => annotation.exceptions
+          )}
+        />
+      </>
     );
   }
   // last case, free text comments, check it contains texts anyway
@@ -284,6 +381,7 @@ const groupedAnnotation = (type: string, annotations: Annotation[]) => {
               // eslint-disable-next-line react/no-array-index-key
               <li key={index}>
                 {annotation.comment.texts?.map((text) => text.value).join('. ')}
+                <ExceptionComponent exceptions={annotation.exceptions} />
               </li>
             )
         )}
@@ -297,7 +395,7 @@ const groupedAnnotation = (type: string, annotations: Annotation[]) => {
 };
 
 // See similar logic in AnnotationCovered.tsx common column renderer
-const annotationsToInfoData = (annotations: Annotation[]) => {
+const annotationsToInfoData = (annotations: AnnotationWithExceptions[]) => {
   const map = new Map<string, Annotation[]>();
 
   for (const annotation of annotations) {
@@ -329,12 +427,40 @@ const annotationsToInfoData = (annotations: Annotation[]) => {
   }));
 };
 
+const mergeAnnotationsAndExceptions = (
+  annotations: Annotation[],
+  exceptions: RuleException[]
+) => {
+  // Make a shallow copy in order to avoid modifying the original when mutating
+  let exceptionsToAssign = Array.from(exceptions);
+  const output: AnnotationWithExceptions[] = [];
+  for (const annotation of annotations) {
+    const matchedExceptions = exceptionsToAssign.filter((exception) =>
+      isEqual(exception.annotation, annotation)
+    );
+    if (!matchedExceptions.length) {
+      output.push(annotation);
+    } else {
+      output.push({ ...annotation, exceptions: matchedExceptions });
+      // also, remove the assigned exceptions from the exception array
+      // warning: pullAll mutates!
+      exceptionsToAssign = pullAll(exceptionsToAssign, matchedExceptions);
+    }
+  }
+  // Sanity check, we used all the exceptions to assign
+  if (exceptionsToAssign.length) {
+    // eslint-disable-next-line no-console
+    console.warn('exceptions left unnassigned:', exceptionsToAssign);
+  }
+  return output;
+};
+
 const AnnotationsComponent = ({
   annotations,
-  extra,
+  exceptions,
 }: {
   annotations?: Annotation[];
-  extra?: boolean;
+  exceptions?: RuleException[];
 }) => {
   if (!annotations?.length) {
     // Might be absurd, but we never know
@@ -344,9 +470,14 @@ const AnnotationsComponent = ({
       </div>
     );
   }
+  // TODO: actually, this needs to be associated to groups of annotations, not just one by one
+  // Example to work with: UR000000032
+  const annotationsWithExceptions = exceptions
+    ? mergeAnnotationsAndExceptions(annotations, exceptions)
+    : annotations;
   return (
     <div className={styles.annotations}>
-      <InfoList infoData={annotationsToInfoData(annotations)} />
+      <InfoList infoData={annotationsToInfoData(annotationsWithExceptions)} />
       {/* {groupedAnnotationsTuples.map(([type, annotations]) => (
         <Fragment key={type}>
           <h3 className="small">{type}:</h3>
@@ -354,74 +485,6 @@ const AnnotationsComponent = ({
         </Fragment>
       ))} */}
     </div>
-  );
-};
-const SingleException = ({ exception }: { exception: RuleException }) => {
-  console.log(exception);
-  return null;
-  // const groupedAnnotationsTuple =
-  //   exception?.annotation &&
-  //   Array.from(groupAnnotations([exception.annotation]));
-  // return (
-  //   <>
-  //     {exception.category}.<br />
-  //     {groupedAnnotationsTuple && (
-  //       <>
-  //         <GroupedAnnotation
-  //           type={groupedAnnotationsTuple[0][0]}
-  //           annotations={groupedAnnotationsTuple[0][1]}
-  //         />
-  //         .
-  //         <br />
-  //       </>
-  //     )}
-  //     {exception.accessions?.length ? (
-  //       <>
-  //         This applies to the following{' '}
-  //         {exception.accessions.length === 1
-  //           ? ''
-  //           : `${exception.accessions.length} `}
-  //         {pluralise('entry', exception.accessions.length, 'entries')}:{' '}
-  //         {exception.accessions.map((accession, index, array) => (
-  //           <Fragment key={accession}>
-  //             {listFormat(index, array)}
-  //             <AccessionView id={accession} namespace={Namespace.uniprotkb} />
-  //           </Fragment>
-  //         ))}
-  //         .<br />
-  //       </>
-  //     ) : null}
-  //     {exception.note}
-  //   </>
-  // );
-};
-
-const ExceptionsComponent = ({
-  exceptions,
-}: {
-  exceptions?: RuleException[];
-}) => {
-  if (!exceptions?.length) {
-    return null;
-  }
-  return (
-    <Message level="warning" className={styles.exceptions}>
-      <p>
-        Please note th
-        {exceptions.length === 1 && exceptions[0].accessions?.length === 1
-          ? 'is exception'
-          : `ese exceptions`}
-        :
-      </p>
-      <ul>
-        {exceptions.map((exception, index) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <li key={index}>
-            <SingleException exception={exception} />
-          </li>
-        ))}
-      </ul>
-    </Message>
   );
 };
 
@@ -434,8 +497,10 @@ const RuleComponent = ({
 }) => (
   <div className={styles.rule}>
     <ConditionsComponent conditionSets={rule.conditionSets} extra={extra} />
-    <AnnotationsComponent annotations={rule.annotations} extra={extra} />
-    <ExceptionsComponent exceptions={rule.ruleExceptions} />
+    <AnnotationsComponent
+      annotations={rule.annotations}
+      exceptions={rule.ruleExceptions}
+    />
   </div>
 );
 
