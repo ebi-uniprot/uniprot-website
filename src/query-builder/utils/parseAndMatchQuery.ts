@@ -88,7 +88,7 @@ const parseAndMatchQuery = (
           matchingXref = matching.find(({ term }) => term === 'xref');
           queryBitsXref = clause.queryBits.xref;
         }
-        if (matchingXref) {
+        if (matchingXref && queryBitsXref) {
           validatedQuery.push({
             ...clause,
             searchTerm: matchingXref,
