@@ -1,8 +1,6 @@
 import customRender from '../../../../shared/__test-helpers__/customRender';
 
-import UniProtKBEvidenceTag, {
-  UniProtProtvistaEvidenceTag,
-} from '../UniProtKBEvidenceTag';
+import UniProtKBEvidenceTag from '../UniProtKBEvidenceTag';
 
 import { Evidence } from '../../../types/modelTypes';
 
@@ -50,15 +48,5 @@ describe('UniProtKBEvidenceTag components', () => {
       <UniProtKBEvidenceTag evidences={evidences} />
     );
     expect(asFragment()).toMatchSnapshot();
-  });
-
-  test('should render ProtVista evidence tag', () => {
-    const evidences: Evidence[] = [
-      {
-        evidenceCode: 'ECO:0000313',
-      },
-    ];
-    const htmlTemplate = UniProtProtvistaEvidenceTag(evidences, jest.fn());
-    expect(htmlTemplate).toMatchSnapshot();
   });
 });

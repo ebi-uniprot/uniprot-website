@@ -1,4 +1,4 @@
-import { useCallback, FC, useMemo } from 'react';
+import { useCallback, FC, useMemo, Fragment } from 'react';
 import { Loader } from 'franklin-sites';
 import { html } from 'lit-html';
 import joinUrl from 'url-join';
@@ -7,10 +7,9 @@ import { filterConfig, colorConfig } from 'protvista-uniprot';
 import { ProteinsAPIVariation } from 'protvista-variation-adapter/dist/es/variants';
 import { transformData, TransformedVariant } from 'protvista-variation-adapter';
 
-import { UniProtProtvistaEvidenceTag } from './UniProtKBEvidenceTag';
-import FeaturesTableView, {
-  FeaturesTableCallback,
-} from '../../../shared/components/views/FeaturesTableView';
+import UniProtKBEvidenceTag, {
+  UniProtProtvistaEvidenceTag,
+} from './UniProtKBEvidenceTag';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useCustomElement from '../../../shared/hooks/useCustomElement';
@@ -21,80 +20,6 @@ import { Evidence } from '../../types/modelTypes';
 
 import './styles/variation-view.scss';
 import NightingaleZoomTool from './NightingaleZoomTool';
-import { ColumnConfig } from '../../../shared/components/views/FeaturesView';
-
-const getColumnConfig: ColumnConfig<TransformedVariant> = (
-  evidenceTagCallback: FeaturesTableCallback
-) => ({
-  positions: {
-    label: 'Position(s)',
-    resolver: (d) => (d.start === d.end ? d.start : `${d.start}-${d.end}`),
-  },
-  change: {
-    label: 'Change',
-    resolver: (d) => `${d.wildType}>${d.alternativeSequence}`,
-  },
-  consequence: {
-    label: 'Consequence',
-    child: true,
-    resolver: (d) => d.consequenceType,
-  },
-  predictions: {
-    label: 'Predictions',
-    child: true,
-    resolver: (d) =>
-      html`${d.predictions?.map(
-        (prediction) =>
-          html`${prediction.predAlgorithmNameType}:
-            ${prediction.predictionValType} (${prediction.score})<br />`
-      )}`,
-  },
-  description: {
-    label: 'Description',
-    resolver: (d) =>
-      html`${d.descriptions?.map(
-        (description) =>
-          html`${description.value} (${description.sources.join(', ')})<br />`
-      )}`,
-  },
-  somaticStatus: {
-    label: 'Somatic',
-    child: true,
-    resolver: (d) => (d.somaticStatus === 1 ? 'Y' : 'N'),
-  },
-  hasDisease: {
-    label: 'Disease association',
-    resolver: (d) => (d.association && d.association.length > 0 ? 'Y' : 'N'),
-  },
-  association: {
-    label: 'Disease association',
-    child: true,
-    resolver: (d) => {
-      if (!d.association) {
-        return '';
-      }
-      return d.association.map(
-        (association) => html`
-          <p>
-            ${association.name}
-            ${association.evidences &&
-            UniProtProtvistaEvidenceTag(
-              association.evidences.map(
-                (evidence) =>
-                  ({
-                    evidenceCode: evidence.code,
-                    source: evidence.source.name,
-                    id: evidence.source.id,
-                  } as Evidence)
-              ),
-              evidenceTagCallback
-            )}
-          </p>
-        `
-      );
-    },
-  },
-});
 
 const VariationView: FC<{
   primaryAccession: string;
@@ -203,6 +128,80 @@ const VariationView: FC<{
     return null;
   }
 
+  const table = (
+    <table>
+      <thead>
+        <tr>
+          <td>Position(s)</td>
+          <td>Change</td>
+          <td>Description</td>
+          <td>Disease association</td>
+        </tr>
+      </thead>
+      <tbody>
+        {transformedData.variants.map((variantFeature) => (
+          <Fragment key={variantFeature.protvistaFeatureId}>
+            <tr data-id={variantFeature.protvistaFeatureId}>
+              <td>
+                {variantFeature.start}-{variantFeature.end}
+              </td>
+              <td>
+                {variantFeature.wildType}
+                {'>'}
+                {variantFeature.alternativeSequence}
+              </td>
+              <td>
+                {variantFeature.descriptions?.map((description) => (
+                  <div>
+                    {description.value}
+                    {' ('}
+                    {description.sources.join(', ')}
+                    {')'}
+                  </div>
+                ))}
+              </td>
+              <td>
+                {variantFeature.association &&
+                variantFeature.association.length > 0
+                  ? 'Y'
+                  : 'N'}
+              </td>
+            </tr>
+            <tr data-for-id={variantFeature.protvistaFeatureId}>
+              <td>
+                <div>
+                  <strong>Consequence: </strong>
+                  {variantFeature.consequenceType}
+                </div>
+                <div>
+                  <strong>Predictions: </strong>
+                  {variantFeature.predictions?.map((pred) => (
+                    <div key={pred.predAlgorithmNameType}>
+                      {`${pred.predAlgorithmNameType}: ${pred.predictionValType} (${pred.score})`}
+                    </div>
+                  ))}
+                </div>
+                <div>
+                  <strong>Somatic: </strong>{' '}
+                  {variantFeature.somaticStatus === 1 ? 'Y' : 'N'}
+                </div>
+                <div>
+                  <strong>Disease association: </strong>
+                  {variantFeature.association?.map((association) => (
+                    <p key={association.name}>
+                      {association.name}
+                      <UniProtKBEvidenceTag evidences={association.evidences} />
+                    </p>
+                  ))}
+                </div>
+              </td>
+            </tr>
+          </Fragment>
+        ))}
+      </tbody>
+    </table>
+  );
+
   return (
     <div>
       {title && <h3>{title}</h3>}
@@ -228,10 +227,7 @@ const VariationView: FC<{
             />
           </div>
         )}
-        <FeaturesTableView
-          data={transformedData.variants}
-          columnConfig={getColumnConfig}
-        />
+        {table}
       </protvista-manager>
     </div>
   );

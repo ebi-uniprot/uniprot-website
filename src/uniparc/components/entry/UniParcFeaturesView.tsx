@@ -3,7 +3,6 @@ import { FC, useMemo } from 'react';
 
 import FeaturesView, {
   ProcessedFeature,
-  TableConfig,
 } from '../../../shared/components/views/FeaturesView';
 import externalUrls from '../../../shared/config/externalUrls';
 import { stringToColour } from '../../../shared/utils/color';
@@ -38,31 +37,43 @@ const convertData = (data: SequenceFeature[]): UniParcProcessedFeature[] =>
     'interproGroupName'
   );
 
-// Define table contents
-const tableConfig: TableConfig<UniParcProcessedFeature> = [
-  {
-    columnLabel: 'InterPro Group',
-    columnRenderer: (d) =>
-      d.interproGroupId ? (
-        <a
-          href={externalUrls.InterProEntry(d.interproGroupId)}
-          target="_blank"
-          rel="noreferrer"
-        >
-          {d.interproGroupName}
-        </a>
-      ) : (
-        'N/A'
-      ),
-  },
-  {
-    columnLabel: 'Positions',
-    columnRenderer: (d) => `${d.start}-${d.end}`,
-  },
-  {
-    columnLabel: 'Database identifier',
-    columnRenderer: (d) => {
-      const { database, databaseId } = d;
+const UniParcFeaturesView: FC<{
+  data: SequenceFeature[];
+  sequence: string;
+}> = ({ data, sequence }) => {
+  const processedData = useMemo(() => convertData(data), [data]);
+
+  // Define table contents
+  const table = (
+    <table>
+      <thead>
+        <tr>
+          <th>InterPro Group</th>
+          <th>Positions</th>
+          <th>Database identifier</th>
+          <th>Database</th>
+        </tr>
+      </thead>
+      <tbody>
+        {processedData.map((feature) => (
+          <tr key={feature.protvistaFeatureId}>
+            <td>
+              {feature.interproGroupId ? (
+                <a
+                  href={externalUrls.InterProEntry(feature.interproGroupId)}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {feature.interproGroupName}
+                </a>
+              ) : (
+                'N/A'
+              )}
+            </td>
+            <td>{`${feature.start}-${feature.end}`}</td>
+            <td>
+              {/* {
+      const { database, databaseId } = feature;
       const databaseInfo = databaseToDatabaseInfo[database];
       if (databaseInfo && databaseId) {
         return (
@@ -76,25 +87,17 @@ const tableConfig: TableConfig<UniParcProcessedFeature> = [
         );
       }
       return databaseId;
-    },
-  },
-  {
-    columnLabel: 'Database',
-    columnRenderer: (d): string => d.database,
-  },
-];
+    } */}
+            </td>
+            <td>{feature.database}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
 
-const UniParcFeaturesView: FC<{
-  data: SequenceFeature[];
-  sequence: string;
-}> = ({ data, sequence }) => {
-  const processedData = useMemo(() => convertData(data), [data]);
   return (
-    <FeaturesView
-      features={processedData}
-      tableConfig={tableConfig}
-      sequence={sequence}
-    />
+    <FeaturesView features={processedData} table={table} sequence={sequence} />
   );
 };
 export default UniParcFeaturesView;
