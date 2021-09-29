@@ -1,22 +1,21 @@
 import { useCallback, FC, useMemo, Fragment } from 'react';
 import { Loader } from 'franklin-sites';
-import { html } from 'lit-html';
 import joinUrl from 'url-join';
 
 import { filterConfig, colorConfig } from 'protvista-uniprot';
-import { ProteinsAPIVariation } from 'protvista-variation-adapter/dist/es/variants';
-import { transformData, TransformedVariant } from 'protvista-variation-adapter';
+import {
+  ProteinsAPIVariation,
+  Variant,
+} from 'protvista-variation-adapter/dist/es/variants';
+import { transformData } from 'protvista-variation-adapter';
+import { ProtvistaVariationDatum } from 'protvista-variation/types/protvista-variation';
 
-import UniProtKBEvidenceTag, {
-  UniProtProtvistaEvidenceTag,
-} from './UniProtKBEvidenceTag';
+import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 
 import apiUrls from '../../../shared/config/apiUrls';
-
-import { Evidence } from '../../types/modelTypes';
 
 import './styles/variation-view.scss';
 import NightingaleZoomTool from './NightingaleZoomTool';
@@ -102,12 +101,21 @@ const VariationView: FC<{
       import(/* webpackChunkName: "protvista-manager" */ 'protvista-manager'),
     'protvista-manager'
   );
+  const dataTableDefined = useCustomElement(
+    /* istanbul ignore next */
+    () =>
+      import(
+        /* webpackChunkName: "protvista-datatable" */ 'protvista-datatable'
+      ),
+    'protvista-datatable'
+  );
   const ceDefined =
     filterDefined &&
     variationDefined &&
     navigationDefined &&
     sequenceDefined &&
-    managerDefined;
+    managerDefined &&
+    dataTableDefined;
 
   if (loading || !ceDefined) {
     return <Loader />;
@@ -132,72 +140,83 @@ const VariationView: FC<{
     <table>
       <thead>
         <tr>
-          <td>Position(s)</td>
-          <td>Change</td>
-          <td>Description</td>
-          <td>Disease association</td>
+          <th>Position(s)</th>
+          <th>Change</th>
+          <th>Description</th>
+          <th>Disease association</th>
         </tr>
       </thead>
       <tbody>
-        {transformedData.variants.map((variantFeature) => (
-          <Fragment key={variantFeature.protvistaFeatureId}>
-            <tr data-id={variantFeature.protvistaFeatureId}>
-              <td>
-                {variantFeature.start}-{variantFeature.end}
-              </td>
-              <td>
-                {variantFeature.wildType}
-                {'>'}
-                {variantFeature.alternativeSequence}
-              </td>
-              <td>
-                {variantFeature.descriptions?.map((description) => (
-                  <div>
-                    {description.value}
-                    {' ('}
-                    {description.sources.join(', ')}
-                    {')'}
-                  </div>
-                ))}
-              </td>
-              <td>
-                {variantFeature.association &&
-                variantFeature.association.length > 0
-                  ? 'Y'
-                  : 'N'}
-              </td>
-            </tr>
-            <tr data-for-id={variantFeature.protvistaFeatureId}>
-              <td>
-                <div>
-                  <strong>Consequence: </strong>
-                  {variantFeature.consequenceType}
-                </div>
-                <div>
-                  <strong>Predictions: </strong>
-                  {variantFeature.predictions?.map((pred) => (
-                    <div key={pred.predAlgorithmNameType}>
-                      {`${pred.predAlgorithmNameType}: ${pred.predictionValType} (${pred.score})`}
+        {transformedData.variants.map(
+          (variantFeature: Variant & ProtvistaVariationDatum) => (
+            <Fragment key={variantFeature.protvistaFeatureId}>
+              <tr data-id={variantFeature.protvistaFeatureId}>
+                <td>
+                  {variantFeature.start}-{variantFeature.end}
+                </td>
+                <td>
+                  {variantFeature.wildType}
+                  {'>'}
+                  {variantFeature.alternativeSequence}
+                </td>
+                <td>
+                  {variantFeature.descriptions?.map((description) => (
+                    <div key={description.value}>
+                      {`${description.value} (${description.sources.join(
+                        ', '
+                      )})`}
                     </div>
                   ))}
-                </div>
-                <div>
-                  <strong>Somatic: </strong>{' '}
-                  {variantFeature.somaticStatus === 1 ? 'Y' : 'N'}
-                </div>
-                <div>
-                  <strong>Disease association: </strong>
-                  {variantFeature.association?.map((association) => (
-                    <p key={association.name}>
-                      {association.name}
-                      <UniProtKBEvidenceTag evidences={association.evidences} />
-                    </p>
-                  ))}
-                </div>
-              </td>
-            </tr>
-          </Fragment>
-        ))}
+                </td>
+                <td>
+                  {variantFeature.association &&
+                  variantFeature.association.length > 0
+                    ? 'Y'
+                    : 'N'}
+                </td>
+              </tr>
+              <tr data-group-for={variantFeature.protvistaFeatureId}>
+                <td>
+                  <div>
+                    <strong>Consequence: </strong>
+                    {variantFeature.consequenceType}
+                  </div>
+                  <div>
+                    <strong>Predictions: </strong>
+                    {variantFeature.predictions?.map((pred) => (
+                      <div
+                        key={`${pred.predAlgorithmNameType}${
+                          pred.predictionValType
+                        }${pred.sources.join('-')}`}
+                      >
+                        {`${pred.predAlgorithmNameType}: ${pred.predictionValType} (${pred.score})`}
+                      </div>
+                    ))}
+                  </div>
+                  <div>
+                    <strong>Somatic: </strong>{' '}
+                    {variantFeature.somaticStatus === 1 ? 'Y' : 'N'}
+                  </div>
+                  <div>
+                    <strong>Disease association: </strong>
+                    {variantFeature.association?.map((association) => (
+                      <p key={association.name}>
+                        {association.name}
+                        <UniProtKBEvidenceTag
+                          evidences={association.evidences.map((evidence) => ({
+                            evidenceCode: evidence.code as `ECO:${number}`,
+                            id: evidence.source.id,
+                            source: evidence.source.name,
+                          }))}
+                        />
+                      </p>
+                    ))}
+                  </div>
+                </td>
+              </tr>
+            </Fragment>
+          )
+        )}
       </tbody>
     </table>
   );
@@ -227,7 +246,7 @@ const VariationView: FC<{
             />
           </div>
         )}
-        {table}
+        <protvista-datatable filter-scroll>{table}</protvista-datatable>
       </protvista-manager>
     </div>
   );

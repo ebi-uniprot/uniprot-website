@@ -1998,10 +1998,81 @@ exports[`Entry basic should render main 1`] = `
                     />
                     <protvista-datatable
                       filter-scroll="true"
-                    />
-                    <div
-                      class="evidence-tag-content false"
-                    />
+                    >
+                      <table>
+                        <thead>
+                          <tr>
+                            <th
+                              data-filter="type"
+                            >
+                              Type
+                            </th>
+                            <th>
+                              ID
+                            </th>
+                            <th>
+                              Positions
+                            </th>
+                            <th>
+                              Description
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr
+                            data-id="id value CHAIN"
+                          >
+                            <td
+                              data-filter="type"
+                              data-filter-value="Chain"
+                            >
+                              Chain
+                            </td>
+                            <td>
+                              id value CHAIN
+                            </td>
+                            <td>
+                              2-8
+                            </td>
+                            <td>
+                              description value 123
+                              <button
+                                aria-controls="34"
+                                aria-expanded="false"
+                                class="svg-colour-reviewed evidence-tag"
+                                data-testid="evidence-tag-trigger"
+                                type="button"
+                              >
+                                <test-file-stub
+                                  height="12"
+                                  width="12"
+                                />
+                                <span
+                                  class="evidence-tag__label"
+                                >
+                                  1 publication
+                                </span>
+                              </button>
+                              <div
+                                class="evidence-tag-content "
+                                data-testid="evidence-tag-content"
+                                id="34"
+                              />
+                            </td>
+                          </tr>
+                          <tr
+                            data-group-for="id value CHAIN"
+                          >
+                            <td>
+                              <strong>
+                                Sequence: 
+                              </strong>
+                              APSQDFM
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </protvista-datatable>
                   </protvista-manager>
                 </div>
               </div>
@@ -2446,39 +2517,6 @@ exports[`Entry basic should render main 1`] = `
                     </a>
                      differs from that shown. Reason: Erroneous gene model prediction Text note
                     <button
-                      aria-controls="34"
-                      aria-expanded="false"
-                      class="svg-colour-unreviewed evidence-tag"
-                      data-testid="evidence-tag-trigger"
-                      type="button"
-                    >
-                      <test-file-stub
-                        height="12"
-                        width="12"
-                      />
-                      <span
-                        class="evidence-tag__label"
-                      >
-                        1 automatic annotation
-                      </span>
-                    </button>
-                    <div
-                      class="evidence-tag-content "
-                      data-testid="evidence-tag-content"
-                      id="34"
-                    />
-                  </section>
-                  <h3>
-                    Mass Spectrometry
-                  </h3>
-                  <section
-                    class="text-block"
-                  >
-                    <h3>
-                      isoform 1
-                    </h3>
-                    Molecular mass is 2.1 Da. Determined by LSI. note value
-                    <button
                       aria-controls="35"
                       aria-expanded="false"
                       class="svg-colour-unreviewed evidence-tag"
@@ -2502,6 +2540,39 @@ exports[`Entry basic should render main 1`] = `
                     />
                   </section>
                   <h3>
+                    Mass Spectrometry
+                  </h3>
+                  <section
+                    class="text-block"
+                  >
+                    <h3>
+                      isoform 1
+                    </h3>
+                    Molecular mass is 2.1 Da. Determined by LSI. note value
+                    <button
+                      aria-controls="36"
+                      aria-expanded="false"
+                      class="svg-colour-unreviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 automatic annotation
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="36"
+                    />
+                  </section>
+                  <h3>
                     RNA Editing
                   </h3>
                   <section
@@ -2511,33 +2582,6 @@ exports[`Entry basic should render main 1`] = `
                       Edited at position 
                       <span>
                         1 
-                        <button
-                          aria-controls="36"
-                          aria-expanded="false"
-                          class="svg-colour-unreviewed evidence-tag"
-                          data-testid="evidence-tag-trigger"
-                          type="button"
-                        >
-                          <test-file-stub
-                            height="12"
-                            width="12"
-                          />
-                          <span
-                            class="evidence-tag__label"
-                          >
-                            1 automatic annotation
-                          </span>
-                        </button>
-                        <div
-                          class="evidence-tag-content "
-                          data-testid="evidence-tag-content"
-                          id="36"
-                        />
-                      </span>
-                    </div>
-                    <div>
-                      <span>
-                        value 
                         <button
                           aria-controls="37"
                           aria-expanded="false"
@@ -2559,6 +2603,33 @@ exports[`Entry basic should render main 1`] = `
                           class="evidence-tag-content "
                           data-testid="evidence-tag-content"
                           id="37"
+                        />
+                      </span>
+                    </div>
+                    <div>
+                      <span>
+                        value 
+                        <button
+                          aria-controls="38"
+                          aria-expanded="false"
+                          class="svg-colour-unreviewed evidence-tag"
+                          data-testid="evidence-tag-trigger"
+                          type="button"
+                        >
+                          <test-file-stub
+                            height="12"
+                            width="12"
+                          />
+                          <span
+                            class="evidence-tag__label"
+                          >
+                            1 automatic annotation
+                          </span>
+                        </button>
+                        <div
+                          class="evidence-tag-content "
+                          data-testid="evidence-tag-content"
+                          id="38"
                         />
                       </span>
                     </div>

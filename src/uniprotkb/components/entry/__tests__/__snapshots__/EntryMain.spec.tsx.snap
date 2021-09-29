@@ -1691,10 +1691,81 @@ exports[`Entry view should render 1`] = `
           />
           <protvista-datatable
             filter-scroll="true"
-          />
-          <div
-            class="evidence-tag-content false"
-          />
+          >
+            <table>
+              <thead>
+                <tr>
+                  <th
+                    data-filter="type"
+                  >
+                    Type
+                  </th>
+                  <th>
+                    ID
+                  </th>
+                  <th>
+                    Positions
+                  </th>
+                  <th>
+                    Description
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  data-id="id value CHAIN"
+                >
+                  <td
+                    data-filter="type"
+                    data-filter-value="Chain"
+                  >
+                    Chain
+                  </td>
+                  <td>
+                    id value CHAIN
+                  </td>
+                  <td>
+                    2-8
+                  </td>
+                  <td>
+                    description value 123
+                    <button
+                      aria-controls="33"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 publication
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="33"
+                    />
+                  </td>
+                </tr>
+                <tr
+                  data-group-for="id value CHAIN"
+                >
+                  <td>
+                    <strong>
+                      Sequence: 
+                    </strong>
+                    APSQDFM
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </protvista-datatable>
         </protvista-manager>
       </div>
     </div>
@@ -2139,39 +2210,6 @@ exports[`Entry view should render 1`] = `
           </a>
            differs from that shown. Reason: Erroneous gene model prediction Text note
           <button
-            aria-controls="33"
-            aria-expanded="false"
-            class="svg-colour-unreviewed evidence-tag"
-            data-testid="evidence-tag-trigger"
-            type="button"
-          >
-            <test-file-stub
-              height="12"
-              width="12"
-            />
-            <span
-              class="evidence-tag__label"
-            >
-              1 automatic annotation
-            </span>
-          </button>
-          <div
-            class="evidence-tag-content "
-            data-testid="evidence-tag-content"
-            id="33"
-          />
-        </section>
-        <h3>
-          Mass Spectrometry
-        </h3>
-        <section
-          class="text-block"
-        >
-          <h3>
-            isoform 1
-          </h3>
-          Molecular mass is 2.1 Da. Determined by LSI. note value
-          <button
             aria-controls="34"
             aria-expanded="false"
             class="svg-colour-unreviewed evidence-tag"
@@ -2195,6 +2233,39 @@ exports[`Entry view should render 1`] = `
           />
         </section>
         <h3>
+          Mass Spectrometry
+        </h3>
+        <section
+          class="text-block"
+        >
+          <h3>
+            isoform 1
+          </h3>
+          Molecular mass is 2.1 Da. Determined by LSI. note value
+          <button
+            aria-controls="35"
+            aria-expanded="false"
+            class="svg-colour-unreviewed evidence-tag"
+            data-testid="evidence-tag-trigger"
+            type="button"
+          >
+            <test-file-stub
+              height="12"
+              width="12"
+            />
+            <span
+              class="evidence-tag__label"
+            >
+              1 automatic annotation
+            </span>
+          </button>
+          <div
+            class="evidence-tag-content "
+            data-testid="evidence-tag-content"
+            id="35"
+          />
+        </section>
+        <h3>
           RNA Editing
         </h3>
         <section
@@ -2204,33 +2275,6 @@ exports[`Entry view should render 1`] = `
             Edited at position 
             <span>
               1 
-              <button
-                aria-controls="35"
-                aria-expanded="false"
-                class="svg-colour-unreviewed evidence-tag"
-                data-testid="evidence-tag-trigger"
-                type="button"
-              >
-                <test-file-stub
-                  height="12"
-                  width="12"
-                />
-                <span
-                  class="evidence-tag__label"
-                >
-                  1 automatic annotation
-                </span>
-              </button>
-              <div
-                class="evidence-tag-content "
-                data-testid="evidence-tag-content"
-                id="35"
-              />
-            </span>
-          </div>
-          <div>
-            <span>
-              value 
               <button
                 aria-controls="36"
                 aria-expanded="false"
@@ -2252,6 +2296,33 @@ exports[`Entry view should render 1`] = `
                 class="evidence-tag-content "
                 data-testid="evidence-tag-content"
                 id="36"
+              />
+            </span>
+          </div>
+          <div>
+            <span>
+              value 
+              <button
+                aria-controls="37"
+                aria-expanded="false"
+                class="svg-colour-unreviewed evidence-tag"
+                data-testid="evidence-tag-trigger"
+                type="button"
+              >
+                <test-file-stub
+                  height="12"
+                  width="12"
+                />
+                <span
+                  class="evidence-tag__label"
+                >
+                  1 automatic annotation
+                </span>
+              </button>
+              <div
+                class="evidence-tag-content "
+                data-testid="evidence-tag-content"
+                id="37"
               />
             </span>
           </div>
@@ -2717,10 +2788,471 @@ exports[`Entry view should render for non-human entry 1`] = `
           />
           <protvista-datatable
             filter-scroll="true"
-          />
-          <div
-            class="evidence-tag-content false"
-          />
+          >
+            <table>
+              <thead>
+                <tr>
+                  <th
+                    data-filter="type"
+                  >
+                    Type
+                  </th>
+                  <th>
+                    ID
+                  </th>
+                  <th>
+                    Positions
+                  </th>
+                  <th>
+                    Description
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  data-id="8"
+                >
+                  <td
+                    data-filter="type"
+                    data-filter-value="Domain"
+                  >
+                    Domain
+                  </td>
+                  <td />
+                  <td>
+                    494-605
+                  </td>
+                  <td>
+                    F5/8 type C
+                    <button
+                      aria-controls="17"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 automatic annotation
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="17"
+                    />
+                  </td>
+                </tr>
+                <tr
+                  data-group-for="8"
+                >
+                  <td>
+                    <strong>
+                      Sequence: 
+                    </strong>
+                    SDDLEIAVVENPYTLIPQSNMTATATSVYGGTTEGPASNVLDGNVRTIWHTNYAPKDELPQSITVSFDQPYTVGRFVYTPRQNGTNGIISEYELYAIHQDGSKDLVASGSDW
+                  </td>
+                </tr>
+                <tr
+                  data-id="9"
+                >
+                  <td
+                    data-filter="type"
+                    data-filter-value="Region"
+                  >
+                    Region
+                  </td>
+                  <td />
+                  <td>
+                    180-402
+                  </td>
+                  <td>
+                    Deacetylase activity
+                    <button
+                      aria-controls="18"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 publication
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="18"
+                    />
+                  </td>
+                </tr>
+                <tr
+                  data-group-for="9"
+                >
+                  <td>
+                    <strong>
+                      Sequence: 
+                    </strong>
+                    WSKPTSDAERQVADGEDDFITAIASPDRYDMLSPTIVYDDFRDVFILWANNTGDVGYQNGQANFVEMRYSDDGITWGEPVRVNGFLGLDENGQQLAPWHQDVQYVPDLKEFVCISQCFAGRNPDGSVLHLTTSKDGVNWEQVGTKPLLSPGPDGSWDDFQIYRSSFYYEPGSSAGDGTMRVWYSALQKDTNNKMVADSSGNLTIQAKSEDDRIWRIGYAENSF
+                  </td>
+                </tr>
+                <tr
+                  data-id="10"
+                >
+                  <td
+                    data-filter="type"
+                    data-filter-value="Region"
+                  >
+                    Region
+                  </td>
+                  <td />
+                  <td>
+                    502-765
+                  </td>
+                  <td>
+                    CBM32 carbohydrate-binding domain
+                    <button
+                      aria-controls="19"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 publication
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="19"
+                    />
+                  </td>
+                </tr>
+                <tr
+                  data-group-for="10"
+                >
+                  <td>
+                    <strong>
+                      Sequence: 
+                    </strong>
+                    VENPYTLIPQSNMTATATSVYGGTTEGPASNVLDGNVRTIWHTNYAPKDELPQSITVSFDQPYTVGRFVYTPRQNGTNGIISEYELYAIHQDGSKDLVASGSDWALDAKDKTVSFAPVEAVGLELKAIAGAGGFGTAAELNVYAYGPIEPAPVYVPVDDRDASLVFTGAWNSDSNGSFYEGTARYTNEIGASVEFTFVGTAIRWYGQNDVNFGAAEVYVDGVLAGEVNVYGPAAAQQLLFEADGLAYGKHTIRIVCVSPVVDFD
+                  </td>
+                </tr>
+                <tr
+                  data-id="11"
+                >
+                  <td
+                    data-filter="type"
+                    data-filter-value="Region"
+                  >
+                    Region
+                  </td>
+                  <td />
+                  <td>
+                    515-772
+                  </td>
+                  <td>
+                    Not required for activity on soluble substrates
+                    <button
+                      aria-controls="20"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 publication
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="20"
+                    />
+                  </td>
+                </tr>
+                <tr
+                  data-group-for="11"
+                >
+                  <td>
+                    <strong>
+                      Sequence: 
+                    </strong>
+                    TATATSVYGGTTEGPASNVLDGNVRTIWHTNYAPKDELPQSITVSFDQPYTVGRFVYTPRQNGTNGIISEYELYAIHQDGSKDLVASGSDWALDAKDKTVSFAPVEAVGLELKAIAGAGGFGTAAELNVYAYGPIEPAPVYVPVDDRDASLVFTGAWNSDSNGSFYEGTARYTNEIGASVEFTFVGTAIRWYGQNDVNFGAAEVYVDGVLAGEVNVYGPAAAQQLLFEADGLAYGKHTIRIVCVSPVVDFDYFSYVGE
+                  </td>
+                </tr>
+                <tr
+                  data-id="12"
+                >
+                  <td
+                    data-filter="type"
+                    data-filter-value="Metal binding"
+                  >
+                    Metal binding
+                  </td>
+                  <td />
+                  <td>
+                    126-126
+                  </td>
+                  <td>
+                    Divalent metal cation
+                    <button
+                      aria-controls="21"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 publication
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="21"
+                    />
+                  </td>
+                </tr>
+                <tr
+                  data-group-for="12"
+                >
+                  <td>
+                    <strong>
+                      Sequence: 
+                    </strong>
+                    D
+                  </td>
+                </tr>
+                <tr
+                  data-id="13"
+                >
+                  <td
+                    data-filter="type"
+                    data-filter-value="Metal binding"
+                  >
+                    Metal binding
+                  </td>
+                  <td />
+                  <td>
+                    278-278
+                  </td>
+                  <td>
+                    Divalent metal cation
+                    <button
+                      aria-controls="22"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 publication
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="22"
+                    />
+                  </td>
+                </tr>
+                <tr
+                  data-group-for="13"
+                >
+                  <td>
+                    <strong>
+                      Sequence: 
+                    </strong>
+                    H
+                  </td>
+                </tr>
+                <tr
+                  data-id="14"
+                >
+                  <td
+                    data-filter="type"
+                    data-filter-value="Binding site"
+                  >
+                    Binding site
+                  </td>
+                  <td />
+                  <td>
+                    87-87
+                  </td>
+                  <td>
+                    Substrate
+                    <button
+                      aria-controls="23"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 publication
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="23"
+                    />
+                  </td>
+                </tr>
+                <tr
+                  data-group-for="14"
+                >
+                  <td>
+                    <strong>
+                      Sequence: 
+                    </strong>
+                    S
+                  </td>
+                </tr>
+                <tr
+                  data-id="15"
+                >
+                  <td
+                    data-filter="type"
+                    data-filter-value="Binding site"
+                  >
+                    Binding site
+                  </td>
+                  <td />
+                  <td>
+                    123-123
+                  </td>
+                  <td>
+                    Substrate
+                    <button
+                      aria-controls="24"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 publication
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="24"
+                    />
+                  </td>
+                </tr>
+                <tr
+                  data-group-for="15"
+                >
+                  <td>
+                    <strong>
+                      Sequence: 
+                    </strong>
+                    H
+                  </td>
+                </tr>
+                <tr
+                  data-id="16"
+                >
+                  <td
+                    data-filter="type"
+                    data-filter-value="Binding site"
+                  >
+                    Binding site
+                  </td>
+                  <td />
+                  <td>
+                    236-236
+                  </td>
+                  <td>
+                    Substrate
+                    <button
+                      aria-controls="25"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 publication
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="25"
+                    />
+                  </td>
+                </tr>
+                <tr
+                  data-group-for="16"
+                >
+                  <td>
+                    <strong>
+                      Sequence: 
+                    </strong>
+                    Y
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </protvista-datatable>
         </protvista-manager>
         <div
           class="GoRibbon"
@@ -2888,7 +3420,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 A type blood N-acetyl-alpha-D-galactosamine deacetylase 
                 <button
-                  aria-controls="17"
+                  aria-controls="26"
                   aria-expanded="false"
                   class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
@@ -2907,7 +3439,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="17"
+                  id="26"
                 />
               </div>
             </div>
@@ -2930,7 +3462,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 3.5.1.- 
                 <button
-                  aria-controls="18"
+                  aria-controls="27"
                   aria-expanded="false"
                   class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
@@ -2949,7 +3481,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="18"
+                  id="27"
                 />
               </div>
             </div>
@@ -2976,7 +3508,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <li>
                     CBM32 
                     <button
-                      aria-controls="19"
+                      aria-controls="28"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -2995,13 +3527,13 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="19"
+                      id="28"
                     />
                   </li>
                   <li>
                     FpGalNAc deacetylase (FpGalNAcDeAc 
                     <button
-                      aria-controls="20"
+                      aria-controls="29"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -3020,7 +3552,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="20"
+                      id="29"
                     />
                     ) 
                   </li>
@@ -3236,10 +3768,275 @@ exports[`Entry view should render for non-human entry 1`] = `
           />
           <protvista-datatable
             filter-scroll="true"
-          />
-          <div
-            class="evidence-tag-content false"
-          />
+          >
+            <table>
+              <thead>
+                <tr>
+                  <th
+                    data-filter="type"
+                  >
+                    Type
+                  </th>
+                  <th>
+                    ID
+                  </th>
+                  <th>
+                    Positions
+                  </th>
+                  <th>
+                    Description
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  data-id="30"
+                >
+                  <td
+                    data-filter="type"
+                    data-filter-value="Mutagenesis"
+                  >
+                    Mutagenesis
+                  </td>
+                  <td />
+                  <td>
+                    90-90
+                  </td>
+                  <td>
+                    Loss of deacetylase activity.
+                    <button
+                      aria-controls="35"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 publication
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="35"
+                    />
+                  </td>
+                </tr>
+                <tr
+                  data-group-for="30"
+                >
+                  <td>
+                    <strong>
+                      Sequence: 
+                    </strong>
+                    E
+                  </td>
+                </tr>
+                <tr
+                  data-id="31"
+                >
+                  <td
+                    data-filter="type"
+                    data-filter-value="Mutagenesis"
+                  >
+                    Mutagenesis
+                  </td>
+                  <td />
+                  <td>
+                    125-125
+                  </td>
+                  <td>
+                    5-fold reduction in deacetylase rate.
+                    <button
+                      aria-controls="36"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 publication
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="36"
+                    />
+                  </td>
+                </tr>
+                <tr
+                  data-group-for="31"
+                >
+                  <td>
+                    <strong>
+                      Sequence: 
+                    </strong>
+                    C
+                  </td>
+                </tr>
+                <tr
+                  data-id="32"
+                >
+                  <td
+                    data-filter="type"
+                    data-filter-value="Mutagenesis"
+                  >
+                    Mutagenesis
+                  </td>
+                  <td />
+                  <td>
+                    126-126
+                  </td>
+                  <td>
+                    Dramatic reduction in deacetylase rate.
+                    <button
+                      aria-controls="37"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 publication
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="37"
+                    />
+                  </td>
+                </tr>
+                <tr
+                  data-group-for="32"
+                >
+                  <td>
+                    <strong>
+                      Sequence: 
+                    </strong>
+                    D
+                  </td>
+                </tr>
+                <tr
+                  data-id="33"
+                >
+                  <td
+                    data-filter="type"
+                    data-filter-value="Mutagenesis"
+                  >
+                    Mutagenesis
+                  </td>
+                  <td />
+                  <td>
+                    278-278
+                  </td>
+                  <td>
+                    Very dramatic reduction in deacetylase rate.
+                    <button
+                      aria-controls="38"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 publication
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="38"
+                    />
+                  </td>
+                </tr>
+                <tr
+                  data-group-for="33"
+                >
+                  <td>
+                    <strong>
+                      Sequence: 
+                    </strong>
+                    H
+                  </td>
+                </tr>
+                <tr
+                  data-id="34"
+                >
+                  <td
+                    data-filter="type"
+                    data-filter-value="Mutagenesis"
+                  >
+                    Mutagenesis
+                  </td>
+                  <td />
+                  <td>
+                    341-341
+                  </td>
+                  <td>
+                    3000-fold reduction in deacetylase rate.
+                    <button
+                      aria-controls="39"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 publication
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="39"
+                    />
+                  </td>
+                </tr>
+                <tr
+                  data-group-for="34"
+                >
+                  <td>
+                    <strong>
+                      Sequence: 
+                    </strong>
+                    Y
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </protvista-datatable>
         </protvista-manager>
         <div
           class="loader-container"
@@ -3322,10 +4119,107 @@ exports[`Entry view should render for non-human entry 1`] = `
           />
           <protvista-datatable
             filter-scroll="true"
-          />
-          <div
-            class="evidence-tag-content false"
-          />
+          >
+            <table>
+              <thead>
+                <tr>
+                  <th
+                    data-filter="type"
+                  >
+                    Type
+                  </th>
+                  <th>
+                    ID
+                  </th>
+                  <th>
+                    Positions
+                  </th>
+                  <th>
+                    Description
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  data-id="40"
+                >
+                  <td
+                    data-filter="type"
+                    data-filter-value="Signal"
+                  >
+                    Signal
+                  </td>
+                  <td />
+                  <td>
+                    1-27
+                  </td>
+                  <td>
+                    <button
+                      aria-controls="41"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 automatic annotation
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="41"
+                    />
+                  </td>
+                </tr>
+                <tr
+                  data-group-for="40"
+                >
+                  <td>
+                    <strong>
+                      Sequence: 
+                    </strong>
+                    MRNRRKAVSLLTGLLVTAQLFPTAALA
+                  </td>
+                </tr>
+                <tr
+                  data-id="PRO_0000448571"
+                >
+                  <td
+                    data-filter="type"
+                    data-filter-value="Chain"
+                  >
+                    Chain
+                  </td>
+                  <td>
+                    PRO_0000448571
+                  </td>
+                  <td>
+                    28-772
+                  </td>
+                  <td>
+                    A type blood N-acetyl-alpha-D-galactosamine deacetylase
+                  </td>
+                </tr>
+                <tr
+                  data-group-for="PRO_0000448571"
+                >
+                  <td>
+                    <strong>
+                      Sequence: 
+                    </strong>
+                    ADSSESALNKAPGYQDFPAYYSDSAHADDQVTHPDVVVLEEPWNGYRYWAVYTPNVMRISIYENPSIVASSDGVHWVEPEGLSNPIEPQPPSTRYHNCDADMVYNAEYDAMMAYWNWADDQGGGVGAEVRLRISYDGVHWGVPVTYDEMTRVWSKPTSDAERQVADGEDDFITAIASPDRYDMLSPTIVYDDFRDVFILWANNTGDVGYQNGQANFVEMRYSDDGITWGEPVRVNGFLGLDENGQQLAPWHQDVQYVPDLKEFVCISQCFAGRNPDGSVLHLTTSKDGVNWEQVGTKPLLSPGPDGSWDDFQIYRSSFYYEPGSSAGDGTMRVWYSALQKDTNNKMVADSSGNLTIQAKSEDDRIWRIGYAENSFVEMMRVLLDDPGYTTPALVSGNSLMLSAETTSLPTGDVMKLETSFAPVDTSDQVVKYTSSDPDVATVDEFGTITGVSVGSARIMAETREGLSDDLEIAVVENPYTLIPQSNMTATATSVYGGTTEGPASNVLDGNVRTIWHTNYAPKDELPQSITVSFDQPYTVGRFVYTPRQNGTNGIISEYELYAIHQDGSKDLVASGSDWALDAKDKTVSFAPVEAVGLELKAIAGAGGFGTAAELNVYAYGPIEPAPVYVPVDDRDASLVFTGAWNSDSNGSFYEGTARYTNEIGASVEFTFVGTAIRWYGQNDVNFGAAEVYVDGVLAGEVNVYGPAAAQQLLFEADGLAYGKHTIRIVCVSPVVDFDYFSYVGE
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </protvista-datatable>
         </protvista-manager>
       </div>
     </div>
@@ -3546,10 +4440,226 @@ exports[`Entry view should render for non-human entry 1`] = `
           />
           <protvista-datatable
             filter-scroll="true"
-          />
-          <div
-            class="evidence-tag-content false"
-          />
+          >
+            <table>
+              <thead>
+                <tr>
+                  <th
+                    data-filter="type"
+                  >
+                    Type
+                  </th>
+                  <th>
+                    ID
+                  </th>
+                  <th>
+                    Positions
+                  </th>
+                  <th>
+                    Description
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  data-id="42"
+                >
+                  <td
+                    data-filter="type"
+                    data-filter-value="Domain"
+                  >
+                    Domain
+                  </td>
+                  <td />
+                  <td>
+                    494-605
+                  </td>
+                  <td>
+                    F5/8 type C
+                    <button
+                      aria-controls="46"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 automatic annotation
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="46"
+                    />
+                  </td>
+                </tr>
+                <tr
+                  data-group-for="42"
+                >
+                  <td>
+                    <strong>
+                      Sequence: 
+                    </strong>
+                    SDDLEIAVVENPYTLIPQSNMTATATSVYGGTTEGPASNVLDGNVRTIWHTNYAPKDELPQSITVSFDQPYTVGRFVYTPRQNGTNGIISEYELYAIHQDGSKDLVASGSDW
+                  </td>
+                </tr>
+                <tr
+                  data-id="43"
+                >
+                  <td
+                    data-filter="type"
+                    data-filter-value="Region"
+                  >
+                    Region
+                  </td>
+                  <td />
+                  <td>
+                    180-402
+                  </td>
+                  <td>
+                    Deacetylase activity
+                    <button
+                      aria-controls="47"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 publication
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="47"
+                    />
+                  </td>
+                </tr>
+                <tr
+                  data-group-for="43"
+                >
+                  <td>
+                    <strong>
+                      Sequence: 
+                    </strong>
+                    WSKPTSDAERQVADGEDDFITAIASPDRYDMLSPTIVYDDFRDVFILWANNTGDVGYQNGQANFVEMRYSDDGITWGEPVRVNGFLGLDENGQQLAPWHQDVQYVPDLKEFVCISQCFAGRNPDGSVLHLTTSKDGVNWEQVGTKPLLSPGPDGSWDDFQIYRSSFYYEPGSSAGDGTMRVWYSALQKDTNNKMVADSSGNLTIQAKSEDDRIWRIGYAENSF
+                  </td>
+                </tr>
+                <tr
+                  data-id="44"
+                >
+                  <td
+                    data-filter="type"
+                    data-filter-value="Region"
+                  >
+                    Region
+                  </td>
+                  <td />
+                  <td>
+                    502-765
+                  </td>
+                  <td>
+                    CBM32 carbohydrate-binding domain
+                    <button
+                      aria-controls="48"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 publication
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="48"
+                    />
+                  </td>
+                </tr>
+                <tr
+                  data-group-for="44"
+                >
+                  <td>
+                    <strong>
+                      Sequence: 
+                    </strong>
+                    VENPYTLIPQSNMTATATSVYGGTTEGPASNVLDGNVRTIWHTNYAPKDELPQSITVSFDQPYTVGRFVYTPRQNGTNGIISEYELYAIHQDGSKDLVASGSDWALDAKDKTVSFAPVEAVGLELKAIAGAGGFGTAAELNVYAYGPIEPAPVYVPVDDRDASLVFTGAWNSDSNGSFYEGTARYTNEIGASVEFTFVGTAIRWYGQNDVNFGAAEVYVDGVLAGEVNVYGPAAAQQLLFEADGLAYGKHTIRIVCVSPVVDFD
+                  </td>
+                </tr>
+                <tr
+                  data-id="45"
+                >
+                  <td
+                    data-filter="type"
+                    data-filter-value="Region"
+                  >
+                    Region
+                  </td>
+                  <td />
+                  <td>
+                    515-772
+                  </td>
+                  <td>
+                    Not required for activity on soluble substrates
+                    <button
+                      aria-controls="49"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 publication
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="49"
+                    />
+                  </td>
+                </tr>
+                <tr
+                  data-group-for="45"
+                >
+                  <td>
+                    <strong>
+                      Sequence: 
+                    </strong>
+                    TATATSVYGGTTEGPASNVLDGNVRTIWHTNYAPKDELPQSITVSFDQPYTVGRFVYTPRQNGTNGIISEYELYAIHQDGSKDLVASGSDWALDAKDKTVSFAPVEAVGLELKAIAGAGGFGTAAELNVYAYGPIEPAPVYVPVDDRDASLVFTGAWNSDSNGSFYEGTARYTNEIGASVEFTFVGTAIRWYGQNDVNFGAAEVYVDGVLAGEVNVYGPAAAQQLLFEADGLAYGKHTIRIVCVSPVVDFDYFSYVGE
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </protvista-datatable>
         </protvista-manager>
         <h3
           class="capitalize"
@@ -3561,7 +4671,7 @@ exports[`Entry view should render for non-human entry 1`] = `
         >
           The deacetylase domain is in the N-terminus, while the C-terminus has a CBM32-type carbohydrate-binding domain that is not required for activity on soluble substrates. The CBM32 domain binds preferentially to repeating N-acetyl lactosamine structures
           <button
-            aria-controls="31"
+            aria-controls="50"
             aria-expanded="false"
             class="svg-colour-reviewed evidence-tag"
             data-testid="evidence-tag-trigger"
@@ -3580,7 +4690,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           <div
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
-            id="31"
+            id="50"
           />
         </div>
         <h3>

@@ -1,35 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UniProtKBEvidenceTag components should render ProtVista evidence tag 1`] = `
-Array [
-  TemplateResult {
-    "processor": DefaultTemplateProcessor {},
-    "strings": Array [
-      "
-        <span
-          class=",
-      "
-          @click=",
-      "
-        >
-          ",
-      "
-          ",
-      "</span
-        >
-      ",
-    ],
-    "type": "html",
-    "values": Array [
-      "evidence-tag svg-colour-unreviewed",
-      [Function],
-      [Function],
-      "Imported",
-    ],
-  },
-]
-`;
-
 exports[`UniProtKBEvidenceTag components should render automatic  1`] = `
 <DocumentFragment>
   <button
