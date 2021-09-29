@@ -252,13 +252,13 @@ export const MapToDropdown: FC<Props> = ({
 
 export const mapToLinks = (
   namespace: Namespace,
-  accession: string,
-  statistics: Statistics | undefined
+  accession?: string,
+  statistics?: Statistics
 ):
   | Array<{ name: ReactNode; link: LinkProps['to']; key: string }>
   | undefined => {
   const fieldName = namespaceToUniProtKBFieldMap.get(namespace);
-  if (!(statistics && fieldName)) {
+  if (!(accession && statistics && fieldName)) {
     return;
   }
   const enrichedStatistics = enrichStatistics(statistics, fieldName, accession);

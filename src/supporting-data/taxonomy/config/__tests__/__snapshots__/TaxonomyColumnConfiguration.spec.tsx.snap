@@ -108,11 +108,15 @@ exports[`TaxonomyColumnConfiguration component should render column "rank": rank
 </DocumentFragment>
 `;
 
+exports[`TaxonomyColumnConfiguration component should render column "reviewed": reviewed 1`] = `<DocumentFragment />`;
+
 exports[`TaxonomyColumnConfiguration component should render column "scientific_name": scientific_name 1`] = `
 <DocumentFragment>
   Primate lentivirus group
 </DocumentFragment>
 `;
+
+exports[`TaxonomyColumnConfiguration component should render column "statistics": statistics 1`] = `<DocumentFragment />`;
 
 exports[`TaxonomyColumnConfiguration component should render column "strains": strains 1`] = `<DocumentFragment />`;
 

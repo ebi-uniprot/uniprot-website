@@ -136,7 +136,7 @@ export const allSearchResultLocations = `/:namespace(${Object.keys(
   searchableNamespaceLabels
 ).join('|')})`;
 
-// "/:namespace(uniprotkb|uniparc|........)/accession"
+// "/:namespace(uniprotkb|uniparc|........)/:accession"
 export const allEntryPages = `/:namespace(${Object.keys(
   searchableNamespaceLabels
 ).join('|')})/:accession`;

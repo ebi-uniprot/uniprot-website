@@ -30,7 +30,7 @@ const DatabaseCard = ({ data, selected, handleEntrySelection }: Props) => {
 
   const links = useMemo(
     () => mapToLinks(Namespace.database, data.abbrev, data.statistics),
-    [data.statistics, data.abbrev]
+    [data]
   );
 
   return (

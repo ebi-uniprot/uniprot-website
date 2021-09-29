@@ -13,8 +13,8 @@ const mock: DatabaseAPIModel[] = [
     dbUrl: 'https://www.ebi.ac.uk/ena/browser/view/%s',
     category: 'Sequence databases',
     statistics: {
-      reviewedProteinCount: 552391,
-      unreviewedProteinCount: 204546785,
+      reviewedProteinCount: 553525,
+      unreviewedProteinCount: 214958439,
     },
   },
   {
@@ -27,7 +27,7 @@ const mock: DatabaseAPIModel[] = [
     server: 'https://www.ebi.ac.uk/chembldb',
     dbUrl: 'https://www.ebi.ac.uk/chembldb/target/inspect/%s',
     category: 'Chemistry databases',
-    statistics: { reviewedProteinCount: 7667, unreviewedProteinCount: 1071 },
+    statistics: { reviewedProteinCount: 8251, unreviewedProteinCount: 1146 },
   },
 ];
 

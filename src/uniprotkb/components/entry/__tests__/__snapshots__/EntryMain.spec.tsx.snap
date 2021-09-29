@@ -4157,7 +4157,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             <a
               class="button tertiary"
               download=""
-              href="/<testing>/api/uniprotkb/accession/P0DTR4.fasta"
+              href="/<testing>/api/uniprotkb/P0DTR4.fasta"
             >
               <test-file-stub />
               Download

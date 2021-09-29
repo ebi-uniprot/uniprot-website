@@ -80,11 +80,17 @@ const ResultsData = ({
     if (!hasMoreData && allResults.length === 1) {
       const uniqueItem = allResults[0];
       const trimmedQuery = query.toUpperCase().trim();
+      let idKey;
+      try {
+        idKey = getIdKey(uniqueItem);
+      } catch (error) {
+        // TODO: this happens when the namespace and data don't match up. Fix in a future refactor.
+      }
       if (
         // ... and query marked as "direct" ...
         direct ||
         // ... or the result's ID or accession matches the query ...
-        getIdKey(uniqueItem)?.toUpperCase() === trimmedQuery ||
+        idKey?.toUpperCase() === trimmedQuery ||
         // ... or matches the UniProtKB ID ...
         ('uniProtkbId' in uniqueItem && uniqueItem.uniProtkbId === trimmedQuery)
       ) {

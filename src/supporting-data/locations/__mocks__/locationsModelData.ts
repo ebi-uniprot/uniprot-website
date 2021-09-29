@@ -8,7 +8,7 @@ const mock: LocationsAPIModel[] = [
     definition:
       'The membrane surrounding the ER-Golgi intermediate compartment, which is a collection of tubulovesicular membrane clusters in the vicinity of ER exit sites.',
     content: 'Endoplasmic reticulum-Golgi intermediate compartment membrane',
-    statistics: { reviewedProteinCount: 235, unreviewedProteinCount: 8516 },
+    statistics: { reviewedProteinCount: 236, unreviewedProteinCount: 15974 },
     category: 'Cellular component',
     geneOntologies: [
       {
@@ -80,7 +80,7 @@ const mock: LocationsAPIModel[] = [
       'The membrane surrounding the host ER-Golgi intermediate compartment, which is a collection of tubulovesicular membrane clusters in the vicinity of host ER exit sites.',
     content:
       'Host endoplasmic reticulum-Golgi intermediate compartment membrane',
-    statistics: { reviewedProteinCount: 59, unreviewedProteinCount: 8247 },
+    statistics: { reviewedProteinCount: 59, unreviewedProteinCount: 18988 },
     category: 'Cellular component',
     geneOntologies: [
       {
