@@ -9145,7 +9145,6 @@ const configureSearchTerms = [
             term: 'xref',
             dataType: 'string',
             fieldType: 'general',
-            valuePrefix: 'any-',
           },
         ],
       },
