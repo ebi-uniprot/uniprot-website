@@ -5,6 +5,7 @@ import HTMLHead from '../../../../shared/components/HTMLHead';
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 
+import Source from './Source';
 import TemplateEntries from './TemplateEntries';
 import ConditionsAnnotations from '../../../shared/entry/ConditionsAnnotations';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
@@ -48,6 +49,7 @@ const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
           accession={data.information.oldRuleNum || data.uniRuleId}
         />
       </div>
+      <Source source={data.information.oldRuleNum} />
       <TemplateEntries entries={data.information.uniProtAccessions} />
       <ConditionsAnnotations data={data} />
     </SingleColumnLayout>
