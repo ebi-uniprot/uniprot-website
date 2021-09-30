@@ -8,6 +8,7 @@ import {
   InformationIcon,
 } from 'franklin-sites';
 import { isEqual, pullAll } from 'lodash-es';
+import cn from 'classnames';
 
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import AccessionView from '../../../shared/components/results/AccessionView';
@@ -36,146 +37,110 @@ import {
   CofactorComment,
 } from '../../../uniprotkb/types/commentTypes';
 
-import helper from '../../../shared/styles/helper.module.scss';
 import styles from './styles/conditions-annotations.module.scss';
 
 type AnnotationWithExceptions = Annotation & { exceptions?: RuleException[] };
 
-// Across values within a condition: OR
-const SingleCondition = ({ condition }: { condition: Condition }) => {
-  if (condition.type === 'fragment') {
-    return (
-      <>
-        is <strong>{condition.isNegative ? 'not ' : ''}fragmented</strong>
-      </>
-    );
-  }
-  // Sequence length
-  if (condition.type === 'sequence length') {
-    return (
-      <>
-        <strong>{condition.isNegative ? 'does not have' : 'has'}</strong>{' '}
-        length:
-        {condition.range?.start?.value}
-        {condition.range?.start?.value !== undefined &&
+// NOTE: across values within a condition: OR
+const conditionsToInfoData = (conditions: Condition[]) =>
+  conditions.map((condition) => {
+    // Fragmented sequence
+    if (condition.type === 'fragment') {
+      return {
+        title: 'fragmented',
+        content: condition.isNegative ? 'no' : 'yes',
+      };
+    }
+    // Sequence length
+    if (condition.type === 'sequence length') {
+      return {
+        title: 'length',
+        content: `${condition.range?.start?.value}${
+          condition.range?.start?.value !== undefined &&
           condition.range?.end?.value !== undefined &&
-          '-'}
-        {condition.range?.end?.value}
-      </>
-    );
-  }
-  // Taxonomy
-  if (condition.type === 'taxon') {
-    return (
-      <>
-        <strong>
-          {condition.isNegative ? 'is not found in' : 'is found in'}
-        </strong>{' '}
-        taxon:{' '}
-        {condition.conditionValues?.map(({ cvId, value }, index, array) => {
-          let output: ReactNode = value;
-          if (cvId) {
-            output = (
-              <TaxonomyView data={{ taxonId: +cvId, scientificName: value }} />
-            );
-          }
-          return (
-            <Fragment key={cvId || value}>
-              {listFormat(index, array, 'or')}
-              {output}
-            </Fragment>
-          );
-        })}
-      </>
-    );
-  }
-  // Signature match
-  if (condition.type?.endsWith('id')) {
-    const signatureDB = condition.type.replace(' id', '');
-    return (
-      <>
-        <strong>{condition.isNegative ? 'does not match' : 'matches'}</strong>{' '}
-        {signatureDB} signature:{' '}
-        {condition.conditionValues?.map(({ value }, index, array) => {
-          if (!value) {
-            return null;
-          }
-          const url = externalUrls.InterProSearch(value);
-          return (
-            <Fragment key={value}>
-              {listFormat(index, array, 'or')}
-              <ExternalLink url={url}>{value}</ExternalLink>
-            </Fragment>
-          );
-        })}
-      </>
-    );
-  }
-  // in case we're missing a case
-  console.warn(condition); // eslint-disable-line no-console
-  return <>{JSON.stringify(condition, null, 2)}</>;
-};
+          '-'
+        }${condition.range?.end?.value}`,
+      };
+    }
+    // Taxonomy
+    if (condition.type === 'taxon') {
+      return {
+        title: 'taxon', // NOTE: don't pluralise, the values are "OR"-separated
+        content: (
+          <>
+            {condition.conditionValues?.map(({ cvId, value }, index, array) => {
+              let output: ReactNode = value;
+              if (cvId) {
+                output = (
+                  <TaxonomyView
+                    data={{ taxonId: +cvId, scientificName: value }}
+                  />
+                );
+              }
+              return (
+                <Fragment key={cvId || value}>
+                  {listFormat(index, array, 'or')}
+                  {condition.isNegative && 'not'}
+                  {output}
+                </Fragment>
+              );
+            })}
+          </>
+        ),
+      };
+    }
+    // Signature match
+    if (condition.type?.endsWith('id')) {
+      const signatureDB = condition.type.replace(' id', '');
+      return {
+        // NOTE: don't pluralise, the values are "OR"-separated
+        title: `${signatureDB} signature`,
+        content: (
+          <>
+            {condition.conditionValues?.map(({ value }, index, array) => {
+              if (!value) {
+                return null;
+              }
+              const url = externalUrls.InterProSearch(value);
+              return (
+                <Fragment key={value}>
+                  {listFormat(index, array, 'or')}
+                  {condition.isNegative && 'not'}
+                  <ExternalLink url={url}>{value}</ExternalLink>
+                </Fragment>
+              );
+            })}
+          </>
+        ),
+      };
+    }
+    // in case we're missing a case
+    console.warn(condition); // eslint-disable-line no-console
+    return { title: '', content: null };
+  });
 
 // Accross condition sets: OR
 // Across conditions within a condition set: AND
 const ConditionsComponent = ({
   conditionSets,
-  extra,
 }: {
   conditionSets?: ConditionSet[];
-  extra?: boolean;
 }) => (
-  <div className={styles.conditions}>
+  <ul className={cn(styles.conditions, 'no-bullet')}>
     {conditionSets?.map(({ conditions }, index) => {
       if (!conditions?.length) {
+        // Would be absurd
         return null;
-      }
-      const intro: ReactNode[] = [];
-      if (index === 0) {
-        // Start of the sentence, option 1
-        if (extra) {
-          intro.push(
-            <Fragment key="extra">
-              <strong>Additionally</strong>
-              {" to this rule's common conditions at the top, "}
-              <strong>if</strong>
-            </Fragment>
-          );
-        } else {
-          // Start of the sentence, option 2
-          intro.push(<strong key="main">If</strong>);
-        }
-      } else {
-        // Start of the sentence, option 3
-        intro.push(<strong key="complex">Or, if</strong>);
-      }
-      // Common bit of the sentence
-      intro.push(' a protein meets ');
-      if (conditions.length === 1) {
-        // End of the sentence, option 1
-        intro.push('the following condition:');
-      } else {
-        // End of the sentence, option 2
-        intro.push('all of the following conditions:');
       }
       return (
         // eslint-disable-next-line react/no-array-index-key
-        <Fragment key={index}>
-          <p>{intro}</p>
-          <ul>
-            {conditions.map((condition, index, { length }) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <li key={index}>
-                <span className={helper.italic}>{index !== 0 && 'and, '}</span>
-                <SingleCondition condition={condition} />
-                {index + 1 < length ? ';' : '.'}
-              </li>
-            ))}
-          </ul>
-        </Fragment>
+        <li key={index}>
+          {index !== 0 && 'or'}
+          <InfoList infoData={conditionsToInfoData(conditions)} />
+        </li>
       );
     })}
-  </div>
+  </ul>
 );
 
 const ExceptionComponent = ({
@@ -224,22 +189,6 @@ const ExceptionComponent = ({
         ))}
       </ul>
     </EvidenceTag>
-    // <Button variant="tertiary" className={styles.exceptions}>
-    //   {pluralise('exception', filteredExceptions.length)}
-    //   {displayModal && (
-    //     <Modal
-    //       handleExitModal={() => setDisplayModal(false)}
-    //       title={title}
-    //       width={width}
-    //       height={height}
-    //       withHeaderCloseButton={withHeaderCloseButton}
-    //       withFooterCloseButton={withFooterCloseButton}
-    //       onWindowOpen={onWindowOpen}
-    //     >
-    //       {children}
-    //     </Modal>
-    //   )}
-    // </Button>
   );
 };
 
@@ -495,8 +444,8 @@ const RuleComponent = ({
   rule: Rule | CaseRule;
   extra?: boolean;
 }) => (
-  <div className={styles.rule}>
-    <ConditionsComponent conditionSets={rule.conditionSets} extra={extra} />
+  <div className={cn(styles.rule, { [styles.extra]: extra })}>
+    <ConditionsComponent conditionSets={rule.conditionSets} />
     <AnnotationsComponent
       annotations={rule.annotations}
       exceptions={rule.ruleExceptions}
