@@ -43,12 +43,14 @@ type AnnotationWithExceptions = Annotation & { exceptions?: RuleException[] };
 
 // NOTE: across values within a condition: OR
 const conditionsToInfoData = (conditions: Condition[]) =>
-  conditions.map((condition) => {
+  conditions.map((condition, index) => {
+    const key = `${index}`;
     // Fragmented sequence
     if (condition.type === 'fragment') {
       return {
         title: 'fragmented',
         content: condition.isNegative ? 'no' : 'yes',
+        key,
       };
     }
     // Sequence length
@@ -60,6 +62,7 @@ const conditionsToInfoData = (conditions: Condition[]) =>
           condition.range?.end?.value !== undefined &&
           '-'
         }${condition.range?.end?.value}`,
+        key,
       };
     }
     // Taxonomy
@@ -87,6 +90,30 @@ const conditionsToInfoData = (conditions: Condition[]) =>
             })}
           </>
         ),
+        key,
+      };
+    }
+    // Gene location
+    if (condition.type === 'gene location') {
+      return {
+        title: 'gene location',
+        content: (
+          <>
+            {condition.conditionValues?.map(({ value }, index, array) => {
+              if (!value) {
+                return null;
+              }
+              return (
+                <Fragment key={value}>
+                  {listFormat(index, array, 'or')}
+                  {condition.isNegative && 'not'}
+                  {value}
+                </Fragment>
+              );
+            })}
+          </>
+        ),
+        key,
       };
     }
     // Signature match
@@ -112,6 +139,7 @@ const conditionsToInfoData = (conditions: Condition[]) =>
             })}
           </>
         ),
+        key,
       };
     }
     // in case we're missing a case
@@ -384,9 +412,9 @@ const mergeAnnotationsAndExceptions = (
   let exceptionsToAssign = Array.from(exceptions);
   const output: AnnotationWithExceptions[] = [];
   for (const annotation of annotations) {
-    const matchedExceptions = exceptionsToAssign.filter((exception) =>
-      isEqual(exception.annotation, annotation)
-    );
+    const matchedExceptions = exceptionsToAssign.filter((exception) => {
+      return isEqual(exception.annotation, annotation);
+    });
     if (!matchedExceptions.length) {
       output.push(annotation);
     } else {
