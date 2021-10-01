@@ -1310,9 +1310,11 @@ exports[`Entry basic should render main 1`] = `
                       </div>
                     </li>
                   </ul>
-                  <h5>
+                  <h4
+                    class="tiny"
+                  >
                     Including 1 domain:
-                  </h5>
+                  </h4>
                   <ul
                     class="info-list"
                   >

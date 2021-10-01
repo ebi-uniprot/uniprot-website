@@ -37,11 +37,11 @@ const NamesAndTaxonomySection = ({ data, primaryAccession }: Props) => {
       <ProteinNamesView proteinNames={data.proteinNamesData} />
       {!!domains?.length && (
         <>
-          <h5>{`Including ${domains.length} ${pluralise(
+          <h4 className="tiny">{`Including ${domains.length} ${pluralise(
             'domain',
             domains.length,
             'domains'
-          )}:`}</h5>
+          )}:`}</h4>
           {domains.map((domain, index) => (
             // eslint-disable-next-line react/no-array-index-key
             <ProteinNamesView key={index} proteinNames={domain} />
