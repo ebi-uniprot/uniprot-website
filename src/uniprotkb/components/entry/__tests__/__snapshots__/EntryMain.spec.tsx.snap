@@ -1300,14 +1300,18 @@ exports[`Entry view should render 1`] = `
               <div
                 class="decorated-list-item__content"
               >
-                <p>
-                  <a
-                    href="/taxonomy/9606"
-                    title="scientific name (common name) (synonyms 1), taxon ID 9606"
-                  >
-                    scientific name (common name) (synonyms 1)
-                  </a>
-                </p>
+                <ul
+                  class="expandable-list no-bullet"
+                >
+                  <li>
+                    <a
+                      href="/taxonomy/9606"
+                      title="scientific name (common name) (synonyms 1), taxon ID 9606"
+                    >
+                      scientific name (common name) (synonyms 1)
+                    </a>
+                  </li>
+                </ul>
               </div>
             </div>
           </li>

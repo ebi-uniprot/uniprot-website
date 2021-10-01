@@ -275,9 +275,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.organismHosts, {
     return (
       <ExpandableList descriptionString="hosts" displayNumberOfHiddenItems>
         {organismHosts?.map((host) => (
-          <p key={host.taxonId}>
-            <TaxonomyView key={host.taxonId} data={host} />
-          </p>
+          <TaxonomyView key={host.taxonId} data={host} />
         ))}
       </ExpandableList>
     );
@@ -606,6 +604,22 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSequenceCaution, {
   render: (data) => {
     const { sequenceCaution } = data[EntrySection.Sequence];
     return sequenceCaution && <SequenceCautionView data={sequenceCaution} />;
+  },
+});
+
+UniProtKBColumnConfiguration.set(UniProtKBColumn.featureCount, {
+  label: 'Features',
+  render: (data) => {
+    const counts = data?.extraAttributes?.countByFeatureType;
+    return (
+      counts && (
+        <ExpandableList displayNumberOfHiddenItems descriptionString="features">
+          {Object.keys(counts)
+            .sort()
+            .map((feature) => `${feature} (${counts[feature as FeatureType]})`)}
+        </ExpandableList>
+      )
+    );
   },
 });
 
@@ -1148,7 +1162,6 @@ const getXrefColumn = (databaseName: string) => ({
 // sc_epred:  can't see in current website
 // organelle: can't see in current website
 // cc_caution
-// feature: do we need? UX
 // similarity: this field is wrongly named in the API json (should be cc_similarity). Jira.
 // ft_non_cons
 
