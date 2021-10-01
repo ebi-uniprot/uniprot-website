@@ -275,9 +275,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.organismHosts, {
     return (
       <ExpandableList descriptionString="hosts" displayNumberOfHiddenItems>
         {organismHosts?.map((host) => (
-          <p key={host.taxonId}>
-            <TaxonomyView key={host.taxonId} data={host} />
-          </p>
+          <TaxonomyView key={host.taxonId} data={host} />
         ))}
       </ExpandableList>
     );
