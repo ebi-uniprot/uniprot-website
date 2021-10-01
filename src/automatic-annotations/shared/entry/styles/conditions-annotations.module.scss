@@ -1,17 +1,19 @@
 @import 'franklin-sites/src/styles/mixins';
+@import 'franklin-sites/src/styles/settings';
 
 .rule {
   display: grid;
   grid-template-areas:
     'conditions conditions'
     '. annotations';
-  // 12-column grid: 1 column, 11 columns
+  // 12-column grid: 1 column (margin for annotations), 11 columns
   grid-template-columns: minmax(0, 1fr) minmax(0, 11fr);
-  gap: 1em;
+  gap: $global-margin;
 
   :global(.decorated-list-item__content) {
     // Make it grow so that the floating exception button can go on the right
     flex-grow: 1;
+    overflow-x: auto;
   }
 }
 
@@ -23,8 +25,8 @@
 
     &.extra {
       grid-template-areas: '. conditions annotations';
-      // 12-column grid: 1 column, 3 columns, 8 columns
-      grid-template-columns: minmax(0, 1fr) minmax(0, 3fr) minmax(0, 8fr);
+      // 12-column grid: 1 column (empty), 4 columns, 7 columns
+      grid-template-columns: minmax(0, 1fr) minmax(0, 4fr) minmax(0, 7fr);
     }
   }
 }

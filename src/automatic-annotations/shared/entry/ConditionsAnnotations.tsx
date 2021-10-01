@@ -83,7 +83,7 @@ const conditionsToInfoData = (conditions: Condition[]) =>
               return (
                 <Fragment key={cvId || value}>
                   {listFormat(index, array, 'or')}
-                  {condition.isNegative && 'not'}
+                  {condition.isNegative && 'not '}
                   {output}
                 </Fragment>
               );
@@ -106,7 +106,7 @@ const conditionsToInfoData = (conditions: Condition[]) =>
               return (
                 <Fragment key={value}>
                   {listFormat(index, array, 'or')}
-                  {condition.isNegative && 'not'}
+                  {condition.isNegative && 'not '}
                   {value}
                 </Fragment>
               );
@@ -132,7 +132,7 @@ const conditionsToInfoData = (conditions: Condition[]) =>
               return (
                 <Fragment key={value}>
                   {listFormat(index, array, 'or')}
-                  {condition.isNegative && 'not'}
+                  {condition.isNegative && 'not '}
                   <ExternalLink url={url}>{value}</ExternalLink>
                 </Fragment>
               );
