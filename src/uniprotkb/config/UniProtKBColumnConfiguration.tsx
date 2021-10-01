@@ -609,6 +609,26 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSequenceCaution, {
   },
 });
 
+UniProtKBColumnConfiguration.set(UniProtKBColumn.featureCount, {
+  label: 'Features',
+  render: (data) => {
+    const counts = data?.extraAttributes?.countByFeatureType;
+    return (
+      counts && (
+        <ul className="no-bullet">
+          {Object.keys(counts)
+            .sort()
+            .map((feature) => (
+              <li key={feature}>{`${feature} (${
+                counts[feature as FeatureType]
+              })`}</li>
+            ))}
+        </ul>
+      )
+    );
+  },
+});
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.keyword, {
   label: 'Keywords',
   render: (data) => <KeywordList keywords={getAllKeywords(data)} />,
@@ -1148,7 +1168,6 @@ const getXrefColumn = (databaseName: string) => ({
 // sc_epred:  can't see in current website
 // organelle: can't see in current website
 // cc_caution
-// feature: do we need? UX
 // similarity: this field is wrongly named in the API json (should be cc_similarity). Jira.
 // ft_non_cons
 
