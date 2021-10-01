@@ -900,6 +900,18 @@ exports[`UniProtKBColumnConfiguration component should render column "error_gmod
 
 exports[`UniProtKBColumnConfiguration component should render column "family": family 1`] = `<DocumentFragment />`;
 
+exports[`UniProtKBColumnConfiguration component should render column "feature_count": feature_count 1`] = `
+<DocumentFragment>
+  <ul
+    class="no-bullet"
+  >
+    <li>
+      Chain (1)
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
 exports[`UniProtKBColumnConfiguration component should render column "fragment": fragment 1`] = `
 <DocumentFragment>
   Fragment
