@@ -613,15 +613,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.featureCount, {
     const counts = data?.extraAttributes?.countByFeatureType;
     return (
       counts && (
-        <ul className="no-bullet">
+        <ExpandableList displayNumberOfHiddenItems>
           {Object.keys(counts)
             .sort()
-            .map((feature) => (
-              <li key={feature}>{`${feature} (${
-                counts[feature as FeatureType]
-              })`}</li>
-            ))}
-        </ul>
+            .map((feature) => `${feature} (${counts[feature as FeatureType]})`)}
+        </ExpandableList>
       )
     );
   },

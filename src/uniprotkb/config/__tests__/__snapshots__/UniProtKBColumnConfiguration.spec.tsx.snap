@@ -903,7 +903,7 @@ exports[`UniProtKBColumnConfiguration component should render column "family": f
 exports[`UniProtKBColumnConfiguration component should render column "feature_count": feature_count 1`] = `
 <DocumentFragment>
   <ul
-    class="no-bullet"
+    class="expandable-list no-bullet"
   >
     <li>
       Chain (1)
