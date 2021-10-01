@@ -5,7 +5,7 @@ import GeneNamesView from '../protein-data-views/GeneNamesView';
 import ProteomesListView from '../protein-data-views/ProteomesView';
 import XRefView from '../protein-data-views/XRefView';
 
-import { hasContent } from '../../../shared/utils/utils';
+import { hasContent, pluralise } from '../../../shared/utils/utils';
 
 import { NamesAndTaxonomyUIModel } from '../../adapters/namesAndTaxonomyConverter';
 
@@ -24,6 +24,7 @@ const NamesAndTaxonomySection = ({ data, primaryAccession }: Props) => {
   if (!hasContent(data)) {
     return null;
   }
+  const domains = data.proteinNamesData?.includes;
   return (
     <Card
       header={
@@ -34,6 +35,19 @@ const NamesAndTaxonomySection = ({ data, primaryAccession }: Props) => {
     >
       <h3>Protein names</h3>
       <ProteinNamesView proteinNames={data.proteinNamesData} />
+      {!!domains?.length && (
+        <>
+          <h5>{`Including ${domains.length} ${pluralise(
+            'domain',
+            domains.length,
+            'domains'
+          )}:`}</h5>
+
+          {domains.map((domain) => (
+            <ProteinNamesView proteinNames={domain} />
+          ))}
+        </>
+      )}
       {data.geneNamesData && (
         <>
           <h3>Gene names</h3>
