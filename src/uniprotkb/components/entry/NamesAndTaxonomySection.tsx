@@ -42,9 +42,9 @@ const NamesAndTaxonomySection = ({ data, primaryAccession }: Props) => {
             domains.length,
             'domains'
           )}:`}</h5>
-
-          {domains.map((domain) => (
-            <ProteinNamesView proteinNames={domain} />
+          {domains.map((domain, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <ProteinNamesView key={index} proteinNames={domain} />
           ))}
         </>
       )}
