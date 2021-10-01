@@ -613,7 +613,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.featureCount, {
     const counts = data?.extraAttributes?.countByFeatureType;
     return (
       counts && (
-        <ExpandableList displayNumberOfHiddenItems>
+        <ExpandableList displayNumberOfHiddenItems descriptionString="features">
           {Object.keys(counts)
             .sort()
             .map((feature) => `${feature} (${counts[feature as FeatureType]})`)}
