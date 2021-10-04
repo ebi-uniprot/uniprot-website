@@ -3,12 +3,8 @@ import { Loader } from 'franklin-sites';
 import joinUrl from 'url-join';
 
 import { filterConfig, colorConfig } from 'protvista-uniprot';
-import {
-  ProteinsAPIVariation,
-  Variant,
-} from 'protvista-variation-adapter/dist/es/variants';
-import { transformData } from 'protvista-variation-adapter';
-import { ProtvistaVariationDatum } from 'protvista-variation/types/protvista-variation';
+import { ProteinsAPIVariation } from 'protvista-variation-adapter/dist/es/variants';
+import { transformData, TransformedVariant } from 'protvista-variation-adapter';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
@@ -147,76 +143,72 @@ const VariationView: FC<{
         </tr>
       </thead>
       <tbody>
-        {transformedData.variants.map(
-          (variantFeature: Variant & ProtvistaVariationDatum) => (
-            <Fragment key={variantFeature.protvistaFeatureId}>
-              <tr data-id={variantFeature.protvistaFeatureId}>
-                <td>
-                  {variantFeature.start}-{variantFeature.end}
-                </td>
-                <td>
-                  {variantFeature.wildType}
-                  {'>'}
-                  {variantFeature.alternativeSequence}
-                </td>
-                <td>
-                  {variantFeature.descriptions?.map((description) => (
-                    <div key={description.value}>
-                      {`${description.value} (${description.sources.join(
-                        ', '
-                      )})`}
+        {transformedData.variants.map((variantFeature: TransformedVariant) => (
+          <Fragment key={variantFeature.protvistaFeatureId}>
+            <tr data-id={variantFeature.protvistaFeatureId}>
+              <td>
+                {variantFeature.start}-{variantFeature.end}
+              </td>
+              <td>
+                {variantFeature.wildType}
+                {'>'}
+                {variantFeature.alternativeSequence}
+              </td>
+              <td>
+                {variantFeature.descriptions?.map((description) => (
+                  <div key={description.value}>
+                    {`${description.value} (${description.sources.join(', ')})`}
+                  </div>
+                ))}
+              </td>
+              <td>
+                {variantFeature.association &&
+                variantFeature.association.length > 0
+                  ? 'Y'
+                  : 'N'}
+              </td>
+            </tr>
+            <tr data-group-for={variantFeature.protvistaFeatureId}>
+              <td>
+                <div>
+                  <strong>Consequence: </strong>
+                  {variantFeature.consequenceType}
+                </div>
+                <div>
+                  <strong>Predictions: </strong>
+                  {variantFeature.predictions?.map((pred) => (
+                    <div
+                      key={`${pred.predAlgorithmNameType}${
+                        pred.predictionValType
+                      }${pred.sources.join('-')}`}
+                    >
+                      {`${pred.predAlgorithmNameType}: ${pred.predictionValType} (${pred.score})`}
                     </div>
                   ))}
-                </td>
-                <td>
-                  {variantFeature.association &&
-                  variantFeature.association.length > 0
-                    ? 'Y'
-                    : 'N'}
-                </td>
-              </tr>
-              <tr data-group-for={variantFeature.protvistaFeatureId}>
-                <td>
-                  <div>
-                    <strong>Consequence: </strong>
-                    {variantFeature.consequenceType}
-                  </div>
-                  <div>
-                    <strong>Predictions: </strong>
-                    {variantFeature.predictions?.map((pred) => (
-                      <div
-                        key={`${pred.predAlgorithmNameType}${
-                          pred.predictionValType
-                        }${pred.sources.join('-')}`}
-                      >
-                        {`${pred.predAlgorithmNameType}: ${pred.predictionValType} (${pred.score})`}
-                      </div>
-                    ))}
-                  </div>
-                  <div>
-                    <strong>Somatic: </strong>{' '}
-                    {variantFeature.somaticStatus === 1 ? 'Y' : 'N'}
-                  </div>
-                  <div>
-                    <strong>Disease association: </strong>
-                    {variantFeature.association?.map((association) => (
-                      <div key={association.name}>
-                        {association.name}
-                        <UniProtKBEvidenceTag
-                          evidences={association.evidences.map((evidence) => ({
-                            evidenceCode: evidence.code as `ECO:${number}`,
-                            id: evidence.source.id,
-                            source: evidence.source.name,
-                          }))}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </td>
-              </tr>
-            </Fragment>
-          )
-        )}
+                </div>
+                <div>
+                  <strong>Somatic: </strong>{' '}
+                  {variantFeature.somaticStatus === 1 ? 'Y' : 'N'}
+                </div>
+                <div>
+                  <strong>Disease association: </strong>
+                  {variantFeature.association?.map((association) => (
+                    <div key={association.name}>
+                      {association.name}
+                      <UniProtKBEvidenceTag
+                        evidences={association.evidences.map((evidence) => ({
+                          evidenceCode: evidence.code as `ECO:${number}`,
+                          id: evidence.source.id,
+                          source: evidence.source.name,
+                        }))}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </td>
+            </tr>
+          </Fragment>
+        ))}
       </tbody>
     </table>
   );
