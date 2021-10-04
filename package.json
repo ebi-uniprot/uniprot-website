@@ -54,7 +54,7 @@
       "jsx"
     ],
     "transformIgnorePatterns": [
-      "<rootDir>/node_modules/(?!lit-html|franklin-sites|p-map|aggregate-error|clean-stack).+\\.js"
+      "<rootDir>/node_modules/(?!franklin-sites|p-map|aggregate-error|clean-stack).+\\.js"
     ],
     "testPathIgnorePatterns": [
       "/__mocks__/",
@@ -111,7 +111,6 @@
     "history": "4.10.1",
     "idb": "6.1.4",
     "interaction-viewer": "3.4.0",
-    "lit-html": "1.4.1",
     "lite-youtube-embed": "^0.2.0",
     "lodash-es": "4.17.21",
     "marked": "3.0.4",
