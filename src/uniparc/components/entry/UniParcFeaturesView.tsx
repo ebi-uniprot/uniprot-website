@@ -61,7 +61,11 @@ const UniParcFeaturesView: FC<{
           const databaseInfo = databaseToDatabaseInfo[database];
 
           return (
-            <tr key={feature.protvistaFeatureId}>
+            <tr
+              key={feature.protvistaFeatureId}
+              data-start={feature.start}
+              data-end={feature.end}
+            >
               <td>
                 {feature.interproGroupId ? (
                   <ExternalLink

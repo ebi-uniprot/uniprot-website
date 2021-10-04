@@ -2020,7 +2020,9 @@ exports[`Entry basic should render main 1`] = `
                         </thead>
                         <tbody>
                           <tr
+                            data-end="8"
                             data-id="id value CHAIN"
+                            data-start="2"
                           >
                             <td
                               data-filter="type"
@@ -2061,7 +2063,9 @@ exports[`Entry basic should render main 1`] = `
                             </td>
                           </tr>
                           <tr
+                            data-end="8"
                             data-group-for="id value CHAIN"
+                            data-start="2"
                           >
                             <td>
                               <strong>

@@ -91,7 +91,11 @@ const UniProtKBFeaturesView: FC<FeatureProps> = ({
       <tbody>
         {processedData.map((feature) => (
           <Fragment key={feature.protvistaFeatureId}>
-            <tr data-id={feature.protvistaFeatureId}>
+            <tr
+              data-id={feature.protvistaFeatureId}
+              data-start={feature.start}
+              data-end={feature.end}
+            >
               <td data-filter="type" data-filter-value={feature.type}>
                 {feature.type}
               </td>
@@ -104,7 +108,11 @@ const UniProtKBFeaturesView: FC<FeatureProps> = ({
                 <UniProtKBEvidenceTag evidences={feature.evidences} />
               </td>
             </tr>
-            <tr data-group-for={feature.protvistaFeatureId}>
+            <tr
+              data-group-for={feature.protvistaFeatureId}
+              data-start={feature.start}
+              data-end={feature.end}
+            >
               <td>
                 <strong>Sequence: </strong>
                 {feature?.sequence}

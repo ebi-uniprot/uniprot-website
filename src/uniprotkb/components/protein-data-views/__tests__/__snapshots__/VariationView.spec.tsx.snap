@@ -78,7 +78,9 @@ exports[`VariationView component renders on data 1`] = `
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr
+              data-id="featureA"
+            >
               <td>
                 10-10
               </td>
@@ -90,7 +92,9 @@ exports[`VariationView component renders on data 1`] = `
                 N
               </td>
             </tr>
-            <tr>
+            <tr
+              data-group-for="featureA"
+            >
               <td>
                 <div>
                   <strong>
