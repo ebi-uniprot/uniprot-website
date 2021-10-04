@@ -128,7 +128,7 @@ export enum InteractionType {
 
 export type Interaction = {
   numberOfExperiments: number;
-  type?: InteractionType;
+  type?: InteractionType; // Note: this has been removed. Use organismDiffer to know if Xeno.
   interactantOne: Interactant;
   interactantTwo: Interactant;
   organismDiffer: boolean;

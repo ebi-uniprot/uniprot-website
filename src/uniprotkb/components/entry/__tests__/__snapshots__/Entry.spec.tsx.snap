@@ -2347,10 +2347,85 @@ exports[`Entry basic should render main 1`] = `
                     />
                     <protvista-datatable
                       filter-scroll="true"
-                    />
-                    <div
-                      class="evidence-tag-content false"
-                    />
+                    >
+                      <table>
+                        <thead>
+                          <tr>
+                            <th
+                              data-filter="type"
+                            >
+                              Type
+                            </th>
+                            <th>
+                              ID
+                            </th>
+                            <th>
+                              Positions
+                            </th>
+                            <th>
+                              Description
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr
+                            data-end="8"
+                            data-id="id value CHAIN"
+                            data-start="2"
+                          >
+                            <td
+                              data-filter="type"
+                              data-filter-value="Chain"
+                            >
+                              Chain
+                            </td>
+                            <td>
+                              id value CHAIN
+                            </td>
+                            <td>
+                              2-8
+                            </td>
+                            <td>
+                              description value 123
+                              <button
+                                aria-controls="42"
+                                aria-expanded="false"
+                                class="svg-colour-reviewed evidence-tag"
+                                data-testid="evidence-tag-trigger"
+                                type="button"
+                              >
+                                <test-file-stub
+                                  height="12"
+                                  width="12"
+                                />
+                                <span
+                                  class="evidence-tag__label"
+                                >
+                                  1 publication
+                                </span>
+                              </button>
+                              <div
+                                class="evidence-tag-content "
+                                data-testid="evidence-tag-content"
+                                id="42"
+                              />
+                            </td>
+                          </tr>
+                          <tr
+                            data-end="8"
+                            data-group-for="id value CHAIN"
+                            data-start="2"
+                          >
+                            <td>
+                              <strong>
+                                Sequence: 
+                              </strong>
+                              APSQDFM
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </protvista-datatable>
                   </protvista-manager>
                 </div>
               </div>
@@ -2378,7 +2453,103 @@ exports[`Entry basic should render main 1`] = `
                   />
                   <protvista-datatable
                     filter-scroll="true"
-                  />
+                  >
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>
+                            Type
+                          </th>
+                          <th>
+                            Entry 1
+                          </th>
+                          <th>
+                            Entry 2
+                          </th>
+                          <th>
+                            Number of experiments
+                          </th>
+                          <th>
+                            Intact
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            XENO
+                          </td>
+                          <td>
+                            <a
+                              href="/uniprotkb/P21802"
+                            >
+                              gen PROC_12344 P21802
+                            </a>
+                          </td>
+                          <td>
+                            <a
+                              href="/uniprotkb/P12345-1"
+                            >
+                              gene1 PROC_12347 P12345-1
+                            </a>
+                          </td>
+                          <td>
+                            3
+                          </td>
+                          <td>
+                            <a
+                              class="external-link"
+                              href="//www.ebi.ac.uk/intact/query/(EBI-0001 AND EBI-0002)"
+                              rel="noopener"
+                              target="_blank"
+                            >
+                              EBI-0001, EBI-0002
+                              <test-file-stub
+                                data-testid="external-link-icon"
+                                width="12.5"
+                              />
+                            </a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            XENO
+                          </td>
+                          <td>
+                            <a
+                              href="/uniprotkb/P12345"
+                            >
+                              gen PROC_12345 P12345
+                            </a>
+                          </td>
+                          <td>
+                            <a
+                              href="/uniprotkb/P21802"
+                            >
+                              gene1 PROC_123454 P21802
+                            </a>
+                          </td>
+                          <td>
+                            6
+                          </td>
+                          <td>
+                            <a
+                              class="external-link"
+                              href="//www.ebi.ac.uk/intact/query/(EBI-00011 AND EBI-00012)"
+                              rel="noopener"
+                              target="_blank"
+                            >
+                              EBI-00011, EBI-00012
+                              <test-file-stub
+                                data-testid="external-link-icon"
+                                width="12.5"
+                              />
+                            </a>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </protvista-datatable>
                 </div>
               </div>
             </section>
@@ -2795,39 +2966,6 @@ exports[`Entry basic should render main 1`] = `
                     </a>
                      differs from that shown. Reason: Erroneous gene model prediction Text note
                     <button
-                      aria-controls="42"
-                      aria-expanded="false"
-                      class="svg-colour-unreviewed evidence-tag"
-                      data-testid="evidence-tag-trigger"
-                      type="button"
-                    >
-                      <test-file-stub
-                        height="12"
-                        width="12"
-                      />
-                      <span
-                        class="evidence-tag__label"
-                      >
-                        1 automatic annotation
-                      </span>
-                    </button>
-                    <div
-                      class="evidence-tag-content "
-                      data-testid="evidence-tag-content"
-                      id="42"
-                    />
-                  </section>
-                  <h3>
-                    Mass Spectrometry
-                  </h3>
-                  <section
-                    class="text-block"
-                  >
-                    <h3>
-                      isoform 1
-                    </h3>
-                    Molecular mass is 2.1 Da. Determined by LSI. note value
-                    <button
                       aria-controls="43"
                       aria-expanded="false"
                       class="svg-colour-unreviewed evidence-tag"
@@ -2851,6 +2989,39 @@ exports[`Entry basic should render main 1`] = `
                     />
                   </section>
                   <h3>
+                    Mass Spectrometry
+                  </h3>
+                  <section
+                    class="text-block"
+                  >
+                    <h3>
+                      isoform 1
+                    </h3>
+                    Molecular mass is 2.1 Da. Determined by LSI. note value
+                    <button
+                      aria-controls="44"
+                      aria-expanded="false"
+                      class="svg-colour-unreviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 automatic annotation
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="44"
+                    />
+                  </section>
+                  <h3>
                     RNA Editing
                   </h3>
                   <section
@@ -2860,33 +3031,6 @@ exports[`Entry basic should render main 1`] = `
                       Edited at position 
                       <span>
                         1 
-                        <button
-                          aria-controls="44"
-                          aria-expanded="false"
-                          class="svg-colour-unreviewed evidence-tag"
-                          data-testid="evidence-tag-trigger"
-                          type="button"
-                        >
-                          <test-file-stub
-                            height="12"
-                            width="12"
-                          />
-                          <span
-                            class="evidence-tag__label"
-                          >
-                            1 automatic annotation
-                          </span>
-                        </button>
-                        <div
-                          class="evidence-tag-content "
-                          data-testid="evidence-tag-content"
-                          id="44"
-                        />
-                      </span>
-                    </div>
-                    <div>
-                      <span>
-                        value 
                         <button
                           aria-controls="45"
                           aria-expanded="false"
@@ -2908,6 +3052,33 @@ exports[`Entry basic should render main 1`] = `
                           class="evidence-tag-content "
                           data-testid="evidence-tag-content"
                           id="45"
+                        />
+                      </span>
+                    </div>
+                    <div>
+                      <span>
+                        value 
+                        <button
+                          aria-controls="46"
+                          aria-expanded="false"
+                          class="svg-colour-unreviewed evidence-tag"
+                          data-testid="evidence-tag-trigger"
+                          type="button"
+                        >
+                          <test-file-stub
+                            height="12"
+                            width="12"
+                          />
+                          <span
+                            class="evidence-tag__label"
+                          >
+                            1 automatic annotation
+                          </span>
+                        </button>
+                        <div
+                          class="evidence-tag-content "
+                          data-testid="evidence-tag-content"
+                          id="46"
                         />
                       </span>
                     </div>

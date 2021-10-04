@@ -356,7 +356,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccMassSpectrometry, {
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ftVariant, {
   label: 'Variants',
   render: (data) => (
-    <VariationView primaryAccession={data.primaryAccession} hasTable={false} />
+    <VariationView primaryAccession={data.primaryAccession} onlyTable />
   ),
 });
 

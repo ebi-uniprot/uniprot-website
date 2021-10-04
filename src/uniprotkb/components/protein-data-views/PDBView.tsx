@@ -1,6 +1,5 @@
-import { useCallback, FC } from 'react';
-import { TemplateResult, html } from 'lit-html';
-import { Loader } from 'franklin-sites';
+import { FC } from 'react';
+import { ExternalLink, Loader } from 'franklin-sites';
 
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 
@@ -40,44 +39,6 @@ export type ProtvistaPDB = {
   chain: string;
 };
 
-const getColumnConfig = () => ({
-  type: {
-    label: 'PDB Entry',
-    resolver: ({ id }: ProtvistaPDB): string => id,
-  },
-  method: {
-    label: 'Method',
-    resolver: ({ method }: ProtvistaPDB): string => method,
-  },
-  resolution: {
-    label: 'Resolution',
-    resolver: ({ resolution }: ProtvistaPDB): string =>
-      resolution && resolution.replace('A', 'Å'),
-  },
-  chain: {
-    label: 'Chain',
-    resolver: ({ chain }: ProtvistaPDB): string => chain,
-  },
-  positions: {
-    label: 'Positions',
-    resolver: ({ positions }: ProtvistaPDB): string => positions,
-  },
-  links: {
-    label: 'Links',
-    resolver: ({ id }: ProtvistaPDB): TemplateResult =>
-      html`
-        ${PDBMirrorsInfo.map(
-          ({ displayName, uriLink }) =>
-            html`
-              <a href="${processUrlTemplate(uriLink, { id })}"
-                >${displayName}</a
-              >
-            `
-        ).reduce((prev, curr) => html` ${prev} · ${curr} `)}
-      `,
-  },
-});
-
 const PDBView: FC<{
   xrefs: Xref[];
   noStructure?: boolean;
@@ -108,26 +69,59 @@ const PDBView: FC<{
   const ceDefined = structureDefined && managerDefined && datatableDefined;
 
   const data = processData(xrefs);
-  const setTableData = useCallback(
-    (node): void => {
-      if (node && datatableDefined) {
-        // eslint-disable-next-line no-param-reassign
-        node.data = data;
-        // eslint-disable-next-line no-param-reassign
-        node.columns = getColumnConfig();
-        // eslint-disable-next-line no-param-reassign
-        node.rowClickEvent = ({ id }: { id: string }) => ({ 'pdb-id': id });
-      }
-    },
-    [datatableDefined, data]
-  );
 
   if (!ceDefined) {
     return <Loader />;
   }
 
   if (noStructure) {
-    return <protvista-datatable ref={setTableData} />;
+    return (
+      <protvista-datatable>
+        <table>
+          <thead>
+            <tr>
+              <th>PDB Entry</th>
+              <th>Method</th>
+              <th>Resolution</th>
+              <th>Chain</th>
+              <th>Positions</th>
+              <th>Links</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map(
+              (d) =>
+                d && (
+                  <tr key={d.id}>
+                    <td>{d.id}</td>
+                    <td>{d.method}</td>
+                    <td>{d.resolution?.replace('A', 'Å')}</td>
+                    <td>{d.chain}</td>
+                    <td>{d.positions}</td>
+                    <td>
+                      {PDBMirrorsInfo.map(({ displayName, uriLink }) =>
+                        d.id ? (
+                          <ExternalLink
+                            url={processUrlTemplate(uriLink, { id: d.id })}
+                          >
+                            {displayName}
+                          </ExternalLink>
+                        ) : (
+                          { displayName }
+                        )
+                      ).reduce((prev, curr) => (
+                        <>
+                          {prev} · {curr}
+                        </>
+                      ))}
+                    </td>
+                  </tr>
+                )
+            )}
+          </tbody>
+        </table>
+      </protvista-datatable>
+    );
   }
 
   const sortedIds = xrefs.map(({ id }) => id).sort();
