@@ -64,13 +64,11 @@ const UniParcFeaturesView: FC<{
             <tr key={feature.protvistaFeatureId}>
               <td>
                 {feature.interproGroupId ? (
-                  <a
-                    href={externalUrls.InterProEntry(feature.interproGroupId)}
-                    target="_blank"
-                    rel="noreferrer"
+                  <ExternalLink
+                    url={externalUrls.InterProEntry(feature.interproGroupId)}
                   >
                     {feature.interproGroupName}
-                  </a>
+                  </ExternalLink>
                 ) : (
                   'N/A'
                 )}
