@@ -30,6 +30,8 @@ import {
   RuleException,
   Annotation,
   ConditionSet,
+  PositionFeatureSet,
+  Range,
 } from '../model';
 import { Namespace } from '../../../shared/types/namespaces';
 import {
@@ -41,10 +43,91 @@ import styles from './styles/conditions-annotations.module.scss';
 
 type AnnotationWithExceptions = Annotation & { exceptions?: RuleException[] };
 
+const position = (range?: Range) => {
+  if (range?.start?.value) {
+    if (!range.end?.value || range.end.value === range.start.value) {
+      return <>{range.start.value}</>;
+    }
+    return (
+      <>
+        {range.start.value}-{range.end.value}
+      </>
+    );
+  }
+  return null;
+};
+
+const positionalFeatureSetToInfoDatumCondition = (
+  positionFeatureSet: PositionFeatureSet,
+  negative?: boolean,
+  key?: string
+) => ({
+  title: 'positional features',
+  content: (
+    <ul className="no-bullet">
+      {negative && 'not'}
+      {positionFeatureSet.positionalFeatures?.map((pf, index) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <li key={index}>
+          {position(pf.position)}: {pf.pattern}
+        </li>
+      ))}
+    </ul>
+  ),
+  key,
+});
+
+const positionalFeatureSetToInfoDatumAnnotation = (
+  positionFeatureSet: PositionFeatureSet
+) => ({
+  title: 'positional features',
+  content: (
+    <ul className="no-bullet">
+      {positionFeatureSet.positionalFeatures?.map((pf, index) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <li key={index}>
+          {position(pf.position)}: {pf.type} - {pf.value}
+        </li>
+      ))}
+    </ul>
+  ),
+});
+
 // NOTE: across values within a condition: OR
-const conditionsToInfoData = (conditions: Condition[]) =>
-  conditions.map((condition, index) => {
+// NOTE: except for positional features: AND
+const conditionsToInfoData = (
+  conditions: Condition[],
+  positionalFeatureSets: PositionFeatureSet[] = [],
+  positionalFocus?: boolean
+) => {
+  const items = positionalFocus
+    ? [...positionalFeatureSets, ...conditions]
+    : conditions;
+  return items.map((condition, index) => {
     const key = `${index}`;
+    // actually not a condition, it's a positional feature set
+    if (!('type' in condition)) {
+      if (!('positionalFeatures' in condition)) {
+        // eslint-disable-next-line no-console
+        console.warn('unexpected positional feature set:', condition);
+        return { title: '', content: null };
+      }
+      return positionalFeatureSetToInfoDatumCondition(condition, false, key);
+    }
+    // Tag to a positional feature
+    if (condition.type === 'Feature Tag') {
+      // Retrieve the corresponding positional feature set to display it
+      const matchingSet = positionalFeatureSets?.find(
+        (pfs) => pfs.tag === condition.tag?.value
+      );
+      if (matchingSet) {
+        return positionalFeatureSetToInfoDatumCondition(
+          matchingSet,
+          condition.isNegative,
+          key
+        );
+      }
+    }
     // Fragmented sequence
     if (condition.type === 'fragment') {
       return {
@@ -57,11 +140,12 @@ const conditionsToInfoData = (conditions: Condition[]) =>
     if (condition.type === 'sequence length') {
       return {
         title: 'length',
-        content: `${condition.range?.start?.value}${
-          condition.range?.start?.value !== undefined &&
-          condition.range?.end?.value !== undefined &&
-          '-'
-        }${condition.range?.end?.value}`,
+        content: (
+          <>
+            {condition.isNegative && 'not '}
+            {position(condition.range)}
+          </>
+        ),
         key,
       };
     }
@@ -146,13 +230,16 @@ const conditionsToInfoData = (conditions: Condition[]) =>
     console.warn(condition); // eslint-disable-line no-console
     return { title: '', content: null };
   });
+};
 
 // Accross condition sets: OR
 // Across conditions within a condition set: AND
 const ConditionsComponent = ({
   conditionSets,
+  positionalFeatureSets,
 }: {
   conditionSets?: ConditionSet[];
+  positionalFeatureSets?: PositionFeatureSet[];
 }) => (
   <ul className={cn(styles.conditions, 'no-bullet')}>
     {conditionSets?.map(({ conditions }, index) => {
@@ -164,7 +251,9 @@ const ConditionsComponent = ({
         // eslint-disable-next-line react/no-array-index-key
         <li key={index}>
           {index !== 0 && 'or'}
-          <InfoList infoData={conditionsToInfoData(conditions)} />
+          <InfoList
+            infoData={conditionsToInfoData(conditions, positionalFeatureSets)}
+          />
         </li>
       );
     })}
@@ -236,13 +325,14 @@ const ExceptionComponent = ({
 
 const groupedAnnotation = (
   type: string,
-  annotations: AnnotationWithExceptions[]
+  annotations: Array<AnnotationWithExceptions | PositionFeatureSet>
 ) => {
+  const typedAnnotations = annotations as AnnotationWithExceptions[];
   // Keyword
   if (type === 'keyword') {
     return (
       <ul className="no-bullet">
-        {annotations.map(
+        {typedAnnotations.map(
           (annotation) =>
             annotation.keyword?.id && (
               <li key={annotation.keyword.id}>
@@ -261,7 +351,7 @@ const groupedAnnotation = (
   if (type === 'GO term') {
     return (
       <ul className="no-bullet">
-        {annotations.map(
+        {typedAnnotations.map(
           (annotation) =>
             annotation.dbReference?.id && (
               <li key={annotation.dbReference.id}>
@@ -280,7 +370,7 @@ const groupedAnnotation = (
   if (type === 'protein name') {
     return (
       <ul className="no-bullet">
-        {annotations.map((annotation, index) => (
+        {typedAnnotations.map((annotation, index) => (
           // eslint-disable-next-line react/no-array-index-key
           <li key={index}>
             <CSVView
@@ -298,7 +388,7 @@ const groupedAnnotation = (
   if (type === 'gene name') {
     return (
       <ul className="no-bullet">
-        {annotations.map((annotation, index) => (
+        {typedAnnotations.map((annotation, index) => (
           // eslint-disable-next-line react/no-array-index-key
           <li key={index}>
             <CSVView data={annotation.gene} />
@@ -310,7 +400,7 @@ const groupedAnnotation = (
   }
   if (type === 'subcellular location') {
     // TODO: check what needs to be done here
-    const locations = annotations.flatMap(
+    const locations = typedAnnotations.flatMap(
       (annotation) => annotation.comment?.subcellularLocations
     );
     // NOTE: missing accessions in data here to generate links
@@ -332,7 +422,7 @@ const groupedAnnotation = (
   if (type === 'catalytic activity') {
     return (
       <ul className="no-bullet">
-        {annotations.map((annotation, index) => (
+        {typedAnnotations.map((annotation, index) => (
           // eslint-disable-next-line react/no-array-index-key
           <li key={index}>
             <CatalyticActivityView
@@ -348,7 +438,7 @@ const groupedAnnotation = (
   if (type === 'cofactor') {
     return (
       <ul className="no-bullet">
-        {annotations.map((annotation, index) => (
+        {typedAnnotations.map((annotation, index) => (
           // eslint-disable-next-line react/no-array-index-key
           <li key={index}>
             <CofactorView cofactors={[annotation.comment as CofactorComment]} />
@@ -359,10 +449,10 @@ const groupedAnnotation = (
     );
   }
   // last case, free text comments, check it contains texts anyway
-  if (annotations[0]?.comment?.texts?.length) {
+  if (typedAnnotations[0]?.comment?.texts?.length) {
     return (
       <ul className="no-bullet">
-        {annotations.map(
+        {typedAnnotations.map(
           (annotation, index) =>
             annotation.comment && (
               // eslint-disable-next-line react/no-array-index-key
@@ -382,7 +472,10 @@ const groupedAnnotation = (
 };
 
 // See similar logic in AnnotationCovered.tsx common column renderer
-function annotationsToInfoData(annotations: AnnotationWithExceptions[]) {
+function annotationsToInfoData(
+  annotations: AnnotationWithExceptions[],
+  positionalFeatureSet?: PositionFeatureSet
+) {
   const map = new Map<string, Annotation[]>();
 
   for (const annotation of annotations) {
@@ -408,10 +501,18 @@ function annotationsToInfoData(annotations: AnnotationWithExceptions[]) {
     }
   }
 
-  return Array.from(map.entries()).map(([type, annotations]) => ({
+  const infoData = Array.from(map.entries()).map(([type, annotations]) => ({
     title: type,
     content: groupedAnnotation(type, annotations),
   }));
+
+  if (positionalFeatureSet) {
+    infoData.unshift(
+      positionalFeatureSetToInfoDatumAnnotation(positionalFeatureSet)
+    );
+  }
+
+  return infoData;
 }
 
 const mergeAnnotationsAndExceptions = (
@@ -464,13 +565,15 @@ const mergeAnnotationsAndExceptions = (
 };
 
 const AnnotationsComponent = ({
-  annotations,
+  annotations = [],
+  positionalFeatureSet,
   exceptions,
 }: {
   annotations?: Annotation[];
+  positionalFeatureSet?: PositionFeatureSet;
   exceptions?: RuleException[];
 }) => {
-  if (!annotations?.length) {
+  if (!annotations.length && !positionalFeatureSet) {
     // Might be absurd, but we never know
     return (
       <div className={styles.annotations}>
@@ -483,23 +586,56 @@ const AnnotationsComponent = ({
     : annotations;
   return (
     <div className={styles.annotations}>
-      <InfoList infoData={annotationsToInfoData(annotationsWithExceptions)} />
+      <InfoList
+        infoData={annotationsToInfoData(
+          annotationsWithExceptions,
+          positionalFeatureSet
+        )}
+      />
     </div>
   );
 };
 
 const RuleComponent = ({
   rule,
+  positionalFeatureSets,
   extra,
 }: {
   rule: Rule | CaseRule;
+  positionalFeatureSets?: PositionFeatureSet[];
   extra?: boolean;
 }) => (
   <div className={cn(styles.rule, { [styles.extra]: extra })}>
-    <ConditionsComponent conditionSets={rule.conditionSets} />
+    <ConditionsComponent
+      conditionSets={rule.conditionSets}
+      positionalFeatureSets={positionalFeatureSets}
+    />
     <AnnotationsComponent
       annotations={rule.annotations}
       exceptions={rule.ruleExceptions}
+    />
+  </div>
+);
+
+const PositionalFeatureComponent = ({
+  positionalFeatureSet,
+}: {
+  positionalFeatureSet: PositionFeatureSet;
+}) => (
+  <div className={cn(styles.rule, styles.extra)}>
+    <div className={styles.conditions}>
+      <InfoList
+        infoData={conditionsToInfoData(
+          positionalFeatureSet.conditions || [],
+          [positionalFeatureSet],
+          true
+        )}
+      />
+    </div>
+    <AnnotationsComponent
+      annotations={positionalFeatureSet.annotations}
+      positionalFeatureSet={positionalFeatureSet}
+      exceptions={positionalFeatureSet.ruleExceptions}
     />
   </div>
 );
@@ -513,7 +649,10 @@ const ConditionsAnnotations = ({
     <Card
       header={<h2 className="medium">Common conditions &amp; annotations</h2>}
     >
-      <RuleComponent rule={data.mainRule} />
+      <RuleComponent
+        rule={data.mainRule}
+        positionalFeatureSets={data.positionFeatureSets}
+      />
     </Card>
     {data.otherRules?.map((otherRule, index) => (
       <Card
@@ -523,7 +662,11 @@ const ConditionsAnnotations = ({
           <h2 className="medium">{`Special condition set #${index + 1}`}</h2>
         }
       >
-        <RuleComponent rule={otherRule} extra />
+        <RuleComponent
+          rule={otherRule}
+          positionalFeatureSets={data.positionFeatureSets}
+          extra
+        />
       </Card>
     ))}
     {data.positionFeatureSets?.map((positionalFeatureSet, index) => (
@@ -536,7 +679,9 @@ const ConditionsAnnotations = ({
           } (positional features)`}</h2>
         }
       >
-        {JSON.stringify(positionalFeatureSet, null, 2)}
+        <PositionalFeatureComponent
+          positionalFeatureSet={positionalFeatureSet}
+        />
       </Card>
     ))}
     {data.samFeatureSets?.map((samFeatureSet, index) => (

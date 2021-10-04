@@ -231,7 +231,7 @@ type Position = {
   modifier?: 'EXACT' | 'OUTSIDE' | 'UNKNOWN' | 'UNSURE';
 };
 
-type Range = {
+export type Range = {
   start?: Position;
   end?: Position;
 };
