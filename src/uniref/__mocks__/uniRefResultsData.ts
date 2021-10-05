@@ -6,7 +6,8 @@ type Payload = {
   results: Partial<UniRefLiteAPIModel>[];
 };
 
-// api/uniref/search?facets=identity&query=glucose&size=1
+// Source: /api/uniref/search?facets=identity&query=glucose&size=1
+// Retrieved: 2021-09-23
 const mock: Payload = {
   facets: [
     {
@@ -14,9 +15,9 @@ const mock: Payload = {
       name: 'identity',
       allowMultipleSelection: true,
       values: [
-        { label: '100%', value: '1.0', count: 742581 },
-        { label: '90%', value: '0.9', count: 292322 },
-        { label: '50%', value: '0.5', count: 37529 },
+        { label: '100%', value: '1.0', count: 775727 },
+        { label: '90%', value: '0.9', count: 306138 },
+        { label: '50%', value: '0.5', count: 38871 },
       ],
     },
   ],

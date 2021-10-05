@@ -3,7 +3,6 @@ import { Bubble } from 'franklin-sites';
 import { getBEMClassName as bem } from '../../../utils/utils';
 
 import { Column } from '../../../config/columns';
-import { ColumnConfiguration } from '../../../types/columnConfiguration';
 import {
   ColumnSelectTab,
   FieldData,
@@ -28,31 +27,6 @@ export const prepareFields = (fields: ReceivedField[], exclude?: Column[]) =>
         key: id,
       } as PreparedField)
   );
-
-export const prepareFieldDataFromColumnConfig = (
-  columnConfig: ColumnConfiguration<Column>,
-  // Exclude primaryKeyColumns which should not be user-selectable eg accession
-  exclude?: Column[]
-): FieldData => {
-  const fields: FieldDatum = {
-    id: 'datum',
-    title: 'Fields',
-    items: [],
-  };
-  for (const [column, { label }] of columnConfig.entries()) {
-    if (exclude?.includes(column)) {
-      continue; // eslint-disable-line no-continue
-    }
-    fields.items.push({
-      id: column,
-      label,
-      key: column,
-    } as PreparedField);
-  }
-  return {
-    [ColumnSelectTab.data]: [fields],
-  };
-};
 
 export const prepareFieldData = (
   fieldData?: ReceivedFieldData,

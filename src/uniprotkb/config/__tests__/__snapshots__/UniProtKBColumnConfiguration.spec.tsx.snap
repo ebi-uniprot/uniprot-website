@@ -65,7 +65,7 @@ exports[`UniProtKBColumnConfiguration component should render column "absorption
 
 exports[`UniProtKBColumnConfiguration component should render column "accession": accession 1`] = `
 <DocumentFragment>
-  <div
+  <span
     class="no-wrap accession-view"
   >
     <a
@@ -74,7 +74,7 @@ exports[`UniProtKBColumnConfiguration component should render column "accession"
     >
       P21802
     </a>
-  </div>
+  </span>
 </DocumentFragment>
 `;
 
@@ -900,6 +900,18 @@ exports[`UniProtKBColumnConfiguration component should render column "error_gmod
 
 exports[`UniProtKBColumnConfiguration component should render column "family": family 1`] = `<DocumentFragment />`;
 
+exports[`UniProtKBColumnConfiguration component should render column "feature_count": feature_count 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      Chain (1)
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
 exports[`UniProtKBColumnConfiguration component should render column "fragment": fragment 1`] = `
 <DocumentFragment>
   Fragment
@@ -1578,14 +1590,12 @@ exports[`UniProtKBColumnConfiguration component should render column "virus_host
     class="expandable-list no-bullet"
   >
     <li>
-      <p>
-        <a
-          href="/taxonomy/9606"
-          title="scientific name (common name) (synonyms 1), taxon ID 9606"
-        >
-          scientific name (common name) (synonyms 1)
-        </a>
-      </p>
+      <a
+        href="/taxonomy/9606"
+        title="scientific name (common name) (synonyms 1), taxon ID 9606"
+      >
+        scientific name (common name) (synonyms 1)
+      </a>
     </li>
   </ul>
 </DocumentFragment>

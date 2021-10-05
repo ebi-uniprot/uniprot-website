@@ -29,6 +29,6 @@ kubectl rollout status statefulset.apps/uniprot-website-client || { echo 'Deploy
 echo "Deployment succeeded!"
 kubectl get all
 
-NODE_PORT=$(kubectl get services -o=jsonpath='{.items[0].spec.ports[0].nodePort}')
+NODE_PORT=$(kubectl get services -o=jsonpath='{.items[?(@.metadata.name=="uniprot-website-client")].spec.ports[0].nodePort}')
 NODE_HOST_NAME=$(kubectl get nodes -o=jsonpath='{.items[0].status.addresses[?(@.type=="Hostname")].address}')
 echo $'\n\n'${DC} deployed. Internally avaialable at: http://$NODE_HOST_NAME:$NODE_PORT

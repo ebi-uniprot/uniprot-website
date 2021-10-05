@@ -59,10 +59,69 @@ exports[`VariationView component renders on data 1`] = `
       </div>
       <protvista-datatable
         filter-scroll="true"
-      />
-      <div
-        class="evidence-tag-content false"
-      />
+      >
+        <table>
+          <thead>
+            <tr>
+              <th>
+                Position(s)
+              </th>
+              <th>
+                Change
+              </th>
+              <th>
+                Description
+              </th>
+              <th>
+                Disease association
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              data-id="featureA"
+            >
+              <td>
+                10-10
+              </td>
+              <td>
+                &gt;
+              </td>
+              <td />
+              <td>
+                N
+              </td>
+            </tr>
+            <tr
+              data-group-for="featureA"
+            >
+              <td>
+                <div>
+                  <strong>
+                    Consequence: 
+                  </strong>
+                </div>
+                <div>
+                  <strong>
+                    Predictions: 
+                  </strong>
+                </div>
+                <div>
+                  <strong>
+                    Somatic: 
+                  </strong>
+                   N
+                </div>
+                <div>
+                  <strong>
+                    Disease association: 
+                  </strong>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </protvista-datatable>
     </protvista-manager>
   </div>
 </DocumentFragment>

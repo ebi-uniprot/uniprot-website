@@ -1,11 +1,9 @@
-import { useMemo, FC } from 'react';
-import { html, TemplateResult } from 'lit-html';
+import { useMemo, FC, Fragment } from 'react';
 import { v1 } from 'uuid';
 
 import { Evidence } from '../../types/modelTypes';
 import FeatureType from '../../types/featureType';
-import { UniProtProtvistaEvidenceTag } from './UniProtKBEvidenceTag';
-import { FeaturesTableCallback } from '../../../shared/components/views/FeaturesTableView';
+import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import { Xref } from '../../../shared/types/apiModel';
 import FeaturesView, {
   LocationModifier,
@@ -80,49 +78,58 @@ const UniProtKBFeaturesView: FC<FeatureProps> = ({
     [features, sequence]
   );
 
-  const getColumnConfig = (evidenceTagCallback?: FeaturesTableCallback) => ({
-    type: {
-      label: 'Type',
-      resolver: (d: ProcessedFeature): string => d.type,
-    },
-    id: {
-      label: 'ID',
-      resolver: (d: ProcessedFeature): string => d.featureId || '',
-    },
-    positions: {
-      label: 'Positions',
-      resolver: (d: ProcessedFeature): string =>
-        `${d.startModifier === 'UNKNOWN' ? '?' : d.start}-${
-          d.endModifier === 'UNKNOWN' ? '?' : d.end
-        }`,
-    },
-    description: {
-      label: 'Description',
-      resolver: (d: ProcessedFeature): TemplateResult =>
-        html`
-          ${d.description}
-          ${d.evidences &&
-          evidenceTagCallback &&
-          UniProtProtvistaEvidenceTag(d.evidences, evidenceTagCallback)}
-        `,
-    },
-    sequence: {
-      label: 'Sequence',
-      child: true,
-      resolver: (d: ProcessedFeature) => d?.sequence || '',
-    },
-  });
+  const table = (
+    <table>
+      <thead>
+        <tr>
+          <th data-filter="type">Type</th>
+          <th>ID</th>
+          <th>Positions</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        {processedData.map((feature) => (
+          <Fragment key={feature.protvistaFeatureId}>
+            <tr
+              data-id={feature.protvistaFeatureId}
+              data-start={feature.start}
+              data-end={feature.end}
+            >
+              <td data-filter="type" data-filter-value={feature.type}>
+                {feature.type}
+              </td>
+              <td>{feature.featureId}</td>
+              <td>{`${
+                feature.startModifier === 'UNKNOWN' ? '?' : feature.start
+              }-${feature.endModifier === 'UNKNOWN' ? '?' : feature.end}`}</td>
+              <td>
+                {feature.description}
+                <UniProtKBEvidenceTag evidences={feature.evidences} />
+              </td>
+            </tr>
+            <tr
+              data-group-for={feature.protvistaFeatureId}
+              data-start={feature.start}
+              data-end={feature.end}
+            >
+              <td>
+                <strong>Sequence: </strong>
+                {feature?.sequence}
+              </td>
+            </tr>
+          </Fragment>
+        ))}
+      </tbody>
+    </table>
+  );
 
   if (processedData.length === 0) {
     return null;
   }
 
   return (
-    <FeaturesView
-      features={processedData}
-      sequence={sequence}
-      columnConfig={getColumnConfig}
-    />
+    <FeaturesView features={processedData} sequence={sequence} table={table} />
   );
 };
 

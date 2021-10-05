@@ -54,10 +54,10 @@ describe('URL patterns for service worker caching', () => {
       patterns.uniprotAPIs
     );
     expect(
-      'https://wwwdev.ebi.ac.uk/uniprot/beta/api/uniprotkb/accession/A1L3X0'
+      'https://wwwdev.ebi.ac.uk/uniprot/beta/api/uniprotkb/A1L3X0'
     ).toMatch(patterns.uniprotAPIs);
-    expect(
-      'https://www.ebi.ac.uk/uniprot/beta/api/uniprotkb/accession/A1L3X0'
-    ).toMatch(patterns.uniprotAPIs);
+    expect('https://www.ebi.ac.uk/uniprot/beta/api/uniprotkb/A1L3X0').toMatch(
+      patterns.uniprotAPIs
+    );
   });
 });

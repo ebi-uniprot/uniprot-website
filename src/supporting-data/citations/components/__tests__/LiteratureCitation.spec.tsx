@@ -2,7 +2,7 @@ import { screen, fireEvent } from '@testing-library/react';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
 
-import LiteratureCitation from '../LiteratureCitation';
+import LiteratureCitation, { getLocatorUrl } from '../LiteratureCitation';
 
 import { CitationsAPIModel } from '../../adapters/citationsConverter';
 
@@ -50,5 +50,24 @@ describe('Publication component', () => {
       <LiteratureCitation data={literatureCitationData['CI-5GBDQ6B103N1E']} />
     );
     expect(screen.getByText(/Submitted to/)).toBeInTheDocument();
+  });
+});
+
+describe('Publication component url', () => {
+  test('Plant Gene Register', () => {
+    const url = getLocatorUrl('PGR98-023', 'Plant Gene Register');
+    expect(url).toEqual(
+      'https://www.ebi.ac.uk/~textman/pgr-htdocs/pgr/PGR98-023.html'
+    );
+  });
+
+  test("Worm Breeder's Gazette", () => {
+    const url = getLocatorUrl('14(2):46', "Worm Breeder's Gazette");
+    expect(url).toEqual('http://www.wormbook.org/wli/wbg14.2p46/');
+  });
+
+  test("Wrong locator for Worm Breeder's", () => {
+    const url = getLocatorUrl('', "Worm Breeder's Gazette");
+    expect(url).toBeNull();
   });
 });

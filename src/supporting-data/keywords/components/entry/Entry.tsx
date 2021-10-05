@@ -6,7 +6,7 @@ import HTMLHead from '../../../../shared/components/HTMLHead';
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import EntryDownload from '../../../shared/components/EntryDownload';
-import { MapToDropdown } from '../../../shared/components/MapTo';
+import { MapToDropdown } from '../../../../shared/components/MapTo';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
@@ -14,7 +14,7 @@ import apiUrls from '../../../../shared/config/apiUrls';
 
 import {
   Namespace,
-  NamespaceLabels,
+  searchableNamespaceLabels,
 } from '../../../../shared/types/namespaces';
 import { KeywordsAPIModel } from '../../adapters/keywordsConverter';
 import KeywordsColumnConfiguration, {
@@ -26,7 +26,7 @@ import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
 
 const columns = [
   KeywordsColumn.definition,
-  KeywordsColumn.synonym,
+  KeywordsColumn.synonyms,
   KeywordsColumn.category,
   KeywordsColumn.geneOntologies,
   KeywordsColumn.parents,
@@ -63,12 +63,15 @@ const KeywordsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   return (
     <SingleColumnLayout>
       <HTMLHead
-        title={[data.keyword.name, NamespaceLabels[Namespace.keywords]]}
+        title={[
+          data.keyword.name,
+          searchableNamespaceLabels[Namespace.keywords],
+        ]}
       >
         <meta name="description" content={data.definition} />
       </HTMLHead>
       <h1 className="big">
-        {NamespaceLabels[Namespace.keywords]} - {data.keyword.name}
+        {searchableNamespaceLabels[Namespace.keywords]} - {data.keyword.name}
       </h1>
       <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
         <div className="button-group">

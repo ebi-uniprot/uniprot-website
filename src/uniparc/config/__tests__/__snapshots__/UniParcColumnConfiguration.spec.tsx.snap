@@ -325,7 +325,7 @@ exports[`UniParcColumnConfiguration component should render column "gene": gene 
         data-testid="expandable-message"
         type="button"
       >
-        8 more gene names
+        13 more gene names
       </button>
     </li>
   </ul>
@@ -377,6 +377,21 @@ exports[`UniParcColumnConfiguration component should render column "gene": gene-
       LIVPclone14_096
     </li>
     <li>
+      VACV_VK01_RKI-115
+    </li>
+    <li>
+      VACV_VK02_RKI-092
+    </li>
+    <li>
+      HSPV_VK05_RKI-089
+    </li>
+    <li>
+      VACV_VK08_RKI-108
+    </li>
+    <li>
+      VACV_VK12_RKI-121
+    </li>
+    <li>
       <button
         class="button tertiary expandable-list__action"
         data-testid="expandable-message"
@@ -392,9 +407,9 @@ exports[`UniParcColumnConfiguration component should render column "gene": gene-
 exports[`UniParcColumnConfiguration component should render column "last_seen": last_seen 1`] = `
 <DocumentFragment>
   <time
-    datetime="2021-04-07T00:00:00.000Z"
+    datetime="2021-06-02T00:00:00.000Z"
   >
-    2021-04-07
+    2021-06-02
   </time>
 </DocumentFragment>
 `;
@@ -971,7 +986,7 @@ exports[`UniParcColumnConfiguration component should render column "sequence": s
 
 exports[`UniParcColumnConfiguration component should render column "upi": upi 1`] = `
 <DocumentFragment>
-  <div
+  <span
     class="no-wrap accession-view"
   >
     <a
@@ -980,6 +995,6 @@ exports[`UniParcColumnConfiguration component should render column "upi": upi 1`
     >
       UPI0000000001
     </a>
-  </div>
+  </span>
 </DocumentFragment>
 `;

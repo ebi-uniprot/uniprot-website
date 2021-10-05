@@ -24,7 +24,7 @@ import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
 
 import { Location, LocationToPath } from '../../../../app/config/urls';
 import toolsURLs from '../../../config/urls';
-import namespaceToolTitles from '../../../../shared/config/namespaceToolTitles';
+import { namespaceAndToolsLabels } from '../../../../shared/types/namespaces';
 
 import { AlignResults } from '../../types/alignResults';
 import { JobTypes } from '../../../types/toolsJobTypes';
@@ -34,7 +34,7 @@ import sticky from '../../../../shared/styles/sticky.module.scss';
 
 const jobType = JobTypes.ALIGN;
 const urls = toolsURLs(jobType);
-const title = `${namespaceToolTitles[jobType]} results`;
+const title = `${namespaceAndToolsLabels[jobType]} results`;
 
 // overview
 const AlignResultOverview = lazy(

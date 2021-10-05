@@ -6,7 +6,7 @@ import UniRefCard from '../UniRefCard';
 
 import { UniRefLiteAPIModel } from '../../../adapters/uniRefConverter';
 
-import data from '../../../__mocks__/UniRefResultsData';
+import data from '../../../__mocks__/uniRefResultsData';
 
 describe('UniRefCard tests', () => {
   it('should render and match snapshot', () => {

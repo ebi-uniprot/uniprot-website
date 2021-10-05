@@ -41,7 +41,7 @@ import defaultFormValues, {
 } from '../config/PeptideSearchFormData';
 import { SelectedTaxon } from '../../types/toolsFormData';
 import uniProtKBApiUrls from '../../../shared/config/apiUrls';
-import namespaceToolTitles from '../../../shared/config/namespaceToolTitles';
+import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
 import {
   MessageFormat,
   MessageLevel,
@@ -53,7 +53,7 @@ import '../../styles/ToolsForm.scss';
 // just because, no actual known limit
 const PEPTIDE_SEARCH_LIMIT = 100;
 
-const title = namespaceToolTitles[JobTypes.PEPTIDE_SEARCH];
+const title = namespaceAndToolsLabels[JobTypes.PEPTIDE_SEARCH];
 
 const FormSelect: FC<{
   formValue: PeptideSearchFormValue;

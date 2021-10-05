@@ -1,9 +1,8 @@
 import { HelpSearchResponse } from '../../adapters/helpConverter';
 
-// Retrieved 2021-09-08 from:
-// https://www.ebi.ac.uk/uniprot/beta/api/help/search?facets=category&query=canonical&size=500
+// Source: /api/help/search?facets=category&query=canonical&size=500
+// Retrieved 2021-09-24
 // TODO: this API is unstable so the mock data here will want to be updated jira: https://www.ebi.ac.uk/panda/jira/browse/TRM-26569
-
 const helpModelData: HelpSearchResponse = {
   facets: [
     {
@@ -17,11 +16,11 @@ const helpModelData: HelpSearchResponse = {
         },
         {
           value: 'Biocuration',
-          count: 4,
+          count: 3,
         },
         {
           value: 'Cross-references',
-          count: 3,
+          count: 2,
         },
         {
           value: 'Download',
@@ -33,7 +32,7 @@ const helpModelData: HelpSearchResponse = {
         },
         {
           value: 'Human',
-          count: 2,
+          count: 1,
         },
         {
           value: 'Keywords',
@@ -45,11 +44,11 @@ const helpModelData: HelpSearchResponse = {
         },
         {
           value: 'Proteomes',
-          count: 3,
+          count: 2,
         },
         {
           value: 'Sequence',
-          count: 21,
+          count: 20,
         },
         {
           value: 'Technical',
@@ -65,7 +64,7 @@ const helpModelData: HelpSearchResponse = {
         },
         {
           value: 'UniProtKB',
-          count: 10,
+          count: 9,
         },
         {
           value: 'UniRef',
@@ -77,11 +76,11 @@ const helpModelData: HelpSearchResponse = {
         },
         {
           value: 'faq',
-          count: 10,
+          count: 9,
         },
         {
           value: 'help',
-          count: 3,
+          count: 2,
         },
         {
           value: 'manual',
@@ -109,7 +108,7 @@ const helpModelData: HelpSearchResponse = {
           'What is the <span class="match-highlight">canonical</span> sequence? Are all isoforms described in one entry?',
         ],
         content: [
-          'What is the <span class="match-highlight">canonical</span> sequence? To reduce redundancy, the UniProtKB/Swiss-Prot policy is to',
+          'What is the <span class="match-highlight">canonical</span> sequence? To reduce redundancy, the UniProtKB/Swiss-Prot policy',
         ],
       },
     },
@@ -135,6 +134,17 @@ const helpModelData: HelpSearchResponse = {
       },
     },
     {
+      id: 'conflict',
+      title: 'Sequence conflict',
+      lastModified: '2021-07-16',
+      categories: ['Sequence', 'manual'],
+      matches: {
+        content: [
+          'This subsection of the \'Sequence\' section reports difference(s) between the <span class="match-highlight">canonical</span> sequence',
+        ],
+      },
+    },
+    {
       id: 'retrieve_sets',
       title: 'How to retrieve sets of protein sequences?',
       lastModified: '2021-07-16',
@@ -149,29 +159,40 @@ const helpModelData: HelpSearchResponse = {
       ],
       matches: {
         content: [
-          ' entries in these formats each contain only one protein sequence, the so-called \'<span class="match-highlight">canonical</span>\' sequence',
+          ' entries in these formats each contain only one protein sequence, the so-called \'<span class="match-highlight">canonical\'</span> sequence.',
         ],
       },
     },
     {
-      id: 'conflict',
-      title: 'Sequence conflict',
+      id: 'sequence_processing',
+      title: 'Sequence processing',
       lastModified: '2021-07-16',
       categories: ['Sequence', 'manual'],
       matches: {
         content: [
-          'This subsection of the \'Sequence\' section reports difference(s) between the <span class="match-highlight">canonical</span> sequence',
+          'This subsection of the Sequence section indicates if the <span class="match-highlight">canonical</span> sequence displayed by default',
         ],
       },
     },
     {
-      id: 'proteome',
-      title: 'What are proteomes?',
+      id: 'sequence_caution',
+      title: 'Sequence caution',
       lastModified: '2021-07-16',
-      categories: ['Proteomes', 'UniProtKB', 'Keywords', 'Sequence', 'faq'],
+      categories: ['Sequence', 'manual'],
       matches: {
         content: [
-          ' of <span class="match-highlight">canonical</span> and additional sequences), gene mapping files, Coding DNA Sequence (CDS) FASTA files and',
+          ' in the \'Sequence conflict\' subsection. In this subsection, we list the differences between the <span class="match-highlight">canonical</span>',
+        ],
+      },
+    },
+    {
+      id: 'sequences',
+      title: 'Sequences',
+      lastModified: '2021-07-16',
+      categories: ['Sequence', 'manual'],
+      matches: {
+        content: [
+          'This section displays by default the <span class="match-highlight">canonical</span> protein sequence and upon request all isoforms',
         ],
       },
     },
@@ -182,7 +203,40 @@ const helpModelData: HelpSearchResponse = {
       categories: ['Sequence', 'manual'],
       matches: {
         content: [
-          ' <span class="match-highlight">canonical</span> sequence displayed by default in the entry. Note: The so-called \'<span class="match-highlight">canonical</span>\' sequence is the most',
+          ' <span class="match-highlight">canonical</span> sequence displayed by default in the entry. Note: The so-called \'<span class="match-highlight">canonical\'</span> sequence is the most',
+        ],
+      },
+    },
+    {
+      id: 'sequence_length',
+      title: 'Sequence length',
+      lastModified: '2021-07-16',
+      categories: ['Sequence', 'manual'],
+      matches: {
+        content: [
+          'This indicates the number of amino acids in the <span class="match-highlight">canonical</span> sequence displayed by default in the',
+        ],
+      },
+    },
+    {
+      id: 'proteome',
+      title: 'What are proteomes?',
+      lastModified: '2021-07-16',
+      categories: ['Proteomes', 'UniProtKB', 'Keywords', 'Sequence', 'faq'],
+      matches: {
+        content: [
+          ' FASTA files (composed of <span class="match-highlight">canonical</span> and additional sequences), gene mapping files, Coding DNA Sequence',
+        ],
+      },
+    },
+    {
+      id: 'unsure',
+      title: 'Sequence uncertainty',
+      lastModified: '2021-07-16',
+      categories: ['Sequence', 'manual'],
+      matches: {
+        content: [
+          ' is indicated in the \'description\' field. Example: P00279 Related documents What is the <span class="match-highlight">canonical</span> sequence?',
         ],
       },
     },
@@ -201,62 +255,7 @@ const helpModelData: HelpSearchResponse = {
       ],
       matches: {
         content: [
-          ' in the sense that it contains one representative (<span class="match-highlight">canonical</span>) sequence for each currently known human',
-        ],
-      },
-    },
-    {
-      id: 'sequence_caution',
-      title: 'Sequence caution',
-      lastModified: '2021-07-16',
-      categories: ['Sequence', 'manual'],
-      matches: {
-        content: [
-          ' <span class="match-highlight">canonical</span> sequence, displayed by default in the entry, and the sequence reported in the indicated reference',
-        ],
-      },
-    },
-    {
-      id: 'sequence_processing',
-      title: 'Sequence processing',
-      lastModified: '2021-07-16',
-      categories: ['Sequence', 'manual'],
-      matches: {
-        content: [
-          'This subsection of the Sequence section indicates if the <span class="match-highlight">canonical</span> sequence displayed by default in',
-        ],
-      },
-    },
-    {
-      id: 'sequences',
-      title: 'Sequences',
-      lastModified: '2021-07-16',
-      categories: ['Sequence', 'manual'],
-      matches: {
-        content: [
-          'This section displays by default the <span class="match-highlight">canonical</span> protein sequence and upon request all isoforms',
-        ],
-      },
-    },
-    {
-      id: 'cross_references_section',
-      title: 'Cross-references section',
-      lastModified: '2021-07-16',
-      categories: ['Cross-references', 'manual'],
-      matches: {
-        content: [
-          ' with the <span class="match-highlight">canonical</span> sequence, these latter are documented in the \'Sequence conflict\' subsection of the',
-        ],
-      },
-    },
-    {
-      id: 'sequence_length',
-      title: 'Sequence length',
-      lastModified: '2021-07-16',
-      categories: ['Sequence', 'manual'],
-      matches: {
-        content: [
-          'This indicates the number of amino acids in the <span class="match-highlight">canonical</span> sequence displayed by default in the',
+          ' over 22\'000 additional sequences (see What is the <span class="match-highlight">canonical</span> sequence? Are all isoforms described',
         ],
       },
     },
@@ -267,7 +266,18 @@ const helpModelData: HelpSearchResponse = {
       categories: ['Sequence', 'manual'],
       matches: {
         content: [
-          'This subsection of the Sequence section indicates if the <span class="match-highlight">canonical</span> sequence displayed by default in',
+          'This subsection of the Sequence section indicates if the <span class="match-highlight">canonical</span> sequence displayed by default',
+        ],
+      },
+    },
+    {
+      id: 'var_seq',
+      title: 'Alternative sequence',
+      lastModified: '2021-07-16',
+      categories: ['Sequence', 'manual'],
+      matches: {
+        content: [
+          ' <span class="match-highlight">canonical</span> sequence? Are all isoforms described in one entry? How can I retrieve them? How to retrieve',
         ],
       },
     },
@@ -283,24 +293,13 @@ const helpModelData: HelpSearchResponse = {
       },
     },
     {
-      id: 'unsure',
-      title: 'Sequence uncertainty',
+      id: 'cross_references_section',
+      title: 'Cross-references section',
       lastModified: '2021-07-16',
-      categories: ['Sequence', 'manual'],
+      categories: ['Cross-references', 'manual'],
       matches: {
         content: [
-          ' indicated in the \'description\' field. Example: P00279 Related documents What is the <span class="match-highlight">canonical</span> sequence? Are',
-        ],
-      },
-    },
-    {
-      id: 'var_seq',
-      title: 'Alternative sequence',
-      lastModified: '2021-07-16',
-      categories: ['Sequence', 'manual'],
-      matches: {
-        content: [
-          ' <span class="match-highlight">canonical</span> sequence? Are all isoforms described in one entry? How can I retrieve them? How to retrieve a',
+          " <span class=\"match-highlight\">canonical</span> sequence, these latter are documented in the 'Sequence conflict' subsection of the 'Sequence'",
         ],
       },
     },
@@ -311,7 +310,37 @@ const helpModelData: HelpSearchResponse = {
       categories: ['Sequence', 'manual'],
       matches: {
         content: [
-          ' displayed by default in the entry (also called the <span class="match-highlight">canonical</span> sequence) is usually the most common',
+          ' The sequence displayed by default in the entry (also called the <span class="match-highlight">canonical</span> sequence) is usually the',
+        ],
+      },
+    },
+    {
+      id: 'rna_editing',
+      title: 'RNA editing',
+      lastModified: '2021-07-16',
+      categories: ['Sequence', 'manual'],
+      matches: {
+        content: [
+          ' sequence is fully edited, the <span class="match-highlight">canonical</span> protein sequence displayed by default in the entry corresponds',
+        ],
+      },
+    },
+    {
+      id: 'protein_diversity',
+      title:
+        'How are protein sequence variety and protein diversity represented in UniProtKB?',
+      lastModified: '2021-07-16',
+      categories: [
+        'UniProtKB',
+        'Keywords',
+        'Text search',
+        'Biocuration',
+        'Sequence',
+        'faq',
+      ],
+      matches: {
+        content: [
+          ' splicing, variant, isoform, mRNA editing, ribosomal frameshifting. See also: What is the <span class="match-highlight">canonical</span> sequence?',
         ],
       },
     },
@@ -334,18 +363,18 @@ const helpModelData: HelpSearchResponse = {
       categories: ['help'],
       matches: {
         content: [
-          ', UniProtKB/Swiss-Prot and UniProtKB/TrEMBL? How do we manually annotate a UniProtKB entry? What is the <span class="match-highlight">canonical</span>',
+          ' do we manually annotate a UniProtKB entry? What is the <span class="match-highlight">canonical</span> sequence? Are all isoforms described',
         ],
       },
     },
     {
-      id: 'homo_sapiens',
-      title: 'Homo sapiens',
+      id: 'sequence_origin',
+      title: 'Where do the UniProtKB protein sequences come from?',
       lastModified: '2021-07-16',
-      categories: ['Human', 'Proteomes', 'Biocuration', 'help'],
+      categories: ['UniProtKB', 'Sequence', 'faq'],
       matches: {
         content: [
-          ' (<span class="match-highlight">canonical</span>) sequence for each currently known human gene. About half of these 20\'000 entries contain manually',
+          ' do I get the nucleotide sequence that corresponds to the <span class="match-highlight">canonical</span> UniProtKB sequence? Sequences Related',
         ],
       },
     },
@@ -356,49 +385,7 @@ const helpModelData: HelpSearchResponse = {
       categories: ['UniProtKB', 'Biocuration', 'About UniProt', 'faq'],
       matches: {
         content: [
-          ' defining a CDS as a protein? What is the <span class="match-highlight">canonical</span> sequence? Are all isoforms described in one entry? (2',
-        ],
-      },
-    },
-    {
-      id: 'ncbi_mappings',
-      title:
-        'Mapping between UniProtKB and NCBI resources (GeneID, RefSeq): how does it work?',
-      lastModified: '2021-07-16',
-      categories: ['UniProtKB', 'Sequence', 'Cross-references', 'faq'],
-      matches: {
-        content: [
-          ', we create a RefSeq protein-centric mapping. If a UniProtKB protein (<span class="match-highlight">canonical</span> or isoform sequence) is',
-        ],
-      },
-    },
-    {
-      id: 'protein_diversity',
-      title:
-        'How are protein sequence variety and protein diversity represented in UniProtKB?',
-      lastModified: '2021-07-16',
-      categories: [
-        'UniProtKB',
-        'Keywords',
-        'Text search',
-        'Biocuration',
-        'Sequence',
-        'faq',
-      ],
-      matches: {
-        content: [
-          '. See also: What is the <span class="match-highlight">canonical</span> sequence? Are all isoforms described in one entry? How do we manually',
-        ],
-      },
-    },
-    {
-      id: 'query-fields',
-      title: 'UniProtKB query fields',
-      lastModified: '2021-09-07',
-      categories: ['Text search', 'Technical', 'Website', 'help'],
-      matches: {
-        content: [
-          ' <span class="match-highlight">canonical</span> isoform accessions P62988. To search over secondary accessions, we have introduced the sec_acc',
+          ' <span class="match-highlight">canonical</span> sequence? Are all isoforms described in one entry? (2) Sequence analysis. Sequences are analyzed',
         ],
       },
     },
@@ -416,29 +403,18 @@ const helpModelData: HelpSearchResponse = {
       ],
       matches: {
         content: [
-          ' represented in UniProtKB? What is the <span class="match-highlight">canonical</span> sequence? Are all isoforms described in one entry? Reducing',
+          ' diversity represented in UniProtKB? What is the <span class="match-highlight">canonical</span> sequence? Are all isoforms described in one entry?',
         ],
       },
     },
     {
-      id: 'rna_editing',
-      title: 'RNA editing',
-      lastModified: '2021-07-16',
-      categories: ['Sequence', 'manual'],
+      id: 'query-fields',
+      title: 'UniProtKB query fields',
+      lastModified: '2021-09-24',
+      categories: ['Text search', 'Technical', 'Website', 'help'],
       matches: {
         content: [
-          ' sequence is fully edited, the <span class="match-highlight">canonical</span> protein sequence displayed by default in the entry corresponds to',
-        ],
-      },
-    },
-    {
-      id: 'sequence_origin',
-      title: 'Where do the UniProtKB protein sequences come from?',
-      lastModified: '2021-07-16',
-      categories: ['UniProtKB', 'Sequence', 'faq'],
-      matches: {
-        content: [
-          ' nucleotide sequence that corresponds to the <span class="match-highlight">canonical</span> UniProtKB sequence? Sequences Related terms: imported',
+          ' primary or secondary accession number P62988. The new behaviour will list all primary / <span class="match-highlight">canonical</span> isoform',
         ],
       },
     },

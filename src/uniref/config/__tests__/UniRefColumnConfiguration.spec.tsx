@@ -4,7 +4,7 @@ import UniRefColumnConfiguration, {
 
 import testColumnConfiguration from '../../../shared/__test-helpers__/testColumnConfiguration';
 
-import mock from '../../__mocks__/UniRefResultsData';
+import mock from '../../__mocks__/uniRefResultsData';
 
 import { UniRefLiteAPIModel } from '../../adapters/uniRefConverter';
 

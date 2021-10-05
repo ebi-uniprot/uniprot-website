@@ -45,14 +45,18 @@ const ComponentsButtons: FC<
     [allQuery, components?.length, selectedEntries]
   );
 
-  const numberSelectedProteins = useMemo(
-    () =>
-      components?.reduce(
-        (prev: number, curr: Component) => prev + curr.proteinCount,
-        0
-      ),
-    [components]
-  );
+  // TODO: the number presented here can be innaccurate see JIRA: https://www.ebi.ac.uk/panda/jira/browse/TRM-26418
+  const numberSelectedProteins = useMemo(() => {
+    // Don't bother iterating over the components if there are no selectedEntries
+    if (!selectedEntries.length || !components?.length) {
+      return 0;
+    }
+    return components.reduce(
+      (prev: number, curr: Component) =>
+        prev + (selectedEntries.includes(curr.name) ? curr.proteinCount : 0),
+      0
+    );
+  }, [components, selectedEntries]);
 
   if (!components?.length) {
     return null;
@@ -72,8 +76,8 @@ const ComponentsButtons: FC<
                 query={allQuery}
                 selectedEntries={selectedEntries}
                 selectedQuery={selectedQuery}
-                numberSelectedEntries={numberSelectedProteins || 10} // TODO: this hardcoded number is temporary until proteinCount is available in the API
-                totalNumberResults={proteinCount || 1000} // TODO: ☝️ Same as above
+                numberSelectedEntries={numberSelectedProteins}
+                totalNumberResults={proteinCount}
                 onClose={() => setDisplayDownloadPanel(false)}
                 namespace={Namespace.uniprotkb}
               />

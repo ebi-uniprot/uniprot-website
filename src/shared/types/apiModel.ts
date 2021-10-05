@@ -2,6 +2,7 @@ import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
 import { UniRefLiteAPIModel } from '../../uniref/adapters/uniRefConverter';
 import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
 import { ProteomesAPIModel } from '../../proteomes/adapters/proteomesConverter';
+
 import {
   TaxonomyAPIModel,
   Rank,
@@ -11,8 +12,13 @@ import { CitationsAPIModel } from '../../supporting-data/citations/adapters/cita
 import { DiseasesAPIModel } from '../../supporting-data/diseases/adapters/diseasesConverter';
 import { DatabaseAPIModel } from '../../supporting-data/database/adapters/databaseConverter';
 import { LocationsAPIModel } from '../../supporting-data/locations/adapters/locationsConverter';
-import { Evidence } from '../../uniprotkb/types/modelTypes';
+
+import { UniRuleAPIModel } from '../../automatic-annotations/unirule/adapters/uniRuleConverter';
+import { ARBAAPIModel } from '../../automatic-annotations/arba/adapters/arbaConverter';
+
 import { MappingAPIModel } from '../../tools/id-mapping/types/idMappingSearchResults';
+
+import { Evidence } from '../../uniprotkb/types/modelTypes';
 
 export type APIModel =
   | UniProtkbAPIModel
@@ -25,6 +31,8 @@ export type APIModel =
   | DiseasesAPIModel
   | DatabaseAPIModel
   | LocationsAPIModel
+  | UniRuleAPIModel
+  | ARBAAPIModel
   | MappingAPIModel;
 
 export type Statistics = {

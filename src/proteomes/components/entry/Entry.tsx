@@ -17,7 +17,10 @@ import proteomesConverter, {
 } from '../../adapters/proteomesConverter';
 import generatePageTitle from '../../adapters/generatePageTitle';
 
-import { Namespace, NamespaceLabels } from '../../../shared/types/namespaces';
+import {
+  Namespace,
+  searchableNamespaceLabels,
+} from '../../../shared/types/namespaces';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
@@ -48,11 +51,11 @@ const Entry = () => {
       <HTMLHead
         title={[
           generatePageTitle(transformedData),
-          NamespaceLabels[Namespace.proteomes],
+          searchableNamespaceLabels[Namespace.proteomes],
         ]}
       />
       <h1 className="big">
-        {NamespaceLabels[Namespace.proteomes]}
+        {searchableNamespaceLabels[Namespace.proteomes]}
         {' · '}
         <TaxonomyView data={data.taxonomy} noLink />
       </h1>

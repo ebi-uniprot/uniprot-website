@@ -324,78 +324,80 @@ exports[`HomePage component should render 1`] = `
       <div
         class="contact-elixir"
       >
-        <p>
-          <a
-            class="external-link"
-            href="https://www.uniprot.org/contact"
-            rel="noopener"
-            target="_blank"
+        <div>
+          <p>
+            <a
+              class="external-link"
+              href="https://www.uniprot.org/contact"
+              rel="noopener"
+              target="_blank"
+            >
+              Get in touch 
+              <test-file-stub
+                width="2ch"
+              />
+            </a>
+          </p>
+          <p
+            class="social"
           >
-            Get in touch 
-            <test-file-stub
-              width="2ch"
-            />
-          </a>
-        </p>
-        <p
-          class="social"
-        >
-          <a
-            class="external-link"
-            href="https://twitter.com/uniprot"
-            rel="noopener"
-            target="_blank"
-            title="UniProt posts on Twitter"
-          >
-            <test-file-stub
-              width="3ch"
-            />
-          </a>
-          <a
-            class="external-link"
-            href="https://www.facebook.com/uniprot.org"
-            rel="noopener"
-            target="_blank"
-            title="UniProt posts on Facebook"
-          >
-            <test-file-stub
-              width="3ch"
-            />
-          </a>
-          <a
-            class="external-link"
-            href="https://www.youtube.com/user/uniprotvideos"
-            rel="noopener"
-            target="_blank"
-            title="UniProt videos on YouTube"
-          >
-            <test-file-stub
-              width="3ch"
-            />
-          </a>
-          <a
-            class="external-link"
-            href="https://insideuniprot.blogspot.com/"
-            rel="noopener"
-            target="_blank"
-            title="UniProt blog"
-          >
-            <test-file-stub
-              width="3ch"
-            />
-          </a>
-          <a
-            class="external-link"
-            href="https://groups.google.com/forum/#!forum/ebi-proteins-api"
-            rel="noopener"
-            target="_blank"
-            title="UniProt Google Group"
-          >
-            <test-file-stub
-              width="3ch"
-            />
-          </a>
-        </p>
+            <a
+              class="external-link"
+              href="https://twitter.com/uniprot"
+              rel="noopener"
+              target="_blank"
+              title="UniProt posts on Twitter"
+            >
+              <test-file-stub
+                width="3ch"
+              />
+            </a>
+            <a
+              class="external-link"
+              href="https://www.facebook.com/uniprot.org"
+              rel="noopener"
+              target="_blank"
+              title="UniProt posts on Facebook"
+            >
+              <test-file-stub
+                width="3ch"
+              />
+            </a>
+            <a
+              class="external-link"
+              href="https://www.youtube.com/user/uniprotvideos"
+              rel="noopener"
+              target="_blank"
+              title="UniProt videos on YouTube"
+            >
+              <test-file-stub
+                width="3ch"
+              />
+            </a>
+            <a
+              class="external-link"
+              href="https://insideuniprot.blogspot.com/"
+              rel="noopener"
+              target="_blank"
+              title="UniProt blog"
+            >
+              <test-file-stub
+                width="3ch"
+              />
+            </a>
+            <a
+              class="external-link"
+              href="https://groups.google.com/forum/#!forum/ebi-proteins-api"
+              rel="noopener"
+              target="_blank"
+              title="UniProt Google Group"
+            >
+              <test-file-stub
+                width="3ch"
+              />
+            </a>
+          </p>
+        </div>
         <p>
           <a
             class="external-link"

@@ -1,3 +1,5 @@
+import { JobTypes } from '../../tools/types/toolsJobTypes';
+
 export enum Namespace {
   // Main data
   uniprotkb = 'uniprotkb',
@@ -12,6 +14,9 @@ export enum Namespace {
   database = 'database',
   locations = 'locations',
   idmapping = 'id-mapping',
+  // Annotations
+  unirule = 'unirule',
+  arba = 'arba',
 }
 
 export const mainNamespaces = new Set<Namespace>([
@@ -30,9 +35,20 @@ export const supportingDataNamespaces = new Set<Namespace>([
   Namespace.locations,
 ]);
 
+export const supportingDataAndAANamespaces = new Set<Namespace>([
+  Namespace.taxonomy,
+  Namespace.keywords,
+  Namespace.citations,
+  Namespace.diseases,
+  Namespace.database,
+  Namespace.locations,
+  Namespace.unirule,
+  Namespace.arba,
+]);
+
 export type SearchableNamespace = Exclude<Namespace, Namespace.idmapping>;
 
-export const NamespaceLabels: Record<SearchableNamespace, string> = {
+export const searchableNamespaceLabels: Record<SearchableNamespace, string> = {
   // Main data
   [Namespace.uniprotkb]: 'UniProtKB',
   [Namespace.uniref]: 'UniRef',
@@ -45,4 +61,18 @@ export const NamespaceLabels: Record<SearchableNamespace, string> = {
   [Namespace.diseases]: 'Human diseases',
   [Namespace.database]: 'Cross-referenced databases',
   [Namespace.locations]: 'Subcellular locations',
+  // Annotations
+  [Namespace.unirule]: 'UniRule',
+  [Namespace.arba]: 'ARBA',
+};
+
+export const namespaceAndToolsLabels: Record<Namespace | JobTypes, string> = {
+  ...searchableNamespaceLabels,
+  // Non-searchable namespace
+  [Namespace.idmapping]: 'ID mapping',
+  // Tools
+  [JobTypes.ID_MAPPING]: 'Retrieve/ID mapping',
+  [JobTypes.ALIGN]: 'Align',
+  [JobTypes.BLAST]: 'BLAST',
+  [JobTypes.PEPTIDE_SEARCH]: 'Peptide search',
 };

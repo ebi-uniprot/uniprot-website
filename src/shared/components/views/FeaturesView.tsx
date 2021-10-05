@@ -1,15 +1,13 @@
 import { useCallback, useMemo } from 'react';
 import { Loader } from 'franklin-sites';
 import { uniq } from 'lodash-es';
-import { TransformedVariant } from 'protvista-variation-adapter';
+import TransformedVariant from 'protvista-variation-adapter';
 
 import useCustomElement from '../../hooks/useCustomElement';
 
 import { Evidence } from '../../../uniprotkb/types/modelTypes';
-import FeaturesTableView, { FeatureColumns } from './FeaturesTableView';
 import NightingaleZoomTool from '../../../uniprotkb/components/protein-data-views/NightingaleZoomTool';
 
-import { EvidenceData } from '../../../uniprotkb/config/evidenceCodes';
 import FeatureType from '../../../uniprotkb/types/featureType';
 import { UniParcProcessedFeature } from '../../../uniparc/components/entry/UniParcFeaturesView';
 
@@ -35,16 +33,9 @@ export type ProcessedFeature = {
   locations?: { fragments: Fragment[] }[];
 };
 
-export type ColumnConfig<FeatureType> = (
-  callback: (
-    evidenceData: EvidenceData,
-    references: Evidence[] | undefined
-  ) => void
-) => FeatureColumns<FeatureType>;
-
 type FeatureProps<T> = {
   features: T[];
-  columnConfig: ColumnConfig<T>;
+  table: JSX.Element;
   trackHeight?: number;
   sequence?: string;
 };
@@ -55,7 +46,7 @@ const FeaturesView = <
 >(
   props: FeatureProps<T>
 ) => {
-  const { sequence, features, columnConfig, trackHeight } = props;
+  const { sequence, features, table, trackHeight } = props;
   const navigationDefined = useCustomElement(
     /* istanbul ignore next */
     () =>
@@ -76,7 +67,17 @@ const FeaturesView = <
       import(/* webpackChunkName: "protvista-manager" */ 'protvista-manager'),
     'protvista-manager'
   );
-  const ceDefined = navigationDefined && sequenceDefined && managerDefined;
+  const datatableDefined = useCustomElement(
+    /* istanbul ignore next */
+    () =>
+      import(
+        /* webpackChunkName: "protvista-datatable" */ 'protvista-datatable'
+      ),
+    'protvista-datatable'
+  );
+
+  const ceDefined =
+    navigationDefined && sequenceDefined && managerDefined && datatableDefined;
 
   const featureTypes = useMemo(
     () => uniq(features.map(({ type }) => type.toLowerCase())),
@@ -129,7 +130,7 @@ const FeaturesView = <
             />
           </>
         )}
-        <FeaturesTableView data={features} columnConfig={columnConfig} />
+        <protvista-datatable filter-scroll>{table}</protvista-datatable>
       </protvista-manager>
     </>
   );

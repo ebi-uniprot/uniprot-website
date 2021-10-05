@@ -12,6 +12,8 @@ import './styles/sub-cell-viz.scss';
 /*
   The logic implemented here to get our data into @swissprot/swissbiopics-visualizer has been lifted
   from the source code at http://sp.sib.swiss/scripts/uniprot_entry-bundle.js with some modifications
+
+  Good membrane example: A1L3X0
 */
 
 const shapes = [
@@ -25,6 +27,8 @@ const shapes = [
 ] as const;
 const shapesSelector = shapes.join(', ');
 const scopedShapesSelector = shapes.map((s) => `:scope ${s}`).join(', ');
+
+const reMpPart = /(mp|part)_(?<id>\w+)/;
 
 // Typing inspired from
 // https://github.com/ionic-team/stencil/blob/master/test/end-to-end/src/components.d.ts
@@ -62,6 +66,16 @@ const getGoTermClassNames = (locationGroup: Element) =>
     .filter((className) => className.startsWith('GO'))
     .map((goId) => `.${goId}`);
 
+const getUniProtTextSelectors = (subcellularPresentSVG: Element): string[] => [
+  `#${subcellularPresentSVG.id}term`,
+  ...Array.from(subcellularPresentSVG.classList)
+    .map((className: string) => {
+      const id = className.match(reMpPart)?.groups?.id;
+      return id && `#${id}term`;
+    })
+    .filter((sel: string | undefined): sel is string => Boolean(sel)),
+];
+
 const attachTooltips = (
   locationGroup: Element,
   instance: Element | null,
@@ -85,7 +99,7 @@ const attachTooltips = (
   }
   const locationTextSelector = [
     ...getGoTermClassNames(locationGroup),
-    `#${locationGroup.id}term`,
+    ...getUniProtTextSelectors(locationGroup),
   ].join(',');
   const locationTextQueryResult =
     instance?.querySelectorAll(locationTextSelector);
@@ -120,8 +134,6 @@ type Props = RequireExactlyOne<
   'uniProtLocationIds' | 'goLocationIds'
 >;
 
-// TODO: add additional GO template which will also require GO term data
-// TODO: handle this case as seen in the source code 'svg .membranes .membrane.subcell_present' eg A1L3X0 doesn't work
 const SubCellViz: FC<Props> = memo(
   ({ uniProtLocationIds, goLocationIds, taxonId, children }) => {
     const instanceName = useRef(
@@ -223,7 +235,13 @@ const SubCellViz: FC<Props> = memo(
         .subcell_description {
           display: none;
         }
+        [class*="mp_"] .coloured, svg [class*="part_"] .coloured {
+          stroke: black !important;
+          fill: #abc7d6 !important;
+          fill-opacity: 1 !important;
+        }
       `;
+
         const style = document.createElement('style');
         // inject more styles
         style.innerText = css;
@@ -234,41 +252,36 @@ const SubCellViz: FC<Props> = memo(
         terms?.appendChild(slot);
 
         // This finds all subcellular location SVGs that will require a tooltip
-        const subcellularPresentSVGs = shadowRoot?.querySelectorAll(
-          'svg .subcell_present:not(.membrane)'
-        );
-        if (!subcellularPresentSVGs) {
-          return;
-        }
+        const subcellularPresentSVGs =
+          shadowRoot?.querySelectorAll(
+            'svg .subcell_present, svg [class*="mp_"], svg [class*="part_"]'
+          ) || [];
+
         for (const subcellularPresentSVG of subcellularPresentSVGs) {
           // The text location in the righthand column which in our case will either
           // be of the form \d+term or GO\d+ depending on what props has been provided
           const textSelectors = uniProtLocationIds?.length
-            ? [`#${subcellularPresentSVG.id}term`]
+            ? getUniProtTextSelectors(subcellularPresentSVG)
             : getGoTermClassNames(subcellularPresentSVG);
 
           for (const textSelector of textSelectors) {
             const locationText =
               instance?.querySelector<HTMLElement>(textSelector);
+
             if (locationText) {
               locationText.classList.add('inpicture');
+              const locationSVG = shadowRoot?.querySelector<SVGElement>(
+                `#${subcellularPresentSVG.id}`
+              );
               // TODO: need to remove event listeners on unmount. Will leave for now until
               // to see what changes are made to @swissprot/swissbiopics-visualizer
               locationText.addEventListener('mouseenter', () => {
-                instance?.highLight(
-                  locationText,
-                  shadowRoot?.querySelector<SVGElement>(
-                    `#${subcellularPresentSVG.id}`
-                  ),
-                  shapesSelector
-                );
+                instance?.highLight(locationText, locationSVG, shapesSelector);
               });
               locationText.addEventListener('mouseleave', () => {
                 instance?.removeHiglight(
                   locationText,
-                  shadowRoot?.querySelector<SVGElement>(
-                    `#${subcellularPresentSVG.id}`
-                  ),
+                  locationSVG,
                   shapesSelector
                 );
               });
@@ -298,7 +311,7 @@ const SubCellViz: FC<Props> = memo(
       return () => {
         shadowRoot?.removeEventListener('svgloaded', onSvgLoaded);
       };
-    }, [uniProtLocationIds?.length]);
+    }, [uniProtLocationIds]);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const Instance = (props: any) => <instanceName.current {...props} />;

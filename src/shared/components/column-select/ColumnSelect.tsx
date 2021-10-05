@@ -8,24 +8,11 @@ import ColumnSelectDragDrop from './ColumnSelectDragDrop';
 import useDataApi from '../../hooks/useDataApi';
 
 import apiUrls from '../../config/apiUrls';
-import {
-  Column,
-  nsToPrimaryKeyColumns,
-  nsToColumnConfig,
-} from '../../config/columns';
+import { Column, nsToPrimaryKeyColumns } from '../../config/columns';
 
 import { moveItemInList, removeItemFromList } from '../../utils/utils';
-import {
-  getFieldDataForColumns,
-  getTabTitle,
-  prepareFieldData,
-  prepareFieldDataFromColumnConfig,
-} from './utils';
-import {
-  mainNamespaces,
-  Namespace,
-  supportingDataNamespaces,
-} from '../../types/namespaces';
+import { getFieldDataForColumns, getTabTitle, prepareFieldData } from './utils';
+import { Namespace } from '../../types/namespaces';
 
 import {
   ReceivedFieldData,
@@ -87,22 +74,16 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
   );
 
   const { loading, data, progress } = useDataApi<ReceivedFieldData>(
-    // No configure endpoint for supporting data
-    namespace && mainNamespaces.has(namespace)
-      ? apiUrls.resultsFields(namespace, isEntryPage)
-      : null
+    apiUrls
+      .resultsFields(namespace, isEntryPage)
+      // TODO: remove this when the backend is fixed https://www.ebi.ac.uk/panda/jira/browse/TRM-26571
+      .replace('/keywords/', '/keyword/')
   );
 
   // Exclude the primaryKeyColumns in the tabs as users can't toggle selection
   const fieldData = useMemo(
-    () =>
-      supportingDataNamespaces.has(namespace)
-        ? prepareFieldDataFromColumnConfig(
-            nsToColumnConfig[namespace],
-            primaryKeyColumns
-          )
-        : prepareFieldData(data, primaryKeyColumns),
-    [namespace, data, primaryKeyColumns]
+    () => prepareFieldData(data, primaryKeyColumns),
+    [data, primaryKeyColumns]
   );
 
   if (loading) {

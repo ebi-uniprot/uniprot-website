@@ -1,6 +1,6 @@
 export enum FacetsEnum {
   OrganismName = 'organism_name',
-  Database = 'database',
+  Database = 'database_facet',
 }
 
 export type Facets = `${FacetsEnum}`;

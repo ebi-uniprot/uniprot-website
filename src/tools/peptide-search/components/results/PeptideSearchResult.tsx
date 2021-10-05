@@ -20,7 +20,7 @@ import NoResultsPage from '../../../../shared/components/error-pages/NoResultsPa
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 
 import toolsURLs from '../../../config/urls';
-import namespaceToolTitles from '../../../../shared/config/namespaceToolTitles';
+import { namespaceAndToolsLabels } from '../../../../shared/types/namespaces';
 import { LocationToPath, Location } from '../../../../app/config/urls';
 
 import Response from '../../../../uniprotkb/types/responseTypes';
@@ -32,7 +32,7 @@ import { Status } from '../../../types/toolsStatuses';
 
 const jobType = JobTypes.PEPTIDE_SEARCH;
 const urls = toolsURLs(jobType);
-const title = `${namespaceToolTitles[jobType]} results`;
+const title = `${namespaceAndToolsLabels[jobType]} results`;
 
 const PeptideSearchResult: FC = () => {
   const [selectedEntries, handleEntrySelection] = useItemSelect();

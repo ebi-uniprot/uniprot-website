@@ -15,7 +15,7 @@ exports[`ProteomesColumnConfiguration component should render column "busco": bu
       n:13780 · primates_odb10
     </div>
     <div>
-      C:99.5% (S:39.2% D:60.3%) F:0% M:0.4%
+      C:99.5% (S:39.1% D:60.4%) F:0% M:0.4%
     </div>
   </div>
 </DocumentFragment>
@@ -390,14 +390,14 @@ exports[`ProteomesColumnConfiguration component should render column "protein_co
   <a
     href="/uniprotkb?query=proteome:UP000005640"
   >
-    77,036
+    78,128
   </a>
 </DocumentFragment>
 `;
 
 exports[`ProteomesColumnConfiguration component should render column "upid": upid 1`] = `
 <DocumentFragment>
-  <div
+  <span
     class="no-wrap accession-view"
   >
     <span
@@ -412,6 +412,6 @@ exports[`ProteomesColumnConfiguration component should render column "upid": upi
     >
       UP000005640
     </a>
-  </div>
+  </span>
 </DocumentFragment>
 `;

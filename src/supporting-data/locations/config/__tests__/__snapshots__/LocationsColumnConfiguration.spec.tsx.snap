@@ -43,7 +43,7 @@ exports[`LocationsColumnConfiguration component should render column "gene_ontol
 
 exports[`LocationsColumnConfiguration component should render column "id": id 1`] = `
 <DocumentFragment>
-  <div
+  <span
     class="no-wrap accession-view"
   >
     <a
@@ -52,7 +52,7 @@ exports[`LocationsColumnConfiguration component should render column "id": id 1`
     >
       SL-0099
     </a>
-  </div>
+  </span>
 </DocumentFragment>
 `;
 
@@ -108,6 +108,36 @@ exports[`LocationsColumnConfiguration component should render column "part_of": 
 `;
 
 exports[`LocationsColumnConfiguration component should render column "references": references 1`] = `<DocumentFragment />`;
+
+exports[`LocationsColumnConfiguration component should render column "statistics": statistics 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      <a
+        href="/uniprotkb?query=(cc_scl_term:SL-0099)"
+      >
+        16,210 UniProtKB entries
+      </a>
+    </li>
+    <li>
+      <a
+        href="/uniprotkb?facets=reviewed:true&query=(cc_scl_term:SL-0099)"
+      >
+        236 reviewed UniProtKB entries
+      </a>
+    </li>
+    <li>
+      <a
+        href="/uniprotkb?facets=reviewed:false&query=(cc_scl_term:SL-0099)"
+      >
+        15,974 unreviewed UniProtKB entries
+      </a>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
 
 exports[`LocationsColumnConfiguration component should render column "synonyms": synonyms 1`] = `
 <DocumentFragment>

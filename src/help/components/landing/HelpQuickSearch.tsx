@@ -6,7 +6,7 @@ import {
   useState,
   KeyboardEvent,
 } from 'react';
-import { generatePath, Link, useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { Card, InfoList, SearchInput } from 'franklin-sites';
 import { debounce } from 'lodash-es';
 import qs from 'query-string';
@@ -16,7 +16,11 @@ import CleanHighlightMarkDown from '../results/CleanHighlightMarkDown';
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 
 import { help as helpURL } from '../../../shared/config/apiUrls';
-import { LocationToPath, Location } from '../../../app/config/urls';
+import {
+  LocationToPath,
+  Location,
+  getLocationEntryPath,
+} from '../../../app/config/urls';
 
 import { HelpSearchResponse } from '../../adapters/helpConverter';
 
@@ -76,9 +80,7 @@ const HelpQuickSearch = () => {
     .map(({ matches, title, id }) => {
       const titleMatch = matches?.title?.[0];
       const contentMatch = matches?.content?.[0];
-      const to = generatePath(LocationToPath[Location.HelpEntry], {
-        accession: id,
-      });
+      const to = getLocationEntryPath(Location.HelpEntry, id);
       return {
         title: (
           <Link to={to}>
@@ -95,7 +97,7 @@ const HelpQuickSearch = () => {
     });
 
   return (
-    <div className={styles['help-autocomplete']}>
+    <div className={styles['help-quick-search']}>
       <SearchInput
         isLoading={dataObject.loading}
         onChange={(event: ChangeEvent<HTMLInputElement>) =>
@@ -107,17 +109,16 @@ const HelpQuickSearch = () => {
         autoFocus
       />
       {!!allArticles?.length && !!infoData?.length && searchValue && (
-        <Card>
-          <InfoList
-            className={styles['help-autocomplete__result-list']}
-            infoData={infoData}
-          />
-          <div className={styles['help-autocomplete__all-link']}>
-            <Link to={allArticlesLocation}>
-              Show all results ({allArticles.length})
-            </Link>
-          </div>
-        </Card>
+        <div className={styles['help-quick-search__results']}>
+          <Card>
+            <InfoList infoData={infoData} />
+            <div className={styles['help-quick-search__results__all-link']}>
+              <Link to={allArticlesLocation}>
+                Show all results ({allArticles.length})
+              </Link>
+            </div>
+          </Card>
+        </div>
       )}
     </div>
   );

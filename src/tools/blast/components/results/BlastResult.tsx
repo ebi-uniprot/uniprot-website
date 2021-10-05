@@ -36,9 +36,11 @@ import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
 import { Location, LocationToPath } from '../../../../app/config/urls';
 import toolsURLs from '../../../config/urls';
 import { getAccessionsURL } from '../../../../shared/config/apiUrls';
-import namespaceToolTitles from '../../../../shared/config/namespaceToolTitles';
 
-import { Namespace } from '../../../../shared/types/namespaces';
+import {
+  Namespace,
+  namespaceAndToolsLabels,
+} from '../../../../shared/types/namespaces';
 import { BlastResults, BlastHit } from '../../types/blastResults';
 import Response from '../../../../uniprotkb/types/responseTypes';
 import { JobTypes } from '../../../types/toolsJobTypes';
@@ -51,7 +53,7 @@ import sticky from '../../../../shared/styles/sticky.module.scss';
 
 const jobType = JobTypes.BLAST;
 const urls = toolsURLs(jobType);
-const title = `${namespaceToolTitles[jobType]} results`;
+const title = `${namespaceAndToolsLabels[jobType]} results`;
 
 // overview
 const BlastResultTable = lazy(

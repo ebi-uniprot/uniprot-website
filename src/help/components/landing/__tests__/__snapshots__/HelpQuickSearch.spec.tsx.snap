@@ -3,7 +3,7 @@
 exports[`HelpQuickSearch tests should render with input 1`] = `
 <DocumentFragment>
   <div
-    class="help-autocomplete"
+    class="help-quick-search"
   >
     <span
       class="search-input"
@@ -25,242 +25,246 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
         />
       </span>
     </span>
-    <section
-      class="card"
+    <div
+      class="help-quick-search__results"
     >
-      <div
-        class="card__container"
+      <section
+        class="card"
       >
         <div
-          class="card__content"
+          class="card__container"
         >
-          <ul
-            class="help-autocomplete__result-list info-list"
-          >
-            <li>
-              <div
-                class="decorated-list-item decorated-list-item--has-link"
-              >
-                <a
-                  aria-hidden="true"
-                  class="decorated-list-item__link"
-                  data-testid="background-link"
-                  href="/help/canonical_and_isoforms"
-                  tabindex="-1"
-                />
-                <div
-                  class="decorated-list-item__title"
-                >
-                  <h5
-                    class="bold"
-                  >
-                    <a
-                      href="/help/canonical_and_isoforms"
-                    >
-                      <span>
-                        What is the 
-                        <span
-                          class="match-highlight"
-                        >
-                          canonical
-                        </span>
-                         sequence? Are all isoforms described in one entry?
-                      </span>
-                    </a>
-                  </h5>
-                </div>
-                <div
-                  class="decorated-list-item__content"
-                >
-                  <span>
-                    What is the 
-                    <span
-                      class="match-highlight"
-                    >
-                      canonical
-                    </span>
-                     sequence? To reduce redundancy, the UniProtKB/Swiss-Prot policy is to
-                  </span>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div
-                class="decorated-list-item decorated-list-item--has-link"
-              >
-                <a
-                  aria-hidden="true"
-                  class="decorated-list-item__link"
-                  data-testid="background-link"
-                  href="/help/canonical_nucleotide"
-                  tabindex="-1"
-                />
-                <div
-                  class="decorated-list-item__title"
-                >
-                  <h5
-                    class="bold"
-                  >
-                    <a
-                      href="/help/canonical_nucleotide"
-                    >
-                      <span>
-                        How do I get the nucleotide sequence that corresponds to the 
-                        <span
-                          class="match-highlight"
-                        >
-                          canonical
-                        </span>
-                         UniProtKB sequence?
-                      </span>
-                    </a>
-                  </h5>
-                </div>
-                <div
-                  class="decorated-list-item__content"
-                >
-                  <span>
-                    How do I get the nucleotide sequence that corresponds to the 
-                    <span
-                      class="match-highlight"
-                    >
-                      canonical
-                    </span>
-                     UniProtKB sequence? You
-                  </span>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div
-                class="decorated-list-item decorated-list-item--has-link"
-              >
-                <a
-                  aria-hidden="true"
-                  class="decorated-list-item__link"
-                  data-testid="background-link"
-                  href="/help/retrieve_sets"
-                  tabindex="-1"
-                />
-                <div
-                  class="decorated-list-item__title"
-                >
-                  <h5
-                    class="bold"
-                  >
-                    <a
-                      href="/help/retrieve_sets"
-                    >
-                      How to retrieve sets of protein sequences?
-                    </a>
-                  </h5>
-                </div>
-                <div
-                  class="decorated-list-item__content"
-                >
-                  <span>
-                     entries in these formats each contain only one protein sequence, the so-called '
-                    <span
-                      class="match-highlight"
-                    >
-                      canonical
-                    </span>
-                    ' sequence
-                  </span>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div
-                class="decorated-list-item decorated-list-item--has-link"
-              >
-                <a
-                  aria-hidden="true"
-                  class="decorated-list-item__link"
-                  data-testid="background-link"
-                  href="/help/conflict"
-                  tabindex="-1"
-                />
-                <div
-                  class="decorated-list-item__title"
-                >
-                  <h5
-                    class="bold"
-                  >
-                    <a
-                      href="/help/conflict"
-                    >
-                      Sequence conflict
-                    </a>
-                  </h5>
-                </div>
-                <div
-                  class="decorated-list-item__content"
-                >
-                  <span>
-                    This subsection of the 'Sequence' section reports difference(s) between the 
-                    <span
-                      class="match-highlight"
-                    >
-                      canonical
-                    </span>
-                     sequence
-                  </span>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div
-                class="decorated-list-item decorated-list-item--has-link"
-              >
-                <a
-                  aria-hidden="true"
-                  class="decorated-list-item__link"
-                  data-testid="background-link"
-                  href="/help/proteome"
-                  tabindex="-1"
-                />
-                <div
-                  class="decorated-list-item__title"
-                >
-                  <h5
-                    class="bold"
-                  >
-                    <a
-                      href="/help/proteome"
-                    >
-                      What are proteomes?
-                    </a>
-                  </h5>
-                </div>
-                <div
-                  class="decorated-list-item__content"
-                >
-                  <span>
-                     of 
-                    <span
-                      class="match-highlight"
-                    >
-                      canonical
-                    </span>
-                     and additional sequences), gene mapping files, Coding DNA Sequence (CDS) FASTA files and
-                  </span>
-                </div>
-              </div>
-            </li>
-          </ul>
           <div
-            class="help-autocomplete__all-link"
+            class="card__content"
           >
-            <a
-              href="/help?query=canonical"
+            <ul
+              class="info-list"
             >
-              Show all results (27)
-            </a>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    class="decorated-list-item__link"
+                    data-testid="background-link"
+                    href="/help/canonical_and_isoforms"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title"
+                  >
+                    <h5
+                      class="bold"
+                    >
+                      <a
+                        href="/help/canonical_and_isoforms"
+                      >
+                        <span>
+                          What is the 
+                          <span
+                            class="match-highlight"
+                          >
+                            canonical
+                          </span>
+                           sequence? Are all isoforms described in one entry?
+                        </span>
+                      </a>
+                    </h5>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                      What is the 
+                      <span
+                        class="match-highlight"
+                      >
+                        canonical
+                      </span>
+                       sequence? To reduce redundancy, the UniProtKB/Swiss-Prot policy
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    class="decorated-list-item__link"
+                    data-testid="background-link"
+                    href="/help/canonical_nucleotide"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title"
+                  >
+                    <h5
+                      class="bold"
+                    >
+                      <a
+                        href="/help/canonical_nucleotide"
+                      >
+                        <span>
+                          How do I get the nucleotide sequence that corresponds to the 
+                          <span
+                            class="match-highlight"
+                          >
+                            canonical
+                          </span>
+                           UniProtKB sequence?
+                        </span>
+                      </a>
+                    </h5>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                      How do I get the nucleotide sequence that corresponds to the 
+                      <span
+                        class="match-highlight"
+                      >
+                        canonical
+                      </span>
+                       UniProtKB sequence? You
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    class="decorated-list-item__link"
+                    data-testid="background-link"
+                    href="/help/conflict"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title"
+                  >
+                    <h5
+                      class="bold"
+                    >
+                      <a
+                        href="/help/conflict"
+                      >
+                        Sequence conflict
+                      </a>
+                    </h5>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                      This subsection of the 'Sequence' section reports difference(s) between the 
+                      <span
+                        class="match-highlight"
+                      >
+                        canonical
+                      </span>
+                       sequence
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    class="decorated-list-item__link"
+                    data-testid="background-link"
+                    href="/help/retrieve_sets"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title"
+                  >
+                    <h5
+                      class="bold"
+                    >
+                      <a
+                        href="/help/retrieve_sets"
+                      >
+                        How to retrieve sets of protein sequences?
+                      </a>
+                    </h5>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                       entries in these formats each contain only one protein sequence, the so-called '
+                      <span
+                        class="match-highlight"
+                      >
+                        canonical'
+                      </span>
+                       sequence.
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    class="decorated-list-item__link"
+                    data-testid="background-link"
+                    href="/help/sequence_processing"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title"
+                  >
+                    <h5
+                      class="bold"
+                    >
+                      <a
+                        href="/help/sequence_processing"
+                      >
+                        Sequence processing
+                      </a>
+                    </h5>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                      This subsection of the Sequence section indicates if the 
+                      <span
+                        class="match-highlight"
+                      >
+                        canonical
+                      </span>
+                       sequence displayed by default
+                    </span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <div
+              class="help-quick-search__results__all-link"
+            >
+              <a
+                href="/help?query=canonical"
+              >
+                Show all results (25)
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   </div>
 </DocumentFragment>
 `;

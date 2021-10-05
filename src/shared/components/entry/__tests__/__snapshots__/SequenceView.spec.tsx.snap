@@ -177,7 +177,7 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
       <a
         class="button tertiary"
         download=""
-        href="/<testing>/api/uniprotkb/accession/P05067.fasta"
+        href="/<testing>/api/uniprotkb/P05067.fasta"
       >
         <test-file-stub />
         Download

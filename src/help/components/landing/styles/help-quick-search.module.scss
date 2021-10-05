@@ -1,13 +1,38 @@
+@import 'franklin-sites/src/styles/common/z-index';
 @import 'franklin-sites/src/styles/colours';
 
-.help-autocomplete {
-  &__result-list {
-    max-height: 30rem;
-    overflow-y: auto;
+@keyframes reveal {
+  from {
+    clip-path: circle(0% at 50% 0%);
   }
+  to {
+    clip-path: circle(100% at 50% 0%);
+  }
+}
 
-  &__all-link {
-    text-align: right;
+.help-quick-search {
+  &__results {
+    animation: 200ms reveal;
+    position: relative;
+    z-index: $z-index-low;
+
+    :global(.card) {
+      width: initial;
+      margin-top: 0;
+      top: 0;
+      position: absolute;
+      width: 100%;
+    }
+
+    :global(.info-list) {
+      margin: 0rem;
+      max-height: 30rem;
+      overflow-y: auto;
+    }
+
+    &__all-link {
+      text-align: right;
+    }
   }
 
   :global(.search-input__suffix) {
@@ -16,15 +41,6 @@
 
   :global(input[type='text']) {
     margin-bottom: 0.5rem;
-  }
-
-  :global(.card) {
-    width: initial;
-    margin-top: 0;
-  }
-
-  :global(.info-list) {
-    margin: 0rem;
   }
 
   :global(.decorated-list-item) {
@@ -38,5 +54,6 @@
 
   :global(.decorated-list-item__content) {
     border-left-color: $colour-gainsborough;
+    word-wrap: break-word;
   }
 }

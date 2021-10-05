@@ -83,9 +83,9 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
               Last seen: 
             </strong>
             <time
-              datetime="2021-04-07T00:00:00.000Z"
+              datetime="2021-06-02T00:00:00.000Z"
             >
-              2021-04-07
+              2021-06-02
             </time>
           </span>
           <span

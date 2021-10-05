@@ -1,0 +1,130 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UniRuleColumnConfiguration component should render column "annotation_covered": annotation_covered 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      protein name
+    </li>
+    <li>
+      function
+    </li>
+    <li>
+      subcellular location
+    </li>
+    <li>
+      similarity
+    </li>
+    <li>
+      keyword
+    </li>
+    <li>
+      GO (Gene Ontology) term
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`UniRuleColumnConfiguration component should render column "predicted_protein_name": predicted_protein_name 1`] = `
+<DocumentFragment>
+  <span
+    style="font-weight: bolder;"
+  >
+    Insulin-like peptide INSL6
+  </span>
+</DocumentFragment>
+`;
+
+exports[`UniRuleColumnConfiguration component should render column "rule_id": rule_id 1`] = `
+<DocumentFragment>
+  <span
+    class="no-wrap accession-view"
+  >
+    <a
+      class="accession"
+      href="/unirule/UR000189784"
+    >
+      UR000189784
+    </a>
+  </span>
+</DocumentFragment>
+`;
+
+exports[`UniRuleColumnConfiguration component should render column "statistics": statistics 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      <a
+        href="/uniprotkb?query=(source:PIRNR037062)"
+      >
+        32 UniProtKB entries
+      </a>
+    </li>
+    <li>
+      <a
+        href="/uniprotkb?facets=reviewed:false&query=(source:PIRNR037062)"
+      >
+        32 unreviewed UniProtKB entries
+      </a>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`UniRuleColumnConfiguration component should render column "taxonomic_scope": taxonomic_scope 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      <span
+        class="no-wrap"
+      >
+        <a
+          href="/taxonomy/40674"
+          title="Mammalia, taxon ID 40674"
+        >
+          Mammalia
+        </a>
+      </span>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`UniRuleColumnConfiguration component should render column "template_entries": template_entries 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      <span
+        class="no-wrap accession-view"
+      >
+        <a
+          class="accession"
+          href="/uniprotkb/Q9QY05"
+        >
+          Q9QY05
+        </a>
+      </span>
+    </li>
+    <li>
+      <span
+        class="no-wrap accession-view"
+      >
+        <a
+          class="accession"
+          href="/uniprotkb/Q9Y581"
+        >
+          Q9Y581
+        </a>
+      </span>
+    </li>
+  </ul>
+</DocumentFragment>
+`;

@@ -5,7 +5,7 @@ import RenderColumnsInCard from '../../../../shared/components/results/RenderCol
 
 import { getEntryPath } from '../../../../app/config/urls';
 import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
-import { mapToLinks } from '../../../shared/components/MapTo';
+import { mapToLinks } from '../../../../shared/components/MapTo';
 
 import { DatabaseAPIModel } from '../../adapters/databaseConverter';
 import { Namespace } from '../../../../shared/types/namespaces';
@@ -30,7 +30,7 @@ const DatabaseCard = ({ data, selected, handleEntrySelection }: Props) => {
 
   const links = useMemo(
     () => mapToLinks(Namespace.database, data.abbrev, data.statistics),
-    [data.statistics, data.abbrev]
+    [data]
   );
 
   return (

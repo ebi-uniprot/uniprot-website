@@ -25,7 +25,7 @@ export type UniSaveEvent = {
 
 export type UniSaveStatus = {
   accession: string;
-  events: UniSaveEvent[];
+  events?: UniSaveEvent[];
 };
 
 export type DiffEntry = {

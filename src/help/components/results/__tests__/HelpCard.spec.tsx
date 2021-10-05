@@ -4,12 +4,12 @@ import customRender from '../../../../shared/__test-helpers__/customRender';
 
 import HelpCard from '../HelpCard';
 
-// TODO: replace with mocks when API is stable
-// import helpData from '../../../__mocks__/helpModelData';
+import cleanText from '../../../../shared/utils/cleanText';
+
+import helpData from '../../__mocks__/helpSearchModelData';
 
 describe('HelpCard tests', () => {
-  const title = 'This is an help page';
-
+  const { title, matches } = helpData.results[0];
   it('should render the card component', () => {
     const { asFragment } = customRender(
       <HelpCard id="help-page" title={title} />
@@ -19,10 +19,28 @@ describe('HelpCard tests', () => {
   });
 
   it('should render the card component and find highlights', () => {
+    const contentMatch = matches?.content?.[0];
+    const titleMatch = matches?.title?.[0];
     const { asFragment } = customRender(
-      <HelpCard id="help-page" title={title} contentMatch="content match" />
+      <HelpCard
+        id="help-page"
+        title={title}
+        titleMatch={titleMatch}
+        contentMatch={contentMatch}
+      />
     );
     expect(asFragment()).toMatchSnapshot();
-    expect(screen.getByText('content match')).toBeInTheDocument();
+
+    const clean = (html: string | undefined) =>
+      cleanText(html, { allowedTags: [], allowedAttributes: {} });
+
+    // Content match
+    const card = screen.getByTestId('help-card').children[1];
+    expect(card).toHaveTextContent(clean(contentMatch));
+
+    // Title match
+    expect(screen.getByTestId('help-title')).toHaveTextContent(
+      clean(titleMatch)
+    );
   });
 });

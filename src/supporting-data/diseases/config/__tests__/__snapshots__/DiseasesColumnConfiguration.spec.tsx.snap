@@ -95,3 +95,26 @@ exports[`DiseasesColumnConfiguration component should render column "name": name
   Hereditary non-polyposis colorectal cancer 1
 </DocumentFragment>
 `;
+
+exports[`DiseasesColumnConfiguration component should render column "statistics": statistics 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      <a
+        href="/uniprotkb?query=(cc_disease:DI-00550)"
+      >
+        1 UniProtKB entry
+      </a>
+    </li>
+    <li>
+      <a
+        href="/uniprotkb?facets=reviewed:true&query=(cc_disease:DI-00550)"
+      >
+        1 reviewed UniProtKB entry
+      </a>
+    </li>
+  </ul>
+</DocumentFragment>
+`;

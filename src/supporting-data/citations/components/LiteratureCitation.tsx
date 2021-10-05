@@ -37,6 +37,36 @@ const getLinkToAuthor = (author: string) => ({
   search: `query=lit_author:"${author}"`,
 });
 
+const WORM_BREEDERS_GAZETTE_URL = 'http://www.wormbook.org/wli/';
+// const ARVO_URL = 'http://iovs.arvojournals.org/article.aspx?articleid=';
+const PGR_URL = 'https://www.ebi.ac.uk/~textman/pgr-htdocs/pgr/';
+
+export const getLocatorUrl = (
+  locator?: string,
+  name?: 'Plant Gene Register' | "Worm Breeder's Gazette" | string
+) => {
+  if (!locator || !name) {
+    return null;
+  }
+  switch (name) {
+    case 'Plant Gene Register':
+      return `${PGR_URL}${locator}.html`;
+    case "Worm Breeder's Gazette": {
+      const regex = /(\d+)\((\d+)\):(\d+)/;
+      const matches = locator?.match(regex);
+      if (!matches) {
+        return null;
+      }
+      const issue = matches[1];
+      const volume = matches[2];
+      const page = matches[3];
+      return `${WORM_BREEDERS_GAZETTE_URL}wbg${issue}.${volume}p${page}/`;
+    }
+    default:
+      return null;
+  }
+};
+
 const Authors: FC<AuthorProps> = ({ authors, limit = 10 }) => {
   const cutoff = authors.length > limit ? authors.length : limit;
 
@@ -106,6 +136,7 @@ type JournalInfoProps = {
     volume?: string;
     doiId?: string;
     submissionDatabase?: string;
+    locator?: string;
   };
 };
 
@@ -118,6 +149,7 @@ export const JournalInfo: FC<JournalInfoProps> = ({
     volume,
     doiId,
     submissionDatabase,
+    locator,
   },
 }) => {
   const name = journal || doiId;
@@ -152,11 +184,13 @@ export const JournalInfo: FC<JournalInfoProps> = ({
     </>
   );
 
-  if (!doiId) {
+  const url = doiId ? externalUrls.DOI(doiId) : getLocatorUrl(locator, name);
+
+  if (!url) {
     return content;
   }
 
-  return <ExternalLink url={externalUrls.DOI(doiId)}>{content}</ExternalLink>;
+  return <ExternalLink url={url}>{content}</ExternalLink>;
 };
 
 type StatisticsProps = {

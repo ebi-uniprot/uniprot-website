@@ -23,7 +23,7 @@ const redirectMap = new Map<RegExp, string>([
   [/^\/disease(?<rest>\/.*)?$/i, `/${Namespace.diseases}$<rest>`],
   // exception, this one needs to be singular
   [
-    /^\/(((cross|x)[-_ ]?)?referenced?[-_ ]?)?databases(?<rest>\/.*)?$/i,
+    /^\/(((cross|x)[-_ ]?)?reference(d|s)?[-_ ]?)?databases(?<rest>\/.*)?$/i,
     `/${Namespace.database}$<rest>`,
   ],
   [

@@ -5,6 +5,7 @@ import UniProtKBCard from '../../uniprotkb/components/results/UniProtKBCard';
 import UniRefCard from '../../uniref/components/results/UniRefCard';
 import UniParcCard from '../../uniparc/components/results/UniParcCard';
 import ProteomesCard from '../../proteomes/components/results/ProteomesCard';
+
 import TaxonomyCard from '../../supporting-data/taxonomy/components/results/TaxonomyCard';
 import KeywordsCard from '../../supporting-data/keywords/components/results/KeywordsCard';
 import CitationsCard from '../../supporting-data/citations/components/results/CitationsCard';
@@ -12,18 +13,25 @@ import DiseasesCard from '../../supporting-data/diseases/components/results/Dise
 import DatabaseCard from '../../supporting-data/database/components/results/DatabaseCard';
 import LocationsCard from '../../supporting-data/locations/components/results/LocationsCard';
 
+import UniRuleCard from '../../automatic-annotations/unirule/components/results/UniRuleCard';
+import ARBACard from '../../automatic-annotations/arba/components/results/ARBACard';
+
 import { getIdKeyFor } from '../utils/getIdKeyForNamespace';
 
 import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
 import { UniRefLiteAPIModel } from '../../uniref/adapters/uniRefConverter';
 import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
 import { ProteomesAPIModel } from '../../proteomes/adapters/proteomesConverter';
+
 import { TaxonomyAPIModel } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { KeywordsAPIModel } from '../../supporting-data/keywords/adapters/keywordsConverter';
 import { CitationsAPIModel } from '../../supporting-data/citations/adapters/citationsConverter';
 import { DiseasesAPIModel } from '../../supporting-data/diseases/adapters/diseasesConverter';
 import { DatabaseAPIModel } from '../../supporting-data/database/adapters/databaseConverter';
 import { LocationsAPIModel } from '../../supporting-data/locations/adapters/locationsConverter';
+
+import { UniRuleAPIModel } from '../../automatic-annotations/unirule/adapters/uniRuleConverter';
+import { ARBAAPIModel } from '../../automatic-annotations/arba/adapters/arbaConverter';
 
 import { Namespace } from '../types/namespaces';
 import { APIModel } from '../types/apiModel';
@@ -120,6 +128,24 @@ const cardRenderer = (
       return (cardData) => (
         <LocationsCard
           data={cardData as LocationsAPIModel}
+          selected={selectedEntries.includes(getIdKey(cardData))}
+          handleEntrySelection={handleEntrySelection}
+        />
+      );
+    }
+    case Namespace.unirule: {
+      return (cardData) => (
+        <UniRuleCard
+          data={cardData as UniRuleAPIModel}
+          selected={selectedEntries.includes(getIdKey(cardData))}
+          handleEntrySelection={handleEntrySelection}
+        />
+      );
+    }
+    case Namespace.arba: {
+      return (cardData) => (
+        <ARBACard
+          data={cardData as ARBAAPIModel}
           selected={selectedEntries.includes(getIdKey(cardData))}
           handleEntrySelection={handleEntrySelection}
         />

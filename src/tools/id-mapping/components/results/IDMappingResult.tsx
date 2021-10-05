@@ -23,7 +23,6 @@ import toolsURLs from '../../../config/urls';
 import idMappingConverter from '../../adapters/idMappingConverter';
 import { databaseToDatabaseInfo } from '../../../../uniprotkb/config/database';
 import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
-import namespaceToolTitles from '../../../../shared/config/namespaceToolTitles';
 import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
 import { defaultFacets } from '../../../../shared/config/apiUrls';
 
@@ -34,12 +33,15 @@ import {
   MappingDetails,
   MappingFlat,
 } from '../../types/idMappingSearchResults';
-import { Namespace } from '../../../../shared/types/namespaces';
+import {
+  Namespace,
+  namespaceAndToolsLabels,
+} from '../../../../shared/types/namespaces';
 import Response from '../../../../uniprotkb/types/responseTypes';
 
 const jobType = JobTypes.ID_MAPPING;
 const urls = toolsURLs(jobType);
-const title = `${namespaceToolTitles[jobType]} results`;
+const title = `${namespaceAndToolsLabels[jobType]} results`;
 
 const IDMappingResult = () => {
   const match = useRouteMatch<{ id: string }>(
@@ -126,11 +128,11 @@ const IDMappingResult = () => {
         title={[
           title,
           namespaceOverride !== Namespace.idmapping &&
-            namespaceToolTitles[namespaceOverride],
+            namespaceAndToolsLabels[namespaceOverride],
         ]}
       />
       <PageIntro
-        title={namespaceToolTitles[namespaceOverride]}
+        title={namespaceAndToolsLabels[namespaceOverride]}
         titlePostscript={
           total && (
             <small>

@@ -294,7 +294,7 @@ export const EntryHistoryList = ({ accession }: { accession: string }) => {
       (statusData.data
         ? accessionData.data?.results.map((version) => {
             const eventList =
-              statusData.data?.events.filter(
+              statusData.data?.events?.filter(
                 (event) => event.release === version.firstRelease
               ) || [];
 
@@ -336,16 +336,16 @@ export const EntryHistoryList = ({ accession }: { accession: string }) => {
     accession,
     TabLocation.History
   );
-  const mergedEvents = statusData.data?.events.filter(
+  const mergedEvents = statusData.data?.events?.filter(
     (e) => e.eventType === 'merged'
   );
-  const deleteEvent = statusData.data?.events.find(
+  const deleteEvent = statusData.data?.events?.find(
     (e) => e.eventType === 'deleted'
   );
 
   // Sanity check
   {
-    const unknownEvents = statusData.data?.events.filter(
+    const unknownEvents = statusData.data?.events?.filter(
       (e) =>
         e.eventType !== 'merged' &&
         e.eventType !== 'deleted' &&

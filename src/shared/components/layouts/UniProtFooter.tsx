@@ -1,42 +1,34 @@
 import { memo, HTMLAttributes } from 'react';
 import { Link, generatePath } from 'react-router-dom';
 import cn from 'classnames';
-import { CitedIcon, EnvelopeIcon, ExternalLink } from 'franklin-sites';
+import { CitedIcon, ExternalLink } from 'franklin-sites';
 
 import ReleaseInfo from './ReleaseInfo';
+import Contact from './Contact';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 
 import helper from '../../styles/helper.module.scss';
-import './styles/footer.scss';
+import footer from './styles/footer.module.scss';
 
 import UniProtLogo from '../../../images/uniprot-logo.svg';
-
 import EMBLEBILogo from '../../../images/embl-ebi-logo.svg';
 import PIRLogo from '../../../images/pir-logo.jpg';
 import SIBLogo from '../../../images/sib-logo.png';
-
-import TwitterLogo from '../../../images/twitter-logo.svg';
-import FacebookLogo from '../../../images/facebook-logo.svg';
-import YouTubeLogo from '../../../images/youtube-logo.svg';
-import BloggerLogo from '../../../images/blogger-logo.svg';
-import GGroupsLogo from '../../../images/ggroups-logo.svg';
-
 import SERILogo from '../../../images/seri-logo.png';
-
 import ElixirCDRLogo from '../../../images/elixir-cdr.png';
 import CTSLogo from '../../../images/core-trust-seal-logo.png';
 
 const FooterConsortium = () => (
-  <div className="consortium">
+  <div className={footer.consortium}>
     <Link
       to={LocationToPath[Location.Home]}
-      className="consortium__uniprot"
+      className={footer.consortium__uniprot}
       title="UniProt home page"
     >
       <UniProtLogo />
     </Link>
-    <div className="consortium__members">
+    <div className={footer.consortium__members}>
       <ExternalLink
         noIcon
         url="https://www.ebi.ac.uk/"
@@ -63,7 +55,7 @@ const FooterConsortium = () => (
 );
 
 const FooterCopyrightAndMisc = () => (
-  <div className="copyright-misc">
+  <div className={footer['copyright-misc']}>
     <p>
       <Link
         to={generatePath(LocationToPath[Location.HelpEntry], {
@@ -94,15 +86,15 @@ const FooterCopyrightAndMisc = () => (
 );
 
 const ReleaseInfoSection = () => (
-  <div className="stats-release">
+  <div className={footer['stats-release']}>
     <ReleaseInfo />
   </div>
 );
 
 const FooterShortcuts = () => (
-  <ul className="no-bullet shortcuts">
-    <li className="shortcuts__core-data">
-      <span className="shortcuts__title">Core data</span>
+  <ul className={cn('no-bullet', footer.shortcuts)}>
+    <li className={footer['shortcuts__core-data']}>
+      <span className={footer.shortcuts__title}>Core data</span>
       <ul className="no-bullet">
         <li>
           <Link
@@ -147,7 +139,7 @@ const FooterShortcuts = () => (
       </ul>
     </li>
     <li>
-      <span className="shortcuts__title">Supporting data</span>
+      <span className={footer.shortcuts__title}>Supporting data</span>
       <ul className="no-bullet">
         <li>
           <Link
@@ -212,7 +204,7 @@ const FooterShortcuts = () => (
       </ul>
     </li>
     <li>
-      <span className="shortcuts__title">Tools</span>
+      <span className={footer.shortcuts__title}>Tools</span>
       <ul className="no-bullet">
         <li>
           <Link to={LocationToPath[Location.Blast]}>BLAST</Link>
@@ -236,7 +228,7 @@ const FooterShortcuts = () => (
       </ul>
     </li>
     <li>
-      <span className="shortcuts__title">Information</span>
+      <span className={footer.shortcuts__title}>Information</span>
       <ul className="no-bullet">
         <li>
           <Link
@@ -303,49 +295,8 @@ const FooterShortcuts = () => (
 );
 
 const FooterContactAndElixir = () => (
-  <div className="contact-elixir">
-    <p>
-      <ExternalLink noIcon url="https://www.uniprot.org/contact">
-        Get in touch <EnvelopeIcon width="2ch" />
-      </ExternalLink>
-    </p>
-    <p className="social">
-      <ExternalLink
-        noIcon
-        url="https://twitter.com/uniprot"
-        title="UniProt posts on Twitter"
-      >
-        <TwitterLogo width="3ch" />
-      </ExternalLink>
-      <ExternalLink
-        noIcon
-        url="https://www.facebook.com/uniprot.org"
-        title="UniProt posts on Facebook"
-      >
-        <FacebookLogo width="3ch" />
-      </ExternalLink>
-      <ExternalLink
-        noIcon
-        url="https://www.youtube.com/user/uniprotvideos"
-        title="UniProt videos on YouTube"
-      >
-        <YouTubeLogo width="3ch" />
-      </ExternalLink>
-      <ExternalLink
-        noIcon
-        url="https://insideuniprot.blogspot.com/"
-        title="UniProt blog"
-      >
-        <BloggerLogo width="3ch" />
-      </ExternalLink>
-      <ExternalLink
-        noIcon
-        url="https://groups.google.com/forum/#!forum/ebi-proteins-api"
-        title="UniProt Google Group"
-      >
-        <GGroupsLogo width="3ch" />
-      </ExternalLink>
-    </p>
+  <div className={footer['contact-elixir']}>
+    <Contact />
     <p>
       <ExternalLink
         noIcon
@@ -372,7 +323,7 @@ const FooterContactAndElixir = () => (
 );
 
 const FooterFunding = () => (
-  <div className="funding">
+  <div className={footer.funding}>
     <span>
       Main{' '}
       <Link
@@ -406,7 +357,7 @@ const FooterFunding = () => (
 
 const UniProtFooter = memo<HTMLAttributes<HTMLElement>>(
   ({ className, ...props }) => (
-    <footer className={cn(className, 'footer')} {...props}>
+    <footer className={cn(className, footer.footer)} {...props}>
       <div className="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed">
         <FooterConsortium />
         <ReleaseInfoSection />

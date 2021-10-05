@@ -40,7 +40,10 @@ import {
 import uniParcConverter, {
   UniParcAPIModel,
 } from '../../adapters/uniParcConverter';
-import { Namespace, NamespaceLabels } from '../../../shared/types/namespaces';
+import {
+  Namespace,
+  searchableNamespaceLabels,
+} from '../../../shared/types/namespaces';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
 
@@ -141,7 +144,7 @@ const Entry: FC = () => {
           <HTMLHead
             title={[
               transformedData.uniParcId,
-              NamespaceLabels[Namespace.uniparc],
+              searchableNamespaceLabels[Namespace.uniparc],
             ]}
           />
           <h1 className="big">
@@ -199,7 +202,7 @@ const Entry: FC = () => {
                 title={[
                   transformedData.uniParcId,
                   'Feature viewer',
-                  NamespaceLabels[Namespace.uniparc],
+                  searchableNamespaceLabels[Namespace.uniparc],
                 ]}
               />
               <UniParcFeaturesView

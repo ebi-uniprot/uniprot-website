@@ -18,13 +18,13 @@ type Props = {
 };
 
 const AccessionView = ({ id, namespace, entryType }: Props) => (
-  <div className={cn(helper['no-wrap'], styles['accession-view'])}>
+  <span className={cn(helper['no-wrap'], styles['accession-view'])}>
     {entryType && <EntryTypeIcon entryType={entryType} />}
     <Link to={getEntryPath(namespace, id)} className={styles.accession}>
       {id}
     </Link>
     <BasketStatus id={id} />
-  </div>
+  </span>
 );
 
 export default AccessionView;

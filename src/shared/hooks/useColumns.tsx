@@ -13,9 +13,6 @@ import {
 } from '../../uniprotkb/utils/resultsUtils';
 import apiUrls from '../config/apiUrls';
 import { SearchResultsLocations } from '../../app/config/urls';
-import uniProtKbConverter, {
-  UniProtkbAPIModel,
-} from '../../uniprotkb/adapters/uniProtkbConverter';
 import { getIdKeyFor } from '../utils/getIdKeyForNamespace';
 
 import { mainNamespaces, Namespace } from '../types/namespaces';
@@ -26,29 +23,44 @@ import {
 } from '../../uniprotkb/types/resultsTypes';
 import { APIModel } from '../types/apiModel';
 import { SortableColumn } from '../../uniprotkb/types/columnTypes';
+
+import uniProtKbConverter, {
+  UniProtkbAPIModel,
+} from '../../uniprotkb/adapters/uniProtkbConverter';
 import { UniRefLiteAPIModel } from '../../uniref/adapters/uniRefConverter';
 import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
 import { ProteomesAPIModel } from '../../proteomes/adapters/proteomesConverter';
+
 import { TaxonomyAPIModel } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { KeywordsAPIModel } from '../../supporting-data/keywords/adapters/keywordsConverter';
 import { CitationsAPIModel } from '../../supporting-data/citations/adapters/citationsConverter';
 import { DiseasesAPIModel } from '../../supporting-data/diseases/adapters/diseasesConverter';
 import { DatabaseAPIModel } from '../../supporting-data/database/adapters/databaseConverter';
 import { LocationsAPIModel } from '../../supporting-data/locations/adapters/locationsConverter';
+
+import { UniRuleAPIModel } from '../../automatic-annotations/unirule/adapters/uniRuleConverter';
+import { ARBAAPIModel } from '../../automatic-annotations/arba/adapters/arbaConverter';
+
 import UniProtKBColumnConfiguration from '../../uniprotkb/config/UniProtKBColumnConfiguration';
 import UniRefColumnConfiguration from '../../uniref/config/UniRefColumnConfiguration';
 import UniParcColumnConfiguration from '../../uniparc/config/UniParcColumnConfiguration';
 import ProteomesColumnConfiguration from '../../proteomes/config/ProteomesColumnConfiguration';
+
 import TaxonomyColumnConfiguration from '../../supporting-data/taxonomy/config/TaxonomyColumnConfiguration';
 import KeywordsColumnConfiguration from '../../supporting-data/keywords/config/KeywordsColumnConfiguration';
 import CitationsColumnConfiguration from '../../supporting-data/citations/config/CitationsColumnConfiguration';
 import DiseasesColumnConfiguration from '../../supporting-data/diseases/config/DiseasesColumnConfiguration';
 import DatabaseColumnConfiguration from '../../supporting-data/database/config/DatabaseColumnConfiguration';
 import LocationsColumnConfiguration from '../../supporting-data/locations/config/LocationsColumnConfiguration';
+
+import UniRuleColumnConfiguration from '../../automatic-annotations/unirule/config/UniRuleColumnConfiguration';
+import ARBAColumnConfiguration from '../../automatic-annotations/arba/config/ARBAColumnConfiguration';
+
 import {
   IDMappingColumn,
   IdMappingColumnConfiguration,
 } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
+
 import { MappingAPIModel } from '../../tools/id-mapping/types/idMappingSearchResults';
 import { Basket } from './useBasket';
 
@@ -84,6 +96,10 @@ const convertRow = (row: APIModel, namespace: Namespace | 'id-mapping') => {
       return row as DatabaseAPIModel;
     case Namespace.locations:
       return row as LocationsAPIModel;
+    case Namespace.unirule:
+      return row as UniRuleAPIModel;
+    case Namespace.arba:
+      return row as ARBAAPIModel;
     case Namespace.idmapping:
       return row as MappingAPIModel;
     default:
@@ -107,6 +123,8 @@ const ColumnConfigurations: Partial<Record<Namespace, Map<any, any>>> = {
   [Namespace.diseases]: DiseasesColumnConfiguration,
   [Namespace.database]: DatabaseColumnConfiguration,
   [Namespace.locations]: LocationsColumnConfiguration,
+  [Namespace.unirule]: UniRuleColumnConfiguration,
+  [Namespace.arba]: ARBAColumnConfiguration,
   [Namespace.idmapping]: IdMappingColumnConfiguration,
 };
 
@@ -153,7 +171,7 @@ const useColumns = (
   const history = useHistory();
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
   const location = useLocation();
-  const [usersColumns] = useLocalStorage<Column[]>(
+  const [userColumns] = useLocalStorage<Column[]>(
     `table columns for ${namespace}` as const,
     nsToDefaultColumns(namespace)
   );
@@ -179,8 +197,8 @@ const useColumns = (
     if (!columns) {
       const columnNames =
         displayIdMappingColumns && namespace !== Namespace.idmapping
-          ? [IDMappingColumn.from, ...usersColumns]
-          : usersColumns;
+          ? [IDMappingColumn.from, ...userColumns]
+          : userColumns;
       columns = getColumnsToDisplay(
         namespace,
         columnNames,
@@ -223,7 +241,7 @@ const useColumns = (
     basketSetter,
     displayIdMappingColumns,
     namespace,
-    usersColumns,
+    userColumns,
     sortableColumnToSortColumn,
     sortColumn,
     sortDirection,

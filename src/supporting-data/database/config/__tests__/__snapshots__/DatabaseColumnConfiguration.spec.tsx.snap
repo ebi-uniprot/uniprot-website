@@ -47,7 +47,7 @@ exports[`DatabaseColumnConfiguration component should render column "doi_id": do
 
 exports[`DatabaseColumnConfiguration component should render column "id": id 1`] = `
 <DocumentFragment>
-  <div
+  <span
     class="no-wrap accession-view"
   >
     <a
@@ -56,7 +56,7 @@ exports[`DatabaseColumnConfiguration component should render column "id": id 1`]
     >
       DB-0022
     </a>
-  </div>
+  </span>
 </DocumentFragment>
 `;
 
@@ -103,5 +103,35 @@ exports[`DatabaseColumnConfiguration component should render column "server": se
       width="12.5"
     />
   </a>
+</DocumentFragment>
+`;
+
+exports[`DatabaseColumnConfiguration component should render column "statistics": statistics 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      <a
+        href="/uniprotkb?query=(database:DB-0022)"
+      >
+        215,511,964 UniProtKB entries
+      </a>
+    </li>
+    <li>
+      <a
+        href="/uniprotkb?facets=reviewed:true&query=(database:DB-0022)"
+      >
+        553,525 reviewed UniProtKB entries
+      </a>
+    </li>
+    <li>
+      <a
+        href="/uniprotkb?facets=reviewed:false&query=(database:DB-0022)"
+      >
+        214,958,439 unreviewed UniProtKB entries
+      </a>
+    </li>
+  </ul>
 </DocumentFragment>
 `;

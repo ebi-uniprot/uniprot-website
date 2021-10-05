@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ARBACard tests should render the card component 1`] = `
+<DocumentFragment>
+  <section
+    class="card card--has-link"
+  >
+    <a
+      aria-hidden="true"
+      class="card__link"
+      data-testid="background-link"
+      href="/arba/ARBA00013665"
+      tabindex="-1"
+    />
+    <div
+      class="card__container"
+    >
+      <div
+        class="card__header"
+      >
+        <h2
+          class="tiny"
+        >
+          ARBA00013665
+        </h2>
+      </div>
+      <div
+        class="card__content"
+      />
+    </div>
+    <div
+      class="card__actions"
+    >
+      <a
+        class="card-action"
+        href="/uniprotkb?query=(source:ARBA00013665)"
+      >
+        608 UniProtKB entries
+      </a>
+      <a
+        class="card-action"
+        href="/uniprotkb?facets=reviewed:false&query=(source:ARBA00013665)"
+      >
+        608 unreviewed UniProtKB entries
+      </a>
+    </div>
+  </section>
+</DocumentFragment>
+`;

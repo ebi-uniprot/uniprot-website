@@ -39,8 +39,9 @@ const SupportingData = () => (
     </div>
     <div className="uniprot-grid-cell--span-3">
       <DecoratedListItem compact altStyle>
-        {/* TODO: update link */}
-        <a href="//www.uniprot.org/unirule">UniRule automatic annotation</a>
+        <Link to={getNamespaceTo(Location.UniRuleResults)}>
+          UniRule automatic annotation
+        </Link>
       </DecoratedListItem>
     </div>
     <div
@@ -71,7 +72,9 @@ const SupportingData = () => (
     <div className="uniprot-grid-cell--span-3">
       <DecoratedListItem compact altStyle>
         {/* TODO: update link */}
-        <a href="//www.uniprot.org/arba">ARBA automatic annotation</a>
+        <Link to={getNamespaceTo(Location.ARBAResults)}>
+          ARBA automatic annotation
+        </Link>
       </DecoratedListItem>
     </div>
   </HeroContainer>

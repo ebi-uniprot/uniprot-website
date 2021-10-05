@@ -1,8 +1,8 @@
 import { memo } from 'react';
-import { generatePath, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Card } from 'franklin-sites';
 
-import { LocationToPath, Location } from '../../../app/config/urls';
+import { getLocationEntryPath, Location } from '../../../app/config/urls';
 
 import CleanHighlightMarkDown from './CleanHighlightMarkDown';
 
@@ -14,14 +14,13 @@ type Props = {
 };
 
 const HelpCard = ({ id, title, titleMatch, contentMatch }: Props) => {
-  const to = generatePath(LocationToPath[Location.HelpEntry], {
-    accession: id,
-  });
+  const to = getLocationEntryPath(Location.HelpEntry, id);
 
   return (
     <Card
+      data-testid="help-card"
       header={
-        <h2 className="tiny">
+        <h2 className="tiny" data-testid="help-title">
           <Link to={to}>
             {titleMatch ? <CleanHighlightMarkDown md={titleMatch} /> : title}
           </Link>

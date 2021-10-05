@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UniRuleCard tests should render the card component 1`] = `
+<DocumentFragment>
+  <section
+    class="card card--has-link"
+  >
+    <a
+      aria-hidden="true"
+      class="card__link"
+      data-testid="background-link"
+      href="/unirule/UR000048432"
+      tabindex="-1"
+    />
+    <div
+      class="card__container"
+    >
+      <div
+        class="card__header"
+      >
+        <h2
+          class="tiny"
+        >
+          UR000048432
+        </h2>
+      </div>
+      <div
+        class="card__content"
+      />
+    </div>
+    <div
+      class="card__actions"
+    >
+      <a
+        class="card-action"
+        href="/uniprotkb?query=(source:RU241113)"
+      >
+        1,296 UniProtKB entries
+      </a>
+      <a
+        class="card-action"
+        href="/uniprotkb?facets=reviewed:false&query=(source:RU241113)"
+      >
+        1,296 unreviewed UniProtKB entries
+      </a>
+    </div>
+  </section>
+</DocumentFragment>
+`;

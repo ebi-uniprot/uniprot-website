@@ -23,15 +23,15 @@ describe('getFASTAFromAccession', () => {
   });
 
   it('should throw if protein not existing', async () => {
-    mock.onGet(/api\/uniprotkb\/accession\/O00000$/).reply(404, {
-      url: 'http://www.ebi.ac.uk/uniprot/beta/api/uniprotkb/accession/O00000',
+    mock.onGet(/api\/uniprotkb\/O00000$/).reply(404, {
+      url: 'http://www.ebi.ac.uk/uniprot/beta/api/uniprotkb/O00000',
       messages: ['Resource not found'],
     });
     await expect(getFASTAFromAccession('O00000')).rejects.toThrow();
   });
 
   it('should handle UniProtKB entry', async () => {
-    mock.onGet(/api\/uniprotkb\/accession\/P05067$/).reply(200, mockUniProtKB);
+    mock.onGet(/api\/uniprotkb\/P05067$/).reply(200, mockUniProtKB);
     await expect(getFASTAFromAccession('P05067')).resolves.toMatchSnapshot();
   });
 

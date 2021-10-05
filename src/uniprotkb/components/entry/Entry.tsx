@@ -65,7 +65,10 @@ import {
   Location,
   getEntryPath,
 } from '../../../app/config/urls';
-import { Namespace, NamespaceLabels } from '../../../shared/types/namespaces';
+import {
+  Namespace,
+  searchableNamespaceLabels,
+} from '../../../shared/types/namespaces';
 import { EntryType } from '../../../shared/components/entry/EntryTypeIcon';
 
 import helper from '../../../shared/styles/helper.module.scss';
@@ -255,7 +258,10 @@ const Entry: FC = () => {
         historyOldEntry ? null : (
           <ErrorBoundary>
             <HTMLHead
-              title={[pageTitle, NamespaceLabels[Namespace.uniprotkb]]}
+              title={[
+                pageTitle,
+                searchableNamespaceLabels[Namespace.uniprotkb],
+              ]}
             />
             <h1 className="big">
               <EntryTitle
@@ -371,7 +377,7 @@ const Entry: FC = () => {
               title={[
                 pageTitle,
                 'Feature viewer',
-                NamespaceLabels[Namespace.uniprotkb],
+                searchableNamespaceLabels[Namespace.uniprotkb],
               ]}
             />
             <FeatureViewer accession={match.params.accession} />
@@ -400,7 +406,7 @@ const Entry: FC = () => {
               title={[
                 pageTitle,
                 'Publications',
-                NamespaceLabels[Namespace.uniprotkb],
+                searchableNamespaceLabels[Namespace.uniprotkb],
               ]}
             />
             <EntryPublications accession={match.params.accession} />
@@ -429,7 +435,7 @@ const Entry: FC = () => {
               title={[
                 pageTitle,
                 'External links',
-                NamespaceLabels[Namespace.uniprotkb],
+                searchableNamespaceLabels[Namespace.uniprotkb],
               ]}
             />
             <EntryExternalLinks transformedData={transformedData} />
@@ -456,7 +462,7 @@ const Entry: FC = () => {
               title={[
                 historyOldEntry ? match.params.accession : pageTitle,
                 'History',
-                NamespaceLabels[Namespace.uniprotkb],
+                searchableNamespaceLabels[Namespace.uniprotkb],
               ]}
             />
             <EntryHistory accession={match.params.accession} />

@@ -3,16 +3,16 @@ import { Link, LinkProps, useRouteMatch } from 'react-router-dom';
 import { DropdownButton, LongNumber } from 'franklin-sites';
 import { SetOptional } from 'type-fest';
 
-import { pluralise } from '../../../shared/utils/utils';
+import { pluralise } from '../utils/utils';
 
 import {
-  allSupportingDataEntryLocations,
+  allSupportingDataAndAAEntryLocations,
   LocationToPath,
   Location,
-} from '../../../app/config/urls';
+} from '../../app/config/urls';
 
-import { Namespace } from '../../../shared/types/namespaces';
-import { Statistics } from '../../../shared/types/apiModel';
+import { Namespace } from '../types/namespaces';
+import { Statistics } from '../types/apiModel';
 
 const configMap = new Map<
   keyof Statistics | 'proteinCount',
@@ -140,7 +140,8 @@ const configMap = new Map<
   ],
 ]);
 
-export const supportingDataUniProtKBFieldMap = new Map([
+const namespaceToUniProtKBFieldMap = new Map([
+  // Supporting data
   [Namespace.citations, 'lit_citation_id'],
   // NOTE: This field doesn't use the ID but the Abbrev...
   [Namespace.database, 'database'],
@@ -149,6 +150,9 @@ export const supportingDataUniProtKBFieldMap = new Map([
   [Namespace.locations, 'cc_scl_term'],
   // NOTE: to get high-level nodes, currently only `tax_id` works...
   [Namespace.taxonomy, 'taxonomy_id'],
+  // Annotations
+  [Namespace.unirule, 'source'],
+  [Namespace.arba, 'source'],
 ]);
 
 type EnrichedStatistics = {
@@ -209,10 +213,10 @@ export const MapToDropdown: FC<Props> = ({
   children = 'View proteins',
 }) => {
   const match = useRouteMatch<{ namespace: Namespace; accession: string }>(
-    allSupportingDataEntryLocations
+    allSupportingDataAndAAEntryLocations
   );
   const { namespace, accession: accessionFromPath } = match?.params || {};
-  const fieldName = namespace && supportingDataUniProtKBFieldMap.get(namespace);
+  const fieldName = namespace && namespaceToUniProtKBFieldMap.get(namespace);
 
   if (!(statistics && namespace && accessionFromPath && fieldName)) {
     return null;
@@ -248,13 +252,13 @@ export const MapToDropdown: FC<Props> = ({
 
 export const mapToLinks = (
   namespace: Namespace,
-  accession: string,
-  statistics: Statistics | undefined
+  accession?: string,
+  statistics?: Statistics
 ):
   | Array<{ name: ReactNode; link: LinkProps['to']; key: string }>
   | undefined => {
-  const fieldName = supportingDataUniProtKBFieldMap.get(namespace);
-  if (!(statistics && fieldName)) {
+  const fieldName = namespaceToUniProtKBFieldMap.get(namespace);
+  if (!(accession && statistics && fieldName)) {
     return;
   }
   const enrichedStatistics = enrichStatistics(statistics, fieldName, accession);
