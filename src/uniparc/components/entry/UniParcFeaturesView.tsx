@@ -1,9 +1,8 @@
-import { html } from 'lit-html';
+import { ExternalLink } from 'franklin-sites';
 import { sortBy } from 'lodash-es';
 import { FC, useMemo } from 'react';
 
 import FeaturesView, {
-  ColumnConfig,
   ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';
 import externalUrls from '../../../shared/config/externalUrls';
@@ -39,57 +38,67 @@ const convertData = (data: SequenceFeature[]): UniParcProcessedFeature[] =>
     'interproGroupName'
   );
 
-// Define columns
-const columnConfig: ColumnConfig<UniParcProcessedFeature> = () => ({
-  interproGroup: {
-    label: 'InterPro Group',
-    resolver: (d) =>
-      d.interproGroupId
-        ? html`<a
-            href="${externalUrls.InterProEntry(d.interproGroupId)}"
-            target="_blank"
-            rel="noreferrer"
-            >${d.interproGroupName}</a
-          >`
-        : 'N/A',
-  },
-  positions: {
-    label: 'Positions',
-    resolver: (d) => `${d.start}-${d.end}`,
-  },
-  databaseId: {
-    label: 'Database identifier',
-    resolver: (d) => {
-      const { database, databaseId } = d;
-      const databaseInfo = databaseToDatabaseInfo[database];
-      if (databaseInfo && databaseId) {
-        return html`<a
-          href="${processUrlTemplate(databaseInfo.uriLink, { id: databaseId })}"
-          target="_blank"
-          rel="norefferer"
-          >${databaseId}</a
-        >`;
-      }
-      return databaseId;
-    },
-  },
-  database: {
-    label: 'Database',
-    resolver: (d): string => d.database,
-  },
-});
-
 const UniParcFeaturesView: FC<{
   data: SequenceFeature[];
   sequence: string;
 }> = ({ data, sequence }) => {
   const processedData = useMemo(() => convertData(data), [data]);
+
+  // Define table contents
+  const table = (
+    <table>
+      <thead>
+        <tr>
+          <th>InterPro Group</th>
+          <th>Positions</th>
+          <th>Database identifier</th>
+          <th>Database</th>
+        </tr>
+      </thead>
+      <tbody>
+        {processedData.map((feature) => {
+          const { database, databaseId } = feature;
+          const databaseInfo = databaseToDatabaseInfo[database];
+
+          return (
+            <tr
+              key={feature.protvistaFeatureId}
+              data-start={feature.start}
+              data-end={feature.end}
+            >
+              <td>
+                {feature.interproGroupId ? (
+                  <ExternalLink
+                    url={externalUrls.InterProEntry(feature.interproGroupId)}
+                  >
+                    {feature.interproGroupName}
+                  </ExternalLink>
+                ) : (
+                  'N/A'
+                )}
+              </td>
+              <td>{`${feature.start}-${feature.end}`}</td>
+              <td>
+                {databaseInfo && databaseId && (
+                  <ExternalLink
+                    url={processUrlTemplate(databaseInfo.uriLink, {
+                      id: databaseId,
+                    })}
+                  >
+                    {databaseId}
+                  </ExternalLink>
+                )}
+              </td>
+              <td>{feature.database}</td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  );
+
   return (
-    <FeaturesView
-      features={processedData}
-      columnConfig={columnConfig}
-      sequence={sequence}
-    />
+    <FeaturesView features={processedData} table={table} sequence={sequence} />
   );
 };
 export default UniParcFeaturesView;

@@ -1,106 +1,26 @@
-import { useCallback, FC, useMemo } from 'react';
+import { useCallback, FC, useMemo, Fragment } from 'react';
 import { Loader } from 'franklin-sites';
-import { html } from 'lit-html';
 import joinUrl from 'url-join';
 
 import { filterConfig, colorConfig } from 'protvista-uniprot';
 import { ProteinsAPIVariation } from 'protvista-variation-adapter/dist/es/variants';
 import { transformData, TransformedVariant } from 'protvista-variation-adapter';
 
-import { UniProtProtvistaEvidenceTag } from './UniProtKBEvidenceTag';
-import FeaturesTableView, {
-  FeaturesTableCallback,
-} from '../../../shared/components/views/FeaturesTableView';
+import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 
 import apiUrls from '../../../shared/config/apiUrls';
 
-import { Evidence } from '../../types/modelTypes';
-
 import './styles/variation-view.scss';
 import NightingaleZoomTool from './NightingaleZoomTool';
-import { ColumnConfig } from '../../../shared/components/views/FeaturesView';
-
-const getColumnConfig: ColumnConfig<TransformedVariant> = (
-  evidenceTagCallback: FeaturesTableCallback
-) => ({
-  positions: {
-    label: 'Position(s)',
-    resolver: (d) => (d.start === d.end ? d.start : `${d.start}-${d.end}`),
-  },
-  change: {
-    label: 'Change',
-    resolver: (d) => `${d.wildType}>${d.alternativeSequence}`,
-  },
-  consequence: {
-    label: 'Consequence',
-    child: true,
-    resolver: (d) => d.consequenceType,
-  },
-  predictions: {
-    label: 'Predictions',
-    child: true,
-    resolver: (d) =>
-      html`${d.predictions?.map(
-        (prediction) =>
-          html`${prediction.predAlgorithmNameType}:
-            ${prediction.predictionValType} (${prediction.score})<br />`
-      )}`,
-  },
-  description: {
-    label: 'Description',
-    resolver: (d) =>
-      html`${d.descriptions?.map(
-        (description) =>
-          html`${description.value} (${description.sources.join(', ')})<br />`
-      )}`,
-  },
-  somaticStatus: {
-    label: 'Somatic',
-    child: true,
-    resolver: (d) => (d.somaticStatus === 1 ? 'Y' : 'N'),
-  },
-  hasDisease: {
-    label: 'Disease association',
-    resolver: (d) => (d.association && d.association.length > 0 ? 'Y' : 'N'),
-  },
-  association: {
-    label: 'Disease association',
-    child: true,
-    resolver: (d) => {
-      if (!d.association) {
-        return '';
-      }
-      return d.association.map(
-        (association) => html`
-          <p>
-            ${association.name}
-            ${association.evidences &&
-            UniProtProtvistaEvidenceTag(
-              association.evidences.map(
-                (evidence) =>
-                  ({
-                    evidenceCode: evidence.code,
-                    source: evidence.source.name,
-                    id: evidence.source.id,
-                  } as Evidence)
-              ),
-              evidenceTagCallback
-            )}
-          </p>
-        `
-      );
-    },
-  },
-});
 
 const VariationView: FC<{
   primaryAccession: string;
   title?: string;
-  hasTable?: boolean;
-}> = ({ primaryAccession, title, hasTable = true }) => {
+  onlyTable?: boolean;
+}> = ({ primaryAccession, title, onlyTable = false }) => {
   const { loading, data, error, status } = useDataApi<ProteinsAPIVariation>(
     joinUrl(apiUrls.variation, primaryAccession)
   );
@@ -177,12 +97,21 @@ const VariationView: FC<{
       import(/* webpackChunkName: "protvista-manager" */ 'protvista-manager'),
     'protvista-manager'
   );
+  const dataTableDefined = useCustomElement(
+    /* istanbul ignore next */
+    () =>
+      import(
+        /* webpackChunkName: "protvista-datatable" */ 'protvista-datatable'
+      ),
+    'protvista-datatable'
+  );
   const ceDefined =
     filterDefined &&
     variationDefined &&
     navigationDefined &&
     sequenceDefined &&
-    managerDefined;
+    managerDefined &&
+    dataTableDefined;
 
   if (loading || !ceDefined) {
     return <Loader />;
@@ -203,11 +132,92 @@ const VariationView: FC<{
     return null;
   }
 
+  const table = (
+    <table>
+      <thead>
+        <tr>
+          <th>Position(s)</th>
+          <th>Change</th>
+          <th>Description</th>
+          <th>Disease association</th>
+        </tr>
+      </thead>
+      <tbody>
+        {transformedData.variants.map((variantFeature: TransformedVariant) => (
+          <Fragment key={variantFeature.protvistaFeatureId}>
+            <tr data-id={variantFeature.protvistaFeatureId}>
+              <td>
+                {variantFeature.start}-{variantFeature.end}
+              </td>
+              <td>
+                {variantFeature.wildType}
+                {'>'}
+                {variantFeature.alternativeSequence}
+              </td>
+              <td>
+                {variantFeature.descriptions?.map((description) => (
+                  <div key={description.value}>
+                    {`${description.value} (${description.sources.join(', ')})`}
+                  </div>
+                ))}
+              </td>
+              <td>
+                {variantFeature.association &&
+                variantFeature.association.length > 0
+                  ? 'Y'
+                  : 'N'}
+              </td>
+            </tr>
+            <tr data-group-for={variantFeature.protvistaFeatureId}>
+              <td>
+                <div>
+                  <strong>Consequence: </strong>
+                  {variantFeature.consequenceType}
+                </div>
+                <div>
+                  <strong>Predictions: </strong>
+                  {variantFeature.predictions?.map((pred) => (
+                    <div
+                      key={`${pred.predAlgorithmNameType}${
+                        pred.predictionValType
+                      }${pred.sources.join('-')}`}
+                    >
+                      {`${pred.predAlgorithmNameType}: ${pred.predictionValType} (${pred.score})`}
+                    </div>
+                  ))}
+                </div>
+                <div>
+                  <strong>Somatic: </strong>{' '}
+                  {variantFeature.somaticStatus === 1 ? 'Y' : 'N'}
+                </div>
+                <div>
+                  <strong>Disease association: </strong>
+                  {variantFeature.association?.map((association) => (
+                    <div key={association.name}>
+                      {association.name}
+                      <UniProtKBEvidenceTag
+                        evidences={association.evidences.map((evidence) => ({
+                          evidenceCode: evidence.code as `ECO:${number}`,
+                          id: evidence.source.id,
+                          source: evidence.source.name,
+                        }))}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </td>
+            </tr>
+          </Fragment>
+        ))}
+      </tbody>
+    </table>
+  );
+
   return (
     <div>
       {title && <h3>{title}</h3>}
       <protvista-manager attributes="highlight displaystart displayend activefilters filters selectedid">
-        {hasTable && (
+        {!onlyTable && (
           <div className="variation-view">
             <NightingaleZoomTool length={transformedData.sequence.length} />
             <protvista-navigation length={transformedData.sequence.length} />
@@ -228,10 +238,7 @@ const VariationView: FC<{
             />
           </div>
         )}
-        <FeaturesTableView
-          data={transformedData.variants}
-          columnConfig={getColumnConfig}
-        />
+        <protvista-datatable filter-scroll>{table}</protvista-datatable>
       </protvista-manager>
     </div>
   );
