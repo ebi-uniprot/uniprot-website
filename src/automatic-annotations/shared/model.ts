@@ -283,7 +283,7 @@ export type CaseRule = {
   ruleExceptions?: RuleException[];
 };
 
-export type SamFeatureSet = {
+export type SAMFeatureSet = {
   samTrigger?: {
     // samTriggerType?: 'TRANSMEMBRANE' | 'SIGNAL' | 'COILED_COIL';
     samTriggerType?: string;
@@ -318,7 +318,7 @@ export type AAModel = {
   information: Information;
   mainRule: Rule;
   otherRules?: CaseRule[];
-  samFeatureSets?: SamFeatureSet[];
+  samFeatureSets?: SAMFeatureSet[];
   positionFeatureSets?: PositionFeatureSet[];
   statistics: Statistics;
   createdDate: string; // YYYY-MM-DD

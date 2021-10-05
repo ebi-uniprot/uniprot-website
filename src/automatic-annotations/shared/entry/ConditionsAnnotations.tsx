@@ -32,6 +32,7 @@ import {
   ConditionSet,
   PositionFeatureSet,
   Range,
+  SAMFeatureSet,
 } from '../model';
 import { Namespace } from '../../../shared/types/namespaces';
 import {
@@ -46,15 +47,21 @@ type AnnotationWithExceptions = Annotation & { exceptions?: RuleException[] };
 const position = (range?: Range) => {
   if (range?.start?.value) {
     if (!range.end?.value || range.end.value === range.start.value) {
-      return <>{range.start.value}</>;
+      return range.start.value;
     }
-    return (
-      <>
-        {range.start.value}-{range.end.value}
-      </>
-    );
+    return `${range.start.value}-${range.end.value}`;
   }
   return null;
+};
+
+const hits = (range?: Range) => {
+  if (range?.start?.value) {
+    if (!range.end?.value || range.end.value === range.start.value) {
+      return range.start.value;
+    }
+    return `${range.start.value} to ${range.end.value}`;
+  }
+  return 0;
 };
 
 const positionalFeatureSetToInfoDatumCondition = (
@@ -77,48 +84,46 @@ const positionalFeatureSetToInfoDatumCondition = (
   key,
 });
 
-const positionalFeatureSetToInfoDatumAnnotation = (
-  positionFeatureSet: PositionFeatureSet
-) => ({
-  title: 'positional features',
-  content: (
-    <ul className="no-bullet">
-      {positionFeatureSet.positionalFeatures?.map((pf, index) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <li key={index}>
-          {position(pf.position)}: {pf.type} - {pf.value}
-        </li>
-      ))}
-    </ul>
-  ),
-});
+const samFeatureSetToInfoDatumCondition = (samFeatureSet: SAMFeatureSet) => {
+  const nHits = hits(samFeatureSet.samTrigger?.expectedHits);
+  return {
+    title: `predicted ${samFeatureSet.samTrigger?.samTriggerType}`,
+    content: `${nHits} ${pluralise(
+      'hit',
+      // use the number value, but if it's a string ("x to y"), then use plural
+      typeof nHits === 'number' ? nHits : 2
+    )}`,
+    key: 'sam feature',
+  };
+};
 
 // NOTE: across values within a condition: OR
 // NOTE: except for positional features: AND
 const conditionsToInfoData = (
   conditions: Condition[],
-  positionalFeatureSets: PositionFeatureSet[] = [],
-  positionalFocus?: boolean
+  featureSets: Array<PositionFeatureSet | SAMFeatureSet> = [],
+  featureFocus?: boolean
 ) => {
-  const items = positionalFocus
-    ? [...positionalFeatureSets, ...conditions]
-    : conditions;
+  const items = featureFocus ? [...featureSets, ...conditions] : conditions;
   return items.map((condition, index) => {
     const key = `${index}`;
     // actually not a condition, it's a positional feature set
     if (!('type' in condition)) {
-      if (!('positionalFeatures' in condition)) {
-        // eslint-disable-next-line no-console
-        console.warn('unexpected positional feature set:', condition);
-        return { title: '', content: null };
+      if ('positionalFeatures' in condition) {
+        return positionalFeatureSetToInfoDatumCondition(condition, false, key);
       }
-      return positionalFeatureSetToInfoDatumCondition(condition, false, key);
+      if ('samTrigger' in condition) {
+        return samFeatureSetToInfoDatumCondition(condition);
+      }
+      // eslint-disable-next-line no-console
+      console.warn('unexpected positional feature set:', condition);
+      return { title: '', content: null };
     }
     // Tag to a positional feature
     if (condition.type === 'Feature Tag') {
       // Retrieve the corresponding positional feature set to display it
-      const matchingSet = positionalFeatureSets?.find(
-        (pfs) => pfs.tag === condition.tag?.value
+      const matchingSet = featureSets?.find(
+        (fs) => 'tag' in fs && fs.tag === condition.tag?.value
       );
       if (matchingSet) {
         return positionalFeatureSetToInfoDatumCondition(
@@ -153,26 +158,24 @@ const conditionsToInfoData = (
     if (condition.type === 'taxon') {
       return {
         title: 'taxon', // NOTE: don't pluralise, the values are "OR"-separated
-        content: (
-          <>
-            {condition.conditionValues?.map(({ cvId, value }, index, array) => {
-              let output: ReactNode = value;
-              if (cvId) {
-                output = (
-                  <TaxonomyView
-                    data={{ taxonId: +cvId, scientificName: value }}
-                  />
-                );
-              }
-              return (
-                <Fragment key={cvId || value}>
-                  {listFormat(index, array, 'or')}
-                  {condition.isNegative && 'not '}
-                  {output}
-                </Fragment>
+        content: condition.conditionValues?.map(
+          ({ cvId, value }, index, array) => {
+            let output: ReactNode = value;
+            if (cvId) {
+              output = (
+                <TaxonomyView
+                  data={{ taxonId: +cvId, scientificName: value }}
+                />
               );
-            })}
-          </>
+            }
+            return (
+              <Fragment key={cvId || value}>
+                {listFormat(index, array, 'or')}
+                {condition.isNegative && 'not '}
+                {output}
+              </Fragment>
+            );
+          }
         ),
         key,
       };
@@ -181,22 +184,18 @@ const conditionsToInfoData = (
     if (condition.type === 'gene location') {
       return {
         title: 'gene location',
-        content: (
-          <>
-            {condition.conditionValues?.map(({ value }, index, array) => {
-              if (!value) {
-                return null;
-              }
-              return (
-                <Fragment key={value}>
-                  {listFormat(index, array, 'or')}
-                  {condition.isNegative && 'not '}
-                  {value}
-                </Fragment>
-              );
-            })}
-          </>
-        ),
+        content: condition.conditionValues?.map(({ value }, index, array) => {
+          if (!value) {
+            return null;
+          }
+          return (
+            <Fragment key={value}>
+              {listFormat(index, array, 'or')}
+              {condition.isNegative && 'not '}
+              {value}
+            </Fragment>
+          );
+        }),
         key,
       };
     }
@@ -206,23 +205,19 @@ const conditionsToInfoData = (
       return {
         // NOTE: don't pluralise, the values are "OR"-separated
         title: `${signatureDB} signature`,
-        content: (
-          <>
-            {condition.conditionValues?.map(({ value }, index, array) => {
-              if (!value) {
-                return null;
-              }
-              const url = externalUrls.InterProSearch(value);
-              return (
-                <Fragment key={value}>
-                  {listFormat(index, array, 'or')}
-                  {condition.isNegative && 'not '}
-                  <ExternalLink url={url}>{value}</ExternalLink>
-                </Fragment>
-              );
-            })}
-          </>
-        ),
+        content: condition.conditionValues?.map(({ value }, index, array) => {
+          if (!value) {
+            return null;
+          }
+          const url = externalUrls.InterProSearch(value);
+          return (
+            <Fragment key={value}>
+              {listFormat(index, array, 'or')}
+              {condition.isNegative && 'not '}
+              <ExternalLink url={url}>{value}</ExternalLink>
+            </Fragment>
+          );
+        }),
         key,
       };
     }
@@ -474,7 +469,7 @@ const groupedAnnotation = (
 // See similar logic in AnnotationCovered.tsx common column renderer
 function annotationsToInfoData(
   annotations: AnnotationWithExceptions[],
-  positionalFeatureSet?: PositionFeatureSet
+  featureSet?: PositionFeatureSet | SAMFeatureSet
 ) {
   const map = new Map<string, Annotation[]>();
 
@@ -506,10 +501,71 @@ function annotationsToInfoData(
     content: groupedAnnotation(type, annotations),
   }));
 
-  if (positionalFeatureSet) {
-    infoData.unshift(
-      positionalFeatureSetToInfoDatumAnnotation(positionalFeatureSet)
-    );
+  if (featureSet) {
+    if ('positionalFeatures' in featureSet) {
+      infoData.unshift({
+        title: 'positional features',
+        content: (
+          <ul className="no-bullet">
+            {featureSet.positionalFeatures?.map((pf, index) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <li key={index}>
+                {position(pf.position)}: {pf.type} - {pf.value}
+              </li>
+            ))}
+          </ul>
+        ),
+      });
+    } else if (
+      'samTrigger' in featureSet &&
+      featureSet.samTrigger?.samTriggerType
+    ) {
+      // all this section is hardcoded in the current website... 🙄
+      const type = featureSet.samTrigger.samTriggerType;
+      if (type === 'signal') {
+        infoData.unshift({
+          title: 'chain',
+          content: (
+            <>
+              <em>@CHAIN_NAME@</em> to residues corresponding to positions{' '}
+              <em>@TO|+1@</em> - <em>@CTER@</em>)
+            </>
+          ),
+        });
+        infoData.unshift({
+          title: 'signal peptide',
+          content: (
+            <>
+              to residues corresponding to positions <em>@NTER@</em> -{' '}
+              <em>@TO@</em>
+            </>
+          ),
+        });
+      } else if (type === 'transmembrane') {
+        infoData.unshift({
+          title: 'transmembrane',
+          content: (
+            <>
+              Helical (to residues corresponding to positions <em>@FROM@</em> -{' '}
+              <em>@TO@</em>)
+            </>
+          ),
+        });
+      } else if (type === 'coiledCoil') {
+        infoData.unshift({
+          title: 'coiled coil',
+          content: (
+            <>
+              to residues corresponding to positions <em>@FROM@</em> -{' '}
+              <em>@TO@</em>
+            </>
+          ),
+        });
+      } else {
+        // eslint-disable-next-line no-console
+        console.warn('missed a case:', featureSet);
+      }
+    }
   }
 
   return infoData;
@@ -566,14 +622,14 @@ const mergeAnnotationsAndExceptions = (
 
 const AnnotationsComponent = ({
   annotations = [],
-  positionalFeatureSet,
+  featureSet,
   exceptions,
 }: {
   annotations?: Annotation[];
-  positionalFeatureSet?: PositionFeatureSet;
+  featureSet?: PositionFeatureSet | SAMFeatureSet;
   exceptions?: RuleException[];
 }) => {
-  if (!annotations.length && !positionalFeatureSet) {
+  if (!annotations.length && !featureSet) {
     // Might be absurd, but we never know
     return (
       <div className={styles.annotations}>
@@ -587,10 +643,7 @@ const AnnotationsComponent = ({
   return (
     <div className={styles.annotations}>
       <InfoList
-        infoData={annotationsToInfoData(
-          annotationsWithExceptions,
-          positionalFeatureSet
-        )}
+        infoData={annotationsToInfoData(annotationsWithExceptions, featureSet)}
       />
     </div>
   );
@@ -634,8 +687,30 @@ const PositionalFeatureComponent = ({
     </div>
     <AnnotationsComponent
       annotations={positionalFeatureSet.annotations}
-      positionalFeatureSet={positionalFeatureSet}
+      featureSet={positionalFeatureSet}
       exceptions={positionalFeatureSet.ruleExceptions}
+    />
+  </div>
+);
+
+const SAMFeatureComponent = ({
+  samFeatureSet,
+}: {
+  samFeatureSet: SAMFeatureSet;
+}) => (
+  <div className={cn(styles.rule, styles.extra)}>
+    <div className={styles.conditions}>
+      <InfoList
+        infoData={conditionsToInfoData(
+          samFeatureSet.conditions || [],
+          [samFeatureSet],
+          true
+        )}
+      />
+    </div>
+    <AnnotationsComponent
+      annotations={samFeatureSet.annotations}
+      featureSet={samFeatureSet}
     />
   </div>
 );
@@ -697,7 +772,7 @@ const ConditionsAnnotations = ({
           } (SAM features)`}</h2>
         }
       >
-        {JSON.stringify(samFeatureSet, null, 2)}
+        <SAMFeatureComponent samFeatureSet={samFeatureSet} />
       </Card>
     ))}
   </>
