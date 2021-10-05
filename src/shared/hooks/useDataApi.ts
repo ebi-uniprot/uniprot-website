@@ -168,7 +168,7 @@ function useDataApi<T>(
       },
     }).then(
       // handle ok
-      (response: AxiosResponse) => {
+      (response: AxiosResponse<T>) => {
         if (didCancel) {
           return;
         }
