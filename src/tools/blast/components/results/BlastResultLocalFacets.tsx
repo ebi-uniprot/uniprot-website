@@ -122,30 +122,38 @@ const BlastResultLocalFacets: FC<{
   const { selectedFacets } = getParamsFromURL(queryParamFromUrl);
 
   // get data from accessions endpoint with facets applied
-  const { data, isStale } = useDataApiWithStale<Response['data']>(
+  const { data, isStale, loading } = useDataApiWithStale<Response['data']>(
     useMemo(
       () =>
-        getAccessionsURL(
-          allHits.map((hit) => hit.hit_acc),
-          {
-            namespace,
-            selectedFacets,
-            facets: [],
-          }
-        ),
+        // Trying to save network calls:
+        // No need to load for UniRef (no facet)
+        // No need to load when no facet applied
+        namespace !== Namespace.uniref && selectedFacets.length
+          ? getAccessionsURL(
+              allHits.map((hit) => hit.hit_acc),
+              {
+                namespace,
+                selectedFacets,
+                facets: [],
+              }
+            )
+          : null,
       [allHits, namespace, selectedFacets]
     )
   );
 
   const hitsFilteredByServer = useMemo(() => {
-    if (!data) {
+    // If no data (initial load)
+    // Or, data, but stale and no loading => no faceted data loading
+    if (!data || (data && isStale && !loading)) {
+      // Return everything, not filtered
       return allHits;
     }
     const filteredAccessions = new Set(
       data.results.map(getIdKeyFor(namespace))
     );
     return allHits.filter((hit) => filteredAccessions.has(hit.hit_acc));
-  }, [data, allHits, namespace]);
+  }, [data, isStale, loading, namespace, allHits]);
 
   const facetBounds = useMemo(
     () => getFacetBounds(selectedFacets),
@@ -168,7 +176,7 @@ const BlastResultLocalFacets: FC<{
   }
 
   return (
-    <Facets className={isStale ? helper.stale : undefined}>
+    <Facets className={loading && isStale ? helper.stale : undefined}>
       <div>
         <span className="facet-name">Blast parameters</span>
         <ul className="expandable-list no-bullet blast-parameters-facet">

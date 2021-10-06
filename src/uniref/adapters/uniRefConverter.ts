@@ -65,6 +65,7 @@ export type UniRefLiteAPIModel = {
 };
 
 export type UniRefAPIModel = {
+  // Inconsistent!
   commonTaxonId: number;
   commonTaxon: string;
   goTerms?: GeneOntologyEntry[];

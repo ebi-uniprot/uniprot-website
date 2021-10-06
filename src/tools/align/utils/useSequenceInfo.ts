@@ -30,6 +30,8 @@ const hasAccession = (
 ): value is ParsedSequenceAndFeatures =>
   (value as ParsedSequenceAndFeatures).accession !== undefined;
 
+// TODO: handle non-UniProtKB entries too!
+// Need to separate the entries, call the 3 accessions endpoints, and merge data
 const useSequenceInfo = (rawSequences?: string): SequenceInfo => {
   const processedArray: ParsedSequenceAndFeatures[] = useMemo(
     () =>

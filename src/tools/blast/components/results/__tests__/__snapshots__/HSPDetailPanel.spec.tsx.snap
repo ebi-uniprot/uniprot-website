@@ -11,7 +11,7 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
     <span
       class="small sliding-panel__header__title"
     >
-      U6MKN0 · rec full Name · scientific name
+      P21802 · rec full Name · scientific name
     </span>
     <button
       class="button tertiary sliding-panel__header__buttons"
@@ -98,9 +98,9 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
             >
               Match:
               <a
-                href="/uniprotkb/U6MKN0"
+                href="/uniprotkb/P21802"
               >
-                U6MKN0
+                P21802
               </a>
               
             </button>
@@ -134,7 +134,7 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
           <span
             class="track-label annotation-label"
           >
-            U6MKN0:Chain
+            P21802:Chain
           </span>
           <div
             class="track annotation-track"
@@ -164,7 +164,7 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
     <span
       class="small sliding-panel__header__title"
     >
-      U6MKN0 · rec full Name · scientific name
+      P21802 · rec full Name · scientific name
     </span>
     <button
       class="button tertiary sliding-panel__header__buttons"
@@ -262,7 +262,7 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
             class="track-label"
             data-testid="track-label"
           >
-            U6MKN0:Chain
+            P21802:Chain
           </span>
           <div
             class="track"
@@ -289,9 +289,9 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
             >
               Match:
               <a
-                href="/uniprotkb/U6MKN0"
+                href="/uniprotkb/P21802"
               >
-                U6MKN0
+                P21802
               </a>
               
             </button>

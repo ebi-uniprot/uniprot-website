@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { FC, useMemo } from 'react';
+import { useMemo } from 'react';
 import { Loader, SlidingPanel } from 'franklin-sites';
 
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
@@ -10,28 +10,24 @@ import AlignmentView, {
   Tool,
 } from '../../../components/AlignmentView';
 
-import useDataApi from '../../../../shared/hooks/useDataApi';
-
-import { getAccessionsURL } from '../../../../shared/config/apiUrls';
 import { removeFeaturesWithUnknownModifier } from '../../../utils/sequences';
 import { processFeaturesData } from '../../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
 
 import { BlastHsp } from '../../types/blastResults';
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
+import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
+import { UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
 
 import './styles/HSPDetailPanel.scss';
-
-type UniProtkbAccessionsAPI = {
-  results: UniProtkbAPIModel[];
-};
 
 export type HSPDetailPanelProps = {
   hsp: BlastHsp;
   hitAccession: string;
-  extra?: UniProtkbAPIModel;
+  extra?: UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel;
   onClose: () => void;
   hitLength: number;
   queryLength: number;
+  loading?: boolean;
 };
 
 export const convertHSPtoMSAInputs = (
@@ -39,7 +35,7 @@ export const convertHSPtoMSAInputs = (
   queryLength: number,
   hitLength: number,
   hitAccession: string,
-  extra?: UniProtkbAPIModel
+  extra?: UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel
 ) => {
   const {
     hsp_query_from,
@@ -64,33 +60,47 @@ export const convertHSPtoMSAInputs = (
       to: hsp_hit_to,
       length: hitLength,
       accession: hitAccession,
-      features: extra
-        ? processFeaturesData(
-            removeFeaturesWithUnknownModifier(extra?.features)
-          )
-        : [],
+      features:
+        extra && 'features' in extra
+          ? processFeaturesData(
+              removeFeaturesWithUnknownModifier(extra.features)
+            )
+          : [],
     },
   ];
 };
 
-const HSPDetailPanel: FC<HSPDetailPanelProps> = ({
+const HSPDetailPanel = ({
   hsp,
   hitAccession,
   onClose,
   hitLength,
   queryLength,
   extra,
-}) => {
+  loading,
+}: HSPDetailPanelProps) => {
   const { hsp_align_len } = hsp;
 
-  const { loading, data, status, error } = useDataApi<UniProtkbAccessionsAPI>(
-    getAccessionsURL([hitAccession], { facets: [] })
-  );
-  const apiData = extra || data?.results?.[0];
+  let recommendedName: string | undefined;
+  if (extra && 'proteinDescription' in extra) {
+    recommendedName =
+      extra?.proteinDescription?.recommendedName?.fullName.value;
+  }
+  if (extra && 'representativeMember' in extra) {
+    recommendedName = extra?.representativeMember?.proteinName;
+  }
 
-  const recommendedName =
-    apiData?.proteinDescription?.recommendedName?.fullName.value;
-  const organism = apiData?.organism?.scientificName;
+  let organism: string | undefined;
+  if (extra && 'organism' in extra) {
+    organism = extra?.organism?.scientificName;
+  }
+  if (
+    extra &&
+    'commonTaxon' in extra &&
+    typeof extra.commonTaxon !== 'string'
+  ) {
+    organism = extra?.commonTaxon?.scientificName;
+  }
 
   const title = [hitAccession, recommendedName, organism]
     .filter(Boolean)
@@ -98,18 +108,18 @@ const HSPDetailPanel: FC<HSPDetailPanelProps> = ({
 
   const alignment: MSAInput[] = useMemo(
     () =>
-      convertHSPtoMSAInputs(hsp, queryLength, hitLength, hitAccession, apiData),
-    [apiData, hitAccession, hitLength, hsp, queryLength]
+      convertHSPtoMSAInputs(hsp, queryLength, hitLength, hitAccession, extra),
+    [extra, hitAccession, hitLength, hsp, queryLength]
   );
 
   const containerClass = 'hsp-detail-panel';
   const containerSelector = `.${containerClass}`;
   let content;
-  if (!apiData) {
-    if (error) {
-      content = <ErrorHandler status={status} />;
-    } else if (loading) {
+  if (!extra) {
+    if (loading) {
       content = <Loader />;
+    } else {
+      content = <ErrorHandler />;
     }
   } else {
     content = (
