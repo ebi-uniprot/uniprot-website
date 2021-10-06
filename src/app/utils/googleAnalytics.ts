@@ -1,7 +1,7 @@
 export const init = (trackingId: string) => {
   const head = document.getElementsByTagName('head')[0];
   const googleTagManager = document.createElement('script');
-  googleTagManager.setAttribute('async', '');
+  googleTagManager.setAttribute('async', 'async');
   googleTagManager.setAttribute(
     'src',
     `https://www.googletagmanager.com/gtag/js?id=${trackingId}`
