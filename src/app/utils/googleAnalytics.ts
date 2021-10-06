@@ -8,13 +8,12 @@ export const init = (trackingId: string) => {
   );
   googleTagManager.onload = () => {
     const script = document.createElement('script');
-    const scriptHTML = `
+    script.innerHTML = `
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);};
       gtag('js', new Date());
       gtag('config', '${trackingId}');
     `;
-    script.innerHTML = scriptHTML;
     head.appendChild(script);
   };
   head.appendChild(googleTagManager);
