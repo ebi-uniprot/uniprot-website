@@ -18,6 +18,7 @@ import {
   Location,
   LocationToPath,
 } from '../config/urls';
+import { SENTRY_DSN, GA_TRACKING_ID } from '../config/services';
 
 import './styles/app.scss';
 
@@ -25,13 +26,13 @@ import './styles/app.scss';
 if (process.env.NODE_ENV !== 'development') {
   import(/* webpackChunkName: "sentry" */ '@sentry/browser').then((module) => {
     module.init({
-      dsn: 'https://be99e24b352b42019d5b9f53dd7b68c3@o308327.ingest.sentry.io/1770286',
+      dsn: SENTRY_DSN,
     });
   });
   import(
     /* webpackChunkName: "google-analytics" */ '../utils/googleAnalytics'
   ).then((module) => {
-    module.init('UA-6228219-2');
+    module.init(GA_TRACKING_ID);
   });
 }
 
