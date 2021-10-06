@@ -21,11 +21,17 @@ import {
 
 import './styles/app.scss';
 
+// User activity data collection
 if (process.env.NODE_ENV !== 'development') {
   import(/* webpackChunkName: "sentry" */ '@sentry/browser').then((module) => {
     module.init({
       dsn: 'https://be99e24b352b42019d5b9f53dd7b68c3@o308327.ingest.sentry.io/1770286',
     });
+  });
+  import(
+    /* webpackChunkName: "google-analytics" */ '../utils/googleAnalytics'
+  ).then((module) => {
+    module.init('UA-6228219-2');
   });
 }
 
