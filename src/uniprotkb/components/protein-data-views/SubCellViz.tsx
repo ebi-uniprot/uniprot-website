@@ -136,6 +136,7 @@ type Props = RequireExactlyOne<
 
 const SubCellViz: FC<Props> = memo(
   ({ uniProtLocationIds, goLocationIds, taxonId, children }) => {
+    throw Error('testing');
     const instanceName = useRef(
       `${canonicalName}-${
         uniProtLocationIds?.length ? VizTab.UniProt : VizTab.GO

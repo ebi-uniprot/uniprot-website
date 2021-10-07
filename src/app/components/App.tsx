@@ -23,18 +23,18 @@ import { SENTRY_DSN, GA_TRACKING_ID } from '../config/services';
 import './styles/app.scss';
 
 // User activity data collection
-if (process.env.NODE_ENV !== 'development') {
-  import(/* webpackChunkName: "sentry" */ '@sentry/browser').then((module) => {
-    module.init({
-      dsn: SENTRY_DSN,
-    });
+// if (process.env.NODE_ENV !== 'development') {
+import(/* webpackChunkName: "sentry" */ '@sentry/browser').then((module) => {
+  module.init({
+    dsn: SENTRY_DSN,
   });
-  import(
-    /* webpackChunkName: "google-analytics" */ '../utils/googleAnalytics'
-  ).then((module) => {
-    module.init(GA_TRACKING_ID);
-  });
-}
+});
+import(
+  /* webpackChunkName: "google-analytics" */ '../utils/googleAnalytics'
+).then((module) => {
+  module.init(GA_TRACKING_ID);
+});
+// }
 
 // Async loading of page components
 const HomePage = lazy(
