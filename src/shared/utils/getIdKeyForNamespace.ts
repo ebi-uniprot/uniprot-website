@@ -58,7 +58,6 @@ export const getIdKeyFor = (
     case Namespace.idmapping:
       return (data) => `${(data as MappingFlat).from}${(data as MappingTo).to}`;
     default:
-      // eslint-disable-next-line no-console
       Logging.warn(`getIdKey method not implemented for ${namespace} yet`);
       return () => '';
   }

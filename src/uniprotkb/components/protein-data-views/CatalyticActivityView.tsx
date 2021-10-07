@@ -167,7 +167,6 @@ export const ReactionDirection: FC<ReactionDirectionProps> = ({
     return null;
   }
   if (physiologicalReactions.length > 2) {
-    // eslint-disable-next-line no-console
     Logging.error(
       'More than two physiological reactions encountered when rendering catalytic activity'
     );

@@ -104,7 +104,6 @@ const convertRow = (row: APIModel, namespace: Namespace | 'id-mapping') => {
     case Namespace.idmapping:
       return row as MappingAPIModel;
     default:
-      // eslint-disable-next-line no-console
       Logging.warn(`Unrecognised namespace: "${namespace}"`);
       return null;
   }

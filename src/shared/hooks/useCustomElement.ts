@@ -38,7 +38,6 @@ const useCustomElement = (
         }
         setDefined(true);
       })
-      // eslint-disable-next-line no-console
       .catch((error) => Logging.error(error));
   }, [name, setDefined]);
 

@@ -40,7 +40,6 @@ export const parseEdgeCases = (input: string) => {
       return output;
     }
   }
-  // eslint-disable-next-line no-console
   Logging.error(`couldn't parse "${input}" as a date`);
   // otherwise just return undefined
   return undefined;

@@ -29,7 +29,6 @@ const TaxonomicScope = ({
         // This shouldn't happen
         /* istanbul ignore if */
         if (!conditionValue.cvId) {
-          // eslint-disable-next-line no-console
           Logging.warn(`No cvId field in taxon for "${conditionValue.value}"`);
           continue; // eslint-disable-line no-continue
         }

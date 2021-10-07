@@ -57,7 +57,6 @@ const TaxonomyView: FC<TaxonomyDataProps> = ({
 }) => {
   /* istanbul ignore if */
   if (!data.taxonId) {
-    // eslint-disable-next-line no-console
     Logging.warn("No taxon ID, this shouldn't happen", data);
     return null;
   }
