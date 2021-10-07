@@ -9,13 +9,31 @@ import styles from './styles/clean-text.module.scss';
 // List of tags to remove from the library default accepted set
 const excludedTags = new Set(['a']);
 
-const headingToStrong = (_: string, attribs: Attributes) => ({
-  tagName: 'strong',
-  attribs: {
-    id: attribs.id,
-    class: styles.heading,
-  },
-});
+const updateHeadingLevel = (_: string, attribs: Attributes) => {
+  let headerLevel;
+  switch (_) {
+    case 'h1':
+      headerLevel = 'h2';
+      break;
+    case 'h2':
+      headerLevel = 'h3';
+      break;
+    case 'h3':
+      headerLevel = 'h4';
+      break;
+    case 'h4':
+      headerLevel = 'h5';
+      break;
+    default:
+      headerLevel = 'strong';
+  }
+  return {
+    tagName: headerLevel,
+    attribs: {
+      id: attribs.id,
+    },
+  };
+};
 
 export const cleanTextDefaultOptions = deepFreeze<IOptions>({
   // https://github.com/apostrophecms/sanitize-html/blob/main/index.js#L691-L710
@@ -29,12 +47,12 @@ export const cleanTextDefaultOptions = deepFreeze<IOptions>({
     '*': ['id'],
   },
   transformTags: {
-    h1: headingToStrong,
-    h2: headingToStrong,
-    h3: headingToStrong,
-    h4: headingToStrong,
-    h5: headingToStrong,
-    h6: headingToStrong,
+    h1: updateHeadingLevel,
+    h2: updateHeadingLevel,
+    h3: updateHeadingLevel,
+    h4: updateHeadingLevel,
+    h5: updateHeadingLevel,
+    h6: updateHeadingLevel,
   },
 }) as IOptions;
 
