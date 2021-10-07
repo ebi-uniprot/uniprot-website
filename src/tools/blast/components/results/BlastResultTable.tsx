@@ -57,7 +57,6 @@ const BlastSummaryTrack: FC<{
   selectedScoring: keyof BlastHsp;
   setSelectedScoring: Dispatch<SetStateAction<keyof BlastHsp>>;
   maxScorings: Partial<Record<keyof BlastHsp, number>>;
-  namespace: Namespace;
 }> = ({
   hsp,
   queryLength,
@@ -68,7 +67,6 @@ const BlastSummaryTrack: FC<{
   selectedScoring,
   setSelectedScoring,
   maxScorings,
-  namespace,
 }) => {
   const { hsp_query_from, hsp_query_to } = hsp;
 
@@ -148,7 +146,6 @@ const BlastSummaryTrack: FC<{
               queryLength,
               hitLength,
               extra,
-              namespace,
             });
           }}
         />
@@ -185,7 +182,6 @@ const BlastSummaryHsps: FC<{
   selectedScoring: keyof BlastHsp;
   setSelectedScoring: Dispatch<SetStateAction<keyof BlastHsp>>;
   maxScorings: Partial<Record<keyof BlastHsp, number>>;
-  namespace: Namespace;
 }> = ({
   hsps,
   queryLength,
@@ -196,7 +192,6 @@ const BlastSummaryHsps: FC<{
   selectedScoring,
   setSelectedScoring,
   maxScorings,
-  namespace,
 }) => {
   const [restVisible, setRestVisible] = useState(0);
 
@@ -223,7 +218,6 @@ const BlastSummaryHsps: FC<{
           selectedScoring={selectedScoring}
           setSelectedScoring={setSelectedScoring}
           maxScorings={maxScorings}
-          namespace={namespace}
         />
         {rest.slice(0, restVisible).map((hsp) => (
           <BlastSummaryTrack
@@ -237,7 +231,6 @@ const BlastSummaryHsps: FC<{
             selectedScoring={selectedScoring}
             setSelectedScoring={setSelectedScoring}
             maxScorings={maxScorings}
-            namespace={namespace}
           />
         ))}
       </div>
@@ -432,7 +425,6 @@ const BlastResultTable: FC<{
           selectedScoring={selectedScoring}
           setSelectedScoring={setSelectedScoring}
           maxScorings={maxScorings}
-          namespace={namespace}
         />
       ),
     });
