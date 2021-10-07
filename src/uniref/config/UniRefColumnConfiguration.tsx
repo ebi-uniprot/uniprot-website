@@ -82,7 +82,7 @@ UniRefColumnConfiguration.set(UniRefColumn.organismId, {
       <ul className="no-bullet">
         {organisms.slice(0, CUT_OFF).map((organism) => (
           <li key={organism.taxonId}>
-            <TaxonomyView data={organism} />
+            <TaxonomyView data={organism} displayOnlyID />
           </li>
         ))}
         {organisms.length > CUT_OFF && (

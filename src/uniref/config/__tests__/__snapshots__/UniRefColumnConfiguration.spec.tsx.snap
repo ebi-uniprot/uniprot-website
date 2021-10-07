@@ -116,7 +116,7 @@ exports[`UniRefColumnConfiguration component should render column "organism_id":
         href="/taxonomy/1305"
         title="Streptococcus sanguinis, taxon ID 1305"
       >
-        Streptococcus sanguinis
+        1305
       </a>
     </li>
   </ul>
