@@ -37,6 +37,8 @@ const redirectMap = new Map<RegExp, string>([
   [/^\/upload-?lists?(?<rest>\/.*)?$/i, `/id-mapping$<rest>`],
   // help
   [/^\/(manual|faqs?|docs?)(?<rest>\/.*)?$/i, `/help$<rest>`],
+  [/^\/statistics$/i, `/help/release-statistics`],
+  [/^\/downloads$/i, `/help/downloads`],
 ]);
 
 // eslint-disable-next-line consistent-return
