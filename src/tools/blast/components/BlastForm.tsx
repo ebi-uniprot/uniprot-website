@@ -57,6 +57,7 @@ import defaultFormValues, {
   BlastFormValues,
   BlastFormValue,
   BlastFields,
+  excludeTaxonForDB,
 } from '../config/BlastFormData';
 import uniProtKBApiUrls from '../../../shared/config/apiUrls';
 import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
@@ -276,6 +277,8 @@ const BlastForm = () => {
     setSubmitDisabled(true);
     setSending(true);
 
+    const excludeTaxon = excludeTaxonForDB(database.selected);
+
     // here we should just transform input values into FormParameters,
     // transformation of FormParameters into ServerParameters happens in the
     // tools middleware
@@ -284,8 +287,10 @@ const BlastForm = () => {
       program: program.selected as FormParameters['program'],
       sequence: sequence.selected as Sequence,
       database: database.selected as Database,
-      taxIDs: taxIDs.selected as SelectedTaxon[],
-      negativeTaxIDs: negativeTaxIDs.selected as SelectedTaxon[],
+      taxIDs: excludeTaxon ? [] : (taxIDs.selected as SelectedTaxon[]),
+      negativeTaxIDs: excludeTaxon
+        ? []
+        : (negativeTaxIDs.selected as SelectedTaxon[]),
       threshold: threshold.selected as Exp,
       // remove "auto", and transform into corresponding matrix
       matrix:
@@ -452,7 +457,17 @@ const BlastForm = () => {
           </section>
           <section className="tools-form-section">
             <FormSelect formValue={database} updateFormValue={setDatabase} />
-            <section className="tools-form-section__item tools-form-section__item--taxon-select">
+            <section
+              className={cn(
+                'tools-form-section__item',
+                'tools-form-section__item--taxon-select',
+                {
+                  'tools-form-section__item--hidden': excludeTaxonForDB(
+                    database.selected
+                  ),
+                }
+              )}
+            >
               <AutocompleteWrapper
                 placeholder="Enter taxon names or IDs to include"
                 url={uniProtKBApiUrls.taxonomySuggester}
@@ -461,7 +476,17 @@ const BlastForm = () => {
                 clearOnSelect
               />
             </section>
-            <section className="tools-form-section__item tools-form-section__item--selected-taxon">
+            <section
+              className={cn(
+                'tools-form-section__item',
+                'tools-form-section__item--selected-taxon',
+                {
+                  'tools-form-section__item--hidden': excludeTaxonForDB(
+                    database.selected
+                  ),
+                }
+              )}
+            >
               {((taxIDs.selected as SelectedTaxon[]) || []).map(
                 ({ label, id }: SelectedTaxon) => (
                   <div key={label}>
