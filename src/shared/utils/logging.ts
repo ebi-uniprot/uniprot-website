@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
+
 class Logging {
   static log(...args: any) {
     console.log(args);

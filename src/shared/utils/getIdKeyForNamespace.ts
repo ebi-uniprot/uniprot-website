@@ -1,3 +1,5 @@
+import Logging from './logging';
+
 import { APIModel } from '../types/apiModel';
 
 import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
@@ -57,7 +59,7 @@ export const getIdKeyFor = (
       return (data) => `${(data as MappingFlat).from}${(data as MappingTo).to}`;
     default:
       // eslint-disable-next-line no-console
-      console.warn(`getIdKey method not implemented for ${namespace} yet`);
+      Logging.warn(`getIdKey method not implemented for ${namespace} yet`);
       return () => '';
   }
 };

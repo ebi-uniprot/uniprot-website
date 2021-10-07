@@ -3,6 +3,7 @@ import { isEqual, sortBy, uniqWith } from 'lodash-es';
 import { InfoList, ExternalLink, ExpandableList } from 'franklin-sites';
 
 import { pluralise } from '../../../shared/utils/utils';
+import Logging from '../../../shared/utils/logging';
 
 import {
   databaseCategoryToString,
@@ -106,8 +107,7 @@ const EMBLXref: FC<{
   const ddbjInfo = databaseToDatabaseInfo.DDBJ;
   const { properties, additionalIds } = xref;
   if (!genBankInfo || !ddbjInfo) {
-    // eslint-disable-next-line no-console
-    console.warn(
+    Logging.warn(
       'GenBank or DDBJ database information not found in drlineconiguration'
     );
   }

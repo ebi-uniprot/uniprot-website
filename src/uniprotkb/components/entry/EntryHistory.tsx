@@ -18,6 +18,7 @@ import parseDate from '../../../shared/utils/parseDate';
 import listFormat from '../../../shared/utils/listFormat';
 import { unisave } from '../../../shared/config/apiUrls';
 import { getEntryPath } from '../../../app/config/urls';
+import Logging from '../../../shared/utils/logging';
 
 import { TabLocation } from './Entry';
 import {
@@ -352,8 +353,7 @@ export const EntryHistoryList = ({ accession }: { accession: string }) => {
         e.eventType !== 'replacing'
     );
     if (unknownEvents?.length) {
-      // eslint-disable-next-line no-console
-      console.warn('unknown events found:', unknownEvents);
+      Logging.warn('unknown events found:', unknownEvents);
     }
   }
 

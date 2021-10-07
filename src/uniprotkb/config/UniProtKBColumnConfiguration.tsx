@@ -70,6 +70,7 @@ import externalUrls from '../../shared/config/externalUrls';
 import { getEntryPath } from '../../app/config/urls';
 import { fromColumnConfig } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 import { sortInteractionData } from '../utils/resultsUtils';
+import Logging from '../../shared/utils/logging';
 
 import { Namespace } from '../../shared/types/namespaces';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
@@ -1171,8 +1172,7 @@ Object.values(UniProtKBColumn)
   .forEach((colName) => {
     const databaseInfo = getDatabaseInfoByName(colName.substring(3));
     if (!databaseInfo || !databaseInfo.name) {
-      /* eslint-disable no-console */
-      console.error(`No database found for ${colName}`);
+      Logging.error(`No database found for ${colName}`);
       return;
     }
     UniProtKBColumnConfiguration.set(colName, getXrefColumn(databaseInfo.name));

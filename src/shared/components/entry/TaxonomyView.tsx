@@ -7,6 +7,8 @@ import SimpleView from '../views/SimpleView';
 import externalUrls from '../../config/externalUrls';
 import { getEntryPath } from '../../../app/config/urls';
 
+import Logging from '../../utils/logging';
+
 import { Namespace } from '../../types/namespaces';
 
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
@@ -56,7 +58,7 @@ const TaxonomyView: FC<TaxonomyDataProps> = ({
   /* istanbul ignore if */
   if (!data.taxonId) {
     // eslint-disable-next-line no-console
-    console.warn("No taxon ID, this shouldn't happen", data);
+    Logging.warn("No taxon ID, this shouldn't happen", data);
     return null;
   }
   const { scientificName, commonName, taxonId, synonyms } = data;

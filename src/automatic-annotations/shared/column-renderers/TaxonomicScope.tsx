@@ -6,6 +6,8 @@ import { ARBAAPIModel } from '../../arba/adapters/arbaConverter';
 import { UniRuleAPIModel } from '../../unirule/adapters/uniRuleConverter';
 import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
+import Logging from '../../../shared/utils/logging';
+
 import helper from '../../../shared/styles/helper.module.scss';
 
 type CustomTaxonScope = {
@@ -28,7 +30,7 @@ const TaxonomicScope = ({
         /* istanbul ignore if */
         if (!conditionValue.cvId) {
           // eslint-disable-next-line no-console
-          console.warn(`No cvId field in taxon for "${conditionValue.value}"`);
+          Logging.warn(`No cvId field in taxon for "${conditionValue.value}"`);
           continue; // eslint-disable-line no-continue
         }
         const taxonId = +conditionValue.cvId;

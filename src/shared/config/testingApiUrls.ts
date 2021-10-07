@@ -1,13 +1,15 @@
-/* eslint-disable no-console */
 // TODO: eventually delete this file
 import urlJoin from 'url-join';
+
+import Logging from '../utils/logging';
+
 import { apiPrefix } from './apiUrls';
 
 // set to true if testing new API changes
 const apiTesting = false;
 
 if (apiTesting) {
-  console.warn('❗❗❗ USING API TESTING ENDPOINT - DO NOT USE IN PRODUCTION');
+  Logging.warn('❗❗❗ USING API TESTING ENDPOINT - DO NOT USE IN PRODUCTION');
 }
 
 const joinUrlForApiTesting = (prefix: string, ...paths: string[]) => {
