@@ -4,6 +4,8 @@ import { Location } from 'history';
 
 import ErrorComponent from './ErrorComponent';
 
+import Logging from '../../utils/logging';
+
 type ErrorBoundaryProps = RouteComponentProps & {
   children: ReactNode;
   fallback?: ReactNode;
@@ -48,7 +50,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // eslint-disable-next-line no-console
-    console.error(error, errorInfo);
+    Logging.error(error, errorInfo);
   }
 
   render() {

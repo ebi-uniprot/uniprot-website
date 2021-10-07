@@ -25,6 +25,7 @@ import {
 
 import helper from '../../../shared/styles/helper.module.scss';
 import './styles/catalytic-activity-view.scss';
+import Logging from '../../../shared/utils/logging';
 
 // example accessions to view this component: P31937, P0A879
 
@@ -167,7 +168,7 @@ export const ReactionDirection: FC<ReactionDirectionProps> = ({
   }
   if (physiologicalReactions.length > 2) {
     // eslint-disable-next-line no-console
-    console.error(
+    Logging.error(
       'More than two physiological reactions encountered when rendering catalytic activity'
     );
     return null;

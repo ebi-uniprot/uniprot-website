@@ -83,7 +83,6 @@ export function unregister() {
       registration.unregister();
     })
     .catch((error) => {
-      // eslint-disable-next-line no-console
-      console.error(error);
+      Logging.error(error);
     });
 }

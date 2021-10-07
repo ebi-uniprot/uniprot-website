@@ -50,7 +50,7 @@ const joinUrlForApiTesting = (prefix: string, ...paths: string[]) => {
       const port = endpointToPort[endpoint];
       newPrefix = apiTestingProtocolDomain(port);
     } else {
-      console.error(`${endpoint} not in endpointToPort mapping`);
+      Logging.error(`${endpoint} not in endpointToPort mapping`);
     }
   }
   return urlJoin(newPrefix, ...paths);
