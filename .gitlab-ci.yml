@@ -5,7 +5,7 @@ stages:
   - deploy
 
 .js:
-  image: node:15 # Keep version in sync with franklin
+  image: node:16
   before_script:
     - git --version
     - node --version
