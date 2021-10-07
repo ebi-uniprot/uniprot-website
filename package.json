@@ -7,7 +7,6 @@
   "scripts": {
     "start": "webpack serve --env PUBLIC_PATH=/ --mode development",
     "build:prod": "webpack --env PUBLIC_PATH=/ --mode production",
-    "build:staging": "webpack --env PUBLIC_PATH=/uniprot-website/ --mode production",
     "build:dev": "webpack --env PUBLIC_PATH=/ --mode development",
     "lint-fix": "eslint 'src/**/*.ts?' --fix",
     "analyse": "webpack-bundle-analyzer build/stats.json",

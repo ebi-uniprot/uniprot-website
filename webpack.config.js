@@ -238,6 +238,9 @@ module.exports = (env, argv) => {
       new HtmlWebPackPlugin({
         template: `${__dirname}/index.html`,
         filename: 'index.html',
+        templateParameters: () => ({
+          isDev,
+        }),
       }),
       !isDev &&
         new HtmlWebPackPlugin({
