@@ -378,7 +378,7 @@ const App = () => {
                 path={LocationToPath[Location.HelpResults]}
                 component={ResultsOrLanding(HelpResults, HelpLandingPage)}
               />
-              {/* Catch-all handler -> Redirect or not found */}
+              {/* Catch-all handler -> Redirect or not found use ResourceNotFoundPage */}
               <Route
                 path="*"
                 render={() => (

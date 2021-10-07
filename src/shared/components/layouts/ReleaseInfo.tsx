@@ -34,10 +34,9 @@ const ReleaseInfo = () => {
         )}
       >
         {releaseNumber ? (
-          <a href="//www.uniprot.org/downloads">
-            {/* TODO: update link */}
+          <Link to={getLocationEntryPath(Location.HelpEntry, 'downloads')}>
             Release {releaseNumber}
-          </a>
+          </Link>
         ) : (
           `Release ${today.getFullYear()}_00`
         )}
