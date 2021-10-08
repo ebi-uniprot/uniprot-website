@@ -2,54 +2,126 @@
 @import 'franklin-sites/src/styles/settings';
 @import 'franklin-sites/src/styles/colours';
 
+.conditions-annotations {
+  margin-bottom: $global-margin;
+
+  &.has-extra {
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 1ch;
+      background-color: $colour-sapphire-blue;
+    }
+  }
+}
+
 .rule {
   display: grid;
-  grid-template-areas:
-    'conditions conditions'
-    '. annotations';
-  // 12-column grid: 1 column (margin for annotations), 11 columns
-  grid-template-columns: minmax(0, 1fr) minmax(0, 11fr);
+  grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: $global-margin;
 
   :global(.decorated-list-item__content) {
     // Make it grow so that the floating exception button can go on the right
     flex-grow: 1;
+    // avoid having the rhea component overflow, just make it scrollable
     overflow-x: auto;
   }
-}
 
-@include fs-breakpoints('large') {
-  .rule {
-    grid-template-areas: 'conditions annotations';
-    // 12-column grid: 4 columns, 8 columns
-    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
-
-    &.extra {
-      grid-template-areas: '. conditions annotations';
-      // 12-column grid: 1 column (empty), 4 columns, 7 columns
-      grid-template-columns: minmax(0, 1fr) minmax(0, 4fr) minmax(0, 7fr);
-    }
+  .extra & {
+    margin-bottom: $global-margin;
   }
 }
 
 .conditions {
-  grid-area: conditions;
+  grid-column: 1 / span 12;
 
+  @include fs-breakpoints('large') {
+    grid-column: 1 / span 5;
+  }
+
+  .extra & {
+    grid-column: 2 / span 11;
+
+    @include fs-breakpoints('large') {
+      grid-column: 2 / span 4;
+    }
+  }
+
+  // Overriding <ul> bottom margin
   margin-bottom: 0;
 
   & > li {
     border-color: $colour-sapphire-blue;
     border-style: solid;
     border-width: 0 0 1em 1ch;
+
+    .extra & {
+      border-color: $colour-sea-blue;
+    }
   }
 
   & .statement {
     background-color: $colour-sapphire-blue;
+
+    &::before {
+      background-color: $colour-sapphire-blue;
+    }
+  }
+
+  .extra & {
+    & .statement {
+      background-color: $colour-sea-blue;
+
+      &::before {
+        background-color: $colour-sea-blue;
+      }
+    }
+  }
+
+  position: relative;
+
+  // Bottom triangle
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -($global-margin);
+    // 1 column of of the grid + 1 border width
+    left: calc((100% / 12) + 1ch);
+    width: 0;
+    height: 0;
+    border-left: 0.8em solid transparent;
+    border-right: 0.8em solid transparent;
+    border-top: $global-margin solid $colour-sapphire-blue;
+
+    .extra & {
+      border-top-color: $colour-sea-blue;
+    }
+
+    @include fs-breakpoints('large') {
+      content: none;
+    }
   }
 }
 
 .annotations {
-  grid-area: annotations;
+  grid-column: 2 / span 11;
+
+  @include fs-breakpoints('large') {
+    grid-column: 6 / span 7;
+  }
+
+  .extra & {
+    grid-column: 3 / span 10;
+
+    @include fs-breakpoints('large') {
+      grid-column: 6 / span 7;
+    }
+  }
 
   border-color: $colour-weldon-blue;
   border-style: solid;
@@ -57,6 +129,10 @@
 
   & .statement {
     background-color: $colour-weldon-blue;
+
+    &::before {
+      background-color: $colour-weldon-blue;
+    }
   }
 }
 
@@ -65,9 +141,25 @@
 }
 
 .statement {
+  background-color: $colour-sapphire-blue;
   color: white;
+  padding: 0 1px;
   text-transform: uppercase;
   font-weight: bold;
+  position: relative;
+  z-index: 0;
+
+  // Depending on the browser width, there might be a 1-pixel white gap
+  // So, hacky way to connect the left border to the background of the statement
+  &:not(.or):not(.negation)::before {
+    content: '';
+    position: absolute;
+    left: -1ch;
+    top: 0;
+    bottom: 0;
+    width: 2ch;
+    z-index: -1;
+  }
 }
 
 .negation {
@@ -86,8 +178,9 @@
 .if {
   position: relative;
 
+  // Right triangle
   &::after {
-    content: '';
+    content: none;
     position: absolute;
     right: -($global-margin);
     top: 0;
@@ -96,5 +189,36 @@
     border-top: 0.8em solid transparent;
     border-bottom: 0.8em solid transparent;
     border-left: $global-margin solid $colour-sapphire-blue;
+
+    .extra & {
+      border-left-color: $colour-sea-blue;
+    }
+
+    @include fs-breakpoints('large') {
+      content: '';
+    }
+  }
+}
+
+// "Additionally" text
+.extra {
+  position: relative;
+  margin-top: $global-margin;
+  border-bottom: $global-margin solid $colour-sea-blue;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 1ch;
+    background-color: $colour-sea-blue;
+  }
+
+  & > .statement {
+    background-color: $colour-sea-blue;
+    padding-left: 1ch;
+    margin-bottom: $global-margin;
   }
 }

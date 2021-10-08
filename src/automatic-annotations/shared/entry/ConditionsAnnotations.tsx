@@ -1,7 +1,6 @@
 import { Fragment, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  Card,
   ExternalLink,
   InfoList,
   EvidenceTag,
@@ -276,7 +275,7 @@ const ConditionsComponent = ({
           {index !== 0 && (
             <div className={cn(styles.statement, styles.or)}>or</div>
           )}
-          <div className={cn(styles.statement, styles.if)}>If</div>
+          <div className={cn(styles.statement, styles.if)}>if</div>
           <InfoList
             infoData={conditionsToInfoData(conditions, positionalFeatureSets)}
           />
@@ -673,7 +672,7 @@ const AnnotationsComponent = ({
     : annotations;
   return (
     <div className={styles.annotations}>
-      <div className={styles.statement}>Then</div>
+      <div className={styles.statement}>then</div>
       <InfoList
         infoData={annotationsToInfoData(annotationsWithExceptions, featureSet)}
       />
@@ -684,13 +683,11 @@ const AnnotationsComponent = ({
 const RuleComponent = ({
   rule,
   positionalFeatureSets,
-  extra,
 }: {
   rule: Rule | CaseRule;
   positionalFeatureSets?: PositionFeatureSet[];
-  extra?: boolean;
 }) => (
-  <div className={cn(styles.rule, { [styles.extra]: extra })}>
+  <div className={cn(styles.rule)}>
     <ConditionsComponent
       conditionSets={rule.conditionSets}
       positionalFeatureSets={positionalFeatureSets}
@@ -707,16 +704,19 @@ const PositionalFeatureComponent = ({
 }: {
   positionalFeatureSet: PositionFeatureSet;
 }) => (
-  <div className={cn(styles.rule, styles.extra)}>
-    <div className={styles.conditions}>
-      <InfoList
-        infoData={conditionsToInfoData(
-          positionalFeatureSet.conditions || [],
-          [positionalFeatureSet],
-          true
-        )}
-      />
-    </div>
+  <div className={cn(styles.rule)}>
+    <ul className={cn(styles.conditions, 'no-bullet')}>
+      <li>
+        <div className={cn(styles.statement, styles.if)}>if</div>
+        <InfoList
+          infoData={conditionsToInfoData(
+            positionalFeatureSet.conditions || [],
+            [positionalFeatureSet],
+            true
+          )}
+        />
+      </li>
+    </ul>
     <AnnotationsComponent
       annotations={positionalFeatureSet.annotations}
       featureSet={positionalFeatureSet}
@@ -730,16 +730,19 @@ const SAMFeatureComponent = ({
 }: {
   samFeatureSet: SAMFeatureSet;
 }) => (
-  <div className={cn(styles.rule, styles.extra)}>
-    <div className={styles.conditions}>
-      <InfoList
-        infoData={conditionsToInfoData(
-          samFeatureSet.conditions || [],
-          [samFeatureSet],
-          true
-        )}
-      />
-    </div>
+  <div className={cn(styles.rule)}>
+    <ul className={cn(styles.conditions, 'no-bullet')}>
+      <li>
+        <div className={cn(styles.statement, styles.if)}>if</div>
+        <InfoList
+          infoData={conditionsToInfoData(
+            samFeatureSet.conditions || [],
+            [samFeatureSet],
+            true
+          )}
+        />
+      </li>
+    </ul>
     <AnnotationsComponent
       annotations={samFeatureSet.annotations}
       featureSet={samFeatureSet}
@@ -751,63 +754,51 @@ const ConditionsAnnotations = ({
   data,
 }: {
   data: UniRuleAPIModel | ARBAAPIModel;
-}) => (
-  <>
-    <Card
-      header={<h2 className="medium">Common conditions &amp; annotations</h2>}
+}) => {
+  const hasExtra = Boolean(
+    data.otherRules?.length ||
+      data.positionFeatureSets?.length ||
+      data.samFeatureSets?.length
+  );
+  return (
+    <div
+      className={cn(styles['conditions-annotations'], {
+        [styles['has-extra']]: hasExtra,
+      })}
     >
       <RuleComponent
         rule={data.mainRule}
         positionalFeatureSets={data.positionFeatureSets}
       />
-    </Card>
-    {data.otherRules?.map((otherRule, index) => (
-      <Card
-        // eslint-disable-next-line react/no-array-index-key
-        key={index}
-        header={
-          <h2 className="medium">{`Special condition set #${index + 1}`}</h2>
-        }
-      >
-        <RuleComponent
-          rule={otherRule}
-          positionalFeatureSets={data.positionFeatureSets}
-          extra
-        />
-      </Card>
-    ))}
-    {data.positionFeatureSets?.map((positionalFeatureSet, index) => (
-      <Card
-        // eslint-disable-next-line react/no-array-index-key
-        key={index}
-        header={
-          <h2 className="medium">{`Special condition set #${
-            (data.otherRules?.length || 0) + index + 1
-          } (positional features)`}</h2>
-        }
-      >
-        <PositionalFeatureComponent
-          positionalFeatureSet={positionalFeatureSet}
-        />
-      </Card>
-    ))}
-    {data.samFeatureSets?.map((samFeatureSet, index) => (
-      <Card
-        // eslint-disable-next-line react/no-array-index-key
-        key={index}
-        header={
-          <h2 className="medium">{`Special condition set #${
-            (data.otherRules?.length || 0) +
-            (data.positionFeatureSets?.length || 0) +
-            index +
-            1
-          } (SAM features)`}</h2>
-        }
-      >
-        <SAMFeatureComponent samFeatureSet={samFeatureSet} />
-      </Card>
-    ))}
-  </>
-);
+      {hasExtra && (
+        <div className={styles.extra}>
+          <div className={cn(styles.statement)}>additionally</div>
+          {data.otherRules?.map((otherRule, index) => (
+            <RuleComponent
+              // eslint-disable-next-line react/no-array-index-key
+              key={index}
+              rule={otherRule}
+              positionalFeatureSets={data.positionFeatureSets}
+            />
+          ))}
+          {data.positionFeatureSets?.map((positionalFeatureSet, index) => (
+            <PositionalFeatureComponent
+              // eslint-disable-next-line react/no-array-index-key
+              key={index}
+              positionalFeatureSet={positionalFeatureSet}
+            />
+          ))}
+          {data.samFeatureSets?.map((samFeatureSet, index) => (
+            <SAMFeatureComponent
+              // eslint-disable-next-line react/no-array-index-key
+              key={index}
+              samFeatureSet={samFeatureSet}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default ConditionsAnnotations;
