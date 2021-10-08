@@ -274,8 +274,9 @@ const ConditionsComponent = ({
         // eslint-disable-next-line react/no-array-index-key
         <li key={index}>
           {index !== 0 && (
-            <span className={cn(styles.statement, styles.or)}>or</span>
+            <div className={cn(styles.statement, styles.or)}>or</div>
           )}
+          <div className={cn(styles.statement, styles.if)}>If</div>
           <InfoList
             infoData={conditionsToInfoData(conditions, positionalFeatureSets)}
           />
@@ -672,6 +673,7 @@ const AnnotationsComponent = ({
     : annotations;
   return (
     <div className={styles.annotations}>
+      <div className={styles.statement}>Then</div>
       <InfoList
         infoData={annotationsToInfoData(annotationsWithExceptions, featureSet)}
       />
