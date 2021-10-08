@@ -1,5 +1,6 @@
 @import 'franklin-sites/src/styles/mixins';
 @import 'franklin-sites/src/styles/settings';
+@import 'franklin-sites/src/styles/colours';
 
 .rule {
   display: grid;
@@ -41,4 +42,22 @@
 
 .exceptions {
   float: right;
+}
+
+.statement {
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.negation {
+  padding: 0.5ch;
+  border-radius: 1ch;
+  background: $colour-sapphire-blue;
+}
+
+.or {
+  border-radius: 50%;
+  padding: 1ch;
+  background: $colour-sapphire-blue;
 }

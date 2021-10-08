@@ -137,7 +137,11 @@ const conditionsToInfoData = (
     if (condition.type === 'fragment') {
       return {
         title: 'fragmented',
-        content: condition.isNegative ? 'no' : 'yes',
+        content: condition.isNegative ? (
+          <span className={cn(styles.statement, styles.negation)}>no</span>
+        ) : (
+          'yes'
+        ),
         key,
       };
     }
@@ -147,7 +151,13 @@ const conditionsToInfoData = (
         title: 'length',
         content: (
           <>
-            {condition.isNegative && 'not '}
+            {condition.isNegative && (
+              <>
+                <span className={cn(styles.statement, styles.negation)}>
+                  not
+                </span>{' '}
+              </>
+            )}
             {position(condition.range)}
           </>
         ),
@@ -171,7 +181,13 @@ const conditionsToInfoData = (
             return (
               <Fragment key={cvId || value}>
                 {listFormat(index, array, 'or')}
-                {condition.isNegative && 'not '}
+                {condition.isNegative && (
+                  <>
+                    <span className={cn(styles.statement, styles.negation)}>
+                      not
+                    </span>{' '}
+                  </>
+                )}
                 {output}
               </Fragment>
             );
@@ -191,7 +207,13 @@ const conditionsToInfoData = (
           return (
             <Fragment key={value}>
               {listFormat(index, array, 'or')}
-              {condition.isNegative && 'not '}
+              {condition.isNegative && (
+                <>
+                  <span className={cn(styles.statement, styles.negation)}>
+                    not
+                  </span>{' '}
+                </>
+              )}
               {value}
             </Fragment>
           );
@@ -213,7 +235,13 @@ const conditionsToInfoData = (
           return (
             <Fragment key={value}>
               {listFormat(index, array, 'or')}
-              {condition.isNegative && 'not '}
+              {condition.isNegative && (
+                <>
+                  <span className={cn(styles.statement, styles.negation)}>
+                    not
+                  </span>{' '}
+                </>
+              )}
               <ExternalLink url={url}>{value}</ExternalLink>
             </Fragment>
           );
@@ -245,7 +273,9 @@ const ConditionsComponent = ({
       return (
         // eslint-disable-next-line react/no-array-index-key
         <li key={index}>
-          {index !== 0 && 'or'}
+          {index !== 0 && (
+            <span className={cn(styles.statement, styles.or)}>or</span>
+          )}
           <InfoList
             infoData={conditionsToInfoData(conditions, positionalFeatureSets)}
           />
