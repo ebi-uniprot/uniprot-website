@@ -22,7 +22,7 @@ import apiUrls from '../../shared/config/apiUrls';
 import entryToFASTAWithHeaders from '../../shared/utils/entryToFASTAWithHeaders';
 import { uniProtKBAccessionRegEx } from '../../uniprotkb/utils';
 import fetchData from '../../shared/utils/fetchData';
-import Logging from '../../shared/utils/logging';
+import * as logging from '../../shared/utils/logging';
 
 import {
   MessageFormat,
@@ -237,7 +237,7 @@ const SequenceSearchLoader = forwardRef<
           );
         }
       } catch (error) {
-        Logging.error(error);
+        logging.error(error);
       } finally {
         setAccessionOrID(accessionOrID); // reset to previous value
         setPasteLoading(false);

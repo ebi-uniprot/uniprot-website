@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 
 import useSafeState from './useSafeState';
 
-import Logging from '../utils/logging';
+import * as logging from '../utils/logging';
 
 const useCustomElement = (
   customElementGetter: () => Promise<{ default: CustomElementConstructor }>,
@@ -38,7 +38,7 @@ const useCustomElement = (
         }
         setDefined(true);
       })
-      .catch((error) => Logging.error(error));
+      .catch((error) => logging.error(error));
   }, [name, setDefined]);
 
   return defined;

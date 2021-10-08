@@ -1,4 +1,4 @@
-import Logging from './logging';
+import * as logging from './logging';
 
 import { APIModel } from '../types/apiModel';
 
@@ -58,7 +58,7 @@ export const getIdKeyFor = (
     case Namespace.idmapping:
       return (data) => `${(data as MappingFlat).from}${(data as MappingTo).to}`;
     default:
-      Logging.warn(`getIdKey method not implemented for ${namespace} yet`);
+      logging.warn(`getIdKey method not implemented for ${namespace} yet`);
       return () => '';
   }
 };

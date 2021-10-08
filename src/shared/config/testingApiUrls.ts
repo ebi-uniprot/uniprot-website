@@ -1,7 +1,7 @@
 // TODO: eventually delete this file
 import urlJoin from 'url-join';
 
-import Logging from '../utils/logging';
+import * as logging from '../utils/logging';
 
 import { apiPrefix } from './apiUrls';
 
@@ -9,7 +9,7 @@ import { apiPrefix } from './apiUrls';
 const apiTesting = false;
 
 if (apiTesting) {
-  Logging.warn('❗❗❗ USING API TESTING ENDPOINT - DO NOT USE IN PRODUCTION');
+  logging.warn('❗❗❗ USING API TESTING ENDPOINT - DO NOT USE IN PRODUCTION');
 }
 
 const joinUrlForApiTesting = (prefix: string, ...paths: string[]) => {
@@ -50,7 +50,7 @@ const joinUrlForApiTesting = (prefix: string, ...paths: string[]) => {
       const port = endpointToPort[endpoint];
       newPrefix = apiTestingProtocolDomain(port);
     } else {
-      Logging.error(`${endpoint} not in endpointToPort mapping`);
+      logging.error(`${endpoint} not in endpointToPort mapping`);
     }
   }
   return urlJoin(newPrefix, ...paths);

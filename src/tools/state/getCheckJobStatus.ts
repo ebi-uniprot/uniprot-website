@@ -3,7 +3,7 @@ import { AxiosResponse } from 'axios';
 
 import fetchData from '../../shared/utils/fetchData';
 import { getStatusFromResponse, getJobMessage } from '../utils';
-import Logging from '../../shared/utils/logging';
+import * as logging from '../../shared/utils/logging';
 
 import toolsURLs from '../config/urls';
 
@@ -92,7 +92,7 @@ const getCheckJobStatus =
             urlConfig.resultUrl(job.remoteID, { format: 'json' })
           );
         } catch (error) {
-          Logging.error(error);
+          logging.error(error);
         }
 
         const results = response?.data;
@@ -204,7 +204,7 @@ const getCheckJobStatus =
         dispatch(addMessage(getJobMessage({ job: currentStateOfJob })));
       }
     } catch (error) {
-      Logging.error(error);
+      logging.error(error);
     }
   };
 

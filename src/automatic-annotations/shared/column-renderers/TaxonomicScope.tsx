@@ -6,7 +6,7 @@ import { ARBAAPIModel } from '../../arba/adapters/arbaConverter';
 import { UniRuleAPIModel } from '../../unirule/adapters/uniRuleConverter';
 import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
-import Logging from '../../../shared/utils/logging';
+import * as logging from '../../../shared/utils/logging';
 
 import helper from '../../../shared/styles/helper.module.scss';
 
@@ -29,7 +29,7 @@ const TaxonomicScope = ({
         // This shouldn't happen
         /* istanbul ignore if */
         if (!conditionValue.cvId) {
-          Logging.warn(`No cvId field in taxon for "${conditionValue.value}"`);
+          logging.warn(`No cvId field in taxon for "${conditionValue.value}"`);
           continue; // eslint-disable-line no-continue
         }
         const taxonId = +conditionValue.cvId;

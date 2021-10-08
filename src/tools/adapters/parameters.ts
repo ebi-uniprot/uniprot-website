@@ -1,6 +1,6 @@
 import { sequenceProcessor } from 'franklin-sites';
 
-import Logging from '../../shared/utils/logging';
+import * as logging from '../../shared/utils/logging';
 
 import {
   ServerParameters,
@@ -195,7 +195,7 @@ export function serverParametersToFormParameters<T extends JobTypes>(
         } = serverParameters as PublicServerParameters[JobTypes.BLAST];
 
         if (scores !== alignments) {
-          Logging.warn(
+          logging.warn(
             `mismatch between number of scores (${scores}) and number of alignments (${alignments})`
           );
         }
@@ -217,10 +217,10 @@ export function serverParametersToFormParameters<T extends JobTypes>(
       }
       break;
     case JobTypes.ID_MAPPING:
-      Logging.warn('Not implementable');
+      logging.warn('Not implementable');
       break;
     case JobTypes.PEPTIDE_SEARCH:
-      Logging.warn('Not implementable');
+      logging.warn('Not implementable');
       break;
     default:
     //

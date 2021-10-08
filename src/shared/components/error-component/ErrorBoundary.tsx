@@ -4,7 +4,7 @@ import { Location } from 'history';
 
 import ErrorComponent from './ErrorComponent';
 
-import Logging from '../../utils/logging';
+import * as logging from '../../utils/logging';
 
 type ErrorBoundaryProps = RouteComponentProps & {
   children: ReactNode;
@@ -49,7 +49,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    Logging.error(error, errorInfo);
+    logging.error({ error, errorInfo });
   }
 
   render() {

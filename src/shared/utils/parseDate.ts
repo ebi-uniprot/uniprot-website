@@ -1,4 +1,4 @@
-import Logging from './logging';
+import * as logging from './logging';
 
 const edgeCase1 = /\w{3}-\d{4}/;
 const edgeCase2 = /\d{6}/;
@@ -40,7 +40,7 @@ export const parseEdgeCases = (input: string) => {
       return output;
     }
   }
-  Logging.error(`couldn't parse "${input}" as a date`);
+  logging.error(`couldn't parse "${input}" as a date`);
   // otherwise just return undefined
   return undefined;
 };

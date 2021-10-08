@@ -5,7 +5,7 @@ import useSafeState from '../../shared/hooks/useSafeState';
 
 import fetchData from '../../shared/utils/fetchData';
 import { getSuggesterUrl } from '../../shared/config/apiUrls';
-import Logging from '../../shared/utils/logging';
+import * as logging from '../../shared/utils/logging';
 
 type AutocompleteWrapperProps = {
   url: string;
@@ -57,7 +57,7 @@ const AutocompleteWrapper: FC<AutocompleteWrapperProps> = ({
   const [data, setData] = useSafeState<SelectValue[]>([]);
   const [previousTextInputValue, setPreviousTextInputValue] = useState('');
   const [loading, setLoading] = useSafeState(false);
-
+  logging.log('hiya');
   const handleSelect = useCallback(
     (inputValue: SelectValue | string) => {
       if (typeof inputValue === 'string') {
@@ -81,7 +81,7 @@ const AutocompleteWrapper: FC<AutocompleteWrapperProps> = ({
             setData(prepareData(response.data.suggestions));
             setLoading(false);
           })
-          .catch((e) => Logging.error(e));
+          .catch((e) => logging.error(e));
       }
     },
     [setData, setLoading, url]

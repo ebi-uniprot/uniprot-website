@@ -5,10 +5,10 @@ import App from './app/components/App';
 
 import store from './app/state/store';
 
-import Logging from './shared/utils/logging';
+import * as logging from './shared/utils/logging';
 
 if (!LIVE_RELOAD) {
-  Logging.debug(
+  logging.debug(
     `Built with git commit ${GIT_COMMIT_HASH.trim()} ${
       GIT_COMMIT_STATE
         ? `with uncommitted changes:\n${GIT_COMMIT_STATE}`

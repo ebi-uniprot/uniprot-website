@@ -14,7 +14,7 @@ import {
 import apiUrls from '../config/apiUrls';
 import { SearchResultsLocations } from '../../app/config/urls';
 import { getIdKeyFor } from '../utils/getIdKeyForNamespace';
-import Logging from '../utils/logging';
+import * as logging from '../utils/logging';
 
 import { mainNamespaces, Namespace } from '../types/namespaces';
 import { Column, nsToDefaultColumns } from '../config/columns';
@@ -104,7 +104,7 @@ const convertRow = (row: APIModel, namespace: Namespace | 'id-mapping') => {
     case Namespace.idmapping:
       return row as MappingAPIModel;
     default:
-      Logging.warn(`Unrecognised namespace: "${namespace}"`);
+      logging.warn(`Unrecognised namespace: "${namespace}"`);
       return null;
   }
 };

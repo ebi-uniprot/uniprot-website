@@ -2,7 +2,7 @@ import { throttle } from 'lodash-es';
 import { useEffect, useRef } from 'react';
 import { Graph, Thing, WithContext } from 'schema-dts';
 
-import Logging from '../utils/logging';
+import * as logging from '../utils/logging';
 
 /**
  * NOTE: you can test the rendered script tag by pasting it in
@@ -33,7 +33,10 @@ const useStructuredData = <Schema extends Thing>(
         try {
           content = JSON.stringify(value, undefined, 2);
         } catch {
-          Logging.warn('Something went wrong when stringifying:', value);
+          logging.warn({
+            message: 'Something went wrong when stringifying',
+            data: value,
+          });
         }
       }
       script.current.textContent = content;

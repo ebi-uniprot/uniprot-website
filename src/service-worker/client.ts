@@ -1,6 +1,6 @@
 import { Workbox } from 'workbox-window';
 
-import Logging from '../shared/utils/logging';
+import * as logging from '../shared/utils/logging';
 
 import { needsReload } from './reload-flag';
 
@@ -42,7 +42,7 @@ export function register() {
     }
     // Now, we're sure it's a message from 'workbox-broadcast-update' library
     const { cacheName, updatedURL } = data.payload as UpdatePayload;
-    Logging.log(
+    logging.log(
       `An update to "${updatedURL}" caused the whole "${cacheName}" cache to be dropped`
     );
     dropCache(cacheName);
@@ -82,6 +82,6 @@ export function unregister() {
       registration.unregister();
     })
     .catch((error) => {
-      Logging.error(error);
+      logging.error(error);
     });
 }

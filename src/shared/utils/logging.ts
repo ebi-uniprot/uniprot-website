@@ -21,11 +21,13 @@ export const sendGtagEvent = (
     } catch (error) {
       // Only display if using the development server
       if (LIVE_RELOAD) {
-        console.warn(error);
+        console.warn('gtag event error', error);
       }
     }
   } else if (['string', 'boolean', 'number'].includes(typeof data)) {
     event.event_data = data;
+  } else if (LIVE_RELOAD) {
+    console.warn('gtag event data type not handled', data);
   }
   gtag?.('event', eventCategory, event);
 };

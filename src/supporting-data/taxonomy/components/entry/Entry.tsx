@@ -51,8 +51,7 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
       apiUrls.entry(accession, Namespace.taxonomy)
     );
 
-  /* Temporary workaround to get "View proteins" at least */
-  /* istanbul ignore next */
+  // TODO: This is a temporary workaround to get "View proteins" at least, eventually replace
   const { data: facetData } = useDataApi<{ facets: FacetObject[] }>(
     data && !data.statistics
       ? getAPIQueryUrl({
@@ -64,7 +63,6 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
       : undefined
   );
   const fallbackStats: Partial<Statistics> = {};
-  /* istanbul ignore next */
   if (facetData) {
     const reviewedFacet = facetData.facets.find(
       ({ name }) => name === 'reviewed'
