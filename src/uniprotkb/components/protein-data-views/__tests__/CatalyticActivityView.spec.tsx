@@ -13,6 +13,15 @@ import CatalyticActivityView, {
 import catalyticActivityUIData from './__mocks__/catalyticActivityUIData';
 
 describe('CatalyticActivityView component', () => {
+  beforeAll(() => {
+    // eslint-disable-next-line no-console
+    console.warn = jest.fn();
+  });
+
+  afterAll(() => {
+    jest.clearAllMocks();
+  });
+
   test('should render catalytic activity', () => {
     const { asFragment } = customRender(
       <CatalyticActivityView

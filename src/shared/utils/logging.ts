@@ -2,14 +2,12 @@
 /* eslint-disable no-console */
 import { JsonValue } from 'type-fest';
 
+// Expand as we add more events
 type EventCategory = 'console';
 type EventLabel = 'log' | 'warn' | 'error' | 'debug';
 
-export const sendGtagEvent = (
-  eventCategory: EventCategory,
-  eventLabel: EventLabel,
-  data?: JsonValue
-) => {
+export const createGtagEvent = (eventLabel: EventLabel, data?: JsonValue) => {
+  // TODO: check if the event key is valid ie registered in google analytics
   const event: Gtag.CustomParams = {
     event_label: eventLabel,
   };
@@ -29,6 +27,15 @@ export const sendGtagEvent = (
   } else if (LIVE_RELOAD) {
     console.warn('gtag event data type not handled', data);
   }
+  return event;
+};
+
+export const sendGtagEvent = (
+  eventCategory: EventCategory,
+  eventLabel: EventLabel,
+  data?: JsonValue
+) => {
+  const event = createGtagEvent(eventLabel, data);
   if (typeof gtag === 'function') {
     gtag('event', eventCategory, event);
   }
