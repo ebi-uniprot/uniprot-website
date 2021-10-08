@@ -12,7 +12,7 @@ import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { Namespace, SearchableNamespace } from '../../types/namespaces';
 
-import Logo from '../../../images/uniprot-logo.svg';
+import Logo from '../../../images/uniprot-logo-beta.svg';
 
 const headerItems = [
   {
