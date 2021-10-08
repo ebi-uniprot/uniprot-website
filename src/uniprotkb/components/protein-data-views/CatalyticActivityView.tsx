@@ -17,6 +17,8 @@ import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import { Location, LocationToPath } from '../../../app/config/urls';
 import externalUrls from '../../../shared/config/externalUrls';
 
+import * as logging from '../../../shared/utils/logging';
+
 import {
   CatalyticActivityComment,
   PhysiologicalReactionDirection,
@@ -25,7 +27,6 @@ import {
 
 import helper from '../../../shared/styles/helper.module.scss';
 import './styles/catalytic-activity-view.scss';
-import * as logging from '../../../shared/utils/logging';
 
 // example accessions to view this component: P31937, P0A879
 

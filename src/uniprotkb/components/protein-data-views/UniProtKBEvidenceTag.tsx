@@ -17,7 +17,7 @@ export const UniProtEvidenceTagContent: FC<{
   evidenceData: EvidenceData;
   evidences: Evidence[] | undefined;
 }> = ({ evidenceData, evidences }) => {
-  if (!evidences || evidences.length === 0) {
+  if (!evidences?.length) {
     return null;
   }
   const groupedEvidences =

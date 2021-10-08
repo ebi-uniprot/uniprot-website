@@ -30,6 +30,7 @@ import useReducedMotion from '../../../shared/hooks/useReducedMotion';
 
 import { getBEMClassName as bem, pluralise } from '../../../shared/utils/utils';
 import parseDate from '../../../shared/utils/parseDate';
+import * as logging from '../../../shared/utils/logging';
 
 import { FailedJob, Job, FinishedJob } from '../../types/toolsJob';
 import { Status } from '../../types/toolsStatuses';
@@ -207,6 +208,7 @@ const NiceStatus = ({ job, jobLink }: NiceStatusProps) => {
       );
     }
     default:
+      logging.warn(`Job status not handled: ${job}`);
       return null;
   }
 };

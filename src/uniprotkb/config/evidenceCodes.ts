@@ -1,4 +1,5 @@
 import { pluralise } from '../../shared/utils/utils';
+import * as logging from '../../shared/utils/logging';
 
 import { Evidence } from '../types/modelTypes';
 
@@ -297,6 +298,7 @@ export const getEvidenceCodeData = (eco: string): EvidenceData | null => {
         labelRender: () => labels.INTERPRO,
       };
     default:
+      logging.warn(`Evidence code not found: ${eco}`);
       return null;
   }
 };

@@ -50,7 +50,7 @@ export const getParamsFromURL = (url: string): URLResultParams => {
 };
 
 export const facetsAsString = (facets?: SelectedFacet[]): string => {
-  if (!facets || facets.length <= 0) {
+  if (!facets?.length) {
     return '';
   }
   return facets.reduce(
