@@ -6,7 +6,11 @@ import { CitedIcon, ExternalLink } from 'franklin-sites';
 import ReleaseInfo from './ReleaseInfo';
 import Contact from './Contact';
 
-import { Location, LocationToPath } from '../../../app/config/urls';
+import {
+  getLocationEntryPath,
+  Location,
+  LocationToPath,
+} from '../../../app/config/urls';
 
 import helper from '../../styles/helper.module.scss';
 import footer from './styles/footer.module.scss';
@@ -285,9 +289,11 @@ const FooterShortcuts = () => (
           </Link>
         </li>
         <li>
-          <ExternalLink noIcon url="https://www.uniprot.org/statistics/">
+          <Link
+            to={getLocationEntryPath(Location.HelpEntry, 'release-statistics')}
+          >
             Statistics
-          </ExternalLink>
+          </Link>
         </li>
       </ul>
     </li>
