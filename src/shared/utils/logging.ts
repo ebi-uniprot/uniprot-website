@@ -1,22 +1,51 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
+import { JsonValue } from 'type-fest';
 
-class Logging {
-  static log(...args: any) {
-    console.log(args);
+type EventCategory = 'console';
+type EventLabel = 'log' | 'warn' | 'error' | 'debug';
+
+export const sendGtagEvent = (
+  eventCategory: EventCategory,
+  eventLabel: EventLabel,
+  data?: JsonValue
+) => {
+  const event: Gtag.CustomParams = {
+    event_label: eventLabel,
+  };
+  if (data && typeof data === 'object') {
+    try {
+      for (const [k, v] of Object.entries(data)) {
+        event[`event_${k}`] = JSON.stringify(v);
+      }
+    } catch (error) {
+      // Only display if using the development server
+      if (LIVE_RELOAD) {
+        console.warn(error);
+      }
+    }
+  } else if (['string', 'boolean', 'number'].includes(typeof data)) {
+    event.event_data = data;
   }
+  gtag?.('event', eventCategory, event);
+};
 
-  static warn(...args: any) {
-    console.warn(args);
-  }
+export const log = (message: any) => {
+  console.log(message);
+  sendGtagEvent('console', 'log', message);
+};
 
-  static error(...args: any) {
-    console.error(args);
-  }
+export const warn = (message: any) => {
+  console.warn(message);
+  sendGtagEvent('console', 'warn', message);
+};
 
-  static debug(...args: any) {
-    console.debug(args);
-  }
-}
+export const error = (message: any) => {
+  console.error(message);
+  sendGtagEvent('console', 'error', message);
+};
 
-export default Logging;
+export const debug = (message: any) => {
+  console.debug(message);
+  sendGtagEvent('console', 'debug', message);
+};
