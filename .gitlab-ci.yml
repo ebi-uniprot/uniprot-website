@@ -1,3 +1,10 @@
+variables:
+  URL_NGINX_CONF: "https://gitlab.ebi.ac.uk/api/v4/projects/${COMMON_PROJECT_ID}/repository/files/nginx.conf/raw?ref=master&private_token=${GITLAB_USER_API_TOKEN}"
+  URL_DOCKER_FILE: "https://gitlab.ebi.ac.uk/api/v4/projects/${COMMON_PROJECT_ID}/repository/files/Dockerfile/raw?ref=master&private_token=${GITLAB_USER_API_TOKEN}"
+  URL_DOCKER_IGNORE: "https://gitlab.ebi.ac.uk/api/v4/projects/${COMMON_PROJECT_ID}/repository/files/.dockerignore/raw?ref=master&private_token=${GITLAB_USER_API_TOKEN}"
+  URL_DEPLOY_SH: "https://gitlab.ebi.ac.uk/api/v4/projects/${COMMON_PROJECT_ID}/repository/files/deploy.sh/raw?ref=master&private_token=${GITLAB_USER_API_TOKEN}"
+  URL_WP_CONFIG_TEMPLATE_yml: "https://gitlab.ebi.ac.uk/api/v4/projects/${COMMON_PROJECT_ID}/repository/files/wp-config-template.yml/raw?ref=master&private_token=${GITLAB_USER_API_TOKEN}"
+
 stages:
   - test
   - build_static_assets
@@ -59,6 +66,13 @@ build_docker_image:
     - dind
   services:
     - docker:dind
+  before_script:
+    - wget -O .dockerignore "${URL_DOCKER_IGNORE}"
+    - wget -O nginx.conf "${URL_NGINX_CONF}"
+    - wget -O Dockerfile "${URL_DOCKER_FILE}"
+    - echo "--no-cache --no-cookies was not used by wget"
+    - if [ ! -f nginx.conf ]; then echo "nginx.conf file is missing"; exit 1; fi
+    - if [ ! -f Dockerfile ]; then echo "Dockerfile file is missing"; exit 1; fi
   script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
     - docker --version
@@ -77,6 +91,12 @@ build_docker_image:
     - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
     - chmod +x ./kubectl
     - mv ./kubectl /usr/local/bin/kubectl
+    - wget -O deploy.sh "${URL_DEPLOY_SH}"
+    - wget -O wp-config-template.yml "${URL_WP_CONFIG_TEMPLATE_yml}"
+    - echo "--no-cache --no-cookies was not used by wget"
+    - if [ ! -f deploy.sh ]; then echo "k8s deployment file is missing"; exit 1; fi
+    - if [ ! -f wp-config-template.yml ]; then echo "k8s config file is missing"; exit 1; fi
+    - chmod +x deploy.sh
 
 deploy:
   only:
@@ -85,8 +105,8 @@ deploy:
   stage: deploy
   extends: .kubectl
   script:
-    - ./deploy/deploy.sh HX # fallback
-    - ./deploy/deploy.sh HH # main
+    - ./deploy.sh HX uniprot-website-client uniprot-front-end statefulset # fallback app_name namespace type-of-deployment
+    - ./deploy.sh HH uniprot-website-client uniprot-front-end statefulset # prod app_name namespace type-of-deployment
 
 deploy-fallback-only:
   only:
@@ -95,4 +115,4 @@ deploy-fallback-only:
   stage: deploy
   extends: .kubectl
   script:
-    - ./deploy/deploy.sh HX # fallback
+    - ./deploy.sh HX uniprot-website-client uniprot-front-end statefulset # fallback app_name namespace type-of-deployment
