@@ -29,7 +29,9 @@ export const sendGtagEvent = (
   } else if (LIVE_RELOAD) {
     console.warn('gtag event data type not handled', data);
   }
-  gtag?.('event', eventCategory, event);
+  if (typeof gtag === 'function') {
+    gtag('event', eventCategory, event);
+  }
 };
 
 export const log = (message: any) => {

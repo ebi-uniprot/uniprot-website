@@ -57,7 +57,7 @@ const AutocompleteWrapper: FC<AutocompleteWrapperProps> = ({
   const [data, setData] = useSafeState<SelectValue[]>([]);
   const [previousTextInputValue, setPreviousTextInputValue] = useState('');
   const [loading, setLoading] = useSafeState(false);
-  logging.log('hiya');
+
   const handleSelect = useCallback(
     (inputValue: SelectValue | string) => {
       if (typeof inputValue === 'string') {
