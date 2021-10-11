@@ -687,7 +687,7 @@ const RuleComponent = ({
   rule: Rule | CaseRule;
   positionalFeatureSets?: PositionFeatureSet[];
 }) => (
-  <div className={cn(styles.rule)}>
+  <div className={styles.rule}>
     <ConditionsComponent
       conditionSets={rule.conditionSets}
       positionalFeatureSets={positionalFeatureSets}
@@ -704,7 +704,7 @@ const PositionalFeatureComponent = ({
 }: {
   positionalFeatureSet: PositionFeatureSet;
 }) => (
-  <div className={cn(styles.rule)}>
+  <div className={styles.rule}>
     <ul className={cn(styles.conditions, 'no-bullet')}>
       <li>
         <div className={cn(styles.statement, styles.if)}>if</div>
@@ -730,7 +730,7 @@ const SAMFeatureComponent = ({
 }: {
   samFeatureSet: SAMFeatureSet;
 }) => (
-  <div className={cn(styles.rule)}>
+  <div className={styles.rule}>
     <ul className={cn(styles.conditions, 'no-bullet')}>
       <li>
         <div className={cn(styles.statement, styles.if)}>if</div>
@@ -772,7 +772,7 @@ const ConditionsAnnotations = ({
       />
       {hasExtra && (
         <div className={styles.extra}>
-          <div className={cn(styles.statement)}>additionally</div>
+          <div className={styles.statement}>additionally</div>
           {data.otherRules?.map((otherRule, index) => (
             <RuleComponent
               // eslint-disable-next-line react/no-array-index-key
