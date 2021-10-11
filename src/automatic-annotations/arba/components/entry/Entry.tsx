@@ -1,14 +1,14 @@
 import { RouteChildrenProps } from 'react-router-dom';
-import { Loader, Card } from 'franklin-sites';
-import cn from 'classnames';
+import { Loader } from 'franklin-sites';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 
+import ConditionsAnnotations from '../../../shared/entry/ConditionsAnnotations';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
 
-import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
+import useDataApi from '../../../../shared/hooks/useDataApi';
 
 import apiUrls from '../../../../shared/config/apiUrls';
 
@@ -18,21 +18,19 @@ import {
 } from '../../../../shared/types/namespaces';
 import { ARBAAPIModel } from '../../adapters/arbaConverter';
 
-import helper from '../../../../shared/styles/helper.module.scss';
-import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
-
 const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   const accession = props.match?.params.accession;
 
-  const { data, loading, error, status, progress, isStale } =
-    useDataApiWithStale<ARBAAPIModel>(apiUrls.entry(accession, Namespace.arba));
+  const { data, loading, error, status, progress } = useDataApi<ARBAAPIModel>(
+    apiUrls.entry(accession, Namespace.arba)
+  );
 
-  if (error || !accession || (!loading && !data)) {
-    return <ErrorHandler status={status} />;
+  if (loading) {
+    return <Loader progress={progress} />;
   }
 
-  if (!data) {
-    return <Loader progress={progress} />;
+  if (error || !accession || !data) {
+    return <ErrorHandler status={status} />;
   }
 
   return (
@@ -44,14 +42,14 @@ const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
       <h1 className="big">
         {searchableNamespaceLabels[Namespace.arba]} - {data.uniRuleId}
       </h1>
-      <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
-        <div className="button-group">
-          <MapToDropdown
-            statistics={data.statistics}
-            accession={data.uniRuleId}
-          />
-        </div>
-      </Card>
+      <div className="button-group">
+        <MapToDropdown
+          statistics={data.statistics}
+          accession={data.uniRuleId}
+        />
+      </div>
+      {/* there are no template entries for ARBA rules apparently */}
+      <ConditionsAnnotations data={data} />
     </SingleColumnLayout>
   );
 };

@@ -200,11 +200,13 @@ export const ReactionDirection: FC<ReactionDirectionProps> = ({
 type CatalyticActivityProps = {
   comments?: CatalyticActivityComment[];
   title?: string;
+  defaultHideAllReactions?: boolean;
 };
 
 const CatalyticActivityView: FC<CatalyticActivityProps> = ({
   comments,
   title,
+  defaultHideAllReactions = false,
 }) => {
   if (!comments || !comments.length) {
     return null;
@@ -273,7 +275,9 @@ const CatalyticActivityView: FC<CatalyticActivityProps> = ({
                 </div>
                 <RheaReactionVisualizer
                   rheaId={rheaId}
-                  show={rheaId === firstRheaId}
+                  show={
+                    defaultHideAllReactions ? false : rheaId === firstRheaId
+                  }
                 />
               </>
             )}
