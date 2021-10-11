@@ -4,6 +4,8 @@ import customRender from '../../../../../shared/__test-helpers__/customRender';
 
 import BlastResultTable from '../BlastResultTable';
 
+import { Namespace } from '../../../../../shared/types/namespaces';
+
 import data from '../../../../__mocks__/server-jobs/example-truncated';
 import noHits from '../../../../__mocks__/server-jobs/example-empty';
 
@@ -16,6 +18,7 @@ describe('BlastResultTable tests', () => {
         handleEntrySelection={jest.fn()}
         setHspDetailPanel={jest.fn()}
         loading={false}
+        namespace={Namespace.uniprotkb}
       />
     );
     expect(asFragment()).toMatchSnapshot();
@@ -35,6 +38,7 @@ describe('BlastResultTable tests', () => {
         handleEntrySelection={jest.fn()}
         setHspDetailPanel={jest.fn()}
         loading={false}
+        namespace={Namespace.uniprotkb}
       />
     );
     expect(asFragment()).toMatchSnapshot();

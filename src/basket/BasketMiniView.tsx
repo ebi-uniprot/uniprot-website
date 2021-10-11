@@ -152,6 +152,7 @@ const BasketMiniView = ({ closePanel }: { closePanel: () => void }) => {
           uniprotkbIds?.size ? ` (${uniprotkbIds.size})` : ''
         }`}
         className={cn({ [helper.disabled]: !uniprotkbIds?.size })}
+        tabIndex={!uniprotkbIds?.size ? -1 : 0}
       >
         {uniprotkbIds?.size ? (
           <BasketMiniViewTab
@@ -166,6 +167,7 @@ const BasketMiniView = ({ closePanel }: { closePanel: () => void }) => {
       <Tab
         title={`UniRef${unirefIds?.size ? ` (${unirefIds.size})` : ''}`}
         className={cn({ [helper.disabled]: !unirefIds?.size })}
+        tabIndex={!unirefIds?.size ? -1 : 0}
         // If the previous doesn't have content, select this one
         defaultSelected={!uniprotkbIds?.size && !!unirefIds?.size}
       >
@@ -182,6 +184,7 @@ const BasketMiniView = ({ closePanel }: { closePanel: () => void }) => {
       <Tab
         title={`UniParc${uniparcIds?.size ? ` (${uniparcIds.size})` : ''}`}
         className={cn({ [helper.disabled]: !uniparcIds?.size })}
+        tabIndex={!uniparcIds?.size ? -1 : 0}
         // If none of the previous has content, select this one
         defaultSelected={!(uniprotkbIds?.size || unirefIds?.size)}
       >

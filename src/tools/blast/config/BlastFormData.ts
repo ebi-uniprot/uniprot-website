@@ -154,4 +154,7 @@ const formData: Readonly<BlastFormValues> = deepFreeze({
   },
 });
 
+export const excludeTaxonForDB = (db: BlastFormValue['selected']) =>
+  typeof db === 'string' && /uni(ref|parc)/i.test(db);
+
 export default formData;
