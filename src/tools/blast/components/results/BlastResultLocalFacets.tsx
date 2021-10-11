@@ -177,6 +177,8 @@ const BlastResultLocalFacets: FC<{
 
   return (
     <Facets className={loading && isStale ? helper.stale : undefined}>
+      {/* div needed in order to make the facet styles understand there is one
+      facet below, otherwise each would element would be a different facet */}
       <div>
         <span className="facet-name">Blast parameters</span>
         <ul className="expandable-list no-bullet blast-parameters-facet">
