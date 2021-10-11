@@ -1,9 +1,11 @@
 import { FC, useEffect, useCallback, useState } from 'react';
 import { Autocomplete } from 'franklin-sites';
 
+import useSafeState from '../../shared/hooks/useSafeState';
+
 import fetchData from '../../shared/utils/fetchData';
 import { getSuggesterUrl } from '../../shared/config/apiUrls';
-import useSafeState from '../../shared/hooks/useSafeState';
+import * as logging from '../../shared/utils/logging';
 
 type AutocompleteWrapperProps = {
   url: string;
@@ -79,8 +81,7 @@ const AutocompleteWrapper: FC<AutocompleteWrapperProps> = ({
             setData(prepareData(response.data.suggestions));
             setLoading(false);
           })
-          // eslint-disable-next-line no-console
-          .catch((e) => console.error(e));
+          .catch((e) => logging.error(e));
       }
     },
     [setData, setLoading, url]

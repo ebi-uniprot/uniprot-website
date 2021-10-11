@@ -1,5 +1,7 @@
 import { ExpandableList } from 'franklin-sites';
 
+import * as logging from '../../../shared/utils/logging';
+
 import { ARBAAPIModel } from '../../arba/adapters/arbaConverter';
 import { UniRuleAPIModel } from '../../unirule/adapters/uniRuleConverter';
 
@@ -21,7 +23,7 @@ const AnnotationCovered = ({
       annotations.add('GO (Gene Ontology) term');
     } else {
       // in case we're missing a case
-      console.warn(annotation); // eslint-disable-line no-console
+      logging.warn(annotation);
     }
   }
 

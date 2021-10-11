@@ -95,7 +95,7 @@ export const DiseaseInvolvementView: FC<DiseaseInvolvementProps> = ({
   primaryAccession: accession,
   includeTitle = false,
 }) => {
-  if (!comments || comments.length <= 0) {
+  if (!comments?.length) {
     return null;
   }
   const nodes = comments.map((comment, index) => (
