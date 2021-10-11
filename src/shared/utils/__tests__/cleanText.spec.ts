@@ -1,4 +1,7 @@
-import cleanText, { cleanTextDefaultOptions } from '../cleanText';
+import cleanText, {
+  cleanTextDefaultOptions,
+  getTransformTags,
+} from '../cleanText';
 
 const pairs: Array<[input: string | null | undefined, output: string]> = [
   [undefined, ''],
@@ -30,20 +33,20 @@ describe('cleanText', () => {
   it('should apply correct headers', () => {
     expect(
       cleanText('<h1 id="title">Title</h1>', {
-        ...cleanTextDefaultOptions(),
-        transformTags: { ...cleanTextDefaultOptions('h3').transformTags },
+        ...cleanTextDefaultOptions,
+        transformTags: { ...getTransformTags('h3') },
       })
     ).toBe('<h4 id="title">Title</h4>');
     expect(
       cleanText('<h3 id="title">Title</h3>', {
-        ...cleanTextDefaultOptions(),
-        transformTags: { ...cleanTextDefaultOptions('h1').transformTags },
+        ...cleanTextDefaultOptions,
+        transformTags: { ...getTransformTags('h1') },
       })
     ).toBe('<h4 id="title">Title</h4>');
     expect(
       cleanText('<h6 id="title">Title</h6>', {
-        ...cleanTextDefaultOptions(),
-        transformTags: { ...cleanTextDefaultOptions('h6').transformTags },
+        ...cleanTextDefaultOptions,
+        transformTags: { ...getTransformTags('h6') },
       })
     ).toBe('<strong id="title">Title</strong>');
   });

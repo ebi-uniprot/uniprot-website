@@ -14,6 +14,7 @@ import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 import { help as helpURL } from '../../../shared/config/apiUrls';
 import cleanText, {
   cleanTextDefaultOptions,
+  getTransformTags,
 } from '../../../shared/utils/cleanText';
 import parseDate from '../../../shared/utils/parseDate';
 import { LocationToPath, Location } from '../../../app/config/urls';
@@ -48,12 +49,12 @@ const aTransformer: Transformer = (_: string, attribs: Attributes) => {
   return output;
 };
 
-const allowedClasses = (cleanTextDefaultOptions().allowedClasses?.['*'] ||
+const allowedClasses = (cleanTextDefaultOptions.allowedClasses?.['*'] ||
   []) as string[];
 
 // TODO: probably need to play with the options here in order to make it look OK
 const cleanTextOptions = {
-  ...cleanTextDefaultOptions(),
+  ...cleanTextDefaultOptions,
   allowedTags: defaults.allowedTags,
   // none by default, so explicitely accept only the ones from the stylesheets
   allowedClasses: {
@@ -64,7 +65,7 @@ const cleanTextOptions = {
     ],
   },
   transformTags: {
-    ...cleanTextDefaultOptions('h3').transformTags,
+    ...getTransformTags('h3'),
     a: aTransformer,
   },
 };

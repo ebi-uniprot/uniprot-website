@@ -6,15 +6,15 @@ import deepFreeze from 'deep-freeze';
 import sanitizeHtml, { defaults, IOptions, Attributes } from 'sanitize-html';
 import styles from './styles/clean-text.module.scss';
 
-type HeaderLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+type HeadingLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
-const getLowerHeaderLevel = (
-  initialLevel: HeaderLevels,
-  currentLevel: HeaderLevels
+const getLowerHeadingLevel = (
+  initialLevel: HeadingLevels,
+  currentLevel: HeadingLevels
 ) => {
-  const headerRegexp = new RegExp(/h(\d)/i);
-  const initialMatch = initialLevel.match(headerRegexp);
-  const currentMatch = currentLevel.match(headerRegexp);
+  const headingRegexp = new RegExp(/h(\d)/i);
+  const initialMatch = initialLevel.match(headingRegexp);
+  const currentMatch = currentLevel.match(headingRegexp);
   if (initialMatch && currentMatch) {
     const initialLevel = parseInt(initialMatch[1], 10);
     const currentLevel = parseInt(currentMatch[1], 10);
@@ -29,42 +29,46 @@ const getLowerHeaderLevel = (
 const excludedTags = new Set(['a']);
 
 const updateHeadingLevel =
-  (currentHLevel: HeaderLevels = 'h1') =>
+  (currentHLevel: HeadingLevels = 'h1') =>
   (_: string, attribs: Attributes) => {
-    const headerLevel = getLowerHeaderLevel(currentHLevel, _ as HeaderLevels);
+    const headingLevel = getLowerHeadingLevel(
+      currentHLevel,
+      _ as HeadingLevels
+    );
     return {
-      tagName: headerLevel,
+      tagName: headingLevel,
       attribs: {
         id: attribs.id,
       },
     };
   };
 
-export const cleanTextDefaultOptions = (currentHLevel: HeaderLevels = 'h1') =>
-  deepFreeze<IOptions>({
-    // https://github.com/apostrophecms/sanitize-html/blob/main/index.js#L691-L710
-    allowedTags: defaults.allowedTags.filter((tag) => !excludedTags.has(tag)),
-    allowedClasses: {
-      // Allow only the class names that we add here from the CSS module imported
-      '*': Object.values(styles),
-    },
-    allowedAttributes: {
-      ...defaults.allowedAttributes,
-      '*': ['id'],
-    },
-    transformTags: {
-      h1: updateHeadingLevel(currentHLevel),
-      h2: updateHeadingLevel(currentHLevel),
-      h3: updateHeadingLevel(currentHLevel),
-      h4: updateHeadingLevel(currentHLevel),
-      h5: updateHeadingLevel(currentHLevel),
-      h6: updateHeadingLevel(currentHLevel),
-    },
-  }) as IOptions;
+export const getTransformTags = (currentHLevel: HeadingLevels = 'h1') => ({
+  h1: updateHeadingLevel(currentHLevel),
+  h2: updateHeadingLevel(currentHLevel),
+  h3: updateHeadingLevel(currentHLevel),
+  h4: updateHeadingLevel(currentHLevel),
+  h5: updateHeadingLevel(currentHLevel),
+  h6: updateHeadingLevel(currentHLevel),
+});
+
+export const cleanTextDefaultOptions = deepFreeze<IOptions>({
+  // https://github.com/apostrophecms/sanitize-html/blob/main/index.js#L691-L710
+  allowedTags: defaults.allowedTags.filter((tag) => !excludedTags.has(tag)),
+  allowedClasses: {
+    // Allow only the class names that we add here from the CSS module imported
+    '*': Object.values(styles),
+  },
+  allowedAttributes: {
+    ...defaults.allowedAttributes,
+    '*': ['id'],
+  },
+  transformTags: getTransformTags(),
+}) as IOptions;
 
 const cleanText = (
   text?: string | null,
-  options: IOptions = cleanTextDefaultOptions()
+  options: IOptions = cleanTextDefaultOptions
 ) => {
   if (!text) {
     return '';

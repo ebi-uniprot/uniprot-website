@@ -18,6 +18,7 @@ import useStructuredData from '../../../shared/hooks/useStructuredData';
 import parseDate from '../../../shared/utils/parseDate';
 import cleanText, {
   cleanTextDefaultOptions,
+  getTransformTags,
 } from '../../../shared/utils/cleanText';
 
 import { LocationToPath, Location } from '../../config/urls';
@@ -286,9 +287,9 @@ const NeedHelp = () => {
                 // eslint-disable-next-line react/no-danger
                 dangerouslySetInnerHTML={{
                   __html: cleanText(seminar?.fields.description[0], {
-                    ...cleanTextDefaultOptions(),
+                    ...cleanTextDefaultOptions,
                     transformTags: {
-                      ...cleanTextDefaultOptions('h3').transformTags,
+                      ...getTransformTags('h3'),
                     },
                   }),
                 }}
