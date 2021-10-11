@@ -479,9 +479,7 @@ const BlastForm = () => {
                 'tools-form-section__item',
                 'tools-form-section__item--selected-taxon',
                 {
-                  'tools-form-section__item--hidden': excludeTaxonForDB(
-                    database.selected
-                  ),
+                  'tools-form-section__item--hidden': excludeTaxon,
                 }
               )}
             >
