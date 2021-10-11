@@ -39,6 +39,7 @@ const updateHeadingLevel =
       tagName: headingLevel,
       attribs: {
         id: attribs.id,
+        class: headingLevel === 'strong' ? styles['strong-block'] : '',
       },
     };
   };

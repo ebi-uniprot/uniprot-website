@@ -8,8 +8,6 @@ const pairs: Array<[input: string | null | undefined, output: string]> = [
   [null, ''],
   ['text', 'text'],
   ['<a>link</a>', 'link'],
-  /* Can't access the css modules values from tests, so no classes... 😕 */
-  // ['<h1>title</h1>', '<strong class="heading">title</strong>'],
   ['<h1 id="title">title</h1>', '<h2 id="title">title</h2>'],
   /* */
   ['<strong class="clean-me">strong</strong>', '<strong>strong</strong>'],
@@ -49,5 +47,7 @@ describe('cleanText', () => {
         transformTags: { ...getTransformTags('h6') },
       })
     ).toBe('<strong id="title">Title</strong>');
+    /* Can't access the css modules values from tests, so no classes... 😕 */
+    // .toBe('<strong id="title" class="strong-block">Title</strong>')
   });
 });
