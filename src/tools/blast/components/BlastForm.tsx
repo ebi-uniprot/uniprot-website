@@ -173,6 +173,7 @@ const BlastForm = () => {
       BlastFields.database
     ] as BlastFormValues[BlastFields.database]
   );
+  const excludeTaxonField = excludeTaxonForDB(database.selected);
   const [taxIDs, setTaxIDs] = useState(
     initialFormValues[BlastFields.taxons] as BlastFormValues[BlastFields.taxons]
   );
@@ -277,8 +278,6 @@ const BlastForm = () => {
     setSubmitDisabled(true);
     setSending(true);
 
-    const excludeTaxon = excludeTaxonForDB(database.selected);
-
     // here we should just transform input values into FormParameters,
     // transformation of FormParameters into ServerParameters happens in the
     // tools middleware
@@ -287,8 +286,8 @@ const BlastForm = () => {
       program: program.selected as FormParameters['program'],
       sequence: sequence.selected as Sequence,
       database: database.selected as Database,
-      taxIDs: excludeTaxon ? [] : (taxIDs.selected as SelectedTaxon[]),
-      negativeTaxIDs: excludeTaxon
+      taxIDs: excludeTaxonField ? [] : (taxIDs.selected as SelectedTaxon[]),
+      negativeTaxIDs: excludeTaxonField
         ? []
         : (negativeTaxIDs.selected as SelectedTaxon[]),
       threshold: threshold.selected as Exp,
@@ -462,7 +461,7 @@ const BlastForm = () => {
                 'tools-form-section__item',
                 'tools-form-section__item--taxon-select',
                 {
-                  'tools-form-section__item--hidden': excludeTaxon,
+                  'tools-form-section__item--hidden': excludeTaxonField,
                 }
               )}
             >
@@ -479,7 +478,7 @@ const BlastForm = () => {
                 'tools-form-section__item',
                 'tools-form-section__item--selected-taxon',
                 {
-                  'tools-form-section__item--hidden': excludeTaxon,
+                  'tools-form-section__item--hidden': excludeTaxonField,
                 }
               )}
             >
