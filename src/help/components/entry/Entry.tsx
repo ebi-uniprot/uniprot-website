@@ -1,6 +1,6 @@
 import { useCallback, MouseEventHandler, useMemo } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
-import { Loader, Card } from 'franklin-sites';
+import { Card, Loader } from 'franklin-sites';
 import marked from 'marked';
 import { Attributes, defaults, Tag, Transformer } from 'sanitize-html';
 import cn from 'classnames';
@@ -48,12 +48,12 @@ const aTransformer: Transformer = (_: string, attribs: Attributes) => {
   return output;
 };
 
-const allowedClasses = (cleanTextDefaultOptions.allowedClasses?.['*'] ||
+const allowedClasses = (cleanTextDefaultOptions().allowedClasses?.['*'] ||
   []) as string[];
 
 // TODO: probably need to play with the options here in order to make it look OK
 const cleanTextOptions = {
-  ...cleanTextDefaultOptions,
+  ...cleanTextDefaultOptions(),
   allowedTags: defaults.allowedTags,
   // none by default, so explicitely accept only the ones from the stylesheets
   allowedClasses: {
@@ -64,7 +64,7 @@ const cleanTextOptions = {
     ],
   },
   transformTags: {
-    ...cleanTextDefaultOptions.transformTags,
+    ...cleanTextDefaultOptions('h3').transformTags,
     a: aTransformer,
   },
 };
@@ -124,14 +124,6 @@ const HelpEntry = () => {
       <h1 className={data.categories.includes('faq') ? 'medium' : 'big'}>
         {data.title}
       </h1>
-      {lastModifed && (
-        <span>
-          Last modified:{' '}
-          <time dateTime={lastModifed.toISOString()}>
-            {lastModifed.toDateString()}
-          </time>
-        </span>
-      )}
       <Card className={cn(styles.content, { [helper.stale]: isStale })}>
         {/* event delegation here, not actually doing anything with the div */}
         {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
@@ -141,6 +133,17 @@ const HelpEntry = () => {
           onClick={handleClick}
         />
       </Card>
+      {lastModifed && (
+        <div className={styles['last-updated-help']}>
+          <small>
+            {' '}
+            Last modified:{' '}
+            <time dateTime={lastModifed.toISOString()}>
+              {lastModifed.toDateString()}
+            </time>
+          </small>
+        </div>
+      )}
     </SingleColumnLayout>
   );
 };

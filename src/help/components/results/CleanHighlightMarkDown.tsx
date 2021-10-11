@@ -6,9 +6,9 @@ import cleanText, {
 import './styles/highlight.scss';
 
 const cleanTextOptions = {
-  ...cleanTextDefaultOptions,
+  ...cleanTextDefaultOptions(),
   allowedClasses: {
-    ...cleanTextDefaultOptions.allowedClasses,
+    ...cleanTextDefaultOptions().allowedClasses,
     '*': ['match-highlight'],
   },
 };

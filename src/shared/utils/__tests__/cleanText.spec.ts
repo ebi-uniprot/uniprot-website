@@ -1,4 +1,4 @@
-import cleanText from '../cleanText';
+import cleanText, { cleanTextDefaultOptions } from '../cleanText';
 
 const pairs: Array<[input: string | null | undefined, output: string]> = [
   [undefined, ''],
@@ -26,4 +26,25 @@ describe('cleanText', () => {
   it.each(pairs)('should clean text to inject safely', (input, output) =>
     expect(cleanText(input)).toBe(output)
   );
+
+  it('should apply correct headers', () => {
+    expect(
+      cleanText('<h1 id="title">Title</h1>', {
+        ...cleanTextDefaultOptions(),
+        transformTags: { ...cleanTextDefaultOptions('h3').transformTags },
+      })
+    ).toBe('<h4 id="title">Title</h4>');
+    expect(
+      cleanText('<h3 id="title">Title</h3>', {
+        ...cleanTextDefaultOptions(),
+        transformTags: { ...cleanTextDefaultOptions('h1').transformTags },
+      })
+    ).toBe('<h4 id="title">Title</h4>');
+    expect(
+      cleanText('<h6 id="title">Title</h6>', {
+        ...cleanTextDefaultOptions(),
+        transformTags: { ...cleanTextDefaultOptions('h6').transformTags },
+      })
+    ).toBe('<strong id="title">Title</strong>');
+  });
 });
