@@ -1,15 +1,16 @@
 import { RouteChildrenProps } from 'react-router-dom';
-import { Loader, Card } from 'franklin-sites';
-import cn from 'classnames';
+import { Loader } from 'franklin-sites';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 
+import Source from './Source';
 import TemplateEntries from './TemplateEntries';
+import ConditionsAnnotations from '../../../shared/entry/ConditionsAnnotations';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
 
-import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
+import useDataApi from '../../../../shared/hooks/useDataApi';
 
 import apiUrls from '../../../../shared/config/apiUrls';
 
@@ -19,23 +20,18 @@ import {
 } from '../../../../shared/types/namespaces';
 import { UniRuleAPIModel } from '../../adapters/uniRuleConverter';
 
-import helper from '../../../../shared/styles/helper.module.scss';
-import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
-
 const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   const accession = props.match?.params.accession;
 
-  const { data, loading, error, status, progress, isStale } =
-    useDataApiWithStale<UniRuleAPIModel>(
-      apiUrls.entry(accession, Namespace.unirule)
-    );
+  const { data, loading, error, status, progress } =
+    useDataApi<UniRuleAPIModel>(apiUrls.entry(accession, Namespace.unirule));
 
-  if (error || !accession || (!loading && !data)) {
-    return <ErrorHandler status={status} />;
+  if (loading) {
+    return <Loader progress={progress} />;
   }
 
-  if (!data) {
-    return <Loader progress={progress} />;
+  if (error || !accession || !data) {
+    return <ErrorHandler status={status} />;
   }
 
   return (
@@ -47,15 +43,15 @@ const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
       <h1 className="big">
         {searchableNamespaceLabels[Namespace.unirule]} - {data.uniRuleId}
       </h1>
-      <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
-        <div className="button-group">
-          <MapToDropdown
-            statistics={data.statistics}
-            accession={data.information.oldRuleNum || data.uniRuleId}
-          />
-        </div>
-        <TemplateEntries entries={data.information.uniProtAccessions} />
-      </Card>
+      <div className="button-group">
+        <MapToDropdown
+          statistics={data.statistics}
+          accession={data.information.oldRuleNum || data.uniRuleId}
+        />
+      </div>
+      <Source source={data.information.oldRuleNum} />
+      <TemplateEntries entries={data.information.uniProtAccessions} />
+      <ConditionsAnnotations data={data} />
     </SingleColumnLayout>
   );
 };

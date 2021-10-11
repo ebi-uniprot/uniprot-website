@@ -52,7 +52,7 @@ const AlignmentOverviewTrack: FC<AlignmentOverviewTrackProps> = ({
 
 const AlignmentOverview: FC<AlignmentOverviewProps> = memo(
   ({ height, data, length, highlight }) => {
-    if (!data || data.length < 1) {
+    if (!data?.length) {
       return null;
     }
 

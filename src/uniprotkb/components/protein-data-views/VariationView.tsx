@@ -126,8 +126,7 @@ const VariationView: FC<{
     status === 404 ||
     !transformedData ||
     !transformedData.sequence ||
-    !transformedData.variants ||
-    transformedData.variants.length <= 0
+    !transformedData.variants?.length
   ) {
     return null;
   }
