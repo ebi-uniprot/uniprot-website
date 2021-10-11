@@ -12,6 +12,11 @@ import nonHumanEntryData from '../../../__mocks__/nonHumanEntryModelData';
 enableFetchMocks();
 
 describe('Entry view', () => {
+  beforeAll(() => {
+    // eslint-disable-next-line no-console
+    console.warn = jest.fn();
+  });
+
   it('should render', async () => {
     (fetch as FetchMock).mockResponse(JSON.stringify(interactionData));
 

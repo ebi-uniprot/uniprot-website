@@ -37,9 +37,6 @@ const LatestNews = () => {
   //   'https://www.blogger.com/feeds/2163876227102975905/posts/default'
   // );
 
-  // console.log(proteinsSpotlightData.data);
-  // console.log(insideUniProtData);
-
   return (
     <HeroContainer
       className={cn(

@@ -19,6 +19,7 @@ import listFormat from '../../../shared/utils/listFormat';
 import { pluralise } from '../../../shared/utils/utils';
 import externalUrls from '../../../shared/config/externalUrls';
 import { getEntryPath } from '../../../app/config/urls';
+import * as logging from '../../../shared/utils/logging';
 
 import { UniRuleAPIModel } from '../../unirule/adapters/uniRuleConverter';
 import { ARBAAPIModel } from '../../arba/adapters/arbaConverter';
@@ -114,8 +115,10 @@ const conditionsToInfoData = (
       if ('samTrigger' in condition) {
         return samFeatureSetToInfoDatumCondition(condition);
       }
-      // eslint-disable-next-line no-console
-      console.warn('unexpected positional feature set:', condition);
+      logging.warn({
+        message: 'unexpected positional feature set',
+        data: condition,
+      });
       return { title: '', content: null };
     }
     // Tag to a positional feature
@@ -248,8 +251,7 @@ const conditionsToInfoData = (
         key,
       };
     }
-    // in case we're missing a case
-    console.warn(condition); // eslint-disable-line no-console
+    logging.warn({ message: 'missing case', data: condition });
     return { title: '', content: null };
   });
 };
@@ -490,9 +492,7 @@ const groupedAnnotation = (
       </ul>
     );
   }
-  // If we arrived here, we missed a case
-  // eslint-disable-next-line no-console
-  console.warn(`missed ${type}: `, annotations);
+  logging.warn({ message: `missing case: ${type}`, data: annotations });
   return null;
 };
 
@@ -516,8 +516,7 @@ function annotationsToInfoData(
     } else if (annotation.dbReference?.database === 'GO') {
       type = 'GO term';
     } else {
-      // in case we're missing a case
-      console.warn(annotation); // eslint-disable-line no-console
+      logging.warn({ message: 'missing case', data: annotation });
     }
     if (type) {
       const annotations = map.get(type) || [];
@@ -592,8 +591,7 @@ function annotationsToInfoData(
           ),
         });
       } else {
-        // eslint-disable-next-line no-console
-        console.warn('missed a case:', featureSet);
+        logging.warn({ message: 'missing case', data: featureSet });
       }
     }
   }
@@ -644,8 +642,10 @@ const mergeAnnotationsAndExceptions = (
   }
   // Sanity check, we used all the exceptions to assign
   if (exceptionsToAssign.length) {
-    // eslint-disable-next-line no-console
-    console.warn('exceptions left unnassigned:', exceptionsToAssign);
+    logging.warn({
+      message: 'exceptions left unnassigned',
+      data: exceptionsToAssign,
+    });
   }
   return output;
 };

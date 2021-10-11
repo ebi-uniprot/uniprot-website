@@ -57,7 +57,7 @@ const KeywordView: FC<{ keywords: KeywordUIModel[] }> = ({ keywords }) => {
     title: keywordCategory.category,
     content: <KeywordList keywords={keywordCategory.keywords} />,
   }));
-  if (infoData.length === 0) {
+  if (!infoData.length) {
     return null;
   }
   return (
