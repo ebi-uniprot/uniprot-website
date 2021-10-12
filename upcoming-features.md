@@ -7,10 +7,6 @@ This is a non exhaustive list of features which will be added to the website in 
 - The website is not responsive yet, and best viewed on laptop/desktops with a resolution above 1024x768px until then.
 - Only "modern" browsers such as Chrome, Firefox, Safari, Edge, etc... are supported. Internet Explorer is not supported.
 
-## Performance
-
-- There is a known issue with response caching (at the traffic manager level), meaning searches are not performing as
-  quickly as they should be. We are working on a solution to this.
 
 ## Homepage
 
@@ -18,7 +14,7 @@ This is a non exhaustive list of features which will be added to the website in 
 - "Tiles" will eventually point to landing pages for each resource.
 - Some of the links currently link to the current UniProt website. These links will be updated as sections are added.
 
-## Query builder
+## Advanced search
 
 - Search with genome location
 - [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-25889) Proteomes Taxonomy suggester not working for non-UniProtKB searches.
@@ -26,19 +22,20 @@ This is a non exhaustive list of features which will be added to the website in 
 ## UniProtKB Results
 
 - Nicer lineage component
+- Results Suggested terms - TRM-20293
 
 ## UniProtKB Entry
 
 - GO terms is currently using the GO Ribbons widget and displaying data from AGR. We will update this and display UniProt data instead.
-- Suggested terms - TRM-20293
+- UniSave downloads
 
 ## UniRef Results
 
 ## UniRef Entry
 
-## UniParc Results
+- Download functionality
 
-- Timeline column
+## UniParc Results
 
 ## UniParc Entry
 
@@ -48,7 +45,8 @@ This is a non exhaustive list of features which will be added to the website in 
 
 ## Proteomes Entry
 
-- Add annotation program information
+- Add annotation program information (tooltips)
+- Mismatch for protein counts and component count
 
 ## Supporting Data
 
@@ -58,7 +56,6 @@ This is a non exhaustive list of features which will be added to the website in 
 
 ## BLAST
 
-- Currently missing BLAST against UniRef/UniParc.
 - "Filter by Taxonomy" to be able to add any taxonomy node as a filter, not only suggested ones.
 - Alignment visualisation sometimes jumps by a few pixels when interacting
 
@@ -72,11 +69,11 @@ This is a non exhaustive list of features which will be added to the website in 
 
 ## Upload Lists / ID Mapping
 
-- Column selection for UniParc and UniRef results
-
 ## Tools Results (Dashboard)
 
 ## Basket
+
+- Issue with removing items from basket
 
 ## "View by" functionality (renamed to "Statistics")
 
