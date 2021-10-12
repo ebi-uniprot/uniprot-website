@@ -46,7 +46,7 @@ This is a non exhaustive list of features which will be added to the website in 
 ## Proteomes Entry
 
 - Add annotation program information (tooltips)
-- Mismatch for protein counts and component count
+- Mismatch for protein counts and component count [[jira](https://www.ebi.ac.uk/panda/jira/browse/TRM-26418)]
 
 ## Supporting Data
 
