@@ -25,16 +25,12 @@ This is a non exhaustive list of features which will be added to the website in 
 
 ## UniProtKB Results
 
-- Proteome filter
 - Nicer lineage component
-- [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-24893) Interacts with column stays empty.
 
 ## UniProtKB Entry
 
 - GO terms is currently using the GO Ribbons widget and displaying data from AGR. We will update this and display UniProt data instead.
-- Entry history.
 - Suggested terms - TRM-20293
-- [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-25578) Scroll to hash not always working (impact on protein highlights from results card).
 
 ## UniRef Results
 
@@ -56,7 +52,6 @@ This is a non exhaustive list of features which will be added to the website in 
 
 ## Supporting Data
 
-- UniRule and ARBA
 - Keywords graphical representation
 - Nicer lineage component
 - Disease cross-reference links
@@ -65,7 +60,6 @@ This is a non exhaustive list of features which will be added to the website in 
 
 - Currently missing BLAST against UniRef/UniParc.
 - "Filter by Taxonomy" to be able to add any taxonomy node as a filter, not only suggested ones.
-- Sort (TBD)
 - Alignment visualisation sometimes jumps by a few pixels when interacting
 
 ## Align
@@ -84,20 +78,17 @@ This is a non exhaustive list of features which will be added to the website in 
 
 ## Basket
 
-- Display of basket contents as table
-- Basket buttons
-
 ## "View by" functionality (renamed to "Statistics")
 
 - Not yet implemented. Looking into the possibility of doing enrichment analysis.
 
 ## Help
 
-We are working on an overhaul of the Help center.
+- Contextual help
 
 ## Programmatic Access documnentation
 
-- Not yet implemented
+- Data & APIs centre
 
 ## Release Statistics
 
