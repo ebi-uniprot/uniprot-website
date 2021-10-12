@@ -138,6 +138,11 @@
 
 .exceptions {
   float: right;
+
+  // Expection's next element (the content of the tag), any list item within
+  & ~ * li:not(:last-child) {
+    margin-bottom: $global-margin;
+  }
 }
 
 .statement {
