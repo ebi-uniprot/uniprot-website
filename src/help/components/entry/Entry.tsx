@@ -65,7 +65,7 @@ const cleanTextOptions = {
     ],
   },
   transformTags: {
-    ...getTransformTags('h3'),
+    ...getTransformTags('h1'),
     a: aTransformer,
   },
 };
@@ -138,7 +138,7 @@ const HelpEntry = () => {
         <div className={styles['last-updated-help']}>
           <small>
             {' '}
-            Last modified:{' '}
+            Page last modified:{' '}
             <time dateTime={lastModifed.toISOString()}>
               {lastModifed.toDateString()}
             </time>
