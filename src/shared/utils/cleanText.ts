@@ -7,12 +7,12 @@ import sanitizeHtml, { defaults, IOptions, Attributes } from 'sanitize-html';
 import styles from './styles/clean-text.module.scss';
 
 type HeadingLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+const headingRegexp = /h(\d)/i;
 
 const getLowerHeadingLevel = (
   initialLevel: HeadingLevels,
   currentLevel: HeadingLevels
 ) => {
-  const headingRegexp = new RegExp(/h(\d)/i);
   const initialMatch = initialLevel.match(headingRegexp);
   const currentMatch = currentLevel.match(headingRegexp);
   if (initialMatch && currentMatch) {
