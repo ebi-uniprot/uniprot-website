@@ -65,7 +65,7 @@ const cleanTextOptions = {
     ],
   },
   transformTags: {
-    ...getTransformTags('h3'),
+    ...getTransformTags('h1'),
     a: aTransformer,
   },
 };
