@@ -8,13 +8,14 @@ import Ribbon, { RibbonDataProvider } from '@geneontology/ribbon';
 
 import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
 
+import useCustomElement from '../../../shared/hooks/useCustomElement';
+
 import externalUrls from '../../../shared/config/externalUrls';
 
 import { GroupedGoTerms } from '../../adapters/functionConverter';
 
 import '@geneontology/ribbon/es/main.scss';
 import './styles/go-ribbon.scss';
-import useCustomElement from '../../../shared/hooks/useCustomElement';
 
 // The label position of each entity
 enum POSITION {
