@@ -1,16 +1,19 @@
-const path = require('path');
-const { promisify } = require('util');
+import path from 'path';
+import { promisify } from 'util';
+import { URL } from 'url';
 
-const webpack = require('webpack');
-const puppeteer = require('puppeteer');
-const express = require('express');
-const getPort = require('get-port');
+import webpack from 'webpack';
+import puppeteer from 'puppeteer';
+import express from 'express';
+import getPort, { portNumbers } from 'get-port';
 
-const webpackConfig = require('../../webpack.config');
+import webpackConfig from '../../webpack.config.js';
 
 const webpackAsync = promisify(webpack);
 
-module.exports = async () => {
+const __dirname = new URL('.', import.meta.url).pathname;
+
+export default async () => {
   global.__CODE_DIR__ = path.join(__dirname, '.tmp');
 
   // generate code through webpack
@@ -22,7 +25,7 @@ module.exports = async () => {
   const app = express();
   app.use(express.static(global.__CODE_DIR__));
 
-  const port = await getPort({ port: getPort.makeRange(8000, 8999) });
+  const port = await getPort({ port: portNumbers(8000, 8999) });
   global.__SERVER__ = app.listen(port);
 
   global.__APP_URL__ = `http://localhost:${port}/`;

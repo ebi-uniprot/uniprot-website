@@ -7,8 +7,8 @@ import { MSAInput } from '../../../components/AlignmentView';
 import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
 
 import { getEntryPath } from '../../../../app/config/urls';
+import accessionToNamespace from '../../../../shared/utils/accessionToNamespace';
 
-import { Namespace } from '../../../../shared/types/namespaces';
 import { ParsedSequenceAndFeatures } from '../../utils/useSequenceInfo';
 
 import './styles/AlignLabel.scss';
@@ -86,7 +86,9 @@ const AlignLabel: FC<AlignLabelProps> = ({
       <EntryTypeIcon entryType={before} />
       {before}
       {/* inject a link to the entry page */}
-      <Link to={getEntryPath(Namespace.uniprotkb, accession)}>{accession}</Link>
+      <Link to={getEntryPath(accessionToNamespace(accession), accession)}>
+        {accession}
+      </Link>
       {after.join(accession)}
     </button>
   );

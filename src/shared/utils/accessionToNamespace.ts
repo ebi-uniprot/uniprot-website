@@ -1,6 +1,6 @@
 import { Namespace } from '../types/namespaces';
 
-const accessionToNamespace = (accession: string): Namespace => {
+const accessionToNamespace = (accession: string) => {
   if (accession.startsWith('UniRef')) {
     return Namespace.uniref;
   }

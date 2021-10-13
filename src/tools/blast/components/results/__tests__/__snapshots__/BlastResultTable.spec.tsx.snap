@@ -14,13 +14,11 @@ exports[`BlastResultTable tests should render without any hits 1`] = `
         </th>
         <th
           class=""
-          style="width: 8rem;"
         >
           Accession
         </th>
         <th
           class=""
-          style="width: 5rem;"
         >
           Gene
         </th>
@@ -68,13 +66,11 @@ exports[`BlastResultTable tests should render, and toggle the extra HSPs 1`] = `
         </th>
         <th
           class=""
-          style="width: 8rem;"
         >
           Accession
         </th>
         <th
           class=""
-          style="width: 5rem;"
         >
           Gene
         </th>

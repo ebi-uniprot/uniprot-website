@@ -16,9 +16,11 @@
   &__item {
     display: inline-block;
     margin-right: 2rem;
+
     &--taxon-select {
       width: 20rem;
     }
+
     &--selected-taxon {
       margin-top: 1.5rem;
     }
@@ -31,6 +33,10 @@
 
     &--full-width {
       width: 100%;
+    }
+
+    &--hidden {
+      display: none;
     }
   }
 

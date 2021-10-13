@@ -53,10 +53,82 @@ exports[`FeaturesView component it renders without crashing 1`] = `
     />
     <protvista-datatable
       filter-scroll="true"
-    />
-    <div
-      class="evidence-tag-content false"
-    />
+    >
+      <table>
+        <thead>
+          <tr>
+            <th
+              data-filter="type"
+            >
+              Type
+            </th>
+            <th>
+              ID
+            </th>
+            <th>
+              Positions
+            </th>
+            <th>
+              Description
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            data-end="17"
+            data-id="0"
+            data-start="1"
+          >
+            <td
+              data-filter="type"
+              data-filter-value="Signal"
+            >
+              Signal
+            </td>
+            <td />
+            <td>
+              1-17
+            </td>
+            <td>
+              <button
+                aria-controls="1"
+                aria-expanded="false"
+                class="svg-colour-reviewed evidence-tag"
+                data-testid="evidence-tag-trigger"
+                type="button"
+              >
+                <test-file-stub
+                  height="12"
+                  width="12"
+                />
+                <span
+                  class="evidence-tag__label"
+                >
+                  3 publications
+                </span>
+              </button>
+              <div
+                class="evidence-tag-content "
+                data-testid="evidence-tag-content"
+                id="1"
+              />
+            </td>
+          </tr>
+          <tr
+            data-end="17"
+            data-group-for="0"
+            data-start="1"
+          >
+            <td>
+              <strong>
+                Sequence: 
+              </strong>
+              ASDASDASASDASDASD
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </protvista-datatable>
   </protvista-manager>
 </DocumentFragment>
 `;

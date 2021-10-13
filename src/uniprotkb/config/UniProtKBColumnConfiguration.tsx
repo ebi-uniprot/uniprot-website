@@ -70,6 +70,7 @@ import externalUrls from '../../shared/config/externalUrls';
 import { getEntryPath } from '../../app/config/urls';
 import { fromColumnConfig } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 import { sortInteractionData } from '../utils/resultsUtils';
+import * as logging from '../../shared/utils/logging';
 
 import { Namespace } from '../../shared/types/namespaces';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
@@ -275,9 +276,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.organismHosts, {
     return (
       <ExpandableList descriptionString="hosts" displayNumberOfHiddenItems>
         {organismHosts?.map((host) => (
-          <p key={host.taxonId}>
-            <TaxonomyView key={host.taxonId} data={host} />
-          </p>
+          <TaxonomyView key={host.taxonId} data={host} />
         ))}
       </ExpandableList>
     );
@@ -358,7 +357,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccMassSpectrometry, {
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ftVariant, {
   label: 'Variants',
   render: (data) => (
-    <VariationView primaryAccession={data.primaryAccession} hasTable={false} />
+    <VariationView primaryAccession={data.primaryAccession} onlyTable />
   ),
 });
 
@@ -606,6 +605,22 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSequenceCaution, {
   render: (data) => {
     const { sequenceCaution } = data[EntrySection.Sequence];
     return sequenceCaution && <SequenceCautionView data={sequenceCaution} />;
+  },
+});
+
+UniProtKBColumnConfiguration.set(UniProtKBColumn.featureCount, {
+  label: 'Features',
+  render: (data) => {
+    const counts = data?.extraAttributes?.countByFeatureType;
+    return (
+      counts && (
+        <ExpandableList displayNumberOfHiddenItems descriptionString="features">
+          {Object.keys(counts)
+            .sort()
+            .map((feature) => `${feature} (${counts[feature as FeatureType]})`)}
+        </ExpandableList>
+      )
+    );
   },
 });
 
@@ -1148,7 +1163,6 @@ const getXrefColumn = (databaseName: string) => ({
 // sc_epred:  can't see in current website
 // organelle: can't see in current website
 // cc_caution
-// feature: do we need? UX
 // similarity: this field is wrongly named in the API json (should be cc_similarity). Jira.
 // ft_non_cons
 
@@ -1158,8 +1172,7 @@ Object.values(UniProtKBColumn)
   .forEach((colName) => {
     const databaseInfo = getDatabaseInfoByName(colName.substring(3));
     if (!databaseInfo || !databaseInfo.name) {
-      /* eslint-disable no-console */
-      console.error(`No database found for ${colName}`);
+      logging.error(`No database found for ${colName}`);
       return;
     }
     UniProtKBColumnConfiguration.set(colName, getXrefColumn(databaseInfo.name));

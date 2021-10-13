@@ -87,7 +87,6 @@ module.exports = (env, argv) => {
         'franklin-sites': fs.realpathSync(
           `${__dirname}/node_modules/franklin-sites/src/components/index.ts`
         ),
-        'lit-html': path.resolve('./node_modules/lit-html'),
         // replace all usage of specific lodash submodules (from dependencies)
         // with their corresponding ES modules from lodash-es (less duplication)
         // (just looked at node_modules to see what packages were used, but
@@ -239,6 +238,9 @@ module.exports = (env, argv) => {
       new HtmlWebPackPlugin({
         template: `${__dirname}/index.html`,
         filename: 'index.html',
+        templateParameters: () => ({
+          isDev,
+        }),
       }),
       !isDev &&
         new HtmlWebPackPlugin({

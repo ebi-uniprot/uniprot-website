@@ -75,7 +75,7 @@ exports[`HomePage component should render 1`] = `
           </span>
            | 
           <a
-            href="//www.uniprot.org/statistics/?sort=published"
+            href="/help/release-statistics"
           >
             Statistics
           </a>
@@ -310,10 +310,7 @@ exports[`HomePage component should render 1`] = `
             </li>
             <li>
               <a
-                class="external-link"
-                href="https://www.uniprot.org/statistics/"
-                rel="noopener"
-                target="_blank"
+                href="/help/release-statistics"
               >
                 Statistics
               </a>

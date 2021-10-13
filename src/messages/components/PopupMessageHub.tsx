@@ -8,7 +8,7 @@ const PopUpMessageHub: FC<{
   messages: MessageType[];
   onDismiss: (id: string) => void;
 }> = ({ messages, onDismiss }) => {
-  if (messages.length <= 0) {
+  if (messages.length === 0) {
     return null;
   }
 

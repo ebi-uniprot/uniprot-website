@@ -57,7 +57,7 @@ const SimilarProteins = ({ isoforms, primaryAccession }: Props) => {
         }))
         .filter((item) => item.members.length > 1);
 
-      if (filtered.length <= 0) {
+      if (filtered.length === 0) {
         return null;
       }
 

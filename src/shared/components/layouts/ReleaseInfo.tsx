@@ -1,9 +1,11 @@
+import { Link } from 'react-router-dom';
 import { Method } from 'axios';
 import cn from 'classnames';
 
 import useDataApi from '../../hooks/useDataApi';
 
 import apiUrls from '../../config/apiUrls';
+import { getLocationEntryPath, Location } from '../../../app/config/urls';
 
 import { Namespace } from '../../types/namespaces';
 
@@ -32,18 +34,17 @@ const ReleaseInfo = () => {
         )}
       >
         {releaseNumber ? (
-          <a href="//www.uniprot.org/downloads">
-            {/* TODO: update link */}
+          <Link to={getLocationEntryPath(Location.HelpEntry, 'downloads')}>
             Release {releaseNumber}
-          </a>
+          </Link>
         ) : (
           `Release ${today.getFullYear()}_00`
         )}
       </span>
       {' | '}
-      <a href="//www.uniprot.org/statistics/?sort=published">
-        {/* TODO: update link */}Statistics
-      </a>
+      <Link to={getLocationEntryPath(Location.HelpEntry, 'release-statistics')}>
+        Statistics
+      </Link>
     </span>
   );
 };

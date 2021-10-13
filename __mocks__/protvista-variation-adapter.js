@@ -4,6 +4,7 @@ module.exports = {
     variants: [
       {
         accession: 'accessionData',
+        protvistaFeatureId: 'featureA',
         variant: 'A',
         start: 10,
         end: 10,

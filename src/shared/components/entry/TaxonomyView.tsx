@@ -1,11 +1,13 @@
 import { FC } from 'react';
-import { InfoList, ExternalLink } from 'franklin-sites';
+import { InfoList, ExternalLink, ExpandableList } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
 import SimpleView from '../views/SimpleView';
 
 import externalUrls from '../../config/externalUrls';
 import { getEntryPath } from '../../../app/config/urls';
+
+import * as logging from '../../utils/logging';
 
 import { Namespace } from '../../types/namespaces';
 
@@ -55,8 +57,7 @@ const TaxonomyView: FC<TaxonomyDataProps> = ({
 }) => {
   /* istanbul ignore if */
   if (!data.taxonId) {
-    // eslint-disable-next-line no-console
-    console.warn("No taxon ID, this shouldn't happen", data);
+    logging.warn({ message: 'No taxon ID, this should not happen', data });
     return null;
   }
   const { scientificName, commonName, taxonId, synonyms } = data;
@@ -116,13 +117,14 @@ export const TaxonomyListView: FC<{
     infoListData.push({
       title: 'Virus hosts',
       content: (
-        <>
+        <ExpandableList
+          displayNumberOfHiddenItems
+          descriptionString="virus hosts"
+        >
           {hosts.map((host) => (
-            <p key={host.taxonId}>
-              <TaxonomyView data={host} />
-            </p>
+            <TaxonomyView key={host.taxonId} data={host} />
           ))}
-        </>
+        </ExpandableList>
       ),
     });
   }

@@ -1,5 +1,7 @@
 import { Workbox } from 'workbox-window';
 
+import * as logging from '../shared/utils/logging';
+
 import { needsReload } from './reload-flag';
 
 // No need to test if serviceWorker is supported, we tested that before loading
@@ -40,8 +42,7 @@ export function register() {
     }
     // Now, we're sure it's a message from 'workbox-broadcast-update' library
     const { cacheName, updatedURL } = data.payload as UpdatePayload;
-    // eslint-disable-next-line no-console
-    console.log(
+    logging.log(
       `An update to "${updatedURL}" caused the whole "${cacheName}" cache to be dropped`
     );
     dropCache(cacheName);
@@ -81,7 +82,6 @@ export function unregister() {
       registration.unregister();
     })
     .catch((error) => {
-      // eslint-disable-next-line no-console
-      console.error(error);
+      logging.error(error);
     });
 }

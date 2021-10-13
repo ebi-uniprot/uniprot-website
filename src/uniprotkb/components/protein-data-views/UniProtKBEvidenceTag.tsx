@@ -1,9 +1,6 @@
 import { FC, Fragment } from 'react';
-import ReactDOMServer from 'react-dom/server';
 import { groupBy } from 'lodash-es';
-import { ExternalLink, EvidenceTag, EvidenceTagIcon } from 'franklin-sites';
-import { html } from 'lit-html';
-import { unsafeHTML } from 'lit-html/directives/unsafe-html';
+import { ExternalLink, EvidenceTag } from 'franklin-sites';
 import { getEvidenceCodeData, EvidenceData } from '../../config/evidenceCodes';
 import { Evidence } from '../../types/modelTypes';
 import UniProtKBEntryPublications from './UniProtKBEntryPublications';
@@ -20,7 +17,7 @@ export const UniProtEvidenceTagContent: FC<{
   evidenceData: EvidenceData;
   evidences: Evidence[] | undefined;
 }> = ({ evidenceData, evidences }) => {
-  if (!evidences || evidences.length === 0) {
+  if (!evidences?.length) {
     return null;
   }
   const groupedEvidences =
@@ -103,46 +100,6 @@ const UniProtKBEvidenceTag = ({ evidences }: { evidences?: Evidence[] }) => {
     }
   );
   return <>{evidenceTags}</>;
-};
-
-export const UniProtProtvistaEvidenceTag = (
-  evidences: Evidence[],
-  callback: (evidenceData: EvidenceData, references: Evidence[]) => void
-) => {
-  const size = 12;
-  const evidenceObj = groupBy(evidences, (evidence) => evidence.evidenceCode);
-  const evidenceTags = Object.entries(evidenceObj).map(
-    ([evidenceCode, references]) => {
-      if (!evidenceCode) {
-        return html``;
-      }
-      const evidenceData = getEvidenceCodeData(evidenceCode);
-      if (!evidenceData) {
-        // Unlike React, lit-html always expects an html template, not null.
-        return html``;
-      }
-      return html`
-        <span
-          class=${`evidence-tag ${
-            evidenceData.manual
-              ? 'svg-colour-reviewed'
-              : 'svg-colour-unreviewed'
-          }`}
-          @click=${() => callback(evidenceData, references)}
-        >
-          ${unsafeHTML(
-            ReactDOMServer.renderToStaticMarkup(
-              <EvidenceTagIcon width={size} height={size} />
-            )
-          )}
-          ${evidenceData.labelRender
-            ? evidenceData.labelRender(references)
-            : evidenceData.label}</span
-        >
-      `;
-    }
-  );
-  return evidenceTags;
 };
 
 export default UniProtKBEvidenceTag;

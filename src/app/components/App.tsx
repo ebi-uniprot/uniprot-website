@@ -24,7 +24,7 @@ import './styles/app.scss';
 if (process.env.NODE_ENV !== 'development') {
   import(/* webpackChunkName: "sentry" */ '@sentry/browser').then((module) => {
     module.init({
-      dsn: 'https://be99e24b352b42019d5b9f53dd7b68c3@sentry.io/1770286',
+      dsn: 'https://474bb7c44e8b4a99ba4e408b5a64569b@o308327.ingest.sentry.io/5996901',
     });
   });
 }
@@ -378,7 +378,7 @@ const App = () => {
                 path={LocationToPath[Location.HelpResults]}
                 component={ResultsOrLanding(HelpResults, HelpLandingPage)}
               />
-              {/* Catch-all handler -> Redirect or not found */}
+              {/* Catch-all handler -> Redirect or not found use ResourceNotFoundPage */}
               <Route
                 path="*"
                 render={() => (
