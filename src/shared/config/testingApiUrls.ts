@@ -20,26 +20,26 @@ const joinUrlForApiTesting = (prefix: string, ...paths: string[]) => {
   const apiTestingProtocolDomain = (port: number) =>
     `http://hx-rke-wp-webadmin-02-worker-1.caas.ebi.ac.uk:${port}/uniprot/beta/api`;
   const endpointToPort = {
-    uniprotkb: 32545,
-    uniref: 30157,
-    uniparc: 30092,
-    proteomes: 31114,
-    unisave: 31045,
+    uniprotkb: 30363,
+    uniref: 30191,
+    uniparc: 30175,
+    proteomes: 30839,
+    unisave: 30243,
     // supporting data
-    taxonomy: 30510,
-    keywords: 30510,
-    citations: 30510,
-    diseases: 30510,
-    database: 30510,
-    locations: 30510,
+    taxonomy: 31095,
+    keywords: 31095,
+    citations: 31095,
+    diseases: 31095,
+    database: 31095,
+    locations: 31095,
     // tools
-    idmapping: 30361,
+    idmapping: 31369,
     // other
-    help: 31684,
+    help: 31838,
     genecentric: 8092,
     arba: 32137,
     unirule: 32137,
-    configure: 30510,
+    configure: 31095,
   };
   let newPrefix = prefix;
   if (apiTesting && prefix === apiPrefix && paths?.[0]) {
