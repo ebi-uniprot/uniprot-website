@@ -2,6 +2,8 @@ import { useEffect, useRef } from 'react';
 
 import useSafeState from './useSafeState';
 
+import * as logging from '../utils/logging';
+
 const useCustomElement = (
   customElementGetter: () => Promise<{ default: CustomElementConstructor }>,
   name: string
@@ -36,8 +38,7 @@ const useCustomElement = (
         }
         setDefined(true);
       })
-      // eslint-disable-next-line no-console
-      .catch((error) => console.error(error));
+      .catch((error) => logging.error(error));
   }, [name, setDefined]);
 
   return defined;

@@ -33,7 +33,7 @@ import FacebookLogo from '../../../images/facebook-logo.svg';
 import traingImg from '../../../images/training.jpg';
 
 const urlEBISearch =
-  'https://www.ebi.ac.uk/ebisearch/ws/rest/ebiweb_training_events?query=timeframe:upcoming AND resources:UniProt The Universal Protein Resource 5544&facets=status:Open&format=json&fieldurl=true&viewurl=true&fields=title,subtitle,description,location,city,country,venue,date_time_clean,start_date,end_date,status&size=1';
+  'https://www.ebi.ac.uk/ebisearch/ws/rest/ebiweb_training_events?query=timeframe:upcoming AND resources:UniProt The Universal Protein Resource 5544&facets=status:Open&format=json&fieldurl=true&viewurl=true&fields=title,subtitle,description,location,city,country,venue,date_time_clean,start_date,end_date,status&size=1&sort=start_date';
 // corresponding schema
 export type PayloadEBISearch = {
   hitCount: number;

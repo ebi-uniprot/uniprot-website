@@ -54,8 +54,7 @@ the `unregister` function instead of the `register` function.
 
 ### Build Scripts
 
-| Build script    | Use                               |
-| --------------- | --------------------------------- |
-| `build:prod`    | Web Production Kubernetes cluster |
-| `build:staging` | GitHub Pages                      |
-| `build:dev`     | Debugging service workers         |
+| Build script | Use                               |
+| ------------ | --------------------------------- |
+| `build:prod` | Web Production Kubernetes cluster |
+| `build:dev`  | Debugging service workers         |

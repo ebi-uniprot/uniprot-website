@@ -7,6 +7,7 @@ import {
   generatePath,
 } from 'react-router-dom';
 import { Loader, PageIntro, Tabs, Tab } from 'franklin-sites';
+import cn from 'classnames';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
@@ -30,20 +31,24 @@ import {
   filterBlastDataForResults,
   filterBlastByFacets,
 } from '../../utils/blastFacetDataUtils';
+import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
 
 import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
 
 import { Location, LocationToPath } from '../../../../app/config/urls';
 import toolsURLs from '../../../config/urls';
 import { getAccessionsURL } from '../../../../shared/config/apiUrls';
-import { namespaceAndToolsLabels } from '../../../../shared/types/namespaces';
 
+import {
+  Namespace,
+  namespaceAndToolsLabels,
+} from '../../../../shared/types/namespaces';
 import { BlastResults, BlastHit } from '../../types/blastResults';
-import Response from '../../../../uniprotkb/types/responseTypes';
 import { JobTypes } from '../../../types/toolsJobTypes';
 import { PublicServerParameters } from '../../types/blastServerParameters';
-// what we import are types, even if they are in adapter file
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
+import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
+import { UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
 
 import helper from '../../../../shared/styles/helper.module.scss';
 import sticky from '../../../../shared/styles/sticky.module.scss';
@@ -144,23 +149,29 @@ const useParamsData = (
 
 // probably going to change with the custom endpoint to enrich data, so keep it
 // here for now, enventually might be a new type in a type folder
-export type EnrichedBlastHit = BlastHit & { extra?: UniProtkbAPIModel };
+export type EnrichedBlastHit = BlastHit & {
+  extra?: UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel;
+};
 
 export interface EnrichedData extends BlastResults {
   hits: Array<EnrichedBlastHit>;
 }
 
-const enrich = (
+export const enrich = (
   blastData?: BlastResults,
-  apiData?: Response['data']
+  apiData?: {
+    results: Array<UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel>;
+  },
+  namespace?: Namespace
 ): EnrichedData | null => {
   if (!(blastData && apiData)) {
     return null;
   }
   const output: EnrichedData = { ...blastData };
+  const getIdKey = namespace && getIdKeyFor(namespace);
   output.hits = output.hits.map((hit) => {
     const extra = (apiData.results as UniProtkbAPIModel[]).find(
-      (entry) => hit.hit_acc === entry.primaryAccession
+      (entry) => hit.hit_acc === getIdKey?.(entry)
     );
     return {
       ...hit,
@@ -228,17 +239,25 @@ const BlastResult = () => {
     [hitsFilteredByLocalFacets]
   );
 
+  let namespace = Namespace.uniprotkb;
+  if (blastData?.dbs[0].name.startsWith('uniref')) {
+    namespace = Namespace.uniref;
+  } else if (blastData?.dbs[0].name === 'uniparc') {
+    namespace = Namespace.uniparc;
+  }
+
   // get data from accessions endpoint with facets applied
-  const { loading: accessionsLoading, data: accessionsData } = useDataApi<
-    Response['data']
-  >(
+  const { loading: accessionsLoading, data: accessionsData } = useDataApi<{
+    results: Array<UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel>;
+  }>(
     useMemo(
       () =>
         getAccessionsURL(accessionsFilteredByLocalFacets, {
+          namespace,
           selectedFacets: urlParams.selectedFacets,
           facets: [],
         }),
-      [accessionsFilteredByLocalFacets, urlParams.selectedFacets]
+      [accessionsFilteredByLocalFacets, namespace, urlParams.selectedFacets]
     )
   );
 
@@ -249,8 +268,8 @@ const BlastResult = () => {
     filterBlastDataForResults(blastData, urlParams.selectedFacets);
 
   const data = useMemo(
-    () => enrich(filteredBlastData || undefined, accessionsData),
-    [filteredBlastData, accessionsData]
+    () => enrich(filteredBlastData || undefined, accessionsData, namespace),
+    [filteredBlastData, accessionsData, namespace]
   );
 
   // Hits filtered out by server facets don't have "extra"
@@ -278,6 +297,7 @@ const BlastResult = () => {
       <BlastResultSidebar
         accessions={accessionsFilteredByLocalFacets}
         allHits={blastData.hits}
+        namespace={namespace}
       />
     </ErrorBoundary>
   );
@@ -334,6 +354,7 @@ const BlastResult = () => {
               Overview
             </Link>
           }
+          cache
         >
           {actionBar}
           <Suspense fallback={<Loader />}>
@@ -351,18 +372,23 @@ const BlastResult = () => {
                 selectedEntries={selectedEntries}
                 handleEntrySelection={handleEntrySelection}
                 setHspDetailPanel={setHspDetailPanel}
+                namespace={namespace}
               />
             </ErrorBoundary>
           </Suspense>
         </Tab>
         <Tab
           id={TabLocation.Taxonomy}
+          className={cn({
+            [helper.disabled]: namespace !== Namespace.uniprotkb,
+          })}
           title={
             <Link
               to={(location) => ({
                 ...location,
                 pathname: `/blast/${match.params.id}/${TabLocation.Taxonomy}`,
               })}
+              tabIndex={namespace !== Namespace.uniprotkb ? -1 : undefined}
             >
               Taxonomy
             </Link>
@@ -456,6 +482,7 @@ const BlastResult = () => {
         <HSPDetailPanel
           {...hspDetailPanel}
           onClose={() => setHspDetailPanel(null)}
+          loading={accessionsLoading}
         />
       )}
     </SideBarLayout>

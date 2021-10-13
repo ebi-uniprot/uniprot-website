@@ -8,10 +8,11 @@
     <!-- This will have to be removed for production (configure in webpack) ------------>
     <!-- also will have to visit https://support.google.com/webmasters/answer/9012289 -->
     <meta name="robots" content="noindex" />
+    <% if (!isDev) { %>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script
       async
-      src="https://www.googletagmanager.com/gtag/js?id=UA-138245376-1"
+      src="https://www.googletagmanager.com/gtag/js?id=UA-6228219-2"
     ></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -20,9 +21,9 @@
       }
       gtag('js', new Date());
 
-      gtag('config', 'UA-138245376-1');
+      gtag('config', 'UA-6228219-2');
     </script>
-    <!-- Hotjar Tracking Code for https://ebi-uniprot.github.io/uniprot-website/ -->
+    <!-- Hotjar Tracking Code for https://beta.uniprot.org -->
     <script>
       (function (h, o, t, j, a, r) {
         h.hj =
@@ -30,7 +31,7 @@
           function () {
             (h.hj.q = h.hj.q || []).push(arguments);
           };
-        h._hjSettings = { hjid: 2323801, hjsv: 6 };
+        h._hjSettings = { hjid: 2638207, hjsv: 6 };
         a = o.getElementsByTagName('head')[0];
         r = o.createElement('script');
         r.async = 1;
@@ -38,43 +39,7 @@
         a.appendChild(r);
       })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
     </script>
-    <!-- Start Single Page Apps for GitHub Pages -->
-    <script type="text/javascript">
-      // Single Page Apps for GitHub Pages
-      // https://github.com/rafrex/spa-github-pages
-      // Copyright (c) 2016 Rafael Pedicini, licensed under the MIT License
-      // ----------------------------------------------------------------------
-      // This script checks to see if a redirect is present in the query string
-      // and converts it back into the correct url and adds it to the
-      // browser's history using window.history.replaceState(...),
-      // which won't cause the browser to attempt to load the new url.
-      // When the single page app is loaded further down in this file,
-      // the correct url will be waiting in the browser's history for
-      // the single page app to route accordingly.
-      (function (l) {
-        if (l.search) {
-          var q = {};
-          l.search
-            .slice(1)
-            .split('&')
-            .forEach(function (v) {
-              var a = v.split('=');
-              q[a[0]] = a.slice(1).join('=').replace(/~and~/g, '&');
-            });
-          if (q.p !== undefined) {
-            window.history.replaceState(
-              null,
-              null,
-              l.pathname.slice(0, -1) +
-                (q.p || '') +
-                (q.q ? '?' + q.q : '') +
-                l.hash
-            );
-          }
-        }
-      })(window.location);
-    </script>
-    <!-- End Single Page Apps for GitHub Pages -->
+    <% } %>
   </head>
 
   <body>

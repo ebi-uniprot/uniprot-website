@@ -21,11 +21,16 @@ import useCustomElement from '../../../../shared/hooks/useCustomElement';
 
 import { getEntryPath } from '../../../../app/config/urls';
 
-import { Namespace } from '../../../../shared/types/namespaces';
+import {
+  Namespace,
+  SearchableNamespace,
+} from '../../../../shared/types/namespaces';
 
 import { EnrichedBlastHit } from './BlastResult';
 import { BlastResults, BlastHsp, BlastHit } from '../../types/blastResults';
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
+import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
+import { UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
 
 import colors from '../../../../../node_modules/franklin-sites/src/styles/colours.json';
 import './styles/BlastResultTable.scss';
@@ -44,7 +49,7 @@ const scoringColorDict: Partial<Record<keyof BlastHsp, string>> = {
 
 const BlastSummaryTrack: FC<{
   hsp: BlastHsp;
-  extra?: UniProtkbAPIModel;
+  extra?: UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel;
   queryLength: number;
   hitLength: number;
   setHspDetailPanel: (props: HSPDetailPanelProps) => void;
@@ -172,7 +177,7 @@ const BlastSummaryHsps: FC<{
   queryLength: number;
   hitLength: number;
   hitAccession: string;
-  extra?: UniProtkbAPIModel;
+  extra?: UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel;
   setHspDetailPanel: (props: HSPDetailPanelProps) => void;
   selectedScoring: keyof BlastHsp;
   setSelectedScoring: Dispatch<SetStateAction<keyof BlastHsp>>;
@@ -239,18 +244,28 @@ const BlastSummaryHsps: FC<{
   );
 };
 
+type ColumnRenderer = {
+  label: ReactNode;
+  render: (hit: BlastHit | EnrichedBlastHit) => ReactNode;
+  name: string;
+  width?: string;
+  ellipsis?: boolean;
+};
+
 const BlastResultTable: FC<{
   data: BlastResults | null;
   selectedEntries: string[];
   handleEntrySelection: (rowId: string) => void;
   setHspDetailPanel: (props: HSPDetailPanelProps) => void;
   loading: boolean;
+  namespace: SearchableNamespace;
 }> = ({
   data,
   selectedEntries,
   handleEntrySelection,
   setHspDetailPanel,
   loading,
+  namespace,
 }) => {
   // logic to keep stale data available
   const hitsRef = useRef<BlastHit[]>([]);
@@ -320,43 +335,34 @@ const BlastResultTable: FC<{
   }, [data]);
 
   const queryLen = data?.query_len;
-  const columns = useMemo<
-    Array<{
-      label: ReactNode;
-      name: string;
-      render: (hit: BlastHit | EnrichedBlastHit) => ReactNode;
-      width?: string;
-      ellipsis?: boolean;
-    }>
-  >(() => {
+  const columns = useMemo<Array<ColumnRenderer>>(() => {
     if (queryLen === undefined) {
       return [];
     }
-    return [
-      {
-        label: 'Accession',
-        name: 'accession',
-        render: ({ hit_acc, hit_db }) => (
-          <Link to={getEntryPath(Namespace.uniprotkb, hit_acc)}>
-            <EntryTypeIcon entryType={hit_db} />
-            {hit_acc}
-          </Link>
-        ),
-        width: '8rem',
-      },
-      {
+    const columns: Array<ColumnRenderer> = [];
+    columns.push({
+      label: 'Accession',
+      name: 'accession',
+      render: ({ hit_acc, hit_db }) => (
+        <Link to={getEntryPath(namespace, hit_acc)}>
+          <EntryTypeIcon entryType={hit_db} />
+          {hit_acc}
+        </Link>
+      ),
+    });
+    if (namespace === Namespace.uniprotkb) {
+      columns.push({
         label: 'Gene',
         name: 'gene',
         render: ({ hit_uni_gn }) => hit_uni_gn,
-        width: '5rem',
-      },
-      {
+      });
+      columns.push({
         label: 'Protein',
-        name: 'protein_name',
+        name: 'protein',
         render: ({ hit_uni_de }) => hit_uni_de,
         ellipsis: true,
-      },
-      {
+      });
+      columns.push({
         label: 'Organism',
         name: 'organism',
         render: ({ hit_uni_ox, hit_uni_os }) => (
@@ -365,40 +371,72 @@ const BlastResultTable: FC<{
           </Link>
         ),
         ellipsis: true,
-      },
-      {
-        label: (
-          <div className="query-sequence-wrapper">
-            <protvista-navigation
-              ref={queryColumnHeaderRef}
-              length={queryLen}
-              title="Query"
-            />
-          </div>
-        ),
-        name: 'alignment',
-        width: '40vw',
-        render: (hit) => (
-          <BlastSummaryHsps
-            hsps={hit.hit_hsps}
-            queryLength={queryLen}
-            hitLength={hit.hit_len}
-            hitAccession={hit.hit_acc}
-            setHspDetailPanel={setHspDetailPanel}
-            extra={'extra' in hit ? hit.extra : undefined}
-            selectedScoring={selectedScoring}
-            setSelectedScoring={setSelectedScoring}
-            maxScorings={maxScorings}
+      });
+    } else if (namespace === Namespace.uniref) {
+      columns.push({
+        label: 'Cluster name',
+        name: 'cluster_name',
+        render: (data) =>
+          'extra' in data &&
+          data.extra &&
+          'name' in data.extra &&
+          data.extra.name.replace('Cluster: ', ''),
+        ellipsis: true,
+      });
+      columns.push({
+        label: 'Common taxon',
+        name: 'common_taxon',
+        render: (data) =>
+          'extra' in data &&
+          data.extra &&
+          'commonTaxon' in data.extra && (
+            <Link
+              to={getEntryPath(
+                Namespace.taxonomy,
+                data.extra.commonTaxon.taxonId
+              )}
+            >
+              {data.extra.commonTaxon.scientificName}
+            </Link>
+          ),
+        ellipsis: true,
+      });
+    }
+    columns.push({
+      label: (
+        <div className="query-sequence-wrapper">
+          <protvista-navigation
+            ref={queryColumnHeaderRef}
+            length={queryLen}
+            title="Query"
           />
-        ),
-      },
-    ];
+        </div>
+      ),
+      name: 'alignment',
+      width: '40vw',
+      render: (hit) => (
+        <BlastSummaryHsps
+          hsps={hit.hit_hsps}
+          queryLength={queryLen}
+          hitLength={hit.hit_len}
+          hitAccession={hit.hit_acc}
+          setHspDetailPanel={setHspDetailPanel}
+          extra={'extra' in hit ? hit.extra : undefined}
+          selectedScoring={selectedScoring}
+          setSelectedScoring={setSelectedScoring}
+          maxScorings={maxScorings}
+        />
+      ),
+    });
+
+    return columns;
   }, [
     queryLen,
     queryColumnHeaderRef,
     setHspDetailPanel,
     selectedScoring,
     maxScorings,
+    namespace,
   ]);
 
   if (loading && !hitsRef.current.length) {

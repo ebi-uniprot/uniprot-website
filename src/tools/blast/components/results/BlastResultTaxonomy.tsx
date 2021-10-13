@@ -47,17 +47,23 @@ const TaxItem: FC<TaxItemProps> = ({ taxNode, ratio }) => {
   );
 };
 
-const isDefined = (value: string | undefined): value is string =>
-  value !== undefined;
+const isDefined = (value: string | false | undefined): value is string =>
+  Boolean(value);
 
-const BlastResultToolInput: FC<{ data: EnrichedData | null }> = ({ data }) => {
+// Only works for UniProtKB results at the moment
+const BlastResultTaxonomy: FC<{ data: EnrichedData | null }> = ({ data }) => {
   const tree = useMemo(() => {
     const lineages = ((data || {}).hits || [])
       // extract lineages and do copy (to not mess up the original)
       .map((hit) =>
         [
-          ...((hit?.extra?.organism?.lineage as string[]) ?? []),
-          hit.extra?.organism?.scientificName,
+          ...((hit.extra &&
+            'organism' in hit.extra &&
+            (hit.extra?.organism?.lineage as string[])) ||
+            []),
+          hit.extra &&
+            'organism' in hit.extra &&
+            hit.extra?.organism?.scientificName,
         ].filter(isDefined)
       );
     return arrayOfLineagesToTree(lineages);
@@ -79,4 +85,4 @@ const BlastResultToolInput: FC<{ data: EnrichedData | null }> = ({ data }) => {
   );
 };
 
-export default BlastResultToolInput;
+export default BlastResultTaxonomy;

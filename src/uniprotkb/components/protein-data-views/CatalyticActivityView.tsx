@@ -17,6 +17,8 @@ import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import { Location, LocationToPath } from '../../../app/config/urls';
 import externalUrls from '../../../shared/config/externalUrls';
 
+import * as logging from '../../../shared/utils/logging';
+
 import {
   CatalyticActivityComment,
   PhysiologicalReactionDirection,
@@ -166,8 +168,7 @@ export const ReactionDirection: FC<ReactionDirectionProps> = ({
     return null;
   }
   if (physiologicalReactions.length > 2) {
-    // eslint-disable-next-line no-console
-    console.error(
+    logging.error(
       'More than two physiological reactions encountered when rendering catalytic activity'
     );
     return null;
@@ -199,11 +200,13 @@ export const ReactionDirection: FC<ReactionDirectionProps> = ({
 type CatalyticActivityProps = {
   comments?: CatalyticActivityComment[];
   title?: string;
+  defaultHideAllReactions?: boolean;
 };
 
 const CatalyticActivityView: FC<CatalyticActivityProps> = ({
   comments,
   title,
+  defaultHideAllReactions = false,
 }) => {
   if (!comments || !comments.length) {
     return null;
@@ -272,7 +275,9 @@ const CatalyticActivityView: FC<CatalyticActivityProps> = ({
                 </div>
                 <RheaReactionVisualizer
                   rheaId={rheaId}
-                  show={rheaId === firstRheaId}
+                  show={
+                    defaultHideAllReactions ? false : rheaId === firstRheaId
+                  }
                 />
               </>
             )}

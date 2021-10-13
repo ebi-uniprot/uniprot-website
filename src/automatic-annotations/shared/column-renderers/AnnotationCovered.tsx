@@ -1,5 +1,7 @@
 import { ExpandableList } from 'franklin-sites';
 
+import * as logging from '../../../shared/utils/logging';
+
 import { ARBAAPIModel } from '../../arba/adapters/arbaConverter';
 import { UniRuleAPIModel } from '../../unirule/adapters/uniRuleConverter';
 
@@ -8,6 +10,7 @@ const AnnotationCovered = ({
 }: Partial<UniRuleAPIModel | ARBAAPIModel>) => {
   const annotations = new Set<string>();
 
+  // See similar logic in ConditionsAnnotations.tsx, annotationsToInfoData function
   for (const annotation of mainRule?.annotations || []) {
     if ('keyword' in annotation) {
       annotations.add('keyword');
@@ -18,10 +21,10 @@ const AnnotationCovered = ({
     } else if (annotation.comment?.commentType) {
       annotations.add(annotation.comment?.commentType.toLowerCase());
     } else if (annotation.dbReference?.database === 'GO') {
-      annotations.add('GO (Gene Ontology) term');
+      annotations.add('GO term');
     } else {
       // in case we're missing a case
-      console.warn(annotation); // eslint-disable-line no-console
+      logging.warn(annotation);
     }
   }
 

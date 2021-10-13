@@ -1,13 +1,15 @@
-/* eslint-disable no-console */
 // TODO: eventually delete this file
 import urlJoin from 'url-join';
+
+import * as logging from '../utils/logging';
+
 import { apiPrefix } from './apiUrls';
 
 // set to true if testing new API changes
 const apiTesting = false;
 
 if (apiTesting) {
-  console.warn('❗❗❗ USING API TESTING ENDPOINT - DO NOT USE IN PRODUCTION');
+  logging.warn('❗❗❗ USING API TESTING ENDPOINT - DO NOT USE IN PRODUCTION');
 }
 
 const joinUrlForApiTesting = (prefix: string, ...paths: string[]) => {
@@ -48,7 +50,7 @@ const joinUrlForApiTesting = (prefix: string, ...paths: string[]) => {
       const port = endpointToPort[endpoint];
       newPrefix = apiTestingProtocolDomain(port);
     } else {
-      console.error(`${endpoint} not in endpointToPort mapping`);
+      logging.error(`${endpoint} not in endpointToPort mapping`);
     }
   }
   return urlJoin(newPrefix, ...paths);
