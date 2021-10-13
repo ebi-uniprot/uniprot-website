@@ -20,9 +20,9 @@ const joinUrlForApiTesting = (prefix: string, ...paths: string[]) => {
   const apiTestingProtocolDomain = (port: number) =>
     `http://hx-rke-wp-webadmin-02-worker-1.caas.ebi.ac.uk:${port}/uniprot/beta/api`;
   const endpointToPort = {
-    uniprotkb: 30363,
-    uniref: 30191,
-    uniparc: 30175,
+    uniprotkb: 31102,
+    uniref: 30644,
+    uniparc: 31105,
     proteomes: 30839,
     unisave: 30243,
     // supporting data
