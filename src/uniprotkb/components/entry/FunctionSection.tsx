@@ -230,10 +230,12 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
       <FeaturesView features={data.featuresData} sequence={sequence} />
       <ErrorBoundary>
         <Suspense fallback={<Loader />}>
-          <GoRibbon primaryAccession={primaryAccession} />
+          <GoRibbon
+            primaryAccession={primaryAccession}
+            goTerms={data.goTerms}
+          />
         </Suspense>
       </ErrorBoundary>
-      {/* {data.goTerms && <GOView data={data.goTerms} />} removed for now */}
       <KeywordView keywords={data.keywordData} />
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
     </Card>

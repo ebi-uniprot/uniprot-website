@@ -3741,7 +3741,100 @@ exports[`Entry view should render for non-human entry 1`] = `
         </protvista-manager>
         <div
           class="GoRibbon"
-        />
+        >
+          <protvista-datatable>
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    Aspect
+                  </th>
+                  <th>
+                    Term
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    Molecular Function
+                  </td>
+                  <td>
+                    <a
+                      class="external-link"
+                      href="//www.ebi.ac.uk/QuickGO/term/GO:0016798"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      hydrolase activity, acting on glycosyl bonds
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Molecular Function
+                  </td>
+                  <td>
+                    <a
+                      class="external-link"
+                      href="//www.ebi.ac.uk/QuickGO/term/GO:0046872"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      metal ion binding
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Molecular Function
+                  </td>
+                  <td>
+                    <a
+                      class="external-link"
+                      href="//www.ebi.ac.uk/QuickGO/term/GO:0047157"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      myelin-proteolipid O-palmitoyltransferase activity
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Biological Process
+                  </td>
+                  <td>
+                    <a
+                      class="external-link"
+                      href="//www.ebi.ac.uk/QuickGO/term/GO:0008152"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      metabolic process
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </protvista-datatable>
+        </div>
         <h3>
           Keywords
         </h3>

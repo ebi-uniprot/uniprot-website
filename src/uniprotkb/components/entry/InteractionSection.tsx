@@ -34,14 +34,16 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
   const datatableDefined = useCustomElement(
     /* istanbul ignore next */
     () =>
-      import(/* webpackChunkName: "protvista-track" */ 'protvista-datatable'),
+      import(
+        /* webpackChunkName: "protvista-datatable" */ 'protvista-datatable'
+      ),
     'protvista-datatable'
   );
 
   const interactionViewerDefined = useCustomElement(
     /* istanbul ignore next */
     () =>
-      import(/* webpackChunkName: "protvista-track" */ 'interaction-viewer'),
+      import(/* webpackChunkName: "interaction-viewer" */ 'interaction-viewer'),
     'interaction-viewer'
   );
 
