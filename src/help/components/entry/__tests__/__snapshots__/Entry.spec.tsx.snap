@@ -210,7 +210,7 @@ exports[`Help entry tests should render the Entry component 1`] = `
         class="last-updated-help"
       >
         <small>
-           Last modified: 
+           Page last modified: 
           <time
             datetime="2021-07-16T00:00:00.000Z"
           >
