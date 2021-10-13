@@ -138,7 +138,7 @@ const HelpEntry = () => {
         <div className={styles['last-updated-help']}>
           <small>
             {' '}
-            Last modified:{' '}
+            Page last modified:{' '}
             <time dateTime={lastModifed.toISOString()}>
               {lastModifed.toDateString()}
             </time>
