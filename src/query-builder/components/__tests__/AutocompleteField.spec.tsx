@@ -1,22 +1,10 @@
 import { render, screen } from '@testing-library/react';
-import urlJoin from 'url-join';
 
 import AutocompleteField from '../AutocompleteField';
 
-import { DataType, FieldType, ItemType } from '../../types/searchTypes';
-import apiUrls, { apiPrefix } from '../../../shared/config/apiUrls';
+import { idToSearchTerm } from './__mocks__/configureSearchTerms';
 
-const field = {
-  id: 'organism_name_field',
-  label: 'Organism [OS]',
-  itemType: ItemType.single,
-  term: 'organism_name',
-  dataType: DataType.string,
-  fieldType: FieldType.general,
-  example: 'saccharomyces',
-  autoComplete: urlJoin(apiPrefix, apiUrls.organismSuggester),
-  autoCompleteQueryTerm: 'organism_id',
-};
+const field = idToSearchTerm.organism_name_field;
 
 describe('AutocompleteField', () => {
   test('Autocomplete field should be initialised with id', () => {

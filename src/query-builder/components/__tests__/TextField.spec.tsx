@@ -1,25 +1,25 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 
-import TextField from '../TextField';
-
-import { DataType, FieldType, ItemType } from '../../types/searchTypes';
+import TextField, { TextFieldTypes } from '../TextField';
 
 describe('TextField', () => {
-  const props = {
+  const props: TextFieldTypes = {
     field: {
-      id: 'uniprot_ac',
+      id: 'accession_field',
       label: 'UniProtKB AC',
-      itemType: ItemType.single,
+      itemType: 'single',
       term: 'accession',
-      description: 'Search by UniProtKB Accession',
+      dataType: 'string',
+      fieldType: 'general',
       example: 'P12345',
+      regex:
+        '(?i)([OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z]([0-9][A-Z][A-Z0-9]{2}){1,2}[0-9])(-[0-9]+)?',
     },
-    type: 'text',
     handleChange: jest.fn(),
   };
 
   beforeEach(() => {
-    props.handleChange.mockReset();
+    (props.handleChange as jest.Mock).mockReset();
   });
 
   test('should render', () => {
@@ -42,16 +42,16 @@ describe('TextField', () => {
   });
 
   test("should generate correct query for 'All'", () => {
-    const propsAll = {
+    const propsAll: TextFieldTypes = {
       field: {
-        id: 'all',
         label: 'All',
-        itemType: ItemType.single,
         term: 'All',
-        description: 'Search by UniProtKB Accession',
-        example: 'All',
+        example: 'a4_human, P05067, cdc7 human',
+        itemType: 'single',
+        dataType: 'string',
+        fieldType: 'general',
+        id: 'id_all',
       },
-      type: 'text',
       handleChange: jest.fn(),
     };
     render(<TextField {...propsAll} />);
@@ -70,13 +70,12 @@ describe('TextField', () => {
   });
 
   test('should generate correct query with prefix', () => {
-    const propsPrefix = {
+    const propsPrefix: TextFieldTypes = {
       field: {
         id: 'prefix',
         label: 'prefixed',
-        itemType: ItemType.single,
+        itemType: 'single',
         term: 'prefixed_q',
-        description: 'Search by UniProtKB Accession',
         example: 'Prefix',
         valuePrefix: 'value-',
       },
@@ -100,17 +99,16 @@ describe('TextField', () => {
   });
 
   test('should generate correct query for database *', () => {
-    const propsPrefix = {
+    const propsPrefix: TextFieldTypes = {
       field: {
-        id: 'prefix',
-        label: 'prefixed',
-        itemType: ItemType.single,
+        id: 'xref_embl',
+        label: 'EMBL',
+        itemType: 'single',
         term: 'xref',
-        description: 'Search by UniProtKB Accession',
-        example: 'Prefix',
+        dataType: 'string',
+        fieldType: 'general',
         valuePrefix: 'embl-',
       },
-      type: 'text',
       handleChange: jest.fn(),
     };
     render(<TextField {...propsPrefix} />);
@@ -128,14 +126,14 @@ describe('TextField', () => {
   });
 
   test('should validate initial query with regex', () => {
-    const propsPrefix = {
+    const propsPrefix: TextFieldTypes = {
       field: {
         id: 'proteome',
         label: 'Proteome ID',
-        itemType: ItemType.single,
+        itemType: 'single',
         term: 'proteome',
-        dataType: DataType.string,
-        fieldType: FieldType.general,
+        dataType: 'string',
+        fieldType: 'general',
         example: 'UP000005640',
         regex: '(?i)^UP[0-9]{9}$',
       },

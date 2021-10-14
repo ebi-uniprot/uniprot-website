@@ -2,28 +2,10 @@ import { render, screen, fireEvent } from '@testing-library/react';
 
 import EnumField from '../EnumField';
 
-import { DataType, ItemType } from '../../types/searchTypes';
+import { idToSearchTerm } from './__mocks__/configureSearchTerms';
 
 const props = {
-  field: {
-    id: 'protein_existence',
-    label: 'Protein Existence [PE]',
-    itemType: ItemType.single,
-    term: 'existence',
-    dataType: DataType.enum,
-    values: [
-      {
-        name: 'Evidence at protein level',
-        value: '1',
-      },
-      {
-        name: 'Evidence at transcript level',
-        value: '2',
-      },
-    ],
-    description: 'Search by protein existence',
-    example: '1',
-  },
+  field: idToSearchTerm.existence,
   handleChange: jest.fn(),
   queryInput: { stringValue: '1' },
 };

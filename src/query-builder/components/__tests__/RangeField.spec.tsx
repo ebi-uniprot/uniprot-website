@@ -5,20 +5,12 @@ import {
   RenderResult,
 } from '@testing-library/react';
 
-import RangeField from '../RangeField';
+import RangeField, { RangeFieldProps } from '../RangeField';
 
-import { DataType, FieldType, ItemType } from '../../types/searchTypes';
+import { idToSearchTerm } from './__mocks__/configureSearchTerms';
 
-const props = {
-  field: {
-    id: 'ftlen_sites',
-    label: 'Sites',
-    itemType: ItemType.single,
-    term: 'ftlen_sites',
-    dataType: DataType.integer,
-    fieldType: FieldType.range,
-    example: '[0 TO 100]',
-  },
+const props: RangeFieldProps = {
+  field: idToSearchTerm.ftlen_sites,
   handleChange: jest.fn().mockClear(),
   initialValue: { ftlen_sites: '[11 TO 45]' },
 };
@@ -26,7 +18,7 @@ let rendered: RenderResult;
 
 describe('Range field', () => {
   beforeEach(() => {
-    props.handleChange.mockClear();
+    (props.handleChange as jest.Mock).mockClear();
     rendered = render(<RangeField {...props} />);
   });
 
