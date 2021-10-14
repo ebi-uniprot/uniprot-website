@@ -2,19 +2,11 @@ import { render, screen, fireEvent } from '@testing-library/react';
 
 import TextField, { TextFieldTypes } from '../TextField';
 
+import { idToSearchTerm } from './__mocks__/configureSearchTerms';
+
 describe('TextField', () => {
   const props: TextFieldTypes = {
-    field: {
-      id: 'accession_field',
-      label: 'UniProtKB AC',
-      itemType: 'single',
-      term: 'accession',
-      dataType: 'string',
-      fieldType: 'general',
-      example: 'P12345',
-      regex:
-        '(?i)([OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z]([0-9][A-Z][A-Z0-9]{2}){1,2}[0-9])(-[0-9]+)?',
-    },
+    field: idToSearchTerm.accession_field,
     handleChange: jest.fn(),
   };
 
@@ -79,7 +71,6 @@ describe('TextField', () => {
         example: 'Prefix',
         valuePrefix: 'value-',
       },
-      type: 'text',
       handleChange: jest.fn(),
     };
     render(<TextField {...propsPrefix} />);
@@ -100,15 +91,7 @@ describe('TextField', () => {
 
   test('should generate correct query for database *', () => {
     const propsPrefix: TextFieldTypes = {
-      field: {
-        id: 'xref_embl',
-        label: 'EMBL',
-        itemType: 'single',
-        term: 'xref',
-        dataType: 'string',
-        fieldType: 'general',
-        valuePrefix: 'embl-',
-      },
+      field: idToSearchTerm.xref_embl,
       handleChange: jest.fn(),
     };
     render(<TextField {...propsPrefix} />);
@@ -127,16 +110,7 @@ describe('TextField', () => {
 
   test('should validate initial query with regex', () => {
     const propsPrefix: TextFieldTypes = {
-      field: {
-        id: 'proteome',
-        label: 'Proteome ID',
-        itemType: 'single',
-        term: 'proteome',
-        dataType: 'string',
-        fieldType: 'general',
-        example: 'UP000005640',
-        regex: '(?i)^UP[0-9]{9}$',
-      },
+      field: idToSearchTerm.proteome,
       handleChange: jest.fn(),
       initialValue: { proteome: 'UP000000000' },
     };
