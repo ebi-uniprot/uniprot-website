@@ -65,11 +65,9 @@ const initializer = (
     }
   }
 
-  if (field.fieldType === FieldType.range) {
+  if (field.fieldType === 'range') {
     const [, from = '', to = ''] =
-      value.match(
-        field.dataType === DataType.date ? dateRange : integerRange
-      ) || [];
+      value.match(field.dataType === 'date' ? dateRange : integerRange) || [];
     return [from, to];
   }
 
