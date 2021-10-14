@@ -6,7 +6,7 @@ import * as logging from '../utils/logging';
 import { apiPrefix } from './apiUrls';
 
 // set to true if testing new API changes
-const apiTesting = false;
+const apiTesting = true;
 
 if (apiTesting) {
   logging.warn('❗❗❗ USING API TESTING ENDPOINT - DO NOT USE IN PRODUCTION');
