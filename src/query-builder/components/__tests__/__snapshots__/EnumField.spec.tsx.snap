@@ -15,6 +15,21 @@ exports[`Enum field should render an enum field 1`] = `
       >
         Evidence at transcript level
       </option>
+      <option
+        value="3"
+      >
+        Inferred from homology
+      </option>
+      <option
+        value="4"
+      >
+        Predicted
+      </option>
+      <option
+        value="5"
+      >
+        Uncertain
+      </option>
     </select>
   </label>
 </DocumentFragment>
