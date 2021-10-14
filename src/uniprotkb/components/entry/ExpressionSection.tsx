@@ -29,17 +29,23 @@ const ExpressionSection = ({ data, primaryAccession }: Props) => {
     >
       <FreeTextView
         comments={
-          data.commentsData.get('TISSUE SPECIFICITY') as FreeTextComment[]
+          data.commentsData.get('TISSUE SPECIFICITY') as
+            | FreeTextComment[]
+            | undefined
         }
         title="tissue specificity"
       />
       <FreeTextView
-        comments={data.commentsData.get('INDUCTION') as FreeTextComment[]}
+        comments={
+          data.commentsData.get('INDUCTION') as FreeTextComment[] | undefined
+        }
         title="induction"
       />
       <FreeTextView
         comments={
-          data.commentsData.get('DEVELOPMENTAL STAGE') as FreeTextComment[]
+          data.commentsData.get('DEVELOPMENTAL STAGE') as
+            | FreeTextComment[]
+            | undefined
         }
         title="developmental stage"
       />

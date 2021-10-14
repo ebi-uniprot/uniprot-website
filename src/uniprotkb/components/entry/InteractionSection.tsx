@@ -27,9 +27,9 @@ type Props = {
 };
 
 const InteractionSection = ({ data, primaryAccession }: Props) => {
-  const interactionComment = data.commentsData.get(
-    'INTERACTION'
-  ) as InteractionComment[];
+  const interactionComment = data.commentsData.get('INTERACTION') as
+    | InteractionComment[]
+    | undefined;
 
   const datatableDefined = useCustomElement(
     /* istanbul ignore next */
@@ -48,7 +48,9 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
   if (!hasContent(data)) {
     return null;
   }
-  const comments = data.commentsData.get('SUBUNIT') as FreeTextComment[];
+  const comments = data.commentsData.get('SUBUNIT') as
+    | FreeTextComment[]
+    | undefined;
 
   if (!(datatableDefined && interactionViewerDefined)) {
     return <Loader />;
@@ -63,7 +65,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
       data-entry-section
     >
       {comments && <FreeTextView comments={comments} title="subunit" />}
-      {interactionComment[0] && (
+      {interactionComment?.[0] && (
         <>
           <interaction-viewer accession={primaryAccession} />
           <protvista-datatable filter-scroll>

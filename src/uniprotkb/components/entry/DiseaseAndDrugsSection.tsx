@@ -42,26 +42,38 @@ const DiseaseAndDrugsSection = ({
       data-entry-section
     >
       <DiseaseInvolvementView
-        comments={data.commentsData.get('DISEASE') as DiseaseComment[]}
+        comments={
+          data.commentsData.get('DISEASE') as DiseaseComment[] | undefined
+        }
         primaryAccession={primaryAccession}
         includeTitle
       />
       <FreeTextView
-        comments={data.commentsData.get('ALLERGEN') as FreeTextComment[]}
+        comments={
+          data.commentsData.get('ALLERGEN') as FreeTextComment[] | undefined
+        }
         title="allergen"
       />
       <FreeTextView
         comments={
-          data.commentsData.get('DISRUPTION PHENOTYPE') as FreeTextComment[]
+          data.commentsData.get('DISRUPTION PHENOTYPE') as
+            | FreeTextComment[]
+            | undefined
         }
         title="disruption phenotype"
       />
       <FreeTextView
-        comments={data.commentsData.get('PHARMACEUTICAL') as FreeTextComment[]}
+        comments={
+          data.commentsData.get('PHARMACEUTICAL') as
+            | FreeTextComment[]
+            | undefined
+        }
         title="pharmaceutical"
       />
       <FreeTextView
-        comments={data.commentsData.get('TOXIC DOSE') as FreeTextComment[]}
+        comments={
+          data.commentsData.get('TOXIC DOSE') as FreeTextComment[] | undefined
+        }
         title="toxic dose"
       />
       <FeaturesView features={data.featuresData} sequence={sequence} />

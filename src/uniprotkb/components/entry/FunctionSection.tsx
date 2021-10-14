@@ -184,47 +184,65 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
         </HTMLHead>
       )}
       <FreeTextView
-        comments={data.commentsData.get('FUNCTION') as FreeTextComment[]}
+        comments={
+          data.commentsData.get('FUNCTION') as FreeTextComment[] | undefined
+        }
       />
       <FreeTextView
-        comments={data.commentsData.get('MISCELLANEOUS') as FreeTextComment[]}
+        comments={
+          data.commentsData.get('MISCELLANEOUS') as
+            | FreeTextComment[]
+            | undefined
+        }
         title="miscellaneous"
       />
       {data.commentsData.get('CAUTION')?.length ? (
         <Message level="warning">
           <h4>Caution</h4>
           <FreeTextView
-            comments={data.commentsData.get('CAUTION') as FreeTextComment[]}
+            comments={
+              data.commentsData.get('CAUTION') as FreeTextComment[] | undefined
+            }
           />
         </Message>
       ) : undefined}
       <CatalyticActivityView
         comments={
-          data.commentsData.get(
-            'CATALYTIC ACTIVITY'
-          ) as CatalyticActivityComment[]
+          data.commentsData.get('CATALYTIC ACTIVITY') as
+            | CatalyticActivityComment[]
+            | undefined
         }
         title="catalytic activity"
       />
       <CofactorView
-        cofactors={data.commentsData.get('COFACTOR') as CofactorComment[]}
+        cofactors={
+          data.commentsData.get('COFACTOR') as CofactorComment[] | undefined
+        }
         title="cofactor"
       />
       <FreeTextView
         comments={
-          data.commentsData.get('ACTIVITY REGULATION') as FreeTextComment[]
+          data.commentsData.get('ACTIVITY REGULATION') as
+            | FreeTextComment[]
+            | undefined
         }
         title="activity regulation"
       />
       <FreeTextView
-        comments={data.commentsData.get('BIOTECHNOLOGY') as FreeTextComment[]}
+        comments={
+          data.commentsData.get('BIOTECHNOLOGY') as
+            | FreeTextComment[]
+            | undefined
+        }
         title="biotechnology"
       />
       <BioPhysicoChemicalPropertiesView
         data={data.bioPhysicoChemicalProperties}
       />
       <FreeTextView
-        comments={data.commentsData.get('PATHWAY') as FreeTextComment[]}
+        comments={
+          data.commentsData.get('PATHWAY') as FreeTextComment[] | undefined
+        }
         title="pathway"
       />
       <FeaturesView features={data.featuresData} sequence={sequence} />
