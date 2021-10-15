@@ -1032,7 +1032,7 @@ const mock: UniProtkbAPIModel = {
   references: [
     {
       citation: {
-        id: '12345',
+        id: '12346',
         citationType: 'book',
         authoringGroup: ['auth group'],
         authors: ['author Leo'],
@@ -1080,7 +1080,7 @@ const mock: UniProtkbAPIModel = {
     },
     {
       citation: {
-        id: '12345',
+        id: '12347',
         citationType: 'online journal article',
         authoringGroup: ['auth group'],
         authors: ['author Leo'],
@@ -1123,7 +1123,7 @@ const mock: UniProtkbAPIModel = {
     },
     {
       citation: {
-        id: '12345',
+        id: '12348',
         citationType: 'journal article',
         authoringGroup: ['auth group'],
         authors: ['author Leo'],
@@ -1168,7 +1168,7 @@ const mock: UniProtkbAPIModel = {
     },
     {
       citation: {
-        id: '12345',
+        id: '12349',
         citationType: 'patent',
         authoringGroup: ['auth group'],
         authors: ['author Leo'],
@@ -1210,7 +1210,7 @@ const mock: UniProtkbAPIModel = {
     },
     {
       citation: {
-        id: '12345',
+        id: '12350',
         citationType: 'submission',
         authoringGroup: ['auth group'],
         authors: ['author Leo'],
@@ -1252,7 +1252,7 @@ const mock: UniProtkbAPIModel = {
     },
     {
       citation: {
-        id: '12345',
+        id: '12351',
         citationType: 'thesis',
         authoringGroup: ['auth group'],
         authors: ['author Leo'],
@@ -1295,7 +1295,7 @@ const mock: UniProtkbAPIModel = {
     },
     {
       citation: {
-        id: '12345',
+        id: '12352',
         citationType: 'unpublished observations',
         authoringGroup: ['auth group'],
         authors: ['author Leo'],
