@@ -1,6 +1,7 @@
 import { CitationsAPIModel } from '../adapters/citationsConverter';
 
-// data from /api/citations/search?query=nature&size=2
+// Source: /api/citations/search?query=nature&size=2
+// Retrieved: 2021-10-15
 const mock: CitationsAPIModel[] = [
   {
     citation: {
@@ -8,8 +9,14 @@ const mock: CitationsAPIModel[] = [
       citationType: 'UniProt indexed literatures',
       authors: ['Itoh M.', 'Kanamori Y.', 'Takao M.', 'Eguchi M.'],
       citationCrossReferences: [
-        { database: 'PubMed', id: '10196735' },
-        { database: 'DOI', id: '10.1016/s0965-1748(98)00115-5' },
+        {
+          database: 'PubMed',
+          id: '10196735',
+        },
+        {
+          database: 'DOI',
+          id: '10.1016/s0965-1748(98)00115-5',
+        },
       ],
       title:
         'Cloning of soluble alkaline phosphatase cDNA and molecular basis of the polymorphic nature in alkaline phosphatase isozymes of Bombyx mori midgut.',
@@ -35,8 +42,14 @@ const mock: CitationsAPIModel[] = [
       citationType: 'UniProt indexed literatures',
       authors: ['McCullers J.A.', 'Wang G.C.', 'He S.', 'Webster R.G.'],
       citationCrossReferences: [
-        { database: 'PubMed', id: '10438823' },
-        { database: 'DOI', id: '10.1128/jvi.73.9.7343-7348.1999' },
+        {
+          database: 'PubMed',
+          id: '10438823',
+        },
+        {
+          database: 'DOI',
+          id: '10.1128/jvi.73.9.7343-7348.1999',
+        },
       ],
       title:
         'Reassortment and insertion-deletion are strategies for the evolution of influenza B viruses in nature.',
