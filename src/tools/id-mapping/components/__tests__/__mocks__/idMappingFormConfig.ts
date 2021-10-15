@@ -1,6 +1,7 @@
 import { IDMappingFormConfig } from '../../../types/idMappingFormConfig';
 
-// Source: https://www.ebi.ac.uk/uniprot/beta/api/configure/idmapping/fields
+// Source: /api/configure/idmapping/fields
+// Retrieved: 2021-10-14
 const data: IDMappingFormConfig = {
   groups: [
     {
@@ -11,7 +12,6 @@ const data: IDMappingFormConfig = {
           name: 'UniProtKB',
           from: false,
           to: true,
-          ruleId: null,
         },
         {
           displayName: 'UniProtKB AC/ID',
@@ -25,7 +25,6 @@ const data: IDMappingFormConfig = {
           name: 'UniProtKB-Swiss-Prot',
           from: false,
           to: true,
-          ruleId: null,
         },
         {
           displayName: 'UniParc',

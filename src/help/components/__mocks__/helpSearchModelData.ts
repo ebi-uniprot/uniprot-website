@@ -1,7 +1,7 @@
 import { HelpSearchResponse } from '../../adapters/helpConverter';
 
 // Source: /api/help/search?facets=category&query=canonical&size=500
-// Retrieved 2021-09-24
+// Retrieved: 2021-10-15
 // TODO: this API is unstable so the mock data here will want to be updated jira: https://www.ebi.ac.uk/panda/jira/browse/TRM-26569
 const helpModelData: HelpSearchResponse = {
   facets: [
@@ -208,17 +208,6 @@ const helpModelData: HelpSearchResponse = {
       },
     },
     {
-      id: 'sequence_length',
-      title: 'Sequence length',
-      lastModified: '2021-07-16',
-      categories: ['Sequence', 'manual'],
-      matches: {
-        content: [
-          'This indicates the number of amino acids in the <span class="match-highlight">canonical</span> sequence displayed by default in the',
-        ],
-      },
-    },
-    {
       id: 'proteome',
       title: 'What are proteomes?',
       lastModified: '2021-07-16',
@@ -226,6 +215,17 @@ const helpModelData: HelpSearchResponse = {
       matches: {
         content: [
           ' FASTA files (composed of <span class="match-highlight">canonical</span> and additional sequences), gene mapping files, Coding DNA Sequence',
+        ],
+      },
+    },
+    {
+      id: 'sequence_length',
+      title: 'Sequence length',
+      lastModified: '2021-07-16',
+      categories: ['Sequence', 'manual'],
+      matches: {
+        content: [
+          'This indicates the number of amino acids in the <span class="match-highlight">canonical</span> sequence displayed by default in the',
         ],
       },
     },
@@ -410,7 +410,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'query-fields',
       title: 'UniProtKB query fields',
-      lastModified: '2021-09-24',
+      lastModified: '2021-10-13',
       categories: ['Text search', 'Technical', 'Website', 'help'],
       matches: {
         content: [
