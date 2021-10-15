@@ -6,7 +6,7 @@ import * as logging from '../utils/logging';
 import { apiPrefix } from './apiUrls';
 
 // set to true if testing new API changes
-const apiTesting = true;
+const apiTesting = false;
 
 if (apiTesting) {
   logging.warn('❗❗❗ USING API TESTING ENDPOINT - DO NOT USE IN PRODUCTION');
@@ -37,8 +37,8 @@ const joinUrlForApiTesting = (prefix: string, ...paths: string[]) => {
     // other
     help: 31838,
     genecentric: 8092,
-    arba: 32137,
-    unirule: 32137,
+    arba: 31599,
+    unirule: 31599,
     configure: 31095,
   };
   let newPrefix = prefix;
