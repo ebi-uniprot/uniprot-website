@@ -58,7 +58,7 @@ import CatalyticActivityView from '../components/protein-data-views/CatalyticAct
 import VariationView from '../components/protein-data-views/VariationView';
 import { StructureUIModel } from '../adapters/structureConverter';
 import SubcellularLocationView from '../components/protein-data-views/SubcellularLocationView';
-import { GOTermsView } from '../components/protein-data-views/GOView';
+import GOTermsView from '../components/protein-data-views/GOTermsView';
 import EntryTypeIcon, {
   EntryType,
 } from '../../shared/components/entry/EntryTypeIcon';
