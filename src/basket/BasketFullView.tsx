@@ -35,7 +35,8 @@ const BasketFullView = () => {
   const accessions = Array.from(subBasket);
 
   // Below here similar (but not identical) to the Results component
-  const [selectedEntries, handleEntrySelection] = useItemSelect();
+  const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
+    useItemSelect();
 
   // Query for facets
   const initialApiFacetUrl = useNSQuery({
@@ -112,15 +113,17 @@ const BasketFullView = () => {
       />
       <ResultsButtons
         total={total}
+        loadedTotal={accessions.length}
         selectedEntries={selectedEntries}
+        setSelectedEntries={setSelectedEntries}
         accessions={accessions}
         namespaceOverride={namespace}
         inBasket
       />
       <ResultsData
         resultsDataObject={resultsDataObject}
-        selectedEntries={selectedEntries}
-        handleEntrySelection={handleEntrySelection}
+        setSelectedEntries={setSelectedEntries}
+        setSelectedItemFromEvent={setSelectedItemFromEvent}
         namespaceOverride={namespace}
         basketSetter={setBasket}
       />

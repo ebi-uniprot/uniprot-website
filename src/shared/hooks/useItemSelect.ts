@@ -1,21 +1,30 @@
-import { useCallback, useState } from 'react';
+import { Dispatch, useCallback, useState, SetStateAction } from 'react';
 
-const useItemSelect = (
-  items: string[] = []
-): [selectedItems: string[], handleSelectedItem: (id: string) => void] => {
-  const [selectedItems, setSelectedItems] = useState(items);
+const useItemSelect = (): [
+  selectedItems: string[],
+  // helper function to be used most of the times
+  setSelectedItemFromEvent: (event: MouseEvent | KeyboardEvent) => void,
+  // escape hatch to use the state setter. Only use on controlled checkboxes!!!
+  setSelectedItems: Dispatch<SetStateAction<string[]>>
+] => {
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
-  // TODO: handle multiple simultaneous item selections rather just than a single item.
-  const handleEntrySelection = useCallback((rowId: string) => {
-    setSelectedItems((selectedEntries) => {
-      const filtered = selectedEntries.filter((id) => id !== rowId);
-      return filtered.length === selectedEntries.length
-        ? [...selectedEntries, rowId]
-        : filtered;
-    });
-  }, []);
+  const setSelectedItemFromEvent = useCallback(
+    (event: MouseEvent | KeyboardEvent) => {
+      if (event.target instanceof HTMLInputElement && event.target.dataset.id) {
+        const { id } = event.target.dataset;
+        const { checked } = event.target;
+        setSelectedItems((selectedItems) =>
+          checked
+            ? [...selectedItems, id]
+            : selectedItems.filter((item) => item !== id)
+        );
+      }
+    },
+    []
+  );
 
-  return [selectedItems, handleEntrySelection];
+  return [selectedItems, setSelectedItemFromEvent, setSelectedItems];
 };
 
 export default useItemSelect;

@@ -5,6 +5,7 @@ import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import { KeywordList } from '../protein-data-views/KeywordView';
 import ProteinOverview from '../protein-data-views/ProteinOverviewView';
 import BasketStatus from '../../../basket/BasketStatus';
+import CardCheckboxCell from '../../../shared/components/CardCheckboxCell';
 
 import getProteinHighlights from '../../adapters/proteinHighlights';
 import { getKeywordsForCategories } from '../../utils/KeywordsUtil';
@@ -17,13 +18,7 @@ import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
 const getIdKey = getIdKeyFor(Namespace.uniprotkb);
 
-type Props = {
-  data: UniProtkbAPIModel;
-  selected?: boolean;
-  handleEntrySelection?: (rowId: string) => void;
-};
-
-const UniProtKBCard = ({ data, selected, handleEntrySelection }: Props) => {
+const UniProtKBCard = ({ data }: { data: UniProtkbAPIModel }) => {
   const id = getIdKey(data);
 
   const highlights = useMemo(() => getProteinHighlights(data), [data]);
@@ -51,14 +46,7 @@ const UniProtKBCard = ({ data, selected, handleEntrySelection }: Props) => {
     <Card
       header={
         <>
-          {handleEntrySelection && (
-            <input
-              type="checkbox"
-              checked={selected}
-              onChange={() => handleEntrySelection(id)}
-              data-testid="up-card-checkbox"
-            />
-          )}
+          <CardCheckboxCell id={id} />
           <h2 className="tiny">
             <EntryTitle
               mainTitle={id}

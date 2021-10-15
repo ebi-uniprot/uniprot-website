@@ -24,7 +24,8 @@ import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 const Results = () => {
   const ns = useNS();
   const { search } = useLocation();
-  const [selectedEntries, handleEntrySelection] = useItemSelect();
+  const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
+    useItemSelect();
 
   // Query for facets
   const initialApiFacetUrl = useNSQuery({
@@ -91,11 +92,15 @@ const Results = () => {
   return (
     <SideBarLayout sidebar={<ResultsFacets dataApiObject={facetApiObject} />}>
       {helmet}
-      <ResultsDataHeader total={total} selectedEntries={selectedEntries} />
+      <ResultsDataHeader
+        total={total}
+        loadedTotal={resultsDataObject.allResults.length}
+        selectedEntries={selectedEntries}
+      />
       <ResultsData
         resultsDataObject={resultsDataObject}
-        selectedEntries={selectedEntries}
-        handleEntrySelection={handleEntrySelection}
+        setSelectedItemFromEvent={setSelectedItemFromEvent}
+        setSelectedEntries={setSelectedEntries}
       />
     </SideBarLayout>
   );

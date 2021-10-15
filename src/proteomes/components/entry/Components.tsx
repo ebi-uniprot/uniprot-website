@@ -21,7 +21,7 @@ const genomeAccessionDB = 'GenomeAccession' as const;
 export const Components: FC<
   Pick<ProteomesAPIModel, 'components' | 'id' | 'proteinCount'>
 > = ({ components, id, proteinCount }) => {
-  const [selectedEntries, handleItemSelection] = useItemSelect();
+  const [selectedEntries, setSelectedItemFromEvent] = useItemSelect();
 
   if (!components?.length) {
     return null;
@@ -89,8 +89,7 @@ export const Components: FC<
         density="compact"
         columns={columns}
         data={components}
-        selected={selectedEntries}
-        onSelectRow={handleItemSelection}
+        onSelectionChange={setSelectedItemFromEvent}
         fixedLayout
       />
     </Card>

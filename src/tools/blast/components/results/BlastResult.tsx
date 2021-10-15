@@ -187,7 +187,7 @@ const BlastResult = () => {
   const match = useRouteMatch<Params>(LocationToPath[Location.BlastResult])!;
   const location = useLocation();
 
-  const [selectedEntries, handleEntrySelection] = useItemSelect();
+  const [selectedEntries, setSelectedItemFromEvent] = useItemSelect();
   const [hspDetailPanel, setHspDetailPanel] =
     useState<HSPDetailPanelProps | null>();
 
@@ -283,6 +283,14 @@ const BlastResult = () => {
 
   const inputParamsData = useParamsData(match?.params.id || '');
 
+  const resultTableData = useMemo(
+    () =>
+      accessionsLoading && !hitsFiltered.length
+        ? blastData
+        : { ...blastData, hits: hitsFiltered },
+    [accessionsLoading, blastData, hitsFiltered]
+  );
+
   if (blastLoading) {
     return <Loader progress={blastProgress} />;
   }
@@ -331,6 +339,7 @@ const BlastResult = () => {
       isTableResultsFiltered={blastData?.hits.length !== hitsFiltered.length}
     />
   );
+
   return (
     <SideBarLayout
       title={<PageIntro title={title} resultsCount={hitsFiltered.length} />}
@@ -364,13 +373,8 @@ const BlastResult = () => {
                   blastLoading ||
                   (localFacetsChangedSelection && accessionsLoading)
                 }
-                data={
-                  accessionsLoading && !hitsFiltered.length
-                    ? blastData
-                    : { ...blastData, hits: hitsFiltered }
-                }
-                selectedEntries={selectedEntries}
-                handleEntrySelection={handleEntrySelection}
+                data={resultTableData}
+                setSelectedItemFromEvent={setSelectedItemFromEvent}
                 setHspDetailPanel={setHspDetailPanel}
                 namespace={namespace}
               />

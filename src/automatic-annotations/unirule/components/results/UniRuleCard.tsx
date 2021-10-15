@@ -1,6 +1,8 @@
 import { useMemo } from 'react';
 import { Card } from 'franklin-sites';
 
+import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';
+
 import { getEntryPath } from '../../../../app/config/urls';
 import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
 import { mapToLinks } from '../../../../shared/components/MapTo';
@@ -10,13 +12,7 @@ import { Namespace } from '../../../../shared/types/namespaces';
 
 const getIdKey = getIdKeyFor(Namespace.unirule);
 
-type Props = {
-  data: UniRuleAPIModel;
-  selected?: boolean;
-  handleEntrySelection?: (rowId: string) => void;
-};
-
-const UniRuleCard = ({ data, selected, handleEntrySelection }: Props) => {
+const UniRuleCard = ({ data }: { data: UniRuleAPIModel }) => {
   const id = getIdKey(data);
 
   const links = useMemo(
@@ -33,14 +29,7 @@ const UniRuleCard = ({ data, selected, handleEntrySelection }: Props) => {
     <Card
       header={
         <>
-          {handleEntrySelection && (
-            <input
-              type="checkbox"
-              checked={selected}
-              onChange={() => handleEntrySelection(id)}
-              data-testid="up-card-checkbox"
-            />
-          )}
+          <CardCheckboxCell id={id} />
           <h2 className="tiny">{data.uniRuleId}</h2>
         </>
       }

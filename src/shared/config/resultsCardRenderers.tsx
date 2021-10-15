@@ -16,8 +16,6 @@ import LocationsCard from '../../supporting-data/locations/components/results/Lo
 import UniRuleCard from '../../automatic-annotations/unirule/components/results/UniRuleCard';
 import ARBACard from '../../automatic-annotations/arba/components/results/ARBACard';
 
-import { getIdKeyFor } from '../utils/getIdKeyForNamespace';
-
 import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
 import { UniRefLiteAPIModel } from '../../uniref/adapters/uniRefConverter';
 import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
@@ -37,119 +35,52 @@ import { Namespace } from '../types/namespaces';
 import { APIModel } from '../types/apiModel';
 
 const cardRenderer = (
-  namespace: Namespace,
-  selectedEntries: string[],
-  handleEntrySelection: (rowId: string) => void
+  namespace: Namespace
 ): ((data: APIModel) => ReactNode) => {
-  const getIdKey = getIdKeyFor(namespace);
   switch (namespace) {
     case Namespace.uniprotkb: {
       return (cardData) => (
-        <UniProtKBCard
-          data={cardData as UniProtkbAPIModel}
-          selected={selectedEntries.includes(getIdKey(cardData))}
-          handleEntrySelection={handleEntrySelection}
-        />
+        <UniProtKBCard data={cardData as UniProtkbAPIModel} />
       );
     }
     case Namespace.uniref: {
-      return (cardData) => (
-        <UniRefCard
-          data={cardData as UniRefLiteAPIModel}
-          selected={selectedEntries.includes(getIdKey(cardData))}
-          handleEntrySelection={handleEntrySelection}
-        />
-      );
+      return (cardData) => <UniRefCard data={cardData as UniRefLiteAPIModel} />;
     }
     case Namespace.uniparc: {
-      return (cardData) => (
-        <UniParcCard
-          data={cardData as UniParcAPIModel}
-          selected={selectedEntries.includes(getIdKey(cardData))}
-          handleEntrySelection={handleEntrySelection}
-        />
-      );
+      return (cardData) => <UniParcCard data={cardData as UniParcAPIModel} />;
     }
     case Namespace.proteomes: {
       return (cardData) => (
-        <ProteomesCard
-          data={cardData as ProteomesAPIModel}
-          selected={selectedEntries.includes(getIdKey(cardData))}
-          handleEntrySelection={handleEntrySelection}
-        />
+        <ProteomesCard data={cardData as ProteomesAPIModel} />
       );
     }
     case Namespace.taxonomy: {
-      return (cardData) => (
-        <TaxonomyCard
-          data={cardData as TaxonomyAPIModel}
-          selected={selectedEntries.includes(getIdKey(cardData))}
-          handleEntrySelection={handleEntrySelection}
-        />
-      );
+      return (cardData) => <TaxonomyCard data={cardData as TaxonomyAPIModel} />;
     }
     case Namespace.keywords: {
-      return (cardData) => (
-        <KeywordsCard
-          data={cardData as KeywordsAPIModel}
-          selected={selectedEntries.includes(getIdKey(cardData))}
-          handleEntrySelection={handleEntrySelection}
-        />
-      );
+      return (cardData) => <KeywordsCard data={cardData as KeywordsAPIModel} />;
     }
     case Namespace.citations: {
       return (cardData) => (
-        <CitationsCard
-          data={cardData as CitationsAPIModel}
-          selected={selectedEntries.includes(getIdKey(cardData))}
-          handleEntrySelection={handleEntrySelection}
-        />
+        <CitationsCard data={cardData as CitationsAPIModel} />
       );
     }
     case Namespace.diseases: {
-      return (cardData) => (
-        <DiseasesCard
-          data={cardData as DiseasesAPIModel}
-          selected={selectedEntries.includes(getIdKey(cardData))}
-          handleEntrySelection={handleEntrySelection}
-        />
-      );
+      return (cardData) => <DiseasesCard data={cardData as DiseasesAPIModel} />;
     }
     case Namespace.database: {
-      return (cardData) => (
-        <DatabaseCard
-          data={cardData as DatabaseAPIModel}
-          selected={selectedEntries.includes(getIdKey(cardData))}
-          handleEntrySelection={handleEntrySelection}
-        />
-      );
+      return (cardData) => <DatabaseCard data={cardData as DatabaseAPIModel} />;
     }
     case Namespace.locations: {
       return (cardData) => (
-        <LocationsCard
-          data={cardData as LocationsAPIModel}
-          selected={selectedEntries.includes(getIdKey(cardData))}
-          handleEntrySelection={handleEntrySelection}
-        />
+        <LocationsCard data={cardData as LocationsAPIModel} />
       );
     }
     case Namespace.unirule: {
-      return (cardData) => (
-        <UniRuleCard
-          data={cardData as UniRuleAPIModel}
-          selected={selectedEntries.includes(getIdKey(cardData))}
-          handleEntrySelection={handleEntrySelection}
-        />
-      );
+      return (cardData) => <UniRuleCard data={cardData as UniRuleAPIModel} />;
     }
     case Namespace.arba: {
-      return (cardData) => (
-        <ARBACard
-          data={cardData as ARBAAPIModel}
-          selected={selectedEntries.includes(getIdKey(cardData))}
-          handleEntrySelection={handleEntrySelection}
-        />
-      );
+      return (cardData) => <ARBACard data={cardData as ARBAAPIModel} />;
     }
     default:
       return () => (

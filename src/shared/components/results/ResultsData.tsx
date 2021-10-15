@@ -14,7 +14,7 @@ import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 
 import { getEntryPathFor } from '../../../app/config/urls';
-import cardRenderer from '../../config/resultsCardRenderers';
+import getCardRenderer from '../../config/resultsCardRenderers';
 
 import { Namespace, SearchableNamespace } from '../../types/namespaces';
 import { APIModel } from '../../types/apiModel';
@@ -31,8 +31,8 @@ export enum ViewMode {
 
 type Props = {
   resultsDataObject: PaginatedResults;
-  selectedEntries: string[];
-  handleEntrySelection: (id: string) => void;
+  setSelectedEntries?: Dispatch<SetStateAction<string[]>>;
+  setSelectedItemFromEvent: (event: MouseEvent | KeyboardEvent) => void;
   namespaceOverride?: Namespace;
   columnsOverride?: ColumnDescriptor<APIModel>[];
   displayIdMappingColumns?: boolean;
@@ -42,8 +42,8 @@ type Props = {
 
 const ResultsData = ({
   resultsDataObject,
-  selectedEntries,
-  handleEntrySelection,
+  setSelectedEntries,
+  setSelectedItemFromEvent,
   namespaceOverride,
   columnsOverride,
   displayIdMappingColumns,
@@ -58,7 +58,8 @@ const ResultsData = ({
     namespaceOverride,
     displayIdMappingColumns,
     basketSetter,
-    columnsOverride
+    columnsOverride,
+    setSelectedEntries
   );
   const {
     allResults,
@@ -68,11 +69,21 @@ const ResultsData = ({
     progress,
   } = resultsDataObject;
 
-  const [getIdKey, getEntryPathForEntry] = useMemo(() => {
+  // All complex values that only change when the namespace changes
+  const [getIdKey, getEntryPathForEntry, cardRenderer] = useMemo(() => {
     const getIdKey = getIdKeyFor(namespace);
     const getEntryPath = getEntryPathFor(namespace as SearchableNamespace);
-    return [getIdKey, (entry: APIModel) => getEntryPath(getIdKey(entry))];
+    return [
+      getIdKey,
+      (entry: APIModel) => getEntryPath(getIdKey(entry)),
+      getCardRenderer(namespace),
+    ];
   }, [namespace]);
+
+  useEffect(() => {
+    // Reset selected entries when switching view mode
+    setSelectedEntries?.([]);
+  }, [setSelectedEntries, viewMode]);
 
   // redirect to entry when directly when...
   useEffect(() => {
@@ -139,8 +150,7 @@ const ResultsData = ({
         columns={columns}
         data={allResults}
         loading={loading}
-        selected={selectedEntries}
-        onSelectRow={handleEntrySelection}
+        onSelectionChange={setSelectedItemFromEvent}
         onHeaderClick={updateColumnSort}
         onLoadMoreItems={handleLoadMoreRows}
         hasMoreData={hasMoreData}
@@ -168,11 +178,8 @@ const ResultsData = ({
           getIdKey={getIdKey}
           data={allResults}
           loading={loading}
-          dataRenderer={cardRenderer(
-            namespace,
-            selectedEntries,
-            handleEntrySelection
-          )}
+          dataRenderer={cardRenderer}
+          onSelectionChange={setSelectedItemFromEvent}
           onLoadMoreItems={handleLoadMoreRows}
           hasMoreData={hasMoreData}
           loaderComponent={loadComponent}

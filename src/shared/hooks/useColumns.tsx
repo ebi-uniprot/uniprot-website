@@ -166,7 +166,8 @@ const useColumns = (
   namespaceOverride?: Namespace,
   displayIdMappingColumns = false,
   basketSetter?: Dispatch<SetStateAction<Basket>>,
-  columnsOverride?: ColumnDescriptor[]
+  columnsOverride?: ColumnDescriptor[],
+  setSelectedEntries?: Dispatch<SetStateAction<string[]>>
 ): [ColumnDescriptor[], (columnName: string) => void] => {
   const history = useHistory();
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
@@ -216,17 +217,21 @@ const useColumns = (
         render: (datum) => (
           <Button
             variant="tertiary"
-            onClick={() =>
+            onClick={() => {
+              const id = getIdKey(datum);
               basketSetter((currentBasket) => {
                 const basketSubset = new Set(currentBasket.get(namespace));
-                basketSubset?.delete(getIdKey(datum));
+                basketSubset?.delete(id);
                 return new Map([
                   // other namespaces, untouched
                   ...currentBasket,
                   [namespace, basketSubset],
                 ]);
-              })
-            }
+              });
+              setSelectedEntries?.((selectedEntries) =>
+                selectedEntries.filter((entry) => entry !== id)
+              );
+            }}
           >
             <BinIcon width="1.5em" />
           </Button>

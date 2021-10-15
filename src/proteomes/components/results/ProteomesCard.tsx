@@ -3,6 +3,7 @@ import cn from 'classnames';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import RenderColumnsInCard from '../../../shared/components/results/RenderColumnsInCard';
+import CardCheckboxCell from '../../../shared/components/CardCheckboxCell';
 
 import { getEntryPath } from '../../../app/config/urls';
 import { getIdKeyFor } from '../../../shared/utils/getIdKeyForNamespace';
@@ -28,13 +29,7 @@ const buscoColumnRenderer = ProteomesColumnConfiguration.get(
 
 const getIdKey = getIdKeyFor(Namespace.proteomes);
 
-type Props = {
-  data: ProteomesAPIModel;
-  selected?: boolean;
-  handleEntrySelection: (rowId: string) => void;
-};
-
-const ProteomesCard = ({ data, selected, handleEntrySelection }: Props) => {
+const ProteomesCard = ({ data }: { data: ProteomesAPIModel }) => {
   const id = getIdKey(data);
 
   const buscoRendered = buscoColumnRenderer?.render(data);
@@ -43,12 +38,7 @@ const ProteomesCard = ({ data, selected, handleEntrySelection }: Props) => {
     <Card
       header={
         <>
-          <input
-            type="checkbox"
-            checked={selected}
-            onChange={() => handleEntrySelection(id)}
-            data-testid="up-card-checkbox"
-          />
+          <CardCheckboxCell id={id} />
           <h2 className="tiny">
             <EntryTitle mainTitle={id} entryType={data.proteomeType} />
           </h2>

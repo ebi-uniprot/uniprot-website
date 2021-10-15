@@ -35,7 +35,7 @@ const urls = toolsURLs(jobType);
 const title = `${namespaceAndToolsLabels[jobType]} results`;
 
 const PeptideSearchResult: FC = () => {
-  const [selectedEntries, handleEntrySelection] = useItemSelect();
+  const [selectedEntries, setSelectedItemFromEvent] = useItemSelect();
 
   // Get list of accession from job
   const match = useRouteMatch<{ id: string }>(
@@ -118,6 +118,7 @@ const PeptideSearchResult: FC = () => {
       <HTMLHead title={title} />
       <ResultsDataHeader
         total={total}
+        loadedTotal={resultsDataObject.allResults.length}
         selectedEntries={selectedEntries}
         titlePostscript={
           total && (
@@ -133,7 +134,7 @@ const PeptideSearchResult: FC = () => {
       <ResultsData
         resultsDataObject={resultsDataObject}
         selectedEntries={selectedEntries}
-        handleEntrySelection={handleEntrySelection}
+        setSelectedItemFromEvent={setSelectedItemFromEvent}
       />
     </SideBarLayout>
   );
