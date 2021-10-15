@@ -1281,6 +1281,13 @@ exports[`UniProtKBColumnConfiguration component should render column "lit_pubmed
   >
     <li>
       <a
+        href="/citations/12345"
+      >
+        12345
+      </a>
+    </li>
+    <li>
+      <a
         href="/citations/12346"
       >
         12346
@@ -1308,13 +1315,6 @@ exports[`UniProtKBColumnConfiguration component should render column "lit_pubmed
       </a>
     </li>
     <li>
-      <a
-        href="/citations/12350"
-      >
-        12350
-      </a>
-    </li>
-    <li>
       <button
         class="button tertiary expandable-list__action"
         data-testid="expandable-message"
@@ -1332,6 +1332,13 @@ exports[`UniProtKBColumnConfiguration component should render column "lit_pubmed
   <ul
     class="expandable-list no-bullet"
   >
+    <li>
+      <a
+        href="/citations/12345"
+      >
+        12345
+      </a>
+    </li>
     <li>
       <a
         href="/citations/12346"
@@ -1372,13 +1379,6 @@ exports[`UniProtKBColumnConfiguration component should render column "lit_pubmed
         href="/citations/12351"
       >
         12351
-      </a>
-    </li>
-    <li>
-      <a
-        href="/citations/12352"
-      >
-        12352
       </a>
     </li>
     <li>
