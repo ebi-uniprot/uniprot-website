@@ -289,7 +289,7 @@ const NeedHelp = () => {
                   __html: cleanText(seminar?.fields.description[0], {
                     ...cleanTextDefaultOptions,
                     transformTags: {
-                      ...getTransformTags('h4'),
+                      ...getTransformTags('strong'),
                     },
                   }),
                 }}
