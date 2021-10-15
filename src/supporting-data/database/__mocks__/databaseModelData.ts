@@ -1,6 +1,7 @@
 import { DatabaseAPIModel } from '../adapters/databaseConverter';
 
-// Data from /api/database/search?query=embl&size=2
+// Source: /api/database/search?query=embl&size=2
+// Retrieved: 2021-10-15
 const mock: DatabaseAPIModel[] = [
   {
     name: 'EMBL nucleotide sequence database',
@@ -27,7 +28,10 @@ const mock: DatabaseAPIModel[] = [
     server: 'https://www.ebi.ac.uk/chembldb',
     dbUrl: 'https://www.ebi.ac.uk/chembldb/target/inspect/%s',
     category: 'Chemistry databases',
-    statistics: { reviewedProteinCount: 8251, unreviewedProteinCount: 1146 },
+    statistics: {
+      reviewedProteinCount: 8251,
+      unreviewedProteinCount: 1146,
+    },
   },
 ];
 
