@@ -428,7 +428,7 @@ export const expectedDatabaseNameToCategory = [
 ];
 
 export const expectedEntrySectionToDatabaseCategoryOrder = [
-  ['disease-and-drugs', ['ORG', 'CHEMISTRY', 'PMD', 'PFAM']],
+  ['disease-and-drugs', ['ORG', 'CHEMISTRY', 'GVD', 'PFAM', 'MISC']],
   ['expression', ['GEP', 'ORG']],
   ['family-and-domains', ['PLG', 'FMD', 'PFAM']],
   ['function', ['EAP', 'PFAM', 'CHEMISTRY']],
@@ -436,6 +436,6 @@ export const expectedEntrySectionToDatabaseCategoryOrder = [
   ['names-and-taxonomy', ['ORG', 'GMA']],
   ['ptm-processing', ['PROTEOMIC', '2DG', 'PTM']],
   ['sequence', ['SEQ', 'GMA']],
-  ['structure', ['3DS', 'OTHER']],
-  ['external-links', ['OTHER', 'PAM', 'ORG', '3DS']],
+  ['structure', ['3DS', 'MISC']],
+  ['external-links', ['PAM', 'ORG', '3DS']],
 ];
