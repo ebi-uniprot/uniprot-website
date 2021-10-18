@@ -1,11 +1,13 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 
-import TextField, { TextFieldTypes } from '../TextField';
+import { FieldProps } from '../Field';
 
 import { idToSearchTerm } from './__mocks__/configureSearchTerms';
 
+import TextField from '../TextField';
+
 describe('TextField', () => {
-  const props: TextFieldTypes = {
+  const props: FieldProps = {
     field: idToSearchTerm.accession_field,
     handleChange: jest.fn(),
   };
@@ -22,7 +24,7 @@ describe('TextField', () => {
   test('should update the input value', () => {
     render(<TextField {...props} />);
     const updatedValue = 'my_term';
-    const inputElt = screen.getByRole('textbox') as HTMLInputElement;
+    const inputElt = screen.getByRole<HTMLInputElement>('textbox');
     expect(inputElt.value).toBe('');
     fireEvent.change(inputElt, { target: { value: updatedValue } });
     expect(props.handleChange).toBeCalledWith(
@@ -34,7 +36,7 @@ describe('TextField', () => {
   });
 
   test("should generate correct query for 'All'", () => {
-    const propsAll: TextFieldTypes = {
+    const propsAll: FieldProps = {
       field: {
         label: 'All',
         term: 'All',
@@ -62,7 +64,7 @@ describe('TextField', () => {
   });
 
   test('should generate correct query with prefix', () => {
-    const propsPrefix: TextFieldTypes = {
+    const propsPrefix: FieldProps = {
       field: {
         id: 'prefix',
         label: 'prefixed',
@@ -90,7 +92,7 @@ describe('TextField', () => {
   });
 
   test('should generate correct query for database *', () => {
-    const propsPrefix: TextFieldTypes = {
+    const propsPrefix: FieldProps = {
       field: idToSearchTerm.xref_embl,
       handleChange: jest.fn(),
     };
@@ -109,7 +111,7 @@ describe('TextField', () => {
   });
 
   test('should validate initial query with regex', () => {
-    const propsPrefix: TextFieldTypes = {
+    const propsPrefix: FieldProps = {
       field: idToSearchTerm.proteome,
       handleChange: jest.fn(),
       initialValue: { proteome: 'UP000000000' },

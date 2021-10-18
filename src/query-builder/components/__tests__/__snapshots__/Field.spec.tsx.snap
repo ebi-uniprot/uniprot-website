@@ -1,7 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Clause component should not return anything 1`] = `<DocumentFragment />`;
-
 exports[`Clause component should render a \`date\` field with range 1`] = `
 <DocumentFragment>
   <label>

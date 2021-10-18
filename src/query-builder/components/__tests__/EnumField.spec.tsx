@@ -22,7 +22,7 @@ describe('Enum field', () => {
 
   test('should select value and generate query bit', () => {
     render(<EnumField {...props} />);
-    const select = screen.getByRole('combobox') as HTMLSelectElement;
+    const select = screen.getByRole<HTMLSelectElement>('combobox');
     expect(select.value).toBe('1');
     fireEvent.change(select, { target: { value: '2' } });
     expect(select.value).toBe('2');

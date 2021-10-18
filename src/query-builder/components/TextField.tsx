@@ -1,20 +1,10 @@
-import { useEffect, useState, FC } from 'react';
+import { useEffect, useState } from 'react';
 
 import initializer from '../utils/fieldInitializer';
 
-import { QueryBit, SearchTermType } from '../types/searchTypes';
+import { FieldProps } from './Field';
 
-export type TextFieldTypes = {
-  field: SearchTermType;
-  handleChange: (queryBit: QueryBit, reset?: boolean) => void;
-  initialValue?: QueryBit;
-};
-
-const TextField: FC<TextFieldTypes> = ({
-  field,
-  handleChange,
-  initialValue,
-}) => {
+const TextField = ({ field, handleChange, initialValue }: FieldProps) => {
   const [value, setValue] = useState(
     () => initializer(field, initialValue) as string
   );

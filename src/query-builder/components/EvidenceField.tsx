@@ -1,4 +1,4 @@
-import { useEffect, useState, FC } from 'react';
+import { useEffect, useState } from 'react';
 
 import initializer from '../utils/fieldInitializer';
 
@@ -10,11 +10,11 @@ export type EvidenceFieldProps = {
   initialValue?: QueryBit;
 };
 
-const EvidenceField: FC<EvidenceFieldProps> = ({
+const EvidenceField = ({
   field,
   handleChange,
   initialValue,
-}) => {
+}: EvidenceFieldProps) => {
   const [value, setValue] = useState(
     () => initializer(field, initialValue) as string
   );

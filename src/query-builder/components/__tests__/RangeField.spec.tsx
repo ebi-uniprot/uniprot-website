@@ -5,11 +5,13 @@ import {
   RenderResult,
 } from '@testing-library/react';
 
-import RangeField, { RangeFieldProps } from '../RangeField';
+import RangeField from '../RangeField';
 
 import { idToSearchTerm } from './__mocks__/configureSearchTerms';
 
-const props: RangeFieldProps = {
+import { FieldProps } from '../Field';
+
+const props: FieldProps = {
   field: idToSearchTerm.ftlen_sites,
   handleChange: jest.fn().mockClear(),
   initialValue: { ftlen_sites: '[11 TO 45]' },

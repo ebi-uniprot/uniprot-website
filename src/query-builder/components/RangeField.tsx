@@ -1,20 +1,10 @@
-import { useEffect, useState, FC } from 'react';
+import { useEffect, useState } from 'react';
 
 import initializer from '../utils/fieldInitializer';
 
-import { QueryBit, SearchTermType } from '../types/searchTypes';
+import { FieldProps } from './Field';
 
-export type RangeFieldProps = {
-  field: SearchTermType;
-  handleChange: (queryBit: QueryBit) => void;
-  initialValue?: QueryBit;
-};
-
-const RangeField: FC<RangeFieldProps> = ({
-  field,
-  handleChange,
-  initialValue,
-}) => {
+const RangeField = ({ field, handleChange, initialValue }: FieldProps) => {
   const [[from, to], setRange] = useState<[from: string, to: string]>(() => {
     const range = initializer(field, initialValue);
     return Array.isArray(range) ? range : ['', ''];

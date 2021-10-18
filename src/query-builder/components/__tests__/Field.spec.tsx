@@ -68,9 +68,9 @@ describe('Clause component', () => {
       term: 'not a term',
     };
 
-    const { asFragment } = render(
+    const { container } = render(
       <Field field={field} handleChange={handleChange} />
     );
-    expect(asFragment()).toMatchSnapshot();
+    expect(container).toBeEmptyDOMElement();
   });
 });

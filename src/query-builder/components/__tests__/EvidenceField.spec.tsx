@@ -32,7 +32,7 @@ describe('EvidenceField component', () => {
 
   test('should initialise', () => {
     render(<EvidenceField {...props} />);
-    const select = screen.getByRole('combobox') as HTMLSelectElement;
+    const select = screen.getByRole<HTMLSelectElement>('combobox');
     expect(select.value).toBe('manual');
   });
 });
