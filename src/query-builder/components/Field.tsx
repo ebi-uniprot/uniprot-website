@@ -6,14 +6,9 @@ import TextField from './TextField';
 import EvidenceField from './EvidenceField';
 import AutocompleteField from './AutocompleteField';
 
-import {
-  DataType,
-  FieldType,
-  QueryBit,
-  SearchTermType,
-} from '../types/searchTypes';
+import { QueryBit, SearchTermType } from '../types/searchTypes';
 
-type FieldProps = {
+export type FieldProps = {
   field: SearchTermType;
   handleChange: (updatedQueryBit: QueryBit, reset?: boolean) => void;
   initialValue?: QueryBit;
@@ -31,18 +26,18 @@ const Field: FC<FieldProps> = ({
     case Boolean(autoComplete):
       GenericField = AutocompleteField;
       break;
-    case dataType === DataType.enum || dataType === DataType.boolean:
+    case dataType === 'enum' || dataType === 'boolean':
       GenericField = EnumField;
       break;
-    case dataType === DataType.date:
-    case dataType === DataType.integer && fieldType === FieldType.range:
+    case dataType === 'date':
+    case dataType === 'integer' && fieldType === 'range':
       GenericField = RangeField;
       break;
-    case dataType === DataType.string && fieldType === FieldType.evidence:
+    case dataType === 'string' && fieldType === 'evidence':
       GenericField = EvidenceField;
       break;
-    case dataType === DataType.string:
-    case dataType === DataType.integer:
+    case dataType === 'string':
+    case dataType === 'integer':
       GenericField = TextField;
       break;
     default:

@@ -1,12 +1,16 @@
 import { TaxonomyAPIModel } from '../adapters/taxonomyConverter';
 
-// Data from /api/taxonomy/search?size=2&query=primate
+// Source: /api/taxonomy/search?size=2&query=primate
+// Retrieved: 2021-10-15
 const mock: TaxonomyAPIModel[] = [
   {
     scientificName: 'Primate lentivirus group',
     taxonId: 11652,
     mnemonic: '9PLVG',
-    parent: { scientificName: 'Lentivirus', taxonId: 11646 },
+    parent: {
+      scientificName: 'Lentivirus',
+      taxonId: 11646,
+    },
     rank: 'no rank',
     hidden: false,
     active: true,
@@ -67,6 +71,12 @@ const mock: TaxonomyAPIModel[] = [
         hidden: false,
       },
     ],
+    statistics: {
+      reviewedProteinCount: 0,
+      unreviewedProteinCount: 35809,
+      referenceProteomeCount: 0,
+      proteomeCount: 0,
+    },
   },
   {
     scientificName: 'Primate calicivirus',

@@ -116,7 +116,28 @@ exports[`TaxonomyColumnConfiguration component should render column "scientific_
 </DocumentFragment>
 `;
 
-exports[`TaxonomyColumnConfiguration component should render column "statistics": statistics 1`] = `<DocumentFragment />`;
+exports[`TaxonomyColumnConfiguration component should render column "statistics": statistics 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      <a
+        href="/uniprotkb?query=(taxonomy_id:11652)"
+      >
+        35,809 UniProtKB entries
+      </a>
+    </li>
+    <li>
+      <a
+        href="/uniprotkb?facets=reviewed:false&query=(taxonomy_id:11652)"
+      >
+        35,809 unreviewed UniProtKB entries
+      </a>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
 
 exports[`TaxonomyColumnConfiguration component should render column "strains": strains 1`] = `<DocumentFragment />`;
 

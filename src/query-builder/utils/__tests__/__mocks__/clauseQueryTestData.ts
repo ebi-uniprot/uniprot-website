@@ -1,11 +1,7 @@
-import { keyBy } from 'lodash-es';
-
 import { Clause } from '../../../types/searchTypes';
 
-import searchTerms from '../../../components/__tests__/__mocks__/configureSearchTerms';
+import { idToSearchTerm } from '../../../components/__tests__/__mocks__/configureSearchTerms';
 import { getAllTerm } from '../../clause';
-
-const idToSearchTerm = keyBy(searchTerms, ({ id }) => id);
 
 const testData = [
   {

@@ -3,7 +3,7 @@ export type IDMappingGroupItem = {
   name: string;
   from: boolean;
   to: boolean;
-  ruleId?: number;
+  ruleId?: number | null;
 };
 
 export type IDMappingGroup = {

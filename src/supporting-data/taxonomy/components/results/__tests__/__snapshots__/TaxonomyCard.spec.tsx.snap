@@ -112,6 +112,22 @@ exports[`Taxonomy Card tests should render 1`] = `
         </div>
       </div>
     </div>
+    <div
+      class="card__actions"
+    >
+      <a
+        class="card-action"
+        href="/uniprotkb?query=(taxonomy_id:11652)"
+      >
+        35,809 UniProtKB entries
+      </a>
+      <a
+        class="card-action"
+        href="/uniprotkb?facets=reviewed:false&query=(taxonomy_id:11652)"
+      >
+        35,809 unreviewed UniProtKB entries
+      </a>
+    </div>
   </section>
 </DocumentFragment>
 `;

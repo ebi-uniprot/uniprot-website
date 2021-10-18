@@ -1,25 +1,19 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 
+import { FieldProps } from '../Field';
+
+import { idToSearchTerm } from './__mocks__/configureSearchTerms';
+
 import TextField from '../TextField';
 
-import { DataType, FieldType, ItemType } from '../../types/searchTypes';
-
 describe('TextField', () => {
-  const props = {
-    field: {
-      id: 'uniprot_ac',
-      label: 'UniProtKB AC',
-      itemType: ItemType.single,
-      term: 'accession',
-      description: 'Search by UniProtKB Accession',
-      example: 'P12345',
-    },
-    type: 'text',
+  const props: FieldProps = {
+    field: idToSearchTerm.accession_field,
     handleChange: jest.fn(),
   };
 
   beforeEach(() => {
-    props.handleChange.mockReset();
+    (props.handleChange as jest.Mock).mockReset();
   });
 
   test('should render', () => {
@@ -30,7 +24,7 @@ describe('TextField', () => {
   test('should update the input value', () => {
     render(<TextField {...props} />);
     const updatedValue = 'my_term';
-    const inputElt = screen.getByRole('textbox') as HTMLInputElement;
+    const inputElt = screen.getByRole<HTMLInputElement>('textbox');
     expect(inputElt.value).toBe('');
     fireEvent.change(inputElt, { target: { value: updatedValue } });
     expect(props.handleChange).toBeCalledWith(
@@ -42,16 +36,16 @@ describe('TextField', () => {
   });
 
   test("should generate correct query for 'All'", () => {
-    const propsAll = {
+    const propsAll: FieldProps = {
       field: {
-        id: 'all',
         label: 'All',
-        itemType: ItemType.single,
         term: 'All',
-        description: 'Search by UniProtKB Accession',
-        example: 'All',
+        example: 'a4_human, P05067, cdc7 human',
+        itemType: 'single',
+        dataType: 'string',
+        fieldType: 'general',
+        id: 'id_all',
       },
-      type: 'text',
       handleChange: jest.fn(),
     };
     render(<TextField {...propsAll} />);
@@ -70,17 +64,15 @@ describe('TextField', () => {
   });
 
   test('should generate correct query with prefix', () => {
-    const propsPrefix = {
+    const propsPrefix: FieldProps = {
       field: {
         id: 'prefix',
         label: 'prefixed',
-        itemType: ItemType.single,
+        itemType: 'single',
         term: 'prefixed_q',
-        description: 'Search by UniProtKB Accession',
         example: 'Prefix',
         valuePrefix: 'value-',
       },
-      type: 'text',
       handleChange: jest.fn(),
     };
     render(<TextField {...propsPrefix} />);
@@ -100,17 +92,8 @@ describe('TextField', () => {
   });
 
   test('should generate correct query for database *', () => {
-    const propsPrefix = {
-      field: {
-        id: 'prefix',
-        label: 'prefixed',
-        itemType: ItemType.single,
-        term: 'xref',
-        description: 'Search by UniProtKB Accession',
-        example: 'Prefix',
-        valuePrefix: 'embl-',
-      },
-      type: 'text',
+    const propsPrefix: FieldProps = {
+      field: idToSearchTerm.xref_embl,
       handleChange: jest.fn(),
     };
     render(<TextField {...propsPrefix} />);
@@ -128,17 +111,8 @@ describe('TextField', () => {
   });
 
   test('should validate initial query with regex', () => {
-    const propsPrefix = {
-      field: {
-        id: 'proteome',
-        label: 'Proteome ID',
-        itemType: ItemType.single,
-        term: 'proteome',
-        dataType: DataType.string,
-        fieldType: FieldType.general,
-        example: 'UP000005640',
-        regex: '(?i)^UP[0-9]{9}$',
-      },
+    const propsPrefix: FieldProps = {
+      field: idToSearchTerm.proteome,
       handleChange: jest.fn(),
       initialValue: { proteome: 'UP000000000' },
     };

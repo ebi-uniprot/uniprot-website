@@ -236,7 +236,7 @@ Array [
 ]
 `;
 
-exports[`query parser and validator with xrefs, one invalid 1`] = `
+exports[`query parser and validator with xrefs, two of which are any 1`] = `
 Array [
   Object {
     "id": 0,
@@ -270,23 +270,18 @@ Array [
       "valuePrefix": "embl-",
     },
   },
-]
-`;
-
-exports[`query parser and validator with xrefs, one invalid 2`] = `
-Array [
   Object {
     "id": 2,
     "logicOperator": "AND",
     "queryBits": Object {
-      "xref": "invalid",
+      "xref": "xyz",
     },
     "searchTerm": Object {
       "dataType": "string",
       "fieldType": "general",
-      "id": "",
+      "id": "xref_any",
       "itemType": "single",
-      "label": "",
+      "label": "Any cross-reference",
       "term": "xref",
     },
   },
@@ -299,9 +294,9 @@ Array [
     "searchTerm": Object {
       "dataType": "string",
       "fieldType": "general",
-      "id": "",
+      "id": "xref_any",
       "itemType": "single",
-      "label": "",
+      "label": "Any cross-reference",
       "term": "xref",
     },
   },

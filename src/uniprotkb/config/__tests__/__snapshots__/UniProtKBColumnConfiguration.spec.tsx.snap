@@ -307,6 +307,46 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_catalyt
       </a>
       )
     </div>
+    <div>
+      <strong>
+        Source: 
+      </strong>
+      <a
+        class="external-link"
+        href="https://www.rhea-db.org/rhea/12345"
+        rel="noopener"
+        target="_blank"
+      >
+        Rhea 12345
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+    </div>
+    <div
+      class="rhea-reaction-visualizer__toggle"
+    >
+      <test-file-stub
+        width="1ch"
+      />
+      <button
+        class="button tertiary"
+        type="button"
+      >
+        Hide Rhea reaction
+      </button>
+    </div>
+    <div
+      class="rhea-reaction-visualizer__component"
+    >
+      <rhea-reaction
+        rheaid="12345"
+        showids="true"
+        usehost="https://api.rhea-db.org"
+        zoom="true"
+      />
+    </div>
   </span>
 </DocumentFragment>
 `;
@@ -1329,16 +1369,16 @@ exports[`UniProtKBColumnConfiguration component should render column "lit_pubmed
     </li>
     <li>
       <a
-        href="/citations/12340"
+        href="/citations/12350"
       >
-        12340
+        12350
       </a>
     </li>
     <li>
       <a
-        href="/citations/12341"
+        href="/citations/12351"
       >
-        12341
+        12351
       </a>
     </li>
     <li>

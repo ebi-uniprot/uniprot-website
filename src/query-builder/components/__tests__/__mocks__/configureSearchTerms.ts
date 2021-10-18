@@ -1,6 +1,11 @@
+import { keyBy } from 'lodash-es';
+
+import { flatten } from '../../../utils/parseAndMatchQuery';
+
 import { SearchTermType } from '../../../types/searchTypes';
 
-// https://www.ebi.ac.uk/uniprot/beta/api/configure/uniprotkb/search-fields
+// Source: /api/configure/uniprotkb/search-fields
+// Retrieved: 2021-10-14
 const configureSearchTerms = [
   {
     id: 'accession_field',
@@ -84,23 +89,23 @@ const configureSearchTerms = [
     values: [
       {
         name: 'Evidence at protein level',
-        value: 'protein_level',
+        value: '1',
       },
       {
         name: 'Evidence at transcript level',
-        value: 'transcript_level',
+        value: '2',
       },
       {
         name: 'Inferred from homology',
-        value: 'homology',
+        value: '3',
       },
       {
         name: 'Predicted',
-        value: 'predicted',
+        value: '4',
       },
       {
         name: 'Uncertain',
-        value: 'uncertain',
+        value: '5',
       },
     ],
   },
@@ -9145,7 +9150,6 @@ const configureSearchTerms = [
             term: 'xref',
             dataType: 'string',
             fieldType: 'general',
-            valuePrefix: 'any-',
           },
         ],
       },
@@ -9506,15 +9510,6 @@ const configureSearchTerms = [
             fieldType: 'general',
             valuePrefix: 'unilectin-',
           },
-          {
-            id: 'xref_ideal',
-            label: 'IDEAL',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'ideal-',
-          },
         ],
       },
       {
@@ -9606,8 +9601,8 @@ const configureSearchTerms = [
         ],
       },
       {
-        id: 'xref_group_polymorphism_and_mutation_databases',
-        label: 'Polymorphism and mutation databases',
+        id: 'xref_group_genetic_variation_databases',
+        label: 'Genetic variation databases',
         itemType: 'group',
         items: [
           {
@@ -10320,15 +10315,6 @@ const configureSearchTerms = [
             fieldType: 'general',
             valuePrefix: 'zfin-',
           },
-          {
-            id: 'xref_phi-base',
-            label: 'PHI-base',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'phi-base-',
-          },
         ],
       },
       {
@@ -10508,8 +10494,8 @@ const configureSearchTerms = [
         ],
       },
       {
-        id: 'xref_group_other',
-        label: 'Other',
+        id: 'xref_group_miscellaneous',
+        label: 'Miscellaneous',
         itemType: 'group',
         items: [
           {
@@ -10547,6 +10533,15 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             valuePrefix: 'genomernai-',
+          },
+          {
+            id: 'xref_phi-base',
+            label: 'PHI-base',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'phi-base-',
           },
           {
             id: 'xref_pro',
@@ -10669,6 +10664,15 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             valuePrefix: 'hamap-',
+          },
+          {
+            id: 'xref_ideal',
+            label: 'IDEAL',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'ideal-',
           },
           {
             id: 'xref_interpro',
@@ -11260,5 +11264,11 @@ const configureSearchTerms = [
     ],
   },
 ] as SearchTermType[];
+// TODO: remove type casting from configureSearchTerms https://www.ebi.ac.uk/panda/jira/browse/TRM-26787
+
+export const idToSearchTerm = keyBy(
+  flatten(configureSearchTerms),
+  ({ id }) => id
+);
 
 export default configureSearchTerms;

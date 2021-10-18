@@ -1,14 +1,20 @@
-import { useEffect, useState, FC } from 'react';
+import { useEffect, useState } from 'react';
 
 import initializer from '../utils/fieldInitializer';
 
 import { QueryBit, SearchTermType } from '../types/searchTypes';
 
-const EvidenceField: FC<{
+export type EvidenceFieldProps = {
   field: SearchTermType;
   handleChange: (queryBit: QueryBit) => void;
   initialValue?: QueryBit;
-}> = ({ field, handleChange, initialValue }) => {
+};
+
+const EvidenceField = ({
+  field,
+  handleChange,
+  initialValue,
+}: EvidenceFieldProps) => {
   const [value, setValue] = useState(
     () => initializer(field, initialValue) as string
   );

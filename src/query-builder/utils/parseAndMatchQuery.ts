@@ -7,7 +7,7 @@ type STTWithParent = SearchTermType & {
   parent?: STTWithParent;
 };
 
-const flatten = (searchTermData: STTWithParent[]): STTWithParent[] =>
+export const flatten = (searchTermData: STTWithParent[]): STTWithParent[] =>
   searchTermData.flatMap((searchTermDatum: STTWithParent) => {
     if (searchTermDatum.siblings) {
       return flatten(searchTermDatum.siblings).map((st) => ({
@@ -73,15 +73,26 @@ const parseAndMatchQuery = (
         });
       } else if (clause.searchTerm.term === 'xref') {
         // specific case for crosss-references
-        const [prefix, ...rest] = clause.queryBits.xref.split('-');
-        const matchingXref = matching.find(
-          ({ valuePrefix }) => valuePrefix === `${prefix}-`
-        );
-        if (matchingXref) {
+        let matchingXref;
+        let queryBitsXref;
+        if (clause.queryBits.xref.includes('-')) {
+          // There seems to be a prefix (prefix-foo) here so see if prefix can be found
+          const [prefix, ...rest] = clause.queryBits.xref.split('-');
+          matchingXref = matching.find(
+            ({ valuePrefix }) => valuePrefix === `${prefix}-`
+          );
+          queryBitsXref = rest.join('-');
+        }
+        if (!matchingXref) {
+          // There isn't a prefix or at least one that was found so this is an any xref search eg (xref:X82272)
+          matchingXref = matching.find(({ term }) => term === 'xref');
+          queryBitsXref = clause.queryBits.xref;
+        }
+        if (matchingXref && queryBitsXref) {
           validatedQuery.push({
             ...clause,
             searchTerm: matchingXref,
-            queryBits: { xref: rest.join('-') },
+            queryBits: { xref: queryBitsXref },
           });
         } else {
           // invalid xref prefix

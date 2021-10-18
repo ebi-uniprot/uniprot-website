@@ -1,18 +1,16 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 
-import LogicalOperator from '../LogicalOperator';
+import LogicalOperator, { LogicalOperatorProps } from '../LogicalOperator';
 
-import { Operator } from '../../types/searchTypes';
-
-const props = {
-  value: Operator.AND,
+const props: LogicalOperatorProps = {
+  value: 'AND',
   handleChange: jest.fn(),
   isFirst: false,
 };
 
 describe('LogicalOperator component', () => {
   beforeEach(() => {
-    props.handleChange.mockClear();
+    (props.handleChange as jest.Mock).mockClear();
   });
 
   test('should change evidence', () => {

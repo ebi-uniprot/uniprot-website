@@ -1,51 +1,27 @@
 import { render, fireEvent, screen } from '@testing-library/react';
 
-import EvidenceField from '../EvidenceField';
+import EvidenceField, { EvidenceFieldProps } from '../EvidenceField';
+import { idToSearchTerm } from './__mocks__/configureSearchTerms';
 
-import { DataType, FieldType, ItemType } from '../../types/searchTypes';
-
-const props = {
+const props: EvidenceFieldProps = {
   handleChange: jest.fn(),
-  field: {
-    id: 'ccev_webresource',
-    label: 'CCEV web resource',
-    itemType: ItemType.single,
-    term: 'ccev_webresource',
-    dataType: DataType.string,
-    fieldType: FieldType.evidence,
-    example: 'manual',
-    evidenceGroups: [
-      {
-        groupName: 'foo',
-        items: [
-          {
-            code: 'bar_code',
-            name: 'bar',
-          },
-          {
-            code: 'baz_code',
-            name: 'baz',
-          },
-        ],
-      },
-    ],
-  },
-  initialValue: { ccev_webresource: 'baz_code' },
+  field: idToSearchTerm.ccev_webresource,
+  initialValue: { ccev_webresource: 'manual' },
 };
 
 describe('EvidenceField component', () => {
   beforeEach(() => {
-    props.handleChange.mockClear();
+    (props.handleChange as jest.Mock).mockClear();
   });
 
   test('should change evidence', () => {
     render(<EvidenceField {...props} />);
     const evidenceSelect = screen.getByRole('combobox');
     fireEvent.change(evidenceSelect, {
-      target: { value: 0 },
+      target: { value: 'automatic' },
     });
     expect(props.handleChange).toBeCalledWith({
-      ccev_webresource: 'baz_code',
+      ccev_webresource: 'automatic',
     });
   });
 
@@ -56,7 +32,7 @@ describe('EvidenceField component', () => {
 
   test('should initialise', () => {
     render(<EvidenceField {...props} />);
-    const select = screen.getByRole('combobox') as HTMLSelectElement;
-    expect(select.value).toBe('baz_code');
+    const select = screen.getByRole<HTMLSelectElement>('combobox');
+    expect(select.value).toBe('manual');
   });
 });

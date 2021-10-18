@@ -86,12 +86,12 @@ describe('QueryBuilder', () => {
     const dropdownButton = screen.getByText(/All/, {
       selector: '.button.dropdown',
     });
-    const clause = dropdownButton.closest('[data-testid="search__clause"]');
-    fireEvent.click(dropdownButton);
-    const entryNameFieldOption = getByText(
-      clause as HTMLElement,
-      /Entry Name \[ID\]/
+    const clause = dropdownButton.closest<HTMLElement>(
+      '[data-testid="search__clause"]'
     );
+    fireEvent.click(dropdownButton);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const entryNameFieldOption = getByText(clause!, /Entry Name \[ID\]/);
     fireEvent.click(entryNameFieldOption);
     entryNameField = screen.queryByPlaceholderText('P53_HUMAN');
     expect(entryNameField).toBeInTheDocument();

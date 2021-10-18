@@ -1,14 +1,10 @@
-import { useEffect, useState, FC } from 'react';
+import { useEffect, useState } from 'react';
 
 import initializer from '../utils/fieldInitializer';
 
-import { DataType, QueryBit, SearchTermType } from '../types/searchTypes';
+import { FieldProps } from './Field';
 
-const TextField: FC<{
-  field: SearchTermType;
-  handleChange: (queryBit: QueryBit, reset?: boolean) => void;
-  initialValue?: QueryBit;
-}> = ({ field, handleChange, initialValue }) => {
+const TextField = ({ field, handleChange, initialValue }: FieldProps) => {
   const [value, setValue] = useState(
     () => initializer(field, initialValue) as string
   );
@@ -32,7 +28,7 @@ const TextField: FC<{
     <label>
       {field.label}
       <input
-        type={field.dataType === DataType.integer ? 'number' : 'text'}
+        type={field.dataType === 'integer' ? 'number' : 'text'}
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder={field.example}
