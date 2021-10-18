@@ -1,6 +1,7 @@
 import { LocationsAPIModel } from '../adapters/locationsConverter';
 
-// Data from /api/locations/search?query=membrane&size=2
+// Source: /api/locations/search?query=membrane&size=2
+// Retrieved: 2021-10-15
 const mock: LocationsAPIModel[] = [
   {
     name: 'Endoplasmic reticulum-Golgi intermediate compartment membrane',
@@ -8,7 +9,10 @@ const mock: LocationsAPIModel[] = [
     definition:
       'The membrane surrounding the ER-Golgi intermediate compartment, which is a collection of tubulovesicular membrane clusters in the vicinity of ER exit sites.',
     content: 'Endoplasmic reticulum-Golgi intermediate compartment membrane',
-    statistics: { reviewedProteinCount: 236, unreviewedProteinCount: 15974 },
+    statistics: {
+      reviewedProteinCount: 236,
+      unreviewedProteinCount: 15974,
+    },
     category: 'Cellular component',
     geneOntologies: [
       {
@@ -31,9 +35,17 @@ const mock: LocationsAPIModel[] = [
         definition:
           'A membrane is a lipid bilayer which surrounds enclosed spaces and compartments. This selectively permeable structure is essential for effective separation of a cell or organelle from its surroundings. Membranes are composed of various types of molecules such as phospholipids, integral membrane proteins, peripheral proteins, glycoproteins, glycolipids, etc. The relative amounts of these components as well as the types of lipids are non-randomly distributed from membrane to membrane as well as between the two leaflets of a membrane.',
         content: 'Membrane',
-        keyword: { name: 'Membrane', id: 'KW-0472' },
+        keyword: {
+          name: 'Membrane',
+          id: 'KW-0472',
+        },
         category: 'Cellular component',
-        geneOntologies: [{ goId: 'GO:0016020', name: 'membrane' }],
+        geneOntologies: [
+          {
+            goId: 'GO:0016020',
+            name: 'membrane',
+          },
+        ],
       },
     ],
     partOf: [
@@ -68,7 +80,12 @@ const mock: LocationsAPIModel[] = [
         content: 'Endomembrane system',
         note: 'Try to use a child/narrower/more specific term instead',
         category: 'Cellular component',
-        geneOntologies: [{ goId: 'GO:0012505', name: 'endomembrane system' }],
+        geneOntologies: [
+          {
+            goId: 'GO:0012505',
+            name: 'endomembrane system',
+          },
+        ],
         synonyms: ['Endomembrane'],
       },
     ],
@@ -80,7 +97,10 @@ const mock: LocationsAPIModel[] = [
       'The membrane surrounding the host ER-Golgi intermediate compartment, which is a collection of tubulovesicular membrane clusters in the vicinity of host ER exit sites.',
     content:
       'Host endoplasmic reticulum-Golgi intermediate compartment membrane',
-    statistics: { reviewedProteinCount: 59, unreviewedProteinCount: 18988 },
+    statistics: {
+      reviewedProteinCount: 59,
+      unreviewedProteinCount: 18988,
+    },
     category: 'Cellular component',
     geneOntologies: [
       {
@@ -103,9 +123,17 @@ const mock: LocationsAPIModel[] = [
         definition:
           'A host membrane is a lipid bilayer which surrounds host enclosed spaces and compartments. This selectively permeable structure is essential for effective separation of a host cell or organelle from its surroundings.',
         content: 'Host membrane',
-        keyword: { name: 'Host membrane', id: 'KW-1043' },
+        keyword: {
+          name: 'Host membrane',
+          id: 'KW-1043',
+        },
         category: 'Cellular component',
-        geneOntologies: [{ goId: 'GO:0033644', name: 'host cell membrane' }],
+        geneOntologies: [
+          {
+            goId: 'GO:0033644',
+            name: 'host cell membrane',
+          },
+        ],
       },
     ],
     partOf: [
@@ -139,7 +167,10 @@ const mock: LocationsAPIModel[] = [
         content: 'Host endomembrane system',
         category: 'Cellular component',
         geneOntologies: [
-          { goId: 'GO:0033645', name: 'host cell endomembrane system' },
+          {
+            goId: 'GO:0033645',
+            name: 'host cell endomembrane system',
+          },
         ],
         synonyms: ['Host endomembrane'],
       },

@@ -123,6 +123,46 @@ exports[`Entry view should render 1`] = `
             </a>
             )
           </div>
+          <div>
+            <strong>
+              Source: 
+            </strong>
+            <a
+              class="external-link"
+              href="https://www.rhea-db.org/rhea/12345"
+              rel="noopener"
+              target="_blank"
+            >
+              Rhea 12345
+              <test-file-stub
+                data-testid="external-link-icon"
+                width="12.5"
+              />
+            </a>
+          </div>
+          <div
+            class="rhea-reaction-visualizer__toggle"
+          >
+            <test-file-stub
+              width="1ch"
+            />
+            <button
+              class="button tertiary"
+              type="button"
+            >
+              Hide Rhea reaction
+            </button>
+          </div>
+          <div
+            class="rhea-reaction-visualizer__component"
+          >
+            <rhea-reaction
+              rheaid="12345"
+              showids="true"
+              usehost="https://api.rhea-db.org"
+              zoom="true"
+            />
+          </div>
         </span>
         <h3
           class="capitalize"
@@ -4222,7 +4262,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__content"
               >
-                Bacteria &gt; Firmicutes &gt; Clostridia &gt; Clostridiales &gt; Ruminococcaceae &gt; Flavonifractor
+                Bacteria &gt; Firmicutes &gt; Clostridia &gt; Eubacteriales &gt; Oscillospiraceae &gt; Flavonifractor
               </div>
             </div>
           </li>
@@ -6088,6 +6128,50 @@ exports[`Entry view should render for non-human entry 1`] = `
                       />
                     </a>
                     NZ_WKPS01000046.1
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <h3>
+          Genome annotation databases
+        </h3>
+        <ul
+          class="info-list info-list--columns"
+        >
+          <li>
+            <div
+              class="decorated-list-item"
+            >
+              <div
+                class="decorated-list-item__title"
+              >
+                <h5
+                  class="bold"
+                >
+                  GeneID
+                </h5>
+              </div>
+              <div
+                class="decorated-list-item__content"
+              >
+                <ul
+                  class="expandable-list no-bullet"
+                >
+                  <li>
+                    <a
+                      class="external-link"
+                      href="https://www.ncbi.nlm.nih.gov/gene/60838703"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      60838703
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
                   </li>
                 </ul>
               </div>

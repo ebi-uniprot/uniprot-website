@@ -1,26 +1,41 @@
 import { ARBAAPIModel } from '../adapters/arbaConverter';
 
-// Data from /api/arba/search?query=insulin&size=2
+// Source: /api/arba/search?query=insulin&size=2
+// Retrieved: 2021-10-14
 const mock: ARBAAPIModel[] = [
   {
     uniRuleId: 'ARBA00013665',
-    information: { version: '0' },
+    information: {
+      version: '0',
+    },
     mainRule: {
       conditionSets: [
         {
           conditions: [
             {
-              conditionValues: [{ value: 'IPR000716' }],
+              conditionValues: [
+                {
+                  value: 'IPR000716',
+                },
+              ],
               type: 'InterPro id',
               isNegative: false,
             },
             {
-              conditionValues: [{ value: 'IPR000867' }],
+              conditionValues: [
+                {
+                  value: 'IPR000867',
+                },
+              ],
               type: 'InterPro id',
               isNegative: false,
             },
             {
-              conditionValues: [{ value: 'IPR012213' }],
+              conditionValues: [
+                {
+                  value: 'IPR012213',
+                },
+              ],
               type: 'InterPro id',
               isNegative: false,
             },
@@ -40,29 +55,46 @@ const mock: ARBAAPIModel[] = [
         },
       ],
     },
-    statistics: { reviewedProteinCount: 0, unreviewedProteinCount: 608 },
+    statistics: {
+      reviewedProteinCount: 0,
+      unreviewedProteinCount: 608,
+    },
     createdDate: '2020-05-12',
     modifiedDate: '2020-05-12',
   },
   {
     uniRuleId: 'ARBA00013675',
-    information: { version: '0' },
+    information: {
+      version: '0',
+    },
     mainRule: {
       conditionSets: [
         {
           conditions: [
             {
-              conditionValues: [{ value: 'IPR000716' }],
+              conditionValues: [
+                {
+                  value: 'IPR000716',
+                },
+              ],
               type: 'InterPro id',
               isNegative: false,
             },
             {
-              conditionValues: [{ value: 'IPR000867' }],
+              conditionValues: [
+                {
+                  value: 'IPR000867',
+                },
+              ],
               type: 'InterPro id',
               isNegative: false,
             },
             {
-              conditionValues: [{ value: 'IPR022322' }],
+              conditionValues: [
+                {
+                  value: 'IPR022322',
+                },
+              ],
               type: 'InterPro id',
               isNegative: false,
             },
@@ -82,7 +114,10 @@ const mock: ARBAAPIModel[] = [
         },
       ],
     },
-    statistics: { reviewedProteinCount: 0, unreviewedProteinCount: 613 },
+    statistics: {
+      reviewedProteinCount: 0,
+      unreviewedProteinCount: 613,
+    },
     createdDate: '2020-05-12',
     modifiedDate: '2020-05-12',
   },

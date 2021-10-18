@@ -1,19 +1,8 @@
 import { DatabaseInfo } from '../types/databaseRefs';
 
-/*
-TODO: The folllowing changes have been applied here which back end are going to incorporate in the served 
-file too (JIRA: https://www.ebi.ac.uk/panda/jira/browse/TRM-26489). Ensure that this has been done before 
-switching over to using the allDatabases endpoint as directed in JIRA: https://www.ebi.ac.uk/panda/jira/browse/TRM-24060
- 1. All null and false values have been removed
- 2. All uriLink param: %accession --> %primaryAccession
- 3. All uriLink param: %src64 --> %crc64 
- 4. PDBe-KB uriLink param: %id --> %primaryAccession 
- 5. UniPathway has no uriLink: should it be removed all together or updated with a uriLink?
-
-Source: https://www.ebi.ac.uk/uniprot/beta/api/configure/uniprotkb/allDatabases
-Retrieved on 2021-10-14
- */
-
+// TODO: Switch over to using the allDatabases endpoint as directed in JIRA: https://www.ebi.ac.uk/panda/jira/browse/TRM-24060
+// Source: /api/configure/uniprotkb/allDatabases
+// Retrieved: 2021-10-15
 const databaseInfo: DatabaseInfo = [
   {
     name: 'EMBL',
