@@ -48,35 +48,39 @@ DiseasesColumnConfiguration.set(DiseasesColumn.acronym, {
   render: ({ acronym }) => acronym,
 });
 
+// NOTE: since these will be used in an info list, we need to return null when
+// NOTE: no content, otherwise it gets a truthy empty fragment instead
 DiseasesColumnConfiguration.set(DiseasesColumn.alternativeNames, {
   label: 'Alternative names',
-  render: ({ alternativeNames }) => (
-    <ExpandableList
-      descriptionString="alternative names"
-      displayNumberOfHiddenItems
-    >
-      {alternativeNames}
-    </ExpandableList>
-  ),
+  render: ({ alternativeNames }) =>
+    alternativeNames?.length ? (
+      <ExpandableList
+        descriptionString="alternative names"
+        displayNumberOfHiddenItems
+      >
+        {alternativeNames}
+      </ExpandableList>
+    ) : null,
 });
 
 // NOTE: should probably be links
 DiseasesColumnConfiguration.set(DiseasesColumn.crossReferences, {
   label: 'Cross references',
   // TODO: https://www.ebi.ac.uk/panda/jira/browse/TRM-25838
-  render: ({ crossReferences }) => (
-    <ExpandableList
-      descriptionString="cross references"
-      displayNumberOfHiddenItems
-    >
-      {crossReferences?.map(
-        ({ databaseType, id, properties }) =>
-          `${databaseType}: ${id}${
-            properties?.length ? ` (${properties.join(', ')})` : ''
-          }`
-      )}
-    </ExpandableList>
-  ),
+  render: ({ crossReferences }) =>
+    crossReferences?.length ? (
+      <ExpandableList
+        descriptionString="cross references"
+        displayNumberOfHiddenItems
+      >
+        {crossReferences?.map(
+          ({ databaseType, id, properties }) =>
+            `${databaseType}: ${id}${
+              properties?.length ? ` (${properties.join(', ')})` : ''
+            }`
+        )}
+      </ExpandableList>
+    ) : null,
 });
 
 DiseasesColumnConfiguration.set(DiseasesColumn.definition, {
@@ -96,15 +100,16 @@ DiseasesColumnConfiguration.set(DiseasesColumn.id, {
 
 DiseasesColumnConfiguration.set(DiseasesColumn.keywords, {
   label: 'Keywords',
-  render: ({ keywords }) => (
-    <ExpandableList descriptionString="keywords" displayNumberOfHiddenItems>
-      {keywords?.map(({ name, id }) => (
-        <Link key={id} to={getEntryPathForKeyword(id)}>
-          {name}
-        </Link>
-      ))}
-    </ExpandableList>
-  ),
+  render: ({ keywords }) =>
+    keywords?.length ? (
+      <ExpandableList descriptionString="keywords" displayNumberOfHiddenItems>
+        {keywords?.map(({ name, id }) => (
+          <Link key={id} to={getEntryPathForKeyword(id)}>
+            {name}
+          </Link>
+        ))}
+      </ExpandableList>
+    ) : null,
 });
 
 DiseasesColumnConfiguration.set(DiseasesColumn.name, {

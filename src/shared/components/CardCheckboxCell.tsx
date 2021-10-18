@@ -9,7 +9,11 @@ const CardCheckboxCell = ({ id }: { id: string }) => {
   return (
     <span className="checkbox-cell">
       <input type="checkbox" data-id={id} id={idRef.current} />
-      <label htmlFor={idRef.current} />
+      <label
+        htmlFor={idRef.current}
+        aria-label={id}
+        title="click to select, shift+click for multiple selection"
+      />
     </span>
   );
 };

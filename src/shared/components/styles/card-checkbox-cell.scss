@@ -1,14 +1,7 @@
 @import 'franklin-sites/src/styles/colours';
 
-// Same as in franklin
-.card .checkbox-cell {
-  // Hide if not within a results component
-  display: none;
-
-  .results-data & {
-    display: initial;
-  }
-
+// Same classnames as in franklin
+.data-list .checkbox-cell {
   height: 100%;
   position: relative;
   padding: 0;

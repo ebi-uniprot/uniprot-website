@@ -115,10 +115,20 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 <div
                   class="card__header"
                 >
-                  <input
-                    data-testid="up-card-checkbox"
-                    type="checkbox"
-                  />
+                  <span
+                    class="checkbox-cell"
+                  >
+                    <input
+                      data-id="P35575"
+                      id="0"
+                      type="checkbox"
+                    />
+                    <label
+                      aria-label="P35575"
+                      for="0"
+                      title="click to select, shift+click for multiple selection"
+                    />
+                  </span>
                   <h2
                     class="tiny"
                   >
@@ -290,10 +300,20 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 <div
                   class="card__header"
                 >
-                  <input
-                    data-testid="up-card-checkbox"
-                    type="checkbox"
-                  />
+                  <span
+                    class="checkbox-cell"
+                  >
+                    <input
+                      data-id="O43826"
+                      id="1"
+                      type="checkbox"
+                    />
+                    <label
+                      aria-label="O43826"
+                      for="1"
+                      title="click to select, shift+click for multiple selection"
+                    />
+                  </span>
                   <h2
                     class="tiny"
                   >
@@ -565,10 +585,20 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 <div
                   class="card__header"
                 >
-                  <input
-                    data-testid="up-card-checkbox"
-                    type="checkbox"
-                  />
+                  <span
+                    class="checkbox-cell"
+                  >
+                    <input
+                      data-id="P35575"
+                      id="0"
+                      type="checkbox"
+                    />
+                    <label
+                      aria-label="P35575"
+                      for="0"
+                      title="click to select, shift+click for multiple selection"
+                    />
+                  </span>
                   <h2
                     class="tiny"
                   >
@@ -740,10 +770,20 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 <div
                   class="card__header"
                 >
-                  <input
-                    data-testid="up-card-checkbox"
-                    type="checkbox"
-                  />
+                  <span
+                    class="checkbox-cell"
+                  >
+                    <input
+                      data-id="O43826"
+                      id="1"
+                      type="checkbox"
+                    />
+                    <label
+                      aria-label="O43826"
+                      for="1"
+                      title="click to select, shift+click for multiple selection"
+                    />
+                  </span>
                   <h2
                     class="tiny"
                   >

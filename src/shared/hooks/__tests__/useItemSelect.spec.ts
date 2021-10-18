@@ -1,3 +1,4 @@
+import { waitFor } from '@testing-library/react';
 import { renderHook, act } from '@testing-library/react-hooks';
 
 import useItemSelect from '../useItemSelect';
@@ -9,7 +10,7 @@ describe('useItemSelect', () => {
     expect(typeof result.current[1]).toBe('function');
   });
 
-  it('should add and remove item', () => {
+  it('should add and remove item', async () => {
     const { result } = renderHook(() => useItemSelect());
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
@@ -21,7 +22,7 @@ describe('useItemSelect', () => {
         target: checkbox,
       });
     });
-    expect(result.current[0]).toEqual(['id1']);
+    await act(() => waitFor(() => expect(result.current[0]).toEqual(['id1'])));
     checkbox.checked = false;
     act(() => {
       result.current[1]({
@@ -29,6 +30,6 @@ describe('useItemSelect', () => {
         target: checkbox,
       });
     });
-    expect(result.current[0]).toEqual([]);
+    await act(() => waitFor(() => expect(result.current[0]).toEqual([])));
   });
 });

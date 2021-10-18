@@ -11,25 +11,15 @@ import data from '../../../__mocks__/uniParcEntryModelData';
 describe('UniRefCard tests', () => {
   it('should render and match snapshot', () => {
     const { asFragment } = customRender(
-      <UniParcCard
-        data={data as UniParcAPIModel}
-        handleEntrySelection={jest.fn()}
-      />
+      <UniParcCard data={data as UniParcAPIModel} />
     );
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('should allow card selection and navigation', () => {
-    const handleClick = jest.fn();
+  it('should allow card navigation', () => {
     const { history } = customRender(
-      <UniParcCard
-        data={data as UniParcAPIModel}
-        handleEntrySelection={handleClick}
-      />
+      <UniParcCard data={data as UniParcAPIModel} />
     );
-    fireEvent.click(screen.getByRole('checkbox'));
-    expect(handleClick).toHaveBeenCalled();
-    expect(history.location.pathname).not.toMatch('/uniparc/UPI0000000001');
     fireEvent.click(screen.getByTestId('background-link'));
     expect(history.location.pathname).toMatch('/uniparc/UPI0000000001');
   });

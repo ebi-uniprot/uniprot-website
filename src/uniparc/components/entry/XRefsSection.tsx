@@ -83,7 +83,7 @@ const XRefsSection: FC<Props> = ({ xrefData }) => {
       className={xrefData.isStale ? helper.stale : undefined}
     >
       <div className="button-group">
-        <CustomiseButton />
+        <CustomiseButton namespace={Namespace.uniparc} />
       </div>
       <DataTableWithLoader
         onLoadMoreItems={() => setNItemsToRender((n) => n + 25)}

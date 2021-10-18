@@ -14,17 +14,8 @@ describe('CitationCard tests', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('should allow card selection and navigation', () => {
-    const handleClick = jest.fn();
-    const { history } = customRender(
-      <LocationsCard
-        data={locationsData[0]}
-        handleEntrySelection={handleClick}
-      />
-    );
-    fireEvent.click(screen.getByRole('checkbox'));
-    expect(handleClick).toHaveBeenCalled();
-    expect(history.location.pathname).not.toMatch('/locations/SL-0099');
+  it('should allow card navigation', () => {
+    const { history } = customRender(<LocationsCard data={locationsData[0]} />);
     fireEvent.click(screen.getByTestId('background-link'));
     expect(history.location.pathname).toMatch('/locations/SL-0099');
   });

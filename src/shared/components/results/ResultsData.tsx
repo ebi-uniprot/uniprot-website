@@ -143,37 +143,10 @@ const ResultsData = ({
     return <Loader progress={progress} />;
   }
 
-  const dataTableWithLoader =
-    namespace !== Namespace.idmapping ? (
-      <DataTableWithLoader
-        getIdKey={getIdKey}
-        columns={columns}
-        data={allResults}
-        loading={loading}
-        onSelectionChange={setSelectedItemFromEvent}
-        onHeaderClick={updateColumnSort}
-        onLoadMoreItems={handleLoadMoreRows}
-        hasMoreData={hasMoreData}
-        loaderComponent={loadComponent}
-        className={className}
-      />
-    ) : (
-      <DataTableWithLoader
-        getIdKey={getIdKey}
-        columns={columns}
-        data={allResults}
-        loading={loading}
-        onHeaderClick={updateColumnSort}
-        onLoadMoreItems={handleLoadMoreRows}
-        hasMoreData={hasMoreData}
-        loaderComponent={loadComponent}
-        className={className}
-      />
-    );
-
   return (
     <div className="results-data">
       {viewMode === ViewMode.CARD && !displayIdMappingColumns ? (
+        // Card view
         <DataListWithLoader<APIModel>
           getIdKey={getIdKey}
           data={allResults}
@@ -186,7 +159,19 @@ const ResultsData = ({
           className={className}
         />
       ) : (
-        dataTableWithLoader
+        // Table view
+        <DataTableWithLoader
+          getIdKey={getIdKey}
+          columns={columns}
+          data={allResults}
+          loading={loading}
+          onSelectionChange={setSelectedItemFromEvent}
+          onHeaderClick={updateColumnSort}
+          onLoadMoreItems={handleLoadMoreRows}
+          hasMoreData={hasMoreData}
+          loaderComponent={loadComponent}
+          className={className}
+        />
       )}
     </div>
   );

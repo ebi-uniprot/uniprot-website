@@ -136,7 +136,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
           title={`Switch to "${
             viewMode === ViewMode.CARD ? 'table' : 'card'
           }" view`}
-          disabled={namespace === Namespace.idmapping || disableCardToggle}
+          disabled={disableCardToggle}
         >
           <TableIcon
             className={cn('results-buttons__toggle', {
@@ -149,7 +149,9 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
             })}
           />
         </Button>
-        {!notCustomisable && viewMode === ViewMode.TABLE && <CustomiseButton />}
+        {!notCustomisable && viewMode === ViewMode.TABLE && (
+          <CustomiseButton namespace={namespace} />
+        )}
         <ItemCount selected={selectedEntries.length} loaded={loadedTotal} />
       </div>
     </>

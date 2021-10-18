@@ -95,7 +95,7 @@ const AddToBasketButton = ({
       ]);
     });
 
-    setSelectedEntries((selectedEntries) =>
+    setSelectedEntries?.((selectedEntries) =>
       selectedEntries.filter((entry) => !accessions.includes(entry))
     );
   };

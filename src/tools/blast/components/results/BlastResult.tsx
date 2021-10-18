@@ -283,13 +283,14 @@ const BlastResult = () => {
 
   const inputParamsData = useParamsData(match?.params.id || '');
 
-  const resultTableData = useMemo(
-    () =>
-      accessionsLoading && !hitsFiltered.length
-        ? blastData
-        : { ...blastData, hits: hitsFiltered },
-    [accessionsLoading, blastData, hitsFiltered]
-  );
+  const resultTableData = useMemo<BlastResults | null>(() => {
+    if (!blastData) {
+      return null;
+    }
+    return accessionsLoading && !hitsFiltered.length
+      ? blastData
+      : { ...blastData, hits: hitsFiltered };
+  }, [accessionsLoading, blastData, hitsFiltered]);
 
   if (blastLoading) {
     return <Loader progress={blastProgress} />;

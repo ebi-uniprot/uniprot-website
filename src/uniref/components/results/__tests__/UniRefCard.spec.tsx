@@ -12,27 +12,15 @@ describe('UniRefCard tests', () => {
   it('should render and match snapshot', () => {
     const row = data.results[0];
     const { asFragment } = customRender(
-      <UniRefCard
-        data={row as UniRefLiteAPIModel}
-        handleEntrySelection={jest.fn()}
-      />
+      <UniRefCard data={row as UniRefLiteAPIModel} />
     );
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('should allow card selection and navigation', () => {
-    const handleClick = jest.fn();
+  it('should allow card navigation', () => {
     const row = data.results[0];
     const { history } = customRender(
-      <UniRefCard
-        data={row as UniRefLiteAPIModel}
-        handleEntrySelection={handleClick}
-      />
-    );
-    fireEvent.click(screen.getByRole('checkbox'));
-    expect(handleClick).toHaveBeenCalled();
-    expect(history.location.pathname).not.toMatch(
-      '/uniref/UniRef100_A0A0B7GQ86'
+      <UniRefCard data={row as UniRefLiteAPIModel} />
     );
     fireEvent.click(screen.getByTestId('background-link'));
     expect(history.location.pathname).toMatch('/uniref/UniRef100_A0A0B7GQ86');

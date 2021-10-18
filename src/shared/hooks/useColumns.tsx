@@ -1,4 +1,10 @@
-import { useMemo, ReactNode, Dispatch, SetStateAction } from 'react';
+import {
+  useMemo,
+  ReactNode,
+  Dispatch,
+  SetStateAction,
+  useCallback,
+} from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { BinIcon, Button } from 'franklin-sites';
 
@@ -250,34 +256,47 @@ const useColumns = (
     sortableColumnToSortColumn,
     sortColumn,
     sortDirection,
+    setSelectedEntries,
   ]);
 
-  const updateColumnSort = (columnName: string) => {
-    // No sorting for id mapping
-    if (namespace === Namespace.idmapping) {
-      return;
-    }
-    const newSortColumn = sortableColumnToSortColumn.get(columnName as Column);
-    if (!newSortColumn) {
-      return;
-    }
+  const updateColumnSort = useCallback(
+    (columnName: string) => {
+      // No sorting for id mapping
+      if (namespace === Namespace.idmapping) {
+        return;
+      }
+      const newSortColumn = sortableColumnToSortColumn.get(
+        columnName as Column
+      );
+      if (!newSortColumn) {
+        return;
+      }
 
-    // Change sort direction
-    const updatedSortDirection =
-      !sortDirection || sortDirection === SortDirection.descend
-        ? SortDirection.ascend
-        : SortDirection.descend;
+      // Change sort direction
+      const updatedSortDirection =
+        !sortDirection || sortDirection === SortDirection.descend
+          ? SortDirection.ascend
+          : SortDirection.descend;
 
-    history.push(
-      getLocationObjForParams({
-        pathname: SearchResultsLocations[namespace],
-        query,
-        selectedFacets,
-        sortColumn: newSortColumn,
-        sortDirection: updatedSortDirection,
-      })
-    );
-  };
+      history.push(
+        getLocationObjForParams({
+          pathname: SearchResultsLocations[namespace],
+          query,
+          selectedFacets,
+          sortColumn: newSortColumn,
+          sortDirection: updatedSortDirection,
+        })
+      );
+    },
+    [
+      history,
+      namespace,
+      query,
+      selectedFacets,
+      sortDirection,
+      sortableColumnToSortColumn,
+    ]
+  );
   return [columns, updateColumnSort];
 };
 

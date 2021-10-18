@@ -146,7 +146,6 @@ const ComputationalyMappedSequences: FC<{ primaryAccession: string }> = ({
                 density="compact"
                 columns={columns}
                 data={filteredData}
-                selected={selectedEntries}
                 onSelectionChange={setSelectedItemFromEvent}
               />
             </>

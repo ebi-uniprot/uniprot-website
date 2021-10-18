@@ -16,15 +16,16 @@ const getIdKey = getIdKeyFor(Namespace.citations);
 type Props = {
   data: CitationsAPIModel;
   headingLevel?: `h${1 | 2 | 3 | 4 | 5 | 6}`;
+  notSelectable?: boolean;
 };
 
-const CitationsCard = ({ data, headingLevel = 'h2' }: Props) => {
+const CitationsCard = ({ data, headingLevel = 'h2', notSelectable }: Props) => {
   const id = getIdKey(data);
 
   return (
     <Card to={getEntryPath(Namespace.citations, id)}>
       <div className={styles['card-content']}>
-        <CardCheckboxCell id={id} />
+        {notSelectable ? null : <CardCheckboxCell id={id} />}
         <LiteratureCitation data={data} headingLevel={headingLevel} />
       </div>
     </Card>

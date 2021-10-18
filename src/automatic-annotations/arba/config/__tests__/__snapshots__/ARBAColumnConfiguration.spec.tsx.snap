@@ -12,6 +12,8 @@ exports[`ARBAColumnConfiguration component should render column "annotation_cove
 </DocumentFragment>
 `;
 
+exports[`ARBAColumnConfiguration component should render column "reviewed_protein_count": reviewed_protein_count 1`] = `<DocumentFragment />`;
+
 exports[`ARBAColumnConfiguration component should render column "rule_id": rule_id 1`] = `
 <DocumentFragment>
   <span
@@ -51,3 +53,13 @@ exports[`ARBAColumnConfiguration component should render column "statistics": st
 `;
 
 exports[`ARBAColumnConfiguration component should render column "taxonomic_scope": taxonomic_scope 1`] = `<DocumentFragment />`;
+
+exports[`ARBAColumnConfiguration component should render column "unreviewed_protein_count": unreviewed_protein_count 1`] = `
+<DocumentFragment>
+  <a
+    href="/uniprotkb?facets=reviewed:false&query=(source:ARBA00013665)"
+  >
+    608 unreviewed UniProtKB entries
+  </a>
+</DocumentFragment>
+`;

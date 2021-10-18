@@ -10,7 +10,18 @@ exports[`BlastResultTable tests should render without any hits 1`] = `
         <th
           class="data-table__header-cell--checkbox"
         >
-           
+          <div
+            class="checkbox-cell"
+          >
+            <input
+              id="0"
+              type="checkbox"
+            />
+            <label
+              aria-label="Selection control for all visible items"
+              for="0"
+            />
+          </div>
         </th>
         <th
           class=""
@@ -62,7 +73,18 @@ exports[`BlastResultTable tests should render, and toggle the extra HSPs 1`] = `
         <th
           class="data-table__header-cell--checkbox"
         >
-           
+          <div
+            class="checkbox-cell"
+          >
+            <input
+              id="0"
+              type="checkbox"
+            />
+            <label
+              aria-label="Selection control for all visible items"
+              for="0"
+            />
+          </div>
         </th>
         <th
           class=""
@@ -101,11 +123,18 @@ exports[`BlastResultTable tests should render, and toggle the extra HSPs 1`] = `
     </thead>
     <tbody>
       <tr>
-        <td>
+        <td
+          class="checkbox-cell"
+        >
           <input
-            aria-label="U6MKN0"
             data-id="U6MKN0"
+            id="1"
             type="checkbox"
+          />
+          <label
+            aria-label="U6MKN0"
+            for="1"
+            title="click to select, shift+click for multiple selection"
           />
         </td>
         <td

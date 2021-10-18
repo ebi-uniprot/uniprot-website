@@ -6,7 +6,6 @@ import { frame } from 'timing-functions';
 
 import ColumnSelect from '../column-select/ColumnSelect';
 
-import useNS from '../../hooks/useNS';
 import useLocalStorage from '../../hooks/useLocalStorage';
 
 import { nsToDefaultColumns } from '../../config/columns';
@@ -18,10 +17,10 @@ import sticky from '../../styles/sticky.module.scss';
 
 type CustomiseTableProps = {
   onClose: () => void;
+  namespace: Namespace;
 };
 
-const CustomiseTable = ({ onClose }: CustomiseTableProps) => {
-  const namespace = useNS() || Namespace.uniprotkb;
+const CustomiseTable = ({ onClose, namespace }: CustomiseTableProps) => {
   const isEntryPage = Boolean(useRouteMatch(allEntryPages));
   const defaultColumns = nsToDefaultColumns(namespace, isEntryPage);
   const [columns, setColumns] = useLocalStorage(

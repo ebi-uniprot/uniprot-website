@@ -5,6 +5,8 @@ import ErrorBoundary from '../error-component/ErrorBoundary';
 
 import lazy from '../../utils/lazy';
 
+import { Namespace } from '../../types/namespaces';
+
 import styles from './styles/customise-button.module.scss';
 
 const CustomiseTable = lazy(
@@ -14,7 +16,7 @@ const CustomiseTable = lazy(
     )
 );
 
-const CustomiseButton = () => {
+const CustomiseButton = ({ namespace }: { namespace: Namespace }) => {
   const [displayCustomisePanel, setDisplayCustomisePanel] = useState(false);
 
   return (
@@ -28,7 +30,10 @@ const CustomiseButton = () => {
             className={styles['customise-table-panel']}
           >
             <ErrorBoundary>
-              <CustomiseTable onClose={() => setDisplayCustomisePanel(false)} />
+              <CustomiseTable
+                onClose={() => setDisplayCustomisePanel(false)}
+                namespace={namespace}
+              />
             </ErrorBoundary>
           </SlidingPanel>
         </Suspense>
