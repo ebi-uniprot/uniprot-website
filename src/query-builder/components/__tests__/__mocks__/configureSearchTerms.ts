@@ -11264,6 +11264,7 @@ const configureSearchTerms = [
     ],
   },
 ] as SearchTermType[];
+// TODO: remove type casting from configureSearchTerms https://www.ebi.ac.uk/panda/jira/browse/TRM-26787
 
 export const idToSearchTerm = keyBy(
   flatten(configureSearchTerms),
