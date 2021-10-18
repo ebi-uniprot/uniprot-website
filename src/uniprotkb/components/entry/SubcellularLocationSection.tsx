@@ -34,9 +34,9 @@ const SubcellularLocationSection = ({ data, sequence }: Props) => {
       <SubcellularLocationWithVizView
         primaryAccession={data.primaryAccession}
         comments={
-          data.commentsData.get(
-            'SUBCELLULAR LOCATION'
-          ) as SubcellularLocationComment[]
+          data.commentsData.get('SUBCELLULAR LOCATION') as
+            | SubcellularLocationComment[]
+            | undefined
         }
         taxonId={data.organismData?.taxonId}
         lineage={data.organismData?.lineage}

@@ -36,11 +36,15 @@ const FamilyAndDomainsSection = ({
     >
       <FeaturesView features={data.featuresData} sequence={sequence} />
       <FreeTextView
-        comments={data.commentsData.get('DOMAIN') as FreeTextComment[]}
+        comments={
+          data.commentsData.get('DOMAIN') as FreeTextComment[] | undefined
+        }
         title="domain"
       />
       <FreeTextView
-        comments={data.commentsData.get('SIMILARITY') as FreeTextComment[]}
+        comments={
+          data.commentsData.get('SIMILARITY') as FreeTextComment[] | undefined
+        }
         title="similarity"
       />
       <KeywordView keywords={data.keywordData} />

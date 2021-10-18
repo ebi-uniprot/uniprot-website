@@ -38,7 +38,7 @@ const ProteinProcessingSection = ({
     >
       <FeaturesView features={featuresData} sequence={sequence} />
       <FreeTextView
-        comments={commentsData.get('PTM') as FreeTextComment[]}
+        comments={commentsData.get('PTM') as FreeTextComment[] | undefined}
         title="PTM"
       />
       <KeywordView keywords={keywordData} />

@@ -769,9 +769,6 @@ exports[`Entry basic should render main 1`] = `
                       id="11"
                     />
                   </div>
-                  <div
-                    class="GoRibbon"
-                  />
                   <h3>
                     Enzyme and pathway databases
                   </h3>
