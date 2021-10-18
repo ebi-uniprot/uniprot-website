@@ -56,8 +56,8 @@ const ClauseItem = memo<ClauseItemProps>(
 
     useEffect(() => {
       // Set to "AND" if it's now the first clause and was a "OR"
-      if (isFirst && clause.logicOperator === Operator.OR) {
-        handleLogicChange(clause.id, Operator.AND);
+      if (isFirst && clause.logicOperator === 'OR') {
+        handleLogicChange(clause.id, 'AND');
       }
     }, [clause.id, clause.logicOperator, handleLogicChange, isFirst]);
 

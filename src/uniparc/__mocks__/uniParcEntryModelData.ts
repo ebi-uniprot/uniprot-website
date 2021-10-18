@@ -1,7 +1,7 @@
 import { UniParcAPIModel } from '../adapters/uniParcConverter';
 
 // Source: /api/uniparc/UPI0000000001
-// Retrieved: 2021-09-23
+// Retrieved: 2021-10-15
 const mock: UniParcAPIModel = {
   uniParcId: 'UPI0000000001',
   uniParcCrossReferences: [

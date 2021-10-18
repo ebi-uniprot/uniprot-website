@@ -1,7 +1,7 @@
 import { HelpEntryResponse } from '../../adapters/helpConverter';
 
 // Source: /api/help/canonical_and_isoforms
-// Retrieved 2021-09-24
+// Retrieved: 2021-10-15
 // TODO: this API is unstable so the mock data here will want to be updated jira: https://www.ebi.ac.uk/panda/jira/browse/TRM-26569
 const data: HelpEntryResponse = {
   id: 'canonical_and_isoforms',

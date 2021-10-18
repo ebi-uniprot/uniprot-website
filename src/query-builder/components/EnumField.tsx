@@ -1,14 +1,10 @@
-import { useEffect, useState, FC } from 'react';
+import { useEffect, useState } from 'react';
 
 import initializer from '../utils/fieldInitializer';
 
-import { QueryBit, SearchTermType } from '../types/searchTypes';
+import { FieldProps } from './Field';
 
-const EnumField: FC<{
-  field: SearchTermType;
-  handleChange: (queryBit: QueryBit) => void;
-  initialValue?: QueryBit;
-}> = ({ field, handleChange, initialValue }) => {
+const EnumField = ({ field, handleChange, initialValue }: FieldProps) => {
   // should initialValue be initialised to the first item?
   const [value, setValue] = useState(
     () => initializer(field, initialValue) as string
@@ -20,6 +16,7 @@ const EnumField: FC<{
       handleChange({ [field.term]: trimmed });
     }
   }, [field, value, handleChange]);
+
   return (
     <label>
       {field.label}

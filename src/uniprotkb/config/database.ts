@@ -17,10 +17,10 @@ export const databaseCategoryToString = {
   [DatabaseCategory.GENOME]: 'Genome annotation databases',
   [DatabaseCategory.INTERACTION]: 'Protein-protein interaction databases',
   [DatabaseCategory.ORGANISM]: 'Organism-specific databases',
-  [DatabaseCategory.OTHER]: 'Other',
+  [DatabaseCategory.MISCELLANEOUS]: 'Miscellaneous',
   [DatabaseCategory.PATHWAY]: 'Enzyme and pathway databases',
   [DatabaseCategory.PHYLOGENOMIC]: 'Phylogenomic databases',
-  [DatabaseCategory.POLYMORPHISM]: 'Polymorphism and mutation databases',
+  [DatabaseCategory.GENETIC_VARIATION]: 'Genetic variation databases',
   [DatabaseCategory.PROTEOMIC]: 'Proteomic databases',
   [DatabaseCategory.PROTOCOL]: 'Protocols and materials databases',
   [DatabaseCategory.PTM]: 'PTM databases',
@@ -152,7 +152,7 @@ entrySectionToDatabaseNames.set(
 entrySectionToDatabaseNames.set(
   EntrySection.ExternalLinks,
   databaseSelector({
-    categories: [DatabaseCategory.OTHER, DatabaseCategory.PROTOCOL],
+    categories: [DatabaseCategory.MISCELLANEOUS, DatabaseCategory.PROTOCOL],
     include: [
       'HUGE', // Implicit
       'Rouge', // Implicit

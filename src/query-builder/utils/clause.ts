@@ -13,9 +13,9 @@ export const getAllTerm = (): SearchTermType => ({
   label: 'All',
   term: 'All',
   example: 'a4_human, P05067, cdc7 human',
-  itemType: ItemType.single,
-  dataType: DataType.string,
-  fieldType: FieldType.general,
+  itemType: 'single',
+  dataType: 'string',
+  fieldType: 'general',
   id: 'id_all',
 });
 
@@ -28,7 +28,7 @@ export const getNextId = (clauses: Clause[] = []) => {
 
 export const createEmptyClause = (id: number): Clause => ({
   id,
-  logicOperator: Operator.AND,
+  logicOperator: 'AND',
   searchTerm: getAllTerm(),
   queryBits: {},
 });

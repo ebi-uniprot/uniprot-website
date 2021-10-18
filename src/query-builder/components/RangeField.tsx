@@ -1,14 +1,10 @@
-import { useEffect, useState, FC } from 'react';
+import { useEffect, useState } from 'react';
 
 import initializer from '../utils/fieldInitializer';
 
-import { DataType, QueryBit, SearchTermType } from '../types/searchTypes';
+import { FieldProps } from './Field';
 
-const RangeField: FC<{
-  field: SearchTermType;
-  handleChange: (queryBit: QueryBit) => void;
-  initialValue?: QueryBit;
-}> = ({ field, handleChange, initialValue }) => {
+const RangeField = ({ field, handleChange, initialValue }: FieldProps) => {
   const [[from, to], setRange] = useState<[from: string, to: string]>(() => {
     const range = initializer(field, initialValue);
     return Array.isArray(range) ? range : ['', ''];
@@ -30,7 +26,7 @@ const RangeField: FC<{
         From
         <input
           data-testid="range-field-from-input"
-          type={field.dataType === DataType.date ? 'date' : 'number'}
+          type={field.dataType === 'date' ? 'date' : 'number'}
           onChange={({ target: { value: from } }) =>
             setRange(([, to]) => [from, to])
           }
@@ -43,7 +39,7 @@ const RangeField: FC<{
         To
         <input
           data-testid="range-field-to-input"
-          type={field.dataType === DataType.date ? 'date' : 'number'}
+          type={field.dataType === 'date' ? 'date' : 'number'}
           onChange={({ target: { value: to } }) =>
             setRange(([from]) => [from, to])
           }

@@ -1,28 +1,10 @@
-export enum Operator {
-  AND = 'AND',
-  OR = 'OR',
-  NOT = 'NOT',
-}
+export type Operator = 'AND' | 'OR' | 'NOT';
 
-export enum ItemType {
-  group = 'group',
-  siblingGroup = 'sibling_group',
-  single = 'single',
-}
+export type ItemType = 'group' | 'sibling_group' | 'single';
 
-export enum DataType {
-  boolean = 'boolean',
-  date = 'date',
-  enum = 'enum',
-  integer = 'integer',
-  string = 'string',
-}
+export type DataType = 'boolean' | 'date' | 'enum' | 'integer' | 'string';
 
-export enum FieldType {
-  evidence = 'evidence',
-  general = 'general',
-  range = 'range',
-}
+export type FieldType = 'evidence' | 'general' | 'range';
 
 type EvidenceGroup = {
   groupName: string;

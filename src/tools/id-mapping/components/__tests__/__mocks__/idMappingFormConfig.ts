@@ -1,12 +1,18 @@
 import { IDMappingFormConfig } from '../../../types/idMappingFormConfig';
 
-// Source: https://www.ebi.ac.uk/uniprot/beta/api/configure/idmapping/fields
+// Source: /api/configure/idmapping/fields
+// Retrieved: 2021-10-14
 const data: IDMappingFormConfig = {
   groups: [
     {
       groupName: 'UniProt',
       items: [
-        { displayName: 'UniProtKB', name: 'UniProtKB', from: false, to: true },
+        {
+          displayName: 'UniProtKB',
+          name: 'UniProtKB',
+          from: false,
+          to: true,
+        },
         {
           displayName: 'UniProtKB AC/ID',
           name: 'UniProtKB_AC-ID',
@@ -67,7 +73,13 @@ const data: IDMappingFormConfig = {
     {
       groupName: 'Sequence databases',
       items: [
-        { displayName: 'CCDS', name: 'CCDS', from: true, to: true, ruleId: 7 },
+        {
+          displayName: 'CCDS',
+          name: 'CCDS',
+          from: true,
+          to: true,
+          ruleId: 7,
+        },
         {
           displayName: 'EMBL/GenBank/DDBJ',
           name: 'EMBL-GenBank-DDBJ',
@@ -82,7 +94,13 @@ const data: IDMappingFormConfig = {
           to: true,
           ruleId: 7,
         },
-        { displayName: 'PIR', name: 'PIR', from: true, to: true, ruleId: 7 },
+        {
+          displayName: 'PIR',
+          name: 'PIR',
+          from: true,
+          to: true,
+          ruleId: 7,
+        },
         {
           displayName: 'RefSeq',
           name: 'RefSeq',
@@ -95,7 +113,13 @@ const data: IDMappingFormConfig = {
     {
       groupName: '3D structure databases',
       items: [
-        { displayName: 'PDB', name: 'PDB', from: true, to: true, ruleId: 7 },
+        {
+          displayName: 'PDB',
+          name: 'PDB',
+          from: true,
+          to: true,
+          ruleId: 7,
+        },
       ],
     },
     {
@@ -115,7 +139,13 @@ const data: IDMappingFormConfig = {
           to: true,
           ruleId: 7,
         },
-        { displayName: 'DIP', name: 'DIP', from: true, to: true, ruleId: 7 },
+        {
+          displayName: 'DIP',
+          name: 'DIP',
+          from: true,
+          to: true,
+          ruleId: 7,
+        },
         {
           displayName: 'STRING',
           name: 'STRING',
@@ -168,17 +198,16 @@ const data: IDMappingFormConfig = {
           to: true,
           ruleId: 7,
         },
-        { displayName: 'CLAE', name: 'CLAE', from: true, to: true, ruleId: 7 },
         {
-          displayName: 'ESTHER',
-          name: 'ESTHER',
+          displayName: 'CLAE',
+          name: 'CLAE',
           from: true,
           to: true,
           ruleId: 7,
         },
         {
-          displayName: 'IDEAL',
-          name: 'IDEAL',
+          displayName: 'ESTHER',
+          name: 'ESTHER',
           from: true,
           to: true,
           ruleId: 7,
@@ -204,7 +233,13 @@ const data: IDMappingFormConfig = {
           to: true,
           ruleId: 7,
         },
-        { displayName: 'TCDB', name: 'TCDB', from: true, to: true, ruleId: 7 },
+        {
+          displayName: 'TCDB',
+          name: 'TCDB',
+          from: true,
+          to: true,
+          ruleId: 7,
+        },
       ],
     },
     {
@@ -220,7 +255,7 @@ const data: IDMappingFormConfig = {
       ],
     },
     {
-      groupName: 'Polymorphism and mutation databases',
+      groupName: 'Genetic variation databases',
       items: [
         {
           displayName: 'BioMuta',
@@ -229,7 +264,13 @@ const data: IDMappingFormConfig = {
           to: true,
           ruleId: 7,
         },
-        { displayName: 'DMDM', name: 'DMDM', from: true, to: true, ruleId: 7 },
+        {
+          displayName: 'DMDM',
+          name: 'DMDM',
+          from: true,
+          to: true,
+          ruleId: 7,
+        },
       ],
     },
     {
@@ -334,7 +375,13 @@ const data: IDMappingFormConfig = {
           to: true,
           ruleId: 7,
         },
-        { displayName: 'KEGG', name: 'KEGG', from: true, to: true, ruleId: 7 },
+        {
+          displayName: 'KEGG',
+          name: 'KEGG',
+          from: true,
+          to: true,
+          ruleId: 7,
+        },
         {
           displayName: 'PATRIC',
           name: 'PATRIC',
@@ -342,7 +389,13 @@ const data: IDMappingFormConfig = {
           to: true,
           ruleId: 7,
         },
-        { displayName: 'UCSC', name: 'UCSC', from: true, to: true, ruleId: 7 },
+        {
+          displayName: 'UCSC',
+          name: 'UCSC',
+          from: true,
+          to: true,
+          ruleId: 7,
+        },
         {
           displayName: 'WBParaSite',
           name: 'WBParaSite',
@@ -369,7 +422,13 @@ const data: IDMappingFormConfig = {
           to: true,
           ruleId: 7,
         },
-        { displayName: 'CGD', name: 'CGD', from: true, to: true, ruleId: 7 },
+        {
+          displayName: 'CGD',
+          name: 'CGD',
+          from: true,
+          to: true,
+          ruleId: 7,
+        },
         {
           displayName: 'ConoServer',
           name: 'ConoServer',
@@ -419,7 +478,13 @@ const data: IDMappingFormConfig = {
           to: true,
           ruleId: 7,
         },
-        { displayName: 'HGNC', name: 'HGNC', from: true, to: true, ruleId: 7 },
+        {
+          displayName: 'HGNC',
+          name: 'HGNC',
+          from: true,
+          to: true,
+          ruleId: 7,
+        },
         {
           displayName: 'LegioList',
           name: 'LegioList',
@@ -441,8 +506,20 @@ const data: IDMappingFormConfig = {
           to: true,
           ruleId: 7,
         },
-        { displayName: 'MGI', name: 'MGI', from: true, to: true, ruleId: 7 },
-        { displayName: 'MIM', name: 'MIM', from: true, to: true, ruleId: 7 },
+        {
+          displayName: 'MGI',
+          name: 'MGI',
+          from: true,
+          to: true,
+          ruleId: 7,
+        },
+        {
+          displayName: 'MIM',
+          name: 'MIM',
+          from: true,
+          to: true,
+          ruleId: 7,
+        },
         {
           displayName: 'neXtProt',
           name: 'neXtProt',
@@ -465,13 +542,6 @@ const data: IDMappingFormConfig = {
           ruleId: 7,
         },
         {
-          displayName: 'PHI-base',
-          name: 'PHI-base',
-          from: true,
-          to: true,
-          ruleId: 7,
-        },
-        {
           displayName: 'PomBase',
           name: 'PomBase',
           from: true,
@@ -485,8 +555,20 @@ const data: IDMappingFormConfig = {
           to: true,
           ruleId: 7,
         },
-        { displayName: 'RGD', name: 'RGD', from: true, to: true, ruleId: 7 },
-        { displayName: 'SGD', name: 'SGD', from: true, to: true, ruleId: 7 },
+        {
+          displayName: 'RGD',
+          name: 'RGD',
+          from: true,
+          to: true,
+          ruleId: 7,
+        },
+        {
+          displayName: 'SGD',
+          name: 'SGD',
+          from: true,
+          to: true,
+          ruleId: 7,
+        },
         {
           displayName: 'TubercuList',
           name: 'TubercuList',
@@ -501,7 +583,13 @@ const data: IDMappingFormConfig = {
           to: true,
           ruleId: 7,
         },
-        { displayName: 'VGNC', name: 'VGNC', from: true, to: true, ruleId: 7 },
+        {
+          displayName: 'VGNC',
+          name: 'VGNC',
+          from: true,
+          to: true,
+          ruleId: 7,
+        },
         {
           displayName: 'WormBase',
           name: 'WormBase',
@@ -530,7 +618,13 @@ const data: IDMappingFormConfig = {
           to: true,
           ruleId: 7,
         },
-        { displayName: 'ZFIN', name: 'ZFIN', from: true, to: true, ruleId: 7 },
+        {
+          displayName: 'ZFIN',
+          name: 'ZFIN',
+          from: true,
+          to: true,
+          ruleId: 7,
+        },
       ],
     },
     {
@@ -557,7 +651,13 @@ const data: IDMappingFormConfig = {
           to: true,
           ruleId: 7,
         },
-        { displayName: 'OMA', name: 'OMA', from: true, to: true, ruleId: 7 },
+        {
+          displayName: 'OMA',
+          name: 'OMA',
+          from: true,
+          to: true,
+          ruleId: 7,
+        },
         {
           displayName: 'OrthoDB',
           name: 'OrthoDB',
@@ -608,7 +708,7 @@ const data: IDMappingFormConfig = {
       ],
     },
     {
-      groupName: 'Other',
+      groupName: 'Miscellaneous',
       items: [
         {
           displayName: 'ChiTaRS',
@@ -627,6 +727,13 @@ const data: IDMappingFormConfig = {
         {
           displayName: 'GenomeRNAi',
           name: 'GenomeRNAi',
+          from: true,
+          to: true,
+          ruleId: 7,
+        },
+        {
+          displayName: 'PHI-base',
+          name: 'PHI-base',
           from: true,
           to: true,
           ruleId: 7,
@@ -651,6 +758,13 @@ const data: IDMappingFormConfig = {
         {
           displayName: 'DisProt',
           name: 'DisProt',
+          from: true,
+          to: true,
+          ruleId: 7,
+        },
+        {
+          displayName: 'IDEAL',
+          name: 'IDEAL',
           from: true,
           to: true,
           ruleId: 7,
@@ -681,7 +795,6 @@ const data: IDMappingFormConfig = {
         'PeroxiBase',
         'REBASE',
         'TCDB',
-        'IDEAL',
         'GlyConnect',
         'BioMuta',
         'DMDM',
@@ -725,7 +838,6 @@ const data: IDMappingFormConfig = {
         'WormBase',
         'Xenbase',
         'ZFIN',
-        'PHI-base',
         'eggNOG',
         'GeneTree',
         'HOGENOM',
@@ -739,7 +851,9 @@ const data: IDMappingFormConfig = {
         'ChiTaRS',
         'GeneWiki',
         'GenomeRNAi',
+        'PHI-base',
         'CollecTF',
+        'IDEAL',
         'DisProt',
         'UniProtKB',
         'UniProtKB-Swiss-Prot',

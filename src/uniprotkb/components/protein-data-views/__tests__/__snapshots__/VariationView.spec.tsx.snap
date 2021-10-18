@@ -148,5 +148,3 @@ exports[`VariationView component renders on loading 1`] = `
   </div>
 </DocumentFragment>
 `;
-
-exports[`VariationView component renders on no data 1`] = `<DocumentFragment />`;

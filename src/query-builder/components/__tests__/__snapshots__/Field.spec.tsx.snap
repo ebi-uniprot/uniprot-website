@@ -1,8 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Clause component should not return anything 1`] = `<DocumentFragment />`;
-
-exports[`Clause component should render \`date\` field 1`] = `
+exports[`Clause component should render a \`date\` field with range 1`] = `
 <DocumentFragment>
   <label>
     From
@@ -21,19 +19,6 @@ exports[`Clause component should render \`date\` field 1`] = `
       data-testid="range-field-to-input"
       placeholder="100"
       type="date"
-      value=""
-    />
-  </label>
-</DocumentFragment>
-`;
-
-exports[`Clause component should render a \`string\` field with range 1`] = `
-<DocumentFragment>
-  <label>
-    UniProtKB AC
-    <input
-      placeholder="P12345"
-      type="text"
       value=""
     />
   </label>
@@ -70,7 +55,33 @@ exports[`Clause component should render an \`enum\` field 1`] = `
 <DocumentFragment>
   <label>
     Protein Existence [PE]
-    <select />
+    <select>
+      <option
+        value="1"
+      >
+        Evidence at protein level
+      </option>
+      <option
+        value="2"
+      >
+        Evidence at transcript level
+      </option>
+      <option
+        value="3"
+      >
+        Inferred from homology
+      </option>
+      <option
+        value="4"
+      >
+        Predicted
+      </option>
+      <option
+        value="5"
+      >
+        Uncertain
+      </option>
+    </select>
   </label>
 </DocumentFragment>
 `;
@@ -78,9 +89,21 @@ exports[`Clause component should render an \`enum\` field 1`] = `
 exports[`Clause component should render an \`integer\` \`range\` field 1`] = `
 <DocumentFragment>
   <label>
-    Any
+    From
     <input
-      placeholder="translocation"
+      aria-label="range input, from value"
+      data-testid="range-field-from-input"
+      placeholder="0"
+      type="number"
+      value=""
+    />
+  </label>
+  <label>
+    To
+    <input
+      aria-label="range input, to value"
+      data-testid="range-field-to-input"
+      placeholder="100"
       type="number"
       value=""
     />
@@ -91,9 +114,21 @@ exports[`Clause component should render an \`integer\` \`range\` field 1`] = `
 exports[`Clause component should render an \`integer\` field 1`] = `
 <DocumentFragment>
   <label>
-    Any
+    From
     <input
-      placeholder="translocation"
+      aria-label="range input, from value"
+      data-testid="range-field-from-input"
+      placeholder="0"
+      type="number"
+      value=""
+    />
+  </label>
+  <label>
+    To
+    <input
+      aria-label="range input, to value"
+      data-testid="range-field-to-input"
+      placeholder="100"
       type="number"
       value=""
     />

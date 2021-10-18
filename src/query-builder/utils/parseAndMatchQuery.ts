@@ -7,7 +7,7 @@ type STTWithParent = SearchTermType & {
   parent?: STTWithParent;
 };
 
-const flatten = (searchTermData: STTWithParent[]): STTWithParent[] =>
+export const flatten = (searchTermData: STTWithParent[]): STTWithParent[] =>
   searchTermData.flatMap((searchTermDatum: STTWithParent) => {
     if (searchTermDatum.siblings) {
       return flatten(searchTermDatum.siblings).map((st) => ({

@@ -1,12 +1,6 @@
 import { getAllTerm } from './clause';
 
-import {
-  Clause,
-  Operator,
-  ItemType,
-  DataType,
-  FieldType,
-} from '../types/searchTypes';
+import { Clause, Operator } from '../types/searchTypes';
 
 export const stringify = (clauses: Clause[] = []): string => {
   let queryAccumulator = '';
@@ -21,6 +15,7 @@ export const stringify = (clauses: Clause[] = []): string => {
     }
 
     let queryJoined: string;
+    const joinSeperator: Operator = 'AND';
     if ('go' in clause.queryBits || 'go_evidence' in clause.queryBits) {
       const goEvidence = clause.queryBits?.go_evidence;
       const goKey = `go${
@@ -45,7 +40,7 @@ export const stringify = (clauses: Clause[] = []): string => {
           }
           return `(${key}:${quote}${value}${quote})`;
         })
-        .join(` ${Operator.AND} `);
+        .join(` ${joinSeperator} `);
       if (query.length > 1) {
         queryJoined = `(${queryJoined})`;
       }
@@ -54,10 +49,7 @@ export const stringify = (clauses: Clause[] = []): string => {
     let logicOperator = '';
     if (queryAccumulator.length && query.length) {
       logicOperator = ` ${clause.logicOperator} `;
-    } else if (
-      !queryAccumulator.length &&
-      clause.logicOperator === Operator.NOT
-    ) {
+    } else if (!queryAccumulator.length && clause.logicOperator === 'NOT') {
       logicOperator = `${clause.logicOperator} `;
     }
 
@@ -86,12 +78,12 @@ const getEmptyClause = (id: number): Clause => ({
     id: '',
     term: '',
     label: '',
-    itemType: ItemType.single,
-    dataType: DataType.string,
-    fieldType: FieldType.general,
+    itemType: 'single',
+    dataType: 'string',
+    fieldType: 'general',
   },
   queryBits: {},
-  logicOperator: Operator.AND,
+  logicOperator: 'AND',
 });
 
 /**
