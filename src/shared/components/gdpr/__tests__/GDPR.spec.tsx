@@ -16,18 +16,27 @@ describe('GDPR', () => {
     customRender(<GDPR />);
     // Needed to wait for the user preference to be initialised
     await waitFor(frame);
-    const acceptButton = screen.getByText('Accept');
+    expect(
+      screen.getByRole('link', { name: 'Privacy Notice' })
+    ).toBeInTheDocument();
+    const acceptButton = screen.getByRole('button', { name: 'I understand' });
     fireEvent.click(acceptButton);
-    expect(screen.queryByText('Privacy Notice')).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('link', { name: 'Privacy Notice' })
+    ).not.toBeInTheDocument();
     await waitFor(() => {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       expect(JSON.parse(window.localStorage.getItem('gdpr')!)).toBe(true);
     });
   });
 
-  test("if 'gdpr' in localStorage, do not render component", () => {
+  test("if 'gdpr' in localStorage, do not render component", async () => {
     localStorage.setItem('gdpr', 'true');
     customRender(<GDPR />);
-    expect(screen.queryByText('Privacy Notice')).not.toBeInTheDocument();
+    // Since we had to wait in the other it's to be sure it doesn't appear later
+    await waitFor(frame);
+    expect(
+      screen.queryByRole('link', { name: 'Privacy Notice' })
+    ).not.toBeInTheDocument();
   });
 });
