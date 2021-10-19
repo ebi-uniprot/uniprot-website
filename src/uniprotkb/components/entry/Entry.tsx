@@ -30,7 +30,6 @@ import AlignButton from '../../../shared/components/action-buttons/Align';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import EntryDownload from '../../../shared/components/entry/EntryDownload';
 import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
-import ObsoleteEntryPage from '../../../shared/components/error-pages/ObsoleteEntryPage';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import BasketStatus from '../../../basket/BasketStatus';
@@ -174,6 +173,7 @@ const Entry: FC = () => {
     [data]
   );
 
+  // Redirect to new entry when obsolete and merged into one
   useEffect(() => {
     if (
       redirectedTo &&
@@ -220,6 +220,33 @@ const Entry: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, redirectedTo]);
 
+  const isObsolete = Boolean(
+    transformedData?.entryType === EntryType.INACTIVE &&
+      transformedData.inactiveReason
+  );
+
+  // Redirect to history when obsolete and not merged into a single new one
+  useEffect(() => {
+    if (
+      isObsolete &&
+      match?.params.accession &&
+      match?.params.subPage !== TabLocation.History
+    ) {
+      frame().then(() => {
+        history.replace(
+          getEntryPath(
+            Namespace.uniprotkb,
+            match?.params.accession,
+            TabLocation.History
+          )
+        );
+      });
+    }
+    // (I hope) I know what I'm doing here, I want to stick with whatever value
+    // match?.params.subPage had when the component was mounted.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, isObsolete]);
+
   if (
     loading ||
     !data ||
@@ -228,11 +255,6 @@ const Entry: FC = () => {
   ) {
     return <Loader progress={progress} />;
   }
-
-  const isObsolete = Boolean(
-    transformedData?.entryType === EntryType.INACTIVE &&
-      transformedData.inactiveReason
-  );
 
   const historyOldEntry =
     isObsolete ||
@@ -294,10 +316,8 @@ const Entry: FC = () => {
           cache={!historyOldEntry}
           title={
             <Link
-              className={
-                historyOldEntry && !isObsolete ? helper.disabled : undefined
-              }
-              tabIndex={historyOldEntry && !isObsolete ? -1 : undefined}
+              className={historyOldEntry ? helper.disabled : undefined}
+              tabIndex={historyOldEntry ? -1 : undefined}
               to={getEntryPath(
                 Namespace.uniprotkb,
                 match.params.accession,
@@ -309,38 +329,29 @@ const Entry: FC = () => {
           }
           id={TabLocation.Entry}
         >
-          {isObsolete ? (
-            <ObsoleteEntryPage
-              accession={match.params.accession}
-              details={transformedData.inactiveReason}
-            />
-          ) : (
-            <>
-              <div className="button-group">
-                <BlastButton selectedEntries={[match.params.accession]} />
-                <AlignButton
-                  selectedEntries={[
-                    match.params.accession,
-                    ...listOfIsoformAccessions,
-                  ]}
-                />
-                <EntryDownload />
-                <AddToBasketButton selectedEntries={match.params.accession} />
-                <CommunityAnnotationLink accession={match.params.accession} />
-                <a
-                  href={externalUrls.CommunityCurationAdd(
-                    match.params.accession
-                  )}
-                  className="button tertiary"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Add a publication
-                </a>
-              </div>
-              <EntryMain transformedData={transformedData} />
-            </>
-          )}
+          <>
+            <div className="button-group">
+              <BlastButton selectedEntries={[match.params.accession]} />
+              <AlignButton
+                selectedEntries={[
+                  match.params.accession,
+                  ...listOfIsoformAccessions,
+                ]}
+              />
+              <EntryDownload />
+              <AddToBasketButton selectedEntries={match.params.accession} />
+              <CommunityAnnotationLink accession={match.params.accession} />
+              <a
+                href={externalUrls.CommunityCurationAdd(match.params.accession)}
+                className="button tertiary"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Add a publication
+              </a>
+            </div>
+            <EntryMain transformedData={transformedData} />
+          </>
         </Tab>
         <Tab
           title={
