@@ -143,7 +143,9 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
             })}
           />
         </Button>
-        {!notCustomisable && viewMode === ViewMode.TABLE && <CustomiseButton />}
+        {!notCustomisable && viewMode === ViewMode.TABLE && (
+          <CustomiseButton namespace={namespace} />
+        )}
       </div>
     </>
   );

@@ -5,6 +5,7 @@ import EntryMain from './EntryMain';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
+import EntryDownload from '../../../shared/components/entry/EntryDownload';
 import SingleColumnLayout from '../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
@@ -59,6 +60,9 @@ const Entry = () => {
         {' · '}
         <TaxonomyView data={data.taxonomy} noLink />
       </h1>
+      <div className="button-group">
+        <EntryDownload />
+      </div>
       <EntryMain transformedData={transformedData} />
     </SingleColumnLayout>
   );

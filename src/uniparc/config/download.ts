@@ -4,16 +4,16 @@ export const fileFormatsResultsDownload = [
   FileFormat.fasta,
   FileFormat.tsv,
   FileFormat.excel,
+  FileFormat.json,
   FileFormat.xml,
   FileFormat.rdfXml,
   FileFormat.list,
-  FileFormat.json,
 ];
 
-// TODO: use in uniparc entry download
 export const fileFormatEntryDownload = [
   FileFormat.fasta,
+  FileFormat.json,
+  FileFormat.excel,
   FileFormat.xml,
   FileFormat.rdfXml,
-  FileFormat.tsv,
 ];

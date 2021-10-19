@@ -17,6 +17,7 @@ import XRefsFacets from './XRefsFacets';
 import BasketStatus from '../../../basket/BasketStatus';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
+import EntryDownload from '../../../shared/components/entry/EntryDownload';
 
 import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
@@ -175,6 +176,7 @@ const Entry: FC = () => {
         >
           <div className="button-group">
             <BlastButton selectedEntries={[match.params.accession]} />
+            <EntryDownload />
             <AddToBasketButton selectedEntries={match.params.accession} />
           </div>
           <EntryMain

@@ -11,6 +11,7 @@ import MembersFacets from './MembersFacets';
 import BasketStatus from '../../../basket/BasketStatus';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
+import EntryDownload from '../../../shared/components/entry/EntryDownload';
 
 import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
@@ -97,6 +98,7 @@ const Entry: FC = () => {
           <Overview transformedData={transformedData} />
           <div className="button-group">
             <BlastButton selectedEntries={[accession]} />
+            <EntryDownload />
             <AddToBasketButton selectedEntries={accession} />
           </div>
         </ErrorBoundary>

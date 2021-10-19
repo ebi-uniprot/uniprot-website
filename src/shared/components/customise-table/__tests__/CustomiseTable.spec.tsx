@@ -30,12 +30,15 @@ describe('CustomiseTable component', () => {
   ];
 
   beforeEach(async () => {
-    rendered = customRender(<CustomiseTable onClose={onClose} />, {
-      route,
-      initialLocalStorage: {
-        [storageKey]: selectedColumns,
-      },
-    });
+    rendered = customRender(
+      <CustomiseTable onClose={onClose} namespace={Namespace.uniprotkb} />,
+      {
+        route,
+        initialLocalStorage: {
+          [storageKey]: selectedColumns,
+        },
+      }
+    );
     await waitFor(() => screen.getAllByTestId('accordion-search-list-item'));
   });
 

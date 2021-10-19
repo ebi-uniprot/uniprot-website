@@ -6,6 +6,7 @@ import SingleColumnLayout from '../../../../shared/components/layouts/SingleColu
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 
 import ConditionsAnnotations from '../../../shared/entry/ConditionsAnnotations';
+import EntryDownload from '../../../../shared/components/entry/EntryDownload';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
@@ -43,6 +44,7 @@ const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
         {searchableNamespaceLabels[Namespace.arba]} - {data.uniRuleId}
       </h1>
       <div className="button-group">
+        <EntryDownload />
         <MapToDropdown
           statistics={data.statistics}
           accession={data.uniRuleId}

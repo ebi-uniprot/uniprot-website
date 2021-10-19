@@ -3,15 +3,16 @@ import { FileFormat } from '../../shared/types/resultsDownload';
 export const fileFormatsResultsDownload = [
   FileFormat.fastaRepresentative,
   FileFormat.tsv,
+  FileFormat.json,
   FileFormat.excel,
   FileFormat.list,
-  FileFormat.json,
 ];
 
-// TODO: use in uniref entry download
 export const fileFormatEntryDownload = [
   FileFormat.fastaRepresentative,
+  FileFormat.json,
+  FileFormat.excel,
   FileFormat.xml,
-  FileFormat.rdfXml,
+  FileFormat.tsv,
   FileFormat.list,
 ];
