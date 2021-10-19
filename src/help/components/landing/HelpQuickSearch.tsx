@@ -1,11 +1,4 @@
-import {
-  ChangeEvent,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-  KeyboardEvent,
-} from 'react';
+import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { Card, InfoList, SearchInput } from 'franklin-sites';
 import { debounce } from 'lodash-es';
@@ -57,22 +50,10 @@ const HelpQuickSearch = () => {
     return replaceQueryInHistory.cancel;
   }, [replaceQueryInHistory, searchValue]);
 
-  const allArticlesLocation = useMemo(
-    () => ({
-      pathname: LocationToPath[Location.HelpResults],
-      search: qs.stringify({ query }),
-    }),
-    [query]
-  );
-
-  const handleKeyDown = useCallback(
-    ({ key }: KeyboardEvent<HTMLInputElement>) => {
-      if (key === 'Enter') {
-        history.push(allArticlesLocation);
-      }
-    },
-    [allArticlesLocation, history]
-  );
+  const allArticlesLocation = {
+    pathname: LocationToPath[Location.HelpResults],
+    search: qs.stringify({ query: searchValue }),
+  };
 
   const allArticles = dataObject?.data?.results;
   const infoData = allArticles
@@ -105,7 +86,11 @@ const HelpQuickSearch = () => {
         }
         placeholder="Search"
         value={searchValue}
-        onKeyDown={handleKeyDown}
+        onKeyDown={({ key }) => {
+          if (key === 'Enter' && searchValue) {
+            history.push(allArticlesLocation);
+          }
+        }}
         autoFocus
       />
       {!!allArticles?.length && !!infoData?.length && searchValue && (
