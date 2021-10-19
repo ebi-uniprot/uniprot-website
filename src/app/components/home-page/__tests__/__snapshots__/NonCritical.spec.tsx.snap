@@ -815,9 +815,9 @@ exports[`non-critical HomePage component should render 1`] = `
       class="uniprot-grid-cell--span-3 need-help__tutorial-videos-top"
     >
       <lite-youtube
-        playlabel="UniProt intro"
-        style="background-image: url(https://i.ytimg.com/vi/9IYI4QDVPa0/hqdefault.jpg);"
-        videoid="9IYI4QDVPa0"
+        playlabel="Welcome to UniProt || UniProt introduction"
+        style="background-image: url(https://i.ytimg.com/vi/OwOJmKmc7VM/hqdefault.jpg);"
+        videoid="OwOJmKmc7VM"
       >
         <button
           class="lty-playbtn"
@@ -826,7 +826,7 @@ exports[`non-critical HomePage component should render 1`] = `
           <span
             class="lyt-visually-hidden"
           >
-            UniProt intro
+            Welcome to UniProt || UniProt introduction
           </span>
         </button>
       </lite-youtube>
