@@ -176,7 +176,7 @@ const Entry: FC = () => {
 
   useEffect(() => {
     if (redirectedTo && match?.params.subPage !== TabLocation.History) {
-      const split = redirectedTo.split('/');
+      const split = new URL(redirectedTo).pathname.split('/');
       const newEntry = split[split.length - 1];
       dispatch(
         addMessage({
