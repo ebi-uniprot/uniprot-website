@@ -446,9 +446,9 @@ exports[`HelpLandingPage should render 1`] = `
           class="help-landing__videos__list"
         >
           <lite-youtube
-            playlabel="UniProt intro"
-            style="background-image: url(https://i.ytimg.com/vi/9IYI4QDVPa0/hqdefault.jpg);"
-            videoid="9IYI4QDVPa0"
+            playlabel="How to search UniProtKB"
+            style="background-image: url(https://i.ytimg.com/vi/yp1O1gDK8oA/hqdefault.jpg);"
+            videoid="yp1O1gDK8oA"
           >
             <button
               class="lty-playbtn"
@@ -457,7 +457,7 @@ exports[`HelpLandingPage should render 1`] = `
               <span
                 class="lyt-visually-hidden"
               >
-                UniProt intro
+                How to search UniProtKB
               </span>
             </button>
           </lite-youtube>

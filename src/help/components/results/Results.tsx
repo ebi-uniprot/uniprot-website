@@ -7,6 +7,7 @@ import { debounce } from 'lodash-es';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
+import NoResultsPage from '../../../shared/components/error-pages/NoResultsPage';
 import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
 import ResultsFacets from '../../../shared/components/results/ResultsFacets';
 import HelpCard from './HelpCard';
@@ -89,6 +90,8 @@ const Results = ({ history, location }: RouteChildrenProps) => {
     main = <Loader progress={dataObject.progress} />;
   } else if (dataObject.error || !dataObject.data) {
     main = <ErrorHandler status={dataObject.status} />;
+  } else if (!dataObject.data.results.length) {
+    main = <NoResultsPage />;
   } else {
     main = (
       <DataList

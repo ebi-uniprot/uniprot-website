@@ -197,7 +197,10 @@ const NeedHelp = () => {
       >
         {/* NOTE: privacy issue? When clicking, we embed YouTube in the website,
         with all the related tracking, might need to link to YouTube instead */}
-        <lite-youtube videoid="9IYI4QDVPa0" playlabel="UniProt intro" />
+        <lite-youtube
+          videoid="OwOJmKmc7VM"
+          playlabel="Welcome to UniProt || UniProt introduction"
+        />
       </div>
       <div
         className={cn(

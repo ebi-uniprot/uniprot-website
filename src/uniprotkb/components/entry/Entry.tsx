@@ -175,13 +175,33 @@ const Entry: FC = () => {
   );
 
   useEffect(() => {
-    if (redirectedTo && match?.params.subPage !== TabLocation.History) {
-      const split = redirectedTo.split('/');
+    if (
+      redirectedTo &&
+      match?.params.accession &&
+      match?.params.subPage !== TabLocation.History
+    ) {
+      const split = new URL(redirectedTo).pathname.split('/');
       const newEntry = split[split.length - 1];
       dispatch(
         addMessage({
           id: 'job-id',
-          content: `${match?.params.accession} has been merged into ${newEntry}. You have automatically been redirected.`,
+          content: (
+            <>
+              {match.params.accession} has been merged into {newEntry}. You have
+              automatically been redirected. To see {match.params.accession}
+              &apos;s history,{' '}
+              <Link
+                to={getEntryPath(
+                  Namespace.uniprotkb,
+                  match.params.accession,
+                  TabLocation.History
+                )}
+              >
+                click here
+              </Link>
+              .
+            </>
+          ),
           format: MessageFormat.IN_PAGE,
           level: MessageLevel.SUCCESS,
           dateActive: Date.now(),
