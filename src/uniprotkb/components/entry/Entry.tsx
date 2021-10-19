@@ -6,14 +6,7 @@ import {
   useHistory,
   generatePath,
 } from 'react-router-dom';
-import {
-  InPageNav,
-  Loader,
-  DownloadIcon,
-  DropdownButton,
-  Tabs,
-  Tab,
-} from 'franklin-sites';
+import { InPageNav, Loader, Tabs, Tab } from 'franklin-sites';
 import cn from 'classnames';
 import { frame } from 'timing-functions';
 
@@ -35,6 +28,7 @@ import EntryMain from './EntryMain';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import AlignButton from '../../../shared/components/action-buttons/Align';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
+import EntryDownload from '../../../shared/components/entry/EntryDownload';
 import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
 import ObsoleteEntryPage from '../../../shared/components/error-pages/ObsoleteEntryPage';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
@@ -51,7 +45,6 @@ import { hasContent } from '../../../shared/utils/utils';
 import lazy from '../../../shared/utils/lazy';
 import apiUrls from '../../../shared/config/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
-import { fileFormatEntryDownload } from '../../config/download';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
@@ -311,32 +304,7 @@ const Entry: FC = () => {
                     ...listOfIsoformAccessions,
                   ]}
                 />
-                <DropdownButton
-                  label={
-                    <>
-                      <DownloadIcon />
-                      Download
-                    </>
-                  }
-                  variant="tertiary"
-                >
-                  <div className="dropdown-menu__content">
-                    <ul>
-                      {fileFormatEntryDownload.map((fileFormat) => (
-                        <li key={fileFormat}>
-                          <a
-                            href={apiUrls.entryDownload(
-                              transformedData.primaryAccession,
-                              fileFormat
-                            )}
-                          >
-                            {fileFormat}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </DropdownButton>
+                <EntryDownload />
                 <AddToBasketButton selectedEntries={match.params.accession} />
                 <CommunityAnnotationLink accession={match.params.accession} />
                 <a

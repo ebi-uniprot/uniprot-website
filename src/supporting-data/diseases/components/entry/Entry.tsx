@@ -5,7 +5,7 @@ import cn from 'classnames';
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-import EntryDownload from '../../../shared/components/EntryDownload';
+import EntryDownload from '../../../../shared/components/entry/EntryDownload';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
 import MedicalDisclaimer from '../../../../shared/components/MedicalDisclaimer';
 

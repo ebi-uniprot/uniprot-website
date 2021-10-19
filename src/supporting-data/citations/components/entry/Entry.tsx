@@ -5,7 +5,7 @@ import { SetOptional } from 'type-fest';
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-import EntryDownload from '../../../shared/components/EntryDownload';
+import EntryDownload from '../../../../shared/components/entry/EntryDownload';
 import LiteratureCitation from '../LiteratureCitation';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';

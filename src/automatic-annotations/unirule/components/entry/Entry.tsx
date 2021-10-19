@@ -8,6 +8,7 @@ import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler
 import Source from './Source';
 import TemplateEntries from './TemplateEntries';
 import ConditionsAnnotations from '../../../shared/entry/ConditionsAnnotations';
+import EntryDownload from '../../../../shared/components/entry/EntryDownload';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
@@ -44,6 +45,7 @@ const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
         {searchableNamespaceLabels[Namespace.unirule]} - {data.uniRuleId}
       </h1>
       <div className="button-group">
+        <EntryDownload />
         <MapToDropdown
           statistics={data.statistics}
           accession={data.information.oldRuleNum || data.uniRuleId}
