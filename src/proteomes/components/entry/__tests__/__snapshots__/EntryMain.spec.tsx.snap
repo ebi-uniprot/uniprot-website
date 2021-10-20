@@ -1615,7 +1615,9 @@ exports[`EntryMain view should render 1`] = `
     <h2>
       Publications
     </h2>
-    <div>
+    <div
+      class="data-list"
+    >
       <section>
         <section
           class="card card--has-link"

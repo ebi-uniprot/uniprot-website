@@ -97,7 +97,9 @@ exports[`PeptideSearchResult should render with the correct number of results in
       <div
         class="results-data"
       >
-        <div>
+        <div
+          class="data-list"
+        >
           <section>
             <section
               class="card card--has-link"
@@ -567,7 +569,9 @@ exports[`PeptideSearchResult should render with the correct number of results in
       <div
         class="results-data"
       >
-        <div>
+        <div
+          class="data-list"
+        >
           <section>
             <section
               class="card card--has-link"

@@ -5,7 +5,9 @@ exports[`ResultsData component should render the card view with the correct numb
   <div
     class="results-data"
   >
-    <div>
+    <div
+      class="data-list"
+    >
       <section>
         <section
           class="card card--has-link"
