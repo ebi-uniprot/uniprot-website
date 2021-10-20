@@ -22,9 +22,15 @@ import {
 import './styles/app.scss';
 
 if (process.env.NODE_ENV !== 'development') {
-  import(/* webpackChunkName: "sentry" */ '@sentry/browser').then((module) => {
-    module.init({
+  Promise.all([
+    import(/* webpackChunkName: "sentry" */ '@sentry/browser'),
+    import(/* webpackChunkName: "sentry" */ '@sentry/tracing'),
+  ]).then(([sentryBrowser, sentryTracing]) => {
+    sentryBrowser.init({
       dsn: 'https://474bb7c44e8b4a99ba4e408b5a64569b@o308327.ingest.sentry.io/5996901',
+      integrations: [new sentryTracing.Integrations.BrowserTracing()],
+      // TODO: lower on release
+      tracesSampleRate: 1.0,
     });
   });
 }
