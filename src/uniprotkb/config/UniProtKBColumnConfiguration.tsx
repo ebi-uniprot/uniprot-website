@@ -1168,11 +1168,14 @@ const getXrefColumn = (databaseName: string) => ({
 // similarity: this field is wrongly named in the API json (should be cc_similarity). Jira.
 // ft_non_cons
 
+const reXrefPrefix = /^xref_/;
 // Add all database cross-reference columns
 Object.values(UniProtKBColumn)
-  .filter((col) => col.startsWith('dr_'))
+  .filter((col) => col.match(reXrefPrefix))
   .forEach((colName) => {
-    const databaseInfo = getDatabaseInfoByName(colName.substring(3));
+    const databaseInfo = getDatabaseInfoByName(
+      colName.replace(reXrefPrefix, '')
+    );
     if (!databaseInfo || !databaseInfo.name) {
       logging.error(`No database found for ${colName}`);
       return;
