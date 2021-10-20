@@ -19,7 +19,7 @@ describe('GDPR', () => {
     expect(
       screen.getByRole('link', { name: 'Privacy Notice' })
     ).toBeInTheDocument();
-    const acceptButton = screen.getByRole('button', { name: 'I understand' });
+    const acceptButton = screen.getByRole('button', { name: 'Accept' });
     fireEvent.click(acceptButton);
     expect(
       screen.queryByRole('link', { name: 'Privacy Notice' })
