@@ -968,7 +968,100 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_ca_bind
 
 exports[`UniProtKBColumnConfiguration component should render column "ft_carbohyd": ft_carbohyd 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_chain": ft_chain 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_chain": ft_chain 1`] = `
+<DocumentFragment>
+  <h3>
+    Features
+  </h3>
+  <p>
+    Showing features for chain.
+  </p>
+  <protvista-manager
+    attributes="highlight displaystart displayend selectedid"
+  >
+    <protvista-datatable
+      filter-scroll="true"
+    >
+      <table>
+        <thead>
+          <tr>
+            <th
+              data-filter="type"
+            >
+              Type
+            </th>
+            <th>
+              ID
+            </th>
+            <th>
+              Positions
+            </th>
+            <th>
+              Description
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            data-end="8"
+            data-id="id value CHAIN"
+            data-start="2"
+          >
+            <td
+              data-filter="type"
+              data-filter-value="Chain"
+            >
+              Chain
+            </td>
+            <td>
+              id value CHAIN
+            </td>
+            <td>
+              2-8
+            </td>
+            <td>
+              description value 123
+              <button
+                aria-controls="0"
+                aria-expanded="false"
+                class="svg-colour-reviewed evidence-tag"
+                data-testid="evidence-tag-trigger"
+                type="button"
+              >
+                <test-file-stub
+                  height="12"
+                  width="12"
+                />
+                <span
+                  class="evidence-tag__label"
+                >
+                  1 publication
+                </span>
+              </button>
+              <div
+                class="evidence-tag-content "
+                data-testid="evidence-tag-content"
+                id="0"
+              />
+            </td>
+          </tr>
+          <tr
+            data-end="8"
+            data-group-for="id value CHAIN"
+            data-start="2"
+          >
+            <td>
+              <strong>
+                Sequence: 
+              </strong>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </protvista-datatable>
+  </protvista-manager>
+</DocumentFragment>
+`;
 
 exports[`UniProtKBColumnConfiguration component should render column "ft_coiled": ft_coiled 1`] = `<DocumentFragment />`;
 
@@ -978,7 +1071,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_conflic
 
 exports[`UniProtKBColumnConfiguration component should render column "ft_crosslnk": ft_crosslnk 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_disulfide": ft_disulfide 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_disulfid": ft_disulfid 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "ft_dna_bind": ft_dna_bind 1`] = `<DocumentFragment />`;
 

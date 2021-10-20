@@ -14,6 +14,7 @@ const commentCategories: CommentType[] = ['SUBCELLULAR LOCATION'];
 const keywordsCategories: KeywordCategory[] = ['Cellular component'];
 
 const featuresCategories: FeatureType[] = [
+  'Intramembrane',
   'Topological domain',
   'Transmembrane',
 ];

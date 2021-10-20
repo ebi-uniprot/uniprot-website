@@ -47,7 +47,7 @@ export enum UniProtKBColumn {
   ftCompbias = 'ft_compbias',
   ftConflict = 'ft_conflict',
   ftCrosslnk = 'ft_crosslnk',
-  ftDisulfide = 'ft_disulfide',
+  ftDisulfid = 'ft_disulfid',
   ftDnaBind = 'ft_dna_bind',
   ftDomain = 'ft_domain',
   ftHelix = 'ft_helix',

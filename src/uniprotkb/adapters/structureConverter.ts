@@ -11,7 +11,7 @@ export type StructureUIModel = {
   structures?: GroupedStructureInfo;
 } & UIModel;
 
-const featuresCategories: FeatureType[] = ['Helix', 'Beta strand'];
+const featuresCategories: FeatureType[] = ['Helix', 'Beta strand', 'Turn'];
 
 const convertStructure = (
   data: UniProtkbAPIModel,

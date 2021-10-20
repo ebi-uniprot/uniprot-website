@@ -89,10 +89,20 @@ export const defaultColumns = [
 
 export const primaryKeyColumns = [UniProtKBColumn.accession];
 
-const getFeatureColumn = (type: FeatureType) => ({
+const getFeatureColumn = (
+  type: FeatureType,
+  section:
+    | EntrySection.DiseaseAndDrugs
+    | EntrySection.FamilyAndDomains
+    | EntrySection.Function
+    | EntrySection.ProteinProcessing
+    | EntrySection.Sequence
+    | EntrySection.Structure
+    | EntrySection.SubCellularLocation
+) => ({
   label: type,
   render: (data: UniProtkbUIModel) => {
-    const { featuresData } = data[EntrySection.Sequence];
+    const { featuresData } = data[section];
     return (
       featuresData && (
         <FeaturesView
@@ -363,15 +373,15 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ftVariant, {
 
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftNonCon,
-  getFeatureColumn('Non-adjacent residues')
+  getFeatureColumn('Non-adjacent residues', EntrySection.Sequence)
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftNonStd,
-  getFeatureColumn('Non-standard residue')
+  getFeatureColumn('Non-standard residue', EntrySection.Sequence)
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftNonTer,
-  getFeatureColumn('Non-terminal residue')
+  getFeatureColumn('Non-terminal residue', EntrySection.Sequence)
 );
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPolymorphism, {
@@ -400,11 +410,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.errorGmodelPred, {
 
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftConflict,
-  getFeatureColumn('Sequence conflict')
+  getFeatureColumn('Sequence conflict', EntrySection.Sequence)
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftUnsure,
-  getFeatureColumn('Sequence uncertainty')
+  getFeatureColumn('Sequence uncertainty', EntrySection.Sequence)
 );
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.sequenceVersion, {
@@ -431,15 +441,15 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.absorption, {
 
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftActSite,
-  getFeatureColumn('Active site')
+  getFeatureColumn('Active site', EntrySection.Function)
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftBinding,
-  getFeatureColumn('Binding site')
+  getFeatureColumn('Binding site', EntrySection.Function)
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftCaBind,
-  getFeatureColumn('Calcium binding')
+  getFeatureColumn('Calcium binding', EntrySection.Function)
 );
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCatalyticActivity, {
@@ -470,7 +480,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCofactor, {
 
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftDnaBind,
-  getFeatureColumn('DNA binding')
+  getFeatureColumn('DNA binding', EntrySection.Function)
 );
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ec, {
@@ -526,11 +536,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.kinetics, {
 
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftMetal,
-  getFeatureColumn('Metal binding')
+  getFeatureColumn('Metal binding', EntrySection.Function)
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftNpBind,
-  getFeatureColumn('Nucleotide binding')
+  getFeatureColumn('Nucleotide binding', EntrySection.Function)
 );
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPathway, {
@@ -573,7 +583,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.redoxPotential, {
 
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftSite,
-  getFeatureColumn('Site')
+  getFeatureColumn('Site', EntrySection.Function)
 );
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.tempDependence, {
@@ -939,7 +949,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDisease, {
 
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftMutagen,
-  getFeatureColumn('Mutagenesis')
+  getFeatureColumn('Mutagenesis', EntrySection.DiseaseAndDrugs)
 );
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPharmaceutical, {
@@ -964,71 +974,71 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccToxicDose, {
 
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftIntramem,
-  getFeatureColumn('Intramembrane')
+  getFeatureColumn('Intramembrane', EntrySection.SubCellularLocation)
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftTopDom,
-  getFeatureColumn('Topological domain')
+  getFeatureColumn('Topological domain', EntrySection.SubCellularLocation)
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftTransmem,
-  getFeatureColumn('Transmembrane')
+  getFeatureColumn('Transmembrane', EntrySection.SubCellularLocation)
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftChain,
-  getFeatureColumn('Chain')
+  getFeatureColumn('Chain', EntrySection.ProteinProcessing)
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftCrosslnk,
-  getFeatureColumn('Cross-link')
+  getFeatureColumn('Cross-link', EntrySection.ProteinProcessing)
 );
 UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftDisulfide,
-  getFeatureColumn('Disulfide bond')
+  UniProtKBColumn.ftDisulfid,
+  getFeatureColumn('Disulfide bond', EntrySection.ProteinProcessing)
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftCarbohyd,
-  getFeatureColumn('Glycosylation')
+  getFeatureColumn('Glycosylation', EntrySection.ProteinProcessing)
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftInitMet,
-  getFeatureColumn('Initiator methionine')
+  getFeatureColumn('Initiator methionine', EntrySection.ProteinProcessing)
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftLipid,
-  getFeatureColumn('Lipidation')
+  getFeatureColumn('Lipidation', EntrySection.ProteinProcessing)
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftModRes,
-  getFeatureColumn('Modified residue')
+  getFeatureColumn('Modified residue', EntrySection.ProteinProcessing)
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftPeptide,
-  getFeatureColumn('Peptide')
+  getFeatureColumn('Peptide', EntrySection.ProteinProcessing)
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftPropep,
-  getFeatureColumn('Propeptide')
+  getFeatureColumn('Propeptide', EntrySection.ProteinProcessing)
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftSignal,
-  getFeatureColumn('Signal')
+  getFeatureColumn('Signal', EntrySection.ProteinProcessing)
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftTransit,
-  getFeatureColumn('Transit peptide')
+  getFeatureColumn('Transit peptide', EntrySection.ProteinProcessing)
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftStrand,
-  getFeatureColumn('Beta strand')
+  getFeatureColumn('Beta strand', EntrySection.Structure)
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftHelix,
-  getFeatureColumn('Helix')
+  getFeatureColumn('Helix', EntrySection.Structure)
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftTurn,
-  getFeatureColumn('Turn')
+  getFeatureColumn('Turn', EntrySection.Structure)
 );
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.litPubmedId, {
@@ -1078,19 +1088,19 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.version, {
 });
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftCoiled,
-  getFeatureColumn('Coiled coil')
+  getFeatureColumn('Coiled coil', EntrySection.Function)
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftCompbias,
-  getFeatureColumn('Compositional bias')
+  getFeatureColumn('Compositional bias', EntrySection.FamilyAndDomains)
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftDomain,
-  getFeatureColumn('Domain')
+  getFeatureColumn('Domain', EntrySection.FamilyAndDomains)
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftMotif,
-  getFeatureColumn('Motif')
+  getFeatureColumn('Motif', EntrySection.FamilyAndDomains)
 );
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinFamilies, {
@@ -1107,11 +1117,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinFamilies, {
 
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftRegion,
-  getFeatureColumn('Region')
+  getFeatureColumn('Region', EntrySection.FamilyAndDomains)
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftRepeat,
-  getFeatureColumn('Repeat')
+  getFeatureColumn('Repeat', EntrySection.FamilyAndDomains)
 );
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSimilarity, {
@@ -1126,7 +1136,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSimilarity, {
 
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftZnFing,
-  getFeatureColumn('Zinc finger')
+  getFeatureColumn('Zinc finger', EntrySection.Function)
 );
 
 const getXrefColumn = (databaseName: string) => ({
