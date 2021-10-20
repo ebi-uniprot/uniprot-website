@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Facets, Facet, Loader } from 'franklin-sites';
 
 import useNS from '../../hooks/useNS';
@@ -38,7 +39,7 @@ type Props = {
   namespaceOverride?: Namespace;
 };
 
-const ResultsFacets = ({ dataApiObject, namespaceOverride }: Props) => {
+const ResultsFacets = memo<Props>(({ dataApiObject, namespaceOverride }) => {
   const namespace = useNS(namespaceOverride);
   const { data, isStale, loading, progress } = dataApiObject;
 
@@ -88,6 +89,6 @@ const ResultsFacets = ({ dataApiObject, namespaceOverride }: Props) => {
       )}
     </Facets>
   );
-};
+});
 
 export default ResultsFacets;

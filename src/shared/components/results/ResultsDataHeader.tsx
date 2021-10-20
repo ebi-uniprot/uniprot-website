@@ -9,6 +9,7 @@ import { Namespace, namespaceAndToolsLabels } from '../../types/namespaces';
 
 const ResultsDataHeader: FC<{
   total?: number;
+  loadedTotal: number;
   selectedEntries: string[];
   namespaceOverride?: Namespace;
   titlePostscript?: ReactNode;
@@ -17,6 +18,7 @@ const ResultsDataHeader: FC<{
   disableCardToggle?: boolean; // Note: remove if we have card view for id mapping
 }> = ({
   total = 0,
+  loadedTotal,
   selectedEntries,
   namespaceOverride,
   titlePostscript,
@@ -35,6 +37,7 @@ const ResultsDataHeader: FC<{
       />
       <ResultsButtons
         total={total}
+        loadedTotal={loadedTotal}
         selectedEntries={selectedEntries}
         accessions={accessions}
         namespaceOverride={namespace}

@@ -21,6 +21,7 @@ export enum TaxonomyColumn {
   rank = 'rank',
   // This is triggering the same filters than "statistics", so probably no need
   // for a specific column renderer
+  // TODO: ask backend to remove this one, duplicate with statistics
   reviewed = 'reviewed',
   scientificName = 'scientific_name',
   statistics = 'statistics',
@@ -50,17 +51,20 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.commonName, {
   render: ({ commonName }) => commonName,
 });
 
+// NOTE: since these will be used in an info list, we need to return null when
+// NOTE: no content, otherwise it gets a truthy empty fragment instead
 TaxonomyColumnConfiguration.set(TaxonomyColumn.hosts, {
   label: 'Hosts',
-  render: ({ hosts }) => (
-    <ExpandableList descriptionString="hosts" displayNumberOfHiddenItems>
-      {hosts?.map(({ taxonId, scientificName, commonName }) => (
-        <Link key={taxonId} to={getEntryPath(taxonId)}>
-          {commonName || scientificName || taxonId}
-        </Link>
-      ))}
-    </ExpandableList>
-  ),
+  render: ({ hosts }) =>
+    hosts?.length ? (
+      <ExpandableList descriptionString="hosts" displayNumberOfHiddenItems>
+        {hosts?.map(({ taxonId, scientificName, commonName }) => (
+          <Link key={taxonId} to={getEntryPath(taxonId)}>
+            {commonName || scientificName || taxonId}
+          </Link>
+        ))}
+      </ExpandableList>
+    ) : null,
 });
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.id, {
@@ -88,13 +92,14 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.lineage, {
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.links, {
   label: 'Links',
-  render: ({ links }) => (
-    <ExpandableList descriptionString="links" displayNumberOfHiddenItems>
-      {links?.map((link) => (
-        <ExternalLink key={link} url={link} tidyUrl />
-      ))}
-    </ExpandableList>
-  ),
+  render: ({ links }) =>
+    links?.length ? (
+      <ExpandableList descriptionString="links" displayNumberOfHiddenItems>
+        {links?.map((link) => (
+          <ExternalLink key={link} url={link} tidyUrl />
+        ))}
+      </ExpandableList>
+    ) : null,
 });
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.mnemonic, {
@@ -104,11 +109,12 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.mnemonic, {
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.otherNames, {
   label: 'Other names',
-  render: ({ otherNames }) => (
-    <ExpandableList descriptionString="names" displayNumberOfHiddenItems>
-      {otherNames}
-    </ExpandableList>
-  ),
+  render: ({ otherNames }) =>
+    otherNames?.length ? (
+      <ExpandableList descriptionString="names" displayNumberOfHiddenItems>
+        {otherNames}
+      </ExpandableList>
+    ) : null,
 });
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.parent, {
@@ -133,25 +139,27 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.scientificName, {
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.strains, {
   label: 'Strains',
-  render: ({ strains }) => (
-    <ExpandableList descriptionString="strains" displayNumberOfHiddenItems>
-      {strains?.map((strain) => (
-        <>
-          {strain.name}
-          {strain.synonyms?.length && ` (${strain.synonyms.join(', ')})`}
-        </>
-      ))}
-    </ExpandableList>
-  ),
+  render: ({ strains }) =>
+    strains?.length ? (
+      <ExpandableList descriptionString="strains" displayNumberOfHiddenItems>
+        {strains?.map((strain) => (
+          <>
+            {strain.name}
+            {strain.synonyms?.length && ` (${strain.synonyms.join(', ')})`}
+          </>
+        ))}
+      </ExpandableList>
+    ) : null,
 });
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.synonyms, {
   label: 'Synonyms',
-  render: ({ synonyms }) => (
-    <ExpandableList descriptionString="synonyms" displayNumberOfHiddenItems>
-      {synonyms}
-    </ExpandableList>
-  ),
+  render: ({ synonyms }) =>
+    synonyms?.length ? (
+      <ExpandableList descriptionString="synonyms" displayNumberOfHiddenItems>
+        {synonyms}
+      </ExpandableList>
+    ) : null,
 });
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.statistics, {
@@ -170,8 +178,9 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.statistics, {
   ),
 });
 
+// TODO: ask backend to remove this one, duplicate with statistics
 TaxonomyColumnConfiguration.set(TaxonomyColumn.reviewed, {
-  label: 'Reviewed',
+  label: 'Reviewed (deprecated column)',
   render: ({ taxonId, statistics }) => {
     const reviewedLink = mapToLinks(
       Namespace.taxonomy,

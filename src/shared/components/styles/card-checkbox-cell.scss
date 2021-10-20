@@ -1,0 +1,37 @@
+@import 'franklin-sites/src/styles/colours';
+
+// Same classnames as in franklin
+.data-list .checkbox-cell {
+  height: 100%;
+  position: relative;
+  padding: 0;
+
+  & > input[type='checkbox'] {
+    margin: 1ch;
+
+    @media (pointer: coarse) {
+      margin: 2ch;
+    }
+
+    & + label {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      margin: 0;
+      background: $colour-sea-blue;
+      border-radius: 50%;
+      opacity: 0;
+
+      transition: opacity ease-in-out 0.1s;
+    }
+
+    &:hover,
+    &:focus {
+      + label {
+        opacity: 0.2;
+      }
+    }
+  }
+}

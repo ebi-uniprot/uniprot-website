@@ -79,7 +79,7 @@ describe('Download component', () => {
   });
 
   it('should handle preview button click', async () => {
-    const previewButton = screen.getByText('Preview 10');
+    const previewButton = screen.getByRole('button', { name: /Preview/ });
     fireEvent.click(previewButton);
     const preview = await screen.findByTestId('download-preview');
     expect(preview.textContent).toEqual(mockFasta);

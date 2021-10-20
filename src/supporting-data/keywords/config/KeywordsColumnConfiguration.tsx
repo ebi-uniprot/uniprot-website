@@ -47,17 +47,20 @@ KeywordsColumnConfiguration.set(KeywordsColumn.category, {
     category && <Link to={getEntryPath(category.id)}>{category.name}</Link>,
 });
 
+// NOTE: since these will be used in an info list, we need to return null when
+// NOTE: no content, otherwise it gets a truthy empty fragment instead
 KeywordsColumnConfiguration.set(KeywordsColumn.children, {
   label: 'Children',
-  render: ({ children }) => (
-    <ExpandableList descriptionString="children" displayNumberOfHiddenItems>
-      {children?.map((child) => (
-        <Link key={child.keyword.id} to={getEntryPath(child.keyword.id)}>
-          {child.keyword.name}
-        </Link>
-      ))}
-    </ExpandableList>
-  ),
+  render: ({ children }) =>
+    children?.length ? (
+      <ExpandableList descriptionString="children" displayNumberOfHiddenItems>
+        {children?.map((child) => (
+          <Link key={child.keyword.id} to={getEntryPath(child.keyword.id)}>
+            {child.keyword.name}
+          </Link>
+        ))}
+      </ExpandableList>
+    ) : null,
 });
 
 KeywordsColumnConfiguration.set(KeywordsColumn.definition, {
@@ -67,15 +70,16 @@ KeywordsColumnConfiguration.set(KeywordsColumn.definition, {
 
 KeywordsColumnConfiguration.set(KeywordsColumn.geneOntologies, {
   label: 'Gene Ontologies',
-  render: ({ geneOntologies }) => (
-    <ExpandableList descriptionString="GO terms" displayNumberOfHiddenItems>
-      {geneOntologies?.map(({ name, goId }) => (
-        <ExternalLink key={goId} url={externalUrls.QuickGO(goId)}>
-          {name} ({goId})
-        </ExternalLink>
-      ))}
-    </ExpandableList>
-  ),
+  render: ({ geneOntologies }) =>
+    geneOntologies?.length ? (
+      <ExpandableList descriptionString="GO terms" displayNumberOfHiddenItems>
+        {geneOntologies?.map(({ name, goId }) => (
+          <ExternalLink key={goId} url={externalUrls.QuickGO(goId)}>
+            {name} ({goId})
+          </ExternalLink>
+        ))}
+      </ExpandableList>
+    ) : null,
 });
 
 KeywordsColumnConfiguration.set(KeywordsColumn.id, {
@@ -91,35 +95,38 @@ KeywordsColumnConfiguration.set(KeywordsColumn.name, {
 
 KeywordsColumnConfiguration.set(KeywordsColumn.parents, {
   label: 'Parents',
-  render: ({ parents }) => (
-    <ExpandableList descriptionString="parents" displayNumberOfHiddenItems>
-      {parents?.map((parent) => (
-        <Link key={parent.keyword.id} to={getEntryPath(parent.keyword.id)}>
-          {parent.keyword.name}
-        </Link>
-      ))}
-    </ExpandableList>
-  ),
+  render: ({ parents }) =>
+    parents?.length ? (
+      <ExpandableList descriptionString="parents" displayNumberOfHiddenItems>
+        {parents?.map((parent) => (
+          <Link key={parent.keyword.id} to={getEntryPath(parent.keyword.id)}>
+            {parent.keyword.name}
+          </Link>
+        ))}
+      </ExpandableList>
+    ) : null,
 });
 
 KeywordsColumnConfiguration.set(KeywordsColumn.links, {
   label: 'Links',
-  render: ({ links }) => (
-    <ExpandableList descriptionString="links" displayNumberOfHiddenItems>
-      {links?.map((link) => (
-        <ExternalLink key={link} url={link} tidyUrl />
-      ))}
-    </ExpandableList>
-  ),
+  render: ({ links }) =>
+    links?.length ? (
+      <ExpandableList descriptionString="links" displayNumberOfHiddenItems>
+        {links?.map((link) => (
+          <ExternalLink key={link} url={link} tidyUrl />
+        ))}
+      </ExpandableList>
+    ) : null,
 });
 
 KeywordsColumnConfiguration.set(KeywordsColumn.synonyms, {
   label: 'Synonyms',
-  render: ({ synonyms }) => (
-    <ExpandableList descriptionString="synonyms" displayNumberOfHiddenItems>
-      {synonyms}
-    </ExpandableList>
-  ),
+  render: ({ synonyms }) =>
+    synonyms?.length ? (
+      <ExpandableList descriptionString="synonyms" displayNumberOfHiddenItems>
+        {synonyms}
+      </ExpandableList>
+    ) : null,
 });
 
 KeywordsColumnConfiguration.set(KeywordsColumn.statistics, {

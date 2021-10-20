@@ -12,8 +12,7 @@ describe('ResultsData component', () => {
   it('should render the table view', async () => {
     const { asFragment } = customRender(
       <ResultsData
-        handleEntrySelection={jest.fn()}
-        selectedEntries={[]}
+        setSelectedItemFromEvent={jest.fn()}
         resultsDataObject={{
           allResults: results.results,
           initialLoading: false,
@@ -38,8 +37,7 @@ describe('ResultsData component', () => {
   it('should render the card view with the correct number of cards', async () => {
     const { asFragment } = customRender(
       <ResultsData
-        handleEntrySelection={jest.fn()}
-        selectedEntries={[]}
+        setSelectedItemFromEvent={jest.fn()}
         resultsDataObject={{
           allResults: results.results,
           initialLoading: false,
@@ -66,8 +64,7 @@ describe('ResultsData component', () => {
     const singleResult = results.results[0];
     const { history } = customRender(
       <ResultsData
-        handleEntrySelection={jest.fn()}
-        selectedEntries={[]}
+        setSelectedItemFromEvent={jest.fn()}
         resultsDataObject={{
           allResults: [singleResult],
           initialLoading: false,
@@ -90,8 +87,7 @@ describe('ResultsData component', () => {
     const singleResult = results.results[0];
     const { history } = customRender(
       <ResultsData
-        handleEntrySelection={jest.fn()}
-        selectedEntries={[]}
+        setSelectedItemFromEvent={jest.fn()}
         resultsDataObject={{
           allResults: [singleResult],
           initialLoading: false,
@@ -114,8 +110,7 @@ describe('ResultsData component', () => {
     const singleResult = results.results[0];
     const { history } = customRender(
       <ResultsData
-        handleEntrySelection={jest.fn()}
-        selectedEntries={[]}
+        setSelectedItemFromEvent={jest.fn()}
         resultsDataObject={{
           allResults: [singleResult],
           initialLoading: false,

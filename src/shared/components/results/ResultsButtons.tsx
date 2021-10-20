@@ -1,4 +1,4 @@
-import { FC, useState, Suspense } from 'react';
+import { FC, useState, Suspense, Dispatch, SetStateAction } from 'react';
 import cn from 'classnames';
 import {
   DownloadIcon,
@@ -14,6 +14,7 @@ import AlignButton from '../action-buttons/Align';
 import MapIDButton from '../action-buttons/MapID';
 import AddToBasketButton from '../action-buttons/AddToBasket';
 import CustomiseButton from '../action-buttons/CustomiseButton';
+import ItemCount from '../ItemCount';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 
 import useLocalStorage from '../../hooks/useLocalStorage';
@@ -33,7 +34,9 @@ const DownloadComponent = lazy(
 
 type ResultsButtonsProps = {
   selectedEntries: string[];
+  setSelectedEntries?: Dispatch<SetStateAction<string[]>>;
   total: number;
+  loadedTotal: number;
   accessions?: string[];
   namespaceOverride?: Namespace;
   base?: string;
@@ -43,8 +46,10 @@ type ResultsButtonsProps = {
 };
 
 const ResultsButtons: FC<ResultsButtonsProps> = ({
-  total,
   selectedEntries,
+  setSelectedEntries,
+  total,
+  loadedTotal,
   accessions,
   namespaceOverride,
   base,
@@ -109,6 +114,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
         {isMain && namespace !== Namespace.proteomes && (
           <AddToBasketButton
             selectedEntries={selectedEntries}
+            setSelectedEntries={setSelectedEntries}
             remove={inBasket}
           />
         )}
@@ -130,7 +136,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
           title={`Switch to "${
             viewMode === ViewMode.CARD ? 'table' : 'card'
           }" view`}
-          disabled={namespace === Namespace.idmapping || disableCardToggle}
+          disabled={disableCardToggle}
         >
           <TableIcon
             className={cn('results-buttons__toggle', {
@@ -146,6 +152,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
         {!notCustomisable && viewMode === ViewMode.TABLE && (
           <CustomiseButton namespace={namespace} />
         )}
+        <ItemCount selected={selectedEntries.length} loaded={loadedTotal} />
       </div>
     </>
   );

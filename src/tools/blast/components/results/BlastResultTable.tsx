@@ -254,15 +254,13 @@ type ColumnRenderer = {
 
 const BlastResultTable: FC<{
   data: BlastResults | null;
-  selectedEntries: string[];
-  handleEntrySelection: (rowId: string) => void;
+  setSelectedItemFromEvent: (event: MouseEvent | KeyboardEvent) => void;
   setHspDetailPanel: (props: HSPDetailPanelProps) => void;
   loading: boolean;
   namespace: SearchableNamespace;
 }> = ({
   data,
-  selectedEntries,
-  handleEntrySelection,
+  setSelectedItemFromEvent,
   setHspDetailPanel,
   loading,
   namespace,
@@ -454,8 +452,7 @@ const BlastResultTable: FC<{
       density="compact"
       columns={columns}
       data={hitsRef.current.slice(0, nItemsToRender)}
-      selected={selectedEntries}
-      onSelectRow={handleEntrySelection}
+      onSelectionChange={setSelectedItemFromEvent}
       fixedLayout
     />
   );

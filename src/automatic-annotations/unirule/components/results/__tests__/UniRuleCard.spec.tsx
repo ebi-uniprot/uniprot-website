@@ -12,14 +12,8 @@ describe('UniRuleCard tests', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('should allow card selection and navigation', () => {
-    const handleClick = jest.fn();
-    const { history } = customRender(
-      <UniRuleCard data={uniRuleData[0]} handleEntrySelection={handleClick} />
-    );
-    fireEvent.click(screen.getByRole('checkbox'));
-    expect(handleClick).toHaveBeenCalled();
-    expect(history.location.pathname).not.toMatch('/unirule/UR000048432');
+  it('should allow card navigation', () => {
+    const { history } = customRender(<UniRuleCard data={uniRuleData[0]} />);
     fireEvent.click(screen.getByTestId('background-link'));
     expect(history.location.pathname).toMatch('/unirule/UR000048432');
   });

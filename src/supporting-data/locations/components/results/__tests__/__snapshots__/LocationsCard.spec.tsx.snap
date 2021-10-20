@@ -18,6 +18,20 @@ exports[`CitationCard tests should render the card component 1`] = `
       <div
         class="card__header"
       >
+        <span
+          class="checkbox-cell"
+        >
+          <input
+            data-id="SL-0099"
+            id="0"
+            type="checkbox"
+          />
+          <label
+            aria-label="SL-0099"
+            for="0"
+            title="click to select, shift+click for multiple selection"
+          />
+        </span>
         <h2
           class="tiny"
         >

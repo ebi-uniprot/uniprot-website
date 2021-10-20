@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { Card } from 'franklin-sites';
 
 import RenderColumnsInCard from '../../../../shared/components/results/RenderColumnsInCard';
+import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';
 
 import { getEntryPath } from '../../../../app/config/urls';
 import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
@@ -19,13 +20,7 @@ const category = DatabaseColumnConfiguration.get(DatabaseColumn.category);
 
 const getIdKey = getIdKeyFor(Namespace.database);
 
-type Props = {
-  data: DatabaseAPIModel;
-  selected?: boolean;
-  handleEntrySelection?: (rowId: string) => void;
-};
-
-const DatabaseCard = ({ data, selected, handleEntrySelection }: Props) => {
+const DatabaseCard = ({ data }: { data: DatabaseAPIModel }) => {
   const id = getIdKey(data);
 
   const links = useMemo(
@@ -37,14 +32,7 @@ const DatabaseCard = ({ data, selected, handleEntrySelection }: Props) => {
     <Card
       header={
         <>
-          {handleEntrySelection && (
-            <input
-              type="checkbox"
-              checked={selected}
-              onChange={() => handleEntrySelection(id)}
-              data-testid="up-card-checkbox"
-            />
-          )}
+          <CardCheckboxCell id={id} />
           <h2 className="tiny">{data.abbrev}</h2>
         </>
       }

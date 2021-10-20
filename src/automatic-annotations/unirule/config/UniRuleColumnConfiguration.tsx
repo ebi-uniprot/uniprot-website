@@ -20,6 +20,10 @@ export enum UniRuleColumn {
   templateEntries = 'template_entries',
   // NOTE: once the backend is fixed, this will be available https://www.ebi.ac.uk/panda/jira/browse/TRM-26560
   statistics = 'statistics',
+  // TODO: ask backend to remove this one, duplicate with statistics
+  reviewedProteinCount = 'reviewed_protein_count',
+  // TODO: ask backend to remove this one, duplicate with statistics
+  unreviewedProteinCount = 'unreviewed_protein_count',
 }
 
 export const defaultColumns = [
@@ -104,6 +108,40 @@ UniRuleColumnConfiguration.set(UniRuleColumn.statistics, {
       ))}
     </ExpandableList>
   ),
+});
+
+// TODO: ask backend to remove this one, duplicate with statistics
+UniRuleColumnConfiguration.set(UniRuleColumn.reviewedProteinCount, {
+  label: 'Reviewed (deprecated column)',
+  render: ({ uniRuleId, information, statistics }) => {
+    const reviewedLink = mapToLinks(
+      Namespace.unirule,
+      information?.oldRuleNum || uniRuleId,
+      statistics
+    )?.find(({ key }) => key === 'reviewedProteinCount');
+    if (!reviewedLink) {
+      return null;
+    }
+    // eslint-disable-next-line uniprot-website/use-config-location
+    return <Link to={reviewedLink.link}>{reviewedLink.name}</Link>;
+  },
+});
+
+// TODO: ask backend to remove this one, duplicate with statistics
+UniRuleColumnConfiguration.set(UniRuleColumn.unreviewedProteinCount, {
+  label: 'Unreviewed (deprecated column)',
+  render: ({ uniRuleId, information, statistics }) => {
+    const unreviewedLink = mapToLinks(
+      Namespace.unirule,
+      information?.oldRuleNum || uniRuleId,
+      statistics
+    )?.find(({ key }) => key === 'unreviewedProteinCount');
+    if (!unreviewedLink) {
+      return null;
+    }
+    // eslint-disable-next-line uniprot-website/use-config-location
+    return <Link to={unreviewedLink.link}>{unreviewedLink.name}</Link>;
+  },
 });
 
 export default UniRuleColumnConfiguration;

@@ -51,7 +51,8 @@ const IDMappingResult = () => {
   const { search: queryParamFromUrl } = location;
   const { selectedFacets } = getParamsFromURL(queryParamFromUrl);
 
-  const [selectedEntries, handleEntrySelection] = useItemSelect();
+  const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
+    useItemSelect();
 
   const detailApiUrl =
     urls.detailsUrl && urls.detailsUrl(match?.params.id || '');
@@ -144,6 +145,7 @@ const IDMappingResult = () => {
       />
       <ResultsButtons
         total={total || 0}
+        loadedTotal={resultsDataObject.allResults.length}
         selectedEntries={selectedEntries}
         accessions={resultsDataObject.allResults.map(getIdKey)}
         namespaceOverride={namespaceOverride}
@@ -163,8 +165,8 @@ const IDMappingResult = () => {
       )}
       <ResultsData
         resultsDataObject={resultsDataObject}
-        selectedEntries={selectedEntries}
-        handleEntrySelection={handleEntrySelection}
+        setSelectedItemFromEvent={setSelectedItemFromEvent}
+        setSelectedEntries={setSelectedEntries}
         namespaceOverride={namespaceOverride}
         displayIdMappingColumns
       />

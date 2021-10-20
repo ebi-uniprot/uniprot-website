@@ -12,14 +12,8 @@ describe('Taxonomy Card tests', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('should allow card selection and navigation', () => {
-    const handleClick = jest.fn();
-    const { history } = customRender(
-      <TaxonomyCard data={mockData[0]} handleEntrySelection={handleClick} />
-    );
-    fireEvent.click(screen.getByRole('checkbox'));
-    expect(handleClick).toHaveBeenCalled();
-    expect(history.location.pathname).not.toMatch('/taxonomy/11652');
+  it('should allow card navigation', () => {
+    const { history } = customRender(<TaxonomyCard data={mockData[0]} />);
     fireEvent.click(screen.getByTestId('background-link'));
     expect(history.location.pathname).toMatch('/taxonomy/11652');
   });

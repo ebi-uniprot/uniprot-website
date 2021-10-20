@@ -14,8 +14,7 @@ describe('BlastResultTable tests', () => {
     const { asFragment } = customRender(
       <BlastResultTable
         data={data}
-        selectedEntries={[]}
-        handleEntrySelection={jest.fn()}
+        setSelectedItemFromEvent={jest.fn()}
         setHspDetailPanel={jest.fn()}
         loading={false}
         namespace={Namespace.uniprotkb}
@@ -34,8 +33,7 @@ describe('BlastResultTable tests', () => {
     const { asFragment } = customRender(
       <BlastResultTable
         data={noHits}
-        selectedEntries={[]}
-        handleEntrySelection={jest.fn()}
+        setSelectedItemFromEvent={jest.fn()}
         setHspDetailPanel={jest.fn()}
         loading={false}
         namespace={Namespace.uniprotkb}

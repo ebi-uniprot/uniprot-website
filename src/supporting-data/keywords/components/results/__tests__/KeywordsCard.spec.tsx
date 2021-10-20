@@ -14,14 +14,8 @@ describe('KeywordsCard tests', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('should allow card selection and navigation', () => {
-    const handleClick = jest.fn();
-    const { history } = customRender(
-      <KeywordsCard data={keywordsData[0]} handleEntrySelection={handleClick} />
-    );
-    fireEvent.click(screen.getByRole('checkbox'));
-    expect(handleClick).toHaveBeenCalled();
-    expect(history.location.pathname).not.toMatch('/keywords/KW-0021');
+  it('should allow card navigation', () => {
+    const { history } = customRender(<KeywordsCard data={keywordsData[0]} />);
     fireEvent.click(screen.getByTestId('background-link'));
     expect(history.location.pathname).toMatch('/keywords/KW-0021');
   });

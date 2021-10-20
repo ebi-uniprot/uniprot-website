@@ -27,7 +27,7 @@ export const TextView = ({ comments, noEvidence }: TextViewProps) => (
     {comments.map((comment, index) => (
       // eslint-disable-next-line react/no-array-index-key
       <Fragment key={index}>
-        {comment.value.split(pubMedRE).map((part, index) => {
+        {comment.value.split(pubMedRE).map((part, index, { length }) => {
           /** We should get odds plain text, and evens pubmed ID, but we are
            *  still double-checking just in case */
           if (pubMedIDRE.test(part)) {
@@ -49,6 +49,10 @@ export const TextView = ({ comments, noEvidence }: TextViewProps) => (
                 {part.replace(needsNewLineRE, '')}
               </Fragment>
             );
+          }
+          // If the last section doesn't end with a period, add it
+          if (index + 1 === length && !part.endsWith('.')) {
+            return `${part}.`;
           }
           // use plain text as such
           return part;

@@ -44,7 +44,7 @@ type GeneCentricData = {
 const ComputationalyMappedSequences: FC<{ primaryAccession: string }> = ({
   primaryAccession,
 }) => {
-  const [selectedEntries, handleEntrySelection] = useItemSelect();
+  const [selectedEntries, setSelectedItemFromEvent] = useItemSelect();
 
   const columns = useMemo<
     Array<{
@@ -146,8 +146,7 @@ const ComputationalyMappedSequences: FC<{ primaryAccession: string }> = ({
                 density="compact"
                 columns={columns}
                 data={filteredData}
-                selected={selectedEntries}
-                onSelectRow={handleEntrySelection}
+                onSelectionChange={setSelectedItemFromEvent}
               />
             </>
           ) : null}

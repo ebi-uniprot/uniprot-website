@@ -16,7 +16,7 @@ const Publications: FC<Pick<ProteomesAPIModel, 'citations'>> = ({
 }) => {
   const data = useMemo<CitationsAPIModel[]>(
     // Transform basic citation object to full citations as returned by the
-    // citations endpoint (containing as "citation" field)
+    // citations endpoint (containing a "citation" field)
     () => citations?.map((citation) => ({ citation })),
     [citations]
   );
@@ -32,7 +32,7 @@ const Publications: FC<Pick<ProteomesAPIModel, 'citations'>> = ({
         getIdKey={getIdKey}
         data={data}
         dataRenderer={(citation) => (
-          <CitationsCard data={citation} headingLevel="h3" />
+          <CitationsCard data={citation} headingLevel="h3" notSelectable />
         )}
       />
     </section>

@@ -1,4 +1,4 @@
-import { useMemo, Dispatch, SetStateAction } from 'react';
+import { useMemo, Dispatch, SetStateAction, useEffect } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 import cn from 'classnames';
 import { Tabs, Tab, BinIcon, Button, FullViewIcon } from 'franklin-sites';
@@ -60,7 +60,13 @@ const BasketMiniViewTab = ({
   setBasket,
   closePanel,
 }: BasketMiniViewTabProps) => {
-  const [selectedEntries, handleEntrySelection] = useItemSelect();
+  const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
+    useItemSelect();
+
+  // reset the selection every time the namespace changes
+  useEffect(() => {
+    setSelectedEntries([]);
+  }, [namespace, setSelectedEntries]);
 
   const initialApiUrl = useNSQuery({
     accessions,
@@ -80,7 +86,9 @@ const BasketMiniViewTab = ({
     <>
       <ResultsButtons
         total={accessions.length}
+        loadedTotal={accessions.length}
         selectedEntries={selectedEntries}
+        setSelectedEntries={setSelectedEntries}
         accessions={accessions}
         namespaceOverride={namespace}
         inBasket
@@ -88,8 +96,8 @@ const BasketMiniViewTab = ({
       />
       <ResultsData
         resultsDataObject={resultsDataObject}
-        selectedEntries={selectedEntries}
-        handleEntrySelection={handleEntrySelection}
+        setSelectedEntries={setSelectedEntries}
+        setSelectedItemFromEvent={setSelectedItemFromEvent}
         namespaceOverride={namespace}
         columnsOverride={columns}
         basketSetter={setBasket}
@@ -111,6 +119,7 @@ const BasketMiniViewTab = ({
               // else, clear whole basket
               return new Map([...basket, [namespace, new Set()]]);
             });
+            setSelectedEntries([]);
           }}
         >
           <BinIcon height="1em" width="1em" />

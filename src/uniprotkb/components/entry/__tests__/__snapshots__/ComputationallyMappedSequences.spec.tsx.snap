@@ -53,7 +53,18 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
           <th
             class="data-table__header-cell--checkbox"
           >
-             
+            <div
+              class="checkbox-cell"
+            >
+              <input
+                id="0"
+                type="checkbox"
+              />
+              <label
+                aria-label="Selection control for all visible items"
+                for="0"
+              />
+            </div>
           </th>
           <th
             class=""
@@ -82,11 +93,18 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
       </thead>
       <tbody>
         <tr>
-          <td>
+          <td
+            class="checkbox-cell"
+          >
             <input
-              aria-label="A0A0A0MRG2"
               data-id="A0A0A0MRG2"
+              id="1"
               type="checkbox"
+            />
+            <label
+              aria-label="A0A0A0MRG2"
+              for="1"
+              title="click to select, shift+click for multiple selection"
             />
           </td>
           <td>
@@ -120,11 +138,18 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            class="checkbox-cell"
+          >
             <input
-              aria-label="E9PG40"
               data-id="E9PG40"
+              id="2"
               type="checkbox"
+            />
+            <label
+              aria-label="E9PG40"
+              for="2"
+              title="click to select, shift+click for multiple selection"
             />
           </td>
           <td>
@@ -158,11 +183,18 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            class="checkbox-cell"
+          >
             <input
-              aria-label="H7C0V9"
               data-id="H7C0V9"
+              id="3"
               type="checkbox"
+            />
+            <label
+              aria-label="H7C0V9"
+              for="3"
+              title="click to select, shift+click for multiple selection"
             />
           </td>
           <td>
@@ -196,11 +228,18 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            class="checkbox-cell"
+          >
             <input
-              aria-label="H7C2L2"
               data-id="H7C2L2"
+              id="4"
               type="checkbox"
+            />
+            <label
+              aria-label="H7C2L2"
+              for="4"
+              title="click to select, shift+click for multiple selection"
             />
           </td>
           <td>

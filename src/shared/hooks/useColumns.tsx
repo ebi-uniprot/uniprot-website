@@ -1,4 +1,10 @@
-import { useMemo, ReactNode, Dispatch, SetStateAction } from 'react';
+import {
+  useMemo,
+  ReactNode,
+  Dispatch,
+  SetStateAction,
+  useCallback,
+} from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { BinIcon, Button } from 'franklin-sites';
 
@@ -166,7 +172,8 @@ const useColumns = (
   namespaceOverride?: Namespace,
   displayIdMappingColumns = false,
   basketSetter?: Dispatch<SetStateAction<Basket>>,
-  columnsOverride?: ColumnDescriptor[]
+  columnsOverride?: ColumnDescriptor[],
+  setSelectedEntries?: Dispatch<SetStateAction<string[]>>
 ): [ColumnDescriptor[], (columnName: string) => void] => {
   const history = useHistory();
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
@@ -216,17 +223,21 @@ const useColumns = (
         render: (datum) => (
           <Button
             variant="tertiary"
-            onClick={() =>
+            onClick={() => {
+              const id = getIdKey(datum);
               basketSetter((currentBasket) => {
                 const basketSubset = new Set(currentBasket.get(namespace));
-                basketSubset?.delete(getIdKey(datum));
+                basketSubset?.delete(id);
                 return new Map([
                   // other namespaces, untouched
                   ...currentBasket,
                   [namespace, basketSubset],
                 ]);
-              })
-            }
+              });
+              setSelectedEntries?.((selectedEntries) =>
+                selectedEntries.filter((entry) => entry !== id)
+              );
+            }}
           >
             <BinIcon width="1.5em" />
           </Button>
@@ -245,34 +256,47 @@ const useColumns = (
     sortableColumnToSortColumn,
     sortColumn,
     sortDirection,
+    setSelectedEntries,
   ]);
 
-  const updateColumnSort = (columnName: string) => {
-    // No sorting for id mapping
-    if (namespace === Namespace.idmapping) {
-      return;
-    }
-    const newSortColumn = sortableColumnToSortColumn.get(columnName as Column);
-    if (!newSortColumn) {
-      return;
-    }
+  const updateColumnSort = useCallback(
+    (columnName: string) => {
+      // No sorting for id mapping
+      if (namespace === Namespace.idmapping) {
+        return;
+      }
+      const newSortColumn = sortableColumnToSortColumn.get(
+        columnName as Column
+      );
+      if (!newSortColumn) {
+        return;
+      }
 
-    // Change sort direction
-    const updatedSortDirection =
-      !sortDirection || sortDirection === SortDirection.descend
-        ? SortDirection.ascend
-        : SortDirection.descend;
+      // Change sort direction
+      const updatedSortDirection =
+        !sortDirection || sortDirection === SortDirection.descend
+          ? SortDirection.ascend
+          : SortDirection.descend;
 
-    history.push(
-      getLocationObjForParams({
-        pathname: SearchResultsLocations[namespace],
-        query,
-        selectedFacets,
-        sortColumn: newSortColumn,
-        sortDirection: updatedSortDirection,
-      })
-    );
-  };
+      history.push(
+        getLocationObjForParams({
+          pathname: SearchResultsLocations[namespace],
+          query,
+          selectedFacets,
+          sortColumn: newSortColumn,
+          sortDirection: updatedSortDirection,
+        })
+      );
+    },
+    [
+      history,
+      namespace,
+      query,
+      selectedFacets,
+      sortDirection,
+      sortableColumnToSortColumn,
+    ]
+  );
   return [columns, updateColumnSort];
 };
 

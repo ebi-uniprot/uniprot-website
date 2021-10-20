@@ -1,4 +1,4 @@
-import { useEffect, useState, lazy, Suspense } from 'react';
+import { useEffect, useState, lazy, Suspense, useCallback } from 'react';
 import {
   Link,
   useRouteMatch,
@@ -126,7 +126,17 @@ const AlignResult = () => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const match = useRouteMatch<Params>(LocationToPath[Location.AlignResult])!;
 
-  const [selectedEntries, handleEntrySelection] = useItemSelect();
+  const [selectedEntries, , setSelectedEntries] = useItemSelect();
+  const handleEntrySelection = useCallback(
+    (entry: string) => {
+      setSelectedEntries((selectedItems) =>
+        selectedItems.includes(entry)
+          ? selectedItems.filter((item) => item !== entry)
+          : [...selectedItems, entry]
+      );
+    },
+    [setSelectedEntries]
+  );
 
   // if URL doesn't finish with "overview" redirect to /overview by default
   useEffect(() => {

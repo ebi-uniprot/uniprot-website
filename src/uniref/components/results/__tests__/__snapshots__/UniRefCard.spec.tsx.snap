@@ -18,10 +18,20 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
       <div
         class="card__header"
       >
-        <input
-          data-testid="up-card-checkbox"
-          type="checkbox"
-        />
+        <span
+          class="checkbox-cell"
+        >
+          <input
+            data-id="UniRef100_A0A0B7GQ86"
+            id="0"
+            type="checkbox"
+          />
+          <label
+            aria-label="UniRef100_A0A0B7GQ86"
+            for="0"
+            title="click to select, shift+click for multiple selection"
+          />
+        </span>
         <h2
           class="tiny"
         >

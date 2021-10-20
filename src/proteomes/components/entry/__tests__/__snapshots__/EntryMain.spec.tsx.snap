@@ -392,7 +392,18 @@ exports[`EntryMain view should render 1`] = `
               <th
                 class="data-table__header-cell--checkbox"
               >
-                 
+                <div
+                  class="checkbox-cell"
+                >
+                  <input
+                    id="0"
+                    type="checkbox"
+                  />
+                  <label
+                    aria-label="Selection control for all visible items"
+                    for="0"
+                  />
+                </div>
               </th>
               <th
                 class=""
@@ -413,11 +424,18 @@ exports[`EntryMain view should render 1`] = `
           </thead>
           <tbody>
             <tr>
-              <td>
+              <td
+                class="checkbox-cell"
+              >
                 <input
-                  aria-label="Chromosome 1"
                   data-id="Chromosome 1"
+                  id="1"
                   type="checkbox"
+                />
+                <label
+                  aria-label="Chromosome 1"
+                  for="1"
+                  title="click to select, shift+click for multiple selection"
                 />
               </td>
               <td
@@ -452,11 +470,18 @@ exports[`EntryMain view should render 1`] = `
               </td>
             </tr>
             <tr>
-              <td>
+              <td
+                class="checkbox-cell"
+              >
                 <input
-                  aria-label="Chromosome 2"
                   data-id="Chromosome 2"
+                  id="2"
                   type="checkbox"
+                />
+                <label
+                  aria-label="Chromosome 2"
+                  for="2"
+                  title="click to select, shift+click for multiple selection"
                 />
               </td>
               <td
@@ -491,11 +516,18 @@ exports[`EntryMain view should render 1`] = `
               </td>
             </tr>
             <tr>
-              <td>
+              <td
+                class="checkbox-cell"
+              >
                 <input
-                  aria-label="Chromosome 3"
                   data-id="Chromosome 3"
+                  id="3"
                   type="checkbox"
+                />
+                <label
+                  aria-label="Chromosome 3"
+                  for="3"
+                  title="click to select, shift+click for multiple selection"
                 />
               </td>
               <td
@@ -530,11 +562,18 @@ exports[`EntryMain view should render 1`] = `
               </td>
             </tr>
             <tr>
-              <td>
+              <td
+                class="checkbox-cell"
+              >
                 <input
-                  aria-label="Chromosome 4"
                   data-id="Chromosome 4"
+                  id="4"
                   type="checkbox"
+                />
+                <label
+                  aria-label="Chromosome 4"
+                  for="4"
+                  title="click to select, shift+click for multiple selection"
                 />
               </td>
               <td
@@ -569,11 +608,18 @@ exports[`EntryMain view should render 1`] = `
               </td>
             </tr>
             <tr>
-              <td>
+              <td
+                class="checkbox-cell"
+              >
                 <input
-                  aria-label="Chromosome 5"
                   data-id="Chromosome 5"
+                  id="5"
                   type="checkbox"
+                />
+                <label
+                  aria-label="Chromosome 5"
+                  for="5"
+                  title="click to select, shift+click for multiple selection"
                 />
               </td>
               <td
@@ -608,11 +654,18 @@ exports[`EntryMain view should render 1`] = `
               </td>
             </tr>
             <tr>
-              <td>
+              <td
+                class="checkbox-cell"
+              >
                 <input
-                  aria-label="Chromosome 6"
                   data-id="Chromosome 6"
+                  id="6"
                   type="checkbox"
+                />
+                <label
+                  aria-label="Chromosome 6"
+                  for="6"
+                  title="click to select, shift+click for multiple selection"
                 />
               </td>
               <td
@@ -647,11 +700,18 @@ exports[`EntryMain view should render 1`] = `
               </td>
             </tr>
             <tr>
-              <td>
+              <td
+                class="checkbox-cell"
+              >
                 <input
-                  aria-label="Chromosome 7"
                   data-id="Chromosome 7"
+                  id="7"
                   type="checkbox"
+                />
+                <label
+                  aria-label="Chromosome 7"
+                  for="7"
+                  title="click to select, shift+click for multiple selection"
                 />
               </td>
               <td
@@ -686,11 +746,18 @@ exports[`EntryMain view should render 1`] = `
               </td>
             </tr>
             <tr>
-              <td>
+              <td
+                class="checkbox-cell"
+              >
                 <input
-                  aria-label="Chromosome 8"
                   data-id="Chromosome 8"
+                  id="8"
                   type="checkbox"
+                />
+                <label
+                  aria-label="Chromosome 8"
+                  for="8"
+                  title="click to select, shift+click for multiple selection"
                 />
               </td>
               <td
@@ -725,11 +792,18 @@ exports[`EntryMain view should render 1`] = `
               </td>
             </tr>
             <tr>
-              <td>
+              <td
+                class="checkbox-cell"
+              >
                 <input
-                  aria-label="Chromosome 9"
                   data-id="Chromosome 9"
+                  id="9"
                   type="checkbox"
+                />
+                <label
+                  aria-label="Chromosome 9"
+                  for="9"
+                  title="click to select, shift+click for multiple selection"
                 />
               </td>
               <td
@@ -764,11 +838,18 @@ exports[`EntryMain view should render 1`] = `
               </td>
             </tr>
             <tr>
-              <td>
+              <td
+                class="checkbox-cell"
+              >
                 <input
-                  aria-label="Chromosome 10"
                   data-id="Chromosome 10"
+                  id="10"
                   type="checkbox"
+                />
+                <label
+                  aria-label="Chromosome 10"
+                  for="10"
+                  title="click to select, shift+click for multiple selection"
                 />
               </td>
               <td
@@ -803,11 +884,18 @@ exports[`EntryMain view should render 1`] = `
               </td>
             </tr>
             <tr>
-              <td>
+              <td
+                class="checkbox-cell"
+              >
                 <input
-                  aria-label="Chromosome 11"
                   data-id="Chromosome 11"
+                  id="11"
                   type="checkbox"
+                />
+                <label
+                  aria-label="Chromosome 11"
+                  for="11"
+                  title="click to select, shift+click for multiple selection"
                 />
               </td>
               <td
@@ -842,11 +930,18 @@ exports[`EntryMain view should render 1`] = `
               </td>
             </tr>
             <tr>
-              <td>
+              <td
+                class="checkbox-cell"
+              >
                 <input
-                  aria-label="Chromosome 12"
                   data-id="Chromosome 12"
+                  id="12"
                   type="checkbox"
+                />
+                <label
+                  aria-label="Chromosome 12"
+                  for="12"
+                  title="click to select, shift+click for multiple selection"
                 />
               </td>
               <td
@@ -881,11 +976,18 @@ exports[`EntryMain view should render 1`] = `
               </td>
             </tr>
             <tr>
-              <td>
+              <td
+                class="checkbox-cell"
+              >
                 <input
-                  aria-label="Chromosome 13"
                   data-id="Chromosome 13"
+                  id="13"
                   type="checkbox"
+                />
+                <label
+                  aria-label="Chromosome 13"
+                  for="13"
+                  title="click to select, shift+click for multiple selection"
                 />
               </td>
               <td
@@ -920,11 +1022,18 @@ exports[`EntryMain view should render 1`] = `
               </td>
             </tr>
             <tr>
-              <td>
+              <td
+                class="checkbox-cell"
+              >
                 <input
-                  aria-label="Chromosome 14"
                   data-id="Chromosome 14"
+                  id="14"
                   type="checkbox"
+                />
+                <label
+                  aria-label="Chromosome 14"
+                  for="14"
+                  title="click to select, shift+click for multiple selection"
                 />
               </td>
               <td
@@ -959,11 +1068,18 @@ exports[`EntryMain view should render 1`] = `
               </td>
             </tr>
             <tr>
-              <td>
+              <td
+                class="checkbox-cell"
+              >
                 <input
-                  aria-label="Chromosome 15"
                   data-id="Chromosome 15"
+                  id="15"
                   type="checkbox"
+                />
+                <label
+                  aria-label="Chromosome 15"
+                  for="15"
+                  title="click to select, shift+click for multiple selection"
                 />
               </td>
               <td
@@ -998,11 +1114,18 @@ exports[`EntryMain view should render 1`] = `
               </td>
             </tr>
             <tr>
-              <td>
+              <td
+                class="checkbox-cell"
+              >
                 <input
-                  aria-label="Chromosome 16"
                   data-id="Chromosome 16"
+                  id="16"
                   type="checkbox"
+                />
+                <label
+                  aria-label="Chromosome 16"
+                  for="16"
+                  title="click to select, shift+click for multiple selection"
                 />
               </td>
               <td
@@ -1037,11 +1160,18 @@ exports[`EntryMain view should render 1`] = `
               </td>
             </tr>
             <tr>
-              <td>
+              <td
+                class="checkbox-cell"
+              >
                 <input
-                  aria-label="Chromosome 17"
                   data-id="Chromosome 17"
+                  id="17"
                   type="checkbox"
+                />
+                <label
+                  aria-label="Chromosome 17"
+                  for="17"
+                  title="click to select, shift+click for multiple selection"
                 />
               </td>
               <td
@@ -1076,11 +1206,18 @@ exports[`EntryMain view should render 1`] = `
               </td>
             </tr>
             <tr>
-              <td>
+              <td
+                class="checkbox-cell"
+              >
                 <input
-                  aria-label="Chromosome 18"
                   data-id="Chromosome 18"
+                  id="18"
                   type="checkbox"
+                />
+                <label
+                  aria-label="Chromosome 18"
+                  for="18"
+                  title="click to select, shift+click for multiple selection"
                 />
               </td>
               <td
@@ -1115,11 +1252,18 @@ exports[`EntryMain view should render 1`] = `
               </td>
             </tr>
             <tr>
-              <td>
+              <td
+                class="checkbox-cell"
+              >
                 <input
-                  aria-label="Chromosome 19"
                   data-id="Chromosome 19"
+                  id="19"
                   type="checkbox"
+                />
+                <label
+                  aria-label="Chromosome 19"
+                  for="19"
+                  title="click to select, shift+click for multiple selection"
                 />
               </td>
               <td
@@ -1154,11 +1298,18 @@ exports[`EntryMain view should render 1`] = `
               </td>
             </tr>
             <tr>
-              <td>
+              <td
+                class="checkbox-cell"
+              >
                 <input
-                  aria-label="Chromosome 20"
                   data-id="Chromosome 20"
+                  id="20"
                   type="checkbox"
+                />
+                <label
+                  aria-label="Chromosome 20"
+                  for="20"
+                  title="click to select, shift+click for multiple selection"
                 />
               </td>
               <td
@@ -1193,11 +1344,18 @@ exports[`EntryMain view should render 1`] = `
               </td>
             </tr>
             <tr>
-              <td>
+              <td
+                class="checkbox-cell"
+              >
                 <input
-                  aria-label="Chromosome 21"
                   data-id="Chromosome 21"
+                  id="21"
                   type="checkbox"
+                />
+                <label
+                  aria-label="Chromosome 21"
+                  for="21"
+                  title="click to select, shift+click for multiple selection"
                 />
               </td>
               <td
@@ -1232,11 +1390,18 @@ exports[`EntryMain view should render 1`] = `
               </td>
             </tr>
             <tr>
-              <td>
+              <td
+                class="checkbox-cell"
+              >
                 <input
-                  aria-label="Chromosome 22"
                   data-id="Chromosome 22"
+                  id="22"
                   type="checkbox"
+                />
+                <label
+                  aria-label="Chromosome 22"
+                  for="22"
+                  title="click to select, shift+click for multiple selection"
                 />
               </td>
               <td
@@ -1271,11 +1436,18 @@ exports[`EntryMain view should render 1`] = `
               </td>
             </tr>
             <tr>
-              <td>
+              <td
+                class="checkbox-cell"
+              >
                 <input
-                  aria-label="Chromosome X"
                   data-id="Chromosome X"
+                  id="23"
                   type="checkbox"
+                />
+                <label
+                  aria-label="Chromosome X"
+                  for="23"
+                  title="click to select, shift+click for multiple selection"
                 />
               </td>
               <td
@@ -1310,11 +1482,18 @@ exports[`EntryMain view should render 1`] = `
               </td>
             </tr>
             <tr>
-              <td>
+              <td
+                class="checkbox-cell"
+              >
                 <input
-                  aria-label="Chromosome Y"
                   data-id="Chromosome Y"
+                  id="24"
                   type="checkbox"
+                />
+                <label
+                  aria-label="Chromosome Y"
+                  for="24"
+                  title="click to select, shift+click for multiple selection"
                 />
               </td>
               <td
@@ -1349,11 +1528,18 @@ exports[`EntryMain view should render 1`] = `
               </td>
             </tr>
             <tr>
-              <td>
+              <td
+                class="checkbox-cell"
+              >
                 <input
-                  aria-label="Mitochondrion"
                   data-id="Mitochondrion"
+                  id="25"
                   type="checkbox"
+                />
+                <label
+                  aria-label="Mitochondrion"
+                  for="25"
+                  title="click to select, shift+click for multiple selection"
                 />
               </td>
               <td
@@ -1388,11 +1574,18 @@ exports[`EntryMain view should render 1`] = `
               </td>
             </tr>
             <tr>
-              <td>
+              <td
+                class="checkbox-cell"
+              >
                 <input
-                  aria-label="Unplaced"
                   data-id="Unplaced"
+                  id="26"
                   type="checkbox"
+                />
+                <label
+                  aria-label="Unplaced"
+                  for="26"
+                  title="click to select, shift+click for multiple selection"
                 />
               </td>
               <td
@@ -1422,7 +1615,9 @@ exports[`EntryMain view should render 1`] = `
     <h2>
       Publications
     </h2>
-    <div>
+    <div
+      class="data-list"
+    >
       <section>
         <section
           class="card card--has-link"

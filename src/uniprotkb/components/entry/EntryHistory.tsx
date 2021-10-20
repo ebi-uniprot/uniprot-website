@@ -1,4 +1,4 @@
-import { Fragment, useMemo, useState, ReactNode } from 'react';
+import { Fragment, useMemo, ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer';
 import { Button, Card, CodeBlock, DataTable, Loader } from 'franklin-sites';
@@ -31,6 +31,7 @@ import { ColumnDescriptor } from '../../../shared/hooks/useColumns';
 import { Namespace } from '../../../shared/types/namespaces';
 
 import helper from '../../../shared/styles/helper.module.scss';
+import useItemSelect from '../../../shared/hooks/useItemSelect';
 
 type UniSaveVersionWithEvents = UniSaveVersion & {
   events?: Record<UniSaveEventType, string[]>;
@@ -253,42 +254,7 @@ export const EntryHistoryList = ({ accession }: { accession: string }) => {
   );
   const statusData = useDataApi<UniSaveStatus>(unisave.status(accession));
 
-  const [version1, setVersion1] = useState<string | null>(null);
-  const [version2, setVersion2] = useState<string | null>(null);
-
-  const handleSelectRow = (rowID: string) => {
-    if (version1 === rowID) {
-      // if 1 set, and clicked
-      // move 2 -> 1, unset 2
-      setVersion1(version2);
-      setVersion2(null);
-    } else if (version2 === rowID) {
-      // if 2 set, and clicked
-      // unset 2
-      setVersion2(null);
-    } else if (version2) {
-      // if row clicked is not set, but 2 is set
-      // move 2 -> 1, set 2
-      setVersion1(version2);
-      setVersion2(rowID);
-    } else if (version1) {
-      // if row clicked is not set, but 1 is set and 2 isn't
-      // set 2
-      setVersion2(rowID);
-    } else {
-      // if row clicked is not set, but 1 and 2 are not set
-      // set 1
-      setVersion1(rowID);
-    }
-  };
-
-  const selected = useMemo(
-    () =>
-      [version1, version2].filter((value: string | null): value is string =>
-        Boolean(value)
-      ),
-    [version1, version2]
-  );
+  const [selectedEntries, setSelectedItemFromEvent] = useItemSelect();
 
   const data = useMemo<UniSaveVersionWithEvents[]>(
     () =>
@@ -331,7 +297,7 @@ export const EntryHistoryList = ({ accession }: { accession: string }) => {
   //   return <ErrorHandler status={accessionData.status} />;
   // }
 
-  const compareDisabled = selected.length !== 2;
+  const compareDisabled = selectedEntries.length !== 2;
   const pathname = getEntryPath(
     Namespace.uniprotkb,
     accession,
@@ -400,9 +366,13 @@ export const EntryHistoryList = ({ accession }: { accession: string }) => {
             search: compareDisabled
               ? undefined
               : `version=${
-                  selected[0] < selected[1] ? selected[0] : selected[1]
+                  selectedEntries[0] < selectedEntries[1]
+                    ? selectedEntries[0]
+                    : selectedEntries[1]
                 }&version=${
-                  selected[0] < selected[1] ? selected[1] : selected[0]
+                  selectedEntries[0] < selectedEntries[1]
+                    ? selectedEntries[1]
+                    : selectedEntries[0]
                 }`,
           }}
           title={
@@ -418,8 +388,7 @@ export const EntryHistoryList = ({ accession }: { accession: string }) => {
           data={data}
           getIdKey={getIdKey}
           density="compact"
-          selected={selected}
-          onSelectRow={handleSelectRow}
+          onSelectionChange={setSelectedItemFromEvent}
         />
       ) : (
         'Sorry, there is no history information to show'
