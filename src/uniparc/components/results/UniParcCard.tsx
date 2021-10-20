@@ -3,6 +3,7 @@ import { Card, LongNumber } from 'franklin-sites';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import BasketStatus from '../../../basket/BasketStatus';
+import CardCheckboxCell from '../../../shared/components/CardCheckboxCell';
 
 import {
   UniParcAPIModel,
@@ -45,13 +46,7 @@ const uniProtKBCounter = (data: UniParcAPIModel) => {
 
 const getIdKey = getIdKeyFor(Namespace.uniparc);
 
-type Props = {
-  data: UniParcAPIModel;
-  selected?: boolean;
-  handleEntrySelection: (rowId: string) => void;
-};
-
-const UniParcCard = ({ data, selected, handleEntrySelection }: Props) => {
+const UniParcCard = ({ data }: { data: UniParcAPIModel }) => {
   const id = getIdKey(data);
 
   const organismCount = xrefGetter(data, 'organism', 'taxonId')?.length || 0;
@@ -61,12 +56,7 @@ const UniParcCard = ({ data, selected, handleEntrySelection }: Props) => {
     <Card
       header={
         <>
-          <input
-            type="checkbox"
-            checked={selected}
-            onChange={() => handleEntrySelection(id)}
-            data-testid="up-card-checkbox"
-          />
+          <CardCheckboxCell id={id} />
           <h2 className="tiny">
             <EntryTitle mainTitle={id} entryType={EntryType.UNIPARC} />
           </h2>

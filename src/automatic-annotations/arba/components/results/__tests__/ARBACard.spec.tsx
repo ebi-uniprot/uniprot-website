@@ -12,14 +12,8 @@ describe('ARBACard tests', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('should allow card selection and navigation', () => {
-    const handleClick = jest.fn();
-    const { history } = customRender(
-      <ARBACard data={arbaData[0]} handleEntrySelection={handleClick} />
-    );
-    fireEvent.click(screen.getByRole('checkbox'));
-    expect(handleClick).toHaveBeenCalled();
-    expect(history.location.pathname).not.toMatch('/arba/ARBA00013665');
+  it('should allow card navigation', () => {
+    const { history } = customRender(<ARBACard data={arbaData[0]} />);
     fireEvent.click(screen.getByTestId('background-link'));
     expect(history.location.pathname).toMatch('/arba/ARBA00013665');
   });

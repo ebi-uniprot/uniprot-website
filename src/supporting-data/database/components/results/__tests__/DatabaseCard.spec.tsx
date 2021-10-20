@@ -14,14 +14,8 @@ describe('DatabaseCard tests', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('should allow card selection and navigation', () => {
-    const handleClick = jest.fn();
-    const { history } = customRender(
-      <DatabaseCard data={databaseData[0]} handleEntrySelection={handleClick} />
-    );
-    fireEvent.click(screen.getByRole('checkbox'));
-    expect(handleClick).toHaveBeenCalled();
-    expect(history.location.pathname).not.toMatch('/database/DB-0022');
+  it('should allow card navigation', () => {
+    const { history } = customRender(<DatabaseCard data={databaseData[0]} />);
     fireEvent.click(screen.getByTestId('background-link'));
     expect(history.location.pathname).toMatch('/database/DB-0022');
   });

@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react';
 import { BasketIcon, Button } from 'franklin-sites';
 import { groupBy } from 'lodash-es';
 
@@ -10,11 +11,13 @@ import { Namespace } from '../../types/namespaces';
 
 type AddToBasketButtonProps = {
   selectedEntries: string | string[];
+  setSelectedEntries?: Dispatch<SetStateAction<string[]>>;
   remove?: boolean;
 };
 
 const AddToBasketButton = ({
   selectedEntries,
+  setSelectedEntries,
   remove,
 }: AddToBasketButtonProps) => {
   const [basket, setBasket] = useBasket();
@@ -91,6 +94,10 @@ const AddToBasketButton = ({
         [ns, newSet],
       ]);
     });
+
+    setSelectedEntries?.((selectedEntries) =>
+      selectedEntries.filter((entry) => !accessions.includes(entry))
+    );
   };
 
   return (

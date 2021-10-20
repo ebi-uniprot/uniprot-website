@@ -3,6 +3,7 @@ import { Card } from 'franklin-sites';
 
 import TaxonomyView from '../../../../shared/components/entry/TaxonomyView';
 import RenderColumnsInCard from '../../../../shared/components/results/RenderColumnsInCard';
+import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';
 
 import { getEntryPath } from '../../../../app/config/urls';
 import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
@@ -18,13 +19,7 @@ const lineage = TaxonomyColumnConfiguration.get(TaxonomyColumn.lineage);
 
 const getIdKey = getIdKeyFor(Namespace.taxonomy);
 
-type Props = {
-  data: TaxonomyAPIModel;
-  selected?: boolean;
-  handleEntrySelection?: (rowId: string) => void;
-};
-
-const TaxonomyCard = ({ data, selected, handleEntrySelection }: Props) => {
+const TaxonomyCard = ({ data }: { data: TaxonomyAPIModel }) => {
   const id = getIdKey(data);
 
   const links = useMemo(
@@ -36,14 +31,7 @@ const TaxonomyCard = ({ data, selected, handleEntrySelection }: Props) => {
     <Card
       header={
         <>
-          {handleEntrySelection && (
-            <input
-              type="checkbox"
-              checked={selected}
-              onChange={() => handleEntrySelection(id)}
-              data-testid="up-card-checkbox"
-            />
-          )}
+          <CardCheckboxCell id={id} />
           <h2 className="tiny">
             <TaxonomyView data={data} />
           </h2>

@@ -37,6 +37,8 @@ exports[`UniRuleColumnConfiguration component should render column "predicted_pr
 </DocumentFragment>
 `;
 
+exports[`UniRuleColumnConfiguration component should render column "reviewed_protein_count": reviewed_protein_count 1`] = `<DocumentFragment />`;
+
 exports[`UniRuleColumnConfiguration component should render column "rule_id": rule_id 1`] = `
 <DocumentFragment>
   <span
@@ -126,5 +128,15 @@ exports[`UniRuleColumnConfiguration component should render column "template_ent
       </span>
     </li>
   </ul>
+</DocumentFragment>
+`;
+
+exports[`UniRuleColumnConfiguration component should render column "unreviewed_protein_count": unreviewed_protein_count 1`] = `
+<DocumentFragment>
+  <a
+    href="/uniprotkb?facets=reviewed:false&query=(source:PIRNR037062)"
+  >
+    32 unreviewed UniProtKB entries
+  </a>
 </DocumentFragment>
 `;

@@ -63,17 +63,20 @@ LocationsColumnConfiguration.set(LocationsColumn.definition, {
   render: ({ definition }) => definition,
 });
 
+// NOTE: since these will be used in an info list, we need to return null when
+// NOTE: no content, otherwise it gets a truthy empty fragment instead
 LocationsColumnConfiguration.set(LocationsColumn.geneOntologies, {
   label: 'Gene Ontologies',
-  render: ({ geneOntologies }) => (
-    <ExpandableList descriptionString="GO terms" displayNumberOfHiddenItems>
-      {geneOntologies?.map(({ name, goId }) => (
-        <ExternalLink key={goId} url={externalUrls.QuickGO(goId)}>
-          {name} ({goId})
-        </ExternalLink>
-      ))}
-    </ExpandableList>
-  ),
+  render: ({ geneOntologies }) =>
+    geneOntologies?.length ? (
+      <ExpandableList descriptionString="GO terms" displayNumberOfHiddenItems>
+        {geneOntologies?.map(({ name, goId }) => (
+          <ExternalLink key={goId} url={externalUrls.QuickGO(goId)}>
+            {name} ({goId})
+          </ExternalLink>
+        ))}
+      </ExpandableList>
+    ) : null,
 });
 
 LocationsColumnConfiguration.set(LocationsColumn.id, {
@@ -84,15 +87,16 @@ LocationsColumnConfiguration.set(LocationsColumn.id, {
 
 LocationsColumnConfiguration.set(LocationsColumn.isA, {
   label: 'Is a',
-  render: ({ isA }) => (
-    <ExpandableList descriptionString="locations" displayNumberOfHiddenItems>
-      {isA?.map((location) => (
-        <Link key={location.id} to={getEntryPath(location.id)}>
-          {location.name}
-        </Link>
-      ))}
-    </ExpandableList>
-  ),
+  render: ({ isA }) =>
+    isA?.length ? (
+      <ExpandableList descriptionString="locations" displayNumberOfHiddenItems>
+        {isA?.map((location) => (
+          <Link key={location.id} to={getEntryPath(location.id)}>
+            {location.name}
+          </Link>
+        ))}
+      </ExpandableList>
+    ) : null,
 });
 
 LocationsColumnConfiguration.set(LocationsColumn.keyword, {
@@ -105,13 +109,14 @@ LocationsColumnConfiguration.set(LocationsColumn.keyword, {
 
 LocationsColumnConfiguration.set(LocationsColumn.links, {
   label: 'Links',
-  render: ({ links }) => (
-    <ExpandableList descriptionString="links" displayNumberOfHiddenItems>
-      {links?.map((link) => (
-        <ExternalLink key={link} url={link} tidyUrl />
-      ))}
-    </ExpandableList>
-  ),
+  render: ({ links }) =>
+    links?.length ? (
+      <ExpandableList descriptionString="links" displayNumberOfHiddenItems>
+        {links?.map((link) => (
+          <ExternalLink key={link} url={link} tidyUrl />
+        ))}
+      </ExpandableList>
+    ) : null,
 });
 
 LocationsColumnConfiguration.set(LocationsColumn.name, {
@@ -126,34 +131,37 @@ LocationsColumnConfiguration.set(LocationsColumn.note, {
 
 LocationsColumnConfiguration.set(LocationsColumn.partOf, {
   label: 'Part of',
-  render: ({ partOf }) => (
-    <ExpandableList descriptionString="locations" displayNumberOfHiddenItems>
-      {partOf?.map((location) => (
-        <Link key={location.id} to={getEntryPath(location.id)}>
-          {location.name}
-        </Link>
-      ))}
-    </ExpandableList>
-  ),
+  render: ({ partOf }) =>
+    partOf?.length ? (
+      <ExpandableList descriptionString="locations" displayNumberOfHiddenItems>
+        {partOf?.map((location) => (
+          <Link key={location.id} to={getEntryPath(location.id)}>
+            {location.name}
+          </Link>
+        ))}
+      </ExpandableList>
+    ) : null,
 });
 
 LocationsColumnConfiguration.set(LocationsColumn.references, {
   label: 'References',
   // TODO: review and feedback to backend which format we want (needs to be consistent)
-  render: ({ references }) => (
-    <ExpandableList descriptionString="references" displayNumberOfHiddenItems>
-      {references}
-    </ExpandableList>
-  ),
+  render: ({ references }) =>
+    references?.length ? (
+      <ExpandableList descriptionString="references" displayNumberOfHiddenItems>
+        {references}
+      </ExpandableList>
+    ) : null,
 });
 
 LocationsColumnConfiguration.set(LocationsColumn.synonyms, {
   label: 'Synonyms',
-  render: ({ synonyms }) => (
-    <ExpandableList descriptionString="synonyms" displayNumberOfHiddenItems>
-      {synonyms}
-    </ExpandableList>
-  ),
+  render: ({ synonyms }) =>
+    synonyms?.length ? (
+      <ExpandableList descriptionString="synonyms" displayNumberOfHiddenItems>
+        {synonyms}
+      </ExpandableList>
+    ) : null,
 });
 
 LocationsColumnConfiguration.set(LocationsColumn.statistics, {

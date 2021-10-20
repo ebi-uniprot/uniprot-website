@@ -303,7 +303,7 @@ export const MembersSection = ({
     }));
   }, [data, headers]);
 
-  const [selectedEntries, handleEntrySelection] = useItemSelect();
+  const [selectedEntries, setSelectedItemFromEvent] = useItemSelect();
 
   const { total, nextUrl } = metadata;
 
@@ -336,8 +336,7 @@ export const MembersSection = ({
         data={allResults}
         getIdKey={getKey}
         density="compact"
-        selected={selectedEntries}
-        onSelectRow={handleEntrySelection}
+        onSelectionChange={setSelectedItemFromEvent}
       />
     </Card>
   );

@@ -18,6 +18,20 @@ exports[`UniRuleCard tests should render the card component 1`] = `
       <div
         class="card__header"
       >
+        <span
+          class="checkbox-cell"
+        >
+          <input
+            data-id="UR000048432"
+            id="0"
+            type="checkbox"
+          />
+          <label
+            aria-label="UR000048432"
+            for="0"
+            title="click to select, shift+click for multiple selection"
+          />
+        </span>
         <h2
           class="tiny"
         >

@@ -18,6 +18,20 @@ exports[`KeywordsCard tests should render the card component 1`] = `
       <div
         class="card__header"
       >
+        <span
+          class="checkbox-cell"
+        >
+          <input
+            data-id="KW-0021"
+            id="0"
+            type="checkbox"
+          />
+          <label
+            aria-label="KW-0021"
+            for="0"
+            title="click to select, shift+click for multiple selection"
+          />
+        </span>
         <h2
           class="tiny"
         >

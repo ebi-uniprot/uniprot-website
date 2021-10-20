@@ -14,17 +14,10 @@ describe('CitationsCard tests', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('should allow card selection and navigation', () => {
-    const handleClick = jest.fn();
+  it('should allow card navigation', () => {
     const { history } = customRender(
-      <CitationsCard
-        data={citationData['14702039']}
-        handleEntrySelection={handleClick}
-      />
+      <CitationsCard data={citationData['14702039']} />
     );
-    fireEvent.click(screen.getByRole('checkbox'));
-    expect(handleClick).toHaveBeenCalled();
-    expect(history.location.pathname).not.toMatch('/citations/14702039');
     fireEvent.click(screen.getByTestId('background-link'));
     expect(history.location.pathname).toMatch('/citations/14702039');
   });

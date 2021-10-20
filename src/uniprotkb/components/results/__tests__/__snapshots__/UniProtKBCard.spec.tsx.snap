@@ -18,10 +18,20 @@ exports[`UniProtKBCard component should render 1`] = `
       <div
         class="card__header"
       >
-        <input
-          data-testid="up-card-checkbox"
-          type="checkbox"
-        />
+        <span
+          class="checkbox-cell"
+        >
+          <input
+            data-id="P21802"
+            id="0"
+            type="checkbox"
+          />
+          <label
+            aria-label="P21802"
+            for="0"
+            title="click to select, shift+click for multiple selection"
+          />
+        </span>
         <h2
           class="tiny"
         >

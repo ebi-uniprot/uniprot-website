@@ -21,6 +21,20 @@ exports[`CitationsCard tests should render the card component 1`] = `
         <div
           class="card-content"
         >
+          <span
+            class="checkbox-cell"
+          >
+            <input
+              data-id="14702039"
+              id="0"
+              type="checkbox"
+            />
+            <label
+              aria-label="14702039"
+              for="0"
+              title="click to select, shift+click for multiple selection"
+            />
+          </span>
           <article
             class="publication"
           >

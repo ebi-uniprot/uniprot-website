@@ -8,20 +8,12 @@ import proteomesData from '../../../__mocks__/proteomesEntryModelData';
 
 describe('ProteomesCard tests', () => {
   it('should render the card component', () => {
-    const { asFragment } = customRender(
-      <ProteomesCard data={proteomesData} handleEntrySelection={jest.fn()} />
-    );
+    const { asFragment } = customRender(<ProteomesCard data={proteomesData} />);
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('should allow card selection and navigation', () => {
-    const handleClick = jest.fn();
-    const { history } = customRender(
-      <ProteomesCard data={proteomesData} handleEntrySelection={handleClick} />
-    );
-    fireEvent.click(screen.getByRole('checkbox'));
-    expect(handleClick).toHaveBeenCalled();
-    expect(history.location.pathname).not.toMatch('/proteomes/UP000005640');
+  it('should allow card navigation', () => {
+    const { history } = customRender(<ProteomesCard data={proteomesData} />);
     fireEvent.click(screen.getByTestId('background-link'));
     expect(history.location.pathname).toMatch('/proteomes/UP000005640');
   });

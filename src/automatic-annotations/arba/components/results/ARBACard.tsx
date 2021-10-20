@@ -1,6 +1,8 @@
 import { useMemo } from 'react';
 import { Card } from 'franklin-sites';
 
+import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';
+
 import { getEntryPath } from '../../../../app/config/urls';
 import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
 import { mapToLinks } from '../../../../shared/components/MapTo';
@@ -10,13 +12,7 @@ import { Namespace } from '../../../../shared/types/namespaces';
 
 const getIdKey = getIdKeyFor(Namespace.arba);
 
-type Props = {
-  data: ARBAAPIModel;
-  selected?: boolean;
-  handleEntrySelection?: (rowId: string) => void;
-};
-
-const ARBACard = ({ data, selected, handleEntrySelection }: Props) => {
+const ARBACard = ({ data }: { data: ARBAAPIModel }) => {
   const id = getIdKey(data);
 
   const links = useMemo(
@@ -28,14 +24,7 @@ const ARBACard = ({ data, selected, handleEntrySelection }: Props) => {
     <Card
       header={
         <>
-          {handleEntrySelection && (
-            <input
-              type="checkbox"
-              checked={selected}
-              onChange={() => handleEntrySelection(id)}
-              data-testid="up-card-checkbox"
-            />
-          )}
+          <CardCheckboxCell id={id} />
           <h2 className="tiny">{data.uniRuleId}</h2>
         </>
       }

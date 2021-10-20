@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { Card } from 'franklin-sites';
 
 import RenderColumnsInCard from '../../../../shared/components/results/RenderColumnsInCard';
+import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';
 
 import { getEntryPath } from '../../../../app/config/urls';
 import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
@@ -19,13 +20,7 @@ const category = LocationsColumnConfiguration.get(LocationsColumn.category);
 
 const getIdKey = getIdKeyFor(Namespace.locations);
 
-type Props = {
-  data: LocationsAPIModel;
-  selected?: boolean;
-  handleEntrySelection?: (rowId: string) => void;
-};
-
-const CitationCard = ({ data, selected, handleEntrySelection }: Props) => {
+const CitationCard = ({ data }: { data: LocationsAPIModel }) => {
   const id = getIdKey(data);
 
   const links = useMemo(
@@ -37,14 +32,7 @@ const CitationCard = ({ data, selected, handleEntrySelection }: Props) => {
     <Card
       header={
         <>
-          {handleEntrySelection && (
-            <input
-              type="checkbox"
-              checked={selected}
-              onChange={() => handleEntrySelection(id)}
-              data-testid="up-card-checkbox"
-            />
-          )}
+          <CardCheckboxCell id={id} />
           <h2 className="tiny">{data.name}</h2>
         </>
       }

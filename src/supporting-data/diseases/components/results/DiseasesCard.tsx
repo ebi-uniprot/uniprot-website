@@ -1,6 +1,8 @@
 import { useMemo } from 'react';
 import { Card } from 'franklin-sites';
 
+import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';
+
 import { getEntryPath } from '../../../../app/config/urls';
 import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
 import { mapToLinks } from '../../../../shared/components/MapTo';
@@ -12,13 +14,7 @@ import renderColumnsInCardStyles from '../../../../shared/components/results/sty
 
 const getIdKey = getIdKeyFor(Namespace.diseases);
 
-type Props = {
-  data: DiseasesAPIModel;
-  selected?: boolean;
-  handleEntrySelection?: (rowId: string) => void;
-};
-
-const DiseasesCard = ({ data, selected, handleEntrySelection }: Props) => {
+const DiseasesCard = ({ data }: { data: DiseasesAPIModel }) => {
   const id = getIdKey(data);
 
   const links = useMemo(
@@ -30,14 +26,7 @@ const DiseasesCard = ({ data, selected, handleEntrySelection }: Props) => {
     <Card
       header={
         <>
-          {handleEntrySelection && (
-            <input
-              type="checkbox"
-              checked={selected}
-              onChange={() => handleEntrySelection(id)}
-              data-testid="up-card-checkbox"
-            />
-          )}
+          <CardCheckboxCell id={id} />
           <h2 className="tiny">{data.name}</h2>
         </>
       }

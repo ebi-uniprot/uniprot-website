@@ -5,7 +5,9 @@ exports[`ResultsData component should render the card view with the correct numb
   <div
     class="results-data"
   >
-    <div>
+    <div
+      class="data-list"
+    >
       <section>
         <section
           class="card card--has-link"
@@ -23,10 +25,20 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__header"
             >
-              <input
-                data-testid="up-card-checkbox"
-                type="checkbox"
-              />
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="P35575"
+                  id="0"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="P35575"
+                  for="0"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
               <h2
                 class="tiny"
               >
@@ -198,10 +210,20 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__header"
             >
-              <input
-                data-testid="up-card-checkbox"
-                type="checkbox"
-              />
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="O43826"
+                  id="1"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="O43826"
+                  for="1"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
               <h2
                 class="tiny"
               >
@@ -365,10 +387,20 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__header"
             >
-              <input
-                data-testid="up-card-checkbox"
-                type="checkbox"
-              />
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="P11166"
+                  id="2"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="P11166"
+                  for="2"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
               <h2
                 class="tiny"
               >
@@ -559,10 +591,20 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__header"
             >
-              <input
-                data-testid="up-card-checkbox"
-                type="checkbox"
-              />
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="P11169"
+                  id="3"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="P11169"
+                  for="3"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
               <h2
                 class="tiny"
               >
@@ -700,10 +742,20 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__header"
             >
-              <input
-                data-testid="up-card-checkbox"
-                type="checkbox"
-              />
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="P13866"
+                  id="4"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="P13866"
+                  for="4"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
               <h2
                 class="tiny"
               >
@@ -880,10 +932,20 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__header"
             >
-              <input
-                data-testid="up-card-checkbox"
-                type="checkbox"
-              />
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="Q9BUM1"
+                  id="5"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="Q9BUM1"
+                  for="5"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
               <h2
                 class="tiny"
               >
@@ -1036,10 +1098,20 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__header"
             >
-              <input
-                data-testid="up-card-checkbox"
-                type="checkbox"
-              />
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="P14672"
+                  id="6"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="P14672"
+                  for="6"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
               <h2
                 class="tiny"
               >
@@ -1202,10 +1274,20 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__header"
             >
-              <input
-                data-testid="up-card-checkbox"
-                type="checkbox"
-              />
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="Q9NY64"
+                  id="7"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="Q9NY64"
+                  for="7"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
               <h2
                 class="tiny"
               >
@@ -1325,10 +1407,20 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__header"
             >
-              <input
-                data-testid="up-card-checkbox"
-                type="checkbox"
-              />
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="Q9NRM0"
+                  id="8"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="Q9NRM0"
+                  for="8"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
               <h2
                 class="tiny"
               >
@@ -1465,10 +1557,20 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__header"
             >
-              <input
-                data-testid="up-card-checkbox"
-                type="checkbox"
-              />
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="Q9NQR9"
+                  id="9"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="Q9NQR9"
+                  for="9"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
               <h2
                 class="tiny"
               >
@@ -1609,10 +1711,20 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__header"
             >
-              <input
-                data-testid="up-card-checkbox"
-                type="checkbox"
-              />
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="P11168"
+                  id="10"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="P11168"
+                  for="10"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
               <h2
                 class="tiny"
               >
@@ -1762,10 +1874,20 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__header"
             >
-              <input
-                data-testid="up-card-checkbox"
-                type="checkbox"
-              />
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="Q9NYU1"
+                  id="11"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="Q9NYU1"
+                  for="11"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
               <h2
                 class="tiny"
               >
@@ -1907,10 +2029,20 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__header"
             >
-              <input
-                data-testid="up-card-checkbox"
-                type="checkbox"
-              />
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="O95528"
+                  id="12"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="O95528"
+                  for="12"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
               <h2
                 class="tiny"
               >
@@ -2048,10 +2180,20 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__header"
             >
-              <input
-                data-testid="up-card-checkbox"
-                type="checkbox"
-              />
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="P22732"
+                  id="13"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="P22732"
+                  for="13"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
               <h2
                 class="tiny"
               >
@@ -2195,10 +2337,20 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__header"
             >
-              <input
-                data-testid="up-card-checkbox"
-                type="checkbox"
-              />
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="Q16851"
+                  id="14"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="Q16851"
+                  for="14"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
               <h2
                 class="tiny"
               >
@@ -2377,10 +2529,20 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__header"
             >
-              <input
-                data-testid="up-card-checkbox"
-                type="checkbox"
-              />
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="Q8WWX8"
+                  id="15"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="Q8WWX8"
+                  for="15"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
               <h2
                 class="tiny"
               >
@@ -2540,10 +2702,20 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__header"
             >
-              <input
-                data-testid="up-card-checkbox"
-                type="checkbox"
-              />
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="Q9BYW1"
+                  id="16"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="Q9BYW1"
+                  for="16"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
               <h2
                 class="tiny"
               >
@@ -2669,10 +2841,20 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__header"
             >
-              <input
-                data-testid="up-card-checkbox"
-                type="checkbox"
-              />
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="Q9NYU2"
+                  id="17"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="Q9NYU2"
+                  for="17"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
               <h2
                 class="tiny"
               >
@@ -2802,10 +2984,20 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__header"
             >
-              <input
-                data-testid="up-card-checkbox"
-                type="checkbox"
-              />
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="P31639"
+                  id="18"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="P31639"
+                  for="18"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
               <h2
                 class="tiny"
               >
@@ -2970,10 +3162,20 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__header"
             >
-              <input
-                data-testid="up-card-checkbox"
-                type="checkbox"
-              />
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="P11413"
+                  id="19"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="P11413"
+                  for="19"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
               <h2
                 class="tiny"
               >
@@ -3164,10 +3366,20 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__header"
             >
-              <input
-                data-testid="up-card-checkbox"
-                type="checkbox"
-              />
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="P69786"
+                  id="20"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="P69786"
+                  for="20"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
               <h2
                 class="tiny"
               >
@@ -3337,10 +3549,20 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__header"
             >
-              <input
-                data-testid="up-card-checkbox"
-                type="checkbox"
-              />
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="P15280"
+                  id="21"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="P15280"
+                  for="21"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
               <h2
                 class="tiny"
               >
@@ -3483,10 +3705,20 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__header"
             >
-              <input
-                data-testid="up-card-checkbox"
-                type="checkbox"
-              />
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="Q6PXP3"
+                  id="22"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="Q6PXP3"
+                  for="22"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
               <h2
                 class="tiny"
               >
@@ -3612,10 +3844,20 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__header"
             >
-              <input
-                data-testid="up-card-checkbox"
-                type="checkbox"
-              />
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="O94964"
+                  id="23"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="O94964"
+                  for="23"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
               <h2
                 class="tiny"
               >
@@ -3734,10 +3976,20 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__header"
             >
-              <input
-                data-testid="up-card-checkbox"
-                type="checkbox"
-              />
+              <span
+                class="checkbox-cell"
+              >
+                <input
+                  data-id="O95479"
+                  id="24"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="O95479"
+                  for="24"
+                  title="click to select, shift+click for multiple selection"
+                />
+              </span>
               <h2
                 class="tiny"
               >
@@ -3931,7 +4183,18 @@ exports[`ResultsData component should render the table view 1`] = `
           <th
             class="data-table__header-cell--checkbox"
           >
-             
+            <div
+              class="checkbox-cell"
+            >
+              <input
+                id="0"
+                type="checkbox"
+              />
+              <label
+                aria-label="Selection control for all visible items"
+                for="0"
+              />
+            </div>
           </th>
           <th
             class=""
@@ -3942,11 +4205,18 @@ exports[`ResultsData component should render the table view 1`] = `
       </thead>
       <tbody>
         <tr>
-          <td>
+          <td
+            class="checkbox-cell"
+          >
             <input
-              aria-label="P35575"
               data-id="P35575"
+              id="1"
               type="checkbox"
+            />
+            <label
+              aria-label="P35575"
+              for="1"
+              title="click to select, shift+click for multiple selection"
             />
           </td>
           <td>
@@ -3963,11 +4233,18 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            class="checkbox-cell"
+          >
             <input
-              aria-label="O43826"
               data-id="O43826"
+              id="2"
               type="checkbox"
+            />
+            <label
+              aria-label="O43826"
+              for="2"
+              title="click to select, shift+click for multiple selection"
             />
           </td>
           <td>
@@ -3984,11 +4261,18 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            class="checkbox-cell"
+          >
             <input
-              aria-label="P11166"
               data-id="P11166"
+              id="3"
               type="checkbox"
+            />
+            <label
+              aria-label="P11166"
+              for="3"
+              title="click to select, shift+click for multiple selection"
             />
           </td>
           <td>
@@ -4005,11 +4289,18 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            class="checkbox-cell"
+          >
             <input
-              aria-label="P11169"
               data-id="P11169"
+              id="4"
               type="checkbox"
+            />
+            <label
+              aria-label="P11169"
+              for="4"
+              title="click to select, shift+click for multiple selection"
             />
           </td>
           <td>
@@ -4026,11 +4317,18 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            class="checkbox-cell"
+          >
             <input
-              aria-label="P13866"
               data-id="P13866"
+              id="5"
               type="checkbox"
+            />
+            <label
+              aria-label="P13866"
+              for="5"
+              title="click to select, shift+click for multiple selection"
             />
           </td>
           <td>
@@ -4047,11 +4345,18 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            class="checkbox-cell"
+          >
             <input
-              aria-label="Q9BUM1"
               data-id="Q9BUM1"
+              id="6"
               type="checkbox"
+            />
+            <label
+              aria-label="Q9BUM1"
+              for="6"
+              title="click to select, shift+click for multiple selection"
             />
           </td>
           <td>
@@ -4068,11 +4373,18 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            class="checkbox-cell"
+          >
             <input
-              aria-label="P14672"
               data-id="P14672"
+              id="7"
               type="checkbox"
+            />
+            <label
+              aria-label="P14672"
+              for="7"
+              title="click to select, shift+click for multiple selection"
             />
           </td>
           <td>
@@ -4089,11 +4401,18 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            class="checkbox-cell"
+          >
             <input
-              aria-label="Q9NY64"
               data-id="Q9NY64"
+              id="8"
               type="checkbox"
+            />
+            <label
+              aria-label="Q9NY64"
+              for="8"
+              title="click to select, shift+click for multiple selection"
             />
           </td>
           <td>
@@ -4110,11 +4429,18 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            class="checkbox-cell"
+          >
             <input
-              aria-label="Q9NRM0"
               data-id="Q9NRM0"
+              id="9"
               type="checkbox"
+            />
+            <label
+              aria-label="Q9NRM0"
+              for="9"
+              title="click to select, shift+click for multiple selection"
             />
           </td>
           <td>
@@ -4131,11 +4457,18 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            class="checkbox-cell"
+          >
             <input
-              aria-label="Q9NQR9"
               data-id="Q9NQR9"
+              id="10"
               type="checkbox"
+            />
+            <label
+              aria-label="Q9NQR9"
+              for="10"
+              title="click to select, shift+click for multiple selection"
             />
           </td>
           <td>
@@ -4152,11 +4485,18 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            class="checkbox-cell"
+          >
             <input
-              aria-label="P11168"
               data-id="P11168"
+              id="11"
               type="checkbox"
+            />
+            <label
+              aria-label="P11168"
+              for="11"
+              title="click to select, shift+click for multiple selection"
             />
           </td>
           <td>
@@ -4173,11 +4513,18 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            class="checkbox-cell"
+          >
             <input
-              aria-label="Q9NYU1"
               data-id="Q9NYU1"
+              id="12"
               type="checkbox"
+            />
+            <label
+              aria-label="Q9NYU1"
+              for="12"
+              title="click to select, shift+click for multiple selection"
             />
           </td>
           <td>
@@ -4194,11 +4541,18 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            class="checkbox-cell"
+          >
             <input
-              aria-label="O95528"
               data-id="O95528"
+              id="13"
               type="checkbox"
+            />
+            <label
+              aria-label="O95528"
+              for="13"
+              title="click to select, shift+click for multiple selection"
             />
           </td>
           <td>
@@ -4215,11 +4569,18 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            class="checkbox-cell"
+          >
             <input
-              aria-label="P22732"
               data-id="P22732"
+              id="14"
               type="checkbox"
+            />
+            <label
+              aria-label="P22732"
+              for="14"
+              title="click to select, shift+click for multiple selection"
             />
           </td>
           <td>
@@ -4236,11 +4597,18 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            class="checkbox-cell"
+          >
             <input
-              aria-label="Q16851"
               data-id="Q16851"
+              id="15"
               type="checkbox"
+            />
+            <label
+              aria-label="Q16851"
+              for="15"
+              title="click to select, shift+click for multiple selection"
             />
           </td>
           <td>
@@ -4257,11 +4625,18 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            class="checkbox-cell"
+          >
             <input
-              aria-label="Q8WWX8"
               data-id="Q8WWX8"
+              id="16"
               type="checkbox"
+            />
+            <label
+              aria-label="Q8WWX8"
+              for="16"
+              title="click to select, shift+click for multiple selection"
             />
           </td>
           <td>
@@ -4278,11 +4653,18 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            class="checkbox-cell"
+          >
             <input
-              aria-label="Q9BYW1"
               data-id="Q9BYW1"
+              id="17"
               type="checkbox"
+            />
+            <label
+              aria-label="Q9BYW1"
+              for="17"
+              title="click to select, shift+click for multiple selection"
             />
           </td>
           <td>
@@ -4299,11 +4681,18 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            class="checkbox-cell"
+          >
             <input
-              aria-label="Q9NYU2"
               data-id="Q9NYU2"
+              id="18"
               type="checkbox"
+            />
+            <label
+              aria-label="Q9NYU2"
+              for="18"
+              title="click to select, shift+click for multiple selection"
             />
           </td>
           <td>
@@ -4320,11 +4709,18 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            class="checkbox-cell"
+          >
             <input
-              aria-label="P31639"
               data-id="P31639"
+              id="19"
               type="checkbox"
+            />
+            <label
+              aria-label="P31639"
+              for="19"
+              title="click to select, shift+click for multiple selection"
             />
           </td>
           <td>
@@ -4341,11 +4737,18 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            class="checkbox-cell"
+          >
             <input
-              aria-label="P11413"
               data-id="P11413"
+              id="20"
               type="checkbox"
+            />
+            <label
+              aria-label="P11413"
+              for="20"
+              title="click to select, shift+click for multiple selection"
             />
           </td>
           <td>
@@ -4362,11 +4765,18 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            class="checkbox-cell"
+          >
             <input
-              aria-label="P69786"
               data-id="P69786"
+              id="21"
               type="checkbox"
+            />
+            <label
+              aria-label="P69786"
+              for="21"
+              title="click to select, shift+click for multiple selection"
             />
           </td>
           <td>
@@ -4383,11 +4793,18 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            class="checkbox-cell"
+          >
             <input
-              aria-label="P15280"
               data-id="P15280"
+              id="22"
               type="checkbox"
+            />
+            <label
+              aria-label="P15280"
+              for="22"
+              title="click to select, shift+click for multiple selection"
             />
           </td>
           <td>
@@ -4404,11 +4821,18 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            class="checkbox-cell"
+          >
             <input
-              aria-label="Q6PXP3"
               data-id="Q6PXP3"
+              id="23"
               type="checkbox"
+            />
+            <label
+              aria-label="Q6PXP3"
+              for="23"
+              title="click to select, shift+click for multiple selection"
             />
           </td>
           <td>
@@ -4425,11 +4849,18 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            class="checkbox-cell"
+          >
             <input
-              aria-label="O94964"
               data-id="O94964"
+              id="24"
               type="checkbox"
+            />
+            <label
+              aria-label="O94964"
+              for="24"
+              title="click to select, shift+click for multiple selection"
             />
           </td>
           <td>
@@ -4446,11 +4877,18 @@ exports[`ResultsData component should render the table view 1`] = `
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            class="checkbox-cell"
+          >
             <input
-              aria-label="O95479"
               data-id="O95479"
+              id="25"
               type="checkbox"
+            />
+            <label
+              aria-label="O95479"
+              for="25"
+              title="click to select, shift+click for multiple selection"
             />
           </td>
           <td>

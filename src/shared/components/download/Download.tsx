@@ -63,7 +63,8 @@ const Download: FC<DownloadProps> = ({
   const fileFormats = nsToFileFormatsResultsDownload[namespace] as FileFormat[];
 
   const [selectedColumns, setSelectedColumns] = useState<Column[]>(columns);
-  const [downloadAll, setDownloadAll] = useState(true);
+  // Defaults to "download all" if no selection
+  const [downloadAll, setDownloadAll] = useState(!selectedEntries.length);
   const [fileFormat, setFileFormat] = useState(fileFormats[0]);
   const [compressed, setCompressed] = useState(true);
   const [loadingPreview, setLoadingPreview] = useState(false);
