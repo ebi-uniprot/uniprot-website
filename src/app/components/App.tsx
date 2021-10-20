@@ -1,4 +1,4 @@
-import { lazy, Suspense, CSSProperties, FC } from 'react';
+import { lazy, Suspense, FC } from 'react';
 import { Router, Route, Switch, RouteChildrenProps } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { FranklinSite, Loader } from 'franklin-sites';
@@ -203,21 +203,6 @@ const ResourceNotFoundPage = lazy(
     )
 );
 
-const reportBugLinkStyles: CSSProperties = {
-  fontSize: '.8rem',
-  lineHeight: '1.5rem',
-  display: 'block',
-  padding: '.5rem 0',
-  color: '#FFF',
-  backgroundColor: 'darkred',
-  position: 'fixed',
-  bottom: '4rem',
-  right: 0,
-  writingMode: 'vertical-rl',
-  textOrientation: 'sideways',
-  zIndex: 99,
-};
-
 // Helper component to render a landing page or the results page depending on
 // the presence of absence of a querystring
 const ResultsOrLanding =
@@ -394,14 +379,6 @@ const App = () => {
           <GDPR />
         </ErrorBoundary>
       </Router>
-      <a
-        style={reportBugLinkStyles}
-        target="_blank"
-        href="https://goo.gl/forms/VrAGbqg2XFg6Mpbh1"
-        rel="noopener noreferrer"
-      >
-        Submit feedback
-      </a>
     </FranklinSite>
   );
 };
