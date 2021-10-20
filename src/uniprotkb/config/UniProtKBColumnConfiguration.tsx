@@ -29,6 +29,7 @@ import {
   CofactorView,
 } from '../components/entry/FunctionSection';
 import {
+  featuresCategoriesToColumns,
   FunctionUIModel,
   GoAspect,
   GoTerm,
@@ -371,6 +372,13 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ftVariant, {
   ),
 });
 
+featuresCategoriesToColumns.forEach((column, featureCategory) => {
+  UniProtKBColumnConfiguration.set(
+    column,
+    getFeatureColumn(featureCategory, EntrySection.Function)
+  );
+});
+
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftNonCon,
   getFeatureColumn('Non-adjacent residues', EntrySection.Sequence)
@@ -439,19 +447,6 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.absorption, {
   },
 });
 
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftActSite,
-  getFeatureColumn('Active site', EntrySection.Function)
-);
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftBinding,
-  getFeatureColumn('Binding site', EntrySection.Function)
-);
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftCaBind,
-  getFeatureColumn('Calcium binding', EntrySection.Function)
-);
-
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCatalyticActivity, {
   label: 'Catalytic Activity',
   render: (data) => {
@@ -477,11 +472,6 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCofactor, {
     return cofactorComments && <CofactorView cofactors={cofactorComments} />;
   },
 });
-
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftDnaBind,
-  getFeatureColumn('DNA binding', EntrySection.Function)
-);
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ec, {
   label: 'EC Number',
@@ -534,15 +524,6 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.kinetics, {
   },
 });
 
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftMetal,
-  getFeatureColumn('Metal binding', EntrySection.Function)
-);
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftNpBind,
-  getFeatureColumn('Nucleotide binding', EntrySection.Function)
-);
-
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPathway, {
   label: 'Pathway',
   render: (data) => {
@@ -580,11 +561,6 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.redoxPotential, {
     );
   },
 });
-
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftSite,
-  getFeatureColumn('Site', EntrySection.Function)
-);
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.tempDependence, {
   label: 'Temperature Dependence',
@@ -1087,10 +1063,6 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.version, {
   render: (data) => data[EntrySection.Sequence]?.entryAudit?.entryVersion,
 });
 UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftCoiled,
-  getFeatureColumn('Coiled coil', EntrySection.Function)
-);
-UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftCompbias,
   getFeatureColumn('Compositional bias', EntrySection.FamilyAndDomains)
 );
@@ -1133,11 +1105,6 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSimilarity, {
     return <FreeTextView comments={familiesData} noEvidence />;
   },
 });
-
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftZnFing,
-  getFeatureColumn('Zinc finger', EntrySection.Function)
-);
 
 const getXrefColumn = (databaseName: string) => ({
   label: `${databaseName} cross-reference`,

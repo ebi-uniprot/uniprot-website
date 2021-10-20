@@ -1,4 +1,4 @@
-type FeatureType =
+type OtherType =
   | 'Initiator methionine'
   | 'Signal'
   | 'Propeptide'
@@ -39,5 +39,22 @@ type FeatureType =
   | 'Turn'
   | 'Beta strand'
   | 'Other'; // For anything else
+
+export type FunctionType =
+  | 'Domain'
+  | 'Repeat'
+  | 'Calcium binding'
+  | 'Zinc finger'
+  | 'DNA binding'
+  | 'Nucleotide binding'
+  | 'Region'
+  | 'Coiled coil'
+  | 'Motif'
+  | 'Active site'
+  | 'Metal binding'
+  | 'Binding site'
+  | 'Site';
+
+type FeatureType = OtherType | FunctionType;
 
 export default FeatureType;
