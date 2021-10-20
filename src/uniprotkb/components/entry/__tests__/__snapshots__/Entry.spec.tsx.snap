@@ -522,7 +522,7 @@ exports[`Entry basic should render main 1`] = `
                     <div
                       class="text-block"
                     >
-                      value2
+                      value2.
                       <button
                         aria-controls="4"
                         aria-expanded="false"
@@ -561,7 +561,7 @@ exports[`Entry basic should render main 1`] = `
                     <div
                       class="text-block"
                     >
-                      value1
+                      value1.
                       <button
                         aria-controls="5"
                         aria-expanded="false"
@@ -654,7 +654,7 @@ exports[`Entry basic should render main 1`] = `
                     <div
                       class="text-block"
                     >
-                      value1
+                      value1.
                       <button
                         aria-controls="8"
                         aria-expanded="false"
@@ -685,7 +685,7 @@ exports[`Entry basic should render main 1`] = `
                   <div
                     class="text-block"
                   >
-                    value1
+                    value1.
                     <button
                       aria-controls="9"
                       aria-expanded="false"
@@ -715,7 +715,7 @@ exports[`Entry basic should render main 1`] = `
                   <div
                     class="text-block"
                   >
-                    value1
+                    value1.
                     <button
                       aria-controls="10"
                       aria-expanded="false"
@@ -745,7 +745,7 @@ exports[`Entry basic should render main 1`] = `
                   <div
                     class="text-block"
                   >
-                    value1
+                    value1.
                     <button
                       aria-controls="11"
                       aria-expanded="false"
@@ -2256,7 +2256,7 @@ exports[`Entry basic should render main 1`] = `
                   <div
                     class="text-block"
                   >
-                    value
+                    value.
                     <button
                       aria-controls="40"
                       aria-expanded="false"
@@ -2288,7 +2288,7 @@ exports[`Entry basic should render main 1`] = `
                   <div
                     class="text-block"
                   >
-                    value
+                    value.
                     <button
                       aria-controls="41"
                       aria-expanded="false"

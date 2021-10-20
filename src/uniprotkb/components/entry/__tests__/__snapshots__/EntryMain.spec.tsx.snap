@@ -200,7 +200,7 @@ exports[`Entry view should render 1`] = `
           <div
             class="text-block"
           >
-            value2
+            value2.
             <button
               aria-controls="3"
               aria-expanded="false"
@@ -239,7 +239,7 @@ exports[`Entry view should render 1`] = `
           <div
             class="text-block"
           >
-            value1
+            value1.
             <button
               aria-controls="4"
               aria-expanded="false"
@@ -332,7 +332,7 @@ exports[`Entry view should render 1`] = `
           <div
             class="text-block"
           >
-            value1
+            value1.
             <button
               aria-controls="7"
               aria-expanded="false"
@@ -363,7 +363,7 @@ exports[`Entry view should render 1`] = `
         <div
           class="text-block"
         >
-          value1
+          value1.
           <button
             aria-controls="8"
             aria-expanded="false"
@@ -393,7 +393,7 @@ exports[`Entry view should render 1`] = `
         <div
           class="text-block"
         >
-          value1
+          value1.
           <button
             aria-controls="9"
             aria-expanded="false"
@@ -423,7 +423,7 @@ exports[`Entry view should render 1`] = `
         <div
           class="text-block"
         >
-          value1
+          value1.
           <button
             aria-controls="10"
             aria-expanded="false"
@@ -1943,7 +1943,7 @@ exports[`Entry view should render 1`] = `
         <div
           class="text-block"
         >
-          value
+          value.
           <button
             aria-controls="39"
             aria-expanded="false"
@@ -1975,7 +1975,7 @@ exports[`Entry view should render 1`] = `
         <div
           class="text-block"
         >
-          value
+          value.
           <button
             aria-controls="40"
             aria-expanded="false"
@@ -2927,7 +2927,7 @@ exports[`Entry view should render for non-human entry 1`] = `
         <div
           class="text-block"
         >
-          One of an enzyme pair that work together to convert the A antigen to the H antigen of the O blood type, which together release galactosamine. Catalyzes the first step in the conversion, generating the substrate for the subsequent enzyme (FpGalNase, AC P0DTR5). Works on many different A antigen subtypes. Glu-90 probably activates a nucleophilic water molecule to start the deacetylation reaction
+          One of an enzyme pair that work together to convert the A antigen to the H antigen of the O blood type, which together release galactosamine. Catalyzes the first step in the conversion, generating the substrate for the subsequent enzyme (FpGalNase, AC P0DTR5). Works on many different A antigen subtypes. Glu-90 probably activates a nucleophilic water molecule to start the deacetylation reaction.
           <button
             aria-controls="0"
             aria-expanded="false"
@@ -2959,7 +2959,7 @@ exports[`Entry view should render for non-human entry 1`] = `
         <div
           class="text-block"
         >
-          DNA was isolated from a male human fecal sample of AB+ blood type, the sequence was given to UniProtKB by the submitters
+          DNA was isolated from a male human fecal sample of AB+ blood type, the sequence was given to UniProtKB by the submitters.
           <button
             aria-controls="1"
             aria-expanded="false"
@@ -3097,7 +3097,7 @@ exports[`Entry view should render for non-human entry 1`] = `
         <div
           class="text-block"
         >
-          Inhibited by EDTA
+          Inhibited by EDTA.
           <button
             aria-controls="4"
             aria-expanded="false"
@@ -3129,7 +3129,7 @@ exports[`Entry view should render for non-human entry 1`] = `
         <div
           class="text-block"
         >
-          5 ug/ml of this enzyme pair converts A blood type to O blood type in an hour, and can be removed by centrifugation, showing the pair can be used for production of universal type donor blood
+          5 ug/ml of this enzyme pair converts A blood type to O blood type in an hour, and can be removed by centrifugation, showing the pair can be used for production of universal type donor blood.
           <button
             aria-controls="5"
             aria-expanded="false"
@@ -5331,7 +5331,7 @@ exports[`Entry view should render for non-human entry 1`] = `
         <div
           class="text-block"
         >
-          The deacetylase domain is in the N-terminus, while the C-terminus has a CBM32-type carbohydrate-binding domain that is not required for activity on soluble substrates. The CBM32 domain binds preferentially to repeating N-acetyl lactosamine structures
+          The deacetylase domain is in the N-terminus, while the C-terminus has a CBM32-type carbohydrate-binding domain that is not required for activity on soluble substrates. The CBM32 domain binds preferentially to repeating N-acetyl lactosamine structures.
           <button
             aria-controls="50"
             aria-expanded="false"

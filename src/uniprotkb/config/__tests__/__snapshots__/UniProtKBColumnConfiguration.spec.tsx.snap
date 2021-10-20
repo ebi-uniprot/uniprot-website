@@ -13,7 +13,7 @@ exports[`UniProtKBColumnConfiguration component should render column "absorption
     <div
       class="text-block"
     >
-      value1
+      value1.
       <button
         aria-controls="0"
         aria-expanded="false"
@@ -384,7 +384,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_cofacto
     <div
       class="text-block"
     >
-      value2
+      value2.
       <button
         aria-controls="1"
         aria-expanded="false"
@@ -561,7 +561,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_disrupt
   <div
     class="text-block"
   >
-    value
+    value.
   </div>
   <h3
     class="tiny"
@@ -571,7 +571,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_disrupt
   <div
     class="text-block"
   >
-    value
+    value.
   </div>
 </DocumentFragment>
 `;
@@ -835,7 +835,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_subcell
     <div
       class="text-block"
     >
-      value
+      value.
       <button
         aria-controls="2"
         aria-expanded="false"
@@ -1234,7 +1234,7 @@ exports[`UniProtKBColumnConfiguration component should render column "kinetics":
     <div
       class="text-block"
     >
-      value1
+      value1.
       <button
         aria-controls="1"
         aria-expanded="false"
@@ -1429,7 +1429,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ph_depende
   <div
     class="text-block"
   >
-    value1
+    value1.
     <button
       aria-controls="0"
       aria-expanded="false"
@@ -1496,7 +1496,7 @@ exports[`UniProtKBColumnConfiguration component should render column "redox_pote
   <div
     class="text-block"
   >
-    value1
+    value1.
     <button
       aria-controls="0"
       aria-expanded="false"
@@ -1589,7 +1589,7 @@ exports[`UniProtKBColumnConfiguration component should render column "temp_depen
   <div
     class="text-block"
   >
-    value1
+    value1.
     <button
       aria-controls="0"
       aria-expanded="false"
