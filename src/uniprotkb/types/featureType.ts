@@ -1,10 +1,4 @@
 type OtherType =
-  | 'Initiator methionine'
-  | 'Signal'
-  | 'Propeptide'
-  | 'Transit peptide'
-  | 'Chain'
-  | 'Peptide'
   | 'Domain'
   | 'Repeat'
   | 'Calcium binding'
@@ -18,11 +12,6 @@ type OtherType =
   | 'Metal binding'
   | 'Binding site'
   | 'Site'
-  | 'Modified residue'
-  | 'Lipidation'
-  | 'Glycosylation'
-  | 'Disulfide bond'
-  | 'Cross-link'
   | 'Natural variant'
   | 'Helix'
   | 'Turn'
@@ -60,11 +49,25 @@ export type SubcellularLocationFeatures =
   | 'Topological domain'
   | 'Transmembrane';
 
+export type ProteinProcessingFeatures =
+  | 'Initiator methionine'
+  | 'Signal'
+  | 'Transit peptide'
+  | 'Propeptide'
+  | 'Chain'
+  | 'Peptide'
+  | 'Modified residue'
+  | 'Lipidation'
+  | 'Glycosylation'
+  | 'Disulfide bond'
+  | 'Cross-link';
+
 type FeatureType =
   | OtherType
   | FunctionFeatures
   | SequenceFeatures
   | DiseaseAndDrugsFeatures
-  | SubcellularLocationFeatures;
+  | SubcellularLocationFeatures
+  | ProteinProcessingFeatures;
 
 export default FeatureType;

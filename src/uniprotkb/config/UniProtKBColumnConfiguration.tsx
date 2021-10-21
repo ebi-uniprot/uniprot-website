@@ -25,6 +25,7 @@ import {
 import FeatureType, {
   DiseaseAndDrugsFeatures,
   FunctionFeatures,
+  ProteinProcessingFeatures,
   SequenceFeatures,
   SubcellularLocationFeatures,
 } from '../types/featureType';
@@ -88,6 +89,7 @@ import { Interactant } from '../adapters/interactionConverter';
 import helper from '../../shared/styles/helper.module.scss';
 import { diseaseAndDrugsFeaturesToColumns } from '../adapters/diseaseAndDrugs';
 import { subcellularLocationFeaturesToColumns } from '../adapters/subcellularLocationConverter';
+import { proteinProcessingFeaturesToColumns } from '../adapters/proteinProcessingConverter';
 
 export const defaultColumns = [
   UniProtKBColumn.accession,
@@ -426,6 +428,21 @@ for (const featureType in subcellularLocationFeaturesToColumns) {
     UniProtKBColumnConfiguration.set(
       subcellularLocationFeaturesToColumns[typedFeatureType],
       getFeatureColumn(typedFeatureType, EntrySection.SubCellularLocation)
+    );
+  }
+}
+
+for (const featureType in proteinProcessingFeaturesToColumns) {
+  if (
+    Object.prototype.hasOwnProperty.call(
+      proteinProcessingFeaturesToColumns,
+      featureType
+    )
+  ) {
+    const typedFeatureType = featureType as ProteinProcessingFeatures;
+    UniProtKBColumnConfiguration.set(
+      proteinProcessingFeaturesToColumns[typedFeatureType],
+      getFeatureColumn(typedFeatureType, EntrySection.ProteinProcessing)
     );
   }
 }
@@ -974,50 +991,6 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccToxicDose, {
   },
 });
 
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftChain,
-  getFeatureColumn('Chain', EntrySection.ProteinProcessing)
-);
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftCrosslnk,
-  getFeatureColumn('Cross-link', EntrySection.ProteinProcessing)
-);
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftDisulfid,
-  getFeatureColumn('Disulfide bond', EntrySection.ProteinProcessing)
-);
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftCarbohyd,
-  getFeatureColumn('Glycosylation', EntrySection.ProteinProcessing)
-);
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftInitMet,
-  getFeatureColumn('Initiator methionine', EntrySection.ProteinProcessing)
-);
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftLipid,
-  getFeatureColumn('Lipidation', EntrySection.ProteinProcessing)
-);
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftModRes,
-  getFeatureColumn('Modified residue', EntrySection.ProteinProcessing)
-);
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftPeptide,
-  getFeatureColumn('Peptide', EntrySection.ProteinProcessing)
-);
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftPropep,
-  getFeatureColumn('Propeptide', EntrySection.ProteinProcessing)
-);
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftSignal,
-  getFeatureColumn('Signal', EntrySection.ProteinProcessing)
-);
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftTransit,
-  getFeatureColumn('Transit peptide', EntrySection.ProteinProcessing)
-);
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftStrand,
   getFeatureColumn('Beta strand', EntrySection.Structure)
