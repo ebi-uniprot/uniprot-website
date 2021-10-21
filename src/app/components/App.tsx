@@ -1,4 +1,4 @@
-import { lazy, Suspense, CSSProperties, FC } from 'react';
+import { lazy, Suspense, FC } from 'react';
 import { Router, Route, Switch, RouteChildrenProps } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { FranklinSite, Loader } from 'franklin-sites';
@@ -19,12 +19,29 @@ import {
   LocationToPath,
 } from '../config/urls';
 
+import pkg from '../../../package.json';
+
 import './styles/app.scss';
 
 if (process.env.NODE_ENV !== 'development') {
-  import(/* webpackChunkName: "sentry" */ '@sentry/browser').then((module) => {
-    module.init({
+  Promise.all([
+    import(/* webpackChunkName: "sentry" */ '@sentry/react'),
+    import(/* webpackChunkName: "sentry" */ '@sentry/tracing'),
+  ]).then(([sentryReact, sentryTracing]) => {
+    sentryReact.init({
+      // Key
       dsn: 'https://474bb7c44e8b4a99ba4e408b5a64569b@o308327.ingest.sentry.io/5996901',
+      // Release name in order to track which version is causing which report
+      release: `${pkg.name}@${pkg.version}#${GIT_COMMIT_HASH.trim()}`,
+      //
+      integrations: [
+        new sentryTracing.Integrations.BrowserTracing({
+          routingInstrumentation:
+            sentryReact.reactRouterV5Instrumentation(history),
+        }),
+      ],
+      // Proportion of sessions being used to track performance
+      tracesSampleRate: 0.1,
     });
   });
 }
@@ -203,21 +220,6 @@ const ResourceNotFoundPage = lazy(
     )
 );
 
-const reportBugLinkStyles: CSSProperties = {
-  fontSize: '.8rem',
-  lineHeight: '1.5rem',
-  display: 'block',
-  padding: '.5rem 0',
-  color: '#FFF',
-  backgroundColor: 'darkred',
-  position: 'fixed',
-  bottom: '4rem',
-  right: 0,
-  writingMode: 'vertical-rl',
-  textOrientation: 'sideways',
-  zIndex: 99,
-};
-
 // Helper component to render a landing page or the results page depending on
 // the presence of absence of a querystring
 const ResultsOrLanding =
@@ -394,14 +396,6 @@ const App = () => {
           <GDPR />
         </ErrorBoundary>
       </Router>
-      <a
-        style={reportBugLinkStyles}
-        target="_blank"
-        href="https://goo.gl/forms/VrAGbqg2XFg6Mpbh1"
-        rel="noopener noreferrer"
-      >
-        Submit feedback
-      </a>
     </FranklinSite>
   );
 };

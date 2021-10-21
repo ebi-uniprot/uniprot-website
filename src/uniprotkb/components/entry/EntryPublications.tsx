@@ -47,7 +47,7 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
 
   const url = useMemo(() => {
     const databaseInfo = source && getDatabaseInfoByName(source.name);
-    if (databaseInfo && source?.id) {
+    if (databaseInfo?.uriLink && source?.id) {
       return processUrlTemplate(databaseInfo.uriLink, { id: source.id });
     }
     if (source?.name === 'GeneRif') {
@@ -137,10 +137,9 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
   }>(() => ({ total: 0, nextUrl: undefined }));
   usePrefetch(metaData.nextUrl);
 
-  const { data, loading, status, error, headers } =
-    useDataApi<{
-      results: CitationsAPIModel[];
-    }>(url);
+  const { data, loading, status, error, headers } = useDataApi<{
+    results: CitationsAPIModel[];
+  }>(url);
 
   const resultsWithReferences = useMemo(
     () => allResults.filter(hasReference),

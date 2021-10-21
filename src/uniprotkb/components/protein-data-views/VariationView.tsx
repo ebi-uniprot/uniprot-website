@@ -212,6 +212,10 @@ const VariationView: FC<{
     </table>
   );
 
+  if (onlyTable) {
+    return <protvista-datatable filter-scroll>{table}</protvista-datatable>;
+  }
+
   return (
     <div>
       {title && <h3>{title}</h3>}

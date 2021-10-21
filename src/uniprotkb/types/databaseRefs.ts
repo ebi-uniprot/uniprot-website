@@ -28,7 +28,7 @@ export type DatabaseInfoPoint = {
   name: string;
   displayName: string;
   category: string;
-  uriLink: string;
+  uriLink?: string;
   attributes?: AttributesItem[];
   implicit?: boolean;
   linkedReason?: string;

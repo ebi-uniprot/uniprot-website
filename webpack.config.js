@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('fs');
 
 const { DefinePlugin, ProvidePlugin } = require('webpack');
+const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const jsonImporter = require('node-sass-json-importer');
@@ -235,6 +236,11 @@ module.exports = (env, argv) => {
         assert: 'assert',
         process: 'process/browser',
       }),
+      !isLiveReload &&
+        // Copy static (or near-static) files
+        new CopyPlugin({
+          patterns: [{ from: 'static/robots.txt' }],
+        }),
       new HtmlWebPackPlugin({
         template: `${__dirname}/index.html`,
         filename: 'index.html',

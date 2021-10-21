@@ -16,7 +16,10 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import useStructuredData from '../../../shared/hooks/useStructuredData';
 
 import parseDate from '../../../shared/utils/parseDate';
-import cleanText from '../../../shared/utils/cleanText';
+import cleanText, {
+  cleanTextDefaultOptions,
+  getTransformTags,
+} from '../../../shared/utils/cleanText';
 
 import { LocationToPath, Location } from '../../config/urls';
 
@@ -286,7 +289,12 @@ const NeedHelp = () => {
                 className={styles.description}
                 // eslint-disable-next-line react/no-danger
                 dangerouslySetInnerHTML={{
-                  __html: cleanText(seminar?.fields.description[0]),
+                  __html: cleanText(seminar?.fields.description[0], {
+                    ...cleanTextDefaultOptions,
+                    transformTags: {
+                      ...getTransformTags('strong'),
+                    },
+                  }),
                 }}
               />
             )}

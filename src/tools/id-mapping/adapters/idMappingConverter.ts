@@ -8,7 +8,7 @@ const idMappingConverter =
   (data: MappingAPIModel[]): MappingFlat[] =>
     data.map((row) => {
       if (typeof row.to === 'string') {
-        const url = dbInfo
+        const url = dbInfo?.uriLink
           ? processUrlTemplate(dbInfo.uriLink, { id: row.to })
           : undefined;
         return {
