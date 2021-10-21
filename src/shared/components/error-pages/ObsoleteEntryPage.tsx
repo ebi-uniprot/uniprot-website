@@ -12,13 +12,10 @@ import {
 import { Namespace } from '../../types/namespaces';
 
 import { TabLocation } from '../../../uniprotkb/components/entry/Entry';
-import { InactiveEntryReason } from '../../../uniprotkb/adapters/uniProtkbConverter';
-
-import ArtWork from './svgs/obsolete-entry.svg';
 
 import './styles/error-pages.scss';
 
-type DeletedEntryMessage = {
+type DeletedEntryMessageProps = {
   accession: string;
   release?: string;
   inHistory?: boolean;
@@ -28,7 +25,7 @@ export const DeletedEntryMessage = ({
   accession,
   release,
   inHistory,
-}: DeletedEntryMessage) => (
+}: DeletedEntryMessageProps) => (
   <Message level="info">
     <h4>This entry is obsolete{release && ` since release ${release}`}</h4>
     <p data-testid="deleted-entry-message">
@@ -173,25 +170,3 @@ export const DemergedEntryMessage = ({
     </p>
   </Message>
 );
-
-type ObsoleteEntryPageProps = {
-  accession: string;
-  details?: InactiveEntryReason;
-};
-
-const ObsoleteEntryPage = ({ accession, details }: ObsoleteEntryPageProps) => (
-  <div className="error-page-container">
-    <ArtWork className="error-page-container__art-work" />
-    {details &&
-      (details.inactiveReasonType === 'DELETED' ? (
-        <DeletedEntryMessage accession={accession} />
-      ) : (
-        <DemergedEntryMessage
-          accession={accession}
-          demergedTo={details.mergeDemergeTo}
-        />
-      ))}
-  </div>
-);
-
-export default ObsoleteEntryPage;
