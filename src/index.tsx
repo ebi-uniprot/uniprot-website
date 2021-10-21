@@ -9,7 +9,7 @@ import * as logging from './shared/utils/logging';
 
 if (!LIVE_RELOAD) {
   logging.debug(
-    `Built with git commit ${GIT_COMMIT_HASH.trim()} ${
+    `Built with git commit ${GIT_COMMIT_HASH} ${
       GIT_COMMIT_STATE
         ? `with uncommitted changes:\n${GIT_COMMIT_STATE}`
         : '(clean)'
