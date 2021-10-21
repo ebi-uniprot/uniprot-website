@@ -1,6 +1,6 @@
 import { useCallback, MouseEventHandler, useMemo } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
-import { Loader, Card } from 'franklin-sites';
+import { Card, Loader } from 'franklin-sites';
 import marked from 'marked';
 import { Attributes, defaults, Tag, Transformer } from 'sanitize-html';
 import cn from 'classnames';
@@ -14,6 +14,7 @@ import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 import { help as helpURL } from '../../../shared/config/apiUrls';
 import cleanText, {
   cleanTextDefaultOptions,
+  getTransformTags,
 } from '../../../shared/utils/cleanText';
 import parseDate from '../../../shared/utils/parseDate';
 import { LocationToPath, Location } from '../../../app/config/urls';
@@ -64,7 +65,7 @@ const cleanTextOptions = {
     ],
   },
   transformTags: {
-    ...cleanTextDefaultOptions.transformTags,
+    ...getTransformTags('h1'),
     a: aTransformer,
   },
 };
@@ -124,14 +125,6 @@ const HelpEntry = () => {
       <h1 className={data.categories.includes('faq') ? 'medium' : 'big'}>
         {data.title}
       </h1>
-      {lastModifed && (
-        <span>
-          Last modified:{' '}
-          <time dateTime={lastModifed.toISOString()}>
-            {lastModifed.toDateString()}
-          </time>
-        </span>
-      )}
       <Card className={cn(styles.content, { [helper.stale]: isStale })}>
         {/* event delegation here, not actually doing anything with the div */}
         {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
@@ -141,6 +134,17 @@ const HelpEntry = () => {
           onClick={handleClick}
         />
       </Card>
+      {lastModifed && (
+        <div className={styles['last-updated-help']}>
+          <small>
+            {' '}
+            Page last modified:{' '}
+            <time dateTime={lastModifed.toISOString()}>
+              {lastModifed.toDateString()}
+            </time>
+          </small>
+        </div>
+      )}
     </SingleColumnLayout>
   );
 };
