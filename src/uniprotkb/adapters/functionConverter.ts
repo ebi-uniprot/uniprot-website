@@ -10,7 +10,7 @@ import {
   FreeTextComment,
 } from '../types/commentTypes';
 import KeywordCategory from '../types/keywordCategory';
-import { FunctionType } from '../types/featureType';
+import { FunctionFeatures } from '../types/featureType';
 import EntrySection from '../types/entrySection';
 import { convertSection, UIModel } from './sectionConverter';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
@@ -80,7 +80,7 @@ const keywordsCategories: KeywordCategory[] = [
 ];
 
 export const featuresCategoriesToColumns: Readonly<
-  Record<FunctionType, UniProtKBColumn>
+  Record<FunctionFeatures, UniProtKBColumn>
 > = {
   Domain: UniProtKBColumn.ftDomain,
   Repeat: UniProtKBColumn.ftRepeat,
@@ -99,7 +99,7 @@ export const featuresCategoriesToColumns: Readonly<
 
 export const featureCategories = Object.keys(
   featuresCategoriesToColumns
-) as FunctionType[];
+) as FunctionFeatures[];
 
 const commentsCategories: CommentType[] = [
   'FUNCTION',

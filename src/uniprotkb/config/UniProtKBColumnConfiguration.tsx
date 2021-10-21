@@ -19,7 +19,7 @@ import {
   IsoformView,
 } from '../../shared/components/entry/SequenceView';
 import { fragmentFlags } from '../adapters/sequenceConverter';
-import FeatureType, { FunctionType } from '../types/featureType';
+import FeatureType, { FunctionFeatures } from '../types/featureType';
 import FreeTextView, {
   TextView,
 } from '../components/protein-data-views/FreeTextView';
@@ -379,7 +379,7 @@ for (const featureType in featuresCategoriesToColumns) {
       featureType
     )
   ) {
-    const typedFeatureType = featureType as FunctionType;
+    const typedFeatureType = featureType as FunctionFeatures;
     UniProtKBColumnConfiguration.set(
       featuresCategoriesToColumns[typedFeatureType],
       getFeatureColumn(typedFeatureType, EntrySection.Function)

@@ -40,7 +40,7 @@ type OtherType =
   | 'Beta strand'
   | 'Other'; // For anything else
 
-export type FunctionType =
+export type FunctionFeatures =
   | 'Domain'
   | 'Repeat'
   | 'Calcium binding'
@@ -55,6 +55,6 @@ export type FunctionType =
   | 'Binding site'
   | 'Site';
 
-type FeatureType = OtherType | FunctionType;
+type FeatureType = OtherType | FunctionFeatures;
 
 export default FeatureType;
