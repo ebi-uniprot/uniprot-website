@@ -25,13 +25,22 @@ import './styles/app.scss';
 
 if (process.env.NODE_ENV !== 'development') {
   Promise.all([
-    import(/* webpackChunkName: "sentry" */ '@sentry/browser'),
+    import(/* webpackChunkName: "sentry" */ '@sentry/react'),
     import(/* webpackChunkName: "sentry" */ '@sentry/tracing'),
-  ]).then(([sentryBrowser, sentryTracing]) => {
-    sentryBrowser.init({
+  ]).then(([sentryReact, sentryTracing]) => {
+    sentryReact.init({
+      // Key
       dsn: 'https://474bb7c44e8b4a99ba4e408b5a64569b@o308327.ingest.sentry.io/5996901',
+      // Release name in order to track which version is causing which report
       release: `${pkg.name}@${pkg.version}#${GIT_COMMIT_HASH}`,
-      integrations: [new sentryTracing.Integrations.BrowserTracing()],
+      //
+      integrations: [
+        new sentryTracing.Integrations.BrowserTracing({
+          routingInstrumentation:
+            sentryReact.reactRouterV5Instrumentation(history),
+        }),
+      ],
+      // Proportion of sessions being used to track performance
       tracesSampleRate: 0.1,
     });
   });
