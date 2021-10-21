@@ -2081,7 +2081,9 @@ exports[`Entry view should render 1`] = `
           <protvista-datatable
             filter-scroll="true"
           >
-            <table>
+            <table
+              class=""
+            >
               <thead>
                 <tr>
                   <th
@@ -3278,7 +3280,9 @@ exports[`Entry view should render for non-human entry 1`] = `
           <protvista-datatable
             filter-scroll="true"
           >
-            <table>
+            <table
+              class=""
+            >
               <thead>
                 <tr>
                   <th
@@ -4387,7 +4391,9 @@ exports[`Entry view should render for non-human entry 1`] = `
           <protvista-datatable
             filter-scroll="true"
           >
-            <table>
+            <table
+              class=""
+            >
               <thead>
                 <tr>
                   <th
@@ -4758,7 +4764,9 @@ exports[`Entry view should render for non-human entry 1`] = `
           <protvista-datatable
             filter-scroll="true"
           >
-            <table>
+            <table
+              class=""
+            >
               <thead>
                 <tr>
                   <th
@@ -5087,7 +5095,9 @@ exports[`Entry view should render for non-human entry 1`] = `
           <protvista-datatable
             filter-scroll="true"
           >
-            <table>
+            <table
+              class=""
+            >
               <thead>
                 <tr>
                   <th

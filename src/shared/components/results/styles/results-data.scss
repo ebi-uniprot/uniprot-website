@@ -1,3 +1,4 @@
+@import 'franklin-sites/src/styles/colours';
 @import '../../../styles/settings';
 
 .results-data {
@@ -8,9 +9,16 @@
     top: calc(#{$header-height} + #{$action-buttons-height}) !important;
   }
 
+  // Note: shouldn't use protvista-datatable in results
   .data-table protvista-datatable thead .pd-group-trigger {
     // override when using it inside a results table
     display: none;
+  }
+
+  .data-table table thead,
+  .data-table table th {
+    background-color: $colour-independence;
+    z-index: inherit;
   }
 
   .data-table td > .info-list {

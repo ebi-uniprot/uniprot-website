@@ -1,4 +1,5 @@
 import { useMemo, FC, Fragment } from 'react';
+import classNames from 'classnames';
 import { v1 } from 'uuid';
 
 import { Evidence } from '../../types/modelTypes';
@@ -45,6 +46,9 @@ export type ProtvistaFeature = {
 type FeatureProps = {
   sequence?: string;
   features: FeatureData;
+  withTitle?: boolean;
+  withEvidenceTags?: boolean;
+  withDataTable?: boolean;
 };
 
 export const processFeaturesData = (
@@ -72,6 +76,9 @@ export const processFeaturesData = (
 const UniProtKBFeaturesView: FC<FeatureProps> = ({
   sequence,
   features,
+  withTitle = true,
+  withEvidenceTags = true,
+  withDataTable = true,
 }): JSX.Element | null => {
   const processedData = useMemo(
     () => processFeaturesData(features, sequence),
@@ -79,7 +86,7 @@ const UniProtKBFeaturesView: FC<FeatureProps> = ({
   );
 
   const table = (
-    <table>
+    <table className={classNames(!withDataTable && 'data-table--compact')}>
       <thead>
         <tr>
           <th data-filter="type">Type</th>
@@ -105,19 +112,23 @@ const UniProtKBFeaturesView: FC<FeatureProps> = ({
               }-${feature.endModifier === 'UNKNOWN' ? '?' : feature.end}`}</td>
               <td>
                 {feature.description}
-                <UniProtKBEvidenceTag evidences={feature.evidences} />
+                {withEvidenceTags && (
+                  <UniProtKBEvidenceTag evidences={feature.evidences} />
+                )}
               </td>
             </tr>
-            <tr
-              data-group-for={feature.protvistaFeatureId}
-              data-start={feature.start}
-              data-end={feature.end}
-            >
-              <td>
-                <strong>Sequence: </strong>
-                {feature?.sequence}
-              </td>
-            </tr>
+            {feature.sequence && (
+              <tr
+                data-group-for={feature.protvistaFeatureId}
+                data-start={feature.start}
+                data-end={feature.end}
+              >
+                <td>
+                  <strong>Sequence: </strong>
+                  {feature.sequence}
+                </td>
+              </tr>
+            )}
           </Fragment>
         ))}
       </tbody>
@@ -128,8 +139,15 @@ const UniProtKBFeaturesView: FC<FeatureProps> = ({
     return null;
   }
 
-  return (
-    <FeaturesView features={processedData} sequence={sequence} table={table} />
+  return withDataTable ? (
+    <FeaturesView
+      features={processedData}
+      sequence={sequence}
+      table={table}
+      withTitle={withTitle}
+    />
+  ) : (
+    table
   );
 };
 
