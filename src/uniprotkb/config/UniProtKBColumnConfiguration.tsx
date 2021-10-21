@@ -23,6 +23,7 @@ import {
   sequenceFeaturesToColumns,
 } from '../adapters/sequenceConverter';
 import FeatureType, {
+  DiseaseAndDrugsFeatures,
   FunctionFeatures,
   SequenceFeatures,
 } from '../types/featureType';
@@ -84,6 +85,7 @@ import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
 import { Interactant } from '../adapters/interactionConverter';
 
 import helper from '../../shared/styles/helper.module.scss';
+import { diseaseAndDrugsFeaturesToColumns } from '../adapters/diseaseAndDrugs';
 
 export const defaultColumns = [
   UniProtKBColumn.accession,
@@ -392,6 +394,21 @@ for (const featureType in sequenceFeaturesToColumns) {
     UniProtKBColumnConfiguration.set(
       sequenceFeaturesToColumns[typedFeatureType],
       getFeatureColumn(typedFeatureType, EntrySection.Sequence)
+    );
+  }
+}
+
+for (const featureType in diseaseAndDrugsFeaturesToColumns) {
+  if (
+    Object.prototype.hasOwnProperty.call(
+      diseaseAndDrugsFeaturesToColumns,
+      featureType
+    )
+  ) {
+    const typedFeatureType = featureType as DiseaseAndDrugsFeatures;
+    UniProtKBColumnConfiguration.set(
+      diseaseAndDrugsFeaturesToColumns[typedFeatureType],
+      getFeatureColumn(typedFeatureType, EntrySection.DiseaseAndDrugs)
     );
   }
 }
@@ -919,11 +936,6 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDisease, {
     );
   },
 });
-
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftMutagen,
-  getFeatureColumn('Mutagenesis', EntrySection.DiseaseAndDrugs)
-);
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPharmaceutical, {
   label: 'Pharmaceutical Use',

@@ -27,7 +27,6 @@ type OtherType =
   | 'Disulfide bond'
   | 'Cross-link'
   | 'Natural variant'
-  | 'Mutagenesis'
   | 'Helix'
   | 'Turn'
   | 'Beta strand'
@@ -41,6 +40,8 @@ export type SequenceFeatures =
   | 'Non-adjacent residues'
   | 'Non-terminal residue'
   | 'Alternative sequence';
+
+export type DiseaseAndDrugsFeatures = 'Mutagenesis';
 
 export type FunctionFeatures =
   | 'Domain'
@@ -57,6 +58,10 @@ export type FunctionFeatures =
   | 'Binding site'
   | 'Site';
 
-type FeatureType = OtherType | FunctionFeatures | SequenceFeatures;
+type FeatureType =
+  | OtherType
+  | FunctionFeatures
+  | SequenceFeatures
+  | DiseaseAndDrugsFeatures;
 
 export default FeatureType;
