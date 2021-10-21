@@ -25,7 +25,7 @@ const pairs: Array<[input: string | null | undefined, output: string]> = [
 
 describe('cleanText', () => {
   it.each(pairs)('should clean text to inject safely', (input, output) =>
-    expect(cleanText(input)).toBe(output)
+    expect(cleanText(input, cleanTextDefaultOptions)).toBe(output)
   );
 
   it('should apply correct headers', () => {

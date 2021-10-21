@@ -67,10 +67,7 @@ export const cleanTextDefaultOptions = deepFreeze<IOptions>({
   transformTags: getTransformTags(),
 }) as IOptions;
 
-const cleanText = (
-  text?: string | null,
-  options: IOptions = cleanTextDefaultOptions
-) => {
+const cleanText = (text: string | null | undefined, options: IOptions) => {
   if (!text) {
     return '';
   }
