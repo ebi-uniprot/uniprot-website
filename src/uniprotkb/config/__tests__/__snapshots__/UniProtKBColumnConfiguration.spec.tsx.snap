@@ -1093,7 +1093,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_motif":
 
 exports[`UniProtKBColumnConfiguration component should render column "ft_mutagen": ft_mutagen 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_non_con": ft_non_con 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_non_cons": ft_non_cons 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "ft_non_std": ft_non_std 1`] = `<DocumentFragment />`;
 
