@@ -2086,6 +2086,8 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_unica
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_unilectin": xref_unilectin 1`] = `<DocumentFragment />`;
 
+exports[`UniProtKBColumnConfiguration component should render column "xref_unipathway": xref_unipathway 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render column "xref_vectorbase": xref_vectorbase 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_veupathdb": xref_veupathdb 1`] = `<DocumentFragment />`;

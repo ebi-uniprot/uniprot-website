@@ -79,7 +79,7 @@ const UniParcFeaturesView: FC<{
               </td>
               <td>{`${feature.start}-${feature.end}`}</td>
               <td>
-                {databaseInfo && databaseId && (
+                {databaseInfo?.uriLink && databaseId && (
                   <ExternalLink
                     url={processUrlTemplate(databaseInfo.uriLink, {
                       id: databaseId,
