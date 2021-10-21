@@ -106,10 +106,11 @@ const EMBLXref: FC<{
   const genBankInfo = databaseToDatabaseInfo.GenBank;
   const ddbjInfo = databaseToDatabaseInfo.DDBJ;
   const { properties, additionalIds } = xref;
-  if (!genBankInfo || !ddbjInfo) {
-    logging.warn(
-      'GenBank or DDBJ database information not found in drlineconiguration'
+  if (!databaseInfo?.uriLink || !genBankInfo?.uriLink || !ddbjInfo?.uriLink) {
+    logging.error(
+      'EMBL, GenBank or DDBJ database information not found in database configuration file'
     );
+    return null;
   }
   let proteinIdPropertyLink;
   if (properties && properties.ProteinId && properties.ProteinId !== '-') {
@@ -247,7 +248,7 @@ export const XRef: FC<XRefProps> = ({
   const linkAttributes = uniqWith(
     [
       // Main link attributes
-      { url: processUrlTemplate(uriLink, params), text },
+      { url: uriLink ? processUrlTemplate(uriLink, params) : undefined, text },
       // Property links
       ...propertyLinkAttributes,
     ],
@@ -256,11 +257,15 @@ export const XRef: FC<XRefProps> = ({
 
   return (
     <>
-      {linkAttributes.map(({ url, text }) => (
-        <ExternalLink url={url} key={url}>
-          {text}
-        </ExternalLink>
-      ))}
+      {linkAttributes.map(({ url, text }) =>
+        url ? (
+          <ExternalLink url={url} key={url}>
+            {text}
+          </ExternalLink>
+        ) : (
+          text
+        )
+      )}
       {propertyStrings}
       {isoformNode && <> {isoformNode}</>}
     </>

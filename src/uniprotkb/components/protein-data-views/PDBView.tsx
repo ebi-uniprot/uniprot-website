@@ -100,7 +100,7 @@ const PDBView: FC<{
                     <td>{d.positions}</td>
                     <td>
                       {PDBMirrorsInfo.map(({ displayName, uriLink }) =>
-                        d.id ? (
+                        d.id && uriLink ? (
                           <ExternalLink
                             url={processUrlTemplate(uriLink, { id: d.id })}
                           >
