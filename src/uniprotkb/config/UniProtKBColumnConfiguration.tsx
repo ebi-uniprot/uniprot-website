@@ -26,6 +26,7 @@ import FeatureType, {
   DiseaseAndDrugsFeatures,
   FunctionFeatures,
   SequenceFeatures,
+  SubcellularLocationFeatures,
 } from '../types/featureType';
 import FreeTextView, {
   TextView,
@@ -86,6 +87,7 @@ import { Interactant } from '../adapters/interactionConverter';
 
 import helper from '../../shared/styles/helper.module.scss';
 import { diseaseAndDrugsFeaturesToColumns } from '../adapters/diseaseAndDrugs';
+import { subcellularLocationFeaturesToColumns } from '../adapters/subcellularLocationConverter';
 
 export const defaultColumns = [
   UniProtKBColumn.accession,
@@ -409,6 +411,21 @@ for (const featureType in diseaseAndDrugsFeaturesToColumns) {
     UniProtKBColumnConfiguration.set(
       diseaseAndDrugsFeaturesToColumns[typedFeatureType],
       getFeatureColumn(typedFeatureType, EntrySection.DiseaseAndDrugs)
+    );
+  }
+}
+
+for (const featureType in subcellularLocationFeaturesToColumns) {
+  if (
+    Object.prototype.hasOwnProperty.call(
+      subcellularLocationFeaturesToColumns,
+      featureType
+    )
+  ) {
+    const typedFeatureType = featureType as SubcellularLocationFeatures;
+    UniProtKBColumnConfiguration.set(
+      subcellularLocationFeaturesToColumns[typedFeatureType],
+      getFeatureColumn(typedFeatureType, EntrySection.SubCellularLocation)
     );
   }
 }
@@ -957,18 +974,6 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccToxicDose, {
   },
 });
 
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftIntramem,
-  getFeatureColumn('Intramembrane', EntrySection.SubCellularLocation)
-);
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftTopDom,
-  getFeatureColumn('Topological domain', EntrySection.SubCellularLocation)
-);
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftTransmem,
-  getFeatureColumn('Transmembrane', EntrySection.SubCellularLocation)
-);
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftChain,
   getFeatureColumn('Chain', EntrySection.ProteinProcessing)

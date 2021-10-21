@@ -5,9 +5,6 @@ type OtherType =
   | 'Transit peptide'
   | 'Chain'
   | 'Peptide'
-  | 'Topological domain'
-  | 'Transmembrane'
-  | 'Intramembrane'
   | 'Domain'
   | 'Repeat'
   | 'Calcium binding'
@@ -58,10 +55,16 @@ export type FunctionFeatures =
   | 'Binding site'
   | 'Site';
 
+export type SubcellularLocationFeatures =
+  | 'Intramembrane'
+  | 'Topological domain'
+  | 'Transmembrane';
+
 type FeatureType =
   | OtherType
   | FunctionFeatures
   | SequenceFeatures
-  | DiseaseAndDrugsFeatures;
+  | DiseaseAndDrugsFeatures
+  | SubcellularLocationFeatures;
 
 export default FeatureType;
