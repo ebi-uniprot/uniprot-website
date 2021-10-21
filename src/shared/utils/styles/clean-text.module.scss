@@ -1,7 +1,4 @@
-.heading {
+// Put classes to apply to the cleanText tranform here
+.strong-block {
   display: block;
-
-  &::after {
-    content: ':';
-  }
 }

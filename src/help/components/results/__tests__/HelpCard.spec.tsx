@@ -31,12 +31,12 @@ describe('HelpCard tests', () => {
     );
     expect(asFragment()).toMatchSnapshot();
 
-    const clean = (html: string | undefined) =>
+    const clean = (html?: string) =>
       cleanText(html, { allowedTags: [], allowedAttributes: {} });
 
     // Content match
     const card = screen.getByTestId('help-card').children[1];
-    expect(card).toHaveTextContent(clean(contentMatch));
+    expect(card).toHaveTextContent(clean(contentMatch || ''));
 
     // Title match
     expect(screen.getByTestId('help-title')).toHaveTextContent(
