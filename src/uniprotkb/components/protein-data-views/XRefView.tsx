@@ -108,7 +108,7 @@ const EMBLXref: FC<{
   const { properties, additionalIds } = xref;
   if (!databaseInfo?.uriLink || !genBankInfo?.uriLink || !ddbjInfo?.uriLink) {
     logging.error(
-      'EMBL, GenBank or DDBJ database information not found in drlineconiguration'
+      'EMBL, GenBank or DDBJ database information not found in database configuration file'
     );
     return null;
   }
