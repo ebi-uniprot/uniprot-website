@@ -11,7 +11,7 @@ import TaxonomyView, {
 import { UniProtkbUIModel } from '../adapters/uniProtkbConverter';
 import ProteomesView from '../components/protein-data-views/ProteomesView';
 import FeaturesView from '../components/protein-data-views/UniProtKBFeaturesView';
-import EntrySection from '../types/entrySection';
+import EntrySection, { EntrySectionWithFeatures } from '../types/entrySection';
 import {
   SequenceCautionView,
   MassSpectrometryView,
@@ -110,14 +110,7 @@ export const primaryKeyColumns = [UniProtKBColumn.accession];
 
 const getFeatureColumn = (
   type: FeatureType,
-  section:
-    | EntrySection.DiseaseAndDrugs
-    | EntrySection.FamilyAndDomains
-    | EntrySection.Function
-    | EntrySection.ProteinProcessing
-    | EntrySection.Sequence
-    | EntrySection.Structure
-    | EntrySection.SubCellularLocation
+  section: EntrySectionWithFeatures
 ) => ({
   label: type,
   render: (data: UniProtkbUIModel) => {
@@ -382,108 +375,49 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ftVariant, {
   ),
 });
 
-// TODO abstract to function
-
-for (const featureType in functionFeaturesToColumns) {
-  if (
-    Object.prototype.hasOwnProperty.call(functionFeaturesToColumns, featureType)
-  ) {
-    const typedFeatureType = featureType as FunctionFeatures;
-    UniProtKBColumnConfiguration.set(
-      functionFeaturesToColumns[typedFeatureType],
-      getFeatureColumn(typedFeatureType, EntrySection.Function)
-    );
+function addFeaturesToConfiguration<T extends FeatureType>(
+  featuresToColumns: Record<T, UniProtKBColumn>,
+  section: EntrySectionWithFeatures
+) {
+  for (const featureType in featuresToColumns) {
+    if (Object.prototype.hasOwnProperty.call(featuresToColumns, featureType)) {
+      const typedFeatureType = featureType as T;
+      UniProtKBColumnConfiguration.set(
+        featuresToColumns[typedFeatureType],
+        getFeatureColumn(typedFeatureType, section)
+      );
+    }
   }
 }
 
-for (const featureType in sequenceFeaturesToColumns) {
-  if (
-    Object.prototype.hasOwnProperty.call(sequenceFeaturesToColumns, featureType)
-  ) {
-    const typedFeatureType = featureType as SequenceFeatures;
-    UniProtKBColumnConfiguration.set(
-      sequenceFeaturesToColumns[typedFeatureType],
-      getFeatureColumn(typedFeatureType, EntrySection.Sequence)
-    );
-  }
-}
-
-for (const featureType in diseaseAndDrugsFeaturesToColumns) {
-  if (
-    Object.prototype.hasOwnProperty.call(
-      diseaseAndDrugsFeaturesToColumns,
-      featureType
-    )
-  ) {
-    const typedFeatureType = featureType as DiseaseAndDrugsFeatures;
-    UniProtKBColumnConfiguration.set(
-      diseaseAndDrugsFeaturesToColumns[typedFeatureType],
-      getFeatureColumn(typedFeatureType, EntrySection.DiseaseAndDrugs)
-    );
-  }
-}
-
-for (const featureType in subcellularLocationFeaturesToColumns) {
-  if (
-    Object.prototype.hasOwnProperty.call(
-      subcellularLocationFeaturesToColumns,
-      featureType
-    )
-  ) {
-    const typedFeatureType = featureType as SubcellularLocationFeatures;
-    UniProtKBColumnConfiguration.set(
-      subcellularLocationFeaturesToColumns[typedFeatureType],
-      getFeatureColumn(typedFeatureType, EntrySection.SubCellularLocation)
-    );
-  }
-}
-
-for (const featureType in proteinProcessingFeaturesToColumns) {
-  if (
-    Object.prototype.hasOwnProperty.call(
-      proteinProcessingFeaturesToColumns,
-      featureType
-    )
-  ) {
-    const typedFeatureType = featureType as ProteinProcessingFeatures;
-    UniProtKBColumnConfiguration.set(
-      proteinProcessingFeaturesToColumns[typedFeatureType],
-      getFeatureColumn(typedFeatureType, EntrySection.ProteinProcessing)
-    );
-  }
-}
-
-for (const featureType in structureFeaturesToColumns) {
-  if (
-    Object.prototype.hasOwnProperty.call(
-      structureFeaturesToColumns,
-      featureType
-    )
-  ) {
-    const typedFeatureType = featureType as StructureFeatures;
-    UniProtKBColumnConfiguration.set(
-      structureFeaturesToColumns[typedFeatureType],
-      getFeatureColumn(typedFeatureType, EntrySection.Structure)
-    );
-  }
-}
-
-for (const featureType in familyAndDomainsFeaturesToColumns) {
-  if (
-    Object.prototype.hasOwnProperty.call(
-      familyAndDomainsFeaturesToColumns,
-      featureType
-    )
-  ) {
-    const typedFeatureType = featureType as FamilyAndDomainsFeatures;
-    UniProtKBColumnConfiguration.set(
-      familyAndDomainsFeaturesToColumns[typedFeatureType],
-      getFeatureColumn(typedFeatureType, EntrySection.FamilyAndDomains)
-    );
-  }
-}
-
-// TODO END
+addFeaturesToConfiguration<FunctionFeatures>(
+  functionFeaturesToColumns,
+  EntrySection.Function
+);
+addFeaturesToConfiguration<SequenceFeatures>(
+  sequenceFeaturesToColumns,
+  EntrySection.Sequence
+);
+addFeaturesToConfiguration<DiseaseAndDrugsFeatures>(
+  diseaseAndDrugsFeaturesToColumns,
+  EntrySection.DiseaseAndDrugs
+);
+addFeaturesToConfiguration<SubcellularLocationFeatures>(
+  subcellularLocationFeaturesToColumns,
+  EntrySection.SubCellularLocation
+);
+addFeaturesToConfiguration<ProteinProcessingFeatures>(
+  proteinProcessingFeaturesToColumns,
+  EntrySection.ProteinProcessing
+);
+addFeaturesToConfiguration<StructureFeatures>(
+  structureFeaturesToColumns,
+  EntrySection.Structure
+);
+addFeaturesToConfiguration<FamilyAndDomainsFeatures>(
+  familyAndDomainsFeaturesToColumns,
+  EntrySection.FamilyAndDomains
+);
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPolymorphism, {
   label: 'polymorphism',

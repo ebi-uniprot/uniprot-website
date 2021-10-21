@@ -1,16 +1,3 @@
-type OtherType =
-  | 'Calcium binding'
-  | 'Zinc finger'
-  | 'DNA binding'
-  | 'Nucleotide binding'
-  | 'Coiled coil'
-  | 'Active site'
-  | 'Metal binding'
-  | 'Binding site'
-  | 'Site'
-  | 'Natural variant'
-  | 'Other'; // For anything else
-
 export type SequenceFeatures =
   | 'Compositional bias'
   | 'Non-standard residue'
@@ -63,6 +50,8 @@ export type FamilyAndDomainsFeatures =
   | 'Repeat'
   | 'Motif'
   | 'Compositional bias';
+
+type OtherType = 'Natural variant' | 'Other'; // For anything else
 
 type FeatureType =
   | OtherType
