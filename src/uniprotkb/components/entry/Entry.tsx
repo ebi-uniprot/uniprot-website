@@ -245,7 +245,7 @@ const Entry: FC = () => {
     // (I hope) I know what I'm doing here, I want to stick with whatever value
     // match?.params.subPage had when the component was mounted.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, isObsolete]);
+  }, [isObsolete]);
 
   if (
     loading ||
