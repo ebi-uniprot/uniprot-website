@@ -24,6 +24,7 @@ import {
 } from '../adapters/sequenceConverter';
 import FeatureType, {
   DiseaseAndDrugsFeatures,
+  FamilyAndDomainsFeatures,
   FunctionFeatures,
   ProteinProcessingFeatures,
   SequenceFeatures,
@@ -94,6 +95,7 @@ import helper from '../../shared/styles/helper.module.scss';
 import { diseaseAndDrugsFeaturesToColumns } from '../adapters/diseaseAndDrugs';
 import { subcellularLocationFeaturesToColumns } from '../adapters/subcellularLocationConverter';
 import { proteinProcessingFeaturesToColumns } from '../adapters/proteinProcessingConverter';
+import { familyAndDomainsFeaturesToColumns } from '../adapters/familyAndDomainsConverter';
 
 export const defaultColumns = [
   UniProtKBColumn.accession,
@@ -462,6 +464,21 @@ for (const featureType in structureFeaturesToColumns) {
     UniProtKBColumnConfiguration.set(
       structureFeaturesToColumns[typedFeatureType],
       getFeatureColumn(typedFeatureType, EntrySection.Structure)
+    );
+  }
+}
+
+for (const featureType in familyAndDomainsFeaturesToColumns) {
+  if (
+    Object.prototype.hasOwnProperty.call(
+      familyAndDomainsFeaturesToColumns,
+      featureType
+    )
+  ) {
+    const typedFeatureType = featureType as FamilyAndDomainsFeatures;
+    UniProtKBColumnConfiguration.set(
+      familyAndDomainsFeaturesToColumns[typedFeatureType],
+      getFeatureColumn(typedFeatureType, EntrySection.FamilyAndDomains)
     );
   }
 }
@@ -1055,14 +1072,6 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.version, {
   label: 'Version',
   render: (data) => data[EntrySection.Sequence]?.entryAudit?.entryVersion,
 });
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftDomain,
-  getFeatureColumn('Domain', EntrySection.FamilyAndDomains)
-);
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftMotif,
-  getFeatureColumn('Motif', EntrySection.FamilyAndDomains)
-);
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinFamilies, {
   label: 'Protein Families',
@@ -1075,15 +1084,6 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinFamilies, {
     return <FreeTextView comments={familiesData} noEvidence />;
   },
 });
-
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftRegion,
-  getFeatureColumn('Region', EntrySection.FamilyAndDomains)
-);
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftRepeat,
-  getFeatureColumn('Repeat', EntrySection.FamilyAndDomains)
-);
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSimilarity, {
   label: 'Sequence Similarities',

@@ -1,13 +1,9 @@
 type OtherType =
-  | 'Domain'
-  | 'Repeat'
   | 'Calcium binding'
   | 'Zinc finger'
   | 'DNA binding'
   | 'Nucleotide binding'
-  | 'Region'
   | 'Coiled coil'
-  | 'Motif'
   | 'Active site'
   | 'Metal binding'
   | 'Binding site'
@@ -61,6 +57,13 @@ export type ProteinProcessingFeatures =
 
 export type StructureFeatures = 'Helix' | 'Beta strand' | 'Turn';
 
+export type FamilyAndDomainsFeatures =
+  | 'Domain'
+  | 'Region'
+  | 'Repeat'
+  | 'Motif'
+  | 'Compositional bias';
+
 type FeatureType =
   | OtherType
   | FunctionFeatures
@@ -68,6 +71,7 @@ type FeatureType =
   | DiseaseAndDrugsFeatures
   | SubcellularLocationFeatures
   | ProteinProcessingFeatures
-  | StructureFeatures;
+  | StructureFeatures
+  | FamilyAndDomainsFeatures;
 
 export default FeatureType;
