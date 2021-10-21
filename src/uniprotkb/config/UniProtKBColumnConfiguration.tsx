@@ -19,7 +19,7 @@ import {
   IsoformView,
 } from '../../shared/components/entry/SequenceView';
 import { fragmentFlags } from '../adapters/sequenceConverter';
-import FeatureType from '../types/featureType';
+import FeatureType, { FunctionType } from '../types/featureType';
 import FreeTextView, {
   TextView,
 } from '../components/protein-data-views/FreeTextView';
@@ -372,12 +372,20 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ftVariant, {
   ),
 });
 
-featuresCategoriesToColumns.forEach((column, featureCategory) => {
-  UniProtKBColumnConfiguration.set(
-    column,
-    getFeatureColumn(featureCategory, EntrySection.Function)
-  );
-});
+for (const featureType in featuresCategoriesToColumns) {
+  if (
+    Object.prototype.hasOwnProperty.call(
+      featuresCategoriesToColumns,
+      featureType
+    )
+  ) {
+    const typedFeatureType = featureType as FunctionType;
+    UniProtKBColumnConfiguration.set(
+      featuresCategoriesToColumns[typedFeatureType],
+      getFeatureColumn(typedFeatureType, EntrySection.Function)
+    );
+  }
+}
 
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftNonCon,

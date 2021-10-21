@@ -10,7 +10,7 @@ import {
   FreeTextComment,
 } from '../types/commentTypes';
 import KeywordCategory from '../types/keywordCategory';
-import FeatureType, { FunctionType } from '../types/featureType';
+import { FunctionType } from '../types/featureType';
 import EntrySection from '../types/entrySection';
 import { convertSection, UIModel } from './sectionConverter';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
@@ -79,43 +79,27 @@ const keywordsCategories: KeywordCategory[] = [
   'Ligand',
 ];
 
-// const featuresCategories: FunctionType[] = [
-//   'Domain',
-//   'Repeat',
-//   'Calcium binding',
-//   'Zinc finger',
-//   'DNA binding',
-//   'Nucleotide binding',
-//   'Region',
-//   'Coiled coil',
-//   'Motif',
-//   'Active site',
-//   'Metal binding',
-//   'Binding site',
-//   'Site',
-// ];
+export const featuresCategoriesToColumns: Readonly<
+  Record<FunctionType, UniProtKBColumn>
+> = {
+  Domain: UniProtKBColumn.ftDomain,
+  Repeat: UniProtKBColumn.ftRepeat,
+  'Calcium binding': UniProtKBColumn.ftCaBind,
+  'Zinc finger': UniProtKBColumn.ftZnFing,
+  'DNA binding': UniProtKBColumn.ftDnaBind,
+  'Nucleotide binding': UniProtKBColumn.ftNpBind,
+  Region: UniProtKBColumn.ftRegion,
+  'Active site': UniProtKBColumn.ftActSite,
+  'Coiled coil': UniProtKBColumn.ftCoiled,
+  Motif: UniProtKBColumn.ftMotif,
+  'Metal binding': UniProtKBColumn.ftMetal,
+  'Binding site': UniProtKBColumn.ftBinding,
+  Site: UniProtKBColumn.ftSite,
+};
 
-export const featuresCategoriesToColumns = new Map<
-  FunctionType,
-  UniProtKBColumn
->([
-  ['Domain', UniProtKBColumn.ftDomain],
-  ['Repeat', UniProtKBColumn.ftRepeat],
-  ['Calcium binding', UniProtKBColumn.ftCaBind],
-  ['Zinc finger', UniProtKBColumn.ftZnFing],
-  ['DNA binding', UniProtKBColumn.ftDnaBind],
-  ['Nucleotide binding', UniProtKBColumn.ftNpBind],
-  ['Region', UniProtKBColumn.ftRegion],
-  ['Active site', UniProtKBColumn.ftActSite],
-  ['Coiled coil', UniProtKBColumn.ftCoiled],
-  ['Motif', UniProtKBColumn.ftMotif],
-  ['Active site', UniProtKBColumn.ftActSite],
-  ['Metal binding', UniProtKBColumn.ftMetal],
-  ['Binding site', UniProtKBColumn.ftBinding],
-  ['Site', UniProtKBColumn.ftSite],
-]);
-
-export const featureCategories = Array.from(featuresCategoriesToColumns.keys());
+export const featureCategories = Object.keys(
+  featuresCategoriesToColumns
+) as FunctionType[];
 
 const commentsCategories: CommentType[] = [
   'FUNCTION',
