@@ -27,6 +27,7 @@ import FeatureType, {
   FunctionFeatures,
   ProteinProcessingFeatures,
   SequenceFeatures,
+  StructureFeatures,
   SubcellularLocationFeatures,
 } from '../types/featureType';
 import FreeTextView, {
@@ -66,7 +67,10 @@ import {
 import DiseaseInvolvementView from '../components/protein-data-views/DiseaseInvolvementView';
 import CatalyticActivityView from '../components/protein-data-views/CatalyticActivityView';
 import VariationView from '../components/protein-data-views/VariationView';
-import { StructureUIModel } from '../adapters/structureConverter';
+import {
+  structureFeaturesToColumns,
+  StructureUIModel,
+} from '../adapters/structureConverter';
 import SubcellularLocationView from '../components/protein-data-views/SubcellularLocationView';
 import GOTermsView from '../components/protein-data-views/GOTermsView';
 import EntryTypeIcon, {
@@ -443,6 +447,21 @@ for (const featureType in proteinProcessingFeaturesToColumns) {
     UniProtKBColumnConfiguration.set(
       proteinProcessingFeaturesToColumns[typedFeatureType],
       getFeatureColumn(typedFeatureType, EntrySection.ProteinProcessing)
+    );
+  }
+}
+
+for (const featureType in structureFeaturesToColumns) {
+  if (
+    Object.prototype.hasOwnProperty.call(
+      structureFeaturesToColumns,
+      featureType
+    )
+  ) {
+    const typedFeatureType = featureType as StructureFeatures;
+    UniProtKBColumnConfiguration.set(
+      structureFeaturesToColumns[typedFeatureType],
+      getFeatureColumn(typedFeatureType, EntrySection.Structure)
     );
   }
 }
@@ -990,19 +1009,6 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccToxicDose, {
     return <FreeTextView comments={toxicData} noEvidence />;
   },
 });
-
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftStrand,
-  getFeatureColumn('Beta strand', EntrySection.Structure)
-);
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftHelix,
-  getFeatureColumn('Helix', EntrySection.Structure)
-);
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftTurn,
-  getFeatureColumn('Turn', EntrySection.Structure)
-);
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.litPubmedId, {
   label: 'Citation ID',

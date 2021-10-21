@@ -13,9 +13,6 @@ type OtherType =
   | 'Binding site'
   | 'Site'
   | 'Natural variant'
-  | 'Helix'
-  | 'Turn'
-  | 'Beta strand'
   | 'Other'; // For anything else
 
 export type SequenceFeatures =
@@ -62,12 +59,15 @@ export type ProteinProcessingFeatures =
   | 'Disulfide bond'
   | 'Cross-link';
 
+export type StructureFeatures = 'Helix' | 'Beta strand' | 'Turn';
+
 type FeatureType =
   | OtherType
   | FunctionFeatures
   | SequenceFeatures
   | DiseaseAndDrugsFeatures
   | SubcellularLocationFeatures
-  | ProteinProcessingFeatures;
+  | ProteinProcessingFeatures
+  | StructureFeatures;
 
 export default FeatureType;
