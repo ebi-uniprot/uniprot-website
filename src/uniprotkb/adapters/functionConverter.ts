@@ -79,7 +79,7 @@ const keywordsCategories: KeywordCategory[] = [
   'Ligand',
 ];
 
-export const featuresCategoriesToColumns: Readonly<
+export const functionFeaturesToColumns: Readonly<
   Record<FunctionFeatures, UniProtKBColumn>
 > = {
   Domain: UniProtKBColumn.ftDomain,
@@ -98,7 +98,7 @@ export const featuresCategoriesToColumns: Readonly<
 };
 
 export const featureCategories = Object.keys(
-  featuresCategoriesToColumns
+  functionFeaturesToColumns
 ) as FunctionFeatures[];
 
 const commentsCategories: CommentType[] = [

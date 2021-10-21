@@ -58,7 +58,7 @@ export enum UniProtKBColumn {
   ftModRes = 'ft_mod_res',
   ftMotif = 'ft_motif',
   ftMutagen = 'ft_mutagen',
-  ftNonCon = 'ft_non_con',
+  ftNonCons = 'ft_non_cons',
   ftNonStd = 'ft_non_std',
   ftNonTer = 'ft_non_ter',
   ftNpBind = 'ft_np_bind',

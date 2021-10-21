@@ -18,8 +18,14 @@ import {
   RNAEditingView,
   IsoformView,
 } from '../../shared/components/entry/SequenceView';
-import { fragmentFlags } from '../adapters/sequenceConverter';
-import FeatureType, { FunctionFeatures } from '../types/featureType';
+import {
+  fragmentFlags,
+  sequenceFeaturesToColumns,
+} from '../adapters/sequenceConverter';
+import FeatureType, {
+  FunctionFeatures,
+  SequenceFeatures,
+} from '../types/featureType';
 import FreeTextView, {
   TextView,
 } from '../components/protein-data-views/FreeTextView';
@@ -29,7 +35,7 @@ import {
   CofactorView,
 } from '../components/entry/FunctionSection';
 import {
-  featuresCategoriesToColumns,
+  functionFeaturesToColumns,
   FunctionUIModel,
   GoAspect,
   GoTerm,
@@ -324,14 +330,6 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.sequence, {
   },
 });
 
-UniProtKBColumnConfiguration.set(UniProtKBColumn.ftVarSeq, {
-  label: 'Alternative sequence',
-  render: (data) => {
-    const { featuresData } = data[EntrySection.Sequence];
-    return featuresData && <FeaturesView features={featuresData} />;
-  },
-});
-
 UniProtKBColumnConfiguration.set(UniProtKBColumn.fragment, {
   label: 'Fragment',
   render: (data) => {
@@ -372,33 +370,33 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ftVariant, {
   ),
 });
 
-for (const featureType in featuresCategoriesToColumns) {
+// TODO abstract to function
+
+for (const featureType in functionFeaturesToColumns) {
   if (
-    Object.prototype.hasOwnProperty.call(
-      featuresCategoriesToColumns,
-      featureType
-    )
+    Object.prototype.hasOwnProperty.call(functionFeaturesToColumns, featureType)
   ) {
     const typedFeatureType = featureType as FunctionFeatures;
     UniProtKBColumnConfiguration.set(
-      featuresCategoriesToColumns[typedFeatureType],
+      functionFeaturesToColumns[typedFeatureType],
       getFeatureColumn(typedFeatureType, EntrySection.Function)
     );
   }
 }
 
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftNonCon,
-  getFeatureColumn('Non-adjacent residues', EntrySection.Sequence)
-);
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftNonStd,
-  getFeatureColumn('Non-standard residue', EntrySection.Sequence)
-);
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftNonTer,
-  getFeatureColumn('Non-terminal residue', EntrySection.Sequence)
-);
+for (const featureType in sequenceFeaturesToColumns) {
+  if (
+    Object.prototype.hasOwnProperty.call(sequenceFeaturesToColumns, featureType)
+  ) {
+    const typedFeatureType = featureType as SequenceFeatures;
+    UniProtKBColumnConfiguration.set(
+      sequenceFeaturesToColumns[typedFeatureType],
+      getFeatureColumn(typedFeatureType, EntrySection.Sequence)
+    );
+  }
+}
+
+// TODO END
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPolymorphism, {
   label: 'polymorphism',
@@ -423,15 +421,6 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.errorGmodelPred, {
     return sequenceCaution && <SequenceCautionView data={sequenceCaution} />;
   },
 });
-
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftConflict,
-  getFeatureColumn('Sequence conflict', EntrySection.Sequence)
-);
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftUnsure,
-  getFeatureColumn('Sequence uncertainty', EntrySection.Sequence)
-);
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.sequenceVersion, {
   label: 'Sequence Version',
@@ -1070,10 +1059,6 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.version, {
   label: 'Version',
   render: (data) => data[EntrySection.Sequence]?.entryAudit?.entryVersion,
 });
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.ftCompbias,
-  getFeatureColumn('Compositional bias', EntrySection.FamilyAndDomains)
-);
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftDomain,
   getFeatureColumn('Domain', EntrySection.FamilyAndDomains)

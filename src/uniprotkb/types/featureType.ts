@@ -17,28 +17,30 @@ type OtherType =
   | 'Region'
   | 'Coiled coil'
   | 'Motif'
-  | 'Compositional bias'
   | 'Active site'
   | 'Metal binding'
   | 'Binding site'
   | 'Site'
-  | 'Non-standard residue'
   | 'Modified residue'
   | 'Lipidation'
   | 'Glycosylation'
   | 'Disulfide bond'
   | 'Cross-link'
-  | 'Alternative sequence'
   | 'Natural variant'
   | 'Mutagenesis'
-  | 'Sequence uncertainty'
-  | 'Sequence conflict'
-  | 'Non-adjacent residues'
-  | 'Non-terminal residue'
   | 'Helix'
   | 'Turn'
   | 'Beta strand'
   | 'Other'; // For anything else
+
+export type SequenceFeatures =
+  | 'Compositional bias'
+  | 'Non-standard residue'
+  | 'Sequence uncertainty'
+  | 'Sequence conflict'
+  | 'Non-adjacent residues'
+  | 'Non-terminal residue'
+  | 'Alternative sequence';
 
 export type FunctionFeatures =
   | 'Domain'
@@ -55,6 +57,6 @@ export type FunctionFeatures =
   | 'Binding site'
   | 'Site';
 
-type FeatureType = OtherType | FunctionFeatures;
+type FeatureType = OtherType | FunctionFeatures | SequenceFeatures;
 
 export default FeatureType;
