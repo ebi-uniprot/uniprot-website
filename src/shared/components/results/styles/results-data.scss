@@ -3,8 +3,14 @@
 .results-data {
   width: 100%;
 
-  .data-table th {
+  // only apply to the top-level table we don't want inner tables to be affected
+  .data-table > thead th {
     top: calc(#{$header-height} + #{$action-buttons-height}) !important;
+  }
+
+  .data-table protvista-datatable thead .pd-group-trigger {
+    // override when using it inside a results table
+    display: none;
   }
 
   .data-table td > .info-list {
