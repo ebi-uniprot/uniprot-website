@@ -503,11 +503,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccActivityRegulation, {
     const activityRegulationComments = data[
       EntrySection.Function
     ].commentsData.get('ACTIVITY REGULATION') as FreeTextComment[] | undefined;
-    return (
-      <ExpandableList numberCollapsedItems={1}>
-        {activityRegulationComments}
-      </ExpandableList>
-    );
+    return <FreeTextView comments={activityRegulationComments} noEvidence />;
   },
 });
 
