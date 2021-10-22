@@ -15,6 +15,7 @@ import { getEntryPath } from '../../app/config/urls';
 import parseDate from '../../shared/utils/parseDate';
 import { processUrlTemplate } from '../../uniprotkb/components/protein-data-views/XRefView';
 import evidenceUrls from '../../uniprotkb/config/evidenceUrls';
+import * as logging from '../../shared/utils/logging';
 
 import { Namespace } from '../../shared/types/namespaces';
 import {
@@ -297,9 +298,11 @@ export const getUniParcXRefsColumns = (
       return {
         label: name,
         name,
-        render: () => (
-          <div className="warning">{`${name} has no config yet`}</div>
-        ),
+        render: () => {
+          const message = `${name} has no config yet`;
+          logging.error(message);
+          return <div className="warning">{message}</div>;
+        },
       };
     }
     // In case of accession column, replace with the current template map
