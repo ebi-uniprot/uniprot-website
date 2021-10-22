@@ -177,9 +177,12 @@ const VariationView: FC<{
                   <strong>Predictions: </strong>
                   {variantFeature.predictions?.map((pred) => (
                     <div
-                      key={`${pred.predAlgorithmNameType}${
-                        pred.predictionValType
-                      }${pred.sources.join('-')}`}
+                      key={[
+                        pred.predAlgorithmNameType,
+                        pred.predictionValType,
+                        pred.score,
+                        pred.sources,
+                      ].join('-')}
                     >
                       {`${pred.predAlgorithmNameType}: ${pred.predictionValType} (${pred.score})`}
                     </div>
@@ -192,7 +195,7 @@ const VariationView: FC<{
                 <div>
                   <strong>Disease association: </strong>
                   {variantFeature.association?.map((association) => (
-                    <div key={association.name}>
+                    <div key={`${association.name}-${association.description}`}>
                       {association.name}
                       <UniProtKBEvidenceTag
                         evidences={association.evidences.map((evidence) => ({
