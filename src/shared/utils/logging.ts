@@ -60,7 +60,7 @@ export const warn = (...args: any[]) => {
 export const error = (...args: any[]) => {
   console.error(...args);
   sendGtagEvent('console', 'error', ...args);
-  Sentry.captureException(args[0], { extra: args[1] });
+  Sentry.captureException(args[0], { extra: args[1], tags: args[2] });
 };
 
 export const debug = (...args: any[]) => {

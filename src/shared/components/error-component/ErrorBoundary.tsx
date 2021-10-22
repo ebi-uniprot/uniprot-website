@@ -49,7 +49,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    logging.error({ error, errorInfo });
+    logging.error(error, errorInfo, { origin: 'error-boundary' });
   }
 
   render() {
