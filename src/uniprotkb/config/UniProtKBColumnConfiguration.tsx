@@ -119,7 +119,6 @@ const getFeatureColumn = (
       featuresData && (
         <FeaturesView
           features={featuresData.filter((feature) => feature.type === type)}
-          withEvidenceTags={false}
           withDataTable={false}
         />
       )
