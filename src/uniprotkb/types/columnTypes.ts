@@ -69,7 +69,7 @@ export enum UniProtKBColumn {
   ftSignal = 'ft_signal',
   ftSite = 'ft_site',
   ftStrand = 'ft_strand',
-  ftTopDom = 'ft_top_dom',
+  ftTopoDom = 'ft_topo_dom',
   ftTransit = 'ft_transit',
   ftTransmem = 'ft_transmem',
   ftTurn = 'ft_turn',

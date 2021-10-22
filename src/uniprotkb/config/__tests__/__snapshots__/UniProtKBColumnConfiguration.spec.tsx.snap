@@ -1070,7 +1070,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_site": 
 
 exports[`UniProtKBColumnConfiguration component should render column "ft_strand": ft_strand 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_top_dom": ft_top_dom 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_topo_dom": ft_topo_dom 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "ft_transit": ft_transit 1`] = `<DocumentFragment />`;
 

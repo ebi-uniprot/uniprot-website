@@ -18,7 +18,7 @@ export const subcellularLocationFeaturesToColumns: Readonly<
   Record<SubcellularLocationFeatures, UniProtKBColumn>
 > = {
   Intramembrane: UniProtKBColumn.ftIntramem,
-  'Topological domain': UniProtKBColumn.ftTopDom,
+  'Topological domain': UniProtKBColumn.ftTopoDom,
   Transmembrane: UniProtKBColumn.ftTransmem,
 };
 
