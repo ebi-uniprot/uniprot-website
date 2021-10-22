@@ -246,6 +246,7 @@ module.exports = (env, argv) => {
         filename: 'index.html',
         templateParameters: () => ({
           isDev,
+          isLiveReload,
         }),
       }),
       !isDev &&
