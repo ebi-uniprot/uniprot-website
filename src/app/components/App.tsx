@@ -41,7 +41,8 @@ if (process.env.NODE_ENV !== 'development') {
         }),
       ],
       // Proportion of sessions being used to track performance
-      tracesSampleRate: 0.1,
+      // Adjust to a lower value when we start getting enough data
+      tracesSampleRate: 0.75,
     });
   });
 }

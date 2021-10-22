@@ -4,7 +4,10 @@ import { ExpandableList } from 'franklin-sites';
 import { JournalInfo } from '../components/LiteratureCitation';
 
 import parseDate from '../../../shared/utils/parseDate';
-import cleanText from '../../../shared/utils/cleanText';
+import cleanText, {
+  cleanTextDefaultOptions,
+  getTransformTags,
+} from '../../../shared/utils/cleanText';
 import { getEntryPathFor } from '../../../app/config/urls';
 import { mapToLinks } from '../../../shared/components/MapTo';
 
@@ -112,7 +115,12 @@ CitationsColumnConfiguration.set(CitationsColumn.litAbstract, {
       <div
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{
-          __html: cleanText(citation.literatureAbstract),
+          __html: cleanText(citation.literatureAbstract, {
+            ...cleanTextDefaultOptions,
+            transformTags: {
+              ...getTransformTags('strong'),
+            },
+          }),
         }}
       />
     ),

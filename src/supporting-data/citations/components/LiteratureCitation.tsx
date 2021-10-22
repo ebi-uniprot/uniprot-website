@@ -18,7 +18,10 @@ import { Location, LocationToPath } from '../../../app/config/urls';
 import externalUrls from '../../../shared/config/externalUrls';
 
 import parseDate from '../../../shared/utils/parseDate';
-import cleanText from '../../../shared/utils/cleanText';
+import cleanText, {
+  cleanTextDefaultOptions,
+  getTransformTags,
+} from '../../../shared/utils/cleanText';
 
 import {
   CitationsAPIModel,
@@ -119,7 +122,12 @@ const Abstract: FC<AbstractProps> = ({ abstract, open = false }) => {
         <p
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{
-            __html: cleanText(abstract),
+            __html: cleanText(abstract, {
+              ...cleanTextDefaultOptions,
+              transformTags: {
+                ...getTransformTags('strong'),
+              },
+            }),
           }}
         />
       )}

@@ -13,14 +13,6 @@ exports[`Help entry tests should render the Entry component 1`] = `
       >
         What is the canonical sequence? Are all isoforms described in one entry?
       </h1>
-      <span>
-        Last modified: 
-        <time
-          datetime="2021-07-16T00:00:00.000Z"
-        >
-          Fri Jul 16 2021
-        </time>
-      </span>
       <section
         class="content card"
       >
@@ -214,6 +206,18 @@ exports[`Help entry tests should render the Entry component 1`] = `
           </div>
         </div>
       </section>
+      <div
+        class="last-updated-help"
+      >
+        <small>
+           Page last modified: 
+          <time
+            datetime="2021-07-16T00:00:00.000Z"
+          >
+            Fri Jul 16 2021
+          </time>
+        </small>
+      </div>
     </main>
   </div>
 </DocumentFragment>

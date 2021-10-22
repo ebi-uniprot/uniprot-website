@@ -24,6 +24,11 @@
   }
 }
 
+.last-updated-help {
+  text-align: center;
+  margin: 1rem 0;
+}
+
 // Reuse the SVG from franklin for the injected HTML for the help article
 .external {
   &::after {

@@ -102,24 +102,4 @@ describe('Entry', () => {
       expect(smallFacetButton2).toBeInTheDocument();
     });
   });
-
-  it('should render obsolete page for deleted entries', async () => {
-    customRender(<Entry />, {
-      route: `/uniprotkb/${deleteEntryAccession}`,
-    });
-
-    expect(
-      await screen.findByTestId('deleted-entry-message')
-    ).toBeInTheDocument();
-  });
-
-  it('should render obsolete page for demerged entries', async () => {
-    customRender(<Entry />, {
-      route: `/uniprotkb/${demergedEntryAccession}`,
-    });
-
-    expect(
-      await screen.findByTestId('demerged-entry-message')
-    ).toBeInTheDocument();
-  });
 });
