@@ -442,6 +442,17 @@ UniProtKBColumnConfiguration.set(
   getFeatureColumn('Calcium binding')
 );
 
+UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCaution, {
+  label: 'Caution',
+  render: (data) => {
+    const cautionComments = data[EntrySection.Function].commentsData.get(
+      'CAUTION'
+    ) as FreeTextComment[] | undefined;
+    console.log(cautionComments);
+    return <FreeTextView comments={cautionComments} noEvidence />;
+  },
+});
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCatalyticActivity, {
   label: 'Catalytic Activity',
   render: (data) => {
