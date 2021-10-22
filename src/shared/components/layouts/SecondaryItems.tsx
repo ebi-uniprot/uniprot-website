@@ -8,6 +8,7 @@ import {
 } from 'react';
 import { useSelector } from 'react-redux';
 import { generatePath, Link } from 'react-router-dom';
+import { schedule } from 'timing-functions';
 import { sumBy } from 'lodash-es';
 import {
   EnvelopeIcon,
@@ -21,6 +22,7 @@ import {
 import ErrorBoundary from '../error-component/ErrorBoundary';
 
 import useBasket from '../../hooks/useBasket';
+import useSafeState from '../../hooks/useSafeState';
 
 import lazy from '../../utils/lazy';
 import { pluralise } from '../../utils/utils';
@@ -77,7 +79,9 @@ const ToolsDashboard = ({ display, close }: Props) => {
           statusesToNotify.has(job.status)
       ).length
   );
-  const [dashboardButtonX, setDashboardButtonX] = useState<number>();
+  const [dashboardButtonX, setDashboardButtonX] = useSafeState<
+    number | undefined
+  >(undefined);
 
   const spanRef = useRef<HTMLSpanElement>(null);
 
@@ -86,9 +90,11 @@ const ToolsDashboard = ({ display, close }: Props) => {
       return;
     }
     const ro = new window.ResizeObserver(() => {
-      if (spanRef.current) {
-        setDashboardButtonX(getArrowX(spanRef.current));
-      }
+      schedule().then(() => {
+        if (spanRef.current) {
+          setDashboardButtonX(getArrowX(spanRef.current));
+        }
+      });
     });
     ro.observe(document.body);
     // eslint-disable-next-line consistent-return
@@ -145,7 +151,9 @@ const ToolsDashboard = ({ display, close }: Props) => {
 
 export const Basket = ({ display, close }: Props) => {
   const [basket] = useBasket();
-  const [basketButtonX, setBasketButtonX] = useState<number>();
+  const [basketButtonX, setBasketButtonX] = useSafeState<number | undefined>(
+    undefined
+  );
 
   const spanRef = useRef<HTMLSpanElement>(null);
 
@@ -154,9 +162,11 @@ export const Basket = ({ display, close }: Props) => {
       return;
     }
     const ro = new window.ResizeObserver(() => {
-      if (spanRef.current) {
-        setBasketButtonX(getArrowX(spanRef.current));
-      }
+      schedule().then(() => {
+        if (spanRef.current) {
+          setBasketButtonX(getArrowX(spanRef.current));
+        }
+      });
     });
     ro.observe(document.body);
     // eslint-disable-next-line consistent-return
