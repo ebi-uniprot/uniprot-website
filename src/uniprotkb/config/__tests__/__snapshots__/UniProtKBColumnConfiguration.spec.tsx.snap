@@ -1721,6 +1721,8 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_dosac
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_drugbank": xref_drugbank 1`] = `<DocumentFragment />`;
 
+exports[`UniProtKBColumnConfiguration component should render column "xref_drugcentral": xref_drugcentral 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render column "xref_echobase": xref_echobase 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_eggnog": xref_eggnog 1`] = `<DocumentFragment />`;
@@ -1813,6 +1815,8 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_genom
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_glyconnect": xref_glyconnect 1`] = `<DocumentFragment />`;
 
+exports[`UniProtKBColumnConfiguration component should render column "xref_glygen": xref_glygen 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render column "xref_go": xref_go 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_gramene": xref_gramene 1`] = `<DocumentFragment />`;
@@ -1887,6 +1891,8 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_ortho
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_panther": xref_panther 1`] = `<DocumentFragment />`;
 
+exports[`UniProtKBColumnConfiguration component should render column "xref_pathwaycommons": xref_pathwaycommons 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render column "xref_patric": xref_patric 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_paxdb": xref_paxdb 1`] = `<DocumentFragment />`;
@@ -1904,6 +1910,8 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_perox
 exports[`UniProtKBColumnConfiguration component should render column "xref_pfam": xref_pfam 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_pharmgkb": xref_pharmgkb 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "xref_pharos": xref_pharos 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_phi-base": xref_phi-base 1`] = `<DocumentFragment />`;
 
@@ -1946,6 +1954,8 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_refse
 exports[`UniProtKBColumnConfiguration component should render column "xref_reproduction-2dpage": xref_reproduction-2dpage 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_rgd": xref_rgd 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "xref_rnact": xref_rnact 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_sabio-rk": xref_sabio-rk 1`] = `<DocumentFragment />`;
 
