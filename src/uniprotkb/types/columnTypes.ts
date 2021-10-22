@@ -1,4 +1,4 @@
-// Maps to search /api/configure/uniprotkb/result-fields
+// Maps to 'name' attributes in /api/configure/uniprotkb/result-fields
 // To extract all as a text list:
 //     curl -s <prefix>/api/configure/uniprotkb/result-fields | jq '..|.name? | strings'
 // And to create a CSV string so this can be pasted into the developer application's localstorage entry pipe the above to:
