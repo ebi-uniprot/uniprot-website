@@ -47,7 +47,6 @@ type FeatureProps = {
   sequence?: string;
   features: FeatureData;
   withTitle?: boolean;
-  withEvidenceTags?: boolean;
   withDataTable?: boolean;
 };
 
@@ -77,7 +76,6 @@ const UniProtKBFeaturesView: FC<FeatureProps> = ({
   sequence,
   features,
   withTitle = true,
-  withEvidenceTags = true,
   withDataTable = true,
 }): JSX.Element | null => {
   const processedData = useMemo(
@@ -112,9 +110,7 @@ const UniProtKBFeaturesView: FC<FeatureProps> = ({
               }-${feature.endModifier === 'UNKNOWN' ? '?' : feature.end}`}</td>
               <td>
                 {feature.description}
-                {withEvidenceTags && (
-                  <UniProtKBEvidenceTag evidences={feature.evidences} />
-                )}
+                <UniProtKBEvidenceTag evidences={feature.evidences} />
               </td>
             </tr>
             {feature.sequence && (
