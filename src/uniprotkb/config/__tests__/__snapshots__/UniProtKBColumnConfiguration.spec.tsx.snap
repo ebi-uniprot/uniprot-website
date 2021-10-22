@@ -968,7 +968,77 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_ca_bind
 
 exports[`UniProtKBColumnConfiguration component should render column "ft_carbohyd": ft_carbohyd 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_chain": ft_chain 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_chain": ft_chain 1`] = `
+<DocumentFragment>
+  <table
+    class="data-table--compact"
+  >
+    <thead>
+      <tr>
+        <th
+          data-filter="type"
+        >
+          Type
+        </th>
+        <th>
+          ID
+        </th>
+        <th>
+          Positions
+        </th>
+        <th>
+          Description
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        data-end="8"
+        data-id="id value CHAIN"
+        data-start="2"
+      >
+        <td
+          data-filter="type"
+          data-filter-value="Chain"
+        >
+          Chain
+        </td>
+        <td>
+          id value CHAIN
+        </td>
+        <td>
+          2-8
+        </td>
+        <td>
+          description value 123
+          <button
+            aria-controls="0"
+            aria-expanded="false"
+            class="svg-colour-reviewed evidence-tag"
+            data-testid="evidence-tag-trigger"
+            type="button"
+          >
+            <test-file-stub
+              height="12"
+              width="12"
+            />
+            <span
+              class="evidence-tag__label"
+            >
+              1 publication
+            </span>
+          </button>
+          <div
+            class="evidence-tag-content "
+            data-testid="evidence-tag-content"
+            id="0"
+          />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;
 
 exports[`UniProtKBColumnConfiguration component should render column "ft_coiled": ft_coiled 1`] = `<DocumentFragment />`;
 
@@ -978,7 +1048,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_conflic
 
 exports[`UniProtKBColumnConfiguration component should render column "ft_crosslnk": ft_crosslnk 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_disulfide": ft_disulfide 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_disulfid": ft_disulfid 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "ft_dna_bind": ft_dna_bind 1`] = `<DocumentFragment />`;
 
@@ -1000,7 +1070,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_motif":
 
 exports[`UniProtKBColumnConfiguration component should render column "ft_mutagen": ft_mutagen 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_non_con": ft_non_con 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_non_cons": ft_non_cons 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "ft_non_std": ft_non_std 1`] = `<DocumentFragment />`;
 
@@ -1022,7 +1092,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_site": 
 
 exports[`UniProtKBColumnConfiguration component should render column "ft_strand": ft_strand 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_top_dom": ft_top_dom 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_topo_dom": ft_topo_dom 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "ft_transit": ft_transit 1`] = `<DocumentFragment />`;
 

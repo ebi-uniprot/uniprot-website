@@ -1,14 +1,21 @@
 import { CommentType } from '../types/commentTypes';
 import KeywordCategory from '../types/keywordCategory';
-import FeatureType from '../types/featureType';
+import { DiseaseAndDrugsFeatures } from '../types/featureType';
 import { convertSection } from './sectionConverter';
 import EntrySection from '../types/entrySection';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
 import { Xref } from '../../shared/types/apiModel';
+import { UniProtKBColumn } from '../types/columnTypes';
 
 const keywordsCategories: KeywordCategory[] = ['Disease'];
 
-const featuresCategories: FeatureType[] = ['Mutagenesis'];
+export const diseaseAndDrugsFeaturesToColumns: Readonly<
+  Record<DiseaseAndDrugsFeatures, UniProtKBColumn>
+> = { Mutagenesis: UniProtKBColumn.ftMutagen };
+
+const featuresCategories = Object.keys(
+  diseaseAndDrugsFeaturesToColumns
+) as DiseaseAndDrugsFeatures[];
 
 const commentsCategories: CommentType[] = [
   'DISEASE',

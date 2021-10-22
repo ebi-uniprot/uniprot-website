@@ -5,7 +5,7 @@ import {
   KeywordUIModel,
 } from '../utils/KeywordsUtil';
 import KeywordCategory from '../types/keywordCategory';
-import FeatureType from '../types/featureType';
+import FeatureType, { SequenceFeatures } from '../types/featureType';
 import {
   getXrefsForSection,
   XrefUIModel,
@@ -22,6 +22,7 @@ import {
 } from '../types/commentTypes';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
 import { Xref } from '../../shared/types/apiModel';
+import { UniProtKBColumn } from '../types/columnTypes';
 
 export type Flag =
   | 'Precursor'
@@ -64,15 +65,21 @@ const keywordsCategories: KeywordCategory[] = [
   'Technical term',
 ];
 
-const featuresCategories: FeatureType[] = [
-  'Compositional bias',
-  'Non-standard residue',
-  'Sequence uncertainty',
-  'Sequence conflict',
-  'Non-adjacent residues',
-  'Non-terminal residue',
-  'Alternative sequence',
-];
+export const sequenceFeaturesToColumns: Readonly<
+  Record<SequenceFeatures, UniProtKBColumn>
+> = {
+  'Compositional bias': UniProtKBColumn.ftCompbias,
+  'Non-standard residue': UniProtKBColumn.ftNonStd,
+  'Sequence uncertainty': UniProtKBColumn.ftUnsure,
+  'Sequence conflict': UniProtKBColumn.ftConflict,
+  'Non-adjacent residues': UniProtKBColumn.ftNonCons,
+  'Non-terminal residue': UniProtKBColumn.ftNonTer,
+  'Alternative sequence': UniProtKBColumn.ftVarSeq,
+};
+
+export const featuresCategories = Object.keys(
+  sequenceFeaturesToColumns
+) as FeatureType[];
 
 export const fragmentFlags = new Set<Flag>([
   'Fragment',

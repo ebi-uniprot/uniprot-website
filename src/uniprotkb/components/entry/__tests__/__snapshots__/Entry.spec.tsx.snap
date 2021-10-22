@@ -2385,7 +2385,9 @@ exports[`Entry basic should render main 1`] = `
                     <protvista-datatable
                       filter-scroll="true"
                     >
-                      <table>
+                      <table
+                        class=""
+                      >
                         <thead>
                           <tr>
                             <th
