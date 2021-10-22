@@ -1,0 +1,38 @@
+{
+  "short_name": "UniProt",
+  "name": "UniProt website",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/?source=pwa",
+  "background_color": "#00639a",
+  "display": "minimal-ui",
+  "scope": "/",
+  "theme_color": "#00639a",
+  "shortcuts": [
+    {
+      "name": "BLAST a sequence",
+      "short_name": "BLAST",
+      "description": "BLAST a sequence within the UniProt website",
+      "url": "/blast?source=pwa",
+      "icons": [{ "src": "/android-chrome-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Align sequences",
+      "short_name": "Align",
+      "description": "Align sequences within the UniProt website",
+      "url": "/align?source=pwa",
+      "icons": [{ "src": "/android-chrome-192x192.png", "sizes": "192x192" }]
+    }
+  ],
+  "description": "UniProt is the world’s leading high-quality, comprehensive and freely accessible resource of protein sequence and functional information."
+}

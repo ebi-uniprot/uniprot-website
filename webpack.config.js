@@ -239,7 +239,7 @@ module.exports = (env, argv) => {
       !isLiveReload &&
         // Copy static (or near-static) files
         new CopyPlugin({
-          patterns: [{ from: 'static/robots.txt' }],
+          patterns: [{ from: 'static' }],
         }),
       new HtmlWebPackPlugin({
         template: `${__dirname}/index.html`,
