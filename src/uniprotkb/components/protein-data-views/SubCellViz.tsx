@@ -231,7 +231,7 @@ const SubCellViz: FC<Props> = memo(
         }
         #swissbiopic > h1::after {
           font-size: 1rem;
-          content: 'No specific UniProt annotation available regarding subcellular location';
+          content: 'No specific UniProt annotations available regarding subcellular location';
         }
         .subcell_name {
           display: none;
