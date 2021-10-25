@@ -37,6 +37,7 @@ export enum ECO {
   MIXA = 213,
   SGNM = 260,
   SGNA = 259,
+  STR = 7829,
 }
 
 enum labels {
@@ -296,6 +297,15 @@ export const getEvidenceCodeData = (eco: string): EvidenceData | null => {
         description:
           'Match to InterPro member signature evidence used in automatic assertion',
         labelRender: () => labels.INTERPRO,
+      };
+    case ECO.STR:
+      return {
+        manual: false,
+        label:
+          'Automatic assertion inferred from combination of experimental and computational evidence',
+        description:
+          'Information inferred from a combination of experimental and computational evidence, without manual validation',
+        labelRender: () => labels.COMBINED,
       };
     default:
       logging.warn(`Evidence code not found: ${eco}`);
