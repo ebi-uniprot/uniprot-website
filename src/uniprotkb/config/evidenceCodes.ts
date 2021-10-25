@@ -37,7 +37,8 @@ export enum ECO {
   MIXA = 213,
   SGNM = 260,
   SGNA = 259,
-  STR = 7829,
+  CMBA = 7829,
+  CMBM = 7744,
 }
 
 enum labels {
@@ -298,13 +299,22 @@ export const getEvidenceCodeData = (eco: string): EvidenceData | null => {
           'Match to InterPro member signature evidence used in automatic assertion',
         labelRender: () => labels.INTERPRO,
       };
-    case ECO.STR:
+    case ECO.CMBA:
       return {
         manual: false,
         label:
           'Automatic assertion inferred from combination of experimental and computational evidence',
         description:
           'Information inferred from a combination of experimental and computational evidence, without manual validation',
+        labelRender: () => labels.COMBINED,
+      };
+    case ECO.CMBM:
+      return {
+        manual: true,
+        label:
+          'Manual assertion inferred from combination of experimental and computational evidence',
+        description:
+          'Manually validated information inferred from a combination of experimental and computational evidence.',
         labelRender: () => labels.COMBINED,
       };
     default:
