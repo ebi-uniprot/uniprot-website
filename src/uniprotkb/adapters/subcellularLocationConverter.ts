@@ -5,18 +5,26 @@ import { UniProtkbAPIModel } from './uniProtkbConverter';
 import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { Xref } from '../../shared/types/apiModel';
 import KeywordCategory from '../types/keywordCategory';
-import FeatureType from '../types/featureType';
+import { SubcellularLocationFeatures } from '../types/featureType';
 import { CommentType } from '../types/commentTypes';
 import { Evidence, GoEvidenceType } from '../types/modelTypes';
+import { UniProtKBColumn } from '../types/columnTypes';
 
 const commentCategories: CommentType[] = ['SUBCELLULAR LOCATION'];
 
 const keywordsCategories: KeywordCategory[] = ['Cellular component'];
 
-const featuresCategories: FeatureType[] = [
-  'Topological domain',
-  'Transmembrane',
-];
+export const subcellularLocationFeaturesToColumns: Readonly<
+  Record<SubcellularLocationFeatures, UniProtKBColumn>
+> = {
+  Intramembrane: UniProtKBColumn.ftIntramem,
+  'Topological domain': UniProtKBColumn.ftTopoDom,
+  Transmembrane: UniProtKBColumn.ftTransmem,
+};
+
+const featuresCategories = Object.keys(
+  subcellularLocationFeaturesToColumns
+) as SubcellularLocationFeatures[];
 
 // Select xref go terms which are cellular components and discard the rest.
 // P: biological process

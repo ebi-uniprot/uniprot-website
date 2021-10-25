@@ -38,6 +38,7 @@ type FeatureProps<T> = {
   table: JSX.Element;
   trackHeight?: number;
   sequence?: string;
+  withTitle?: boolean;
 };
 
 // ProcessedFeature | TransformedVariant | UniParcProcessedFeature
@@ -46,7 +47,7 @@ const FeaturesView = <
 >(
   props: FeatureProps<T>
 ) => {
-  const { sequence, features, table, trackHeight } = props;
+  const { sequence, features, table, trackHeight, withTitle = true } = props;
   const navigationDefined = useCustomElement(
     /* istanbul ignore next */
     () =>
@@ -110,8 +111,12 @@ const FeaturesView = <
 
   return (
     <>
-      <h3>Features</h3>
-      <p>Showing features for {featureTypes.join(', ')}.</p>
+      {withTitle && (
+        <>
+          <h3>Features</h3>
+          <p>Showing features for {featureTypes.join(', ')}.</p>
+        </>
+      )}
       <protvista-manager attributes="highlight displaystart displayend selectedid">
         {sequence && (
           <>

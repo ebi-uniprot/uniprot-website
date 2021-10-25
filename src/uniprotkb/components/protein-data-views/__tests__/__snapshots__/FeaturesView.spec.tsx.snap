@@ -54,7 +54,9 @@ exports[`FeaturesView component it renders without crashing 1`] = `
     <protvista-datatable
       filter-scroll="true"
     >
-      <table>
+      <table
+        class=""
+      >
         <thead>
           <tr>
             <th

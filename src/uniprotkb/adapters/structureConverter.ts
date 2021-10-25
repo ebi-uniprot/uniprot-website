@@ -1,9 +1,10 @@
 import { groupBy } from 'lodash-es';
-import FeatureType from '../types/featureType';
+import { StructureFeatures } from '../types/featureType';
 import { convertSection, UIModel } from './sectionConverter';
 import EntrySection from '../types/entrySection';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
 import { Xref } from '../../shared/types/apiModel';
+import { UniProtKBColumn } from '../types/columnTypes';
 
 type GroupedStructureInfo = { [key: string]: Xref[] };
 
@@ -11,7 +12,17 @@ export type StructureUIModel = {
   structures?: GroupedStructureInfo;
 } & UIModel;
 
-const featuresCategories: FeatureType[] = ['Helix', 'Beta strand'];
+export const structureFeaturesToColumns: Readonly<
+  Record<StructureFeatures, UniProtKBColumn>
+> = {
+  Helix: UniProtKBColumn.ftHelix,
+  'Beta strand': UniProtKBColumn.ftStrand,
+  Turn: UniProtKBColumn.ftTurn,
+};
+
+const featuresCategories = Object.keys(
+  structureFeaturesToColumns
+) as StructureFeatures[];
 
 const convertStructure = (
   data: UniProtkbAPIModel,

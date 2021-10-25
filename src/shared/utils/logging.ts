@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
+import * as Sentry from '@sentry/react';
 import { JsonValue } from 'type-fest';
 
 // Expand as we add more events
@@ -41,22 +42,28 @@ export const sendGtagEvent = (
   }
 };
 
-export const log = (message: any) => {
-  console.log(message);
-  sendGtagEvent('console', 'log', message);
+export const log = (...args: any[]) => {
+  console.log(...args);
+  sendGtagEvent('console', 'log', ...args);
+  Sentry.captureMessage(args[0], { extra: args[1] });
 };
 
-export const warn = (message: any) => {
-  console.warn(message);
-  sendGtagEvent('console', 'warn', message);
+export const warn = (...args: any[]) => {
+  console.warn(...args);
+  sendGtagEvent('console', 'warn', ...args);
+  Sentry.captureMessage(args[0], {
+    extra: args[1],
+    level: Sentry.Severity.Warning,
+  });
 };
 
-export const error = (message: any) => {
-  console.error(message);
-  sendGtagEvent('console', 'error', message);
+export const error = (...args: any[]) => {
+  console.error(...args);
+  sendGtagEvent('console', 'error', ...args);
+  Sentry.captureException(args[0], { extra: args[1], tags: args[2] });
 };
 
-export const debug = (message: any) => {
-  console.debug(message);
-  sendGtagEvent('console', 'debug', message);
+export const debug = (...args: any[]) => {
+  console.debug(...args);
+  sendGtagEvent('console', 'debug', ...args);
 };

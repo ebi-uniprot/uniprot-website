@@ -14,6 +14,15 @@ export enum EntrySection {
   SimilarProteins = 'similar-proteins',
 }
 
+export type EntrySectionWithFeatures =
+  | EntrySection.DiseaseAndDrugs
+  | EntrySection.FamilyAndDomains
+  | EntrySection.Function
+  | EntrySection.ProteinProcessing
+  | EntrySection.Sequence
+  | EntrySection.Structure
+  | EntrySection.SubCellularLocation;
+
 export type EntrySectionNameAndId = {
   name: string;
   id: EntrySection;

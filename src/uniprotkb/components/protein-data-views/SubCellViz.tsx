@@ -1,6 +1,7 @@
 /* eslint-disable react/no-this-in-sfc */
 import { FC, memo, useEffect, useRef } from 'react';
 import tippy from 'tippy.js';
+import { v1 } from 'uuid';
 import '@swissprot/swissbiopics-visualizer';
 import { RequireExactlyOne } from 'type-fest';
 
@@ -57,7 +58,6 @@ const canonicalName = 'sib-swissbiopics-sl';
 // @ts-ignore
 const CanonicalDefinition: CanonicalDefinitionT =
   customElements.get(canonicalName);
-let counter = 0;
 
 // Note that these are without leading zeros eg: GO1 (and not GO0000001) so make sure
 // the correct classnames are supplied in SubcellularLocationGOView
@@ -139,12 +139,8 @@ const SubCellViz: FC<Props> = memo(
     const instanceName = useRef(
       `${canonicalName}-${
         uniProtLocationIds?.length ? VizTab.UniProt : VizTab.GO
-      }-${counter}`
+      }-${v1()}`
     );
-    useEffect(() => {
-      // eslint-disable-next-line no-plusplus
-      counter++;
-    }, []);
 
     /**
      * NOTE: whole lot of mitigation logic because of the way the custom element
@@ -228,6 +224,14 @@ const SubCellViz: FC<Props> = memo(
           width: 100%;
           position: sticky;
           top: ${pictureTop};
+        }
+        #swissbiopic > h1 {
+          font-size: 0;
+          font-weight: normal;
+        }
+        #swissbiopic > h1::after {
+          font-size: 1rem;
+          content: 'No specific UniProt annotations available regarding subcellular location';
         }
         .subcell_name {
           display: none;

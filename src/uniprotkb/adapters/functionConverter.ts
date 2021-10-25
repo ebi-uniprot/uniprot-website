@@ -10,12 +10,14 @@ import {
   FreeTextComment,
 } from '../types/commentTypes';
 import KeywordCategory from '../types/keywordCategory';
-import FeatureType from '../types/featureType';
+import { FunctionFeatures } from '../types/featureType';
 import EntrySection from '../types/entrySection';
 import { convertSection, UIModel } from './sectionConverter';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
 import { Evidence } from '../types/modelTypes';
 import { Xref } from '../../shared/types/apiModel';
+
+import { UniProtKBColumn } from '../types/columnTypes';
 
 export type Absorption = {
   max: number;
@@ -77,21 +79,27 @@ const keywordsCategories: KeywordCategory[] = [
   'Ligand',
 ];
 
-const featuresCategories: FeatureType[] = [
-  'Domain',
-  'Repeat',
-  'Calcium binding',
-  'Zinc finger',
-  'DNA binding',
-  'Nucleotide binding',
-  'Region',
-  'Coiled coil',
-  'Motif',
-  'Active site',
-  'Metal binding',
-  'Binding site',
-  'Site',
-];
+export const functionFeaturesToColumns: Readonly<
+  Record<FunctionFeatures, UniProtKBColumn>
+> = {
+  Domain: UniProtKBColumn.ftDomain,
+  Repeat: UniProtKBColumn.ftRepeat,
+  'Calcium binding': UniProtKBColumn.ftCaBind,
+  'Zinc finger': UniProtKBColumn.ftZnFing,
+  'DNA binding': UniProtKBColumn.ftDnaBind,
+  'Nucleotide binding': UniProtKBColumn.ftNpBind,
+  Region: UniProtKBColumn.ftRegion,
+  'Active site': UniProtKBColumn.ftActSite,
+  'Coiled coil': UniProtKBColumn.ftCoiled,
+  Motif: UniProtKBColumn.ftMotif,
+  'Metal binding': UniProtKBColumn.ftMetal,
+  'Binding site': UniProtKBColumn.ftBinding,
+  Site: UniProtKBColumn.ftSite,
+};
+
+export const featureCategories = Object.keys(
+  functionFeaturesToColumns
+) as FunctionFeatures[];
 
 const commentsCategories: CommentType[] = [
   'FUNCTION',
@@ -113,7 +121,7 @@ const convertFunction = (
     data,
     commentsCategories,
     keywordsCategories,
-    featuresCategories,
+    featureCategories,
     EntrySection.Function,
     uniProtKBCrossReferences
   ) as FunctionUIModel;

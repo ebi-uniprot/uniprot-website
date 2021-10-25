@@ -1,13 +1,15 @@
-type FeatureType =
-  | 'Initiator methionine'
-  | 'Signal'
-  | 'Propeptide'
-  | 'Transit peptide'
-  | 'Chain'
-  | 'Peptide'
-  | 'Topological domain'
-  | 'Transmembrane'
-  | 'Intramembrane'
+export type SequenceFeatures =
+  | 'Compositional bias'
+  | 'Non-standard residue'
+  | 'Sequence uncertainty'
+  | 'Sequence conflict'
+  | 'Non-adjacent residues'
+  | 'Non-terminal residue'
+  | 'Alternative sequence';
+
+export type DiseaseAndDrugsFeatures = 'Mutagenesis';
+
+export type FunctionFeatures =
   | 'Domain'
   | 'Repeat'
   | 'Calcium binding'
@@ -17,27 +19,48 @@ type FeatureType =
   | 'Region'
   | 'Coiled coil'
   | 'Motif'
-  | 'Compositional bias'
   | 'Active site'
   | 'Metal binding'
   | 'Binding site'
-  | 'Site'
-  | 'Non-standard residue'
+  | 'Site';
+
+export type SubcellularLocationFeatures =
+  | 'Intramembrane'
+  | 'Topological domain'
+  | 'Transmembrane';
+
+export type ProteinProcessingFeatures =
+  | 'Initiator methionine'
+  | 'Signal'
+  | 'Transit peptide'
+  | 'Propeptide'
+  | 'Chain'
+  | 'Peptide'
   | 'Modified residue'
   | 'Lipidation'
   | 'Glycosylation'
   | 'Disulfide bond'
-  | 'Cross-link'
-  | 'Alternative sequence'
-  | 'Natural variant'
-  | 'Mutagenesis'
-  | 'Sequence uncertainty'
-  | 'Sequence conflict'
-  | 'Non-adjacent residues'
-  | 'Non-terminal residue'
-  | 'Helix'
-  | 'Turn'
-  | 'Beta strand'
-  | 'Other'; // For anything else
+  | 'Cross-link';
+
+export type StructureFeatures = 'Helix' | 'Beta strand' | 'Turn';
+
+export type FamilyAndDomainsFeatures =
+  | 'Domain'
+  | 'Region'
+  | 'Repeat'
+  | 'Motif'
+  | 'Compositional bias';
+
+type OtherType = 'Natural variant' | 'Other'; // For anything else
+
+type FeatureType =
+  | OtherType
+  | FunctionFeatures
+  | SequenceFeatures
+  | DiseaseAndDrugsFeatures
+  | SubcellularLocationFeatures
+  | ProteinProcessingFeatures
+  | StructureFeatures
+  | FamilyAndDomainsFeatures;
 
 export default FeatureType;
