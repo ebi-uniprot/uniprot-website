@@ -326,6 +326,7 @@ exports[`HomePage component should render 1`] = `
             <a
               class="external-link"
               href="https://www.uniprot.org/contact"
+              referrerpolicy="no-referrer-when-downgrade"
               rel="noopener"
               target="_blank"
             >

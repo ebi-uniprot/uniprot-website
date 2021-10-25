@@ -15,7 +15,8 @@ module.exports = (env, argv) => {
   const isTest = env.TEST;
   const gitCommitHash = childProcess
     .execSync('git rev-parse --short HEAD')
-    .toString();
+    .toString()
+    .trim();
   const gitCommitState = childProcess
     .execSync('git status --porcelain')
     .toString();

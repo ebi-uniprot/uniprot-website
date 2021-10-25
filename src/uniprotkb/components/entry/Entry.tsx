@@ -345,9 +345,19 @@ const Entry: FC = () => {
                 href={externalUrls.CommunityCurationAdd(match.params.accession)}
                 className="button tertiary"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
               >
                 Add a publication
+              </a>
+              {/* eslint-disable-next-line react/jsx-no-target-blank */}
+              <a
+                href={`https://www.uniprot.org/update?entry=${match.params.accession}`}
+                className="button tertiary"
+                target="_blank"
+                rel="noopener"
+                referrerPolicy="no-referrer-when-downgrade"
+              >
+                Entry feedback
               </a>
             </div>
             <EntryMain transformedData={transformedData} />

@@ -2,7 +2,13 @@ import { useCallback, MouseEventHandler, useMemo } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import { Card, Loader } from 'franklin-sites';
 import marked from 'marked';
-import { Attributes, defaults, Tag, Transformer } from 'sanitize-html';
+import {
+  Attributes,
+  defaults,
+  Tag,
+  Transformer,
+  IOptions,
+} from 'sanitize-html';
 import cn from 'classnames';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
@@ -53,9 +59,9 @@ const allowedClasses = (cleanTextDefaultOptions.allowedClasses?.['*'] ||
   []) as string[];
 
 // TODO: probably need to play with the options here in order to make it look OK
-const cleanTextOptions = {
+const cleanTextOptions: IOptions = {
   ...cleanTextDefaultOptions,
-  allowedTags: defaults.allowedTags,
+  allowedTags: [...defaults.allowedTags, 'img'],
   // none by default, so explicitely accept only the ones from the stylesheets
   allowedClasses: {
     '*': [
