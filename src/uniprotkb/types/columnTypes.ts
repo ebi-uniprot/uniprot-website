@@ -111,6 +111,7 @@ export enum UniProtKBColumn {
   proteome = 'proteome',
   proteomeComponent = 'proteomecomponent',
   redoxPotential = 'redox_potential',
+  rhea = 'rhea_id', // TODO: update to 'rhea' as part of https://www.ebi.ac.uk/panda/jira/browse/TRM-26817
   reviewed = 'reviewed',
   sequence = 'sequence',
   sequenceVersion = 'sequence_version',

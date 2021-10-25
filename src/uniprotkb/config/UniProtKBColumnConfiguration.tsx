@@ -1,5 +1,11 @@
 /* eslint-disable camelcase */
-import { ExpandableList, LongNumber, Sequence } from 'franklin-sites';
+import {
+  ExpandableList,
+  ExternalLink,
+  LongNumber,
+  SearchIcon,
+  Sequence,
+} from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
 import { omit } from 'lodash-es';
@@ -67,7 +73,10 @@ import {
   getDatabaseInfoByName,
 } from './database';
 import DiseaseInvolvementView from '../components/protein-data-views/DiseaseInvolvementView';
-import CatalyticActivityView from '../components/protein-data-views/CatalyticActivityView';
+import CatalyticActivityView, {
+  getRheaId,
+  isRheaReactionReference,
+} from '../components/protein-data-views/CatalyticActivityView';
 import VariationView from '../components/protein-data-views/VariationView';
 import {
   structureFeaturesToColumns,
@@ -83,7 +92,7 @@ import CSVView from '../components/protein-data-views/CSVView';
 
 import { getAllKeywords } from '../utils/KeywordsUtil';
 import externalUrls from '../../shared/config/externalUrls';
-import { getEntryPath } from '../../app/config/urls';
+import { getEntryPath, LocationToPath, Location } from '../../app/config/urls';
 import { fromColumnConfig } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 import { sortInteractionData } from '../utils/resultsUtils';
 import * as logging from '../../shared/utils/logging';
@@ -502,6 +511,49 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCatalyticActivity, {
       catalyticActivityComments && (
         <CatalyticActivityView comments={catalyticActivityComments} />
       )
+    );
+  },
+});
+
+UniProtKBColumnConfiguration.set(UniProtKBColumn.rhea, {
+  label: 'Rhea ID',
+  render: (data) => {
+    const catalyticActivityComments = data[
+      EntrySection.Function
+    ].commentsData.get('CATALYTIC ACTIVITY') as
+      | CatalyticActivityComment[]
+      | undefined;
+    return (
+      <ExpandableList displayNumberOfHiddenItems>
+        {catalyticActivityComments?.map(({ reaction }) =>
+          reaction?.reactionCrossReferences
+            ?.filter(isRheaReactionReference)
+            .map(({ id }) => {
+              const rheaId = getRheaId(id);
+              return (
+                rheaId !== null && (
+                  <span key={rheaId} className={helper['no-wrap']}>
+                    {rheaId}
+                    {' ( '}
+                    <Link
+                      to={{
+                        pathname: LocationToPath[Location.UniProtKBResults],
+                        search: `query=(cc_catalytic_activity:"rhea:${rheaId}")`,
+                      }}
+                    >
+                      UniProtKB <SearchIcon width="1.333ch" />
+                    </Link>
+                    {' | '}
+                    <ExternalLink url={externalUrls.RheaEntry(rheaId)}>
+                      Rhea
+                    </ExternalLink>
+                    )
+                  </span>
+                )
+              );
+            })
+        )}
+      </ExpandableList>
     );
   },
 });
