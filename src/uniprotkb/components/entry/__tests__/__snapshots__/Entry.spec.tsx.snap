@@ -318,10 +318,19 @@ exports[`Entry basic should render main 1`] = `
               <a
                 class="button tertiary"
                 href="https://community.uniprot.org/bbsub/bbsub.html?accession=P21802"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 target="_blank"
               >
                 Add a publication
+              </a>
+              <a
+                class="button tertiary"
+                href="https://www.uniprot.org/update?entry=P21802"
+                referrerpolicy="no-referrer-when-downgrade"
+                rel="noopener"
+                target="_blank"
+              >
+                Entry feedback
               </a>
             </div>
             <section

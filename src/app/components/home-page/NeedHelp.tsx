@@ -140,7 +140,11 @@ const NeedHelp = () => {
         >
           Help center
         </Link>{' '}
-        <ExternalLink url="https://www.uniprot.org/contact" noIcon>
+        <ExternalLink
+          url="https://www.uniprot.org/contact"
+          noIcon
+          referrerPolicy="no-referrer-when-downgrade"
+        >
           Contact us
         </ExternalLink>
         <br />

@@ -11,7 +11,11 @@ import GGroupsLogo from '../../../images/ggroups-logo.svg';
 const Contact = () => (
   <div>
     <p>
-      <ExternalLink noIcon url="https://www.uniprot.org/contact">
+      <ExternalLink
+        noIcon
+        url="https://www.uniprot.org/contact"
+        referrerPolicy="no-referrer-when-downgrade"
+      >
         Get in touch <EnvelopeIcon width="2ch" />
       </ExternalLink>
     </p>
