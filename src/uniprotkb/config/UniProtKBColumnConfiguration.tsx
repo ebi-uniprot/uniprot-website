@@ -273,6 +273,19 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.organismId, {
   },
 });
 
+// NOTE: - Presently referred to as "organelle" by the API in search-fields
+//       - Historically called "Gene encoded by" by uniprot.org
+UniProtKBColumnConfiguration.set(UniProtKBColumn.organelle, {
+  label: 'Encoded in',
+  render: (data) => (
+    <ExpandableList displayNumberOfHiddenItems descriptionString="comments">
+      {data[EntrySection.NamesAndTaxonomy].geneLocations?.map(
+        ({ geneEncodingType }) => geneEncodingType
+      )}
+    </ExpandableList>
+  ),
+});
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.xrefProteomes, {
   label: 'Proteomes',
   render: (data) => {
@@ -1081,7 +1094,6 @@ const getXrefColumn = (databaseName: string) => ({
 
 // TODO: review below if fields are still needed
 // sc_epred:  can't see in current website
-// organelle: can't see in current website
 // cc_caution
 
 const reXrefPrefix = /^xref_/;
