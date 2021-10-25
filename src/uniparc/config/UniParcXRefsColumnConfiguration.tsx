@@ -300,7 +300,7 @@ export const getUniParcXRefsColumns = (
         name,
         render: () => {
           const message = `${name} has no config yet`;
-          logging.error(message);
+          logging.warn(message);
           return <div className="warning">{message}</div>;
         },
       };
