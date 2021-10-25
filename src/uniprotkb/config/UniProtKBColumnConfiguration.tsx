@@ -1092,10 +1092,6 @@ const getXrefColumn = (databaseName: string) => ({
   },
 });
 
-// TODO: review below if fields are still needed
-// sc_epred:  can't see in current website
-// cc_caution
-
 const reXrefPrefix = /^xref_/;
 // Add all database cross-reference columns
 Object.values(UniProtKBColumn)
