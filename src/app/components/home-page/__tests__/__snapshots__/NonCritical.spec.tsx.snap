@@ -3,7 +3,7 @@
 exports[`non-critical HomePage component should render 1`] = `
 <DocumentFragment>
   <div
-    class="uniprot-grid uniprot-grid--centered"
+    class="uniprot-grid uniprot-grid--centered home-page-section"
   >
     <div
       class="uniprot-grid-cell--span-12 message message--info"

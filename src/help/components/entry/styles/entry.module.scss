@@ -22,6 +22,11 @@
   code {
     background: $colour-platinum;
   }
+
+  img {
+    border: 0.5em solid $colour-gainsborough;
+    border-bottom-width: 1em;
+  }
 }
 
 .last-updated-help {

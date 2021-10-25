@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import { Message } from 'franklin-sites';
 import { generatePath, Link } from 'react-router-dom';
+import cn from 'classnames';
 
 // Sections
 import CoreData from './CoreData';
@@ -12,9 +13,17 @@ import UniProtData from './UniProtData';
 
 import { LocationToPath, Location } from '../../config/urls';
 
+import styles from './styles/non-critical.module.scss';
+
 const HomePageNonCritical = () => (
   <>
-    <div className="uniprot-grid uniprot-grid--centered">
+    <div
+      className={cn(
+        'uniprot-grid',
+        'uniprot-grid--centered',
+        styles['home-page-section']
+      )}
+    >
       <Message level="info" className="uniprot-grid-cell--span-12">
         Accessing UniProt programmatically? Have a look at the{' '}
         <Link
