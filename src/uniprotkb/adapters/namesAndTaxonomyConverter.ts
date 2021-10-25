@@ -5,6 +5,7 @@ import { convertSection, UIModel } from './sectionConverter';
 import EntrySection from '../types/entrySection';
 import { Xref } from '../../shared/types/apiModel';
 import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { GeneLocation } from '../types/geneLocationType';
 
 export type ProteinNames = {
   fullName: ValueWithEvidence;
@@ -43,6 +44,7 @@ export type NamesAndTaxonomyUIModel = {
   organismData?: TaxonomyDatum;
   proteomesData?: Xref[];
   organismHosts?: TaxonomyDatum[];
+  geneLocations?: GeneLocation[];
 } & UIModel;
 
 export const convertNamesAndTaxonomy = (
@@ -72,6 +74,9 @@ export const convertNamesAndTaxonomy = (
   }
   if (data.organismHosts) {
     namesAndTaxonomyData.organismHosts = data.organismHosts;
+  }
+  if (data.geneLocations) {
+    namesAndTaxonomyData.geneLocations = data.geneLocations;
   }
   if (uniProtKBCrossReferences) {
     namesAndTaxonomyData.proteomesData = uniProtKBCrossReferences.filter(
