@@ -164,7 +164,7 @@ export const getColumnsToDisplay = (
       name: columnName,
       render: () => {
         const message = `${columnName} has no config yet`;
-        logging.error(message);
+        logging.warn(message);
         return <div className="warning">{message}</div>;
       },
     };
