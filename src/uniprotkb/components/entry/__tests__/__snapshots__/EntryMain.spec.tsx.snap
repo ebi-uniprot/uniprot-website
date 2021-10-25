@@ -3553,6 +3553,28 @@ exports[`Entry view should render for non-human entry 1`] = `
                       data-testid="evidence-tag-content"
                       id="21"
                     />
+                    <button
+                      aria-controls="22"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        Combined sources
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="22"
+                    />
                   </td>
                 </tr>
                 <tr
@@ -3585,7 +3607,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <td>
                     Divalent metal cation
                     <button
-                      aria-controls="22"
+                      aria-controls="23"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -3604,7 +3626,29 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="22"
+                      id="23"
+                    />
+                    <button
+                      aria-controls="24"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        Combined sources
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="24"
                     />
                   </td>
                 </tr>
@@ -3638,7 +3682,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <td>
                     Substrate
                     <button
-                      aria-controls="23"
+                      aria-controls="25"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -3657,7 +3701,29 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="23"
+                      id="25"
+                    />
+                    <button
+                      aria-controls="26"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        Combined sources
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="26"
                     />
                   </td>
                 </tr>
@@ -3691,7 +3757,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <td>
                     Substrate
                     <button
-                      aria-controls="24"
+                      aria-controls="27"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -3710,7 +3776,29 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="24"
+                      id="27"
+                    />
+                    <button
+                      aria-controls="28"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        Combined sources
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="28"
                     />
                   </td>
                 </tr>
@@ -3744,7 +3832,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <td>
                     Substrate
                     <button
-                      aria-controls="25"
+                      aria-controls="29"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -3763,7 +3851,29 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="25"
+                      id="29"
+                    />
+                    <button
+                      aria-controls="30"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        Combined sources
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="30"
                     />
                   </td>
                 </tr>
@@ -4042,7 +4152,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 A type blood N-acetyl-alpha-D-galactosamine deacetylase 
                 <button
-                  aria-controls="26"
+                  aria-controls="31"
                   aria-expanded="false"
                   class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
@@ -4061,7 +4171,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="26"
+                  id="31"
                 />
               </div>
             </div>
@@ -4084,7 +4194,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 3.5.1.- 
                 <button
-                  aria-controls="27"
+                  aria-controls="32"
                   aria-expanded="false"
                   class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
@@ -4103,7 +4213,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="27"
+                  id="32"
                 />
               </div>
             </div>
@@ -4130,7 +4240,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <li>
                     CBM32 
                     <button
-                      aria-controls="28"
+                      aria-controls="33"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -4149,13 +4259,13 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="28"
+                      id="33"
                     />
                   </li>
                   <li>
                     FpGalNAc deacetylase (FpGalNAcDeAc 
                     <button
-                      aria-controls="29"
+                      aria-controls="34"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -4174,7 +4284,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="29"
+                      id="34"
                     />
                     ) 
                   </li>
@@ -4415,7 +4525,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               <tbody>
                 <tr
                   data-end="90"
-                  data-id="30"
+                  data-id="35"
                   data-start="90"
                 >
                   <td
@@ -4431,7 +4541,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <td>
                     Loss of deacetylase activity.
                     <button
-                      aria-controls="35"
+                      aria-controls="40"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -4450,13 +4560,13 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="35"
+                      id="40"
                     />
                   </td>
                 </tr>
                 <tr
                   data-end="90"
-                  data-group-for="30"
+                  data-group-for="35"
                   data-start="90"
                 >
                   <td>
@@ -4468,7 +4578,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 </tr>
                 <tr
                   data-end="125"
-                  data-id="31"
+                  data-id="36"
                   data-start="125"
                 >
                   <td
@@ -4484,7 +4594,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <td>
                     5-fold reduction in deacetylase rate.
                     <button
-                      aria-controls="36"
+                      aria-controls="41"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -4503,13 +4613,13 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="36"
+                      id="41"
                     />
                   </td>
                 </tr>
                 <tr
                   data-end="125"
-                  data-group-for="31"
+                  data-group-for="36"
                   data-start="125"
                 >
                   <td>
@@ -4521,7 +4631,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 </tr>
                 <tr
                   data-end="126"
-                  data-id="32"
+                  data-id="37"
                   data-start="126"
                 >
                   <td
@@ -4537,7 +4647,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <td>
                     Dramatic reduction in deacetylase rate.
                     <button
-                      aria-controls="37"
+                      aria-controls="42"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -4556,13 +4666,13 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="37"
+                      id="42"
                     />
                   </td>
                 </tr>
                 <tr
                   data-end="126"
-                  data-group-for="32"
+                  data-group-for="37"
                   data-start="126"
                 >
                   <td>
@@ -4574,7 +4684,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 </tr>
                 <tr
                   data-end="278"
-                  data-id="33"
+                  data-id="38"
                   data-start="278"
                 >
                   <td
@@ -4590,7 +4700,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <td>
                     Very dramatic reduction in deacetylase rate.
                     <button
-                      aria-controls="38"
+                      aria-controls="43"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -4609,13 +4719,13 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="38"
+                      id="43"
                     />
                   </td>
                 </tr>
                 <tr
                   data-end="278"
-                  data-group-for="33"
+                  data-group-for="38"
                   data-start="278"
                 >
                   <td>
@@ -4627,7 +4737,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 </tr>
                 <tr
                   data-end="341"
-                  data-id="34"
+                  data-id="39"
                   data-start="341"
                 >
                   <td
@@ -4643,7 +4753,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <td>
                     3000-fold reduction in deacetylase rate.
                     <button
-                      aria-controls="39"
+                      aria-controls="44"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -4662,13 +4772,13 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="39"
+                      id="44"
                     />
                   </td>
                 </tr>
                 <tr
                   data-end="341"
-                  data-group-for="34"
+                  data-group-for="39"
                   data-start="341"
                 >
                   <td>
@@ -4788,7 +4898,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               <tbody>
                 <tr
                   data-end="27"
-                  data-id="40"
+                  data-id="45"
                   data-start="1"
                 >
                   <td
@@ -4803,7 +4913,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   </td>
                   <td>
                     <button
-                      aria-controls="41"
+                      aria-controls="46"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -4822,13 +4932,13 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="41"
+                      id="46"
                     />
                   </td>
                 </tr>
                 <tr
                   data-end="27"
-                  data-group-for="40"
+                  data-group-for="45"
                   data-start="1"
                 >
                   <td>
@@ -5119,7 +5229,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               <tbody>
                 <tr
                   data-end="605"
-                  data-id="42"
+                  data-id="47"
                   data-start="494"
                 >
                   <td
@@ -5135,7 +5245,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <td>
                     F5/8 type C
                     <button
-                      aria-controls="46"
+                      aria-controls="51"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -5154,13 +5264,13 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="46"
+                      id="51"
                     />
                   </td>
                 </tr>
                 <tr
                   data-end="605"
-                  data-group-for="42"
+                  data-group-for="47"
                   data-start="494"
                 >
                   <td>
@@ -5172,7 +5282,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 </tr>
                 <tr
                   data-end="402"
-                  data-id="43"
+                  data-id="48"
                   data-start="180"
                 >
                   <td
@@ -5188,7 +5298,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <td>
                     Deacetylase activity
                     <button
-                      aria-controls="47"
+                      aria-controls="52"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -5207,13 +5317,13 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="47"
+                      id="52"
                     />
                   </td>
                 </tr>
                 <tr
                   data-end="402"
-                  data-group-for="43"
+                  data-group-for="48"
                   data-start="180"
                 >
                   <td>
@@ -5225,7 +5335,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 </tr>
                 <tr
                   data-end="765"
-                  data-id="44"
+                  data-id="49"
                   data-start="502"
                 >
                   <td
@@ -5241,7 +5351,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <td>
                     CBM32 carbohydrate-binding domain
                     <button
-                      aria-controls="48"
+                      aria-controls="53"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -5260,13 +5370,13 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="48"
+                      id="53"
                     />
                   </td>
                 </tr>
                 <tr
                   data-end="765"
-                  data-group-for="44"
+                  data-group-for="49"
                   data-start="502"
                 >
                   <td>
@@ -5278,7 +5388,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 </tr>
                 <tr
                   data-end="772"
-                  data-id="45"
+                  data-id="50"
                   data-start="515"
                 >
                   <td
@@ -5294,7 +5404,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <td>
                     Not required for activity on soluble substrates
                     <button
-                      aria-controls="49"
+                      aria-controls="54"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -5313,13 +5423,13 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="49"
+                      id="54"
                     />
                   </td>
                 </tr>
                 <tr
                   data-end="772"
-                  data-group-for="45"
+                  data-group-for="50"
                   data-start="515"
                 >
                   <td>
@@ -5343,7 +5453,7 @@ exports[`Entry view should render for non-human entry 1`] = `
         >
           The deacetylase domain is in the N-terminus, while the C-terminus has a CBM32-type carbohydrate-binding domain that is not required for activity on soluble substrates. The CBM32 domain binds preferentially to repeating N-acetyl lactosamine structures.
           <button
-            aria-controls="50"
+            aria-controls="55"
             aria-expanded="false"
             class="svg-colour-reviewed evidence-tag"
             data-testid="evidence-tag-trigger"
@@ -5362,7 +5472,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           <div
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
-            id="50"
+            id="55"
           />
         </div>
         <h3>

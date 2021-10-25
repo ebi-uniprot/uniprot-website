@@ -79,11 +79,7 @@ const UniProtKBEvidenceTag = ({ evidences }: { evidences?: Evidence[] }) => {
       }
       return (
         <EvidenceTag
-          label={
-            evidenceData.labelRender
-              ? evidenceData.labelRender(references)
-              : evidenceData.label
-          }
+          label={evidenceData.labelRender?.(references) || evidenceData.label}
           className={
             evidenceData.manual
               ? 'svg-colour-reviewed'
