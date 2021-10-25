@@ -1625,6 +1625,18 @@ exports[`UniProtKBColumnConfiguration component should render column "mass": mas
 </DocumentFragment>
 `;
 
+exports[`UniProtKBColumnConfiguration component should render column "organelle": organelle 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      Cyanelle
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
 exports[`UniProtKBColumnConfiguration component should render column "organism_id": organism_id 1`] = `
 <DocumentFragment>
   <a
