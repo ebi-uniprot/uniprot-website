@@ -1604,6 +1604,44 @@ exports[`UniProtKBColumnConfiguration component should render column "reviewed":
 </DocumentFragment>
 `;
 
+exports[`UniProtKBColumnConfiguration component should render column "rhea_id": rhea_id 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      <span
+        class="no-wrap"
+      >
+        12345 ( 
+        <a
+          href="/uniprotkb?query=(cc_catalytic_activity:\\"rhea:12345\\")"
+        >
+          UniProtKB 
+          <test-file-stub
+            width="1.333ch"
+          />
+        </a>
+         | 
+        <a
+          class="external-link"
+          href="https://www.rhea-db.org/rhea/12345"
+          rel="noopener"
+          target="_blank"
+        >
+          Rhea
+          <test-file-stub
+            data-testid="external-link-icon"
+            width="12.5"
+          />
+        </a>
+        )
+      </span>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
 exports[`UniProtKBColumnConfiguration component should render column "sequence": sequence 1`] = `
 <DocumentFragment>
   <section
