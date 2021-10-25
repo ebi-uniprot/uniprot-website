@@ -107,7 +107,7 @@ export enum UniProtKBColumn {
   organismName = 'organism_name',
   phDependence = 'ph_dependence',
   proteinExistence = 'protein_existence',
-  proteinFamilies = 'family',
+  proteinFamilies = 'protein_families',
   proteinName = 'protein_name',
   proteome = 'proteome',
   proteomeComponent = 'proteomecomponent',
