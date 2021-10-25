@@ -351,6 +351,8 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_catalyt
 </DocumentFragment>
 `;
 
+exports[`UniProtKBColumnConfiguration component should render column "cc_caution": cc_caution 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render column "cc_cofactor": cc_cofactor 1`] = `
 <DocumentFragment>
   <section
@@ -769,8 +771,6 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_sequenc
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "cc_similarity": cc_similarity 1`] = `<DocumentFragment />`;
-
 exports[`UniProtKBColumnConfiguration component should render column "cc_subcellular_location": cc_subcellular_location 1`] = `
 <DocumentFragment>
   <section
@@ -869,6 +869,161 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_tissue_
 
 exports[`UniProtKBColumnConfiguration component should render column "cc_toxic_dose": cc_toxic_dose 1`] = `<DocumentFragment />`;
 
+exports[`UniProtKBColumnConfiguration component should render column "comment_count": comment_count 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      <span
+        class="capitalize"
+      >
+        alternative products (1)
+      </span>
+    </li>
+    <li>
+      <span
+        class="capitalize"
+      >
+        biophysicochemical properties (1)
+      </span>
+    </li>
+    <li>
+      <span
+        class="capitalize"
+      >
+        catalytic activity (1)
+      </span>
+    </li>
+    <li>
+      <span
+        class="capitalize"
+      >
+        cofactor (1)
+      </span>
+    </li>
+    <li>
+      <span
+        class="capitalize"
+      >
+        disease (1)
+      </span>
+    </li>
+    <li>
+      <button
+        class="button tertiary expandable-list__action"
+        data-testid="expandable-message"
+        type="button"
+      >
+        7 more comments
+      </button>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`UniProtKBColumnConfiguration component should render column "comment_count": comment_count-expanded 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      <span
+        class="capitalize"
+      >
+        alternative products (1)
+      </span>
+    </li>
+    <li>
+      <span
+        class="capitalize"
+      >
+        biophysicochemical properties (1)
+      </span>
+    </li>
+    <li>
+      <span
+        class="capitalize"
+      >
+        catalytic activity (1)
+      </span>
+    </li>
+    <li>
+      <span
+        class="capitalize"
+      >
+        cofactor (1)
+      </span>
+    </li>
+    <li>
+      <span
+        class="capitalize"
+      >
+        disease (1)
+      </span>
+    </li>
+    <li>
+      <span
+        class="capitalize"
+      >
+        disruption phenotype (2)
+      </span>
+    </li>
+    <li>
+      <span
+        class="capitalize"
+      >
+        interaction (2)
+      </span>
+    </li>
+    <li>
+      <span
+        class="capitalize"
+      >
+        mass spectrometry (1)
+      </span>
+    </li>
+    <li>
+      <span
+        class="capitalize"
+      >
+        rna editing (1)
+      </span>
+    </li>
+    <li>
+      <span
+        class="capitalize"
+      >
+        sequence caution (1)
+      </span>
+    </li>
+    <li>
+      <span
+        class="capitalize"
+      >
+        subcellular location (1)
+      </span>
+    </li>
+    <li>
+      <span
+        class="capitalize"
+      >
+        web resource (1)
+      </span>
+    </li>
+    <li>
+      <button
+        class="button tertiary expandable-list__action"
+        data-testid="expandable-message"
+        type="button"
+      >
+        Less comments
+      </button>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
 exports[`UniProtKBColumnConfiguration component should render column "date_created": date_created 1`] = `
 <DocumentFragment>
   2015-08-02
@@ -937,8 +1092,6 @@ exports[`UniProtKBColumnConfiguration component should render column "error_gmod
   </section>
 </DocumentFragment>
 `;
-
-exports[`UniProtKBColumnConfiguration component should render column "family": family 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "feature_count": feature_count 1`] = `
 <DocumentFragment>
@@ -1531,6 +1684,8 @@ exports[`UniProtKBColumnConfiguration component should render column "protein_ex
   1: Evidence at protein level
 </DocumentFragment>
 `;
+
+exports[`UniProtKBColumnConfiguration component should render column "protein_families": protein_families 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "protein_name": protein_name 1`] = `
 <DocumentFragment>

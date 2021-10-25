@@ -3,7 +3,7 @@
 //     curl -s <prefix>/api/configure/uniprotkb/result-fields | jq '..|.name? | strings'
 // And to create a CSV string so this can be pasted into the developer application's localstorage entry pipe the above to:
 //     <above> | paste -s -d, -
-
+// Note: cc_similarity exists as a search field but is not present as a result field
 export enum UniProtKBColumn {
   absorption = 'absorption',
   accession = 'accession',
@@ -30,7 +30,6 @@ export enum UniProtKBColumn {
   ccPtm = 'cc_ptm',
   ccRnaEditing = 'cc_rna_editing',
   ccSequenceCaution = 'cc_sequence_caution',
-  ccSimilarity = 'cc_similarity',
   ccSubcellularLocation = 'cc_subcellular_location',
   ccSubunit = 'cc_subunit',
   ccTissueSpecificity = 'cc_tissue_specificity',
