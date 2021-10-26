@@ -5,6 +5,7 @@ import {
   LongNumber,
   SearchIcon,
   Sequence,
+  SequenceTools,
 } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
@@ -1110,6 +1111,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinFamilies, {
     ) as FreeTextComment[] | undefined;
     return <FreeTextView comments={familiesData} noEvidence />;
   },
+});
+
+UniProtKBColumnConfiguration.set(UniProtKBColumn.tools, {
+  label: 'Tools',
+  render: (data) => <SequenceTools accession={data.primaryAccession} />,
 });
 
 const getXrefColumn = (databaseName: string) => ({
