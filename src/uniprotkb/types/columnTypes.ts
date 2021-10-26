@@ -98,7 +98,6 @@ export enum UniProtKBColumn {
   length = 'length',
   lineage = 'lineage',
   litPubmedId = 'lit_pubmed_id',
-  mappedPubmedId = 'mapped_pubmed_id',
   mass = 'mass',
   matchedText = 'matched_text',
   organelle = 'organelle',
