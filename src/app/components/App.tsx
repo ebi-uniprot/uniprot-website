@@ -417,6 +417,14 @@ const App = () => {
                 path={LocationToPath[Location.HelpResults]}
                 component={ResultsOrLanding(HelpResults, HelpLandingPage)}
               />
+              <Route
+                path={LocationToPath[Location.Contact]}
+                component={() => {
+                  // Temporary redirect to current website
+                  window.location.href = 'https://www.uniprot.org/contact';
+                  return null;
+                }}
+              />
               {/* Catch-all handler -> Redirect or not found use ResourceNotFoundPage */}
               <Route
                 path="*"
