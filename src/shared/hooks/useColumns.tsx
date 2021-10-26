@@ -162,9 +162,11 @@ export const getColumnsToDisplay = (
     return {
       label: columnName,
       name: columnName,
-      render: () => (
-        <div className="warning">{`${columnName} has no config yet`}</div>
-      ),
+      render: () => {
+        const message = `${columnName} has no config yet`;
+        logging.warn(message);
+        return <div className="warning">{message}</div>;
+      },
     };
   }) || [];
 

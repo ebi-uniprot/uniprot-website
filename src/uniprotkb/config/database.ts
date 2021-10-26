@@ -54,6 +54,7 @@ entrySectionToDatabaseNames.set(EntrySection.DiseaseAndDrugs, [
   'PharmGKB',
   'ChEMBL',
   'DrugBank',
+  'DrugCentral',
   'GuidetoPHARMACOLOGY',
   'BioMuta',
   'DMDM',

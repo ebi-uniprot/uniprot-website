@@ -60,6 +60,7 @@ import {
   DiseaseComment,
   CatalyticActivityComment,
   SubcellularLocationComment,
+  CommentType,
 } from '../types/commentTypes';
 import AnnotationScoreDoughnutChart, {
   DoughnutChartSize,
@@ -281,6 +282,19 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.organismId, {
   },
 });
 
+// NOTE: - Presently referred to as "organelle" by the API in search-fields
+//       - Historically called "Gene encoded by" by uniprot.org
+UniProtKBColumnConfiguration.set(UniProtKBColumn.organelle, {
+  label: 'Encoded in',
+  render: (data) => (
+    <ExpandableList displayNumberOfHiddenItems descriptionString="comments">
+      {data[EntrySection.NamesAndTaxonomy].geneLocations?.map(
+        ({ geneEncodingType }) => geneEncodingType
+      )}
+    </ExpandableList>
+  ),
+});
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.xrefProteomes, {
   label: 'Proteomes',
   render: (data) => {
@@ -475,6 +489,16 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.absorption, {
   },
 });
 
+UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCaution, {
+  label: 'Caution',
+  render: (data) => {
+    const cautionComments = data[EntrySection.Function].commentsData.get(
+      'CAUTION'
+    ) as FreeTextComment[] | undefined;
+    return <FreeTextView comments={cautionComments} noEvidence />;
+  },
+});
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCatalyticActivity, {
   label: 'Catalytic Activity',
   render: (data) => {
@@ -563,11 +587,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccActivityRegulation, {
     const activityRegulationComments = data[
       EntrySection.Function
     ].commentsData.get('ACTIVITY REGULATION') as FreeTextComment[] | undefined;
-    return (
-      <ExpandableList numberCollapsedItems={1}>
-        {activityRegulationComments}
-      </ExpandableList>
-    );
+    return <FreeTextView comments={activityRegulationComments} noEvidence />;
   },
 });
 
@@ -677,6 +697,26 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.featureCount, {
           {Object.keys(counts)
             .sort()
             .map((feature) => `${feature} (${counts[feature as FeatureType]})`)}
+        </ExpandableList>
+      )
+    );
+  },
+});
+
+UniProtKBColumnConfiguration.set(UniProtKBColumn.commentCount, {
+  label: 'Comments',
+  render: (data) => {
+    const counts = data?.extraAttributes?.countByCommentType;
+    return (
+      counts && (
+        <ExpandableList displayNumberOfHiddenItems descriptionString="comments">
+          {Object.keys(counts)
+            .sort()
+            .map((comment) => (
+              <span className={helper.capitalize} key={comment}>
+                {`${comment.toLowerCase()} (${counts[comment as CommentType]})`}
+              </span>
+            ))}
         </ExpandableList>
       )
     );
@@ -1072,16 +1112,6 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinFamilies, {
   },
 });
 
-UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSimilarity, {
-  label: 'Sequence Similarities',
-  render: (data) => {
-    const familiesData = data[EntrySection.FamilyAndDomains].commentsData.get(
-      'SIMILARITY'
-    ) as FreeTextComment[] | undefined;
-    return <FreeTextView comments={familiesData} noEvidence />;
-  },
-});
-
 const getXrefColumn = (databaseName: string) => ({
   label: `${databaseName} cross-reference`,
   render: (data: UniProtkbUIModel) => {
@@ -1113,13 +1143,6 @@ const getXrefColumn = (databaseName: string) => ({
     );
   },
 });
-
-// TODO: review below if fields are still needed
-// sc_epred:  can't see in current website
-// organelle: can't see in current website
-// cc_caution
-// similarity: this field is wrongly named in the API json (should be cc_similarity). Jira.
-// ft_non_cons
 
 const reXrefPrefix = /^xref_/;
 // Add all database cross-reference columns

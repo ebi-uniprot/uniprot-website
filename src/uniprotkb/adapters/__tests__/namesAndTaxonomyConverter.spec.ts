@@ -479,6 +479,19 @@ describe('Names and taxonomy data converter', () => {
       commentsData: new Map(),
       keywordData: [],
       featuresData: [],
+      geneLocations: [
+        {
+          evidences: [
+            {
+              evidenceCode: 'ECO:0000255',
+              id: 'PRU10025',
+              source: 'PROSITE-ProRule',
+            },
+          ],
+          geneEncodingType: 'Cyanelle',
+          value: 'geneLocation value',
+        },
+      ],
       xrefData: [],
     });
   });

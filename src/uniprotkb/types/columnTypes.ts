@@ -1,4 +1,9 @@
-// Maps to search "fields"
+// Maps to 'name' attributes in /api/configure/uniprotkb/result-fields
+// To extract all as a text list:
+//     curl -s <prefix>/api/configure/uniprotkb/result-fields | jq '..|.name? | strings'
+// And to create a CSV string so this can be pasted into the developer application's localstorage entry pipe the above to:
+//     <above> | paste -s -d, -
+// Note: cc_similarity exists as a search field but is not present as a result field
 export enum UniProtKBColumn {
   absorption = 'absorption',
   accession = 'accession',
@@ -25,7 +30,6 @@ export enum UniProtKBColumn {
   ccPtm = 'cc_ptm',
   ccRnaEditing = 'cc_rna_editing',
   ccSequenceCaution = 'cc_sequence_caution',
-  ccSimilarity = 'cc_similarity',
   ccSubcellularLocation = 'cc_subcellular_location',
   ccSubunit = 'cc_subunit',
   ccTissueSpecificity = 'cc_tissue_specificity',
@@ -102,7 +106,7 @@ export enum UniProtKBColumn {
   organismName = 'organism_name',
   phDependence = 'ph_dependence',
   proteinExistence = 'protein_existence',
-  proteinFamilies = 'family',
+  proteinFamilies = 'protein_families',
   proteinName = 'protein_name',
   proteome = 'proteome',
   proteomeComponent = 'proteomecomponent',
@@ -188,6 +192,7 @@ export enum UniProtKBColumn {
   xrefDnasu = 'xref_dnasu',
   xrefDosacCobs2Dpage = 'xref_dosac-cobs-2dpage',
   xrefDrugbank = 'xref_drugbank',
+  xrefDrugCentral = 'xref_drugcentral',
   xrefEchobase = 'xref_echobase',
   xrefEggnog = 'xref_eggnog',
   xrefElm = 'xref_elm',
@@ -215,7 +220,7 @@ export enum UniProtKBColumn {
   xrefGenewiki = 'xref_genewiki',
   xrefGenomernai = 'xref_genomernai',
   xrefGlyconnect = 'xref_glyconnect',
-  xrefGlyGen = 'GlyGen',
+  xrefGlyGen = 'xref_glygen',
   xrefGo = 'xref_go',
   xrefGramene = 'xref_gramene',
   xrefGuidetopharmacology = 'xref_guidetopharmacology',
@@ -253,6 +258,7 @@ export enum UniProtKBColumn {
   xrefOrphanet = 'xref_orphanet',
   xrefOrthodb = 'xref_orthodb',
   xrefPanther = 'xref_panther',
+  xrefPathwayCommons = 'xref_pathwaycommons',
   xrefPatric = 'xref_patric',
   xrefPaxdb = 'xref_paxdb',
   xrefPcddb = 'xref_pcddb',
@@ -262,6 +268,7 @@ export enum UniProtKBColumn {
   xrefPeroxibase = 'xref_peroxibase',
   xrefPfam = 'xref_pfam',
   xrefPharmgkb = 'xref_pharmgkb',
+  xrefPharos = 'xref_pharos',
   xrefPhiBase = 'xref_phi-base',
   xrefPhosphositeplus = 'xref_phosphositeplus',
   xrefPhylomedb = 'xref_phylomedb',
@@ -283,6 +290,7 @@ export enum UniProtKBColumn {
   xrefRefseq = 'xref_refseq',
   xrefReproduction2Dpage = 'xref_reproduction-2dpage',
   xrefRgd = 'xref_rgd',
+  xrefRnact = 'xref_rnact',
   xrefSabioRk = 'xref_sabio-rk',
   xrefSasbdb = 'xref_sasbdb',
   xrefSfld = 'xref_sfld',
