@@ -54,6 +54,25 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 
   render() {
     if (this.state.error) {
+      try {
+        if (
+          !sessionStorage.getItem('reloaded') &&
+          this.state.error.name.includes('Chunk')
+        ) {
+          sessionStorage.setItem('reloaded', 'true');
+          window.location.reload();
+        }
+      } catch {
+        /* */
+      }
+      setTimeout(() => {
+        try {
+          sessionStorage.removeItem('reloaded');
+        } catch {
+          /*
+           */
+        }
+      }, 1000);
       return this.props.fallback;
     }
 
