@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 
 import fetchData from '../utils/fetchData';
 import { addMessage } from '../../messages/state/messagesActions';
+import * as logging from '../utils/logging';
 
 import {
   MessageFormat,
@@ -184,6 +185,7 @@ function useDataApi<T>(
         if (axios.isCancel(error) || didCancel) {
           return;
         }
+        logging.error(error, { url }, { origin: 'useDataApi' });
         dispatch({ type: ActionType.ERROR, error });
       }
     );
