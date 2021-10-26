@@ -10,9 +10,8 @@ import EntryDownload from '../../../../shared/components/entry/EntryDownload';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
-import useDataApi from '../../../../shared/hooks/useDataApi';
 
-import apiUrls, { getAPIQueryUrl } from '../../../../shared/config/apiUrls';
+import apiUrls from '../../../../shared/config/apiUrls';
 import generatePageTitle from '../../adapters/generatePageTitle';
 
 import {
@@ -24,7 +23,6 @@ import TaxonomyColumnConfiguration, {
   TaxonomyColumn,
 } from '../../config/TaxonomyColumnConfiguration';
 import { Statistics } from '../../../../shared/types/apiModel';
-import { FacetObject } from '../../../../uniprotkb/types/responseTypes';
 
 import helper from '../../../../shared/styles/helper.module.scss';
 import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
@@ -51,31 +49,6 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
       apiUrls.entry(accession, Namespace.taxonomy)
     );
 
-  // TODO: This is a temporary workaround to get "View proteins" at least, eventually replace
-  const { data: facetData } = useDataApi<{ facets: FacetObject[] }>(
-    data && !data.statistics
-      ? getAPIQueryUrl({
-          namespace: Namespace.uniprotkb,
-          query: `(taxonomy_id:${accession})`,
-          facets: ['reviewed'],
-          size: 0,
-        })
-      : undefined
-  );
-  const fallbackStats: Partial<Statistics> = {};
-  if (facetData) {
-    const reviewedFacet = facetData.facets.find(
-      ({ name }) => name === 'reviewed'
-    );
-    fallbackStats.reviewedProteinCount = reviewedFacet?.values?.find(
-      ({ value }) => value === 'true'
-    )?.count;
-    fallbackStats.unreviewedProteinCount = reviewedFacet?.values?.find(
-      ({ value }) => value === 'false'
-    )?.count;
-  }
-  /* End of temporary workaround */
-
   if (error || !accession || (!loading && !data)) {
     return <ErrorHandler status={status} />;
   }
@@ -84,14 +57,14 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
     return <Loader progress={progress} />;
   }
 
-  const proteinStatistics = pick<Partial<Statistics>>(
-    data.statistics || fallbackStats,
-    ['reviewedProteinCount', 'unreviewedProteinCount']
-  );
-  const proteomeStatistics = pick<Partial<Statistics>>(
-    data.statistics || fallbackStats,
-    ['proteomeCount', 'referenceProteomeCount']
-  );
+  const proteinStatistics = pick<Partial<Statistics>>(data.statistics, [
+    'reviewedProteinCount',
+    'unreviewedProteinCount',
+  ]);
+  const proteomeStatistics = pick<Partial<Statistics>>(data.statistics, [
+    'proteomeCount',
+    'referenceProteomeCount',
+  ]);
 
   const infoData =
     data &&
