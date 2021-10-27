@@ -73,14 +73,6 @@ exports[`PeptideSearchResult should render with the correct number of results in
           Add
         </button>
         <button
-          class="button tertiary disabled"
-          disabled=""
-          type="button"
-        >
-          <test-file-stub />
-          Statistics
-        </button>
-        <button
           class="button tertiary large-icon"
           data-testid="table-card-toggle"
           title="Switch to \\"table\\" view"
@@ -543,14 +535,6 @@ exports[`PeptideSearchResult should render with the correct number of results in
         >
           <test-file-stub />
           Add
-        </button>
-        <button
-          class="button tertiary disabled"
-          disabled=""
-          type="button"
-        >
-          <test-file-stub />
-          Statistics
         </button>
         <button
           class="button tertiary large-icon"

@@ -2,7 +2,7 @@ import { FC, useState, Suspense, Dispatch, SetStateAction } from 'react';
 import cn from 'classnames';
 import {
   DownloadIcon,
-  StatisticsIcon,
+  // StatisticsIcon,
   TableIcon,
   ListIcon,
   Button,
@@ -118,12 +118,13 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
             remove={inBasket}
           />
         )}
-        {!inBasket && isMain && (
+        {/* https://www.ebi.ac.uk/panda/jira/browse/TRM-22360 */}
+        {/* {!inBasket && isMain && (
           <Button variant="tertiary" disabled>
             <StatisticsIcon />
             Statistics
           </Button>
-        )}
+        )} */}
         <Button
           variant="tertiary"
           className="large-icon"
