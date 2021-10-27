@@ -12,6 +12,7 @@ import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-vie
 import FreeTextView from '../../../uniprotkb/components/protein-data-views/FreeTextView';
 import BlastButton from '../action-buttons/Blast';
 import AlignButton from '../action-buttons/Align';
+import AddToBasketButton from '../action-buttons/AddToBasket';
 
 import useDataApi from '../../hooks/useDataApi';
 
@@ -91,19 +92,17 @@ export const SequenceInfo: FC<{
 
   return (
     <Sequence
-      sequence={dataToDisplay && dataToDisplay.value}
+      sequence={dataToDisplay?.value}
       onShowSequence={() => setIsoformToFetch(isoformId)}
       infoData={infoData}
       accession={isoformId}
       downloadUrl={apiUrls.sequenceFasta(isoformId)}
       onBlastClick={() =>
         history.push(LocationToPath[Location.Blast], {
-          parameters: { sequence: dataToDisplay && dataToDisplay.value },
+          parameters: { sequence: dataToDisplay?.value },
         })
       }
-      // This callbacks has been commented out as
-      //  the basket is not yet implemented
-      // onAddToBasketClick={() => {}}
+      addToBasketButton={<AddToBasketButton selectedEntries={isoformId} />}
       isCollapsible={!isCanonical}
       isLoading={loading}
     />
