@@ -5,6 +5,7 @@ import {
   LongNumber,
   SearchIcon,
   Sequence,
+  SequenceTools,
 } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
@@ -1073,14 +1074,6 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.litPubmedId, {
   ),
 });
 
-UniProtKBColumnConfiguration.set(UniProtKBColumn.mappedPubmedId, {
-  label: 'Mapped PubMed ID',
-  render: () =>
-    // TODO This is currently not implemented in the backend see TRM-23257
-    // depending on the format, this could use the same processing as PubMed ID
-    '',
-});
-
 UniProtKBColumnConfiguration.set(UniProtKBColumn.dateCreated, {
   label: 'Date Created',
   render: (data) => data[EntrySection.Sequence]?.entryAudit?.firstPublicDate,
@@ -1110,6 +1103,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinFamilies, {
     ) as FreeTextComment[] | undefined;
     return <FreeTextView comments={familiesData} noEvidence />;
   },
+});
+
+UniProtKBColumnConfiguration.set(UniProtKBColumn.tools, {
+  label: 'Tools',
+  render: (data) => <SequenceTools accession={data.primaryAccession} />,
 });
 
 const getXrefColumn = (databaseName: string) => ({

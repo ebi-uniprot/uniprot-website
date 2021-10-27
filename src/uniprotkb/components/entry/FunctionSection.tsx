@@ -52,7 +52,7 @@ export const KineticsView = ({ data }: { data: KineticParameters }) => (
       {data.michaelisConstants && (
         <ul className="no-bullet">
           {data.michaelisConstants.map((km) => (
-            <li key={km.constant}>
+            <li key={`${km.constant}-${km.substrate}`}>
               K<sub>M</sub>
               {`=${km.constant}${km.unit} for ${km.substrate} `}
               <UniProtKBEvidenceTag evidences={km.evidences} />

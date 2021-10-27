@@ -1617,8 +1617,6 @@ exports[`UniProtKBColumnConfiguration component should render column "lit_pubmed
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "mapped_pubmed_id": mapped_pubmed_id 1`] = `<DocumentFragment />`;
-
 exports[`UniProtKBColumnConfiguration component should render column "mass": mass 1`] = `
 <DocumentFragment>
   1,185 Da
@@ -1886,6 +1884,24 @@ exports[`UniProtKBColumnConfiguration component should render column "temp_depen
       class="evidence-tag-content "
       data-testid="evidence-tag-content"
       id="0"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`UniProtKBColumnConfiguration component should render column "tools": tools 1`] = `
+<DocumentFragment>
+  <div
+    class="dropdown-container"
+  >
+    <button
+      class="button primary dropdown tertiary"
+      type="button"
+    >
+      Tools
+    </button>
+    <div
+      class="dropdown-menu"
     />
   </div>
 </DocumentFragment>

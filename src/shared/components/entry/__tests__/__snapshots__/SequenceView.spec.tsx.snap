@@ -182,6 +182,14 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
         <test-file-stub />
         Download
       </a>
+      <button
+        class="button tertiary"
+        title="Add 1 entry to the basket"
+        type="button"
+      >
+        <test-file-stub />
+        Add
+      </button>
       <div
         class="dropdown-container"
       >
