@@ -1074,14 +1074,6 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.litPubmedId, {
   ),
 });
 
-UniProtKBColumnConfiguration.set(UniProtKBColumn.mappedPubmedId, {
-  label: 'Mapped PubMed ID',
-  render: () =>
-    // TODO This is currently not implemented in the backend see TRM-23257
-    // depending on the format, this could use the same processing as PubMed ID
-    '',
-});
-
 UniProtKBColumnConfiguration.set(UniProtKBColumn.dateCreated, {
   label: 'Date Created',
   render: (data) => data[EntrySection.Sequence]?.entryAudit?.firstPublicDate,
