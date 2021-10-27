@@ -5331,10 +5331,10 @@ foundation-sites@6.7.3:
   resolved "https://registry.yarnpkg.com/foundation-sites/-/foundation-sites-6.7.3.tgz#e6e298ef720a7569d874c48ee83fd855409333c2"
   integrity sha512-HgQA6iUQTEkRSeNwiRQH2PvTXkXGBfBpRS6CTm2auhKpyU4Tea7so3IPKrazSciE7nyv1Vp9WNKdH9fBPLbGeA==
 
-franklin-sites@0.0.169:
-  version "0.0.169"
-  resolved "https://registry.yarnpkg.com/franklin-sites/-/franklin-sites-0.0.169.tgz#fc35d380f886d2f2ecd4b43b9dddf907527024a8"
-  integrity sha512-4eZKsGvSk2zs+9Sz8s7w0/JZZkoUs2tsl/L0GBJjEhSJ4/g0khOrNVrjsH8Oj4xS9Uvv7sL0LyU7EUPpZmyIUA==
+franklin-sites@0.0.170:
+  version "0.0.170"
+  resolved "https://registry.yarnpkg.com/franklin-sites/-/franklin-sites-0.0.170.tgz#62651c2b52bc0b1800ca63c11ccd4d274eda2d25"
+  integrity sha512-2E5LGEK7A65XT6gHt9C+a2GA4W26FC5nXLg+3/+S0MTD7uQVB3Z9bnYflKRcrK68KaTllGaFrxKD/o5jBrBQTg==
   dependencies:
     classnames "2.3.1"
     d3 "5.16.0"
