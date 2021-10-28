@@ -87,6 +87,7 @@ const GoRibbon: FC<{ primaryAccession: string; goTerms?: GroupedGoTerms }> = ({
 
   return (
     <div className="GoRibbon">
+      <h3>GO Terms</h3>
       <RibbonDataProvider subject={`UniProtKB:${primaryAccession}`}>
         {(data: RibbonData) => (
           <>
