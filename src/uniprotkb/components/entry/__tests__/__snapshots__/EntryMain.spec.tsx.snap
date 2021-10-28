@@ -3896,6 +3896,9 @@ exports[`Entry view should render for non-human entry 1`] = `
         <div
           class="GoRibbon"
         >
+          <h3>
+            GO Annotations
+          </h3>
           <protvista-datatable>
             <table>
               <thead>

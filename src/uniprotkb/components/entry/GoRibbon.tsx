@@ -87,16 +87,9 @@ const GoRibbon: FC<{ primaryAccession: string; goTerms?: GroupedGoTerms }> = ({
 
   return (
     <div className="GoRibbon">
-      <h3>GO Terms</h3>
+      <h3>GO Annotations</h3>
       <RibbonDataProvider subject={`UniProtKB:${primaryAccession}`}>
-        {(data: RibbonData) => (
-          <>
-            {(!!data.entities?.length || !data.dataReceived) && (
-              <h3>GO Annotations</h3>
-            )}
-            <RibbonContainer {...data} />
-          </>
-        )}
+        {(data: RibbonData) => <RibbonContainer {...data} />}
       </RibbonDataProvider>
       <protvista-datatable>
         <table>

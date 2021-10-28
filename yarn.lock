@@ -8878,7 +8878,18 @@ property-information@^6.0.0:
   resolved "https://registry.yarnpkg.com/property-information/-/property-information-6.0.1.tgz#7c668d9f2b9cb63bc3e105d8b8dfee7221a17800"
   integrity sha512-F4WUUAF7fMeF4/JUFHNBWDaKDXi2jbvqBW/y6o5wsf3j19wTZ7S60TmtB5HoBhtgw7NKQRMWuz5vk2PR0CygUg==
 
-protvista-datatable@3.4.2, protvista-datatable@^3.4.2:
+protvista-datatable@3.4.6:
+  version "3.4.6"
+  resolved "https://registry.yarnpkg.com/protvista-datatable/-/protvista-datatable-3.4.6.tgz#770fd599324ce033436fd2667c77e69b291ea266"
+  integrity sha512-mWwSWs4zz7I9KjvysNwsxEfX2/4D1nGo0XBaEfq/00l58Qz6nPzOVdDAgxTCkODxC3PA/P35L5NzqDYgqHP3zA==
+  dependencies:
+    lit-element "^2.4.0"
+    lit-html "^1.3.0"
+    protvista-utils "^3.4.0"
+    type-fest "^1.2.1"
+    uuid "^8.3.1"
+
+protvista-datatable@^3.4.2:
   version "3.4.2"
   resolved "https://registry.yarnpkg.com/protvista-datatable/-/protvista-datatable-3.4.2.tgz#4aa4598ebb340be68f4b84fd86fc5e14e4530d0e"
   integrity sha512-9D/KOQ4Pwv4uu8kM5V149GCUukxxhRz9CCusMNhxt+I7aECRH2n0P42d1SW6Ri5JUIUKoA21vgVC0C3l0DsbEg==
