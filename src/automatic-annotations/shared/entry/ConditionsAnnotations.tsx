@@ -115,9 +115,8 @@ const conditionsToInfoData = (
       if ('samTrigger' in condition) {
         return samFeatureSetToInfoDatumCondition(condition);
       }
-      logging.warn({
-        message: 'unexpected positional feature set',
-        data: condition,
+      logging.warn('unexpected positional feature set', {
+        extra: { data: condition },
       });
       return { title: '', content: null };
     }
@@ -251,7 +250,7 @@ const conditionsToInfoData = (
         key,
       };
     }
-    logging.warn({ message: 'missing case', data: condition });
+    logging.warn('missing case', { extra: { data: condition } });
     return { title: '', content: null };
   });
 };
@@ -492,7 +491,7 @@ const groupedAnnotation = (
       </ul>
     );
   }
-  logging.warn({ message: `missing case: ${type}`, data: annotations });
+  logging.warn(`missing case: ${type}`, { extra: { data: annotations } });
   return null;
 };
 
@@ -516,7 +515,7 @@ function annotationsToInfoData(
     } else if (annotation.dbReference?.database === 'GO') {
       type = 'GO term';
     } else {
-      logging.warn({ message: 'missing case', data: annotation });
+      logging.warn('missing case', { extra: { data: annotation } });
     }
     if (type) {
       const annotations = map.get(type) || [];
@@ -591,7 +590,7 @@ function annotationsToInfoData(
           ),
         });
       } else {
-        logging.warn({ message: 'missing case', data: featureSet });
+        logging.warn('missing case', { extra: { data: featureSet } });
       }
     }
   }
@@ -642,9 +641,8 @@ const mergeAnnotationsAndExceptions = (
   }
   // Sanity check, we used all the exceptions to assign
   if (exceptionsToAssign.length) {
-    logging.warn({
-      message: 'exceptions left unnassigned',
-      data: exceptionsToAssign,
+    logging.warn('exceptions left unnassigned', {
+      extra: { data: exceptionsToAssign },
     });
   }
   return output;

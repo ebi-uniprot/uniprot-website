@@ -57,7 +57,7 @@ const TaxonomyView: FC<TaxonomyDataProps> = ({
 }) => {
   /* istanbul ignore if */
   if (!data.taxonId) {
-    logging.warn({ message: 'No taxon ID, this should not happen', data });
+    logging.warn('No taxon ID, this should not happen', { extra: { data } });
     return null;
   }
   const { scientificName, commonName, taxonId, synonyms } = data;

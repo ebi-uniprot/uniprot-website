@@ -91,6 +91,7 @@ const createReducer =
         };
         if (
           action.response &&
+          action.response.request &&
           action.response.request.responseURL &&
           action.response.request.responseURL !== action.originalURL
         ) {
@@ -98,6 +99,7 @@ const createReducer =
         } else if (
           // Issue with casing in axios-mock-adapter?
           action.response &&
+          action.response.request &&
           action.response.request.responseUrl &&
           action.response.request.responseUrl !== action.originalURL
         ) {
@@ -185,8 +187,18 @@ function useDataApi<T>(
         if (axios.isCancel(error) || didCancel) {
           return;
         }
-        logging.error(error, { url }, { origin: 'useDataApi' });
-        dispatch({ type: ActionType.ERROR, error });
+        // Ignore 404 because it might mean "valid request but no data"
+        if (error.response?.status === 404) {
+          dispatch({
+            type: ActionType.SUCCESS,
+            response: error.response,
+            originalURL: url,
+            progress: 1,
+          });
+        } else {
+          logging.error(error, { tags: { origin: 'useDataApi', url } });
+          dispatch({ type: ActionType.ERROR, error });
+        }
       }
     );
 
