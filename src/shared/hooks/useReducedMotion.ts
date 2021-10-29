@@ -24,9 +24,20 @@ const useReducedMotion = () => {
       setReducedMotion(event.matches);
     };
 
-    mediaQueryList.addEventListener('change', listener);
+    if ('addEventListener' in mediaQueryList) {
+      mediaQueryList.addEventListener('change', listener);
+    } else {
+      mediaQueryList.addListener(listener);
+    }
+
     // eslint-disable-next-line consistent-return
-    return () => mediaQueryList.removeEventListener('change', listener);
+    return () => {
+      if ('removeEventListener' in mediaQueryList) {
+        mediaQueryList.removeEventListener('change', listener);
+      } else {
+        mediaQueryList.removeListener(listener);
+      }
+    };
   }, []);
 
   return reducedMotion;
