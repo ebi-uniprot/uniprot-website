@@ -24,6 +24,11 @@
   }
 }
 
+// TODO: remove as part of TRM-26871
+.protvista-uniprot-structure__structure protvista-structure {
+  z-index: 10 !important;
+}
+
 // Debug utility to show heading levels
 // @for $i from 1 through 6 {
 //   h#{$i} {
