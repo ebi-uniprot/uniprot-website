@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { ExternalLink } from 'franklin-sites';
 
 // NOTE: this dependency is quite big (because of "amigo2-instance-data"), so
@@ -16,6 +16,7 @@ import { GroupedGoTerms } from '../../adapters/functionConverter';
 
 import '@geneontology/ribbon/es/main.scss';
 import './styles/go-ribbon.scss';
+import handleGOData from '../../adapters/GORibbonHandler';
 
 // The label position of each entity
 enum POSITION {
@@ -79,6 +80,14 @@ const GoRibbon: FC<{ primaryAccession: string; goTerms?: GroupedGoTerms }> = ({
       ),
     'protvista-datatable'
   );
+
+  useEffect(() => {
+    async function fetchData() {
+      const data = await handleGOData(goTerms);
+      console.log(data);
+    }
+    fetchData();
+  }, [goTerms]);
 
   const ungroupedGoTerms = Array.from(goTerms?.values() || []).flat();
   if (!ungroupedGoTerms.length) {
