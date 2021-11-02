@@ -319,7 +319,7 @@ export const EntryHistoryList = ({ accession }: { accession: string }) => {
         e.eventType !== 'replacing'
     );
     if (unknownEvents?.length) {
-      logging.warn({ message: 'unknown events found', data: unknownEvents });
+      logging.warn('unknown events found', { extra: { data: unknownEvents } });
     }
   }
 

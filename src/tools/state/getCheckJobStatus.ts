@@ -92,7 +92,9 @@ const getCheckJobStatus =
             urlConfig.resultUrl(job.remoteID, { format: 'json' })
           );
         } catch (error) {
-          logging.error(error);
+          if (error instanceof Error || typeof error === 'string') {
+            logging.error(error);
+          }
         }
 
         const results = response?.data;
@@ -204,7 +206,9 @@ const getCheckJobStatus =
         dispatch(addMessage(getJobMessage({ job: currentStateOfJob })));
       }
     } catch (error) {
-      logging.error(error);
+      if (error instanceof Error || typeof error === 'string') {
+        logging.error(error);
+      }
     }
   };
 

@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
 import { Loader } from 'franklin-sites';
@@ -34,7 +33,7 @@ const jobType = JobTypes.PEPTIDE_SEARCH;
 const urls = toolsURLs(jobType);
 const title = `${namespaceAndToolsLabels[jobType]} results`;
 
-const PeptideSearchResult: FC = () => {
+const PeptideSearchResult = () => {
   const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
     useItemSelect();
 

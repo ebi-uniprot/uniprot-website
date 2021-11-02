@@ -113,11 +113,6 @@ describe('ReactionDirection component', () => {
       />
     );
     expect(asFragment().childElementCount).toEqual(0);
-    // NOTE: should we test writing to the console?
-    // eslint-disable-next-line no-console
-    expect(console.error).toHaveBeenCalledWith(
-      'More than two physiological reactions encountered when rendering catalytic activity'
-    );
   });
 });
 
