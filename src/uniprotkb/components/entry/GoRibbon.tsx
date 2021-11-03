@@ -1,10 +1,6 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { ExternalLink } from 'franklin-sites';
-
-// NOTE: this dependency is quite big (because of "amigo2-instance-data"), so
-// NOTE: you can lazy load this module to avoid blocking the rest of the page
-// NOTE: while instantiating this
-import Ribbon, { RibbonDataProvider } from '@geneontology/ribbon';
+import { Helmet } from 'react-helmet';
 
 import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
 
@@ -14,59 +10,7 @@ import externalUrls from '../../../shared/config/externalUrls';
 
 import { GroupedGoTerms } from '../../adapters/functionConverter';
 
-import '@geneontology/ribbon/es/main.scss';
-import './styles/go-ribbon.scss';
-import handleGOData from '../../adapters/GORibbonHandler';
-
-// The label position of each entity
-enum POSITION {
-  NONE = 0,
-  LEFT = 1,
-  RIGHT = 2,
-  BOTTOM = 3,
-}
-
-// The input count value for the color
-enum COLOR_BY {
-  CLASS_COUNT = 0,
-  ANNOTATION_COUNT = 1,
-}
-
-type RibbonData = {
-  entities: unknown[];
-  config: unknown;
-  dataError: unknown;
-  dataReceived: unknown;
-};
-
-const RibbonContainer: FC<RibbonData> = ({
-  entities,
-  config,
-  dataError,
-  dataReceived,
-}) => (
-  <div className="GoRibbon__container">
-    {dataReceived && (
-      <Ribbon
-        entities={entities}
-        config={config}
-        showing
-        entityLabel={POSITION.RIGHT}
-        colorBy={COLOR_BY.CLASS_COUNT}
-        binaryColor={false}
-        oddEvenColor
-      />
-    )}
-    {!dataReceived && dataError && (
-      <div className="GoRibbon__container__message">
-        Cannot load Go Ribbon visualisation due to server error
-      </div>
-    )}
-    {!dataReceived && !dataError && (
-      <div className="GoRibbon__container__message">Loading...</div>
-    )}
-  </div>
-);
+import handleGOData, { AGRRibbonData } from '../../adapters/GORibbonHandler';
 
 const GoRibbon: FC<{ primaryAccession: string; goTerms?: GroupedGoTerms }> = ({
   primaryAccession,
@@ -81,13 +25,22 @@ const GoRibbon: FC<{ primaryAccession: string; goTerms?: GroupedGoTerms }> = ({
     'protvista-datatable'
   );
 
+  const ribbonRef = useRef();
+  const [data, setData] = useState<AGRRibbonData | null>();
+
   useEffect(() => {
-    async function fetchData() {
-      const data = await handleGOData(goTerms);
-      console.log(data);
+    async function getSlimmedData(goTerms?: GroupedGoTerms) {
+      const returnData = await handleGOData(goTerms);
+      setData(returnData);
     }
-    fetchData();
+    getSlimmedData(goTerms);
   }, [goTerms]);
+
+  useEffect(() => {
+    if (ribbonRef.current && data) {
+      ribbonRef.current.data = data;
+    }
+  }, [data, ribbonRef]);
 
   const ungroupedGoTerms = Array.from(goTerms?.values() || []).flat();
   if (!ungroupedGoTerms.length) {
@@ -97,9 +50,13 @@ const GoRibbon: FC<{ primaryAccession: string; goTerms?: GroupedGoTerms }> = ({
   return (
     <div className="GoRibbon">
       <h3>GO Annotations</h3>
-      <RibbonDataProvider subject={`UniProtKB:${primaryAccession}`}>
-        {(data: RibbonData) => <RibbonContainer {...data} />}
-      </RibbonDataProvider>
+      <Helmet>
+        <script
+          type="module"
+          src="https://unpkg.com/@geneontology/wc-go-ribbon/dist/wc-go-ribbon/wc-go-ribbon.esm.js"
+        />
+      </Helmet>
+      <wc-go-ribbon ref={ribbonRef} />
       <protvista-datatable>
         <table>
           <thead>
