@@ -290,7 +290,9 @@ const Entry: FC = () => {
       sidebar={sidebar}
       className={cn('entry-page', sticky['sticky-tabs-container'])}
       title={
-        historyOldEntry ? null : (
+        historyOldEntry ? (
+          <h1 className="big">{match.params.accession}</h1>
+        ) : (
           <ErrorBoundary>
             <HTMLHead
               title={[
