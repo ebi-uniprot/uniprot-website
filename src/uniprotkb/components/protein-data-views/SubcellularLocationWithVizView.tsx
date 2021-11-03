@@ -1,8 +1,10 @@
 import { FC, Suspense, lazy } from 'react';
-
 import { Tabs, Tab } from 'franklin-sites';
+
 import SubcellularLocationView from './SubcellularLocationView';
 import SubcellularLocationGOView from './SubcellularLocationGOView';
+
+import { getEvidenceCodeData } from '../../config/evidenceCodes';
 
 import { SubcellularLocationComment } from '../../types/commentTypes';
 import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
@@ -21,6 +23,11 @@ export enum VizTab {
   UniProt = 'uniprot',
   GO = 'go',
 }
+
+export type SubCellLocation = {
+  id: string;
+  reviewed: boolean;
+};
 
 const isVirus = ([superkingdom]: string[]) =>
   superkingdom === Superkingdom.Viruses;
@@ -52,11 +59,19 @@ const SubcellularLocationWithVizView: FC<
   const uniProtLocationIds = (comments || [])
     .flatMap(({ subcellularLocations }) =>
       subcellularLocations?.map(
-        ({ location }) => location.id && getSubcellularLocationId(location.id)
+        ({ location }) =>
+          !!location.id && {
+            id: getSubcellularLocationId(location.id),
+            reviewed: location.evidences?.some((evidence) => {
+              const evidenceCodeData = getEvidenceCodeData(
+                evidence.evidenceCode
+              );
+              return Boolean(evidenceCodeData?.manual);
+            }),
+          }
       )
     )
-    .filter(Boolean)
-    .join(',');
+    .filter(Boolean) as SubCellLocation[];
 
   const goLocationIds = (goXrefs || [])
     .map(({ id }) => getGoId(id))
@@ -73,11 +88,13 @@ const SubcellularLocationWithVizView: FC<
     return null;
   }
 
+  console.log(uniProtLocationIds);
+  // console.log(goXrefs);
   return (
     <Suspense fallback={null}>
       <Tabs>
         <Tab cache title="UniProt Annotation">
-          <SubCellViz uniProtLocationIds={uniProtLocationIds} taxonId={taxonId}>
+          <SubCellViz uniProtLocations={uniProtLocationIds} taxonId={taxonId}>
             {uniprotTextContent}
           </SubCellViz>
         </Tab>

@@ -3,12 +3,14 @@ import { FC, memo, useEffect, useRef } from 'react';
 import tippy from 'tippy.js';
 import { v1 } from 'uuid';
 import '@swissprot/swissbiopics-visualizer';
+import { groupBy } from 'lodash-es';
 import { RequireExactlyOne } from 'type-fest';
 
-import { VizTab } from './SubcellularLocationWithVizView';
+import { VizTab, SubCellLocation } from './SubcellularLocationWithVizView';
 
 import 'tippy.js/dist/tippy.css';
 import './styles/sub-cell-viz.scss';
+import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
 
 /*
   The logic implemented here to get our data into @swissprot/swissbiopics-visualizer has been lifted
@@ -128,19 +130,21 @@ const attachTooltips = (
 type Props = RequireExactlyOne<
   {
     taxonId: number;
-    uniProtLocationIds: string;
+    uniProtLocations: SubCellLocation[];
     goLocationIds: string;
   },
-  'uniProtLocationIds' | 'goLocationIds'
+  'uniProtLocations' | 'goLocationIds'
 >;
 
 const SubCellViz: FC<Props> = memo(
-  ({ uniProtLocationIds, goLocationIds, taxonId, children }) => {
+  ({ uniProtLocations, goLocationIds, taxonId, children }) => {
     const instanceName = useRef(
       `${canonicalName}-${
-        uniProtLocationIds?.length ? VizTab.UniProt : VizTab.GO
+        uniProtLocations?.length ? VizTab.UniProt : VizTab.GO
       }-${v1()}`
     );
+
+    const uniProtLocationIds = uniProtLocations?.map(({ id }) => id).join(',');
 
     /**
      * NOTE: whole lot of mitigation logic because of the way the custom element
@@ -191,6 +195,12 @@ const SubCellViz: FC<Props> = memo(
           super.removeHiglight(text, image, selector);
         }
       }
+
+      const uniProtLocationsByReviewedStatus = groupBy(
+        uniProtLocations,
+        ({ reviewed }) => (reviewed ? 'reviewed' : 'unreviewed')
+      );
+
       /**
        * This needs to happen after the element has been created and inserted into
        * the DOM in order to have the constructor being called when already in the
@@ -244,7 +254,17 @@ const SubCellViz: FC<Props> = memo(
           fill: #abc7d6 !important;
           fill-opacity: 1 !important;
         }
-      `;
+        ${uniProtLocationsByReviewedStatus.unreviewed
+          ?.map(({ id }) => `svg #SL${id} *:not(text)`)
+          .join(', ')} {
+          fill: ${colors.unreviewed};
+        }
+        ${uniProtLocationsByReviewedStatus.reviewed
+          ?.map(({ id }) => `svg #SL${id} *:not(text)`)
+          .join(', ')} {
+          fill: ${colors.reviewed};
+        }
+        `;
 
         const style = document.createElement('style');
         // inject more styles
@@ -264,7 +284,7 @@ const SubCellViz: FC<Props> = memo(
         for (const subcellularPresentSVG of subcellularPresentSVGs) {
           // The text location in the righthand column which in our case will either
           // be of the form \d+term or GO\d+ depending on what props has been provided
-          const textSelectors = uniProtLocationIds?.length
+          const textSelectors = uniProtLocations?.length
             ? getUniProtTextSelectors(subcellularPresentSVG)
             : getGoTermClassNames(subcellularPresentSVG);
 
@@ -315,7 +335,7 @@ const SubCellViz: FC<Props> = memo(
       return () => {
         shadowRoot?.removeEventListener('svgloaded', onSvgLoaded);
       };
-    }, [uniProtLocationIds]);
+    }, [uniProtLocationIds, uniProtLocations]);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const Instance = (props: any) => <instanceName.current {...props} />;
