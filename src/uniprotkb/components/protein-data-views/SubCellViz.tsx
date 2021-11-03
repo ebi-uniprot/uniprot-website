@@ -274,22 +274,22 @@ const SubCellViz: FC<Props> = memo(
         )} {
           stroke: black;
           fill-opacity: 1;
-          fill: ${colors.unreviewed};
+          fill: ${colors.unreviewed}; /* #D3E8FE in the current site */
         }
         ${getUniProtTermSelectors(uniProtLocationsByReviewedStatus.reviewed)} {
           stroke: black;
           fill-opacity: 1;
-          fill: ${colors.reviewed};
+          fill: ${colors.reviewed}; /* #FBEFB6 in the current site */
         }
         ${getGoTermSelectors(goLocationsByReviewedStatus.unreviewed)} {
           stroke: black;
           fill-opacity: 1;
-          fill: ${colors.unreviewed};
+          fill: ${colors.unreviewed}; /* #D3E8FE in the current site */
         }
         ${getGoTermSelectors(goLocationsByReviewedStatus.reviewed)} {
           stroke: black;
           fill-opacity: 1;
-          fill: ${colors.reviewed};
+          fill: ${colors.reviewed}; /* #FBEFB6 in the current site */
         }
         `;
 
