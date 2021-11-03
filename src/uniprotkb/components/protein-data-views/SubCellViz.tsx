@@ -269,29 +269,29 @@ const SubCellViz: FC<Props> = memo(
         .subcell_description {
           display: none;
         }
-        [class*="mp_"] .coloured, svg [class*="part_"] .coloured {
+        ${getUniProtTermSelectors(
+          uniProtLocationsByReviewedStatus.unreviewed
+        )} {
           stroke: black;
-          fill: #abc7d6;
           fill-opacity: 1;
-        }
-        ${uniProtLocationsByReviewedStatus.unreviewed
-          ?.map(({ id }) => `svg #SL${id} *:not(text)`)
-          .join(', ')} {
           fill: ${colors.unreviewed};
         }
-        ${uniProtLocationsByReviewedStatus.reviewed
-          ?.map(({ id }) => `svg #SL${id} *:not(text)`)
-          .join(', ')} {
+        ${getUniProtTermSelectors(uniProtLocationsByReviewedStatus.reviewed)} {
+          stroke: black;
+          fill-opacity: 1;
           fill: ${colors.reviewed};
         }
         ${getGoTermSelectors(goLocationsByReviewedStatus.unreviewed)} {
+          stroke: black;
+          fill-opacity: 1;
           fill: ${colors.unreviewed};
         }
         ${getGoTermSelectors(goLocationsByReviewedStatus.reviewed)} {
+          stroke: black;
+          fill-opacity: 1;
           fill: ${colors.reviewed};
         }
-       `;
-        console.log(css);
+        `;
 
         const style = document.createElement('style');
         // inject more styles
