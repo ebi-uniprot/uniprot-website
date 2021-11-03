@@ -1,7 +1,12 @@
 import { FC, Fragment } from 'react';
 import { groupBy } from 'lodash-es';
 import { ExternalLink, EvidenceTag } from 'franklin-sites';
-import { getEvidenceCodeData, EvidenceData } from '../../config/evidenceCodes';
+import {
+  getEvidenceCodeData,
+  EvidenceData,
+  getEcoFromString,
+  getEcoNumberFromString,
+} from '../../config/evidenceCodes';
 import { Evidence } from '../../types/modelTypes';
 import UniProtKBEntryPublications from './UniProtKBEntryPublications';
 import { processUrlTemplate } from './XRefView';
@@ -73,7 +78,9 @@ const UniProtKBEvidenceTag = ({ evidences }: { evidences?: Evidence[] }) => {
   const evidenceObj = groupBy(evidences, (evidence) => evidence.evidenceCode);
   const evidenceTags = Object.entries(evidenceObj).map(
     ([evidenceCode, references]) => {
-      const evidenceData = getEvidenceCodeData(evidenceCode);
+      const evidenceData = getEvidenceCodeData(
+        getEcoNumberFromString(evidenceCode)
+      );
       if (!evidenceData) {
         return null;
       }
