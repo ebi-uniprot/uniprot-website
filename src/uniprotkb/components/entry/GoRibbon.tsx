@@ -53,10 +53,10 @@ const GoRibbon: FC<{ primaryAccession: string; goTerms?: GroupedGoTerms }> = ({
       <Helmet>
         <script
           type="module"
-          src="https://unpkg.com/@geneontology/wc-go-ribbon/dist/wc-go-ribbon/wc-go-ribbon.esm.js"
+          src="https://unpkg.com/@geneontology/wc-ribbon-strips/dist/wc-ribbon-strips/wc-ribbon-strips.esm.js"
         />
       </Helmet>
-      <wc-go-ribbon ref={ribbonRef} />
+      <wc-ribbon-strips ref={ribbonRef} />
       <protvista-datatable>
         <table>
           <thead>

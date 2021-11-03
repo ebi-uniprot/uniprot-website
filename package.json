@@ -95,7 +95,6 @@
     ]
   },
   "dependencies": {
-    "@geneontology/wc-go-ribbon": "^0.0.14",
     "@sentry/react": "6.13.3",
     "@sentry/tracing": "6.13.3",
     "@swissprot/rhea-reaction-visualizer": "0.0.21",

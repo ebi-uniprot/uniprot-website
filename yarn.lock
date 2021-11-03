@@ -1099,51 +1099,6 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@geneontology/dbxrefs@^1.0.7", "@geneontology/dbxrefs@^1.0.9":
-  version "1.0.16"
-  resolved "https://registry.yarnpkg.com/@geneontology/dbxrefs/-/dbxrefs-1.0.16.tgz#7cd5c03912e910786609d5f7351474b86615a946"
-  integrity sha512-zKvbcfs+LU4ZnUo00A5ae0V+FVMIM4ftxcfKtJWmtnLKwWy1sOn2y36HGcz/rEmLwd2zBApKJ0ojmgBH416Q5Q==
-  dependencies:
-    axios "^0.21.1"
-    js-yaml "^4.0.0"
-
-"@geneontology/wc-go-autocomplete@0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@geneontology/wc-go-autocomplete/-/wc-go-autocomplete-0.0.6.tgz#478ad622bdd95174fa3d20ece5a2326ea3413a2c"
-  integrity sha512-QOJEA5xWXwooQGIgEjPiwFzq6SKR3Glg1DwBUBaKxRMDhTPj4ywkigXNEVOOI+F+iRbEyM0s/M79wYtzvHurTw==
-  dependencies:
-    "@geneontology/dbxrefs" "^1.0.9"
-    "@stencil/core" "^1.8.8"
-
-"@geneontology/wc-go-ribbon@^0.0.14":
-  version "0.0.14"
-  resolved "https://registry.yarnpkg.com/@geneontology/wc-go-ribbon/-/wc-go-ribbon-0.0.14.tgz#935a631679c40c2369abe7702efd188b6739b056"
-  integrity sha512-50HPtv/3dHqU1HjygKYJyuQYC1+F7dBtrkyFtDuxB7QJngzqDUbY/cycKnF07JTwKMMNU3Q4kzpMPow0cQR8PA==
-  dependencies:
-    "@geneontology/wc-go-autocomplete" "0.0.6"
-    "@geneontology/wc-ribbon-strips" "0.0.36"
-    "@geneontology/wc-ribbon-table" "0.0.54"
-    "@geneontology/wc-spinner" "0.0.2"
-
-"@geneontology/wc-ribbon-strips@0.0.36":
-  version "0.0.36"
-  resolved "https://registry.yarnpkg.com/@geneontology/wc-ribbon-strips/-/wc-ribbon-strips-0.0.36.tgz#f248760888d55a36d6ab6313b1cdbd9909f211a0"
-  integrity sha512-RsWulLkxkZ9edur/ceyBSe7GtHaJ508ACUp8Qg4B5TTAj/rITwdE8hYBv0MDZZbQwntympV0HOxC3PvAo4T0qw==
-  dependencies:
-    "@geneontology/wc-spinner" "0.0.2"
-
-"@geneontology/wc-ribbon-table@0.0.54":
-  version "0.0.54"
-  resolved "https://registry.yarnpkg.com/@geneontology/wc-ribbon-table/-/wc-ribbon-table-0.0.54.tgz#3d6323c85cb187434e27814afa695e1e77e9fa53"
-  integrity sha512-cSpX0OLuEGeEIjTX0j/rNW9AkbRpw1Px00AeIncgT/3tiDZOBhPqNKCEFo9HNsDvfyBvKIT1dLfQA8zGqvfotA==
-  dependencies:
-    "@geneontology/dbxrefs" "^1.0.7"
-
-"@geneontology/wc-spinner@0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@geneontology/wc-spinner/-/wc-spinner-0.0.2.tgz#1331ed28249cee809f7af6c0b46df69196af430d"
-  integrity sha512-LUbE3DvgxtXcLokPMtY+ex5i02chSA+V3XLbCJgSVxExvdyhy3ZK55mI+ojSnXkRTQHRHitzniAhs+DkhZ4JgQ==
-
 "@humanwhocodes/config-array@^0.5.0":
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.5.0.tgz#1407967d4c6eecd7388f83acf1eaf4d0c6e58ef9"
@@ -1514,13 +1469,6 @@
   integrity sha512-AU7kwFxreVd6OAXcAFlKSmZquiRUU0FvYm44k1Y1QbK7Co4m0aqfGMhjykIeQp/H6rcl+nFmj0zfdUcGVs9Dew==
   dependencies:
     "@sinonjs/commons" "^1.7.0"
-
-"@stencil/core@^1.8.8":
-  version "1.17.4"
-  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-1.17.4.tgz#f7beb16ecb3344c80e053fece013ae499adc7c54"
-  integrity sha512-dmuNYM6fnHPvE2ptHoUBQtjcpXqrHnkDtdyUD6/JrZWcJt6jBtrykewObOxzpDCMLs+NT7668ussRagdVL03gQ==
-  dependencies:
-    typescript "3.9.7"
 
 "@surma/rollup-plugin-off-main-thread@^1.4.1":
   version "1.4.2"
@@ -2814,11 +2762,6 @@ argparse@^1.0.10, argparse@^1.0.7:
   dependencies:
     sprintf-js "~1.0.2"
 
-argparse@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/argparse/-/argparse-2.0.1.tgz#246f50f3ca78a3240f6c997e8a9bd1eac49e4b38"
-  integrity sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==
-
 aria-query@^4.2.2:
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/aria-query/-/aria-query-4.2.2.tgz#0d2ca6c9aceb56b8977e9fed6aed7e15bbd2f83b"
@@ -2952,13 +2895,6 @@ axios@0.22.0:
   integrity sha512-Z0U3uhqQeg1oNcihswf4ZD57O3NrR1+ZXhxaROaWpDmsDTx7T2HNBV2ulBtie2hwJptu8UvgnJoK+BIqdzh/1w==
   dependencies:
     follow-redirects "^1.14.4"
-
-axios@^0.21.1:
-  version "0.21.4"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.4.tgz#c67b90dc0568e5c1cf2b0b858c43ba28e2eda575"
-  integrity sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==
-  dependencies:
-    follow-redirects "^1.14.0"
 
 axobject-query@^2.2.0:
   version "2.2.0"
@@ -5314,11 +5250,6 @@ follow-redirects@^1.0.0, follow-redirects@^1.14.4:
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.4.tgz#838fdf48a8bbdd79e52ee51fb1c94e3ed98b9379"
   integrity sha512-zwGkiSXC1MUJG/qmeIFH2HBJx9u0V46QGUe3YR1fXG8bXQxq7fLj0RjLZQ5nubr9qNJUZrH+xUcwXEoXNpfS+g==
 
-follow-redirects@^1.14.0:
-  version "1.14.5"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.5.tgz#f09a5848981d3c772b5392309778523f8d85c381"
-  integrity sha512-wtphSXy7d4/OR+MvIFbCVBDzZ5520qV8XfPklSN5QtxuMUJZ+b0Wnst1e1lCDocfzuCkHqj8k0FpZqO+UIaKNA==
-
 for-each@^0.3.3:
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/for-each/-/for-each-0.3.3.tgz#69b447e88a0a5d32c3e7084f3f1710034b21376e"
@@ -7006,13 +6937,6 @@ js-yaml@^3.13.1:
   dependencies:
     argparse "^1.0.7"
     esprima "^4.0.0"
-
-js-yaml@^4.0.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-4.1.0.tgz#c1fb65f8f5017901cdd2c951864ba18458a10602"
-  integrity sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==
-  dependencies:
-    argparse "^2.0.1"
 
 jsdom@^16.6.0:
   version "16.7.0"
@@ -10936,11 +10860,6 @@ typescript-plugin-css-modules@3.4.0:
     sass "^1.32.13"
     stylus "^0.54.8"
     tsconfig-paths "^3.9.0"
-
-typescript@3.9.7:
-  version "3.9.7"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.7.tgz#98d600a5ebdc38f40cb277522f12dc800e9e25fa"
-  integrity sha512-BLbiRkiBzAwsjut4x/dsibSTB6yWpwT5qWmC2OfuCg3GgVQCSgMs4vEctYPhsaGtd0AeuuHMkjZ2h2WG8MSzRw==
 
 typescript@4.4.3:
   version "4.4.3"
