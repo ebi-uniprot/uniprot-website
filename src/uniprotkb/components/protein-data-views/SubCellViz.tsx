@@ -6,7 +6,7 @@ import '@swissprot/swissbiopics-visualizer';
 import { groupBy } from 'lodash-es';
 import { RequireExactlyOne } from 'type-fest';
 
-import { VizTab, SubCellLocation } from './SubcellularLocationWithVizView';
+import { VizTab, SubCellularLocation } from './SubcellularLocationWithVizView';
 
 import 'tippy.js/dist/tippy.css';
 import './styles/sub-cell-viz.scss';
@@ -78,6 +78,22 @@ const getUniProtTextSelectors = (subcellularPresentSVG: Element): string[] => [
     .filter((sel: string | undefined): sel is string => Boolean(sel)),
 ];
 
+const getGoTermSelectors = (locations: SubCellularLocation[]) =>
+  locations
+    ?.flatMap(({ id }) => [
+      `svg .GO${+id} *:not(text)`,
+      `svg .part_GO${+id} *:not(text)`,
+    ])
+    .join(', ');
+
+const getUniProtTermSelectors = (locations: SubCellularLocation[]) =>
+  locations
+    ?.flatMap(({ id }) => [
+      `svg #SL${id} *:not(text)`,
+      `svg .mp_SL${id} *:not(text)`,
+    ])
+    .join(', ');
+
 const attachTooltips = (
   locationGroup: Element,
   instance: Element | null,
@@ -130,14 +146,14 @@ const attachTooltips = (
 type Props = RequireExactlyOne<
   {
     taxonId: number;
-    uniProtLocations: SubCellLocation[];
-    goLocationIds: string;
+    uniProtLocations: SubCellularLocation[];
+    goLocations: SubCellularLocation[];
   },
-  'uniProtLocations' | 'goLocationIds'
+  'uniProtLocations' | 'goLocations'
 >;
 
 const SubCellViz: FC<Props> = memo(
-  ({ uniProtLocations, goLocationIds, taxonId, children }) => {
+  ({ uniProtLocations, goLocations, taxonId, children }) => {
     const instanceName = useRef(
       `${canonicalName}-${
         uniProtLocations?.length ? VizTab.UniProt : VizTab.GO
@@ -145,6 +161,7 @@ const SubCellViz: FC<Props> = memo(
     );
 
     const uniProtLocationIds = uniProtLocations?.map(({ id }) => id).join(',');
+    const goLocationIds = goLocations?.map(({ id }) => id).join(',');
 
     /**
      * NOTE: whole lot of mitigation logic because of the way the custom element
@@ -200,6 +217,9 @@ const SubCellViz: FC<Props> = memo(
         uniProtLocations,
         ({ reviewed }) => (reviewed ? 'reviewed' : 'unreviewed')
       );
+      const goLocationsByReviewedStatus = groupBy(goLocations, ({ reviewed }) =>
+        reviewed ? 'reviewed' : 'unreviewed'
+      );
 
       /**
        * This needs to happen after the element has been created and inserted into
@@ -250,9 +270,9 @@ const SubCellViz: FC<Props> = memo(
           display: none;
         }
         [class*="mp_"] .coloured, svg [class*="part_"] .coloured {
-          stroke: black !important;
-          fill: #abc7d6 !important;
-          fill-opacity: 1 !important;
+          stroke: black;
+          fill: #abc7d6;
+          fill-opacity: 1;
         }
         ${uniProtLocationsByReviewedStatus.unreviewed
           ?.map(({ id }) => `svg #SL${id} *:not(text)`)
@@ -264,7 +284,14 @@ const SubCellViz: FC<Props> = memo(
           .join(', ')} {
           fill: ${colors.reviewed};
         }
-        `;
+        ${getGoTermSelectors(goLocationsByReviewedStatus.unreviewed)} {
+          fill: ${colors.unreviewed};
+        }
+        ${getGoTermSelectors(goLocationsByReviewedStatus.reviewed)} {
+          fill: ${colors.reviewed};
+        }
+       `;
+        console.log(css);
 
         const style = document.createElement('style');
         // inject more styles
@@ -335,7 +362,7 @@ const SubCellViz: FC<Props> = memo(
       return () => {
         shadowRoot?.removeEventListener('svgloaded', onSvgLoaded);
       };
-    }, [uniProtLocationIds, uniProtLocations]);
+    }, [uniProtLocationIds, uniProtLocations, goLocationIds, goLocations]);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const Instance = (props: any) => <instanceName.current {...props} />;

@@ -4,11 +4,16 @@ import { Tabs, Tab } from 'franklin-sites';
 import SubcellularLocationView from './SubcellularLocationView';
 import SubcellularLocationGOView from './SubcellularLocationGOView';
 
-import { getEvidenceCodeData } from '../../config/evidenceCodes';
+import {
+  getEvidenceCodeData,
+  getEcoNumberFromGoEvidenceType,
+  getEcoNumberFromString,
+} from '../../config/evidenceCodes';
 
 import { SubcellularLocationComment } from '../../types/commentTypes';
 import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { GoXref } from '../../adapters/subcellularLocationConverter';
+import { GoEvidenceType } from '../../types/modelTypes';
 
 // Import it lazily in order to isolate the libraries used only for this
 const SubCellViz = lazy(
@@ -24,7 +29,7 @@ export enum VizTab {
   GO = 'go',
 }
 
-export type SubCellLocation = {
+export type SubCellularLocation = {
   id: string;
   reviewed: boolean;
 };
@@ -56,50 +61,61 @@ const SubcellularLocationWithVizView: FC<
     />
   );
 
-  const uniProtLocationIds = (comments || [])
+  const uniProtLocations = (comments || [])
     .flatMap(({ subcellularLocations }) =>
       subcellularLocations?.map(
         ({ location }) =>
           !!location.id && {
             id: getSubcellularLocationId(location.id),
             reviewed: location.evidences?.some((evidence) => {
-              const evidenceCodeData = getEvidenceCodeData(
-                evidence.evidenceCode
+              const evidenceData = getEvidenceCodeData(
+                getEcoNumberFromString(evidence.evidenceCode)
               );
-              return Boolean(evidenceCodeData?.manual);
+              return Boolean(evidenceData?.manual);
             }),
           }
       )
     )
-    .filter(Boolean) as SubCellLocation[];
+    .filter(Boolean) as SubCellularLocation[];
 
-  const goLocationIds = (goXrefs || [])
-    .map(({ id }) => getGoId(id))
-    .filter(Boolean)
-    .join(',');
+  const goLocations = (goXrefs || [])
+    .map(({ id, properties }) => {
+      const goId = getGoId(id);
+      if (!goId) {
+        return null;
+      }
+      const evidenceData = getEvidenceCodeData(
+        getEcoNumberFromGoEvidenceType(properties.GoEvidenceType)
+      );
+      return {
+        id: goId,
+        reviewed: evidenceData?.manual,
+      };
+    })
+    .filter(Boolean) as SubCellularLocation[];
 
   if (
     !lineage ||
     !taxonId ||
     isVirus(lineage as string[]) ||
     !(uniprotTextContent && goTextContent) ||
-    (!uniProtLocationIds?.length && !goLocationIds?.length)
+    (!uniProtLocations?.length && !goLocations?.length)
   ) {
     return null;
   }
 
-  console.log(uniProtLocationIds);
-  // console.log(goXrefs);
+  // console.log(uniProtLocations);
+  console.log(goXrefs);
   return (
     <Suspense fallback={null}>
       <Tabs>
         <Tab cache title="UniProt Annotation">
-          <SubCellViz uniProtLocations={uniProtLocationIds} taxonId={taxonId}>
+          <SubCellViz uniProtLocations={uniProtLocations} taxonId={taxonId}>
             {uniprotTextContent}
           </SubCellViz>
         </Tab>
         <Tab cache title="GO Annotation">
-          <SubCellViz goLocationIds={goLocationIds} taxonId={taxonId}>
+          <SubCellViz goLocations={goLocations} taxonId={taxonId}>
             {goTextContent}
           </SubCellViz>
         </Tab>
