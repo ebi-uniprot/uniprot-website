@@ -241,6 +241,7 @@ const SubCellViz: FC<Props> = memo(
           ? `${tabsHeaderHeight + 5}px`
           : '4rem';
 
+        // TODO: Update colors as part of https://www.ebi.ac.uk/panda/jira/browse/TRM-26911
         const css = `
         #fakeContent {
           display: none;
