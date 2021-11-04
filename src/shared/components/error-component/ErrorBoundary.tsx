@@ -49,10 +49,16 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    logging.error(error, {
-      extra: { errorInfo },
-      tags: { origin: 'error-boundary' },
-    });
+    // Don't log if we're going to try to reload to fix the issue
+    if (
+      sessionStorage.getItem('reloaded') ||
+      !this.state.error?.name.includes('Chunk')
+    ) {
+      logging.error(error, {
+        extra: { errorInfo },
+        tags: { origin: 'error-boundary' },
+      });
+    }
   }
 
   render() {
