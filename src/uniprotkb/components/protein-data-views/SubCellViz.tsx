@@ -247,7 +247,7 @@ const SubCellViz: FC<Props> = memo(
         }
         .lookedAt {
           stroke: black !important;
-          fill: #abc7d6 !important;
+          fill: ${colors.seaBlue} !important;
           fill-opacity: 1 !important;
         }
         #swissbiopic > svg {
@@ -274,22 +274,22 @@ const SubCellViz: FC<Props> = memo(
         )} {
           stroke: black;
           fill-opacity: 1;
-          fill: ${colors.unreviewed}; /* #D3E8FE in the current site */
+          fill: #87bbeb;
         }
         ${getUniProtTermSelectors(uniProtLocationsByReviewedStatus.reviewed)} {
           stroke: black;
           fill-opacity: 1;
-          fill: ${colors.reviewed}; /* #FBEFB6 in the current site */
+          fill: #E6DAB3;
         }
         ${getGoTermSelectors(goLocationsByReviewedStatus.unreviewed)} {
           stroke: black;
           fill-opacity: 1;
-          fill: ${colors.unreviewed}; /* #D3E8FE in the current site */
+          fill: #87bbeb;
         }
         ${getGoTermSelectors(goLocationsByReviewedStatus.reviewed)} {
           stroke: black;
           fill-opacity: 1;
-          fill: ${colors.reviewed}; /* #FBEFB6 in the current site */
+          fill: #E6DAB3;
         }
         `;
 
