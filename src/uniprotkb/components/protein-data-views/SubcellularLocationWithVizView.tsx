@@ -13,7 +13,6 @@ import {
 import { SubcellularLocationComment } from '../../types/commentTypes';
 import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { GoXref } from '../../adapters/subcellularLocationConverter';
-import { GoEvidenceType } from '../../types/modelTypes';
 
 // Import it lazily in order to isolate the libraries used only for this
 const SubCellViz = lazy(
@@ -104,8 +103,6 @@ const SubcellularLocationWithVizView: FC<
     return null;
   }
 
-  // console.log(uniProtLocations);
-  console.log(goXrefs);
   return (
     <Suspense fallback={null}>
       <Tabs>
