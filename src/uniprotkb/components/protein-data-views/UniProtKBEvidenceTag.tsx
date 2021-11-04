@@ -4,7 +4,6 @@ import { ExternalLink, EvidenceTag } from 'franklin-sites';
 import {
   getEvidenceCodeData,
   EvidenceData,
-  getEcoFromString,
   getEcoNumberFromString,
 } from '../../config/evidenceCodes';
 import { Evidence } from '../../types/modelTypes';
