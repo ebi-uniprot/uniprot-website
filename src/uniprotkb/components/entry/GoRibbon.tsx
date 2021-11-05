@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { ExternalLink } from 'franklin-sites';
 import { Helmet } from 'react-helmet';
 
@@ -10,7 +10,9 @@ import externalUrls from '../../../shared/config/externalUrls';
 
 import { GroupedGoTerms } from '../../adapters/functionConverter';
 
-import handleGOData, { AGRRibbonData } from '../../adapters/GORibbonHandler';
+import handleGOData, {
+  AGRRibbonData,
+} from '../../adapters/slimming/GORibbonHandler';
 
 const GoRibbon: FC<{ primaryAccession: string; goTerms?: GroupedGoTerms }> = ({
   primaryAccession,
@@ -25,22 +27,25 @@ const GoRibbon: FC<{ primaryAccession: string; goTerms?: GroupedGoTerms }> = ({
     'protvista-datatable'
   );
 
-  const ribbonRef = useRef();
+  // const ribbonRef = useRef();
   const [data, setData] = useState<AGRRibbonData | null>();
 
   useEffect(() => {
-    async function getSlimmedData(goTerms?: GroupedGoTerms) {
-      const returnData = await handleGOData(goTerms);
+    async function getSlimmedData(goTerms: GroupedGoTerms) {
+      const returnData = await handleGOData(goTerms, primaryAccession);
       setData(returnData);
     }
-    getSlimmedData(goTerms);
-  }, [goTerms]);
-
-  useEffect(() => {
-    if (ribbonRef.current && data) {
-      ribbonRef.current.data = data;
+    if (goTerms) {
+      getSlimmedData(goTerms);
     }
-  }, [data, ribbonRef]);
+  }, [goTerms, primaryAccession]);
+
+  // useEffect(() => {
+  //   if (ribbonRef.current && data) {
+  //     ribbonRef.current.data = data;
+  //     console.log(ribbonRef.current.data);
+  //   }
+  // }, [data, ribbonRef]);
 
   const ungroupedGoTerms = Array.from(goTerms?.values() || []).flat();
   if (!ungroupedGoTerms.length) {
@@ -56,7 +61,13 @@ const GoRibbon: FC<{ primaryAccession: string; goTerms?: GroupedGoTerms }> = ({
           src="https://unpkg.com/@geneontology/wc-ribbon-strips/dist/wc-ribbon-strips/wc-ribbon-strips.esm.js"
         />
       </Helmet>
-      <wc-ribbon-strips ref={ribbonRef} />
+      {data && (
+        <wc-ribbon-strips
+          // ref={ribbonRef}
+          data={JSON.stringify(data)}
+          update-on-subject-change="false"
+        />
+      )}
       <protvista-datatable>
         <table>
           <thead>

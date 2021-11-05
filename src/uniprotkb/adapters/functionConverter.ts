@@ -54,11 +54,10 @@ export type BioPhysicoChemicalProperties = {
   temperatureDependence?: TextWithEvidence[];
 };
 
-export enum GoAspect {
-  P = 'Biological Process',
-  F = 'Molecular Function',
-  C = 'Cellular Component',
-}
+export type GoAspect =
+  | 'Biological Process'
+  | 'Molecular Function'
+  | 'Cellular Component';
 
 export type GoTerm = {
   aspect?: GoAspect;
@@ -78,6 +77,15 @@ const keywordsCategories: KeywordCategory[] = [
   'Biological process',
   'Ligand',
 ];
+
+const stringToAspect = new Map<string, GoAspect>([
+  ['P', 'Biological Process'],
+  ['F', 'Molecular Function'],
+  ['C', 'Cellular Component'],
+  ['biological_process', 'Biological Process'],
+  ['molecular_function', 'Molecular Function'],
+  ['cellular_component', 'Cellular Component'],
+]);
 
 export const functionFeaturesToColumns: Readonly<
   Record<FunctionFeatures, UniProtKBColumn>
@@ -181,7 +189,7 @@ const convertFunction = (
       const termDescription = goTermProperty && goTermProperty.substring(2);
       return {
         ...term,
-        aspect: GoAspect[aspect as keyof typeof GoAspect],
+        aspect: aspect ? stringToAspect.get(aspect) : undefined,
         termDescription,
       };
     });

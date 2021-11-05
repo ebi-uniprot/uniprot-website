@@ -889,15 +889,15 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccTissueSpecificity, {
 
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.goP,
-  getGOColumnForAspect(GoAspect.P)
+  getGOColumnForAspect('Biological Process')
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.goC,
-  getGOColumnForAspect(GoAspect.C)
+  getGOColumnForAspect('Cellular Component')
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.goF,
-  getGOColumnForAspect(GoAspect.F)
+  getGOColumnForAspect('Molecular Function')
 );
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.go, {
