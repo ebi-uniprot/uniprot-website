@@ -187,6 +187,7 @@ const SubCellViz: FC<Props> = memo(
                 cssRule.selectorText === selectorText
               ) {
                 styleSheet.deleteRule(index);
+                return;
               }
             }
           }
