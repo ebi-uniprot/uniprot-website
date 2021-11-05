@@ -16,6 +16,7 @@ beforeAll(() => {
 afterAll(() => {
   jest.clearAllMocks();
 });
+
 describe('getEvidenceCodeData', () => {
   it('should get correct data', () => {
     const data = getEvidenceCodeData(7005);

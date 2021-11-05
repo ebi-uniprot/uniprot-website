@@ -82,7 +82,6 @@ export const ecoCodeToData = {
     description: 'Inferred from experiment',
     labelRender: publicationCountRenderer,
   },
-
   [ecoCode.HTP]: {
     manual: true,
     label: 'Manual assertion based on experiment',

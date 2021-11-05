@@ -170,11 +170,11 @@ const SubCellViz: FC<Props> = memo(
       // define a new element for each instance *after* it has been rendered.
       // cannot reuse the same class with different name, so create a new one
       class InstanceClass extends CanonicalDefinition {
-        removedLookedAt: boolean;
+        removedCSSRules: boolean;
 
         constructor() {
           super();
-          this.removedLookedAt = false;
+          this.removedCSSRules = false;
         }
 
         deleteCSSRule(selectorText: string) {
@@ -210,12 +210,12 @@ const SubCellViz: FC<Props> = memo(
           image: HTMLElement | SVGElement | null | undefined,
           selector: string
         ) {
-          if (!this.removedLookedAt) {
+          if (!this.removedCSSRules) {
             // Remove the .lookedAt CSS rule to avoid the default styling
             this.deleteCSSRule('.lookedAt');
             // Undo hard-coded cytoskeleton rule
             this.deleteCSSRule('#SL0090 .lookedAt');
-            this.removedLookedAt = true;
+            this.removedCSSRules = true;
           }
           super.highLight(text, image, selector);
           // Add "lookedAt" classname to image SVG and text
