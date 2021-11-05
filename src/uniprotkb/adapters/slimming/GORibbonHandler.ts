@@ -23,6 +23,7 @@ export type SlimSet = {
     name: string;
     id: GOTerm;
     aspect: GOAspect;
+    associations?: null; // WTF?
   }[];
 };
 
@@ -48,8 +49,19 @@ export type AGRRibbonCategory = {
     id: GOTerm;
     label: string;
     description: string;
-    type: 'All' | 'Term';
+    type: 'All' | 'Term' | 'Other';
   }[];
+};
+
+type Groups = {
+  [key: GOTerm]: {
+    [key: string]: {
+      // This is the evidence tag
+      terms?: GOTerm[];
+      nb_classes: number; // Number of slimmed terms
+      nb_annotations: number; // ??
+    };
+  };
 };
 
 export type AGRRibbonSubject = {
@@ -59,16 +71,7 @@ export type AGRRibbonSubject = {
   label: string; // Protein name
   taxon_id?: string;
   taxon_label?: string;
-  groups: {
-    [key: GOTerm]: {
-      [key: string]: {
-        // This is the evidence tag
-        terms?: GOTerm[];
-        nb_classes: number; // Number of slimmed terms
-        nb_annotations: number; // ??
-      };
-    };
-  };
+  groups: Groups;
 };
 
 export type AGRRibbonData = {
@@ -118,46 +121,43 @@ export const getCategories = (slimSet: SlimSet): AGRRibbonCategory[] => {
   return categoriesObj;
 };
 
-export const getSubjects = (slimmedData: GOSlimmedData) => {
-  // Invert lookup
-  const map = new Map();
-  slimmedData.results.forEach((mapping) => {
-    mapping.slimsToIds.forEach((toId) => {
-      if (map.has(toId)) {
-        const fromIds = map.get(toId);
-        map.set(toId, [mapping.slimsFromId, ...fromIds]);
-      } else {
-        map.set(toId, [mapping.slimsFromId]);
-      }
-    });
-  });
-  // const subjectGroups = data.results.reduce((obj, mapping) => {
-  //   obj[mapping.slimsFromId] = {
-  //     ALL: {
-  //       nb_classes: mapping.slimsToIds.length,
-  //       nb_annotations: 0,
-  //     },
-  //   };
-  //   return obj;
-  // }, {});
+export const getSubjects = (
+  goTerms: GroupedGoTerms,
+  slimmedData: GOSlimmedData,
+  primaryAccession: string
+) => {
+  /**
+   * TODO
+   * Group evidence for each term
+   * Count number of evidences and assign to nb_annotations
+   */
+  const subjectGroups = slimmedData.results.reduce((obj: Groups, mapping) => {
+    // eslint-disable-next-line no-param-reassign
+    obj[mapping.slimsFromId] = {
+      ALL: {
+        nb_classes: mapping.slimsToIds.length,
+        nb_annotations: 0,
+      },
+    };
+    return obj;
+  }, {});
 
-  // const subjects: AGRRibbonSubject[] = [
-  //   {
-  //     id: primaryAccession,
-  //     nb_classes: 169,
-  //     nb_annotations: 442,
-  //     label: 'TP53',
-  //     taxon_id: 'NCBITaxon:9606',
-  //     taxon_label: 'Homo sapiens',
-  //     // groups: subjectGroups,
-  //     groups: [],
-  //   },
-  // ];
+  return [
+    {
+      id: primaryAccession,
+      nb_classes: 169,
+      nb_annotations: 442,
+      label: 'TP53',
+      taxon_id: 'NCBITaxon:9606',
+      taxon_label: 'Homo sapiens',
+      groups: subjectGroups,
+    },
+  ];
 };
 
 const handleGOData = async (
   goTerms: GroupedGoTerms,
-  primaryAccession?: string
+  primaryAccession: string
 ): Promise<AGRRibbonData | null> => {
   if (!goTerms) {
     return null;
@@ -176,7 +176,7 @@ const handleGOData = async (
     fromList
   );
   const categories = getCategories(agrSlimSet);
-  const subjects = getSubjects(slimmedData);
+  const subjects = getSubjects(goTerms, slimmedData, primaryAccession);
   return { categories, subjects };
 };
 

@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { ExternalLink } from 'franklin-sites';
 import { Helmet } from 'react-helmet';
 
@@ -40,13 +40,6 @@ const GoRibbon: FC<{ primaryAccession: string; goTerms?: GroupedGoTerms }> = ({
     }
   }, [goTerms, primaryAccession]);
 
-  // useEffect(() => {
-  //   if (ribbonRef.current && data) {
-  //     ribbonRef.current.data = data;
-  //     console.log(ribbonRef.current.data);
-  //   }
-  // }, [data, ribbonRef]);
-
   const ungroupedGoTerms = Array.from(goTerms?.values() || []).flat();
   if (!ungroupedGoTerms.length) {
     return null;
@@ -63,7 +56,6 @@ const GoRibbon: FC<{ primaryAccession: string; goTerms?: GroupedGoTerms }> = ({
       </Helmet>
       {data && (
         <wc-ribbon-strips
-          // ref={ribbonRef}
           data={JSON.stringify(data)}
           update-on-subject-change="false"
         />

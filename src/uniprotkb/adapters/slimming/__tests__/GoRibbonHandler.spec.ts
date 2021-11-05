@@ -1,7 +1,9 @@
 import { getCategories, getSubjects } from '../GORibbonHandler';
 import goRibbonCategories from './__mocks__/go-ribbon-categories';
+import goRibbonSubjects from './__mocks__/go-ribbon-subjects';
 import slimmedData from './__mocks__/slimmedData';
 import goSlimAGR from './__mocks__/slimSet';
+import termsToSlim from './__mocks__/termsToSlim';
 // import termsToSlim from './__mocks__/termsToSlim';
 
 describe('GORibbonHandler', () => {
@@ -10,13 +12,8 @@ describe('GORibbonHandler', () => {
     expect(categories).toEqual(goRibbonCategories);
   });
 
-  it.skip('should generate subject from data', () => {
-    const subjects = getSubjects(slimmedData);
-    expect(subjects).toEqual({});
+  it('should generate subjects from data', () => {
+    const subjects = getSubjects(termsToSlim, slimmedData, 'P05067');
+    expect(subjects).toEqual(goRibbonSubjects);
   });
-
-  //   it('should convert the slimmed data into AGR Ribbon data', () => {
-  //     const data = slimDataToAGRRibbon(termsToSlim, slimmedData, 'P05067');
-  //     expect(data).toEqual(goRibbonData);
-  //   });
 });
