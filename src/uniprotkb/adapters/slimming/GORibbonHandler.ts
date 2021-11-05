@@ -4,7 +4,7 @@ import { groupBy } from 'lodash-es';
 
 import { GroupedGoTerms } from '../functionConverter';
 
-const SLIM_SETS_URL =
+export const SLIM_SETS_URL =
   'https://www.ebi.ac.uk/QuickGO/services/internal/presets?fields=goSlimSets';
 
 const SLIMMING_URL = 'https://www.ebi.ac.uk/QuickGO/services/ontology/go/slim';

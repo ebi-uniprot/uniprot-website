@@ -2,7 +2,7 @@ import { AGRRibbonSubject } from '../../GORibbonHandler';
 
 const goRibbonSubjects: AGRRibbonSubject[] = [
   {
-    id: 'accession',
+    id: 'P05067',
     nb_classes: 169,
     nb_annotations: 442,
     label: 'TP53',
