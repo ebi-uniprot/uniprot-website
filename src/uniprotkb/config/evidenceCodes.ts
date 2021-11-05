@@ -305,7 +305,12 @@ export const getEcoNumberFromGoEvidenceType = (
     return null;
   }
   const initials = tokens[0] as EcoCode;
-  return ecoCode?.[initials];
+  const num = ecoCode?.[initials];
+  if (!num) {
+    logging.warn(`Cannot find ECO number for initials: ${initials}`);
+    return null;
+  }
+  return num;
 };
 
 export const getEvidenceCodeData = (
@@ -315,9 +320,9 @@ export const getEvidenceCodeData = (
     return null;
   }
   const data = ecoCodeToData[eco];
-  if (data) {
-    return data;
+  if (!data) {
+    logging.warn(`Evidence code not found: ${eco}`);
+    return null;
   }
-  logging.warn(`Evidence code not found: ${eco}`);
-  return null;
+  return data;
 };
