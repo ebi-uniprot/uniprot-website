@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import axios from 'axios';
-import _groupBy from 'lodash-es/groupBy';
+import { groupBy } from 'lodash-es';
 
 import { GroupedGoTerms } from '../functionConverter';
 
@@ -16,16 +16,18 @@ type GOAspect =
 
 type GOTerm = `GO:${number}${string}`;
 
-type GOSLimSets = {
-  goSlimSets: {
+export type SlimSet = {
+  name: string;
+  id: string;
+  associations: {
     name: string;
-    id: string;
-    associations: {
-      name: string;
-      id: GOTerm;
-      aspect: GOAspect;
-    }[];
+    id: GOTerm;
+    aspect: GOAspect;
   }[];
+};
+
+type GOSLimSets = {
+  goSlimSets: SlimSet[];
 };
 
 export type GOSlimmedData = {
@@ -37,7 +39,7 @@ export type GOSlimmedData = {
   }[];
 };
 
-type AGRRibbonCategory = {
+export type AGRRibbonCategory = {
   // Each category represents an aspect
   description: string;
   id: GOTerm;
@@ -46,11 +48,11 @@ type AGRRibbonCategory = {
     id: GOTerm;
     label: string;
     description: string;
-    type: string;
+    type: 'All' | 'Term';
   }[];
 };
 
-type AGRRibbonSubject = {
+export type AGRRibbonSubject = {
   id: string; // The accession
   nb_classes: number; // n of children
   nb_annotations: number; // n of evidences
@@ -79,7 +81,7 @@ const getAGRSlimSet = async () => {
   const agrSlimSet = slimSets.data?.goSlimSets.find(
     (slimSet) => slimSet.id === 'goslim_agr'
   );
-  return agrSlimSet?.associations.map((association) => association.id);
+  return agrSlimSet;
 };
 
 const slimData = async (agrSlimSet: GOTerm[], fromList: GOTerm[]) => {
@@ -94,98 +96,63 @@ const slimData = async (agrSlimSet: GOTerm[], fromList: GOTerm[]) => {
   return slimmedData.data;
 };
 
-const aspectDefinition = [
-  {
-    aspect: 'Molecular Function',
-    id: 'GO:0003674',
-    description:
-      'A molecular process that can be carried out by the action of a single macromolecular machine, usually via direct physical interactions with other molecular entities. Function in this sense denotes an action, or activity, that a gene product (or a complex) performs. These actions are described from two distinct but related perspectives: (1) biochemical activity, and (2) role as a component in a larger system/process.',
-  },
-  {
-    aspect: 'Biological Process',
-    id: 'GO:0008150',
-    description:
-      'A biological process represents a specific objective that the organism is genetically programmed to achieve. Biological processes are often described by their outcome or ending state, e.g., the biological process of cell division results in the creation of two daughter cells (a divided cell) from a single parent cell. A biological process is accomplished by a particular set of molecular functions carried out by specific gene products (or macromolecular complexes), often in a highly regulated manner and in a particular temporal sequence.',
-  },
-  {
-    aspect: 'Cellular Component',
-    id: 'GO:0005575',
-    description:
-      'A location, relative to cellular compartments and structures, occupied by a macromolecular machine when it carries out a molecular function. There are two ways in which the gene ontology describes locations of gene products: (1) relative to cellular structures (e.g., cytoplasmic side of plasma membrane) or compartments (e.g., mitochondrion), and (2) the stable macromolecular complexes of which they are parts (e.g., the ribosome).',
-  },
-];
+export const getCategories = (slimSet: SlimSet): AGRRibbonCategory[] => {
+  // Aspects at the top
+  const slimsByAspect = groupBy(slimSet.associations, 'aspect');
+  // TODO remove the 3 aspects from slim set
 
-const slimDataToAGRRibbon = (
-  goTerms: GroupedGoTerms,
-  data: GOSlimmedData,
-  primaryAccession: string
-): AGRRibbonData => {
-  const flatTerms = [...goTerms.values()].flatMap((groupedTerm) =>
-    groupedTerm.map((item) => item)
-  );
-
-  // Map(['cellular_component', [{slimTo : [slimfroms with evidence]}]])
-
-  const enrichedData = data.results
-    .filter((mapping) => mapping.slimsToIds.length > 0)
-    .map((mapping) => ({
-      // TODO: check, is everything there? What if nothing is found???
-      slimFrom: flatTerms.find((term) => term.id === mapping.slimsFromId),
-      slimTo: [
-        ...flatTerms.filter((term) => mapping.slimsToIds.includes(term.id)),
-      ],
-    }));
-
-  const groupedEnrichedData = _groupBy(
-    enrichedData,
-    (item) => item.slimFrom?.aspect
-  );
-
-  console.log(groupedEnrichedData);
-
-  const categories: AGRRibbonCategory[] = aspectDefinition.map(
-    ({ aspect, id, description }) => ({
-      id,
-      label: aspect,
-      description,
-      groups: groupedEnrichedData[aspect].map((mapping) => ({
-        id: mapping.slimFrom?.id,
-        description: mapping.slimFrom?.termDescription,
-        label: mapping.slimFrom?.properties.GoTerm,
-        groups: [
-          mapping.slimTo.map((slimToTerm) => ({
-            id: slimToTerm.id,
-            label: slimToTerm.properties.GoTerm,
-            description: slimToTerm.termDescription,
-            type: 'type',
-            groups: [],
-          })),
-        ],
+  // Convert to object
+  const categoriesObj: AGRRibbonCategory[] = Object.keys(slimsByAspect).map(
+    (aspectName) => ({
+      id: 'GO:1234', // TODO get aspect id and description from...somewhere?!?
+      description: '',
+      label: aspectName as GOAspect,
+      groups: slimsByAspect[aspectName].map((term) => ({
+        id: term.id,
+        label: term.name,
+        description: '',
+        type: 'Term',
       })),
     })
   );
-  const subjectGroups = data.results.reduce((obj, mapping) => {
-    obj[mapping.slimsFromId] = {
-      ALL: {
-        nb_classes: mapping.slimsToIds.length,
-        nb_annotations: 0,
-      },
-    };
-    return obj;
-  }, {});
+  return categoriesObj;
+};
 
-  const subjects: AGRRibbonSubject[] = [
-    {
-      id: primaryAccession,
-      nb_classes: 169,
-      nb_annotations: 442,
-      label: 'TP53',
-      taxon_id: 'NCBITaxon:9606',
-      taxon_label: 'Homo sapiens',
-      groups: subjectGroups,
-    },
-  ];
-  return { categories, subjects };
+export const getSubjects = (slimmedData: GOSlimmedData) => {
+  // Invert lookup
+  const map = new Map();
+  slimmedData.results.forEach((mapping) => {
+    mapping.slimsToIds.forEach((toId) => {
+      if (map.has(toId)) {
+        const fromIds = map.get(toId);
+        map.set(toId, [mapping.slimsFromId, ...fromIds]);
+      } else {
+        map.set(toId, [mapping.slimsFromId]);
+      }
+    });
+  });
+  // const subjectGroups = data.results.reduce((obj, mapping) => {
+  //   obj[mapping.slimsFromId] = {
+  //     ALL: {
+  //       nb_classes: mapping.slimsToIds.length,
+  //       nb_annotations: 0,
+  //     },
+  //   };
+  //   return obj;
+  // }, {});
+
+  // const subjects: AGRRibbonSubject[] = [
+  //   {
+  //     id: primaryAccession,
+  //     nb_classes: 169,
+  //     nb_annotations: 442,
+  //     label: 'TP53',
+  //     taxon_id: 'NCBITaxon:9606',
+  //     taxon_label: 'Homo sapiens',
+  //     // groups: subjectGroups,
+  //     groups: [],
+  //   },
+  // ];
 };
 
 const handleGOData = async (
@@ -204,13 +171,13 @@ const handleGOData = async (
   if (!agrSlimSet) {
     return null;
   }
-  const slimmedData = await slimData(agrSlimSet, fromList);
-  const ribbonData = slimDataToAGRRibbon(
-    goTerms,
-    slimmedData,
-    primaryAccession
+  const slimmedData = await slimData(
+    agrSlimSet?.associations.map((association) => association.id),
+    fromList
   );
-  return ribbonData;
+  const categories = getCategories(agrSlimSet);
+  const subjects = getSubjects(slimmedData);
+  return { categories, subjects };
 };
 
 export default handleGOData;

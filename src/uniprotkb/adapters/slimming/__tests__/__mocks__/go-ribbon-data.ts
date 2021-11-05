@@ -1,4 +1,4 @@
-import { AGRRibbonData } from '../GORibbonHandler';
+import { AGRRibbonData } from '../../GORibbonHandler';
 
 // https://api.geneontology.org/api/ontology/ribbon/?subset=goslim_agr&subject=UniProtKB:O15393
 

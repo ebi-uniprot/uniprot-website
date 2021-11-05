@@ -1,4 +1,4 @@
-import { GroupedGoTerms } from '../../functionConverter';
+import { GroupedGoTerms } from '../../../functionConverter';
 
 const termsToSlim: GroupedGoTerms = new Map([
   [
