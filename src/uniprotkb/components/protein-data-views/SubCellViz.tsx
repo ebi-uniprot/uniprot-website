@@ -78,21 +78,17 @@ const getUniProtTextSelectors = (subcellularPresentSVG: Element): string[] => [
     .filter((sel: string | undefined): sel is string => Boolean(sel)),
 ];
 
-const getGoTermSelectors = (locations: SubCellularLocation[]) =>
-  locations
-    ?.flatMap(({ id }) => [
-      `svg .GO${+id} *:not(text)`,
-      `svg .part_GO${+id} *:not(text)`,
-    ])
-    .join(', ');
+const getGoTermSelectors = (locations: SubCellularLocation[] = []) =>
+  locations?.flatMap(({ id }) => [
+    `svg .GO${+id} *:not(text)`,
+    `svg .part_GO${+id} *:not(text)`,
+  ]);
 
-const getUniProtTermSelectors = (locations: SubCellularLocation[]) =>
-  locations
-    ?.flatMap(({ id }) => [
-      `svg #SL${id} *:not(text)`,
-      `svg .mp_SL${id} *:not(text)`,
-    ])
-    .join(', ');
+const getUniProtTermSelectors = (locations: SubCellularLocation[] = []) =>
+  locations?.flatMap(({ id }) => [
+    `svg #SL${id} *:not(text)`,
+    `svg .mp_SL${id} *:not(text)`,
+  ]);
 
 const attachTooltips = (
   locationGroup: Element,
@@ -174,6 +170,28 @@ const SubCellViz: FC<Props> = memo(
       // define a new element for each instance *after* it has been rendered.
       // cannot reuse the same class with different name, so create a new one
       class InstanceClass extends CanonicalDefinition {
+        removedLookedAt: boolean;
+
+        constructor() {
+          super();
+          this.removedLookedAt = false;
+        }
+
+        deleteCSSRule(selectorText: string) {
+          for (const styleSheet of super.shadowRoot?.styleSheets || []) {
+            const { cssRules } = styleSheet;
+            for (let index = 0; index < cssRules.length; index += 1) {
+              const cssRule = cssRules[index];
+              if (
+                cssRule instanceof CSSStyleRule &&
+                cssRule.selectorText === selectorText
+              ) {
+                styleSheet.deleteRule(index);
+              }
+            }
+          }
+        }
+
         // logic for highlighting
         getHighlights(image: HTMLElement | SVGElement | null | undefined) {
           if (!image) {
@@ -191,6 +209,13 @@ const SubCellViz: FC<Props> = memo(
           image: HTMLElement | SVGElement | null | undefined,
           selector: string
         ) {
+          if (!this.removedLookedAt) {
+            // Remove the .lookedAt CSS rule to avoid the default styling
+            this.deleteCSSRule('.lookedAt');
+            // Undo hard-coded cytoskeleton rule
+            this.deleteCSSRule('#SL0090 .lookedAt');
+            this.removedLookedAt = true;
+          }
           super.highLight(text, image, selector);
           // Add "lookedAt" classname to image SVG and text
           for (const highlight of this.getHighlights(image)) {
@@ -221,6 +246,20 @@ const SubCellViz: FC<Props> = memo(
         reviewed ? 'reviewed' : 'unreviewed'
       );
 
+      const unreviewed = [
+        ...getUniProtTermSelectors(uniProtLocationsByReviewedStatus.unreviewed),
+        ...getGoTermSelectors(goLocationsByReviewedStatus.unreviewed),
+      ];
+
+      const reviewed = [
+        ...getUniProtTermSelectors(uniProtLocationsByReviewedStatus.reviewed),
+        ...getGoTermSelectors(goLocationsByReviewedStatus.reviewed),
+      ];
+
+      const lookedAt = [...unreviewed, ...reviewed].map(
+        (sel) => `${sel} .lookedAt`
+      );
+
       /**
        * This needs to happen after the element has been created and inserted into
        * the DOM in order to have the constructor being called when already in the
@@ -234,6 +273,7 @@ const SubCellViz: FC<Props> = memo(
         instanceName.current
       );
       const shadowRoot = instance?.shadowRoot;
+
       const onSvgLoaded = () => {
         const tabsHeaderHeight =
           document.querySelector('.tabs__header')?.clientHeight;
@@ -246,7 +286,7 @@ const SubCellViz: FC<Props> = memo(
         #fakeContent {
           display: none;
         }
-        .lookedAt {
+        ${lookedAt.join(',')} {
           stroke: black !important;
           fill: ${colors.seaBlue} !important;
           fill-opacity: 1 !important;
@@ -270,24 +310,12 @@ const SubCellViz: FC<Props> = memo(
         .subcell_description {
           display: none;
         }
-        ${getUniProtTermSelectors(
-          uniProtLocationsByReviewedStatus.unreviewed
-        )} {
+        ${unreviewed.join(',')} {
           stroke: black;
           fill-opacity: 1;
-          fill: #87bbeb;
+          fill: #87BBEB;
         }
-        ${getUniProtTermSelectors(uniProtLocationsByReviewedStatus.reviewed)} {
-          stroke: black;
-          fill-opacity: 1;
-          fill: #E6DAB3;
-        }
-        ${getGoTermSelectors(goLocationsByReviewedStatus.unreviewed)} {
-          stroke: black;
-          fill-opacity: 1;
-          fill: #87bbeb;
-        }
-        ${getGoTermSelectors(goLocationsByReviewedStatus.reviewed)} {
+        ${reviewed.join(',')} {
           stroke: black;
           fill-opacity: 1;
           fill: #E6DAB3;
