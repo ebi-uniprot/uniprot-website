@@ -222,6 +222,13 @@ const ResourceNotFoundPage = lazy(
     )
 );
 
+const Covid19 = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "covid-19" */ '../../covid-19/components/CovidMain'
+    )
+);
+
 const reportBugLinkStyles: CSSProperties = {
   fontSize: '.8rem',
   lineHeight: '1rem',
@@ -416,6 +423,10 @@ const App = () => {
               <Route
                 path={LocationToPath[Location.HelpResults]}
                 component={ResultsOrLanding(HelpResults, HelpLandingPage)}
+              />
+              <Route
+                path={LocationToPath[Location.Covid19]}
+                component={Covid19}
               />
               <Route
                 path={LocationToPath[Location.Contact]}

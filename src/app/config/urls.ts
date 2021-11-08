@@ -67,6 +67,8 @@ export enum Location {
   HelpEntry = 'HelpEntry',
   HelpResults = 'HelpResults',
   Contact = 'Contact',
+  // Portals
+  Covid19 = 'Covid19',
 }
 
 export const LocationToPath: Record<Location, string> = {
@@ -113,6 +115,8 @@ export const LocationToPath: Record<Location, string> = {
   [Location.HelpEntry]: '/help/:accession',
   [Location.HelpResults]: '/help',
   [Location.Contact]: '/contact',
+  // Portals
+  [Location.Covid19]: '/covid-19',
 };
 
 export const SearchResultsLocations: Record<SearchableNamespace, string> = {
