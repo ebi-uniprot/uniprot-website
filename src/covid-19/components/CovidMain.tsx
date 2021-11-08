@@ -24,10 +24,7 @@ const CovidMain = () => {
   return (
     <div>
       <h1>Covid-19</h1>
-      <minerva-widget
-        src="https://pdmap.uni.lu/minerva/"
-        style={{ height: '100vh' }}
-      />
+      <minerva-widget style={{ height: '100vh' }} />
       {data?.results.map((datum) => (
         <UniProtKBCard data={datum} key={datum.primaryAccession} />
       ))}
