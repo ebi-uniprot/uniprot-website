@@ -6,6 +6,10 @@ import UniProtKBCard from '../../uniprotkb/components/results/UniProtKBCard';
 import Response from '../../uniprotkb/types/responseTypes';
 import covidIdList from '../config/covid-list';
 
+import '../deps/minerva-widget';
+
+import styles from './style/covid-main.module.scss';
+
 const CovidMain = () => {
   const url = useNSQuery({
     accessions: covidIdList,
@@ -20,6 +24,10 @@ const CovidMain = () => {
   return (
     <div>
       <h1>Covid-19</h1>
+      <minerva-widget
+        src="https://pdmap.uni.lu/minerva/"
+        style={{ height: '100vh' }}
+      />
       {data?.results.map((datum) => (
         <UniProtKBCard data={datum} key={datum.primaryAccession} />
       ))}
