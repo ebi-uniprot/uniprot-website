@@ -8,7 +8,6 @@ import CardCheckboxCell from '../../shared/components/CardCheckboxCell';
 
 import getProteinHighlights from '../../uniprotkb/adapters/proteinHighlights';
 import { getKeywordsForCategories } from '../../uniprotkb/utils/KeywordsUtil';
-import { getEntryPath } from '../../app/config/urls';
 import { getIdKeyFor } from '../../shared/utils/getIdKeyForNamespace';
 
 import { Namespace } from '../../shared/types/namespaces';

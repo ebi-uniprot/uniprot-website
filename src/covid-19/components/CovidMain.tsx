@@ -45,6 +45,9 @@ const CovidMain = () => {
     return <Loader />;
   }
 
+  const refMap = new Map();
+  // data?.results.map(datum => {})
+
   return (
     <div>
       <h1>Covid-19</h1>
@@ -55,7 +58,10 @@ const CovidMain = () => {
           ))}
         </div>
         <div>
-          <minerva-widget style={{ height: '100%' }} />
+          <minerva-widget
+            style={{ height: '100%' }}
+            src="https://pdmap.uni.lu/minerva/"
+          />
         </div>
       </div>
     </div>
