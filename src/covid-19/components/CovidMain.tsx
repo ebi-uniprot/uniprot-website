@@ -1,5 +1,5 @@
 import { Loader } from 'franklin-sites';
-import { ChangeEvent, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import useDataApi from '../../shared/hooks/useDataApi';
 import useNSQuery from '../../shared/hooks/useNSQuery';
