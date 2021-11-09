@@ -1,9 +1,11 @@
 import { useCallback, useMemo } from 'react';
 import { Loader } from 'franklin-sites';
-import { uniq } from 'lodash-es';
 import TransformedVariant from 'protvista-variation-adapter';
 
 import useCustomElement from '../../hooks/useCustomElement';
+import useStructuredData from '../../hooks/useStructuredData';
+
+import dataToSchema from './features.structured';
 
 import { Evidence } from '../../../uniprotkb/types/modelTypes';
 import NightingaleZoomTool from '../../../uniprotkb/components/protein-data-views/NightingaleZoomTool';
@@ -81,7 +83,7 @@ const FeaturesView = <
     navigationDefined && sequenceDefined && managerDefined && datatableDefined;
 
   const featureTypes = useMemo(
-    () => uniq(features.map(({ type }) => type.toLowerCase())),
+    () => Array.from(new Set(features.map(({ type }) => type.toLowerCase()))),
     [features]
   );
 
@@ -100,6 +102,9 @@ const FeaturesView = <
     },
     [trackDefined, features]
   );
+
+  const structuredData = useMemo(() => dataToSchema(features), [features]);
+  useStructuredData(structuredData);
 
   if (features.length === 0) {
     return null;
