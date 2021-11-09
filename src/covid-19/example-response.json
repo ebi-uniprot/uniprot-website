@@ -1,0 +1,1091 @@
+{
+    "centerPoint": {
+      "x": 9641.714410589413,
+      "y": 6753.621336996337
+    },
+    "hierarchyVisibilityLevel": "",
+    "id": 207474,
+    "kineticLaw": null,
+    "lines": [
+      {
+        "start": {
+          "x": 9641.563873626379,
+          "y": 6835.543956043955
+        },
+        "end": {
+          "x": 9641.707060399167,
+          "y": 6757.62133024317
+        },
+        "type": "START"
+      },
+      {
+        "start": {
+          "x": 9641.72176077966,
+          "y": 6749.621343749504
+        },
+        "end": {
+          "x": 9641.864947552447,
+          "y": 6671.698717948719
+        },
+        "type": "END"
+      },
+      {
+        "start": {
+          "x": 9886.899038461539,
+          "y": 6820.698717948719
+        },
+        "end": {
+          "x": 9646.705214410145,
+          "y": 6758.6305162926865
+        },
+        "type": "MIDDLE"
+      },
+      {
+        "start": {
+          "x": 9706.665064102563,
+          "y": 6669.724358974359
+        },
+        "end": {
+          "x": 9646.723589885762,
+          "y": 6748.630533175606
+        },
+        "type": "MIDDLE"
+      },
+      {
+        "start": {
+          "x": 9774.857421875,
+          "y": 6747.445411982401
+        },
+        "end": {
+          "x": 9646.714402147953,
+          "y": 6753.630524734146
+        },
+        "type": "MIDDLE"
+      },
+      {
+        "start": {
+          "x": 9797,
+          "y": 6693
+        },
+        "end": {
+          "x": 9646.723589885762,
+          "y": 6748.630533175606
+        },
+        "type": "MIDDLE"
+      },
+      {
+        "start": {
+          "x": 9751,
+          "y": 6840
+        },
+        "end": {
+          "x": 9646.705214410145,
+          "y": 6758.6305162926865
+        },
+        "type": "MIDDLE"
+      }
+    ],
+    "modelId": 4895,
+    "modifiers": [
+      {
+        "aliasId": 516366,
+        "stoichiometry": null,
+        "element": {
+          "abbreviation": null,
+          "activity": false,
+          "boundaryCondition": false,
+          "bounds": {
+            "height": 39,
+            "width": 260,
+            "x": 9821.899038461539,
+            "y": 6820.698717948719,
+            "z": 3492
+          },
+          "compartmentId": 523522,
+          "complexId": null,
+          "constant": false,
+          "elementId": "sa12573",
+          "formerSymbols": [],
+          "formula": null,
+          "fullName": null,
+          "glyph": null,
+          "hierarchyVisibilityLevel": "4",
+          "hypothetical": true,
+          "id": 516366,
+          "initialAmount": 0,
+          "initialConcentration": null,
+          "linkedSubmodel": null,
+          "modelId": 4895,
+          "name": "cAMP/cGMP protein kinase",
+          "notes": "",
+          "other": {
+            "modifications": [],
+            "structuralState": null,
+            "structures": {}
+          },
+          "references": [
+            {
+              "annotatorClassName": "",
+              "id": 2521266,
+              "link": "http://amigo.geneontology.org/amigo/term/GO:0004692",
+              "resource": "GO:0004692",
+              "type": "GO"
+            },
+            {
+              "annotatorClassName": "",
+              "id": 2521267,
+              "link": "http://amigo.geneontology.org/amigo/term/GO:0004691",
+              "resource": "GO:0004691",
+              "type": "GO"
+            }
+          ],
+          "symbol": null,
+          "synonyms": [],
+          "transparencyLevel": "0",
+          "type": "Protein",
+          "compartment": {
+            "abbreviation": null,
+            "activity": null,
+            "boundaryCondition": null,
+            "bounds": {
+              "height": 1041,
+              "width": 3317,
+              "x": 8639.166666666664,
+              "y": 6617.750000000001,
+              "z": 2686
+            },
+            "compartmentId": 514752,
+            "complexId": null,
+            "constant": null,
+            "elementId": "art36",
+            "formerSymbols": [],
+            "formula": null,
+            "fullName": null,
+            "glyph": null,
+            "hierarchyVisibilityLevel": "2",
+            "hypothetical": null,
+            "id": 523522,
+            "initialAmount": null,
+            "initialConcentration": null,
+            "linkedSubmodel": null,
+            "modelId": 4895,
+            "name": "Mitochondrial fission",
+            "notes": "",
+            "other": {
+              "modifications": [],
+              "structuralState": null,
+              "structures": {}
+            },
+            "references": [],
+            "symbol": null,
+            "synonyms": [],
+            "transparencyLevel": "4",
+            "type": "Pathway"
+          }
+        }
+      },
+      {
+        "aliasId": 519117,
+        "stoichiometry": null,
+        "element": {
+          "abbreviation": null,
+          "activity": false,
+          "boundaryCondition": false,
+          "bounds": {
+            "height": 40,
+            "width": 80,
+            "x": 9686.665064102563,
+            "y": 6629.724358974359,
+            "z": 5526
+          },
+          "compartmentId": 523522,
+          "complexId": null,
+          "constant": false,
+          "elementId": "sa12571",
+          "formerSymbols": [],
+          "formula": null,
+          "fullName": "PTEN induced kinase 1",
+          "glyph": null,
+          "hierarchyVisibilityLevel": "4",
+          "hypothetical": false,
+          "id": 519117,
+          "initialAmount": 0,
+          "initialConcentration": null,
+          "linkedSubmodel": null,
+          "modelId": 4895,
+          "name": "PINK1",
+          "notes": "",
+          "other": {
+            "modifications": [
+              {
+                "modificationId": "rs1",
+                "name": "",
+                "type": "RESIDUE"
+              }
+            ],
+            "structuralState": null,
+            "structures": {}
+          },
+          "references": [
+            {
+              "annotatorClassName": "",
+              "id": 2533900,
+              "link": "https://www.ncbi.nlm.nih.gov/gene/65018",
+              "resource": "65018",
+              "type": "ENTREZ"
+            },
+            {
+              "annotatorClassName": "",
+              "id": 2533901,
+              "link": "http://purl.uniprot.org/uniprot/Q9BXM7",
+              "resource": "Q9BXM7",
+              "type": "UNIPROT"
+            },
+            {
+              "annotatorClassName": "",
+              "id": 2533902,
+              "link": "https://www.genenames.org/cgi-bin/gene_symbol_report?match=PINK1",
+              "resource": "PINK1",
+              "type": "HGNC_SYMBOL"
+            },
+            {
+              "annotatorClassName": "",
+              "id": 2533903,
+              "link": "https://www.ensembl.org/id/ENSG00000158828",
+              "resource": "ENSG00000158828",
+              "type": "ENSEMBL"
+            },
+            {
+              "annotatorClassName": "",
+              "id": 2533904,
+              "link": "https://www.ncbi.nlm.nih.gov/protein/NM_032409",
+              "resource": "NM_032409",
+              "type": "REFSEQ"
+            },
+            {
+              "annotatorClassName": "",
+              "id": 2533905,
+              "link": "https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/14581",
+              "resource": "14581",
+              "type": "HGNC"
+            }
+          ],
+          "symbol": null,
+          "synonyms": [
+            "BRPK"
+          ],
+          "transparencyLevel": "0",
+          "type": "Protein",
+          "compartment": {
+            "abbreviation": null,
+            "activity": null,
+            "boundaryCondition": null,
+            "bounds": {
+              "height": 1041,
+              "width": 3317,
+              "x": 8639.166666666664,
+              "y": 6617.750000000001,
+              "z": 2686
+            },
+            "compartmentId": 514752,
+            "complexId": null,
+            "constant": null,
+            "elementId": "art36",
+            "formerSymbols": [],
+            "formula": null,
+            "fullName": null,
+            "glyph": null,
+            "hierarchyVisibilityLevel": "2",
+            "hypothetical": null,
+            "id": 523522,
+            "initialAmount": null,
+            "initialConcentration": null,
+            "linkedSubmodel": null,
+            "modelId": 4895,
+            "name": "Mitochondrial fission",
+            "notes": "",
+            "other": {
+              "modifications": [],
+              "structuralState": null,
+              "structures": {}
+            },
+            "references": [],
+            "symbol": null,
+            "synonyms": [],
+            "transparencyLevel": "4",
+            "type": "Pathway"
+          }
+        }
+      },
+      {
+        "aliasId": 516167,
+        "stoichiometry": null,
+        "element": {
+          "abbreviation": null,
+          "activity": true,
+          "boundaryCondition": false,
+          "bounds": {
+            "height": 40,
+            "width": 100,
+            "x": 9774.857371794871,
+            "y": 6725.032051282051,
+            "z": 3965
+          },
+          "compartmentId": 523522,
+          "complexId": null,
+          "constant": false,
+          "elementId": "csa2050",
+          "formerSymbols": [],
+          "formula": null,
+          "fullName": "cAMP-dependent protein kinase complex",
+          "glyph": null,
+          "hierarchyVisibilityLevel": "4",
+          "hypothetical": false,
+          "id": 516167,
+          "initialAmount": 0,
+          "initialConcentration": null,
+          "linkedSubmodel": null,
+          "modelId": 4895,
+          "name": "PKA",
+          "notes": "An enzyme complex, composed of regulatory and catalytic subunits, that catalyzes protein phosphorylation. Inactive forms of the enzyme have two regulatory chains and two catalytic chains; activation by cAMP produces two active catalytic monomers and a regulatory dimer.",
+          "other": {
+            "modifications": [],
+            "structuralState": null,
+            "structures": {}
+          },
+          "references": [
+            {
+              "annotatorClassName": "",
+              "id": 2520976,
+              "link": "http://amigo.geneontology.org/amigo/term/GO:0005952",
+              "resource": "GO:0005952",
+              "type": "GO"
+            }
+          ],
+          "symbol": null,
+          "synonyms": [],
+          "transparencyLevel": "7",
+          "type": "Complex",
+          "compartment": {
+            "abbreviation": null,
+            "activity": null,
+            "boundaryCondition": null,
+            "bounds": {
+              "height": 1041,
+              "width": 3317,
+              "x": 8639.166666666664,
+              "y": 6617.750000000001,
+              "z": 2686
+            },
+            "compartmentId": 514752,
+            "complexId": null,
+            "constant": null,
+            "elementId": "art36",
+            "formerSymbols": [],
+            "formula": null,
+            "fullName": null,
+            "glyph": null,
+            "hierarchyVisibilityLevel": "2",
+            "hypothetical": null,
+            "id": 523522,
+            "initialAmount": null,
+            "initialConcentration": null,
+            "linkedSubmodel": null,
+            "modelId": 4895,
+            "name": "Mitochondrial fission",
+            "notes": "",
+            "other": {
+              "modifications": [],
+              "structuralState": null,
+              "structures": {}
+            },
+            "references": [],
+            "symbol": null,
+            "synonyms": [],
+            "transparencyLevel": "4",
+            "type": "Pathway"
+          }
+        }
+      },
+      {
+        "aliasId": 516715,
+        "stoichiometry": null,
+        "element": {
+          "abbreviation": null,
+          "activity": false,
+          "boundaryCondition": false,
+          "bounds": {
+            "height": 40,
+            "width": 80,
+            "x": 9777,
+            "y": 6653,
+            "z": 5543
+          },
+          "compartmentId": 523522,
+          "complexId": null,
+          "constant": false,
+          "elementId": "sa12598",
+          "formerSymbols": [],
+          "formula": null,
+          "fullName": "calcium/calmodulin dependent protein kinase I",
+          "glyph": null,
+          "hierarchyVisibilityLevel": "4",
+          "hypothetical": false,
+          "id": 516715,
+          "initialAmount": 0,
+          "initialConcentration": null,
+          "linkedSubmodel": null,
+          "modelId": 4895,
+          "name": "CAMK1",
+          "notes": "",
+          "other": {
+            "modifications": [],
+            "structuralState": null,
+            "structures": {}
+          },
+          "references": [
+            {
+              "annotatorClassName": "lcsb.mapviewer.annotation.services.annotators.HgncAnnotator",
+              "id": 2549274,
+              "link": "http://purl.uniprot.org/uniprot/Q14012",
+              "resource": "Q14012",
+              "type": "UNIPROT"
+            },
+            {
+              "annotatorClassName": "lcsb.mapviewer.annotation.services.annotators.HgncAnnotator",
+              "id": 2549275,
+              "link": "https://www.genenames.org/cgi-bin/gene_symbol_report?match=CAMK1",
+              "resource": "CAMK1",
+              "type": "HGNC_SYMBOL"
+            },
+            {
+              "annotatorClassName": "lcsb.mapviewer.annotation.services.annotators.HgncAnnotator",
+              "id": 2549276,
+              "link": "https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/1459",
+              "resource": "1459",
+              "type": "HGNC"
+            },
+            {
+              "annotatorClassName": "lcsb.mapviewer.annotation.services.annotators.HgncAnnotator",
+              "id": 2549277,
+              "link": "https://www.ncbi.nlm.nih.gov/protein/NM_003656",
+              "resource": "NM_003656",
+              "type": "REFSEQ"
+            },
+            {
+              "annotatorClassName": "lcsb.mapviewer.annotation.services.annotators.HgncAnnotator",
+              "id": 2549278,
+              "link": "https://www.ncbi.nlm.nih.gov/gene/8536",
+              "resource": "8536",
+              "type": "ENTREZ"
+            },
+            {
+              "annotatorClassName": "lcsb.mapviewer.annotation.services.annotators.HgncAnnotator",
+              "id": 2549279,
+              "link": "https://www.ensembl.org/id/ENSG00000134072",
+              "resource": "ENSG00000134072",
+              "type": "ENSEMBL"
+            }
+          ],
+          "symbol": null,
+          "synonyms": [
+            "CaMKI",
+            "CaMKI-alpha"
+          ],
+          "transparencyLevel": "0",
+          "type": "Protein",
+          "compartment": {
+            "abbreviation": null,
+            "activity": null,
+            "boundaryCondition": null,
+            "bounds": {
+              "height": 1041,
+              "width": 3317,
+              "x": 8639.166666666664,
+              "y": 6617.750000000001,
+              "z": 2686
+            },
+            "compartmentId": 514752,
+            "complexId": null,
+            "constant": null,
+            "elementId": "art36",
+            "formerSymbols": [],
+            "formula": null,
+            "fullName": null,
+            "glyph": null,
+            "hierarchyVisibilityLevel": "2",
+            "hypothetical": null,
+            "id": 523522,
+            "initialAmount": null,
+            "initialConcentration": null,
+            "linkedSubmodel": null,
+            "modelId": 4895,
+            "name": "Mitochondrial fission",
+            "notes": "",
+            "other": {
+              "modifications": [],
+              "structuralState": null,
+              "structures": {}
+            },
+            "references": [],
+            "symbol": null,
+            "synonyms": [],
+            "transparencyLevel": "4",
+            "type": "Pathway"
+          }
+        }
+      },
+      {
+        "aliasId": 514764,
+        "stoichiometry": null,
+        "element": {
+          "abbreviation": null,
+          "activity": false,
+          "boundaryCondition": false,
+          "bounds": {
+            "height": 40,
+            "width": 80,
+            "x": 9731,
+            "y": 6840,
+            "z": 5544
+          },
+          "compartmentId": 523522,
+          "complexId": null,
+          "constant": false,
+          "elementId": "sa12599",
+          "formerSymbols": [],
+          "formula": null,
+          "fullName": "Rho associated coiled-coil containing protein kinase 1",
+          "glyph": null,
+          "hierarchyVisibilityLevel": "4",
+          "hypothetical": false,
+          "id": 514764,
+          "initialAmount": 0,
+          "initialConcentration": null,
+          "linkedSubmodel": null,
+          "modelId": 4895,
+          "name": "ROCK1",
+          "notes": "",
+          "other": {
+            "modifications": [],
+            "structuralState": null,
+            "structures": {}
+          },
+          "references": [
+            {
+              "annotatorClassName": "lcsb.mapviewer.annotation.services.annotators.HgncAnnotator",
+              "id": 2542652,
+              "link": "https://www.ncbi.nlm.nih.gov/gene/6093",
+              "resource": "6093",
+              "type": "ENTREZ"
+            },
+            {
+              "annotatorClassName": "lcsb.mapviewer.annotation.services.annotators.HgncAnnotator",
+              "id": 2542653,
+              "link": "http://purl.uniprot.org/uniprot/Q13464",
+              "resource": "Q13464",
+              "type": "UNIPROT"
+            },
+            {
+              "annotatorClassName": "lcsb.mapviewer.annotation.services.annotators.HgncAnnotator",
+              "id": 2542654,
+              "link": "https://www.genenames.org/cgi-bin/gene_symbol_report?match=ROCK1",
+              "resource": "ROCK1",
+              "type": "HGNC_SYMBOL"
+            },
+            {
+              "annotatorClassName": "lcsb.mapviewer.annotation.services.annotators.HgncAnnotator",
+              "id": 2542655,
+              "link": "https://www.ensembl.org/id/ENSG00000067900",
+              "resource": "ENSG00000067900",
+              "type": "ENSEMBL"
+            },
+            {
+              "annotatorClassName": "lcsb.mapviewer.annotation.services.annotators.HgncAnnotator",
+              "id": 2542656,
+              "link": "https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/10251",
+              "resource": "10251",
+              "type": "HGNC"
+            },
+            {
+              "annotatorClassName": "lcsb.mapviewer.annotation.services.annotators.HgncAnnotator",
+              "id": 2542657,
+              "link": "https://www.ncbi.nlm.nih.gov/protein/NM_005406",
+              "resource": "NM_005406",
+              "type": "REFSEQ"
+            }
+          ],
+          "symbol": null,
+          "synonyms": [
+            "p160ROCK"
+          ],
+          "transparencyLevel": "0",
+          "type": "Protein",
+          "compartment": {
+            "abbreviation": null,
+            "activity": null,
+            "boundaryCondition": null,
+            "bounds": {
+              "height": 1041,
+              "width": 3317,
+              "x": 8639.166666666664,
+              "y": 6617.750000000001,
+              "z": 2686
+            },
+            "compartmentId": 514752,
+            "complexId": null,
+            "constant": null,
+            "elementId": "art36",
+            "formerSymbols": [],
+            "formula": null,
+            "fullName": null,
+            "glyph": null,
+            "hierarchyVisibilityLevel": "2",
+            "hypothetical": null,
+            "id": 523522,
+            "initialAmount": null,
+            "initialConcentration": null,
+            "linkedSubmodel": null,
+            "modelId": 4895,
+            "name": "Mitochondrial fission",
+            "notes": "",
+            "other": {
+              "modifications": [],
+              "structuralState": null,
+              "structures": {}
+            },
+            "references": [],
+            "symbol": null,
+            "synonyms": [],
+            "transparencyLevel": "4",
+            "type": "Pathway"
+          }
+        }
+      }
+    ],
+    "notes": "",
+    "products": [
+      {
+        "aliasId": 520169,
+        "stoichiometry": null,
+        "element": {
+          "abbreviation": null,
+          "activity": false,
+          "boundaryCondition": false,
+          "bounds": {
+            "height": 40,
+            "width": 80,
+            "x": 9581.864947552447,
+            "y": 6631.698717948719,
+            "z": 5524
+          },
+          "compartmentId": 523522,
+          "complexId": null,
+          "constant": false,
+          "elementId": "sa12569",
+          "formerSymbols": [],
+          "formula": null,
+          "fullName": "dynamin 1 like",
+          "glyph": null,
+          "hierarchyVisibilityLevel": "4",
+          "hypothetical": false,
+          "id": 520169,
+          "initialAmount": 0,
+          "initialConcentration": null,
+          "linkedSubmodel": null,
+          "modelId": 4895,
+          "name": "DNM1L",
+          "notes": "",
+          "other": {
+            "modifications": [
+              {
+                "modificationId": "rs1",
+                "name": "S637",
+                "state": "PHOSPHORYLATED",
+                "type": "RESIDUE"
+              },
+              {
+                "modificationId": "rs2",
+                "name": "K48",
+                "type": "RESIDUE"
+              }
+            ],
+            "structuralState": null,
+            "structures": {}
+          },
+          "references": [
+            {
+              "annotatorClassName": "",
+              "id": 2524240,
+              "link": "https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/2973",
+              "resource": "2973",
+              "type": "HGNC"
+            },
+            {
+              "annotatorClassName": "",
+              "id": 2524241,
+              "link": "https://www.genenames.org/cgi-bin/gene_symbol_report?match=DNM1L",
+              "resource": "DNM1L",
+              "type": "HGNC_SYMBOL"
+            },
+            {
+              "annotatorClassName": "",
+              "id": 2524242,
+              "link": "https://www.ensembl.org/id/ENSG00000087470",
+              "resource": "ENSG00000087470",
+              "type": "ENSEMBL"
+            },
+            {
+              "annotatorClassName": "",
+              "id": 2524243,
+              "link": "http://purl.uniprot.org/uniprot/O00429",
+              "resource": "O00429",
+              "type": "UNIPROT"
+            },
+            {
+              "annotatorClassName": "",
+              "id": 2524244,
+              "link": "https://www.ncbi.nlm.nih.gov/protein/NM_012062",
+              "resource": "NM_012062",
+              "type": "REFSEQ"
+            },
+            {
+              "annotatorClassName": "",
+              "id": 2524245,
+              "link": "https://www.ncbi.nlm.nih.gov/gene/10059",
+              "resource": "10059",
+              "type": "ENTREZ"
+            }
+          ],
+          "symbol": null,
+          "synonyms": [
+            "DRP1",
+            "DVLP",
+            "DYMPLE",
+            "HDYNIV",
+            "VPS1"
+          ],
+          "transparencyLevel": "0",
+          "type": "Protein",
+          "compartment": {
+            "abbreviation": null,
+            "activity": null,
+            "boundaryCondition": null,
+            "bounds": {
+              "height": 1041,
+              "width": 3317,
+              "x": 8639.166666666664,
+              "y": 6617.750000000001,
+              "z": 2686
+            },
+            "compartmentId": 514752,
+            "complexId": null,
+            "constant": null,
+            "elementId": "art36",
+            "formerSymbols": [],
+            "formula": null,
+            "fullName": null,
+            "glyph": null,
+            "hierarchyVisibilityLevel": "2",
+            "hypothetical": null,
+            "id": 523522,
+            "initialAmount": null,
+            "initialConcentration": null,
+            "linkedSubmodel": null,
+            "modelId": 4895,
+            "name": "Mitochondrial fission",
+            "notes": "",
+            "other": {
+              "modifications": [],
+              "structuralState": null,
+              "structures": {}
+            },
+            "references": [],
+            "symbol": null,
+            "synonyms": [],
+            "transparencyLevel": "4",
+            "type": "Pathway"
+          }
+        }
+      }
+    ],
+    "reactants": [
+      {
+        "aliasId": 515167,
+        "stoichiometry": null,
+        "element": {
+          "abbreviation": null,
+          "activity": false,
+          "boundaryCondition": false,
+          "bounds": {
+            "height": 40,
+            "width": 80,
+            "x": 9581.563873626379,
+            "y": 6835.543956043955,
+            "z": 5522
+          },
+          "compartmentId": 523522,
+          "complexId": null,
+          "constant": false,
+          "elementId": "sa12567",
+          "formerSymbols": [],
+          "formula": null,
+          "fullName": "dynamin 1 like",
+          "glyph": null,
+          "hierarchyVisibilityLevel": "4",
+          "hypothetical": false,
+          "id": 515167,
+          "initialAmount": 0,
+          "initialConcentration": null,
+          "linkedSubmodel": null,
+          "modelId": 4895,
+          "name": "DNM1L",
+          "notes": "",
+          "other": {
+            "modifications": [
+              {
+                "modificationId": "rs1",
+                "name": "S637",
+                "type": "RESIDUE"
+              },
+              {
+                "modificationId": "rs2",
+                "name": "K48",
+                "type": "RESIDUE"
+              }
+            ],
+            "structuralState": null,
+            "structures": {}
+          },
+          "references": [
+            {
+              "annotatorClassName": "",
+              "id": 2532651,
+              "link": "https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/2973",
+              "resource": "2973",
+              "type": "HGNC"
+            },
+            {
+              "annotatorClassName": "",
+              "id": 2532652,
+              "link": "https://www.genenames.org/cgi-bin/gene_symbol_report?match=DNM1L",
+              "resource": "DNM1L",
+              "type": "HGNC_SYMBOL"
+            },
+            {
+              "annotatorClassName": "",
+              "id": 2532653,
+              "link": "https://www.ensembl.org/id/ENSG00000087470",
+              "resource": "ENSG00000087470",
+              "type": "ENSEMBL"
+            },
+            {
+              "annotatorClassName": "",
+              "id": 2532654,
+              "link": "http://purl.uniprot.org/uniprot/O00429",
+              "resource": "O00429",
+              "type": "UNIPROT"
+            },
+            {
+              "annotatorClassName": "",
+              "id": 2532655,
+              "link": "https://www.ncbi.nlm.nih.gov/protein/NM_012062",
+              "resource": "NM_012062",
+              "type": "REFSEQ"
+            },
+            {
+              "annotatorClassName": "",
+              "id": 2532656,
+              "link": "https://www.ncbi.nlm.nih.gov/gene/10059",
+              "resource": "10059",
+              "type": "ENTREZ"
+            }
+          ],
+          "symbol": null,
+          "synonyms": [
+            "DRP1",
+            "DVLP",
+            "DYMPLE",
+            "HDYNIV",
+            "VPS1"
+          ],
+          "transparencyLevel": "0",
+          "type": "Protein",
+          "compartment": {
+            "abbreviation": null,
+            "activity": null,
+            "boundaryCondition": null,
+            "bounds": {
+              "height": 1041,
+              "width": 3317,
+              "x": 8639.166666666664,
+              "y": 6617.750000000001,
+              "z": 2686
+            },
+            "compartmentId": 514752,
+            "complexId": null,
+            "constant": null,
+            "elementId": "art36",
+            "formerSymbols": [],
+            "formula": null,
+            "fullName": null,
+            "glyph": null,
+            "hierarchyVisibilityLevel": "2",
+            "hypothetical": null,
+            "id": 523522,
+            "initialAmount": null,
+            "initialConcentration": null,
+            "linkedSubmodel": null,
+            "modelId": 4895,
+            "name": "Mitochondrial fission",
+            "notes": "",
+            "other": {
+              "modifications": [],
+              "structuralState": null,
+              "structures": {}
+            },
+            "references": [],
+            "symbol": null,
+            "synonyms": [],
+            "transparencyLevel": "4",
+            "type": "Pathway"
+          }
+        }
+      }
+    ],
+    "reactionId": "re6400",
+    "references": [
+      {
+        "annotatorClassName": "",
+        "article": {
+          "title": "Cyclic AMP-dependent protein kinase phosphorylation of Drp1 regulates its GTPase activity and mitochondrial morphology.",
+          "authors": [
+            "Chang CR",
+            " Blackstone C."
+          ],
+          "journal": "The Journal of biological chemistry",
+          "year": 2007,
+          "link": "https://www.ncbi.nlm.nih.gov/pubmed/17553808",
+          "id": "17553808",
+          "citationCount": 385,
+          "stringAuthors": "Chang CR,  Blackstone C."
+        },
+        "id": 2531075,
+        "link": "https://www.ncbi.nlm.nih.gov/pubmed/17553808",
+        "resource": "17553808",
+        "type": "PUBMED"
+      },
+      {
+        "annotatorClassName": "",
+        "article": {
+          "title": "A pivotal role for PINK1 and autophagy in mitochondrial quality control: implications for Parkinson disease.",
+          "authors": [
+            "Chu CT."
+          ],
+          "journal": "Human molecular genetics",
+          "year": 2010,
+          "link": "https://www.ncbi.nlm.nih.gov/pubmed/20385539",
+          "id": "20385539",
+          "citationCount": 90,
+          "stringAuthors": "Chu CT."
+        },
+        "id": 2531076,
+        "link": "https://www.ncbi.nlm.nih.gov/pubmed/20385539",
+        "resource": "20385539",
+        "type": "PUBMED"
+      },
+      {
+        "annotatorClassName": "",
+        "article": {
+          "title": "Reversible phosphorylation of Drp1 by cyclic AMP-dependent protein kinase and calcineurin regulates mitochondrial fission and cell death.",
+          "authors": [
+            "Cribbs JT",
+            " Strack S."
+          ],
+          "journal": "EMBO reports",
+          "year": 2007,
+          "link": "https://www.ncbi.nlm.nih.gov/pubmed/17721437",
+          "id": "17721437",
+          "citationCount": 483,
+          "stringAuthors": "Cribbs JT,  Strack S."
+        },
+        "id": 2531077,
+        "link": "https://www.ncbi.nlm.nih.gov/pubmed/17721437",
+        "resource": "17721437",
+        "type": "PUBMED"
+      },
+      {
+        "annotatorClassName": "",
+        "article": {
+          "title": "Mitochondrially localized PKA reverses mitochondrial pathology and dysfunction in a cellular model of Parkinson's disease.",
+          "authors": [
+            "Dagda RK",
+            " Gusdon AM",
+            " Pien I",
+            " Strack S",
+            " Green S",
+            " Li C",
+            " Van Houten B",
+            " Cherra SJ",
+            " Chu CT."
+          ],
+          "journal": "Cell death and differentiation",
+          "year": 2011,
+          "link": "https://www.ncbi.nlm.nih.gov/pubmed/21637291",
+          "id": "21637291",
+          "citationCount": 68,
+          "stringAuthors": "Dagda RK,  Gusdon AM,  Pien I,  Strack S,  Green S,  Li C,  Van Houten B,  Cherra SJ,  Chu CT."
+        },
+        "id": 2531078,
+        "link": "https://www.ncbi.nlm.nih.gov/pubmed/21637291",
+        "resource": "21637291",
+        "type": "PUBMED"
+      },
+      {
+        "annotatorClassName": "",
+        "article": {
+          "title": "Impaired OMA1-dependent cleavage of OPA1 and reduced DRP1 fission activity combine to prevent mitophagy in cells that are dependent on oxidative phosphorylation.",
+          "authors": [
+            "MacVicar TD",
+            " Lane JD."
+          ],
+          "journal": "Journal of cell science",
+          "year": 2014,
+          "link": "https://www.ncbi.nlm.nih.gov/pubmed/24634514",
+          "id": "24634514",
+          "citationCount": 48,
+          "stringAuthors": "MacVicar TD,  Lane JD."
+        },
+        "id": 2531079,
+        "link": "https://www.ncbi.nlm.nih.gov/pubmed/24634514",
+        "resource": "24634514",
+        "type": "PUBMED"
+      },
+      {
+        "annotatorClassName": "",
+        "article": {
+          "title": "Regulation of mitochondrial dynamics and neurodegenerative diseases.",
+          "authors": [
+            "Han XJ",
+            " Tomizawa K",
+            " Fujimura A",
+            " Ohmori I",
+            " Nishiki T",
+            " Matsushita M",
+            " Matsui H."
+          ],
+          "journal": "Acta medica Okayama",
+          "year": 2011,
+          "link": "https://www.ncbi.nlm.nih.gov/pubmed/21339790",
+          "id": "21339790",
+          "citationCount": 24,
+          "stringAuthors": "Han XJ,  Tomizawa K,  Fujimura A,  Ohmori I,  Nishiki T,  Matsushita M,  Matsui H."
+        },
+        "id": 2531080,
+        "link": "https://www.ncbi.nlm.nih.gov/pubmed/21339790",
+        "resource": "21339790",
+        "type": "PUBMED"
+      }
+    ],
+    "type": "State transition"
+  }

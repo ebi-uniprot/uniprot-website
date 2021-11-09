@@ -1,0 +1,8 @@
+.panel-layout {
+  display: grid;
+  grid-template-columns: 40vw 60vw;
+  height: 80vh;
+  &__left {
+    overflow-y: auto;
+  }
+}
