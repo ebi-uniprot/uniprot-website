@@ -1,18 +1,20 @@
 import { useMemo, Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import { Card } from 'franklin-sites';
 
 import EntryTitle from '../../shared/components/entry/EntryTitle';
 import { KeywordList } from '../../uniprotkb/components/protein-data-views/KeywordView';
 import ProteinOverview from '../../uniprotkb/components/protein-data-views/ProteinOverviewView';
-import CardCheckboxCell from '../../shared/components/CardCheckboxCell';
 
 import getProteinHighlights from '../../uniprotkb/adapters/proteinHighlights';
 import { getKeywordsForCategories } from '../../uniprotkb/utils/KeywordsUtil';
 import { getIdKeyFor } from '../../shared/utils/getIdKeyForNamespace';
+import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
+import { getEntryPath } from '../../app/config/urls';
 
 import { Namespace } from '../../shared/types/namespaces';
 
-import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
+import styles from './style/covid-card.module.scss';
 
 const getIdKey = getIdKeyFor(Namespace.uniprotkb);
 
@@ -47,15 +49,19 @@ const CovidCard = ({ data }: { data: UniProtkbAPIModel }) => {
 
   return (
     <Card
+      id={`acc_${data.primaryAccession}`}
+      tabIndex={0}
+      className={styles['covid-card']}
       header={
         <>
-          <CardCheckboxCell id={id} />
           <h2 className="tiny">
-            <EntryTitle
-              mainTitle={id}
-              optionalTitle={data.uniProtkbId}
-              entryType={data.entryType}
-            />
+            <Link to={getEntryPath(Namespace.uniprotkb, data.primaryAccession)}>
+              <EntryTitle
+                mainTitle={id}
+                optionalTitle={data.uniProtkbId}
+                entryType={data.entryType}
+              />
+            </Link>
           </h2>
         </>
       }

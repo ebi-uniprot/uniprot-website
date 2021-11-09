@@ -22,15 +22,20 @@ const CovidMain = () => {
   const { loading, data } = useDataApi<Response['data']>(url);
 
   const highlightCard = (accession: string) => {
-    document.getElementById('');
+    const highlightElt = document.getElementById(`acc_${accession}`);
+    highlightElt?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    highlightElt?.focus();
   };
 
+  setTimeout(() => {
+    highlightCard('P02649');
+  }, 5000);
+
   const processMinervaEvent = (event: MinervaEvent) => {
-    const reference = event.references.find(
-      (ref) => ref.resource === 'UniProt'
-    );
-    highlightCard(reference?.id);
-    // TODO act on event
+    const reference = event.references.find((ref) => ref.type === 'UNIPROT');
+    if (reference?.resource) {
+      highlightCard(reference?.resource);
+    }
   };
 
   useEffect(() => {
@@ -44,9 +49,6 @@ const CovidMain = () => {
   if (loading) {
     return <Loader />;
   }
-
-  const refMap = new Map();
-  // data?.results.map(datum => {})
 
   return (
     <div>
