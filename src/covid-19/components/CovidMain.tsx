@@ -1,5 +1,5 @@
 import { Loader } from 'franklin-sites';
-import { useEffect } from 'react';
+import { ChangeEvent, useEffect, useRef } from 'react';
 
 import useDataApi from '../../shared/hooks/useDataApi';
 import useNSQuery from '../../shared/hooks/useNSQuery';
@@ -11,7 +11,7 @@ import CovidCard from './CovidCard';
 import '../deps/minerva-widget';
 
 import styles from './style/covid-main.module.scss';
-import { MinervaEvent } from '../types/MinervaEvent';
+import { MinervaEventDetail } from '../types/MinervaEvent';
 
 const CovidMain = () => {
   const url = useNSQuery({
@@ -20,6 +20,7 @@ const CovidMain = () => {
     withFacets: false,
   });
   const { loading, data } = useDataApi<Response['data']>(url);
+  const minervaContainerRef = useRef<HTMLDivElement | null>(null);
 
   const highlightCard = (accession: string) => {
     const highlightElt = document.getElementById(`acc_${accession}`);
@@ -31,20 +32,32 @@ const CovidMain = () => {
     highlightCard('P02649');
   }, 5000);
 
-  const processMinervaEvent = (event: MinervaEvent) => {
-    const reference = event.references.find((ref) => ref.type === 'UNIPROT');
-    if (reference?.resource) {
-      highlightCard(reference?.resource);
-    }
-  };
-
   useEffect(() => {
-    document.addEventListener('minerva-event', processMinervaEvent);
+    if (!minervaContainerRef.current) {
+      return;
+    }
 
-    return () => {
-      document.removeEventListener('minerva-event', processMinervaEvent);
+    const processMinervaEvent = (event: Event) => {
+      const customMinervaEvent = event as CustomEvent<MinervaEventDetail>;
+      const minervaEvent = customMinervaEvent.detail;
+      const reference = minervaEvent.references.find(
+        (ref) => ref.type === 'UNIPROT'
+      );
+      if (reference?.resource) {
+        highlightCard(reference?.resource);
+      }
     };
-  });
+
+    const currentMinervaRef = minervaContainerRef.current;
+    currentMinervaRef.addEventListener('minerva-event', processMinervaEvent);
+    // eslint-disable-next-line consistent-return
+    return () => {
+      currentMinervaRef.removeEventListener(
+        'minerva-event',
+        processMinervaEvent
+      );
+    };
+  }, [minervaContainerRef]);
 
   if (loading) {
     return <Loader />;
@@ -54,7 +67,7 @@ const CovidMain = () => {
     <div>
       <h1>Covid-19</h1>
       <div className={styles['panel-layout']}>
-        <div className={styles['panel-layout__left']}>
+        <div className={styles['panel-layout__left']} ref={minervaContainerRef}>
           {data?.results.map((datum) => (
             <CovidCard data={datum} key={datum.primaryAccession} />
           ))}

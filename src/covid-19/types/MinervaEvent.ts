@@ -1,4 +1,4 @@
-export interface MinervaEvent {
+export interface MinervaEventDetail {
   centerPoint: CenterPoint;
   hierarchyVisibilityLevel: string;
   id: number;
