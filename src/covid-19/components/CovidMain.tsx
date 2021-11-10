@@ -11,7 +11,7 @@ import CovidCard from './CovidCard';
 import '../deps/minerva-widget';
 
 import styles from './style/covid-main.module.scss';
-import { MinervaEventDetail } from '../types/MinervaEvent';
+import { BioEntity, MinervaClickEventDetail } from '../types/MinervaEvent';
 
 const CovidMain = () => {
   const url = useNSQuery({
@@ -28,36 +28,49 @@ const CovidMain = () => {
     highlightElt?.focus();
   };
 
-  setTimeout(() => {
-    highlightCard('P02649');
-  }, 5000);
-
+  // eslint-disable-next-line consistent-return
   useEffect(() => {
-    if (!minervaContainerRef.current) {
-      return;
+    if (minervaContainerRef.current) {
+      const processMinervaClickEvent = (event: Event) => {
+        const customMinervaEvent =
+          event as CustomEvent<MinervaClickEventDetail>;
+        const minervaEvent = customMinervaEvent.detail;
+        minervaEvent[0].entities?.forEach((entity) => {
+          const reference = entity.references.find(
+            (ref) => ref.type === 'UNIPROT'
+          );
+          if (reference?.resource) {
+            highlightCard(reference?.resource);
+          }
+        });
+      };
+      const processMinervaFlyEvent = (event: Event) => {
+        const customMinervaEvent = event as CustomEvent<BioEntity[]>;
+        const entity = customMinervaEvent.detail[0];
+        const reference = entity.references.find(
+          (ref) => ref.type === 'UNIPROT'
+        );
+        if (reference?.resource) {
+          highlightCard(reference?.resource);
+        }
+      };
+
+      const currentMinervaRef = minervaContainerRef.current;
+      currentMinervaRef.addEventListener(
+        'canvas-click',
+        processMinervaClickEvent
+      );
+      currentMinervaRef.addEventListener('fly', processMinervaFlyEvent);
+      // eslint-disable-next-line consistent-return
+      return () => {
+        currentMinervaRef.removeEventListener(
+          'canvas-click',
+          processMinervaClickEvent
+        );
+        currentMinervaRef.removeEventListener('fly', processMinervaFlyEvent);
+      };
     }
-
-    const processMinervaEvent = (event: Event) => {
-      const customMinervaEvent = event as CustomEvent<MinervaEventDetail>;
-      const minervaEvent = customMinervaEvent.detail;
-      const reference = minervaEvent.references.find(
-        (ref) => ref.type === 'UNIPROT'
-      );
-      if (reference?.resource) {
-        highlightCard(reference?.resource);
-      }
-    };
-
-    const currentMinervaRef = minervaContainerRef.current;
-    currentMinervaRef.addEventListener('minerva-event', processMinervaEvent);
-    // eslint-disable-next-line consistent-return
-    return () => {
-      currentMinervaRef.removeEventListener(
-        'minerva-event',
-        processMinervaEvent
-      );
-    };
-  }, [minervaContainerRef]);
+  });
 
   if (loading) {
     return <Loader />;
@@ -67,15 +80,16 @@ const CovidMain = () => {
     <div>
       <h1>Covid-19</h1>
       <div className={styles['panel-layout']}>
-        <div className={styles['panel-layout__left']} ref={minervaContainerRef}>
+        <div className={styles['panel-layout__left']}>
           {data?.results.map((datum) => (
             <CovidCard data={datum} key={datum.primaryAccession} />
           ))}
         </div>
         <div>
           <minerva-widget
+            ref={minervaContainerRef}
             style={{ height: '100%' }}
-            src="https://pdmap.uni.lu/minerva/"
+            src="https://covid19map.elixir-luxembourg.org/minerva/"
           />
         </div>
       </div>
