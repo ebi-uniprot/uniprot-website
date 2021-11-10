@@ -89,8 +89,9 @@ const CovidMain = () => {
           <minerva-widget
             ref={minervaContainerRef}
             id="minerva-widget"
-            style={{ height: '100%' }}
-            src="https://covid19map.elixir-luxembourg.org/minerva/index.xhtml?id=covid19_map_BH21_v1"
+            style={{ height: '80vh' }}
+            src="https://covid19map.elixir-luxembourg.org/minerva/"
+            project="covid19_map_BH21_v1"
           />
         </div>
       </div>

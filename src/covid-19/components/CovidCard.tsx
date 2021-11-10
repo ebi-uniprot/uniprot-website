@@ -16,6 +16,7 @@ import { getEntryPath } from '../../app/config/urls';
 import { Namespace } from '../../shared/types/namespaces';
 
 import styles from './style/covid-card.module.scss';
+
 interface HTMLMinervaElement extends HTMLElement {
   search: {
     bioEntities: (model: string, options: { params: { query: string } }) => any;
@@ -57,6 +58,7 @@ const CovidCard = ({ data }: { data: UniProtkbAPIModel }) => {
       const results = await minerva.search.bioEntities('*', {
         params: { query: `UNIPROT:${id}` },
       });
+      // TODO if no results, display message
       minerva.overlay.clear();
       minerva.overlay.addOverlays(results);
     } catch (e) {
