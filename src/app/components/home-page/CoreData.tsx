@@ -11,7 +11,7 @@ import styles from './styles/non-critical.module.scss';
 import UniProtKBIllustration from '../../../images/uniprotkb_illustration.svg';
 import SpeciesIllustration from '../../../images/species_illustration.svg';
 import ClusterIllustration from '../../../images/cluster_illustration.svg';
-import ArchiveIllustration from '../../../images/archive_illustration.svg';
+import Covid19Illustration from '../../../images/covid-19.svg';
 
 const getNamespaceTo = (location: Location) => ({
   pathname: LocationToPath[location],
@@ -83,16 +83,15 @@ const CoreData = () => (
       Clusters of protein sequences at 100%, 90% &amp; 50% identity
     </Tile>
     <Tile
-      title="Sequence Archive"
+      title="Covid-19"
       className="uniprot-grid-cell--span-3"
-      subtitle="UniParc"
-      backgroundImage={<ArchiveIllustration />}
+      backgroundImage={<Covid19Illustration />}
       backgroundColor={colors.uniparc}
-      to={getNamespaceTo(Location.UniParcResults)}
+      to={getNamespaceTo(Location.Covid19)}
       gradient
     >
-      Non-redundant archive of publicly available protein sequences seen across
-      different databases
+      Disease map and SARS-CoV-2 coronavirus and other entries relating to the
+      COVID-19 outbreak
     </Tile>
   </section>
 );
