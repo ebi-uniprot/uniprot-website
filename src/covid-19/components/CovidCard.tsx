@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useMemo, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from 'franklin-sites';
@@ -15,6 +16,20 @@ import { getEntryPath } from '../../app/config/urls';
 import { Namespace } from '../../shared/types/namespaces';
 
 import styles from './style/covid-card.module.scss';
+
+interface HTMLMinervaElement extends HTMLElement {
+  search: {
+    bioEntities: (
+      query: [
+        string,
+        {
+          params: { query: string };
+        }
+      ]
+    ) => any;
+  };
+  overlay: { clear: () => void; addOverlays: (results: any) => void };
+}
 
 const getIdKey = getIdKeyFor(Namespace.uniprotkb);
 
@@ -42,9 +57,25 @@ const CovidCard = ({ data }: { data: UniProtkbAPIModel }) => {
     ));
   }, [data.keywords]);
 
-  const handleCardClick = (id: string) => {
-    console.log(id);
-    // TODO emit event to minerva
+  const handleCardClick = async (id: string) => {
+    const query = [
+      '*',
+
+      {
+        params: { query: `UNIPROT:${id}` },
+      },
+    ];
+
+    const minerva = document.getElementById(
+      'minerva-widget'
+    ) as HTMLMinervaElement;
+    try {
+      const results = await minerva.search.bioEntities(...query);
+      minerva.overlay.clear();
+      minerva.overlay.addOverlays(results);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (

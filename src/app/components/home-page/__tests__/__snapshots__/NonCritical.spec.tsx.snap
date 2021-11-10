@@ -183,25 +183,20 @@ exports[`non-critical HomePage component should render 1`] = `
       </div>
       <a
         class="tile__main-content"
-        href="/uniparc?query=*"
+        href="/covid-19?query=*"
       >
         <span>
           <h3
             class="tile__header medium"
           >
-            Sequence Archive
+            Covid-19
           </h3>
-          <h4
-            class="tile__subtitle tiny"
-          >
-            UniParc
-          </h4>
         </span>
       </a>
       <small
         class="tile__description"
       >
-        Non-redundant archive of publicly available protein sequences seen across different databases
+        Disease map and SARS-CoV-2 coronavirus and other entries relating to the COVID-19 outbreak
       </small>
     </div>
   </section>
