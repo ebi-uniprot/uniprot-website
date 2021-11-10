@@ -16,17 +16,9 @@ import { getEntryPath } from '../../app/config/urls';
 import { Namespace } from '../../shared/types/namespaces';
 
 import styles from './style/covid-card.module.scss';
-
 interface HTMLMinervaElement extends HTMLElement {
   search: {
-    bioEntities: (
-      query: [
-        string,
-        {
-          params: { query: string };
-        }
-      ]
-    ) => any;
+    bioEntities: (model: string, options: { params: { query: string } }) => any;
   };
   overlay: { clear: () => void; addOverlays: (results: any) => void };
 }
@@ -58,19 +50,13 @@ const CovidCard = ({ data }: { data: UniProtkbAPIModel }) => {
   }, [data.keywords]);
 
   const handleCardClick = async (id: string) => {
-    const query = [
-      '*',
-
-      {
-        params: { query: `UNIPROT:${id}` },
-      },
-    ];
-
     const minerva = document.getElementById(
       'minerva-widget'
     ) as HTMLMinervaElement;
     try {
-      const results = await minerva.search.bioEntities(...query);
+      const results = await minerva.search.bioEntities('*', {
+        params: { query: `UNIPROT:${id}` },
+      });
       minerva.overlay.clear();
       minerva.overlay.addOverlays(results);
     } catch (e) {
