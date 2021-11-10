@@ -2,6 +2,8 @@
 import { useMemo, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from 'franklin-sites';
+import { useDispatch } from 'react-redux';
+import { v1 } from 'uuid';
 
 import EntryTitle from '../../shared/components/entry/EntryTitle';
 import { KeywordList } from '../../uniprotkb/components/protein-data-views/KeywordView';
@@ -12,14 +14,23 @@ import { getKeywordsForCategories } from '../../uniprotkb/utils/KeywordsUtil';
 import { getIdKeyFor } from '../../shared/utils/getIdKeyForNamespace';
 import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
 import { getEntryPath } from '../../app/config/urls';
+import { addMessage } from '../../messages/state/messagesActions';
+import {
+  MessageFormat,
+  MessageLevel,
+} from '../../messages/types/messagesTypes';
 
 import { Namespace } from '../../shared/types/namespaces';
+import { BioEntity } from '../types/MinervaEvent';
 
 import styles from './style/covid-card.module.scss';
 
 interface HTMLMinervaElement extends HTMLElement {
   search: {
-    bioEntities: (model: string, options: { params: { query: string } }) => any;
+    bioEntities: (
+      model: string,
+      options: { params: { query: string } }
+    ) => BioEntity[];
   };
   overlay: { clear: () => void; addOverlays: (results: any) => void };
 }
@@ -28,6 +39,7 @@ const getIdKey = getIdKeyFor(Namespace.uniprotkb);
 
 const CovidCard = ({ data }: { data: UniProtkbAPIModel }) => {
   const id = getIdKey(data);
+  const dispatch = useDispatch();
 
   const highlights = useMemo(() => getProteinHighlights(data), [data]);
 
@@ -58,7 +70,16 @@ const CovidCard = ({ data }: { data: UniProtkbAPIModel }) => {
       const results = await minerva.search.bioEntities('*', {
         params: { query: `UNIPROT:${id}` },
       });
-      // TODO if no results, display message
+      if (!results.length) {
+        dispatch(
+          addMessage({
+            id: v1(),
+            content: `No entity found for ${id}`,
+            format: MessageFormat.POP_UP,
+            level: MessageLevel.INFO,
+          })
+        );
+      }
       minerva.overlay.clear();
       minerva.overlay.addOverlays(results);
     } catch (e) {
