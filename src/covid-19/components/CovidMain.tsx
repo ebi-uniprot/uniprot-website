@@ -8,7 +8,7 @@ import Response from '../../uniprotkb/types/responseTypes';
 import covidIdList from '../config/covid-list';
 import CovidCard from './CovidCard';
 
-import '../deps/minerva-widget';
+import '@lcsb/minerva-widget';
 
 import styles from './style/covid-main.module.scss';
 import { BioEntity, MinervaClickEventDetail } from '../types/MinervaEvent';
@@ -90,8 +90,8 @@ const CovidMain = () => {
             ref={minervaContainerRef}
             id="minerva-widget"
             style={{ height: '80vh' }}
+            project="covid19_map_BH21_v2"
             src="https://covid19map.elixir-luxembourg.org/minerva/"
-            project="covid19_map_BH21_v1"
           />
         </div>
       </div>

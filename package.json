@@ -96,6 +96,7 @@
   },
   "dependencies": {
     "@geneontology/ribbon": "1.11.2",
+    "@lcsb/minerva-widget": "^0.1.1",
     "@sentry/react": "6.14.0",
     "@sentry/tracing": "6.14.0",
     "@sentry/types": "6.13.3",
