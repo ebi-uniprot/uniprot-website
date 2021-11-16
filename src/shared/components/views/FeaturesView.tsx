@@ -43,7 +43,6 @@ type FeatureProps<T> = {
   withTitle?: boolean;
 };
 
-// ProcessedFeature | TransformedVariant | UniParcProcessedFeature
 const FeaturesView = <
   T extends ProcessedFeature | TransformedVariant | UniParcProcessedFeature
 >(
@@ -103,7 +102,7 @@ const FeaturesView = <
     [trackDefined, features]
   );
 
-  const structuredData = useMemo(() => dataToSchema(features), [features]);
+  const structuredData = useMemo(() => dataToSchema<T>(features), [features]);
   useStructuredData(structuredData);
 
   if (features.length === 0) {

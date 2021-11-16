@@ -4,15 +4,14 @@ import { TransformedVariant } from 'protvista-variation-adapter';
 import { ProcessedFeature } from './FeaturesView';
 import { UniParcProcessedFeature } from '../../../uniparc/components/entry/UniParcFeaturesView';
 
-const dataToSchema = (
-  data:
-    | Array<ProcessedFeature | TransformedVariant | UniParcProcessedFeature>
-    | undefined
+const dataToSchema = <
+  T extends ProcessedFeature | TransformedVariant | UniParcProcessedFeature
+>(
+  data?: T[]
 ): Graph | undefined => {
   if (!data) {
     return;
   }
-  console.log(data);
   // eslint-disable-next-line consistent-return
   return {
     '@context': 'https://schema.org',

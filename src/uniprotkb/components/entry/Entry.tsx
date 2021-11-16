@@ -46,6 +46,9 @@ import apiUrls from '../../../shared/config/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
+import useStructuredData from '../../../shared/hooks/useStructuredData';
+
+import dataToSchema from './entry.structured';
 
 import uniProtKbConverter, {
   UniProtkbAPIModel,
@@ -246,6 +249,9 @@ const Entry: FC = () => {
     // match?.params.subPage had when the component was mounted.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isObsolete]);
+
+  const structuredData = useMemo(() => dataToSchema(data), [data]);
+  useStructuredData(structuredData);
 
   if (
     loading ||
