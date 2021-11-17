@@ -5,7 +5,7 @@ fileTally=0
 gzTally=0
 brTally=0
 
-# Find all files which have compressible mime types as indicated in https://letstalkaboutwebperf.com/en/gzip-brotli-server-config/
+# Find all files which have compressible mime types 
 fileList=$(find ./build -type f -exec sh -c 'file -b --mime-type "{}" | grep -f - -qF ./deploy/compressible-mime-types.txt' \; -and -print)
 
 for file in $fileList; do
