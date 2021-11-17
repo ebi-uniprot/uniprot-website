@@ -46,7 +46,8 @@ done
 
 # Report tally results in megabytes (need python for calculations)
 echo "
-print(f'\nTotal uncompressed: {$fileTally / 1024**2:0.2f}M')
-print(f'Total gzip compressed: {$gzTally / 1024**2:0.2f}M')
-print(f'Total brotli compressed: {$brTally / 1024**2:0.2f}M')
+m = lambda b: f'{b/2**20:0.2f}M'
+print(f'\nTotal uncompressed: {m($fileTally)}')
+print(f'Total gzip compressed: {m($gzTally)}')
+print(f'Total brotli compressed: {m($brTally)}')
 " | python3
