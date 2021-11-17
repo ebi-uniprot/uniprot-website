@@ -45,8 +45,8 @@ build_static_assets:
   script:
     - yarn
     - yarn build:prod
-    - apt update
-    - apt install brotli
+    - apt-get update
+    - apt-get install brotli
     - ./deploy/compress.sh
   artifacts:
     paths:
@@ -67,7 +67,7 @@ build_docker_image:
     - docker --version
     - CONTAINER_IMAGE=${CI_REGISTRY_IMAGE}:latest
     - echo ${CONTAINER_IMAGE}
-    - docker build -t ${CONTAINER_IMAGE} --no-cache .
+    - docker build --build-arg ENABLED_MODULES="brotli" -t ${CONTAINER_IMAGE} --no-cache .
     - docker image ls
     - docker push ${CONTAINER_IMAGE}
     - docker rmi ${CONTAINER_IMAGE}
