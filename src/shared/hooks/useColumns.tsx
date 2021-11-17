@@ -190,7 +190,8 @@ const useColumns = (
     getParamsFromURL(queryParamFromUrl);
 
   const { data: dataResultFields, loading } = useDataApi<ReceivedFieldData>(
-    // No configure endpoint for supporting data
+    // For now, assume no configure endpoint for supporting data
+    // TODO: change this when the backend is fixed https://www.ebi.ac.uk/panda/jira/browse/TRM-26571
     namespace !== 'id-mapping' && mainNamespaces.has(namespace)
       ? apiUrls.resultsFields(namespace)
       : null

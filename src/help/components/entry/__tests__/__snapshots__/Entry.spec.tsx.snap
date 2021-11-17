@@ -8,6 +8,25 @@ exports[`Help entry tests should render the Entry component 1`] = `
     <main
       class="single-column-layout__main"
     >
+      <div
+        class="beta-message message message--info"
+        role="status"
+      >
+        <div
+          class="message__side-border"
+        />
+        <test-file-stub
+          height="1.125em"
+          width="1.125em"
+        />
+        <section
+          class="message__content"
+        >
+          <small>
+            During the beta phase, help content may not be up to date.
+          </small>
+        </section>
+      </div>
       <h1
         class="medium"
       >

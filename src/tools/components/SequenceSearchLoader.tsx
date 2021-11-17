@@ -237,7 +237,9 @@ const SequenceSearchLoader = forwardRef<
           );
         }
       } catch (error) {
-        logging.error(error);
+        if (error instanceof Error || typeof error === 'string') {
+          logging.error(error);
+        }
       } finally {
         setAccessionOrID(accessionOrID); // reset to previous value
         setPasteLoading(false);

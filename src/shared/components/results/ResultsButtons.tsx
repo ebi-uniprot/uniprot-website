@@ -150,9 +150,11 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
             })}
           />
         </Button>
-        {!notCustomisable && viewMode === ViewMode.TABLE && (
-          <CustomiseButton namespace={namespace} />
-        )}
+        {!notCustomisable &&
+          // Exception for ID mapping results!
+          (viewMode === ViewMode.TABLE || disableCardToggle) && (
+            <CustomiseButton namespace={namespace} />
+          )}
         <ItemCount selected={selectedEntries.length} loaded={loadedTotal} />
       </div>
     </>

@@ -1,19 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
 import * as Sentry from '@sentry/react';
-import { JsonValue } from 'type-fest';
+import { ScopeContext } from '@sentry/types';
 
 // Expand as we add more events
-type EventCategory = 'console';
-type EventLabel = 'log' | 'warn' | 'error' | 'debug';
+type CustomCategories = `console.${'log' | 'warn' | 'error'}`;
 
-export const createGtagEvent = (eventLabel: EventLabel, data?: JsonValue) => {
-  // TODO: check if the event key is valid ie registered in google analytics
+const isProduction = process.env.NODE_ENV !== 'development';
+
+export const createGtagEvent = (message: any, data?: Partial<ScopeContext>) => {
   const event: Gtag.CustomParams = {
-    event_label: eventLabel,
+    event_label: message,
   };
-  if (data && typeof data === 'object') {
+  if (!data) {
+    return event;
+  }
+  if (typeof data === 'object') {
     try {
+      // TODO: check if the event key is valid ie registered in google analytics
       for (const [k, v] of Object.entries(data)) {
         event[`event_${k}`] = JSON.stringify(v);
       }
@@ -32,38 +36,55 @@ export const createGtagEvent = (eventLabel: EventLabel, data?: JsonValue) => {
 };
 
 export const sendGtagEvent = (
-  eventCategory: EventCategory,
-  eventLabel: EventLabel,
-  data?: JsonValue
+  eventCategory: CustomCategories | Gtag.EventNames | string,
+  message?: any,
+  data?: Partial<ScopeContext>
 ) => {
-  const event = createGtagEvent(eventLabel, data);
+  const event = createGtagEvent(message, data);
   if (typeof gtag === 'function') {
     gtag('event', eventCategory, event);
   }
 };
 
-export const log = (...args: any[]) => {
-  console.log(...args);
-  sendGtagEvent('console', 'log', ...args);
-  Sentry.captureMessage(args[0], { extra: args[1] });
+type LoggingHelper = (
+  message: string | Error,
+  context?: Partial<ScopeContext>
+) => void;
+
+export const log: LoggingHelper = (message, context) => {
+  if (isProduction) {
+    sendGtagEvent('console.log', message.toString(), context);
+    Sentry.captureMessage(message.toString(), {
+      ...(context || {}),
+      level: Sentry.Severity.Log,
+    });
+  } else {
+    console.log(message, context);
+  }
 };
 
-export const warn = (...args: any[]) => {
-  console.warn(...args);
-  sendGtagEvent('console', 'warn', ...args);
-  Sentry.captureMessage(args[0], {
-    extra: args[1],
-    level: Sentry.Severity.Warning,
-  });
+export const warn: LoggingHelper = (message, context) => {
+  if (isProduction) {
+    sendGtagEvent('console.warn', message.toString(), context);
+    Sentry.captureMessage(message.toString(), {
+      ...(context || {}),
+      level: Sentry.Severity.Warning,
+    });
+  } else {
+    console.warn(message, context);
+  }
 };
 
-export const error = (...args: any[]) => {
-  console.error(...args);
-  sendGtagEvent('console', 'error', ...args);
-  Sentry.captureException(args[0], { extra: args[1], tags: args[2] });
+export const error: LoggingHelper = (message, context) => {
+  if (isProduction) {
+    sendGtagEvent('exception', message.toString(), context);
+    Sentry.captureException(message, context);
+  }
+  console.error(message, context);
 };
 
-export const debug = (...args: any[]) => {
-  console.debug(...args);
-  sendGtagEvent('console', 'debug', ...args);
+export const debug: LoggingHelper = (message, context) => {
+  if (!isProduction) {
+    console.debug(message, context);
+  }
 };

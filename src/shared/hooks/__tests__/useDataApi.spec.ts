@@ -115,9 +115,9 @@ describe('useDataApi hook', () => {
 
     expect(result.current).toEqual({
       loading: false,
+      progress: 1,
       url,
       status: 404,
-      error: new Error('Request failed with status code 404'),
     });
   });
 

@@ -33,9 +33,8 @@ const useStructuredData = <Schema extends Thing>(
         try {
           content = JSON.stringify(value, undefined, 2);
         } catch {
-          logging.warn({
-            message: 'Something went wrong when stringifying',
-            data: value,
+          logging.warn('Something went wrong when stringifying', {
+            extra: { data: value },
           });
         }
       }

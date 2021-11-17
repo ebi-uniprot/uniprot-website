@@ -4,7 +4,7 @@ import joinUrl from 'url-join';
 
 import { filterConfig, colorConfig } from 'protvista-uniprot';
 import { ProteinsAPIVariation } from 'protvista-variation-adapter/dist/es/variants';
-import { transformData, TransformedVariant } from 'protvista-variation-adapter';
+import { transformData } from 'protvista-variation-adapter';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
@@ -142,7 +142,7 @@ const VariationView: FC<{
         </tr>
       </thead>
       <tbody>
-        {transformedData.variants.map((variantFeature: TransformedVariant) => (
+        {transformedData.variants.map((variantFeature) => (
           <Fragment key={variantFeature.protvistaFeatureId}>
             <tr data-id={variantFeature.protvistaFeatureId}>
               <td>
@@ -197,13 +197,17 @@ const VariationView: FC<{
                   {variantFeature.association?.map((association) => (
                     <div key={`${association.name}-${association.description}`}>
                       {association.name}
-                      <UniProtKBEvidenceTag
-                        evidences={association.evidences.map((evidence) => ({
-                          evidenceCode: evidence.code as `ECO:${number}`,
-                          id: evidence.source.id,
-                          source: evidence.source.name,
-                        }))}
-                      />
+                      {/* note that the type needs to be updated, evidences is optional on association object */}
+                      {/* Example in P42771 */}
+                      {association.evidences?.length ? (
+                        <UniProtKBEvidenceTag
+                          evidences={association.evidences.map((evidence) => ({
+                            evidenceCode: evidence.code as `ECO:${number}`,
+                            id: evidence.source.id,
+                            source: evidence.source.name,
+                          }))}
+                        />
+                      ) : null}
                     </div>
                   ))}
                 </div>

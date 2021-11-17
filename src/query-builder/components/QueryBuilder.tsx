@@ -83,7 +83,11 @@ const QueryBuilder: FC<Props> = ({
   );
 
   const { loading, data: searchTermsData } = useDataApi<SearchTermType[]>(
-    namespace && apiUrls.queryBuilderTerms(namespace)
+    namespace &&
+      apiUrls
+        .queryBuilderTerms(namespace)
+        // TODO: remove this when the backend is fixed https://www.ebi.ac.uk/panda/jira/browse/TRM-26571
+        .replace('/keywords/', '/keyword/')
   );
 
   useEffect(() => {

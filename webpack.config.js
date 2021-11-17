@@ -33,7 +33,7 @@ module.exports = (env, argv) => {
     }
   }
 
-  let apiPrefix = 'https://www.ebi.ac.uk/uniprot/beta/api';
+  let apiPrefix = 'https://rest.uniprot.org/beta';
   if (env.API_PREFIX) {
     // if we have an array, it means we've probably overriden env in the CLI
     // from a predefined env in a yarn/npm script
