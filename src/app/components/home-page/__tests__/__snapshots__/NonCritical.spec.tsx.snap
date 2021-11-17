@@ -575,7 +575,7 @@ exports[`non-critical HomePage component should render 1`] = `
         <p
           class="latest-news__abstract latest-news__abstract--4-lines"
         >
-          Today marks a historic moment in the world of molecular structural research. AlphaFold structure predictions covering the proteomes of 21 species have been made freely available to the scientific community, and we are delighted to announce that they are also accessible through the UniProt website and the Protvista protein viewer. AlphaFold is an Artificial Intelligence (AI) system developed by DeepMind that predicts the three-dimensional (3D) structure from an amino-acid sequence.
+          Today marks a historic moment in the world of molecular structural research. AlphaFold structure predictions covering the proteomes of 21 species have been made freely available to the scientific community, and we are delighted to announce that they are also accessible through the UniProt website and the Protvista protein viewer. AlphaFold is an Artificial Intelligence (AI) system developed by DeepMind that predicts the three-dimensional (3D) structure from an amino acid sequence.
         </p>
       </article>
     </div>

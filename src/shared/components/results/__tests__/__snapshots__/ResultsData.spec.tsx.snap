@@ -74,7 +74,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 G6PC1 (G6PC, G6PT) · 357 amino-acids · Evidence at protein level · 
+                 G6PC1 (G6PC, G6PT) · 357 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
@@ -255,7 +255,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 SLC37A4 (G6PT, G6PT1) · 429 amino-acids · Evidence at protein level · 
+                 SLC37A4 (G6PT, G6PT1) · 429 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
@@ -432,7 +432,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 SLC2A1 (GLUT1) · 492 amino-acids · Evidence at protein level · 
+                 SLC2A1 (GLUT1) · 492 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
@@ -636,7 +636,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 SLC2A3 (GLUT3) · 496 amino-acids · Evidence at protein level · 
+                 SLC2A3 (GLUT3) · 496 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
@@ -787,7 +787,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 SLC5A1 (NAGT, SGLT1) · 664 amino-acids · Evidence at protein level · 
+                 SLC5A1 (NAGT, SGLT1) · 664 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
@@ -981,7 +981,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 G6PC3 (UGRP) · 346 amino-acids · Evidence at protein level · 
+                 G6PC3 (UGRP) · 346 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
@@ -1143,7 +1143,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 SLC2A4 (GLUT4) · 509 amino-acids · Evidence at protein level · 
+                 SLC2A4 (GLUT4) · 509 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
@@ -1319,7 +1319,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 SLC2A8 (GLUT8, GLUTX1) · 477 amino-acids · Evidence at protein level · 
+                 SLC2A8 (GLUT8, GLUTX1) · 477 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
@@ -1452,7 +1452,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 SLC2A9 (GLUT9) · 540 amino-acids · Evidence at protein level · 
+                 SLC2A9 (GLUT9) · 540 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
@@ -1606,7 +1606,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 G6PC2 (IGRP) · 355 amino-acids · Evidence at protein level · 
+                 G6PC2 (IGRP) · 355 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
@@ -1756,7 +1756,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 SLC2A2 (GLUT2) · 524 amino-acids · Evidence at protein level · 
+                 SLC2A2 (GLUT2) · 524 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
@@ -1923,7 +1923,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 UGGT2 (UGCGL2, UGT2) · 1516 amino-acids · Evidence at protein level · 
+                 UGGT2 (UGCGL2, UGT2) · 1516 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
@@ -2074,7 +2074,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 SLC2A10 (GLUT10) · 541 amino-acids · Evidence at protein level · 
+                 SLC2A10 (GLUT10) · 541 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
@@ -2225,7 +2225,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 SLC2A5 (GLUT5) · 501 amino-acids · Evidence at protein level · 
+                 SLC2A5 (GLUT5) · 501 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
@@ -2386,7 +2386,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 UGP2 (UGP1) · 508 amino-acids · Evidence at protein level · 
+                 UGP2 (UGP1) · 508 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
@@ -2574,7 +2574,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 SLC5A11 (KST1, SLGTX, SMIT2) · 675 amino-acids · Evidence at protein level · 
+                 SLC5A11 (KST1, SLGTX, SMIT2) · 675 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
@@ -2747,7 +2747,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 SLC2A11 (GLUT11) · 496 amino-acids · Evidence at protein level · 
+                 SLC2A11 (GLUT11) · 496 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
@@ -2890,7 +2890,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 UGGT1 (GT, UGCGL1, UGGT, UGT1, UGTR) · 1555 amino-acids · Evidence at protein level · 
+                 UGGT1 (GT, UGCGL1, UGGT, UGT1, UGTR) · 1555 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
@@ -3029,7 +3029,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 SLC5A2 (SGLT2) · 672 amino-acids · Evidence at transcript level · 
+                 SLC5A2 (SGLT2) · 672 amino acids · Evidence at transcript level · 
                 <span
                   title="Annotation Score"
                 >
@@ -3211,7 +3211,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 G6PD · 515 amino-acids · Evidence at protein level · 
+                 G6PD · 515 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
@@ -3411,7 +3411,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 ptsG (glcA, umg) · 477 amino-acids · Evidence at protein level · 
+                 ptsG (glcA, umg) · 477 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
@@ -3598,7 +3598,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 AGPS2 (APS2) · 514 amino-acids · Evidence at protein level · 
+                 AGPS2 (APS2) · 514 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
@@ -3750,7 +3750,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 SLC2A7 (GLUT7) · 512 amino-acids · Evidence at protein level · 
+                 SLC2A7 (GLUT7) · 512 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
@@ -3889,7 +3889,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 SOGA1 (C20orf117, KIAA0889, SOGA) · 1423 amino-acids · Evidence at protein level · 
+                 SOGA1 (C20orf117, KIAA0889, SOGA) · 1423 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
@@ -4021,7 +4021,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 H6PD (GDH) · 791 amino-acids · Evidence at protein level · 
+                 H6PD (GDH) · 791 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
