@@ -45,6 +45,9 @@ build_static_assets:
   script:
     - yarn
     - yarn build:prod
+    - apt update
+    - apt install brotli
+    - ./deploy/compress.sh
   artifacts:
     paths:
       - build/
