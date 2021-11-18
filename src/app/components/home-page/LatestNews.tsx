@@ -89,6 +89,26 @@ const LatestNews = () => {
             <article>
               <h3 className="micro">
                 <ExternalLink
+                  url="https://www.uniprot.org/news/2021/11/17/release"
+                  noIcon
+                >
+                  UniProt release 2021_04
+                </ExternalLink>
+              </h3>
+              <p
+                className={cn(
+                  styles['latest-news__abstract'],
+                  styles['latest-news__abstract--2-lines']
+                )}
+              >
+                ZTGC: bacteriophages reinvent the DNA alphabet
+              </p>
+            </article>
+          </li>
+          <li>
+            <article>
+              <h3 className="micro">
+                <ExternalLink
                   url="https://www.uniprot.org/news/2021/06/02/release"
                   noIcon
                 >

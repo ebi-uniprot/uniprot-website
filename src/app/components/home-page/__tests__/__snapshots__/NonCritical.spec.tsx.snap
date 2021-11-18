@@ -405,6 +405,27 @@ exports[`non-critical HomePage component should render 1`] = `
             >
               <a
                 class="external-link"
+                href="https://www.uniprot.org/news/2021/11/17/release"
+                rel="noopener"
+                target="_blank"
+              >
+                UniProt release 2021_04
+              </a>
+            </h3>
+            <p
+              class="latest-news__abstract latest-news__abstract--2-lines"
+            >
+              ZTGC: bacteriophages reinvent the DNA alphabet
+            </p>
+          </article>
+        </li>
+        <li>
+          <article>
+            <h3
+              class="micro"
+            >
+              <a
+                class="external-link"
                 href="https://www.uniprot.org/news/2021/06/02/release"
                 rel="noopener"
                 target="_blank"
