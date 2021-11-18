@@ -2,7 +2,7 @@ import { AGRRibbonCategory } from '../../GORibbonHandler';
 
 const goRibbonCategories: AGRRibbonCategory[] = [
   {
-    id: 'GO:1234',
+    id: 'GO:0005575',
     description: '',
     label: 'cellular_component',
     groups: [
@@ -75,7 +75,7 @@ const goRibbonCategories: AGRRibbonCategory[] = [
     ],
   },
   {
-    id: 'GO:1234',
+    id: 'GO:0003674',
     description: '',
     label: 'molecular_function',
     groups: [
@@ -168,7 +168,7 @@ const goRibbonCategories: AGRRibbonCategory[] = [
     ],
   },
   {
-    id: 'GO:1234',
+    id: 'GO:0008150',
     description: '',
     label: 'biological_process',
     groups: [

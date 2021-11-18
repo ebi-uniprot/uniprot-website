@@ -16,6 +16,12 @@ type GOAspect =
 
 type GOTerm = `GO:${number}${string}`;
 
+const goAspects: { [key in GOAspect]: GOTerm } = {
+  molecular_function: 'GO:0003674',
+  biological_process: 'GO:0008150',
+  cellular_component: 'GO:0005575',
+};
+
 export type SlimSet = {
   name: string;
   id: string;
@@ -91,7 +97,7 @@ const slimData = async (agrSlimSet: GOTerm[], fromList: GOTerm[]) => {
   // TODO handle pagination
   const slimmedData = await axios.get<GOSlimmedData>(SLIMMING_URL, {
     params: {
-      slimsToIds: agrSlimSet?.join(','),
+      slimsToIds: [...agrSlimSet, ...Object.values(goAspects)].join(','),
       slimsFromIds: fromList.join(','),
       relations: 'is_a,part_of,occurs_in,regulates',
     },
@@ -102,12 +108,11 @@ const slimData = async (agrSlimSet: GOTerm[], fromList: GOTerm[]) => {
 export const getCategories = (slimSet: SlimSet): AGRRibbonCategory[] => {
   // Aspects at the top
   const slimsByAspect = groupBy(slimSet.associations, 'aspect');
-  // TODO remove the 3 aspects from slim set
 
   // Convert to object
   const categoriesObj: AGRRibbonCategory[] = Object.keys(slimsByAspect).map(
     (aspectName) => ({
-      id: 'GO:1234', // TODO get aspect id and description from...somewhere?!?
+      id: goAspects[aspectName as GOAspect],
       description: '',
       label: aspectName as GOAspect,
       groups: slimsByAspect[aspectName].map((term) => ({
