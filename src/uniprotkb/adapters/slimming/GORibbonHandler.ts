@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { groupBy } from 'lodash-es';
 
-import { GroupedGoTerms } from '../functionConverter';
+import { GoTerm, GroupedGoTerms } from '../functionConverter';
 
 export const SLIM_SETS_URL =
   'https://www.ebi.ac.uk/QuickGO/services/internal/presets?fields=goSlimSets';
@@ -121,22 +121,28 @@ export const getCategories = (slimSet: SlimSet): AGRRibbonCategory[] => {
   return categoriesObj;
 };
 
+const countEvidences = (terms: GoTerm[], ids: string[]) => {
+  let count = 0;
+  ids.forEach((id) => {
+    const term = terms.find((term) => term.id === id);
+    count += term?.evidences?.length || 0;
+  });
+  return count;
+};
+
 export const getSubjects = (
   goTerms: GroupedGoTerms,
   slimmedData: GOSlimmedData,
   primaryAccession: string
 ) => {
-  /**
-   * TODO
-   * Group evidence for each term
-   * Count number of evidences and assign to nb_annotations
-   */
+  const goTermsFlat = Array.from(goTerms.values()).flat();
+  // TODO handle go terms which haven't been slimmed, guess they go under "All"??
   const subjectGroups = slimmedData.results.reduce((obj: Groups, mapping) => {
     // eslint-disable-next-line no-param-reassign
     obj[mapping.slimsFromId] = {
       ALL: {
         nb_classes: mapping.slimsToIds.length,
-        nb_annotations: 0,
+        nb_annotations: countEvidences(goTermsFlat, mapping.slimsToIds),
       },
     };
     return obj;
@@ -145,11 +151,11 @@ export const getSubjects = (
   return [
     {
       id: primaryAccession,
-      nb_classes: 169,
-      nb_annotations: 442,
-      label: 'TP53',
-      taxon_id: 'NCBITaxon:9606',
-      taxon_label: 'Homo sapiens',
+      nb_classes: 169, // TODO
+      nb_annotations: 442, // TODO
+      label: 'TP53', // TODO
+      taxon_id: 'NCBITaxon:9606', // TODO
+      taxon_label: 'Homo sapiens', // TODO
       groups: subjectGroups,
     },
   ];
