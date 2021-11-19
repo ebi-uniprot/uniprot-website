@@ -72,6 +72,12 @@ const goRibbonCategories: AGRRibbonCategory[] = [
         type: 'Term',
       },
       { id: 'GO:0045202', label: 'synapse', description: '', type: 'Term' },
+      {
+        id: 'GO:0005575',
+        label: 'other cellular_component',
+        description: '',
+        type: 'Other',
+      },
     ],
   },
   {
@@ -164,6 +170,12 @@ const goRibbonCategories: AGRRibbonCategory[] = [
         label: 'carbohydrate derivative binding',
         description: '',
         type: 'Term',
+      },
+      {
+        id: 'GO:0003674',
+        label: 'other molecular_function',
+        description: '',
+        type: 'Other',
       },
     ],
   },
@@ -277,6 +289,12 @@ const goRibbonCategories: AGRRibbonCategory[] = [
         label: 'carbohydrate derivative metabolic process',
         description: '',
         type: 'Term',
+      },
+      {
+        id: 'GO:0008150',
+        label: 'other biological_process',
+        description: '',
+        type: 'Other',
       },
     ],
   },

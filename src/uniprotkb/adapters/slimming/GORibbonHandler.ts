@@ -46,6 +46,8 @@ export type GOSlimmedData = {
   }[];
 };
 
+type CategoryType = 'All' | 'Term' | 'Other';
+
 export type AGRRibbonCategory = {
   // Each category represents an aspect
   description: string;
@@ -55,7 +57,7 @@ export type AGRRibbonCategory = {
     id: GOTerm;
     label: string;
     description: string;
-    type: 'All' | 'Term' | 'Other';
+    type: CategoryType;
   }[];
 };
 
@@ -115,12 +117,20 @@ export const getCategories = (slimSet: SlimSet): AGRRibbonCategory[] => {
       id: goAspects[aspectName as GOAspect],
       description: '',
       label: aspectName as GOAspect,
-      groups: slimsByAspect[aspectName].map((term) => ({
-        id: term.id,
-        label: term.name,
-        description: '',
-        type: 'Term',
-      })),
+      groups: [
+        ...slimsByAspect[aspectName].map((term) => ({
+          id: term.id,
+          label: term.name,
+          description: '',
+          type: 'Term' as CategoryType,
+        })),
+        {
+          id: goAspects[aspectName as GOAspect],
+          label: `other ${aspectName}`,
+          description: '',
+          type: 'Other',
+        },
+      ],
     })
   );
   return categoriesObj;
@@ -183,7 +193,11 @@ const handleGOData = async (
     return null;
   }
   const slimmedData = await slimData(
-    agrSlimSet?.associations.map((association) => association.id),
+    [
+      ...agrSlimSet?.associations.map((association) => association.id),
+      // Note the set doesn't include aspects, add them
+      ...Object.values(goAspects),
+    ],
     fromList
   );
   const categories = getCategories(agrSlimSet);
