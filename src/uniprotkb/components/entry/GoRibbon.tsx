@@ -58,6 +58,8 @@ const GoRibbon: FC<{ primaryAccession: string; goTerms?: GroupedGoTerms }> = ({
         <wc-ribbon-strips
           data={JSON.stringify(data)}
           update-on-subject-change="false"
+          show-other-group
+          add-cell-all
         />
       )}
       <protvista-datatable>
