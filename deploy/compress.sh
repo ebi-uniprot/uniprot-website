@@ -23,9 +23,9 @@ for file in $fileList; do
     gzSize="$(wc -c < $gzFile)"
     brSize="$(wc -c < $brFile)"
 
-    echo $file: $fileSize
-    echo $gzFile: $gzSize
-    echo $brFile: $brSize
+    echo "$file:    $fileSize"
+    echo "$gzFile: $gzSize"
+    echo "$brFile: $brSize"
 
     # Update tallies
     fileTally=$(( $fileTally + $fileSize ))
