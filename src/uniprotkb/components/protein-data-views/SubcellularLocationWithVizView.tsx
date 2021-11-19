@@ -62,36 +62,44 @@ const SubcellularLocationWithVizView: FC<
 
   const uniProtLocations = (comments || [])
     .flatMap(({ subcellularLocations }) =>
-      subcellularLocations?.map(
-        ({ location }) =>
-          !!location.id && {
-            id: getSubcellularLocationId(location.id),
-            reviewed: location.evidences?.some((evidence) => {
-              const evidenceData = getEvidenceCodeData(
-                getEcoNumberFromString(evidence.evidenceCode)
-              );
-              return Boolean(evidenceData?.manual);
-            }),
-          }
+      subcellularLocations?.map(({ location }) =>
+        location.id
+          ? {
+              id: getSubcellularLocationId(location.id),
+              reviewed: location.evidences?.some((evidence) => {
+                const evidenceData = getEvidenceCodeData(
+                  getEcoNumberFromString(evidence.evidenceCode)
+                );
+                return Boolean(evidenceData?.manual);
+              }),
+            }
+          : undefined
       )
     )
-    .filter(Boolean) as SubCellularLocation[];
+    .filter(
+      (l: Partial<SubCellularLocation> | undefined): l is SubCellularLocation =>
+        Boolean(l)
+    );
 
   const goLocations = (goXrefs || [])
     .map(({ id, properties }) => {
       const goId = getGoId(id);
       if (!goId) {
-        return null;
+        return;
       }
       const evidenceData = getEvidenceCodeData(
         getEcoNumberFromGoEvidenceType(properties.GoEvidenceType)
       );
+      // eslint-disable-next-line consistent-return
       return {
         id: goId,
         reviewed: evidenceData?.manual,
       };
     })
-    .filter(Boolean) as SubCellularLocation[];
+    .filter(
+      (l: Partial<SubCellularLocation> | undefined): l is SubCellularLocation =>
+        Boolean(l)
+    );
 
   if (
     !lineage ||
