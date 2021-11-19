@@ -108,7 +108,7 @@ const HelpEntry = () => {
 
   const [lastModifed, html] = useMemo(
     () =>
-      data
+      data?.content
         ? [
             parseDate(data.lastModified),
             cleanText(marked(data.content), cleanTextOptions),

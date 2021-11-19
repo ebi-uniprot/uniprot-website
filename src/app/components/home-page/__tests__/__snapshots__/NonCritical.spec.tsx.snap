@@ -405,6 +405,27 @@ exports[`non-critical HomePage component should render 1`] = `
             >
               <a
                 class="external-link"
+                href="https://www.uniprot.org/news/2021/11/17/release"
+                rel="noopener"
+                target="_blank"
+              >
+                UniProt release 2021_04
+              </a>
+            </h3>
+            <p
+              class="latest-news__abstract latest-news__abstract--2-lines"
+            >
+              ZTGC: bacteriophages reinvent the DNA alphabet
+            </p>
+          </article>
+        </li>
+        <li>
+          <article>
+            <h3
+              class="micro"
+            >
+              <a
+                class="external-link"
                 href="https://www.uniprot.org/news/2021/06/02/release"
                 rel="noopener"
                 target="_blank"
@@ -575,7 +596,7 @@ exports[`non-critical HomePage component should render 1`] = `
         <p
           class="latest-news__abstract latest-news__abstract--4-lines"
         >
-          Today marks a historic moment in the world of molecular structural research. AlphaFold structure predictions covering the proteomes of 21 species have been made freely available to the scientific community, and we are delighted to announce that they are also accessible through the UniProt website and the Protvista protein viewer. AlphaFold is an Artificial Intelligence (AI) system developed by DeepMind that predicts the three-dimensional (3D) structure from an amino-acid sequence.
+          Today marks a historic moment in the world of molecular structural research. AlphaFold structure predictions covering the proteomes of 21 species have been made freely available to the scientific community, and we are delighted to announce that they are also accessible through the UniProt website and the Protvista protein viewer. AlphaFold is an Artificial Intelligence (AI) system developed by DeepMind that predicts the three-dimensional (3D) structure from an amino acid sequence.
         </p>
       </article>
     </div>

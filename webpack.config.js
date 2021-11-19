@@ -33,7 +33,7 @@ module.exports = (env, argv) => {
     }
   }
 
-  let apiPrefix = 'https://www.ebi.ac.uk/uniprot/beta/api';
+  let apiPrefix = 'https://rest.uniprot.org/beta';
   if (env.API_PREFIX) {
     // if we have an array, it means we've probably overriden env in the CLI
     // from a predefined env in a yarn/npm script
@@ -62,7 +62,7 @@ module.exports = (env, argv) => {
       }
       // live reload, slowest first build, fast rebuild, full original source
       if (isLiveReload) {
-        return 'eval-source-map';
+        return 'eval-cheap-module-source-map';
       }
       // dev, slow everything, but original source
       if (isDev) {
@@ -356,6 +356,10 @@ module.exports = (env, argv) => {
       },
     };
   }
+
+  // Performance measurement:
+  // const SMWP = require('speed-measure-webpack-plugin');
+  // return new SMWP().wrap(config);
 
   return config;
 };

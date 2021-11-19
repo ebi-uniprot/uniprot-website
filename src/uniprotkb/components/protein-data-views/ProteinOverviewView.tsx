@@ -66,7 +66,7 @@ const ProteinOverview: FC<{
     );
   }
 
-  const sequenceLengthNode = `${data.sequence.length} amino-acids · `;
+  const sequenceLengthNode = `${data.sequence.length} amino acids · `;
 
   const { annotationScore } = data;
   const annotationScoreNode = (

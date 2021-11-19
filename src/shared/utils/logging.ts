@@ -78,7 +78,7 @@ export const warn: LoggingHelper = (message, context) => {
 export const error: LoggingHelper = (message, context) => {
   if (isProduction) {
     sendGtagEvent('exception', message.toString(), context);
-    Sentry.captureException(message.toString(), context);
+    Sentry.captureException(message, context);
   }
   console.error(message, context);
 };
