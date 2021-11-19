@@ -23,6 +23,10 @@ for file in $fileList; do
     gzSize="$(wc -c < $gzFile)"
     brSize="$(wc -c < $brFile)"
 
+    echo $file: $fileSize
+    echo $gzFile: $gzSize
+    echo $brFile: $brSize
+
     # Update tallies
     fileTally=$(( $fileTally + $fileSize ))
     gzTally=$(( $gzTally + $gzSize ))
@@ -30,21 +34,21 @@ for file in $fileList; do
 
     # Only keep the gzip file if it is smaller than the uncompressed file
     if (( $gzSize >= $fileSize)); then
-	echo "  --  removing $gzFile"
-	rm $gzFile
+	    echo "  removing $gzFile"
+	    rm $gzFile
     fi
 
     # Only keep the brotli file if it is smaller than both the gzip and uncompressed file
     if (( $brSize >= $gzSize )) || (( $brSize >= $fileSize )); then
-	echo "  --  removing $brFile"
-	rm $brFile
+	    echo "  removing $brFile"
+	    rm $brFile
     fi
 
-    echo $file, $fileSize, $gzSize, $brSize
+    echo '-----'
 
 done
 
-# Report tally results in megabytes (need python for calculations)
+# Report tally results (use python for conversion to megabytes and string formatting)
 echo "
 m = lambda b: f'{b/2**20:0.2f}M'
 print(f'\nTotal uncompressed: {m($fileTally)}')
