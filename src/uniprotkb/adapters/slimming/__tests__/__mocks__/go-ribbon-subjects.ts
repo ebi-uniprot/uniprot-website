@@ -9,6 +9,24 @@ const goRibbonSubjects: AGRRibbonSubject[] = [
     taxon_id: 'NCBITaxon:9606',
     taxon_label: 'Homo sapiens',
     groups: {
+      'GO:0003674-other': {
+        ALL: {
+          nb_annotations: 1,
+          nb_classes: 3,
+        },
+      },
+      'GO:0005575-other': {
+        ALL: {
+          nb_annotations: 4,
+          nb_classes: 3,
+        },
+      },
+      'GO:0008150-other': {
+        ALL: {
+          nb_annotations: 6,
+          nb_classes: 3,
+        },
+      },
       'GO:0006508': { ALL: { nb_classes: 1, nb_annotations: 0 } },
       'GO:0016540': { ALL: { nb_classes: 1, nb_annotations: 0 } },
       'GO:0004252': { ALL: { nb_classes: 2, nb_annotations: 0 } },

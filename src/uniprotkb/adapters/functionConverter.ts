@@ -78,7 +78,7 @@ const keywordsCategories: KeywordCategory[] = [
   'Ligand',
 ];
 
-const stringToAspect = new Map<string, GoAspect>([
+export const stringToAspect = new Map<string, GoAspect>([
   ['P', 'Biological Process'],
   ['F', 'Molecular Function'],
   ['C', 'Cellular Component'],

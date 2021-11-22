@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { groupBy } from 'lodash-es';
 
-import { GoTerm, GroupedGoTerms } from '../functionConverter';
+import { GoTerm, GroupedGoTerms, stringToAspect } from '../functionConverter';
 
 export const SLIM_SETS_URL =
   'https://www.ebi.ac.uk/QuickGO/services/internal/presets?fields=goSlimSets';
@@ -151,7 +151,7 @@ export const getSubjects = (
   primaryAccession: string
 ) => {
   const goTermsFlat = Array.from(goTerms.values()).flat();
-  // TODO handle go terms which haven't been slimmed, guess they go under "All"??
+
   const subjectGroups = slimmedData.results.reduce((obj: Groups, mapping) => {
     // eslint-disable-next-line no-param-reassign
     obj[mapping.slimsFromId] = {
@@ -162,6 +162,35 @@ export const getSubjects = (
     };
     return obj;
   }, {});
+
+  // Looked for unslimmed terms
+  const notSlimmed: GoTerm[] = [];
+  goTermsFlat.forEach((term) => {
+    const found = slimmedData.results.some((slimmedDataItem) =>
+      slimmedDataItem.slimsToIds.includes(term.id as GOTerm)
+    );
+    if (!found) {
+      notSlimmed.push(term);
+    }
+  });
+
+  // Terms that have not been slimmed should map
+  // directly to aspects
+  const notSlimmedByAspect = groupBy(notSlimmed, 'aspect');
+  for (const [aspectName, aspectId] of Object.entries(goAspects)) {
+    const aspect = stringToAspect.get(aspectName);
+    if (aspect) {
+      subjectGroups[`${aspectId}-other`] = {
+        ALL: {
+          nb_classes: notSlimmedByAspect[aspect].length,
+          nb_annotations: countEvidences(
+            goTermsFlat,
+            notSlimmedByAspect[aspect].map(({ id }) => id) as string[]
+          ),
+        },
+      };
+    }
+  }
 
   return [
     {
@@ -193,11 +222,7 @@ const handleGOData = async (
     return null;
   }
   const slimmedData = await slimData(
-    [
-      ...agrSlimSet?.associations.map((association) => association.id),
-      // Note the set doesn't include aspects, add them
-      ...Object.values(goAspects),
-    ],
+    agrSlimSet?.associations.map((association) => association.id),
     fromList
   );
   const categories = getCategories(agrSlimSet);
