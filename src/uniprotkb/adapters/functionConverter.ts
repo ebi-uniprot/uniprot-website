@@ -54,18 +54,27 @@ export type BioPhysicoChemicalProperties = {
   temperatureDependence?: TextWithEvidence[];
 };
 
-export type GoAspect =
+export type GOAspectLabel =
   | 'Biological Process'
   | 'Molecular Function'
   | 'Cellular Component';
 
+export type GOAspectName =
+  | 'cellular_component'
+  | 'molecular_function'
+  | 'biological_process';
+
+type GOAspectShort = 'C' | 'F' | 'P';
+
+export type GOTermID = `GO:${number}${string}`;
+
 export type GoTerm = {
-  aspect?: GoAspect;
+  aspect?: GOAspectLabel;
   termDescription?: string;
   evidences?: Evidence[];
 } & Xref;
 
-export type GroupedGoTerms = Map<GoAspect, GoTerm[]>;
+export type GroupedGoTerms = Map<GOAspectLabel, GoTerm[]>;
 
 export type FunctionUIModel = {
   bioPhysicoChemicalProperties: BioPhysicoChemicalProperties;
@@ -78,14 +87,37 @@ const keywordsCategories: KeywordCategory[] = [
   'Ligand',
 ];
 
-export const stringToAspect = new Map<string, GoAspect>([
-  ['P', 'Biological Process'],
-  ['F', 'Molecular Function'],
-  ['C', 'Cellular Component'],
-  ['biological_process', 'Biological Process'],
-  ['molecular_function', 'Molecular Function'],
-  ['cellular_component', 'Cellular Component'],
-]);
+export const goAspects: {
+  id: GOTermID;
+  name: GOAspectName;
+  label: GOAspectLabel;
+  short: GOAspectShort;
+}[] = [
+  {
+    id: 'GO:0003674',
+    name: 'molecular_function',
+    label: 'Molecular Function',
+    short: 'F',
+  },
+  {
+    id: 'GO:0008150',
+    name: 'biological_process',
+    label: 'Biological Process',
+    short: 'P',
+  },
+
+  {
+    id: 'GO:0005575',
+    name: 'cellular_component',
+    label: 'Cellular Component',
+    short: 'C',
+  },
+];
+
+export const getAspect = (term: GOAspectName | GOAspectShort) =>
+  goAspects.find(
+    (aspectInfo) => aspectInfo.name === term || aspectInfo.short === term
+  );
 
 export const functionFeaturesToColumns: Readonly<
   Record<FunctionFeatures, UniProtKBColumn>
@@ -185,11 +217,12 @@ const convertFunction = (
       ) as GoTerm[]
     ).map((term) => {
       const goTermProperty = term.properties && term.properties.GoTerm;
-      const aspect = goTermProperty && goTermProperty.substring(0, 1);
+      const aspect =
+        goTermProperty && (goTermProperty.substring(0, 1) as GOAspectShort);
       const termDescription = goTermProperty && goTermProperty.substring(2);
       return {
         ...term,
-        aspect: aspect ? stringToAspect.get(aspect) : undefined,
+        aspect: aspect ? getAspect(aspect)?.label : undefined,
         termDescription,
       };
     });

@@ -49,7 +49,7 @@ import {
 import {
   functionFeaturesToColumns,
   FunctionUIModel,
-  GoAspect,
+  GOAspectLabel,
   GoTerm,
 } from '../adapters/functionConverter';
 import { UniProtKBColumn } from '../types/columnTypes';
@@ -137,7 +137,7 @@ const getFeatureColumn = (
   },
 });
 
-const getGOColumnForAspect = (aspect: GoAspect) => ({
+const getGOColumnForAspect = (aspect: GOAspectLabel) => ({
   label: `Gene Ontology - ${aspect}`,
   render: (data: UniProtkbUIModel) => {
     const { goTerms } = data[EntrySection.Function] as FunctionUIModel;

@@ -2,33 +2,27 @@
 import axios from 'axios';
 import { groupBy } from 'lodash-es';
 
-import { GoTerm, GroupedGoTerms, stringToAspect } from '../functionConverter';
+import {
+  GoTerm,
+  GroupedGoTerms,
+  getAspect,
+  GOTermID,
+  GOAspectName,
+  goAspects,
+} from '../functionConverter';
 
 export const SLIM_SETS_URL =
   'https://www.ebi.ac.uk/QuickGO/services/internal/presets?fields=goSlimSets';
 
 const SLIMMING_URL = 'https://www.ebi.ac.uk/QuickGO/services/ontology/go/slim';
 
-type GOAspect =
-  | 'cellular_component'
-  | 'molecular_function'
-  | 'biological_process';
-
-type GOTerm = `GO:${number}${string}`;
-
-const goAspects: { [key in GOAspect]: GOTerm } = {
-  molecular_function: 'GO:0003674',
-  biological_process: 'GO:0008150',
-  cellular_component: 'GO:0005575',
-};
-
 export type SlimSet = {
   name: string;
   id: string;
   associations: {
     name: string;
-    id: GOTerm;
-    aspect: GOAspect;
+    id: GOTermID;
+    aspect: GOAspectName;
     associations?: null; // WTF?
   }[];
 };
@@ -41,8 +35,8 @@ export type GOSlimmedData = {
   numberOfHits: number;
   pageInfo?: string | null; // should this be null or bug with endpoint?
   results: {
-    slimsFromId: GOTerm;
-    slimsToIds: GOTerm[];
+    slimsFromId: GOTermID;
+    slimsToIds: GOTermID[];
   }[];
 };
 
@@ -51,10 +45,10 @@ type CategoryType = 'All' | 'Term' | 'Other';
 export type AGRRibbonCategory = {
   // Each category represents an aspect
   description: string;
-  id: GOTerm;
-  label: GOAspect;
+  id: GOTermID;
+  label: GOAspectName;
   groups: {
-    id: GOTerm;
+    id: GOTermID;
     label: string;
     description: string;
     type: CategoryType;
@@ -62,10 +56,10 @@ export type AGRRibbonCategory = {
 };
 
 type Groups = {
-  [key: GOTerm]: {
+  [key: GOTermID]: {
     [key: string]: {
       // This is the evidence tag
-      terms?: GOTerm[];
+      terms?: GOTermID[];
       nb_classes: number; // Number of slimmed terms
       nb_annotations: number; // ??
     };
@@ -95,11 +89,11 @@ const getAGRSlimSet = async () => {
   return agrSlimSet;
 };
 
-const slimData = async (agrSlimSet: GOTerm[], fromList: GOTerm[]) => {
+const slimData = async (agrSlimSet: GOTermID[], fromList: GOTermID[]) => {
   // TODO handle pagination
   const slimmedData = await axios.get<GOSlimmedData>(SLIMMING_URL, {
     params: {
-      slimsToIds: [...agrSlimSet, ...Object.values(goAspects)].join(','),
+      slimsToIds: agrSlimSet.join(','),
       slimsFromIds: fromList.join(','),
       relations: 'is_a,part_of,occurs_in,regulates',
     },
@@ -112,26 +106,33 @@ export const getCategories = (slimSet: SlimSet): AGRRibbonCategory[] => {
   const slimsByAspect = groupBy(slimSet.associations, 'aspect');
 
   // Convert to object
+  // TODO iterate over goAspects instead
   const categoriesObj: AGRRibbonCategory[] = Object.keys(slimsByAspect).map(
-    (aspectName) => ({
-      id: goAspects[aspectName as GOAspect],
-      description: '',
-      label: aspectName as GOAspect,
-      groups: [
-        ...slimsByAspect[aspectName].map((term) => ({
-          id: term.id,
-          label: term.name,
-          description: '',
-          type: 'Term' as CategoryType,
-        })),
-        {
-          id: goAspects[aspectName as GOAspect],
-          label: `other ${aspectName}`,
-          description: '',
-          type: 'Other',
-        },
-      ],
-    })
+    (aspectName) => {
+      const aspectInfo = getAspect(aspectName as GOAspectName);
+      if (!aspectInfo) {
+        return null;
+      }
+      return {
+        id: aspectInfo.id,
+        description: '',
+        label: aspectName as GOAspectName,
+        groups: [
+          ...slimsByAspect[aspectName].map((term) => ({
+            id: term.id,
+            label: term.name,
+            description: '',
+            type: 'Term' as CategoryType,
+          })),
+          {
+            id: aspectInfo.id,
+            label: `other ${aspectName}`,
+            description: '',
+            type: 'Other',
+          },
+        ],
+      };
+    }
   );
   return categoriesObj;
 };
@@ -167,7 +168,7 @@ export const getSubjects = (
   const notSlimmed: GoTerm[] = [];
   goTermsFlat.forEach((term) => {
     const found = slimmedData.results.some((slimmedDataItem) =>
-      slimmedDataItem.slimsToIds.includes(term.id as GOTerm)
+      slimmedDataItem.slimsToIds.includes(term.id as GOTermID)
     );
     if (!found) {
       notSlimmed.push(term);
@@ -177,20 +178,17 @@ export const getSubjects = (
   // Terms that have not been slimmed should map
   // directly to aspects
   const notSlimmedByAspect = groupBy(notSlimmed, 'aspect');
-  for (const [aspectName, aspectId] of Object.entries(goAspects)) {
-    const aspect = stringToAspect.get(aspectName);
-    if (aspect) {
-      subjectGroups[`${aspectId}-other`] = {
-        ALL: {
-          nb_classes: notSlimmedByAspect[aspect].length,
-          nb_annotations: countEvidences(
-            goTermsFlat,
-            notSlimmedByAspect[aspect].map(({ id }) => id) as string[]
-          ),
-        },
-      };
-    }
-  }
+  goAspects.forEach(({ id, label }) => {
+    subjectGroups[`${id}-other`] = {
+      ALL: {
+        nb_classes: notSlimmedByAspect[label].length,
+        nb_annotations: countEvidences(
+          goTermsFlat,
+          notSlimmedByAspect[label].map(({ id }) => id) as string[]
+        ),
+      },
+    };
+  });
 
   return [
     {
@@ -215,12 +213,13 @@ const handleGOData = async (
 
   const fromList = [...goTerms.values()].flatMap((groupedTerm) =>
     groupedTerm.map(({ id }) => id)
-  ) as GOTerm[];
+  ) as GOTermID[];
 
   const agrSlimSet = await getAGRSlimSet();
   if (!agrSlimSet) {
     return null;
   }
+
   const slimmedData = await slimData(
     agrSlimSet?.associations.map((association) => association.id),
     fromList
