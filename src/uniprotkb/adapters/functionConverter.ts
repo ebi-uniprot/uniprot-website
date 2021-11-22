@@ -19,6 +19,7 @@ import { Xref } from '../../shared/types/apiModel';
 
 import { UniProtKBColumn } from '../types/columnTypes';
 import { GeneNamesData } from './namesAndTaxonomyConverter';
+import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
 export type Absorption = {
   max: number;
@@ -81,6 +82,7 @@ export type FunctionUIModel = {
   bioPhysicoChemicalProperties: BioPhysicoChemicalProperties;
   goTerms?: GroupedGoTerms;
   geneNamesData?: GeneNamesData;
+  organismData?: TaxonomyDatum;
 } & UIModel;
 
 const keywordsCategories: KeywordCategory[] = [
@@ -212,7 +214,8 @@ const convertFunction = (
     miscellaneousComments || []
   );
 
-  convertedSection.geneNamesData = data.genes;
+  convertedSection.geneNamesData = data?.genes;
+  convertedSection.organismData = data?.organism;
 
   if (uniProtKBCrossReferences) {
     const goTerms = (

@@ -252,6 +252,7 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
             primaryAccession={primaryAccession}
             goTerms={data.goTerms}
             geneNamesData={data.geneNamesData}
+            organismData={data.organismData}
           />
         </Suspense>
       </ErrorBoundary>

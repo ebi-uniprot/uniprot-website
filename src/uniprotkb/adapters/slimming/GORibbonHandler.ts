@@ -1,6 +1,8 @@
 /* eslint-disable camelcase */
 import axios from 'axios';
 import { groupBy } from 'lodash-es';
+import * as logging from '../../../shared/utils/logging';
+import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
 import {
   GoTerm,
@@ -142,7 +144,8 @@ export const getSubjects = (
   goTerms: GroupedGoTerms,
   slimmedData: GOSlimmedData,
   primaryAccession: string,
-  geneNamesData?: GeneNamesData
+  geneNamesData?: GeneNamesData,
+  organismData?: TaxonomyDatum
 ) => {
   const goTermsFlat = Array.from(goTerms.values()).flat();
 
@@ -191,6 +194,25 @@ export const getSubjects = (
     geneNamesData?.[0].geneName?.value ||
     geneNamesData?.[0].synonyms?.[0].value ||
     '';
+  if (!label) {
+    logging.warn('label value unavailable for GO Ribbon');
+  }
+
+  let taxon_id: string;
+  if (organismData?.taxonId) {
+    taxon_id = `NCBITaxon:${organismData?.taxonId}`;
+  } else {
+    taxon_id = '';
+    logging.warn('taxon_id value unavailable for GO Ribbon');
+  }
+
+  let taxon_label: string;
+  if (organismData?.scientificName) {
+    taxon_label = organismData?.scientificName;
+  } else {
+    taxon_label = '';
+    logging.warn('taxon_label value unavailable for GO Ribbon');
+  }
 
   return [
     {
@@ -198,8 +220,8 @@ export const getSubjects = (
       nb_classes: 169, // TODO
       nb_annotations: 442, // TODO
       label,
-      taxon_id: 'NCBITaxon:9606', // TODO
-      taxon_label: 'Homo sapiens', // TODO
+      taxon_id,
+      taxon_label,
       groups: subjectGroups,
     },
   ];
@@ -208,7 +230,8 @@ export const getSubjects = (
 const handleGOData = async (
   goTerms: GroupedGoTerms,
   primaryAccession: string,
-  geneNamesData?: GeneNamesData
+  geneNamesData?: GeneNamesData,
+  organismData?: TaxonomyDatum
 ): Promise<AGRRibbonData | null> => {
   if (!goTerms) {
     return null;
@@ -232,7 +255,8 @@ const handleGOData = async (
     goTerms,
     slimmedData,
     primaryAccession,
-    geneNamesData
+    geneNamesData,
+    organismData
   );
   return { categories, subjects };
 };
