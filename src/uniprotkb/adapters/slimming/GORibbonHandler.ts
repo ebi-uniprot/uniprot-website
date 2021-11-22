@@ -5,7 +5,6 @@ import { groupBy } from 'lodash-es';
 import {
   GoTerm,
   GroupedGoTerms,
-  getAspect,
   GOTermID,
   GOAspectName,
   goAspects,
@@ -106,33 +105,26 @@ export const getCategories = (slimSet: SlimSet): AGRRibbonCategory[] => {
   const slimsByAspect = groupBy(slimSet.associations, 'aspect');
 
   // Convert to object
-  // TODO iterate over goAspects instead
-  const categoriesObj: AGRRibbonCategory[] = Object.keys(slimsByAspect).map(
-    (aspectName) => {
-      const aspectInfo = getAspect(aspectName as GOAspectName);
-      if (!aspectInfo) {
-        return null;
-      }
-      return {
-        id: aspectInfo.id,
-        description: '',
-        label: aspectName as GOAspectName,
-        groups: [
-          ...slimsByAspect[aspectName].map((term) => ({
-            id: term.id,
-            label: term.name,
-            description: '',
-            type: 'Term' as CategoryType,
-          })),
-          {
-            id: aspectInfo.id,
-            label: `other ${aspectName}`,
-            description: '',
-            type: 'Other',
-          },
-        ],
-      };
-    }
+  const categoriesObj: AGRRibbonCategory[] = goAspects.map(
+    ({ id, label, name }) => ({
+      id,
+      description: '',
+      label: name,
+      groups: [
+        ...slimsByAspect[name].map((term) => ({
+          id: term.id,
+          label: term.name,
+          description: '',
+          type: 'Term' as CategoryType,
+        })),
+        {
+          id,
+          label: `Other ${label}`,
+          description: '',
+          type: 'Other',
+        },
+      ],
+    })
   );
   return categoriesObj;
 };
