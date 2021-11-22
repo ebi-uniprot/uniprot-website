@@ -89,7 +89,6 @@ const getAGRSlimSet = async () => {
 };
 
 const slimData = async (agrSlimSet: GOTermID[], fromList: GOTermID[]) => {
-  // TODO handle pagination
   const slimmedData = await axios.get<GOSlimmedData>(SLIMMING_URL, {
     params: {
       slimsToIds: agrSlimSet.join(','),
@@ -156,7 +155,7 @@ export const getSubjects = (
     return obj;
   }, {});
 
-  // Looked for unslimmed terms
+  // Look for unslimmed terms
   const notSlimmed: GoTerm[] = [];
   goTermsFlat.forEach((term) => {
     const found = slimmedData.results.some((slimmedDataItem) =>
