@@ -150,6 +150,8 @@ export const getSubjects = (
       ALL: {
         nb_classes: mapping.slimsToIds.length,
         nb_annotations: countEvidences(goTermsFlat, mapping.slimsToIds),
+        // TODO check if this is the right way round...
+        terms: mapping.slimsToIds,
       },
     };
     return obj;
@@ -175,8 +177,10 @@ export const getSubjects = (
         nb_classes: notSlimmedByAspect[label].length,
         nb_annotations: countEvidences(
           goTermsFlat,
-          notSlimmedByAspect[label].map(({ id }) => id) as string[]
+          notSlimmedByAspect[label].map(({ id }) => id) as GOTermID[]
         ),
+        // TODO check if this is the right way round...
+        terms: notSlimmedByAspect[label].map(({ id }) => id) as GOTermID[],
       },
     };
   });

@@ -9,34 +9,65 @@ const goRibbonSubjects: AGRRibbonSubject[] = [
     taxon_id: 'NCBITaxon:9606',
     taxon_label: 'Homo sapiens',
     groups: {
-      'GO:0003674-other': {
+      'GO:0006508': {
+        ALL: { nb_classes: 1, nb_annotations: 0, terms: ['GO:0019538'] },
+      },
+      'GO:0016540': {
+        ALL: { nb_classes: 1, nb_annotations: 0, terms: ['GO:0019538'] },
+      },
+      'GO:0004252': {
         ALL: {
-          nb_annotations: 1,
-          nb_classes: 3,
+          nb_classes: 2,
+          nb_annotations: 0,
+          terms: ['GO:0003824', 'GO:0019538'],
         },
       },
-      'GO:0005575-other': {
+      'GO:0070062': {
+        ALL: { nb_classes: 1, nb_annotations: 0, terms: ['GO:0005576'] },
+      },
+      'GO:0008236': {
         ALL: {
-          nb_annotations: 4,
+          nb_classes: 2,
+          nb_annotations: 0,
+          terms: ['GO:0003824', 'GO:0019538'],
+        },
+      },
+      'GO:0005886': {
+        ALL: { nb_classes: 1, nb_annotations: 1, terms: ['GO:0005886'] },
+      },
+      'GO:0005887': {
+        ALL: { nb_classes: 1, nb_annotations: 1, terms: ['GO:0005886'] },
+      },
+      'GO:0005576': {
+        ALL: { nb_classes: 1, nb_annotations: 0, terms: ['GO:0005576'] },
+      },
+      'GO:0005654': {
+        ALL: { nb_classes: 1, nb_annotations: 0, terms: ['GO:0005634'] },
+      },
+      'GO:0005044': {
+        ALL: { nb_classes: 1, nb_annotations: 0, terms: ['GO:0051234'] },
+      },
+      'GO:0003674-other': {
+        ALL: {
           nb_classes: 3,
+          nb_annotations: 1,
+          terms: ['GO:0005044', 'GO:0004252', 'GO:0008236'],
         },
       },
       'GO:0008150-other': {
         ALL: {
-          nb_annotations: 6,
           nb_classes: 3,
+          nb_annotations: 6,
+          terms: ['GO:0046598', 'GO:0016540', 'GO:0006508'],
         },
       },
-      'GO:0006508': { ALL: { nb_classes: 1, nb_annotations: 0 } },
-      'GO:0016540': { ALL: { nb_classes: 1, nb_annotations: 0 } },
-      'GO:0004252': { ALL: { nb_classes: 2, nb_annotations: 0 } },
-      'GO:0070062': { ALL: { nb_classes: 1, nb_annotations: 0 } },
-      'GO:0008236': { ALL: { nb_classes: 2, nb_annotations: 0 } },
-      'GO:0005886': { ALL: { nb_classes: 1, nb_annotations: 1 } },
-      'GO:0005887': { ALL: { nb_classes: 1, nb_annotations: 1 } },
-      'GO:0005576': { ALL: { nb_classes: 1, nb_annotations: 0 } },
-      'GO:0005654': { ALL: { nb_classes: 1, nb_annotations: 0 } },
-      'GO:0005044': { ALL: { nb_classes: 1, nb_annotations: 0 } },
+      'GO:0005575-other': {
+        ALL: {
+          nb_classes: 3,
+          nb_annotations: 4,
+          terms: ['GO:0070062', 'GO:0005887', 'GO:0005654'],
+        },
+      },
     },
   },
 ];
