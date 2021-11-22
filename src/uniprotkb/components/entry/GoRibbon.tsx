@@ -13,11 +13,13 @@ import { GroupedGoTerms } from '../../adapters/functionConverter';
 import handleGOData, {
   AGRRibbonData,
 } from '../../adapters/slimming/GORibbonHandler';
+import { GeneNamesData } from '../../adapters/namesAndTaxonomyConverter';
 
-const GoRibbon: FC<{ primaryAccession: string; goTerms?: GroupedGoTerms }> = ({
-  primaryAccession,
-  goTerms,
-}) => {
+const GoRibbon: FC<{
+  primaryAccession: string;
+  goTerms?: GroupedGoTerms;
+  geneNamesData?: GeneNamesData;
+}> = ({ primaryAccession, goTerms, geneNamesData }) => {
   useCustomElement(
     /* istanbul ignore next */
     () =>
@@ -32,13 +34,17 @@ const GoRibbon: FC<{ primaryAccession: string; goTerms?: GroupedGoTerms }> = ({
 
   useEffect(() => {
     async function getSlimmedData(goTerms: GroupedGoTerms) {
-      const returnData = await handleGOData(goTerms, primaryAccession);
+      const returnData = await handleGOData(
+        goTerms,
+        primaryAccession,
+        geneNamesData
+      );
       setData(returnData);
     }
     if (goTerms) {
       getSlimmedData(goTerms);
     }
-  }, [goTerms, primaryAccession]);
+  }, [geneNamesData, goTerms, primaryAccession]);
 
   const ungroupedGoTerms = Array.from(goTerms?.values() || []).flat();
   if (!ungroupedGoTerms.length) {

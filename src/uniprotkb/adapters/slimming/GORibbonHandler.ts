@@ -9,6 +9,7 @@ import {
   GOAspectName,
   goAspects,
 } from '../functionConverter';
+import { GeneNamesData } from '../namesAndTaxonomyConverter';
 
 export const SLIM_SETS_URL =
   'https://www.ebi.ac.uk/QuickGO/services/internal/presets?fields=goSlimSets';
@@ -140,7 +141,8 @@ const countEvidences = (terms: GoTerm[], ids: string[]) => {
 export const getSubjects = (
   goTerms: GroupedGoTerms,
   slimmedData: GOSlimmedData,
-  primaryAccession: string
+  primaryAccession: string,
+  geneNamesData?: GeneNamesData
 ) => {
   const goTermsFlat = Array.from(goTerms.values()).flat();
 
@@ -185,12 +187,17 @@ export const getSubjects = (
     };
   });
 
+  const label =
+    geneNamesData?.[0].geneName?.value ||
+    geneNamesData?.[0].synonyms?.[0].value ||
+    '';
+
   return [
     {
       id: primaryAccession,
       nb_classes: 169, // TODO
       nb_annotations: 442, // TODO
-      label: 'TP53', // TODO
+      label,
       taxon_id: 'NCBITaxon:9606', // TODO
       taxon_label: 'Homo sapiens', // TODO
       groups: subjectGroups,
@@ -200,7 +207,8 @@ export const getSubjects = (
 
 const handleGOData = async (
   goTerms: GroupedGoTerms,
-  primaryAccession: string
+  primaryAccession: string,
+  geneNamesData?: GeneNamesData
 ): Promise<AGRRibbonData | null> => {
   if (!goTerms) {
     return null;
@@ -220,7 +228,12 @@ const handleGOData = async (
     fromList
   );
   const categories = getCategories(agrSlimSet);
-  const subjects = getSubjects(goTerms, slimmedData, primaryAccession);
+  const subjects = getSubjects(
+    goTerms,
+    slimmedData,
+    primaryAccession,
+    geneNamesData
+  );
   return { categories, subjects };
 };
 

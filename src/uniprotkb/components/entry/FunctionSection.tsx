@@ -251,6 +251,7 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
           <GoRibbon
             primaryAccession={primaryAccession}
             goTerms={data.goTerms}
+            geneNamesData={data.geneNamesData}
           />
         </Suspense>
       </ErrorBoundary>
