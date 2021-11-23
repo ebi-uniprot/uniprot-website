@@ -66,10 +66,11 @@ const GoRibbon: FC<{
         return;
       }
       node.addEventListener('cellClick', ({ detail }: CellClick) => {
+        const isSelected = detail.selected?.[0];
         const clickedID = detail.group.id;
         const terms = (groups?.[clickedID] || groups?.[`${clickedID}-other`])
           ?.ALL?.terms;
-        console.log(clickedID, terms);
+        console.log(isSelected, clickedID, terms);
         // TODO: "all" not here yet - I think this will be when this other TODO is done:
         // "Iterate over aspects again and populate ALL"
       });
