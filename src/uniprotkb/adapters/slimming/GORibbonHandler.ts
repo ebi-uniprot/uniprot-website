@@ -113,6 +113,12 @@ export const getCategories = (slimSet: SlimSet): AGRRibbonCategory[] => {
       description: '',
       label: name,
       groups: [
+        {
+          id,
+          label: `All ${label}`,
+          description: `Show all ${label} annotations`,
+          type: 'All',
+        },
         ...slimsByAspect[name].map((term) => ({
           id: term.id,
           label: term.name,
@@ -189,6 +195,10 @@ export const getSubjects = (
       },
     };
   });
+
+  // TODO
+  // Iterate over aspects again and populate ALL
+  // also caculate totals at the same time
 
   const label =
     geneNamesData?.[0].geneName?.value ||
