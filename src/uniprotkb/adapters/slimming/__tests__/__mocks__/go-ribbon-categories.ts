@@ -6,6 +6,12 @@ const goRibbonCategories: AGRRibbonCategory[] = [
     description: '',
     label: 'molecular_function',
     groups: [
+      {
+        id: 'GO:0003674',
+        label: 'All Molecular Function',
+        description: 'Show all Molecular Function annotations',
+        type: 'All',
+      },
       { id: 'GO:0003677', label: 'DNA binding', description: '', type: 'Term' },
       {
         id: 'GO:0003700',
@@ -105,6 +111,12 @@ const goRibbonCategories: AGRRibbonCategory[] = [
     description: '',
     label: 'biological_process',
     groups: [
+      {
+        id: 'GO:0008150',
+        label: 'All Biological Process',
+        description: 'Show all Biological Process annotations',
+        type: 'All',
+      },
       {
         id: 'GO:0000003',
         label: 'reproduction',
@@ -224,6 +236,12 @@ const goRibbonCategories: AGRRibbonCategory[] = [
     description: '',
     label: 'cellular_component',
     groups: [
+      {
+        id: 'GO:0005575',
+        label: 'All Cellular Component',
+        description: 'Show all Cellular Component annotations',
+        type: 'All',
+      },
       {
         id: 'GO:0005576',
         label: 'extracellular region',
