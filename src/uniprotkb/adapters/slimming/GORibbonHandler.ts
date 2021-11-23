@@ -44,17 +44,19 @@ export type GOSlimmedData = {
 
 type CategoryType = 'All' | 'Term' | 'Other';
 
+export type AGRRibbonGroup = {
+  id: GOTermID;
+  label: string;
+  description: string;
+  type: CategoryType;
+};
+
 export type AGRRibbonCategory = {
   // Each category represents an aspect
   description: string;
   id: GOTermID;
   label: GOAspectName;
-  groups: {
-    id: GOTermID;
-    label: string;
-    description: string;
-    type: CategoryType;
-  }[];
+  groups: AGRRibbonGroup[];
 };
 
 type Groups = {
