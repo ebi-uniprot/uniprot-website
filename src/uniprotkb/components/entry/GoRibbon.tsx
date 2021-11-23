@@ -67,6 +67,7 @@ const GoRibbon: FC<{
         <wc-ribbon-strips
           data={JSON.stringify(data)}
           update-on-subject-change="false"
+          subject-position="0"
           show-other-group
           add-cell-all
         />
