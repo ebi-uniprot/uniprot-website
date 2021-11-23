@@ -8,7 +8,7 @@ import useCustomElement from '../../../shared/hooks/useCustomElement';
 
 import externalUrls from '../../../shared/config/externalUrls';
 
-import { GroupedGoTerms } from '../../adapters/functionConverter';
+import { GOTermID, GroupedGoTerms } from '../../adapters/functionConverter';
 
 import handleGOData, {
   AGRRibbonData,
@@ -41,8 +41,8 @@ const GoRibbon: FC<{
     'protvista-datatable'
   );
 
-  // const ribbonRef = useRef();
   const [data, setData] = useState<AGRRibbonData | null>();
+  const [activeGoTerms, setActiveGoTerms] = useState<Set<GOTermID> | null>();
   const groups = data?.subjects?.[0].groups;
 
   useEffect(() => {
@@ -68,9 +68,14 @@ const GoRibbon: FC<{
       node.addEventListener('cellClick', ({ detail }: CellClick) => {
         const isSelected = detail.selected?.[0];
         const clickedID = detail.group.id;
-        const terms = (groups?.[clickedID] || groups?.[`${clickedID}-other`])
-          ?.ALL?.terms;
-        console.log(isSelected, clickedID, terms);
+        setActiveGoTerms(
+          new Set(
+            isSelected
+              ? (groups?.[clickedID] || groups?.[`${clickedID}-other`])?.ALL
+                  ?.terms
+              : []
+          )
+        );
         // TODO: "all" not here yet - I think this will be when this other TODO is done:
         // "Iterate over aspects again and populate ALL"
       });
@@ -79,9 +84,18 @@ const GoRibbon: FC<{
   );
 
   const ungroupedGoTerms = Array.from(goTerms?.values() || []).flat();
+
   if (!ungroupedGoTerms.length) {
     return null;
   }
+
+  const filteredGoTerms =
+    // TODO: On initial load when nothing is selected just show all - sound reasonable?
+    typeof activeGoTerms === 'undefined'
+      ? ungroupedGoTerms
+      : ungroupedGoTerms.filter(
+          ({ id }) => id && activeGoTerms?.has(id as GOTermID)
+        );
 
   return (
     <div className="GoRibbon">
@@ -102,32 +116,34 @@ const GoRibbon: FC<{
           add-cell-all
         />
       )}
-      <protvista-datatable>
-        <table>
-          <thead>
-            <tr>
-              <th>Aspect</th>
-              <th>Term</th>
-            </tr>
-          </thead>
-          <tbody>
-            {ungroupedGoTerms.map(
-              (goTerm) =>
-                goTerm.id && (
-                  <tr key={goTerm.id}>
-                    <td>{goTerm.aspect}</td>
-                    <td>
-                      <ExternalLink url={externalUrls.QuickGO(goTerm.id)}>
-                        {goTerm.termDescription || goTerm.id}
-                      </ExternalLink>
-                      <UniProtKBEvidenceTag evidences={goTerm.evidences} />
-                    </td>
-                  </tr>
-                )
-            )}
-          </tbody>
-        </table>
-      </protvista-datatable>
+      {!!filteredGoTerms.length && (
+        <protvista-datatable>
+          <table>
+            <thead>
+              <tr>
+                <th>Aspect</th>
+                <th>Term</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredGoTerms.map(
+                (goTerm) =>
+                  goTerm.id && (
+                    <tr key={goTerm.id}>
+                      <td>{goTerm.aspect}</td>
+                      <td>
+                        <ExternalLink url={externalUrls.QuickGO(goTerm.id)}>
+                          {goTerm.termDescription || goTerm.id}
+                        </ExternalLink>
+                        <UniProtKBEvidenceTag evidences={goTerm.evidences} />
+                      </td>
+                    </tr>
+                  )
+              )}
+            </tbody>
+          </table>
+        </protvista-datatable>
+      )}
     </div>
   );
 };
