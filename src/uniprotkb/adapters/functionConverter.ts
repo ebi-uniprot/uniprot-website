@@ -18,6 +18,8 @@ import { Evidence } from '../types/modelTypes';
 import { Xref } from '../../shared/types/apiModel';
 
 import { UniProtKBColumn } from '../types/columnTypes';
+import { GeneNamesData } from './namesAndTaxonomyConverter';
+import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
 export type Absorption = {
   max: number;
@@ -79,6 +81,8 @@ export type GroupedGoTerms = Map<GOAspectLabel, GoTerm[]>;
 export type FunctionUIModel = {
   bioPhysicoChemicalProperties: BioPhysicoChemicalProperties;
   goTerms?: GroupedGoTerms;
+  geneNamesData?: GeneNamesData;
+  organismData?: TaxonomyDatum;
 } & UIModel;
 
 const keywordsCategories: KeywordCategory[] = [
@@ -209,6 +213,9 @@ const convertFunction = (
     'MISCELLANEOUS',
     miscellaneousComments || []
   );
+
+  convertedSection.geneNamesData = data?.genes;
+  convertedSection.organismData = data?.organism;
 
   if (uniProtKBCrossReferences) {
     const goTerms = (

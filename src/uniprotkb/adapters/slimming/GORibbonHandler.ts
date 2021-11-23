@@ -1,6 +1,8 @@
 /* eslint-disable camelcase */
 import axios from 'axios';
 import { groupBy } from 'lodash-es';
+import * as logging from '../../../shared/utils/logging';
+import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
 import {
   GoTerm,
@@ -9,6 +11,7 @@ import {
   GOAspectName,
   goAspects,
 } from '../functionConverter';
+import { GeneNamesData } from '../namesAndTaxonomyConverter';
 
 export const SLIM_SETS_URL =
   'https://www.ebi.ac.uk/QuickGO/services/internal/presets?fields=goSlimSets';
@@ -140,7 +143,9 @@ const countEvidences = (terms: GoTerm[], ids: string[]) => {
 export const getSubjects = (
   goTerms: GroupedGoTerms,
   slimmedData: GOSlimmedData,
-  primaryAccession: string
+  primaryAccession: string,
+  geneNamesData?: GeneNamesData,
+  organismData?: TaxonomyDatum
 ) => {
   const goTermsFlat = Array.from(goTerms.values()).flat();
 
@@ -185,14 +190,38 @@ export const getSubjects = (
     };
   });
 
+  const label =
+    geneNamesData?.[0].geneName?.value ||
+    geneNamesData?.[0].synonyms?.[0].value ||
+    '';
+  if (!label) {
+    logging.warn('label value unavailable for GO Ribbon');
+  }
+
+  let taxon_id: string;
+  if (organismData?.taxonId) {
+    taxon_id = `NCBITaxon:${organismData?.taxonId}`;
+  } else {
+    taxon_id = '';
+    logging.warn('taxon_id value unavailable for GO Ribbon');
+  }
+
+  let taxon_label: string;
+  if (organismData?.scientificName) {
+    taxon_label = organismData?.scientificName;
+  } else {
+    taxon_label = '';
+    logging.warn('taxon_label value unavailable for GO Ribbon');
+  }
+
   return [
     {
       id: primaryAccession,
       nb_classes: 169, // TODO
       nb_annotations: 442, // TODO
-      label: 'TP53', // TODO
-      taxon_id: 'NCBITaxon:9606', // TODO
-      taxon_label: 'Homo sapiens', // TODO
+      label,
+      taxon_id,
+      taxon_label,
       groups: subjectGroups,
     },
   ];
@@ -200,7 +229,9 @@ export const getSubjects = (
 
 const handleGOData = async (
   goTerms: GroupedGoTerms,
-  primaryAccession: string
+  primaryAccession: string,
+  geneNamesData?: GeneNamesData,
+  organismData?: TaxonomyDatum
 ): Promise<AGRRibbonData | null> => {
   if (!goTerms) {
     return null;
@@ -220,7 +251,13 @@ const handleGOData = async (
     fromList
   );
   const categories = getCategories(agrSlimSet);
-  const subjects = getSubjects(goTerms, slimmedData, primaryAccession);
+  const subjects = getSubjects(
+    goTerms,
+    slimmedData,
+    primaryAccession,
+    geneNamesData,
+    organismData
+  );
   return { categories, subjects };
 };
 
