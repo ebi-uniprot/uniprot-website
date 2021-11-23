@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { ExternalLink } from 'franklin-sites';
 import { Helmet } from 'react-helmet';
 
@@ -12,9 +12,19 @@ import { GroupedGoTerms } from '../../adapters/functionConverter';
 
 import handleGOData, {
   AGRRibbonData,
+  AGRRibbonGroup,
+  AGRRibbonSubject,
 } from '../../adapters/slimming/GORibbonHandler';
 import { GeneNamesData } from '../../adapters/namesAndTaxonomyConverter';
 import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
+
+type CellClick = {
+  detail: {
+    selected: [boolean];
+    group: AGRRibbonGroup;
+    subjects: AGRRibbonSubject[];
+  };
+};
 
 const GoRibbon: FC<{
   primaryAccession: string;
@@ -33,6 +43,7 @@ const GoRibbon: FC<{
 
   // const ribbonRef = useRef();
   const [data, setData] = useState<AGRRibbonData | null>();
+  const groups = data?.subjects?.[0].groups;
 
   useEffect(() => {
     async function getSlimmedData(goTerms: GroupedGoTerms) {
@@ -48,6 +59,23 @@ const GoRibbon: FC<{
       getSlimmedData(goTerms);
     }
   }, [geneNamesData, goTerms, primaryAccession, organismData]);
+
+  const ribbonRef = useCallback(
+    (node) => {
+      if (!node) {
+        return;
+      }
+      node.addEventListener('cellClick', ({ detail }: CellClick) => {
+        const clickedID = detail.group.id;
+        const terms = (groups?.[clickedID] || groups?.[`${clickedID}-other`])
+          ?.ALL?.terms;
+        console.log(clickedID, terms);
+        // TODO: "all" not here yet - I think this will be when this other TODO is done:
+        // "Iterate over aspects again and populate ALL"
+      });
+    },
+    [data]
+  );
 
   const ungroupedGoTerms = Array.from(goTerms?.values() || []).flat();
   if (!ungroupedGoTerms.length) {
@@ -65,6 +93,7 @@ const GoRibbon: FC<{
       </Helmet>
       {data && (
         <wc-ribbon-strips
+          ref={ribbonRef}
           data={JSON.stringify(data)}
           update-on-subject-change="false"
           subject-position="0"
