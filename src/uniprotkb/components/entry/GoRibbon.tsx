@@ -74,7 +74,7 @@ const GoRibbon: FC<{
         // "Iterate over aspects again and populate ALL"
       });
     },
-    [data]
+    [groups]
   );
 
   const ungroupedGoTerms = Array.from(goTerms?.values() || []).flat();
