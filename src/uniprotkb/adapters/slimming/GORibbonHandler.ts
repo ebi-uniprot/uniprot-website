@@ -173,7 +173,10 @@ export const getSubjects = (
   }, {});
 
   // Use Set for O(1) lookup
-  const slimmedIDs = new Set(Object.keys(subjectGroups));
+  const slimmedGoIDs = new Set(Object.keys(subjectGroups));
+
+  let total_nb_classes = 0;
+  let total_nb_annotations = 0;
 
   // Terms that have not been slimmed should map
   // directly to aspects
@@ -184,30 +187,31 @@ export const getSubjects = (
     }
     // All for the aspect
     const aspectGoIDs = aspectGoTerms.map(({ id }) => id).filter(Boolean);
+    const evidenceCount = countEvidences(goTermsFlat, aspectGoIDs);
     subjectGroups[id] = {
       ALL: {
         nb_classes: aspectGoIDs.length,
-        nb_annotations: countEvidences(goTermsFlat, aspectGoIDs),
+        nb_annotations: evidenceCount,
         // TODO check if this is the right way round...
         terms: aspectGoIDs,
       },
     };
 
+    // Increment total numbers
+    total_nb_classes += aspectGoIDs.length;
+    total_nb_annotations += evidenceCount;
+
     // Other for the aspect
-    const unslimmedIDs = aspectGoIDs.filter((id) => !slimmedIDs.has(id));
+    const unslimmedGoIDs = aspectGoIDs.filter((id) => !slimmedGoIDs.has(id));
     subjectGroups[`${id}-other`] = {
       ALL: {
-        nb_classes: unslimmedIDs.length,
-        nb_annotations: countEvidences(goTermsFlat, unslimmedIDs),
+        nb_classes: unslimmedGoIDs.length,
+        nb_annotations: countEvidences(goTermsFlat, unslimmedGoIDs),
         // TODO check if this is the right way round...
-        terms: unslimmedIDs,
+        terms: unslimmedGoIDs,
       },
     };
   });
-
-  // TODO
-  // Iterate over aspects again and populate ALL
-  // also caculate totals at the same time
 
   const label =
     geneNamesData?.[0].geneName?.value ||
@@ -236,8 +240,8 @@ export const getSubjects = (
   return [
     {
       id: primaryAccession,
-      nb_classes: 169, // TODO
-      nb_annotations: 442, // TODO
+      nb_classes: total_nb_classes,
+      nb_annotations: total_nb_annotations,
       label,
       taxon_id,
       taxon_label,
