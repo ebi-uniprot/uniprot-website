@@ -10,6 +10,7 @@ import { ExpirationPlugin } from 'workbox-expiration';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 import { BroadcastUpdatePlugin } from 'workbox-broadcast-update';
 
+import { CacheName } from './shared-types';
 import * as patterns from './url-patterns';
 
 declare const self: ServiceWorkerGlobalScope;
@@ -21,6 +22,7 @@ const MINUTE = 60; // seconds
 const HOUR = 60 * MINUTE;
 const DAY = 24 * HOUR;
 const WEEK = 7 * DAY;
+const YEAR = 365 * DAY;
 
 // cleans caches that are not needed anymore
 // see: https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-precaching#.cleanupOutdatedCaches
@@ -56,7 +58,7 @@ registerRoute(
 registerRoute(
   patterns.externalAPIs,
   new StaleWhileRevalidate({
-    cacheName: 'external-APIs',
+    cacheName: CacheName.ExternalAPIs,
     plugins: [
       new CacheableResponsePlugin({ statuses: [0, 200, 204] }),
       new BroadcastUpdatePlugin({
@@ -79,7 +81,7 @@ registerRoute(
 registerRoute(
   patterns.sameOriginImagesAndFonts,
   new CacheFirst({
-    cacheName: 'images-and-fonts',
+    cacheName: CacheName.ImagesAndFonts,
     plugins: [
       new ExpirationPlugin({
         maxEntries: 100,
@@ -94,7 +96,7 @@ registerRoute(
 registerRoute(
   patterns.externalImages,
   new CacheFirst({
-    cacheName: 'external-images',
+    cacheName: CacheName.ExternalImages,
     plugins: [
       new CacheableResponsePlugin({ statuses: [0, 200] }),
       new ExpirationPlugin({
@@ -109,14 +111,14 @@ registerRoute(
 // Google fonts stylesheets - Stale While Revalidate
 registerRoute(
   patterns.googleFontsStylesheets,
-  new StaleWhileRevalidate({ cacheName: 'google-fonts-stylesheets' })
+  new StaleWhileRevalidate({ cacheName: CacheName.GoogleFontsStylesheets })
 );
 
 // fonts - Cache First
 registerRoute(
   patterns.googleFontsFiles,
   new CacheFirst({
-    cacheName: 'google-fonts-files',
+    cacheName: CacheName.GoogleFontsFiles,
     plugins: [
       new CacheableResponsePlugin({ statuses: [0, 200] }),
       new ExpirationPlugin({
@@ -128,13 +130,44 @@ registerRoute(
   })
 );
 
+// QuickGO - Cache First
+registerRoute(
+  patterns.quickGO,
+  new CacheFirst({
+    cacheName: CacheName.QuickGO,
+    plugins: [
+      new ExpirationPlugin({
+        maxEntries: 750,
+        maxAgeSeconds: 1 * YEAR,
+        purgeOnQuotaError: true,
+      }),
+    ],
+  })
+);
+
+// UniProt proteins API - Cache First
+registerRoute(
+  patterns.websiteAPI,
+  new CacheFirst({
+    cacheName: CacheName.ProteinsAPI,
+    plugins: [
+      new BroadcastUpdatePlugin(),
+      new ExpirationPlugin({
+        maxEntries: 750,
+        maxAgeSeconds: 8 * WEEK,
+        purgeOnQuotaError: true,
+      }),
+    ],
+  })
+);
+
 // stale while revalidate until we find a way to read and process the
 // 'X-UniProt-Release' header and dump the cache when that changes
-// UniProt API - Stale While Revalidate
+// UniProt website API - Stale While Revalidate
 registerRoute(
-  patterns.uniprotAPIs,
+  patterns.websiteAPI,
   new StaleWhileRevalidate({
-    cacheName: 'APIs',
+    cacheName: CacheName.WebsiteAPI,
     plugins: [
       new BroadcastUpdatePlugin({
         headersToCheck: [

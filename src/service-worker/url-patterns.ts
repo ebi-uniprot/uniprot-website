@@ -10,5 +10,8 @@ export const googleFontsStylesheets = /^https:\/\/fonts\.googleapis\.com/;
 
 export const googleFontsFiles = /^https:\/\/fonts\.gstatic\.com/;
 
-export const uniprotAPIs =
-  /^https?:\/\/www(dev)?.ebi\.ac\.uk\/(proteins|uniprot)(\/beta)?\/api\//;
+export const quickGO = /^https:\/\/www\.ebi\.ac\.uk\/QuickGO\/services\//;
+
+export const proteinsAPI = /^https?:\/\/www.ebi\.ac\.uk\/proteins\/api\//;
+
+export const websiteAPI = /^https?:\/\/rest\.uniprot\.org(\/beta)?\//;
