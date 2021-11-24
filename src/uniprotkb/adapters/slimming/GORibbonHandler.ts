@@ -172,30 +172,25 @@ export const getSubjects = (
     return obj;
   }, {});
 
-  // Look for unslimmed terms
-  const notSlimmed: GoTerm[] = [];
-  goTermsFlat.forEach((term) => {
-    const found = slimmedData.results.some((slimmedDataItem) =>
-      slimmedDataItem.slimsToIds.includes(term.id)
-    );
-    if (!found) {
-      notSlimmed.push(term);
-    }
-  });
+  // Use Set for O(1) lookup
+  const slimmedIDs = new Set(Object.keys(subjectGroups));
 
   // Terms that have not been slimmed should map
   // directly to aspects
-  const notSlimmedByAspect = groupBy(notSlimmed, 'aspect');
   goAspects.forEach(({ id, label }) => {
+    const aspectGoTerms = goTerms.get(label);
+    if (!aspectGoTerms) {
+      return;
+    }
+    const unslimmedIDs = aspectGoTerms
+      .filter(({ id }) => id && !slimmedIDs.has(id))
+      .map(({ id }) => id as GOTermID);
     subjectGroups[`${id}-other`] = {
       ALL: {
-        nb_classes: notSlimmedByAspect[label].length,
-        nb_annotations: countEvidences(
-          goTermsFlat,
-          notSlimmedByAspect[label].map(({ id }) => id)
-        ),
+        nb_classes: unslimmedIDs.length,
+        nb_annotations: countEvidences(goTermsFlat, unslimmedIDs),
         // TODO check if this is the right way round...
-        terms: notSlimmedByAspect[label].map(({ id }) => id),
+        terms: unslimmedIDs,
       },
     };
   });
