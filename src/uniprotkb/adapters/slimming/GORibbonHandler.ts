@@ -251,9 +251,9 @@ const handleGOData = async (
     return null;
   }
 
-  const fromList = [...goTerms.values()].flatMap((groupedTerm) =>
-    groupedTerm.map(({ id }) => id)
-  );
+  const fromList = [...goTerms.values()]
+    .flatMap((groupedTerm) => groupedTerm.map(({ id }) => id))
+    .sort();
 
   const agrSlimSet = await getAGRSlimSet();
   if (!agrSlimSet) {
@@ -261,7 +261,7 @@ const handleGOData = async (
   }
 
   const slimmedData = await slimData(
-    agrSlimSet?.associations.map((association) => association.id),
+    agrSlimSet?.associations.map((association) => association.id).sort(),
     fromList
   );
   const categories = getCategories(agrSlimSet);
