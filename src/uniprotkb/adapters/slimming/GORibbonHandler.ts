@@ -176,7 +176,7 @@ export const getSubjects = (
   const notSlimmed: GoTerm[] = [];
   goTermsFlat.forEach((term) => {
     const found = slimmedData.results.some((slimmedDataItem) =>
-      slimmedDataItem.slimsToIds.includes(term.id as GOTermID)
+      slimmedDataItem.slimsToIds.includes(term.id)
     );
     if (!found) {
       notSlimmed.push(term);
@@ -192,10 +192,10 @@ export const getSubjects = (
         nb_classes: notSlimmedByAspect[label].length,
         nb_annotations: countEvidences(
           goTermsFlat,
-          notSlimmedByAspect[label].map(({ id }) => id) as GOTermID[]
+          notSlimmedByAspect[label].map(({ id }) => id)
         ),
         // TODO check if this is the right way round...
-        terms: notSlimmedByAspect[label].map(({ id }) => id) as GOTermID[],
+        terms: notSlimmedByAspect[label].map(({ id }) => id),
       },
     };
   });
@@ -253,7 +253,7 @@ const handleGOData = async (
 
   const fromList = [...goTerms.values()].flatMap((groupedTerm) =>
     groupedTerm.map(({ id }) => id)
-  ) as GOTermID[];
+  );
 
   const agrSlimSet = await getAGRSlimSet();
   if (!agrSlimSet) {

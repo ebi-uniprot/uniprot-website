@@ -74,7 +74,8 @@ export type GoTerm = {
   aspect?: GOAspectLabel;
   termDescription?: string;
   evidences?: Evidence[];
-} & Xref;
+  id: GOTermID;
+} & Omit<Xref, 'id'>;
 
 export type GroupedGoTerms = Map<GOAspectLabel, GoTerm[]>;
 
