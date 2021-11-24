@@ -239,7 +239,7 @@ export const useGOData = (
   goTerms?: GroupedGoTerms,
   slimSetName = 'goslim_agr'
 ): { loading: boolean; slimmedData?: GOSlimmedData; slimSet?: SlimSet } => {
-  const { data: slimSetsData, loading: loading1 } = useDataApi<GOSLimSets>(
+  const { data: slimSetsData, loading: loadingSlimSets } = useDataApi<GOSLimSets>(
     goTerms && SLIM_SETS_URL
   );
 
@@ -269,8 +269,8 @@ export const useGOData = (
     );
   }, [goTerms, slimSet]);
 
-  const { data: slimmedData, loading: loading2 } =
+  const { data: slimmedData, loading: loadingSlimmedData } =
     useDataApi<GOSlimmedData>(slimmingUrl);
 
-  return { loading: loading1 || loading2, slimmedData, slimSet };
+  return { loading: loadingSlimSets || loadingSlimmedData, slimmedData, slimSet };
 };
