@@ -82,7 +82,6 @@ const GoRibbon: FC<{
       node.addEventListener('cellClick', ({ detail }: CellClick) => {
         const isSelected = detail.selected?.[0];
         const clickedID = detail.group.id;
-
         setActiveGoTerms(
           !isSelected || clickedID === 'all'
             ? null
