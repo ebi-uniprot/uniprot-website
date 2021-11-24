@@ -48,25 +48,13 @@ const goRibbonSubjects: AGRRibbonSubject[] = [
         ALL: { nb_classes: 1, nb_annotations: 0, terms: ['GO:0051234'] },
       },
       'GO:0003674-other': {
-        ALL: {
-          nb_classes: 3,
-          nb_annotations: 1,
-          terms: ['GO:0005044', 'GO:0004252', 'GO:0008236'],
-        },
+        ALL: { nb_classes: 0, nb_annotations: 0, terms: [] },
       },
       'GO:0008150-other': {
-        ALL: {
-          nb_classes: 3,
-          nb_annotations: 6,
-          terms: ['GO:0046598', 'GO:0016540', 'GO:0006508'],
-        },
+        ALL: { nb_classes: 1, nb_annotations: 3, terms: ['GO:0046598'] },
       },
       'GO:0005575-other': {
-        ALL: {
-          nb_classes: 3,
-          nb_annotations: 4,
-          terms: ['GO:0070062', 'GO:0005887', 'GO:0005654'],
-        },
+        ALL: { nb_classes: 0, nb_annotations: 0, terms: [] },
       },
     },
   },
