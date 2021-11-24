@@ -3,8 +3,8 @@ import { AGRRibbonSubject } from '../../GORibbonHandler';
 const goRibbonSubjects: AGRRibbonSubject[] = [
   {
     id: 'P05067',
-    nb_classes: 169,
-    nb_annotations: 442,
+    nb_classes: 11,
+    nb_annotations: 12,
     label: 'TP53',
     taxon_id: 'NCBITaxon:9606',
     taxon_label: 'Homo sapiens',
