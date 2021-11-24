@@ -42,7 +42,9 @@ const GoRibbon: FC<{
   );
 
   const [data, setData] = useState<AGRRibbonData | null>();
-  const [activeGoTerms, setActiveGoTerms] = useState<Set<GOTermID> | null>();
+  const [activeGoTerms, setActiveGoTerms] = useState<Set<GOTermID> | null>(
+    null
+  );
   const groups = data?.subjects?.[0].groups;
 
   useEffect(() => {
@@ -68,14 +70,17 @@ const GoRibbon: FC<{
       node.addEventListener('cellClick', ({ detail }: CellClick) => {
         const isSelected = detail.selected?.[0];
         const clickedID = detail.group.id;
+
         setActiveGoTerms(
-          new Set(
-            isSelected
-              ? (groups?.[clickedID] || groups?.[`${clickedID}-other`])?.ALL
-                  ?.terms
-              : []
-          )
+          !isSelected || clickedID === 'all'
+            ? null
+            : new Set(
+                (
+                  groups?.[clickedID] || groups?.[`${clickedID}-other`]
+                )?.ALL?.terms
+              )
         );
+
         // TODO: "all" not here yet - I think this will be when this other TODO is done:
         // "Iterate over aspects again and populate ALL"
       });
@@ -90,8 +95,8 @@ const GoRibbon: FC<{
   }
 
   const filteredGoTerms =
-    // TODO: On initial load when nothing is selected just show all - sound reasonable?
-    typeof activeGoTerms === 'undefined'
+    // If nothing is selected just show all
+    activeGoTerms === null
       ? ungroupedGoTerms
       : ungroupedGoTerms.filter(
           ({ id }) => id && activeGoTerms?.has(id as GOTermID)
