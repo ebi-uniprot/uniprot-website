@@ -145,10 +145,10 @@ registerRoute(
   })
 );
 
-// UniProt proteins API - Cache First
+// UniProt proteins API - Stale While Revalidate
 registerRoute(
-  patterns.websiteAPI,
-  new CacheFirst({
+  patterns.proteinsAPI,
+  new StaleWhileRevalidate({
     cacheName: CacheName.ProteinsAPI,
     plugins: [
       new BroadcastUpdatePlugin(),
