@@ -182,9 +182,19 @@ export const getSubjects = (
     if (!aspectGoTerms) {
       return;
     }
-    const unslimmedIDs = aspectGoTerms
-      .filter(({ id }) => id && !slimmedIDs.has(id))
-      .map(({ id }) => id as GOTermID);
+    // All for the aspect
+    const aspectGoIDs = aspectGoTerms.map(({ id }) => id).filter(Boolean);
+    subjectGroups[id] = {
+      ALL: {
+        nb_classes: aspectGoIDs.length,
+        nb_annotations: countEvidences(goTermsFlat, aspectGoIDs),
+        // TODO check if this is the right way round...
+        terms: aspectGoIDs,
+      },
+    };
+
+    // Other for the aspect
+    const unslimmedIDs = aspectGoIDs.filter((id) => !slimmedIDs.has(id));
     subjectGroups[`${id}-other`] = {
       ALL: {
         nb_classes: unslimmedIDs.length,
