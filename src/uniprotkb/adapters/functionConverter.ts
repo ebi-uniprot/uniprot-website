@@ -71,10 +71,10 @@ type GOAspectShort = 'C' | 'F' | 'P';
 export type GOTermID = `GO:${number}${string}`;
 
 export type GoTerm = {
+  id: GOTermID;
   aspect?: GOAspectLabel;
   termDescription?: string;
   evidences?: Evidence[];
-  id: GOTermID;
 } & Omit<Xref, 'id'>;
 
 export type GroupedGoTerms = Map<GOAspectLabel, GoTerm[]>;
@@ -234,9 +234,11 @@ const convertFunction = (
         termDescription,
       };
     });
-    convertedSection.goTerms = new Map(
-      Object.entries(groupBy(goTerms, (term) => term.aspect))
-    ) as GroupedGoTerms;
+    if (goTerms.length) {
+      convertedSection.goTerms = new Map(
+        Object.entries(groupBy(goTerms, (term) => term.aspect))
+      ) as GroupedGoTerms;
+    }
   }
   return convertedSection;
 };

@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC, useCallback, useMemo, useState } from 'react';
 import { ExternalLink } from 'franklin-sites';
 import { Helmet } from 'react-helmet';
 
@@ -10,10 +10,12 @@ import externalUrls from '../../../shared/config/externalUrls';
 
 import { GOTermID, GroupedGoTerms } from '../../adapters/functionConverter';
 
-import handleGOData, {
-  AGRRibbonData,
+import {
   AGRRibbonGroup,
   AGRRibbonSubject,
+  getCategories,
+  getSubjects,
+  useGOData,
 } from '../../adapters/slimming/GORibbonHandler';
 import { GeneNamesData } from '../../adapters/namesAndTaxonomyConverter';
 import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
@@ -41,26 +43,36 @@ const GoRibbon: FC<{
     'protvista-datatable'
   );
 
-  const [data, setData] = useState<AGRRibbonData | null>();
+  // NOTE: loading is also available, do we want to do anything with it?
+  const { slimmedData, slimSet } = useGOData(goTerms);
+
   const [activeGoTerms, setActiveGoTerms] = useState<Set<GOTermID> | null>(
     null
   );
+  const data = useMemo(
+    () =>
+      slimSet &&
+      goTerms &&
+      slimmedData && {
+        categories: getCategories(slimSet),
+        subjects: getSubjects(
+          goTerms,
+          slimmedData,
+          primaryAccession,
+          geneNamesData,
+          organismData
+        ),
+      },
+    [
+      geneNamesData,
+      goTerms,
+      organismData,
+      primaryAccession,
+      slimSet,
+      slimmedData,
+    ]
+  );
   const groups = data?.subjects?.[0].groups;
-
-  useEffect(() => {
-    async function getSlimmedData(goTerms: GroupedGoTerms) {
-      const returnData = await handleGOData(
-        goTerms,
-        primaryAccession,
-        geneNamesData,
-        organismData
-      );
-      setData(returnData);
-    }
-    if (goTerms) {
-      getSlimmedData(goTerms);
-    }
-  }, [geneNamesData, goTerms, primaryAccession, organismData]);
 
   const ribbonRef = useCallback(
     (node) => {
