@@ -1350,25 +1350,13 @@ exports[`UniProtKBColumnConfiguration component should render column "gene_synon
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "go": go 1`] = `
-<DocumentFragment>
-  <section
-    class="text-block"
-  />
-</DocumentFragment>
-`;
+exports[`UniProtKBColumnConfiguration component should render column "go": go 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "go_c": go_c 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "go_f": go_f 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "go_id": go_id 1`] = `
-<DocumentFragment>
-  <section
-    class="text-block"
-  />
-</DocumentFragment>
-`;
+exports[`UniProtKBColumnConfiguration component should render column "go_id": go_id 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "go_p": go_p 1`] = `<DocumentFragment />`;
 
