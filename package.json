@@ -116,7 +116,7 @@
     "lodash-es": "4.17.21",
     "marked": "3.0.4",
     "p-map": "5.1.0",
-    "protvista-datatable": "3.5.1",
+    "protvista-datatable": "3.5.3",
     "protvista-feature-adapter": "3.5.1",
     "protvista-filter": "3.1.2",
     "protvista-manager": "3.4.0",
