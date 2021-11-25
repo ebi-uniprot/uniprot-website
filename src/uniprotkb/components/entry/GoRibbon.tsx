@@ -142,9 +142,7 @@ const GoRibbon: FC<{
     // If nothing is selected just show all
     activeGoTerms === null
       ? ungroupedGoTerms
-      : ungroupedGoTerms.filter(
-          ({ id }) => id && activeGoTerms?.has(id as GOTermID)
-        );
+      : ungroupedGoTerms.filter(({ id }) => id && activeGoTerms?.has(id));
 
   let ribbon: ReactNode = null;
   if (loading) {
