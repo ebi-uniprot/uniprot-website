@@ -144,55 +144,57 @@ export const getSubjects = (
 ) => {
   const goTermsFlat = Array.from(goTerms.values()).flat();
 
-  const subjectGroups = slimmedData.results.reduce((obj: Groups, mapping) => {
-    // eslint-disable-next-line no-param-reassign
-    obj[mapping.slimsFromId] = {
+  const slimmedGoIDs = new Set();
+  const slimsToIdToFromIds: Record<GOTermID, GOTermID[]> = {};
+  slimmedData.results.forEach(({ slimsFromId, slimsToIds }) => {
+    slimmedGoIDs.add(slimsFromId);
+    slimsToIds.forEach((slimsToId) => {
+      slimsToIdToFromIds[slimsToId] = slimsToIdToFromIds[slimsToId]
+        ? [...slimsToIdToFromIds[slimsToId], slimsFromId]
+        : [slimsFromId];
+    });
+  });
+
+  const subjectGroups: Groups = {};
+  Object.entries(slimsToIdToFromIds).forEach(([slimsToId, fromIds]) => {
+    subjectGroups[slimsToId as GOTermID] = {
       ALL: {
-        nb_classes: mapping.slimsToIds.length,
-        nb_annotations: countEvidences(goTermsFlat, mapping.slimsToIds),
-        // TODO check if this is the right way round...
-        terms: mapping.slimsToIds,
+        nb_classes: fromIds.length,
+        nb_annotations: countEvidences(goTermsFlat, fromIds),
+        terms: fromIds,
       },
     };
-    return obj;
-  }, {});
-
-  // Use Set for O(1) lookup
-  const slimmedGoIDs = new Set(Object.keys(subjectGroups));
+  });
 
   let total_nb_classes = 0;
   let total_nb_annotations = 0;
 
-  // Terms that have not been slimmed should map
-  // directly to aspects
+  // Terms that have not been slimmed should map directly to aspects
   goAspects.forEach(({ id, label }) => {
     const aspectGoTerms = goTerms.get(label);
     if (!aspectGoTerms) {
       return;
     }
-    // All for the aspect
+    // "all" for aspect
     const aspectGoIDs = aspectGoTerms.map(({ id }) => id).filter(Boolean);
     const evidenceCount = countEvidences(goTermsFlat, aspectGoIDs);
     subjectGroups[id] = {
       ALL: {
         nb_classes: aspectGoIDs.length,
         nb_annotations: evidenceCount,
-        // TODO check if this is the right way round...
         terms: aspectGoIDs,
       },
     };
 
-    // Increment total numbers
     total_nb_classes += aspectGoIDs.length;
     total_nb_annotations += evidenceCount;
 
-    // Other for the aspect
+    // "other" for aspect
     const unslimmedGoIDs = aspectGoIDs.filter((id) => !slimmedGoIDs.has(id));
     subjectGroups[`${id}-other`] = {
       ALL: {
         nb_classes: unslimmedGoIDs.length,
         nb_annotations: countEvidences(goTermsFlat, unslimmedGoIDs),
-        // TODO check if this is the right way round...
         terms: unslimmedGoIDs,
       },
     };
