@@ -1,9 +1,13 @@
 /* eslint-disable camelcase */
-import axios from 'axios';
+import { useMemo } from 'react';
+import queryString from 'query-string';
 import { groupBy } from 'lodash-es';
-import * as logging from '../../../shared/utils/logging';
-import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
+import useDataApi from '../../../shared/hooks/useDataApi';
+
+import * as logging from '../../../shared/utils/logging';
+
+import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import {
   GoTerm,
   GroupedGoTerms,
@@ -83,25 +87,6 @@ export type AGRRibbonSubject = {
 export type AGRRibbonData = {
   categories: AGRRibbonCategory[];
   subjects: AGRRibbonSubject[];
-};
-
-const getAGRSlimSet = async () => {
-  const slimSets = await axios.get<GOSLimSets>(SLIM_SETS_URL);
-  const agrSlimSet = slimSets.data?.goSlimSets.find(
-    (slimSet) => slimSet.id === 'goslim_agr'
-  );
-  return agrSlimSet;
-};
-
-const slimData = async (agrSlimSet: GOTermID[], fromList: GOTermID[]) => {
-  const slimmedData = await axios.get<GOSlimmedData>(SLIMMING_URL, {
-    params: {
-      slimsToIds: agrSlimSet.join(','),
-      slimsFromIds: fromList.join(','),
-      relations: 'is_a,part_of,occurs_in,regulates',
-    },
-  });
-  return slimmedData.data;
 };
 
 export const getCategories = (slimSet: SlimSet): AGRRibbonCategory[] => {
@@ -250,38 +235,42 @@ export const getSubjects = (
   ];
 };
 
-const handleGOData = async (
-  goTerms: GroupedGoTerms,
-  primaryAccession: string,
-  geneNamesData?: GeneNamesData,
-  organismData?: TaxonomyDatum
-): Promise<AGRRibbonData | null> => {
-  if (!goTerms) {
-    return null;
-  }
-
-  const fromList = [...goTerms.values()]
-    .flatMap((groupedTerm) => groupedTerm.map(({ id }) => id))
-    .sort();
-
-  const agrSlimSet = await getAGRSlimSet();
-  if (!agrSlimSet) {
-    return null;
-  }
-
-  const slimmedData = await slimData(
-    agrSlimSet?.associations.map((association) => association.id).sort(),
-    fromList
+export const useGOData = (
+  goTerms?: GroupedGoTerms,
+  slimSetName = 'goslim_agr'
+): { loading: boolean; slimmedData?: GOSlimmedData; slimSet?: SlimSet } => {
+  const { data: slimSetsData, loading: loadingSlimSets } = useDataApi<GOSLimSets>(
+    goTerms && SLIM_SETS_URL
   );
-  const categories = getCategories(agrSlimSet);
-  const subjects = getSubjects(
-    goTerms,
-    slimmedData,
-    primaryAccession,
-    geneNamesData,
-    organismData
+
+  const slimSet = slimSetsData?.goSlimSets.find(
+    (slimSet) => slimSet.id === slimSetName
   );
-  return { categories, subjects };
+
+  const slimmingUrl = useMemo(() => {
+    const slimsToIds = slimSet?.associations
+      .map((association) => association.id)
+      .sort()
+      .join(',');
+    const slimsFromIds =
+      goTerms &&
+      [...goTerms.values()]
+        .flatMap((groupedTerm) => groupedTerm.map(({ id }) => id))
+        .sort()
+        .join(',');
+    return (
+      slimsToIds &&
+      slimsFromIds &&
+      `${SLIMMING_URL}?${queryString.stringify({
+        slimsToIds,
+        slimsFromIds,
+        relations: 'is_a,part_of,occurs_in,regulates',
+      })}`
+    );
+  }, [goTerms, slimSet]);
+
+  const { data: slimmedData, loading: loadingSlimmedData } =
+    useDataApi<GOSlimmedData>(slimmingUrl);
+
+  return { loading: loadingSlimSets || loadingSlimmedData, slimmedData, slimSet };
 };
-
-export default handleGOData;
