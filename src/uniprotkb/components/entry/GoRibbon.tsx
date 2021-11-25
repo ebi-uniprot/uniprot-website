@@ -101,19 +101,15 @@ const GoRibbon: FC<{
     const cellClickHandler = ({ detail }: CellClick) => {
       const isSelected = detail.selected?.[0];
       const clickedID = detail.group.id;
+      const groupID =
+        detail.group.type === 'Other' ? `${clickedID}-other` : clickedID;
       setActiveGoTerms(
         !isSelected || clickedID === 'all'
           ? null
           : new Set(
-              (
-                data?.subjects?.[0].groups?.[clickedID] ||
-                data?.subjects?.[0].groups?.[`${clickedID}-other`]
-              )?.ALL?.terms
+              data?.subjects?.[0].groups?.[groupID as GOTermID]?.ALL?.terms
             )
       );
-
-      // TODO: "all" not here yet - I think this will be when this other TODO is done:
-      // "Iterate over aspects again and populate ALL"
     };
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
