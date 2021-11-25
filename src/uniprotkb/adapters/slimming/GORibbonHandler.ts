@@ -144,25 +144,28 @@ export const getSubjects = (
 ) => {
   const goTermsFlat = Array.from(goTerms.values()).flat();
 
-  const slimmedGoIDs = new Set();
-  const slimsToIdToFromIds: Record<GOTermID, GOTermID[]> = {};
+  // Save the GO IDs from entry xref data which has been slimmed to be used for making the aspect-other subject groups
+  const slimmedXrefGoIDs = new Set();
+  // Create a mapping from slim IDs (eg AGR) to the GO IDs from entry xref data
+  const slimIdToXrefGoIds: Record<GOTermID, GOTermID[]> = {};
   slimmedData.results.forEach(({ slimsFromId, slimsToIds }) => {
-    slimmedGoIDs.add(slimsFromId);
+    slimmedXrefGoIDs.add(slimsFromId);
     slimsToIds.forEach((slimsToId) => {
-      slimsToIdToFromIds[slimsToId] = slimsToIdToFromIds[slimsToId]
-        ? [...slimsToIdToFromIds[slimsToId], slimsFromId]
-        : [slimsFromId];
+      slimIdToXrefGoIds[slimsToId] =
+        slimsToId in slimIdToXrefGoIds
+          ? [...slimIdToXrefGoIds[slimsToId], slimsFromId]
+          : [slimsFromId];
     });
   });
 
   const subjectGroups: Groups = Object.fromEntries(
-    Object.entries(slimsToIdToFromIds).map(([slimsToId, fromIds]) => [
-      slimsToId,
+    Object.entries(slimIdToXrefGoIds).map(([slimId, xrefGoIds]) => [
+      slimId,
       {
         ALL: {
-          nb_classes: fromIds.length,
-          nb_annotations: countEvidences(goTermsFlat, fromIds),
-          terms: fromIds,
+          nb_classes: xrefGoIds.length,
+          nb_annotations: countEvidences(goTermsFlat, xrefGoIds),
+          terms: xrefGoIds,
         },
       },
     ])
@@ -177,6 +180,7 @@ export const getSubjects = (
     if (!aspectGoTerms) {
       return;
     }
+
     // "all" for aspect
     const aspectGoIDs = aspectGoTerms.map(({ id }) => id).filter(Boolean);
     const evidenceCount = countEvidences(goTermsFlat, aspectGoIDs);
@@ -192,7 +196,9 @@ export const getSubjects = (
     total_nb_annotations += evidenceCount;
 
     // "other" for aspect
-    const unslimmedGoIDs = aspectGoIDs.filter((id) => !slimmedGoIDs.has(id));
+    const unslimmedGoIDs = aspectGoIDs.filter(
+      (id) => !slimmedXrefGoIDs.has(id)
+    );
     subjectGroups[`${id}-other`] = {
       ALL: {
         nb_classes: unslimmedGoIDs.length,
