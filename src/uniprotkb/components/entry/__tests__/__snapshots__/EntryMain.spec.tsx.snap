@@ -3929,6 +3929,23 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
+                    <button
+                      aria-controls="31"
+                      aria-expanded="false"
+                      class="evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        IEA:UniProtKB-KW
+                      </span>
+                    </button>
                   </td>
                 </tr>
                 <tr>
@@ -3948,6 +3965,23 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
+                    <button
+                      aria-controls="32"
+                      aria-expanded="false"
+                      class="evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        IEA:UniProtKB-KW
+                      </span>
+                    </button>
                   </td>
                 </tr>
                 <tr>
@@ -3967,6 +4001,23 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
+                    <button
+                      aria-controls="33"
+                      aria-expanded="false"
+                      class="evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        IEA:RHEA
+                      </span>
+                    </button>
                   </td>
                 </tr>
                 <tr>
@@ -3986,6 +4037,23 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
+                    <button
+                      aria-controls="34"
+                      aria-expanded="false"
+                      class="evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        IEA:UniProtKB-KW
+                      </span>
+                    </button>
                   </td>
                 </tr>
               </tbody>
@@ -4155,7 +4223,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 A type blood N-acetyl-alpha-D-galactosamine deacetylase 
                 <button
-                  aria-controls="31"
+                  aria-controls="35"
                   aria-expanded="false"
                   class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
@@ -4174,7 +4242,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="31"
+                  id="35"
                 />
               </div>
             </div>
@@ -4197,7 +4265,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 3.5.1.- 
                 <button
-                  aria-controls="32"
+                  aria-controls="36"
                   aria-expanded="false"
                   class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
@@ -4216,7 +4284,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="32"
+                  id="36"
                 />
               </div>
             </div>
@@ -4243,7 +4311,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <li>
                     CBM32 
                     <button
-                      aria-controls="33"
+                      aria-controls="37"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -4262,13 +4330,13 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="33"
+                      id="37"
                     />
                   </li>
                   <li>
                     FpGalNAc deacetylase (FpGalNAcDeAc 
                     <button
-                      aria-controls="34"
+                      aria-controls="38"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -4287,7 +4355,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="34"
+                      id="38"
                     />
                     ) 
                   </li>
@@ -4528,7 +4596,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               <tbody>
                 <tr
                   data-end="90"
-                  data-id="35"
+                  data-id="39"
                   data-start="90"
                 >
                   <td
@@ -4543,218 +4611,6 @@ exports[`Entry view should render for non-human entry 1`] = `
                   </td>
                   <td>
                     Loss of deacetylase activity.
-                    <button
-                      aria-controls="40"
-                      aria-expanded="false"
-                      class="svg-colour-reviewed evidence-tag"
-                      data-testid="evidence-tag-trigger"
-                      type="button"
-                    >
-                      <test-file-stub
-                        height="12"
-                        width="12"
-                      />
-                      <span
-                        class="evidence-tag__label"
-                      >
-                        1 publication
-                      </span>
-                    </button>
-                    <div
-                      class="evidence-tag-content "
-                      data-testid="evidence-tag-content"
-                      id="40"
-                    />
-                  </td>
-                </tr>
-                <tr
-                  data-end="90"
-                  data-group-for="35"
-                  data-start="90"
-                >
-                  <td>
-                    <strong>
-                      Sequence: 
-                    </strong>
-                    E
-                  </td>
-                </tr>
-                <tr
-                  data-end="125"
-                  data-id="36"
-                  data-start="125"
-                >
-                  <td
-                    data-filter="type"
-                    data-filter-value="Mutagenesis"
-                  >
-                    Mutagenesis
-                  </td>
-                  <td />
-                  <td>
-                    125-125
-                  </td>
-                  <td>
-                    5-fold reduction in deacetylase rate.
-                    <button
-                      aria-controls="41"
-                      aria-expanded="false"
-                      class="svg-colour-reviewed evidence-tag"
-                      data-testid="evidence-tag-trigger"
-                      type="button"
-                    >
-                      <test-file-stub
-                        height="12"
-                        width="12"
-                      />
-                      <span
-                        class="evidence-tag__label"
-                      >
-                        1 publication
-                      </span>
-                    </button>
-                    <div
-                      class="evidence-tag-content "
-                      data-testid="evidence-tag-content"
-                      id="41"
-                    />
-                  </td>
-                </tr>
-                <tr
-                  data-end="125"
-                  data-group-for="36"
-                  data-start="125"
-                >
-                  <td>
-                    <strong>
-                      Sequence: 
-                    </strong>
-                    C
-                  </td>
-                </tr>
-                <tr
-                  data-end="126"
-                  data-id="37"
-                  data-start="126"
-                >
-                  <td
-                    data-filter="type"
-                    data-filter-value="Mutagenesis"
-                  >
-                    Mutagenesis
-                  </td>
-                  <td />
-                  <td>
-                    126-126
-                  </td>
-                  <td>
-                    Dramatic reduction in deacetylase rate.
-                    <button
-                      aria-controls="42"
-                      aria-expanded="false"
-                      class="svg-colour-reviewed evidence-tag"
-                      data-testid="evidence-tag-trigger"
-                      type="button"
-                    >
-                      <test-file-stub
-                        height="12"
-                        width="12"
-                      />
-                      <span
-                        class="evidence-tag__label"
-                      >
-                        1 publication
-                      </span>
-                    </button>
-                    <div
-                      class="evidence-tag-content "
-                      data-testid="evidence-tag-content"
-                      id="42"
-                    />
-                  </td>
-                </tr>
-                <tr
-                  data-end="126"
-                  data-group-for="37"
-                  data-start="126"
-                >
-                  <td>
-                    <strong>
-                      Sequence: 
-                    </strong>
-                    D
-                  </td>
-                </tr>
-                <tr
-                  data-end="278"
-                  data-id="38"
-                  data-start="278"
-                >
-                  <td
-                    data-filter="type"
-                    data-filter-value="Mutagenesis"
-                  >
-                    Mutagenesis
-                  </td>
-                  <td />
-                  <td>
-                    278-278
-                  </td>
-                  <td>
-                    Very dramatic reduction in deacetylase rate.
-                    <button
-                      aria-controls="43"
-                      aria-expanded="false"
-                      class="svg-colour-reviewed evidence-tag"
-                      data-testid="evidence-tag-trigger"
-                      type="button"
-                    >
-                      <test-file-stub
-                        height="12"
-                        width="12"
-                      />
-                      <span
-                        class="evidence-tag__label"
-                      >
-                        1 publication
-                      </span>
-                    </button>
-                    <div
-                      class="evidence-tag-content "
-                      data-testid="evidence-tag-content"
-                      id="43"
-                    />
-                  </td>
-                </tr>
-                <tr
-                  data-end="278"
-                  data-group-for="38"
-                  data-start="278"
-                >
-                  <td>
-                    <strong>
-                      Sequence: 
-                    </strong>
-                    H
-                  </td>
-                </tr>
-                <tr
-                  data-end="341"
-                  data-id="39"
-                  data-start="341"
-                >
-                  <td
-                    data-filter="type"
-                    data-filter-value="Mutagenesis"
-                  >
-                    Mutagenesis
-                  </td>
-                  <td />
-                  <td>
-                    341-341
-                  </td>
-                  <td>
-                    3000-fold reduction in deacetylase rate.
                     <button
                       aria-controls="44"
                       aria-expanded="false"
@@ -4780,8 +4636,220 @@ exports[`Entry view should render for non-human entry 1`] = `
                   </td>
                 </tr>
                 <tr
-                  data-end="341"
+                  data-end="90"
                   data-group-for="39"
+                  data-start="90"
+                >
+                  <td>
+                    <strong>
+                      Sequence: 
+                    </strong>
+                    E
+                  </td>
+                </tr>
+                <tr
+                  data-end="125"
+                  data-id="40"
+                  data-start="125"
+                >
+                  <td
+                    data-filter="type"
+                    data-filter-value="Mutagenesis"
+                  >
+                    Mutagenesis
+                  </td>
+                  <td />
+                  <td>
+                    125-125
+                  </td>
+                  <td>
+                    5-fold reduction in deacetylase rate.
+                    <button
+                      aria-controls="45"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 publication
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="45"
+                    />
+                  </td>
+                </tr>
+                <tr
+                  data-end="125"
+                  data-group-for="40"
+                  data-start="125"
+                >
+                  <td>
+                    <strong>
+                      Sequence: 
+                    </strong>
+                    C
+                  </td>
+                </tr>
+                <tr
+                  data-end="126"
+                  data-id="41"
+                  data-start="126"
+                >
+                  <td
+                    data-filter="type"
+                    data-filter-value="Mutagenesis"
+                  >
+                    Mutagenesis
+                  </td>
+                  <td />
+                  <td>
+                    126-126
+                  </td>
+                  <td>
+                    Dramatic reduction in deacetylase rate.
+                    <button
+                      aria-controls="46"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 publication
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="46"
+                    />
+                  </td>
+                </tr>
+                <tr
+                  data-end="126"
+                  data-group-for="41"
+                  data-start="126"
+                >
+                  <td>
+                    <strong>
+                      Sequence: 
+                    </strong>
+                    D
+                  </td>
+                </tr>
+                <tr
+                  data-end="278"
+                  data-id="42"
+                  data-start="278"
+                >
+                  <td
+                    data-filter="type"
+                    data-filter-value="Mutagenesis"
+                  >
+                    Mutagenesis
+                  </td>
+                  <td />
+                  <td>
+                    278-278
+                  </td>
+                  <td>
+                    Very dramatic reduction in deacetylase rate.
+                    <button
+                      aria-controls="47"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 publication
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="47"
+                    />
+                  </td>
+                </tr>
+                <tr
+                  data-end="278"
+                  data-group-for="42"
+                  data-start="278"
+                >
+                  <td>
+                    <strong>
+                      Sequence: 
+                    </strong>
+                    H
+                  </td>
+                </tr>
+                <tr
+                  data-end="341"
+                  data-id="43"
+                  data-start="341"
+                >
+                  <td
+                    data-filter="type"
+                    data-filter-value="Mutagenesis"
+                  >
+                    Mutagenesis
+                  </td>
+                  <td />
+                  <td>
+                    341-341
+                  </td>
+                  <td>
+                    3000-fold reduction in deacetylase rate.
+                    <button
+                      aria-controls="48"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 publication
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="48"
+                    />
+                  </td>
+                </tr>
+                <tr
+                  data-end="341"
+                  data-group-for="43"
                   data-start="341"
                 >
                   <td>
@@ -4901,7 +4969,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               <tbody>
                 <tr
                   data-end="27"
-                  data-id="45"
+                  data-id="49"
                   data-start="1"
                 >
                   <td
@@ -4916,7 +4984,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   </td>
                   <td>
                     <button
-                      aria-controls="46"
+                      aria-controls="50"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -4935,13 +5003,13 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="46"
+                      id="50"
                     />
                   </td>
                 </tr>
                 <tr
                   data-end="27"
-                  data-group-for="45"
+                  data-group-for="49"
                   data-start="1"
                 >
                   <td>
@@ -5232,7 +5300,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               <tbody>
                 <tr
                   data-end="605"
-                  data-id="47"
+                  data-id="51"
                   data-start="494"
                 >
                   <td
@@ -5248,7 +5316,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <td>
                     F5/8 type C
                     <button
-                      aria-controls="51"
+                      aria-controls="55"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -5267,13 +5335,13 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="51"
+                      id="55"
                     />
                   </td>
                 </tr>
                 <tr
                   data-end="605"
-                  data-group-for="47"
+                  data-group-for="51"
                   data-start="494"
                 >
                   <td>
@@ -5285,7 +5353,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 </tr>
                 <tr
                   data-end="402"
-                  data-id="48"
+                  data-id="52"
                   data-start="180"
                 >
                   <td
@@ -5301,7 +5369,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <td>
                     Deacetylase activity
                     <button
-                      aria-controls="52"
+                      aria-controls="56"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -5320,13 +5388,13 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="52"
+                      id="56"
                     />
                   </td>
                 </tr>
                 <tr
                   data-end="402"
-                  data-group-for="48"
+                  data-group-for="52"
                   data-start="180"
                 >
                   <td>
@@ -5338,7 +5406,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 </tr>
                 <tr
                   data-end="765"
-                  data-id="49"
+                  data-id="53"
                   data-start="502"
                 >
                   <td
@@ -5354,7 +5422,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <td>
                     CBM32 carbohydrate-binding domain
                     <button
-                      aria-controls="53"
+                      aria-controls="57"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -5373,13 +5441,13 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="53"
+                      id="57"
                     />
                   </td>
                 </tr>
                 <tr
                   data-end="765"
-                  data-group-for="49"
+                  data-group-for="53"
                   data-start="502"
                 >
                   <td>
@@ -5391,7 +5459,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 </tr>
                 <tr
                   data-end="772"
-                  data-id="50"
+                  data-id="54"
                   data-start="515"
                 >
                   <td
@@ -5407,7 +5475,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <td>
                     Not required for activity on soluble substrates
                     <button
-                      aria-controls="54"
+                      aria-controls="58"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -5426,13 +5494,13 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="54"
+                      id="58"
                     />
                   </td>
                 </tr>
                 <tr
                   data-end="772"
-                  data-group-for="50"
+                  data-group-for="54"
                   data-start="515"
                 >
                   <td>
@@ -5456,7 +5524,7 @@ exports[`Entry view should render for non-human entry 1`] = `
         >
           The deacetylase domain is in the N-terminus, while the C-terminus has a CBM32-type carbohydrate-binding domain that is not required for activity on soluble substrates. The CBM32 domain binds preferentially to repeating N-acetyl lactosamine structures.
           <button
-            aria-controls="55"
+            aria-controls="59"
             aria-expanded="false"
             class="svg-colour-reviewed evidence-tag"
             data-testid="evidence-tag-trigger"
@@ -5475,7 +5543,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           <div
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
-            id="55"
+            id="59"
           />
         </div>
         <h3>
