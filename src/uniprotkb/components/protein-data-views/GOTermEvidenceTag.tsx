@@ -1,20 +1,34 @@
 import { FC } from 'react';
 import { EvidenceTag } from 'franklin-sites';
 
-const GOTermEvidenceTag: FC<{ evidence?: string }> = ({ evidence }) => {
+import * as logging from '../../../shared/utils/logging';
+
+import {
+  getEcoNumberFromGoEvidenceType,
+  getEvidenceCodeData,
+} from '../../config/evidenceCodes';
+
+import { GoEvidenceType } from '../../types/modelTypes';
+
+const GOTermEvidenceTag: FC<{ evidence?: GoEvidenceType }> = ({ evidence }) => {
   if (!evidence) {
     return null;
   }
+  const evidenceCode = getEcoNumberFromGoEvidenceType(evidence);
+  const evidenceData = getEvidenceCodeData(evidenceCode);
 
-  // Add logic to determin className underneath based on the evidence (see current website)
-  // Might want to change type of 'evidence' to be union of strings instead of 'string
+  if (!evidenceData) {
+    logging.warn(`GO evidence missing for ${evidence}`);
+    return null;
+  }
+
   return (
     <>
       <EvidenceTag
         label={evidence}
-        //   className={
-        //     evidenceData.manual ? 'svg-colour-reviewed' : 'svg-colour-unreviewed'
-        //
+        className={
+          evidenceData?.manual ? 'svg-colour-reviewed' : 'svg-colour-unreviewed'
+        }
       />
     </>
   );

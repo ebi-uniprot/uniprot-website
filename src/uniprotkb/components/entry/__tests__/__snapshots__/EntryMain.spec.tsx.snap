@@ -3988,7 +3988,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <button
                       aria-controls="31"
                       aria-expanded="false"
-                      class="evidence-tag"
+                      class="svg-colour-unreviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
                       type="button"
                     >
@@ -4024,7 +4024,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <button
                       aria-controls="32"
                       aria-expanded="false"
-                      class="evidence-tag"
+                      class="svg-colour-unreviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
                       type="button"
                     >
@@ -4060,7 +4060,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <button
                       aria-controls="33"
                       aria-expanded="false"
-                      class="evidence-tag"
+                      class="svg-colour-unreviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
                       type="button"
                     >
@@ -4096,7 +4096,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <button
                       aria-controls="34"
                       aria-expanded="false"
-                      class="evidence-tag"
+                      class="svg-colour-unreviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
                       type="button"
                     >
