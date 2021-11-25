@@ -58,7 +58,7 @@ const GoRibbon: FC<{
     customElements.whenDefined('wc-ribbon-strips').then(() => {
       setElementLoaded(true);
     });
-  }, []);
+  }, [setElementLoaded]);
 
   const [activeGoTerms, setActiveGoTerms] = useState<Set<GOTermID> | null>(
     null
