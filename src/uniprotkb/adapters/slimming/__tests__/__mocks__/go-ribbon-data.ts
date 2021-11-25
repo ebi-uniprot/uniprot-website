@@ -1,6 +1,8 @@
 import { AGRRibbonData } from '../../GORibbonHandler';
 
-// https://api.geneontology.org/api/ontology/ribbon/?subset=goslim_agr&subject=UniProtKB:O15393
+// Source: https://api.geneontology.org/api/ontology/ribbon/?subset=goslim_agr&subject=UniProtKB:O15393
+// Retrieved: 2021-11-25
+// See the ribbon at https://www.alliancegenome.org/gene/HGNC:11876
 
 const goRibbonData: AGRRibbonData = {
   categories: [

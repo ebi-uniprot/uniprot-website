@@ -158,6 +158,27 @@ const commentsCategories: CommentType[] = [
   'BIOTECHNOLOGY',
 ];
 
+export const getAspectGroupedGoTerms = (uniProtKBCrossReferences?: Xref[]) => {
+  const goTerms = (
+    (uniProtKBCrossReferences || []).filter(
+      (xref) => xref.database === 'GO' && xref.properties
+    ) as GoTerm[]
+  ).map((term) => {
+    const goTermProperty = term.properties && term.properties.GoTerm;
+    const aspect =
+      goTermProperty && (goTermProperty.substring(0, 1) as GOAspectShort);
+    const termDescription = goTermProperty && goTermProperty.substring(2);
+    return {
+      ...term,
+      aspect: aspect ? getAspect(aspect)?.label : undefined,
+      termDescription,
+    };
+  });
+  return new Map(
+    Object.entries(groupBy(goTerms, (term) => term.aspect))
+  ) as GroupedGoTerms;
+};
+
 const convertFunction = (
   data: UniProtkbAPIModel,
   uniProtKBCrossReferences?: Xref[]
@@ -218,27 +239,11 @@ const convertFunction = (
   convertedSection.geneNamesData = data?.genes;
   convertedSection.organismData = data?.organism;
 
-  if (uniProtKBCrossReferences) {
-    const goTerms = (
-      uniProtKBCrossReferences.filter(
-        (xref) => xref.database === 'GO' && xref.properties
-      ) as GoTerm[]
-    ).map((term) => {
-      const goTermProperty = term.properties && term.properties.GoTerm;
-      const aspect =
-        goTermProperty && (goTermProperty.substring(0, 1) as GOAspectShort);
-      const termDescription = goTermProperty && goTermProperty.substring(2);
-      return {
-        ...term,
-        aspect: aspect ? getAspect(aspect)?.label : undefined,
-        termDescription,
-      };
-    });
-    if (goTerms.length) {
-      convertedSection.goTerms = new Map(
-        Object.entries(groupBy(goTerms, (term) => term.aspect))
-      ) as GroupedGoTerms;
-    }
+  const aspectGroupedGoTerms = getAspectGroupedGoTerms(
+    uniProtKBCrossReferences
+  );
+  if (aspectGroupedGoTerms?.size) {
+    convertedSection.goTerms = aspectGroupedGoTerms;
   }
   return convertedSection;
 };
