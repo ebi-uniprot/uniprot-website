@@ -101,14 +101,12 @@ const GoRibbon: FC<{
     const cellClickHandler = ({ detail }: CellClick) => {
       const isSelected = detail.selected?.[0];
       const clickedID = detail.group.id;
-      const groupID =
+      const groupID: GOTermID =
         detail.group.type === 'Other' ? `${clickedID}-other` : clickedID;
       setActiveGoTerms(
         !isSelected || clickedID === 'all'
           ? null
-          : new Set(
-              data?.subjects?.[0].groups?.[groupID as GOTermID]?.ALL?.terms
-            )
+          : new Set(data?.subjects?.[0].groups?.[groupID]?.ALL?.terms)
       );
     };
 
