@@ -167,6 +167,7 @@ const GoRibbon: FC<{
           show-other-group
           add-cell-all
         />
+        <small>Cell color indicative of number of GO terms</small>
       </div>
     );
   }
