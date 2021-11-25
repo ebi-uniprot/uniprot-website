@@ -21,6 +21,8 @@ import { UIModel } from '../../adapters/sectionConverter';
 import { getEntryPath } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
 
+import styles from './styles/interaction-section.module.scss';
+
 type Props = {
   data: UIModel;
   primaryAccession: string;
@@ -64,6 +66,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
         <h2>{getEntrySectionNameAndId(EntrySection.Interaction).name}</h2>
       }
       id={EntrySection.Interaction}
+      className={styles['interaction-section']}
       data-entry-section
     >
       {comments && <FreeTextView comments={comments} title="subunit" />}

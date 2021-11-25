@@ -1,8 +1,9 @@
-import { FC, useCallback, useMemo, useState } from 'react';
-import { ExternalLink } from 'franklin-sites';
+import { FC, useEffect, useMemo, useState, useRef, ReactNode } from 'react';
+import { ExternalLink, Loader } from 'franklin-sites';
 import { Helmet } from 'react-helmet';
 
 import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
+import GOTermEvidenceTag from '../protein-data-views/GOTermEvidenceTag';
 
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 
@@ -19,7 +20,8 @@ import {
 } from '../../adapters/slimming/GORibbonHandler';
 import { GeneNamesData } from '../../adapters/namesAndTaxonomyConverter';
 import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
-import GOTermEvidenceTag from '../protein-data-views/GOTermEvidenceTag';
+
+import styles from './styles/go-ribbon.module.scss';
 
 type CellClick = {
   detail: {
@@ -35,6 +37,8 @@ const GoRibbon: FC<{
   geneNamesData?: GeneNamesData;
   organismData?: TaxonomyDatum;
 }> = ({ primaryAccession, goTerms, geneNamesData, organismData }) => {
+  const nodeRef = useRef<HTMLElement>();
+
   useCustomElement(
     /* istanbul ignore next */
     () =>
@@ -45,7 +49,7 @@ const GoRibbon: FC<{
   );
 
   // NOTE: loading is also available, do we want to do anything with it?
-  const { slimmedData, slimSet } = useGOData(goTerms);
+  const { loading, slimmedData, slimSet } = useGOData(goTerms);
 
   const [activeGoTerms, setActiveGoTerms] = useState<Set<GOTermID> | null>(
     null
@@ -73,32 +77,46 @@ const GoRibbon: FC<{
       slimmedData,
     ]
   );
-  const groups = data?.subjects?.[0].groups;
 
-  const ribbonRef = useCallback(
-    (node) => {
-      if (!node) {
-        return;
-      }
-      node.addEventListener('cellClick', ({ detail }: CellClick) => {
-        const isSelected = detail.selected?.[0];
-        const clickedID = detail.group.id;
-        setActiveGoTerms(
-          !isSelected || clickedID === 'all'
-            ? null
-            : new Set(
-                (
-                  groups?.[clickedID] || groups?.[`${clickedID}-other`]
-                )?.ALL?.terms
-              )
-        );
+  useEffect(() => {
+    if (!nodeRef.current || !data) {
+      return;
+    }
 
-        // TODO: "all" not here yet - I think this will be when this other TODO is done:
-        // "Iterate over aspects again and populate ALL"
-      });
-    },
-    [groups]
-  );
+    const node = nodeRef.current;
+    const cellClickHandler = ({ detail }: CellClick) => {
+      const isSelected = detail.selected?.[0];
+      const clickedID = detail.group.id;
+      setActiveGoTerms(
+        !isSelected || clickedID === 'all'
+          ? null
+          : new Set(
+              (
+                data?.subjects?.[0].groups?.[clickedID] ||
+                data?.subjects?.[0].groups?.[`${clickedID}-other`]
+              )?.ALL?.terms
+            )
+      );
+
+      // TODO: "all" not here yet - I think this will be when this other TODO is done:
+      // "Iterate over aspects again and populate ALL"
+    };
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    node.addEventListener('cellClick', cellClickHandler);
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    node.data = data;
+
+    // eslint-disable-next-line consistent-return
+    return () => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      node.removeEventListener('cellClick', cellClickHandler);
+    };
+  }, [data]);
 
   const ungroupedGoTerms = Array.from(goTerms?.values() || []).flat();
 
@@ -114,6 +132,27 @@ const GoRibbon: FC<{
           ({ id }) => id && activeGoTerms?.has(id as GOTermID)
         );
 
+  let ribbon: ReactNode = null;
+  if (loading) {
+    ribbon = (
+      <div className={styles.container}>
+        <Loader />
+      </div>
+    );
+  } else if (data) {
+    ribbon = (
+      <div className={styles.container}>
+        <wc-ribbon-strips
+          ref={nodeRef}
+          update-on-subject-change="false"
+          subject-position="0"
+          show-other-group
+          add-cell-all
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="GoRibbon">
       <h3>GO Annotations</h3>
@@ -123,16 +162,7 @@ const GoRibbon: FC<{
           src="https://unpkg.com/@geneontology/wc-ribbon-strips/dist/wc-ribbon-strips/wc-ribbon-strips.esm.js"
         />
       </Helmet>
-      {data && (
-        <wc-ribbon-strips
-          ref={ribbonRef}
-          data={JSON.stringify(data)}
-          update-on-subject-change="false"
-          subject-position="0"
-          show-other-group
-          add-cell-all
-        />
-      )}
+      {ribbon}
       {!!filteredGoTerms.length && (
         <protvista-datatable>
           <table>

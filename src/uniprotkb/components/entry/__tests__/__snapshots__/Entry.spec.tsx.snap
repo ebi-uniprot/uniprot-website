@@ -2634,7 +2634,7 @@ exports[`Entry basic should render main 1`] = `
               </div>
             </section>
             <section
-              class="card"
+              class="interaction-section card"
               data-entry-section="true"
               id="interaction"
             >

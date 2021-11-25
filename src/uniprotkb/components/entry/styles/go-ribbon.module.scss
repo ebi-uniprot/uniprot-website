@@ -1,0 +1,10 @@
+.container {
+  // reserve some space while loading to avoid jumping
+  min-height: 14rem;
+
+  content-visibility: auto;
+  contain-intrinsic-size: 14rem;
+
+  max-width: 100%;
+  overflow-x: scroll;
+}
