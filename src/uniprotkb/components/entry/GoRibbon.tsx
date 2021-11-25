@@ -17,6 +17,7 @@ import handleGOData, {
 } from '../../adapters/slimming/GORibbonHandler';
 import { GeneNamesData } from '../../adapters/namesAndTaxonomyConverter';
 import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import GOTermEvidenceTag from '../protein-data-views/GOTermEvidenceTag';
 
 type CellClick = {
   detail: {
@@ -140,6 +141,9 @@ const GoRibbon: FC<{
                           {goTerm.termDescription || goTerm.id}
                         </ExternalLink>
                         <UniProtKBEvidenceTag evidences={goTerm.evidences} />
+                        <GOTermEvidenceTag
+                          evidence={goTerm.properties?.GoEvidenceType}
+                        />
                       </td>
                     </tr>
                   )
