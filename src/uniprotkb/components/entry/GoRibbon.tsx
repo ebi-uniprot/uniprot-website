@@ -154,6 +154,10 @@ const GoRibbon: FC<{
         <wc-ribbon-strips
           ref={nodeRef}
           update-on-subject-change="false"
+          // color by nb_classes: 0, nb_annotations: 1
+          color-by="0"
+          // bold for 'all ...' cells
+          category-all-style="1"
           subject-position="0"
           show-other-group
           add-cell-all

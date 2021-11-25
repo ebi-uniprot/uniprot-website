@@ -2,6 +2,7 @@
   // reserve some space while loading to avoid jumping
   min-height: 14rem;
 
+  // optimise page by not rendering if not in viewport
   content-visibility: auto;
   contain-intrinsic-size: 14rem;
 
