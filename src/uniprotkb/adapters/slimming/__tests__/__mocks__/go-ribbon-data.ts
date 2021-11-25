@@ -440,7 +440,7 @@ const goRibbonData: AGRRibbonData = {
         'GO:0003674': {
           ALL: {
             nb_classes: 4,
-            nb_annotations: 5,
+            nb_annotations: 6,
           },
           TAS: {
             nb_classes: 2,
@@ -452,7 +452,7 @@ const goRibbonData: AGRRibbonData = {
           },
           IPI: {
             nb_classes: 1,
-            nb_annotations: 2,
+            nb_annotations: 3,
           },
         },
         'GO:0003824': {
@@ -467,9 +467,9 @@ const goRibbonData: AGRRibbonData = {
         },
         'GO:0003674-other': {
           ALL: {
-            terms: ['GO:0005044', 'GO:0005515'],
+            terms: ['GO:0005515', 'GO:0005044'],
             nb_classes: 2,
-            nb_annotations: 3,
+            nb_annotations: 4,
           },
           IEA: {
             terms: ['GO:0005044'],
@@ -479,7 +479,7 @@ const goRibbonData: AGRRibbonData = {
           IPI: {
             terms: ['GO:0005515'],
             nb_classes: 1,
-            nb_annotations: 2,
+            nb_annotations: 3,
           },
         },
         'GO:0008150': {
@@ -609,7 +609,7 @@ const goRibbonData: AGRRibbonData = {
         },
       },
       nb_classes: 13,
-      nb_annotations: 23,
+      nb_annotations: 24,
       label: 'TMPRSS2',
       taxon_id: 'NCBITaxon:9606',
       taxon_label: 'Homo sapiens',

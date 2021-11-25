@@ -1,8 +1,14 @@
 import { FC, Suspense, lazy } from 'react';
-
 import { Tabs, Tab } from 'franklin-sites';
+
 import SubcellularLocationView from './SubcellularLocationView';
 import SubcellularLocationGOView from './SubcellularLocationGOView';
+
+import {
+  getEvidenceCodeData,
+  getEcoNumberFromGoEvidenceType,
+  getEcoNumberFromString,
+} from '../../config/evidenceCodes';
 
 import { SubcellularLocationComment } from '../../types/commentTypes';
 import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
@@ -21,6 +27,11 @@ export enum VizTab {
   UniProt = 'uniprot',
   GO = 'go',
 }
+
+export type SubCellularLocation = {
+  id: string;
+  reviewed: boolean;
+};
 
 const isVirus = ([superkingdom]: string[]) =>
   superkingdom === Superkingdom.Viruses;
@@ -49,26 +60,53 @@ const SubcellularLocationWithVizView: FC<
     />
   );
 
-  const uniProtLocationIds = (comments || [])
+  const uniProtLocations = (comments || [])
     .flatMap(({ subcellularLocations }) =>
-      subcellularLocations?.map(
-        ({ location }) => location.id && getSubcellularLocationId(location.id)
+      subcellularLocations?.map(({ location }) =>
+        location.id
+          ? {
+              id: getSubcellularLocationId(location.id),
+              reviewed: location.evidences?.some((evidence) => {
+                const evidenceData = getEvidenceCodeData(
+                  getEcoNumberFromString(evidence.evidenceCode)
+                );
+                return Boolean(evidenceData?.manual);
+              }),
+            }
+          : undefined
       )
     )
-    .filter(Boolean)
-    .join(',');
+    .filter(
+      (l: Partial<SubCellularLocation> | undefined): l is SubCellularLocation =>
+        Boolean(l)
+    );
 
-  const goLocationIds = (goXrefs || [])
-    .map(({ id }) => getGoId(id))
-    .filter(Boolean)
-    .join(',');
+  const goLocations = (goXrefs || [])
+    .map(({ id, properties }) => {
+      const goId = getGoId(id);
+      if (!goId) {
+        return;
+      }
+      const evidenceData = getEvidenceCodeData(
+        getEcoNumberFromGoEvidenceType(properties.GoEvidenceType)
+      );
+      // eslint-disable-next-line consistent-return
+      return {
+        id: goId,
+        reviewed: evidenceData?.manual,
+      };
+    })
+    .filter(
+      (l: Partial<SubCellularLocation> | undefined): l is SubCellularLocation =>
+        Boolean(l)
+    );
 
   if (
     !lineage ||
     !taxonId ||
     isVirus(lineage as string[]) ||
     !(uniprotTextContent && goTextContent) ||
-    (!uniProtLocationIds?.length && !goLocationIds?.length)
+    (!uniProtLocations?.length && !goLocations?.length)
   ) {
     return null;
   }
@@ -77,12 +115,12 @@ const SubcellularLocationWithVizView: FC<
     <Suspense fallback={null}>
       <Tabs>
         <Tab cache title="UniProt Annotation">
-          <SubCellViz uniProtLocationIds={uniProtLocationIds} taxonId={taxonId}>
+          <SubCellViz uniProtLocations={uniProtLocations} taxonId={taxonId}>
             {uniprotTextContent}
           </SubCellViz>
         </Tab>
         <Tab cache title="GO Annotation">
-          <SubCellViz goLocationIds={goLocationIds} taxonId={taxonId}>
+          <SubCellViz goLocations={goLocations} taxonId={taxonId}>
             {goTextContent}
           </SubCellViz>
         </Tab>

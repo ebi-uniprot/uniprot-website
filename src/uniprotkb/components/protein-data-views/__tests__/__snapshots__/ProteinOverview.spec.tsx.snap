@@ -14,7 +14,7 @@ exports[`ProteinOverview component should render 1`] = `
     <strong>
       Gene:
     </strong>
-     APP (A4, AD1) · 770 amino-acids · Evidence at protein level · 
+     APP (A4, AD1) · 770 amino acids · Evidence at protein level · 
     <span
       title="Annotation Score"
     >

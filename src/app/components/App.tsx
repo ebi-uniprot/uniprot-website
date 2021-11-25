@@ -1,5 +1,11 @@
 import { lazy, Suspense, FC, CSSProperties, useEffect, useRef } from 'react';
-import { Router, Route, Switch, RouteChildrenProps } from 'react-router-dom';
+import {
+  Router,
+  Route,
+  Switch,
+  RouteChildrenProps,
+  Redirect,
+} from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { FranklinSite, Loader } from 'franklin-sites';
 import { sleep } from 'timing-functions';
@@ -251,6 +257,11 @@ const ResultsOrLanding =
       <LandingPage {...props} />
     );
 
+// NOTE: remove whenever we start implementing landing pages
+const RedirectToStarSearch = ({ location }: RouteChildrenProps) => (
+  <Redirect to={{ ...location, search: 'query=*' }} />
+);
+
 const App = () => {
   useScrollToTop(history);
   useReloadApp(history);
@@ -346,7 +357,10 @@ const App = () => {
               {/* Result pages */}
               <Route
                 path={allSearchResultLocations}
-                component={GenericResultsPage}
+                component={ResultsOrLanding(
+                  GenericResultsPage,
+                  RedirectToStarSearch
+                )}
               />
               {/* Tools */}
               <Route

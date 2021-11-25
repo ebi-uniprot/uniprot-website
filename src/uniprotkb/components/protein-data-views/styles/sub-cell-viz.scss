@@ -1,3 +1,5 @@
+@import 'franklin-sites/src/styles/colours';
+
 .inpicture {
   cursor: default;
 
@@ -8,6 +10,13 @@
 
   &.lookedAt,
   &:hover {
-    background-color: #abc7d6;
+    background-color: $colour-sea-blue;
+    color: white;
+    article {
+      color: black;
+    }
+    & > a {
+      color: white;
+    }
   }
 }

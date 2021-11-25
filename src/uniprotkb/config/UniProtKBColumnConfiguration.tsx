@@ -115,6 +115,7 @@ export const defaultColumns = [
   UniProtKBColumn.proteinName,
   UniProtKBColumn.geneNames,
   UniProtKBColumn.organismName,
+  UniProtKBColumn.length,
 ];
 
 export const primaryKeyColumns = [UniProtKBColumn.accession];
