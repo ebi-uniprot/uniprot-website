@@ -238,17 +238,23 @@ export const getSubjects = (
 export const useGOData = (
   goTerms?: GroupedGoTerms,
   slimSetName = 'goslim_agr'
-): { loading: boolean; slimmedData?: GOSlimmedData; slimSet?: SlimSet } => {
-  const { data: slimSetsData, loading: loadingSlimSets } = useDataApi<GOSLimSets>(
-    goTerms && SLIM_SETS_URL
-  );
+): {
+  loading: boolean;
+  slimmedData?: GOSlimmedData;
+  selectedSlimSet?: SlimSet;
+  slimSets?: string[];
+} => {
+  const { data: slimSetsData, loading: loadingSlimSets } =
+    useDataApi<GOSLimSets>(goTerms && SLIM_SETS_URL);
 
-  const slimSet = slimSetsData?.goSlimSets.find(
+  const selectedSlimSet = slimSetsData?.goSlimSets.find(
     (slimSet) => slimSet.id === slimSetName
   );
 
+  const slimSets = slimSetsData?.goSlimSets.map((slimSet) => slimSet.id);
+
   const slimmingUrl = useMemo(() => {
-    const slimsToIds = slimSet?.associations
+    const slimsToIds = selectedSlimSet?.associations
       .map((association) => association.id)
       .sort()
       .join(',');
@@ -267,10 +273,15 @@ export const useGOData = (
         relations: 'is_a,part_of,occurs_in,regulates',
       })}`
     );
-  }, [goTerms, slimSet]);
+  }, [goTerms, selectedSlimSet]);
 
   const { data: slimmedData, loading: loadingSlimmedData } =
     useDataApi<GOSlimmedData>(slimmingUrl);
 
-  return { loading: loadingSlimSets || loadingSlimmedData, slimmedData, slimSet };
+  return {
+    loading: loadingSlimSets || loadingSlimmedData,
+    slimmedData,
+    selectedSlimSet,
+    slimSets,
+  };
 };

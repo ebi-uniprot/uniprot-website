@@ -49,8 +49,13 @@ const GoRibbon: FC<{
     'protvista-datatable'
   );
 
+  const [selectedSet, setSelectedSet] = useState('goslim_agr');
+
   // NOTE: loading is also available, do we want to do anything with it?
-  const { loading, slimmedData, slimSet } = useGOData(goTerms);
+  const { loading, slimmedData, selectedSlimSet, slimSets } = useGOData(
+    goTerms,
+    selectedSet
+  );
 
   const [elementLoaded, setElementLoaded] = useSafeState(false);
 
@@ -65,10 +70,10 @@ const GoRibbon: FC<{
   );
   const data = useMemo(
     () =>
-      slimSet &&
+      selectedSlimSet &&
       goTerms &&
       slimmedData && {
-        categories: getCategories(slimSet),
+        categories: getCategories(selectedSlimSet),
         subjects: getSubjects(
           goTerms,
           slimmedData,
@@ -82,7 +87,7 @@ const GoRibbon: FC<{
       goTerms,
       organismData,
       primaryAccession,
-      slimSet,
+      selectedSlimSet,
       slimmedData,
     ]
   );
@@ -175,6 +180,21 @@ const GoRibbon: FC<{
           src="https://unpkg.com/@geneontology/wc-ribbon-strips/dist/wc-ribbon-strips/wc-ribbon-strips.esm.js"
         />
       </Helmet>
+      {slimSets && (
+        <label className={styles['set-selector']}>
+          <div>Slimming set:</div>
+          <select
+            onChange={(e) => setSelectedSet(e.target.value)}
+            value={selectedSet}
+          >
+            {slimSets.map((slimSet) => (
+              <option value={slimSet} key={slimSet}>
+                {slimSet.replace('goslim_', '').replace('_ribbon', '')}
+              </option>
+            ))}
+          </select>
+        </label>
+      )}
       {ribbon}
       {!!filteredGoTerms.length && (
         <protvista-datatable>
