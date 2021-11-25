@@ -6,6 +6,7 @@ import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
 import GOTermEvidenceTag from '../protein-data-views/GOTermEvidenceTag';
 
 import useCustomElement from '../../../shared/hooks/useCustomElement';
+import useSafeState from '../../../shared/hooks/useSafeState';
 
 import externalUrls from '../../../shared/config/externalUrls';
 
@@ -51,6 +52,14 @@ const GoRibbon: FC<{
   // NOTE: loading is also available, do we want to do anything with it?
   const { loading, slimmedData, slimSet } = useGOData(goTerms);
 
+  const [elementLoaded, setElementLoaded] = useSafeState(false);
+
+  useEffect(() => {
+    customElements.whenDefined('wc-ribbon-strips').then(() => {
+      setElementLoaded(true);
+    });
+  }, []);
+
   const [activeGoTerms, setActiveGoTerms] = useState<Set<GOTermID> | null>(
     null
   );
@@ -79,7 +88,7 @@ const GoRibbon: FC<{
   );
 
   useEffect(() => {
-    if (!nodeRef.current || !data) {
+    if (!elementLoaded || !nodeRef.current || !data) {
       return;
     }
 
@@ -116,7 +125,7 @@ const GoRibbon: FC<{
       // @ts-ignore
       node.removeEventListener('cellClick', cellClickHandler);
     };
-  }, [data]);
+  }, [elementLoaded, data]);
 
   const ungroupedGoTerms = Array.from(goTerms?.values() || []).flat();
 
