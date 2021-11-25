@@ -62,7 +62,7 @@ module.exports = (env, argv) => {
       }
       // live reload, slowest first build, fast rebuild, full original source
       if (isLiveReload) {
-        return 'eval-source-map';
+        return 'eval-cheap-module-source-map';
       }
       // dev, slow everything, but original source
       if (isDev) {
@@ -353,6 +353,10 @@ module.exports = (env, argv) => {
       },
     };
   }
+
+  // Performance measurement:
+  // const SMWP = require('speed-measure-webpack-plugin');
+  // return new SMWP().wrap(config);
 
   return config;
 };

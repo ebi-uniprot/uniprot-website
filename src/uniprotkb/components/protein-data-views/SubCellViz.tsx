@@ -3,12 +3,14 @@ import { FC, memo, useEffect, useRef } from 'react';
 import tippy from 'tippy.js';
 import { v1 } from 'uuid';
 import '@swissprot/swissbiopics-visualizer';
+import { groupBy } from 'lodash-es';
 import { RequireExactlyOne } from 'type-fest';
 
-import { VizTab } from './SubcellularLocationWithVizView';
+import { VizTab, SubCellularLocation } from './SubcellularLocationWithVizView';
 
 import 'tippy.js/dist/tippy.css';
 import './styles/sub-cell-viz.scss';
+import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
 
 /*
   The logic implemented here to get our data into @swissprot/swissbiopics-visualizer has been lifted
@@ -76,6 +78,18 @@ const getUniProtTextSelectors = (subcellularPresentSVG: Element): string[] => [
     .filter((sel: string | undefined): sel is string => Boolean(sel)),
 ];
 
+const getGoTermSelectors = (locations: SubCellularLocation[] = []) =>
+  locations?.flatMap(({ id }) => [
+    `svg .GO${+id} *:not(text)`,
+    `svg .part_GO${+id} *:not(text)`,
+  ]);
+
+const getUniProtTermSelectors = (locations: SubCellularLocation[] = []) =>
+  locations?.flatMap(({ id }) => [
+    `svg #SL${id} *:not(text)`,
+    `svg .mp_SL${id} *:not(text)`,
+  ]);
+
 const attachTooltips = (
   locationGroup: Element,
   instance: Element | null,
@@ -128,19 +142,22 @@ const attachTooltips = (
 type Props = RequireExactlyOne<
   {
     taxonId: number;
-    uniProtLocationIds: string;
-    goLocationIds: string;
+    uniProtLocations: SubCellularLocation[];
+    goLocations: SubCellularLocation[];
   },
-  'uniProtLocationIds' | 'goLocationIds'
+  'uniProtLocations' | 'goLocations'
 >;
 
 const SubCellViz: FC<Props> = memo(
-  ({ uniProtLocationIds, goLocationIds, taxonId, children }) => {
+  ({ uniProtLocations, goLocations, taxonId, children }) => {
     const instanceName = useRef(
       `${canonicalName}-${
-        uniProtLocationIds?.length ? VizTab.UniProt : VizTab.GO
+        uniProtLocations?.length ? VizTab.UniProt : VizTab.GO
       }-${v1()}`
     );
+
+    const uniProtLocationIds = uniProtLocations?.map(({ id }) => id).join(',');
+    const goLocationIds = goLocations?.map(({ id }) => id).join(',');
 
     /**
      * NOTE: whole lot of mitigation logic because of the way the custom element
@@ -153,6 +170,29 @@ const SubCellViz: FC<Props> = memo(
       // define a new element for each instance *after* it has been rendered.
       // cannot reuse the same class with different name, so create a new one
       class InstanceClass extends CanonicalDefinition {
+        removedCSSRules: boolean;
+
+        constructor() {
+          super();
+          this.removedCSSRules = false;
+        }
+
+        deleteCSSRule(selectorText: string) {
+          for (const styleSheet of super.shadowRoot?.styleSheets || []) {
+            const { cssRules } = styleSheet;
+            for (let index = 0; index < cssRules.length; index += 1) {
+              const cssRule = cssRules[index];
+              if (
+                cssRule instanceof CSSStyleRule &&
+                cssRule.selectorText === selectorText
+              ) {
+                styleSheet.deleteRule(index);
+                return;
+              }
+            }
+          }
+        }
+
         // logic for highlighting
         getHighlights(image: HTMLElement | SVGElement | null | undefined) {
           if (!image) {
@@ -170,6 +210,13 @@ const SubCellViz: FC<Props> = memo(
           image: HTMLElement | SVGElement | null | undefined,
           selector: string
         ) {
+          if (!this.removedCSSRules) {
+            // Remove the .lookedAt CSS rule to avoid the default styling
+            this.deleteCSSRule('.lookedAt');
+            // Undo hard-coded cytoskeleton rule
+            this.deleteCSSRule('#SL0090 .lookedAt');
+            this.removedCSSRules = true;
+          }
           super.highLight(text, image, selector);
           // Add "lookedAt" classname to image SVG and text
           for (const highlight of this.getHighlights(image)) {
@@ -191,6 +238,29 @@ const SubCellViz: FC<Props> = memo(
           super.removeHiglight(text, image, selector);
         }
       }
+
+      const uniProtLocationsByReviewedStatus = groupBy(
+        uniProtLocations,
+        ({ reviewed }) => (reviewed ? 'reviewed' : 'unreviewed')
+      );
+      const goLocationsByReviewedStatus = groupBy(goLocations, ({ reviewed }) =>
+        reviewed ? 'reviewed' : 'unreviewed'
+      );
+
+      const unreviewed = [
+        ...getUniProtTermSelectors(uniProtLocationsByReviewedStatus.unreviewed),
+        ...getGoTermSelectors(goLocationsByReviewedStatus.unreviewed),
+      ];
+
+      const reviewed = [
+        ...getUniProtTermSelectors(uniProtLocationsByReviewedStatus.reviewed),
+        ...getGoTermSelectors(goLocationsByReviewedStatus.reviewed),
+      ];
+
+      const lookedAt = [...unreviewed, ...reviewed].map(
+        (sel) => `${sel} .lookedAt`
+      );
+
       /**
        * This needs to happen after the element has been created and inserted into
        * the DOM in order to have the constructor being called when already in the
@@ -204,6 +274,7 @@ const SubCellViz: FC<Props> = memo(
         instanceName.current
       );
       const shadowRoot = instance?.shadowRoot;
+
       const onSvgLoaded = () => {
         const tabsHeaderHeight =
           document.querySelector('.tabs__header')?.clientHeight;
@@ -211,13 +282,14 @@ const SubCellViz: FC<Props> = memo(
           ? `${tabsHeaderHeight + 5}px`
           : '4rem';
 
+        // TODO: Update colors as part of https://www.ebi.ac.uk/panda/jira/browse/TRM-26911
         const css = `
         #fakeContent {
           display: none;
         }
-        .lookedAt {
+        ${lookedAt.join(',')} {
           stroke: black !important;
-          fill: #abc7d6 !important;
+          fill: ${colors.seaBlue} !important;
           fill-opacity: 1 !important;
         }
         #swissbiopic > svg {
@@ -239,12 +311,17 @@ const SubCellViz: FC<Props> = memo(
         .subcell_description {
           display: none;
         }
-        [class*="mp_"] .coloured, svg [class*="part_"] .coloured {
-          stroke: black !important;
-          fill: #abc7d6 !important;
-          fill-opacity: 1 !important;
+        ${unreviewed.join(',')} {
+          stroke: black;
+          fill-opacity: 1;
+          fill: #87BBEB;
         }
-      `;
+        ${reviewed.join(',')} {
+          stroke: black;
+          fill-opacity: 1;
+          fill: #E6DAB3;
+        }
+        `;
 
         const style = document.createElement('style');
         // inject more styles
@@ -264,7 +341,7 @@ const SubCellViz: FC<Props> = memo(
         for (const subcellularPresentSVG of subcellularPresentSVGs) {
           // The text location in the righthand column which in our case will either
           // be of the form \d+term or GO\d+ depending on what props has been provided
-          const textSelectors = uniProtLocationIds?.length
+          const textSelectors = uniProtLocations?.length
             ? getUniProtTextSelectors(subcellularPresentSVG)
             : getGoTermClassNames(subcellularPresentSVG);
 
@@ -315,7 +392,7 @@ const SubCellViz: FC<Props> = memo(
       return () => {
         shadowRoot?.removeEventListener('svgloaded', onSvgLoaded);
       };
-    }, [uniProtLocationIds]);
+    }, [uniProtLocationIds, uniProtLocations, goLocationIds, goLocations]);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const Instance = (props: any) => <instanceName.current {...props} />;
