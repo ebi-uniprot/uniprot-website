@@ -21,7 +21,6 @@ import {
 } from '../../adapters/slimming/GORibbonHandler';
 import { GeneNamesData } from '../../adapters/namesAndTaxonomyConverter';
 import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
-import { GoEvidenceType } from '../../types/modelTypes';
 
 import styles from './styles/go-ribbon.module.scss';
 
@@ -218,9 +217,7 @@ const GoRibbon: FC<{
                         </ExternalLink>
                         <UniProtKBEvidenceTag evidences={goTerm.evidences} />
                         <GOTermEvidenceTag
-                          evidence={
-                            goTerm.properties?.GoEvidenceType as GoEvidenceType
-                          }
+                          evidence={goTerm.properties?.GoEvidenceType}
                         />
                       </td>
                     </tr>

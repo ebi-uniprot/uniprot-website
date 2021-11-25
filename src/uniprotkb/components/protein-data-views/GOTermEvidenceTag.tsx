@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { EvidenceTag } from 'franklin-sites';
 
 import * as logging from '../../../shared/utils/logging';
@@ -10,7 +9,7 @@ import {
 
 import { GoEvidenceType } from '../../types/modelTypes';
 
-const GOTermEvidenceTag: FC<{ evidence?: GoEvidenceType }> = ({ evidence }) => {
+const GOTermEvidenceTag = ({ evidence }: { evidence?: GoEvidenceType }) => {
   if (!evidence) {
     return null;
   }
@@ -23,14 +22,12 @@ const GOTermEvidenceTag: FC<{ evidence?: GoEvidenceType }> = ({ evidence }) => {
   }
 
   return (
-    <>
-      <EvidenceTag
-        label={evidence}
-        className={
-          evidenceData?.manual ? 'svg-colour-reviewed' : 'svg-colour-unreviewed'
-        }
-      />
-    </>
+    <EvidenceTag
+      label={evidence}
+      className={
+        evidenceData?.manual ? 'svg-colour-reviewed' : 'svg-colour-unreviewed'
+      }
+    />
   );
 };
 
