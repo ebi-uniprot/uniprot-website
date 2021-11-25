@@ -72,6 +72,7 @@ export type GOTermID = `GO:${number}${string}`;
 
 export type GoTerm = {
   id: GOTermID;
+  database: 'GO';
   aspect?: GOAspectLabel;
   termDescription?: string;
   evidences?: Evidence[];
@@ -158,22 +159,25 @@ const commentsCategories: CommentType[] = [
   'BIOTECHNOLOGY',
 ];
 
-export const getAspectGroupedGoTerms = (uniProtKBCrossReferences?: Xref[]) => {
-  const goTerms = (
-    (uniProtKBCrossReferences || []).filter(
-      (xref) => xref.database === 'GO' && xref.properties
-    ) as GoTerm[]
-  ).map((term) => {
-    const goTermProperty = term.properties && term.properties.GoTerm;
-    const aspect =
-      goTermProperty && (goTermProperty.substring(0, 1) as GOAspectShort);
-    const termDescription = goTermProperty && goTermProperty.substring(2);
-    return {
-      ...term,
-      aspect: aspect ? getAspect(aspect)?.label : undefined,
-      termDescription,
-    };
-  });
+export const getAspectGroupedGoTerms = (
+  uniProtKBCrossReferences?: Xref[]
+): GroupedGoTerms => {
+  const goTerms = (uniProtKBCrossReferences || [])
+    .filter(
+      (xref: Xref | GoTerm): xref is GoTerm =>
+        xref.database === 'GO' && Boolean(xref.properties)
+    )
+    .map((term) => {
+      const goTermProperty = term.properties && term.properties.GoTerm;
+      const aspect =
+        goTermProperty && (goTermProperty.substring(0, 1) as GOAspectShort);
+      const termDescription = goTermProperty && goTermProperty.substring(2);
+      return {
+        ...term,
+        aspect: aspect ? getAspect(aspect)?.label : undefined,
+        termDescription,
+      };
+    });
   return new Map(
     Object.entries(groupBy(goTerms, (term) => term.aspect))
   ) as GroupedGoTerms;

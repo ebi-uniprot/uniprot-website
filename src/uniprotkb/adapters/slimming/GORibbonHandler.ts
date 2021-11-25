@@ -155,16 +155,18 @@ export const getSubjects = (
     });
   });
 
-  const subjectGroups: Groups = {};
-  Object.entries(slimsToIdToFromIds).forEach(([slimsToId, fromIds]) => {
-    subjectGroups[slimsToId as GOTermID] = {
-      ALL: {
-        nb_classes: fromIds.length,
-        nb_annotations: countEvidences(goTermsFlat, fromIds),
-        terms: fromIds,
+  const subjectGroups: Groups = Object.fromEntries(
+    Object.entries(slimsToIdToFromIds).map(([slimsToId, fromIds]) => [
+      slimsToId,
+      {
+        ALL: {
+          nb_classes: fromIds.length,
+          nb_annotations: countEvidences(goTermsFlat, fromIds),
+          terms: fromIds,
+        },
       },
-    };
-  });
+    ])
+  );
 
   let total_nb_classes = 0;
   let total_nb_annotations = 0;
