@@ -574,7 +574,7 @@ exports[`Entry basic should render main 1`] = `
                       <button
                         aria-controls="5"
                         aria-expanded="false"
-                        class="svg-colour-reviewed evidence-tag"
+                        class="svg-colour-unreviewed evidence-tag"
                         data-testid="evidence-tag-trigger"
                         type="button"
                       >
@@ -597,7 +597,7 @@ exports[`Entry basic should render main 1`] = `
                     <button
                       aria-controls="6"
                       aria-expanded="false"
-                      class="svg-colour-reviewed evidence-tag"
+                      class="svg-colour-unreviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
                       type="button"
                     >
@@ -635,7 +635,7 @@ exports[`Entry basic should render main 1`] = `
                         <button
                           aria-controls="7"
                           aria-expanded="false"
-                          class="svg-colour-reviewed evidence-tag"
+                          class="svg-colour-unreviewed evidence-tag"
                           data-testid="evidence-tag-trigger"
                           type="button"
                         >
@@ -667,7 +667,7 @@ exports[`Entry basic should render main 1`] = `
                       <button
                         aria-controls="8"
                         aria-expanded="false"
-                        class="svg-colour-reviewed evidence-tag"
+                        class="svg-colour-unreviewed evidence-tag"
                         data-testid="evidence-tag-trigger"
                         type="button"
                       >
@@ -698,7 +698,7 @@ exports[`Entry basic should render main 1`] = `
                     <button
                       aria-controls="9"
                       aria-expanded="false"
-                      class="svg-colour-reviewed evidence-tag"
+                      class="svg-colour-unreviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
                       type="button"
                     >
@@ -728,7 +728,7 @@ exports[`Entry basic should render main 1`] = `
                     <button
                       aria-controls="10"
                       aria-expanded="false"
-                      class="svg-colour-reviewed evidence-tag"
+                      class="svg-colour-unreviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
                       type="button"
                     >
@@ -758,7 +758,7 @@ exports[`Entry basic should render main 1`] = `
                     <button
                       aria-controls="11"
                       aria-expanded="false"
-                      class="svg-colour-reviewed evidence-tag"
+                      class="svg-colour-unreviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
                       type="button"
                     >
@@ -869,7 +869,7 @@ exports[`Entry basic should render main 1`] = `
                           <button
                             aria-controls="12"
                             aria-expanded="false"
-                            class="svg-colour-reviewed evidence-tag"
+                            class="svg-colour-unreviewed evidence-tag"
                             data-testid="evidence-tag-trigger"
                             type="button"
                           >
@@ -911,7 +911,7 @@ exports[`Entry basic should render main 1`] = `
                           <button
                             aria-controls="13"
                             aria-expanded="false"
-                            class="svg-colour-reviewed evidence-tag"
+                            class="svg-colour-unreviewed evidence-tag"
                             data-testid="evidence-tag-trigger"
                             type="button"
                           >
@@ -953,7 +953,7 @@ exports[`Entry basic should render main 1`] = `
                           <button
                             aria-controls="14"
                             aria-expanded="false"
-                            class="svg-colour-reviewed evidence-tag"
+                            class="svg-colour-unreviewed evidence-tag"
                             data-testid="evidence-tag-trigger"
                             type="button"
                           >
@@ -999,7 +999,7 @@ exports[`Entry basic should render main 1`] = `
                               <button
                                 aria-controls="15"
                                 aria-expanded="false"
-                                class="svg-colour-reviewed evidence-tag"
+                                class="svg-colour-unreviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
                                 type="button"
                               >
@@ -1022,7 +1022,7 @@ exports[`Entry basic should render main 1`] = `
                               <button
                                 aria-controls="16"
                                 aria-expanded="false"
-                                class="svg-colour-reviewed evidence-tag"
+                                class="svg-colour-unreviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
                                 type="button"
                               >
@@ -1071,7 +1071,7 @@ exports[`Entry basic should render main 1`] = `
                               <button
                                 aria-controls="17"
                                 aria-expanded="false"
-                                class="svg-colour-reviewed evidence-tag"
+                                class="svg-colour-unreviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
                                 type="button"
                               >
@@ -1094,7 +1094,7 @@ exports[`Entry basic should render main 1`] = `
                               <button
                                 aria-controls="18"
                                 aria-expanded="false"
-                                class="svg-colour-reviewed evidence-tag"
+                                class="svg-colour-unreviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
                                 type="button"
                               >
@@ -1121,7 +1121,7 @@ exports[`Entry basic should render main 1`] = `
                               <button
                                 aria-controls="19"
                                 aria-expanded="false"
-                                class="svg-colour-reviewed evidence-tag"
+                                class="svg-colour-unreviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
                                 type="button"
                               >
@@ -1144,7 +1144,7 @@ exports[`Entry basic should render main 1`] = `
                               <button
                                 aria-controls="20"
                                 aria-expanded="false"
-                                class="svg-colour-reviewed evidence-tag"
+                                class="svg-colour-unreviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
                                 type="button"
                               >
@@ -1193,7 +1193,7 @@ exports[`Entry basic should render main 1`] = `
                               <button
                                 aria-controls="21"
                                 aria-expanded="false"
-                                class="svg-colour-reviewed evidence-tag"
+                                class="svg-colour-unreviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
                                 type="button"
                               >
@@ -1237,7 +1237,7 @@ exports[`Entry basic should render main 1`] = `
                           <button
                             aria-controls="22"
                             aria-expanded="false"
-                            class="svg-colour-reviewed evidence-tag"
+                            class="svg-colour-unreviewed evidence-tag"
                             data-testid="evidence-tag-trigger"
                             type="button"
                           >
@@ -1283,7 +1283,7 @@ exports[`Entry basic should render main 1`] = `
                               <button
                                 aria-controls="23"
                                 aria-expanded="false"
-                                class="svg-colour-reviewed evidence-tag"
+                                class="svg-colour-unreviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
                                 type="button"
                               >
@@ -1331,7 +1331,7 @@ exports[`Entry basic should render main 1`] = `
                               <button
                                 aria-controls="24"
                                 aria-expanded="false"
-                                class="svg-colour-reviewed evidence-tag"
+                                class="svg-colour-unreviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
                                 type="button"
                               >
@@ -1384,7 +1384,7 @@ exports[`Entry basic should render main 1`] = `
                           <button
                             aria-controls="25"
                             aria-expanded="false"
-                            class="svg-colour-reviewed evidence-tag"
+                            class="svg-colour-unreviewed evidence-tag"
                             data-testid="evidence-tag-trigger"
                             type="button"
                           >
@@ -1426,7 +1426,7 @@ exports[`Entry basic should render main 1`] = `
                           <button
                             aria-controls="26"
                             aria-expanded="false"
-                            class="svg-colour-reviewed evidence-tag"
+                            class="svg-colour-unreviewed evidence-tag"
                             data-testid="evidence-tag-trigger"
                             type="button"
                           >
@@ -1468,7 +1468,7 @@ exports[`Entry basic should render main 1`] = `
                           <button
                             aria-controls="27"
                             aria-expanded="false"
-                            class="svg-colour-reviewed evidence-tag"
+                            class="svg-colour-unreviewed evidence-tag"
                             data-testid="evidence-tag-trigger"
                             type="button"
                           >
@@ -1514,7 +1514,7 @@ exports[`Entry basic should render main 1`] = `
                               <button
                                 aria-controls="28"
                                 aria-expanded="false"
-                                class="svg-colour-reviewed evidence-tag"
+                                class="svg-colour-unreviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
                                 type="button"
                               >
@@ -1537,7 +1537,7 @@ exports[`Entry basic should render main 1`] = `
                               <button
                                 aria-controls="29"
                                 aria-expanded="false"
-                                class="svg-colour-reviewed evidence-tag"
+                                class="svg-colour-unreviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
                                 type="button"
                               >
@@ -1582,7 +1582,7 @@ exports[`Entry basic should render main 1`] = `
                           <button
                             aria-controls="30"
                             aria-expanded="false"
-                            class="svg-colour-reviewed evidence-tag"
+                            class="svg-colour-unreviewed evidence-tag"
                             data-testid="evidence-tag-trigger"
                             type="button"
                           >
@@ -1628,7 +1628,7 @@ exports[`Entry basic should render main 1`] = `
                               <button
                                 aria-controls="31"
                                 aria-expanded="false"
-                                class="svg-colour-reviewed evidence-tag"
+                                class="svg-colour-unreviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
                                 type="button"
                               >
@@ -1676,7 +1676,7 @@ exports[`Entry basic should render main 1`] = `
                               <button
                                 aria-controls="32"
                                 aria-expanded="false"
-                                class="svg-colour-reviewed evidence-tag"
+                                class="svg-colour-unreviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
                                 type="button"
                               >

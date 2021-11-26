@@ -149,7 +149,7 @@ export const ecoCodeToData = {
     description: 'Inferred from sequence alignment',
   },
   [ecoCode.ISM]: {
-    manual: true,
+    manual: false,
     label: 'Automatic assertion according to rules',
     description: 'Inferred from sequence model',
     labelRender: rulesCountRenderer,

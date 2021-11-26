@@ -32,7 +32,7 @@ exports[`UniProtKBEvidenceTag components should render automatic annotation 1`] 
   <button
     aria-controls="0"
     aria-expanded="false"
-    class="svg-colour-reviewed evidence-tag"
+    class="svg-colour-unreviewed evidence-tag"
     data-testid="evidence-tag-trigger"
     type="button"
   >
