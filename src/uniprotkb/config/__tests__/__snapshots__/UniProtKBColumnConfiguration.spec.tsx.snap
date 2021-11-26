@@ -17,7 +17,7 @@ exports[`UniProtKBColumnConfiguration component should render column "absorption
       <button
         aria-controls="0"
         aria-expanded="false"
-        class="svg-colour-reviewed evidence-tag"
+        class="svg-colour-unreviewed evidence-tag"
         data-testid="evidence-tag-trigger"
         type="button"
       >
@@ -40,7 +40,7 @@ exports[`UniProtKBColumnConfiguration component should render column "absorption
     <button
       aria-controls="1"
       aria-expanded="false"
-      class="svg-colour-reviewed evidence-tag"
+      class="svg-colour-unreviewed evidence-tag"
       data-testid="evidence-tag-trigger"
       type="button"
     >
@@ -1417,7 +1417,7 @@ exports[`UniProtKBColumnConfiguration component should render column "kinetics":
         <button
           aria-controls="0"
           aria-expanded="false"
-          class="svg-colour-reviewed evidence-tag"
+          class="svg-colour-unreviewed evidence-tag"
           data-testid="evidence-tag-trigger"
           type="button"
         >
@@ -1449,7 +1449,7 @@ exports[`UniProtKBColumnConfiguration component should render column "kinetics":
       <button
         aria-controls="1"
         aria-expanded="false"
-        class="svg-colour-reviewed evidence-tag"
+        class="svg-colour-unreviewed evidence-tag"
         data-testid="evidence-tag-trigger"
         type="button"
       >
@@ -1654,7 +1654,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ph_depende
     <button
       aria-controls="0"
       aria-expanded="false"
-      class="svg-colour-reviewed evidence-tag"
+      class="svg-colour-unreviewed evidence-tag"
       data-testid="evidence-tag-trigger"
       type="button"
     >
@@ -1723,7 +1723,7 @@ exports[`UniProtKBColumnConfiguration component should render column "redox_pote
     <button
       aria-controls="0"
       aria-expanded="false"
-      class="svg-colour-reviewed evidence-tag"
+      class="svg-colour-unreviewed evidence-tag"
       data-testid="evidence-tag-trigger"
       type="button"
     >
@@ -1854,7 +1854,7 @@ exports[`UniProtKBColumnConfiguration component should render column "temp_depen
     <button
       aria-controls="0"
       aria-expanded="false"
-      class="svg-colour-reviewed evidence-tag"
+      class="svg-colour-unreviewed evidence-tag"
       data-testid="evidence-tag-trigger"
       type="button"
     >

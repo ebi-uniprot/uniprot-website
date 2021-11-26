@@ -130,7 +130,9 @@ const countEvidences = (terms: GoTerm[], ids: string[]) => {
   let count = 0;
   ids.forEach((id) => {
     const term = terms.find((term) => term.id === id);
+    // Add actual evidence then specific GO evidence
     count += term?.evidences?.length || 0;
+    count += term?.properties?.GoEvidenceType ? 1 : 0;
   });
   return count;
 };
