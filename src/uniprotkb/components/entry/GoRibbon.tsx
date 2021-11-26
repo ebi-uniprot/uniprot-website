@@ -170,7 +170,7 @@ const GoRibbon: FC<{
       <Helmet>
         <script
           type="module"
-          src="https://unpkg.com/@geneontology/wc-ribbon-strips/dist/wc-ribbon-strips/wc-ribbon-strips.esm.js"
+          src="https://unpkg.com/@geneontology/wc-ribbon-strips@0.0.37/dist/wc-ribbon-strips/wc-ribbon-strips.esm.js"
         />
       </Helmet>
       {slimSets && (
