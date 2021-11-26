@@ -4,6 +4,8 @@ import * as logging from '../shared/utils/logging';
 
 import { needsReload } from './reload-flag';
 
+import { CacheName } from './shared-types';
+
 // No need to test if serviceWorker is supported, we tested that before loading
 // this chunk so we are sure it exists by now
 
@@ -45,6 +47,11 @@ export function register() {
     logging.log(
       `An update to "${updatedURL}" caused the whole "${cacheName}" cache to be dropped`
     );
+    if (cacheName === CacheName.WebsiteAPI) {
+      // drop the quickGO cache whenever we drop the website API cache
+      // it should happen on UniProt data update
+      dropCache(CacheName.QuickGO);
+    }
     dropCache(cacheName);
   });
 

@@ -17,7 +17,7 @@ exports[`UniProtKBColumnConfiguration component should render column "absorption
       <button
         aria-controls="0"
         aria-expanded="false"
-        class="svg-colour-reviewed evidence-tag"
+        class="svg-colour-unreviewed evidence-tag"
         data-testid="evidence-tag-trigger"
         type="button"
       >
@@ -40,7 +40,7 @@ exports[`UniProtKBColumnConfiguration component should render column "absorption
     <button
       aria-controls="1"
       aria-expanded="false"
-      class="svg-colour-reviewed evidence-tag"
+      class="svg-colour-unreviewed evidence-tag"
       data-testid="evidence-tag-trigger"
       type="button"
     >
@@ -1350,25 +1350,13 @@ exports[`UniProtKBColumnConfiguration component should render column "gene_synon
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "go": go 1`] = `
-<DocumentFragment>
-  <section
-    class="text-block"
-  />
-</DocumentFragment>
-`;
+exports[`UniProtKBColumnConfiguration component should render column "go": go 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "go_c": go_c 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "go_f": go_f 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "go_id": go_id 1`] = `
-<DocumentFragment>
-  <section
-    class="text-block"
-  />
-</DocumentFragment>
-`;
+exports[`UniProtKBColumnConfiguration component should render column "go_id": go_id 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "go_p": go_p 1`] = `<DocumentFragment />`;
 
@@ -1429,7 +1417,7 @@ exports[`UniProtKBColumnConfiguration component should render column "kinetics":
         <button
           aria-controls="0"
           aria-expanded="false"
-          class="svg-colour-reviewed evidence-tag"
+          class="svg-colour-unreviewed evidence-tag"
           data-testid="evidence-tag-trigger"
           type="button"
         >
@@ -1461,7 +1449,7 @@ exports[`UniProtKBColumnConfiguration component should render column "kinetics":
       <button
         aria-controls="1"
         aria-expanded="false"
-        class="svg-colour-reviewed evidence-tag"
+        class="svg-colour-unreviewed evidence-tag"
         data-testid="evidence-tag-trigger"
         type="button"
       >
@@ -1666,7 +1654,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ph_depende
     <button
       aria-controls="0"
       aria-expanded="false"
-      class="svg-colour-reviewed evidence-tag"
+      class="svg-colour-unreviewed evidence-tag"
       data-testid="evidence-tag-trigger"
       type="button"
     >
@@ -1735,7 +1723,7 @@ exports[`UniProtKBColumnConfiguration component should render column "redox_pote
     <button
       aria-controls="0"
       aria-expanded="false"
-      class="svg-colour-reviewed evidence-tag"
+      class="svg-colour-unreviewed evidence-tag"
       data-testid="evidence-tag-trigger"
       type="button"
     >
@@ -1866,7 +1854,7 @@ exports[`UniProtKBColumnConfiguration component should render column "temp_depen
     <button
       aria-controls="0"
       aria-expanded="false"
-      class="svg-colour-reviewed evidence-tag"
+      class="svg-colour-unreviewed evidence-tag"
       data-testid="evidence-tag-trigger"
       type="button"
     >

@@ -35,10 +35,10 @@
     ],
     "coverageThreshold": {
       "global": {
-        "lines": 82.57,
-        "statements": 82.38,
-        "functions": 82.65,
-        "branches": 69.97
+        "lines": 82.56,
+        "statements": 82.35,
+        "functions": 82.92,
+        "branches": 69.95
       }
     },
     "transform": {
@@ -95,7 +95,6 @@
     ]
   },
   "dependencies": {
-    "@geneontology/ribbon": "1.11.2",
     "@sentry/react": "6.14.0",
     "@sentry/tracing": "6.14.0",
     "@sentry/types": "6.13.3",
@@ -117,7 +116,7 @@
     "lodash-es": "4.17.21",
     "marked": "3.0.4",
     "p-map": "5.1.0",
-    "protvista-datatable": "3.5.1",
+    "protvista-datatable": "3.5.3",
     "protvista-feature-adapter": "3.5.1",
     "protvista-filter": "3.1.2",
     "protvista-manager": "3.4.0",

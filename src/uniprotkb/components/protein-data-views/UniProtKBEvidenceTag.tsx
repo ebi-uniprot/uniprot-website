@@ -34,7 +34,9 @@ export const UniProtEvidenceTagContent: FC<{
 
   return (
     <div>
-      <h5>{evidenceData.label}</h5>
+      <h5>
+        {evidenceData.label} <small>({evidenceData.description})</small>
+      </h5>
       {publicationReferences && (
         <UniProtKBEntryPublications
           pubmedIds={
