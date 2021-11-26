@@ -14,7 +14,7 @@ import { FunctionFeatures } from '../types/featureType';
 import EntrySection from '../types/entrySection';
 import { convertSection, UIModel } from './sectionConverter';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
-import { Evidence } from '../types/modelTypes';
+import { Evidence, GoEvidenceType } from '../types/modelTypes';
 import { Xref } from '../../shared/types/apiModel';
 
 import { UniProtKBColumn } from '../types/columnTypes';
@@ -76,7 +76,11 @@ export type GoTerm = {
   aspect?: GOAspectLabel;
   termDescription?: string;
   evidences?: Evidence[];
-} & Omit<Xref, 'id'>;
+  properties?: {
+    GoEvidenceType: GoEvidenceType;
+    [key: string]: string;
+  };
+} & Omit<Xref, 'id' | 'properties'>;
 
 export type GroupedGoTerms = Map<GOAspectLabel, GoTerm[]>;
 
