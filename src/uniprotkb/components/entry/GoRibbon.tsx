@@ -26,7 +26,14 @@ import styles from './styles/go-ribbon.module.scss';
 
 type CellClick = {
   detail: {
-    selected: [boolean];
+    selected?: [boolean];
+    group: AGRRibbonGroup;
+    subjects: AGRRibbonSubject[];
+  };
+};
+
+type GroupClick = {
+  detail: {
     group: AGRRibbonGroup;
     subjects: AGRRibbonSubject[];
   };
@@ -105,8 +112,9 @@ const GoRibbon = ({
     }
 
     const node = nodeRef.current;
-    const cellClickHandler = ({ detail }: CellClick) => {
-      const isSelected = detail.selected?.[0];
+    const clickHandler = async ({ detail }: CellClick | GroupClick) => {
+      // TODO: the groupClick event detail does not provide the attribute "selected". Possibly create a PR against ribbon-strips to provide this.
+      const isSelected = 'selected' in detail ? detail.selected?.[0] : true;
       const clickedID = detail.group.id;
       const groupID: GOTermID =
         detail.group.type === 'Other' ? `${clickedID}-other` : clickedID;
@@ -119,7 +127,10 @@ const GoRibbon = ({
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    node.addEventListener('cellClick', cellClickHandler);
+    node.addEventListener('cellClick', clickHandler);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    node.addEventListener('groupClick', clickHandler);
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -129,7 +140,10 @@ const GoRibbon = ({
     return () => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      node.removeEventListener('cellClick', cellClickHandler);
+      node.removeEventListener('cellClick', clickHandler);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      node.removeEventListener('groupClick', clickHandler);
     };
   }, [elementLoaded, data]);
 
@@ -166,6 +180,8 @@ const GoRibbon = ({
             subject-position="0"
             show-other-group
             add-cell-all
+            // Not-dynamic just highlight all on initial load
+            selected="all"
           />
         </div>
         <small>Cell color indicative of number of GO terms</small>
