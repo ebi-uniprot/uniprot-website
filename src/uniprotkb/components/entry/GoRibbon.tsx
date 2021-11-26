@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo, useState, useRef, ReactNode } from 'react';
+import { useEffect, useMemo, useState, useRef, ReactNode } from 'react';
 import { ExternalLink, Loader } from 'franklin-sites';
 import { Helmet } from 'react-helmet';
 
@@ -32,12 +32,19 @@ type CellClick = {
   };
 };
 
-const GoRibbon: FC<{
+type GoRibbonType = {
   primaryAccession: string;
   goTerms?: GroupedGoTerms;
   geneNamesData?: GeneNamesData;
   organismData?: TaxonomyDatum;
-}> = ({ primaryAccession, goTerms, geneNamesData, organismData }) => {
+};
+
+const GoRibbon = ({
+  primaryAccession,
+  goTerms,
+  geneNamesData,
+  organismData,
+}: GoRibbonType) => {
   const nodeRef = useRef<HTMLElement>();
 
   useCustomElement(
