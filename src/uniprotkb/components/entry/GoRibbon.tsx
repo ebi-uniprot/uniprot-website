@@ -128,9 +128,6 @@ const GoRibbon = ({
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     node.addEventListener('cellClick', clickHandler);
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    node.addEventListener('groupClick', clickHandler);
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -141,9 +138,6 @@ const GoRibbon = ({
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       node.removeEventListener('cellClick', clickHandler);
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      node.removeEventListener('groupClick', clickHandler);
     };
   }, [elementLoaded, data]);
 
