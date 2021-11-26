@@ -176,6 +176,7 @@ const GoRibbon = ({
             add-cell-all
             // Not-dynamic just highlight all on initial load
             selected="all"
+            group-clickable="false"
           />
         </div>
         <small>Cell color indicative of number of GO terms</small>
