@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
 import { Loader } from 'franklin-sites';
@@ -54,7 +55,10 @@ const PeptideSearchResult = () => {
       (job) => job.status === Status.FINISHED && job?.remoteID === jobID
     )
   );
-  const accessions = jobData?.split(',').filter(Boolean);
+  const accessions = useMemo(
+    () => jobData?.split(',').filter(Boolean),
+    [jobData]
+  );
 
   // Query for facets
   const initialApiFacetUrl = useNSQuery({
@@ -81,7 +85,25 @@ const PeptideSearchResult = () => {
     progress: resultsDataProgress,
   } = resultsDataObject;
 
-  useMarkJobAsSeen(resultsDataObject.allResults.length, match?.params.id);
+  const sortedResultsDataObject = useMemo(
+    () => ({
+      ...resultsDataObject,
+      // sort according to original order in job result payload
+      allResults: Array.from(resultsDataObject.allResults).sort((a, b) => {
+        const accessionA = 'primaryAccession' in a && a.primaryAccession;
+        const accessionB = 'primaryAccession' in b && b.primaryAccession;
+        if (accessions && accessionA && accessionB) {
+          return (
+            accessions.indexOf(accessionA) - accessions.indexOf(accessionB)
+          );
+        }
+        return 0;
+      }),
+    }),
+    [accessions, resultsDataObject]
+  );
+
+  useMarkJobAsSeen(sortedResultsDataObject.allResults.length, match?.params.id);
 
   let total: undefined | number;
   if (facetTotal !== undefined) {
@@ -118,7 +140,7 @@ const PeptideSearchResult = () => {
       <HTMLHead title={title} />
       <ResultsDataHeader
         total={total}
-        loadedTotal={resultsDataObject.allResults.length}
+        loadedTotal={sortedResultsDataObject.allResults.length}
         selectedEntries={selectedEntries}
         titlePostscript={
           total && (
@@ -132,7 +154,7 @@ const PeptideSearchResult = () => {
         accessions={accessions}
       />
       <ResultsData
-        resultsDataObject={resultsDataObject}
+        resultsDataObject={sortedResultsDataObject}
         setSelectedItemFromEvent={setSelectedItemFromEvent}
         setSelectedEntries={setSelectedEntries}
       />
