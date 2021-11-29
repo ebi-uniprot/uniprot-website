@@ -17,13 +17,13 @@ type DBMapsProviderProps = {
 export const DBMapsProvider = ({ children }: DBMapsProviderProps) => {
   const { data } = useDataApi<DatabaseInfo>(apiUrls.allUniProtKBDatabases);
 
-  const databaseInfoMaps = useMemo(
+  const databaseMaps = useMemo(
     () => (data ? getDatabaseInfoMaps(data) : data),
     [data]
   );
 
-  return databaseInfoMaps ? (
-    <DBMapsContext.Provider value={databaseInfoMaps}>
+  return databaseMaps ? (
+    <DBMapsContext.Provider value={databaseMaps}>
       {children}
     </DBMapsContext.Provider>
   ) : null;
@@ -32,7 +32,7 @@ export const DBMapsProvider = ({ children }: DBMapsProviderProps) => {
 export const useDBMaps = () => {
   const context = useContext(DBMapsContext);
   if (context === undefined) {
-    logging.error('useDBInfo must be used within a CountProvider');
+    logging.error('useDBMaps must be used within a CountProvider');
   }
   return context;
 };
