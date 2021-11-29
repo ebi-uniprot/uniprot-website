@@ -631,7 +631,7 @@ exports[`Entry basic should render main 1`] = `
                         <sub>
                           M
                         </sub>
-                        =2.0999999046325684uM for sub1 
+                        =2.0999999046325684μM for sub1 
                         <button
                           aria-controls="7"
                           aria-expanded="false"
@@ -656,6 +656,39 @@ exports[`Entry basic should render main 1`] = `
                         />
                       </li>
                     </ul>
+                    <ul
+                      class="no-bullet"
+                    >
+                      <li>
+                        V
+                        <sub>
+                          max
+                        </sub>
+                        =1unit1 for enzyme1 
+                        <button
+                          aria-controls="8"
+                          aria-expanded="false"
+                          class="svg-colour-unreviewed evidence-tag"
+                          data-testid="evidence-tag-trigger"
+                          type="button"
+                        >
+                          <test-file-stub
+                            height="12"
+                            width="12"
+                          />
+                          <span
+                            class="evidence-tag__label"
+                          >
+                            1 automatic annotation
+                          </span>
+                        </button>
+                        <div
+                          class="evidence-tag-content "
+                          data-testid="evidence-tag-content"
+                          id="8"
+                        />
+                      </li>
+                    </ul>
                   </section>
                   <section
                     class="text-block"
@@ -665,7 +698,7 @@ exports[`Entry basic should render main 1`] = `
                     >
                       value1.
                       <button
-                        aria-controls="8"
+                        aria-controls="9"
                         aria-expanded="false"
                         class="svg-colour-unreviewed evidence-tag"
                         data-testid="evidence-tag-trigger"
@@ -684,42 +717,12 @@ exports[`Entry basic should render main 1`] = `
                       <div
                         class="evidence-tag-content "
                         data-testid="evidence-tag-content"
-                        id="8"
+                        id="9"
                       />
                     </div>
                   </section>
                   <h3>
                     pH Dependence
-                  </h3>
-                  <div
-                    class="text-block"
-                  >
-                    value1.
-                    <button
-                      aria-controls="9"
-                      aria-expanded="false"
-                      class="svg-colour-unreviewed evidence-tag"
-                      data-testid="evidence-tag-trigger"
-                      type="button"
-                    >
-                      <test-file-stub
-                        height="12"
-                        width="12"
-                      />
-                      <span
-                        class="evidence-tag__label"
-                      >
-                        1 automatic annotation
-                      </span>
-                    </button>
-                    <div
-                      class="evidence-tag-content "
-                      data-testid="evidence-tag-content"
-                      id="9"
-                    />
-                  </div>
-                  <h3>
-                    Redox Potential
                   </h3>
                   <div
                     class="text-block"
@@ -749,7 +752,7 @@ exports[`Entry basic should render main 1`] = `
                     />
                   </div>
                   <h3>
-                    Temperature Dependence
+                    Redox Potential
                   </h3>
                   <div
                     class="text-block"
@@ -776,6 +779,36 @@ exports[`Entry basic should render main 1`] = `
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
                       id="11"
+                    />
+                  </div>
+                  <h3>
+                    Temperature Dependence
+                  </h3>
+                  <div
+                    class="text-block"
+                  >
+                    value1.
+                    <button
+                      aria-controls="12"
+                      aria-expanded="false"
+                      class="svg-colour-unreviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 automatic annotation
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="12"
                     />
                   </div>
                   <h3>
@@ -867,48 +900,6 @@ exports[`Entry basic should render main 1`] = `
                         >
                           rec full Name 
                           <button
-                            aria-controls="12"
-                            aria-expanded="false"
-                            class="svg-colour-unreviewed evidence-tag"
-                            data-testid="evidence-tag-trigger"
-                            type="button"
-                          >
-                            <test-file-stub
-                              height="12"
-                              width="12"
-                            />
-                            <span
-                              class="evidence-tag__label"
-                            >
-                              1 automatic annotation
-                            </span>
-                          </button>
-                          <div
-                            class="evidence-tag-content "
-                            data-testid="evidence-tag-content"
-                            id="12"
-                          />
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div
-                        class="decorated-list-item"
-                      >
-                        <div
-                          class="decorated-list-item__title"
-                        >
-                          <h5
-                            class="bold"
-                          >
-                            EC number
-                          </h5>
-                        </div>
-                        <div
-                          class="decorated-list-item__content"
-                        >
-                          1.2.3.4 
-                          <button
                             aria-controls="13"
                             aria-expanded="false"
                             class="svg-colour-unreviewed evidence-tag"
@@ -943,13 +934,13 @@ exports[`Entry basic should render main 1`] = `
                           <h5
                             class="bold"
                           >
-                            Short names
+                            EC number
                           </h5>
                         </div>
                         <div
                           class="decorated-list-item__content"
                         >
-                          recommended short name 
+                          1.2.3.4 
                           <button
                             aria-controls="14"
                             aria-expanded="false"
@@ -985,6 +976,48 @@ exports[`Entry basic should render main 1`] = `
                           <h5
                             class="bold"
                           >
+                            Short names
+                          </h5>
+                        </div>
+                        <div
+                          class="decorated-list-item__content"
+                        >
+                          recommended short name 
+                          <button
+                            aria-controls="15"
+                            aria-expanded="false"
+                            class="svg-colour-unreviewed evidence-tag"
+                            data-testid="evidence-tag-trigger"
+                            type="button"
+                          >
+                            <test-file-stub
+                              height="12"
+                              width="12"
+                            />
+                            <span
+                              class="evidence-tag__label"
+                            >
+                              1 automatic annotation
+                            </span>
+                          </button>
+                          <div
+                            class="evidence-tag-content "
+                            data-testid="evidence-tag-content"
+                            id="15"
+                          />
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        class="decorated-list-item"
+                      >
+                        <div
+                          class="decorated-list-item__title"
+                        >
+                          <h5
+                            class="bold"
+                          >
                             Alternative names
                           </h5>
                         </div>
@@ -996,29 +1029,6 @@ exports[`Entry basic should render main 1`] = `
                           >
                             <li>
                               a full alt Name 
-                              <button
-                                aria-controls="15"
-                                aria-expanded="false"
-                                class="svg-colour-unreviewed evidence-tag"
-                                data-testid="evidence-tag-trigger"
-                                type="button"
-                              >
-                                <test-file-stub
-                                  height="12"
-                                  width="12"
-                                />
-                                <span
-                                  class="evidence-tag__label"
-                                >
-                                  1 automatic annotation
-                                </span>
-                              </button>
-                              <div
-                                class="evidence-tag-content "
-                                data-testid="evidence-tag-content"
-                                id="15"
-                              />
-                               (short alt name1 
                               <button
                                 aria-controls="16"
                                 aria-expanded="false"
@@ -1040,6 +1050,29 @@ exports[`Entry basic should render main 1`] = `
                                 class="evidence-tag-content "
                                 data-testid="evidence-tag-content"
                                 id="16"
+                              />
+                               (short alt name1 
+                              <button
+                                aria-controls="17"
+                                aria-expanded="false"
+                                class="svg-colour-unreviewed evidence-tag"
+                                data-testid="evidence-tag-trigger"
+                                type="button"
+                              >
+                                <test-file-stub
+                                  height="12"
+                                  width="12"
+                                />
+                                <span
+                                  class="evidence-tag__label"
+                                >
+                                  1 automatic annotation
+                                </span>
+                              </button>
+                              <div
+                                class="evidence-tag-content "
+                                data-testid="evidence-tag-content"
+                                id="17"
                               />
                               ) 
                             </li>
@@ -1069,29 +1102,6 @@ exports[`Entry basic should render main 1`] = `
                             <li>
                               containsrec full Name 
                               <button
-                                aria-controls="17"
-                                aria-expanded="false"
-                                class="svg-colour-unreviewed evidence-tag"
-                                data-testid="evidence-tag-trigger"
-                                type="button"
-                              >
-                                <test-file-stub
-                                  height="12"
-                                  width="12"
-                                />
-                                <span
-                                  class="evidence-tag__label"
-                                >
-                                  1 automatic annotation
-                                </span>
-                              </button>
-                              <div
-                                class="evidence-tag-content "
-                                data-testid="evidence-tag-content"
-                                id="17"
-                              />
-                               (containsrecommended short name 
-                              <button
                                 aria-controls="18"
                                 aria-expanded="false"
                                 class="svg-colour-unreviewed evidence-tag"
@@ -1113,11 +1123,7 @@ exports[`Entry basic should render main 1`] = `
                                 data-testid="evidence-tag-content"
                                 id="18"
                               />
-                              )  
-                              <strong>
-                                Alternative names: 
-                              </strong>
-                              containsa full alt Name 
+                               (containsrecommended short name 
                               <button
                                 aria-controls="19"
                                 aria-expanded="false"
@@ -1140,7 +1146,11 @@ exports[`Entry basic should render main 1`] = `
                                 data-testid="evidence-tag-content"
                                 id="19"
                               />
-                               (containsshort alt name1 
+                              )  
+                              <strong>
+                                Alternative names: 
+                              </strong>
+                              containsa full alt Name 
                               <button
                                 aria-controls="20"
                                 aria-expanded="false"
@@ -1162,6 +1172,29 @@ exports[`Entry basic should render main 1`] = `
                                 class="evidence-tag-content "
                                 data-testid="evidence-tag-content"
                                 id="20"
+                              />
+                               (containsshort alt name1 
+                              <button
+                                aria-controls="21"
+                                aria-expanded="false"
+                                class="svg-colour-unreviewed evidence-tag"
+                                data-testid="evidence-tag-trigger"
+                                type="button"
+                              >
+                                <test-file-stub
+                                  height="12"
+                                  width="12"
+                                />
+                                <span
+                                  class="evidence-tag__label"
+                                >
+                                  1 automatic annotation
+                                </span>
+                              </button>
+                              <div
+                                class="evidence-tag-content "
+                                data-testid="evidence-tag-content"
+                                id="21"
                               />
                               ) 
                             </li>
@@ -1191,7 +1224,7 @@ exports[`Entry basic should render main 1`] = `
                             <li>
                               sub full Name 
                               <button
-                                aria-controls="21"
+                                aria-controls="22"
                                 aria-expanded="false"
                                 class="svg-colour-unreviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
@@ -1210,7 +1243,7 @@ exports[`Entry basic should render main 1`] = `
                               <div
                                 class="evidence-tag-content "
                                 data-testid="evidence-tag-content"
-                                id="21"
+                                id="22"
                               />
                             </li>
                           </ul>
@@ -1235,7 +1268,7 @@ exports[`Entry basic should render main 1`] = `
                         >
                           biotech 
                           <button
-                            aria-controls="22"
+                            aria-controls="23"
                             aria-expanded="false"
                             class="svg-colour-unreviewed evidence-tag"
                             data-testid="evidence-tag-trigger"
@@ -1254,7 +1287,7 @@ exports[`Entry basic should render main 1`] = `
                           <div
                             class="evidence-tag-content "
                             data-testid="evidence-tag-content"
-                            id="22"
+                            id="23"
                           />
                         </div>
                       </div>
@@ -1281,7 +1314,7 @@ exports[`Entry basic should render main 1`] = `
                             <li>
                               cd antigen 
                               <button
-                                aria-controls="23"
+                                aria-controls="24"
                                 aria-expanded="false"
                                 class="svg-colour-unreviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
@@ -1300,7 +1333,7 @@ exports[`Entry basic should render main 1`] = `
                               <div
                                 class="evidence-tag-content "
                                 data-testid="evidence-tag-content"
-                                id="23"
+                                id="24"
                               />
                             </li>
                           </ul>
@@ -1329,7 +1362,7 @@ exports[`Entry basic should render main 1`] = `
                             <li>
                               inn antigen 
                               <button
-                                aria-controls="24"
+                                aria-controls="25"
                                 aria-expanded="false"
                                 class="svg-colour-unreviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
@@ -1348,7 +1381,7 @@ exports[`Entry basic should render main 1`] = `
                               <div
                                 class="evidence-tag-content "
                                 data-testid="evidence-tag-content"
-                                id="24"
+                                id="25"
                               />
                             </li>
                           </ul>
@@ -1381,48 +1414,6 @@ exports[`Entry basic should render main 1`] = `
                           class="decorated-list-item__content"
                         >
                           includesrec full Name 
-                          <button
-                            aria-controls="25"
-                            aria-expanded="false"
-                            class="svg-colour-unreviewed evidence-tag"
-                            data-testid="evidence-tag-trigger"
-                            type="button"
-                          >
-                            <test-file-stub
-                              height="12"
-                              width="12"
-                            />
-                            <span
-                              class="evidence-tag__label"
-                            >
-                              1 automatic annotation
-                            </span>
-                          </button>
-                          <div
-                            class="evidence-tag-content "
-                            data-testid="evidence-tag-content"
-                            id="25"
-                          />
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div
-                        class="decorated-list-item"
-                      >
-                        <div
-                          class="decorated-list-item__title"
-                        >
-                          <h5
-                            class="bold"
-                          >
-                            EC number
-                          </h5>
-                        </div>
-                        <div
-                          class="decorated-list-item__content"
-                        >
-                          1.2.3.4 
                           <button
                             aria-controls="26"
                             aria-expanded="false"
@@ -1458,13 +1449,13 @@ exports[`Entry basic should render main 1`] = `
                           <h5
                             class="bold"
                           >
-                            Short names
+                            EC number
                           </h5>
                         </div>
                         <div
                           class="decorated-list-item__content"
                         >
-                          includesrecommended short name 
+                          1.2.3.4 
                           <button
                             aria-controls="27"
                             aria-expanded="false"
@@ -1500,6 +1491,48 @@ exports[`Entry basic should render main 1`] = `
                           <h5
                             class="bold"
                           >
+                            Short names
+                          </h5>
+                        </div>
+                        <div
+                          class="decorated-list-item__content"
+                        >
+                          includesrecommended short name 
+                          <button
+                            aria-controls="28"
+                            aria-expanded="false"
+                            class="svg-colour-unreviewed evidence-tag"
+                            data-testid="evidence-tag-trigger"
+                            type="button"
+                          >
+                            <test-file-stub
+                              height="12"
+                              width="12"
+                            />
+                            <span
+                              class="evidence-tag__label"
+                            >
+                              1 automatic annotation
+                            </span>
+                          </button>
+                          <div
+                            class="evidence-tag-content "
+                            data-testid="evidence-tag-content"
+                            id="28"
+                          />
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        class="decorated-list-item"
+                      >
+                        <div
+                          class="decorated-list-item__title"
+                        >
+                          <h5
+                            class="bold"
+                          >
                             Alternative names
                           </h5>
                         </div>
@@ -1511,29 +1544,6 @@ exports[`Entry basic should render main 1`] = `
                           >
                             <li>
                               includesa full alt Name 
-                              <button
-                                aria-controls="28"
-                                aria-expanded="false"
-                                class="svg-colour-unreviewed evidence-tag"
-                                data-testid="evidence-tag-trigger"
-                                type="button"
-                              >
-                                <test-file-stub
-                                  height="12"
-                                  width="12"
-                                />
-                                <span
-                                  class="evidence-tag__label"
-                                >
-                                  1 automatic annotation
-                                </span>
-                              </button>
-                              <div
-                                class="evidence-tag-content "
-                                data-testid="evidence-tag-content"
-                                id="28"
-                              />
-                               (includesshort alt name1 
                               <button
                                 aria-controls="29"
                                 aria-expanded="false"
@@ -1555,6 +1565,29 @@ exports[`Entry basic should render main 1`] = `
                                 class="evidence-tag-content "
                                 data-testid="evidence-tag-content"
                                 id="29"
+                              />
+                               (includesshort alt name1 
+                              <button
+                                aria-controls="30"
+                                aria-expanded="false"
+                                class="svg-colour-unreviewed evidence-tag"
+                                data-testid="evidence-tag-trigger"
+                                type="button"
+                              >
+                                <test-file-stub
+                                  height="12"
+                                  width="12"
+                                />
+                                <span
+                                  class="evidence-tag__label"
+                                >
+                                  1 automatic annotation
+                                </span>
+                              </button>
+                              <div
+                                class="evidence-tag-content "
+                                data-testid="evidence-tag-content"
+                                id="30"
                               />
                               ) 
                             </li>
@@ -1580,7 +1613,7 @@ exports[`Entry basic should render main 1`] = `
                         >
                           biotech 
                           <button
-                            aria-controls="30"
+                            aria-controls="31"
                             aria-expanded="false"
                             class="svg-colour-unreviewed evidence-tag"
                             data-testid="evidence-tag-trigger"
@@ -1599,7 +1632,7 @@ exports[`Entry basic should render main 1`] = `
                           <div
                             class="evidence-tag-content "
                             data-testid="evidence-tag-content"
-                            id="30"
+                            id="31"
                           />
                         </div>
                       </div>
@@ -1626,7 +1659,7 @@ exports[`Entry basic should render main 1`] = `
                             <li>
                               cd antigen 
                               <button
-                                aria-controls="31"
+                                aria-controls="32"
                                 aria-expanded="false"
                                 class="svg-colour-unreviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
@@ -1645,7 +1678,7 @@ exports[`Entry basic should render main 1`] = `
                               <div
                                 class="evidence-tag-content "
                                 data-testid="evidence-tag-content"
-                                id="31"
+                                id="32"
                               />
                             </li>
                           </ul>
@@ -1674,7 +1707,7 @@ exports[`Entry basic should render main 1`] = `
                             <li>
                               inn antigen 
                               <button
-                                aria-controls="32"
+                                aria-controls="33"
                                 aria-expanded="false"
                                 class="svg-colour-unreviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
@@ -1693,7 +1726,7 @@ exports[`Entry basic should render main 1`] = `
                               <div
                                 class="evidence-tag-content "
                                 data-testid="evidence-tag-content"
-                                id="32"
+                                id="33"
                               />
                             </li>
                           </ul>
@@ -1729,48 +1762,6 @@ exports[`Entry basic should render main 1`] = `
                             >
                               some Gene 
                               <button
-                                aria-controls="33"
-                                aria-expanded="false"
-                                class="svg-colour-unreviewed evidence-tag"
-                                data-testid="evidence-tag-trigger"
-                                type="button"
-                              >
-                                <test-file-stub
-                                  height="12"
-                                  width="12"
-                                />
-                                <span
-                                  class="evidence-tag__label"
-                                >
-                                  1 automatic annotation
-                                </span>
-                              </button>
-                              <div
-                                class="evidence-tag-content "
-                                data-testid="evidence-tag-content"
-                                id="33"
-                              />
-                            </div>
-                          </div>
-                        </li>
-                        <li>
-                          <div
-                            class="decorated-list-item"
-                          >
-                            <div
-                              class="decorated-list-item__title"
-                            >
-                              <h5
-                                class="bold"
-                              >
-                                Synonyms
-                              </h5>
-                            </div>
-                            <div
-                              class="decorated-list-item__content"
-                            >
-                              some Syn 
-                              <button
                                 aria-controls="34"
                                 aria-expanded="false"
                                 class="svg-colour-unreviewed evidence-tag"
@@ -1805,6 +1796,48 @@ exports[`Entry basic should render main 1`] = `
                               <h5
                                 class="bold"
                               >
+                                Synonyms
+                              </h5>
+                            </div>
+                            <div
+                              class="decorated-list-item__content"
+                            >
+                              some Syn 
+                              <button
+                                aria-controls="35"
+                                aria-expanded="false"
+                                class="svg-colour-unreviewed evidence-tag"
+                                data-testid="evidence-tag-trigger"
+                                type="button"
+                              >
+                                <test-file-stub
+                                  height="12"
+                                  width="12"
+                                />
+                                <span
+                                  class="evidence-tag__label"
+                                >
+                                  1 automatic annotation
+                                </span>
+                              </button>
+                              <div
+                                class="evidence-tag-content "
+                                data-testid="evidence-tag-content"
+                                id="35"
+                              />
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div
+                            class="decorated-list-item"
+                          >
+                            <div
+                              class="decorated-list-item__title"
+                            >
+                              <h5
+                                class="bold"
+                              >
                                 ORF names
                               </h5>
                             </div>
@@ -1813,7 +1846,7 @@ exports[`Entry basic should render main 1`] = `
                             >
                               some orf 
                               <button
-                                aria-controls="35"
+                                aria-controls="36"
                                 aria-expanded="false"
                                 class="svg-colour-reviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
@@ -1832,7 +1865,7 @@ exports[`Entry basic should render main 1`] = `
                               <div
                                 class="evidence-tag-content "
                                 data-testid="evidence-tag-content"
-                                id="35"
+                                id="36"
                               />
                             </div>
                           </div>
@@ -1855,7 +1888,7 @@ exports[`Entry basic should render main 1`] = `
                             >
                               some locus 
                               <button
-                                aria-controls="36"
+                                aria-controls="37"
                                 aria-expanded="false"
                                 class="svg-colour-unreviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
@@ -1874,7 +1907,7 @@ exports[`Entry basic should render main 1`] = `
                               <div
                                 class="evidence-tag-content "
                                 data-testid="evidence-tag-content"
-                                id="36"
+                                id="37"
                               />
                             </div>
                           </div>
@@ -1911,7 +1944,7 @@ exports[`Entry basic should render main 1`] = `
                             scientific name (common name) (synonyms 1)
                           </a>
                           <button
-                            aria-controls="37"
+                            aria-controls="38"
                             aria-expanded="false"
                             class="svg-colour-unreviewed evidence-tag"
                             data-testid="evidence-tag-trigger"
@@ -1930,7 +1963,7 @@ exports[`Entry basic should render main 1`] = `
                           <div
                             class="evidence-tag-content "
                             data-testid="evidence-tag-content"
-                            id="37"
+                            id="38"
                           />
                         </div>
                       </div>
@@ -2106,7 +2139,7 @@ exports[`Entry basic should render main 1`] = `
                       role="tablist"
                     >
                       <div
-                        aria-controls="38"
+                        aria-controls="39"
                         class="tabs__header__item tabs__header__item--active"
                         data-target="0"
                         data-testid="tab-title"
@@ -2116,7 +2149,7 @@ exports[`Entry basic should render main 1`] = `
                         UniProt Annotation
                       </div>
                       <div
-                        aria-controls="38"
+                        aria-controls="39"
                         class="tabs__header__item"
                         data-target="1"
                         data-testid="tab-title"
@@ -2128,7 +2161,7 @@ exports[`Entry basic should render main 1`] = `
                     </div>
                     <div
                       data-testid="tab-content"
-                      id="38"
+                      id="39"
                       role="tabpanel"
                     >
                       <div
@@ -2140,7 +2173,7 @@ exports[`Entry basic should render main 1`] = `
                         <div
                           id="fakeContent"
                         />
-                        <sib-swissbiopics-sl-uniprot-48
+                        <sib-swissbiopics-sl-uniprot-49
                           contentid="fakeContent"
                           sls=""
                           taxid="9606"
@@ -2158,29 +2191,6 @@ exports[`Entry basic should render main 1`] = `
                                 location value
                               </strong>
                                
-                              <button
-                                aria-controls="49"
-                                aria-expanded="false"
-                                class="svg-colour-unreviewed evidence-tag"
-                                data-testid="evidence-tag-trigger"
-                                type="button"
-                              >
-                                <test-file-stub
-                                  height="12"
-                                  width="12"
-                                />
-                                <span
-                                  class="evidence-tag__label"
-                                >
-                                  1 automatic annotation
-                                </span>
-                              </button>
-                              <div
-                                class="evidence-tag-content "
-                                data-testid="evidence-tag-content"
-                                id="49"
-                              />
-                              ; topology value 
                               <button
                                 aria-controls="50"
                                 aria-expanded="false"
@@ -2203,11 +2213,7 @@ exports[`Entry basic should render main 1`] = `
                                 data-testid="evidence-tag-content"
                                 id="50"
                               />
-                            </div>
-                            <div
-                              class="text-block"
-                            >
-                              value.
+                              ; topology value 
                               <button
                                 aria-controls="51"
                                 aria-expanded="false"
@@ -2231,8 +2237,35 @@ exports[`Entry basic should render main 1`] = `
                                 id="51"
                               />
                             </div>
+                            <div
+                              class="text-block"
+                            >
+                              value.
+                              <button
+                                aria-controls="52"
+                                aria-expanded="false"
+                                class="svg-colour-unreviewed evidence-tag"
+                                data-testid="evidence-tag-trigger"
+                                type="button"
+                              >
+                                <test-file-stub
+                                  height="12"
+                                  width="12"
+                                />
+                                <span
+                                  class="evidence-tag__label"
+                                >
+                                  1 automatic annotation
+                                </span>
+                              </button>
+                              <div
+                                class="evidence-tag-content "
+                                data-testid="evidence-tag-content"
+                                id="52"
+                              />
+                            </div>
                           </section>
-                        </sib-swissbiopics-sl-uniprot-48>
+                        </sib-swissbiopics-sl-uniprot-49>
                       </div>
                       <div
                         style="display: none;"
@@ -2243,7 +2276,7 @@ exports[`Entry basic should render main 1`] = `
                         <div
                           id="fakeContent"
                         />
-                        <sib-swissbiopics-sl-go-52
+                        <sib-swissbiopics-sl-go-53
                           contentid="fakeContent"
                           gos=""
                           taxid="9606"
@@ -2282,7 +2315,7 @@ exports[`Entry basic should render main 1`] = `
                     class="text-block"
                   >
                     <button
-                      aria-controls="39"
+                      aria-controls="40"
                       aria-expanded="false"
                       class="svg-colour-unreviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -2301,7 +2334,7 @@ exports[`Entry basic should render main 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="39"
+                      id="40"
                     />
                   </span>
                   <ul
@@ -2329,7 +2362,7 @@ exports[`Entry basic should render main 1`] = `
                             <li>
                               value2
                               <button
-                                aria-controls="40"
+                                aria-controls="41"
                                 aria-expanded="false"
                                 class="svg-colour-unreviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
@@ -2348,7 +2381,7 @@ exports[`Entry basic should render main 1`] = `
                               <div
                                 class="evidence-tag-content "
                                 data-testid="evidence-tag-content"
-                                id="40"
+                                id="41"
                               />
                             </li>
                           </ul>
@@ -2422,38 +2455,6 @@ exports[`Entry basic should render main 1`] = `
                   >
                     value.
                     <button
-                      aria-controls="41"
-                      aria-expanded="false"
-                      class="svg-colour-unreviewed evidence-tag"
-                      data-testid="evidence-tag-trigger"
-                      type="button"
-                    >
-                      <test-file-stub
-                        height="12"
-                        width="12"
-                      />
-                      <span
-                        class="evidence-tag__label"
-                      >
-                        1 automatic annotation
-                      </span>
-                    </button>
-                    <div
-                      class="evidence-tag-content "
-                      data-testid="evidence-tag-content"
-                      id="41"
-                    />
-                  </div>
-                  <h3
-                    class="tiny"
-                  >
-                    Isoform 4 dfs
-                  </h3>
-                  <div
-                    class="text-block"
-                  >
-                    value.
-                    <button
                       aria-controls="42"
                       aria-expanded="false"
                       class="svg-colour-unreviewed evidence-tag"
@@ -2474,6 +2475,38 @@ exports[`Entry basic should render main 1`] = `
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
                       id="42"
+                    />
+                  </div>
+                  <h3
+                    class="tiny"
+                  >
+                    Isoform 4 dfs
+                  </h3>
+                  <div
+                    class="text-block"
+                  >
+                    value.
+                    <button
+                      aria-controls="43"
+                      aria-expanded="false"
+                      class="svg-colour-unreviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 automatic annotation
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="43"
                     />
                   </div>
                 </div>
@@ -2591,7 +2624,7 @@ exports[`Entry basic should render main 1`] = `
                             <td>
                               description value 123
                               <button
-                                aria-controls="43"
+                                aria-controls="44"
                                 aria-expanded="false"
                                 class="svg-colour-reviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
@@ -2610,7 +2643,7 @@ exports[`Entry basic should render main 1`] = `
                               <div
                                 class="evidence-tag-content "
                                 data-testid="evidence-tag-content"
-                                id="43"
+                                id="44"
                               />
                             </td>
                           </tr>
@@ -3169,39 +3202,6 @@ exports[`Entry basic should render main 1`] = `
                     </a>
                      differs from that shown. Reason: Erroneous gene model prediction Text note
                     <button
-                      aria-controls="44"
-                      aria-expanded="false"
-                      class="svg-colour-unreviewed evidence-tag"
-                      data-testid="evidence-tag-trigger"
-                      type="button"
-                    >
-                      <test-file-stub
-                        height="12"
-                        width="12"
-                      />
-                      <span
-                        class="evidence-tag__label"
-                      >
-                        1 automatic annotation
-                      </span>
-                    </button>
-                    <div
-                      class="evidence-tag-content "
-                      data-testid="evidence-tag-content"
-                      id="44"
-                    />
-                  </section>
-                  <h3>
-                    Mass Spectrometry
-                  </h3>
-                  <section
-                    class="text-block"
-                  >
-                    <h3>
-                      isoform 1
-                    </h3>
-                    Molecular mass is 2.1 Da. Determined by LSI. note value
-                    <button
                       aria-controls="45"
                       aria-expanded="false"
                       class="svg-colour-unreviewed evidence-tag"
@@ -3225,6 +3225,39 @@ exports[`Entry basic should render main 1`] = `
                     />
                   </section>
                   <h3>
+                    Mass Spectrometry
+                  </h3>
+                  <section
+                    class="text-block"
+                  >
+                    <h3>
+                      isoform 1
+                    </h3>
+                    Molecular mass is 2.1 Da. Determined by LSI. note value
+                    <button
+                      aria-controls="46"
+                      aria-expanded="false"
+                      class="svg-colour-unreviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 automatic annotation
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="46"
+                    />
+                  </section>
+                  <h3>
                     RNA Editing
                   </h3>
                   <section
@@ -3234,33 +3267,6 @@ exports[`Entry basic should render main 1`] = `
                       Edited at position 
                       <span>
                         1 
-                        <button
-                          aria-controls="46"
-                          aria-expanded="false"
-                          class="svg-colour-unreviewed evidence-tag"
-                          data-testid="evidence-tag-trigger"
-                          type="button"
-                        >
-                          <test-file-stub
-                            height="12"
-                            width="12"
-                          />
-                          <span
-                            class="evidence-tag__label"
-                          >
-                            1 automatic annotation
-                          </span>
-                        </button>
-                        <div
-                          class="evidence-tag-content "
-                          data-testid="evidence-tag-content"
-                          id="46"
-                        />
-                      </span>
-                    </div>
-                    <div>
-                      <span>
-                        value 
                         <button
                           aria-controls="47"
                           aria-expanded="false"
@@ -3282,6 +3288,33 @@ exports[`Entry basic should render main 1`] = `
                           class="evidence-tag-content "
                           data-testid="evidence-tag-content"
                           id="47"
+                        />
+                      </span>
+                    </div>
+                    <div>
+                      <span>
+                        value 
+                        <button
+                          aria-controls="48"
+                          aria-expanded="false"
+                          class="svg-colour-unreviewed evidence-tag"
+                          data-testid="evidence-tag-trigger"
+                          type="button"
+                        >
+                          <test-file-stub
+                            height="12"
+                            width="12"
+                          />
+                          <span
+                            class="evidence-tag__label"
+                          >
+                            1 automatic annotation
+                          </span>
+                        </button>
+                        <div
+                          class="evidence-tag-content "
+                          data-testid="evidence-tag-content"
+                          id="48"
                         />
                       </span>
                     </div>
