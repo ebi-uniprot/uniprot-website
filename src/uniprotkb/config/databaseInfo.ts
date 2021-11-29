@@ -4,8 +4,8 @@ import { DatabaseInfo } from '../types/databaseRefs';
 // showing it for when it is up and running again. Until then it will have no uriLink.
 
 // TODO: Switch over to using the allDatabases endpoint as directed in JIRA: https://www.ebi.ac.uk/panda/jira/browse/TRM-24060
-// Source: /api/configure/uniprotkb/allDatabases
-// Retrieved: 2021-10-15
+// Source: /configure/uniprotkb/allDatabases
+// Retrieved: 2021-11-29
 const databaseInfo: DatabaseInfo = [
   {
     name: 'EMBL',
@@ -113,7 +113,6 @@ const databaseInfo: DatabaseInfo = [
         uriLink: 'https://www.ncbi.nlm.nih.gov/nuccore/%necleotideId',
       },
     ],
-    idMappingName: 'P_REFSEQ_AC',
   },
   {
     name: 'PDB',
