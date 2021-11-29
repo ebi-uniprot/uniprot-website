@@ -1,14 +1,4 @@
-import {
-  lazy,
-  Suspense,
-  FC,
-  CSSProperties,
-  ReactNode,
-  createContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { lazy, Suspense, FC, CSSProperties, useEffect, useRef } from 'react';
 import {
   Router,
   Route,
@@ -25,24 +15,18 @@ import SingleColumnLayout from '../../shared/components/layouts/SingleColumnLayo
 import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
 import GDPR from '../../shared/components/gdpr/GDPR';
 
+import history from '../../shared/utils/browserHistory';
+
 import useScrollToTop from '../../shared/hooks/useScrollToTop';
 import useReloadApp from '../../shared/hooks/useReloadApp';
-import useDataApi from '../../shared/hooks/useDataApi';
 
-import history from '../../shared/utils/browserHistory';
-import {
-  DatabaseInfoMaps,
-  getDatabaseInfoMaps,
-} from '../../uniprotkb/utils/database';
-import apiUrls from '../../shared/config/apiUrls';
+import { DBMapsProvider } from '../../shared/contexts/database';
 
 import {
   allSearchResultLocations,
   Location,
   LocationToPath,
 } from '../config/urls';
-
-import { DatabaseInfo } from '../../uniprotkb/types/databaseRefs';
 
 import pkg from '../../../package.json';
 
@@ -280,38 +264,6 @@ const RedirectToStarSearch = ({ location }: RouteChildrenProps) => (
   <Redirect to={{ ...location, search: 'query=*' }} />
 );
 
-const DatabaseInfoMapsContext = createContext<DatabaseInfoMaps | null>(null);
-
-type DatabaseInfoMapsProviderProps = {
-  children: ReactNode;
-};
-
-const DatabaseInfoMapsProvider = ({
-  children,
-}: DatabaseInfoMapsProviderProps) => {
-  const [databaseInfoMaps, setDatabaseInfoMaps] =
-    useState<DatabaseInfoMaps | null>(null);
-
-  const { data, loading } = useDataApi<DatabaseInfo>(
-    apiUrls.allUniProtKBDatabases
-  );
-  console.log(data, loading);
-
-  useEffect(() => {
-    if (data) {
-      setDatabaseInfoMaps(getDatabaseInfoMaps(data));
-    }
-  }, [data]);
-
-  return (
-    <DatabaseInfoMapsContext.Provider
-      value={{ databaseInfoMaps, setDatabaseInfoMaps }}
-    >
-      {children}
-    </DatabaseInfoMapsContext.Provider>
-  );
-};
-
 const App = () => {
   useScrollToTop(history);
   useReloadApp(history);
@@ -336,7 +288,7 @@ const App = () => {
   return (
     <FranklinSite>
       <Router history={history}>
-        <DatabaseInfoMapsProvider>
+        <DBMapsProvider>
           <Helmet titleTemplate="%s | UniProt" defaultTitle="UniProt">
             <meta
               name="description"
@@ -505,7 +457,7 @@ const App = () => {
           <ErrorBoundary fallback={null}>
             <GDPR />
           </ErrorBoundary>
-        </DatabaseInfoMapsProvider>
+        </DBMapsProvider>
       </Router>
       <a
         style={reportBugLinkStyles}
