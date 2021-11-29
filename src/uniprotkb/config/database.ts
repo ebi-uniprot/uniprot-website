@@ -4,6 +4,7 @@ import {
   getDatabaseInfoMaps,
   selectDatabases,
   getEntrySectionToDatabaseCategoryOrder,
+  DatabaseToDatabaseInfo,
 } from '../utils/database';
 import externalUrls from '../../shared/config/externalUrls';
 
@@ -27,18 +28,11 @@ export const databaseCategoryToString = {
   [DatabaseCategory.STRUCTURE]: '3D structure databases',
 };
 
-export const {
-  databaseCategoryToNames,
-  databaseNameToCategory,
-  databaseToDatabaseInfo,
-  implicitDatabaseXRefs,
-} = getDatabaseInfoMaps(databaseInfo);
-
 export const PDBMirrors = ['PDB', 'RCSB-PDB', 'PDBj', 'PDBsum'];
 
-export const PDBMirrorsInfo = PDBMirrors.map(
-  (PDBMirror) => databaseToDatabaseInfo[PDBMirror]
-);
+export const getPDBMirrorsInfo = (
+  databaseToDatabaseInfo: DatabaseToDatabaseInfo
+) => PDBMirrors.map((PDBMirror) => databaseToDatabaseInfo[PDBMirror]);
 
 const databaseSelector = selectDatabases(databaseCategoryToNames);
 

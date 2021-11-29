@@ -5,7 +5,6 @@ import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import { XRef } from './XRefView';
 
 import { DiseaseComment } from '../../types/commentTypes';
-import { databaseToDatabaseInfo } from '../../config/database';
 import { useDBMaps } from '../../../shared/contexts/database';
 
 type DiseaseInvolvementEntryProps = {
@@ -75,7 +74,7 @@ export const DiseaseInvolvementEntry: FC<DiseaseInvolvementEntryProps> = ({
             database={database}
             xref={disease.diseaseCrossReference}
             primaryAccession={accession}
-            databaseToDatabaseInfo={databaseToDatabaseInfo}
+            databaseToDatabaseInfo={dbMaps?.databaseToDatabaseInfo}
           />
         ),
       });
