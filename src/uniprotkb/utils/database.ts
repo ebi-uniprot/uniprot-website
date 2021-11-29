@@ -7,24 +7,27 @@ import {
 } from '../types/databaseRefs';
 import { Xref } from '../../shared/types/apiModel';
 
+export type DatabaseCategoryToNames = Map<DatabaseCategory, string[]>;
+export type DatabaseNameToCategory = Map<string, DatabaseCategory>;
+export type DatabaseToDatabaseInfo = {
+  [database: string]: DatabaseInfoPoint;
+};
+export type ImplicitDatabaseXRefs = Map<string, Xref>;
+
 export type DatabaseInfoMaps = {
-  databaseCategoryToNames: Map<DatabaseCategory, string[]>;
-  databaseNameToCategory: Map<string, DatabaseCategory>;
-  databaseToDatabaseInfo: {
-    [database: string]: DatabaseInfoPoint;
-  };
-  implicitDatabaseXRefs: Map<string, Xref>;
+  databaseCategoryToNames: DatabaseCategoryToNames;
+  databaseNameToCategory: DatabaseNameToCategory;
+  databaseToDatabaseInfo: DatabaseToDatabaseInfo;
+  implicitDatabaseXRefs: ImplicitDatabaseXRefs;
 };
 
 export const getDatabaseInfoMaps = (
   databaseInfo: DatabaseInfo
 ): DatabaseInfoMaps => {
-  const databaseCategoryToNames = new Map<DatabaseCategory, string[]>();
-  const databaseNameToCategory = new Map<string, DatabaseCategory>();
-  const databaseToDatabaseInfo: {
-    [database: string]: DatabaseInfoPoint;
-  } = {};
-  const implicitDatabaseXRefs = new Map<string, Xref>();
+  const databaseCategoryToNames: DatabaseCategoryToNames = new Map();
+  const databaseNameToCategory: DatabaseNameToCategory = new Map();
+  const databaseToDatabaseInfo: DatabaseToDatabaseInfo = {};
+  const implicitDatabaseXRefs: ImplicitDatabaseXRefs = new Map();
   databaseInfo.forEach((info) => {
     const { name, category, implicit } = info as {
       name: string;
