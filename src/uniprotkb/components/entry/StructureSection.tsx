@@ -7,9 +7,8 @@ import EntrySection, {
 import { UIModel } from '../../adapters/sectionConverter';
 import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import XRefView from '../protein-data-views/XRefView';
-import PDBView from '../protein-data-views/PDBView';
+import StructureView from '../protein-data-views/StructureView';
 
-import { hasContent } from '../../../shared/utils/utils';
 import { entrySectionToDatabaseCategoryOrder } from '../../config/database';
 
 import {
@@ -31,9 +30,7 @@ const StructureSection = ({
   sequence,
   crc64,
 }: Props) => {
-  if (!hasContent(data)) {
-    return null;
-  }
+  // NOTE: do not check if content is there or not, always display because of AF
   const { arrayStructureDatabases, otherDatabases } = groupBy(
     data.xrefData,
     ({ category }) =>
@@ -45,22 +42,14 @@ const StructureSection = ({
   // Need to save these as we want to display them in the xrefs section
   const nonPDBDatabases = otherDatabases || [];
 
-  let PDBViewNode;
   const structureDatabases =
     arrayStructureDatabases &&
     arrayStructureDatabases.length === 1 &&
     arrayStructureDatabases[0];
   if (structureDatabases) {
-    const { PDBDatabase, otherStructureDatabases } =
-      partitionStructureDatabases(structureDatabases.databases);
-    if (PDBDatabase && PDBDatabase.xrefs.length) {
-      PDBViewNode = (
-        <PDBView
-          xrefs={PDBDatabase.xrefs}
-          primaryAccession={primaryAccession}
-        />
-      );
-    }
+    const { otherStructureDatabases } = partitionStructureDatabases(
+      structureDatabases.databases
+    );
     const nonPDBStructureDatabases: XrefUIModel = {
       category: DatabaseCategory.STRUCTURE,
       databases: otherStructureDatabases,
@@ -95,7 +84,7 @@ const StructureSection = ({
       id={EntrySection.Structure}
       data-entry-section
     >
-      {PDBViewNode}
+      <StructureView primaryAccession={primaryAccession} />
       <FeaturesView features={data.featuresData} sequence={sequence} />
       {XrefViewNode}
     </Card>
