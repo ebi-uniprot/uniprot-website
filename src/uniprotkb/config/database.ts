@@ -5,7 +5,6 @@ import {
   selectDatabases,
   getEntrySectionToDatabaseCategoryOrder,
 } from '../utils/database';
-import databaseInfo from './databaseInfo';
 import externalUrls from '../../shared/config/externalUrls';
 
 export const databaseCategoryToString = {

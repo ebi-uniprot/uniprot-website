@@ -1,4 +1,6 @@
 import { screen, render } from '@testing-library/react';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
 
 import XRefView, {
   getPropertyString,
@@ -7,15 +9,23 @@ import XRefView, {
   getDatabaseInfoAttribute,
 } from '../XRefView';
 
+import { DBMapsProvider } from '../../../../shared/contexts/database';
+
 import { PropertyKey } from '../../../types/modelTypes';
 import { DatabaseInfoPoint } from '../../../types/databaseRefs';
 
 import xrefs from './__mocks__/xrefUIData';
+import databaseInfo from './__mocks__/databaseInfo';
+
+const mock = new MockAdapter(axios);
+mock.onGet(/\/configure\/uniprotkb\/allDatabases/).reply(200, databaseInfo);
 
 describe('XRefView', () => {
   test(`should render section`, () => {
     const { asFragment } = render(
-      <XRefView xrefs={xrefs.standard} primaryAccession="P01234" />
+      <DBMapsProvider>
+        <XRefView xrefs={xrefs.standard} primaryAccession="P01234" />
+      </DBMapsProvider>
     );
     expect(asFragment()).toMatchSnapshot();
   });

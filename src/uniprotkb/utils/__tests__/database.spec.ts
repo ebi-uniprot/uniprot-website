@@ -1,4 +1,3 @@
-import databaseInfo from '../../config/databaseInfo';
 import {
   getDatabaseInfoMaps,
   selectDatabases,
@@ -10,6 +9,8 @@ import {
   databaseNameToCategory,
 } from '../../config/database';
 import { DatabaseCategory } from '../../types/databaseRefs';
+
+import databaseInfo from '../../components/protein-data-views/__tests__/__mocks__/databaseInfo';
 import {
   expectedDatabaseCategoryToNames,
   expectedDatabaseNameToCategory,
