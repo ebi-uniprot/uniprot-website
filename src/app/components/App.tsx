@@ -1,4 +1,14 @@
-import { lazy, Suspense, FC, CSSProperties, useEffect, useRef } from 'react';
+import {
+  lazy,
+  Suspense,
+  FC,
+  CSSProperties,
+  ReactNode,
+  createContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import {
   Router,
   Route,
@@ -15,16 +25,24 @@ import SingleColumnLayout from '../../shared/components/layouts/SingleColumnLayo
 import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
 import GDPR from '../../shared/components/gdpr/GDPR';
 
-import history from '../../shared/utils/browserHistory';
-
 import useScrollToTop from '../../shared/hooks/useScrollToTop';
 import useReloadApp from '../../shared/hooks/useReloadApp';
+import useDataApi from '../../shared/hooks/useDataApi';
+
+import history from '../../shared/utils/browserHistory';
+import {
+  DatabaseInfoMaps,
+  getDatabaseInfoMaps,
+} from '../../uniprotkb/utils/database';
+import apiUrls from '../../shared/config/apiUrls';
 
 import {
   allSearchResultLocations,
   Location,
   LocationToPath,
 } from '../config/urls';
+
+import { DatabaseInfo } from '../../uniprotkb/types/databaseRefs';
 
 import pkg from '../../../package.json';
 
@@ -262,6 +280,35 @@ const RedirectToStarSearch = ({ location }: RouteChildrenProps) => (
   <Redirect to={{ ...location, search: 'query=*' }} />
 );
 
+const DatabaseInfoContext = createContext<DatabaseInfoMaps | null>(null);
+
+type DatabaseInfoMapsProviderProps = {
+  children: ReactNode;
+};
+
+const DatabaseInfoMapsProvider = ({
+  children,
+}: DatabaseInfoMapsProviderProps) => {
+  const [databaseInfoMaps, setDatabaseInfoMaps] =
+    useState<DatabaseInfoMaps | null>(null);
+
+  const { data, loading } = useDataApi<DatabaseInfo>(
+    apiUrls.allUniProtKBDatabases
+  );
+  console.log(data, loading);
+
+  if (data) {
+    setDatabaseInfoMaps(getDatabaseInfoMaps(data));
+  }
+  return (
+    <DatabaseInfoContext.Provider
+      value={{ databaseInfoMaps, setDatabaseInfoMaps }}
+    >
+      {children}
+    </DatabaseInfoContext.Provider>
+  );
+};
+
 const App = () => {
   useScrollToTop(history);
   useReloadApp(history);
@@ -286,174 +333,176 @@ const App = () => {
   return (
     <FranklinSite>
       <Router history={history}>
-        <Helmet titleTemplate="%s | UniProt" defaultTitle="UniProt">
-          <meta
-            name="description"
-            // default description, to override wherever needed
-            content="UniProt is the world’s leading high-quality, comprehensive and freely accessible resource of protein sequence and functional information."
-          />
-        </Helmet>
-        <BaseLayout>
-          <Suspense fallback={<Loader />}>
-            <Switch>
-              {/* Home */}
-              <Route
-                path={LocationToPath[Location.Home]}
-                exact
-                component={HomePage}
-              />
-              {/* Entry pages */}
-              {/* Main namespaces */}
-              <Route
-                path={LocationToPath[Location.UniProtKBEntry]}
-                component={UniProtKBEntryPage}
-              />
-              <Route
-                path={LocationToPath[Location.UniRefEntry]}
-                component={UniRefEntryPage}
-              />
-              <Route
-                path={LocationToPath[Location.UniParcEntry]}
-                component={UniParcEntryPage}
-              />
-              <Route
-                path={LocationToPath[Location.ProteomesEntry]}
-                component={ProteomesEntryPage}
-              />
-              {/* Supporting data */}
-              <Route
-                path={LocationToPath[Location.TaxonomyEntry]}
-                component={TaxonomyEntryPage}
-              />
-              <Route
-                path={LocationToPath[Location.KeywordsEntry]}
-                component={KeywordsEntryPage}
-              />
-              <Route
-                path={LocationToPath[Location.CitationsEntry]}
-                component={CitationsEntryPage}
-              />
-              <Route
-                path={LocationToPath[Location.DiseasesEntry]}
-                component={DiseasesEntryPage}
-              />
-              <Route
-                path={LocationToPath[Location.DatabaseEntry]}
-                component={DatabaseEntryPage}
-              />
-              <Route
-                path={LocationToPath[Location.LocationsEntry]}
-                component={LocationsEntryPage}
-              />
-              {/* Annotations */}
-              <Route
-                path={LocationToPath[Location.UniRuleEntry]}
-                component={UniRuleEntryPage}
-              />
-              <Route
-                path={LocationToPath[Location.ARBAEntry]}
-                component={ARBAEntryPage}
-              />
-              {/* Result pages */}
-              <Route
-                path={allSearchResultLocations}
-                component={ResultsOrLanding(
-                  GenericResultsPage,
-                  RedirectToStarSearch
-                )}
-              />
-              {/* Tools */}
-              <Route
-                path={LocationToPath[Location.BlastResult]}
-                component={BlastResult}
-              />
-              <Route
-                path={LocationToPath[Location.Blast]}
-                render={() => (
-                  <SingleColumnLayout>
-                    <BlastForm />
-                  </SingleColumnLayout>
-                )}
-              />
-              <Route
-                path={LocationToPath[Location.AlignResult]}
-                component={AlignResult}
-              />
-              <Route
-                path={LocationToPath[Location.Align]}
-                render={() => (
-                  <SingleColumnLayout>
-                    <AlignForm />
-                  </SingleColumnLayout>
-                )}
-              />
-              <Route
-                path={LocationToPath[Location.PeptideSearchResult]}
-                component={PeptideSearchResult}
-              />
-              <Route
-                path={LocationToPath[Location.PeptideSearch]}
-                render={() => (
-                  <SingleColumnLayout>
-                    <PeptideSearchForm />
-                  </SingleColumnLayout>
-                )}
-              />
-              <Route
-                path={LocationToPath[Location.IDMappingResult]}
-                component={IDMappingResult}
-              />
-              <Route
-                path={LocationToPath[Location.IDMapping]}
-                render={() => (
-                  <SingleColumnLayout>
-                    <IDMappingForm />
-                  </SingleColumnLayout>
-                )}
-              />
-              <Route
-                path={LocationToPath[Location.Dashboard]}
-                render={() => (
-                  <SingleColumnLayout>
-                    <Dashboard />
-                  </SingleColumnLayout>
-                )}
-              />
-              <Route
-                path={LocationToPath[Location.Basket]}
-                component={BasketFullView}
-              />
-              <Route
-                path={LocationToPath[Location.HelpEntry]}
-                component={HelpEntryPage}
-              />
-              <Route
-                path={LocationToPath[Location.HelpResults]}
-                component={ResultsOrLanding(HelpResults, HelpLandingPage)}
-              />
-              <Route
-                path={LocationToPath[Location.Contact]}
-                component={() => {
-                  // Temporary redirect to current website
-                  window.location.href = 'https://www.uniprot.org/contact';
-                  return null;
-                }}
-              />
-              {/* Catch-all handler -> Redirect or not found use ResourceNotFoundPage */}
-              <Route
-                path="*"
-                render={() => (
-                  <SingleColumnLayout>
-                    <ResourceNotFoundPage />
-                  </SingleColumnLayout>
-                )}
-              />
-            </Switch>
-          </Suspense>
-        </BaseLayout>
-        <ErrorBoundary fallback={null}>
-          <GDPR />
-        </ErrorBoundary>
+        <DatabaseInfoMapsProvider>
+          <Helmet titleTemplate="%s | UniProt" defaultTitle="UniProt">
+            <meta
+              name="description"
+              // default description, to override wherever needed
+              content="UniProt is the world’s leading high-quality, comprehensive and freely accessible resource of protein sequence and functional information."
+            />
+          </Helmet>
+          <BaseLayout>
+            <Suspense fallback={<Loader />}>
+              <Switch>
+                {/* Home */}
+                <Route
+                  path={LocationToPath[Location.Home]}
+                  exact
+                  component={HomePage}
+                />
+                {/* Entry pages */}
+                {/* Main namespaces */}
+                <Route
+                  path={LocationToPath[Location.UniProtKBEntry]}
+                  component={UniProtKBEntryPage}
+                />
+                <Route
+                  path={LocationToPath[Location.UniRefEntry]}
+                  component={UniRefEntryPage}
+                />
+                <Route
+                  path={LocationToPath[Location.UniParcEntry]}
+                  component={UniParcEntryPage}
+                />
+                <Route
+                  path={LocationToPath[Location.ProteomesEntry]}
+                  component={ProteomesEntryPage}
+                />
+                {/* Supporting data */}
+                <Route
+                  path={LocationToPath[Location.TaxonomyEntry]}
+                  component={TaxonomyEntryPage}
+                />
+                <Route
+                  path={LocationToPath[Location.KeywordsEntry]}
+                  component={KeywordsEntryPage}
+                />
+                <Route
+                  path={LocationToPath[Location.CitationsEntry]}
+                  component={CitationsEntryPage}
+                />
+                <Route
+                  path={LocationToPath[Location.DiseasesEntry]}
+                  component={DiseasesEntryPage}
+                />
+                <Route
+                  path={LocationToPath[Location.DatabaseEntry]}
+                  component={DatabaseEntryPage}
+                />
+                <Route
+                  path={LocationToPath[Location.LocationsEntry]}
+                  component={LocationsEntryPage}
+                />
+                {/* Annotations */}
+                <Route
+                  path={LocationToPath[Location.UniRuleEntry]}
+                  component={UniRuleEntryPage}
+                />
+                <Route
+                  path={LocationToPath[Location.ARBAEntry]}
+                  component={ARBAEntryPage}
+                />
+                {/* Result pages */}
+                <Route
+                  path={allSearchResultLocations}
+                  component={ResultsOrLanding(
+                    GenericResultsPage,
+                    RedirectToStarSearch
+                  )}
+                />
+                {/* Tools */}
+                <Route
+                  path={LocationToPath[Location.BlastResult]}
+                  component={BlastResult}
+                />
+                <Route
+                  path={LocationToPath[Location.Blast]}
+                  render={() => (
+                    <SingleColumnLayout>
+                      <BlastForm />
+                    </SingleColumnLayout>
+                  )}
+                />
+                <Route
+                  path={LocationToPath[Location.AlignResult]}
+                  component={AlignResult}
+                />
+                <Route
+                  path={LocationToPath[Location.Align]}
+                  render={() => (
+                    <SingleColumnLayout>
+                      <AlignForm />
+                    </SingleColumnLayout>
+                  )}
+                />
+                <Route
+                  path={LocationToPath[Location.PeptideSearchResult]}
+                  component={PeptideSearchResult}
+                />
+                <Route
+                  path={LocationToPath[Location.PeptideSearch]}
+                  render={() => (
+                    <SingleColumnLayout>
+                      <PeptideSearchForm />
+                    </SingleColumnLayout>
+                  )}
+                />
+                <Route
+                  path={LocationToPath[Location.IDMappingResult]}
+                  component={IDMappingResult}
+                />
+                <Route
+                  path={LocationToPath[Location.IDMapping]}
+                  render={() => (
+                    <SingleColumnLayout>
+                      <IDMappingForm />
+                    </SingleColumnLayout>
+                  )}
+                />
+                <Route
+                  path={LocationToPath[Location.Dashboard]}
+                  render={() => (
+                    <SingleColumnLayout>
+                      <Dashboard />
+                    </SingleColumnLayout>
+                  )}
+                />
+                <Route
+                  path={LocationToPath[Location.Basket]}
+                  component={BasketFullView}
+                />
+                <Route
+                  path={LocationToPath[Location.HelpEntry]}
+                  component={HelpEntryPage}
+                />
+                <Route
+                  path={LocationToPath[Location.HelpResults]}
+                  component={ResultsOrLanding(HelpResults, HelpLandingPage)}
+                />
+                <Route
+                  path={LocationToPath[Location.Contact]}
+                  component={() => {
+                    // Temporary redirect to current website
+                    window.location.href = 'https://www.uniprot.org/contact';
+                    return null;
+                  }}
+                />
+                {/* Catch-all handler -> Redirect or not found use ResourceNotFoundPage */}
+                <Route
+                  path="*"
+                  render={() => (
+                    <SingleColumnLayout>
+                      <ResourceNotFoundPage />
+                    </SingleColumnLayout>
+                  )}
+                />
+              </Switch>
+            </Suspense>
+          </BaseLayout>
+          <ErrorBoundary fallback={null}>
+            <GDPR />
+          </ErrorBoundary>
+        </DatabaseInfoMapsProvider>
       </Router>
       <a
         style={reportBugLinkStyles}
