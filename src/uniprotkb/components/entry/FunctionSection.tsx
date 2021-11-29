@@ -54,8 +54,21 @@ export const KineticsView = ({ data }: { data: KineticParameters }) => (
           {data.michaelisConstants.map((km) => (
             <li key={`${km.constant}-${km.substrate}`}>
               K<sub>M</sub>
-              {`=${km.constant}${km.unit} for ${km.substrate} `}
+              {`=${km.constant}${km.unit.replace('uM', 'μM')} for ${
+                km.substrate
+              } `}
               <UniProtKBEvidenceTag evidences={km.evidences} />
+            </li>
+          ))}
+        </ul>
+      )}
+      {data.maximumVelocities && (
+        <ul className="no-bullet">
+          {data.maximumVelocities.map((mv) => (
+            <li key={`${mv.velocity}-${mv.enzyme}`}>
+              V<sub>max</sub>
+              {`=${mv.velocity}${mv.unit} for ${mv.enzyme} `}
+              <UniProtKBEvidenceTag evidences={mv.evidences} />
             </li>
           ))}
         </ul>

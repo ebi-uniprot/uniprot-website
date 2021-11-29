@@ -1413,7 +1413,7 @@ exports[`UniProtKBColumnConfiguration component should render column "kinetics":
         <sub>
           M
         </sub>
-        =2.0999999046325684uM for sub1 
+        =2.0999999046325684μM for sub1 
         <button
           aria-controls="0"
           aria-expanded="false"
@@ -1438,6 +1438,39 @@ exports[`UniProtKBColumnConfiguration component should render column "kinetics":
         />
       </li>
     </ul>
+    <ul
+      class="no-bullet"
+    >
+      <li>
+        V
+        <sub>
+          max
+        </sub>
+        =1unit1 for enzyme1 
+        <button
+          aria-controls="1"
+          aria-expanded="false"
+          class="svg-colour-unreviewed evidence-tag"
+          data-testid="evidence-tag-trigger"
+          type="button"
+        >
+          <test-file-stub
+            height="12"
+            width="12"
+          />
+          <span
+            class="evidence-tag__label"
+          >
+            1 automatic annotation
+          </span>
+        </button>
+        <div
+          class="evidence-tag-content "
+          data-testid="evidence-tag-content"
+          id="1"
+        />
+      </li>
+    </ul>
   </section>
   <section
     class="text-block"
@@ -1447,7 +1480,7 @@ exports[`UniProtKBColumnConfiguration component should render column "kinetics":
     >
       value1.
       <button
-        aria-controls="1"
+        aria-controls="2"
         aria-expanded="false"
         class="svg-colour-unreviewed evidence-tag"
         data-testid="evidence-tag-trigger"
@@ -1466,7 +1499,7 @@ exports[`UniProtKBColumnConfiguration component should render column "kinetics":
       <div
         class="evidence-tag-content "
         data-testid="evidence-tag-content"
-        id="1"
+        id="2"
       />
     </div>
   </section>
