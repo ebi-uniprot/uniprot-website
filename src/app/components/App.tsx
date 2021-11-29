@@ -297,9 +297,12 @@ const DatabaseInfoMapsProvider = ({
   );
   console.log(data, loading);
 
-  if (data) {
-    setDatabaseInfoMaps(getDatabaseInfoMaps(data));
-  }
+  useEffect(() => {
+    if (data) {
+      setDatabaseInfoMaps(getDatabaseInfoMaps(data));
+    }
+  }, [data]);
+
   return (
     <DatabaseInfoMapsContext.Provider
       value={{ databaseInfoMaps, setDatabaseInfoMaps }}
