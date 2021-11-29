@@ -1,11 +1,11 @@
-import { DatabaseInfo } from '../types/databaseRefs';
+import { DatabaseInfo } from '../../../../types/databaseRefs';
 
 // NOTE: UniPathway is a special database in that it is no longer operating due to lack of funding at SIB but we want to keep
 // showing it for when it is up and running again. Until then it will have no uriLink.
 
-// TODO: Switch over to using the allDatabases endpoint as directed in JIRA: https://www.ebi.ac.uk/panda/jira/browse/TRM-24060
 // Source: /configure/uniprotkb/allDatabases
 // Retrieved: 2021-11-29
+
 const databaseInfo: DatabaseInfo = [
   {
     name: 'EMBL',
