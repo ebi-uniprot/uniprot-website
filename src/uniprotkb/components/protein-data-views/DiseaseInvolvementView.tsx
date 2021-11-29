@@ -6,6 +6,7 @@ import { XRef } from './XRefView';
 
 import { DiseaseComment } from '../../types/commentTypes';
 import { databaseToDatabaseInfo } from '../../config/database';
+import { useDBMaps } from '../../../shared/contexts/database';
 
 type DiseaseInvolvementEntryProps = {
   comment: DiseaseComment[][0];
@@ -22,6 +23,7 @@ export const DiseaseInvolvementEntry: FC<DiseaseInvolvementEntryProps> = ({
   comment,
   accession,
 }) => {
+  const dbMaps = useDBMaps();
   const { disease, note } = comment;
 
   if (!disease && !note) {
@@ -65,7 +67,7 @@ export const DiseaseInvolvementEntry: FC<DiseaseInvolvementEntryProps> = ({
 
   if (disease?.diseaseCrossReference) {
     const { database, id } = disease.diseaseCrossReference;
-    if (database && id && databaseToDatabaseInfo[database]) {
+    if (database && id && dbMaps?.databaseToDatabaseInfo[database]) {
       infoData.push({
         title: 'See also',
         content: (
@@ -73,6 +75,7 @@ export const DiseaseInvolvementEntry: FC<DiseaseInvolvementEntryProps> = ({
             database={database}
             xref={disease.diseaseCrossReference}
             primaryAccession={accession}
+            databaseToDatabaseInfo={databaseToDatabaseInfo}
           />
         ),
       });
