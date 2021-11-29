@@ -280,7 +280,7 @@ const RedirectToStarSearch = ({ location }: RouteChildrenProps) => (
   <Redirect to={{ ...location, search: 'query=*' }} />
 );
 
-const DatabaseInfoContext = createContext<DatabaseInfoMaps | null>(null);
+const DatabaseInfoMapsContext = createContext<DatabaseInfoMaps | null>(null);
 
 type DatabaseInfoMapsProviderProps = {
   children: ReactNode;
@@ -301,11 +301,11 @@ const DatabaseInfoMapsProvider = ({
     setDatabaseInfoMaps(getDatabaseInfoMaps(data));
   }
   return (
-    <DatabaseInfoContext.Provider
+    <DatabaseInfoMapsContext.Provider
       value={{ databaseInfoMaps, setDatabaseInfoMaps }}
     >
       {children}
-    </DatabaseInfoContext.Provider>
+    </DatabaseInfoMapsContext.Provider>
   );
 };
 
