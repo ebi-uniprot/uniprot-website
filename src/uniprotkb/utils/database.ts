@@ -7,7 +7,18 @@ import {
 } from '../types/databaseRefs';
 import { Xref } from '../../shared/types/apiModel';
 
-export const getDatabaseInfoMaps = (databaseInfo: DatabaseInfo) => {
+export type DatabaseInfoMaps = {
+  databaseCategoryToNames: Map<DatabaseCategory, string[]>;
+  databaseNameToCategory: Map<string, DatabaseCategory>;
+  databaseToDatabaseInfo: {
+    [database: string]: DatabaseInfoPoint;
+  };
+  implicitDatabaseXRefs: Map<string, Xref>;
+};
+
+export const getDatabaseInfoMaps = (
+  databaseInfo: DatabaseInfo
+): DatabaseInfoMaps => {
   const databaseCategoryToNames = new Map<DatabaseCategory, string[]>();
   const databaseNameToCategory = new Map<string, DatabaseCategory>();
   const databaseToDatabaseInfo: {
