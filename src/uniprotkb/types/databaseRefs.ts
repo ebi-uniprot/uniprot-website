@@ -32,7 +32,7 @@ export type DatabaseInfoPoint = {
   attributes?: AttributesItem[];
   implicit?: boolean;
   linkedReason?: string;
-  idMappingName?: string;
+  idMappingName?: string; // TODO: 2021-11-29: remove as soon as Shadab has hidden this field as we don't use it
 };
 
 export type DatabaseInfo = DatabaseInfoPoint[];
