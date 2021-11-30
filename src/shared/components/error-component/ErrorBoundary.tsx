@@ -20,6 +20,8 @@ type ErrorBoundaryState = { error?: Error; location?: Location };
  * Provide `null` as a fallback to simply hide the error.
  * Will try to rerender on location change.
  */
+
+const chunkError = /chunk/i;
 class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   static defaultProps = { fallback: <ErrorComponent /> };
 
@@ -52,7 +54,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     // Don't log if we're going to try to reload to fix the issue
     if (
       sessionStorage.getItem('reloaded') ||
-      !this.state.error?.name.includes('Chunk')
+      !chunkError.test(this.state.error?.name || '')
     ) {
       logging.error(error, {
         extra: { errorInfo },
@@ -66,7 +68,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
       try {
         if (
           !sessionStorage.getItem('reloaded') &&
-          this.state.error.name.includes('Chunk')
+          chunkError.test(this.state.error.name)
         ) {
           sessionStorage.setItem('reloaded', 'true');
           window.location.reload();
