@@ -2,14 +2,14 @@ import { FC, Fragment } from 'react';
 import { InfoList, ExpandableList } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
+import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
+
 import { getEntryPath } from '../../../app/config/urls';
 
 import { Namespace } from '../../../shared/types/namespaces';
-
 import { Keyword, KeywordUIModel } from '../../utils/KeywordsUtil';
 
-import './styles/keyword-view.scss';
-import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
+import styles from './styles/keyword-view.module.scss';
 
 type KeywordListProps = {
   keywords: Keyword[];
@@ -49,7 +49,7 @@ export const KeywordList: FC<KeywordListProps> = ({
   });
 
   return inline ? (
-    <div className="keyword-view--inline">{content}</div>
+    <div className={styles['keyword-view--inline']}>{content}</div>
   ) : (
     <ExpandableList descriptionString={idOnly ? 'keyword IDs' : 'keywords'}>
       {content}
