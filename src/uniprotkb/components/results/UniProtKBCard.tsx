@@ -8,34 +8,34 @@ import BasketStatus from '../../../basket/BasketStatus';
 import CardCheckboxCell from '../../../shared/components/CardCheckboxCell';
 
 import getProteinHighlights from '../../adapters/proteinHighlights';
-import { getKeywordsForCategories } from '../../utils/KeywordsUtil';
 import { getEntryPath } from '../../../app/config/urls';
 import { getIdKeyFor } from '../../../shared/utils/getIdKeyForNamespace';
 
 import { Namespace } from '../../../shared/types/namespaces';
 
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
+import KeywordCategory from '../../types/keywordCategory';
 
 const getIdKey = getIdKeyFor(Namespace.uniprotkb);
+// We only want to display keywords from 3 groups, not all of them
+const categoriesToShow = new Set<KeywordCategory>([
+  'Molecular function',
+  'Biological process',
+  'Disease',
+]);
 
 const UniProtKBCard = ({ data }: { data: UniProtkbAPIModel }) => {
   const id = getIdKey(data);
 
   const highlights = useMemo(() => getProteinHighlights(data), [data]);
 
-  const keywords = useMemo(() => {
-    if (!data.keywords) {
-      return null;
-    }
-    // We only want to display keywords from 3 groups, not all of them
-    return getKeywordsForCategories(data.keywords, [
-      'Molecular function',
-      'Biological process',
-      'Disease',
-    ])
-      .map(({ keywords }) => keywords)
-      .flat();
-  }, [data.keywords]);
+  const keywords = useMemo(
+    () =>
+      data.keywords?.filter(
+        (kw) => kw.category && categoriesToShow.has(kw.category)
+      ),
+    [data.keywords]
+  );
 
   return (
     <Card
@@ -57,11 +57,11 @@ const UniProtKBCard = ({ data }: { data: UniProtkbAPIModel }) => {
       links={highlights}
     >
       <ProteinOverview data={data} />
-      {keywords && (
+      {keywords?.length ? (
         <small>
           <KeywordList keywords={keywords} inline />
         </small>
-      )}
+      ) : null}
     </Card>
   );
 };

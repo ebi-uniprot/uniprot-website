@@ -194,9 +194,9 @@ exports[`PeptideSearchResult should render with the correct number of results in
                       class="keyword-view--inline"
                     >
                       <a
-                        href="/keywords/KW-0378"
+                        href="/keywords/KW-0225"
                       >
-                         #Hydrolase
+                         #Disease variant
                       </a>
                       <a
                         href="/keywords/KW-0312"
@@ -204,14 +204,14 @@ exports[`PeptideSearchResult should render with the correct number of results in
                          #Gluconeogenesis
                       </a>
                       <a
-                        href="/keywords/KW-0225"
-                      >
-                         #Disease variant
-                      </a>
-                      <a
                         href="/keywords/KW-0322"
                       >
                          #Glycogen storage disease
+                      </a>
+                      <a
+                        href="/keywords/KW-0378"
+                      >
+                         #Hydrolase
                       </a>
                     </div>
                   </small>
@@ -362,16 +362,6 @@ exports[`PeptideSearchResult should render with the correct number of results in
                          #Antiport
                       </a>
                       <a
-                        href="/keywords/KW-0762"
-                      >
-                         #Sugar transport
-                      </a>
-                      <a
-                        href="/keywords/KW-0813"
-                      >
-                         #Transport
-                      </a>
-                      <a
                         href="/keywords/KW-0225"
                       >
                          #Disease variant
@@ -380,6 +370,16 @@ exports[`PeptideSearchResult should render with the correct number of results in
                         href="/keywords/KW-0322"
                       >
                          #Glycogen storage disease
+                      </a>
+                      <a
+                        href="/keywords/KW-0762"
+                      >
+                         #Sugar transport
+                      </a>
+                      <a
+                        href="/keywords/KW-0813"
+                      >
+                         #Transport
                       </a>
                     </div>
                   </small>
@@ -625,9 +625,9 @@ exports[`PeptideSearchResult should render with the correct number of results in
                       class="keyword-view--inline"
                     >
                       <a
-                        href="/keywords/KW-0378"
+                        href="/keywords/KW-0225"
                       >
-                         #Hydrolase
+                         #Disease variant
                       </a>
                       <a
                         href="/keywords/KW-0312"
@@ -635,14 +635,14 @@ exports[`PeptideSearchResult should render with the correct number of results in
                          #Gluconeogenesis
                       </a>
                       <a
-                        href="/keywords/KW-0225"
-                      >
-                         #Disease variant
-                      </a>
-                      <a
                         href="/keywords/KW-0322"
                       >
                          #Glycogen storage disease
+                      </a>
+                      <a
+                        href="/keywords/KW-0378"
+                      >
+                         #Hydrolase
                       </a>
                     </div>
                   </small>
@@ -793,16 +793,6 @@ exports[`PeptideSearchResult should render with the correct number of results in
                          #Antiport
                       </a>
                       <a
-                        href="/keywords/KW-0762"
-                      >
-                         #Sugar transport
-                      </a>
-                      <a
-                        href="/keywords/KW-0813"
-                      >
-                         #Transport
-                      </a>
-                      <a
                         href="/keywords/KW-0225"
                       >
                          #Disease variant
@@ -811,6 +801,16 @@ exports[`PeptideSearchResult should render with the correct number of results in
                         href="/keywords/KW-0322"
                       >
                          #Glycogen storage disease
+                      </a>
+                      <a
+                        href="/keywords/KW-0762"
+                      >
+                         #Sugar transport
+                      </a>
+                      <a
+                        href="/keywords/KW-0813"
+                      >
+                         #Transport
                       </a>
                     </div>
                   </small>
