@@ -2382,6 +2382,9 @@ exports[`Entry view should render 1`] = `
       <div
         class="card__content"
       >
+        <protvista-uniprot-structure
+          accession="P21802"
+        />
         <h3>
           3D structure databases
         </h3>
@@ -5166,14 +5169,9 @@ exports[`Entry view should render for non-human entry 1`] = `
       <div
         class="card__content"
       >
-        <protvista-manager
-          attributes="pdb-id"
-        >
-          <protvista-uniprot-structure
-            accession="P0DTR4"
-            structureid="6N1A"
-          />
-        </protvista-manager>
+        <protvista-uniprot-structure
+          accession="P0DTR4"
+        />
         <h3>
           3D structure databases
         </h3>
