@@ -114,19 +114,11 @@ exports[`ResultsData component should render the card view with the correct numb
                   >
                      #Hydrolase
                   </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
                   <a
                     href="/keywords/KW-0312"
                   >
                      #Gluconeogenesis
                   </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
                   <a
                     href="/keywords/KW-0225"
                   >
@@ -295,10 +287,6 @@ exports[`ResultsData component should render the card view with the correct numb
                   >
                      #Transport
                   </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
                   <a
                     href="/keywords/KW-0225"
                   >
@@ -456,10 +444,6 @@ exports[`ResultsData component should render the card view with the correct numb
                   >
                      #Transport
                   </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
                   <a
                     href="/keywords/KW-0898"
                   >
@@ -805,10 +789,6 @@ exports[`ResultsData component should render the card view with the correct numb
                   >
                      #Transport
                   </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
                   <a
                     href="/keywords/KW-0225"
                   >
@@ -966,19 +946,11 @@ exports[`ResultsData component should render the card view with the correct numb
                   >
                      #Hydrolase
                   </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
                   <a
                     href="/keywords/KW-0312"
                   >
                      #Gluconeogenesis
                   </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
                   <a
                     href="/keywords/KW-0225"
                   >
@@ -1125,10 +1097,6 @@ exports[`ResultsData component should render the card view with the correct numb
                   >
                      #Transport
                   </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
                   <a
                     href="/keywords/KW-0219"
                   >
@@ -1568,10 +1536,6 @@ exports[`ResultsData component should render the card view with the correct numb
                   >
                      #Hydrolase
                   </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
                   <a
                     href="/keywords/KW-0312"
                   >
@@ -1718,10 +1682,6 @@ exports[`ResultsData component should render the card view with the correct numb
                   >
                      #Transport
                   </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
                   <a
                     href="/keywords/KW-0225"
                   >
@@ -2025,10 +1985,6 @@ exports[`ResultsData component should render the card view with the correct numb
                   >
                      #Transport
                   </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
                   <a
                     href="/keywords/KW-0225"
                   >
@@ -2326,10 +2282,6 @@ exports[`ResultsData component should render the card view with the correct numb
                   >
                      #Transferase
                   </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
                   <a
                     href="/keywords/KW-0225"
                   >
@@ -2955,10 +2907,6 @@ exports[`ResultsData component should render the card view with the correct numb
                   >
                      #Transport
                   </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
                   <a
                     href="/keywords/KW-0225"
                   >
@@ -3104,10 +3052,6 @@ exports[`ResultsData component should render the card view with the correct numb
                   >
                      #Oxidoreductase
                   </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
                   <a
                     href="/keywords/KW-0119"
                   >
@@ -3118,10 +3062,6 @@ exports[`ResultsData component should render the card view with the correct numb
                   >
                      #Glucose metabolism
                   </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
                   <a
                     href="/keywords/KW-0225"
                   >
@@ -3297,10 +3237,6 @@ exports[`ResultsData component should render the card view with the correct numb
                   >
                      #Transferase
                   </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
                   <a
                     href="/keywords/KW-0598"
                   >
@@ -3478,10 +3414,6 @@ exports[`ResultsData component should render the card view with the correct numb
                   >
                      #Transferase
                   </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
                   <a
                     href="/keywords/KW-0750"
                   >
@@ -3737,7 +3669,11 @@ exports[`ResultsData component should render the card view with the correct numb
                   </span>
                 </span>
               </section>
-              <small />
+              <small>
+                <div
+                  class="keyword-view--inline"
+                />
+              </small>
             </div>
           </div>
           <div
@@ -3888,10 +3824,6 @@ exports[`ResultsData component should render the card view with the correct numb
                   >
                      #Oxidoreductase
                   </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
                   <a
                     href="/keywords/KW-0119"
                   >
@@ -3902,10 +3834,6 @@ exports[`ResultsData component should render the card view with the correct numb
                   >
                      #Glucose metabolism
                   </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
                   <a
                     href="/keywords/KW-0225"
                   >

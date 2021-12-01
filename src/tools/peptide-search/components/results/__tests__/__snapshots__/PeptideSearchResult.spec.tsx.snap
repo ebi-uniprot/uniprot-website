@@ -198,19 +198,11 @@ exports[`PeptideSearchResult should render with the correct number of results in
                       >
                          #Hydrolase
                       </a>
-                    </div>
-                    <div
-                      class="keyword-view--inline"
-                    >
                       <a
                         href="/keywords/KW-0312"
                       >
                          #Gluconeogenesis
                       </a>
-                    </div>
-                    <div
-                      class="keyword-view--inline"
-                    >
                       <a
                         href="/keywords/KW-0225"
                       >
@@ -379,10 +371,6 @@ exports[`PeptideSearchResult should render with the correct number of results in
                       >
                          #Transport
                       </a>
-                    </div>
-                    <div
-                      class="keyword-view--inline"
-                    >
                       <a
                         href="/keywords/KW-0225"
                       >
@@ -641,19 +629,11 @@ exports[`PeptideSearchResult should render with the correct number of results in
                       >
                          #Hydrolase
                       </a>
-                    </div>
-                    <div
-                      class="keyword-view--inline"
-                    >
                       <a
                         href="/keywords/KW-0312"
                       >
                          #Gluconeogenesis
                       </a>
-                    </div>
-                    <div
-                      class="keyword-view--inline"
-                    >
                       <a
                         href="/keywords/KW-0225"
                       >
@@ -822,10 +802,6 @@ exports[`PeptideSearchResult should render with the correct number of results in
                       >
                          #Transport
                       </a>
-                    </div>
-                    <div
-                      class="keyword-view--inline"
-                    >
                       <a
                         href="/keywords/KW-0225"
                       >

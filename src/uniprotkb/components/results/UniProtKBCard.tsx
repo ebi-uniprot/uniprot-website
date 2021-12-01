@@ -23,24 +23,18 @@ const UniProtKBCard = ({ data }: { data: UniProtkbAPIModel }) => {
 
   const highlights = useMemo(() => getProteinHighlights(data), [data]);
 
-  const keywordsNode = useMemo(() => {
+  const keywords = useMemo(() => {
     if (!data.keywords) {
       return null;
     }
-
-    const categorisedKeywords = getKeywordsForCategories(data.keywords, [
+    // We only want to display keywords from 3 groups, not all of them
+    return getKeywordsForCategories(data.keywords, [
       'Molecular function',
       'Biological process',
       'Disease',
-    ]);
-
-    return categorisedKeywords.map((keywordCategory) => (
-      <KeywordList
-        keywords={keywordCategory.keywords}
-        inline
-        key={keywordCategory.category}
-      />
-    ));
+    ])
+      .map(({ keywords }) => keywords)
+      .flat();
   }, [data.keywords]);
 
   return (
@@ -63,7 +57,11 @@ const UniProtKBCard = ({ data }: { data: UniProtkbAPIModel }) => {
       links={highlights}
     >
       <ProteinOverview data={data} />
-      <small>{keywordsNode}</small>
+      {keywords && (
+        <small>
+          <KeywordList keywords={keywords} inline />
+        </small>
+      )}
     </Card>
   );
 };
