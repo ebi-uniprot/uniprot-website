@@ -194,32 +194,59 @@ exports[`PeptideSearchResult should render with the correct number of results in
                       class="keyword-view--inline"
                     >
                       <a
-                        href="/keywords/KW-0378"
+                        href="/keywords/KW-0025"
                       >
-                         #Hydrolase
+                         #Alternative splicing
                       </a>
-                    </div>
-                    <div
-                      class="keyword-view--inline"
-                    >
-                      <a
-                        href="/keywords/KW-0312"
-                      >
-                         #Gluconeogenesis
-                      </a>
-                    </div>
-                    <div
-                      class="keyword-view--inline"
-                    >
                       <a
                         href="/keywords/KW-0225"
                       >
                          #Disease variant
                       </a>
                       <a
+                        href="/keywords/KW-0256"
+                      >
+                         #Endoplasmic reticulum
+                      </a>
+                      <a
+                        href="/keywords/KW-0312"
+                      >
+                         #Gluconeogenesis
+                      </a>
+                      <a
                         href="/keywords/KW-0322"
                       >
                          #Glycogen storage disease
+                      </a>
+                      <a
+                        href="/keywords/KW-0325"
+                      >
+                         #Glycoprotein
+                      </a>
+                      <a
+                        href="/keywords/KW-0378"
+                      >
+                         #Hydrolase
+                      </a>
+                      <a
+                        href="/keywords/KW-0472"
+                      >
+                         #Membrane
+                      </a>
+                      <a
+                        href="/keywords/KW-1185"
+                      >
+                         #Reference proteome
+                      </a>
+                      <a
+                        href="/keywords/KW-0812"
+                      >
+                         #Transmembrane
+                      </a>
+                      <a
+                        href="/keywords/KW-1133"
+                      >
+                         #Transmembrane helix
                       </a>
                     </div>
                   </small>
@@ -365,9 +392,39 @@ exports[`PeptideSearchResult should render with the correct number of results in
                       class="keyword-view--inline"
                     >
                       <a
+                        href="/keywords/KW-0025"
+                      >
+                         #Alternative splicing
+                      </a>
+                      <a
                         href="/keywords/KW-0050"
                       >
                          #Antiport
+                      </a>
+                      <a
+                        href="/keywords/KW-0225"
+                      >
+                         #Disease variant
+                      </a>
+                      <a
+                        href="/keywords/KW-0256"
+                      >
+                         #Endoplasmic reticulum
+                      </a>
+                      <a
+                        href="/keywords/KW-0322"
+                      >
+                         #Glycogen storage disease
+                      </a>
+                      <a
+                        href="/keywords/KW-0472"
+                      >
+                         #Membrane
+                      </a>
+                      <a
+                        href="/keywords/KW-1185"
+                      >
+                         #Reference proteome
                       </a>
                       <a
                         href="/keywords/KW-0762"
@@ -375,23 +432,19 @@ exports[`PeptideSearchResult should render with the correct number of results in
                          #Sugar transport
                       </a>
                       <a
+                        href="/keywords/KW-0812"
+                      >
+                         #Transmembrane
+                      </a>
+                      <a
+                        href="/keywords/KW-1133"
+                      >
+                         #Transmembrane helix
+                      </a>
+                      <a
                         href="/keywords/KW-0813"
                       >
                          #Transport
-                      </a>
-                    </div>
-                    <div
-                      class="keyword-view--inline"
-                    >
-                      <a
-                        href="/keywords/KW-0225"
-                      >
-                         #Disease variant
-                      </a>
-                      <a
-                        href="/keywords/KW-0322"
-                      >
-                         #Glycogen storage disease
                       </a>
                     </div>
                   </small>
@@ -637,32 +690,59 @@ exports[`PeptideSearchResult should render with the correct number of results in
                       class="keyword-view--inline"
                     >
                       <a
-                        href="/keywords/KW-0378"
+                        href="/keywords/KW-0025"
                       >
-                         #Hydrolase
+                         #Alternative splicing
                       </a>
-                    </div>
-                    <div
-                      class="keyword-view--inline"
-                    >
-                      <a
-                        href="/keywords/KW-0312"
-                      >
-                         #Gluconeogenesis
-                      </a>
-                    </div>
-                    <div
-                      class="keyword-view--inline"
-                    >
                       <a
                         href="/keywords/KW-0225"
                       >
                          #Disease variant
                       </a>
                       <a
+                        href="/keywords/KW-0256"
+                      >
+                         #Endoplasmic reticulum
+                      </a>
+                      <a
+                        href="/keywords/KW-0312"
+                      >
+                         #Gluconeogenesis
+                      </a>
+                      <a
                         href="/keywords/KW-0322"
                       >
                          #Glycogen storage disease
+                      </a>
+                      <a
+                        href="/keywords/KW-0325"
+                      >
+                         #Glycoprotein
+                      </a>
+                      <a
+                        href="/keywords/KW-0378"
+                      >
+                         #Hydrolase
+                      </a>
+                      <a
+                        href="/keywords/KW-0472"
+                      >
+                         #Membrane
+                      </a>
+                      <a
+                        href="/keywords/KW-1185"
+                      >
+                         #Reference proteome
+                      </a>
+                      <a
+                        href="/keywords/KW-0812"
+                      >
+                         #Transmembrane
+                      </a>
+                      <a
+                        href="/keywords/KW-1133"
+                      >
+                         #Transmembrane helix
                       </a>
                     </div>
                   </small>
@@ -808,9 +888,39 @@ exports[`PeptideSearchResult should render with the correct number of results in
                       class="keyword-view--inline"
                     >
                       <a
+                        href="/keywords/KW-0025"
+                      >
+                         #Alternative splicing
+                      </a>
+                      <a
                         href="/keywords/KW-0050"
                       >
                          #Antiport
+                      </a>
+                      <a
+                        href="/keywords/KW-0225"
+                      >
+                         #Disease variant
+                      </a>
+                      <a
+                        href="/keywords/KW-0256"
+                      >
+                         #Endoplasmic reticulum
+                      </a>
+                      <a
+                        href="/keywords/KW-0322"
+                      >
+                         #Glycogen storage disease
+                      </a>
+                      <a
+                        href="/keywords/KW-0472"
+                      >
+                         #Membrane
+                      </a>
+                      <a
+                        href="/keywords/KW-1185"
+                      >
+                         #Reference proteome
                       </a>
                       <a
                         href="/keywords/KW-0762"
@@ -818,23 +928,19 @@ exports[`PeptideSearchResult should render with the correct number of results in
                          #Sugar transport
                       </a>
                       <a
+                        href="/keywords/KW-0812"
+                      >
+                         #Transmembrane
+                      </a>
+                      <a
+                        href="/keywords/KW-1133"
+                      >
+                         #Transmembrane helix
+                      </a>
+                      <a
                         href="/keywords/KW-0813"
                       >
                          #Transport
-                      </a>
-                    </div>
-                    <div
-                      class="keyword-view--inline"
-                    >
-                      <a
-                        href="/keywords/KW-0225"
-                      >
-                         #Disease variant
-                      </a>
-                      <a
-                        href="/keywords/KW-0322"
-                      >
-                         #Glycogen storage disease
                       </a>
                     </div>
                   </small>

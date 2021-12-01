@@ -8,7 +8,6 @@ import BasketStatus from '../../../basket/BasketStatus';
 import CardCheckboxCell from '../../../shared/components/CardCheckboxCell';
 
 import getProteinHighlights from '../../adapters/proteinHighlights';
-import { getKeywordsForCategories } from '../../utils/KeywordsUtil';
 import { getEntryPath } from '../../../app/config/urls';
 import { getIdKeyFor } from '../../../shared/utils/getIdKeyForNamespace';
 
@@ -22,26 +21,6 @@ const UniProtKBCard = ({ data }: { data: UniProtkbAPIModel }) => {
   const id = getIdKey(data);
 
   const highlights = useMemo(() => getProteinHighlights(data), [data]);
-
-  const keywordsNode = useMemo(() => {
-    if (!data.keywords) {
-      return null;
-    }
-
-    const categorisedKeywords = getKeywordsForCategories(data.keywords, [
-      'Molecular function',
-      'Biological process',
-      'Disease',
-    ]);
-
-    return categorisedKeywords.map((keywordCategory) => (
-      <KeywordList
-        keywords={keywordCategory.keywords}
-        inline
-        key={keywordCategory.category}
-      />
-    ));
-  }, [data.keywords]);
 
   return (
     <Card
@@ -63,7 +42,11 @@ const UniProtKBCard = ({ data }: { data: UniProtkbAPIModel }) => {
       links={highlights}
     >
       <ProteinOverview data={data} />
-      <small>{keywordsNode}</small>
+      {data.keywords && (
+        <small>
+          <KeywordList keywords={data.keywords} inline />
+        </small>
+      )}
     </Card>
   );
 };

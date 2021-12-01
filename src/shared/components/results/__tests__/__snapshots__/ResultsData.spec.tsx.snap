@@ -110,32 +110,59 @@ exports[`ResultsData component should render the card view with the correct numb
                   class="keyword-view--inline"
                 >
                   <a
-                    href="/keywords/KW-0378"
+                    href="/keywords/KW-0025"
                   >
-                     #Hydrolase
+                     #Alternative splicing
                   </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
-                  <a
-                    href="/keywords/KW-0312"
-                  >
-                     #Gluconeogenesis
-                  </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
                   <a
                     href="/keywords/KW-0225"
                   >
                      #Disease variant
                   </a>
                   <a
+                    href="/keywords/KW-0256"
+                  >
+                     #Endoplasmic reticulum
+                  </a>
+                  <a
+                    href="/keywords/KW-0312"
+                  >
+                     #Gluconeogenesis
+                  </a>
+                  <a
                     href="/keywords/KW-0322"
                   >
                      #Glycogen storage disease
+                  </a>
+                  <a
+                    href="/keywords/KW-0325"
+                  >
+                     #Glycoprotein
+                  </a>
+                  <a
+                    href="/keywords/KW-0378"
+                  >
+                     #Hydrolase
+                  </a>
+                  <a
+                    href="/keywords/KW-0472"
+                  >
+                     #Membrane
+                  </a>
+                  <a
+                    href="/keywords/KW-1185"
+                  >
+                     #Reference proteome
+                  </a>
+                  <a
+                    href="/keywords/KW-0812"
+                  >
+                     #Transmembrane
+                  </a>
+                  <a
+                    href="/keywords/KW-1133"
+                  >
+                     #Transmembrane helix
                   </a>
                 </div>
               </small>
@@ -281,9 +308,39 @@ exports[`ResultsData component should render the card view with the correct numb
                   class="keyword-view--inline"
                 >
                   <a
+                    href="/keywords/KW-0025"
+                  >
+                     #Alternative splicing
+                  </a>
+                  <a
                     href="/keywords/KW-0050"
                   >
                      #Antiport
+                  </a>
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                     #Disease variant
+                  </a>
+                  <a
+                    href="/keywords/KW-0256"
+                  >
+                     #Endoplasmic reticulum
+                  </a>
+                  <a
+                    href="/keywords/KW-0322"
+                  >
+                     #Glycogen storage disease
+                  </a>
+                  <a
+                    href="/keywords/KW-0472"
+                  >
+                     #Membrane
+                  </a>
+                  <a
+                    href="/keywords/KW-1185"
+                  >
+                     #Reference proteome
                   </a>
                   <a
                     href="/keywords/KW-0762"
@@ -291,23 +348,19 @@ exports[`ResultsData component should render the card view with the correct numb
                      #Sugar transport
                   </a>
                   <a
+                    href="/keywords/KW-0812"
+                  >
+                     #Transmembrane
+                  </a>
+                  <a
+                    href="/keywords/KW-1133"
+                  >
+                     #Transmembrane helix
+                  </a>
+                  <a
                     href="/keywords/KW-0813"
                   >
                      #Transport
-                  </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
-                  <a
-                    href="/keywords/KW-0225"
-                  >
-                     #Disease variant
-                  </a>
-                  <a
-                    href="/keywords/KW-0322"
-                  >
-                     #Glycogen storage disease
                   </a>
                 </div>
               </small>
@@ -447,23 +500,29 @@ exports[`ResultsData component should render the card view with the correct numb
                   class="keyword-view--inline"
                 >
                   <a
-                    href="/keywords/KW-0762"
+                    href="/keywords/KW-0002"
                   >
-                     #Sugar transport
+                     #3D-structure
                   </a>
                   <a
-                    href="/keywords/KW-0813"
+                    href="/keywords/KW-0007"
                   >
-                     #Transport
+                     #Acetylation
                   </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
                   <a
                     href="/keywords/KW-0898"
                   >
                      #Cataract
+                  </a>
+                  <a
+                    href="/keywords/KW-1003"
+                  >
+                     #Cell membrane
+                  </a>
+                  <a
+                    href="/keywords/KW-0903"
+                  >
+                     #Direct protein sequencing
                   </a>
                   <a
                     href="/keywords/KW-0225"
@@ -481,14 +540,54 @@ exports[`ResultsData component should render the card view with the correct numb
                      #Epilepsy
                   </a>
                   <a
+                    href="/keywords/KW-0325"
+                  >
+                     #Glycoprotein
+                  </a>
+                  <a
                     href="/keywords/KW-0360"
                   >
                      #Hereditary hemolytic anemia
                   </a>
                   <a
+                    href="/keywords/KW-0472"
+                  >
+                     #Membrane
+                  </a>
+                  <a
                     href="/keywords/KW-0991"
                   >
                      #Mental retardation
+                  </a>
+                  <a
+                    href="/keywords/KW-0597"
+                  >
+                     #Phosphoprotein
+                  </a>
+                  <a
+                    href="/keywords/KW-1185"
+                  >
+                     #Reference proteome
+                  </a>
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                     #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0812"
+                  >
+                     #Transmembrane
+                  </a>
+                  <a
+                    href="/keywords/KW-1133"
+                  >
+                     #Transmembrane helix
+                  </a>
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                     #Transport
                   </a>
                 </div>
               </small>
@@ -634,9 +733,54 @@ exports[`ResultsData component should render the card view with the correct numb
                   class="keyword-view--inline"
                 >
                   <a
+                    href="/keywords/KW-0002"
+                  >
+                     #3D-structure
+                  </a>
+                  <a
+                    href="/keywords/KW-1003"
+                  >
+                     #Cell membrane
+                  </a>
+                  <a
+                    href="/keywords/KW-0966"
+                  >
+                     #Cell projection
+                  </a>
+                  <a
+                    href="/keywords/KW-0325"
+                  >
+                     #Glycoprotein
+                  </a>
+                  <a
+                    href="/keywords/KW-0472"
+                  >
+                     #Membrane
+                  </a>
+                  <a
+                    href="/keywords/KW-0597"
+                  >
+                     #Phosphoprotein
+                  </a>
+                  <a
+                    href="/keywords/KW-1185"
+                  >
+                     #Reference proteome
+                  </a>
+                  <a
                     href="/keywords/KW-0762"
                   >
                      #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0812"
+                  >
+                     #Transmembrane
+                  </a>
+                  <a
+                    href="/keywords/KW-1133"
+                  >
+                     #Transmembrane helix
                   </a>
                   <a
                     href="/keywords/KW-0813"
@@ -781,9 +925,49 @@ exports[`ResultsData component should render the card view with the correct numb
                   class="keyword-view--inline"
                 >
                   <a
+                    href="/keywords/KW-0025"
+                  >
+                     #Alternative splicing
+                  </a>
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                     #Disease variant
+                  </a>
+                  <a
+                    href="/keywords/KW-1015"
+                  >
+                     #Disulfide bond
+                  </a>
+                  <a
+                    href="/keywords/KW-0325"
+                  >
+                     #Glycoprotein
+                  </a>
+                  <a
                     href="/keywords/KW-0406"
                   >
                      #Ion transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0472"
+                  >
+                     #Membrane
+                  </a>
+                  <a
+                    href="/keywords/KW-0597"
+                  >
+                     #Phosphoprotein
+                  </a>
+                  <a
+                    href="/keywords/KW-1185"
+                  >
+                     #Reference proteome
+                  </a>
+                  <a
+                    href="/keywords/KW-0915"
+                  >
+                     #Sodium
                   </a>
                   <a
                     href="/keywords/KW-0739"
@@ -801,18 +985,19 @@ exports[`ResultsData component should render the card view with the correct numb
                      #Symport
                   </a>
                   <a
+                    href="/keywords/KW-0812"
+                  >
+                     #Transmembrane
+                  </a>
+                  <a
+                    href="/keywords/KW-1133"
+                  >
+                     #Transmembrane helix
+                  </a>
+                  <a
                     href="/keywords/KW-0813"
                   >
                      #Transport
-                  </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
-                  <a
-                    href="/keywords/KW-0225"
-                  >
-                     #Disease variant
                   </a>
                 </div>
               </small>
@@ -962,27 +1147,44 @@ exports[`ResultsData component should render the card view with the correct numb
                   class="keyword-view--inline"
                 >
                   <a
-                    href="/keywords/KW-0378"
+                    href="/keywords/KW-0225"
                   >
-                     #Hydrolase
+                     #Disease variant
                   </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
+                  <a
+                    href="/keywords/KW-0256"
+                  >
+                     #Endoplasmic reticulum
+                  </a>
                   <a
                     href="/keywords/KW-0312"
                   >
                      #Gluconeogenesis
                   </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
                   <a
-                    href="/keywords/KW-0225"
+                    href="/keywords/KW-0378"
                   >
-                     #Disease variant
+                     #Hydrolase
+                  </a>
+                  <a
+                    href="/keywords/KW-0472"
+                  >
+                     #Membrane
+                  </a>
+                  <a
+                    href="/keywords/KW-1185"
+                  >
+                     #Reference proteome
+                  </a>
+                  <a
+                    href="/keywords/KW-0812"
+                  >
+                     #Transmembrane
+                  </a>
+                  <a
+                    href="/keywords/KW-1133"
+                  >
+                     #Transmembrane helix
                   </a>
                 </div>
               </small>
@@ -1116,19 +1318,20 @@ exports[`ResultsData component should render the card view with the correct numb
                   class="keyword-view--inline"
                 >
                   <a
-                    href="/keywords/KW-0762"
+                    href="/keywords/KW-0025"
                   >
-                     #Sugar transport
+                     #Alternative splicing
                   </a>
                   <a
-                    href="/keywords/KW-0813"
+                    href="/keywords/KW-1003"
                   >
-                     #Transport
+                     #Cell membrane
                   </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
+                  <a
+                    href="/keywords/KW-0963"
+                  >
+                     #Cytoplasm
+                  </a>
                   <a
                     href="/keywords/KW-0219"
                   >
@@ -1138,6 +1341,61 @@ exports[`ResultsData component should render the card view with the correct numb
                     href="/keywords/KW-0225"
                   >
                      #Disease variant
+                  </a>
+                  <a
+                    href="/keywords/KW-0325"
+                  >
+                     #Glycoprotein
+                  </a>
+                  <a
+                    href="/keywords/KW-0449"
+                  >
+                     #Lipoprotein
+                  </a>
+                  <a
+                    href="/keywords/KW-0472"
+                  >
+                     #Membrane
+                  </a>
+                  <a
+                    href="/keywords/KW-0564"
+                  >
+                     #Palmitate
+                  </a>
+                  <a
+                    href="/keywords/KW-0597"
+                  >
+                     #Phosphoprotein
+                  </a>
+                  <a
+                    href="/keywords/KW-1185"
+                  >
+                     #Reference proteome
+                  </a>
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                     #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0812"
+                  >
+                     #Transmembrane
+                  </a>
+                  <a
+                    href="/keywords/KW-1133"
+                  >
+                     #Transmembrane helix
+                  </a>
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                     #Transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0832"
+                  >
+                     #Ubl conjugation
                   </a>
                 </div>
               </small>
@@ -1283,9 +1541,44 @@ exports[`ResultsData component should render the card view with the correct numb
                   class="keyword-view--inline"
                 >
                   <a
+                    href="/keywords/KW-1003"
+                  >
+                     #Cell membrane
+                  </a>
+                  <a
+                    href="/keywords/KW-0968"
+                  >
+                     #Cytoplasmic vesicle
+                  </a>
+                  <a
+                    href="/keywords/KW-0325"
+                  >
+                     #Glycoprotein
+                  </a>
+                  <a
+                    href="/keywords/KW-0472"
+                  >
+                     #Membrane
+                  </a>
+                  <a
+                    href="/keywords/KW-1185"
+                  >
+                     #Reference proteome
+                  </a>
+                  <a
                     href="/keywords/KW-0762"
                   >
                      #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0812"
+                  >
+                     #Transmembrane
+                  </a>
+                  <a
+                    href="/keywords/KW-1133"
+                  >
+                     #Transmembrane helix
                   </a>
                   <a
                     href="/keywords/KW-0813"
@@ -1412,9 +1705,49 @@ exports[`ResultsData component should render the card view with the correct numb
                   class="keyword-view--inline"
                 >
                   <a
+                    href="/keywords/KW-0025"
+                  >
+                     #Alternative splicing
+                  </a>
+                  <a
+                    href="/keywords/KW-1003"
+                  >
+                     #Cell membrane
+                  </a>
+                  <a
                     href="/keywords/KW-0225"
                   >
                      #Disease variant
+                  </a>
+                  <a
+                    href="/keywords/KW-0325"
+                  >
+                     #Glycoprotein
+                  </a>
+                  <a
+                    href="/keywords/KW-0472"
+                  >
+                     #Membrane
+                  </a>
+                  <a
+                    href="/keywords/KW-0597"
+                  >
+                     #Phosphoprotein
+                  </a>
+                  <a
+                    href="/keywords/KW-1185"
+                  >
+                     #Reference proteome
+                  </a>
+                  <a
+                    href="/keywords/KW-0812"
+                  >
+                     #Transmembrane
+                  </a>
+                  <a
+                    href="/keywords/KW-1133"
+                  >
+                     #Transmembrane helix
                   </a>
                 </div>
               </small>
@@ -1564,18 +1897,49 @@ exports[`ResultsData component should render the card view with the correct numb
                   class="keyword-view--inline"
                 >
                   <a
-                    href="/keywords/KW-0378"
+                    href="/keywords/KW-0025"
                   >
-                     #Hydrolase
+                     #Alternative splicing
                   </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
+                  <a
+                    href="/keywords/KW-0256"
+                  >
+                     #Endoplasmic reticulum
+                  </a>
                   <a
                     href="/keywords/KW-0312"
                   >
                      #Gluconeogenesis
+                  </a>
+                  <a
+                    href="/keywords/KW-0325"
+                  >
+                     #Glycoprotein
+                  </a>
+                  <a
+                    href="/keywords/KW-0378"
+                  >
+                     #Hydrolase
+                  </a>
+                  <a
+                    href="/keywords/KW-0472"
+                  >
+                     #Membrane
+                  </a>
+                  <a
+                    href="/keywords/KW-1185"
+                  >
+                     #Reference proteome
+                  </a>
+                  <a
+                    href="/keywords/KW-0812"
+                  >
+                     #Transmembrane
+                  </a>
+                  <a
+                    href="/keywords/KW-1133"
+                  >
+                     #Transmembrane helix
                   </a>
                 </div>
               </small>
@@ -1709,23 +2073,59 @@ exports[`ResultsData component should render the card view with the correct numb
                   class="keyword-view--inline"
                 >
                   <a
+                    href="/keywords/KW-0025"
+                  >
+                     #Alternative splicing
+                  </a>
+                  <a
+                    href="/keywords/KW-1003"
+                  >
+                     #Cell membrane
+                  </a>
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                     #Disease variant
+                  </a>
+                  <a
+                    href="/keywords/KW-0325"
+                  >
+                     #Glycoprotein
+                  </a>
+                  <a
+                    href="/keywords/KW-0472"
+                  >
+                     #Membrane
+                  </a>
+                  <a
+                    href="/keywords/KW-0597"
+                  >
+                     #Phosphoprotein
+                  </a>
+                  <a
+                    href="/keywords/KW-1185"
+                  >
+                     #Reference proteome
+                  </a>
+                  <a
                     href="/keywords/KW-0762"
                   >
                      #Sugar transport
                   </a>
                   <a
+                    href="/keywords/KW-0812"
+                  >
+                     #Transmembrane
+                  </a>
+                  <a
+                    href="/keywords/KW-1133"
+                  >
+                     #Transmembrane helix
+                  </a>
+                  <a
                     href="/keywords/KW-0813"
                   >
                      #Transport
-                  </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
-                  <a
-                    href="/keywords/KW-0225"
-                  >
-                     #Disease variant
                   </a>
                 </div>
               </small>
@@ -1869,9 +2269,39 @@ exports[`ResultsData component should render the card view with the correct numb
                   class="keyword-view--inline"
                 >
                   <a
+                    href="/keywords/KW-0025"
+                  >
+                     #Alternative splicing
+                  </a>
+                  <a
+                    href="/keywords/KW-0256"
+                  >
+                     #Endoplasmic reticulum
+                  </a>
+                  <a
+                    href="/keywords/KW-0325"
+                  >
+                     #Glycoprotein
+                  </a>
+                  <a
                     href="/keywords/KW-0328"
                   >
                      #Glycosyltransferase
+                  </a>
+                  <a
+                    href="/keywords/KW-0597"
+                  >
+                     #Phosphoprotein
+                  </a>
+                  <a
+                    href="/keywords/KW-1185"
+                  >
+                     #Reference proteome
+                  </a>
+                  <a
+                    href="/keywords/KW-0732"
+                  >
+                     #Signal
                   </a>
                   <a
                     href="/keywords/KW-0808"
@@ -2016,23 +2446,49 @@ exports[`ResultsData component should render the card view with the correct numb
                   class="keyword-view--inline"
                 >
                   <a
+                    href="/keywords/KW-0963"
+                  >
+                     #Cytoplasm
+                  </a>
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                     #Disease variant
+                  </a>
+                  <a
+                    href="/keywords/KW-0325"
+                  >
+                     #Glycoprotein
+                  </a>
+                  <a
+                    href="/keywords/KW-0472"
+                  >
+                     #Membrane
+                  </a>
+                  <a
+                    href="/keywords/KW-1185"
+                  >
+                     #Reference proteome
+                  </a>
+                  <a
                     href="/keywords/KW-0762"
                   >
                      #Sugar transport
                   </a>
                   <a
+                    href="/keywords/KW-0812"
+                  >
+                     #Transmembrane
+                  </a>
+                  <a
+                    href="/keywords/KW-1133"
+                  >
+                     #Transmembrane helix
+                  </a>
+                  <a
                     href="/keywords/KW-0813"
                   >
                      #Transport
-                  </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
-                  <a
-                    href="/keywords/KW-0225"
-                  >
-                     #Disease variant
                   </a>
                 </div>
               </small>
@@ -2160,9 +2616,54 @@ exports[`ResultsData component should render the card view with the correct numb
                   class="keyword-view--inline"
                 >
                   <a
+                    href="/keywords/KW-0002"
+                  >
+                     #3D-structure
+                  </a>
+                  <a
+                    href="/keywords/KW-0007"
+                  >
+                     #Acetylation
+                  </a>
+                  <a
+                    href="/keywords/KW-0025"
+                  >
+                     #Alternative splicing
+                  </a>
+                  <a
+                    href="/keywords/KW-1003"
+                  >
+                     #Cell membrane
+                  </a>
+                  <a
+                    href="/keywords/KW-0325"
+                  >
+                     #Glycoprotein
+                  </a>
+                  <a
+                    href="/keywords/KW-0472"
+                  >
+                     #Membrane
+                  </a>
+                  <a
+                    href="/keywords/KW-1185"
+                  >
+                     #Reference proteome
+                  </a>
+                  <a
                     href="/keywords/KW-0762"
                   >
                      #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0812"
+                  >
+                     #Transmembrane
+                  </a>
+                  <a
+                    href="/keywords/KW-1133"
+                  >
+                     #Transmembrane helix
                   </a>
                   <a
                     href="/keywords/KW-0813"
@@ -2317,19 +2818,25 @@ exports[`ResultsData component should render the card view with the correct numb
                   class="keyword-view--inline"
                 >
                   <a
-                    href="/keywords/KW-0548"
+                    href="/keywords/KW-0002"
                   >
-                     #Nucleotidyltransferase
+                     #3D-structure
                   </a>
                   <a
-                    href="/keywords/KW-0808"
+                    href="/keywords/KW-0007"
                   >
-                     #Transferase
+                     #Acetylation
                   </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
+                  <a
+                    href="/keywords/KW-0025"
+                  >
+                     #Alternative splicing
+                  </a>
+                  <a
+                    href="/keywords/KW-0963"
+                  >
+                     #Cytoplasm
+                  </a>
                   <a
                     href="/keywords/KW-0225"
                   >
@@ -2339,6 +2846,36 @@ exports[`ResultsData component should render the card view with the correct numb
                     href="/keywords/KW-0887"
                   >
                      #Epilepsy
+                  </a>
+                  <a
+                    href="/keywords/KW-0460"
+                  >
+                     #Magnesium
+                  </a>
+                  <a
+                    href="/keywords/KW-0479"
+                  >
+                     #Metal-binding
+                  </a>
+                  <a
+                    href="/keywords/KW-0548"
+                  >
+                     #Nucleotidyltransferase
+                  </a>
+                  <a
+                    href="/keywords/KW-0597"
+                  >
+                     #Phosphoprotein
+                  </a>
+                  <a
+                    href="/keywords/KW-1185"
+                  >
+                     #Reference proteome
+                  </a>
+                  <a
+                    href="/keywords/KW-0808"
+                  >
+                     #Transferase
                   </a>
                 </div>
               </small>
@@ -2496,6 +3033,11 @@ exports[`ResultsData component should render the card view with the correct numb
                   class="keyword-view--inline"
                 >
                   <a
+                    href="/keywords/KW-0025"
+                  >
+                     #Alternative splicing
+                  </a>
+                  <a
                     href="/keywords/KW-0053"
                   >
                      #Apoptosis
@@ -2504,6 +3046,21 @@ exports[`ResultsData component should render the card view with the correct numb
                     href="/keywords/KW-0406"
                   >
                      #Ion transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0472"
+                  >
+                     #Membrane
+                  </a>
+                  <a
+                    href="/keywords/KW-1185"
+                  >
+                     #Reference proteome
+                  </a>
+                  <a
+                    href="/keywords/KW-0915"
+                  >
+                     #Sodium
                   </a>
                   <a
                     href="/keywords/KW-0739"
@@ -2519,6 +3076,16 @@ exports[`ResultsData component should render the card view with the correct numb
                     href="/keywords/KW-0769"
                   >
                      #Symport
+                  </a>
+                  <a
+                    href="/keywords/KW-0812"
+                  >
+                     #Transmembrane
+                  </a>
+                  <a
+                    href="/keywords/KW-1133"
+                  >
+                     #Transmembrane helix
                   </a>
                   <a
                     href="/keywords/KW-0813"
@@ -2657,9 +3224,44 @@ exports[`ResultsData component should render the card view with the correct numb
                   class="keyword-view--inline"
                 >
                   <a
+                    href="/keywords/KW-0025"
+                  >
+                     #Alternative splicing
+                  </a>
+                  <a
+                    href="/keywords/KW-1003"
+                  >
+                     #Cell membrane
+                  </a>
+                  <a
+                    href="/keywords/KW-0325"
+                  >
+                     #Glycoprotein
+                  </a>
+                  <a
+                    href="/keywords/KW-0472"
+                  >
+                     #Membrane
+                  </a>
+                  <a
+                    href="/keywords/KW-1185"
+                  >
+                     #Reference proteome
+                  </a>
+                  <a
                     href="/keywords/KW-0762"
                   >
                      #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0812"
+                  >
+                     #Transmembrane
+                  </a>
+                  <a
+                    href="/keywords/KW-1133"
+                  >
+                     #Transmembrane helix
                   </a>
                   <a
                     href="/keywords/KW-0813"
@@ -2796,9 +3398,39 @@ exports[`ResultsData component should render the card view with the correct numb
                   class="keyword-view--inline"
                 >
                   <a
+                    href="/keywords/KW-0025"
+                  >
+                     #Alternative splicing
+                  </a>
+                  <a
+                    href="/keywords/KW-0256"
+                  >
+                     #Endoplasmic reticulum
+                  </a>
+                  <a
+                    href="/keywords/KW-0325"
+                  >
+                     #Glycoprotein
+                  </a>
+                  <a
                     href="/keywords/KW-0328"
                   >
                      #Glycosyltransferase
+                  </a>
+                  <a
+                    href="/keywords/KW-0597"
+                  >
+                     #Phosphoprotein
+                  </a>
+                  <a
+                    href="/keywords/KW-1185"
+                  >
+                     #Reference proteome
+                  </a>
+                  <a
+                    href="/keywords/KW-0732"
+                  >
+                     #Signal
                   </a>
                   <a
                     href="/keywords/KW-0808"
@@ -2931,9 +3563,39 @@ exports[`ResultsData component should render the card view with the correct numb
                   class="keyword-view--inline"
                 >
                   <a
+                    href="/keywords/KW-0025"
+                  >
+                     #Alternative splicing
+                  </a>
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                     #Disease variant
+                  </a>
+                  <a
+                    href="/keywords/KW-0325"
+                  >
+                     #Glycoprotein
+                  </a>
+                  <a
                     href="/keywords/KW-0406"
                   >
                      #Ion transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0472"
+                  >
+                     #Membrane
+                  </a>
+                  <a
+                    href="/keywords/KW-1185"
+                  >
+                     #Reference proteome
+                  </a>
+                  <a
+                    href="/keywords/KW-0915"
+                  >
+                     #Sodium
                   </a>
                   <a
                     href="/keywords/KW-0739"
@@ -2951,18 +3613,19 @@ exports[`ResultsData component should render the card view with the correct numb
                      #Symport
                   </a>
                   <a
+                    href="/keywords/KW-0812"
+                  >
+                     #Transmembrane
+                  </a>
+                  <a
+                    href="/keywords/KW-1133"
+                  >
+                     #Transmembrane helix
+                  </a>
+                  <a
                     href="/keywords/KW-0813"
                   >
                      #Transport
-                  </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
-                  <a
-                    href="/keywords/KW-0225"
-                  >
-                     #Disease variant
                   </a>
                 </div>
               </small>
@@ -3100,37 +3763,74 @@ exports[`ResultsData component should render the card view with the correct numb
                   class="keyword-view--inline"
                 >
                   <a
-                    href="/keywords/KW-0560"
+                    href="/keywords/KW-0002"
                   >
-                     #Oxidoreductase
+                     #3D-structure
                   </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
+                  <a
+                    href="/keywords/KW-0007"
+                  >
+                     #Acetylation
+                  </a>
+                  <a
+                    href="/keywords/KW-0025"
+                  >
+                     #Alternative splicing
+                  </a>
                   <a
                     href="/keywords/KW-0119"
                   >
                      #Carbohydrate metabolism
                   </a>
                   <a
-                    href="/keywords/KW-0313"
+                    href="/keywords/KW-0963"
                   >
-                     #Glucose metabolism
+                     #Cytoplasm
                   </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
+                  <a
+                    href="/keywords/KW-0903"
+                  >
+                     #Direct protein sequencing
+                  </a>
                   <a
                     href="/keywords/KW-0225"
                   >
                      #Disease variant
                   </a>
                   <a
+                    href="/keywords/KW-0313"
+                  >
+                     #Glucose metabolism
+                  </a>
+                  <a
                     href="/keywords/KW-0360"
                   >
                      #Hereditary hemolytic anemia
+                  </a>
+                  <a
+                    href="/keywords/KW-0472"
+                  >
+                     #Membrane
+                  </a>
+                  <a
+                    href="/keywords/KW-0521"
+                  >
+                     #NADP
+                  </a>
+                  <a
+                    href="/keywords/KW-0560"
+                  >
+                     #Oxidoreductase
+                  </a>
+                  <a
+                    href="/keywords/KW-0597"
+                  >
+                     #Phosphoprotein
+                  </a>
+                  <a
+                    href="/keywords/KW-1185"
+                  >
+                     #Reference proteome
                   </a>
                 </div>
               </small>
@@ -3288,28 +3988,69 @@ exports[`ResultsData component should render the card view with the correct numb
                   class="keyword-view--inline"
                 >
                   <a
+                    href="/keywords/KW-0002"
+                  >
+                     #3D-structure
+                  </a>
+                  <a
+                    href="/keywords/KW-0997"
+                  >
+                     #Cell inner membrane
+                  </a>
+                  <a
+                    href="/keywords/KW-1003"
+                  >
+                     #Cell membrane
+                  </a>
+                  <a
+                    href="/keywords/KW-0903"
+                  >
+                     #Direct protein sequencing
+                  </a>
+                  <a
                     href="/keywords/KW-0418"
                   >
                      #Kinase
                   </a>
                   <a
-                    href="/keywords/KW-0808"
+                    href="/keywords/KW-0472"
                   >
-                     #Transferase
+                     #Membrane
                   </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
+                  <a
+                    href="/keywords/KW-0597"
+                  >
+                     #Phosphoprotein
+                  </a>
                   <a
                     href="/keywords/KW-0598"
                   >
                      #Phosphotransferase system
                   </a>
                   <a
+                    href="/keywords/KW-1185"
+                  >
+                     #Reference proteome
+                  </a>
+                  <a
                     href="/keywords/KW-0762"
                   >
                      #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0808"
+                  >
+                     #Transferase
+                  </a>
+                  <a
+                    href="/keywords/KW-0812"
+                  >
+                     #Transmembrane
+                  </a>
+                  <a
+                    href="/keywords/KW-1133"
+                  >
+                     #Transmembrane helix
                   </a>
                   <a
                     href="/keywords/KW-0813"
@@ -3469,23 +4210,64 @@ exports[`ResultsData component should render the card view with the correct numb
                      #Allosteric enzyme
                   </a>
                   <a
+                    href="/keywords/KW-0025"
+                  >
+                     #Alternative splicing
+                  </a>
+                  <a
+                    href="/keywords/KW-0035"
+                  >
+                     #Amyloplast
+                  </a>
+                  <a
+                    href="/keywords/KW-0067"
+                  >
+                     #ATP-binding
+                  </a>
+                  <a
+                    href="/keywords/KW-0150"
+                  >
+                     #Chloroplast
+                  </a>
+                  <a
+                    href="/keywords/KW-0963"
+                  >
+                     #Cytoplasm
+                  </a>
+                  <a
+                    href="/keywords/KW-0547"
+                  >
+                     #Nucleotide-binding
+                  </a>
+                  <a
                     href="/keywords/KW-0548"
                   >
                      #Nucleotidyltransferase
+                  </a>
+                  <a
+                    href="/keywords/KW-0934"
+                  >
+                     #Plastid
+                  </a>
+                  <a
+                    href="/keywords/KW-1185"
+                  >
+                     #Reference proteome
+                  </a>
+                  <a
+                    href="/keywords/KW-0750"
+                  >
+                     #Starch biosynthesis
                   </a>
                   <a
                     href="/keywords/KW-0808"
                   >
                      #Transferase
                   </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
                   <a
-                    href="/keywords/KW-0750"
+                    href="/keywords/KW-0809"
                   >
-                     #Starch biosynthesis
+                     #Transit peptide
                   </a>
                 </div>
               </small>
@@ -3607,9 +4389,44 @@ exports[`ResultsData component should render the card view with the correct numb
                   class="keyword-view--inline"
                 >
                   <a
+                    href="/keywords/KW-0002"
+                  >
+                     #3D-structure
+                  </a>
+                  <a
+                    href="/keywords/KW-1003"
+                  >
+                     #Cell membrane
+                  </a>
+                  <a
+                    href="/keywords/KW-0325"
+                  >
+                     #Glycoprotein
+                  </a>
+                  <a
+                    href="/keywords/KW-0472"
+                  >
+                     #Membrane
+                  </a>
+                  <a
+                    href="/keywords/KW-1185"
+                  >
+                     #Reference proteome
+                  </a>
+                  <a
                     href="/keywords/KW-0762"
                   >
                      #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0812"
+                  >
+                     #Transmembrane
+                  </a>
+                  <a
+                    href="/keywords/KW-1133"
+                  >
+                     #Transmembrane helix
                   </a>
                   <a
                     href="/keywords/KW-0813"
@@ -3737,7 +4554,32 @@ exports[`ResultsData component should render the card view with the correct numb
                   </span>
                 </span>
               </section>
-              <small />
+              <small>
+                <div
+                  class="keyword-view--inline"
+                >
+                  <a
+                    href="/keywords/KW-0025"
+                  >
+                     #Alternative splicing
+                  </a>
+                  <a
+                    href="/keywords/KW-0597"
+                  >
+                     #Phosphoprotein
+                  </a>
+                  <a
+                    href="/keywords/KW-1185"
+                  >
+                     #Reference proteome
+                  </a>
+                  <a
+                    href="/keywords/KW-0964"
+                  >
+                     #Secreted
+                  </a>
+                </div>
+              </small>
             </div>
           </div>
           <div
@@ -3874,6 +4716,36 @@ exports[`ResultsData component should render the card view with the correct numb
                   class="keyword-view--inline"
                 >
                   <a
+                    href="/keywords/KW-0025"
+                  >
+                     #Alternative splicing
+                  </a>
+                  <a
+                    href="/keywords/KW-0119"
+                  >
+                     #Carbohydrate metabolism
+                  </a>
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                     #Disease variant
+                  </a>
+                  <a
+                    href="/keywords/KW-0256"
+                  >
+                     #Endoplasmic reticulum
+                  </a>
+                  <a
+                    href="/keywords/KW-0313"
+                  >
+                     #Glucose metabolism
+                  </a>
+                  <a
+                    href="/keywords/KW-0325"
+                  >
+                     #Glycoprotein
+                  </a>
+                  <a
                     href="/keywords/KW-0378"
                   >
                      #Hydrolase
@@ -3884,32 +4756,34 @@ exports[`ResultsData component should render the card view with the correct numb
                      #Multifunctional enzyme
                   </a>
                   <a
+                    href="/keywords/KW-0520"
+                  >
+                     #NAD
+                  </a>
+                  <a
+                    href="/keywords/KW-0521"
+                  >
+                     #NADP
+                  </a>
+                  <a
                     href="/keywords/KW-0560"
                   >
                      #Oxidoreductase
                   </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
                   <a
-                    href="/keywords/KW-0119"
+                    href="/keywords/KW-0873"
                   >
-                     #Carbohydrate metabolism
+                     #Pyrrolidone carboxylic acid
                   </a>
                   <a
-                    href="/keywords/KW-0313"
+                    href="/keywords/KW-1185"
                   >
-                     #Glucose metabolism
+                     #Reference proteome
                   </a>
-                </div>
-                <div
-                  class="keyword-view--inline"
-                >
                   <a
-                    href="/keywords/KW-0225"
+                    href="/keywords/KW-0732"
                   >
-                     #Disease variant
+                     #Signal
                   </a>
                 </div>
               </small>

@@ -98,7 +98,17 @@ exports[`UniProtKBCard component should render 1`] = `
             </span>
           </span>
         </section>
-        <small />
+        <small>
+          <div
+            class="keyword-view--inline"
+          >
+            <a
+              href="/keywords/KW-11111"
+            >
+               #keyword value
+            </a>
+          </div>
+        </small>
       </div>
     </div>
     <div
