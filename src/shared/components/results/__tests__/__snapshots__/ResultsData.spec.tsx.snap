@@ -3669,11 +3669,6 @@ exports[`ResultsData component should render the card view with the correct numb
                   </span>
                 </span>
               </section>
-              <small>
-                <div
-                  class="keyword-view--inline"
-                />
-              </small>
             </div>
           </div>
           <div

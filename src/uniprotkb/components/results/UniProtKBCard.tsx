@@ -57,11 +57,11 @@ const UniProtKBCard = ({ data }: { data: UniProtkbAPIModel }) => {
       links={highlights}
     >
       <ProteinOverview data={data} />
-      {keywords && (
+      {keywords?.length ? (
         <small>
           <KeywordList keywords={keywords} inline />
         </small>
-      )}
+      ) : null}
     </Card>
   );
 };
