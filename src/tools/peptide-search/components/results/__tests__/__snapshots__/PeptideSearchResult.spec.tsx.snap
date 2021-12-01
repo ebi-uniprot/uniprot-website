@@ -190,48 +190,40 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     </span>
                   </section>
                   <small>
-                    <ul
-                      class="keyword-view--inline expandable-list no-bullet"
+                    <div
+                      class="keyword-view--inline"
                     >
-                      <li>
-                        <a
-                          href="/keywords/KW-0378"
-                        >
-                           #Hydrolase
-                        </a>
-                      </li>
-                    </ul>
+                      <a
+                        href="/keywords/KW-0378"
+                      >
+                         #Hydrolase
+                      </a>
+                    </div>
                      · 
-                    <ul
-                      class="keyword-view--inline expandable-list no-bullet"
+                    <div
+                      class="keyword-view--inline"
                     >
-                      <li>
-                        <a
-                          href="/keywords/KW-0312"
-                        >
-                           #Gluconeogenesis
-                        </a>
-                      </li>
-                    </ul>
+                      <a
+                        href="/keywords/KW-0312"
+                      >
+                         #Gluconeogenesis
+                      </a>
+                    </div>
                      · 
-                    <ul
-                      class="keyword-view--inline expandable-list no-bullet"
+                    <div
+                      class="keyword-view--inline"
                     >
-                      <li>
-                        <a
-                          href="/keywords/KW-0225"
-                        >
-                           #Disease variant
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0322"
-                        >
-                           #Glycogen storage disease
-                        </a>
-                      </li>
-                    </ul>
+                      <a
+                        href="/keywords/KW-0225"
+                      >
+                         #Disease variant
+                      </a>
+                      <a
+                        href="/keywords/KW-0322"
+                      >
+                         #Glycogen storage disease
+                      </a>
+                    </div>
                   </small>
                 </div>
               </div>
@@ -371,50 +363,40 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     </span>
                   </section>
                   <small>
-                    <ul
-                      class="keyword-view--inline expandable-list no-bullet"
+                    <div
+                      class="keyword-view--inline"
                     >
-                      <li>
-                        <a
-                          href="/keywords/KW-0050"
-                        >
-                           #Antiport
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0762"
-                        >
-                           #Sugar transport
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0813"
-                        >
-                           #Transport
-                        </a>
-                      </li>
-                    </ul>
+                      <a
+                        href="/keywords/KW-0050"
+                      >
+                         #Antiport
+                      </a>
+                      <a
+                        href="/keywords/KW-0762"
+                      >
+                         #Sugar transport
+                      </a>
+                      <a
+                        href="/keywords/KW-0813"
+                      >
+                         #Transport
+                      </a>
+                    </div>
                      · 
-                    <ul
-                      class="keyword-view--inline expandable-list no-bullet"
+                    <div
+                      class="keyword-view--inline"
                     >
-                      <li>
-                        <a
-                          href="/keywords/KW-0225"
-                        >
-                           #Disease variant
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0322"
-                        >
-                           #Glycogen storage disease
-                        </a>
-                      </li>
-                    </ul>
+                      <a
+                        href="/keywords/KW-0225"
+                      >
+                         #Disease variant
+                      </a>
+                      <a
+                        href="/keywords/KW-0322"
+                      >
+                         #Glycogen storage disease
+                      </a>
+                    </div>
                   </small>
                 </div>
               </div>
@@ -654,48 +636,40 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     </span>
                   </section>
                   <small>
-                    <ul
-                      class="keyword-view--inline expandable-list no-bullet"
+                    <div
+                      class="keyword-view--inline"
                     >
-                      <li>
-                        <a
-                          href="/keywords/KW-0378"
-                        >
-                           #Hydrolase
-                        </a>
-                      </li>
-                    </ul>
+                      <a
+                        href="/keywords/KW-0378"
+                      >
+                         #Hydrolase
+                      </a>
+                    </div>
                      · 
-                    <ul
-                      class="keyword-view--inline expandable-list no-bullet"
+                    <div
+                      class="keyword-view--inline"
                     >
-                      <li>
-                        <a
-                          href="/keywords/KW-0312"
-                        >
-                           #Gluconeogenesis
-                        </a>
-                      </li>
-                    </ul>
+                      <a
+                        href="/keywords/KW-0312"
+                      >
+                         #Gluconeogenesis
+                      </a>
+                    </div>
                      · 
-                    <ul
-                      class="keyword-view--inline expandable-list no-bullet"
+                    <div
+                      class="keyword-view--inline"
                     >
-                      <li>
-                        <a
-                          href="/keywords/KW-0225"
-                        >
-                           #Disease variant
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0322"
-                        >
-                           #Glycogen storage disease
-                        </a>
-                      </li>
-                    </ul>
+                      <a
+                        href="/keywords/KW-0225"
+                      >
+                         #Disease variant
+                      </a>
+                      <a
+                        href="/keywords/KW-0322"
+                      >
+                         #Glycogen storage disease
+                      </a>
+                    </div>
                   </small>
                 </div>
               </div>
@@ -835,50 +809,40 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     </span>
                   </section>
                   <small>
-                    <ul
-                      class="keyword-view--inline expandable-list no-bullet"
+                    <div
+                      class="keyword-view--inline"
                     >
-                      <li>
-                        <a
-                          href="/keywords/KW-0050"
-                        >
-                           #Antiport
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0762"
-                        >
-                           #Sugar transport
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0813"
-                        >
-                           #Transport
-                        </a>
-                      </li>
-                    </ul>
+                      <a
+                        href="/keywords/KW-0050"
+                      >
+                         #Antiport
+                      </a>
+                      <a
+                        href="/keywords/KW-0762"
+                      >
+                         #Sugar transport
+                      </a>
+                      <a
+                        href="/keywords/KW-0813"
+                      >
+                         #Transport
+                      </a>
+                    </div>
                      · 
-                    <ul
-                      class="keyword-view--inline expandable-list no-bullet"
+                    <div
+                      class="keyword-view--inline"
                     >
-                      <li>
-                        <a
-                          href="/keywords/KW-0225"
-                        >
-                           #Disease variant
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0322"
-                        >
-                           #Glycogen storage disease
-                        </a>
-                      </li>
-                    </ul>
+                      <a
+                        href="/keywords/KW-0225"
+                      >
+                         #Disease variant
+                      </a>
+                      <a
+                        href="/keywords/KW-0322"
+                      >
+                         #Glycogen storage disease
+                      </a>
+                    </div>
                   </small>
                 </div>
               </div>
