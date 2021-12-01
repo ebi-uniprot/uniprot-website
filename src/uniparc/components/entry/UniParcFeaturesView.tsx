@@ -5,10 +5,12 @@ import { FC, useMemo } from 'react';
 import FeaturesView, {
   ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';
+
+import { useDBMaps } from '../../../shared/contexts/database';
+
 import externalUrls from '../../../shared/config/externalUrls';
 import { stringToColour } from '../../../shared/utils/color';
 import { processUrlTemplate } from '../../../uniprotkb/components/protein-data-views/XRefView';
-import { databaseToDatabaseInfo } from '../../../uniprotkb/config/database';
 
 import { SequenceFeature } from '../../adapters/uniParcConverter';
 
@@ -43,7 +45,10 @@ const UniParcFeaturesView: FC<{
   sequence: string;
 }> = ({ data, sequence }) => {
   const processedData = useMemo(() => convertData(data), [data]);
-
+  const databaseMaps = useDBMaps();
+  if (!databaseMaps) {
+    return null;
+  }
   // Define table contents
   const table = (
     <table>
@@ -58,7 +63,7 @@ const UniParcFeaturesView: FC<{
       <tbody>
         {processedData.map((feature) => {
           const { database, databaseId } = feature;
-          const databaseInfo = databaseToDatabaseInfo[database];
+          const databaseInfo = databaseMaps.databaseToDatabaseInfo[database];
 
           return (
             <tr

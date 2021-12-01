@@ -4,6 +4,7 @@ import EntrySection from '../types/entrySection';
 import { convertSection } from './sectionConverter';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
 import { Xref } from '../../shared/types/apiModel';
+import { DatabaseInfoMaps } from '../utils/database';
 
 const keywordsCategories: KeywordCategory[] = ['Developmental stage'];
 
@@ -15,10 +16,12 @@ const commentsCategories: CommentType[] = [
 
 const convertExpression = (
   data: UniProtkbAPIModel,
+  dbMaps: DatabaseInfoMaps,
   uniProtKBCrossReferences?: Xref[]
 ) =>
   convertSection(
     data,
+    dbMaps,
     commentsCategories,
     keywordsCategories,
     undefined,

@@ -1,6 +1,7 @@
 import { Xref } from '../../shared/types/apiModel';
 import { CommentType } from '../types/commentTypes';
 import EntrySection from '../types/entrySection';
+import { DatabaseInfoMaps } from '../utils/database';
 import { convertSection } from './sectionConverter';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
 
@@ -15,10 +16,12 @@ export type Interactant = {
 
 export const convertInteraction = (
   data: UniProtkbAPIModel,
+  dbMaps: DatabaseInfoMaps,
   uniProtKBCrossReferences?: Xref[]
 ) =>
   convertSection(
     data,
+    dbMaps,
     commentsCategories,
     undefined,
     undefined,

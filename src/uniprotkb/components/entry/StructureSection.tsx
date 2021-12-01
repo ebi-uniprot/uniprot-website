@@ -1,6 +1,8 @@
 import { groupBy } from 'lodash-es';
 import { Card } from 'franklin-sites';
 
+import { useDBMaps } from '../../../shared/contexts/database';
+
 import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
@@ -10,7 +12,6 @@ import XRefView from '../protein-data-views/XRefView';
 import PDBView from '../protein-data-views/PDBView';
 
 import { hasContent } from '../../../shared/utils/utils';
-import { entrySectionToDatabaseCategoryOrder } from '../../config/database';
 
 import {
   partitionStructureDatabases,
@@ -31,7 +32,8 @@ const StructureSection = ({
   sequence,
   crc64,
 }: Props) => {
-  if (!hasContent(data)) {
+  const dbMaps = useDBMaps();
+  if (!hasContent(data) || !dbMaps) {
     return null;
   }
   const { arrayStructureDatabases, otherDatabases } = groupBy(
@@ -71,7 +73,7 @@ const StructureSection = ({
   let XrefViewNode;
   if (nonPDBDatabases && nonPDBDatabases.length) {
     // The non-PDB databases need to be re-ordered accordingly
-    const categoryOrder = entrySectionToDatabaseCategoryOrder.get(
+    const categoryOrder = dbMaps.entrySectionToDatabaseCategoryOrder.get(
       EntrySection.Structure
     );
     if (categoryOrder) {

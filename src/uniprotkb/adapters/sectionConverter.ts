@@ -10,6 +10,7 @@ import KeywordCategory from '../types/keywordCategory';
 import FeatureType from '../types/featureType';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
 import { Xref } from '../../shared/types/apiModel';
+import { DatabaseInfoMaps } from '../utils/database';
 
 export type UIModel = {
   commentsData: Map<CommentType, Comment[] | undefined>;
@@ -20,6 +21,7 @@ export type UIModel = {
 
 export const convertSection = (
   data: UniProtkbAPIModel,
+  dbMaps: DatabaseInfoMaps,
   sectionComments?: CommentType[],
   sectionKeywords?: KeywordCategory[],
   sectionFeatures?: FeatureType[],
@@ -60,6 +62,7 @@ export const convertSection = (
       | FreeTextComment[]
       | undefined;
     convertedData.xrefData = getXrefsForSection(
+      dbMaps,
       uniProtKBCrossReferences,
       section,
       genes,

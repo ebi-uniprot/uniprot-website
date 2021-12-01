@@ -46,6 +46,7 @@ import apiUrls from '../../../shared/config/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
+import { useDBMaps } from '../../../shared/contexts/database';
 
 import uniProtKbConverter, {
   UniProtkbAPIModel,
@@ -126,13 +127,15 @@ const Entry: FC = () => {
       apiUrls.entry(match?.params.accession, Namespace.uniprotkb)
     );
 
+  const dbMaps = useDBMaps();
+
   const [transformedData, pageTitle] = useMemo(() => {
-    if (!data) {
+    if (!data || !dbMaps) {
       return [];
     }
-    const transformedData = uniProtKbConverter(data);
+    const transformedData = uniProtKbConverter(data, dbMaps);
     return [transformedData, generatePageTitle(transformedData)];
-  }, [data]);
+  }, [data, dbMaps]);
 
   const sections = useMemo(() => {
     if (transformedData) {

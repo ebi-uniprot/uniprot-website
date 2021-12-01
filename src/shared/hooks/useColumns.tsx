@@ -70,6 +70,7 @@ import {
 
 import { MappingAPIModel } from '../../tools/id-mapping/types/idMappingSearchResults';
 import { Basket } from './useBasket';
+import { DatabaseInfoMaps } from '../../uniprotkb/utils/database';
 
 export type ColumnDescriptor<Datum = APIModel> = {
   name: string;
@@ -79,11 +80,18 @@ export type ColumnDescriptor<Datum = APIModel> = {
   sorted?: SortDirection;
 };
 
-const convertRow = (row: APIModel, namespace: Namespace | 'id-mapping') => {
+const convertRow = (
+  row: APIModel,
+  namespace: Namespace | 'id-mapping',
+  dbMaps?: DatabaseInfoMaps
+) => {
   switch (namespace) {
     // Main namespaces
     case Namespace.uniprotkb:
-      return uniProtKbConverter(row as UniProtkbAPIModel);
+      return uniProtKbConverter(
+        row as UniProtkbAPIModel,
+        dbMaps as DatabaseInfoMaps // TODO: remove the as
+      );
     case Namespace.uniref:
       return row as UniRefLiteAPIModel;
     case Namespace.uniparc:

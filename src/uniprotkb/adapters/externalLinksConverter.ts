@@ -3,9 +3,11 @@ import { UniProtkbAPIModel } from './uniProtkbConverter';
 import { getXrefsForSection } from '../utils/xrefUtils';
 import EntrySection from '../types/entrySection';
 import { Xref } from '../../shared/types/apiModel';
+import { DatabaseInfoMaps } from '../utils/database';
 
 const convertExternalLinks = (
   data: UniProtkbAPIModel,
+  dbMaps: DatabaseInfoMaps,
   uniProtKBCrossReferences?: Xref[]
 ) => {
   const convertedData: UIModel = {
@@ -24,6 +26,7 @@ const convertExternalLinks = (
   }
   if (uniProtKBCrossReferences) {
     convertedData.xrefData = getXrefsForSection(
+      dbMaps,
       uniProtKBCrossReferences,
       EntrySection.ExternalLinks,
       genes,

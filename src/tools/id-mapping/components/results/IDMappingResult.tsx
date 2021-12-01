@@ -18,10 +18,10 @@ import useDataApi from '../../../../shared/hooks/useDataApi';
 import usePagination from '../../../../shared/hooks/usePagination';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
+import { useDBMaps } from '../../../../shared/contexts/database';
 
 import toolsURLs from '../../../config/urls';
 import idMappingConverter from '../../adapters/idMappingConverter';
-import { databaseToDatabaseInfo } from '../../../../uniprotkb/config/database';
 import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
 import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
 import { defaultFacets } from '../../../../shared/config/apiUrls';
@@ -48,6 +48,7 @@ const IDMappingResult = () => {
     LocationToPath[Location.IDMappingResult]
   );
   const location = useLocation();
+  const databaseMaps = useDBMaps();
   const { search: queryParamFromUrl } = location;
   const { selectedFacets } = getParamsFromURL(queryParamFromUrl);
 
@@ -58,7 +59,8 @@ const IDMappingResult = () => {
     urls.detailsUrl && urls.detailsUrl(match?.params.id || '');
   const { data: detailsData } = useDataApi<MappingDetails>(detailApiUrl);
 
-  const toDBInfo = detailsData && databaseToDatabaseInfo[detailsData.to];
+  const toDBInfo =
+    detailsData && databaseMaps?.databaseToDatabaseInfo[detailsData.to];
 
   // Query for results data from the idmapping endpoint
   const initialApiUrl =

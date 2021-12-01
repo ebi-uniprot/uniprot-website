@@ -6,6 +6,7 @@ import EntrySection from '../types/entrySection';
 import { Xref } from '../../shared/types/apiModel';
 import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { GeneLocation } from '../types/geneLocationType';
+import { DatabaseInfoMaps } from '../utils/database';
 
 export type ProteinNames = {
   fullName: ValueWithEvidence;
@@ -49,10 +50,12 @@ export type NamesAndTaxonomyUIModel = {
 
 export const convertNamesAndTaxonomy = (
   data: UniProtkbAPIModel,
+  dbMaps: DatabaseInfoMaps,
   uniProtKBCrossReferences?: Xref[]
 ) => {
   const namesAndTaxonomyData: NamesAndTaxonomyUIModel = convertSection(
     data,
+    dbMaps,
     undefined,
     undefined,
     undefined,

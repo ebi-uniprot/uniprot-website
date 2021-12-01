@@ -67,12 +67,7 @@ import AnnotationScoreDoughnutChart, {
   DoughnutChartSize,
 } from '../components/protein-data-views/AnnotationScoreDoughnutChart';
 import { KeywordList } from '../components/protein-data-views/KeywordView';
-import { DatabaseList } from '../components/protein-data-views/XRefView';
-import {
-  databaseNameToCategory,
-  getDatabaseNameToEntrySection,
-  getDatabaseInfoByName,
-} from './database';
+// import { DatabaseList } from '../components/protein-data-views/XRefView';
 import DiseaseInvolvementView from '../components/protein-data-views/DiseaseInvolvementView';
 import CatalyticActivityView, {
   getRheaId,
@@ -1111,51 +1106,58 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.tools, {
   render: (data) => <SequenceTools accession={data.primaryAccession} />,
 });
 
-const getXrefColumn = (databaseName: string) => ({
-  label: `${databaseName} cross-reference`,
-  render: (data: UniProtkbUIModel) => {
-    // Get the entry section for the database name
-    const entrySection = getDatabaseNameToEntrySection(databaseName);
-    if (!entrySection) {
-      return undefined;
-    }
-    const { xrefData } = data[entrySection];
-    // Get the category for the database name in the section
-    const category = xrefData?.find(
-      (xrefCategory) =>
-        xrefCategory.category === databaseNameToCategory.get(databaseName)
-    );
-    if (!category) {
-      return undefined;
-    }
-    // Get the database based on the name
-    const xrefsGoupedByDatabase = category.databases.find(
-      (databaseGroup) => databaseGroup.database === databaseName
-    );
-    return (
-      xrefsGoupedByDatabase && (
-        <DatabaseList
-          xrefsGoupedByDatabase={xrefsGoupedByDatabase}
-          primaryAccession={data.primaryAccession}
-        />
-      )
-    );
-  },
-});
+// const getXrefColumn = (databaseName: string) => ({
+//   label: `${databaseName} cross-reference`,
+//   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+//   render: (data: UniProtkbUIModel) => {
+// TODO: Eventually uncomment
+// // Get the entry section for the database name
+// const entrySection = getDatabaseNameToEntrySection(databaseName);
+// if (!entrySection) {
+//   return undefined;
+// }
+// const { xrefData } = data[entrySection];
+// // Get the category for the database name in the section
+// const category = xrefData?.find(
+//   (xrefCategory) =>
+//     xrefCategory.category === databaseNameToCategory.get(databaseName)
+// );
+// if (!category) {
+//   return undefined;
+// }
+// // Get the database based on the name
+// const xrefsGoupedByDatabase = category.databases.find(
+//   (databaseGroup) => databaseGroup.database === databaseName
+// );
+// return (
+//   xrefsGoupedByDatabase && (
+//     <DatabaseList
+//       databaseToDatabaseInfo={databaseToDatabaseInfo}
+//       xrefsGoupedByDatabase={xrefsGoupedByDatabase}
+//       primaryAccession={data.primaryAccession}
+//     />
+//   )
+// );
+// });
 
 const reXrefPrefix = /^xref_/;
 // Add all database cross-reference columns
 Object.values(UniProtKBColumn)
   .filter((col) => col.match(reXrefPrefix))
   .forEach((colName) => {
-    const databaseInfo = getDatabaseInfoByName(
-      colName.replace(reXrefPrefix, '')
-    );
-    if (!databaseInfo || !databaseInfo.name) {
-      logging.error(`No database found for ${colName}`);
-      return;
-    }
-    UniProtKBColumnConfiguration.set(colName, getXrefColumn(databaseInfo.name));
+    // TODO: Eventually uncomment
+    // const databaseInfo = getDatabaseInfoByName(
+    //   colName.replace(reXrefPrefix, '')
+    // );
+    // if (!databaseInfo || !databaseInfo.name) {
+    //   logging.error(`No database found for ${colName}`);
+    //   return;
+    // }
+    // UniProtKBColumnConfiguration.set(colName, getXrefColumn(databaseInfo.name));
+    UniProtKBColumnConfiguration.set(colName, {
+      label: colName,
+      render: () => colName,
+    });
   });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.from, fromColumnConfig);
