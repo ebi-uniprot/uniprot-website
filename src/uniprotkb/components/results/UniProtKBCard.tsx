@@ -1,4 +1,4 @@
-import { useMemo, Fragment } from 'react';
+import { useMemo } from 'react';
 import { Card } from 'franklin-sites';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
