@@ -199,7 +199,6 @@ exports[`PeptideSearchResult should render with the correct number of results in
                          #Hydrolase
                       </a>
                     </div>
-                     · 
                     <div
                       class="keyword-view--inline"
                     >
@@ -209,7 +208,6 @@ exports[`PeptideSearchResult should render with the correct number of results in
                          #Gluconeogenesis
                       </a>
                     </div>
-                     · 
                     <div
                       class="keyword-view--inline"
                     >
@@ -382,7 +380,6 @@ exports[`PeptideSearchResult should render with the correct number of results in
                          #Transport
                       </a>
                     </div>
-                     · 
                     <div
                       class="keyword-view--inline"
                     >
@@ -645,7 +642,6 @@ exports[`PeptideSearchResult should render with the correct number of results in
                          #Hydrolase
                       </a>
                     </div>
-                     · 
                     <div
                       class="keyword-view--inline"
                     >
@@ -655,7 +651,6 @@ exports[`PeptideSearchResult should render with the correct number of results in
                          #Gluconeogenesis
                       </a>
                     </div>
-                     · 
                     <div
                       class="keyword-view--inline"
                     >
@@ -828,7 +823,6 @@ exports[`PeptideSearchResult should render with the correct number of results in
                          #Transport
                       </a>
                     </div>
-                     · 
                     <div
                       class="keyword-view--inline"
                     >

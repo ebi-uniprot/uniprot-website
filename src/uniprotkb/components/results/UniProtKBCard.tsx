@@ -34,11 +34,12 @@ const UniProtKBCard = ({ data }: { data: UniProtkbAPIModel }) => {
       'Disease',
     ]);
 
-    return categorisedKeywords.map((keywordCategory, index) => (
-      <Fragment key={keywordCategory.category}>
-        {index > 0 && ' · '}
-        <KeywordList keywords={keywordCategory.keywords} inline />
-      </Fragment>
+    return categorisedKeywords.map((keywordCategory) => (
+      <KeywordList
+        keywords={keywordCategory.keywords}
+        inline
+        key={keywordCategory.category}
+      />
     ));
   }, [data.keywords]);
 

@@ -115,7 +115,6 @@ exports[`ResultsData component should render the card view with the correct numb
                      #Hydrolase
                   </a>
                 </div>
-                 · 
                 <div
                   class="keyword-view--inline"
                 >
@@ -125,7 +124,6 @@ exports[`ResultsData component should render the card view with the correct numb
                      #Gluconeogenesis
                   </a>
                 </div>
-                 · 
                 <div
                   class="keyword-view--inline"
                 >
@@ -298,7 +296,6 @@ exports[`ResultsData component should render the card view with the correct numb
                      #Transport
                   </a>
                 </div>
-                 · 
                 <div
                   class="keyword-view--inline"
                 >
@@ -460,7 +457,6 @@ exports[`ResultsData component should render the card view with the correct numb
                      #Transport
                   </a>
                 </div>
-                 · 
                 <div
                   class="keyword-view--inline"
                 >
@@ -810,7 +806,6 @@ exports[`ResultsData component should render the card view with the correct numb
                      #Transport
                   </a>
                 </div>
-                 · 
                 <div
                   class="keyword-view--inline"
                 >
@@ -972,7 +967,6 @@ exports[`ResultsData component should render the card view with the correct numb
                      #Hydrolase
                   </a>
                 </div>
-                 · 
                 <div
                   class="keyword-view--inline"
                 >
@@ -982,7 +976,6 @@ exports[`ResultsData component should render the card view with the correct numb
                      #Gluconeogenesis
                   </a>
                 </div>
-                 · 
                 <div
                   class="keyword-view--inline"
                 >
@@ -1133,7 +1126,6 @@ exports[`ResultsData component should render the card view with the correct numb
                      #Transport
                   </a>
                 </div>
-                 · 
                 <div
                   class="keyword-view--inline"
                 >
@@ -1577,7 +1569,6 @@ exports[`ResultsData component should render the card view with the correct numb
                      #Hydrolase
                   </a>
                 </div>
-                 · 
                 <div
                   class="keyword-view--inline"
                 >
@@ -1728,7 +1719,6 @@ exports[`ResultsData component should render the card view with the correct numb
                      #Transport
                   </a>
                 </div>
-                 · 
                 <div
                   class="keyword-view--inline"
                 >
@@ -2036,7 +2026,6 @@ exports[`ResultsData component should render the card view with the correct numb
                      #Transport
                   </a>
                 </div>
-                 · 
                 <div
                   class="keyword-view--inline"
                 >
@@ -2338,7 +2327,6 @@ exports[`ResultsData component should render the card view with the correct numb
                      #Transferase
                   </a>
                 </div>
-                 · 
                 <div
                   class="keyword-view--inline"
                 >
@@ -2968,7 +2956,6 @@ exports[`ResultsData component should render the card view with the correct numb
                      #Transport
                   </a>
                 </div>
-                 · 
                 <div
                   class="keyword-view--inline"
                 >
@@ -3118,7 +3105,6 @@ exports[`ResultsData component should render the card view with the correct numb
                      #Oxidoreductase
                   </a>
                 </div>
-                 · 
                 <div
                   class="keyword-view--inline"
                 >
@@ -3133,7 +3119,6 @@ exports[`ResultsData component should render the card view with the correct numb
                      #Glucose metabolism
                   </a>
                 </div>
-                 · 
                 <div
                   class="keyword-view--inline"
                 >
@@ -3313,7 +3298,6 @@ exports[`ResultsData component should render the card view with the correct numb
                      #Transferase
                   </a>
                 </div>
-                 · 
                 <div
                   class="keyword-view--inline"
                 >
@@ -3495,7 +3479,6 @@ exports[`ResultsData component should render the card view with the correct numb
                      #Transferase
                   </a>
                 </div>
-                 · 
                 <div
                   class="keyword-view--inline"
                 >
@@ -3906,7 +3889,6 @@ exports[`ResultsData component should render the card view with the correct numb
                      #Oxidoreductase
                   </a>
                 </div>
-                 · 
                 <div
                   class="keyword-view--inline"
                 >
@@ -3921,7 +3903,6 @@ exports[`ResultsData component should render the card view with the correct numb
                      #Glucose metabolism
                   </a>
                 </div>
-                 · 
                 <div
                   class="keyword-view--inline"
                 >

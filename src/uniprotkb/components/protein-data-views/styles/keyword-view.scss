@@ -1,7 +1,9 @@
 .keyword-view {
   &--inline {
     display: inline;
-
+    & > a:not(:first-child) {
+      margin-left: 1ch;
+    }
     & > li {
       display: inline;
 
