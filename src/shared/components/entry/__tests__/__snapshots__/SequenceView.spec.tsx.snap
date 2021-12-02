@@ -78,9 +78,8 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
   <p>
     some text
   </p>
-  <hr />
   <h3
-    id="P05067-1"
+    id="Isoform_APP770"
   >
     P05067-1
   </h3>
@@ -393,9 +392,8 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
       </div>
     </div>
   </section>
-  <hr />
   <h3
-    id="P05067-2"
+    id="Isoform_APP770-2"
   >
     P05067-2
   </h3>

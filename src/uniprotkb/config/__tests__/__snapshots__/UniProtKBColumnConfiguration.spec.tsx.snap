@@ -132,9 +132,8 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_alterna
   <p>
     value1
   </p>
-  <hr />
   <h3
-    id="isoID1"
+    id="Isoform_name"
   >
     isoID1
   </h3>
@@ -212,58 +211,21 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_catalyt
   <span
     class="text-block"
   >
+    <h4
+      class="tiny"
+    >
+      Isoform 3:
+    </h4>
      some reaction
-    <button
-      aria-controls="0"
-      aria-expanded="false"
-      class="svg-colour-unreviewed evidence-tag"
-      data-testid="evidence-tag-trigger"
-      type="button"
-    >
-      <test-file-stub
-        height="12"
-        width="12"
-      />
+    <div>
+      This reaction proceeds in the 
       <span
-        class="evidence-tag__label"
+        data-testid="direction-text"
       >
-        1 automatic annotation
+        backward
       </span>
-    </button>
-    <div
-      class="evidence-tag-content "
-      data-testid="evidence-tag-content"
-      id="0"
-    />
-    This reaction proceeds in the 
-    <span
-      data-testid="direction-text"
-    >
-      backward
-    </span>
-     direction 
-    <button
-      aria-controls="1"
-      aria-expanded="false"
-      class="svg-colour-unreviewed evidence-tag"
-      data-testid="evidence-tag-trigger"
-      type="button"
-    >
-      <test-file-stub
-        height="12"
-        width="12"
-      />
-      <span
-        class="evidence-tag__label"
-      >
-        Imported
-      </span>
-    </button>
-    <div
-      class="evidence-tag-content "
-      data-testid="evidence-tag-content"
-      id="1"
-    />
+       direction 
+    </div>
     <div>
       <span
         class="ec-number"
@@ -334,18 +296,8 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_catalyt
         class="button tertiary"
         type="button"
       >
-        Hide Rhea reaction
+        View Rhea reaction
       </button>
-    </div>
-    <div
-      class="rhea-reaction-visualizer__component"
-    >
-      <rhea-reaction
-        rheaid="12345"
-        showids="true"
-        usehost="https://api.rhea-db.org"
-        zoom="true"
-      />
     </div>
   </span>
 </DocumentFragment>
@@ -358,6 +310,15 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_cofacto
   <section
     class="text-block"
   >
+    <h4
+      class="tiny"
+    >
+      <a
+        href="#molecule"
+      >
+        molecule:
+      </a>
+    </h4>
     <span>
       Cofactor Name 
       <button
@@ -555,21 +516,21 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_disease
 
 exports[`UniProtKBColumnConfiguration component should render column "cc_disruption_phenotype": cc_disruption_phenotype 1`] = `
 <DocumentFragment>
-  <h3
+  <h4
     class="tiny"
   >
-    Isoform 4
-  </h3>
+    Isoform 4:
+  </h4>
   <div
     class="text-block"
   >
     value.
   </div>
-  <h3
+  <h4
     class="tiny"
   >
-    Isoform 4 dfs
-  </h3>
+    Isoform 4 dfs:
+  </h4>
   <div
     class="text-block"
   >

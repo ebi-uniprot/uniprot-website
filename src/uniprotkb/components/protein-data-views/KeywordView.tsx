@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { InfoList, ExpandableList } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
@@ -22,18 +21,14 @@ type KeywordItempProps = {
   value?: string;
 };
 
-export const KeywordItem: FC<KeywordItempProps> = ({ id, value }) => {
+export const KeywordItem = ({ id, value }: KeywordItempProps) => {
   if (!id || !value) {
     return null;
   }
   return <Link to={getEntryPath(Namespace.keywords, id)}>{` #${value}`}</Link>;
 };
 
-export const KeywordList: FC<KeywordListProps> = ({
-  keywords,
-  idOnly,
-  inline,
-}) => (
+export const KeywordList = ({ keywords, idOnly, inline }: KeywordListProps) => (
   <ExpandableList
     descriptionString={idOnly ? 'keyword IDs' : 'keywords'}
     className={cn({ 'keyword-view--inline': inline })}
@@ -49,7 +44,7 @@ export const KeywordList: FC<KeywordListProps> = ({
   </ExpandableList>
 );
 
-const KeywordView: FC<{ keywords: KeywordUIModel[] }> = ({ keywords }) => {
+const KeywordView = ({ keywords }: { keywords: KeywordUIModel[] }) => {
   if (!keywords?.length) {
     return null;
   }
