@@ -7,6 +7,7 @@ import { ScopeContext } from '@sentry/types';
 type CustomCategories = `console.${'log' | 'warn' | 'error'}`;
 
 const isProduction = process.env.NODE_ENV !== 'development';
+const isTest = process.env.NODE_ENV === 'test';
 
 export const createGtagEvent = (message: any, data?: Partial<ScopeContext>) => {
   const event: Gtag.CustomParams = {
@@ -35,6 +36,7 @@ export const createGtagEvent = (message: any, data?: Partial<ScopeContext>) => {
   return event;
 };
 
+/* istanbul ignore next */
 export const sendGtagEvent = (
   eventCategory: CustomCategories | Gtag.EventNames | string,
   message?: any,
@@ -51,6 +53,7 @@ type LoggingHelper = (
   context?: Partial<ScopeContext>
 ) => void;
 
+/* istanbul ignore next */
 export const log: LoggingHelper = (message, context) => {
   if (isProduction) {
     sendGtagEvent('console.log', message.toString(), context);
@@ -58,11 +61,12 @@ export const log: LoggingHelper = (message, context) => {
       ...(context || {}),
       level: Sentry.Severity.Log,
     });
-  } else {
+  } else if (!isTest) {
     console.log(message, context);
   }
 };
 
+/* istanbul ignore next */
 export const warn: LoggingHelper = (message, context) => {
   if (isProduction) {
     sendGtagEvent('console.warn', message.toString(), context);
@@ -70,21 +74,25 @@ export const warn: LoggingHelper = (message, context) => {
       ...(context || {}),
       level: Sentry.Severity.Warning,
     });
-  } else {
+  } else if (!isTest) {
     console.warn(message, context);
   }
 };
 
+/* istanbul ignore next */
 export const error: LoggingHelper = (message, context) => {
   if (isProduction) {
     sendGtagEvent('exception', message.toString(), context);
     Sentry.captureException(message, context);
   }
-  console.error(message, context);
+  if (!isTest) {
+    console.error(message, context);
+  }
 };
 
+/* istanbul ignore next */
 export const debug: LoggingHelper = (message, context) => {
-  if (!isProduction) {
+  if (!isProduction && !isTest) {
     console.debug(message, context);
   }
 };
