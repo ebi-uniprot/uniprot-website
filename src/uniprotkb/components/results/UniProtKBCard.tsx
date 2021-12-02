@@ -1,4 +1,4 @@
-import { useMemo, Fragment } from 'react';
+import { useMemo } from 'react';
 import { Card } from 'franklin-sites';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
@@ -23,23 +23,17 @@ const UniProtKBCard = ({ data }: { data: UniProtkbAPIModel }) => {
 
   const highlights = useMemo(() => getProteinHighlights(data), [data]);
 
-  const keywordsNode = useMemo(() => {
+  const keywords = useMemo(() => {
     if (!data.keywords) {
       return null;
     }
-
-    const categorisedKeywords = getKeywordsForCategories(data.keywords, [
+    // We only want to display keywords from 3 groups, not all of them
+    return getKeywordsForCategories(data.keywords, [
       'Molecular function',
       'Biological process',
       'Disease',
-    ]);
-
-    return categorisedKeywords.map((keywordCategory, index) => (
-      <Fragment key={keywordCategory.category}>
-        {index > 0 && ' · '}
-        <KeywordList keywords={keywordCategory.keywords} inline />
-      </Fragment>
-    ));
+    ])
+      .flatMap(({ keywords }) => keywords);
   }, [data.keywords]);
 
   return (
@@ -62,7 +56,11 @@ const UniProtKBCard = ({ data }: { data: UniProtkbAPIModel }) => {
       links={highlights}
     >
       <ProteinOverview data={data} />
-      <small>{keywordsNode}</small>
+      {keywords?.length ? (
+        <small>
+          <KeywordList keywords={keywords} inline />
+        </small>
+      ) : null}
     </Card>
   );
 };

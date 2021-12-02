@@ -106,48 +106,30 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0378"
-                    >
-                       #Hydrolase
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0312"
-                    >
-                       #Gluconeogenesis
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0225"
-                    >
-                       #Disease variant
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0322"
-                    >
-                       #Glycogen storage disease
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0378"
+                  >
+                     #Hydrolase
+                  </a>
+                  <a
+                    href="/keywords/KW-0312"
+                  >
+                     #Gluconeogenesis
+                  </a>
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                     #Disease variant
+                  </a>
+                  <a
+                    href="/keywords/KW-0322"
+                  >
+                     #Glycogen storage disease
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -287,50 +269,35 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0050"
-                    >
-                       #Antiport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0762"
-                    >
-                       #Sugar transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0813"
-                    >
-                       #Transport
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0225"
-                    >
-                       #Disease variant
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0322"
-                    >
-                       #Glycogen storage disease
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0050"
+                  >
+                     #Antiport
+                  </a>
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                     #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                     #Transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                     #Disease variant
+                  </a>
+                  <a
+                    href="/keywords/KW-0322"
+                  >
+                     #Glycogen storage disease
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -464,71 +431,50 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0762"
-                    >
-                       #Sugar transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0813"
-                    >
-                       #Transport
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0898"
-                    >
-                       #Cataract
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0225"
-                    >
-                       #Disease variant
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-1023"
-                    >
-                       #Dystonia
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0887"
-                    >
-                       #Epilepsy
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0360"
-                    >
-                       #Hereditary hemolytic anemia
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0991"
-                    >
-                       #Mental retardation
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                     #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                     #Transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0898"
+                  >
+                     #Cataract
+                  </a>
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                     #Disease variant
+                  </a>
+                  <a
+                    href="/keywords/KW-1023"
+                  >
+                     #Dystonia
+                  </a>
+                  <a
+                    href="/keywords/KW-0887"
+                  >
+                     #Epilepsy
+                  </a>
+                  <a
+                    href="/keywords/KW-0360"
+                  >
+                     #Hereditary hemolytic anemia
+                  </a>
+                  <a
+                    href="/keywords/KW-0991"
+                  >
+                     #Mental retardation
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -668,24 +614,20 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0762"
-                    >
-                       #Sugar transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0813"
-                    >
-                       #Transport
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                     #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                     #Transport
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -819,57 +761,40 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0406"
-                    >
-                       #Ion transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0739"
-                    >
-                       #Sodium transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0762"
-                    >
-                       #Sugar transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0769"
-                    >
-                       #Symport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0813"
-                    >
-                       #Transport
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0225"
-                    >
-                       #Disease variant
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0406"
+                  >
+                     #Ion transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0739"
+                  >
+                     #Sodium transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                     #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0769"
+                  >
+                     #Symport
+                  </a>
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                     #Transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                     #Disease variant
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -1013,41 +938,25 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0378"
-                    >
-                       #Hydrolase
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0312"
-                    >
-                       #Gluconeogenesis
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0225"
-                    >
-                       #Disease variant
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0378"
+                  >
+                     #Hydrolase
+                  </a>
+                  <a
+                    href="/keywords/KW-0312"
+                  >
+                     #Gluconeogenesis
+                  </a>
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                     #Disease variant
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -1175,43 +1084,30 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0762"
-                    >
-                       #Sugar transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0813"
-                    >
-                       #Transport
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0219"
-                    >
-                       #Diabetes mellitus
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0225"
-                    >
-                       #Disease variant
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                     #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                     #Transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0219"
+                  >
+                     #Diabetes mellitus
+                  </a>
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                     #Disease variant
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -1351,24 +1247,20 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0762"
-                    >
-                       #Sugar transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0813"
-                    >
-                       #Transport
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                     #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                     #Transport
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -1484,17 +1376,15 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0225"
-                    >
-                       #Disease variant
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                     #Disease variant
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -1638,29 +1528,20 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0378"
-                    >
-                       #Hydrolase
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0312"
-                    >
-                       #Gluconeogenesis
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0378"
+                  >
+                     #Hydrolase
+                  </a>
+                  <a
+                    href="/keywords/KW-0312"
+                  >
+                     #Gluconeogenesis
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -1788,36 +1669,25 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0762"
-                    >
-                       #Sugar transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0813"
-                    >
-                       #Transport
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0225"
-                    >
-                       #Disease variant
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                     #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                     #Transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                     #Disease variant
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -1955,24 +1825,20 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0328"
-                    >
-                       #Glycosyltransferase
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0808"
-                    >
-                       #Transferase
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0328"
+                  >
+                     #Glycosyltransferase
+                  </a>
+                  <a
+                    href="/keywords/KW-0808"
+                  >
+                     #Transferase
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -2106,36 +1972,25 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0762"
-                    >
-                       #Sugar transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0813"
-                    >
-                       #Transport
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0225"
-                    >
-                       #Disease variant
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                     #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                     #Transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                     #Disease variant
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -2257,24 +2112,20 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0762"
-                    >
-                       #Sugar transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0813"
-                    >
-                       #Transport
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                     #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                     #Transport
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -2418,43 +2269,30 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0548"
-                    >
-                       #Nucleotidyltransferase
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0808"
-                    >
-                       #Transferase
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0225"
-                    >
-                       #Disease variant
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0887"
-                    >
-                       #Epilepsy
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0548"
+                  >
+                     #Nucleotidyltransferase
+                  </a>
+                  <a
+                    href="/keywords/KW-0808"
+                  >
+                     #Transferase
+                  </a>
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                     #Disease variant
+                  </a>
+                  <a
+                    href="/keywords/KW-0887"
+                  >
+                     #Epilepsy
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -2606,52 +2444,40 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0053"
-                    >
-                       #Apoptosis
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0406"
-                    >
-                       #Ion transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0739"
-                    >
-                       #Sodium transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0762"
-                    >
-                       #Sugar transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0769"
-                    >
-                       #Symport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0813"
-                    >
-                       #Transport
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0053"
+                  >
+                     #Apoptosis
+                  </a>
+                  <a
+                    href="/keywords/KW-0406"
+                  >
+                     #Ion transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0739"
+                  >
+                     #Sodium transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                     #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0769"
+                  >
+                     #Symport
+                  </a>
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                     #Transport
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -2779,24 +2605,20 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0762"
-                    >
-                       #Sugar transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0813"
-                    >
-                       #Transport
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                     #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                     #Transport
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -2922,24 +2744,20 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0328"
-                    >
-                       #Glycosyltransferase
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0808"
-                    >
-                       #Transferase
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0328"
+                  >
+                     #Glycosyltransferase
+                  </a>
+                  <a
+                    href="/keywords/KW-0808"
+                  >
+                     #Transferase
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -3061,57 +2879,40 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0406"
-                    >
-                       #Ion transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0739"
-                    >
-                       #Sodium transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0762"
-                    >
-                       #Sugar transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0769"
-                    >
-                       #Symport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0813"
-                    >
-                       #Transport
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0225"
-                    >
-                       #Disease variant
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0406"
+                  >
+                     #Ion transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0739"
+                  >
+                     #Sodium transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                     #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0769"
+                  >
+                     #Symport
+                  </a>
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                     #Transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                     #Disease variant
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -3243,55 +3044,35 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0560"
-                    >
-                       #Oxidoreductase
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0119"
-                    >
-                       #Carbohydrate metabolism
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0313"
-                    >
-                       #Glucose metabolism
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0225"
-                    >
-                       #Disease variant
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0360"
-                    >
-                       #Hereditary hemolytic anemia
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0560"
+                  >
+                     #Oxidoreductase
+                  </a>
+                  <a
+                    href="/keywords/KW-0119"
+                  >
+                     #Carbohydrate metabolism
+                  </a>
+                  <a
+                    href="/keywords/KW-0313"
+                  >
+                     #Glucose metabolism
+                  </a>
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                     #Disease variant
+                  </a>
+                  <a
+                    href="/keywords/KW-0360"
+                  >
+                     #Hereditary hemolytic anemia
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -3443,50 +3224,35 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0418"
-                    >
-                       #Kinase
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0808"
-                    >
-                       #Transferase
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0598"
-                    >
-                       #Phosphotransferase system
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0762"
-                    >
-                       #Sugar transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0813"
-                    >
-                       #Transport
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0418"
+                  >
+                     #Kinase
+                  </a>
+                  <a
+                    href="/keywords/KW-0808"
+                  >
+                     #Transferase
+                  </a>
+                  <a
+                    href="/keywords/KW-0598"
+                  >
+                     #Phosphotransferase system
+                  </a>
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                     #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                     #Transport
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -3630,43 +3396,30 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0021"
-                    >
-                       #Allosteric enzyme
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0548"
-                    >
-                       #Nucleotidyltransferase
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0808"
-                    >
-                       #Transferase
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0750"
-                    >
-                       #Starch biosynthesis
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0021"
+                  >
+                     #Allosteric enzyme
+                  </a>
+                  <a
+                    href="/keywords/KW-0548"
+                  >
+                     #Nucleotidyltransferase
+                  </a>
+                  <a
+                    href="/keywords/KW-0808"
+                  >
+                     #Transferase
+                  </a>
+                  <a
+                    href="/keywords/KW-0750"
+                  >
+                     #Starch biosynthesis
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -3782,24 +3535,20 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0762"
-                    >
-                       #Sugar transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0813"
-                    >
-                       #Transport
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                     #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                     #Transport
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -3920,7 +3669,6 @@ exports[`ResultsData component should render the card view with the correct numb
                   </span>
                 </span>
               </section>
-              <small />
             </div>
           </div>
           <div
@@ -4053,62 +3801,40 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0378"
-                    >
-                       #Hydrolase
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0511"
-                    >
-                       #Multifunctional enzyme
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0560"
-                    >
-                       #Oxidoreductase
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0119"
-                    >
-                       #Carbohydrate metabolism
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0313"
-                    >
-                       #Glucose metabolism
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0225"
-                    >
-                       #Disease variant
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0378"
+                  >
+                     #Hydrolase
+                  </a>
+                  <a
+                    href="/keywords/KW-0511"
+                  >
+                     #Multifunctional enzyme
+                  </a>
+                  <a
+                    href="/keywords/KW-0560"
+                  >
+                     #Oxidoreductase
+                  </a>
+                  <a
+                    href="/keywords/KW-0119"
+                  >
+                     #Carbohydrate metabolism
+                  </a>
+                  <a
+                    href="/keywords/KW-0313"
+                  >
+                     #Glucose metabolism
+                  </a>
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                     #Disease variant
+                  </a>
+                </div>
               </small>
             </div>
           </div>

@@ -1,15 +1,15 @@
-import { FC } from 'react';
+import { FC, Fragment } from 'react';
 import { InfoList, ExpandableList } from 'franklin-sites';
 import { Link } from 'react-router-dom';
-import cn from 'classnames';
+
+import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
 import { getEntryPath } from '../../../app/config/urls';
 
 import { Namespace } from '../../../shared/types/namespaces';
-
 import { Keyword, KeywordUIModel } from '../../utils/KeywordsUtil';
 
-import './styles/keyword-view.scss';
+import styles from './styles/keyword-view.module.scss';
 
 type KeywordListProps = {
   keywords: Keyword[];
@@ -33,21 +33,29 @@ export const KeywordList: FC<KeywordListProps> = ({
   keywords,
   idOnly,
   inline,
-}) => (
-  <ExpandableList
-    descriptionString={idOnly ? 'keyword IDs' : 'keywords'}
-    className={cn({ 'keyword-view--inline': inline })}
-  >
-    {keywords.map((keyword, index) => {
-      const { id, name } = keyword;
-      if (!id || !name) {
-        return null;
-      }
+}) => {
+  const content = keywords.map((keyword, index) => {
+    const { id, name, evidences } = keyword;
+    if (!id || !name) {
+      return null;
+    }
+    return (
       // eslint-disable-next-line react/no-array-index-key
-      return <KeywordItem key={index} id={id} value={idOnly ? id : name} />;
-    })}
-  </ExpandableList>
-);
+      <Fragment key={index}>
+        <KeywordItem id={id} value={idOnly ? id : name} />
+        {!inline && <UniProtKBEvidenceTag evidences={evidences} />}
+      </Fragment>
+    );
+  });
+
+  return inline ? (
+    <div className={styles['keyword-view--inline']}>{content}</div>
+  ) : (
+    <ExpandableList descriptionString={idOnly ? 'keyword IDs' : 'keywords'}>
+      {content}
+    </ExpandableList>
+  );
+};
 
 const KeywordView: FC<{ keywords: KeywordUIModel[] }> = ({ keywords }) => {
   if (!keywords?.length) {
