@@ -17,6 +17,31 @@ export const DatabaseInfoMapsContext = createContext<DatabaseInfoMaps | null>(
   null
 );
 
+export const databaseInfoColumnsSanityCheck = (databaseInfo: DatabaseInfo) => {
+  const definedColumns = new Set<string>();
+  Object.values(UniProtKBColumn).forEach((column) => {
+    if (isDatabaseColumn(column)) {
+      definedColumns.add(getDatabaseNameFromColumn(column));
+    }
+  });
+  databaseInfo.forEach((databaseInfoPoint) => {
+    // "implicit" are constructed from other properties
+    if (!databaseInfoPoint.implicit) {
+      const removed = definedColumns.delete(
+        databaseInfoPoint.name.toLowerCase()
+      );
+      if (!removed) {
+        logging.warn(`Missing column definition for ${databaseInfoPoint.name}`);
+      }
+    }
+  });
+  if (definedColumns.size > 0) {
+    logging.warn(
+      `Unused column definition for ${Array.from(definedColumns).join(', ')}`
+    );
+  }
+};
+
 type DatabaseInfoMapsProviderProps = {
   children: ReactNode;
 };
@@ -32,35 +57,10 @@ export const DatabaseInfoMapsProvider = ({
     [databaseInfo]
   );
 
-  // Sanity check for dynamic database info and static column definition
   useEffect(() => {
-    if (databaseInfo) {
-      const definedColumns = new Set<string>();
-      Object.values(UniProtKBColumn).forEach((column) => {
-        if (isDatabaseColumn(column)) {
-          definedColumns.add(getDatabaseNameFromColumn(column));
-        }
-      });
-      databaseInfo.forEach((databaseInfoPoint) => {
-        // "implicit" are constructed from other properties
-        if (!databaseInfoPoint.implicit) {
-          const removed = definedColumns.delete(
-            databaseInfoPoint.name.toLowerCase()
-          );
-          if (!removed) {
-            logging.warn(
-              `Missing column definition for ${databaseInfoPoint.name}`
-            );
-          }
-        }
-      });
-      if (definedColumns.size > 0) {
-        logging.warn(
-          `Unused column definition for ${Array.from(definedColumns).join(
-            ', '
-          )}`
-        );
-      }
+    // Sanity check for dynamic database info and static column definition
+    if (process.env.NODE_ENV === 'development' && databaseInfo) {
+      databaseInfoColumnsSanityCheck(databaseInfo);
     }
   }, [databaseInfo]);
 
