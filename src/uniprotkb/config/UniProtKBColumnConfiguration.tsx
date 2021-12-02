@@ -86,6 +86,8 @@ import EntryTypeIcon, {
 import AccessionView from '../../shared/components/results/AccessionView';
 import CSVView from '../components/protein-data-views/CSVView';
 
+import useDatabaseInfoMaps from '../../shared/hooks/useDatabaseInfoMaps';
+
 import { getAllKeywords } from '../utils/KeywordsUtil';
 import externalUrls from '../../shared/config/externalUrls';
 import { getEntryPath, LocationToPath, Location } from '../../app/config/urls';
@@ -102,7 +104,13 @@ import { diseaseAndDrugsFeaturesToColumns } from '../adapters/diseaseAndDrugs';
 import { subcellularLocationFeaturesToColumns } from '../adapters/subcellularLocationConverter';
 import { proteinProcessingFeaturesToColumns } from '../adapters/proteinProcessingConverter';
 import { familyAndDomainsFeaturesToColumns } from '../adapters/familyAndDomainsConverter';
-import { getDatabaseNameFromColumn, isDatabaseColumn } from '../utils/database';
+import {
+  DatabaseInfoMaps,
+  DatabaseToDatabaseInfo,
+  getDatabaseNameFromColumn,
+  isDatabaseColumn,
+} from '../utils/database';
+import { DatabaseList } from '../components/protein-data-views/XRefView';
 
 export const defaultColumns = [
   UniProtKBColumn.accession,
@@ -1095,7 +1103,6 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinFamilies, {
   render: (data) => {
     // TODO this actually seems to be a subset of this with a query on link?
     // Could maybe be removed
-    console.log(data);
     const familiesData = data[EntrySection.FamilyAndDomains].commentsData.get(
       'SIMILARITY'
     ) as FreeTextComment[] | undefined;
@@ -1108,44 +1115,48 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.tools, {
   render: (data) => <SequenceTools accession={data.primaryAccession} />,
 });
 
-const getXrefColumn = (databaseName: string) => ({
-  label: `${databaseName} cross-reference`,
-  render: (data: UniProtkbUIModel) => {
-    console.log(databaseName, data?.uniProtKBCrossReferences);
-    return databaseName;
-    // Step 1. get the database from the databaseinfo
-    // const t = data?.uniProtKBCrossReferences?.filter(
-    //   ({ database }) => database === databaseNameLower
-    // );
-    // return JSON.stringify(t, null, 2);
-    // Get the entry section for the database name
-    // const entrySection = getDatabaseNameToEntrySection(databaseName);
-    // if (!entrySection) {
-    //   return undefined;
-    // }
-    // const { xrefData } = data[entrySection];
-    // // Get the category for the database name in the section
-    // const category = xrefData?.find(
-    //   (xrefCategory) =>
-    //     xrefCategory.category === databaseNameToCategory.get(databaseName)
-    // );
-    // if (!category) {
-    //   return undefined;
-    // }
-    // // Get the database based on the name
-    // const xrefsGoupedByDatabase = category.databases.find(
-    //   (databaseGroup) => databaseGroup.database === databaseName
-    // );
-    // return (
-    //   xrefsGoupedByDatabase && (
-    //     <DatabaseList
-    //       xrefsGoupedByDatabase={xrefsGoupedByDatabase}
-    //       primaryAccession={data.primaryAccession}
-    //     />
-    //   )
-    // );
-  },
-});
+const getXrefColumn = (databaseName: string) => {
+  const Label = ({ data }: { data: UniProtkbUIModel }) => {
+    // TODO: needs franklin to pass the data in
+    const xref = data?.uniProtKBCrossReferences?.find(
+      ({ database }) => database?.toLowerCase() === databaseName
+    );
+    if (!xref?.database) {
+      logging.error(`No database found for ${databaseName}`);
+      return null;
+    }
+    return <>{`${xref.database} cross-reference`}</>;
+  };
+  const Renderer = ({ data }: { data: UniProtkbUIModel }) => {
+    const databaseInfoMaps = useDatabaseInfoMaps();
+    if (!databaseInfoMaps) {
+      return null;
+    }
+    const xrefs = data?.uniProtKBCrossReferences?.filter(
+      ({ database }) => database?.toLowerCase() === databaseName
+    );
+    const database = xrefs?.[0]?.database;
+    if (!xrefs?.length || !database) {
+      // TODO: is it OK to be here?
+      return null;
+    }
+    const xrefsGoupedByDatabase = {
+      database,
+      xrefs,
+    };
+    return (
+      <DatabaseList
+        xrefsGoupedByDatabase={xrefsGoupedByDatabase}
+        primaryAccession={data.primaryAccession}
+        databaseToDatabaseInfo={databaseInfoMaps.databaseToDatabaseInfo}
+      />
+    );
+  };
+  return {
+    label: (data: UniProtkbUIModel) => <Label data={data} />,
+    render: (data: UniProtkbUIModel) => <Renderer data={data} />,
+  };
+};
 
 // Add all database cross-reference columns
 Object.values(UniProtKBColumn)

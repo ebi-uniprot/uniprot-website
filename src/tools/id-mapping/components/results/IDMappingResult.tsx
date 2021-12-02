@@ -48,7 +48,7 @@ const IDMappingResult = () => {
     LocationToPath[Location.IDMappingResult]
   );
   const location = useLocation();
-  const databaseMaps = useDatabaseInfoMaps();
+  const databaseInfoMaps = useDatabaseInfoMaps();
   const { search: queryParamFromUrl } = location;
   const { selectedFacets } = getParamsFromURL(queryParamFromUrl);
 
@@ -60,7 +60,7 @@ const IDMappingResult = () => {
   const { data: detailsData } = useDataApi<MappingDetails>(detailApiUrl);
 
   const toDBInfo =
-    detailsData && databaseMaps?.databaseToDatabaseInfo[detailsData.to];
+    detailsData && databaseInfoMaps?.databaseToDatabaseInfo[detailsData.to];
 
   // Query for results data from the idmapping endpoint
   const initialApiUrl =

@@ -45,8 +45,8 @@ const UniParcFeaturesView: FC<{
   sequence: string;
 }> = ({ data, sequence }) => {
   const processedData = useMemo(() => convertData(data), [data]);
-  const databaseMaps = useDatabaseInfoMaps();
-  if (!databaseMaps) {
+  const databaseInfoMaps = useDatabaseInfoMaps();
+  if (!databaseInfoMaps) {
     return null;
   }
   // Define table contents
@@ -63,7 +63,8 @@ const UniParcFeaturesView: FC<{
       <tbody>
         {processedData.map((feature) => {
           const { database, databaseId } = feature;
-          const databaseInfo = databaseMaps.databaseToDatabaseInfo[database];
+          const databaseInfo =
+            databaseInfoMaps.databaseToDatabaseInfo[database];
 
           return (
             <tr

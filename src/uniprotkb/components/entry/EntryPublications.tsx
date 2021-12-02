@@ -45,13 +45,13 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
     annotation,
   } = reference;
 
-  const databaseMaps = useDatabaseInfoMaps();
+  const databaseInfoMaps = useDatabaseInfoMaps();
   const url = useMemo(() => {
-    if (!databaseMaps) {
+    if (!databaseInfoMaps) {
       return null;
     }
     const databaseInfo =
-      source && databaseMaps.databaseToDatabaseInfo[source.name];
+      source && databaseInfoMaps.databaseToDatabaseInfo[source.name];
     if (databaseInfo?.uriLink && source?.id) {
       return processUrlTemplate(databaseInfo.uriLink, { id: source.id });
     }
@@ -59,7 +59,7 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
       return `https://www.ncbi.nlm.nih.gov/gene?Db=gene&Cmd=DetailsSearch&Term=${source.id}`;
     }
     return null;
-  }, [databaseMaps, source]);
+  }, [databaseInfoMaps, source]);
 
   const infoListData = [
     {
