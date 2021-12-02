@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { DatabaseInfoMapsContext } from '../contexts/databaseInfoMaps';
+import { DatabaseInfoMapsContext } from '../contexts/DatabaseInfoMaps';
 
 import * as logging from '../utils/logging';
 

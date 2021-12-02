@@ -20,7 +20,7 @@ import history from '../../shared/utils/browserHistory';
 import useScrollToTop from '../../shared/hooks/useScrollToTop';
 import useReloadApp from '../../shared/hooks/useReloadApp';
 
-import { DatabaseInfoMapsProvider } from '../../shared/contexts/databaseInfoMaps';
+import { DatabaseInfoMapsProvider } from '../../shared/contexts/DatabaseInfoMaps';
 
 import {
   allSearchResultLocations,

@@ -19,7 +19,9 @@ export const DatabaseInfoMapsProvider = ({
   children,
 }: DatabaseInfoMapsProviderProps) => {
   const { data } = useDataApi<DatabaseInfo>(apiUrls.allUniProtKBDatabases);
-
+  // Check against columnTypes enum
+  // databaseInfo - columnTypes
+  // columnTypes - databaseInfo
   const databaseInfoMaps = useMemo(
     () => (data ? getDatabaseInfoMaps(data) : data),
     [data]
