@@ -162,23 +162,6 @@ export const getEntrySectionToDatabaseNames = (
   return entrySectionToDatabaseNames;
 };
 
-// TODO: eventually uncomment
-// export const getDatabaseNameToEntrySection = (
-//   databaseName: string
-// ): EntrySection | undefined => {
-//   let entrySection;
-//   entrySectionToDatabaseNames.forEach((value, key) => {
-//     if (value.includes(databaseName)) {
-//       entrySection = key;
-//     }
-//   });
-//   return entrySection;
-// };
-// export const getDatabaseInfoByName = (dbName: string) =>
-//   databaseInfo.find(
-//     (dbInfo) => dbInfo.name.toLowerCase() === dbName.toLowerCase()
-//   );
-
 // If each of the keys are present then show the values
 export const implicitDatabaseDRPresence: { [key: string]: string[] } = {
   // these EMBL mirrors are taken care of in xrefview as they are displayed differently

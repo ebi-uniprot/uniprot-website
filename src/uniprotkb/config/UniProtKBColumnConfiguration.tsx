@@ -1116,17 +1116,23 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.tools, {
 });
 
 const getXrefColumn = (databaseName: string) => {
-  const Label = ({ data }: { data: UniProtkbUIModel }) => {
-    // TODO: needs franklin to pass the data in
-    const xref = data?.uniProtKBCrossReferences?.find(
-      ({ database }) => database?.toLowerCase() === databaseName
+  const Label = () => {
+    const databaseInfoMaps = useDatabaseInfoMaps();
+    if (!databaseInfoMaps) {
+      return null;
+    }
+    const { databaseToDatabaseInfo } = databaseInfoMaps;
+    const databaseInfoKey = Object.keys(databaseToDatabaseInfo).find(
+      (database) => database.toLowerCase() === databaseName
     );
-    if (!xref?.database) {
+    if (!databaseInfoKey) {
       logging.error(`No database found for ${databaseName}`);
       return null;
     }
-    return <>{`${xref.database} cross-reference`}</>;
+    const { displayName } = databaseToDatabaseInfo[databaseInfoKey];
+    return <>{`${displayName} cross-reference`}</>;
   };
+
   const Renderer = ({ data }: { data: UniProtkbUIModel }) => {
     const databaseInfoMaps = useDatabaseInfoMaps();
     if (!databaseInfoMaps) {
@@ -1137,7 +1143,7 @@ const getXrefColumn = (databaseName: string) => {
     );
     const database = xrefs?.[0]?.database;
     if (!database) {
-      // TODO: is it OK to be here?
+      // This is fine - the entry just doesn't have xrefs for this DB so just render nothing
       return null;
     }
     const xrefsGoupedByDatabase = {
@@ -1153,7 +1159,7 @@ const getXrefColumn = (databaseName: string) => {
     );
   };
   return {
-    label: (data: UniProtkbUIModel) => <Label data={data} />,
+    label: () => <Label />,
     render: (data: UniProtkbUIModel) => <Renderer data={data} />,
   };
 };
