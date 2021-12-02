@@ -22,32 +22,33 @@ type DatabaseInfoMapsProviderProps = {
 export const DatabaseInfoMapsProvider = ({
   children,
 }: DatabaseInfoMapsProviderProps) => {
-  const { data } = useDataApi<DatabaseInfo>(apiUrls.allUniProtKBDatabases);
-  // Check against columnTypes enum
-  // databaseInfo - columnTypes
-  // columnTypes - databaseInfo
+  const { data: databaseInfo } = useDataApi<DatabaseInfo>(
+    apiUrls.allUniProtKBDatabases
+  );
   const databaseInfoMaps = useMemo(
-    () => (data ? getDatabaseInfoMaps(data) : data),
-    [data]
+    () => databaseInfo && getDatabaseInfoMaps(databaseInfo),
+    [databaseInfo]
   );
 
   // Sanity check for dynamic database info and static column definition
   useEffect(() => {
-    if (data) {
+    if (databaseInfo) {
       const definedColumns = new Set<string>();
       Object.values(UniProtKBColumn).forEach((column) => {
         if (column.startsWith('xref_')) {
           definedColumns.add(column.replace('xref_', ''));
         }
       });
-      data.forEach((dbInfoMapping) => {
+      databaseInfo.forEach((databaseInfoPoint) => {
         // "implicit" are constructed from other properties
-        if (!dbInfoMapping.implicit) {
+        if (!databaseInfoPoint.implicit) {
           const removed = definedColumns.delete(
-            dbInfoMapping.name.toLowerCase()
+            databaseInfoPoint.name.toLowerCase()
           );
           if (!removed) {
-            logging.warn(`Missing column definition for ${dbInfoMapping.name}`);
+            logging.warn(
+              `Missing column definition for ${databaseInfoPoint.name}`
+            );
           }
         }
       });
@@ -59,7 +60,7 @@ export const DatabaseInfoMapsProvider = ({
         );
       }
     }
-  }, [data]);
+  }, [databaseInfo]);
 
   return databaseInfoMaps ? (
     <DatabaseInfoMapsContext.Provider value={databaseInfoMaps}>
