@@ -1136,7 +1136,7 @@ const getXrefColumn = (databaseName: string) => {
       ({ database }) => database?.toLowerCase() === databaseName
     );
     const database = xrefs?.[0]?.database;
-    if (!xrefs?.length || !database) {
+    if (!database) {
       // TODO: is it OK to be here?
       return null;
     }
