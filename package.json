@@ -102,7 +102,6 @@
     "@swissprot/swissbiopics-visualizer": "0.0.28",
     "@types/gtag.js": "0.0.7",
     "@types/marked": "3.0.1",
-    "@use-it/event-listener": "0.1.6",
     "axios": "0.22.0",
     "classnames": "2.3.1",
     "core-js": "3.18.1",

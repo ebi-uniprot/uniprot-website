@@ -6,10 +6,10 @@ import {
   useRef,
   SetStateAction,
   Dispatch,
+  useEffect,
 } from 'react';
 import { debounce } from 'lodash-es';
 import { Loader } from 'franklin-sites';
-import useEventListener from '@use-it/event-listener';
 
 import useSize from '../../shared/hooks/useSize';
 import useSafeState from '../../shared/hooks/useSafeState';
@@ -225,11 +225,14 @@ const Wrapped: FC<AlignmentComponentProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const [size] = useSize(containerRef);
 
-  useEventListener(
-    'change',
-    handleEvent(updateTooltip) as (e: Event) => void,
-    containerRef?.current
-  );
+  useEffect(() => {
+    const handler = handleEvent(updateTooltip) as (e: Event) => void;
+    const element = containerRef?.current;
+    element?.addEventListener('change', handler);
+    return () => {
+      element?.removeEventListener('change', handler);
+    };
+  }, [updateTooltip]);
 
   const [rowLength, setRowLength] = useSafeState(0);
   const nItemsToRender = useStaggeredRenderingHelper({
