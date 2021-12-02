@@ -3,6 +3,8 @@ import { createContext, ReactNode, useEffect, useMemo } from 'react';
 import {
   DatabaseInfoMaps,
   getDatabaseInfoMaps,
+  getDatabaseNameFromColumn,
+  isDatabaseColumn,
 } from '../../uniprotkb/utils/database';
 import apiUrls from '../config/apiUrls';
 import useDataApi from '../hooks/useDataApi';
@@ -35,8 +37,8 @@ export const DatabaseInfoMapsProvider = ({
     if (databaseInfo) {
       const definedColumns = new Set<string>();
       Object.values(UniProtKBColumn).forEach((column) => {
-        if (column.startsWith('xref_')) {
-          definedColumns.add(column.replace('xref_', ''));
+        if (isDatabaseColumn(column)) {
+          definedColumns.add(getDatabaseNameFromColumn(column));
         }
       });
       databaseInfo.forEach((databaseInfoPoint) => {

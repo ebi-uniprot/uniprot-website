@@ -10,6 +10,7 @@ import {
   EntrySectionToDatabaseNames,
   getEntrySectionToDatabaseNames,
 } from '../config/database';
+import { UniProtKBColumn } from '../types/columnTypes';
 
 export type DatabaseCategoryToNames = Map<DatabaseCategory, string[]>;
 export type DatabaseNameToCategory = Map<string, DatabaseCategory>;
@@ -111,3 +112,11 @@ export const selectDatabases =
       ),
       ...include,
     ].filter((db) => !exclude.includes(db));
+
+const reXrefPrefix = /^xref_/;
+
+export const isDatabaseColumn = (column: UniProtKBColumn) =>
+  column.match(reXrefPrefix);
+
+export const getDatabaseNameFromColumn = (column: UniProtKBColumn) =>
+  column.replace(reXrefPrefix, '');
