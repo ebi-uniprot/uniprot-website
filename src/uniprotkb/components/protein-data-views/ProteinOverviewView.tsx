@@ -52,10 +52,15 @@ const ProteinOverview: FC<{
       <>
         <strong>Gene:</strong>{' '}
         {data.genes
-          .filter((geneName) => geneName.geneName)
           .map(
             (geneName) =>
-              `${geneName.geneName?.value}${
+              `${
+                geneName.geneName?.value ||
+                geneName.orderedLocusNames
+                  ?.map((name) => name.value)
+                  .join(', ') ||
+                geneName.orfNames?.map((name) => name.value).join(', ')
+              }${
                 geneName.synonyms
                   ? ` (${geneName.synonyms
                       ?.map((synonym) => synonym.value)
@@ -63,7 +68,7 @@ const ProteinOverview: FC<{
                   : ''
               }`
           )
-          .join(', ')}
+          .join('; ')}
         {' · '}
       </>
     );
