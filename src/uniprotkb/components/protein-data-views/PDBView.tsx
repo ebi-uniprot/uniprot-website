@@ -42,23 +42,13 @@ export type ProtvistaPDB = {
 
 const PDBView: FC<{
   xrefs: Xref[];
-  noStructure?: boolean;
-  primaryAccession?: string;
-}> = ({ xrefs, noStructure = false, primaryAccession }) => {
-  const structureDefined = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(
-        /* webpackChunkName: "protvista-uniprot" */ 'protvista-uniprot'
-      ).then((module) => ({ default: module.ProtvistaUniprotStructure })),
-    'protvista-uniprot-structure'
-  );
-  const managerDefined = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(/* webpackChunkName: "protvista-manager" */ 'protvista-manager'),
-    'protvista-manager'
-  );
+}> = ({ xrefs }) => {
+  /**
+   * Note: this view is duplicated in protvista-uniprot-structure
+   * This is because the AF data is not currently available as part of the entry
+   * Eventually it might make sense to just use protvista-structure and
+   * protvista-datatable.
+   */
   const datatableDefined = useCustomElement(
     /* istanbul ignore next */
     () =>
@@ -67,78 +57,64 @@ const PDBView: FC<{
       ),
     'protvista-datatable'
   );
-  const ceDefined = structureDefined && managerDefined && datatableDefined;
 
   const data = processData(xrefs);
 
   const databaseInfoMaps = useDatabaseInfoMaps();
 
-  if (!ceDefined || !databaseInfoMaps) {
+  if (!datatableDefined || !databaseInfoMaps) {
     return <Loader />;
   }
   const { databaseToDatabaseInfo } = databaseInfoMaps;
 
-  if (noStructure) {
-    return (
-      <protvista-datatable>
-        <table>
-          <thead>
-            <tr>
-              <th>PDB Entry</th>
-              <th>Method</th>
-              <th>Resolution</th>
-              <th>Chain</th>
-              <th>Positions</th>
-              <th>Links</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map(
-              (d) =>
-                d && (
-                  <tr key={d.id}>
-                    <td>{d.id}</td>
-                    <td>{d.method}</td>
-                    <td>{d.resolution?.replace('A', 'Å')}</td>
-                    <td>{d.chain}</td>
-                    <td>{d.positions}</td>
-                    <td>
-                      {getPDBMirrorsInfo(databaseToDatabaseInfo)
-                        .map(({ displayName, uriLink }) =>
-                          d.id && uriLink ? (
-                            <ExternalLink
-                              url={processUrlTemplate(uriLink, { id: d.id })}
-                            >
-                              {displayName}
-                            </ExternalLink>
-                          ) : (
-                            { displayName }
-                          )
-                        )
-                        .reduce((prev, curr) => (
-                          <>
-                            {prev} · {curr}
-                          </>
-                        ))}
-                    </td>
-                  </tr>
-                )
-            )}
-          </tbody>
-        </table>
-      </protvista-datatable>
-    );
-  }
-
-  const sortedIds = xrefs.map(({ id }) => id).sort();
-  const firstId = sortedIds && sortedIds.length ? sortedIds[0] : '';
   return (
-    <protvista-manager attributes="pdb-id">
-      <protvista-uniprot-structure
-        structureid={firstId}
-        accession={primaryAccession}
-      />
-    </protvista-manager>
+    <protvista-datatable>
+      <table>
+        <thead>
+          <tr>
+            <th>PDB Entry</th>
+            <th>Method</th>
+            <th>Resolution</th>
+            <th>Chain</th>
+            <th>Positions</th>
+            <th>Links</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map(
+            (d) =>
+              d && (
+                <tr key={d.id}>
+                  <td>{d.id}</td>
+                  <td>{d.method}</td>
+                  <td>{d.resolution?.replace('A', 'Å')}</td>
+                  <td>{d.chain}</td>
+                  <td>{d.positions}</td>
+                  <td>
+                    {getPDBMirrorsInfo(databaseToDatabaseInfo)
+                      .map(({ displayName, uriLink }) =>
+                        d.id && uriLink ? (
+                          <ExternalLink
+                            url={processUrlTemplate(uriLink, { id: d.id })}
+                          >
+                            {displayName}
+                          </ExternalLink>
+                        ) : (
+                          { displayName }
+                        )
+                      )
+                      .reduce((prev, curr) => (
+                        <>
+                          {prev} · {curr}
+                        </>
+                      ))}
+                  </td>
+                </tr>
+              )
+          )}
+        </tbody>
+      </table>
+    </protvista-datatable>
   );
 };
 

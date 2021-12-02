@@ -1,7 +1,6 @@
 /* eslint-disable no-param-reassign */
-import { FC, useCallback, useMemo, useRef, useState } from 'react';
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Loader } from 'franklin-sites';
-import useEventListener from '@use-it/event-listener';
 
 import AlignmentOverview from './AlignmentOverview';
 import AlignLabel from '../align/components/results/AlignLabel';
@@ -45,7 +44,7 @@ const AlignOverview: FC<AlignmentComponentProps> = ({
   activeAlignment,
   updateTooltip,
 }) => {
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLElement>(null);
   const [highlightPosition, setHighlighPosition] = useState('');
   const [initialDisplayEnd, setInitialDisplayEnd] = useState<
     number | undefined
@@ -87,11 +86,14 @@ const AlignOverview: FC<AlignmentComponentProps> = ({
     [initialDisplayEnd, findHighlightPositions, tracksOffset]
   );
 
-  useEventListener(
-    'change',
-    handleEvent(updateTooltip) as (e: Event) => void,
-    containerRef?.current
-  );
+  useEffect(() => {
+    const handler = handleEvent(updateTooltip) as (e: Event) => void;
+    const element = containerRef?.current;
+    element?.addEventListener('change', handler);
+    return () => {
+      element?.removeEventListener('change', handler);
+    };
+  }, [updateTooltip]);
 
   const msaDefined = useCustomElement(
     /* istanbul ignore next */

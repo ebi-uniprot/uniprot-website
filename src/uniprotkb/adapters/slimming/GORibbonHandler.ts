@@ -95,7 +95,7 @@ export const getCategories = (slimSet: SlimSet): AGRRibbonCategory[] => {
 
   // Convert to object
   const categoriesObj: AGRRibbonCategory[] = goAspects.map(
-    ({ id, label, name }): AGRRibbonCategory => ({
+    ({ id, label, name }) => ({
       id,
       description: '',
       label: name,
@@ -106,7 +106,8 @@ export const getCategories = (slimSet: SlimSet): AGRRibbonCategory[] => {
           description: `Show all ${label} annotations`,
           type: 'All',
         },
-        ...slimsByAspect[name].map(
+        // Handle the case where there is no slimmed annotation for an aspect
+        ...(slimsByAspect[name] || []).map(
           (term): AGRRibbonGroup => ({
             id: term.id,
             label: term.name,

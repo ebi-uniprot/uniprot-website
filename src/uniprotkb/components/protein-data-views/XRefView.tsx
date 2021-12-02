@@ -381,7 +381,7 @@ const StructureXRefsGroupedByCategory: FC<StructureXRefsGroupedByCategoryProps> 
       partitionStructureDatabases(databases);
     let PDBViewNode;
     if (PDBDatabase && PDBDatabase.xrefs.length) {
-      PDBViewNode = <PDBView xrefs={PDBDatabase.xrefs} noStructure />;
+      PDBViewNode = <PDBView xrefs={PDBDatabase.xrefs} />;
     }
     return (
       <>

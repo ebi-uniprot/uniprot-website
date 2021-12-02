@@ -10,7 +10,6 @@ import {
 } from 'react';
 import { TreeSelect, Loader } from 'franklin-sites';
 import { formatTooltip } from 'protvista-feature-adapter';
-import useEventListener from '@use-it/event-listener';
 
 import Wrapped from './Wrapped';
 import Overview from './Overview';
@@ -354,13 +353,20 @@ const AlignmentView: FC<{
     }
     return el;
   }, [tooltipRef]);
-  useEventListener(
-    'scroll',
-    () => {
+
+  useEffect(() => {
+    if (!(mainContentAndFooter && 'addEventListener' in mainContentAndFooter)) {
+      return;
+    }
+    const handler = () => {
       setTooltipContent(null);
-    },
-    mainContentAndFooter as HTMLElement
-  );
+    };
+    mainContentAndFooter.addEventListener('scroll', handler, { passive: true });
+    // eslint-disable-next-line consistent-return
+    return () => {
+      mainContentAndFooter.removeEventListener('scroll', handler);
+    };
+  }, [mainContentAndFooter]);
 
   const tooltipVisibility = tooltipContent ? { visible: true } : {};
 
