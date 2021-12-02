@@ -18,7 +18,7 @@ import useDataApi from '../../../../shared/hooks/useDataApi';
 import usePagination from '../../../../shared/hooks/usePagination';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
-import { useDatabaseInfoMaps } from '../../../../shared/contexts/databaseInfoMaps';
+import useDatabaseInfoMaps from '../../../../shared/hooks/useDatabaseInfoMaps';
 
 import toolsURLs from '../../../config/urls';
 import idMappingConverter from '../../adapters/idMappingConverter';

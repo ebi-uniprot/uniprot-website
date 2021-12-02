@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { ExternalLink, Loader } from 'franklin-sites';
 
 import useCustomElement from '../../../shared/hooks/useCustomElement';
-import { useDatabaseInfoMaps } from '../../../shared/contexts/databaseInfoMaps';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
 import { getPDBMirrorsInfo } from '../../config/database';
 import { processUrlTemplate } from './XRefView';

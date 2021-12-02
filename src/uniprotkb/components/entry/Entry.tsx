@@ -46,7 +46,7 @@ import apiUrls from '../../../shared/config/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
-import { useDatabaseInfoMaps } from '../../../shared/contexts/databaseInfoMaps';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
 import uniProtKbConverter, {
   UniProtkbAPIModel,

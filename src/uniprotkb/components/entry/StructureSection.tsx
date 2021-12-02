@@ -1,7 +1,7 @@
 import { groupBy } from 'lodash-es';
 import { Card } from 'franklin-sites';
 
-import { useDatabaseInfoMaps } from '../../../shared/contexts/databaseInfoMaps';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
 import EntrySection, {
   getEntrySectionNameAndId,

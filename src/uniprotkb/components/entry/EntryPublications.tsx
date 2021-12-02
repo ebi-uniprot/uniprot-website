@@ -30,7 +30,7 @@ import {
   Reference,
 } from '../../../supporting-data/citations/adapters/citationsConverter';
 import { Namespace } from '../../../shared/types/namespaces';
-import { useDatabaseInfoMaps } from '../../../shared/contexts/databaseInfoMaps';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
 const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
   reference,

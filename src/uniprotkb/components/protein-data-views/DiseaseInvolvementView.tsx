@@ -5,7 +5,7 @@ import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import { XRef } from './XRefView';
 
 import { DiseaseComment } from '../../types/commentTypes';
-import { useDatabaseInfoMaps } from '../../../shared/contexts/databaseInfoMaps';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
 type DiseaseInvolvementEntryProps = {
   comment: DiseaseComment[][0];

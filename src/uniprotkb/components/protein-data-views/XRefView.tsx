@@ -7,7 +7,7 @@ import * as logging from '../../../shared/utils/logging';
 
 import PDBView from './PDBView';
 
-import { useDatabaseInfoMaps } from '../../../shared/contexts/databaseInfoMaps';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
 import {
   databaseCategoryToString,

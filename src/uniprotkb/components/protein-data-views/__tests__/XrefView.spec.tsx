@@ -9,7 +9,7 @@ import XRefView, {
   getDatabaseInfoAttribute,
 } from '../XRefView';
 
-import { DatabaseInfoMapsProvider } from '../../../../shared/contexts/databaseInfoMaps';
+import { DatabaseInfoMapsProvider } from '../../../../shared/hooks/useDatabaseInfoMaps';
 
 import { PropertyKey } from '../../../types/modelTypes';
 import { DatabaseInfoPoint } from '../../../types/databaseRefs';
