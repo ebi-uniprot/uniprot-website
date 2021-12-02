@@ -27,12 +27,12 @@ const featuresCategories = Object.keys(
 
 const convertStructure = (
   data: UniProtkbAPIModel,
-  dbMaps: DatabaseInfoMaps,
+  databaseInfoMaps: DatabaseInfoMaps,
   uniProtKBCrossReferences?: Xref[]
 ) => {
   const structureData: StructureUIModel = convertSection(
     data,
-    dbMaps,
+    databaseInfoMaps,
     undefined,
     undefined,
     featuresCategories,

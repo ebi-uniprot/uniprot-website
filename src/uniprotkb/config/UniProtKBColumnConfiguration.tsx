@@ -1094,6 +1094,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinFamilies, {
   render: (data) => {
     // TODO this actually seems to be a subset of this with a query on link?
     // Could maybe be removed
+    console.log(data);
     const familiesData = data[EntrySection.FamilyAndDomains].commentsData.get(
       'SIMILARITY'
     ) as FreeTextComment[] | undefined;

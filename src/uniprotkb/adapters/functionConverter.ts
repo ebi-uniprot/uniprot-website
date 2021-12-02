@@ -190,12 +190,12 @@ export const getAspectGroupedGoTerms = (
 
 const convertFunction = (
   data: UniProtkbAPIModel,
-  dbMaps: DatabaseInfoMaps,
+  databaseInfoMaps: DatabaseInfoMaps,
   uniProtKBCrossReferences?: Xref[]
 ) => {
   const convertedSection = convertSection(
     data,
-    dbMaps,
+    databaseInfoMaps,
     commentsCategories,
     keywordsCategories,
     featureCategories,

@@ -7,7 +7,7 @@ import { DatabaseInfoMaps } from '../utils/database';
 
 const convertExternalLinks = (
   data: UniProtkbAPIModel,
-  dbMaps: DatabaseInfoMaps,
+  databaseInfoMaps: DatabaseInfoMaps,
   uniProtKBCrossReferences?: Xref[]
 ) => {
   const convertedData: UIModel = {
@@ -26,7 +26,7 @@ const convertExternalLinks = (
   }
   if (uniProtKBCrossReferences) {
     convertedData.xrefData = getXrefsForSection(
-      dbMaps,
+      databaseInfoMaps,
       uniProtKBCrossReferences,
       EntrySection.ExternalLinks,
       genes,

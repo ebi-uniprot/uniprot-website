@@ -18,7 +18,7 @@ import useDataApi from '../../../../shared/hooks/useDataApi';
 import usePagination from '../../../../shared/hooks/usePagination';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
-import { useDBMaps } from '../../../../shared/contexts/database';
+import { useDatabaseInfoMaps } from '../../../../shared/contexts/databaseInfoMaps';
 
 import toolsURLs from '../../../config/urls';
 import idMappingConverter from '../../adapters/idMappingConverter';
@@ -48,7 +48,7 @@ const IDMappingResult = () => {
     LocationToPath[Location.IDMappingResult]
   );
   const location = useLocation();
-  const databaseMaps = useDBMaps();
+  const databaseMaps = useDatabaseInfoMaps();
   const { search: queryParamFromUrl } = location;
   const { selectedFacets } = getParamsFromURL(queryParamFromUrl);
 

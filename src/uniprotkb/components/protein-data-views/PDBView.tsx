@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { ExternalLink, Loader } from 'franklin-sites';
 
 import useCustomElement from '../../../shared/hooks/useCustomElement';
-import { useDBMaps } from '../../../shared/contexts/database';
+import { useDatabaseInfoMaps } from '../../../shared/contexts/databaseInfoMaps';
 
 import { getPDBMirrorsInfo } from '../../config/database';
 import { processUrlTemplate } from './XRefView';
@@ -71,12 +71,12 @@ const PDBView: FC<{
 
   const data = processData(xrefs);
 
-  const dbMaps = useDBMaps();
+  const databaseInfoMaps = useDatabaseInfoMaps();
 
-  if (!ceDefined || !dbMaps) {
+  if (!ceDefined || !databaseInfoMaps) {
     return <Loader />;
   }
-  const { databaseToDatabaseInfo } = dbMaps;
+  const { databaseToDatabaseInfo } = databaseInfoMaps;
 
   if (noStructure) {
     return (

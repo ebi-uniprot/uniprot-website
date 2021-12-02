@@ -6,7 +6,7 @@ import FeaturesView, {
   ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';
 
-import { useDBMaps } from '../../../shared/contexts/database';
+import { useDatabaseInfoMaps } from '../../../shared/contexts/databaseInfoMaps';
 
 import externalUrls from '../../../shared/config/externalUrls';
 import { stringToColour } from '../../../shared/utils/color';
@@ -45,7 +45,7 @@ const UniParcFeaturesView: FC<{
   sequence: string;
 }> = ({ data, sequence }) => {
   const processedData = useMemo(() => convertData(data), [data]);
-  const databaseMaps = useDBMaps();
+  const databaseMaps = useDatabaseInfoMaps();
   if (!databaseMaps) {
     return null;
   }

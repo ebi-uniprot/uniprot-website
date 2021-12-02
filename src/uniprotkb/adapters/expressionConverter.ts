@@ -16,12 +16,12 @@ const commentsCategories: CommentType[] = [
 
 const convertExpression = (
   data: UniProtkbAPIModel,
-  dbMaps: DatabaseInfoMaps,
+  databaseInfoMaps: DatabaseInfoMaps,
   uniProtKBCrossReferences?: Xref[]
 ) =>
   convertSection(
     data,
-    dbMaps,
+    databaseInfoMaps,
     commentsCategories,
     keywordsCategories,
     undefined,

@@ -83,14 +83,14 @@ export type ColumnDescriptor<Datum = APIModel> = {
 const convertRow = (
   row: APIModel,
   namespace: Namespace | 'id-mapping',
-  dbMaps?: DatabaseInfoMaps
+  databaseInfoMaps?: DatabaseInfoMaps
 ) => {
   switch (namespace) {
     // Main namespaces
     case Namespace.uniprotkb:
       return uniProtKbConverter(
         row as UniProtkbAPIModel,
-        dbMaps as DatabaseInfoMaps // TODO: remove the as
+        databaseInfoMaps as DatabaseInfoMaps // TODO: remove the as
       );
     case Namespace.uniref:
       return row as UniRefLiteAPIModel;

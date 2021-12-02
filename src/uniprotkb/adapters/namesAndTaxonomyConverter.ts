@@ -50,12 +50,12 @@ export type NamesAndTaxonomyUIModel = {
 
 export const convertNamesAndTaxonomy = (
   data: UniProtkbAPIModel,
-  dbMaps: DatabaseInfoMaps,
+  databaseInfoMaps: DatabaseInfoMaps,
   uniProtKBCrossReferences?: Xref[]
 ) => {
   const namesAndTaxonomyData: NamesAndTaxonomyUIModel = convertSection(
     data,
-    dbMaps,
+    databaseInfoMaps,
     undefined,
     undefined,
     undefined,

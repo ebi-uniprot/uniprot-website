@@ -30,7 +30,7 @@ import {
   Reference,
 } from '../../../supporting-data/citations/adapters/citationsConverter';
 import { Namespace } from '../../../shared/types/namespaces';
-import { useDBMaps } from '../../../shared/contexts/database';
+import { useDatabaseInfoMaps } from '../../../shared/contexts/databaseInfoMaps';
 
 const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
   reference,
@@ -45,7 +45,7 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
     annotation,
   } = reference;
 
-  const databaseMaps = useDBMaps();
+  const databaseMaps = useDatabaseInfoMaps();
   const url = useMemo(() => {
     if (!databaseMaps) {
       return null;

@@ -8,31 +8,35 @@ import apiUrls from '../config/apiUrls';
 import useDataApi from '../hooks/useDataApi';
 import * as logging from '../utils/logging';
 
-const DBMapsContext = createContext<DatabaseInfoMaps | null>(null);
+const DatabaseInfoMapsContext = createContext<DatabaseInfoMaps | null>(null);
 
-type DBMapsProviderProps = {
+type DatabaseInfoMapsProviderProps = {
   children: ReactNode;
 };
 
-export const DBMapsProvider = ({ children }: DBMapsProviderProps) => {
+export const DatabaseInfoMapsProvider = ({
+  children,
+}: DatabaseInfoMapsProviderProps) => {
   const { data } = useDataApi<DatabaseInfo>(apiUrls.allUniProtKBDatabases);
 
-  const databaseMaps = useMemo(
+  const databaseInfoMaps = useMemo(
     () => (data ? getDatabaseInfoMaps(data) : data),
     [data]
   );
 
-  return databaseMaps ? (
-    <DBMapsContext.Provider value={databaseMaps}>
+  return databaseInfoMaps ? (
+    <DatabaseInfoMapsContext.Provider value={databaseInfoMaps}>
       {children}
-    </DBMapsContext.Provider>
+    </DatabaseInfoMapsContext.Provider>
   ) : null;
 };
 
-export const useDBMaps = () => {
-  const context = useContext(DBMapsContext);
+export const useDatabaseInfoMaps = () => {
+  const context = useContext(DatabaseInfoMapsContext);
   if (context === undefined) {
-    logging.error('useDBMaps must be used within a CountProvider');
+    logging.error(
+      'useDatabaseInfoMaps must be used within a DatabaseInfoMapsProvider'
+    );
   }
   return context;
 };

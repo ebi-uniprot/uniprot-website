@@ -9,7 +9,7 @@ import XRefView, {
   getDatabaseInfoAttribute,
 } from '../XRefView';
 
-import { DBMapsProvider } from '../../../../shared/contexts/database';
+import { DatabaseInfoMapsProvider } from '../../../../shared/contexts/databaseInfoMaps';
 
 import { PropertyKey } from '../../../types/modelTypes';
 import { DatabaseInfoPoint } from '../../../types/databaseRefs';
@@ -23,9 +23,9 @@ mock.onGet(/\/configure\/uniprotkb\/allDatabases/).reply(200, databaseInfo);
 describe('XRefView', () => {
   test(`should render section`, () => {
     const { asFragment } = render(
-      <DBMapsProvider>
+      <DatabaseInfoMapsProvider>
         <XRefView xrefs={xrefs.standard} primaryAccession="P01234" />
-      </DBMapsProvider>
+      </DatabaseInfoMapsProvider>
     );
     expect(asFragment()).toMatchSnapshot();
   });

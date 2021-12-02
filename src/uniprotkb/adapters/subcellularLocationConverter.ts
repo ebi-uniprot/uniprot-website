@@ -64,12 +64,12 @@ export type SubcellularLocationUIModel = {
 
 const convertSubcellularLocation = (
   data: UniProtkbAPIModel,
-  dbMaps: DatabaseInfoMaps,
+  databaseInfoMaps: DatabaseInfoMaps,
   uniProtKBCrossReferences?: Xref[]
 ) => {
   const subcellularLocationData: SubcellularLocationUIModel = convertSection(
     data,
-    dbMaps,
+    databaseInfoMaps,
     commentCategories,
     keywordsCategories,
     featuresCategories,

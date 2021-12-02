@@ -20,7 +20,7 @@ import history from '../../shared/utils/browserHistory';
 import useScrollToTop from '../../shared/hooks/useScrollToTop';
 import useReloadApp from '../../shared/hooks/useReloadApp';
 
-import { DBMapsProvider } from '../../shared/contexts/database';
+import { DatabaseInfoMapsProvider } from '../../shared/contexts/databaseInfoMaps';
 
 import {
   allSearchResultLocations,
@@ -288,7 +288,7 @@ const App = () => {
   return (
     <FranklinSite>
       <Router history={history}>
-        <DBMapsProvider>
+        <DatabaseInfoMapsProvider>
           <Helmet titleTemplate="%s | UniProt" defaultTitle="UniProt">
             <meta
               name="description"
@@ -457,7 +457,7 @@ const App = () => {
           <ErrorBoundary fallback={null}>
             <GDPR />
           </ErrorBoundary>
-        </DBMapsProvider>
+        </DatabaseInfoMapsProvider>
       </Router>
       <a
         style={reportBugLinkStyles}

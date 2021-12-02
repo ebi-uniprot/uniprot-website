@@ -96,7 +96,7 @@ const precursorFlags = new Set<Flag>([
 
 export const convertSequence = (
   data: UniProtkbAPIModel,
-  dbMaps: DatabaseInfoMaps,
+  databaseInfoMaps: DatabaseInfoMaps,
   uniProtKBCrossReferences?: Xref[]
 ) => {
   const sequenceData: SequenceUIModel = {
@@ -208,7 +208,7 @@ export const convertSequence = (
       ...joined,
     ];
     const xrefs = getXrefsForSection(
-      dbMaps,
+      databaseInfoMaps,
       newXrefs,
       EntrySection.Sequence,
       data.genes

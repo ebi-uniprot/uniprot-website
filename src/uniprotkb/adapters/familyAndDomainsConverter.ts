@@ -28,12 +28,12 @@ const familyAndDomainsComments: CommentType[] = ['DOMAIN', 'SIMILARITY'];
 
 const convertFamilyAndDomains = (
   data: UniProtkbAPIModel,
-  dbMaps: DatabaseInfoMaps,
+  databaseInfoMaps: DatabaseInfoMaps,
   uniProtKBCrossReferences?: Xref[]
 ) =>
   convertSection(
     data,
-    dbMaps,
+    databaseInfoMaps,
     familyAndDomainsComments,
     keywordsCategories,
     featuresCategories,

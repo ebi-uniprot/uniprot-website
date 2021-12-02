@@ -231,6 +231,9 @@ export const getXrefsForSection = (
   uniProtkbId?: string,
   ecNumbers?: ValueWithEvidence[] | null
 ): XrefUIModel[] => {
+  if (!databaseInfoMaps) {
+    return [];
+  }
   const {
     databaseNameToCategory,
     entrySectionToDatabaseCategoryOrder,

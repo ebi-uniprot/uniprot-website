@@ -1,7 +1,7 @@
 import { groupBy } from 'lodash-es';
 import { Card } from 'franklin-sites';
 
-import { useDBMaps } from '../../../shared/contexts/database';
+import { useDatabaseInfoMaps } from '../../../shared/contexts/databaseInfoMaps';
 
 import EntrySection, {
   getEntrySectionNameAndId,
@@ -32,8 +32,8 @@ const StructureSection = ({
   sequence,
   crc64,
 }: Props) => {
-  const dbMaps = useDBMaps();
-  if (!hasContent(data) || !dbMaps) {
+  const databaseInfoMaps = useDatabaseInfoMaps();
+  if (!hasContent(data) || !databaseInfoMaps) {
     return null;
   }
   const { arrayStructureDatabases, otherDatabases } = groupBy(
@@ -73,9 +73,10 @@ const StructureSection = ({
   let XrefViewNode;
   if (nonPDBDatabases && nonPDBDatabases.length) {
     // The non-PDB databases need to be re-ordered accordingly
-    const categoryOrder = dbMaps.entrySectionToDatabaseCategoryOrder.get(
-      EntrySection.Structure
-    );
+    const categoryOrder =
+      databaseInfoMaps.entrySectionToDatabaseCategoryOrder.get(
+        EntrySection.Structure
+      );
     if (categoryOrder) {
       XrefViewNode = (
         <XRefView

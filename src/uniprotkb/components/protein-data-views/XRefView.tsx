@@ -7,7 +7,7 @@ import * as logging from '../../../shared/utils/logging';
 
 import PDBView from './PDBView';
 
-import { useDBMaps } from '../../../shared/contexts/database';
+import { useDatabaseInfoMaps } from '../../../shared/contexts/databaseInfoMaps';
 
 import {
   databaseCategoryToString,
@@ -337,11 +337,11 @@ const XRefsGroupedByCategory: FC<XRefsGroupedByCategoryProps> = ({
   primaryAccession,
   crc64,
 }) => {
-  const dbMaps = useDBMaps();
-  if (!dbMaps) {
+  const databaseInfoMaps = useDatabaseInfoMaps();
+  if (!databaseInfoMaps) {
     return null;
   }
-  const { databaseToDatabaseInfo } = dbMaps;
+  const { databaseToDatabaseInfo } = databaseInfoMaps;
   const infoData = sortBy(databases, ({ database }) => [
     databaseToDatabaseInfo?.[database].implicit,
     database,

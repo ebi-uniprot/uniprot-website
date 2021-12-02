@@ -21,7 +21,7 @@ export type UIModel = {
 
 export const convertSection = (
   data: UniProtkbAPIModel,
-  dbMaps: DatabaseInfoMaps,
+  databaseInfoMaps: DatabaseInfoMaps,
   sectionComments?: CommentType[],
   sectionKeywords?: KeywordCategory[],
   sectionFeatures?: FeatureType[],
@@ -62,7 +62,7 @@ export const convertSection = (
       | FreeTextComment[]
       | undefined;
     convertedData.xrefData = getXrefsForSection(
-      dbMaps,
+      databaseInfoMaps,
       uniProtKBCrossReferences,
       section,
       genes,

@@ -28,12 +28,12 @@ const commentsCategories: CommentType[] = [
 
 const convertDiseaseAndDrugs = (
   data: UniProtkbAPIModel,
-  dbMaps: DatabaseInfoMaps,
+  databaseInfoMaps: DatabaseInfoMaps,
   uniProtKBCrossReferences?: Xref[]
 ) =>
   convertSection(
     data,
-    dbMaps,
+    databaseInfoMaps,
     commentsCategories,
     keywordsCategories,
     featuresCategories,

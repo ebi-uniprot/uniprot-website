@@ -16,12 +16,12 @@ export type Interactant = {
 
 export const convertInteraction = (
   data: UniProtkbAPIModel,
-  dbMaps: DatabaseInfoMaps,
+  databaseInfoMaps: DatabaseInfoMaps,
   uniProtKBCrossReferences?: Xref[]
 ) =>
   convertSection(
     data,
-    dbMaps,
+    databaseInfoMaps,
     commentsCategories,
     undefined,
     undefined,
