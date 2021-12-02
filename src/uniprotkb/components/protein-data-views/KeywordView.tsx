@@ -1,14 +1,15 @@
+import { Fragment } from 'react';
 import { InfoList, ExpandableList } from 'franklin-sites';
 import { Link } from 'react-router-dom';
-import cn from 'classnames';
+
+import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
 import { getEntryPath } from '../../../app/config/urls';
 
 import { Namespace } from '../../../shared/types/namespaces';
-
 import { Keyword, KeywordUIModel } from '../../utils/KeywordsUtil';
 
-import './styles/keyword-view.scss';
+import styles from './styles/keyword-view.module.scss';
 
 type KeywordListProps = {
   keywords: Keyword[];
@@ -28,21 +29,29 @@ export const KeywordItem = ({ id, value }: KeywordItempProps) => {
   return <Link to={getEntryPath(Namespace.keywords, id)}>{` #${value}`}</Link>;
 };
 
-export const KeywordList = ({ keywords, idOnly, inline }: KeywordListProps) => (
-  <ExpandableList
-    descriptionString={idOnly ? 'keyword IDs' : 'keywords'}
-    className={cn({ 'keyword-view--inline': inline })}
-  >
-    {keywords.map((keyword, index) => {
-      const { id, name } = keyword;
-      if (!id || !name) {
-        return null;
-      }
+export const KeywordList = ({ keywords, idOnly, inline }: KeywordListProps) => {
+  const content = keywords.map((keyword, index) => {
+    const { id, name, evidences } = keyword;
+    if (!id || !name) {
+      return null;
+    }
+    return (
       // eslint-disable-next-line react/no-array-index-key
-      return <KeywordItem key={index} id={id} value={idOnly ? id : name} />;
-    })}
-  </ExpandableList>
-);
+      <Fragment key={index}>
+        <KeywordItem id={id} value={idOnly ? id : name} />
+        {!inline && <UniProtKBEvidenceTag evidences={evidences} />}
+      </Fragment>
+    );
+  });
+
+  return inline ? (
+    <div className={styles['keyword-view--inline']}>{content}</div>
+  ) : (
+    <ExpandableList descriptionString={idOnly ? 'keyword IDs' : 'keywords'}>
+      {content}
+    </ExpandableList>
+  );
+};
 
 const KeywordView = ({ keywords }: { keywords: KeywordUIModel[] }) => {
   if (!keywords?.length) {

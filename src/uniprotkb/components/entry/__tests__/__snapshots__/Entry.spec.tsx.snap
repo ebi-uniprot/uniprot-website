@@ -2193,7 +2193,7 @@ exports[`Entry basic should render main 1`] = `
                         <div
                           id="fakeContent"
                         />
-                        <sib-swissbiopics-sl-uniprot-49
+                        <sib-swissbiopics-sl-uniprot-50
                           contentid="fakeContent"
                           sls=""
                           taxid="9606"
@@ -2211,29 +2211,6 @@ exports[`Entry basic should render main 1`] = `
                                 location value
                               </strong>
                                
-                              <button
-                                aria-controls="50"
-                                aria-expanded="false"
-                                class="svg-colour-unreviewed evidence-tag"
-                                data-testid="evidence-tag-trigger"
-                                type="button"
-                              >
-                                <test-file-stub
-                                  height="12"
-                                  width="12"
-                                />
-                                <span
-                                  class="evidence-tag__label"
-                                >
-                                  1 automatic annotation
-                                </span>
-                              </button>
-                              <div
-                                class="evidence-tag-content "
-                                data-testid="evidence-tag-content"
-                                id="50"
-                              />
-                              ; topology value 
                               <button
                                 aria-controls="51"
                                 aria-expanded="false"
@@ -2256,11 +2233,7 @@ exports[`Entry basic should render main 1`] = `
                                 data-testid="evidence-tag-content"
                                 id="51"
                               />
-                            </div>
-                            <div
-                              class="text-block"
-                            >
-                              value.
+                              ; topology value 
                               <button
                                 aria-controls="52"
                                 aria-expanded="false"
@@ -2284,8 +2257,35 @@ exports[`Entry basic should render main 1`] = `
                                 id="52"
                               />
                             </div>
+                            <div
+                              class="text-block"
+                            >
+                              value.
+                              <button
+                                aria-controls="53"
+                                aria-expanded="false"
+                                class="svg-colour-unreviewed evidence-tag"
+                                data-testid="evidence-tag-trigger"
+                                type="button"
+                              >
+                                <test-file-stub
+                                  height="12"
+                                  width="12"
+                                />
+                                <span
+                                  class="evidence-tag__label"
+                                >
+                                  1 automatic annotation
+                                </span>
+                              </button>
+                              <div
+                                class="evidence-tag-content "
+                                data-testid="evidence-tag-content"
+                                id="53"
+                              />
+                            </div>
                           </section>
-                        </sib-swissbiopics-sl-uniprot-49>
+                        </sib-swissbiopics-sl-uniprot-50>
                       </div>
                       <div
                         style="display: none;"
@@ -2296,7 +2296,7 @@ exports[`Entry basic should render main 1`] = `
                         <div
                           id="fakeContent"
                         />
-                        <sib-swissbiopics-sl-go-53
+                        <sib-swissbiopics-sl-go-54
                           contentid="fakeContent"
                           gos=""
                           taxid="9606"
@@ -2835,6 +2835,9 @@ exports[`Entry basic should render main 1`] = `
                 <div
                   class="card__content"
                 >
+                  <protvista-uniprot-structure
+                    accession="P21802"
+                  />
                   <h3>
                     3D structure databases
                   </h3>
@@ -2968,6 +2971,28 @@ exports[`Entry basic should render main 1`] = `
                               >
                                  #keyword value
                               </a>
+                              <button
+                                aria-controls="45"
+                                aria-expanded="false"
+                                class="svg-colour-unreviewed evidence-tag"
+                                data-testid="evidence-tag-trigger"
+                                type="button"
+                              >
+                                <test-file-stub
+                                  height="12"
+                                  width="12"
+                                />
+                                <span
+                                  class="evidence-tag__label"
+                                >
+                                  1 automatic annotation
+                                </span>
+                              </button>
+                              <div
+                                class="evidence-tag-content "
+                                data-testid="evidence-tag-content"
+                                id="45"
+                              />
                             </li>
                           </ul>
                         </div>
@@ -3229,39 +3254,6 @@ exports[`Entry basic should render main 1`] = `
                     </a>
                      differs from that shown. Reason: Erroneous gene model prediction Text note
                     <button
-                      aria-controls="45"
-                      aria-expanded="false"
-                      class="svg-colour-unreviewed evidence-tag"
-                      data-testid="evidence-tag-trigger"
-                      type="button"
-                    >
-                      <test-file-stub
-                        height="12"
-                        width="12"
-                      />
-                      <span
-                        class="evidence-tag__label"
-                      >
-                        1 automatic annotation
-                      </span>
-                    </button>
-                    <div
-                      class="evidence-tag-content "
-                      data-testid="evidence-tag-content"
-                      id="45"
-                    />
-                  </section>
-                  <h3>
-                    Mass Spectrometry
-                  </h3>
-                  <section
-                    class="text-block"
-                  >
-                    <h3>
-                      isoform 1
-                    </h3>
-                    Molecular mass is 2.1 Da. Determined by LSI. note value
-                    <button
                       aria-controls="46"
                       aria-expanded="false"
                       class="svg-colour-unreviewed evidence-tag"
@@ -3285,6 +3277,39 @@ exports[`Entry basic should render main 1`] = `
                     />
                   </section>
                   <h3>
+                    Mass Spectrometry
+                  </h3>
+                  <section
+                    class="text-block"
+                  >
+                    <h3>
+                      isoform 1
+                    </h3>
+                    Molecular mass is 2.1 Da. Determined by LSI. note value
+                    <button
+                      aria-controls="47"
+                      aria-expanded="false"
+                      class="svg-colour-unreviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 automatic annotation
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="47"
+                    />
+                  </section>
+                  <h3>
                     RNA Editing
                   </h3>
                   <section
@@ -3294,33 +3319,6 @@ exports[`Entry basic should render main 1`] = `
                       Edited at position 
                       <span>
                         1 
-                        <button
-                          aria-controls="47"
-                          aria-expanded="false"
-                          class="svg-colour-unreviewed evidence-tag"
-                          data-testid="evidence-tag-trigger"
-                          type="button"
-                        >
-                          <test-file-stub
-                            height="12"
-                            width="12"
-                          />
-                          <span
-                            class="evidence-tag__label"
-                          >
-                            1 automatic annotation
-                          </span>
-                        </button>
-                        <div
-                          class="evidence-tag-content "
-                          data-testid="evidence-tag-content"
-                          id="47"
-                        />
-                      </span>
-                    </div>
-                    <div>
-                      <span>
-                        value 
                         <button
                           aria-controls="48"
                           aria-expanded="false"
@@ -3342,6 +3340,33 @@ exports[`Entry basic should render main 1`] = `
                           class="evidence-tag-content "
                           data-testid="evidence-tag-content"
                           id="48"
+                        />
+                      </span>
+                    </div>
+                    <div>
+                      <span>
+                        value 
+                        <button
+                          aria-controls="49"
+                          aria-expanded="false"
+                          class="svg-colour-unreviewed evidence-tag"
+                          data-testid="evidence-tag-trigger"
+                          type="button"
+                        >
+                          <test-file-stub
+                            height="12"
+                            width="12"
+                          />
+                          <span
+                            class="evidence-tag__label"
+                          >
+                            1 automatic annotation
+                          </span>
+                        </button>
+                        <div
+                          class="evidence-tag-content "
+                          data-testid="evidence-tag-content"
+                          id="49"
                         />
                       </span>
                     </div>
