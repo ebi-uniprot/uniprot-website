@@ -11,6 +11,7 @@ import useBasket, { Basket } from '../shared/hooks/useBasket';
 import useItemSelect from '../shared/hooks/useItemSelect';
 import usePagination from '../shared/hooks/usePagination';
 import useNSQuery from '../shared/hooks/useNSQuery';
+import useDatabaseInfoMaps from '../shared/hooks/useDatabaseInfoMaps';
 
 import { LocationToPath, Location } from '../app/config/urls';
 
@@ -77,9 +78,20 @@ const BasketMiniViewTab = ({
   });
   const resultsDataObject = usePagination(initialApiUrl);
 
+  const databaseInfoMaps = useDatabaseInfoMaps();
+
   const columns = useMemo<Array<ColumnDescriptor<APIModel>>>(
-    () => columnNames && getColumnsToDisplay(namespace, columnNames),
-    [namespace, columnNames]
+    () =>
+      columnNames &&
+      getColumnsToDisplay(
+        namespace,
+        columnNames,
+        undefined,
+        undefined,
+        undefined,
+        databaseInfoMaps
+      ),
+    [namespace, columnNames, databaseInfoMaps]
   );
 
   return (
