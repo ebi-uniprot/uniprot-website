@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-declare module 'lite-youtube';
+declare module 'lite-youtube-embed';
 
 declare namespace JSX {
   interface IntrinsicElements {
