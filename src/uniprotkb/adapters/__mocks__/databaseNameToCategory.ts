@@ -177,9 +177,8 @@ const databaseNameToCategory: Map<string, DatabaseCategory> = new Map([
   ['DisProt', DatabaseCategory.DOMAIN],
   ['MobiDB', DatabaseCategory.DOMAIN],
   ['ProtoNet', DatabaseCategory.DOMAIN],
-  // TODO: investigate - these 2 are missing from DatabaseCategory
-  // ['GO', 'OTG'],
-  // ['Proteomes', 'PRM'],
+  ['GO', DatabaseCategory.GENE_ONTOLOGY],
+  ['Proteomes', DatabaseCategory.PROTEOMES],
   ['PathwayCommons', DatabaseCategory.PATHWAY],
   ['Pharos', DatabaseCategory.MISCELLANEOUS],
   ['DrugCentral', DatabaseCategory.CHEMISTRY],
