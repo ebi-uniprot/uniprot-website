@@ -27,15 +27,15 @@ test('getDatabaseInfoMaps', () => {
     entrySectionToDatabaseCategoryOrder,
     implicitDatabaseXRefs,
   } = getDatabaseInfoMaps(databaseInfo);
-  expect([...databaseNameToCategory]).toEqual(expectedDatabaseNameToCategory);
-  expect([...databaseCategoryToNames]).toEqual(expectedDatabaseCategoryToNames);
-  expect([...entrySectionToDatabaseNames]).toEqual(
+  expect(databaseNameToCategory).toEqual(expectedDatabaseNameToCategory);
+  expect(databaseCategoryToNames).toEqual(expectedDatabaseCategoryToNames);
+  expect(entrySectionToDatabaseNames).toEqual(
     expectedEntrySectionToDatabaseNames
   );
-  expect([...entrySectionToDatabaseCategoryOrder]).toEqual(
+  expect(entrySectionToDatabaseCategoryOrder).toEqual(
     expectedEntrySectionToDatabaseCategoryOrder
   );
-  expect([...implicitDatabaseXRefs]).toEqual(expectedImplicitDatabaseXRefs);
+  expect(implicitDatabaseXRefs).toEqual(expectedImplicitDatabaseXRefs);
   const databaseNames = databaseInfo
     .map((databaseInfoPoint) => databaseInfoPoint.name)
     .sort();
@@ -49,7 +49,7 @@ test('getEntrySectionToDatabaseCategoryOrder', () => {
       expectedEntrySectionToDatabaseNames,
       expectedDatabaseNameToCategory
     );
-  expect([...entrySectionToDatabaseCategoryOrder]).toEqual(
+  expect(entrySectionToDatabaseCategoryOrder).toEqual(
     expectedEntrySectionToDatabaseCategoryOrder
   );
 });
