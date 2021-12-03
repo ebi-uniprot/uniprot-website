@@ -127,33 +127,34 @@ export const RheaReactionVisualizer = ({
           {`${show ? 'Hide' : 'View'} Rhea reaction`}
         </button>
       </div>
-      {show && rheaReactionElement.defined ? (
-        <>
-          <div className="rhea-reaction-visualizer__component">
-            <rheaReactionElement.name
-              rheaid={rheaId}
-              showIds
-              zoom
-              ref={callback}
-              usehost="https://api.rhea-db.org"
-            />
-          </div>
-          {displayModal && zoomImageData?.imgURL && (
-            <Modal
-              handleExitModal={() => setDisplayModal(false)}
-              height="30vh"
-              width="30vw"
-            >
-              <ZoomModalContent
-                chebi={zoomImageData.chebi}
-                imgURL={zoomImageData.imgURL}
+      {show &&
+        (rheaReactionElement.defined ? (
+          <>
+            <div className="rhea-reaction-visualizer__component">
+              <rheaReactionElement.name
+                rheaid={rheaId}
+                showIds
+                zoom
+                ref={callback}
+                usehost="https://api.rhea-db.org"
               />
-            </Modal>
-          )}
-        </>
-      ) : (
-        <Loader />
-      )}
+            </div>
+            {displayModal && zoomImageData?.imgURL && (
+              <Modal
+                handleExitModal={() => setDisplayModal(false)}
+                height="30vh"
+                width="30vw"
+              >
+                <ZoomModalContent
+                  chebi={zoomImageData.chebi}
+                  imgURL={zoomImageData.imgURL}
+                />
+              </Modal>
+            )}
+          </>
+        ) : (
+          <Loader />
+        ))}
     </>
   );
 };
