@@ -84,7 +84,7 @@ export type ColumnDescriptor<Datum = APIModel> = {
 const convertRow = (
   row: APIModel,
   namespace: Namespace | 'id-mapping',
-  databaseInfoMaps?: DatabaseInfoMaps
+  databaseInfoMaps?: DatabaseInfoMaps | null
 ) => {
   switch (namespace) {
     // Main namespaces
@@ -149,7 +149,7 @@ export const getColumnsToDisplay = (
   sortableColumnToSortColumn?: Map<Column, string>,
   sortColumn?: SortableColumn,
   sortDirection?: SortDirection,
-  databaseInfoMaps?: DatabaseInfoMaps
+  databaseInfoMaps?: DatabaseInfoMaps | null
 ): ColumnDescriptor[] =>
   columns?.map((columnName) => {
     const columnConfig = ColumnConfigurations[namespace]?.get(columnName);
