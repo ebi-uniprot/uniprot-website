@@ -10,7 +10,7 @@ import {
 } from '../../config/database';
 import { DatabaseCategory } from '../../types/databaseRefs';
 
-import databaseInfo from '../../components/protein-data-views/__tests__/__mocks__/databaseInfo';
+import databaseInfo from './__mocks__/databaseInfo';
 import {
   expectedDatabaseCategoryToNames,
   expectedDatabaseNameToCategory,

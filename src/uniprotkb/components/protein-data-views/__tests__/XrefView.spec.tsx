@@ -9,13 +9,13 @@ import XRefView, {
   getDatabaseInfoAttribute,
 } from '../XRefView';
 
-import { DatabaseInfoMapsProvider } from '../../../../shared/hooks/useDatabaseInfoMaps';
+import { DatabaseInfoMapsProvider } from '../../../../shared/contexts/DatabaseInfoMaps';
 
 import { PropertyKey } from '../../../types/modelTypes';
 import { DatabaseInfoPoint } from '../../../types/databaseRefs';
 
 import xrefs from './__mocks__/xrefUIData';
-import databaseInfo from './__mocks__/databaseInfo';
+import databaseInfo from '../../../utils/__tests__/__mocks__/databaseInfo';
 
 const mock = new MockAdapter(axios);
 mock.onGet(/\/configure\/uniprotkb\/allDatabases/).reply(200, databaseInfo);

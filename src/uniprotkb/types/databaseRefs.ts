@@ -32,6 +32,7 @@ export type DatabaseInfoPoint = {
   attributes?: AttributesItem[];
   implicit?: boolean;
   linkedReason?: string;
+  idMappingName?: string;
 };
 
 export type DatabaseInfo = DatabaseInfoPoint[];
