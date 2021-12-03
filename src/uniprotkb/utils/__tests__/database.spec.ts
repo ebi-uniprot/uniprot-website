@@ -18,7 +18,7 @@ import expectedEntrySectionToDatabaseNames from '../../adapters/__mocks__/entryS
 import expectedEntrySectionToDatabaseCategoryOrder from '../../adapters/__mocks__/entrySectionToDatabaseCategoryOrder';
 import expectedImplicitDatabaseXRefs from '../../adapters/__mocks__/implicitDatabaseXrefs';
 
-test.only('getDatabaseInfoMaps', () => {
+test('getDatabaseInfoMaps', () => {
   const {
     databaseCategoryToNames,
     databaseNameToCategory,
