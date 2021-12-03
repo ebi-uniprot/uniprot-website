@@ -1,6 +1,7 @@
 import convertSubcellularLocation, {
   getAndPrepareSubcellGoXrefs,
 } from '../subcellularLocationConverter';
+import { convertXrefProperties } from '../uniProtkbConverter';
 
 import modelData from '../../__mocks__/uniProtKBEntryModelData';
 import mockGoXrefs from '../../__mocks__/goXrefs';
@@ -10,7 +11,8 @@ describe('Subcellular data converter', () => {
   it('should convert the data', () => {
     const convertedData = convertSubcellularLocation(
       modelData,
-      databaseInfoMaps
+      databaseInfoMaps,
+      convertXrefProperties(modelData.uniProtKBCrossReferences)
     );
     expect(convertedData).toEqual({
       commentsData: new Map([
