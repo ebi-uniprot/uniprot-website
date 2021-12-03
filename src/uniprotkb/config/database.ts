@@ -14,12 +14,14 @@ export const databaseCategoryToString = {
   [DatabaseCategory.FAMILY]: 'Protein family/group databases',
   [DatabaseCategory.GEL]: '2D gel databases',
   [DatabaseCategory.GENOME]: 'Genome annotation databases',
+  [DatabaseCategory.GENE_ONTOLOGY]: 'Gene ontology databases',
   [DatabaseCategory.INTERACTION]: 'Protein-protein interaction databases',
   [DatabaseCategory.ORGANISM]: 'Organism-specific databases',
   [DatabaseCategory.MISCELLANEOUS]: 'Miscellaneous',
   [DatabaseCategory.PATHWAY]: 'Enzyme and pathway databases',
   [DatabaseCategory.PHYLOGENOMIC]: 'Phylogenomic databases',
   [DatabaseCategory.GENETIC_VARIATION]: 'Genetic variation databases',
+  [DatabaseCategory.PROTEOMES]: 'Proteomes databases',
   [DatabaseCategory.PROTEOMIC]: 'Proteomic databases',
   [DatabaseCategory.PROTOCOL]: 'Protocols and materials databases',
   [DatabaseCategory.PTM]: 'PTM databases',
@@ -35,6 +37,7 @@ export const getPDBMirrorsInfo = (
 
 export type EntrySectionToDatabaseNames = Map<EntrySection, string[]>;
 
+// TODO: figure out where OTG and PRM go? https://www.ebi.ac.uk/panda/jira/browse/TRM-27105
 export const getEntrySectionToDatabaseNames = (
   databaseCategoryToNames: DatabaseCategoryToNames
 ): EntrySectionToDatabaseNames => {

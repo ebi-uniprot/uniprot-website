@@ -3,28 +3,33 @@ import {
   selectDatabases,
   getEntrySectionToDatabaseCategoryOrder,
 } from '../database';
-import {
-  databaseCategoryToNames,
-  entrySectionToDatabaseNames,
-  databaseNameToCategory,
-} from '../../config/database';
 import { DatabaseCategory } from '../../types/databaseRefs';
 
-import databaseInfo from '../../components/protein-data-views/__tests__/__mocks__/databaseInfo';
-import {
-  expectedDatabaseCategoryToNames,
-  expectedDatabaseNameToCategory,
-  expectedEntrySectionToDatabaseCategoryOrder,
-} from './__mocks__/database';
+import databaseInfo from './__mocks__/databaseInfo';
+import expectedDatabaseNameToCategory from './__mocks__/databaseNameToCategory';
+import expectedDatabaseCategoryToNames from './__mocks__/databaseCategoryToNames';
+import expectedEntrySectionToDatabaseNames from './__mocks__/entrySectionToDatabaseNames';
+import expectedEntrySectionToDatabaseCategoryOrder from './__mocks__/entrySectionToDatabaseCategoryOrder';
+import expectedImplicitDatabaseXRefs from './__mocks__/implicitDatabaseXrefs';
 
 test('getDatabaseInfoMaps', () => {
   const {
     databaseCategoryToNames,
     databaseNameToCategory,
     databaseToDatabaseInfo,
+    entrySectionToDatabaseNames,
+    entrySectionToDatabaseCategoryOrder,
+    implicitDatabaseXRefs,
   } = getDatabaseInfoMaps(databaseInfo);
-  expect([...databaseNameToCategory]).toEqual(expectedDatabaseNameToCategory);
-  expect([...databaseCategoryToNames]).toEqual(expectedDatabaseCategoryToNames);
+  expect(databaseNameToCategory).toEqual(expectedDatabaseNameToCategory);
+  expect(databaseCategoryToNames).toEqual(expectedDatabaseCategoryToNames);
+  expect(entrySectionToDatabaseNames).toEqual(
+    expectedEntrySectionToDatabaseNames
+  );
+  expect(entrySectionToDatabaseCategoryOrder).toEqual(
+    expectedEntrySectionToDatabaseCategoryOrder
+  );
+  expect(implicitDatabaseXRefs).toEqual(expectedImplicitDatabaseXRefs);
   const databaseNames = databaseInfo
     .map((databaseInfoPoint) => databaseInfoPoint.name)
     .sort();
@@ -35,16 +40,16 @@ test('getDatabaseInfoMaps', () => {
 test('getEntrySectionToDatabaseCategoryOrder', () => {
   const entrySectionToDatabaseCategoryOrder =
     getEntrySectionToDatabaseCategoryOrder(
-      entrySectionToDatabaseNames,
-      databaseNameToCategory
+      expectedEntrySectionToDatabaseNames,
+      expectedDatabaseNameToCategory
     );
-  expect([...entrySectionToDatabaseCategoryOrder]).toEqual(
+  expect(entrySectionToDatabaseCategoryOrder).toEqual(
     expectedEntrySectionToDatabaseCategoryOrder
   );
 });
 
 test('selectDatabases', () => {
-  const select = selectDatabases(databaseCategoryToNames);
+  const select = selectDatabases(expectedDatabaseCategoryToNames);
   const selected = select({
     categories: [DatabaseCategory.STRUCTURE],
     include: ['EvolutionaryTrace'],
