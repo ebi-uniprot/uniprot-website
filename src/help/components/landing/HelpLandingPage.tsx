@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { CommunityAnnotationIcon } from 'franklin-sites';
 import cn from 'classnames';
-import 'lite-youtube-embed';
 
 import HelpQuickSearch from './HelpQuickSearch';
 import Contact from '../../../shared/components/layouts/Contact';
@@ -26,6 +25,7 @@ import Terminal from './svgs/terminal.svg';
 import Reader from './svgs/reader.svg';
 
 import landing from './styles/help-landing-page.module.scss';
+import YouTubeEmbed from '../../../shared/components/YouTubeEmbed';
 
 const getHelpEntryPath = getLocationEntryPathFor(Location.HelpEntry);
 
@@ -206,10 +206,7 @@ const HelpLandingPage = () => (
       <section className={landing['help-landing__videos']}>
         <h4>Help videos</h4>
         <div className={landing['help-landing__videos__list']}>
-          <lite-youtube
-            videoid="yp1O1gDK8oA"
-            playlabel="How to search UniProtKB"
-          />
+          <YouTubeEmbed id="yp1O1gDK8oA" title="How to search UniProtKB" />
           {/* TODO: include more videos as they become available */}
         </div>
       </section>
