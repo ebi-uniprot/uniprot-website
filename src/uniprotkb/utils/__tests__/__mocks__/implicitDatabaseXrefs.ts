@@ -1,4 +1,4 @@
-import { Xref } from '../../../shared/types/apiModel';
+import { Xref } from '../../../../shared/types/apiModel';
 
 const implicitDatabaseXRefs: Map<string, Xref> = new Map([
   [

@@ -2,7 +2,7 @@ import { convertSequence } from '../sequenceConverter';
 import { convertXrefProperties } from '../uniProtkbConverter';
 
 import modelData from '../../__mocks__/uniProtKBEntryModelData';
-import databaseInfoMaps from '../__mocks__/databaseInfoMaps';
+import databaseInfoMaps from '../../utils/__tests__/__mocks__/databaseInfoMaps';
 
 describe('Sequence data converter', () => {
   test('should convert the data', () => {

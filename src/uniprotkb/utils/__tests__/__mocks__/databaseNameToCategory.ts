@@ -1,4 +1,4 @@
-import { DatabaseCategory } from '../../types/databaseRefs';
+import { DatabaseCategory } from '../../../types/databaseRefs';
 
 const databaseNameToCategory: Map<string, DatabaseCategory> = new Map([
   ['EMBL', DatabaseCategory.SEQUENCE],

@@ -4,7 +4,7 @@ import EntryExternalLinks from '../EntryExternalLinks';
 import uniProtKbConverter from '../../../adapters/uniProtkbConverter';
 
 import mockData from '../../../__mocks__/uniProtKBEntryModelData';
-import databaseInfoMaps from '../../../adapters/__mocks__/databaseInfoMaps';
+import databaseInfoMaps from '../../../utils/__tests__/__mocks__/databaseInfoMaps';
 
 describe('Entry - External Links view', () => {
   test('should render', () => {

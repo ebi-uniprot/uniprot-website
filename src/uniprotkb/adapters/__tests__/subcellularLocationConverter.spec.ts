@@ -5,7 +5,7 @@ import { convertXrefProperties } from '../uniProtkbConverter';
 
 import modelData from '../../__mocks__/uniProtKBEntryModelData';
 import mockGoXrefs from '../../__mocks__/goXrefs';
-import databaseInfoMaps from '../__mocks__/databaseInfoMaps';
+import databaseInfoMaps from '../../utils/__tests__/__mocks__/databaseInfoMaps';
 
 describe('Subcellular data converter', () => {
   it('should convert the data', () => {

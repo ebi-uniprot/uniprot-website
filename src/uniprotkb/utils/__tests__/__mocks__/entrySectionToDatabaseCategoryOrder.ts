@@ -1,4 +1,4 @@
-import EntrySection from '../../types/entrySection';
+import EntrySection from '../../../types/entrySection';
 
 const entrySectionToDatabaseCategoryOrder: Map<EntrySection, string[]> =
   new Map([

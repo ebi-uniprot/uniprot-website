@@ -2,7 +2,7 @@ import { getAllKeywords } from '../KeywordsUtil';
 import uniProtKbConverter from '../../adapters/uniProtkbConverter';
 
 import modelData from '../../__mocks__/uniProtKBEntryModelData';
-import databaseInfoMaps from '../../adapters/__mocks__/databaseInfoMaps';
+import databaseInfoMaps from './__mocks__/databaseInfoMaps';
 
 describe('KeywordsUtil', () => {
   it('Should retrieve all keywords from UI Model', () => {

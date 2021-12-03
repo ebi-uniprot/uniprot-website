@@ -29,7 +29,7 @@ export type AttributesItem = {
 export type DatabaseInfoPoint = {
   name: string;
   displayName: string;
-  category: string;
+  category: string; // TODO: set as category type
   uriLink?: string;
   attributes?: AttributesItem[];
   implicit?: boolean;

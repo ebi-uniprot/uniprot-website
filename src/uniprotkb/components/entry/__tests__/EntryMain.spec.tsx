@@ -8,7 +8,7 @@ import customRender from '../../../../shared/__test-helpers__/customRender';
 import mockData from '../../../__mocks__/uniProtKBEntryModelData';
 import interactionData from '../../../__mocks__/interaction.json';
 import nonHumanEntryData from '../../../__mocks__/nonHumanEntryModelData';
-import databaseInfoMaps from '../../../adapters/__mocks__/databaseInfoMaps';
+import databaseInfoMaps from '../../../utils/__tests__/__mocks__/databaseInfoMaps';
 
 enableFetchMocks();
 

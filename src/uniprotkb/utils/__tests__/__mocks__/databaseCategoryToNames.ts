@@ -1,4 +1,4 @@
-import { DatabaseCategory } from '../../types/databaseRefs';
+import { DatabaseCategory } from '../../../types/databaseRefs';
 
 const databaseCategoryToNames: Map<DatabaseCategory, string[]> = new Map([
   [

@@ -1,4 +1,4 @@
-import { DatabaseToDatabaseInfo } from '../../utils/database';
+import { DatabaseToDatabaseInfo } from '../../database';
 
 const databaseToDatabaseInfo: DatabaseToDatabaseInfo = {
   EMBL: {

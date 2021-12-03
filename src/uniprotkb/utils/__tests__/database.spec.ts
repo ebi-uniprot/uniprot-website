@@ -6,17 +6,11 @@ import {
 import { DatabaseCategory } from '../../types/databaseRefs';
 
 import databaseInfo from './__mocks__/databaseInfo';
-// TODO delete these mocks and move the ones in ../../adapters/__mocks__/ to ./__mocks__/
-// import {
-//   expectedDatabaseCategoryToNames,
-//   expectedDatabaseNameToCategory,
-//   expectedEntrySectionToDatabaseCategoryOrder,
-// } from './__mocks__/database';
-import expectedDatabaseNameToCategory from '../../adapters/__mocks__/databaseNameToCategory';
-import expectedDatabaseCategoryToNames from '../../adapters/__mocks__/databaseCategoryToNames';
-import expectedEntrySectionToDatabaseNames from '../../adapters/__mocks__/entrySectionToDatabaseNames';
-import expectedEntrySectionToDatabaseCategoryOrder from '../../adapters/__mocks__/entrySectionToDatabaseCategoryOrder';
-import expectedImplicitDatabaseXRefs from '../../adapters/__mocks__/implicitDatabaseXrefs';
+import expectedDatabaseNameToCategory from './__mocks__/databaseNameToCategory';
+import expectedDatabaseCategoryToNames from './__mocks__/databaseCategoryToNames';
+import expectedEntrySectionToDatabaseNames from './__mocks__/entrySectionToDatabaseNames';
+import expectedEntrySectionToDatabaseCategoryOrder from './__mocks__/entrySectionToDatabaseCategoryOrder';
+import expectedImplicitDatabaseXRefs from './__mocks__/implicitDatabaseXrefs';
 
 test('getDatabaseInfoMaps', () => {
   const {

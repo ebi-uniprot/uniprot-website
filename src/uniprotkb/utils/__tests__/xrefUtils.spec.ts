@@ -6,8 +6,7 @@ import {
   getUnconditionalImplicitXrefs,
   getJoinedXrefs,
 } from '../xrefUtils';
-
-import implicitDatabaseXRefs from '../../adapters/__mocks__/implicitDatabaseXrefs';
+import implicitDatabaseXRefs from './__mocks__/implicitDatabaseXrefs';
 
 describe('xrefUtils tests', () => {
   test('should getDRImplicitXrefs', () => {

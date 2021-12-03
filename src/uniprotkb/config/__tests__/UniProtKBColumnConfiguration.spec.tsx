@@ -8,7 +8,7 @@ import testColumnConfiguration from '../../../shared/__test-helpers__/testColumn
 import { UniProtKBColumn } from '../../types/columnTypes';
 
 import data from '../../__mocks__/uniProtKBEntryModelData';
-import databaseInfoMaps from '../../adapters/__mocks__/databaseInfoMaps';
+import databaseInfoMaps from '../../utils/__tests__/__mocks__/databaseInfoMaps';
 
 jest.mock('../../../tools/utils/storage');
 
