@@ -33,6 +33,8 @@ type ExtraRenderOptions = {
 type WrapperProps = RenderOptions &
   SetRequired<ExtraRenderOptions, 'history' | 'initialLocalStorage' | 'store'>;
 
+const dbInfoMaps = getDatabaseInfoMaps(databaseInfo);
+
 class Wrapper extends Component<WrapperProps> {
   constructor(props: WrapperProps) {
     super(props);
@@ -49,9 +51,7 @@ class Wrapper extends Component<WrapperProps> {
     const { children, path, history, store } = this.props;
     return (
       <ReduxProvider store={store}>
-        <DatabaseInfoMapsContext.Provider
-          value={getDatabaseInfoMaps(databaseInfo)}
-        >
+        <DatabaseInfoMapsContext.Provider value={dbInfoMaps}>
           <Router history={history}>
             {path ? <Route path={path} render={() => children} /> : children}
           </Router>

@@ -1,6 +1,8 @@
-import { screen, render } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
+
+import customRender from '../../../../shared/__test-helpers__/customRender';
 
 import XRefView, {
   getPropertyString,
@@ -8,8 +10,6 @@ import XRefView, {
   getPropertyLinkAttributes,
   getDatabaseInfoAttribute,
 } from '../XRefView';
-
-import { DatabaseInfoMapsProvider } from '../../../../shared/contexts/DatabaseInfoMaps';
 
 import { PropertyKey } from '../../../types/modelTypes';
 import { DatabaseInfoPoint } from '../../../types/databaseRefs';
@@ -22,15 +22,16 @@ mock.onGet(/\/configure\/uniprotkb\/allDatabases/).reply(200, databaseInfo);
 
 describe('XRefView', () => {
   test(`should render section`, () => {
-    const { asFragment } = render(
-      <DatabaseInfoMapsProvider>
-        <XRefView xrefs={xrefs.standard} primaryAccession="P01234" />
-      </DatabaseInfoMapsProvider>
+    const { asFragment } = customRender(
+      <XRefView xrefs={xrefs.standard} primaryAccession="P01234" />
     );
     expect(asFragment()).toMatchSnapshot();
   });
+
   test(`should remove duplicate links`, () => {
-    render(<XRefView xrefs={xrefs.duplicateLink} primaryAccession="P0A879" />);
+    customRender(
+      <XRefView xrefs={xrefs.duplicateLink} primaryAccession="P0A879" />
+    );
     expect(screen.getAllByText(/BAA14793/)).toHaveLength(1);
   });
 });

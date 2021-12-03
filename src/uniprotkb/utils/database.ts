@@ -1,4 +1,3 @@
-import { flatten } from 'lodash-es';
 import EntrySection from '../types/entrySection';
 import {
   DatabaseCategory,
@@ -99,16 +98,13 @@ export const selectDatabases =
     include = [],
     exclude = [],
   }: {
-    categories?: string[];
+    categories?: DatabaseCategory[];
     include?: string[];
     exclude?: string[];
   }) =>
     [
-      ...flatten(
-        categories.map(
-          (category) =>
-            databaseCategoryToNames.get(category as DatabaseCategory) || []
-        )
+      ...categories.flatMap(
+        (category) => databaseCategoryToNames.get(category) || []
       ),
       ...include,
     ].filter((db) => !exclude.includes(db));
