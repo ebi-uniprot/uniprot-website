@@ -10,9 +10,10 @@ import {
   SearchIcon,
   ExternalLink,
 } from 'franklin-sites';
-import '@swissprot/rhea-reaction-visualizer';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
+
+import useCustomElement from '../../../shared/hooks/useCustomElement';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import externalUrls from '../../../shared/config/externalUrls';
@@ -81,6 +82,13 @@ export const RheaReactionVisualizer = ({
   rheaId,
   show: initialShow,
 }: RheaReactionVisualizerProps) => {
+  const rheaReactionElement = useCustomElement(
+    () =>
+      import(
+        /* webpackChunkName: "rhea-reaction-visualizer" */ '@swissprot/rhea-reaction-visualizer'
+      ),
+    'rhea-reaction'
+  );
   const [show, setShow] = useState(initialShow);
   const [zoomImageData, setZoomImageData] = useState<ChebiImageData>();
   const { displayModal, setDisplayModal, Modal } = useModal(
@@ -102,6 +110,11 @@ export const RheaReactionVisualizer = ({
     [setDisplayModal]
   );
 
+  if (rheaReactionElement.errored) {
+    // It's fine, just don't display anything
+    return null;
+  }
+
   return (
     <>
       <div className="rhea-reaction-visualizer__toggle">
@@ -114,10 +127,10 @@ export const RheaReactionVisualizer = ({
           {`${show ? 'Hide' : 'View'} Rhea reaction`}
         </button>
       </div>
-      {show && (
+      {show && rheaReactionElement.defined ? (
         <>
           <div className="rhea-reaction-visualizer__component">
-            <rhea-reaction
+            <rheaReactionElement.name
               rheaid={rheaId}
               showIds
               zoom
@@ -138,6 +151,8 @@ export const RheaReactionVisualizer = ({
             </Modal>
           )}
         </>
+      ) : (
+        <Loader />
       )}
     </>
   );
