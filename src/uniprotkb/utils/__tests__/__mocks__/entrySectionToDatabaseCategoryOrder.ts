@@ -1,6 +1,7 @@
 import EntrySection from '../../../types/entrySection';
+import { EntrySectionToDatabaseCategoryOrder } from '../../database';
 
-const entrySectionToDatabaseCategoryOrder: Map<EntrySection, string[]> =
+const entrySectionToDatabaseCategoryOrder: EntrySectionToDatabaseCategoryOrder =
   new Map([
     [EntrySection.DiseaseAndDrugs, ['ORG', 'CHEMISTRY', 'GVD', 'PFAM', 'MISC']],
     [EntrySection.Expression, ['GEP', 'ORG']],

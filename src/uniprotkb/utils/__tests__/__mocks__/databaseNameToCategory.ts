@@ -1,6 +1,7 @@
 import { DatabaseCategory } from '../../../types/databaseRefs';
+import { DatabaseNameToCategory } from '../../database';
 
-const databaseNameToCategory: Map<string, DatabaseCategory> = new Map([
+const databaseNameToCategory: DatabaseNameToCategory = new Map([
   ['EMBL', DatabaseCategory.SEQUENCE],
   ['GenBank', DatabaseCategory.SEQUENCE],
   ['DDBJ', DatabaseCategory.SEQUENCE],

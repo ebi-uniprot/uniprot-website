@@ -1,6 +1,6 @@
-import { Xref } from '../../../../shared/types/apiModel';
+import { ImplicitDatabaseXRefs } from '../../database';
 
-const implicitDatabaseXRefs: Map<string, Xref> = new Map([
+const implicitDatabaseXRefs: ImplicitDatabaseXRefs = new Map([
   [
     'GenBank',
     {

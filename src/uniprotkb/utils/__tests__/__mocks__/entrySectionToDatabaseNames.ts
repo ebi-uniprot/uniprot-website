@@ -1,6 +1,7 @@
+import { EntrySectionToDatabaseNames } from '../../../config/database';
 import EntrySection from '../../../types/entrySection';
 
-const entrySectionToDatabaseNames: Map<EntrySection, string[]> = new Map([
+const entrySectionToDatabaseNames: EntrySectionToDatabaseNames = new Map([
   [
     EntrySection.DiseaseAndDrugs,
     [
