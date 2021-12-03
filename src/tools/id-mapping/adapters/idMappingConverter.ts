@@ -3,6 +3,7 @@ import { processUrlTemplate } from '../../../uniprotkb/components/protein-data-v
 import { DatabaseInfoPoint } from '../../../uniprotkb/types/databaseRefs';
 import { MappingAPIModel, MappingFlat } from '../types/idMappingSearchResults';
 
+// TODO: Some To columns not creating links (eg EMBL-GenBank-DDBJ) https://www.ebi.ac.uk/panda/jira/browse/TRM-27103
 const idMappingConverter =
   (dbInfo?: DatabaseInfoPoint) =>
   (data: MappingAPIModel[]): MappingFlat[] =>
