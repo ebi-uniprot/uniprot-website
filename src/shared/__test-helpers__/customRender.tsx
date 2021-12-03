@@ -9,10 +9,13 @@ import { Provider as ReduxProvider } from 'react-redux';
 import { createStore, Store } from 'redux';
 import { render, RenderOptions } from '@testing-library/react';
 import { SetRequired, JsonValue } from 'type-fest';
+import { getDatabaseInfoMaps } from '../../uniprotkb/utils/database';
 
 import rootReducer from '../../app/state/rootReducer';
 
 import { RootState } from '../../app/state/rootInitialState';
+import { DatabaseInfoMapsContext } from '../contexts/DatabaseInfoMaps';
+import databaseInfo from '../../uniprotkb/utils/__tests__/__mocks__/databaseInfo';
 
 type ExtraRenderOptions = {
   // For react-router
@@ -46,9 +49,13 @@ class Wrapper extends Component<WrapperProps> {
     const { children, path, history, store } = this.props;
     return (
       <ReduxProvider store={store}>
-        <Router history={history}>
-          {path ? <Route path={path} render={() => children} /> : children}
-        </Router>
+        <DatabaseInfoMapsContext.Provider
+          value={getDatabaseInfoMaps(databaseInfo)}
+        >
+          <Router history={history}>
+            {path ? <Route path={path} render={() => children} /> : children}
+          </Router>
+        </DatabaseInfoMapsContext.Provider>
       </ReduxProvider>
     );
   }
