@@ -3,11 +3,6 @@ import {
   selectDatabases,
   getEntrySectionToDatabaseCategoryOrder,
 } from '../database';
-import {
-  databaseCategoryToNames,
-  entrySectionToDatabaseNames,
-  databaseNameToCategory,
-} from '../../config/database';
 import { DatabaseCategory } from '../../types/databaseRefs';
 
 import databaseInfo from './__mocks__/databaseInfo';
@@ -16,6 +11,9 @@ import {
   expectedDatabaseNameToCategory,
   expectedEntrySectionToDatabaseCategoryOrder,
 } from './__mocks__/database';
+import entrySectionToDatabaseNames from '../../adapters/__mocks__/entrySectionToDatabaseNames';
+import databaseNameToCategory from '../../adapters/__mocks__/databaseNameToCategory';
+import databaseCategoryToNames from '../../adapters/__mocks__/databaseCategoryToNames';
 
 test('getDatabaseInfoMaps', () => {
   const {
