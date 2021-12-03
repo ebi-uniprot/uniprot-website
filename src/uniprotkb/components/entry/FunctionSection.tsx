@@ -130,7 +130,7 @@ type CofactorViewProps = {
 };
 
 export const CofactorView = ({ cofactors, title }: CofactorViewProps) => {
-  if (!cofactors || !cofactors.length) {
+  if (!cofactors?.length) {
     return null;
   }
   return (
@@ -139,6 +139,13 @@ export const CofactorView = ({ cofactors, title }: CofactorViewProps) => {
       {cofactors.map((cofactorComment, index) => (
         // eslint-disable-next-line react/no-array-index-key
         <section className="text-block" key={index}>
+          {cofactorComment.molecule && (
+            <h4 className="tiny">
+              <a href={`#${cofactorComment.molecule.replaceAll(' ', '_')}`}>
+                {cofactorComment.molecule}
+              </a>
+            </h4>
+          )}
           {cofactorComment.cofactors &&
             cofactorComment.cofactors.map((cofactor) => (
               <span key={cofactor.name}>
@@ -200,6 +207,7 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
         comments={
           data.commentsData.get('FUNCTION') as FreeTextComment[] | undefined
         }
+        title={<span className="visually-hidden">function</span>}
       />
       <FreeTextView
         comments={
@@ -211,11 +219,11 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
       />
       {data.commentsData.get('CAUTION')?.length ? (
         <Message level="warning">
-          <h4>Caution</h4>
           <FreeTextView
             comments={
               data.commentsData.get('CAUTION') as FreeTextComment[] | undefined
             }
+            title="caution"
           />
         </Message>
       ) : undefined}

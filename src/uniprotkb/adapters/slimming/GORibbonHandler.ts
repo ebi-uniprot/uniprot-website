@@ -214,10 +214,10 @@ export const getSubjects = (
   const label =
     geneNamesData?.[0].geneName?.value ||
     geneNamesData?.[0].synonyms?.[0].value ||
-    '';
-  if (!label) {
-    logging.warn('label value unavailable for GO Ribbon');
-  }
+    geneNamesData?.[0].orderedLocusNames?.[0].value ||
+    geneNamesData?.[0].orfNames?.[0].value ||
+    // Can happen, but display something, otherwise it would show ":undefined"
+    '<no gene name>';
 
   let taxon_id: string;
   if (organismData?.taxonId) {

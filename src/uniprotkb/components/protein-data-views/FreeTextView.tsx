@@ -1,4 +1,4 @@
-import { Fragment, FC } from 'react';
+import { Fragment, FC, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
@@ -67,7 +67,7 @@ export const TextView = ({ comments, noEvidence }: TextViewProps) => (
 
 type FreeTextProps = {
   comments?: FreeTextComment[];
-  title?: string;
+  title?: ReactNode;
   showMolecule?: boolean;
   noEvidence?: boolean;
 };
@@ -87,7 +87,15 @@ const FreeTextView: FC<FreeTextProps> = ({
         // eslint-disable-next-line react/no-array-index-key
         <Fragment key={index}>
           {showMolecule && item.molecule && (
-            <h3 className="tiny">{item.molecule}</h3>
+            <h4 className="tiny">
+              {noEvidence ? (
+                `${item.molecule}`
+              ) : (
+                <a href={`#${item.molecule.replaceAll(' ', '_')}`}>
+                  {item.molecule}
+                </a>
+              )}
+            </h4>
           )}
           <TextView comments={item.texts} noEvidence={noEvidence} />
         </Fragment>

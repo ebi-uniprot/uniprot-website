@@ -511,7 +511,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCatalyticActivity, {
       | undefined;
     return (
       catalyticActivityComments && (
-        <CatalyticActivityView comments={catalyticActivityComments} />
+        <CatalyticActivityView
+          comments={catalyticActivityComments}
+          defaultHideAllReactions
+          noEvidence
+        />
       )
     );
   },

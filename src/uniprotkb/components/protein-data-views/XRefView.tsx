@@ -376,38 +376,36 @@ type XRefViewProps = {
   crc64?: string;
 };
 
-const XRefView: FC<XRefViewProps> = ({ xrefs, primaryAccession, crc64 }) => {
-  if (!xrefs) {
-    return null;
-  }
-  const nodes = xrefs.map(({ databases, category }, index): JSX.Element => {
-    const xrefsNode =
-      category === DatabaseCategory.STRUCTURE ? (
-        <StructureXRefsGroupedByCategory
-          databases={databases}
-          primaryAccession={primaryAccession}
-          crc64={crc64}
-        />
-      ) : (
-        <XRefsGroupedByCategory
-          databases={databases}
-          primaryAccession={primaryAccession}
-          crc64={crc64}
-        />
+const XRefView = ({ xrefs, primaryAccession, crc64 }: XRefViewProps) => (
+  <>
+    {xrefs?.map(({ databases, category }, index): JSX.Element => {
+      const xrefsNode =
+        category === DatabaseCategory.STRUCTURE ? (
+          <StructureXRefsGroupedByCategory
+            databases={databases}
+            primaryAccession={primaryAccession}
+            crc64={crc64}
+          />
+        ) : (
+          <XRefsGroupedByCategory
+            databases={databases}
+            primaryAccession={primaryAccession}
+            crc64={crc64}
+          />
+        );
+      let title;
+      if (category && databaseCategoryToString[category]) {
+        title = databaseCategoryToString[category];
+      }
+      return (
+        // eslint-disable-next-line react/no-array-index-key
+        <Fragment key={index}>
+          <h3>{title}</h3>
+          {xrefsNode}
+        </Fragment>
       );
-    let title;
-    if (category && databaseCategoryToString[category]) {
-      title = databaseCategoryToString[category];
-    }
-    return (
-      // eslint-disable-next-line react/no-array-index-key
-      <Fragment key={index}>
-        <h3>{title}</h3>
-        {xrefsNode}
-      </Fragment>
-    );
-  });
-  return <>{nodes}</>;
-};
+    })}
+  </>
+);
 
 export default XRefView;
