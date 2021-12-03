@@ -1,8 +1,9 @@
 import { ExternalLink, Loader } from 'franklin-sites';
 
 import useCustomElement from '../../../shared/hooks/useCustomElement';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
-import { PDBMirrorsInfo } from '../../config/database';
+import { getPDBMirrorsInfo } from '../../config/database';
 import { processUrlTemplate } from './XRefView';
 import { Xref } from '../../../shared/types/apiModel';
 
@@ -56,9 +57,12 @@ const PDBView = ({ xrefs }: { xrefs: Xref[] }) => {
 
   const data = processData(xrefs);
 
-  if (!datatableElement.defined) {
+  const databaseInfoMaps = useDatabaseInfoMaps();
+
+  if (!datatableElement.defined || !databaseInfoMaps) {
     return <Loader />;
   }
+  const { databaseToDatabaseInfo } = databaseInfoMaps;
 
   return (
     <datatableElement.name>
@@ -84,21 +88,23 @@ const PDBView = ({ xrefs }: { xrefs: Xref[] }) => {
                   <td>{d.chain}</td>
                   <td>{d.positions}</td>
                   <td>
-                    {PDBMirrorsInfo.map(({ displayName, uriLink }) =>
-                      d.id && uriLink ? (
-                        <ExternalLink
-                          url={processUrlTemplate(uriLink, { id: d.id })}
-                        >
-                          {displayName}
-                        </ExternalLink>
-                      ) : (
-                        { displayName }
+                    {getPDBMirrorsInfo(databaseToDatabaseInfo)
+                      .map(({ displayName, uriLink }) =>
+                        d.id && uriLink ? (
+                          <ExternalLink
+                            url={processUrlTemplate(uriLink, { id: d.id })}
+                          >
+                            {displayName}
+                          </ExternalLink>
+                        ) : (
+                          { displayName }
+                        )
                       )
-                    ).reduce((prev, curr) => (
-                      <>
-                        {prev} · {curr}
-                      </>
-                    ))}
+                      .reduce((prev, curr) => (
+                        <>
+                          {prev} · {curr}
+                        </>
+                      ))}
                   </td>
                 </tr>
               )

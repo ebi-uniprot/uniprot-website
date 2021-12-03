@@ -5,7 +5,7 @@ import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import { XRef } from './XRefView';
 
 import { DiseaseComment } from '../../types/commentTypes';
-import { databaseToDatabaseInfo } from '../../config/database';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
 type DiseaseInvolvementEntryProps = {
   comment: DiseaseComment[][0];
@@ -22,6 +22,7 @@ export const DiseaseInvolvementEntry: FC<DiseaseInvolvementEntryProps> = ({
   comment,
   accession,
 }) => {
+  const databaseInfoMaps = useDatabaseInfoMaps();
   const { disease, note } = comment;
 
   if (!disease && !note) {
@@ -65,7 +66,7 @@ export const DiseaseInvolvementEntry: FC<DiseaseInvolvementEntryProps> = ({
 
   if (disease?.diseaseCrossReference) {
     const { database, id } = disease.diseaseCrossReference;
-    if (database && id && databaseToDatabaseInfo[database]) {
+    if (database && id && databaseInfoMaps?.databaseToDatabaseInfo[database]) {
       infoData.push({
         title: 'See also',
         content: (
@@ -73,6 +74,7 @@ export const DiseaseInvolvementEntry: FC<DiseaseInvolvementEntryProps> = ({
             database={database}
             xref={disease.diseaseCrossReference}
             primaryAccession={accession}
+            databaseToDatabaseInfo={databaseInfoMaps?.databaseToDatabaseInfo}
           />
         ),
       });

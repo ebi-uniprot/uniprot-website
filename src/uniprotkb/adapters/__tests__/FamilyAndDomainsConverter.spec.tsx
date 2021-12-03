@@ -2,11 +2,13 @@ import convertFamilyAndDomains from '../familyAndDomainsConverter';
 import { convertXrefProperties } from '../uniProtkbConverter';
 
 import modelData from '../../__mocks__/uniProtKBEntryModelData';
+import databaseInfoMaps from '../../utils/__tests__/__mocks__/databaseInfoMaps';
 
 describe('Family and Domains data converter', () => {
   test('should convert the data', () => {
     const convertedData = convertFamilyAndDomains(
       modelData,
+      databaseInfoMaps,
       convertXrefProperties(modelData.uniProtKBCrossReferences)
     );
     expect(convertedData).toEqual({

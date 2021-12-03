@@ -1,9 +1,7 @@
 import ReactDOM from 'react-dom';
-import { Provider as ReduxProvider } from 'react-redux';
 
 import App from './app/components/App';
-
-import store from './app/state/store';
+import GlobalContext from './app/contexts/Global';
 
 import * as logging from './shared/utils/logging';
 
@@ -18,9 +16,9 @@ if (!LIVE_RELOAD) {
 }
 
 ReactDOM.render(
-  <ReduxProvider store={store}>
+  <GlobalContext>
     <App />
-  </ReduxProvider>,
+  </GlobalContext>,
   document.getElementById('root')
 );
 

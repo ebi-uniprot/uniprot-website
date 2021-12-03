@@ -9,6 +9,7 @@ import { SubcellularLocationFeatures } from '../types/featureType';
 import { CommentType } from '../types/commentTypes';
 import { Evidence, GoEvidenceType } from '../types/modelTypes';
 import { UniProtKBColumn } from '../types/columnTypes';
+import { DatabaseInfoMaps } from '../utils/database';
 
 const commentCategories: CommentType[] = ['SUBCELLULAR LOCATION'];
 
@@ -63,10 +64,12 @@ export type SubcellularLocationUIModel = {
 
 const convertSubcellularLocation = (
   data: UniProtkbAPIModel,
+  databaseInfoMaps: DatabaseInfoMaps,
   uniProtKBCrossReferences?: Xref[]
 ) => {
   const subcellularLocationData: SubcellularLocationUIModel = convertSection(
     data,
+    databaseInfoMaps,
     commentCategories,
     keywordsCategories,
     featuresCategories,

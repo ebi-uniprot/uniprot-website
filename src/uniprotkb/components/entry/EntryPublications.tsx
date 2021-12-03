@@ -24,13 +24,13 @@ import { processUrlTemplate } from '../protein-data-views/XRefView';
 
 import { getEntryPath } from '../../../app/config/urls';
 import { getUniProtPublicationsQueryUrl } from '../../../shared/config/apiUrls';
-import { getDatabaseInfoByName } from '../../config/database';
 
 import {
   CitationsAPIModel,
   Reference,
 } from '../../../supporting-data/citations/adapters/citationsConverter';
 import { Namespace } from '../../../shared/types/namespaces';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
 const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
   reference,
@@ -45,8 +45,13 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
     annotation,
   } = reference;
 
+  const databaseInfoMaps = useDatabaseInfoMaps();
   const url = useMemo(() => {
-    const databaseInfo = source && getDatabaseInfoByName(source.name);
+    if (!databaseInfoMaps) {
+      return null;
+    }
+    const databaseInfo =
+      source && databaseInfoMaps.databaseToDatabaseInfo[source.name];
     if (databaseInfo?.uriLink && source?.id) {
       return processUrlTemplate(databaseInfo.uriLink, { id: source.id });
     }
@@ -54,7 +59,7 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
       return `https://www.ncbi.nlm.nih.gov/gene?Db=gene&Cmd=DetailsSearch&Term=${source.id}`;
     }
     return null;
-  }, [source]);
+  }, [databaseInfoMaps, source]);
 
   const infoListData = [
     {

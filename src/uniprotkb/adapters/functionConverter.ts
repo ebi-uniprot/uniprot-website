@@ -20,6 +20,7 @@ import { Xref } from '../../shared/types/apiModel';
 import { UniProtKBColumn } from '../types/columnTypes';
 import { GeneNamesData } from './namesAndTaxonomyConverter';
 import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { DatabaseInfoMaps } from '../utils/database';
 
 export type Absorption = {
   max: number;
@@ -189,10 +190,12 @@ export const getAspectGroupedGoTerms = (
 
 const convertFunction = (
   data: UniProtkbAPIModel,
+  databaseInfoMaps: DatabaseInfoMaps,
   uniProtKBCrossReferences?: Xref[]
 ) => {
   const convertedSection = convertSection(
     data,
+    databaseInfoMaps,
     commentsCategories,
     keywordsCategories,
     featureCategories,

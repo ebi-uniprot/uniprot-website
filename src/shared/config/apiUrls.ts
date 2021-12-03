@@ -87,11 +87,12 @@ const apiUrls = {
   },
   // Database cross references used in the UniParc entry page
   allUniParcDatabases: joinUrl(apiPrefix, '/configure/uniparc/allDatabases'),
+  allUniProtKBDatabases: joinUrl(
+    apiPrefix,
+    '/configure/uniprotkb/allDatabases'
+  ),
   // Database cross references used by query builder
   databaseXrefs: joinUrl(apiPrefix, '/configure/uniprotkb/databases'),
-  // Database cross reference fields in result column configure
-  // "itemType": "database",
-  databaseFields: joinUrl(apiPrefix, '/configure/uniprotkb/databasefields'),
   // All result fields except supporting data reference fields
   resultsFields: (namespace: Namespace, isEntry?: boolean) =>
     joinUrl(

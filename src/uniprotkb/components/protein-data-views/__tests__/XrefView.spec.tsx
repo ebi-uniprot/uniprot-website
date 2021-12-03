@@ -1,4 +1,8 @@
-import { screen, render } from '@testing-library/react';
+import { screen } from '@testing-library/react';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
+
+import customRender from '../../../../shared/__test-helpers__/customRender';
 
 import XRefView, {
   getPropertyString,
@@ -11,16 +15,23 @@ import { PropertyKey } from '../../../types/modelTypes';
 import { DatabaseInfoPoint } from '../../../types/databaseRefs';
 
 import xrefs from './__mocks__/xrefUIData';
+import databaseInfo from '../../../utils/__tests__/__mocks__/databaseInfo';
+
+const mock = new MockAdapter(axios);
+mock.onGet(/\/configure\/uniprotkb\/allDatabases/).reply(200, databaseInfo);
 
 describe('XRefView', () => {
   test(`should render section`, () => {
-    const { asFragment } = render(
+    const { asFragment } = customRender(
       <XRefView xrefs={xrefs.standard} primaryAccession="P01234" />
     );
     expect(asFragment()).toMatchSnapshot();
   });
+
   test(`should remove duplicate links`, () => {
-    render(<XRefView xrefs={xrefs.duplicateLink} primaryAccession="P0A879" />);
+    customRender(
+      <XRefView xrefs={xrefs.duplicateLink} primaryAccession="P0A879" />
+    );
     expect(screen.getAllByText(/BAA14793/)).toHaveLength(1);
   });
 });

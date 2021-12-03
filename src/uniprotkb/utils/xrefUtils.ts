@@ -1,9 +1,5 @@
 import { groupBy } from 'lodash-es';
 import {
-  databaseNameToCategory,
-  entrySectionToDatabaseNames,
-  entrySectionToDatabaseCategoryOrder,
-  implicitDatabaseXRefs,
   implicitDatabaseDRPresence,
   implicitDatabaseDRAbsence,
   implicitDatabaseAlwaysInclude,
@@ -19,6 +15,7 @@ import { GeneNamesData } from '../adapters/namesAndTaxonomyConverter';
 import { flattenGeneNameData } from '.';
 import { ValueWithEvidence } from '../types/modelTypes';
 import { Xref } from '../../shared/types/apiModel';
+import { DatabaseInfoMaps, ImplicitDatabaseXRefs } from './database';
 
 export type XrefsGoupedByDatabase = {
   database: string;
@@ -30,7 +27,11 @@ export type XrefUIModel = {
   databases: XrefsGoupedByDatabase[];
 };
 
-export const getDRImplicitXrefs = (xrefs: Xref[], geneNames: string[]) => {
+export const getDRImplicitXrefs = (
+  implicitDatabaseXRefs: ImplicitDatabaseXRefs,
+  xrefs: Xref[],
+  geneNames: string[]
+) => {
   // Get DR line contingent-implicit xrefs
   const implicitDatabaseDRPresenceCheck: { [key: string]: boolean } = {};
   Object.keys(implicitDatabaseDRPresence).forEach((xref) => {
@@ -85,6 +86,7 @@ export const getDRImplicitXrefs = (xrefs: Xref[], geneNames: string[]) => {
 };
 
 export const getDatabaseSimilarityCommentImplicitXrefs = (
+  implicitDatabaseXRefs: ImplicitDatabaseXRefs,
   uniProtkbId: string | undefined,
   similarityComments?: FreeTextComment[]
 ) => {
@@ -117,6 +119,7 @@ export const getDatabaseSimilarityCommentImplicitXrefs = (
 };
 
 export const getGenePatternOrganismImplicitXrefs = (
+  implicitDatabaseXRefs: ImplicitDatabaseXRefs,
   geneNames: string[],
   commonName?: string | null
 ) => {
@@ -148,7 +151,10 @@ export const getGenePatternOrganismImplicitXrefs = (
   return foundXrefs;
 };
 
-export const getECImplicitXrefs = (ecNumbers?: ValueWithEvidence[] | null) => {
+export const getECImplicitXrefs = (
+  implicitDatabaseXRefs: ImplicitDatabaseXRefs,
+  ecNumbers?: ValueWithEvidence[] | null
+) => {
   // EC dependent implicit databases
   const foundXrefs: Xref[] = [];
   if (ecNumbers) {
@@ -170,7 +176,9 @@ export const getECImplicitXrefs = (ecNumbers?: ValueWithEvidence[] | null) => {
   return foundXrefs;
 };
 
-export const getUnconditionalImplicitXrefs = () => {
+export const getUnconditionalImplicitXrefs = (
+  implicitDatabaseXRefs: ImplicitDatabaseXRefs
+) => {
   // Always include these implicit databases (ie they are unconditional)
   const foundXrefs: Xref[] = [];
   implicitDatabaseAlwaysInclude.forEach((name) => {
@@ -214,6 +222,7 @@ export const getJoinedXrefs = (xrefs: Xref[]) => {
 };
 
 export const getXrefsForSection = (
+  databaseInfoMaps: DatabaseInfoMaps,
   xrefs: Xref[],
   section: EntrySection,
   geneNamesData?: GeneNamesData,
@@ -222,6 +231,15 @@ export const getXrefsForSection = (
   uniProtkbId?: string,
   ecNumbers?: ValueWithEvidence[] | null
 ): XrefUIModel[] => {
+  if (!databaseInfoMaps) {
+    return [];
+  }
+  const {
+    databaseNameToCategory,
+    entrySectionToDatabaseCategoryOrder,
+    implicitDatabaseXRefs,
+    entrySectionToDatabaseNames,
+  } = databaseInfoMaps;
   const databasesForSection = entrySectionToDatabaseNames.get(section);
   if (!databasesForSection) {
     return [];
@@ -236,14 +254,19 @@ export const getXrefsForSection = (
   // which pass the conditions and add if they are part of the section
   [
     ...xrefs,
-    ...getUnconditionalImplicitXrefs(),
-    ...getDRImplicitXrefs(xrefs, geneNames),
+    ...getUnconditionalImplicitXrefs(implicitDatabaseXRefs),
+    ...getDRImplicitXrefs(implicitDatabaseXRefs, xrefs, geneNames),
     ...getDatabaseSimilarityCommentImplicitXrefs(
+      implicitDatabaseXRefs,
       uniProtkbId,
       similarityComments
     ),
-    ...getGenePatternOrganismImplicitXrefs(geneNames, commonName),
-    ...getECImplicitXrefs(ecNumbers),
+    ...getGenePatternOrganismImplicitXrefs(
+      implicitDatabaseXRefs,
+      geneNames,
+      commonName
+    ),
+    ...getECImplicitXrefs(implicitDatabaseXRefs, ecNumbers),
   ].forEach((xref) => {
     const { database: name } = xref;
     if (!name) {

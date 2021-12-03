@@ -134,7 +134,9 @@ const ResultsData = ({
   const loading =
     initialLoading ||
     prevViewMode.current !== viewMode ||
-    prevNamespace.current !== namespace;
+    prevNamespace.current !== namespace ||
+    !columns ||
+    !updateColumnSort;
 
   if (
     // if loading the first page of results

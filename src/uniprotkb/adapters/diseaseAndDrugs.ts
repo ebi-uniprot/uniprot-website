@@ -6,6 +6,7 @@ import EntrySection from '../types/entrySection';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
 import { Xref } from '../../shared/types/apiModel';
 import { UniProtKBColumn } from '../types/columnTypes';
+import { DatabaseInfoMaps } from '../utils/database';
 
 const keywordsCategories: KeywordCategory[] = ['Disease'];
 
@@ -27,10 +28,12 @@ const commentsCategories: CommentType[] = [
 
 const convertDiseaseAndDrugs = (
   data: UniProtkbAPIModel,
+  databaseInfoMaps: DatabaseInfoMaps,
   uniProtKBCrossReferences?: Xref[]
 ) =>
   convertSection(
     data,
+    databaseInfoMaps,
     commentsCategories,
     keywordsCategories,
     featuresCategories,

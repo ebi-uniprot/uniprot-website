@@ -6,6 +6,7 @@ import { convertSection } from './sectionConverter';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
 import { Xref } from '../../shared/types/apiModel';
 import { UniProtKBColumn } from '../types/columnTypes';
+import { DatabaseInfoMaps } from '../utils/database';
 
 const keywordsCategories: KeywordCategory[] = ['PTM'];
 
@@ -33,10 +34,12 @@ const proteinProcessingComments: CommentType[] = ['PTM'];
 
 const convertProteinProcessing = (
   data: UniProtkbAPIModel,
+  databaseInfoMaps: DatabaseInfoMaps,
   uniProtKBCrossReferences?: Xref[]
 ) =>
   convertSection(
     data,
+    databaseInfoMaps,
     proteinProcessingComments,
     keywordsCategories,
     featuresCategories,
