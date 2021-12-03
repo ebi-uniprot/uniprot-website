@@ -71,6 +71,7 @@ import {
 import { MappingAPIModel } from '../../tools/id-mapping/types/idMappingSearchResults';
 import { Basket } from './useBasket';
 import { DatabaseInfoMaps } from '../../uniprotkb/utils/database';
+import useDatabaseInfoMaps from './useDatabaseInfoMaps';
 
 export type ColumnDescriptor<Datum = APIModel> = {
   name: string;
@@ -90,7 +91,7 @@ const convertRow = (
     case Namespace.uniprotkb:
       return uniProtKbConverter(
         row as UniProtkbAPIModel,
-        databaseInfoMaps as DatabaseInfoMaps // TODO: remove the as
+        databaseInfoMaps as DatabaseInfoMaps
       );
     case Namespace.uniref:
       return row as UniRefLiteAPIModel;
@@ -147,7 +148,8 @@ export const getColumnsToDisplay = (
   columns: Column[] | undefined,
   sortableColumnToSortColumn?: Map<Column, string>,
   sortColumn?: SortableColumn,
-  sortDirection?: SortDirection
+  sortDirection?: SortDirection,
+  databaseInfoMaps?: DatabaseInfoMaps
 ): ColumnDescriptor[] =>
   columns?.map((columnName) => {
     const columnConfig = ColumnConfigurations[namespace]?.get(columnName);
@@ -156,7 +158,7 @@ export const getColumnsToDisplay = (
         label: columnConfig.label,
         name: columnName,
         render: (row: APIModel) =>
-          columnConfig.render(convertRow(row, namespace)),
+          columnConfig.render(convertRow(row, namespace, databaseInfoMaps)),
       };
       if (sortableColumnToSortColumn?.has(columnName)) {
         return {
@@ -184,7 +186,7 @@ const useColumns = (
   basketSetter?: Dispatch<SetStateAction<Basket>>,
   columnsOverride?: ColumnDescriptor[],
   setSelectedEntries?: Dispatch<SetStateAction<string[]>>
-): [ColumnDescriptor[], (columnName: string) => void] => {
+): [ColumnDescriptor[] | undefined, ((columnName: string) => void) | null] => {
   const history = useHistory();
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
   const location = useLocation();
@@ -192,6 +194,7 @@ const useColumns = (
     `table columns for ${namespace}` as const,
     nsToDefaultColumns(namespace)
   );
+  const databaseInfoMaps = useDatabaseInfoMaps();
 
   const { search: queryParamFromUrl } = location;
   const { query, selectedFacets, sortColumn, sortDirection } =
@@ -212,7 +215,7 @@ const useColumns = (
 
   const columns = useMemo(() => {
     let columns = columnsOverride;
-    if (!columns) {
+    if (!columns && databaseInfoMaps) {
       const columnNames =
         displayIdMappingColumns && namespace !== Namespace.idmapping
           ? [IDMappingColumn.from, ...userColumns]
@@ -222,7 +225,8 @@ const useColumns = (
         columnNames,
         sortableColumnToSortColumn,
         sortColumn,
-        sortDirection
+        sortDirection,
+        databaseInfoMaps
       );
     }
     // If in a basket view
@@ -255,11 +259,12 @@ const useColumns = (
         ),
       };
       // Add a remove column at the end
-      return [...columns, removeColumn];
+      return [...(columns || []), removeColumn];
     }
     return columns;
   }, [
     columnsOverride,
+    databaseInfoMaps,
     basketSetter,
     displayIdMappingColumns,
     namespace,
