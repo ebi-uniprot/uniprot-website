@@ -165,7 +165,7 @@ const databaseNameToCategory: Map<string, DatabaseCategory> = new Map([
   ['IDEAL', DatabaseCategory.DOMAIN],
   ['InterPro', DatabaseCategory.DOMAIN],
   ['PANTHER', DatabaseCategory.DOMAIN],
-  [DatabaseCategory.FAMILY, DatabaseCategory.DOMAIN],
+  ['Pfam', DatabaseCategory.DOMAIN],
   ['PIRSF', DatabaseCategory.DOMAIN],
   ['PRINTS', DatabaseCategory.DOMAIN],
   ['ProDom', DatabaseCategory.DOMAIN],
