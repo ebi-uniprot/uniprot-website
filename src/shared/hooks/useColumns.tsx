@@ -89,9 +89,9 @@ const convertRow = (
   switch (namespace) {
     // Main namespaces
     case Namespace.uniprotkb:
-      return uniProtKbConverter(
-        row as UniProtkbAPIModel,
-        databaseInfoMaps as DatabaseInfoMaps
+      return (
+        databaseInfoMaps &&
+        uniProtKbConverter(row as UniProtkbAPIModel, databaseInfoMaps)
       );
     case Namespace.uniref:
       return row as UniRefLiteAPIModel;
