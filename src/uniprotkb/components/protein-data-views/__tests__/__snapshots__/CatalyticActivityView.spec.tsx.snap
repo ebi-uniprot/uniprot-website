@@ -10,63 +10,66 @@ exports[`CatalyticActivityView component should render catalytic activity 1`] = 
   <span
     class="text-block"
   >
-     Reaction nameThis reaction proceeds in the 
-    <span
-      data-testid="direction-text"
-    >
-      forward
-    </span>
-    <button
-      aria-controls="0"
-      aria-expanded="false"
-      class="svg-colour-reviewed evidence-tag"
-      data-testid="evidence-tag-trigger"
-      type="button"
-    >
-      <test-file-stub
-        height="12"
-        width="12"
-      />
+     Reaction name
+    <div>
+      This reaction proceeds in the 
       <span
-        class="evidence-tag__label"
+        data-testid="direction-text"
       >
-        1 publication
+        forward
       </span>
-    </button>
-    <div
-      class="evidence-tag-content "
-      data-testid="evidence-tag-content"
-      id="0"
-    />
-     and the 
-    <span
-      data-testid="direction-text"
-    >
-      backward
-    </span>
-    <button
-      aria-controls="1"
-      aria-expanded="false"
-      class="svg-colour-reviewed evidence-tag"
-      data-testid="evidence-tag-trigger"
-      type="button"
-    >
-      <test-file-stub
-        height="12"
-        width="12"
+      <button
+        aria-controls="0"
+        aria-expanded="false"
+        class="svg-colour-reviewed evidence-tag"
+        data-testid="evidence-tag-trigger"
+        type="button"
+      >
+        <test-file-stub
+          height="12"
+          width="12"
+        />
+        <span
+          class="evidence-tag__label"
+        >
+          1 publication
+        </span>
+      </button>
+      <div
+        class="evidence-tag-content "
+        data-testid="evidence-tag-content"
+        id="0"
       />
+       and the 
       <span
-        class="evidence-tag__label"
+        data-testid="direction-text"
       >
-        1 publication
+        backward
       </span>
-    </button>
-    <div
-      class="evidence-tag-content "
-      data-testid="evidence-tag-content"
-      id="1"
-    />
-     directions 
+      <button
+        aria-controls="1"
+        aria-expanded="false"
+        class="svg-colour-reviewed evidence-tag"
+        data-testid="evidence-tag-trigger"
+        type="button"
+      >
+        <test-file-stub
+          height="12"
+          width="12"
+        />
+        <span
+          class="evidence-tag__label"
+        >
+          1 publication
+        </span>
+      </button>
+      <div
+        class="evidence-tag-content "
+        data-testid="evidence-tag-content"
+        id="1"
+      />
+       directions 
+    </div>
     <div>
       <span
         class="ec-number"
@@ -119,7 +122,153 @@ exports[`CatalyticActivityView component should render catalytic activity when c
   <span
     class="text-block"
   >
-     Reaction nameThis reaction proceeds in the 
+     Reaction name
+    <div>
+      This reaction proceeds in the 
+      <span
+        data-testid="direction-text"
+      >
+        forward
+      </span>
+      <button
+        aria-controls="0"
+        aria-expanded="false"
+        class="svg-colour-reviewed evidence-tag"
+        data-testid="evidence-tag-trigger"
+        type="button"
+      >
+        <test-file-stub
+          height="12"
+          width="12"
+        />
+        <span
+          class="evidence-tag__label"
+        >
+          1 publication
+        </span>
+      </button>
+      <div
+        class="evidence-tag-content "
+        data-testid="evidence-tag-content"
+        id="0"
+      />
+       and the 
+      <span
+        data-testid="direction-text"
+      >
+        backward
+      </span>
+      <button
+        aria-controls="1"
+        aria-expanded="false"
+        class="svg-colour-reviewed evidence-tag"
+        data-testid="evidence-tag-trigger"
+        type="button"
+      >
+        <test-file-stub
+          height="12"
+          width="12"
+        />
+        <span
+          class="evidence-tag__label"
+        >
+          1 publication
+        </span>
+      </button>
+      <div
+        class="evidence-tag-content "
+        data-testid="evidence-tag-content"
+        id="1"
+      />
+       directions 
+    </div>
+    <div>
+      <span
+        class="ec-number"
+      >
+        EC: EC:12112
+      </span>
+       ( 
+      <a
+        href="/uniprotkb?query=(ec:EC:12112)"
+      >
+        UniProtKB 
+        <test-file-stub
+          width="1.333ch"
+        />
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="https://enzyme.expasy.org/EC/EC:12112"
+        rel="noopener"
+        target="_blank"
+      >
+        ENZYME
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+      | 
+      <a
+        class="external-link"
+        href="https://www.rhea-db.org/rhea?query=ec:EC:12112"
+        rel="noopener"
+        target="_blank"
+      >
+        Rhea
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+      )
+    </div>
+  </span>
+</DocumentFragment>
+`;
+
+exports[`ReactionDirection component should render ReactionDirection when one physiologicalReactions is present 1`] = `
+<DocumentFragment>
+  <div>
+    This reaction proceeds in the 
+    <span
+      data-testid="direction-text"
+    >
+      forward
+    </span>
+     direction 
+    <button
+      aria-controls="0"
+      aria-expanded="false"
+      class="svg-colour-reviewed evidence-tag"
+      data-testid="evidence-tag-trigger"
+      type="button"
+    >
+      <test-file-stub
+        height="12"
+        width="12"
+      />
+      <span
+        class="evidence-tag__label"
+      >
+        1 publication
+      </span>
+    </button>
+    <div
+      class="evidence-tag-content "
+      data-testid="evidence-tag-content"
+      id="0"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ReactionDirection component should render ReactionDirection when two physiologicalReactions are present and should be in correct order (forwards then backwards) 1`] = `
+<DocumentFragment>
+  <div>
+    This reaction proceeds in the 
     <span
       data-testid="direction-text"
     >
@@ -176,146 +325,7 @@ exports[`CatalyticActivityView component should render catalytic activity when c
       id="1"
     />
      directions 
-    <div>
-      <span
-        class="ec-number"
-      >
-        EC: EC:12112
-      </span>
-       ( 
-      <a
-        href="/uniprotkb?query=(ec:EC:12112)"
-      >
-        UniProtKB 
-        <test-file-stub
-          width="1.333ch"
-        />
-      </a>
-       | 
-      <a
-        class="external-link"
-        href="https://enzyme.expasy.org/EC/EC:12112"
-        rel="noopener"
-        target="_blank"
-      >
-        ENZYME
-        <test-file-stub
-          data-testid="external-link-icon"
-          width="12.5"
-        />
-      </a>
-      | 
-      <a
-        class="external-link"
-        href="https://www.rhea-db.org/rhea?query=ec:EC:12112"
-        rel="noopener"
-        target="_blank"
-      >
-        Rhea
-        <test-file-stub
-          data-testid="external-link-icon"
-          width="12.5"
-        />
-      </a>
-      )
-    </div>
-  </span>
-</DocumentFragment>
-`;
-
-exports[`ReactionDirection component should render ReactionDirection when one physiologicalReactions is present 1`] = `
-<DocumentFragment>
-  This reaction proceeds in the 
-  <span
-    data-testid="direction-text"
-  >
-    forward
-  </span>
-   direction 
-  <button
-    aria-controls="0"
-    aria-expanded="false"
-    class="svg-colour-reviewed evidence-tag"
-    data-testid="evidence-tag-trigger"
-    type="button"
-  >
-    <test-file-stub
-      height="12"
-      width="12"
-    />
-    <span
-      class="evidence-tag__label"
-    >
-      1 publication
-    </span>
-  </button>
-  <div
-    class="evidence-tag-content "
-    data-testid="evidence-tag-content"
-    id="0"
-  />
-</DocumentFragment>
-`;
-
-exports[`ReactionDirection component should render ReactionDirection when two physiologicalReactions are present and should be in correct order (forwards then backwards) 1`] = `
-<DocumentFragment>
-  This reaction proceeds in the 
-  <span
-    data-testid="direction-text"
-  >
-    forward
-  </span>
-  <button
-    aria-controls="0"
-    aria-expanded="false"
-    class="svg-colour-reviewed evidence-tag"
-    data-testid="evidence-tag-trigger"
-    type="button"
-  >
-    <test-file-stub
-      height="12"
-      width="12"
-    />
-    <span
-      class="evidence-tag__label"
-    >
-      1 publication
-    </span>
-  </button>
-  <div
-    class="evidence-tag-content "
-    data-testid="evidence-tag-content"
-    id="0"
-  />
-   and the 
-  <span
-    data-testid="direction-text"
-  >
-    backward
-  </span>
-  <button
-    aria-controls="1"
-    aria-expanded="false"
-    class="svg-colour-reviewed evidence-tag"
-    data-testid="evidence-tag-trigger"
-    type="button"
-  >
-    <test-file-stub
-      height="12"
-      width="12"
-    />
-    <span
-      class="evidence-tag__label"
-    >
-      1 publication
-    </span>
-  </button>
-  <div
-    class="evidence-tag-content "
-    data-testid="evidence-tag-content"
-    id="1"
-  />
-   directions 
+  </div>
 </DocumentFragment>
 `;
 

@@ -32,8 +32,7 @@ const UniProtKBCard = ({ data }: { data: UniProtkbAPIModel }) => {
       'Molecular function',
       'Biological process',
       'Disease',
-    ])
-      .flatMap(({ keywords }) => keywords);
+    ]).flatMap(({ keywords }) => keywords);
   }, [data.keywords]);
 
   return (

@@ -28,6 +28,15 @@ exports[`Entry view should render 1`] = `
         <span
           class="text-block"
         >
+          <h4
+            class="tiny"
+          >
+            <a
+              href="#Isoform_3"
+            >
+              Isoform 3
+            </a>
+          </h4>
            some reaction
           <button
             aria-controls="0"
@@ -51,35 +60,37 @@ exports[`Entry view should render 1`] = `
             data-testid="evidence-tag-content"
             id="0"
           />
-          This reaction proceeds in the 
-          <span
-            data-testid="direction-text"
-          >
-            backward
-          </span>
-           direction 
-          <button
-            aria-controls="1"
-            aria-expanded="false"
-            class="svg-colour-unreviewed evidence-tag"
-            data-testid="evidence-tag-trigger"
-            type="button"
-          >
-            <test-file-stub
-              height="12"
-              width="12"
-            />
+          <div>
+            This reaction proceeds in the 
             <span
-              class="evidence-tag__label"
+              data-testid="direction-text"
             >
-              Imported
+              backward
             </span>
-          </button>
-          <div
-            class="evidence-tag-content "
-            data-testid="evidence-tag-content"
-            id="1"
-          />
+             direction 
+            <button
+              aria-controls="1"
+              aria-expanded="false"
+              class="svg-colour-unreviewed evidence-tag"
+              data-testid="evidence-tag-trigger"
+              type="button"
+            >
+              <test-file-stub
+                height="12"
+                width="12"
+              />
+              <span
+                class="evidence-tag__label"
+              >
+                Imported
+              </span>
+            </button>
+            <div
+              class="evidence-tag-content "
+              data-testid="evidence-tag-content"
+              id="1"
+            />
+          </div>
           <div>
             <span
               class="ec-number"
@@ -172,6 +183,15 @@ exports[`Entry view should render 1`] = `
         <section
           class="text-block"
         >
+          <h4
+            class="tiny"
+          >
+            <a
+              href="#molecule"
+            >
+              molecule
+            </a>
+          </h4>
           <span>
             Cofactor Name 
             <button
@@ -2011,11 +2031,15 @@ exports[`Entry view should render 1`] = `
         >
           disruption phenotype
         </h3>
-        <h3
+        <h4
           class="tiny"
         >
-          Isoform 4
-        </h3>
+          <a
+            href="#Isoform_4"
+          >
+            Isoform 4
+          </a>
+        </h4>
         <div
           class="text-block"
         >
@@ -2043,11 +2067,15 @@ exports[`Entry view should render 1`] = `
             id="41"
           />
         </div>
-        <h3
+        <h4
           class="tiny"
         >
-          Isoform 4 dfs
-        </h3>
+          <a
+            href="#Isoform_4_dfs"
+          >
+            Isoform 4 dfs
+          </a>
+        </h4>
         <div
           class="text-block"
         >
@@ -2705,9 +2733,8 @@ exports[`Entry view should render 1`] = `
         <p>
           value1
         </p>
-        <hr />
         <h3
-          id="isoID1"
+          id="Isoform_name"
         >
           isoID1
         </h3>
@@ -3027,6 +3054,15 @@ exports[`Entry view should render for non-human entry 1`] = `
       <div
         class="card__content"
       >
+        <h3
+          class="capitalize"
+        >
+          <span
+            class="visually-hidden"
+          >
+            function
+          </span>
+        </h3>
         <div
           class="text-block"
         >

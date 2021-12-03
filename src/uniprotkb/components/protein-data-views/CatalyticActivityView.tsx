@@ -1,4 +1,4 @@
-import { Fragment, useState, useCallback, useRef, FC } from 'react';
+import { Fragment, useState, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import {
   useModal,
@@ -47,9 +47,9 @@ export const isRheaReactionReference = ({
 type ChebiImageData = {
   chebi: string;
   imgURL: string;
-} | null;
+};
 
-export const ZoomModalContent: FC<ChebiImageData> = ({ chebi, imgURL }) => {
+export const ZoomModalContent = ({ chebi, imgURL }: ChebiImageData) => {
   const imageRef = useRef<HTMLImageElement>(null);
   const [loading, setLoading] = useState(true);
   const image = new Image();
@@ -77,10 +77,10 @@ type RheaReactionVisualizerProps = {
   show: boolean;
 };
 
-export const RheaReactionVisualizer: FC<RheaReactionVisualizerProps> = ({
+export const RheaReactionVisualizer = ({
   rheaId,
   show: initialShow,
-}) => {
+}: RheaReactionVisualizerProps) => {
   const [show, setShow] = useState(initialShow);
   const [zoomImageData, setZoomImageData] = useState<ChebiImageData>();
   const { displayModal, setDisplayModal, Modal } = useModal(
@@ -125,7 +125,7 @@ export const RheaReactionVisualizer: FC<RheaReactionVisualizerProps> = ({
               usehost="https://api.rhea-db.org"
             />
           </div>
-          {displayModal && zoomImageData && zoomImageData.imgURL && (
+          {displayModal && zoomImageData?.imgURL && (
             <Modal
               handleExitModal={() => setDisplayModal(false)}
               height="30vh"
@@ -153,11 +153,13 @@ const physiologicalReactionDirectionToString = new Map<
 
 export type ReactionDirectionProps = {
   physiologicalReactions: PhysiologicalReaction[];
+  noEvidence?: boolean;
 };
 
-export const ReactionDirection: FC<ReactionDirectionProps> = ({
+export const ReactionDirection = ({
   physiologicalReactions,
-}) => {
+  noEvidence,
+}: ReactionDirectionProps) => {
   /*
   Possible output:
     1. This reaction proceeds in the backward direction <Evidence>
@@ -174,7 +176,7 @@ export const ReactionDirection: FC<ReactionDirectionProps> = ({
     return null;
   }
   return (
-    <>
+    <div>
       {`This reaction proceeds in `}
       {physiologicalReactions
         // Ensure that left-to-right/forward comes before right-to-left/backward
@@ -187,13 +189,13 @@ export const ReactionDirection: FC<ReactionDirectionProps> = ({
               {physiologicalReactionDirectionToString.get(directionType)}
             </span>
             {physiologicalReactions.length === 1 && ' direction '}
-            <UniProtKBEvidenceTag evidences={evidences} />
+            {!noEvidence && <UniProtKBEvidenceTag evidences={evidences} />}
             {physiologicalReactions.length === 2 &&
               index === 1 &&
               ' directions '}
           </Fragment>
         ))}
-    </>
+    </div>
   );
 };
 
@@ -201,21 +203,23 @@ type CatalyticActivityProps = {
   comments?: CatalyticActivityComment[];
   title?: string;
   defaultHideAllReactions?: boolean;
+  noEvidence?: boolean;
 };
 
-const CatalyticActivityView: FC<CatalyticActivityProps> = ({
+const CatalyticActivityView = ({
   comments,
   title,
   defaultHideAllReactions = false,
-}) => {
-  if (!comments || !comments.length) {
+  noEvidence,
+}: CatalyticActivityProps) => {
+  if (!comments?.length) {
     return null;
   }
   let firstRheaId: number;
   return (
     <>
       {title && <h3 className={helper.capitalize}>{title}</h3>}
-      {comments.map(({ reaction, physiologicalReactions }) => {
+      {comments.map(({ molecule, reaction, physiologicalReactions }, index) => {
         if (!reaction) {
           return null;
         }
@@ -231,14 +235,25 @@ const CatalyticActivityView: FC<CatalyticActivityProps> = ({
           firstRheaId = rheaId;
         }
         return (
-          <span className="text-block" key={reaction.name}>
+          // eslint-disable-next-line react/no-array-index-key
+          <span className="text-block" key={index}>
+            {molecule && (
+              <h4 className="tiny">
+                {noEvidence ? (
+                  `${molecule}`
+                ) : (
+                  <a href={`#${molecule.replaceAll(' ', '_')}`}>{molecule}</a>
+                )}
+              </h4>
+            )}
             {` ${reaction.name}`}
-            {reaction.evidences && (
+            {!noEvidence && reaction.evidences && (
               <UniProtKBEvidenceTag evidences={reaction.evidences} />
             )}
             {physiologicalReactions && physiologicalReactions.length && (
               <ReactionDirection
                 physiologicalReactions={physiologicalReactions}
+                noEvidence={noEvidence}
               />
             )}
 

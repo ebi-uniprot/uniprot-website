@@ -1,4 +1,4 @@
-import { useMemo, FC, Fragment } from 'react';
+import { useMemo, Fragment } from 'react';
 import classNames from 'classnames';
 import { v1 } from 'uuid';
 
@@ -72,16 +72,20 @@ export const processFeaturesData = (
     })
   );
 
-const UniProtKBFeaturesView: FC<FeatureProps> = ({
+const UniProtKBFeaturesView = ({
   sequence,
   features,
   withTitle = true,
   withDataTable = true,
-}): JSX.Element | null => {
+}: FeatureProps) => {
   const processedData = useMemo(
     () => processFeaturesData(features, sequence),
     [features, sequence]
   );
+
+  if (processedData.length === 0) {
+    return null;
+  }
 
   const table = (
     <table className={classNames(!withDataTable && 'data-table--compact')}>
@@ -130,10 +134,6 @@ const UniProtKBFeaturesView: FC<FeatureProps> = ({
       </tbody>
     </table>
   );
-
-  if (processedData.length === 0) {
-    return null;
-  }
 
   return withDataTable ? (
     <FeaturesView

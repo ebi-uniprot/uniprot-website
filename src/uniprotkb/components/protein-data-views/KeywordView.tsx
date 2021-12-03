@@ -1,4 +1,4 @@
-import { FC, Fragment } from 'react';
+import { Fragment } from 'react';
 import { InfoList, ExpandableList } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
@@ -22,18 +22,14 @@ type KeywordItempProps = {
   value?: string;
 };
 
-export const KeywordItem: FC<KeywordItempProps> = ({ id, value }) => {
+export const KeywordItem = ({ id, value }: KeywordItempProps) => {
   if (!id || !value) {
     return null;
   }
   return <Link to={getEntryPath(Namespace.keywords, id)}>{` #${value}`}</Link>;
 };
 
-export const KeywordList: FC<KeywordListProps> = ({
-  keywords,
-  idOnly,
-  inline,
-}) => {
+export const KeywordList = ({ keywords, idOnly, inline }: KeywordListProps) => {
   const content = keywords.map((keyword, index) => {
     const { id, name, evidences } = keyword;
     if (!id || !name) {
@@ -57,7 +53,7 @@ export const KeywordList: FC<KeywordListProps> = ({
   );
 };
 
-const KeywordView: FC<{ keywords: KeywordUIModel[] }> = ({ keywords }) => {
+const KeywordView = ({ keywords }: { keywords: KeywordUIModel[] }) => {
   if (!keywords?.length) {
     return null;
   }
