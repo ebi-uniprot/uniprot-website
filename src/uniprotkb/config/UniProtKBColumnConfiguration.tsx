@@ -104,12 +104,7 @@ import { diseaseAndDrugsFeaturesToColumns } from '../adapters/diseaseAndDrugs';
 import { subcellularLocationFeaturesToColumns } from '../adapters/subcellularLocationConverter';
 import { proteinProcessingFeaturesToColumns } from '../adapters/proteinProcessingConverter';
 import { familyAndDomainsFeaturesToColumns } from '../adapters/familyAndDomainsConverter';
-import {
-  DatabaseInfoMaps,
-  DatabaseToDatabaseInfo,
-  getDatabaseNameFromColumn,
-  isDatabaseColumn,
-} from '../utils/database';
+import { getDatabaseNameFromColumn, isDatabaseColumn } from '../utils/database';
 import { DatabaseList } from '../components/protein-data-views/XRefView';
 
 export const defaultColumns = [
