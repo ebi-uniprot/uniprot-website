@@ -1,6 +1,8 @@
 import { groupBy } from 'lodash-es';
 import { Card } from 'franklin-sites';
 
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+
 import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
@@ -8,8 +10,6 @@ import { UIModel } from '../../adapters/sectionConverter';
 import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import XRefView from '../protein-data-views/XRefView';
 import StructureView from '../protein-data-views/StructureView';
-
-import { entrySectionToDatabaseCategoryOrder } from '../../config/database';
 
 import {
   partitionStructureDatabases,
@@ -30,6 +30,10 @@ const StructureSection = ({
   sequence,
   crc64,
 }: Props) => {
+  const databaseInfoMaps = useDatabaseInfoMaps();
+  if (!databaseInfoMaps) {
+    return null;
+  }
   // NOTE: do not check if content is there or not, always display because of AF
   const { arrayStructureDatabases, otherDatabases } = groupBy(
     data.xrefData,
@@ -60,9 +64,10 @@ const StructureSection = ({
   let XrefViewNode;
   if (nonPDBDatabases && nonPDBDatabases.length) {
     // The non-PDB databases need to be re-ordered accordingly
-    const categoryOrder = entrySectionToDatabaseCategoryOrder.get(
-      EntrySection.Structure
-    );
+    const categoryOrder =
+      databaseInfoMaps.entrySectionToDatabaseCategoryOrder.get(
+        EntrySection.Structure
+      );
     if (categoryOrder) {
       XrefViewNode = (
         <XRefView

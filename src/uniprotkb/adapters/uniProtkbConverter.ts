@@ -43,6 +43,7 @@ import {
   Citation,
   Reference,
 } from '../../supporting-data/citations/adapters/citationsConverter';
+import { DatabaseInfoMaps } from '../utils/database';
 
 // 🤷🏽
 type UniProtKBReference = Omit<Reference, 'citationId'> & {
@@ -133,7 +134,10 @@ export const convertXrefProperties = (
       : {},
   }));
 
-const uniProtKbConverter = (data: UniProtkbAPIModel): UniProtkbUIModel => {
+const uniProtKbConverter = (
+  data: UniProtkbAPIModel,
+  databaseInfoMaps: DatabaseInfoMaps
+): UniProtkbUIModel => {
   const { ...dataCopy } = data;
 
   const uniProtKBCrossReferences = convertXrefProperties(
@@ -150,50 +154,62 @@ const uniProtKbConverter = (data: UniProtkbAPIModel): UniProtkbUIModel => {
     uniProtKBCrossReferences,
     [EntrySection.Function]: convertFunction(
       dataCopy,
+      databaseInfoMaps,
       uniProtKBCrossReferences
     ),
     [EntrySection.NamesAndTaxonomy]: convertNamesAndTaxonomy(
       dataCopy,
+      databaseInfoMaps,
       uniProtKBCrossReferences
     ),
     [EntrySection.SubCellularLocation]: convertSubcellularLocation(
       dataCopy,
+      databaseInfoMaps,
       uniProtKBCrossReferences
     ),
     [EntrySection.DiseaseAndDrugs]: convertDiseaseAndDrugs(
       dataCopy,
+      databaseInfoMaps,
       uniProtKBCrossReferences
     ),
     [EntrySection.Phenotypes]: convertDiseaseAndDrugs(
       dataCopy,
+      databaseInfoMaps,
       uniProtKBCrossReferences
     ),
     [EntrySection.ProteinProcessing]: convertProteinProcessing(
       dataCopy,
+      databaseInfoMaps,
       uniProtKBCrossReferences
     ),
     [EntrySection.Expression]: convertExpression(
       dataCopy,
+      databaseInfoMaps,
       uniProtKBCrossReferences
     ),
     [EntrySection.Interaction]: convertInteraction(
       dataCopy,
+      databaseInfoMaps,
       uniProtKBCrossReferences
     ),
     [EntrySection.Structure]: convertStructure(
       dataCopy,
+      databaseInfoMaps,
       uniProtKBCrossReferences
     ),
     [EntrySection.Sequence]: convertSequence(
       dataCopy,
+      databaseInfoMaps,
       uniProtKBCrossReferences
     ),
     [EntrySection.FamilyAndDomains]: convertFamilyAndDomains(
       dataCopy,
+      databaseInfoMaps,
       uniProtKBCrossReferences
     ),
     [EntrySection.ExternalLinks]: convertExternalLinks(
       dataCopy,
+      databaseInfoMaps,
       uniProtKBCrossReferences
     ),
     [EntrySection.SimilarProteins]: extractIsoforms(dataCopy),

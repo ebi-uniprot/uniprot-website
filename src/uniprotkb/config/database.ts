@@ -1,11 +1,10 @@
 import EntrySection from '../types/entrySection';
 import { DatabaseCategory } from '../types/databaseRefs';
 import {
-  getDatabaseInfoMaps,
   selectDatabases,
-  getEntrySectionToDatabaseCategoryOrder,
+  DatabaseToDatabaseInfo,
+  DatabaseCategoryToNames,
 } from '../utils/database';
-import databaseInfo from './databaseInfo';
 import externalUrls from '../../shared/config/externalUrls';
 
 export const databaseCategoryToString = {
@@ -15,12 +14,14 @@ export const databaseCategoryToString = {
   [DatabaseCategory.FAMILY]: 'Protein family/group databases',
   [DatabaseCategory.GEL]: '2D gel databases',
   [DatabaseCategory.GENOME]: 'Genome annotation databases',
+  [DatabaseCategory.GENE_ONTOLOGY]: 'Gene ontology databases',
   [DatabaseCategory.INTERACTION]: 'Protein-protein interaction databases',
   [DatabaseCategory.ORGANISM]: 'Organism-specific databases',
   [DatabaseCategory.MISCELLANEOUS]: 'Miscellaneous',
   [DatabaseCategory.PATHWAY]: 'Enzyme and pathway databases',
   [DatabaseCategory.PHYLOGENOMIC]: 'Phylogenomic databases',
   [DatabaseCategory.GENETIC_VARIATION]: 'Genetic variation databases',
+  [DatabaseCategory.PROTEOMES]: 'Proteomes databases',
   [DatabaseCategory.PROTEOMIC]: 'Proteomic databases',
   [DatabaseCategory.PROTOCOL]: 'Protocols and materials databases',
   [DatabaseCategory.PTM]: 'PTM databases',
@@ -28,163 +29,141 @@ export const databaseCategoryToString = {
   [DatabaseCategory.STRUCTURE]: '3D structure databases',
 };
 
-export const {
-  databaseCategoryToNames,
-  databaseNameToCategory,
-  databaseToDatabaseInfo,
-  implicitDatabaseXRefs,
-} = getDatabaseInfoMaps(databaseInfo);
-
 export const PDBMirrors = ['PDB', 'RCSB-PDB', 'PDBj', 'PDBsum'];
 
-export const PDBMirrorsInfo = PDBMirrors.map(
-  (PDBMirror) => databaseToDatabaseInfo[PDBMirror]
-);
+export const getPDBMirrorsInfo = (
+  databaseToDatabaseInfo: DatabaseToDatabaseInfo
+) => PDBMirrors.map((PDBMirror) => databaseToDatabaseInfo[PDBMirror]);
 
-const databaseSelector = selectDatabases(databaseCategoryToNames);
+export type EntrySectionToDatabaseNames = Map<EntrySection, string[]>;
 
-export const entrySectionToDatabaseNames = new Map<EntrySection, string[]>();
-entrySectionToDatabaseNames.set(EntrySection.DiseaseAndDrugs, [
-  'DisGeNET',
-  'GeneReviews',
-  'MalaCards',
-  'MIM',
-  'OpenTargets',
-  'Orphanet',
-  'PharmGKB',
-  'ChEMBL',
-  'DrugBank',
-  'DrugCentral',
-  'GuidetoPHARMACOLOGY',
-  'BioMuta',
-  'DMDM',
-  'Allergome',
-  'PHI-base',
-]);
-entrySectionToDatabaseNames.set(
-  EntrySection.Expression,
-  databaseSelector({
-    categories: [DatabaseCategory.EXPRESSION],
-    include: ['HPA'],
-  })
-);
-entrySectionToDatabaseNames.set(
-  EntrySection.FamilyAndDomains,
-  databaseSelector({
-    categories: [DatabaseCategory.PHYLOGENOMIC, DatabaseCategory.DOMAIN],
-    include: [
-      'MobiDB', // Implicit
-      'ProtoNet', // Implicit
-      'GPCRDB', // Implicit
-    ],
-  })
-);
-entrySectionToDatabaseNames.set(
-  EntrySection.Function,
-  databaseSelector({
-    categories: [DatabaseCategory.PATHWAY, DatabaseCategory.FAMILY],
-    include: ['SwissLipids'],
-  })
-);
-entrySectionToDatabaseNames.set(
-  EntrySection.Interaction,
-  databaseSelector({
-    categories: [DatabaseCategory.INTERACTION],
-    include: ['BindingDB'],
-  })
-);
-entrySectionToDatabaseNames.set(EntrySection.NamesAndTaxonomy, [
-  'ArachnoServer',
-  'Araport',
-  'CGD',
-  'ConoServer',
-  'dictyBase',
-  'EcoGene',
-  'VEuPathDB',
-  'FlyBase',
-  'Gramene',
-  'HGNC',
-  'LegioList',
-  'Leproma',
-  'MaizeGDB',
-  'MGI',
-  'MIM',
-  'neXtProt',
-  'PomBase',
-  'PseudoCAP',
-  'RGD',
-  'SGD',
-  'TAIR',
-  'TubercuList',
-  'VGNC',
-  'WormBase',
-  'Xenbase',
-  'ZFIN',
-]);
-entrySectionToDatabaseNames.set(
-  EntrySection.ProteinProcessing,
-  databaseSelector({
-    categories: [
-      DatabaseCategory.PROTEOMIC,
-      DatabaseCategory.GEL,
-      DatabaseCategory.PTM,
-    ],
-    include: ['PMAP-CutDB'],
-  })
-);
-entrySectionToDatabaseNames.set(
-  EntrySection.Sequence,
-  databaseSelector({
-    categories: [DatabaseCategory.SEQUENCE, DatabaseCategory.GENOME],
-  })
-);
-entrySectionToDatabaseNames.set(
-  EntrySection.Structure,
-  databaseSelector({
-    categories: [DatabaseCategory.STRUCTURE],
-    include: [
-      'EvolutionaryTrace',
-      'ModBase', // Implicit
-    ],
-  })
-);
+// TODO: figure out where OTG and PRM go? https://www.ebi.ac.uk/panda/jira/browse/TRM-27105
+export const getEntrySectionToDatabaseNames = (
+  databaseCategoryToNames: DatabaseCategoryToNames
+): EntrySectionToDatabaseNames => {
+  const databaseSelector = selectDatabases(databaseCategoryToNames);
 
-// This is used to catch those that aren't listed in the page sections
-entrySectionToDatabaseNames.set(
-  EntrySection.ExternalLinks,
-  databaseSelector({
-    categories: [DatabaseCategory.MISCELLANEOUS, DatabaseCategory.PROTOCOL],
-    include: [
-      'HUGE', // Implicit
-      'Rouge', // Implicit
-      'GenAtlas', // Implicit
-      ...PDBMirrors,
-    ],
-  })
-);
+  const entrySectionToDatabaseNames = new Map<EntrySection, string[]>();
+  entrySectionToDatabaseNames.set(EntrySection.DiseaseAndDrugs, [
+    'DisGeNET',
+    'GeneReviews',
+    'MalaCards',
+    'MIM',
+    'OpenTargets',
+    'Orphanet',
+    'PharmGKB',
+    'ChEMBL',
+    'DrugBank',
+    'DrugCentral',
+    'GuidetoPHARMACOLOGY',
+    'BioMuta',
+    'DMDM',
+    'Allergome',
+    'PHI-base',
+  ]);
+  entrySectionToDatabaseNames.set(
+    EntrySection.Expression,
+    databaseSelector({
+      categories: [DatabaseCategory.EXPRESSION],
+      include: ['HPA'],
+    })
+  );
+  entrySectionToDatabaseNames.set(
+    EntrySection.FamilyAndDomains,
+    databaseSelector({
+      categories: [DatabaseCategory.PHYLOGENOMIC, DatabaseCategory.DOMAIN],
+      include: [
+        'MobiDB', // Implicit
+        'ProtoNet', // Implicit
+        'GPCRDB', // Implicit
+      ],
+    })
+  );
+  entrySectionToDatabaseNames.set(
+    EntrySection.Function,
+    databaseSelector({
+      categories: [DatabaseCategory.PATHWAY, DatabaseCategory.FAMILY],
+      include: ['SwissLipids'],
+    })
+  );
+  entrySectionToDatabaseNames.set(
+    EntrySection.Interaction,
+    databaseSelector({
+      categories: [DatabaseCategory.INTERACTION],
+      include: ['BindingDB'],
+    })
+  );
+  entrySectionToDatabaseNames.set(EntrySection.NamesAndTaxonomy, [
+    'ArachnoServer',
+    'Araport',
+    'CGD',
+    'ConoServer',
+    'dictyBase',
+    'EcoGene',
+    'VEuPathDB',
+    'FlyBase',
+    'Gramene',
+    'HGNC',
+    'LegioList',
+    'Leproma',
+    'MaizeGDB',
+    'MGI',
+    'MIM',
+    'neXtProt',
+    'PomBase',
+    'PseudoCAP',
+    'RGD',
+    'SGD',
+    'TAIR',
+    'TubercuList',
+    'VGNC',
+    'WormBase',
+    'Xenbase',
+    'ZFIN',
+  ]);
+  entrySectionToDatabaseNames.set(
+    EntrySection.ProteinProcessing,
+    databaseSelector({
+      categories: [
+        DatabaseCategory.PROTEOMIC,
+        DatabaseCategory.GEL,
+        DatabaseCategory.PTM,
+      ],
+      include: ['PMAP-CutDB'],
+    })
+  );
+  entrySectionToDatabaseNames.set(
+    EntrySection.Sequence,
+    databaseSelector({
+      categories: [DatabaseCategory.SEQUENCE, DatabaseCategory.GENOME],
+    })
+  );
+  entrySectionToDatabaseNames.set(
+    EntrySection.Structure,
+    databaseSelector({
+      categories: [DatabaseCategory.STRUCTURE],
+      include: [
+        'EvolutionaryTrace',
+        'ModBase', // Implicit
+      ],
+    })
+  );
 
-export const getDatabaseNameToEntrySection = (
-  databaseName: string
-): EntrySection | undefined => {
-  let entrySection;
-  entrySectionToDatabaseNames.forEach((value, key) => {
-    if (value.includes(databaseName)) {
-      entrySection = key;
-    }
-  });
-  return entrySection;
+  // This is used to catch those that aren't listed in the page sections
+  entrySectionToDatabaseNames.set(
+    EntrySection.ExternalLinks,
+    databaseSelector({
+      categories: [DatabaseCategory.MISCELLANEOUS, DatabaseCategory.PROTOCOL],
+      include: [
+        'HUGE', // Implicit
+        'Rouge', // Implicit
+        'GenAtlas', // Implicit
+        ...PDBMirrors,
+      ],
+    })
+  );
+  return entrySectionToDatabaseNames;
 };
-
-export const entrySectionToDatabaseCategoryOrder =
-  getEntrySectionToDatabaseCategoryOrder(
-    entrySectionToDatabaseNames,
-    databaseNameToCategory
-  );
-
-export const getDatabaseInfoByName = (dbName: string) =>
-  databaseInfo.find(
-    (dbInfo) => dbInfo.name.toLowerCase() === dbName.toLowerCase()
-  );
 
 // If each of the keys are present then show the values
 export const implicitDatabaseDRPresence: { [key: string]: string[] } = {

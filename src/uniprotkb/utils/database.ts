@@ -1,4 +1,3 @@
-import { flatten } from 'lodash-es';
 import EntrySection from '../types/entrySection';
 import {
   DatabaseCategory,
@@ -6,14 +5,55 @@ import {
   DatabaseInfoPoint,
 } from '../types/databaseRefs';
 import { Xref } from '../../shared/types/apiModel';
+import {
+  EntrySectionToDatabaseNames,
+  getEntrySectionToDatabaseNames,
+} from '../config/database';
+import { UniProtKBColumn } from '../types/columnTypes';
 
-export const getDatabaseInfoMaps = (databaseInfo: DatabaseInfo) => {
-  const databaseCategoryToNames = new Map<DatabaseCategory, string[]>();
-  const databaseNameToCategory = new Map<string, DatabaseCategory>();
-  const databaseToDatabaseInfo: {
-    [database: string]: DatabaseInfoPoint;
-  } = {};
-  const implicitDatabaseXRefs = new Map<string, Xref>();
+export type DatabaseCategoryToNames = Map<DatabaseCategory, string[]>;
+export type DatabaseNameToCategory = Map<string, DatabaseCategory>;
+export type DatabaseToDatabaseInfo = {
+  [database: string]: DatabaseInfoPoint;
+};
+export type ImplicitDatabaseXRefs = Map<string, Xref>;
+export type EntrySectionToDatabaseCategoryOrder = Map<EntrySection, string[]>;
+
+export type DatabaseInfoMaps = {
+  databaseCategoryToNames: DatabaseCategoryToNames;
+  databaseNameToCategory: DatabaseNameToCategory;
+  databaseToDatabaseInfo: DatabaseToDatabaseInfo;
+  implicitDatabaseXRefs: ImplicitDatabaseXRefs;
+  entrySectionToDatabaseNames: EntrySectionToDatabaseNames;
+  entrySectionToDatabaseCategoryOrder: EntrySectionToDatabaseCategoryOrder;
+};
+
+export const getEntrySectionToDatabaseCategoryOrder = (
+  entrySectionToDatabaseNames: Map<EntrySection, string[]>,
+  databaseNameToCategory: DatabaseNameToCategory
+) => {
+  const entrySectionToDatabaseCategoryOrder: EntrySectionToDatabaseCategoryOrder =
+    new Map();
+  for (const [entrySection, databaseNames] of entrySectionToDatabaseNames) {
+    const uniqueCategories: DatabaseCategory[] = [];
+    for (const databaseName of databaseNames) {
+      const databaseCategory = databaseNameToCategory.get(databaseName);
+      if (databaseCategory && !uniqueCategories.includes(databaseCategory)) {
+        uniqueCategories.push(databaseCategory);
+      }
+    }
+    entrySectionToDatabaseCategoryOrder.set(entrySection, uniqueCategories);
+  }
+  return entrySectionToDatabaseCategoryOrder;
+};
+
+export const getDatabaseInfoMaps = (
+  databaseInfo: DatabaseInfo
+): DatabaseInfoMaps => {
+  const databaseCategoryToNames: DatabaseCategoryToNames = new Map();
+  const databaseNameToCategory: DatabaseNameToCategory = new Map();
+  const databaseToDatabaseInfo: DatabaseToDatabaseInfo = {};
+  const implicitDatabaseXRefs: ImplicitDatabaseXRefs = new Map();
   databaseInfo.forEach((info) => {
     const { name, category, implicit } = info as {
       name: string;
@@ -31,11 +71,22 @@ export const getDatabaseInfoMaps = (databaseInfo: DatabaseInfo) => {
     databaseNameToCategory.set(name, category);
     databaseToDatabaseInfo[name] = info;
   });
+
+  const entrySectionToDatabaseNames = getEntrySectionToDatabaseNames(
+    databaseCategoryToNames
+  );
+  const entrySectionToDatabaseCategoryOrder =
+    getEntrySectionToDatabaseCategoryOrder(
+      entrySectionToDatabaseNames,
+      databaseNameToCategory
+    );
   return {
     databaseCategoryToNames,
     databaseNameToCategory,
     databaseToDatabaseInfo,
     implicitDatabaseXRefs,
+    entrySectionToDatabaseNames,
+    entrySectionToDatabaseCategoryOrder,
   };
 };
 
@@ -46,34 +97,21 @@ export const selectDatabases =
     include = [],
     exclude = [],
   }: {
-    categories?: string[];
+    categories?: DatabaseCategory[];
     include?: string[];
     exclude?: string[];
   }) =>
     [
-      ...flatten(
-        categories.map(
-          (category) =>
-            databaseCategoryToNames.get(category as DatabaseCategory) || []
-        )
+      ...categories.flatMap(
+        (category) => databaseCategoryToNames.get(category) || []
       ),
       ...include,
     ].filter((db) => !exclude.includes(db));
 
-export const getEntrySectionToDatabaseCategoryOrder = (
-  entrySectionToDatabaseNames: Map<EntrySection, string[]>,
-  databaseNameToCategory: Map<string, DatabaseCategory>
-) => {
-  const entrySectionToDatabaseCategoryOrder = new Map<EntrySection, string[]>();
-  for (const [entrySection, databaseNames] of entrySectionToDatabaseNames) {
-    const uniqueCategories: DatabaseCategory[] = [];
-    for (const databaseName of databaseNames) {
-      const databaseCategory = databaseNameToCategory.get(databaseName);
-      if (databaseCategory && !uniqueCategories.includes(databaseCategory)) {
-        uniqueCategories.push(databaseCategory);
-      }
-    }
-    entrySectionToDatabaseCategoryOrder.set(entrySection, uniqueCategories);
-  }
-  return entrySectionToDatabaseCategoryOrder;
-};
+const reXrefPrefix = /^xref_/;
+
+export const isDatabaseColumn = (column: UniProtKBColumn) =>
+  column.match(reXrefPrefix);
+
+export const getDatabaseNameFromColumn = (column: UniProtKBColumn) =>
+  column.replace(reXrefPrefix, '');

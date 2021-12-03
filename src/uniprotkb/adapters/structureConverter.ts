@@ -5,6 +5,7 @@ import EntrySection from '../types/entrySection';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
 import { Xref } from '../../shared/types/apiModel';
 import { UniProtKBColumn } from '../types/columnTypes';
+import { DatabaseInfoMaps } from '../utils/database';
 
 type GroupedStructureInfo = { [key: string]: Xref[] };
 
@@ -26,10 +27,12 @@ const featuresCategories = Object.keys(
 
 const convertStructure = (
   data: UniProtkbAPIModel,
+  databaseInfoMaps: DatabaseInfoMaps,
   uniProtKBCrossReferences?: Xref[]
 ) => {
   const structureData: StructureUIModel = convertSection(
     data,
+    databaseInfoMaps,
     undefined,
     undefined,
     featuresCategories,

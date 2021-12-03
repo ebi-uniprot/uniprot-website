@@ -6,12 +6,13 @@ import {
   getUnconditionalImplicitXrefs,
   getJoinedXrefs,
 } from '../xrefUtils';
-import { CommentType } from '../../types/commentTypes';
+import implicitDatabaseXRefs from './__mocks__/implicitDatabaseXrefs';
 
 describe('xrefUtils tests', () => {
   test('should getDRImplicitXrefs', () => {
     expect(
       getDRImplicitXrefs(
+        implicitDatabaseXRefs,
         [
           {
             database: 'PDB',
@@ -57,18 +58,22 @@ describe('xrefUtils tests', () => {
 
   test('should getDatabaseSimilarityCommentImplicitXrefs', () => {
     expect(
-      getDatabaseSimilarityCommentImplicitXrefs('TS1R1_HUMAN', [
-        {
-          texts: [
-            {
-              value:
-                'Belongs to the G-protein coupled receptor 3 family. TAS1R subfamily',
-              evidences: [{ evidenceCode: 'ECO:0000305' }],
-            },
-          ],
-          commentType: 'SIMILARITY',
-        },
-      ])
+      getDatabaseSimilarityCommentImplicitXrefs(
+        implicitDatabaseXRefs,
+        'TS1R1_HUMAN',
+        [
+          {
+            texts: [
+              {
+                value:
+                  'Belongs to the G-protein coupled receptor 3 family. TAS1R subfamily',
+                evidences: [{ evidenceCode: 'ECO:0000305' }],
+              },
+            ],
+            commentType: 'SIMILARITY',
+          },
+        ]
+      )
     ).toEqual([
       {
         database: 'GPCRDB',
@@ -80,7 +85,11 @@ describe('xrefUtils tests', () => {
 
   test('should getGenePatternOrganismImplicitXrefs', () => {
     expect(
-      getGenePatternOrganismImplicitXrefs(['PNMA5', 'KIAA1934'], 'Human')
+      getGenePatternOrganismImplicitXrefs(
+        implicitDatabaseXRefs,
+        ['PNMA5', 'KIAA1934'],
+        'Human'
+      )
     ).toEqual([
       {
         database: 'HUGE',
@@ -91,7 +100,9 @@ describe('xrefUtils tests', () => {
   });
 
   test('should getECImplicitXrefs', () => {
-    expect(getECImplicitXrefs([{ value: '3.1.4.4' }])).toEqual([
+    expect(
+      getECImplicitXrefs(implicitDatabaseXRefs, [{ value: '3.1.4.4' }])
+    ).toEqual([
       {
         database: 'ENZYME',
         implicit: true,
@@ -100,7 +111,7 @@ describe('xrefUtils tests', () => {
     ]);
   });
   test('should getUnconditionalImplicitXrefs', () => {
-    expect(getUnconditionalImplicitXrefs()).toEqual([
+    expect(getUnconditionalImplicitXrefs(implicitDatabaseXRefs)).toEqual([
       { database: 'ModBase', implicit: true },
       { database: 'MobiDB', implicit: true },
       { database: 'ProtoNet', implicit: true },

@@ -9,10 +9,13 @@ import { Provider as ReduxProvider } from 'react-redux';
 import { createStore, Store } from 'redux';
 import { render, RenderOptions } from '@testing-library/react';
 import { SetRequired, JsonValue } from 'type-fest';
+import { getDatabaseInfoMaps } from '../../uniprotkb/utils/database';
 
 import rootReducer from '../../app/state/rootReducer';
 
 import { RootState } from '../../app/state/rootInitialState';
+import { DatabaseInfoMapsContext } from '../contexts/DatabaseInfoMaps';
+import databaseInfo from '../../uniprotkb/utils/__tests__/__mocks__/databaseInfo';
 
 type ExtraRenderOptions = {
   // For react-router
@@ -30,6 +33,8 @@ type ExtraRenderOptions = {
 type WrapperProps = RenderOptions &
   SetRequired<ExtraRenderOptions, 'history' | 'initialLocalStorage' | 'store'>;
 
+const dbInfoMaps = getDatabaseInfoMaps(databaseInfo);
+
 class Wrapper extends Component<WrapperProps> {
   constructor(props: WrapperProps) {
     super(props);
@@ -46,9 +51,11 @@ class Wrapper extends Component<WrapperProps> {
     const { children, path, history, store } = this.props;
     return (
       <ReduxProvider store={store}>
-        <Router history={history}>
-          {path ? <Route path={path} render={() => children} /> : children}
-        </Router>
+        <DatabaseInfoMapsContext.Provider value={dbInfoMaps}>
+          <Router history={history}>
+            {path ? <Route path={path} render={() => children} /> : children}
+          </Router>
+        </DatabaseInfoMapsContext.Provider>
       </ReduxProvider>
     );
   }

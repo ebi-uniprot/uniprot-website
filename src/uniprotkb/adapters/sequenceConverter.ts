@@ -23,6 +23,7 @@ import {
 import { UniProtkbAPIModel } from './uniProtkbConverter';
 import { Xref } from '../../shared/types/apiModel';
 import { UniProtKBColumn } from '../types/columnTypes';
+import { DatabaseInfoMaps } from '../utils/database';
 
 export type Flag =
   | 'Precursor'
@@ -95,6 +96,7 @@ const precursorFlags = new Set<Flag>([
 
 export const convertSequence = (
   data: UniProtkbAPIModel,
+  databaseInfoMaps: DatabaseInfoMaps,
   uniProtKBCrossReferences?: Xref[]
 ) => {
   const sequenceData: SequenceUIModel = {
@@ -206,6 +208,7 @@ export const convertSequence = (
       ...joined,
     ];
     const xrefs = getXrefsForSection(
+      databaseInfoMaps,
       newXrefs,
       EntrySection.Sequence,
       data.genes
