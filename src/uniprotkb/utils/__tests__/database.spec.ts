@@ -6,23 +6,36 @@ import {
 import { DatabaseCategory } from '../../types/databaseRefs';
 
 import databaseInfo from './__mocks__/databaseInfo';
-import {
-  expectedDatabaseCategoryToNames,
-  expectedDatabaseNameToCategory,
-  expectedEntrySectionToDatabaseCategoryOrder,
-} from './__mocks__/database';
-import entrySectionToDatabaseNames from '../../adapters/__mocks__/entrySectionToDatabaseNames';
-import databaseNameToCategory from '../../adapters/__mocks__/databaseNameToCategory';
-import databaseCategoryToNames from '../../adapters/__mocks__/databaseCategoryToNames';
+// TODO delete these mocks and move the ones in ../../adapters/__mocks__/ to ./__mocks__/
+// import {
+//   expectedDatabaseCategoryToNames,
+//   expectedDatabaseNameToCategory,
+//   expectedEntrySectionToDatabaseCategoryOrder,
+// } from './__mocks__/database';
+import expectedDatabaseNameToCategory from '../../adapters/__mocks__/databaseNameToCategory';
+import expectedDatabaseCategoryToNames from '../../adapters/__mocks__/databaseCategoryToNames';
+import expectedEntrySectionToDatabaseNames from '../../adapters/__mocks__/entrySectionToDatabaseNames';
+import expectedEntrySectionToDatabaseCategoryOrder from '../../adapters/__mocks__/entrySectionToDatabaseCategoryOrder';
+import expectedImplicitDatabaseXRefs from '../../adapters/__mocks__/implicitDatabaseXrefs';
 
 test('getDatabaseInfoMaps', () => {
   const {
     databaseCategoryToNames,
     databaseNameToCategory,
     databaseToDatabaseInfo,
+    entrySectionToDatabaseNames,
+    entrySectionToDatabaseCategoryOrder,
+    implicitDatabaseXRefs,
   } = getDatabaseInfoMaps(databaseInfo);
   expect([...databaseNameToCategory]).toEqual(expectedDatabaseNameToCategory);
   expect([...databaseCategoryToNames]).toEqual(expectedDatabaseCategoryToNames);
+  expect([...entrySectionToDatabaseNames]).toEqual(
+    expectedEntrySectionToDatabaseNames
+  );
+  expect([...entrySectionToDatabaseCategoryOrder]).toEqual(
+    expectedEntrySectionToDatabaseCategoryOrder
+  );
+  expect([...implicitDatabaseXRefs]).toEqual(expectedImplicitDatabaseXRefs);
   const databaseNames = databaseInfo
     .map((databaseInfoPoint) => databaseInfoPoint.name)
     .sort();
@@ -33,8 +46,8 @@ test('getDatabaseInfoMaps', () => {
 test('getEntrySectionToDatabaseCategoryOrder', () => {
   const entrySectionToDatabaseCategoryOrder =
     getEntrySectionToDatabaseCategoryOrder(
-      entrySectionToDatabaseNames,
-      databaseNameToCategory
+      expectedEntrySectionToDatabaseNames,
+      expectedDatabaseNameToCategory
     );
   expect([...entrySectionToDatabaseCategoryOrder]).toEqual(
     expectedEntrySectionToDatabaseCategoryOrder
@@ -42,7 +55,7 @@ test('getEntrySectionToDatabaseCategoryOrder', () => {
 });
 
 test('selectDatabases', () => {
-  const select = selectDatabases(databaseCategoryToNames);
+  const select = selectDatabases(expectedDatabaseCategoryToNames);
   const selected = select({
     categories: [DatabaseCategory.STRUCTURE],
     include: ['EvolutionaryTrace'],

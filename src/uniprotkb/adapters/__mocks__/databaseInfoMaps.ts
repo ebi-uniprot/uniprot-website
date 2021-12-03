@@ -6,6 +6,10 @@ import entrySectionToDatabaseCategoryOrder from './entrySectionToDatabaseCategor
 import entrySectionToDatabaseNames from './entrySectionToDatabaseNames';
 import implicitDatabaseXRefs from './implicitDatabaseXrefs';
 
+/**
+ * This is generated, based on data from '/configure/uniprotkb/allDatabases'
+ */
+
 const databaseInfoMaps: DatabaseInfoMaps = {
   databaseCategoryToNames,
   databaseNameToCategory,
