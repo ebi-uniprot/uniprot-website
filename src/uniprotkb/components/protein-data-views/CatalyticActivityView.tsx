@@ -240,9 +240,9 @@ const CatalyticActivityView = ({
             {molecule && (
               <h4 className="tiny">
                 {noEvidence ? (
-                  `${molecule}:`
+                  `${molecule}`
                 ) : (
-                  <a href={`#${molecule.replaceAll(' ', '_')}`}>{molecule}:</a>
+                  <a href={`#${molecule.replaceAll(' ', '_')}`}>{molecule}</a>
                 )}
               </h4>
             )}

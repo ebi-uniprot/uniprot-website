@@ -141,8 +141,8 @@ export const CofactorView = ({ cofactors, title }: CofactorViewProps) => {
         <section className="text-block" key={index}>
           {cofactorComment.molecule && (
             <h4 className="tiny">
-              <a href={`#${cofactorComment.molecule.replace(' ', '_')}`}>
-                {cofactorComment.molecule}:
+              <a href={`#${cofactorComment.molecule.replaceAll(' ', '_')}`}>
+                {cofactorComment.molecule}
               </a>
             </h4>
           )}

@@ -89,10 +89,10 @@ const FreeTextView: FC<FreeTextProps> = ({
           {showMolecule && item.molecule && (
             <h4 className="tiny">
               {noEvidence ? (
-                `${item.molecule}:`
+                `${item.molecule}`
               ) : (
                 <a href={`#${item.molecule.replaceAll(' ', '_')}`}>
-                  {item.molecule}:
+                  {item.molecule}
                 </a>
               )}
             </h4>

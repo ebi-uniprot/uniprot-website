@@ -214,7 +214,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_catalyt
     <h4
       class="tiny"
     >
-      Isoform 3:
+      Isoform 3
     </h4>
      some reaction
     <div>
@@ -316,7 +316,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_cofacto
       <a
         href="#molecule"
       >
-        molecule:
+        molecule
       </a>
     </h4>
     <span>
@@ -519,7 +519,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_disrupt
   <h4
     class="tiny"
   >
-    Isoform 4:
+    Isoform 4
   </h4>
   <div
     class="text-block"
@@ -529,7 +529,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_disrupt
   <h4
     class="tiny"
   >
-    Isoform 4 dfs:
+    Isoform 4 dfs
   </h4>
   <div
     class="text-block"

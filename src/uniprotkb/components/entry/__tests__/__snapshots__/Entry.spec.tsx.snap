@@ -365,7 +365,7 @@ exports[`Entry basic should render main 1`] = `
                       <a
                         href="#Isoform_3"
                       >
-                        Isoform 3:
+                        Isoform 3
                       </a>
                     </h4>
                      some reaction
@@ -520,7 +520,7 @@ exports[`Entry basic should render main 1`] = `
                       <a
                         href="#molecule"
                       >
-                        molecule:
+                        molecule
                       </a>
                     </h4>
                     <span>
@@ -2471,7 +2471,7 @@ exports[`Entry basic should render main 1`] = `
                     <a
                       href="#Isoform_4"
                     >
-                      Isoform 4:
+                      Isoform 4
                     </a>
                   </h4>
                   <div
@@ -2507,7 +2507,7 @@ exports[`Entry basic should render main 1`] = `
                     <a
                       href="#Isoform_4_dfs"
                     >
-                      Isoform 4 dfs:
+                      Isoform 4 dfs
                     </a>
                   </h4>
                   <div
