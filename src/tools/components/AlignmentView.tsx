@@ -6,7 +6,6 @@ import {
   SetStateAction,
   useRef,
   useCallback,
-  FC,
 } from 'react';
 import { TreeSelect, Loader } from 'franklin-sites';
 import { formatTooltip } from 'protvista-feature-adapter';
@@ -124,7 +123,7 @@ export const handleEvent =
     }
   };
 
-const AlignmentView: FC<{
+type AlignmentViewProps = {
   alignment: MSAInput[];
   alignmentLength: number;
   defaultView?: View;
@@ -132,7 +131,9 @@ const AlignmentView: FC<{
   selectedEntries?: string[];
   handleEntrySelection?: (rowId: string) => void;
   containerSelector?: string;
-}> = ({
+};
+
+const AlignmentView = ({
   alignment,
   alignmentLength,
   defaultView,
@@ -140,13 +141,13 @@ const AlignmentView: FC<{
   selectedEntries,
   handleEntrySelection,
   containerSelector,
-}) => {
+}: AlignmentViewProps) => {
   const [tooltipContent, setTooltipContent] = useState<{
     __html: string;
   } | null>();
   const tooltipRef = useRef<JSX.IntrinsicElements['protvista-tooltip']>();
 
-  const tooltipDefined = useCustomElement(
+  const tooltipElement = useCustomElement(
     /* istanbul ignore next */
     () =>
       import(/* webpackChunkName: "protvista-tooltip" */ 'protvista-tooltip'),
@@ -372,7 +373,7 @@ const AlignmentView: FC<{
 
   const defaultActiveNodes = useMemo(() => [MsaColorScheme.CONSERVATION], []);
 
-  if (!tooltipDefined) {
+  if (!tooltipElement.defined) {
     return <Loader />;
   }
 
@@ -434,7 +435,7 @@ const AlignmentView: FC<{
         </fieldset>
       </div>
       <div>
-        <protvista-tooltip
+        <tooltipElement.name
           ref={tooltipRef}
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={tooltipContent}

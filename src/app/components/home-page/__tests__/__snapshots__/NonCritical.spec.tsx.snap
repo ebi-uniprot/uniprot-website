@@ -875,7 +875,7 @@ exports[`non-critical HomePage component should render 1`] = `
           type="button"
         >
           <span
-            class="lyt-visually-hidden"
+            class="visually-hidden"
           >
             Welcome to UniProt || UniProt introduction
           </span>

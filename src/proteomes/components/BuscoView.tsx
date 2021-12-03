@@ -1,4 +1,4 @@
-import { FC, useCallback, useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import useCustomElement from '../../shared/hooks/useCustomElement';
 import { formatPercentage } from '../../shared/utils/utils';
@@ -28,8 +28,8 @@ const trackLength = 100;
 const getPercentageOfTotal = (total: number) => (x: number) =>
   (100 * x) / total;
 
-const BuscoView: FC<{ report: BuscoReport }> = ({ report }) => {
-  const ceDefined = useCustomElement(
+const BuscoView = ({ report }: { report: BuscoReport }) => {
+  const protvistaTrackElement = useCustomElement(
     /* istanbul ignore next */
     () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
     'protvista-track'
@@ -49,7 +49,7 @@ const BuscoView: FC<{ report: BuscoReport }> = ({ report }) => {
 
   const setTrackData = useCallback(
     (node): void => {
-      if (node && ceDefined) {
+      if (node && protvistaTrackElement.defined) {
         const data: { start: number; end: number; color: string }[] = [];
         let start = 0;
         for (const buscoTrackFeature of buscoPartitions) {
@@ -65,7 +65,7 @@ const BuscoView: FC<{ report: BuscoReport }> = ({ report }) => {
         node.data = data;
       }
     },
-    [buscoPartitionPercentages, ceDefined]
+    [buscoPartitionPercentages, protvistaTrackElement.defined]
   );
 
   const C = formatPercentage(buscoPartitionPercentages.complete);
@@ -75,7 +75,11 @@ const BuscoView: FC<{ report: BuscoReport }> = ({ report }) => {
   const M = formatPercentage(buscoPartitionPercentages.missing);
   return (
     <div className="busco-view">
-      <protvista-track length={trackLength} height={10} ref={setTrackData} />
+      <protvistaTrackElement.name
+        length={trackLength}
+        height={10}
+        ref={setTrackData}
+      />
       {/* TODO: add after implementation from backend - the creation date of the dataset (format: 2019-01-04) */}
       <div className="busco-view__report">{`n:${report.total} · ${report.lineageDb}`}</div>
       <div>{`C:${C} (S:${S} D:${D}) F:${F} M:${M}`}</div>

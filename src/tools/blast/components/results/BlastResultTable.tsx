@@ -4,7 +4,6 @@ import {
   useState,
   useRef,
   useMemo,
-  FC,
   Dispatch,
   SetStateAction,
   ReactNode,
@@ -47,7 +46,7 @@ const scoringColorDict: Partial<Record<keyof BlastHsp, string>> = {
   hsp_expect: colors.outerSpace,
 };
 
-const BlastSummaryTrack: FC<{
+type BlastSummaryTrackProps = {
   hsp: BlastHsp;
   extra?: UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel;
   queryLength: number;
@@ -57,7 +56,9 @@ const BlastSummaryTrack: FC<{
   selectedScoring: keyof BlastHsp;
   setSelectedScoring: Dispatch<SetStateAction<keyof BlastHsp>>;
   maxScorings: Partial<Record<keyof BlastHsp, number>>;
-}> = ({
+};
+
+const BlastSummaryTrack = ({
   hsp,
   queryLength,
   hitLength,
@@ -67,10 +68,10 @@ const BlastSummaryTrack: FC<{
   selectedScoring,
   setSelectedScoring,
   maxScorings,
-}) => {
+}: BlastSummaryTrackProps) => {
   const { hsp_query_from, hsp_query_to } = hsp;
 
-  const ceDefined = useCustomElement(
+  const trackElement = useCustomElement(
     /* istanbul ignore next */
     () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
     'protvista-track'
@@ -78,7 +79,7 @@ const BlastSummaryTrack: FC<{
 
   const setTrackData = useCallback(
     (node): void => {
-      if (node && ceDefined) {
+      if (node && trackElement.defined) {
         /**
          * TODO - would be nice to add gaps
          * at some point
@@ -126,13 +127,13 @@ const BlastSummaryTrack: FC<{
         ];
       }
     },
-    [ceDefined, hsp, selectedScoring, hitLength, maxScorings]
+    [trackElement.defined, hsp, selectedScoring, hitLength, maxScorings]
   );
 
   return (
     <div className="data-table__blast-hsp__tracks">
       <section className="data-table__blast-hsp__blast-track">
-        <protvista-track
+        <trackElement.name
           data-testid="blast-summary-track"
           length={queryLength}
           height={10}
@@ -172,7 +173,7 @@ const BlastSummaryTrack: FC<{
   );
 };
 
-const BlastSummaryHsps: FC<{
+type BlastSummaryHspsProps = {
   hsps: BlastHsp[];
   queryLength: number;
   hitLength: number;
@@ -182,7 +183,9 @@ const BlastSummaryHsps: FC<{
   selectedScoring: keyof BlastHsp;
   setSelectedScoring: Dispatch<SetStateAction<keyof BlastHsp>>;
   maxScorings: Partial<Record<keyof BlastHsp, number>>;
-}> = ({
+};
+
+const BlastSummaryHsps = ({
   hsps,
   queryLength,
   hitLength,
@@ -192,7 +195,7 @@ const BlastSummaryHsps: FC<{
   selectedScoring,
   setSelectedScoring,
   maxScorings,
-}) => {
+}: BlastSummaryHspsProps) => {
   const [restVisible, setRestVisible] = useState(0);
 
   // "first", ordered by score
@@ -252,19 +255,21 @@ type ColumnRenderer = {
   ellipsis?: boolean;
 };
 
-const BlastResultTable: FC<{
+type BlastResultTableProps = {
   data: BlastResults | null;
   setSelectedItemFromEvent: (event: MouseEvent | KeyboardEvent) => void;
   setHspDetailPanel: (props: HSPDetailPanelProps) => void;
   loading: boolean;
   namespace: SearchableNamespace;
-}> = ({
+};
+
+const BlastResultTable = ({
   data,
   setSelectedItemFromEvent,
   setHspDetailPanel,
   loading,
   namespace,
-}) => {
+}: BlastResultTableProps) => {
   // logic to keep stale data available
   const hitsRef = useRef<BlastHit[]>([]);
 
@@ -281,7 +286,7 @@ const BlastResultTable: FC<{
       : undefined
   );
 
-  const ceDefined = useCustomElement(
+  const navigationElement = useCustomElement(
     /* istanbul ignore next */
     () =>
       import(
@@ -293,7 +298,7 @@ const BlastResultTable: FC<{
   // The "query" column header
   const queryColumnHeaderRef = useCallback(
     (node) => {
-      if (node && ceDefined && data) {
+      if (node && navigationElement.defined && data) {
         const { query_len } = data;
         // eslint-disable-next-line no-param-reassign
         node.data = [
@@ -304,7 +309,7 @@ const BlastResultTable: FC<{
         ];
       }
     },
-    [data, ceDefined]
+    [data, navigationElement.defined]
   );
 
   const maxScorings = useMemo<Partial<Record<keyof BlastHsp, number>>>(() => {
@@ -333,6 +338,7 @@ const BlastResultTable: FC<{
   }, [data]);
 
   const queryLen = data?.query_len;
+  const NavigationElementName = navigationElement.name;
   const columns = useMemo<Array<ColumnRenderer>>(() => {
     if (queryLen === undefined) {
       return [];
@@ -403,7 +409,7 @@ const BlastResultTable: FC<{
     columns.push({
       label: (
         <div className="query-sequence-wrapper">
-          <protvista-navigation
+          <NavigationElementName
             ref={queryColumnHeaderRef}
             length={queryLen}
             title="Query"
@@ -435,6 +441,7 @@ const BlastResultTable: FC<{
     selectedScoring,
     maxScorings,
     namespace,
+    NavigationElementName,
   ]);
 
   if (loading && !hitsRef.current.length) {

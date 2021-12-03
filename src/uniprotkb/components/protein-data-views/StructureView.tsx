@@ -3,7 +3,7 @@ import { Loader } from 'franklin-sites';
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 
 const StructureView = ({ primaryAccession }: { primaryAccession: string }) => {
-  const structureDefined = useCustomElement(
+  const structureElement = useCustomElement(
     /* istanbul ignore next */
     () =>
       import(
@@ -12,7 +12,7 @@ const StructureView = ({ primaryAccession }: { primaryAccession: string }) => {
     'protvista-uniprot-structure'
   );
 
-  if (!structureDefined) {
+  if (!structureElement.defined) {
     return <Loader />;
   }
   return <protvista-uniprot-structure accession={primaryAccession} />;

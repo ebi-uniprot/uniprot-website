@@ -48,7 +48,7 @@ const FeaturesView = <
   props: FeatureProps<T>
 ) => {
   const { sequence, features, table, trackHeight, withTitle = true } = props;
-  const navigationDefined = useCustomElement(
+  const navigationElement = useCustomElement(
     /* istanbul ignore next */
     () =>
       import(
@@ -56,19 +56,19 @@ const FeaturesView = <
       ),
     'protvista-navigation'
   );
-  const sequenceDefined = useCustomElement(
+  const sequenceElement = useCustomElement(
     /* istanbul ignore next */
     () =>
       import(/* webpackChunkName: "protvista-sequence" */ 'protvista-sequence'),
     'protvista-sequence'
   );
-  const managerDefined = useCustomElement(
+  const managerElement = useCustomElement(
     /* istanbul ignore next */
     () =>
       import(/* webpackChunkName: "protvista-manager" */ 'protvista-manager'),
     'protvista-manager'
   );
-  const datatableDefined = useCustomElement(
+  const datatableElement = useCustomElement(
     /* istanbul ignore next */
     () =>
       import(
@@ -78,14 +78,17 @@ const FeaturesView = <
   );
 
   const ceDefined =
-    navigationDefined && sequenceDefined && managerDefined && datatableDefined;
+    navigationElement.defined &&
+    sequenceElement.defined &&
+    managerElement.defined &&
+    datatableElement.defined;
 
   const featureTypes = useMemo(
     () => uniq(features.map(({ type }) => type.toLowerCase())),
     [features]
   );
 
-  const trackDefined = useCustomElement(
+  const trackElement = useCustomElement(
     /* istanbul ignore next */
     () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
     'protvista-track'
@@ -93,12 +96,12 @@ const FeaturesView = <
 
   const setTrackData = useCallback(
     (node): void => {
-      if (node && trackDefined) {
+      if (node && trackElement.defined) {
         // eslint-disable-next-line no-param-reassign
         node.data = features;
       }
     },
-    [trackDefined, features]
+    [trackElement.defined, features]
   );
 
   if (features.length === 0) {
@@ -117,26 +120,26 @@ const FeaturesView = <
           <p>Showing features for {featureTypes.join(', ')}.</p>
         </>
       )}
-      <protvista-manager attributes="highlight displaystart displayend selectedid">
+      <managerElement.name attributes="highlight displaystart displayend selectedid">
         {sequence && (
           <>
             <NightingaleZoomTool length={sequence.length} />
-            <protvista-navigation length={sequence.length} />
-            <protvista-track
+            <navigationElement.name length={sequence.length} />
+            <trackElement.name
               ref={setTrackData}
               length={sequence.length}
               layout="non-overlapping"
               height={trackHeight}
             />
-            <protvista-sequence
+            <sequenceElement.name
               sequence={sequence}
               length={sequence.length}
               height="20"
             />
           </>
         )}
-        <protvista-datatable filter-scroll>{table}</protvista-datatable>
-      </protvista-manager>
+        <datatableElement.name filter-scroll>{table}</datatableElement.name>
+      </managerElement.name>
     </>
   );
 };

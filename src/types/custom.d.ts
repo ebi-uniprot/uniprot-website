@@ -38,3 +38,5 @@ declare module '*.module.scss' {
 
 // Just for one test file
 declare module 'react-beautiful-dnd-test-utils';
+
+declare module 'lite-youtube-embed';

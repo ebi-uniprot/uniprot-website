@@ -54,7 +54,7 @@ const GoRibbon = ({
 }: GoRibbonType) => {
   const nodeRef = useRef<HTMLElement>();
 
-  useCustomElement(
+  const datatableElement = useCustomElement(
     /* istanbul ignore next */
     () =>
       import(
@@ -210,7 +210,7 @@ const GoRibbon = ({
       )}
       {ribbon}
       {!!filteredGoTerms.length && (
-        <protvista-datatable>
+        <datatableElement.name>
           <table>
             <thead>
               <tr>
@@ -238,7 +238,7 @@ const GoRibbon = ({
               )}
             </tbody>
           </table>
-        </protvista-datatable>
+        </datatableElement.name>
       )}
     </div>
   );

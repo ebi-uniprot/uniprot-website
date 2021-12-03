@@ -10,7 +10,6 @@ import {
   LocationPinIcon,
 } from 'franklin-sites';
 import cn from 'classnames';
-import 'lite-youtube-embed';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useStructuredData from '../../../shared/hooks/useStructuredData';
@@ -31,6 +30,7 @@ import TwitterLogo from '../../../images/twitter-logo.svg';
 import FacebookLogo from '../../../images/facebook-logo.svg';
 
 import traingImg from '../../../images/training.jpg';
+import useCustomElement from '../../../shared/hooks/useCustomElement';
 
 const urlEBISearch =
   'https://www.ebi.ac.uk/ebisearch/ws/rest/ebiweb_training_events?query=timeframe:upcoming AND resources:UniProt The Universal Protein Resource 5544&facets=status:Open&format=json&fieldurl=true&viewurl=true&fields=title,subtitle,description,location,city,country,venue,date_time_clean,start_date,end_date,status&size=1&sort=start_date';
@@ -87,6 +87,40 @@ const fallback: PayloadEBISearch['entries'][0] = {
       value: 'https://www.ebi.ac.uk/training/online/courses/uniprot-quick-tour',
     },
   ],
+};
+
+const YouTubeEmbed = ({ id, title }: { id: string; title: string }) => {
+  const liteYouTube = useCustomElement(
+    () =>
+      import(/* webpackChunkName: "lite-youtube-embed" */ 'lite-youtube-embed'),
+    'lite-youtube'
+  );
+
+  /* NOTE: privacy issue? When clicking, we embed YouTube in the website,
+  with all the related tracking, might need to link to YouTube instead */
+  return (
+    <liteYouTube.name
+      videoid={id}
+      playlabel={title}
+      style={{
+        backgroundImage: `url('https://i.ytimg.com/vi/${id}/hqdefault.jpg')`,
+      }}
+    >
+      {liteYouTube.defined ? (
+        <button className="lty-playbtn" type="button">
+          <span className="visually-hidden">{title}</span>
+        </button>
+      ) : (
+        <ExternalLink
+          className="lty-playbtn"
+          url={`https://www.youtube.com/watch?v=${id}`}
+          noIcon
+        >
+          <span className="visually-hidden">{title}</span>
+        </ExternalLink>
+      )}
+    </liteYouTube.name>
+  );
 };
 
 const NeedHelp = () => {
@@ -202,11 +236,9 @@ const NeedHelp = () => {
           styles['need-help__tutorial-videos-top']
         )}
       >
-        {/* NOTE: privacy issue? When clicking, we embed YouTube in the website,
-        with all the related tracking, might need to link to YouTube instead */}
-        <lite-youtube
-          videoid="OwOJmKmc7VM"
-          playlabel="Welcome to UniProt || UniProt introduction"
+        <YouTubeEmbed
+          id="OwOJmKmc7VM"
+          title="Welcome to UniProt || UniProt introduction"
         />
       </div>
       <div
