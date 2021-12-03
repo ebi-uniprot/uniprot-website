@@ -16,7 +16,6 @@ export type DatabaseNameToCategory = Map<string, DatabaseCategory>;
 export type DatabaseToDatabaseInfo = {
   [database: string]: DatabaseInfoPoint;
 };
-
 export type ImplicitDatabaseXRefs = Map<string, Xref>;
 export type EntrySectionToDatabaseCategoryOrder = Map<EntrySection, string[]>;
 

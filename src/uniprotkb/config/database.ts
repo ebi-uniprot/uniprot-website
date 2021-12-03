@@ -37,6 +37,7 @@ export const getPDBMirrorsInfo = (
 
 export type EntrySectionToDatabaseNames = Map<EntrySection, string[]>;
 
+// TODO: figure out where OTG and PRM go? https://www.ebi.ac.uk/panda/jira/browse/TRM-27105
 export const getEntrySectionToDatabaseNames = (
   databaseCategoryToNames: DatabaseCategoryToNames
 ): EntrySectionToDatabaseNames => {

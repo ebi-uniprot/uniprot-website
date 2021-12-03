@@ -91,6 +91,7 @@ const databaseCategoryToNames: DatabaseCategoryToNames = new Map([
       'World-2DPAGE',
     ],
   ],
+  [DatabaseCategory.PROTEOMES, ['Proteomes']],
   [
     DatabaseCategory.PROTEOMIC,
     [
@@ -171,6 +172,7 @@ const databaseCategoryToNames: DatabaseCategoryToNames = new Map([
       'Rouge',
     ],
   ],
+  [DatabaseCategory.GENE_ONTOLOGY, ['GO']],
   [
     DatabaseCategory.PHYLOGENOMIC,
     [
@@ -229,7 +231,7 @@ const databaseCategoryToNames: DatabaseCategoryToNames = new Map([
       'IDEAL',
       'InterPro',
       'PANTHER',
-      DatabaseCategory.FAMILY,
+      'Pfam',
       'PIRSF',
       'PRINTS',
       'ProDom',
@@ -243,9 +245,6 @@ const databaseCategoryToNames: DatabaseCategoryToNames = new Map([
       'ProtoNet',
     ],
   ],
-  // TODO: investigate - these 2 are missing from DatabaseCategory
-  // ['OTG', ['GO']],
-  // ['PRM', ['Proteomes']],
 ]);
 
 export default databaseCategoryToNames;
