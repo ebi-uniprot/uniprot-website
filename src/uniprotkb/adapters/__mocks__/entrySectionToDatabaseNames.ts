@@ -2,7 +2,7 @@ import EntrySection from '../../types/entrySection';
 
 const entrySectionToDatabaseNames: Map<EntrySection, string[]> = new Map([
   [
-    'disease-and-drugs',
+    EntrySection.DiseaseAndDrugs,
     [
       'DisGeNET',
       'GeneReviews',
@@ -22,11 +22,11 @@ const entrySectionToDatabaseNames: Map<EntrySection, string[]> = new Map([
     ],
   ],
   [
-    'expression',
+    EntrySection.Expression,
     ['Bgee', 'CleanEx', 'CollecTF', 'ExpressionAtlas', 'Genevisible', 'HPA'],
   ],
   [
-    'family-and-domains',
+    EntrySection.FamilyAndDomains,
     [
       'eggNOG',
       'GeneTree',
@@ -61,7 +61,7 @@ const entrySectionToDatabaseNames: Map<EntrySection, string[]> = new Map([
     ],
   ],
   [
-    'function',
+    EntrySection.Function,
     [
       'BioCyc',
       'BRENDA',
@@ -90,7 +90,7 @@ const entrySectionToDatabaseNames: Map<EntrySection, string[]> = new Map([
     ],
   ],
   [
-    'interaction',
+    EntrySection.Interaction,
     [
       'BioGRID',
       'ComplexPortal',
@@ -104,7 +104,7 @@ const entrySectionToDatabaseNames: Map<EntrySection, string[]> = new Map([
     ],
   ],
   [
-    'names-and-taxonomy',
+    EntrySection.NamesAndTaxonomy,
     [
       'ArachnoServer',
       'Araport',
@@ -135,7 +135,7 @@ const entrySectionToDatabaseNames: Map<EntrySection, string[]> = new Map([
     ],
   ],
   [
-    'ptm-processing',
+    EntrySection.ProteinProcessing,
     [
       'CPTAC',
       'EPD',
@@ -168,7 +168,7 @@ const entrySectionToDatabaseNames: Map<EntrySection, string[]> = new Map([
     ],
   ],
   [
-    'sequence',
+    EntrySection.Sequence,
     [
       'EMBL',
       'GenBank',
@@ -193,7 +193,7 @@ const entrySectionToDatabaseNames: Map<EntrySection, string[]> = new Map([
     ],
   ],
   [
-    'structure',
+    EntrySection.Structure,
     [
       'PDB',
       'PDBsum',
@@ -211,7 +211,7 @@ const entrySectionToDatabaseNames: Map<EntrySection, string[]> = new Map([
     ],
   ],
   [
-    'external-links',
+    EntrySection.ExternalLinks,
     [
       'ChiTaRS',
       'EvolutionaryTrace',

@@ -1,9 +1,12 @@
 import { DatabaseCategory } from '../../types/databaseRefs';
 
 const databaseCategoryToNames: Map<DatabaseCategory, string[]> = new Map([
-  ['SEQ', ['EMBL', 'GenBank', 'DDBJ', 'CCDS', 'PIR', 'RefSeq']],
   [
-    '3DS',
+    DatabaseCategory.SEQUENCE,
+    ['EMBL', 'GenBank', 'DDBJ', 'CCDS', 'PIR', 'RefSeq'],
+  ],
+  [
+    DatabaseCategory.STRUCTURE,
     [
       'PDB',
       'PDBsum',
@@ -19,7 +22,7 @@ const databaseCategoryToNames: Map<DatabaseCategory, string[]> = new Map([
     ],
   ],
   [
-    'PPI',
+    DatabaseCategory.INTERACTION,
     [
       'BioGRID',
       'ComplexPortal',
@@ -32,7 +35,7 @@ const databaseCategoryToNames: Map<DatabaseCategory, string[]> = new Map([
     ],
   ],
   [
-    'CHEMISTRY',
+    DatabaseCategory.CHEMISTRY,
     [
       'BindingDB',
       'ChEMBL',
@@ -43,7 +46,7 @@ const databaseCategoryToNames: Map<DatabaseCategory, string[]> = new Map([
     ],
   ],
   [
-    'PFAM',
+    DatabaseCategory.FAMILY,
     [
       'Allergome',
       'CAZy',
@@ -61,7 +64,7 @@ const databaseCategoryToNames: Map<DatabaseCategory, string[]> = new Map([
     ],
   ],
   [
-    'PTM',
+    DatabaseCategory.PTM,
     [
       'CarbonylDB',
       'DEPOD',
@@ -74,9 +77,9 @@ const databaseCategoryToNames: Map<DatabaseCategory, string[]> = new Map([
       'MetOSite',
     ],
   ],
-  ['GVD', ['BioMuta', 'DMDM', 'dbSNP']],
+  [DatabaseCategory.GENETIC_VARIATION, ['BioMuta', 'DMDM', 'dbSNP']],
   [
-    '2DG',
+    DatabaseCategory.GEL,
     [
       'COMPLUYEAST-2DPAGE',
       'DOSAC-COBS-2DPAGE',
@@ -88,7 +91,7 @@ const databaseCategoryToNames: Map<DatabaseCategory, string[]> = new Map([
     ],
   ],
   [
-    'PROTEOMIC',
+    DatabaseCategory.PROTEOMIC,
     [
       'CPTAC',
       'EPD',
@@ -103,9 +106,9 @@ const databaseCategoryToNames: Map<DatabaseCategory, string[]> = new Map([
       'MassIVE',
     ],
   ],
-  ['PAM', ['DNASU', 'ABCD', 'Antibodypedia', 'CPTC']],
+  [DatabaseCategory.PROTOCOL, ['DNASU', 'ABCD', 'Antibodypedia', 'CPTC']],
   [
-    'GMA',
+    DatabaseCategory.GENOME,
     [
       'Ensembl',
       'EnsemblBacteria',
@@ -124,7 +127,7 @@ const databaseCategoryToNames: Map<DatabaseCategory, string[]> = new Map([
     ],
   ],
   [
-    'ORG',
+    DatabaseCategory.ORGANISM,
     [
       'ArachnoServer',
       'Araport',
@@ -168,7 +171,7 @@ const databaseCategoryToNames: Map<DatabaseCategory, string[]> = new Map([
     ],
   ],
   [
-    'PLG',
+    DatabaseCategory.PHYLOGENOMIC,
     [
       'eggNOG',
       'GeneTree',
@@ -182,7 +185,7 @@ const databaseCategoryToNames: Map<DatabaseCategory, string[]> = new Map([
     ],
   ],
   [
-    'EAP',
+    DatabaseCategory.PATHWAY,
     [
       'BioCyc',
       'BRENDA',
@@ -197,7 +200,7 @@ const databaseCategoryToNames: Map<DatabaseCategory, string[]> = new Map([
     ],
   ],
   [
-    'MISC',
+    DatabaseCategory.MISCELLANEOUS,
     [
       'ChiTaRS',
       'EvolutionaryTrace',
@@ -212,9 +215,12 @@ const databaseCategoryToNames: Map<DatabaseCategory, string[]> = new Map([
       'BioGRID-ORCS',
     ],
   ],
-  ['GEP', ['Bgee', 'CleanEx', 'CollecTF', 'ExpressionAtlas', 'Genevisible']],
   [
-    'FMD',
+    DatabaseCategory.EXPRESSION,
+    ['Bgee', 'CleanEx', 'CollecTF', 'ExpressionAtlas', 'Genevisible'],
+  ],
+  [
+    DatabaseCategory.DOMAIN,
     [
       'CDD',
       'Gene3D',
@@ -222,7 +228,7 @@ const databaseCategoryToNames: Map<DatabaseCategory, string[]> = new Map([
       'IDEAL',
       'InterPro',
       'PANTHER',
-      'Pfam',
+      DatabaseCategory.FAMILY,
       'PIRSF',
       'PRINTS',
       'ProDom',
@@ -236,8 +242,9 @@ const databaseCategoryToNames: Map<DatabaseCategory, string[]> = new Map([
       'ProtoNet',
     ],
   ],
-  ['OTG', ['GO']],
-  ['PRM', ['Proteomes']],
+  // TODO: investigate - these 2 are missing from DatabaseCategory
+  // ['OTG', ['GO']],
+  // ['PRM', ['Proteomes']],
 ]);
 
 export default databaseCategoryToNames;

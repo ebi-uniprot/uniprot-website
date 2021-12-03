@@ -1,14 +1,11 @@
 import { convertNamesAndTaxonomy } from '../namesAndTaxonomyConverter';
-import { convertXrefProperties } from '../uniProtkbConverter';
 
 import modelData from '../../__mocks__/uniProtKBEntryModelData';
+import databaseInfoMaps from '../__mocks__/databaseInfoMaps';
 
 describe('Names and taxonomy data converter', () => {
   test('should convert the data', () => {
-    const convertedData = convertNamesAndTaxonomy(
-      modelData,
-      convertXrefProperties(modelData.uniProtKBCrossReferences)
-    );
+    const convertedData = convertNamesAndTaxonomy(modelData, databaseInfoMaps);
     expect(convertedData).toEqual({
       geneNamesData: [
         {

@@ -1,14 +1,11 @@
 import convertStructure from '../structureConverter';
-import { convertXrefProperties } from '../uniProtkbConverter';
 
 import modelData from '../../__mocks__/uniProtKBEntryModelData';
+import databaseInfoMaps from '../__mocks__/databaseInfoMaps';
 
 describe('Structure data converter', () => {
   test('should convert the data', () => {
-    const convertedData = convertStructure(
-      modelData,
-      convertXrefProperties(modelData.uniProtKBCrossReferences)
-    );
+    const convertedData = convertStructure(modelData, databaseInfoMaps);
     expect(convertedData).toEqual({
       commentsData: new Map(),
       featuresData: [],

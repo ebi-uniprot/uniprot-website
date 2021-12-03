@@ -1,14 +1,11 @@
 import convertProteinProcessing from '../proteinProcessingConverter';
-import { convertXrefProperties } from '../uniProtkbConverter';
 
 import modelData from '../../__mocks__/uniProtKBEntryModelData';
+import databaseInfoMaps from '../__mocks__/databaseInfoMaps';
 
 describe('Protein processing data converter', () => {
   test('should convert the data', () => {
-    const convertedData = convertProteinProcessing(
-      modelData,
-      convertXrefProperties(modelData.uniProtKBCrossReferences)
-    );
+    const convertedData = convertProteinProcessing(modelData, databaseInfoMaps);
     expect(convertedData).toEqual({
       featuresData: [
         {

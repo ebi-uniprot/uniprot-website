@@ -1,14 +1,11 @@
 import convertExternalLinks from '../externalLinksConverter';
-import { convertXrefProperties } from '../uniProtkbConverter';
 
 import modelData from '../../__mocks__/uniProtKBEntryModelData';
+import databaseInfoMaps from '../__mocks__/databaseInfoMaps';
 
 describe('External links data converter', () => {
   test('should convert the data', () => {
-    const convertedData = convertExternalLinks(
-      modelData,
-      convertXrefProperties(modelData.uniProtKBCrossReferences)
-    );
+    const convertedData = convertExternalLinks(modelData, databaseInfoMaps);
     expect(convertedData).toEqual({
       commentsData: new Map([
         [

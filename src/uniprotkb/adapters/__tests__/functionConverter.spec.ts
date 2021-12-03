@@ -1,8 +1,9 @@
 import convertFunction from '../functionConverter';
 
 import modelData from '../../__mocks__/uniProtKBEntryModelData';
+import databaseInfoMaps from '../__mocks__/databaseInfoMaps';
 
-const data = convertFunction(modelData);
+const data = convertFunction(modelData, databaseInfoMaps);
 
 describe('Function data converter', () => {
   test('should convert cofactors', () => {
