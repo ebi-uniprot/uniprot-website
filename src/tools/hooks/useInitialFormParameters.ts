@@ -2,6 +2,8 @@ import { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import deepFreeze from 'deep-freeze';
 
+import { parseIdsFromSearchParams } from '../utils/urls';
+
 import { SelectedTaxon } from '../types/toolsFormData';
 
 interface CustomLocationState<T> {
@@ -25,8 +27,8 @@ function useInitialFormParameters<
   FormParameters extends Record<Fields, unknown>
 >(defaultFormValues: Readonly<FormValues<Fields>>) {
   const location = useLocation();
-  console.log(location);
   const initialValues = useMemo(() => {
+    // State parameters
     // NOTE: we should use a similar logic to pre-fill fields based on querystring
     const parametersFromHistoryState = (
       location?.state as CustomLocationState<FormParameters>
@@ -34,7 +36,6 @@ function useInitialFormParameters<
     if (parametersFromHistoryState) {
       // if we get here, we got parameters passed with the location update to
       // use as pre-filled fields
-      console.log(parametersFromHistoryState);
       const formValues: Partial<FormValues<Fields>> = {};
       const defaultValuesEntries = Object.entries<FormValue>(defaultFormValues);
       // for every field of the form, get its value from the history state if
@@ -50,9 +51,19 @@ function useInitialFormParameters<
       }
       return deepFreeze(formValues as FormValues<Fields>);
     }
+
+    // Search parameters
+    const parametersFromSearch = new URLSearchParams(location?.search);
+    for (const [key, value] of parametersFromSearch) {
+      if (key === 'ids') {
+        const idsMaybeWithRange = parseIdsFromSearchParams(value);
+        console.log(idsMaybeWithRange);
+      }
+    }
+
     // otherwise, pass the default values
     return defaultFormValues;
-  }, [defaultFormValues, location?.state]);
+  }, [defaultFormValues, location?.search, location?.state]);
 
   return initialValues;
 }
