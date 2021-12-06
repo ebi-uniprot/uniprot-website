@@ -102,7 +102,7 @@ const samFeatureSetToInfoDatumCondition = (samFeatureSet: SAMFeatureSet) => {
 const conditionsToInfoData = (
   conditions: Condition[],
   featureSets: Array<PositionFeatureSet | SAMFeatureSet> = [],
-  featureFocus?: boolean
+  featureFocus = false
 ) => {
   const items = featureFocus ? [...featureSets, ...conditions] : conditions;
   return items.map((condition, index) => {

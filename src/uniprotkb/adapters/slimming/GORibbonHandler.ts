@@ -49,7 +49,7 @@ export type GOSlimmedData = {
 type CategoryType = 'All' | 'Term' | 'Other';
 
 export type AGRRibbonGroup = {
-  id: GOTermID;
+  id: GOTermID | 'all';
   label: string;
   description: string;
   type: CategoryType;
@@ -64,7 +64,7 @@ export type AGRRibbonCategory = {
 };
 
 type Groups = {
-  [key: GOTermID]: {
+  [key in GOTermID | 'all' | 'all-other']?: {
     [key: string]: {
       // This is the evidence tag
       terms?: GOTermID[];

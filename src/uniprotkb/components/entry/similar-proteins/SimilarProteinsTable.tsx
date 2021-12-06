@@ -65,10 +65,9 @@ const SimilarProteinsTable: FC<{ members: string[] }> = ({ members }) => {
     facets: [],
     columns,
   });
-  const { loading, data, error } =
-    useDataApi<{
-      results: UniProtkbAPIModel[];
-    }>(membersURL);
+  const { loading, data, error } = useDataApi<{
+    results: UniProtkbAPIModel[];
+  }>(membersURL);
 
   if (loading) {
     return <Loader />;

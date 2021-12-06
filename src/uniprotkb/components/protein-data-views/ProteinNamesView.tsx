@@ -10,7 +10,7 @@ import {
 } from '../../adapters/namesAndTaxonomyConverter';
 import { ValueWithEvidence } from '../../types/modelTypes';
 
-export const NameWithEvidence: FC<{ data: ValueWithEvidence }> = ({ data }) => (
+export const NameWithEvidence = ({ data }: { data: ValueWithEvidence }) => (
   <>
     {data.value}
     {data.evidences && (

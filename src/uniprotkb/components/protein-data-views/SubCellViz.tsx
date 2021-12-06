@@ -6,11 +6,13 @@ import '@swissprot/swissbiopics-visualizer';
 import { groupBy } from 'lodash-es';
 import { RequireExactlyOne } from 'type-fest';
 
+// eslint-disable-next-line import/no-relative-packages
+import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
+
 import { VizTab, SubCellularLocation } from './SubcellularLocationWithVizView';
 
 import 'tippy.js/dist/tippy.css';
 import './styles/sub-cell-viz.scss';
-import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
 
 /*
   The logic implemented here to get our data into @swissprot/swissbiopics-visualizer has been lifted
@@ -394,7 +396,7 @@ const SubCellViz: FC<Props> = memo(
       };
     }, [uniProtLocationIds, uniProtLocations, goLocationIds, goLocations]);
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any, react/no-unstable-nested-components
     const Instance = (props: any) => <instanceName.current {...props} />;
 
     const locationIds = {

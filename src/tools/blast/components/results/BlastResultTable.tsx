@@ -12,6 +12,9 @@ import { DataTable, Chip, Loader, Button } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
+// eslint-disable-next-line import/no-relative-packages
+import colors from '../../../../../node_modules/franklin-sites/src/styles/colours.json';
+
 import { HSPDetailPanelProps } from './HSPDetailPanel';
 import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
 
@@ -31,7 +34,6 @@ import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConve
 import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
 import { UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
 
-import colors from '../../../../../node_modules/franklin-sites/src/styles/colours.json';
 import './styles/BlastResultTable.scss';
 
 const scoringDict: Partial<Record<keyof BlastHsp, string>> = {

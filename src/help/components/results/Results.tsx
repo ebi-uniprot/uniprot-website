@@ -23,6 +23,15 @@ import styles from './styles/results.module.scss';
 
 import HelperImage from './svgs/helper.svg';
 
+const dataRenderer = (article: HelpAPIModel) => (
+  <HelpCard
+    id={article.id}
+    title={article.title}
+    titleMatch={article.matches?.title?.[0]}
+    contentMatch={article.matches?.content?.[0]}
+  />
+);
+
 const getIdKey = (article: HelpAPIModel) => article.id;
 
 const Results = ({ history, location }: RouteChildrenProps) => {
@@ -97,14 +106,7 @@ const Results = ({ history, location }: RouteChildrenProps) => {
       <DataList
         getIdKey={getIdKey}
         data={dataObject.data.results}
-        dataRenderer={(article) => (
-          <HelpCard
-            id={article.id}
-            title={article.title}
-            titleMatch={article.matches?.title?.[0]}
-            contentMatch={article.matches?.content?.[0]}
-          />
-        )}
+        dataRenderer={dataRenderer}
       />
     );
   }

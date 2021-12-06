@@ -2,6 +2,9 @@ import { Link } from 'react-router-dom';
 import { CommunityAnnotationIcon } from 'franklin-sites';
 import cn from 'classnames';
 
+// eslint-disable-next-line import/no-relative-packages
+import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
+
 import HelpQuickSearch from './HelpQuickSearch';
 import Contact from '../../../shared/components/layouts/Contact';
 import IllustratedListTile, {
@@ -15,8 +18,6 @@ import {
   Location,
   getLocationEntryPathFor,
 } from '../../../app/config/urls';
-
-import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
 
 import DB from './svgs/db.svg';
 import Cog from './svgs/cog.svg';
