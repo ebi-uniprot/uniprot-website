@@ -57,7 +57,7 @@ export type GoXref = {
 };
 
 export type SubcellularLocationUIModel = {
-  primaryAccession?: string;
+  primaryAccession: string;
   organismData?: TaxonomyDatum;
   goXrefs?: GoXref[];
 } & UIModel;
@@ -67,19 +67,19 @@ const convertSubcellularLocation = (
   databaseInfoMaps: DatabaseInfoMaps,
   uniProtKBCrossReferences?: Xref[]
 ) => {
-  const subcellularLocationData: SubcellularLocationUIModel = convertSection(
-    data,
-    databaseInfoMaps,
-    commentCategories,
-    keywordsCategories,
-    featuresCategories,
-    undefined,
-    uniProtKBCrossReferences
-  );
-  subcellularLocationData.primaryAccession = data.primaryAccession;
-  subcellularLocationData.goXrefs = getAndPrepareSubcellGoXrefs(
-    uniProtKBCrossReferences
-  );
+  const subcellularLocationData: SubcellularLocationUIModel = {
+    ...convertSection(
+      data,
+      databaseInfoMaps,
+      commentCategories,
+      keywordsCategories,
+      featuresCategories,
+      undefined,
+      uniProtKBCrossReferences
+    ),
+    primaryAccession: data.primaryAccession,
+    goXrefs: getAndPrepareSubcellGoXrefs(uniProtKBCrossReferences),
+  };
 
   // If there is no subcellular data, don't add organism data which will cause
   // the section renderer to falsely believe the section should be rendered

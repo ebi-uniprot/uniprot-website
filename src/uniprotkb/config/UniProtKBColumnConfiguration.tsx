@@ -129,6 +129,7 @@ const getFeatureColumn = (
     return (
       featuresData && (
         <FeaturesView
+          primaryAccession={data.primaryAccession}
           features={featuresData.filter((feature) => feature.type === type)}
           withDataTable={false}
         />

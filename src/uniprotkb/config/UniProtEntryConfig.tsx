@@ -13,6 +13,7 @@ import { UniProtkbUIModel } from '../adapters/uniProtkbConverter';
 import { FunctionUIModel } from '../adapters/functionConverter';
 import EntrySection from '../types/entrySection';
 import SimilarProteins from '../components/entry/similar-proteins/SimilarProteins';
+import { SubcellularLocationUIModel } from '../adapters/subcellularLocationConverter';
 
 const UniProtKBEntryConfig: {
   id: EntrySection;
@@ -43,7 +44,9 @@ const UniProtKBEntryConfig: {
     id: EntrySection.SubCellularLocation,
     sectionContent: (data) => (
       <SubcellularLocationSection
-        data={data[EntrySection.SubCellularLocation]}
+        data={
+          data[EntrySection.SubCellularLocation] as SubcellularLocationUIModel
+        }
         sequence={data[EntrySection.Sequence].sequence.value}
         key={EntrySection.SubCellularLocation}
       />

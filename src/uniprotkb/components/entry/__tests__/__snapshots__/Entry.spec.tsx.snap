@@ -2629,6 +2629,9 @@ exports[`Entry basic should render main 1`] = `
                             <th>
                               Description
                             </th>
+                            <th>
+                              Tools
+                            </th>
                           </tr>
                         </thead>
                         <tbody>
@@ -2673,6 +2676,21 @@ exports[`Entry basic should render main 1`] = `
                                 data-testid="evidence-tag-content"
                                 id="44"
                               />
+                            </td>
+                            <td>
+                              <button
+                                class="button tertiary"
+                                title="BLAST corresponding sequence"
+                                type="button"
+                              >
+                                BLAST
+                              </button>
+                              <button
+                                class="button primary"
+                                type="button"
+                              >
+                                Add
+                              </button>
                             </td>
                           </tr>
                           <tr

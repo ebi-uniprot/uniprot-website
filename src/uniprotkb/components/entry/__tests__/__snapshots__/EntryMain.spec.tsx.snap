@@ -2204,6 +2204,9 @@ exports[`Entry view should render 1`] = `
                   <th>
                     Description
                   </th>
+                  <th>
+                    Tools
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -2248,6 +2251,21 @@ exports[`Entry view should render 1`] = `
                       data-testid="evidence-tag-content"
                       id="43"
                     />
+                  </td>
+                  <td>
+                    <button
+                      class="button tertiary"
+                      title="BLAST corresponding sequence"
+                      type="button"
+                    >
+                      BLAST
+                    </button>
+                    <button
+                      class="button primary"
+                      type="button"
+                    >
+                      Add
+                    </button>
                   </td>
                 </tr>
                 <tr
@@ -3436,6 +3454,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <th>
                     Description
                   </th>
+                  <th>
+                    Tools
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -3478,6 +3499,21 @@ exports[`Entry view should render for non-human entry 1`] = `
                       data-testid="evidence-tag-content"
                       id="17"
                     />
+                  </td>
+                  <td>
+                    <button
+                      class="button tertiary"
+                      title="BLAST corresponding sequence"
+                      type="button"
+                    >
+                      BLAST
+                    </button>
+                    <button
+                      class="button primary"
+                      type="button"
+                    >
+                      Add
+                    </button>
                   </td>
                 </tr>
                 <tr
@@ -3532,6 +3568,21 @@ exports[`Entry view should render for non-human entry 1`] = `
                       id="18"
                     />
                   </td>
+                  <td>
+                    <button
+                      class="button tertiary"
+                      title="BLAST corresponding sequence"
+                      type="button"
+                    >
+                      BLAST
+                    </button>
+                    <button
+                      class="button primary"
+                      type="button"
+                    >
+                      Add
+                    </button>
+                  </td>
                 </tr>
                 <tr
                   data-end="402"
@@ -3585,6 +3636,21 @@ exports[`Entry view should render for non-human entry 1`] = `
                       id="19"
                     />
                   </td>
+                  <td>
+                    <button
+                      class="button tertiary"
+                      title="BLAST corresponding sequence"
+                      type="button"
+                    >
+                      BLAST
+                    </button>
+                    <button
+                      class="button primary"
+                      type="button"
+                    >
+                      Add
+                    </button>
+                  </td>
                 </tr>
                 <tr
                   data-end="765"
@@ -3637,6 +3703,21 @@ exports[`Entry view should render for non-human entry 1`] = `
                       data-testid="evidence-tag-content"
                       id="20"
                     />
+                  </td>
+                  <td>
+                    <button
+                      class="button tertiary"
+                      title="BLAST corresponding sequence"
+                      type="button"
+                    >
+                      BLAST
+                    </button>
+                    <button
+                      class="button primary"
+                      type="button"
+                    >
+                      Add
+                    </button>
                   </td>
                 </tr>
                 <tr
@@ -3713,6 +3794,21 @@ exports[`Entry view should render for non-human entry 1`] = `
                       id="22"
                     />
                   </td>
+                  <td>
+                    <button
+                      class="button tertiary"
+                      title="BLAST corresponding sequence"
+                      type="button"
+                    >
+                      BLAST
+                    </button>
+                    <button
+                      class="button primary"
+                      type="button"
+                    >
+                      Add
+                    </button>
+                  </td>
                 </tr>
                 <tr
                   data-end="126"
@@ -3787,6 +3883,21 @@ exports[`Entry view should render for non-human entry 1`] = `
                       data-testid="evidence-tag-content"
                       id="24"
                     />
+                  </td>
+                  <td>
+                    <button
+                      class="button tertiary"
+                      title="BLAST corresponding sequence"
+                      type="button"
+                    >
+                      BLAST
+                    </button>
+                    <button
+                      class="button primary"
+                      type="button"
+                    >
+                      Add
+                    </button>
                   </td>
                 </tr>
                 <tr
@@ -3863,6 +3974,21 @@ exports[`Entry view should render for non-human entry 1`] = `
                       id="26"
                     />
                   </td>
+                  <td>
+                    <button
+                      class="button tertiary"
+                      title="BLAST corresponding sequence"
+                      type="button"
+                    >
+                      BLAST
+                    </button>
+                    <button
+                      class="button primary"
+                      type="button"
+                    >
+                      Add
+                    </button>
+                  </td>
                 </tr>
                 <tr
                   data-end="87"
@@ -3938,6 +4064,21 @@ exports[`Entry view should render for non-human entry 1`] = `
                       id="28"
                     />
                   </td>
+                  <td>
+                    <button
+                      class="button tertiary"
+                      title="BLAST corresponding sequence"
+                      type="button"
+                    >
+                      BLAST
+                    </button>
+                    <button
+                      class="button primary"
+                      type="button"
+                    >
+                      Add
+                    </button>
+                  </td>
                 </tr>
                 <tr
                   data-end="123"
@@ -4012,6 +4153,21 @@ exports[`Entry view should render for non-human entry 1`] = `
                       data-testid="evidence-tag-content"
                       id="30"
                     />
+                  </td>
+                  <td>
+                    <button
+                      class="button tertiary"
+                      title="BLAST corresponding sequence"
+                      type="button"
+                    >
+                      BLAST
+                    </button>
+                    <button
+                      class="button primary"
+                      type="button"
+                    >
+                      Add
+                    </button>
                   </td>
                 </tr>
                 <tr
@@ -4741,6 +4897,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <th>
                     Description
                   </th>
+                  <th>
+                    Tools
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -4783,6 +4942,21 @@ exports[`Entry view should render for non-human entry 1`] = `
                       data-testid="evidence-tag-content"
                       id="44"
                     />
+                  </td>
+                  <td>
+                    <button
+                      class="button tertiary"
+                      title="BLAST corresponding sequence"
+                      type="button"
+                    >
+                      BLAST
+                    </button>
+                    <button
+                      class="button primary"
+                      type="button"
+                    >
+                      Add
+                    </button>
                   </td>
                 </tr>
                 <tr
@@ -4837,6 +5011,21 @@ exports[`Entry view should render for non-human entry 1`] = `
                       id="45"
                     />
                   </td>
+                  <td>
+                    <button
+                      class="button tertiary"
+                      title="BLAST corresponding sequence"
+                      type="button"
+                    >
+                      BLAST
+                    </button>
+                    <button
+                      class="button primary"
+                      type="button"
+                    >
+                      Add
+                    </button>
+                  </td>
                 </tr>
                 <tr
                   data-end="125"
@@ -4889,6 +5078,21 @@ exports[`Entry view should render for non-human entry 1`] = `
                       data-testid="evidence-tag-content"
                       id="46"
                     />
+                  </td>
+                  <td>
+                    <button
+                      class="button tertiary"
+                      title="BLAST corresponding sequence"
+                      type="button"
+                    >
+                      BLAST
+                    </button>
+                    <button
+                      class="button primary"
+                      type="button"
+                    >
+                      Add
+                    </button>
                   </td>
                 </tr>
                 <tr
@@ -4943,6 +5147,21 @@ exports[`Entry view should render for non-human entry 1`] = `
                       id="47"
                     />
                   </td>
+                  <td>
+                    <button
+                      class="button tertiary"
+                      title="BLAST corresponding sequence"
+                      type="button"
+                    >
+                      BLAST
+                    </button>
+                    <button
+                      class="button primary"
+                      type="button"
+                    >
+                      Add
+                    </button>
+                  </td>
                 </tr>
                 <tr
                   data-end="278"
@@ -4995,6 +5214,21 @@ exports[`Entry view should render for non-human entry 1`] = `
                       data-testid="evidence-tag-content"
                       id="48"
                     />
+                  </td>
+                  <td>
+                    <button
+                      class="button tertiary"
+                      title="BLAST corresponding sequence"
+                      type="button"
+                    >
+                      BLAST
+                    </button>
+                    <button
+                      class="button primary"
+                      type="button"
+                    >
+                      Add
+                    </button>
                   </td>
                 </tr>
                 <tr
@@ -5114,6 +5348,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <th>
                     Description
                   </th>
+                  <th>
+                    Tools
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -5156,6 +5393,21 @@ exports[`Entry view should render for non-human entry 1`] = `
                       id="50"
                     />
                   </td>
+                  <td>
+                    <button
+                      class="button tertiary"
+                      title="BLAST corresponding sequence"
+                      type="button"
+                    >
+                      BLAST
+                    </button>
+                    <button
+                      class="button primary"
+                      type="button"
+                    >
+                      Add
+                    </button>
+                  </td>
                 </tr>
                 <tr
                   data-end="27"
@@ -5188,6 +5440,21 @@ exports[`Entry view should render for non-human entry 1`] = `
                   </td>
                   <td>
                     A type blood N-acetyl-alpha-D-galactosamine deacetylase
+                  </td>
+                  <td>
+                    <button
+                      class="button tertiary"
+                      title="BLAST corresponding sequence"
+                      type="button"
+                    >
+                      BLAST
+                    </button>
+                    <button
+                      class="button primary"
+                      type="button"
+                    >
+                      Add
+                    </button>
                   </td>
                 </tr>
                 <tr
@@ -5440,6 +5707,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <th>
                     Description
                   </th>
+                  <th>
+                    Tools
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -5482,6 +5752,21 @@ exports[`Entry view should render for non-human entry 1`] = `
                       data-testid="evidence-tag-content"
                       id="55"
                     />
+                  </td>
+                  <td>
+                    <button
+                      class="button tertiary"
+                      title="BLAST corresponding sequence"
+                      type="button"
+                    >
+                      BLAST
+                    </button>
+                    <button
+                      class="button primary"
+                      type="button"
+                    >
+                      Add
+                    </button>
                   </td>
                 </tr>
                 <tr
@@ -5536,6 +5821,21 @@ exports[`Entry view should render for non-human entry 1`] = `
                       id="56"
                     />
                   </td>
+                  <td>
+                    <button
+                      class="button tertiary"
+                      title="BLAST corresponding sequence"
+                      type="button"
+                    >
+                      BLAST
+                    </button>
+                    <button
+                      class="button primary"
+                      type="button"
+                    >
+                      Add
+                    </button>
+                  </td>
                 </tr>
                 <tr
                   data-end="402"
@@ -5589,6 +5889,21 @@ exports[`Entry view should render for non-human entry 1`] = `
                       id="57"
                     />
                   </td>
+                  <td>
+                    <button
+                      class="button tertiary"
+                      title="BLAST corresponding sequence"
+                      type="button"
+                    >
+                      BLAST
+                    </button>
+                    <button
+                      class="button primary"
+                      type="button"
+                    >
+                      Add
+                    </button>
+                  </td>
                 </tr>
                 <tr
                   data-end="765"
@@ -5641,6 +5956,21 @@ exports[`Entry view should render for non-human entry 1`] = `
                       data-testid="evidence-tag-content"
                       id="58"
                     />
+                  </td>
+                  <td>
+                    <button
+                      class="button tertiary"
+                      title="BLAST corresponding sequence"
+                      type="button"
+                    >
+                      BLAST
+                    </button>
+                    <button
+                      class="button primary"
+                      type="button"
+                    >
+                      Add
+                    </button>
                   </td>
                 </tr>
                 <tr

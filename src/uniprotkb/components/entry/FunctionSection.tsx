@@ -266,7 +266,11 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
         }
         title="pathway"
       />
-      <FeaturesView features={data.featuresData} sequence={sequence} />
+      <FeaturesView
+        primaryAccession={primaryAccession}
+        features={data.featuresData}
+        sequence={sequence}
+      />
       <ErrorBoundary>
         <Suspense fallback={<Loader />}>
           <GoRibbon

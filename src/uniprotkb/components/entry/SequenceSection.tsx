@@ -48,6 +48,7 @@ const SequenceSection = ({ data, primaryAccession }: Props) => {
       <ComputationalyMappedSequences primaryAccession={primaryAccession} />
       {data.featuresData && (
         <FeaturesView
+          primaryAccession={primaryAccession}
           features={data.featuresData}
           sequence={data.sequence.value}
         />

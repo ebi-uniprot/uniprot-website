@@ -1103,6 +1103,9 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
         <th>
           Description
         </th>
+        <th>
+          Tools
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -1147,6 +1150,21 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
             data-testid="evidence-tag-content"
             id="0"
           />
+        </td>
+        <td>
+          <button
+            class="button tertiary"
+            title="BLAST corresponding sequence"
+            type="button"
+          >
+            BLAST
+          </button>
+          <button
+            class="button primary"
+            type="button"
+          >
+            Add
+          </button>
         </td>
       </tr>
     </tbody>
