@@ -1103,9 +1103,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
         <th>
           Description
         </th>
-        <th>
-          Tools
-        </th>
+        <th />
       </tr>
     </thead>
     <tbody>
@@ -1152,20 +1150,13 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
           />
         </td>
         <td>
-          <button
+          <a
             class="button tertiary"
-            title="BLAST corresponding sequence"
-            to="/blast?ids=P21802[2-8]"
-            type="button"
+            href="/blast?ids=P21802[2-8]"
+            title="BLAST the sequence corresponding to this feature"
           >
             BLAST
-          </button>
-          <button
-            class="button primary"
-            type="button"
-          >
-            Add
-          </button>
+          </a>
         </td>
       </tr>
     </tbody>

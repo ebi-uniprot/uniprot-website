@@ -11,7 +11,7 @@ import FeaturesView, {
   LocationModifier,
   ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';
-import { Location, LocationToPath } from '../../../app/config/urls';
+import { getUrlToBLAST } from '../../../app/config/urls';
 
 type FeatureLocation = {
   value: number;
@@ -99,7 +99,7 @@ const UniProtKBFeaturesView = ({
           <th>ID</th>
           <th>Positions</th>
           <th>Description</th>
-          <th>Tools</th>
+          <th>{/* Intentionaly left blank */}</th>
         </tr>
       </thead>
       <tbody>
@@ -122,17 +122,19 @@ const UniProtKBFeaturesView = ({
                 <UniProtKBEvidenceTag evidences={feature.evidences} />
               </td>
               <td>
+                {/* Not using React Router link as this is copied into the table DOM */}
                 <Button
+                  element="a"
                   variant="tertiary"
-                  title="BLAST corresponding sequence"
-                  // TODO generate this url in urls.ts
-                  to={`${
-                    LocationToPath[Location.Blast]
-                  }?ids=${primaryAccession}[${feature.start}-${feature.end}]`}
+                  title="BLAST the sequence corresponding to this feature"
+                  href={getUrlToBLAST(primaryAccession, {
+                    start: feature.start,
+                    end: feature.end,
+                  })}
                 >
                   BLAST
                 </Button>
-                <Button>Add</Button>
+                {/* <Button>Add</Button> */}
               </td>
             </tr>
             {feature.sequence && (

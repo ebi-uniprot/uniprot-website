@@ -2629,9 +2629,7 @@ exports[`Entry basic should render main 1`] = `
                             <th>
                               Description
                             </th>
-                            <th>
-                              Tools
-                            </th>
+                            <th />
                           </tr>
                         </thead>
                         <tbody>
@@ -2678,20 +2676,13 @@ exports[`Entry basic should render main 1`] = `
                               />
                             </td>
                             <td>
-                              <button
+                              <a
                                 class="button tertiary"
-                                title="BLAST corresponding sequence"
-                                to="/blast?ids=P21802[2-8]"
-                                type="button"
+                                href="/blast?ids=P21802[2-8]"
+                                title="BLAST the sequence corresponding to this feature"
                               >
                                 BLAST
-                              </button>
-                              <button
-                                class="button primary"
-                                type="button"
-                              >
-                                Add
-                              </button>
+                              </a>
                             </td>
                           </tr>
                           <tr

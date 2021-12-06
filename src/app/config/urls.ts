@@ -195,6 +195,17 @@ export const getLocationEntryPath = (location: Location, accession: string) =>
 export const getLocationEntryPathFor = (location: Location) =>
   partial(getLocationEntryPath, location);
 
+export const getUrlToBLAST = (
+  primaryAccession: string,
+  options?: {
+    start: number;
+    end: number;
+  }
+) =>
+  `${LocationToPath[Location.Blast]}?ids=${primaryAccession}${
+    options ? `[${options.start}-${options.end}]` : ''
+  }`;
+
 // eslint-disable-next-line consistent-return
 export const jobTypeToPath = (type: JobTypes, result?: boolean) => {
   switch (type) {
