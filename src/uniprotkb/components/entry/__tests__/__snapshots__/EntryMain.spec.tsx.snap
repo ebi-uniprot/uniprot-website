@@ -2791,6 +2791,37 @@ exports[`Entry view should render 1`] = `
                 <h5
                   class="bold"
                 >
+                  See also
+                </h5>
+              </div>
+              <div
+                class="decorated-list-item__content"
+              >
+                sequence in 
+                <a
+                  href="/uniparc?query=(isoform:isoID1)&direct"
+                >
+                  UniParc
+                </a>
+                 or clusters in 
+                <a
+                  href="/uniref?query=(uniprot_id:isoID1)"
+                >
+                  UniRef
+                </a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div
+              class="decorated-list-item decorated-list-item--compact"
+            >
+              <div
+                class="decorated-list-item__title"
+              >
+                <h5
+                  class="bold"
+                >
                   Note
                 </h5>
               </div>

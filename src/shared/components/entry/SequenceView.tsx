@@ -109,6 +109,8 @@ export const SequenceInfo: FC<{
   );
 };
 
+const firstIsoformRE = /-1$/;
+
 export const IsoformInfo: FC<{
   isoformData: Isoform;
   canonicalAccession: string;
@@ -135,6 +137,34 @@ export const IsoformInfo: FC<{
     {
       title: 'Note',
       content: note && <FreeTextView comments={note} showMolecule={false} />,
+    },
+    {
+      title: 'See also',
+      content: (
+        <>
+          sequence in{' '}
+          <Link
+            to={{
+              pathname: LocationToPath[Location.UniParcResults],
+              search: `query=(isoform:${isoformData.isoformIds[0]})&direct`,
+            }}
+          >
+            UniParc
+          </Link>{' '}
+          or clusters in{' '}
+          <Link
+            to={{
+              pathname: LocationToPath[Location.UniRefResults],
+              search: `query=(uniprot_id:${isoformData.isoformIds[0].replace(
+                firstIsoformRE,
+                ''
+              )})`,
+            }}
+          >
+            UniRef
+          </Link>
+        </>
+      ),
     },
     {
       title: 'Differences from canonical',

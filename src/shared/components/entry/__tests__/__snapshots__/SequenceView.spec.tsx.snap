@@ -143,6 +143,37 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
           <h5
             class="bold"
           >
+            See also
+          </h5>
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          sequence in 
+          <a
+            href="/uniparc?query=(isoform:P05067-1)&direct"
+          >
+            UniParc
+          </a>
+           or clusters in 
+          <a
+            href="/uniref?query=(uniprot_id:P05067)"
+          >
+            UniRef
+          </a>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div
+        class="decorated-list-item decorated-list-item--compact"
+      >
+        <div
+          class="decorated-list-item__title"
+        >
+          <h5
+            class="bold"
+          >
             Note
           </h5>
         </div>
@@ -437,6 +468,37 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
           class="decorated-list-item__content"
         >
           PreA4 770-2
+        </div>
+      </div>
+    </li>
+    <li>
+      <div
+        class="decorated-list-item decorated-list-item--compact"
+      >
+        <div
+          class="decorated-list-item__title"
+        >
+          <h5
+            class="bold"
+          >
+            See also
+          </h5>
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          sequence in 
+          <a
+            href="/uniparc?query=(isoform:P05067-2)&direct"
+          >
+            UniParc
+          </a>
+           or clusters in 
+          <a
+            href="/uniref?query=(uniprot_id:P05067-2)"
+          >
+            UniRef
+          </a>
         </div>
       </div>
     </li>
