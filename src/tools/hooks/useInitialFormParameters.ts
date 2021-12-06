@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import deepFreeze from 'deep-freeze';
 
 import { SelectedTaxon } from '../types/toolsFormData';
@@ -24,15 +24,17 @@ function useInitialFormParameters<
   Fields extends string,
   FormParameters extends Record<Fields, unknown>
 >(defaultFormValues: Readonly<FormValues<Fields>>) {
-  const history = useHistory();
+  const location = useLocation();
+  console.log(location);
   const initialValues = useMemo(() => {
     // NOTE: we should use a similar logic to pre-fill fields based on querystring
     const parametersFromHistoryState = (
-      history.location?.state as CustomLocationState<FormParameters>
+      location?.state as CustomLocationState<FormParameters>
     )?.parameters;
     if (parametersFromHistoryState) {
       // if we get here, we got parameters passed with the location update to
       // use as pre-filled fields
+      console.log(parametersFromHistoryState);
       const formValues: Partial<FormValues<Fields>> = {};
       const defaultValuesEntries = Object.entries<FormValue>(defaultFormValues);
       // for every field of the form, get its value from the history state if
@@ -50,7 +52,7 @@ function useInitialFormParameters<
     }
     // otherwise, pass the default values
     return defaultFormValues;
-  }, [defaultFormValues, history.location?.state]);
+  }, [defaultFormValues, location?.state]);
 
   return initialValues;
 }
