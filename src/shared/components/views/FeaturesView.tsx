@@ -1,5 +1,4 @@
 import { useCallback, useMemo } from 'react';
-import { Loader } from 'franklin-sites';
 import { uniq } from 'lodash-es';
 import TransformedVariant from 'protvista-variation-adapter';
 
@@ -108,10 +107,6 @@ const FeaturesView = <
     return null;
   }
 
-  if (!ceDefined) {
-    return <Loader />;
-  }
-
   return (
     <>
       {withTitle && (
@@ -121,7 +116,7 @@ const FeaturesView = <
         </>
       )}
       <managerElement.name attributes="highlight displaystart displayend selectedid">
-        {sequence && (
+        {ceDefined && sequence && (
           <>
             <NightingaleZoomTool length={sequence.length} />
             <navigationElement.name length={sequence.length} />

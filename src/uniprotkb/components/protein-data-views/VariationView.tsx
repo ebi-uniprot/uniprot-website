@@ -119,7 +119,7 @@ const VariationView = ({
     managerElement.defined &&
     dataTableElement.defined;
 
-  if (loading || !ceDefined) {
+  if (loading) {
     return <Loader />;
   }
 
@@ -233,7 +233,7 @@ const VariationView = ({
     <div>
       {title && <h3>{title}</h3>}
       <managerElement.name attributes="highlight displaystart displayend activefilters filters selectedid">
-        {!onlyTable && (
+        {!onlyTable && ceDefined && (
           <div className="variation-view">
             <NightingaleZoomTool length={transformedData.sequence.length} />
             <navigationElement.name length={transformedData.sequence.length} />

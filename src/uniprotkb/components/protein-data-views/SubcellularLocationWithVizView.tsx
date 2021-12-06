@@ -1,4 +1,4 @@
-import { FC, Suspense, lazy } from 'react';
+import { FC, Suspense, lazy, ReactNode } from 'react';
 import { Tabs, Tab } from 'franklin-sites';
 
 import SubcellularLocationView from './SubcellularLocationView';
@@ -15,9 +15,11 @@ import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxono
 import { GoXref } from '../../adapters/subcellularLocationConverter';
 
 // Import it lazily in order to isolate the libraries used only for this
-const SubCellViz = lazy(
-  () => import(/* webpackChunkName: "subcellviz" */ './SubCellViz')
-);
+const SubCellViz =
+  'customElements' in window
+    ? lazy(() => import(/* webpackChunkName: "subcellviz" */ './SubCellViz'))
+    : // Fallback for now custom elements supports
+      ({ children }: { children?: ReactNode }) => <>{children}</>;
 
 enum Superkingdom {
   Viruses = 'Viruses',

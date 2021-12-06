@@ -12,7 +12,7 @@ const StructureView = ({ primaryAccession }: { primaryAccession: string }) => {
     'protvista-uniprot-structure'
   );
 
-  if (!structureElement.defined) {
+  if (!structureElement.defined && !structureElement.errored) {
     return <Loader />;
   }
   return <protvista-uniprot-structure accession={primaryAccession} />;

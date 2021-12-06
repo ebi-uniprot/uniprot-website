@@ -59,9 +59,10 @@ const PDBView = ({ xrefs }: { xrefs: Xref[] }) => {
 
   const databaseInfoMaps = useDatabaseInfoMaps();
 
-  if (!datatableElement.defined || !databaseInfoMaps) {
+  if (!databaseInfoMaps) {
     return <Loader />;
   }
+
   const { databaseToDatabaseInfo } = databaseInfoMaps;
 
   return (

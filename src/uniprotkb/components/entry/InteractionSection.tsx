@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Card, ExternalLink, Loader } from 'franklin-sites';
+import { Card, ExternalLink } from 'franklin-sites';
 
 import EntrySection, {
   getEntrySectionNameAndId,
@@ -56,10 +56,6 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
     | FreeTextComment[]
     | undefined;
 
-  if (!(datatableElement.defined && interactionViewerElement.defined)) {
-    return <Loader />;
-  }
-
   return (
     <Card
       header={
@@ -72,7 +68,9 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
       {comments && <FreeTextView comments={comments} title="subunit" />}
       {interactionComment?.[0] && (
         <>
-          <interactionViewerElement.name accession={primaryAccession} />
+          {interactionViewerElement.defined && (
+            <interactionViewerElement.name accession={primaryAccession} />
+          )}
           <datatableElement.name filter-scroll>
             <table>
               <thead>
