@@ -122,11 +122,13 @@ const firstIsoformRE = /-1$/;
 
 type IsoformInfoProps = {
   isoformData: Isoform;
+  canonicalAccession: string;
   isoformNotes?: IsoformNotes;
 };
 
 export const IsoformInfo = ({
   isoformData,
+  canonicalAccession,
   isoformNotes,
 }: IsoformInfoProps) => {
   const regex = new RegExp(isoformData.name.value, 'gi');
@@ -182,6 +184,12 @@ export const IsoformInfo = ({
           {isoformData.varSeqs.map(
             ({ location, alternativeSequence, evidences }) => (
               <li key={`${location.start.value}-${location.end.value}`}>
+                <Link
+                  to={{
+                    pathname: LocationToPath[Location.Blast],
+                    search: `ids=${canonicalAccession}[${location.start.value}-${location.end.value}]`,
+                  }}
+                >{`${location.start.value}-${location.end.value}: `}</Link>
                 {`${location.start.value}-${location.end.value}: `}
                 {alternativeSequence && alternativeSequence.originalSequence ? (
                   <span className={styles.modifications}>{`${
@@ -380,7 +388,11 @@ export const IsoformView = ({
     isoformsNode = isoforms.map((isoform) =>
       isIsoformPage && isoform.isoformIds[0] !== accession ? null : (
         <Fragment key={isoform.isoformIds.join('')}>
-          <IsoformInfo isoformData={isoform} isoformNotes={isoformNotes} />
+          <IsoformInfo
+            isoformData={isoform}
+            canonicalAccession={canonical}
+            isoformNotes={isoformNotes}
+          />
           {includeSequences && isoform.isoformSequenceStatus !== 'External' && (
             <>
               {isIsoformPage ||
