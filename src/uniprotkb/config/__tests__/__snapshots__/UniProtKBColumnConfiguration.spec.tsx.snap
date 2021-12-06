@@ -202,7 +202,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_alterna
           >
             UniParc
           </a>
-           or clusters in 
+           or sequence clusters in 
           <a
             href="/uniref?query=(uniprot_id:isoID1)"
           >

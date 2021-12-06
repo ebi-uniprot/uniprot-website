@@ -1,4 +1,4 @@
-import { Fragment, useState, FC } from 'react';
+import { Fragment, useState } from 'react';
 import {
   InfoList,
   Sequence,
@@ -53,12 +53,19 @@ type SequenceViewProps = {
   data: SequenceUIModel;
 };
 
-export const SequenceInfo: FC<{
+type SequenceInfoProps = {
   isoformId: string;
   isoformSequence?: SequenceData;
   lastUpdateDate?: string | null;
   isCanonical?: boolean;
-}> = ({ isoformId, isoformSequence, lastUpdateDate, isCanonical = false }) => {
+};
+
+export const SequenceInfo = ({
+  isoformId,
+  isoformSequence,
+  lastUpdateDate,
+  isCanonical = false,
+}: SequenceInfoProps) => {
   const [isoformToFetch, setIsoformToFetch] = useState<string>();
 
   const history = useHistory();
@@ -111,11 +118,17 @@ export const SequenceInfo: FC<{
 
 const firstIsoformRE = /-1$/;
 
-export const IsoformInfo: FC<{
+type IsoformInfoProps = {
   isoformData: Isoform;
   canonicalAccession: string;
   isoformNotes?: IsoformNotes;
-}> = ({ isoformData, canonicalAccession, isoformNotes }) => {
+};
+
+export const IsoformInfo = ({
+  isoformData,
+  canonicalAccession,
+  isoformNotes,
+}: IsoformInfoProps) => {
   let note;
   const regex = new RegExp(isoformData.name.value, 'gi');
   for (const key in isoformNotes) {
@@ -151,7 +164,7 @@ export const IsoformInfo: FC<{
           >
             UniParc
           </Link>{' '}
-          or clusters in{' '}
+          or sequence clusters in{' '}
           <Link
             to={{
               pathname: LocationToPath[Location.UniRefResults],
@@ -244,9 +257,11 @@ export const IsoformInfo: FC<{
   );
 };
 
-export const SequenceCautionView: FC<{
+export const SequenceCautionView = ({
+  data,
+}: {
   data: SequenceCautionComment[];
-}> = ({ data }) => (
+}) => (
   <>
     {data.map(({ sequence, sequenceCautionType, note, evidences }) => (
       <section
@@ -263,9 +278,11 @@ export const SequenceCautionView: FC<{
   </>
 );
 
-export const MassSpectrometryView: FC<{
+export const MassSpectrometryView = ({
+  data,
+}: {
   data: MassSpectrometryComment[];
-}> = ({ data }) => (
+}) => (
   <>
     {data.map((item) => (
       <section className="text-block" key={`${item.molWeight}${item.method}`}>
@@ -281,7 +298,7 @@ export const MassSpectrometryView: FC<{
   </>
 );
 
-export const RNAEditingView: FC<{ data: RNAEditingComment[] }> = ({ data }) => (
+export const RNAEditingView = ({ data }: { data: RNAEditingComment[] }) => (
   <>
     {data.map((item) => (
       <section
@@ -318,19 +335,21 @@ export const RNAEditingView: FC<{ data: RNAEditingComment[] }> = ({ data }) => (
   </>
 );
 
-export const IsoformView: FC<{
+type IsoformViewProps = {
   alternativeProducts: AlternativeProductsComment;
   canonicalComponent?: JSX.Element;
   includeSequences?: boolean;
   canonicalAccession: string;
   isoformNotes?: IsoformNotes;
-}> = ({
+};
+
+export const IsoformView = ({
   alternativeProducts,
   canonicalComponent,
   includeSequences = true,
   canonicalAccession,
   isoformNotes,
-}) => {
+}: IsoformViewProps) => {
   let isoformCountNode;
   const { isoforms, events } = alternativeProducts;
   if (isoforms && events) {
@@ -384,7 +403,7 @@ export const IsoformView: FC<{
   );
 };
 
-const SequenceView: FC<SequenceViewProps> = ({ accession, data }) => {
+const SequenceView = ({ accession, data }: SequenceViewProps) => {
   const sequenceInfoData = [
     {
       title: 'Sequence status',

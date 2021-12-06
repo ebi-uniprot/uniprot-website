@@ -155,7 +155,7 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
           >
             UniParc
           </a>
-           or clusters in 
+           or sequence clusters in 
           <a
             href="/uniref?query=(uniprot_id:P05067)"
           >
@@ -493,7 +493,7 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
           >
             UniParc
           </a>
-           or clusters in 
+           or sequence clusters in 
           <a
             href="/uniref?query=(uniprot_id:P05067-2)"
           >

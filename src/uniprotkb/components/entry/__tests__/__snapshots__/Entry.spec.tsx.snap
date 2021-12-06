@@ -3228,7 +3228,7 @@ exports[`Entry basic should render main 1`] = `
                           >
                             UniParc
                           </a>
-                           or clusters in 
+                           or sequence clusters in 
                           <a
                             href="/uniref?query=(uniprot_id:isoID1)"
                           >
