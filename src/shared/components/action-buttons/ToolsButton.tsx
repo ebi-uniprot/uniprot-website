@@ -28,7 +28,7 @@ const ToolsButton: FC<ToolsButtonProps> = ({
 
     history.push(LocationToPath[location], {
       parameters: {
-        entries,
+        ids: entries,
       },
     });
   }, [history, location]);
