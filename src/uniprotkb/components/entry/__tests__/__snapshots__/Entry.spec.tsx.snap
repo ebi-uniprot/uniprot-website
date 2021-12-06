@@ -3145,7 +3145,7 @@ exports[`Entry basic should render main 1`] = `
                     </li>
                   </ul>
                   <p>
-                    This entry describes 
+                    This entry describes  
                     <strong>
                       1
                     </strong>

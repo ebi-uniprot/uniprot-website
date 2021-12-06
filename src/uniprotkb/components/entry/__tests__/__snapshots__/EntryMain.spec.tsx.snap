@@ -2720,7 +2720,7 @@ exports[`Entry view should render 1`] = `
           </li>
         </ul>
         <p>
-          This entry describes 
+          This entry describes  
           <strong>
             1
           </strong>

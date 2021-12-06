@@ -40,6 +40,8 @@ import {
 } from '../../../uniprotkb/adapters/sequenceConverter';
 import { Namespace } from '../../types/namespaces';
 
+import styles from './styles/sequence-view.module.css';
+
 export type SequenceData = {
   value: string;
   length: number;
@@ -57,14 +59,14 @@ type SequenceInfoProps = {
   isoformId: string;
   isoformSequence?: SequenceData;
   lastUpdateDate?: string | null;
-  isCanonical?: boolean;
+  openByDefault?: boolean;
 };
 
 export const SequenceInfo = ({
   isoformId,
   isoformSequence,
   lastUpdateDate,
-  isCanonical = false,
+  openByDefault = false,
 }: SequenceInfoProps) => {
   const [isoformToFetch, setIsoformToFetch] = useState<string>();
 
@@ -110,7 +112,7 @@ export const SequenceInfo = ({
         })
       }
       addToBasketButton={<AddToBasketButton selectedEntries={isoformId} />}
-      isCollapsible={!isCanonical}
+      isCollapsible={!openByDefault}
       isLoading={loading}
     />
   );
@@ -120,23 +122,17 @@ const firstIsoformRE = /-1$/;
 
 type IsoformInfoProps = {
   isoformData: Isoform;
-  canonicalAccession: string;
   isoformNotes?: IsoformNotes;
 };
 
 export const IsoformInfo = ({
   isoformData,
-  canonicalAccession,
   isoformNotes,
 }: IsoformInfoProps) => {
-  let note;
   const regex = new RegExp(isoformData.name.value, 'gi');
-  for (const key in isoformNotes) {
-    if (key.match(regex)) {
-      note = isoformNotes[key];
-      break;
-    }
-  }
+  const note =
+    isoformNotes &&
+    Object.entries(isoformNotes).find(([key]) => key.match(regex))?.[1];
 
   const infoListData = [
     {
@@ -186,19 +182,17 @@ export const IsoformInfo = ({
           {isoformData.varSeqs.map(
             ({ location, alternativeSequence, evidences }) => (
               <li key={`${location.start.value}-${location.end.value}`}>
-                <Link
-                  to={{
-                    pathname: LocationToPath[Location.Blast],
-                    // TODO: this needs to be implemented on the BLAST form page
-                    search: `about=${canonicalAccession}[${location.start.value}-${location.end.value}]`,
-                  }}
-                >{`${location.start.value}-${location.end.value}: `}</Link>
-                {alternativeSequence && alternativeSequence.originalSequence
-                  ? `${alternativeSequence.originalSequence}  → ${
-                      alternativeSequence.alternativeSequences &&
-                      alternativeSequence.alternativeSequences.join(', ')
-                    }`
-                  : 'Missing'}
+                {`${location.start.value}-${location.end.value}: `}
+                {alternativeSequence && alternativeSequence.originalSequence ? (
+                  <span className={styles.modifications}>{`${
+                    alternativeSequence.originalSequence
+                  } → ${
+                    alternativeSequence.alternativeSequences &&
+                    alternativeSequence.alternativeSequences.join(', ')
+                  }`}</span>
+                ) : (
+                  'Missing'
+                )}
                 {evidences && <UniProtKBEvidenceTag evidences={evidences} />}
               </li>
             )
@@ -339,7 +333,7 @@ type IsoformViewProps = {
   alternativeProducts: AlternativeProductsComment;
   canonicalComponent?: JSX.Element;
   includeSequences?: boolean;
-  canonicalAccession: string;
+  accession: string;
   isoformNotes?: IsoformNotes;
 };
 
@@ -347,18 +341,30 @@ export const IsoformView = ({
   alternativeProducts,
   canonicalComponent,
   includeSequences = true,
-  canonicalAccession,
+  accession,
   isoformNotes,
 }: IsoformViewProps) => {
-  let isoformCountNode;
   const { isoforms, events } = alternativeProducts;
+  const canonical = accession.split('-')[0];
+  const isIsoformPage = accession !== canonical;
+
+  let isoformCountNode;
   if (isoforms && events) {
     isoformCountNode = (
       <p>
-        {`This entry describes `}
+        {`This entry describes ${isIsoformPage ? 'one of the' : ''} `}
         <strong>{isoforms.length}</strong>
         {` isoforms produced by `}
         <strong>{events.join(' & ')}</strong>.
+        {isIsoformPage && (
+          <>
+            {' '}
+            To see the canonical entry page, see{' '}
+            <Link to={getEntryPath(Namespace.uniprotkb, canonical)}>
+              {canonical}
+            </Link>
+          </>
+        )}
       </p>
     );
   }
@@ -370,29 +376,28 @@ export const IsoformView = ({
   }
 
   let isoformsNode;
-  if (isoforms) {
-    isoformsNode = isoforms.map((isoform) => {
-      const isoformComponent = (
-        <SequenceInfo isoformId={isoform.isoformIds[0]} />
-      );
-      return (
+  if (isoforms.length) {
+    isoformsNode = isoforms.map((isoform) =>
+      isIsoformPage && isoform.isoformIds[0] !== accession ? null : (
         <Fragment key={isoform.isoformIds.join('')}>
-          <IsoformInfo
-            isoformData={isoform}
-            canonicalAccession={canonicalAccession}
-            isoformNotes={isoformNotes}
-          />
+          <IsoformInfo isoformData={isoform} isoformNotes={isoformNotes} />
           {includeSequences && isoform.isoformSequenceStatus !== 'External' && (
             <>
-              {canonicalComponent &&
-              isoform.isoformSequenceStatus === 'Displayed'
-                ? canonicalComponent
-                : isoformComponent}
+              {isIsoformPage ||
+              (canonicalComponent &&
+                isoform.isoformSequenceStatus === 'Displayed') ? (
+                canonicalComponent
+              ) : (
+                <SequenceInfo
+                  isoformId={isoform.isoformIds[0]}
+                  openByDefault={isIsoformPage}
+                />
+              )}
             </>
           )}
         </Fragment>
-      );
-    });
+      )
+    );
   }
   return (
     <>
@@ -425,7 +430,7 @@ const SequenceView = ({ accession, data }: SequenceViewProps) => {
       isoformId={accession}
       isoformSequence={data.sequence}
       lastUpdateDate={data.lastUpdateDate}
-      isCanonical
+      openByDefault
     />
   );
 
@@ -466,7 +471,7 @@ const SequenceView = ({ accession, data }: SequenceViewProps) => {
       <IsoformView
         alternativeProducts={data.alternativeProducts}
         canonicalComponent={canonicalComponent}
-        canonicalAccession={accession}
+        accession={accession}
         isoformNotes={data.isoformNotes}
       />
     </>
