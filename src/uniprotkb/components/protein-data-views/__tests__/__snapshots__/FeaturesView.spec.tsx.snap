@@ -122,6 +122,7 @@ exports[`FeaturesView component it renders without crashing 1`] = `
               <button
                 class="button tertiary"
                 title="BLAST corresponding sequence"
+                to="/blast?ids=P05067[1-17]"
                 type="button"
               >
                 BLAST

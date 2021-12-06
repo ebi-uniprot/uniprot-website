@@ -1155,6 +1155,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
           <button
             class="button tertiary"
             title="BLAST corresponding sequence"
+            to="/blast?ids=P21802[2-8]"
             type="button"
           >
             BLAST

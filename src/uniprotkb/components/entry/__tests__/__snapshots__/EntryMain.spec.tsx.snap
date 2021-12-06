@@ -2256,6 +2256,7 @@ exports[`Entry view should render 1`] = `
                     <button
                       class="button tertiary"
                       title="BLAST corresponding sequence"
+                      to="/blast?ids=P21802[2-8]"
                       type="button"
                     >
                       BLAST
@@ -3504,6 +3505,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <button
                       class="button tertiary"
                       title="BLAST corresponding sequence"
+                      to="/blast?ids=P0DTR4[494-605]"
                       type="button"
                     >
                       BLAST
@@ -3572,6 +3574,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <button
                       class="button tertiary"
                       title="BLAST corresponding sequence"
+                      to="/blast?ids=P0DTR4[180-402]"
                       type="button"
                     >
                       BLAST
@@ -3640,6 +3643,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <button
                       class="button tertiary"
                       title="BLAST corresponding sequence"
+                      to="/blast?ids=P0DTR4[502-765]"
                       type="button"
                     >
                       BLAST
@@ -3708,6 +3712,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <button
                       class="button tertiary"
                       title="BLAST corresponding sequence"
+                      to="/blast?ids=P0DTR4[515-772]"
                       type="button"
                     >
                       BLAST
@@ -3798,6 +3803,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <button
                       class="button tertiary"
                       title="BLAST corresponding sequence"
+                      to="/blast?ids=P0DTR4[126-126]"
                       type="button"
                     >
                       BLAST
@@ -3888,6 +3894,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <button
                       class="button tertiary"
                       title="BLAST corresponding sequence"
+                      to="/blast?ids=P0DTR4[278-278]"
                       type="button"
                     >
                       BLAST
@@ -3978,6 +3985,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <button
                       class="button tertiary"
                       title="BLAST corresponding sequence"
+                      to="/blast?ids=P0DTR4[87-87]"
                       type="button"
                     >
                       BLAST
@@ -4068,6 +4076,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <button
                       class="button tertiary"
                       title="BLAST corresponding sequence"
+                      to="/blast?ids=P0DTR4[123-123]"
                       type="button"
                     >
                       BLAST
@@ -4158,6 +4167,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <button
                       class="button tertiary"
                       title="BLAST corresponding sequence"
+                      to="/blast?ids=P0DTR4[236-236]"
                       type="button"
                     >
                       BLAST
@@ -4947,6 +4957,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <button
                       class="button tertiary"
                       title="BLAST corresponding sequence"
+                      to="/blast?ids=P0DTR4[90-90]"
                       type="button"
                     >
                       BLAST
@@ -5015,6 +5026,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <button
                       class="button tertiary"
                       title="BLAST corresponding sequence"
+                      to="/blast?ids=P0DTR4[125-125]"
                       type="button"
                     >
                       BLAST
@@ -5083,6 +5095,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <button
                       class="button tertiary"
                       title="BLAST corresponding sequence"
+                      to="/blast?ids=P0DTR4[126-126]"
                       type="button"
                     >
                       BLAST
@@ -5151,6 +5164,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <button
                       class="button tertiary"
                       title="BLAST corresponding sequence"
+                      to="/blast?ids=P0DTR4[278-278]"
                       type="button"
                     >
                       BLAST
@@ -5219,6 +5233,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <button
                       class="button tertiary"
                       title="BLAST corresponding sequence"
+                      to="/blast?ids=P0DTR4[341-341]"
                       type="button"
                     >
                       BLAST
@@ -5397,6 +5412,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <button
                       class="button tertiary"
                       title="BLAST corresponding sequence"
+                      to="/blast?ids=P0DTR4[1-27]"
                       type="button"
                     >
                       BLAST
@@ -5445,6 +5461,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <button
                       class="button tertiary"
                       title="BLAST corresponding sequence"
+                      to="/blast?ids=P0DTR4[28-772]"
                       type="button"
                     >
                       BLAST
@@ -5757,6 +5774,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <button
                       class="button tertiary"
                       title="BLAST corresponding sequence"
+                      to="/blast?ids=P0DTR4[494-605]"
                       type="button"
                     >
                       BLAST
@@ -5825,6 +5843,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <button
                       class="button tertiary"
                       title="BLAST corresponding sequence"
+                      to="/blast?ids=P0DTR4[180-402]"
                       type="button"
                     >
                       BLAST
@@ -5893,6 +5912,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <button
                       class="button tertiary"
                       title="BLAST corresponding sequence"
+                      to="/blast?ids=P0DTR4[502-765]"
                       type="button"
                     >
                       BLAST
@@ -5961,6 +5981,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <button
                       class="button tertiary"
                       title="BLAST corresponding sequence"
+                      to="/blast?ids=P0DTR4[515-772]"
                       type="button"
                     >
                       BLAST

@@ -2681,6 +2681,7 @@ exports[`Entry basic should render main 1`] = `
                               <button
                                 class="button tertiary"
                                 title="BLAST corresponding sequence"
+                                to="/blast?ids=P21802[2-8]"
                                 type="button"
                               >
                                 BLAST

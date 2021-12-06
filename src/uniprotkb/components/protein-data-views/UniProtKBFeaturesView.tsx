@@ -11,6 +11,7 @@ import FeaturesView, {
   LocationModifier,
   ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';
+import { Location, LocationToPath } from '../../../app/config/urls';
 
 type FeatureLocation = {
   value: number;
@@ -124,11 +125,10 @@ const UniProtKBFeaturesView = ({
                 <Button
                   variant="tertiary"
                   title="BLAST corresponding sequence"
-                  onClick={() =>
-                    console.log(
-                      `${primaryAccession}[${feature.start}-${feature.end}]`
-                    )
-                  }
+                  // TODO generate this url in urls.ts
+                  to={`${
+                    LocationToPath[Location.Blast]
+                  }?ids=${primaryAccession}[${feature.start}-${feature.end}]`}
                 >
                   BLAST
                 </Button>
