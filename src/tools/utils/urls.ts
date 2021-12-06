@@ -1,6 +1,6 @@
 const reIds = /(?<id>\w+)(\[(?<start>\d+)-(?<end>\d+)\])?/;
 
-type IdMaybeWithRange = {
+export type IdMaybeWithRange = {
   id: string;
   start?: number;
   end?: number;
