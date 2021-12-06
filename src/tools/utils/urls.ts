@@ -11,7 +11,7 @@ export const parseIdsFromSearchParams = (
 ): IdMaybeWithRange[] =>
   searchParamIds
     .split(',')
-    .map((searchParamId) => {
+    .map((searchParamId): IdMaybeWithRange | null => {
       const groups = searchParamId.match(reIds)?.groups;
       if (!groups) {
         return null;
@@ -25,4 +25,4 @@ export const parseIdsFromSearchParams = (
           }
         : { id };
     })
-    .filter(Boolean) as IdMaybeWithRange[];
+    .filter((id): id is IdMaybeWithRange => Boolean(id));
