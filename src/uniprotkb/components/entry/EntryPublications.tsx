@@ -7,7 +7,7 @@ import {
   InfoList,
   ExternalLink,
 } from 'franklin-sites';
-import { SetRequired } from 'type-fest';
+import { Except, SetRequired, Simplify } from 'type-fest';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
@@ -121,6 +121,30 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
 
 const getIdKey = getIdKeyFor(Namespace.citations);
 
+const cardRendererFor =
+  (accession: string) =>
+  (
+    data: Simplify<
+      Except<CitationsAPIModel, 'references'> &
+        Required<Pick<CitationsAPIModel, 'references'>>
+    >
+  ) =>
+    (
+      <Card to={getEntryPath(Namespace.citations, getIdKey(data))}>
+        <LiteratureCitation data={data} headingLevel="h3">
+          {data.references.map((reference, index) => (
+            <PublicationReference
+              reference={reference}
+              // No obvious key as there can be more than 1 for the same source
+              // eslint-disable-next-line react/no-array-index-key
+              key={index}
+              accession={accession}
+            />
+          ))}
+        </LiteratureCitation>
+      </Card>
+    );
+
 const hasReference = (
   data: CitationsAPIModel
 ): data is SetRequired<CitationsAPIModel, 'references'> =>
@@ -169,6 +193,8 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
     }));
   }, [data, headers]);
 
+  const cardRenderer = useMemo(() => cardRendererFor(accession), [accession]);
+
   if (error) {
     return <ErrorHandler status={status} />;
   }
@@ -185,21 +211,7 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
       <DataListWithLoader
         getIdKey={getIdKey}
         data={resultsWithReferences}
-        dataRenderer={(data) => (
-          <Card to={getEntryPath(Namespace.citations, getIdKey(data))}>
-            <LiteratureCitation data={data} headingLevel="h3">
-              {data.references.map((reference, index) => (
-                <PublicationReference
-                  reference={reference}
-                  // No obvious key as there can be more than 1 for the same source
-                  // eslint-disable-next-line react/no-array-index-key
-                  key={index}
-                  accession={accession}
-                />
-              ))}
-            </LiteratureCitation>
-          </Card>
-        )}
+        dataRenderer={cardRenderer}
         onLoadMoreItems={() => nextUrl && setUrl(nextUrl)}
         loaderComponent={<Loader />}
         hasMoreData={total > allResults.length}

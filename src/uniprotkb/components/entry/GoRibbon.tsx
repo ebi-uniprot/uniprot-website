@@ -116,7 +116,7 @@ const GoRibbon = ({
       // TODO: the groupClick event detail does not provide the attribute "selected". Possibly create a PR against ribbon-strips to provide this.
       const isSelected = 'selected' in detail ? detail.selected?.[0] : true;
       const clickedID = detail.group.id;
-      const groupID: GOTermID =
+      const groupID: GOTermID | 'all' | 'all-other' =
         detail.group.type === 'Other' ? `${clickedID}-other` : clickedID;
       setActiveGoTerms(
         !isSelected || clickedID === 'all'

@@ -124,7 +124,7 @@ UniRefColumnConfiguration.set(UniRefColumn.organism, {
 
 UniRefColumnConfiguration.set(UniRefColumn.identity, {
   label: 'Identity',
-  render: ({ entryType }) => <>{entryType}</>,
+  render: ({ entryType }) => entryType,
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.length, {
@@ -149,13 +149,10 @@ UniRefColumnConfiguration.set(UniRefColumn.sequence, {
 
 UniRefColumnConfiguration.set(UniRefColumn.types, {
   label: 'Types',
-  render: ({ memberIdTypes }) => (
-    <>
-      {memberIdTypes?.map((memberType) => (
-        <EntryTypeIcon entryType={memberType} key={memberType} />
-      ))}
-    </>
-  ),
+  render: ({ memberIdTypes }) =>
+    memberIdTypes?.map((memberType) => (
+      <EntryTypeIcon entryType={memberType} key={memberType} />
+    )),
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.members, {

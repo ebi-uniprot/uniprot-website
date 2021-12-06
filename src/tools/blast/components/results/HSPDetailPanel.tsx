@@ -123,17 +123,15 @@ const HSPDetailPanel = ({
     }
   } else {
     content = (
-      <>
-        <div className="hsp-detail-panel__body">
-          <AlignmentView
-            alignmentLength={hsp_align_len}
-            alignment={alignment}
-            defaultView={View.overview}
-            tool={Tool.blast}
-            containerSelector={containerSelector}
-          />
-        </div>
-      </>
+      <div className="hsp-detail-panel__body">
+        <AlignmentView
+          alignmentLength={hsp_align_len}
+          alignment={alignment}
+          defaultView={View.overview}
+          tool={Tool.blast}
+          containerSelector={containerSelector}
+        />
+      </div>
     );
   }
 

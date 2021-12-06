@@ -182,7 +182,7 @@ export const getColumnsToDisplay = (
 
 const useColumns = (
   namespaceOverride?: Namespace,
-  displayIdMappingColumns = false,
+  displayIdMappingColumns?: boolean,
   basketSetter?: Dispatch<SetStateAction<Basket>>,
   columnsOverride?: ColumnDescriptor[],
   setSelectedEntries?: Dispatch<SetStateAction<string[]>>

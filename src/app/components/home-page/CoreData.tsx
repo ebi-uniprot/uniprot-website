@@ -2,6 +2,7 @@ import { Tile, SwissProtIcon, TremblIcon } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
+// eslint-disable-next-line import/no-relative-packages
 import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
 
 import { Location, LocationToPath } from '../../config/urls';
