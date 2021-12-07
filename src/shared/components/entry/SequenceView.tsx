@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment, ReactNode, useState } from 'react';
 import {
   InfoList,
   Sequence,
@@ -356,31 +356,32 @@ export const IsoformView = ({
   const canonical = accession.split('-')[0];
   const isIsoformPage = accession !== canonical;
 
-  let isoformCountNode;
+  const notes: ReactNode[] = [];
   if (isoforms && events) {
-    isoformCountNode = (
-      <p>
+    notes.push(
+      <Fragment key="this entry describes...">
         {`This entry describes ${isIsoformPage ? 'one of the' : ''} `}
         <strong>{isoforms.length}</strong>
         {` isoforms produced by `}
-        <strong>{events.join(' & ')}</strong>.
-        {isIsoformPage && (
-          <>
-            {' '}
-            For the canonical entry page see{' '}
-            <Link to={getEntryPath(Namespace.uniprotkb, canonical)}>
-              {canonical}
-            </Link>
-          </>
-        )}
-      </p>
+        <strong>{events.join(' & ')}</strong>.{' '}
+      </Fragment>
     );
+    if (isIsoformPage) {
+      notes.push(
+        <Fragment key="canonical link">
+          For the canonical entry page see{' '}
+          <Link to={getEntryPath(Namespace.uniprotkb, canonical)}>
+            {canonical}
+          </Link>
+          .{' '}
+        </Fragment>
+      );
+    }
   }
-
-  let notesNode;
-  const texts = alternativeProducts.note?.texts;
-  if (texts) {
-    notesNode = <p>{texts.map((text) => text.value).join(' ')}</p>;
+  for (const [index, { value }] of (
+    alternativeProducts.note?.texts || []
+  ).entries()) {
+    notes.push(<Fragment key={index}>{value}</Fragment>);
   }
 
   let isoformsNode;
@@ -413,8 +414,7 @@ export const IsoformView = ({
   }
   return (
     <>
-      {isoformCountNode}
-      {notesNode}
+      {notes && <p>{notes}</p>}
       {isoformsNode}
     </>
   );

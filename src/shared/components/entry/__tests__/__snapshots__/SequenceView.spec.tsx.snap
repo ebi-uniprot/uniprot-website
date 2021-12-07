@@ -73,10 +73,7 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
     <strong>
       event 1 & event 2
     </strong>
-    .
-  </p>
-  <p>
-    some text
+    . some text
   </p>
   <h3
     id="Isoform_APP770"

@@ -127,10 +127,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_alterna
     <strong>
       Alternative initiation
     </strong>
-    .
-  </p>
-  <p>
-    value1
+    . value1
   </p>
   <h3
     id="Isoform_name"

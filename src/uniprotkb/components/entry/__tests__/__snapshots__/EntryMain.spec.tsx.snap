@@ -2728,10 +2728,7 @@ exports[`Entry view should render 1`] = `
           <strong>
             Alternative initiation
           </strong>
-          .
-        </p>
-        <p>
-          value1
+          . value1
         </p>
         <h3
           id="Isoform_name"
