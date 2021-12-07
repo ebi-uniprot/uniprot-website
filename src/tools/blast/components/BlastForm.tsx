@@ -141,12 +141,7 @@ const BlastForm = () => {
     useInitialFormParameters(defaultFormValues);
   console.log(loading, initialFormValues);
   // used when the form submission needs to be disabled
-  const [submitDisabled, setSubmitDisabled] = useState(() =>
-    // default sequence value will tell us if submit should be disabled or not
-    isInvalid(
-      sequenceProcessor(initialFormValues?.[BlastFields.sequence].selected)
-    )
-  );
+  const [submitDisabled, setSubmitDisabled] = useState<boolean>();
   // used when the form is about to be submitted to the server
   const [sending, setSending] = useState(false);
   // flag to see if the user manually changed the title
@@ -156,8 +151,6 @@ const BlastForm = () => {
     initialFormValues?.[BlastFields.sequence].selected &&
       sequenceProcessor(initialFormValues[BlastFields.sequence].selected)
   );
-
-  // TODO: useEffect to watch for when initialFormValues is ready then setState for each specific form value
 
   // actual form fields
   const [stype, setSType] = useState(
@@ -178,49 +171,96 @@ const BlastForm = () => {
       BlastFields.database
     ] as BlastFormValues[BlastFields.database]
   );
-  const excludeTaxonField = excludeTaxonForDB(database.selected);
-  const [taxIDs, setTaxIDs] = useState(
-    initialFormValues?.[
-      BlastFields.taxons
-    ] as BlastFormValues[BlastFields.taxons]
-  );
+  const [taxIDs, setTaxIDs] = useState<BlastFormValues[BlastFields.taxons]>();
   // TODO: to eventually incorporate into the form
-  const [negativeTaxIDs, setNegativeTaxIDs] = useState(
-    initialFormValues?.[
-      BlastFields.excludedtaxons
-    ] as BlastFormValues[BlastFields.excludedtaxons]
-  );
-  const [threshold, setThreshold] = useState(
-    initialFormValues?.[
-      BlastFields.threshold
-    ] as BlastFormValues[BlastFields.threshold]
-  );
-  const [matrix, setMatrix] = useState(
-    initialFormValues?.[
-      BlastFields.matrix
-    ] as BlastFormValues[BlastFields.matrix]
-  );
-  const [filter, setFilter] = useState(
-    initialFormValues?.[
-      BlastFields.filter
-    ] as BlastFormValues[BlastFields.filter]
-  );
-  const [gapped, setGapped] = useState(
-    initialFormValues?.[
-      BlastFields.gapped
-    ] as BlastFormValues[BlastFields.gapped]
-  );
-  const [hits, setHits] = useState(
-    initialFormValues?.[BlastFields.hits] as BlastFormValues[BlastFields.hits]
-  );
-  const [hsps, setHsps] = useState(
-    initialFormValues?.[BlastFields.hsps] as BlastFormValues[BlastFields.hsps]
-  );
+  const [negativeTaxIDs, setNegativeTaxIDs] =
+    useState<BlastFormValues[BlastFields.excludedtaxons]>();
+  const [threshold, setThreshold] =
+    useState<BlastFormValues[BlastFields.threshold]>();
+  const [matrix, setMatrix] = useState<BlastFormValues[BlastFields.matrix]>();
+  const [filter, setFilter] = useState<BlastFormValues[BlastFields.filter]>();
+  const [gapped, setGapped] = useState<BlastFormValues[BlastFields.gapped]>();
+  const [hits, setHits] = useState<BlastFormValues[BlastFields.hits]>();
+  const [hsps, setHsps] = useState<BlastFormValues[BlastFields.hsps]>();
 
   // extra job-related fields
   const [jobName, setJobName] = useState(
     initialFormValues?.[BlastFields.name] as BlastFormValues[BlastFields.name]
   );
+
+  useEffect(() => {
+    if (!initialFormValues) {
+      return;
+    }
+    setSubmitDisabled(
+      isInvalid(
+        sequenceProcessor(initialFormValues?.[BlastFields.sequence].selected)
+      )
+    );
+    setParsedSequences(
+      initialFormValues?.[BlastFields.sequence].selected &&
+        sequenceProcessor(initialFormValues[BlastFields.sequence].selected)
+    );
+    setSType(
+      initialFormValues[BlastFields.stype] as BlastFormValues[BlastFields.stype]
+    );
+    setProgram(
+      initialFormValues[
+        BlastFields.program
+      ] as BlastFormValues[BlastFields.program]
+    );
+    setSequence(
+      initialFormValues[
+        BlastFields.sequence
+      ] as BlastFormValues[BlastFields.sequence]
+    );
+    setDatabase(
+      initialFormValues[
+        BlastFields.database
+      ] as BlastFormValues[BlastFields.database]
+    );
+    setTaxIDs(
+      initialFormValues[
+        BlastFields.taxons
+      ] as BlastFormValues[BlastFields.taxons]
+    );
+    setNegativeTaxIDs(
+      initialFormValues[
+        BlastFields.excludedtaxons
+      ] as BlastFormValues[BlastFields.excludedtaxons]
+    );
+    setThreshold(
+      initialFormValues[
+        BlastFields.threshold
+      ] as BlastFormValues[BlastFields.threshold]
+    );
+    setMatrix(
+      initialFormValues[
+        BlastFields.matrix
+      ] as BlastFormValues[BlastFields.matrix]
+    );
+    setFilter(
+      initialFormValues[
+        BlastFields.filter
+      ] as BlastFormValues[BlastFields.filter]
+    );
+    setGapped(
+      initialFormValues[
+        BlastFields.gapped
+      ] as BlastFormValues[BlastFields.gapped]
+    );
+    setHits(
+      initialFormValues[BlastFields.hits] as BlastFormValues[BlastFields.hits]
+    );
+    setHsps(
+      initialFormValues[BlastFields.hsps] as BlastFormValues[BlastFields.hsps]
+    );
+    setJobName(
+      initialFormValues[BlastFields.name] as BlastFormValues[BlastFields.name]
+    );
+  }, [initialFormValues]);
+
+  const excludeTaxonField = excludeTaxonForDB(database.selected);
 
   // taxon field handlers
   const updateTaxonFormValue = (path: string, id?: string) => {
@@ -229,7 +269,7 @@ const BlastForm = () => {
       return;
     }
 
-    const selected = (taxIDs.selected || []) as SelectedTaxon[];
+    const selected = (taxIDs?.selected || []) as SelectedTaxon[];
 
     // If already there, don't add again
     if (selected.some((taxon: SelectedTaxon) => taxon.id === id)) {
@@ -239,13 +279,13 @@ const BlastForm = () => {
     const label = truncateTaxonLabel(path);
 
     setTaxIDs({
-      ...taxIDs,
+      ...(taxIDs || []),
       selected: [{ id, label }, ...selected],
     });
   };
 
   const removeTaxonFormValue = (id: string | number) => {
-    const selected = (taxIDs.selected || []) as SelectedTaxon[];
+    const selected = (taxIDs?.selected || []) as SelectedTaxon[];
     setTaxIDs({
       ...taxIDs,
       selected: selected.filter((taxon: SelectedTaxon) => taxon.id !== id),
@@ -302,18 +342,18 @@ const BlastForm = () => {
       taxIDs: excludeTaxonField ? [] : (taxIDs.selected as SelectedTaxon[]),
       negativeTaxIDs: excludeTaxonField
         ? []
-        : (negativeTaxIDs.selected as SelectedTaxon[]),
-      threshold: threshold.selected as Exp,
+        : (negativeTaxIDs?.selected as SelectedTaxon[]),
+      threshold: threshold?.selected as Exp,
       // remove "auto", and transform into corresponding matrix
       matrix:
-        matrix.selected === 'auto'
+        matrix?.selected === 'auto'
           ? getAutoMatrixFor(sequence.selected as string)
-          : (matrix.selected as Matrix),
-      filter: filter.selected as Filter,
-      gapped: gapped.selected as GapAlign,
+          : (matrix?.selected as Matrix),
+      filter: filter?.selected as Filter,
+      gapped: gapped?.selected as GapAlign,
       // transform string into number
-      hits: parseInt(hits.selected as string, 10) as Scores,
-      hsps: (parseInt(hsps.selected as string, 10) || undefined) as HSPs,
+      hits: parseInt(hits?.selected as string, 10) as Scores,
+      hsps: (parseInt(hsps?.selected as string, 10) || undefined) as HSPs,
     };
 
     const multipleParameters = parsedSequences.map((parsedSequence) => ({
