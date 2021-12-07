@@ -16,6 +16,7 @@ import {
   PageIntro,
   SpinnerIcon,
   sequenceProcessor,
+  Loader,
 } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
@@ -138,7 +139,7 @@ const BlastForm = () => {
 
   const { loading, initialFormValues } =
     useInitialFormParameters(defaultFormValues);
-  console.log(loading, initialFormValues);
+
   // used when the form submission needs to be disabled
   const [submitDisabled, setSubmitDisabled] = useState(() =>
     // default sequence value will tell us if submit should be disabled or not
@@ -151,13 +152,10 @@ const BlastForm = () => {
   // flag to see if the user manually changed the title
   const [jobNameEdited, setJobNameEdited] = useState(false);
   // store parsed sequence objects
-  console.log(initialFormValues?.[BlastFields.sequence].selected);
   const [parsedSequences, setParsedSequences] = useState<ParsedSequence[]>(
     initialFormValues?.[BlastFields.sequence].selected &&
       sequenceProcessor(initialFormValues[BlastFields.sequence].selected)
   );
-
-  console.log(parsedSequences);
 
   // actual form fields
   const [stype, setSType] = useState(
@@ -221,6 +219,16 @@ const BlastForm = () => {
   const [jobName, setJobName] = useState(
     initialFormValues?.[BlastFields.name] as BlastFormValues[BlastFields.name]
   );
+
+  // Watch for initialFormValues to update in the case that sequences have been downloaded
+  const initialSequence = initialFormValues?.[
+    BlastFields.sequence
+  ] as BlastFormValues[BlastFields.sequence];
+  useEffect(() => {
+    if (initialSequence?.selected) {
+      onSequenceChange(sequenceProcessor(initialSequence.selected));
+    }
+  }, [initialSequence?.selected]);
 
   // taxon field handlers
   const updateTaxonFormValue = (path: string, id?: string) => {
@@ -427,6 +435,10 @@ const BlastForm = () => {
       ),
     dndOverlay: <span>Drop your input file anywhere on this page</span>,
   });
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <>
