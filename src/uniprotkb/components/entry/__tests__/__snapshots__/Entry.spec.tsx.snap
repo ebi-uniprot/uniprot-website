@@ -2752,7 +2752,7 @@ exports[`Entry basic should render main 1`] = `
                           </td>
                           <td>
                             <a
-                              href="/uniprotkb/P12345-1"
+                              href="/uniprotkb/P12345#sequence"
                             >
                               gene1 PROC_12347 P12345-1
                             </a>

@@ -1,11 +1,5 @@
 import { FC, useEffect, useMemo } from 'react';
-import {
-  useRouteMatch,
-  useLocation,
-  Link,
-  useHistory,
-  generatePath,
-} from 'react-router-dom';
+import { useRouteMatch, useLocation, Link, useHistory } from 'react-router-dom';
 import { stringify } from 'query-string';
 import { Loader, Tabs, Tab } from 'franklin-sites';
 
@@ -70,10 +64,11 @@ const Entry: FC = () => {
     if (match && !match.params.subPage) {
       history.replace({
         ...history.location,
-        pathname: generatePath(LocationToPath[Location.UniParcEntry], {
-          accession: match.params.accession,
-          subPage: TabLocation.Entry,
-        }),
+        pathname: getEntryPath(
+          Namespace.uniparc,
+          match.params.accession,
+          TabLocation.Entry
+        ),
       });
     }
   }, [match, history]);
