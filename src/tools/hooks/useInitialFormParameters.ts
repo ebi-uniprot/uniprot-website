@@ -8,6 +8,7 @@ import useDataApi from '../../shared/hooks/useDataApi';
 import { IdMaybeWithRange, parseIdsFromSearchParams } from '../utils/urls';
 import { getAccessionsURL } from '../../shared/config/apiUrls';
 import entryToFASTAWithHeaders from '../../shared/utils/entryToFASTAWithHeaders';
+import * as logging from '../../shared/utils/logging';
 
 import { SelectedTaxon } from '../types/toolsFormData';
 import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
@@ -93,11 +94,16 @@ function useInitialFormParameters<
         );
         const sequences = idsMaybeWithRange
           .map(({ id, start, end }) => {
+            if (!idToSequence[id]) {
+              logging.warn(`${id} not found in fetched sequences`);
+              return null;
+            }
             const entry = idToSequence[id];
             const subsets = start && end ? [{ start, end }] : [];
             const fasta = entryToFASTAWithHeaders(entry, { subsets });
             return fasta;
           })
+          .filter(Boolean)
           .join('\n\n');
         // TODO: fix this `as`
         formValues['Sequence' as Fields] = {
