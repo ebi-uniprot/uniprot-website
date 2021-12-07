@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import deepFreeze from 'deep-freeze';
 import { keyBy } from 'lodash-es';
 
 import useDataApi from '../../shared/hooks/useDataApi';
 
-import { IdMaybeWithRange, parseIdsFromSearchParams } from '../utils/urls';
+import { parseIdsFromSearchParams } from '../utils/urls';
 import { getAccessionsURL } from '../../shared/config/apiUrls';
 import entryToFASTAWithHeaders from '../../shared/utils/entryToFASTAWithHeaders';
 import * as logging from '../../shared/utils/logging';
@@ -33,35 +33,31 @@ function useInitialFormParameters<
   Fields extends string,
   FormParameters extends Record<Fields, unknown>
 >(defaultFormValues: Readonly<FormValues<Fields>>) {
+  // TODO: Use and discard so useHistory()
   const location = useLocation();
-  const [url, setUrl] = useState<string>();
-  const [idsMaybeWithRange, setIdsMaybeWithRange] = useState<
-    IdMaybeWithRange[]
-  >([]);
+  // const history = useHistory();
+  const idsMaybeWithRange = useMemo(() => {
+    const parametersFromSearch = new URLSearchParams(location?.search);
+    for (const [key, value] of parametersFromSearch) {
+      if (key === 'ids') {
+        return parseIdsFromSearchParams(value);
+      }
+    }
+    return null;
+  }, [location?.search]);
+  const accessions = (idsMaybeWithRange || []).map(({ id }) => id);
+  const url = getAccessionsURL(accessions, { facets: null });
   const { loading: accessionsLoading, data: accessionsData } = useDataApi<{
     results: UniProtkbAPIModel[];
   }>(url);
 
-  useEffect(() => {
-    if (!idsMaybeWithRange?.length) {
-      return;
-    }
-    const accessions = idsMaybeWithRange.map(({ id }) => id);
-    setUrl(getAccessionsURL(accessions, { facets: null }));
-  }, [idsMaybeWithRange]);
-
-  useEffect(() => {
-    // Search parameters
-    const parametersFromSearch = new URLSearchParams(location?.search);
-    for (const [key, value] of parametersFromSearch) {
-      if (key === 'ids') {
-        setIdsMaybeWithRange(parseIdsFromSearchParams(value));
-      }
-    }
-  }, [location?.search]);
+  // TODO: useEffect watching history and then use this navigate to the same location without parameters
+  // useEffect(() => {
+  //   history.replace({ pathname: history.location.pathname });
+  // }, [history]);
 
   const initialFormValues = useMemo(() => {
-    if (idsMaybeWithRange.length && accessionsLoading) {
+    if (idsMaybeWithRange?.length && accessionsLoading) {
       return null;
     }
 
@@ -87,7 +83,7 @@ function useInitialFormParameters<
         } as FormValue;
       }
 
-      if (accessionsData) {
+      if (accessionsData && idsMaybeWithRange) {
         const idToSequence = keyBy(
           accessionsData.results,
           ({ primaryAccession }) => primaryAccession
@@ -96,6 +92,7 @@ function useInitialFormParameters<
           .map(({ id, start, end }) => {
             if (!idToSequence[id]) {
               logging.warn(`${id} not found in fetched sequences`);
+              // TODO:
               return null;
             }
             const entry = idToSequence[id];
@@ -123,7 +120,7 @@ function useInitialFormParameters<
     idsMaybeWithRange,
   ]);
   return {
-    loading: idsMaybeWithRange.length && accessionsLoading,
+    loading: !!idsMaybeWithRange?.length && accessionsLoading,
     initialFormValues,
   };
 }

@@ -139,7 +139,7 @@ const BlastForm = () => {
 
   const { loading, initialFormValues } =
     useInitialFormParameters(defaultFormValues);
-
+  console.log(loading, initialFormValues);
   // used when the form submission needs to be disabled
   const [submitDisabled, setSubmitDisabled] = useState(() =>
     // default sequence value will tell us if submit should be disabled or not
@@ -156,6 +156,8 @@ const BlastForm = () => {
     initialFormValues?.[BlastFields.sequence].selected &&
       sequenceProcessor(initialFormValues[BlastFields.sequence].selected)
   );
+
+  // TODO: useEffect to watch for when initialFormValues is ready then setState for each specific form value
 
   // actual form fields
   const [stype, setSType] = useState(
