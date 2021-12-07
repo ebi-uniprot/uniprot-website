@@ -33,9 +33,9 @@ function useInitialFormParameters<
   Fields extends string,
   FormParameters extends Record<Fields, unknown>
 >(defaultFormValues: Readonly<FormValues<Fields>>) {
-  // TODO: Use and discard so useHistory()
   const location = useLocation();
-  // const history = useHistory();
+  const history = useHistory();
+
   const idsMaybeWithRange = useMemo(() => {
     const parametersFromSearch = new URLSearchParams(location?.search);
     for (const [key, value] of parametersFromSearch) {
@@ -51,10 +51,11 @@ function useInitialFormParameters<
     results: UniProtkbAPIModel[];
   }>(url);
 
-  // TODO: useEffect watching history and then use this navigate to the same location without parameters
-  // useEffect(() => {
-  //   history.replace({ pathname: history.location.pathname });
-  // }, [history]);
+  // Discard 'search' part of url to avoid url state issues.
+  useEffect(() => {
+    // eslint-disable-next-line uniprot-website/use-config-location
+    history.replace({ pathname: history.location.pathname });
+  }, [history]);
 
   const initialFormValues = useMemo(() => {
     if (idsMaybeWithRange?.length && accessionsLoading) {
