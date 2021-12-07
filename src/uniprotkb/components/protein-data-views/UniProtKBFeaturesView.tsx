@@ -11,7 +11,8 @@ import FeaturesView, {
   LocationModifier,
   ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';
-import { getUrlToBLAST } from '../../../app/config/urls';
+import { getURLToJobWithData } from '../../../app/config/urls';
+import { JobTypes } from '../../../tools/types/toolsJobTypes';
 
 type FeatureLocation = {
   value: number;
@@ -127,7 +128,7 @@ const UniProtKBFeaturesView = ({
                   element="a"
                   variant="tertiary"
                   title="BLAST the sequence corresponding to this feature"
-                  href={getUrlToBLAST(primaryAccession, {
+                  href={getURLToJobWithData(JobTypes.BLAST, primaryAccession, {
                     start: feature.start,
                     end: feature.end,
                   })}
