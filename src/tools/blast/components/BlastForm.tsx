@@ -136,7 +136,7 @@ const BlastForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const reducedMotion = useReducedMotion();
-
+  // TODO: Make sure loading is working properly
   const { loading, initialFormValues } =
     useInitialFormParameters(defaultFormValues);
   console.log(loading, initialFormValues);
