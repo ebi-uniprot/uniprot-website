@@ -220,16 +220,6 @@ const BlastForm = () => {
     initialFormValues?.[BlastFields.name] as BlastFormValues[BlastFields.name]
   );
 
-  // Watch for initialFormValues to update in the case that sequences have been downloaded
-  const initialSequence = initialFormValues?.[
-    BlastFields.sequence
-  ] as BlastFormValues[BlastFields.sequence];
-  useEffect(() => {
-    if (initialSequence?.selected) {
-      onSequenceChange(sequenceProcessor(initialSequence.selected));
-    }
-  }, [initialSequence?.selected]);
-
   // taxon field handlers
   const updateTaxonFormValue = (path: string, id?: string) => {
     // Only proceed if a node is selected
@@ -419,6 +409,16 @@ const BlastForm = () => {
     },
     [jobNameEdited, sequence.selected]
   );
+
+  // Watch for initialFormValues to update in the case that sequences have been downloaded
+  const initialSequence = initialFormValues?.[
+    BlastFields.sequence
+  ] as BlastFormValues[BlastFields.sequence];
+  useEffect(() => {
+    if (initialSequence?.selected) {
+      onSequenceChange(sequenceProcessor(initialSequence.selected));
+    }
+  }, [initialSequence?.selected, onSequenceChange]);
 
   // file handling
   useTextFileInput({
