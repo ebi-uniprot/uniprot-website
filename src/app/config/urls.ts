@@ -195,14 +195,15 @@ export const getLocationEntryPath = (location: Location, accession: string) =>
 export const getLocationEntryPathFor = (location: Location) =>
   partial(getLocationEntryPath, location);
 
-export const getUrlToBLAST = (
+export const getURLToJobWithData = (
+  jobType: JobTypes,
   primaryAccession: string,
   options?: {
     start: number;
     end: number;
   }
 ) =>
-  `${LocationToPath[Location.Blast]}?ids=${primaryAccession}${
+  `${jobTypeToPath(jobType)}?ids=${primaryAccession}${
     options ? `[${options.start}-${options.end}]` : ''
   }`;
 
