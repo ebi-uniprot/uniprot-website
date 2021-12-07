@@ -136,13 +136,14 @@ const BlastForm = () => {
   const history = useHistory();
   const reducedMotion = useReducedMotion();
 
-  const initialFormValues = useInitialFormParameters(defaultFormValues);
-
+  const { loading, initialFormValues } =
+    useInitialFormParameters(defaultFormValues);
+  console.log(loading, initialFormValues);
   // used when the form submission needs to be disabled
   const [submitDisabled, setSubmitDisabled] = useState(() =>
     // default sequence value will tell us if submit should be disabled or not
     isInvalid(
-      sequenceProcessor(initialFormValues[BlastFields.sequence].selected)
+      sequenceProcessor(initialFormValues?.[BlastFields.sequence].selected)
     )
   );
   // used when the form is about to be submitted to the server
@@ -150,63 +151,75 @@ const BlastForm = () => {
   // flag to see if the user manually changed the title
   const [jobNameEdited, setJobNameEdited] = useState(false);
   // store parsed sequence objects
+  console.log(initialFormValues?.[BlastFields.sequence].selected);
   const [parsedSequences, setParsedSequences] = useState<ParsedSequence[]>(
-    sequenceProcessor(initialFormValues[BlastFields.sequence].selected)
+    initialFormValues?.[BlastFields.sequence].selected &&
+      sequenceProcessor(initialFormValues[BlastFields.sequence].selected)
   );
+
+  console.log(parsedSequences);
 
   // actual form fields
   const [stype, setSType] = useState(
-    initialFormValues[BlastFields.stype] as BlastFormValues[BlastFields.stype]
+    initialFormValues?.[BlastFields.stype] as BlastFormValues[BlastFields.stype]
   );
   const [program, setProgram] = useState(
-    initialFormValues[
+    initialFormValues?.[
       BlastFields.program
     ] as BlastFormValues[BlastFields.program]
   );
   const [sequence, setSequence] = useState(
-    initialFormValues[
+    initialFormValues?.[
       BlastFields.sequence
     ] as BlastFormValues[BlastFields.sequence]
   );
   const [database, setDatabase] = useState(
-    initialFormValues[
+    initialFormValues?.[
       BlastFields.database
     ] as BlastFormValues[BlastFields.database]
   );
   const excludeTaxonField = excludeTaxonForDB(database.selected);
   const [taxIDs, setTaxIDs] = useState(
-    initialFormValues[BlastFields.taxons] as BlastFormValues[BlastFields.taxons]
+    initialFormValues?.[
+      BlastFields.taxons
+    ] as BlastFormValues[BlastFields.taxons]
   );
   // TODO: to eventually incorporate into the form
   const [negativeTaxIDs, setNegativeTaxIDs] = useState(
-    initialFormValues[
+    initialFormValues?.[
       BlastFields.excludedtaxons
     ] as BlastFormValues[BlastFields.excludedtaxons]
   );
   const [threshold, setThreshold] = useState(
-    initialFormValues[
+    initialFormValues?.[
       BlastFields.threshold
     ] as BlastFormValues[BlastFields.threshold]
   );
   const [matrix, setMatrix] = useState(
-    initialFormValues[BlastFields.matrix] as BlastFormValues[BlastFields.matrix]
+    initialFormValues?.[
+      BlastFields.matrix
+    ] as BlastFormValues[BlastFields.matrix]
   );
   const [filter, setFilter] = useState(
-    initialFormValues[BlastFields.filter] as BlastFormValues[BlastFields.filter]
+    initialFormValues?.[
+      BlastFields.filter
+    ] as BlastFormValues[BlastFields.filter]
   );
   const [gapped, setGapped] = useState(
-    initialFormValues[BlastFields.gapped] as BlastFormValues[BlastFields.gapped]
+    initialFormValues?.[
+      BlastFields.gapped
+    ] as BlastFormValues[BlastFields.gapped]
   );
   const [hits, setHits] = useState(
-    initialFormValues[BlastFields.hits] as BlastFormValues[BlastFields.hits]
+    initialFormValues?.[BlastFields.hits] as BlastFormValues[BlastFields.hits]
   );
   const [hsps, setHsps] = useState(
-    initialFormValues[BlastFields.hsps] as BlastFormValues[BlastFields.hsps]
+    initialFormValues?.[BlastFields.hsps] as BlastFormValues[BlastFields.hsps]
   );
 
   // extra job-related fields
   const [jobName, setJobName] = useState(
-    initialFormValues[BlastFields.name] as BlastFormValues[BlastFields.name]
+    initialFormValues?.[BlastFields.name] as BlastFormValues[BlastFields.name]
   );
 
   // taxon field handlers
@@ -451,7 +464,9 @@ const BlastForm = () => {
             <SequenceSubmission
               placeholder="Protein or nucleotide sequence(s) in FASTA format."
               onChange={onSequenceChange}
-              value={parsedSequences.map((sequence) => sequence.raw).join('\n')}
+              value={(parsedSequences || [])
+                .map((sequence) => sequence.raw)
+                .join('\n')}
             />
           </section>
           <section className="tools-form-section">

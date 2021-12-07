@@ -27,7 +27,7 @@ const entryToFASTAWithHeaders = (
   const subsets = [];
   // if any change is required on the sequence, do it here
   if (modifications) {
-    if (modifications.subsets) {
+    if (modifications.subsets.length) {
       let subsetSequence = '';
       for (const { start, end } of modifications.subsets) {
         subsetSequence += sequence.slice(start - 1, end);
