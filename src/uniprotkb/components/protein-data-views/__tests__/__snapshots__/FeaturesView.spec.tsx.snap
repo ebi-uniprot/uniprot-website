@@ -73,9 +73,7 @@ exports[`FeaturesView component it renders without crashing 1`] = `
             <th>
               Description
             </th>
-            <th>
-              Tools
-            </th>
+            <th />
           </tr>
         </thead>
         <tbody>
@@ -119,19 +117,13 @@ exports[`FeaturesView component it renders without crashing 1`] = `
               />
             </td>
             <td>
-              <button
+              <a
                 class="button tertiary"
-                title="BLAST corresponding sequence"
-                type="button"
+                href="/blast?ids=P05067[1-17]"
+                title="BLAST the sequence corresponding to this feature"
               >
                 BLAST
-              </button>
-              <button
-                class="button primary"
-                type="button"
-              >
-                Add
-              </button>
+              </a>
             </td>
           </tr>
           <tr

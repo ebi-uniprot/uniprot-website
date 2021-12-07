@@ -11,6 +11,8 @@ import FeaturesView, {
   LocationModifier,
   ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';
+import { getURLToJobWithData } from '../../../app/config/urls';
+import { JobTypes } from '../../../tools/types/toolsJobTypes';
 
 type FeatureLocation = {
   value: number;
@@ -98,7 +100,7 @@ const UniProtKBFeaturesView = ({
           <th>ID</th>
           <th>Positions</th>
           <th>Description</th>
-          <th>Tools</th>
+          <th>{/* Intentionaly left blank */}</th>
         </tr>
       </thead>
       <tbody>
@@ -121,18 +123,19 @@ const UniProtKBFeaturesView = ({
                 <UniProtKBEvidenceTag evidences={feature.evidences} />
               </td>
               <td>
+                {/* Not using React Router link as this is copied into the table DOM */}
                 <Button
+                  element="a"
                   variant="tertiary"
-                  title="BLAST corresponding sequence"
-                  onClick={() =>
-                    console.log(
-                      `${primaryAccession}[${feature.start}-${feature.end}]`
-                    )
-                  }
+                  title="BLAST the sequence corresponding to this feature"
+                  href={getURLToJobWithData(JobTypes.BLAST, primaryAccession, {
+                    start: feature.start,
+                    end: feature.end,
+                  })}
                 >
                   BLAST
                 </Button>
-                <Button>Add</Button>
+                {/* <Button>Add</Button> */}
               </td>
             </tr>
             {feature.sequence && (

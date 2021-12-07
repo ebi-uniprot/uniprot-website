@@ -215,3 +215,15 @@ export const jobTypeToPath = (type: JobTypes, result?: boolean) => {
   }
   throw new Error(`"${type}"invalid job type`);
 };
+
+export const getURLToJobWithData = (
+  jobType: JobTypes,
+  primaryAccession: string,
+  options?: {
+    start: number;
+    end: number;
+  }
+) =>
+  `${jobTypeToPath(jobType)}?ids=${primaryAccession}${
+    options ? `[${options.start}-${options.end}]` : ''
+  }`;
