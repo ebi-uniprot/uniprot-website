@@ -3145,7 +3145,7 @@ exports[`Entry basic should render main 1`] = `
                     </li>
                   </ul>
                   <p>
-                    This entry describes 
+                    This entry describes  
                     <strong>
                       1
                     </strong>
@@ -3153,10 +3153,7 @@ exports[`Entry basic should render main 1`] = `
                     <strong>
                       Alternative initiation
                     </strong>
-                    .
-                  </p>
-                  <p>
-                    value1
+                    . value1
                   </p>
                   <h3
                     id="Isoform_name"
@@ -3203,6 +3200,37 @@ exports[`Entry basic should render main 1`] = `
                           class="decorated-list-item__content"
                         >
                           syn value
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        class="decorated-list-item decorated-list-item--compact"
+                      >
+                        <div
+                          class="decorated-list-item__title"
+                        >
+                          <h5
+                            class="bold"
+                          >
+                            See also
+                          </h5>
+                        </div>
+                        <div
+                          class="decorated-list-item__content"
+                        >
+                          sequence in 
+                          <a
+                            href="/uniparc?query=(isoform:isoID1)&direct"
+                          >
+                            UniParc
+                          </a>
+                           or sequence clusters in 
+                          <a
+                            href="/uniref?query=(uniprot_id:isoID1)"
+                          >
+                            UniRef
+                          </a>
                         </div>
                       </div>
                     </li>
