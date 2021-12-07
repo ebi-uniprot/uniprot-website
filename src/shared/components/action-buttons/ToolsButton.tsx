@@ -1,4 +1,4 @@
-import { FC, useRef, useCallback } from 'react';
+import { FC, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'franklin-sites';
 
@@ -20,18 +20,13 @@ const ToolsButton: FC<ToolsButtonProps> = ({
 }) => {
   const history = useHistory();
 
-  const entriesRef = useRef(selectedEntries);
-  entriesRef.current = selectedEntries;
-
   const handleClick = useCallback(async () => {
-    const entries = entriesRef.current;
-
     history.push(LocationToPath[location], {
       parameters: {
-        ids: entries,
+        ids: selectedEntries,
       },
     });
-  }, [history, location]);
+  }, [history, location, selectedEntries]);
 
   return (
     <Button
