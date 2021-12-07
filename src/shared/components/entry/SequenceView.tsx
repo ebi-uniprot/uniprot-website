@@ -367,7 +367,7 @@ export const IsoformView = ({
         {isIsoformPage && (
           <>
             {' '}
-            To see the canonical entry page, see{' '}
+            For the canonical entry page see{' '}
             <Link to={getEntryPath(Namespace.uniprotkb, canonical)}>
               {canonical}
             </Link>
