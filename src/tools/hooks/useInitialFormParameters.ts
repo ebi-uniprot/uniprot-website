@@ -18,13 +18,9 @@ interface CustomLocationState<T> {
 
 type FormValue = {
   fieldName: string;
-  selected?:
-    | string
-    | string[]
-    | number
-    | boolean
-    | SelectedTaxon
-    | SelectedTaxon[];
+  selected?: Readonly<
+    string | string[] | number | boolean | SelectedTaxon | SelectedTaxon[]
+  >;
   values?: Readonly<
     Array<{ label?: string; value?: string | boolean | number }>
   >;
