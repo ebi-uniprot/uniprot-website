@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import deepFreeze from 'deep-freeze';
 import { keyBy, cloneDeep } from 'lodash-es';
 
@@ -36,18 +36,16 @@ function useInitialFormParameters<
   Fields extends string,
   FormParameters extends Record<Fields, unknown>
 >(defaultFormValues: Readonly<FormValues<Fields>>) {
-  const location = useLocation();
   const history = useHistory();
-
   const idsMaybeWithRange = useMemo(() => {
-    const urlSearchParams = new URLSearchParams(location?.search);
+    const urlSearchParams = new URLSearchParams(history.location?.search);
     for (const [key, value] of urlSearchParams) {
       if (key === 'ids') {
         return parseIdsFromSearchParams(value);
       }
     }
     return null;
-  }, [location?.search]);
+  }, [history.location?.search]);
 
   const accessionsFromParams = (idsMaybeWithRange || []).map(({ id }) => id);
   const url = getAccessionsURL(accessionsFromParams, { facets: null });
@@ -69,7 +67,7 @@ function useInitialFormParameters<
 
     // NOTE: we should use a similar logic to pre-fill fields based on querystring
     const parametersFromHistoryState = (
-      location?.state as CustomLocationState<FormParameters>
+      history.location?.state as CustomLocationState<FormParameters>
     )?.parameters;
 
     const formValues: FormValues<Fields> = cloneDeep(defaultFormValues);
@@ -118,11 +116,11 @@ function useInitialFormParameters<
 
     return deepFreeze(formValues);
   }, [
-    idsMaybeWithRange,
     accessionsLoading,
-    location?.state,
-    accessionsData,
+    history.location?.state,
     defaultFormValues,
+    accessionsData?.results,
+    idsMaybeWithRange,
   ]);
 
   return {
