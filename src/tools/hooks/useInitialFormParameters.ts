@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 import deepFreeze from 'deep-freeze';
 import { keyBy, cloneDeep } from 'lodash-es';
@@ -34,6 +34,7 @@ function useInitialFormParameters<
 >(defaultFormValues: Readonly<FormValues<Fields>>) {
   const history = useHistory();
   const idsMaybeWithRange = useMemo(() => {
+    // This only happens on first mount
     const urlSearchParams = new URLSearchParams(history.location?.search);
     for (const [key, value] of urlSearchParams) {
       if (key === 'ids') {
@@ -41,7 +42,7 @@ function useInitialFormParameters<
       }
     }
     return null;
-  }, [history.location?.search]);
+  }, [history]);
 
   const accessionsFromParams = (idsMaybeWithRange || []).map(({ id }) => id);
   const url = getAccessionsURL(accessionsFromParams, { facets: null });
@@ -49,12 +50,11 @@ function useInitialFormParameters<
     results: UniProtkbAPIModel[];
   }>(url);
 
-  // TODO: uncomment when done with debugging
-  // // Discard 'search' part of url to avoid url state issues.
-  // useEffect(() => {
-  //   // eslint-disable-next-line uniprot-website/use-config-location
-  //   history.replace({ pathname: history.location.pathname });
-  // }, [history]);
+  // Discard 'search' part of url to avoid url state issues.
+  useEffect(() => {
+    // eslint-disable-next-line uniprot-website/use-config-location
+    history.replace({ pathname: history.location.pathname });
+  }, [history]);
 
   const initialFormValues = useMemo(() => {
     if (accessionsLoading) {
