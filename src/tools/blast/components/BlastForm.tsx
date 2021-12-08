@@ -192,11 +192,11 @@ const BlastForm = () => {
     if (!initialFormValues) {
       return;
     }
-    const parsedSequence = sequenceProcessor(
+    const parsedSequences = sequenceProcessor(
       initialFormValues[BlastFields.sequence].selected
     );
-    setSubmitDisabled(isInvalid(parsedSequence));
-    setParsedSequences(parsedSequence);
+    setSubmitDisabled(isInvalid(parsedSequences));
+    setParsedSequences(parsedSequences);
     setSType(
       initialFormValues[BlastFields.stype] as BlastFormValues[BlastFields.stype]
     );
@@ -251,9 +251,11 @@ const BlastForm = () => {
     setHsps(
       initialFormValues[BlastFields.hsps] as BlastFormValues[BlastFields.hsps]
     );
-    setJobName(
-      initialFormValues[BlastFields.name] as BlastFormValues[BlastFields.name]
-    );
+    const initialJobName = initialFormValues[BlastFields.name];
+    setJobName({
+      ...initialJobName,
+      selected: parsedSequences[0]?.name || initialJobName.selected,
+    });
   }, [initialFormValues]);
 
   const excludeTaxonField = excludeTaxonForDB(database?.selected);
