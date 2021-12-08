@@ -139,7 +139,6 @@ const BlastForm = () => {
   // TODO: Make sure loading is working properly
   const { loading, initialFormValues } =
     useInitialFormParameters(defaultFormValues);
-  console.log(loading, initialFormValues);
   // used when the form submission needs to be disabled
   const [submitDisabled, setSubmitDisabled] = useState<boolean>();
   // used when the form is about to be submitted to the server
@@ -147,30 +146,16 @@ const BlastForm = () => {
   // flag to see if the user manually changed the title
   const [jobNameEdited, setJobNameEdited] = useState(false);
   // store parsed sequence objects
-  const [parsedSequences, setParsedSequences] = useState<ParsedSequence[]>(
-    initialFormValues?.[BlastFields.sequence].selected &&
-      sequenceProcessor(initialFormValues[BlastFields.sequence].selected)
-  );
+  const [parsedSequences, setParsedSequences] = useState<ParsedSequence[]>([]);
 
   // actual form fields
-  const [stype, setSType] = useState(
-    initialFormValues?.[BlastFields.stype] as BlastFormValues[BlastFields.stype]
-  );
-  const [program, setProgram] = useState(
-    initialFormValues?.[
-      BlastFields.program
-    ] as BlastFormValues[BlastFields.program]
-  );
-  const [sequence, setSequence] = useState(
-    initialFormValues?.[
-      BlastFields.sequence
-    ] as BlastFormValues[BlastFields.sequence]
-  );
-  const [database, setDatabase] = useState(
-    initialFormValues?.[
-      BlastFields.database
-    ] as BlastFormValues[BlastFields.database]
-  );
+  const [stype, setSType] = useState<BlastFormValues[BlastFields.stype]>();
+  const [program, setProgram] =
+    useState<BlastFormValues[BlastFields.program]>();
+  const [sequence, setSequence] =
+    useState<BlastFormValues[BlastFields.sequence]>();
+  const [database, setDatabase] =
+    useState<BlastFormValues[BlastFields.database]>();
   const [taxIDs, setTaxIDs] = useState<BlastFormValues[BlastFields.taxons]>();
   // TODO: to eventually incorporate into the form
   const [negativeTaxIDs, setNegativeTaxIDs] =
@@ -184,9 +169,24 @@ const BlastForm = () => {
   const [hsps, setHsps] = useState<BlastFormValues[BlastFields.hsps]>();
 
   // extra job-related fields
-  const [jobName, setJobName] = useState(
-    initialFormValues?.[BlastFields.name] as BlastFormValues[BlastFields.name]
-  );
+  const [jobName, setJobName] = useState<BlastFormValues[BlastFields.name]>();
+
+  const formValuesDefined =
+    submitDisabled &&
+    parsedSequences &&
+    stype &&
+    program &&
+    sequence &&
+    database &&
+    taxIDs &&
+    negativeTaxIDs &&
+    threshold &&
+    matrix &&
+    filter &&
+    gapped &&
+    hits &&
+    hsps &&
+    jobName;
 
   useEffect(() => {
     if (!initialFormValues) {
@@ -194,11 +194,11 @@ const BlastForm = () => {
     }
     setSubmitDisabled(
       isInvalid(
-        sequenceProcessor(initialFormValues?.[BlastFields.sequence].selected)
+        sequenceProcessor(initialFormValues[BlastFields.sequence].selected)
       )
     );
     setParsedSequences(
-      initialFormValues?.[BlastFields.sequence].selected &&
+      initialFormValues[BlastFields.sequence].selected &&
         sequenceProcessor(initialFormValues[BlastFields.sequence].selected)
     );
     setSType(
@@ -260,12 +260,12 @@ const BlastForm = () => {
     );
   }, [initialFormValues]);
 
-  const excludeTaxonField = excludeTaxonForDB(database.selected);
+  const excludeTaxonField = excludeTaxonForDB(database?.selected);
 
   // taxon field handlers
   const updateTaxonFormValue = (path: string, id?: string) => {
     // Only proceed if a node is selected
-    if (!id) {
+    if (!id || !formValuesDefined) {
       return;
     }
 
@@ -285,10 +285,15 @@ const BlastForm = () => {
   };
 
   const removeTaxonFormValue = (id: string | number) => {
+    if (!formValuesDefined) {
+      return;
+    }
     const selected = (taxIDs?.selected || []) as SelectedTaxon[];
     setTaxIDs({
       ...taxIDs,
-      selected: selected.filter((taxon: SelectedTaxon) => taxon.id !== id),
+      selected: (selected || []).filter(
+        (taxon: SelectedTaxon) => taxon.id !== id
+      ),
     });
   };
 
@@ -324,7 +329,7 @@ const BlastForm = () => {
   const submitBlastJob = (event: FormEvent | MouseEvent) => {
     event.preventDefault();
 
-    if (!sequence.selected) {
+    if (!formValuesDefined || !sequence.selected) {
       return;
     }
 
@@ -334,6 +339,7 @@ const BlastForm = () => {
     // here we should just transform input values into FormParameters,
     // transformation of FormParameters into ServerParameters happens in the
     // tools middleware
+    // console.log(initialFormValues);
     const parameters: FormParameters = {
       stype: stype.selected as SType,
       program: program.selected as FormParameters['program'],
@@ -342,18 +348,18 @@ const BlastForm = () => {
       taxIDs: excludeTaxonField ? [] : (taxIDs.selected as SelectedTaxon[]),
       negativeTaxIDs: excludeTaxonField
         ? []
-        : (negativeTaxIDs?.selected as SelectedTaxon[]),
-      threshold: threshold?.selected as Exp,
+        : (negativeTaxIDs.selected as SelectedTaxon[]),
+      threshold: threshold.selected as Exp,
       // remove "auto", and transform into corresponding matrix
       matrix:
         matrix?.selected === 'auto'
           ? getAutoMatrixFor(sequence.selected as string)
-          : (matrix?.selected as Matrix),
-      filter: filter?.selected as Filter,
-      gapped: gapped?.selected as GapAlign,
+          : (matrix.selected as Matrix),
+      filter: filter.selected as Filter,
+      gapped: gapped.selected as GapAlign,
       // transform string into number
-      hits: parseInt(hits?.selected as string, 10) as Scores,
-      hsps: (parseInt(hsps?.selected as string, 10) || undefined) as HSPs,
+      hits: parseInt(hits.selected as string, 10) as Scores,
+      hsps: (parseInt(hsps.selected as string, 10) || undefined) as HSPs,
     };
 
     const multipleParameters = parsedSequences.map((parsedSequence) => ({
@@ -392,7 +398,10 @@ const BlastForm = () => {
   // effects
   // set the "Auto" matrix to the have the correct label depending on sequence
   useEffect(() => {
-    const autoMatrix = getAutoMatrixFor(sequence.selected as string);
+    if (!formValuesDefined) {
+      return;
+    }
+    const autoMatrix = getAutoMatrixFor(sequence?.selected as string);
     setMatrix((matrix) => ({
       ...matrix,
       values: [
@@ -400,15 +409,18 @@ const BlastForm = () => {
         ...(matrix.values || []).filter((option) => option.value !== 'auto'),
       ],
     }));
-  }, [sequence.selected]);
+  }, [formValuesDefined, sequence?.selected]);
 
   const onSequenceChange = useCallback(
     (parsedSequences: ParsedSequence[]) => {
+      if (!formValuesDefined) {
+        return;
+      }
       const rawSequence = parsedSequences
         .map((parsedSequence) => parsedSequence.raw)
         .join('\n');
 
-      if (rawSequence === sequence.selected) {
+      if (rawSequence === sequence?.selected) {
         return;
       }
 
@@ -416,7 +428,7 @@ const BlastForm = () => {
         // if the user didn't manually change the title, autofill it
         setJobName((jobName) => {
           const potentialJobName = parsedSequences[0]?.name || '';
-          if (jobName.selected === potentialJobName) {
+          if (jobName?.selected === potentialJobName) {
             // avoid unecessary rerender by keeping the same object
             return jobName;
           }
@@ -449,7 +461,7 @@ const BlastForm = () => {
         return { ...program, selected };
       });
     },
-    [jobNameEdited, sequence.selected]
+    [formValuesDefined, jobNameEdited, sequence?.selected]
   );
 
   // Watch for initialFormValues to update in the case that sequences have been downloaded
@@ -478,7 +490,7 @@ const BlastForm = () => {
     dndOverlay: <span>Drop your input file anywhere on this page</span>,
   });
 
-  if (loading) {
+  if (loading || !formValuesDefined) {
     return <Loader />;
   }
 
