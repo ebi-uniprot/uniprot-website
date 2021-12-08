@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import {
   FC,
   useState,
@@ -402,13 +403,18 @@ const BlastForm = () => {
       return;
     }
     const autoMatrix = getAutoMatrixFor(sequence?.selected as string);
-    setMatrix((matrix) => ({
-      ...matrix,
-      values: [
-        { label: `Auto - ${autoMatrix}`, value: 'auto' },
-        ...(matrix.values || []).filter((option) => option.value !== 'auto'),
-      ],
-    }));
+    setMatrix(
+      (matrix) =>
+        matrix && {
+          ...matrix,
+          values: [
+            { label: `Auto - ${autoMatrix}`, value: 'auto' },
+            ...(matrix.values || []).filter(
+              (option) => option.value !== 'auto'
+            ),
+          ],
+        }
+    );
   }, [formValuesDefined, sequence?.selected]);
 
   const onSequenceChange = useCallback(
@@ -427,22 +433,34 @@ const BlastForm = () => {
       if (!jobNameEdited) {
         // if the user didn't manually change the title, autofill it
         setJobName((jobName) => {
+          if (!jobName) {
+            return;
+          }
+
           const potentialJobName = parsedSequences[0]?.name || '';
           if (jobName?.selected === potentialJobName) {
             // avoid unecessary rerender by keeping the same object
             return jobName;
           }
-          return { ...jobName, selected: potentialJobName };
+          return {
+            ...jobName,
+            selected: potentialJobName,
+          };
         });
       }
 
       setParsedSequences(parsedSequences);
-      setSequence((sequence) => ({ ...sequence, selected: rawSequence }));
+      setSequence(
+        (sequence) => sequence && { ...sequence, selected: rawSequence }
+      );
       setSubmitDisabled(isInvalid(parsedSequences));
 
       const mightBeDNA = parsedSequences[0]?.likelyType === 'na';
 
       setSType((stype) => {
+        if (!stype) {
+          return;
+        }
         // we want protein by default
         const selected = mightBeDNA ? 'dna' : 'protein';
         if (stype.selected === selected) {
@@ -452,6 +470,9 @@ const BlastForm = () => {
         return { ...stype, selected };
       });
       setProgram((program) => {
+        if (!program) {
+          return;
+        }
         // we want protein by default
         const selected = mightBeDNA ? 'blastx' : 'blastp';
         if (program.selected === selected) {
