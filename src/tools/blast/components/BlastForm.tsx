@@ -192,15 +192,11 @@ const BlastForm = () => {
     if (!initialFormValues) {
       return;
     }
-    setSubmitDisabled(
-      isInvalid(
-        sequenceProcessor(initialFormValues[BlastFields.sequence].selected)
-      )
+    const parsedSequence = sequenceProcessor(
+      initialFormValues[BlastFields.sequence].selected
     );
-    setParsedSequences(
-      initialFormValues[BlastFields.sequence].selected &&
-        sequenceProcessor(initialFormValues[BlastFields.sequence].selected)
-    );
+    setSubmitDisabled(isInvalid(parsedSequence));
+    setParsedSequences(parsedSequence);
     setSType(
       initialFormValues[BlastFields.stype] as BlastFormValues[BlastFields.stype]
     );
@@ -482,16 +478,6 @@ const BlastForm = () => {
     },
     [formValuesDefined, jobNameEdited, sequence?.selected]
   );
-
-  // Watch for initialFormValues to update in the case that sequences have been downloaded
-  const initialSequence = initialFormValues?.[
-    BlastFields.sequence
-  ] as BlastFormValues[BlastFields.sequence];
-  useEffect(() => {
-    if (initialSequence?.selected) {
-      onSequenceChange(sequenceProcessor(initialSequence.selected));
-    }
-  }, [initialSequence?.selected, onSequenceChange]);
 
   // file handling
   useTextFileInput({
