@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Card, ExternalLink, Loader } from 'franklin-sites';
+import { Card, ExternalLink } from 'franklin-sites';
 
 import EntrySection, {
   getEntrySectionNameAndId,
@@ -33,7 +33,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
     | InteractionComment[]
     | undefined;
 
-  const datatableDefined = useCustomElement(
+  const datatableElement = useCustomElement(
     /* istanbul ignore next */
     () =>
       import(
@@ -42,7 +42,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
     'protvista-datatable'
   );
 
-  const interactionViewerDefined = useCustomElement(
+  const interactionViewerElement = useCustomElement(
     /* istanbul ignore next */
     () =>
       import(/* webpackChunkName: "interaction-viewer" */ 'interaction-viewer'),
@@ -56,10 +56,6 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
     | FreeTextComment[]
     | undefined;
 
-  if (!(datatableDefined && interactionViewerDefined)) {
-    return <Loader />;
-  }
-
   return (
     <Card
       header={
@@ -72,8 +68,10 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
       {comments && <FreeTextView comments={comments} title="subunit" />}
       {interactionComment?.[0] && (
         <>
-          <interaction-viewer accession={primaryAccession} />
-          <protvista-datatable filter-scroll>
+          {interactionViewerElement.defined && (
+            <interactionViewerElement.name accession={primaryAccession} />
+          )}
+          <datatableElement.name filter-scroll>
             <table>
               <thead>
                 <tr>
@@ -153,7 +151,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
                 ))}
               </tbody>
             </table>
-          </protvista-datatable>
+          </datatableElement.name>
         </>
       )}
 

@@ -456,7 +456,7 @@ exports[`HelpLandingPage should render 1`] = `
               type="button"
             >
               <span
-                class="lyt-visually-hidden"
+                class="visually-hidden"
               >
                 How to search UniProtKB
               </span>

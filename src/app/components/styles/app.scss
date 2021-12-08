@@ -24,6 +24,18 @@
   }
 }
 
+protvista-datatable:not(:defined) > table {
+  width: 100%;
+  overflow-x: auto;
+  table-layout: fixed;
+  border-collapse: collapse;
+
+  & td,
+  & th {
+    border: 1px solid grey;
+  }
+}
+
 // TODO: remove as part of TRM-26871
 .protvista-uniprot-structure__structure protvista-structure {
   z-index: 10 !important;

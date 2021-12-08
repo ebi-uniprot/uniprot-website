@@ -4064,19 +4064,6 @@ exports[`Entry view should render for non-human entry 1`] = `
           <h3>
             GO Annotations
           </h3>
-          <div
-            class="container"
-          >
-            <div
-              class="loader-container"
-            >
-              <test-file-stub
-                classname="loader"
-                height="100"
-                width="100"
-              />
-            </div>
-          </div>
           <protvista-datatable>
             <table>
               <thead>

@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { ExternalLink, Loader } from 'franklin-sites';
 
 import useCustomElement from '../../../shared/hooks/useCustomElement';
@@ -40,16 +39,14 @@ export type ProtvistaPDB = {
   chain: string;
 };
 
-const PDBView: FC<{
-  xrefs: Xref[];
-}> = ({ xrefs }) => {
+const PDBView = ({ xrefs }: { xrefs: Xref[] }) => {
   /**
    * Note: this view is duplicated in protvista-uniprot-structure
    * This is because the AF data is not currently available as part of the entry
    * Eventually it might make sense to just use protvista-structure and
    * protvista-datatable.
    */
-  const datatableDefined = useCustomElement(
+  const datatableElement = useCustomElement(
     /* istanbul ignore next */
     () =>
       import(
@@ -62,13 +59,14 @@ const PDBView: FC<{
 
   const databaseInfoMaps = useDatabaseInfoMaps();
 
-  if (!datatableDefined || !databaseInfoMaps) {
+  if (!databaseInfoMaps) {
     return <Loader />;
   }
+
   const { databaseToDatabaseInfo } = databaseInfoMaps;
 
   return (
-    <protvista-datatable>
+    <datatableElement.name>
       <table>
         <thead>
           <tr>
@@ -114,7 +112,7 @@ const PDBView: FC<{
           )}
         </tbody>
       </table>
-    </protvista-datatable>
+    </datatableElement.name>
   );
 };
 

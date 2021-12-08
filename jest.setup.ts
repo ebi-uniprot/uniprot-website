@@ -14,7 +14,7 @@ global.crypto = {
 // useCustomElement always says that the component is defined for tests
 jest.mock('/shared/hooks/useCustomElement', () => ({
   __esModule: true,
-  default: () => true,
+  default: (_, name) => ({ defined: true, errored: false, name }),
 }));
 
 global.beforeEach(() => {
