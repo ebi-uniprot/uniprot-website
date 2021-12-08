@@ -140,6 +140,7 @@ const BlastForm = () => {
   // TODO: Make sure loading is working properly
   const { loading, initialFormValues } =
     useInitialFormParameters(defaultFormValues);
+
   // used when the form submission needs to be disabled
   const [submitDisabled, setSubmitDisabled] = useState<boolean>();
   // used when the form is about to be submitted to the server
@@ -173,8 +174,6 @@ const BlastForm = () => {
   const [jobName, setJobName] = useState<BlastFormValues[BlastFields.name]>();
 
   const formValuesDefined =
-    submitDisabled &&
-    parsedSequences &&
     stype &&
     program &&
     sequence &&
@@ -340,7 +339,6 @@ const BlastForm = () => {
     // here we should just transform input values into FormParameters,
     // transformation of FormParameters into ServerParameters happens in the
     // tools middleware
-    // console.log(initialFormValues);
     const parameters: FormParameters = {
       stype: stype.selected as SType,
       program: program.selected as FormParameters['program'],
