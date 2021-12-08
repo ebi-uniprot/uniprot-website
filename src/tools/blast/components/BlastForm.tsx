@@ -557,7 +557,12 @@ const BlastForm = () => {
             />
           </section>
           <section className="tools-form-section">
-            <FormSelect formValue={database} updateFormValue={setDatabase} />
+            <FormSelect
+              formValue={database}
+              updateFormValue={
+                setDatabase as Dispatch<SetStateAction<BlastFormValue>>
+              }
+            />
             <section
               className={cn(
                 'tools-form-section__item',
