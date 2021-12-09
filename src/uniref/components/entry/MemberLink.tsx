@@ -1,19 +1,17 @@
 import { FC } from 'react';
-import { generatePath, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import { Location, LocationToPath } from '../../../app/config/urls';
+import { getEntryPath } from '../../../app/config/urls';
+
+import { Namespace } from '../../../shared/types/namespaces';
 
 export const MemberLink: FC<{ accession: string }> = ({
   accession,
   children,
 }) => {
-  const path = generatePath(
-    LocationToPath[
-      accession.startsWith('UPI')
-        ? Location.UniParcEntry
-        : Location.UniProtKBEntry
-    ],
-    { accession }
+  const path = getEntryPath(
+    accession.startsWith('UPI') ? Namespace.uniparc : Namespace.uniprotkb,
+    accession
   );
 
   return <Link to={path}>{children || accession}</Link>;

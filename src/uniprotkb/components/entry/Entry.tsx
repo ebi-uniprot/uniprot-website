@@ -1,11 +1,6 @@
 import { useMemo, useEffect, FC, Suspense } from 'react';
 import { useDispatch } from 'react-redux';
-import {
-  Link,
-  useRouteMatch,
-  useHistory,
-  generatePath,
-} from 'react-router-dom';
+import { Link, useRouteMatch, useHistory } from 'react-router-dom';
 import { InPageNav, Loader, Tabs, Tab } from 'franklin-sites';
 import cn from 'classnames';
 import { frame } from 'timing-functions';
@@ -114,10 +109,11 @@ const Entry: FC = () => {
     if (match && !match.params.subPage) {
       history.replace({
         ...history.location,
-        pathname: generatePath(LocationToPath[Location.UniProtKBEntry], {
-          accession: match.params.accession,
-          subPage: TabLocation.Entry,
-        }),
+        pathname: getEntryPath(
+          Namespace.uniprotkb,
+          match.params.accession,
+          TabLocation.Entry
+        ),
       });
     }
   }, [match, history]);

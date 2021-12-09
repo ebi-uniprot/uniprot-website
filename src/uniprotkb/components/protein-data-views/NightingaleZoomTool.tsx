@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { ZoomIn, ZoomOut, ZoomToSequence } from 'franklin-sites';
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 
@@ -7,8 +6,8 @@ import './styles/nightingale-zoom-tool.scss';
 // Icons and icon size TBD once designed.
 const iconSize = 19;
 
-const NightingaleZoomTool: FC<{ length: number }> = ({ length }) => {
-  useCustomElement(
+const NightingaleZoomTool = ({ length }: { length: number }) => {
+  const protvistaZoomToolElement = useCustomElement(
     /* istanbul ignore next */
     () =>
       import(
@@ -18,7 +17,7 @@ const NightingaleZoomTool: FC<{ length: number }> = ({ length }) => {
   );
 
   return (
-    <protvista-zoom-tool length={length}>
+    <protvistaZoomToolElement.name length={length}>
       <span slot="zoom-in" className="nightingale-button-content">
         <ZoomIn height={iconSize} />
       </span>
@@ -28,7 +27,7 @@ const NightingaleZoomTool: FC<{ length: number }> = ({ length }) => {
       <span slot="zoom-in-seq" className="nightingale-button-content">
         <ZoomToSequence height={iconSize} />
       </span>
-    </protvista-zoom-tool>
+    </protvistaZoomToolElement.name>
   );
 };
 

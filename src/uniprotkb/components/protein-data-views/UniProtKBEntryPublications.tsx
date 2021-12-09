@@ -16,10 +16,9 @@ const UniProtKBEntryPublications = ({ pubmedIds }: { pubmedIds: string[] }) => {
     namespace: Namespace.citations,
     query: pubmedIds.join(' OR '),
   });
-  const { loading, data, status, error } =
-    useDataApi<{
-      results: CitationsAPIModel[];
-    }>(url);
+  const { loading, data, status, error } = useDataApi<{
+    results: CitationsAPIModel[];
+  }>(url);
 
   if (error) {
     return (

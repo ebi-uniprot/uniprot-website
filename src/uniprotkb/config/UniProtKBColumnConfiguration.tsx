@@ -340,7 +340,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccAlternativeProducts, {
         <IsoformView
           alternativeProducts={alternativeProducts}
           includeSequences={false}
-          canonicalAccession={data.primaryAccession}
+          accession={data.primaryAccession}
         />
       )
     );

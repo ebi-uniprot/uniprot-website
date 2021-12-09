@@ -9,6 +9,7 @@ import {
   supportingDataNamespaces,
   supportingDataAndAANamespaces,
 } from '../../shared/types/namespaces';
+import EntrySection from '../../uniprotkb/types/entrySection';
 
 export const IDMappingNamespaces = [
   Namespace.uniprotkb,
@@ -176,11 +177,19 @@ export const getEntryPath = (
   namespace: SearchableNamespace,
   accession: string | number,
   subPage?: string
-) =>
-  generatePath(EntryLocations[namespace], {
-    accession: `${accession}`,
+) => {
+  const acc = `${accession}`;
+  if (namespace === Namespace.uniprotkb && acc.includes('-')) {
+    return `${generatePath(EntryLocations[namespace], {
+      accession: acc.split('-')[0],
+      subPage,
+    })}#${EntrySection.Sequence}`;
+  }
+  return generatePath(EntryLocations[namespace], {
+    accession: acc,
     subPage,
   });
+};
 
 // Same as above but with partial function application
 export const getEntryPathFor = (namespace: SearchableNamespace) =>

@@ -1,4 +1,4 @@
-import { useCallback, FC, useMemo, Fragment } from 'react';
+import { useCallback, useMemo, Fragment } from 'react';
 import { Loader } from 'franklin-sites';
 import joinUrl from 'url-join';
 
@@ -16,11 +16,17 @@ import apiUrls from '../../../shared/config/apiUrls';
 import './styles/variation-view.scss';
 import NightingaleZoomTool from './NightingaleZoomTool';
 
-const VariationView: FC<{
+type VariationViewProps = {
   primaryAccession: string;
   title?: string;
   onlyTable?: boolean;
-}> = ({ primaryAccession, title, onlyTable = false }) => {
+};
+
+const VariationView = ({
+  primaryAccession,
+  title,
+  onlyTable = false,
+}: VariationViewProps) => {
   const { loading, data, error, status } = useDataApi<ProteinsAPIVariation>(
     joinUrl(apiUrls.variation, primaryAccession)
   );
@@ -33,7 +39,7 @@ const VariationView: FC<{
     [data]
   );
 
-  const filterDefined = useCustomElement(
+  const filterElement = useCustomElement(
     /* istanbul ignore next */
     () => import(/* webpackChunkName: "protvista-filter" */ 'protvista-filter'),
     'protvista-filter'
@@ -41,15 +47,15 @@ const VariationView: FC<{
 
   const protvistaFilterRef = useCallback(
     (node) => {
-      if (node && filterDefined) {
+      if (node && filterElement.defined) {
         // eslint-disable-next-line no-param-reassign
         node.filters = filterConfig;
       }
     },
-    [filterDefined]
+    [filterElement.defined]
   );
 
-  const variationDefined = useCustomElement(
+  const variationElement = useCustomElement(
     /* istanbul ignore next */
     () =>
       import(
@@ -62,7 +68,7 @@ const VariationView: FC<{
     (node) => {
       if (
         node &&
-        variationDefined &&
+        variationElement.defined &&
         transformedData &&
         transformedData.variants
       ) {
@@ -74,10 +80,10 @@ const VariationView: FC<{
         node.length = transformedData.sequence.length;
       }
     },
-    [variationDefined, transformedData]
+    [variationElement.defined, transformedData]
   );
 
-  const navigationDefined = useCustomElement(
+  const navigationElement = useCustomElement(
     /* istanbul ignore next */
     () =>
       import(
@@ -85,19 +91,19 @@ const VariationView: FC<{
       ),
     'protvista-navigation'
   );
-  const sequenceDefined = useCustomElement(
+  const sequenceElement = useCustomElement(
     /* istanbul ignore next */
     () =>
       import(/* webpackChunkName: "protvista-sequence" */ 'protvista-sequence'),
     'protvista-sequence'
   );
-  const managerDefined = useCustomElement(
+  const managerElement = useCustomElement(
     /* istanbul ignore next */
     () =>
       import(/* webpackChunkName: "protvista-manager" */ 'protvista-manager'),
     'protvista-manager'
   );
-  const dataTableDefined = useCustomElement(
+  const dataTableElement = useCustomElement(
     /* istanbul ignore next */
     () =>
       import(
@@ -106,14 +112,14 @@ const VariationView: FC<{
     'protvista-datatable'
   );
   const ceDefined =
-    filterDefined &&
-    variationDefined &&
-    navigationDefined &&
-    sequenceDefined &&
-    managerDefined &&
-    dataTableDefined;
+    filterElement.defined &&
+    variationElement.defined &&
+    navigationElement.defined &&
+    sequenceElement.defined &&
+    managerElement.defined &&
+    dataTableElement.defined;
 
-  if (loading || !ceDefined) {
+  if (loading) {
     return <Loader />;
   }
 
@@ -220,36 +226,36 @@ const VariationView: FC<{
   );
 
   if (onlyTable) {
-    return <protvista-datatable filter-scroll>{table}</protvista-datatable>;
+    return <dataTableElement.name filter-scroll>{table}</dataTableElement.name>;
   }
 
   return (
     <div>
       {title && <h3>{title}</h3>}
-      <protvista-manager attributes="highlight displaystart displayend activefilters filters selectedid">
-        {!onlyTable && (
+      <managerElement.name attributes="highlight displaystart displayend activefilters filters selectedid">
+        {!onlyTable && ceDefined && (
           <div className="variation-view">
             <NightingaleZoomTool length={transformedData.sequence.length} />
-            <protvista-navigation length={transformedData.sequence.length} />
-            <protvista-sequence
+            <navigationElement.name length={transformedData.sequence.length} />
+            <sequenceElement.name
               length={transformedData.sequence.length}
               sequence={transformedData.sequence}
               height="20"
               filter-scroll
             />
-            <protvista-filter
+            <filterElement.name
               for="variation-component"
               ref={protvistaFilterRef}
             />
-            <protvista-variation
+            <variationElement.name
               id="variation-component"
               length={transformedData.sequence.length}
               ref={protvistaVariationRef}
             />
           </div>
         )}
-        <protvista-datatable filter-scroll>{table}</protvista-datatable>
-      </protvista-manager>
+        <dataTableElement.name filter-scroll>{table}</dataTableElement.name>
+      </managerElement.name>
     </div>
   );
 };

@@ -77,33 +77,34 @@ const UniProtKBEvidenceTag = ({ evidences }: { evidences?: Evidence[] }) => {
     return null;
   }
   const evidenceObj = groupBy(evidences, (evidence) => evidence.evidenceCode);
-  const evidenceTags = Object.entries(evidenceObj).map(
-    ([evidenceCode, references]) => {
-      const evidenceData = getEvidenceCodeData(
-        getEcoNumberFromString(evidenceCode)
-      );
-      if (!evidenceData) {
-        return null;
-      }
-      return (
-        <EvidenceTag
-          label={evidenceData.labelRender?.(references) || evidenceData.label}
-          className={
-            evidenceData.manual
-              ? 'svg-colour-reviewed'
-              : 'svg-colour-unreviewed'
-          }
-          key={evidenceCode}
-        >
-          <UniProtEvidenceTagContent
-            evidenceData={evidenceData}
-            evidences={references}
-          />
-        </EvidenceTag>
-      );
-    }
+  return (
+    <>
+      {Object.entries(evidenceObj).map(([evidenceCode, references]) => {
+        const evidenceData = getEvidenceCodeData(
+          getEcoNumberFromString(evidenceCode)
+        );
+        if (!evidenceData) {
+          return null;
+        }
+        return (
+          <EvidenceTag
+            label={evidenceData.labelRender?.(references) || evidenceData.label}
+            className={
+              evidenceData.manual
+                ? 'svg-colour-reviewed'
+                : 'svg-colour-unreviewed'
+            }
+            key={evidenceCode}
+          >
+            <UniProtEvidenceTagContent
+              evidenceData={evidenceData}
+              evidences={references}
+            />
+          </EvidenceTag>
+        );
+      })}
+    </>
   );
-  return <>{evidenceTags}</>;
 };
 
 export default UniProtKBEvidenceTag;

@@ -1,6 +1,7 @@
 import { Tile, HeroContainer } from 'franklin-sites';
 import cn from 'classnames';
 
+// eslint-disable-next-line import/no-relative-packages
 import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
 
 import BlastIllustration from '../../../images/blast_illustration.svg';

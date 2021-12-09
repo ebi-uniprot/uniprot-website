@@ -65,7 +65,7 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
     </li>
   </ul>
   <p>
-    This entry describes 
+    This entry describes  
     <strong>
       2
     </strong>
@@ -73,10 +73,7 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
     <strong>
       event 1 & event 2
     </strong>
-    .
-  </p>
-  <p>
-    some text
+    . some text
   </p>
   <h3
     id="Isoform_APP770"
@@ -130,6 +127,37 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
           class="decorated-list-item__content"
         >
           PreA4 770
+        </div>
+      </div>
+    </li>
+    <li>
+      <div
+        class="decorated-list-item decorated-list-item--compact"
+      >
+        <div
+          class="decorated-list-item__title"
+        >
+          <h5
+            class="bold"
+          >
+            See also
+          </h5>
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          sequence in 
+          <a
+            href="/uniparc?query=(isoform:P05067-1)&direct"
+          >
+            UniParc
+          </a>
+           or sequence clusters in 
+          <a
+            href="/uniref?query=(uniprot_id:P05067)"
+          >
+            UniRef
+          </a>
         </div>
       </div>
     </li>
@@ -437,6 +465,37 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
           class="decorated-list-item__content"
         >
           PreA4 770-2
+        </div>
+      </div>
+    </li>
+    <li>
+      <div
+        class="decorated-list-item decorated-list-item--compact"
+      >
+        <div
+          class="decorated-list-item__title"
+        >
+          <h5
+            class="bold"
+          >
+            See also
+          </h5>
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          sequence in 
+          <a
+            href="/uniparc?query=(isoform:P05067-2)&direct"
+          >
+            UniParc
+          </a>
+           or sequence clusters in 
+          <a
+            href="/uniref?query=(uniprot_id:P05067-2)"
+          >
+            UniRef
+          </a>
         </div>
       </div>
     </li>

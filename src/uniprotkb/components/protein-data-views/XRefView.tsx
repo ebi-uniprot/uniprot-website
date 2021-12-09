@@ -375,27 +375,28 @@ type StructureXRefsGroupedByCategoryProps = {
   crc64?: string;
 };
 
-const StructureXRefsGroupedByCategory: FC<StructureXRefsGroupedByCategoryProps> =
-  ({ databases, primaryAccession, crc64 }) => {
-    const { PDBDatabase, otherStructureDatabases } =
-      partitionStructureDatabases(databases);
-    let PDBViewNode;
-    if (PDBDatabase && PDBDatabase.xrefs.length) {
-      PDBViewNode = <PDBView xrefs={PDBDatabase.xrefs} />;
-    }
-    return (
-      <>
-        {PDBViewNode}
-        {otherStructureDatabases && otherStructureDatabases.length && (
-          <XRefsGroupedByCategory
-            databases={otherStructureDatabases}
-            primaryAccession={primaryAccession}
-            crc64={crc64}
-          />
-        )}
-      </>
-    );
-  };
+const StructureXRefsGroupedByCategory: FC<
+  StructureXRefsGroupedByCategoryProps
+> = ({ databases, primaryAccession, crc64 }) => {
+  const { PDBDatabase, otherStructureDatabases } =
+    partitionStructureDatabases(databases);
+  let PDBViewNode;
+  if (PDBDatabase && PDBDatabase.xrefs.length) {
+    PDBViewNode = <PDBView xrefs={PDBDatabase.xrefs} />;
+  }
+  return (
+    <>
+      {PDBViewNode}
+      {otherStructureDatabases && otherStructureDatabases.length && (
+        <XRefsGroupedByCategory
+          databases={otherStructureDatabases}
+          primaryAccession={primaryAccession}
+          crc64={crc64}
+        />
+      )}
+    </>
+  );
+};
 
 type XRefViewProps = {
   xrefs: XrefUIModel[];

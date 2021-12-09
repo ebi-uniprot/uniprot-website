@@ -13,7 +13,7 @@ type Props = {
   form: ({ initialFormValues }: FormProps) => JSX.Element;
 };
 
-function InitialFormParametersProvider({ defaultFormValues, form }: Props) {
+const InitialFormParametersProvider = ({ defaultFormValues, form }: Props) => {
   const { loading, initialFormValues } =
     useInitialFormParameters(defaultFormValues);
   const Form = form;
@@ -26,6 +26,6 @@ function InitialFormParametersProvider({ defaultFormValues, form }: Props) {
     return null;
   }
   return <Form initialFormValues={initialFormValues} />;
-}
+};
 
 export default InitialFormParametersProvider;

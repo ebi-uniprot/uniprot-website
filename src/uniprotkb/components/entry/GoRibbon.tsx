@@ -54,7 +54,7 @@ const GoRibbon = ({
 }: GoRibbonType) => {
   const nodeRef = useRef<HTMLElement>();
 
-  useCustomElement(
+  const datatableElement = useCustomElement(
     /* istanbul ignore next */
     () =>
       import(
@@ -74,9 +74,11 @@ const GoRibbon = ({
   const [elementLoaded, setElementLoaded] = useSafeState(false);
 
   useEffect(() => {
-    customElements.whenDefined('wc-ribbon-strips').then(() => {
-      setElementLoaded(true);
-    });
+    if ('customElements' in window) {
+      customElements.whenDefined('wc-ribbon-strips').then(() => {
+        setElementLoaded(true);
+      });
+    }
   }, [setElementLoaded]);
 
   const [activeGoTerms, setActiveGoTerms] = useState<Set<GOTermID> | null>(
@@ -116,7 +118,7 @@ const GoRibbon = ({
       // TODO: the groupClick event detail does not provide the attribute "selected". Possibly create a PR against ribbon-strips to provide this.
       const isSelected = 'selected' in detail ? detail.selected?.[0] : true;
       const clickedID = detail.group.id;
-      const groupID: GOTermID =
+      const groupID: GOTermID | 'all' | 'all-other' =
         detail.group.type === 'Other' ? `${clickedID}-other` : clickedID;
       setActiveGoTerms(
         !isSelected || clickedID === 'all'
@@ -193,7 +195,7 @@ const GoRibbon = ({
           src="https://unpkg.com/@geneontology/wc-ribbon-strips@0.0.37/dist/wc-ribbon-strips/wc-ribbon-strips.esm.js"
         />
       </Helmet>
-      {slimSets && (
+      {elementLoaded && slimSets && (
         <label className={styles['set-selector']}>
           <div>Slimming set:</div>
           <select
@@ -208,9 +210,9 @@ const GoRibbon = ({
           </select>
         </label>
       )}
-      {ribbon}
+      {elementLoaded && ribbon}
       {!!filteredGoTerms.length && (
-        <protvista-datatable>
+        <datatableElement.name>
           <table>
             <thead>
               <tr>
@@ -238,7 +240,7 @@ const GoRibbon = ({
               )}
             </tbody>
           </table>
-        </protvista-datatable>
+        </datatableElement.name>
       )}
     </div>
   );
