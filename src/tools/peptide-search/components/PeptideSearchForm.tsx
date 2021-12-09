@@ -101,7 +101,7 @@ const PeptideSearchForm = () => {
   const history = useHistory();
   const reducedMotion = useReducedMotion();
 
-  const initialFormValues = useInitialFormParameters(defaultFormValues);
+  const { initialFormValues } = useInitialFormParameters(defaultFormValues);
 
   // used when the form submission needs to be disabled
   const [submitDisabled, setSubmitDisabled] = useState(true);
@@ -112,43 +112,58 @@ const PeptideSearchForm = () => {
 
   // actual form fields
   const [peps, setPeps] = useState<
-    PeptideSearchFormValues[PeptideSearchFields.peps]
-  >(
-    initialFormValues[
-      PeptideSearchFields.peps
-    ] as PeptideSearchFormValues[PeptideSearchFields.peps]
-  );
-  const [taxIDs, setTaxIDs] = useState(
-    initialFormValues[
-      PeptideSearchFields.taxIds
-    ] as PeptideSearchFormValues[PeptideSearchFields.taxIds]
-  );
-  const [lEQi, setLEQi] = useState(
-    initialFormValues[
-      PeptideSearchFields.lEQi
-    ] as PeptideSearchFormValues[PeptideSearchFields.lEQi]
-  );
-  const [spOnly, setSpOnly] = useState(
-    initialFormValues[
-      PeptideSearchFields.spOnly
-    ] as PeptideSearchFormValues[PeptideSearchFields.spOnly]
-  );
+    PeptideSearchFormValues[PeptideSearchFields.peps] | null
+  >(null);
+  const [taxIDs, setTaxIDs] =
+    useState<PeptideSearchFormValues[PeptideSearchFields.taxIds]>();
+  const [lEQi, setLEQi] =
+    useState<PeptideSearchFormValues[PeptideSearchFields.lEQi]>();
+  const [spOnly, setSpOnly] =
+    useState<PeptideSearchFormValues[PeptideSearchFields.spOnly]>();
 
   // extra job-related fields
-  const [jobName, setJobName] = useState(
-    initialFormValues[
-      PeptideSearchFields.name
-    ] as PeptideSearchFormValues[PeptideSearchFields.name]
-  );
+  const [jobName, setJobName] = useState<
+    PeptideSearchFormValues[PeptideSearchFields.name] | null
+  >(null);
+
+  useEffect(() => {
+    if (initialFormValues) {
+      setPeps(
+        initialFormValues[
+          PeptideSearchFields.peps
+        ] as PeptideSearchFormValues[PeptideSearchFields.peps]
+      );
+      setTaxIDs(
+        initialFormValues[
+          PeptideSearchFields.taxIds
+        ] as PeptideSearchFormValues[PeptideSearchFields.taxIds]
+      );
+      setLEQi(
+        initialFormValues[
+          PeptideSearchFields.lEQi
+        ] as PeptideSearchFormValues[PeptideSearchFields.lEQi]
+      );
+      setSpOnly(
+        initialFormValues[
+          PeptideSearchFields.spOnly
+        ] as PeptideSearchFormValues[PeptideSearchFields.spOnly]
+      );
+      setJobName(
+        initialFormValues[
+          PeptideSearchFields.name
+        ] as PeptideSearchFormValues[PeptideSearchFields.name]
+      );
+    }
+  }, [initialFormValues]);
 
   // taxon field handlers
   const updateTaxonFormValue = (path: string, id?: string) => {
     // Only proceed if a node is selected
-    if (!id) {
+    if (!id || !taxIDs) {
       return;
     }
 
-    const selected = (taxIDs.selected || []) as SelectedTaxon[];
+    const selected = (taxIDs?.selected || []) as SelectedTaxon[];
 
     // If already there, don't add again
     if (selected.some((taxon: SelectedTaxon) => taxon.id === id)) {
@@ -165,6 +180,9 @@ const PeptideSearchForm = () => {
   };
 
   const removeTaxonFormValue = (id: string | number) => {
+    if (!taxIDs) {
+      return;
+    }
     const selected = (taxIDs.selected || []) as SelectedTaxon[];
     setTaxIDs({
       ...taxIDs,
@@ -189,7 +207,7 @@ const PeptideSearchForm = () => {
   const submitPeptideSearchJob = (event: FormEvent | MouseEvent) => {
     event.preventDefault();
 
-    if (!peps.selected) {
+    if (!peps?.selected) {
       return;
     }
 
@@ -201,9 +219,9 @@ const PeptideSearchForm = () => {
     // tools middleware
     const parameters: FormParameters = {
       peps: peps.selected as PepS,
-      taxIds: taxIDs.selected as SelectedTaxon[],
-      lEQi: lEQi.selected as LEQi,
-      spOnly: spOnly.selected as SpOnly,
+      taxIds: taxIDs?.selected as SelectedTaxon[],
+      lEQi: lEQi?.selected as LEQi,
+      spOnly: spOnly?.selected as SpOnly,
     };
 
     // navigate to the dashboard, not immediately, to give the impression that
@@ -220,15 +238,15 @@ const PeptideSearchForm = () => {
         createJob(
           parameters,
           JobTypes.PEPTIDE_SEARCH,
-          jobName.selected as string
+          jobName?.selected as string
         )
       );
     });
   };
 
   const parsedSequences = useMemo(
-    () => splitAndTidyText(peps.selected as string),
-    [peps.selected]
+    () => splitAndTidyText(peps?.selected as string),
+    [peps?.selected]
   );
 
   const firstParsedSequence = parsedSequences[0];
@@ -241,6 +259,9 @@ const PeptideSearchForm = () => {
         parsedSequences.length > 1 ? ` +${parsedSequences.length - 1}` : ''
       }`;
       setJobName((jobName) => {
+        if (!jobName) {
+          return null;
+        }
         if (jobName.selected === potentialJobName) {
           // avoid unecessary rerender by keeping the same object
           return jobName;
@@ -248,7 +269,12 @@ const PeptideSearchForm = () => {
         return { ...jobName, selected: potentialJobName };
       });
     } else {
-      setJobName((jobName) => ({ ...jobName, selected: '' }));
+      setJobName((jobName) => {
+        if (!jobName) {
+          return null;
+        }
+        return { ...jobName, selected: '' };
+      });
     }
   }, [firstParsedSequence, parsedSequences.length, jobNameEdited]);
 
@@ -264,7 +290,12 @@ const PeptideSearchForm = () => {
   useTextFileInput({
     inputRef: fileInputRef,
     onFileContent: (content) => {
-      setPeps((peps) => ({ ...peps, selected: content }));
+      setPeps((peps) => {
+        if (!peps) {
+          return null;
+        }
+        return { ...peps, selected: content };
+      });
     },
 
     onError: (error) =>
@@ -278,6 +309,11 @@ const PeptideSearchForm = () => {
       ),
     dndOverlay: <span>Drop your input file anywhere on this page</span>,
   });
+
+  if (!peps || !jobName || !taxIDs) {
+    // Log error
+    return null;
+  }
 
   return (
     <>
@@ -307,9 +343,14 @@ const PeptideSearchForm = () => {
               placeholder="Protein sequence(s) of at least 2 aminoacids"
               className="tools-form-raw-text-input"
               value={peps.selected as string}
-              onChange={(event) =>
-                setPeps((peps) => ({ ...peps, selected: event.target.value }))
-              }
+              onChange={(event) => {
+                setPeps((peps) => {
+                  if (!peps) {
+                    return null;
+                  }
+                  return { ...peps, selected: event.target.value };
+                });
+              }}
             />
           </section>
           <section className="tools-form-section">
