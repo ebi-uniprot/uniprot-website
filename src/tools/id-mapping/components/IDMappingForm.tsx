@@ -85,27 +85,33 @@ const IDMappingForm = () => {
   const history = useHistory();
   const reducedMotion = useReducedMotion();
 
-  const initialFormValues = useInitialFormParameters(defaultFormValues);
+  const { initialFormValues, loading: formLoading } =
+    useInitialFormParameters(defaultFormValues);
 
-  // actual form fields
-  const initialIDs = initialFormValues[IDMappingFields.ids]
-    .selected as string[];
   // Text of IDs from textarea
-  const [textIDs, setTextIDs] = useState<string>(initialIDs.join('\n'));
-  const [fromDb, setFromDb] = useState(
-    initialFormValues[IDMappingFields.fromDb] as IDMappingFormValue
-  );
-  const [toDb, setToDb] = useState(
-    initialFormValues[IDMappingFields.toDb] as IDMappingFormValue
-  );
-  const [taxID, setTaxID] = useState(
-    initialFormValues[IDMappingFields.taxons] as IDMappingFormValue
-  );
+  const [textIDs, setTextIDs] = useState<string>();
+  const [fromDb, setFromDb] = useState<IDMappingFormValue | null>(null);
+  const [toDb, setToDb] = useState<IDMappingFormValue | null>(null);
+  const [taxID, setTaxID] = useState<IDMappingFormValue>();
 
   // extra job-related fields
-  const [jobName, setJobName] = useState(
-    initialFormValues[IDMappingFields.name]
-  );
+  const [jobName, setJobName] = useState<IDMappingFormValue | null>(null);
+
+  useEffect(() => {
+    if (initialFormValues) {
+      // actual form fields
+      const initialIDs = initialFormValues[IDMappingFields.ids]
+        .selected as string[];
+      setTextIDs(initialIDs.join('\n'));
+      setFromDb(
+        initialFormValues[IDMappingFields.fromDb] as IDMappingFormValue
+      );
+      setToDb(initialFormValues[IDMappingFields.toDb] as IDMappingFormValue);
+      setTaxID(initialFormValues[IDMappingFields.taxons] as IDMappingFormValue);
+      setJobName(initialFormValues[IDMappingFields.name] as IDMappingFormValue);
+    }
+  }, [initialFormValues]);
+
   // flag to see if the user manually changed the title
   const [jobNameEdited, setJobNameEdited] = useState(false);
 
@@ -147,7 +153,14 @@ const IDMappingForm = () => {
     (event: FormEvent | MouseEvent) => {
       event.preventDefault();
 
-      if (!parsedIDs.length || !dbNameToDbInfo || !ruleIdToRuleInfo) {
+      if (
+        !parsedIDs.length ||
+        !dbNameToDbInfo ||
+        !ruleIdToRuleInfo ||
+        !fromDb ||
+        !toDb ||
+        !taxID
+      ) {
         return;
       }
 
@@ -183,7 +196,11 @@ const IDMappingForm = () => {
         // internal state. Dispatching after history.push so that pop-up messages (as a
         // side-effect of createJob) cannot mount immediately before navigating away.
         dispatch(
-          createJob(parameters, JobTypes.ID_MAPPING, jobName.selected as string)
+          createJob(
+            parameters,
+            JobTypes.ID_MAPPING,
+            jobName?.selected as string
+          )
         );
       });
     },
@@ -192,19 +209,19 @@ const IDMappingForm = () => {
     [
       dbNameToDbInfo,
       dispatch,
-      fromDb.selected,
       history,
       parsedIDs,
-      jobName.selected,
+      jobName?.selected,
       ruleIdToRuleInfo,
-      taxID.selected,
-      toDb.selected,
+      fromDb,
+      toDb,
+      taxID,
     ]
   );
 
   const firstParsedID = parsedIDs[0];
   useEffect(() => {
-    if (jobNameEdited) {
+    if (jobNameEdited || !fromDb || !toDb) {
       return;
     }
     if (parsedIDs.length > 0) {
@@ -212,6 +229,9 @@ const IDMappingForm = () => {
         parsedIDs.length > 1 ? ` +${parsedIDs.length - 1}` : ''
       } ${fromDb.selected} → ${toDb.selected}`;
       setJobName((jobName) => {
+        if (!jobName) {
+          return null;
+        }
         if (jobName.selected === potentialJobName) {
           // avoid unecessary rerender by keeping the same object
           return jobName;
@@ -219,7 +239,12 @@ const IDMappingForm = () => {
         return { ...jobName, selected: potentialJobName };
       });
     } else {
-      setJobName((jobName) => ({ ...jobName, selected: '' }));
+      setJobName((jobName) => {
+        if (!jobName) {
+          return null;
+        }
+        return { ...jobName, selected: '' };
+      });
     }
   }, [fromDb, firstParsedID, parsedIDs.length, jobNameEdited, toDb]);
 
@@ -247,10 +272,10 @@ const IDMappingForm = () => {
     setTaxID({
       ...taxID,
       selected: { id, label },
-    });
+    } as IDMappingFormValue);
   };
 
-  useEffect(() => setSubmitDisabled(textIDs.trim().length === 0), [textIDs]);
+  useEffect(() => setSubmitDisabled(textIDs?.trim().length === 0), [textIDs]);
 
   useTextFileInput({
     inputRef: fileInputRef,
@@ -267,8 +292,8 @@ const IDMappingForm = () => {
     dndOverlay: <span>Drop your input file anywhere on this page</span>,
   });
 
-  const fromDbInfo = dbNameToDbInfo?.[fromDb.selected as string];
-  const toDbInfo = dbNameToDbInfo?.[toDb.selected as string];
+  const fromDbInfo = dbNameToDbInfo?.[fromDb?.selected as string];
+  const toDbInfo = dbNameToDbInfo?.[toDb?.selected as string];
   const ruleInfo = fromDbInfo?.ruleId && ruleIdToRuleInfo?.[fromDbInfo.ruleId];
   const fromTreeData =
     data && ruleIdToRuleInfo && getTreeData(data?.groups, ruleIdToRuleInfo);
@@ -277,6 +302,10 @@ const IDMappingForm = () => {
     ruleIdToRuleInfo &&
     fromDbInfo?.ruleId &&
     getTreeData(data?.groups, ruleIdToRuleInfo, fromDbInfo.ruleId);
+
+  if (formLoading) {
+    return <Loader />;
+  }
 
   if (error) {
     return <Message level="failure">{error?.message}</Message>;
@@ -338,11 +367,16 @@ const IDMappingForm = () => {
                   autocompleteFilter
                   autocompletePlaceholder="Search database name"
                   onSelect={({ id }: TreeDataNode) => {
-                    setFromDb((fromDb) => ({ ...fromDb, selected: id }));
+                    setFromDb((fromDb) => {
+                      if (!fromDb) {
+                        return null;
+                      }
+                      return { ...fromDb, selected: id };
+                    });
                     setToDb((toDb) => {
                       const ruleId = dbNameToDbInfo[id]?.ruleId;
                       let nextToDb = toDb;
-                      if (ruleId) {
+                      if (ruleId && toDb) {
                         const newRuleInfo = ruleIdToRuleInfo[ruleId];
                         const newTos = newRuleInfo.tos;
                         // If old "to" is in the new rule's too don't update otherwise select defaultTo
@@ -360,7 +394,7 @@ const IDMappingForm = () => {
                     });
                   }}
                   label={fromDbInfo.displayName}
-                  defaultActiveNodes={[fromDb.selected as string]}
+                  defaultActiveNodes={[fromDb?.selected as string]}
                 />
               </section>
               <section className="tools-form-section__item">
@@ -371,10 +405,15 @@ const IDMappingForm = () => {
                   autocompleteFilter
                   autocompletePlaceholder="Search database name"
                   onSelect={({ id }: TreeDataNode) => {
-                    setToDb((toDb) => ({ ...toDb, selected: id }));
+                    setToDb((toDb) => {
+                      if (!toDb) {
+                        return null;
+                      }
+                      return { ...toDb, selected: id };
+                    });
                   }}
                   label={toDbInfo.displayName}
-                  defaultActiveNodes={[toDb.selected as string]}
+                  defaultActiveNodes={[toDb?.selected as string]}
                 />
               </section>
               {ruleInfo.taxonId && (
@@ -384,7 +423,7 @@ const IDMappingForm = () => {
                     url={apiUrls.taxonomySuggester}
                     onSelect={handleTaxonFormValue}
                     title="Restrict by taxonomy"
-                    value={(taxID.selected as SelectedTaxon)?.label}
+                    value={(taxID?.selected as SelectedTaxon)?.label}
                   />
                 </section>
               )}
@@ -399,16 +438,19 @@ const IDMappingForm = () => {
                     autoComplete="off"
                     maxLength={100}
                     style={{
-                      width: `${(jobName.selected as string).length + 2}ch`,
+                      width: `${(jobName?.selected as string).length + 2}ch`,
                     }}
                     placeholder={'"my job title"'}
-                    value={jobName.selected as string}
+                    value={jobName?.selected as string}
                     onFocus={(event) => {
                       if (!jobNameEdited) {
                         event.target.select();
                       }
                     }}
                     onChange={(event) => {
+                      if (!jobName) {
+                        return;
+                      }
                       setJobNameEdited(Boolean(event.target.value));
                       setJobName({ ...jobName, selected: event.target.value });
                     }}
