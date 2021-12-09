@@ -97,7 +97,7 @@ function useInitialFormParameters<
         .map(({ id, start, end }) => {
           if (!idToSequence[id]) {
             // TODO: currently this will not be reached - if any accession fails in the accessions request
-            // then the whole the request fails. Leaving here in case this ever changes
+            // then the whole request fails. Leaving here in case this ever changes
             // reduxDispatch(
             //   addMessage({
             //     id: v1(),
