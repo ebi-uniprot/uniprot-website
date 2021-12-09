@@ -382,10 +382,9 @@ const AlignForm = ({ initialFormValues }: Props) => {
 };
 
 const AlignFormWithProvider = () => (
-  <InitialFormParametersProvider
-    defaultFormValues={defaultFormValues}
-    form={AlignForm}
-  />
+  <InitialFormParametersProvider defaultFormValues={defaultFormValues}>
+    {(initialFormValues) => <AlignForm initialFormValues={initialFormValues} />}
+  </InitialFormParametersProvider>
 );
 
 export default AlignFormWithProvider;

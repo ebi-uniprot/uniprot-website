@@ -580,10 +580,9 @@ const BlastForm = ({ initialFormValues }: Props) => {
 };
 
 const BlastFormWithProvider = () => (
-  <InitialFormParametersProvider
-    defaultFormValues={defaultFormValues}
-    form={BlastForm}
-  />
+  <InitialFormParametersProvider defaultFormValues={defaultFormValues}>
+    {(initialFormValues) => <BlastForm initialFormValues={initialFormValues} />}
+  </InitialFormParametersProvider>
 );
 
 export default BlastFormWithProvider;

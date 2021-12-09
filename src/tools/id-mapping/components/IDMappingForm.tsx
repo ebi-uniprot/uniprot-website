@@ -453,10 +453,11 @@ const IDMappingForm = ({ initialFormValues }: Props) => {
 };
 
 const IDMappingFormWithProvider = () => (
-  <InitialFormParametersProvider
-    defaultFormValues={defaultFormValues}
-    form={IDMappingForm}
-  />
+  <InitialFormParametersProvider defaultFormValues={defaultFormValues}>
+    {(initialFormValues) => (
+      <IDMappingForm initialFormValues={initialFormValues} />
+    )}
+  </InitialFormParametersProvider>
 );
 
 export default IDMappingFormWithProvider;

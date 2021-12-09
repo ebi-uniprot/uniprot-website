@@ -1,31 +1,28 @@
 import { Loader } from 'franklin-sites';
 
-import useInitialFormParameters from '../hooks/useInitialFormParameters';
+import useInitialFormParameters, {
+  FormValues,
+} from '../hooks/useInitialFormParameters';
 
-import { BlastFormValues } from '../blast/config/BlastFormData';
-
-type FormProps = {
-  initialFormValues: Readonly<BlastFormValues>;
-};
-
-type Props = {
-  defaultFormValues: Readonly<BlastFormValues>;
-  form: ({ initialFormValues }: FormProps) => JSX.Element;
-};
-
-const InitialFormParametersProvider = ({ defaultFormValues, form }: Props) => {
+const InitialFormParametersProvider = <T extends Readonly<FormValues<string>>>({
+  defaultFormValues,
+  children,
+}: {
+  defaultFormValues: T;
+  children: (initialFormValues: T) => JSX.Element;
+}) => {
   const { loading, initialFormValues } =
     useInitialFormParameters(defaultFormValues);
-  const Form = form;
   if (loading) {
     return <Loader />;
   }
   if (!initialFormValues) {
     // TODO: at this point it's not loading and their isn't any initialFormValues
     // so should return an error?
+    // or should return an empty/default form?
     return null;
   }
-  return <Form initialFormValues={initialFormValues} />;
+  return children(initialFormValues as T);
 };
 
 export default InitialFormParametersProvider;

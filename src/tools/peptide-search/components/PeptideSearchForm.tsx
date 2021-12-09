@@ -417,10 +417,11 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
 };
 
 const PeptideSearchFormWithProvider = () => (
-  <InitialFormParametersProvider
-    defaultFormValues={defaultFormValues}
-    form={PeptideSearchForm}
-  />
+  <InitialFormParametersProvider defaultFormValues={defaultFormValues}>
+    {(initialFormValues) => (
+      <PeptideSearchForm initialFormValues={initialFormValues} />
+    )}
+  </InitialFormParametersProvider>
 );
 
 export default PeptideSearchFormWithProvider;

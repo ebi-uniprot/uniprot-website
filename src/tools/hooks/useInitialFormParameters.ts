@@ -1,6 +1,5 @@
 import { useEffect, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
-import deepFreeze from 'deep-freeze';
 import { keyBy, cloneDeep } from 'lodash-es';
 
 import useDataApi from '../../shared/hooks/useDataApi';
@@ -16,7 +15,7 @@ interface CustomLocationState<T> {
   parameters?: Partial<T>;
 }
 
-type FormValue = {
+export type FormValue = {
   fieldName: string;
   selected?: Readonly<
     string | string[] | number | boolean | SelectedTaxon | SelectedTaxon[]
@@ -26,12 +25,17 @@ type FormValue = {
   >;
 };
 
-type FormValues<Fields extends string> = Record<Fields, FormValue>;
+export type FormValues<Fields extends string> = Record<Fields, FormValue>;
 
 function useInitialFormParameters<
   Fields extends string,
   FormParameters extends Record<Fields, unknown>
->(defaultFormValues: Readonly<FormValues<Fields>>) {
+>(
+  defaultFormValues: Readonly<FormValues<Fields>>
+): {
+  loading: boolean;
+  initialFormValues: Readonly<FormValues<Fields>> | null;
+} {
   const history = useHistory();
   const idsMaybeWithRange = useMemo(() => {
     // This only happens on first mount
@@ -79,10 +83,10 @@ function useInitialFormParameters<
       for (const [key, field] of defaultValuesEntries) {
         const fieldName = field.fieldName as keyof FormParameters;
         if (fieldName in parametersFromHistoryState) {
-          formValues[key as Fields] = {
+          formValues[key as Fields] = Object.freeze({
             ...field,
             selected: parametersFromHistoryState[fieldName],
-          } as FormValue;
+          } as FormValue);
         }
       }
     }
@@ -115,13 +119,13 @@ function useInitialFormParameters<
         })
         .filter(Boolean)
         .join('\n\n');
-      formValues['Sequence' as Fields] = {
+      formValues['Sequence' as Fields] = Object.freeze({
         fieldName: 'sequence',
         selected: sequences,
-      };
+      });
     }
 
-    return deepFreeze(formValues);
+    return Object.freeze(formValues);
   }, [
     accessionsLoading,
     history.location?.state,
