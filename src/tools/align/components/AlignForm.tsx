@@ -57,6 +57,7 @@ import {
 
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
+
 const ALIGN_LIMIT = 100;
 const isInvalid = (parsedSequences: ParsedSequence[]) =>
   parsedSequences.length > ALIGN_LIMIT ||

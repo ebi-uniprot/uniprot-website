@@ -441,7 +441,7 @@ const IDMappingForm = () => {
                       width: `${(jobName?.selected as string).length + 2}ch`,
                     }}
                     placeholder={'"my job title"'}
-                    value={jobName?.selected as string}
+                    value={(jobName?.selected as string) || ''}
                     onFocus={(event) => {
                       if (!jobNameEdited) {
                         event.target.select();
