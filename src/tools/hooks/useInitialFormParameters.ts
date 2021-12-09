@@ -75,16 +75,15 @@ function useInitialFormParameters<
     if (parametersFromHistoryState) {
       const defaultValuesEntries = Object.entries<FormValue>(defaultFormValues);
       // for every field of the form, get its value from the history state if
-      // present, otherwise go for the default one
-      // TODO: only overwrite the values provided by the state
+      // present, otherwise leave as the default value
       for (const [key, field] of defaultValuesEntries) {
-        formValues[key as Fields] = {
-          ...field,
-          selected:
-            parametersFromHistoryState?.[
-              field.fieldName as keyof FormParameters
-            ] || field.selected,
-        } as FormValue;
+        const fieldName = field.fieldName as keyof FormParameters;
+        if (fieldName in parametersFromHistoryState) {
+          formValues[key as Fields] = {
+            ...field,
+            selected: parametersFromHistoryState[fieldName],
+          } as FormValue;
+        }
       }
     }
 
