@@ -28,6 +28,7 @@ import SequenceSearchLoader, {
   ParsedSequence,
   SequenceSearchLoaderInterface,
 } from '../../components/SequenceSearchLoader';
+import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 
@@ -68,7 +69,6 @@ import { SelectedTaxon } from '../../types/toolsFormData';
 
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
-import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
 
 const BLAST_LIMIT = 20;
 const isInvalid = (parsedSequences: ParsedSequence[]) =>
