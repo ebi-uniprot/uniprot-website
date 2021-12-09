@@ -21,13 +21,13 @@ import cn from 'classnames';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
+import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
 
 import { pluralise } from '../../../shared/utils/utils';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
 import useReducedMotion from '../../../shared/hooks/useReducedMotion';
-import useInitialFormParameters from '../../hooks/useInitialFormParameters';
 
 import { createJob } from '../../state/toolsActions';
 import { getTreeData } from '../utils';
@@ -39,6 +39,7 @@ import apiUrls from '../../../shared/config/apiUrls';
 import defaultFormValues, {
   IDMappingFields,
   IDMappingFormValue,
+  IDMappingFormValues,
 } from '../config/idMappingFormData';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -76,7 +77,11 @@ export type RuleIdToRuleInfo = {
   [ruleID: number]: IDMappingRule;
 };
 
-const IDMappingForm = () => {
+type Props = {
+  initialFormValues: Readonly<IDMappingFormValues>;
+};
+
+const IDMappingForm = ({ initialFormValues }: Props) => {
   // refs
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -84,8 +89,6 @@ const IDMappingForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const reducedMotion = useReducedMotion();
-
-  const initialFormValues = useInitialFormParameters(defaultFormValues);
 
   // actual form fields
   const initialIDs = initialFormValues[IDMappingFields.ids]
@@ -449,4 +452,11 @@ const IDMappingForm = () => {
   );
 };
 
-export default IDMappingForm;
+const IDMappingFormWithProvider = () => (
+  <InitialFormParametersProvider
+    defaultFormValues={defaultFormValues}
+    form={IDMappingForm}
+  />
+);
+
+export default IDMappingFormWithProvider;
