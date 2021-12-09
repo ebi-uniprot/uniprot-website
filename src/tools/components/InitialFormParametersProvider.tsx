@@ -17,11 +17,15 @@ function InitialFormParametersProvider({ defaultFormValues, form }: Props) {
   const { loading, initialFormValues } =
     useInitialFormParameters(defaultFormValues);
   const Form = form;
-  return loading || !initialFormValues ? (
-    <Loader />
-  ) : (
-    <Form initialFormValues={initialFormValues} />
-  );
+  if (loading) {
+    return <Loader />;
+  }
+  if (!initialFormValues) {
+    // TODO: at this point it's not loading and their isn't any initialFormValues
+    // so should return an error?
+    return null;
+  }
+  return <Form initialFormValues={initialFormValues} />;
 }
 
 export default InitialFormParametersProvider;
