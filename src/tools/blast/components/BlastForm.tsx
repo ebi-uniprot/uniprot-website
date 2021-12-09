@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 import {
   FC,
   useState,
@@ -17,7 +16,6 @@ import {
   PageIntro,
   SpinnerIcon,
   sequenceProcessor,
-  Loader,
 } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
@@ -137,137 +135,88 @@ const BlastForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const reducedMotion = useReducedMotion();
-  // TODO: Make sure loading is working properly
-  const { loading, initialFormValues } =
-    useInitialFormParameters(defaultFormValues);
+
+  const initialFormValues = useInitialFormParameters(defaultFormValues);
 
   // used when the form submission needs to be disabled
-  const [submitDisabled, setSubmitDisabled] = useState<boolean>();
+  const [submitDisabled, setSubmitDisabled] = useState(() =>
+    // default sequence value will tell us if submit should be disabled or not
+    isInvalid(
+      sequenceProcessor(initialFormValues[BlastFields.sequence].selected)
+    )
+  );
   // used when the form is about to be submitted to the server
   const [sending, setSending] = useState(false);
   // flag to see if the user manually changed the title
   const [jobNameEdited, setJobNameEdited] = useState(false);
   // store parsed sequence objects
-  const [parsedSequences, setParsedSequences] = useState<ParsedSequence[]>([]);
+  const [parsedSequences, setParsedSequences] = useState<ParsedSequence[]>(
+    sequenceProcessor(initialFormValues[BlastFields.sequence].selected)
+  );
 
   // actual form fields
-  const [stype, setSType] = useState<BlastFormValues[BlastFields.stype]>();
-  const [program, setProgram] =
-    useState<BlastFormValues[BlastFields.program]>();
-  const [sequence, setSequence] =
-    useState<BlastFormValues[BlastFields.sequence]>();
-  const [database, setDatabase] =
-    useState<BlastFormValues[BlastFields.database]>();
-  const [taxIDs, setTaxIDs] = useState<BlastFormValues[BlastFields.taxons]>();
+  const [stype, setSType] = useState(
+    initialFormValues[BlastFields.stype] as BlastFormValues[BlastFields.stype]
+  );
+  const [program, setProgram] = useState(
+    initialFormValues[
+      BlastFields.program
+    ] as BlastFormValues[BlastFields.program]
+  );
+  const [sequence, setSequence] = useState(
+    initialFormValues[
+      BlastFields.sequence
+    ] as BlastFormValues[BlastFields.sequence]
+  );
+  const [database, setDatabase] = useState(
+    initialFormValues[
+      BlastFields.database
+    ] as BlastFormValues[BlastFields.database]
+  );
+  const excludeTaxonField = excludeTaxonForDB(database.selected);
+  const [taxIDs, setTaxIDs] = useState(
+    initialFormValues[BlastFields.taxons] as BlastFormValues[BlastFields.taxons]
+  );
   // TODO: to eventually incorporate into the form
-  const [negativeTaxIDs, setNegativeTaxIDs] =
-    useState<BlastFormValues[BlastFields.excludedtaxons]>();
-  const [threshold, setThreshold] =
-    useState<BlastFormValues[BlastFields.threshold]>();
-  const [matrix, setMatrix] = useState<BlastFormValues[BlastFields.matrix]>();
-  const [filter, setFilter] = useState<BlastFormValues[BlastFields.filter]>();
-  const [gapped, setGapped] = useState<BlastFormValues[BlastFields.gapped]>();
-  const [hits, setHits] = useState<BlastFormValues[BlastFields.hits]>();
-  const [hsps, setHsps] = useState<BlastFormValues[BlastFields.hsps]>();
+  const [negativeTaxIDs, setNegativeTaxIDs] = useState(
+    initialFormValues[
+      BlastFields.excludedtaxons
+    ] as BlastFormValues[BlastFields.excludedtaxons]
+  );
+  const [threshold, setThreshold] = useState(
+    initialFormValues[
+      BlastFields.threshold
+    ] as BlastFormValues[BlastFields.threshold]
+  );
+  const [matrix, setMatrix] = useState(
+    initialFormValues[BlastFields.matrix] as BlastFormValues[BlastFields.matrix]
+  );
+  const [filter, setFilter] = useState(
+    initialFormValues[BlastFields.filter] as BlastFormValues[BlastFields.filter]
+  );
+  const [gapped, setGapped] = useState(
+    initialFormValues[BlastFields.gapped] as BlastFormValues[BlastFields.gapped]
+  );
+  const [hits, setHits] = useState(
+    initialFormValues[BlastFields.hits] as BlastFormValues[BlastFields.hits]
+  );
+  const [hsps, setHsps] = useState(
+    initialFormValues[BlastFields.hsps] as BlastFormValues[BlastFields.hsps]
+  );
 
   // extra job-related fields
-  const [jobName, setJobName] = useState<BlastFormValues[BlastFields.name]>();
-
-  const formValuesDefined =
-    stype &&
-    program &&
-    sequence &&
-    database &&
-    taxIDs &&
-    negativeTaxIDs &&
-    threshold &&
-    matrix &&
-    filter &&
-    gapped &&
-    hits &&
-    hsps &&
-    jobName;
-
-  useEffect(() => {
-    if (!initialFormValues) {
-      return;
-    }
-    const parsedSequences = sequenceProcessor(
-      initialFormValues[BlastFields.sequence].selected
-    );
-    setSubmitDisabled(isInvalid(parsedSequences));
-    setParsedSequences(parsedSequences);
-    setSType(
-      initialFormValues[BlastFields.stype] as BlastFormValues[BlastFields.stype]
-    );
-    setProgram(
-      initialFormValues[
-        BlastFields.program
-      ] as BlastFormValues[BlastFields.program]
-    );
-    setSequence(
-      initialFormValues[
-        BlastFields.sequence
-      ] as BlastFormValues[BlastFields.sequence]
-    );
-    setDatabase(
-      initialFormValues[
-        BlastFields.database
-      ] as BlastFormValues[BlastFields.database]
-    );
-    setTaxIDs(
-      initialFormValues[
-        BlastFields.taxons
-      ] as BlastFormValues[BlastFields.taxons]
-    );
-    setNegativeTaxIDs(
-      initialFormValues[
-        BlastFields.excludedtaxons
-      ] as BlastFormValues[BlastFields.excludedtaxons]
-    );
-    setThreshold(
-      initialFormValues[
-        BlastFields.threshold
-      ] as BlastFormValues[BlastFields.threshold]
-    );
-    setMatrix(
-      initialFormValues[
-        BlastFields.matrix
-      ] as BlastFormValues[BlastFields.matrix]
-    );
-    setFilter(
-      initialFormValues[
-        BlastFields.filter
-      ] as BlastFormValues[BlastFields.filter]
-    );
-    setGapped(
-      initialFormValues[
-        BlastFields.gapped
-      ] as BlastFormValues[BlastFields.gapped]
-    );
-    setHits(
-      initialFormValues[BlastFields.hits] as BlastFormValues[BlastFields.hits]
-    );
-    setHsps(
-      initialFormValues[BlastFields.hsps] as BlastFormValues[BlastFields.hsps]
-    );
-    const initialJobName = initialFormValues[BlastFields.name];
-    setJobName({
-      ...initialJobName,
-      selected: parsedSequences[0]?.name || initialJobName.selected,
-    });
-  }, [initialFormValues]);
-
-  const excludeTaxonField = excludeTaxonForDB(database?.selected);
+  const [jobName, setJobName] = useState(
+    initialFormValues[BlastFields.name] as BlastFormValues[BlastFields.name]
+  );
 
   // taxon field handlers
   const updateTaxonFormValue = (path: string, id?: string) => {
     // Only proceed if a node is selected
-    if (!id || !formValuesDefined) {
+    if (!id) {
       return;
     }
 
-    const selected = (taxIDs?.selected || []) as SelectedTaxon[];
+    const selected = (taxIDs.selected || []) as SelectedTaxon[];
 
     // If already there, don't add again
     if (selected.some((taxon: SelectedTaxon) => taxon.id === id)) {
@@ -277,21 +226,16 @@ const BlastForm = () => {
     const label = truncateTaxonLabel(path);
 
     setTaxIDs({
-      ...(taxIDs || []),
+      ...taxIDs,
       selected: [{ id, label }, ...selected],
     });
   };
 
   const removeTaxonFormValue = (id: string | number) => {
-    if (!formValuesDefined) {
-      return;
-    }
-    const selected = (taxIDs?.selected || []) as SelectedTaxon[];
+    const selected = (taxIDs.selected || []) as SelectedTaxon[];
     setTaxIDs({
       ...taxIDs,
-      selected: (selected || []).filter(
-        (taxon: SelectedTaxon) => taxon.id !== id
-      ),
+      selected: selected.filter((taxon: SelectedTaxon) => taxon.id !== id),
     });
   };
 
@@ -327,7 +271,7 @@ const BlastForm = () => {
   const submitBlastJob = (event: FormEvent | MouseEvent) => {
     event.preventDefault();
 
-    if (!formValuesDefined || !sequence.selected) {
+    if (!sequence.selected) {
       return;
     }
 
@@ -349,7 +293,7 @@ const BlastForm = () => {
       threshold: threshold.selected as Exp,
       // remove "auto", and transform into corresponding matrix
       matrix:
-        matrix?.selected === 'auto'
+        matrix.selected === 'auto'
           ? getAutoMatrixFor(sequence.selected as string)
           : (matrix.selected as Matrix),
       filter: filter.selected as Filter,
@@ -395,68 +339,45 @@ const BlastForm = () => {
   // effects
   // set the "Auto" matrix to the have the correct label depending on sequence
   useEffect(() => {
-    if (!formValuesDefined) {
-      return;
-    }
-    const autoMatrix = getAutoMatrixFor(sequence?.selected as string);
-    setMatrix(
-      (matrix) =>
-        matrix && {
-          ...matrix,
-          values: [
-            { label: `Auto - ${autoMatrix}`, value: 'auto' },
-            ...(matrix.values || []).filter(
-              (option) => option.value !== 'auto'
-            ),
-          ],
-        }
-    );
-  }, [formValuesDefined, sequence?.selected]);
+    const autoMatrix = getAutoMatrixFor(sequence.selected as string);
+    setMatrix((matrix) => ({
+      ...matrix,
+      values: [
+        { label: `Auto - ${autoMatrix}`, value: 'auto' },
+        ...(matrix.values || []).filter((option) => option.value !== 'auto'),
+      ],
+    }));
+  }, [sequence.selected]);
 
   const onSequenceChange = useCallback(
     (parsedSequences: ParsedSequence[]) => {
-      if (!formValuesDefined) {
-        return;
-      }
       const rawSequence = parsedSequences
         .map((parsedSequence) => parsedSequence.raw)
         .join('\n');
 
-      if (rawSequence === sequence?.selected) {
+      if (rawSequence === sequence.selected) {
         return;
       }
 
       if (!jobNameEdited) {
         // if the user didn't manually change the title, autofill it
         setJobName((jobName) => {
-          if (!jobName) {
-            return;
-          }
-
           const potentialJobName = parsedSequences[0]?.name || '';
-          if (jobName?.selected === potentialJobName) {
+          if (jobName.selected === potentialJobName) {
             // avoid unecessary rerender by keeping the same object
             return jobName;
           }
-          return {
-            ...jobName,
-            selected: potentialJobName,
-          };
+          return { ...jobName, selected: potentialJobName };
         });
       }
 
       setParsedSequences(parsedSequences);
-      setSequence(
-        (sequence) => sequence && { ...sequence, selected: rawSequence }
-      );
+      setSequence((sequence) => ({ ...sequence, selected: rawSequence }));
       setSubmitDisabled(isInvalid(parsedSequences));
 
       const mightBeDNA = parsedSequences[0]?.likelyType === 'na';
 
       setSType((stype) => {
-        if (!stype) {
-          return;
-        }
         // we want protein by default
         const selected = mightBeDNA ? 'dna' : 'protein';
         if (stype.selected === selected) {
@@ -466,9 +387,6 @@ const BlastForm = () => {
         return { ...stype, selected };
       });
       setProgram((program) => {
-        if (!program) {
-          return;
-        }
         // we want protein by default
         const selected = mightBeDNA ? 'blastx' : 'blastp';
         if (program.selected === selected) {
@@ -478,7 +396,7 @@ const BlastForm = () => {
         return { ...program, selected };
       });
     },
-    [formValuesDefined, jobNameEdited, sequence?.selected]
+    [jobNameEdited, sequence.selected]
   );
 
   // file handling
@@ -496,10 +414,6 @@ const BlastForm = () => {
       ),
     dndOverlay: <span>Drop your input file anywhere on this page</span>,
   });
-
-  if (loading || !formValuesDefined) {
-    return <Loader />;
-  }
 
   return (
     <>
@@ -537,18 +451,11 @@ const BlastForm = () => {
             <SequenceSubmission
               placeholder="Protein or nucleotide sequence(s) in FASTA format."
               onChange={onSequenceChange}
-              value={(parsedSequences || [])
-                .map((sequence) => sequence.raw)
-                .join('\n')}
+              value={parsedSequences.map((sequence) => sequence.raw).join('\n')}
             />
           </section>
           <section className="tools-form-section">
-            <FormSelect
-              formValue={database}
-              updateFormValue={
-                setDatabase as Dispatch<SetStateAction<BlastFormValue>>
-              }
-            />
+            <FormSelect formValue={database} updateFormValue={setDatabase} />
             <section
               className={cn(
                 'tools-form-section__item',
