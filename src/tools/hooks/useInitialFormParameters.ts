@@ -31,7 +31,12 @@ type FormValues<Fields extends string> = Record<Fields, FormValue>;
 function useInitialFormParameters<
   Fields extends string,
   FormParameters extends Record<Fields, unknown>
->(defaultFormValues: Readonly<FormValues<Fields>>) {
+>(
+  defaultFormValues: Readonly<FormValues<Fields>>
+): {
+  loading: boolean;
+  initialFormValues: Readonly<FormValues<Fields>> | null;
+} {
   const history = useHistory();
   const idsMaybeWithRange = useMemo(() => {
     // This only happens on first mount
@@ -52,17 +57,13 @@ function useInitialFormParameters<
 
   // Discard 'search' part of url to avoid url state issues.
   useEffect(() => {
-    if (history.location?.search) {
-      // eslint-disable-next-line uniprot-website/use-config-location
-      history.replace({
-        pathname: history.location.pathname,
-      });
-    }
+    // eslint-disable-next-line uniprot-website/use-config-location
+    // history.replace({ pathname: history.location.pathname });
   }, [history]);
 
   const initialFormValues = useMemo(() => {
     if (accessionsLoading) {
-      return null;
+      return null; // Note: revert back to null when possible
     }
 
     // NOTE: we should use a similar logic to pre-fill fields based on querystring

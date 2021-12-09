@@ -7,6 +7,7 @@ import {
   FC,
   Dispatch,
   SetStateAction,
+  useEffect,
 } from 'react';
 import { useDispatch } from 'react-redux';
 import {
@@ -15,6 +16,7 @@ import {
   SpinnerIcon,
   sequenceProcessor,
   ExternalLink,
+  Loader,
 } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
@@ -54,6 +56,7 @@ import {
 
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
+import { logger } from '@sentry/utils';
 
 const ALIGN_LIMIT = 100;
 const isInvalid = (parsedSequences: ParsedSequence[]) =>
@@ -108,41 +111,62 @@ const AlignForm = () => {
   const reducedMotion = useReducedMotion();
 
   // state
-  const initialFormValues = useInitialFormParameters(defaultFormValues);
+  const { loading, initialFormValues } =
+    useInitialFormParameters(defaultFormValues);
 
   // used when the form submission needs to be disabled
-  const [submitDisabled, setSubmitDisabled] = useState(() =>
-    // default sequence value will tell us if submit should be disabled or not
-    isInvalid(
-      sequenceProcessor(initialFormValues[AlignFields.sequence].selected)
-    )
-  );
+  const [submitDisabled, setSubmitDisabled] = useState<boolean>();
   // used when the form is about to be submitted to the server
   const [sending, setSending] = useState(false);
   // flag to see if the user manually changed the title
   const [jobNameEdited, setJobNameEdited] = useState(false);
   // store parsed sequence objects
-  const [parsedSequences, setParsedSequences] = useState<ParsedSequence[]>(
-    sequenceProcessor(initialFormValues[AlignFields.sequence].selected)
-  );
+  const [parsedSequences, setParsedSequences] = useState<ParsedSequence[]>();
 
   // actual form fields
-  const [sequence, setSequence] = useState(
-    initialFormValues[
-      AlignFields.sequence
-    ] as AlignFormValues[AlignFields.sequence]
-  );
-  const [order, setOrder] = useState(
-    initialFormValues[AlignFields.order] as AlignFormValues[AlignFields.order]
-  );
-  const [iterations, setIterations] = useState(
-    initialFormValues[
-      AlignFields.iterations
-    ] as AlignFormValues[AlignFields.iterations]
-  );
+  const [sequence, setSequence] = useState<
+    AlignFormValues[AlignFields.sequence] | null
+  >(null);
+  const [order, setOrder] = useState<AlignFormValues[AlignFields.order]>();
+  const [iterations, setIterations] =
+    useState<AlignFormValues[AlignFields.iterations]>();
 
   // extra job-related fields
-  const [jobName, setJobName] = useState(initialFormValues[AlignFields.name]);
+  const [jobName, setJobName] = useState<
+    AlignFormValues[AlignFields.name] | null
+  >(null);
+
+  useEffect(() => {
+    if (initialFormValues) {
+      setSubmitDisabled(() =>
+        // default sequence value will tell us if submit should be disabled or not
+        isInvalid(
+          sequenceProcessor(initialFormValues[AlignFields.sequence].selected)
+        )
+      );
+      setParsedSequences(
+        sequenceProcessor(initialFormValues[AlignFields.sequence].selected)
+      );
+      setSequence(
+        initialFormValues[
+          AlignFields.sequence
+        ] as AlignFormValues[AlignFields.sequence]
+      );
+      setOrder(
+        initialFormValues[
+          AlignFields.order
+        ] as AlignFormValues[AlignFields.order]
+      );
+      setIterations(
+        initialFormValues[
+          AlignFields.iterations
+        ] as AlignFormValues[AlignFields.iterations]
+      );
+      setJobName(
+        initialFormValues[AlignFields.name] as AlignFormValues[AlignFields.name]
+      );
+    }
+  }, [initialFormValues]);
 
   // form event handlers
   const handleReset = (event: FormEvent) => {
@@ -165,7 +189,7 @@ const AlignForm = () => {
   const submitAlignJob = (event: FormEvent | MouseEvent) => {
     event.preventDefault();
 
-    if (!sequence.selected) {
+    if (!sequence || !sequence.selected) {
       return;
     }
 
@@ -177,8 +201,8 @@ const AlignForm = () => {
     // tools middleware
     const parameters: FormParameters = {
       sequence: sequence.selected as ServerParameters['sequence'],
-      order: order.selected as ServerParameters['order'],
-      iterations: iterations.selected as ServerParameters['iterations'],
+      order: order?.selected as ServerParameters['order'],
+      iterations: iterations?.selected as ServerParameters['iterations'],
     };
 
     // navigate to the dashboard, not immediately, to give the impression that
@@ -192,7 +216,7 @@ const AlignForm = () => {
       // internal state. Dispatching after history.push so that pop-up messages (as a
       // side-effect of createJob) cannot mount immediately before navigating away.
       dispatch(
-        createJob(parameters, JobTypes.ALIGN, jobName.selected as string)
+        createJob(parameters, JobTypes.ALIGN, jobName?.selected as string)
       );
     });
   };
@@ -215,6 +239,9 @@ const AlignForm = () => {
           )}`;
         }
         setJobName((jobName) => {
+          if (!jobName) {
+            return null;
+          }
           if (jobName.selected === potentialJobName) {
             // avoid unecessary rerender by keeping the same object
             return jobName;
@@ -224,12 +251,17 @@ const AlignForm = () => {
       }
 
       setParsedSequences(parsedSequences);
-      setSequence((sequence) => ({
-        ...sequence,
-        selected: parsedSequences
-          .map((parsedSequence) => parsedSequence.raw)
-          .join('\n'),
-      }));
+      setSequence((sequence) => {
+        if (!sequence) {
+          return null;
+        }
+        return {
+          ...sequence,
+          selected: parsedSequences
+            .map((parsedSequence) => parsedSequence.raw)
+            .join('\n'),
+        };
+      });
       setSubmitDisabled(isInvalid(parsedSequences));
     },
     [jobNameEdited]
@@ -238,7 +270,9 @@ const AlignForm = () => {
   // specific logic to prepend loaded sequences instead of just replacing
   const onSequenceLoad = useCallback(
     (parsedRetrievedSequences: ParsedSequence[]) => {
-      onSequenceChange([...parsedRetrievedSequences, ...parsedSequences]);
+      if (parsedSequences) {
+        onSequenceChange([...parsedRetrievedSequences, ...parsedSequences]);
+      }
     },
     [onSequenceChange, parsedSequences]
   );
@@ -258,6 +292,16 @@ const AlignForm = () => {
       ),
     dndOverlay: <span>Drop your input file anywhere on this page</span>,
   });
+
+  if (loading) {
+    return <Loader />;
+  }
+
+  // Something went wrong in the form initialisation
+  if (!parsedSequences || !jobName) {
+    logger.error('Error initialising ALIGN form');
+    return null;
+  }
 
   return (
     <>
