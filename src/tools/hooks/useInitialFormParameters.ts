@@ -97,7 +97,16 @@ function useInitialFormParameters<
       const sequences = idsMaybeWithRange
         .map(({ id, start, end }) => {
           if (!idToSequence[id]) {
-            // TODO: show user a message
+            // TODO: currently this will not be reached - if any accession fails in the accessions request
+            // then the whole the request fails. Leaving here in case this ever changes
+            // reduxDispatch(
+            //   addMessage({
+            //     id: v1(),
+            //     content: `ID ${id} not found`,
+            //     format: MessageFormat.POP_UP,
+            //     level: MessageLevel.WARNING,
+            //   })
+            // );
             return null;
           }
           const entry = idToSequence[id];
@@ -118,7 +127,7 @@ function useInitialFormParameters<
     accessionsLoading,
     history.location?.state,
     defaultFormValues,
-    accessionsData,
+    accessionsData?.results,
     idsMaybeWithRange,
   ]);
 
