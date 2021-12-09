@@ -25,6 +25,7 @@ import HTMLHead from '../../../shared/components/HTMLHead';
 import SequenceSearchLoader, {
   ParsedSequence,
 } from '../../components/SequenceSearchLoader';
+import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
 
 import { pluralise } from '../../../shared/utils/utils';
 
@@ -32,7 +33,6 @@ import { addMessage } from '../../../messages/state/messagesActions';
 
 import useReducedMotion from '../../../shared/hooks/useReducedMotion';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
-import useInitialFormParameters from '../../hooks/useInitialFormParameters';
 
 import { createJob } from '../../state/toolsActions';
 
@@ -97,7 +97,11 @@ const FormSelect: FC<{
   );
 };
 
-const AlignForm = () => {
+type Props = {
+  initialFormValues: Readonly<AlignFormValues>;
+};
+
+const AlignForm = ({ initialFormValues }: Props) => {
   // refs
   const sslRef = useRef<{ reset: () => void }>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -106,9 +110,6 @@ const AlignForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const reducedMotion = useReducedMotion();
-
-  // state
-  const initialFormValues = useInitialFormParameters(defaultFormValues);
 
   // used when the form submission needs to be disabled
   const [submitDisabled, setSubmitDisabled] = useState(() =>
@@ -380,4 +381,11 @@ const AlignForm = () => {
   );
 };
 
-export default AlignForm;
+const AlignFormWithProvider = () => (
+  <InitialFormParametersProvider
+    defaultFormValues={defaultFormValues}
+    form={AlignForm}
+  />
+);
+
+export default AlignFormWithProvider;
