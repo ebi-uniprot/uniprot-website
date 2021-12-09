@@ -23,7 +23,7 @@ const ToolsButton: FC<ToolsButtonProps> = ({
   const handleClick = useCallback(async () => {
     history.push({
       pathname: LocationToPath[location],
-      search: `ids=${selectedEntries.join()}`,
+      search: `ids=${selectedEntries.join(',')}`,
     });
   }, [history, location, selectedEntries]);
 

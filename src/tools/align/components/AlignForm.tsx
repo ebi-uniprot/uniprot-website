@@ -43,6 +43,7 @@ import { FormParameters } from '../types/alignFormParameters';
 import { ServerParameters } from '../types/alignServerParameters';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
+import * as logging from '../../../shared/utils/logging';
 import defaultFormValues, {
   AlignFormValues,
   AlignFormValue,
@@ -56,8 +57,6 @@ import {
 
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
-import { logger } from '@sentry/utils';
-
 const ALIGN_LIMIT = 100;
 const isInvalid = (parsedSequences: ParsedSequence[]) =>
   parsedSequences.length > ALIGN_LIMIT ||
@@ -299,7 +298,7 @@ const AlignForm = () => {
 
   // Something went wrong in the form initialisation
   if (!parsedSequences || !jobName) {
-    logger.error('Error initialising ALIGN form');
+    logging.error('Error initialising ALIGN form');
     return null;
   }
 
