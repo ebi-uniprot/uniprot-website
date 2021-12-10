@@ -1,4 +1,7 @@
+import { useEffect } from 'react';
 import { Loader } from 'franklin-sites';
+
+import * as logging from '../../shared/utils/logging';
 
 import useInitialFormParameters, {
   FormValues,
@@ -13,16 +16,19 @@ const InitialFormParametersProvider = <T extends Readonly<FormValues<string>>>({
 }) => {
   const { loading, initialFormValues } =
     useInitialFormParameters(defaultFormValues);
+
+  useEffect(() => {
+    if (!loading && !initialFormValues) {
+      logging.error('Unable to load initial form values');
+    }
+  }, [loading, initialFormValues]);
+
   if (loading) {
     return <Loader />;
   }
-  if (!initialFormValues) {
-    // TODO: at this point it's not loading and their isn't any initialFormValues
-    // so should return an error?
-    // or should return an empty/default form?
-    return null;
-  }
-  return children(initialFormValues as T);
+
+  // NOTE: any warning message (inline or pop-up) could be added here
+  return children((initialFormValues as T | null) || defaultFormValues);
 };
 
 export default InitialFormParametersProvider;
