@@ -20,6 +20,7 @@ const ToolsButton: FC<ToolsButtonProps> = ({
 }) => {
   const history = useHistory();
 
+  // TODO: eventually have that in a proper link (maybe after TRM-26836 is done)
   const handleClick = useCallback(async () => {
     history.push({
       pathname: LocationToPath[location],
