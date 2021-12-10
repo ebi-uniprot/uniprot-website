@@ -1879,33 +1879,11 @@ exports[`UniProtKBColumnConfiguration component should render column "sequence":
     <div
       class="sequence"
     >
-      <div
-        class="sequence__sequence"
+      <span
+        class="sequence__chunk sequence__chunk--display-last"
       >
-        <span
-          class="sequence__sequence__chunk"
-        >
-          <svg
-            height="30"
-            width="100"
-          >
-            <text
-              class="sequence__sequence__chunk__counter"
-              x="100"
-              y="10"
-            >
-              10
-            </text>
-            <text
-              class="sequence__sequence__chunk__sequence"
-              x="0"
-              y="20"
-            >
-              SAPSQDFMRF
-            </text>
-          </svg>
-        </span>
-      </div>
+        SAPSQDFMRF
+      </span>
     </div>
   </section>
 </DocumentFragment>
