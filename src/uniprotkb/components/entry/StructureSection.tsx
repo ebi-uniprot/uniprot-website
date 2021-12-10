@@ -90,7 +90,11 @@ const StructureSection = ({
       data-entry-section
     >
       <StructureView primaryAccession={primaryAccession} />
-      <FeaturesView features={data.featuresData} sequence={sequence} />
+      <FeaturesView
+        primaryAccession={primaryAccession}
+        features={data.featuresData}
+        sequence={sequence}
+      />
       {XrefViewNode}
     </Card>
   );

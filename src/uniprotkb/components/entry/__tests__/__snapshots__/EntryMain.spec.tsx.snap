@@ -2204,6 +2204,7 @@ exports[`Entry view should render 1`] = `
                   <th>
                     Description
                   </th>
+                  <th />
                 </tr>
               </thead>
               <tbody>
@@ -2248,6 +2249,15 @@ exports[`Entry view should render 1`] = `
                       data-testid="evidence-tag-content"
                       id="43"
                     />
+                  </td>
+                  <td>
+                    <a
+                      class="button tertiary"
+                      href="/blast?ids=P21802[2-8]"
+                      title="BLAST the sequence corresponding to this feature"
+                    >
+                      BLAST
+                    </a>
                   </td>
                 </tr>
                 <tr
@@ -3464,6 +3474,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <th>
                     Description
                   </th>
+                  <th />
                 </tr>
               </thead>
               <tbody>
@@ -3506,6 +3517,15 @@ exports[`Entry view should render for non-human entry 1`] = `
                       data-testid="evidence-tag-content"
                       id="17"
                     />
+                  </td>
+                  <td>
+                    <a
+                      class="button tertiary"
+                      href="/blast?ids=P0DTR4[494-605]"
+                      title="BLAST the sequence corresponding to this feature"
+                    >
+                      BLAST
+                    </a>
                   </td>
                 </tr>
                 <tr
@@ -3560,6 +3580,15 @@ exports[`Entry view should render for non-human entry 1`] = `
                       id="18"
                     />
                   </td>
+                  <td>
+                    <a
+                      class="button tertiary"
+                      href="/blast?ids=P0DTR4[180-402]"
+                      title="BLAST the sequence corresponding to this feature"
+                    >
+                      BLAST
+                    </a>
+                  </td>
                 </tr>
                 <tr
                   data-end="402"
@@ -3613,6 +3642,15 @@ exports[`Entry view should render for non-human entry 1`] = `
                       id="19"
                     />
                   </td>
+                  <td>
+                    <a
+                      class="button tertiary"
+                      href="/blast?ids=P0DTR4[502-765]"
+                      title="BLAST the sequence corresponding to this feature"
+                    >
+                      BLAST
+                    </a>
+                  </td>
                 </tr>
                 <tr
                   data-end="765"
@@ -3665,6 +3703,15 @@ exports[`Entry view should render for non-human entry 1`] = `
                       data-testid="evidence-tag-content"
                       id="20"
                     />
+                  </td>
+                  <td>
+                    <a
+                      class="button tertiary"
+                      href="/blast?ids=P0DTR4[515-772]"
+                      title="BLAST the sequence corresponding to this feature"
+                    >
+                      BLAST
+                    </a>
                   </td>
                 </tr>
                 <tr
@@ -3741,6 +3788,15 @@ exports[`Entry view should render for non-human entry 1`] = `
                       id="22"
                     />
                   </td>
+                  <td>
+                    <a
+                      class="button tertiary"
+                      href="/blast?ids=P0DTR4[126-126]"
+                      title="BLAST the sequence corresponding to this feature"
+                    >
+                      BLAST
+                    </a>
+                  </td>
                 </tr>
                 <tr
                   data-end="126"
@@ -3815,6 +3871,15 @@ exports[`Entry view should render for non-human entry 1`] = `
                       data-testid="evidence-tag-content"
                       id="24"
                     />
+                  </td>
+                  <td>
+                    <a
+                      class="button tertiary"
+                      href="/blast?ids=P0DTR4[278-278]"
+                      title="BLAST the sequence corresponding to this feature"
+                    >
+                      BLAST
+                    </a>
                   </td>
                 </tr>
                 <tr
@@ -3891,6 +3956,15 @@ exports[`Entry view should render for non-human entry 1`] = `
                       id="26"
                     />
                   </td>
+                  <td>
+                    <a
+                      class="button tertiary"
+                      href="/blast?ids=P0DTR4[87-87]"
+                      title="BLAST the sequence corresponding to this feature"
+                    >
+                      BLAST
+                    </a>
+                  </td>
                 </tr>
                 <tr
                   data-end="87"
@@ -3966,6 +4040,15 @@ exports[`Entry view should render for non-human entry 1`] = `
                       id="28"
                     />
                   </td>
+                  <td>
+                    <a
+                      class="button tertiary"
+                      href="/blast?ids=P0DTR4[123-123]"
+                      title="BLAST the sequence corresponding to this feature"
+                    >
+                      BLAST
+                    </a>
+                  </td>
                 </tr>
                 <tr
                   data-end="123"
@@ -4040,6 +4123,15 @@ exports[`Entry view should render for non-human entry 1`] = `
                       data-testid="evidence-tag-content"
                       id="30"
                     />
+                  </td>
+                  <td>
+                    <a
+                      class="button tertiary"
+                      href="/blast?ids=P0DTR4[236-236]"
+                      title="BLAST the sequence corresponding to this feature"
+                    >
+                      BLAST
+                    </a>
                   </td>
                 </tr>
                 <tr
@@ -4756,6 +4848,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <th>
                     Description
                   </th>
+                  <th />
                 </tr>
               </thead>
               <tbody>
@@ -4798,6 +4891,15 @@ exports[`Entry view should render for non-human entry 1`] = `
                       data-testid="evidence-tag-content"
                       id="44"
                     />
+                  </td>
+                  <td>
+                    <a
+                      class="button tertiary"
+                      href="/blast?ids=P0DTR4[90-90]"
+                      title="BLAST the sequence corresponding to this feature"
+                    >
+                      BLAST
+                    </a>
                   </td>
                 </tr>
                 <tr
@@ -4852,6 +4954,15 @@ exports[`Entry view should render for non-human entry 1`] = `
                       id="45"
                     />
                   </td>
+                  <td>
+                    <a
+                      class="button tertiary"
+                      href="/blast?ids=P0DTR4[125-125]"
+                      title="BLAST the sequence corresponding to this feature"
+                    >
+                      BLAST
+                    </a>
+                  </td>
                 </tr>
                 <tr
                   data-end="125"
@@ -4904,6 +5015,15 @@ exports[`Entry view should render for non-human entry 1`] = `
                       data-testid="evidence-tag-content"
                       id="46"
                     />
+                  </td>
+                  <td>
+                    <a
+                      class="button tertiary"
+                      href="/blast?ids=P0DTR4[126-126]"
+                      title="BLAST the sequence corresponding to this feature"
+                    >
+                      BLAST
+                    </a>
                   </td>
                 </tr>
                 <tr
@@ -4958,6 +5078,15 @@ exports[`Entry view should render for non-human entry 1`] = `
                       id="47"
                     />
                   </td>
+                  <td>
+                    <a
+                      class="button tertiary"
+                      href="/blast?ids=P0DTR4[278-278]"
+                      title="BLAST the sequence corresponding to this feature"
+                    >
+                      BLAST
+                    </a>
+                  </td>
                 </tr>
                 <tr
                   data-end="278"
@@ -5010,6 +5139,15 @@ exports[`Entry view should render for non-human entry 1`] = `
                       data-testid="evidence-tag-content"
                       id="48"
                     />
+                  </td>
+                  <td>
+                    <a
+                      class="button tertiary"
+                      href="/blast?ids=P0DTR4[341-341]"
+                      title="BLAST the sequence corresponding to this feature"
+                    >
+                      BLAST
+                    </a>
                   </td>
                 </tr>
                 <tr
@@ -5129,6 +5267,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <th>
                     Description
                   </th>
+                  <th />
                 </tr>
               </thead>
               <tbody>
@@ -5171,6 +5310,15 @@ exports[`Entry view should render for non-human entry 1`] = `
                       id="50"
                     />
                   </td>
+                  <td>
+                    <a
+                      class="button tertiary"
+                      href="/blast?ids=P0DTR4[1-27]"
+                      title="BLAST the sequence corresponding to this feature"
+                    >
+                      BLAST
+                    </a>
+                  </td>
                 </tr>
                 <tr
                   data-end="27"
@@ -5203,6 +5351,15 @@ exports[`Entry view should render for non-human entry 1`] = `
                   </td>
                   <td>
                     A type blood N-acetyl-alpha-D-galactosamine deacetylase
+                  </td>
+                  <td>
+                    <a
+                      class="button tertiary"
+                      href="/blast?ids=P0DTR4[28-772]"
+                      title="BLAST the sequence corresponding to this feature"
+                    >
+                      BLAST
+                    </a>
                   </td>
                 </tr>
                 <tr
@@ -5455,6 +5612,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <th>
                     Description
                   </th>
+                  <th />
                 </tr>
               </thead>
               <tbody>
@@ -5497,6 +5655,15 @@ exports[`Entry view should render for non-human entry 1`] = `
                       data-testid="evidence-tag-content"
                       id="55"
                     />
+                  </td>
+                  <td>
+                    <a
+                      class="button tertiary"
+                      href="/blast?ids=P0DTR4[494-605]"
+                      title="BLAST the sequence corresponding to this feature"
+                    >
+                      BLAST
+                    </a>
                   </td>
                 </tr>
                 <tr
@@ -5551,6 +5718,15 @@ exports[`Entry view should render for non-human entry 1`] = `
                       id="56"
                     />
                   </td>
+                  <td>
+                    <a
+                      class="button tertiary"
+                      href="/blast?ids=P0DTR4[180-402]"
+                      title="BLAST the sequence corresponding to this feature"
+                    >
+                      BLAST
+                    </a>
+                  </td>
                 </tr>
                 <tr
                   data-end="402"
@@ -5604,6 +5780,15 @@ exports[`Entry view should render for non-human entry 1`] = `
                       id="57"
                     />
                   </td>
+                  <td>
+                    <a
+                      class="button tertiary"
+                      href="/blast?ids=P0DTR4[502-765]"
+                      title="BLAST the sequence corresponding to this feature"
+                    >
+                      BLAST
+                    </a>
+                  </td>
                 </tr>
                 <tr
                   data-end="765"
@@ -5656,6 +5841,15 @@ exports[`Entry view should render for non-human entry 1`] = `
                       data-testid="evidence-tag-content"
                       id="58"
                     />
+                  </td>
+                  <td>
+                    <a
+                      class="button tertiary"
+                      href="/blast?ids=P0DTR4[515-772]"
+                      title="BLAST the sequence corresponding to this feature"
+                    >
+                      BLAST
+                    </a>
                   </td>
                 </tr>
                 <tr

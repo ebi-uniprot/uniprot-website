@@ -18,12 +18,12 @@ import cn from 'classnames';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
+import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 
 import useReducedMotion from '../../../shared/hooks/useReducedMotion';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
-import useInitialFormParameters from '../../hooks/useInitialFormParameters';
 
 import { truncateTaxonLabel } from '../../utils';
 import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
@@ -92,7 +92,11 @@ const FormSelect: FC<{
   );
 };
 
-const PeptideSearchForm = () => {
+type Props = {
+  initialFormValues: Readonly<PeptideSearchFormValues>;
+};
+
+const PeptideSearchForm = ({ initialFormValues }: Props) => {
   // refs
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -100,8 +104,6 @@ const PeptideSearchForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const reducedMotion = useReducedMotion();
-
-  const initialFormValues = useInitialFormParameters(defaultFormValues);
 
   // used when the form submission needs to be disabled
   const [submitDisabled, setSubmitDisabled] = useState(true);
@@ -414,4 +416,12 @@ const PeptideSearchForm = () => {
   );
 };
 
-export default PeptideSearchForm;
+const PeptideSearchFormWithProvider = () => (
+  <InitialFormParametersProvider defaultFormValues={defaultFormValues}>
+    {(initialFormValues) => (
+      <PeptideSearchForm initialFormValues={initialFormValues} />
+    )}
+  </InitialFormParametersProvider>
+);
+
+export default PeptideSearchFormWithProvider;

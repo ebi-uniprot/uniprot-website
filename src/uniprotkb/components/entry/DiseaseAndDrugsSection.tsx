@@ -76,7 +76,11 @@ const DiseaseAndDrugsSection = ({
         }
         title="toxic dose"
       />
-      <FeaturesView features={data.featuresData} sequence={sequence} />
+      <FeaturesView
+        primaryAccession={primaryAccession}
+        features={data.featuresData}
+        sequence={sequence}
+      />
       <VariationView primaryAccession={primaryAccession} title="Variants" />
       <KeywordView keywords={data.keywordData} />
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />

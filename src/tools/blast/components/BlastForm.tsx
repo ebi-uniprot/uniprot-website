@@ -28,12 +28,12 @@ import SequenceSearchLoader, {
   ParsedSequence,
   SequenceSearchLoaderInterface,
 } from '../../components/SequenceSearchLoader';
+import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 
 import useReducedMotion from '../../../shared/hooks/useReducedMotion';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
-import useInitialFormParameters from '../../hooks/useInitialFormParameters';
 
 import { truncateTaxonLabel } from '../../utils';
 import { createJob } from '../../state/toolsActions';
@@ -126,7 +126,11 @@ const FormSelect: FC<{
   );
 };
 
-const BlastForm = () => {
+type Props = {
+  initialFormValues: Readonly<BlastFormValues>;
+};
+
+const BlastForm = ({ initialFormValues }: Props) => {
   // refs
   const sslRef = useRef<SequenceSearchLoaderInterface>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -135,8 +139,6 @@ const BlastForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const reducedMotion = useReducedMotion();
-
-  const initialFormValues = useInitialFormParameters(defaultFormValues);
 
   // used when the form submission needs to be disabled
   const [submitDisabled, setSubmitDisabled] = useState(() =>
@@ -577,4 +579,10 @@ const BlastForm = () => {
   );
 };
 
-export default BlastForm;
+const BlastFormWithProvider = () => (
+  <InitialFormParametersProvider defaultFormValues={defaultFormValues}>
+    {(initialFormValues) => <BlastForm initialFormValues={initialFormValues} />}
+  </InitialFormParametersProvider>
+);
+
+export default BlastFormWithProvider;

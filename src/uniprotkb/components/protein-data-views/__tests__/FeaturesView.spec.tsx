@@ -8,6 +8,7 @@ describe('FeaturesView component', () => {
   test('it renders without crashing', () => {
     const { asFragment } = render(
       <FeaturesView
+        primaryAccession="P05067"
         features={FeaturesUIData}
         sequence="ASDASDASASDASDASDSASD"
       />
