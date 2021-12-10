@@ -127,7 +127,7 @@ export const addBlastLinksToFreeText = (
               start: +range[0],
               end: +range[1],
             })}
-            key={`${splitItem}`}
+            key={splitItem}
           >
             {splitItem}
           </Link>
