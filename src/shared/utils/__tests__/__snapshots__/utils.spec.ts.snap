@@ -11,7 +11,6 @@ Array [
 exports[`deepFindAllByKey addBlastLinksToFreeText should handle positions at the beggining 1`] = `
 Array [
   Array [
-    "",
     <Link
       to="/blast?ids=UP_ACCESSION[10-34]"
     >
@@ -31,7 +30,6 @@ Array [
     >
       10-34
     </Link>,
-    "",
   ],
 ]
 `;

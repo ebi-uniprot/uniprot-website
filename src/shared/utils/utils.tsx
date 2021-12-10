@@ -118,21 +118,23 @@ export const addBlastLinksToFreeText = (
 ) =>
   texts.map((text) => {
     const splitText = text.split(/(\d+-\d+)/);
-    return splitText.map((splitItem, i) => {
-      if (i % 2 === 1) {
-        const range = splitItem.split('-');
-        return (
-          <Link
-            to={getURLToJobWithData(JobTypes.BLAST, primaryAccession, {
-              start: +range[0],
-              end: +range[1],
-            })}
-            key={splitItem}
-          >
-            {splitItem}
-          </Link>
-        );
-      }
-      return splitItem;
-    });
+    return splitText
+      .map((splitItem, i) => {
+        if (i % 2 === 1) {
+          const range = splitItem.split('-');
+          return (
+            <Link
+              to={getURLToJobWithData(JobTypes.BLAST, primaryAccession, {
+                start: +range[0],
+                end: +range[1],
+              })}
+              key={splitItem}
+            >
+              {splitItem}
+            </Link>
+          );
+        }
+        return splitItem;
+      })
+      .filter((item) => item);
   });
