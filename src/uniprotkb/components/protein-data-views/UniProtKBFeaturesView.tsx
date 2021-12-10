@@ -124,17 +124,23 @@ const UniProtKBFeaturesView = ({
               </td>
               <td>
                 {/* Not using React Router link as this is copied into the table DOM */}
-                <Button
-                  element="a"
-                  variant="tertiary"
-                  title="BLAST the sequence corresponding to this feature"
-                  href={getURLToJobWithData(JobTypes.BLAST, primaryAccession, {
-                    start: feature.start,
-                    end: feature.end,
-                  })}
-                >
-                  BLAST
-                </Button>
+                {feature.end - feature.start >= 3 && (
+                  <Button
+                    element="a"
+                    variant="tertiary"
+                    title="BLAST the sequence corresponding to this feature"
+                    href={getURLToJobWithData(
+                      JobTypes.BLAST,
+                      primaryAccession,
+                      {
+                        start: feature.start,
+                        end: feature.end,
+                      }
+                    )}
+                  >
+                    BLAST
+                  </Button>
+                )}
                 {/* <Button>Add</Button> */}
               </td>
             </tr>

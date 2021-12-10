@@ -1,4 +1,4 @@
-import { FC, useState, useEffect, useMemo } from 'react';
+import { FC, useState, useEffect, useMemo, Fragment } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
   Card,
@@ -31,6 +31,7 @@ import {
 } from '../../../supporting-data/citations/adapters/citationsConverter';
 import { Namespace } from '../../../shared/types/namespaces';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import { addBlastLinksToFreeText } from '../../../shared/utils/utils';
 
 const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
   reference,
@@ -92,7 +93,17 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
     },
     {
       title: 'Cited for',
-      content: referencePositions?.join(', '),
+      content:
+        referencePositions &&
+        addBlastLinksToFreeText(referencePositions, accession).map(
+          (item, i) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <Fragment key={i}>
+              {i > 0 && ', '}
+              {item}
+            </Fragment>
+          )
+        ),
     },
     {
       title: 'Tissue',

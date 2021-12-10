@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`deepFindAllByKey addBlastLinksToFreeText should handle no positions 1`] = `
+Array [
+  Array [
+    "SOME TEXT",
+  ],
+]
+`;
+
+exports[`deepFindAllByKey addBlastLinksToFreeText should handle positions at the beggining 1`] = `
+Array [
+  Array [
+    <Link
+      to="/blast?ids=UP_ACCESSION[10-34]"
+    >
+      10-34
+    </Link>,
+    " SOME TEXT",
+  ],
+]
+`;
+
+exports[`deepFindAllByKey addBlastLinksToFreeText should handle positions at the end 1`] = `
+Array [
+  Array [
+    "SOME TEXT ",
+    <Link
+      to="/blast?ids=UP_ACCESSION[10-34]"
+    >
+      10-34
+    </Link>,
+  ],
+]
+`;
