@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
-import { keyBy, cloneDeep } from 'lodash-es';
+import { cloneDeep } from 'lodash-es';
 
 import useDataApi from '../../shared/hooks/useDataApi';
 
@@ -74,6 +74,9 @@ function useInitialFormParameters<
       history.location?.state as CustomLocationState<FormParameters>
     )?.parameters;
 
+    // Might want to use structuredClone eventually, but it's really new and we
+    // need to make sure that it's polyfilled by core-js first.
+    // See: https://developer.mozilla.org/en-US/docs/Web/API/structuredClone
     const formValues: FormValues<Fields> = cloneDeep(defaultFormValues);
     // Parameters from state
     if (parametersFromHistoryState) {
@@ -93,13 +96,13 @@ function useInitialFormParameters<
 
     // ids parameter from the url has been passed so handle the fetched accessions once loaded
     if (!!accessionsData?.results?.length && idsMaybeWithRange) {
-      const idToSequence = keyBy(
-        accessionsData.results,
-        ({ primaryAccession }) => primaryAccession
+      const idToSequence = new Map(
+        accessionsData.results.map((datum) => [datum.primaryAccession, datum])
       );
       const sequences = idsMaybeWithRange
         .map(({ id, start, end }) => {
-          if (!idToSequence[id]) {
+          const entry = idToSequence.get(id);
+          if (!entry) {
             // TODO: currently this will not be reached - if any accession fails in the accessions request
             // then the whole request fails. Leaving here in case this ever changes
             // reduxDispatch(
@@ -112,7 +115,6 @@ function useInitialFormParameters<
             // );
             return null;
           }
-          const entry = idToSequence[id];
           const subsets = start && end ? [{ start, end }] : [];
           const fasta = entryToFASTAWithHeaders(entry, { subsets });
           return fasta;
