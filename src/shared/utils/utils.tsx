@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom';
 import { RequireAtLeastOne } from 'type-fest';
+import { getBLASTURL } from '../../app/config/urls';
 
 export const formatPercentage = (n: number, maximumFractionDigits = 1) =>
   `${n.toLocaleString('en-US', {
@@ -108,3 +110,24 @@ export function* deepFindAllByKey<T = string>(
     }
   }
 }
+
+export const addBlastLinksToFreeText = (
+  texts: string[],
+  primaryAccession: string
+) =>
+  texts.map((text) => {
+    const splitText = text.split(/(\d+-\d+)/);
+    return splitText.map((splitItem, i) => {
+      if (i % 2 === 1) {
+        return (
+          <Link
+            to={getBLASTURL(primaryAccession, splitItem)}
+            key={`${splitItem}`}
+          >
+            {splitItem}
+          </Link>
+        );
+      }
+      return splitItem;
+    });
+  });
