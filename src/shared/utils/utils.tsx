@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { RequireAtLeastOne } from 'type-fest';
-import { getBLASTURL } from '../../app/config/urls';
+import { getURLToJobWithData } from '../../app/config/urls';
+import { JobTypes } from '../../tools/types/toolsJobTypes';
 
 export const formatPercentage = (n: number, maximumFractionDigits = 1) =>
   `${n.toLocaleString('en-US', {
@@ -119,9 +120,13 @@ export const addBlastLinksToFreeText = (
     const splitText = text.split(/(\d+-\d+)/);
     return splitText.map((splitItem, i) => {
       if (i % 2 === 1) {
+        const range = splitItem.split('-');
         return (
           <Link
-            to={getBLASTURL(primaryAccession, splitItem)}
+            to={getURLToJobWithData(JobTypes.BLAST, primaryAccession, {
+              start: +range[0],
+              end: +range[1],
+            })}
             key={`${splitItem}`}
           >
             {splitItem}

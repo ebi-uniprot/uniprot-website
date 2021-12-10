@@ -236,6 +236,3 @@ export const getURLToJobWithData = (
   `${jobTypeToPath(jobType)}?ids=${primaryAccession}${
     options ? `[${options.start}-${options.end}]` : ''
   }`;
-
-export const getBLASTURL = (primaryAccession: string, position?: string) =>
-  `${LocationToPath[Location.Blast]}?ids=${primaryAccession}[${position}]`;
