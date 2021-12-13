@@ -70,49 +70,39 @@ exports[`CatalyticActivityView component should render catalytic activity 1`] = 
       />
        directions 
     </div>
-    <div>
-      <span
-        class="ec-number"
-      >
-        EC: EC:12112
-      </span>
-       ( 
-      <a
-        href="/uniprotkb?query=(ec:EC:12112)"
-      >
-        UniProtKB 
-        <test-file-stub
-          width="1.333ch"
-        />
-      </a>
-       | 
-      <a
-        class="external-link"
-        href="https://enzyme.expasy.org/EC/EC:12112"
-        rel="noopener"
-        target="_blank"
-      >
-        ENZYME
-        <test-file-stub
-          data-testid="external-link-icon"
-          width="12.5"
-        />
-      </a>
-      | 
-      <a
-        class="external-link"
-        href="https://www.rhea-db.org/rhea?query=ec:EC:12112"
-        rel="noopener"
-        target="_blank"
-      >
-        Rhea
-        <test-file-stub
-          data-testid="external-link-icon"
-          width="12.5"
-        />
-      </a>
-      )
-    </div>
+    EC:EC:12112 (
+    <a
+      href="/uniprotkb?query=ec:EC:12112"
+    >
+      UniProtkb
+    </a>
+     | 
+    <a
+      class="external-link"
+      href="https://enzyme.expasy.org/EC/EC:12112"
+      rel="noopener"
+      target="_blank"
+    >
+      ENZYME
+      <test-file-stub
+        data-testid="external-link-icon"
+        width="12.5"
+      />
+    </a>
+     | 
+    <a
+      class="external-link"
+      href="https://www.rhea-db.org/rhea?query=ec:EC:12112"
+      rel="noopener"
+      target="_blank"
+    >
+      Rhea
+      <test-file-stub
+        data-testid="external-link-icon"
+        width="12.5"
+      />
+    </a>
+    )
   </span>
 </DocumentFragment>
 `;
@@ -182,49 +172,39 @@ exports[`CatalyticActivityView component should render catalytic activity when c
       />
        directions 
     </div>
-    <div>
-      <span
-        class="ec-number"
-      >
-        EC: EC:12112
-      </span>
-       ( 
-      <a
-        href="/uniprotkb?query=(ec:EC:12112)"
-      >
-        UniProtKB 
-        <test-file-stub
-          width="1.333ch"
-        />
-      </a>
-       | 
-      <a
-        class="external-link"
-        href="https://enzyme.expasy.org/EC/EC:12112"
-        rel="noopener"
-        target="_blank"
-      >
-        ENZYME
-        <test-file-stub
-          data-testid="external-link-icon"
-          width="12.5"
-        />
-      </a>
-      | 
-      <a
-        class="external-link"
-        href="https://www.rhea-db.org/rhea?query=ec:EC:12112"
-        rel="noopener"
-        target="_blank"
-      >
-        Rhea
-        <test-file-stub
-          data-testid="external-link-icon"
-          width="12.5"
-        />
-      </a>
-      )
-    </div>
+    EC:EC:12112 (
+    <a
+      href="/uniprotkb?query=ec:EC:12112"
+    >
+      UniProtkb
+    </a>
+     | 
+    <a
+      class="external-link"
+      href="https://enzyme.expasy.org/EC/EC:12112"
+      rel="noopener"
+      target="_blank"
+    >
+      ENZYME
+      <test-file-stub
+        data-testid="external-link-icon"
+        width="12.5"
+      />
+    </a>
+     | 
+    <a
+      class="external-link"
+      href="https://www.rhea-db.org/rhea?query=ec:EC:12112"
+      rel="noopener"
+      target="_blank"
+    >
+      Rhea
+      <test-file-stub
+        data-testid="external-link-icon"
+        width="12.5"
+      />
+    </a>
+    )
   </span>
 </DocumentFragment>
 `;

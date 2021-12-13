@@ -6,6 +6,7 @@ import AnnotationScoreDoughnutChart, {
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
+import { ECNumbersView } from './ProteinNamesView';
 
 const existenceRE = /^\d: /;
 
@@ -25,10 +26,11 @@ const ProteinOverview: FC<{
 
   const ecNumberNode = data.proteinDescription?.recommendedName?.ecNumbers && (
     <>
-      <strong>EC number:</strong>{' '}
-      {data.proteinDescription?.recommendedName?.ecNumbers
-        ?.map((ec) => ec.value)
-        .join(' ')}
+      <ECNumbersView
+        ecNumbers={data.proteinDescription?.recommendedName?.ecNumbers}
+        noEvidence
+        noLinks
+      />
       {' · '}
     </>
   );

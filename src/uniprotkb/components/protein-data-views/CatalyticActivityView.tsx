@@ -1,5 +1,4 @@
 import { Fragment, useState, useCallback, useRef } from 'react';
-import { Link } from 'react-router-dom';
 import {
   useModal,
   ModalBackdrop,
@@ -7,7 +6,6 @@ import {
   Loader,
   ChevronDownIcon,
   ChevronUpIcon,
-  SearchIcon,
   ExternalLink,
 } from 'franklin-sites';
 
@@ -15,7 +13,6 @@ import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 
-import { Location, LocationToPath } from '../../../app/config/urls';
 import externalUrls from '../../../shared/config/externalUrls';
 
 import * as logging from '../../../shared/utils/logging';
@@ -28,6 +25,7 @@ import {
 
 import helper from '../../../shared/styles/helper.module.scss';
 import './styles/catalytic-activity-view.scss';
+import { ECNumbersView } from './ProteinNamesView';
 
 // example accessions to view this component: P31937, P0A879
 
@@ -274,27 +272,7 @@ const CatalyticActivityView = ({
             )}
 
             {reaction.ecNumber && (
-              <div>
-                <span className="ec-number">EC: {reaction.ecNumber}</span>
-                {' ( '}
-                <Link
-                  to={{
-                    pathname: LocationToPath[Location.UniProtKBResults],
-                    search: `query=(ec:${reaction.ecNumber})`,
-                  }}
-                >
-                  UniProtKB <SearchIcon width="1.333ch" />
-                </Link>
-                {' | '}
-                <ExternalLink url={externalUrls.ENZYME(reaction.ecNumber)}>
-                  ENZYME
-                </ExternalLink>
-                {'| '}
-                <ExternalLink url={externalUrls.RheaSearch(reaction.ecNumber)}>
-                  Rhea
-                </ExternalLink>
-                )
-              </div>
+              <ECNumbersView ecNumbers={[{ value: reaction.ecNumber }]} />
             )}
             {!!rheaId && (
               <>

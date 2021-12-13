@@ -59,11 +59,7 @@ exports[`UniProtKBCard component should render 1`] = `
           >
             scientific name (common name) (synonyms 1)
           </a>
-           · 
-          <strong>
-            EC number:
-          </strong>
-           1.2.3.4 · 
+           · EC:1.2.3.4 · 
           <strong>
             Gene:
           </strong>

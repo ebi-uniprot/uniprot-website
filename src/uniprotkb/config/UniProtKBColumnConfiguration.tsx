@@ -582,6 +582,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ec, {
       <ECNumbersView
         ecNumbers={proteinNamesData?.recommendedName?.ecNumbers}
         noEvidence
+        orientation="vertical"
       />
     );
   },
