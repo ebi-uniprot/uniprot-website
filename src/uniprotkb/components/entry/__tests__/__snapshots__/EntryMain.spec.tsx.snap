@@ -3104,7 +3104,13 @@ exports[`Entry view should render for non-human entry 1`] = `
         <div
           class="text-block"
         >
-          One of an enzyme pair that work together to convert the A antigen to the H antigen of the O blood type, which together release galactosamine. Catalyzes the first step in the conversion, generating the substrate for the subsequent enzyme (FpGalNase, AC P0DTR5). Works on many different A antigen subtypes. Glu-90 probably activates a nucleophilic water molecule to start the deacetylation reaction.
+          One of an enzyme pair that work together to convert the A antigen to the H antigen of the O blood type, which together release galactosamine. Catalyzes the first step in the conversion, generating the substrate for the subsequent enzyme (FpGalNase, AC 
+          <a
+            href="/uniprotkb/P0DTR5"
+          >
+            P0DTR5
+          </a>
+           Works on many different A antigen subtypes. Glu-90 probably activates a nucleophilic water molecule to start the deacetylation reaction.
           <button
             aria-controls="0"
             aria-expanded="false"
