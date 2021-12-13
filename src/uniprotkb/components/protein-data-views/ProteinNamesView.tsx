@@ -102,7 +102,7 @@ export const ECNumbersView: FC<{
   orientation = 'horizontal',
 }) => {
   const content = ecNumbers?.map((ecNumber) => (
-    <>
+    <Fragment key={ecNumber.value}>
       {noEvidence ? (
         `EC:${ecNumber.value}`
       ) : (
@@ -135,7 +135,7 @@ export const ECNumbersView: FC<{
           )
         </>
       )}
-    </>
+    </Fragment>
   ));
 
   if (!content) {
