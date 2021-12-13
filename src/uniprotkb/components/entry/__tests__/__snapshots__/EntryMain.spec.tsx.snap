@@ -91,49 +91,39 @@ exports[`Entry view should render 1`] = `
               id="1"
             />
           </div>
-          <div>
-            <span
-              class="ec-number"
-            >
-              EC: 1.2.4.5
-            </span>
-             ( 
-            <a
-              href="/uniprotkb?query=(ec:1.2.4.5)"
-            >
-              UniProtKB 
-              <test-file-stub
-                width="1.333ch"
-              />
-            </a>
-             | 
-            <a
-              class="external-link"
-              href="https://enzyme.expasy.org/EC/1.2.4.5"
-              rel="noopener"
-              target="_blank"
-            >
-              ENZYME
-              <test-file-stub
-                data-testid="external-link-icon"
-                width="12.5"
-              />
-            </a>
-            | 
-            <a
-              class="external-link"
-              href="https://www.rhea-db.org/rhea?query=ec:1.2.4.5"
-              rel="noopener"
-              target="_blank"
-            >
-              Rhea
-              <test-file-stub
-                data-testid="external-link-icon"
-                width="12.5"
-              />
-            </a>
-            )
-          </div>
+          EC:1.2.4.5 (
+          <a
+            href="/uniprotkb?query=ec:1.2.4.5"
+          >
+            UniProtkb
+          </a>
+           | 
+          <a
+            class="external-link"
+            href="https://enzyme.expasy.org/EC/1.2.4.5"
+            rel="noopener"
+            target="_blank"
+          >
+            ENZYME
+            <test-file-stub
+              data-testid="external-link-icon"
+              width="12.5"
+            />
+          </a>
+           | 
+          <a
+            class="external-link"
+            href="https://www.rhea-db.org/rhea?query=ec:1.2.4.5"
+            rel="noopener"
+            target="_blank"
+          >
+            Rhea
+            <test-file-stub
+              data-testid="external-link-icon"
+              width="12.5"
+            />
+          </a>
+          )
           <div>
             <strong>
               Source: 
