@@ -162,6 +162,9 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     <span
                       title="Annotation Score"
                     >
+                      <strong>
+                        Annotation score:
+                      </strong>
                       <span
                         class="doughnut-chart--small colour-platinum"
                       >
@@ -325,6 +328,9 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     <span
                       title="Annotation Score"
                     >
+                      <strong>
+                        Annotation score:
+                      </strong>
                       <span
                         class="doughnut-chart--small colour-platinum"
                       >
@@ -593,6 +599,9 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     <span
                       title="Annotation Score"
                     >
+                      <strong>
+                        Annotation score:
+                      </strong>
                       <span
                         class="doughnut-chart--small colour-platinum"
                       >
@@ -756,6 +765,9 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     <span
                       title="Annotation Score"
                     >
+                      <strong>
+                        Annotation score:
+                      </strong>
                       <span
                         class="doughnut-chart--small colour-platinum"
                       >

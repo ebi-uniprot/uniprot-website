@@ -31,6 +31,7 @@ const AnnotationScoreDoughnutChart: FC<AnnotationScoreDoughnutChartProps> = ({
   const annotationScoreBin = annotationScoreToBin(score);
   return (
     <span title="Annotation Score">
+      <strong>Annotation score:</strong>
       <DoughnutChart percent={annotationScoreBin * 20} size={size}>
         {`${annotationScoreBin}/5`}
       </DoughnutChart>

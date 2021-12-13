@@ -78,6 +78,9 @@ exports[`ResultsData component should render the card view with the correct numb
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -241,6 +244,9 @@ exports[`ResultsData component should render the card view with the correct numb
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -403,6 +409,9 @@ exports[`ResultsData component should render the card view with the correct numb
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -586,6 +595,9 @@ exports[`ResultsData component should render the card view with the correct numb
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -733,6 +745,9 @@ exports[`ResultsData component should render the card view with the correct numb
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -910,6 +925,9 @@ exports[`ResultsData component should render the card view with the correct numb
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -1056,6 +1074,9 @@ exports[`ResultsData component should render the card view with the correct numb
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -1219,6 +1240,9 @@ exports[`ResultsData component should render the card view with the correct numb
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -1348,6 +1372,9 @@ exports[`ResultsData component should render the card view with the correct numb
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -1500,6 +1527,9 @@ exports[`ResultsData component should render the card view with the correct numb
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -1641,6 +1671,9 @@ exports[`ResultsData component should render the card view with the correct numb
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -1797,6 +1830,9 @@ exports[`ResultsData component should render the card view with the correct numb
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -1944,6 +1980,9 @@ exports[`ResultsData component should render the card view with the correct numb
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -2084,6 +2123,9 @@ exports[`ResultsData component should render the card view with the correct numb
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -2241,6 +2283,9 @@ exports[`ResultsData component should render the card view with the correct numb
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -2416,6 +2461,9 @@ exports[`ResultsData component should render the card view with the correct numb
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -2577,6 +2625,9 @@ exports[`ResultsData component should render the card view with the correct numb
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -2716,6 +2767,9 @@ exports[`ResultsData component should render the card view with the correct numb
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -2851,6 +2905,9 @@ exports[`ResultsData component should render the card view with the correct numb
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -3016,6 +3073,9 @@ exports[`ResultsData component should render the card view with the correct numb
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -3196,6 +3256,9 @@ exports[`ResultsData component should render the card view with the correct numb
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -3368,6 +3431,9 @@ exports[`ResultsData component should render the card view with the correct numb
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -3507,6 +3573,9 @@ exports[`ResultsData component should render the card view with the correct numb
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -3642,6 +3711,9 @@ exports[`ResultsData component should render the card view with the correct numb
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -3773,6 +3845,9 @@ exports[`ResultsData component should render the card view with the correct numb
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >

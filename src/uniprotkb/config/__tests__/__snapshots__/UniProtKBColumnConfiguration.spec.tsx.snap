@@ -83,6 +83,9 @@ exports[`UniProtKBColumnConfiguration component should render column "annotation
   <span
     title="Annotation Score"
   >
+    <strong>
+      Annotation score:
+    </strong>
     <span
       class="doughnut-chart--medium colour-platinum"
     >
