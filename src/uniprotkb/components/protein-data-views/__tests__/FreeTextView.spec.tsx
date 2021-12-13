@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
 import customRender from '../../../../shared/__test-helpers__/customRender';
 
-import FreeTextView from '../FreeTextView';
+import FreeTextView, { ACCommentView } from '../FreeTextView';
 
 import freeTextUIData from './__mocks__/freeTextUIData';
 
@@ -50,5 +50,23 @@ describe('FreeText component', () => {
     it('should not render evidence tags', () => {
       expect(screen.queryByRole('button')).not.toBeInTheDocument();
     });
+  });
+});
+
+describe('ACCommentView', () => {
+  it('should render link with a single instance of "AC <accession>"', () => {
+    customRender(
+      <ACCommentView string="For an example of a full-length immunoglobulin kappa light chain see AC P0DOX7." />
+    );
+    const links = screen.queryAllByRole('link');
+    expect(links).toHaveLength(1);
+    expect(links[0]).toHaveAttribute('href', '/uniprotkb/P0DOX7');
+  });
+  it('should render two links with two instances of "AC <accession>"', () => {
+    customRender(<ACCommentView string="See AC P0DOX7 and see AC P05067." />);
+    const links = screen.queryAllByRole('link');
+    expect(links).toHaveLength(2);
+    expect(links[0]).toHaveAttribute('href', '/uniprotkb/P0DOX7');
+    expect(links[1]).toHaveAttribute('href', '/uniprotkb/P05067');
   });
 });
