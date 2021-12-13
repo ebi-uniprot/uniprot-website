@@ -1235,7 +1235,7 @@ exports[`Entry basic should render main 1`] = `
                           <h5
                             class="bold"
                           >
-                            Submission names
+                            Submitted names
                           </h5>
                         </div>
                         <div

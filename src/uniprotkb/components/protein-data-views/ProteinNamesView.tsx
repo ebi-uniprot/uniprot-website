@@ -198,9 +198,9 @@ const ProteinNamesView = ({
   }
   if (proteinNames.submissionNames) {
     infoData.push({
-      title: 'Submission names',
+      title: 'Submitted names',
       content: (
-        <ExpandableList descriptionString="submission names">
+        <ExpandableList descriptionString="submitted names">
           {proteinNames.submissionNames.map((submission, index) => (
             <ProteinNamesViewFlat
               key={index} // eslint-disable-line react/no-array-index-key
