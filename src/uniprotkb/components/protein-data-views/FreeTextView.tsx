@@ -23,26 +23,24 @@ const getEntryPathForCitation = getEntryPathFor(Namespace.citations);
 
 export const ACCommentView = ({ string }: { string: string }) => {
   // This replaces any occurrences of "AC <accession>" with "AC "<link to the accession>
-  const stringTokens = string.split(' ');
-  const nodeTokens: ReactNode[] = new Array(stringTokens.length);
-  for (let i = 0; i < stringTokens.length; i += 1) {
-    const accession = stringTokens[i].match(uniProtKBAccessionRegEx)?.[0];
-    nodeTokens[i] =
-      i > 0 && stringTokens[i - 1] === 'AC' && accession ? (
+  const tokens = string.split(' ');
+  const nodes: ReactNode[] = new Array(tokens.length);
+  for (let i = 0; i < tokens.length; i += 1) {
+    const accession = tokens[i].match(uniProtKBAccessionRegEx)?.[0];
+    nodes[i] =
+      i > 0 && tokens[i - 1] === 'AC' && accession ? (
         <Link key={i} to={getEntryPath(Namespace.uniprotkb, accession)}>
           {accession}
         </Link>
       ) : (
-        stringTokens[i]
+        tokens[i]
       );
   }
-  const lastIndex = stringTokens.length - 1;
-  if (!stringTokens[lastIndex].endsWith('.')) {
-    nodeTokens[lastIndex] = (
-      <Fragment key="last">{nodeTokens[lastIndex]}.</Fragment>
-    );
+  const lastIndex = tokens.length - 1;
+  if (!tokens[lastIndex].endsWith('.')) {
+    nodes[lastIndex] = <Fragment key="last">{nodes[lastIndex]}.</Fragment>;
   }
-  return <>{nodeTokens.reduce((prev, curr) => [prev, ' ', curr])}</>;
+  return <>{nodes.reduce((prev, curr) => [prev, ' ', curr])}</>;
 };
 
 type TextViewProps = { comments: TextWithEvidence[]; noEvidence?: boolean };
