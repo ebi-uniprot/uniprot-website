@@ -7,7 +7,6 @@ import {
 import { GeneNamesData } from '../adapters/namesAndTaxonomyConverter';
 
 import { Property, PropertyKey } from '../types/modelTypes';
-import { CommentType } from '../types/commentTypes';
 
 export const hasExternalLinks = (transformedData: UniProtkbUIModel) =>
   UniProtKBEntryConfig.some(({ id }) => {
