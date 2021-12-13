@@ -638,7 +638,7 @@ exports[`Entry view should render 1`] = `
               <div
                 class="decorated-list-item__content"
               >
-                1.2.3.4 
+                EC:1.2.3.4 
                 <button
                   aria-controls="13"
                   aria-expanded="false"
@@ -661,6 +661,39 @@ exports[`Entry view should render 1`] = `
                   data-testid="evidence-tag-content"
                   id="13"
                 />
+                 (
+                <a
+                  href="/uniprotkb?query=ec:1.2.3.4"
+                >
+                  UniProtkb
+                </a>
+                 | 
+                <a
+                  class="external-link"
+                  href="https://enzyme.expasy.org/EC/1.2.3.4"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  ENZYME
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                 | 
+                <a
+                  class="external-link"
+                  href="https://www.rhea-db.org/rhea?query=ec:1.2.3.4"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  Rhea
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                )
               </div>
             </div>
           </li>
@@ -1153,7 +1186,7 @@ exports[`Entry view should render 1`] = `
               <div
                 class="decorated-list-item__content"
               >
-                1.2.3.4 
+                EC:1.2.3.4 
                 <button
                   aria-controls="26"
                   aria-expanded="false"
@@ -1176,6 +1209,39 @@ exports[`Entry view should render 1`] = `
                   data-testid="evidence-tag-content"
                   id="26"
                 />
+                 (
+                <a
+                  href="/uniprotkb?query=ec:1.2.3.4"
+                >
+                  UniProtkb
+                </a>
+                 | 
+                <a
+                  class="external-link"
+                  href="https://enzyme.expasy.org/EC/1.2.3.4"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  ENZYME
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                 | 
+                <a
+                  class="external-link"
+                  href="https://www.rhea-db.org/rhea?query=ec:1.2.3.4"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  Rhea
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                )
               </div>
             </div>
           </li>
@@ -4480,7 +4546,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__content"
               >
-                3.5.1.- 
+                EC:3.5.1.- 
                 <button
                   aria-controls="36"
                   aria-expanded="false"
@@ -4503,6 +4569,39 @@ exports[`Entry view should render for non-human entry 1`] = `
                   data-testid="evidence-tag-content"
                   id="36"
                 />
+                 (
+                <a
+                  href="/uniprotkb?query=ec:3.5.1.-"
+                >
+                  UniProtkb
+                </a>
+                 | 
+                <a
+                  class="external-link"
+                  href="https://enzyme.expasy.org/EC/3.5.1.-"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  ENZYME
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                 | 
+                <a
+                  class="external-link"
+                  href="https://www.rhea-db.org/rhea?query=ec:3.5.1.-"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  Rhea
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                )
               </div>
             </div>
           </li>

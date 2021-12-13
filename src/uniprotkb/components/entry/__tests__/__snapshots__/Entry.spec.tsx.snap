@@ -155,11 +155,7 @@ exports[`Entry basic should render main 1`] = `
           >
             scientific name (common name) (synonyms 1)
           </a>
-           · 
-          <strong>
-            EC number:
-          </strong>
-           1.2.3.4 · 
+           · EC:1.2.3.4 · 
           <strong>
             Gene:
           </strong>
@@ -963,7 +959,7 @@ exports[`Entry basic should render main 1`] = `
                         <div
                           class="decorated-list-item__content"
                         >
-                          1.2.3.4 
+                          EC:1.2.3.4 
                           <button
                             aria-controls="14"
                             aria-expanded="false"
@@ -986,6 +982,39 @@ exports[`Entry basic should render main 1`] = `
                             data-testid="evidence-tag-content"
                             id="14"
                           />
+                           (
+                          <a
+                            href="/uniprotkb?query=ec:1.2.3.4"
+                          >
+                            UniProtkb
+                          </a>
+                           | 
+                          <a
+                            class="external-link"
+                            href="https://enzyme.expasy.org/EC/1.2.3.4"
+                            rel="noopener"
+                            target="_blank"
+                          >
+                            ENZYME
+                            <test-file-stub
+                              data-testid="external-link-icon"
+                              width="12.5"
+                            />
+                          </a>
+                           | 
+                          <a
+                            class="external-link"
+                            href="https://www.rhea-db.org/rhea?query=ec:1.2.3.4"
+                            rel="noopener"
+                            target="_blank"
+                          >
+                            Rhea
+                            <test-file-stub
+                              data-testid="external-link-icon"
+                              width="12.5"
+                            />
+                          </a>
+                          )
                         </div>
                       </div>
                     </li>
@@ -1478,7 +1507,7 @@ exports[`Entry basic should render main 1`] = `
                         <div
                           class="decorated-list-item__content"
                         >
-                          1.2.3.4 
+                          EC:1.2.3.4 
                           <button
                             aria-controls="27"
                             aria-expanded="false"
@@ -1501,6 +1530,39 @@ exports[`Entry basic should render main 1`] = `
                             data-testid="evidence-tag-content"
                             id="27"
                           />
+                           (
+                          <a
+                            href="/uniprotkb?query=ec:1.2.3.4"
+                          >
+                            UniProtkb
+                          </a>
+                           | 
+                          <a
+                            class="external-link"
+                            href="https://enzyme.expasy.org/EC/1.2.3.4"
+                            rel="noopener"
+                            target="_blank"
+                          >
+                            ENZYME
+                            <test-file-stub
+                              data-testid="external-link-icon"
+                              width="12.5"
+                            />
+                          </a>
+                           | 
+                          <a
+                            class="external-link"
+                            href="https://www.rhea-db.org/rhea?query=ec:1.2.3.4"
+                            rel="noopener"
+                            target="_blank"
+                          >
+                            Rhea
+                            <test-file-stub
+                              data-testid="external-link-icon"
+                              width="12.5"
+                            />
+                          </a>
+                          )
                         </div>
                       </div>
                     </li>

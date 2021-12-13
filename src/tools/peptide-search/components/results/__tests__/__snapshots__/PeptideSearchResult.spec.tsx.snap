@@ -150,11 +150,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     >
                       Homo sapiens (Human)
                     </a>
-                     · 
-                    <strong>
-                      EC number:
-                    </strong>
-                     3.1.3.9 · 
+                     · EC:3.1.3.9 · 
                     <strong>
                       Gene:
                     </strong>
@@ -587,11 +583,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     >
                       Homo sapiens (Human)
                     </a>
-                     · 
-                    <strong>
-                      EC number:
-                    </strong>
-                     3.1.3.9 · 
+                     · EC:3.1.3.9 · 
                     <strong>
                       Gene:
                     </strong>
