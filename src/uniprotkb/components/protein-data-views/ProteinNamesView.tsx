@@ -113,9 +113,7 @@ export const ECNumbersView: FC<{
           }}
         />
       )}
-      {noLinks ? (
-        ''
-      ) : (
+      {noLinks ? null : (
         <>
           {' ('}
           <Link
