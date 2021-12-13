@@ -10,6 +10,8 @@ import NightingaleZoomTool from '../../../uniprotkb/components/protein-data-view
 import FeatureType from '../../../uniprotkb/types/featureType';
 import { UniParcProcessedFeature } from '../../../uniparc/components/entry/UniParcFeaturesView';
 
+import './styles/features-view.scss';
+
 export type Fragment = {
   start: number;
   end: number;
