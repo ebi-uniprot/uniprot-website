@@ -74,5 +74,6 @@ export const getPropertyValue = (
 
 // The regex that matches uniprot accession. Taken from:
 // https://www.uniprot.org/help/accession_numbers
+// NOTE: modifined to use a non-capturing group with ?:
 export const uniProtKBAccessionRegEx =
-  /[OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9]([A-Z][A-Z0-9]{2}[0-9]){1,2}/i;
+  /[OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9](?:[A-Z][A-Z0-9]{2}[0-9]){1,2}/i;
