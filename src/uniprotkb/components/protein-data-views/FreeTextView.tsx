@@ -23,30 +23,34 @@ const getEntryPathForCitation = getEntryPathFor(Namespace.citations);
 
 export const ACCommentView = ({ string }: { string: string }) => {
   // This replaces any occurrences of "AC <accession>" with "AC "<link to the accession>
-  const tokens = string.split(' ');
-  const nodes: ReactNode[] = new Array(tokens.length);
-  for (let i = 0; i < tokens.length; i += 1) {
-    const accession = tokens[i].match(uniProtKBAccessionRegEx)?.[0];
-    nodes[i] =
-      i > 0 && tokens[i - 1] === 'AC' && accession ? (
-        <Link key={i} to={getEntryPath(Namespace.uniprotkb, accession)}>
-          {accession}
-        </Link>
-      ) : (
-        tokens[i]
-      );
-  }
-  const lastIndex = tokens.length - 1;
-  if (!tokens[lastIndex].endsWith('.')) {
-    nodes[lastIndex] = <Fragment key="last">{nodes[lastIndex]}.</Fragment>;
-  }
-  return <>{nodes.reduce((prev, curr) => [prev, ' ', curr])}</>;
+  const acRE = new RegExp(`(AC ${uniProtKBAccessionRegEx.source})`, 'i');
+  return (
+    <>
+      {string.split(acRE).map((part, index, { length }) => {
+        const accession = part.match(uniProtKBAccessionRegEx)?.[0];
+        return acRE.test(part) && accession ? (
+          // eslint-disable-next-line react/no-array-index-key
+          <Fragment key={index}>
+            {`AC `}
+            <Link to={getEntryPath(Namespace.uniprotkb, accession)}>
+              {accession}
+            </Link>
+          </Fragment>
+        ) : (
+          // eslint-disable-next-line react/no-array-index-key
+          <Fragment key={index}>
+            {index + 1 === length && !part.endsWith('.') ? `${part}.` : part}
+          </Fragment>
+        );
+      })}
+    </>
+  );
 };
 
 type TextViewProps = { comments: TextWithEvidence[]; noEvidence?: boolean };
 
 export const TextView = ({ comments, noEvidence }: TextViewProps) => {
-  const acRE = new RegExp(`AC ${uniProtKBAccessionRegEx.source}`, 'gi');
+  const acRE = new RegExp(`AC ${uniProtKBAccessionRegEx.source}`, 'i');
   return (
     <div className="text-block">
       {comments.map((comment, index) => (
