@@ -1,4 +1,5 @@
-import { RouteChildrenProps } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useHistory, RouteChildrenProps } from 'react-router-dom';
 import { Loader, Card, InfoList } from 'franklin-sites';
 import cn from 'classnames';
 
@@ -23,6 +24,7 @@ import KeywordsColumnConfiguration, {
 
 import helper from '../../../../shared/styles/helper.module.scss';
 import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
+import { getEntryPathFor } from '../../../../app/config/urls';
 
 const columns = [
   KeywordsColumn.definition,
@@ -35,7 +37,17 @@ const columns = [
 ];
 
 const KeywordsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
+  const history = useHistory();
   const accession = props.match?.params.accession;
+
+  useEffect(() => {
+    // If accession is a number only, add KW- prefix
+    if (accession?.match(/^\d+$/)) {
+      history.push({
+        pathname: getEntryPathFor(Namespace.keywords)(`KW-${accession}`),
+      });
+    }
+  }, [accession, history]);
 
   const { data, loading, error, status, progress, isStale } =
     useDataApiWithStale<KeywordsAPIModel>(
