@@ -425,7 +425,7 @@ exports[`Entry basic should render main 1`] = `
                     <a
                       href="/uniprotkb?query=ec:1.2.4.5"
                     >
-                      UniProtkb
+                      UniProtKB
                     </a>
                      | 
                     <a
@@ -976,7 +976,7 @@ exports[`Entry basic should render main 1`] = `
                           <a
                             href="/uniprotkb?query=ec:1.2.3.4"
                           >
-                            UniProtkb
+                            UniProtKB
                           </a>
                            | 
                           <a
@@ -1524,7 +1524,7 @@ exports[`Entry basic should render main 1`] = `
                           <a
                             href="/uniprotkb?query=ec:1.2.3.4"
                           >
-                            UniProtkb
+                            UniProtKB
                           </a>
                            | 
                           <a
