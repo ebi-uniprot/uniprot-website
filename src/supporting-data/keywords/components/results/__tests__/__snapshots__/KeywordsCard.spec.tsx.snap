@@ -35,7 +35,7 @@ exports[`KeywordsCard tests should render the card component 1`] = `
         <h2
           class="tiny"
         >
-          Allosteric enzyme
+          Allosteric enzyme (KW-0021)
         </h2>
       </div>
       <div

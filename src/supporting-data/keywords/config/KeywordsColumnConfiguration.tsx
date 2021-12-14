@@ -85,7 +85,7 @@ KeywordsColumnConfiguration.set(KeywordsColumn.geneOntologies, {
 KeywordsColumnConfiguration.set(KeywordsColumn.id, {
   label: 'ID',
   render: ({ keyword }) =>
-    keyword && <Link to={getEntryPath(keyword.id)}>{keyword.name}</Link>,
+    keyword && <Link to={getEntryPath(keyword.id)}>{keyword.id}</Link>,
 });
 
 KeywordsColumnConfiguration.set(KeywordsColumn.name, {

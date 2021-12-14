@@ -71,7 +71,8 @@ const KeywordsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
         <meta name="description" content={data.definition} />
       </HTMLHead>
       <h1 className="big">
-        {searchableNamespaceLabels[Namespace.keywords]} - {data.keyword.name}
+        {searchableNamespaceLabels[Namespace.keywords]} - {data.keyword.name} (
+        {data.keyword.id})
       </h1>
       <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
         <div className="button-group">
