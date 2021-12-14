@@ -28,20 +28,21 @@ export const ACCommentView = ({ string }: { string: string }) => {
     <>
       {string.split(acRE).map((part, index, { length }) => {
         const accession = part.match(uniProtKBAccessionRegEx)?.[0];
-        return acRE.test(part) && accession ? (
-          // eslint-disable-next-line react/no-array-index-key
-          <Fragment key={index}>
-            {`AC `}
-            <Link to={getEntryPath(Namespace.uniprotkb, accession)}>
-              {accession}
-            </Link>
-          </Fragment>
-        ) : (
-          // eslint-disable-next-line react/no-array-index-key
-          <Fragment key={index}>
-            {index + 1 === length && !part.endsWith('.') ? `${part}.` : part}
-          </Fragment>
-        );
+        if (acRE.test(part) && accession) {
+          return (
+            // eslint-disable-next-line react/no-array-index-key
+            <Fragment key={index}>
+              {`AC `}
+              <Link to={getEntryPath(Namespace.uniprotkb, accession)}>
+                {accession}
+              </Link>
+            </Fragment>
+          );
+        }
+        if (index + 1 === length && !part.endsWith('.')) {
+          return `${part}.`;
+        }
+        return part;
       })}
     </>
   );
