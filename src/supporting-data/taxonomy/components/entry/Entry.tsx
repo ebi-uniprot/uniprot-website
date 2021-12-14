@@ -39,6 +39,7 @@ const columns = [
   TaxonomyColumn.lineage,
   TaxonomyColumn.hosts,
   TaxonomyColumn.strains,
+  TaxonomyColumn.links,
 ];
 
 const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {

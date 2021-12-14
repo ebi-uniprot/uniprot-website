@@ -35,6 +35,7 @@ type Taxonomy = {
   mnemonic?: string;
   evidences?: Evidence[];
   lineage?: Lineage;
+  links?: string[];
   hidden?: boolean;
   rank?: Rank;
 };

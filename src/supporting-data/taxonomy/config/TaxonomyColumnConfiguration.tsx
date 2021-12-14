@@ -178,6 +178,18 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.statistics, {
   ),
 });
 
+TaxonomyColumnConfiguration.set(TaxonomyColumn.links, {
+  label: 'See also',
+  render: ({ links }) =>
+    links && (
+      <ExpandableList displayNumberOfHiddenItems descriptionString="links">
+        {links.map((link) => (
+          <ExternalLink url={link}>{link}</ExternalLink>
+        ))}
+      </ExpandableList>
+    ),
+});
+
 // TODO: ask backend to remove this one, duplicate with statistics
 TaxonomyColumnConfiguration.set(TaxonomyColumn.reviewed, {
   label: 'Reviewed (deprecated column)',
