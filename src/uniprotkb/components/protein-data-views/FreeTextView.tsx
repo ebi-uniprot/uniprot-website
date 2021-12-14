@@ -5,11 +5,11 @@ import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
 import { getEntryPath, getEntryPathFor } from '../../../app/config/urls';
 import {
-  acRE,
-  pubMedIDRE,
-  pubMedOrACRE,
-  pubMedRE,
-  uniProtKBAccessionRE,
+  reAC,
+  rePubMedID,
+  rePubMedOrAC,
+  rePubMed,
+  reUniProtKBAccession,
 } from '../../utils';
 
 import { Namespace } from '../../../shared/types/namespaces';
@@ -28,14 +28,14 @@ export const TextView = ({ comments, noEvidence }: TextViewProps) => (
     {comments.map((comment, index) => (
       // eslint-disable-next-line react/no-array-index-key
       <Fragment key={index}>
-        {comment.value.split(pubMedOrACRE).map((part, index, { length }) => {
+        {comment.value.split(rePubMedOrAC).map((part, index, { length }) => {
           // Capturing group will allow split to conserve that bit in the split parts
-          // NOTE: pubMedRE and acRE should be using a lookbehind eg `/(?<=pubmed:)(\d{7,8})/i` but
+          // NOTE: rePubMed and reAC should be using a lookbehind eg `/(?<=pubmed:)(\d{7,8})/i` but
           // it is not supported in Safari yet. It's OK, we just get more chunks when splitting
-          const pubMedID = part.match(pubMedIDRE)?.[0];
-          if (pubMedRE.test(part) && pubMedID) {
+          const pubMedID = part.match(rePubMedID)?.[0];
+          if (rePubMed.test(part) && pubMedID) {
             // PubMed ID, insert a link
-            // eg P05067
+            // eg A0A075B6S6
             return (
               // eslint-disable-next-line react/no-array-index-key
               <Fragment key={index}>
@@ -44,8 +44,8 @@ export const TextView = ({ comments, noEvidence }: TextViewProps) => (
               </Fragment>
             );
           }
-          const accession = part.match(uniProtKBAccessionRE)?.[0];
-          if (acRE.test(part) && accession) {
+          const accession = part.match(reUniProtKBAccession)?.[0];
+          if (reAC.test(part) && accession) {
             // Replace any occurrences of "AC <accession>" with "AC "<link to accession>
             // eg A0A075B6S6
             return (

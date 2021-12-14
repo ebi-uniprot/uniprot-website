@@ -74,14 +74,14 @@ export const getPropertyValue = (
 
 // The regex that matches uniprot accession. Taken from:
 // https://www.uniprot.org/help/accession_numbers
-// NOTE: modifined to use a non-capturing group with ?:
-export const uniProtKBAccessionRE =
+// NOTE: modified to use a non-capturing group with "?:"
+export const reUniProtKBAccession =
   /[OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9](?:[A-Z][A-Z0-9]{2}[0-9]){1,2}/i;
 
-export const acRE = new RegExp(`(?:AC ${uniProtKBAccessionRE.source})`, 'i');
-export const pubMedRE = /(?:pubmed:\d{7,8})/i;
-export const pubMedIDRE = /\d{7,8}/;
-export const pubMedOrACRE = new RegExp(
-  `(${pubMedRE.source}|${acRE.source})`,
+export const reAC = new RegExp(`(?:AC ${reUniProtKBAccession.source})`, 'i');
+export const rePubMedID = /\d{7,8}/;
+export const rePubMed = new RegExp(`(?:pubmed:${rePubMedID.source})`, 'i');
+export const rePubMedOrAC = new RegExp(
+  `(${rePubMed.source}|${reAC.source})`,
   'i'
 );
