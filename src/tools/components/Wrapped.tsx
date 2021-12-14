@@ -1,15 +1,14 @@
 /* eslint-disable no-param-reassign */
 import {
-  FC,
   useCallback,
   useMemo,
   useRef,
   SetStateAction,
   Dispatch,
+  useEffect,
 } from 'react';
 import { debounce } from 'lodash-es';
 import { Loader } from 'franklin-sites';
-import useEventListener from '@use-it/event-listener';
 
 import useSize from '../../shared/hooks/useSize';
 import useSafeState from '../../shared/hooks/useSafeState';
@@ -76,7 +75,7 @@ export type WrappedRowProps = {
 const sequenceHeight = 20;
 const heightStyle = { height: `${sequenceHeight}px` };
 
-export const WrappedRow: FC<WrappedRowProps> = ({
+export const WrappedRow = ({
   rowLength,
   highlightProperty,
   conservationOptions,
@@ -93,15 +92,15 @@ export const WrappedRow: FC<WrappedRowProps> = ({
   activeAlignment,
   selectedMSAFeatures,
   onMSAFeatureClick,
-}) => {
-  const msaDefined = useCustomElement(
+}: WrappedRowProps) => {
+  const msaElement = useCustomElement(
     /* istanbul ignore next */
     () => import(/* webpackChunkName: "protvista-msa" */ 'protvista-msa'),
     'protvista-msa'
   );
   const setMSAAttributes = useCallback(
     (node): void => {
-      if (node && msaDefined) {
+      if (node && msaElement.defined) {
         node.features = selectedMSAFeatures?.map((f) => ({
           ...f,
           residues: {
@@ -113,10 +112,16 @@ export const WrappedRow: FC<WrappedRowProps> = ({
         node.data = sequences;
       }
     },
-    [msaDefined, onMSAFeatureClick, selectedMSAFeatures, sequences, trackStart]
+    [
+      msaElement.defined,
+      onMSAFeatureClick,
+      selectedMSAFeatures,
+      sequences,
+      trackStart,
+    ]
   );
 
-  const trackDefined = useCustomElement(
+  const trackElement = useCustomElement(
     /* istanbul ignore next */
     () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
     'protvista-track'
@@ -124,7 +129,7 @@ export const WrappedRow: FC<WrappedRowProps> = ({
 
   const setFeatureTrackData = useCallback(
     (node): void => {
-      if (node && trackDefined && activeAlignment?.sequence) {
+      if (node && trackElement.defined && activeAlignment?.sequence) {
         node.data = activeAnnotation
           .map((f) =>
             createGappedFeature(
@@ -140,9 +145,9 @@ export const WrappedRow: FC<WrappedRowProps> = ({
     },
     // TODO: replace this with fragments to have one big grid
     // -> to keep the right column of the right size to fit all possible values
-    [activeAlignment, activeAnnotation, trackDefined]
+    [activeAlignment, activeAnnotation, trackElement.defined]
   );
-  if (!(msaDefined && trackDefined)) {
+  if (!(msaElement.defined && trackElement.defined)) {
     return <Loader />;
   }
   return (
@@ -168,7 +173,7 @@ export const WrappedRow: FC<WrappedRowProps> = ({
       </div>
       <div className="track">
         {!delayRender && (
-          <protvista-msa
+          <msaElement.name
             ref={setMSAAttributes}
             length={rowLength}
             height={sequences.length * sequenceHeight}
@@ -192,7 +197,7 @@ export const WrappedRow: FC<WrappedRowProps> = ({
       </span>
       <div className="track annotation-track">
         {annotation && !delayRender && (
-          <protvista-track
+          <trackElement.name
             ref={setFeatureTrackData}
             displaystart={trackStart}
             displayend={trackEnd}
@@ -205,7 +210,7 @@ export const WrappedRow: FC<WrappedRowProps> = ({
   );
 };
 
-const Wrapped: FC<AlignmentComponentProps> = ({
+const Wrapped = ({
   updateTooltip,
   alignment,
   alignmentLength,
@@ -221,15 +226,18 @@ const Wrapped: FC<AlignmentComponentProps> = ({
   activeAnnotation,
   activeAlignment,
   onMSAFeatureClick,
-}) => {
+}: AlignmentComponentProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [size] = useSize(containerRef);
 
-  useEventListener(
-    'change',
-    handleEvent(updateTooltip) as (e: Event) => void,
-    containerRef?.current
-  );
+  useEffect(() => {
+    const handler = handleEvent(updateTooltip) as (e: Event) => void;
+    const element = containerRef?.current;
+    element?.addEventListener('change', handler);
+    return () => {
+      element?.removeEventListener('change', handler);
+    };
+  }, [updateTooltip]);
 
   const [rowLength, setRowLength] = useSafeState(0);
   const nItemsToRender = useStaggeredRenderingHelper({

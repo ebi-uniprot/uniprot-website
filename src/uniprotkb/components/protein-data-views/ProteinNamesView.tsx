@@ -1,7 +1,12 @@
-import { Fragment, FC } from 'react';
-import { InfoList, ExpandableList } from 'franklin-sites';
+import { Fragment } from 'react';
+import { Link } from 'react-router-dom';
+import { InfoList, ExpandableList, ExternalLink } from 'franklin-sites';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
+
+import externalUrls from '../../../shared/config/externalUrls';
+
+import { Location, LocationToPath } from '../../../app/config/urls';
 
 import {
   ProteinNames,
@@ -10,7 +15,7 @@ import {
 } from '../../adapters/namesAndTaxonomyConverter';
 import { ValueWithEvidence } from '../../types/modelTypes';
 
-export const NameWithEvidence: FC<{ data: ValueWithEvidence }> = ({ data }) => (
+export const NameWithEvidence = ({ data }: { data: ValueWithEvidence }) => (
   <>
     {data.value}
     {data.evidences && (
@@ -22,10 +27,15 @@ export const NameWithEvidence: FC<{ data: ValueWithEvidence }> = ({ data }) => (
   </>
 );
 
-const ProteinNamesViewFlat: FC<{
+type ProteinNamesViewFlatProps = {
   names?: ProteinNames;
   noEvidence?: boolean;
-}> = ({ names, noEvidence = false }) => {
+};
+
+const ProteinNamesViewFlat = ({
+  names,
+  noEvidence = false,
+}: ProteinNamesViewFlatProps) => {
   if (!names) {
     return null;
   }
@@ -59,9 +69,11 @@ const ProteinNamesViewFlat: FC<{
   );
 };
 
-const ProteinDescriptionView: FC<{
+const ProteinDescriptionView = ({
+  proteinDescription,
+}: {
   proteinDescription?: ProteinDescription;
-}> = ({ proteinDescription }) => {
+}) => {
   if (!proteinDescription) {
     return null;
   }
@@ -86,24 +98,78 @@ const ProteinDescriptionView: FC<{
   );
 };
 
-export const ECNumbersView: FC<{
+type ECNumbersViewProps = {
   ecNumbers?: ValueWithEvidence[];
   noEvidence?: boolean;
-}> = ({ ecNumbers, noEvidence = false }) => (
-  <>
-    {ecNumbers?.map((ecNumber, index) => (
-      // eslint-disable-next-line react/no-array-index-key
-      <Fragment key={index}>
-        {noEvidence ? ecNumber.value : <NameWithEvidence data={ecNumber} />}
-      </Fragment>
-    ))}
-  </>
-);
+  noLinks?: boolean;
+  orientation?: 'horizontal' | 'vertical';
+};
 
-const getInfoListForNames = (
-  name: ProteinNames,
-  noEvidence: boolean
-): { title: string; content: JSX.Element }[] => {
+export const ECNumbersView = ({
+  ecNumbers,
+  noEvidence = false,
+  noLinks = false,
+  orientation = 'horizontal',
+}: ECNumbersViewProps) => {
+  const content = ecNumbers?.map((ecNumber) => (
+    <Fragment key={ecNumber.value}>
+      {noEvidence ? (
+        `EC:${ecNumber.value}`
+      ) : (
+        <NameWithEvidence
+          data={{
+            ...ecNumber,
+            value: `EC:${ecNumber.value}`,
+          }}
+        />
+      )}
+      {noLinks ? null : (
+        <>
+          {' ('}
+          <Link
+            to={{
+              pathname: LocationToPath[Location.UniProtKBResults],
+              search: `query=ec:${ecNumber.value}`,
+            }}
+          >
+            UniProtkb
+          </Link>{' '}
+          |{' '}
+          <ExternalLink url={externalUrls.ENZYME(ecNumber.value)}>
+            ENZYME
+          </ExternalLink>{' '}
+          |{' '}
+          <ExternalLink url={externalUrls.RheaSearch(ecNumber.value)}>
+            Rhea
+          </ExternalLink>
+          )
+        </>
+      )}
+    </Fragment>
+  ));
+
+  if (!content) {
+    return null;
+  }
+
+  return (
+    <>
+      {orientation === 'horizontal' ? (
+        content.map((ecInfo, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <Fragment key={index}>
+            {index > 0 && ', '}
+            {ecInfo}
+          </Fragment>
+        ))
+      ) : (
+        <ExpandableList>{content}</ExpandableList>
+      )}
+    </>
+  );
+};
+
+const getInfoListForNames = (name: ProteinNames, noEvidence: boolean) => {
   const infoData = [];
 
   if (name.fullName) {
@@ -198,9 +264,9 @@ const ProteinNamesView = ({
   }
   if (proteinNames.submissionNames) {
     infoData.push({
-      title: 'Submission names',
+      title: 'Submitted names',
       content: (
-        <ExpandableList descriptionString="submission names">
+        <ExpandableList descriptionString="submitted names">
           {proteinNames.submissionNames.map((submission, index) => (
             <ProteinNamesViewFlat
               key={index} // eslint-disable-line react/no-array-index-key

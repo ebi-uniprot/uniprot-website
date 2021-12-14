@@ -1,9 +1,9 @@
-import { FC } from 'react';
 import { ExternalLink, Loader } from 'franklin-sites';
 
 import useCustomElement from '../../../shared/hooks/useCustomElement';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
-import { PDBMirrorsInfo } from '../../config/database';
+import { getPDBMirrorsInfo } from '../../config/database';
 import { processUrlTemplate } from './XRefView';
 import { Xref } from '../../../shared/types/apiModel';
 
@@ -39,26 +39,14 @@ export type ProtvistaPDB = {
   chain: string;
 };
 
-const PDBView: FC<{
-  xrefs: Xref[];
-  noStructure?: boolean;
-  primaryAccession?: string;
-}> = ({ xrefs, noStructure = false, primaryAccession }) => {
-  const structureDefined = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(
-        /* webpackChunkName: "protvista-uniprot" */ 'protvista-uniprot'
-      ).then((module) => ({ default: module.ProtvistaUniprotStructure })),
-    'protvista-uniprot-structure'
-  );
-  const managerDefined = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(/* webpackChunkName: "protvista-manager" */ 'protvista-manager'),
-    'protvista-manager'
-  );
-  const datatableDefined = useCustomElement(
+const PDBView = ({ xrefs }: { xrefs: Xref[] }) => {
+  /**
+   * Note: this view is duplicated in protvista-uniprot-structure
+   * This is because the AF data is not currently available as part of the entry
+   * Eventually it might make sense to just use protvista-structure and
+   * protvista-datatable.
+   */
+  const datatableElement = useCustomElement(
     /* istanbul ignore next */
     () =>
       import(
@@ -66,40 +54,43 @@ const PDBView: FC<{
       ),
     'protvista-datatable'
   );
-  const ceDefined = structureDefined && managerDefined && datatableDefined;
 
   const data = processData(xrefs);
 
-  if (!ceDefined) {
+  const databaseInfoMaps = useDatabaseInfoMaps();
+
+  if (!databaseInfoMaps) {
     return <Loader />;
   }
 
-  if (noStructure) {
-    return (
-      <protvista-datatable>
-        <table>
-          <thead>
-            <tr>
-              <th>PDB Entry</th>
-              <th>Method</th>
-              <th>Resolution</th>
-              <th>Chain</th>
-              <th>Positions</th>
-              <th>Links</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map(
-              (d) =>
-                d && (
-                  <tr key={d.id}>
-                    <td>{d.id}</td>
-                    <td>{d.method}</td>
-                    <td>{d.resolution?.replace('A', 'Å')}</td>
-                    <td>{d.chain}</td>
-                    <td>{d.positions}</td>
-                    <td>
-                      {PDBMirrorsInfo.map(({ displayName, uriLink }) =>
+  const { databaseToDatabaseInfo } = databaseInfoMaps;
+
+  return (
+    <datatableElement.name>
+      <table>
+        <thead>
+          <tr>
+            <th>PDB Entry</th>
+            <th>Method</th>
+            <th>Resolution</th>
+            <th>Chain</th>
+            <th>Positions</th>
+            <th>Links</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map(
+            (d) =>
+              d && (
+                <tr key={d.id}>
+                  <td>{d.id}</td>
+                  <td>{d.method}</td>
+                  <td>{d.resolution?.replace('A', 'Å')}</td>
+                  <td>{d.chain}</td>
+                  <td>{d.positions}</td>
+                  <td>
+                    {getPDBMirrorsInfo(databaseToDatabaseInfo)
+                      .map(({ displayName, uriLink }) =>
                         d.id && uriLink ? (
                           <ExternalLink
                             url={processUrlTemplate(uriLink, { id: d.id })}
@@ -109,30 +100,19 @@ const PDBView: FC<{
                         ) : (
                           { displayName }
                         )
-                      ).reduce((prev, curr) => (
+                      )
+                      .reduce((prev, curr) => (
                         <>
                           {prev} · {curr}
                         </>
                       ))}
-                    </td>
-                  </tr>
-                )
-            )}
-          </tbody>
-        </table>
-      </protvista-datatable>
-    );
-  }
-
-  const sortedIds = xrefs.map(({ id }) => id).sort();
-  const firstId = sortedIds && sortedIds.length ? sortedIds[0] : '';
-  return (
-    <protvista-manager attributes="pdb-id">
-      <protvista-uniprot-structure
-        structureid={firstId}
-        accession={primaryAccession}
-      />
-    </protvista-manager>
+                  </td>
+                </tr>
+              )
+          )}
+        </tbody>
+      </table>
+    </datatableElement.name>
   );
 };
 

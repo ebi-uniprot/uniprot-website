@@ -42,7 +42,11 @@ const SubcellularLocationSection = ({ data, sequence }: Props) => {
         lineage={data.organismData?.lineage}
         goXrefs={data.goXrefs}
       />
-      <FeaturesView features={data.featuresData} sequence={sequence} />
+      <FeaturesView
+        primaryAccession={data.primaryAccession}
+        features={data.featuresData}
+        sequence={sequence}
+      />
       <KeywordView keywords={data.keywordData} />
     </Card>
   );

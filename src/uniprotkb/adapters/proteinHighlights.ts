@@ -1,7 +1,6 @@
 import { LocationDescriptorObject } from 'history';
-import { generatePath } from 'react-router-dom';
 
-import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
+import { getEntryPath } from '../../app/config/urls';
 
 import { pluralise } from '../../shared/utils/utils';
 
@@ -71,10 +70,11 @@ const highlightToEntrySection: Record<
   },
   [highlightSection.publications]: {
     link: (accession) => ({
-      pathname: generatePath(LocationToPath[Location.UniProtKBEntry], {
+      pathname: getEntryPath(
+        Namespace.uniprotkb,
         accession,
-        subPage: TabLocation.Publications,
-      }),
+        TabLocation.Publications
+      ),
     }),
     prefixResolver: (entryType) =>
       getEntryTypeFromString(entryType) === EntryType.REVIEWED

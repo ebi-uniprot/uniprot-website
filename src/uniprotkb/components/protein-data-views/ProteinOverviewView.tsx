@@ -4,6 +4,7 @@ import AnnotationScoreDoughnutChart, {
   DoughnutChartSize,
 } from './AnnotationScoreDoughnutChart';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
+import { ECNumbersView } from './ProteinNamesView';
 
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
@@ -13,8 +14,11 @@ const ProteinOverview: FC<{
   // Note: it would be good to eventually use RenderColumnsInCard here
   // which would involve either converting UniProtkbAPIModel to UniProtkbUIModel
   // or refactoring UniProtKBColumnConfiguration to use UniProtkbAPIModel.
-  data: UniProtkbAPIModel;
+  data?: Partial<UniProtkbAPIModel>;
 }> = ({ data }) => {
+  if (!data) {
+    return null;
+  }
   const name =
     data.proteinDescription?.recommendedName?.fullName.value ||
     data.proteinDescription?.submissionNames?.[0].fullName.value;
@@ -22,10 +26,11 @@ const ProteinOverview: FC<{
 
   const ecNumberNode = data.proteinDescription?.recommendedName?.ecNumbers && (
     <>
-      <strong>EC number:</strong>{' '}
-      {data.proteinDescription?.recommendedName?.ecNumbers
-        ?.map((ec) => ec.value)
-        .join(' ')}
+      <ECNumbersView
+        ecNumbers={data.proteinDescription?.recommendedName?.ecNumbers}
+        noEvidence
+        noLinks
+      />
       {' · '}
     </>
   );
@@ -49,10 +54,15 @@ const ProteinOverview: FC<{
       <>
         <strong>Gene:</strong>{' '}
         {data.genes
-          .filter((geneName) => geneName.geneName)
           .map(
             (geneName) =>
-              `${geneName.geneName?.value}${
+              `${
+                geneName.geneName?.value ||
+                geneName.orderedLocusNames
+                  ?.map((name) => name.value)
+                  .join(', ') ||
+                geneName.orfNames?.map((name) => name.value).join(', ')
+              }${
                 geneName.synonyms
                   ? ` (${geneName.synonyms
                       ?.map((synonym) => synonym.value)
@@ -60,16 +70,17 @@ const ProteinOverview: FC<{
                   : ''
               }`
           )
-          .join(', ')}
+          .join('; ')}
         {' · '}
       </>
     );
   }
 
-  const sequenceLengthNode = `${data.sequence.length} amino-acids · `;
+  const sequenceLengthNode =
+    data.sequence && `${data.sequence.length} amino acids · `;
 
   const { annotationScore } = data;
-  const annotationScoreNode = (
+  const annotationScoreNode = typeof annotationScore !== 'undefined' && (
     <AnnotationScoreDoughnutChart
       score={annotationScore}
       size={DoughnutChartSize.small}

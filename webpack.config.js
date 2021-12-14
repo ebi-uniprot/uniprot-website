@@ -62,7 +62,7 @@ module.exports = (env, argv) => {
       }
       // live reload, slowest first build, fast rebuild, full original source
       if (isLiveReload) {
-        return 'eval-source-map';
+        return 'eval-cheap-module-source-map';
       }
       // dev, slow everything, but original source
       if (isDev) {
@@ -151,9 +151,6 @@ module.exports = (env, argv) => {
             fs.realpathSync(`${__dirname}/node_modules/franklin-sites`),
             fs.realpathSync(`${__dirname}/node_modules/rheostat`),
             fs.realpathSync(`${__dirname}/node_modules/molstar/build`),
-            fs.realpathSync(
-              `${__dirname}/node_modules/@geneontology/ribbon/es`
-            ),
             fs.realpathSync(
               `${__dirname}/node_modules/interaction-viewer/styles`
             ),
@@ -356,6 +353,10 @@ module.exports = (env, argv) => {
       },
     };
   }
+
+  // Performance measurement:
+  // const SMWP = require('speed-measure-webpack-plugin');
+  // return new SMWP().wrap(config);
 
   return config;
 };

@@ -66,18 +66,17 @@ exports[`ResultsData component should render the card view with the correct numb
                 >
                   Homo sapiens (Human)
                 </a>
-                 · 
-                <strong>
-                  EC number:
-                </strong>
-                 3.1.3.9 · 
+                 · EC:3.1.3.9 · 
                 <strong>
                   Gene:
                 </strong>
-                 G6PC1 (G6PC, G6PT) · 357 amino-acids · Evidence at protein level · 
+                 G6PC1 (G6PC, G6PT) · 357 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -106,48 +105,30 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0378"
-                    >
-                       #Hydrolase
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0312"
-                    >
-                       #Gluconeogenesis
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0225"
-                    >
-                       #Disease variant
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0322"
-                    >
-                       #Glycogen storage disease
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0378"
+                  >
+                     #Hydrolase
+                  </a>
+                  <a
+                    href="/keywords/KW-0312"
+                  >
+                     #Gluconeogenesis
+                  </a>
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                     #Disease variant
+                  </a>
+                  <a
+                    href="/keywords/KW-0322"
+                  >
+                     #Glycogen storage disease
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -255,10 +236,13 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 SLC37A4 (G6PT, G6PT1) · 429 amino-acids · Evidence at protein level · 
+                 SLC37A4 (G6PT, G6PT1) · 429 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -287,50 +271,35 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0050"
-                    >
-                       #Antiport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0762"
-                    >
-                       #Sugar transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0813"
-                    >
-                       #Transport
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0225"
-                    >
-                       #Disease variant
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0322"
-                    >
-                       #Glycogen storage disease
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0050"
+                  >
+                     #Antiport
+                  </a>
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                     #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                     #Transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                     #Disease variant
+                  </a>
+                  <a
+                    href="/keywords/KW-0322"
+                  >
+                     #Glycogen storage disease
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -432,10 +401,13 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 SLC2A1 (GLUT1) · 492 amino-acids · Evidence at protein level · 
+                 SLC2A1 (GLUT1) · 492 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -464,71 +436,50 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0762"
-                    >
-                       #Sugar transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0813"
-                    >
-                       #Transport
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0898"
-                    >
-                       #Cataract
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0225"
-                    >
-                       #Disease variant
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-1023"
-                    >
-                       #Dystonia
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0887"
-                    >
-                       #Epilepsy
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0360"
-                    >
-                       #Hereditary hemolytic anemia
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0991"
-                    >
-                       #Mental retardation
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                     #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                     #Transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0898"
+                  >
+                     #Cataract
+                  </a>
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                     #Disease variant
+                  </a>
+                  <a
+                    href="/keywords/KW-1023"
+                  >
+                     #Dystonia
+                  </a>
+                  <a
+                    href="/keywords/KW-0887"
+                  >
+                     #Epilepsy
+                  </a>
+                  <a
+                    href="/keywords/KW-0360"
+                  >
+                     #Hereditary hemolytic anemia
+                  </a>
+                  <a
+                    href="/keywords/KW-0991"
+                  >
+                     #Mental retardation
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -636,10 +587,13 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 SLC2A3 (GLUT3) · 496 amino-acids · Evidence at protein level · 
+                 SLC2A3 (GLUT3) · 496 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -668,24 +622,20 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0762"
-                    >
-                       #Sugar transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0813"
-                    >
-                       #Transport
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                     #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                     #Transport
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -787,10 +737,13 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 SLC5A1 (NAGT, SGLT1) · 664 amino-acids · Evidence at protein level · 
+                 SLC5A1 (NAGT, SGLT1) · 664 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -819,57 +772,40 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0406"
-                    >
-                       #Ion transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0739"
-                    >
-                       #Sodium transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0762"
-                    >
-                       #Sugar transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0769"
-                    >
-                       #Symport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0813"
-                    >
-                       #Transport
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0225"
-                    >
-                       #Disease variant
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0406"
+                  >
+                     #Ion transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0739"
+                  >
+                     #Sodium transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                     #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0769"
+                  >
+                     #Symport
+                  </a>
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                     #Transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                     #Disease variant
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -973,18 +909,17 @@ exports[`ResultsData component should render the card view with the correct numb
                 >
                   Homo sapiens (Human)
                 </a>
-                 · 
-                <strong>
-                  EC number:
-                </strong>
-                 3.1.3.9 · 
+                 · EC:3.1.3.9 · 
                 <strong>
                   Gene:
                 </strong>
-                 G6PC3 (UGRP) · 346 amino-acids · Evidence at protein level · 
+                 G6PC3 (UGRP) · 346 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -1013,41 +948,25 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0378"
-                    >
-                       #Hydrolase
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0312"
-                    >
-                       #Gluconeogenesis
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0225"
-                    >
-                       #Disease variant
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0378"
+                  >
+                     #Hydrolase
+                  </a>
+                  <a
+                    href="/keywords/KW-0312"
+                  >
+                     #Gluconeogenesis
+                  </a>
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                     #Disease variant
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -1143,10 +1062,13 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 SLC2A4 (GLUT4) · 509 amino-acids · Evidence at protein level · 
+                 SLC2A4 (GLUT4) · 509 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -1175,43 +1097,30 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0762"
-                    >
-                       #Sugar transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0813"
-                    >
-                       #Transport
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0219"
-                    >
-                       #Diabetes mellitus
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0225"
-                    >
-                       #Disease variant
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                     #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                     #Transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0219"
+                  >
+                     #Diabetes mellitus
+                  </a>
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                     #Disease variant
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -1319,10 +1228,13 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 SLC2A8 (GLUT8, GLUTX1) · 477 amino-acids · Evidence at protein level · 
+                 SLC2A8 (GLUT8, GLUTX1) · 477 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -1351,24 +1263,20 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0762"
-                    >
-                       #Sugar transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0813"
-                    >
-                       #Transport
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                     #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                     #Transport
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -1452,10 +1360,13 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 SLC2A9 (GLUT9) · 540 amino-acids · Evidence at protein level · 
+                 SLC2A9 (GLUT9) · 540 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -1484,17 +1395,15 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0225"
-                    >
-                       #Disease variant
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                     #Disease variant
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -1598,18 +1507,17 @@ exports[`ResultsData component should render the card view with the correct numb
                 >
                   Homo sapiens (Human)
                 </a>
-                 · 
-                <strong>
-                  EC number:
-                </strong>
-                 3.1.3.9 · 
+                 · EC:3.1.3.9 · 
                 <strong>
                   Gene:
                 </strong>
-                 G6PC2 (IGRP) · 355 amino-acids · Evidence at protein level · 
+                 G6PC2 (IGRP) · 355 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -1638,29 +1546,20 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0378"
-                    >
-                       #Hydrolase
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0312"
-                    >
-                       #Gluconeogenesis
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0378"
+                  >
+                     #Hydrolase
+                  </a>
+                  <a
+                    href="/keywords/KW-0312"
+                  >
+                     #Gluconeogenesis
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -1756,10 +1655,13 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 SLC2A2 (GLUT2) · 524 amino-acids · Evidence at protein level · 
+                 SLC2A2 (GLUT2) · 524 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -1788,36 +1690,25 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0762"
-                    >
-                       #Sugar transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0813"
-                    >
-                       #Transport
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0225"
-                    >
-                       #Disease variant
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                     #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                     #Transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                     #Disease variant
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -1915,18 +1806,17 @@ exports[`ResultsData component should render the card view with the correct numb
                 >
                   Homo sapiens (Human)
                 </a>
-                 · 
-                <strong>
-                  EC number:
-                </strong>
-                 2.4.1.- · 
+                 · EC:2.4.1.- · 
                 <strong>
                   Gene:
                 </strong>
-                 UGGT2 (UGCGL2, UGT2) · 1516 amino-acids · Evidence at protein level · 
+                 UGGT2 (UGCGL2, UGT2) · 1516 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -1955,24 +1845,20 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0328"
-                    >
-                       #Glycosyltransferase
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0808"
-                    >
-                       #Transferase
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0328"
+                  >
+                     #Glycosyltransferase
+                  </a>
+                  <a
+                    href="/keywords/KW-0808"
+                  >
+                     #Transferase
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -2074,10 +1960,13 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 SLC2A10 (GLUT10) · 541 amino-acids · Evidence at protein level · 
+                 SLC2A10 (GLUT10) · 541 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -2106,36 +1995,25 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0762"
-                    >
-                       #Sugar transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0813"
-                    >
-                       #Transport
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0225"
-                    >
-                       #Disease variant
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                     #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                     #Transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                     #Disease variant
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -2225,10 +2103,13 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 SLC2A5 (GLUT5) · 501 amino-acids · Evidence at protein level · 
+                 SLC2A5 (GLUT5) · 501 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -2257,24 +2138,20 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0762"
-                    >
-                       #Sugar transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0813"
-                    >
-                       #Transport
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                     #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                     #Transport
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -2378,18 +2255,17 @@ exports[`ResultsData component should render the card view with the correct numb
                 >
                   Homo sapiens (Human)
                 </a>
-                 · 
-                <strong>
-                  EC number:
-                </strong>
-                 2.7.7.9 · 
+                 · EC:2.7.7.9 · 
                 <strong>
                   Gene:
                 </strong>
-                 UGP2 (UGP1) · 508 amino-acids · Evidence at protein level · 
+                 UGP2 (UGP1) · 508 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -2418,43 +2294,30 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0548"
-                    >
-                       #Nucleotidyltransferase
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0808"
-                    >
-                       #Transferase
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0225"
-                    >
-                       #Disease variant
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0887"
-                    >
-                       #Epilepsy
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0548"
+                  >
+                     #Nucleotidyltransferase
+                  </a>
+                  <a
+                    href="/keywords/KW-0808"
+                  >
+                     #Transferase
+                  </a>
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                     #Disease variant
+                  </a>
+                  <a
+                    href="/keywords/KW-0887"
+                  >
+                     #Epilepsy
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -2574,10 +2437,13 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 SLC5A11 (KST1, SLGTX, SMIT2) · 675 amino-acids · Evidence at protein level · 
+                 SLC5A11 (KST1, SLGTX, SMIT2) · 675 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -2606,52 +2472,40 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0053"
-                    >
-                       #Apoptosis
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0406"
-                    >
-                       #Ion transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0739"
-                    >
-                       #Sodium transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0762"
-                    >
-                       #Sugar transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0769"
-                    >
-                       #Symport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0813"
-                    >
-                       #Transport
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0053"
+                  >
+                     #Apoptosis
+                  </a>
+                  <a
+                    href="/keywords/KW-0406"
+                  >
+                     #Ion transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0739"
+                  >
+                     #Sodium transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                     #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0769"
+                  >
+                     #Symport
+                  </a>
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                     #Transport
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -2747,10 +2601,13 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 SLC2A11 (GLUT11) · 496 amino-acids · Evidence at protein level · 
+                 SLC2A11 (GLUT11) · 496 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -2779,24 +2636,20 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0762"
-                    >
-                       #Sugar transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0813"
-                    >
-                       #Transport
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                     #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                     #Transport
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -2882,18 +2735,17 @@ exports[`ResultsData component should render the card view with the correct numb
                 >
                   Homo sapiens (Human)
                 </a>
-                 · 
-                <strong>
-                  EC number:
-                </strong>
-                 2.4.1.- · 
+                 · EC:2.4.1.- · 
                 <strong>
                   Gene:
                 </strong>
-                 UGGT1 (GT, UGCGL1, UGGT, UGT1, UGTR) · 1555 amino-acids · Evidence at protein level · 
+                 UGGT1 (GT, UGCGL1, UGGT, UGT1, UGTR) · 1555 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -2922,24 +2774,20 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0328"
-                    >
-                       #Glycosyltransferase
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0808"
-                    >
-                       #Transferase
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0328"
+                  >
+                     #Glycosyltransferase
+                  </a>
+                  <a
+                    href="/keywords/KW-0808"
+                  >
+                     #Transferase
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -3029,10 +2877,13 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 SLC5A2 (SGLT2) · 672 amino-acids · Evidence at transcript level · 
+                 SLC5A2 (SGLT2) · 672 amino acids · Evidence at transcript level · 
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -3061,57 +2912,40 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0406"
-                    >
-                       #Ion transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0739"
-                    >
-                       #Sodium transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0762"
-                    >
-                       #Sugar transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0769"
-                    >
-                       #Symport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0813"
-                    >
-                       #Transport
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0225"
-                    >
-                       #Disease variant
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0406"
+                  >
+                     #Ion transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0739"
+                  >
+                     #Sodium transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                     #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0769"
+                  >
+                     #Symport
+                  </a>
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                     #Transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                     #Disease variant
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -3203,18 +3037,17 @@ exports[`ResultsData component should render the card view with the correct numb
                 >
                   Homo sapiens (Human)
                 </a>
-                 · 
-                <strong>
-                  EC number:
-                </strong>
-                 1.1.1.49 · 
+                 · EC:1.1.1.49 · 
                 <strong>
                   Gene:
                 </strong>
-                 G6PD · 515 amino-acids · Evidence at protein level · 
+                 G6PD · 515 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -3243,55 +3076,35 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0560"
-                    >
-                       #Oxidoreductase
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0119"
-                    >
-                       #Carbohydrate metabolism
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0313"
-                    >
-                       #Glucose metabolism
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0225"
-                    >
-                       #Disease variant
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0360"
-                    >
-                       #Hereditary hemolytic anemia
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0560"
+                  >
+                     #Oxidoreductase
+                  </a>
+                  <a
+                    href="/keywords/KW-0119"
+                  >
+                     #Carbohydrate metabolism
+                  </a>
+                  <a
+                    href="/keywords/KW-0313"
+                  >
+                     #Glucose metabolism
+                  </a>
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                     #Disease variant
+                  </a>
+                  <a
+                    href="/keywords/KW-0360"
+                  >
+                     #Hereditary hemolytic anemia
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -3411,10 +3224,13 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 ptsG (glcA, umg) · 477 amino-acids · Evidence at protein level · 
+                 ptsG (glcA, umg) · 477 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -3443,50 +3259,35 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0418"
-                    >
-                       #Kinase
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0808"
-                    >
-                       #Transferase
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0598"
-                    >
-                       #Phosphotransferase system
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0762"
-                    >
-                       #Sugar transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0813"
-                    >
-                       #Transport
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0418"
+                  >
+                     #Kinase
+                  </a>
+                  <a
+                    href="/keywords/KW-0808"
+                  >
+                     #Transferase
+                  </a>
+                  <a
+                    href="/keywords/KW-0598"
+                  >
+                     #Phosphotransferase system
+                  </a>
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                     #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                     #Transport
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -3590,18 +3391,17 @@ exports[`ResultsData component should render the card view with the correct numb
                 >
                   Oryza sativa subsp. japonica (Rice)
                 </a>
-                 · 
-                <strong>
-                  EC number:
-                </strong>
-                 2.7.7.27 · 
+                 · EC:2.7.7.27 · 
                 <strong>
                   Gene:
                 </strong>
-                 AGPS2 (APS2) · 514 amino-acids · Evidence at protein level · 
+                 AGPS2 (APS2) · 514 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -3630,43 +3430,30 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0021"
-                    >
-                       #Allosteric enzyme
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0548"
-                    >
-                       #Nucleotidyltransferase
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0808"
-                    >
-                       #Transferase
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0750"
-                    >
-                       #Starch biosynthesis
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0021"
+                  >
+                     #Allosteric enzyme
+                  </a>
+                  <a
+                    href="/keywords/KW-0548"
+                  >
+                     #Nucleotidyltransferase
+                  </a>
+                  <a
+                    href="/keywords/KW-0808"
+                  >
+                     #Transferase
+                  </a>
+                  <a
+                    href="/keywords/KW-0750"
+                  >
+                     #Starch biosynthesis
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -3750,10 +3537,13 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 SLC2A7 (GLUT7) · 512 amino-acids · Evidence at protein level · 
+                 SLC2A7 (GLUT7) · 512 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -3782,24 +3572,20 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0762"
-                    >
-                       #Sugar transport
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0813"
-                    >
-                       #Transport
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0762"
+                  >
+                     #Sugar transport
+                  </a>
+                  <a
+                    href="/keywords/KW-0813"
+                  >
+                     #Transport
+                  </a>
+                </div>
               </small>
             </div>
           </div>
@@ -3889,10 +3675,13 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 SOGA1 (C20orf117, KIAA0889, SOGA) · 1423 amino-acids · Evidence at protein level · 
+                 SOGA1 (C20orf117, KIAA0889, SOGA) · 1423 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -3920,7 +3709,6 @@ exports[`ResultsData component should render the card view with the correct numb
                   </span>
                 </span>
               </section>
-              <small />
             </div>
           </div>
           <div
@@ -4021,10 +3809,13 @@ exports[`ResultsData component should render the card view with the correct numb
                 <strong>
                   Gene:
                 </strong>
-                 H6PD (GDH) · 791 amino-acids · Evidence at protein level · 
+                 H6PD (GDH) · 791 amino acids · Evidence at protein level · 
                 <span
                   title="Annotation Score"
                 >
+                  <strong>
+                    Annotation score:
+                  </strong>
                   <span
                     class="doughnut-chart--small colour-platinum"
                   >
@@ -4053,62 +3844,40 @@ exports[`ResultsData component should render the card view with the correct numb
                 </span>
               </section>
               <small>
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
+                <div
+                  class="keyword-view--inline"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0378"
-                    >
-                       #Hydrolase
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0511"
-                    >
-                       #Multifunctional enzyme
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0560"
-                    >
-                       #Oxidoreductase
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0119"
-                    >
-                       #Carbohydrate metabolism
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0313"
-                    >
-                       #Glucose metabolism
-                    </a>
-                  </li>
-                </ul>
-                 · 
-                <ul
-                  class="keyword-view--inline expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0225"
-                    >
-                       #Disease variant
-                    </a>
-                  </li>
-                </ul>
+                  <a
+                    href="/keywords/KW-0378"
+                  >
+                     #Hydrolase
+                  </a>
+                  <a
+                    href="/keywords/KW-0511"
+                  >
+                     #Multifunctional enzyme
+                  </a>
+                  <a
+                    href="/keywords/KW-0560"
+                  >
+                     #Oxidoreductase
+                  </a>
+                  <a
+                    href="/keywords/KW-0119"
+                  >
+                     #Carbohydrate metabolism
+                  </a>
+                  <a
+                    href="/keywords/KW-0313"
+                  >
+                     #Glucose metabolism
+                  </a>
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                     #Disease variant
+                  </a>
+                </div>
               </small>
             </div>
           </div>

@@ -17,7 +17,7 @@ exports[`UniProtKBColumnConfiguration component should render column "absorption
       <button
         aria-controls="0"
         aria-expanded="false"
-        class="svg-colour-reviewed evidence-tag"
+        class="svg-colour-unreviewed evidence-tag"
         data-testid="evidence-tag-trigger"
         type="button"
       >
@@ -40,7 +40,7 @@ exports[`UniProtKBColumnConfiguration component should render column "absorption
     <button
       aria-controls="1"
       aria-expanded="false"
-      class="svg-colour-reviewed evidence-tag"
+      class="svg-colour-unreviewed evidence-tag"
       data-testid="evidence-tag-trigger"
       type="button"
     >
@@ -83,6 +83,9 @@ exports[`UniProtKBColumnConfiguration component should render column "annotation
   <span
     title="Annotation Score"
   >
+    <strong>
+      Annotation score:
+    </strong>
     <span
       class="doughnut-chart--medium colour-platinum"
     >
@@ -119,7 +122,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_allerge
 exports[`UniProtKBColumnConfiguration component should render column "cc_alternative_products": cc_alternative_products 1`] = `
 <DocumentFragment>
   <p>
-    This entry describes 
+    This entry describes  
     <strong>
       1
     </strong>
@@ -127,14 +130,10 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_alterna
     <strong>
       Alternative initiation
     </strong>
-    .
+    . value1
   </p>
-  <p>
-    value1
-  </p>
-  <hr />
   <h3
-    id="isoID1"
+    id="Isoform_name"
   >
     isoID1
   </h3>
@@ -191,6 +190,37 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_alterna
           <h5
             class="bold"
           >
+            See also
+          </h5>
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          sequence in 
+          <a
+            href="/uniparc?query=(isoform:isoID1)&direct"
+          >
+            UniParc
+          </a>
+           or sequence clusters in 
+          <a
+            href="/uniref?query=(uniprot_id:isoID1)"
+          >
+            UniRef
+          </a>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div
+        class="decorated-list-item decorated-list-item--compact"
+      >
+        <div
+          class="decorated-list-item__title"
+        >
+          <h5
+            class="bold"
+          >
             Note
           </h5>
         </div>
@@ -212,101 +242,54 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_catalyt
   <span
     class="text-block"
   >
+    <h4
+      class="tiny"
+    >
+      Isoform 3
+    </h4>
      some reaction
-    <button
-      aria-controls="0"
-      aria-expanded="false"
-      class="svg-colour-unreviewed evidence-tag"
-      data-testid="evidence-tag-trigger"
-      type="button"
-    >
-      <test-file-stub
-        height="12"
-        width="12"
-      />
-      <span
-        class="evidence-tag__label"
-      >
-        1 automatic annotation
-      </span>
-    </button>
-    <div
-      class="evidence-tag-content "
-      data-testid="evidence-tag-content"
-      id="0"
-    />
-    This reaction proceeds in the 
-    <span
-      data-testid="direction-text"
-    >
-      backward
-    </span>
-     direction 
-    <button
-      aria-controls="1"
-      aria-expanded="false"
-      class="svg-colour-unreviewed evidence-tag"
-      data-testid="evidence-tag-trigger"
-      type="button"
-    >
-      <test-file-stub
-        height="12"
-        width="12"
-      />
-      <span
-        class="evidence-tag__label"
-      >
-        Imported
-      </span>
-    </button>
-    <div
-      class="evidence-tag-content "
-      data-testid="evidence-tag-content"
-      id="1"
-    />
     <div>
+      This reaction proceeds in the 
       <span
-        class="ec-number"
+        data-testid="direction-text"
       >
-        EC: 1.2.4.5
+        backward
       </span>
-       ( 
-      <a
-        href="/uniprotkb?query=(ec:1.2.4.5)"
-      >
-        UniProtKB 
-        <test-file-stub
-          width="1.333ch"
-        />
-      </a>
-       | 
-      <a
-        class="external-link"
-        href="https://enzyme.expasy.org/EC/1.2.4.5"
-        rel="noopener"
-        target="_blank"
-      >
-        ENZYME
-        <test-file-stub
-          data-testid="external-link-icon"
-          width="12.5"
-        />
-      </a>
-      | 
-      <a
-        class="external-link"
-        href="https://www.rhea-db.org/rhea?query=ec:1.2.4.5"
-        rel="noopener"
-        target="_blank"
-      >
-        Rhea
-        <test-file-stub
-          data-testid="external-link-icon"
-          width="12.5"
-        />
-      </a>
-      )
+       direction 
     </div>
+    EC:1.2.4.5 (
+    <a
+      href="/uniprotkb?query=ec:1.2.4.5"
+    >
+      UniProtkb
+    </a>
+     | 
+    <a
+      class="external-link"
+      href="https://enzyme.expasy.org/EC/1.2.4.5"
+      rel="noopener"
+      target="_blank"
+    >
+      ENZYME
+      <test-file-stub
+        data-testid="external-link-icon"
+        width="12.5"
+      />
+    </a>
+     | 
+    <a
+      class="external-link"
+      href="https://www.rhea-db.org/rhea?query=ec:1.2.4.5"
+      rel="noopener"
+      target="_blank"
+    >
+      Rhea
+      <test-file-stub
+        data-testid="external-link-icon"
+        width="12.5"
+      />
+    </a>
+    )
     <div>
       <strong>
         Source: 
@@ -334,18 +317,8 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_catalyt
         class="button tertiary"
         type="button"
       >
-        Hide Rhea reaction
+        View Rhea reaction
       </button>
-    </div>
-    <div
-      class="rhea-reaction-visualizer__component"
-    >
-      <rhea-reaction
-        rheaid="12345"
-        showids="true"
-        usehost="https://api.rhea-db.org"
-        zoom="true"
-      />
     </div>
   </span>
 </DocumentFragment>
@@ -358,6 +331,15 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_cofacto
   <section
     class="text-block"
   >
+    <h4
+      class="tiny"
+    >
+      <a
+        href="#molecule"
+      >
+        molecule
+      </a>
+    </h4>
     <span>
       Cofactor Name 
       <button
@@ -555,21 +537,21 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_disease
 
 exports[`UniProtKBColumnConfiguration component should render column "cc_disruption_phenotype": cc_disruption_phenotype 1`] = `
 <DocumentFragment>
-  <h3
+  <h4
     class="tiny"
   >
     Isoform 4
-  </h3>
+  </h4>
   <div
     class="text-block"
   >
     value.
   </div>
-  <h3
+  <h4
     class="tiny"
   >
     Isoform 4 dfs
-  </h3>
+  </h4>
   <div
     class="text-block"
   >
@@ -606,7 +588,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_interac
         class="no-wrap"
       >
         <a
-          href="/uniprotkb/P12345-1"
+          href="/uniprotkb/P12345#sequence"
         >
           P12345-1
         </a>
@@ -1044,7 +1026,45 @@ exports[`UniProtKBColumnConfiguration component should render column "date_seque
 
 exports[`UniProtKBColumnConfiguration component should render column "ec": ec 1`] = `
 <DocumentFragment>
-  1.2.3.4
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      EC:1.2.3.4 (
+      <a
+        href="/uniprotkb?query=ec:1.2.3.4"
+      >
+        UniProtkb
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="https://enzyme.expasy.org/EC/1.2.3.4"
+        rel="noopener"
+        target="_blank"
+      >
+        ENZYME
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="https://www.rhea-db.org/rhea?query=ec:1.2.3.4"
+        rel="noopener"
+        target="_blank"
+      >
+        Rhea
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+      )
+    </li>
+  </ul>
 </DocumentFragment>
 `;
 
@@ -1142,6 +1162,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
         <th>
           Description
         </th>
+        <th />
       </tr>
     </thead>
     <tbody>
@@ -1186,6 +1207,15 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
             data-testid="evidence-tag-content"
             id="0"
           />
+        </td>
+        <td>
+          <a
+            class="button tertiary"
+            href="/blast?ids=P21802[2-8]"
+            title="BLAST the sequence corresponding to this feature"
+          >
+            BLAST
+          </a>
         </td>
       </tr>
     </tbody>
@@ -1350,25 +1380,13 @@ exports[`UniProtKBColumnConfiguration component should render column "gene_synon
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "go": go 1`] = `
-<DocumentFragment>
-  <section
-    class="text-block"
-  />
-</DocumentFragment>
-`;
+exports[`UniProtKBColumnConfiguration component should render column "go": go 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "go_c": go_c 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "go_f": go_f 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "go_id": go_id 1`] = `
-<DocumentFragment>
-  <section
-    class="text-block"
-  />
-</DocumentFragment>
-`;
+exports[`UniProtKBColumnConfiguration component should render column "go_id": go_id 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "go_p": go_p 1`] = `<DocumentFragment />`;
 
@@ -1391,6 +1409,28 @@ exports[`UniProtKBColumnConfiguration component should render column "keyword": 
       >
          #keyword value
       </a>
+      <button
+        aria-controls="0"
+        aria-expanded="false"
+        class="svg-colour-unreviewed evidence-tag"
+        data-testid="evidence-tag-trigger"
+        type="button"
+      >
+        <test-file-stub
+          height="12"
+          width="12"
+        />
+        <span
+          class="evidence-tag__label"
+        >
+          1 automatic annotation
+        </span>
+      </button>
+      <div
+        class="evidence-tag-content "
+        data-testid="evidence-tag-content"
+        id="0"
+      />
     </li>
   </ul>
 </DocumentFragment>
@@ -1407,6 +1447,28 @@ exports[`UniProtKBColumnConfiguration component should render column "keywordid"
       >
          #KW-11111
       </a>
+      <button
+        aria-controls="0"
+        aria-expanded="false"
+        class="svg-colour-unreviewed evidence-tag"
+        data-testid="evidence-tag-trigger"
+        type="button"
+      >
+        <test-file-stub
+          height="12"
+          width="12"
+        />
+        <span
+          class="evidence-tag__label"
+        >
+          1 automatic annotation
+        </span>
+      </button>
+      <div
+        class="evidence-tag-content "
+        data-testid="evidence-tag-content"
+        id="0"
+      />
     </li>
   </ul>
 </DocumentFragment>
@@ -1425,11 +1487,11 @@ exports[`UniProtKBColumnConfiguration component should render column "kinetics":
         <sub>
           M
         </sub>
-        =2.0999999046325684uM for sub1 
+        =2.0999999046325684μM for sub1 
         <button
           aria-controls="0"
           aria-expanded="false"
-          class="svg-colour-reviewed evidence-tag"
+          class="svg-colour-unreviewed evidence-tag"
           data-testid="evidence-tag-trigger"
           type="button"
         >
@@ -1450,6 +1512,39 @@ exports[`UniProtKBColumnConfiguration component should render column "kinetics":
         />
       </li>
     </ul>
+    <ul
+      class="no-bullet"
+    >
+      <li>
+        V
+        <sub>
+          max
+        </sub>
+        =1unit1 for enzyme1 
+        <button
+          aria-controls="1"
+          aria-expanded="false"
+          class="svg-colour-unreviewed evidence-tag"
+          data-testid="evidence-tag-trigger"
+          type="button"
+        >
+          <test-file-stub
+            height="12"
+            width="12"
+          />
+          <span
+            class="evidence-tag__label"
+          >
+            1 automatic annotation
+          </span>
+        </button>
+        <div
+          class="evidence-tag-content "
+          data-testid="evidence-tag-content"
+          id="1"
+        />
+      </li>
+    </ul>
   </section>
   <section
     class="text-block"
@@ -1459,9 +1554,9 @@ exports[`UniProtKBColumnConfiguration component should render column "kinetics":
     >
       value1.
       <button
-        aria-controls="1"
+        aria-controls="2"
         aria-expanded="false"
-        class="svg-colour-reviewed evidence-tag"
+        class="svg-colour-unreviewed evidence-tag"
         data-testid="evidence-tag-trigger"
         type="button"
       >
@@ -1478,7 +1573,7 @@ exports[`UniProtKBColumnConfiguration component should render column "kinetics":
       <div
         class="evidence-tag-content "
         data-testid="evidence-tag-content"
-        id="1"
+        id="2"
       />
     </div>
   </section>
@@ -1666,7 +1761,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ph_depende
     <button
       aria-controls="0"
       aria-expanded="false"
-      class="svg-colour-reviewed evidence-tag"
+      class="svg-colour-unreviewed evidence-tag"
       data-testid="evidence-tag-trigger"
       type="button"
     >
@@ -1735,7 +1830,7 @@ exports[`UniProtKBColumnConfiguration component should render column "redox_pote
     <button
       aria-controls="0"
       aria-expanded="false"
-      class="svg-colour-reviewed evidence-tag"
+      class="svg-colour-unreviewed evidence-tag"
       data-testid="evidence-tag-trigger"
       type="button"
     >
@@ -1815,33 +1910,11 @@ exports[`UniProtKBColumnConfiguration component should render column "sequence":
     <div
       class="sequence"
     >
-      <div
-        class="sequence__sequence"
+      <span
+        class="sequence__chunk sequence__chunk--display-last"
       >
-        <span
-          class="sequence__sequence__chunk"
-        >
-          <svg
-            height="30"
-            width="100"
-          >
-            <text
-              class="sequence__sequence__chunk__counter"
-              x="100"
-              y="10"
-            >
-              10
-            </text>
-            <text
-              class="sequence__sequence__chunk__sequence"
-              x="0"
-              y="20"
-            >
-              SAPSQDFMRF
-            </text>
-          </svg>
-        </span>
-      </div>
+        SAPSQDFMRF
+      </span>
     </div>
   </section>
 </DocumentFragment>
@@ -1866,7 +1939,7 @@ exports[`UniProtKBColumnConfiguration component should render column "temp_depen
     <button
       aria-controls="0"
       aria-expanded="false"
-      class="svg-colour-reviewed evidence-tag"
+      class="svg-colour-unreviewed evidence-tag"
       data-testid="evidence-tag-trigger"
       type="button"
     >

@@ -2,9 +2,10 @@ import { Tile, HeroContainer } from 'franklin-sites';
 import { generatePath } from 'react-router-dom';
 import cn from 'classnames';
 
-import { LocationToPath, Location } from '../../config/urls';
-
+// eslint-disable-next-line import/no-relative-packages
 import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
+
+import { LocationToPath, Location } from '../../config/urls';
 
 import FTPIllustration from '../../../images/ftp_illustration.svg';
 import ProgrammaticIllustration from '../../../images/programmatic_illustration.svg';

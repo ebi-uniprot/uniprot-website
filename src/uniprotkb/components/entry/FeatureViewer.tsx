@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { Loader } from 'franklin-sites';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -7,13 +6,13 @@ import useCustomElement from '../../../shared/hooks/useCustomElement';
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 import { getProteinsApiUrl } from '../../../shared/config/apiUrls';
 
-const FeatureViewer: FC<{ accession: string }> = ({ accession }) => {
+const FeatureViewer = ({ accession }: { accession: string }) => {
   // just to make sure not to render protvista-uniprot if we won't get any data
   const { loading, data } = useDataApi<UniProtkbAPIModel>(
     getProteinsApiUrl(accession)
   );
 
-  useCustomElement(
+  const protvistaElement = useCustomElement(
     /* istanbul ignore next */
     () =>
       import(/* webpackChunkName: "protvista-uniprot" */ 'protvista-uniprot'),
@@ -30,7 +29,7 @@ const FeatureViewer: FC<{ accession: string }> = ({ accession }) => {
 
   return (
     <section>
-      <protvista-uniprot accession={accession} />
+      <protvistaElement.name accession={accession} />
     </section>
   );
 };

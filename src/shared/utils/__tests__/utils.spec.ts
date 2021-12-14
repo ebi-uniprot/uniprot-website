@@ -8,6 +8,7 @@ import {
   formatPercentage,
   isSameEntry,
   deepFindAllByKey,
+  addBlastLinksToFreeText,
 } from '../utils';
 
 describe('Model Utils', () => {
@@ -176,5 +177,28 @@ describe('deepFindAllByKey', () => {
         deepFindAllByKey([{ a: 1 }, { b: { c: { d: { a: 2 } } } }], 'z')
       )
     ).toEqual([]);
+  });
+
+  describe('addBlastLinksToFreeText', () => {
+    it('should handle positions at the beggining', () => {
+      const result = addBlastLinksToFreeText(
+        ['10-34 SOME TEXT'],
+        'UP_ACCESSION'
+      );
+      expect(result).toMatchSnapshot();
+    });
+
+    it('should handle positions at the end', () => {
+      const result = addBlastLinksToFreeText(
+        ['SOME TEXT 10-34'],
+        'UP_ACCESSION'
+      );
+      expect(result).toMatchSnapshot();
+    });
+
+    it('should handle no positions', () => {
+      const result = addBlastLinksToFreeText(['SOME TEXT'], 'UP_ACCESSION');
+      expect(result).toMatchSnapshot();
+    });
   });
 });

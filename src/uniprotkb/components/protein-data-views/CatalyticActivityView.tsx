@@ -1,5 +1,4 @@
-import { Fragment, useState, useCallback, useRef, FC } from 'react';
-import { Link } from 'react-router-dom';
+import { Fragment, useState, useCallback, useRef } from 'react';
 import {
   useModal,
   ModalBackdrop,
@@ -7,14 +6,14 @@ import {
   Loader,
   ChevronDownIcon,
   ChevronUpIcon,
-  SearchIcon,
   ExternalLink,
 } from 'franklin-sites';
-import '@swissprot/rhea-reaction-visualizer';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
+import { ECNumbersView } from './ProteinNamesView';
 
-import { Location, LocationToPath } from '../../../app/config/urls';
+import useCustomElement from '../../../shared/hooks/useCustomElement';
+
 import externalUrls from '../../../shared/config/externalUrls';
 
 import * as logging from '../../../shared/utils/logging';
@@ -47,9 +46,9 @@ export const isRheaReactionReference = ({
 type ChebiImageData = {
   chebi: string;
   imgURL: string;
-} | null;
+};
 
-export const ZoomModalContent: FC<ChebiImageData> = ({ chebi, imgURL }) => {
+export const ZoomModalContent = ({ chebi, imgURL }: ChebiImageData) => {
   const imageRef = useRef<HTMLImageElement>(null);
   const [loading, setLoading] = useState(true);
   const image = new Image();
@@ -77,10 +76,17 @@ type RheaReactionVisualizerProps = {
   show: boolean;
 };
 
-export const RheaReactionVisualizer: FC<RheaReactionVisualizerProps> = ({
+export const RheaReactionVisualizer = ({
   rheaId,
   show: initialShow,
-}) => {
+}: RheaReactionVisualizerProps) => {
+  const rheaReactionElement = useCustomElement(
+    () =>
+      import(
+        /* webpackChunkName: "rhea-reaction-visualizer" */ '@swissprot/rhea-reaction-visualizer'
+      ),
+    'rhea-reaction'
+  );
   const [show, setShow] = useState(initialShow);
   const [zoomImageData, setZoomImageData] = useState<ChebiImageData>();
   const { displayModal, setDisplayModal, Modal } = useModal(
@@ -102,6 +108,11 @@ export const RheaReactionVisualizer: FC<RheaReactionVisualizerProps> = ({
     [setDisplayModal]
   );
 
+  if (rheaReactionElement.errored) {
+    // It's fine, just don't display anything
+    return null;
+  }
+
   return (
     <>
       <div className="rhea-reaction-visualizer__toggle">
@@ -114,31 +125,34 @@ export const RheaReactionVisualizer: FC<RheaReactionVisualizerProps> = ({
           {`${show ? 'Hide' : 'View'} Rhea reaction`}
         </button>
       </div>
-      {show && (
-        <>
-          <div className="rhea-reaction-visualizer__component">
-            <rhea-reaction
-              rheaid={rheaId}
-              showIds
-              zoom
-              ref={callback}
-              usehost="https://api.rhea-db.org"
-            />
-          </div>
-          {displayModal && zoomImageData && zoomImageData.imgURL && (
-            <Modal
-              handleExitModal={() => setDisplayModal(false)}
-              height="30vh"
-              width="30vw"
-            >
-              <ZoomModalContent
-                chebi={zoomImageData.chebi}
-                imgURL={zoomImageData.imgURL}
+      {show &&
+        (rheaReactionElement.defined ? (
+          <>
+            <div className="rhea-reaction-visualizer__component">
+              <rheaReactionElement.name
+                rheaid={rheaId}
+                showIds
+                zoom
+                ref={callback}
+                usehost="https://api.rhea-db.org"
               />
-            </Modal>
-          )}
-        </>
-      )}
+            </div>
+            {displayModal && zoomImageData?.imgURL && (
+              <Modal
+                handleExitModal={() => setDisplayModal(false)}
+                height="30vh"
+                width="30vw"
+              >
+                <ZoomModalContent
+                  chebi={zoomImageData.chebi}
+                  imgURL={zoomImageData.imgURL}
+                />
+              </Modal>
+            )}
+          </>
+        ) : (
+          <Loader />
+        ))}
     </>
   );
 };
@@ -153,11 +167,13 @@ const physiologicalReactionDirectionToString = new Map<
 
 export type ReactionDirectionProps = {
   physiologicalReactions: PhysiologicalReaction[];
+  noEvidence?: boolean;
 };
 
-export const ReactionDirection: FC<ReactionDirectionProps> = ({
+export const ReactionDirection = ({
   physiologicalReactions,
-}) => {
+  noEvidence,
+}: ReactionDirectionProps) => {
   /*
   Possible output:
     1. This reaction proceeds in the backward direction <Evidence>
@@ -174,7 +190,7 @@ export const ReactionDirection: FC<ReactionDirectionProps> = ({
     return null;
   }
   return (
-    <>
+    <div>
       {`This reaction proceeds in `}
       {physiologicalReactions
         // Ensure that left-to-right/forward comes before right-to-left/backward
@@ -187,13 +203,13 @@ export const ReactionDirection: FC<ReactionDirectionProps> = ({
               {physiologicalReactionDirectionToString.get(directionType)}
             </span>
             {physiologicalReactions.length === 1 && ' direction '}
-            <UniProtKBEvidenceTag evidences={evidences} />
+            {!noEvidence && <UniProtKBEvidenceTag evidences={evidences} />}
             {physiologicalReactions.length === 2 &&
               index === 1 &&
               ' directions '}
           </Fragment>
         ))}
-    </>
+    </div>
   );
 };
 
@@ -201,21 +217,23 @@ type CatalyticActivityProps = {
   comments?: CatalyticActivityComment[];
   title?: string;
   defaultHideAllReactions?: boolean;
+  noEvidence?: boolean;
 };
 
-const CatalyticActivityView: FC<CatalyticActivityProps> = ({
+const CatalyticActivityView = ({
   comments,
   title,
   defaultHideAllReactions = false,
-}) => {
-  if (!comments || !comments.length) {
+  noEvidence,
+}: CatalyticActivityProps) => {
+  if (!comments?.length) {
     return null;
   }
   let firstRheaId: number;
   return (
     <>
       {title && <h3 className={helper.capitalize}>{title}</h3>}
-      {comments.map(({ reaction, physiologicalReactions }) => {
+      {comments.map(({ molecule, reaction, physiologicalReactions }, index) => {
         if (!reaction) {
           return null;
         }
@@ -231,39 +249,30 @@ const CatalyticActivityView: FC<CatalyticActivityProps> = ({
           firstRheaId = rheaId;
         }
         return (
-          <span className="text-block" key={reaction.name}>
+          // eslint-disable-next-line react/no-array-index-key
+          <span className="text-block" key={index}>
+            {molecule && (
+              <h4 className="tiny">
+                {noEvidence ? (
+                  `${molecule}`
+                ) : (
+                  <a href={`#${molecule.replaceAll(' ', '_')}`}>{molecule}</a>
+                )}
+              </h4>
+            )}
             {` ${reaction.name}`}
-            {reaction.evidences && (
+            {!noEvidence && reaction.evidences && (
               <UniProtKBEvidenceTag evidences={reaction.evidences} />
             )}
             {physiologicalReactions && physiologicalReactions.length && (
               <ReactionDirection
                 physiologicalReactions={physiologicalReactions}
+                noEvidence={noEvidence}
               />
             )}
 
             {reaction.ecNumber && (
-              <div>
-                <span className="ec-number">EC: {reaction.ecNumber}</span>
-                {' ( '}
-                <Link
-                  to={{
-                    pathname: LocationToPath[Location.UniProtKBResults],
-                    search: `query=(ec:${reaction.ecNumber})`,
-                  }}
-                >
-                  UniProtKB <SearchIcon width="1.333ch" />
-                </Link>
-                {' | '}
-                <ExternalLink url={externalUrls.ENZYME(reaction.ecNumber)}>
-                  ENZYME
-                </ExternalLink>
-                {'| '}
-                <ExternalLink url={externalUrls.RheaSearch(reaction.ecNumber)}>
-                  Rhea
-                </ExternalLink>
-                )
-              </div>
+              <ECNumbersView ecNumbers={[{ value: reaction.ecNumber }]} />
             )}
             {!!rheaId && (
               <>

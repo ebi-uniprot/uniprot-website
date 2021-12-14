@@ -1,4 +1,4 @@
-import { FC, useCallback, memo } from 'react';
+import { useCallback, memo } from 'react';
 
 import useCustomElement from '../../shared/hooks/useCustomElement';
 import { SegmentTrackData } from '../utils/sequences';
@@ -17,13 +17,13 @@ type AlignmentOverviewTrackProps = {
   highlight: string;
 };
 
-const AlignmentOverviewTrack: FC<AlignmentOverviewTrackProps> = ({
+const AlignmentOverviewTrack = ({
   data,
   highlight,
   length,
   height,
-}) => {
-  const ceDefined = useCustomElement(
+}: AlignmentOverviewTrackProps) => {
+  const trackElement = useCustomElement(
     /* istanbul ignore next */
     () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
     'protvista-track'
@@ -31,16 +31,16 @@ const AlignmentOverviewTrack: FC<AlignmentOverviewTrackProps> = ({
 
   const setTrackData = useCallback(
     (node): void => {
-      if (node && ceDefined) {
+      if (node && trackElement.defined) {
         // eslint-disable-next-line no-param-reassign
         node.data = data;
       }
     },
-    [data, ceDefined]
+    [data, trackElement.defined]
   );
 
   return (
-    <protvista-track
+    <trackElement.name
       height={height}
       ref={setTrackData}
       length={length}
@@ -50,8 +50,8 @@ const AlignmentOverviewTrack: FC<AlignmentOverviewTrackProps> = ({
   );
 };
 
-const AlignmentOverview: FC<AlignmentOverviewProps> = memo(
-  ({ height, data, length, highlight }) => {
+const AlignmentOverview = memo(
+  ({ height, data, length, highlight }: AlignmentOverviewProps) => {
     if (!data?.length) {
       return null;
     }

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Card, ExternalLink, Loader } from 'franklin-sites';
+import { Card, ExternalLink } from 'franklin-sites';
 
 import EntrySection, {
   getEntrySectionNameAndId,
@@ -21,6 +21,8 @@ import { UIModel } from '../../adapters/sectionConverter';
 import { getEntryPath } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
 
+import styles from './styles/interaction-section.module.scss';
+
 type Props = {
   data: UIModel;
   primaryAccession: string;
@@ -31,7 +33,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
     | InteractionComment[]
     | undefined;
 
-  const datatableDefined = useCustomElement(
+  const datatableElement = useCustomElement(
     /* istanbul ignore next */
     () =>
       import(
@@ -40,7 +42,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
     'protvista-datatable'
   );
 
-  const interactionViewerDefined = useCustomElement(
+  const interactionViewerElement = useCustomElement(
     /* istanbul ignore next */
     () =>
       import(/* webpackChunkName: "interaction-viewer" */ 'interaction-viewer'),
@@ -54,23 +56,22 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
     | FreeTextComment[]
     | undefined;
 
-  if (!(datatableDefined && interactionViewerDefined)) {
-    return <Loader />;
-  }
-
   return (
     <Card
       header={
         <h2>{getEntrySectionNameAndId(EntrySection.Interaction).name}</h2>
       }
       id={EntrySection.Interaction}
+      className={styles['interaction-section']}
       data-entry-section
     >
       {comments && <FreeTextView comments={comments} title="subunit" />}
       {interactionComment?.[0] && (
         <>
-          <interaction-viewer accession={primaryAccession} />
-          <protvista-datatable filter-scroll>
+          {interactionViewerElement.defined && (
+            <interactionViewerElement.name accession={primaryAccession} />
+          )}
+          <datatableElement.name filter-scroll>
             <table>
               <thead>
                 <tr>
@@ -150,7 +151,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
                 ))}
               </tbody>
             </table>
-          </protvista-datatable>
+          </datatableElement.name>
         </>
       )}
 

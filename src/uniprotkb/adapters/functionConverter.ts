@@ -14,10 +14,13 @@ import { FunctionFeatures } from '../types/featureType';
 import EntrySection from '../types/entrySection';
 import { convertSection, UIModel } from './sectionConverter';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
-import { Evidence } from '../types/modelTypes';
+import { Evidence, GoEvidenceType } from '../types/modelTypes';
 import { Xref } from '../../shared/types/apiModel';
 
 import { UniProtKBColumn } from '../types/columnTypes';
+import { GeneNamesData } from './namesAndTaxonomyConverter';
+import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { DatabaseInfoMaps } from '../utils/database';
 
 export type Absorption = {
   max: number;
@@ -54,23 +57,39 @@ export type BioPhysicoChemicalProperties = {
   temperatureDependence?: TextWithEvidence[];
 };
 
-export enum GoAspect {
-  P = 'Biological Process',
-  F = 'Molecular Function',
-  C = 'Cellular Component',
-}
+export type GOAspectLabel =
+  | 'Biological Process'
+  | 'Molecular Function'
+  | 'Cellular Component';
+
+export type GOAspectName =
+  | 'cellular_component'
+  | 'molecular_function'
+  | 'biological_process';
+
+type GOAspectShort = 'C' | 'F' | 'P';
+
+export type GOTermID = `GO:${number}${string}`;
 
 export type GoTerm = {
-  aspect?: GoAspect;
+  id: GOTermID;
+  database: 'GO';
+  aspect?: GOAspectLabel;
   termDescription?: string;
   evidences?: Evidence[];
-} & Xref;
+  properties?: {
+    GoEvidenceType: GoEvidenceType;
+    [key: string]: string;
+  };
+} & Omit<Xref, 'id' | 'properties'>;
 
-export type GroupedGoTerms = Map<GoAspect, GoTerm[]>;
+export type GroupedGoTerms = Map<GOAspectLabel, GoTerm[]>;
 
 export type FunctionUIModel = {
   bioPhysicoChemicalProperties: BioPhysicoChemicalProperties;
   goTerms?: GroupedGoTerms;
+  geneNamesData?: GeneNamesData;
+  organismData?: TaxonomyDatum;
 } & UIModel;
 
 const keywordsCategories: KeywordCategory[] = [
@@ -78,6 +97,38 @@ const keywordsCategories: KeywordCategory[] = [
   'Biological process',
   'Ligand',
 ];
+
+export const goAspects: {
+  id: GOTermID;
+  name: GOAspectName;
+  label: GOAspectLabel;
+  short: GOAspectShort;
+}[] = [
+  {
+    id: 'GO:0003674',
+    name: 'molecular_function',
+    label: 'Molecular Function',
+    short: 'F',
+  },
+  {
+    id: 'GO:0008150',
+    name: 'biological_process',
+    label: 'Biological Process',
+    short: 'P',
+  },
+
+  {
+    id: 'GO:0005575',
+    name: 'cellular_component',
+    label: 'Cellular Component',
+    short: 'C',
+  },
+];
+
+export const getAspect = (term: GOAspectName | GOAspectShort) =>
+  goAspects.find(
+    (aspectInfo) => aspectInfo.name === term || aspectInfo.short === term
+  );
 
 export const functionFeaturesToColumns: Readonly<
   Record<FunctionFeatures, UniProtKBColumn>
@@ -113,12 +164,38 @@ const commentsCategories: CommentType[] = [
   'BIOTECHNOLOGY',
 ];
 
+export const getAspectGroupedGoTerms = (
+  uniProtKBCrossReferences?: Xref[]
+): GroupedGoTerms => {
+  const goTerms = (uniProtKBCrossReferences || [])
+    .filter(
+      (xref: Xref | GoTerm): xref is GoTerm =>
+        xref.database === 'GO' && Boolean(xref.properties)
+    )
+    .map((term) => {
+      const goTermProperty = term.properties && term.properties.GoTerm;
+      const aspect =
+        goTermProperty && (goTermProperty.substring(0, 1) as GOAspectShort);
+      const termDescription = goTermProperty && goTermProperty.substring(2);
+      return {
+        ...term,
+        aspect: aspect ? getAspect(aspect)?.label : undefined,
+        termDescription,
+      };
+    });
+  return new Map(
+    Object.entries(groupBy(goTerms, (term) => term.aspect))
+  ) as GroupedGoTerms;
+};
+
 const convertFunction = (
   data: UniProtkbAPIModel,
+  databaseInfoMaps: DatabaseInfoMaps,
   uniProtKBCrossReferences?: Xref[]
 ) => {
   const convertedSection = convertSection(
     data,
+    databaseInfoMaps,
     commentsCategories,
     keywordsCategories,
     featureCategories,
@@ -170,24 +247,14 @@ const convertFunction = (
     miscellaneousComments || []
   );
 
-  if (uniProtKBCrossReferences) {
-    const goTerms = (
-      uniProtKBCrossReferences.filter(
-        (xref) => xref.database === 'GO' && xref.properties
-      ) as GoTerm[]
-    ).map((term) => {
-      const goTermProperty = term.properties && term.properties.GoTerm;
-      const aspect = goTermProperty && goTermProperty.substring(0, 1);
-      const termDescription = goTermProperty && goTermProperty.substring(2);
-      return {
-        ...term,
-        aspect: GoAspect[aspect as keyof typeof GoAspect],
-        termDescription,
-      };
-    });
-    convertedSection.goTerms = new Map(
-      Object.entries(groupBy(goTerms, (term) => term.aspect))
-    ) as GroupedGoTerms;
+  convertedSection.geneNamesData = data?.genes;
+  convertedSection.organismData = data?.organism;
+
+  const aspectGroupedGoTerms = getAspectGroupedGoTerms(
+    uniProtKBCrossReferences
+  );
+  if (aspectGroupedGoTerms?.size) {
+    convertedSection.goTerms = aspectGroupedGoTerms;
   }
   return convertedSection;
 };

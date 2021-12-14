@@ -1,4 +1,4 @@
-import { Fragment, useState, FC } from 'react';
+import { Fragment, ReactNode, useState } from 'react';
 import {
   InfoList,
   Sequence,
@@ -40,6 +40,8 @@ import {
 } from '../../../uniprotkb/adapters/sequenceConverter';
 import { Namespace } from '../../types/namespaces';
 
+import styles from './styles/sequence-view.module.css';
+
 export type SequenceData = {
   value: string;
   length: number;
@@ -53,12 +55,19 @@ type SequenceViewProps = {
   data: SequenceUIModel;
 };
 
-export const SequenceInfo: FC<{
+type SequenceInfoProps = {
   isoformId: string;
   isoformSequence?: SequenceData;
   lastUpdateDate?: string | null;
-  isCanonical?: boolean;
-}> = ({ isoformId, isoformSequence, lastUpdateDate, isCanonical = false }) => {
+  openByDefault?: boolean;
+};
+
+export const SequenceInfo = ({
+  isoformId,
+  isoformSequence,
+  lastUpdateDate,
+  openByDefault = false,
+}: SequenceInfoProps) => {
   const [isoformToFetch, setIsoformToFetch] = useState<string>();
 
   const history = useHistory();
@@ -103,25 +112,29 @@ export const SequenceInfo: FC<{
         })
       }
       addToBasketButton={<AddToBasketButton selectedEntries={isoformId} />}
-      isCollapsible={!isCanonical}
+      isCollapsible={!openByDefault}
       isLoading={loading}
     />
   );
 };
 
-export const IsoformInfo: FC<{
+const firstIsoformRE = /-1$/;
+
+type IsoformInfoProps = {
   isoformData: Isoform;
   canonicalAccession: string;
   isoformNotes?: IsoformNotes;
-}> = ({ isoformData, canonicalAccession, isoformNotes }) => {
-  let note;
+};
+
+export const IsoformInfo = ({
+  isoformData,
+  canonicalAccession,
+  isoformNotes,
+}: IsoformInfoProps) => {
   const regex = new RegExp(isoformData.name.value, 'gi');
-  for (const key in isoformNotes) {
-    if (key.match(regex)) {
-      note = isoformNotes[key];
-      break;
-    }
-  }
+  const note =
+    isoformNotes &&
+    Object.entries(isoformNotes).find(([key]) => key.match(regex))?.[1];
 
   const infoListData = [
     {
@@ -137,6 +150,34 @@ export const IsoformInfo: FC<{
       content: note && <FreeTextView comments={note} showMolecule={false} />,
     },
     {
+      title: 'See also',
+      content: (
+        <>
+          sequence in{' '}
+          <Link
+            to={{
+              pathname: LocationToPath[Location.UniParcResults],
+              search: `query=(isoform:${isoformData.isoformIds[0]})&direct`,
+            }}
+          >
+            UniParc
+          </Link>{' '}
+          or sequence clusters in{' '}
+          <Link
+            to={{
+              pathname: LocationToPath[Location.UniRefResults],
+              search: `query=(uniprot_id:${isoformData.isoformIds[0].replace(
+                firstIsoformRE,
+                ''
+              )})`,
+            }}
+          >
+            UniRef
+          </Link>
+        </>
+      ),
+    },
+    {
       title: 'Differences from canonical',
       content: isoformData.varSeqs && !!isoformData.varSeqs.length && (
         <ul className="no-bullet">
@@ -146,16 +187,20 @@ export const IsoformInfo: FC<{
                 <Link
                   to={{
                     pathname: LocationToPath[Location.Blast],
-                    // TODO: this needs to be implemented on the BLAST form page
-                    search: `about=${canonicalAccession}[${location.start.value}-${location.end.value}]`,
+                    search: `ids=${canonicalAccession}[${location.start.value}-${location.end.value}]`,
                   }}
                 >{`${location.start.value}-${location.end.value}: `}</Link>
-                {alternativeSequence && alternativeSequence.originalSequence
-                  ? `${alternativeSequence.originalSequence}  → ${
-                      alternativeSequence.alternativeSequences &&
-                      alternativeSequence.alternativeSequences.join(', ')
-                    }`
-                  : 'Missing'}
+                {`${location.start.value}-${location.end.value}: `}
+                {alternativeSequence && alternativeSequence.originalSequence ? (
+                  <span className={styles.modifications}>{`${
+                    alternativeSequence.originalSequence
+                  } → ${
+                    alternativeSequence.alternativeSequences &&
+                    alternativeSequence.alternativeSequences.join(', ')
+                  }`}</span>
+                ) : (
+                  'Missing'
+                )}
                 {evidences && <UniProtKBEvidenceTag evidences={evidences} />}
               </li>
             )
@@ -175,8 +220,7 @@ export const IsoformInfo: FC<{
   const name = isoformData.isoformIds.join(', ');
   return (
     <Fragment key={isoformData.isoformIds.join('')}>
-      <hr />
-      <h3 id={name}>{name}</h3>
+      <h3 id={`Isoform_${isoformData.name.value || name}`}>{name}</h3>
       {isoformData.isoformSequenceStatus === 'Displayed' && (
         <p>
           {'This isoform has been chosen as the '}
@@ -215,9 +259,11 @@ export const IsoformInfo: FC<{
   );
 };
 
-export const SequenceCautionView: FC<{
+export const SequenceCautionView = ({
+  data,
+}: {
   data: SequenceCautionComment[];
-}> = ({ data }) => (
+}) => (
   <>
     {data.map(({ sequence, sequenceCautionType, note, evidences }) => (
       <section
@@ -234,9 +280,11 @@ export const SequenceCautionView: FC<{
   </>
 );
 
-export const MassSpectrometryView: FC<{
+export const MassSpectrometryView = ({
+  data,
+}: {
   data: MassSpectrometryComment[];
-}> = ({ data }) => (
+}) => (
   <>
     {data.map((item) => (
       <section className="text-block" key={`${item.molWeight}${item.method}`}>
@@ -252,7 +300,7 @@ export const MassSpectrometryView: FC<{
   </>
 );
 
-export const RNAEditingView: FC<{ data: RNAEditingComment[] }> = ({ data }) => (
+export const RNAEditingView = ({ data }: { data: RNAEditingComment[] }) => (
   <>
     {data.map((item) => (
       <section
@@ -289,73 +337,90 @@ export const RNAEditingView: FC<{ data: RNAEditingComment[] }> = ({ data }) => (
   </>
 );
 
-export const IsoformView: FC<{
+type IsoformViewProps = {
   alternativeProducts: AlternativeProductsComment;
   canonicalComponent?: JSX.Element;
   includeSequences?: boolean;
-  canonicalAccession: string;
+  accession: string;
   isoformNotes?: IsoformNotes;
-}> = ({
+};
+
+export const IsoformView = ({
   alternativeProducts,
   canonicalComponent,
   includeSequences = true,
-  canonicalAccession,
+  accession,
   isoformNotes,
-}) => {
-  let isoformCountNode;
+}: IsoformViewProps) => {
   const { isoforms, events } = alternativeProducts;
+  const canonical = accession.split('-')[0];
+  const isIsoformPage = accession !== canonical;
+
+  const notes: ReactNode[] = [];
   if (isoforms && events) {
-    isoformCountNode = (
-      <p>
-        {`This entry describes `}
+    notes.push(
+      <Fragment key="this entry describes...">
+        {`This entry describes ${isIsoformPage ? 'one of the' : ''} `}
         <strong>{isoforms.length}</strong>
         {` isoforms produced by `}
-        <strong>{events.join(' & ')}</strong>.
-      </p>
+        <strong>{events.join(' & ')}</strong>.{' '}
+      </Fragment>
     );
+    if (isIsoformPage) {
+      notes.push(
+        <Fragment key="canonical link">
+          For the canonical entry page see{' '}
+          <Link to={getEntryPath(Namespace.uniprotkb, canonical)}>
+            {canonical}
+          </Link>
+          .{' '}
+        </Fragment>
+      );
+    }
   }
-
-  let notesNode;
-  const texts = alternativeProducts.note?.texts;
-  if (texts) {
-    notesNode = <p>{texts.map((text) => text.value).join(' ')}</p>;
+  for (const [index, { value }] of (
+    alternativeProducts.note?.texts || []
+  ).entries()) {
+    notes.push(<Fragment key={index}>{value}</Fragment>);
   }
 
   let isoformsNode;
-  if (isoforms) {
-    isoformsNode = isoforms.map((isoform) => {
-      const isoformComponent = (
-        <SequenceInfo isoformId={isoform.isoformIds[0]} />
-      );
-      return (
+  if (isoforms.length) {
+    isoformsNode = isoforms.map((isoform) =>
+      isIsoformPage && isoform.isoformIds[0] !== accession ? null : (
         <Fragment key={isoform.isoformIds.join('')}>
           <IsoformInfo
             isoformData={isoform}
-            canonicalAccession={canonicalAccession}
+            canonicalAccession={canonical}
             isoformNotes={isoformNotes}
           />
           {includeSequences && isoform.isoformSequenceStatus !== 'External' && (
             <>
-              {canonicalComponent &&
-              isoform.isoformSequenceStatus === 'Displayed'
-                ? canonicalComponent
-                : isoformComponent}
+              {isIsoformPage ||
+              (canonicalComponent &&
+                isoform.isoformSequenceStatus === 'Displayed') ? (
+                canonicalComponent
+              ) : (
+                <SequenceInfo
+                  isoformId={isoform.isoformIds[0]}
+                  openByDefault={isIsoformPage}
+                />
+              )}
             </>
           )}
         </Fragment>
-      );
-    });
+      )
+    );
   }
   return (
     <>
-      {isoformCountNode}
-      {notesNode}
+      {notes && <p>{notes}</p>}
       {isoformsNode}
     </>
   );
 };
 
-const SequenceView: FC<SequenceViewProps> = ({ accession, data }) => {
+const SequenceView = ({ accession, data }: SequenceViewProps) => {
   const sequenceInfoData = [
     {
       title: 'Sequence status',
@@ -377,7 +442,7 @@ const SequenceView: FC<SequenceViewProps> = ({ accession, data }) => {
       isoformId={accession}
       isoformSequence={data.sequence}
       lastUpdateDate={data.lastUpdateDate}
-      isCanonical
+      openByDefault
     />
   );
 
@@ -418,7 +483,7 @@ const SequenceView: FC<SequenceViewProps> = ({ accession, data }) => {
       <IsoformView
         alternativeProducts={data.alternativeProducts}
         canonicalComponent={canonicalComponent}
-        canonicalAccession={accession}
+        accession={accession}
         isoformNotes={data.isoformNotes}
       />
     </>

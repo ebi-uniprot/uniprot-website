@@ -1,4 +1,4 @@
-import { FC, useState, useEffect, useMemo } from 'react';
+import { FC, useState, useEffect, useMemo, Fragment } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
   Card,
@@ -7,7 +7,7 @@ import {
   InfoList,
   ExternalLink,
 } from 'franklin-sites';
-import { SetRequired } from 'type-fest';
+import { Except, SetRequired, Simplify } from 'type-fest';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
@@ -24,13 +24,14 @@ import { processUrlTemplate } from '../protein-data-views/XRefView';
 
 import { getEntryPath } from '../../../app/config/urls';
 import { getUniProtPublicationsQueryUrl } from '../../../shared/config/apiUrls';
-import { getDatabaseInfoByName } from '../../config/database';
 
 import {
   CitationsAPIModel,
   Reference,
 } from '../../../supporting-data/citations/adapters/citationsConverter';
 import { Namespace } from '../../../shared/types/namespaces';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import { addBlastLinksToFreeText } from '../../../shared/utils/utils';
 
 const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
   reference,
@@ -45,8 +46,13 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
     annotation,
   } = reference;
 
+  const databaseInfoMaps = useDatabaseInfoMaps();
   const url = useMemo(() => {
-    const databaseInfo = source && getDatabaseInfoByName(source.name);
+    if (!databaseInfoMaps) {
+      return null;
+    }
+    const databaseInfo =
+      source && databaseInfoMaps.databaseToDatabaseInfo[source.name];
     if (databaseInfo?.uriLink && source?.id) {
       return processUrlTemplate(databaseInfo.uriLink, { id: source.id });
     }
@@ -54,7 +60,7 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
       return `https://www.ncbi.nlm.nih.gov/gene?Db=gene&Cmd=DetailsSearch&Term=${source.id}`;
     }
     return null;
-  }, [source]);
+  }, [databaseInfoMaps, source]);
 
   const infoListData = [
     {
@@ -87,7 +93,17 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
     },
     {
       title: 'Cited for',
-      content: referencePositions?.join(', '),
+      content:
+        referencePositions &&
+        addBlastLinksToFreeText(referencePositions, accession).map(
+          (item, i) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <Fragment key={i}>
+              {i > 0 && ', '}
+              {item}
+            </Fragment>
+          )
+        ),
     },
     {
       title: 'Tissue',
@@ -115,6 +131,30 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
 };
 
 const getIdKey = getIdKeyFor(Namespace.citations);
+
+const cardRendererFor =
+  (accession: string) =>
+  (
+    data: Simplify<
+      Except<CitationsAPIModel, 'references'> &
+        Required<Pick<CitationsAPIModel, 'references'>>
+    >
+  ) =>
+    (
+      <Card to={getEntryPath(Namespace.citations, getIdKey(data))}>
+        <LiteratureCitation data={data} headingLevel="h3">
+          {data.references.map((reference, index) => (
+            <PublicationReference
+              reference={reference}
+              // No obvious key as there can be more than 1 for the same source
+              // eslint-disable-next-line react/no-array-index-key
+              key={index}
+              accession={accession}
+            />
+          ))}
+        </LiteratureCitation>
+      </Card>
+    );
 
 const hasReference = (
   data: CitationsAPIModel
@@ -164,6 +204,8 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
     }));
   }, [data, headers]);
 
+  const cardRenderer = useMemo(() => cardRendererFor(accession), [accession]);
+
   if (error) {
     return <ErrorHandler status={status} />;
   }
@@ -180,21 +222,7 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
       <DataListWithLoader
         getIdKey={getIdKey}
         data={resultsWithReferences}
-        dataRenderer={(data) => (
-          <Card to={getEntryPath(Namespace.citations, getIdKey(data))}>
-            <LiteratureCitation data={data} headingLevel="h3">
-              {data.references.map((reference, index) => (
-                <PublicationReference
-                  reference={reference}
-                  // No obvious key as there can be more than 1 for the same source
-                  // eslint-disable-next-line react/no-array-index-key
-                  key={index}
-                  accession={accession}
-                />
-              ))}
-            </LiteratureCitation>
-          </Card>
-        )}
+        dataRenderer={cardRenderer}
         onLoadMoreItems={() => nextUrl && setUrl(nextUrl)}
         loaderComponent={<Loader />}
         hasMoreData={total > allResults.length}

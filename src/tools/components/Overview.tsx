@@ -1,7 +1,6 @@
 /* eslint-disable no-param-reassign */
-import { FC, useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Loader } from 'franklin-sites';
-import useEventListener from '@use-it/event-listener';
 
 import AlignmentOverview from './AlignmentOverview';
 import AlignLabel from '../align/components/results/AlignLabel';
@@ -27,7 +26,7 @@ type EventDetail = {
 const sequenceHeight = 20;
 const heightStyle = { height: `${sequenceHeight}px` };
 
-const AlignOverview: FC<AlignmentComponentProps> = ({
+const AlignOverview = ({
   alignment,
   alignmentLength,
   highlightProperty,
@@ -44,8 +43,8 @@ const AlignOverview: FC<AlignmentComponentProps> = ({
   activeAnnotation,
   activeAlignment,
   updateTooltip,
-}) => {
-  const containerRef = useRef(null);
+}: AlignmentComponentProps) => {
+  const containerRef = useRef<HTMLElement>(null);
   const [highlightPosition, setHighlighPosition] = useState('');
   const [initialDisplayEnd, setInitialDisplayEnd] = useState<
     number | undefined
@@ -87,13 +86,16 @@ const AlignOverview: FC<AlignmentComponentProps> = ({
     [initialDisplayEnd, findHighlightPositions, tracksOffset]
   );
 
-  useEventListener(
-    'change',
-    handleEvent(updateTooltip) as (e: Event) => void,
-    containerRef?.current
-  );
+  useEffect(() => {
+    const handler = handleEvent(updateTooltip) as (e: Event) => void;
+    const element = containerRef?.current;
+    element?.addEventListener('change', handler);
+    return () => {
+      element?.removeEventListener('change', handler);
+    };
+  }, [updateTooltip]);
 
-  const msaDefined = useCustomElement(
+  const msaElement = useCustomElement(
     /* istanbul ignore next */
     () => import(/* webpackChunkName: "protvista-msa" */ 'protvista-msa'),
     'protvista-msa'
@@ -101,7 +103,7 @@ const AlignOverview: FC<AlignmentComponentProps> = ({
 
   const setMSAAttributes = useCallback(
     (node): void => {
-      if (!(node && msaDefined)) {
+      if (!(node && msaElement.defined)) {
         return;
       }
 
@@ -122,7 +124,7 @@ const AlignOverview: FC<AlignmentComponentProps> = ({
       node.data = alignment.map(({ name, sequence }) => ({ name, sequence }));
     },
     [
-      msaDefined,
+      msaElement.defined,
       selectedMSAFeatures,
       alignmentLength,
       alignment,
@@ -131,12 +133,12 @@ const AlignOverview: FC<AlignmentComponentProps> = ({
     ]
   );
 
-  const trackDefined = useCustomElement(
+  const trackElement = useCustomElement(
     /* istanbul ignore next */
     () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
     'protvista-track'
   );
-  const navigationDefined = useCustomElement(
+  const navigationElement = useCustomElement(
     /* istanbul ignore next */
     () =>
       import(
@@ -144,14 +146,17 @@ const AlignOverview: FC<AlignmentComponentProps> = ({
       ),
     'protvista-navigation'
   );
-  const managerDefined = useCustomElement(
+  const managerElement = useCustomElement(
     /* istanbul ignore next */
     () =>
       import(/* webpackChunkName: "protvista-manager" */ 'protvista-manager'),
     'protvista-manager'
   );
   const ceDefined =
-    trackDefined && navigationDefined && msaDefined && managerDefined;
+    trackElement.defined &&
+    navigationElement.defined &&
+    msaElement.defined &&
+    managerElement.defined;
 
   const setFeatureTrackData = useCallback(
     (node): void => {
@@ -201,7 +206,7 @@ const AlignOverview: FC<AlignmentComponentProps> = ({
       </span>
       <div className="track">
         {annotation && (
-          <protvista-track
+          <trackElement.name
             ref={setFeatureTrackData}
             length={totalLength}
             layout="non-overlapping"
@@ -230,12 +235,12 @@ const AlignOverview: FC<AlignmentComponentProps> = ({
         ))}
       </div>
       <div className="track">
-        <protvista-manager
+        <managerElement.name
           ref={managerRef}
           attributes="displaystart displayend"
         >
-          <protvista-navigation length={alignmentLength} />
-          <protvista-msa
+          <navigationElement.name length={alignmentLength} />
+          <msaElement.name
             ref={setMSAAttributes}
             length={alignmentLength}
             height={alignment.length * sequenceHeight}
@@ -243,7 +248,7 @@ const AlignOverview: FC<AlignmentComponentProps> = ({
             hidelabel
             {...conservationOptions}
           />
-        </protvista-manager>
+        </managerElement.name>
       </div>
       <span className="right-coord">
         {alignment.map((s) => (

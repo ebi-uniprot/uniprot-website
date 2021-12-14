@@ -25,10 +25,9 @@ const EntryPublicationsFacets: FC<{ accession: string }> = ({ accession }) => {
     size: 0,
   });
 
-  const { loading, data, status, error, isStale } =
-    useDataApiWithStale<{
-      facets: FacetObject[];
-    }>(url);
+  const { loading, data, status, error, isStale } = useDataApiWithStale<{
+    facets: FacetObject[];
+  }>(url);
 
   if (error) {
     return <ErrorHandler status={status} />;

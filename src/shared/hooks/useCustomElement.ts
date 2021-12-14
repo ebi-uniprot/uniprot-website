@@ -4,13 +4,20 @@ import useSafeState from './useSafeState';
 
 import * as logging from '../utils/logging';
 
-const useCustomElement = (
-  customElementGetter: () => Promise<{ default: CustomElementConstructor }>,
-  name: string
-) => {
+const isSupported = 'customElements' in window;
+
+type UseCustomElement = <T extends string>(
+  customElementGetter: () => Promise<{
+    default: CustomElementConstructor;
+  }>,
+  name: T
+) => { defined: boolean; errored: boolean; name: T };
+
+const useCustomElement: UseCustomElement = (customElementGetter, name) => {
   const [defined, setDefined] = useSafeState(
     Boolean(window.customElements && window.customElements.get(name))
   );
+  const [errored, setErrored] = useSafeState(false);
 
   // as it's a function, it might have been redefined through a rerender pass,
   // so keep that in a ref to avoid the useEffect to rerun needlessly
@@ -18,7 +25,7 @@ const useCustomElement = (
 
   useEffect(() => {
     // customElements not supported, bail
-    if (!window.customElements) {
+    if (!isSupported) {
       return;
     }
     // already instantiated, update state and bail
@@ -28,20 +35,34 @@ const useCustomElement = (
     }
     CEgetter.current()
       .then((module) => {
-        // 'get' is experimental apparently
-        if (!window.customElements.get?.(name)) {
+        if (!window.customElements.get(name)) {
           try {
             window.customElements.define(name, module.default);
-          } catch (err) {
-            /**/
+            setDefined(true);
+          } catch (error) {
+            // definition error
+            if (error instanceof Error) {
+              logging.error(error);
+            }
+            setErrored(true);
           }
+        } else {
+          setDefined(true);
         }
-        setDefined(true);
       })
-      .catch((error) => logging.error(error));
-  }, [name, setDefined]);
+      .catch((error) => {
+        // network/loading error
+        logging.error(error);
+      });
+  }, [name, setDefined, setErrored]);
 
-  return defined;
+  return { defined, errored, name };
 };
 
-export default useCustomElement;
+const useCustomElementUnsupported: UseCustomElement = (_, name) => ({
+  defined: false,
+  errored: true,
+  name,
+});
+
+export default isSupported ? useCustomElement : useCustomElementUnsupported;

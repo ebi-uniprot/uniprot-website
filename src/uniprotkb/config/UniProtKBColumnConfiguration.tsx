@@ -49,7 +49,7 @@ import {
 import {
   functionFeaturesToColumns,
   FunctionUIModel,
-  GoAspect,
+  GOAspectLabel,
   GoTerm,
 } from '../adapters/functionConverter';
 import { UniProtKBColumn } from '../types/columnTypes';
@@ -67,12 +67,7 @@ import AnnotationScoreDoughnutChart, {
   DoughnutChartSize,
 } from '../components/protein-data-views/AnnotationScoreDoughnutChart';
 import { KeywordList } from '../components/protein-data-views/KeywordView';
-import { DatabaseList } from '../components/protein-data-views/XRefView';
-import {
-  databaseNameToCategory,
-  getDatabaseNameToEntrySection,
-  getDatabaseInfoByName,
-} from './database';
+// import { DatabaseList } from '../components/protein-data-views/XRefView';
 import DiseaseInvolvementView from '../components/protein-data-views/DiseaseInvolvementView';
 import CatalyticActivityView, {
   getRheaId,
@@ -91,6 +86,8 @@ import EntryTypeIcon, {
 import AccessionView from '../../shared/components/results/AccessionView';
 import CSVView from '../components/protein-data-views/CSVView';
 
+import useDatabaseInfoMaps from '../../shared/hooks/useDatabaseInfoMaps';
+
 import { getAllKeywords } from '../utils/KeywordsUtil';
 import externalUrls from '../../shared/config/externalUrls';
 import { getEntryPath, LocationToPath, Location } from '../../app/config/urls';
@@ -107,6 +104,8 @@ import { diseaseAndDrugsFeaturesToColumns } from '../adapters/diseaseAndDrugs';
 import { subcellularLocationFeaturesToColumns } from '../adapters/subcellularLocationConverter';
 import { proteinProcessingFeaturesToColumns } from '../adapters/proteinProcessingConverter';
 import { familyAndDomainsFeaturesToColumns } from '../adapters/familyAndDomainsConverter';
+import { getDatabaseNameFromColumn, isDatabaseColumn } from '../utils/database';
+import { DatabaseList } from '../components/protein-data-views/XRefView';
 
 export const defaultColumns = [
   UniProtKBColumn.accession,
@@ -115,6 +114,7 @@ export const defaultColumns = [
   UniProtKBColumn.proteinName,
   UniProtKBColumn.geneNames,
   UniProtKBColumn.organismName,
+  UniProtKBColumn.length,
 ];
 
 export const primaryKeyColumns = [UniProtKBColumn.accession];
@@ -129,6 +129,7 @@ const getFeatureColumn = (
     return (
       featuresData && (
         <FeaturesView
+          primaryAccession={data.primaryAccession}
           features={featuresData.filter((feature) => feature.type === type)}
           withDataTable={false}
         />
@@ -137,7 +138,7 @@ const getFeatureColumn = (
   },
 });
 
-const getGOColumnForAspect = (aspect: GoAspect) => ({
+const getGOColumnForAspect = (aspect: GOAspectLabel) => ({
   label: `Gene Ontology - ${aspect}`,
   render: (data: UniProtkbUIModel) => {
     const { goTerms } = data[EntrySection.Function] as FunctionUIModel;
@@ -339,7 +340,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccAlternativeProducts, {
         <IsoformView
           alternativeProducts={alternativeProducts}
           includeSequences={false}
-          canonicalAccession={data.primaryAccession}
+          accession={data.primaryAccession}
         />
       )
     );
@@ -510,7 +511,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCatalyticActivity, {
       | undefined;
     return (
       catalyticActivityComments && (
-        <CatalyticActivityView comments={catalyticActivityComments} />
+        <CatalyticActivityView
+          comments={catalyticActivityComments}
+          defaultHideAllReactions
+          noEvidence
+        />
       )
     );
   },
@@ -577,6 +582,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ec, {
       <ECNumbersView
         ecNumbers={proteinNamesData?.recommendedName?.ecNumbers}
         noEvidence
+        orientation="vertical"
       />
     );
   },
@@ -889,15 +895,15 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccTissueSpecificity, {
 
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.goP,
-  getGOColumnForAspect(GoAspect.P)
+  getGOColumnForAspect('Biological Process')
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.goC,
-  getGOColumnForAspect(GoAspect.C)
+  getGOColumnForAspect('Cellular Component')
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.goF,
-  getGOColumnForAspect(GoAspect.F)
+  getGOColumnForAspect('Molecular Function')
 );
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.go, {
@@ -1110,51 +1116,63 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.tools, {
   render: (data) => <SequenceTools accession={data.primaryAccession} />,
 });
 
-const getXrefColumn = (databaseName: string) => ({
-  label: `${databaseName} cross-reference`,
-  render: (data: UniProtkbUIModel) => {
-    // Get the entry section for the database name
-    const entrySection = getDatabaseNameToEntrySection(databaseName);
-    if (!entrySection) {
-      return undefined;
+const getXrefColumn = (databaseName: string) => {
+  const Label = () => {
+    const databaseInfoMaps = useDatabaseInfoMaps();
+    if (!databaseInfoMaps) {
+      return null;
     }
-    const { xrefData } = data[entrySection];
-    // Get the category for the database name in the section
-    const category = xrefData?.find(
-      (xrefCategory) =>
-        xrefCategory.category === databaseNameToCategory.get(databaseName)
+    const { databaseToDatabaseInfo } = databaseInfoMaps;
+    const databaseInfoKey = Object.keys(databaseToDatabaseInfo).find(
+      (database) => database.toLowerCase() === databaseName
     );
-    if (!category) {
-      return undefined;
+    if (!databaseInfoKey) {
+      logging.error(`No database found for ${databaseName}`);
+      return null;
     }
-    // Get the database based on the name
-    const xrefsGoupedByDatabase = category.databases.find(
-      (databaseGroup) => databaseGroup.database === databaseName
-    );
-    return (
-      xrefsGoupedByDatabase && (
-        <DatabaseList
-          xrefsGoupedByDatabase={xrefsGoupedByDatabase}
-          primaryAccession={data.primaryAccession}
-        />
-      )
-    );
-  },
-});
+    const { displayName } = databaseToDatabaseInfo[databaseInfoKey];
+    return <>{`${displayName} cross-reference`}</>;
+  };
 
-const reXrefPrefix = /^xref_/;
+  const Renderer = ({ data }: { data: UniProtkbUIModel }) => {
+    const databaseInfoMaps = useDatabaseInfoMaps();
+    if (!databaseInfoMaps) {
+      return null;
+    }
+    const xrefs = data?.uniProtKBCrossReferences?.filter(
+      ({ database }) => database?.toLowerCase() === databaseName
+    );
+    const database = xrefs?.[0]?.database;
+    if (!database) {
+      // This is fine - the entry just doesn't have xrefs for this DB so just render nothing
+      return null;
+    }
+    const xrefsGoupedByDatabase = {
+      database,
+      xrefs,
+    };
+    return (
+      <DatabaseList
+        xrefsGoupedByDatabase={xrefsGoupedByDatabase}
+        primaryAccession={data.primaryAccession}
+        databaseToDatabaseInfo={databaseInfoMaps.databaseToDatabaseInfo}
+      />
+    );
+  };
+  return {
+    label: () => <Label />,
+    render: (data: UniProtkbUIModel) => <Renderer data={data} />,
+  };
+};
+
 // Add all database cross-reference columns
 Object.values(UniProtKBColumn)
-  .filter((col) => col.match(reXrefPrefix))
-  .forEach((colName) => {
-    const databaseInfo = getDatabaseInfoByName(
-      colName.replace(reXrefPrefix, '')
+  .filter(isDatabaseColumn)
+  .forEach((column) => {
+    UniProtKBColumnConfiguration.set(
+      column,
+      getXrefColumn(getDatabaseNameFromColumn(column))
     );
-    if (!databaseInfo || !databaseInfo.name) {
-      logging.error(`No database found for ${colName}`);
-      return;
-    }
-    UniProtKBColumnConfiguration.set(colName, getXrefColumn(databaseInfo.name));
   });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.from, fromColumnConfig);

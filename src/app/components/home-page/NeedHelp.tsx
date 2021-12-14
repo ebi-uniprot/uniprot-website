@@ -10,7 +10,8 @@ import {
   LocationPinIcon,
 } from 'franklin-sites';
 import cn from 'classnames';
-import 'lite-youtube-embed';
+
+import YouTubeEmbed from '../../../shared/components/YouTubeEmbed';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useStructuredData from '../../../shared/hooks/useStructuredData';
@@ -202,11 +203,9 @@ const NeedHelp = () => {
           styles['need-help__tutorial-videos-top']
         )}
       >
-        {/* NOTE: privacy issue? When clicking, we embed YouTube in the website,
-        with all the related tracking, might need to link to YouTube instead */}
-        <lite-youtube
-          videoid="OwOJmKmc7VM"
-          playlabel="Welcome to UniProt || UniProt introduction"
+        <YouTubeEmbed
+          id="OwOJmKmc7VM"
+          title="Welcome to UniProt || UniProt introduction"
         />
       </div>
       <div

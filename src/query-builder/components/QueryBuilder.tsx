@@ -13,6 +13,8 @@ import qs from 'query-string';
 import { v1 } from 'uuid';
 import { frame } from 'timing-functions';
 import { PageIntro, Loader, Button } from 'franklin-sites';
+
+// eslint-disable-next-line import/no-relative-packages
 import colors from '../../../node_modules/franklin-sites/src/styles/colours.json';
 
 import ClauseList from './ClauseList';
@@ -209,60 +211,58 @@ const QueryBuilder: FC<Props> = ({
   };
 
   return (
-    <>
-      <form
-        className="query-builder"
-        onSubmit={handleSubmit}
-        data-testid="query-builder-form"
-        aria-label="Query builder form"
-        style={style}
-      >
-        <fieldset>
-          <label htmlFor="namespace-select">
-            Searching in
-            <select
-              id="namespace-select"
-              onChange={(e) =>
-                setNamespace(e.target.value as SearchableNamespace)
-              }
-              value={namespace}
-            >
-              {Object.keys(searchableNamespaceLabels).map((key) => (
-                <option value={key} key={key}>
-                  {searchableNamespaceLabels[key as SearchableNamespace]}
-                </option>
-              ))}
-            </select>
-          </label>
-        </fieldset>
-        <fieldset>
-          <ClauseList
-            removeClause={removeClause}
-            clauses={clauses}
-            setClauses={setClauses}
-            searchTerms={searchTermsData}
-          />
-        </fieldset>
-        <div className="query-builder__actions button-group sliding-panel__button-row">
-          <Button
-            variant="tertiary"
-            className="query-builder__add-field"
-            data-testid="query-builder-add-field"
-            onClick={addClause}
+    <form
+      className="query-builder"
+      onSubmit={handleSubmit}
+      data-testid="query-builder-form"
+      aria-label="Query builder form"
+      style={style}
+    >
+      <fieldset>
+        <label htmlFor="namespace-select">
+          Searching in
+          <select
+            id="namespace-select"
+            onChange={(e) =>
+              setNamespace(e.target.value as SearchableNamespace)
+            }
+            value={namespace}
           >
-            Add Field
-          </Button>
-          <Button variant="secondary" onClick={onCancel}>
-            Cancel
-          </Button>
-          <Button type="submit">Search</Button>
-        </div>
-        <small>
-          Type * in the search box to search for all values for the selected
-          field.
-        </small>
-      </form>
-    </>
+            {Object.keys(searchableNamespaceLabels).map((key) => (
+              <option value={key} key={key}>
+                {searchableNamespaceLabels[key as SearchableNamespace]}
+              </option>
+            ))}
+          </select>
+        </label>
+      </fieldset>
+      <fieldset>
+        <ClauseList
+          removeClause={removeClause}
+          clauses={clauses}
+          setClauses={setClauses}
+          searchTerms={searchTermsData}
+        />
+      </fieldset>
+      <div className="query-builder__actions button-group sliding-panel__button-row">
+        <Button
+          variant="tertiary"
+          className="query-builder__add-field"
+          data-testid="query-builder-add-field"
+          onClick={addClause}
+        >
+          Add Field
+        </Button>
+        <Button variant="secondary" onClick={onCancel}>
+          Cancel
+        </Button>
+        <Button type="submit">Search</Button>
+      </div>
+      <small>
+        Type * in the search box to search for all values for the selected
+        field.
+      </small>
+    </form>
   );
 };
 

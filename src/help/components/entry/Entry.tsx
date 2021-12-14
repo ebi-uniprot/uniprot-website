@@ -1,7 +1,7 @@
 import { useCallback, MouseEventHandler, useMemo } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import { Card, Loader, Message } from 'franklin-sites';
-import marked from 'marked';
+import { marked } from 'marked';
 import {
   Attributes,
   defaults,

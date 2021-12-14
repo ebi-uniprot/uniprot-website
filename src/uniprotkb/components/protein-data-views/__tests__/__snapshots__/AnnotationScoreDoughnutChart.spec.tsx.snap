@@ -5,6 +5,9 @@ exports[`AnnotationScoreDoughnutChart component should render 1`] = `
   <span
     title="Annotation Score"
   >
+    <strong>
+      Annotation score:
+    </strong>
     <span
       class="doughnut-chart--medium colour-platinum"
     >

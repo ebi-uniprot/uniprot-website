@@ -36,7 +36,11 @@ const ProteinProcessingSection = ({
       id={EntrySection.ProteinProcessing}
       data-entry-section
     >
-      <FeaturesView features={featuresData} sequence={sequence} />
+      <FeaturesView
+        primaryAccession={primaryAccession}
+        features={featuresData}
+        sequence={sequence}
+      />
       <FreeTextView
         comments={commentsData.get('PTM') as FreeTextComment[] | undefined}
         title="PTM"

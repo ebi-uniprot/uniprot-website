@@ -1,6 +1,7 @@
-import { useMemo, FC, Fragment } from 'react';
+import { useMemo, Fragment } from 'react';
 import classNames from 'classnames';
 import { v1 } from 'uuid';
+import { Button } from 'franklin-sites';
 
 import { Evidence } from '../../types/modelTypes';
 import FeatureType from '../../types/featureType';
@@ -10,6 +11,8 @@ import FeaturesView, {
   LocationModifier,
   ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';
+import { getURLToJobWithData } from '../../../app/config/urls';
+import { JobTypes } from '../../../tools/types/toolsJobTypes';
 
 type FeatureLocation = {
   value: number;
@@ -44,6 +47,7 @@ export type ProtvistaFeature = {
 };
 
 type FeatureProps = {
+  primaryAccession: string;
   sequence?: string;
   features: FeatureData;
   withTitle?: boolean;
@@ -72,16 +76,21 @@ export const processFeaturesData = (
     })
   );
 
-const UniProtKBFeaturesView: FC<FeatureProps> = ({
+const UniProtKBFeaturesView = ({
+  primaryAccession,
   sequence,
   features,
   withTitle = true,
   withDataTable = true,
-}): JSX.Element | null => {
+}: FeatureProps) => {
   const processedData = useMemo(
     () => processFeaturesData(features, sequence),
     [features, sequence]
   );
+
+  if (processedData.length === 0) {
+    return null;
+  }
 
   const table = (
     <table className={classNames(!withDataTable && 'data-table--compact')}>
@@ -91,6 +100,7 @@ const UniProtKBFeaturesView: FC<FeatureProps> = ({
           <th>ID</th>
           <th>Positions</th>
           <th>Description</th>
+          <th>{/* Intentionaly left blank */}</th>
         </tr>
       </thead>
       <tbody>
@@ -112,6 +122,27 @@ const UniProtKBFeaturesView: FC<FeatureProps> = ({
                 {feature.description}
                 <UniProtKBEvidenceTag evidences={feature.evidences} />
               </td>
+              <td>
+                {/* Not using React Router link as this is copied into the table DOM */}
+                {feature.end - feature.start >= 3 && (
+                  <Button
+                    element="a"
+                    variant="tertiary"
+                    title="BLAST the sequence corresponding to this feature"
+                    href={getURLToJobWithData(
+                      JobTypes.BLAST,
+                      primaryAccession,
+                      {
+                        start: feature.start,
+                        end: feature.end,
+                      }
+                    )}
+                  >
+                    BLAST
+                  </Button>
+                )}
+                {/* <Button>Add</Button> */}
+              </td>
             </tr>
             {feature.sequence && (
               <tr
@@ -130,10 +161,6 @@ const UniProtKBFeaturesView: FC<FeatureProps> = ({
       </tbody>
     </table>
   );
-
-  if (processedData.length === 0) {
-    return null;
-  }
 
   return withDataTable ? (
     <FeaturesView

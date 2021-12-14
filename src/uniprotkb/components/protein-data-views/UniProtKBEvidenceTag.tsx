@@ -1,7 +1,11 @@
 import { FC, Fragment } from 'react';
 import { groupBy } from 'lodash-es';
 import { ExternalLink, EvidenceTag } from 'franklin-sites';
-import { getEvidenceCodeData, EvidenceData } from '../../config/evidenceCodes';
+import {
+  getEvidenceCodeData,
+  EvidenceData,
+  getEcoNumberFromString,
+} from '../../config/evidenceCodes';
 import { Evidence } from '../../types/modelTypes';
 import UniProtKBEntryPublications from './UniProtKBEntryPublications';
 import { processUrlTemplate } from './XRefView';
@@ -30,7 +34,9 @@ export const UniProtEvidenceTagContent: FC<{
 
   return (
     <div>
-      <h5>{evidenceData.label}</h5>
+      <h5>
+        {evidenceData.label} <small>({evidenceData.description})</small>
+      </h5>
       {publicationReferences && (
         <UniProtKBEntryPublications
           pubmedIds={
@@ -71,31 +77,34 @@ const UniProtKBEvidenceTag = ({ evidences }: { evidences?: Evidence[] }) => {
     return null;
   }
   const evidenceObj = groupBy(evidences, (evidence) => evidence.evidenceCode);
-  const evidenceTags = Object.entries(evidenceObj).map(
-    ([evidenceCode, references]) => {
-      const evidenceData = getEvidenceCodeData(evidenceCode);
-      if (!evidenceData) {
-        return null;
-      }
-      return (
-        <EvidenceTag
-          label={evidenceData.labelRender?.(references) || evidenceData.label}
-          className={
-            evidenceData.manual
-              ? 'svg-colour-reviewed'
-              : 'svg-colour-unreviewed'
-          }
-          key={evidenceCode}
-        >
-          <UniProtEvidenceTagContent
-            evidenceData={evidenceData}
-            evidences={references}
-          />
-        </EvidenceTag>
-      );
-    }
+  return (
+    <>
+      {Object.entries(evidenceObj).map(([evidenceCode, references]) => {
+        const evidenceData = getEvidenceCodeData(
+          getEcoNumberFromString(evidenceCode)
+        );
+        if (!evidenceData) {
+          return null;
+        }
+        return (
+          <EvidenceTag
+            label={evidenceData.labelRender?.(references) || evidenceData.label}
+            className={
+              evidenceData.manual
+                ? 'svg-colour-reviewed'
+                : 'svg-colour-unreviewed'
+            }
+            key={evidenceCode}
+          >
+            <UniProtEvidenceTagContent
+              evidenceData={evidenceData}
+              evidences={references}
+            />
+          </EvidenceTag>
+        );
+      })}
+    </>
   );
-  return <>{evidenceTags}</>;
 };
 
 export default UniProtKBEvidenceTag;

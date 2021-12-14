@@ -1,0 +1,15 @@
+.interaction-section interaction-viewer {
+  max-width: 100%;
+  overflow-x: scroll;
+
+  position: relative;
+
+  // optimise page by not rendering if not in viewport
+  // content-visibility: auto;
+  // contain-intrinsic-size: ??; // TODO: size is quite important and can vary
+
+  & > *:not(svg) {
+    position: sticky;
+    left: 0;
+  }
+}

@@ -65,7 +65,7 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
     </li>
   </ul>
   <p>
-    This entry describes 
+    This entry describes  
     <strong>
       2
     </strong>
@@ -73,14 +73,10 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
     <strong>
       event 1 & event 2
     </strong>
-    .
+    . some text
   </p>
-  <p>
-    some text
-  </p>
-  <hr />
   <h3
-    id="P05067-1"
+    id="Isoform_APP770"
   >
     P05067-1
   </h3>
@@ -131,6 +127,37 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
           class="decorated-list-item__content"
         >
           PreA4 770
+        </div>
+      </div>
+    </li>
+    <li>
+      <div
+        class="decorated-list-item decorated-list-item--compact"
+      >
+        <div
+          class="decorated-list-item__title"
+        >
+          <h5
+            class="bold"
+          >
+            See also
+          </h5>
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          sequence in 
+          <a
+            href="/uniparc?query=(isoform:P05067-1)&direct"
+          >
+            UniParc
+          </a>
+           or sequence clusters in 
+          <a
+            href="/uniref?query=(uniprot_id:P05067)"
+          >
+            UniRef
+          </a>
         </div>
       </div>
     </li>
@@ -203,12 +230,6 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
           class="dropdown-menu"
         />
       </div>
-      <button
-        class="button tertiary"
-        type="button"
-      >
-        Copy FASTA
-      </button>
     </div>
     <ul
       class="info-list info-list--columns"
@@ -297,105 +318,30 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
     <div
       class="sequence"
     >
-      <div
-        class="sequence__sequence"
+      <span
+        class="sequence__chunk"
       >
-        <span
-          class="sequence__sequence__chunk"
-        >
-          <svg
-            height="30"
-            width="100"
-          >
-            <text
-              class="sequence__sequence__chunk__counter"
-              x="100"
-              y="10"
-            >
-              10
-            </text>
-            <text
-              class="sequence__sequence__chunk__sequence"
-              x="0"
-              y="20"
-            >
-              ATGHASOADS
-            </text>
-          </svg>
-        </span>
-        <span
-          class="sequence__sequence__chunk"
-        >
-          <svg
-            height="30"
-            width="100"
-          >
-            <text
-              class="sequence__sequence__chunk__counter"
-              x="100"
-              y="10"
-            >
-              20
-            </text>
-            <text
-              class="sequence__sequence__chunk__sequence"
-              x="0"
-              y="20"
-            >
-              DKDSAJALDS
-            </text>
-          </svg>
-        </span>
-        <span
-          class="sequence__sequence__chunk"
-        >
-          <svg
-            height="30"
-            width="100"
-          >
-            <text
-              class="sequence__sequence__chunk__counter"
-              x="100"
-              y="10"
-            >
-              30
-            </text>
-            <text
-              class="sequence__sequence__chunk__sequence"
-              x="0"
-              y="20"
-            >
-              AMCMNDSKMD
-            </text>
-          </svg>
-        </span>
-        <span
-          class="sequence__sequence__chunk"
-        >
-          <svg
-            height="30"
-            width="100"
-          >
-            <text
-              class="sequence__sequence__chunk__counter"
-              x="100"
-              y="10"
-            />
-            <text
-              class="sequence__sequence__chunk__sequence"
-              x="0"
-              y="20"
-            >
-              SKNCSAKN
-            </text>
-          </svg>
-        </span>
-      </div>
+        ATGHASOADS
+      </span>
+      <span
+        class="sequence__chunk"
+      >
+        DKDSAJALDS
+      </span>
+      <span
+        class="sequence__chunk"
+      >
+        AMCMNDSKMD
+      </span>
+      <span
+        class="sequence__chunk"
+      >
+        SKNCSAKN
+      </span>
     </div>
   </section>
-  <hr />
   <h3
-    id="P05067-2"
+    id="Isoform_APP770-2"
   >
     P05067-2
   </h3>
@@ -439,6 +385,37 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
           class="decorated-list-item__content"
         >
           PreA4 770-2
+        </div>
+      </div>
+    </li>
+    <li>
+      <div
+        class="decorated-list-item decorated-list-item--compact"
+      >
+        <div
+          class="decorated-list-item__title"
+        >
+          <h5
+            class="bold"
+          >
+            See also
+          </h5>
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          sequence in 
+          <a
+            href="/uniparc?query=(isoform:P05067-2)&direct"
+          >
+            UniParc
+          </a>
+           or sequence clusters in 
+          <a
+            href="/uniref?query=(uniprot_id:P05067-2)"
+          >
+            UniRef
+          </a>
         </div>
       </div>
     </li>

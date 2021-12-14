@@ -1,11 +1,6 @@
 import { useMemo, useEffect, FC, Suspense } from 'react';
 import { useDispatch } from 'react-redux';
-import {
-  Link,
-  useRouteMatch,
-  useHistory,
-  generatePath,
-} from 'react-router-dom';
+import { Link, useRouteMatch, useHistory } from 'react-router-dom';
 import { InPageNav, Loader, Tabs, Tab } from 'franklin-sites';
 import cn from 'classnames';
 import { frame } from 'timing-functions';
@@ -46,6 +41,7 @@ import apiUrls from '../../../shared/config/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import useStructuredData from '../../../shared/hooks/useStructuredData';
 
 import dataToSchema from './entry.structured';
@@ -116,10 +112,11 @@ const Entry: FC = () => {
     if (match && !match.params.subPage) {
       history.replace({
         ...history.location,
-        pathname: generatePath(LocationToPath[Location.UniProtKBEntry], {
-          accession: match.params.accession,
-          subPage: TabLocation.Entry,
-        }),
+        pathname: getEntryPath(
+          Namespace.uniprotkb,
+          match.params.accession,
+          TabLocation.Entry
+        ),
       });
     }
   }, [match, history]);
@@ -129,13 +126,15 @@ const Entry: FC = () => {
       apiUrls.entry(match?.params.accession, Namespace.uniprotkb)
     );
 
+  const databaseInfoMaps = useDatabaseInfoMaps();
+
   const [transformedData, pageTitle] = useMemo(() => {
-    if (!data) {
+    if (!data || !databaseInfoMaps) {
       return [];
     }
-    const transformedData = uniProtKbConverter(data);
+    const transformedData = uniProtKbConverter(data, databaseInfoMaps);
     return [transformedData, generatePageTitle(transformedData)];
-  }, [data]);
+  }, [data, databaseInfoMaps]);
 
   const sections = useMemo(() => {
     if (transformedData) {

@@ -34,7 +34,11 @@ const FamilyAndDomainsSection = ({
       id={EntrySection.FamilyAndDomains}
       data-entry-section
     >
-      <FeaturesView features={data.featuresData} sequence={sequence} />
+      <FeaturesView
+        primaryAccession={primaryAccession}
+        features={data.featuresData}
+        sequence={sequence}
+      />
       <FreeTextView
         comments={
           data.commentsData.get('DOMAIN') as FreeTextComment[] | undefined

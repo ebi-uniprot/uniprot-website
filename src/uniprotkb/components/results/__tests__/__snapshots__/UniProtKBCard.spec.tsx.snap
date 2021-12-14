@@ -59,18 +59,17 @@ exports[`UniProtKBCard component should render 1`] = `
           >
             scientific name (common name) (synonyms 1)
           </a>
-           · 
-          <strong>
-            EC number:
-          </strong>
-           1.2.3.4 · 
+           · EC:1.2.3.4 · 
           <strong>
             Gene:
           </strong>
-           some Gene (some Syn) · 10 amino-acids · Evidence at protein level · 
+           some Gene (some Syn) · 10 amino acids · Evidence at protein level · 
           <span
             title="Annotation Score"
           >
+            <strong>
+              Annotation score:
+            </strong>
             <span
               class="doughnut-chart--small colour-platinum"
             >
@@ -98,7 +97,6 @@ exports[`UniProtKBCard component should render 1`] = `
             </span>
           </span>
         </section>
-        <small />
       </div>
     </div>
     <div

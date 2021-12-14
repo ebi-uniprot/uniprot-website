@@ -5,9 +5,12 @@ import { InfoList, ExternalLink, ExpandableList } from 'franklin-sites';
 import { pluralise } from '../../../shared/utils/utils';
 import * as logging from '../../../shared/utils/logging';
 
+import PDBView from './PDBView';
+
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+
 import {
   databaseCategoryToString,
-  databaseToDatabaseInfo,
   viewProteinLinkDatabases,
 } from '../../config/database';
 import {
@@ -15,6 +18,9 @@ import {
   XrefsGoupedByDatabase,
   partitionStructureDatabases,
 } from '../../utils/xrefUtils';
+
+import externalUrls from '../../../shared/config/externalUrls';
+
 import { Xref } from '../../../shared/types/apiModel';
 import { PropertyKey } from '../../types/modelTypes';
 import {
@@ -22,9 +28,9 @@ import {
   AttributesItem,
   DatabaseCategory,
 } from '../../types/databaseRefs';
-import PDBView from './PDBView';
+import { DatabaseToDatabaseInfo } from '../../utils/database';
+
 import EMBLXrefProperties from '../../config/emblXrefPropertiesData.json';
-import externalUrls from '../../../shared/config/externalUrls';
 
 export const processUrlTemplate = (
   urlTemplate: string,
@@ -88,23 +94,24 @@ export const getPropertyLinkAttributes = (
   };
 };
 
-type XRefProps = {
-  database: string;
-  xref: Xref;
-  primaryAccession?: string;
-  crc64?: string;
-};
-
 const EMBLXref: FC<{
   databaseInfo: DatabaseInfoPoint;
+  genBankInfo: DatabaseInfoPoint;
+  ddbjInfo: DatabaseInfoPoint;
   params: { [key: string]: string };
   id: string | undefined;
   xref: Xref;
   isoformNode?: JSX.Element;
-}> = ({ databaseInfo, params, id, xref, isoformNode }) => {
+}> = ({
+  databaseInfo,
+  genBankInfo,
+  ddbjInfo,
+  params,
+  id,
+  xref,
+  isoformNode,
+}) => {
   // M28638 (EMBL|GenBank|DDBJ)
-  const genBankInfo = databaseToDatabaseInfo.GenBank;
-  const ddbjInfo = databaseToDatabaseInfo.DDBJ;
   const { properties, additionalIds } = xref;
   if (!databaseInfo?.uriLink || !genBankInfo?.uriLink || !ddbjInfo?.uriLink) {
     logging.error(
@@ -168,11 +175,20 @@ const EMBLXref: FC<{
   );
 };
 
+type XRefProps = {
+  database: string;
+  xref: Xref;
+  primaryAccession?: string;
+  crc64?: string;
+  databaseToDatabaseInfo: DatabaseToDatabaseInfo;
+};
+
 export const XRef: FC<XRefProps> = ({
   database,
   xref,
   primaryAccession,
   crc64,
+  databaseToDatabaseInfo,
 }): JSX.Element | null => {
   const databaseInfo = databaseToDatabaseInfo[database];
   const { properties, isoformId, id, database: databaseType } = xref;
@@ -226,6 +242,8 @@ export const XRef: FC<XRefProps> = ({
     return (
       <EMBLXref
         databaseInfo={databaseInfo}
+        genBankInfo={databaseToDatabaseInfo.GenBank}
+        ddbjInfo={databaseToDatabaseInfo.DDBJ}
         params={params}
         id={id}
         xref={xref}
@@ -276,10 +294,12 @@ export const DatabaseList: FC<{
   xrefsGoupedByDatabase: XrefsGoupedByDatabase;
   primaryAccession: string;
   crc64?: string;
+  databaseToDatabaseInfo: DatabaseToDatabaseInfo;
 }> = ({
   xrefsGoupedByDatabase: { database, xrefs },
   primaryAccession,
   crc64,
+  databaseToDatabaseInfo,
 }) => {
   // This step is needed as some databases (eg InterPro) have an additional link:
   // "View protein in InterPro" at the top of the xref links.
@@ -294,6 +314,7 @@ export const DatabaseList: FC<{
       )}
       {xrefs.map((xref, index) => (
         <XRef
+          databaseToDatabaseInfo={databaseToDatabaseInfo}
           key={index} // eslint-disable-line react/no-array-index-key
           database={database}
           xref={xref}
@@ -316,6 +337,11 @@ const XRefsGroupedByCategory: FC<XRefsGroupedByCategoryProps> = ({
   primaryAccession,
   crc64,
 }) => {
+  const databaseInfoMaps = useDatabaseInfoMaps();
+  if (!databaseInfoMaps) {
+    return null;
+  }
+  const { databaseToDatabaseInfo } = databaseInfoMaps;
   const infoData = sortBy(databases, ({ database }) => [
     databaseToDatabaseInfo?.[database].implicit,
     database,
@@ -334,6 +360,7 @@ const XRefsGroupedByCategory: FC<XRefsGroupedByCategoryProps> = ({
             xrefsGoupedByDatabase={database}
             primaryAccession={primaryAccession}
             crc64={crc64}
+            databaseToDatabaseInfo={databaseToDatabaseInfo}
           />
         ),
       };
@@ -348,27 +375,28 @@ type StructureXRefsGroupedByCategoryProps = {
   crc64?: string;
 };
 
-const StructureXRefsGroupedByCategory: FC<StructureXRefsGroupedByCategoryProps> =
-  ({ databases, primaryAccession, crc64 }) => {
-    const { PDBDatabase, otherStructureDatabases } =
-      partitionStructureDatabases(databases);
-    let PDBViewNode;
-    if (PDBDatabase && PDBDatabase.xrefs.length) {
-      PDBViewNode = <PDBView xrefs={PDBDatabase.xrefs} noStructure />;
-    }
-    return (
-      <>
-        {PDBViewNode}
-        {otherStructureDatabases && otherStructureDatabases.length && (
-          <XRefsGroupedByCategory
-            databases={otherStructureDatabases}
-            primaryAccession={primaryAccession}
-            crc64={crc64}
-          />
-        )}
-      </>
-    );
-  };
+const StructureXRefsGroupedByCategory: FC<
+  StructureXRefsGroupedByCategoryProps
+> = ({ databases, primaryAccession, crc64 }) => {
+  const { PDBDatabase, otherStructureDatabases } =
+    partitionStructureDatabases(databases);
+  let PDBViewNode;
+  if (PDBDatabase && PDBDatabase.xrefs.length) {
+    PDBViewNode = <PDBView xrefs={PDBDatabase.xrefs} />;
+  }
+  return (
+    <>
+      {PDBViewNode}
+      {otherStructureDatabases && otherStructureDatabases.length && (
+        <XRefsGroupedByCategory
+          databases={otherStructureDatabases}
+          primaryAccession={primaryAccession}
+          crc64={crc64}
+        />
+      )}
+    </>
+  );
+};
 
 type XRefViewProps = {
   xrefs: XrefUIModel[];
@@ -376,38 +404,36 @@ type XRefViewProps = {
   crc64?: string;
 };
 
-const XRefView: FC<XRefViewProps> = ({ xrefs, primaryAccession, crc64 }) => {
-  if (!xrefs) {
-    return null;
-  }
-  const nodes = xrefs.map(({ databases, category }, index): JSX.Element => {
-    const xrefsNode =
-      category === DatabaseCategory.STRUCTURE ? (
-        <StructureXRefsGroupedByCategory
-          databases={databases}
-          primaryAccession={primaryAccession}
-          crc64={crc64}
-        />
-      ) : (
-        <XRefsGroupedByCategory
-          databases={databases}
-          primaryAccession={primaryAccession}
-          crc64={crc64}
-        />
+const XRefView = ({ xrefs, primaryAccession, crc64 }: XRefViewProps) => (
+  <>
+    {xrefs?.map(({ databases, category }, index): JSX.Element => {
+      const xrefsNode =
+        category === DatabaseCategory.STRUCTURE ? (
+          <StructureXRefsGroupedByCategory
+            databases={databases}
+            primaryAccession={primaryAccession}
+            crc64={crc64}
+          />
+        ) : (
+          <XRefsGroupedByCategory
+            databases={databases}
+            primaryAccession={primaryAccession}
+            crc64={crc64}
+          />
+        );
+      let title;
+      if (category && databaseCategoryToString[category]) {
+        title = databaseCategoryToString[category];
+      }
+      return (
+        // eslint-disable-next-line react/no-array-index-key
+        <Fragment key={index}>
+          <h3>{title}</h3>
+          {xrefsNode}
+        </Fragment>
       );
-    let title;
-    if (category && databaseCategoryToString[category]) {
-      title = databaseCategoryToString[category];
-    }
-    return (
-      // eslint-disable-next-line react/no-array-index-key
-      <Fragment key={index}>
-        <h3>{title}</h3>
-        {xrefsNode}
-      </Fragment>
-    );
-  });
-  return <>{nodes}</>;
-};
+    })}
+  </>
+);
 
 export default XRefView;

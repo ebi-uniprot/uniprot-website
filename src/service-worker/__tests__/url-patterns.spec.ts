@@ -49,15 +49,21 @@ describe('URL patterns for service worker caching', () => {
     ).toMatch(patterns.googleFontsFiles);
   });
 
+  test('QuickGO', () => {
+    expect(
+      'https://www.ebi.ac.uk/QuickGO/services/ontology/go/slim?relations=is_a%2Cpart_of%2Coccurs_in%2Cregulates&slimsFromIds=GO%3A0000122%2CGO%3A0000978'
+    ).toMatch(patterns.quickGO);
+  });
+
   test('UniProt APIs', () => {
     expect('https://www.ebi.ac.uk/proteins/api/antigen/A1L3X0').toMatch(
-      patterns.uniprotAPIs
+      patterns.proteinsAPI
     );
-    expect(
-      'https://wwwdev.ebi.ac.uk/uniprot/beta/api/uniprotkb/A1L3X0'
-    ).toMatch(patterns.uniprotAPIs);
-    expect('https://www.ebi.ac.uk/uniprot/beta/api/uniprotkb/A1L3X0').toMatch(
-      patterns.uniprotAPIs
+    expect('https://rest.uniprot.org/beta/uniprotkb/A1L3X0').toMatch(
+      patterns.websiteAPI
+    );
+    expect('https://rest.uniprot.org/uniprotkb/A1L3X0').toMatch(
+      patterns.websiteAPI
     );
   });
 });

@@ -19,6 +19,7 @@ import nonHumanEntryData from '../../../__mocks__/nonHumanEntryModelData';
 import deletedEntryData from '../../../../shared/__mocks__/deletedEntryModelData.json';
 import demergedEntryData from '../../../../shared/__mocks__/demergedEntryModelData.json';
 import entryPublicationsData from './__mocks__/entryPublicationsData';
+import { SLIM_SETS_URL } from '../../../adapters/slimming/GORibbonHandler';
 
 const { primaryAccession } = entryData;
 const { primaryAccession: deleteEntryAccession } = deletedEntryData;
@@ -71,6 +72,8 @@ mock
   // TODO: it would be nice to not render the whole entry...
   .onGet(joinUrl(apiUrls.variation, primaryAccession))
   .reply(200, {})
+  .onGet(SLIM_SETS_URL)
+  .reply(200, null)
   .onAny()
   .reply(500);
 

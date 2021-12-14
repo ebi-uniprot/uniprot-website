@@ -54,8 +54,21 @@ export const KineticsView = ({ data }: { data: KineticParameters }) => (
           {data.michaelisConstants.map((km) => (
             <li key={`${km.constant}-${km.substrate}`}>
               K<sub>M</sub>
-              {`=${km.constant}${km.unit} for ${km.substrate} `}
+              {`=${km.constant}${km.unit.replace('uM', 'μM')} for ${
+                km.substrate
+              } `}
               <UniProtKBEvidenceTag evidences={km.evidences} />
+            </li>
+          ))}
+        </ul>
+      )}
+      {data.maximumVelocities && (
+        <ul className="no-bullet">
+          {data.maximumVelocities.map((mv) => (
+            <li key={`${mv.velocity}-${mv.enzyme}`}>
+              V<sub>max</sub>
+              {`=${mv.velocity}${mv.unit} for ${mv.enzyme} `}
+              <UniProtKBEvidenceTag evidences={mv.evidences} />
             </li>
           ))}
         </ul>
@@ -117,7 +130,7 @@ type CofactorViewProps = {
 };
 
 export const CofactorView = ({ cofactors, title }: CofactorViewProps) => {
-  if (!cofactors || !cofactors.length) {
+  if (!cofactors?.length) {
     return null;
   }
   return (
@@ -126,6 +139,13 @@ export const CofactorView = ({ cofactors, title }: CofactorViewProps) => {
       {cofactors.map((cofactorComment, index) => (
         // eslint-disable-next-line react/no-array-index-key
         <section className="text-block" key={index}>
+          {cofactorComment.molecule && (
+            <h4 className="tiny">
+              <a href={`#${cofactorComment.molecule.replaceAll(' ', '_')}`}>
+                {cofactorComment.molecule}
+              </a>
+            </h4>
+          )}
           {cofactorComment.cofactors &&
             cofactorComment.cofactors.map((cofactor) => (
               <span key={cofactor.name}>
@@ -187,6 +207,7 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
         comments={
           data.commentsData.get('FUNCTION') as FreeTextComment[] | undefined
         }
+        title={<span className="visually-hidden">function</span>}
       />
       <FreeTextView
         comments={
@@ -198,11 +219,11 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
       />
       {data.commentsData.get('CAUTION')?.length ? (
         <Message level="warning">
-          <h4>Caution</h4>
           <FreeTextView
             comments={
               data.commentsData.get('CAUTION') as FreeTextComment[] | undefined
             }
+            title="caution"
           />
         </Message>
       ) : undefined}
@@ -245,12 +266,18 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
         }
         title="pathway"
       />
-      <FeaturesView features={data.featuresData} sequence={sequence} />
+      <FeaturesView
+        primaryAccession={primaryAccession}
+        features={data.featuresData}
+        sequence={sequence}
+      />
       <ErrorBoundary>
         <Suspense fallback={<Loader />}>
           <GoRibbon
             primaryAccession={primaryAccession}
             goTerms={data.goTerms}
+            geneNamesData={data.geneNamesData}
+            organismData={data.organismData}
           />
         </Suspense>
       </ErrorBoundary>
