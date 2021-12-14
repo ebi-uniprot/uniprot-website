@@ -78,4 +78,10 @@ export const getPropertyValue = (
 export const uniProtKBAccessionRE =
   /[OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9](?:[A-Z][A-Z0-9]{2}[0-9]){1,2}/i;
 
-export const acRE = new RegExp(`(AC ${uniProtKBAccessionRE.source})`, 'i');
+export const acRE = new RegExp(`(?:AC ${uniProtKBAccessionRE.source})`, 'i');
+export const pubMedRE = /(?:pubmed:\d{7,8})/i;
+export const pubMedIDRE = /\d{7,8}/;
+export const pubMedOrACRE = new RegExp(
+  `(${pubMedRE.source}|${acRE.source})`,
+  'i'
+);

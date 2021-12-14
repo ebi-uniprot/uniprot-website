@@ -3110,7 +3110,9 @@ exports[`Entry view should render for non-human entry 1`] = `
           >
             P0DTR5
           </a>
-          ). Works on many different A antigen subtypes. Glu-90 probably activates a nucleophilic water molecule to start the deacetylation reaction.
+          ).
+          <br />
+          Works on many different A antigen subtypes. Glu-90 probably activates a nucleophilic water molecule to start the deacetylation reaction
           <button
             aria-controls="0"
             aria-expanded="false"
