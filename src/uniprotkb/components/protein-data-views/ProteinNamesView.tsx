@@ -1,8 +1,10 @@
+import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { Fragment, FC } from 'react';
 import { InfoList, ExpandableList, ExternalLink } from 'franklin-sites';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
+
+import externalUrls from '../../../shared/config/externalUrls';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 
@@ -12,7 +14,6 @@ import {
   ProteinDescription,
 } from '../../adapters/namesAndTaxonomyConverter';
 import { ValueWithEvidence } from '../../types/modelTypes';
-import externalUrls from '../../../shared/config/externalUrls';
 
 export const NameWithEvidence = ({ data }: { data: ValueWithEvidence }) => (
   <>
@@ -26,10 +27,15 @@ export const NameWithEvidence = ({ data }: { data: ValueWithEvidence }) => (
   </>
 );
 
-const ProteinNamesViewFlat: FC<{
+type ProteinNamesViewFlatProps = {
   names?: ProteinNames;
   noEvidence?: boolean;
-}> = ({ names, noEvidence = false }) => {
+};
+
+const ProteinNamesViewFlat = ({
+  names,
+  noEvidence = false,
+}: ProteinNamesViewFlatProps) => {
   if (!names) {
     return null;
   }
@@ -63,9 +69,11 @@ const ProteinNamesViewFlat: FC<{
   );
 };
 
-const ProteinDescriptionView: FC<{
+const ProteinDescriptionView = ({
+  proteinDescription,
+}: {
   proteinDescription?: ProteinDescription;
-}> = ({ proteinDescription }) => {
+}) => {
   if (!proteinDescription) {
     return null;
   }
@@ -90,17 +98,19 @@ const ProteinDescriptionView: FC<{
   );
 };
 
-export const ECNumbersView: FC<{
+type ECNumbersViewProps = {
   ecNumbers?: ValueWithEvidence[];
   noEvidence?: boolean;
   noLinks?: boolean;
   orientation?: 'horizontal' | 'vertical';
-}> = ({
+};
+
+export const ECNumbersView = ({
   ecNumbers,
   noEvidence = false,
   noLinks = false,
   orientation = 'horizontal',
-}) => {
+}: ECNumbersViewProps) => {
   const content = ecNumbers?.map((ecNumber) => (
     <Fragment key={ecNumber.value}>
       {noEvidence ? (
@@ -159,10 +169,7 @@ export const ECNumbersView: FC<{
   );
 };
 
-const getInfoListForNames = (
-  name: ProteinNames,
-  noEvidence: boolean
-): { title: string; content: JSX.Element }[] => {
+const getInfoListForNames = (name: ProteinNames, noEvidence: boolean) => {
   const infoData = [];
 
   if (name.fullName) {

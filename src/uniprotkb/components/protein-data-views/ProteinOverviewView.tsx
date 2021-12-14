@@ -4,9 +4,9 @@ import AnnotationScoreDoughnutChart, {
   DoughnutChartSize,
 } from './AnnotationScoreDoughnutChart';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
+import { ECNumbersView } from './ProteinNamesView';
 
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
-import { ECNumbersView } from './ProteinNamesView';
 
 const existenceRE = /^\d: /;
 

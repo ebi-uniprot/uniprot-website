@@ -10,6 +10,7 @@ import {
 } from 'franklin-sites';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
+import { ECNumbersView } from './ProteinNamesView';
 
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 
@@ -25,7 +26,6 @@ import {
 
 import helper from '../../../shared/styles/helper.module.scss';
 import './styles/catalytic-activity-view.scss';
-import { ECNumbersView } from './ProteinNamesView';
 
 // example accessions to view this component: P31937, P0A879
 
