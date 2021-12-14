@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
 import { getEntryPath, getEntryPathFor } from '../../../app/config/urls';
-import { uniProtKBAccessionRegEx } from '../../utils';
+import { acRE, uniProtKBAccessionRE } from '../../utils';
 
 import { Namespace } from '../../../shared/types/namespaces';
 import { FreeTextComment, TextWithEvidence } from '../../types/commentTypes';
@@ -21,83 +21,77 @@ const needsNewLineRE = /^\).\s+/;
 
 const getEntryPathForCitation = getEntryPathFor(Namespace.citations);
 
-export const ACCommentView = ({ string }: { string: string }) => {
+export const ACCommentView = ({ string }: { string: string }) => (
   // This replaces any occurrences of "AC <accession>" with "AC "<link to the accession>
-  const acRE = new RegExp(`(AC ${uniProtKBAccessionRegEx.source})`, 'i');
-  return (
-    <>
-      {string.split(acRE).map((part, index, { length }) => {
-        const accession = part.match(uniProtKBAccessionRegEx)?.[0];
-        if (acRE.test(part) && accession) {
-          return (
-            // eslint-disable-next-line react/no-array-index-key
-            <Fragment key={index}>
-              {`AC `}
-              <Link to={getEntryPath(Namespace.uniprotkb, accession)}>
-                {accession}
-              </Link>
-            </Fragment>
-          );
-        }
-        if (index + 1 === length && !part.endsWith('.')) {
-          return `${part}.`;
-        }
-        return part;
-      })}
-    </>
-  );
-};
+  <>
+    {string.split(acRE).map((part, index, { length }) => {
+      const accession = part.match(uniProtKBAccessionRE)?.[0];
+      if (acRE.test(part) && accession) {
+        return (
+          // eslint-disable-next-line react/no-array-index-key
+          <Fragment key={index}>
+            {`AC `}
+            <Link to={getEntryPath(Namespace.uniprotkb, accession)}>
+              {accession}
+            </Link>
+          </Fragment>
+        );
+      }
+      if (index + 1 === length && !part.endsWith('.')) {
+        return `${part}.`;
+      }
+      return part;
+    })}
+  </>
+);
 
 type TextViewProps = { comments: TextWithEvidence[]; noEvidence?: boolean };
 
-export const TextView = ({ comments, noEvidence }: TextViewProps) => {
-  const acRE = new RegExp(`AC ${uniProtKBAccessionRegEx.source}`, 'i');
-  return (
-    <div className="text-block">
-      {comments.map((comment, index) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <Fragment key={index}>
-          {comment.value.split(pubMedRE).map((part, index, { length }) => {
-            /** We should get odds plain text, and evens pubmed ID, but we are
-             *  still double-checking just in case */
-            if (pubMedIDRE.test(part)) {
-              // PubMed ID, insert a link
-              return (
-                // eslint-disable-next-line react/no-array-index-key
-                <Link key={index} to={getEntryPathForCitation(part)}>
-                  {part}
-                </Link>
-              );
-            }
-            if (acRE.test(part)) {
-              return <ACCommentView string={part} key="AC" />;
-            }
-            if (needsNewLineRE.test(part)) {
-              // add new line before adding the rest of the plain text
-              return (
-                // eslint-disable-next-line react/no-array-index-key
-                <Fragment key={index}>
-                  ).
-                  <br />
-                  {part.replace(needsNewLineRE, '')}
-                </Fragment>
-              );
-            }
-            // If the last section doesn't end with a period, add it
-            if (index + 1 === length && !part.endsWith('.')) {
-              return `${part}.`;
-            }
-            // use plain text as such
-            return part;
-          })}
-          {!noEvidence && comment.evidences && (
-            <UniProtKBEvidenceTag evidences={comment.evidences} />
-          )}
-        </Fragment>
-      ))}
-    </div>
-  );
-};
+export const TextView = ({ comments, noEvidence }: TextViewProps) => (
+  <div className="text-block">
+    {comments.map((comment, index) => (
+      // eslint-disable-next-line react/no-array-index-key
+      <Fragment key={index}>
+        {comment.value.split(pubMedRE).map((part, index, { length }) => {
+          /** We should get odds plain text, and evens pubmed ID, but we are
+           *  still double-checking just in case */
+          if (pubMedIDRE.test(part)) {
+            // PubMed ID, insert a link
+            return (
+              // eslint-disable-next-line react/no-array-index-key
+              <Link key={index} to={getEntryPathForCitation(part)}>
+                {part}
+              </Link>
+            );
+          }
+          if (acRE.test(part)) {
+            return <ACCommentView string={part} key="AC" />;
+          }
+          if (needsNewLineRE.test(part)) {
+            // add new line before adding the rest of the plain text
+            return (
+              // eslint-disable-next-line react/no-array-index-key
+              <Fragment key={index}>
+                ).
+                <br />
+                {part.replace(needsNewLineRE, '')}
+              </Fragment>
+            );
+          }
+          // If the last section doesn't end with a period, add it
+          if (index + 1 === length && !part.endsWith('.')) {
+            return `${part}.`;
+          }
+          // use plain text as such
+          return part;
+        })}
+        {!noEvidence && comment.evidences && (
+          <UniProtKBEvidenceTag evidences={comment.evidences} />
+        )}
+      </Fragment>
+    ))}
+  </div>
+);
 
 type FreeTextProps = {
   comments?: FreeTextComment[];
