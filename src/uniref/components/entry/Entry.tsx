@@ -88,7 +88,7 @@ const Entry: FC = () => {
               searchableNamespaceLabels[Namespace.uniref],
             ]}
           />
-          <h1 className="big">
+          <h1>
             <EntryTitle
               mainTitle="UniRef"
               optionalTitle={`${transformedData.id} (${transformedData.identity}%)`}

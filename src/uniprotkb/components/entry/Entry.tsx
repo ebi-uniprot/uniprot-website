@@ -290,7 +290,7 @@ const Entry: FC = () => {
       className={cn('entry-page', sticky['sticky-tabs-container'])}
       title={
         historyOldEntry ? (
-          <h1 className="big">{match.params.accession}</h1>
+          <h1>{match.params.accession}</h1>
         ) : (
           <ErrorBoundary>
             <HTMLHead
@@ -299,7 +299,7 @@ const Entry: FC = () => {
                 searchableNamespaceLabels[Namespace.uniprotkb],
               ]}
             />
-            <h1 className="big">
+            <h1>
               <EntryTitle
                 mainTitle={data.primaryAccession}
                 optionalTitle={data.uniProtkbId}
