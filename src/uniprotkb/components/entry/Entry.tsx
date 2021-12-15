@@ -305,7 +305,7 @@ const Entry: FC = () => {
                 optionalTitle={data.uniProtkbId}
                 entryType={data.entryType}
               />
-              <BasketStatus id={data.primaryAccession} className="big" />
+              <BasketStatus id={data.primaryAccession} className="small" />
             </h1>
             <ProteinOverview data={data} />
           </ErrorBoundary>

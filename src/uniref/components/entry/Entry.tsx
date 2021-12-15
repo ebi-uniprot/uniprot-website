@@ -93,7 +93,7 @@ const Entry: FC = () => {
               mainTitle="UniRef"
               optionalTitle={`${transformedData.id} (${transformedData.identity}%)`}
             />
-            <BasketStatus id={accession} className="big" />
+            <BasketStatus id={accession} className="small" />
           </h1>
           <Overview transformedData={transformedData} />
           <div className="button-group">

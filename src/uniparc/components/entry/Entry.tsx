@@ -148,7 +148,7 @@ const Entry: FC = () => {
               mainTitle="UniParc"
               optionalTitle={transformedData.uniParcId}
             />
-            <BasketStatus id={transformedData.uniParcId} className="big" />
+            <BasketStatus id={transformedData.uniParcId} className="small" />
           </h1>
         </ErrorBoundary>
       }

@@ -25,7 +25,7 @@ const ARBACard = ({ data }: { data: ARBAAPIModel }) => {
       header={
         <>
           <CardCheckboxCell id={id} />
-          <h2 className="tiny">{data.uniRuleId}</h2>
+          <h2 className="small">{data.uniRuleId}</h2>
         </>
       }
       headerSeparator={false}
