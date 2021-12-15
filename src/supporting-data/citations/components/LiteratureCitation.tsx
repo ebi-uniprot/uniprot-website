@@ -303,7 +303,7 @@ const LiteratureCitation: FC<
           {createElement(
             headingLevel,
             {
-              className: cn('publication__heading', 'tiny', {
+              className: cn('publication__heading', 'small', {
                 'publication__heading--no-title': !title,
               }),
             },
