@@ -527,7 +527,7 @@ exports[`Entry view should render 1`] = `
                       rel="noopener"
                       target="_blank"
                     >
-                      Search...
+                      Search…
                       <test-file-stub
                         data-testid="external-link-icon"
                         width="12.5"
@@ -2387,7 +2387,7 @@ exports[`Entry view should render 1`] = `
                       rel="noopener"
                       target="_blank"
                     >
-                      Search...
+                      Search…
                       <test-file-stub
                         data-testid="external-link-icon"
                         width="12.5"
@@ -2420,7 +2420,7 @@ exports[`Entry view should render 1`] = `
                       rel="noopener"
                       target="_blank"
                     >
-                      Submit a new modelling project...
+                      Submit a new modelling project…
                       <test-file-stub
                         data-testid="external-link-icon"
                         width="12.5"
@@ -2536,7 +2536,7 @@ exports[`Entry view should render 1`] = `
                       rel="noopener"
                       target="_blank"
                     >
-                      Search...
+                      Search…
                       <test-file-stub
                         data-testid="external-link-icon"
                         width="12.5"
@@ -2569,7 +2569,7 @@ exports[`Entry view should render 1`] = `
                       rel="noopener"
                       target="_blank"
                     >
-                      Search...
+                      Search…
                       <test-file-stub
                         data-testid="external-link-icon"
                         width="12.5"
@@ -4271,7 +4271,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                       rel="noopener"
                       target="_blank"
                     >
-                      Search...
+                      Search…
                       <test-file-stub
                         data-testid="external-link-icon"
                         width="12.5"
@@ -5276,7 +5276,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                       rel="noopener"
                       target="_blank"
                     >
-                      Search...
+                      Search…
                       <test-file-stub
                         data-testid="external-link-icon"
                         width="12.5"
@@ -5309,7 +5309,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                       rel="noopener"
                       target="_blank"
                     >
-                      Search...
+                      Search…
                       <test-file-stub
                         data-testid="external-link-icon"
                         width="12.5"
@@ -6151,7 +6151,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                       rel="noopener"
                       target="_blank"
                     >
-                      Search...
+                      Search…
                       <test-file-stub
                         data-testid="external-link-icon"
                         width="12.5"
@@ -6184,7 +6184,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                       rel="noopener"
                       target="_blank"
                     >
-                      Search...
+                      Search…
                       <test-file-stub
                         data-testid="external-link-icon"
                         width="12.5"
