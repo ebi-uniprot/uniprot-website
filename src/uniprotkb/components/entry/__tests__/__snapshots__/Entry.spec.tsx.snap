@@ -2557,7 +2557,7 @@ exports[`Entry basic should render main 1`] = `
                               ID
                             </th>
                             <th>
-                              Positions
+                              Position(s)
                             </th>
                             <th>
                               Description

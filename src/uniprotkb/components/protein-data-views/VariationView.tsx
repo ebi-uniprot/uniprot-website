@@ -148,79 +148,90 @@ const VariationView = ({
         </tr>
       </thead>
       <tbody>
-        {transformedData.variants.map((variantFeature) => (
-          <Fragment key={variantFeature.protvistaFeatureId}>
-            <tr data-id={variantFeature.protvistaFeatureId}>
-              <td>
-                {variantFeature.start}-{variantFeature.end}
-              </td>
-              <td>
-                {variantFeature.wildType}
-                {'>'}
-                {variantFeature.alternativeSequence}
-              </td>
-              <td>
-                {variantFeature.descriptions?.map((description) => (
-                  <div key={description.value}>
-                    {`${description.value} (${description.sources.join(', ')})`}
+        {transformedData.variants.map((variantFeature) => {
+          let position = variantFeature.start;
+          if (variantFeature.start !== variantFeature.end) {
+            position += `-${variantFeature.end}`;
+          }
+
+          return (
+            <Fragment key={variantFeature.protvistaFeatureId}>
+              <tr data-id={variantFeature.protvistaFeatureId}>
+                <td>{position}</td>
+                <td>
+                  {variantFeature.wildType}
+                  {'>'}
+                  {variantFeature.alternativeSequence}
+                </td>
+                <td>
+                  {variantFeature.descriptions?.map((description) => (
+                    <div key={description.value}>
+                      {`${description.value} (${description.sources.join(
+                        ', '
+                      )})`}
+                    </div>
+                  ))}
+                </td>
+                <td>
+                  {variantFeature.association &&
+                  variantFeature.association.length > 0
+                    ? 'Y'
+                    : 'N'}
+                </td>
+              </tr>
+              <tr data-group-for={variantFeature.protvistaFeatureId}>
+                <td>
+                  <div>
+                    <strong>Consequence: </strong>
+                    {variantFeature.consequenceType}
                   </div>
-                ))}
-              </td>
-              <td>
-                {variantFeature.association &&
-                variantFeature.association.length > 0
-                  ? 'Y'
-                  : 'N'}
-              </td>
-            </tr>
-            <tr data-group-for={variantFeature.protvistaFeatureId}>
-              <td>
-                <div>
-                  <strong>Consequence: </strong>
-                  {variantFeature.consequenceType}
-                </div>
-                <div>
-                  <strong>Predictions: </strong>
-                  {variantFeature.predictions?.map((pred) => (
-                    <div
-                      key={[
-                        pred.predAlgorithmNameType,
-                        pred.predictionValType,
-                        pred.score,
-                        pred.sources,
-                      ].join('-')}
-                    >
-                      {`${pred.predAlgorithmNameType}: ${pred.predictionValType} (${pred.score})`}
-                    </div>
-                  ))}
-                </div>
-                <div>
-                  <strong>Somatic: </strong>{' '}
-                  {variantFeature.somaticStatus === 1 ? 'Y' : 'N'}
-                </div>
-                <div>
-                  <strong>Disease association: </strong>
-                  {variantFeature.association?.map((association) => (
-                    <div key={`${association.name}-${association.description}`}>
-                      {association.name}
-                      {/* note that the type needs to be updated, evidences is optional on association object */}
-                      {/* Example in P42771 */}
-                      {association.evidences?.length ? (
-                        <UniProtKBEvidenceTag
-                          evidences={association.evidences.map((evidence) => ({
-                            evidenceCode: evidence.code as `ECO:${number}`,
-                            id: evidence.source.id,
-                            source: evidence.source.name,
-                          }))}
-                        />
-                      ) : null}
-                    </div>
-                  ))}
-                </div>
-              </td>
-            </tr>
-          </Fragment>
-        ))}
+                  <div>
+                    <strong>Predictions: </strong>
+                    {variantFeature.predictions?.map((pred) => (
+                      <div
+                        key={[
+                          pred.predAlgorithmNameType,
+                          pred.predictionValType,
+                          pred.score,
+                          pred.sources,
+                        ].join('-')}
+                      >
+                        {`${pred.predAlgorithmNameType}: ${pred.predictionValType} (${pred.score})`}
+                      </div>
+                    ))}
+                  </div>
+                  <div>
+                    <strong>Somatic: </strong>{' '}
+                    {variantFeature.somaticStatus === 1 ? 'Y' : 'N'}
+                  </div>
+                  <div>
+                    <strong>Disease association: </strong>
+                    {variantFeature.association?.map((association) => (
+                      <div
+                        key={`${association.name}-${association.description}`}
+                      >
+                        {association.name}
+                        {/* note that the type needs to be updated, evidences is optional on association object */}
+                        {/* Example in P42771 */}
+                        {association.evidences?.length ? (
+                          <UniProtKBEvidenceTag
+                            evidences={association.evidences.map(
+                              (evidence) => ({
+                                evidenceCode: evidence.code as `ECO:${number}`,
+                                id: evidence.source.id,
+                                source: evidence.source.name,
+                              })
+                            )}
+                          />
+                        ) : null}
+                      </div>
+                    ))}
+                  </div>
+                </td>
+              </tr>
+            </Fragment>
+          );
+        })}
       </tbody>
     </table>
   );

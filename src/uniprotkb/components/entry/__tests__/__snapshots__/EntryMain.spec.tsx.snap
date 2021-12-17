@@ -2135,7 +2135,7 @@ exports[`Entry view should render 1`] = `
                     ID
                   </th>
                   <th>
-                    Positions
+                    Position(s)
                   </th>
                   <th>
                     Description
@@ -3361,7 +3361,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     ID
                   </th>
                   <th>
-                    Positions
+                    Position(s)
                   </th>
                   <th>
                     Description
@@ -3631,7 +3631,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   </td>
                   <td />
                   <td>
-                    126-126
+                    126
                   </td>
                   <td>
                     Divalent metal cation
@@ -3707,7 +3707,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   </td>
                   <td />
                   <td>
-                    278-278
+                    278
                   </td>
                   <td>
                     Divalent metal cation
@@ -3783,7 +3783,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   </td>
                   <td />
                   <td>
-                    87-87
+                    87
                   </td>
                   <td>
                     Substrate
@@ -3859,7 +3859,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   </td>
                   <td />
                   <td>
-                    123-123
+                    123
                   </td>
                   <td>
                     Substrate
@@ -3935,7 +3935,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   </td>
                   <td />
                   <td>
-                    236-236
+                    236
                   </td>
                   <td>
                     Substrate
@@ -4688,7 +4688,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     ID
                   </th>
                   <th>
-                    Positions
+                    Position(s)
                   </th>
                   <th>
                     Description
@@ -4710,7 +4710,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   </td>
                   <td />
                   <td>
-                    90-90
+                    90
                   </td>
                   <td>
                     Loss of deacetylase activity.
@@ -4764,7 +4764,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   </td>
                   <td />
                   <td>
-                    125-125
+                    125
                   </td>
                   <td>
                     5-fold reduction in deacetylase rate.
@@ -4818,7 +4818,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   </td>
                   <td />
                   <td>
-                    126-126
+                    126
                   </td>
                   <td>
                     Dramatic reduction in deacetylase rate.
@@ -4872,7 +4872,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   </td>
                   <td />
                   <td>
-                    278-278
+                    278
                   </td>
                   <td>
                     Very dramatic reduction in deacetylase rate.
@@ -4926,7 +4926,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   </td>
                   <td />
                   <td>
-                    341-341
+                    341
                   </td>
                   <td>
                     3000-fold reduction in deacetylase rate.
@@ -5067,7 +5067,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     ID
                   </th>
                   <th>
-                    Positions
+                    Position(s)
                   </th>
                   <th>
                     Description
@@ -5400,7 +5400,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     ID
                   </th>
                   <th>
-                    Positions
+                    Position(s)
                   </th>
                   <th>
                     Description

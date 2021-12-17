@@ -1129,7 +1129,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
           ID
         </th>
         <th>
-          Positions
+          Position(s)
         </th>
         <th>
           Description

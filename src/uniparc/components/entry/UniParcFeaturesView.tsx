@@ -55,7 +55,7 @@ const UniParcFeaturesView: FC<{
       <thead>
         <tr>
           <th>InterPro Group</th>
-          <th>Positions</th>
+          <th>Position(s)</th>
           <th>Database identifier</th>
           <th>Database</th>
         </tr>
@@ -65,6 +65,10 @@ const UniParcFeaturesView: FC<{
           const { database, databaseId } = feature;
           const databaseInfo =
             databaseInfoMaps.databaseToDatabaseInfo[database];
+          let position = `${feature.start}`;
+          if (feature.start !== feature.end) {
+            position += `-${feature.end}`;
+          }
 
           return (
             <tr
@@ -83,7 +87,7 @@ const UniParcFeaturesView: FC<{
                   'N/A'
                 )}
               </td>
-              <td>{`${feature.start}-${feature.end}`}</td>
+              <td>{position}</td>
               <td>
                 {databaseInfo?.uriLink && databaseId && (
                   <ExternalLink

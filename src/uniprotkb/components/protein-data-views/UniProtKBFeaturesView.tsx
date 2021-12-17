@@ -98,66 +98,74 @@ const UniProtKBFeaturesView = ({
         <tr>
           <th data-filter="type">Type</th>
           <th>ID</th>
-          <th>Positions</th>
+          <th>Position(s)</th>
           <th>Description</th>
           <th>{/* Intentionaly left blank */}</th>
         </tr>
       </thead>
       <tbody>
-        {processedData.map((feature) => (
-          <Fragment key={feature.protvistaFeatureId}>
-            <tr
-              data-id={feature.protvistaFeatureId}
-              data-start={feature.start}
-              data-end={feature.end}
-            >
-              <td data-filter="type" data-filter-value={feature.type}>
-                {feature.type}
-              </td>
-              <td>{feature.featureId}</td>
-              <td>{`${
-                feature.startModifier === 'UNKNOWN' ? '?' : feature.start
-              }-${feature.endModifier === 'UNKNOWN' ? '?' : feature.end}`}</td>
-              <td>
-                {feature.description}
-                <UniProtKBEvidenceTag evidences={feature.evidences} />
-              </td>
-              <td>
-                {/* Not using React Router link as this is copied into the table DOM */}
-                {feature.end - feature.start >= 3 && (
-                  <Button
-                    element="a"
-                    variant="tertiary"
-                    title="BLAST the sequence corresponding to this feature"
-                    href={getURLToJobWithData(
-                      JobTypes.BLAST,
-                      primaryAccession,
-                      {
-                        start: feature.start,
-                        end: feature.end,
-                      }
-                    )}
-                  >
-                    BLAST
-                  </Button>
-                )}
-                {/* <Button>Add</Button> */}
-              </td>
-            </tr>
-            {feature.sequence && (
+        {processedData.map((feature) => {
+          const start =
+            feature.startModifier === 'UNKNOWN' ? '?' : feature.start;
+          const end = feature.endModifier === 'UNKNOWN' ? '?' : feature.end;
+          let position = start;
+          if (start !== end) {
+            position += `-${end}`;
+          }
+
+          return (
+            <Fragment key={feature.protvistaFeatureId}>
               <tr
-                data-group-for={feature.protvistaFeatureId}
+                data-id={feature.protvistaFeatureId}
                 data-start={feature.start}
                 data-end={feature.end}
               >
+                <td data-filter="type" data-filter-value={feature.type}>
+                  {feature.type}
+                </td>
+                <td>{feature.featureId}</td>
+                <td>{position}</td>
                 <td>
-                  <strong>Sequence: </strong>
-                  {feature.sequence}
+                  {feature.description}
+                  <UniProtKBEvidenceTag evidences={feature.evidences} />
+                </td>
+                <td>
+                  {/* Not using React Router link as this is copied into the table DOM */}
+                  {feature.end - feature.start >= 3 && (
+                    <Button
+                      element="a"
+                      variant="tertiary"
+                      title="BLAST the sequence corresponding to this feature"
+                      href={getURLToJobWithData(
+                        JobTypes.BLAST,
+                        primaryAccession,
+                        {
+                          start: feature.start,
+                          end: feature.end,
+                        }
+                      )}
+                    >
+                      BLAST
+                    </Button>
+                  )}
+                  {/* <Button>Add</Button> */}
                 </td>
               </tr>
-            )}
-          </Fragment>
-        ))}
+              {feature.sequence && (
+                <tr
+                  data-group-for={feature.protvistaFeatureId}
+                  data-start={feature.start}
+                  data-end={feature.end}
+                >
+                  <td>
+                    <strong>Sequence: </strong>
+                    {feature.sequence}
+                  </td>
+                </tr>
+              )}
+            </Fragment>
+          );
+        })}
       </tbody>
     </table>
   );
