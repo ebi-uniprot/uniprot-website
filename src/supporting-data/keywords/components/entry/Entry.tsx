@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
-import { useHistory, RouteChildrenProps } from 'react-router-dom';
 import { Loader, Card, InfoList } from 'franklin-sites';
 import cn from 'classnames';
+
+import { RouteChildrenProps } from 'react-router-dom';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
@@ -36,15 +37,21 @@ const columns = [
   KeywordsColumn.links,
 ];
 
-const KeywordsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
-  const history = useHistory();
-  const accession = props.match?.params.accession;
+const reNumber = /^\d+$/;
+
+const KeywordsEntry = ({
+  match,
+  history,
+}: RouteChildrenProps<{ accession: string }>) => {
+  const accession = match?.params.accession;
 
   useEffect(() => {
     // If accession is a number only, add KW- prefix
-    if (accession?.match(/^\d+$/)) {
+    if (accession && reNumber.test(accession)) {
       history.push({
-        pathname: getEntryPathFor(Namespace.keywords)(`KW-${accession}`),
+        pathname: getEntryPathFor(Namespace.keywords)(
+          `KW-${accession.padStart(4, '0')}`
+        ),
       });
     }
   }, [accession, history]);
