@@ -12,6 +12,7 @@ import { MapToDropdown } from '../../../../shared/components/MapTo';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
 import apiUrls from '../../../../shared/config/apiUrls';
+import { getEntryPathFor } from '../../../../app/config/urls';
 
 import {
   Namespace,
@@ -24,7 +25,6 @@ import KeywordsColumnConfiguration, {
 
 import helper from '../../../../shared/styles/helper.module.scss';
 import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
-import { getEntryPathFor } from '../../../../app/config/urls';
 
 const columns = [
   KeywordsColumn.definition,
