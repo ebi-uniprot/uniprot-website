@@ -54,16 +54,16 @@ exports[`non-critical HomePage component should render 1`] = `
         href="/uniprotkb?query=*"
       >
         <span>
-          <h3
-            class="tile__header medium"
+          <h2
+            class="tile__header big"
           >
             Proteins
-          </h3>
-          <h4
-            class="tile__subtitle tiny"
+          </h2>
+          <h3
+            class="tile__subtitle small"
           >
             UniProt Knowledgebase
-          </h4>
+          </h3>
         </span>
       </a>
       <small
@@ -120,16 +120,16 @@ exports[`non-critical HomePage component should render 1`] = `
         href="/proteomes?query=*"
       >
         <span>
-          <h3
-            class="tile__header medium"
+          <h2
+            class="tile__header big"
           >
             Species
-          </h3>
-          <h4
-            class="tile__subtitle tiny"
+          </h2>
+          <h3
+            class="tile__subtitle small"
           >
             Proteomes
-          </h4>
+          </h3>
         </span>
       </a>
       <small
@@ -153,16 +153,16 @@ exports[`non-critical HomePage component should render 1`] = `
         href="/uniref?query=*"
       >
         <span>
-          <h3
-            class="tile__header medium"
+          <h2
+            class="tile__header big"
           >
             Protein Clusters
-          </h3>
-          <h4
-            class="tile__subtitle tiny"
+          </h2>
+          <h3
+            class="tile__subtitle small"
           >
             UniRef
-          </h4>
+          </h3>
         </span>
       </a>
       <small
@@ -186,16 +186,16 @@ exports[`non-critical HomePage component should render 1`] = `
         href="/uniparc?query=*"
       >
         <span>
-          <h3
-            class="tile__header medium"
+          <h2
+            class="tile__header big"
           >
             Sequence Archive
-          </h3>
-          <h4
-            class="tile__subtitle tiny"
+          </h2>
+          <h3
+            class="tile__subtitle small"
           >
             UniParc
-          </h4>
+          </h3>
         </span>
       </a>
       <small
@@ -211,11 +211,11 @@ exports[`non-critical HomePage component should render 1`] = `
     <div
       class="uniprot-grid-cell--span-3"
     >
-      <h3
+      <h2
         class="supporting-data__header"
       >
         Supporting Data
-      </h3>
+      </h2>
     </div>
     <div
       class="uniprot-grid-cell--span-3"
@@ -360,9 +360,7 @@ exports[`non-critical HomePage component should render 1`] = `
       <div
         class="latest-news__news-roll-heading"
       >
-        <h2
-          class="medium"
-        >
+        <h2>
           Latest News
         </h2>
         <a
@@ -380,7 +378,7 @@ exports[`non-critical HomePage component should render 1`] = `
         <li>
           <article>
             <h3
-              class="micro"
+              class="tiny"
             >
               <a
                 class="external-link"
@@ -401,7 +399,7 @@ exports[`non-critical HomePage component should render 1`] = `
         <li>
           <article>
             <h3
-              class="micro"
+              class="tiny"
             >
               <a
                 class="external-link"
@@ -422,7 +420,7 @@ exports[`non-critical HomePage component should render 1`] = `
         <li>
           <article>
             <h3
-              class="micro"
+              class="tiny"
             >
               <a
                 class="external-link"
@@ -443,7 +441,7 @@ exports[`non-critical HomePage component should render 1`] = `
         <li>
           <article>
             <h3
-              class="micro"
+              class="tiny"
             >
               <a
                 class="external-link"
@@ -464,7 +462,7 @@ exports[`non-critical HomePage component should render 1`] = `
         <li>
           <article>
             <h3
-              class="micro"
+              class="tiny"
             >
               <a
                 class="external-link"
@@ -485,7 +483,7 @@ exports[`non-critical HomePage component should render 1`] = `
         <li>
           <article>
             <h3
-              class="micro"
+              class="tiny"
             >
               <a
                 class="external-link"
@@ -506,7 +504,7 @@ exports[`non-critical HomePage component should render 1`] = `
         <li>
           <article>
             <h3
-              class="micro"
+              class="tiny"
             >
               <a
                 class="external-link"
@@ -547,7 +545,7 @@ exports[`non-critical HomePage component should render 1`] = `
           />
         </a>
         <h3
-          class="micro"
+          class="tiny"
         >
           <a
             class="external-link"
@@ -582,7 +580,7 @@ exports[`non-critical HomePage component should render 1`] = `
           />
         </a>
         <h3
-          class="micro"
+          class="tiny"
         >
           <a
             class="external-link"
@@ -640,7 +638,7 @@ exports[`non-critical HomePage component should render 1`] = `
     class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section"
   >
     <h2
-      class="uniprot-grid-cell--span-12 hero-container__title medium"
+      class="uniprot-grid-cell--span-12 hero-container__title big"
     >
       Analysis Tools
     </h2>
@@ -659,11 +657,11 @@ exports[`non-critical HomePage component should render 1`] = `
         href="/blast"
       >
         <span>
-          <h3
-            class="tile__header medium"
+          <h2
+            class="tile__header big"
           >
             BLAST
-          </h3>
+          </h2>
         </span>
       </a>
       <small
@@ -687,11 +685,11 @@ exports[`non-critical HomePage component should render 1`] = `
         href="/align"
       >
         <span>
-          <h3
-            class="tile__header medium"
+          <h2
+            class="tile__header big"
           >
             Align
-          </h3>
+          </h2>
         </span>
       </a>
       <small
@@ -715,11 +713,11 @@ exports[`non-critical HomePage component should render 1`] = `
         href="/id-mapping"
       >
         <span>
-          <h3
-            class="tile__header medium"
+          <h2
+            class="tile__header big"
           >
             Search with Lists Map IDs
-          </h3>
+          </h2>
         </span>
       </a>
       <small
@@ -743,11 +741,11 @@ exports[`non-critical HomePage component should render 1`] = `
         href="/peptide-search"
       >
         <span>
-          <h3
-            class="tile__header medium"
+          <h2
+            class="tile__header big"
           >
             Search Peptides
-          </h3>
+          </h2>
         </span>
       </a>
       <small
@@ -763,9 +761,7 @@ exports[`non-critical HomePage component should render 1`] = `
     <div
       class="uniprot-grid-cell--span-3 need-help__need-help-top"
     >
-      <h2
-        class="medium"
-      >
+      <h2>
         Need help?
       </h2>
       <p>
@@ -830,7 +826,7 @@ exports[`non-critical HomePage component should render 1`] = `
       class="uniprot-grid-cell--span-3 need-help__attend-training-bottom"
     >
       <h2
-        class="tiny"
+        class="small"
       >
         <test-file-stub
           height="1em"
@@ -937,7 +933,7 @@ exports[`non-critical HomePage component should render 1`] = `
     class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section"
   >
     <h2
-      class="uniprot-grid-cell--span-12 hero-container__title medium"
+      class="uniprot-grid-cell--span-12 hero-container__title big"
     >
       UniProt data
     </h2>
@@ -958,11 +954,11 @@ exports[`non-critical HomePage component should render 1`] = `
         target="_blank"
       >
         <span>
-          <h3
-            class="tile__header medium"
+          <h2
+            class="tile__header big"
           >
             FTP Download
-          </h3>
+          </h2>
         </span>
       </a>
       <small
@@ -986,11 +982,11 @@ exports[`non-critical HomePage component should render 1`] = `
         href="/help/technical"
       >
         <span>
-          <h3
-            class="tile__header medium"
+          <h2
+            class="tile__header big"
           >
             Technical Documentation
-          </h3>
+          </h2>
         </span>
       </a>
       <small
@@ -1014,11 +1010,11 @@ exports[`non-critical HomePage component should render 1`] = `
         href="/help/programmatic_access"
       >
         <span>
-          <h3
-            class="tile__header medium"
+          <h2
+            class="tile__header big"
           >
             Programmatic Access
-          </h3>
+          </h2>
         </span>
       </a>
       <small
@@ -1042,11 +1038,11 @@ exports[`non-critical HomePage component should render 1`] = `
         href="/help/submissions"
       >
         <span>
-          <h3
-            class="tile__header medium"
+          <h2
+            class="tile__header big"
           >
             Submit Data
-          </h3>
+          </h2>
         </span>
       </a>
       <small

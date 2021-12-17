@@ -55,7 +55,7 @@ const Entry = () => {
           searchableNamespaceLabels[Namespace.proteomes],
         ]}
       />
-      <h1 className="big">
+      <h1>
         {searchableNamespaceLabels[Namespace.proteomes]}
         {' · '}
         <TaxonomyView data={data.taxonomy} noLink />

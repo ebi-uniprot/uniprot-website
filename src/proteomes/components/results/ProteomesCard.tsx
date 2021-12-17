@@ -39,7 +39,7 @@ const ProteomesCard = ({ data }: { data: ProteomesAPIModel }) => {
       header={
         <>
           <CardCheckboxCell id={id} />
-          <h2 className="tiny">
+          <h2 className="small">
             <EntryTitle mainTitle={id} entryType={data.proteomeType} />
           </h2>
         </>

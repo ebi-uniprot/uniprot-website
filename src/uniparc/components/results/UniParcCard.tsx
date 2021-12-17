@@ -57,10 +57,10 @@ const UniParcCard = ({ data }: { data: UniParcAPIModel }) => {
       header={
         <>
           <CardCheckboxCell id={id} />
-          <h2 className="tiny">
+          <h2 className="small">
             <EntryTitle mainTitle={id} entryType={EntryType.UNIPARC} />
           </h2>
-          <BasketStatus id={id} />
+          <BasketStatus id={id} className="tiny" />
         </>
       }
       headerSeparator={false}

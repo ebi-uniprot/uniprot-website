@@ -126,7 +126,7 @@ const NeedHelp = () => {
           styles['need-help__need-help-top']
         )}
       >
-        <h2 className="medium">Need help?</h2>
+        <h2>Need help?</h2>
         <p>Find answers through our help center or get in touch</p>
       </div>
       <div
@@ -178,7 +178,7 @@ const NeedHelp = () => {
           styles['need-help__attend-training-bottom']
         )}
       >
-        <h2 className="tiny">
+        <h2 className="small">
           <CalendarIcon height="1em" /> Attend training
         </h2>
         <ExternalLink url="https://www.ebi.ac.uk/training/" noIcon>
@@ -272,7 +272,7 @@ const NeedHelp = () => {
               </div>
             )}
 
-            <h4 className="micro">
+            <h4 className="tiny">
               <ExternalLink
                 url={
                   seminar?.fieldURLs.find(({ name }) => name === 'main')

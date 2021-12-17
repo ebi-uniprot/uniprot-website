@@ -10,13 +10,9 @@ exports[`ProteinNames should render protein_name 1`] = `
         class="decorated-list-item"
       >
         <div
-          class="decorated-list-item__title"
+          class="decorated-list-item__title tiny"
         >
-          <h5
-            class="bold"
-          >
-            Recommended name
-          </h5>
+          Recommended name
         </div>
         <div
           class="decorated-list-item__content"
@@ -30,13 +26,9 @@ exports[`ProteinNames should render protein_name 1`] = `
         class="decorated-list-item"
       >
         <div
-          class="decorated-list-item__title"
+          class="decorated-list-item__title tiny"
         >
-          <h5
-            class="bold"
-          >
-            Short names
-          </h5>
+          Short names
         </div>
         <div
           class="decorated-list-item__content"
@@ -50,13 +42,9 @@ exports[`ProteinNames should render protein_name 1`] = `
         class="decorated-list-item"
       >
         <div
-          class="decorated-list-item__title"
+          class="decorated-list-item__title tiny"
         >
-          <h5
-            class="bold"
-          >
-            Alternative names
-          </h5>
+          Alternative names
         </div>
         <div
           class="decorated-list-item__content"

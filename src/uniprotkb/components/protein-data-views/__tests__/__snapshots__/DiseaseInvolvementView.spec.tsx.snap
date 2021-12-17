@@ -5,9 +5,9 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
   <h3>
     Involvement in disease
   </h3>
-  <h3>
+  <h4>
     Alzheimers (AD)
-  </h3>
+  </h4>
   <span
     class="text-block"
   />
@@ -19,13 +19,9 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
         class="decorated-list-item"
       >
         <div
-          class="decorated-list-item__title"
+          class="decorated-list-item__title tiny"
         >
-          <h5
-            class="bold"
-          >
-            Note
-          </h5>
+          Note
         </div>
         <div
           class="decorated-list-item__content"
@@ -45,13 +41,9 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
         class="decorated-list-item"
       >
         <div
-          class="decorated-list-item__title"
+          class="decorated-list-item__title tiny"
         >
-          <h5
-            class="bold"
-          >
-            Description
-          </h5>
+          Description
         </div>
         <div
           class="decorated-list-item__content"
@@ -65,13 +57,9 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
         class="decorated-list-item"
       >
         <div
-          class="decorated-list-item__title"
+          class="decorated-list-item__title tiny"
         >
-          <h5
-            class="bold"
-          >
-            See also
-          </h5>
+          See also
         </div>
         <div
           class="decorated-list-item__content"

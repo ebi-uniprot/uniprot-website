@@ -13,13 +13,9 @@ exports[`XRefView should render section 1`] = `
         class="decorated-list-item"
       >
         <div
-          class="decorated-list-item__title"
+          class="decorated-list-item__title tiny"
         >
-          <h5
-            class="bold"
-          >
-            EMBL
-          </h5>
+          EMBL
         </div>
         <div
           class="decorated-list-item__content"

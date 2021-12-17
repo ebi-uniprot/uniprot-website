@@ -88,12 +88,12 @@ const Entry: FC = () => {
               searchableNamespaceLabels[Namespace.uniref],
             ]}
           />
-          <h1 className="big">
+          <h1>
             <EntryTitle
               mainTitle="UniRef"
               optionalTitle={`${transformedData.id} (${transformedData.identity}%)`}
             />
-            <BasketStatus id={accession} className="big" />
+            <BasketStatus id={accession} className="small" />
           </h1>
           <Overview transformedData={transformedData} />
           <div className="button-group">

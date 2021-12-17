@@ -18,7 +18,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
         class="page-intro"
       >
         <h1
-          class="big"
+          class=""
         >
           UniProtKB
           <small>
@@ -124,7 +124,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     />
                   </span>
                   <h2
-                    class="tiny"
+                    class="small"
                   >
                     <span
                       class="entry-title"
@@ -290,7 +290,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     />
                   </span>
                   <h2
-                    class="tiny"
+                    class="small"
                   >
                     <span
                       class="entry-title"
@@ -451,7 +451,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
         class="page-intro"
       >
         <h1
-          class="big"
+          class=""
         >
           UniProtKB
           <small>
@@ -557,7 +557,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     />
                   </span>
                   <h2
-                    class="tiny"
+                    class="small"
                   >
                     <span
                       class="entry-title"
@@ -723,7 +723,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     />
                   </span>
                   <h2
-                    class="tiny"
+                    class="small"
                   >
                     <span
                       class="entry-title"

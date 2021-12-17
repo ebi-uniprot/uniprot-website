@@ -68,7 +68,7 @@ const DatabaseEntry = (props: RouteChildrenProps<{ accession: string }>) => {
         <meta name="description" content={data.name} />
       </HTMLHead>
       {/* Here we don't want to use the full label atm */}
-      <h1 className="big">Database - {data.abbrev}</h1>
+      <h1>Database - {data.abbrev}</h1>
       <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
         <div className="button-group">
           <EntryDownload />

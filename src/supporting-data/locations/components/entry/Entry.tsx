@@ -72,7 +72,7 @@ const LocationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
         <meta name="description" content={data.definition} />
       </HTMLHead>
       {/* Here we don't want to use the exact label atm */}
-      <h1 className="big">Cellular component - {data.name}</h1>
+      <h1>Cellular component - {data.name}</h1>
       <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
         <div className="button-group">
           <EntryDownload />

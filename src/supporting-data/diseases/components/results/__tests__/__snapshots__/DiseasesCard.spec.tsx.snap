@@ -33,7 +33,7 @@ exports[`DiseasesCard tests should render the card component 1`] = `
           />
         </span>
         <h2
-          class="tiny"
+          class="small"
         >
           Hereditary non-polyposis colorectal cancer 1
         </h2>

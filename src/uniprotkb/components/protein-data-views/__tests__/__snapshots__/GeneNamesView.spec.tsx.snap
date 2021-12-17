@@ -14,13 +14,9 @@ exports[`GeneNames should render gene_names 1`] = `
             class="decorated-list-item"
           >
             <div
-              class="decorated-list-item__title"
+              class="decorated-list-item__title tiny"
             >
-              <h5
-                class="bold"
-              >
-                Name
-              </h5>
+              Name
             </div>
             <div
               class="decorated-list-item__content"
@@ -56,13 +52,9 @@ exports[`GeneNames should render gene_names 1`] = `
             class="decorated-list-item"
           >
             <div
-              class="decorated-list-item__title"
+              class="decorated-list-item__title tiny"
             >
-              <h5
-                class="bold"
-              >
-                Synonyms
-              </h5>
+              Synonyms
             </div>
             <div
               class="decorated-list-item__content"
@@ -98,13 +90,9 @@ exports[`GeneNames should render gene_names 1`] = `
             class="decorated-list-item"
           >
             <div
-              class="decorated-list-item__title"
+              class="decorated-list-item__title tiny"
             >
-              <h5
-                class="bold"
-              >
-                ORF names
-              </h5>
+              ORF names
             </div>
             <div
               class="decorated-list-item__content"
@@ -140,13 +128,9 @@ exports[`GeneNames should render gene_names 1`] = `
             class="decorated-list-item"
           >
             <div
-              class="decorated-list-item__title"
+              class="decorated-list-item__title tiny"
             >
-              <h5
-                class="bold"
-              >
-                Ordered locus names
-              </h5>
+              Ordered locus names
             </div>
             <div
               class="decorated-list-item__content"

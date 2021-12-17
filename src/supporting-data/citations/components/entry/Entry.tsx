@@ -45,7 +45,7 @@ const CitationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
       >
         <meta name="description" content={data.citation.literatureAbstract} />
       </HTMLHead>
-      <h1 className="big">{searchableNamespaceLabels[Namespace.citations]}</h1>
+      <h1>{searchableNamespaceLabels[Namespace.citations]}</h1>
       <Card className={entryPageStyles.card}>
         <div className="button-group">
           <EntryDownload />
