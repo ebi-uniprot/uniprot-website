@@ -131,7 +131,7 @@ const HelpEntry = () => {
       <Message level="info" className={styles['beta-message']}>
         During the beta phase, help content may not be up to date.
       </Message>
-      <h1 className={data.categories.includes('faq') ? 'big' : ''}>
+      <h1 className={data.categories.includes('faq') ? 'big' : undefined}>
         {data.title}
       </h1>
       <Card className={cn(styles.content, { [helper.stale]: isStale })}>
