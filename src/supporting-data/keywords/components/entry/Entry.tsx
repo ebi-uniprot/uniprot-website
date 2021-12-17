@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
 import { Loader, Card, InfoList } from 'franklin-sites';
 import cn from 'classnames';
 
-import { RouteChildrenProps } from 'react-router-dom';
+import { LocationDescriptor } from 'history';
+import { RouteChildrenProps, Redirect } from 'react-router-dom';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
@@ -41,25 +41,27 @@ const reNumber = /^\d+$/;
 
 const KeywordsEntry = ({
   match,
-  history,
 }: RouteChildrenProps<{ accession: string }>) => {
   const accession = match?.params.accession;
 
-  useEffect(() => {
-    // If accession is a number only, add KW- prefix
-    if (accession && reNumber.test(accession)) {
-      history.push({
-        pathname: getEntryPathFor(Namespace.keywords)(
-          `KW-${accession.padStart(4, '0')}`
-        ),
-      });
-    }
-  }, [accession, history]);
+  let redirectTo: LocationDescriptor | null = null;
+  // If the accession is a number not prefixed with "KW-"
+  if (accession && reNumber.test(accession)) {
+    redirectTo = {
+      pathname: getEntryPathFor(Namespace.keywords)(
+        `KW-${accession.padStart(4, '0')}`
+      ),
+    };
+  }
 
   const { data, loading, error, status, progress, isStale } =
     useDataApiWithStale<KeywordsAPIModel>(
-      apiUrls.entry(accession, Namespace.keywords)
+      redirectTo ? undefined : apiUrls.entry(accession, Namespace.keywords)
     );
+
+  if (redirectTo) {
+    return <Redirect to={redirectTo} />;
+  }
 
   if (error || !accession || (!loading && !data)) {
     return <ErrorHandler status={status} />;
