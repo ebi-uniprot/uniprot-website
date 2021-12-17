@@ -33,9 +33,7 @@ const KeywordsCard = ({ data }: { data: KeywordsAPIModel }) => {
       header={
         <>
           <CardCheckboxCell id={id} />
-          <h2 className="tiny">
-            {data.keyword.name} ({data.keyword.id})
-          </h2>
+          <h2 className="tiny">{data.keyword.name}</h2>
         </>
       }
       headerSeparator={false}
