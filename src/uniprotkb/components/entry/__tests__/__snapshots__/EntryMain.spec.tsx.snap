@@ -510,13 +510,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  ENZYME
-                </h5>
+                ENZYME
               </div>
               <div
                 class="decorated-list-item__content"
@@ -575,13 +571,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Recommended name
-                </h5>
+                Recommended name
               </div>
               <div
                 class="decorated-list-item__content"
@@ -617,13 +609,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  EC number
-                </h5>
+                EC number
               </div>
               <div
                 class="decorated-list-item__content"
@@ -692,13 +680,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Short names
-                </h5>
+                Short names
               </div>
               <div
                 class="decorated-list-item__content"
@@ -734,13 +718,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Alternative names
-                </h5>
+                Alternative names
               </div>
               <div
                 class="decorated-list-item__content"
@@ -806,13 +786,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Cleaved into 1 chains
-                </h5>
+                Cleaved into 1 chains
               </div>
               <div
                 class="decorated-list-item__content"
@@ -928,13 +904,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Submitted names
-                </h5>
+                Submitted names
               </div>
               <div
                 class="decorated-list-item__content"
@@ -976,13 +948,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Biotech name
-                </h5>
+                Biotech name
               </div>
               <div
                 class="decorated-list-item__content"
@@ -1018,13 +986,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  CD Antigen Name
-                </h5>
+                CD Antigen Name
               </div>
               <div
                 class="decorated-list-item__content"
@@ -1066,13 +1030,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  INN Name
-                </h5>
+                INN Name
               </div>
               <div
                 class="decorated-list-item__content"
@@ -1123,13 +1083,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Recommended name
-                </h5>
+                Recommended name
               </div>
               <div
                 class="decorated-list-item__content"
@@ -1165,13 +1121,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  EC number
-                </h5>
+                EC number
               </div>
               <div
                 class="decorated-list-item__content"
@@ -1240,13 +1192,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Short names
-                </h5>
+                Short names
               </div>
               <div
                 class="decorated-list-item__content"
@@ -1282,13 +1230,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Alternative names
-                </h5>
+                Alternative names
               </div>
               <div
                 class="decorated-list-item__content"
@@ -1354,13 +1298,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Biotech name
-                </h5>
+                Biotech name
               </div>
               <div
                 class="decorated-list-item__content"
@@ -1396,13 +1336,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  CD Antigen Name
-                </h5>
+                CD Antigen Name
               </div>
               <div
                 class="decorated-list-item__content"
@@ -1444,13 +1380,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  INN Name
-                </h5>
+                INN Name
               </div>
               <div
                 class="decorated-list-item__content"
@@ -1503,13 +1435,9 @@ exports[`Entry view should render 1`] = `
                   class="decorated-list-item"
                 >
                   <div
-                    class="decorated-list-item__title"
+                    class="decorated-list-item__title tiny"
                   >
-                    <h5
-                      class="bold"
-                    >
-                      Name
-                    </h5>
+                    Name
                   </div>
                   <div
                     class="decorated-list-item__content"
@@ -1545,13 +1473,9 @@ exports[`Entry view should render 1`] = `
                   class="decorated-list-item"
                 >
                   <div
-                    class="decorated-list-item__title"
+                    class="decorated-list-item__title tiny"
                   >
-                    <h5
-                      class="bold"
-                    >
-                      Synonyms
-                    </h5>
+                    Synonyms
                   </div>
                   <div
                     class="decorated-list-item__content"
@@ -1587,13 +1511,9 @@ exports[`Entry view should render 1`] = `
                   class="decorated-list-item"
                 >
                   <div
-                    class="decorated-list-item__title"
+                    class="decorated-list-item__title tiny"
                   >
-                    <h5
-                      class="bold"
-                    >
-                      ORF names
-                    </h5>
+                    ORF names
                   </div>
                   <div
                     class="decorated-list-item__content"
@@ -1629,13 +1549,9 @@ exports[`Entry view should render 1`] = `
                   class="decorated-list-item"
                 >
                   <div
-                    class="decorated-list-item__title"
+                    class="decorated-list-item__title tiny"
                   >
-                    <h5
-                      class="bold"
-                    >
-                      Ordered locus names
-                    </h5>
+                    Ordered locus names
                   </div>
                   <div
                     class="decorated-list-item__content"
@@ -1680,13 +1596,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Organism
-                </h5>
+                Organism
               </div>
               <div
                 class="decorated-list-item__content"
@@ -1727,13 +1639,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Taxonomic identifier
-                </h5>
+                Taxonomic identifier
               </div>
               <div
                 class="decorated-list-item__content"
@@ -1763,13 +1671,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Taxonomic lineage
-                </h5>
+                Taxonomic lineage
               </div>
               <div
                 class="decorated-list-item__content"
@@ -1783,13 +1687,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Virus hosts
-                </h5>
+                Virus hosts
               </div>
               <div
                 class="decorated-list-item__content"
@@ -1821,13 +1721,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Primary accession
-                </h5>
+                Primary accession
               </div>
               <div
                 class="decorated-list-item__content"
@@ -1841,13 +1737,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Secondary accessions
-                </h5>
+                Secondary accessions
               </div>
               <div
                 class="decorated-list-item__content"
@@ -1950,9 +1842,9 @@ exports[`Entry view should render 1`] = `
         <h3>
           Involvement in disease
         </h3>
-        <h3>
+        <h4>
           DiseaseEntry Id (someAcron)
-        </h3>
+        </h4>
         <span
           class="text-block"
         >
@@ -1987,13 +1879,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Note
-                </h5>
+                Note
               </div>
               <div
                 class="decorated-list-item__content"
@@ -2035,13 +1923,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Description
-                </h5>
+                Description
               </div>
               <div
                 class="decorated-list-item__content"
@@ -2055,13 +1939,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  See also
-                </h5>
+                See also
               </div>
               <div
                 class="decorated-list-item__content"
@@ -2490,13 +2370,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  ModBase
-                </h5>
+                ModBase
               </div>
               <div
                 class="decorated-list-item__content"
@@ -2527,13 +2403,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  SWISS-MODEL-Workspace
-                </h5>
+                SWISS-MODEL-Workspace
               </div>
               <div
                 class="decorated-list-item__content"
@@ -2592,13 +2464,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Domain
-                </h5>
+                Domain
               </div>
               <div
                 class="decorated-list-item__content"
@@ -2651,13 +2519,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  MobiDB
-                </h5>
+                MobiDB
               </div>
               <div
                 class="decorated-list-item__content"
@@ -2688,13 +2552,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  ProtoNet
-                </h5>
+                ProtoNet
               </div>
               <div
                 class="decorated-list-item__content"
@@ -2769,13 +2629,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Sequence status
-                </h5>
+                Sequence status
               </div>
               <div
                 class="decorated-list-item__content"
@@ -2809,13 +2665,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item decorated-list-item--compact"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Name
-                </h5>
+                Name
               </div>
               <div
                 class="decorated-list-item__content"
@@ -2829,13 +2681,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item decorated-list-item--compact"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Synonyms
-                </h5>
+                Synonyms
               </div>
               <div
                 class="decorated-list-item__content"
@@ -2849,13 +2697,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item decorated-list-item--compact"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  See also
-                </h5>
+                See also
               </div>
               <div
                 class="decorated-list-item__content"
@@ -2880,13 +2724,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item decorated-list-item--compact"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Note
-                </h5>
+                Note
               </div>
               <div
                 class="decorated-list-item__content"
@@ -3051,13 +2891,9 @@ exports[`Entry view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Ensembl
-                </h5>
+                Ensembl
               </div>
               <div
                 class="decorated-list-item__content"
@@ -4344,13 +4180,9 @@ exports[`Entry view should render for non-human entry 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Molecular function
-                </h5>
+                Molecular function
               </div>
               <div
                 class="decorated-list-item__content"
@@ -4381,13 +4213,9 @@ exports[`Entry view should render for non-human entry 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Ligand
-                </h5>
+                Ligand
               </div>
               <div
                 class="decorated-list-item__content"
@@ -4418,13 +4246,9 @@ exports[`Entry view should render for non-human entry 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  ENZYME
-                </h5>
+                ENZYME
               </div>
               <div
                 class="decorated-list-item__content"
@@ -4483,13 +4307,9 @@ exports[`Entry view should render for non-human entry 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Recommended name
-                </h5>
+                Recommended name
               </div>
               <div
                 class="decorated-list-item__content"
@@ -4525,13 +4345,9 @@ exports[`Entry view should render for non-human entry 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  EC number
-                </h5>
+                EC number
               </div>
               <div
                 class="decorated-list-item__content"
@@ -4600,13 +4416,9 @@ exports[`Entry view should render for non-human entry 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Alternative names
-                </h5>
+                Alternative names
               </div>
               <div
                 class="decorated-list-item__content"
@@ -4681,13 +4493,9 @@ exports[`Entry view should render for non-human entry 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Organism
-                </h5>
+                Organism
               </div>
               <div
                 class="decorated-list-item__content"
@@ -4706,13 +4514,9 @@ exports[`Entry view should render for non-human entry 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Taxonomic identifier
-                </h5>
+                Taxonomic identifier
               </div>
               <div
                 class="decorated-list-item__content"
@@ -4742,13 +4546,9 @@ exports[`Entry view should render for non-human entry 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Taxonomic lineage
-                </h5>
+                Taxonomic lineage
               </div>
               <div
                 class="decorated-list-item__content"
@@ -4769,13 +4569,9 @@ exports[`Entry view should render for non-human entry 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Primary accession
-                </h5>
+                Primary accession
               </div>
               <div
                 class="decorated-list-item__content"
@@ -5422,13 +5218,9 @@ exports[`Entry view should render for non-human entry 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  SMR
-                </h5>
+                SMR
               </div>
               <div
                 class="decorated-list-item__content"
@@ -5459,13 +5251,9 @@ exports[`Entry view should render for non-human entry 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  ModBase
-                </h5>
+                ModBase
               </div>
               <div
                 class="decorated-list-item__content"
@@ -5496,13 +5284,9 @@ exports[`Entry view should render for non-human entry 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  PDBe-KB
-                </h5>
+                PDBe-KB
               </div>
               <div
                 class="decorated-list-item__content"
@@ -5920,13 +5704,9 @@ exports[`Entry view should render for non-human entry 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Domain
-                </h5>
+                Domain
               </div>
               <div
                 class="decorated-list-item__content"
@@ -5957,13 +5737,9 @@ exports[`Entry view should render for non-human entry 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Gene3D
-                </h5>
+                Gene3D
               </div>
               <div
                 class="decorated-list-item__content"
@@ -6010,13 +5786,9 @@ exports[`Entry view should render for non-human entry 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  InterPro
-                </h5>
+                InterPro
               </div>
               <div
                 class="decorated-list-item__content"
@@ -6116,13 +5888,9 @@ exports[`Entry view should render for non-human entry 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  PROSITE
-                </h5>
+                PROSITE
               </div>
               <div
                 class="decorated-list-item__content"
@@ -6168,13 +5936,9 @@ exports[`Entry view should render for non-human entry 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Pfam
-                </h5>
+                Pfam
               </div>
               <div
                 class="decorated-list-item__content"
@@ -6235,13 +5999,9 @@ exports[`Entry view should render for non-human entry 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  SMART
-                </h5>
+                SMART
               </div>
               <div
                 class="decorated-list-item__content"
@@ -6287,13 +6047,9 @@ exports[`Entry view should render for non-human entry 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  SUPFAM
-                </h5>
+                SUPFAM
               </div>
               <div
                 class="decorated-list-item__content"
@@ -6370,13 +6126,9 @@ exports[`Entry view should render for non-human entry 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  MobiDB
-                </h5>
+                MobiDB
               </div>
               <div
                 class="decorated-list-item__content"
@@ -6407,13 +6159,9 @@ exports[`Entry view should render for non-human entry 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  ProtoNet
-                </h5>
+                ProtoNet
               </div>
               <div
                 class="decorated-list-item__content"
@@ -6518,13 +6266,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                 class="decorated-list-item decorated-list-item--compact"
               >
                 <div
-                  class="decorated-list-item__title"
+                  class="decorated-list-item__title tiny"
                 >
-                  <h5
-                    class="bold"
-                  >
-                    Length
-                  </h5>
+                  Length
                 </div>
                 <div
                   class="decorated-list-item__content"
@@ -6538,13 +6282,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                 class="decorated-list-item decorated-list-item--compact"
               >
                 <div
-                  class="decorated-list-item__title"
+                  class="decorated-list-item__title tiny"
                 >
-                  <h5
-                    class="bold"
-                  >
-                    Mass (Da)
-                  </h5>
+                  Mass (Da)
                 </div>
                 <div
                   class="decorated-list-item__content"
@@ -6558,13 +6298,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                 class="decorated-list-item decorated-list-item--compact"
               >
                 <div
-                  class="decorated-list-item__title"
+                  class="decorated-list-item__title tiny"
                 >
-                  <h5
-                    class="bold"
-                  >
-                    Last updated
-                  </h5>
+                  Last updated
                 </div>
                 <div
                   class="decorated-list-item__content"
@@ -6578,13 +6314,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                 class="decorated-list-item decorated-list-item--compact"
               >
                 <div
-                  class="decorated-list-item__title"
+                  class="decorated-list-item__title tiny"
                 >
-                  <h5
-                    class="bold"
-                  >
-                    Checksum
-                  </h5>
+                  Checksum
                 </div>
                 <div
                   class="decorated-list-item__content"
@@ -7000,13 +6732,9 @@ exports[`Entry view should render for non-human entry 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Technical term
-                </h5>
+                Technical term
               </div>
               <div
                 class="decorated-list-item__content"
@@ -7037,13 +6765,9 @@ exports[`Entry view should render for non-human entry 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  RefSeq
-                </h5>
+                RefSeq
               </div>
               <div
                 class="decorated-list-item__content"
@@ -7082,13 +6806,9 @@ exports[`Entry view should render for non-human entry 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  GeneID
-                </h5>
+                GeneID
               </div>
               <div
                 class="decorated-list-item__content"

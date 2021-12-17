@@ -393,7 +393,7 @@ exports[`QueryBuilder should render loading 1`] = `
     class="page-intro"
   >
     <h1
-      class="big"
+      class=""
     >
       Query builder
     </h1>

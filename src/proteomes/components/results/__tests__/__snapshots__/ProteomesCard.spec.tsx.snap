@@ -33,7 +33,7 @@ exports[`ProteomesCard tests should render the card component 1`] = `
           />
         </span>
         <h2
-          class="tiny"
+          class="small"
         >
           <span
             class="entry-title"

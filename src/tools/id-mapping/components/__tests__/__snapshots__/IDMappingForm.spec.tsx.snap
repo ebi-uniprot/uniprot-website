@@ -6,7 +6,7 @@ exports[`IDMappingForm test Renders the form 1`] = `
     class="page-intro"
   >
     <h1
-      class="big"
+      class=""
     >
       Retrieve/ID mapping
     </h1>

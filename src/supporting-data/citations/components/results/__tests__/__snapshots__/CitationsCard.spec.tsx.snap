@@ -45,7 +45,7 @@ exports[`CitationsCard tests should render the card component 1`] = `
                 class="publication__columns__main"
               >
                 <h2
-                  class="publication__heading tiny"
+                  class="publication__heading small"
                 >
                   Complete sequencing and characterization of 21,243 full-length human cDNAs.
                 </h2>
