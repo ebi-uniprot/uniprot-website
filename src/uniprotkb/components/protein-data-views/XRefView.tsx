@@ -1,4 +1,4 @@
-import { Fragment, FC } from 'react';
+import { Fragment } from 'react';
 import { isEqual, sortBy, uniqWith } from 'lodash-es';
 import { InfoList, ExternalLink, ExpandableList } from 'franklin-sites';
 
@@ -94,7 +94,7 @@ export const getPropertyLinkAttributes = (
   };
 };
 
-const EMBLXref: FC<{
+type EMBLXrefProps = {
   databaseInfo: DatabaseInfoPoint;
   genBankInfo: DatabaseInfoPoint;
   ddbjInfo: DatabaseInfoPoint;
@@ -102,7 +102,9 @@ const EMBLXref: FC<{
   id: string | undefined;
   xref: Xref;
   isoformNode?: JSX.Element;
-}> = ({
+};
+
+const EMBLXref = ({
   databaseInfo,
   genBankInfo,
   ddbjInfo,
@@ -110,7 +112,7 @@ const EMBLXref: FC<{
   id,
   xref,
   isoformNode,
-}) => {
+}: EMBLXrefProps) => {
   // M28638 (EMBL|GenBank|DDBJ)
   const { properties, additionalIds } = xref;
   if (!databaseInfo?.uriLink || !genBankInfo?.uriLink || !ddbjInfo?.uriLink) {
@@ -183,13 +185,13 @@ type XRefProps = {
   databaseToDatabaseInfo: DatabaseToDatabaseInfo;
 };
 
-export const XRef: FC<XRefProps> = ({
+export const XRef = ({
   database,
   xref,
   primaryAccession,
   crc64,
   databaseToDatabaseInfo,
-}): JSX.Element | null => {
+}: XRefProps) => {
   const databaseInfo = databaseToDatabaseInfo[database];
   const { properties, isoformId, id, database: databaseType } = xref;
   const { uriLink, implicit } = databaseInfo;
@@ -255,8 +257,8 @@ export const XRef: FC<XRefProps> = ({
   if (implicit) {
     text =
       databaseType === 'SWISS-MODEL-Workspace'
-        ? 'Submit a new modelling project...'
-        : 'Search...';
+        ? 'Submit a new modelling project…'
+        : 'Search…';
   } else {
     text = id;
   }
@@ -290,17 +292,19 @@ export const XRef: FC<XRefProps> = ({
   );
 };
 
-export const DatabaseList: FC<{
+type DatabaseListProps = {
   xrefsGoupedByDatabase: XrefsGoupedByDatabase;
   primaryAccession: string;
   crc64?: string;
   databaseToDatabaseInfo: DatabaseToDatabaseInfo;
-}> = ({
+};
+
+export const DatabaseList = ({
   xrefsGoupedByDatabase: { database, xrefs },
   primaryAccession,
   crc64,
   databaseToDatabaseInfo,
-}) => {
+}: DatabaseListProps) => {
   // This step is needed as some databases (eg InterPro) have an additional link:
   // "View protein in InterPro" at the top of the xref links.
   const viewLink = viewProteinLinkDatabases.get(database);
@@ -332,11 +336,11 @@ type XRefsGroupedByCategoryProps = {
   crc64?: string;
 };
 
-const XRefsGroupedByCategory: FC<XRefsGroupedByCategoryProps> = ({
+const XRefsGroupedByCategory = ({
   databases,
   primaryAccession,
   crc64,
-}) => {
+}: XRefsGroupedByCategoryProps) => {
   const databaseInfoMaps = useDatabaseInfoMaps();
   if (!databaseInfoMaps) {
     return null;
@@ -375,9 +379,11 @@ type StructureXRefsGroupedByCategoryProps = {
   crc64?: string;
 };
 
-const StructureXRefsGroupedByCategory: FC<
-  StructureXRefsGroupedByCategoryProps
-> = ({ databases, primaryAccession, crc64 }) => {
+const StructureXRefsGroupedByCategory = ({
+  databases,
+  primaryAccession,
+  crc64,
+}: StructureXRefsGroupedByCategoryProps) => {
   const { PDBDatabase, otherStructureDatabases } =
     partitionStructureDatabases(databases);
   let PDBViewNode;

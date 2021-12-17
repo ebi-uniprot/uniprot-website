@@ -33,7 +33,7 @@ exports[`ARBACard tests should render the card component 1`] = `
           />
         </span>
         <h2
-          class="tiny"
+          class="small"
         >
           ARBA00013665
         </h2>

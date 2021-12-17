@@ -20,7 +20,7 @@ exports[`HelpCard tests should render the card component 1`] = `
         class="card__header"
       >
         <h2
-          class="tiny"
+          class="small"
           data-testid="help-title"
         >
           <a
@@ -58,7 +58,7 @@ exports[`HelpCard tests should render the card component and find highlights 1`]
         class="card__header"
       >
         <h2
-          class="tiny"
+          class="small"
           data-testid="help-title"
         >
           <a

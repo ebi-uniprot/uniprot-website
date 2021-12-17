@@ -132,9 +132,7 @@ exports[`Entry basic should render main 1`] = `
       <section
         class="sidebar-layout__title"
       >
-        <h1
-          class="big"
-        >
+        <h1>
           <span
             class="entry-title"
           >
@@ -425,7 +423,7 @@ exports[`Entry basic should render main 1`] = `
                     <a
                       href="/uniprotkb?query=ec:1.2.4.5"
                     >
-                      UniProtkb
+                      UniProtKB
                     </a>
                      | 
                     <a
@@ -831,13 +829,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            ENZYME
-                          </h5>
+                          ENZYME
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -852,7 +846,7 @@ exports[`Entry basic should render main 1`] = `
                                 rel="noopener"
                                 target="_blank"
                               >
-                                Search...
+                                Search…
                                 <test-file-stub
                                   data-testid="external-link-icon"
                                   width="12.5"
@@ -896,13 +890,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            Recommended name
-                          </h5>
+                          Recommended name
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -938,13 +928,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            EC number
-                          </h5>
+                          EC number
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -976,7 +962,7 @@ exports[`Entry basic should render main 1`] = `
                           <a
                             href="/uniprotkb?query=ec:1.2.3.4"
                           >
-                            UniProtkb
+                            UniProtKB
                           </a>
                            | 
                           <a
@@ -1013,13 +999,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            Short names
-                          </h5>
+                          Short names
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -1055,13 +1037,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            Alternative names
-                          </h5>
+                          Alternative names
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -1127,13 +1105,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            Cleaved into 1 chains
-                          </h5>
+                          Cleaved into 1 chains
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -1249,13 +1223,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            Submitted names
-                          </h5>
+                          Submitted names
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -1297,13 +1267,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            Biotech name
-                          </h5>
+                          Biotech name
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -1339,13 +1305,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            CD Antigen Name
-                          </h5>
+                          CD Antigen Name
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -1387,13 +1349,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            INN Name
-                          </h5>
+                          INN Name
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -1444,13 +1402,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            Recommended name
-                          </h5>
+                          Recommended name
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -1486,13 +1440,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            EC number
-                          </h5>
+                          EC number
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -1524,7 +1474,7 @@ exports[`Entry basic should render main 1`] = `
                           <a
                             href="/uniprotkb?query=ec:1.2.3.4"
                           >
-                            UniProtkb
+                            UniProtKB
                           </a>
                            | 
                           <a
@@ -1561,13 +1511,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            Short names
-                          </h5>
+                          Short names
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -1603,13 +1549,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            Alternative names
-                          </h5>
+                          Alternative names
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -1675,13 +1617,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            Biotech name
-                          </h5>
+                          Biotech name
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -1717,13 +1655,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            CD Antigen Name
-                          </h5>
+                          CD Antigen Name
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -1765,13 +1699,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            INN Name
-                          </h5>
+                          INN Name
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -1824,13 +1754,9 @@ exports[`Entry basic should render main 1`] = `
                             class="decorated-list-item"
                           >
                             <div
-                              class="decorated-list-item__title"
+                              class="decorated-list-item__title tiny"
                             >
-                              <h5
-                                class="bold"
-                              >
-                                Name
-                              </h5>
+                              Name
                             </div>
                             <div
                               class="decorated-list-item__content"
@@ -1866,13 +1792,9 @@ exports[`Entry basic should render main 1`] = `
                             class="decorated-list-item"
                           >
                             <div
-                              class="decorated-list-item__title"
+                              class="decorated-list-item__title tiny"
                             >
-                              <h5
-                                class="bold"
-                              >
-                                Synonyms
-                              </h5>
+                              Synonyms
                             </div>
                             <div
                               class="decorated-list-item__content"
@@ -1908,13 +1830,9 @@ exports[`Entry basic should render main 1`] = `
                             class="decorated-list-item"
                           >
                             <div
-                              class="decorated-list-item__title"
+                              class="decorated-list-item__title tiny"
                             >
-                              <h5
-                                class="bold"
-                              >
-                                ORF names
-                              </h5>
+                              ORF names
                             </div>
                             <div
                               class="decorated-list-item__content"
@@ -1950,13 +1868,9 @@ exports[`Entry basic should render main 1`] = `
                             class="decorated-list-item"
                           >
                             <div
-                              class="decorated-list-item__title"
+                              class="decorated-list-item__title tiny"
                             >
-                              <h5
-                                class="bold"
-                              >
-                                Ordered locus names
-                              </h5>
+                              Ordered locus names
                             </div>
                             <div
                               class="decorated-list-item__content"
@@ -2001,13 +1915,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            Organism
-                          </h5>
+                          Organism
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -2048,13 +1958,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            Taxonomic identifier
-                          </h5>
+                          Taxonomic identifier
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -2084,13 +1990,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            Taxonomic lineage
-                          </h5>
+                          Taxonomic lineage
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -2104,13 +2006,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            Virus hosts
-                          </h5>
+                          Virus hosts
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -2142,13 +2040,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            Primary accession
-                          </h5>
+                          Primary accession
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -2162,13 +2056,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            Secondary accessions
-                          </h5>
+                          Secondary accessions
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -2383,9 +2273,9 @@ exports[`Entry basic should render main 1`] = `
                   <h3>
                     Involvement in disease
                   </h3>
-                  <h3>
+                  <h4>
                     DiseaseEntry Id (someAcron)
-                  </h3>
+                  </h4>
                   <span
                     class="text-block"
                   >
@@ -2420,13 +2310,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            Note
-                          </h5>
+                          Note
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -2468,13 +2354,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            Description
-                          </h5>
+                          Description
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -2488,13 +2370,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            See also
-                          </h5>
+                          See also
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -2679,7 +2557,7 @@ exports[`Entry basic should render main 1`] = `
                               ID
                             </th>
                             <th>
-                              Positions
+                              Position(s)
                             </th>
                             <th>
                               Description
@@ -2914,13 +2792,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            ModBase
-                          </h5>
+                          ModBase
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -2935,7 +2809,7 @@ exports[`Entry basic should render main 1`] = `
                                 rel="noopener"
                                 target="_blank"
                               >
-                                Search...
+                                Search…
                                 <test-file-stub
                                   data-testid="external-link-icon"
                                   width="12.5"
@@ -2951,13 +2825,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            SWISS-MODEL-Workspace
-                          </h5>
+                          SWISS-MODEL-Workspace
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -2972,7 +2842,7 @@ exports[`Entry basic should render main 1`] = `
                                 rel="noopener"
                                 target="_blank"
                               >
-                                Submit a new modelling project...
+                                Submit a new modelling project…
                                 <test-file-stub
                                   data-testid="external-link-icon"
                                   width="12.5"
@@ -3016,13 +2886,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            Domain
-                          </h5>
+                          Domain
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -3075,13 +2941,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            MobiDB
-                          </h5>
+                          MobiDB
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -3096,7 +2958,7 @@ exports[`Entry basic should render main 1`] = `
                                 rel="noopener"
                                 target="_blank"
                               >
-                                Search...
+                                Search…
                                 <test-file-stub
                                   data-testid="external-link-icon"
                                   width="12.5"
@@ -3112,13 +2974,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            ProtoNet
-                          </h5>
+                          ProtoNet
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -3133,7 +2991,7 @@ exports[`Entry basic should render main 1`] = `
                                 rel="noopener"
                                 target="_blank"
                               >
-                                Search...
+                                Search…
                                 <test-file-stub
                                   data-testid="external-link-icon"
                                   width="12.5"
@@ -3193,13 +3051,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            Sequence status
-                          </h5>
+                          Sequence status
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -3233,13 +3087,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item decorated-list-item--compact"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            Name
-                          </h5>
+                          Name
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -3253,13 +3103,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item decorated-list-item--compact"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            Synonyms
-                          </h5>
+                          Synonyms
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -3273,13 +3119,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item decorated-list-item--compact"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            See also
-                          </h5>
+                          See also
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -3304,13 +3146,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item decorated-list-item--compact"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            Note
-                          </h5>
+                          Note
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -3475,13 +3313,9 @@ exports[`Entry basic should render main 1`] = `
                         class="decorated-list-item"
                       >
                         <div
-                          class="decorated-list-item__title"
+                          class="decorated-list-item__title tiny"
                         >
-                          <h5
-                            class="bold"
-                          >
-                            Ensembl
-                          </h5>
+                          Ensembl
                         </div>
                         <div
                           class="decorated-list-item__content"

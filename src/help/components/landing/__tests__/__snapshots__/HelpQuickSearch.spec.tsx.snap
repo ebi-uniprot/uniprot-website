@@ -52,25 +52,21 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
                     tabindex="-1"
                   />
                   <div
-                    class="decorated-list-item__title"
+                    class="decorated-list-item__title tiny"
                   >
-                    <h5
-                      class="bold"
+                    <a
+                      href="/help/canonical_and_isoforms"
                     >
-                      <a
-                        href="/help/canonical_and_isoforms"
-                      >
-                        <span>
-                          What is the 
-                          <span
-                            class="match-highlight"
-                          >
-                            canonical
-                          </span>
-                           sequence? Are all isoforms described in one entry?
+                      <span>
+                        What is the 
+                        <span
+                          class="match-highlight"
+                        >
+                          canonical
                         </span>
-                      </a>
-                    </h5>
+                         sequence? Are all isoforms described in one entry?
+                      </span>
+                    </a>
                   </div>
                   <div
                     class="decorated-list-item__content"
@@ -99,25 +95,21 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
                     tabindex="-1"
                   />
                   <div
-                    class="decorated-list-item__title"
+                    class="decorated-list-item__title tiny"
                   >
-                    <h5
-                      class="bold"
+                    <a
+                      href="/help/canonical_nucleotide"
                     >
-                      <a
-                        href="/help/canonical_nucleotide"
-                      >
-                        <span>
-                          How do I get the nucleotide sequence that corresponds to the 
-                          <span
-                            class="match-highlight"
-                          >
-                            canonical
-                          </span>
-                           UniProtKB sequence?
+                      <span>
+                        How do I get the nucleotide sequence that corresponds to the 
+                        <span
+                          class="match-highlight"
+                        >
+                          canonical
                         </span>
-                      </a>
-                    </h5>
+                         UniProtKB sequence?
+                      </span>
+                    </a>
                   </div>
                   <div
                     class="decorated-list-item__content"
@@ -146,17 +138,13 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
                     tabindex="-1"
                   />
                   <div
-                    class="decorated-list-item__title"
+                    class="decorated-list-item__title tiny"
                   >
-                    <h5
-                      class="bold"
+                    <a
+                      href="/help/conflict"
                     >
-                      <a
-                        href="/help/conflict"
-                      >
-                        Sequence conflict
-                      </a>
-                    </h5>
+                      Sequence conflict
+                    </a>
                   </div>
                   <div
                     class="decorated-list-item__content"
@@ -185,17 +173,13 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
                     tabindex="-1"
                   />
                   <div
-                    class="decorated-list-item__title"
+                    class="decorated-list-item__title tiny"
                   >
-                    <h5
-                      class="bold"
+                    <a
+                      href="/help/retrieve_sets"
                     >
-                      <a
-                        href="/help/retrieve_sets"
-                      >
-                        How to retrieve sets of protein sequences?
-                      </a>
-                    </h5>
+                      How to retrieve sets of protein sequences?
+                    </a>
                   </div>
                   <div
                     class="decorated-list-item__content"
@@ -224,17 +208,13 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
                     tabindex="-1"
                   />
                   <div
-                    class="decorated-list-item__title"
+                    class="decorated-list-item__title tiny"
                   >
-                    <h5
-                      class="bold"
+                    <a
+                      href="/help/sequence_processing"
                     >
-                      <a
-                        href="/help/sequence_processing"
-                      >
-                        Sequence processing
-                      </a>
-                    </h5>
+                      Sequence processing
+                    </a>
                   </div>
                   <div
                     class="decorated-list-item__content"

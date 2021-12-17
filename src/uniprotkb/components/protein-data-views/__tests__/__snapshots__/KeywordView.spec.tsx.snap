@@ -13,13 +13,9 @@ exports[`Keyword should render Keywords for section 1`] = `
         class="decorated-list-item"
       >
         <div
-          class="decorated-list-item__title"
+          class="decorated-list-item__title tiny"
         >
-          <h5
-            class="bold"
-          >
-            Cellular component
-          </h5>
+          Cellular component
         </div>
         <div
           class="decorated-list-item__content"

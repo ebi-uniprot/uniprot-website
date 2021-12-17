@@ -66,7 +66,7 @@ const DiseasesEntry = (props: RouteChildrenProps<{ accession: string }>) => {
         <meta name="description" content={data.definition} />
       </HTMLHead>
       {/* Here we don't want to use the full label atm */}
-      <h1 className="big">Disease - {data.name}</h1>
+      <h1>Disease - {data.name}</h1>
       <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
         <div className="button-group">
           <EntryDownload />

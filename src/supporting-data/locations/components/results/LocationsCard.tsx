@@ -33,7 +33,7 @@ const CitationCard = ({ data }: { data: LocationsAPIModel }) => {
       header={
         <>
           <CardCheckboxCell id={id} />
-          <h2 className="tiny">{data.name}</h2>
+          <h2 className="small">{data.name}</h2>
         </>
       }
       headerSeparator={false}

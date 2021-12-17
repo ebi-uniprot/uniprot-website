@@ -40,7 +40,7 @@ const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
         title={[data.uniRuleId, searchableNamespaceLabels[Namespace.arba]]}
       />
       {/* Here we don't want to use the full label atm */}
-      <h1 className="big">
+      <h1>
         {searchableNamespaceLabels[Namespace.arba]} - {data.uniRuleId}
       </h1>
       <div className="button-group">

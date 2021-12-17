@@ -7,7 +7,6 @@ import {
 import { GeneNamesData } from '../adapters/namesAndTaxonomyConverter';
 
 import { Property, PropertyKey } from '../types/modelTypes';
-import { CommentType } from '../types/commentTypes';
 
 export const hasExternalLinks = (transformedData: UniProtkbUIModel) =>
   UniProtKBEntryConfig.some(({ id }) => {
@@ -75,5 +74,14 @@ export const getPropertyValue = (
 
 // The regex that matches uniprot accession. Taken from:
 // https://www.uniprot.org/help/accession_numbers
-export const uniProtKBAccessionRegEx =
-  /[OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9]([A-Z][A-Z0-9]{2}[0-9]){1,2}/i;
+// NOTE: modified to use a non-capturing group with "?:"
+export const reUniProtKBAccession =
+  /[OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9](?:[A-Z][A-Z0-9]{2}[0-9]){1,2}/i;
+
+export const reAC = new RegExp(`(?:AC ${reUniProtKBAccession.source})`, 'i');
+export const rePubMedID = /\d{7,8}/;
+export const rePubMed = new RegExp(`(?:pubmed:${rePubMedID.source})`, 'i');
+export const rePubMedOrAC = new RegExp(
+  `(${rePubMed.source}|${reAC.source})`,
+  'i'
+);

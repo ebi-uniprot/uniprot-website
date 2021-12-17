@@ -40,7 +40,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 />
               </span>
               <h2
-                class="tiny"
+                class="small"
               >
                 <span
                   class="entry-title"
@@ -206,7 +206,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 />
               </span>
               <h2
-                class="tiny"
+                class="small"
               >
                 <span
                   class="entry-title"
@@ -371,7 +371,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 />
               </span>
               <h2
-                class="tiny"
+                class="small"
               >
                 <span
                   class="entry-title"
@@ -557,7 +557,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 />
               </span>
               <h2
-                class="tiny"
+                class="small"
               >
                 <span
                   class="entry-title"
@@ -707,7 +707,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 />
               </span>
               <h2
-                class="tiny"
+                class="small"
               >
                 <span
                   class="entry-title"
@@ -883,7 +883,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 />
               </span>
               <h2
-                class="tiny"
+                class="small"
               >
                 <span
                   class="entry-title"
@@ -1032,7 +1032,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 />
               </span>
               <h2
-                class="tiny"
+                class="small"
               >
                 <span
                   class="entry-title"
@@ -1198,7 +1198,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 />
               </span>
               <h2
-                class="tiny"
+                class="small"
               >
                 <span
                   class="entry-title"
@@ -1330,7 +1330,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 />
               </span>
               <h2
-                class="tiny"
+                class="small"
               >
                 <span
                   class="entry-title"
@@ -1481,7 +1481,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 />
               </span>
               <h2
-                class="tiny"
+                class="small"
               >
                 <span
                   class="entry-title"
@@ -1625,7 +1625,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 />
               </span>
               <h2
-                class="tiny"
+                class="small"
               >
                 <span
                   class="entry-title"
@@ -1780,7 +1780,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 />
               </span>
               <h2
-                class="tiny"
+                class="small"
               >
                 <span
                   class="entry-title"
@@ -1930,7 +1930,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 />
               </span>
               <h2
-                class="tiny"
+                class="small"
               >
                 <span
                   class="entry-title"
@@ -2073,7 +2073,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 />
               </span>
               <h2
-                class="tiny"
+                class="small"
               >
                 <span
                   class="entry-title"
@@ -2229,7 +2229,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 />
               </span>
               <h2
-                class="tiny"
+                class="small"
               >
                 <span
                   class="entry-title"
@@ -2407,7 +2407,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 />
               </span>
               <h2
-                class="tiny"
+                class="small"
               >
                 <span
                   class="entry-title"
@@ -2571,7 +2571,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 />
               </span>
               <h2
-                class="tiny"
+                class="small"
               >
                 <span
                   class="entry-title"
@@ -2709,7 +2709,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 />
               </span>
               <h2
-                class="tiny"
+                class="small"
               >
                 <span
                   class="entry-title"
@@ -2847,7 +2847,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 />
               </span>
               <h2
-                class="tiny"
+                class="small"
               >
                 <span
                   class="entry-title"
@@ -3011,7 +3011,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 />
               </span>
               <h2
-                class="tiny"
+                class="small"
               >
                 <span
                   class="entry-title"
@@ -3194,7 +3194,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 />
               </span>
               <h2
-                class="tiny"
+                class="small"
               >
                 <span
                   class="entry-title"
@@ -3365,7 +3365,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 />
               </span>
               <h2
-                class="tiny"
+                class="small"
               >
                 <span
                   class="entry-title"
@@ -3507,7 +3507,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 />
               </span>
               <h2
-                class="tiny"
+                class="small"
               >
                 <span
                   class="entry-title"
@@ -3645,7 +3645,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 />
               </span>
               <h2
-                class="tiny"
+                class="small"
               >
                 <span
                   class="entry-title"
@@ -3779,7 +3779,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 />
               </span>
               <h2
-                class="tiny"
+                class="small"
               >
                 <span
                   class="entry-title"

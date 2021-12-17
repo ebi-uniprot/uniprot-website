@@ -32,7 +32,7 @@ const TaxonomyCard = ({ data }: { data: TaxonomyAPIModel }) => {
       header={
         <>
           <CardCheckboxCell id={id} />
-          <h2 className="tiny">
+          <h2 className="small">
             <TaxonomyView data={data} />
           </h2>
         </>

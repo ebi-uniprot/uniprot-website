@@ -68,7 +68,7 @@ exports[`FeaturesView component it renders without crashing 1`] = `
               ID
             </th>
             <th>
-              Positions
+              Position(s)
             </th>
             <th>
               Description

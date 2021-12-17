@@ -3,19 +3,20 @@ import { Link } from 'react-router-dom';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
-import { getEntryPathFor } from '../../../app/config/urls';
+import { getEntryPath, getEntryPathFor } from '../../../app/config/urls';
+import {
+  reAC,
+  rePubMedID,
+  rePubMedOrAC,
+  rePubMed,
+  reUniProtKBAccession,
+} from '../../utils';
 
 import { Namespace } from '../../../shared/types/namespaces';
 import { FreeTextComment, TextWithEvidence } from '../../types/commentTypes';
 
 import helper from '../../../shared/styles/helper.module.scss';
 
-const pubMedIDRE = /^\d{7,8}$/;
-// Capturing group will allow split to conserve that bit in the split parts
-/** NOTE:
- * Should be using a lookbehind `/(?<=pubmed:)(\d{7,8})/i` but it is not
- * supported in Safari yet. It's OK, we just get more chunks when splitting */
-const pubMedRE = /(pubmed:)(\d{7,8})/i;
 const needsNewLineRE = /^\).\s+/;
 
 const getEntryPathForCitation = getEntryPathFor(Namespace.citations);
@@ -27,16 +28,34 @@ export const TextView = ({ comments, noEvidence }: TextViewProps) => (
     {comments.map((comment, index) => (
       // eslint-disable-next-line react/no-array-index-key
       <Fragment key={index}>
-        {comment.value.split(pubMedRE).map((part, index, { length }) => {
-          /** We should get odds plain text, and evens pubmed ID, but we are
-           *  still double-checking just in case */
-          if (pubMedIDRE.test(part)) {
+        {comment.value.split(rePubMedOrAC).map((part, index, { length }) => {
+          // Capturing group will allow split to conserve that bit in the split parts
+          // NOTE: rePubMed and reAC should be using a lookbehind eg `/(?<=pubmed:)(\d{7,8})/i` but
+          // it is not supported in Safari yet. It's OK, we just get more chunks when splitting
+          const pubMedID = part.match(rePubMedID)?.[0];
+          if (rePubMed.test(part) && pubMedID) {
             // PubMed ID, insert a link
+            // eg A0A075B6S6
             return (
               // eslint-disable-next-line react/no-array-index-key
-              <Link key={index} to={getEntryPathForCitation(part)}>
-                {part}
-              </Link>
+              <Fragment key={index}>
+                PubMed:
+                <Link to={getEntryPathForCitation(pubMedID)}>{pubMedID}</Link>
+              </Fragment>
+            );
+          }
+          const accession = part.match(reUniProtKBAccession)?.[0];
+          if (reAC.test(part) && accession) {
+            // Replace any occurrences of "AC <accession>" with "AC "<link to accession>
+            // eg A0A075B6S6
+            return (
+              // eslint-disable-next-line react/no-array-index-key
+              <Fragment key={index}>
+                {`AC `}
+                <Link to={getEntryPath(Namespace.uniprotkb, accession)}>
+                  {accession}
+                </Link>
+              </Fragment>
             );
           }
           if (needsNewLineRE.test(part)) {

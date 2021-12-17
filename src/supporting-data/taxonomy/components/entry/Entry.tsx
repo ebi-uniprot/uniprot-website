@@ -39,6 +39,7 @@ const columns = [
   TaxonomyColumn.lineage,
   TaxonomyColumn.hosts,
   TaxonomyColumn.strains,
+  TaxonomyColumn.links,
 ];
 
 const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
@@ -84,7 +85,7 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
           searchableNamespaceLabels[Namespace.taxonomy],
         ]}
       />
-      <h1 className="big">
+      <h1>
         {searchableNamespaceLabels[Namespace.taxonomy]} -{' '}
         {data.scientificName || data.taxonId} <small>({data.rank})</small>
       </h1>

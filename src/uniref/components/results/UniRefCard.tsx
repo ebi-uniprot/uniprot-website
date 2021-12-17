@@ -32,10 +32,10 @@ const UniRefCard = ({ data }: { data: UniRefLiteAPIModel }) => {
       header={
         <>
           <CardCheckboxCell id={id} />
-          <h2 className="tiny">
+          <h2 className="small">
             <EntryTitle mainTitle={id} entryType={data.memberIdTypes} />
           </h2>
-          <BasketStatus id={id} />
+          <BasketStatus id={id} className="tiny" />
         </>
       }
       headerSeparator={false}

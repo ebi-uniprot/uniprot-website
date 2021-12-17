@@ -28,13 +28,9 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
         class="decorated-list-item"
       >
         <div
-          class="decorated-list-item__title"
+          class="decorated-list-item__title tiny"
         >
-          <h5
-            class="bold"
-          >
-            Sequence status
-          </h5>
+          Sequence status
         </div>
         <div
           class="decorated-list-item__content"
@@ -48,13 +44,9 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
         class="decorated-list-item"
       >
         <div
-          class="decorated-list-item__title"
+          class="decorated-list-item__title tiny"
         >
-          <h5
-            class="bold"
-          >
-            Sequence processing
-          </h5>
+          Sequence processing
         </div>
         <div
           class="decorated-list-item__content"
@@ -95,13 +87,9 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
         class="decorated-list-item decorated-list-item--compact"
       >
         <div
-          class="decorated-list-item__title"
+          class="decorated-list-item__title tiny"
         >
-          <h5
-            class="bold"
-          >
-            Name
-          </h5>
+          Name
         </div>
         <div
           class="decorated-list-item__content"
@@ -115,13 +103,9 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
         class="decorated-list-item decorated-list-item--compact"
       >
         <div
-          class="decorated-list-item__title"
+          class="decorated-list-item__title tiny"
         >
-          <h5
-            class="bold"
-          >
-            Synonyms
-          </h5>
+          Synonyms
         </div>
         <div
           class="decorated-list-item__content"
@@ -135,13 +119,9 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
         class="decorated-list-item decorated-list-item--compact"
       >
         <div
-          class="decorated-list-item__title"
+          class="decorated-list-item__title tiny"
         >
-          <h5
-            class="bold"
-          >
-            See also
-          </h5>
+          See also
         </div>
         <div
           class="decorated-list-item__content"
@@ -166,13 +146,9 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
         class="decorated-list-item decorated-list-item--compact"
       >
         <div
-          class="decorated-list-item__title"
+          class="decorated-list-item__title tiny"
         >
-          <h5
-            class="bold"
-          >
-            Note
-          </h5>
+          Note
         </div>
         <div
           class="decorated-list-item__content"
@@ -239,13 +215,9 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
           class="decorated-list-item decorated-list-item--compact"
         >
           <div
-            class="decorated-list-item__title"
+            class="decorated-list-item__title tiny"
           >
-            <h5
-              class="bold"
-            >
-              Length
-            </h5>
+            Length
           </div>
           <div
             class="decorated-list-item__content"
@@ -259,13 +231,9 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
           class="decorated-list-item decorated-list-item--compact"
         >
           <div
-            class="decorated-list-item__title"
+            class="decorated-list-item__title tiny"
           >
-            <h5
-              class="bold"
-            >
-              Mass (Da)
-            </h5>
+            Mass (Da)
           </div>
           <div
             class="decorated-list-item__content"
@@ -279,13 +247,9 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
           class="decorated-list-item decorated-list-item--compact"
         >
           <div
-            class="decorated-list-item__title"
+            class="decorated-list-item__title tiny"
           >
-            <h5
-              class="bold"
-            >
-              Last updated
-            </h5>
+            Last updated
           </div>
           <div
             class="decorated-list-item__content"
@@ -299,13 +263,9 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
           class="decorated-list-item decorated-list-item--compact"
         >
           <div
-            class="decorated-list-item__title"
+            class="decorated-list-item__title tiny"
           >
-            <h5
-              class="bold"
-            >
-              Checksum
-            </h5>
+            Checksum
           </div>
           <div
             class="decorated-list-item__content"
@@ -353,13 +313,9 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
         class="decorated-list-item decorated-list-item--compact"
       >
         <div
-          class="decorated-list-item__title"
+          class="decorated-list-item__title tiny"
         >
-          <h5
-            class="bold"
-          >
-            Name
-          </h5>
+          Name
         </div>
         <div
           class="decorated-list-item__content"
@@ -373,13 +329,9 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
         class="decorated-list-item decorated-list-item--compact"
       >
         <div
-          class="decorated-list-item__title"
+          class="decorated-list-item__title tiny"
         >
-          <h5
-            class="bold"
-          >
-            Synonyms
-          </h5>
+          Synonyms
         </div>
         <div
           class="decorated-list-item__content"
@@ -393,13 +345,9 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
         class="decorated-list-item decorated-list-item--compact"
       >
         <div
-          class="decorated-list-item__title"
+          class="decorated-list-item__title tiny"
         >
-          <h5
-            class="bold"
-          >
-            See also
-          </h5>
+          See also
         </div>
         <div
           class="decorated-list-item__content"
@@ -424,13 +372,9 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
         class="decorated-list-item decorated-list-item--compact"
       >
         <div
-          class="decorated-list-item__title"
+          class="decorated-list-item__title tiny"
         >
-          <h5
-            class="bold"
-          >
-            Note
-          </h5>
+          Note
         </div>
         <div
           class="decorated-list-item__content"

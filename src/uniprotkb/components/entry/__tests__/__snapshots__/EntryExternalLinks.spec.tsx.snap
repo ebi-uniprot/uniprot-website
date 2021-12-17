@@ -50,13 +50,9 @@ exports[`Entry - External Links view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  ENZYME
-                </h5>
+                ENZYME
               </div>
               <div
                 class="decorated-list-item__content"
@@ -71,7 +67,7 @@ exports[`Entry - External Links view should render 1`] = `
                       rel="noopener"
                       target="_blank"
                     >
-                      Search...
+                      Search…
                       <test-file-stub
                         data-testid="external-link-icon"
                         width="12.5"
@@ -94,13 +90,9 @@ exports[`Entry - External Links view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  MobiDB
-                </h5>
+                MobiDB
               </div>
               <div
                 class="decorated-list-item__content"
@@ -115,7 +107,7 @@ exports[`Entry - External Links view should render 1`] = `
                       rel="noopener"
                       target="_blank"
                     >
-                      Search...
+                      Search…
                       <test-file-stub
                         data-testid="external-link-icon"
                         width="12.5"
@@ -131,13 +123,9 @@ exports[`Entry - External Links view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  ProtoNet
-                </h5>
+                ProtoNet
               </div>
               <div
                 class="decorated-list-item__content"
@@ -152,7 +140,7 @@ exports[`Entry - External Links view should render 1`] = `
                       rel="noopener"
                       target="_blank"
                     >
-                      Search...
+                      Search…
                       <test-file-stub
                         data-testid="external-link-icon"
                         width="12.5"
@@ -175,13 +163,9 @@ exports[`Entry - External Links view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Ensembl
-                </h5>
+                Ensembl
               </div>
               <div
                 class="decorated-list-item__content"
@@ -238,13 +222,9 @@ exports[`Entry - External Links view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  ModBase
-                </h5>
+                ModBase
               </div>
               <div
                 class="decorated-list-item__content"
@@ -259,7 +239,7 @@ exports[`Entry - External Links view should render 1`] = `
                       rel="noopener"
                       target="_blank"
                     >
-                      Search...
+                      Search…
                       <test-file-stub
                         data-testid="external-link-icon"
                         width="12.5"
@@ -275,13 +255,9 @@ exports[`Entry - External Links view should render 1`] = `
               class="decorated-list-item"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  SWISS-MODEL-Workspace
-                </h5>
+                SWISS-MODEL-Workspace
               </div>
               <div
                 class="decorated-list-item__content"
@@ -296,7 +272,7 @@ exports[`Entry - External Links view should render 1`] = `
                       rel="noopener"
                       target="_blank"
                     >
-                      Submit a new modelling project...
+                      Submit a new modelling project…
                       <test-file-stub
                         data-testid="external-link-icon"
                         width="12.5"

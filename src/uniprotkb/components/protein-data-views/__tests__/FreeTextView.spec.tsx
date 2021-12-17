@@ -38,6 +38,16 @@ describe('FreeText component', () => {
     });
   });
 
+  describe('Free text CC, with inlined PubMeds and AC<accession>', () => {
+    beforeEach(() => {
+      customRender(<FreeTextView comments={[freeTextUIData[2]]} />);
+    });
+
+    it('should render pubmed and AC links', () => {
+      expect(screen.queryAllByRole('link')).toHaveLength(3);
+    });
+  });
+
   describe('Free text CC, no inlined PubMeds, no evidence tag', () => {
     beforeEach(() => {
       customRender(<FreeTextView comments={[freeTextUIData[0]]} noEvidence />);

@@ -33,7 +33,7 @@ const DatabaseCard = ({ data }: { data: DatabaseAPIModel }) => {
       header={
         <>
           <CardCheckboxCell id={id} />
-          <h2 className="tiny">{data.abbrev}</h2>
+          <h2 className="small">{data.abbrev}</h2>
         </>
       }
       headerSeparator={false}
