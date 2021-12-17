@@ -20,7 +20,7 @@ import { addMessage } from '../../messages/state/messagesActions';
 import apiUrls from '../../shared/config/apiUrls';
 
 import entryToFASTAWithHeaders from '../../shared/utils/entryToFASTAWithHeaders';
-import { uniProtKBAccessionRegEx } from '../../uniprotkb/utils';
+import { reUniProtKBAccession } from '../../uniprotkb/utils';
 import fetchData from '../../shared/utils/fetchData';
 import * as logging from '../../shared/utils/logging';
 
@@ -47,7 +47,7 @@ const getURLForAccessionOrID = (input: string) => {
   }
 
   // UniProtKB accession
-  if (uniProtKBAccessionRegEx.test(cleanedInput)) {
+  if (reUniProtKBAccession.test(cleanedInput)) {
     return apiUrls.entry(cleanedInput, Namespace.uniprotkb);
   }
 

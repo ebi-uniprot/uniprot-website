@@ -6,7 +6,7 @@ exports[`BlastForm test Renders the form 1`] = `
     class="page-intro"
   >
     <h1
-      class="big"
+      class=""
     >
       BLAST
     </h1>

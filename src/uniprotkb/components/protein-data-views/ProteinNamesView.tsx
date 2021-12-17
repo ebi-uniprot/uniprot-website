@@ -132,7 +132,7 @@ export const ECNumbersView = ({
               search: `query=ec:${ecNumber.value}`,
             }}
           >
-            UniProtkb
+            UniProtKB
           </Link>{' '}
           |{' '}
           <ExternalLink url={externalUrls.ENZYME(ecNumber.value)}>

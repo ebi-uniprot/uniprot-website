@@ -26,13 +26,9 @@ exports[`EntryMain view should render 1`] = `
               class="decorated-list-item decorated-list-item--compact"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Status
-                </h5>
+                Status
               </div>
               <div
                 class="decorated-list-item__content"
@@ -52,13 +48,9 @@ exports[`EntryMain view should render 1`] = `
               class="decorated-list-item decorated-list-item--compact"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Protein count
-                </h5>
+                Protein count
               </div>
               <div
                 class="decorated-list-item__content"
@@ -76,13 +68,9 @@ exports[`EntryMain view should render 1`] = `
               class="decorated-list-item decorated-list-item--compact"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Gene count
-                </h5>
+                Gene count
               </div>
               <div
                 class="decorated-list-item__content"
@@ -101,13 +89,9 @@ exports[`EntryMain view should render 1`] = `
               class="decorated-list-item decorated-list-item--compact"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Proteome ID
-                </h5>
+                Proteome ID
               </div>
               <div
                 class="decorated-list-item__content"
@@ -121,13 +105,9 @@ exports[`EntryMain view should render 1`] = `
               class="decorated-list-item decorated-list-item--compact"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Taxonomy
-                </h5>
+                Taxonomy
               </div>
               <div
                 class="decorated-list-item__content"
@@ -146,13 +126,9 @@ exports[`EntryMain view should render 1`] = `
               class="decorated-list-item decorated-list-item--compact"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Last modified
-                </h5>
+                Last modified
               </div>
               <div
                 class="decorated-list-item__content"
@@ -170,13 +146,9 @@ exports[`EntryMain view should render 1`] = `
               class="decorated-list-item decorated-list-item--compact"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Genome assembly and annotation
-                </h5>
+                Genome assembly and annotation
               </div>
               <div
                 class="decorated-list-item__content"
@@ -201,13 +173,9 @@ exports[`EntryMain view should render 1`] = `
               class="decorated-list-item decorated-list-item--compact"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
-                >
-                  Genome representation
-                </h5>
+                Genome representation
               </div>
               <div
                 class="decorated-list-item__content"
@@ -221,17 +189,13 @@ exports[`EntryMain view should render 1`] = `
               class="decorated-list-item decorated-list-item--compact"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
+                <abbr
+                  title="Complete Proteome Detector"
                 >
-                  <abbr
-                    title="Complete Proteome Detector"
-                  >
-                    CPD
-                  </abbr>
-                </h5>
+                  CPD
+                </abbr>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -245,17 +209,13 @@ exports[`EntryMain view should render 1`] = `
               class="decorated-list-item decorated-list-item--compact"
             >
               <div
-                class="decorated-list-item__title"
+                class="decorated-list-item__title tiny"
               >
-                <h5
-                  class="bold"
+                <abbr
+                  title="Benchmarking Universal Single-Copy Orthologs"
                 >
-                  <abbr
-                    title="Benchmarking Universal Single-Copy Orthologs"
-                  >
-                    BUSCO
-                  </abbr>
-                </h5>
+                  BUSCO
+                </abbr>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -1648,7 +1608,7 @@ exports[`EntryMain view should render 1`] = `
                       class="publication__columns__main"
                     >
                       <h3
-                        class="publication__heading tiny"
+                        class="publication__heading small"
                       >
                         Sequence and organization of the human mitochondrial genome.
                       </h3>
@@ -1819,7 +1779,7 @@ exports[`EntryMain view should render 1`] = `
                       class="publication__columns__main"
                     >
                       <h3
-                        class="publication__heading tiny"
+                        class="publication__heading small"
                       >
                         The DNA sequence of human chromosome 22.
                       </h3>
@@ -1990,7 +1950,7 @@ exports[`EntryMain view should render 1`] = `
                       class="publication__columns__main"
                     >
                       <h3
-                        class="publication__heading tiny"
+                        class="publication__heading small"
                       >
                         The DNA sequence of human chromosome 21.
                       </h3>
@@ -2161,7 +2121,7 @@ exports[`EntryMain view should render 1`] = `
                       class="publication__columns__main"
                     >
                       <h3
-                        class="publication__heading tiny"
+                        class="publication__heading small"
                       >
                         The DNA sequence and comparative analysis of human chromosome 20.
                       </h3>
@@ -2332,7 +2292,7 @@ exports[`EntryMain view should render 1`] = `
                       class="publication__columns__main"
                     >
                       <h3
-                        class="publication__heading tiny"
+                        class="publication__heading small"
                       >
                         The DNA sequence and analysis of human chromosome 14.
                       </h3>
@@ -2503,7 +2463,7 @@ exports[`EntryMain view should render 1`] = `
                       class="publication__columns__main"
                     >
                       <h3
-                        class="publication__heading tiny"
+                        class="publication__heading small"
                       >
                         The male-specific region of the human Y chromosome is a mosaic of discrete sequence classes.
                       </h3>
@@ -2674,7 +2634,7 @@ exports[`EntryMain view should render 1`] = `
                       class="publication__columns__main"
                     >
                       <h3
-                        class="publication__heading tiny"
+                        class="publication__heading small"
                       >
                         The DNA sequence of human chromosome 7.
                       </h3>
@@ -2845,7 +2805,7 @@ exports[`EntryMain view should render 1`] = `
                       class="publication__columns__main"
                     >
                       <h3
-                        class="publication__heading tiny"
+                        class="publication__heading small"
                       >
                         The DNA sequence and analysis of human chromosome 6.
                       </h3>
@@ -3016,7 +2976,7 @@ exports[`EntryMain view should render 1`] = `
                       class="publication__columns__main"
                     >
                       <h3
-                        class="publication__heading tiny"
+                        class="publication__heading small"
                       >
                         The DNA sequence and analysis of human chromosome 13.
                       </h3>
@@ -3187,7 +3147,7 @@ exports[`EntryMain view should render 1`] = `
                       class="publication__columns__main"
                     >
                       <h3
-                        class="publication__heading tiny"
+                        class="publication__heading small"
                       >
                         The DNA sequence and biology of human chromosome 19.
                       </h3>
@@ -3358,7 +3318,7 @@ exports[`EntryMain view should render 1`] = `
                       class="publication__columns__main"
                     >
                       <h3
-                        class="publication__heading tiny"
+                        class="publication__heading small"
                       >
                         DNA sequence and analysis of human chromosome 9.
                       </h3>
@@ -3529,7 +3489,7 @@ exports[`EntryMain view should render 1`] = `
                       class="publication__columns__main"
                     >
                       <h3
-                        class="publication__heading tiny"
+                        class="publication__heading small"
                       >
                         The DNA sequence and comparative analysis of human chromosome 10.
                       </h3>
@@ -3700,7 +3660,7 @@ exports[`EntryMain view should render 1`] = `
                       class="publication__columns__main"
                     >
                       <h3
-                        class="publication__heading tiny"
+                        class="publication__heading small"
                       >
                         The DNA sequence and comparative analysis of human chromosome 5.
                       </h3>
@@ -3871,7 +3831,7 @@ exports[`EntryMain view should render 1`] = `
                       class="publication__columns__main"
                     >
                       <h3
-                        class="publication__heading tiny"
+                        class="publication__heading small"
                       >
                         The sequence and analysis of duplication-rich human chromosome 16.
                       </h3>
@@ -4042,7 +4002,7 @@ exports[`EntryMain view should render 1`] = `
                       class="publication__columns__main"
                     >
                       <h3
-                        class="publication__heading tiny"
+                        class="publication__heading small"
                       >
                         The DNA sequence of the human X chromosome.
                       </h3>
@@ -4213,7 +4173,7 @@ exports[`EntryMain view should render 1`] = `
                       class="publication__columns__main"
                     >
                       <h3
-                        class="publication__heading tiny"
+                        class="publication__heading small"
                       >
                         Generation and annotation of the DNA sequences of human chromosomes 2 and 4.
                       </h3>
@@ -4384,7 +4344,7 @@ exports[`EntryMain view should render 1`] = `
                       class="publication__columns__main"
                     >
                       <h3
-                        class="publication__heading tiny"
+                        class="publication__heading small"
                       >
                         DNA sequence and analysis of human chromosome 18.
                       </h3>
@@ -4555,7 +4515,7 @@ exports[`EntryMain view should render 1`] = `
                       class="publication__columns__main"
                     >
                       <h3
-                        class="publication__heading tiny"
+                        class="publication__heading small"
                       >
                         DNA sequence and analysis of human chromosome 8.
                       </h3>
@@ -4726,7 +4686,7 @@ exports[`EntryMain view should render 1`] = `
                       class="publication__columns__main"
                     >
                       <h3
-                        class="publication__heading tiny"
+                        class="publication__heading small"
                       >
                         DNA sequence of human chromosome 17 and analysis of rearrangement in the human lineage.
                       </h3>
@@ -4897,7 +4857,7 @@ exports[`EntryMain view should render 1`] = `
                       class="publication__columns__main"
                     >
                       <h3
-                        class="publication__heading tiny"
+                        class="publication__heading small"
                       >
                         The DNA sequence, annotation and analysis of human chromosome 3.
                       </h3>
@@ -5068,7 +5028,7 @@ exports[`EntryMain view should render 1`] = `
                       class="publication__columns__main"
                     >
                       <h3
-                        class="publication__heading tiny"
+                        class="publication__heading small"
                       >
                         The finished DNA sequence of human chromosome 12.
                       </h3>
@@ -5239,7 +5199,7 @@ exports[`EntryMain view should render 1`] = `
                       class="publication__columns__main"
                     >
                       <h3
-                        class="publication__heading tiny"
+                        class="publication__heading small"
                       >
                         Human chromosome 11 DNA sequence and analysis including novel gene identification.
                       </h3>
@@ -5410,7 +5370,7 @@ exports[`EntryMain view should render 1`] = `
                       class="publication__columns__main"
                     >
                       <h3
-                        class="publication__heading tiny"
+                        class="publication__heading small"
                       >
                         Analysis of the DNA sequence and duplication history of human chromosome 15.
                       </h3>
@@ -5581,7 +5541,7 @@ exports[`EntryMain view should render 1`] = `
                       class="publication__columns__main"
                     >
                       <h3
-                        class="publication__heading tiny"
+                        class="publication__heading small"
                       >
                         The DNA sequence and biological annotation of human chromosome 1.
                       </h3>

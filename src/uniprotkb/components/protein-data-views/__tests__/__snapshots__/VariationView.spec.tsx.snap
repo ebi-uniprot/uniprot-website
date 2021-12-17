@@ -82,7 +82,7 @@ exports[`VariationView component renders on data 1`] = `
               data-id="featureA"
             >
               <td>
-                10-10
+                10
               </td>
               <td>
                 &gt;

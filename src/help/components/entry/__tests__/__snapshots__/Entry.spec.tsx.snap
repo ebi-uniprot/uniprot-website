@@ -28,7 +28,7 @@ exports[`Help entry tests should render the Entry component 1`] = `
         </section>
       </div>
       <h1
-        class="medium"
+        class="big"
       >
         What is the canonical sequence? Are all isoforms described in one entry?
       </h1>

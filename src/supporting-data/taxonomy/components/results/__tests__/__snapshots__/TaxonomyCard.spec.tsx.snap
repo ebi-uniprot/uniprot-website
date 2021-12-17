@@ -33,7 +33,7 @@ exports[`Taxonomy Card tests should render 1`] = `
           />
         </span>
         <h2
-          class="tiny"
+          class="small"
         >
           <a
             href="/taxonomy/11652"

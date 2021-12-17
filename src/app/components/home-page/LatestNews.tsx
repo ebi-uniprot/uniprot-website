@@ -59,7 +59,7 @@ const LatestNews = () => {
         )}
       >
         <div className={styles['latest-news__news-roll-heading']}>
-          <h2 className="medium">Latest News</h2>
+          <h2>Latest News</h2>
           <ExternalLink url="https://www.uniprot.org/news?sort=created" noIcon>
             View archive
           </ExternalLink>
@@ -67,7 +67,7 @@ const LatestNews = () => {
         <ul className="no-bullet">
           <li>
             <article>
-              <h3 className="micro">
+              <h3 className="tiny">
                 <ExternalLink
                   url="https://www.uniprot.org/changes?sort=published"
                   noIcon
@@ -87,7 +87,7 @@ const LatestNews = () => {
           </li>
           <li>
             <article>
-              <h3 className="micro">
+              <h3 className="tiny">
                 <ExternalLink
                   url="https://www.uniprot.org/news/2021/11/17/release"
                   noIcon
@@ -107,7 +107,7 @@ const LatestNews = () => {
           </li>
           <li>
             <article>
-              <h3 className="micro">
+              <h3 className="tiny">
                 <ExternalLink
                   url="https://www.uniprot.org/news/2021/06/02/release"
                   noIcon
@@ -129,7 +129,7 @@ const LatestNews = () => {
           </li>
           <li>
             <article>
-              <h3 className="micro">
+              <h3 className="tiny">
                 <ExternalLink
                   url="https://www.uniprot.org/news/2021/04/07/release"
                   noIcon
@@ -151,7 +151,7 @@ const LatestNews = () => {
           </li>
           <li>
             <article>
-              <h3 className="micro">
+              <h3 className="tiny">
                 <ExternalLink
                   url="https://www.uniprot.org/news/2021/02/10/release"
                   noIcon
@@ -173,7 +173,7 @@ const LatestNews = () => {
           </li>
           <li>
             <article>
-              <h3 className="micro">
+              <h3 className="tiny">
                 <ExternalLink
                   url="https://www.uniprot.org/news/2020/12/02/release"
                   noIcon
@@ -194,7 +194,7 @@ const LatestNews = () => {
           </li>
           <li>
             <article>
-              <h3 className="micro">
+              <h3 className="tiny">
                 <ExternalLink
                   url="https://www.uniprot.org/news/2020/10/07/release"
                   noIcon
@@ -236,7 +236,7 @@ const LatestNews = () => {
               height="127.29"
             />
           </ExternalLink>
-          <h3 className="micro">
+          <h3 className="tiny">
             <ExternalLink
               url="https://insideuniprot.blogspot.com/2021/11/navigating-use-of-tools-of-new-uniprot.html"
               noIcon
@@ -268,7 +268,7 @@ const LatestNews = () => {
               height="143.55"
             />
           </ExternalLink>
-          <h3 className="micro">
+          <h3 className="tiny">
             <ExternalLink
               url="https://insideuniprot.blogspot.com/2021/10/a-new-look-to-uniprot.html"
               noIcon

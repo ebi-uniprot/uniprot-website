@@ -36,7 +36,7 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
         class="publication__columns__main"
       >
         <h5
-          class="publication__heading tiny"
+          class="publication__heading small"
         >
           A peptide zipcode sufficient for anterograde transport within amyloid precursor protein.
         </h5>
@@ -179,7 +179,7 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
         class="publication__columns__main"
       >
         <h5
-          class="publication__heading tiny"
+          class="publication__heading small"
         >
           Quantitative measurements and modeling of cargo-motor interactions during fast transport in the living axon.
         </h5>
@@ -334,7 +334,7 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
         class="publication__columns__main"
       >
         <h5
-          class="publication__heading tiny"
+          class="publication__heading small"
         >
           Amyloid precursor protein dimerization and synaptogenic function depend on copper binding to the growth factor-like domain.
         </h5>

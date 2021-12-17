@@ -143,12 +143,12 @@ const Entry: FC = () => {
               searchableNamespaceLabels[Namespace.uniparc],
             ]}
           />
-          <h1 className="big">
+          <h1>
             <EntryTitle
               mainTitle="UniParc"
               optionalTitle={transformedData.uniParcId}
             />
-            <BasketStatus id={transformedData.uniParcId} className="big" />
+            <BasketStatus id={transformedData.uniParcId} className="small" />
           </h1>
         </ErrorBoundary>
       }

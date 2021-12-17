@@ -20,7 +20,7 @@ const HelpCard = ({ id, title, titleMatch, contentMatch }: Props) => {
     <Card
       data-testid="help-card"
       header={
-        <h2 className="tiny" data-testid="help-title">
+        <h2 className="small" data-testid="help-title">
           <Link to={to}>
             {titleMatch ? <CleanHighlightMarkDown md={titleMatch} /> : title}
           </Link>

@@ -40,14 +40,14 @@ const UniProtKBCard = ({ data }: { data: UniProtkbAPIModel }) => {
       header={
         <>
           <CardCheckboxCell id={id} />
-          <h2 className="tiny">
+          <h2 className="small">
             <EntryTitle
               mainTitle={id}
               optionalTitle={data.uniProtkbId}
               entryType={data.entryType}
             />
           </h2>
-          <BasketStatus id={id} />
+          <BasketStatus id={id} className="tiny" />
         </>
       }
       headerSeparator={false}

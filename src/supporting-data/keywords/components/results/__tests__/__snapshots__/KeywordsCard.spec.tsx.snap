@@ -33,7 +33,7 @@ exports[`KeywordsCard tests should render the card component 1`] = `
           />
         </span>
         <h2
-          class="tiny"
+          class="small"
         >
           Allosteric enzyme
         </h2>

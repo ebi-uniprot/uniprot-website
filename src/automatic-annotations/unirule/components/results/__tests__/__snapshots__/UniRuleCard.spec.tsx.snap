@@ -33,7 +33,7 @@ exports[`UniRuleCard tests should render the card component 1`] = `
           />
         </span>
         <h2
-          class="tiny"
+          class="small"
         >
           UR000048432
         </h2>

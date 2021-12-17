@@ -74,7 +74,7 @@ exports[`CatalyticActivityView component should render catalytic activity 1`] = 
     <a
       href="/uniprotkb?query=ec:EC:12112"
     >
-      UniProtkb
+      UniProtKB
     </a>
      | 
     <a
@@ -176,7 +176,7 @@ exports[`CatalyticActivityView component should render catalytic activity when c
     <a
       href="/uniprotkb?query=ec:EC:12112"
     >
-      UniProtkb
+      UniProtKB
     </a>
      | 
     <a

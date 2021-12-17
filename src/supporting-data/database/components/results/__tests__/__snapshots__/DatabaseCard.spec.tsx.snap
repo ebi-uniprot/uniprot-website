@@ -33,7 +33,7 @@ exports[`DatabaseCard tests should render the card component 1`] = `
           />
         </span>
         <h2
-          class="tiny"
+          class="small"
         >
           EMBL
         </h2>

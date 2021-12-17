@@ -14,13 +14,9 @@ exports[`ProteomesEntryView component should render 1`] = `
             class="decorated-list-item"
           >
             <div
-              class="decorated-list-item__title"
+              class="decorated-list-item__title tiny"
             >
-              <h5
-                class="bold"
-              >
-                Identifier
-              </h5>
+              Identifier
             </div>
             <div
               class="decorated-list-item__content"
@@ -38,13 +34,9 @@ exports[`ProteomesEntryView component should render 1`] = `
             class="decorated-list-item"
           >
             <div
-              class="decorated-list-item__title"
+              class="decorated-list-item__title tiny"
             >
-              <h5
-                class="bold"
-              >
-                Component
-              </h5>
+              Component
             </div>
             <div
               class="decorated-list-item__content"

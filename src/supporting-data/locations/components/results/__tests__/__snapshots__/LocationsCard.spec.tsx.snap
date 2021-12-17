@@ -33,7 +33,7 @@ exports[`CitationCard tests should render the card component 1`] = `
           />
         </span>
         <h2
-          class="tiny"
+          class="small"
         >
           Endoplasmic reticulum-Golgi intermediate compartment membrane
         </h2>

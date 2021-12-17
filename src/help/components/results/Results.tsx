@@ -115,7 +115,7 @@ const Results = ({ history, location }: RouteChildrenProps) => {
     <SideBarLayout
       sidebar={
         <>
-          <h1 className="big">Help results</h1>
+          <h1>Help results</h1>
           <ResultsFacets
             dataApiObject={
               dataObject.data?.facets ? dataObject : fallBackAppliedFacets

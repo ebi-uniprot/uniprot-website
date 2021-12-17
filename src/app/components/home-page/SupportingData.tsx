@@ -23,7 +23,7 @@ const SupportingData = () => (
     noSidePadding
   >
     <div className="uniprot-grid-cell--span-3">
-      <h3 className={styles['supporting-data__header']}>Supporting Data</h3>
+      <h2 className={styles['supporting-data__header']}>Supporting Data</h2>
     </div>
     <div className="uniprot-grid-cell--span-3">
       <DecoratedListItem compact altStyle>
