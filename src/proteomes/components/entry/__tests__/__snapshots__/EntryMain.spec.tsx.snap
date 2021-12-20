@@ -5036,6 +5036,11 @@ exports[`EntryMain view should render 1`] = `
                         class="publication__authors"
                       >
                         <a
+                          href="/uniprotkb?query=lit_author:\\"Baylor College of Medicine Human Genome Sequencing Center Sequence Production Team\\""
+                        >
+                          Baylor College of Medicine Human Genome Sequencing Center Sequence Production Team
+                        </a>
+                        <a
                           href="/uniprotkb?query=lit_author:\\"Scherer S.E.\\""
                         >
                           Scherer S.E.

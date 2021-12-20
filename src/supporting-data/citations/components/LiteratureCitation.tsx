@@ -31,7 +31,8 @@ import {
 import '../../../shared/styles/literature-citation.scss';
 
 type AuthorProps = {
-  authors: string[];
+  authors?: string[];
+  authoringGroup?: string[];
   limit?: number;
 };
 
@@ -70,15 +71,30 @@ export const getLocatorUrl = (
   }
 };
 
-const Authors: FC<AuthorProps> = ({ authors, limit = 10 }) => {
+const getChoppedAuthorLists = (authors: string[], limit: number) => {
   const cutoff = authors.length > limit ? authors.length : limit;
 
   const displayedAuthors = authors.slice(0, limit - 1);
   const hiddenAuthors = authors.slice(limit - 1, cutoff - 1);
   const lastAuthor = authors.slice(cutoff - 1);
+  return { displayedAuthors, hiddenAuthors, lastAuthor };
+};
+
+const Authors: FC<AuthorProps> = ({ authors, authoringGroup, limit = 10 }) => {
+  const { displayedAuthors, hiddenAuthors, lastAuthor } = getChoppedAuthorLists(
+    authors || [],
+    limit
+  );
 
   return (
     <div className="publication__authors">
+      {authoringGroup?.map((group, index) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <Fragment key={index}>
+          {index !== 0 && ', '}
+          <Link to={getLinkToAuthor(group)}>{group}</Link>
+        </Fragment>
+      ))}
       {displayedAuthors.map((author, index) => (
         // eslint-disable-next-line react/no-array-index-key
         <Fragment key={index}>
@@ -88,7 +104,7 @@ const Authors: FC<AuthorProps> = ({ authors, limit = 10 }) => {
       ))}
       {hiddenAuthors.length > 0 && (
         <EllipsisReveal>
-          {hiddenAuthors.map((author, index) => (
+          {hiddenAuthors?.map((author, index) => (
             // eslint-disable-next-line react/no-array-index-key
             <Fragment key={index}>
               , <Link to={getLinkToAuthor(author)}>{author}</Link>
@@ -306,7 +322,7 @@ const LiteratureCitation: FC<
   ...props
 }) => {
   const { citation, statistics } = data;
-  const { title, authors, literatureAbstract } = citation;
+  const { title, authors, literatureAbstract, authoringGroup } = citation;
   const { pubmedId, journalInfo } = formatCitationData(citation);
 
   return (
@@ -322,9 +338,11 @@ const LiteratureCitation: FC<
             },
             title || <em>No title available.</em>
           )}
-          {authors?.length && (
-            <Authors authors={authors} limit={displayAll ? +Infinity : 10} />
-          )}
+          <Authors
+            authors={authors}
+            authoringGroup={authoringGroup}
+            limit={displayAll ? +Infinity : 10}
+          />
           {literatureAbstract && (
             <Abstract abstract={literatureAbstract} open={displayAll} />
           )}
