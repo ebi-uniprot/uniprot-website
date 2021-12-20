@@ -12,6 +12,7 @@ import {
   ExternalLink,
   EllipsisReveal,
 } from 'franklin-sites';
+import { capitalize } from 'lodash-es';
 import { SetOptional } from 'type-fest';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
@@ -25,6 +26,7 @@ import cleanText, {
 
 import {
   CitationsAPIModel,
+  CitationType,
   formatCitationData,
 } from '../adapters/citationsConverter';
 
@@ -160,6 +162,7 @@ type JournalInfoProps = {
     volume?: string;
     doiId?: string;
     submissionDatabase?: string;
+    citationType?: CitationType;
     locator?: string;
   };
 };
@@ -173,6 +176,7 @@ export const JournalInfo: FC<JournalInfoProps> = ({
     volume,
     doiId,
     submissionDatabase,
+    citationType,
     locator,
   },
 }) => {
@@ -198,8 +202,16 @@ export const JournalInfo: FC<JournalInfoProps> = ({
     );
   }
 
+  const noDisplayCitationTypes: CitationType[] = [
+    'UniProt indexed literatures',
+    'journal article',
+  ];
+
   const content = (
     <>
+      {citationType && !noDisplayCitationTypes.includes(citationType) && (
+        <div className="tiny">{capitalize(citationType)}</div>
+      )}
       {name} {volume}
       {volume && page && ':'}
       {page}
