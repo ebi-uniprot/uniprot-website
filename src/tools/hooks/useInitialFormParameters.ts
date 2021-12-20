@@ -2,6 +2,7 @@ import { useEffect, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 import { cloneDeep } from 'lodash-es';
 
+import { sequenceProcessor } from 'franklin-sites';
 import useDataApi from '../../shared/hooks/useDataApi';
 
 import { parseIdsFromSearchParams } from '../utils/urls';
@@ -124,6 +125,11 @@ function useInitialFormParameters<
       formValues['Sequence' as Fields] = Object.freeze({
         fieldName: 'sequence',
         selected: sequences,
+      });
+      const parsedSequences = sequenceProcessor(sequences);
+      formValues['Name' as Fields] = Object.freeze({
+        fieldName: 'name',
+        selected: parsedSequences[0]?.name || '',
       });
     }
 
