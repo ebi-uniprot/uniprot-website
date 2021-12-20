@@ -677,7 +677,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.tempDependence, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.annotationScore, {
-  label: 'Score',
+  label: 'Annotation',
   render: (data) => (
     <AnnotationScoreDoughnutChart
       score={data.annotationScore}

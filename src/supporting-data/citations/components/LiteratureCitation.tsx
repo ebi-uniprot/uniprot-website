@@ -214,67 +214,80 @@ const Statistics: FC<StatisticsProps> = ({ statistics, id }) => {
     communityMappedProteinCount,
   } = statistics || {};
   return (
-    <>
-      <small>Mapped to</small>
-      <div className="publication__statistics">
-        {reviewedProteinCount ? (
-          <Link
-            to={{
-              pathname: LocationToPath[Location.UniProtKBResults],
-              search: `facets=reviewed:true&query=(lit_citation_id:${id})`,
-            }}
-            title={`UniProtKB reviewed entries: ${reviewedProteinCount}`}
-          >
-            <Bubble size="small">{reviewedProteinCount}</Bubble>
-            <SwissProtIcon
-              className="publication__statistics--reviewed"
-              height="1em"
-            />
-          </Link>
-        ) : undefined}
-        {unreviewedProteinCount ? (
-          <Link
-            to={{
-              pathname: LocationToPath[Location.UniProtKBResults],
-              search: `facets=reviewed:false&query=(lit_citation_id:${id})`,
-            }}
-            title={`UniProtKB unreviewed entries: ${unreviewedProteinCount}`}
-          >
-            <Bubble size="small">{unreviewedProteinCount}</Bubble>
-            <TremblIcon
-              className="publication__statistics--unreviewed"
-              height="1em"
-            />
-          </Link>
-        ) : undefined}
-        {computationallyMappedProteinCount ? (
-          <Link
-            to={{
-              pathname: LocationToPath[Location.UniProtKBResults],
-              // NOTE: only works for PubMed IDs
-              search: `query=(computational_pubmed_id:${id})`,
-            }}
-            title={`Computationally mapped entries: ${computationallyMappedProteinCount}`}
-          >
-            <Bubble size="small">{computationallyMappedProteinCount}</Bubble>
-            <ComputerMappedIcon height="1em" />
-          </Link>
-        ) : undefined}
-        {communityMappedProteinCount ? (
-          <Link
-            to={{
-              pathname: LocationToPath[Location.UniProtKBResults],
-              // NOTE: only works for PubMed IDs
-              search: `query=(community_pubmed_id:${id})`,
-            }}
-            title={`Community mapped entries: ${communityMappedProteinCount}`}
-          >
-            <Bubble size="small">{communityMappedProteinCount}</Bubble>
-            <CommunityAnnotationIcon height="1em" />
-          </Link>
-        ) : undefined}
-      </div>
-    </>
+    <div className="publication__statistics">
+      {reviewedProteinCount || unreviewedProteinCount ? (
+        <div className="publication__statistics__content">
+          <small>Cited in</small>
+          <div className="publication__statistics__content__body">
+            {reviewedProteinCount ? (
+              <Link
+                to={{
+                  pathname: LocationToPath[Location.UniProtKBResults],
+                  search: `facets=reviewed:true&query=(lit_citation_id:${id})`,
+                }}
+                title={`UniProtKB reviewed entries: ${reviewedProteinCount}`}
+              >
+                <Bubble size="small">{reviewedProteinCount}</Bubble>
+                <SwissProtIcon
+                  className="publication__statistics__content__body--reviewed"
+                  height="1em"
+                />
+              </Link>
+            ) : undefined}
+            {unreviewedProteinCount ? (
+              <Link
+                to={{
+                  pathname: LocationToPath[Location.UniProtKBResults],
+                  search: `facets=reviewed:false&query=(lit_citation_id:${id})`,
+                }}
+                title={`UniProtKB unreviewed entries: ${unreviewedProteinCount}`}
+              >
+                <Bubble size="small">{unreviewedProteinCount}</Bubble>
+                <TremblIcon
+                  className="publication__statistics__content__body--unreviewed"
+                  height="1em"
+                />
+              </Link>
+            ) : undefined}
+          </div>
+        </div>
+      ) : undefined}
+      {computationallyMappedProteinCount || communityMappedProteinCount ? (
+        <div className="publication__statistics__content">
+          <small>Mapped to</small>
+          <div className="publication__statistics__content__body">
+            {computationallyMappedProteinCount ? (
+              <Link
+                to={{
+                  pathname: LocationToPath[Location.UniProtKBResults],
+                  // NOTE: only works for PubMed IDs
+                  search: `query=(computational_pubmed_id:${id})`,
+                }}
+                title={`Computationally mapped entries: ${computationallyMappedProteinCount}`}
+              >
+                <Bubble size="small">
+                  {computationallyMappedProteinCount}
+                </Bubble>
+                <ComputerMappedIcon height="1em" />
+              </Link>
+            ) : undefined}
+            {communityMappedProteinCount ? (
+              <Link
+                to={{
+                  pathname: LocationToPath[Location.UniProtKBResults],
+                  // NOTE: only works for PubMed IDs
+                  search: `query=(community_pubmed_id:${id})`,
+                }}
+                title={`Community mapped entries: ${communityMappedProteinCount}`}
+              >
+                <Bubble size="small">{communityMappedProteinCount}</Bubble>
+                <CommunityAnnotationIcon height="1em" />
+              </Link>
+            ) : undefined}
+          </div>
+        </div>
+      ) : undefined}
+    </div>
   );
 };
 

@@ -50,22 +50,27 @@
 
   &__statistics {
     display: flex;
+    gap: 1rem;
+    &__content {
+      &__body {
+        display: flex;
+        .bubble--small {
+          --main-bubble-color: #{$colour-pastel-blue};
+          color: $colour-yankees-blue;
+        }
 
-    .bubble--small {
-      --main-bubble-color: #{$colour-pastel-blue};
-      color: $colour-yankees-blue;
-    }
+        & > *:not(:last-child) {
+          margin-right: $global-margin;
+        }
 
-    & > *:not(:last-child) {
-      margin-right: $global-margin;
-    }
+        &--reviewed {
+          color: $colour-reviewed;
+        }
 
-    &--reviewed {
-      color: $colour-reviewed;
-    }
-
-    &--unreviewed {
-      color: $colour-unreviewed;
+        &--unreviewed {
+          color: $colour-unreviewed;
+        }
+      }
     }
   }
 }
