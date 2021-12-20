@@ -1,5 +1,5 @@
 import { FC, useState, useEffect, useMemo, Fragment } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {
   Card,
   Loader,
@@ -8,6 +8,7 @@ import {
   ExternalLink,
 } from 'franklin-sites';
 import { Except, SetRequired, Simplify } from 'type-fest';
+import { groupBy, capitalize } from 'lodash-es';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
@@ -22,7 +23,11 @@ import { getIdKeyFor } from '../../../shared/utils/getIdKeyForNamespace';
 import { getParamsFromURL } from '../../utils/resultsUtils';
 import { processUrlTemplate } from '../protein-data-views/XRefView';
 
-import { getEntryPath } from '../../../app/config/urls';
+import {
+  getEntryPath,
+  Location,
+  LocationToPath,
+} from '../../../app/config/urls';
 import { getUniProtPublicationsQueryUrl } from '../../../shared/config/apiUrls';
 
 import {
@@ -33,10 +38,10 @@ import { Namespace } from '../../../shared/types/namespaces';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { addBlastLinksToFreeText } from '../../../shared/utils/utils';
 
-const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
-  reference,
-  accession,
-}) => {
+const PublicationReference: FC<{
+  reference: Reference;
+  accession: string;
+}> = ({ reference, accession }) => {
   const {
     referencePositions,
     referenceComments,
@@ -61,6 +66,8 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
     }
     return null;
   }, [databaseInfoMaps, source]);
+
+  const groupedReferenceComments = groupBy(referenceComments, 'type');
 
   const infoListData = [
     {
@@ -105,10 +112,35 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
           )
         ),
     },
-    {
-      title: 'Tissue',
-      content: referenceComments?.map(({ value }) => value).join(', '),
-    },
+    ...Object.entries(groupedReferenceComments).map(([type, comments]) => {
+      // Capitalise title
+      const title = capitalize(type);
+      return {
+        title,
+        content: (
+          <>
+            {comments.map((comment, i) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <Fragment key={i}>
+                {i > 0 && ', '}
+                {type === 'STRAIN' ? (
+                  <Link
+                    to={{
+                      pathname: LocationToPath[Location.UniProtKBResults],
+                      search: `query=strain:"${comment.value}"`,
+                    }}
+                  >
+                    {comment.value}
+                  </Link>
+                ) : (
+                  comment.value
+                )}
+              </Fragment>
+            ))}
+          </>
+        ),
+      };
+    }),
     {
       title: 'Annotation',
       // both mutually exclusive
