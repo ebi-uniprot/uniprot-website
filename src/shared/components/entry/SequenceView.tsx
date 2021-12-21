@@ -437,6 +437,8 @@ const SequenceView = ({ accession, data }: SequenceViewProps) => {
     return null;
   }
 
+  const infoListComponent = <InfoList infoData={sequenceInfoData} columns />;
+
   const canonicalComponent = (
     <SequenceInfo
       isoformId={accession}
@@ -447,7 +449,12 @@ const SequenceView = ({ accession, data }: SequenceViewProps) => {
   );
 
   if (!data.alternativeProducts && data.sequence) {
-    return canonicalComponent;
+    return (
+      <>
+        {infoListComponent}
+        {canonicalComponent}
+      </>
+    );
   }
 
   if (!data.alternativeProducts) {
@@ -479,7 +486,7 @@ const SequenceView = ({ accession, data }: SequenceViewProps) => {
         {/* Missing Add to basket */}
       </div>
 
-      <InfoList infoData={sequenceInfoData} columns />
+      {infoListComponent}
       <IsoformView
         alternativeProducts={data.alternativeProducts}
         canonicalComponent={canonicalComponent}
