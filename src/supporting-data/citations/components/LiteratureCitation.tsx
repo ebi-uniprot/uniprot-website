@@ -74,7 +74,7 @@ export const getLocatorUrl = (
 };
 
 const getChoppedAuthorLists = (authors: string[], limit: number) => {
-  const cutoff = authors.length > limit ? authors.length : limit;
+  const cutoff = Math.max(authors.length, limit);
 
   const displayedAuthors = authors.slice(0, limit - 1);
   const hiddenAuthors = authors.slice(limit - 1, cutoff - 1);
