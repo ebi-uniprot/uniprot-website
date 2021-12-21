@@ -202,11 +202,11 @@ export const ReactionDirection = ({
             <span data-testid="direction-text">
               {physiologicalReactionDirectionToString.get(directionType)}
             </span>
-            {physiologicalReactions.length === 1 && ' direction '}
+            {physiologicalReactions.length === 1 && ' direction.'}
             {!noEvidence && <UniProtKBEvidenceTag evidences={evidences} />}
             {physiologicalReactions.length === 2 &&
               index === 1 &&
-              ' directions '}
+              ' directions.'}
           </Fragment>
         ))}
     </div>
@@ -272,7 +272,9 @@ const CatalyticActivityView = ({
             )}
 
             {reaction.ecNumber && (
-              <ECNumbersView ecNumbers={[{ value: reaction.ecNumber }]} />
+              <div>
+                <ECNumbersView ecNumbers={[{ value: reaction.ecNumber }]} />
+              </div>
             )}
             {!!rheaId && (
               <>
