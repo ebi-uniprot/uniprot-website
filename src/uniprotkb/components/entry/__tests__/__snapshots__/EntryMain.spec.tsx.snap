@@ -6217,6 +6217,42 @@ exports[`Entry view should render for non-human entry 1`] = `
       <div
         class="card__content"
       >
+        <ul
+          class="info-list info-list--columns"
+        >
+          <li>
+            <div
+              class="decorated-list-item"
+            >
+              <div
+                class="decorated-list-item__title tiny"
+              >
+                Sequence status
+              </div>
+              <div
+                class="decorated-list-item__content"
+              >
+                Complete
+              </div>
+            </div>
+          </li>
+          <li>
+            <div
+              class="decorated-list-item"
+            >
+              <div
+                class="decorated-list-item__title tiny"
+              >
+                Sequence processing
+              </div>
+              <div
+                class="decorated-list-item__content"
+              >
+                The displayed sequence is further processed into a mature form.
+              </div>
+            </div>
+          </li>
+        </ul>
         <section
           class="sequence-container"
         >
