@@ -395,7 +395,7 @@ exports[`Entry basic should render main 1`] = `
                       >
                         backward
                       </span>
-                       direction 
+                       direction.
                       <button
                         aria-controls="2"
                         aria-expanded="false"
@@ -419,39 +419,41 @@ exports[`Entry basic should render main 1`] = `
                         id="2"
                       />
                     </div>
-                    EC:1.2.4.5 (
-                    <a
-                      href="/uniprotkb?query=ec:1.2.4.5"
-                    >
-                      UniProtKB
-                    </a>
-                     | 
-                    <a
-                      class="external-link"
-                      href="https://enzyme.expasy.org/EC/1.2.4.5"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      ENZYME
-                      <test-file-stub
-                        data-testid="external-link-icon"
-                        width="12.5"
-                      />
-                    </a>
-                     | 
-                    <a
-                      class="external-link"
-                      href="https://www.rhea-db.org/rhea?query=ec:1.2.4.5"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      Rhea
-                      <test-file-stub
-                        data-testid="external-link-icon"
-                        width="12.5"
-                      />
-                    </a>
-                    )
+                    <div>
+                      EC:1.2.4.5 (
+                      <a
+                        href="/uniprotkb?query=ec:1.2.4.5"
+                      >
+                        UniProtKB
+                      </a>
+                       | 
+                      <a
+                        class="external-link"
+                        href="https://enzyme.expasy.org/EC/1.2.4.5"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        ENZYME
+                        <test-file-stub
+                          data-testid="external-link-icon"
+                          width="12.5"
+                        />
+                      </a>
+                       | 
+                      <a
+                        class="external-link"
+                        href="https://www.rhea-db.org/rhea?query=ec:1.2.4.5"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        Rhea
+                        <test-file-stub
+                          data-testid="external-link-icon"
+                          width="12.5"
+                        />
+                      </a>
+                      )
+                    </div>
                     <div>
                       <strong>
                         Source: 
