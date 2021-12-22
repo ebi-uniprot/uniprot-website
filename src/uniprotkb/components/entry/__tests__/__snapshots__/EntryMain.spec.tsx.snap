@@ -4597,26 +4597,6 @@ exports[`Entry view should render for non-human entry 1`] = `
   <section
     class="card"
     data-entry-section="true"
-    id="subcellular-location"
-  >
-    <div
-      class="card__container"
-    >
-      <div
-        class="card__header card__header--with-separator"
-      >
-        <h2>
-          Subcellular Location
-        </h2>
-      </div>
-      <div
-        class="card__content"
-      />
-    </div>
-  </section>
-  <section
-    class="card"
-    data-entry-section="true"
     id="phenotypes"
   >
     <div
