@@ -222,7 +222,7 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
           <div
             class="decorated-list-item__content"
           >
-            1234
+            1,234
           </div>
         </div>
       </li>

@@ -81,7 +81,7 @@ export const SequenceInfo = ({
   const infoData = [
     {
       title: 'Length',
-      content: dataToDisplay && dataToDisplay.length,
+      content: dataToDisplay && <LongNumber>{dataToDisplay.length}</LongNumber>,
     },
     {
       title: 'Mass (Da)',
