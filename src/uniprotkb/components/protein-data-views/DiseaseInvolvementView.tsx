@@ -69,16 +69,21 @@ export const DiseaseInvolvementEntry: FC<DiseaseInvolvementEntryProps> = ({
 
   if (disease?.diseaseCrossReference) {
     const { database, id } = disease.diseaseCrossReference;
-    if (database && id && databaseInfoMaps?.databaseToDatabaseInfo[database]) {
+    const databaseInfo =
+      id && database && databaseInfoMaps?.databaseToDatabaseInfo[database];
+    if (databaseInfo) {
       infoData.push({
         title: 'See also',
         content: (
-          <XRef
-            database={database}
-            xref={disease.diseaseCrossReference}
-            primaryAccession={accession}
-            databaseToDatabaseInfo={databaseInfoMaps?.databaseToDatabaseInfo}
-          />
+          <>
+            {`${databaseInfo.displayName}:`}
+            <XRef
+              database={database}
+              xref={disease.diseaseCrossReference}
+              primaryAccession={accession}
+              databaseToDatabaseInfo={databaseInfoMaps?.databaseToDatabaseInfo}
+            />
+          </>
         ),
       });
     }
