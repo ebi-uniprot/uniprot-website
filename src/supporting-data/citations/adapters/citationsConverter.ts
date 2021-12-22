@@ -113,6 +113,7 @@ export const formatCitationData = (citation: Citation) => {
     publicationDate: citation.publicationDate,
     doiId: doiXref?.id,
     submissionDatabase: citation?.submissionDatabase,
+    citationType: citation?.citationType,
     locator: citation?.locator,
   };
   return { pubmedId, journalInfo };
