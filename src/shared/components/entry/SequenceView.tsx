@@ -421,6 +421,11 @@ export const IsoformView = ({
 };
 
 const SequenceView = ({ accession, data }: SequenceViewProps) => {
+  // Every entry should have a sequence
+  if (!data.sequence) {
+    return null;
+  }
+
   const sequenceInfoData = [
     {
       title: 'Sequence status',
@@ -432,10 +437,7 @@ const SequenceView = ({ accession, data }: SequenceViewProps) => {
     },
   ];
 
-  // Every entry should have a sequence
-  if (!data.sequence) {
-    return null;
-  }
+  const infoListComponent = <InfoList infoData={sequenceInfoData} columns />;
 
   const canonicalComponent = (
     <SequenceInfo
@@ -446,12 +448,13 @@ const SequenceView = ({ accession, data }: SequenceViewProps) => {
     />
   );
 
-  if (!data.alternativeProducts && data.sequence) {
-    return canonicalComponent;
-  }
-
   if (!data.alternativeProducts) {
-    return null;
+    return (
+      <>
+        {infoListComponent}
+        {canonicalComponent}
+      </>
+    );
   }
 
   const allIsoformIds = data.alternativeProducts.isoforms
@@ -478,8 +481,7 @@ const SequenceView = ({ accession, data }: SequenceViewProps) => {
         />
         {/* Missing Add to basket */}
       </div>
-
-      <InfoList infoData={sequenceInfoData} columns />
+      {infoListComponent}
       <IsoformView
         alternativeProducts={data.alternativeProducts}
         canonicalComponent={canonicalComponent}
