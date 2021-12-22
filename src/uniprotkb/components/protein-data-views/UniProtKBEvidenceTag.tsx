@@ -17,6 +17,43 @@ enum evidenceTagSourceTypes {
   PROSITE_PRORULE = 'PROSITE-ProRule',
 }
 
+export const formatEvidenceContent = (id: string) => {
+  if (id.match(/^ARBA/)) {
+    return `ARBA: ${id}`;
+  }
+  if (id.match(/^MF_/)) {
+    return `UniRule HAMAP-Rule: ${id}`;
+  }
+  if (id.match(/^RU/)) {
+    return `UniRule RuleBase: ${id}`;
+  }
+  if (id.match(/^PIRNR/)) {
+    return `UniRule PIRNR: ${id}`;
+  }
+  return id;
+};
+
+const EvidenceTagContentItem = ({
+  id,
+  itemKey,
+}: {
+  id?: string;
+  itemKey?: string;
+}) => {
+  if (!id || !itemKey) {
+    return null;
+  }
+  const urlPattern = evidenceUrls[itemKey];
+  const formattedContent = formatEvidenceContent(id);
+  return urlPattern ? (
+    <ExternalLink url={processUrlTemplate(urlPattern, { value: id })}>
+      {formattedContent}
+    </ExternalLink>
+  ) : (
+    <Fragment>{formattedContent}</Fragment>
+  );
+};
+
 export const UniProtEvidenceTagContent: FC<{
   evidenceData: EvidenceData;
   evidences: Evidence[] | undefined;
@@ -49,22 +86,11 @@ export const UniProtEvidenceTagContent: FC<{
       {Object.entries(groupedEvidencesWithoutPubs).map(
         ([key, mappedEvidences]) => (
           <Fragment key={key}>
-            {mappedEvidences.map(({ id }: Evidence) => {
-              if (!id) {
-                return null;
-              }
-              const urlPattern = evidenceUrls[key];
-              return urlPattern ? (
-                <ExternalLink
-                  url={processUrlTemplate(urlPattern, { value: id })}
-                  key={id}
-                >
-                  {id}
-                </ExternalLink>
-              ) : (
-                <Fragment key={id}>{id}</Fragment>
-              );
-            })}
+            {mappedEvidences.map(({ id }: Evidence) => (
+              <div key={key}>
+                <EvidenceTagContentItem id={id} itemKey={key} />
+              </div>
+            ))}
           </Fragment>
         )
       )}
