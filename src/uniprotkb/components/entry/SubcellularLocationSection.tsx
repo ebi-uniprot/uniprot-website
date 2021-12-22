@@ -1,3 +1,4 @@
+import { pick } from 'lodash-es';
 import { Card } from 'franklin-sites';
 
 import EntrySection, {
@@ -16,8 +17,12 @@ type Props = {
   sequence: string;
 };
 
+export const subcellularLocationSectionHasContent = (
+  data: SubcellularLocationUIModel
+) => hasContent(pick(data, ['commentsData', 'featuresData']));
+
 const SubcellularLocationSection = ({ data, sequence }: Props) => {
-  if (!hasContent(data)) {
+  if (!subcellularLocationSectionHasContent(data)) {
     return null;
   }
 
