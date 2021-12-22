@@ -47,6 +47,7 @@ import uniProtKbConverter, {
   UniProtkbAPIModel,
 } from '../../adapters/uniProtkbConverter';
 import generatePageTitle from '../../adapters/generatePageTitle';
+import { subcellularLocationSectionHasContent } from './SubcellularLocationSection';
 
 import {
   LocationToPath,
@@ -58,6 +59,7 @@ import {
   searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
 import { EntryType } from '../../../shared/components/entry/EntryTypeIcon';
+import { SubcellularLocationUIModel } from '../../adapters/subcellularLocationConverter';
 
 import helper from '../../../shared/styles/helper.module.scss';
 import sticky from '../../../shared/styles/sticky.module.scss';
@@ -153,6 +155,13 @@ const Entry: FC = () => {
             break;
           case EntrySection.SimilarProteins:
             disabled = false;
+            break;
+          case EntrySection.SubCellularLocation:
+            disabled = !subcellularLocationSectionHasContent(
+              transformedData[
+                'subcellular-location'
+              ] as SubcellularLocationUIModel
+            );
             break;
           default:
             disabled = !hasContent(transformedData[nameAndId.id]);
