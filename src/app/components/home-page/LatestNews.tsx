@@ -14,7 +14,7 @@ const insideUniProtAbstract2 =
   'The UniProt Consortium is happy to announce a new look and feel to our web pages, designed to improve the user experience and enhance your journey of discovery through the world of protein science. We have only released the beta version of the site so far, but please take time to explore and send us your feedback - we will be working hard over the next few months to improve the site, ready for it to replace our current website in 2022.';
 
 const proteinSpotlightAbstract =
-  'As I wonder how to begin this article, I am distractedly examining my fingers. They are not getting younger. A nail or two need a trim, and there is a hint of cracked skin on the tip of one thumb. It occurs to me that I would be unable to notice any of this - and take action - unless I had eyes which can see. Eyes are no doubt one of the most intricate organs shared by animals - save by those, of course, who are born naturally blind like the star-nosed mole or the eyeless shrimp.';
+  "Idleness is not encouraged in our parts of the world. With our twisted notion of Carpe diem, the days are filled with things we have to do and things we would like to do. Many of which we do. Adolescents, lost in the depths of a settee, are told by their parents to \"go out and do something\". Dreamers are told that they are wasting their time. The only time a lack of productivity is tolerated is when, lying on our back in a cot, we can stare for hours on end at objects dangling above us. This is because we know that though, for adults, it may just be a case of suspended shapes, for a baby it is like reading a book: the baby is learning, its senses are awakening. Nature, too, sometimes opts for what may seem counter-productive. Though life usually depends on a subtle balance between what is produced and what is gained with as little loss as possible, there are instances when the production of excess is actually vital. Body heat relies on this. When temperatures drop, to keep our system warm, our body fat produces excess chemical energy which is not used but rather 'lost' in the form of heat. For this, fat cells need to kickstart a process known as the futile creatine cycle. One of the enzymes involved in such a cycle is 'tissue nonspecific alkaline phosphatase', or TNAP";
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -291,21 +291,21 @@ const LatestNews = () => {
       >
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/241/"
+            url="https://www.proteinspotlight.org/back_issues/242/"
             noIcon
           >
-            The makings of transparency
+            Constructive futility
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/241/"
+          url="https://www.proteinspotlight.org/back_issues/242/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt241.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt242.jpg"
             alt=""
             width="125.46"
             height="86.65"
