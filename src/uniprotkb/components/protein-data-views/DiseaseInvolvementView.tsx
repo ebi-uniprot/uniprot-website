@@ -5,9 +5,11 @@ import { InfoList, ExpandableList } from 'franklin-sites';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import { XRef } from './XRefView';
 
-import { DiseaseComment } from '../../types/commentTypes';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+
 import { getEntryPath } from '../../../app/config/urls';
+
+import { DiseaseComment } from '../../types/commentTypes';
 import { Namespace } from '../../../shared/types/namespaces';
 
 type DiseaseInvolvementEntryProps = {
