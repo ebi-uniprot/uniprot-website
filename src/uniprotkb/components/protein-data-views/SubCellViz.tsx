@@ -303,7 +303,7 @@ const SubCellViz: FC<Props> = memo(
           font-size: 0;
           font-weight: normal;
         }
-       .subcell_name {
+        .subcell_name {
           display: none;
         }
         .subcell_description {
