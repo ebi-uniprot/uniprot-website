@@ -44,7 +44,7 @@ export const getSubcellularLocationId = (id: string) =>
 export const getGoId = (id: string) => id.match(/GO:(\d+)/)?.[1];
 
 const getNoAnnotationMessage = (name: string) => (
-  <>{`No specific ${name} annotations available regarding subcellular location`}</>
+  <>{`No specific ${name} annotations available regarding subcellular location.`}</>
 );
 
 const SubcellularLocationWithVizView: FC<
@@ -54,12 +54,21 @@ const SubcellularLocationWithVizView: FC<
     goXrefs?: GoXref[];
   } & Partial<Pick<TaxonomyDatum, 'taxonId' | 'lineage'>>
 > = ({ primaryAccession, comments, taxonId, lineage, goXrefs }) => {
-  if (!comments?.length || !goXrefs?.length) {
+  // Examples for different cases:
+  // P05067      lots of UniProt & GO data
+  // P11926      only GO data
+  // Q00733      only notes
+  // A0A2K3DA85  no data
+
+  // Need lineage to determine if this protein is within a virus as swissbiopics is (currently) incompatibible with viruses
+  if ((!comments?.length && !goXrefs?.length) || !lineage) {
     return null;
   }
 
-  const uniprotTextContent = <SubcellularLocationView comments={comments} />;
-  const goTextContent = (
+  const uniprotTextContent = !!comments?.length && (
+    <SubcellularLocationView comments={comments} />
+  );
+  const goTextContent = !!goXrefs && primaryAccession && (
     <SubcellularLocationGOView
       primaryAccession={primaryAccession}
       goXrefs={goXrefs}
@@ -107,13 +116,10 @@ const SubcellularLocationWithVizView: FC<
         Boolean(l)
     );
 
-  if (!lineage || !(uniprotTextContent && goTextContent)) {
-    return null;
-  }
-
   const virus = isVirus(lineage as string[]);
 
   let uniprotTabContent: ReactElement;
+  let selectGoTab = false;
   if (uniprotTextContent) {
     if (virus || !taxonId || !uniProtLocations?.length) {
       uniprotTabContent = uniprotTextContent;
@@ -125,6 +131,7 @@ const SubcellularLocationWithVizView: FC<
       );
     }
   } else {
+    selectGoTab = true;
     uniprotTabContent = getNoAnnotationMessage('UniProt');
   }
 
@@ -140,6 +147,7 @@ const SubcellularLocationWithVizView: FC<
       );
     }
   } else {
+    selectGoTab = false;
     goTabContent = getNoAnnotationMessage('GO');
   }
 
@@ -149,7 +157,7 @@ const SubcellularLocationWithVizView: FC<
         <Tab cache title="UniProt Annotation">
           {uniprotTabContent}
         </Tab>
-        <Tab cache title="GO Annotation">
+        <Tab cache title="GO Annotation" defaultSelected={selectGoTab}>
           {goTabContent}
         </Tab>
       </Tabs>
