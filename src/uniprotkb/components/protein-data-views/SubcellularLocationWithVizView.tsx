@@ -1,4 +1,4 @@
-import { FC, Suspense, lazy, ReactNode } from 'react';
+import { FC, Suspense, lazy, ReactNode, ReactElement } from 'react';
 import { Tabs, Tab } from 'franklin-sites';
 
 import SubcellularLocationView from './SubcellularLocationView';
@@ -43,6 +43,10 @@ export const getSubcellularLocationId = (id: string) =>
 
 export const getGoId = (id: string) => id.match(/GO:(\d+)/)?.[1];
 
+const getNoAnnotationMessage = (name: string) => (
+  <>{`No specific ${name} annotations available regarding subcellular location`}</>
+);
+
 const SubcellularLocationWithVizView: FC<
   {
     primaryAccession?: string;
@@ -50,7 +54,7 @@ const SubcellularLocationWithVizView: FC<
     goXrefs?: GoXref[];
   } & Partial<Pick<TaxonomyDatum, 'taxonId' | 'lineage'>>
 > = ({ primaryAccession, comments, taxonId, lineage, goXrefs }) => {
-  if (!comments?.length && !goXrefs?.length) {
+  if (!comments?.length || !goXrefs?.length) {
     return null;
   }
 
@@ -103,28 +107,50 @@ const SubcellularLocationWithVizView: FC<
         Boolean(l)
     );
 
-  if (
-    !lineage ||
-    !taxonId ||
-    isVirus(lineage as string[]) ||
-    !(uniprotTextContent && goTextContent) ||
-    (!uniProtLocations?.length && !goLocations?.length)
-  ) {
+  if (!lineage || !(uniprotTextContent && goTextContent)) {
     return null;
+  }
+
+  const virus = isVirus(lineage as string[]);
+
+  let uniprotTabContent: ReactElement;
+  if (uniprotTextContent) {
+    if (virus || !taxonId || !uniProtLocations?.length) {
+      uniprotTabContent = uniprotTextContent;
+    } else {
+      uniprotTabContent = (
+        <SubCellViz uniProtLocations={uniProtLocations} taxonId={taxonId}>
+          {uniprotTextContent}
+        </SubCellViz>
+      );
+    }
+  } else {
+    uniprotTabContent = getNoAnnotationMessage('UniProt');
+  }
+
+  let goTabContent: ReactElement;
+  if (goTextContent) {
+    if (virus || !taxonId || !goLocations?.length) {
+      goTabContent = goTextContent;
+    } else {
+      goTabContent = (
+        <SubCellViz goLocations={goLocations} taxonId={taxonId}>
+          {goTextContent}
+        </SubCellViz>
+      );
+    }
+  } else {
+    goTabContent = getNoAnnotationMessage('GO');
   }
 
   return (
     <Suspense fallback={null}>
       <Tabs>
         <Tab cache title="UniProt Annotation">
-          <SubCellViz uniProtLocations={uniProtLocations} taxonId={taxonId}>
-            {uniprotTextContent}
-          </SubCellViz>
+          {uniprotTabContent}
         </Tab>
         <Tab cache title="GO Annotation">
-          <SubCellViz goLocations={goLocations} taxonId={taxonId}>
-            {goTextContent}
-          </SubCellViz>
+          {goTabContent}
         </Tab>
       </Tabs>
     </Suspense>
