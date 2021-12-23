@@ -19,7 +19,7 @@ type Props = {
 
 export const subcellularLocationSectionHasContent = (
   data: SubcellularLocationUIModel
-) => hasContent(pick(data, ['commentsData', 'featuresData']));
+) => hasContent(pick(data, ['commentsData', 'featuresData', 'goXrefs']));
 
 const SubcellularLocationSection = ({ data, sequence }: Props) => {
   if (!subcellularLocationSectionHasContent(data)) {
