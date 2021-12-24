@@ -1,5 +1,12 @@
 import { useMemo } from 'react';
-import { Card, InfoList, ExternalLink, LongNumber } from 'franklin-sites';
+import {
+  Card,
+  InfoList,
+  ExternalLink,
+  LongNumber,
+  Loader,
+} from 'franklin-sites';
+import { SetRequired } from 'type-fest';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
@@ -8,15 +15,54 @@ import BuscoView from '../BuscoView';
 import BuscoLegend from '../BuscoLegend';
 import BuscoAbbr from '../BuscoAbbr';
 
+import useDataApi from '../../../shared/hooks/useDataApi';
+
 import parseDate from '../../../shared/utils/parseDate';
 import ftpUrls from '../../../shared/config/ftpUrls';
 import ProteomesColumnConfiguration, {
   ProteomesColumn,
 } from '../../config/ProteomesColumnConfiguration';
+import apiUrls from '../../../shared/config/apiUrls';
 
-import { ProteomesUIModel } from '../../adapters/proteomesConverter';
+import {
+  ProteomesAPIModel,
+  ProteomesUIModel,
+} from '../../adapters/proteomesConverter';
 
 import '../styles/overview.scss';
+import { Namespace } from '../../../shared/types/namespaces';
+
+type Item = {
+  title: JSX.Element;
+  content: JSX.Element;
+};
+
+type PanProteomeProps = SetRequired<
+  Pick<ProteomesUIModel, 'panproteome' | 'id' | 'taxonomy'>,
+  'panproteome'
+>;
+
+export const Panproteome = ({
+  panproteome,
+  id,
+  taxonomy,
+}: PanProteomeProps) => {
+  const entryIsPanproteome = id === panproteome;
+  const { data: panproteomeData, loading } = useDataApi<ProteomesAPIModel>(
+    entryIsPanproteome ? null : apiUrls.entry(id, Namespace.proteomes)
+  );
+
+  if (loading) {
+    return <Loader />;
+  }
+
+  const name =
+    (entryIsPanproteome && taxonomy?.scientificName) ||
+    panproteomeData?.taxonomy.scientificName ||
+    panproteome;
+
+  return <>{`This proteome is part of the ${name} pan proteome (fasta)`}</>;
+};
 
 export const Overview = ({ data }: { data: ProteomesUIModel }) => {
   const infoData = useMemo(() => {
@@ -94,6 +140,16 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
           ),
       },
       renderColumnAsInfoListItem(ProteomesColumn.genomeRepresentation),
+      data.panproteome && {
+        title: 'Pan proteome',
+        content: (
+          <Panproteome
+            panproteome={data.panproteome}
+            id={data.id}
+            taxonomy={data.taxonomy}
+          />
+        ),
+      },
       renderColumnAsInfoListItem(ProteomesColumn.cpd),
       {
         title: <BuscoAbbr />,
@@ -106,7 +162,7 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
           </div>
         ),
       },
-    ];
+    ].filter((item): item is Item => Boolean(item));
   }, [data]);
 
   return (
