@@ -42,14 +42,14 @@ type PanProteomeProps = SetRequired<
   'panproteome'
 >;
 
-export const Panproteome = ({
+export const PanProteome = ({
   panproteome,
   id,
   taxonomy,
 }: PanProteomeProps) => {
-  const entryIsPanproteome = id === panproteome;
-  const { data: panproteomeData, loading } = useDataApi<ProteomesAPIModel>(
-    entryIsPanproteome ? null : apiUrls.entry(id, Namespace.proteomes)
+  const entryIsPanProteome = id === panproteome;
+  const { data: panProteomeData, loading } = useDataApi<ProteomesAPIModel>(
+    entryIsPanProteome ? null : apiUrls.entry(id, Namespace.proteomes)
   );
 
   if (loading) {
@@ -57,11 +57,15 @@ export const Panproteome = ({
   }
 
   const name =
-    (entryIsPanproteome && taxonomy?.scientificName) ||
-    panproteomeData?.taxonomy.scientificName ||
+    (entryIsPanProteome && taxonomy?.scientificName) ||
+    panProteomeData?.taxonomy.scientificName ||
     panproteome;
-
-  return <>{`This proteome is part of the ${name} pan proteome (fasta)`}</>;
+  return (
+    <>
+      {`This proteome is part of the ${name} pan proteome (`}
+      <a href={ftpUrls.panProteomes(panproteome)}>FASTA</a>)
+    </>
+  );
 };
 
 export const Overview = ({ data }: { data: ProteomesUIModel }) => {
@@ -143,7 +147,7 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
       data.panproteome && {
         title: 'Pan proteome',
         content: (
-          <Panproteome
+          <PanProteome
             panproteome={data.panproteome}
             id={data.id}
             taxonomy={data.taxonomy}
