@@ -25,6 +25,7 @@ export const PanProteome = ({
   taxonomy,
 }: PanProteomeProps) => {
   const entryIsPanProteome = id === panproteome;
+
   const { data: panProteomeData, loading } = useDataApi<ProteomesAPIModel>(
     entryIsPanProteome ? null : apiUrls.entry(id, Namespace.proteomes)
   );

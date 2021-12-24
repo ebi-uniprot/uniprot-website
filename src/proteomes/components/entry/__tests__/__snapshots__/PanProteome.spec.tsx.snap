@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PanProteome should immediately render pan-proteome name if entry is pan proteome and with link 1`] = `
+<DocumentFragment>
+  This proteome is part of the 
+  <span
+    class="blur-loading"
+  >
+    <span
+      class="blur-loading__item"
+    >
+      Some Name
+    </span>
+  </span>
+   pan proteome (
+  <a
+    href="https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/pan_proteomes/UP1.fasta.gz"
+  >
+    FASTA
+  </a>
+  )
+</DocumentFragment>
+`;

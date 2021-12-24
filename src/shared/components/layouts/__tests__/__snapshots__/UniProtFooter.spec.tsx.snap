@@ -66,10 +66,10 @@ exports[`HomePage component should render 1`] = `
         class="stats-release"
       >
         <span
-          class="release-info no-wrap"
+          class="release-info no-wrap blur-loading__item"
         >
           <span
-            class="release-info__placeholder release-info__release_number"
+            class="blur-loading__placeholder release-info__release_number"
           >
             Release 2021_00
           </span>
