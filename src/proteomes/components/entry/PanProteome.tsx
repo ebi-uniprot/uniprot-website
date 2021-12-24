@@ -1,4 +1,3 @@
-import { Loader } from 'franklin-sites';
 import cn from 'classnames';
 import { SetRequired } from 'type-fest';
 
