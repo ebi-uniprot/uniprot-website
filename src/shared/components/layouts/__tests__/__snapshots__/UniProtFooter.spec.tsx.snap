@@ -71,7 +71,7 @@ exports[`HomePage component should render 1`] = `
           <span
             class="blur-loading__placeholder release-info__release_number"
           >
-            Release 2021_00
+            Release 2022_00
           </span>
            | 
           <a
@@ -88,7 +88,7 @@ exports[`HomePage component should render 1`] = `
           <a
             href="/help/about"
           >
-            © 2002 – 2021 UniProt consortium
+            © 2002 – 2022 UniProt consortium
           </a>
         </p>
         <p>
