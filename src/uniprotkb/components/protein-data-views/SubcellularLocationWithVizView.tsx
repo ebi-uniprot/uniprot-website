@@ -10,8 +10,13 @@ import {
   getEcoNumberFromString,
 } from '../../config/evidenceCodes';
 
+import * as logging from '../../../shared/utils/logging';
+
 import { SubcellularLocationComment } from '../../types/commentTypes';
-import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import {
+  Lineage,
+  TaxonomyDatum,
+} from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { GoXref } from '../../adapters/subcellularLocationConverter';
 
 // Import it lazily in order to isolate the libraries used only for this
@@ -35,8 +40,15 @@ export type SubCellularLocation = {
   reviewed: boolean;
 };
 
-const isVirus = ([superkingdom]: string[]) =>
-  superkingdom === Superkingdom.Viruses;
+const isVirus = ([superkingdom]: Lineage | string[]) => {
+  if (typeof superkingdom === 'string') {
+    return superkingdom === Superkingdom.Viruses;
+  }
+  logging.warn(
+    "Looks like we're getting a list of objects now, make sure the first item is indeed the superkingdom!"
+  );
+  return superkingdom.scientificName === Superkingdom.Viruses;
+};
 
 export const getSubcellularLocationId = (id: string) =>
   id.match(/SL-(\d+)/)?.[1];
@@ -60,7 +72,7 @@ const SubcellularLocationWithVizView: FC<
   // Q00733      only notes
   // A0A2K3DA85  no data
 
-  // Need lineage to determine if this protein is within a virus as swissbiopics is (currently) incompatibible with viruses
+  // Need lineage to determine if this protein is within a virus as swissbiopics is (currently) incompatible with viruses
   if ((!comments?.length && !goXrefs?.length) || !lineage) {
     return null;
   }
@@ -116,7 +128,7 @@ const SubcellularLocationWithVizView: FC<
         Boolean(l)
     );
 
-  const virus = isVirus(lineage as string[]);
+  const virus = isVirus(lineage);
 
   let uniprotTabContent: ReactElement;
   let selectGoTab = false;
