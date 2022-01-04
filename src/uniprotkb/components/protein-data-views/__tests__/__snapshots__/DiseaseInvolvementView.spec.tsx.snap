@@ -6,7 +6,11 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
     Involvement in disease
   </h3>
   <h4>
-    Alzheimers (AD)
+    <a
+      href="/diseases/ASDASDAS"
+    >
+      Alzheimers (AD)
+    </a>
   </h4>
   <span
     class="text-block"
@@ -64,7 +68,7 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
         <div
           class="decorated-list-item__content"
         >
-          (
+          EMBL:(
           <a
             class="external-link"
             href="https://www.ebi.ac.uk/ena/data/view/some ref id"

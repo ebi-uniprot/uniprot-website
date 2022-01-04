@@ -1,11 +1,16 @@
 import { Fragment, FC } from 'react';
+import { Link } from 'react-router-dom';
 import { InfoList, ExpandableList } from 'franklin-sites';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import { XRef } from './XRefView';
 
-import { DiseaseComment } from '../../types/commentTypes';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+
+import { getEntryPath } from '../../../app/config/urls';
+
+import { DiseaseComment } from '../../types/commentTypes';
+import { Namespace } from '../../../shared/types/namespaces';
 
 type DiseaseInvolvementEntryProps = {
   comment: DiseaseComment[][0];
@@ -66,25 +71,43 @@ export const DiseaseInvolvementEntry: FC<DiseaseInvolvementEntryProps> = ({
 
   if (disease?.diseaseCrossReference) {
     const { database, id } = disease.diseaseCrossReference;
-    if (database && id && databaseInfoMaps?.databaseToDatabaseInfo[database]) {
+    const databaseInfo =
+      id && database && databaseInfoMaps?.databaseToDatabaseInfo[database];
+    if (databaseInfo) {
       infoData.push({
         title: 'See also',
         content: (
-          <XRef
-            database={database}
-            xref={disease.diseaseCrossReference}
-            primaryAccession={accession}
-            databaseToDatabaseInfo={databaseInfoMaps?.databaseToDatabaseInfo}
-          />
+          <>
+            {`${databaseInfo.displayName}:`}
+            <XRef
+              database={database}
+              xref={disease.diseaseCrossReference}
+              primaryAccession={accession}
+              databaseToDatabaseInfo={databaseInfoMaps?.databaseToDatabaseInfo}
+            />
+          </>
         ),
       });
     }
   }
+
+  const title = (
+    <>
+      {disease?.diseaseId ? disease.diseaseId : <em>No disease ID</em>}
+      {disease?.acronym && ` (${disease?.acronym})`}
+    </>
+  );
+
   return (
     <>
       <h4>
-        {disease?.diseaseId || <em>No disease ID</em>}
-        {disease?.acronym && ` (${disease?.acronym})`}
+        {disease?.diseaseAccession ? (
+          <Link to={getEntryPath(Namespace.diseases, disease.diseaseAccession)}>
+            {title}
+          </Link>
+        ) : (
+          title
+        )}
       </h4>
       <span className="text-block">{evidenceNodes}</span>
       <InfoList infoData={infoData} />

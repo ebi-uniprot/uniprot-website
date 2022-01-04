@@ -2264,7 +2264,11 @@ exports[`Entry basic should render main 1`] = `
                     Involvement in disease
                   </h3>
                   <h4>
-                    DiseaseEntry Id (someAcron)
+                    <a
+                      href="/diseases/DiseaseEntry AC"
+                    >
+                      DiseaseEntry Id (someAcron)
+                    </a>
                   </h4>
                   <span
                     class="text-block"
@@ -2367,6 +2371,7 @@ exports[`Entry basic should render main 1`] = `
                         <div
                           class="decorated-list-item__content"
                         >
+                          MIM:
                           <a
                             class="external-link"
                             href="https://www.omim.org/entry/3124"
