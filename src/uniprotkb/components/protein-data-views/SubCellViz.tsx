@@ -303,10 +303,6 @@ const SubCellViz: FC<Props> = memo(
           font-size: 0;
           font-weight: normal;
         }
-        #swissbiopic > h1::after {
-          font-size: 1rem;
-          content: 'No specific UniProt annotations available regarding subcellular location';
-        }
         .subcell_name {
           display: none;
         }

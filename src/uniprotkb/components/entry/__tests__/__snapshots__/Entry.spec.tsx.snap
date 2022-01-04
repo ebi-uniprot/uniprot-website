@@ -2236,19 +2236,7 @@ exports[`Entry basic should render main 1`] = `
                       </div>
                       <div
                         style="display: none;"
-                      >
-                        <template
-                          id="sibSwissBioPicsStyle"
-                        />
-                        <div
-                          id="fakeContent"
-                        />
-                        <sib-swissbiopics-sl-go-54
-                          contentid="fakeContent"
-                          gos=""
-                          taxid="9606"
-                        />
-                      </div>
+                      />
                     </div>
                   </div>
                 </div>

@@ -47,6 +47,7 @@ import uniProtKbConverter, {
   UniProtkbAPIModel,
 } from '../../adapters/uniProtkbConverter';
 import generatePageTitle from '../../adapters/generatePageTitle';
+import { subcellularLocationSectionHasContent } from './SubcellularLocationSection';
 
 import {
   LocationToPath,
@@ -153,6 +154,11 @@ const Entry: FC = () => {
             break;
           case EntrySection.SimilarProteins:
             disabled = false;
+            break;
+          case EntrySection.SubCellularLocation:
+            disabled = !subcellularLocationSectionHasContent(
+              transformedData['subcellular-location']
+            );
             break;
           default:
             disabled = !hasContent(transformedData[nameAndId.id]);
