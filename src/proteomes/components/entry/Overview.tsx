@@ -19,11 +19,6 @@ import { ProteomesUIModel } from '../../adapters/proteomesConverter';
 
 import '../styles/overview.scss';
 
-type Item = {
-  title: JSX.Element;
-  content: JSX.Element;
-};
-
 export const Overview = ({ data }: { data: ProteomesUIModel }) => {
   const infoData = useMemo(() => {
     const renderColumnAsInfoListItem = (column: ProteomesColumn) => {
@@ -100,9 +95,9 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
           ),
       },
       renderColumnAsInfoListItem(ProteomesColumn.genomeRepresentation),
-      data.panproteome && {
+      {
         title: 'Pan proteome',
-        content: (
+        content: data.panproteome && (
           <PanProteome
             panproteome={data.panproteome}
             id={data.id}
@@ -122,7 +117,7 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
           </div>
         ),
       },
-    ].filter((item): item is Item => Boolean(item));
+    ];
   }, [data]);
 
   return (
