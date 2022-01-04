@@ -59,7 +59,6 @@ import {
   searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
 import { EntryType } from '../../../shared/components/entry/EntryTypeIcon';
-import { SubcellularLocationUIModel } from '../../adapters/subcellularLocationConverter';
 
 import helper from '../../../shared/styles/helper.module.scss';
 import sticky from '../../../shared/styles/sticky.module.scss';
@@ -158,9 +157,7 @@ const Entry: FC = () => {
             break;
           case EntrySection.SubCellularLocation:
             disabled = !subcellularLocationSectionHasContent(
-              transformedData[
-                'subcellular-location'
-              ] as SubcellularLocationUIModel
+              transformedData['subcellular-location']
             );
             break;
           default:
