@@ -1,4 +1,4 @@
-import { FC, Suspense, lazy, ReactNode } from 'react';
+import { FC, Suspense, lazy, ReactNode, ReactElement } from 'react';
 import { Tabs, Tab } from 'franklin-sites';
 
 import SubcellularLocationView from './SubcellularLocationView';
@@ -10,8 +10,13 @@ import {
   getEcoNumberFromString,
 } from '../../config/evidenceCodes';
 
+import * as logging from '../../../shared/utils/logging';
+
 import { SubcellularLocationComment } from '../../types/commentTypes';
-import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import {
+  Lineage,
+  TaxonomyDatum,
+} from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { GoXref } from '../../adapters/subcellularLocationConverter';
 
 // Import it lazily in order to isolate the libraries used only for this
@@ -35,13 +40,24 @@ export type SubCellularLocation = {
   reviewed: boolean;
 };
 
-const isVirus = ([superkingdom]: string[]) =>
-  superkingdom === Superkingdom.Viruses;
+const isVirus = ([superkingdom]: Lineage | string[]) => {
+  if (typeof superkingdom === 'string') {
+    return superkingdom === Superkingdom.Viruses;
+  }
+  logging.warn(
+    "Looks like we're getting a list of objects now, make sure the first item is indeed the superkingdom!"
+  );
+  return superkingdom.scientificName === Superkingdom.Viruses;
+};
 
 export const getSubcellularLocationId = (id: string) =>
   id.match(/SL-(\d+)/)?.[1];
 
 export const getGoId = (id: string) => id.match(/GO:(\d+)/)?.[1];
+
+const getNoAnnotationMessage = (name: string) => (
+  <>{`No specific ${name} annotations available regarding subcellular location.`}</>
+);
 
 const SubcellularLocationWithVizView: FC<
   {
@@ -50,12 +66,21 @@ const SubcellularLocationWithVizView: FC<
     goXrefs?: GoXref[];
   } & Partial<Pick<TaxonomyDatum, 'taxonId' | 'lineage'>>
 > = ({ primaryAccession, comments, taxonId, lineage, goXrefs }) => {
-  if (!comments?.length && !goXrefs?.length) {
+  // Examples for different cases:
+  // P05067      lots of UniProt & GO data
+  // P11926      only GO data
+  // Q00733      only notes
+  // A0A2K3DA85  no data
+
+  // Need lineage to determine if this protein is within a virus as swissbiopics is (currently) incompatible with viruses
+  if ((!comments?.length && !goXrefs?.length) || !lineage) {
     return null;
   }
 
-  const uniprotTextContent = <SubcellularLocationView comments={comments} />;
-  const goTextContent = (
+  const uniprotTextContent = !!comments?.length && (
+    <SubcellularLocationView comments={comments} />
+  );
+  const goTextContent = !!goXrefs && primaryAccession && (
     <SubcellularLocationGOView
       primaryAccession={primaryAccession}
       goXrefs={goXrefs}
@@ -103,28 +128,49 @@ const SubcellularLocationWithVizView: FC<
         Boolean(l)
     );
 
-  if (
-    !lineage ||
-    !taxonId ||
-    isVirus(lineage as string[]) ||
-    !(uniprotTextContent && goTextContent) ||
-    (!uniProtLocations?.length && !goLocations?.length)
-  ) {
-    return null;
+  const virus = isVirus(lineage);
+
+  let uniprotTabContent: ReactElement;
+  let selectGoTab = false;
+  if (uniprotTextContent) {
+    if (virus || !taxonId || !uniProtLocations?.length) {
+      uniprotTabContent = uniprotTextContent;
+    } else {
+      uniprotTabContent = (
+        <SubCellViz uniProtLocations={uniProtLocations} taxonId={taxonId}>
+          {uniprotTextContent}
+        </SubCellViz>
+      );
+    }
+  } else {
+    selectGoTab = true;
+    uniprotTabContent = getNoAnnotationMessage('UniProt');
+  }
+
+  let goTabContent: ReactElement;
+  if (goTextContent) {
+    if (virus || !taxonId || !goLocations?.length) {
+      goTabContent = goTextContent;
+    } else {
+      goTabContent = (
+        <SubCellViz goLocations={goLocations} taxonId={taxonId}>
+          {goTextContent}
+        </SubCellViz>
+      );
+    }
+  } else {
+    selectGoTab = false;
+    goTabContent = getNoAnnotationMessage('GO');
   }
 
   return (
     <Suspense fallback={null}>
       <Tabs>
         <Tab cache title="UniProt Annotation">
-          <SubCellViz uniProtLocations={uniProtLocations} taxonId={taxonId}>
-            {uniprotTextContent}
-          </SubCellViz>
+          {uniprotTabContent}
         </Tab>
-        <Tab cache title="GO Annotation">
-          <SubCellViz goLocations={goLocations} taxonId={taxonId}>
-            {goTextContent}
-          </SubCellViz>
+        <Tab cache title="GO Annotation" defaultSelected={selectGoTab}>
+          {goTabContent}
         </Tab>
       </Tabs>
     </Suspense>

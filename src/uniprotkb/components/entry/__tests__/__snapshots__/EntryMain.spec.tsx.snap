@@ -1845,7 +1845,11 @@ exports[`Entry view should render 1`] = `
           Involvement in disease
         </h3>
         <h4>
-          DiseaseEntry Id (someAcron)
+          <a
+            href="/diseases/DiseaseEntry AC"
+          >
+            DiseaseEntry Id (someAcron)
+          </a>
         </h4>
         <span
           class="text-block"
@@ -1948,6 +1952,7 @@ exports[`Entry view should render 1`] = `
               <div
                 class="decorated-list-item__content"
               >
+                MIM:
                 <a
                   class="external-link"
                   href="https://www.omim.org/entry/3124"
@@ -4592,26 +4597,6 @@ exports[`Entry view should render for non-human entry 1`] = `
           </li>
         </ul>
       </div>
-    </div>
-  </section>
-  <section
-    class="card"
-    data-entry-section="true"
-    id="subcellular-location"
-  >
-    <div
-      class="card__container"
-    >
-      <div
-        class="card__header card__header--with-separator"
-      >
-        <h2>
-          Subcellular Location
-        </h2>
-      </div>
-      <div
-        class="card__content"
-      />
     </div>
   </section>
   <section

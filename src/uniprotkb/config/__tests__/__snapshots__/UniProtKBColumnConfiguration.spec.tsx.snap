@@ -387,7 +387,11 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_develop
 exports[`UniProtKBColumnConfiguration component should render column "cc_disease": cc_disease 1`] = `
 <DocumentFragment>
   <h4>
-    DiseaseEntry Id (someAcron)
+    <a
+      href="/diseases/DiseaseEntry AC"
+    >
+      DiseaseEntry Id (someAcron)
+    </a>
   </h4>
   <span
     class="text-block"
@@ -490,6 +494,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_disease
         <div
           class="decorated-list-item__content"
         >
+          MIM:
           <a
             class="external-link"
             href="https://www.omim.org/entry/3124"

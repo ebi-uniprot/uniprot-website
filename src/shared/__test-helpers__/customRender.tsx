@@ -7,8 +7,11 @@ import { Router, Route } from 'react-router-dom';
 import { createMemoryHistory, MemoryHistory, LocationState } from 'history';
 import { Provider as ReduxProvider } from 'react-redux';
 import { createStore, Store } from 'redux';
+import { HelmetProvider } from 'react-helmet-async';
 import { render, RenderOptions } from '@testing-library/react';
+
 import { SetRequired, JsonValue } from 'type-fest';
+
 import { getDatabaseInfoMaps } from '../../uniprotkb/utils/database';
 
 import rootReducer from '../../app/state/rootReducer';
@@ -50,13 +53,15 @@ class Wrapper extends Component<WrapperProps> {
   render() {
     const { children, path, history, store } = this.props;
     return (
-      <ReduxProvider store={store}>
-        <DatabaseInfoMapsContext.Provider value={dbInfoMaps}>
-          <Router history={history}>
-            {path ? <Route path={path} render={() => children} /> : children}
-          </Router>
-        </DatabaseInfoMapsContext.Provider>
-      </ReduxProvider>
+      <HelmetProvider>
+        <ReduxProvider store={store}>
+          <DatabaseInfoMapsContext.Provider value={dbInfoMaps}>
+            <Router history={history}>
+              {path ? <Route path={path} render={() => children} /> : children}
+            </Router>
+          </DatabaseInfoMapsContext.Provider>
+        </ReduxProvider>
+      </HelmetProvider>
     );
   }
 }

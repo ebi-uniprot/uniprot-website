@@ -116,16 +116,23 @@ exports[`HelpLandingPage should render 1`] = `
             >
               <li>
                 <a
-                  href="/help/uniprotkb_manual"
+                  href="/help/find_your_protein"
                 >
-                  UniProtKB manual
+                  Find your protein
                 </a>
               </li>
               <li>
                 <a
-                  href="/help/text-search"
+                  href="/help/explore_uniprotkb_entry "
                 >
-                  Text search and advanced search
+                  Explore UniProtKB entry
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/help/explore_proteomes "
+                >
+                  Explore proteomes
                 </a>
               </li>
             </ul>
@@ -134,7 +141,7 @@ exports[`HelpLandingPage should render 1`] = `
             class="illustrated-list-tile__more-link"
           >
             <a
-              href="/https://www.ebi.ac.uk/training/online/courses/uniprot-quick-tour"
+              href="/help?query=*&facets=category:Get started"
             >
               More
             </a>

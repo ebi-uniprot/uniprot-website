@@ -1,6 +1,6 @@
 import { lazy, Suspense, FC, CSSProperties, useEffect, useRef } from 'react';
 import { Route, Switch, RouteChildrenProps, Redirect } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { Loader } from 'franklin-sites';
 import { sleep } from 'timing-functions';
 
