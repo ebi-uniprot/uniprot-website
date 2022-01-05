@@ -30,6 +30,12 @@ export const formatEvidenceContent = (id: string) => {
   if (id.match(/^PIRNR/)) {
     return `UniRule PIRNR: ${id}`;
   }
+  if (id.match(/^PIRSR/)) {
+    return `UniRule PIRSR: ${id}`;
+  }
+  if (id.match(/^PRU/)) {
+    return `UniRule PROSITE-ProRule: ${id}`;
+  }
   return id;
 };
 
