@@ -43,285 +43,255 @@ exports[`HelpLandingPage should render 1`] = `
         <div
           class="illustrated-list-tile"
         >
-          <h3>
+          <h2
+            class="illustrated-list-tile__heading medium"
+          >
             UniProt data
-          </h3>
+          </h2>
           <div
-            class="illustrated-list-tile__content"
+            class="illustrated-list-tile__image"
           >
-            <div
-              class="illustrated-list-tile__content__image"
-            >
-              <test-file-stub />
-            </div>
-            <ul
-              class="illustrated-list-tile__content__list no-bullet"
-            >
-              <li>
-                <a
-                  href="/help/uniprotkb_manual"
-                >
-                  UniProtKB
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/help/proteomes_manual"
-                >
-                  Proteomes
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/help/uniref"
-                >
-                  UniRef
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/help/uniparc"
-                >
-                  UniParc
-                </a>
-              </li>
-            </ul>
+            <test-file-stub />
           </div>
-          <div
-            class="illustrated-list-tile__more-link"
+          <ul
+            class="illustrated-list-tile__list no-bullet"
           >
-            <a
-              href="/help?query=data"
-            >
-              More
-            </a>
-          </div>
-        </div>
-        <div
-          class="illustrated-list-tile"
-        >
-          <h3>
-            Get started
-          </h3>
-          <div
-            class="illustrated-list-tile__content"
-          >
-            <div
-              class="illustrated-list-tile__content__image"
-            >
-              <test-file-stub />
-            </div>
-            <ul
-              class="illustrated-list-tile__content__list no-bullet"
-            >
-              <li>
-                <a
-                  href="/help/find_your_protein"
-                >
-                  Find your protein
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/help/explore_uniprotkb_entry "
-                >
-                  Explore UniProtKB entry
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/help/explore_proteomes "
-                >
-                  Explore proteomes
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div
-            class="illustrated-list-tile__more-link"
-          >
-            <a
-              href="/help?query=*&facets=category:Get started"
-            >
-              More
-            </a>
-          </div>
-        </div>
-        <div
-          class="illustrated-list-tile"
-        >
-          <h3>
-            Training
-          </h3>
-          <div
-            class="illustrated-list-tile__content"
-          >
-            <div
-              class="illustrated-list-tile__content__image"
-            >
-              <test-file-stub />
-            </div>
-            <ul
-              class="illustrated-list-tile__content__list no-bullet"
-            >
-              <li>
-                <a
-                  href="https://www.ebi.ac.uk/training/online/courses/uniprot-quick-tour"
-                >
-                  Online training
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.ebi.ac.uk/training/search-results?query=uniprot&domain=ebiweb_training&page=1&facets="
-                >
-                  Courses
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div
-            class="illustrated-list-tile__more-link"
-          >
-            <a
-              href="/help?query=training"
-            >
-              More
-            </a>
-          </div>
-        </div>
-        <div
-          class="illustrated-list-tile"
-        >
-          <h3>
-            Technical corner
-          </h3>
-          <div
-            class="illustrated-list-tile__content"
-          >
-            <div
-              class="illustrated-list-tile__content__image"
-            >
-              <test-file-stub />
-            </div>
-            <ul
-              class="illustrated-list-tile__content__list no-bullet"
-            >
-              <li>
-                <a
-                  href="/help/programmatic_access"
-                >
-                  Programmatic access
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/help/programmatic_access"
-                >
-                  UniProt JAPI
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div
-            class="illustrated-list-tile__more-link"
-          >
-            <a
-              href="/help/technical"
-            >
-              More
-            </a>
-          </div>
-        </div>
-        <div
-          class="illustrated-list-tile"
-        >
-          <h3>
-            Biocuration
-          </h3>
-          <div
-            class="illustrated-list-tile__content"
-          >
-            <div
-              class="illustrated-list-tile__content__image"
-            >
-              <test-file-stub />
-            </div>
-            <ul
-              class="illustrated-list-tile__content__list no-bullet"
-            >
-              <li>
-                <a
-                  href="/help/biocuration"
-                >
-                  UniProt biocuration
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/help?query=*&facets=category:biocuration"
-                >
-                  Biocuration projects
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div
-            class="illustrated-list-tile__more-link"
-          >
-            <a
-              href="/help?query=*&facets=category:biocuration"
-            >
-              More
-            </a>
-          </div>
-        </div>
-        <div
-          class="illustrated-list-tile"
-        >
-          <h3>
-            About us
-          </h3>
-          <div
-            class="illustrated-list-tile__content"
-          >
-            <div
-              class="illustrated-list-tile__content__image"
-            >
-              <div
-                style="opacity: 0.8; color: rgb(40, 170, 80);"
+            <li>
+              <a
+                href="/help/uniprotkb_manual"
               >
-                <test-file-stub />
-              </div>
-            </div>
-            <ul
-              class="illustrated-list-tile__content__list no-bullet"
-            >
-              <li>
-                <a
-                  href="/help/about"
-                >
-                  About UniProt
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/help/publications"
-                >
-                  How to cite us
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div
-            class="illustrated-list-tile__more-link"
+                UniProtKB
+              </a>
+            </li>
+            <li>
+              <a
+                href="/help/proteomes_manual"
+              >
+                Proteomes
+              </a>
+            </li>
+            <li>
+              <a
+                href="/help/uniref"
+              >
+                UniRef
+              </a>
+            </li>
+            <li>
+              <a
+                href="/help/uniparc"
+              >
+                UniParc
+              </a>
+            </li>
+          </ul>
+          <a
+            class="illustrated-list-tile__more"
+            href="/help?query=data"
           >
-            <a
-              href="/help?query=*&facets=category:About UniProt"
-            >
-              More
-            </a>
+            More
+          </a>
+        </div>
+        <div
+          class="illustrated-list-tile"
+        >
+          <h2
+            class="illustrated-list-tile__heading medium"
+          >
+            Get started
+          </h2>
+          <div
+            class="illustrated-list-tile__image"
+          >
+            <test-file-stub />
           </div>
+          <ul
+            class="illustrated-list-tile__list no-bullet"
+          >
+            <li>
+              <a
+                href="/help/find_your_protein"
+              >
+                Find your protein
+              </a>
+            </li>
+            <li>
+              <a
+                href="/help/explore_uniprotkb_entry "
+              >
+                Explore UniProtKB entry
+              </a>
+            </li>
+            <li>
+              <a
+                href="/help/explore_proteomes "
+              >
+                Explore proteomes
+              </a>
+            </li>
+          </ul>
+          <a
+            class="illustrated-list-tile__more"
+            href="/help?query=*&facets=category:Get started"
+          >
+            More
+          </a>
+        </div>
+        <div
+          class="illustrated-list-tile"
+        >
+          <h2
+            class="illustrated-list-tile__heading medium"
+          >
+            Training
+          </h2>
+          <div
+            class="illustrated-list-tile__image"
+          >
+            <test-file-stub />
+          </div>
+          <ul
+            class="illustrated-list-tile__list no-bullet"
+          >
+            <li>
+              <a
+                href="https://www.ebi.ac.uk/training/online/courses/uniprot-quick-tour"
+              >
+                Online training
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.ebi.ac.uk/training/search-results?query=uniprot&domain=ebiweb_training&page=1&facets="
+              >
+                Courses
+              </a>
+            </li>
+          </ul>
+          <a
+            class="illustrated-list-tile__more"
+            href="/help?query=training"
+          >
+            More
+          </a>
+        </div>
+        <div
+          class="illustrated-list-tile"
+        >
+          <h2
+            class="illustrated-list-tile__heading medium"
+          >
+            Technical corner
+          </h2>
+          <div
+            class="illustrated-list-tile__image"
+          >
+            <test-file-stub />
+          </div>
+          <ul
+            class="illustrated-list-tile__list no-bullet"
+          >
+            <li>
+              <a
+                href="/help/programmatic_access"
+              >
+                Programmatic access
+              </a>
+            </li>
+            <li>
+              <a
+                href="/help/programmatic_access"
+              >
+                UniProt JAPI
+              </a>
+            </li>
+          </ul>
+          <a
+            class="illustrated-list-tile__more"
+            href="/help/technical"
+          >
+            More
+          </a>
+        </div>
+        <div
+          class="illustrated-list-tile"
+        >
+          <h2
+            class="illustrated-list-tile__heading medium"
+          >
+            Biocuration
+          </h2>
+          <div
+            class="illustrated-list-tile__image"
+          >
+            <test-file-stub />
+          </div>
+          <ul
+            class="illustrated-list-tile__list no-bullet"
+          >
+            <li>
+              <a
+                href="/help/biocuration"
+              >
+                UniProt biocuration
+              </a>
+            </li>
+            <li>
+              <a
+                href="/help?query=*&facets=category:biocuration"
+              >
+                Biocuration projects
+              </a>
+            </li>
+          </ul>
+          <a
+            class="illustrated-list-tile__more"
+            href="/help?query=*&facets=category:biocuration"
+          >
+            More
+          </a>
+        </div>
+        <div
+          class="illustrated-list-tile"
+        >
+          <h2
+            class="illustrated-list-tile__heading medium"
+          >
+            About us
+          </h2>
+          <div
+            class="illustrated-list-tile__image"
+          >
+            <div
+              style="opacity: 0.8; color: rgb(40, 170, 80);"
+            >
+              <test-file-stub />
+            </div>
+          </div>
+          <ul
+            class="illustrated-list-tile__list no-bullet"
+          >
+            <li>
+              <a
+                href="/help/about"
+              >
+                About UniProt
+              </a>
+            </li>
+            <li>
+              <a
+                href="/help/publications"
+              >
+                How to cite us
+              </a>
+            </li>
+          </ul>
+          <a
+            class="illustrated-list-tile__more"
+            href="/help?query=*&facets=category:About UniProt"
+          >
+            More
+          </a>
         </div>
       </div>
     </div>
@@ -331,9 +301,11 @@ exports[`HelpLandingPage should render 1`] = `
       <section
         class="help-landing__faqs"
       >
-        <h4>
+        <h2
+          class="small"
+        >
           Suggested FAQs
-        </h4>
+        </h2>
         <ul
           class="no-bullet"
         >

@@ -181,7 +181,7 @@ const HelpLandingPage = () => (
     </div>
     <div className="uniprot-grid-cell--span-3">
       <section className={landing['help-landing__faqs']}>
-        <h4>Suggested FAQs</h4>
+        <h2 className="small">Suggested FAQs</h2>
         <ul className="no-bullet">
           <li>
             <Link to={getHelpEntryPath('disease_query')}>
