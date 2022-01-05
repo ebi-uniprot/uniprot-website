@@ -7,6 +7,7 @@ import { EntryTypeIcon } from '../../../shared/components/entry/EntryTypeIcon';
 import BuscoView from '../BuscoView';
 import BuscoLegend from '../BuscoLegend';
 import BuscoAbbr from '../BuscoAbbr';
+import { PanProteome } from './PanProteome';
 
 import parseDate from '../../../shared/utils/parseDate';
 import ftpUrls from '../../../shared/config/ftpUrls';
@@ -94,6 +95,10 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
           ),
       },
       renderColumnAsInfoListItem(ProteomesColumn.genomeRepresentation),
+      {
+        title: 'Pan proteome',
+        content: data.panproteome && <PanProteome proteome={data} />,
+      },
       renderColumnAsInfoListItem(ProteomesColumn.cpd),
       {
         title: <BuscoAbbr />,

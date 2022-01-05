@@ -6,6 +6,7 @@ import cn from 'classnames';
 import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
 
 import { LocationToPath, Location } from '../../config/urls';
+import ftpUrls from '../../../shared/config/ftpUrls';
 
 import FTPIllustration from '../../../images/ftp_illustration.svg';
 import ProgrammaticIllustration from '../../../images/programmatic_illustration.svg';
@@ -31,7 +32,7 @@ const UniProtData = () => (
       className="uniprot-grid-cell--span-3"
       backgroundImage={<FTPIllustration />}
       backgroundColor={colors.independence}
-      url="https://ftp.uniprot.org/pub/databases/uniprot/"
+      url={ftpUrls.uniprot}
       gradient
     >
       Download UniProt release data
