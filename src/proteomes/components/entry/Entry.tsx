@@ -37,21 +37,24 @@ const Entry = () => {
     apiUrls.entry(accession, Namespace.proteomes)
   );
 
-  const ppData = useDataApi<ProteomesAPIModel>(
+  const panProteomeData = useDataApi<ProteomesAPIModel>(
     mainData.data?.panproteome && mainData.data.panproteome !== mainData.data.id
       ? apiUrls.entry(mainData.data.panproteome, Namespace.proteomes)
       : null
   );
 
-  if (mainData.loading || ppData.loading || !mainData.data) {
-    return <Loader progress={mainData.progress || ppData.progress} />;
+  if (mainData.loading || panProteomeData.loading || !mainData.data) {
+    return <Loader progress={mainData.progress || panProteomeData.progress} />;
   }
 
-  if (mainData.error || ppData.error || !accession || !mainData.data) {
-    return <ErrorHandler status={mainData.status || ppData.status} />;
+  if (mainData.error || panProteomeData.error || !accession || !mainData.data) {
+    return <ErrorHandler status={mainData.status || panProteomeData.status} />;
   }
 
-  const transformedData = proteomesConverter(mainData.data, ppData.data);
+  const transformedData = proteomesConverter(
+    mainData.data,
+    panProteomeData.data
+  );
 
   return (
     <SingleColumnLayout className="entry-page">

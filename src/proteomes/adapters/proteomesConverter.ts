@@ -94,10 +94,10 @@ export type ProteomesUIModel = Omit<ProteomesAPIModel, 'panproteome'> & {
 
 const proteomesConverter = (
   data: ProteomesAPIModel,
-  ppData?: ProteomesAPIModel
+  panProteomeData?: ProteomesAPIModel
 ): ProteomesUIModel => ({
   ...data,
-  panproteome: ppData || data.panproteome,
+  panproteome: panProteomeData || data.panproteome,
 });
 
 export default proteomesConverter;
