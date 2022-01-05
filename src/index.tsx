@@ -1,3 +1,4 @@
+import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 
 import App from './app/components/App';
@@ -16,9 +17,11 @@ if (!LIVE_RELOAD) {
 }
 
 ReactDOM.render(
-  <GlobalContext>
-    <App />
-  </GlobalContext>,
+  <StrictMode>
+    <GlobalContext>
+      <App />
+    </GlobalContext>
+  </StrictMode>,
   document.getElementById('root')
 );
 

@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 
 type InputValue = string | number | false | null | undefined;
 
