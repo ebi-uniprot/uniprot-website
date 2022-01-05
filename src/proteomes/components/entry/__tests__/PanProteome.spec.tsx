@@ -1,60 +1,50 @@
 import { screen } from '@testing-library/react';
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
 
 import { PanProteome } from '../PanProteome';
 
-const mock = new MockAdapter(axios);
+import proteomesConverter, {
+  ProteomesUIModel,
+} from '../../../adapters/proteomesConverter';
+
+import data from '../../../__mocks__/proteomesEntryModelData';
 
 describe('PanProteome', () => {
-  it('should immediately render pan-proteome name if entry is pan proteome and with link', () => {
+  it('should not render if no panproteome', () => {
+    const { container } = customRender(
+      <PanProteome proteome={proteomesConverter(data)} />
+    );
+    expect(container).toBeEmptyDOMElement();
+  });
+
+  it('should render a link to FASTA, when is a panproteome', () => {
+    const uiData = proteomesConverter(data);
+    const customisedData: ProteomesUIModel = {
+      ...uiData,
+      panproteome: uiData.id,
+    };
     const { asFragment } = customRender(
-      <PanProteome
-        panproteome="UP1"
-        id="UP1"
-        taxonomy={{ taxonId: 12345, scientificName: 'Some Name' }}
-      />
+      <PanProteome proteome={customisedData} />
     );
     expect(asFragment()).toMatchSnapshot();
     expect(screen.getByRole('link', { name: 'FASTA' })).toBeInTheDocument();
-    expect(screen.getByText('Some Name')).toBeInTheDocument();
+    expect(
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      screen.getByText(customisedData.taxonomy.scientificName!, {
+        exact: false,
+      })
+    ).toBeInTheDocument();
   });
-  it('should request pan-proteome data if different to entry, temporarily display name from props and display pan-proteome name once loaded', async () => {
-    mock.onGet().reply(200, {
-      id: 'UP2',
-      taxonomy: {
-        scientificName: 'Another Name',
-      },
-    });
-    customRender(
-      <PanProteome
-        panproteome="UP1"
-        id="UP2"
-        taxonomy={{ taxonId: 12345, scientificName: 'Some Name' }}
-      />
-    );
-    let name = screen.getByText('Some Name');
-    expect(name).toBeInTheDocument();
-    name = await screen.findByText('Another Name');
-    expect(name).toBeInTheDocument();
-  });
-  it('should request pan-proteome data if different to entry and display pan-proteome ID if scientific name not in response data', async () => {
-    mock.onGet().reply(200, {
-      id: 'UP2',
-      taxonomy: {},
-    });
-    customRender(
-      <PanProteome
-        panproteome="UP1"
-        id="UP2"
-        taxonomy={{ taxonId: 12345, scientificName: 'Some Name' }}
-      />
-    );
-    let name = screen.getByText('Some Name');
-    expect(name).toBeInTheDocument();
-    name = await screen.findByText('UP1');
-    expect(name).toBeInTheDocument();
+
+  it('should render a link to entry and a link to FASTA, when is part of a panproteome', () => {
+    // reuse the same mock as proteome and related panproteome (with a different id)
+    const uiData = proteomesConverter(data, { ...data, id: 'UP1' });
+    const { asFragment } = customRender(<PanProteome proteome={uiData} />);
+    expect(asFragment()).toMatchSnapshot();
+    expect(screen.getByRole('link', { name: 'FASTA' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: uiData.taxonomy.scientificName })
+    ).toBeInTheDocument();
   });
 });

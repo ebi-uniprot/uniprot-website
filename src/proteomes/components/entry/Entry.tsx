@@ -33,19 +33,25 @@ const Entry = () => {
 
   const accession = match?.params.accession;
 
-  const baseURL = apiUrls.entry(accession, Namespace.proteomes);
-  const { loading, data, status, error, progress } =
-    useDataApi<ProteomesAPIModel>(baseURL);
+  const mainData = useDataApi<ProteomesAPIModel>(
+    apiUrls.entry(accession, Namespace.proteomes)
+  );
 
-  if (error || !accession) {
-    return <ErrorHandler status={status} />;
+  const ppData = useDataApi<ProteomesAPIModel>(
+    mainData.data?.panproteome && mainData.data.panproteome !== mainData.data.id
+      ? apiUrls.entry(mainData.data.panproteome, Namespace.proteomes)
+      : null
+  );
+
+  if (mainData.loading || ppData.loading || !mainData.data) {
+    return <Loader progress={mainData.progress || ppData.progress} />;
   }
 
-  if (loading || !data) {
-    return <Loader progress={progress} />;
+  if (mainData.error || ppData.error || !accession || !mainData.data) {
+    return <ErrorHandler status={mainData.status || ppData.status} />;
   }
 
-  const transformedData = proteomesConverter(data);
+  const transformedData = proteomesConverter(mainData.data, ppData.data);
 
   return (
     <SingleColumnLayout className="entry-page">
@@ -58,7 +64,7 @@ const Entry = () => {
       <h1>
         {searchableNamespaceLabels[Namespace.proteomes]}
         {' · '}
-        <TaxonomyView data={data.taxonomy} noLink />
+        <TaxonomyView data={mainData.data.taxonomy} noLink />
       </h1>
       <div className="button-group">
         <EntryDownload />

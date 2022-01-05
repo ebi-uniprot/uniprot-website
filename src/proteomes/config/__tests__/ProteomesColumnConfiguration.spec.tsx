@@ -3,7 +3,6 @@ import ProteomesColumnConfiguration, {
 } from '../ProteomesColumnConfiguration';
 
 import proteomesConverter, {
-  ProteomesAPIModel,
   ProteomesUIModel,
 } from '../../adapters/proteomesConverter';
 import testColumnConfiguration from '../../../shared/__test-helpers__/testColumnConfiguration';
@@ -15,7 +14,7 @@ jest.mock('../../../tools/utils/storage');
 const transformedData: ProteomesUIModel = proteomesConverter(data);
 
 describe('ProteomesColumnConfiguration component', () => {
-  testColumnConfiguration<ProteomesColumn, ProteomesAPIModel>(
+  testColumnConfiguration<ProteomesColumn, ProteomesUIModel>(
     ProteomesColumnConfiguration,
     transformedData
   );

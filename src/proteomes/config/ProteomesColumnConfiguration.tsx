@@ -13,7 +13,10 @@ import { getEntryPath, LocationToPath, Location } from '../../app/config/urls';
 import abbreviationToTitle from '../../shared/config/abbreviations';
 
 import { Namespace } from '../../shared/types/namespaces';
-import { ProteomesAPIModel } from '../adapters/proteomesConverter';
+import {
+  ProteomesAPIModel,
+  ProteomesUIModel,
+} from '../adapters/proteomesConverter';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
 import { UniProtKBColumn } from '../../uniprotkb/types/columnTypes';
 
@@ -46,7 +49,7 @@ export const primaryKeyColumns = [ProteomesColumn.upid];
 
 export const ProteomesColumnConfiguration: ColumnConfiguration<
   ProteomesColumn,
-  ProteomesAPIModel
+  ProteomesAPIModel | ProteomesUIModel
 > = new Map();
 
 // COLUMN RENDERERS BELOW

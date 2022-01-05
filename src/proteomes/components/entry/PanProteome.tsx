@@ -1,58 +1,51 @@
-import cn from 'classnames';
-import { SetRequired } from 'type-fest';
+import { Link } from 'react-router-dom';
 
-import useDataApi from '../../../shared/hooks/useDataApi';
+import * as logging from '../../../shared/utils/logging';
 
-import apiUrls from '../../../shared/config/apiUrls';
 import ftpUrls from '../../../shared/config/ftpUrls';
 
-import {
-  ProteomesUIModel,
-  ProteomesAPIModel,
-} from '../../adapters/proteomesConverter';
+import { ProteomesUIModel } from '../../adapters/proteomesConverter';
+import { getEntryPath } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
 
-import styles from '../../../shared/styles/blur-loading.module.scss';
+export const PanProteome = ({ proteome }: { proteome: ProteomesUIModel }) => {
+  if (!proteome.panproteome) {
+    return null;
+  }
 
-type PanProteomeProps = SetRequired<
-  Pick<ProteomesUIModel, 'panproteome' | 'id' | 'taxonomy'>,
-  'panproteome'
->;
-
-export const PanProteome = ({
-  panproteome,
-  id,
-  taxonomy,
-}: PanProteomeProps) => {
-  const entryIsPanProteome = id === panproteome;
-
-  const { data: panProteomeData, loading } = useDataApi<ProteomesAPIModel>(
-    entryIsPanProteome ? null : apiUrls.entry(id, Namespace.proteomes)
-  );
+  const panproteomeID =
+    typeof proteome.panproteome === 'string'
+      ? proteome.panproteome
+      : proteome.panproteome.id;
+  const entryIsPanProteome = proteome.id === panproteomeID;
 
   const name =
     // If loading, use current proteomes scientificName as a placeholder
-    ((loading || entryIsPanProteome) && taxonomy?.scientificName) ||
+    (entryIsPanProteome && proteome.taxonomy?.scientificName) ||
     // At this point, the entry is not the pan proteome so try the loaded data
-    panProteomeData?.taxonomy.scientificName ||
+    (typeof proteome.panproteome !== 'string' &&
+      proteome.panproteome?.taxonomy.scientificName) ||
     // As a last resort fall back on the panproteome ID which we know must exist
-    panproteome;
+    panproteomeID;
+
+  /* istanbul ignore if */
+  if (!name) {
+    logging.error('Nothing to render for a pan proteome');
+    return null;
+  }
 
   return (
     <>
       {'This proteome is part of the '}
-      <span className={styles['blur-loading']}>
-        <span
-          className={cn(
-            { [styles['blur-loading__placeholder']]: loading },
-            styles['blur-loading__item']
-          )}
-        >
+      {entryIsPanProteome ? (
+        name
+      ) : (
+        <Link to={getEntryPath(Namespace.proteomes, panproteomeID)}>
           {name}
-        </span>
-      </span>
+        </Link>
+      )}
       {' pan proteome ('}
-      <a href={ftpUrls.panProteomes(panproteome)}>FASTA</a>)
+      <a href={ftpUrls.panProteomes(panproteomeID)}>FASTA</a>)
     </>
   );
 };

@@ -97,13 +97,7 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
       renderColumnAsInfoListItem(ProteomesColumn.genomeRepresentation),
       {
         title: 'Pan proteome',
-        content: data.panproteome && (
-          <PanProteome
-            panproteome={data.panproteome}
-            id={data.id}
-            taxonomy={data.taxonomy}
-          />
-        ),
+        content: data.panproteome && <PanProteome proteome={data} />,
       },
       renderColumnAsInfoListItem(ProteomesColumn.cpd),
       {
