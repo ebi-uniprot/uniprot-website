@@ -1,6 +1,10 @@
+import urljoin from 'url-join';
 import { ProcessedFeature } from '../../shared/components/views/FeaturesView';
 import { processUrlTemplate } from '../../uniprotkb/components/protein-data-views/XRefView';
-import evidenceUrls from '../../uniprotkb/config/evidenceUrls';
+import {
+  EvidenceSource,
+  getEvidenceLink,
+} from '../../uniprotkb/config/evidenceUrls';
 import FeatureType from '../../uniprotkb/types/featureType';
 
 type Source = {
@@ -52,16 +56,20 @@ export const prepareFeatureForTooltip = (
         id: e.id,
         name: e.source,
       };
-      const url = evidenceUrls[e.source];
+      const { url, isInternal } = getEvidenceLink(e.source, e.id);
       if (url) {
-        source.url = processUrlTemplate(url, {
-          value: e.id,
-        });
+        source.url = isInternal
+          ? urljoin('https://www.uniprot.org/', url)
+          : url;
       }
       if (e.source === 'PubMed') {
-        source.alternativeUrl = processUrlTemplate(evidenceUrls.EuropePMC, {
-          value: e.id,
-        });
+        const { url: alternativeUrl } = getEvidenceLink(
+          'EuropePMC' as EvidenceSource,
+          e.id
+        );
+        if (alternativeUrl) {
+          source.alternativeUrl = alternativeUrl;
+        }
       }
       tooltipEvidence.source = source;
     }

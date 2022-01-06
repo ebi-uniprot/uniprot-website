@@ -1,6 +1,8 @@
+import { EvidenceSource } from '../config/evidenceUrls';
+
 export type Evidence = {
   evidenceCode: `ECO:${number}`;
-  source?: string;
+  source?: EvidenceSource;
   id?: string;
 };
 

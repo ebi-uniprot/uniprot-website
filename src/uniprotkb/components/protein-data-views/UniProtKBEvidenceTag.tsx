@@ -1,64 +1,21 @@
 import { FC, Fragment } from 'react';
 import { groupBy } from 'lodash-es';
-import { ExternalLink, EvidenceTag } from 'franklin-sites';
+import { EvidenceTag } from 'franklin-sites';
 import {
   getEvidenceCodeData,
   EvidenceData,
   getEcoNumberFromString,
 } from '../../config/evidenceCodes';
 import { Evidence } from '../../types/modelTypes';
+
 import UniProtKBEntryPublications from './UniProtKBEntryPublications';
-import { processUrlTemplate } from './XRefView';
-import evidenceUrls from '../../config/evidenceUrls';
+import EvidenceLink, { EvidenceSource } from '../../config/evidenceUrls';
 
 enum evidenceTagSourceTypes {
   PUBMED = 'PubMed',
   UNIPROT = 'UniProtKB',
   PROSITE_PRORULE = 'PROSITE-ProRule',
 }
-
-export const formatEvidenceContent = (id: string) => {
-  if (id.match(/^ARBA/)) {
-    return `ARBA: ${id}`;
-  }
-  if (id.match(/^MF_/)) {
-    return `UniRule HAMAP-Rule: ${id}`;
-  }
-  if (id.match(/^RU/)) {
-    return `UniRule RuleBase: ${id}`;
-  }
-  if (id.match(/^PIRNR/)) {
-    return `UniRule PIRNR: ${id}`;
-  }
-  if (id.match(/^PIRSR/)) {
-    return `UniRule PIRSR: ${id}`;
-  }
-  if (id.match(/^PRU/)) {
-    return `UniRule PROSITE-ProRule: ${id}`;
-  }
-  return id;
-};
-
-const EvidenceTagContentItem = ({
-  id,
-  itemKey,
-}: {
-  id?: string;
-  itemKey?: string;
-}) => {
-  if (!id || !itemKey) {
-    return null;
-  }
-  const urlPattern = evidenceUrls[itemKey];
-  const formattedContent = formatEvidenceContent(id);
-  return urlPattern ? (
-    <ExternalLink url={processUrlTemplate(urlPattern, { value: id })}>
-      {formattedContent}
-    </ExternalLink>
-  ) : (
-    <Fragment>{formattedContent}</Fragment>
-  );
-};
 
 export const UniProtEvidenceTagContent: FC<{
   evidenceData: EvidenceData;
@@ -93,8 +50,8 @@ export const UniProtEvidenceTagContent: FC<{
         ([key, mappedEvidences]) => (
           <Fragment key={key}>
             {mappedEvidences.map(({ id }: Evidence) => (
-              <div key={key}>
-                <EvidenceTagContentItem id={id} itemKey={key} />
+              <div key={id}>
+                <EvidenceLink source={key as EvidenceSource} value={id} />
               </div>
             ))}
           </Fragment>

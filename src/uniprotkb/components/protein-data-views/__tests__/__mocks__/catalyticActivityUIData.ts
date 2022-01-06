@@ -15,7 +15,7 @@ const mock: CatalyticActivityComment[] = [
       evidences: [
         {
           evidenceCode: 'ECO:1234',
-          source: 'some source',
+          source: 'UniProtKB',
           id: 'some id',
         },
       ],

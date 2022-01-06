@@ -7,14 +7,16 @@ import { ProteinsAPIVariation } from 'protvista-variation-adapter/dist/es/varian
 import { transformData } from 'protvista-variation-adapter';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
+import NightingaleZoomTool from './NightingaleZoomTool';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 
 import apiUrls from '../../../shared/config/apiUrls';
 
+import { EvidenceSource } from '../../config/evidenceUrls';
+
 import './styles/variation-view.scss';
-import NightingaleZoomTool from './NightingaleZoomTool';
 
 type VariationViewProps = {
   primaryAccession: string;
@@ -219,7 +221,7 @@ const VariationView = ({
                               (evidence) => ({
                                 evidenceCode: evidence.code as `ECO:${number}`,
                                 id: evidence.source.id,
-                                source: evidence.source.name,
+                                source: evidence.source.name as EvidenceSource,
                               })
                             )}
                           />
