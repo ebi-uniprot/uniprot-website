@@ -122,23 +122,23 @@ const evidenceUrls: Record<ExternalSource, string> = {
   EuropePMC: 'https://europepmc.org/abstract/MED/%value',
 };
 
-const formatEvidenceContent = (id: string) => {
-  if (id.match(/^ARBA/)) {
+export const formatEvidenceContent = (id: string) => {
+  if (id.match(/^ARBA[0-9]{8}/)) {
     return `ARBA: ${id}`;
   }
-  if (id.match(/^MF_/)) {
+  if (id.match(/^MF_[0-9]{5}/)) {
     return `UniRule HAMAP-Rule: ${id}`;
   }
-  if (id.match(/^RU/)) {
+  if (id.match(/^RU[0-9]{6}/)) {
     return `UniRule RuleBase: ${id}`;
   }
-  if (id.match(/^PIRNR/)) {
+  if (id.match(/^PIRNR[0-9]+/)) {
     return `UniRule PIRNR: ${id}`;
   }
-  if (id.match(/^PIRSR/)) {
+  if (id.match(/^PIRSR[0-9]+(\\-[0-9]+)?/)) {
     return `UniRule PIRSR: ${id}`;
   }
-  if (id.match(/^PRU/)) {
+  if (id.match(/^PRU[0-9]{5}/)) {
     return `UniRule PROSITE-ProRule: ${id}`;
   }
   return id;
@@ -161,7 +161,7 @@ export const getEvidenceLink = (source: EvidenceSource, value: string) => {
 const EvidenceLink = ({
   source,
   value,
-  className = '',
+  className,
 }: {
   source: EvidenceSource;
   value?: string;

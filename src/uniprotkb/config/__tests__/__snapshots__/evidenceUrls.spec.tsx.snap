@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Evidence urls should return the correct external link JSX 1`] = `
+<DocumentFragment>
+  <a
+    class="external-link"
+    href="https://www.ensembl.org/id/rule_id"
+    rel="noopener"
+    target="_blank"
+  >
+    rule_id
+    <test-file-stub
+      data-testid="external-link-icon"
+      width="12.5"
+    />
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Evidence urls should return the correct internal link JSX 1`] = `
+<DocumentFragment>
+  <a
+    href="/arba/rule_id"
+  >
+    rule_id
+  </a>
+</DocumentFragment>
+`;
