@@ -268,8 +268,7 @@ const SecondaryItems = () => {
           <EnvelopeIcon width={secondaryItemIconSize} />
         </span>
       ),
-      // TODO: update link
-      href: '//www.uniprot.org/contact',
+      path: LocationToPath[Location.ContactGeneric],
     },
     {
       label: 'Help',
