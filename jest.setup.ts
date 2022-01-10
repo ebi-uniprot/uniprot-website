@@ -21,4 +21,6 @@ global.beforeEach(() => {
   resetUuidV1();
 });
 
+global.GIT_COMMIT_HASH = '#git_commit_id';
+
 jest.setTimeout(30000);
