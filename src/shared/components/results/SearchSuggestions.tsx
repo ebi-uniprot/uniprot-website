@@ -1,4 +1,4 @@
-import { Fragment, useMemo } from 'react';
+import { Fragment, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { LongNumber, EllipsisReveal } from 'franklin-sites';
 import qs from 'query-string';
@@ -35,6 +35,10 @@ const SearchSuggestions = ({
   namespace?: Namespace;
   total?: number;
 }) => {
+  const [linesToDisplay, setLinesToDisplay] = useState(1);
+  const [termsToDisplay, setTermsToDisplay] = useState(+Infinity);
+  const ref = useRef<HTMLElement>(null);
+
   // We try to not have a request if not needed, under these conditions:
   const shouldSuggest =
     // Only when there are results
@@ -92,7 +96,40 @@ const SearchSuggestions = ({
     );
   }, [data, searchTermsData]);
 
-  if (!searchTerms) {
+  /* Use useLayoutEffect and useState to display the elements, calculate their
+  size and wrapping, and update (through react renders) iteratively in order to
+  avoid painting flashes to the user */
+
+  useLayoutEffect(() => {
+    if (!searchTerms?.length) {
+      return;
+    }
+    setTermsToDisplay(searchTerms.length);
+  }, [searchTerms]);
+
+  useLayoutEffect(() => {
+    if (!searchTerms?.length || termsToDisplay === +Infinity) {
+      return;
+    }
+    // get the node's rectangles, one per line used (if there's a line-break)
+    const clientRects = ref.current?.getClientRects();
+    if (!clientRects?.length) {
+      return;
+    }
+    if (clientRects.length > linesToDisplay) {
+      // We have more lines than required
+      if (termsToDisplay === 1) {
+        // Way too small to display anything, just make it use one more line
+        setLinesToDisplay(2);
+        // And reset the terms to display
+        setTermsToDisplay(searchTerms.length);
+        return;
+      }
+      setTermsToDisplay((termsToDisplay) => termsToDisplay - 1);
+    }
+  }, [searchTerms, linesToDisplay, termsToDisplay]);
+
+  if (!searchTerms?.length) {
     return null;
   }
 
@@ -110,19 +147,20 @@ const SearchSuggestions = ({
     </Fragment>
   ));
 
-  const limit = 2;
+  const visibleFragments = fragments.slice(0, termsToDisplay);
+  const hiddenFragments = fragments.slice(termsToDisplay);
 
-  const visibleFragments = fragments.slice(0, limit);
-  const hiddenFragments = fragments.slice(limit);
-
+  // Need to wrap 2 elements in order to have getClientRects work fine
   return (
-    <small>
-      {' '}
-      or search &quot;{query}&quot; as a {visibleFragments}
-      {hiddenFragments.length ? (
-        <EllipsisReveal>{hiddenFragments}</EllipsisReveal>
-      ) : null}
-    </small>
+    <span ref={ref}>
+      <small>
+        {' '}
+        or search &quot;{query}&quot; as a {visibleFragments}
+        {hiddenFragments.length ? (
+          <EllipsisReveal>{hiddenFragments}</EllipsisReveal>
+        ) : null}
+      </small>
+    </span>
   );
 };
 
