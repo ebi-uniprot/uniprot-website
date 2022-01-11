@@ -5,6 +5,9 @@ import { Button, PageIntro } from 'franklin-sites';
 import HTMLHead from '../../shared/components/HTMLHead';
 
 import { LocationToPath, Location } from '../../app/config/urls';
+import postContactForm, {
+  ContactFormInputData,
+} from '../adapters/contactFormAdapter';
 
 import styles from './styles/contact-form.module.scss';
 
@@ -16,11 +19,19 @@ const ContactForm = () => {
   const handleSubmit = useCallback<FormEventHandler<HTMLFormElement>>(
     (event) => {
       const form = event.target;
+      event.preventDefault();
       if (!(form instanceof HTMLFormElement)) {
         return;
       }
+      // Parse form and generate form input data
+      const contactFormInputData: ContactFormInputData = {
+        email: (form.elements.namedItem('email') as HTMLInputElement).value,
+        name: (form.elements.namedItem('name') as HTMLInputElement).value,
+        subject: (form.elements.namedItem('subject') as HTMLInputElement).value,
+        message: (form.elements.namedItem('message') as HTMLInputElement).value,
+      };
+      postContactForm(contactFormInputData);
       event.preventDefault();
-      console.log(form, ...form.elements);
     },
     []
   );

@@ -135,6 +135,7 @@ const apiUrls = {
   uniparc: {
     entry: (id?: string) => id && joinUrl(apiPrefix, '/uniparc', id),
   },
+  contactForm: 'TODO update',
 };
 
 export default apiUrls;
