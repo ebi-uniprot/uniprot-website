@@ -25,6 +25,7 @@ const ResultsDataHeader: FC<{
   accessions,
   base,
   disableCardToggle = false,
+  children,
 }) => {
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
 
@@ -34,7 +35,9 @@ const ResultsDataHeader: FC<{
         title={namespaceAndToolsLabels[namespace]}
         titlePostscript={titlePostscript}
         resultsCount={total}
-      />
+      >
+        {children}
+      </PageIntro>
       <ResultsButtons
         total={total}
         loadedTotal={loadedTotal}
@@ -48,4 +51,4 @@ const ResultsDataHeader: FC<{
   );
 };
 
-export default memo(ResultsDataHeader);
+export default memo<typeof ResultsDataHeader>(ResultsDataHeader);

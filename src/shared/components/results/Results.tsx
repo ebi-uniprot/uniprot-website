@@ -13,13 +13,15 @@ import ResultsFacets from './ResultsFacets';
 import SideBarLayout from '../layouts/SideBarLayout';
 import NoResultsPage from '../error-pages/NoResultsPage';
 import ResultsDataHeader from './ResultsDataHeader';
+import SearchSuggestions from './SearchSuggestions';
 
-import Response from '../../../uniprotkb/types/responseTypes';
+import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
+
 import {
   searchableNamespaceLabels,
   SearchableNamespace,
 } from '../../types/namespaces';
-import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
+import Response from '../../../uniprotkb/types/responseTypes';
 
 const Results = () => {
   const ns = useNS();
@@ -60,9 +62,11 @@ const Results = () => {
     total = +resultsDataTotal;
   }
 
+  const params = getParamsFromURL(search);
+
   const helmet = ns && (
     <HTMLHead
-      title={`${getParamsFromURL(search).query} in ${
+      title={`${params.query} in ${
         searchableNamespaceLabels[ns as SearchableNamespace]
       }${total !== undefined ? ` (${total})` : ''}`}
     />
@@ -96,7 +100,9 @@ const Results = () => {
         total={total}
         loadedTotal={resultsDataObject.allResults.length}
         selectedEntries={selectedEntries}
-      />
+      >
+        <SearchSuggestions query={params.query} namespace={ns} total={total} />
+      </ResultsDataHeader>
       <ResultsData
         resultsDataObject={resultsDataObject}
         setSelectedItemFromEvent={setSelectedItemFromEvent}
