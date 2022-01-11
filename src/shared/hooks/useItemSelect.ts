@@ -59,7 +59,7 @@ const useItemSelect = (): [
   );
 
   // on unmount, cancel processing pending actions
-  useEffect(() => consumeActions.cancel, []);
+  useEffect(() => consumeActions.cancel, [consumeActions]);
 
   return [selectedItems, setSelectedItemFromEvent, setSelectedItems];
 };

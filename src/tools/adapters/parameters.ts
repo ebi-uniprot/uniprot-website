@@ -30,7 +30,7 @@ const stringifyTaxa = (taxa?: SelectedTaxon[]) =>
 
 const parseTaxa = (
   string = '',
-  taxonMapping: Map<string, string>
+  taxonMapping: Map<string, string> = new Map()
 ): SelectedTaxon[] => {
   const taxa = [];
   for (const taxid of string.split(',')) {
