@@ -1,10 +1,12 @@
 import { ActionType } from 'typesafe-actions';
+
 import * as messagesActions from './messagesActions';
 import messagesInitialState, { MessagesState } from './messagesInitialState';
 
 export type MessagesAction = ActionType<typeof messagesActions>;
 
 const messagesReducers = (
+  // eslint-disable-next-line default-param-last
   state: MessagesState = messagesInitialState,
   action: MessagesAction
 ) => {

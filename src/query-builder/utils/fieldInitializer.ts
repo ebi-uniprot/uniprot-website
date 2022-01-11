@@ -1,9 +1,4 @@
-import {
-  DataType,
-  FieldType,
-  QueryBit,
-  SearchTermType,
-} from '../types/searchTypes';
+import { QueryBit, SearchTermType } from '../types/searchTypes';
 
 const integerRange = /^\[(\*|-?\d+) TO (\*|-?\d+)\]$/;
 const dateRange = /^\[(\*|\d{4}-\d{2}-\d{2}) TO (\*|\d{4}-\d{2}-\d{2})\]$/;
