@@ -144,18 +144,25 @@ export const formatEvidenceContent = (id: string) => {
   return id;
 };
 
-export const getEvidenceLink = (source: EvidenceSource, value: string) => {
-  if (Object.keys(internalEvidenceUrls).includes(source)) {
+export const getEvidenceLink = (
+  source: string,
+  value: string
+): { url?: string; isInternal: boolean } => {
+  // source could be any string
+  if (source in internalEvidenceUrls) {
+    // source is a known internal source
     const url = internalEvidenceUrls[source as InternalSource](value);
     return { url, isInternal: true };
   }
-  if (Object.keys(evidenceUrls).includes(source)) {
+  if (source in evidenceUrls) {
+    // source is a known external source
     const url = processUrlTemplate(evidenceUrls[source as ExternalSource], {
       value,
     });
     return { url, isInternal: false };
   }
-  return { url: null, isInternal: false };
+  // source is an unregistered external source
+  return { isInternal: false };
 };
 
 const EvidenceLink = ({
@@ -163,7 +170,7 @@ const EvidenceLink = ({
   value,
   className,
 }: {
-  source: EvidenceSource;
+  source: string;
   value?: string;
   className?: string;
 }) => {

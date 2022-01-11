@@ -14,8 +14,6 @@ import useCustomElement from '../../../shared/hooks/useCustomElement';
 
 import apiUrls from '../../../shared/config/apiUrls';
 
-import { EvidenceSource } from '../../config/evidenceUrls';
-
 import './styles/variation-view.scss';
 
 type VariationViewProps = {
@@ -221,7 +219,7 @@ const VariationView = ({
                               (evidence) => ({
                                 evidenceCode: evidence.code as `ECO:${number}`,
                                 id: evidence.source.id,
-                                source: evidence.source.name as EvidenceSource,
+                                source: evidence.source.name,
                               })
                             )}
                           />

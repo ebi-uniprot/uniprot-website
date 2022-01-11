@@ -1,4 +1,4 @@
-import { FC, Fragment } from 'react';
+import { Fragment } from 'react';
 import { groupBy } from 'lodash-es';
 import { EvidenceTag } from 'franklin-sites';
 import {
@@ -9,7 +9,7 @@ import {
 import { Evidence } from '../../types/modelTypes';
 
 import UniProtKBEntryPublications from './UniProtKBEntryPublications';
-import EvidenceLink, { EvidenceSource } from '../../config/evidenceUrls';
+import EvidenceLink from '../../config/evidenceUrls';
 
 enum evidenceTagSourceTypes {
   PUBMED = 'PubMed',
@@ -17,10 +17,15 @@ enum evidenceTagSourceTypes {
   PROSITE_PRORULE = 'PROSITE-ProRule',
 }
 
-export const UniProtEvidenceTagContent: FC<{
+type UniProtEvidenceTagContentProps = {
   evidenceData: EvidenceData;
   evidences: Evidence[] | undefined;
-}> = ({ evidenceData, evidences }) => {
+};
+
+export const UniProtEvidenceTagContent = ({
+  evidenceData,
+  evidences,
+}: UniProtEvidenceTagContentProps) => {
   if (!evidences?.length) {
     return null;
   }
@@ -51,7 +56,7 @@ export const UniProtEvidenceTagContent: FC<{
           <Fragment key={key}>
             {mappedEvidences.map(({ id }: Evidence) => (
               <div key={id}>
-                <EvidenceLink source={key as EvidenceSource} value={id} />
+                <EvidenceLink source={key} value={id} />
               </div>
             ))}
           </Fragment>

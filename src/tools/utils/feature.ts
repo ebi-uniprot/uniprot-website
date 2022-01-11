@@ -1,10 +1,7 @@
 import urljoin from 'url-join';
 import { ProcessedFeature } from '../../shared/components/views/FeaturesView';
 import { processUrlTemplate } from '../../uniprotkb/components/protein-data-views/XRefView';
-import {
-  EvidenceSource,
-  getEvidenceLink,
-} from '../../uniprotkb/config/evidenceUrls';
+import { getEvidenceLink } from '../../uniprotkb/config/evidenceUrls';
 import FeatureType from '../../uniprotkb/types/featureType';
 
 type Source = {
@@ -63,10 +60,7 @@ export const prepareFeatureForTooltip = (
           : url;
       }
       if (e.source === 'PubMed') {
-        const { url: alternativeUrl } = getEvidenceLink(
-          'EuropePMC' as EvidenceSource,
-          e.id
-        );
+        const { url: alternativeUrl } = getEvidenceLink('EuropePMC', e.id);
         if (alternativeUrl) {
           source.alternativeUrl = alternativeUrl;
         }
