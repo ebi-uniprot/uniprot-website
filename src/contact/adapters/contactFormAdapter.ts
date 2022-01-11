@@ -2,27 +2,21 @@ import axios from 'axios';
 
 import apiUrls from '../../shared/config/apiUrls';
 
-type ContactFormInputData = {
+export type ContactFormInputData = {
   email: string;
   message: string;
-  name?: string;
   subject?: string;
-  accession?: string;
-  entryType?: string;
+  name?: string;
 };
 
 export const generateForm = (
   contactFormInputData: ContactFormInputData,
   token: string
 ) => {
-  const { email, message, name, subject, accession, entryType } =
-    contactFormInputData;
+  const { email, message, name, subject } = contactFormInputData;
   const formData = new FormData();
   formData.append('email', email);
-  formData.append(
-    'subject',
-    [entryType, accession, subject].filter((d) => d).join(' ')
-  );
+  formData.append('subject', subject || '');
   formData.append('token_id', token);
   formData.append(
     'message',

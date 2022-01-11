@@ -24,20 +24,4 @@ describe('Test contact form adapter', () => {
     }
     expect(formObj).toMatchSnapshot();
   });
-
-  test('it should set the subject in the case of entry updates', () => {
-    const form = generateForm(
-      {
-        email: 'pat@pencaster.co.uk',
-        name: 'Postman Pat',
-        subject: 'entry update',
-        accession: 'P05067',
-        entryType: 'SwissProt',
-        message: 'I would like this entry to be updated',
-      },
-      'random_token_id'
-    );
-
-    expect(form.get('subject')).toBe('SwissProt P05067 entry update');
-  });
 });
