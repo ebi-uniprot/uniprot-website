@@ -27,6 +27,43 @@ exports[`UniProtKBEvidenceTag components should render automatic  1`] = `
 </DocumentFragment>
 `;
 
+exports[`UniProtKBEvidenceTag components should render automatic  2`] = `
+<DocumentFragment>
+  <button
+    aria-controls="0"
+    aria-expanded="true"
+    class="svg-colour-unreviewed evidence-tag"
+    data-testid="evidence-tag-trigger"
+    type="button"
+  >
+    <test-file-stub
+      height="12"
+      width="12"
+    />
+    <span
+      class="evidence-tag__label"
+    >
+      Imported
+    </span>
+  </button>
+  <div
+    class="evidence-tag-content evidence-tag-content--visible"
+    data-testid="evidence-tag-content"
+    id="0"
+  >
+    <div>
+      <h5>
+        Automatic assertion inferred from database entries 
+        <small>
+          (Automatically imported)
+        </small>
+      </h5>
+      <div />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`UniProtKBEvidenceTag components should render automatic annotation 1`] = `
 <DocumentFragment>
   <button
@@ -54,6 +91,56 @@ exports[`UniProtKBEvidenceTag components should render automatic annotation 1`] 
 </DocumentFragment>
 `;
 
+exports[`UniProtKBEvidenceTag components should render automatic annotation 2`] = `
+<DocumentFragment>
+  <button
+    aria-controls="0"
+    aria-expanded="true"
+    class="svg-colour-unreviewed evidence-tag"
+    data-testid="evidence-tag-trigger"
+    type="button"
+  >
+    <test-file-stub
+      height="12"
+      width="12"
+    />
+    <span
+      class="evidence-tag__label"
+    >
+      1 automatic annotation
+    </span>
+  </button>
+  <div
+    class="evidence-tag-content evidence-tag-content--visible"
+    data-testid="evidence-tag-content"
+    id="0"
+  >
+    <div>
+      <h5>
+        Automatic assertion according to rules 
+        <small>
+          (Inferred from sequence model)
+        </small>
+      </h5>
+      <div>
+        <a
+          class="external-link"
+          href="https://prosite.expasy.org/unirule/PRU10023"
+          rel="noopener"
+          target="_blank"
+        >
+          UniRule PROSITE-ProRule: PRU10023
+          <test-file-stub
+            data-testid="external-link-icon"
+            width="12.5"
+          />
+        </a>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`UniProtKBEvidenceTag components should render publications count 1`] = `
 <DocumentFragment>
   <button
@@ -78,5 +165,50 @@ exports[`UniProtKBEvidenceTag components should render publications count 1`] = 
     data-testid="evidence-tag-content"
     id="0"
   />
+</DocumentFragment>
+`;
+
+exports[`UniProtKBEvidenceTag components should render publications count 2`] = `
+<DocumentFragment>
+  <button
+    aria-controls="0"
+    aria-expanded="true"
+    class="svg-colour-reviewed evidence-tag"
+    data-testid="evidence-tag-trigger"
+    type="button"
+  >
+    <test-file-stub
+      height="12"
+      width="12"
+    />
+    <span
+      class="evidence-tag__label"
+    >
+      2 publications
+    </span>
+  </button>
+  <div
+    class="evidence-tag-content evidence-tag-content--visible"
+    data-testid="evidence-tag-content"
+    id="0"
+  >
+    <div>
+      <h5>
+        Manual assertion based on experiment 
+        <small>
+          (Inferred from experiment)
+        </small>
+      </h5>
+      <div
+        class="loader-container"
+      >
+        <test-file-stub
+          classname="loader"
+          height="100"
+          width="100"
+        />
+      </div>
+    </div>
+  </div>
 </DocumentFragment>
 `;
