@@ -4,6 +4,9 @@ import { PageIntro } from 'franklin-sites';
 
 import HTMLHead from '../../shared/components/HTMLHead';
 import { LocationToPath, Location } from '../../app/config/urls';
+import postContactForm, {
+  ContactFormInputData,
+} from '../adapters/contactFormAdapter';
 
 const ContactForm = () => {
   const isUpdate = !!useRouteMatch(LocationToPath[Location.ContactUpdate]);
@@ -11,11 +14,19 @@ const ContactForm = () => {
   const handleSubmit = useCallback<FormEventHandler<HTMLFormElement>>(
     (event) => {
       const form = event.target;
+      event.preventDefault();
       if (!(form instanceof HTMLFormElement)) {
         return;
       }
+      // Parse form and generate form input data
+      const contactFormInputData: ContactFormInputData = {
+        email: (form.elements.namedItem('email') as HTMLInputElement).value,
+        name: (form.elements.namedItem('name') as HTMLInputElement).value,
+        subject: (form.elements.namedItem('subject') as HTMLInputElement).value,
+        message: (form.elements.namedItem('message') as HTMLInputElement).value,
+      };
+      postContactForm(contactFormInputData);
       event.preventDefault();
-      console.log(form, ...form.elements);
     },
     []
   );
@@ -30,7 +41,10 @@ const ContactForm = () => {
       <PageIntro title="Contact us" />
       {description}
       <form aria-label="Contact form" onSubmit={handleSubmit}>
-        <input type="text" name="email" />
+        <input type="text" name="email" required />
+        <input type="text" name="name" />
+        <input type="text" name="subject" />
+        <textarea name="message" required />
         <button type="submit">Submit</button>
       </form>
     </>
