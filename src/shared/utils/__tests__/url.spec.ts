@@ -44,8 +44,8 @@ describe('getLocationForPathname', () => {
     '/tool-dashboard': Location.Dashboard,
   };
   it('should match pathname to the correct location', () => {
-    Object.entries(pathnameToLocation).map(([pathname, location]) => {
-      expect(getLocationForPathname(pathname)).toEqual(location);
-    });
+    Object.entries(pathnameToLocation).map(([pathname, location]) =>
+      expect(getLocationForPathname(pathname)).toEqual(location)
+    );
   });
 });

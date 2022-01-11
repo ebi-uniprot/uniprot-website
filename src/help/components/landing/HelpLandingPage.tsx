@@ -170,7 +170,7 @@ const HelpLandingPage = () => (
     )}
   >
     <HTMLHead title="Help" />
-    <h2 className="uniprot-grid-cell--span-12">Help center</h2>
+    <h1 className="uniprot-grid-cell--span-12">Help center</h1>
     <div className="uniprot-grid-cell--span-9">
       <HelpQuickSearch />
       <div className={landing['help-landing__tiles']}>
@@ -181,7 +181,7 @@ const HelpLandingPage = () => (
     </div>
     <div className="uniprot-grid-cell--span-3">
       <section className={landing['help-landing__faqs']}>
-        <h4>Suggested FAQs</h4>
+        <h2 className="small">Suggested FAQs</h2>
         <ul className="no-bullet">
           <li>
             <Link to={getHelpEntryPath('disease_query')}>

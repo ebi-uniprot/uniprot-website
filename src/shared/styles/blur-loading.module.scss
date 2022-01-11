@@ -1,0 +1,11 @@
+.blur-loading {
+  &__item {
+    transition: filter linear 0.25s;
+    filter: blur(0);
+  }
+
+  &__placeholder {
+    will-change: filter;
+    filter: blur(0.1rem);
+  }
+}

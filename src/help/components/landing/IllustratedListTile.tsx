@@ -30,27 +30,20 @@ const IllustratedListTile = ({
   moreTo,
 }: IllustratedListTileProps) => (
   <div className={styles['illustrated-list-tile']}>
-    <h3>{title}</h3>
-    <div className={styles['illustrated-list-tile__content']}>
-      <div className={styles['illustrated-list-tile__content__image']}>
-        {image}
-      </div>
-      <ul
-        className={cn(
-          styles['illustrated-list-tile__content__list'],
-          'no-bullet'
-        )}
-      >
-        {linkList.map(({ label, to, url }) => (
-          <li key={label}>
-            {to ? <Link to={to}>{label}</Link> : <a href={url}>{label}</a>}
-          </li>
-        ))}
-      </ul>
-    </div>
-    <div className={styles['illustrated-list-tile__more-link']}>
-      <Link to={moreTo}>More</Link>
-    </div>
+    <h2 className={cn(styles['illustrated-list-tile__heading'], 'medium')}>
+      {title}
+    </h2>
+    <div className={styles['illustrated-list-tile__image']}>{image}</div>
+    <ul className={cn(styles['illustrated-list-tile__list'], 'no-bullet')}>
+      {linkList.map(({ label, to, url }) => (
+        <li key={label}>
+          {to ? <Link to={to}>{label}</Link> : <a href={url}>{label}</a>}
+        </li>
+      ))}
+    </ul>
+    <Link className={styles['illustrated-list-tile__more']} to={moreTo}>
+      More
+    </Link>
   </div>
 );
 

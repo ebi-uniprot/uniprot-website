@@ -10,6 +10,7 @@ import { getLocationEntryPath, Location } from '../../../app/config/urls';
 import { Namespace } from '../../types/namespaces';
 
 import helper from '../../styles/helper.module.scss';
+import blurLoading from '../../styles/blur-loading.module.scss';
 import './styles/release-info.scss';
 
 const fetchOptions: { method: Method } = { method: 'HEAD' };
@@ -19,17 +20,23 @@ const today = new Date();
 const ReleaseInfo = () => {
   // TODO: replace with statistics endpoint
   const { headers } = useDataApi(
-    `${apiUrls.queryBuilderTerms(Namespace.uniprotkb)}`,
+    apiUrls.queryBuilderTerms(Namespace.uniprotkb),
     fetchOptions
   );
   // NOTE: don't use release number as date, might be different
   const releaseNumber = headers?.['x-release-number'];
 
   return (
-    <span className={cn('release-info', helper['no-wrap'])}>
+    <span
+      className={cn(
+        'release-info',
+        helper['no-wrap'],
+        blurLoading['blur-loading__item']
+      )}
+    >
       <span
         className={cn(
-          { 'release-info__placeholder': !releaseNumber },
+          { [blurLoading['blur-loading__placeholder']]: !releaseNumber },
           'release-info__release_number'
         )}
       >

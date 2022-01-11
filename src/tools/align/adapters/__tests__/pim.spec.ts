@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import { promisify } from 'util';
-import { PIM } from '../../types/alignResults';
 
 import pim from '../pim';
 

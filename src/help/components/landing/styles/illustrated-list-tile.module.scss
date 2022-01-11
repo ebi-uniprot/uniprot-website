@@ -3,36 +3,32 @@
 .illustrated-list-tile {
   border: 1px solid $colour-gainsborough;
   width: 100%;
+  aspect-ratio: 1 / 1;
   padding: 1rem;
+  gap: 1rem;
 
-  &__content {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 1rem;
+  display: grid;
+  grid-template-areas:
+    'heading heading'
+    'image   list'
+    'more    more';
+  grid-template-columns: 1fr 3fr;
+  grid-template-rows: min-content 1fr min-content;
 
-    & > * {
-      display: flex;
-      flex-direction: column;
-      flex-basis: 100%;
-      height: 7.5rem;
-    }
-
-    &__image {
-      flex: 0.333;
-    }
-
-    &__list {
-      flex: 1;
-
-      li {
-        margin-bottom: 0.75rem;
-        line-height: 1.25;
-      }
-    }
+  &__heading {
+    grid-area: heading;
   }
 
-  &__more-link {
-    text-align: right;
+  &__image {
+    grid-area: image;
+  }
+
+  &__list {
+    grid-area: list;
+  }
+
+  &__more {
+    grid-area: more;
+    justify-self: flex-end;
   }
 }

@@ -1,6 +1,5 @@
 import deepFreeze from 'deep-freeze';
 
-import { FormParameters } from '../types/peptideSearchFormParameters';
 import { SelectedTaxon } from '../../types/toolsFormData';
 
 export type PeptideSearchFormValue = {
