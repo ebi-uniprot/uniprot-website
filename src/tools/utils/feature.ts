@@ -1,6 +1,5 @@
 import urljoin from 'url-join';
 import { ProcessedFeature } from '../../shared/components/views/FeaturesView';
-import { processUrlTemplate } from '../../uniprotkb/components/protein-data-views/XRefView';
 import { getEvidenceLink } from '../../uniprotkb/config/evidenceUrls';
 import FeatureType from '../../uniprotkb/types/featureType';
 
