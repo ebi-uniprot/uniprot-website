@@ -343,11 +343,7 @@ exports[`HelpLandingPage should render 1`] = `
         <div>
           <p>
             <a
-              class="external-link"
-              href="https://www.uniprot.org/contact"
-              referrerpolicy="no-referrer-when-downgrade"
-              rel="noopener"
-              target="_blank"
+              href="/contact"
             >
               Get in touch 
               <test-file-stub

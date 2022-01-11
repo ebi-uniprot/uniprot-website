@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Link, useRouteMatch, useHistory } from 'react-router-dom';
 import { InPageNav, Loader, Tabs, Tab } from 'franklin-sites';
 import cn from 'classnames';
+import qs from 'query-string';
 import { frame } from 'timing-functions';
 
 import EntrySection, {
@@ -360,15 +361,15 @@ const Entry: FC = () => {
                   Add a publication
                 </a>
                 {/* eslint-disable-next-line react/jsx-no-target-blank */}
-                <a
-                  href={`https://www.uniprot.org/update?entry=${match.params.accession}`}
+                <Link
+                  to={{
+                    pathname: LocationToPath[Location.ContactUpdate],
+                    search: qs.stringify({ entry: match.params.accession }),
+                  }}
                   className="button tertiary"
-                  target="_blank"
-                  rel="noopener"
-                  referrerPolicy="no-referrer-when-downgrade"
                 >
                   Entry feedback
-                </a>
+                </Link>
               </div>
               <EntryMain transformedData={transformedData} />
             </>

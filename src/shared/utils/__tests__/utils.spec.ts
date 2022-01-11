@@ -113,7 +113,7 @@ describe('getBEMClassName', () => {
 
 describe('formatPercentage', () => {
   it('should format numbers with many digits of precision to have the default precision of 1 and with rounding', () => {
-    const number = 10.1922323409823049823094;
+    const number = 10.192232340982;
     expect(formatPercentage(number)).toEqual('10.2%');
   });
 

@@ -67,7 +67,9 @@ export enum Location {
   // Help
   HelpEntry = 'HelpEntry',
   HelpResults = 'HelpResults',
-  Contact = 'Contact',
+  // Contact
+  ContactGeneric = 'ContactGeneric',
+  ContactUpdate = 'ContactUpdate',
 }
 
 export const LocationToPath: Record<Location, string> = {
@@ -113,7 +115,9 @@ export const LocationToPath: Record<Location, string> = {
   // Help
   [Location.HelpEntry]: '/help/:accession',
   [Location.HelpResults]: '/help',
-  [Location.Contact]: '/contact',
+  // Contact
+  [Location.ContactGeneric]: '/contact',
+  [Location.ContactUpdate]: '/update',
 };
 
 export const SearchResultsLocations: Record<SearchableNamespace, string> = {

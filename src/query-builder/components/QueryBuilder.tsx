@@ -1,5 +1,4 @@
 import {
-  FC,
   FormEvent,
   useState,
   useEffect,
@@ -64,11 +63,7 @@ interface Style extends CSSProperties {
   '--main-button-color': string;
 }
 
-const QueryBuilder: FC<Props> = ({
-  onCancel,
-  fieldToAdd,
-  initialNamespace,
-}) => {
+const QueryBuilder = ({ onCancel, fieldToAdd, initialNamespace }: Props) => {
   const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch();

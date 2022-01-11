@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchSuggestions should render suggestions 1`] = `
+<DocumentFragment>
+  <span>
+    <small>
+       or search "eve" as a 
+      <a
+        href="/uniprotkb?query=strain:eve"
+      >
+        Strain (14,411)
+      </a>
+      , 
+      <a
+        href="/uniprotkb?query=protein_name:eve"
+      >
+        Protein Name (13,014)
+      </a>
+      , 
+      <a
+        href="/uniprotkb?query=gene:eve"
+      >
+        Gene Name (88)
+      </a>
+      , 
+      <a
+        href="/uniprotkb?query=lit_author:eve"
+      >
+        Author (2)
+      </a>
+      , 
+      <a
+        href="/uniprotkb?query=organism_name:eve"
+      >
+        Organism (1)
+      </a>
+      , or 
+      <a
+        href="/uniprotkb?query=taxonomy_name:eve"
+      >
+        Taxonomy (1)
+      </a>
+    </small>
+  </span>
+</DocumentFragment>
+`;
