@@ -1,0 +1,84 @@
+@import 'franklin-sites/src/styles/colours';
+
+.container {
+  & > hr {
+    color: $colour-gainsborough;
+    background-color: $colour-gainsborough;
+    height: 1px;
+    border: 0;
+    margin: 1rem 0 2rem 0;
+  }
+}
+
+.form {
+  display: grid;
+
+  grid-template-columns: min-content 1fr 1fr 1fr;
+
+  /* test styles */
+  input:required {
+    background: blue;
+
+    &::before {
+      content: '*';
+    }
+  }
+
+  input:valid::after {
+    // content: '✅';
+  }
+
+  input:not([value]):invalid {
+    background-color: red;
+
+    ::after {
+      content: '❌';
+    }
+  }
+  /* end test styles */
+
+  svg {
+    grid-column-start: 3;
+    grid-row: 1 / -5;
+    transform-origin: bottom center;
+    transform: scale(0.75);
+  }
+
+  & label {
+    display: contents;
+    font-weight: bold;
+
+    & > span:first-child {
+      // label texts on the left of the grid
+      grid-column-start: 1;
+      margin-right: 3ch;
+    }
+  }
+
+  & textarea {
+    // span the whole grid
+    grid-column: 1 / -1;
+  }
+
+  & > .privacy {
+    grid-column: 1 / -1;
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    font-weight: normal;
+
+    & > input {
+      margin-top: 1em;
+    }
+  }
+
+  & button[type='submit'] {
+    margin-top: 1em;
+    grid-column-start: 1;
+  }
+
+  & > .other-ways {
+    grid-column-start: 4;
+    grid-row: 1 / -5;
+  }
+}
