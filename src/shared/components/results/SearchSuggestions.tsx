@@ -14,6 +14,8 @@ import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { SearchTermType } from '../../../query-builder/types/searchTypes';
 
+import helper from '../../styles/helper.module.scss';
+
 type MatchedFields = Array<{
   name: string;
   hits: number;
@@ -141,6 +143,7 @@ const SearchSuggestions = ({
           pathname: LocationToPath[Location.UniProtKBResults],
           search: `query=${matchedField.name}:${query}`,
         }}
+        className={helper['no-wrap']}
       >
         {matchedField.label} (<LongNumber>{matchedField.hits}</LongNumber>)
       </Link>
