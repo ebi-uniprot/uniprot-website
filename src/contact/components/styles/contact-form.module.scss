@@ -1,4 +1,5 @@
 @import 'franklin-sites/src/styles/colours';
+@import 'franklin-sites/src/styles/mixins';
 
 .container {
   & > hr {
@@ -13,7 +14,11 @@
 .form {
   display: grid;
 
-  grid-template-columns: min-content 1fr 1fr 1fr;
+  grid-template-columns: min-content 1fr 1fr;
+
+  @include fs-breakpoints('large') {
+    grid-template-columns: min-content 1fr 1fr 1fr;
+  }
 
   /* test styles */
   input:required {
@@ -38,10 +43,15 @@
   /* end test styles */
 
   svg {
-    grid-column-start: 3;
-    grid-row: 1 / -5;
-    transform-origin: bottom center;
-    transform: scale(0.75);
+    display: none;
+
+    @include fs-breakpoints('large') {
+      display: initial;
+      grid-column-start: 3;
+      grid-row: 1 / -5;
+      transform-origin: bottom center;
+      transform: scale(0.75);
+    }
   }
 
   & label {
@@ -78,7 +88,7 @@
   }
 
   & > .other-ways {
-    grid-column-start: 4;
+    grid-column-start: -2;
     grid-row: 1 / -5;
   }
 }
