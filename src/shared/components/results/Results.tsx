@@ -12,6 +12,7 @@ import ResultsData from './ResultsData';
 import ResultsFacets from './ResultsFacets';
 import SideBarLayout from '../layouts/SideBarLayout';
 import NoResultsPage from '../error-pages/NoResultsPage';
+import ErrorBoundary from '../error-component/ErrorBoundary';
 import ResultsDataHeader from './ResultsDataHeader';
 import SearchSuggestions from './SearchSuggestions';
 
@@ -101,7 +102,13 @@ const Results = () => {
         loadedTotal={resultsDataObject.allResults.length}
         selectedEntries={selectedEntries}
       >
-        <SearchSuggestions query={params.query} namespace={ns} total={total} />
+        <ErrorBoundary fallback={null}>
+          <SearchSuggestions
+            query={params.query}
+            namespace={ns}
+            total={total}
+          />
+        </ErrorBoundary>
       </ResultsDataHeader>
       <ResultsData
         resultsDataObject={resultsDataObject}
