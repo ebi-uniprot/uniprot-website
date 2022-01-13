@@ -1,4 +1,6 @@
-import { FormEventHandler, useRef, ChangeEvent } from 'react';
+import { FormEventHandler, useRef, ChangeEvent, useCallback } from 'react';
+import { v1 } from 'uuid';
+import { useDispatch } from 'react-redux';
 import {
   generatePath,
   Link,
@@ -12,7 +14,6 @@ import {
   ErrorIcon,
   SuccessIcon,
 } from 'franklin-sites';
-import { v1 } from 'uuid';
 import cn from 'classnames';
 import { LocationDescriptor } from 'history';
 
@@ -22,27 +23,15 @@ import { LocationToPath, Location } from '../../app/config/urls';
 import postContactForm, {
   ContactFormInputData,
 } from '../adapters/contactFormAdapter';
+import { addMessage } from '../../messages/state/messagesActions';
 
 import styles from './styles/contact-form.module.scss';
 
 import HelperContactImage from './svgs/helper-contact.svg';
-
-const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
-  const form = event.target;
-  event.preventDefault();
-  if (!(form instanceof HTMLFormElement)) {
-    return;
-  }
-  // Parse form and generate form input data
-  const contactFormInputData: ContactFormInputData = {
-    email: (form.elements.namedItem('email') as HTMLInputElement).value,
-    name: (form.elements.namedItem('name') as HTMLInputElement).value,
-    subject: (form.elements.namedItem('subject') as HTMLInputElement).value,
-    message: (form.elements.namedItem('message') as HTMLInputElement).value,
-  };
-  postContactForm(contactFormInputData);
-  event.preventDefault();
-};
+import {
+  MessageFormat,
+  MessageLevel,
+} from '../../messages/types/messagesTypes';
 
 // ARIA hide all of these, are the state is available in the form already
 const validity = (
@@ -68,6 +57,7 @@ const ContactForm = () => {
   const isUpdate = !!useRouteMatch(LocationToPath[Location.ContactUpdate]);
   const referrer =
     useLocation<{ referrer?: LocationDescriptor }>().state?.referrer;
+  const dispatch = useDispatch();
 
   console.log('referrer', referrer);
 
@@ -78,6 +68,39 @@ const ContactForm = () => {
       e.target.setCustomValidity('Please tick the box to agree.');
     }
   };
+
+  const handleSubmit = useCallback<FormEventHandler<HTMLFormElement>>(
+    async (event) => {
+      const form = event.target;
+      event.preventDefault();
+      if (!(form instanceof HTMLFormElement)) {
+        return;
+      }
+      // Parse form and generate form input data
+      const contactFormInputData: ContactFormInputData = {
+        email: (form.elements.namedItem('email') as HTMLInputElement).value,
+        name: (form.elements.namedItem('name') as HTMLInputElement).value,
+        subject: (form.elements.namedItem('subject') as HTMLInputElement).value,
+        message: (form.elements.namedItem('message') as HTMLInputElement).value,
+      };
+      try {
+        await postContactForm(contactFormInputData);
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error(error);
+        dispatch(
+          addMessage({
+            id: v1(),
+            format: MessageFormat.POP_UP,
+            level: MessageLevel.FAILURE,
+            content: 'Error while sending the form. Please try again later.',
+          })
+        );
+      }
+      event.preventDefault();
+    },
+    [dispatch]
+  );
 
   const description = isUpdate
     ? 'Submit updates or corrections to UniProt'
