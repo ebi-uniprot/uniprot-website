@@ -1,5 +1,6 @@
 @import 'franklin-sites/src/styles/colours';
 @import 'franklin-sites/src/styles/mixins';
+@import 'franklin-sites/src/styles/settings';
 
 .container {
   & > hr {
@@ -7,12 +8,12 @@
     background-color: $colour-gainsborough;
     height: 1px;
     border: 0;
-    margin: 1rem 0 2rem 0;
+    margin: $global-margin 0 2 * $global-margin 0;
   }
 
   form {
     display: grid;
-    column-gap: 1rem;
+    column-gap: $global-margin;
 
     grid-template-columns: [label-start] min-content [label-end input-start] 1fr [input-end] 1fr;
 
@@ -45,7 +46,7 @@
     }
 
     & button[type='submit'] {
-      margin-top: 1em;
+      margin-top: $global-margin;
       grid-area: submit;
       justify-self: start;
     }
