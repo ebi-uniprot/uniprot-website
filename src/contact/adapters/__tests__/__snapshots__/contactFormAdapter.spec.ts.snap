@@ -6,7 +6,8 @@ Object {
   "message": "I would like this entry to be updated
 
 Name: Postman Pat
-Referred from: Browser and OS info
+Referred from: /uniprotkb/P05067
+Browser: Browser and OS info
 Git commit: #git_commit_id",
   "subject": "General enquiry",
   "token_id": "random_token_id",
