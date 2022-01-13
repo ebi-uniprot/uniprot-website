@@ -27,6 +27,23 @@ import styles from './styles/contact-form.module.scss';
 
 import HelperContactImage from './svgs/helper-contact.svg';
 
+const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+  const form = event.target;
+  event.preventDefault();
+  if (!(form instanceof HTMLFormElement)) {
+    return;
+  }
+  // Parse form and generate form input data
+  const contactFormInputData: ContactFormInputData = {
+    email: (form.elements.namedItem('email') as HTMLInputElement).value,
+    name: (form.elements.namedItem('name') as HTMLInputElement).value,
+    subject: (form.elements.namedItem('subject') as HTMLInputElement).value,
+    message: (form.elements.namedItem('message') as HTMLInputElement).value,
+  };
+  postContactForm(contactFormInputData);
+  event.preventDefault();
+};
+
 // ARIA hide all of these, are the state is available in the form already
 const validity = (
   <>
@@ -57,26 +74,6 @@ const ContactForm = () => {
   const privacyCheckBox = useCallback((checkbox: HTMLInputElement) => {
     checkbox.setCustomValidity('Please tick the box to agree.');
   }, []);
-
-  const handleSubmit = useCallback<FormEventHandler<HTMLFormElement>>(
-    (event) => {
-      const form = event.target;
-      event.preventDefault();
-      if (!(form instanceof HTMLFormElement)) {
-        return;
-      }
-      // Parse form and generate form input data
-      const contactFormInputData: ContactFormInputData = {
-        email: (form.elements.namedItem('email') as HTMLInputElement).value,
-        name: (form.elements.namedItem('name') as HTMLInputElement).value,
-        subject: (form.elements.namedItem('subject') as HTMLInputElement).value,
-        message: (form.elements.namedItem('message') as HTMLInputElement).value,
-      };
-      postContactForm(contactFormInputData);
-      event.preventDefault();
-    },
-    []
-  );
 
   const description = isUpdate
     ? 'Submit updates or corrections to UniProt'
