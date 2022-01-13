@@ -15,7 +15,7 @@ import {
   SuccessIcon,
 } from 'franklin-sites';
 import cn from 'classnames';
-import { LocationDescriptor } from 'history';
+import { createPath, LocationDescriptor } from 'history';
 
 import HTMLHead from '../../shared/components/HTMLHead';
 
@@ -55,11 +55,17 @@ const validity = (
 const ContactForm = () => {
   const idRef = useRef(v1());
   const isUpdate = !!useRouteMatch(LocationToPath[Location.ContactUpdate]);
-  const referrer =
-    useLocation<{ referrer?: LocationDescriptor }>().state?.referrer;
+  const { state: locationState } =
+    useLocation<{ referrer?: LocationDescriptor }>();
   const dispatch = useDispatch();
 
-  console.log('referrer', referrer);
+  let referrerValue: undefined | string;
+  if (locationState.referrer) {
+    referrerValue =
+      typeof locationState.referrer === 'string'
+        ? locationState.referrer
+        : createPath(locationState.referrer);
+  }
 
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
@@ -203,6 +209,7 @@ const ContactForm = () => {
             tabIndex={-1}
             aria-hidden="true"
           />
+          <input hidden name="referrer" value={referrerValue} />
           <Button type="submit">Send message</Button>
           {/* TODO: after TRM-25295, make sure this is not even loaded on
            * smaller screens when loaded as an image */}
@@ -224,7 +231,7 @@ const ContactForm = () => {
                         : Location.ContactUpdate
                     ],
                   // Make sure to pass along the previour referrer if switching
-                  state: { referrer },
+                  state: { referrer: locationState.referrer },
                 }}
               >
                 {isUpdate

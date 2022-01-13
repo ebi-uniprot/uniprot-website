@@ -5,22 +5,25 @@ import apiUrls from '../../shared/config/apiUrls';
 export type ContactFormInputData = {
   email: string;
   message: string;
-  subject?: string;
+  subject: string;
   name?: string;
+  referrer?: string;
 };
 
 export const generateForm = (
   contactFormInputData: ContactFormInputData,
   token: string
 ) => {
-  const { email, message, name, subject } = contactFormInputData;
+  const { email, message, name, subject, referrer } = contactFormInputData;
   const formData = new FormData();
   formData.append('email', email);
   formData.append('subject', subject || '');
   formData.append('token_id', token);
   formData.append(
     'message',
-    `${message}\n\nName: ${name}\nReferred from: ${navigator.userAgent}\nGit commit: ${GIT_COMMIT_HASH}`
+    `${message}\n\nName: ${name}\nReferred from: ${
+      referrer || '<none>'
+    }\nBrowser: ${navigator.userAgent}\nGit commit: ${GIT_COMMIT_HASH}`
   );
   return formData;
 };

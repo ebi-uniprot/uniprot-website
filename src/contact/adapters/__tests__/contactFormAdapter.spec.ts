@@ -15,6 +15,7 @@ describe('Test contact form adapter', () => {
         name: 'Postman Pat',
         subject: 'General enquiry',
         message: 'I would like this entry to be updated',
+        referrer: '/uniprotkb/P05067',
       },
       'random_token_id'
     );
