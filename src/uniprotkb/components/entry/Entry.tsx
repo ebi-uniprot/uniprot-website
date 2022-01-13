@@ -60,6 +60,7 @@ import {
   searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
 import { EntryType } from '../../../shared/components/entry/EntryTypeIcon';
+import { ContactLocationState } from '../../../contact/components/ContactForm';
 
 import helper from '../../../shared/styles/helper.module.scss';
 import sticky from '../../../shared/styles/sticky.module.scss';
@@ -361,7 +362,7 @@ const Entry: FC = () => {
                   Add a publication
                 </a>
                 {/* eslint-disable-next-line react/jsx-no-target-blank */}
-                <Link
+                <Link<ContactLocationState>
                   to={(location) => ({
                     pathname: LocationToPath[Location.ContactUpdate],
                     search: qs.stringify({ entry: match.params.accession }),

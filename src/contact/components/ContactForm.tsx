@@ -33,6 +33,10 @@ import {
   MessageLevel,
 } from '../../messages/types/messagesTypes';
 
+export type ContactLocationState =
+  | undefined
+  | { referrer?: LocationDescriptor };
+
 // ARIA hide all of these, are the state is available in the form already
 const validity = (
   <>
@@ -55,12 +59,11 @@ const validity = (
 const ContactForm = () => {
   const idRef = useRef(v1());
   const isUpdate = !!useRouteMatch(LocationToPath[Location.ContactUpdate]);
-  const { state: locationState } =
-    useLocation<{ referrer?: LocationDescriptor }>();
+  const { state: locationState } = useLocation<ContactLocationState>();
   const dispatch = useDispatch();
 
   let referrerValue: undefined | string;
-  if (locationState.referrer) {
+  if (locationState?.referrer) {
     referrerValue =
       typeof locationState.referrer === 'string'
         ? locationState.referrer
@@ -222,7 +225,7 @@ const ContactForm = () => {
             <h2 className="small">Other ways to contact us</h2>
             {/* Link to switch the contact form */}
             <div>
-              <Link
+              <Link<ContactLocationState>
                 to={{
                   pathname:
                     LocationToPath[
@@ -231,7 +234,7 @@ const ContactForm = () => {
                         : Location.ContactUpdate
                     ],
                   // Make sure to pass along the previour referrer if switching
-                  state: { referrer: locationState.referrer },
+                  state: { referrer: locationState?.referrer },
                 }}
               >
                 {isUpdate
