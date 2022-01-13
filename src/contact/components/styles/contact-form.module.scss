@@ -23,7 +23,7 @@
       'label-message .             aside'
       'input-message input-message input-message'
       'privacy       privacy       privacy'
-      'submit        .             .';
+      'submit        submit        .';
 
     @include fs-breakpoints('large') {
       grid-template-columns: [label-start] min-content [label-end input-start] 2fr [input-end] 1fr max-content;
@@ -34,7 +34,7 @@
         'label-message .             illustration  aside'
         'input-message input-message input-message input-message'
         'privacy       privacy       privacy       privacy'
-        'submit        .             .             .';
+        'submit        submit        .             .';
     }
 
     &:invalid button[type='submit'] {
@@ -52,7 +52,8 @@
 
     & button[type='submit'] {
       margin-top: 1em;
-      grid-column-start: 1;
+      grid-area: submit;
+      justify-self: start;
     }
 
     & > aside {

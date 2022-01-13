@@ -157,7 +157,7 @@ const ContactForm = () => {
             tabIndex={-1}
             aria-hidden="true"
           />
-          <Button type="submit">Submit</Button>
+          <Button type="submit">Send message</Button>
           {/* TODO: after TRM-25295, make sure this is not even loaded on
            * smaller screens when loaded as an image */}
           <HelperContactImage
