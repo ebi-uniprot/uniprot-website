@@ -69,6 +69,10 @@
 
   &__message {
     grid-column: 1 / -1;
+
+    & > textarea {
+      min-height: 10em;
+    }
   }
 
   & > input,
