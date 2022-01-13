@@ -1,12 +1,21 @@
 import axios from 'axios';
 
 import apiUrls from '../../shared/config/apiUrls';
+import fetchData from '../../shared/utils/fetchData';
 
 export type ContactFormInputData = {
   email: string;
   message: string;
-  subject?: string;
+  subject: string;
   name?: string;
+};
+
+export const getToken = async (key: string) => {
+  const searchParams = new URLSearchParams({ key });
+  const response = await fetchData<{ token: string }>(
+    `${apiUrls.contact.token}?${searchParams}`
+  );
+  return response.data?.token;
 };
 
 export const generateForm = (
@@ -25,13 +34,14 @@ export const generateForm = (
   return formData;
 };
 
-const postContactForm = (contactFormInputData: ContactFormInputData) => {
-  // TODO get new token
-  const token = 'some_token';
+const postContactForm = async (contactFormInputData: ContactFormInputData) => {
+  const token = await getToken(contactFormInputData.subject);
 
   const formData = generateForm(contactFormInputData, token);
 
-  return axios.post(apiUrls.contactForm, formData);
+  console.log(token, formData);
+
+  // return axios.post(apiUrls.contact.send, formData);
 };
 
 export default postContactForm;
