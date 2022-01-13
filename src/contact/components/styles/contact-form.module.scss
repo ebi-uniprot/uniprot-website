@@ -37,12 +37,6 @@
         'submit        submit        .             .';
     }
 
-    &:invalid button[type='submit'] {
-      // same styles as the "disabled" class on the Button component
-      opacity: 0.25;
-      cursor: not-allowed;
-    }
-
     // Hide the honeypot from the view
     [name='requiredForRobots'] {
       position: absolute;
