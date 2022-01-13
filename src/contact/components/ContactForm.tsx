@@ -203,6 +203,10 @@ const ContactForm = () => {
               privacy notice
             </Link>
             .
+            <span aria-hidden="true" className={styles.required}>
+              {' '}
+              *
+            </span>
           </label>
           {/* 🍯 */}
           <input
