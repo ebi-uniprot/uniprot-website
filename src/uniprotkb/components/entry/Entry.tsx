@@ -362,10 +362,11 @@ const Entry: FC = () => {
                 </a>
                 {/* eslint-disable-next-line react/jsx-no-target-blank */}
                 <Link
-                  to={{
+                  to={(location) => ({
                     pathname: LocationToPath[Location.ContactUpdate],
                     search: qs.stringify({ entry: match.params.accession }),
-                  }}
+                    state: { referrer: location },
+                  })}
                   className="button tertiary"
                 >
                   Entry feedback
