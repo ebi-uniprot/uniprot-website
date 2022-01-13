@@ -1,4 +1,4 @@
-import { useCallback, FormEventHandler, useRef } from 'react';
+import { FormEventHandler, useRef, ChangeEvent } from 'react';
 import {
   generatePath,
   Link,
@@ -71,9 +71,13 @@ const ContactForm = () => {
 
   console.log('referrer', referrer);
 
-  const privacyCheckBox = useCallback((checkbox: HTMLInputElement) => {
-    checkbox.setCustomValidity('Please tick the box to agree.');
-  }, []);
+  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked) {
+      e.target.setCustomValidity('');
+    } else {
+      e.target.setCustomValidity('Please tick the box to agree.');
+    }
+  };
 
   const description = isUpdate
     ? 'Submit updates or corrections to UniProt'
@@ -155,7 +159,7 @@ const ContactForm = () => {
               type="checkbox"
               name="privacy"
               required
-              ref={privacyCheckBox}
+              onChange={handleCheckboxChange}
             />
             I agree to the processing of my data for the purposes described in
             this{' '}
