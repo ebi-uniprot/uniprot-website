@@ -63,9 +63,30 @@
 
 .input {
   grid-column: input-start / input-end;
-  display: flex;
-  gap: 1ch;
-  align-items: baseline;
+  position: relative;
+
+  & > input,
+  & > textarea {
+    width: calc(100% - 3ch);
+
+    &:invalid ~ .validity.invalid,
+    &:valid ~ .validity.valid,
+    &:required ~ .validity.required {
+      display: initial;
+    }
+
+    /* When empty */
+    &:placeholder-shown,
+    /* When focused */
+    &:focus {
+      & ~ .validity {
+        &.invalid,
+        &.valid {
+          display: none;
+        }
+      }
+    }
+  }
 
   &__message {
     grid-column: 1 / -1;
@@ -74,44 +95,23 @@
       min-height: 10em;
     }
   }
-
-  & > input,
-  & > textarea {
-    &:invalid + .validity > .invalid {
-      opacity: 1;
-    }
-
-    &:valid + .validity > .valid {
-      opacity: 1;
-    }
-
-    /* When empty */
-    &:placeholder-shown,
-    /* When focused */
-    &:focus {
-      & + .validity {
-        opacity: 0;
-      }
-    }
-  }
 }
 
 .validity {
-  position: relative;
   width: 1em;
   height: 1em;
+  position: absolute;
+  top: 1ch;
+  right: 0;
+  display: none;
+  background-color: $colour-sky-white;
+  user-select: none;
 
-  .valid,
-  .invalid {
-    position: absolute;
-    opacity: 0;
-  }
-
-  .valid {
+  &.valid {
     color: $colour-success;
   }
 
-  .invalid {
+  &.invalid {
     color: $colour-failure;
   }
 }

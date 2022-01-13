@@ -27,11 +27,23 @@ import styles from './styles/contact-form.module.scss';
 
 import HelperContactImage from './svgs/helper-contact.svg';
 
+// ARIA hide all of these, are the state is available in the form already
 const validity = (
-  <span className={styles.validity}>
-    <SuccessIcon width="1em" className={styles.valid} />
-    <ErrorIcon width="1em" className={styles.invalid} />
-  </span>
+  <>
+    <span aria-hidden="true" className={cn(styles.validity, styles.required)}>
+      *
+    </span>
+    <SuccessIcon
+      aria-hidden="true"
+      width="1em"
+      className={cn(styles.validity, styles.valid)}
+    />
+    <ErrorIcon
+      aria-hidden="true"
+      width="1em"
+      className={cn(styles.validity, styles.invalid)}
+    />
+  </>
 );
 
 const ContactForm = () => {
