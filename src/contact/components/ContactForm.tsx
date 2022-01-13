@@ -19,11 +19,10 @@ import { createPath, LocationDescriptor } from 'history';
 
 import HTMLHead from '../../shared/components/HTMLHead';
 
-import { LocationToPath, Location } from '../../app/config/urls';
-import postContactForm, {
-  ContactFormInputData,
-} from '../adapters/contactFormAdapter';
+import postContactForm from '../adapters/contactFormAdapter';
 import { addMessage } from '../../messages/state/messagesActions';
+
+import { LocationToPath, Location } from '../../app/config/urls';
 
 import styles from './styles/contact-form.module.scss';
 
@@ -85,15 +84,8 @@ const ContactForm = () => {
       if (!(form instanceof HTMLFormElement)) {
         return;
       }
-      // Parse form and generate form input data
-      const contactFormInputData: ContactFormInputData = {
-        email: (form.elements.namedItem('email') as HTMLInputElement).value,
-        name: (form.elements.namedItem('name') as HTMLInputElement).value,
-        subject: (form.elements.namedItem('subject') as HTMLInputElement).value,
-        message: (form.elements.namedItem('message') as HTMLInputElement).value,
-      };
       try {
-        await postContactForm(contactFormInputData);
+        await postContactForm(new FormData(form));
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error(error);
