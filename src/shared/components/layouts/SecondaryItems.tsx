@@ -268,6 +268,8 @@ const SecondaryItems = () => {
           <EnvelopeIcon width={secondaryItemIconSize} />
         </span>
       ),
+      // TODO: need to pass the referrer state here somehow
+      // -> refactor secondary items in franklin's Header component?
       path: LocationToPath[Location.ContactGeneric],
     },
     {

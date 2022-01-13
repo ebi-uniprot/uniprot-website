@@ -9,86 +9,128 @@
     border: 0;
     margin: 1rem 0 2rem 0;
   }
-}
 
-.form {
-  display: grid;
+  form {
+    display: grid;
+    column-gap: 1rem;
 
-  grid-template-columns: min-content 1fr 1fr;
+    grid-template-columns: [label-start] min-content [label-end input-start] 1fr [input-end] 1fr;
 
-  @include fs-breakpoints('large') {
-    grid-template-columns: min-content 1fr 1fr 1fr;
-  }
-
-  /* test styles */
-  input:required {
-    background: blue;
-
-    &::before {
-      content: '*';
-    }
-  }
-
-  input:valid::after {
-    // content: '✅';
-  }
-
-  input:not([value]):invalid {
-    background-color: red;
-
-    ::after {
-      content: '❌';
-    }
-  }
-  /* end test styles */
-
-  svg {
-    display: none;
+    grid-template-areas:
+      'label-name    input-name    aside'
+      'label-email   input-email   aside'
+      'label-subject input-subject aside'
+      'label-message .             aside'
+      'input-message input-message input-message'
+      'privacy       privacy       privacy'
+      'submit        .             .';
 
     @include fs-breakpoints('large') {
-      display: initial;
-      grid-column-start: 3;
-      grid-row: 1 / -5;
-      transform-origin: bottom center;
-      transform: scale(0.75);
+      grid-template-columns: [label-start] min-content [label-end input-start] 2fr [input-end] 1fr max-content;
+      grid-template-areas:
+        'label-name    input-name    illustration  aside'
+        'label-email   input-email   illustration  aside'
+        'label-subject input-subject illustration  aside'
+        'label-message .             illustration  aside'
+        'input-message input-message input-message input-message'
+        'privacy       privacy       privacy       privacy'
+        'submit        .             .             .';
     }
-  }
 
-  & label {
-    display: contents;
-    font-weight: bold;
-
-    & > span:first-child {
-      // label texts on the left of the grid
-      grid-column-start: 1;
-      margin-right: 3ch;
+    &:invalid button[type='submit'] {
+      // same styles as the "disabled" class on the Button component
+      opacity: 0.25;
+      cursor: not-allowed;
     }
-  }
 
-  & textarea {
-    // span the whole grid
-    grid-column: 1 / -1;
-  }
+    // Hide the honeypot from the view
+    [name='requiredForRobots'] {
+      position: absolute;
+      top: -100%;
+      left: -100%;
+    }
 
-  & > .privacy {
-    grid-column: 1 / -1;
-    justify-self: start;
-    display: inline-flex;
-    align-items: center;
-    font-weight: normal;
-
-    & > input {
+    & button[type='submit'] {
       margin-top: 1em;
+      grid-column-start: 1;
+    }
+
+    & > aside {
+      grid-area: aside;
     }
   }
+}
 
-  & button[type='submit'] {
-    margin-top: 1em;
-    grid-column-start: 1;
+.label {
+  grid-column: label-start / label-end;
+  font-weight: bold;
+}
+
+.input {
+  grid-column: input-start / input-end;
+  display: flex;
+  gap: 1ch;
+  align-items: baseline;
+
+  &__message {
+    grid-column: 1 / -1;
   }
 
-  & > .other-ways {
-    grid-column-start: -2;
-    grid-row: 1 / -5;
+  & > input,
+  & > textarea {
+    &:invalid + .validity > .invalid {
+      opacity: 1;
+    }
+
+    &:valid + .validity > .valid {
+      opacity: 1;
+    }
+
+    /* When empty */
+    &:placeholder-shown,
+    /* When focused */
+    &:focus {
+      & + .validity {
+        opacity: 0;
+      }
+    }
+  }
+}
+
+.validity {
+  position: relative;
+  width: 1em;
+  height: 1em;
+
+  .valid,
+  .invalid {
+    position: absolute;
+    opacity: 0;
+  }
+
+  .valid {
+    color: $colour-success;
+  }
+
+  .invalid {
+    color: $colour-failure;
+  }
+}
+
+.privacy {
+  grid-column: 1 / -1;
+  justify-self: start;
+  font-weight: normal;
+}
+
+.illustration {
+  display: none;
+
+  @include fs-breakpoints('large') {
+    display: initial;
+    width: 75%;
+    grid-area: illustration;
+    justify-self: center;
+    align-self: end;
   }
 }

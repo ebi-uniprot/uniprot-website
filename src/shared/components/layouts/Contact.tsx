@@ -14,7 +14,12 @@ import GGroupsLogo from '../../../images/ggroups-logo.svg';
 const Contact = () => (
   <div>
     <p>
-      <Link to={LocationToPath[Location.ContactGeneric]}>
+      <Link
+        to={(location) => ({
+          pathname: LocationToPath[Location.ContactGeneric],
+          state: { referrer: location },
+        })}
+      >
         Get in touch <EnvelopeIcon width="2ch" />
       </Link>
     </p>
