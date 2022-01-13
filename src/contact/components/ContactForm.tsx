@@ -42,6 +42,10 @@ const ContactForm = () => {
 
   console.log('referrer', referrer);
 
+  const privacyCheckBox = useCallback((checkbox: HTMLInputElement) => {
+    checkbox.setCustomValidity('Please tick the box to agree.');
+  }, []);
+
   const handleSubmit = useCallback<FormEventHandler<HTMLFormElement>>(
     (event) => {
       const form = event.target;
@@ -138,8 +142,14 @@ const ContactForm = () => {
           </span>
           {/* Privacy */}
           <label className={styles.privacy}>
-            <input type="checkbox" name="privacy" required />I agree to the
-            processing of my data for the purposes described in this{' '}
+            <input
+              type="checkbox"
+              name="privacy"
+              required
+              ref={privacyCheckBox}
+            />
+            I agree to the processing of my data for the purposes described in
+            this{' '}
             <Link
               to={generatePath(LocationToPath[Location.HelpEntry], {
                 accession: 'privacy',
