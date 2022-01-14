@@ -14,6 +14,7 @@ import {
   ErrorIcon,
   SuccessIcon,
 } from 'franklin-sites';
+import qs from 'query-string';
 import cn from 'classnames';
 import { createPath, LocationDescriptor } from 'history';
 
@@ -59,7 +60,7 @@ const validity = (
 const ContactForm = () => {
   const idRef = useRef(v1());
   const isUpdate = !!useRouteMatch(LocationToPath[Location.ContactUpdate]);
-  const { state: locationState } = useLocation<ContactLocationState>();
+  const { state: locationState, search } = useLocation<ContactLocationState>();
   const dispatch = useDispatch();
 
   let referrerValue: undefined | string;
@@ -68,6 +69,18 @@ const ContactForm = () => {
       typeof locationState.referrer === 'string'
         ? locationState.referrer
         : createPath(locationState.referrer);
+  }
+
+  let subjectDefault: undefined | string;
+  if (isUpdate) {
+    const { entry, entryType } = qs.parse(search);
+    if (entryType && entry) {
+      subjectDefault = `${entryType} ${entry} entry update request`;
+    } else if (entry) {
+      subjectDefault = `${entry} entry update request`;
+    } else {
+      subjectDefault = `UniProtKB entry update request`;
+    }
   }
 
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -168,6 +181,7 @@ const ContactForm = () => {
               required
               minLength={1}
               maxLength={100}
+              defaultValue={subjectDefault}
             />
             {validity}
           </span>
