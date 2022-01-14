@@ -1,6 +1,5 @@
-import { FormEventHandler, useRef, ChangeEvent, useCallback } from 'react';
+import { useRef, ChangeEvent } from 'react';
 import { v1 } from 'uuid';
-import { useDispatch } from 'react-redux';
 import {
   generatePath,
   Link,
@@ -20,19 +19,13 @@ import { createPath, LocationDescriptor } from 'history';
 
 import HTMLHead from '../../shared/components/HTMLHead';
 
+import { useFormLogic } from '../adapters/contactFormAdapter';
+
 import { LocationToPath, Location } from '../../app/config/urls';
-import postContactForm, {
-  ContactFormInputData,
-} from '../adapters/contactFormAdapter';
-import { addMessage } from '../../messages/state/messagesActions';
 
 import styles from './styles/contact-form.module.scss';
 
 import HelperContactImage from './svgs/helper-contact.svg';
-import {
-  MessageFormat,
-  MessageLevel,
-} from '../../messages/types/messagesTypes';
 
 export type ContactLocationState =
   | undefined
@@ -61,7 +54,6 @@ const ContactForm = () => {
   const idRef = useRef(v1());
   const isUpdate = !!useRouteMatch(LocationToPath[Location.ContactUpdate]);
   const { state: locationState, search } = useLocation<ContactLocationState>();
-  const dispatch = useDispatch();
 
   let referrerValue: undefined | string;
   if (locationState?.referrer) {
@@ -83,46 +75,12 @@ const ContactForm = () => {
     }
   }
 
-  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checked) {
-      e.target.setCustomValidity('');
-    } else {
-      e.target.setCustomValidity('Please tick the box to agree.');
-    }
-  };
+  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) =>
+    e.target.setCustomValidity(
+      e.target.checked ? '' : 'Please tick the box to agree.'
+    );
 
-  const handleSubmit = useCallback<FormEventHandler<HTMLFormElement>>(
-    async (event) => {
-      const form = event.target;
-      event.preventDefault();
-      if (!(form instanceof HTMLFormElement)) {
-        return;
-      }
-      // Parse form and generate form input data
-      const contactFormInputData: ContactFormInputData = {
-        email: (form.elements.namedItem('email') as HTMLInputElement).value,
-        name: (form.elements.namedItem('name') as HTMLInputElement).value,
-        subject: (form.elements.namedItem('subject') as HTMLInputElement).value,
-        message: (form.elements.namedItem('message') as HTMLInputElement).value,
-      };
-      try {
-        await postContactForm(contactFormInputData);
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error(error);
-        dispatch(
-          addMessage({
-            id: v1(),
-            format: MessageFormat.POP_UP,
-            level: MessageLevel.FAILURE,
-            content: 'Error while sending the form. Please try again later.',
-          })
-        );
-      }
-      event.preventDefault();
-    },
-    [dispatch]
-  );
+  const { handleSubmit, sending } = useFormLogic();
 
   const description = isUpdate
     ? 'Submit updates or corrections to UniProt'
@@ -231,7 +189,9 @@ const ContactForm = () => {
             aria-hidden="true"
           />
           <input hidden name="referrer" value={referrerValue} />
-          <Button type="submit">Send message</Button>
+          <Button type="submit" disabled={sending}>{`Send${
+            sending ? 'ing' : ''
+          } message`}</Button>
           {/* TODO: after TRM-25295, make sure this is not even loaded on
            * smaller screens when loaded as an image */}
           <HelperContactImage

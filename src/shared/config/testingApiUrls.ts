@@ -36,6 +36,7 @@ const joinUrlForApiTesting = (prefix: string, ...paths: string[]) => {
     idmapping: 31369,
     // other
     help: 31838,
+    contact: 31838,
     genecentric: 8092,
     arba: 31599,
     unirule: 31599,
