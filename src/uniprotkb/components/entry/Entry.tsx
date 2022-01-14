@@ -365,7 +365,13 @@ const Entry: FC = () => {
                 <Link<ContactLocationState>
                   to={(location) => ({
                     pathname: LocationToPath[Location.ContactUpdate],
-                    search: qs.stringify({ entry: match.params.accession }),
+                    search: qs.stringify({
+                      entry: match.params.accession,
+                      entryType:
+                        transformedData?.entryType === EntryType.REVIEWED
+                          ? 'Reviewed (Swiss-Prot)'
+                          : 'Unreviewed (TrEMBL)',
+                    }),
                     state: { referrer: location },
                   })}
                   className="button tertiary"

@@ -165,7 +165,11 @@ registerRoute(
 // 'X-UniProt-Release' header and dump the cache when that changes
 // UniProt website API - Stale While Revalidate
 registerRoute(
-  patterns.websiteAPI,
+  ({ url }) =>
+    // UniProt website API
+    patterns.websiteAPI.test(url.pathname) &&
+    // But not the contact endpoint!
+    !url.pathname.includes('/contact/'),
   new StaleWhileRevalidate({
     cacheName: CacheName.WebsiteAPI,
     plugins: [
