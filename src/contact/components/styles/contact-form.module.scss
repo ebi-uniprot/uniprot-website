@@ -15,16 +15,27 @@
     display: grid;
     column-gap: $global-margin;
 
-    grid-template-columns: [label-start] min-content [label-end input-start] 1fr [input-end] 1fr;
-
+    grid-template-columns: [label-start] min-content [label-end input-start] 1fr [input-end];
     grid-template-areas:
-      'label-name    input-name    aside'
-      'label-email   input-email   aside'
-      'label-subject input-subject aside'
-      'label-message .             aside'
-      'input-message input-message input-message'
-      'privacy       privacy       privacy'
-      'submit        submit        .';
+      'label-name    input-name'
+      'label-email   input-email'
+      'label-subject input-'
+      'label-message .'
+      'input-message input-message'
+      'privacy       privacy'
+      'submit        submit';
+
+    @include fs-breakpoints('medium') {
+      grid-template-columns: [label-start] min-content [label-end input-start] 1fr [input-end] 1fr;
+      grid-template-areas:
+        'label-name    input-name    aside'
+        'label-email   input-email   aside'
+        'label-subject input-subject aside'
+        'label-message .             aside'
+        'input-message input-message input-message'
+        'privacy       privacy       privacy'
+        'submit        submit        .';
+    }
 
     @include fs-breakpoints('large') {
       grid-template-columns: [label-start] min-content [label-end input-start] 2fr [input-end] 1fr max-content;
@@ -52,7 +63,12 @@
     }
 
     & > aside {
-      grid-area: aside;
+      display: none;
+
+      @include fs-breakpoints('medium') {
+        display: initial;
+        grid-area: aside;
+      }
     }
   }
 }
