@@ -19,7 +19,7 @@ import { createPath, LocationDescriptor } from 'history';
 
 import HTMLHead from '../../shared/components/HTMLHead';
 
-import postContactForm from '../adapters/contactFormAdapter';
+import postContactForm, { useFormLogic } from '../adapters/contactFormAdapter';
 import { addMessage } from '../../messages/state/messagesActions';
 
 import { LocationToPath, Location } from '../../app/config/urls';
@@ -77,6 +77,8 @@ const ContactForm = () => {
     }
   };
 
+  const { handleSubmit: handleSubmit2, sending } = useFormLogic();
+
   const handleSubmit = useCallback<FormEventHandler<HTMLFormElement>>(
     async (event) => {
       const form = event.target;
@@ -116,7 +118,7 @@ const ContactForm = () => {
       <section className={styles.container}>
         <h2 className="medium">{description}</h2>
         <hr />
-        <form aria-label="Contact form" onSubmit={handleSubmit}>
+        <form aria-label="Contact form" onSubmit={handleSubmit2}>
           {/* Name */}
           <label className={styles.label} htmlFor={`name-${id}`}>
             Name:
@@ -209,7 +211,9 @@ const ContactForm = () => {
             aria-hidden="true"
           />
           <input hidden name="referrer" value={referrerValue} />
-          <Button type="submit">Send message</Button>
+          <Button type="submit" disabled={sending}>{`Send${
+            sending ? 'ing' : ''
+          } message`}</Button>
           {/* TODO: after TRM-25295, make sure this is not even loaded on
            * smaller screens when loaded as an image */}
           <HelperContactImage

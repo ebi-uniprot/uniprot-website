@@ -19,20 +19,20 @@ describe('Test contact form adapter', () => {
 
   it('should parse the inputs and generate a generic form', () => {
     userAgentGetter.mockReturnValue('Browser and OS info');
-    const formData = new FormData();
+    const formData1 = new FormData();
     for (const [key, value] of Object.entries(mockData)) {
-      formData.set(key, value);
+      formData1.set(key, value);
     }
 
-    modifyFormData(formData, 'random_token_id');
+    const formData2 = modifyFormData(formData1, 'random_token_id');
 
-    expect(formData.get('message')).not.toBe(mockData.message);
-    expect(formData.get('message')).toEqual(
+    expect(formData2.get('message')).not.toBe(mockData.message);
+    expect(formData2.get('message')).toEqual(
       expect.stringContaining(mockData.message)
     );
 
-    expect(formData.has('token_id')).toBe(true);
+    expect(formData2.has('token_id')).toBe(true);
 
-    expect(Object.fromEntries(formData)).toMatchSnapshot();
+    expect(Object.fromEntries(formData2)).toMatchSnapshot();
   });
 });
