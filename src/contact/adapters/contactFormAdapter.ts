@@ -43,7 +43,7 @@ export type UseFormLogicReturnType = {
   handleSubmit: FormEventHandler<HTMLFormElement>;
 };
 
-export const useFormLogic = (): UseFormLogicReturnType => {
+export const useFormLogic = (referrer?: string): UseFormLogicReturnType => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [formData, setFormData] = useState<undefined | FormData>();
@@ -72,9 +72,6 @@ export const useFormLogic = (): UseFormLogicReturnType => {
   }, [formData, token]);
 
   const sendData = useDataApi(postData ? apiUrls.contact.send : null, postData);
-
-  // Important to see what's returned in order to decide how to show success pop-up
-  console.log(sendData, sendData.data);
 
   const loading = tokenData.loading || sendData.loading;
   const error = tokenData.error || sendData.error;
@@ -106,14 +103,11 @@ export const useFormLogic = (): UseFormLogicReturnType => {
           content: 'Your message has been succesfully sent to our team.',
         })
       );
-      // Navigate the user back, or to the homepage if not possible
-      if (history.length > 1) {
-        history.goBack();
-      } else {
-        history.push(LocationToPath[Location.Home]);
-      }
+      // Navigate the user to previous page, or to the homepage if not possible
+      // eslint-disable-next-line uniprot-website/use-config-location
+      history.push(referrer || LocationToPath[Location.Home]);
     }
-  }, [sendData.data, dispatch, history]);
+  }, [sendData.data, dispatch, history, referrer]);
 
   const previousLoading = useRef(loading);
   // Reset custom hook form data (to retry sending if needed)

@@ -80,7 +80,7 @@ const ContactForm = () => {
       e.target.checked ? '' : 'Please tick the box to agree.'
     );
 
-  const { handleSubmit, sending } = useFormLogic();
+  const { handleSubmit, sending } = useFormLogic(referrerValue);
 
   const description = isUpdate
     ? 'Submit updates or corrections to UniProt'
