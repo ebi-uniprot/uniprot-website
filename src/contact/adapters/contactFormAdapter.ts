@@ -29,11 +29,11 @@ export const modifyFormData = (formData: FormData, token: string) => {
   output.set('requiredForRobots', formData.get('requiredForRobots') || '');
   output.set(
     'message',
-    `${formData.get('message')}\n\nName: ${formData.get(
+    `${formData.get('message')}\r\n\r\nName: ${formData.get(
       'name'
-    )}\nReferred from: ${formData.get('referrer')}\nBrowser: ${
+    )}\r\nReferred from: ${formData.get('referrer')}\r\nBrowser: ${
       navigator.userAgent
-    }\nGit commit: ${GIT_COMMIT_HASH}` || ''
+    }\r\nGit commit: ${GIT_COMMIT_HASH}` || ''
   );
   return output;
 };
