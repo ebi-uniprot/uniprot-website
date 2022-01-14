@@ -202,29 +202,31 @@ const ContactForm = () => {
           <aside>
             <h2 className="small">Other ways to contact us</h2>
             {/* Link to switch the contact form */}
-            <div>
-              <Link<ContactLocationState>
-                to={{
-                  pathname:
-                    LocationToPath[
-                      isUpdate
-                        ? Location.ContactGeneric
-                        : Location.ContactUpdate
-                    ],
-                  // Make sure to pass along the previour referrer if switching
-                  state: { referrer: locationState?.referrer },
-                }}
-              >
-                {isUpdate
-                  ? 'Send us general questions and suggestions'
-                  : 'Send updates or corrections'}
-              </Link>
-            </div>
-            <div>
-              <ExternalLink url="https://www.ebi.ac.uk/swissprot/Submissions/spin/">
-                Submit new protein sequence data
-              </ExternalLink>
-            </div>
+            <ul className="no-bullet">
+              <li>
+                <Link<ContactLocationState>
+                  to={{
+                    pathname:
+                      LocationToPath[
+                        isUpdate
+                          ? Location.ContactGeneric
+                          : Location.ContactUpdate
+                      ],
+                    // Make sure to pass along the previour referrer if switching
+                    state: { referrer: locationState?.referrer },
+                  }}
+                >
+                  {isUpdate
+                    ? 'Send us general questions and suggestions'
+                    : 'Send updates or corrections'}
+                </Link>
+              </li>
+              <li>
+                <ExternalLink url="https://www.ebi.ac.uk/swissprot/Submissions/spin/">
+                  Submit new protein sequence data
+                </ExternalLink>
+              </li>
+            </ul>
           </aside>
         </form>
       </section>

@@ -146,7 +146,7 @@ const apiUrls = {
     send: joinUrl(
       'http://wp-np2-be.ebi.ac.uk:8097/uniprot/api',
       'contact',
-      'send'
+      'send?debugError=true'
     ),
   },
 };

@@ -23,7 +23,7 @@ import { Location, LocationToPath } from '../../app/config/urls';
 
 export const modifyFormData = (formData: FormData, token: string) => {
   const output = new FormData();
-  output.set('token_id', token);
+  output.set('token', token);
   output.set('email', formData.get('email') || '');
   output.set('subject', formData.get('subject') || '');
   output.set('requiredForRobots', formData.get('requiredForRobots') || '');
@@ -103,7 +103,7 @@ export const useFormLogic = (): UseFormLogicReturnType => {
           id: v1(),
           format: MessageFormat.POP_UP,
           level: MessageLevel.SUCCESS,
-          content: 'Your message has succesfully been sent to our team.',
+          content: 'Your message has been succesfully sent to our team.',
         })
       );
       // Navigate the user back, or to the homepage if not possible
@@ -113,7 +113,7 @@ export const useFormLogic = (): UseFormLogicReturnType => {
         history.push(LocationToPath[Location.Home]);
       }
     }
-  }, [error, sendData.data, dispatch, history]);
+  }, [sendData.data, dispatch, history]);
 
   const previousLoading = useRef(loading);
   // Reset custom hook form data (to retry sending if needed)

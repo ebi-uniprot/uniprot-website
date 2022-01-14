@@ -210,27 +210,31 @@ exports[`ContactForm should be disabled when submitting 1`] = `
         >
           Other ways to contact us
         </h2>
-        <div>
-          <a
-            href="/update"
-          >
-            Send updates or corrections
-          </a>
-        </div>
-        <div>
-          <a
-            class="external-link"
-            href="https://www.ebi.ac.uk/swissprot/Submissions/spin/"
-            rel="noopener"
-            target="_blank"
-          >
-            Submit new protein sequence data
-            <test-file-stub
-              data-testid="external-link-icon"
-              width="12.5"
-            />
-          </a>
-        </div>
+        <ul
+          class="no-bullet"
+        >
+          <li>
+            <a
+              href="/update"
+            >
+              Send updates or corrections
+            </a>
+          </li>
+          <li>
+            <a
+              class="external-link"
+              href="https://www.ebi.ac.uk/swissprot/Submissions/spin/"
+              rel="noopener"
+              target="_blank"
+            >
+              Submit new protein sequence data
+              <test-file-stub
+                data-testid="external-link-icon"
+                width="12.5"
+              />
+            </a>
+          </li>
+        </ul>
       </aside>
     </form>
   </section>
@@ -446,27 +450,31 @@ exports[`ContactForm should render for feedback contact form 1`] = `
         >
           Other ways to contact us
         </h2>
-        <div>
-          <a
-            href="/contact"
-          >
-            Send us general questions and suggestions
-          </a>
-        </div>
-        <div>
-          <a
-            class="external-link"
-            href="https://www.ebi.ac.uk/swissprot/Submissions/spin/"
-            rel="noopener"
-            target="_blank"
-          >
-            Submit new protein sequence data
-            <test-file-stub
-              data-testid="external-link-icon"
-              width="12.5"
-            />
-          </a>
-        </div>
+        <ul
+          class="no-bullet"
+        >
+          <li>
+            <a
+              href="/contact"
+            >
+              Send us general questions and suggestions
+            </a>
+          </li>
+          <li>
+            <a
+              class="external-link"
+              href="https://www.ebi.ac.uk/swissprot/Submissions/spin/"
+              rel="noopener"
+              target="_blank"
+            >
+              Submit new protein sequence data
+              <test-file-stub
+                data-testid="external-link-icon"
+                width="12.5"
+              />
+            </a>
+          </li>
+        </ul>
       </aside>
     </form>
   </section>
@@ -682,27 +690,31 @@ exports[`ContactForm should render for generic contact form 1`] = `
         >
           Other ways to contact us
         </h2>
-        <div>
-          <a
-            href="/update"
-          >
-            Send updates or corrections
-          </a>
-        </div>
-        <div>
-          <a
-            class="external-link"
-            href="https://www.ebi.ac.uk/swissprot/Submissions/spin/"
-            rel="noopener"
-            target="_blank"
-          >
-            Submit new protein sequence data
-            <test-file-stub
-              data-testid="external-link-icon"
-              width="12.5"
-            />
-          </a>
-        </div>
+        <ul
+          class="no-bullet"
+        >
+          <li>
+            <a
+              href="/update"
+            >
+              Send updates or corrections
+            </a>
+          </li>
+          <li>
+            <a
+              class="external-link"
+              href="https://www.ebi.ac.uk/swissprot/Submissions/spin/"
+              rel="noopener"
+              target="_blank"
+            >
+              Submit new protein sequence data
+              <test-file-stub
+                data-testid="external-link-icon"
+                width="12.5"
+              />
+            </a>
+          </li>
+        </ul>
       </aside>
     </form>
   </section>

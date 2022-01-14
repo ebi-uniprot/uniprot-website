@@ -24,14 +24,14 @@ describe('Test contact form adapter', () => {
       formData1.set(key, value);
     }
 
-    const formData2 = modifyFormData(formData1, 'random_token_id');
+    const formData2 = modifyFormData(formData1, 'random_token');
 
     expect(formData2.get('message')).not.toBe(mockData.message);
     expect(formData2.get('message')).toEqual(
       expect.stringContaining(mockData.message)
     );
 
-    expect(formData2.has('token_id')).toBe(true);
+    expect(formData2.has('token')).toBe(true);
 
     expect(Object.fromEntries(formData2)).toMatchSnapshot();
   });

@@ -11,6 +11,6 @@ Browser: Browser and OS info
 Git commit: #git_commit_id",
   "requiredForRobots": "",
   "subject": "General enquiry",
-  "token_id": "random_token_id",
+  "token": "random_token",
 }
 `;
