@@ -1,4 +1,3 @@
-import { createMemoryHistory } from 'history';
 import { screen } from '@testing-library/react';
 
 import customRender from '../../../shared/__test-helpers__/customRender';
@@ -24,21 +23,30 @@ describe('ContactForm', () => {
     });
   });
 
-  test('should render for generic contact form', () => {
+  it('should render for generic contact form', () => {
     const { asFragment } = customRender(<ContactForm />);
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test('should render for feedback contact form', () => {
+  it('should render for feedback contact form', () => {
     const { asFragment } = customRender(<ContactForm />, {
-      history: createMemoryHistory({
-        initialEntries: [LocationToPath[Location.ContactUpdate]],
-      }),
+      route: LocationToPath[Location.ContactUpdate],
     });
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test('should be disabled when submitting', () => {
+  it('should prefill the form for feedback contact form', () => {
+    customRender(<ContactForm />, {
+      route: `${
+        LocationToPath[Location.ContactUpdate]
+      }?entry=P05067&entryType=Reviewed (Swiss-Prot)`,
+    });
+    expect(screen.getByRole('textbox', { name: /subject/i })).toHaveValue(
+      'Reviewed (Swiss-Prot) P05067 entry update request'
+    );
+  });
+
+  it('should be disabled when submitting', () => {
     (useFormLogic as jest.Mock<UseFormLogicReturnType>).mockReturnValue({
       sending: true,
       handleSubmit,

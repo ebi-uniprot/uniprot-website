@@ -1,6 +1,5 @@
-import { FormEventHandler, useRef, ChangeEvent, useCallback } from 'react';
+import { useRef, ChangeEvent } from 'react';
 import { v1 } from 'uuid';
-import { useDispatch } from 'react-redux';
 import {
   generatePath,
   Link,
@@ -20,18 +19,13 @@ import { createPath, LocationDescriptor } from 'history';
 
 import HTMLHead from '../../shared/components/HTMLHead';
 
-import postContactForm, { useFormLogic } from '../adapters/contactFormAdapter';
-import { addMessage } from '../../messages/state/messagesActions';
+import { useFormLogic } from '../adapters/contactFormAdapter';
 
 import { LocationToPath, Location } from '../../app/config/urls';
 
 import styles from './styles/contact-form.module.scss';
 
 import HelperContactImage from './svgs/helper-contact.svg';
-import {
-  MessageFormat,
-  MessageLevel,
-} from '../../messages/types/messagesTypes';
 
 export type ContactLocationState =
   | undefined
@@ -60,7 +54,6 @@ const ContactForm = () => {
   const idRef = useRef(v1());
   const isUpdate = !!useRouteMatch(LocationToPath[Location.ContactUpdate]);
   const { state: locationState, search } = useLocation<ContactLocationState>();
-  const dispatch = useDispatch();
 
   let referrerValue: undefined | string;
   if (locationState?.referrer) {
@@ -82,41 +75,12 @@ const ContactForm = () => {
     }
   }
 
-  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checked) {
-      e.target.setCustomValidity('');
-    } else {
-      e.target.setCustomValidity('Please tick the box to agree.');
-    }
-  };
+  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) =>
+    e.target.setCustomValidity(
+      e.target.checked ? '' : 'Please tick the box to agree.'
+    );
 
-  const { handleSubmit: handleSubmit2, sending } = useFormLogic();
-
-  const handleSubmit = useCallback<FormEventHandler<HTMLFormElement>>(
-    async (event) => {
-      const form = event.target;
-      event.preventDefault();
-      if (!(form instanceof HTMLFormElement)) {
-        return;
-      }
-      try {
-        await postContactForm(new FormData(form));
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error(error);
-        dispatch(
-          addMessage({
-            id: v1(),
-            format: MessageFormat.POP_UP,
-            level: MessageLevel.FAILURE,
-            content: 'Error while sending the form. Please try again later.',
-          })
-        );
-      }
-      event.preventDefault();
-    },
-    [dispatch]
-  );
+  const { handleSubmit, sending } = useFormLogic();
 
   const description = isUpdate
     ? 'Submit updates or corrections to UniProt'
@@ -131,7 +95,7 @@ const ContactForm = () => {
       <section className={styles.container}>
         <h2 className="medium">{description}</h2>
         <hr />
-        <form aria-label="Contact form" onSubmit={handleSubmit2}>
+        <form aria-label="Contact form" onSubmit={handleSubmit}>
           {/* Name */}
           <label className={styles.label} htmlFor={`name-${id}`}>
             Name:

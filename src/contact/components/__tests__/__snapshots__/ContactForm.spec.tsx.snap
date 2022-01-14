@@ -108,6 +108,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
           placeholder=" "
           required=""
           type="text"
+          value=""
         />
         <span
           aria-hidden="true"
@@ -344,6 +345,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
           placeholder=" "
           required=""
           type="text"
+          value="UniProtKB entry update request"
         />
         <span
           aria-hidden="true"
@@ -579,6 +581,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
           placeholder=" "
           required=""
           type="text"
+          value=""
         />
         <span
           aria-hidden="true"

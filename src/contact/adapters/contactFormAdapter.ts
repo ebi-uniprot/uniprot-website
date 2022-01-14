@@ -8,28 +8,18 @@ import {
 } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-// import axios from 'axios';
 import { AxiosRequestConfig } from 'axios';
 import { v1 } from 'uuid';
 
 import useDataApi from '../../shared/hooks/useDataApi';
 
 import apiUrls from '../../shared/config/apiUrls';
-import fetchData from '../../shared/utils/fetchData';
 import { addMessage } from '../../messages/state/messagesActions';
 import {
   MessageFormat,
   MessageLevel,
 } from '../../messages/types/messagesTypes';
 import { Location, LocationToPath } from '../../app/config/urls';
-
-export const getToken = async (key: string) => {
-  const searchParams = new URLSearchParams({ key });
-  const response = await fetchData<{ token: string }>(
-    `${apiUrls.contact.token}?${searchParams}`
-  );
-  return response.data?.token;
-};
 
 export const modifyFormData = (formData: FormData, token: string) => {
   const output = new FormData();
@@ -47,24 +37,6 @@ export const modifyFormData = (formData: FormData, token: string) => {
   );
   return output;
 };
-
-const postContactForm = async (contactFormData: FormData) => {
-  const subject = contactFormData.get('subject');
-  /* istanbul ignore if */
-  if (!subject || typeof subject !== 'string') {
-    // Shouldn't happen thanks to previous form validation
-    throw new Error('No subject available');
-  }
-  const token = await getToken(subject);
-
-  const sentFormData = modifyFormData(contactFormData, token);
-
-  console.log(token, Object.fromEntries(sentFormData));
-
-  // return axios.post(apiUrls.contact.send, sentFormData);
-};
-
-export default postContactForm;
 
 export type UseFormLogicReturnType = {
   sending: boolean;
@@ -91,10 +63,7 @@ export const useFormLogic = (): UseFormLogicReturnType => {
       return;
     }
     const modifiedFormData = modifyFormData(formData, token);
-    // Debug
-    modifiedFormData.set('token_id', 'wrongtoken');
 
-    console.log(modifiedFormData.get('message'));
     // eslint-disable-next-line consistent-return
     return {
       method: 'POST',
@@ -104,6 +73,7 @@ export const useFormLogic = (): UseFormLogicReturnType => {
 
   const sendData = useDataApi(postData ? apiUrls.contact.send : null, postData);
 
+  // Important to see what's returned in order to decide how to show success pop-up
   console.log(sendData, sendData.data);
 
   const loading = tokenData.loading || sendData.loading;
