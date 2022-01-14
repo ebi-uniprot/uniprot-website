@@ -136,18 +136,8 @@ const apiUrls = {
     entry: (id?: string) => id && joinUrl(apiPrefix, '/uniparc', id),
   },
   contact: {
-    // token: joinUrl(apiPrefix, 'contact', 'token'),
-    token: joinUrl(
-      'http://wp-np2-be.ebi.ac.uk:8097/uniprot/api',
-      'contact',
-      'token'
-    ),
-    // send: joinUrl(apiPrefix, 'contact', 'send'),
-    send: joinUrl(
-      'http://wp-np2-be.ebi.ac.uk:8097/uniprot/api',
-      'contact',
-      'send?debugError=true'
-    ),
+    token: joinUrl(apiPrefix, 'contact', 'token'),
+    send: joinUrl(apiPrefix, 'contact', 'send'),
   },
 };
 
