@@ -66,10 +66,12 @@ const postContactForm = async (contactFormData: FormData) => {
 
 export default postContactForm;
 
-export const useFormLogic = (): {
+export type UseFormLogicReturnType = {
   sending: boolean;
   handleSubmit: FormEventHandler<HTMLFormElement>;
-} => {
+};
+
+export const useFormLogic = (): UseFormLogicReturnType => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [formData, setFormData] = useState<undefined | FormData>();

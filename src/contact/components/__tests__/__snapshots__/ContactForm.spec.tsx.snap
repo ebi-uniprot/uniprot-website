@@ -1,0 +1,707 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContactForm should be disabled when submitting 1`] = `
+<DocumentFragment>
+  <div
+    class="page-intro"
+  >
+    <h1
+      class=""
+    >
+      Contact us
+    </h1>
+  </div>
+  <section
+    class="container"
+  >
+    <h2
+      class="medium"
+    >
+      Send us general questions and suggestions using the form below
+    </h2>
+    <hr />
+    <form
+      aria-label="Contact form"
+    >
+      <label
+        class="label"
+        for="name-0"
+      >
+        Name:
+      </label>
+      <span
+        class="input"
+      >
+        <input
+          id="name-0"
+          maxlength="100"
+          name="name"
+          placeholder=" "
+          type="text"
+        />
+        <span
+          aria-hidden="true"
+          class="validity required"
+        >
+          *
+        </span>
+        <test-file-stub
+          aria-hidden="true"
+          classname="validity valid"
+          width="1em"
+        />
+        <test-file-stub
+          aria-hidden="true"
+          classname="validity invalid"
+          width="1em"
+        />
+      </span>
+      <label
+        class="label"
+        for="email-0"
+      >
+        E-mail:
+      </label>
+      <span
+        class="input"
+      >
+        <input
+          id="email-0"
+          maxlength="100"
+          minlength="4"
+          name="email"
+          placeholder="myemail@example.com"
+          required=""
+          type="email"
+        />
+        <span
+          aria-hidden="true"
+          class="validity required"
+        >
+          *
+        </span>
+        <test-file-stub
+          aria-hidden="true"
+          classname="validity valid"
+          width="1em"
+        />
+        <test-file-stub
+          aria-hidden="true"
+          classname="validity invalid"
+          width="1em"
+        />
+      </span>
+      <label
+        class="label"
+        for="subject-0"
+      >
+        Subject:
+      </label>
+      <span
+        class="input"
+      >
+        <input
+          id="subject-0"
+          maxlength="100"
+          minlength="1"
+          name="subject"
+          placeholder=" "
+          required=""
+          type="text"
+        />
+        <span
+          aria-hidden="true"
+          class="validity required"
+        >
+          *
+        </span>
+        <test-file-stub
+          aria-hidden="true"
+          classname="validity valid"
+          width="1em"
+        />
+        <test-file-stub
+          aria-hidden="true"
+          classname="validity invalid"
+          width="1em"
+        />
+      </span>
+      <label
+        class="label"
+        for="message-0"
+      >
+        Message:
+      </label>
+      <span
+        class="input input__message"
+      >
+        <textarea
+          id="message-0"
+          minlength="1"
+          name="message"
+          placeholder="my message"
+          required=""
+        />
+        <span
+          aria-hidden="true"
+          class="validity required"
+        >
+          *
+        </span>
+        <test-file-stub
+          aria-hidden="true"
+          classname="validity valid"
+          width="1em"
+        />
+        <test-file-stub
+          aria-hidden="true"
+          classname="validity invalid"
+          width="1em"
+        />
+      </span>
+      <label
+        class="privacy"
+      >
+        <input
+          name="privacy"
+          required=""
+          type="checkbox"
+        />
+        I agree to the processing of my data for the purposes described in this 
+        <a
+          href="/help/privacy"
+        >
+          privacy notice
+        </a>
+        .
+        <span
+          aria-hidden="true"
+          class="required"
+        >
+           *
+        </span>
+      </label>
+      <input
+        aria-hidden="true"
+        name="requiredForRobots"
+        tabindex="-1"
+        type="text"
+      />
+      <input
+        hidden=""
+        name="referrer"
+        value=""
+      />
+      <button
+        class="button primary disabled"
+        disabled=""
+        type="submit"
+      >
+        Sending message
+      </button>
+      <test-file-stub
+        classname="illustration"
+        viewbox="0 0 211 140"
+      />
+      <aside>
+        <h2
+          class="small"
+        >
+          Other ways to contact us
+        </h2>
+        <div>
+          <a
+            href="/update"
+          >
+            Send updates or corrections
+          </a>
+        </div>
+        <div>
+          <a
+            class="external-link"
+            href="https://www.ebi.ac.uk/swissprot/Submissions/spin/"
+            rel="noopener"
+            target="_blank"
+          >
+            Submit new protein sequence data
+            <test-file-stub
+              data-testid="external-link-icon"
+              width="12.5"
+            />
+          </a>
+        </div>
+      </aside>
+    </form>
+  </section>
+</DocumentFragment>
+`;
+
+exports[`ContactForm should render for feedback contact form 1`] = `
+<DocumentFragment>
+  <div
+    class="page-intro"
+  >
+    <h1
+      class=""
+    >
+      Contact us
+    </h1>
+  </div>
+  <section
+    class="container"
+  >
+    <h2
+      class="medium"
+    >
+      Submit updates or corrections to UniProt
+    </h2>
+    <hr />
+    <form
+      aria-label="Contact form"
+    >
+      <label
+        class="label"
+        for="name-0"
+      >
+        Name:
+      </label>
+      <span
+        class="input"
+      >
+        <input
+          id="name-0"
+          maxlength="100"
+          name="name"
+          placeholder=" "
+          type="text"
+        />
+        <span
+          aria-hidden="true"
+          class="validity required"
+        >
+          *
+        </span>
+        <test-file-stub
+          aria-hidden="true"
+          classname="validity valid"
+          width="1em"
+        />
+        <test-file-stub
+          aria-hidden="true"
+          classname="validity invalid"
+          width="1em"
+        />
+      </span>
+      <label
+        class="label"
+        for="email-0"
+      >
+        E-mail:
+      </label>
+      <span
+        class="input"
+      >
+        <input
+          id="email-0"
+          maxlength="100"
+          minlength="4"
+          name="email"
+          placeholder="myemail@example.com"
+          required=""
+          type="email"
+        />
+        <span
+          aria-hidden="true"
+          class="validity required"
+        >
+          *
+        </span>
+        <test-file-stub
+          aria-hidden="true"
+          classname="validity valid"
+          width="1em"
+        />
+        <test-file-stub
+          aria-hidden="true"
+          classname="validity invalid"
+          width="1em"
+        />
+      </span>
+      <label
+        class="label"
+        for="subject-0"
+      >
+        Subject:
+      </label>
+      <span
+        class="input"
+      >
+        <input
+          id="subject-0"
+          maxlength="100"
+          minlength="1"
+          name="subject"
+          placeholder=" "
+          required=""
+          type="text"
+        />
+        <span
+          aria-hidden="true"
+          class="validity required"
+        >
+          *
+        </span>
+        <test-file-stub
+          aria-hidden="true"
+          classname="validity valid"
+          width="1em"
+        />
+        <test-file-stub
+          aria-hidden="true"
+          classname="validity invalid"
+          width="1em"
+        />
+      </span>
+      <label
+        class="label"
+        for="message-0"
+      >
+        Message:
+      </label>
+      <span
+        class="input input__message"
+      >
+        <textarea
+          id="message-0"
+          minlength="1"
+          name="message"
+          placeholder="my message"
+          required=""
+        />
+        <span
+          aria-hidden="true"
+          class="validity required"
+        >
+          *
+        </span>
+        <test-file-stub
+          aria-hidden="true"
+          classname="validity valid"
+          width="1em"
+        />
+        <test-file-stub
+          aria-hidden="true"
+          classname="validity invalid"
+          width="1em"
+        />
+      </span>
+      <label
+        class="privacy"
+      >
+        <input
+          name="privacy"
+          required=""
+          type="checkbox"
+        />
+        I agree to the processing of my data for the purposes described in this 
+        <a
+          href="/help/privacy"
+        >
+          privacy notice
+        </a>
+        .
+        <span
+          aria-hidden="true"
+          class="required"
+        >
+           *
+        </span>
+      </label>
+      <input
+        aria-hidden="true"
+        name="requiredForRobots"
+        tabindex="-1"
+        type="text"
+      />
+      <input
+        hidden=""
+        name="referrer"
+        value=""
+      />
+      <button
+        class="button primary"
+        type="submit"
+      >
+        Send message
+      </button>
+      <test-file-stub
+        classname="illustration"
+        viewbox="0 0 211 140"
+      />
+      <aside>
+        <h2
+          class="small"
+        >
+          Other ways to contact us
+        </h2>
+        <div>
+          <a
+            href="/contact"
+          >
+            Send us general questions and suggestions
+          </a>
+        </div>
+        <div>
+          <a
+            class="external-link"
+            href="https://www.ebi.ac.uk/swissprot/Submissions/spin/"
+            rel="noopener"
+            target="_blank"
+          >
+            Submit new protein sequence data
+            <test-file-stub
+              data-testid="external-link-icon"
+              width="12.5"
+            />
+          </a>
+        </div>
+      </aside>
+    </form>
+  </section>
+</DocumentFragment>
+`;
+
+exports[`ContactForm should render for generic contact form 1`] = `
+<DocumentFragment>
+  <div
+    class="page-intro"
+  >
+    <h1
+      class=""
+    >
+      Contact us
+    </h1>
+  </div>
+  <section
+    class="container"
+  >
+    <h2
+      class="medium"
+    >
+      Send us general questions and suggestions using the form below
+    </h2>
+    <hr />
+    <form
+      aria-label="Contact form"
+    >
+      <label
+        class="label"
+        for="name-0"
+      >
+        Name:
+      </label>
+      <span
+        class="input"
+      >
+        <input
+          id="name-0"
+          maxlength="100"
+          name="name"
+          placeholder=" "
+          type="text"
+        />
+        <span
+          aria-hidden="true"
+          class="validity required"
+        >
+          *
+        </span>
+        <test-file-stub
+          aria-hidden="true"
+          classname="validity valid"
+          width="1em"
+        />
+        <test-file-stub
+          aria-hidden="true"
+          classname="validity invalid"
+          width="1em"
+        />
+      </span>
+      <label
+        class="label"
+        for="email-0"
+      >
+        E-mail:
+      </label>
+      <span
+        class="input"
+      >
+        <input
+          id="email-0"
+          maxlength="100"
+          minlength="4"
+          name="email"
+          placeholder="myemail@example.com"
+          required=""
+          type="email"
+        />
+        <span
+          aria-hidden="true"
+          class="validity required"
+        >
+          *
+        </span>
+        <test-file-stub
+          aria-hidden="true"
+          classname="validity valid"
+          width="1em"
+        />
+        <test-file-stub
+          aria-hidden="true"
+          classname="validity invalid"
+          width="1em"
+        />
+      </span>
+      <label
+        class="label"
+        for="subject-0"
+      >
+        Subject:
+      </label>
+      <span
+        class="input"
+      >
+        <input
+          id="subject-0"
+          maxlength="100"
+          minlength="1"
+          name="subject"
+          placeholder=" "
+          required=""
+          type="text"
+        />
+        <span
+          aria-hidden="true"
+          class="validity required"
+        >
+          *
+        </span>
+        <test-file-stub
+          aria-hidden="true"
+          classname="validity valid"
+          width="1em"
+        />
+        <test-file-stub
+          aria-hidden="true"
+          classname="validity invalid"
+          width="1em"
+        />
+      </span>
+      <label
+        class="label"
+        for="message-0"
+      >
+        Message:
+      </label>
+      <span
+        class="input input__message"
+      >
+        <textarea
+          id="message-0"
+          minlength="1"
+          name="message"
+          placeholder="my message"
+          required=""
+        />
+        <span
+          aria-hidden="true"
+          class="validity required"
+        >
+          *
+        </span>
+        <test-file-stub
+          aria-hidden="true"
+          classname="validity valid"
+          width="1em"
+        />
+        <test-file-stub
+          aria-hidden="true"
+          classname="validity invalid"
+          width="1em"
+        />
+      </span>
+      <label
+        class="privacy"
+      >
+        <input
+          name="privacy"
+          required=""
+          type="checkbox"
+        />
+        I agree to the processing of my data for the purposes described in this 
+        <a
+          href="/help/privacy"
+        >
+          privacy notice
+        </a>
+        .
+        <span
+          aria-hidden="true"
+          class="required"
+        >
+           *
+        </span>
+      </label>
+      <input
+        aria-hidden="true"
+        name="requiredForRobots"
+        tabindex="-1"
+        type="text"
+      />
+      <input
+        hidden=""
+        name="referrer"
+        value=""
+      />
+      <button
+        class="button primary"
+        type="submit"
+      >
+        Send message
+      </button>
+      <test-file-stub
+        classname="illustration"
+        viewbox="0 0 211 140"
+      />
+      <aside>
+        <h2
+          class="small"
+        >
+          Other ways to contact us
+        </h2>
+        <div>
+          <a
+            href="/update"
+          >
+            Send updates or corrections
+          </a>
+        </div>
+        <div>
+          <a
+            class="external-link"
+            href="https://www.ebi.ac.uk/swissprot/Submissions/spin/"
+            rel="noopener"
+            target="_blank"
+          >
+            Submit new protein sequence data
+            <test-file-stub
+              data-testid="external-link-icon"
+              width="12.5"
+            />
+          </a>
+        </div>
+      </aside>
+    </form>
+  </section>
+</DocumentFragment>
+`;
