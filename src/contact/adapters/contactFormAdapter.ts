@@ -103,6 +103,8 @@ export const useFormLogic = (referrer?: string): UseFormLogicReturnType => {
           content: 'Your message has been succesfully sent to our team.',
         })
       );
+      // Clear the current form (just in case)
+      document.querySelector<HTMLFormElement>('main form')?.reset();
       // Navigate the user to previous page, or to the homepage if not possible
       // eslint-disable-next-line uniprot-website/use-config-location
       history.push(referrer || LocationToPath[Location.Home]);
