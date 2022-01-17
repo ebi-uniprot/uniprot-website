@@ -65,6 +65,10 @@
     & > aside {
       display: none;
 
+      li {
+        margin-bottom: 0.5 * $global-margin;
+      }
+
       @include fs-breakpoints('medium') {
         display: initial;
         grid-area: aside;
