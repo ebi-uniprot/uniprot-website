@@ -13,7 +13,9 @@ exports[`Entry view should render 1`] = `
       <div
         class="card__header card__header--with-separator"
       >
-        <h2>
+        <h2
+          data-article-id="function_section"
+        >
           Function
         </h2>
       </div>
@@ -2984,7 +2986,9 @@ exports[`Entry view should render for non-human entry 1`] = `
       <div
         class="card__header card__header--with-separator"
       >
-        <h2>
+        <h2
+          data-article-id="function_section"
+        >
           Function
         </h2>
       </div>

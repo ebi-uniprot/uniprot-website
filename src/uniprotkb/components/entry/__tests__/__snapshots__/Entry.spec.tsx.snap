@@ -341,7 +341,9 @@ exports[`Entry basic should render main 1`] = `
                 <div
                   class="card__header card__header--with-separator"
                 >
-                  <h2>
+                  <h2
+                    data-article-id="function_section"
+                  >
                     Function
                   </h2>
                 </div>

@@ -1,0 +1,10 @@
+// TODO: update style once decided
+[data-article-id]::after {
+  content: 'i';
+  font-size: 0.75rem;
+  font-family: Bookman, Garamond, serif;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+  top: -1rem;
+}

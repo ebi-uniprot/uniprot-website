@@ -194,7 +194,11 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
 
   return (
     <Card
-      header={<h2>{getEntrySectionNameAndId(EntrySection.Function).name}</h2>}
+      header={
+        <h2 data-article-id="function_section">
+          {getEntrySectionNameAndId(EntrySection.Function).name}
+        </h2>
+      }
       id={EntrySection.Function}
       data-entry-section
     >

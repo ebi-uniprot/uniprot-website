@@ -23,6 +23,7 @@ import {
 import pkg from '../../../package.json';
 
 import './styles/app.scss';
+import ContextualHelpHandler from '../../help/components/contextual/ContextualHelpHandler';
 
 if (process.env.NODE_ENV !== 'development') {
   Promise.all([
@@ -447,6 +448,7 @@ const App = () => {
       <ErrorBoundary fallback={null}>
         <GDPR />
       </ErrorBoundary>
+      <ContextualHelpHandler />
       <a
         style={reportBugLinkStyles}
         target="_blank"
