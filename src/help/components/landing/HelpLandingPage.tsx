@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { CommunityAnnotationIcon } from 'franklin-sites';
+import { CommunityAnnotationIcon, PageIntro } from 'franklin-sites';
 import cn from 'classnames';
 
 // eslint-disable-next-line import/no-relative-packages
@@ -170,7 +170,7 @@ const HelpLandingPage = () => (
     )}
   >
     <HTMLHead title="Help" />
-    <h1 className="uniprot-grid-cell--span-12">Help center</h1>
+    <PageIntro title="Help center" className="uniprot-grid-cell--span-12" />
     <div className="uniprot-grid-cell--span-9">
       <HelpQuickSearch />
       <div className={landing['help-landing__tiles']}>
