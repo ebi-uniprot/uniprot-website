@@ -21,11 +21,11 @@ import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
 import { v1 } from 'uuid';
 import cn from 'classnames';
+import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
 import SequenceSearchLoader, {
-  ParsedSequence,
   SequenceSearchLoaderInterface,
 } from '../../components/SequenceSearchLoader';
 import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
@@ -71,7 +71,7 @@ import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 
 const BLAST_LIMIT = 20;
-const isInvalid = (parsedSequences: ParsedSequence[]) =>
+const isInvalid = (parsedSequences: SequenceObject[]) =>
   !parsedSequences.length ||
   parsedSequences.length > BLAST_LIMIT ||
   parsedSequences.some((parsedSequence) => !parsedSequence.valid);
@@ -144,7 +144,9 @@ const BlastForm = ({ initialFormValues }: Props) => {
   const [submitDisabled, setSubmitDisabled] = useState(() =>
     // default sequence value will tell us if submit should be disabled or not
     isInvalid(
-      sequenceProcessor(initialFormValues[BlastFields.sequence].selected)
+      sequenceProcessor(
+        `${initialFormValues[BlastFields.sequence].selected || ''}`
+      )
     )
   );
   // used when the form is about to be submitted to the server
@@ -152,8 +154,10 @@ const BlastForm = ({ initialFormValues }: Props) => {
   // flag to see if the user manually changed the title
   const [jobNameEdited, setJobNameEdited] = useState(false);
   // store parsed sequence objects
-  const [parsedSequences, setParsedSequences] = useState<ParsedSequence[]>(
-    sequenceProcessor(initialFormValues[BlastFields.sequence].selected)
+  const [parsedSequences, setParsedSequences] = useState<SequenceObject[]>(
+    sequenceProcessor(
+      `${initialFormValues[BlastFields.sequence].selected || ''}`
+    )
   );
 
   // actual form fields
@@ -352,7 +356,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
   }, [sequence.selected]);
 
   const onSequenceChange = useCallback(
-    (parsedSequences: ParsedSequence[]) => {
+    (parsedSequences: SequenceObject[]) => {
       const rawSequence = parsedSequences
         .map((parsedSequence) => parsedSequence.raw)
         .join('\n');
