@@ -23,7 +23,6 @@ import {
 import pkg from '../../../package.json';
 
 import './styles/app.scss';
-import ContextualHelpHandler from '../../help/components/contextual/ContextualHelpHandler';
 
 if (process.env.NODE_ENV !== 'development') {
   Promise.all([
@@ -221,6 +220,15 @@ const ResourceNotFoundPage = lazy(
     import(
       /* webpackChunkName: "resource-not-found" */ '../../shared/components/error-pages/ResourceNotFoundPage'
     )
+);
+
+const ContextualHelpHandler = lazy(() =>
+  sleep(1000).then(
+    () =>
+      import(
+        /* webpackChunkName: "contextual-help" */ '../../help/components/contextual/ContextualHelpHandler'
+      )
+  )
 );
 
 const reportBugLinkStyles: CSSProperties = {
@@ -443,12 +451,14 @@ const App = () => {
               )}
             />
           </Switch>
+          <ErrorBoundary fallback={null}>
+            <ContextualHelpHandler />
+          </ErrorBoundary>
         </Suspense>
       </BaseLayout>
       <ErrorBoundary fallback={null}>
         <GDPR />
       </ErrorBoundary>
-      <ContextualHelpHandler />
       <a
         style={reportBugLinkStyles}
         target="_blank"
