@@ -5,11 +5,15 @@ exports[`HelpLandingPage should render 1`] = `
   <div
     class="uniprot-grid uniprot-grid--centered help-landing"
   >
-    <h1
-      class="uniprot-grid-cell--span-12"
+    <div
+      class="uniprot-grid-cell--span-12 page-intro"
     >
-      Help center
-    </h1>
+      <h1
+        class=""
+      >
+        Help center
+      </h1>
+    </div>
     <div
       class="uniprot-grid-cell--span-9"
     >

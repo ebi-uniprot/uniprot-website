@@ -1,3 +1,5 @@
+import { fireEvent, screen } from '@testing-library/react';
+
 import customRender from '../../../../shared/__test-helpers__/customRender';
 
 import UniProtKBEvidenceTag from '../UniProtKBEvidenceTag';
@@ -16,6 +18,10 @@ describe('UniProtKBEvidenceTag components', () => {
     const { asFragment } = customRender(
       <UniProtKBEvidenceTag evidences={evidences} />
     );
+    expect(asFragment()).toMatchSnapshot();
+
+    const button = screen.getByRole('button');
+    fireEvent.click(button);
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -36,6 +42,10 @@ describe('UniProtKBEvidenceTag components', () => {
       <UniProtKBEvidenceTag evidences={evidences} />
     );
     expect(asFragment()).toMatchSnapshot();
+
+    const button = screen.getByRole('button');
+    fireEvent.click(button);
+    expect(asFragment()).toMatchSnapshot();
   });
 
   test('should render automatic ', () => {
@@ -47,6 +57,10 @@ describe('UniProtKBEvidenceTag components', () => {
     const { asFragment } = customRender(
       <UniProtKBEvidenceTag evidences={evidences} />
     );
+    expect(asFragment()).toMatchSnapshot();
+
+    const button = screen.getByRole('button');
+    fireEvent.click(button);
     expect(asFragment()).toMatchSnapshot();
   });
 });

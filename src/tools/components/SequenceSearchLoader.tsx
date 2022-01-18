@@ -12,6 +12,7 @@ import queryString from 'query-string';
 import { SearchInput } from 'franklin-sites';
 import { useDispatch } from 'react-redux';
 import { v1 } from 'uuid';
+import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
 
 import useDataApi from '../../shared/hooks/useDataApi';
 
@@ -71,16 +72,6 @@ const nameFromEntry = (entry: APISequenceData) =>
       }|${entry.primaryAccession}|${entry.uniProtkbId}`
     : '';
 
-export type ParsedSequence = {
-  sequence: string;
-  raw: string;
-  header: string;
-  valid: boolean;
-  likelyType: 'na' | 'aa' | null;
-  message: string | null;
-  name?: string;
-};
-
 type NetworkResponses = { results: APISequenceData[] } | APISequenceData;
 
 export interface SequenceSearchLoaderInterface {
@@ -89,7 +80,7 @@ export interface SequenceSearchLoaderInterface {
 
 const SequenceSearchLoader = forwardRef<
   SequenceSearchLoaderInterface,
-  { onLoad: (event: ParsedSequence[]) => void }
+  { onLoad: (event: SequenceObject[]) => void }
 >(({ onLoad }, ref) => {
   const [accessionOrID, setAccessionOrID] = useState('');
   // flag, abused to store previous value of the field
@@ -135,8 +126,7 @@ const SequenceSearchLoader = forwardRef<
           header: '',
           sequence: '',
           valid: false,
-          likelyType: null,
-          message: null,
+          name: '',
         },
       ]);
       return;
@@ -162,8 +152,6 @@ const SequenceSearchLoader = forwardRef<
         header: '',
         sequence: '',
         valid: true,
-        likelyType: null,
-        message: null,
         name: nameFromEntry(entry),
       },
     ]);
@@ -215,8 +203,6 @@ const SequenceSearchLoader = forwardRef<
               header: '',
               sequence: '',
               valid: true,
-              likelyType: null,
-              message: null,
               name: nameFromEntry(data),
             });
           } catch (_) {

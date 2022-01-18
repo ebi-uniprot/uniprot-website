@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 import {
   ExternalLink,
   InfoList,
-  EvidenceTag,
-  InformationIcon,
+  // EvidenceTag,
+  // InformationIcon,
 } from 'franklin-sites';
-import { isEqual, pullAll, omit } from 'lodash-es';
+import { isEqual, pullAll /* , omit */ } from 'lodash-es';
 import cn from 'classnames';
 
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
-import AccessionView from '../../../shared/components/results/AccessionView';
+// import AccessionView from '../../../shared/components/results/AccessionView';
 import CSVView from '../../../uniprotkb/components/protein-data-views/CSVView';
 import CatalyticActivityView from '../../../uniprotkb/components/protein-data-views/CatalyticActivityView';
 import { CofactorView } from '../../../uniprotkb/components/entry/FunctionSection';
@@ -286,68 +286,72 @@ const ConditionsComponent = ({
   </ul>
 );
 
-const ExceptionComponent = ({
-  annotationWithExceptions,
-}: {
-  annotationWithExceptions: AnnotationWithExceptions;
-}) => {
-  const filteredExceptions = annotationWithExceptions.exceptions?.filter(
-    (e: RuleException | undefined): e is RuleException => e !== undefined
-  );
-  if (!filteredExceptions?.length) {
-    return null;
-  }
-  const originalAnnotation = omit(annotationWithExceptions, 'exceptions');
-  return (
-    <EvidenceTag
-      className={styles.exceptions}
-      label={pluralise('exception', filteredExceptions.length)}
-      iconComponent={<InformationIcon style={{ marginTop: '0.3em' }} />}
-    >
-      <ul>
-        {filteredExceptions.map((exception, index) => {
-          // Only need to display the exception's annotation if it is distinct
-          // from the main annotation
-          const needsToDisplayAnnotation = !isEqual(
-            originalAnnotation,
-            exception.annotation
-          );
-          return (
-            // eslint-disable-next-line react/no-array-index-key
-            <li key={index}>
-              {exception.category}:<br />
-              {exception.accessions?.length ? (
-                <>
-                  This applies to the following{' '}
-                  {exception.accessions.length === 1
-                    ? ''
-                    : `${exception.accessions.length} `}
-                  {pluralise('entry', exception.accessions.length, 'entries')}:{' '}
-                  {exception.accessions.map((accession, index, array) => (
-                    <Fragment key={accession}>
-                      {listFormat(index, array)}
-                      <AccessionView
-                        id={accession}
-                        namespace={Namespace.uniprotkb}
-                      />
-                    </Fragment>
-                  ))}
-                  .<br />
-                </>
-              ) : null}
-              {exception.annotation && needsToDisplayAnnotation && (
-                <InfoList
-                  infoData={annotationsToInfoData([exception.annotation])}
-                />
-              )}
-              {exception.note && <span>Note: {exception.note}</span>}
-            </li>
-          );
-        })}
-      </ul>
-    </EvidenceTag>
-  );
-};
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const ExceptionComponent: any = () => null;
+
+/* We need to hide this, for now, replaced with the above component instead */
+// const ExceptionComponent = ({
+//   annotationWithExceptions,
+// }: {
+//   annotationWithExceptions: AnnotationWithExceptions;
+// }) => {
+//   const filteredExceptions = annotationWithExceptions.exceptions?.filter(
+//     (e: RuleException | undefined): e is RuleException => e !== undefined
+//   );
+//   if (!filteredExceptions?.length) {
+//     return null;
+//   }
+//   const originalAnnotation = omit(annotationWithExceptions, 'exceptions');
+//   return (
+//     <EvidenceTag
+//       className={styles.exceptions}
+//       label={pluralise('exception', filteredExceptions.length)}
+//       iconComponent={<InformationIcon style={{ marginTop: '0.3em' }} />}
+//     >
+//       <ul>
+//         {filteredExceptions.map((exception, index) => {
+//           // Only need to display the exception's annotation if it is distinct
+//           // from the main annotation
+//           const needsToDisplayAnnotation = !isEqual(
+//             originalAnnotation,
+//             exception.annotation
+//           );
+//           return (
+//             // eslint-disable-next-line react/no-array-index-key
+//             <li key={index}>
+//               {exception.category}:<br />
+//               {exception.accessions?.length ? (
+//                 <>
+//                   This applies to the following{' '}
+//                   {exception.accessions.length === 1
+//                     ? ''
+//                     : `${exception.accessions.length} `}
+//                   {pluralise('entry', exception.accessions.length, 'entries')}:{' '}
+//                   {exception.accessions.map((accession, index, array) => (
+//                     <Fragment key={accession}>
+//                       {listFormat(index, array)}
+//                       <AccessionView
+//                         id={accession}
+//                         namespace={Namespace.uniprotkb}
+//                       />
+//                     </Fragment>
+//                   ))}
+//                   .<br />
+//                 </>
+//               ) : null}
+//               {exception.annotation && needsToDisplayAnnotation && (
+//                 <InfoList
+//                   infoData={annotationsToInfoData([exception.annotation])}
+//                 />
+//               )}
+//               {exception.note && <span>Note: {exception.note}</span>}
+//             </li>
+//           );
+//         })}
+//       </ul>
+//     </EvidenceTag>
+//   );
+// };
 
 const groupedAnnotation = (
   type: string,

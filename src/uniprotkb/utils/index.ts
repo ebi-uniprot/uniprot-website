@@ -81,7 +81,7 @@ export const reUniProtKBAccession =
 export const reAC = new RegExp(`(?:AC ${reUniProtKBAccession.source})`, 'i');
 export const rePubMedID = /\d{7,8}/;
 export const rePubMed = new RegExp(`(?:pubmed:${rePubMedID.source})`, 'i');
-export const rePubMedOrAC = new RegExp(
-  `(${rePubMed.source}|${reAC.source})`,
+export const rePubMedOrACOrSimilarity = new RegExp(
+  `(${rePubMed.source}|${reAC.source}|By similarity)`,
   'i'
 );

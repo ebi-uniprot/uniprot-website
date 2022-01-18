@@ -9,7 +9,6 @@ import {
 import { FormParameters } from '../types/toolsFormParameters';
 import { JobTypes } from '../types/toolsJobTypes';
 import { SelectedTaxon } from '../types/toolsFormData';
-import { ParsedSequence } from '../components/SequenceSearchLoader';
 
 const DEFAULT_EMAIL = 'uuw_dev@uniprot.org';
 
@@ -131,9 +130,7 @@ export function formParametersToServerParameters<T extends JobTypes>(
       } = formParameters as FormParameters[JobTypes.PEPTIDE_SEARCH];
       serverParameters = {
         peps: sequenceProcessor(peps)
-          .map(
-            (processedSequence: ParsedSequence) => processedSequence.sequence
-          )
+          .map((processedSequence) => processedSequence.sequence)
           .join(','),
         taxIds: stringifyTaxa(taxIds) || '',
         lEQi,
