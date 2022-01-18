@@ -76,6 +76,59 @@ const cleanTextOptions: IOptions = {
   },
 };
 
+export const HelpEntryContent = ({
+  data,
+  isStale,
+  handleClick,
+}: {
+  data: HelpEntryResponse;
+  isStale?: boolean;
+  handleClick: MouseEventHandler<HTMLElement>;
+}) => {
+  const [lastModifed, html] = useMemo(
+    () =>
+      data?.content
+        ? [
+            parseDate(data.lastModified),
+            cleanText(marked(data.content), cleanTextOptions),
+          ]
+        : [],
+    [data]
+  );
+
+  if (!html) {
+    return <ErrorHandler />;
+  }
+
+  return (
+    <>
+      <h1 className={data.categories.includes('faq') ? 'big' : undefined}>
+        {data.title}
+      </h1>
+      <Card className={cn(styles.content, { [helper.stale]: isStale })}>
+        {/* event delegation here, not actually doing anything with the div */}
+        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
+        <div
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: html }}
+          onClick={handleClick}
+        />
+      </Card>
+      {lastModifed && (
+        <div className={styles['last-updated-help']}>
+          <small>
+            {' '}
+            Page last modified:{' '}
+            <time dateTime={lastModifed.toISOString()}>
+              {lastModifed.toDateString()}
+            </time>
+          </small>
+        </div>
+      )}
+    </>
+  );
+};
+
 const HelpEntry = () => {
   const history = useHistory();
   const match = useRouteMatch<{ accession: string }>(
@@ -106,22 +159,11 @@ const HelpEntry = () => {
     [history]
   );
 
-  const [lastModifed, html] = useMemo(
-    () =>
-      data?.content
-        ? [
-            parseDate(data.lastModified),
-            cleanText(marked(data.content), cleanTextOptions),
-          ]
-        : [],
-    [data]
-  );
-
-  if (loading && !data && !html) {
+  if (loading && !data) {
     return <Loader progress={progress} />;
   }
 
-  if (error || !data || !html) {
+  if (error || !data) {
     return <ErrorHandler status={status} />;
   }
 
@@ -131,29 +173,11 @@ const HelpEntry = () => {
       <Message level="info" className={styles['beta-message']}>
         During the beta phase, help content may not be up to date.
       </Message>
-      <h1 className={data.categories.includes('faq') ? 'big' : undefined}>
-        {data.title}
-      </h1>
-      <Card className={cn(styles.content, { [helper.stale]: isStale })}>
-        {/* event delegation here, not actually doing anything with the div */}
-        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
-        <div
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{ __html: html }}
-          onClick={handleClick}
-        />
-      </Card>
-      {lastModifed && (
-        <div className={styles['last-updated-help']}>
-          <small>
-            {' '}
-            Page last modified:{' '}
-            <time dateTime={lastModifed.toISOString()}>
-              {lastModifed.toDateString()}
-            </time>
-          </small>
-        </div>
-      )}
+      <HelpEntryContent
+        data={data}
+        isStale={isStale}
+        handleClick={handleClick}
+      />
     </SingleColumnLayout>
   );
 };
