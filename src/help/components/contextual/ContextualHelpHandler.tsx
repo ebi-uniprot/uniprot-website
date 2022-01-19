@@ -3,8 +3,6 @@ import { useRouteMatch } from 'react-router-dom';
 import { Location, LocationToPath } from '../../../app/config/urls';
 import ContextualHelpContainer from './ContextualHelpContainer';
 
-import './styles/contextual-help.scss';
-
 const ContextualHelpHandler = () => {
   const [articleId, setArticleId] = useState<string>();
 

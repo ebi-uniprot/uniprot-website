@@ -5,6 +5,8 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import { HelpEntryResponse } from '../../adapters/helpConverter';
 import { HelpEntryContent } from '../entry/Entry';
 
+import styles from './styles/contextual-help.module.scss';
+
 const ContextualHelpContainer = ({ articleId }: { articleId: string }) => {
   const { data, loading, error, status, progress } =
     useDataApi<HelpEntryResponse>(helpUrl.accession(articleId));
@@ -23,7 +25,8 @@ const ContextualHelpContainer = ({ articleId }: { articleId: string }) => {
       onClose={() => {
         console.log('do something');
       }}
-      className="contextual-help-panel"
+      className={styles['contextual-help-panel']}
+      size="small"
       position="right"
     >
       <>
