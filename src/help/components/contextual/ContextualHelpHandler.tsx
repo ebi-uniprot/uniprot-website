@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { Location, LocationToPath } from '../../../app/config/urls';
 import ContextualHelpContainer from './ContextualHelpContainer';
 
 const ContextualHelpHandler = () => {
-  const [articleId, setArticleId] = useState<string>();
+  const [articleId, setArticleId] = useState<string | null>(null);
 
   const isHelpResults = useRouteMatch(LocationToPath[Location.HelpResults]);
   const isHelpEntry = useRouteMatch(LocationToPath[Location.HelpEntry]);
@@ -12,18 +12,27 @@ const ContextualHelpHandler = () => {
 
   const shouldBeVisible = !isHelpResults && !isHelpEntry && !isContact;
 
-  const eventHandler = (event: MouseEvent) => {
-    const element = event.target as HTMLElement;
-    if (element.dataset.articleId) {
-      setArticleId(element.dataset.articleId);
-    }
-  };
-
   useEffect(() => {
-    document.addEventListener('click', eventHandler);
+    const eventHandler = (event: MouseEvent) => {
+      const element = event.target as HTMLElement;
+      if (element.dataset.articleId) {
+        setArticleId(element.dataset.articleId);
+      }
+    };
+
+    document.addEventListener('click', eventHandler, { passive: true });
+
     return () => {
       document.removeEventListener('click', eventHandler);
     };
+  }, []);
+
+  const handleClose = useCallback<
+    (reason: 'outside' | 'button' | 'navigation' | 'escape') => void
+  >((reason) => {
+    if (reason !== 'outside') {
+      setArticleId(null);
+    }
   }, []);
 
   if (!shouldBeVisible) {
@@ -31,7 +40,10 @@ const ContextualHelpHandler = () => {
   }
 
   // TODO: return button and panel
-  return articleId ? <ContextualHelpContainer articleId={articleId} /> : null;
+  // Probably shouldn't rely on articleId to display panel
+  return articleId ? (
+    <ContextualHelpContainer articleId={articleId} onClose={handleClose} />
+  ) : null;
 };
 
 export default ContextualHelpHandler;
