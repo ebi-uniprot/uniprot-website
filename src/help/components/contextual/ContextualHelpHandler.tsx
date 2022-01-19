@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useRouteMatch } from 'react-router-dom';
-import { Location, LocationToPath } from '../../../app/config/urls';
+
 import ContextualHelpContainer from './ContextualHelpContainer';
+
+import { Location, LocationToPath } from '../../../app/config/urls';
 
 const ContextualHelpHandler = () => {
   const [articleId, setArticleId] = useState<string | null>(null);

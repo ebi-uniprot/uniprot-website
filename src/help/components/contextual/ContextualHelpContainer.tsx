@@ -1,9 +1,13 @@
 import { Loader, SlidingPanel } from 'franklin-sites';
+
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
-import { help as helpUrl } from '../../../shared/config/apiUrls';
-import useDataApi from '../../../shared/hooks/useDataApi';
-import { HelpEntryResponse } from '../../adapters/helpConverter';
 import { HelpEntryContent } from '../entry/Entry';
+
+import useDataApi from '../../../shared/hooks/useDataApi';
+
+import { help as helpUrl } from '../../../shared/config/apiUrls';
+
+import { HelpEntryResponse } from '../../adapters/helpConverter';
 
 import styles from './styles/contextual-help.module.scss';
 
