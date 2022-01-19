@@ -1,4 +1,5 @@
 @import 'franklin-sites/src/styles/colours';
+@import '../../../../shared/styles/mixins';
 
 [data-article-id] {
   cursor: pointer;
@@ -12,10 +13,24 @@
   }
 }
 
+$help-height: 35em;
+
+@media only screen and (max-height: $help-height) {
+  .contextual-help-panel {
+    display: none;
+  }
+}
+
 .contextual-help-panel {
-  height: 60vh;
-  margin-top: calc(50vh - 30vh);
+  height: $help-height;
+  margin-top: calc(50vh - 0.5 * $help-height);
+
   :global(.sliding-panel__header) {
     background-color: $colour-help-green;
+  }
+
+  :global(.sliding-panel__content) {
+    @include scroll-shadow($colour-sky-white);
+    overscroll-behavior: contain;
   }
 }
