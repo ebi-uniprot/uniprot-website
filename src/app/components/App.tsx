@@ -451,9 +451,11 @@ const App = () => {
               )}
             />
           </Switch>
-          <ErrorBoundary fallback={null}>
-            <ContextualHelpHandler />
-          </ErrorBoundary>
+          <Suspense fallback={<Loader />}>
+            <ErrorBoundary fallback={null}>
+              <ContextualHelpHandler />
+            </ErrorBoundary>
+          </Suspense>
         </Suspense>
       </BaseLayout>
       <ErrorBoundary fallback={null}>
