@@ -20,11 +20,11 @@ import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
 import { v1 } from 'uuid';
 import cn from 'classnames';
+// TODO: find a way to export this transparently from franklin
+import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
-import SequenceSearchLoader, {
-  ParsedSequence,
-} from '../../components/SequenceSearchLoader';
+import SequenceSearchLoader from '../../components/SequenceSearchLoader';
 import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
 
 import { pluralise } from '../../../shared/utils/utils';
@@ -56,7 +56,7 @@ import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 
 const ALIGN_LIMIT = 100;
-const isInvalid = (parsedSequences: ParsedSequence[]) =>
+const isInvalid = (parsedSequences: SequenceObject[]) =>
   parsedSequences.length > ALIGN_LIMIT ||
   parsedSequences.some((parsedSequence) => !parsedSequence.valid) ||
   parsedSequences.length <= 1;
@@ -115,7 +115,9 @@ const AlignForm = ({ initialFormValues }: Props) => {
   const [submitDisabled, setSubmitDisabled] = useState(() =>
     // default sequence value will tell us if submit should be disabled or not
     isInvalid(
-      sequenceProcessor(initialFormValues[AlignFields.sequence].selected)
+      sequenceProcessor(
+        `${initialFormValues[AlignFields.sequence].selected || ''}`
+      )
     )
   );
   // used when the form is about to be submitted to the server
@@ -123,8 +125,10 @@ const AlignForm = ({ initialFormValues }: Props) => {
   // flag to see if the user manually changed the title
   const [jobNameEdited, setJobNameEdited] = useState(false);
   // store parsed sequence objects
-  const [parsedSequences, setParsedSequences] = useState<ParsedSequence[]>(
-    sequenceProcessor(initialFormValues[AlignFields.sequence].selected)
+  const [parsedSequences, setParsedSequences] = useState<SequenceObject[]>(
+    sequenceProcessor(
+      `${initialFormValues[AlignFields.sequence].selected || ''}`
+    )
   );
 
   // actual form fields
@@ -199,7 +203,7 @@ const AlignForm = ({ initialFormValues }: Props) => {
   };
 
   const onSequenceChange = useCallback(
-    (parsedSequences: ParsedSequence[]) => {
+    (parsedSequences: SequenceObject[]) => {
       if (!jobNameEdited) {
         // if the user didn't manually change the title, autofill it
         const firstName = parsedSequences.find((item) => item.name)?.name;
@@ -238,7 +242,7 @@ const AlignForm = ({ initialFormValues }: Props) => {
 
   // specific logic to prepend loaded sequences instead of just replacing
   const onSequenceLoad = useCallback(
-    (parsedRetrievedSequences: ParsedSequence[]) => {
+    (parsedRetrievedSequences: SequenceObject[]) => {
       onSequenceChange([...parsedRetrievedSequences, ...parsedSequences]);
     },
     [onSequenceChange, parsedSequences]
