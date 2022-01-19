@@ -21,6 +21,7 @@ import { help as helpURL } from '../../../shared/config/apiUrls';
 import cleanText, {
   cleanTextDefaultOptions,
   getTransformTags,
+  HeadingLevels,
 } from '../../../shared/utils/cleanText';
 import parseDate from '../../../shared/utils/parseDate';
 import { LocationToPath, Location } from '../../../app/config/urls';
@@ -59,7 +60,7 @@ const allowedClasses = (cleanTextDefaultOptions.allowedClasses?.['*'] ||
   []) as string[];
 
 // TODO: probably need to play with the options here in order to make it look OK
-const cleanTextOptions: IOptions = {
+const getCleanTextOptions = (headingLevel: HeadingLevels): IOptions => ({
   ...cleanTextDefaultOptions,
   allowedTags: [...defaults.allowedTags, 'img'],
   // none by default, so explicitely accept only the ones from the stylesheets
@@ -71,30 +72,29 @@ const cleanTextOptions: IOptions = {
     ],
   },
   transformTags: {
-    ...getTransformTags('h1'),
+    ...getTransformTags(headingLevel),
     a: aTransformer,
   },
-};
+});
 
 export const HelpEntryContent = ({
   data,
-  isStale,
   handleClick,
+  upperHeadingLevel = 'h1',
 }: {
   data: HelpEntryResponse;
-  isStale?: boolean;
   handleClick: MouseEventHandler<HTMLElement>;
+  upperHeadingLevel?: HeadingLevels;
 }) => {
-  const [lastModifed, html] = useMemo(
-    () =>
-      data?.content
-        ? [
-            parseDate(data.lastModified),
-            cleanText(marked(data.content), cleanTextOptions),
-          ]
-        : [],
-    [data]
-  );
+  const html = useMemo(() => {
+    if (data?.content) {
+      return cleanText(
+        marked(data.content),
+        getCleanTextOptions(upperHeadingLevel)
+      );
+    }
+    return null;
+  }, [data, upperHeadingLevel]);
 
   if (!html) {
     return <ErrorHandler />;
@@ -102,29 +102,13 @@ export const HelpEntryContent = ({
 
   return (
     <>
-      <h1 className={data.categories.includes('faq') ? 'big' : undefined}>
-        {data.title}
-      </h1>
-      <Card className={cn(styles.content, { [helper.stale]: isStale })}>
-        {/* event delegation here, not actually doing anything with the div */}
-        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
-        <div
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{ __html: html }}
-          onClick={handleClick}
-        />
-      </Card>
-      {lastModifed && (
-        <div className={styles['last-updated-help']}>
-          <small>
-            {' '}
-            Page last modified:{' '}
-            <time dateTime={lastModifed.toISOString()}>
-              {lastModifed.toDateString()}
-            </time>
-          </small>
-        </div>
-      )}
+      {/* event delegation here, not actually doing anything with the div */}
+      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
+      <div
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: html }}
+        onClick={handleClick}
+      />
     </>
   );
 };
@@ -159,6 +143,13 @@ const HelpEntry = () => {
     [history]
   );
 
+  const lastModifed = useMemo(() => {
+    if (data?.content) {
+      return parseDate(data.lastModified);
+    }
+    return null;
+  }, [data]);
+
   if (loading && !data) {
     return <Loader progress={progress} />;
   }
@@ -173,11 +164,23 @@ const HelpEntry = () => {
       <Message level="info" className={styles['beta-message']}>
         During the beta phase, help content may not be up to date.
       </Message>
-      <HelpEntryContent
-        data={data}
-        isStale={isStale}
-        handleClick={handleClick}
-      />
+      <h1 className={data.categories.includes('faq') ? 'big' : undefined}>
+        {data.title}
+      </h1>
+      <Card className={cn(styles.content, { [helper.stale]: isStale })}>
+        <HelpEntryContent data={data} handleClick={handleClick} />
+      </Card>
+      {lastModifed && (
+        <div className={styles['last-updated-help']}>
+          <small>
+            {' '}
+            Page last modified:{' '}
+            <time dateTime={lastModifed.toISOString()}>
+              {lastModifed.toDateString()}
+            </time>
+          </small>
+        </div>
+      )}
     </SingleColumnLayout>
   );
 };

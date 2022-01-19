@@ -8,7 +8,7 @@ import { HelpEntryContent } from '../entry/Entry';
 import styles from './styles/contextual-help.module.scss';
 
 const ContextualHelpContainer = ({ articleId }: { articleId: string }) => {
-  const { data, loading, error, status, progress, isStale } =
+  const { data, loading, error, status, progress } =
     useDataApiWithStale<HelpEntryResponse>(helpUrl.accession(articleId));
 
   if (loading && !data) {
@@ -27,10 +27,12 @@ const ContextualHelpContainer = ({ articleId }: { articleId: string }) => {
       className={styles['contextual-help-panel']}
       position="right"
     >
+      <h1 className="big">Help</h1>
+      <h2 className="medium">{data.title}</h2>
       <HelpEntryContent
         data={data}
-        isStale={isStale}
         handleClick={() => console.log('click!')}
+        upperHeadingLevel="h3"
       />
     </SlidingPanel>
   );
