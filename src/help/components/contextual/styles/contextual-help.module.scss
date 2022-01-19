@@ -1,3 +1,5 @@
+@import 'franklin-sites/src/styles/colours';
+
 [data-article-id] {
   cursor: pointer;
   &::after {
@@ -7,5 +9,13 @@
     font-family: Bookman, Garamond, serif;
     position: relative;
     vertical-align: super;
+  }
+}
+
+.contextual-help-panel {
+  height: 60vh;
+  margin-top: calc(50vh - 30vh);
+  :global(.sliding-panel__header) {
+    background-color: $colour-help-green;
   }
 }
