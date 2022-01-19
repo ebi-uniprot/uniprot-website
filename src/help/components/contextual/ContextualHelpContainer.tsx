@@ -28,12 +28,14 @@ const ContextualHelpContainer = ({ articleId }: { articleId: string }) => {
       position="right"
     >
       <h1 className="big">Help</h1>
-      <h2 className="medium">{data.title}</h2>
-      <HelpEntryContent
-        data={data}
-        handleClick={() => console.log('click!')}
-        upperHeadingLevel="h3"
-      />
+      <div className={styles['contextual-help-content']}>
+        <h2 className="medium">{data.title}</h2>
+        <HelpEntryContent
+          data={data}
+          handleClick={() => console.log('click!')}
+          upperHeadingLevel="h3"
+        />
+      </div>
     </SlidingPanel>
   );
 };
