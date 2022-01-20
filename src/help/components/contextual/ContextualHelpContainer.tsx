@@ -12,20 +12,33 @@ import { HelpEntryResponse } from '../../adapters/helpConverter';
 import styles from './styles/contextual-help.module.scss';
 
 type Props = {
-  articleId: string;
+  articleId?: string;
   onClose: (reason: 'outside' | 'button' | 'navigation' | 'escape') => void;
 };
 
 const ContextualHelpContainer = ({ articleId, onClose }: Props) => {
   const { data, loading, error, status, progress } =
-    useDataApi<HelpEntryResponse>(helpUrl.accession(articleId));
+    useDataApi<HelpEntryResponse>(
+      articleId ? helpUrl.accession(articleId) : null
+    );
 
-  if (loading && !data) {
-    return <Loader progress={progress} />;
-  }
+  let content = <Loader progress={progress} />;
 
-  if (error || !data) {
-    return <ErrorHandler status={status} />;
+  if (!loading) {
+    if (error || !data) {
+      content = <ErrorHandler status={status} />;
+    } else {
+      content = (
+        <>
+          <h2 className="medium">{data.title}</h2>
+          <HelpEntryContent
+            data={data}
+            handleClick={() => console.log('click!')}
+            upperHeadingLevel="h3"
+          />
+        </>
+      );
+    }
   }
 
   return (
@@ -37,14 +50,7 @@ const ContextualHelpContainer = ({ articleId, onClose }: Props) => {
       size="small"
       position="right"
     >
-      <>
-        <h2 className="medium">{data.title}</h2>
-        <HelpEntryContent
-          data={data}
-          handleClick={() => console.log('click!')}
-          upperHeadingLevel="h3"
-        />
-      </>
+      {content}
     </SlidingPanel>
   );
 };
