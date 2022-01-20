@@ -26,7 +26,7 @@ import { updateJob, deleteJob } from '../../state/toolsActions';
 
 import { jobTypeToPath } from '../../../app/config/urls';
 
-import useReducedMotion from '../../../shared/hooks/useReducedMotion';
+import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 
 import { getBEMClassName as bem, pluralise } from '../../../shared/utils/utils';
 import parseDate from '../../../shared/utils/parseDate';

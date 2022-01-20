@@ -32,7 +32,7 @@ import InitialFormParametersProvider from '../../components/InitialFormParameter
 
 import { addMessage } from '../../../messages/state/messagesActions';
 
-import useReducedMotion from '../../../shared/hooks/useReducedMotion';
+import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
 
 import { truncateTaxonLabel } from '../../utils';
