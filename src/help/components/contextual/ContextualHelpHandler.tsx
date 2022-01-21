@@ -1,24 +1,40 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useRouteMatch } from 'react-router-dom';
+import { useRouteMatch, useHistory } from 'react-router-dom';
 
 import ContextualHelpContainer from './ContextualHelpContainer';
 
-import { Location, LocationToPath } from '../../../app/config/urls';
+import useMatchMedia from '../../../shared/hooks/useMatchMedia';
+
+import {
+  getLocationEntryPath,
+  Location,
+  LocationToPath,
+} from '../../../app/config/urls';
 
 const ContextualHelpHandler = () => {
+  const history = useHistory();
   const [articleId, setArticleId] = useState<string | null>(null);
+  // Needs to match the height value in the contextual-help stylesheet
+  const smallScreen = useMatchMedia('only screen and (max-height: 35em)');
 
   const isHelpResults = useRouteMatch(LocationToPath[Location.HelpResults]);
   const isHelpEntry = useRouteMatch(LocationToPath[Location.HelpEntry]);
   const isContact = useRouteMatch(LocationToPath[Location.Contact]);
 
-  const shouldBeVisible = !isHelpResults && !isHelpEntry && !isContact;
+  const shouldBeVisible =
+    !isHelpResults && !isHelpEntry && !isContact && !smallScreen;
 
   useEffect(() => {
     const eventHandler = (event: MouseEvent) => {
       const element = event.target as HTMLElement;
       if (element.dataset.articleId) {
-        setArticleId(element.dataset.articleId);
+        if (smallScreen) {
+          history.push(
+            getLocationEntryPath(Location.HelpEntry, element.dataset.articleId)
+          );
+        } else {
+          setArticleId(element.dataset.articleId);
+        }
       }
     };
 
@@ -27,7 +43,7 @@ const ContextualHelpHandler = () => {
     return () => {
       document.removeEventListener('click', eventHandler);
     };
-  }, []);
+  }, [history, smallScreen]);
 
   const handleClose = useCallback<
     (reason: 'outside' | 'button' | 'navigation' | 'escape') => void

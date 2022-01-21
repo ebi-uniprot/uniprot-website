@@ -4,9 +4,9 @@ import customRender from '../../../../shared/__test-helpers__/customRender';
 
 import HomePage from '../HomePage';
 
-import useReducedMotion from '../../../../shared/hooks/useReducedMotion';
+import { useReducedMotion } from '../../../../shared/hooks/useMatchMedia';
 
-jest.mock('../../../../shared/hooks/useReducedMotion');
+jest.mock('../../../../shared/hooks/useMatchMedia');
 
 (useReducedMotion as jest.Mock).mockReturnValue(true);
 
