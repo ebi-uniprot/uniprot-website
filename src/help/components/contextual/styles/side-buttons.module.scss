@@ -1,0 +1,50 @@
+@import 'franklin-sites/src/styles/colours';
+
+.container {
+  position: absolute;
+}
+
+.side-button {
+  font-size: 0.8rem;
+  font-weight: bold;
+  line-height: 1rem;
+  padding: 1.5ch;
+  color: #fff;
+  background-color: #126a9f;
+  position: fixed;
+  right: 0;
+  border-radius: 0.5ch 0 0 0.5ch;
+  writing-mode: vertical-rl;
+  z-index: 99;
+  opacity: 0;
+  transform: translateX(100%) rotate(180deg);
+  transition-duration: 0.25s;
+  transition-timing-function: ease-out;
+  transition-property: transform, opacity;
+  border-radius: 0 3px 3px 0;
+  cursor: pointer;
+
+  &.visible {
+    transform: translateX(2px) rotate(180deg);
+    opacity: 1;
+
+    &:hover {
+      color: #fff;
+      transform: translateX(0) rotate(180deg);
+      box-shadow: 0 0 35px 2px rgb(0 0 0 / 24%);
+    }
+  }
+
+  &.feedback {
+    bottom: calc(50% - 5ch);
+  }
+
+  &.help {
+    bottom: calc(25% - 2ch);
+
+    &,
+    &:hover {
+      background-color: $colour-help-green;
+    }
+  }
+}

@@ -1,7 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
+import { MouseEventHandler, useCallback, useEffect, useState } from 'react';
 import { useRouteMatch, useHistory } from 'react-router-dom';
+import { frame } from 'timing-functions';
 
 import ContextualHelpContainer from './ContextualHelpContainer';
+import SideButtons from './SideButtons';
 
 import useMatchMedia from '../../../shared/hooks/useMatchMedia';
 
@@ -11,9 +13,10 @@ import {
   LocationToPath,
 } from '../../../app/config/urls';
 
-const ContextualHelpHandler = () => {
+const ContextualHelp = () => {
   const history = useHistory();
-  const [articleId, setArticleId] = useState<string | null>(null);
+  const [articleId, setArticleId] = useState<string | undefined>(undefined);
+  const [displayButton, setDisplayButton] = useState<boolean | undefined>();
   // Needs to match the height value in the contextual-help stylesheet
   const smallScreen = useMatchMedia('only screen and (max-height: 35em)');
 
@@ -34,6 +37,7 @@ const ContextualHelpHandler = () => {
           );
         } else {
           setArticleId(element.dataset.articleId);
+          setDisplayButton(false);
         }
       }
     };
@@ -49,19 +53,40 @@ const ContextualHelpHandler = () => {
     (reason: 'outside' | 'button' | 'navigation' | 'escape') => void
   >((reason) => {
     if (reason !== 'outside') {
-      setArticleId(null);
+      setArticleId(undefined);
+      setDisplayButton(true);
     }
   }, []);
 
-  if (!shouldBeVisible) {
-    return null;
-  }
+  const handleButtonClick = useCallback<MouseEventHandler<HTMLAnchorElement>>(
+    (event) => {
+      if (event.metaKey || event.ctrlKey) {
+        return; // default behaviour of opening a new tab
+      }
+      event.preventDefault();
+      setDisplayButton(false);
+    },
+    []
+  );
 
-  // TODO: return button and panel
-  // Probably shouldn't rely on articleId to display panel
-  return articleId ? (
-    <ContextualHelpContainer articleId={articleId} onClose={handleClose} />
-  ) : null;
+  useEffect(() => {
+    frame().then(() => {
+      // To trigger the animation, we switch the classname after first render
+      setDisplayButton(true);
+    });
+  }, []);
+
+  return (
+    <>
+      {displayButton === false && shouldBeVisible && (
+        <ContextualHelpContainer articleId={articleId} onClose={handleClose} />
+      )}
+      <SideButtons
+        displayHelp={shouldBeVisible && !!displayButton && !smallScreen}
+        onClick={handleButtonClick}
+      />
+    </>
+  );
 };
 
-export default ContextualHelpHandler;
+export default ContextualHelp;
