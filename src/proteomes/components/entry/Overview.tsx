@@ -9,7 +9,6 @@ import BuscoLegend from '../BuscoLegend';
 import BuscoAbbr from '../BuscoAbbr';
 import { PanProteome } from './PanProteome';
 
-import parseDate from '../../../shared/utils/parseDate';
 import ftpUrls from '../../../shared/config/ftpUrls';
 import ProteomesColumnConfiguration, {
   ProteomesColumn,
@@ -25,7 +24,7 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
       const config = ProteomesColumnConfiguration.get(column);
       return {
         title: config?.label,
-        content: config?.render(data),
+        content: config?.render(data) || null,
         key: column,
       };
     };
@@ -37,13 +36,16 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
           <>
             <EntryTypeIcon entryType={data.proteomeType} />
             {data.proteomeType}
+            {data.exclusionReasons?.length ? (
+              <> ({data.exclusionReasons.join(', ')})</>
+            ) : null}
           </>
         ),
       },
       renderColumnAsInfoListItem(ProteomesColumn.proteinCount),
       {
         title: 'Gene count',
-        content: (
+        content: data.geneCount ? (
           <>
             <LongNumber>{data.geneCount}</LongNumber>
             {data.geneCount && data.superkingdom && data.taxonomy.taxonId ? (
@@ -61,7 +63,7 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
               </>
             ) : null}
           </>
-        ),
+        ) : null,
       },
       {
         title: 'Proteome ID',
@@ -71,14 +73,6 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
         title: 'Taxonomy',
         content: (data.taxonomy.taxonId || data.taxonomy.scientificName) && (
           <TaxonomyView data={data.taxonomy} />
-        ),
-      },
-      {
-        title: 'Last modified',
-        content: (
-          <time dateTime={parseDate(data.modified)?.toISOString()}>
-            {data.modified}
-          </time>
         ),
       },
       {

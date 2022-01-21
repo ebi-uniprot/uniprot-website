@@ -78,7 +78,7 @@ const LocationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
           <EntryDownload />
           <MapToDropdown statistics={data.statistics} />
         </div>
-        {infoData && <InfoList infoData={infoData} isCompact />}
+        <InfoList infoData={infoData} />
       </Card>
     </SingleColumnLayout>
   );

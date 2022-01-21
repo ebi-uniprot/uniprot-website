@@ -77,7 +77,7 @@ const DatabaseEntry = (props: RouteChildrenProps<{ accession: string }>) => {
            * */}
           <MapToDropdown statistics={data.statistics} accession={data.abbrev} />
         </div>
-        {infoData && <InfoList infoData={infoData} isCompact />}
+        <InfoList infoData={infoData} />
       </Card>
     </SingleColumnLayout>
   );
