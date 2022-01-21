@@ -1,5 +1,5 @@
 import { useCallback, MouseEventHandler, useMemo } from 'react';
-import { useHistory, useRouteMatch } from 'react-router-dom';
+import { RouteChildrenProps, useHistory } from 'react-router-dom';
 import { Card, Loader, Message } from 'franklin-sites';
 import { marked } from 'marked';
 import {
@@ -24,7 +24,6 @@ import cleanText, {
   HeadingLevels,
 } from '../../../shared/utils/cleanText';
 import parseDate from '../../../shared/utils/parseDate';
-import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { HelpEntryResponse } from '../../adapters/helpConverter';
 
@@ -77,52 +76,16 @@ const getCleanTextOptions = (headingLevel: HeadingLevels): IOptions => ({
   },
 });
 
-export const HelpEntryContent = ({
-  data,
-  handleClick,
-  upperHeadingLevel = 'h1',
-}: {
+type HelpEntryContentProps = {
   data: HelpEntryResponse;
-  handleClick: MouseEventHandler<HTMLElement>;
   upperHeadingLevel?: HeadingLevels;
-}) => {
-  const html = useMemo(() => {
-    if (data?.content) {
-      return cleanText(
-        marked(data.content),
-        getCleanTextOptions(upperHeadingLevel)
-      );
-    }
-    return null;
-  }, [data, upperHeadingLevel]);
-
-  if (!html) {
-    return <ErrorHandler />;
-  }
-
-  return (
-    <>
-      {/* event delegation here, not actually doing anything with the div */}
-      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
-      <div
-        // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{ __html: html }}
-        onClick={handleClick}
-      />
-    </>
-  );
 };
 
-const HelpEntry = () => {
+export const HelpEntryContent = ({
+  data,
+  upperHeadingLevel = 'h1',
+}: HelpEntryContentProps) => {
   const history = useHistory();
-  const match = useRouteMatch<{ accession: string }>(
-    LocationToPath[Location.HelpEntry]
-  );
-
-  const accession = match?.params.accession;
-
-  const { data, loading, error, status, progress, isStale } =
-    useDataApiWithStale<HelpEntryResponse>(helpURL.accession(accession));
 
   // Hijack clicks on content
   const handleClick = useCallback<MouseEventHandler<HTMLElement>>(
@@ -143,6 +106,44 @@ const HelpEntry = () => {
     [history]
   );
 
+  const html = useMemo(() => {
+    if (data?.content) {
+      return cleanText(
+        marked(data.content),
+        getCleanTextOptions(upperHeadingLevel)
+      );
+    }
+    return null;
+  }, [data, upperHeadingLevel]);
+
+  if (!html) {
+    return <ErrorHandler />;
+  }
+
+  // event delegation here, not actually doing anything with the div
+  return (
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
+    <div
+      // eslint-disable-next-line react/no-danger
+      dangerouslySetInnerHTML={{ __html: html }}
+      onClick={handleClick}
+    />
+  );
+};
+
+type Props = {
+  inPanel?: boolean;
+};
+
+const HelpEntry = ({
+  match,
+  inPanel,
+}: RouteChildrenProps<{ accession: string }> & Props) => {
+  const accession = match?.params.accession;
+
+  const { data, loading, error, status, progress, isStale } =
+    useDataApiWithStale<HelpEntryResponse>(helpURL.accession(accession));
+
   const lastModifed = useMemo(() => {
     if (data?.content) {
       return parseDate(data.lastModified);
@@ -158,6 +159,15 @@ const HelpEntry = () => {
     return <ErrorHandler status={status} />;
   }
 
+  if (inPanel) {
+    return (
+      <>
+        <h2 className="medium">{data.title}</h2>
+        <HelpEntryContent data={data} upperHeadingLevel="h3" />
+      </>
+    );
+  }
+
   return (
     <SingleColumnLayout>
       <HTMLHead title={[data.title, 'UniProt help']} />
@@ -168,7 +178,7 @@ const HelpEntry = () => {
         {data.title}
       </h1>
       <Card className={cn(styles.content, { [helper.stale]: isStale })}>
-        <HelpEntryContent data={data} handleClick={handleClick} />
+        <HelpEntryContent data={data} />
       </Card>
       {lastModifed && (
         <div className={styles['last-updated-help']}>

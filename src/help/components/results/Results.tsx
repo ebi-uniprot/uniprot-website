@@ -34,7 +34,15 @@ const dataRenderer = (article: HelpAPIModel) => (
 
 const getIdKey = (article: HelpAPIModel) => article.id;
 
-const Results = ({ history, location }: RouteChildrenProps) => {
+type Props = {
+  inPanel?: boolean;
+};
+
+const Results = ({
+  history,
+  location,
+  inPanel,
+}: RouteChildrenProps & Props) => {
   const [searchValue, setSearchValue] = useState<string>(() => {
     const { query } = qs.parse(location.search);
     const searchValue = Array.isArray(query) ? query.join(' ') : query;
@@ -109,6 +117,10 @@ const Results = ({ history, location }: RouteChildrenProps) => {
         dataRenderer={dataRenderer}
       />
     );
+  }
+
+  if (inPanel) {
+    return <>{main}</>;
   }
 
   return (

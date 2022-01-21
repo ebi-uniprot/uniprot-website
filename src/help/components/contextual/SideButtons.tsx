@@ -1,12 +1,15 @@
 import { useEffect, useState, MouseEventHandler } from 'react';
+import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import { sleep } from 'timing-functions';
+
+import { LocationToPath, Location } from '../../../app/config/urls';
 
 import styles from './styles/side-buttons.module.scss';
 
 type Props = {
   displayHelp: boolean;
-  onClick: MouseEventHandler<HTMLButtonElement>;
+  onClick: MouseEventHandler<HTMLAnchorElement>;
 };
 
 const SideButtons = ({ displayHelp, onClick }: Props) => {
@@ -23,7 +26,7 @@ const SideButtons = ({ displayHelp, onClick }: Props) => {
   });
 
   return (
-    <>
+    <span className={styles.container}>
       <a
         className={cn(styles['side-button'], styles.feedback, {
           [styles.visible]: displayFeedback,
@@ -35,17 +38,17 @@ const SideButtons = ({ displayHelp, onClick }: Props) => {
       >
         Feedback
       </a>
-      {/* Different style than franklin, so avoid using it to not fight it */}
-      <button type="button" onClick={onClick} tabIndex={-1}>
-        <p
-          className={cn(styles['side-button'], styles.help, {
-            [styles.visible]: displayHelp,
-          })}
-        >
-          Help
-        </p>
-      </button>
-    </>
+      <Link
+        to={LocationToPath[Location.HelpResults]}
+        onClick={onClick}
+        tabIndex={-1}
+        className={cn(styles['side-button'], styles.help, {
+          [styles.visible]: displayHelp,
+        })}
+      >
+        Help
+      </Link>
+    </span>
   );
 };
 

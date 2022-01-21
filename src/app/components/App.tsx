@@ -416,16 +416,16 @@ const App = () => {
               )}
             />
           </Switch>
-          <Suspense fallback={<Loader />}>
-            <ErrorBoundary fallback={null}>
-              <ContextualHelp />
-            </ErrorBoundary>
-          </Suspense>
         </Suspense>
       </BaseLayout>
       <ErrorBoundary fallback={null}>
         <GDPR />
       </ErrorBoundary>
+      <Suspense fallback={null}>
+        <ErrorBoundary fallback={null}>
+          <ContextualHelp />
+        </ErrorBoundary>
+      </Suspense>
     </>
   );
 };
