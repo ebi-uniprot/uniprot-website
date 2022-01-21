@@ -5,6 +5,7 @@ export const fileFormatsResultsDownload = [
   FileFormat.excel,
   FileFormat.list,
   FileFormat.json,
+  FileFormat.obo,
 ];
 
 export const fileFormatEntryDownload = [
