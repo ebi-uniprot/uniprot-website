@@ -29,6 +29,7 @@ const ResourceNotFoundPage = lazy(
 
 type Props = {
   articleId?: string;
+  hash?: string;
   onClose: (reason: 'outside' | 'button' | 'navigation' | 'escape') => void;
 };
 
@@ -42,7 +43,7 @@ const HistoryDebug = () => {
   );
 };
 
-const ContextualHelpContainer = ({ articleId, onClose }: Props) => (
+const ContextualHelpContainer = ({ articleId, hash, onClose }: Props) => (
   <SlidingPanel
     title="Help"
     onClose={onClose}
@@ -55,9 +56,12 @@ const ContextualHelpContainer = ({ articleId, onClose }: Props) => (
       <MemoryRouter
         initialEntries={[
           articleId
-            ? generatePath(LocationToPath[Location.HelpEntry], {
-                accession: articleId,
-              })
+            ? {
+                pathname: generatePath(LocationToPath[Location.HelpEntry], {
+                  accession: articleId,
+                }),
+                hash,
+              }
             : {
                 pathname: LocationToPath[Location.HelpResults],
                 search: 'query=*',
