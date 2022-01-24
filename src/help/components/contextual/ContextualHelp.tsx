@@ -32,7 +32,10 @@ const ContextualHelp = () => {
     const eventHandler = (event: MouseEvent) => {
       const element = event.target as HTMLElement;
       if (element.dataset.articleId) {
-        if (smallScreen) {
+        if (element.dataset.articleId.match(/^http(s?)/)) {
+          // External link, open in new window
+          window.open(element.dataset.articleId, 'external_help');
+        } else if (smallScreen) {
           history.push(
             getLocationEntryPath(Location.HelpEntry, element.dataset.articleId)
           );
