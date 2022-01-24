@@ -18,7 +18,9 @@ exports[`Entry - External Links view should render 1`] = `
       <div
         class="card__content"
       >
-        <h3>
+        <h3
+          data-article-id="web_resource"
+        >
           Web resources
         </h3>
         <ul
