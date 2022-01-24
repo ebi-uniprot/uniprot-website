@@ -2,7 +2,9 @@
 
 exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
 <DocumentFragment>
-  <h3>
+  <h3
+    data-article-id="involvement_in_disease"
+  >
     Involvement in disease
   </h3>
   <h4>
