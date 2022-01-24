@@ -85,7 +85,11 @@ const StructureSection = ({
 
   return (
     <Card
-      header={<h2>{getEntrySectionNameAndId(EntrySection.Structure).name}</h2>}
+      header={
+        <h2 data-article-id="structure_section">
+          {getEntrySectionNameAndId(EntrySection.Structure).name}
+        </h2>
+      }
       id={EntrySection.Structure}
       data-entry-section
     >

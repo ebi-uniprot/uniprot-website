@@ -59,15 +59,24 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
   return (
     <Card
       header={
-        <h2>{getEntrySectionNameAndId(EntrySection.Interaction).name}</h2>
+        <h2 data-article-id="interaction_section">
+          {getEntrySectionNameAndId(EntrySection.Interaction).name}
+        </h2>
       }
       id={EntrySection.Interaction}
       className={styles['interaction-section']}
       data-entry-section
     >
-      {comments && <FreeTextView comments={comments} title="subunit" />}
+      {comments && (
+        <FreeTextView
+          comments={comments}
+          title="subunit"
+          articleId="subunit_structure"
+        />
+      )}
       {interactionComment?.[0] && (
         <>
+          <h3 data-article-id="binary_interactions">Binary interactions</h3>
           {interactionViewerElement.defined && (
             <interactionViewerElement.name accession={primaryAccession} />
           )}

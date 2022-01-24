@@ -2669,13 +2669,20 @@ exports[`Entry basic should render main 1`] = `
                 <div
                   class="card__header card__header--with-separator"
                 >
-                  <h2>
+                  <h2
+                    data-article-id="interaction_section"
+                  >
                     Interaction
                   </h2>
                 </div>
                 <div
                   class="card__content"
                 >
+                  <h3
+                    data-article-id="binary_interactions"
+                  >
+                    Binary interactions
+                  </h3>
                   <interaction-viewer
                     accession="P21802"
                   />
@@ -2792,7 +2799,9 @@ exports[`Entry basic should render main 1`] = `
                 <div
                   class="card__header card__header--with-separator"
                 >
-                  <h2>
+                  <h2
+                    data-article-id="structure_section"
+                  >
                     Structure
                   </h2>
                 </div>
@@ -2889,7 +2898,9 @@ exports[`Entry basic should render main 1`] = `
                 <div
                   class="card__header card__header--with-separator"
                 >
-                  <h2>
+                  <h2
+                    data-article-id="family_and_domains_section"
+                  >
                     Family & Domains
                   </h2>
                 </div>
