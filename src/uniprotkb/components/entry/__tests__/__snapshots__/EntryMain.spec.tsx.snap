@@ -2641,7 +2641,9 @@ exports[`Entry view should render 1`] = `
       <div
         class="card__header card__header--with-separator"
       >
-        <h2>
+        <h2
+          data-article-id="sequences_section"
+        >
           Sequence
         </h2>
       </div>
@@ -2677,7 +2679,11 @@ exports[`Entry view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Sequence status
+                <span
+                  data-article-id="sequence_status"
+                >
+                  Sequence status
+                </span>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -2692,7 +2698,13 @@ exports[`Entry view should render 1`] = `
           <strong>
             1
           </strong>
-           isoforms produced by 
+           
+          <span
+            data-article-id="alternative_products"
+          >
+            isoforms
+          </span>
+           produced by 
           <strong>
             Alternative initiation
           </strong>
@@ -2788,7 +2800,9 @@ exports[`Entry view should render 1`] = `
         >
           Show sequence 
         </button>
-        <h3>
+        <h3
+          data-article-id="sequence_caution"
+        >
           Sequence caution
         </h3>
         <section
@@ -2831,15 +2845,17 @@ exports[`Entry view should render 1`] = `
             id="45"
           />
         </section>
-        <h3>
+        <h3
+          data-article-id="mass_spectrometry"
+        >
           Mass Spectrometry
         </h3>
         <section
           class="text-block"
         >
-          <h3>
+          <h4>
             isoform 1
-          </h3>
+          </h4>
           Molecular mass is 2.1 Da. Determined by LSI. note value
           <button
             aria-controls="46"
@@ -2864,7 +2880,9 @@ exports[`Entry view should render 1`] = `
             id="46"
           />
         </section>
-        <h3>
+        <h3
+          data-article-id="rna_editing"
+        >
           RNA Editing
         </h3>
         <section
@@ -6267,7 +6285,9 @@ exports[`Entry view should render for non-human entry 1`] = `
       <div
         class="card__header card__header--with-separator"
       >
-        <h2>
+        <h2
+          data-article-id="sequences_section"
+        >
           Sequence
         </h2>
       </div>
@@ -6284,7 +6304,11 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Sequence status
+                <span
+                  data-article-id="sequence_status"
+                >
+                  Sequence status
+                </span>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -6300,7 +6324,11 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Sequence processing
+                <span
+                  data-article-id="sequence_processing"
+                >
+                  Sequence processing
+                </span>
               </div>
               <div
                 class="decorated-list-item__content"

@@ -288,7 +288,7 @@ export const MassSpectrometryView = ({
   <>
     {data.map((item) => (
       <section className="text-block" key={`${item.molWeight}${item.method}`}>
-        {item.molecule && <h3>{item.molecule}</h3>}
+        {item.molecule && <h4>{item.molecule}</h4>}
         {`Molecular mass is `}
         <LongNumber>{item.molWeight}</LongNumber>
         {` Da. `}
@@ -362,7 +362,9 @@ export const IsoformView = ({
       <Fragment key="this entry describes...">
         {`This entry describes ${isIsoformPage ? 'one of the' : ''} `}
         <strong>{isoforms.length}</strong>
-        {` isoforms produced by `}
+        {` `}
+        <span data-article-id="alternative_products">isoforms</span>
+        {` produced by `}
         <strong>{events.join(' & ')}</strong>.{' '}
       </Fragment>
     );
@@ -428,11 +430,13 @@ const SequenceView = ({ accession, data }: SequenceViewProps) => {
 
   const sequenceInfoData = [
     {
-      title: 'Sequence status',
+      title: <span data-article-id="sequence_status">Sequence status</span>,
       content: data.status,
     },
     {
-      title: 'Sequence processing',
+      title: (
+        <span data-article-id="sequence_processing">Sequence processing</span>
+      ),
       content: data.processing,
     },
   ];
