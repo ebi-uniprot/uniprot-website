@@ -1,4 +1,4 @@
-import { useCallback, MouseEventHandler, useMemo } from 'react';
+import { useCallback, MouseEventHandler, useMemo, useEffect } from 'react';
 import { RouteChildrenProps, useHistory } from 'react-router-dom';
 import { Card, Loader, Message } from 'franklin-sites';
 import { marked } from 'marked';
@@ -79,13 +79,21 @@ const getCleanTextOptions = (headingLevel: HeadingLevels): IOptions => ({
 type HelpEntryContentProps = {
   data: HelpEntryResponse;
   upperHeadingLevel?: HeadingLevels;
+  hash?: string;
 };
 
 export const HelpEntryContent = ({
   data,
   upperHeadingLevel = 'h1',
+  hash,
 }: HelpEntryContentProps) => {
   const history = useHistory();
+
+  useEffect(() => {
+    if (hash) {
+      document.getElementById(hash)?.scrollIntoView();
+    }
+  }, [hash]);
 
   // Hijack clicks on content
   const handleClick = useCallback<MouseEventHandler<HTMLElement>>(
@@ -139,7 +147,9 @@ const HelpEntry = ({
   match,
   inPanel,
 }: RouteChildrenProps<{ accession: string }> & Props) => {
-  const accession = match?.params.accession;
+  const [accession, hash] = match?.params.accession?.split(
+    encodeURIComponent('#')
+  ) || [match?.params.accession, undefined];
 
   const { data, loading, error, status, progress, isStale } =
     useDataApiWithStale<HelpEntryResponse>(helpURL.accession(accession));
@@ -163,7 +173,7 @@ const HelpEntry = ({
     return (
       <>
         <h2 className="medium">{data.title}</h2>
-        <HelpEntryContent data={data} upperHeadingLevel="h3" />
+        <HelpEntryContent data={data} upperHeadingLevel="h3" hash={hash} />
       </>
     );
   }
