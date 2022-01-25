@@ -136,13 +136,6 @@ exports[`EntryMain view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-          <li>
-            <div
-              class="decorated-list-item decorated-list-item--compact"
-            >
-              <div
-                class="decorated-list-item__title tiny"
-              >
                 <span
                   data-article-id="https://www.ensembl.org/Help/Faq?id=216"
                 >
