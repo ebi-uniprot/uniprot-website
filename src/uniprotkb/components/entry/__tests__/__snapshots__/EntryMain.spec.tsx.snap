@@ -6445,7 +6445,11 @@ exports[`Entry view should render for non-human entry 1`] = `
                 <div
                   class="decorated-list-item__title tiny"
                 >
-                  Checksum
+                  <span
+                    data-article-id="checksum"
+                  >
+                    Checksum
+                  </span>
                 </div>
                 <div
                   class="decorated-list-item__content"

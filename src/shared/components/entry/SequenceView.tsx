@@ -94,7 +94,7 @@ export const SequenceInfo = ({
       content: lastUpdateDate,
     },
     {
-      title: 'Checksum',
+      title: <span data-article-id="checksum">Checksum</span>,
       content: dataToDisplay && dataToDisplay.crc64,
     },
   ];
