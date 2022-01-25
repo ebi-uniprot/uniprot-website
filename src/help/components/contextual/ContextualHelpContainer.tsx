@@ -1,9 +1,8 @@
-import { lazy, Suspense, useEffect, useState, useRef } from 'react';
-import { Button, Loader, SlidingPanel } from 'franklin-sites';
-import { createMemoryHistory, createPath, MemoryHistory } from 'history';
+import { lazy, Suspense, useEffect, useRef } from 'react';
+import { Loader, SlidingPanel } from 'franklin-sites';
+import { createMemoryHistory, createPath } from 'history';
 import {
   generatePath,
-  Redirect,
   Route,
   RouteChildrenProps,
   Router,
@@ -11,16 +10,12 @@ import {
   useHistory,
   useLocation,
 } from 'react-router-dom';
-import cn from 'classnames';
 
-import {
-  misspeltHelpTuple,
-  redirectFromTo,
-} from '../../../shared/components/error-pages/ResourceNotFoundPage';
+import NavigationBar from './NavigationBar';
+import CatchAll from './CatchAll';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
-import helper from '../../../shared/styles/helper.module.scss';
 import styles from './styles/contextual-help.module.scss';
 
 // Help
@@ -43,46 +38,6 @@ const HistoryDebug = () => {
       {pathname}
       {search}
     </pre>
-  );
-};
-
-const PanelTitle = ({ history }: { history: MemoryHistory }) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setLocalLocation] = useState(history.location);
-  // Trigger a render whenever the route changes
-  useEffect(
-    () =>
-      history.listen((location) => {
-        setLocalLocation(location);
-      }),
-    [history]
-  );
-
-  return (
-    <>
-      {/* All of this contains the "fake" browser navigation */}
-      <Button
-        variant="tertiary"
-        className={cn({
-          [helper.disabled]: !history.canGo(-1),
-        })}
-        disabled={!history.canGo(-1)}
-        onClick={() => history.go(-1)}
-      >
-        ←
-      </Button>{' '}
-      Help{' '}
-      <Button
-        variant="tertiary"
-        className={cn({
-          [helper.disabled]: !history.canGo(1),
-        })}
-        disabled={!history.canGo(1)}
-        onClick={() => history.go(1)}
-      >
-        →
-      </Button>
-    </>
   );
 };
 
@@ -113,7 +68,12 @@ const ContextualHelpContainer = ({ articlePath, onClose }: Props) => {
 
   return (
     <SlidingPanel
-      title={<PanelTitle history={localHistoryRef.current} />}
+      title={
+        <NavigationBar
+          localHistory={localHistoryRef.current}
+          globalHistory={globalHistory}
+        />
+      }
       onClose={onClose}
       withCloseButton
       className={styles['contextual-help-panel']}
@@ -137,27 +97,12 @@ const ContextualHelpContainer = ({ articlePath, onClose }: Props) => {
               {(props) => <HelpResults inPanel {...props} />}
             </Route>
             {/* Catch-all handler -> Redirect (within or global history) */}
-            <Route path="*">
-              {({ location }) => {
-                const newPathname = redirectFromTo(location.pathname, [
-                  misspeltHelpTuple,
-                ]);
-
-                if (newPathname) {
-                  // Redirect in the panel's context
-                  return (
-                    <Redirect to={{ ...location, pathname: newPathname }} />
-                  );
-                }
-
-                // Reinject the global history context to redirect in the navigator
-                return (
-                  <Router history={globalHistory}>
-                    <Redirect to={location} />
-                  </Router>
-                );
-              }}
-            </Route>
+            <Route
+              path="*"
+              render={(props) => (
+                <CatchAll globalHistory={globalHistory} {...props} />
+              )}
+            />
           </Switch>
         </Router>
       </Suspense>

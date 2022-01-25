@@ -1,0 +1,11 @@
+:global(.sliding-panel__header__title) {
+  flex: 1;
+}
+
+.container {
+  display: flex;
+
+  & > :last-child {
+    margin-inline-start: auto;
+  }
+}
