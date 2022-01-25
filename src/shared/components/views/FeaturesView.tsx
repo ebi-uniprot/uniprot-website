@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { Fragment, useCallback, useMemo } from 'react';
 import { uniq } from 'lodash-es';
 import TransformedVariant from 'protvista-variation-adapter';
 
@@ -11,6 +11,7 @@ import FeatureType from '../../../uniprotkb/types/featureType';
 import { UniParcProcessedFeature } from '../../../uniparc/components/entry/UniParcFeaturesView';
 
 import './styles/features-view.scss';
+import FeatureTypeHelpMappings from '../../../help/config/featureTypeHelpMappings';
 
 export type Fragment = {
   start: number;
@@ -85,7 +86,7 @@ const FeaturesView = <
     datatableElement.defined;
 
   const featureTypes = useMemo(
-    () => uniq(features.map(({ type }) => type.toLowerCase())),
+    () => uniq(features.map(({ type }) => type as FeatureType)),
     [features]
   );
 
@@ -114,7 +115,22 @@ const FeaturesView = <
       {withTitle && (
         <>
           <h3>Features</h3>
-          <p>Showing features for {featureTypes.join(', ')}.</p>
+          <p>
+            Showing features for{' '}
+            {featureTypes.map((featureType, i) => (
+              <Fragment key={featureType}>
+                {i > 0 && ', '}
+                {featureType === 'Other' ? (
+                  featureType.toLowerCase()
+                ) : (
+                  <span data-article-id={FeatureTypeHelpMappings[featureType]}>
+                    {featureType.toLowerCase()}
+                  </span>
+                )}
+              </Fragment>
+            ))}
+            .
+          </p>
         </>
       )}
       <managerElement.name attributes="highlight displaystart displayend selectedid">
