@@ -65,7 +65,7 @@ const ContextualHelpContainer = ({ articlePath, onClose }: Props) => {
             search: 'query=*',
           })
     );
-  }, [articleId]);
+  }, [articleId, hash]);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setLocalLocation] = useState(localHistoryRef.current.location);
