@@ -136,19 +136,6 @@ exports[`EntryMain view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Last modified
-              </div>
-              <div
-                class="decorated-list-item__content"
-              >
-                <time
-                  datetime="2021-03-07T00:00:00.000Z"
-                >
-                  2021-03-07
-                </time>
-              </div>
-            </div>
-          </li>
           <li>
             <div
               class="decorated-list-item decorated-list-item--compact"

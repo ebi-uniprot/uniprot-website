@@ -8,7 +8,6 @@ import BuscoView from '../BuscoView';
 import BuscoLegend from '../BuscoLegend';
 import { PanProteome } from './PanProteome';
 
-import parseDate from '../../../shared/utils/parseDate';
 import ftpUrls from '../../../shared/config/ftpUrls';
 import ProteomesColumnConfiguration, {
   ProteomesColumn,
@@ -22,7 +21,7 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
   const infoData = useMemo(() => {
     const renderColumnContent = (column: ProteomesColumn) => {
       const config = ProteomesColumnConfiguration.get(column);
-      return config?.render(data);
+      return config?.render(data) || null;
     };
 
     return [
@@ -32,6 +31,9 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
           <>
             <EntryTypeIcon entryType={data.proteomeType} />
             {data.proteomeType}
+            {data.exclusionReasons?.length ? (
+              <> ({data.exclusionReasons.join(', ')})</>
+            ) : null}
           </>
         ),
       },
@@ -41,7 +43,7 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
       },
       {
         title: 'Gene count',
-        content: (
+        content: data.geneCount ? (
           <>
             <LongNumber>{data.geneCount}</LongNumber>
             {data.geneCount && data.superkingdom && data.taxonomy.taxonId ? (
@@ -59,7 +61,7 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
               </>
             ) : null}
           </>
-        ),
+        ) : null,
       },
       {
         title: <span data-article-id="proteome_id">Proteome ID</span>,
@@ -72,13 +74,6 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
         ),
       },
       {
-        title: 'Last modified',
-        content: (
-          <time dateTime={parseDate(data.modified)?.toISOString()}>
-            {data.modified}
-          </time>
-        ),
-      },
       {
         title: (
           <span data-article-id="https://www.ensembl.org/Help/Faq?id=216">

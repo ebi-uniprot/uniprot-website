@@ -50,10 +50,11 @@ KeywordsColumnConfiguration.set(KeywordsColumn.category, {
 // NOTE: since these will be used in an info list, we need to return null when
 // NOTE: no content, otherwise it gets a truthy empty fragment instead
 KeywordsColumnConfiguration.set(KeywordsColumn.children, {
-  label: 'Children',
+  // Warning, inconsistent naming in data! TODO: backend change
+  label: 'Ancestors',
   render: ({ children }) =>
     children?.length ? (
-      <ExpandableList descriptionString="children" displayNumberOfHiddenItems>
+      <ExpandableList descriptionString="ancestors" displayNumberOfHiddenItems>
         {children?.map((child) => (
           <Link key={child.keyword.id} to={getEntryPath(child.keyword.id)}>
             {child.keyword.name}
@@ -69,7 +70,7 @@ KeywordsColumnConfiguration.set(KeywordsColumn.definition, {
 });
 
 KeywordsColumnConfiguration.set(KeywordsColumn.geneOntologies, {
-  label: 'Gene Ontologies',
+  label: 'Gene Ontology (GO)',
   render: ({ geneOntologies }) =>
     geneOntologies?.length ? (
       <ExpandableList descriptionString="GO terms" displayNumberOfHiddenItems>
@@ -94,10 +95,14 @@ KeywordsColumnConfiguration.set(KeywordsColumn.name, {
 });
 
 KeywordsColumnConfiguration.set(KeywordsColumn.parents, {
-  label: 'Parents',
+  // Warning, inconsistent naming in data! TODO: backend change
+  label: 'Descendants',
   render: ({ parents }) =>
     parents?.length ? (
-      <ExpandableList descriptionString="parents" displayNumberOfHiddenItems>
+      <ExpandableList
+        descriptionString="descendants"
+        displayNumberOfHiddenItems
+      >
         {parents?.map((parent) => (
           <Link key={parent.keyword.id} to={getEntryPath(parent.keyword.id)}>
             {parent.keyword.name}
