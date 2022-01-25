@@ -74,7 +74,6 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
         ),
       },
       {
-      {
         title: (
           <span data-article-id="https://www.ensembl.org/Help/Faq?id=216">
             Genome assembly and annotation
