@@ -28,7 +28,7 @@ const ResourceNotFoundPage = lazy(
 );
 
 type Props = {
-  articleId?: string;
+  articlePath?: string;
   onClose: (reason: 'outside' | 'button' | 'navigation' | 'escape') => void;
 };
 
@@ -42,45 +42,52 @@ const HistoryDebug = () => {
   );
 };
 
-const ContextualHelpContainer = ({ articleId, onClose }: Props) => (
-  <SlidingPanel
-    title="Help"
-    onClose={onClose}
-    withCloseButton
-    className={styles['contextual-help-panel']}
-    size="small"
-    position="right"
-  >
-    <Suspense fallback={<Loader />}>
-      <MemoryRouter
-        initialEntries={[
-          articleId
-            ? generatePath(LocationToPath[Location.HelpEntry], {
-                accession: articleId,
-              })
-            : {
-                pathname: LocationToPath[Location.HelpResults],
-                search: 'query=*',
-              },
-        ]}
-      >
-        <HistoryDebug />
-        <Switch>
-          {/* Will get content from page later, for now, star search */}
-          <Route path={LocationToPath[Location.HelpEntry]}>
-            {(props: RouteChildrenProps<{ accession: string }>) => (
-              <HelpEntryPage inPanel {...props} />
-            )}
-          </Route>
-          <Route path={LocationToPath[Location.HelpResults]}>
-            {(props) => <HelpResults inPanel {...props} />}
-          </Route>
-          {/* Catch-all handler -> Redirect or not found use ResourceNotFoundPage */}
-          <Route path="*" component={ResourceNotFoundPage} />
-        </Switch>
-      </MemoryRouter>
-    </Suspense>
-  </SlidingPanel>
-);
+const ContextualHelpContainer = ({ articlePath, onClose }: Props) => {
+  const [articleId, hash] = articlePath?.split('#') || [articlePath, undefined];
+
+  return (
+    <SlidingPanel
+      title="Help"
+      onClose={onClose}
+      withCloseButton
+      className={styles['contextual-help-panel']}
+      size="small"
+      position="right"
+    >
+      <Suspense fallback={<Loader />}>
+        <MemoryRouter
+          initialEntries={[
+            articleId
+              ? {
+                  pathname: generatePath(LocationToPath[Location.HelpEntry], {
+                    accession: articleId,
+                  }),
+                  hash,
+                }
+              : {
+                  pathname: LocationToPath[Location.HelpResults],
+                  search: 'query=*',
+                },
+          ]}
+        >
+          <HistoryDebug />
+          <Switch>
+            {/* Will get content from page later, for now, star search */}
+            <Route path={LocationToPath[Location.HelpEntry]}>
+              {(props: RouteChildrenProps<{ accession: string }>) => (
+                <HelpEntryPage inPanel {...props} />
+              )}
+            </Route>
+            <Route path={LocationToPath[Location.HelpResults]}>
+              {(props) => <HelpResults inPanel {...props} />}
+            </Route>
+            {/* Catch-all handler -> Redirect or not found use ResourceNotFoundPage */}
+            <Route path="*" component={ResourceNotFoundPage} />
+          </Switch>
+        </MemoryRouter>
+      </Suspense>
+    </SlidingPanel>
+  );
+};
 
 export default ContextualHelpContainer;
