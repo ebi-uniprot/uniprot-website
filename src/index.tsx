@@ -4,10 +4,9 @@ import ReactDOM from 'react-dom';
 import App from './app/components/App';
 import GlobalContext from './app/contexts/Global';
 
-import * as logging from './shared/utils/logging';
-
 if (!LIVE_RELOAD) {
-  logging.debug(
+  // eslint-disable-next-line no-console
+  console.info(
     `Built with git commit ${GIT_COMMIT_HASH} ${
       GIT_COMMIT_STATE
         ? `with uncommitted changes:\n${GIT_COMMIT_STATE}`

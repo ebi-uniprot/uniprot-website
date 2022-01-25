@@ -28,7 +28,7 @@ const HelpResults = lazy(
 );
 
 type Props = {
-  articleId?: string;
+  articlePath?: string;
   onClose: (reason: 'outside' | 'button' | 'navigation' | 'escape') => void;
 };
 
@@ -42,7 +42,8 @@ const HistoryDebug = () => {
   );
 };
 
-const ContextualHelpContainer = ({ articleId, onClose }: Props) => {
+const ContextualHelpContainer = ({ articlePath, onClose }: Props) => {
+  const [articleId, hash] = (articlePath || '').split('#');
   const globalHistory = useHistory();
   const localHistoryRef = useRef(createMemoryHistory());
 
@@ -53,8 +54,11 @@ const ContextualHelpContainer = ({ articleId, onClose }: Props) => {
     }
     localHistoryRef.current[action](
       articleId
-        ? generatePath(LocationToPath[Location.HelpEntry], {
-            accession: articleId,
+        ? createPath({
+            pathname: generatePath(LocationToPath[Location.HelpEntry], {
+              accession: articleId,
+            }),
+            hash,
           })
         : createPath({
             pathname: LocationToPath[Location.HelpResults],

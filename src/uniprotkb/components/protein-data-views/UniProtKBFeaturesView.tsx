@@ -108,10 +108,16 @@ const UniProtKBFeaturesView = ({
           const start =
             feature.startModifier === 'UNKNOWN' ? '?' : feature.start;
           const end = feature.endModifier === 'UNKNOWN' ? '?' : feature.end;
-          let position = start;
-          if (start !== end) {
-            position += `-${end}`;
-          }
+          const positionStart = `${
+            feature.startModifier === 'UNSURE' ? '?' : ''
+          }${start}`;
+          const positionEnd = `${
+            feature.endModifier === 'UNSURE' ? '?' : ''
+          }${end}`;
+          const position =
+            positionStart === positionEnd
+              ? positionStart
+              : `${positionStart}-${positionEnd}`;
 
           return (
             <Fragment key={feature.protvistaFeatureId}>

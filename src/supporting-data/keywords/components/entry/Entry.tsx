@@ -100,7 +100,7 @@ const KeywordsEntry = ({
           <EntryDownload />
           <MapToDropdown statistics={data.statistics} />
         </div>
-        {infoData && <InfoList infoData={infoData} isCompact />}
+        <InfoList infoData={infoData} />
       </Card>
     </SingleColumnLayout>
   );
