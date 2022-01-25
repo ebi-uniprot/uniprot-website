@@ -14,7 +14,7 @@ import ArtWork from './svgs/404.svg';
 type RedirectEntry = [pattern: RegExp, replacement: string];
 
 export const misspeltHelpTuple: RedirectEntry = [
-  /^\/(manual|faqs?|docs?)(?<rest>\/.*)?$/i,
+  /^\/(manual|faqs?|docs?|biocuration_project)(?<rest>\/.*)?$/i,
   `/help$<rest>`,
 ];
 

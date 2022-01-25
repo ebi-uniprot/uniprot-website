@@ -1,9 +1,8 @@
-import { lazy, Suspense, useMemo, useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState, useRef } from 'react';
 import { Button, Loader, SlidingPanel } from 'franklin-sites';
 import { createMemoryHistory, createPath } from 'history';
 import {
   generatePath,
-  Redirect,
   Route,
   RouteChildrenProps,
   Router,
@@ -13,10 +12,7 @@ import {
 } from 'react-router-dom';
 import cn from 'classnames';
 
-import {
-  misspeltHelpTuple,
-  redirectFromTo,
-} from '../../../shared/components/error-pages/ResourceNotFoundPage';
+import CatchAll from './CatchAll';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -48,53 +44,59 @@ const HistoryDebug = () => {
 
 const ContextualHelpContainer = ({ articleId, onClose }: Props) => {
   const globalHistory = useHistory();
-  const localHistory = useMemo(
-    () =>
-      createMemoryHistory({
-        initialEntries: [
-          articleId
-            ? generatePath(LocationToPath[Location.HelpEntry], {
-                accession: articleId,
-              })
-            : createPath({
-                pathname: LocationToPath[Location.HelpResults],
-                search: 'query=*',
-              }),
-        ],
-      }),
-    // Want to stick with whatever value was passed on mount
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
-  );
+  const localHistoryRef = useRef(createMemoryHistory());
+
+  useEffect(() => {
+    let action: 'push' | 'replace' = 'push';
+    if (localHistoryRef.current.length === 1) {
+      action = 'replace';
+    }
+    localHistoryRef.current[action](
+      articleId
+        ? generatePath(LocationToPath[Location.HelpEntry], {
+            accession: articleId,
+          })
+        : createPath({
+            pathname: LocationToPath[Location.HelpResults],
+            search: 'query=*',
+          })
+    );
+  }, [articleId]);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setLocalLocation] = useState(localHistory.location);
+  const [_, setLocalLocation] = useState(localHistoryRef.current.location);
+  // Trigger a render whenever the route changes
   useEffect(
     () =>
-      localHistory.listen((location) => {
+      localHistoryRef.current.listen((location) => {
         setLocalLocation(location);
       }),
-    [localHistory]
+    []
   );
 
   return (
     <SlidingPanel
       title={
         <>
+          {/* All of this contains the "fake" browser navigation */}
           <Button
             variant="tertiary"
-            className={cn({ [helper.disabled]: !localHistory.canGo(-1) })}
-            disabled={!localHistory.canGo(-1)}
-            onClick={() => localHistory.go(-1)}
+            className={cn({
+              [helper.disabled]: !localHistoryRef.current.canGo(-1),
+            })}
+            disabled={!localHistoryRef.current.canGo(-1)}
+            onClick={() => localHistoryRef.current.go(-1)}
           >
             ←
           </Button>{' '}
           Help{' '}
           <Button
             variant="tertiary"
-            className={cn({ [helper.disabled]: !localHistory.canGo(1) })}
-            disabled={!localHistory.canGo(1)}
-            onClick={() => localHistory.go(1)}
+            className={cn({
+              [helper.disabled]: !localHistoryRef.current.canGo(1),
+            })}
+            disabled={!localHistoryRef.current.canGo(1)}
+            onClick={() => localHistoryRef.current.go(1)}
           >
             →
           </Button>
@@ -107,9 +109,12 @@ const ContextualHelpContainer = ({ articleId, onClose }: Props) => {
       position="right"
     >
       <Suspense fallback={<Loader />}>
-        <Router history={localHistory}>
+        <Router history={localHistoryRef.current}>
           <HistoryDebug />
           <Switch>
+            {/* Just here to handle initial empty location */}
+            <Route path="/" exact />
+            {/* Specific entries */}
             <Route path={LocationToPath[Location.HelpEntry]}>
               {(props: RouteChildrenProps<{ accession: string }>) => (
                 <HelpEntryPage inPanel {...props} />
@@ -119,24 +124,9 @@ const ContextualHelpContainer = ({ articleId, onClose }: Props) => {
             <Route path={LocationToPath[Location.HelpResults]}>
               {(props) => <HelpResults inPanel {...props} />}
             </Route>
-            {/* Catch-all handler -> Redirect or not found use ResourceNotFoundPage */}
+            {/* Catch-all handler -> Redirect (within or global history) */}
             <Route path="*">
-              {({ location }) => {
-                const newPathname = redirectFromTo(location.pathname, [
-                  misspeltHelpTuple,
-                ]);
-
-                if (newPathname) {
-                  return (
-                    <Redirect to={{ ...location, pathname: newPathname }} />
-                  );
-                }
-
-                // TODO: put in a useEffect
-                // eslint-disable-next-line uniprot-website/use-config-location
-                globalHistory.push(location);
-                return null;
-              }}
+              {(props) => <CatchAll globalHistory={globalHistory} {...props} />}
             </Route>
           </Switch>
         </Router>
