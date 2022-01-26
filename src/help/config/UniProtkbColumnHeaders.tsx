@@ -3,7 +3,7 @@ import { generatePath, Link } from 'react-router-dom';
 import { Location, LocationToPath } from '../../app/config/urls';
 import { UniProtKBColumn } from '../../uniprotkb/types/columnTypes';
 
-const UniProtKBColumnHeaders: Record<UniProtKBColumn, ReactNode> = {
+const UniProtKBColumnHeaders: Partial<Record<UniProtKBColumn, ReactNode>> = {
   [UniProtKBColumn.id]: (
     <>
       Mnemonic identifier of a UniProtKB entry{' '}
@@ -102,8 +102,7 @@ const UniProtKBColumnHeaders: Record<UniProtKBColumn, ReactNode> = {
     <>Links to sequence analysis tools, including Blast, PeptideCutter, etc.</>
   ),
   [UniProtKBColumn.uniparcId]: <>UniParc identifier</>,
-  [UniProtKBColumn.proteome]: <>Unique proteome identifier and component</>,
-  [UniProtKBColumn.proteomeComponent]: (
+  [UniProtKBColumn.xrefProteomes]: (
     <>Unique proteome identifier(s) and component(s)</>
   ),
   [UniProtKBColumn.absorption]: (
@@ -517,7 +516,7 @@ const UniProtKBColumnHeaders: Record<UniProtKBColumn, ReactNode> = {
   ),
   [UniProtKBColumn.ftTurn]: (
     <>
-      Positions of the experimentally determined 'Turn' region(s){' '}
+      Positions of the experimentally determined &apos;Turn&apos; region(s){' '}
       <Link
         to={generatePath(LocationToPath[Location.HelpEntry], {
           accession: 'turn',
@@ -664,7 +663,7 @@ const UniProtKBColumnHeaders: Record<UniProtKBColumn, ReactNode> = {
   ),
   [UniProtKBColumn.ccFunction]: (
     <>
-      General description of a protein's function(s){' '}
+      General description of a protein&apos;s function(s){' '}
       <Link
         to={generatePath(LocationToPath[Location.HelpEntry], {
           accession: 'function',

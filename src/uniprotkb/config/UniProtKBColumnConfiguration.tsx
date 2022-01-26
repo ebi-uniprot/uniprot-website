@@ -7,7 +7,7 @@ import {
   Sequence,
   SequenceTools,
 } from 'franklin-sites';
-import { generatePath, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { omit } from 'lodash-es';
 import SimpleView from '../../shared/components/views/SimpleView';
@@ -106,6 +106,7 @@ import { proteinProcessingFeaturesToColumns } from '../adapters/proteinProcessin
 import { familyAndDomainsFeaturesToColumns } from '../adapters/familyAndDomainsConverter';
 import { getDatabaseNameFromColumn, isDatabaseColumn } from '../utils/database';
 import { DatabaseList } from '../components/protein-data-views/XRefView';
+import UniProtKBColumnHeaders from '../../help/config/UniProtkbColumnHeaders';
 
 export const defaultColumns = [
   UniProtKBColumn.accession,
@@ -121,9 +122,11 @@ export const primaryKeyColumns = [UniProtKBColumn.accession];
 
 const getFeatureColumn = (
   type: FeatureType,
-  section: EntrySectionWithFeatures
+  section: EntrySectionWithFeatures,
+  column: UniProtKBColumn
 ) => ({
   label: type,
+  tooltip: UniProtKBColumnHeaders[column],
   render: (data: UniProtkbUIModel) => {
     const { featuresData } = data[section];
     return (
@@ -162,11 +165,13 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.accession, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.id, {
   label: 'Entry Name',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.id],
   render: (data) => <SimpleView termValue={data.uniProtkbId} />,
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinName, {
   label: 'Protein Names',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.proteinName],
   render: (data) => {
     const { proteinNamesData } = data[EntrySection.NamesAndTaxonomy];
     return (
@@ -180,6 +185,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinName, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.geneNames, {
   label: 'Gene Names',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.geneNames],
   render: (data) => (
     <CSVView
       data={data[EntrySection.NamesAndTaxonomy].geneNamesData}
@@ -300,6 +306,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.organelle, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.xrefProteomes, {
   label: 'Proteomes',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.xrefProteomes],
   render: (data) => {
     const { proteomesData } = data[EntrySection.NamesAndTaxonomy];
     return proteomesData && <ProteomesView data={proteomesData} isCompact />;
@@ -364,6 +371,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.sequence, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.fragment, {
   label: 'Fragment',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.fragment],
   render: (data) => {
     const { flag } = data[EntrySection.Sequence];
     const isFragment = flag && fragmentFlags.has(flag);
@@ -411,7 +419,11 @@ function addFeaturesToConfiguration<T extends FeatureType>(
       const typedFeatureType = featureType as T;
       UniProtKBColumnConfiguration.set(
         featuresToColumns[typedFeatureType],
-        getFeatureColumn(typedFeatureType, section)
+        getFeatureColumn(
+          typedFeatureType,
+          section,
+          featuresToColumns[typedFeatureType]
+        )
       );
     }
   }
@@ -480,6 +492,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.sequenceVersion, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.absorption, {
   label: 'Absorption',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.absorption],
   render: (data) => {
     const { bioPhysicoChemicalProperties } = data[
       EntrySection.Function
@@ -490,20 +503,6 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.absorption, {
       )
     );
   },
-  tooltip: (
-    <>
-      Indicates the wavelength at which photoreactive protein shows maximal
-      light absorption (
-      <Link
-        to={generatePath(LocationToPath[Location.HelpEntry], {
-          accession: 'biophysicochemical_properties',
-        })}
-      >
-        more...
-      </Link>
-      )
-    </>
-  ),
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCaution, {
@@ -625,6 +624,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccFunction, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.kinetics, {
   label: 'Kinetics',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.kinetics],
   render: (data) => {
     const { bioPhysicoChemicalProperties } = data[
       EntrySection.Function
@@ -649,6 +649,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPathway, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.phDependence, {
   label: 'pH Dependence',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.phDependence],
   render: (data) => {
     const { bioPhysicoChemicalProperties } = data[
       EntrySection.Function
@@ -663,6 +664,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.phDependence, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.redoxPotential, {
   label: 'Redox Potential',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.redoxPotential],
   render: (data) => {
     const { bioPhysicoChemicalProperties } = data[
       EntrySection.Function
@@ -677,6 +679,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.redoxPotential, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.tempDependence, {
   label: 'Temperature Dependence',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.tempDependence],
   render: (data) => {
     const { bioPhysicoChemicalProperties } = data[
       EntrySection.Function
@@ -693,6 +696,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.tempDependence, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.annotationScore, {
   label: 'Annotation',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.annotationScore],
   render: (data) => (
     <AnnotationScoreDoughnutChart
       score={data.annotationScore}
@@ -782,6 +786,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.uniparcId, {
       UniParc
     </>
   ),
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.uniparcId],
   render(data) {
     const accession = data.extraAttributes?.uniParcId as string | undefined;
     return (
@@ -958,6 +963,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.goId, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.structure3D, {
   label: '3D structures',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.structure3D],
   render: (data) => {
     const structureData = (data[EntrySection.Structure] as StructureUIModel)
       .structures;
@@ -1128,6 +1134,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinFamilies, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.tools, {
   label: 'Tools',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.tools],
   render: (data) => <SequenceTools accession={data.primaryAccession} />,
 });
 
