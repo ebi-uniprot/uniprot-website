@@ -7,7 +7,7 @@ import {
   Sequence,
   SequenceTools,
 } from 'franklin-sites';
-import { Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router-dom';
 
 import { omit } from 'lodash-es';
 import SimpleView from '../../shared/components/views/SimpleView';
@@ -490,6 +490,20 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.absorption, {
       )
     );
   },
+  tooltip: (
+    <>
+      Indicates the wavelength at which photoreactive protein shows maximal
+      light absorption (
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'biophysicochemical_properties',
+        })}
+      >
+        more...
+      </Link>
+      )
+    </>
+  ),
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCaution, {
