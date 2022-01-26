@@ -1,4 +1,5 @@
 import { Link, Router } from 'react-router-dom';
+import { CitedIcon, EnvelopeIcon, HelpIcon } from 'franklin-sites';
 import { History } from 'history';
 
 import {
@@ -7,15 +8,27 @@ import {
   getLocationEntryPath,
 } from '../../../app/config/urls';
 
-// All of those exit the panel, so put them in the global history context
+import styles from './styles/shortcuts.module.scss';
+
+// All of these exit the panel, so put them in the global history context
 const Shortcuts = ({ globalHistory }: { globalHistory: History }) => (
   <Router history={globalHistory}>
-    <Link to={LocationToPath[Location.HelpResults]}>Help center</Link>
-    {/* eslint-disable-next-line */}
-    <Link to="#">Contact us</Link>
-    <Link to={getLocationEntryPath(Location.HelpEntry, 'publications')}>
-      Cite us
-    </Link>
+    <div className={styles.container}>
+      <Link to={LocationToPath[Location.HelpResults]}>
+        <HelpIcon width="1.5em" />
+        Help center
+      </Link>
+      {/* Blocked until we manage to get the contact page changes in main */}
+      {/* eslint-disable-next-line */}
+      <Link to="#">
+        <EnvelopeIcon width="1.5em" />
+        Contact us
+      </Link>
+      <Link to={getLocationEntryPath(Location.HelpEntry, 'publications')}>
+        <CitedIcon width="1.5em" />
+        Cite us
+      </Link>
+    </div>
   </Router>
 );
 

@@ -13,9 +13,7 @@ import { help as helpURL } from '../../../shared/config/apiUrls';
 import { HelpSearchResponse } from '../../adapters/helpConverter';
 import { Location, getLocationEntryPath } from '../../../app/config/urls';
 
-type Props = RouteChildrenProps & { globalHistory: History };
-
-const Results = ({ globalHistory, location }: Props) => {
+const Results = ({ location }: RouteChildrenProps) => {
   const { query } = qs.parse(location.search);
   const dataObject = useDataApiWithStale<HelpSearchResponse>(
     query && helpURL.search({ query })

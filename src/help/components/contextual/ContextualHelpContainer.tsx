@@ -12,10 +12,12 @@ import {
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import NavigationBar from './NavigationBar';
 import SearchBar from './SearchBar';
+import Shortcuts from './Shortcuts';
 
 import CatchAll from './CatchAll';
 import HelpEntryPage from './Entry';
 import HelpResultsPage from './Results';
+import HelpLandingPage from './Landing';
 
 import {
   LocationToPath,
@@ -28,17 +30,6 @@ import styles from './styles/contextual-help.module.scss';
 type Props = {
   articlePath?: string;
   onClose: (reason: 'outside' | 'button' | 'navigation' | 'escape') => void;
-};
-
-// TODO: remove before shipping, this is just of debug
-const HistoryDebug = () => {
-  const { pathname, search } = useLocation();
-  return (
-    <pre>
-      {pathname}
-      {search}
-    </pre>
-  );
 };
 
 const ContextualHelpContainer = ({ articlePath, onClose }: Props) => {
@@ -78,7 +69,6 @@ const ContextualHelpContainer = ({ articlePath, onClose }: Props) => {
       <ErrorBoundary>
         <Router history={localHistoryRef.current}>
           <SearchBar />
-          <HistoryDebug />
           <Switch>
             {/* Just here to handle initial empty location */}
             <Route path="/" exact />
@@ -90,9 +80,17 @@ const ContextualHelpContainer = ({ articlePath, onClose }: Props) => {
             {/* Will get content from page later, for now, star search */}
             <Route
               path={LocationToPath[Location.HelpResults]}
-              render={(props) => (
-                <HelpResultsPage {...props} globalHistory={globalHistory} />
-              )}
+              render={(props) => {
+                if (props.location.search) {
+                  return <HelpResultsPage {...props} />;
+                }
+                return (
+                  <>
+                    <Shortcuts globalHistory={globalHistory} />
+                    <HelpLandingPage />
+                  </>
+                );
+              }}
             />
             {/* Catch-all handler -> Redirect (within or global history) */}
             <Route
