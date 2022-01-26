@@ -1,4 +1,3 @@
-import { History } from 'history';
 import { Link, RouteChildrenProps } from 'react-router-dom';
 import { InfoList } from 'franklin-sites';
 import qs from 'query-string';

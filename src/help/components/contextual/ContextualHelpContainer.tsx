@@ -1,13 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { SlidingPanel } from 'franklin-sites';
 import { createMemoryHistory, createPath } from 'history';
-import {
-  Route,
-  Router,
-  Switch,
-  useHistory,
-  useLocation,
-} from 'react-router-dom';
+import { Route, Router, Switch, useHistory } from 'react-router-dom';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import NavigationBar from './NavigationBar';

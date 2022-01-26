@@ -14,7 +14,8 @@ const SearchBar = () => {
   const replaceQueryInLocation = useMemo(
     () =>
       debounce((searchValue: string) => {
-        history.replace({
+        // Push only the first time we get a new search, replace otherwise
+        history[history.location.search ? 'replace' : 'push']({
           pathname: LocationToPath[Location.HelpResults],
           search: qs.stringify({ query: searchValue || undefined }),
         });
