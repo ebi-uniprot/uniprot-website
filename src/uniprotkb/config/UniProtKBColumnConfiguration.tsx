@@ -154,6 +154,7 @@ export const UniProtKBColumnConfiguration: ColumnConfiguration<
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.accession, {
   label: 'Entry',
+  tooltip: 'Unique and stable entry identifier.',
   render: (data) => (
     <AccessionView id={data.primaryAccession} namespace={Namespace.uniprotkb} />
   ),
