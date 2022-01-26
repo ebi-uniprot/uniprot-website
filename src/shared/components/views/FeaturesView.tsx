@@ -1,5 +1,4 @@
 import { Fragment, useCallback, useMemo } from 'react';
-import { uniq } from 'lodash-es';
 import TransformedVariant from 'protvista-variation-adapter';
 
 import useCustomElement from '../../hooks/useCustomElement';
@@ -87,7 +86,7 @@ const FeaturesView = <
     datatableElement.defined;
 
   const featureTypes = useMemo(
-    () => uniq(features.map(({ type }) => type as FeatureType)),
+    () => new Set<FeatureType>(features.map(({ type }) => type)),
     [features]
   );
 
@@ -118,7 +117,7 @@ const FeaturesView = <
           <h3>Features</h3>
           <p>
             Showing features for{' '}
-            {featureTypes.map((featureType, i) => (
+            {Array.from(featureTypes).map((featureType, i) => (
               <Fragment key={featureType}>
                 {i > 0 && ', '}
                 {featureType === 'Other' ? (
