@@ -576,6 +576,250 @@ const UniProtKBColumnHeaders: Record<UniProtKBColumn, ReactNode> = {
       </Link>
     </>
   ),
+  [UniProtKBColumn.ccAllergen]: (
+    <>
+      Information relevant to allergenic proteins{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'allergenic_properties',
+        })}
+      >
+        more...
+      </Link>
+    </>
+  ),
+  [UniProtKBColumn.ccAlternativeProducts]: (
+    <>
+      Information on the different isoforms encoded by the same gene{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'alternative_products',
+        })}
+      >
+        more...
+      </Link>
+    </>
+  ),
+  [UniProtKBColumn.ccBiotechnology]: (
+    <>
+      Use of a protein in a biotechnological process{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'biotechnological_use',
+        })}
+      >
+        more...
+      </Link>
+    </>
+  ),
+  [UniProtKBColumn.ccCaution]: (
+    <>
+      Warning about possible errors and/or grounds for confusion{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'caution',
+        })}
+      >
+        more...
+      </Link>
+    </>
+  ),
+  [UniProtKBColumn.ccDevelopmentalStage]: (
+    <>
+      Description of expression during the stage of cell, tissue or organism
+      development{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'developmental_stage',
+        })}
+      >
+        more...
+      </Link>
+    </>
+  ),
+  [UniProtKBColumn.ccDisease]: (
+    <>
+      Description of the disease(s) associated with the defect in a protein{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'involvement_in_disease',
+        })}
+      >
+        more...
+      </Link>
+    </>
+  ),
+  [UniProtKBColumn.ccDisruptionPhenotype]: (
+    <>
+      Description of the phenotype(s) associated with the experimental
+      disruption of the gene{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'disruption_phenotype',
+        })}
+      >
+        more...
+      </Link>
+    </>
+  ),
+  [UniProtKBColumn.ccFunction]: (
+    <>
+      General description of a protein's function(s){' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'function',
+        })}
+      >
+        more...
+      </Link>
+    </>
+  ),
+  [UniProtKBColumn.ccInduction]: (
+    <>
+      Description of the regulation of gene expression by environmental factors{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'induction',
+        })}
+      >
+        more...
+      </Link>
+    </>
+  ),
+  [UniProtKBColumn.ccMassSpectrometry]: (
+    <>
+      Information derived from mass spectrometry experiments{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'mass_spectrometry',
+        })}
+      >
+        more...
+      </Link>
+    </>
+  ),
+  [UniProtKBColumn.ccPathway]: (
+    <>
+      Pathway in which the protein is involved{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'pathway',
+        })}
+      >
+        more...
+      </Link>
+    </>
+  ),
+  [UniProtKBColumn.ccPharmaceutical]: (
+    <>
+      Use of a protein as a pharmaceutical drug{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'pharmaceutical_use',
+        })}
+      >
+        more...
+      </Link>
+    </>
+  ),
+  [UniProtKBColumn.ccPolymorphism]: (
+    <>
+      Sequence position-independent description of amino acid polymorphism(s){' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'polymorphism',
+        })}
+      >
+        more...
+      </Link>
+    </>
+  ),
+  [UniProtKBColumn.ccPtm]: (
+    <>
+      Sequence position-independent description of post-translational
+      modifications{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'post-translational_modification',
+        })}
+      >
+        more...
+      </Link>
+    </>
+  ),
+  [UniProtKBColumn.ccRnaEditing]: (
+    <>
+      Description of RNA editing events{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'rna_editing',
+        })}
+      >
+        more...
+      </Link>
+    </>
+  ),
+  [UniProtKBColumn.ccSequenceCaution]: (
+    <>
+      Warning about possible errors related to a protein sequence{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'sequence_caution',
+        })}
+      >
+        more...
+      </Link>
+    </>
+  ),
+  [UniProtKBColumn.ccSubcellularLocation]: (
+    <>
+      Description of the subcellular location(s) of the mature protein{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'subcellular_location',
+        })}
+      >
+        more...
+      </Link>
+    </>
+  ),
+  [UniProtKBColumn.ccSubunit]: (
+    <>
+      Description of protein interaction and quaternary structure{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'subunit_structure',
+        })}
+      >
+        more...
+      </Link>
+    </>
+  ),
+  [UniProtKBColumn.ccTissueSpecificity]: (
+    <>
+      Description of the expression of a gene in tissues (at the protein and/or
+      RNA level){' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'tissue_specificity',
+        })}
+      >
+        more...
+      </Link>
+    </>
+  ),
+  [UniProtKBColumn.ccToxicDose]: (
+    <>
+      Lethal, paralytic, or effect dose, or lethal concentration of a toxin{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'toxic_dose',
+        })}
+      >
+        more...
+      </Link>
+    </>
+  ),
 };
 
 export default UniProtKBColumnHeaders;
