@@ -86,7 +86,7 @@ const FeaturesView = <
     datatableElement.defined;
 
   const featureTypes = useMemo(
-    () => new Set<FeatureType>(features.map(({ type }) => type)),
+    () => Array.from(new Set<FeatureType>(features.map(({ type }) => type))),
     [features]
   );
 
@@ -117,7 +117,7 @@ const FeaturesView = <
           <h3>Features</h3>
           <p>
             Showing features for{' '}
-            {Array.from(featureTypes).map((featureType, i) => (
+            {featureTypes.map((featureType, i) => (
               <Fragment key={featureType}>
                 {i > 0 && ', '}
                 {featureType === 'Other' ? (
