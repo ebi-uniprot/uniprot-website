@@ -18,10 +18,11 @@ $shadow-padding: 0.125rem;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+    text-align: center;
     padding-block: 10%;
     background: $colour-sky-white;
     margin: $global-margin;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 1.25 / 1;
 
     &,
     &:hover {
