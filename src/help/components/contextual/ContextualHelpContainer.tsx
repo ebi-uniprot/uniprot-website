@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react';
 import { SlidingPanel } from 'franklin-sites';
 import { createMemoryHistory, createPath } from 'history';
 import {
-  generatePath,
   Route,
   Router,
   Switch,
@@ -18,7 +17,11 @@ import CatchAll from './CatchAll';
 import HelpEntryPage from './Entry';
 import HelpResultsPage from './Results';
 
-import { LocationToPath, Location } from '../../../app/config/urls';
+import {
+  LocationToPath,
+  Location,
+  getLocationEntryPath,
+} from '../../../app/config/urls';
 
 import styles from './styles/contextual-help.module.scss';
 
@@ -51,9 +54,7 @@ const ContextualHelpContainer = ({ articlePath, onClose }: Props) => {
     localHistoryRef.current[action](
       articleId
         ? createPath({
-            pathname: generatePath(LocationToPath[Location.HelpEntry], {
-              accession: articleId,
-            }),
+            pathname: getLocationEntryPath(Location.HelpEntry, articleId),
             hash,
           })
         : LocationToPath[Location.HelpResults]

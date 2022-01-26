@@ -1,6 +1,8 @@
 import { SearchInput } from 'franklin-sites';
-import { useCallback, ChangeEvent } from 'react';
+import { debounce } from 'lodash-es';
+import { useMemo, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import qs from 'query-string';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -9,22 +11,25 @@ import styles from './styles/search-bar.module.scss';
 const SearchBar = () => {
   const history = useHistory();
 
-  const handleChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      history.push({
-        pathname: LocationToPath[Location.HelpResults],
-        search: `query=${event.target.value || '*'}`,
-      });
-    },
+  const replaceQueryInLocation = useMemo(
+    () =>
+      debounce((searchValue: string) => {
+        history.replace({
+          pathname: LocationToPath[Location.HelpResults],
+          search: qs.stringify({ query: searchValue || undefined }),
+        });
+      }, 500),
     [history]
   );
+
+  useEffect(() => replaceQueryInLocation.cancel, [replaceQueryInLocation]);
 
   return (
     <div className={styles.container}>
       <SearchInput
         placeholder="Search"
         className={styles.input}
-        onChange={handleChange}
+        onChange={(event) => replaceQueryInLocation(event.target.value)}
       />
     </div>
   );
