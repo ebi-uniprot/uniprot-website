@@ -7,11 +7,12 @@ import useCustomElement from '../../hooks/useCustomElement';
 import { Evidence } from '../../../uniprotkb/types/modelTypes';
 import NightingaleZoomTool from '../../../uniprotkb/components/protein-data-views/NightingaleZoomTool';
 
+import FeatureTypeHelpMappings from '../../../help/config/featureTypeHelpMappings';
+
 import FeatureType from '../../../uniprotkb/types/featureType';
 import { UniParcProcessedFeature } from '../../../uniparc/components/entry/UniParcFeaturesView';
 
 import './styles/features-view.scss';
-import FeatureTypeHelpMappings from '../../../help/config/featureTypeHelpMappings';
 
 export type Fragment = {
   start: number;
