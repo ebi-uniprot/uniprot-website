@@ -2,7 +2,6 @@ import { Link, RouteChildrenProps } from 'react-router-dom';
 import { InfoList } from 'franklin-sites';
 import qs from 'query-string';
 
-import Shortcuts from './Shortcuts';
 import CleanHighlightMarkDown from '../results/CleanHighlightMarkDown';
 
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
@@ -38,14 +37,11 @@ const Results = ({ location }: RouteChildrenProps) => {
     };
   });
 
-  return (
-    <>
-      {location.search ? null : <Shortcuts globalHistory={globalHistory} />}
-      {!!allArticles?.length && !!infoData?.length && query && (
-        <InfoList infoData={infoData} />
-      )}
-    </>
-  );
+  if (!!allArticles?.length && !!infoData?.length && query) {
+    return <InfoList infoData={infoData} />;
+  }
+
+  return null;
 };
 
 export default Results;
