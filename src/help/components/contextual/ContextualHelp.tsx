@@ -28,6 +28,13 @@ const ContextualHelp = () => {
     !isHelpResults && !isHelpEntry && !isContact && !smallScreen;
 
   useEffect(() => {
+    // Make sure to reset the button when in pages without contextual help
+    if (!shouldBeVisible) {
+      setDisplayButton(true);
+    }
+  }, [shouldBeVisible]);
+
+  useEffect(() => {
     const eventHandler = (event: MouseEvent) => {
       const element = event.target as HTMLElement;
       if (element.dataset.articleId) {
