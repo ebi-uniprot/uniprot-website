@@ -819,6 +819,24 @@ const UniProtKBColumnHeaders: Partial<Record<UniProtKBColumn, ReactNode>> = {
       </Link>
     </>
   ),
+  [UniProtKBColumn.errorGmodelPred]: (
+    <>
+      Discrepancies between the canonical and submitted sequences due to an
+      erroneous gene model prediction
+    </>
+  ),
+  [UniProtKBColumn.organismHosts]: (
+    <>
+      Species that can be infected by a specific virus{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'virus_host',
+        })}
+      >
+        more...
+      </Link>
+    </>
+  ),
 };
 
 export default UniProtKBColumnHeaders;

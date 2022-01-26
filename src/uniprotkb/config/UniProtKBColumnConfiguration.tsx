@@ -327,6 +327,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.lineage, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.organismHosts, {
   label: 'Virus hosts',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.organismHosts],
   render: (data) => {
     const { organismHosts } = data[EntrySection.NamesAndTaxonomy];
     return (
@@ -341,6 +342,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.organismHosts, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccAlternativeProducts, {
   label: 'Alternative Products',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccAlternativeProducts],
   render(data) {
     const { alternativeProducts } = data[EntrySection.Sequence];
     return (
@@ -397,6 +399,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.mass, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccMassSpectrometry, {
   label: 'Mass Spectrometry',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccMassSpectrometry],
   render: (data) => {
     const { massSpectrometry } = data[EntrySection.Sequence];
     return massSpectrometry && <MassSpectrometryView data={massSpectrometry} />;
@@ -460,6 +463,7 @@ addFeaturesToConfiguration<FamilyAndDomainsFeatures>(
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPolymorphism, {
   label: 'polymorphism',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccPolymorphism],
   render: (data) => {
     const { polymorphism } = data[EntrySection.Sequence];
     return <FreeTextView comments={polymorphism} noEvidence />;
@@ -468,6 +472,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPolymorphism, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccRnaEditing, {
   label: 'RNA Editing',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccRnaEditing],
   render: (data) => {
     const { rnaEditing } = data[EntrySection.Sequence];
     return rnaEditing && <RNAEditingView data={rnaEditing} />;
@@ -476,6 +481,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccRnaEditing, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.errorGmodelPred, {
   label: 'Sequence Caution',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.errorGmodelPred],
   render: (data) => {
     const { sequenceCaution } = data[EntrySection.Sequence];
     return sequenceCaution && <SequenceCautionView data={sequenceCaution} />;
@@ -507,6 +513,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.absorption, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCaution, {
   label: 'Caution',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccCaution],
   render: (data) => {
     const cautionComments = data[EntrySection.Function].commentsData.get(
       'CAUTION'
@@ -517,6 +524,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCaution, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCatalyticActivity, {
   label: 'Catalytic Activity',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccCatalyticActivity],
   render: (data) => {
     const catalyticActivityComments = data[
       EntrySection.Function
@@ -580,6 +588,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.rhea, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCofactor, {
   label: 'Cofactor',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccCofactor],
   render: (data) => {
     const cofactorComments = data[EntrySection.Function].commentsData.get(
       'COFACTOR'
@@ -604,6 +613,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ec, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccActivityRegulation, {
   label: 'Activity Regulation',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccActivityRegulation],
   render: (data) => {
     const activityRegulationComments = data[
       EntrySection.Function
@@ -614,6 +624,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccActivityRegulation, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccFunction, {
   label: 'Function',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccFunction],
   render: (data) => {
     const functionComments = data[EntrySection.Function].commentsData.get(
       'FUNCTION'
@@ -639,6 +650,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.kinetics, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPathway, {
   label: 'Pathway',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccPathway],
   render: (data) => {
     const pathwayComments = data[EntrySection.Function].commentsData.get(
       'PATHWAY'
@@ -707,6 +719,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.annotationScore, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSequenceCaution, {
   label: 'Sequence Caution',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccSequenceCaution],
   render: (data) => {
     const { sequenceCaution } = data[EntrySection.Sequence];
     return sequenceCaution && <SequenceCautionView data={sequenceCaution} />;
@@ -761,6 +774,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.keywordid, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccMiscellaneous, {
   label: 'Miscellaneous [CC]',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccMiscellaneous],
   render: (data) => {
     const miscellaneousComments = data[EntrySection.Function].commentsData.get(
       'MISCELLANEOUS'
@@ -799,6 +813,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.uniparcId, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
   label: 'Interacts with',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccInteraction],
   render: (data) => {
     const interactionComments = data[EntrySection.Interaction].commentsData.get(
       'INTERACTION'
@@ -875,6 +890,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSubunit, {
   label: 'Subunit structure',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccSubunit],
   render: (data) => {
     const subunitComments = data[EntrySection.Interaction].commentsData.get(
       'SUBUNIT'
@@ -885,6 +901,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSubunit, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDevelopmentalStage, {
   label: 'Developmental stage',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccDevelopmentalStage],
   render: (data) => {
     const developmentComments = data[EntrySection.Expression].commentsData.get(
       'DEVELOPMENTAL STAGE'
@@ -895,6 +912,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDevelopmentalStage, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInduction, {
   label: 'Induction',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccInduction],
   render: (data) => {
     const inductionComments = data[EntrySection.Expression].commentsData.get(
       'INDUCTION'
@@ -905,6 +923,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInduction, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccTissueSpecificity, {
   label: 'Tissue Specificity',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccTissueSpecificity],
   render: (data) => {
     const tissueComment = data[EntrySection.Expression].commentsData.get(
       'TISSUE SPECIFICITY'
@@ -987,6 +1006,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.structure3D, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSubcellularLocation, {
   label: 'Subcellular Location',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccSubcellularLocation],
   render: (data) => {
     const subcellData = data[EntrySection.SubCellularLocation].commentsData.get(
       'SUBCELLULAR LOCATION'
@@ -997,6 +1017,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSubcellularLocation, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDomain, {
   label: 'Domain',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccDomain],
   render: (data) => {
     const domainData = data[EntrySection.FamilyAndDomains].commentsData.get(
       'DOMAIN'
@@ -1007,6 +1028,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDomain, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPtm, {
   label: 'Post-Translational Modification',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccPtm],
   render: (data) => {
     const ptmData = data[EntrySection.ProteinProcessing].commentsData.get(
       'PTM'
@@ -1017,6 +1039,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPtm, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccAllergen, {
   label: 'Allergenic Properties',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccAllergen],
   render: (data) => {
     const allergenData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
       'ALLERGEN'
@@ -1027,6 +1050,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccAllergen, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccBiotechnology, {
   label: 'Biotechnological Use',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccBiotechnology],
   render: (data) => {
     const biotechData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
       'BIOTECHNOLOGY'
@@ -1037,6 +1061,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccBiotechnology, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDisruptionPhenotype, {
   label: 'Disruption Phenotype',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccDisruptionPhenotype],
   render: (data) => {
     const disruptionData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
       'DISRUPTION PHENOTYPE'
@@ -1047,6 +1072,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDisruptionPhenotype, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDisease, {
   label: 'Disease Involvement',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccDisease],
   render: (data) => {
     const diseaseComments = data[EntrySection.DiseaseAndDrugs].commentsData.get(
       'DISEASE'
@@ -1064,6 +1090,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDisease, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPharmaceutical, {
   label: 'Pharmaceutical Use',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccPharmaceutical],
   render: (data) => {
     const pharmaData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
       'PHARMACEUTICAL'
@@ -1074,6 +1101,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPharmaceutical, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccToxicDose, {
   label: 'Toxic Dose',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccToxicDose],
   render: (data) => {
     const toxicData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
       'TOXIC DOSE'
