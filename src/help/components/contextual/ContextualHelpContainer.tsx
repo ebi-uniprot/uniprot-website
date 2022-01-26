@@ -1,36 +1,33 @@
-import { lazy, Suspense, useEffect, useRef } from 'react';
-import { Loader, SlidingPanel } from 'franklin-sites';
+import { useEffect, useRef } from 'react';
+import { SlidingPanel } from 'franklin-sites';
 import { createMemoryHistory, createPath } from 'history';
 import {
   generatePath,
   Route,
-  RouteChildrenProps,
   Router,
   Switch,
   useHistory,
   useLocation,
 } from 'react-router-dom';
 
+import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import NavigationBar from './NavigationBar';
+import SearchBar from './SearchBar';
+
 import CatchAll from './CatchAll';
+import HelpEntryPage from './Entry';
+import HelpResultsPage from './Results';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 import styles from './styles/contextual-help.module.scss';
-
-// Help
-const HelpEntryPage = lazy(
-  () => import(/* webpackChunkName: "help-entry" */ '../entry/Entry')
-);
-const HelpResults = lazy(
-  () => import(/* webpackChunkName: "help-results" */ '../results/Results')
-);
 
 type Props = {
   articlePath?: string;
   onClose: (reason: 'outside' | 'button' | 'navigation' | 'escape') => void;
 };
 
+// TODO: remove before shipping, this is just of debug
 const HistoryDebug = () => {
   const { pathname, search } = useLocation();
   return (
@@ -59,10 +56,7 @@ const ContextualHelpContainer = ({ articlePath, onClose }: Props) => {
             }),
             hash,
           })
-        : createPath({
-            pathname: LocationToPath[Location.HelpResults],
-            search: 'query=*',
-          })
+        : LocationToPath[Location.HelpResults]
     );
   }, [articleId, hash]);
 
@@ -80,22 +74,25 @@ const ContextualHelpContainer = ({ articlePath, onClose }: Props) => {
       size="small"
       position="right"
     >
-      <Suspense fallback={<Loader />}>
+      <ErrorBoundary>
         <Router history={localHistoryRef.current}>
+          <SearchBar />
           <HistoryDebug />
           <Switch>
             {/* Just here to handle initial empty location */}
             <Route path="/" exact />
             {/* Specific entries */}
-            <Route path={LocationToPath[Location.HelpEntry]}>
-              {(props: RouteChildrenProps<{ accession: string }>) => (
-                <HelpEntryPage inPanel {...props} />
-              )}
-            </Route>
+            <Route
+              path={LocationToPath[Location.HelpEntry]}
+              component={HelpEntryPage}
+            />
             {/* Will get content from page later, for now, star search */}
-            <Route path={LocationToPath[Location.HelpResults]}>
-              {(props) => <HelpResults inPanel {...props} />}
-            </Route>
+            <Route
+              path={LocationToPath[Location.HelpResults]}
+              render={(props) => (
+                <HelpResultsPage {...props} globalHistory={globalHistory} />
+              )}
+            />
             {/* Catch-all handler -> Redirect (within or global history) */}
             <Route
               path="*"
@@ -105,7 +102,7 @@ const ContextualHelpContainer = ({ articlePath, onClose }: Props) => {
             />
           </Switch>
         </Router>
-      </Suspense>
+      </ErrorBoundary>
     </SlidingPanel>
   );
 };

@@ -1,0 +1,5 @@
+/* make the artwork when no results a bit smaller */
+.container :global(.error-page-container) svg {
+  inline-size: 50%;
+  block-size: 50%;
+}
