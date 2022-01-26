@@ -2106,7 +2106,13 @@ exports[`Entry view should render 1`] = `
           Features
         </h3>
         <p>
-          Showing features for chain.
+          Showing features for 
+          <span
+            data-article-id="chain"
+          >
+            chain
+          </span>
+          .
         </p>
         <protvista-manager
           attributes="highlight displaystart displayend selectedid"
@@ -3373,7 +3379,31 @@ exports[`Entry view should render for non-human entry 1`] = `
           Features
         </h3>
         <p>
-          Showing features for domain, region, metal binding, binding site.
+          Showing features for 
+          <span
+            data-article-id="domain"
+          >
+            domain
+          </span>
+          , 
+          <span
+            data-article-id="region"
+          >
+            region
+          </span>
+          , 
+          <span
+            data-article-id="metal"
+          >
+            metal binding
+          </span>
+          , 
+          <span
+            data-article-id="binding"
+          >
+            binding site
+          </span>
+          .
         </p>
         <protvista-manager
           attributes="highlight displaystart displayend selectedid"
@@ -4700,7 +4730,13 @@ exports[`Entry view should render for non-human entry 1`] = `
           Features
         </h3>
         <p>
-          Showing features for mutagenesis.
+          Showing features for 
+          <span
+            data-article-id="mutagen"
+          >
+            mutagenesis
+          </span>
+          .
         </p>
         <protvista-manager
           attributes="highlight displaystart displayend selectedid"
@@ -5081,7 +5117,19 @@ exports[`Entry view should render for non-human entry 1`] = `
           Features
         </h3>
         <p>
-          Showing features for signal, chain.
+          Showing features for 
+          <span
+            data-article-id="signal"
+          >
+            signal
+          </span>
+          , 
+          <span
+            data-article-id="chain"
+          >
+            chain
+          </span>
+          .
         </p>
         <protvista-manager
           attributes="highlight displaystart displayend selectedid"
@@ -5418,7 +5466,19 @@ exports[`Entry view should render for non-human entry 1`] = `
           Features
         </h3>
         <p>
-          Showing features for domain, region.
+          Showing features for 
+          <span
+            data-article-id="domain"
+          >
+            domain
+          </span>
+          , 
+          <span
+            data-article-id="region"
+          >
+            region
+          </span>
+          .
         </p>
         <protvista-manager
           attributes="highlight displaystart displayend selectedid"

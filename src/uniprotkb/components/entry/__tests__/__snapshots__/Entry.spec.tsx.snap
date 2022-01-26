@@ -2516,7 +2516,13 @@ exports[`Entry basic should render main 1`] = `
                     Features
                   </h3>
                   <p>
-                    Showing features for chain.
+                    Showing features for 
+                    <span
+                      data-article-id="chain"
+                    >
+                      chain
+                    </span>
+                    .
                   </p>
                   <protvista-manager
                     attributes="highlight displaystart displayend selectedid"

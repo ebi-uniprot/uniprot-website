@@ -1,11 +1,12 @@
-import { useCallback, useMemo } from 'react';
-import { uniq } from 'lodash-es';
+import { Fragment, useCallback, useMemo } from 'react';
 import TransformedVariant from 'protvista-variation-adapter';
 
 import useCustomElement from '../../hooks/useCustomElement';
 
 import { Evidence } from '../../../uniprotkb/types/modelTypes';
 import NightingaleZoomTool from '../../../uniprotkb/components/protein-data-views/NightingaleZoomTool';
+
+import FeatureTypeHelpMappings from '../../../help/config/featureTypeHelpMappings';
 
 import FeatureType from '../../../uniprotkb/types/featureType';
 import { UniParcProcessedFeature } from '../../../uniparc/components/entry/UniParcFeaturesView';
@@ -85,7 +86,7 @@ const FeaturesView = <
     datatableElement.defined;
 
   const featureTypes = useMemo(
-    () => uniq(features.map(({ type }) => type.toLowerCase())),
+    () => Array.from(new Set<FeatureType>(features.map(({ type }) => type))),
     [features]
   );
 
@@ -114,7 +115,22 @@ const FeaturesView = <
       {withTitle && (
         <>
           <h3>Features</h3>
-          <p>Showing features for {featureTypes.join(', ')}.</p>
+          <p>
+            Showing features for{' '}
+            {featureTypes.map((featureType, i) => (
+              <Fragment key={featureType}>
+                {i > 0 && ', '}
+                {featureType === 'Other' ? (
+                  featureType.toLowerCase()
+                ) : (
+                  <span data-article-id={FeatureTypeHelpMappings[featureType]}>
+                    {featureType.toLowerCase()}
+                  </span>
+                )}
+              </Fragment>
+            ))}
+            .
+          </p>
         </>
       )}
       <managerElement.name attributes="highlight displaystart displayend selectedid">
