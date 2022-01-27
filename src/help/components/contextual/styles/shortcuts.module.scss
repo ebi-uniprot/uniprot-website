@@ -1,0 +1,34 @@
+@import 'franklin-sites/src/styles/colours';
+@import 'franklin-sites/src/styles/settings';
+@import 'franklin-sites/src/styles/mixins';
+
+/* Same as the cards in Franklin */
+$shadow-padding: 0.125rem;
+
+.container {
+  background: lighten($colour-help-green, 50%);
+  margin: -$global-margin;
+  margin-block-end: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  & > a {
+    @include box-shadow($shadow-padding);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    text-align: center;
+    padding-block: 10%;
+    background: $colour-sky-white;
+    margin: $global-margin;
+    aspect-ratio: 1.25 / 1;
+
+    &,
+    &:hover {
+      & > svg {
+        color: $colour-help-green;
+      }
+    }
+  }
+}

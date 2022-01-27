@@ -1,0 +1,8 @@
+@import 'franklin-sites/src/styles/settings';
+
+.container {
+  margin: -$global-margin;
+  position: sticky;
+  top: -$global-margin;
+  z-index: 1;
+}
