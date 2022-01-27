@@ -10,7 +10,7 @@ import {
 
 import styles from './styles/shortcuts.module.scss';
 
-const iconWidth = '1.5em';
+const iconWidth = '1.4em';
 
 // All of these exit the panel, so put them in the global history context
 const Shortcuts = ({ globalHistory }: { globalHistory: History }) => (
