@@ -10,22 +10,24 @@ import {
 
 import styles from './styles/shortcuts.module.scss';
 
+const iconWidth = '1.5em';
+
 // All of these exit the panel, so put them in the global history context
 const Shortcuts = ({ globalHistory }: { globalHistory: History }) => (
   <Router history={globalHistory}>
     <div className={styles.container}>
       <Link to={LocationToPath[Location.HelpResults]}>
-        <HelpIcon width="1.5em" />
+        <HelpIcon width={iconWidth} />
         Help center
       </Link>
       {/* Blocked until we manage to get the contact page changes in main */}
       {/* eslint-disable-next-line */}
       <Link to="#">
-        <EnvelopeIcon width="1.5em" />
+        <EnvelopeIcon width={iconWidth} />
         Contact us
       </Link>
       <Link to={getLocationEntryPath(Location.HelpEntry, 'publications')}>
-        <CitedIcon width="1.5em" />
+        <CitedIcon width={iconWidth} />
         Cite us
       </Link>
     </div>

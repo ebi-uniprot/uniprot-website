@@ -14,6 +14,9 @@ type Props = {
 };
 
 const NavigationBar = ({ localHistory, globalHistory }: Props) => {
+  // This state is to trigger a render when updated, the location is not
+  // actually used, but the state setter is called on every location change
+  // We need that because history is mutated, its reference doesn't change
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setLocalLocation] = useState(localHistory.location);
   // Trigger a render whenever the route changes
