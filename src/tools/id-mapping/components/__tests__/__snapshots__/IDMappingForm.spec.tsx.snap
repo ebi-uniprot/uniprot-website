@@ -76,7 +76,7 @@ exports[`IDMappingForm test Renders the form 1`] = `
               class="button primary dropdown"
               type="button"
             >
-              UniRef90
+              UniProtKB
             </button>
             <div
               class="dropdown-menu"
