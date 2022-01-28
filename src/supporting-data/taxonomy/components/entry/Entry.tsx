@@ -97,7 +97,7 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
             View proteomes
           </MapToDropdown>
         </div>
-        {infoData && <InfoList infoData={infoData} isCompact columns />}
+        <InfoList infoData={infoData} columns />
       </Card>
     </SingleColumnLayout>
   );

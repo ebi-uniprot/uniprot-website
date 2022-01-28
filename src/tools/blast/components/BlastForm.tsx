@@ -79,7 +79,10 @@ const isInvalid = (parsedSequences: SequenceObject[]) =>
 const title = namespaceAndToolsLabels[JobTypes.BLAST];
 
 // https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3848038/
-const getAutoMatrixFor = (sequence: string): FormParameters['matrix'] => {
+const getAutoMatrixFor = (sequence?: string): FormParameters['matrix'] => {
+  if (!sequence?.length) {
+    return 'BLOSUM62';
+  }
   if (sequence.length <= 34) {
     return 'PAM30';
   }
@@ -300,7 +303,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
       // remove "auto", and transform into corresponding matrix
       matrix:
         matrix.selected === 'auto'
-          ? getAutoMatrixFor(sequence.selected as string)
+          ? getAutoMatrixFor(parsedSequences[0]?.sequence)
           : (matrix.selected as Matrix),
       filter: filter.selected as Filter,
       gapped: gapped.selected as GapAlign,
@@ -345,7 +348,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
   // effects
   // set the "Auto" matrix to the have the correct label depending on sequence
   useEffect(() => {
-    const autoMatrix = getAutoMatrixFor(sequence.selected as string);
+    const autoMatrix = getAutoMatrixFor(parsedSequences[0]?.sequence);
     setMatrix((matrix) => ({
       ...matrix,
       values: [
@@ -353,7 +356,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
         ...(matrix.values || []).filter((option) => option.value !== 'auto'),
       ],
     }));
-  }, [sequence.selected]);
+  }, [parsedSequences]);
 
   const onSequenceChange = useCallback(
     (parsedSequences: SequenceObject[]) => {

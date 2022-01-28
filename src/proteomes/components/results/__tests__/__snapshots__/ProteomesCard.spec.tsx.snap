@@ -108,11 +108,7 @@ exports[`ProteomesCard tests should render the card component 1`] = `
             class="result-card__info-bit busco__info-bit"
           >
             <strong>
-              <abbr
-                title="Benchmarking Universal Single-Copy Orthologs"
-              >
-                BUSCO
-              </abbr>
+              BUSCO
               <br />
               <span
                 class="busco-legend-item"

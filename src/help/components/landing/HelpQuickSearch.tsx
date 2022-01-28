@@ -55,7 +55,7 @@ const HelpQuickSearch = () => {
     search: qs.stringify({ query: searchValue }),
   };
 
-  const allArticles = dataObject?.data?.results;
+  const allArticles = dataObject.data?.results;
   const infoData = allArticles
     ?.slice(0, numberResultsInView)
     .map(({ matches, title, id }) => {

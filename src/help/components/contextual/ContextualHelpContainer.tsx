@@ -1,86 +1,129 @@
-import { lazy, Suspense } from 'react';
-import { Loader, SlidingPanel } from 'franklin-sites';
+import { useEffect, useRef } from 'react';
+import { SlidingPanel } from 'franklin-sites';
+import { createMemoryHistory, createPath, History } from 'history';
 import {
-  generatePath,
-  MemoryRouter,
   Route,
-  RouteChildrenProps,
+  Router,
   Switch,
+  useHistory,
   useLocation,
 } from 'react-router-dom';
+import qs from 'query-string';
 
-import { LocationToPath, Location } from '../../../app/config/urls';
+import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
+import NavigationBar from './NavigationBar';
+import SearchBar from './SearchBar';
+import Shortcuts from './Shortcuts';
+
+import CatchAll from './CatchAll';
+import HelpEntryPage from './Entry';
+import HelpResultsPage from './Results';
+import HelpLandingPage from './Landing';
+
+import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
+
+import { help as helpURL } from '../../../shared/config/apiUrls';
+
+import {
+  LocationToPath,
+  Location,
+  getLocationEntryPath,
+} from '../../../app/config/urls';
+import { HelpSearchResponse } from '../../adapters/helpConverter';
 
 import styles from './styles/contextual-help.module.scss';
 
-// Help
-const HelpEntryPage = lazy(
-  () => import(/* webpackChunkName: "help-entry" */ '../entry/Entry')
-);
-const HelpResults = lazy(
-  () => import(/* webpackChunkName: "help-results" */ '../results/Results')
-);
-const ResourceNotFoundPage = lazy(
-  () =>
-    import(
-      /* webpackChunkName: "resource-not-found" */ '../../../shared/components/error-pages/ResourceNotFoundPage'
-    )
-);
+const ContextualHepRouterContent = ({
+  globalHistory,
+}: {
+  globalHistory: History;
+}) => {
+  const location = useLocation();
 
-type Props = {
-  articleId?: string;
-  onClose: (reason: 'outside' | 'button' | 'navigation' | 'escape') => void;
-};
+  const { query } = qs.parse(location.search);
+  const dataObject = useDataApiWithStale<HelpSearchResponse>(
+    query && helpURL.search({ query })
+  );
 
-const HistoryDebug = () => {
-  const { pathname, search } = useLocation();
   return (
-    <pre>
-      {pathname}
-      {search}
-    </pre>
+    <>
+      <SearchBar isLoading={dataObject.loading} />
+      <Switch>
+        {/* Just here to handle initial empty location */}
+        <Route path="/" exact />
+        {/* Specific entries */}
+        <Route
+          path={LocationToPath[Location.HelpEntry]}
+          component={HelpEntryPage}
+        />
+        {/* Will get content from page later, for now, star search */}
+        <Route
+          path={LocationToPath[Location.HelpResults]}
+          render={(props) => {
+            if (props.location.search) {
+              return <HelpResultsPage {...dataObject} />;
+            }
+            return (
+              <>
+                <Shortcuts globalHistory={globalHistory} />
+                <HelpLandingPage />
+              </>
+            );
+          }}
+        />
+        {/* Catch-all handler -> Redirect (within or global history) */}
+        <Route
+          path="*"
+          render={(props) => (
+            <CatchAll globalHistory={globalHistory} {...props} />
+          )}
+        />
+      </Switch>
+    </>
   );
 };
 
-const ContextualHelpContainer = ({ articleId, onClose }: Props) => (
-  <SlidingPanel
-    title="Help"
-    onClose={onClose}
-    withCloseButton
-    className={styles['contextual-help-panel']}
-    size="small"
-    position="right"
-  >
-    <Suspense fallback={<Loader />}>
-      <MemoryRouter
-        initialEntries={[
-          articleId
-            ? generatePath(LocationToPath[Location.HelpEntry], {
-                accession: articleId,
-              })
-            : {
-                pathname: LocationToPath[Location.HelpResults],
-                search: 'query=*',
-              },
-        ]}
-      >
-        <HistoryDebug />
-        <Switch>
-          {/* Will get content from page later, for now, star search */}
-          <Route path={LocationToPath[Location.HelpEntry]}>
-            {(props: RouteChildrenProps<{ accession: string }>) => (
-              <HelpEntryPage inPanel {...props} />
-            )}
-          </Route>
-          <Route path={LocationToPath[Location.HelpResults]}>
-            {(props) => <HelpResults inPanel {...props} />}
-          </Route>
-          {/* Catch-all handler -> Redirect or not found use ResourceNotFoundPage */}
-          <Route path="*" component={ResourceNotFoundPage} />
-        </Switch>
-      </MemoryRouter>
-    </Suspense>
-  </SlidingPanel>
-);
+type Props = {
+  articlePath?: string;
+  onClose: (reason: 'outside' | 'button' | 'navigation' | 'escape') => void;
+};
+
+const ContextualHelpContainer = ({ articlePath, onClose }: Props) => {
+  const [articleId, hash] = (articlePath || '').split('#');
+  const globalHistory = useHistory();
+  const localHistoryRef = useRef(createMemoryHistory());
+
+  useEffect(() => {
+    let action: 'push' | 'replace' = 'push';
+    if (localHistoryRef.current.length === 1) {
+      action = 'replace';
+    }
+    localHistoryRef.current[action](
+      articleId
+        ? createPath({
+            pathname: getLocationEntryPath(Location.HelpEntry, articleId),
+            hash,
+          })
+        : LocationToPath[Location.HelpResults]
+    );
+  }, [articleId, hash]);
+
+  return (
+    <SlidingPanel
+      title={<NavigationBar localHistory={localHistoryRef.current} />}
+      onClose={onClose}
+      withCloseButton
+      className={styles['contextual-help-panel']}
+      size="small"
+      position="right"
+    >
+      <ErrorBoundary>
+        <Router history={localHistoryRef.current}>
+          <ContextualHepRouterContent globalHistory={globalHistory} />
+        </Router>
+      </ErrorBoundary>
+    </SlidingPanel>
+  );
+};
 
 export default ContextualHelpContainer;

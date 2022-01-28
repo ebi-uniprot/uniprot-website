@@ -1,4 +1,4 @@
-import { useCallback, MouseEventHandler, useMemo } from 'react';
+import { useCallback, MouseEventHandler, useMemo, useEffect } from 'react';
 import { RouteChildrenProps, useHistory } from 'react-router-dom';
 import { Card, Loader, Message } from 'franklin-sites';
 import { marked } from 'marked';
@@ -86,6 +86,12 @@ export const HelpEntryContent = ({
   upperHeadingLevel = 'h1',
 }: HelpEntryContentProps) => {
   const history = useHistory();
+
+  useEffect(() => {
+    document
+      .getElementById(history.location.hash.substring(1))
+      ?.scrollIntoView();
+  }, [history.location.hash]);
 
   // Hijack clicks on content
   const handleClick = useCallback<MouseEventHandler<HTMLElement>>(

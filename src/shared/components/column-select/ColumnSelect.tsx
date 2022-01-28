@@ -74,10 +74,7 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
   );
 
   const { loading, data, progress } = useDataApi<ReceivedFieldData>(
-    apiUrls
-      .resultsFields(namespace, isEntryPage)
-      // TODO: remove this when the backend is fixed https://www.ebi.ac.uk/panda/jira/browse/TRM-26571
-      .replace('/keywords/', '/keyword/')
+    apiUrls.resultsFields(namespace, isEntryPage)
   );
 
   // Exclude the primaryKeyColumns in the tabs as users can't toggle selection

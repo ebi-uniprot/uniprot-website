@@ -1,0 +1,160 @@
+@import 'franklin-sites/src/styles/colours';
+@import 'franklin-sites/src/styles/mixins';
+@import 'franklin-sites/src/styles/settings';
+
+.container {
+  & > hr {
+    color: $colour-gainsborough;
+    background-color: $colour-gainsborough;
+    height: 1px;
+    border: 0;
+    margin: $global-margin 0 2 * $global-margin 0;
+  }
+
+  form {
+    display: grid;
+    column-gap: $global-margin;
+
+    grid-template-columns: [label-start] min-content [label-end input-start] 1fr [input-end];
+    grid-template-areas:
+      'label-name    input-name'
+      'label-email   input-email'
+      'label-subject input-'
+      'label-message .'
+      'input-message input-message'
+      'privacy       privacy'
+      'submit        submit';
+
+    @include fs-breakpoints('medium') {
+      grid-template-columns: [label-start] min-content [label-end input-start] 1fr [input-end] 1fr;
+      grid-template-areas:
+        'label-name    input-name    aside'
+        'label-email   input-email   aside'
+        'label-subject input-subject aside'
+        'label-message .             aside'
+        'input-message input-message input-message'
+        'privacy       privacy       privacy'
+        'submit        submit        .';
+    }
+
+    @include fs-breakpoints('large') {
+      grid-template-columns: [label-start] min-content [label-end input-start] 2fr [input-end] 1fr max-content;
+      grid-template-areas:
+        'label-name    input-name    illustration  aside'
+        'label-email   input-email   illustration  aside'
+        'label-subject input-subject illustration  aside'
+        'label-message .             illustration  aside'
+        'input-message input-message input-message input-message'
+        'privacy       privacy       privacy       privacy'
+        'submit        submit        .             .';
+    }
+
+    // Hide the honeypot from the view
+    [name='requiredForRobots'] {
+      position: absolute;
+      top: -100%;
+      left: -100%;
+    }
+
+    & button[type='submit'] {
+      margin-top: $global-margin;
+      grid-area: submit;
+      justify-self: start;
+    }
+
+    & > aside {
+      display: none;
+
+      li {
+        margin-bottom: 0.5 * $global-margin;
+      }
+
+      @include fs-breakpoints('medium') {
+        display: initial;
+        grid-area: aside;
+      }
+    }
+  }
+}
+
+.label {
+  grid-column: label-start / label-end;
+  font-weight: bold;
+}
+
+.input {
+  grid-column: input-start / input-end;
+  position: relative;
+
+  & > input,
+  & > textarea {
+    width: calc(100% - 3ch);
+
+    &:invalid ~ .validity.invalid,
+    &:valid ~ .validity.valid,
+    &:required ~ .validity.required {
+      display: initial;
+    }
+
+    /* When empty */
+    &:placeholder-shown,
+    /* When focused */
+    &:focus {
+      & ~ .validity {
+        &.invalid,
+        &.valid {
+          display: none;
+        }
+      }
+    }
+  }
+
+  &__message {
+    grid-column: 1 / -1;
+
+    & > textarea {
+      min-height: 10em;
+    }
+  }
+}
+
+.required {
+  user-select: none;
+}
+
+.validity {
+  width: 1em;
+  height: 1em;
+  position: absolute;
+  top: 1ch;
+  right: 0;
+  display: none;
+  background-color: $colour-sky-white;
+  user-select: none;
+
+  &.valid {
+    color: $colour-success;
+  }
+
+  &.invalid {
+    color: $colour-failure;
+  }
+}
+
+.privacy {
+  grid-column: 1 / -1;
+  justify-self: start;
+  font-weight: normal;
+}
+
+.illustration {
+  display: none;
+
+  @include fs-breakpoints('large') {
+    display: initial;
+    width: 75%;
+    grid-area: illustration;
+    justify-self: center;
+    align-self: end;
+  }
+}

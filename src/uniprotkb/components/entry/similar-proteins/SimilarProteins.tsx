@@ -91,7 +91,9 @@ const SimilarProteins = ({ isoforms, primaryAccession }: Props) => {
 
   return (
     <Card
-      header={<h2>{nameAndId.name}</h2>}
+      header={
+        <h2 data-article-id="similar_proteins_section">{nameAndId.name}</h2>
+      }
       id={EntrySection.SimilarProteins}
       data-entry-section
     >

@@ -2,7 +2,9 @@
 
 exports[`Keyword should render Keywords for section 1`] = `
 <DocumentFragment>
-  <h3>
+  <h3
+    data-article-id="keywords"
+  >
     Keywords
   </h3>
   <ul

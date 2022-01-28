@@ -37,7 +37,11 @@ const DiseaseAndDrugsSection = ({
   );
   return (
     <Card
-      header={<h2>{nameAndId.name}</h2>}
+      header={
+        <h2 data-article-id="pathology_and_biotech_section">
+          {nameAndId.name}
+        </h2>
+      }
       id={nameAndId.id}
       data-entry-section
     >

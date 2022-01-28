@@ -604,7 +604,7 @@ exports[`non-critical HomePage component should render 1`] = `
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/242/"
+          href="https://www.proteinspotlight.org/back_issues/243/"
           rel="noopener"
           target="_blank"
         >
@@ -614,7 +614,7 @@ exports[`non-critical HomePage component should render 1`] = `
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/242/"
+        href="https://www.proteinspotlight.org/back_issues/243/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
@@ -623,14 +623,14 @@ exports[`non-critical HomePage component should render 1`] = `
           alt=""
           height="86.65"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt242.jpg"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt243.jpg"
           width="125.46"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          Idleness  is  not  encouraged  in  our  parts  of  the  world.  With  our  twisted  notion  of  Carpe  diem,  the  days  are  filled  with  things  we  have  to  do  and  things  we  would  like  to  do.  Many  of  which  we  do.  Adolescents,  lost  in  the  depths  of  a  settee,  are  told  by…
+          Who  has  not  seen  mould  spread  in  the  corner  of  a  bathroom  or  on  the  edges  of  wallpaper  in  a  damp  house?  Or  winced  at  the  green  growth  on  the  edges  of  a  jam  jar  or  on  yoghourt  left  in  the  open  air  too  long?  Moulds  are  also  sure  to  flourish  on…
       </p>
     </article>
   </section>
@@ -779,11 +779,8 @@ exports[`non-critical HomePage component should render 1`] = `
       </a>
        
       <a
-        class="external-link"
-        href="https://www.uniprot.org/contact"
-        referrerpolicy="no-referrer-when-downgrade"
-        rel="noopener"
-        target="_blank"
+        class="help-center-link"
+        href="/contact"
       >
         Contact us
       </a>

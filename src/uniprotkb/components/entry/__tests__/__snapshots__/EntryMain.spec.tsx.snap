@@ -557,14 +557,18 @@ exports[`Entry view should render 1`] = `
       <div
         class="card__header card__header--with-separator"
       >
-        <h2>
+        <h2
+          data-article-id="names_and_taxonomy_section"
+        >
           Names & Taxonomy
         </h2>
       </div>
       <div
         class="card__content"
       >
-        <h3>
+        <h3
+          data-article-id="protein_names"
+        >
           Protein names
         </h3>
         <ul
@@ -1424,7 +1428,9 @@ exports[`Entry view should render 1`] = `
             </div>
           </li>
         </ul>
-        <h3>
+        <h3
+          data-article-id="gene_name"
+        >
           Gene names
         </h3>
         <ul
@@ -1589,7 +1595,9 @@ exports[`Entry view should render 1`] = `
             </ul>
           </li>
         </ul>
-        <h3>
+        <h3
+          data-article-id="organism-name"
+        >
           Organism names
         </h3>
         <ul
@@ -1645,7 +1653,11 @@ exports[`Entry view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Taxonomic identifier
+                <span
+                  data-article-id="taxonomic_identifier"
+                >
+                  Taxonomic identifier
+                </span>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -1677,7 +1689,11 @@ exports[`Entry view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Taxonomic lineage
+                <span
+                  data-article-id="taxonomic_lineage"
+                >
+                  Taxonomic lineage
+                </span>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -1773,7 +1789,9 @@ exports[`Entry view should render 1`] = `
       <div
         class="card__header card__header--with-separator"
       >
-        <h2>
+        <h2
+          data-article-id="subcellular_location_section"
+        >
           Subcellular Location
         </h2>
       </div>
@@ -1836,14 +1854,18 @@ exports[`Entry view should render 1`] = `
       <div
         class="card__header card__header--with-separator"
       >
-        <h2>
+        <h2
+          data-article-id="pathology_and_biotech_section"
+        >
           Disease & Drugs
         </h2>
       </div>
       <div
         class="card__content"
       >
-        <h3>
+        <h3
+          data-article-id="involvement_in_disease"
+        >
           Involvement in disease
         </h3>
         <h4>
@@ -2071,7 +2093,9 @@ exports[`Entry view should render 1`] = `
       <div
         class="card__header card__header--with-separator"
       >
-        <h2>
+        <h2
+          data-article-id="ptm_processing_section"
+        >
           PTM/Processing
         </h2>
       </div>
@@ -2082,7 +2106,13 @@ exports[`Entry view should render 1`] = `
           Features
         </h3>
         <p>
-          Showing features for chain.
+          Showing features for 
+          <span
+            data-article-id="chain"
+          >
+            chain
+          </span>
+          .
         </p>
         <protvista-manager
           attributes="highlight displaystart displayend selectedid"
@@ -2235,13 +2265,20 @@ exports[`Entry view should render 1`] = `
       <div
         class="card__header card__header--with-separator"
       >
-        <h2>
+        <h2
+          data-article-id="interaction_section"
+        >
           Interaction
         </h2>
       </div>
       <div
         class="card__content"
       >
+        <h3
+          data-article-id="binary_interactions"
+        >
+          Binary interactions
+        </h3>
         <interaction-viewer
           accession="P21802"
         />
@@ -2358,7 +2395,9 @@ exports[`Entry view should render 1`] = `
       <div
         class="card__header card__header--with-separator"
       >
-        <h2>
+        <h2
+          data-article-id="structure_section"
+        >
           Structure
         </h2>
       </div>
@@ -2455,14 +2494,18 @@ exports[`Entry view should render 1`] = `
       <div
         class="card__header card__header--with-separator"
       >
-        <h2>
+        <h2
+          data-article-id="family_and_domains_section"
+        >
           Family & Domains
         </h2>
       </div>
       <div
         class="card__content"
       >
-        <h3>
+        <h3
+          data-article-id="keywords"
+        >
           Keywords
         </h3>
         <ul
@@ -2604,7 +2647,9 @@ exports[`Entry view should render 1`] = `
       <div
         class="card__header card__header--with-separator"
       >
-        <h2>
+        <h2
+          data-article-id="sequences_section"
+        >
           Sequence
         </h2>
       </div>
@@ -2640,7 +2685,11 @@ exports[`Entry view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Sequence status
+                <span
+                  data-article-id="sequence_status"
+                >
+                  Sequence status
+                </span>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -2655,7 +2704,13 @@ exports[`Entry view should render 1`] = `
           <strong>
             1
           </strong>
-           isoforms produced by 
+           
+          <span
+            data-article-id="alternative_products"
+          >
+            isoforms
+          </span>
+           produced by 
           <strong>
             Alternative initiation
           </strong>
@@ -2751,7 +2806,9 @@ exports[`Entry view should render 1`] = `
         >
           Show sequence 
         </button>
-        <h3>
+        <h3
+          data-article-id="sequence_caution"
+        >
           Sequence caution
         </h3>
         <section
@@ -2794,15 +2851,17 @@ exports[`Entry view should render 1`] = `
             id="45"
           />
         </section>
-        <h3>
+        <h3
+          data-article-id="mass_spectrometry"
+        >
           Mass Spectrometry
         </h3>
         <section
           class="text-block"
         >
-          <h3>
+          <h4>
             isoform 1
-          </h3>
+          </h4>
           Molecular mass is 2.1 Da. Determined by LSI. note value
           <button
             aria-controls="46"
@@ -2827,7 +2886,9 @@ exports[`Entry view should render 1`] = `
             id="46"
           />
         </section>
-        <h3>
+        <h3
+          data-article-id="rna_editing"
+        >
           RNA Editing
         </h3>
         <section
@@ -3318,7 +3379,31 @@ exports[`Entry view should render for non-human entry 1`] = `
           Features
         </h3>
         <p>
-          Showing features for domain, region, metal binding, binding site.
+          Showing features for 
+          <span
+            data-article-id="domain"
+          >
+            domain
+          </span>
+          , 
+          <span
+            data-article-id="region"
+          >
+            region
+          </span>
+          , 
+          <span
+            data-article-id="metal"
+          >
+            metal binding
+          </span>
+          , 
+          <span
+            data-article-id="binding"
+          >
+            binding site
+          </span>
+          .
         </p>
         <protvista-manager
           attributes="highlight displaystart displayend selectedid"
@@ -4024,7 +4109,9 @@ exports[`Entry view should render for non-human entry 1`] = `
         <div
           class="GoRibbon"
         >
-          <h3>
+          <h3
+            data-article-id="gene_ontology"
+          >
             GO Annotations
           </h3>
           <protvista-datatable>
@@ -4188,7 +4275,9 @@ exports[`Entry view should render for non-human entry 1`] = `
             </table>
           </protvista-datatable>
         </div>
-        <h3>
+        <h3
+          data-article-id="keywords"
+        >
           Keywords
         </h3>
         <ul
@@ -4308,14 +4397,18 @@ exports[`Entry view should render for non-human entry 1`] = `
       <div
         class="card__header card__header--with-separator"
       >
-        <h2>
+        <h2
+          data-article-id="names_and_taxonomy_section"
+        >
           Names & Taxonomy
         </h2>
       </div>
       <div
         class="card__content"
       >
-        <h3>
+        <h3
+          data-article-id="protein_names"
+        >
           Protein names
         </h3>
         <ul
@@ -4501,7 +4594,9 @@ exports[`Entry view should render for non-human entry 1`] = `
             </div>
           </li>
         </ul>
-        <h3>
+        <h3
+          data-article-id="organism-name"
+        >
           Organism names
         </h3>
         <ul
@@ -4535,7 +4630,11 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Taxonomic identifier
+                <span
+                  data-article-id="taxonomic_identifier"
+                >
+                  Taxonomic identifier
+                </span>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -4567,7 +4666,11 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Taxonomic lineage
+                <span
+                  data-article-id="taxonomic_lineage"
+                >
+                  Taxonomic lineage
+                </span>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -4614,7 +4717,9 @@ exports[`Entry view should render for non-human entry 1`] = `
       <div
         class="card__header card__header--with-separator"
       >
-        <h2>
+        <h2
+          data-article-id="pathology_and_biotech_section"
+        >
           Phenotypes
         </h2>
       </div>
@@ -4625,7 +4730,13 @@ exports[`Entry view should render for non-human entry 1`] = `
           Features
         </h3>
         <p>
-          Showing features for mutagenesis.
+          Showing features for 
+          <span
+            data-article-id="mutagen"
+          >
+            mutagenesis
+          </span>
+          .
         </p>
         <protvista-manager
           attributes="highlight displaystart displayend selectedid"
@@ -4993,7 +5104,9 @@ exports[`Entry view should render for non-human entry 1`] = `
       <div
         class="card__header card__header--with-separator"
       >
-        <h2>
+        <h2
+          data-article-id="ptm_processing_section"
+        >
           PTM/Processing
         </h2>
       </div>
@@ -5004,7 +5117,19 @@ exports[`Entry view should render for non-human entry 1`] = `
           Features
         </h3>
         <p>
-          Showing features for signal, chain.
+          Showing features for 
+          <span
+            data-article-id="signal"
+          >
+            signal
+          </span>
+          , 
+          <span
+            data-article-id="chain"
+          >
+            chain
+          </span>
+          .
         </p>
         <protvista-manager
           attributes="highlight displaystart displayend selectedid"
@@ -5196,7 +5321,9 @@ exports[`Entry view should render for non-human entry 1`] = `
       <div
         class="card__header card__header--with-separator"
       >
-        <h2>
+        <h2
+          data-article-id="structure_section"
+        >
           Structure
         </h2>
       </div>
@@ -5326,7 +5453,9 @@ exports[`Entry view should render for non-human entry 1`] = `
       <div
         class="card__header card__header--with-separator"
       >
-        <h2>
+        <h2
+          data-article-id="family_and_domains_section"
+        >
           Family & Domains
         </h2>
       </div>
@@ -5337,7 +5466,19 @@ exports[`Entry view should render for non-human entry 1`] = `
           Features
         </h3>
         <p>
-          Showing features for domain, region.
+          Showing features for 
+          <span
+            data-article-id="domain"
+          >
+            domain
+          </span>
+          , 
+          <span
+            data-article-id="region"
+          >
+            region
+          </span>
+          .
         </p>
         <protvista-manager
           attributes="highlight displaystart displayend selectedid"
@@ -5662,6 +5803,7 @@ exports[`Entry view should render for non-human entry 1`] = `
         </protvista-manager>
         <h3
           class="capitalize"
+          data-article-id="domain_cc"
         >
           domain
         </h3>
@@ -5692,7 +5834,9 @@ exports[`Entry view should render for non-human entry 1`] = `
             id="59"
           />
         </div>
-        <h3>
+        <h3
+          data-article-id="keywords"
+        >
           Keywords
         </h3>
         <ul
@@ -6201,7 +6345,9 @@ exports[`Entry view should render for non-human entry 1`] = `
       <div
         class="card__header card__header--with-separator"
       >
-        <h2>
+        <h2
+          data-article-id="sequences_section"
+        >
           Sequence
         </h2>
       </div>
@@ -6218,7 +6364,11 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Sequence status
+                <span
+                  data-article-id="sequence_status"
+                >
+                  Sequence status
+                </span>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -6234,7 +6384,11 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Sequence processing
+                <span
+                  data-article-id="sequence_processing"
+                >
+                  Sequence processing
+                </span>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -6351,7 +6505,11 @@ exports[`Entry view should render for non-human entry 1`] = `
                 <div
                   class="decorated-list-item__title tiny"
                 >
-                  Checksum
+                  <span
+                    data-article-id="checksum"
+                  >
+                    Checksum
+                  </span>
                 </div>
                 <div
                   class="decorated-list-item__content"
@@ -6756,7 +6914,9 @@ exports[`Entry view should render for non-human entry 1`] = `
             </span>
           </div>
         </section>
-        <h3>
+        <h3
+          data-article-id="keywords"
+        >
           Keywords
         </h3>
         <ul

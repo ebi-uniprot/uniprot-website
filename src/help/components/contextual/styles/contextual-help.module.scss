@@ -5,10 +5,11 @@
   cursor: pointer;
   &::after {
     content: 'i';
-    padding-left: 0.1rem;
+    padding-inline-start: 0.1rem;
     font-size: 0.75rem;
     font-family: Bookman, Garamond, serif;
     position: relative;
+    line-height: 1rem;
     vertical-align: super;
   }
 }
@@ -22,8 +23,8 @@ $help-height: 35em;
 }
 
 .contextual-help-panel {
-  height: $help-height;
-  margin-top: calc(50vh - 0.5 * $help-height);
+  block-size: $help-height;
+  margin-block-start: calc(50vh - 0.5 * $help-height);
 
   :global(.sliding-panel__header) {
     background-color: $colour-help-green;
@@ -32,5 +33,10 @@ $help-height: 35em;
   :global(.sliding-panel__content) {
     @include scroll-shadow($colour-sky-white);
     overscroll-behavior: contain;
+  }
+
+  :global(.error-page-container) svg {
+    width: 50%;
+    height: 50%;
   }
 }

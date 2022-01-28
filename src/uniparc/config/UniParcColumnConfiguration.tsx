@@ -188,6 +188,7 @@ UniParcColumnConfiguration.set(UniParcColumn.proteome, {
 
 UniParcColumnConfiguration.set(UniParcColumn.checksum, {
   label: 'Checksum',
+  tooltip: <>Cyclic redundancy check value (CRC64)</>,
   render: ({ sequence: { crc64 } }) => crc64,
 });
 

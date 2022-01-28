@@ -3968,7 +3968,11 @@ exports[`ResultsData component should render the table view 1`] = `
           <th
             class=""
           >
-            Entry
+            <span
+              aria-expanded="false"
+            >
+              Entry
+            </span>
           </th>
         </tr>
       </thead>

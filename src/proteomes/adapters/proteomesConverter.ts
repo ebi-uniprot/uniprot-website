@@ -71,6 +71,7 @@ export type ProteomesAPIModel = {
   modified: string;
   proteomeType: ProteomeType;
   components?: Component[];
+  exclusionReasons?: string[];
   citations: Citation[];
   annotationScore: number;
   superkingdom: string;
