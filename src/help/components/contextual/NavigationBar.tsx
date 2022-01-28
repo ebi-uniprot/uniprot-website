@@ -38,7 +38,15 @@ const NavigationBar = ({ localHistory }: { localHistory: MemoryHistory }) => {
       >
         ←
       </Button>{' '}
-      <Link to={LocationToPath[Location.HelpResults]}>
+      <Link
+        to={LocationToPath[Location.HelpResults]}
+        onClick={(event) => {
+          if (!event.metaKey && !event.ctrlKey) {
+            event.preventDefault();
+            localHistory.push(LocationToPath[Location.HelpResults]);
+          }
+        }}
+      >
         <h1 className="medium">Help</h1>
       </Link>{' '}
       <Button

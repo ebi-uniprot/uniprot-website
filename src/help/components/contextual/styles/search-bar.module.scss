@@ -3,11 +3,16 @@
 
 .container {
   margin: -$global-margin;
+  margin-block-end: 0;
   position: sticky;
   top: -$global-margin;
   z-index: 1;
 
   & :global(.search-input__suffix) {
     color: $colour-help-green;
+  }
+
+  & input {
+    margin: 0;
   }
 }
