@@ -3,6 +3,7 @@
 
 .container {
   margin: -$global-margin;
+  margin-block-end: 0;
   position: sticky;
   top: -$global-margin;
   z-index: 1;
