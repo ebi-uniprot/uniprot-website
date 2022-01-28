@@ -22,7 +22,7 @@ const Shortcuts = ({ globalHistory }: { globalHistory: History }) => (
       </Link>
       {/* Blocked until we manage to get the contact page changes in main */}
       {/* eslint-disable-next-line */}
-      <Link to="#">
+      <Link to={LocationToPath[Location.ContactGeneric]}>
         <EnvelopeIcon width={iconWidth} />
         Contact us
       </Link>
