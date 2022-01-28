@@ -1,7 +1,14 @@
 import { useEffect, useRef } from 'react';
 import { SlidingPanel } from 'franklin-sites';
-import { createMemoryHistory, createPath } from 'history';
-import { Route, Router, Switch, useHistory } from 'react-router-dom';
+import { createMemoryHistory, createPath, History } from 'history';
+import {
+  Route,
+  Router,
+  Switch,
+  useHistory,
+  useLocation,
+} from 'react-router-dom';
+import qs from 'query-string';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import NavigationBar from './NavigationBar';
@@ -13,13 +20,68 @@ import HelpEntryPage from './Entry';
 import HelpResultsPage from './Results';
 import HelpLandingPage from './Landing';
 
+import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
+
+import { help as helpURL } from '../../../shared/config/apiUrls';
+
 import {
   LocationToPath,
   Location,
   getLocationEntryPath,
 } from '../../../app/config/urls';
+import { HelpSearchResponse } from '../../adapters/helpConverter';
 
 import styles from './styles/contextual-help.module.scss';
+
+const ContextualHepRouterContent = ({
+  globalHistory,
+}: {
+  globalHistory: History;
+}) => {
+  const location = useLocation();
+
+  const { query } = qs.parse(location.search);
+  const dataObject = useDataApiWithStale<HelpSearchResponse>(
+    query && helpURL.search({ query })
+  );
+
+  return (
+    <>
+      <SearchBar isLoading={dataObject.loading} />
+      <Switch>
+        {/* Just here to handle initial empty location */}
+        <Route path="/" exact />
+        {/* Specific entries */}
+        <Route
+          path={LocationToPath[Location.HelpEntry]}
+          component={HelpEntryPage}
+        />
+        {/* Will get content from page later, for now, star search */}
+        <Route
+          path={LocationToPath[Location.HelpResults]}
+          render={(props) => {
+            if (props.location.search) {
+              return <HelpResultsPage {...dataObject} />;
+            }
+            return (
+              <>
+                <Shortcuts globalHistory={globalHistory} />
+                <HelpLandingPage />
+              </>
+            );
+          }}
+        />
+        {/* Catch-all handler -> Redirect (within or global history) */}
+        <Route
+          path="*"
+          render={(props) => (
+            <CatchAll globalHistory={globalHistory} {...props} />
+          )}
+        />
+      </Switch>
+    </>
+  );
+};
 
 type Props = {
   articlePath?: string;
@@ -48,12 +110,7 @@ const ContextualHelpContainer = ({ articlePath, onClose }: Props) => {
 
   return (
     <SlidingPanel
-      title={
-        <NavigationBar
-          localHistory={localHistoryRef.current}
-          globalHistory={globalHistory}
-        />
-      }
+      title={<NavigationBar localHistory={localHistoryRef.current} />}
       onClose={onClose}
       withCloseButton
       className={styles['contextual-help-panel']}
@@ -62,38 +119,7 @@ const ContextualHelpContainer = ({ articlePath, onClose }: Props) => {
     >
       <ErrorBoundary>
         <Router history={localHistoryRef.current}>
-          <SearchBar />
-          <Switch>
-            {/* Just here to handle initial empty location */}
-            <Route path="/" exact />
-            {/* Specific entries */}
-            <Route
-              path={LocationToPath[Location.HelpEntry]}
-              component={HelpEntryPage}
-            />
-            {/* Will get content from page later, for now, star search */}
-            <Route
-              path={LocationToPath[Location.HelpResults]}
-              render={(props) => {
-                if (props.location.search) {
-                  return <HelpResultsPage {...props} />;
-                }
-                return (
-                  <>
-                    <Shortcuts globalHistory={globalHistory} />
-                    <HelpLandingPage />
-                  </>
-                );
-              }}
-            />
-            {/* Catch-all handler -> Redirect (within or global history) */}
-            <Route
-              path="*"
-              render={(props) => (
-                <CatchAll globalHistory={globalHistory} {...props} />
-              )}
-            />
-          </Switch>
+          <ContextualHepRouterContent globalHistory={globalHistory} />
         </Router>
       </ErrorBoundary>
     </SlidingPanel>

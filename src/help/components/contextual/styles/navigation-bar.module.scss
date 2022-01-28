@@ -1,11 +1,23 @@
+@import 'franklin-sites/src/styles/colours';
+
 :global(.sliding-panel__header__title) {
   flex: 1;
 }
 
 .container {
   display: flex;
+  align-items: center;
 
+  & a {
+    &,
+    &:hover,
+    & * {
+      color: $colour-sky-white;
+    }
+  }
+
+  // Open full view icon/link
   & > :last-child {
-    margin-inline-start: auto;
+    margin-inline: auto 0.5ch;
   }
 }
