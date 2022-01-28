@@ -21,11 +21,13 @@ const ContextualHelp = () => {
   const smallScreen = useMatchMedia('only screen and (max-height: 35em)');
 
   const isHelpResults = useRouteMatch(LocationToPath[Location.HelpResults]);
-  const isHelpEntry = useRouteMatch(LocationToPath[Location.HelpEntry]);
-  const isContact = useRouteMatch(LocationToPath[Location.Contact]);
+  const isGenericContact = useRouteMatch(
+    LocationToPath[Location.ContactGeneric]
+  );
+  const isUpdateContact = useRouteMatch(LocationToPath[Location.ContactUpdate]);
 
   const shouldBeVisible =
-    !isHelpResults && !isHelpEntry && !isContact && !smallScreen;
+    !isHelpResults && !isGenericContact && !isUpdateContact && !smallScreen;
 
   useEffect(() => {
     // Make sure to reset the button when in pages without contextual help
