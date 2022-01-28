@@ -1,6 +1,6 @@
 import { SearchInput } from 'franklin-sites';
 import { debounce } from 'lodash-es';
-import { useMemo, useEffect, useCallback, ChangeEvent } from 'react';
+import { useMemo, useEffect, useCallback, ChangeEvent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import qs from 'query-string';
 
@@ -8,8 +8,9 @@ import { LocationToPath, Location } from '../../../app/config/urls';
 
 import styles from './styles/search-bar.module.scss';
 
-const SearchBar = () => {
+const SearchBar = ({ isLoading }: { isLoading: boolean }) => {
   const history = useHistory();
+  const [value, setValue] = useState('');
 
   const replaceQueryInLocation = useMemo(
     () =>
@@ -28,6 +29,7 @@ const SearchBar = () => {
   const handleChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       replaceQueryInLocation(event.target.value);
+      setValue(event.target.value);
       if (!event.target.value) {
         // get to the landing asap if no search value
         replaceQueryInLocation.flush();
@@ -42,6 +44,8 @@ const SearchBar = () => {
         placeholder="Search"
         className={styles.input}
         onChange={handleChange}
+        isLoading={isLoading}
+        value={value}
       />
     </div>
   );

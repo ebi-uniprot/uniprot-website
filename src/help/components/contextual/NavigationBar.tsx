@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { History, MemoryHistory } from 'history';
+import { MemoryHistory } from 'history';
+import { Link } from 'react-router-dom';
 import { Button, ExternalLinkIcon } from 'franklin-sites';
 import cn from 'classnames';
 
@@ -8,12 +9,7 @@ import { LocationToPath, Location } from '../../../app/config/urls';
 import helper from '../../../shared/styles/helper.module.scss';
 import styles from './styles/navigation-bar.module.scss';
 
-type Props = {
-  localHistory: MemoryHistory;
-  globalHistory: History;
-};
-
-const NavigationBar = ({ localHistory, globalHistory }: Props) => {
+const NavigationBar = ({ localHistory }: { localHistory: MemoryHistory }) => {
   // This state is to trigger a render when updated, the location is not
   // actually used, but the state setter is called on every location change
   // We need that because history is mutated, its reference doesn't change
@@ -33,37 +29,37 @@ const NavigationBar = ({ localHistory, globalHistory }: Props) => {
       {/* All of this contains the "fake" browser navigation */}
       <Button
         variant="tertiary"
-        className={cn({
+        className={cn('medium', {
           [helper.disabled]: !localHistory.canGo(-1),
         })}
         disabled={!localHistory.canGo(-1)}
         onClick={() => localHistory.go(-1)}
+        title="Back button"
       >
         ←
       </Button>{' '}
+      <Link to={LocationToPath[Location.HelpResults]}>
+        <h1 className="medium">Help</h1>
+      </Link>{' '}
       <Button
         variant="tertiary"
-        onClick={() => localHistory.push(LocationToPath[Location.HelpResults])}
-      >
-        Help
-      </Button>{' '}
-      <Button
-        variant="tertiary"
-        className={cn({
+        className={cn('medium', {
           [helper.disabled]: !localHistory.canGo(1),
         })}
         disabled={!localHistory.canGo(1)}
         onClick={() => localHistory.go(1)}
+        title="Forward button"
       >
         →
       </Button>
-      <Button
-        variant="tertiary"
-        // the panel's location will be passed to the global history
-        onClick={() => globalHistory.push(localHistory.location)}
+      <Link
+        // the panel's current location will be passed to the global history
+        // eslint-disable-next-line uniprot-website/use-config-location
+        to={localHistory.location}
+        title="Open current content in full page"
       >
-        <ExternalLinkIcon />
-      </Button>
+        <ExternalLinkIcon width="0.8em" />
+      </Link>
     </div>
   );
 };

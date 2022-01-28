@@ -1,3 +1,4 @@
+@import 'franklin-sites/src/styles/colours';
 @import 'franklin-sites/src/styles/settings';
 
 .container {
@@ -5,4 +6,8 @@
   position: sticky;
   top: -$global-margin;
   z-index: 1;
+
+  & :global(.search-input__suffix) {
+    color: $colour-help-green;
+  }
 }

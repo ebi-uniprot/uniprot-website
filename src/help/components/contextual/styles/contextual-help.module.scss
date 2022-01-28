@@ -34,4 +34,9 @@ $help-height: 35em;
     @include scroll-shadow($colour-sky-white);
     overscroll-behavior: contain;
   }
+
+  :global(.error-page-container) svg {
+    width: 50%;
+    height: 50%;
+  }
 }

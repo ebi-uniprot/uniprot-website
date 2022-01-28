@@ -1,3 +1,4 @@
+@import 'franklin-sites/src/styles/common/z-index';
 @import 'franklin-sites/src/styles/colours';
 
 .container {
@@ -15,7 +16,7 @@
   right: 0;
   border-radius: 0.5ch 0 0 0.5ch;
   writing-mode: vertical-rl;
-  z-index: 99;
+  z-index: $z-index-high;
   opacity: 0;
   transform: translateX(100%) rotate(180deg);
   transition-duration: 0.25s;
@@ -40,7 +41,7 @@
   }
 
   &.help {
-    bottom: calc(25% - 2ch);
+    bottom: calc(50% - 17ch);
 
     &,
     &:hover {
