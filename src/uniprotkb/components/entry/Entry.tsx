@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Link, useRouteMatch, useHistory } from 'react-router-dom';
 import { InPageNav, Loader, Tabs, Tab } from 'franklin-sites';
 import cn from 'classnames';
+import qs from 'query-string';
 import { frame } from 'timing-functions';
 
 import EntrySection, {
@@ -59,6 +60,7 @@ import {
   searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
 import { EntryType } from '../../../shared/components/entry/EntryTypeIcon';
+import { ContactLocationState } from '../../../contact/components/ContactForm';
 
 import helper from '../../../shared/styles/helper.module.scss';
 import sticky from '../../../shared/styles/sticky.module.scss';
@@ -360,15 +362,22 @@ const Entry: FC = () => {
                   Add a publication
                 </a>
                 {/* eslint-disable-next-line react/jsx-no-target-blank */}
-                <a
-                  href={`https://www.uniprot.org/update?entry=${match.params.accession}`}
+                <Link<ContactLocationState>
+                  to={(location) => ({
+                    pathname: LocationToPath[Location.ContactUpdate],
+                    search: qs.stringify({
+                      entry: match.params.accession,
+                      entryType:
+                        transformedData?.entryType === EntryType.REVIEWED
+                          ? 'Reviewed (Swiss-Prot)'
+                          : 'Unreviewed (TrEMBL)',
+                    }),
+                    state: { referrer: location },
+                  })}
                   className="button tertiary"
-                  target="_blank"
-                  rel="noopener"
-                  referrerPolicy="no-referrer-when-downgrade"
                 >
                   Entry feedback
-                </a>
+                </Link>
               </div>
               <EntryMain transformedData={transformedData} />
             </>

@@ -135,6 +135,10 @@ const apiUrls = {
   uniparc: {
     entry: (id?: string) => id && joinUrl(apiPrefix, '/uniparc', id),
   },
+  contact: {
+    token: joinUrl(apiPrefix, 'contact', 'token'),
+    send: joinUrl(apiPrefix, 'contact', 'send'),
+  },
 };
 
 export default apiUrls;

@@ -1,4 +1,8 @@
+import { Link } from 'react-router-dom';
 import { EnvelopeIcon, ExternalLink } from 'franklin-sites';
+
+import { LocationToPath, Location } from '../../../app/config/urls';
+import { ContactLocationState } from '../../../contact/components/ContactForm';
 
 import footer from './styles/contact.module.scss';
 
@@ -11,13 +15,14 @@ import GGroupsLogo from '../../../images/ggroups-logo.svg';
 const Contact = () => (
   <div>
     <p>
-      <ExternalLink
-        noIcon
-        url="https://www.uniprot.org/contact"
-        referrerPolicy="no-referrer-when-downgrade"
+      <Link<ContactLocationState>
+        to={(location) => ({
+          pathname: LocationToPath[Location.ContactGeneric],
+          state: { referrer: location },
+        })}
       >
         Get in touch <EnvelopeIcon width="2ch" />
-      </ExternalLink>
+      </Link>
     </p>
     <p className={footer.social}>
       <ExternalLink

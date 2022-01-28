@@ -215,6 +215,14 @@ const HelpResults = lazy(
     )
 );
 
+// Contact
+const ContactForm = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "contact-form" */ '../../contact/components/ContactForm'
+    )
+);
+
 const ResourceNotFoundPage = lazy(
   () =>
     import(
@@ -386,10 +394,12 @@ const App = () => {
                 </SingleColumnLayout>
               )}
             />
+            {/* Basket */}
             <Route
               path={LocationToPath[Location.Basket]}
               component={BasketFullView}
             />
+            {/* Help */}
             <Route
               path={LocationToPath[Location.HelpEntry]}
               component={HelpEntryPage}
@@ -398,13 +408,22 @@ const App = () => {
               path={LocationToPath[Location.HelpResults]}
               component={ResultsOrLanding(HelpResults, HelpLandingPage)}
             />
+            {/* Contact */}
             <Route
-              path={LocationToPath[Location.Contact]}
-              component={() => {
-                // Temporary redirect to current website
-                window.location.href = 'https://www.uniprot.org/contact';
-                return null;
-              }}
+              path={LocationToPath[Location.ContactGeneric]}
+              render={() => (
+                <SingleColumnLayout>
+                  <ContactForm />
+                </SingleColumnLayout>
+              )}
+            />
+            <Route
+              path={LocationToPath[Location.ContactUpdate]}
+              render={() => (
+                <SingleColumnLayout>
+                  <ContactForm />
+                </SingleColumnLayout>
+              )}
             />
             {/* Catch-all handler -> Redirect or not found use ResourceNotFoundPage */}
             <Route

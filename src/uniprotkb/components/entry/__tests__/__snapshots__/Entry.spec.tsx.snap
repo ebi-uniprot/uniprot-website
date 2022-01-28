@@ -322,10 +322,7 @@ exports[`Entry basic should render main 1`] = `
               </a>
               <a
                 class="button tertiary"
-                href="https://www.uniprot.org/update?entry=P21802"
-                referrerpolicy="no-referrer-when-downgrade"
-                rel="noopener"
-                target="_blank"
+                href="/update?entry=P21802&entryType=Reviewed%20%28Swiss-Prot%29"
               >
                 Entry feedback
               </a>

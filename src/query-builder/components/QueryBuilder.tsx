@@ -80,11 +80,7 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialNamespace }: Props) => {
   );
 
   const { loading, data: searchTermsData } = useDataApi<SearchTermType[]>(
-    namespace &&
-      apiUrls
-        .queryBuilderTerms(namespace)
-        // TODO: remove this when the backend is fixed https://www.ebi.ac.uk/panda/jira/browse/TRM-26571
-        .replace('/keywords/', '/keyword/')
+    namespace && apiUrls.queryBuilderTerms(namespace)
   );
 
   useEffect(() => {

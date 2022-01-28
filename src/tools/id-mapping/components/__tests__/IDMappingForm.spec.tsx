@@ -45,13 +45,13 @@ describe('IDMappingForm test', () => {
       '"my job title"'
     ) as HTMLInputElement;
     const initialToDatabaseButton = screen.getByRole('button', {
-      name: 'UniRef90',
+      name: 'UniProtKB',
     });
 
     // One ID with default toDB
     fireEvent.change(idInput, { target: { value: 'P31946' } });
     expect(screen.getByText('Your input contains 1 ID')).toBeInTheDocument();
-    expect(jobNameInput.value).toEqual('P31946 UniProtKB_AC-ID → UniRef90');
+    expect(jobNameInput.value).toEqual('P31946 UniProtKB_AC-ID → UniProtKB');
 
     // Two IDs with toDB:=CCDS
     fireEvent.click(initialToDatabaseButton);
@@ -70,11 +70,11 @@ describe('IDMappingForm test', () => {
     const jobNameInput = screen.getByPlaceholderText(
       '"my job title"'
     ) as HTMLInputElement;
-    expect(jobNameInput.value).toEqual('P31946 +1 UniProtKB_AC-ID → UniRef90');
+    expect(jobNameInput.value).toEqual('P31946 +1 UniProtKB_AC-ID → UniProtKB');
     fireEvent.change(idInput, {
       target: { value: 'P31946 ALBU_HUMAN' },
     });
-    expect(jobNameInput.value).toEqual('P31946 +1 UniProtKB_AC-ID → UniRef90');
+    expect(jobNameInput.value).toEqual('P31946 +1 UniProtKB_AC-ID → UniProtKB');
   });
 
   it('Resets the form', async () => {

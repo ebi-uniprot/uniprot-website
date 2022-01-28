@@ -268,8 +268,9 @@ const SecondaryItems = () => {
           <EnvelopeIcon width={secondaryItemIconSize} />
         </span>
       ),
-      // TODO: update link
-      href: '//www.uniprot.org/contact',
+      // TODO: need to pass the referrer state here somehow
+      // -> refactor secondary items in franklin's Header component?
+      path: LocationToPath[Location.ContactGeneric],
     },
     {
       label: 'Help',
