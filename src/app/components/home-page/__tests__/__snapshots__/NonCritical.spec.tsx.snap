@@ -779,11 +779,8 @@ exports[`non-critical HomePage component should render 1`] = `
       </a>
        
       <a
-        class="external-link"
-        href="https://www.uniprot.org/contact"
-        referrerpolicy="no-referrer-when-downgrade"
-        rel="noopener"
-        target="_blank"
+        class="help-center-link"
+        href="/contact"
       >
         Contact us
       </a>
