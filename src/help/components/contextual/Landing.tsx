@@ -1,12 +1,167 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useRef } from 'react';
 import { throttle } from 'lodash-es';
+import { Link } from 'react-router-dom';
+import { ExternalLink } from 'franklin-sites';
+import cn from 'classnames';
+
+import useDataApi from '../../../shared/hooks/useDataApi';
+
+import { help as helpURL } from '../../../shared/config/apiUrls';
+import { searchableNamespaceLabels } from '../../../shared/types/namespaces';
+import {
+  getLocationEntryPathFor,
+  Location,
+  LocationToPath,
+} from '../../../app/config/urls';
+
+import styles from './styles/landing.module.css';
+import { HelpEntryResponse } from '../../adapters/helpConverter';
+
+const getHelpEntryPath = getLocationEntryPathFor(Location.HelpEntry);
+
+const fallbackLandingContent = (
+  <>
+    <li>
+      <h3 className="small">UniProt data</h3>
+      <ul className="no-bullet">
+        <li>
+          <Link to={getHelpEntryPath('uniprotkb_manual')}>
+            {searchableNamespaceLabels.uniprotkb}
+          </Link>
+        </li>
+        <li>
+          <Link to={getHelpEntryPath('proteomes_manual')}>
+            {searchableNamespaceLabels.proteomes}
+          </Link>
+        </li>
+        <li>
+          <Link to={getHelpEntryPath('uniref')}>
+            {searchableNamespaceLabels.uniref}
+          </Link>
+        </li>
+        <li>
+          <Link to={getHelpEntryPath('uniparc')}>
+            {searchableNamespaceLabels.uniparc}
+          </Link>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <h3 className="small">Get started</h3>
+      <ul className="no-bullet">
+        <li>
+          <Link to={getHelpEntryPath('find_your_protein')}>
+            Find your protein
+          </Link>
+        </li>
+        <li>
+          <Link to={getHelpEntryPath('explore_uniprotkb_entry')}>
+            Explore UniProtKB entry
+          </Link>
+        </li>
+        <li>
+          <Link to={getHelpEntryPath('explore_proteomes')}>
+            Explore proteomes
+          </Link>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <h3 className="small">Training</h3>
+      <ul className="no-bullet">
+        <li>
+          <ExternalLink url="https://www.ebi.ac.uk/training/online/courses/uniprot-quick-tour">
+            Online training
+          </ExternalLink>
+        </li>
+        <li>
+          <ExternalLink url="https://www.ebi.ac.uk/training/search-results?query=uniprot&domain=ebiweb_training&page=1&facets=">
+            Courses
+          </ExternalLink>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <h3 className="small">Technical corner</h3>
+      <ul className="no-bullet">
+        <li>
+          <Link to={getHelpEntryPath('programmatic_access')}>
+            Programmatic access
+          </Link>
+        </li>
+        <li>
+          {/* TODO: this goes to the same place as above but these links are subject to change anyway */}
+          <Link to={getHelpEntryPath('programmatic_access')}>UniProt JAPI</Link>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <h3 className="small">Biocuration</h3>
+      <ul className="no-bullet">
+        <li>
+          <Link to={getHelpEntryPath('biocuration')}>UniProt biocuration</Link>
+        </li>
+        <li>
+          <Link
+            to={{
+              pathname: LocationToPath[Location.HelpResults],
+              search: '?query=*&facets=category:biocuration',
+            }}
+          >
+            Biocuration projects
+          </Link>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <h3 className="small">About us</h3>
+      <ul className="no-bullet">
+        <li>
+          <Link to={getHelpEntryPath('about')}>About UniProt</Link>
+        </li>
+        <li>
+          <Link to={getHelpEntryPath('publications')}>How to cite us</Link>
+        </li>
+      </ul>
+    </li>
+  </>
+);
+
+type ArticleTitleProps = {
+  id: string;
+  firstVisible: boolean;
+  isVisible: boolean;
+};
+
+const ArticleTitle = ({ id, firstVisible, isVisible }: ArticleTitleProps) => {
+  const ref = useRef<HTMLAnchorElement>(null);
+
+  const { data } = useDataApi<HelpEntryResponse>(
+    `${helpURL.accession(id)}?fields=title`
+  );
+
+  useEffect(() => {
+    if (firstVisible) {
+      ref.current?.scrollIntoView({ block: 'center' });
+    }
+  }, [firstVisible]);
+
+  return (
+    <Link
+      ref={ref}
+      to={getHelpEntryPath(id)}
+      className={cn({ [styles['in-view']]: isVisible })}
+    >
+      {data?.title || id}
+    </Link>
+  );
+};
 
 const headerHeight = 70; // 70px, also defined in _settings.scss -> keep in sync
 
 type InPageArticles = Map<string, boolean>;
 
 const getAllArticles = () => {
-  console.time('getting articles');
   const inPageArticles: InPageArticles = new Map();
 
   const screenHeight =
@@ -39,7 +194,6 @@ const getAllArticles = () => {
     // order in HTML, and corresponding order in the page
   }
 
-  console.timeEnd('getting articles');
   return inPageArticles;
 };
 
@@ -81,15 +235,30 @@ const Landing = () => {
     };
   }, [updateContent]);
 
+  let firstVisibleFound = false;
+
   return (
-    <section>
-      <h2 className="small">Start here</h2>
+    <section className={styles.container}>
       <ul className="no-bullet">
-        {Array.from(inPageArticles).map(([id, isVisible]) => (
-          <li key={id}>
-            {id} {isVisible ? '👀' : '🙈'}
-          </li>
-        ))}
+        <h2 className="medium">Start here</h2>
+        {inPageArticles.size
+          ? Array.from(inPageArticles).map(([id, isVisible]) => {
+              let firstVisible = false;
+              if (!firstVisibleFound && isVisible) {
+                firstVisible = true;
+                firstVisibleFound = true;
+              }
+              return (
+                <li key={id}>
+                  <ArticleTitle
+                    id={id}
+                    firstVisible={firstVisible}
+                    isVisible={isVisible}
+                  />
+                </li>
+              );
+            })
+          : fallbackLandingContent}
       </ul>
     </section>
   );

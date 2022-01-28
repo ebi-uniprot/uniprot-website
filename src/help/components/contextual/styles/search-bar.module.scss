@@ -10,4 +10,8 @@
   & :global(.search-input__suffix) {
     color: $colour-help-green;
   }
+
+  & input {
+    margin: 0;
+  }
 }
