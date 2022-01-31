@@ -18,11 +18,6 @@ export enum DiseasesColumn {
   id = 'id',
   keywords = 'keywords',
   name = 'name',
-  // TODO: remove this once the backend is fixed https://www.ebi.ac.uk/panda/jira/browse/TRM-26601
-  reviewedProteinCount = 'reviewed_protein_count',
-  // TODO: remove this once the backend is fixed https://www.ebi.ac.uk/panda/jira/browse/TRM-26601
-  unreviewedProteinCount = 'unreviewed_protein_count',
-  // NOTE: once the backend is fixed, this will be available https://www.ebi.ac.uk/panda/jira/browse/TRM-26601
   statistics = 'statistics',
 }
 
