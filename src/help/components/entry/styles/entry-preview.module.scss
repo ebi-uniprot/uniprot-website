@@ -1,0 +1,28 @@
+@import 'franklin-sites/src/styles/settings';
+
+.private-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  inline-size: 100%;
+  min-block-size: 100px;
+  padding: $global-padding;
+  background: lightcoral;
+
+  & > label {
+    inline-size: 80vw;
+    min-inline-size: 40ch;
+  }
+
+  & > * {
+    max-inline-size: 100%;
+  }
+
+  & :global(.codeblock) {
+    max-inline-size: 100%;
+  }
+
+  & dd {
+    padding-inline-start: 1ch;
+  }
+}

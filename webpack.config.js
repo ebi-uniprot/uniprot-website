@@ -267,8 +267,10 @@ module.exports = (env, argv) => {
           maximumFileSizeToCacheInBytes: 1024 * 1024 * 3 * (isDev ? 4 : 1),
           // exclude fonts from precaching because one specific browser will
           // never need all fonts formats at the same time, will cache later
-          // whichever is actually used. Exclude sourcemaps too.
-          exclude: [/fonts/, /\.map$/],
+          // whichever is actually used.
+          // Exclude sourcemaps too.
+          // Exclude chunks marked as "nocache" (big and/or not used much)
+          exclude: [/fonts/, /\.map$/, /\.nocache/],
         }),
       !isLiveReload &&
         !isTest &&
