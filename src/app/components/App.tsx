@@ -1,4 +1,4 @@
-import { lazy, Suspense, FC, CSSProperties, useEffect, useRef } from 'react';
+import { lazy, Suspense, FC } from 'react';
 import { Route, Switch, RouteChildrenProps, Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Loader } from 'franklin-sites';
@@ -230,23 +230,14 @@ const ResourceNotFoundPage = lazy(
     )
 );
 
-const reportBugLinkStyles: CSSProperties = {
-  fontSize: '.8rem',
-  lineHeight: '1rem',
-  padding: '1.5ch',
-  color: '#FFF',
-  backgroundColor: '#126A9F',
-  position: 'fixed',
-  bottom: 'calc(50% - 5ch)',
-  right: 0,
-  borderRadius: '0.5ch 0 0 0.5ch',
-  writingMode: 'vertical-rl',
-  textOrientation: 'sideways',
-  zIndex: 99,
-  opacity: 0,
-  transform: `translateX(100%)`,
-  transition: 'transform ease-out 0.25s',
-};
+const ContextualHelp = lazy(() =>
+  sleep(1000).then(
+    () =>
+      import(
+        /* webpackChunkName: "contextual-help" */ '../../help/components/contextual/ContextualHelp'
+      )
+  )
+);
 
 // Helper component to render a landing page or the results page depending on
 // the presence of absence of a querystring
@@ -267,23 +258,6 @@ const RedirectToStarSearch = ({ location }: RouteChildrenProps) => (
 const App = () => {
   useScrollToTop(history);
   useReloadApp(history);
-
-  const feedbackRef = useRef<HTMLAnchorElement>(null);
-
-  useEffect(() => {
-    sleep(3000).then(() => {
-      // If there's already Hotjar's feedback, don't do anything
-      if (document.querySelector('._hj_feedback_container')) {
-        return;
-      }
-      if (!feedbackRef.current) {
-        return;
-      }
-      feedbackRef.current.tabIndex = 0;
-      feedbackRef.current.style.opacity = '1';
-      feedbackRef.current.style.transform = 'translateX(0)';
-    });
-  });
 
   return (
     <>
@@ -466,16 +440,11 @@ const App = () => {
       <ErrorBoundary fallback={null}>
         <GDPR />
       </ErrorBoundary>
-      <a
-        style={reportBugLinkStyles}
-        target="_blank"
-        href="https://goo.gl/forms/VrAGbqg2XFg6Mpbh1"
-        rel="noopener noreferrer"
-        tabIndex={-1}
-        ref={feedbackRef}
-      >
-        Feedback
-      </a>
+      <Suspense fallback={null}>
+        <ErrorBoundary fallback={null}>
+          <ContextualHelp />
+        </ErrorBoundary>
+      </Suspense>
     </>
   );
 };

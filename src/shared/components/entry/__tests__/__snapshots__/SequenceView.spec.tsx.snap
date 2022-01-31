@@ -30,7 +30,11 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
         <div
           class="decorated-list-item__title tiny"
         >
-          Sequence status
+          <span
+            data-article-id="sequence_status"
+          >
+            Sequence status
+          </span>
         </div>
         <div
           class="decorated-list-item__content"
@@ -46,7 +50,11 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
         <div
           class="decorated-list-item__title tiny"
         >
-          Sequence processing
+          <span
+            data-article-id="sequence_processing"
+          >
+            Sequence processing
+          </span>
         </div>
         <div
           class="decorated-list-item__content"
@@ -61,7 +69,13 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
     <strong>
       2
     </strong>
-     isoforms produced by 
+     
+    <span
+      data-article-id="alternative_products"
+    >
+      isoforms
+    </span>
+     produced by 
     <strong>
       event 1 & event 2
     </strong>
@@ -265,7 +279,11 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
           <div
             class="decorated-list-item__title tiny"
           >
-            Checksum
+            <span
+              data-article-id="checksum"
+            >
+              Checksum
+            </span>
           </div>
           <div
             class="decorated-list-item__content"

@@ -1,5 +1,5 @@
-import { useCallback, MouseEventHandler, useMemo } from 'react';
-import { useHistory, useRouteMatch } from 'react-router-dom';
+import { useCallback, MouseEventHandler, useMemo, useEffect } from 'react';
+import { RouteChildrenProps, useHistory } from 'react-router-dom';
 import { Card, Loader, Message } from 'franklin-sites';
 import { marked } from 'marked';
 import {
@@ -21,9 +21,9 @@ import { help as helpURL } from '../../../shared/config/apiUrls';
 import cleanText, {
   cleanTextDefaultOptions,
   getTransformTags,
+  HeadingLevels,
 } from '../../../shared/utils/cleanText';
 import parseDate from '../../../shared/utils/parseDate';
-import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { HelpEntryResponse } from '../../adapters/helpConverter';
 
@@ -59,7 +59,7 @@ const allowedClasses = (cleanTextDefaultOptions.allowedClasses?.['*'] ||
   []) as string[];
 
 // TODO: probably need to play with the options here in order to make it look OK
-const cleanTextOptions: IOptions = {
+const getCleanTextOptions = (headingLevel: HeadingLevels): IOptions => ({
   ...cleanTextDefaultOptions,
   allowedTags: [...defaults.allowedTags, 'img'],
   // none by default, so explicitely accept only the ones from the stylesheets
@@ -71,21 +71,27 @@ const cleanTextOptions: IOptions = {
     ],
   },
   transformTags: {
-    ...getTransformTags('h1'),
+    ...getTransformTags(headingLevel),
     a: aTransformer,
   },
+});
+
+type HelpEntryContentProps = {
+  data: HelpEntryResponse;
+  upperHeadingLevel?: HeadingLevels;
 };
 
-const HelpEntry = () => {
+export const HelpEntryContent = ({
+  data,
+  upperHeadingLevel = 'h1',
+}: HelpEntryContentProps) => {
   const history = useHistory();
-  const match = useRouteMatch<{ accession: string }>(
-    LocationToPath[Location.HelpEntry]
-  );
 
-  const accession = match?.params.accession;
-
-  const { data, loading, error, status, progress, isStale } =
-    useDataApiWithStale<HelpEntryResponse>(helpURL.accession(accession));
+  useEffect(() => {
+    document
+      .getElementById(history.location.hash.substring(1))
+      ?.scrollIntoView();
+  }, [history.location.hash]);
 
   // Hijack clicks on content
   const handleClick = useCallback<MouseEventHandler<HTMLElement>>(
@@ -106,23 +112,66 @@ const HelpEntry = () => {
     [history]
   );
 
-  const [lastModifed, html] = useMemo(
-    () =>
-      data?.content
-        ? [
-            parseDate(data.lastModified),
-            cleanText(marked(data.content), cleanTextOptions),
-          ]
-        : [],
-    [data]
-  );
+  const html = useMemo(() => {
+    if (data?.content) {
+      return cleanText(
+        marked(data.content),
+        getCleanTextOptions(upperHeadingLevel)
+      );
+    }
+    return null;
+  }, [data, upperHeadingLevel]);
 
-  if (loading && !data && !html) {
+  if (!html) {
+    return <ErrorHandler />;
+  }
+
+  // event delegation here, not actually doing anything with the div
+  return (
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
+    <div
+      // eslint-disable-next-line react/no-danger
+      dangerouslySetInnerHTML={{ __html: html }}
+      onClick={handleClick}
+    />
+  );
+};
+
+type Props = {
+  inPanel?: boolean;
+};
+
+const HelpEntry = ({
+  match,
+  inPanel,
+}: RouteChildrenProps<{ accession: string }> & Props) => {
+  const accession = match?.params.accession;
+
+  const { data, loading, error, status, progress, isStale } =
+    useDataApiWithStale<HelpEntryResponse>(helpURL.accession(accession));
+
+  const lastModifed = useMemo(() => {
+    if (data?.content) {
+      return parseDate(data.lastModified);
+    }
+    return null;
+  }, [data]);
+
+  if (loading && !data) {
     return <Loader progress={progress} />;
   }
 
-  if (error || !data || !html) {
+  if (error || !data) {
     return <ErrorHandler status={status} />;
+  }
+
+  if (inPanel) {
+    return (
+      <>
+        <h2 className="medium">{data.title}</h2>
+        <HelpEntryContent data={data} upperHeadingLevel="h3" />
+      </>
+    );
   }
 
   return (
@@ -135,13 +184,7 @@ const HelpEntry = () => {
         {data.title}
       </h1>
       <Card className={cn(styles.content, { [helper.stale]: isStale })}>
-        {/* event delegation here, not actually doing anything with the div */}
-        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
-        <div
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{ __html: html }}
-          onClick={handleClick}
-        />
+        <HelpEntryContent data={data} />
       </Card>
       {lastModifed && (
         <div className={styles['last-updated-help']}>

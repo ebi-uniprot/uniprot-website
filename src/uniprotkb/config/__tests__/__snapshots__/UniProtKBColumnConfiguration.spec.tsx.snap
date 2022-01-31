@@ -126,7 +126,13 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_alterna
     <strong>
       1
     </strong>
-     isoforms produced by 
+     
+    <span
+      data-article-id="alternative_products"
+    >
+      isoforms
+    </span>
+     produced by 
     <strong>
       Alternative initiation
     </strong>
@@ -583,9 +589,9 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_mass_sp
   <section
     class="text-block"
   >
-    <h3>
+    <h4>
       isoform 1
-    </h3>
+    </h4>
     Molecular mass is 2.1 Da. Determined by LSI. note value
     <button
       aria-controls="0"

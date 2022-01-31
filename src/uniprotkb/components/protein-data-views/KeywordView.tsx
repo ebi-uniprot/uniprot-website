@@ -66,7 +66,7 @@ const KeywordView = ({ keywords }: { keywords: KeywordUIModel[] }) => {
   }
   return (
     <>
-      <h3>Keywords</h3>
+      <h3 data-article-id="keywords">Keywords</h3>
       <InfoList infoData={infoData} />
     </>
   );

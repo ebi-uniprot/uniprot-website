@@ -157,6 +157,7 @@ export const getColumnsToDisplay = (
       const columnDescriptor = {
         label: columnConfig.label,
         name: columnName,
+        tooltip: columnConfig.tooltip,
         render: (row: APIModel) =>
           columnConfig.render(convertRow(row, namespace, databaseInfoMaps)),
       };

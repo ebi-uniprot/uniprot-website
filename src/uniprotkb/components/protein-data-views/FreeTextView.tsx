@@ -90,6 +90,7 @@ export const TextView = ({ comments, noEvidence }: TextViewProps) => (
 type FreeTextProps = {
   comments?: FreeTextComment[];
   title?: ReactNode;
+  articleId?: string;
   showMolecule?: boolean;
   noEvidence?: boolean;
 };
@@ -97,6 +98,7 @@ type FreeTextProps = {
 const FreeTextView: FC<FreeTextProps> = ({
   comments,
   title,
+  articleId,
   showMolecule = true,
   noEvidence,
 }) => {
@@ -126,7 +128,11 @@ const FreeTextView: FC<FreeTextProps> = ({
 
   return (
     <>
-      {title && <h3 className={helper.capitalize}>{title}</h3>}
+      {title && (
+        <h3 className={helper.capitalize} data-article-id={articleId}>
+          {title}
+        </h3>
+      )}
       {freeTextData}
     </>
   );

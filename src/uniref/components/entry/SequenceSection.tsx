@@ -22,7 +22,7 @@ const SequenceSection = ({ data }: { data: SequenceType }) => {
       content: <LongNumber>{data.molWeight}</LongNumber>,
     },
     {
-      title: 'Checksum',
+      title: <span data-article-id="checksum">Checksum</span>,
       content: data.crc64,
     },
   ];

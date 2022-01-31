@@ -50,7 +50,11 @@ exports[`EntryMain view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Protein count
+                <span
+                  data-article-id="proteome_redundancy"
+                >
+                  Protein count
+                </span>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -91,7 +95,11 @@ exports[`EntryMain view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Proteome ID
+                <span
+                  data-article-id="proteome_id"
+                >
+                  Proteome ID
+                </span>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -128,7 +136,11 @@ exports[`EntryMain view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Genome assembly and annotation
+                <span
+                  data-article-id="https://www.ensembl.org/Help/Faq?id=216"
+                >
+                  Genome assembly and annotation
+                </span>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -171,11 +183,11 @@ exports[`EntryMain view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                <abbr
-                  title="Complete Proteome Detector"
+                <span
+                  data-article-id="assessing_proteomes#complete-proteome-detector-cpd"
                 >
-                  CPD
-                </abbr>
+                  Completeness (CPD)
+                </span>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -191,11 +203,11 @@ exports[`EntryMain view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                <abbr
-                  title="Benchmarking Universal Single-Copy Orthologs"
+                <span
+                  data-article-id="assessing_proteomes#benchmarking-universal-single-copy-orthologs-busco"
                 >
                   BUSCO
-                </abbr>
+                </span>
               </div>
               <div
                 class="decorated-list-item__content"

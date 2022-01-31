@@ -188,7 +188,7 @@ const GoRibbon = ({
 
   return (
     <div className="GoRibbon">
-      <h3>GO Annotations</h3>
+      <h3 data-article-id="gene_ontology">GO Annotations</h3>
       <Helmet>
         <script
           type="module"
