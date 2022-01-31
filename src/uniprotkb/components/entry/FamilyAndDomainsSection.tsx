@@ -29,7 +29,9 @@ const FamilyAndDomainsSection = ({
   return (
     <Card
       header={
-        <h2>{getEntrySectionNameAndId(EntrySection.FamilyAndDomains).name}</h2>
+        <h2 data-article-id="family_and_domains_section">
+          {getEntrySectionNameAndId(EntrySection.FamilyAndDomains).name}
+        </h2>
       }
       id={EntrySection.FamilyAndDomains}
       data-entry-section
@@ -44,12 +46,14 @@ const FamilyAndDomainsSection = ({
           data.commentsData.get('DOMAIN') as FreeTextComment[] | undefined
         }
         title="domain"
+        articleId="domain_cc"
       />
       <FreeTextView
         comments={
           data.commentsData.get('SIMILARITY') as FreeTextComment[] | undefined
         }
-        title="similarity"
+        title="Sequence similarities"
+        articleId="sequence_similarities"
       />
       <KeywordView keywords={data.keywordData} />
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />

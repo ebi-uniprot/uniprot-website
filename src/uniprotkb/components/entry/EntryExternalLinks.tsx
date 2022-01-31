@@ -82,7 +82,7 @@ const EntryExternalLinks = ({ transformedData }: EntryExternalLinksProps) => {
     >
       {webResourceComments?.length ? (
         <>
-          <h3>Web resources</h3>
+          <h3 data-article-id="web_resource">Web resources</h3>
           <ExpandableList descriptionString="alternative names">
             {webResourceComments.map((comment, index) => (
               <WebResourceLink

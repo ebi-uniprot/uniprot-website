@@ -7,7 +7,6 @@ import BuscoView from '../components/BuscoView';
 import BuscoLegend from '../components/BuscoLegend';
 import AccessionView from '../../shared/components/results/AccessionView';
 import TaxonomyView from '../../shared/components/entry/TaxonomyView';
-import BuscoAbbr from '../components/BuscoAbbr';
 
 import { getEntryPath, LocationToPath, Location } from '../../app/config/urls';
 import abbreviationToTitle from '../../shared/config/abbreviations';
@@ -152,9 +151,20 @@ ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
 ProteomesColumnConfiguration.set(ProteomesColumn.busco, {
   label: (
     <>
-      <BuscoAbbr />
+      BUSCO
       <br />
       <BuscoLegend />
+    </>
+  ),
+  tooltip: (
+    <>
+      The Benchmarking Universal Single-Copy Ortholog (BUSCO) assessment tool is
+      used, for eukaryotic and bacterial proteomes, to provide quantitative
+      measures of UniProt proteome data completeness in terms of expected gene
+      content. BUSCO scores include percentages of complete (C) single-copy (S)
+      genes, complete (C) duplicated (D) genes, fragmented (F) and missing (M)
+      genes, as well as the total number of orthologous clusters (n) used in the
+      BUSCO assessment, and the name of the taxonomic lineage dataset used.
     </>
   ),
   render: ({ proteomeCompletenessReport }) =>

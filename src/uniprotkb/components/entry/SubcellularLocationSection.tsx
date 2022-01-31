@@ -36,7 +36,7 @@ const SubcellularLocationSection = ({ data, sequence }: Props) => {
   return (
     <Card
       header={
-        <h2>
+        <h2 data-article-id="subcellular_location_section">
           {getEntrySectionNameAndId(EntrySection.SubCellularLocation).name}
         </h2>
       }

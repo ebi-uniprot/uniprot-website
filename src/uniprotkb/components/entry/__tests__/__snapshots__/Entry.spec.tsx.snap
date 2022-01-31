@@ -338,7 +338,9 @@ exports[`Entry basic should render main 1`] = `
                 <div
                   class="card__header card__header--with-separator"
                 >
-                  <h2>
+                  <h2
+                    data-article-id="function_section"
+                  >
                     Function
                   </h2>
                 </div>
@@ -871,14 +873,18 @@ exports[`Entry basic should render main 1`] = `
                 <div
                   class="card__header card__header--with-separator"
                 >
-                  <h2>
+                  <h2
+                    data-article-id="names_and_taxonomy_section"
+                  >
                     Names & Taxonomy
                   </h2>
                 </div>
                 <div
                   class="card__content"
                 >
-                  <h3>
+                  <h3
+                    data-article-id="protein_names"
+                  >
                     Protein names
                   </h3>
                   <ul
@@ -1738,7 +1744,9 @@ exports[`Entry basic should render main 1`] = `
                       </div>
                     </li>
                   </ul>
-                  <h3>
+                  <h3
+                    data-article-id="gene_name"
+                  >
                     Gene names
                   </h3>
                   <ul
@@ -1903,7 +1911,9 @@ exports[`Entry basic should render main 1`] = `
                       </ul>
                     </li>
                   </ul>
-                  <h3>
+                  <h3
+                    data-article-id="organism-name"
+                  >
                     Organism names
                   </h3>
                   <ul
@@ -1959,7 +1969,11 @@ exports[`Entry basic should render main 1`] = `
                         <div
                           class="decorated-list-item__title tiny"
                         >
-                          Taxonomic identifier
+                          <span
+                            data-article-id="taxonomic_identifier"
+                          >
+                            Taxonomic identifier
+                          </span>
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -1991,7 +2005,11 @@ exports[`Entry basic should render main 1`] = `
                         <div
                           class="decorated-list-item__title tiny"
                         >
-                          Taxonomic lineage
+                          <span
+                            data-article-id="taxonomic_lineage"
+                          >
+                            Taxonomic lineage
+                          </span>
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -2087,7 +2105,9 @@ exports[`Entry basic should render main 1`] = `
                 <div
                   class="card__header card__header--with-separator"
                 >
-                  <h2>
+                  <h2
+                    data-article-id="subcellular_location_section"
+                  >
                     Subcellular Location
                   </h2>
                 </div>
@@ -2250,14 +2270,18 @@ exports[`Entry basic should render main 1`] = `
                 <div
                   class="card__header card__header--with-separator"
                 >
-                  <h2>
+                  <h2
+                    data-article-id="pathology_and_biotech_section"
+                  >
                     Disease & Drugs
                   </h2>
                 </div>
                 <div
                   class="card__content"
                 >
-                  <h3>
+                  <h3
+                    data-article-id="involvement_in_disease"
+                  >
                     Involvement in disease
                   </h3>
                   <h4>
@@ -2476,7 +2500,9 @@ exports[`Entry basic should render main 1`] = `
                 <div
                   class="card__header card__header--with-separator"
                 >
-                  <h2>
+                  <h2
+                    data-article-id="ptm_processing_section"
+                  >
                     PTM/Processing
                   </h2>
                 </div>
@@ -2487,7 +2513,13 @@ exports[`Entry basic should render main 1`] = `
                     Features
                   </h3>
                   <p>
-                    Showing features for chain.
+                    Showing features for 
+                    <span
+                      data-article-id="chain"
+                    >
+                      chain
+                    </span>
+                    .
                   </p>
                   <protvista-manager
                     attributes="highlight displaystart displayend selectedid"
@@ -2640,13 +2672,20 @@ exports[`Entry basic should render main 1`] = `
                 <div
                   class="card__header card__header--with-separator"
                 >
-                  <h2>
+                  <h2
+                    data-article-id="interaction_section"
+                  >
                     Interaction
                   </h2>
                 </div>
                 <div
                   class="card__content"
                 >
+                  <h3
+                    data-article-id="binary_interactions"
+                  >
+                    Binary interactions
+                  </h3>
                   <interaction-viewer
                     accession="P21802"
                   />
@@ -2763,7 +2802,9 @@ exports[`Entry basic should render main 1`] = `
                 <div
                   class="card__header card__header--with-separator"
                 >
-                  <h2>
+                  <h2
+                    data-article-id="structure_section"
+                  >
                     Structure
                   </h2>
                 </div>
@@ -2860,14 +2901,18 @@ exports[`Entry basic should render main 1`] = `
                 <div
                   class="card__header card__header--with-separator"
                 >
-                  <h2>
+                  <h2
+                    data-article-id="family_and_domains_section"
+                  >
                     Family & Domains
                   </h2>
                 </div>
                 <div
                   class="card__content"
                 >
-                  <h3>
+                  <h3
+                    data-article-id="keywords"
+                  >
                     Keywords
                   </h3>
                   <ul
@@ -3009,7 +3054,9 @@ exports[`Entry basic should render main 1`] = `
                 <div
                   class="card__header card__header--with-separator"
                 >
-                  <h2>
+                  <h2
+                    data-article-id="sequences_section"
+                  >
                     Sequence
                   </h2>
                 </div>
@@ -3045,7 +3092,11 @@ exports[`Entry basic should render main 1`] = `
                         <div
                           class="decorated-list-item__title tiny"
                         >
-                          Sequence status
+                          <span
+                            data-article-id="sequence_status"
+                          >
+                            Sequence status
+                          </span>
                         </div>
                         <div
                           class="decorated-list-item__content"
@@ -3060,7 +3111,13 @@ exports[`Entry basic should render main 1`] = `
                     <strong>
                       1
                     </strong>
-                     isoforms produced by 
+                     
+                    <span
+                      data-article-id="alternative_products"
+                    >
+                      isoforms
+                    </span>
+                     produced by 
                     <strong>
                       Alternative initiation
                     </strong>
@@ -3156,7 +3213,9 @@ exports[`Entry basic should render main 1`] = `
                   >
                     Show sequence 
                   </button>
-                  <h3>
+                  <h3
+                    data-article-id="sequence_caution"
+                  >
                     Sequence caution
                   </h3>
                   <section
@@ -3199,15 +3258,17 @@ exports[`Entry basic should render main 1`] = `
                       id="46"
                     />
                   </section>
-                  <h3>
+                  <h3
+                    data-article-id="mass_spectrometry"
+                  >
                     Mass Spectrometry
                   </h3>
                   <section
                     class="text-block"
                   >
-                    <h3>
+                    <h4>
                       isoform 1
-                    </h3>
+                    </h4>
                     Molecular mass is 2.1 Da. Determined by LSI. note value
                     <button
                       aria-controls="47"
@@ -3232,7 +3293,9 @@ exports[`Entry basic should render main 1`] = `
                       id="47"
                     />
                   </section>
-                  <h3>
+                  <h3
+                    data-article-id="rna_editing"
+                  >
                     RNA Editing
                   </h3>
                   <section

@@ -64,6 +64,7 @@ UniRefColumnConfiguration.set(UniRefColumn.name, {
 
 UniRefColumnConfiguration.set(UniRefColumn.commonTaxon, {
   label: 'Common taxon',
+  tooltip: <>Lowest common taxonomic node shared by all clusters</>,
   render: ({ commonTaxon }) =>
     commonTaxon && <TaxonomyView data={commonTaxon} />,
 });

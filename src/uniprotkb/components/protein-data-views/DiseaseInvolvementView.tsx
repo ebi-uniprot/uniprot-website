@@ -133,7 +133,9 @@ export const DiseaseInvolvementView: FC<DiseaseInvolvementProps> = ({
   ));
   return (
     <>
-      {includeTitle && <h3>Involvement in disease</h3>}
+      {includeTitle && (
+        <h3 data-article-id="involvement_in_disease">Involvement in disease</h3>
+      )}
       {nodes}
     </>
   );

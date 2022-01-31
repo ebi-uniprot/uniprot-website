@@ -109,7 +109,9 @@ const ComputationalyMappedSequences: FC<{ primaryAccession: string }> = ({
 
   return (
     <div className="text-block">
-      <h3>Computationally mapped potential isoform sequences</h3>
+      <h3 data-article-id="gene_centric_isoform_mapping">
+        Computationally mapped potential isoform sequences
+      </h3>
       {error || !filteredData ? (
         <Message level={MessageLevel.FAILURE}>
           Could not load computationally mapped sequences

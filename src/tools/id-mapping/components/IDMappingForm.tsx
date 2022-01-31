@@ -27,7 +27,7 @@ import { pluralise } from '../../../shared/utils/utils';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
-import useReducedMotion from '../../../shared/hooks/useReducedMotion';
+import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 
 import { createJob } from '../../state/toolsActions';
 import { getTreeData } from '../utils';

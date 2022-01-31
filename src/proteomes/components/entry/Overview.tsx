@@ -6,7 +6,6 @@ import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import { EntryTypeIcon } from '../../../shared/components/entry/EntryTypeIcon';
 import BuscoView from '../BuscoView';
 import BuscoLegend from '../BuscoLegend';
-import BuscoAbbr from '../BuscoAbbr';
 import { PanProteome } from './PanProteome';
 
 import ftpUrls from '../../../shared/config/ftpUrls';
@@ -20,13 +19,9 @@ import '../styles/overview.scss';
 
 export const Overview = ({ data }: { data: ProteomesUIModel }) => {
   const infoData = useMemo(() => {
-    const renderColumnAsInfoListItem = (column: ProteomesColumn) => {
+    const renderColumnContent = (column: ProteomesColumn) => {
       const config = ProteomesColumnConfiguration.get(column);
-      return {
-        title: config?.label,
-        content: config?.render(data) || null,
-        key: column,
-      };
+      return config?.render(data) || null;
     };
 
     return [
@@ -42,7 +37,10 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
           </>
         ),
       },
-      renderColumnAsInfoListItem(ProteomesColumn.proteinCount),
+      {
+        title: <span data-article-id="proteome_redundancy">Protein count</span>,
+        content: renderColumnContent(ProteomesColumn.proteinCount),
+      },
       {
         title: 'Gene count',
         content: data.geneCount ? (
@@ -66,7 +64,7 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
         ) : null,
       },
       {
-        title: 'Proteome ID',
+        title: <span data-article-id="proteome_id">Proteome ID</span>,
         content: data.id,
       },
       {
@@ -76,7 +74,11 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
         ),
       },
       {
-        title: 'Genome assembly and annotation',
+        title: (
+          <span data-article-id="https://www.ensembl.org/Help/Faq?id=216">
+            Genome assembly and annotation
+          </span>
+        ),
         content: data.genomeAssembly?.assemblyId &&
           data.genomeAssembly.genomeAssemblyUrl && (
             <ExternalLink url={data.genomeAssembly.genomeAssemblyUrl}>{`${
@@ -88,14 +90,28 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
             }`}</ExternalLink>
           ),
       },
-      renderColumnAsInfoListItem(ProteomesColumn.genomeRepresentation),
+      {
+        title: 'Genome representation',
+        content: renderColumnContent(ProteomesColumn.genomeRepresentation),
+      },
       {
         title: 'Pan proteome',
         content: data.panproteome && <PanProteome proteome={data} />,
       },
-      renderColumnAsInfoListItem(ProteomesColumn.cpd),
       {
-        title: <BuscoAbbr />,
+        title: (
+          <span data-article-id="assessing_proteomes#complete-proteome-detector-cpd">
+            Completeness (CPD)
+          </span>
+        ),
+        content: renderColumnContent(ProteomesColumn.cpd),
+      },
+      {
+        title: (
+          <span data-article-id="assessing_proteomes#benchmarking-universal-single-copy-orthologs-busco">
+            BUSCO
+          </span>
+        ),
         content: data.proteomeCompletenessReport?.buscoReport && (
           <div className="busco">
             <div className="busco__legend">

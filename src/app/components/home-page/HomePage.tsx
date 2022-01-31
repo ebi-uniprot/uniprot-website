@@ -13,7 +13,7 @@ import { HeroHeader, Loader, CitedIcon } from 'franklin-sites';
 import SearchContainer from '../../../shared/components/search/SearchContainer';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
-import useReducedMotion from '../../../shared/hooks/useReducedMotion';
+import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 
 import { LocationToPath, Location } from '../../config/urls';
 import {
