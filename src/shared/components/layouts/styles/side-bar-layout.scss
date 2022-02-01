@@ -5,21 +5,21 @@
 
 .sidebar-layout {
   display: flex;
-  inline-size: 100vw;
+  width: 100%;
 
   &__title {
-    min-block-size: 1rem;
+    min-height: 1rem;
     // this is just to keep the right aligned with the cards lower in the page
-    padding-inline-end: $gutter-size;
+    padding-right: $gutter-size;
   }
 
   &__sidebar {
     @include scroll-shadow;
     position: sticky;
     top: $header-height;
-    max-block-size: calc(100vh - #{$header-height});
-    min-inline-size: 100px;
-    inline-size: 30ch;
+    max-height: calc(100vh - #{$header-height});
+    min-width: 100px;
+    width: 30ch;
     padding: $gutter-size;
     overflow-y: auto;
     // TODO: validate with UX if that's a good thing to do
@@ -35,20 +35,13 @@
 
   &__sidebar-content {
     &--empty {
-      min-block-size: 50vh;
-      block-size: 100%;
+      min-height: 50vh;
+      height: 100%;
       background-color: $colour-platinum;
     }
   }
 
   &__content {
-    inline-size: calc(100vw - 30ch);
-    max-block-size: calc(100vh - #{$header-height});
-    display: flex;
-    flex-direction: column;
-
-    & > * {
-      flex-shrink: 0;
-    }
+    width: calc(100vw - 30ch);
   }
 }
