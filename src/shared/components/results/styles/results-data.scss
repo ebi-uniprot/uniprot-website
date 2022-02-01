@@ -2,9 +2,12 @@
 @import '../../../styles/settings';
 
 .results-data {
-  inline-size: 100%;
-  overflow: auto;
-  flex-shrink: 1;
+  width: 100%;
+
+  // only apply to the top-level table we don't want inner tables to be affected
+  .data-table > thead th {
+    top: calc(#{$header-height} + #{$action-buttons-height}) !important;
+  }
 
   // Note: shouldn't use protvista-datatable in results
   .data-table protvista-datatable thead .pd-group-trigger {
