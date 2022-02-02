@@ -3,13 +3,19 @@ import { Link } from 'react-router-dom';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
-import { getEntryPath, getEntryPathFor } from '../../../app/config/urls';
+import {
+  getEntryPath,
+  getEntryPathFor,
+  LocationToPath,
+  Location,
+} from '../../../app/config/urls';
 import {
   reAC,
+  needTextProcessingRE,
   rePubMedID,
-  rePubMedOrACOrSimilarity,
   rePubMed,
   reUniProtKBAccession,
+  reFamily,
 } from '../../utils';
 
 import { Namespace } from '../../../shared/types/namespaces';
@@ -29,7 +35,7 @@ export const TextView = ({ comments, noEvidence }: TextViewProps) => (
       // eslint-disable-next-line react/no-array-index-key
       <Fragment key={index}>
         {comment.value
-          .split(rePubMedOrACOrSimilarity)
+          .split(needTextProcessingRE)
           .map((part, index, { length }) => {
             // Capturing group will allow split to conserve that bit in the split parts
             // NOTE: rePubMed and reAC should be using a lookbehind eg `/(?<=pubmed:)(\d{7,8})/i` but
@@ -56,6 +62,23 @@ export const TextView = ({ comments, noEvidence }: TextViewProps) => (
                   {`AC `}
                   <Link to={getEntryPath(Namespace.uniprotkb, accession)}>
                     {accession}
+                  </Link>
+                </Fragment>
+              );
+            }
+            if (reFamily.test(part)) {
+              const family = part.replace('Belongs to the ', '');
+              return (
+                // eslint-disable-next-line react/no-array-index-key
+                <Fragment key={index}>
+                  Belongs to the{' '}
+                  <Link
+                    to={{
+                      pathname: LocationToPath[Location.UniProtKBResults],
+                      search: `query=(family:"${family}")`,
+                    }}
+                  >
+                    {family}
                   </Link>
                 </Fragment>
               );
