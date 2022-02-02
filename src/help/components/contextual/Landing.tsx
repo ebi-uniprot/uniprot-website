@@ -14,7 +14,7 @@ import {
   LocationToPath,
 } from '../../../app/config/urls';
 
-import styles from './styles/landing.module.css';
+import styles from './styles/landing.module.scss';
 import { HelpEntryResponse } from '../../adapters/helpConverter';
 
 const getHelpEntryPath = getLocationEntryPathFor(Location.HelpEntry);

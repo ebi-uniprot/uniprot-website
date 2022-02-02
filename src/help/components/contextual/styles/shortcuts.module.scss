@@ -9,7 +9,6 @@ $shadow-padding: 0.125rem;
   background: lighten($colour-help-green, 50%);
   margin: -$global-margin;
   margin-block: 0;
-  padding-block-start: $global-padding;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   font-size: 90%;

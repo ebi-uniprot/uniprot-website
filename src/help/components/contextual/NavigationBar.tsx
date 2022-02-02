@@ -48,18 +48,7 @@ const NavigationBar = ({ localHistory }: { localHistory: MemoryHistory }) => {
         }}
       >
         <h1 className="medium">Help</h1>
-      </Link>{' '}
-      <Button
-        variant="tertiary"
-        className={cn('medium', {
-          [helper.disabled]: !localHistory.canGo(1),
-        })}
-        disabled={!localHistory.canGo(1)}
-        onClick={() => localHistory.go(1)}
-        title="Forward button"
-      >
-        →
-      </Button>
+      </Link>
       <Link
         // the panel's current location will be passed to the global history
         // eslint-disable-next-line uniprot-website/use-config-location
