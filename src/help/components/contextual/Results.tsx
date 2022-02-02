@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Loader } from 'franklin-sites';
+import cn from 'classnames';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import NoResultsPage from '../../../shared/components/error-pages/NoResultsPage';
@@ -29,7 +30,7 @@ const Results = ({
 
   if (data.results.length) {
     return (
-      <ul className="no-bullet">
+      <ul className={cn('no-bullet', styles.container)}>
         {data.results.map(({ matches, title, id }) => {
           const titleMatch = matches?.title?.[0];
           const contentMatch = matches?.content?.[0];

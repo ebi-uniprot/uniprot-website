@@ -1,6 +1,10 @@
 @import 'franklin-sites/src/styles/colours';
 @import 'franklin-sites/src/styles/settings';
 
+.in-panel {
+  padding-block-start: $global-padding;
+}
+
 .beta-message {
   // right margin is to match the style of the card
   margin: 1rem 1rem 0 0;

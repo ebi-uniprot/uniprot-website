@@ -167,10 +167,10 @@ const HelpEntry = ({
 
   if (inPanel) {
     return (
-      <>
+      <div className={styles['in-panel']}>
         <h2 className="medium">{data.title}</h2>
         <HelpEntryContent data={data} upperHeadingLevel="h3" />
-      </>
+      </div>
     );
   }
 
