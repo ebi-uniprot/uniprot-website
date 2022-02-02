@@ -17,11 +17,11 @@
     background-color: $colour-sea-blue;
     color: white;
 
-    article {
+    & article {
       color: black;
     }
 
-    & > a {
+    & a {
       color: white;
     }
   }
