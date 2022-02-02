@@ -7,11 +7,7 @@ import SideButtons from './SideButtons';
 
 import useMatchMedia from '../../../shared/hooks/useMatchMedia';
 
-import {
-  getLocationEntryPath,
-  Location,
-  LocationToPath,
-} from '../../../app/config/urls';
+import { Location, LocationToPath } from '../../../app/config/urls';
 
 const ContextualHelp = () => {
   const history = useHistory();
@@ -40,13 +36,9 @@ const ContextualHelp = () => {
     const eventHandler = (event: MouseEvent) => {
       const element = event.target as HTMLElement;
       if (element.dataset.articleId) {
-        if (element.dataset.articleId.match(/^http(s?)/)) {
-          // External link, open in new window
+        if (smallScreen || element.dataset.articleId.match(/^http(s?)/)) {
+          // External link, open in new tab
           window.open(element.dataset.articleId, 'external_help');
-        } else if (smallScreen) {
-          history.push(
-            getLocationEntryPath(Location.HelpEntry, element.dataset.articleId)
-          );
         } else {
           setArticlePath(element.dataset.articleId);
           setDisplayButton(false);

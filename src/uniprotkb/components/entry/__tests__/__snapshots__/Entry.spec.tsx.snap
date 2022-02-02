@@ -2180,7 +2180,11 @@ exports[`Entry basic should render main 1`] = `
                                 height="1em"
                               />
                               <strong>
-                                location value
+                                <a
+                                  href="/locations/id1"
+                                >
+                                  location value
+                                </a>
                               </strong>
                                
                               <button
