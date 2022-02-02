@@ -1,5 +1,5 @@
 import { FC, Suspense, lazy, ReactNode, ReactElement } from 'react';
-import { Tabs, Tab } from 'franklin-sites';
+import { Tabs, Tab, HeroContainer } from 'franklin-sites';
 
 import SubcellularLocationView from './SubcellularLocationView';
 import SubcellularLocationGOView from './SubcellularLocationGOView';
@@ -56,7 +56,7 @@ export const getSubcellularLocationId = (id: string) =>
 export const getGoId = (id: string) => id.match(/GO:(\d+)/)?.[1];
 
 const getNoAnnotationMessage = (name: string) => (
-  <>{`No specific ${name} annotations available regarding subcellular location.`}</>
+  <HeroContainer>{`No specific ${name} annotations available regarding subcellular location.`}</HeroContainer>
 );
 
 const SubcellularLocationWithVizView: FC<

@@ -1,15 +1,17 @@
-import { FC } from 'react';
+import { LocationPinIcon } from 'franklin-sites';
 
 import { TextView } from './FreeTextView';
 
 import { SubcellularLocationComment } from '../../types/commentTypes';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
+import './styles/sub-cell-viz.scss';
+
 const getSwissBioPicLocationId = (id: string) => `${id.replace('-', '')}term`;
 
-const SubcellularLocationView: FC<{
-  comments?: SubcellularLocationComment[];
-}> = ({ comments }) => {
+type Props = { comments?: SubcellularLocationComment[] };
+
+const SubcellularLocationView = ({ comments }: Props) => {
   if (!comments?.length) {
     return null;
   }
@@ -28,6 +30,10 @@ const SubcellularLocationView: FC<{
                     id={location.id && getSwissBioPicLocationId(location.id)}
                     key={`${location.value}${topology?.value}`}
                   >
+                    <LocationPinIcon
+                      className="sub-cell-viz__in-view-pin"
+                      height="1em"
+                    />
                     <strong>{location.value}</strong>{' '}
                     {location.evidences && (
                       <UniProtKBEvidenceTag evidences={location.evidences} />

@@ -54,7 +54,11 @@ exports[`Entry - External Links view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                ENZYME
+                <a
+                  href="/database?query=(name:ENZYME)&direct"
+                >
+                  ENZYME
+                </a>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -94,7 +98,11 @@ exports[`Entry - External Links view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                MobiDB
+                <a
+                  href="/database?query=(name:MobiDB)&direct"
+                >
+                  MobiDB
+                </a>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -127,7 +135,11 @@ exports[`Entry - External Links view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                ProtoNet
+                <a
+                  href="/database?query=(name:ProtoNet)&direct"
+                >
+                  ProtoNet
+                </a>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -167,7 +179,11 @@ exports[`Entry - External Links view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Ensembl
+                <a
+                  href="/database?query=(name:Ensembl)&direct"
+                >
+                  Ensembl
+                </a>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -226,7 +242,11 @@ exports[`Entry - External Links view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                ModBase
+                <a
+                  href="/database?query=(name:ModBase)&direct"
+                >
+                  ModBase
+                </a>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -259,7 +279,11 @@ exports[`Entry - External Links view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                SWISS-MODEL-Workspace
+                <a
+                  href="/database?query=(name:SWISS-MODEL-Workspace)&direct"
+                >
+                  SWISS-MODEL-Workspace
+                </a>
               </div>
               <div
                 class="decorated-list-item__content"
