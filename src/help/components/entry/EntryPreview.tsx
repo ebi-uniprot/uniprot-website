@@ -5,16 +5,17 @@ import fm from 'front-matter';
 import { marked } from 'marked';
 
 import HelpEntry, { getCleanTextOptions } from './Entry';
+import HTMLHead from '../../../shared/components/HTMLHead';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
 import { help as helpURL } from '../../../shared/config/apiUrls';
 import cleanText from '../../../shared/utils/cleanText';
+import { pluralise } from '../../../shared/utils/utils';
 
 import { HelpEntryResponse } from '../../adapters/helpConverter';
 
 import styles from './styles/entry-preview.module.scss';
-import { pluralise } from '../../../shared/utils/utils';
 
 const ghWikiRE =
   /^https:\/\/github\.com\/(?<user>[^/]+)\/(?<project>[^/]+)\/wiki\/(?<file>.+)$/;
@@ -122,6 +123,10 @@ const EntryPreview = (props: RouteChildrenProps<{ accession: string }>) => {
   // Maybe we should just use the actual help entry page?
   return (
     <>
+      <HTMLHead>
+        {/* Don't index 4xx pages */}
+        <meta name="robots" content="noindex" />
+      </HTMLHead>
       <section className={styles['private-area']}>
         <div>The content outside of this area is a preview</div>
         <label>
