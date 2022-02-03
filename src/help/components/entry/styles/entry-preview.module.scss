@@ -7,7 +7,7 @@
   inline-size: 100%;
   min-block-size: 100px;
   padding: $global-padding;
-  background: lightcoral;
+  background: peachpuff;
 
   & > label {
     inline-size: 80vw;
@@ -20,9 +20,23 @@
 
   & :global(.codeblock) {
     max-inline-size: 100%;
+    max-block-size: 40vh;
+    overflow: auto;
   }
 
+  .checks {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    border: 1px solid grey;
+  }
+
+  & dl {
+    display: contents;
+  }
+
+  & dt,
   & dd {
-    padding-inline-start: 1ch;
+    padding: 0.5em;
+    border: 1px solid grey;
   }
 }

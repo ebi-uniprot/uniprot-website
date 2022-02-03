@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, useCallback, useMemo } from 'react';
+import { useState, ChangeEvent, useCallback, useMemo, useEffect } from 'react';
 import { RouteChildrenProps } from 'react-router-dom';
 import { Chip, CodeBlock } from 'franklin-sites';
 import fm from 'front-matter';
@@ -58,8 +58,10 @@ const Category = ({ category }: { category: string }) => {
   );
 };
 
-const EntryPreview = (props: RouteChildrenProps<{ accession: string }>) => {
-  const [url, setUrl] = useState('');
+const EntryPreview = (
+  props: RouteChildrenProps<{ accession: string }, string>
+) => {
+  const [url, setUrl] = useState(props.location.state || '');
   const { data } = useDataApi<string>(url);
 
   const [parsedData, otherAttributes] = useMemo<
@@ -92,6 +94,10 @@ const EntryPreview = (props: RouteChildrenProps<{ accession: string }>) => {
       otherAttributes,
     ];
   }, [data]);
+
+  useEffect(() => {
+    props.history.replace({ ...props.history.location, state: url });
+  }, [props.history, url]);
 
   const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     const url = event.target.value.trim();
@@ -127,23 +133,18 @@ const EntryPreview = (props: RouteChildrenProps<{ accession: string }>) => {
         <meta name="robots" content="noindex" />
       </HTMLHead>
       <section className={styles['private-area']}>
-        <div>Content loaded in this page is a preview of what a help article will look like when rendered in the website</div>
+        <div>
+          Content loaded in this page is a preview of what a help article will
+          look like when rendered in the website
+        </div>
         <label>
           Load article content from a URL:{' '}
-          <input type="url" onChange={handleChange} />
+          <input type="url" onChange={handleChange} defaultValue={url} />
         </label>
         {data && (
           <output>
-            <details>
-              <summary>Raw loaded content</summary>
-              <CodeBlock>{data}</CodeBlock>
-            </details>
-          </output>
-        )}
-        {data && (
-          <output>
-            <details>
-              <summary>Parsed metadata</summary>
+            Parsed metadata
+            <div className={styles.checks}>
               <dl>
                 <dt>
                   title{' '}
@@ -170,6 +171,14 @@ const EntryPreview = (props: RouteChildrenProps<{ accession: string }>) => {
                   <dd>{value}</dd>
                 </dl>
               ))}
+            </div>
+          </output>
+        )}
+        {data && (
+          <output>
+            <details>
+              <summary>Raw loaded content</summary>
+              <CodeBlock>{data}</CodeBlock>
             </details>
           </output>
         )}
