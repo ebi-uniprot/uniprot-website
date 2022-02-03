@@ -354,7 +354,7 @@ const XRefsGroupedByCategory = ({
         <Link
           to={{
             pathname: LocationToPath[Location.DatabaseResults],
-            search: `query=(name:${databaseInfo.name})&direct`,
+            search: `query=(name:${databaseInfo.displayName})&direct`,
           }}
         >
           {databaseInfo.displayName}
