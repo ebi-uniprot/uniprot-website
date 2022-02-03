@@ -1,5 +1,11 @@
 import { lazy, Suspense, FC } from 'react';
-import { Route, Switch, RouteChildrenProps, Redirect } from 'react-router-dom';
+import {
+  Route,
+  Switch,
+  RouteChildrenProps,
+  Redirect,
+  generatePath,
+} from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Loader } from 'franklin-sites';
 import { sleep } from 'timing-functions';
@@ -202,6 +208,12 @@ const HelpLandingPage = lazy(
       /* webpackChunkName: "help-entry" */ '../../help/components/landing/HelpLandingPage'
     )
 );
+const HelpEntryPreviewPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "help-entry-preview.nocache" */ '../../help/components/entry/EntryPreview'
+    )
+);
 const HelpEntryPage = lazy(
   () =>
     import(
@@ -400,6 +412,12 @@ const App = () => {
               component={BasketFullView}
             />
             {/* Help */}
+            <Route
+              path={generatePath(LocationToPath[Location.HelpEntry], {
+                accession: '_preview',
+              })}
+              component={HelpEntryPreviewPage}
+            />
             <Route
               path={LocationToPath[Location.HelpEntry]}
               component={HelpEntryPage}

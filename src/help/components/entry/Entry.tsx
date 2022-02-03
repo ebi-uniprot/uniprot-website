@@ -59,7 +59,7 @@ const allowedClasses = (cleanTextDefaultOptions.allowedClasses?.['*'] ||
   []) as string[];
 
 // TODO: probably need to play with the options here in order to make it look OK
-const getCleanTextOptions = (headingLevel: HeadingLevels): IOptions => ({
+export const getCleanTextOptions = (headingLevel: HeadingLevels): IOptions => ({
   ...cleanTextDefaultOptions,
   allowedTags: [...defaults.allowedTags, 'img'],
   // none by default, so explicitely accept only the ones from the stylesheets
@@ -139,16 +139,28 @@ export const HelpEntryContent = ({
 
 type Props = {
   inPanel?: boolean;
+  overrideContent?: HelpEntryResponse;
 };
 
 const HelpEntry = ({
   match,
   inPanel,
+  overrideContent,
 }: RouteChildrenProps<{ accession: string }> & Props) => {
   const accession = match?.params.accession;
 
-  const { data, loading, error, status, progress, isStale } =
-    useDataApiWithStale<HelpEntryResponse>(helpURL.accession(accession));
+  const {
+    data: loadedData,
+    loading,
+    error,
+    status,
+    progress,
+    isStale,
+  } = useDataApiWithStale<HelpEntryResponse>(
+    overrideContent ? null : helpURL.accession(accession)
+  );
+
+  const data = overrideContent || loadedData;
 
   const lastModifed = useMemo(() => {
     if (data?.content) {

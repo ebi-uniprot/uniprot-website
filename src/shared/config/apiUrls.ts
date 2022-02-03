@@ -447,11 +447,21 @@ export const getClustersForProteins = (accessions: string[]) =>
 export const help = {
   accession: (accession?: string) =>
     accession && joinUrl(apiPrefix, '/help', accession),
-  search: ({ query, sort, fields, facets, size }: queryString.ParsedQuery) =>
+  search: ({
+    query,
+    sort,
+    fields,
+    queryFacets,
+    facets = helpDefaultFacets,
+    size,
+  }: queryString.ParsedQuery) =>
     `${joinUrl(apiPrefix, '/help/search')}?${queryString.stringify({
       query: [
         query || '*',
-        ...(Array.isArray(facets) ? facets : (facets || '').split(','))
+        ...(Array.isArray(queryFacets)
+          ? queryFacets
+          : (queryFacets || '').split(',')
+        )
           .filter(Boolean)
           // Sort in order to improve cache hits
           .sort()
@@ -466,7 +476,7 @@ export const help = {
         .join(' AND '),
       sort,
       fields,
-      facets: helpDefaultFacets,
+      facets,
       // At the moment, only 254 pages available
       // Getting all of them allows us to not use the pagination logic in this
       // section of the website, isolating it more from the rest
