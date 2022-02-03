@@ -124,7 +124,6 @@ const EntryPreview = (props: RouteChildrenProps<{ accession: string }>) => {
   return (
     <>
       <HTMLHead>
-        {/* Don't index 4xx pages */}
         <meta name="robots" content="noindex" />
       </HTMLHead>
       <section className={styles['private-area']}>
