@@ -95,10 +95,7 @@ const Results = () => {
   }
 
   return (
-    <SideBarLayout
-      title="title"
-      sidebar={<ResultsFacets dataApiObject={facetApiObject} />}
-    >
+    <SideBarLayout sidebar={<ResultsFacets dataApiObject={facetApiObject} />}>
       {helmet}
       <ResultsDataHeader
         total={total}
