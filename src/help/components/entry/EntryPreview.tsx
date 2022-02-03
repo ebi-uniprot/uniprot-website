@@ -127,7 +127,7 @@ const EntryPreview = (props: RouteChildrenProps<{ accession: string }>) => {
         <meta name="robots" content="noindex" />
       </HTMLHead>
       <section className={styles['private-area']}>
-        <div>The content outside of this area is a preview</div>
+        <div>Content loaded in this page is a preview of what a help article will look like when rendered in the website</div>
         <label>
           Load article content from a URL:{' '}
           <input type="url" onChange={handleChange} />
