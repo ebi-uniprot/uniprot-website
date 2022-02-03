@@ -14,6 +14,8 @@
   table {
     border-spacing: 0;
     border: 1px solid $colour-sea-blue;
+    overflow: auto;
+    display: block;
   }
 
   thead {
