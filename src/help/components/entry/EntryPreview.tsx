@@ -174,7 +174,9 @@ const EntryPreview = (props: RouteChildrenProps<{ accession: string }>) => {
           </output>
         )}
       </section>
-      <HelpEntry {...props} overrideContent={parsedData} />
+      {parsedData !== defaultData && (
+        <HelpEntry {...props} overrideContent={parsedData} />
+      )}
     </>
   );
 };
