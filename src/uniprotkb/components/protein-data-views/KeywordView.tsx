@@ -4,7 +4,11 @@ import { Link } from 'react-router-dom';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
-import { getEntryPath } from '../../../app/config/urls';
+import {
+  getEntryPath,
+  LocationToPath,
+  Location,
+} from '../../../app/config/urls';
 
 import { Namespace } from '../../../shared/types/namespaces';
 import { Keyword, KeywordUIModel } from '../../utils/KeywordsUtil';
@@ -53,23 +57,27 @@ export const KeywordList = ({ keywords, idOnly, inline }: KeywordListProps) => {
   );
 };
 
-const KeywordView = ({ keywords }: { keywords: KeywordUIModel[] }) => {
-  if (!keywords?.length) {
-    return null;
-  }
-  const infoData = keywords.map((keywordCategory) => ({
-    title: keywordCategory.category,
+const KeywordView = ({ keywords }: { keywords?: KeywordUIModel[] }) => {
+  const infoData = keywords?.map((keywordCategory) => ({
+    title: (
+      <Link
+        to={{
+          pathname: LocationToPath[Location.KeywordsResults],
+          search: `query=(name:${keywordCategory.category})&direct`,
+        }}
+      >
+        {keywordCategory.category}
+      </Link>
+    ),
     content: <KeywordList keywords={keywordCategory.keywords} />,
   }));
-  if (!infoData.length) {
-    return null;
-  }
-  return (
+
+  return infoData?.length ? (
     <>
       <h3 data-article-id="keywords">Keywords</h3>
       <InfoList infoData={infoData} />
     </>
-  );
+  ) : null;
 };
 
 export default KeywordView;

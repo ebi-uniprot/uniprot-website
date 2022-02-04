@@ -1,6 +1,8 @@
 import { Fragment } from 'react';
 import { isEqual, sortBy, uniqWith } from 'lodash-es';
 import { InfoList, ExternalLink, ExpandableList } from 'franklin-sites';
+import { Link } from 'react-router-dom';
+import { InfoListItem } from 'franklin-sites/dist/types/components/info-list';
 
 import { pluralise } from '../../../shared/utils/utils';
 import * as logging from '../../../shared/utils/logging';
@@ -18,9 +20,9 @@ import {
   XrefsGoupedByDatabase,
   partitionStructureDatabases,
 } from '../../utils/xrefUtils';
-
 import externalUrls from '../../../shared/config/externalUrls';
 
+import { LocationToPath, Location } from '../../../app/config/urls';
 import { Xref } from '../../../shared/types/apiModel';
 import { PropertyKey } from '../../types/modelTypes';
 import {
@@ -79,11 +81,7 @@ export const getPropertyLinkAttributes = (
     return null;
   }
   const attribute = getDatabaseInfoAttribute(attributes, property);
-  const { properties } = xref;
-  if (!properties) {
-    return null;
-  }
-  const id = properties[property];
+  const id = xref.properties?.[property];
   if (!id || !attribute || !attribute.uriLink) {
     return null;
   }
@@ -346,30 +344,32 @@ const XRefsGroupedByCategory = ({
     return null;
   }
   const { databaseToDatabaseInfo } = databaseInfoMaps;
-  const infoData = sortBy(databases, ({ database }) => [
+  const infoData: InfoListItem[] = sortBy(databases, ({ database }) => [
     databaseToDatabaseInfo?.[database].implicit,
     database,
-  ]).map(
-    (
-      database
-    ): {
-      title: string;
-      content: JSX.Element;
-    } => {
-      const databaseInfo = databaseToDatabaseInfo[database.database];
-      return {
-        title: databaseInfo.displayName,
-        content: (
-          <DatabaseList
-            xrefsGoupedByDatabase={database}
-            primaryAccession={primaryAccession}
-            crc64={crc64}
-            databaseToDatabaseInfo={databaseToDatabaseInfo}
-          />
-        ),
-      };
-    }
-  );
+  ]).map((database) => {
+    const databaseInfo = databaseToDatabaseInfo[database.database];
+    return {
+      title: (
+        <Link
+          to={{
+            pathname: LocationToPath[Location.DatabaseResults],
+            search: `query=(name:${databaseInfo.displayName})&direct`,
+          }}
+        >
+          {databaseInfo.displayName}
+        </Link>
+      ),
+      content: (
+        <DatabaseList
+          xrefsGoupedByDatabase={database}
+          primaryAccession={primaryAccession}
+          crc64={crc64}
+          databaseToDatabaseInfo={databaseToDatabaseInfo}
+        />
+      ),
+    };
+  });
   return <InfoList infoData={infoData} columns />;
 };
 

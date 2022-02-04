@@ -516,7 +516,11 @@ exports[`Entry view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                ENZYME
+                <a
+                  href="/database?query=(name:ENZYME)&direct"
+                >
+                  ENZYME
+                </a>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -2420,7 +2424,11 @@ exports[`Entry view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                ModBase
+                <a
+                  href="/database?query=(name:ModBase)&direct"
+                >
+                  ModBase
+                </a>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -2453,7 +2461,11 @@ exports[`Entry view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                SWISS-MODEL-Workspace
+                <a
+                  href="/database?query=(name:SWISS-MODEL-Workspace)&direct"
+                >
+                  SWISS-MODEL-Workspace
+                </a>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -2518,7 +2530,11 @@ exports[`Entry view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Domain
+                <a
+                  href="/keywords?query=(name:Domain)&direct"
+                >
+                  Domain
+                </a>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -2573,7 +2589,11 @@ exports[`Entry view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                MobiDB
+                <a
+                  href="/database?query=(name:MobiDB)&direct"
+                >
+                  MobiDB
+                </a>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -2606,7 +2626,11 @@ exports[`Entry view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                ProtoNet
+                <a
+                  href="/database?query=(name:ProtoNet)&direct"
+                >
+                  ProtoNet
+                </a>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -2963,7 +2987,11 @@ exports[`Entry view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Ensembl
+                <a
+                  href="/database?query=(name:Ensembl)&direct"
+                >
+                  Ensembl
+                </a>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -4290,7 +4318,11 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Molecular function
+                <a
+                  href="/keywords?query=(name:Molecular function)&direct"
+                >
+                  Molecular function
+                </a>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -4323,7 +4355,11 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Ligand
+                <a
+                  href="/keywords?query=(name:Ligand)&direct"
+                >
+                  Ligand
+                </a>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -4356,7 +4392,11 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                ENZYME
+                <a
+                  href="/database?query=(name:ENZYME)&direct"
+                >
+                  ENZYME
+                </a>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -5346,7 +5386,11 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                SMR
+                <a
+                  href="/database?query=(name:SMR)&direct"
+                >
+                  SMR
+                </a>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -5379,7 +5423,11 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                ModBase
+                <a
+                  href="/database?query=(name:ModBase)&direct"
+                >
+                  ModBase
+                </a>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -5412,7 +5460,11 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                PDBe-KB
+                <a
+                  href="/database?query=(name:PDBe-KB)&direct"
+                >
+                  PDBe-KB
+                </a>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -5849,7 +5901,11 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Domain
+                <a
+                  href="/keywords?query=(name:Domain)&direct"
+                >
+                  Domain
+                </a>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -5882,7 +5938,11 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Gene3D
+                <a
+                  href="/database?query=(name:Gene3D)&direct"
+                >
+                  Gene3D
+                </a>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -5931,7 +5991,11 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                InterPro
+                <a
+                  href="/database?query=(name:InterPro)&direct"
+                >
+                  InterPro
+                </a>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -6033,7 +6097,11 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                PROSITE
+                <a
+                  href="/database?query=(name:PROSITE)&direct"
+                >
+                  PROSITE
+                </a>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -6081,7 +6149,11 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Pfam
+                <a
+                  href="/database?query=(name:Pfam)&direct"
+                >
+                  Pfam
+                </a>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -6144,7 +6216,11 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                SMART
+                <a
+                  href="/database?query=(name:SMART)&direct"
+                >
+                  SMART
+                </a>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -6192,7 +6268,11 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                SUPFAM
+                <a
+                  href="/database?query=(name:SUPFAM)&direct"
+                >
+                  SUPFAM
+                </a>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -6271,7 +6351,11 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                MobiDB
+                <a
+                  href="/database?query=(name:MobiDB)&direct"
+                >
+                  MobiDB
+                </a>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -6304,7 +6388,11 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                ProtoNet
+                <a
+                  href="/database?query=(name:ProtoNet)&direct"
+                >
+                  ProtoNet
+                </a>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -6929,7 +7017,11 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Technical term
+                <a
+                  href="/keywords?query=(name:Technical term)&direct"
+                >
+                  Technical term
+                </a>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -6962,7 +7054,11 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                RefSeq
+                <a
+                  href="/database?query=(name:RefSeq)&direct"
+                >
+                  RefSeq
+                </a>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -7003,7 +7099,11 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                GeneID
+                <a
+                  href="/database?query=(name:GeneID)&direct"
+                >
+                  GeneID
+                </a>
               </div>
               <div
                 class="decorated-list-item__content"
