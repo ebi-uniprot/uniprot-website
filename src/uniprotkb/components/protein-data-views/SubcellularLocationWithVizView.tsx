@@ -56,7 +56,7 @@ export const getSubcellularLocationId = (id: string) =>
 export const getGoId = (id: string) => id.match(/GO:(\d+)/)?.[1];
 
 const getNoAnnotationMessage = (name: string) => (
-  <HeroContainer>{`No specific ${name} annotations available regarding subcellular location.`}</HeroContainer>
+  <HeroContainer>{`No ${name} annotations available.`}</HeroContainer>
 );
 
 const SubcellularLocationWithVizView: FC<
