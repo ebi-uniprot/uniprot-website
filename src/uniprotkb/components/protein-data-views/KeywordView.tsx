@@ -4,11 +4,7 @@ import { Link } from 'react-router-dom';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
-import {
-  getEntryPath,
-  LocationToPath,
-  Location,
-} from '../../../app/config/urls';
+import { getEntryPath } from '../../../app/config/urls';
 
 import { Namespace } from '../../../shared/types/namespaces';
 import { Keyword, KeywordUIModel } from '../../utils/KeywordsUtil';
@@ -59,16 +55,7 @@ export const KeywordList = ({ keywords, idOnly, inline }: KeywordListProps) => {
 
 const KeywordView = ({ keywords }: { keywords?: KeywordUIModel[] }) => {
   const infoData = keywords?.map((keywordCategory) => ({
-    title: (
-      <Link
-        to={{
-          pathname: LocationToPath[Location.KeywordsResults],
-          search: `query=(name:${keywordCategory.category})&direct`,
-        }}
-      >
-        {keywordCategory.category}
-      </Link>
-    ),
+    title: keywordCategory.category,
     content: <KeywordList keywords={keywordCategory.keywords} />,
   }));
 

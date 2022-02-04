@@ -2945,11 +2945,7 @@ exports[`Entry basic should render main 1`] = `
                         <div
                           class="decorated-list-item__title tiny"
                         >
-                          <a
-                            href="/keywords?query=(name:Domain)&direct"
-                          >
-                            Domain
-                          </a>
+                          Domain
                         </div>
                         <div
                           class="decorated-list-item__content"

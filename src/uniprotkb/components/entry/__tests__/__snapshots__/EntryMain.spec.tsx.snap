@@ -2530,11 +2530,7 @@ exports[`Entry view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                <a
-                  href="/keywords?query=(name:Domain)&direct"
-                >
-                  Domain
-                </a>
+                Domain
               </div>
               <div
                 class="decorated-list-item__content"
@@ -4318,11 +4314,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                <a
-                  href="/keywords?query=(name:Molecular function)&direct"
-                >
-                  Molecular function
-                </a>
+                Molecular function
               </div>
               <div
                 class="decorated-list-item__content"
@@ -4355,11 +4347,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                <a
-                  href="/keywords?query=(name:Ligand)&direct"
-                >
-                  Ligand
-                </a>
+                Ligand
               </div>
               <div
                 class="decorated-list-item__content"
@@ -5901,11 +5889,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                <a
-                  href="/keywords?query=(name:Domain)&direct"
-                >
-                  Domain
-                </a>
+                Domain
               </div>
               <div
                 class="decorated-list-item__content"
@@ -7017,11 +7001,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                <a
-                  href="/keywords?query=(name:Technical term)&direct"
-                >
-                  Technical term
-                </a>
+                Technical term
               </div>
               <div
                 class="decorated-list-item__content"

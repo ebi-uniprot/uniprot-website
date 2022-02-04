@@ -17,11 +17,7 @@ exports[`Keyword should render Keywords for section 1`] = `
         <div
           class="decorated-list-item__title tiny"
         >
-          <a
-            href="/keywords?query=(name:Cellular component)&direct"
-          >
-            Cellular component
-          </a>
+          Cellular component
         </div>
         <div
           class="decorated-list-item__content"
