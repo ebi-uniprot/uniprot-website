@@ -48,8 +48,8 @@ const redirectMap = new Map<RedirectEntry[0], RedirectEntry[1]>([
   // help
   misspeltHelpTuple,
   // other
-  [/^\/statistics$/i, `/help/release-statistics`],
-  [/^\/downloads$/i, `/help/downloads`],
+  [/^\/statistics?$/i, `/help/release-statistics`],
+  [/^\/downloads?$/i, `/help/downloads`],
 ]);
 
 export const redirectFromTo = (
