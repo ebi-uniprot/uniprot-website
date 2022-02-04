@@ -194,6 +194,7 @@ UniParcColumnConfiguration.set(UniParcColumn.checksum, {
 
 UniParcColumnConfiguration.set(UniParcColumn.length, {
   label: 'Length',
+  tooltip: 'Sequence length',
   render: ({ sequence: { length } }) => <LongNumber>{length}</LongNumber>,
 });
 

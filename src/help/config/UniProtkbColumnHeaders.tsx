@@ -98,6 +98,31 @@ const UniProtKBColumnHeaders: Partial<Record<UniProtKBColumn, ReactNode>> = {
       </Link>
     </>
   ),
+  [UniProtKBColumn.organismName]: (
+    <>
+      Scientific name (and synonyms) of the source organism{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'organism-name',
+        })}
+      >
+        more...
+      </Link>
+    </>
+  ),
+  [UniProtKBColumn.length]: 'Length of the canonical sequence',
+  [UniProtKBColumn.geneNames]: (
+    <>
+      Name(s) of the gene(s) encoding the protein{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'gene_name',
+        })}
+      >
+        more...
+      </Link>
+    </>
+  ),
   [UniProtKBColumn.tools]: (
     <>Links to sequence analysis tools, including Blast, PeptideCutter, etc.</>
   ),

@@ -196,6 +196,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneNames, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.organismName, {
   label: 'Organism',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.organismName],
   render: (data) => {
     const { organismData } = data[EntrySection.NamesAndTaxonomy];
     return organismData && <TaxonomyView data={organismData} />;
@@ -204,6 +205,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.organismName, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.length, {
   label: 'Length',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.length],
   render(data) {
     const { sequence } = data[EntrySection.Sequence];
     return (
@@ -219,6 +221,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.length, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.genePrimary, {
   label: 'Gene Names (Primary)',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.geneNames], // This is shared amongst all of the gene-related columns
   render(data) {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
 
@@ -234,6 +237,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.genePrimary, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOln, {
   label: 'Gene Names (Ordered locus)',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.geneNames], // This is shared amongst all of the gene-related columns
   render(data) {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
 
@@ -251,6 +255,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOln, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOrf, {
   label: 'Gene Names (ORF)',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.geneNames], // This is shared amongst all of the gene-related columns
   render(data) {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
 
@@ -268,6 +273,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOrf, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.geneSynonym, {
   label: 'Gene Names (Synonyms)',
+  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.geneNames], // This is shared amongst all of the gene-related columns
   render(data) {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
 

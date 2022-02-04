@@ -130,6 +130,7 @@ UniRefColumnConfiguration.set(UniRefColumn.identity, {
 
 UniRefColumnConfiguration.set(UniRefColumn.length, {
   label: 'Length',
+  tooltip: 'Length of the representative sequence',
   // Do not use `sequenceLength` here as the `length` field filter removes it
   render: ({ representativeMember }) =>
     representativeMember?.sequence?.length ? (
