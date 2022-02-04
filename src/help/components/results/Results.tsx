@@ -54,7 +54,11 @@ const Results = ({
 
   const parsed = qs.parse(location.search);
   const dataObject = useDataApiWithStale<HelpSearchResponse>(
-    helpURL.search(parsed)
+    helpURL.search({
+      ...parsed,
+      queryFacets: parsed.facets,
+      facets: 'category',
+    })
   );
 
   const fallBackAppliedFacets = useMemo(() => {
