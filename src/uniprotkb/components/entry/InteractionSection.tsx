@@ -84,8 +84,8 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
             <table>
               <thead>
                 <tr>
-                  <th>Type</th>
-                  <th>Entry 1</th>
+                  <th data-filter="type">Type</th>
+                  <th data-filter="entry_1">Entry 1</th>
                   <th>Entry 2</th>
                   <th>Number of experiments</th>
                   <th>Intact</th>
@@ -96,11 +96,21 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
                   <tr
                     key={`${interaction.interactantOne.intActId}${interaction.interactantTwo.intActId}`}
                   >
-                    <td>
+                    <td
+                      data-filter="type"
+                      data-filter-value={
+                        interaction.organismDiffer ? 'XENO' : 'BINARY'
+                      }
+                    >
                       {/* NOTE: Add 'SELF' */}
                       {interaction.organismDiffer ? 'XENO' : 'BINARY'}
                     </td>
-                    <td>
+                    <td
+                      data-filter="entry_1"
+                      data-filter-value={
+                        interaction.interactantOne.uniProtKBAccession || 'Other'
+                      }
+                    >
                       {interaction.interactantOne.uniProtKBAccession ? (
                         <Link
                           to={getEntryPath(
