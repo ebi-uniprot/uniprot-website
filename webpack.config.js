@@ -157,6 +157,7 @@ module.exports = (env, argv) => {
             fs.realpathSync(
               `${__dirname}/node_modules/tippy.js/dist/tippy.css`
             ),
+            fs.realpathSync(`${__dirname}/node_modules/lite-youtube-embed`),
           ],
           use: [
             {
