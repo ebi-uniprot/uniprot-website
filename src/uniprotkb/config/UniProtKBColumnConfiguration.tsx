@@ -93,6 +93,8 @@ import externalUrls from '../../shared/config/externalUrls';
 import { getEntryPath, LocationToPath, Location } from '../../app/config/urls';
 import { fromColumnConfig } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 import { sortInteractionData } from '../utils/resultsUtils';
+import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
+import getFeatureLabelAndTooltip from '../../help/config/featureColumnHeaders';
 import * as logging from '../../shared/utils/logging';
 
 import { Namespace } from '../../shared/types/namespaces';
@@ -106,8 +108,6 @@ import { proteinProcessingFeaturesToColumns } from '../adapters/proteinProcessin
 import { familyAndDomainsFeaturesToColumns } from '../adapters/familyAndDomainsConverter';
 import { getDatabaseNameFromColumn, isDatabaseColumn } from '../utils/database';
 import { DatabaseList } from '../components/protein-data-views/XRefView';
-import UniProtKBColumnHeaders from '../../help/config/UniProtkbColumnHeaders';
-import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
 
 export const defaultColumns = [
   UniProtKBColumn.accession,
@@ -126,8 +126,7 @@ const getFeatureColumn = (
   section: EntrySectionWithFeatures,
   column: UniProtKBColumn
 ) => ({
-  label: type,
-  tooltip: UniProtKBColumnHeaders[column],
+  ...getFeatureLabelAndTooltip(type, column),
   render: (data: UniProtkbUIModel) => {
     const { featuresData } = data[section];
     return (
