@@ -923,7 +923,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinExistence, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.reviewed, {
-  ...getLabelAndTooltip('', ''),
+  label: '',
   render: (data) => <EntryTypeIcon entryType={data.entryType} />,
 });
 
@@ -1367,11 +1367,6 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.tools, {
 });
 
 const getXrefColumn = (databaseName: string) => {
-  // ...getLabelAndTooltip(
-  //   '',
-  //   '',
-  //   ''
-  // ),
   const Label = () => {
     const databaseInfoMaps = useDatabaseInfoMaps();
     if (!databaseInfoMaps) {

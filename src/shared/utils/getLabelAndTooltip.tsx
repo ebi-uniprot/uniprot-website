@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-export const getLabelAndTooltip = (
+const getLabelAndTooltip = (
   label: ReactNode,
   tooltip: ReactNode,
   articleId?: string
