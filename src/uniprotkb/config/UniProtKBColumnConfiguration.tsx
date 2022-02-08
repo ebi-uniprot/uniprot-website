@@ -143,7 +143,11 @@ const getFeatureColumn = (
 });
 
 const getGOColumnForAspect = (aspect: GOAspectLabel) => ({
-  label: `Gene Ontology - ${aspect}`,
+  ...getLabelAndTooltip(
+    `Gene Ontology - ${aspect}`,
+    'Gene Ontology (GO) terms associated with the entry',
+    'gene_ontology'
+  ),
   render: (data: UniProtkbUIModel) => {
     const { goTerms } = data[EntrySection.Function] as FunctionUIModel;
     const goProcessTerms = goTerms && goTerms.get(aspect);
@@ -467,7 +471,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccMassSpectrometry, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ftVariant, {
   ...getLabelAndTooltip(
-    'Variants',
+    'Natural Variants',
     'Description of a natural variant of the protein',
     'variant'
   ),
