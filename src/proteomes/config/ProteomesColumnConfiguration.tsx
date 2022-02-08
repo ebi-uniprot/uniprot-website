@@ -9,7 +9,7 @@ import AccessionView from '../../shared/components/results/AccessionView';
 import TaxonomyView from '../../shared/components/entry/TaxonomyView';
 
 import { getEntryPath, LocationToPath, Location } from '../../app/config/urls';
-import abbreviationToTitle from '../../shared/config/abbreviations';
+import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
 
 import { Namespace } from '../../shared/types/namespaces';
 import {
@@ -53,7 +53,7 @@ export const ProteomesColumnConfiguration: ColumnConfiguration<
 
 // COLUMN RENDERERS BELOW
 ProteomesColumnConfiguration.set(ProteomesColumn.upid, {
-  label: 'Entry',
+  ...getLabelAndTooltip('Entry', 'Unique proteome identifier'),
   render: ({ id, proteomeType }) => (
     <AccessionView
       id={id}
@@ -64,17 +64,29 @@ ProteomesColumnConfiguration.set(ProteomesColumn.upid, {
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.organismID, {
-  label: 'Organism ID',
+  ...getLabelAndTooltip(
+    'Organism ID',
+    'NCBI taxonomy identifier of the source organism (TaxId)'
+  ),
   render: ({ taxonomy }) => <TaxonomyView data={taxonomy} displayOnlyID />,
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.organism, {
-  label: 'Organism',
+  ...getLabelAndTooltip(
+    'Organism',
+    'Scientific name (and synonyms) of the source organism',
+    'organism-name'
+  ),
   render: ({ taxonomy }) => <TaxonomyView data={taxonomy} />,
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.components, {
-  label: 'Components',
+  ...getLabelAndTooltip(
+    'Components',
+    'Genomic components encoding the proteome',
+    'proteome_component'
+  ),
+
   render: ({ components }) => (
     <ExpandableList descriptionString="components" displayNumberOfHiddenItems>
       {components?.map(({ name }) => name)}
@@ -83,13 +95,21 @@ ProteomesColumnConfiguration.set(ProteomesColumn.components, {
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.mnemonic, {
-  label: 'Mnemonic',
+  ...getLabelAndTooltip(
+    'Mnemonic',
+    'Mnemonic organism identification code of at most 5 alphanumeric characters used in the entry names of UniProtKB entries',
+    'taxonomy'
+  ),
   render: ({ taxonomy }) => taxonomy.mnemonic,
 });
 
 // TODO: Eventually signify hidden nodes and unify view with UniProtKB as per https://www.ebi.ac.uk/panda/jira/browse/TRM-25206
 ProteomesColumnConfiguration.set(ProteomesColumn.lineage, {
-  label: 'Lineage',
+  ...getLabelAndTooltip(
+    'Lineage',
+    'Hierarchical classification of the source organism',
+    'taxonomic_lineage'
+  ),
   render: ({ taxonLineage }) =>
     taxonLineage?.map(({ scientificName, taxonId, rank }, index) => (
       <Fragment key={taxonId}>
@@ -103,7 +123,11 @@ ProteomesColumnConfiguration.set(ProteomesColumn.lineage, {
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.cpd, {
-  label: <abbr title={abbreviationToTitle.CPD}>CPD</abbr>,
+  ...getLabelAndTooltip(
+    'CPD',
+    'Complete Proteome Detector (CPD) is an algorithm which employs statistical evaluation of the completeness and quality of proteomes in UniProt',
+    'assessing_proteomes'
+  ),
   render: ({ proteomeCompletenessReport }) =>
     proteomeCompletenessReport?.cpdReport?.status,
 });
@@ -126,13 +150,20 @@ ProteomesColumnConfiguration.set(ProteomesColumn.genomeAssembly, {
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.genomeRepresentation, {
-  label: 'Genome representation',
+  ...getLabelAndTooltip(
+    'Genome representation',
+    'NCBI RefSeq’s assessment of genome assembly representation'
+  ),
+
   render: ({ genomeAssembly }) =>
     genomeAssembly && capitalize(genomeAssembly.level),
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
-  label: 'Protein count',
+  ...getLabelAndTooltip(
+    'Protein count',
+    'Number of protein entries associated with this proteome: UniProtKB entries for regular proteomes or UniParc entries for redundant proteomes'
+  ),
   render: ({ id, proteinCount }) =>
     proteinCount ? (
       <Link
@@ -149,23 +180,14 @@ ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.busco, {
-  label: (
+  ...getLabelAndTooltip(
     <>
       BUSCO
       <br />
       <BuscoLegend />
-    </>
-  ),
-  tooltip: (
-    <>
-      The Benchmarking Universal Single-Copy Ortholog (BUSCO) assessment tool is
-      used, for eukaryotic and bacterial proteomes, to provide quantitative
-      measures of UniProt proteome data completeness in terms of expected gene
-      content. BUSCO scores include percentages of complete (C) single-copy (S)
-      genes, complete (C) duplicated (D) genes, fragmented (F) and missing (M)
-      genes, as well as the total number of orthologous clusters (n) used in the
-      BUSCO assessment, and the name of the taxonomic lineage dataset used.
-    </>
+    </>,
+    'The Benchmarking Universal Single-Copy Ortholog (BUSCO) assessment tool is used, for eukaryotic and bacterial proteomes, to provide quantitative measures of UniProt proteome data completeness in terms of expected gene content.',
+    'assessing_proteomes'
   ),
   render: ({ proteomeCompletenessReport }) =>
     proteomeCompletenessReport?.buscoReport && (
