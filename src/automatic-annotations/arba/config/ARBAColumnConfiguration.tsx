@@ -2,12 +2,13 @@ import { Link } from 'react-router-dom';
 import { ExpandableList } from 'franklin-sites';
 
 import { mapToLinks } from '../../../shared/components/MapTo';
+import getLabelAndTooltip from '../../../shared/utils/getLabelAndTooltip';
+
+import SharedColumnConfiguration from '../../../shared/config/ColumnConfiguration';
 
 import { ARBAAPIModel } from '../adapters/arbaConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 import { Namespace } from '../../../shared/types/namespaces';
-import getLabelAndTooltip from '../../../shared/utils/getLabelAndTooltip';
-import SharedColumnConfiguration from '../../../shared/config/ColumnConfiguration';
 
 export enum ARBAColumn {
   ruleId = 'rule_id',
