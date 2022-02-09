@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom';
 import { ExpandableList } from 'franklin-sites';
 
-import AccessionView from '../../../shared/components/results/AccessionView';
-import TaxonomicScope from '../../shared/column-renderers/TaxonomicScope';
-import AnnotationCovered from '../../shared/column-renderers/AnnotationCovered';
-
 import { mapToLinks } from '../../../shared/components/MapTo';
+import getLabelAndTooltip from '../../../shared/utils/getLabelAndTooltip';
+
+import SharedColumnConfiguration from '../../../shared/config/ColumnConfiguration';
 
 import { ARBAAPIModel } from '../adapters/arbaConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
@@ -34,24 +33,30 @@ export const ARBAColumnConfiguration: ColumnConfiguration<
 > = new Map();
 
 // COLUMN RENDERERS BELOW
-ARBAColumnConfiguration.set(ARBAColumn.ruleId, {
-  label: 'ARBA ID',
-  render: ({ uniRuleId }) =>
-    uniRuleId && <AccessionView id={uniRuleId} namespace={Namespace.arba} />,
-});
+ARBAColumnConfiguration.set(
+  ARBAColumn.ruleId,
+  SharedColumnConfiguration.rule_id(
+    ({ uniRuleId }) => uniRuleId,
+    'ARBA',
+    Namespace.arba
+  )
+);
 
-ARBAColumnConfiguration.set(ARBAColumn.taxonomicScope, {
-  label: 'Taxonomic scope',
-  render: TaxonomicScope,
-});
+ARBAColumnConfiguration.set(
+  ARBAColumn.taxonomicScope,
+  SharedColumnConfiguration.taxonomic_scope
+);
 
-ARBAColumnConfiguration.set(ARBAColumn.annotationCovered, {
-  label: 'Annotation covered',
-  render: AnnotationCovered,
-});
+ARBAColumnConfiguration.set(
+  ARBAColumn.annotationCovered,
+  SharedColumnConfiguration.annotation_covered
+);
 
 ARBAColumnConfiguration.set(ARBAColumn.statistics, {
-  label: 'Statistics',
+  ...getLabelAndTooltip(
+    'Statistics',
+    'Number of proteins annotated by the rule'
+  ),
   render: ({ uniRuleId, statistics }) => (
     <ExpandableList>
       {mapToLinks(Namespace.unirule, uniRuleId, statistics)?.map(
