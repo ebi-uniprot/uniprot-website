@@ -10,18 +10,20 @@ import { ARBAAPIModel } from '../../automatic-annotations/arba/adapters/arbaConv
 import { Namespace } from '../types/namespaces';
 
 const SharedColumnConfiguration = {
-  organism_id: <Schema,>(
-    getter: (data: Schema) => TaxonomyDatum | undefined
-  ) => ({
-    ...getLabelAndTooltip(
-      'Organism ID',
-      'NCBI taxonomy identifier of the source organism (TaxId)'
-    ),
-    render: (data: Schema) => {
-      const taxonomyData = getter(data);
-      return taxonomyData && <TaxonomyView data={taxonomyData} displayOnlyID />;
-    },
-  }),
+  organism_id<Schema>(getter: (data: Schema) => TaxonomyDatum | undefined) {
+    return {
+      ...getLabelAndTooltip(
+        'Organism ID',
+        'NCBI taxonomy identifier of the source organism (TaxId)'
+      ),
+      render: (data: Schema) => {
+        const taxonomyData = getter(data);
+        return (
+          taxonomyData && <TaxonomyView data={taxonomyData} displayOnlyID />
+        );
+      },
+    };
+  },
   organism<Schema>(getter: (data: Schema) => TaxonomyDatum | undefined) {
     return {
       ...getLabelAndTooltip(
@@ -32,6 +34,24 @@ const SharedColumnConfiguration = {
       render: (data: Schema) => {
         const taxonomyData = getter(data);
         return taxonomyData && <TaxonomyView data={taxonomyData} />;
+      },
+    };
+  },
+  rule_id<Schema>(
+    getter: (data: Schema) => ARBAAPIModel['uniRuleId'] | undefined,
+    namespaceLabel: string,
+    namespace: Namespace.unirule | Namespace.arba
+  ) {
+    return {
+      ...getLabelAndTooltip(
+        `${namespaceLabel} ID`,
+        'Unique and stable identifier for annotation rules'
+      ),
+      render: (data: Schema) => {
+        const uniRuleId = getter(data);
+        return (
+          uniRuleId && <AccessionView id={uniRuleId} namespace={namespace} />
+        );
       },
     };
   },
@@ -49,22 +69,6 @@ const SharedColumnConfiguration = {
     ),
     render: AnnotationCovered,
   },
-  rule_id: <Schema,>(
-    getter: (data: Schema) => ARBAAPIModel['uniRuleId'] | undefined,
-    namespaceLabel: string,
-    namespace: Namespace.unirule | Namespace.arba
-  ) => ({
-    ...getLabelAndTooltip(
-      `${namespaceLabel} ID`,
-      'Unique and stable identifier for annotation rules'
-    ),
-    render: (data: Schema) => {
-      const uniRuleId = getter(data);
-      return (
-        uniRuleId && <AccessionView id={uniRuleId} namespace={namespace} />
-      );
-    },
-  }),
 };
 
 export default SharedColumnConfiguration;
