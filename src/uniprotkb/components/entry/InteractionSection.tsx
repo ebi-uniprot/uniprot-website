@@ -21,6 +21,8 @@ import { UIModel } from '../../adapters/sectionConverter';
 import { getEntryPath } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
 
+import 'interaction-viewer';
+
 import styles from './styles/interaction-section.module.scss';
 
 type Props = {
@@ -40,13 +42,6 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
         /* webpackChunkName: "protvista-datatable" */ 'protvista-datatable'
       ),
     'protvista-datatable'
-  );
-
-  const interactionViewerElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(/* webpackChunkName: "interaction-viewer" */ 'interaction-viewer'),
-    'interaction-viewer'
   );
 
   if (!hasContent(data)) {
@@ -77,9 +72,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
       {interactionComment?.[0] && (
         <>
           <h3 data-article-id="binary_interactions">Binary interactions</h3>
-          {interactionViewerElement.defined && (
-            <interactionViewerElement.name accession={primaryAccession} />
-          )}
+          <interaction-viewer accession={primaryAccession} />
           <datatableElement.name filter-scroll>
             <table>
               <thead>

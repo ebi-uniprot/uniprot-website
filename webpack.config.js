@@ -152,9 +152,6 @@ module.exports = (env, argv) => {
             fs.realpathSync(`${__dirname}/node_modules/rheostat`),
             fs.realpathSync(`${__dirname}/node_modules/molstar/build`),
             fs.realpathSync(
-              `${__dirname}/node_modules/interaction-viewer/styles`
-            ),
-            fs.realpathSync(
               `${__dirname}/node_modules/tippy.js/dist/tippy.css`
             ),
           ],
