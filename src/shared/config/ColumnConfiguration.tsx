@@ -9,7 +9,7 @@ import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyC
 import { ARBAAPIModel } from '../../automatic-annotations/arba/adapters/arbaConverter';
 import { Namespace } from '../types/namespaces';
 
-export const SharedColumnConfiguration = {
+const SharedColumnConfiguration = {
   organism_id: <Schema,>(
     getter: (data: Schema) => TaxonomyDatum | undefined
   ) => ({

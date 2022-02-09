@@ -1,10 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ExpandableList } from 'franklin-sites';
 
-import AccessionView from '../../../shared/components/results/AccessionView';
-import TaxonomicScope from '../../shared/column-renderers/TaxonomicScope';
-import AnnotationCovered from '../../shared/column-renderers/AnnotationCovered';
-
 import { mapToLinks } from '../../../shared/components/MapTo';
 
 import { ARBAAPIModel } from '../adapters/arbaConverter';
