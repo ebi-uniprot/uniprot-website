@@ -18,7 +18,6 @@ import {
 } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
-import { v1 } from 'uuid';
 import cn from 'classnames';
 // TODO: find a way to export this transparently from franklin
 import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
@@ -255,7 +254,6 @@ const AlignForm = ({ initialFormValues }: Props) => {
     onError: (error) =>
       dispatch(
         addMessage({
-          id: v1(),
           content: error.message,
           format: MessageFormat.POP_UP,
           level: MessageLevel.FAILURE,

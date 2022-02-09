@@ -19,7 +19,6 @@ import {
 } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
-import { v1 } from 'uuid';
 import cn from 'classnames';
 import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
 
@@ -415,7 +414,6 @@ const BlastForm = ({ initialFormValues }: Props) => {
     onError: (error) =>
       dispatch(
         addMessage({
-          id: v1(),
           content: error.message,
           format: MessageFormat.POP_UP,
           level: MessageLevel.FAILURE,

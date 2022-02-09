@@ -16,8 +16,6 @@ describe('messages actions', () => {
       content: 'job message',
       format: MessageFormat.POP_UP,
       level: MessageLevel.SUCCESS,
-      dateActive: Date.now(),
-      dateExpired: Date.now(),
       tag: MessageTag.JOB,
     };
     const expectedAction = {

@@ -9,7 +9,6 @@ import {
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { AxiosRequestConfig } from 'axios';
-import { v1 } from 'uuid';
 
 import useDataApi from '../../shared/hooks/useDataApi';
 
@@ -82,7 +81,6 @@ export const useFormLogic = (referrer?: string): UseFormLogicReturnType => {
       // Pop up message for the user
       dispatch(
         addMessage({
-          id: v1(),
           format: MessageFormat.POP_UP,
           level: MessageLevel.FAILURE,
           content: 'Error while sending your message. Please try again later.',
@@ -97,7 +95,6 @@ export const useFormLogic = (referrer?: string): UseFormLogicReturnType => {
       // Pop up message for the user
       dispatch(
         addMessage({
-          id: v1(),
           format: MessageFormat.POP_UP,
           level: MessageLevel.SUCCESS,
           content: 'Your message has been succesfully sent to our team.',

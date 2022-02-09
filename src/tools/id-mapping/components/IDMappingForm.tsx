@@ -16,7 +16,6 @@ import {
   Loader,
 } from 'franklin-sites';
 import { sleep } from 'timing-functions';
-import { v1 } from 'uuid';
 import cn from 'classnames';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
@@ -261,7 +260,6 @@ const IDMappingForm = ({ initialFormValues }: Props) => {
     onError: (error) =>
       dispatch(
         addMessage({
-          id: v1(),
           content: error.message,
           format: MessageFormat.POP_UP,
           level: MessageLevel.FAILURE,

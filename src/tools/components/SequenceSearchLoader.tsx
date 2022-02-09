@@ -11,7 +11,6 @@ import {
 import queryString from 'query-string';
 import { SearchInput } from 'franklin-sites';
 import { useDispatch } from 'react-redux';
-import { v1 } from 'uuid';
 import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
 
 import useDataApi from '../../shared/hooks/useDataApi';
@@ -213,7 +212,6 @@ const SequenceSearchLoader = forwardRef<
         if (errors.length) {
           dispatch(
             addMessage({
-              id: v1(),
               content: `There was an issue retrieving sequence data for: ${errors.join(
                 ', '
               )}`,

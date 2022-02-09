@@ -23,8 +23,8 @@ export type MessageType = {
   content: string | JSX.Element;
   format: MessageFormat;
   level: MessageLevel;
-  dateActive?: number;
-  dateExpired?: number;
+  // short | medium | long
+  ttl?: 5_000 | 15_000 | 30_000;
   tag?: MessageTag;
   locations?: Location[];
   omitAndDeleteAtLocations?: Location[];
