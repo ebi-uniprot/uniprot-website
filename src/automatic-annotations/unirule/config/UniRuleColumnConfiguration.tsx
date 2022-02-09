@@ -5,12 +5,13 @@ import AccessionView from '../../../shared/components/results/AccessionView';
 import CSVView from '../../../uniprotkb/components/protein-data-views/CSVView';
 
 import { mapToLinks } from '../../../shared/components/MapTo';
+import getLabelAndTooltip from '../../../shared/utils/getLabelAndTooltip';
+
+import SharedColumnConfiguration from '../../../shared/config/ColumnConfiguration';
 
 import { UniRuleAPIModel } from '../adapters/uniRuleConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 import { Namespace } from '../../../shared/types/namespaces';
-import SharedColumnConfiguration from '../../../shared/config/ColumnConfiguration';
-import getLabelAndTooltip from '../../../shared/utils/getLabelAndTooltip';
 
 export enum UniRuleColumn {
   ruleId = 'rule_id',
