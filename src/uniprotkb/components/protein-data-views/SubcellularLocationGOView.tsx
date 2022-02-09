@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { ExternalLink } from 'franklin-sites';
+import { ExternalLink, LocationPinIcon } from 'franklin-sites';
 
 import externalUrls from '../../../shared/config/externalUrls';
 
@@ -31,6 +31,10 @@ const SubcellularLocationGOView: FC<{
             // with @swissprot/swissbiopics-visualizer
             className={getSwissBioPicLocationId(id)}
           >
+            <LocationPinIcon
+              className="sub-cell-viz__in-view-pin"
+              height="1em"
+            />
             <ExternalLink url={externalUrls.QuickGO(id)}>
               {properties.GoTerm}
             </ExternalLink>

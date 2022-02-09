@@ -749,8 +749,16 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_subcell
     <div
       id="id1term"
     >
+      <test-file-stub
+        classname="sub-cell-viz__in-view-pin"
+        height="1em"
+      />
       <strong>
-        location value
+        <a
+          href="/locations/id1"
+        >
+          location value
+        </a>
       </strong>
        
       <button

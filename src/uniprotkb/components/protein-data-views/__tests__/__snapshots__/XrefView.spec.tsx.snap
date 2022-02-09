@@ -15,7 +15,11 @@ exports[`XRefView should render section 1`] = `
         <div
           class="decorated-list-item__title tiny"
         >
-          EMBL
+          <a
+            href="/database?query=(name:EMBL)&direct"
+          >
+            EMBL
+          </a>
         </div>
         <div
           class="decorated-list-item__content"

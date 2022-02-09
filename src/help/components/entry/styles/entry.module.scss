@@ -10,10 +10,10 @@
   margin: 1rem 1rem 0 0;
 }
 
-.content {
+.content,
+.in-panel {
   table {
     border-spacing: 0;
-    border: 1px solid $colour-sea-blue;
     overflow: auto;
     display: block;
   }
@@ -21,6 +21,14 @@
   thead {
     color: $colour-sky-white;
     background: $colour-sea-blue;
+
+    a {
+      color: $colour-sky-white;
+    }
+  }
+
+  tbody {
+    border: 1px solid $colour-sea-blue;
   }
 
   th,
