@@ -6,10 +6,11 @@ import { capitalize } from 'lodash-es';
 import BuscoView from '../components/BuscoView';
 import BuscoLegend from '../components/BuscoLegend';
 import AccessionView from '../../shared/components/results/AccessionView';
-import TaxonomyView from '../../shared/components/entry/TaxonomyView';
 
 import { getEntryPath, LocationToPath, Location } from '../../app/config/urls';
 import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
+
+import SharedColumnConfiguration from '../../shared/config/ColumnConfiguration';
 
 import { Namespace } from '../../shared/types/namespaces';
 import {
@@ -46,9 +47,10 @@ export const defaultColumns = [
 
 export const primaryKeyColumns = [ProteomesColumn.upid];
 
+type Schema = ProteomesAPIModel | ProteomesUIModel;
 export const ProteomesColumnConfiguration: ColumnConfiguration<
   ProteomesColumn,
-  ProteomesAPIModel | ProteomesUIModel
+  Schema
 > = new Map();
 
 // COLUMN RENDERERS BELOW
@@ -63,22 +65,15 @@ ProteomesColumnConfiguration.set(ProteomesColumn.upid, {
   ),
 });
 
-ProteomesColumnConfiguration.set(ProteomesColumn.organismID, {
-  ...getLabelAndTooltip(
-    'Organism ID',
-    'NCBI taxonomy identifier of the source organism (TaxId)'
-  ),
-  render: ({ taxonomy }) => <TaxonomyView data={taxonomy} displayOnlyID />,
-});
+ProteomesColumnConfiguration.set(
+  ProteomesColumn.organismID,
+  SharedColumnConfiguration.organism_id(({ taxonomy }: Schema) => taxonomy)
+);
 
-ProteomesColumnConfiguration.set(ProteomesColumn.organism, {
-  ...getLabelAndTooltip(
-    'Organism',
-    'Scientific name (and synonyms) of the source organism',
-    'organism-name'
-  ),
-  render: ({ taxonomy }) => <TaxonomyView data={taxonomy} />,
-});
+ProteomesColumnConfiguration.set(
+  ProteomesColumn.organism,
+  SharedColumnConfiguration.organism(({ taxonomy }: Schema) => taxonomy)
+);
 
 ProteomesColumnConfiguration.set(ProteomesColumn.components, {
   ...getLabelAndTooltip(
