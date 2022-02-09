@@ -2,8 +2,6 @@ import { Link } from 'react-router-dom';
 import { ExpandableList } from 'franklin-sites';
 
 import AccessionView from '../../../shared/components/results/AccessionView';
-import TaxonomicScope from '../../shared/column-renderers/TaxonomicScope';
-import AnnotationCovered from '../../shared/column-renderers/AnnotationCovered';
 import CSVView from '../../../uniprotkb/components/protein-data-views/CSVView';
 
 import { mapToLinks } from '../../../shared/components/MapTo';
@@ -11,6 +9,8 @@ import { mapToLinks } from '../../../shared/components/MapTo';
 import { UniRuleAPIModel } from '../adapters/uniRuleConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 import { Namespace } from '../../../shared/types/namespaces';
+import SharedColumnConfiguration from '../../../shared/config/ColumnConfiguration';
+import getLabelAndTooltip from '../../../shared/utils/getLabelAndTooltip';
 
 export enum UniRuleColumn {
   ruleId = 'rule_id',
@@ -39,24 +39,30 @@ export const UniRuleColumnConfiguration: ColumnConfiguration<
 > = new Map();
 
 // COLUMN RENDERERS BELOW
-UniRuleColumnConfiguration.set(UniRuleColumn.ruleId, {
-  label: 'UniRule ID',
-  render: ({ uniRuleId }) =>
-    uniRuleId && <AccessionView id={uniRuleId} namespace={Namespace.unirule} />,
-});
+UniRuleColumnConfiguration.set(
+  UniRuleColumn.ruleId,
+  SharedColumnConfiguration.rule_id(
+    ({ uniRuleId }) => uniRuleId,
+    'UniRule',
+    Namespace.unirule
+  )
+);
 
-UniRuleColumnConfiguration.set(UniRuleColumn.taxonomicScope, {
-  label: 'Taxonomic scope',
-  render: TaxonomicScope,
-});
+UniRuleColumnConfiguration.set(
+  UniRuleColumn.taxonomicScope,
+  SharedColumnConfiguration.taxonomic_scope
+);
 
-UniRuleColumnConfiguration.set(UniRuleColumn.annotationCovered, {
-  label: 'Annotation covered',
-  render: AnnotationCovered,
-});
+UniRuleColumnConfiguration.set(
+  UniRuleColumn.annotationCovered,
+  SharedColumnConfiguration.annotation_covered
+);
 
 UniRuleColumnConfiguration.set(UniRuleColumn.predictedProteinName, {
-  label: 'Predicted protein name',
+  ...getLabelAndTooltip(
+    'Predicted protein name',
+    'Protein name(s) predicted by the annotation rule'
+  ),
   render: ({ mainRule }) => {
     const proteinDescription = mainRule?.annotations?.find(
       (annotation) => annotation.proteinDescription
@@ -89,7 +95,10 @@ UniRuleColumnConfiguration.set(UniRuleColumn.templateEntries, {
 });
 
 UniRuleColumnConfiguration.set(UniRuleColumn.statistics, {
-  label: 'Statistics',
+  ...getLabelAndTooltip(
+    'Statistics',
+    'Number of proteins annotated by the rule'
+  ),
   render: ({ uniRuleId, information, statistics }) => (
     <ExpandableList>
       {mapToLinks(
