@@ -9,7 +9,6 @@ import {
 import { useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import qs from 'query-string';
-import { v1 } from 'uuid';
 import { frame } from 'timing-functions';
 import { PageIntro, Loader, Button } from 'franklin-sites';
 
@@ -114,7 +113,7 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialNamespace }: Props) => {
         frame().then(() => {
           dispatch(
             addMessage({
-              id: Array.isArray(query) ? query[0] : query ?? v1(),
+              id: Array.isArray(query) ? query[0] : query || undefined,
               content: `Found ${
                 invalidClauses.length
               } invalid query ${pluralise(

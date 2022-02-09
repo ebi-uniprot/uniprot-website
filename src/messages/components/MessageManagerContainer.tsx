@@ -1,16 +1,21 @@
-import { FC, useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { groupBy } from 'lodash-es';
-import * as actions from '../state/messagesActions';
-import { MessageFormat } from '../types/messagesTypes';
-import { RootState } from '../../app/state/rootInitialState';
-import InPageMessageHub from './InPageMessageHub';
-import PopUpMessageHub from './PopupMessageHub';
-import { Location } from '../../app/config/urls';
+
+import MessageHub from './MessageHub';
+
+import { deleteMessage } from '../state/messagesActions';
+
 import { getLocationForPathname } from '../../shared/utils/url';
 
-const MessageManager: FC = () => {
+import { MessageFormat } from '../types/messagesTypes';
+import { RootState } from '../../app/state/rootInitialState';
+import { Location } from '../../app/config/urls';
+
+import styles from './styles/popup-message-hub.module.scss';
+
+const MessageManager = () => {
   // MessageManager is a part of the base layout and as this has been extracted from the page component
   // (eg HomePage, EntryPage,...) and we can't get the match path using react-router's withRouter. useLocation
   // provides paths and not a match pattern. Eg:
@@ -20,9 +25,7 @@ const MessageManager: FC = () => {
   const { pathname } = useLocation();
   const currentLocation = getLocationForPathname(pathname) as Location;
   const dispatch = useDispatch();
-  const activeMessages = useSelector(
-    (state: RootState) => state.messages.active
-  );
+  const activeMessages = useSelector((state: RootState) => state.messages);
   const { true: omitAndDeleteMessages = [], false: restActiveMessages = [] } =
     groupBy(
       activeMessages,
@@ -32,16 +35,11 @@ const MessageManager: FC = () => {
         omitAndDeleteAtLocations.includes(currentLocation)
     );
 
-  const deleteMessage = useCallback(
-    (id: string) => dispatch(actions.deleteMessage(id)),
-    [dispatch]
-  );
-
   useEffect(() => {
-    omitAndDeleteMessages.forEach(({ id }) => {
-      deleteMessage(id);
-    });
-  }, [deleteMessage, omitAndDeleteMessages]);
+    for (const { id } of omitAndDeleteMessages) {
+      dispatch(deleteMessage(id));
+    }
+  }, [dispatch, omitAndDeleteMessages]);
 
   const filteredActiveMessages = restActiveMessages.filter(
     ({ locations }) =>
@@ -56,8 +54,13 @@ const MessageManager: FC = () => {
 
   return (
     <>
-      <InPageMessageHub messages={inPageMessages} onDismiss={deleteMessage} />
-      <PopUpMessageHub messages={popUpMessages} onDismiss={deleteMessage} />
+      <MessageHub messages={inPageMessages} />
+      {popUpMessages.length ? (
+        <MessageHub
+          messages={popUpMessages}
+          className={styles['popup-message-container']}
+        />
+      ) : null}
     </>
   );
 };

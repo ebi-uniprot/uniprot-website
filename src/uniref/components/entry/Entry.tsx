@@ -62,12 +62,10 @@ const Entry: FC = () => {
 
   if (redirectedTo) {
     const message: MessageType = {
-      id: 'job-id',
+      id: 'redirect',
       content: `You are seeing the results from: ${redirectedTo}.`,
       format: MessageFormat.IN_PAGE,
       level: MessageLevel.SUCCESS,
-      dateActive: Date.now(),
-      dateExpired: Date.now(),
       tag: MessageTag.REDIRECT,
     };
 

@@ -92,7 +92,8 @@ describe('useDataApi hook', () => {
         content: message,
         format: 'POP_UP',
         level: 'failure',
-        id: 0,
+        id: message,
+        displayTime: 5_000,
       },
       type: 'ADD_MESSAGE',
     });
