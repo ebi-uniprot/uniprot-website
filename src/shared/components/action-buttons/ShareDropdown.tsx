@@ -71,6 +71,7 @@ const CopyLinkWebsite = () => {
             content: `Link copied to clipboard`,
             format: MessageFormat.POP_UP,
             level: MessageLevel.SUCCESS,
+            displayTime: 5_000,
           })
         );
       } catch {
@@ -81,6 +82,7 @@ const CopyLinkWebsite = () => {
             content: `There was an issue while copying to clipboard`,
             format: MessageFormat.POP_UP,
             level: MessageLevel.FAILURE,
+            displayTime: 15_000,
           })
         );
       }
