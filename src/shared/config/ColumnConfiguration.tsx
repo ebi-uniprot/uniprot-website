@@ -22,17 +22,19 @@ const SharedColumnConfiguration = {
       return taxonomyData && <TaxonomyView data={taxonomyData} displayOnlyID />;
     },
   }),
-  organism: <Schema,>(getter: (data: Schema) => TaxonomyDatum | undefined) => ({
-    ...getLabelAndTooltip(
-      'Organism',
-      'Scientific name (and synonyms) of the source organism',
-      'organism-name'
-    ),
-    render: (data: Schema) => {
-      const taxonomyData = getter(data);
-      return taxonomyData && <TaxonomyView data={taxonomyData} />;
-    },
-  }),
+  organism<Schema>(getter: (data: Schema) => TaxonomyDatum | undefined) {
+    return {
+      ...getLabelAndTooltip(
+        'Organism',
+        'Scientific name (and synonyms) of the source organism',
+        'organism-name'
+      ),
+      render: (data: Schema) => {
+        const taxonomyData = getter(data);
+        return taxonomyData && <TaxonomyView data={taxonomyData} />;
+      },
+    };
+  },
   taxonomic_scope: {
     ...getLabelAndTooltip(
       'Taxonomic scope',
