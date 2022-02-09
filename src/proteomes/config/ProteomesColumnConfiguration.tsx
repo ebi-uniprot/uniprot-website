@@ -128,7 +128,10 @@ ProteomesColumnConfiguration.set(ProteomesColumn.cpd, {
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.genomeAssembly, {
-  label: 'Genome assembly ID',
+  ...getLabelAndTooltip(
+    'Genome assembly ID',
+    'Identifier for the genome assembly'
+  ),
   render: ({ genomeAssembly }) => {
     if (!genomeAssembly) {
       return null;
