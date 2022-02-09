@@ -1740,7 +1740,7 @@ exports[`UniProtKBColumnConfiguration component should render column "organism_n
     href="/taxonomy/9606"
     title="scientific name (common name) (synonyms 1), taxon ID 9606"
   >
-    9606
+    scientific name (common name) (synonyms 1)
   </a>
 </DocumentFragment>
 `;

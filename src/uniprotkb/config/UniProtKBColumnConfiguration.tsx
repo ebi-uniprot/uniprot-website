@@ -210,7 +210,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneNames, {
 
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.organismName,
-  SharedColumnConfiguration.organism_id(
+  SharedColumnConfiguration.organism(
     (data: UniProtkbUIModel) => data[EntrySection.NamesAndTaxonomy].organismData
   )
 );
