@@ -3,15 +3,13 @@
 @keyframes slide-in-side {
   from {
     opacity: 0;
-    margin-right: -100px;
-    margin-left: 100;
+    transform: translateX(100px);
   }
 }
 
 .popup-message-container {
   opacity: 1;
-  margin-right: 0;
-  margin-left: 0;
+  transform: translateX(0);
 
   // animation on mount
   animation-duration: 1s;

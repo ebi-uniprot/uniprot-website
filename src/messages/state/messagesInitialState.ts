@@ -1,13 +1,9 @@
 import { MessageType } from '../types/messagesTypes';
 
 export type MessagesState = {
-  active: MessageType[];
-  deleted: { [id: string]: boolean };
+  [key: MessageType['id']]: MessageType;
 };
 
-const messagesInitialState = {
-  active: [],
-  deleted: {},
-};
+const messagesInitialState: MessagesState = {};
 
 export default messagesInitialState;

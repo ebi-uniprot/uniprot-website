@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`InPageMessageHub tests it should render and call dismiss 1`] = `
+exports[`InPageMessageHub tests should render 1`] = `
 <DocumentFragment>
   <div>
     <div

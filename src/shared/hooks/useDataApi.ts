@@ -1,6 +1,5 @@
 import { useEffect, useReducer } from 'react';
 import axios, { AxiosResponse, AxiosError, AxiosRequestConfig } from 'axios';
-import { v1 } from 'uuid';
 import { useDispatch } from 'react-redux';
 
 import fetchData from '../utils/fetchData';
@@ -251,13 +250,15 @@ function useDataApi<T>(
       } catch {
         /**/
       }
+      const messageContent =
+        state.error?.response?.data?.messages?.join(',') || '400 Error';
       reduxDispatch(
         addMessage({
-          id: v1(),
-          content:
-            state.error?.response?.data?.messages?.join(',') || '400 Error',
+          id: messageContent,
+          content: messageContent,
           format: MessageFormat.POP_UP,
           level: MessageLevel.FAILURE,
+          displayTime: 5_000,
         })
       );
     }

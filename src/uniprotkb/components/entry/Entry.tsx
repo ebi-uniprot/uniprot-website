@@ -191,7 +191,7 @@ const Entry: FC = () => {
       const newEntry = split[split.length - 1];
       dispatch(
         addMessage({
-          id: 'job-id',
+          id: 'accession-merge',
           content: (
             <>
               {match.params.accession} has been merged into {newEntry}. You have
@@ -211,8 +211,6 @@ const Entry: FC = () => {
           ),
           format: MessageFormat.IN_PAGE,
           level: MessageLevel.SUCCESS,
-          dateActive: Date.now(),
-          dateExpired: Date.now(),
           tag: MessageTag.REDIRECT,
         })
       );
