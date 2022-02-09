@@ -97,6 +97,8 @@ import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
 import getFeatureLabelAndTooltip from '../../help/config/featureColumnHeaders';
 import * as logging from '../../shared/utils/logging';
 
+import SharedColumnConfiguration from '../../shared/config/ColumnConfiguration';
+
 import { Namespace } from '../../shared/types/namespaces';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
 import { Interactant } from '../adapters/interactionConverter';
@@ -206,17 +208,12 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneNames, {
   ),
 });
 
-UniProtKBColumnConfiguration.set(UniProtKBColumn.organismName, {
-  ...getLabelAndTooltip(
-    'Organism',
-    'Scientific name (and synonyms) of the source organism',
-    'organism-name'
-  ),
-  render: (data) => {
-    const { organismData } = data[EntrySection.NamesAndTaxonomy];
-    return organismData && <TaxonomyView data={organismData} />;
-  },
-});
+UniProtKBColumnConfiguration.set(
+  UniProtKBColumn.organismName,
+  SharedColumnConfiguration.organism_id(
+    (data: UniProtkbUIModel) => data[EntrySection.NamesAndTaxonomy].organismData
+  )
+);
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.length, {
   ...getLabelAndTooltip('Length', 'Length of the canonical sequence'),
@@ -315,16 +312,12 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneSynonym, {
   },
 });
 
-UniProtKBColumnConfiguration.set(UniProtKBColumn.organismId, {
-  ...getLabelAndTooltip(
-    'Organism ID',
-    'NCBI taxonomy identifier of the source organism (TaxId)'
-  ),
-  render: (data) => {
-    const { organismData } = data[EntrySection.NamesAndTaxonomy];
-    return organismData && <TaxonomyView data={organismData} displayOnlyID />;
-  },
-});
+UniProtKBColumnConfiguration.set(
+  UniProtKBColumn.organismId,
+  SharedColumnConfiguration.organism_id(
+    (data: UniProtkbUIModel) => data[EntrySection.NamesAndTaxonomy].organismData
+  )
+);
 
 // NOTE: - Presently referred to as "organelle" by the API in search-fields
 //       - Historically called "Gene encoded by" by uniprot.org
