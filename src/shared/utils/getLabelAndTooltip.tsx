@@ -10,7 +10,7 @@ const getLabelAndTooltip = (
     <>
       {tooltip}
       {articleId && (
-        <div data-article-id="entry_name" style={{ textAlign: 'right' }}>
+        <div data-article-id={articleId} style={{ textAlign: 'right' }}>
           more
         </div>
       )}
