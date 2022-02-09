@@ -5,6 +5,7 @@ import { Provider as ReduxProvider } from 'react-redux';
 import { FranklinSite } from 'franklin-sites';
 import { Router } from 'react-router-dom';
 
+import { MessagesProvider } from '../../shared/contexts/Messages';
 import { DatabaseInfoMapsProvider } from '../../shared/contexts/DatabaseInfoMaps';
 
 import history from '../../shared/utils/browserHistory';
@@ -15,7 +16,9 @@ const GlobalContext: FC = ({ children }) => (
     <ReduxProvider store={store}>
       <FranklinSite>
         <Router history={history}>
-          <DatabaseInfoMapsProvider>{children}</DatabaseInfoMapsProvider>
+          <MessagesProvider>
+            <DatabaseInfoMapsProvider>{children}</DatabaseInfoMapsProvider>
+          </MessagesProvider>
         </Router>
       </FranklinSite>
     </ReduxProvider>

@@ -1,16 +1,15 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { groupBy } from 'lodash-es';
 
 import MessageHub from './MessageHub';
 
+import { useMessagesReducer } from '../../shared/hooks/useGlobalReducer';
 import { deleteMessage } from '../state/messagesActions';
 
 import { getLocationForPathname } from '../../shared/utils/url';
 
 import { MessageFormat } from '../types/messagesTypes';
-import { RootState } from '../../app/state/rootInitialState';
 import { Location } from '../../app/config/urls';
 
 import styles from './styles/popup-message-hub.module.scss';
@@ -24,8 +23,7 @@ const MessageManager = () => {
   // The getLocationForPathname will find the location by searching over LocationToPath in app/config/urls
   const { pathname } = useLocation();
   const currentLocation = getLocationForPathname(pathname) as Location;
-  const dispatch = useDispatch();
-  const activeMessages = useSelector((state: RootState) => state.messages);
+  const [activeMessages, dispatch] = useMessagesReducer();
   const { true: omitAndDeleteMessages = [], false: restActiveMessages = [] } =
     groupBy(
       activeMessages,

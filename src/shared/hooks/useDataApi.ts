@@ -1,6 +1,7 @@
 import { useEffect, useReducer } from 'react';
 import axios, { AxiosResponse, AxiosError, AxiosRequestConfig } from 'axios';
-import { useDispatch } from 'react-redux';
+
+import { useMessagesReducer } from './useGlobalReducer';
 
 import fetchData from '../utils/fetchData';
 import { addMessage } from '../../messages/state/messagesActions';
@@ -123,7 +124,7 @@ function useDataApi<T>(
   options?: AxiosRequestConfig
 ): UseDataAPIState<T> {
   const [state, dispatch] = useReducer(createReducer<T>(), { loading: !!url });
-  const reduxDispatch = useDispatch();
+  const [, messagesDispatch] = useMessagesReducer();
 
   useEffect(() => {
     // need this variable to ensure state updates don't occur when cancelled/unmounted
@@ -252,7 +253,7 @@ function useDataApi<T>(
       }
       const messageContent =
         state.error?.response?.data?.messages?.join(',') || '400 Error';
-      reduxDispatch(
+      messagesDispatch(
         addMessage({
           id: messageContent,
           content: messageContent,
@@ -262,7 +263,7 @@ function useDataApi<T>(
         })
       );
     }
-  }, [reduxDispatch, state.status, state.error, state.url]);
+  }, [messagesDispatch, state.status, state.error, state.url]);
 
   // when changing the URL, the state is set asynchronously, this is to set it
   // to loading synchronously to avoid using previous data

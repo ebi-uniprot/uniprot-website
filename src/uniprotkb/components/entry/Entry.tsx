@@ -1,5 +1,4 @@
-import { useMemo, useEffect, FC, Suspense } from 'react';
-import { useDispatch } from 'react-redux';
+import { useMemo, useEffect, Suspense } from 'react';
 import { Link, useRouteMatch, useHistory } from 'react-router-dom';
 import { InPageNav, Loader, Tabs, Tab } from 'franklin-sites';
 import cn from 'classnames';
@@ -32,6 +31,8 @@ import BasketStatus from '../../../basket/BasketStatus';
 import CommunityAnnotationLink from './CommunityAnnotationLink';
 
 import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
+
+import { useMessagesReducer } from '../../../shared/hooks/useGlobalReducer';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 
@@ -100,8 +101,8 @@ const EntryHistory = lazy(
     import(/* webpackChunkName: "uniprotkb-entry-history" */ './EntryHistory')
 );
 
-const Entry: FC = () => {
-  const dispatch = useDispatch();
+const Entry = () => {
+  const [, dispatch] = useMessagesReducer();
   const history = useHistory();
   const match = useRouteMatch<{ accession: string; subPage?: TabLocation }>(
     LocationToPath[Location.UniProtKBEntry]

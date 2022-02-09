@@ -7,7 +7,6 @@ import {
   CSSProperties,
 } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import qs from 'query-string';
 import { frame } from 'timing-functions';
 import { PageIntro, Loader, Button } from 'franklin-sites';
@@ -17,6 +16,7 @@ import colors from '../../../node_modules/franklin-sites/src/styles/colours.json
 
 import ClauseList from './ClauseList';
 
+import { useMessagesReducer } from '../../shared/hooks/useGlobalReducer';
 import useDataApi from '../../shared/hooks/useDataApi';
 
 import { createEmptyClause, defaultQueryFor, getNextId } from '../utils/clause';
@@ -65,7 +65,7 @@ interface Style extends CSSProperties {
 const QueryBuilder = ({ onCancel, fieldToAdd, initialNamespace }: Props) => {
   const history = useHistory();
   const location = useLocation();
-  const dispatch = useDispatch();
+  const [, dispatch] = useMessagesReducer();
 
   const [clauses, setClauses] = useState<Clause[]>([]);
 
