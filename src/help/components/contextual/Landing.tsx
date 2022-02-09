@@ -185,9 +185,9 @@ const getAllArticles = () => {
     const rect = element.getBoundingClientRect();
     const isVisible =
       rect.top >= headerHeight &&
-      rect.left >= headerHeight &&
+      rect.right >= 0 &&
       rect.bottom <= screenHeight &&
-      rect.right <= screenWidth;
+      rect.left <= screenWidth;
     inPageArticles.set(articleId, isVisible);
     // NOTE: maybe optimisation if breaking the loop as soon as an element is
     // not visible after the previous one was visible. Assumption of elements in
