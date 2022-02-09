@@ -258,7 +258,7 @@ function useDataApi<T>(
           content: messageContent,
           format: MessageFormat.POP_UP,
           level: MessageLevel.FAILURE,
-          ttl: 5_000,
+          displayTime: 5_000,
         })
       );
     }

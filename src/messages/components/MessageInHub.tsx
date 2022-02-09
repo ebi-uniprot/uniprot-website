@@ -6,7 +6,7 @@ import { deleteMessage } from '../state/messagesActions';
 
 import { MessageType } from '../types/messagesTypes';
 
-const MessageInHub = ({ level, content, id, ttl }: MessageType) => {
+const MessageInHub = ({ level, content, id, displayTime }: MessageType) => {
   const dispatch = useDispatch();
 
   const handleDismiss = useCallback(
@@ -15,13 +15,13 @@ const MessageInHub = ({ level, content, id, ttl }: MessageType) => {
   );
 
   useEffect(() => {
-    if (!ttl) {
+    if (!displayTime) {
       return;
     }
-    const timeout = setTimeout(handleDismiss, ttl);
+    const timeout = setTimeout(handleDismiss, displayTime);
     // eslint-disable-next-line consistent-return
     return () => clearTimeout(timeout);
-  }, [handleDismiss, ttl, content]);
+  }, [handleDismiss, displayTime, content]);
   // ↑ add 'content' to dependencies: in case same id, but changed content
 
   return (
