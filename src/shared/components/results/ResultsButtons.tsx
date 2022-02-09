@@ -14,6 +14,7 @@ import AlignButton from '../action-buttons/Align';
 import MapIDButton from '../action-buttons/MapID';
 import AddToBasketButton from '../action-buttons/AddToBasket';
 import CustomiseButton from '../action-buttons/CustomiseButton';
+import ShareDropdown from '../action-buttons/ShareDropdown';
 import ItemCount from '../ItemCount';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 
@@ -155,6 +156,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
           (viewMode === ViewMode.TABLE || disableCardToggle) && (
             <CustomiseButton namespace={namespace} />
           )}
+        {!notCustomisable && <ShareDropdown />}
         <ItemCount selected={selectedEntries.length} loaded={loadedTotal} />
       </div>
     </>
