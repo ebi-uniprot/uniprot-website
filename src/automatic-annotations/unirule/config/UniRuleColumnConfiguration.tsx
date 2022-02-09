@@ -80,7 +80,10 @@ UniRuleColumnConfiguration.set(UniRuleColumn.predictedProteinName, {
 });
 
 UniRuleColumnConfiguration.set(UniRuleColumn.templateEntries, {
-  label: 'Template entries',
+  ...getLabelAndTooltip(
+    'Template entries',
+    'UniProtKB entries that served as a template for the rule'
+  ),
   render: ({ information }) => (
     <ExpandableList descriptionString="entries" displayNumberOfHiddenItems>
       {information?.uniProtAccessions?.map((accession) => (
