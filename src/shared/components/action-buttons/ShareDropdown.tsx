@@ -1,8 +1,8 @@
+import { Dispatch, MouseEvent, SetStateAction } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { DropdownButton, Button, CopyIcon } from 'franklin-sites';
 import { createPath } from 'history';
-import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
-import { MouseEvent } from 'react';
 
 import useNS from '../../hooks/useNS';
 import useLocalStorage from '../../hooks/useLocalStorage';
@@ -19,6 +19,16 @@ import { ViewMode } from '../results/ResultsData';
 
 const isCopySupported =
   'clipboard' in navigator && 'writeText' in navigator.clipboard;
+
+// TODO: expose way to close dropdown (in Franklin)
+const clickOnDropdown = (element: HTMLElement) => {
+  (
+    element.closest('.dropdown-container')?.firstElementChild as
+      | HTMLElement
+      | null
+      | undefined
+  )?.click();
+};
 
 const CopyLinkWebsite = () => {
   const dispatch = useDispatch();
@@ -77,10 +87,7 @@ const CopyLinkWebsite = () => {
     } finally {
       // In any case, close the dropdown
       // TODO: expose way to close dropdown (in Franklin)
-      (
-        (target as HTMLElement).closest('.dropdown-container')
-          ?.firstElementChild as HTMLElement
-      )?.click();
+      clickOnDropdown(target as HTMLElement);
     }
   };
 
@@ -92,7 +99,11 @@ const CopyLinkWebsite = () => {
   );
 };
 
-const ShareDropdown = () => {
+const ShareDropdown = ({
+  setDisplayDownloadPanel,
+}: {
+  setDisplayDownloadPanel: Dispatch<SetStateAction<boolean>>;
+}) => {
   if (!isCopySupported) {
     return null;
   }
@@ -105,7 +116,16 @@ const ShareDropdown = () => {
             <CopyLinkWebsite />
           </li>
           <li>
-            <Button variant="tertiary">Generate URL for API</Button>
+            <Button
+              variant="tertiary"
+              onClick={(event: MouseEvent<HTMLElement>) => {
+                setDisplayDownloadPanel(true);
+                // TODO: expose way to close dropdown (in Franklin)
+                clickOnDropdown(event.target as HTMLElement);
+              }}
+            >
+              Generate URL for API
+            </Button>
           </li>
         </ul>
       </div>

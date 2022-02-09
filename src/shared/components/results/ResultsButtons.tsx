@@ -156,7 +156,9 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
           (viewMode === ViewMode.TABLE || disableCardToggle) && (
             <CustomiseButton namespace={namespace} />
           )}
-        {!notCustomisable && <ShareDropdown />}
+        {!notCustomisable && (
+          <ShareDropdown setDisplayDownloadPanel={setDisplayDownloadPanel} />
+        )}
         <ItemCount selected={selectedEntries.length} loaded={loadedTotal} />
       </div>
     </>
