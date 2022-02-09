@@ -11,6 +11,7 @@ import { ARBAAPIModel } from '../adapters/arbaConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 import { Namespace } from '../../../shared/types/namespaces';
 import getLabelAndTooltip from '../../../shared/utils/getLabelAndTooltip';
+import SharedColumnConfiguration from '../../../shared/config/ColumnConfiguration';
 
 export enum ARBAColumn {
   ruleId = 'rule_id',
@@ -35,34 +36,30 @@ export const ARBAColumnConfiguration: ColumnConfiguration<
 > = new Map();
 
 // COLUMN RENDERERS BELOW
-ARBAColumnConfiguration.set(ARBAColumn.ruleId, {
-  ...getLabelAndTooltip(
-    'ARBA ID',
-    'Unique and stable identifier for annotation rules'
-  ),
-  render: ({ uniRuleId }) =>
-    uniRuleId && <AccessionView id={uniRuleId} namespace={Namespace.arba} />,
-});
+ARBAColumnConfiguration.set(
+  ARBAColumn.ruleId,
+  SharedColumnConfiguration.rule_id(
+    ({ uniRuleId }) => uniRuleId,
+    'ARBA',
+    Namespace.arba
+  )
+);
 
-ARBAColumnConfiguration.set(ARBAColumn.taxonomicScope, {
-  ...getLabelAndTooltip(
-    'Taxonomic scope',
-    'The taxonomic scope to which the annotation rule applies'
-  ),
-  render: TaxonomicScope,
-});
+ARBAColumnConfiguration.set(
+  ARBAColumn.taxonomicScope,
+  SharedColumnConfiguration.taxonomic_scope
+);
 
-ARBAColumnConfiguration.set(ARBAColumn.annotationCovered, {
-  ...getLabelAndTooltip(
-    'Annotation covered',
-    'Types of annotations that the rule can add to UniProtKB entries'
-  ),
-  render: AnnotationCovered,
-});
+ARBAColumnConfiguration.set(
+  ARBAColumn.annotationCovered,
+  SharedColumnConfiguration.annotation_covered
+);
 
-// TODO: add tooltip
 ARBAColumnConfiguration.set(ARBAColumn.statistics, {
-  label: 'Statistics',
+  ...getLabelAndTooltip(
+    'Statistics',
+    'Number of proteins annotated by the rule'
+  ),
   render: ({ uniRuleId, statistics }) => (
     <ExpandableList>
       {mapToLinks(Namespace.unirule, uniRuleId, statistics)?.map(
