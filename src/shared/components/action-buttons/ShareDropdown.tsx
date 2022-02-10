@@ -52,40 +52,28 @@ const CopyLinkWebsite = () => {
 
   const handleClick = async ({ target }: MouseEvent) => {
     try {
-      // First try, use WebShare API
-      await navigator.share({
-        title: 'UniProt.org',
-        text: `Have a look at this search for "${searchParams.get(
-          'query'
-        )}" on the UniProt website`,
-        url,
-      });
+      await navigator.clipboard.writeText(url);
+      // Success with Clipboard API, display message
+      dispatch(
+        addMessage({
+          id: 'copy link website',
+          content: `Link copied to clipboard`,
+          format: MessageFormat.POP_UP,
+          level: MessageLevel.SUCCESS,
+          displayTime: 5_000,
+        })
+      );
     } catch {
-      // No WebShare? use Clipboard API
-      try {
-        await navigator.clipboard.writeText(url);
-        // Success with Clipboard API, display message
-        dispatch(
-          addMessage({
-            id: 'copy link website',
-            content: `Link copied to clipboard`,
-            format: MessageFormat.POP_UP,
-            level: MessageLevel.SUCCESS,
-            displayTime: 5_000,
-          })
-        );
-      } catch {
-        // Issue with Clipboard API too, bail with error message
-        dispatch(
-          addMessage({
-            id: 'copy link website',
-            content: `There was an issue while copying to clipboard`,
-            format: MessageFormat.POP_UP,
-            level: MessageLevel.FAILURE,
-            displayTime: 15_000,
-          })
-        );
-      }
+      // Issue with Clipboard API too, bail with error message
+      dispatch(
+        addMessage({
+          id: 'copy link website',
+          content: `There was an issue while copying to clipboard`,
+          format: MessageFormat.POP_UP,
+          level: MessageLevel.FAILURE,
+          displayTime: 15_000,
+        })
+      );
     } finally {
       // In any case, close the dropdown
       // TODO: expose way to close dropdown (in Franklin)
