@@ -2248,7 +2248,7 @@ exports[`Entry view should render 1`] = `
                     <strong>
                       Sequence: 
                     </strong>
-                    APSQDFM
+                    original value → alternative value
                   </td>
                 </tr>
               </tbody>
@@ -4886,7 +4886,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <strong>
                       Sequence: 
                     </strong>
-                    E
+                    E → A or L
                   </td>
                 </tr>
                 <tr
@@ -4940,7 +4940,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <strong>
                       Sequence: 
                     </strong>
-                    C
+                    C → A or S
                   </td>
                 </tr>
                 <tr
@@ -4994,7 +4994,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <strong>
                       Sequence: 
                     </strong>
-                    D
+                    D → N
                   </td>
                 </tr>
                 <tr
@@ -5048,7 +5048,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <strong>
                       Sequence: 
                     </strong>
-                    H
+                    H → A or F
                   </td>
                 </tr>
                 <tr
@@ -5102,7 +5102,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <strong>
                       Sequence: 
                     </strong>
-                    Y
+                    Y → F
                   </td>
                 </tr>
               </tbody>

@@ -2663,7 +2663,7 @@ exports[`Entry basic should render main 1`] = `
                               <strong>
                                 Sequence: 
                               </strong>
-                              APSQDFM
+                              original value → alternative value
                             </td>
                           </tr>
                         </tbody>
