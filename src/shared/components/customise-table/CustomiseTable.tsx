@@ -46,7 +46,7 @@ const CustomiseTable = ({ onClose, namespace }: CustomiseTableProps) => {
     <form
       onSubmit={handleSubmit}
       onReset={handleReset}
-      aria-label={`Customise ${namespace}${
+      aria-label={`Customize ${namespace}${
         isEntryPage ? '' : ' result'
       } table columns form`}
     >

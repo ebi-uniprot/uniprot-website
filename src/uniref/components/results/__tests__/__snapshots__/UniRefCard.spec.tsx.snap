@@ -58,7 +58,10 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
             class="result-card__info-bit"
           >
             <strong>
-              Cluster name: 
+              <span>
+                Cluster name
+              </span>
+              : 
             </strong>
             Cluster: PTS system glucose-specific EIICBA component [includes: glucose permease IIC component glucose-specific phosphotransferase enzyme IIB component glucose-specific phosphotransferase enzyme IIA compon...
           </span>
@@ -66,7 +69,10 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
             class="result-card__info-bit"
           >
             <strong>
-              Size: 
+              <span>
+                Size
+              </span>
+              : 
             </strong>
             1 member
           </span>
@@ -74,7 +80,10 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
             class="result-card__info-bit"
           >
             <strong>
-              Length: 
+              <span>
+                Length
+              </span>
+              : 
             </strong>
             730
           </span>
@@ -82,7 +91,10 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
             class="result-card__info-bit"
           >
             <strong>
-              Identity: 
+              <span>
+                Identity
+              </span>
+              : 
             </strong>
             UniRef100
           </span>

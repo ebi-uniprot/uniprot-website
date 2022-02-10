@@ -24,7 +24,7 @@ const CustomiseButton = ({ namespace }: { namespace: Namespace }) => {
       {displayCustomisePanel && (
         <Suspense fallback={null}>
           <SlidingPanel
-            title="Customize Data"
+            title="Customize columns"
             position="left"
             onClose={() => setDisplayCustomisePanel(false)}
             className={styles['customise-table-panel']}
@@ -45,7 +45,7 @@ const CustomiseButton = ({ namespace }: { namespace: Namespace }) => {
         onClick={() => setDisplayCustomisePanel((value) => !value)}
       >
         <EditIcon />
-        Customize data
+        Customize columns
       </Button>
     </>
   );

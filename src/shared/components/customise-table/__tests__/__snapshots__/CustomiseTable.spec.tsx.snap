@@ -3,7 +3,7 @@
 exports[`CustomiseTable component should render 1`] = `
 <DocumentFragment>
   <form
-    aria-label="Customise uniprotkb result table columns form"
+    aria-label="Customize uniprotkb result table columns form"
   >
     <div
       class="column-select"

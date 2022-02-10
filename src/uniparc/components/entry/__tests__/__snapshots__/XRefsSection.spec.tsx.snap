@@ -26,7 +26,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
             type="button"
           >
             <test-file-stub />
-            Customize data
+            Customize columns
           </button>
         </div>
         <table

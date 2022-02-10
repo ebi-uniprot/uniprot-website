@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, ExternalLink } from 'franklin-sites';
 
@@ -6,19 +7,19 @@ import EntrySection, {
 } from '../../types/entrySection';
 import FreeTextView from '../protein-data-views/FreeTextView';
 import XRefView from '../protein-data-views/XRefView';
-
-import { hasContent } from '../../../shared/utils/utils';
+import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 
+import { hasContent } from '../../../shared/utils/utils';
 import {
   getIntActQueryUrl,
   getIntActQueryForAccessionUrl,
 } from '../../../shared/config/externalUrls';
+import { getEntryPath } from '../../../app/config/urls';
 
 import { FreeTextComment, InteractionComment } from '../../types/commentTypes';
 import { UIModel } from '../../adapters/sectionConverter';
-import { getEntryPath } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
 
 import styles from './styles/interaction-section.module.scss';
@@ -27,6 +28,12 @@ type Props = {
   data: UIModel;
   primaryAccession: string;
 };
+
+const InteractionViewer = lazy(
+  /* istanbul ignore next */
+  () =>
+    import(/* webpackChunkName: "interaction-viewer" */ './InteractionViewer')
+);
 
 const InteractionSection = ({ data, primaryAccession }: Props) => {
   const interactionComment = data.commentsData.get('INTERACTION') as
@@ -40,13 +47,6 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
         /* webpackChunkName: "protvista-datatable" */ 'protvista-datatable'
       ),
     'protvista-datatable'
-  );
-
-  const interactionViewerElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(/* webpackChunkName: "interaction-viewer" */ 'interaction-viewer'),
-    'interaction-viewer'
   );
 
   if (!hasContent(data)) {
@@ -77,15 +77,17 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
       {interactionComment?.[0] && (
         <>
           <h3 data-article-id="binary_interactions">Binary interactions</h3>
-          {interactionViewerElement.defined && (
-            <interactionViewerElement.name accession={primaryAccession} />
-          )}
+          <Suspense fallback={null}>
+            <ErrorBoundary fallback={null}>
+              <InteractionViewer accession={primaryAccession} />
+            </ErrorBoundary>
+          </Suspense>
           <datatableElement.name filter-scroll>
             <table>
               <thead>
                 <tr>
-                  <th>Type</th>
-                  <th>Entry 1</th>
+                  <th data-filter="type">Type</th>
+                  <th data-filter="entry_1">Entry 1</th>
                   <th>Entry 2</th>
                   <th>Number of experiments</th>
                   <th>Intact</th>
@@ -96,11 +98,21 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
                   <tr
                     key={`${interaction.interactantOne.intActId}${interaction.interactantTwo.intActId}`}
                   >
-                    <td>
+                    <td
+                      data-filter="type"
+                      data-filter-value={
+                        interaction.organismDiffer ? 'XENO' : 'BINARY'
+                      }
+                    >
                       {/* NOTE: Add 'SELF' */}
                       {interaction.organismDiffer ? 'XENO' : 'BINARY'}
                     </td>
-                    <td>
+                    <td
+                      data-filter="entry_1"
+                      data-filter-value={
+                        interaction.interactantOne.uniProtKBAccession || 'Other'
+                      }
+                    >
                       {interaction.interactantOne.uniProtKBAccession ? (
                         <Link
                           to={getEntryPath(
