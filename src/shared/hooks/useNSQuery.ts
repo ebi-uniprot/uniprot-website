@@ -9,7 +9,7 @@ import { getAccessionsURL, getAPIQueryUrl } from '../config/apiUrls';
 import fieldsForUniProtKBCards from '../../uniprotkb/config/UniProtKBCardConfiguration';
 import { Column, nsToDefaultColumns } from '../config/columns';
 
-import { ViewMode } from '../components/results/ResultsData';
+import { defaultViewMode, ViewMode } from '../components/results/ResultsData';
 import { Namespace } from '../types/namespaces';
 
 type Arg = {
@@ -31,14 +31,14 @@ const useNSQuery = ({
 }: Arg = {}) => {
   const namespace = useNS(overrideNS) || Namespace.uniprotkb;
   const location = useLocation();
-  const [viewMode] = useLocalStorage<ViewMode>('view-mode', ViewMode.CARD);
+  const [viewMode] = useLocalStorage<ViewMode>('view-mode', defaultViewMode);
   const [columns] = useLocalStorage<Column[]>(
     `table columns for ${namespace}` as const,
     nsToDefaultColumns(namespace)
   );
 
-  let queryColumns = viewMode === ViewMode.CARD ? undefined : columns;
-  if (viewMode === ViewMode.CARD) {
+  let queryColumns = viewMode === 'card' ? undefined : columns;
+  if (viewMode === 'card') {
     // TODO: Do similar things for the rest of namespaces
     if (namespace === Namespace.uniprotkb) {
       queryColumns = fieldsForUniProtKBCards;

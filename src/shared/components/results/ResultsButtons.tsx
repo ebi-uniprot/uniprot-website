@@ -1,4 +1,11 @@
-import { FC, useState, Suspense, Dispatch, SetStateAction } from 'react';
+import {
+  FC,
+  useState,
+  Suspense,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+} from 'react';
 import cn from 'classnames';
 import {
   DownloadIcon,
@@ -24,7 +31,7 @@ import useNS from '../../hooks/useNS';
 import lazy from '../../utils/lazy';
 
 import { Namespace, mainNamespaces } from '../../types/namespaces';
-import { ViewMode } from './ResultsData';
+import { defaultViewMode, ViewMode } from './ResultsData';
 
 import './styles/results-buttons.scss';
 
@@ -62,8 +69,21 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
   const [viewMode, setViewMode] = useLocalStorage<ViewMode>(
     'view-mode',
-    ViewMode.CARD
+    defaultViewMode
   );
+
+  // TODO: eventually remove it
+  // This is just to convert for people currently using the website as they
+  // might have a viewMode of 0 or 1 because of the previous way it was stored
+  useEffect(() => {
+    if (viewMode !== 'card' && viewMode !== 'table') {
+      if (viewMode === 0) {
+        setViewMode('table');
+      } else {
+        setViewMode('card');
+      }
+    }
+  }, [setViewMode, viewMode]);
 
   const isMain = mainNamespaces.has(namespace);
 
@@ -129,31 +149,25 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
         <Button
           variant="tertiary"
           className="large-icon"
-          onClick={() =>
-            setViewMode(
-              viewMode === ViewMode.CARD ? ViewMode.TABLE : ViewMode.CARD
-            )
-          }
+          onClick={() => setViewMode(viewMode === 'card' ? 'table' : 'card')}
           data-testid="table-card-toggle"
-          title={`Switch to "${
-            viewMode === ViewMode.CARD ? 'table' : 'card'
-          }" view`}
+          title={`Switch to "${viewMode === 'card' ? 'table' : 'card'}" view`}
           disabled={disableCardToggle}
         >
           <TableIcon
             className={cn('results-buttons__toggle', {
-              'results-buttons__toggle--active': viewMode === ViewMode.TABLE,
+              'results-buttons__toggle--active': viewMode === 'table',
             })}
           />
           <ListIcon
             className={cn('results-buttons__toggle', {
-              'results-buttons__toggle--active': viewMode === ViewMode.CARD,
+              'results-buttons__toggle--active': viewMode === 'card',
             })}
           />
         </Button>
         {!notCustomisable &&
           // Exception for ID mapping results!
-          (viewMode === ViewMode.TABLE || disableCardToggle) && (
+          (viewMode === 'table' || disableCardToggle) && (
             <CustomiseButton namespace={namespace} />
           )}
         {!notCustomisable && (

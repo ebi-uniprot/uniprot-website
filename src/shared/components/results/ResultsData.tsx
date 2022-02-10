@@ -24,10 +24,8 @@ import { Basket } from '../../hooks/useBasket';
 import './styles/warning.scss';
 import './styles/results-data.scss';
 
-export enum ViewMode {
-  TABLE,
-  CARD,
-}
+export type ViewMode = 'table' | 'card';
+export const defaultViewMode: ViewMode = 'card';
 
 type Props = {
   resultsDataObject: PaginatedResults;
@@ -51,7 +49,7 @@ const ResultsData = ({
   className,
 }: Props) => {
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
-  const [viewMode] = useLocalStorage<ViewMode>('view-mode', ViewMode.CARD);
+  const [viewMode] = useLocalStorage<ViewMode>('view-mode', defaultViewMode);
   const history = useHistory();
   const { query, direct } = getParamsFromURL(useLocation().search);
   const [columns, updateColumnSort] = useColumns(
@@ -147,7 +145,7 @@ const ResultsData = ({
 
   return (
     <div className="results-data">
-      {viewMode === ViewMode.CARD && !displayIdMappingColumns ? (
+      {viewMode === 'card' && !displayIdMappingColumns ? (
         // Card view
         <DataListWithLoader<APIModel>
           getIdKey={getIdKey}

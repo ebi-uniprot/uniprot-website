@@ -15,7 +15,7 @@ import {
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
 import { Column, nsToDefaultColumns } from '../../config/columns';
-import { ViewMode } from '../results/ResultsData';
+import { defaultViewMode, ViewMode } from '../results/ResultsData';
 
 const isCopySupported =
   'clipboard' in navigator && 'writeText' in navigator.clipboard;
@@ -37,12 +37,12 @@ const CopyLinkWebsite = () => {
     `table columns for ${ns}` as const,
     nsToDefaultColumns(ns)
   );
-  const [viewMode] = useLocalStorage<ViewMode>('view-mode', ViewMode.CARD);
+  const [viewMode] = useLocalStorage<ViewMode>('view-mode', defaultViewMode);
 
   const location = useLocation();
 
   const searchParams = new URLSearchParams(location.search);
-  if (viewMode === ViewMode.TABLE) {
+  if (viewMode === 'table') {
     searchParams.set('fields', userColumns.join(','));
   }
   searchParams.set('view', `${viewMode}`);

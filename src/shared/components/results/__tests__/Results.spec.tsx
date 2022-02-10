@@ -13,7 +13,7 @@ describe('Results component', () => {
   it('should toggle card view to table', async () => {
     customRender(<Results />, {
       route: '/uniprotkb?query=blah',
-      initialLocalStorage: { 'view-mode': ViewMode.CARD },
+      initialLocalStorage: { 'view-mode': 'card' as ViewMode },
     });
     await screen.findAllByText('Gene:');
     const toggle = await screen.findByTestId('table-card-toggle');
@@ -34,7 +34,7 @@ describe('Results component', () => {
     const { history } = customRender(<Results />, {
       route: '/uniprotkb?query=blah',
       initialLocalStorage: {
-        'view-mode': ViewMode.TABLE,
+        'view-mode': 'table' as ViewMode,
         'table columns for uniprotkb': [UniProtKBColumn.accession],
       },
     });
