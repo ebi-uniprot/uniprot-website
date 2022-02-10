@@ -7,21 +7,20 @@ import EntrySection, {
 } from '../../types/entrySection';
 import FreeTextView from '../protein-data-views/FreeTextView';
 import XRefView from '../protein-data-views/XRefView';
-
-import { hasContent } from '../../../shared/utils/utils';
+import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 
+import { hasContent } from '../../../shared/utils/utils';
 import {
   getIntActQueryUrl,
   getIntActQueryForAccessionUrl,
 } from '../../../shared/config/externalUrls';
+import { getEntryPath } from '../../../app/config/urls';
 
 import { FreeTextComment, InteractionComment } from '../../types/commentTypes';
 import { UIModel } from '../../adapters/sectionConverter';
-import { getEntryPath } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
-import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
 import styles from './styles/interaction-section.module.scss';
 
@@ -29,6 +28,12 @@ type Props = {
   data: UIModel;
   primaryAccession: string;
 };
+
+const InteractionViewer = lazy(
+  /* istanbul ignore next */
+  () =>
+    import(/* webpackChunkName: "interaction-viewer" */ './InteractionViewer')
+);
 
 const InteractionSection = ({ data, primaryAccession }: Props) => {
   const interactionComment = data.commentsData.get('INTERACTION') as
@@ -42,11 +47,6 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
         /* webpackChunkName: "protvista-datatable" */ 'protvista-datatable'
       ),
     'protvista-datatable'
-  );
-
-  const InteractionViewer = lazy(
-    () =>
-      import(/* webpackChunkName: "interaction-viewer" */ './InteractionViewer')
   );
 
   if (!hasContent(data)) {
