@@ -2707,10 +2707,14 @@ exports[`Entry basic should render main 1`] = `
                     <table>
                       <thead>
                         <tr>
-                          <th>
+                          <th
+                            data-filter="type"
+                          >
                             Type
                           </th>
-                          <th>
+                          <th
+                            data-filter="entry_1"
+                          >
                             Entry 1
                           </th>
                           <th>
@@ -2726,10 +2730,16 @@ exports[`Entry basic should render main 1`] = `
                       </thead>
                       <tbody>
                         <tr>
-                          <td>
+                          <td
+                            data-filter="type"
+                            data-filter-value="XENO"
+                          >
                             XENO
                           </td>
-                          <td>
+                          <td
+                            data-filter="entry_1"
+                            data-filter-value="P21802"
+                          >
                             <a
                               href="/uniprotkb/P21802"
                             >
@@ -2762,10 +2772,16 @@ exports[`Entry basic should render main 1`] = `
                           </td>
                         </tr>
                         <tr>
-                          <td>
+                          <td
+                            data-filter="type"
+                            data-filter-value="XENO"
+                          >
                             XENO
                           </td>
-                          <td>
+                          <td
+                            data-filter="entry_1"
+                            data-filter-value="P12345"
+                          >
                             <a
                               href="/uniprotkb/P12345"
                             >
