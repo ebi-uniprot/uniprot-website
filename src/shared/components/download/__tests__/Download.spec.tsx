@@ -95,9 +95,9 @@ describe('Download component', () => {
       const formatSelect = screen.getByTestId('file-format-select');
       fireEvent.change(formatSelect, { target: { value } });
       if (columnSelect) {
-        await waitFor(() => screen.getByText('Customize data'));
+        await waitFor(() => screen.getByText('Customize columns'));
       } else {
-        expect(screen.queryByText('Customize data')).not.toBeInTheDocument();
+        expect(screen.queryByText('Customize columns')).not.toBeInTheDocument();
       }
     }
   );
