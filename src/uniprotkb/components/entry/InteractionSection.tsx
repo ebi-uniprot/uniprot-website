@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, ExternalLink } from 'franklin-sites';
 
@@ -20,8 +21,7 @@ import { FreeTextComment, InteractionComment } from '../../types/commentTypes';
 import { UIModel } from '../../adapters/sectionConverter';
 import { getEntryPath } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
-
-import 'interaction-viewer';
+import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
 import styles from './styles/interaction-section.module.scss';
 
@@ -42,6 +42,11 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
         /* webpackChunkName: "protvista-datatable" */ 'protvista-datatable'
       ),
     'protvista-datatable'
+  );
+
+  const InteractionViewer = lazy(
+    () =>
+      import(/* webpackChunkName: "interaction-viewer" */ './InteractionViewer')
   );
 
   if (!hasContent(data)) {
@@ -72,7 +77,11 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
       {interactionComment?.[0] && (
         <>
           <h3 data-article-id="binary_interactions">Binary interactions</h3>
-          <interaction-viewer accession={primaryAccession} />
+          <Suspense fallback={null}>
+            <ErrorBoundary fallback={null}>
+              <InteractionViewer accession={primaryAccession} />
+            </ErrorBoundary>
+          </Suspense>
           <datatableElement.name filter-scroll>
             <table>
               <thead>

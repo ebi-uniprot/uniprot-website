@@ -2283,9 +2283,6 @@ exports[`Entry view should render 1`] = `
         >
           Binary interactions
         </h3>
-        <interaction-viewer
-          accession="P21802"
-        />
         <protvista-datatable
           filter-scroll="true"
         >
