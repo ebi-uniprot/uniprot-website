@@ -25,7 +25,7 @@ describe('ResultsData component', () => {
       {
         route: '/uniprotkb?query=blah',
         initialLocalStorage: {
-          'view-mode': ViewMode.TABLE,
+          'view-mode': 'table' as ViewMode,
           'table columns for uniprotkb': [UniProtKBColumn.accession],
         },
       }
@@ -50,7 +50,7 @@ describe('ResultsData component', () => {
       {
         route: '/uniprotkb?query=blah',
         initialLocalStorage: {
-          'view-mode': ViewMode.CARD,
+          'view-mode': 'card' as ViewMode,
           'table columns for uniprotkb': [UniProtKBColumn.accession],
         },
       }

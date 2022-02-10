@@ -28,7 +28,7 @@ describe('IDMappingResult tests', () => {
     customRender(<IDMappingResult />, {
       route: '/id-mapping/id1',
       initialLocalStorage: {
-        'view-mode': ViewMode.TABLE, // This should eventually be removed
+        'view-mode': 'table' as ViewMode, // This should eventually be removed
       },
     });
     expect(await screen.findByText('ENSMUSG00000029283')).toBeInTheDocument();
@@ -38,7 +38,7 @@ describe('IDMappingResult tests', () => {
     const { history } = customRender(<IDMappingResult />, {
       route: '/id-mapping/id2',
       initialLocalStorage: {
-        'view-mode': ViewMode.TABLE, // This should eventually be removed
+        'view-mode': 'table' as ViewMode, // This should eventually be removed
       },
     });
     expect((await screen.findAllByText('Q9Z0H0')).length).toBe(2);
