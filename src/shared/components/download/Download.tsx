@@ -26,6 +26,7 @@ import { Namespace } from '../../types/namespaces';
 import sticky from '../../styles/sticky.module.scss';
 import './styles/download.scss';
 import DownloadPreview from './DownloadPreview';
+import DownloadAPIURL from './DownloadAPIURL';
 
 export const getPreviewFileFormat = (fileFormat: FileFormat) =>
   fileFormat === FileFormat.excel ? FileFormat.tsv : fileFormat;
@@ -72,6 +73,7 @@ const Download: FC<DownloadProps> = ({
     sortColumn,
     sortDirection,
   } = getParamsFromURL(queryParamFromUrl);
+  const [displayAPIURL, setDisplayAPIURL] = useState(false);
   const [displayPreview, setDisplayPreview] = useState(false);
 
   const [selectedIdField] = nsToPrimaryKeyColumns(namespace);
@@ -219,10 +221,22 @@ const Download: FC<DownloadProps> = ({
           sticky['sticky-bottom-right']
         )}
       >
-        <Button variant="tertiary" onClick={() => null}>
+        <Button
+          variant="tertiary"
+          onClick={() => {
+            setDisplayAPIURL(true);
+            setDisplayPreview(false);
+          }}
+        >
           Generate URL for API
         </Button>
-        <Button variant="tertiary" onClick={() => setDisplayPreview(true)}>
+        <Button
+          variant="tertiary"
+          onClick={() => {
+            setDisplayAPIURL(false);
+            setDisplayPreview(true);
+          }}
+        >
           Preview {nPreview}
         </Button>
         <Button variant="secondary" onClick={onClose}>
@@ -238,6 +252,7 @@ const Download: FC<DownloadProps> = ({
           Download
         </a>
       </section>
+      {displayAPIURL && <DownloadAPIURL apiURL={downloadUrl} />}
       {displayPreview && (
         <DownloadPreview
           previewUrl={previewUrl}
