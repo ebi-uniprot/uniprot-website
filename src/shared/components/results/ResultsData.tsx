@@ -54,11 +54,9 @@ const ResultsData = ({
     defaultViewMode
   );
   const history = useHistory();
-  const {
-    query,
-    direct,
-    viewMode: viewModeFromUrl,
-  } = getParamsFromURL(useLocation().search);
+  const [{ query, direct, viewMode: viewModeFromUrl }] = getParamsFromURL(
+    useLocation().search
+  );
   const [columns, updateColumnSort] = useColumns(
     namespaceOverride,
     displayIdMappingColumns,

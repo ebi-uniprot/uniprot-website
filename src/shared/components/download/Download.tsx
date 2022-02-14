@@ -74,12 +74,9 @@ const Download: FC<DownloadProps> = ({
     data: '',
   });
   const { search: queryParamFromUrl } = useLocation();
-  const {
-    query: queryFromUrl,
-    selectedFacets = [],
-    sortColumn,
-    sortDirection,
-  } = getParamsFromURL(queryParamFromUrl);
+  const [
+    { query: queryFromUrl, selectedFacets = [], sortColumn, sortDirection },
+  ] = getParamsFromURL(queryParamFromUrl);
 
   const [selectedIdField] = nsToPrimaryKeyColumns(namespace);
 

@@ -119,7 +119,7 @@ const BlastResultLocalFacets: FC<{
 }> = ({ allHits, namespace }) => {
   const { search: queryParamFromUrl } = useLocation();
 
-  const { selectedFacets } = getParamsFromURL(queryParamFromUrl);
+  const [{ selectedFacets }] = getParamsFromURL(queryParamFromUrl);
 
   // get data from accessions endpoint with facets applied
   const { data, isStale, loading } = useDataApiWithStale<Response['data']>(

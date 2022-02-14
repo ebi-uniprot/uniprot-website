@@ -198,14 +198,16 @@ const useColumns = (
   const databaseInfoMaps = useDatabaseInfoMaps();
 
   const { search: queryParamFromUrl } = location;
-  const {
-    query,
-    selectedFacets,
-    sortColumn,
-    sortDirection,
-    columns: columnsFromUrl,
-    viewMode: viewModeFromUrl,
-  } = getParamsFromURL(queryParamFromUrl, namespace);
+  const [
+    {
+      query,
+      selectedFacets,
+      sortColumn,
+      sortDirection,
+      columns: columnsFromUrl,
+      viewMode: viewModeFromUrl,
+    },
+  ] = getParamsFromURL(queryParamFromUrl, namespace);
 
   const { data: dataResultFields, loading } = useDataApi<ReceivedFieldData>(
     // For now, assume no configure endpoint for supporting data

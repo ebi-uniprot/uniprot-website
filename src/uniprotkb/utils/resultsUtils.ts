@@ -35,12 +35,18 @@ export type URLResultParams = {
   viewMode?: ViewMode;
 };
 
+type InvalidParamValues = {
+  parameter: string;
+  value: string | string[];
+}[];
+
 const viewModes: Set<ViewMode> = new Set(['card', 'table']);
 
 export const getParamsFromURL = (
   url: string,
   namespace?: Namespace
-): URLResultParams => {
+): [URLResultParams, InvalidParamValues] => {
+  const invalidValues = [];
   const { query, facets, sort, dir, activeFacet, direct, fields, view } =
     qs.parse(url);
 
@@ -69,20 +75,20 @@ export const getParamsFromURL = (
       columns.has(column) ? 'validColumns' : 'invalidColumns'
     );
     if (invalidColumns?.length) {
-      // TODO: warn
+      invalidValues.push({ parameter: 'columns', value: invalidColumns });
     }
     params.columns = validColumns as Column[];
   }
 
-  if (view && typeof view === 'string') {
-    if (viewModes.has(view as ViewMode)) {
+  if (view) {
+    if (typeof view === 'string' && viewModes.has(view as ViewMode)) {
       params.viewMode = view as ViewMode;
     } else {
-      // TODO: warn
+      invalidValues.push({ parameter: 'view', value: view });
     }
   }
 
-  return params;
+  return [params, invalidValues];
 };
 
 export const facetsAsString = (facets?: SelectedFacet[]): string => {

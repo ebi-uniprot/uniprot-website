@@ -41,14 +41,16 @@ const useNSQuery = ({
   );
 
   const { search: queryParamFromUrl } = location;
-  const {
-    query,
-    selectedFacets,
-    sortColumn,
-    sortDirection,
-    viewMode: viewModeFromUrl,
-    columns: columnsFromUrl,
-  } = getParamsFromURL(queryParamFromUrl, namespace);
+  const [
+    {
+      query,
+      selectedFacets,
+      sortColumn,
+      sortDirection,
+      viewMode: viewModeFromUrl,
+      columns: columnsFromUrl,
+    },
+  ] = getParamsFromURL(queryParamFromUrl, namespace);
 
   const viewMode = viewModeFromUrl || viewModeFromStorage;
 

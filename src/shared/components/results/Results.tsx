@@ -63,7 +63,7 @@ const Results = () => {
     total = +resultsDataTotal;
   }
 
-  const params = getParamsFromURL(search);
+  const [params] = getParamsFromURL(search);
 
   const helmet = ns && (
     <HTMLHead

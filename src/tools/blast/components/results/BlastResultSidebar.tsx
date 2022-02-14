@@ -37,7 +37,7 @@ type BlastResultSidebarProps = {
 const BlastResultSidebar = memo<BlastResultSidebarProps>(
   ({ accessions, allHits, namespace }) => {
     const { search } = useLocation();
-    const { selectedFacets } = getParamsFromURL(search);
+    const [{ selectedFacets }] = getParamsFromURL(search);
     const dataApiObject = useDataApiWithStale<Response['data']>(
       // For UniRef, the only avalailable facet is the identity value, which
       // doesn't make sense in BLAST's context where all have the same value

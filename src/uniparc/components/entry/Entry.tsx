@@ -75,7 +75,7 @@ const Entry: FC = () => {
 
   const baseURL = apiUrls.entry(match?.params.accession, Namespace.uniparc);
   const xRefsURL = useMemo(() => {
-    const { selectedFacets } = getParamsFromURL(search);
+    const [{ selectedFacets }] = getParamsFromURL(search);
     if (!selectedFacets.length) {
       return baseURL;
     }

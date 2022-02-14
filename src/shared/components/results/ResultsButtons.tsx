@@ -8,6 +8,7 @@ import {
   useCallback,
 } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import cn from 'classnames';
 import {
   DownloadIcon,
@@ -30,16 +31,21 @@ import ErrorBoundary from '../error-component/ErrorBoundary';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import useNS from '../../hooks/useNS';
 
+import { addMessage } from '../../../messages/state/messagesActions';
 import lazy from '../../utils/lazy';
-
-import { Namespace, mainNamespaces } from '../../types/namespaces';
-import { defaultViewMode, ViewMode } from './ResultsData';
-
-import './styles/results-buttons.scss';
 import {
   getLocationObjForParams,
   getParamsFromURL,
 } from '../../../uniprotkb/utils/resultsUtils';
+
+import { Namespace, mainNamespaces } from '../../types/namespaces';
+import { defaultViewMode, ViewMode } from './ResultsData';
+import {
+  MessageFormat,
+  MessageLevel,
+} from '../../../messages/types/messagesTypes';
+
+import './styles/results-buttons.scss';
 
 const DownloadComponent = lazy(
   /* istanbul ignore next */
@@ -81,8 +87,26 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
     defaultViewMode
   );
   const history = useHistory();
+  const dispatch = useDispatch();
 
-  const urlParams = getParamsFromURL(history.location.search, namespace);
+  const [urlParams, invalidParamValues] = getParamsFromURL(
+    history.location.search,
+    namespace
+  );
+  if (invalidParamValues.length) {
+    const invalid = invalidParamValues
+      .map(({ parameter, value }) => `${parameter}: ${value}`)
+      .join('\n');
+    dispatch(
+      addMessage({
+        id: 'invalid url params',
+        content: `Ignoring the following invalid parameter values:\n${invalid}`,
+        format: MessageFormat.POP_UP,
+        level: MessageLevel.WARNING,
+        displayTime: 5_000,
+      })
+    );
+  }
 
   // TODO: eventually remove it
   // This is just to convert for people currently using the website as they
