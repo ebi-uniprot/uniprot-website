@@ -129,7 +129,8 @@ export function formParametersToServerParameters<T extends JobTypes>(
         spOnly,
       } = formParameters as FormParameters[JobTypes.PEPTIDE_SEARCH];
       serverParameters = {
-        peps: sequenceProcessor(peps)
+        // replace any white space with a FASTA comment line before processing
+        peps: sequenceProcessor(peps.split(/\s+/).join('\n>\n'))
           .map((processedSequence) => processedSequence.sequence)
           .join(','),
         taxIds: stringifyTaxa(taxIds) || '',
