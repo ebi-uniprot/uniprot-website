@@ -72,7 +72,7 @@ export const getParamsFromURL = (
     const columnConfig = ColumnConfigurations[namespace];
     const columns = new Set(columnConfig?.keys());
     const [validColumns, invalidColumns] = partition(columnsAsArray, (column) =>
-      columns.has(column) ? 'validColumns' : 'invalidColumns'
+      columns.has(column)
     );
     if (invalidColumns?.length) {
       invalidValues.push({ parameter: 'columns', value: invalidColumns });

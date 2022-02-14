@@ -94,13 +94,22 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
     namespace
   );
   if (invalidParamValues.length) {
-    const invalid = invalidParamValues
-      .map(({ parameter, value }) => `${parameter}: ${value}`)
-      .join('\n');
     dispatch(
       addMessage({
         id: 'invalid url params',
-        content: `Ignoring the following invalid parameter values:\n${invalid}`,
+        content: (
+          <>
+            Ignoring invalid URL parameter values:
+            <ul>
+              {invalidParamValues.map(({ parameter, value }) => (
+                <li>
+                  <b>{parameter}</b>
+                  {`: ${value}`}
+                </li>
+              ))}
+            </ul>
+          </>
+        ),
         format: MessageFormat.POP_UP,
         level: MessageLevel.WARNING,
         displayTime: 5_000,
