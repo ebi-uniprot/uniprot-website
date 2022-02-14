@@ -5,7 +5,9 @@ import {
   Dispatch,
   SetStateAction,
   useEffect,
+  useCallback,
 } from 'react';
+import { useHistory } from 'react-router-dom';
 import cn from 'classnames';
 import {
   DownloadIcon,
@@ -34,6 +36,10 @@ import { Namespace, mainNamespaces } from '../../types/namespaces';
 import { defaultViewMode, ViewMode } from './ResultsData';
 
 import './styles/results-buttons.scss';
+import {
+  getLocationObjForParams,
+  getParamsFromURL,
+} from '../../../uniprotkb/utils/resultsUtils';
 
 const DownloadComponent = lazy(
   /* istanbul ignore next */
@@ -53,6 +59,9 @@ type ResultsButtonsProps = {
   notCustomisable?: boolean;
 };
 
+const toggleViewMode = (viewMode: ViewMode) =>
+  viewMode === 'card' ? 'table' : 'card';
+
 const ResultsButtons: FC<ResultsButtonsProps> = ({
   selectedEntries,
   setSelectedEntries,
@@ -71,6 +80,9 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
     'view-mode',
     defaultViewMode
   );
+  const history = useHistory();
+
+  const urlParams = getParamsFromURL(history.location.search, namespace);
 
   // TODO: eventually remove it
   // This is just to convert for people currently using the website as they
@@ -84,6 +96,30 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
       }
     }
   }, [setViewMode, viewMode]);
+
+  useEffect(() => {
+    if (urlParams.viewMode) {
+      setViewMode(urlParams.viewMode);
+    }
+  }, [setViewMode, urlParams.viewMode]);
+
+  const onViewModeToggle = useCallback(() => {
+    if (urlParams.viewMode) {
+      // Use the URL as the source of truth until a user creates a new query
+      // TODO: Leave the user's stored view preference alone
+      urlParams.viewMode = toggleViewMode(urlParams.viewMode);
+      // TODO: this changes the URL from encoded to decoded which is different to the faucet behavior
+      history.replace(
+        // eslint-disable-next-line uniprot-website/use-config-location
+        getLocationObjForParams({
+          pathname: history.location.pathname,
+          ...urlParams,
+        })
+      );
+    } else {
+      setViewMode(toggleViewMode(viewMode));
+    }
+  }, [history, setViewMode, urlParams, viewMode]);
 
   const isMain = mainNamespaces.has(namespace);
 
@@ -149,7 +185,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
         <Button
           variant="tertiary"
           className="large-icon"
-          onClick={() => setViewMode(viewMode === 'card' ? 'table' : 'card')}
+          onClick={onViewModeToggle}
           data-testid="table-card-toggle"
           title={`Switch to "${viewMode === 'card' ? 'table' : 'card'}" view`}
           disabled={disableCardToggle}

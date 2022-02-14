@@ -49,9 +49,16 @@ const ResultsData = ({
   className,
 }: Props) => {
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
-  const [viewMode] = useLocalStorage<ViewMode>('view-mode', defaultViewMode);
+  const [viewModeFromStorage] = useLocalStorage<ViewMode>(
+    'view-mode',
+    defaultViewMode
+  );
   const history = useHistory();
-  const { query, direct } = getParamsFromURL(useLocation().search);
+  const {
+    query,
+    direct,
+    viewMode: viewModeFromUrl,
+  } = getParamsFromURL(useLocation().search);
   const [columns, updateColumnSort] = useColumns(
     namespaceOverride,
     displayIdMappingColumns,
@@ -66,6 +73,8 @@ const ResultsData = ({
     hasMoreData,
     progress,
   } = resultsDataObject;
+
+  const viewMode = viewModeFromUrl || viewModeFromStorage;
 
   // All complex values that only change when the namespace changes
   const [getIdKey, getEntryPathForEntry, cardRenderer] = useMemo(() => {
@@ -142,7 +151,6 @@ const ResultsData = ({
   ) {
     return <Loader progress={progress} />;
   }
-
   return (
     <div className="results-data">
       {viewMode === 'card' && !displayIdMappingColumns ? (

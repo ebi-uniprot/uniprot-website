@@ -1,4 +1,7 @@
 import qs from 'query-string';
+import { partition } from 'lodash-es';
+
+import { ColumnConfigurations } from '../../shared/hooks/useColumns';
 
 import { Column } from '../../shared/config/columns';
 import { SortableColumn } from '../types/columnTypes';
@@ -9,6 +12,8 @@ import {
 } from '../types/resultsTypes';
 import { Interactant } from '../adapters/interactionConverter';
 import { InteractionType } from '../types/commentTypes';
+import { ViewMode } from '../../shared/components/results/ResultsData';
+import { Namespace } from '../../shared/types/namespaces';
 
 const facetsAsArray = (facetString: string): SelectedFacet[] =>
   facetString.split(',').map((stringItem) => {
@@ -26,10 +31,18 @@ export type URLResultParams = {
   sortDirection: SortDirection;
   activeFacet?: string;
   direct?: boolean;
+  columns?: Column[];
+  viewMode?: ViewMode;
 };
 
-export const getParamsFromURL = (url: string): URLResultParams => {
-  const { query, facets, sort, dir, activeFacet, direct } = qs.parse(url);
+const viewModes: Set<ViewMode> = new Set(['card', 'table']);
+
+export const getParamsFromURL = (
+  url: string,
+  namespace?: Namespace
+): URLResultParams => {
+  const { query, facets, sort, dir, activeFacet, direct, fields, view } =
+    qs.parse(url);
 
   let selectedFacets: SelectedFacet[] = [];
   if (facets && typeof facets === 'string') {
@@ -37,7 +50,7 @@ export const getParamsFromURL = (url: string): URLResultParams => {
   }
   const sortDirection = dir as keyof typeof SortDirection;
 
-  return {
+  const params: URLResultParams = {
     query: query && typeof query === 'string' ? query : '',
     activeFacet:
       activeFacet && typeof activeFacet === 'string' ? activeFacet : undefined,
@@ -47,6 +60,29 @@ export const getParamsFromURL = (url: string): URLResultParams => {
     // flag, so if '?direct' we get null, if not in querystring we get undefined
     direct: direct !== undefined,
   };
+
+  if (fields && namespace) {
+    const columnsAsArray = Array.isArray(fields) ? fields : fields?.split(',');
+    const columnConfig = ColumnConfigurations[namespace];
+    const columns = new Set(columnConfig?.keys());
+    const [validColumns, invalidColumns] = partition(columnsAsArray, (column) =>
+      columns.has(column) ? 'validColumns' : 'invalidColumns'
+    );
+    if (invalidColumns?.length) {
+      // TODO: warn
+    }
+    params.columns = validColumns as Column[];
+  }
+
+  if (view && typeof view === 'string') {
+    if (viewModes.has(view as ViewMode)) {
+      params.viewMode = view as ViewMode;
+    } else {
+      // TODO: warn
+    }
+  }
+
+  return params;
 };
 
 export const facetsAsString = (facets?: SelectedFacet[]): string => {
@@ -67,6 +103,8 @@ type GetLocationObjForParams = {
   sortColumn?: string;
   sortDirection?: SortDirection;
   activeFacet?: string;
+  columns?: Column[];
+  viewMode?: ViewMode;
 };
 
 export const getLocationObjForParams = ({
@@ -76,6 +114,8 @@ export const getLocationObjForParams = ({
   sortColumn,
   sortDirection,
   activeFacet,
+  columns,
+  viewMode,
 }: GetLocationObjForParams = {}) => ({
   pathname,
   search: [
@@ -85,6 +125,8 @@ export const getLocationObjForParams = ({
     `${sortColumn ? `&sort=${sortColumn}` : ''}`,
     `${sortDirection ? `&dir=${sortDirection}` : ''}`,
     `${activeFacet ? `&activeFacet=${activeFacet}` : ''}`,
+    `${columns ? `&fields=${columns}` : ''}`,
+    `${viewMode ? `&view=${viewMode}` : ''}`,
   ].join(''),
 });
 

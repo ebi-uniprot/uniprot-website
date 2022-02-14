@@ -31,28 +31,43 @@ const useNSQuery = ({
 }: Arg = {}) => {
   const namespace = useNS(overrideNS) || Namespace.uniprotkb;
   const location = useLocation();
-  const [viewMode] = useLocalStorage<ViewMode>('view-mode', defaultViewMode);
-  const [columns] = useLocalStorage<Column[]>(
+  const [viewModeFromStorage] = useLocalStorage<ViewMode>(
+    'view-mode',
+    defaultViewMode
+  );
+  const [columnsFromStorage] = useLocalStorage<Column[]>(
     `table columns for ${namespace}` as const,
     nsToDefaultColumns(namespace)
   );
 
-  let queryColumns = viewMode === 'card' ? undefined : columns;
+  const { search: queryParamFromUrl } = location;
+  const {
+    query,
+    selectedFacets,
+    sortColumn,
+    sortDirection,
+    viewMode: viewModeFromUrl,
+    columns: columnsFromUrl,
+  } = getParamsFromURL(queryParamFromUrl, namespace);
+
+  const viewMode = viewModeFromUrl || viewModeFromStorage;
+
+  let queryColumns: Column[] | undefined = columnsFromUrl || columnsFromStorage;
+
   if (viewMode === 'card') {
     // TODO: Do similar things for the rest of namespaces
     if (namespace === Namespace.uniprotkb) {
       queryColumns = fieldsForUniProtKBCards;
+    } else {
+      queryColumns = undefined;
     }
   }
-
-  const { search: queryParamFromUrl } = location;
-  const { query, selectedFacets, sortColumn, sortDirection } =
-    getParamsFromURL(queryParamFromUrl);
 
   const url = useMemo(() => {
     if (!(query || accessions?.length)) {
       return undefined;
     }
+
     const options = {
       namespace,
       query,
