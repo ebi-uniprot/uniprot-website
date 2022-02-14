@@ -89,17 +89,16 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const [urlParams, invalidParamValues] = getParamsFromURL(
+  const [urlParams, invalidParamValues, unknownParams] = getParamsFromURL(
     history.location.search,
     namespace
   );
-  if (invalidParamValues.length) {
-    dispatch(
-      addMessage({
-        id: 'invalid url params',
-        content: (
+  if (invalidParamValues.length || unknownParams.length) {
+    const content = (
+      <>
+        {invalidParamValues.length > 0 && (
           <>
-            Ignoring invalid URL parameter values:
+            Ignoring invalid URL values:
             <ul>
               {invalidParamValues.map(({ parameter, value }) => (
                 <li>
@@ -109,10 +108,28 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
               ))}
             </ul>
           </>
-        ),
+        )}
+        {unknownParams.length > 0 && (
+          <>
+            Ignoring invalid URL parameters:
+            <ul>
+              {unknownParams.map((unknownParam) => (
+                <li>
+                  <b>{unknownParam}</b>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+      </>
+    );
+    dispatch(
+      addMessage({
+        id: 'invalid url params',
+        content,
         format: MessageFormat.POP_UP,
         level: MessageLevel.WARNING,
-        displayTime: 5_000,
+        displayTime: 15_000,
       })
     );
   }

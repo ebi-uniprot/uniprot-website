@@ -40,15 +40,26 @@ type InvalidParamValues = {
   value: string | string[];
 }[];
 
+type UnknownParams = string[];
+
 const viewModes: Set<ViewMode> = new Set(['card', 'table']);
 
 export const getParamsFromURL = (
   url: string,
   namespace?: Namespace
-): [URLResultParams, InvalidParamValues] => {
+): [URLResultParams, InvalidParamValues, UnknownParams] => {
   const invalidValues = [];
-  const { query, facets, sort, dir, activeFacet, direct, fields, view } =
-    qs.parse(url);
+  const {
+    query,
+    facets,
+    sort,
+    dir,
+    activeFacet,
+    direct,
+    fields,
+    view,
+    ...restParameters
+  } = qs.parse(url);
 
   let selectedFacets: SelectedFacet[] = [];
   if (facets && typeof facets === 'string') {
@@ -88,7 +99,9 @@ export const getParamsFromURL = (
     }
   }
 
-  return [params, invalidValues];
+  const unknownParameters = Object.keys(restParameters);
+
+  return [params, invalidValues, unknownParameters];
 };
 
 export const facetsAsString = (facets?: SelectedFacet[]): string => {
