@@ -3,15 +3,18 @@ import classNames from 'classnames';
 import { v1 } from 'uuid';
 import { Button } from 'franklin-sites';
 
-import { Evidence } from '../../types/modelTypes';
-import FeatureType from '../../types/featureType';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
-import { Xref } from '../../../shared/types/apiModel';
 import FeaturesView, {
   LocationModifier,
   ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';
+
+import listFormat from '../../../shared/utils/listFormat';
 import { getURLToJobWithData } from '../../../app/config/urls';
+
+import { Evidence } from '../../types/modelTypes';
+import FeatureType from '../../types/featureType';
+import { Xref } from '../../../shared/types/apiModel';
 import { JobTypes } from '../../../tools/types/toolsJobTypes';
 
 type FeatureLocation = {
@@ -58,8 +61,33 @@ export const processFeaturesData = (
   data: FeatureData,
   sequence?: string
 ): ProcessedFeature[] =>
-  data.map(
-    (feature): ProcessedFeature => ({
+  data.map((feature): ProcessedFeature => {
+    let s: string | undefined;
+    if (feature.alternativeSequence) {
+      if (
+        feature.alternativeSequence.originalSequence &&
+        feature.alternativeSequence.alternativeSequences
+      ) {
+        s = feature.alternativeSequence.originalSequence;
+        if (feature.alternativeSequence.alternativeSequences?.length) {
+          s += ` → ${feature.alternativeSequence.alternativeSequences
+            .map(
+              (alternative, index, array) =>
+                `${listFormat(index, array, 'or')}${alternative}`
+            )
+            .join('')}`;
+        }
+      } else {
+        s = 'Missing';
+      }
+    } else {
+      s = sequence?.substring(
+        feature.location.start.value - 1,
+        feature.location.end.value
+      );
+    }
+
+    return {
       protvistaFeatureId: feature.featureId || v1(),
       featureId: feature.featureId,
       start: feature.location.start.value,
@@ -69,12 +97,9 @@ export const processFeaturesData = (
       type: feature.type,
       description: feature.description,
       evidences: feature.evidences,
-      sequence: sequence?.substring(
-        feature.location.start.value - 1,
-        feature.location.end.value
-      ),
-    })
-  );
+      sequence: s,
+    };
+  });
 
 const UniProtKBFeaturesView = ({
   primaryAccession,

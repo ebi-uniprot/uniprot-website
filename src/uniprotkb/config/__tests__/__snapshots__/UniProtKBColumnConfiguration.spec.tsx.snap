@@ -1211,6 +1211,18 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
           </a>
         </td>
       </tr>
+      <tr
+        data-end="8"
+        data-group-for="id value CHAIN"
+        data-start="2"
+      >
+        <td>
+          <strong>
+            Sequence: 
+          </strong>
+          original value → alternative value
+        </td>
+      </tr>
     </tbody>
   </table>
 </DocumentFragment>
