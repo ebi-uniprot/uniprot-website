@@ -147,16 +147,9 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
     }
   }, [setViewMode, viewMode]);
 
-  useEffect(() => {
-    if (urlParams.viewMode) {
-      setViewMode(urlParams.viewMode);
-    }
-  }, [setViewMode, urlParams.viewMode]);
-
   const onViewModeToggle = useCallback(() => {
     if (urlParams.viewMode) {
       // Use the URL as the source of truth until a user creates a new query
-      // TODO: Leave the user's stored view preference alone
       urlParams.viewMode = toggleViewMode(urlParams.viewMode);
       // TODO: this changes the URL from encoded to decoded which is different to the faucet behavior
       history.replace(
