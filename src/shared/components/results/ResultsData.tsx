@@ -54,9 +54,9 @@ const ResultsData = ({
     defaultViewMode
   );
   const history = useHistory();
-  const [{ query, direct, viewMode: viewModeFromUrl }] = getParamsFromURL(
-    useLocation().search
-  );
+  const [
+    { query, direct, viewMode: viewModeFromUrl, columns: columnsFromUrl },
+  ] = getParamsFromURL(useLocation().search, namespace);
   const [columns, updateColumnSort] = useColumns(
     namespaceOverride,
     displayIdMappingColumns,
@@ -72,7 +72,14 @@ const ResultsData = ({
     progress,
   } = resultsDataObject;
 
-  const viewMode = viewModeFromUrl || viewModeFromStorage;
+  let viewMode: ViewMode;
+  if (viewModeFromUrl) {
+    viewMode = viewModeFromUrl;
+  } else if (columnsFromUrl?.length) {
+    viewMode = 'table';
+  } else {
+    viewMode = viewModeFromStorage;
+  }
 
   // All complex values that only change when the namespace changes
   const [getIdKey, getEntryPathForEntry, cardRenderer] = useMemo(() => {
