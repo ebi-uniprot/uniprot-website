@@ -1,5 +1,4 @@
 import { Fragment } from 'react';
-import { Message } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
 import listFormat from '../../utils/listFormat';
@@ -15,6 +14,10 @@ import { TabLocation } from '../../../uniprotkb/components/entry/Entry';
 
 import './styles/error-pages.scss';
 
+const ObsoleteMessageHeading = ({ release }: { release?: string }) => (
+  <h4>This entry is obsolete{release && ` since release ${release}`}</h4>
+);
+
 type DeletedEntryMessageProps = {
   accession: string;
   release?: string;
@@ -26,10 +29,12 @@ export const DeletedEntryMessage = ({
   release,
   inHistory,
 }: DeletedEntryMessageProps) => (
-  <Message level="info">
-    <h4>This entry is obsolete{release && ` since release ${release}`}</h4>
-    <p data-testid="deleted-entry-message">
-      The protein sequence for this entry is available in{' '}
+  <>
+    <ObsoleteMessageHeading release={release} />
+    <p>
+      This entry has now been{' '}
+      <strong data-article-id="deleted_accessions">deleted</strong>. The protein
+      sequence for this entry is available in{' '}
       <Link
         to={{
           pathname: LocationToPath[Location.UniParcResults],
@@ -56,7 +61,7 @@ export const DeletedEntryMessage = ({
         </>
       )}
     </p>
-  </Message>
+  </>
 );
 
 type MergedEntryMessageProps = {
@@ -70,10 +75,10 @@ export const MergedEntryMessage = ({
   mergedInto,
   release,
 }: MergedEntryMessageProps) => (
-  <Message level="info">
-    <h4>This entry is obsolete{release && ` since release ${release}`}</h4>
-    <p data-testid="demerged-entry-message">
-      It has now been merged into{' '}
+  <>
+    <ObsoleteMessageHeading release={release} />
+    <p>
+      This entry has now been <strong>merged</strong> into{' '}
       <Link
         to={getEntryPath(Namespace.uniprotkb, mergedInto, TabLocation.Entry)}
       >
@@ -93,7 +98,7 @@ export const MergedEntryMessage = ({
       </Link>
       .
     </p>
-  </Message>
+  </>
 );
 
 type DemergedEntryMessageProps = {
@@ -109,11 +114,12 @@ export const DemergedEntryMessage = ({
   release,
   inHistory,
 }: DemergedEntryMessageProps) => (
-  <Message level="info">
-    <h4>This entry is obsolete{release && ` since release ${release}`}</h4>
+  <>
+    <ObsoleteMessageHeading release={release} />
     {demergedTo?.length && (
-      <p data-testid="demerged-entry-message">
-        Its accession has been set as secondary accession in{' '}
+      <p>
+        This entry has now been <strong>demerged</strong>. Its accession has
+        been set as secondary accession in{' '}
         {demergedTo.map((newEntry, index) => (
           <Fragment key={newEntry}>
             {listFormat(index, demergedTo)}
@@ -168,5 +174,5 @@ export const DemergedEntryMessage = ({
         </>
       )}
     </p>
-  </Message>
+  </>
 );
