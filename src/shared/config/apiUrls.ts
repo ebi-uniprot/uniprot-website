@@ -85,12 +85,9 @@ const apiUrls = {
     // "itemType": "goterm",
     go: joinUrl(apiPrefix, '/configure/uniprotkb/go_evidences'),
   },
-  // Database cross references used in the UniParc entry page
-  allUniParcDatabases: joinUrl(apiPrefix, '/configure/uniparc/allDatabases'),
-  allUniProtKBDatabases: joinUrl(
-    apiPrefix,
-    '/configure/uniprotkb/allDatabases'
-  ),
+  // Database cross references used
+  allDatabases: (namespace: Namespace) =>
+    joinUrl(apiPrefix, 'configure', namespace, 'allDatabases'),
   // Database cross references used by query builder
   databaseXrefs: joinUrl(apiPrefix, '/configure/uniprotkb/databases'),
   // All result fields except supporting data reference fields
@@ -131,10 +128,6 @@ const apiUrls = {
   taxonomySuggester: 'suggester?dict=taxonomy&query=?',
   organismSuggester: 'suggester?dict=organism&query=?',
 
-  // TODO: move that to UniParc-specific file?
-  uniparc: {
-    entry: (id?: string) => id && joinUrl(apiPrefix, '/uniparc', id),
-  },
   contact: {
     token: joinUrl(apiPrefix, 'contact', 'token'),
     send: joinUrl(apiPrefix, 'contact', 'send'),
@@ -440,6 +433,7 @@ export const getClustersForProteins = (accessions: string[]) =>
     apiPrefix,
     `/uniref/search?query=(${accessions
       .map((accession) => `uniprot_id:${accession}`)
+      .sort()
       .join(' OR ')})`
   );
 

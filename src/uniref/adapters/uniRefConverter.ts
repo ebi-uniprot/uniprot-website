@@ -34,8 +34,7 @@ export type UniRefMember = {
   uniref50Id?: string;
   uniref90Id?: string;
   uniref100Id?: string;
-  // This needs to be unified at some point
-  uniparcId?: string | { value: string };
+  uniparcId?: string;
 };
 
 export type RepresentativeMember = UniRefMember & {
@@ -65,9 +64,7 @@ export type UniRefLiteAPIModel = {
 };
 
 export type UniRefAPIModel = {
-  // Inconsistent!
-  commonTaxonId: number;
-  commonTaxon: string;
+  commonTaxon: TaxonomyDatum;
   goTerms?: GeneOntologyEntry[];
   representativeMember: RepresentativeMember;
   seedId: string;
@@ -82,15 +79,19 @@ export type UniRefAPIModel = {
 export const identityLevels = [50, 90, 100] as const;
 export type Identity = typeof identityLevels[number];
 
-export type UniRefUIModel = UniRefAPIModel & {
+export type UniRefUIModel<
+  T extends UniRefAPIModel | UniRefLiteAPIModel = UniRefLiteAPIModel
+> = T & {
   identity: Identity;
   // use SequenceUIModel?
   [EntrySection.Sequence]: {
-    sequence: UniRefAPIModel['representativeMember']['sequence'];
+    sequence: T['representativeMember']['sequence'];
   };
 };
 
-const uniRefConverter = (data: UniRefAPIModel): UniRefUIModel => ({
+const uniRefConverter = <T extends UniRefAPIModel | UniRefLiteAPIModel>(
+  data: T
+): UniRefUIModel<T> => ({
   ...data,
   identity: +data.entryType.replace('UniRef', '') as Identity,
   [EntrySection.Sequence]: { sequence: data.representativeMember.sequence },
