@@ -23,6 +23,7 @@ import { Basket } from '../../hooks/useBasket';
 
 import './styles/warning.scss';
 import './styles/results-data.scss';
+import useViewMode from '../../hooks/useViewMode';
 
 export type ViewMode = 'table' | 'card';
 export const defaultViewMode: ViewMode = 'card';
@@ -49,14 +50,9 @@ const ResultsData = ({
   className,
 }: Props) => {
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
-  const [viewModeFromStorage] = useLocalStorage<ViewMode>(
-    'view-mode',
-    defaultViewMode
-  );
+  const [viewMode] = useViewMode();
   const history = useHistory();
-  const [
-    { query, direct, viewMode: viewModeFromUrl, columns: columnsFromUrl },
-  ] = getParamsFromURL(useLocation().search, namespace);
+  const [{ query, direct }] = getParamsFromURL(useLocation().search);
   const [columns, updateColumnSort] = useColumns(
     namespaceOverride,
     displayIdMappingColumns,
@@ -71,15 +67,6 @@ const ResultsData = ({
     hasMoreData,
     progress,
   } = resultsDataObject;
-
-  let viewMode: ViewMode;
-  if (viewModeFromUrl) {
-    viewMode = viewModeFromUrl;
-  } else if (columnsFromUrl?.length) {
-    viewMode = 'table';
-  } else {
-    viewMode = viewModeFromStorage;
-  }
 
   // All complex values that only change when the namespace changes
   const [getIdKey, getEntryPathForEntry, cardRenderer] = useMemo(() => {
@@ -117,7 +104,7 @@ const ResultsData = ({
         // ... or matches the UniProtKB ID ...
         ('uniProtkbId' in uniqueItem && uniqueItem.uniProtkbId === trimmedQuery)
       ) {
-        history.replace(getEntryPathForEntry(uniqueItem));
+        // history.replace(getEntryPathForEntry(uniqueItem));
       }
     }
   }, [

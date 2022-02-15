@@ -42,24 +42,11 @@ export type InvalidParamValue = {
 
 type UnknownParams = string[];
 
-const viewModes: Set<ViewMode> = new Set(['card', 'table']);
-
 export const getParamsFromURL = (
-  url: string,
-  namespace?: Namespace
-): [URLResultParams, InvalidParamValue[], UnknownParams] => {
-  const invalidValues = [];
-  const {
-    query,
-    facets,
-    sort,
-    dir,
-    activeFacet,
-    direct,
-    fields,
-    view,
-    ...restParams
-  } = qs.parse(url);
+  url: string
+): [URLResultParams, UnknownParams] => {
+  const { query, facets, sort, dir, activeFacet, direct, ...restParams } =
+    qs.parse(url);
 
   let selectedFacets: SelectedFacet[] = [];
   if (facets && typeof facets === 'string') {
@@ -78,30 +65,9 @@ export const getParamsFromURL = (
     direct: direct !== undefined,
   };
 
-  if (fields && namespace && namespace !== Namespace.idmapping) {
-    const columnsAsArray = Array.isArray(fields) ? fields : fields?.split(',');
-    const columnConfig = ColumnConfigurations[namespace];
-    const columns = new Set(columnConfig?.keys());
-    const [validColumns, invalidColumns] = partition(columnsAsArray, (column) =>
-      columns.has(column)
-    );
-    if (invalidColumns?.length) {
-      invalidValues.push({ parameter: 'columns', value: invalidColumns });
-    }
-    params.columns = validColumns as Column[];
-  }
-
-  if (view) {
-    if (typeof view === 'string' && viewModes.has(view as ViewMode)) {
-      params.viewMode = view as ViewMode;
-    } else {
-      invalidValues.push({ parameter: 'view', value: view });
-    }
-  }
-
   const unknownParams = Object.keys(restParams);
 
-  return [params, invalidValues, unknownParams];
+  return [params, unknownParams];
 };
 
 export const facetsAsString = (facets?: SelectedFacet[]): string => {

@@ -28,24 +28,21 @@ import ShareDropdown from '../action-buttons/ShareDropdown';
 import ItemCount from '../ItemCount';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 
-import useLocalStorage from '../../hooks/useLocalStorage';
 import useNS from '../../hooks/useNS';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 import lazy from '../../utils/lazy';
-import {
-  getLocationObjForParams,
-  getParamsFromURL,
-} from '../../../uniprotkb/utils/resultsUtils';
+import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 
 import { Namespace, mainNamespaces } from '../../types/namespaces';
-import { defaultViewMode, ViewMode } from './ResultsData';
 import {
   MessageFormat,
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
 
 import './styles/results-buttons.scss';
+import useViewMode from '../../hooks/useViewMode';
+import useColumnNames from '../../hooks/useColumnNames';
 
 const DownloadComponent = lazy(
   /* istanbul ignore next */
@@ -65,9 +62,6 @@ type ResultsButtonsProps = {
   notCustomisable?: boolean;
 };
 
-const toggleViewMode = (viewMode: ViewMode) =>
-  viewMode === 'card' ? 'table' : 'card';
-
 const ResultsButtons: FC<ResultsButtonsProps> = ({
   selectedEntries,
   setSelectedEntries,
@@ -82,17 +76,13 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
-  const [viewMode, setViewMode] = useLocalStorage<ViewMode>(
-    'view-mode',
-    defaultViewMode
-  );
+  const [viewMode, setViewMode, invalidViewMode] = useViewMode();
+  const [, , , invalidColumns] = useColumnNames();
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const [urlParams, invalidParamValues, unknownParams] = getParamsFromURL(
-    history.location.search,
-    namespace
-  );
+  const invalidParamValues = [invalidViewMode, invalidColumns].filter(Boolean);
+  const [, unknownParams] = getParamsFromURL(history.location.search);
   if (invalidParamValues.length || unknownParams.length) {
     const content = (
       <>
@@ -133,36 +123,6 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
       })
     );
   }
-
-  // TODO: eventually remove it
-  // This is just to convert for people currently using the website as they
-  // might have a viewMode of 0 or 1 because of the previous way it was stored
-  useEffect(() => {
-    if (viewMode !== 'card' && viewMode !== 'table') {
-      if (viewMode === 0) {
-        setViewMode('table');
-      } else {
-        setViewMode('card');
-      }
-    }
-  }, [setViewMode, viewMode]);
-
-  const onViewModeToggle = useCallback(() => {
-    if (urlParams.viewMode) {
-      // Use the URL as the source of truth until a user creates a new query
-      urlParams.viewMode = toggleViewMode(urlParams.viewMode);
-      // TODO: this changes the URL from encoded to decoded which is different to the faucet behavior
-      history.replace(
-        // eslint-disable-next-line uniprot-website/use-config-location
-        getLocationObjForParams({
-          pathname: history.location.pathname,
-          ...urlParams,
-        })
-      );
-    } else {
-      setViewMode(toggleViewMode(viewMode));
-    }
-  }, [history, setViewMode, urlParams, viewMode]);
 
   const isMain = mainNamespaces.has(namespace);
 
@@ -228,7 +188,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
         <Button
           variant="tertiary"
           className="large-icon"
-          onClick={onViewModeToggle}
+          onClick={() => setViewMode(viewMode === 'card' ? 'table' : 'card')}
           data-testid="table-card-toggle"
           title={`Switch to "${viewMode === 'card' ? 'table' : 'card'}" view`}
           disabled={disableCardToggle}

@@ -72,6 +72,8 @@ import {
 import { MappingAPIModel } from '../../tools/id-mapping/types/idMappingSearchResults';
 import { Basket } from './useBasket';
 import { DatabaseInfoMaps } from '../../uniprotkb/utils/database';
+import useViewMode from './useViewMode';
+import useColumnNames from './useColumnNames';
 
 export type ColumnDescriptor<Datum = APIModel> = {
   name: string;
@@ -191,23 +193,13 @@ const useColumns = (
   const history = useHistory();
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
   const location = useLocation();
-  const [userColumns] = useLocalStorage<Column[]>(
-    `table columns for ${namespace}` as const,
-    nsToDefaultColumns(namespace)
-  );
+  const [viewMode] = useViewMode();
+  const [columnNames] = useColumnNames(displayIdMappingColumns);
   const databaseInfoMaps = useDatabaseInfoMaps();
 
   const { search: queryParamFromUrl } = location;
-  const [
-    {
-      query,
-      selectedFacets,
-      sortColumn,
-      sortDirection,
-      columns: columnsFromUrl,
-      viewMode: viewModeFromUrl,
-    },
-  ] = getParamsFromURL(queryParamFromUrl, namespace);
+  const [{ query, selectedFacets, sortColumn, sortDirection }] =
+    getParamsFromURL(queryParamFromUrl);
 
   const { data: dataResultFields, loading } = useDataApi<ReceivedFieldData>(
     // For now, assume no configure endpoint for supporting data
@@ -225,10 +217,6 @@ const useColumns = (
   const columns = useMemo(() => {
     let columns = columnsOverride;
     if (!columns && databaseInfoMaps) {
-      let columnNames = columnsFromUrl || userColumns;
-      if (displayIdMappingColumns && namespace !== Namespace.idmapping) {
-        columnNames = [IDMappingColumn.from, ...userColumns];
-      }
       columns = getColumnsToDisplay(
         namespace,
         columnNames,
@@ -273,12 +261,10 @@ const useColumns = (
     return columns;
   }, [
     columnsOverride,
-    columnsFromUrl,
     databaseInfoMaps,
     basketSetter,
-    displayIdMappingColumns,
     namespace,
-    userColumns,
+    columnNames,
     sortableColumnToSortColumn,
     sortColumn,
     sortDirection,
@@ -312,20 +298,20 @@ const useColumns = (
           selectedFacets,
           sortColumn: newSortColumn,
           sortDirection: updatedSortDirection,
-          columns: columnsFromUrl,
-          viewMode: viewModeFromUrl,
+          columns: columnNames,
+          viewMode,
         })
       );
     },
     [
-      columnsFromUrl,
+      columnNames,
       history,
       namespace,
       query,
       selectedFacets,
       sortDirection,
       sortableColumnToSortColumn,
-      viewModeFromUrl,
+      viewMode,
     ]
   );
   return [columns, updateColumnSort];

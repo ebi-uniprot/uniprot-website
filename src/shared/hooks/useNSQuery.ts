@@ -1,16 +1,16 @@
 import { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import useLocalStorage from './useLocalStorage';
 import useNS from './useNS';
 
 import { getParamsFromURL } from '../../uniprotkb/utils/resultsUtils';
 import { getAccessionsURL, getAPIQueryUrl } from '../config/apiUrls';
 import fieldsForUniProtKBCards from '../../uniprotkb/config/UniProtKBCardConfiguration';
-import { Column, nsToDefaultColumns } from '../config/columns';
+import { Column } from '../config/columns';
 
-import { defaultViewMode, ViewMode } from '../components/results/ResultsData';
 import { Namespace } from '../types/namespaces';
+import useViewMode from './useViewMode';
+import useColumnNames from './useColumnNames';
 
 type Arg = {
   size?: number;
@@ -31,31 +31,16 @@ const useNSQuery = ({
 }: Arg = {}) => {
   const namespace = useNS(overrideNS) || Namespace.uniprotkb;
   const location = useLocation();
-  const [viewModeFromStorage] = useLocalStorage<ViewMode>(
-    'view-mode',
-    defaultViewMode
-  );
-  const [columnsFromStorage] = useLocalStorage<Column[]>(
-    `table columns for ${namespace}` as const,
-    nsToDefaultColumns(namespace)
-  );
+  const [viewMode] = useViewMode();
+  const [columnNames] = useColumnNames();
 
   const { search: queryParamFromUrl } = location;
-  const [
-    {
-      query,
-      selectedFacets,
-      sortColumn,
-      sortDirection,
-      viewMode: viewModeFromUrl,
-      columns: columnsFromUrl,
-    },
-  ] = getParamsFromURL(queryParamFromUrl, namespace);
+  const [{ query, selectedFacets, sortColumn, sortDirection }] =
+    getParamsFromURL(queryParamFromUrl);
 
-  const viewMode = viewModeFromUrl || viewModeFromStorage;
+  let queryColumns: Column[] | undefined = columnNames;
 
-  let queryColumns: Column[] | undefined = columnsFromUrl || columnsFromStorage;
-
+  // TODO: put this into useColumnNames
   if (viewMode === 'card') {
     // TODO: Do similar things for the rest of namespaces
     if (namespace === Namespace.uniprotkb) {
