@@ -78,7 +78,7 @@ export const getParamsFromURL = (
     direct: direct !== undefined,
   };
 
-  if (fields && namespace) {
+  if (fields && namespace && namespace !== Namespace.idmapping) {
     const columnsAsArray = Array.isArray(fields) ? fields : fields?.split(',');
     const columnConfig = ColumnConfigurations[namespace];
     const columns = new Set(columnConfig?.keys());
