@@ -60,4 +60,28 @@ describe('Results component', () => {
       );
     });
   });
+
+  it('should show card view if URL has view=card as well as fields', async () => {
+    customRender(<Results />, {
+      route: '/uniprotkb?query=blah&view=card&fields=accession,id',
+      initialLocalStorage: {
+        'view-mode': 'table' as ViewMode,
+        'table columns for uniprotkb': [UniProtKBColumn.accession],
+      },
+    });
+    const cards = await screen.findAllByText('Gene:');
+    expect(cards).toBeTruthy();
+  });
+
+  it('should show table view if URL has no view specified but has fields', async () => {
+    customRender(<Results />, {
+      route: '/uniprotkb?query=blah&fields=accession,id',
+      initialLocalStorage: {
+        'view-mode': 'card' as ViewMode,
+        'table columns for uniprotkb': [UniProtKBColumn.accession],
+      },
+    });
+    const table = await screen.findByText('Entry');
+    expect(table).toBeInTheDocument();
+  });
 });

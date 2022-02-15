@@ -58,7 +58,7 @@ export const getParamsFromURL = (
     direct,
     fields,
     view,
-    ...restParameters
+    ...restParams
   } = qs.parse(url);
 
   let selectedFacets: SelectedFacet[] = [];
@@ -99,9 +99,9 @@ export const getParamsFromURL = (
     }
   }
 
-  const unknownParameters = Object.keys(restParameters);
+  const unknownParams = Object.keys(restParams);
 
-  return [params, invalidValues, unknownParameters];
+  return [params, invalidValues, unknownParams];
 };
 
 export const facetsAsString = (facets?: SelectedFacet[]): string => {
