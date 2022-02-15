@@ -35,10 +35,10 @@ export type URLResultParams = {
   viewMode?: ViewMode;
 };
 
-type InvalidParamValues = {
+export type InvalidParamValue = {
   parameter: string;
   value: string | string[];
-}[];
+};
 
 type UnknownParams = string[];
 
@@ -47,7 +47,7 @@ const viewModes: Set<ViewMode> = new Set(['card', 'table']);
 export const getParamsFromURL = (
   url: string,
   namespace?: Namespace
-): [URLResultParams, InvalidParamValues, UnknownParams] => {
+): [URLResultParams, InvalidParamValue[], UnknownParams] => {
   const invalidValues = [];
   const {
     query,
