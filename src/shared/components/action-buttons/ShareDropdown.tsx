@@ -38,13 +38,13 @@ const CopyLinkWebsite = ({
 }) => {
   const dispatch = useDispatch();
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
-  const [userColumns] = useColumnNames(namespaceOverride);
+  const { columnNames } = useColumnNames(namespaceOverride);
   const [viewMode] = useViewMode(namespace, disableCardToggle);
   const location = useLocation();
 
   const searchParams = new URLSearchParams(location.search);
   if (viewMode === 'table') {
-    searchParams.set('fields', userColumns.join(','));
+    searchParams.set('fields', columnNames.join(','));
   }
   if (!disableCardToggle) {
     searchParams.set('view', `${viewMode}`);

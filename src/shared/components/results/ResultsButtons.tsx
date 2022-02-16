@@ -82,12 +82,12 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
     namespaceOverride,
     disableCardToggle
   );
-  const [, , , invalidColumns] = useColumnNames(namespaceOverride);
+  const { invalidUrlColumnNames } = useColumnNames(namespaceOverride);
   const history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const invalidParamValues = [invalidViewMode, invalidColumns].filter(
+    const invalidParamValues = [invalidViewMode, invalidUrlColumnNames].filter(
       Boolean
     ) as InvalidParamValue[];
     const [, unknownParams] = getParamsFromURL(history.location.search);
@@ -131,7 +131,12 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
         })
       );
     }
-  }, [dispatch, history.location.search, invalidColumns, invalidViewMode]);
+  }, [
+    dispatch,
+    history.location.search,
+    invalidUrlColumnNames,
+    invalidViewMode,
+  ]);
 
   const isMain = mainNamespaces.has(namespace);
 

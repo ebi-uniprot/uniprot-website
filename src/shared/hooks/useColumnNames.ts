@@ -16,20 +16,21 @@ import { InvalidParamValue } from '../../uniprotkb/utils/resultsUtils';
 const useColumnNames = (
   namespaceOverride: Namespace | undefined,
   displayIdMappingColumns?: boolean
-): [
-  Column[],
-  Dispatch<SetStateAction<Column[]>>,
-  boolean,
-  InvalidParamValue | undefined
-] => {
+): {
+  columnNames: Column[];
+  setColumnNames: Dispatch<SetStateAction<Column[]>>;
+  fromUrl: boolean;
+  invalidUrlColumnNames: InvalidParamValue | undefined;
+} => {
   const ns = useNS(namespaceOverride) || Namespace.uniprotkb;
   const { fields: columnNamesFromUrl } = qs.parse(useLocation().search);
-  const [columnNamesFromStorage, setColumnNamesFromStorage] = useLocalStorage<
-    Column[]
-  >(`table columns for ${ns}` as const, nsToDefaultColumns(ns));
+  const [columnNamesFromStorage, setColumnNames] = useLocalStorage<Column[]>(
+    `table columns for ${ns}` as const,
+    nsToDefaultColumns(ns)
+  );
 
   let columnNames: Column[] = columnNamesFromStorage;
-  let error: InvalidParamValue | undefined;
+  let invalidUrlColumnNames: InvalidParamValue | undefined;
   let fromUrl = false;
 
   if (columnNamesFromUrl && ns && ns !== Namespace.idmapping) {
@@ -42,7 +43,7 @@ const useColumnNames = (
       columns.has(column)
     );
     if (invalidColumns?.length) {
-      error = { parameter: 'columns', value: invalidColumns };
+      invalidUrlColumnNames = { parameter: 'columns', value: invalidColumns };
     }
     columnNames = validColumns as Column[];
     fromUrl = true;
@@ -50,7 +51,7 @@ const useColumnNames = (
   if (displayIdMappingColumns && ns !== Namespace.idmapping) {
     columnNames = [IDMappingColumn.from, ...columnNames];
   }
-  return [columnNames, setColumnNamesFromStorage, fromUrl, error];
+  return { columnNames, setColumnNames, fromUrl, invalidUrlColumnNames };
 };
 
 export default useColumnNames;

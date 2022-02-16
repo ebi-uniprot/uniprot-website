@@ -29,7 +29,7 @@ const useViewMode = (
   namespaceOverride: Namespace | undefined,
   disableCardToggle = false
 ): [ViewMode, (vm: ViewMode) => void, InvalidParamValue | undefined] => {
-  const [, , columnNamesAreFromUrl] = useColumnNames(namespaceOverride);
+  const { fromUrl: columnNamesAreFromUrl } = useColumnNames(namespaceOverride);
   const [viewModeFromStorage, setViewModeFromStorage] =
     useLocalStorage<ViewMode>('view-mode', defaultViewMode);
   const history = useHistory();
