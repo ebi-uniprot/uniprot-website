@@ -287,7 +287,7 @@ const useColumns = (
           ? SortDirection.ascend
           : SortDirection.descend;
 
-      // TODO: this changes the URL from encoded to decoded which is different to the faucet behavior
+      // TODO: this changes the URL from encoded to decoded which is different to the facet behavior
       history.push(
         getLocationObjForParams({
           pathname: SearchResultsLocations[namespace],

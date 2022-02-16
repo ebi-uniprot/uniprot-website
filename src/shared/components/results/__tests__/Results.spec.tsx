@@ -70,7 +70,7 @@ describe('Results component', () => {
       },
     });
     const cards = await screen.findAllByText('Gene:');
-    expect(cards).toBeTruthy();
+    expect(cards).not.toHaveLength(0);
   });
 
   it('should show table view if URL has no view specified but has fields', async () => {
