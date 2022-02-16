@@ -10,7 +10,7 @@ import SimpleMappingDetails from '../__mocks__/SimpleMappingDetails';
 import UniProtkbMapping from '../__mocks__/UniProtkbMapping';
 import UniProtkbMappingDetails from '../__mocks__/UniProtkbMappingDetails';
 
-import { ViewMode } from '../../../../../shared/components/results/ResultsData';
+import { ViewMode } from '../../../../../shared/hooks/useViewMode';
 
 const mock = new MockAdapter(axios);
 mock

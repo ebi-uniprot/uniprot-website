@@ -1,6 +1,7 @@
 import { screen, waitFor } from '@testing-library/react';
 
-import ResultsData, { ViewMode } from '../ResultsData';
+import ResultsData from '../ResultsData';
+import { ViewMode } from '../../../hooks/useViewMode';
 
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 

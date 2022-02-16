@@ -8,6 +8,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 import useNS from '../../hooks/useNS';
 import useColumns, { ColumnDescriptor } from '../../hooks/useColumns';
+import useViewMode from '../../hooks/useViewMode';
 
 import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
@@ -22,10 +23,6 @@ import { Basket } from '../../hooks/useBasket';
 
 import './styles/warning.scss';
 import './styles/results-data.scss';
-import useViewMode from '../../hooks/useViewMode';
-
-export type ViewMode = 'table' | 'card';
-export const defaultViewMode: ViewMode = 'card';
 
 type Props = {
   resultsDataObject: PaginatedResults;

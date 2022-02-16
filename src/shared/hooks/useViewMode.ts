@@ -5,11 +5,12 @@ import qs from 'query-string';
 import useColumnNames from './useColumnNames';
 import useLocalStorage from './useLocalStorage';
 
-import { defaultViewMode, ViewMode } from '../components/results/ResultsData';
 import { Namespace } from '../types/namespaces';
 import { InvalidParamValue } from '../../uniprotkb/utils/resultsUtils';
 
 const viewModes: Set<ViewMode> = new Set(['card', 'table']);
+export type ViewMode = 'table' | 'card';
+export const defaultViewMode: ViewMode = 'card';
 
 // TODO: eventually remove it
 // This is just to convert for people currently using the website as they

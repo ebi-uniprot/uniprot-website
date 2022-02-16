@@ -6,7 +6,7 @@ import customRender from '../../../__test-helpers__/customRender';
 
 import '../../../../uniprotkb/components/__mocks__/mockApi';
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
-import { ViewMode } from '../ResultsData';
+import { ViewMode } from '../../../hooks/useViewMode';
 
 describe('Results component', () => {
   // Testing the button, and testing the 2 views, this is probably enough
