@@ -1,11 +1,13 @@
-import qs from 'query-string';
 import { useCallback } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { InvalidParamValue } from '../../uniprotkb/utils/resultsUtils';
-import { defaultViewMode, ViewMode } from '../components/results/ResultsData';
-import { Namespace } from '../types/namespaces';
+import qs from 'query-string';
+
 import useColumnNames from './useColumnNames';
 import useLocalStorage from './useLocalStorage';
+
+import { defaultViewMode, ViewMode } from '../components/results/ResultsData';
+import { Namespace } from '../types/namespaces';
+import { InvalidParamValue } from '../../uniprotkb/utils/resultsUtils';
 
 const viewModes: Set<ViewMode> = new Set(['card', 'table']);
 

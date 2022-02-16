@@ -1,14 +1,17 @@
-import { partition } from 'lodash-es';
-import qs from 'query-string';
 import { Dispatch, SetStateAction } from 'react';
 import { useLocation } from 'react-router-dom';
-import { IDMappingColumn } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
-import { InvalidParamValue } from '../../uniprotkb/utils/resultsUtils';
-import { Column, nsToDefaultColumns } from '../config/columns';
-import { Namespace } from '../types/namespaces';
-import { ColumnConfigurations } from './useColumns';
+import { partition } from 'lodash-es';
+import qs from 'query-string';
+
 import useLocalStorage from './useLocalStorage';
 import useNS from './useNS';
+
+import { Column, nsToDefaultColumns } from '../config/columns';
+import { ColumnConfigurations } from './useColumns';
+
+import { Namespace } from '../types/namespaces';
+import { IDMappingColumn } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
+import { InvalidParamValue } from '../../uniprotkb/utils/resultsUtils';
 
 const useColumnNames = (
   namespaceOverride: Namespace | undefined,

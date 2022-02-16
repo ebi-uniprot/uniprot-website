@@ -68,7 +68,6 @@ import { IdMappingColumnConfiguration } from '../../tools/id-mapping/config/IdMa
 import { MappingAPIModel } from '../../tools/id-mapping/types/idMappingSearchResults';
 import { Basket } from './useBasket';
 import { DatabaseInfoMaps } from '../../uniprotkb/utils/database';
-import useViewMode from './useViewMode';
 import useColumnNames from './useColumnNames';
 
 export type ColumnDescriptor<Datum = APIModel> = {
@@ -189,7 +188,6 @@ const useColumns = (
   const history = useHistory();
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
   const location = useLocation();
-  const [viewMode] = useViewMode(namespaceOverride);
   const [columnNames] = useColumnNames(
     namespaceOverride,
     displayIdMappingColumns
@@ -297,20 +295,16 @@ const useColumns = (
           selectedFacets,
           sortColumn: newSortColumn,
           sortDirection: updatedSortDirection,
-          columns: columnNames,
-          viewMode,
         })
       );
     },
     [
-      columnNames,
       history,
       namespace,
       query,
       selectedFacets,
       sortDirection,
       sortableColumnToSortColumn,
-      viewMode,
     ]
   );
   return [columns, updateColumnSort];

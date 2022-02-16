@@ -7,7 +7,6 @@ import {
 import { useHistory, useLocation } from 'react-router-dom';
 
 import useNS from '../../hooks/useNS';
-import useLocalStorage from '../../hooks/useLocalStorage';
 import useColumns, { ColumnDescriptor } from '../../hooks/useColumns';
 
 import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
@@ -106,7 +105,7 @@ const ResultsData = ({
         // ... or matches the UniProtKB ID ...
         ('uniProtkbId' in uniqueItem && uniqueItem.uniProtkbId === trimmedQuery)
       ) {
-        // history.replace(getEntryPathForEntry(uniqueItem));
+        history.replace(getEntryPathForEntry(uniqueItem));
       }
     }
   }, [
