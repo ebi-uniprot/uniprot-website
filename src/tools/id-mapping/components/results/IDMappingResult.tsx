@@ -44,7 +44,6 @@ const urls = toolsURLs(jobType);
 const title = `${namespaceAndToolsLabels[jobType]} results`;
 
 const IDMappingResult = () => {
-  console.log('IDMappingResult');
   const match = useRouteMatch<{ id: string }>(
     LocationToPath[Location.IDMappingResult]
   );

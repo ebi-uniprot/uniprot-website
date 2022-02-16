@@ -41,8 +41,17 @@ type UnknownParams = string[];
 export const getParamsFromURL = (
   url: string
 ): [URLResultParams, UnknownParams] => {
-  const { query, facets, sort, dir, activeFacet, direct, ...restParams } =
-    qs.parse(url);
+  const {
+    query,
+    facets,
+    sort,
+    dir,
+    activeFacet,
+    direct,
+    fields, // These are handled in useColumnNames
+    view, // These are handled in useViewMode
+    ...restParams
+  } = qs.parse(url);
 
   let selectedFacets: SelectedFacet[] = [];
   if (facets && typeof facets === 'string') {
