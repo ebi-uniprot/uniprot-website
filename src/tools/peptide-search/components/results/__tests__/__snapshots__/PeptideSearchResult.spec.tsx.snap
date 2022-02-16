@@ -75,17 +75,16 @@ exports[`PeptideSearchResult should render with the correct number of results in
         <span
           role="radiogroup"
         >
-          View: 
+          View:
           <label>
-            table
+            Table 
             <input
               name="view"
               type="radio"
             />
           </label>
-           
           <label>
-            card
+            Card 
             <input
               checked=""
               name="view"
@@ -516,17 +515,16 @@ exports[`PeptideSearchResult should render with the correct number of results in
         <span
           role="radiogroup"
         >
-          View: 
+          View:
           <label>
-            table
+            Table 
             <input
               name="view"
               type="radio"
             />
           </label>
-           
           <label>
-            card
+            Card 
             <input
               checked=""
               name="view"

@@ -124,9 +124,9 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
         )} */}
         {/* TODO: check if we want to add that to franklin, eventually... */}
         <span role="radiogroup">
-          View:{' '}
+          View:
           <label>
-            table
+            Table{' '}
             <input
               type="radio"
               name="view"
@@ -138,9 +138,9 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
               }
               disabled={disableCardToggle}
             />
-          </label>{' '}
+          </label>
           <label>
-            card
+            Card{' '}
             <input
               type="radio"
               name="view"
