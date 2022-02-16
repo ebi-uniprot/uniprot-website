@@ -250,7 +250,7 @@ const ProteinNamesView = ({
               />
               {alternativeName.ecNumbers?.length ? (
                 <small>
-                  {' '}
+                  .{' '}
                   <ECNumbersView
                     ecNumbers={alternativeName.ecNumbers}
                     noEvidence={noEvidence}

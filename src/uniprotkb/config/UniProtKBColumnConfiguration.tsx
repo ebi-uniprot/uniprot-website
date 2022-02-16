@@ -85,6 +85,7 @@ import EntryTypeIcon, {
 } from '../../shared/components/entry/EntryTypeIcon';
 import AccessionView from '../../shared/components/results/AccessionView';
 import CSVView from '../components/protein-data-views/CSVView';
+import { DatabaseList } from '../components/protein-data-views/XRefView';
 
 import useDatabaseInfoMaps from '../../shared/hooks/useDatabaseInfoMaps';
 
@@ -96,20 +97,20 @@ import { sortInteractionData } from '../utils/resultsUtils';
 import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
 import getFeatureLabelAndTooltip from '../../help/config/featureColumnHeaders';
 import * as logging from '../../shared/utils/logging';
+import { getDatabaseNameFromColumn, isDatabaseColumn } from '../utils/database';
+import { diseaseAndDrugsFeaturesToColumns } from '../adapters/diseaseAndDrugs';
+import { subcellularLocationFeaturesToColumns } from '../adapters/subcellularLocationConverter';
+import { proteinProcessingFeaturesToColumns } from '../adapters/proteinProcessingConverter';
+import { familyAndDomainsFeaturesToColumns } from '../adapters/familyAndDomainsConverter';
 
 import SharedColumnConfiguration from '../../shared/config/ColumnConfiguration';
 
 import { Namespace } from '../../shared/types/namespaces';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
 import { Interactant } from '../adapters/interactionConverter';
+import { ValueWithEvidence } from '../types/modelTypes';
 
 import helper from '../../shared/styles/helper.module.scss';
-import { diseaseAndDrugsFeaturesToColumns } from '../adapters/diseaseAndDrugs';
-import { subcellularLocationFeaturesToColumns } from '../adapters/subcellularLocationConverter';
-import { proteinProcessingFeaturesToColumns } from '../adapters/proteinProcessingConverter';
-import { familyAndDomainsFeaturesToColumns } from '../adapters/familyAndDomainsConverter';
-import { getDatabaseNameFromColumn, isDatabaseColumn } from '../utils/database';
-import { DatabaseList } from '../components/protein-data-views/XRefView';
 
 export const defaultColumns = [
   UniProtKBColumn.accession,
@@ -690,9 +691,19 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ec, {
   ),
   render: (data) => {
     const { proteinNamesData } = data[EntrySection.NamesAndTaxonomy];
+    const ecNumbers: ValueWithEvidence[] = [];
+    if (proteinNamesData?.recommendedName?.ecNumbers) {
+      ecNumbers.push(...proteinNamesData.recommendedName.ecNumbers);
+    }
+    for (const alternativeName of proteinNamesData?.alternativeNames || []) {
+      if (alternativeName.ecNumbers) {
+        ecNumbers.push(...alternativeName.ecNumbers);
+      }
+    }
+
     return (
       <ECNumbersView
-        ecNumbers={proteinNamesData?.recommendedName?.ecNumbers}
+        ecNumbers={ecNumbers.length ? ecNumbers : undefined}
         noEvidence
         orientation="vertical"
       />

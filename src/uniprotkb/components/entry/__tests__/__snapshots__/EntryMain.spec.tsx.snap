@@ -795,7 +795,7 @@ exports[`Entry view should render 1`] = `
                     />
                     ) 
                     <small>
-                       EC:1.2.3.3 
+                      . EC:1.2.3.3 
                       <button
                         aria-controls="17"
                         aria-expanded="false"
@@ -1371,7 +1371,7 @@ exports[`Entry view should render 1`] = `
                     />
                     ) 
                     <small>
-                       EC:1.2.3.3 
+                      . EC:1.2.3.3 
                       <button
                         aria-controls="31"
                         aria-expanded="false"

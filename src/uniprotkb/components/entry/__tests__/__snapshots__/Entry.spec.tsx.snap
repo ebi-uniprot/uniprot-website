@@ -1111,7 +1111,7 @@ exports[`Entry basic should render main 1`] = `
                               />
                               ) 
                               <small>
-                                 EC:1.2.3.3 
+                                . EC:1.2.3.3 
                                 <button
                                   aria-controls="18"
                                   aria-expanded="false"
@@ -1687,7 +1687,7 @@ exports[`Entry basic should render main 1`] = `
                               />
                               ) 
                               <small>
-                                 EC:1.2.3.3 
+                                . EC:1.2.3.3 
                                 <button
                                   aria-controls="32"
                                   aria-expanded="false"
