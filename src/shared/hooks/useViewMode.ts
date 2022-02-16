@@ -57,16 +57,11 @@ const useViewMode = (): [
   const setViewMode = useCallback(
     (vm: ViewMode) => {
       if (fromUrl) {
-        console.log({
-          pathname: history.location.pathname,
-          state: qs.stringify({ ...urlParams, view: vm }),
-        });
-        // TODO: this changes the URL from encoded to decoded which is different to the faucet behavior
         history.push(
           // eslint-disable-next-line uniprot-website/use-config-location
           {
             pathname: history.location.pathname,
-            state: qs.stringify({ ...urlParams, view: vm }),
+            search: qs.stringify({ ...urlParams, view: vm }),
           }
         );
       } else {
