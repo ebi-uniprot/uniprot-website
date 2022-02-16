@@ -1,4 +1,11 @@
-import { FC, useState, Suspense, Dispatch, SetStateAction } from 'react';
+import {
+  FC,
+  useState,
+  Suspense,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+} from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import cn from 'classnames';
@@ -79,50 +86,52 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const invalidParamValues = [invalidViewMode, invalidColumns].filter(
-    Boolean
-  ) as InvalidParamValue[];
-  const [, unknownParams] = getParamsFromURL(history.location.search);
-  if (invalidParamValues.length || unknownParams.length) {
-    const content = (
-      <>
-        {invalidParamValues.length > 0 && (
-          <>
-            Ignoring invalid URL values:
-            <ul>
-              {invalidParamValues.map(({ parameter, value }) => (
-                <li key={parameter}>
-                  <b>{parameter}</b>
-                  {`: ${value}`}
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
-        {unknownParams.length > 0 && (
-          <>
-            Ignoring invalid URL parameters:
-            <ul>
-              {unknownParams.map((unknownParam) => (
-                <li key={unknownParam}>
-                  <b>{unknownParam}</b>
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
-      </>
-    );
-    dispatch(
-      addMessage({
-        id: 'invalid url params',
-        content,
-        format: MessageFormat.POP_UP,
-        level: MessageLevel.WARNING,
-        displayTime: 15_000,
-      })
-    );
-  }
+  useEffect(() => {
+    const invalidParamValues = [invalidViewMode, invalidColumns].filter(
+      Boolean
+    ) as InvalidParamValue[];
+    const [, unknownParams] = getParamsFromURL(history.location.search);
+    if (invalidParamValues.length || unknownParams.length) {
+      const content = (
+        <>
+          {invalidParamValues.length > 0 && (
+            <>
+              Ignoring invalid URL values:
+              <ul>
+                {invalidParamValues.map(({ parameter, value }) => (
+                  <li key={parameter}>
+                    <b>{parameter}</b>
+                    {`: ${value}`}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+          {unknownParams.length > 0 && (
+            <>
+              Ignoring invalid URL parameters:
+              <ul>
+                {unknownParams.map((unknownParam) => (
+                  <li key={unknownParam}>
+                    <b>{unknownParam}</b>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </>
+      );
+      dispatch(
+        addMessage({
+          id: 'invalid url params',
+          content,
+          format: MessageFormat.POP_UP,
+          level: MessageLevel.WARNING,
+          displayTime: 15_000,
+        })
+      );
+    }
+  }, [dispatch, history.location.search, invalidColumns, invalidViewMode]);
 
   const isMain = mainNamespaces.has(namespace);
 
