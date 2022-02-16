@@ -45,6 +45,8 @@ const CopyLinkWebsite = ({
   const searchParams = new URLSearchParams(location.search);
   if (viewMode === 'table') {
     searchParams.set('fields', columnNames.join(','));
+  } else {
+    searchParams.delete('fields');
   }
   if (!disableCardToggle) {
     searchParams.set('view', `${viewMode}`);
