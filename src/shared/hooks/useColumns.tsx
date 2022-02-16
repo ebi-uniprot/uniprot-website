@@ -11,6 +11,7 @@ import { BinIcon, Button } from 'franklin-sites';
 import useDataApi from './useDataApi';
 import useNS from './useNS';
 import useDatabaseInfoMaps from './useDatabaseInfoMaps';
+import useColumnNames from './useColumnNames';
 
 import apiUrls from '../config/apiUrls';
 import { SearchResultsLocations } from '../../app/config/urls';
@@ -68,7 +69,6 @@ import { IdMappingColumnConfiguration } from '../../tools/id-mapping/config/IdMa
 import { MappingAPIModel } from '../../tools/id-mapping/types/idMappingSearchResults';
 import { Basket } from './useBasket';
 import { DatabaseInfoMaps } from '../../uniprotkb/utils/database';
-import useColumnNames from './useColumnNames';
 
 export type ColumnDescriptor<Datum = APIModel> = {
   name: string;

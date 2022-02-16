@@ -48,8 +48,8 @@ export const getParamsFromURL = (
     dir,
     activeFacet,
     direct,
-    fields, // These are handled in useColumnNames
-    view, // These are handled in useViewMode
+    fields, // Handled in useColumnNames
+    view, // Handled in useViewMode
     ...restParams
   } = qs.parse(url);
 

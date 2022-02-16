@@ -2,6 +2,8 @@ import { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import useNS from './useNS';
+import useViewMode from './useViewMode';
+import useColumnNames from './useColumnNames';
 
 import { getParamsFromURL } from '../../uniprotkb/utils/resultsUtils';
 import { getAccessionsURL, getAPIQueryUrl } from '../config/apiUrls';
@@ -9,8 +11,6 @@ import fieldsForUniProtKBCards from '../../uniprotkb/config/UniProtKBCardConfigu
 import { Column } from '../config/columns';
 
 import { Namespace } from '../types/namespaces';
-import useViewMode from './useViewMode';
-import useColumnNames from './useColumnNames';
 
 type Arg = {
   size?: number;
