@@ -44,6 +44,7 @@ const urls = toolsURLs(jobType);
 const title = `${namespaceAndToolsLabels[jobType]} results`;
 
 const IDMappingResult = () => {
+  console.log('IDMappingResult');
   const match = useRouteMatch<{ id: string }>(
     LocationToPath[Location.IDMappingResult]
   );
@@ -171,6 +172,7 @@ const IDMappingResult = () => {
         setSelectedEntries={setSelectedEntries}
         namespaceOverride={namespaceOverride}
         displayIdMappingColumns
+        disableCardToggle
       />
     </SideBarLayout>
   );

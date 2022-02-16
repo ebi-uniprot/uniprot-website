@@ -1,12 +1,4 @@
-import {
-  FC,
-  useState,
-  Suspense,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useCallback,
-} from 'react';
+import { FC, useState, Suspense, Dispatch, SetStateAction } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import cn from 'classnames';
@@ -32,7 +24,10 @@ import useNS from '../../hooks/useNS';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 import lazy from '../../utils/lazy';
-import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
+import {
+  getParamsFromURL,
+  InvalidParamValue,
+} from '../../../uniprotkb/utils/resultsUtils';
 
 import { Namespace, mainNamespaces } from '../../types/namespaces';
 import {
@@ -76,12 +71,17 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
-  const [viewMode, setViewMode, invalidViewMode] = useViewMode();
-  const [, , , invalidColumns] = useColumnNames();
+  const [viewMode, setViewMode, invalidViewMode] = useViewMode(
+    namespaceOverride,
+    disableCardToggle
+  );
+  const [, , , invalidColumns] = useColumnNames(namespaceOverride);
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const invalidParamValues = [invalidViewMode, invalidColumns].filter(Boolean);
+  const invalidParamValues = [invalidViewMode, invalidColumns].filter(
+    Boolean
+  ) as InvalidParamValue[];
   const [, unknownParams] = getParamsFromURL(history.location.search);
   if (invalidParamValues.length || unknownParams.length) {
     const content = (
@@ -91,7 +91,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
             Ignoring invalid URL values:
             <ul>
               {invalidParamValues.map(({ parameter, value }) => (
-                <li>
+                <li key={parameter}>
                   <b>{parameter}</b>
                   {`: ${value}`}
                 </li>
@@ -104,7 +104,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
             Ignoring invalid URL parameters:
             <ul>
               {unknownParams.map((unknownParam) => (
-                <li>
+                <li key={unknownParam}>
                   <b>{unknownParam}</b>
                 </li>
               ))}
@@ -210,7 +210,11 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
             <CustomiseButton namespace={namespace} />
           )}
         {!notCustomisable && (
-          <ShareDropdown setDisplayDownloadPanel={setDisplayDownloadPanel} />
+          <ShareDropdown
+            setDisplayDownloadPanel={setDisplayDownloadPanel}
+            namespaceOverride={namespaceOverride}
+            disableCardToggle={disableCardToggle}
+          />
         )}
         <ItemCount selected={selectedEntries.length} loaded={loadedTotal} />
       </div>

@@ -1,7 +1,4 @@
 import qs from 'query-string';
-import { partition } from 'lodash-es';
-
-import { ColumnConfigurations } from '../../shared/hooks/useColumns';
 
 import { Column } from '../../shared/config/columns';
 import { SortableColumn } from '../types/columnTypes';
@@ -13,7 +10,6 @@ import {
 import { Interactant } from '../adapters/interactionConverter';
 import { InteractionType } from '../types/commentTypes';
 import { ViewMode } from '../../shared/components/results/ResultsData';
-import { Namespace } from '../../shared/types/namespaces';
 
 const facetsAsArray = (facetString: string): SelectedFacet[] =>
   facetString.split(',').map((stringItem) => {

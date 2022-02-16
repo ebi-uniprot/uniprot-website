@@ -37,6 +37,7 @@ type Props = {
   displayIdMappingColumns?: boolean;
   basketSetter?: Dispatch<SetStateAction<Basket>>;
   className?: string;
+  disableCardToggle?: boolean;
 };
 
 const ResultsData = ({
@@ -47,10 +48,11 @@ const ResultsData = ({
   columnsOverride,
   displayIdMappingColumns,
   basketSetter,
+  disableCardToggle = false,
   className,
 }: Props) => {
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
-  const [viewMode] = useViewMode();
+  const [viewMode] = useViewMode(namespaceOverride, disableCardToggle);
   const history = useHistory();
   const [{ query, direct }] = getParamsFromURL(useLocation().search);
   const [columns, updateColumnSort] = useColumns(

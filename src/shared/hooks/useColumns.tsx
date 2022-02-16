@@ -10,7 +10,6 @@ import { BinIcon, Button } from 'franklin-sites';
 
 import useDataApi from './useDataApi';
 import useNS from './useNS';
-import useLocalStorage from './useLocalStorage';
 import useDatabaseInfoMaps from './useDatabaseInfoMaps';
 
 import apiUrls from '../config/apiUrls';
@@ -24,7 +23,7 @@ import {
 import * as logging from '../utils/logging';
 
 import { mainNamespaces, Namespace } from '../types/namespaces';
-import { Column, nsToDefaultColumns } from '../config/columns';
+import { Column } from '../config/columns';
 import {
   ReceivedFieldData,
   SortDirection,
@@ -64,10 +63,7 @@ import LocationsColumnConfiguration from '../../supporting-data/locations/config
 import UniRuleColumnConfiguration from '../../automatic-annotations/unirule/config/UniRuleColumnConfiguration';
 import ARBAColumnConfiguration from '../../automatic-annotations/arba/config/ARBAColumnConfiguration';
 
-import {
-  IDMappingColumn,
-  IdMappingColumnConfiguration,
-} from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
+import { IdMappingColumnConfiguration } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 
 import { MappingAPIModel } from '../../tools/id-mapping/types/idMappingSearchResults';
 import { Basket } from './useBasket';
@@ -193,8 +189,11 @@ const useColumns = (
   const history = useHistory();
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
   const location = useLocation();
-  const [viewMode] = useViewMode();
-  const [columnNames] = useColumnNames(displayIdMappingColumns);
+  const [viewMode] = useViewMode(namespaceOverride);
+  const [columnNames] = useColumnNames(
+    namespaceOverride,
+    displayIdMappingColumns
+  );
   const databaseInfoMaps = useDatabaseInfoMaps();
 
   const { search: queryParamFromUrl } = location;

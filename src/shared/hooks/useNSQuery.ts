@@ -31,8 +31,8 @@ const useNSQuery = ({
 }: Arg = {}) => {
   const namespace = useNS(overrideNS) || Namespace.uniprotkb;
   const location = useLocation();
-  const [viewMode] = useViewMode();
-  const [columnNames] = useColumnNames();
+  const [viewMode] = useViewMode(overrideNS);
+  const [columnNames] = useColumnNames(overrideNS);
 
   const { search: queryParamFromUrl } = location;
   const [{ query, selectedFacets, sortColumn, sortDirection }] =

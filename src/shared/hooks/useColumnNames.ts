@@ -3,7 +3,7 @@ import qs from 'query-string';
 import { Dispatch, SetStateAction } from 'react';
 import { useLocation } from 'react-router-dom';
 import { IDMappingColumn } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
-import { InvalidParamValues } from '../../uniprotkb/utils/resultsUtils';
+import { InvalidParamValue } from '../../uniprotkb/utils/resultsUtils';
 import { Column, nsToDefaultColumns } from '../config/columns';
 import { Namespace } from '../types/namespaces';
 import { ColumnConfigurations } from './useColumns';
@@ -11,21 +11,22 @@ import useLocalStorage from './useLocalStorage';
 import useNS from './useNS';
 
 const useColumnNames = (
+  namespaceOverride: Namespace | undefined,
   displayIdMappingColumns?: boolean
 ): [
   Column[],
   Dispatch<SetStateAction<Column[]>>,
   boolean,
-  InvalidParamValues | undefined
+  InvalidParamValue | undefined
 ] => {
-  const ns = useNS() || Namespace.uniprotkb;
+  const ns = useNS(namespaceOverride) || Namespace.uniprotkb;
   const { fields: columnNamesFromUrl } = qs.parse(useLocation().search);
   const [columnNamesFromStorage, setColumnNamesFromStorage] = useLocalStorage<
     Column[]
   >(`table columns for ${ns}` as const, nsToDefaultColumns(ns));
 
   let columnNames: Column[] = columnNamesFromStorage;
-  let error: InvalidParamValues | undefined;
+  let error: InvalidParamValue | undefined;
   let fromUrl = false;
 
   if (columnNamesFromUrl && ns && ns !== Namespace.idmapping) {
@@ -43,7 +44,6 @@ const useColumnNames = (
     columnNames = validColumns as Column[];
     fromUrl = true;
   }
-
   if (displayIdMappingColumns && ns !== Namespace.idmapping) {
     columnNames = [IDMappingColumn.from, ...columnNames];
   }

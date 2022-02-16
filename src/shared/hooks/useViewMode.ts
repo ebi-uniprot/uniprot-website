@@ -1,11 +1,9 @@
 import qs from 'query-string';
 import { useCallback } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import {
-  getLocationObjForParams,
-  InvalidParamValue,
-} from '../../uniprotkb/utils/resultsUtils';
+import { InvalidParamValue } from '../../uniprotkb/utils/resultsUtils';
 import { defaultViewMode, ViewMode } from '../components/results/ResultsData';
+import { Namespace } from '../types/namespaces';
 import useColumnNames from './useColumnNames';
 import useLocalStorage from './useLocalStorage';
 
@@ -24,23 +22,25 @@ const normalize = (viewMode: ViewMode) => {
   return viewMode;
 };
 
-const useViewMode = (): [
-  ViewMode,
-  (vm: ViewMode) => void,
-  InvalidParamValue | undefined
-] => {
-  const [, , columnNamesAreFromUrl] = useColumnNames();
+const useViewMode = (
+  namespaceOverride: Namespace | undefined,
+  disableCardToggle = false
+): [ViewMode, (vm: ViewMode) => void, InvalidParamValue | undefined] => {
+  const [, , columnNamesAreFromUrl] = useColumnNames(namespaceOverride);
   const [viewModeFromStorage, setViewModeFromStorage] =
     useLocalStorage<ViewMode>('view-mode', defaultViewMode);
   const history = useHistory();
   const locationSearch = useLocation().search;
+
   let viewMode: ViewMode = normalize(viewModeFromStorage);
   let error: InvalidParamValue | undefined;
   let fromUrl = false;
 
   const { view: viewModeFromUrl, ...urlParams } = qs.parse(locationSearch);
 
-  if (viewModeFromUrl) {
+  if (disableCardToggle) {
+    viewMode = 'table';
+  } else if (viewModeFromUrl) {
     if (
       typeof viewModeFromUrl === 'string' &&
       viewModes.has(viewModeFromUrl as ViewMode)
