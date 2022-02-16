@@ -28,7 +28,11 @@ const normalize = (viewMode: ViewMode) => {
 const useViewMode = (
   namespaceOverride: Namespace | undefined,
   disableCardToggle = false
-): [ViewMode, (vm: ViewMode) => void, InvalidParamValue | undefined] => {
+): {
+  viewMode: ViewMode;
+  setViewMode: (vm: ViewMode) => void;
+  invalidUrlViewMode: InvalidParamValue | undefined;
+} => {
   const { fromUrl: columnNamesAreFromUrl } = useColumnNames(namespaceOverride);
   const [viewModeFromStorage, setViewModeFromStorage] =
     useLocalStorage<ViewMode>('view-mode', defaultViewMode);
@@ -36,7 +40,7 @@ const useViewMode = (
   const locationSearch = useLocation().search;
 
   let viewMode: ViewMode = normalize(viewModeFromStorage);
-  let error: InvalidParamValue | undefined;
+  let invalidUrlViewMode: InvalidParamValue | undefined;
   let fromUrl = false;
 
   const { view: viewModeFromUrl, ...urlParams } = qs.parse(locationSearch);
@@ -51,7 +55,7 @@ const useViewMode = (
       viewMode = viewModeFromUrl as ViewMode;
       fromUrl = true;
     } else {
-      error = { parameter: 'view', value: viewModeFromUrl };
+      invalidUrlViewMode = { parameter: 'view', value: viewModeFromUrl };
     }
   } else if (columnNamesAreFromUrl) {
     viewMode = 'table';
@@ -74,7 +78,7 @@ const useViewMode = (
     [fromUrl, history, setViewModeFromStorage, urlParams]
   );
 
-  return [viewMode, setViewMode, error];
+  return { viewMode, setViewMode, invalidUrlViewMode };
 };
 
 export default useViewMode;

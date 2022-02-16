@@ -78,7 +78,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
-  const [viewMode, setViewMode, invalidViewMode] = useViewMode(
+  const { viewMode, setViewMode, invalidUrlViewMode } = useViewMode(
     namespaceOverride,
     disableCardToggle
   );
@@ -87,9 +87,10 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const invalidParamValues = [invalidViewMode, invalidUrlColumnNames].filter(
-      Boolean
-    ) as InvalidParamValue[];
+    const invalidParamValues = [
+      invalidUrlViewMode,
+      invalidUrlColumnNames,
+    ].filter(Boolean) as InvalidParamValue[];
     const [, unknownParams] = getParamsFromURL(history.location.search);
     if (invalidParamValues.length || unknownParams.length) {
       const content = (
@@ -135,7 +136,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
     dispatch,
     history.location.search,
     invalidUrlColumnNames,
-    invalidViewMode,
+    invalidUrlViewMode,
   ]);
 
   const isMain = mainNamespaces.has(namespace);

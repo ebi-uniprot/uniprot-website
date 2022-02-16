@@ -48,7 +48,7 @@ const ResultsData = ({
   className,
 }: Props) => {
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
-  const [viewMode] = useViewMode(namespaceOverride, disableCardToggle);
+  const { viewMode } = useViewMode(namespaceOverride, disableCardToggle);
   const history = useHistory();
   const [{ query, direct }] = getParamsFromURL(useLocation().search);
   const [columns, updateColumnSort] = useColumns(

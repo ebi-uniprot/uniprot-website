@@ -39,7 +39,7 @@ const CopyLinkWebsite = ({
   const dispatch = useDispatch();
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
   const { columnNames } = useColumnNames(namespaceOverride);
-  const [viewMode] = useViewMode(namespace, disableCardToggle);
+  const { viewMode } = useViewMode(namespace, disableCardToggle);
   const location = useLocation();
 
   const searchParams = new URLSearchParams(location.search);
