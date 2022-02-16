@@ -21,6 +21,8 @@ import ItemCount from '../ItemCount';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 
 import useNS from '../../hooks/useNS';
+import useViewMode from '../../hooks/useViewMode';
+import useColumnNames from '../../hooks/useColumnNames';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 import lazy from '../../utils/lazy';
@@ -36,8 +38,6 @@ import {
 } from '../../../messages/types/messagesTypes';
 
 import './styles/results-buttons.scss';
-import useViewMode from '../../hooks/useViewMode';
-import useColumnNames from '../../hooks/useColumnNames';
 
 const DownloadComponent = lazy(
   /* istanbul ignore next */

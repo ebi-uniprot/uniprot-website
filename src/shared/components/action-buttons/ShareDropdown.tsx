@@ -5,6 +5,8 @@ import { DropdownButton, Button, CopyIcon } from 'franklin-sites';
 import { createPath } from 'history';
 
 import useNS from '../../hooks/useNS';
+import useColumnNames from '../../hooks/useColumnNames';
+import useViewMode from '../../hooks/useViewMode';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 
@@ -13,8 +15,6 @@ import {
   MessageFormat,
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
-import useColumnNames from '../../hooks/useColumnNames';
-import useViewMode from '../../hooks/useViewMode';
 
 const isCopySupported =
   'clipboard' in navigator && 'writeText' in navigator.clipboard;
