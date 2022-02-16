@@ -18,6 +18,19 @@
   white-space: nowrap;
   overflow-x: auto;
 
+  & [role='radiogroup'] {
+    margin-inline-end: 1ch;
+
+    & label {
+      display: inline-block;
+    }
+
+    & input {
+      margin: 0 0.2ch;
+      vertical-align: middle;
+    }
+  }
+
   & > span {
     // any plain text needs to be aligned with the buttons
     line-height: 1.9;
