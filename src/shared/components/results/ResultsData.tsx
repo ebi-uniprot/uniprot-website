@@ -7,8 +7,8 @@ import {
 import { useHistory, useLocation } from 'react-router-dom';
 
 import useNS from '../../hooks/useNS';
-import useLocalStorage from '../../hooks/useLocalStorage';
 import useColumns, { ColumnDescriptor } from '../../hooks/useColumns';
+import useViewMode from '../../hooks/useViewMode';
 
 import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
@@ -24,9 +24,6 @@ import { Basket } from '../../hooks/useBasket';
 import './styles/warning.scss';
 import './styles/results-data.scss';
 
-export type ViewMode = 'table' | 'card';
-export const defaultViewMode: ViewMode = 'card';
-
 type Props = {
   resultsDataObject: PaginatedResults;
   setSelectedEntries?: Dispatch<SetStateAction<string[]>>;
@@ -36,6 +33,7 @@ type Props = {
   displayIdMappingColumns?: boolean;
   basketSetter?: Dispatch<SetStateAction<Basket>>;
   className?: string;
+  disableCardToggle?: boolean;
 };
 
 const ResultsData = ({
@@ -46,12 +44,13 @@ const ResultsData = ({
   columnsOverride,
   displayIdMappingColumns,
   basketSetter,
+  disableCardToggle = false,
   className,
 }: Props) => {
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
-  const [viewMode] = useLocalStorage<ViewMode>('view-mode', defaultViewMode);
+  const { viewMode } = useViewMode(namespaceOverride, disableCardToggle);
   const history = useHistory();
-  const { query, direct } = getParamsFromURL(useLocation().search);
+  const [{ query, direct }] = getParamsFromURL(useLocation().search);
   const [columns, updateColumnSort] = useColumns(
     namespaceOverride,
     displayIdMappingColumns,
@@ -142,7 +141,6 @@ const ResultsData = ({
   ) {
     return <Loader progress={progress} />;
   }
-
   return (
     <div className="results-data">
       {viewMode === 'card' && !displayIdMappingColumns ? (

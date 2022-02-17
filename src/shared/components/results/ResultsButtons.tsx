@@ -6,6 +6,8 @@ import {
   SetStateAction,
   useEffect,
 } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import cn from 'classnames';
 import {
   DownloadIcon,
@@ -25,13 +27,22 @@ import ShareDropdown from '../action-buttons/ShareDropdown';
 import ItemCount from '../ItemCount';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 
-import useLocalStorage from '../../hooks/useLocalStorage';
 import useNS from '../../hooks/useNS';
+import useViewMode from '../../hooks/useViewMode';
+import useColumnNames from '../../hooks/useColumnNames';
 
+import { addMessage } from '../../../messages/state/messagesActions';
 import lazy from '../../utils/lazy';
+import {
+  getParamsFromURL,
+  InvalidParamValue,
+} from '../../../uniprotkb/utils/resultsUtils';
 
 import { Namespace, mainNamespaces } from '../../types/namespaces';
-import { defaultViewMode, ViewMode } from './ResultsData';
+import {
+  MessageFormat,
+  MessageLevel,
+} from '../../../messages/types/messagesTypes';
 
 import './styles/results-buttons.scss';
 
@@ -67,23 +78,66 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
-  const [viewMode, setViewMode] = useLocalStorage<ViewMode>(
-    'view-mode',
-    defaultViewMode
+  const { viewMode, setViewMode, invalidUrlViewMode } = useViewMode(
+    namespaceOverride,
+    disableCardToggle
   );
+  const { invalidUrlColumnNames } = useColumnNames(namespaceOverride);
+  const history = useHistory();
+  const dispatch = useDispatch();
 
-  // TODO: eventually remove it
-  // This is just to convert for people currently using the website as they
-  // might have a viewMode of 0 or 1 because of the previous way it was stored
   useEffect(() => {
-    if (viewMode !== 'card' && viewMode !== 'table') {
-      if (viewMode === 0) {
-        setViewMode('table');
-      } else {
-        setViewMode('card');
-      }
+    const invalidParamValues = [
+      invalidUrlViewMode,
+      invalidUrlColumnNames,
+    ].filter(Boolean) as InvalidParamValue[];
+    const [, unknownParams] = getParamsFromURL(history.location.search);
+    if (invalidParamValues.length || unknownParams.length) {
+      const content = (
+        <>
+          {invalidParamValues.length > 0 && (
+            <>
+              Ignoring invalid URL values:
+              <ul>
+                {invalidParamValues.map(({ parameter, value }) => (
+                  <li key={parameter}>
+                    <b>{parameter}</b>
+                    {`: ${value}`}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+          {unknownParams.length > 0 && (
+            <>
+              Ignoring invalid URL parameters:
+              <ul>
+                {unknownParams.map((unknownParam) => (
+                  <li key={unknownParam}>
+                    <b>{unknownParam}</b>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </>
+      );
+      dispatch(
+        addMessage({
+          id: 'invalid url params',
+          content,
+          format: MessageFormat.POP_UP,
+          level: MessageLevel.WARNING,
+          displayTime: 15_000,
+        })
+      );
     }
-  }, [setViewMode, viewMode]);
+  }, [
+    dispatch,
+    history.location.search,
+    invalidUrlColumnNames,
+    invalidUrlViewMode,
+  ]);
 
   const isMain = mainNamespaces.has(namespace);
 
@@ -171,7 +225,11 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
             <CustomiseButton namespace={namespace} />
           )}
         {!notCustomisable && (
-          <ShareDropdown setDisplayDownloadPanel={setDisplayDownloadPanel} />
+          <ShareDropdown
+            setDisplayDownloadPanel={setDisplayDownloadPanel}
+            namespaceOverride={namespaceOverride}
+            disableCardToggle={disableCardToggle}
+          />
         )}
         <ItemCount selected={selectedEntries.length} loaded={loadedTotal} />
       </div>

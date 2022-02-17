@@ -5,7 +5,8 @@ import { DropdownButton, Button, CopyIcon } from 'franklin-sites';
 import { createPath } from 'history';
 
 import useNS from '../../hooks/useNS';
-import useLocalStorage from '../../hooks/useLocalStorage';
+import useColumnNames from '../../hooks/useColumnNames';
+import useViewMode from '../../hooks/useViewMode';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 
@@ -14,8 +15,6 @@ import {
   MessageFormat,
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
-import { Column, nsToDefaultColumns } from '../../config/columns';
-import { defaultViewMode, ViewMode } from '../results/ResultsData';
 
 const isCopySupported =
   'clipboard' in navigator && 'writeText' in navigator.clipboard;
@@ -30,22 +29,28 @@ const clickOnDropdown = (element: HTMLElement) => {
   )?.click();
 };
 
-const CopyLinkWebsite = () => {
+const CopyLinkWebsite = ({
+  namespaceOverride,
+  disableCardToggle = false,
+}: {
+  namespaceOverride: Namespace | undefined;
+  disableCardToggle: boolean;
+}) => {
   const dispatch = useDispatch();
-  const ns = useNS() || Namespace.uniprotkb;
-  const [userColumns] = useLocalStorage<Column[]>(
-    `table columns for ${ns}` as const,
-    nsToDefaultColumns(ns)
-  );
-  const [viewMode] = useLocalStorage<ViewMode>('view-mode', defaultViewMode);
-
+  const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
+  const { columnNames } = useColumnNames(namespaceOverride);
+  const { viewMode } = useViewMode(namespace, disableCardToggle);
   const location = useLocation();
 
   const searchParams = new URLSearchParams(location.search);
   if (viewMode === 'table') {
-    searchParams.set('fields', userColumns.join(','));
+    searchParams.set('fields', columnNames.join(','));
+  } else {
+    searchParams.delete('fields');
   }
-  searchParams.set('view', `${viewMode}`);
+  if (!disableCardToggle) {
+    searchParams.set('view', `${viewMode}`);
+  }
   const url =
     document.location.origin +
     createPath({ ...location, search: searchParams.toString() });
@@ -91,8 +96,12 @@ const CopyLinkWebsite = () => {
 
 const ShareDropdown = ({
   setDisplayDownloadPanel,
+  namespaceOverride,
+  disableCardToggle = false,
 }: {
   setDisplayDownloadPanel: Dispatch<SetStateAction<boolean>>;
+  namespaceOverride?: Namespace | undefined;
+  disableCardToggle?: boolean;
 }) => {
   if (!isCopySupported) {
     return null;
@@ -103,7 +112,10 @@ const ShareDropdown = ({
       <div className="dropdown-menu__content">
         <ul>
           <li>
-            <CopyLinkWebsite />
+            <CopyLinkWebsite
+              namespaceOverride={namespaceOverride}
+              disableCardToggle={disableCardToggle}
+            />
           </li>
           <li>
             <Button
