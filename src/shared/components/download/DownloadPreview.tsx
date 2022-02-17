@@ -7,6 +7,8 @@ import urlsAreEqual from '../../utils/url';
 
 import { ContentType, FileFormat } from '../../types/resultsDownload';
 
+import styles from './styles/download-preview.module.scss';
+
 const DownloadPreview = ({
   previewUrl,
   previewFileFormat,
@@ -60,7 +62,7 @@ const DownloadPreview = ({
   }
 
   return (
-    <div className="preview">
+    <div className={styles.preview}>
       <h4>Preview</h4>
       <CodeBlock lightMode data-testid="download-preview">
         {previewContent}

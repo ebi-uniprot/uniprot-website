@@ -6,7 +6,7 @@ import {
   copySuccessMessage,
 } from '../../../messages/state/messagesActions';
 
-import style from './styles/download-api-url.module.scss';
+import styles from './styles/download-api-url.module.scss';
 
 const DownloadAPIURL = ({ apiURL }: { apiURL: string }) => {
   const dispatch = useDispatch();
@@ -22,14 +22,14 @@ const DownloadAPIURL = ({ apiURL }: { apiURL: string }) => {
   }, [apiURL, dispatch]);
 
   return (
-    <div className={style['api-url']}>
+    <div className={styles['api-url']}>
       <h4>API URL</h4>
-      <CodeBlock lightMode className={style.codeblock}>
+      <CodeBlock lightMode className={styles.codeblock}>
         {apiURL}
       </CodeBlock>
       <Button
         variant="primary"
-        className={style['copy-button']}
+        className={styles['copy-button']}
         onClick={handleCopyURL}
       >
         <CopyIcon />

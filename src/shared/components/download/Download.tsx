@@ -4,6 +4,8 @@ import { Button, LongNumber } from 'franklin-sites';
 import cn from 'classnames';
 
 import ColumnSelect from '../column-select/ColumnSelect';
+import DownloadPreview from './DownloadPreview';
+import DownloadAPIURL from './DownloadAPIURL';
 
 import useLocalStorage from '../../hooks/useLocalStorage';
 
@@ -24,9 +26,7 @@ import { FileFormat } from '../../types/resultsDownload';
 import { Namespace } from '../../types/namespaces';
 
 import sticky from '../../styles/sticky.module.scss';
-import './styles/download.scss';
-import DownloadPreview from './DownloadPreview';
-import DownloadAPIURL from './DownloadAPIURL';
+import styles from './styles/download.module.scss';
 
 export const getPreviewFileFormat = (fileFormat: FileFormat) =>
   fileFormat === FileFormat.excel ? FileFormat.tsv : fileFormat;
@@ -216,7 +216,7 @@ const Download: FC<DownloadProps> = ({
           'button-group',
           'sliding-panel__button-row',
           sticky['sticky-bottom-right'],
-          'action-buttons'
+          styles['action-buttons']
         )}
       >
         <Button
