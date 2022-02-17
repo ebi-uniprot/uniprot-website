@@ -1057,6 +1057,41 @@ exports[`UniProtKBColumnConfiguration component should render column "ec": ec 1`
       </a>
       )
     </li>
+    <li>
+      EC:1.2.3.3 (
+      <a
+        href="/uniprotkb?query=ec:1.2.3.3"
+      >
+        UniProtKB
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="https://enzyme.expasy.org/EC/1.2.3.3"
+        rel="noopener"
+        target="_blank"
+      >
+        ENZYME
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="https://www.rhea-db.org/rhea?query=ec:1.2.3.3"
+        rel="noopener"
+        target="_blank"
+      >
+        Rhea
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+      )
+    </li>
   </ul>
 </DocumentFragment>
 `;
@@ -1209,6 +1244,18 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
           >
             BLAST
           </a>
+        </td>
+      </tr>
+      <tr
+        data-end="8"
+        data-group-for="id value CHAIN"
+        data-start="2"
+      >
+        <td>
+          <strong>
+            Sequence: 
+          </strong>
+          original value → alternative value
         </td>
       </tr>
     </tbody>

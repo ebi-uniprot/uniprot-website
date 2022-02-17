@@ -6,7 +6,7 @@ import customRender from '../../../__test-helpers__/customRender';
 
 import '../../../../uniprotkb/components/__mocks__/mockApi';
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
-import { ViewMode } from '../ResultsData';
+import { ViewMode } from '../../../hooks/useViewMode';
 
 describe('Results component', () => {
   // Testing the button, and testing the 2 views, this is probably enough
@@ -16,8 +16,8 @@ describe('Results component', () => {
       initialLocalStorage: { 'view-mode': 'card' as ViewMode },
     });
     await screen.findAllByText('Gene:');
-    const toggle = await screen.findByTestId('table-card-toggle');
-    fireEvent.click(toggle);
+    const radio = await screen.findByRole('radio', { name: /table/i });
+    fireEvent.click(radio);
     const table = await screen.findByText('Entry');
     expect(table).toBeInTheDocument();
   });
@@ -59,5 +59,29 @@ describe('Results component', () => {
         '?query=blah&sort=accession&dir=ascend'
       );
     });
+  });
+
+  it('should show card view if URL has view=card as well as fields', async () => {
+    customRender(<Results />, {
+      route: '/uniprotkb?query=blah&view=card&fields=accession,id',
+      initialLocalStorage: {
+        'view-mode': 'table' as ViewMode,
+        'table columns for uniprotkb': [UniProtKBColumn.accession],
+      },
+    });
+    const cards = await screen.findAllByText('Gene:');
+    expect(cards).not.toHaveLength(0);
+  });
+
+  it('should show table view if URL has no view specified but has fields', async () => {
+    customRender(<Results />, {
+      route: '/uniprotkb?query=blah&fields=accession,id',
+      initialLocalStorage: {
+        'view-mode': 'card' as ViewMode,
+        'table columns for uniprotkb': [UniProtKBColumn.accession],
+      },
+    });
+    const table = await screen.findByText('Entry');
+    expect(table).toBeInTheDocument();
   });
 });

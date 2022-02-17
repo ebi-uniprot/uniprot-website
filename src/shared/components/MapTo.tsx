@@ -174,7 +174,7 @@ const enrichStatistics = (
 ): EnrichedStatistics[] => {
   const entries = statistics && Object.entries(statistics);
 
-  // Prepend a compond value for UniProtKB reviewed + unreviewed
+  // Prepend a compound value for UniProtKB reviewed + unreviewed
   if (statistics?.reviewedProteinCount || statistics?.unreviewedProteinCount) {
     entries?.unshift([
       'proteinCount',

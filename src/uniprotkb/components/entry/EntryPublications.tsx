@@ -195,7 +195,7 @@ const hasReference = (
 
 const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
   const { search } = useLocation();
-  const { selectedFacets } = getParamsFromURL(search);
+  const [{ selectedFacets }] = getParamsFromURL(search);
   const initialUrl = getUniProtPublicationsQueryUrl({
     accession,
     selectedFacets,

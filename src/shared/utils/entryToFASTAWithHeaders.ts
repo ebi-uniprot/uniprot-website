@@ -51,9 +51,9 @@ const entryToFASTAWithHeaders = (
       // UniRef entry
       sequence = `>${entry.id} ${entry.name.replace('Cluster: ', '')} n=${
         entry.memberCount
-      } Tax=${entry.commonTaxon} TaxID=${entry.commonTaxonId} RepID=${
-        entry.representativeMember.memberId
-      }\n${sequence}`;
+      } Tax=${entry.commonTaxon.scientificName} TaxID=${
+        entry.commonTaxon.taxonId
+      } RepID=${entry.representativeMember.memberId}\n${sequence}`;
     } else {
       // UniProtKB entry
       let db;

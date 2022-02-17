@@ -149,6 +149,7 @@ const SimilarProteins = ({ isoforms, primaryAccession }: Props) => {
                               ''
                             )}:${id}`
                         )
+                        .sort()
                         .join(' OR ')})`,
                     }}
                   >

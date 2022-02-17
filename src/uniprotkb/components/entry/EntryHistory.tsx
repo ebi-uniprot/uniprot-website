@@ -1,7 +1,14 @@
 import { Fragment, useMemo, ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer';
-import { Button, Card, CodeBlock, DataTable, Loader } from 'franklin-sites';
+import {
+  Button,
+  Card,
+  CodeBlock,
+  DataTable,
+  Loader,
+  Message,
+} from 'franklin-sites';
 import qs from 'query-string';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
@@ -355,7 +362,7 @@ export const EntryHistoryList = ({ accession }: { accession: string }) => {
 
   return (
     <>
-      {message}
+      {message && <Message level="info">{message}</Message>}
       <div className="button-group">
         <Button
           variant="tertiary"

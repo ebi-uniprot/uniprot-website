@@ -50,7 +50,7 @@ const IDMappingResult = () => {
   const location = useLocation();
   const databaseInfoMaps = useDatabaseInfoMaps();
   const { search: queryParamFromUrl } = location;
-  const { selectedFacets } = getParamsFromURL(queryParamFromUrl);
+  const [{ selectedFacets }] = getParamsFromURL(queryParamFromUrl);
 
   const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
     useItemSelect();
@@ -171,6 +171,7 @@ const IDMappingResult = () => {
         setSelectedEntries={setSelectedEntries}
         namespaceOverride={namespaceOverride}
         displayIdMappingColumns
+        disableCardToggle
       />
     </SideBarLayout>
   );

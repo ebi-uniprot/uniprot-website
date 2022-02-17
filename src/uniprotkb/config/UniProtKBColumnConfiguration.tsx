@@ -85,6 +85,7 @@ import EntryTypeIcon, {
 } from '../../shared/components/entry/EntryTypeIcon';
 import AccessionView from '../../shared/components/results/AccessionView';
 import CSVView from '../components/protein-data-views/CSVView';
+import { DatabaseList } from '../components/protein-data-views/XRefView';
 
 import useDatabaseInfoMaps from '../../shared/hooks/useDatabaseInfoMaps';
 
@@ -93,20 +94,23 @@ import externalUrls from '../../shared/config/externalUrls';
 import { getEntryPath, LocationToPath, Location } from '../../app/config/urls';
 import { fromColumnConfig } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 import { sortInteractionData } from '../utils/resultsUtils';
+import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
+import getFeatureLabelAndTooltip from '../../help/config/featureColumnHeaders';
 import * as logging from '../../shared/utils/logging';
-
-import { Namespace } from '../../shared/types/namespaces';
-import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
-import { Interactant } from '../adapters/interactionConverter';
-
-import helper from '../../shared/styles/helper.module.scss';
+import { getDatabaseNameFromColumn, isDatabaseColumn } from '../utils/database';
 import { diseaseAndDrugsFeaturesToColumns } from '../adapters/diseaseAndDrugs';
 import { subcellularLocationFeaturesToColumns } from '../adapters/subcellularLocationConverter';
 import { proteinProcessingFeaturesToColumns } from '../adapters/proteinProcessingConverter';
 import { familyAndDomainsFeaturesToColumns } from '../adapters/familyAndDomainsConverter';
-import { getDatabaseNameFromColumn, isDatabaseColumn } from '../utils/database';
-import { DatabaseList } from '../components/protein-data-views/XRefView';
-import UniProtKBColumnHeaders from '../../help/config/UniProtkbColumnHeaders';
+
+import SharedColumnConfiguration from '../../shared/config/ColumnConfiguration';
+
+import { Namespace } from '../../shared/types/namespaces';
+import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
+import { Interactant } from '../adapters/interactionConverter';
+import { ValueWithEvidence } from '../types/modelTypes';
+
+import helper from '../../shared/styles/helper.module.scss';
 
 export const defaultColumns = [
   UniProtKBColumn.accession,
@@ -125,8 +129,7 @@ const getFeatureColumn = (
   section: EntrySectionWithFeatures,
   column: UniProtKBColumn
 ) => ({
-  label: type,
-  tooltip: UniProtKBColumnHeaders[column],
+  ...getFeatureLabelAndTooltip(type, column),
   render: (data: UniProtkbUIModel) => {
     const { featuresData } = data[section];
     return (
@@ -142,7 +145,11 @@ const getFeatureColumn = (
 });
 
 const getGOColumnForAspect = (aspect: GOAspectLabel) => ({
-  label: `Gene Ontology - ${aspect}`,
+  ...getLabelAndTooltip(
+    `Gene Ontology - ${aspect}`,
+    'Gene Ontology (GO) terms associated with the entry',
+    'gene_ontology'
+  ),
   render: (data: UniProtkbUIModel) => {
     const { goTerms } = data[EntrySection.Function] as FunctionUIModel;
     const goProcessTerms = goTerms && goTerms.get(aspect);
@@ -156,22 +163,27 @@ export const UniProtKBColumnConfiguration: ColumnConfiguration<
 > = new Map();
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.accession, {
-  label: 'Entry',
-  tooltip: 'Unique and stable entry identifier.',
+  ...getLabelAndTooltip('Entry', 'Unique and stable entry identifier.'),
   render: (data) => (
     <AccessionView id={data.primaryAccession} namespace={Namespace.uniprotkb} />
   ),
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.id, {
-  label: 'Entry Name',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.id],
+  ...getLabelAndTooltip(
+    'Entry Name',
+    'Mnemonic identifier of a UniProtKB entry',
+    'entry_name'
+  ),
   render: (data) => <SimpleView termValue={data.uniProtkbId} />,
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinName, {
-  label: 'Protein Names',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.proteinName],
+  ...getLabelAndTooltip(
+    'Protein Names',
+    'Name(s) and synonym(s) of the protein',
+    'protein_names'
+  ),
   render: (data) => {
     const { proteinNamesData } = data[EntrySection.NamesAndTaxonomy];
     return (
@@ -184,8 +196,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinName, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.geneNames, {
-  label: 'Gene Names',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.geneNames],
+  ...getLabelAndTooltip(
+    'Gene Names',
+    'Name(s) of the gene(s) encoding the protein',
+    'gene_name'
+  ),
   render: (data) => (
     <CSVView
       data={data[EntrySection.NamesAndTaxonomy].geneNamesData}
@@ -194,16 +209,15 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneNames, {
   ),
 });
 
-UniProtKBColumnConfiguration.set(UniProtKBColumn.organismName, {
-  label: 'Organism',
-  render: (data) => {
-    const { organismData } = data[EntrySection.NamesAndTaxonomy];
-    return organismData && <TaxonomyView data={organismData} />;
-  },
-});
+UniProtKBColumnConfiguration.set(
+  UniProtKBColumn.organismName,
+  SharedColumnConfiguration.organism(
+    (data: UniProtkbUIModel) => data[EntrySection.NamesAndTaxonomy].organismData
+  )
+);
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.length, {
-  label: 'Length',
+  ...getLabelAndTooltip('Length', 'Length of the canonical sequence'),
   render(data) {
     const { sequence } = data[EntrySection.Sequence];
     return (
@@ -218,7 +232,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.length, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.genePrimary, {
-  label: 'Gene Names (Primary)',
+  ...getLabelAndTooltip(
+    'Gene Names (Primary)',
+    'Name(s) of the gene(s) encoding the protein',
+    'gene_name'
+  ),
   render(data) {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
 
@@ -233,7 +251,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.genePrimary, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOln, {
-  label: 'Gene Names (Ordered locus)',
+  ...getLabelAndTooltip(
+    'Gene Names (Ordered locus)',
+    'Name(s) of the gene(s) encoding the protein',
+    'gene_name'
+  ),
   render(data) {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
 
@@ -250,7 +272,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOln, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOrf, {
-  label: 'Gene Names (ORF)',
+  ...getLabelAndTooltip(
+    'Gene Names (ORF)',
+    'Name(s) of the gene(s) encoding the protein',
+    'gene_name'
+  ),
   render(data) {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
 
@@ -267,7 +293,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOrf, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.geneSynonym, {
-  label: 'Gene Names (Synonyms)',
+  ...getLabelAndTooltip(
+    'Gene Names (Synonyms)',
+    'Name(s) of the gene(s) encoding the protein',
+    'gene_name'
+  ),
   render(data) {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
 
@@ -283,18 +313,21 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneSynonym, {
   },
 });
 
-UniProtKBColumnConfiguration.set(UniProtKBColumn.organismId, {
-  label: 'Organism ID',
-  render: (data) => {
-    const { organismData } = data[EntrySection.NamesAndTaxonomy];
-    return organismData && <TaxonomyView data={organismData} displayOnlyID />;
-  },
-});
+UniProtKBColumnConfiguration.set(
+  UniProtKBColumn.organismId,
+  SharedColumnConfiguration.organism_id(
+    (data: UniProtkbUIModel) => data[EntrySection.NamesAndTaxonomy].organismData
+  )
+);
 
 // NOTE: - Presently referred to as "organelle" by the API in search-fields
 //       - Historically called "Gene encoded by" by uniprot.org
 UniProtKBColumnConfiguration.set(UniProtKBColumn.organelle, {
-  label: 'Encoded in',
+  ...getLabelAndTooltip(
+    'Encoded in',
+    'Location of the gene if not on the main chromosomal element(s)',
+    'encoded_on'
+  ),
   render: (data) => (
     <ExpandableList displayNumberOfHiddenItems descriptionString="comments">
       {data[EntrySection.NamesAndTaxonomy].geneLocations?.map(
@@ -305,8 +338,10 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.organelle, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.xrefProteomes, {
-  label: 'Proteomes',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.xrefProteomes],
+  ...getLabelAndTooltip(
+    'Proteomes',
+    'Unique proteome identifier(s) and component(s)'
+  ),
   render: (data) => {
     const { proteomesData } = data[EntrySection.NamesAndTaxonomy];
     return proteomesData && <ProteomesView data={proteomesData} isCompact />;
@@ -314,7 +349,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.xrefProteomes, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.lineage, {
-  label: 'Lineage',
+  ...getLabelAndTooltip(
+    'Lineage',
+    'Hierarchical classification of the source organism',
+    'taxonomic_lineage'
+  ),
   render(data) {
     const { organismData } = data[EntrySection.NamesAndTaxonomy];
     return (
@@ -326,8 +365,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.lineage, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.organismHosts, {
-  label: 'Virus hosts',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.organismHosts],
+  ...getLabelAndTooltip(
+    'Virus hosts',
+    'Species that can be infected by a specific virus',
+    'virus_host'
+  ),
   render: (data) => {
     const { organismHosts } = data[EntrySection.NamesAndTaxonomy];
     return (
@@ -341,8 +383,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.organismHosts, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccAlternativeProducts, {
-  label: 'Alternative Products',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccAlternativeProducts],
+  ...getLabelAndTooltip(
+    'Alternative Products',
+    'Information on the different isoforms encoded by the same gene',
+    'alternative_products'
+  ),
   render(data) {
     const { alternativeProducts } = data[EntrySection.Sequence];
     return (
@@ -358,7 +403,10 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccAlternativeProducts, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.sequence, {
-  label: 'Sequence',
+  ...getLabelAndTooltip(
+    'Sequence',
+    'Canonical protein sequence as displayed by default in the entry'
+  ),
   render: (data) => {
     const sequenceData = data[EntrySection.Sequence];
     return (
@@ -372,8 +420,10 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.sequence, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.fragment, {
-  label: 'Fragment',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.fragment],
+  ...getLabelAndTooltip(
+    'Fragment',
+    'Indicates if the protein sequence is a fragment'
+  ),
   render: (data) => {
     const { flag } = data[EntrySection.Sequence];
     const isFragment = flag && fragmentFlags.has(flag);
@@ -383,7 +433,10 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.fragment, {
 
 // gene_location ,  "Invalid fields parameter value 'gene_location'"
 UniProtKBColumnConfiguration.set(UniProtKBColumn.mass, {
-  label: 'Mass',
+  ...getLabelAndTooltip(
+    'Mass',
+    'Molecular mass in Daltons (Da), calculated from the full precursor canonical sequence, without PTMs and other sequence features considered.'
+  ),
   render: (data) => {
     const { molWeight } = data[EntrySection.Sequence];
     return (
@@ -398,8 +451,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.mass, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccMassSpectrometry, {
-  label: 'Mass Spectrometry',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccMassSpectrometry],
+  ...getLabelAndTooltip(
+    'Mass Spectrometry',
+    'Information derived from mass spectrometry experiments',
+    'mass_spectrometry'
+  ),
   render: (data) => {
     const { massSpectrometry } = data[EntrySection.Sequence];
     return massSpectrometry && <MassSpectrometryView data={massSpectrometry} />;
@@ -407,7 +463,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccMassSpectrometry, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ftVariant, {
-  label: 'Variants',
+  ...getLabelAndTooltip(
+    'Natural Variants',
+    'Description of a natural variant of the protein',
+    'variant'
+  ),
   render: (data) => (
     <VariationView primaryAccession={data.primaryAccession} onlyTable />
   ),
@@ -462,8 +522,11 @@ addFeaturesToConfiguration<FamilyAndDomainsFeatures>(
 );
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPolymorphism, {
-  label: 'polymorphism',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccPolymorphism],
+  ...getLabelAndTooltip(
+    'polymorphism',
+    'Sequence position-independent description of amino acid polymorphism(s)',
+    'polymorphism'
+  ),
   render: (data) => {
     const { polymorphism } = data[EntrySection.Sequence];
     return <FreeTextView comments={polymorphism} noEvidence />;
@@ -471,8 +534,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPolymorphism, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccRnaEditing, {
-  label: 'RNA Editing',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccRnaEditing],
+  ...getLabelAndTooltip(
+    'RNA Editing',
+    'Description of RNA editing events',
+    'rna_editing'
+  ),
   render: (data) => {
     const { rnaEditing } = data[EntrySection.Sequence];
     return rnaEditing && <RNAEditingView data={rnaEditing} />;
@@ -480,8 +546,10 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccRnaEditing, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.errorGmodelPred, {
-  label: 'Sequence Caution',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.errorGmodelPred],
+  ...getLabelAndTooltip(
+    'Sequence Caution',
+    'Discrepancies between the canonical and submitted sequences due to an erroneous gene model predictionk'
+  ),
   render: (data) => {
     const { sequenceCaution } = data[EntrySection.Sequence];
     return sequenceCaution && <SequenceCautionView data={sequenceCaution} />;
@@ -489,7 +557,10 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.errorGmodelPred, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.sequenceVersion, {
-  label: 'Sequence Version',
+  ...getLabelAndTooltip(
+    'Sequence Version',
+    'Sequence version provided by the source database'
+  ),
   render: (data) => {
     const { entryAudit } = data[EntrySection.Sequence];
     return entryAudit && <span>{entryAudit.sequenceVersion}</span>;
@@ -497,8 +568,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.sequenceVersion, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.absorption, {
-  label: 'Absorption',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.absorption],
+  ...getLabelAndTooltip(
+    'Absorption',
+    'Indicates the wavelength at which photoreactive protein shows maximal light absorption',
+    'biophysicochemical_properties'
+  ),
   render: (data) => {
     const { bioPhysicoChemicalProperties } = data[
       EntrySection.Function
@@ -512,8 +586,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.absorption, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCaution, {
-  label: 'Caution',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccCaution],
+  ...getLabelAndTooltip(
+    'Caution',
+    'Warning about possible errors and/or grounds for confusion',
+    'caution'
+  ),
   render: (data) => {
     const cautionComments = data[EntrySection.Function].commentsData.get(
       'CAUTION'
@@ -523,8 +600,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCaution, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCatalyticActivity, {
-  label: 'Catalytic Activity',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccCatalyticActivity],
+  ...getLabelAndTooltip(
+    'Catalytic Activity',
+    'Reaction(s) catalyzed by an enzyme',
+    'catalytic_activity'
+  ),
   render: (data) => {
     const catalyticActivityComments = data[
       EntrySection.Function
@@ -544,7 +624,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCatalyticActivity, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.rhea, {
-  label: 'Rhea ID',
+  ...getLabelAndTooltip(
+    'Rhea ID',
+    'Rhea Ids associated to UniProtKB entries via catalytic activity annotation',
+    'catalytic_activity'
+  ),
   render: (data) => {
     const catalyticActivityComments = data[
       EntrySection.Function
@@ -587,8 +671,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.rhea, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCofactor, {
-  label: 'Cofactor',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccCofactor],
+  ...getLabelAndTooltip(
+    'Cofactor',
+    'List of non-protein substance(s) required for the enzyme activity',
+    'cofactor'
+  ),
   render: (data) => {
     const cofactorComments = data[EntrySection.Function].commentsData.get(
       'COFACTOR'
@@ -598,12 +685,25 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCofactor, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ec, {
-  label: 'EC Number',
+  ...getLabelAndTooltip(
+    'EC Number',
+    'Enzyme Commission (EC) number assigned to the protein'
+  ),
   render: (data) => {
     const { proteinNamesData } = data[EntrySection.NamesAndTaxonomy];
+    const ecNumbers: ValueWithEvidence[] = [];
+    if (proteinNamesData?.recommendedName?.ecNumbers) {
+      ecNumbers.push(...proteinNamesData.recommendedName.ecNumbers);
+    }
+    for (const alternativeName of proteinNamesData?.alternativeNames || []) {
+      if (alternativeName.ecNumbers) {
+        ecNumbers.push(...alternativeName.ecNumbers);
+      }
+    }
+
     return (
       <ECNumbersView
-        ecNumbers={proteinNamesData?.recommendedName?.ecNumbers}
+        ecNumbers={ecNumbers.length ? ecNumbers : undefined}
         noEvidence
         orientation="vertical"
       />
@@ -612,8 +712,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ec, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccActivityRegulation, {
-  label: 'Activity Regulation',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccActivityRegulation],
+  ...getLabelAndTooltip(
+    'Activity Regulation',
+    'Description of the regulation of the catalytic activity of an enzyme, transporter, transcription factor',
+    'activity_regulation'
+  ),
   render: (data) => {
     const activityRegulationComments = data[
       EntrySection.Function
@@ -623,8 +726,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccActivityRegulation, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccFunction, {
-  label: 'Function',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccFunction],
+  ...getLabelAndTooltip(
+    'Function',
+    "General description of a protein's function(s)",
+    'function'
+  ),
   render: (data) => {
     const functionComments = data[EntrySection.Function].commentsData.get(
       'FUNCTION'
@@ -634,8 +740,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccFunction, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.kinetics, {
-  label: 'Kinetics',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.kinetics],
+  ...getLabelAndTooltip(
+    'Kinetics',
+    'Description of kinetic data, including the Michaelis-Menten constant (KM) and maximal velocity (Vmax)',
+    'biophysicochemical_properties'
+  ),
   render: (data) => {
     const { bioPhysicoChemicalProperties } = data[
       EntrySection.Function
@@ -649,8 +758,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.kinetics, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPathway, {
-  label: 'Pathway',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccPathway],
+  ...getLabelAndTooltip(
+    'Pathway',
+    'Pathway in which the protein is involved',
+    'pathway'
+  ),
   render: (data) => {
     const pathwayComments = data[EntrySection.Function].commentsData.get(
       'PATHWAY'
@@ -660,8 +772,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPathway, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.phDependence, {
-  label: 'pH Dependence',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.phDependence],
+  ...getLabelAndTooltip(
+    'pH Dependence',
+    'Optimum pH for protein activity, effect of pH variation and pH stability of the protein',
+    'biophysicochemical_properties'
+  ),
   render: (data) => {
     const { bioPhysicoChemicalProperties } = data[
       EntrySection.Function
@@ -675,8 +790,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.phDependence, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.redoxPotential, {
-  label: 'Redox Potential',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.redoxPotential],
+  ...getLabelAndTooltip(
+    'Redox Potential',
+    'Value of the standard (midpoint) oxido-reduction potential(s) for electron transport proteins',
+    'biophysicochemical_properties'
+  ),
   render: (data) => {
     const { bioPhysicoChemicalProperties } = data[
       EntrySection.Function
@@ -690,8 +808,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.redoxPotential, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.tempDependence, {
-  label: 'Temperature Dependence',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.tempDependence],
+  ...getLabelAndTooltip(
+    'Temperature Dependence',
+    'Optimum temperature for enzyme activity and/or effect of temperature variation on activity',
+    'biophysicochemical_properties'
+  ),
   render: (data) => {
     const { bioPhysicoChemicalProperties } = data[
       EntrySection.Function
@@ -707,8 +828,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.tempDependence, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.annotationScore, {
-  label: 'Annotation',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.annotationScore],
+  ...getLabelAndTooltip('Annotation', 'Annotation score'),
   render: (data) => (
     <AnnotationScoreDoughnutChart
       score={data.annotationScore}
@@ -718,8 +838,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.annotationScore, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSequenceCaution, {
-  label: 'Sequence Caution',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccSequenceCaution],
+  ...getLabelAndTooltip(
+    'Sequence Caution',
+    'Warning about possible errors related to a protein sequence',
+    'sequence_caution'
+  ),
   render: (data) => {
     const { sequenceCaution } = data[EntrySection.Sequence];
     return sequenceCaution && <SequenceCautionView data={sequenceCaution} />;
@@ -727,7 +850,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSequenceCaution, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.featureCount, {
-  label: 'Features',
+  ...getLabelAndTooltip('Features', 'Type(s) and number of annotated features'),
   render: (data) => {
     const counts = data?.extraAttributes?.countByFeatureType;
     return (
@@ -743,7 +866,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.featureCount, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.commentCount, {
-  label: 'Comments',
+  ...getLabelAndTooltip(
+    'Comments',
+    'Sequence position-independent annotation (comments)',
+    'general_annotation'
+  ),
   render: (data) => {
     const counts = data?.extraAttributes?.countByCommentType;
     return (
@@ -763,18 +890,25 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.commentCount, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.keyword, {
-  label: 'Keywords',
+  ...getLabelAndTooltip(
+    'Keywords',
+    'List of UniProtKB keywords (controlled vocabulary)',
+    'keywords'
+  ),
   render: (data) => <KeywordList keywords={getAllKeywords(data)} />,
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.keywordid, {
-  label: 'Keyword IDs',
+  ...getLabelAndTooltip('Keyword IDs', 'Keyword identifier'),
   render: (data) => <KeywordList keywords={getAllKeywords(data)} idOnly />,
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccMiscellaneous, {
-  label: 'Miscellaneous [CC]',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccMiscellaneous],
+  ...getLabelAndTooltip(
+    'Miscellaneous [CC]',
+    'Any relevant information that could not be stored in any other UniProtKB sections ',
+    'miscellaneous'
+  ),
   render: (data) => {
     const miscellaneousComments = data[EntrySection.Function].commentsData.get(
       'MISCELLANEOUS'
@@ -784,7 +918,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccMiscellaneous, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinExistence, {
-  label: 'Protein existence',
+  ...getLabelAndTooltip(
+    'Protein existence',
+    'Evidence supporting the existence of the protein ',
+    'protein_existence'
+  ),
   render: (data) => data.proteinExistence,
 });
 
@@ -794,13 +932,14 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.reviewed, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.uniparcId, {
-  label: (
+  ...getLabelAndTooltip(
     <>
       <EntryTypeIcon entryType={EntryType.UNIPARC} />
       UniParc
-    </>
+    </>,
+    'UniParc identifier',
+    'uniparc'
   ),
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.uniparcId],
   render(data) {
     const accession = data.extraAttributes?.uniParcId as string | undefined;
     return (
@@ -812,8 +951,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.uniparcId, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
-  label: 'Interacts with',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccInteraction],
+  ...getLabelAndTooltip(
+    'Interacts with',
+    'Cross-references to UniProtKB entries describing protein interactors, as reported in the Intact database',
+    'binary_interactions'
+  ),
   render: (data) => {
     const interactionComments = data[EntrySection.Interaction].commentsData.get(
       'INTERACTION'
@@ -889,8 +1031,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSubunit, {
-  label: 'Subunit structure',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccSubunit],
+  ...getLabelAndTooltip(
+    'Subunit structure',
+    'Description of protein interaction and quaternary structure',
+    'subunit_structure'
+  ),
   render: (data) => {
     const subunitComments = data[EntrySection.Interaction].commentsData.get(
       'SUBUNIT'
@@ -900,8 +1045,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSubunit, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDevelopmentalStage, {
-  label: 'Developmental stage',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccDevelopmentalStage],
+  ...getLabelAndTooltip(
+    'Developmental stage',
+    'Description of expression during the stage of cell, tissue or organism development',
+    'developmental_stage'
+  ),
   render: (data) => {
     const developmentComments = data[EntrySection.Expression].commentsData.get(
       'DEVELOPMENTAL STAGE'
@@ -911,8 +1059,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDevelopmentalStage, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInduction, {
-  label: 'Induction',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccInduction],
+  ...getLabelAndTooltip(
+    'Induction',
+    'Description of the regulation of gene expression by environmental factors',
+    'induction'
+  ),
   render: (data) => {
     const inductionComments = data[EntrySection.Expression].commentsData.get(
       'INDUCTION'
@@ -922,8 +1073,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInduction, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccTissueSpecificity, {
-  label: 'Tissue Specificity',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccTissueSpecificity],
+  ...getLabelAndTooltip(
+    'Tissue Specificity',
+    'Description of the expression of a gene in tissues (at the protein and/or RNA level)',
+    'tissue_specificity'
+  ),
   render: (data) => {
     const tissueComment = data[EntrySection.Expression].commentsData.get(
       'TISSUE SPECIFICITY'
@@ -946,7 +1100,11 @@ UniProtKBColumnConfiguration.set(
 );
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.go, {
-  label: 'Gene Ontology',
+  ...getLabelAndTooltip(
+    'Gene Ontology',
+    'Gene Ontology (GO) terms associated with the entry',
+    'gene_ontology'
+  ),
   render(data) {
     const { goTerms } = data[EntrySection.Function] as FunctionUIModel;
     return (
@@ -956,7 +1114,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.go, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.goId, {
-  label: 'Gene Ontology IDs',
+  ...getLabelAndTooltip(
+    'Gene Ontology IDs',
+    'Gene Ontology (GO) identifiers associated with the entry',
+    'gene_ontology'
+  ),
   render(data) {
     const { goTerms } = data[EntrySection.Function] as FunctionUIModel;
     return (
@@ -981,8 +1143,10 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.goId, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.structure3D, {
-  label: '3D structures',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.structure3D],
+  ...getLabelAndTooltip(
+    '3D structures',
+    'Experimental method(s) used to obtain 3D structure(s), when available (number of PDB cross-references)'
+  ),
   render: (data) => {
     const structureData = (data[EntrySection.Structure] as StructureUIModel)
       .structures;
@@ -1005,8 +1169,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.structure3D, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSubcellularLocation, {
-  label: 'Subcellular Location',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccSubcellularLocation],
+  ...getLabelAndTooltip(
+    'Subcellular Location',
+    'Description of the subcellular location(s) of the mature protein',
+    'subcellular_location'
+  ),
   render: (data) => {
     const subcellData = data[EntrySection.SubCellularLocation].commentsData.get(
       'SUBCELLULAR LOCATION'
@@ -1016,8 +1183,10 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSubcellularLocation, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDomain, {
-  label: 'Domain',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccDomain],
+  ...getLabelAndTooltip(
+    'Domain',
+    "Type (and number) of domains in the canonical sequence, as listed in the 'General annotation (Comments)' section"
+  ),
   render: (data) => {
     const domainData = data[EntrySection.FamilyAndDomains].commentsData.get(
       'DOMAIN'
@@ -1027,8 +1196,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDomain, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPtm, {
-  label: 'Post-Translational Modification',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccPtm],
+  ...getLabelAndTooltip(
+    'Post-Translational Modification',
+    'Sequence position-independent description of post-translational modifications',
+    'post-translational_modification'
+  ),
   render: (data) => {
     const ptmData = data[EntrySection.ProteinProcessing].commentsData.get(
       'PTM'
@@ -1038,8 +1210,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPtm, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccAllergen, {
-  label: 'Allergenic Properties',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccAllergen],
+  ...getLabelAndTooltip(
+    'Allergenic Properties',
+    'Information relevant to allergenic proteins',
+    'allergenic_properties'
+  ),
   render: (data) => {
     const allergenData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
       'ALLERGEN'
@@ -1049,8 +1224,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccAllergen, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccBiotechnology, {
-  label: 'Biotechnological Use',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccBiotechnology],
+  ...getLabelAndTooltip(
+    'Biotechnological Use',
+    'Use of a protein in a biotechnological process',
+    'biotechnological_use'
+  ),
   render: (data) => {
     const biotechData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
       'BIOTECHNOLOGY'
@@ -1060,8 +1238,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccBiotechnology, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDisruptionPhenotype, {
-  label: 'Disruption Phenotype',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccDisruptionPhenotype],
+  ...getLabelAndTooltip(
+    'Disruption Phenotype',
+    'Description of the phenotype(s) associated with the experimental disruption of the gene',
+    'disruption_phenotype'
+  ),
   render: (data) => {
     const disruptionData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
       'DISRUPTION PHENOTYPE'
@@ -1071,8 +1252,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDisruptionPhenotype, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDisease, {
-  label: 'Disease Involvement',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccDisease],
+  ...getLabelAndTooltip(
+    'Disease Involvement',
+    'Description of the disease(s) associated with the defect in a protein',
+    'involvement_in_disease'
+  ),
   render: (data) => {
     const diseaseComments = data[EntrySection.DiseaseAndDrugs].commentsData.get(
       'DISEASE'
@@ -1089,8 +1273,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDisease, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPharmaceutical, {
-  label: 'Pharmaceutical Use',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccPharmaceutical],
+  ...getLabelAndTooltip(
+    'Pharmaceutical Use',
+    'Use of a protein as a pharmaceutical drug',
+    'pharmaceutical_use'
+  ),
   render: (data) => {
     const pharmaData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
       'PHARMACEUTICAL'
@@ -1100,8 +1287,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPharmaceutical, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccToxicDose, {
-  label: 'Toxic Dose',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.ccToxicDose],
+  ...getLabelAndTooltip(
+    'Toxic Dose',
+    'Lethal, paralytic, or effect dose, or lethal concentration of a toxin',
+    'toxic_dose'
+  ),
   render: (data) => {
     const toxicData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
       'TOXIC DOSE'
@@ -1111,7 +1301,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccToxicDose, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.litPubmedId, {
-  label: 'Citation ID',
+  ...getLabelAndTooltip('Citation ID', 'Mapped PubMed ID'),
   render: (data) => (
     <ExpandableList descriptionString="IDs" displayNumberOfHiddenItems>
       {data.references?.map(
@@ -1130,26 +1320,38 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.litPubmedId, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.dateCreated, {
-  label: 'Date Created',
+  ...getLabelAndTooltip('Date Created', 'Date of the entry creation'),
   render: (data) => data[EntrySection.Sequence]?.entryAudit?.firstPublicDate,
 });
 UniProtKBColumnConfiguration.set(UniProtKBColumn.dateModified, {
-  label: 'Date Modified',
+  ...getLabelAndTooltip(
+    'Date Modified',
+    'Date of the latest annotation update'
+  ),
   render: (data) =>
     data[EntrySection.Sequence]?.entryAudit?.lastAnnotationUpdateDate,
 });
 UniProtKBColumnConfiguration.set(UniProtKBColumn.dateSequenceModified, {
-  label: 'Date Sequence Modified',
+  ...getLabelAndTooltip(
+    'Date Sequence Modified',
+    'Date of last sequence modification'
+  ),
   render: (data) =>
     data[EntrySection.Sequence]?.entryAudit?.lastSequenceUpdateDate,
 });
 UniProtKBColumnConfiguration.set(UniProtKBColumn.version, {
-  label: 'Version',
+  ...getLabelAndTooltip(
+    'Version',
+    'Sequence version provided by the source database'
+  ),
   render: (data) => data[EntrySection.Sequence]?.entryAudit?.entryVersion,
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinFamilies, {
-  label: 'Protein Families',
+  ...getLabelAndTooltip(
+    'Protein Families',
+    'Name of family(ies) to which the protein belongs to'
+  ),
   render: (data) => {
     // TODO this actually seems to be a subset of this with a query on link?
     // Could maybe be removed
@@ -1161,8 +1363,10 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinFamilies, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.tools, {
-  label: 'Tools',
-  tooltip: UniProtKBColumnHeaders[UniProtKBColumn.tools],
+  ...getLabelAndTooltip(
+    'Tools',
+    'Links to sequence analysis tools, including Blast, PeptideCutter, etc.'
+  ),
   render: (data) => <SequenceTools accession={data.primaryAccession} />,
 });
 

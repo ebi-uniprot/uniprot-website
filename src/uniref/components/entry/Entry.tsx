@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
 import { Loader } from 'franklin-sites';
@@ -25,7 +24,7 @@ import apiUrls from '../../../shared/config/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 
 import uniRefConverter, {
-  UniRefAPIModel,
+  UniRefLiteAPIModel,
 } from '../../adapters/uniRefConverter';
 import {
   MessageLevel,
@@ -40,7 +39,7 @@ import {
 
 import '../../../shared/components/entry/styles/entry-page.scss';
 
-const Entry: FC = () => {
+const Entry = () => {
   const dispatch = useDispatch();
   const match = useRouteMatch<{ accession: string }>(
     LocationToPath[Location.UniRefEntry]
@@ -48,9 +47,9 @@ const Entry: FC = () => {
 
   const accession = match?.params.accession;
 
-  const baseURL = apiUrls.entry(accession, Namespace.uniref);
+  const baseURL = `${apiUrls.entry(accession, Namespace.uniref)}/light`;
   const { loading, data, status, error, redirectedTo, progress } =
-    useDataApi<UniRefAPIModel>(baseURL);
+    useDataApi<UniRefLiteAPIModel>(baseURL);
 
   if (error || !accession) {
     return <ErrorHandler status={status} />;

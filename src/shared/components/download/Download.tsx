@@ -67,14 +67,11 @@ const Download: FC<DownloadProps> = ({
   const [fileFormat, setFileFormat] = useState(fileFormats[0]);
   const [compressed, setCompressed] = useState(true);
   const { search: queryParamFromUrl } = useLocation();
-  const {
-    query: queryFromUrl,
-    selectedFacets = [],
-    sortColumn,
-    sortDirection,
-  } = getParamsFromURL(queryParamFromUrl);
   const [displayAPIURL, setDisplayAPIURL] = useState(false);
   const [displayPreview, setDisplayPreview] = useState(false);
+  const [
+    { query: queryFromUrl, selectedFacets = [], sortColumn, sortDirection },
+  ] = getParamsFromURL(queryParamFromUrl);
 
   const [selectedIdField] = nsToPrimaryKeyColumns(namespace);
 
@@ -206,7 +203,7 @@ const Download: FC<DownloadProps> = ({
       {fileFormatsWithColumns.includes(fileFormat) &&
         namespace !== Namespace.idmapping && (
           <>
-            <legend>Customize data</legend>
+            <legend>Customize columns</legend>
             <ColumnSelect
               onChange={setSelectedColumns}
               selectedColumns={selectedColumns}
