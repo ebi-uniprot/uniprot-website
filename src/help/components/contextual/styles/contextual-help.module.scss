@@ -3,6 +3,7 @@
 
 [data-article-id] {
   cursor: pointer;
+
   &::after {
     content: 'i';
     padding-inline-start: 0.1rem;
@@ -11,6 +12,14 @@
     position: relative;
     line-height: 1rem;
     vertical-align: super;
+  }
+
+  thead &::after {
+    display: none;
+  }
+
+  [data-tippy-root] &::after {
+    display: initial;
   }
 }
 

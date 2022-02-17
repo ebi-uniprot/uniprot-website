@@ -8,6 +8,7 @@ import TaxonomyView from '../../shared/components/entry/TaxonomyView';
 import { getEntryPath } from '../../app/config/urls';
 import parseDate from '../../shared/utils/parseDate';
 import { pluralise } from '../../shared/utils/utils';
+import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
 
 import { fromColumnConfig } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 
@@ -52,31 +53,43 @@ export const UniRefColumnConfiguration: ColumnConfiguration<
 const CUT_OFF = 5;
 
 UniRefColumnConfiguration.set(UniRefColumn.id, {
-  label: 'Cluster ID',
+  ...getLabelAndTooltip('Cluster ID', 'Unique and stable entry identifier.'),
   render: ({ id }) =>
     id && <AccessionView id={id} namespace={Namespace.uniref} />,
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.name, {
-  label: 'Cluster name',
+  ...getLabelAndTooltip(
+    'Cluster name',
+    'Protein name of the representative UniRef cluster member'
+  ),
   render: ({ name }) => name,
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.commonTaxon, {
-  label: 'Common taxon',
-  tooltip: <>Lowest common taxonomic node shared by all clusters</>,
+  ...getLabelAndTooltip(
+    'Common taxon',
+    'Lowest common taxonomic node shared by all clusters'
+  ),
   render: ({ commonTaxon }) =>
     commonTaxon && <TaxonomyView data={commonTaxon} />,
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.commonTaxonId, {
-  label: 'Common taxon ID',
+  ...getLabelAndTooltip(
+    'Common taxon ID',
+    'NCBI taxonomy identifier of the lowest common node shared by all clusters'
+  ),
   render: ({ commonTaxon }) =>
     commonTaxon && <TaxonomyView data={commonTaxon} displayOnlyID />,
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.organismId, {
-  label: 'Organism IDs',
+  ...getLabelAndTooltip(
+    'Organism IDs',
+    'NCBI taxonomy identifiers of the source organisms ',
+    'taxonomic_identifier'
+  ),
   render: ({ organisms, id }) =>
     organisms &&
     id && (
@@ -100,7 +113,11 @@ UniRefColumnConfiguration.set(UniRefColumn.organismId, {
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.organism, {
-  label: 'Organisms',
+  ...getLabelAndTooltip(
+    'Organisms',
+    'Scientific name (and synonyms) of the source organism',
+    'organism-name'
+  ),
   render: ({ organisms, id }) =>
     organisms &&
     id && (
@@ -124,12 +141,15 @@ UniRefColumnConfiguration.set(UniRefColumn.organism, {
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.identity, {
-  label: 'Identity',
+  ...getLabelAndTooltip(
+    'Identity',
+    'Identity threshold to the seed sequence (100%, 90% or 50%)'
+  ),
   render: ({ entryType }) => entryType,
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.length, {
-  label: 'Length',
+  ...getLabelAndTooltip('Length', 'Length of the representative sequence'),
   // Do not use `sequenceLength` here as the `length` field filter removes it
   render: ({ representativeMember }) =>
     representativeMember?.sequence?.length ? (
@@ -138,7 +158,10 @@ UniRefColumnConfiguration.set(UniRefColumn.length, {
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.sequence, {
-  label: 'Reference sequence',
+  ...getLabelAndTooltip(
+    'Reference sequence',
+    'Reference sequence of the cluster'
+  ),
   render: ({ representativeMember }) =>
     representativeMember?.sequence?.value ? (
       <Sequence
@@ -157,7 +180,10 @@ UniRefColumnConfiguration.set(UniRefColumn.types, {
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.members, {
-  label: 'Members',
+  ...getLabelAndTooltip(
+    'Members',
+    'UniProt entries belonging to the UniRef cluster'
+  ),
   render: ({ members, memberCount, id }) =>
     members &&
     memberCount &&
@@ -192,7 +218,7 @@ UniRefColumnConfiguration.set(UniRefColumn.members, {
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.count, {
-  label: 'Size',
+  ...getLabelAndTooltip('Size', 'Number of cluster member(s)'),
   render: ({ memberCount }) =>
     memberCount && (
       <>

@@ -8,12 +8,9 @@ import {
 } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import cn from 'classnames';
 import {
   DownloadIcon,
   // StatisticsIcon,
-  TableIcon,
-  ListIcon,
   Button,
   SlidingPanel,
 } from 'franklin-sites';
@@ -139,6 +136,9 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
     invalidUrlViewMode,
   ]);
 
+  const handleToggleView = () =>
+    setViewMode(viewMode === 'card' ? 'table' : 'card');
+
   const isMain = mainNamespaces.has(namespace);
 
   return (
@@ -200,25 +200,30 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
             Statistics
           </Button>
         )} */}
-        <Button
-          variant="tertiary"
-          className="large-icon"
-          onClick={() => setViewMode(viewMode === 'card' ? 'table' : 'card')}
-          data-testid="table-card-toggle"
-          title={`Switch to "${viewMode === 'card' ? 'table' : 'card'}" view`}
-          disabled={disableCardToggle}
-        >
-          <TableIcon
-            className={cn('results-buttons__toggle', {
-              'results-buttons__toggle--active': viewMode === 'table',
-            })}
-          />
-          <ListIcon
-            className={cn('results-buttons__toggle', {
-              'results-buttons__toggle--active': viewMode === 'card',
-            })}
-          />
-        </Button>
+        {/* TODO: check if we want to add that to franklin, eventually... */}
+        <span role="radiogroup">
+          View:
+          <label>
+            Table{' '}
+            <input
+              type="radio"
+              name="view"
+              checked={viewMode === 'table'}
+              onChange={handleToggleView}
+              disabled={disableCardToggle}
+            />
+          </label>
+          <label>
+            Card{' '}
+            <input
+              type="radio"
+              name="view"
+              checked={viewMode === 'card'}
+              onChange={handleToggleView}
+              disabled={disableCardToggle}
+            />
+          </label>
+        </span>
         {!notCustomisable &&
           // Exception for ID mapping results!
           (viewMode === 'table' || disableCardToggle) && (

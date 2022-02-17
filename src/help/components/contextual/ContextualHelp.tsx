@@ -35,7 +35,16 @@ const ContextualHelp = () => {
   useEffect(() => {
     const eventHandler = (event: MouseEvent) => {
       const element = event.target as HTMLElement;
-      if (element.dataset.articleId) {
+      const isInTooltip = Boolean(element.closest('[data-tippy-root'));
+      // If it's a click within a tooltip, stop the propagation of the event
+      if (isInTooltip) {
+        event.stopPropagation();
+      }
+      if (
+        element.dataset.articleId &&
+        // Not in a table head, except when it's within a tooltip
+        (isInTooltip || !element.closest('thead'))
+      ) {
         if (smallScreen || element.dataset.articleId.match(/^http(s?)/)) {
           // External link, open in new tab
           window.open(element.dataset.articleId, 'external_help');
@@ -46,10 +55,13 @@ const ContextualHelp = () => {
       }
     };
 
-    document.addEventListener('click', eventHandler, { passive: true });
+    document.addEventListener('click', eventHandler, {
+      passive: true,
+      capture: true,
+    });
 
     return () => {
-      document.removeEventListener('click', eventHandler);
+      document.removeEventListener('click', eventHandler, { capture: true });
     };
   }, [history, smallScreen]);
 

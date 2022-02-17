@@ -14,6 +14,7 @@ import {
 import apiUrls from '../config/apiUrls';
 import * as logging from '../utils/logging';
 
+import { Namespace } from '../types/namespaces';
 import { UniProtKBColumn } from '../../uniprotkb/types/columnTypes';
 import { DatabaseInfo } from '../../uniprotkb/types/databaseRefs';
 
@@ -54,7 +55,7 @@ export const DatabaseInfoMapsProvider = ({
   children,
 }: DatabaseInfoMapsProviderProps) => {
   const { data, loading, progress, error, status } = useDataApi<DatabaseInfo>(
-    apiUrls.allUniProtKBDatabases
+    apiUrls.allDatabases(Namespace.uniprotkb)
   );
   const databaseInfoMaps = useMemo(
     () => data && getDatabaseInfoMaps(data),

@@ -58,7 +58,12 @@ exports[`ProteomesCard tests should render the card component 1`] = `
             class="result-card__info-bit"
           >
             <strong>
-              Organism: 
+              <span
+                data-article-id="organism-name"
+              >
+                Organism
+              </span>
+              : 
             </strong>
             <a
               href="/taxonomy/9606"
@@ -71,7 +76,10 @@ exports[`ProteomesCard tests should render the card component 1`] = `
             class="result-card__info-bit"
           >
             <strong>
-              Protein count: 
+              <span>
+                Protein count
+              </span>
+              : 
             </strong>
             <a
               href="/uniprotkb?query=proteome:UP000005640"
@@ -83,7 +91,10 @@ exports[`ProteomesCard tests should render the card component 1`] = `
             class="result-card__info-bit"
           >
             <strong>
-              Genome representation: 
+              <span>
+                Genome representation
+              </span>
+              : 
             </strong>
             Full
           </span>
@@ -91,11 +102,11 @@ exports[`ProteomesCard tests should render the card component 1`] = `
             class="result-card__info-bit"
           >
             <strong>
-              <abbr
-                title="Complete Proteome Detector"
+              <span
+                data-article-id="assessing_proteomes"
               >
                 CPD
-              </abbr>
+              </span>
               : 
             </strong>
             Unknown
@@ -108,58 +119,62 @@ exports[`ProteomesCard tests should render the card component 1`] = `
             class="result-card__info-bit busco__info-bit"
           >
             <strong>
-              BUSCO
-              <br />
               <span
-                class="busco-legend-item"
+                data-article-id="assessing_proteomes"
               >
+                BUSCO
+                <br />
                 <span
-                  class="busco-legend-item__swatch"
-                  style="background-color: rgb(188, 232, 117);"
-                />
-                <span
-                  class="busco-legend-item__label"
+                  class="busco-legend-item"
                 >
-                  Single
+                  <span
+                    class="busco-legend-item__swatch"
+                    style="background-color: rgb(188, 232, 117);"
+                  />
+                  <span
+                    class="busco-legend-item__label"
+                  >
+                    Single
+                  </span>
                 </span>
-              </span>
-              <span
-                class="busco-legend-item"
-              >
                 <span
-                  class="busco-legend-item__swatch"
-                  style="background-color: rgb(11, 165, 166);"
-                />
-                <span
-                  class="busco-legend-item__label"
+                  class="busco-legend-item"
                 >
-                  Duplicated
+                  <span
+                    class="busco-legend-item__swatch"
+                    style="background-color: rgb(11, 165, 166);"
+                  />
+                  <span
+                    class="busco-legend-item__label"
+                  >
+                    Duplicated
+                  </span>
                 </span>
-              </span>
-              <span
-                class="busco-legend-item"
-              >
                 <span
-                  class="busco-legend-item__swatch"
-                  style="background-color: rgb(238, 203, 164);"
-                />
-                <span
-                  class="busco-legend-item__label"
+                  class="busco-legend-item"
                 >
-                  Fragmented
+                  <span
+                    class="busco-legend-item__swatch"
+                    style="background-color: rgb(238, 203, 164);"
+                  />
+                  <span
+                    class="busco-legend-item__label"
+                  >
+                    Fragmented
+                  </span>
                 </span>
-              </span>
-              <span
-                class="busco-legend-item"
-              >
                 <span
-                  class="busco-legend-item__swatch"
-                  style="background-color: rgb(49, 75, 180);"
-                />
-                <span
-                  class="busco-legend-item__label"
+                  class="busco-legend-item"
                 >
-                  Missing
+                  <span
+                    class="busco-legend-item__swatch"
+                    style="background-color: rgb(49, 75, 180);"
+                  />
+                  <span
+                    class="busco-legend-item__label"
+                  >
+                    Missing
+                  </span>
                 </span>
               </span>
             </strong>

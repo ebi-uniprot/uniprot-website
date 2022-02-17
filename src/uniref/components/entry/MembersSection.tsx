@@ -45,7 +45,7 @@ const getKey = (member: UniRefMember) =>
 
 type ColumDescriptor = {
   name: string;
-  label?: string;
+  label: string;
   render: (
     datum: UniRefMember
   ) => undefined | string | number | boolean | JSX.Element;
@@ -80,6 +80,7 @@ const columns: ColumDescriptor[] = [
   },
   {
     name: 'reviewed',
+    label: '',
     render: (member) => (
       <EntryTypeIcon
         entryType={member.memberIdType}

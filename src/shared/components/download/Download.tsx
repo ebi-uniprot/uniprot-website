@@ -254,7 +254,7 @@ const Download: FC<DownloadProps> = ({
       {fileFormatsWithColumns.includes(fileFormat) &&
         namespace !== Namespace.idmapping && (
           <>
-            <legend>Customize data</legend>
+            <legend>Customize columns</legend>
             <ColumnSelect
               onChange={setSelectedColumns}
               selectedColumns={selectedColumns}

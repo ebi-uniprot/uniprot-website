@@ -16,8 +16,8 @@ describe('Results component', () => {
       initialLocalStorage: { 'view-mode': 'card' as ViewMode },
     });
     await screen.findAllByText('Gene:');
-    const toggle = await screen.findByTestId('table-card-toggle');
-    fireEvent.click(toggle);
+    const radio = await screen.findByRole('radio', { name: /table/i });
+    fireEvent.click(radio);
     const table = await screen.findByText('Entry');
     expect(table).toBeInTheDocument();
   });

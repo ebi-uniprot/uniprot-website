@@ -3,6 +3,8 @@ import { Button } from 'franklin-sites';
 
 import toolsURLs, { ResultFormat } from '../config/urls';
 
+import { namespaceAndToolsLabels } from '../../shared/types/namespaces';
+
 import { JobTypes } from '../types/toolsJobTypes';
 
 type DownloadOptions<T extends JobTypes> = {
@@ -105,7 +107,7 @@ const ResultDownload = memo<ResultDownloadProps>(
     const [fileFormat, setFileFormat] = useState(defaultFormat[jobType]);
 
     const updateFileFormat = (e: ChangeEvent<HTMLSelectElement>) => {
-      setFileFormat(e.target.value as ResultFormat[JobTypes.BLAST]);
+      setFileFormat(e.target.value as ResultFormat[typeof jobType]);
     };
 
     const downloadUrl = toolsURLs(jobType).resultUrl(id, {
@@ -115,12 +117,15 @@ const ResultDownload = memo<ResultDownloadProps>(
     return (
       <>
         <h2>Download</h2>
-        <h3>BLAST results · {nHits} hits</h3>
+        <h3>
+          {namespaceAndToolsLabels[jobType]} results · {nHits} hits
+        </h3>
         {(isTableResultsFiltered || isTableRowSelected) && (
           <p>
             <b>Note</b>: The download file will contain all {nHits} results of
-            this BLAST job. Any selections or filters applied on the results
-            page will not affect the download set.
+            this {namespaceAndToolsLabels[jobType]} job. Any selections or
+            filters applied on the results page will not affect the download
+            set.
           </p>
         )}
         <fieldset>
