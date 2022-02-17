@@ -215,7 +215,8 @@ const Download: FC<DownloadProps> = ({
         className={cn(
           'button-group',
           'sliding-panel__button-row',
-          sticky['sticky-bottom-right']
+          sticky['sticky-bottom-right'],
+          'action-buttons'
         )}
       >
         <Button
