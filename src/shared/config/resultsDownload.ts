@@ -48,7 +48,10 @@ export const fileFormatToUrlParameter: Record<FileFormat, string> = {
   [FileFormat.obo]: 'obo',
 };
 
-export const fileFormatsWithColumns = [FileFormat.tsv, FileFormat.excel];
+export const fileFormatsWithColumns = new Set([
+  FileFormat.tsv,
+  FileFormat.excel,
+]);
 
 export const nsToFileFormatsResultsDownload: Record<Namespace, FileFormat[]> = {
   [Namespace.uniprotkb]: fileFormatsResultsDownloadUniProtKB,

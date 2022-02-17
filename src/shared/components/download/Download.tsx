@@ -200,7 +200,7 @@ const Download: FC<DownloadProps> = ({
           No
         </label>
       </fieldset>
-      {fileFormatsWithColumns.includes(fileFormat) &&
+      {fileFormatsWithColumns.has(fileFormat) &&
         namespace !== Namespace.idmapping && (
           <>
             <legend>Customize columns</legend>
