@@ -1,0 +1,21 @@
+.api-url {
+  width: 100%;
+  display: inline-block;
+
+  .codeblock {
+    overflow: hidden;
+    display: inline-block;
+    code {
+      white-space: normal;
+      display: inline-block;
+      word-break: break-all;
+      height: auto;
+      padding: 0.5rem;
+    }
+    margin-bottom: 0.75rem;
+  }
+
+  .copy-button {
+    float: right;
+  }
+}
