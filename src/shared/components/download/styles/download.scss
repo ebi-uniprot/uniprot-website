@@ -13,15 +13,4 @@
       height: 17.5rem;
     }
   }
-
-  .codeblock--inline {
-    overflow: hidden;
-    display: inline-block;
-    code {
-      white-space: normal;
-      display: inline-block;
-      word-break: break-all;
-      height: auto;
-    }
-  }
 }
