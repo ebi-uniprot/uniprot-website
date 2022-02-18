@@ -243,7 +243,7 @@ const Download: FC<DownloadProps> = ({
         </Button>
         <a
           href={downloadUrl}
-          className="button"
+          className="button primary"
           target="_blank"
           rel="noreferrer"
           onClick={onClose}
