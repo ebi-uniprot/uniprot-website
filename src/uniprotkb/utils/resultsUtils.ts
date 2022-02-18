@@ -9,6 +9,7 @@ import {
 } from '../types/resultsTypes';
 import { Interactant } from '../adapters/interactionConverter';
 import { InteractionType } from '../types/commentTypes';
+import { ViewMode } from '../../shared/hooks/useViewMode';
 
 const facetsAsArray = (facetString: string): SelectedFacet[] =>
   facetString.split(',').map((stringItem) => {
@@ -26,10 +27,31 @@ export type URLResultParams = {
   sortDirection: SortDirection;
   activeFacet?: string;
   direct?: boolean;
+  columns?: Column[];
+  viewMode?: ViewMode;
 };
 
-export const getParamsFromURL = (url: string): URLResultParams => {
-  const { query, facets, sort, dir, activeFacet, direct } = qs.parse(url);
+export type InvalidParamValue = {
+  parameter: string;
+  value: string | string[];
+};
+
+type UnknownParams = string[];
+
+export const getParamsFromURL = (
+  url: string
+): [URLResultParams, UnknownParams] => {
+  const {
+    query,
+    facets,
+    sort,
+    dir,
+    activeFacet,
+    direct,
+    fields, // Handled in useColumnNames
+    view, // Handled in useViewMode
+    ...restParams
+  } = qs.parse(url);
 
   let selectedFacets: SelectedFacet[] = [];
   if (facets && typeof facets === 'string') {
@@ -37,7 +59,7 @@ export const getParamsFromURL = (url: string): URLResultParams => {
   }
   const sortDirection = dir as keyof typeof SortDirection;
 
-  return {
+  const params: URLResultParams = {
     query: query && typeof query === 'string' ? query : '',
     activeFacet:
       activeFacet && typeof activeFacet === 'string' ? activeFacet : undefined,
@@ -47,6 +69,10 @@ export const getParamsFromURL = (url: string): URLResultParams => {
     // flag, so if '?direct' we get null, if not in querystring we get undefined
     direct: direct !== undefined,
   };
+
+  const unknownParams = Object.keys(restParams);
+
+  return [params, unknownParams];
 };
 
 export const facetsAsString = (facets?: SelectedFacet[]): string => {
@@ -67,6 +93,8 @@ type GetLocationObjForParams = {
   sortColumn?: string;
   sortDirection?: SortDirection;
   activeFacet?: string;
+  columns?: Column[];
+  viewMode?: ViewMode;
 };
 
 export const getLocationObjForParams = ({
@@ -76,6 +104,8 @@ export const getLocationObjForParams = ({
   sortColumn,
   sortDirection,
   activeFacet,
+  columns,
+  viewMode,
 }: GetLocationObjForParams = {}) => ({
   pathname,
   search: [
@@ -85,6 +115,8 @@ export const getLocationObjForParams = ({
     `${sortColumn ? `&sort=${sortColumn}` : ''}`,
     `${sortDirection ? `&dir=${sortDirection}` : ''}`,
     `${activeFacet ? `&activeFacet=${activeFacet}` : ''}`,
+    `${columns ? `&fields=${columns}` : ''}`,
+    `${viewMode ? `&view=${viewMode}` : ''}`,
   ].join(''),
 });
 

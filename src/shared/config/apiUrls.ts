@@ -372,21 +372,21 @@ export const getDownloadUrl = ({
     accessionKey = 'upis';
   }
 
-  let endpoint;
+  let endpoint = apiUrls.download(namespace);
   if (accessions) {
     endpoint = joinUrl(apiPrefix, `/${namespace}/${accessionKey}`);
   } else if (base) {
     endpoint = joinUrl(apiPrefix, base);
   } else if (size) {
     endpoint = apiUrls.search(namespace);
-  } else {
-    endpoint = apiUrls.download(namespace);
   }
 
+  // fallback to json if something goes wrong
   const parameters: Parameters = {
     format: fileFormatToUrlParameter[fileFormat] || FileFormat.json,
     download: true,
   };
+
   if (accessions) {
     parameters[accessionKey] = Array.from(
       selected.length ? selected : accessions
@@ -403,25 +403,30 @@ export const getDownloadUrl = ({
           .filter(Boolean)
           .join(' AND ');
   }
-  // fallback to json if something goes wrong
-  const isColumnFileFormat = fileFormatsWithColumns.includes(fileFormat);
-  if (isColumnFileFormat && sortColumn) {
-    parameters.sort = `${sortColumn} ${getApiSortDirection(
-      SortDirection[sortDirection]
-    )}`;
+
+  if (fileFormatsWithColumns.has(fileFormat)) {
+    if (sortColumn) {
+      parameters.sort = `${sortColumn} ${getApiSortDirection(
+        SortDirection[sortDirection]
+      )}`;
+    }
+    if (columns) {
+      parameters.fields = columns.join(',');
+    }
   }
+
   if (fileFormat === FileFormat.fastaCanonicalIsoform) {
     parameters.includeIsoform = true;
   }
-  if (isColumnFileFormat && columns) {
-    parameters.fields = columns.join(',');
-  }
+
   if (size && !selected.length) {
     parameters.size = size;
   }
+
   if (compressed) {
     parameters.compressed = true;
   }
+
   return `${endpoint}?${queryString.stringify(parameters)}`;
 };
 

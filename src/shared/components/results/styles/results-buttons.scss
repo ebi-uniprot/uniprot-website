@@ -13,10 +13,9 @@
   position: sticky;
   top: $header-height;
 
-  // Makes sure that on small screens the end doesn't wrap and gets hidden
+  // Makes sure that on small screens the end doesn't wrap
   flex-wrap: nowrap;
   white-space: nowrap;
-  overflow-x: auto;
 
   & [role='radiogroup'] {
     margin-inline-end: 1ch;
@@ -34,7 +33,8 @@
     }
   }
 
-  & > span {
+  & > span,
+  & > div {
     // any plain text needs to be aligned with the buttons
     line-height: 1.9;
   }

@@ -79,6 +79,7 @@ describe('Download component', () => {
   });
 
   it('should handle preview button click', async () => {
+    Element.prototype.scrollIntoView = jest.fn();
     const previewButton = screen.getByRole('button', { name: /Preview/ });
     fireEvent.click(previewButton);
     const preview = await screen.findByTestId('download-preview');

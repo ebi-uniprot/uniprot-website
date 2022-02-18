@@ -1,0 +1,22 @@
+.api-url {
+  width: 100%;
+  display: inline-block;
+
+  :global(.codeblock) {
+    overflow: hidden;
+    display: inline-block;
+    border: 1px solid black;
+    margin-bottom: 0.75rem;
+    code {
+      white-space: normal;
+      display: inline-block;
+      word-break: break-all;
+      height: auto;
+      padding: 0.5rem;
+    }
+  }
+
+  .copy-button {
+    float: right;
+  }
+}

@@ -23,10 +23,7 @@ import useDataApi, {
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 
-import {
-  getParamsFromURL,
-  URLResultParams,
-} from '../../../../uniprotkb/utils/resultsUtils';
+import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
 import {
   filterBlastDataForResults,
   filterBlastByFacets,
@@ -216,7 +213,7 @@ const BlastResult = () => {
   );
 
   // extract facets and other info from URL querystring
-  const urlParams: URLResultParams = useMemo(
+  const [urlParams] = useMemo(
     () => getParamsFromURL(location.search),
     [location.search]
   );

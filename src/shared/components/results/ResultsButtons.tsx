@@ -1,4 +1,13 @@
-import { FC, useState, Suspense, Dispatch, SetStateAction } from 'react';
+import {
+  FC,
+  useState,
+  Suspense,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+} from 'react';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import {
   DownloadIcon,
   // StatisticsIcon,
@@ -11,16 +20,26 @@ import AlignButton from '../action-buttons/Align';
 import MapIDButton from '../action-buttons/MapID';
 import AddToBasketButton from '../action-buttons/AddToBasket';
 import CustomiseButton from '../action-buttons/CustomiseButton';
+import ShareDropdown from '../action-buttons/ShareDropdown';
 import ItemCount from '../ItemCount';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 
-import useLocalStorage from '../../hooks/useLocalStorage';
 import useNS from '../../hooks/useNS';
+import useViewMode from '../../hooks/useViewMode';
+import useColumnNames from '../../hooks/useColumnNames';
 
+import { addMessage } from '../../../messages/state/messagesActions';
 import lazy from '../../utils/lazy';
+import {
+  getParamsFromURL,
+  InvalidParamValue,
+} from '../../../uniprotkb/utils/resultsUtils';
 
 import { Namespace, mainNamespaces } from '../../types/namespaces';
-import { ViewMode } from './ResultsData';
+import {
+  MessageFormat,
+  MessageLevel,
+} from '../../../messages/types/messagesTypes';
 
 import './styles/results-buttons.scss';
 
@@ -56,10 +75,74 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
-  const [viewMode, setViewMode] = useLocalStorage<ViewMode>(
-    'view-mode',
-    ViewMode.CARD
-  );
+  const {
+    viewMode,
+    setViewMode,
+    invalidUrlViewMode,
+    fromUrl: viewModeIsFromUrl,
+  } = useViewMode(namespaceOverride, disableCardToggle);
+  const { invalidUrlColumnNames, fromUrl: columnNamesAreFromUrl } =
+    useColumnNames(namespaceOverride);
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  const sharedUrlMode = viewModeIsFromUrl || columnNamesAreFromUrl;
+
+  useEffect(() => {
+    const invalidParamValues = [
+      invalidUrlViewMode,
+      invalidUrlColumnNames,
+    ].filter(Boolean) as InvalidParamValue[];
+    const [, unknownParams] = getParamsFromURL(history.location.search);
+    if (invalidParamValues.length || unknownParams.length) {
+      const content = (
+        <>
+          {invalidParamValues.length > 0 && (
+            <>
+              Ignoring invalid URL values:
+              <ul>
+                {invalidParamValues.map(({ parameter, value }) => (
+                  <li key={parameter}>
+                    <b>{parameter}</b>
+                    {`: ${value}`}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+          {unknownParams.length > 0 && (
+            <>
+              Ignoring invalid URL parameters:
+              <ul>
+                {unknownParams.map((unknownParam) => (
+                  <li key={unknownParam}>
+                    <b>{unknownParam}</b>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </>
+      );
+      dispatch(
+        addMessage({
+          id: 'invalid url params',
+          content,
+          format: MessageFormat.POP_UP,
+          level: MessageLevel.WARNING,
+          displayTime: 15_000,
+        })
+      );
+    }
+  }, [
+    dispatch,
+    history.location.search,
+    invalidUrlColumnNames,
+    invalidUrlViewMode,
+  ]);
+
+  const handleToggleView = () =>
+    setViewMode(viewMode === 'card' ? 'table' : 'card');
 
   const isMain = mainNamespaces.has(namespace);
 
@@ -130,12 +213,8 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
             <input
               type="radio"
               name="view"
-              checked={viewMode === ViewMode.TABLE}
-              onChange={() =>
-                setViewMode(
-                  viewMode === ViewMode.CARD ? ViewMode.TABLE : ViewMode.CARD
-                )
-              }
+              checked={viewMode === 'table'}
+              onChange={handleToggleView}
               disabled={disableCardToggle}
             />
           </label>
@@ -144,21 +223,25 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
             <input
               type="radio"
               name="view"
-              checked={viewMode === ViewMode.CARD}
-              onChange={() =>
-                setViewMode(
-                  viewMode === ViewMode.CARD ? ViewMode.TABLE : ViewMode.CARD
-                )
-              }
+              checked={viewMode === 'card'}
+              onChange={handleToggleView}
               disabled={disableCardToggle}
             />
           </label>
         </span>
         {!notCustomisable &&
+          !sharedUrlMode &&
           // Exception for ID mapping results!
-          (viewMode === ViewMode.TABLE || disableCardToggle) && (
+          (viewMode === 'table' || disableCardToggle) && (
             <CustomiseButton namespace={namespace} />
           )}
+        {!notCustomisable && (
+          <ShareDropdown
+            setDisplayDownloadPanel={setDisplayDownloadPanel}
+            namespaceOverride={namespaceOverride}
+            disableCardToggle={disableCardToggle}
+          />
+        )}
         <ItemCount selected={selectedEntries.length} loaded={loadedTotal} />
       </div>
     </>
