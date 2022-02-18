@@ -14,7 +14,7 @@ import { IDMappingColumn } from '../../tools/id-mapping/config/IdMappingColumnCo
 import { InvalidParamValue } from '../../uniprotkb/utils/resultsUtils';
 
 const useColumnNames = (
-  namespaceOverride: Namespace | undefined,
+  namespaceOverride?: Namespace | undefined,
   displayIdMappingColumns?: boolean
 ): {
   columnNames: Column[];

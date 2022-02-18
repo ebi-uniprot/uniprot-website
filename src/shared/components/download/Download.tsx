@@ -7,16 +7,12 @@ import ColumnSelect from '../column-select/ColumnSelect';
 import DownloadPreview from './DownloadPreview';
 import DownloadAPIURL from './DownloadAPIURL';
 
-import useLocalStorage from '../../hooks/useLocalStorage';
+import useColumnNames from '../../hooks/useColumnNames';
 
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 
 import { getDownloadUrl } from '../../config/apiUrls';
-import {
-  Column,
-  nsToDefaultColumns,
-  nsToPrimaryKeyColumns,
-} from '../../config/columns';
+import { Column, nsToPrimaryKeyColumns } from '../../config/columns';
 import {
   fileFormatsWithColumns,
   nsToFileFormatsResultsDownload,
@@ -56,16 +52,13 @@ const Download: FC<DownloadProps> = ({
   accessions,
   base,
 }) => {
-  const [columns] = useLocalStorage(
-    `table columns for ${namespace}` as const,
-    nsToDefaultColumns(namespace)
-  );
+  const { columnNames } = useColumnNames();
 
   const { search: queryParamFromUrl } = useLocation();
 
   const fileFormats = nsToFileFormatsResultsDownload[namespace] as FileFormat[];
 
-  const [selectedColumns, setSelectedColumns] = useState<Column[]>(columns);
+  const [selectedColumns, setSelectedColumns] = useState<Column[]>(columnNames);
   // Defaults to "download all" if no selection
   const [downloadAll, setDownloadAll] = useState(!selectedEntries.length);
   const [fileFormat, setFileFormat] = useState(fileFormats[0]);
