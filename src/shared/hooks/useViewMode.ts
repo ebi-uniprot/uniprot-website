@@ -32,6 +32,7 @@ const useViewMode = (
   viewMode: ViewMode;
   setViewMode: (vm: ViewMode) => void;
   invalidUrlViewMode: InvalidParamValue | undefined;
+  fromUrl: boolean;
 } => {
   const { fromUrl: columnNamesAreFromUrl } = useColumnNames(namespaceOverride);
   const [viewModeFromStorage, setViewModeFromStorage] =
@@ -78,7 +79,7 @@ const useViewMode = (
     [fromUrl, history, setViewModeFromStorage, urlParams]
   );
 
-  return { viewMode, setViewMode, invalidUrlViewMode };
+  return { viewMode, setViewMode, invalidUrlViewMode, fromUrl };
 };
 
 export default useViewMode;

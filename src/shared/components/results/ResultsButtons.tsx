@@ -75,13 +75,18 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
-  const { viewMode, setViewMode, invalidUrlViewMode } = useViewMode(
-    namespaceOverride,
-    disableCardToggle
-  );
-  const { invalidUrlColumnNames } = useColumnNames(namespaceOverride);
+  const {
+    viewMode,
+    setViewMode,
+    invalidUrlViewMode,
+    fromUrl: viewModeIsFromUrl,
+  } = useViewMode(namespaceOverride, disableCardToggle);
+  const { invalidUrlColumnNames, fromUrl: columnNamesAreFromUrl } =
+    useColumnNames(namespaceOverride);
   const history = useHistory();
   const dispatch = useDispatch();
+
+  const sharedUrlMode = viewModeIsFromUrl || columnNamesAreFromUrl;
 
   useEffect(() => {
     const invalidParamValues = [
@@ -225,6 +230,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
           </label>
         </span>
         {!notCustomisable &&
+          !sharedUrlMode &&
           // Exception for ID mapping results!
           (viewMode === 'table' || disableCardToggle) && (
             <CustomiseButton namespace={namespace} />
