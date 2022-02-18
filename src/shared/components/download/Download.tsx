@@ -1,14 +1,14 @@
-import { useCallback, useState, FC, ChangeEvent } from 'react';
+import { useState, FC, ChangeEvent, useRef, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Loader, CodeBlock, Button, LongNumber } from 'franklin-sites';
+import { Button, LongNumber } from 'franklin-sites';
 import cn from 'classnames';
 
 import ColumnSelect from '../column-select/ColumnSelect';
+import DownloadPreview from './DownloadPreview';
+import DownloadAPIURL from './DownloadAPIURL';
 
 import useLocalStorage from '../../hooks/useLocalStorage';
 
-import { urlsAreEqual } from '../../utils/url';
-import fetchData from '../../utils/fetchData';
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 
 import { getDownloadUrl } from '../../config/apiUrls';
@@ -19,15 +19,14 @@ import {
 } from '../../config/columns';
 import {
   fileFormatsWithColumns,
-  fileFormatToContentType,
   nsToFileFormatsResultsDownload,
 } from '../../config/resultsDownload';
 
-import { ContentType, FileFormat } from '../../types/resultsDownload';
+import { FileFormat } from '../../types/resultsDownload';
 import { Namespace } from '../../types/namespaces';
 
 import sticky from '../../styles/sticky.module.scss';
-import './styles/download.scss';
+import styles from './styles/download.module.scss';
 
 export const getPreviewFileFormat = (fileFormat: FileFormat) =>
   fileFormat === FileFormat.excel ? FileFormat.tsv : fileFormat;
@@ -43,6 +42,8 @@ type DownloadProps = {
   accessions?: string[];
   base?: string;
 };
+
+type ExtraContent = 'url' | 'preview';
 
 const Download: FC<DownloadProps> = ({
   query,
@@ -60,6 +61,8 @@ const Download: FC<DownloadProps> = ({
     nsToDefaultColumns(namespace)
   );
 
+  const { search: queryParamFromUrl } = useLocation();
+
   const fileFormats = nsToFileFormatsResultsDownload[namespace] as FileFormat[];
 
   const [selectedColumns, setSelectedColumns] = useState<Column[]>(columns);
@@ -67,13 +70,9 @@ const Download: FC<DownloadProps> = ({
   const [downloadAll, setDownloadAll] = useState(!selectedEntries.length);
   const [fileFormat, setFileFormat] = useState(fileFormats[0]);
   const [compressed, setCompressed] = useState(true);
-  const [loadingPreview, setLoadingPreview] = useState(false);
-  const [preview, setPreview] = useState({
-    url: '',
-    contentType: '',
-    data: '',
-  });
-  const { search: queryParamFromUrl } = useLocation();
+
+  const [extraContent, setExtraContent] = useState<null | ExtraContent>(null);
+
   const [
     { query: queryFromUrl, selectedFacets = [], sortColumn, sortDirection },
   ] = getParamsFromURL(queryParamFromUrl);
@@ -111,17 +110,12 @@ const Download: FC<DownloadProps> = ({
     base,
   });
 
-  const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) =>
-    setDownloadAll(e.target.value === 'true');
-
-  const handleCompressedChange = (e: ChangeEvent<HTMLInputElement>) =>
-    setCompressed(e.target.value === 'true');
-
   const nSelectedEntries = numberSelectedEntries || selectedEntries.length;
   const nPreview = Math.min(
     10,
     downloadAll ? totalNumberResults : nSelectedEntries
   );
+
   const previewFileFormat = getPreviewFileFormat(fileFormat);
   const previewUrl = getDownloadUrl({
     query: urlQuery,
@@ -138,53 +132,18 @@ const Download: FC<DownloadProps> = ({
     accessions,
     base,
   });
-  // TODO: this should useDataApi but this hook requires modification to
-  // change the headers so whenever this is done replace fetchData with
-  // useDataApi
-  const handlePreview = useCallback(() => {
-    setLoadingPreview(true);
-    const headers: Record<string, string> = {};
-    const accept = fileFormatToContentType[previewFileFormat];
-    if (accept) {
-      headers.Accept = accept;
-    }
-    fetchData<string>(previewUrl, headers)
-      .then((response) => {
-        const contentType = response.headers?.['content-type'] as ContentType;
-        setPreview({
-          data:
-            contentType === fileFormatToContentType[FileFormat.json]
-              ? JSON.stringify(response.data, null, 2)
-              : response.data,
-          url: response.config.url ?? '',
-          contentType,
-        });
-      })
-      .finally(() => {
-        setLoadingPreview(false);
-      });
-  }, [previewFileFormat, previewUrl]);
 
-  const previewContent =
-    urlsAreEqual(preview.url, previewUrl, ['compressed']) &&
-    preview.data &&
-    preview.contentType === fileFormatToContentType[previewFileFormat]
-      ? preview.data
-      : '';
+  const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setDownloadAll(e.target.value === 'true');
 
-  let previewNode;
-  if (loadingPreview) {
-    previewNode = <Loader />;
-  } else if (previewContent && previewContent.length) {
-    previewNode = (
-      <>
-        <h4>Preview</h4>
-        <CodeBlock lightMode data-testid="download-preview">
-          {previewContent}
-        </CodeBlock>
-      </>
-    );
-  }
+  const handleCompressedChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setCompressed(e.target.value === 'true');
+
+  const extraContentRef = useRef<HTMLElement>(null);
+  const displayExtraContent = useCallback((content: ExtraContent) => {
+    setExtraContent(content);
+    extraContentRef.current?.scrollIntoView();
+  }, []);
 
   return (
     <>
@@ -251,7 +210,7 @@ const Download: FC<DownloadProps> = ({
           No
         </label>
       </fieldset>
-      {fileFormatsWithColumns.includes(fileFormat) &&
+      {fileFormatsWithColumns.has(fileFormat) &&
         namespace !== Namespace.idmapping && (
           <>
             <legend>Customize columns</legend>
@@ -266,14 +225,21 @@ const Download: FC<DownloadProps> = ({
         className={cn(
           'button-group',
           'sliding-panel__button-row',
-          sticky['sticky-bottom-right']
+          sticky['sticky-bottom-right'],
+          styles['action-buttons']
         )}
       >
+        <Button variant="tertiary" onClick={() => displayExtraContent('url')}>
+          Generate URL for API
+        </Button>
+        <Button
+          variant="tertiary"
+          onClick={() => displayExtraContent('preview')}
+        >
+          Preview {nPreview}
+        </Button>
         <Button variant="secondary" onClick={onClose}>
           Cancel
-        </Button>
-        <Button variant="secondary" onClick={handlePreview}>
-          Preview {nPreview}
         </Button>
         <a
           href={downloadUrl}
@@ -285,7 +251,15 @@ const Download: FC<DownloadProps> = ({
           Download
         </a>
       </section>
-      {previewNode && <div className="preview">{previewNode}</div>}
+      <section ref={extraContentRef}>
+        {extraContent === 'url' && <DownloadAPIURL apiURL={downloadUrl} />}
+        {extraContent === 'preview' && (
+          <DownloadPreview
+            previewUrl={previewUrl}
+            previewFileFormat={previewFileFormat}
+          />
+        )}
+      </section>
     </>
   );
 };

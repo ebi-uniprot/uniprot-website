@@ -8,13 +8,12 @@ import useNS from '../../hooks/useNS';
 import useColumnNames from '../../hooks/useColumnNames';
 import useViewMode from '../../hooks/useViewMode';
 
-import { addMessage } from '../../../messages/state/messagesActions';
+import {
+  copyFailureMessage,
+  copySuccessMessage,
+} from '../../../messages/state/messagesActions';
 
 import { Namespace } from '../../types/namespaces';
-import {
-  MessageFormat,
-  MessageLevel,
-} from '../../../messages/types/messagesTypes';
 
 const isCopySupported =
   'clipboard' in navigator && 'writeText' in navigator.clipboard;
@@ -59,26 +58,10 @@ const CopyLinkWebsite = ({
     try {
       await navigator.clipboard.writeText(url);
       // Success with Clipboard API, display message
-      dispatch(
-        addMessage({
-          id: 'copy link website',
-          content: `Link copied to clipboard`,
-          format: MessageFormat.POP_UP,
-          level: MessageLevel.SUCCESS,
-          displayTime: 5_000,
-        })
-      );
+      dispatch(copySuccessMessage());
     } catch {
       // Issue with Clipboard API too, bail with error message
-      dispatch(
-        addMessage({
-          id: 'copy link website',
-          content: `There was an issue while copying to clipboard`,
-          format: MessageFormat.POP_UP,
-          level: MessageLevel.FAILURE,
-          displayTime: 15_000,
-        })
-      );
+      dispatch(copyFailureMessage());
     } finally {
       // In any case, close the dropdown
       // TODO: expose way to close dropdown (in Franklin)

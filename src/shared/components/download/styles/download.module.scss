@@ -1,0 +1,10 @@
+@import 'franklin-sites/src/styles/settings';
+
+.action-buttons {
+  width: 100%;
+  background-color: white;
+  // Compensate the panel's inner padding
+  bottom: -$global-padding;
+  // Override .button-group's margin
+  margin-block-end: 0;
+}
