@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, ExternalLink } from 'franklin-sites';
 
@@ -18,11 +18,75 @@ import {
 } from '../../../shared/config/externalUrls';
 import { getEntryPath } from '../../../app/config/urls';
 
-import { FreeTextComment, InteractionComment } from '../../types/commentTypes';
+import {
+  FreeTextComment,
+  Interaction,
+  InteractionComment,
+} from '../../types/commentTypes';
 import { UIModel } from '../../adapters/sectionConverter';
 import { Namespace } from '../../../shared/types/namespaces';
 
 import styles from './styles/interaction-section.module.scss';
+
+const interactionSorter = (a: Interaction, b: Interaction) => {
+  // Normalise what we'll sort on
+  const aOneComparer = (
+    a.interactantOne.uniProtKBAccession ||
+    a.interactantOne.geneName ||
+    a.interactantOne.intActId
+  ).toUpperCase();
+  const bOneComparer = (
+    b.interactantOne.uniProtKBAccession ||
+    b.interactantOne.geneName ||
+    b.interactantOne.intActId
+  ).toUpperCase();
+  // In case of interactant 2, we'll display first the gene, so we sort on that
+  const aTwoComparer = (
+    a.interactantTwo.geneName ||
+    a.interactantTwo.uniProtKBAccession ||
+    a.interactantTwo.intActId
+  ).toUpperCase();
+  const bTwoComparer = (
+    b.interactantTwo.geneName ||
+    b.interactantTwo.uniProtKBAccession ||
+    b.interactantTwo.intActId
+  ).toUpperCase();
+  // Alphabetical order of interactant 1
+  if (aOneComparer > bOneComparer) {
+    // both are UniProtKB, or none
+    if (
+      (a.interactantOne.uniProtKBAccession &&
+        b.interactantOne.uniProtKBAccession) ||
+      (!a.interactantOne.uniProtKBAccession &&
+        !b.interactantOne.uniProtKBAccession)
+    ) {
+      return 1;
+    }
+    // one of them isn't UniProtKB, bump up the UniProtKB one
+    return a.interactantOne.uniProtKBAccession ? -1 : 1;
+  }
+  if (aOneComparer < bOneComparer) {
+    // both are UniProtKB, or none
+    if (
+      (a.interactantOne.uniProtKBAccession &&
+        b.interactantOne.uniProtKBAccession) ||
+      (!a.interactantOne.uniProtKBAccession &&
+        !b.interactantOne.uniProtKBAccession)
+    ) {
+      return -1;
+    }
+    // one of them isn't UniProtKB, bump up the UniProtKB one
+    return a.interactantOne.uniProtKBAccession ? -1 : 1;
+  }
+  // Then, if interactant 1 are the same, alphabetical order of interactant 2
+  if (aTwoComparer > bTwoComparer) {
+    return 1;
+  }
+  if (aTwoComparer < bTwoComparer) {
+    return -1;
+  }
+  return 0;
+};
 
 type Props = {
   data: UIModel;
@@ -36,9 +100,17 @@ const InteractionViewer = lazy(
 );
 
 const InteractionSection = ({ data, primaryAccession }: Props) => {
-  const interactionComment = data.commentsData.get('INTERACTION') as
-    | InteractionComment[]
-    | undefined;
+  const tableData = useMemo(
+    () =>
+      Array.from(
+        (
+          data.commentsData.get('INTERACTION') as
+            | InteractionComment[]
+            | undefined
+        )?.[0]?.interactions || []
+      ).sort(interactionSorter),
+    [data]
+  );
 
   const datatableElement = useCustomElement(
     /* istanbul ignore next */
@@ -52,6 +124,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
   if (!hasContent(data)) {
     return null;
   }
+
   const comments = data.commentsData.get('SUBUNIT') as
     | FreeTextComment[]
     | undefined;
@@ -74,7 +147,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
           articleId="subunit_structure"
         />
       )}
-      {interactionComment?.[0] && (
+      {tableData.length ? (
         <>
           <h3 data-article-id="binary_interactions">Binary interactions</h3>
           <Suspense fallback={null}>
@@ -94,7 +167,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
                 </tr>
               </thead>
               <tbody>
-                {interactionComment[0].interactions.map((interaction) => (
+                {tableData.map((interaction) => (
                   <tr
                     key={`${interaction.interactantOne.intActId}${interaction.interactantTwo.intActId}`}
                   >
@@ -127,8 +200,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
                       ) : (
                         <>
                           {interaction.interactantOne.geneName}{' '}
-                          {interaction.interactantOne.chainId}{' '}
-                          {interaction.interactantOne.uniProtKBAccession}
+                          {interaction.interactantOne.chainId}
                         </>
                       )}
                     </td>
@@ -147,8 +219,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
                       ) : (
                         <>
                           {interaction.interactantTwo.geneName}{' '}
-                          {interaction.interactantTwo.chainId}{' '}
-                          {interaction.interactantTwo.uniProtKBAccession}
+                          {interaction.interactantTwo.chainId}
                         </>
                       )}
                     </td>
@@ -174,7 +245,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
             </table>
           </datatableElement.name>
         </>
-      )}
+      ) : null}
 
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
     </Card>
