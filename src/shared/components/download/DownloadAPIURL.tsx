@@ -8,7 +8,13 @@ import {
 
 import styles from './styles/download-api-url.module.scss';
 
-const DownloadAPIURL = ({ apiURL }: { apiURL: string }) => {
+const DownloadAPIURL = ({
+  apiURL,
+  onCopy,
+}: {
+  apiURL: string;
+  onCopy: () => void;
+}) => {
   const dispatch = useDispatch();
   const handleCopyURL = useCallback(async () => {
     try {
@@ -19,7 +25,9 @@ const DownloadAPIURL = ({ apiURL }: { apiURL: string }) => {
       // Issue with Clipboard API too, bail with error message
       dispatch(copyFailureMessage());
     }
-  }, [apiURL, dispatch]);
+
+    onCopy();
+  }, [apiURL, dispatch, onCopy]);
 
   return (
     <div className={styles['api-url']}>

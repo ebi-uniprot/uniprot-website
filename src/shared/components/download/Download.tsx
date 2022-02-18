@@ -252,7 +252,9 @@ const Download: FC<DownloadProps> = ({
         </a>
       </section>
       <section ref={extraContentRef}>
-        {extraContent === 'url' && <DownloadAPIURL apiURL={downloadUrl} />}
+        {extraContent === 'url' && (
+          <DownloadAPIURL apiURL={downloadUrl} onCopy={onClose} />
+        )}
         {extraContent === 'preview' && (
           <DownloadPreview
             previewUrl={previewUrl}
