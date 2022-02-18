@@ -1,4 +1,4 @@
-import { useState, FC, ChangeEvent } from 'react';
+import { useState, FC, ChangeEvent, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Button, LongNumber } from 'franklin-sites';
 import cn from 'classnames';
@@ -59,6 +59,8 @@ const Download: FC<DownloadProps> = ({
     nsToDefaultColumns(namespace)
   );
 
+  const { search: queryParamFromUrl } = useLocation();
+
   const fileFormats = nsToFileFormatsResultsDownload[namespace] as FileFormat[];
 
   const [selectedColumns, setSelectedColumns] = useState<Column[]>(columns);
@@ -66,9 +68,10 @@ const Download: FC<DownloadProps> = ({
   const [downloadAll, setDownloadAll] = useState(!selectedEntries.length);
   const [fileFormat, setFileFormat] = useState(fileFormats[0]);
   const [compressed, setCompressed] = useState(true);
-  const { search: queryParamFromUrl } = useLocation();
-  const [displayAPIURL, setDisplayAPIURL] = useState(false);
-  const [displayPreview, setDisplayPreview] = useState(false);
+  const [displayExtraContent, setDisplayExtraContent] = useState<
+    null | 'url' | 'preview'
+  >(null);
+
   const [
     { query: queryFromUrl, selectedFacets = [], sortColumn, sortDirection },
   ] = getParamsFromURL(queryParamFromUrl);
@@ -134,6 +137,13 @@ const Download: FC<DownloadProps> = ({
 
   const handleCompressedChange = (e: ChangeEvent<HTMLInputElement>) =>
     setCompressed(e.target.value === 'true');
+
+  const extraContentRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    if (displayExtraContent) {
+      extraContentRef.current?.scrollIntoView();
+    }
+  }, [displayExtraContent]);
 
   return (
     <>
@@ -221,19 +231,13 @@ const Download: FC<DownloadProps> = ({
       >
         <Button
           variant="tertiary"
-          onClick={() => {
-            setDisplayAPIURL(true);
-            setDisplayPreview(false);
-          }}
+          onClick={() => setDisplayExtraContent('url')}
         >
           Generate URL for API
         </Button>
         <Button
           variant="tertiary"
-          onClick={() => {
-            setDisplayAPIURL(false);
-            setDisplayPreview(true);
-          }}
+          onClick={() => setDisplayExtraContent('preview')}
         >
           Preview {nPreview}
         </Button>
@@ -250,13 +254,17 @@ const Download: FC<DownloadProps> = ({
           Download
         </a>
       </section>
-      {displayAPIURL && <DownloadAPIURL apiURL={downloadUrl} />}
-      {displayPreview && (
-        <DownloadPreview
-          previewUrl={previewUrl}
-          previewFileFormat={previewFileFormat}
-        />
-      )}
+      <section ref={extraContentRef}>
+        {displayExtraContent === 'url' && (
+          <DownloadAPIURL apiURL={downloadUrl} />
+        )}
+        {displayExtraContent === 'preview' && (
+          <DownloadPreview
+            previewUrl={previewUrl}
+            previewFileFormat={previewFileFormat}
+          />
+        )}
+      </section>
     </>
   );
 };
