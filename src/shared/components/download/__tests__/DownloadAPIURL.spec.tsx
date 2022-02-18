@@ -16,8 +16,18 @@ const store: Store = {
 const apiURL = 'https://foo.org';
 
 describe('DownloadAPIURL', () => {
-  it('should dispatch an unsuccessful copy message when the navigator.clipboard is not available', async () => {
-    customRender(<DownloadAPIURL apiURL={apiURL} />, { store });
+  const onCopy = jest.fn();
+  const onMount = jest.fn();
+
+  beforeEach(() => {
+    onCopy.mockReset();
+  });
+
+  it('should dispatch an unsuccessful copy message when the navigator.clipboard is not available and call onCopy', async () => {
+    customRender(
+      <DownloadAPIURL apiURL={apiURL} onCopy={onCopy} onMount={onMount} />,
+      { store }
+    );
     const copyButton = screen.getByRole('button', { name: 'Copy' });
     fireEvent.click(copyButton);
     await waitFor(() =>
@@ -31,15 +41,19 @@ describe('DownloadAPIURL', () => {
         type: 'ADD_MESSAGE',
       })
     );
+    expect(onCopy).toHaveBeenCalledTimes(1);
   });
-  it('should copy a message with navigator.clipboard and dispatch a successful copy message', async () => {
+  it('should copy a message with navigator.clipboard and dispatch a successful copy message and call onCopy', async () => {
     const mockWriteText = jest.fn();
     Object.defineProperty(navigator, 'clipboard', {
       value: {
         writeText: mockWriteText,
       },
     });
-    customRender(<DownloadAPIURL apiURL={apiURL} />, { store });
+    customRender(
+      <DownloadAPIURL apiURL={apiURL} onCopy={onCopy} onMount={onMount} />,
+      { store }
+    );
     const copyButton = screen.getByRole('button', { name: 'Copy' });
     fireEvent.click(copyButton);
     expect(mockWriteText).toHaveBeenCalledWith(apiURL);
@@ -54,5 +68,6 @@ describe('DownloadAPIURL', () => {
         type: 'ADD_MESSAGE',
       })
     );
+    expect(onCopy).toHaveBeenCalledTimes(1);
   });
 });
