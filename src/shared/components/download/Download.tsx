@@ -1,4 +1,4 @@
-import { useState, FC, ChangeEvent, useEffect, useRef } from 'react';
+import { useState, FC, ChangeEvent, useRef, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Button, LongNumber } from 'franklin-sites';
 import cn from 'classnames';
@@ -43,6 +43,8 @@ type DownloadProps = {
   base?: string;
 };
 
+type ExtraContent = 'url' | 'preview';
+
 const Download: FC<DownloadProps> = ({
   query,
   selectedQuery,
@@ -68,9 +70,8 @@ const Download: FC<DownloadProps> = ({
   const [downloadAll, setDownloadAll] = useState(!selectedEntries.length);
   const [fileFormat, setFileFormat] = useState(fileFormats[0]);
   const [compressed, setCompressed] = useState(true);
-  const [displayExtraContent, setDisplayExtraContent] = useState<
-    null | 'url' | 'preview'
-  >(null);
+
+  const [extraContent, setExtraContent] = useState<null | ExtraContent>(null);
 
   const [
     { query: queryFromUrl, selectedFacets = [], sortColumn, sortDirection },
@@ -139,11 +140,10 @@ const Download: FC<DownloadProps> = ({
     setCompressed(e.target.value === 'true');
 
   const extraContentRef = useRef<HTMLElement>(null);
-  useEffect(() => {
-    if (displayExtraContent) {
-      extraContentRef.current?.scrollIntoView();
-    }
-  }, [displayExtraContent]);
+  const displayExtraContent = useCallback((content: ExtraContent) => {
+    setExtraContent(content);
+    extraContentRef.current?.scrollIntoView();
+  }, []);
 
   return (
     <>
@@ -229,15 +229,12 @@ const Download: FC<DownloadProps> = ({
           styles['action-buttons']
         )}
       >
-        <Button
-          variant="tertiary"
-          onClick={() => setDisplayExtraContent('url')}
-        >
+        <Button variant="tertiary" onClick={() => displayExtraContent('url')}>
           Generate URL for API
         </Button>
         <Button
           variant="tertiary"
-          onClick={() => setDisplayExtraContent('preview')}
+          onClick={() => displayExtraContent('preview')}
         >
           Preview {nPreview}
         </Button>
@@ -255,10 +252,8 @@ const Download: FC<DownloadProps> = ({
         </a>
       </section>
       <section ref={extraContentRef}>
-        {displayExtraContent === 'url' && (
-          <DownloadAPIURL apiURL={downloadUrl} />
-        )}
-        {displayExtraContent === 'preview' && (
+        {extraContent === 'url' && <DownloadAPIURL apiURL={downloadUrl} />}
+        {extraContent === 'preview' && (
           <DownloadPreview
             previewUrl={previewUrl}
             previewFileFormat={previewFileFormat}
