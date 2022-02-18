@@ -1,5 +1,5 @@
 import { CodeBlock, Loader } from 'franklin-sites';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { JsonObject } from 'type-fest';
 
 import useDataApi from '../../hooks/useDataApi';
@@ -13,10 +13,16 @@ import styles from './styles/download-preview.module.scss';
 const DownloadPreview = ({
   previewUrl,
   previewFileFormat,
+  onMount,
 }: {
   previewUrl: string;
   previewFileFormat: FileFormat;
+  onMount: () => void;
 }) => {
+  useEffect(() => {
+    onMount();
+  }, [onMount]);
+
   const options = useMemo(() => {
     const headers: Record<string, string> = {};
     const accept = fileFormatToContentType[previewFileFormat];

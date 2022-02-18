@@ -70,7 +70,6 @@ const Download: FC<DownloadProps> = ({
   const [downloadAll, setDownloadAll] = useState(!selectedEntries.length);
   const [fileFormat, setFileFormat] = useState(fileFormats[0]);
   const [compressed, setCompressed] = useState(true);
-
   const [extraContent, setExtraContent] = useState<null | ExtraContent>(null);
 
   const [
@@ -140,10 +139,18 @@ const Download: FC<DownloadProps> = ({
     setCompressed(e.target.value === 'true');
 
   const extraContentRef = useRef<HTMLElement>(null);
-  const displayExtraContent = useCallback((content: ExtraContent) => {
-    setExtraContent(content);
+
+  const scrollExtraIntoView = useCallback(() => {
     extraContentRef.current?.scrollIntoView();
   }, []);
+
+  const displayExtraContent = useCallback(
+    (content: ExtraContent) => {
+      setExtraContent(content);
+      scrollExtraIntoView();
+    },
+    [scrollExtraIntoView]
+  );
 
   return (
     <>
@@ -253,12 +260,17 @@ const Download: FC<DownloadProps> = ({
       </section>
       <section ref={extraContentRef}>
         {extraContent === 'url' && (
-          <DownloadAPIURL apiURL={downloadUrl} onCopy={onClose} />
+          <DownloadAPIURL
+            apiURL={downloadUrl}
+            onCopy={onClose}
+            onMount={scrollExtraIntoView}
+          />
         )}
         {extraContent === 'preview' && (
           <DownloadPreview
             previewUrl={previewUrl}
             previewFileFormat={previewFileFormat}
+            onMount={scrollExtraIntoView}
           />
         )}
       </section>
