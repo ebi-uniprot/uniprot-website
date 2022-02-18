@@ -1,8 +1,10 @@
 import { CodeBlock, Loader } from 'franklin-sites';
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
+import { JsonObject } from 'type-fest';
+
+import useDataApi from '../../hooks/useDataApi';
 
 import { fileFormatToContentType } from '../../config/resultsDownload';
-import fetchData from '../../utils/fetchData';
 import urlsAreEqual from '../../utils/url';
 
 import { ContentType, FileFormat } from '../../types/resultsDownload';
@@ -16,48 +18,29 @@ const DownloadPreview = ({
   previewUrl: string;
   previewFileFormat: FileFormat;
 }) => {
-  const [loadingPreview, setLoadingPreview] = useState(false);
-  const [preview, setPreview] = useState({
-    url: '',
-    contentType: '',
-    data: '',
-  });
-
-  // TODO: this should useDataApi but this hook requires modification to
-  // change the headers so whenever this is done replace fetchData with
-  // useDataApi
-  useEffect(() => {
-    setLoadingPreview(true);
+  const options = useMemo(() => {
     const headers: Record<string, string> = {};
     const accept = fileFormatToContentType[previewFileFormat];
     if (accept) {
       headers.Accept = accept;
     }
-    fetchData<string>(previewUrl, headers)
-      .then((response) => {
-        const contentType = response.headers?.['content-type'] as ContentType;
-        setPreview({
-          data:
-            contentType === fileFormatToContentType[FileFormat.json]
-              ? JSON.stringify(response.data, null, 2)
-              : response.data,
-          url: response.config.url ?? '',
-          contentType,
-        });
-      })
-      .finally(() => {
-        setLoadingPreview(false);
-      });
-  }, [previewFileFormat, previewUrl]);
+    return { headers };
+  }, [previewFileFormat]);
+
+  const { data, headers, url, loading } = useDataApi<JsonObject | string>(
+    previewUrl,
+    options
+  );
 
   const previewContent =
-    urlsAreEqual(preview.url, previewUrl, ['compressed']) &&
-    preview.data &&
-    preview.contentType === fileFormatToContentType[previewFileFormat]
-      ? preview.data
+    urlsAreEqual(url || '', previewUrl, ['compressed']) &&
+    data &&
+    (headers?.['content-type'] as ContentType) ===
+      fileFormatToContentType[previewFileFormat]
+      ? data
       : '';
 
-  if (loadingPreview) {
+  if (loading) {
     return <Loader />;
   }
 
@@ -65,7 +48,9 @@ const DownloadPreview = ({
     <div className={styles.preview}>
       <h4>Preview</h4>
       <CodeBlock lightMode data-testid="download-preview">
-        {previewContent}
+        {typeof data === 'string'
+          ? data
+          : JSON.stringify(previewContent, null, 2)}
       </CodeBlock>
     </div>
   );
