@@ -17,13 +17,17 @@ const apiURL = 'https://foo.org';
 
 describe('DownloadAPIURL', () => {
   const onCopy = jest.fn();
+  const onMount = jest.fn();
 
   beforeEach(() => {
     onCopy.mockReset();
   });
 
   it('should dispatch an unsuccessful copy message when the navigator.clipboard is not available and call onCopy', async () => {
-    customRender(<DownloadAPIURL apiURL={apiURL} onCopy={onCopy} />, { store });
+    customRender(
+      <DownloadAPIURL apiURL={apiURL} onCopy={onCopy} onMount={onMount} />,
+      { store }
+    );
     const copyButton = screen.getByRole('button', { name: 'Copy' });
     fireEvent.click(copyButton);
     await waitFor(() =>
@@ -46,7 +50,10 @@ describe('DownloadAPIURL', () => {
         writeText: mockWriteText,
       },
     });
-    customRender(<DownloadAPIURL apiURL={apiURL} onCopy={onCopy} />, { store });
+    customRender(
+      <DownloadAPIURL apiURL={apiURL} onCopy={onCopy} onMount={onMount} />,
+      { store }
+    );
     const copyButton = screen.getByRole('button', { name: 'Copy' });
     fireEvent.click(copyButton);
     expect(mockWriteText).toHaveBeenCalledWith(apiURL);
