@@ -24,9 +24,7 @@ const DownloadAPIURL = ({ apiURL }: { apiURL: string }) => {
   return (
     <div className={styles['api-url']}>
       <h4>API URL</h4>
-      <CodeBlock lightMode className={styles.codeblock}>
-        {apiURL}
-      </CodeBlock>
+      <CodeBlock lightMode>{apiURL}</CodeBlock>
       <Button
         variant="primary"
         className={styles['copy-button']}
