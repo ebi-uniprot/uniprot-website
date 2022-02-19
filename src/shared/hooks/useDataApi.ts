@@ -121,6 +121,7 @@ const createReducer =
 
 function useDataApi<T>(
   url?: string | null,
+  // Watch out, memoize if using this!
   options?: AxiosRequestConfig
 ): UseDataAPIState<T> {
   const [state, dispatch] = useReducer(createReducer<T>(), { loading: !!url });

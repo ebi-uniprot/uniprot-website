@@ -944,62 +944,68 @@ exports[`Entry basic should render main 1`] = `
                         <div
                           class="decorated-list-item__content"
                         >
-                          EC:1.2.3.4 
-                          <button
-                            aria-controls="14"
-                            aria-expanded="false"
-                            class="svg-colour-unreviewed evidence-tag"
-                            data-testid="evidence-tag-trigger"
-                            type="button"
+                          <ul
+                            class="expandable-list no-bullet"
                           >
-                            <test-file-stub
-                              height="12"
-                              width="12"
-                            />
-                            <span
-                              class="evidence-tag__label"
-                            >
-                              1 automatic annotation
-                            </span>
-                          </button>
-                          <div
-                            class="evidence-tag-content "
-                            data-testid="evidence-tag-content"
-                            id="14"
-                          />
-                           (
-                          <a
-                            href="/uniprotkb?query=ec:1.2.3.4"
-                          >
-                            UniProtKB
-                          </a>
-                           | 
-                          <a
-                            class="external-link"
-                            href="https://enzyme.expasy.org/EC/1.2.3.4"
-                            rel="noopener"
-                            target="_blank"
-                          >
-                            ENZYME
-                            <test-file-stub
-                              data-testid="external-link-icon"
-                              width="12.5"
-                            />
-                          </a>
-                           | 
-                          <a
-                            class="external-link"
-                            href="https://www.rhea-db.org/rhea?query=ec:1.2.3.4"
-                            rel="noopener"
-                            target="_blank"
-                          >
-                            Rhea
-                            <test-file-stub
-                              data-testid="external-link-icon"
-                              width="12.5"
-                            />
-                          </a>
-                          )
+                            <li>
+                              EC:1.2.3.4 
+                              <button
+                                aria-controls="14"
+                                aria-expanded="false"
+                                class="svg-colour-unreviewed evidence-tag"
+                                data-testid="evidence-tag-trigger"
+                                type="button"
+                              >
+                                <test-file-stub
+                                  height="12"
+                                  width="12"
+                                />
+                                <span
+                                  class="evidence-tag__label"
+                                >
+                                  1 automatic annotation
+                                </span>
+                              </button>
+                              <div
+                                class="evidence-tag-content "
+                                data-testid="evidence-tag-content"
+                                id="14"
+                              />
+                               (
+                              <a
+                                href="/uniprotkb?query=ec:1.2.3.4"
+                              >
+                                UniProtKB
+                              </a>
+                               | 
+                              <a
+                                class="external-link"
+                                href="https://enzyme.expasy.org/EC/1.2.3.4"
+                                rel="noopener"
+                                target="_blank"
+                              >
+                                ENZYME
+                                <test-file-stub
+                                  data-testid="external-link-icon"
+                                  width="12.5"
+                                />
+                              </a>
+                               | 
+                              <a
+                                class="external-link"
+                                href="https://www.rhea-db.org/rhea?query=ec:1.2.3.4"
+                                rel="noopener"
+                                target="_blank"
+                              >
+                                Rhea
+                                <test-file-stub
+                                  data-testid="external-link-icon"
+                                  width="12.5"
+                                />
+                              </a>
+                              )
+                            </li>
+                          </ul>
                         </div>
                       </div>
                     </li>
@@ -1104,6 +1110,64 @@ exports[`Entry basic should render main 1`] = `
                                 id="17"
                               />
                               ) 
+                              <small>
+                                . EC:1.2.3.3 
+                                <button
+                                  aria-controls="18"
+                                  aria-expanded="false"
+                                  class="svg-colour-unreviewed evidence-tag"
+                                  data-testid="evidence-tag-trigger"
+                                  type="button"
+                                >
+                                  <test-file-stub
+                                    height="12"
+                                    width="12"
+                                  />
+                                  <span
+                                    class="evidence-tag__label"
+                                  >
+                                    1 automatic annotation
+                                  </span>
+                                </button>
+                                <div
+                                  class="evidence-tag-content "
+                                  data-testid="evidence-tag-content"
+                                  id="18"
+                                />
+                                 (
+                                <a
+                                  href="/uniprotkb?query=ec:1.2.3.3"
+                                >
+                                  UniProtKB
+                                </a>
+                                 | 
+                                <a
+                                  class="external-link"
+                                  href="https://enzyme.expasy.org/EC/1.2.3.3"
+                                  rel="noopener"
+                                  target="_blank"
+                                >
+                                  ENZYME
+                                  <test-file-stub
+                                    data-testid="external-link-icon"
+                                    width="12.5"
+                                  />
+                                </a>
+                                 | 
+                                <a
+                                  class="external-link"
+                                  href="https://www.rhea-db.org/rhea?query=ec:1.2.3.3"
+                                  rel="noopener"
+                                  target="_blank"
+                                >
+                                  Rhea
+                                  <test-file-stub
+                                    data-testid="external-link-icon"
+                                    width="12.5"
+                                  />
+                                </a>
+                                )
+                              </small>
                             </li>
                           </ul>
                         </div>
@@ -1127,29 +1191,6 @@ exports[`Entry basic should render main 1`] = `
                             <li>
                               containsrec full Name 
                               <button
-                                aria-controls="18"
-                                aria-expanded="false"
-                                class="svg-colour-unreviewed evidence-tag"
-                                data-testid="evidence-tag-trigger"
-                                type="button"
-                              >
-                                <test-file-stub
-                                  height="12"
-                                  width="12"
-                                />
-                                <span
-                                  class="evidence-tag__label"
-                                >
-                                  1 automatic annotation
-                                </span>
-                              </button>
-                              <div
-                                class="evidence-tag-content "
-                                data-testid="evidence-tag-content"
-                                id="18"
-                              />
-                               (containsrecommended short name 
-                              <button
                                 aria-controls="19"
                                 aria-expanded="false"
                                 class="svg-colour-unreviewed evidence-tag"
@@ -1171,11 +1212,7 @@ exports[`Entry basic should render main 1`] = `
                                 data-testid="evidence-tag-content"
                                 id="19"
                               />
-                              )  
-                              <strong>
-                                Alternative names: 
-                              </strong>
-                              containsa full alt Name 
+                               (containsrecommended short name 
                               <button
                                 aria-controls="20"
                                 aria-expanded="false"
@@ -1198,7 +1235,11 @@ exports[`Entry basic should render main 1`] = `
                                 data-testid="evidence-tag-content"
                                 id="20"
                               />
-                               (containsshort alt name1 
+                              )  
+                              <strong>
+                                Alternative names: 
+                              </strong>
+                              containsa full alt Name 
                               <button
                                 aria-controls="21"
                                 aria-expanded="false"
@@ -1220,6 +1261,29 @@ exports[`Entry basic should render main 1`] = `
                                 class="evidence-tag-content "
                                 data-testid="evidence-tag-content"
                                 id="21"
+                              />
+                               (containsshort alt name1 
+                              <button
+                                aria-controls="22"
+                                aria-expanded="false"
+                                class="svg-colour-unreviewed evidence-tag"
+                                data-testid="evidence-tag-trigger"
+                                type="button"
+                              >
+                                <test-file-stub
+                                  height="12"
+                                  width="12"
+                                />
+                                <span
+                                  class="evidence-tag__label"
+                                >
+                                  1 automatic annotation
+                                </span>
+                              </button>
+                              <div
+                                class="evidence-tag-content "
+                                data-testid="evidence-tag-content"
+                                id="22"
                               />
                               ) 
                             </li>
@@ -1245,7 +1309,7 @@ exports[`Entry basic should render main 1`] = `
                             <li>
                               sub full Name 
                               <button
-                                aria-controls="22"
+                                aria-controls="23"
                                 aria-expanded="false"
                                 class="svg-colour-unreviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
@@ -1264,7 +1328,7 @@ exports[`Entry basic should render main 1`] = `
                               <div
                                 class="evidence-tag-content "
                                 data-testid="evidence-tag-content"
-                                id="22"
+                                id="23"
                               />
                             </li>
                           </ul>
@@ -1285,7 +1349,7 @@ exports[`Entry basic should render main 1`] = `
                         >
                           biotech 
                           <button
-                            aria-controls="23"
+                            aria-controls="24"
                             aria-expanded="false"
                             class="svg-colour-unreviewed evidence-tag"
                             data-testid="evidence-tag-trigger"
@@ -1304,7 +1368,7 @@ exports[`Entry basic should render main 1`] = `
                           <div
                             class="evidence-tag-content "
                             data-testid="evidence-tag-content"
-                            id="23"
+                            id="24"
                           />
                         </div>
                       </div>
@@ -1327,7 +1391,7 @@ exports[`Entry basic should render main 1`] = `
                             <li>
                               cd antigen 
                               <button
-                                aria-controls="24"
+                                aria-controls="25"
                                 aria-expanded="false"
                                 class="svg-colour-unreviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
@@ -1346,7 +1410,7 @@ exports[`Entry basic should render main 1`] = `
                               <div
                                 class="evidence-tag-content "
                                 data-testid="evidence-tag-content"
-                                id="24"
+                                id="25"
                               />
                             </li>
                           </ul>
@@ -1371,7 +1435,7 @@ exports[`Entry basic should render main 1`] = `
                             <li>
                               inn antigen 
                               <button
-                                aria-controls="25"
+                                aria-controls="26"
                                 aria-expanded="false"
                                 class="svg-colour-unreviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
@@ -1390,7 +1454,7 @@ exports[`Entry basic should render main 1`] = `
                               <div
                                 class="evidence-tag-content "
                                 data-testid="evidence-tag-content"
-                                id="25"
+                                id="26"
                               />
                             </li>
                           </ul>
@@ -1420,44 +1484,6 @@ exports[`Entry basic should render main 1`] = `
                         >
                           includesrec full Name 
                           <button
-                            aria-controls="26"
-                            aria-expanded="false"
-                            class="svg-colour-unreviewed evidence-tag"
-                            data-testid="evidence-tag-trigger"
-                            type="button"
-                          >
-                            <test-file-stub
-                              height="12"
-                              width="12"
-                            />
-                            <span
-                              class="evidence-tag__label"
-                            >
-                              1 automatic annotation
-                            </span>
-                          </button>
-                          <div
-                            class="evidence-tag-content "
-                            data-testid="evidence-tag-content"
-                            id="26"
-                          />
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div
-                        class="decorated-list-item"
-                      >
-                        <div
-                          class="decorated-list-item__title tiny"
-                        >
-                          EC number
-                        </div>
-                        <div
-                          class="decorated-list-item__content"
-                        >
-                          EC:1.2.3.4 
-                          <button
                             aria-controls="27"
                             aria-expanded="false"
                             class="svg-colour-unreviewed evidence-tag"
@@ -1479,39 +1505,83 @@ exports[`Entry basic should render main 1`] = `
                             data-testid="evidence-tag-content"
                             id="27"
                           />
-                           (
-                          <a
-                            href="/uniprotkb?query=ec:1.2.3.4"
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        class="decorated-list-item"
+                      >
+                        <div
+                          class="decorated-list-item__title tiny"
+                        >
+                          EC number
+                        </div>
+                        <div
+                          class="decorated-list-item__content"
+                        >
+                          <ul
+                            class="expandable-list no-bullet"
                           >
-                            UniProtKB
-                          </a>
-                           | 
-                          <a
-                            class="external-link"
-                            href="https://enzyme.expasy.org/EC/1.2.3.4"
-                            rel="noopener"
-                            target="_blank"
-                          >
-                            ENZYME
-                            <test-file-stub
-                              data-testid="external-link-icon"
-                              width="12.5"
-                            />
-                          </a>
-                           | 
-                          <a
-                            class="external-link"
-                            href="https://www.rhea-db.org/rhea?query=ec:1.2.3.4"
-                            rel="noopener"
-                            target="_blank"
-                          >
-                            Rhea
-                            <test-file-stub
-                              data-testid="external-link-icon"
-                              width="12.5"
-                            />
-                          </a>
-                          )
+                            <li>
+                              EC:1.2.3.4 
+                              <button
+                                aria-controls="28"
+                                aria-expanded="false"
+                                class="svg-colour-unreviewed evidence-tag"
+                                data-testid="evidence-tag-trigger"
+                                type="button"
+                              >
+                                <test-file-stub
+                                  height="12"
+                                  width="12"
+                                />
+                                <span
+                                  class="evidence-tag__label"
+                                >
+                                  1 automatic annotation
+                                </span>
+                              </button>
+                              <div
+                                class="evidence-tag-content "
+                                data-testid="evidence-tag-content"
+                                id="28"
+                              />
+                               (
+                              <a
+                                href="/uniprotkb?query=ec:1.2.3.4"
+                              >
+                                UniProtKB
+                              </a>
+                               | 
+                              <a
+                                class="external-link"
+                                href="https://enzyme.expasy.org/EC/1.2.3.4"
+                                rel="noopener"
+                                target="_blank"
+                              >
+                                ENZYME
+                                <test-file-stub
+                                  data-testid="external-link-icon"
+                                  width="12.5"
+                                />
+                              </a>
+                               | 
+                              <a
+                                class="external-link"
+                                href="https://www.rhea-db.org/rhea?query=ec:1.2.3.4"
+                                rel="noopener"
+                                target="_blank"
+                              >
+                                Rhea
+                                <test-file-stub
+                                  data-testid="external-link-icon"
+                                  width="12.5"
+                                />
+                              </a>
+                              )
+                            </li>
+                          </ul>
                         </div>
                       </div>
                     </li>
@@ -1529,7 +1599,7 @@ exports[`Entry basic should render main 1`] = `
                         >
                           includesrecommended short name 
                           <button
-                            aria-controls="28"
+                            aria-controls="29"
                             aria-expanded="false"
                             class="svg-colour-unreviewed evidence-tag"
                             data-testid="evidence-tag-trigger"
@@ -1548,7 +1618,7 @@ exports[`Entry basic should render main 1`] = `
                           <div
                             class="evidence-tag-content "
                             data-testid="evidence-tag-content"
-                            id="28"
+                            id="29"
                           />
                         </div>
                       </div>
@@ -1571,29 +1641,6 @@ exports[`Entry basic should render main 1`] = `
                             <li>
                               includesa full alt Name 
                               <button
-                                aria-controls="29"
-                                aria-expanded="false"
-                                class="svg-colour-unreviewed evidence-tag"
-                                data-testid="evidence-tag-trigger"
-                                type="button"
-                              >
-                                <test-file-stub
-                                  height="12"
-                                  width="12"
-                                />
-                                <span
-                                  class="evidence-tag__label"
-                                >
-                                  1 automatic annotation
-                                </span>
-                              </button>
-                              <div
-                                class="evidence-tag-content "
-                                data-testid="evidence-tag-content"
-                                id="29"
-                              />
-                               (includesshort alt name1 
-                              <button
                                 aria-controls="30"
                                 aria-expanded="false"
                                 class="svg-colour-unreviewed evidence-tag"
@@ -1615,7 +1662,88 @@ exports[`Entry basic should render main 1`] = `
                                 data-testid="evidence-tag-content"
                                 id="30"
                               />
+                               (includesshort alt name1 
+                              <button
+                                aria-controls="31"
+                                aria-expanded="false"
+                                class="svg-colour-unreviewed evidence-tag"
+                                data-testid="evidence-tag-trigger"
+                                type="button"
+                              >
+                                <test-file-stub
+                                  height="12"
+                                  width="12"
+                                />
+                                <span
+                                  class="evidence-tag__label"
+                                >
+                                  1 automatic annotation
+                                </span>
+                              </button>
+                              <div
+                                class="evidence-tag-content "
+                                data-testid="evidence-tag-content"
+                                id="31"
+                              />
                               ) 
+                              <small>
+                                . EC:1.2.3.3 
+                                <button
+                                  aria-controls="32"
+                                  aria-expanded="false"
+                                  class="svg-colour-unreviewed evidence-tag"
+                                  data-testid="evidence-tag-trigger"
+                                  type="button"
+                                >
+                                  <test-file-stub
+                                    height="12"
+                                    width="12"
+                                  />
+                                  <span
+                                    class="evidence-tag__label"
+                                  >
+                                    1 automatic annotation
+                                  </span>
+                                </button>
+                                <div
+                                  class="evidence-tag-content "
+                                  data-testid="evidence-tag-content"
+                                  id="32"
+                                />
+                                 (
+                                <a
+                                  href="/uniprotkb?query=ec:1.2.3.3"
+                                >
+                                  UniProtKB
+                                </a>
+                                 | 
+                                <a
+                                  class="external-link"
+                                  href="https://enzyme.expasy.org/EC/1.2.3.3"
+                                  rel="noopener"
+                                  target="_blank"
+                                >
+                                  ENZYME
+                                  <test-file-stub
+                                    data-testid="external-link-icon"
+                                    width="12.5"
+                                  />
+                                </a>
+                                 | 
+                                <a
+                                  class="external-link"
+                                  href="https://www.rhea-db.org/rhea?query=ec:1.2.3.3"
+                                  rel="noopener"
+                                  target="_blank"
+                                >
+                                  Rhea
+                                  <test-file-stub
+                                    data-testid="external-link-icon"
+                                    width="12.5"
+                                  />
+                                </a>
+                                )
+                              </small>
                             </li>
                           </ul>
                         </div>
@@ -1635,7 +1763,7 @@ exports[`Entry basic should render main 1`] = `
                         >
                           biotech 
                           <button
-                            aria-controls="31"
+                            aria-controls="33"
                             aria-expanded="false"
                             class="svg-colour-unreviewed evidence-tag"
                             data-testid="evidence-tag-trigger"
@@ -1654,7 +1782,7 @@ exports[`Entry basic should render main 1`] = `
                           <div
                             class="evidence-tag-content "
                             data-testid="evidence-tag-content"
-                            id="31"
+                            id="33"
                           />
                         </div>
                       </div>
@@ -1677,7 +1805,7 @@ exports[`Entry basic should render main 1`] = `
                             <li>
                               cd antigen 
                               <button
-                                aria-controls="32"
+                                aria-controls="34"
                                 aria-expanded="false"
                                 class="svg-colour-unreviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
@@ -1696,7 +1824,7 @@ exports[`Entry basic should render main 1`] = `
                               <div
                                 class="evidence-tag-content "
                                 data-testid="evidence-tag-content"
-                                id="32"
+                                id="34"
                               />
                             </li>
                           </ul>
@@ -1721,7 +1849,7 @@ exports[`Entry basic should render main 1`] = `
                             <li>
                               inn antigen 
                               <button
-                                aria-controls="33"
+                                aria-controls="35"
                                 aria-expanded="false"
                                 class="svg-colour-unreviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
@@ -1740,7 +1868,7 @@ exports[`Entry basic should render main 1`] = `
                               <div
                                 class="evidence-tag-content "
                                 data-testid="evidence-tag-content"
-                                id="33"
+                                id="35"
                               />
                             </li>
                           </ul>
@@ -1774,85 +1902,9 @@ exports[`Entry basic should render main 1`] = `
                             >
                               some Gene 
                               <button
-                                aria-controls="34"
-                                aria-expanded="false"
-                                class="svg-colour-unreviewed evidence-tag"
-                                data-testid="evidence-tag-trigger"
-                                type="button"
-                              >
-                                <test-file-stub
-                                  height="12"
-                                  width="12"
-                                />
-                                <span
-                                  class="evidence-tag__label"
-                                >
-                                  1 automatic annotation
-                                </span>
-                              </button>
-                              <div
-                                class="evidence-tag-content "
-                                data-testid="evidence-tag-content"
-                                id="34"
-                              />
-                            </div>
-                          </div>
-                        </li>
-                        <li>
-                          <div
-                            class="decorated-list-item"
-                          >
-                            <div
-                              class="decorated-list-item__title tiny"
-                            >
-                              Synonyms
-                            </div>
-                            <div
-                              class="decorated-list-item__content"
-                            >
-                              some Syn 
-                              <button
-                                aria-controls="35"
-                                aria-expanded="false"
-                                class="svg-colour-unreviewed evidence-tag"
-                                data-testid="evidence-tag-trigger"
-                                type="button"
-                              >
-                                <test-file-stub
-                                  height="12"
-                                  width="12"
-                                />
-                                <span
-                                  class="evidence-tag__label"
-                                >
-                                  1 automatic annotation
-                                </span>
-                              </button>
-                              <div
-                                class="evidence-tag-content "
-                                data-testid="evidence-tag-content"
-                                id="35"
-                              />
-                            </div>
-                          </div>
-                        </li>
-                        <li>
-                          <div
-                            class="decorated-list-item"
-                          >
-                            <div
-                              class="decorated-list-item__title tiny"
-                            >
-                              ORF names
-                            </div>
-                            <div
-                              class="decorated-list-item__content"
-                            >
-                              some orf 
-                              <button
                                 aria-controls="36"
                                 aria-expanded="false"
-                                class="svg-colour-reviewed evidence-tag"
+                                class="svg-colour-unreviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
                                 type="button"
                               >
@@ -1863,7 +1915,7 @@ exports[`Entry basic should render main 1`] = `
                                 <span
                                   class="evidence-tag__label"
                                 >
-                                  1 publication
+                                  1 automatic annotation
                                 </span>
                               </button>
                               <div
@@ -1881,12 +1933,12 @@ exports[`Entry basic should render main 1`] = `
                             <div
                               class="decorated-list-item__title tiny"
                             >
-                              Ordered locus names
+                              Synonyms
                             </div>
                             <div
                               class="decorated-list-item__content"
                             >
-                              some locus 
+                              some Syn 
                               <button
                                 aria-controls="37"
                                 aria-expanded="false"
@@ -1908,6 +1960,82 @@ exports[`Entry basic should render main 1`] = `
                                 class="evidence-tag-content "
                                 data-testid="evidence-tag-content"
                                 id="37"
+                              />
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div
+                            class="decorated-list-item"
+                          >
+                            <div
+                              class="decorated-list-item__title tiny"
+                            >
+                              ORF names
+                            </div>
+                            <div
+                              class="decorated-list-item__content"
+                            >
+                              some orf 
+                              <button
+                                aria-controls="38"
+                                aria-expanded="false"
+                                class="svg-colour-reviewed evidence-tag"
+                                data-testid="evidence-tag-trigger"
+                                type="button"
+                              >
+                                <test-file-stub
+                                  height="12"
+                                  width="12"
+                                />
+                                <span
+                                  class="evidence-tag__label"
+                                >
+                                  1 publication
+                                </span>
+                              </button>
+                              <div
+                                class="evidence-tag-content "
+                                data-testid="evidence-tag-content"
+                                id="38"
+                              />
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div
+                            class="decorated-list-item"
+                          >
+                            <div
+                              class="decorated-list-item__title tiny"
+                            >
+                              Ordered locus names
+                            </div>
+                            <div
+                              class="decorated-list-item__content"
+                            >
+                              some locus 
+                              <button
+                                aria-controls="39"
+                                aria-expanded="false"
+                                class="svg-colour-unreviewed evidence-tag"
+                                data-testid="evidence-tag-trigger"
+                                type="button"
+                              >
+                                <test-file-stub
+                                  height="12"
+                                  width="12"
+                                />
+                                <span
+                                  class="evidence-tag__label"
+                                >
+                                  1 automatic annotation
+                                </span>
+                              </button>
+                              <div
+                                class="evidence-tag-content "
+                                data-testid="evidence-tag-content"
+                                id="39"
                               />
                             </div>
                           </div>
@@ -1942,7 +2070,7 @@ exports[`Entry basic should render main 1`] = `
                             scientific name (common name) (synonyms 1)
                           </a>
                           <button
-                            aria-controls="38"
+                            aria-controls="40"
                             aria-expanded="false"
                             class="svg-colour-unreviewed evidence-tag"
                             data-testid="evidence-tag-trigger"
@@ -1961,7 +2089,7 @@ exports[`Entry basic should render main 1`] = `
                           <div
                             class="evidence-tag-content "
                             data-testid="evidence-tag-content"
-                            id="38"
+                            id="40"
                           />
                         </div>
                       </div>
@@ -2127,7 +2255,7 @@ exports[`Entry basic should render main 1`] = `
                       role="tablist"
                     >
                       <div
-                        aria-controls="39"
+                        aria-controls="41"
                         class="tabs__header__item tabs__header__item--active"
                         data-target="0"
                         data-testid="tab-title"
@@ -2137,7 +2265,7 @@ exports[`Entry basic should render main 1`] = `
                         UniProt Annotation
                       </div>
                       <div
-                        aria-controls="39"
+                        aria-controls="41"
                         class="tabs__header__item"
                         data-target="1"
                         data-testid="tab-title"
@@ -2149,7 +2277,7 @@ exports[`Entry basic should render main 1`] = `
                     </div>
                     <div
                       data-testid="tab-content"
-                      id="39"
+                      id="41"
                       role="tabpanel"
                     >
                       <div
@@ -2161,7 +2289,7 @@ exports[`Entry basic should render main 1`] = `
                         <div
                           id="fakeContent"
                         />
-                        <sib-swissbiopics-sl-uniprot-50
+                        <sib-swissbiopics-sl-uniprot-52
                           contentid="fakeContent"
                           sls=""
                           taxid="9606"
@@ -2188,56 +2316,6 @@ exports[`Entry basic should render main 1`] = `
                               </strong>
                                
                               <button
-                                aria-controls="51"
-                                aria-expanded="false"
-                                class="svg-colour-unreviewed evidence-tag"
-                                data-testid="evidence-tag-trigger"
-                                type="button"
-                              >
-                                <test-file-stub
-                                  height="12"
-                                  width="12"
-                                />
-                                <span
-                                  class="evidence-tag__label"
-                                >
-                                  1 automatic annotation
-                                </span>
-                              </button>
-                              <div
-                                class="evidence-tag-content "
-                                data-testid="evidence-tag-content"
-                                id="51"
-                              />
-                              ; topology value 
-                              <button
-                                aria-controls="52"
-                                aria-expanded="false"
-                                class="svg-colour-unreviewed evidence-tag"
-                                data-testid="evidence-tag-trigger"
-                                type="button"
-                              >
-                                <test-file-stub
-                                  height="12"
-                                  width="12"
-                                />
-                                <span
-                                  class="evidence-tag__label"
-                                >
-                                  1 automatic annotation
-                                </span>
-                              </button>
-                              <div
-                                class="evidence-tag-content "
-                                data-testid="evidence-tag-content"
-                                id="52"
-                              />
-                            </div>
-                            <div
-                              class="text-block"
-                            >
-                              value.
-                              <button
                                 aria-controls="53"
                                 aria-expanded="false"
                                 class="svg-colour-unreviewed evidence-tag"
@@ -2259,9 +2337,59 @@ exports[`Entry basic should render main 1`] = `
                                 data-testid="evidence-tag-content"
                                 id="53"
                               />
+                              ; topology value 
+                              <button
+                                aria-controls="54"
+                                aria-expanded="false"
+                                class="svg-colour-unreviewed evidence-tag"
+                                data-testid="evidence-tag-trigger"
+                                type="button"
+                              >
+                                <test-file-stub
+                                  height="12"
+                                  width="12"
+                                />
+                                <span
+                                  class="evidence-tag__label"
+                                >
+                                  1 automatic annotation
+                                </span>
+                              </button>
+                              <div
+                                class="evidence-tag-content "
+                                data-testid="evidence-tag-content"
+                                id="54"
+                              />
+                            </div>
+                            <div
+                              class="text-block"
+                            >
+                              value.
+                              <button
+                                aria-controls="55"
+                                aria-expanded="false"
+                                class="svg-colour-unreviewed evidence-tag"
+                                data-testid="evidence-tag-trigger"
+                                type="button"
+                              >
+                                <test-file-stub
+                                  height="12"
+                                  width="12"
+                                />
+                                <span
+                                  class="evidence-tag__label"
+                                >
+                                  1 automatic annotation
+                                </span>
+                              </button>
+                              <div
+                                class="evidence-tag-content "
+                                data-testid="evidence-tag-content"
+                                id="55"
+                              />
                             </div>
                           </section>
-                        </sib-swissbiopics-sl-uniprot-50>
+                        </sib-swissbiopics-sl-uniprot-52>
                       </div>
                       <div
                         style="display: none;"
@@ -2307,7 +2435,7 @@ exports[`Entry basic should render main 1`] = `
                     class="text-block"
                   >
                     <button
-                      aria-controls="40"
+                      aria-controls="42"
                       aria-expanded="false"
                       class="svg-colour-unreviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -2326,7 +2454,7 @@ exports[`Entry basic should render main 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="40"
+                      id="42"
                     />
                   </span>
                   <ul
@@ -2350,7 +2478,7 @@ exports[`Entry basic should render main 1`] = `
                             <li>
                               value2
                               <button
-                                aria-controls="41"
+                                aria-controls="43"
                                 aria-expanded="false"
                                 class="svg-colour-unreviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
@@ -2369,7 +2497,7 @@ exports[`Entry basic should render main 1`] = `
                               <div
                                 class="evidence-tag-content "
                                 data-testid="evidence-tag-content"
-                                id="41"
+                                id="43"
                               />
                             </li>
                           </ul>
@@ -2440,7 +2568,7 @@ exports[`Entry basic should render main 1`] = `
                   >
                     value.
                     <button
-                      aria-controls="42"
+                      aria-controls="44"
                       aria-expanded="false"
                       class="svg-colour-unreviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -2459,7 +2587,7 @@ exports[`Entry basic should render main 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="42"
+                      id="44"
                     />
                   </div>
                   <h4
@@ -2476,7 +2604,7 @@ exports[`Entry basic should render main 1`] = `
                   >
                     value.
                     <button
-                      aria-controls="43"
+                      aria-controls="45"
                       aria-expanded="false"
                       class="svg-colour-unreviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -2495,7 +2623,7 @@ exports[`Entry basic should render main 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="43"
+                      id="45"
                     />
                   </div>
                 </div>
@@ -2622,7 +2750,7 @@ exports[`Entry basic should render main 1`] = `
                             <td>
                               description value 123
                               <button
-                                aria-controls="44"
+                                aria-controls="46"
                                 aria-expanded="false"
                                 class="svg-colour-reviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
@@ -2641,7 +2769,7 @@ exports[`Entry basic should render main 1`] = `
                               <div
                                 class="evidence-tag-content "
                                 data-testid="evidence-tag-content"
-                                id="44"
+                                id="46"
                               />
                             </td>
                             <td>
@@ -2663,7 +2791,7 @@ exports[`Entry basic should render main 1`] = `
                               <strong>
                                 Sequence: 
                               </strong>
-                              APSQDFM
+                              original value → alternative value
                             </td>
                           </tr>
                         </tbody>
@@ -2738,48 +2866,6 @@ exports[`Entry basic should render main 1`] = `
                           </td>
                           <td
                             data-filter="entry_1"
-                            data-filter-value="P21802"
-                          >
-                            <a
-                              href="/uniprotkb/P21802"
-                            >
-                              gen PROC_12344 P21802
-                            </a>
-                          </td>
-                          <td>
-                            <a
-                              href="/uniprotkb/P12345#sequence"
-                            >
-                              gene1 PROC_12347 P12345-1
-                            </a>
-                          </td>
-                          <td>
-                            3
-                          </td>
-                          <td>
-                            <a
-                              class="external-link"
-                              href="//www.ebi.ac.uk/intact/query/(EBI-0001 AND EBI-0002)"
-                              rel="noopener"
-                              target="_blank"
-                            >
-                              EBI-0001, EBI-0002
-                              <test-file-stub
-                                data-testid="external-link-icon"
-                                width="12.5"
-                              />
-                            </a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td
-                            data-filter="type"
-                            data-filter-value="XENO"
-                          >
-                            XENO
-                          </td>
-                          <td
-                            data-filter="entry_1"
                             data-filter-value="P12345"
                           >
                             <a
@@ -2806,6 +2892,48 @@ exports[`Entry basic should render main 1`] = `
                               target="_blank"
                             >
                               EBI-00011, EBI-00012
+                              <test-file-stub
+                                data-testid="external-link-icon"
+                                width="12.5"
+                              />
+                            </a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            data-filter="type"
+                            data-filter-value="XENO"
+                          >
+                            XENO
+                          </td>
+                          <td
+                            data-filter="entry_1"
+                            data-filter-value="P21802"
+                          >
+                            <a
+                              href="/uniprotkb/P21802"
+                            >
+                              gen PROC_12344 P21802
+                            </a>
+                          </td>
+                          <td>
+                            <a
+                              href="/uniprotkb/P12345#sequence"
+                            >
+                              gene1 PROC_12347 P12345-1
+                            </a>
+                          </td>
+                          <td>
+                            3
+                          </td>
+                          <td>
+                            <a
+                              class="external-link"
+                              href="//www.ebi.ac.uk/intact/query/(EBI-0001 AND EBI-0002)"
+                              rel="noopener"
+                              target="_blank"
+                            >
+                              EBI-0001, EBI-0002
                               <test-file-stub
                                 data-testid="external-link-icon"
                                 width="12.5"
@@ -2976,7 +3104,7 @@ exports[`Entry basic should render main 1`] = `
                                  #keyword value
                               </a>
                               <button
-                                aria-controls="45"
+                                aria-controls="47"
                                 aria-expanded="false"
                                 class="svg-colour-unreviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
@@ -2995,7 +3123,7 @@ exports[`Entry basic should render main 1`] = `
                               <div
                                 class="evidence-tag-content "
                                 data-testid="evidence-tag-content"
-                                id="45"
+                                id="47"
                               />
                             </li>
                           </ul>
@@ -3280,7 +3408,7 @@ exports[`Entry basic should render main 1`] = `
                     </a>
                      differs from that shown. Reason: Erroneous gene model prediction Text note
                     <button
-                      aria-controls="46"
+                      aria-controls="48"
                       aria-expanded="false"
                       class="svg-colour-unreviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -3299,7 +3427,7 @@ exports[`Entry basic should render main 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="46"
+                      id="48"
                     />
                   </section>
                   <h3
@@ -3315,7 +3443,7 @@ exports[`Entry basic should render main 1`] = `
                     </h4>
                     Molecular mass is 2.1 Da. Determined by LSI. note value
                     <button
-                      aria-controls="47"
+                      aria-controls="49"
                       aria-expanded="false"
                       class="svg-colour-unreviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -3334,7 +3462,7 @@ exports[`Entry basic should render main 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="47"
+                      id="49"
                     />
                   </section>
                   <h3
@@ -3350,7 +3478,7 @@ exports[`Entry basic should render main 1`] = `
                       <span>
                         1 
                         <button
-                          aria-controls="48"
+                          aria-controls="50"
                           aria-expanded="false"
                           class="svg-colour-unreviewed evidence-tag"
                           data-testid="evidence-tag-trigger"
@@ -3369,7 +3497,7 @@ exports[`Entry basic should render main 1`] = `
                         <div
                           class="evidence-tag-content "
                           data-testid="evidence-tag-content"
-                          id="48"
+                          id="50"
                         />
                       </span>
                     </div>
@@ -3377,7 +3505,7 @@ exports[`Entry basic should render main 1`] = `
                       <span>
                         value 
                         <button
-                          aria-controls="49"
+                          aria-controls="51"
                           aria-expanded="false"
                           class="svg-colour-unreviewed evidence-tag"
                           data-testid="evidence-tag-trigger"
@@ -3396,7 +3524,7 @@ exports[`Entry basic should render main 1`] = `
                         <div
                           class="evidence-tag-content "
                           data-testid="evidence-tag-content"
-                          id="49"
+                          id="51"
                         />
                       </span>
                     </div>

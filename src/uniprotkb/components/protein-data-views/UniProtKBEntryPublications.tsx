@@ -14,7 +14,7 @@ import './styles/inline-publication.scss';
 const UniProtKBEntryPublications = ({ pubmedIds }: { pubmedIds: string[] }) => {
   const url = getAPIQueryUrl({
     namespace: Namespace.citations,
-    query: pubmedIds.join(' OR '),
+    query: Array.from(pubmedIds).sort().join(' OR '),
   });
   const { loading, data, status, error } = useDataApi<{
     results: CitationsAPIModel[];

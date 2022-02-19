@@ -56,12 +56,12 @@ DatabaseColumnConfiguration.set(DatabaseColumn.category, {
     category && (
       <Link
         to={({ search }) => {
-          const parsed = getParamsFromURL(search);
+          const [params] = getParamsFromURL(search);
           return getLocationObjForParams({
             pathname: LocationToPath[Location.DatabaseResults],
-            ...parsed,
+            ...params,
             selectedFacets: [
-              ...parsed.selectedFacets.filter(
+              ...params.selectedFacets.filter(
                 ({ name }) => name !== 'category_exact'
               ),
               { name: 'category_exact', value: category },

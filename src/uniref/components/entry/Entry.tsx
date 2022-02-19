@@ -1,5 +1,3 @@
-import { FC } from 'react';
-import { useDispatch } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
 import { Loader } from 'franklin-sites';
 
@@ -17,15 +15,16 @@ import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
+import useDataApi from '../../../shared/hooks/useDataApi';
+import { useMessagesReducer } from '../../../shared/hooks/useGlobalReducer';
+
 import { addMessage } from '../../../messages/state/messagesActions';
 
-import { LocationToPath, Location } from '../../../app/config/urls';
 import apiUrls from '../../../shared/config/apiUrls';
 
-import useDataApi from '../../../shared/hooks/useDataApi';
-
+import { LocationToPath, Location } from '../../../app/config/urls';
 import uniRefConverter, {
-  UniRefAPIModel,
+  UniRefLiteAPIModel,
 } from '../../adapters/uniRefConverter';
 import {
   MessageLevel,
@@ -40,17 +39,17 @@ import {
 
 import '../../../shared/components/entry/styles/entry-page.scss';
 
-const Entry: FC = () => {
-  const dispatch = useDispatch();
+const Entry = () => {
+  const [, dispatch] = useMessagesReducer();
   const match = useRouteMatch<{ accession: string }>(
     LocationToPath[Location.UniRefEntry]
   );
 
   const accession = match?.params.accession;
 
-  const baseURL = apiUrls.entry(accession, Namespace.uniref);
+  const baseURL = `${apiUrls.entry(accession, Namespace.uniref)}/light`;
   const { loading, data, status, error, redirectedTo, progress } =
-    useDataApi<UniRefAPIModel>(baseURL);
+    useDataApi<UniRefLiteAPIModel>(baseURL);
 
   if (error || !accession) {
     return <ErrorHandler status={status} />;

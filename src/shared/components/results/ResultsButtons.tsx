@@ -1,10 +1,15 @@
-import { FC, useState, Suspense, Dispatch, SetStateAction } from 'react';
-import cn from 'classnames';
+import {
+  FC,
+  useState,
+  Suspense,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+} from 'react';
+import { useHistory } from 'react-router-dom';
 import {
   DownloadIcon,
   // StatisticsIcon,
-  TableIcon,
-  ListIcon,
   Button,
   SlidingPanel,
 } from 'franklin-sites';
@@ -14,16 +19,27 @@ import AlignButton from '../action-buttons/Align';
 import MapIDButton from '../action-buttons/MapID';
 import AddToBasketButton from '../action-buttons/AddToBasket';
 import CustomiseButton from '../action-buttons/CustomiseButton';
+import ShareDropdown from '../action-buttons/ShareDropdown';
 import ItemCount from '../ItemCount';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 
-import useLocalStorage from '../../hooks/useLocalStorage';
 import useNS from '../../hooks/useNS';
+import useViewMode from '../../hooks/useViewMode';
+import useColumnNames from '../../hooks/useColumnNames';
+import { useMessagesReducer } from '../../hooks/useGlobalReducer';
 
+import { addMessage } from '../../../messages/state/messagesActions';
 import lazy from '../../utils/lazy';
+import {
+  getParamsFromURL,
+  InvalidParamValue,
+} from '../../../uniprotkb/utils/resultsUtils';
 
 import { Namespace, mainNamespaces } from '../../types/namespaces';
-import { ViewMode } from './ResultsData';
+import {
+  MessageFormat,
+  MessageLevel,
+} from '../../../messages/types/messagesTypes';
 
 import './styles/results-buttons.scss';
 
@@ -59,10 +75,74 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
-  const [viewMode, setViewMode] = useLocalStorage<ViewMode>(
-    'view-mode',
-    ViewMode.CARD
-  );
+  const {
+    viewMode,
+    setViewMode,
+    invalidUrlViewMode,
+    fromUrl: viewModeIsFromUrl,
+  } = useViewMode(namespaceOverride, disableCardToggle);
+  const { invalidUrlColumnNames, fromUrl: columnNamesAreFromUrl } =
+    useColumnNames(namespaceOverride);
+  const history = useHistory();
+  const [, dispatch] = useMessagesReducer();
+
+  const sharedUrlMode = viewModeIsFromUrl || columnNamesAreFromUrl;
+
+  useEffect(() => {
+    const invalidParamValues = [
+      invalidUrlViewMode,
+      invalidUrlColumnNames,
+    ].filter(Boolean) as InvalidParamValue[];
+    const [, unknownParams] = getParamsFromURL(history.location.search);
+    if (invalidParamValues.length || unknownParams.length) {
+      const content = (
+        <>
+          {invalidParamValues.length > 0 && (
+            <>
+              Ignoring invalid URL values:
+              <ul>
+                {invalidParamValues.map(({ parameter, value }) => (
+                  <li key={parameter}>
+                    <b>{parameter}</b>
+                    {`: ${value}`}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+          {unknownParams.length > 0 && (
+            <>
+              Ignoring invalid URL parameters:
+              <ul>
+                {unknownParams.map((unknownParam) => (
+                  <li key={unknownParam}>
+                    <b>{unknownParam}</b>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </>
+      );
+      dispatch(
+        addMessage({
+          id: 'invalid url params',
+          content,
+          format: MessageFormat.POP_UP,
+          level: MessageLevel.WARNING,
+          displayTime: 15_000,
+        })
+      );
+    }
+  }, [
+    dispatch,
+    history.location.search,
+    invalidUrlColumnNames,
+    invalidUrlViewMode,
+  ]);
+
+  const handleToggleView = () =>
+    setViewMode(viewMode === 'card' ? 'table' : 'card');
 
   const isMain = mainNamespaces.has(namespace);
 
@@ -125,36 +205,43 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
             Statistics
           </Button>
         )} */}
-        <Button
-          variant="tertiary"
-          className="large-icon"
-          onClick={() =>
-            setViewMode(
-              viewMode === ViewMode.CARD ? ViewMode.TABLE : ViewMode.CARD
-            )
-          }
-          data-testid="table-card-toggle"
-          title={`Switch to "${
-            viewMode === ViewMode.CARD ? 'table' : 'card'
-          }" view`}
-          disabled={disableCardToggle}
-        >
-          <TableIcon
-            className={cn('results-buttons__toggle', {
-              'results-buttons__toggle--active': viewMode === ViewMode.TABLE,
-            })}
-          />
-          <ListIcon
-            className={cn('results-buttons__toggle', {
-              'results-buttons__toggle--active': viewMode === ViewMode.CARD,
-            })}
-          />
-        </Button>
+        {/* TODO: check if we want to add that to franklin, eventually... */}
+        <span role="radiogroup">
+          View:
+          <label>
+            Table{' '}
+            <input
+              type="radio"
+              name="view"
+              checked={viewMode === 'table'}
+              onChange={handleToggleView}
+              disabled={disableCardToggle}
+            />
+          </label>
+          <label>
+            Card{' '}
+            <input
+              type="radio"
+              name="view"
+              checked={viewMode === 'card'}
+              onChange={handleToggleView}
+              disabled={disableCardToggle}
+            />
+          </label>
+        </span>
         {!notCustomisable &&
+          !sharedUrlMode &&
           // Exception for ID mapping results!
-          (viewMode === ViewMode.TABLE || disableCardToggle) && (
+          (viewMode === 'table' || disableCardToggle) && (
             <CustomiseButton namespace={namespace} />
           )}
+        {!notCustomisable && (
+          <ShareDropdown
+            setDisplayDownloadPanel={setDisplayDownloadPanel}
+            namespaceOverride={namespaceOverride}
+            disableCardToggle={disableCardToggle}
+          />
+        )}
         <ItemCount selected={selectedEntries.length} loaded={loadedTotal} />
       </div>
     </>

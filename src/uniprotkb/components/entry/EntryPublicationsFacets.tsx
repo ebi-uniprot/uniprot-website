@@ -17,7 +17,7 @@ import helper from '../../../shared/styles/helper.module.scss';
 const EntryPublicationsFacets: FC<{ accession: string }> = ({ accession }) => {
   const { search } = useLocation();
 
-  const { selectedFacets } = getParamsFromURL(search);
+  const [{ selectedFacets }] = getParamsFromURL(search);
   const url = getUniProtPublicationsQueryUrl({
     accession,
     facets: ['types', 'categories', 'is_large_scale'],

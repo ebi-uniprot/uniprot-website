@@ -72,19 +72,26 @@ exports[`PeptideSearchResult should render with the correct number of results in
           <test-file-stub />
           Add
         </button>
-        <button
-          class="button tertiary large-icon"
-          data-testid="table-card-toggle"
-          title="Switch to \\"table\\" view"
-          type="button"
+        <span
+          role="radiogroup"
         >
-          <test-file-stub
-            classname="results-buttons__toggle"
-          />
-          <test-file-stub
-            classname="results-buttons__toggle results-buttons__toggle--active"
-          />
-        </button>
+          View:
+          <label>
+            Table 
+            <input
+              name="view"
+              type="radio"
+            />
+          </label>
+          <label>
+            Card 
+            <input
+              checked=""
+              name="view"
+              type="radio"
+            />
+          </label>
+        </span>
       </div>
       <div
         class="results-data"
@@ -505,19 +512,26 @@ exports[`PeptideSearchResult should render with the correct number of results in
           <test-file-stub />
           Add
         </button>
-        <button
-          class="button tertiary large-icon"
-          data-testid="table-card-toggle"
-          title="Switch to \\"table\\" view"
-          type="button"
+        <span
+          role="radiogroup"
         >
-          <test-file-stub
-            classname="results-buttons__toggle"
-          />
-          <test-file-stub
-            classname="results-buttons__toggle results-buttons__toggle--active"
-          />
-        </button>
+          View:
+          <label>
+            Table 
+            <input
+              name="view"
+              type="radio"
+            />
+          </label>
+          <label>
+            Card 
+            <input
+              checked=""
+              name="view"
+              type="radio"
+            />
+          </label>
+        </span>
       </div>
       <div
         class="results-data"

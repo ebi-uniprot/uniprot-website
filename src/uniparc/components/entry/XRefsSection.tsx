@@ -1,4 +1,4 @@
-import { FC, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Card, DataTableWithLoader, Loader } from 'franklin-sites';
 
 import CustomiseButton from '../../../shared/components/action-buttons/CustomiseButton';
@@ -48,8 +48,10 @@ type Props = {
   xrefData: UseDataAPIWithStaleState<UniParcAPIModel>;
 };
 
-const XRefsSection: FC<Props> = ({ xrefData }) => {
-  const { data: dataDB } = useDataApi<DataDBModel>(apiUrls.allUniParcDatabases);
+const XRefsSection = ({ xrefData }: Props) => {
+  const { data: dataDB } = useDataApi<DataDBModel>(
+    apiUrls.allDatabases(Namespace.uniparc)
+  );
   const [columns] = useLocalStorage(
     `table columns for ${Namespace.uniparc} entry page` as const,
     defaultColumns

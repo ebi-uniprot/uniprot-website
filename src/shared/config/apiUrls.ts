@@ -85,12 +85,9 @@ const apiUrls = {
     // "itemType": "goterm",
     go: joinUrl(apiPrefix, '/configure/uniprotkb/go_evidences'),
   },
-  // Database cross references used in the UniParc entry page
-  allUniParcDatabases: joinUrl(apiPrefix, '/configure/uniparc/allDatabases'),
-  allUniProtKBDatabases: joinUrl(
-    apiPrefix,
-    '/configure/uniprotkb/allDatabases'
-  ),
+  // Database cross references used
+  allDatabases: (namespace: Namespace) =>
+    joinUrl(apiPrefix, 'configure', namespace, 'allDatabases'),
   // Database cross references used by query builder
   databaseXrefs: joinUrl(apiPrefix, '/configure/uniprotkb/databases'),
   // All result fields except supporting data reference fields
@@ -131,10 +128,6 @@ const apiUrls = {
   taxonomySuggester: 'suggester?dict=taxonomy&query=?',
   organismSuggester: 'suggester?dict=organism&query=?',
 
-  // TODO: move that to UniParc-specific file?
-  uniparc: {
-    entry: (id?: string) => id && joinUrl(apiPrefix, '/uniparc', id),
-  },
   contact: {
     token: joinUrl(apiPrefix, 'contact', 'token'),
     send: joinUrl(apiPrefix, 'contact', 'send'),
@@ -379,21 +372,21 @@ export const getDownloadUrl = ({
     accessionKey = 'upis';
   }
 
-  let endpoint;
+  let endpoint = apiUrls.download(namespace);
   if (accessions) {
     endpoint = joinUrl(apiPrefix, `/${namespace}/${accessionKey}`);
   } else if (base) {
     endpoint = joinUrl(apiPrefix, base);
   } else if (size) {
     endpoint = apiUrls.search(namespace);
-  } else {
-    endpoint = apiUrls.download(namespace);
   }
 
+  // fallback to json if something goes wrong
   const parameters: Parameters = {
     format: fileFormatToUrlParameter[fileFormat] || FileFormat.json,
     download: true,
   };
+
   if (accessions) {
     parameters[accessionKey] = Array.from(
       selected.length ? selected : accessions
@@ -410,25 +403,30 @@ export const getDownloadUrl = ({
           .filter(Boolean)
           .join(' AND ');
   }
-  // fallback to json if something goes wrong
-  const isColumnFileFormat = fileFormatsWithColumns.includes(fileFormat);
-  if (isColumnFileFormat && sortColumn) {
-    parameters.sort = `${sortColumn} ${getApiSortDirection(
-      SortDirection[sortDirection]
-    )}`;
+
+  if (fileFormatsWithColumns.has(fileFormat)) {
+    if (sortColumn) {
+      parameters.sort = `${sortColumn} ${getApiSortDirection(
+        SortDirection[sortDirection]
+      )}`;
+    }
+    if (columns) {
+      parameters.fields = columns.join(',');
+    }
   }
+
   if (fileFormat === FileFormat.fastaCanonicalIsoform) {
     parameters.includeIsoform = true;
   }
-  if (isColumnFileFormat && columns) {
-    parameters.fields = columns.join(',');
-  }
+
   if (size && !selected.length) {
     parameters.size = size;
   }
+
   if (compressed) {
     parameters.compressed = true;
   }
+
   return `${endpoint}?${queryString.stringify(parameters)}`;
 };
 
@@ -440,6 +438,7 @@ export const getClustersForProteins = (accessions: string[]) =>
     apiPrefix,
     `/uniref/search?query=(${accessions
       .map((accession) => `uniprot_id:${accession}`)
+      .sort()
       .join(' OR ')})`
   );
 

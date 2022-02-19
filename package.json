@@ -38,8 +38,8 @@
       "global": {
         "lines": 82.14,
         "statements": 81.92,
-        "functions": 82.28,
-        "branches": 69.6
+        "functions": 82.08,
+        "branches": 69.55
       }
     },
     "transform": {
@@ -109,7 +109,7 @@
     "core-js": "3.20.2",
     "d3": "5.16.0",
     "deep-freeze": "0.0.1",
-    "franklin-sites": "0.0.184",
+    "franklin-sites": "0.0.185",
     "front-matter": "4.0.2",
     "history": "4.10.1",
     "idb": "7.0.0",
