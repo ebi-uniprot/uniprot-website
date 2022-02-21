@@ -1,6 +1,7 @@
 import { generatePath } from 'react-router-dom';
 import { partial } from 'lodash-es';
 
+import { Job, FinishedJob } from '../../tools/types/toolsJob';
 import { JobTypes } from '../../tools/types/toolsJobTypes';
 import {
   Namespace,
@@ -10,6 +11,7 @@ import {
   supportingDataAndAANamespaces,
 } from '../../shared/types/namespaces';
 import EntrySection from '../../uniprotkb/types/entrySection';
+import { FormParameters } from '../../tools/id-mapping/types/idMappingFormParameters';
 
 export const IDMappingNamespaces = [
   Namespace.uniprotkb,
@@ -110,7 +112,7 @@ export const LocationToPath: Record<Location, string> = {
   [Location.Blast]: '/blast',
   [Location.PeptideSearchResult]: '/peptide-search/:id/:subPage?',
   [Location.PeptideSearch]: '/peptide-search',
-  [Location.IDMappingResult]: '/id-mapping/:id',
+  [Location.IDMappingResult]: '/id-mapping/:namespace?/:id',
   [Location.IDMapping]: '/id-mapping',
   // Help
   [Location.HelpEntry]: '/help/:accession',
@@ -208,17 +210,30 @@ export const getLocationEntryPath = (location: Location, accession: string) =>
 export const getLocationEntryPathFor = (location: Location) =>
   partial(getLocationEntryPath, location);
 
+// TODO make 'result' obsolete
 // eslint-disable-next-line consistent-return
-export const jobTypeToPath = (type: JobTypes, result?: boolean) => {
+export const jobTypeToPath = (type: JobTypes, result?: boolean, job?: Job) => {
   switch (type) {
     case JobTypes.ALIGN:
       return LocationToPath[result ? Location.AlignResult : Location.Align];
     case JobTypes.BLAST:
       return LocationToPath[result ? Location.BlastResult : Location.Blast];
     case JobTypes.ID_MAPPING:
-      return LocationToPath[
-        result ? Location.IDMappingResult : Location.IDMapping
-      ];
+      if (!result || !job) {
+        return LocationToPath[Location.IDMapping];
+      }
+      // eslint-disable-next-line no-case-declarations
+      const idMappingNamespace =
+        Namespace[
+          (
+            job?.parameters as FormParameters
+          )?.to.toLowerCase() as keyof typeof Namespace
+        ];
+      // return mainNamespaces.has(idMappingNamespace) ?
+      return generatePath(LocationToPath[Location.IDMappingResult], {
+        namespace: idMappingNamespace,
+        id: (job as FinishedJob<JobTypes.ID_MAPPING>).remoteID,
+      });
     case JobTypes.PEPTIDE_SEARCH:
       return LocationToPath[
         result ? Location.PeptideSearchResult : Location.PeptideSearch

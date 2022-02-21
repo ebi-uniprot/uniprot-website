@@ -44,9 +44,10 @@ const urls = toolsURLs(jobType);
 const title = `${namespaceAndToolsLabels[jobType]} results`;
 
 const IDMappingResult = () => {
-  const match = useRouteMatch<{ id: string }>(
+  const match = useRouteMatch<{ id: string; namespace?: string }>(
     LocationToPath[Location.IDMappingResult]
   );
+  console.log(match?.params.namespace);
   const location = useLocation();
   const databaseInfoMaps = useDatabaseInfoMaps();
   const { search: queryParamFromUrl } = location;
