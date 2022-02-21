@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { renderHook } from '@testing-library/react-hooks';
 
 import { modifyFormData, useFormLogic } from '../contactFormAdapter';
@@ -50,8 +49,7 @@ describe('useContactForm custom hook', () => {
   });
 
   it('should run and return correct values', () => {
-    const wrapper: FC = ({ children }) => <>{children}</>;
-    const { result } = renderHook(() => useFormLogic(), { wrapper });
+    const { result } = renderHook(() => useFormLogic());
     expect(result.current.sending).toBe(false);
     expect(result.current.handleSubmit).toBeInstanceOf(Function);
     // No network call
