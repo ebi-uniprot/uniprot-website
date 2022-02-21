@@ -111,6 +111,7 @@ import { Interactant } from '../adapters/interactionConverter';
 import { ValueWithEvidence } from '../types/modelTypes';
 
 import helper from '../../shared/styles/helper.module.scss';
+import { matchColumnConfig } from '../../tools/peptide-search/config/PeptideSearchColumnConfiguration';
 
 export const defaultColumns = [
   UniProtKBColumn.accession,
@@ -1430,5 +1431,7 @@ Object.values(UniProtKBColumn)
   });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.from, fromColumnConfig);
+
+UniProtKBColumnConfiguration.set(UniProtKBColumn.match, matchColumnConfig);
 
 export default UniProtKBColumnConfiguration;

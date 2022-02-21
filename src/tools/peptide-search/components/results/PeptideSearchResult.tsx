@@ -155,7 +155,6 @@ const PeptideSearchResult = () => {
   ) {
     return <Loader progress={resultsDataProgress} />;
   }
-
   return (
     <SideBarLayout sidebar={<ResultsFacets dataApiObject={facetApiObject} />}>
       <HTMLHead title={title} />
@@ -178,7 +177,7 @@ const PeptideSearchResult = () => {
         resultsDataObject={sortedResultsDataObject}
         setSelectedItemFromEvent={setSelectedItemFromEvent}
         setSelectedEntries={setSelectedEntries}
-        getSequence
+        displayPeptideSearchMatchColumns
       />
     </SideBarLayout>
   );

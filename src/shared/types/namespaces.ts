@@ -13,7 +13,9 @@ export enum Namespace {
   diseases = 'diseases',
   database = 'database',
   locations = 'locations',
+  // Tools
   idmapping = 'id-mapping',
+  peptideSearch = 'peptide-search',
   // Annotations
   unirule = 'unirule',
   arba = 'arba',

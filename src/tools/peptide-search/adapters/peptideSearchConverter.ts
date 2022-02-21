@@ -1,11 +1,12 @@
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { FinishedJob } from '../../types/toolsJob';
 import { JobTypes } from '../../types/toolsJobTypes';
+import { PeptideSearchMatch } from '../config/PeptideSearchColumnConfiguration';
 
-export const getQueryMatches = (
+export const getMatches = (
   entrySequence: string,
   matchSequences: string[]
-) =>
+): PeptideSearchMatch['match'] =>
   matchSequences
     .map((matchSequence) => ({
       matchSequence,
@@ -27,10 +28,10 @@ const peptideSearchConverter = (
   return results.map((result) => {
     const sequence = 'sequence' in result && result.sequence.value;
     if (sequence) {
-      getQueryMatches(sequence, querySequences).map(
-        ({ matchSequence, position }) =>
-          `Match to ${matchSequence} at ${position}`
-      );
+      return {
+        ...result,
+        peptideSearchMatches: getMatches(sequence, querySequences),
+      };
     }
     return result;
   });

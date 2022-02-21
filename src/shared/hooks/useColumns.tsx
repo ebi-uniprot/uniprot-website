@@ -184,7 +184,7 @@ const useColumns = (
   basketSetter?: Dispatch<SetStateAction<Basket>>,
   columnsOverride?: ColumnDescriptor[],
   setSelectedEntries?: Dispatch<SetStateAction<string[]>>,
-  getSequence?: boolean
+  displayPeptideSearchMatchColumns?: boolean
 ): [ColumnDescriptor[] | undefined, ((columnName: string) => void) | null] => {
   const history = useHistory();
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
@@ -192,10 +192,10 @@ const useColumns = (
   const { columnNames } = useColumnNames(
     namespaceOverride,
     displayIdMappingColumns,
-    getSequence
+    undefined,
+    displayPeptideSearchMatchColumns
   );
   const databaseInfoMaps = useDatabaseInfoMaps();
-
   const { search: queryParamFromUrl } = location;
   const [{ query, selectedFacets, sortColumn, sortDirection }] =
     getParamsFromURL(queryParamFromUrl);

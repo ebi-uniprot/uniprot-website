@@ -13,11 +13,13 @@ import { Namespace } from '../types/namespaces';
 import { IDMappingColumn } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 import { InvalidParamValue } from '../../uniprotkb/utils/resultsUtils';
 import { UniProtKBColumn } from '../../uniprotkb/types/columnTypes';
+import { PeptideSearchColumn } from '../../tools/peptide-search/config/PeptideSearchColumnConfiguration';
 
 const useColumnNames = (
   namespaceOverride?: Namespace | undefined,
   displayIdMappingColumns?: boolean,
-  getSequence?: boolean
+  getSequence?: boolean,
+  displayPeptideSearchMatchColumns?: boolean
 ): {
   columnNames: Column[];
   setColumnNames: Dispatch<SetStateAction<Column[]>>;
@@ -52,6 +54,16 @@ const useColumnNames = (
   }
   if (displayIdMappingColumns && ns !== Namespace.idmapping) {
     columnNames = [IDMappingColumn.from, ...columnNames];
+  }
+
+  if (displayPeptideSearchMatchColumns && ns === Namespace.uniprotkb) {
+    // Make this the second column, right after the accession
+    const accessionIndex = columnNames.indexOf(UniProtKBColumn.accession);
+    columnNames = [
+      ...columnNames.slice(0, accessionIndex + 1),
+      PeptideSearchColumn.match,
+      ...columnNames.slice(accessionIndex + 1),
+    ];
   }
 
   if (getSequence && !columnNames.includes(UniProtKBColumn.sequence)) {
