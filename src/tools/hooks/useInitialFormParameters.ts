@@ -106,7 +106,7 @@ function useInitialFormParameters<
           if (!entry) {
             // TODO: currently this will not be reached - if any accession fails in the accessions request
             // then the whole request fails. Leaving here in case this ever changes
-            // reduxDispatch(
+            // dispatchMessages(
             //   addMessage({
             //     content: `ID ${id} not found`,
             //     format: MessageFormat.POP_UP,

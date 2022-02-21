@@ -9,7 +9,6 @@ import {
   ChangeEvent,
 } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import {
   Card,
   ReSubmitIcon,
@@ -27,6 +26,7 @@ import { updateJob, deleteJob } from '../../state/toolsActions';
 import { jobTypeToPath } from '../../../app/config/urls';
 
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
+import { useToolsDispatch } from '../../../shared/contexts/Tools';
 
 import { getBEMClassName as bem, pluralise } from '../../../shared/utils/utils';
 import parseDate from '../../../shared/utils/parseDate';
@@ -49,7 +49,7 @@ interface NameProps {
 }
 
 const Name = ({ children, id }: NameProps) => {
-  const dispatch = useDispatch();
+  const dispatch = useToolsDispatch();
   const [text, setText] = useState(children || '');
 
   const handleBlur = () => {
@@ -106,7 +106,7 @@ const Time = ({ children }: TimeProps) => {
 };
 
 const Seen = ({ job }: { job: FailedJob | FinishedJob<JobTypes> }) => {
-  const dispatch = useDispatch();
+  const dispatch = useToolsDispatch();
 
   if (job.seen) {
     return null;
@@ -220,7 +220,7 @@ interface ActionsProps {
 
 const Actions = ({ job, onDelete }: ActionsProps) => {
   const history = useHistory();
-  const dispatch = useDispatch();
+  const dispatch = useToolsDispatch();
 
   return (
     <span className="dashboard__body__actions">
@@ -301,7 +301,7 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
   const firstTime = useRef<boolean>(true);
 
   const history = useHistory<CustomLocationState | undefined>();
-  const dispatch = useDispatch();
+  const dispatch = useToolsDispatch();
   const reducedMotion = useReducedMotion();
 
   let jobLink: LocationDescriptor<LocationStateFromJobLink> | undefined;

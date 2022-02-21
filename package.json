@@ -36,10 +36,10 @@
     ],
     "coverageThreshold": {
       "global": {
-        "lines": 82.14,
-        "statements": 81.92,
-        "functions": 82.08,
-        "branches": 69.55
+        "lines": 81.96,
+        "statements": 81.76,
+        "functions": 81.81,
+        "branches": 69.41
       }
     },
     "transform": {
@@ -138,9 +138,7 @@
     "react-diff-viewer": "3.1.1",
     "react-dom": "17.0.2",
     "react-helmet-async": "1.2.2",
-    "react-redux": "7.2.6",
     "react-router-dom": "5.3.0",
-    "redux": "4.1.2",
     "sanitize-html": "2.6.1",
     "schema-dts": "1.0.0",
     "timing-functions": "2.0.1",
@@ -177,7 +175,6 @@
     "@types/react": "17.0.38",
     "@types/react-beautiful-dnd": "13.1.2",
     "@types/react-dom": "17.0.11",
-    "@types/react-redux": "7.1.21",
     "@types/react-router-dom": "5.3.2",
     "@types/sanitize-html": "2.6.1",
     "@types/url-join": "4.0.1",
@@ -224,7 +221,6 @@
     "puppeteer": "13.0.1",
     "react-beautiful-dnd-test-utils": "3.2.1",
     "react-test-renderer": "17.0.2",
-    "redux-mock-store": "1.5.4",
     "rimraf": "3.0.2",
     "sass": "1.45.2",
     "sass-loader": "12.4.0",

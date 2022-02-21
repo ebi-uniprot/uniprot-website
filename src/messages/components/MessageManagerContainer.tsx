@@ -4,7 +4,10 @@ import { groupBy } from 'lodash-es';
 
 import MessageHub from './MessageHub';
 
-import { useMessagesReducer } from '../../shared/hooks/useGlobalReducer';
+import {
+  useMessagesState,
+  useMessagesDispatch,
+} from '../../shared/contexts/Messages';
 import { deleteMessage } from '../state/messagesActions';
 
 import { getLocationForPathname } from '../../shared/utils/url';
@@ -23,10 +26,11 @@ const MessageManager = () => {
   // The getLocationForPathname will find the location by searching over LocationToPath in app/config/urls
   const { pathname } = useLocation();
   const currentLocation = getLocationForPathname(pathname) as Location;
-  const [activeMessages, dispatch] = useMessagesReducer();
+  const messages = useMessagesState();
+  const dispatch = useMessagesDispatch();
   const { true: omitAndDeleteMessages = [], false: restActiveMessages = [] } =
     groupBy(
-      activeMessages,
+      messages,
       ({ omitAndDeleteAtLocations = [] }) =>
         !!omitAndDeleteAtLocations &&
         omitAndDeleteAtLocations.length > 0 &&

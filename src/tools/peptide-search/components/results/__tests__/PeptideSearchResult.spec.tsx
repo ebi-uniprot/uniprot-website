@@ -57,9 +57,7 @@ describe('PeptideSearchResult', () => {
   it('should render with the correct number of results in the title, own user job', async () => {
     const { asFragment } = customRender(<PeptideSearchResult />, {
       route: `/peptide-search/${mockJob.remoteID}`,
-      initialState: {
-        tools: { [mockJob.internalID]: mockJob },
-      },
+      toolsState: { [mockJob.internalID]: mockJob },
     });
     await screen.findByText('2 results');
     await screen.findByText(`found in peptide search ${mockJob.title}`);

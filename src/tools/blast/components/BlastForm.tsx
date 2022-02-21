@@ -9,7 +9,6 @@ import {
   Dispatch,
   SetStateAction,
 } from 'react';
-import { useDispatch } from 'react-redux';
 import {
   Chip,
   SequenceSubmission,
@@ -33,6 +32,8 @@ import { addMessage } from '../../../messages/state/messagesActions';
 
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
+import { useToolsDispatch } from '../../../shared/contexts/Tools';
+import { useMessagesDispatch } from '../../../shared/contexts/Messages';
 
 import { truncateTaxonLabel } from '../../utils';
 import { createJob } from '../../state/toolsActions';
@@ -138,7 +139,8 @@ const BlastForm = ({ initialFormValues }: Props) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // hooks
-  const dispatch = useDispatch();
+  const dispatchTools = useToolsDispatch();
+  const dispatchMessages = useMessagesDispatch();
   const history = useHistory();
   const reducedMotion = useReducedMotion();
 
@@ -335,7 +337,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
             name = `${jobName.selected as string} - ${i + 1}`;
           }
         }
-        dispatch(createJob(multipleParameters[i], JobTypes.BLAST, name));
+        dispatchTools(createJob(multipleParameters[i], JobTypes.BLAST, name));
       }
 
       history.push(LocationToPath[Location.Dashboard], {
@@ -412,7 +414,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
     inputRef: fileInputRef,
     onFileContent: (content) => onSequenceChange(sequenceProcessor(content)),
     onError: (error) =>
-      dispatch(
+      dispatchMessages(
         addMessage({
           content: error.message,
           format: MessageFormat.POP_UP,

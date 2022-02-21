@@ -6,7 +6,7 @@ import { createPath } from 'history';
 import useNS from '../../hooks/useNS';
 import useColumnNames from '../../hooks/useColumnNames';
 import useViewMode from '../../hooks/useViewMode';
-import { useMessagesReducer } from '../../hooks/useGlobalReducer';
+import { useMessagesDispatch } from '../../contexts/Messages';
 
 import {
   copyFailureMessage,
@@ -35,7 +35,7 @@ const CopyLinkWebsite = ({
   namespaceOverride: Namespace | undefined;
   disableCardToggle: boolean;
 }) => {
-  const [, dispatch] = useMessagesReducer();
+  const dispatch = useMessagesDispatch();
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
   const { columnNames } = useColumnNames(namespaceOverride);
   const { viewMode } = useViewMode(namespace, disableCardToggle);

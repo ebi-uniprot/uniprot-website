@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Card,
@@ -14,9 +14,10 @@ import HTMLHead from '../../../shared/components/HTMLHead';
 import Row from './Row';
 import EmptyDashboard from './EmptyDashboard';
 
+import { useToolsState } from '../../../shared/contexts/Tools';
+
 import { LocationToPath, Location } from '../../../app/config/urls';
 
-import { RootState } from '../../../app/state/rootInitialState';
 import { Job } from '../../types/toolsJob';
 
 import './styles/Dashboard.scss';
@@ -26,13 +27,13 @@ const EXPIRED_TIME = 1000 * 60 * 60 * 24 * 7; // 1 week
 const sortNewestFirst = (a: Job, b: Job) => b.timeCreated - a.timeCreated;
 
 const Dashboard = ({ closePanel }: { closePanel?: () => void }) => {
-  const [activeJobs, expiredJobs] = useSelector<RootState, [Job[], Job[]]>(
-    (state) => {
-      const jobs = Array.from(Object.values(state.tools)).sort(sortNewestFirst);
-      const now = Date.now();
-      return partition(jobs, (job) => now - job.timeCreated < EXPIRED_TIME);
-    }
-  );
+  const tools = useToolsState();
+
+  const [activeJobs, expiredJobs] = useMemo(() => {
+    const jobs = Array.from(Object.values(tools)).sort(sortNewestFirst);
+    const now = Date.now();
+    return partition(jobs, (job) => now - job.timeCreated < EXPIRED_TIME);
+  }, [tools]);
 
   const fullPageContent = closePanel ? null : (
     <>

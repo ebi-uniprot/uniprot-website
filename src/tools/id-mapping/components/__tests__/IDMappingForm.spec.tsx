@@ -1,4 +1,3 @@
-import { createMemoryHistory } from 'history';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { fireEvent, screen } from '@testing-library/react';
@@ -6,8 +5,6 @@ import { fireEvent, screen } from '@testing-library/react';
 import customRender from '../../../../shared/__test-helpers__/customRender';
 
 import IDMappingForm from '../IDMappingForm';
-
-import initialState from '../../../../app/state/rootInitialState';
 
 import { mockSuggesterApi } from '../../../../query-builder/components/__tests__/__mocks__/autocompleteWrapperData';
 import mockIDMappingFormConfig from './__mocks__/idMappingFormConfig';
@@ -22,13 +19,7 @@ let component: ReturnType<typeof customRender>;
 
 describe('IDMappingForm test', () => {
   beforeEach(async () => {
-    const history = createMemoryHistory();
-    component = customRender(<IDMappingForm />, {
-      initialState: {
-        ...initialState,
-      },
-      history,
-    });
+    component = customRender(<IDMappingForm />);
     await screen.findByRole('button', { name: 'Map IDs' });
   });
 

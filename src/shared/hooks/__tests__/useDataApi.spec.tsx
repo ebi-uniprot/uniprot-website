@@ -7,17 +7,14 @@ import MockAdapter from 'axios-mock-adapter';
 
 import useDataApi from '../useDataApi';
 import useDataApiWithStale from '../useDataApiWithStale';
+import { MessagesDispatchContext } from '../../contexts/Messages';
 
 const url = '/some/path';
 const url2 = '/some/other/path';
 const mock = new MockAdapter(axios);
 
-const mockDispatch = jest.fn();
-jest.mock('react-redux', () => ({ useDispatch: () => mockDispatch }));
-
 afterEach(() => {
   mock.reset();
-  mockDispatch.mockReset();
 });
 
 afterAll(() => {
@@ -81,7 +78,14 @@ describe('useDataApi hook', () => {
   test('400', async () => {
     const message = '??? does not exist';
     mock.onGet(url).reply(400, { messages: [message] });
-    const { result, waitForNextUpdate } = renderHook(() => useDataApi(url));
+    const mockDispatch = jest.fn();
+    const { result, waitForNextUpdate } = renderHook(() => useDataApi(url), {
+      wrapper: ({ children }) => (
+        <MessagesDispatchContext.Provider value={mockDispatch}>
+          {children}
+        </MessagesDispatchContext.Provider>
+      ),
+    });
 
     expect(result.current).toEqual({ loading: true, url });
 

@@ -16,7 +16,7 @@ import colors from '../../../node_modules/franklin-sites/src/styles/colours.json
 
 import ClauseList from './ClauseList';
 
-import { useMessagesReducer } from '../../shared/hooks/useGlobalReducer';
+import { useMessagesDispatch } from '../../shared/contexts/Messages';
 import useDataApi from '../../shared/hooks/useDataApi';
 
 import { createEmptyClause, defaultQueryFor, getNextId } from '../utils/clause';
@@ -65,7 +65,7 @@ interface Style extends CSSProperties {
 const QueryBuilder = ({ onCancel, fieldToAdd, initialNamespace }: Props) => {
   const history = useHistory();
   const location = useLocation();
-  const [, dispatch] = useMessagesReducer();
+  const dispatch = useMessagesDispatch();
 
   const [clauses, setClauses] = useState<Clause[]>([]);
 

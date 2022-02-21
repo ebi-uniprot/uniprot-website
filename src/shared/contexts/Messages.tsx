@@ -6,18 +6,29 @@ import messagesInitialState, {
 import messagesReducers, {
   MessagesAction,
 } from '../../messages/state/messagesReducers';
+import getContextHook from './getContextHook';
 
-export const MessagesContext = createContext<
-  [state: MessagesState, dispatch: Dispatch<MessagesAction>]
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
->([messagesInitialState, () => {}]);
+export const MessagesDispatchContext = createContext<Dispatch<MessagesAction>>(
+  () => {
+    /* */
+  }
+);
+
+export const MessagesStateContext =
+  createContext<MessagesState>(messagesInitialState);
 
 export const MessagesProvider: FC = ({ children }) => {
-  const reducerOutput = useReducer(messagesReducers, messagesInitialState);
+  const [state, dispatch] = useReducer(messagesReducers, messagesInitialState);
 
   return (
-    <MessagesContext.Provider value={reducerOutput}>
-      {children}
-    </MessagesContext.Provider>
+    <MessagesDispatchContext.Provider value={dispatch}>
+      <MessagesStateContext.Provider value={state}>
+        {children}
+      </MessagesStateContext.Provider>
+    </MessagesDispatchContext.Provider>
   );
 };
+
+// Need to put the hooks here, otherwise there's a circular dependency issue
+export const useMessagesDispatch = getContextHook(MessagesDispatchContext);
+export const useMessagesState = getContextHook(MessagesStateContext);

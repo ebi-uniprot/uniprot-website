@@ -10,7 +10,7 @@ import { useHistory } from 'react-router-dom';
 import { AxiosRequestConfig } from 'axios';
 
 import useDataApi from '../../shared/hooks/useDataApi';
-import { useMessagesReducer } from '../../shared/hooks/useGlobalReducer';
+import { useMessagesDispatch } from '../../shared/contexts/Messages';
 
 import apiUrls from '../../shared/config/apiUrls';
 import { addMessage } from '../../messages/state/messagesActions';
@@ -43,7 +43,7 @@ export type UseFormLogicReturnType = {
 };
 
 export const useFormLogic = (referrer?: string): UseFormLogicReturnType => {
-  const [, dispatch] = useMessagesReducer();
+  const dispatch = useMessagesDispatch();
   const history = useHistory();
   const [formData, setFormData] = useState<undefined | FormData>();
 

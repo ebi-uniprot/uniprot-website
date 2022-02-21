@@ -1,13 +1,14 @@
 import { useCallback, useEffect } from 'react';
 import { Message } from 'franklin-sites';
 
-import { useMessagesReducer } from '../../shared/hooks/useGlobalReducer';
+import { useMessagesDispatch } from '../../shared/contexts/Messages';
+
 import { deleteMessage } from '../state/messagesActions';
 
 import { MessageType } from '../types/messagesTypes';
 
 const MessageInHub = ({ level, content, id, displayTime }: MessageType) => {
-  const [, dispatch] = useMessagesReducer();
+  const dispatch = useMessagesDispatch();
 
   const handleDismiss = useCallback(
     () => dispatch(deleteMessage(id)),

@@ -26,7 +26,7 @@ import ErrorBoundary from '../error-component/ErrorBoundary';
 import useNS from '../../hooks/useNS';
 import useViewMode from '../../hooks/useViewMode';
 import useColumnNames from '../../hooks/useColumnNames';
-import { useMessagesReducer } from '../../hooks/useGlobalReducer';
+import { useMessagesDispatch } from '../../contexts/Messages';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 import lazy from '../../utils/lazy';
@@ -84,7 +84,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
   const { invalidUrlColumnNames, fromUrl: columnNamesAreFromUrl } =
     useColumnNames(namespaceOverride);
   const history = useHistory();
-  const [, dispatch] = useMessagesReducer();
+  const dispatch = useMessagesDispatch();
 
   const sharedUrlMode = viewModeIsFromUrl || columnNamesAreFromUrl;
 

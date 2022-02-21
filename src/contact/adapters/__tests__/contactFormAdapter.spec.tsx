@@ -1,7 +1,5 @@
 import { FC } from 'react';
 import { renderHook } from '@testing-library/react-hooks';
-import { Store } from 'redux';
-import { Provider } from 'react-redux';
 
 import { modifyFormData, useFormLogic } from '../contactFormAdapter';
 
@@ -10,14 +8,6 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 jest.mock('../../../shared/hooks/useDataApi');
 
 let userAgentGetter: jest.SpyInstance;
-
-const store: Store = {
-  getState: jest.fn(),
-  dispatch: jest.fn(),
-  subscribe: jest.fn(),
-  replaceReducer: jest.fn(),
-  [Symbol.observable]: jest.fn(),
-};
 
 const mockData = {
   email: 'pat@pencaster.co.uk',
@@ -56,14 +46,11 @@ describe('Test contact form adapter', () => {
 
 describe('useContactForm custom hook', () => {
   beforeEach(() => {
-    (store.dispatch as jest.Mock).mockClear();
     (useDataApi as jest.Mock).mockReturnValue({ loading: false });
   });
 
   it('should run and return correct values', () => {
-    const wrapper: FC = ({ children }) => (
-      <Provider store={store}>{children}</Provider>
-    );
+    const wrapper: FC = ({ children }) => <>{children}</>;
     const { result } = renderHook(() => useFormLogic(), { wrapper });
     expect(result.current.sending).toBe(false);
     expect(result.current.handleSubmit).toBeInstanceOf(Function);

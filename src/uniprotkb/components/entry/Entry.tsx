@@ -32,7 +32,9 @@ import CommunityAnnotationLink from './CommunityAnnotationLink';
 
 import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 
-import { useMessagesReducer } from '../../../shared/hooks/useGlobalReducer';
+import useDataApi from '../../../shared/hooks/useDataApi';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import { useMessagesDispatch } from '../../../shared/contexts/Messages';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 
@@ -41,9 +43,6 @@ import { hasContent } from '../../../shared/utils/utils';
 import lazy from '../../../shared/utils/lazy';
 import apiUrls from '../../../shared/config/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
-
-import useDataApi from '../../../shared/hooks/useDataApi';
-import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
 import uniProtKbConverter, {
   UniProtkbAPIModel,
@@ -102,7 +101,7 @@ const EntryHistory = lazy(
 );
 
 const Entry = () => {
-  const [, dispatch] = useMessagesReducer();
+  const dispatch = useMessagesDispatch();
   const history = useHistory();
   const match = useRouteMatch<{ accession: string; subPage?: TabLocation }>(
     LocationToPath[Location.UniProtKBEntry]

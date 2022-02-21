@@ -1,7 +1,7 @@
 import { useEffect, useReducer } from 'react';
 import axios, { AxiosResponse, AxiosError, AxiosRequestConfig } from 'axios';
 
-import { useMessagesReducer } from './useGlobalReducer';
+import { useMessagesDispatch } from '../contexts/Messages';
 
 import fetchData from '../utils/fetchData';
 import { addMessage } from '../../messages/state/messagesActions';
@@ -125,7 +125,7 @@ function useDataApi<T>(
   options?: AxiosRequestConfig
 ): UseDataAPIState<T> {
   const [state, dispatch] = useReducer(createReducer<T>(), { loading: !!url });
-  const [, messagesDispatch] = useMessagesReducer();
+  const messagesDispatch = useMessagesDispatch();
 
   useEffect(() => {
     // need this variable to ensure state updates don't occur when cancelled/unmounted

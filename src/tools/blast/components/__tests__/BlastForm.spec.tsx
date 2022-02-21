@@ -6,8 +6,6 @@ import customRender from '../../../../shared/__test-helpers__/customRender';
 
 import BlastForm from '../BlastForm';
 
-import initialState from '../../../../app/state/rootInitialState';
-
 import { LocationToPath, Location } from '../../../../app/config/urls';
 
 import { mockSuggesterApi } from '../../../../query-builder/components/__tests__/__mocks__/autocompleteWrapperData';
@@ -22,11 +20,7 @@ let rendered: ReturnType<typeof customRender>;
 
 describe('BlastForm test', () => {
   beforeEach(() => {
-    rendered = customRender(<BlastForm />, {
-      initialState: {
-        ...initialState,
-      },
-    });
+    rendered = customRender(<BlastForm />);
   });
 
   it('Renders the form', () => {
@@ -140,7 +134,7 @@ describe('BlastForm test', () => {
   });
 
   it.skip('should handle submitting a job', async () => {
-    const { history, store } = rendered;
+    const { history } = rendered;
     const submitButton = screen.getByRole('button', { name: 'Run BLAST' });
 
     const textArea = screen.getByTestId(
@@ -158,6 +152,6 @@ describe('BlastForm test', () => {
     );
 
     expect(history.location.hash).not.toBe({});
-    expect(Object.keys(store.getState().tools)).toHaveLength(1);
+    // expect(Object.keys(store.getState().tools)).toHaveLength(1);
   });
 });

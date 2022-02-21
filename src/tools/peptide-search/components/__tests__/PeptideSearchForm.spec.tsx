@@ -1,4 +1,3 @@
-import { createMemoryHistory } from 'history';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { screen, fireEvent } from '@testing-library/react';
@@ -6,8 +5,6 @@ import { screen, fireEvent } from '@testing-library/react';
 import customRender from '../../../../shared/__test-helpers__/customRender';
 
 import PeptideSearchForm from '../PeptideSearchForm';
-
-import initialState from '../../../../app/state/rootInitialState';
 
 import { mockSuggesterApi } from '../../../../query-builder/components/__tests__/__mocks__/autocompleteWrapperData';
 
@@ -21,13 +18,7 @@ let component: ReturnType<typeof customRender>;
 
 describe.skip('PeptideSearchForm test', () => {
   beforeEach(() => {
-    const history = createMemoryHistory();
-    component = customRender(<PeptideSearchForm />, {
-      initialState: {
-        ...initialState,
-      },
-      history,
-    });
+    component = customRender(<PeptideSearchForm />);
   });
 
   it('Renders the form', () => {

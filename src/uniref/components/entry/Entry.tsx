@@ -16,7 +16,7 @@ import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
-import { useMessagesReducer } from '../../../shared/hooks/useGlobalReducer';
+import { useMessagesDispatch } from '../../../shared/contexts/Messages';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 
@@ -40,7 +40,7 @@ import {
 import '../../../shared/components/entry/styles/entry-page.scss';
 
 const Entry = () => {
-  const [, dispatch] = useMessagesReducer();
+  const dispatch = useMessagesDispatch();
   const match = useRouteMatch<{ accession: string }>(
     LocationToPath[Location.UniRefEntry]
   );
