@@ -164,7 +164,7 @@ export const getJobMessage = ({
   let location: LocationDescriptor<LocationStateFromJobLink> | undefined;
   if ('remoteID' in job && job.remoteID && nHits !== 0) {
     location = {
-      pathname: generatePath(jobTypeToPath(job.type, true, job), {
+      pathname: generatePath(jobTypeToPath(job.type, job), {
         id: job.remoteID,
         subPage: 'overview',
       }),

@@ -210,16 +210,15 @@ export const getLocationEntryPath = (location: Location, accession: string) =>
 export const getLocationEntryPathFor = (location: Location) =>
   partial(getLocationEntryPath, location);
 
-// TODO make 'result' obsolete
 // eslint-disable-next-line consistent-return
-export const jobTypeToPath = (type: JobTypes, result?: boolean, job?: Job) => {
+export const jobTypeToPath = (type: JobTypes, job?: Job) => {
   switch (type) {
     case JobTypes.ALIGN:
-      return LocationToPath[result ? Location.AlignResult : Location.Align];
+      return LocationToPath[job ? Location.AlignResult : Location.Align];
     case JobTypes.BLAST:
-      return LocationToPath[result ? Location.BlastResult : Location.Blast];
+      return LocationToPath[job ? Location.BlastResult : Location.Blast];
     case JobTypes.ID_MAPPING:
-      if (!result || !job) {
+      if (!job) {
         return LocationToPath[Location.IDMapping];
       }
       // eslint-disable-next-line no-case-declarations
@@ -236,7 +235,7 @@ export const jobTypeToPath = (type: JobTypes, result?: boolean, job?: Job) => {
       });
     case JobTypes.PEPTIDE_SEARCH:
       return LocationToPath[
-        result ? Location.PeptideSearchResult : Location.PeptideSearch
+        job ? Location.PeptideSearchResult : Location.PeptideSearch
       ];
     default:
     //

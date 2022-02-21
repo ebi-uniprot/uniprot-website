@@ -311,12 +311,12 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
       job.type === JobTypes.PEPTIDE_SEARCH
     ) {
       jobLink = {
-        pathname: jobTypeToPath(job.type, true, job),
+        pathname: jobTypeToPath(job.type, job),
         state: { internalID: job.internalID },
       };
     } else {
       jobLink = {
-        pathname: `${jobTypeToPath(job.type)}/${job.remoteID}/overview`,
+        pathname: `${jobTypeToPath(job.type, job)}/${job.remoteID}/overview`,
         state: { internalID: job.internalID },
       };
     }
