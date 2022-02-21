@@ -31,6 +31,7 @@ type Props = {
   namespaceOverride?: Namespace;
   columnsOverride?: ColumnDescriptor<APIModel>[];
   displayIdMappingColumns?: boolean;
+  getSequence?: boolean;
   basketSetter?: Dispatch<SetStateAction<Basket>>;
   className?: string;
   disableCardToggle?: boolean;
@@ -43,6 +44,7 @@ const ResultsData = ({
   namespaceOverride,
   columnsOverride,
   displayIdMappingColumns,
+  getSequence,
   basketSetter,
   disableCardToggle = false,
   className,
@@ -56,7 +58,8 @@ const ResultsData = ({
     displayIdMappingColumns,
     basketSetter,
     columnsOverride,
-    setSelectedEntries
+    setSelectedEntries,
+    getSequence
   );
   const {
     allResults,

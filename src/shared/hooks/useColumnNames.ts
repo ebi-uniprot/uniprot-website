@@ -12,10 +12,12 @@ import { ColumnConfigurations } from './useColumns';
 import { Namespace } from '../types/namespaces';
 import { IDMappingColumn } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 import { InvalidParamValue } from '../../uniprotkb/utils/resultsUtils';
+import { UniProtKBColumn } from '../../uniprotkb/types/columnTypes';
 
 const useColumnNames = (
   namespaceOverride?: Namespace | undefined,
-  displayIdMappingColumns?: boolean
+  displayIdMappingColumns?: boolean,
+  getSequence?: boolean
 ): {
   columnNames: Column[];
   setColumnNames: Dispatch<SetStateAction<Column[]>>;
@@ -51,6 +53,11 @@ const useColumnNames = (
   if (displayIdMappingColumns && ns !== Namespace.idmapping) {
     columnNames = [IDMappingColumn.from, ...columnNames];
   }
+
+  if (getSequence && !columnNames.includes(UniProtKBColumn.sequence)) {
+    columnNames = [UniProtKBColumn.sequence, ...columnNames];
+  }
+
   return { columnNames, setColumnNames, fromUrl, invalidUrlColumnNames };
 };
 

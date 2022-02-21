@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
 import { Loader } from 'franklin-sites';
-import { truncate } from 'lodash-es';
+import { partialRight, truncate } from 'lodash-es';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
@@ -27,8 +27,9 @@ import Response from '../../../../uniprotkb/types/responseTypes';
 import { PeptideSearchResults } from '../../types/peptideSearchResults';
 import { JobTypes } from '../../../types/toolsJobTypes';
 import { RootState } from '../../../../app/state/rootInitialState';
-import { Job } from '../../../types/toolsJob';
+import { FinishedJob } from '../../../types/toolsJob';
 import { Status } from '../../../types/toolsStatuses';
+import peptideSearchConverter from '../../adapters/peptideSearchConverter';
 
 const jobType = JobTypes.PEPTIDE_SEARCH;
 const urls = toolsURLs(jobType);
@@ -50,11 +51,19 @@ const PeptideSearchResult = () => {
     status: jobStatus,
   } = useDataApi<PeptideSearchResults>(urls.resultUrl(jobID, {}));
 
-  const job = useSelector<RootState, Job | undefined>((state) =>
-    Object.values(state.tools).find(
-      (job) => job.status === Status.FINISHED && job?.remoteID === jobID
-    )
-  );
+  const job = useSelector<
+    RootState,
+    FinishedJob<JobTypes.PEPTIDE_SEARCH> | undefined
+  >((state) => {
+    const found = Object.values(state.tools).find(
+      (job) =>
+        job.status === Status.FINISHED &&
+        'remoteID' in job &&
+        job?.remoteID === jobID
+    );
+    return found ? (found as FinishedJob<JobTypes.PEPTIDE_SEARCH>) : undefined;
+  });
+
   const accessions = useMemo(
     () => jobData?.split(',').filter(Boolean),
     [jobData]
@@ -76,17 +85,26 @@ const PeptideSearchResult = () => {
   } = facetApiObject;
   const facetTotal = facetHeaders?.['x-total-records'];
 
+  const converter = useMemo(
+    () => partialRight(peptideSearchConverter, job),
+    [job]
+  );
+
   // Query for results data
-  const initialApiUrl = useNSQuery({ accessions });
-  const resultsDataObject = usePagination(initialApiUrl);
+  const initialApiUrl = useNSQuery({ accessions, getSequence: true });
+  const resultsDataObject = usePagination(initialApiUrl, converter);
   const {
     initialLoading: resultsDataInitialLoading,
     total: resultsDataTotal,
     progress: resultsDataProgress,
   } = resultsDataObject;
 
-  const sortedResultsDataObject = useMemo(
-    () => ({
+  const sortedResultsDataObject = useMemo(() => {
+    if (job === undefined || !job.parameters.peps) {
+      return null;
+    }
+
+    return {
       ...resultsDataObject,
       // sort according to original order in job result payload
       allResults: Array.from(resultsDataObject.allResults).sort((a, b) => {
@@ -99,11 +117,13 @@ const PeptideSearchResult = () => {
         }
         return 0;
       }),
-    }),
-    [accessions, resultsDataObject]
-  );
+    };
+  }, [accessions, job, resultsDataObject]);
 
-  useMarkJobAsSeen(sortedResultsDataObject.allResults.length, match?.params.id);
+  useMarkJobAsSeen(
+    sortedResultsDataObject?.allResults.length,
+    match?.params.id
+  );
 
   let total: undefined | number;
   if (facetTotal !== undefined) {
@@ -122,6 +142,7 @@ const PeptideSearchResult = () => {
       !resultsDataInitialLoading &&
       !facetInititialLoading &&
       !total) ||
+    !sortedResultsDataObject ||
     (!jobLoading && accessions?.length === 0) ||
     total === 0
   ) {
@@ -157,6 +178,7 @@ const PeptideSearchResult = () => {
         resultsDataObject={sortedResultsDataObject}
         setSelectedItemFromEvent={setSelectedItemFromEvent}
         setSelectedEntries={setSelectedEntries}
+        getSequence
       />
     </SideBarLayout>
   );
