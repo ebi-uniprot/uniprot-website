@@ -44,10 +44,7 @@ import {
   Reference,
 } from '../../supporting-data/citations/adapters/citationsConverter';
 import { DatabaseInfoMaps } from '../utils/database';
-import {
-  PeptideSearchMatch,
-  PeptideSearchMatches,
-} from '../../tools/peptide-search/config/PeptideSearchColumnConfiguration';
+import { PeptideSearchMatch } from '../../tools/peptide-search/config/PeptideSearchColumnConfiguration';
 
 // 🤷🏽
 type UniProtKBReference = Omit<Reference, 'citationId'> & {
@@ -87,6 +84,7 @@ export type UniProtkbAPIModel = {
     uniParcId?: string;
   };
   from?: string; // ID Mapping results
+  peptideSearchMatches?: PeptideSearchMatch[]; // Peptide Search
 };
 
 export type UniProtkbUIModel = {
@@ -116,7 +114,7 @@ export type UniProtkbUIModel = {
   references?: UniProtKBReference[];
   extraAttributes: UniProtkbAPIModel['extraAttributes'];
   from?: string; // ID Mapping
-  peptideSearchMatches?: PeptideSearchMatches;
+  peptideSearchMatches?: PeptideSearchMatch[]; // Peptide Search
 };
 
 export type InactiveReasonType =

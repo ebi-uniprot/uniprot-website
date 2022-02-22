@@ -69,7 +69,6 @@ import {
   defaultColumns as defaultIdMappingColumns,
   primaryKeyColumns as primaryKeyColumnsIdMapping,
 } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
-import { PeptideSearchColumn } from '../../tools/peptide-search/config/PeptideSearchColumnConfiguration';
 
 export type Column =
   | UniProtKBColumn
@@ -85,8 +84,7 @@ export type Column =
   | LocationsColumn
   | UniRuleColumn
   | ARBAColumn
-  | IDMappingColumn
-  | PeptideSearchColumn;
+  | IDMappingColumn;
 
 export const nsToDefaultColumns = (
   namespace: Namespace,

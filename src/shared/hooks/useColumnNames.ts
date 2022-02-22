@@ -13,7 +13,6 @@ import { Namespace } from '../types/namespaces';
 import { IDMappingColumn } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 import { InvalidParamValue } from '../../uniprotkb/utils/resultsUtils';
 import { UniProtKBColumn } from '../../uniprotkb/types/columnTypes';
-import { PeptideSearchColumn } from '../../tools/peptide-search/config/PeptideSearchColumnConfiguration';
 
 const useColumnNames = (
   namespaceOverride?: Namespace | undefined,
@@ -61,7 +60,7 @@ const useColumnNames = (
     const accessionIndex = columnNames.indexOf(UniProtKBColumn.accession);
     columnNames = [
       ...columnNames.slice(0, accessionIndex + 1),
-      PeptideSearchColumn.match,
+      UniProtKBColumn.match,
       ...columnNames.slice(accessionIndex + 1),
     ];
   }

@@ -15,7 +15,6 @@ export enum Namespace {
   locations = 'locations',
   // Tools
   idmapping = 'id-mapping',
-  peptideSearch = 'peptide-search',
   // Annotations
   unirule = 'unirule',
   arba = 'arba',

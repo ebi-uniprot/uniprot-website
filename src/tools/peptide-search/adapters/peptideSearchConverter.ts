@@ -6,7 +6,7 @@ import { PeptideSearchMatch } from '../config/PeptideSearchColumnConfiguration';
 export const getMatches = (
   entrySequence: string,
   matchSequences: string[]
-): PeptideSearchMatch['match'] =>
+): PeptideSearchMatch[] =>
   matchSequences
     .map((matchSequence) => ({
       matchSequence,
@@ -18,14 +18,14 @@ export const getMatches = (
 const peptideSearchConverter = (
   results: UniProtkbAPIModel[],
   job?: FinishedJob<JobTypes.PEPTIDE_SEARCH>
-) => {
+): UniProtkbAPIModel[] => {
   if (job === undefined || !job.parameters.peps) {
     return results;
   }
 
   const querySequences = job.parameters.peps.split('\n');
 
-  return results.map((result) => {
+  const t = results.map((result) => {
     const sequence = 'sequence' in result && result.sequence.value;
     if (sequence) {
       return {
@@ -35,6 +35,7 @@ const peptideSearchConverter = (
     }
     return result;
   });
+  return t;
 };
 
 export default peptideSearchConverter;

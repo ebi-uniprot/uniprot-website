@@ -1,26 +1,36 @@
-import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import cn from 'classnames';
+import { EllipsisReveal } from 'franklin-sites';
 
-export enum PeptideSearchColumn {
-  match = 'match',
-}
+import { UniProtkbUIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 
-export type PeptideSearchMatches = {
-  peptideSearchMatches: {
-    matchSequence: string;
-    position: number;
-  }[];
+import style from '../../../shared/styles/helper.module.scss';
+
+export type PeptideSearchMatch = {
+  matchSequence: string;
+  position: number;
 };
-
-export type PeptideSearchModel = UniProtkbAPIModel & PeptideSearchMatches;
 
 export const matchColumnConfig = {
   label: 'Match',
-  render: (row: Partial<PeptideSearchModel>) => {
-    const { peptideSearchMatches } = row as PeptideSearchMatches;
+  render: ({ peptideSearchMatches }: UniProtkbUIModel) => {
+    if (!peptideSearchMatches?.length) {
+      return null;
+    }
+    const nVisible = 10;
     return (
-      <ul className="no-bullet">
+      <ul className={cn('no-bullet', style['no-wrap'])}>
         {peptideSearchMatches.map(({ matchSequence, position }) => (
-          <li>{`Match to ${matchSequence} at ${position}`}</li>
+          <li key={matchSequence}>
+            {`Positions ${position}-${position + matchSequence.length - 1}: `}
+            {matchSequence.length < nVisible ? (
+              matchSequence
+            ) : (
+              <>
+                {matchSequence.slice(0, nVisible)}
+                <EllipsisReveal>{matchSequence.slice(nVisible)}</EllipsisReveal>
+              </>
+            )}
+          </li>
         ))}
       </ul>
     );
