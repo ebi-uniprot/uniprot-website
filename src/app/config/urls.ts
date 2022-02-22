@@ -216,7 +216,13 @@ export const getLocationEntryPathFor = (location: Location) =>
 export const jobTypeToPath = (type: JobTypes, job?: Job) => {
   switch (type) {
     case JobTypes.ALIGN:
-      return LocationToPath[job ? Location.AlignResult : Location.Align];
+      if (!job) {
+        return LocationToPath[Location.Align];
+      }
+      return generatePath(LocationToPath[Location.AlignResult], {
+        id: (job as FinishedJob<JobTypes.ALIGN>).remoteID,
+        subPage: 'overview',
+      });
     case JobTypes.BLAST:
       if (!job) {
         return LocationToPath[job ? Location.BlastResult : Location.Blast];
@@ -245,9 +251,12 @@ export const jobTypeToPath = (type: JobTypes, job?: Job) => {
         id: (job as FinishedJob<JobTypes.ID_MAPPING>).remoteID,
       });
     case JobTypes.PEPTIDE_SEARCH:
-      return LocationToPath[
-        job ? Location.PeptideSearchResult : Location.PeptideSearch
-      ];
+      if (!job) {
+        return LocationToPath[Location.PeptideSearch];
+      }
+      return generatePath(LocationToPath[Location.PeptideSearchResult], {
+        id: (job as FinishedJob<JobTypes.PEPTIDE_SEARCH>).remoteID,
+      });
     default:
     //
   }
