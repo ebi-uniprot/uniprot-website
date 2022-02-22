@@ -2,9 +2,6 @@
 /* Parameters of a blast job as required by the server */
 // https://www.ebi.ac.uk/Tools/services/rest/ncbiblast?wadl
 // https://www.ebi.ac.uk/Tools/services/rest/ncbiblast/parameters
-
-import { Namespace } from '../../../shared/types/namespaces';
-
 // https://www.ebi.ac.uk/Tools/services/rest/ncbiblast/parameterdetails/program
 // The BLAST program to be used for the Sequence Similarity Search.
 export type Program =
