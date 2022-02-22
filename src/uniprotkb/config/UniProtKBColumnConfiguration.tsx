@@ -86,6 +86,7 @@ import EntryTypeIcon, {
 import AccessionView from '../../shared/components/results/AccessionView';
 import CSVView from '../components/protein-data-views/CSVView';
 import { DatabaseList } from '../components/protein-data-views/XRefView';
+import { PeptideSearchMatches } from '../../tools/peptide-search/components/PeptideSearchMatches';
 
 import useDatabaseInfoMaps from '../../shared/hooks/useDatabaseInfoMaps';
 
@@ -111,7 +112,6 @@ import { Interactant } from '../adapters/interactionConverter';
 import { ValueWithEvidence } from '../types/modelTypes';
 
 import helper from '../../shared/styles/helper.module.scss';
-import { matchColumnConfig } from '../../tools/peptide-search/config/PeptideSearchColumnConfiguration';
 
 export const defaultColumns = [
   UniProtKBColumn.accession,
@@ -1432,6 +1432,11 @@ Object.values(UniProtKBColumn)
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.from, fromColumnConfig);
 
-UniProtKBColumnConfiguration.set(UniProtKBColumn.match, matchColumnConfig);
+UniProtKBColumnConfiguration.set(UniProtKBColumn.match, {
+  label: 'Match',
+  render: ({ peptideSearchMatches }) => (
+    <PeptideSearchMatches matches={peptideSearchMatches} />
+  ),
+});
 
 export default UniProtKBColumnConfiguration;

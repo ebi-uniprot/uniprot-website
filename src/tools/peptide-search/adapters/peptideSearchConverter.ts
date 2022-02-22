@@ -1,7 +1,7 @@
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { FinishedJob } from '../../types/toolsJob';
 import { JobTypes } from '../../types/toolsJobTypes';
-import { PeptideSearchMatch } from '../config/PeptideSearchColumnConfiguration';
+import { PeptideSearchMatch } from '../components/PeptideSearchMatches';
 
 export const getMatches = (
   entrySequence: string,

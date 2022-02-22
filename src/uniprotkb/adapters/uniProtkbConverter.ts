@@ -44,7 +44,7 @@ import {
   Reference,
 } from '../../supporting-data/citations/adapters/citationsConverter';
 import { DatabaseInfoMaps } from '../utils/database';
-import { PeptideSearchMatch } from '../../tools/peptide-search/config/PeptideSearchColumnConfiguration';
+import { PeptideSearchMatch } from '../../tools/peptide-search/components/PeptideSearchMatches';
 
 // 🤷🏽
 type UniProtKBReference = Omit<Reference, 'citationId'> & {

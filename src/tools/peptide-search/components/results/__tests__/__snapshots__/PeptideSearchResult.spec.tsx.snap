@@ -870,6 +870,337 @@ exports[`PeptideSearchResult should render with the correct number of results in
               </div>
             </section>
           </section>
+          <section>
+            <section
+              class="card card--has-link"
+            >
+              <a
+                aria-hidden="true"
+                class="card__link"
+                data-testid="background-link"
+                href="/uniprotkb/P35575"
+                tabindex="-1"
+              />
+              <div
+                class="card__container"
+              >
+                <div
+                  class="card__header"
+                >
+                  <span
+                    class="checkbox-cell"
+                  >
+                    <input
+                      data-id="P35575"
+                      id="2"
+                      type="checkbox"
+                    />
+                    <label
+                      aria-label="P35575"
+                      for="2"
+                      title="click to select, shift+click for multiple selection"
+                    />
+                  </span>
+                  <h2
+                    class="small"
+                  >
+                    <span
+                      class="entry-title"
+                    >
+                      <span
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed UniProtKB entry"
+                      >
+                        <test-file-stub />
+                      </span>
+                      P35575 · G6PC1_HUMAN
+                    </span>
+                  </h2>
+                </div>
+                <div
+                  class="card__content"
+                >
+                  <section>
+                    Glucose-6-phosphatase catalytic subunit 1 · 
+                    <a
+                      href="/taxonomy/9606"
+                      title="Homo sapiens (Human), taxon ID 9606"
+                    >
+                      Homo sapiens (Human)
+                    </a>
+                     · EC:3.1.3.9 · 
+                    <strong>
+                      Gene:
+                    </strong>
+                     G6PC1 (G6PC, G6PT) · 357 amino acids · Evidence at protein level · 
+                    <span
+                      title="Annotation Score"
+                    >
+                      <strong>
+                        Annotation score:
+                      </strong>
+                      <span
+                        class="doughnut-chart--small colour-platinum"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap"
+                        >
+                          <span
+                            class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                            style="transform: rotate(180deg);"
+                          />
+                        </span>
+                        <span
+                          class="doughnut-chart--small__right-wrap"
+                        >
+                          <span
+                            class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                            style="transform: rotate(180deg);"
+                          />
+                        </span>
+                        <span
+                          class="doughnut-chart--small__inner-circle"
+                        >
+                          5/5
+                        </span>
+                      </span>
+                    </span>
+                  </section>
+                  <small>
+                    <div
+                      class="keyword-view--inline"
+                    >
+                      <a
+                        href="/keywords/KW-0378"
+                      >
+                         #Hydrolase
+                      </a>
+                      <a
+                        href="/keywords/KW-0312"
+                      >
+                         #Gluconeogenesis
+                      </a>
+                      <a
+                        href="/keywords/KW-0225"
+                      >
+                         #Disease variant
+                      </a>
+                      <a
+                        href="/keywords/KW-0322"
+                      >
+                         #Glycogen storage disease
+                      </a>
+                    </div>
+                  </small>
+                </div>
+              </div>
+              <div
+                class="card__actions"
+              >
+                <a
+                  class="card-action"
+                  href="/uniprotkb/P35575#disease-and-drugs"
+                >
+                  56 reviewed variants
+                </a>
+                <a
+                  class="card-action"
+                  href="/uniprotkb/P35575#function"
+                >
+                  2 active sites
+                </a>
+                <a
+                  class="card-action"
+                  href="/uniprotkb/P35575#sequence"
+                >
+                  2 isoforms
+                </a>
+                <a
+                  class="card-action"
+                  href="/uniprotkb/P35575#interaction"
+                >
+                  2 interactions
+                </a>
+                <a
+                  class="card-action"
+                  href="/uniprotkb/P35575#disease-and-drugs"
+                >
+                  1 disease
+                </a>
+                <a
+                  class="card-action"
+                  href="/uniprotkb/P35575/publications"
+                >
+                  33 reviewed publications
+                </a>
+              </div>
+            </section>
+          </section>
+          <section>
+            <section
+              class="card card--has-link"
+            >
+              <a
+                aria-hidden="true"
+                class="card__link"
+                data-testid="background-link"
+                href="/uniprotkb/O43826"
+                tabindex="-1"
+              />
+              <div
+                class="card__container"
+              >
+                <div
+                  class="card__header"
+                >
+                  <span
+                    class="checkbox-cell"
+                  >
+                    <input
+                      data-id="O43826"
+                      id="3"
+                      type="checkbox"
+                    />
+                    <label
+                      aria-label="O43826"
+                      for="3"
+                      title="click to select, shift+click for multiple selection"
+                    />
+                  </span>
+                  <h2
+                    class="small"
+                  >
+                    <span
+                      class="entry-title"
+                    >
+                      <span
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed UniProtKB entry"
+                      >
+                        <test-file-stub />
+                      </span>
+                      O43826 · G6PT1_HUMAN
+                    </span>
+                  </h2>
+                </div>
+                <div
+                  class="card__content"
+                >
+                  <section>
+                    Glucose-6-phosphate exchanger SLC37A4 · 
+                    <a
+                      href="/taxonomy/9606"
+                      title="Homo sapiens (Human), taxon ID 9606"
+                    >
+                      Homo sapiens (Human)
+                    </a>
+                     · 
+                    <strong>
+                      Gene:
+                    </strong>
+                     SLC37A4 (G6PT, G6PT1) · 429 amino acids · Evidence at protein level · 
+                    <span
+                      title="Annotation Score"
+                    >
+                      <strong>
+                        Annotation score:
+                      </strong>
+                      <span
+                        class="doughnut-chart--small colour-platinum"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap"
+                        >
+                          <span
+                            class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                            style="transform: rotate(180deg);"
+                          />
+                        </span>
+                        <span
+                          class="doughnut-chart--small__right-wrap"
+                        >
+                          <span
+                            class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                            style="transform: rotate(180deg);"
+                          />
+                        </span>
+                        <span
+                          class="doughnut-chart--small__inner-circle"
+                        >
+                          5/5
+                        </span>
+                      </span>
+                    </span>
+                  </section>
+                  <small>
+                    <div
+                      class="keyword-view--inline"
+                    >
+                      <a
+                        href="/keywords/KW-0050"
+                      >
+                         #Antiport
+                      </a>
+                      <a
+                        href="/keywords/KW-0762"
+                      >
+                         #Sugar transport
+                      </a>
+                      <a
+                        href="/keywords/KW-0813"
+                      >
+                         #Transport
+                      </a>
+                      <a
+                        href="/keywords/KW-0225"
+                      >
+                         #Disease variant
+                      </a>
+                      <a
+                        href="/keywords/KW-0322"
+                      >
+                         #Glycogen storage disease
+                      </a>
+                    </div>
+                  </small>
+                </div>
+              </div>
+              <div
+                class="card__actions"
+              >
+                <a
+                  class="card-action"
+                  href="/uniprotkb/O43826#disease-and-drugs"
+                >
+                  34 reviewed variants
+                </a>
+                <a
+                  class="card-action"
+                  href="/uniprotkb/O43826#sequence"
+                >
+                  2 isoforms
+                </a>
+                <a
+                  class="card-action"
+                  href="/uniprotkb/O43826#interaction"
+                >
+                  1 interaction
+                </a>
+                <a
+                  class="card-action"
+                  href="/uniprotkb/O43826#disease-and-drugs"
+                >
+                  3 diseases
+                </a>
+                <a
+                  class="card-action"
+                  href="/uniprotkb/O43826/publications"
+                >
+                  30 reviewed publications
+                </a>
+              </div>
+            </section>
+          </section>
         </div>
         <div
           class="data-loader__loading"

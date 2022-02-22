@@ -50,7 +50,6 @@ const PeptideSearchResult = () => {
     error: jobError,
     status: jobStatus,
   } = useDataApi<PeptideSearchResults>(urls.resultUrl(jobID, {}));
-
   const job = useSelector<
     RootState,
     FinishedJob<JobTypes.PEPTIDE_SEARCH> | undefined
@@ -92,19 +91,17 @@ const PeptideSearchResult = () => {
 
   // Query for results data
   const initialApiUrl = useNSQuery({ accessions, getSequence: true });
-  const resultsDataObject = usePagination(initialApiUrl, converter);
+  // TODO: if the user didn't submit this job there is no way to get the initial sequence. In the
+  // future the API may provide this information in which case we would want to fetch and show
+  const resultsDataObject = usePagination(initialApiUrl, job && converter);
   const {
     initialLoading: resultsDataInitialLoading,
     total: resultsDataTotal,
     progress: resultsDataProgress,
   } = resultsDataObject;
 
-  const sortedResultsDataObject = useMemo(() => {
-    if (job === undefined || !job.parameters.peps) {
-      return null;
-    }
-
-    return {
+  const sortedResultsDataObject = useMemo(
+    () => ({
       ...resultsDataObject,
       // sort according to original order in job result payload
       allResults: Array.from(resultsDataObject.allResults).sort((a, b) => {
@@ -117,8 +114,9 @@ const PeptideSearchResult = () => {
         }
         return 0;
       }),
-    };
-  }, [accessions, job, resultsDataObject]);
+    }),
+    [accessions, resultsDataObject]
+  );
 
   useMarkJobAsSeen(
     sortedResultsDataObject?.allResults.length,
@@ -142,7 +140,6 @@ const PeptideSearchResult = () => {
       !resultsDataInitialLoading &&
       !facetInititialLoading &&
       !total) ||
-    !sortedResultsDataObject ||
     (!jobLoading && accessions?.length === 0) ||
     total === 0
   ) {
@@ -177,7 +174,8 @@ const PeptideSearchResult = () => {
         resultsDataObject={sortedResultsDataObject}
         setSelectedItemFromEvent={setSelectedItemFromEvent}
         setSelectedEntries={setSelectedEntries}
-        displayPeptideSearchMatchColumns
+        // TODO: change logic when peptide search API is able to return submitted job information
+        displayPeptideSearchMatchColumns={Boolean(job)}
       />
     </SideBarLayout>
   );
