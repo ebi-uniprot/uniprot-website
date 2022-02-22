@@ -356,7 +356,7 @@ const BlastResult = () => {
             <Link
               to={(location) => ({
                 ...location,
-                pathname: `/blast/${match.params.id}/${TabLocation.Overview}`,
+                pathname: `/blast/${namespace}/${match.params.id}/${TabLocation.Overview}`,
               })}
             >
               Overview
@@ -389,7 +389,7 @@ const BlastResult = () => {
             <Link
               to={(location) => ({
                 ...location,
-                pathname: `/blast/${match.params.id}/${TabLocation.Taxonomy}`,
+                pathname: `/blast/${namespace}/${match.params.id}/${TabLocation.Taxonomy}`,
               })}
               tabIndex={namespace !== Namespace.uniprotkb ? -1 : undefined}
             >
@@ -407,7 +407,7 @@ const BlastResult = () => {
             <Link
               to={(location) => ({
                 ...location,
-                pathname: `/blast/${match.params.id}/${TabLocation.HitDistribution}`,
+                pathname: `/blast/${namespace}/${match.params.id}/${TabLocation.HitDistribution}`,
               })}
             >
               Hit Distribution
@@ -428,7 +428,7 @@ const BlastResult = () => {
             <Link
               to={(location) => ({
                 ...location,
-                pathname: `/blast/${match.params.id}/${TabLocation.TextOutput}`,
+                pathname: `/blast/${namespace}/${match.params.id}/${TabLocation.TextOutput}`,
               })}
             >
               Text Output
@@ -446,7 +446,7 @@ const BlastResult = () => {
             <Link
               to={(location) => ({
                 ...location,
-                pathname: `/blast/${match.params.id}/${TabLocation.InputParameters}`,
+                pathname: `/blast/${namespace}/${match.params.id}/${TabLocation.InputParameters}`,
               })}
             >
               Input Parameters
@@ -468,7 +468,7 @@ const BlastResult = () => {
             <Link
               to={(location) => ({
                 ...location,
-                pathname: `/blast/${match.params.id}/${TabLocation.APIRequest}`,
+                pathname: `/blast/${namespace}/${match.params.id}/${TabLocation.APIRequest}`,
               })}
             >
               API Request

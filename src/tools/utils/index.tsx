@@ -1,4 +1,4 @@
-import { Link, generatePath } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AxiosResponse } from 'axios';
 import { LocationDescriptor } from 'history';
 
