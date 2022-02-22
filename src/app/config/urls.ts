@@ -1,8 +1,6 @@
 import { generatePath } from 'react-router-dom';
 import { partial } from 'lodash-es';
 
-import { Job, FinishedJob } from '../../tools/types/toolsJob';
-import { JobTypes } from '../../tools/types/toolsJobTypes';
 import {
   Namespace,
   searchableNamespaceLabels,
@@ -10,10 +8,13 @@ import {
   supportingDataNamespaces,
   supportingDataAndAANamespaces,
 } from '../../shared/types/namespaces';
+import { databaseToNamespace } from '../../tools/blast/config/BlastFormData';
+
 import EntrySection from '../../uniprotkb/types/entrySection';
 import { FormParameters as IdMappingFormParameters } from '../../tools/id-mapping/types/idMappingFormParameters';
 import { FormParameters as BLASTFormParameters } from '../../tools/blast/types/blastFormParameters';
-import { databaseToNamespace } from '../../tools/blast/types/blastServerParameters';
+import { Job, FinishedJob } from '../../tools/types/toolsJob';
+import { JobTypes } from '../../tools/types/toolsJobTypes';
 
 export const IDMappingNamespaces = [
   Namespace.uniprotkb,
