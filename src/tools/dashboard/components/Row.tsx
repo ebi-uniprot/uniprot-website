@@ -314,6 +314,11 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
         pathname: jobTypeToPath(job.type, job),
         state: { internalID: job.internalID },
       };
+    } else if (job.type === JobTypes.BLAST) {
+      jobLink = {
+        pathname: jobTypeToPath(job.type, job),
+        state: { internalID: job.internalID },
+      };
     } else {
       jobLink = {
         pathname: `${jobTypeToPath(job.type, job)}/${job.remoteID}/overview`,

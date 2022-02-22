@@ -105,6 +105,7 @@ enum TabLocation {
 
 type Params = {
   id: string;
+  namespace?: Namespace.uniprotkb | Namespace.uniref | Namespace.uniparc;
   subPage?: TabLocation;
 };
 

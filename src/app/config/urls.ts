@@ -11,7 +11,9 @@ import {
   supportingDataAndAANamespaces,
 } from '../../shared/types/namespaces';
 import EntrySection from '../../uniprotkb/types/entrySection';
-import { FormParameters } from '../../tools/id-mapping/types/idMappingFormParameters';
+import { FormParameters as IdMappingFormParameters } from '../../tools/id-mapping/types/idMappingFormParameters';
+import { FormParameters as BLASTFormParameters } from '../../tools/blast/types/blastFormParameters';
+import { databaseToNamespace } from '../../tools/blast/types/blastServerParameters';
 
 export const IDMappingNamespaces = [
   Namespace.uniprotkb,
@@ -108,7 +110,7 @@ export const LocationToPath: Record<Location, string> = {
   [Location.Dashboard]: '/tool-dashboard',
   [Location.AlignResult]: '/align/:id/:subPage?',
   [Location.Align]: '/align',
-  [Location.BlastResult]: '/blast/:id/:subPage?',
+  [Location.BlastResult]: '/blast/:namespace?/:id/:subPage?',
   [Location.Blast]: '/blast',
   [Location.PeptideSearchResult]: '/peptide-search/:id/:subPage?',
   [Location.PeptideSearch]: '/peptide-search',
@@ -216,7 +218,16 @@ export const jobTypeToPath = (type: JobTypes, job?: Job) => {
     case JobTypes.ALIGN:
       return LocationToPath[job ? Location.AlignResult : Location.Align];
     case JobTypes.BLAST:
-      return LocationToPath[job ? Location.BlastResult : Location.Blast];
+      if (!job) {
+        return LocationToPath[job ? Location.BlastResult : Location.Blast];
+      }
+      return generatePath(LocationToPath[Location.BlastResult], {
+        namespace: databaseToNamespace(
+          (job.parameters as BLASTFormParameters).database
+        ),
+        id: (job as FinishedJob<JobTypes.BLAST>).remoteID,
+        subPage: 'overview',
+      });
     case JobTypes.ID_MAPPING:
       if (!job) {
         return LocationToPath[Location.IDMapping];
@@ -225,7 +236,7 @@ export const jobTypeToPath = (type: JobTypes, job?: Job) => {
       const idMappingNamespace =
         Namespace[
           (
-            job?.parameters as FormParameters
+            job?.parameters as IdMappingFormParameters
           )?.to.toLowerCase() as keyof typeof Namespace
         ];
       // return mainNamespaces.has(idMappingNamespace) ?

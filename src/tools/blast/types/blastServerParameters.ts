@@ -3,6 +3,8 @@
 // https://www.ebi.ac.uk/Tools/services/rest/ncbiblast?wadl
 // https://www.ebi.ac.uk/Tools/services/rest/ncbiblast/parameters
 
+import { Namespace } from '../../../shared/types/namespaces';
+
 // https://www.ebi.ac.uk/Tools/services/rest/ncbiblast/parameterdetails/program
 // The BLAST program to be used for the Sequence Similarity Search.
 export type Program =
@@ -265,6 +267,21 @@ export type Database =
   | 'uniref100'
   | 'uniref50'
   | 'uniref90';
+
+export const databaseToNamespace = (
+  database: Database
+): Namespace.uniprotkb | Namespace.uniparc | Namespace.uniref | undefined => {
+  if (database.startsWith(Namespace.uniprotkb)) {
+    return Namespace.uniprotkb;
+  }
+  if (database.startsWith(Namespace.uniparc)) {
+    return Namespace.uniparc;
+  }
+  if (database.startsWith(Namespace.uniref)) {
+    return Namespace.uniref;
+  }
+  return undefined;
+};
 
 // https://www.ebi.ac.uk/Tools/services/rest/ncbiblast/parameterdetails/hsps
 // HSPs: max number of alignments for each hit; undefined = all
