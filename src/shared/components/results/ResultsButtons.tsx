@@ -82,7 +82,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
     fromUrl: viewModeIsFromUrl,
   } = useViewMode(namespaceOverride, disableCardToggle);
   const { invalidUrlColumnNames, fromUrl: columnNamesAreFromUrl } =
-    useColumnNames(namespaceOverride);
+    useColumnNames({ namespaceOverride });
   const history = useHistory();
   const dispatch = useDispatch();
 

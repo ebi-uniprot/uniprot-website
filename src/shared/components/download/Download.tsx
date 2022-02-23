@@ -52,7 +52,7 @@ const Download: FC<DownloadProps> = ({
   accessions,
   base,
 }) => {
-  const { columnNames } = useColumnNames();
+  const { columnNames } = useColumnNames({});
 
   const { search: queryParamFromUrl } = useLocation();
 

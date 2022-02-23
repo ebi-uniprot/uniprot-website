@@ -189,12 +189,11 @@ const useColumns = (
   const history = useHistory();
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
   const location = useLocation();
-  const { columnNames } = useColumnNames(
+  const { columnNames } = useColumnNames({
     namespaceOverride,
     displayIdMappingColumns,
-    undefined,
-    displayPeptideSearchMatchColumns
-  );
+    displayPeptideSearchMatchColumns,
+  });
   const databaseInfoMaps = useDatabaseInfoMaps();
   const { search: queryParamFromUrl } = location;
   const [{ query, selectedFacets, sortColumn, sortDirection }] =

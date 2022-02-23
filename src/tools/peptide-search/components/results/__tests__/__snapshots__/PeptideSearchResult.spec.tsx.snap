@@ -620,7 +620,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                   class="no-bullet no-wrap"
                 >
                   <li>
-                    Positions 12-58: IQSTHYLQVN
+                    Positions 13-59: IQSTHYLQVN
                     <button
                       aria-expanded="false"
                       class="button tertiary ellipsis-reveal"
@@ -719,7 +719,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                   class="no-bullet no-wrap"
                 >
                   <li>
-                    Positions 1-32: AAQGYGYYRT
+                    Positions 2-33: AAQGYGYYRT
                     <button
                       aria-expanded="false"
                       class="button tertiary ellipsis-reveal"

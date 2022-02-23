@@ -34,7 +34,9 @@ const useViewMode = (
   invalidUrlViewMode: InvalidParamValue | undefined;
   fromUrl: boolean;
 } => {
-  const { fromUrl: columnNamesAreFromUrl } = useColumnNames(namespaceOverride);
+  const { fromUrl: columnNamesAreFromUrl } = useColumnNames({
+    namespaceOverride,
+  });
   const [viewModeFromStorage, setViewModeFromStorage] =
     useLocalStorage<ViewMode>('view-mode', defaultViewMode);
   const history = useHistory();

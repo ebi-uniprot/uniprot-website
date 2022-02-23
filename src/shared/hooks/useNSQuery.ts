@@ -35,7 +35,10 @@ const useNSQuery = ({
   const location = useLocation();
   const { viewMode } = useViewMode(overrideNS);
   // TODO: destructure useColumnNames
-  const { columnNames } = useColumnNames(overrideNS, undefined, getSequence);
+  const { columnNames } = useColumnNames({
+    namespaceOverride: overrideNS,
+    getSequence,
+  });
 
   const { search: queryParamFromUrl } = location;
   const [{ query, selectedFacets, sortColumn, sortDirection }] =

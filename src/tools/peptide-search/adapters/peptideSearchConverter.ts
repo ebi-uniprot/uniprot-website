@@ -6,18 +6,21 @@ export const getMatches = (
   matchSequences: string[]
 ): PeptideSearchMatch[] =>
   matchSequences
-    .map((matchSequence) => ({
-      matchSequence,
-      position: entrySequence.indexOf(matchSequence),
-    }))
-    .filter(({ position }) => position >= 0)
-    .sort((a, b) => a.position - b.position);
+    .map((matchSequence) => {
+      const start = entrySequence.indexOf(matchSequence);
+      return {
+        matchSequence,
+        start,
+        end: start + matchSequence.length - 1,
+      };
+    })
+    .filter(({ start }) => start >= 0)
+    .sort((a, b) => a.start - b.start);
 
 const peptideSearchConverter = (
   results: UniProtkbAPIModel[],
   peptides?: string
 ): UniProtkbAPIModel[] => {
-  console.log(peptides);
   if (!peptides) {
     return results;
   }

@@ -5,7 +5,8 @@ import style from '../../../shared/styles/helper.module.scss';
 
 export type PeptideSearchMatch = {
   matchSequence: string;
-  position: number;
+  start: number;
+  end: number;
 };
 
 export const PeptideSearchMatches = ({
@@ -19,9 +20,9 @@ export const PeptideSearchMatches = ({
   const nVisible = 10;
   return (
     <ul className={cn('no-bullet', style['no-wrap'])}>
-      {matches.map(({ matchSequence, position }) => (
+      {matches.map(({ matchSequence, start, end }) => (
         <li key={matchSequence}>
-          {`Positions ${position}-${position + matchSequence.length - 1}: `}
+          {`Positions ${start + 1}-${end + 1}: `}
           {matchSequence.length < nVisible ? (
             matchSequence
           ) : (

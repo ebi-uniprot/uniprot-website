@@ -14,17 +14,26 @@ import { IDMappingColumn } from '../../tools/id-mapping/config/IdMappingColumnCo
 import { InvalidParamValue } from '../../uniprotkb/utils/resultsUtils';
 import { UniProtKBColumn } from '../../uniprotkb/types/columnTypes';
 
-const useColumnNames = (
-  namespaceOverride?: Namespace | undefined,
-  displayIdMappingColumns?: boolean,
-  getSequence?: boolean,
-  displayPeptideSearchMatchColumns?: boolean
-): {
+type UseColumnNameArgs = {
+  namespaceOverride?: Namespace | undefined;
+  displayIdMappingColumns?: boolean;
+  getSequence?: boolean;
+  displayPeptideSearchMatchColumns?: boolean;
+};
+
+type UseColumnNameReturn = {
   columnNames: Column[];
   setColumnNames: Dispatch<SetStateAction<Column[]>>;
   fromUrl: boolean;
   invalidUrlColumnNames: InvalidParamValue | undefined;
-} => {
+};
+
+const useColumnNames = ({
+  namespaceOverride,
+  displayIdMappingColumns,
+  getSequence,
+  displayPeptideSearchMatchColumns,
+}: UseColumnNameArgs): UseColumnNameReturn => {
   const ns = useNS(namespaceOverride) || Namespace.uniprotkb;
   const { fields: columnNamesFromUrl } = qs.parse(useLocation().search);
   const [columnNamesFromStorage, setColumnNames] = useLocalStorage<Column[]>(
