@@ -1433,7 +1433,10 @@ Object.values(UniProtKBColumn)
 UniProtKBColumnConfiguration.set(UniProtKBColumn.from, fromColumnConfig);
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.match, {
-  label: 'Match',
+  ...getLabelAndTooltip(
+    'Match',
+    "Start and end coordinates of the entry's sequence which matched the peptide search query sequence(s)"
+  ),
   render: ({ peptideSearchMatches }) => (
     <PeptideSearchMatches matches={peptideSearchMatches} />
   ),

@@ -517,7 +517,13 @@ exports[`PeptideSearchResult should render with the correct number of results in
               <th
                 class=""
               >
-                Match
+                <span
+                  aria-expanded="false"
+                >
+                  <span>
+                    Match
+                  </span>
+                </span>
               </th>
               <th
                 class=""
