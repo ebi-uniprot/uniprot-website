@@ -85,8 +85,8 @@ const PeptideSearchResult = () => {
   const facetTotal = facetHeaders?.['x-total-records'];
 
   const converter = useMemo(
-    () => partialRight(peptideSearchConverter, job),
-    [job]
+    () => partialRight(peptideSearchConverter, job?.parameters.peps),
+    [job?.parameters.peps]
   );
 
   // Query for results data

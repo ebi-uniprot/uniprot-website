@@ -1,6 +1,4 @@
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
-import { FinishedJob } from '../../types/toolsJob';
-import { JobTypes } from '../../types/toolsJobTypes';
 import { PeptideSearchMatch } from '../components/PeptideSearchMatches';
 
 export const getMatches = (
@@ -17,13 +15,13 @@ export const getMatches = (
 
 const peptideSearchConverter = (
   results: UniProtkbAPIModel[],
-  job?: FinishedJob<JobTypes.PEPTIDE_SEARCH>
+  peptides?: string
 ): UniProtkbAPIModel[] => {
-  if (job === undefined || !job.parameters.peps) {
+  if (!peptides) {
     return results;
   }
 
-  const querySequences = job.parameters.peps.split('\n');
+  const querySequences = peptides.split('\n');
 
   const t = results.map((result) => {
     const sequence = 'sequence' in result && result.sequence.value;
