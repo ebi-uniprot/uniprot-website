@@ -15,7 +15,7 @@ import uniprotkbResults from '../../../../../uniprotkb/components/__mocks__/resu
 const mockJob: FinishedJob<JobTypes.PEPTIDE_SEARCH> = {
   internalID: 'local-id',
   parameters: {
-    peps: 'MLPGLALLLLA',
+    peps: 'AAQGYGYYRTVIFSAMFGGYSLYYFNRKTFSF\nIQSTHYLQVNYQDSQDWFILVSVIADLRNAFYVLFPIWFHLQEAVGI',
     taxIds: undefined,
     lEQi: 'off',
     spOnly: 'on',

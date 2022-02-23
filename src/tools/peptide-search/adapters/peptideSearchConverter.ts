@@ -17,13 +17,14 @@ const peptideSearchConverter = (
   results: UniProtkbAPIModel[],
   peptides?: string
 ): UniProtkbAPIModel[] => {
+  console.log(peptides);
   if (!peptides) {
     return results;
   }
 
   const querySequences = peptides.split('\n');
 
-  const t = results.map((result) => {
+  return results.map((result) => {
     const sequence = 'sequence' in result && result.sequence.value;
     if (sequence) {
       return {
@@ -33,7 +34,6 @@ const peptideSearchConverter = (
     }
     return result;
   });
-  return t;
 };
 
 export default peptideSearchConverter;
