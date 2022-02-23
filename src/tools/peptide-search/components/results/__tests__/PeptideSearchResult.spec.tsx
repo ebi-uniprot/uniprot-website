@@ -49,6 +49,9 @@ describe('PeptideSearchResult', () => {
   it('should render with the correct number of results in the title, not own job', async () => {
     const { asFragment } = customRender(<PeptideSearchResult />, {
       route: `/peptide-search/${mockJob.remoteID}`,
+      initialLocalStorage: {
+        'view-mode': 'table',
+      },
     });
     await screen.findByText('2 results');
     expect(asFragment()).toMatchSnapshot();
@@ -59,6 +62,9 @@ describe('PeptideSearchResult', () => {
       route: `/peptide-search/${mockJob.remoteID}`,
       initialState: {
         tools: { [mockJob.internalID]: mockJob },
+      },
+      initialLocalStorage: {
+        'view-mode': 'table',
       },
     });
     await screen.findByText('2 results');
