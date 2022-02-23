@@ -32,7 +32,11 @@ import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
 
 import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
 
-import { Location, LocationToPath } from '../../../../app/config/urls';
+import {
+  changePathnameOnly,
+  Location,
+  LocationToPath,
+} from '../../../../app/config/urls';
 import toolsURLs from '../../../config/urls';
 import { getAccessionsURL } from '../../../../shared/config/apiUrls';
 
@@ -339,6 +343,8 @@ const BlastResult = () => {
     />
   );
 
+  const basePath = `/blast/${namespace}/${match.params.id}/`;
+
   return (
     <SideBarLayout
       title={<PageIntro title={title} resultsCount={hitsFiltered.length} />}
@@ -353,12 +359,7 @@ const BlastResult = () => {
         <Tab
           id={TabLocation.Overview}
           title={
-            <Link
-              to={(location) => ({
-                ...location,
-                pathname: `/blast/${namespace}/${match.params.id}/${TabLocation.Overview}`,
-              })}
-            >
+            <Link to={changePathnameOnly(basePath + TabLocation.Overview)}>
               Overview
             </Link>
           }
@@ -387,10 +388,7 @@ const BlastResult = () => {
           })}
           title={
             <Link
-              to={(location) => ({
-                ...location,
-                pathname: `/blast/${namespace}/${match.params.id}/${TabLocation.Taxonomy}`,
-              })}
+              to={changePathnameOnly(basePath + TabLocation.Taxonomy)}
               tabIndex={namespace !== Namespace.uniprotkb ? -1 : undefined}
             >
               Taxonomy
@@ -405,10 +403,7 @@ const BlastResult = () => {
           id={TabLocation.HitDistribution}
           title={
             <Link
-              to={(location) => ({
-                ...location,
-                pathname: `/blast/${namespace}/${match.params.id}/${TabLocation.HitDistribution}`,
-              })}
+              to={changePathnameOnly(basePath + TabLocation.HitDistribution)}
             >
               Hit Distribution
             </Link>
@@ -425,12 +420,7 @@ const BlastResult = () => {
         <Tab
           id={TabLocation.TextOutput}
           title={
-            <Link
-              to={(location) => ({
-                ...location,
-                pathname: `/blast/${namespace}/${match.params.id}/${TabLocation.TextOutput}`,
-              })}
-            >
+            <Link to={changePathnameOnly(basePath + TabLocation.TextOutput)}>
               Text Output
             </Link>
           }
@@ -444,10 +434,7 @@ const BlastResult = () => {
           id={TabLocation.InputParameters}
           title={
             <Link
-              to={(location) => ({
-                ...location,
-                pathname: `/blast/${namespace}/${match.params.id}/${TabLocation.InputParameters}`,
-              })}
+              to={changePathnameOnly(basePath + TabLocation.InputParameters)}
             >
               Input Parameters
             </Link>
@@ -465,12 +452,7 @@ const BlastResult = () => {
         <Tab
           id={TabLocation.APIRequest}
           title={
-            <Link
-              to={(location) => ({
-                ...location,
-                pathname: `/blast/${namespace}/${match.params.id}/${TabLocation.APIRequest}`,
-              })}
-            >
+            <Link to={changePathnameOnly(basePath + TabLocation.APIRequest)}>
               API Request
             </Link>
           }

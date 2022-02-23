@@ -1,5 +1,6 @@
 import { generatePath } from 'react-router-dom';
 import { partial } from 'lodash-es';
+import { LocationDescriptorObject } from 'history';
 
 import {
   Namespace,
@@ -275,3 +276,10 @@ export const getURLToJobWithData = (
   `${jobTypeToPath(jobType)}?ids=${primaryAccession}${
     options ? `[${options.start}-${options.end}]` : ''
   }`;
+
+export const changePathnameOnly =
+  <S = unknown>(pathname: string) =>
+  (location: LocationDescriptorObject<S>) => ({
+    ...location,
+    pathname,
+  });
