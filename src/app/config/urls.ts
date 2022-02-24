@@ -1,7 +1,7 @@
 import { generatePath } from 'react-router-dom';
 import { partial } from 'lodash-es';
+import { LocationDescriptorObject } from 'history';
 
-import { JobTypes } from '../../tools/types/toolsJobTypes';
 import {
   Namespace,
   searchableNamespaceLabels,
@@ -9,13 +9,18 @@ import {
   supportingDataNamespaces,
   supportingDataAndAANamespaces,
 } from '../../shared/types/namespaces';
+import { databaseToNamespace } from '../../tools/blast/config/BlastFormData';
+
 import EntrySection from '../../uniprotkb/types/entrySection';
+import { FormParameters as IdMappingFormParameters } from '../../tools/id-mapping/types/idMappingFormParameters';
+import { FormParameters as BLASTFormParameters } from '../../tools/blast/types/blastFormParameters';
+import { Job, FinishedJob } from '../../tools/types/toolsJob';
+import { JobTypes } from '../../tools/types/toolsJobTypes';
 
 export const IDMappingNamespaces = [
   Namespace.uniprotkb,
   Namespace.uniref,
   Namespace.uniparc,
-  Namespace.idmapping,
 ] as const;
 
 export const basketNamespaces = [
@@ -23,6 +28,8 @@ export const basketNamespaces = [
   Namespace.uniref,
   Namespace.uniparc,
 ] as const;
+
+export const blastNamespaces = basketNamespaces;
 
 export enum Location {
   Home = 'Home',
@@ -106,11 +113,15 @@ export const LocationToPath: Record<Location, string> = {
   [Location.Dashboard]: '/tool-dashboard',
   [Location.AlignResult]: '/align/:id/:subPage?',
   [Location.Align]: '/align',
-  [Location.BlastResult]: '/blast/:id/:subPage?',
+  [Location.BlastResult]: `/blast/:namespace(${blastNamespaces.join(
+    '|'
+  )})/:id/:subPage?`,
   [Location.Blast]: '/blast',
   [Location.PeptideSearchResult]: '/peptide-search/:id/:subPage?',
   [Location.PeptideSearch]: '/peptide-search',
-  [Location.IDMappingResult]: '/id-mapping/:id',
+  [Location.IDMappingResult]: `/id-mapping/:namespace(${IDMappingNamespaces.join(
+    '|'
+  )})?/:id`,
   [Location.IDMapping]: '/id-mapping',
   // Help
   [Location.HelpEntry]: '/help/:accession',
@@ -209,20 +220,50 @@ export const getLocationEntryPathFor = (location: Location) =>
   partial(getLocationEntryPath, location);
 
 // eslint-disable-next-line consistent-return
-export const jobTypeToPath = (type: JobTypes, result?: boolean) => {
+export const jobTypeToPath = (type: JobTypes, job?: Job) => {
   switch (type) {
     case JobTypes.ALIGN:
-      return LocationToPath[result ? Location.AlignResult : Location.Align];
+      if (!job) {
+        return LocationToPath[Location.Align];
+      }
+      return generatePath(LocationToPath[Location.AlignResult], {
+        id: (job as FinishedJob<JobTypes.ALIGN>).remoteID,
+        subPage: 'overview',
+      });
     case JobTypes.BLAST:
-      return LocationToPath[result ? Location.BlastResult : Location.Blast];
+      if (!job) {
+        return LocationToPath[job ? Location.BlastResult : Location.Blast];
+      }
+      return generatePath(LocationToPath[Location.BlastResult], {
+        namespace: databaseToNamespace(
+          (job.parameters as BLASTFormParameters).database
+        ),
+        id: (job as FinishedJob<JobTypes.BLAST>).remoteID,
+        subPage: 'overview',
+      });
     case JobTypes.ID_MAPPING:
-      return LocationToPath[
-        result ? Location.IDMappingResult : Location.IDMapping
-      ];
+      if (!job) {
+        return LocationToPath[Location.IDMapping];
+      }
+      // eslint-disable-next-line no-case-declarations
+      const idMappingNamespace =
+        Namespace[
+          (
+            job?.parameters as IdMappingFormParameters
+          )?.to.toLowerCase() as keyof typeof Namespace
+        ];
+      // return mainNamespaces.has(idMappingNamespace) ?
+      return generatePath(LocationToPath[Location.IDMappingResult], {
+        namespace: idMappingNamespace,
+        id: (job as FinishedJob<JobTypes.ID_MAPPING>).remoteID,
+      });
     case JobTypes.PEPTIDE_SEARCH:
-      return LocationToPath[
-        result ? Location.PeptideSearchResult : Location.PeptideSearch
-      ];
+      if (!job) {
+        return LocationToPath[Location.PeptideSearch];
+      }
+      return generatePath(LocationToPath[Location.PeptideSearchResult], {
+        id: (job as FinishedJob<JobTypes.PEPTIDE_SEARCH>).remoteID,
+      });
     default:
     //
   }
@@ -240,3 +281,10 @@ export const getURLToJobWithData = (
   `${jobTypeToPath(jobType)}?ids=${primaryAccession}${
     options ? `[${options.start}-${options.end}]` : ''
   }`;
+
+export const changePathnameOnly =
+  <S = unknown>(pathname: string) =>
+  (location: LocationDescriptorObject<S>) => ({
+    ...location,
+    pathname,
+  });

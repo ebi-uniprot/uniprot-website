@@ -22,7 +22,11 @@ import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 
 import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
 
-import { Location, LocationToPath } from '../../../../app/config/urls';
+import {
+  changePathnameOnly,
+  Location,
+  LocationToPath,
+} from '../../../../app/config/urls';
 import toolsURLs from '../../../config/urls';
 import { namespaceAndToolsLabels } from '../../../../shared/types/namespaces';
 
@@ -179,6 +183,8 @@ const AlignResult = () => {
     />
   );
 
+  const basePath = `/align/${match.params.id}/`;
+
   return (
     <SingleColumnLayout className={sticky['sticky-tabs-container']}>
       <HTMLHead title={title} />
@@ -187,12 +193,7 @@ const AlignResult = () => {
         <Tab
           id={TabLocation.Overview}
           title={
-            <Link
-              to={(location) => ({
-                ...location,
-                pathname: `/align/${match.params.id}/${TabLocation.Overview}`,
-              })}
-            >
+            <Link to={changePathnameOnly(basePath + TabLocation.Overview)}>
               Overview
             </Link>
           }
@@ -212,12 +213,7 @@ const AlignResult = () => {
         <Tab
           id={TabLocation.PhyloTree}
           title={
-            <Link
-              to={(location) => ({
-                ...location,
-                pathname: `/align/${match.params.id}/${TabLocation.PhyloTree}`,
-              })}
-            >
+            <Link to={changePathnameOnly(basePath + TabLocation.PhyloTree)}>
               Phylogenetic Tree
             </Link>
           }
@@ -238,12 +234,7 @@ const AlignResult = () => {
         <Tab
           id={TabLocation.PIM}
           title={
-            <Link
-              to={(location) => ({
-                ...location,
-                pathname: `/align/${match.params.id}/${TabLocation.PIM}`,
-              })}
-            >
+            <Link to={changePathnameOnly(basePath + TabLocation.PIM)}>
               Percent Identity Matrix
             </Link>
           }
@@ -264,12 +255,7 @@ const AlignResult = () => {
         <Tab
           id={TabLocation.TextOutput}
           title={
-            <Link
-              to={(location) => ({
-                ...location,
-                pathname: `/align/${match.params.id}/${TabLocation.TextOutput}`,
-              })}
-            >
+            <Link to={changePathnameOnly(basePath + TabLocation.TextOutput)}>
               Text Output
             </Link>
           }
@@ -285,10 +271,7 @@ const AlignResult = () => {
           id={TabLocation.InputParameters}
           title={
             <Link
-              to={(location) => ({
-                ...location,
-                pathname: `/align/${match.params.id}/${TabLocation.InputParameters}`,
-              })}
+              to={changePathnameOnly(basePath + TabLocation.InputParameters)}
             >
               Input Parameters
             </Link>
@@ -308,12 +291,7 @@ const AlignResult = () => {
         <Tab
           id={TabLocation.APIRequest}
           title={
-            <Link
-              to={(location) => ({
-                ...location,
-                pathname: `/align/${match.params.id}/${TabLocation.APIRequest}`,
-              })}
-            >
+            <Link to={changePathnameOnly(basePath + TabLocation.APIRequest)}>
               API Request
             </Link>
           }
