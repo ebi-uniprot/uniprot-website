@@ -33,6 +33,7 @@ import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
 import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
 
 import {
+  blastNamespaces,
   changePathnameOnly,
   Location,
   LocationToPath,
@@ -109,7 +110,7 @@ enum TabLocation {
 
 type Params = {
   id: string;
-  namespace?: Namespace.uniprotkb | Namespace.uniref | Namespace.uniparc;
+  namespace?: typeof blastNamespaces[number];
   subPage?: TabLocation;
 };
 

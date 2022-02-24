@@ -27,7 +27,11 @@ import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
 import { defaultFacets } from '../../../../shared/config/apiUrls';
 
 import { JobTypes } from '../../../types/toolsJobTypes';
-import { Location, LocationToPath } from '../../../../app/config/urls';
+import {
+  IDMappingNamespaces,
+  Location,
+  LocationToPath,
+} from '../../../../app/config/urls';
 import {
   MappingAPIModel,
   MappingDetails,
@@ -44,9 +48,10 @@ const urls = toolsURLs(jobType);
 const title = `${namespaceAndToolsLabels[jobType]} results`;
 
 const IDMappingResult = () => {
-  const match = useRouteMatch<{ id: string; namespace?: string }>(
-    LocationToPath[Location.IDMappingResult]
-  );
+  const match = useRouteMatch<{
+    id: string;
+    namespace?: typeof IDMappingNamespaces[number];
+  }>(LocationToPath[Location.IDMappingResult]);
   console.log(match?.params.namespace);
   const location = useLocation();
   const databaseInfoMaps = useDatabaseInfoMaps();

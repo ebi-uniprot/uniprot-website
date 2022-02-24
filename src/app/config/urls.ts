@@ -21,7 +21,6 @@ export const IDMappingNamespaces = [
   Namespace.uniprotkb,
   Namespace.uniref,
   Namespace.uniparc,
-  Namespace.idmapping,
 ] as const;
 
 export const basketNamespaces = [
@@ -29,6 +28,8 @@ export const basketNamespaces = [
   Namespace.uniref,
   Namespace.uniparc,
 ] as const;
+
+export const blastNamespaces = basketNamespaces;
 
 export enum Location {
   Home = 'Home',
@@ -112,11 +113,15 @@ export const LocationToPath: Record<Location, string> = {
   [Location.Dashboard]: '/tool-dashboard',
   [Location.AlignResult]: '/align/:id/:subPage?',
   [Location.Align]: '/align',
-  [Location.BlastResult]: '/blast/:namespace?/:id/:subPage?',
+  [Location.BlastResult]: `/blast/:namespace(${blastNamespaces.join(
+    '|'
+  )})/:id/:subPage?`,
   [Location.Blast]: '/blast',
   [Location.PeptideSearchResult]: '/peptide-search/:id/:subPage?',
   [Location.PeptideSearch]: '/peptide-search',
-  [Location.IDMappingResult]: '/id-mapping/:namespace?/:id',
+  [Location.IDMappingResult]: `/id-mapping/:namespace(${IDMappingNamespaces.join(
+    '|'
+  )})?/:id`,
   [Location.IDMapping]: '/id-mapping',
   // Help
   [Location.HelpEntry]: '/help/:accession',
