@@ -28,6 +28,7 @@ import Response from '../../../../uniprotkb/types/responseTypes';
 import { PeptideSearchResults } from '../../types/peptideSearchResults';
 import { JobTypes } from '../../../types/toolsJobTypes';
 import { Status } from '../../../types/toolsStatuses';
+import { FinishedJob } from '../../../types/toolsJob';
 
 const jobType = JobTypes.PEPTIDE_SEARCH;
 const urls = toolsURLs(jobType);
@@ -51,13 +52,12 @@ const PeptideSearchResult = () => {
 
   const tools = useToolsState();
 
-  const job = useMemo(
-    () =>
-      Object.values(tools).find(
-        (job) => job.status === Status.FINISHED && job?.remoteID === jobID
-      ),
-    [jobID, tools]
-  );
+  const job = useMemo(() => {
+    const found = Object.values(tools).find(
+      (job) => job.status === Status.FINISHED && job?.remoteID === jobID
+    );
+    return found ? (found as FinishedJob<JobTypes.PEPTIDE_SEARCH>) : undefined;
+  }, [jobID, tools]);
 
   const accessions = useMemo(
     () => jobData?.split(',').filter(Boolean),
