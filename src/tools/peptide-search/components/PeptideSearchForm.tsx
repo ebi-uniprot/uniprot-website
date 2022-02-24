@@ -306,6 +306,7 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
               name={defaultFormValues[PeptideSearchFields.peps].fieldName}
               autoComplete="off"
               spellCheck="false"
+              aria-label="Protein sequence(s) of at least 2 aminoacids"
               placeholder="Protein sequence(s) of at least 2 aminoacids"
               className="tools-form-raw-text-input"
               value={peps.selected as string}

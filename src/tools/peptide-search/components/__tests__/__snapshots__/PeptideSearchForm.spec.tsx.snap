@@ -1,0 +1,185 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PeptideSearchForm test Renders the form 1`] = `
+<DocumentFragment>
+  <div
+    class="page-intro"
+  >
+    <h1
+      class=""
+    >
+      Peptide search
+    </h1>
+  </div>
+  <form
+    aria-label="Peptide Search job submission form"
+  >
+    <fieldset>
+      <section
+        class="text-block"
+      >
+        <legend>
+          Find UniProt entries through parts of their peptide sequences, each more than two amino acids long (e.g. RVLSLGR). Enter one or more sequences (100 max). You may also
+          <label
+            class="tools-form-section__file-input"
+          >
+            load from a text file
+            <input
+              type="file"
+            />
+          </label>
+          .
+        </legend>
+        <textarea
+          aria-label="Protein sequence(s) of at least 2 aminoacids"
+          autocomplete="off"
+          class="tools-form-raw-text-input"
+          name="peps"
+          placeholder="Protein sequence(s) of at least 2 aminoacids"
+          spellcheck="false"
+        />
+      </section>
+      <section
+        class="tools-form-section"
+      >
+        <section
+          class="tools-form-section__item tools-form-section__item--taxon-select"
+        >
+          <label>
+            Restrict by taxonomy
+            <div
+              class="autocomplete-container"
+            >
+              <span
+                class="search-input"
+              >
+                <input
+                  data-testid="search-input"
+                  placeholder="Enter taxon names or IDs to include"
+                  type="text"
+                  value=""
+                />
+                <span
+                  class="search-input__suffix"
+                  data-testid="search-input-suffix"
+                  role="presentation"
+                >
+                  <test-file-stub
+                    height="14"
+                    width="14"
+                  />
+                </span>
+              </span>
+              <div
+                class="autocomplete-menu"
+              >
+                <div
+                  class="dropdown-menu__panel"
+                />
+              </div>
+            </div>
+          </label>
+        </section>
+        <section
+          class="tools-form-section__item tools-form-section__item--selected-taxon"
+        />
+      </section>
+      <section
+        class="tools-form-section"
+      >
+        <section
+          class="tools-form-section__item"
+        >
+          <label>
+            Name your Peptide Search job
+            <input
+              autocomplete="off"
+              maxlength="100"
+              name="title"
+              placeholder="\\"my job title\\""
+              style="width: 2ch;"
+              type="text"
+              value=""
+            />
+          </label>
+        </section>
+      </section>
+      <details
+        class="tools-form-advanced"
+        open=""
+      >
+        <summary>
+          <span>
+            Advanced parameters
+          </span>
+        </summary>
+        <section
+          class="tools-form-section"
+        >
+          <section
+            class="tools-form-section__item"
+          >
+            <label>
+              Treat isoleucine and leucine as equivalent
+              <select>
+                <option
+                  data-testid="Treat isoleucine and leucine as equivalent-on"
+                  value="on"
+                >
+                  on
+                </option>
+                <option
+                  data-testid="Treat isoleucine and leucine as equivalent-off"
+                  value="off"
+                >
+                  off
+                </option>
+              </select>
+            </label>
+          </section>
+          <section
+            class="tools-form-section__item"
+          >
+            <label>
+              Search UniProt Reviewed (Swiss-Prot) only
+              <select>
+                <option
+                  data-testid="Search UniProt Reviewed (Swiss-Prot) only-on"
+                  value="on"
+                >
+                  on
+                </option>
+                <option
+                  data-testid="Search UniProt Reviewed (Swiss-Prot) only-off"
+                  value="off"
+                >
+                  off
+                </option>
+              </select>
+            </label>
+          </section>
+        </section>
+      </details>
+      <section
+        class="tools-form-section sticky-bottom-right"
+      >
+        <section
+          class="button-group tools-form-section__buttons"
+        >
+          <input
+            class="button secondary"
+            type="reset"
+          />
+          <button
+            class="button primary"
+            disabled=""
+            type="submit"
+          >
+            Run Peptide Search
+          </button>
+        </section>
+      </section>
+    </fieldset>
+  </form>
+</DocumentFragment>
+`;

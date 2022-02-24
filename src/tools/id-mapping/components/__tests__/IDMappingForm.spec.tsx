@@ -32,9 +32,8 @@ describe('IDMappingForm test', () => {
     const idInput = screen.getByPlaceholderText(
       'P31946 P62258 ALBU_HUMAN EFTU_ECOLI'
     );
-    const jobNameInput = screen.getByPlaceholderText(
-      '"my job title"'
-    ) as HTMLInputElement;
+    const jobNameInput =
+      screen.getByPlaceholderText<HTMLInputElement>('"my job title"');
     const initialToDatabaseButton = screen.getByRole('button', {
       name: 'UniProtKB',
     });
@@ -58,9 +57,8 @@ describe('IDMappingForm test', () => {
       'P31946 P62258 ALBU_HUMAN EFTU_ECOLI'
     );
     fireEvent.change(idInput, { target: { value: 'P31946 P62258' } });
-    const jobNameInput = screen.getByPlaceholderText(
-      '"my job title"'
-    ) as HTMLInputElement;
+    const jobNameInput =
+      screen.getByPlaceholderText<HTMLInputElement>('"my job title"');
     expect(jobNameInput.value).toEqual('P31946 +1 UniProtKB_AC-ID → UniProtKB');
     fireEvent.change(idInput, {
       target: { value: 'P31946 ALBU_HUMAN' },
@@ -70,9 +68,9 @@ describe('IDMappingForm test', () => {
 
   it('Resets the form', async () => {
     // Set input form values
-    const idInput = screen.getByPlaceholderText(
+    const idInput = screen.getByPlaceholderText<HTMLInputElement>(
       'P31946 P62258 ALBU_HUMAN EFTU_ECOLI'
-    ) as HTMLInputElement;
+    );
     fireEvent.change(idInput, { target: { value: 'P31946 P62258' } });
     const initialFromDatabaseButton = screen.getByRole('button', {
       name: 'UniProtKB AC/ID',
@@ -80,9 +78,10 @@ describe('IDMappingForm test', () => {
     fireEvent.click(initialFromDatabaseButton);
     let geneNameButton = screen.getByRole('button', { name: 'Gene Name' });
     fireEvent.click(geneNameButton);
-    let autocompleteInput = (await screen.findByPlaceholderText(
-      'Enter taxon name or ID'
-    )) as HTMLInputElement;
+    let autocompleteInput =
+      await screen.findByPlaceholderText<HTMLInputElement>(
+        'Enter taxon name or ID'
+      );
     fireEvent.change(autocompleteInput, {
       target: { value: mockSuggesterApi.query },
     });
@@ -96,7 +95,7 @@ describe('IDMappingForm test', () => {
     expect(idInput.value).toBeFalsy();
     expect(screen.queryByText('UniProtKB AC/ID')).toBeInTheDocument();
     expect(
-      (screen.getByPlaceholderText('"my job title"') as HTMLInputElement).value
+      screen.getByPlaceholderText<HTMLInputElement>('"my job title"').value
     ).toBeFalsy();
     fireEvent.click(
       screen.getByRole('button', {
@@ -105,9 +104,9 @@ describe('IDMappingForm test', () => {
     );
     geneNameButton = screen.getByRole('button', { name: 'Gene Name' });
     fireEvent.click(geneNameButton);
-    autocompleteInput = (await screen.findByPlaceholderText(
+    autocompleteInput = await screen.findByPlaceholderText<HTMLInputElement>(
       'Enter taxon name or ID'
-    )) as HTMLInputElement;
+    );
     expect(autocompleteInput.value).toBeFalsy();
   });
 
@@ -118,9 +117,10 @@ describe('IDMappingForm test', () => {
     fireEvent.click(fromDatabaseButton);
     const geneNameButton = screen.getByRole('button', { name: 'Gene Name' });
     fireEvent.click(geneNameButton);
-    const autocompleteInput = (await screen.findByPlaceholderText(
-      'Enter taxon name or ID'
-    )) as HTMLInputElement;
+    const autocompleteInput =
+      await screen.findByPlaceholderText<HTMLInputElement>(
+        'Enter taxon name or ID'
+      );
     expect(autocompleteInput).toBeInTheDocument();
     fireEvent.change(autocompleteInput, {
       target: { value: mockSuggesterApi.query },

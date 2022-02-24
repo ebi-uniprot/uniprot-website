@@ -20,9 +20,7 @@ describe('SequenceSearchLoader tests', () => {
 
     const onLoadMock = jest.fn();
     customRender(<SequenceSearchLoader onLoad={onLoadMock} />);
-    const input = screen.getByPlaceholderText(
-      'UniProt IDs'
-    ) as HTMLInputElement;
+    const input = screen.getByPlaceholderText<HTMLInputElement>('UniProt IDs');
     fireEvent.change(input, { target: { value: 'P05' } });
     expect(input.value).toEqual('P05');
     expect(onLoadMock).toBeCalledWith([

@@ -23,6 +23,10 @@ describe('BlastForm test', () => {
     rendered = customRender(<BlastForm />);
   });
 
+  afterEach(() => {
+    jest.useRealTimers();
+  });
+
   it('Renders the form', () => {
     const { asFragment } = rendered;
     expect(asFragment()).toMatchSnapshot();
@@ -30,9 +34,9 @@ describe('BlastForm test', () => {
 
   it('Sets sequence type based on the sequence', () => {
     const textArea = screen.getByTestId('sequence-submission-input');
-    const sequenceTypeSelect = screen.getByRole('combobox', {
+    const sequenceTypeSelect = screen.getByRole<HTMLSelectElement>('combobox', {
       name: 'Sequence type',
-    }) as HTMLSelectElement;
+    });
     fireEvent.change(textArea, { target: { value: aaSequence } });
     expect(sequenceTypeSelect.value).toBe('protein');
     fireEvent.change(textArea, { target: { value: ntSequence } });
@@ -41,9 +45,9 @@ describe('BlastForm test', () => {
 
   it('Sets the program type based on the sequence', () => {
     const textArea = screen.getByTestId('sequence-submission-input');
-    const programSelect = screen.getByRole('combobox', {
+    const programSelect = screen.getByRole<HTMLSelectElement>('combobox', {
       name: 'Program',
-    }) as HTMLSelectElement;
+    });
     fireEvent.change(textArea, { target: { value: aaSequence } });
     expect(programSelect.value).toBe('blastp');
     fireEvent.change(textArea, { target: { value: ntSequence } });
@@ -52,9 +56,9 @@ describe('BlastForm test', () => {
 
   it('Sets a name automatically', () => {
     const textArea = screen.getByTestId('sequence-submission-input');
-    const jobNameField = screen.getByRole('textbox', {
+    const jobNameField = screen.getByRole<HTMLSelectElement>('textbox', {
       name: 'Name your BLAST job',
-    }) as HTMLSelectElement;
+    });
     expect(jobNameField.value).toBe('');
     fireEvent.change(textArea, {
       target: { value: `>some_FASTA_header extra info\n${aaSequence}` },
@@ -64,9 +68,9 @@ describe('BlastForm test', () => {
 
   it("Don't set a name automatically when user entered one", () => {
     const textArea = screen.getByTestId('sequence-submission-input');
-    const jobNameField = screen.getByRole('textbox', {
+    const jobNameField = screen.getByRole<HTMLSelectElement>('textbox', {
       name: 'Name your BLAST job',
-    }) as HTMLSelectElement;
+    });
     fireEvent.change(jobNameField, {
       target: { value: 'My job name' },
     });
@@ -80,9 +84,9 @@ describe('BlastForm test', () => {
   it('Informs the user about the automatic matrix based on the sequence', () => {
     const textArea = screen.getByTestId('sequence-submission-input');
     fireEvent.change(textArea, { target: { value: aaSequence } });
-    const matrix = screen.getByRole('option', {
+    const matrix = screen.getByRole<HTMLOptionElement>('option', {
       name: /Auto/,
-    }) as HTMLOptionElement;
+    });
     expect(matrix.text).toEqual('Auto - PAM30');
     expect(matrix.value).toEqual('auto');
     fireEvent.change(textArea, {
@@ -123,9 +127,9 @@ describe('BlastForm test', () => {
   it('should reset the form when clicking on reset', () => {
     const resetButton = screen.getByRole('button', { name: 'Reset' });
 
-    const textArea = screen.getByTestId(
+    const textArea = screen.getByTestId<HTMLTextAreaElement>(
       'sequence-submission-input'
-    ) as HTMLTextAreaElement;
+    );
     fireEvent.change(textArea, { target: { value: aaSequence } });
 
     fireEvent.click(resetButton);
@@ -133,25 +137,25 @@ describe('BlastForm test', () => {
     expect(textArea.value).toBe('');
   });
 
-  it.skip('should handle submitting a job', async () => {
+  it('should handle submitting a job', async () => {
+    jest.useFakeTimers();
     const { history } = rendered;
     const submitButton = screen.getByRole('button', { name: 'Run BLAST' });
 
-    const textArea = screen.getByTestId(
+    const textArea = screen.getByTestId<HTMLTextAreaElement>(
       'sequence-submission-input'
-    ) as HTMLTextAreaElement;
+    );
     fireEvent.change(textArea, { target: { value: aaSequence } });
 
     fireEvent.submit(submitButton);
 
     expect(submitButton).toBeDisabled();
 
-    // Below not really working for now, that's why this test is skipped
+    jest.runAllTimers();
     await waitFor(() =>
-      history.location.pathname.includes(LocationToPath[Location.Dashboard])
+      expect(history.location.pathname).toContain(
+        LocationToPath[Location.Dashboard]
+      )
     );
-
-    expect(history.location.hash).not.toBe({});
-    // expect(Object.keys(store.getState().tools)).toHaveLength(1);
   });
 });
