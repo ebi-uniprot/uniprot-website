@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
 import { Loader } from 'franklin-sites';
 import { truncate } from 'lodash-es';
@@ -10,6 +9,7 @@ import useNSQuery from '../../../../shared/hooks/useNSQuery';
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
 import usePagination from '../../../../shared/hooks/usePagination';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
+import { useToolsState } from '../../../../shared/contexts/Tools';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import ResultsData from '../../../../shared/components/results/ResultsData';
@@ -26,8 +26,6 @@ import { LocationToPath, Location } from '../../../../app/config/urls';
 import Response from '../../../../uniprotkb/types/responseTypes';
 import { PeptideSearchResults } from '../../types/peptideSearchResults';
 import { JobTypes } from '../../../types/toolsJobTypes';
-import { RootState } from '../../../../app/state/rootInitialState';
-import { Job } from '../../../types/toolsJob';
 import { Status } from '../../../types/toolsStatuses';
 
 const jobType = JobTypes.PEPTIDE_SEARCH;
@@ -50,11 +48,16 @@ const PeptideSearchResult = () => {
     status: jobStatus,
   } = useDataApi<PeptideSearchResults>(urls.resultUrl(jobID, {}));
 
-  const job = useSelector<RootState, Job | undefined>((state) =>
-    Object.values(state.tools).find(
-      (job) => job.status === Status.FINISHED && job?.remoteID === jobID
-    )
+  const tools = useToolsState();
+
+  const job = useMemo(
+    () =>
+      Object.values(tools).find(
+        (job) => job.status === Status.FINISHED && job?.remoteID === jobID
+      ),
+    [jobID, tools]
   );
+
   const accessions = useMemo(
     () => jobData?.split(',').filter(Boolean),
     [jobData]

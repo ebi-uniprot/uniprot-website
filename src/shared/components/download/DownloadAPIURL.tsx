@@ -1,6 +1,8 @@
 import { Button, CodeBlock, CopyIcon } from 'franklin-sites';
 import { useCallback, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+
+import { useMessagesDispatch } from '../../contexts/Messages';
+
 import {
   copyFailureMessage,
   copySuccessMessage,
@@ -21,7 +23,7 @@ const DownloadAPIURL = ({
     onMount();
   }, [onMount]);
 
-  const dispatch = useDispatch();
+  const dispatch = useMessagesDispatch();
   const handleCopyURL = useCallback(async () => {
     try {
       await navigator.clipboard.writeText(apiURL);

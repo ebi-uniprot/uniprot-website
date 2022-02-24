@@ -31,9 +31,9 @@ describe('ComponentsButtons', () => {
           proteinCount={100}
         />
       );
-      const link = screen.getByRole('link', {
+      const link = screen.getByRole<HTMLAnchorElement>('link', {
         name: 'View proteins',
-      }) as HTMLAnchorElement;
+      });
       expect(link).toBeInTheDocument();
       const {
         url,

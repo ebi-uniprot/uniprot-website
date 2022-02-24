@@ -1,10 +1,4 @@
-import { createMemoryHistory } from 'history';
-import {
-  fireEvent,
-  screen,
-  getByText,
-  RenderResult,
-} from '@testing-library/react';
+import { fireEvent, screen, getByText } from '@testing-library/react';
 
 import QueryBuilder from '../QueryBuilder';
 
@@ -16,9 +10,8 @@ import { Namespace } from '../../../shared/types/namespaces';
 
 jest.mock('../../../shared/hooks/useDataApi');
 
-let rendered: RenderResult;
+let rendered: ReturnType<typeof customRender>;
 
-const history = createMemoryHistory();
 const onCancel = jest.fn();
 
 describe('QueryBuilder', () => {
@@ -30,15 +23,12 @@ describe('QueryBuilder', () => {
       <QueryBuilder
         onCancel={onCancel}
         initialNamespace={Namespace.uniprotkb}
-      />,
-      {
-        history,
-      }
+      />
     );
   });
 
   // only exception where we want different payload
-  test('should render loading', async () => {
+  test('should render loading', () => {
     (useDataApi as jest.Mock).mockReturnValue({ loading: true });
 
     rendered = customRender(
@@ -111,7 +101,7 @@ describe('QueryBuilder', () => {
     fireEvent.click(search);
 
     expect(onCancel).toHaveBeenCalledTimes(1);
-    expect(history.location.pathname).toBe('/uniprotkb');
-    expect(history.location.search).toBe('?query=(gene:zen) OR eve');
+    expect(rendered.history.location.pathname).toBe('/uniprotkb');
+    expect(rendered.history.location.search).toBe('?query=(gene:zen) OR eve');
   });
 });

@@ -9,7 +9,6 @@ import {
   SetStateAction,
   useEffect,
 } from 'react';
-import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Chip, PageIntro, SpinnerIcon } from 'franklin-sites';
 import { sleep } from 'timing-functions';
@@ -19,14 +18,16 @@ import HTMLHead from '../../../shared/components/HTMLHead';
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
 import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
 
-import { addMessage } from '../../../messages/state/messagesActions';
-
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
+import { useToolsDispatch } from '../../../shared/contexts/Tools';
+import { useMessagesDispatch } from '../../../shared/contexts/Messages';
+
+import { addMessage } from '../../../messages/state/messagesActions';
+import { createJob } from '../../state/toolsActions';
 
 import { truncateTaxonLabel } from '../../utils';
 import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
-import { createJob } from '../../state/toolsActions';
 
 import { JobTypes } from '../../types/toolsJobTypes';
 import { FormParameters } from '../types/peptideSearchFormParameters';
@@ -100,7 +101,8 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // hooks
-  const dispatch = useDispatch();
+  const dispatchTools = useToolsDispatch();
+  const dispatchMessages = useMessagesDispatch();
   const history = useHistory();
   const reducedMotion = useReducedMotion();
 
@@ -217,7 +219,7 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
       // the reducer will be in charge of generating a proper job object for
       // internal state. Dispatching after history.push so that pop-up messages (as a
       // side-effect of createJob) cannot mount immediately before navigating away.
-      dispatch(
+      dispatchTools(
         createJob(
           parameters,
           JobTypes.PEPTIDE_SEARCH,
@@ -269,7 +271,7 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
     },
 
     onError: (error) =>
-      dispatch(
+      dispatchMessages(
         addMessage({
           content: error.message,
           format: MessageFormat.POP_UP,
@@ -304,6 +306,7 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
               name={defaultFormValues[PeptideSearchFields.peps].fieldName}
               autoComplete="off"
               spellCheck="false"
+              aria-label="Protein sequence(s) of at least 2 aminoacids"
               placeholder="Protein sequence(s) of at least 2 aminoacids"
               className="tools-form-raw-text-input"
               value={peps.selected as string}

@@ -6,7 +6,6 @@ import {
   useCallback,
   Suspense,
 } from 'react';
-import { useSelector } from 'react-redux';
 import { generatePath, Link } from 'react-router-dom';
 import { schedule } from 'timing-functions';
 import { sumBy } from 'lodash-es';
@@ -23,6 +22,7 @@ import ErrorBoundary from '../error-component/ErrorBoundary';
 
 import useBasket from '../../hooks/useBasket';
 import useSafeState from '../../hooks/useSafeState';
+import { useToolsState } from '../../contexts/Tools';
 
 import lazy from '../../utils/lazy';
 import { pluralise } from '../../utils/utils';
@@ -30,7 +30,6 @@ import { pluralise } from '../../utils/utils';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { Namespace } from '../../types/namespaces';
-import { RootState } from '../../../app/state/rootInitialState';
 import { Status } from '../../../tools/types/toolsStatuses';
 
 import styles from './styles/secondary-items.module.scss';
@@ -70,15 +69,19 @@ const statusesToNotify = new Set([
 ]);
 
 const ToolsDashboard = ({ display, close }: Props) => {
-  const count = useSelector<RootState, number>(
-    (state) =>
-      Object.values(state.tools).filter(
+  const tools = useToolsState();
+
+  const count = useMemo(
+    () =>
+      Object.values(tools).filter(
         (job) =>
           'seen' in job &&
           job.seen === false &&
           statusesToNotify.has(job.status)
-      ).length
+      ).length,
+    [tools]
   );
+
   const [dashboardButtonX, setDashboardButtonX] = useSafeState<
     number | undefined
   >(undefined);

@@ -1,4 +1,3 @@
-import { useDispatch } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
 import { Loader } from 'franklin-sites';
 
@@ -16,13 +15,14 @@ import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
+import useDataApi from '../../../shared/hooks/useDataApi';
+import { useMessagesDispatch } from '../../../shared/contexts/Messages';
+
 import { addMessage } from '../../../messages/state/messagesActions';
 
-import { LocationToPath, Location } from '../../../app/config/urls';
 import apiUrls from '../../../shared/config/apiUrls';
 
-import useDataApi from '../../../shared/hooks/useDataApi';
-
+import { LocationToPath, Location } from '../../../app/config/urls';
 import uniRefConverter, {
   UniRefLiteAPIModel,
 } from '../../adapters/uniRefConverter';
@@ -40,7 +40,7 @@ import {
 import '../../../shared/components/entry/styles/entry-page.scss';
 
 const Entry = () => {
-  const dispatch = useDispatch();
+  const dispatch = useMessagesDispatch();
   const match = useRouteMatch<{ accession: string }>(
     LocationToPath[Location.UniRefEntry]
   );

@@ -1,4 +1,4 @@
-import { Store } from 'redux';
+import { Dispatch, MutableRefObject } from 'react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
@@ -17,16 +17,18 @@ import { UPDATE_JOB } from '../toolsActions';
 
 import { Location } from '../../../app/config/urls';
 
+import { ToolsAction } from '../toolsReducers';
+import { ToolsState } from '../toolsInitialState';
+import { MessagesAction } from '../../../messages/state/messagesReducers';
+
 let mock: MockAdapter;
 let checkJobStatus: ReturnType<typeof getCheckJobStatus>;
 
-const store: Store = {
-  getState: jest.fn(() => ({ tools: { [runningJob.internalID]: runningJob } })),
-  dispatch: jest.fn(),
-  subscribe: jest.fn(),
-  replaceReducer: jest.fn(),
-  [Symbol.observable]: jest.fn(),
+const dispatch: jest.Mock<Dispatch<ToolsAction>> = jest.fn();
+const stateRef: MutableRefObject<ToolsState> = {
+  current: { [runningJob.internalID]: runningJob },
 };
+const messagesDispatch: jest.Mock<Dispatch<MessagesAction>> = jest.fn();
 
 beforeAll(() => {
   window.fetch = jest.fn();
@@ -37,11 +39,12 @@ beforeAll(() => {
 });
 
 beforeEach(() => {
-  checkJobStatus = getCheckJobStatus(store);
+  checkJobStatus = getCheckJobStatus(dispatch, stateRef, messagesDispatch);
 });
 
 afterEach(() => {
-  (store.dispatch as jest.Mock).mockClear();
+  dispatch.mockClear();
+  messagesDispatch.mockClear();
 });
 
 describe('checkJobStatus', () => {
@@ -55,7 +58,7 @@ describe('checkJobStatus', () => {
       );
       await checkJobStatus(runningJob);
 
-      expect(store.dispatch).not.toHaveBeenCalled();
+      expect(dispatch).not.toHaveBeenCalled();
     });
 
     it('should not dispatch on invalid status', async () => {
@@ -68,7 +71,7 @@ describe('checkJobStatus', () => {
       );
       await checkJobStatus(runningJob);
 
-      expect(store.dispatch).not.toHaveBeenCalled();
+      expect(dispatch).not.toHaveBeenCalled();
     });
 
     it('should not dispatch if job not in state', async () => {
@@ -81,7 +84,7 @@ describe('checkJobStatus', () => {
       );
       await checkJobStatus({ ...runningJob, internalID: 'other id' });
 
-      expect(store.dispatch).not.toHaveBeenCalled();
+      expect(dispatch).not.toHaveBeenCalled();
     });
 
     it('should dispatch if job disappeared from server', async () => {
@@ -94,7 +97,7 @@ describe('checkJobStatus', () => {
       );
       await checkJobStatus(runningJob);
 
-      expect(store.dispatch).toHaveBeenCalledWith({
+      expect(dispatch).toHaveBeenCalledWith({
         payload: {
           id: runningJob.internalID,
           partialJob: {
@@ -117,7 +120,7 @@ describe('checkJobStatus', () => {
       mock.onGet().reply(200, { data: 'nonsense' });
       await checkJobStatus(runningJob);
 
-      expect(store.dispatch).toHaveBeenCalledWith({
+      expect(dispatch).toHaveBeenCalledWith({
         payload: {
           id: runningJob.internalID,
           partialJob: {
@@ -140,7 +143,7 @@ describe('checkJobStatus', () => {
     );
     await checkJobStatus(runningJob);
 
-    expect(store.dispatch).toHaveBeenCalledWith({
+    expect(dispatch).toHaveBeenCalledWith({
       payload: {
         id: runningJob.internalID,
         partialJob: {
@@ -160,7 +163,7 @@ describe('checkJobStatus', () => {
     );
     await checkJobStatus(runningJob);
 
-    expect(store.dispatch).toHaveBeenCalledWith({
+    expect(dispatch).toHaveBeenCalledWith({
       payload: {
         id: runningJob.internalID,
         partialJob: {
@@ -180,7 +183,7 @@ describe('checkJobStatus', () => {
     );
     await checkJobStatus(runningJob);
 
-    expect(store.dispatch).toHaveBeenCalledWith({
+    expect(dispatch).toHaveBeenCalledWith({
       payload: {
         id: runningJob.internalID,
         partialJob: {
@@ -203,7 +206,7 @@ describe('checkJobStatus', () => {
     mock.onGet().reply(200, { hits: [0] });
     await checkJobStatus(runningJob);
 
-    expect(store.dispatch).toHaveBeenNthCalledWith(1, {
+    expect(dispatch).toHaveBeenCalledWith({
       payload: {
         id: runningJob.internalID,
         partialJob: {
@@ -216,8 +219,7 @@ describe('checkJobStatus', () => {
       },
       type: UPDATE_JOB,
     });
-    expect(store.dispatch).toHaveBeenNthCalledWith(
-      2,
+    expect(messagesDispatch).toHaveBeenCalledWith(
       expect.objectContaining({
         payload: expect.objectContaining({
           id: runningJob.internalID,

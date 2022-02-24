@@ -22,8 +22,6 @@ Jest is used as the main testing framework. Snapshot testing, which is a feature
 
 Enzyme is used as a utility of Jest to test React components.
 
-The Redux layer is also tested, which provides a certain amount of integration tests.
-
 ## Consequences
 
 - Unit tests can work as code documentation and prevent breakage.

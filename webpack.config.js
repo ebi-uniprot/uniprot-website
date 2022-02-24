@@ -80,7 +80,6 @@ module.exports = (env, argv) => {
         react: path.resolve('./node_modules/react'),
         'react-dom': path.resolve('./node_modules/react-dom'),
         'react-router-dom': path.resolve('./node_modules/react-router-dom'),
-        redux: path.resolve('./node_modules/redux'),
         // other packages
         classnames: path.resolve('./node_modules/classnames'),
         // go package uses a slightly earlier version of axios, link it to ours

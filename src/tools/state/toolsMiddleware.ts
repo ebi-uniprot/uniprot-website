@@ -1,4 +1,4 @@
-import { Middleware, Dispatch, AnyAction } from 'redux';
+import { Dispatch, MutableRefObject } from 'react';
 import { schedule, sleep, frame } from 'timing-functions';
 import pMap from 'p-map';
 
@@ -11,26 +11,34 @@ import getSubmitJob from './getSubmitJob';
 import { Job } from '../types/toolsJob';
 import { Status } from '../types/toolsStatuses';
 
-import { RootState } from '../../app/state/rootInitialState';
+import { ToolsState } from './toolsInitialState';
+import { ToolsAction } from './toolsReducers';
+import { MessagesAction } from '../../messages/state/messagesReducers';
 
 const POLLING_INTERVAL = 1000 * 3; // 3 seconds
 const EXPIRED_INTERVAL = 1000 * 60 * 15; // 15 minutes
 const AUTO_DELETE_TIME = 1000 * 60 * 60 * 24 * 14; // 2 weeks
 
-const getJobsToCheck = (state: RootState) =>
-  Object.values(state.tools).filter(
+const getJobsToCheck = (state: ToolsState) =>
+  Object.values(state).filter(
     (job) => job.status === Status.CREATED || job.status === Status.RUNNING
   );
 
-const toolsMiddleware: Middleware<Dispatch<AnyAction>, RootState> = (store) => {
-  const { dispatch, getState } = store;
-
+const toolsMiddleware = (
+  dispatch: Dispatch<ToolsAction>,
+  stateRef: MutableRefObject<ToolsState>,
+  messagesDispatch: Dispatch<MessagesAction>
+): Dispatch<ToolsAction> => {
   // rehydrate jobs, run once in the application lifetime
-  rehydrateJobs(dispatch as Dispatch);
+  rehydrateJobs(dispatch);
 
-  const checkJobStatus = getCheckJobStatus(store);
+  const checkJobStatus = getCheckJobStatus(
+    dispatch,
+    stateRef,
+    messagesDispatch
+  );
 
-  const submitJob = getSubmitJob(store);
+  const submitJob = getSubmitJob(dispatch, stateRef, messagesDispatch);
 
   // eslint-disable-next-line consistent-return
   const pollJobMapper = (job: Job) => {
@@ -44,7 +52,7 @@ const toolsMiddleware: Middleware<Dispatch<AnyAction>, RootState> = (store) => {
 
   // main loop to poll job statuses
   const pollJobs = async () => {
-    let jobsToCheck = getJobsToCheck(getState());
+    let jobsToCheck = getJobsToCheck(stateRef.current);
 
     await pMap(jobsToCheck, pollJobMapper, { concurrency: 4 });
 
@@ -53,7 +61,7 @@ const toolsMiddleware: Middleware<Dispatch<AnyAction>, RootState> = (store) => {
 
     await sleep(POLLING_INTERVAL);
 
-    jobsToCheck = getJobsToCheck(getState());
+    jobsToCheck = getJobsToCheck(stateRef.current);
     // Make sure to only schedule a new loop when there are jobs to checks
     if (jobsToCheck.length) {
       // eslint-disable-next-line @typescript-eslint/no-use-before-define
@@ -77,10 +85,8 @@ const toolsMiddleware: Middleware<Dispatch<AnyAction>, RootState> = (store) => {
 
   // loop to check for expired jobs
   const expiredJobs = async () => {
-    const toolsState = getState().tools;
-
     const now = Date.now();
-    for (const [internalID, job] of Object.entries(toolsState)) {
+    for (const [internalID, job] of Object.entries(stateRef.current)) {
       if (now - job.timeCreated > AUTO_DELETE_TIME && !job.saved) {
         // job is older than 7 days
         dispatch(deleteJob(internalID));
@@ -112,25 +118,14 @@ const toolsMiddleware: Middleware<Dispatch<AnyAction>, RootState> = (store) => {
     expiredJobs();
   };
 
-  return (next) => (action) => {
-    switch (action.type) {
-      case CREATE_JOB:
-        pollJobs.schedule();
-        break;
-      case REHYDRATE_JOBS:
-        pollJobs.schedule();
-        // don't check that rightaway, to avoid using up important connections
-        sleep(5000).then(expiredJobs.schedule);
-        break;
-      default:
-      // do nothing
-    }
-
-    // state is not yet updated
-    const returnValue = next(action);
-    // state is now updated
-
-    return returnValue;
+  return (action) => {
+    if (action.type === CREATE_JOB) {
+      pollJobs.schedule();
+    } else if (action.type === REHYDRATE_JOBS) {
+      pollJobs.schedule();
+      // don't check that rightaway, to avoid using up important connections
+      sleep(5000).then(expiredJobs.schedule);
+    } // else, nothing
   };
 };
 
