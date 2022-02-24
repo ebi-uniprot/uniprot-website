@@ -27,6 +27,10 @@ const getSubmitJob =
     messagesDispatch: Dispatch<MessagesAction>
   ) =>
   async (job: CreatedJob) => {
+    // stateRef not hydrated yet
+    if (!stateRef.current) {
+      return;
+    }
     try {
       // specific logic to transform FormParameters to ServerParameters
       let formData;

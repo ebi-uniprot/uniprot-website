@@ -89,23 +89,16 @@ const PeptideSearchResult = ({
   } = facetApiObject;
   const facetTotal = facetHeaders?.['x-total-records'];
 
-  const converter = useMemo(
-    () =>
-      partialRight(
-        peptideSearchConverter,
-        jobSubmission.current?.parameters.peps
-      ),
-    [jobSubmission]
-  );
+  const converter = useMemo(() => {
+    const peps = jobSubmission.current?.parameters.peps;
+    return peps ? partialRight(peptideSearchConverter, peps) : undefined;
+  }, [jobSubmission]);
 
   // Query for results data
   const initialApiUrl = useNSQuery({ accessions, getSequence: true });
   // TODO: if the user didn't submit this jobSubmission there is no way to get the initial sequence. In the
   // future the API may provide this information in which case we would want to fetch and show
-  const resultsDataObject = usePagination(
-    initialApiUrl,
-    jobSubmission && converter
-  );
+  const resultsDataObject = usePagination(initialApiUrl, converter);
   const {
     initialLoading: resultsDataInitialLoading,
     total: resultsDataTotal,

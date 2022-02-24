@@ -51,7 +51,10 @@ const getCheckJobStatus =
       ) {
         throw new Error(`${response.status}: ${response.statusText}`);
       }
-
+      // stateRef not hydrated yet
+      if (!stateRef.current) {
+        return;
+      }
       // get a new reference to the job
       let currentStateOfJob = stateRef.current[job.internalID];
       // check that the job is still in the state (it might have been removed)
