@@ -58,9 +58,9 @@ describe('Computationally mapped isoforms', () => {
     (useDataApi as jest.Mock).mockReturnValue({ loading: false, data });
 
     customRender(<ComputationalyMappedSequences primaryAccession="P05067" />);
-    const link = (await screen.findByRole('link', {
+    const link = await screen.findByRole<HTMLAnchorElement>('link', {
       name: /View all/i,
-    })) as HTMLAnchorElement;
+    });
     expect(link.href).toContain(
       '?query=(accession:A0A0A0MRG2%20OR%20accession:E9PG40%20OR%20accession:H7C0V9%20OR%20accession:H7C2L2)'
     );

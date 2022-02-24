@@ -8,7 +8,6 @@ import {
   Dispatch,
   SetStateAction,
 } from 'react';
-import { useDispatch } from 'react-redux';
 import {
   SequenceSubmission,
   PageIntro,
@@ -32,6 +31,8 @@ import { addMessage } from '../../../messages/state/messagesActions';
 
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
+import { useToolsDispatch } from '../../../shared/contexts/Tools';
+import { useMessagesDispatch } from '../../../shared/contexts/Messages';
 
 import { createJob } from '../../state/toolsActions';
 
@@ -106,7 +107,8 @@ const AlignForm = ({ initialFormValues }: Props) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // hooks
-  const dispatch = useDispatch();
+  const dispatchTools = useToolsDispatch();
+  const dispatchMessages = useMessagesDispatch();
   const history = useHistory();
   const reducedMotion = useReducedMotion();
 
@@ -195,7 +197,7 @@ const AlignForm = ({ initialFormValues }: Props) => {
       // the reducer will be in charge of generating a proper job object for
       // internal state. Dispatching after history.push so that pop-up messages (as a
       // side-effect of createJob) cannot mount immediately before navigating away.
-      dispatch(
+      dispatchTools(
         createJob(parameters, JobTypes.ALIGN, jobName.selected as string)
       );
     });
@@ -252,7 +254,7 @@ const AlignForm = ({ initialFormValues }: Props) => {
     inputRef: fileInputRef,
     onFileContent: (content) => onSequenceChange(sequenceProcessor(content)),
     onError: (error) =>
-      dispatch(
+      dispatchMessages(
         addMessage({
           content: error.message,
           format: MessageFormat.POP_UP,

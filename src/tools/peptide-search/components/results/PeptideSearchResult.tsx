@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
 import { Loader } from 'franklin-sites';
 import { partialRight, truncate } from 'lodash-es';
@@ -10,6 +9,7 @@ import useNSQuery from '../../../../shared/hooks/useNSQuery';
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
 import usePagination from '../../../../shared/hooks/usePagination';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
+import { useToolsState } from '../../../../shared/contexts/Tools';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import ResultsData from '../../../../shared/components/results/ResultsData';
@@ -22,14 +22,12 @@ import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler
 import toolsURLs from '../../../config/urls';
 import { namespaceAndToolsLabels } from '../../../../shared/types/namespaces';
 import { LocationToPath, Location } from '../../../../app/config/urls';
+import peptideSearchConverter from '../../adapters/peptideSearchConverter';
 
 import Response from '../../../../uniprotkb/types/responseTypes';
 import { PeptideSearchResults } from '../../types/peptideSearchResults';
 import { JobTypes } from '../../../types/toolsJobTypes';
-import { RootState } from '../../../../app/state/rootInitialState';
-import { FinishedJob } from '../../../types/toolsJob';
 import { Status } from '../../../types/toolsStatuses';
-import peptideSearchConverter from '../../adapters/peptideSearchConverter';
 
 const jobType = JobTypes.PEPTIDE_SEARCH;
 const urls = toolsURLs(jobType);
@@ -50,18 +48,16 @@ const PeptideSearchResult = () => {
     error: jobError,
     status: jobStatus,
   } = useDataApi<PeptideSearchResults>(urls.resultUrl(jobID, {}));
-  const job = useSelector<
-    RootState,
-    FinishedJob<JobTypes.PEPTIDE_SEARCH> | undefined
-  >((state) => {
-    const found = Object.values(state.tools).find(
-      (job) =>
-        job.status === Status.FINISHED &&
-        'remoteID' in job &&
-        job?.remoteID === jobID
-    );
-    return found ? (found as FinishedJob<JobTypes.PEPTIDE_SEARCH>) : undefined;
-  });
+
+  const tools = useToolsState();
+
+  const job = useMemo(
+    () =>
+      Object.values(tools).find(
+        (job) => job.status === Status.FINISHED && job?.remoteID === jobID
+      ),
+    [jobID, tools]
+  );
 
   const accessions = useMemo(
     () => jobData?.split(',').filter(Boolean),

@@ -1,12 +1,12 @@
 import { Dispatch, MouseEvent, SetStateAction } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { DropdownButton, Button, CopyIcon } from 'franklin-sites';
 import { createPath } from 'history';
 
 import useNS from '../../hooks/useNS';
 import useColumnNames from '../../hooks/useColumnNames';
 import useViewMode from '../../hooks/useViewMode';
+import { useMessagesDispatch } from '../../contexts/Messages';
 
 import {
   copyFailureMessage,
@@ -35,7 +35,7 @@ const CopyLinkWebsite = ({
   namespaceOverride: Namespace | undefined;
   disableCardToggle: boolean;
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useMessagesDispatch();
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
   const { columnNames } = useColumnNames({ namespaceOverride });
   const { viewMode } = useViewMode(namespace, disableCardToggle);

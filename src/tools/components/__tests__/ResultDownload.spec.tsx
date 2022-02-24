@@ -21,9 +21,9 @@ describe('Blast results download', () => {
     );
     const select = screen.getByTestId('file-format-select');
     fireEvent.change(select, { target: { value: 'accs' } });
-    const downloadLink = screen.getByRole('link', {
+    const downloadLink = screen.getByRole<HTMLAnchorElement>('link', {
       name: 'Download',
-    }) as HTMLAnchorElement;
+    });
     fireEvent.click(downloadLink);
     expect(onCloseMock).toHaveBeenCalled();
     expect(downloadLink.href).toEqual(

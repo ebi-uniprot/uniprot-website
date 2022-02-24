@@ -10,9 +10,9 @@ import {
 } from 'react';
 import queryString from 'query-string';
 import { SearchInput } from 'franklin-sites';
-import { useDispatch } from 'react-redux';
 import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
 
+import { useMessagesDispatch } from '../../shared/contexts/Messages';
 import useDataApi from '../../shared/hooks/useDataApi';
 
 import { addMessage } from '../../messages/state/messagesActions';
@@ -84,7 +84,7 @@ const SequenceSearchLoader = forwardRef<
   const [accessionOrID, setAccessionOrID] = useState('');
   // flag, abused to store previous value of the field
   const [pasteLoading, setPasteLoading] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useMessagesDispatch();
 
   useImperativeHandle(ref, () => ({
     reset: () => setAccessionOrID(''),

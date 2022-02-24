@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useEffect, useMemo } from 'react';
+import { createContext, FC, useEffect, useMemo } from 'react';
 import { Loader } from 'franklin-sites';
 
 import ErrorHandler from '../components/error-pages/ErrorHandler';
@@ -47,13 +47,7 @@ export const databaseInfoColumnsSanityCheck = (databaseInfo: DatabaseInfo) => {
   }
 };
 
-type DatabaseInfoMapsProviderProps = {
-  children: ReactNode;
-};
-
-export const DatabaseInfoMapsProvider = ({
-  children,
-}: DatabaseInfoMapsProviderProps) => {
+export const DatabaseInfoMapsProvider: FC = ({ children }) => {
   const { data, loading, progress, error, status } = useDataApi<DatabaseInfo>(
     apiUrls.allDatabases(Namespace.uniprotkb)
   );

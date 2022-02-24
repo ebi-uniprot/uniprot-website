@@ -1,5 +1,4 @@
-import { useMemo, useEffect, FC, Suspense } from 'react';
-import { useDispatch } from 'react-redux';
+import { useMemo, useEffect, Suspense } from 'react';
 import { Link, useRouteMatch, useHistory } from 'react-router-dom';
 import { InPageNav, Loader, Tabs, Tab } from 'franklin-sites';
 import cn from 'classnames';
@@ -33,6 +32,10 @@ import CommunityAnnotationLink from './CommunityAnnotationLink';
 
 import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 
+import useDataApi from '../../../shared/hooks/useDataApi';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import { useMessagesDispatch } from '../../../shared/contexts/Messages';
+
 import { addMessage } from '../../../messages/state/messagesActions';
 
 import { hasExternalLinks, getListOfIsoformAccessions } from '../../utils';
@@ -40,9 +43,6 @@ import { hasContent } from '../../../shared/utils/utils';
 import lazy from '../../../shared/utils/lazy';
 import apiUrls from '../../../shared/config/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
-
-import useDataApi from '../../../shared/hooks/useDataApi';
-import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
 import uniProtKbConverter, {
   UniProtkbAPIModel,
@@ -100,8 +100,8 @@ const EntryHistory = lazy(
     import(/* webpackChunkName: "uniprotkb-entry-history" */ './EntryHistory')
 );
 
-const Entry: FC = () => {
-  const dispatch = useDispatch();
+const Entry = () => {
+  const dispatch = useMessagesDispatch();
   const history = useHistory();
   const match = useRouteMatch<{ accession: string; subPage?: TabLocation }>(
     LocationToPath[Location.UniProtKBEntry]

@@ -254,7 +254,8 @@ const Download: FC<DownloadProps> = ({
       <section ref={extraContentRef}>
         {extraContent === 'url' && (
           <DownloadAPIURL
-            apiURL={downloadUrl}
+            // Remove the download attribute as it's unnecessary for API access
+            apiURL={downloadUrl.replace('download=true&', '')}
             onCopy={onClose}
             onMount={scrollExtraIntoView}
           />

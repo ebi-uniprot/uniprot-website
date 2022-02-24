@@ -6,7 +6,6 @@ import {
   useEffect,
   useCallback,
 } from 'react';
-import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import {
   PageIntro,
@@ -24,11 +23,15 @@ import InitialFormParametersProvider from '../../components/InitialFormParameter
 
 import { pluralise } from '../../../shared/utils/utils';
 
-import useDataApi from '../../../shared/hooks/useDataApi';
-import useTextFileInput from '../../../shared/hooks/useTextFileInput';
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
+import useTextFileInput from '../../../shared/hooks/useTextFileInput';
+import { useToolsDispatch } from '../../../shared/contexts/Tools';
+import { useMessagesDispatch } from '../../../shared/contexts/Messages';
+import useDataApi from '../../../shared/hooks/useDataApi';
 
+import { addMessage } from '../../../messages/state/messagesActions';
 import { createJob } from '../../state/toolsActions';
+
 import { getTreeData } from '../utils';
 import { truncateTaxonLabel } from '../../utils';
 import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
@@ -43,7 +46,6 @@ import defaultFormValues, {
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { JobTypes } from '../../types/toolsJobTypes';
-import { addMessage } from '../../../messages/state/messagesActions';
 import {
   MessageFormat,
   MessageLevel,
@@ -85,7 +87,8 @@ const IDMappingForm = ({ initialFormValues }: Props) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // hooks
-  const dispatch = useDispatch();
+  const dispatchTools = useToolsDispatch();
+  const dispatchMessages = useMessagesDispatch();
   const history = useHistory();
   const reducedMotion = useReducedMotion();
 
@@ -184,7 +187,7 @@ const IDMappingForm = ({ initialFormValues }: Props) => {
         // the reducer will be in charge of generating a proper job object for
         // internal state. Dispatching after history.push so that pop-up messages (as a
         // side-effect of createJob) cannot mount immediately before navigating away.
-        dispatch(
+        dispatchTools(
           createJob(parameters, JobTypes.ID_MAPPING, jobName.selected as string)
         );
       });
@@ -193,7 +196,7 @@ const IDMappingForm = ({ initialFormValues }: Props) => {
     // cause this to be re-created. Maybe review submit callback in all 4 forms?
     [
       dbNameToDbInfo,
-      dispatch,
+      dispatchTools,
       fromDb.selected,
       history,
       parsedIDs,
@@ -258,7 +261,7 @@ const IDMappingForm = ({ initialFormValues }: Props) => {
     inputRef: fileInputRef,
     onFileContent: setTextIDs,
     onError: (error) =>
-      dispatch(
+      dispatchMessages(
         addMessage({
           content: error.message,
           format: MessageFormat.POP_UP,
