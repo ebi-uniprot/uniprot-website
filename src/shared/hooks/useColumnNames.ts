@@ -33,7 +33,7 @@ const useColumnNames = ({
   displayIdMappingColumns,
   getSequence,
   displayPeptideSearchMatchColumns,
-}: UseColumnNameArgs): UseColumnNameReturn => {
+}: UseColumnNameArgs = {}): UseColumnNameReturn => {
   const ns = useNS(namespaceOverride) || Namespace.uniprotkb;
   const { fields: columnNamesFromUrl } = qs.parse(useLocation().search);
   const [columnNamesFromStorage, setColumnNames] = useLocalStorage<Column[]>(
