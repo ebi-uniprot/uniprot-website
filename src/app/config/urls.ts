@@ -149,10 +149,14 @@ export const SearchResultsLocations: Record<SearchableNamespace, string> = {
   [Namespace.arba]: LocationToPath[Location.ARBAResults],
 };
 
-// "/:namespace(uniprotkb|uniparc|........)"
-export const allSearchResultLocations = `/:namespace(${Object.keys(
-  searchableNamespaceLabels
-).join('|')})`;
+export const toolsWithNamespaces = [Location.Blast, Location.IDMapping].map(
+  (location) => LocationToPath[location].slice(1)
+);
+
+// "/(blast|id-mapping)?/:namespace(uniprotkb|uniparc|........)"
+export const allSearchResultLocations = `/:tool(${toolsWithNamespaces.join(
+  '|'
+)})?/:namespace(${Object.keys(searchableNamespaceLabels).join('|')})`;
 
 // "/:namespace(uniprotkb|uniparc|........)/:accession"
 export const allEntryPages = `/:namespace(${Object.keys(
