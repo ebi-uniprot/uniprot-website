@@ -4,18 +4,25 @@ import { PeptideSearchMatch } from '../components/PeptideSearchMatches';
 export const getMatches = (
   entrySequence: string,
   matchSequences: string[]
-): PeptideSearchMatch[] =>
-  matchSequences
-    .map((matchSequence) => {
-      const start = entrySequence.indexOf(matchSequence);
-      return {
+): PeptideSearchMatch[] => {
+  const matches: PeptideSearchMatch[] = [];
+
+  for (const matchSequence of matchSequences) {
+    let start = entrySequence.indexOf(matchSequence, 0);
+    while (start !== -1) {
+      matches.push({
         matchSequence,
         start,
         end: start + matchSequence.length - 1,
-      };
-    })
-    .filter(({ start }) => start >= 0)
-    .sort((a, b) => a.start - b.start);
+      });
+
+      // find the next match
+      start = entrySequence.indexOf(matchSequence, start + 1);
+    }
+  }
+
+  return matches.sort((a, b) => a.start - b.start);
+};
 
 const peptideSearchConverter = (
   results: UniProtkbAPIModel[],
