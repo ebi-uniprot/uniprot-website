@@ -149,12 +149,30 @@ export const SearchResultsLocations: Record<SearchableNamespace, string> = {
   [Namespace.arba]: LocationToPath[Location.ARBAResults],
 };
 
-export const toolsWithNamespaces = [Location.Blast, Location.IDMapping].map(
-  (location) => LocationToPath[location].slice(1)
-);
+const getPathWithoutLeadingSlash = (location: Location) =>
+  LocationToPath[location].replace('/', '');
 
-// "/(blast|id-mapping)?/:namespace(uniprotkb|uniparc|........)"
-export const allSearchResultLocations = `/:tool(${toolsWithNamespaces.join(
+export const pathNameToolsWithNamespaces = [
+  Location.Blast,
+  Location.IDMapping,
+  Location.PeptideSearch,
+].map(getPathWithoutLeadingSlash);
+
+export const pathNameTools = [
+  Location.Align,
+  Location.Blast,
+  Location.IDMapping,
+  Location.PeptideSearch,
+].map(getPathWithoutLeadingSlash);
+
+export const pathNameToolNamespaces = [
+  Location.UniProtKBResults,
+  Location.UniRefResults,
+  Location.UniParcResults,
+].map(getPathWithoutLeadingSlash);
+
+// "/(blast|id-mapping|peptide-search)?/:namespace(uniprotkb|uniparc|........)"
+export const allSearchResultLocations = `/:tool(${pathNameToolsWithNamespaces.join(
   '|'
 )})?/:namespace(${Object.keys(searchableNamespaceLabels).join('|')})`;
 
