@@ -73,7 +73,7 @@ const ToolsDashboard = ({ display, close }: Props) => {
 
   const count = useMemo(
     () =>
-      Object.values(tools).filter(
+      Object.values(tools ?? {}).filter(
         (job) =>
           'seen' in job &&
           job.seen === false &&

@@ -21,6 +21,9 @@ const useMarkJobAsSeen = (
   const location = useLocation<undefined | LocationStateFromJobLink>();
 
   const jobs = useMemo(() => {
+    if (!tools) {
+      return [];
+    }
     if (location.state?.internalID) {
       const job = tools[location.state.internalID];
       if (job) {

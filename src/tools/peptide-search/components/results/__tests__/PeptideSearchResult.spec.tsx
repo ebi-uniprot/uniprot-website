@@ -15,7 +15,7 @@ import uniprotkbResults from '../../../../../uniprotkb/components/__mocks__/resu
 const mockJob: FinishedJob<JobTypes.PEPTIDE_SEARCH> = {
   internalID: 'local-id',
   parameters: {
-    peps: 'MLPGLALLLLA',
+    peps: 'AAQGYGYYRTVIFSAMFGGYSLYYFNRKTFSF\nIQSTHYLQVNYQDSQDWFILVSVIADLRNAFYVLFPIWFHLQEAVGI',
     taxIds: undefined,
     lEQi: 'off',
     spOnly: 'on',
@@ -35,7 +35,7 @@ const mockJob: FinishedJob<JobTypes.PEPTIDE_SEARCH> = {
 const mockRequests = new MockAdapter(axios);
 mockRequests
   .onGet(new RegExp(`/peptidematchws/asyncrest/jobs/${mockJob.remoteID}$`))
-  .reply(200, 'P123456,P654321');
+  .reply(200, 'P35575,O43826');
 
 mockRequests
   .onGet(/uniprotkb\/accessions/)
@@ -49,6 +49,9 @@ describe('PeptideSearchResult', () => {
   it('should render with the correct number of results in the title, not own job', async () => {
     const { asFragment } = customRender(<PeptideSearchResult />, {
       route: `/peptide-search/${mockJob.remoteID}`,
+      initialLocalStorage: {
+        'view-mode': 'table',
+      },
     });
     await screen.findByText('2 results');
     expect(asFragment()).toMatchSnapshot();
@@ -57,6 +60,9 @@ describe('PeptideSearchResult', () => {
   it('should render with the correct number of results in the title, own user job', async () => {
     const { asFragment } = customRender(<PeptideSearchResult />, {
       route: `/peptide-search/${mockJob.remoteID}`,
+      initialLocalStorage: {
+        'view-mode': 'table',
+      },
       toolsState: { [mockJob.internalID]: mockJob },
     });
     await screen.findByText('2 results');

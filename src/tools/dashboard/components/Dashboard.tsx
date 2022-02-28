@@ -30,7 +30,7 @@ const Dashboard = ({ closePanel }: { closePanel?: () => void }) => {
   const tools = useToolsState();
 
   const [activeJobs, expiredJobs] = useMemo(() => {
-    const jobs = Array.from(Object.values(tools)).sort(sortNewestFirst);
+    const jobs = Array.from(Object.values(tools ?? {})).sort(sortNewestFirst);
     const now = Date.now();
     return partition(jobs, (job) => now - job.timeCreated < EXPIRED_TIME);
   }, [tools]);

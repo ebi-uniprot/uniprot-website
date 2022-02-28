@@ -34,6 +34,7 @@ type Props = {
   basketSetter?: Dispatch<SetStateAction<Basket>>;
   className?: string;
   disableCardToggle?: boolean;
+  displayPeptideSearchMatchColumns?: boolean;
 };
 
 const ResultsData = ({
@@ -46,6 +47,7 @@ const ResultsData = ({
   basketSetter,
   disableCardToggle = false,
   className,
+  displayPeptideSearchMatchColumns,
 }: Props) => {
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
   const { viewMode } = useViewMode(namespaceOverride, disableCardToggle);
@@ -56,7 +58,8 @@ const ResultsData = ({
     displayIdMappingColumns,
     basketSetter,
     columnsOverride,
-    setSelectedEntries
+    setSelectedEntries,
+    displayPeptideSearchMatchColumns
   );
   const {
     allResults,
@@ -141,6 +144,7 @@ const ResultsData = ({
   ) {
     return <Loader progress={progress} />;
   }
+
   return (
     <div className="results-data">
       {viewMode === 'card' && !displayIdMappingColumns ? (
