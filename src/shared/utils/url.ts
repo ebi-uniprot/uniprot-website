@@ -8,3 +8,14 @@ export const getLocationForPathname = (pathname: string) => {
   );
   return found?.[0];
 };
+
+const reJobId =
+  /^\/(?<tool>align|blast|id-mapping|peptide-search)(\/(uniprotkb|uniref|uniparc))?\/(?<jobID>[^/]+)/;
+
+export const getJobIdFromPathname = (pathname: string) => {
+  const m = pathname.match(reJobId);
+  if (m && m.groups?.tool && m.groups?.jobID) {
+    return m.groups.jobID;
+  }
+  return null;
+};

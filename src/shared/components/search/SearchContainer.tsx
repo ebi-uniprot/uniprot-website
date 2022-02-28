@@ -15,6 +15,7 @@ import { MainSearch, Button, SlidingPanel } from 'franklin-sites';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 
 import lazy from '../../utils/lazy';
+import { getJobIdFromPathname } from '../../utils/url';
 
 import {
   Location,
@@ -168,6 +169,11 @@ const SearchContainer: FC<
   // reset the text content when there is a navigation to reflect what is in the
   // URL. That includes removing the text when browsing to a non-search page.
   useEffect(() => {
+    const jobId = getJobIdFromPathname(history.location.pathname);
+    const queryTokens = [];
+    if (jobId) {
+      queryTokens.push(`job:${jobId}`);
+    }
     const { query } = queryString.parse(location.search, { decode: true });
     // Using history here because history won't change, while location will
     if (
@@ -176,11 +182,12 @@ const SearchContainer: FC<
       return;
     }
     if (Array.isArray(query)) {
-      setSearchTerm(query[0]);
-      return;
+      queryTokens.push(query[0]);
+    } else if (query && query !== '*' && !jobId) {
+      queryTokens.push(query);
     }
-    setSearchTerm(query || '');
-  }, [history, location.search]);
+    setSearchTerm(queryTokens.join(' AND '));
+  }, [history.location.pathname, location.search]);
 
   return (
     <>
