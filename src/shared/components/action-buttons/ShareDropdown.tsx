@@ -37,7 +37,7 @@ const CopyLinkWebsite = ({
 }) => {
   const dispatch = useMessagesDispatch();
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
-  const { columnNames } = useColumnNames(namespaceOverride);
+  const { columnNames } = useColumnNames({ namespaceOverride });
   const { viewMode } = useViewMode(namespace, disableCardToggle);
   const location = useLocation();
 

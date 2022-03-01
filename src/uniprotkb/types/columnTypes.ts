@@ -322,6 +322,7 @@ export enum UniProtKBColumn {
   xrefXenbase = 'xref_xenbase',
   xrefZfin = 'xref_zfin',
   from = 'from', // id mapping
+  match = 'match', // peptide search
 }
 
 export type SortableColumn =

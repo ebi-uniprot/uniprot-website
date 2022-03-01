@@ -46,8 +46,6 @@ const SearchSuggestions = ({
     // Only when there are results
     // also serves to delay the requests below to prioritise getting the results
     total &&
-    // Only when it's needed to filter down results (=> many results)
-    total > 10 &&
     // Only for UniProtKB
     namespace === Namespace.uniprotkb &&
     // Only for queries with content

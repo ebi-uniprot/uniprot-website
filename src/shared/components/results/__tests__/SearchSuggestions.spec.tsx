@@ -63,17 +63,6 @@ describe('SearchSuggestions', () => {
       expect(rendered.container).toBeEmptyDOMElement();
     });
 
-    it('should not render anything on small result sets', () => {
-      const { container } = customRender(
-        <SearchSuggestions
-          query="eve"
-          namespace={Namespace.uniprotkb}
-          total={1}
-        />
-      );
-      expect(container).toBeEmptyDOMElement();
-    });
-
     it('should not render anything on incompatible namespaces', () => {
       const { container } = customRender(
         <SearchSuggestions

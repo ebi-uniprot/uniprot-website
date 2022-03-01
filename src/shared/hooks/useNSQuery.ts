@@ -19,6 +19,7 @@ type Arg = {
   accessions?: string[];
   overrideNS?: Namespace;
   facetsNotApplied?: boolean;
+  getSequence?: boolean;
 };
 
 const useNSQuery = ({
@@ -28,11 +29,16 @@ const useNSQuery = ({
   accessions,
   overrideNS,
   facetsNotApplied,
+  getSequence = false,
 }: Arg = {}) => {
   const namespace = useNS(overrideNS) || Namespace.uniprotkb;
   const location = useLocation();
   const { viewMode } = useViewMode(overrideNS);
-  const { columnNames } = useColumnNames(overrideNS);
+  // TODO: destructure useColumnNames
+  const { columnNames } = useColumnNames({
+    namespaceOverride: overrideNS,
+    getSequence,
+  });
 
   const { search: queryParamFromUrl } = location;
   const [{ query, selectedFacets, sortColumn, sortDirection }] =

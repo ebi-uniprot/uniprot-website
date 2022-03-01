@@ -103,11 +103,13 @@ const Results = () => {
         selectedEntries={selectedEntries}
       >
         <ErrorBoundary fallback={null}>
-          <SearchSuggestions
-            query={params.query}
-            namespace={ns}
-            total={total}
-          />
+          {params.selectedFacets.length ? null : (
+            <SearchSuggestions
+              query={params.query}
+              namespace={ns}
+              total={total}
+            />
+          )}
         </ErrorBoundary>
       </ResultsDataHeader>
       <ResultsData

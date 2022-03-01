@@ -86,6 +86,7 @@ import EntryTypeIcon, {
 import AccessionView from '../../shared/components/results/AccessionView';
 import CSVView from '../components/protein-data-views/CSVView';
 import { DatabaseList } from '../components/protein-data-views/XRefView';
+import { PeptideSearchMatches } from '../../tools/peptide-search/components/PeptideSearchMatches';
 
 import useDatabaseInfoMaps from '../../shared/hooks/useDatabaseInfoMaps';
 
@@ -1430,5 +1431,15 @@ Object.values(UniProtKBColumn)
   });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.from, fromColumnConfig);
+
+UniProtKBColumnConfiguration.set(UniProtKBColumn.match, {
+  ...getLabelAndTooltip(
+    'Match',
+    "Start and end coordinates of the entry's sequence which matched the peptide search query sequence(s)"
+  ),
+  render: ({ peptideSearchMatches }) => (
+    <PeptideSearchMatches matches={peptideSearchMatches} />
+  ),
+});
 
 export default UniProtKBColumnConfiguration;

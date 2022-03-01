@@ -1758,6 +1758,8 @@ exports[`UniProtKBColumnConfiguration component should render column "mass": mas
 </DocumentFragment>
 `;
 
+exports[`UniProtKBColumnConfiguration component should render column "match": match 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render column "organelle": organelle 1`] = `
 <DocumentFragment>
   <ul

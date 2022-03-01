@@ -1,7 +1,7 @@
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { Loader } from 'franklin-sites';
-import { truncate } from 'lodash-es';
+import { partialRight, truncate } from 'lodash-es';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
@@ -22,45 +22,55 @@ import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler
 import toolsURLs from '../../../config/urls';
 import { namespaceAndToolsLabels } from '../../../../shared/types/namespaces';
 import { LocationToPath, Location } from '../../../../app/config/urls';
+import peptideSearchConverter from '../../adapters/peptideSearchConverter';
 
 import Response from '../../../../uniprotkb/types/responseTypes';
 import { PeptideSearchResults } from '../../types/peptideSearchResults';
 import { JobTypes } from '../../../types/toolsJobTypes';
 import { Status } from '../../../types/toolsStatuses';
+import { FinishedJob, Job } from '../../../types/toolsJob';
 
 const jobType = JobTypes.PEPTIDE_SEARCH;
 const urls = toolsURLs(jobType);
 const title = `${namespaceAndToolsLabels[jobType]} results`;
 
-const PeptideSearchResult = () => {
+const PeptideSearchResult = ({
+  toolsState,
+}: {
+  toolsState: { [key: string]: Job };
+}) => {
   const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
     useItemSelect();
+  const jobSubmission = useRef<FinishedJob<JobTypes.PEPTIDE_SEARCH>>();
 
-  // Get list of accession from job
   const match = useRouteMatch<{ id: string }>(
     LocationToPath[Location.PeptideSearchResult]
   );
   const jobID = match?.params.id || '';
   const {
-    data: jobData,
-    loading: jobLoading,
-    error: jobError,
-    status: jobStatus,
+    data: jobResultData,
+    loading: jobResultLoading,
+    error: jobResultError,
+    status: jobResultStatus,
   } = useDataApi<PeptideSearchResults>(urls.resultUrl(jobID, {}));
 
-  const tools = useToolsState();
-
-  const job = useMemo(
-    () =>
-      Object.values(tools).find(
-        (job) => job.status === Status.FINISHED && job?.remoteID === jobID
-      ),
-    [jobID, tools]
-  );
+  // Get the job mission from local tools state. Save this in a reference as
+  // the job may change with useMarkJobAsSeen but we don't want to have to
+  // recreate the converter which will cause usePagination to duplicate rows
+  if (!jobSubmission.current) {
+    const found = Object.values(toolsState).find(
+      (jobSubmission) =>
+        jobSubmission.status === Status.FINISHED &&
+        jobSubmission?.remoteID === jobID
+    );
+    jobSubmission.current = found
+      ? (found as FinishedJob<JobTypes.PEPTIDE_SEARCH>)
+      : undefined;
+  }
 
   const accessions = useMemo(
-    () => jobData?.split(',').filter(Boolean),
-    [jobData]
+    () => jobResultData?.split(',').filter(Boolean),
+    [jobResultData]
   );
 
   // Query for facets
@@ -79,9 +89,16 @@ const PeptideSearchResult = () => {
   } = facetApiObject;
   const facetTotal = facetHeaders?.['x-total-records'];
 
+  const converter = useMemo(() => {
+    const peps = jobSubmission.current?.parameters.peps;
+    return peps ? partialRight(peptideSearchConverter, peps) : undefined;
+  }, [jobSubmission]);
+
   // Query for results data
-  const initialApiUrl = useNSQuery({ accessions });
-  const resultsDataObject = usePagination(initialApiUrl);
+  const initialApiUrl = useNSQuery({ accessions, getSequence: true });
+  // TODO: if the user didn't submit this jobSubmission there is no way to get the initial sequence. In the
+  // future the API may provide this information in which case we would want to fetch and show
+  const resultsDataObject = usePagination(initialApiUrl, converter);
   const {
     initialLoading: resultsDataInitialLoading,
     total: resultsDataTotal,
@@ -91,7 +108,7 @@ const PeptideSearchResult = () => {
   const sortedResultsDataObject = useMemo(
     () => ({
       ...resultsDataObject,
-      // sort according to original order in job result payload
+      // sort according to original order in jobSubmission result payload
       allResults: Array.from(resultsDataObject.allResults).sort((a, b) => {
         const accessionA = 'primaryAccession' in a && a.primaryAccession;
         const accessionB = 'primaryAccession' in b && b.primaryAccession;
@@ -106,7 +123,10 @@ const PeptideSearchResult = () => {
     [accessions, resultsDataObject]
   );
 
-  useMarkJobAsSeen(sortedResultsDataObject.allResults.length, match?.params.id);
+  useMarkJobAsSeen(
+    sortedResultsDataObject?.allResults.length,
+    match?.params.id
+  );
 
   let total: undefined | number;
   if (facetTotal !== undefined) {
@@ -116,28 +136,27 @@ const PeptideSearchResult = () => {
     total = +resultsDataTotal;
   }
 
-  if (jobError) {
-    return <ErrorHandler status={jobStatus} />;
+  if (jobResultError) {
+    return <ErrorHandler status={jobResultStatus} />;
   }
 
   if (
-    (!jobLoading &&
+    (!jobResultLoading &&
       !resultsDataInitialLoading &&
       !facetInititialLoading &&
       !total) ||
-    (!jobLoading && accessions?.length === 0) ||
+    (!jobResultLoading && accessions?.length === 0) ||
     total === 0
   ) {
     return <NoResultsPage />;
   }
 
   if (
-    jobLoading ||
+    jobResultLoading ||
     (facetInititialLoading && resultsDataInitialLoading && !facetHasStaleData)
   ) {
     return <Loader progress={resultsDataProgress} />;
   }
-
   return (
     <SideBarLayout sidebar={<ResultsFacets dataApiObject={facetApiObject} />}>
       <HTMLHead title={title} />
@@ -149,7 +168,7 @@ const PeptideSearchResult = () => {
           total && (
             <small>
               {` found in peptide search ${
-                truncate(job?.title, { length: 15 }) || ''
+                truncate(jobSubmission.current?.title, { length: 15 }) || ''
               }`}
             </small>
           )
@@ -160,9 +179,20 @@ const PeptideSearchResult = () => {
         resultsDataObject={sortedResultsDataObject}
         setSelectedItemFromEvent={setSelectedItemFromEvent}
         setSelectedEntries={setSelectedEntries}
+        // TODO: change logic when peptide search API is able to return submitted jobSubmission information
+        displayPeptideSearchMatchColumns={Boolean(jobSubmission.current)}
       />
     </SideBarLayout>
   );
 };
 
-export default PeptideSearchResult;
+const PeptideSearchResultWithToolsState = () => {
+  const toolsState = useToolsState();
+  return toolsState === null ? (
+    <Loader />
+  ) : (
+    <PeptideSearchResult toolsState={toolsState} />
+  );
+};
+
+export default PeptideSearchResultWithToolsState;

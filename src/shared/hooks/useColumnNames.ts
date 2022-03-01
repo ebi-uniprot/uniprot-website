@@ -12,16 +12,28 @@ import { ColumnConfigurations } from './useColumns';
 import { Namespace } from '../types/namespaces';
 import { IDMappingColumn } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 import { InvalidParamValue } from '../../uniprotkb/utils/resultsUtils';
+import { UniProtKBColumn } from '../../uniprotkb/types/columnTypes';
 
-const useColumnNames = (
-  namespaceOverride?: Namespace | undefined,
-  displayIdMappingColumns?: boolean
-): {
+type UseColumnNameArgs = {
+  namespaceOverride?: Namespace | undefined;
+  displayIdMappingColumns?: boolean;
+  getSequence?: boolean;
+  displayPeptideSearchMatchColumns?: boolean;
+};
+
+type UseColumnNameReturn = {
   columnNames: Column[];
   setColumnNames: Dispatch<SetStateAction<Column[]>>;
   fromUrl: boolean;
   invalidUrlColumnNames: InvalidParamValue | undefined;
-} => {
+};
+
+const useColumnNames = ({
+  namespaceOverride,
+  displayIdMappingColumns,
+  getSequence,
+  displayPeptideSearchMatchColumns,
+}: UseColumnNameArgs = {}): UseColumnNameReturn => {
   const ns = useNS(namespaceOverride) || Namespace.uniprotkb;
   const { fields: columnNamesFromUrl } = qs.parse(useLocation().search);
   const [columnNamesFromStorage, setColumnNames] = useLocalStorage<Column[]>(
@@ -51,6 +63,21 @@ const useColumnNames = (
   if (displayIdMappingColumns && ns !== Namespace.idmapping) {
     columnNames = [IDMappingColumn.from, ...columnNames];
   }
+
+  if (displayPeptideSearchMatchColumns && ns === Namespace.uniprotkb) {
+    // Make this the second column, right after the accession
+    const accessionIndex = columnNames.indexOf(UniProtKBColumn.accession);
+    columnNames = [
+      ...columnNames.slice(0, accessionIndex + 1),
+      UniProtKBColumn.match,
+      ...columnNames.slice(accessionIndex + 1),
+    ];
+  }
+
+  if (getSequence && !columnNames.includes(UniProtKBColumn.sequence)) {
+    columnNames = [UniProtKBColumn.sequence, ...columnNames];
+  }
+
   return { columnNames, setColumnNames, fromUrl, invalidUrlColumnNames };
 };
 

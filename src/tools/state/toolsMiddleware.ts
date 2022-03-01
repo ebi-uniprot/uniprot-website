@@ -20,7 +20,7 @@ const EXPIRED_INTERVAL = 1000 * 60 * 15; // 15 minutes
 const AUTO_DELETE_TIME = 1000 * 60 * 60 * 24 * 14; // 2 weeks
 
 const getJobsToCheck = (state: ToolsState) =>
-  Object.values(state).filter(
+  Object.values(state ?? {}).filter(
     (job) => job.status === Status.CREATED || job.status === Status.RUNNING
   );
 
@@ -86,7 +86,7 @@ const toolsMiddleware = (
   // loop to check for expired jobs
   const expiredJobs = async () => {
     const now = Date.now();
-    for (const [internalID, job] of Object.entries(stateRef.current)) {
+    for (const [internalID, job] of Object.entries(stateRef.current ?? {})) {
       if (now - job.timeCreated > AUTO_DELETE_TIME && !job.saved) {
         // job is older than 7 days
         dispatch(deleteJob(internalID));
