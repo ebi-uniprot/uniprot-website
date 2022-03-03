@@ -168,8 +168,9 @@ const SearchContainer: FC<
     setSearchTerm(example);
   };
 
-  const secondaryButtons = [
-    {
+  const secondaryButtons = [];
+  if (toolResultsPage !== Location.AlignResult) {
+    secondaryButtons.push({
       label:
         // TODO:
         // <span
@@ -182,16 +183,17 @@ const SearchContainer: FC<
       action: () => {
         setDisplayQueryBuilder((value) => !value);
       },
+    });
+  }
+
+  secondaryButtons.push({
+    label: 'List',
+    action: () => {
+      history.push({
+        pathname: LocationToPath[Location.IDMapping],
+      });
     },
-    {
-      label: 'List',
-      action: () => {
-        history.push({
-          pathname: LocationToPath[Location.IDMapping],
-        });
-      },
-    },
-  ];
+  });
 
   // reset the text content when there is a navigation to reflect what is in the
   // URL. That includes removing the text when browsing to a non-search page.
