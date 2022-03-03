@@ -9,12 +9,7 @@ import {
   SyntheticEvent,
   useMemo,
 } from 'react';
-import {
-  matchPath,
-  useHistory,
-  useLocation,
-  useRouteMatch,
-} from 'react-router-dom';
+import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 import queryString from 'query-string';
 import { MainSearch, Button, SlidingPanel } from 'franklin-sites';
 
@@ -23,6 +18,7 @@ import ErrorBoundary from '../error-component/ErrorBoundary';
 import lazy from '../../utils/lazy';
 
 import {
+  getToolResultsLocation,
   Location,
   LocationToPath,
   SearchResultsLocations,
@@ -103,24 +99,16 @@ const SearchContainer: FC<
   const [searchTerm, setSearchTerm] = useState<string>('');
   const handleClose = useCallback(() => setDisplayQueryBuilder(false), []);
 
-  const toolResultsPage = useMemo(
-    () =>
-      [
-        Location.AlignResult,
-        Location.BlastResult,
-        Location.IDMappingResult,
-        Location.PeptideSearchResult,
-      ].find((location) =>
-        matchPath(history.location.pathname, { path: LocationToPath[location] })
-      ),
+  const toolResultsLocation = useMemo(
+    () => getToolResultsLocation(history.location.pathname),
     [history.location.pathname]
   );
 
   const match = useRouteMatch<{
     id: string;
   }>(
-    toolResultsPage && toolResultsPage in LocationToPath
-      ? LocationToPath[toolResultsPage]
+    toolResultsLocation && toolResultsLocation in LocationToPath
+      ? LocationToPath[toolResultsLocation]
       : []
   );
   const jobId = match?.params.id;
@@ -152,7 +140,7 @@ const SearchContainer: FC<
 
   const secondaryButtons = useMemo(() => {
     const buttons = [];
-    if (toolResultsPage !== Location.AlignResult) {
+    if (toolResultsLocation !== Location.AlignResult) {
       buttons.push({
         label:
           // TODO:
@@ -177,7 +165,7 @@ const SearchContainer: FC<
       },
     });
     return buttons;
-  }, [history, toolResultsPage]);
+  }, [history, toolResultsLocation]);
 
   // reset the text content when there is a navigation to reflect what is in the
   // URL. That includes removing the text when browsing to a non-search page.
@@ -194,7 +182,7 @@ const SearchContainer: FC<
       return;
     }
     // Don't add any query that may be in URL for Align results
-    if (toolResultsPage !== Location.AlignResult) {
+    if (toolResultsLocation !== Location.AlignResult) {
       if (Array.isArray(query)) {
         queryTokens.push(query[0]);
       } else if (query) {
@@ -202,7 +190,7 @@ const SearchContainer: FC<
       }
     }
     setSearchTerm(queryTokens.join(' AND '));
-  }, [history, location.search, jobId, toolResultsPage]);
+  }, [history, location.search, jobId, toolResultsLocation]);
 
   return (
     <>
