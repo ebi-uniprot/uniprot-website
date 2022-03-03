@@ -125,23 +125,7 @@ const SearchContainer: FC<
   const jobId = match?.params.id;
 
   // local state to hold the search value without modifying URL
-  const [searchTerm, setSearchTerm] = useState<string>(
-    // initialise with whatever is already in the URL
-    () => {
-      const { query } = queryString.parse(history.location.search, {
-        decode: true,
-      });
-      if (
-        history.location.pathname.includes(LocationToPath[Location.HelpResults])
-      ) {
-        return '';
-      }
-      if (Array.isArray(query)) {
-        return query[0];
-      }
-      return query || '';
-    }
-  );
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   const handleSubmit = (event: SyntheticEvent) => {
     // prevent normal browser submission
