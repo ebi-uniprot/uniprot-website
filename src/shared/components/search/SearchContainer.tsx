@@ -99,7 +99,8 @@ const SearchContainer: FC<
   const history = useHistory();
   const location = useLocation();
   const [displayQueryBuilder, setDisplayQueryBuilder] = useState(false);
-
+  // local state to hold the search value without modifying URL
+  const [searchTerm, setSearchTerm] = useState<string>('');
   const handleClose = useCallback(() => setDisplayQueryBuilder(false), []);
 
   const toolResultsPage = useMemo(
@@ -123,9 +124,6 @@ const SearchContainer: FC<
       : []
   );
   const jobId = match?.params.id;
-
-  // local state to hold the search value without modifying URL
-  const [searchTerm, setSearchTerm] = useState<string>('');
 
   const handleSubmit = (event: SyntheticEvent) => {
     // prevent normal browser submission
