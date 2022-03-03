@@ -7,8 +7,14 @@ import {
   useCallback,
   Suspense,
   SyntheticEvent,
+  useMemo,
 } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import {
+  matchPath,
+  useHistory,
+  useLocation,
+  useRouteMatch,
+} from 'react-router-dom';
 import queryString from 'query-string';
 import { MainSearch, Button, SlidingPanel } from 'franklin-sites';
 
@@ -96,6 +102,28 @@ const SearchContainer: FC<
 
   const handleClose = useCallback(() => setDisplayQueryBuilder(false), []);
 
+  const toolResultsPage = useMemo(
+    () =>
+      [
+        Location.AlignResult,
+        Location.BlastResult,
+        Location.IDMappingResult,
+        Location.PeptideSearchResult,
+      ].find((location) =>
+        matchPath(history.location.pathname, { path: LocationToPath[location] })
+      ),
+    [history.location.pathname]
+  );
+
+  const match = useRouteMatch<{
+    id: string;
+  }>(
+    toolResultsPage && toolResultsPage in LocationToPath
+      ? LocationToPath[toolResultsPage]
+      : []
+  );
+  const jobId = match?.params.id;
+
   // local state to hold the search value without modifying URL
   const [searchTerm, setSearchTerm] = useState<string>(
     // initialise with whatever is already in the URL
@@ -168,6 +196,10 @@ const SearchContainer: FC<
   // reset the text content when there is a navigation to reflect what is in the
   // URL. That includes removing the text when browsing to a non-search page.
   useEffect(() => {
+    const queryTokens = [];
+    if (jobId) {
+      queryTokens.push(`job:${jobId}`);
+    }
     const { query } = queryString.parse(location.search, { decode: true });
     // Using history here because history won't change, while location will
     if (
@@ -176,11 +208,12 @@ const SearchContainer: FC<
       return;
     }
     if (Array.isArray(query)) {
-      setSearchTerm(query[0]);
-      return;
+      queryTokens.push(query[0]);
+    } else if (query) {
+      queryTokens.push(query);
     }
-    setSearchTerm(query || '');
-  }, [history, location.search]);
+    setSearchTerm(queryTokens.join(' AND '));
+  }, [history, location.search, jobId]);
 
   return (
     <>
