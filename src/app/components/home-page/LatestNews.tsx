@@ -14,7 +14,7 @@ const insideUniProtAbstract2 =
   'We would like to invite the machine learning community to help UniProt by creating computational methods to predict metal binding sites across the whole of UniProtKB.';
 
 const proteinSpotlightAbstract =
-  "Who has not seen mould spread in the corner of a bathroom or on the edges of wallpaper in a damp house? Or winced at the green growth on the edges of a jam jar or on yoghourt left in the open air too long? Moulds are also sure to flourish on harvested crops that have not been kept dry, while the toxins they produce may wind up in water we drink. Moulds, or fungi, are as much part of our lives as insects or plants but they are not always so easy to see. Sometimes they end up inside us where they can produce poisons known as mycotoxins which may be detrimental to our health. Or we may simply ingest only the mycotoxins themselves. In the past 60 years, hundreds of different kinds of mycotoxins have been characterized, several of which, depending on their nature and concentration, can cause severe damage. Ochratoxin - in particular ochratoxin A (OTA) - is a mycotoxin which is secreted by several species of Aspergillus and Penicillium and frequently detected in popular food and beverages such as coffee, cow's milk, pork, cereals, wine and beer. In order for food items to remain safe for human consumption, OTA levels are constantly monitored to keep them as low as possible. One way of doing this would be to use an OTA biodegrading enzyme, or ochratoxinase.";
+  'When rain is pelting down and you have no protection, the umbrellas carried by other pedestrians suddenly become attractive. The thought of making one yours might even occur to you. In the same vein, a child who is being hit with a stick by another child might decide to grab the stick and hit their assailant with it in return.';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -291,21 +291,21 @@ const LatestNews = () => {
       >
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/243/"
+            url="https://www.proteinspotlight.org/back_issues/244/"
             noIcon
           >
-            Constructive futility
+            For the sake of sap
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/243/"
+          url="https://www.proteinspotlight.org/back_issues/244/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt243.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt244.jpg"
             alt=""
             width="125.46"
             height="86.65"

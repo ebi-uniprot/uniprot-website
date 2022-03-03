@@ -133,10 +133,10 @@ const ComputationalyMappedSequences: FC<{ primaryAccession: string }> = ({
                 <Link
                   to={{
                     pathname: LocationToPath[Location.UniProtKBResults],
-                    search: `query=(${filteredData
+                    search: `query=accession:${primaryAccession} OR ${filteredData
                       ?.map(({ id }) => `accession:${id}`)
                       .sort()
-                      .join(' OR ')})`,
+                      .join(' OR ')}`,
                   }}
                 >
                   View all
