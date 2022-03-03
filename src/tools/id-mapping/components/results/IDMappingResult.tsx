@@ -52,7 +52,6 @@ const IDMappingResult = () => {
     id: string;
     namespace?: typeof IDMappingNamespaces[number];
   }>(LocationToPath[Location.IDMappingResult]);
-  console.log(match?.params.namespace);
   const location = useLocation();
   const databaseInfoMaps = useDatabaseInfoMaps();
   const { search: queryParamFromUrl } = location;
