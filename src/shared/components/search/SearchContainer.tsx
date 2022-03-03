@@ -195,13 +195,16 @@ const SearchContainer: FC<
     ) {
       return;
     }
-    if (Array.isArray(query)) {
-      queryTokens.push(query[0]);
-    } else if (query) {
-      queryTokens.push(query);
+    // Don't add any query that may be in URL for Align results
+    if (toolResultsPage !== Location.AlignResult) {
+      if (Array.isArray(query)) {
+        queryTokens.push(query[0]);
+      } else if (query) {
+        queryTokens.push(query);
+      }
     }
     setSearchTerm(queryTokens.join(' AND '));
-  }, [history, location.search, jobId]);
+  }, [history, location.search, jobId, toolResultsPage]);
 
   return (
     <>
