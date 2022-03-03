@@ -168,32 +168,34 @@ const SearchContainer: FC<
     setSearchTerm(example);
   };
 
-  const secondaryButtons = [];
-  if (toolResultsPage !== Location.AlignResult) {
-    secondaryButtons.push({
-      label:
-        // TODO:
-        // <span
-        //   onPointerOver={QueryBuilder.preload}
-        //   onFocus={QueryBuilder.preload}
-        // >
-        //   Advanced
-        // </span>
-        'Advanced',
+  const secondaryButtons = useMemo(() => {
+    const buttons = [];
+    if (toolResultsPage !== Location.AlignResult) {
+      buttons.push({
+        label:
+          // TODO:
+          // <span
+          //   onPointerOver={QueryBuilder.preload}
+          //   onFocus={QueryBuilder.preload}
+          // >
+          //   Advanced
+          // </span>
+          'Advanced',
+        action: () => {
+          setDisplayQueryBuilder((value) => !value);
+        },
+      });
+    }
+    buttons.push({
+      label: 'List',
       action: () => {
-        setDisplayQueryBuilder((value) => !value);
+        history.push({
+          pathname: LocationToPath[Location.IDMapping],
+        });
       },
     });
-  }
-
-  secondaryButtons.push({
-    label: 'List',
-    action: () => {
-      history.push({
-        pathname: LocationToPath[Location.IDMapping],
-      });
-    },
-  });
+    return buttons;
+  }, [history, toolResultsPage]);
 
   // reset the text content when there is a navigation to reflect what is in the
   // URL. That includes removing the text when browsing to a non-search page.
