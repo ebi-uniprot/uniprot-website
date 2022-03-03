@@ -7,8 +7,9 @@ import {
   useCallback,
   Suspense,
   SyntheticEvent,
+  useMemo,
 } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 import queryString from 'query-string';
 import { MainSearch, Button, SlidingPanel } from 'franklin-sites';
 
@@ -17,6 +18,7 @@ import ErrorBoundary from '../error-component/ErrorBoundary';
 import lazy from '../../utils/lazy';
 
 import {
+  getToolResultsLocation,
   Location,
   LocationToPath,
   SearchResultsLocations,
@@ -93,27 +95,23 @@ const SearchContainer: FC<
   const history = useHistory();
   const location = useLocation();
   const [displayQueryBuilder, setDisplayQueryBuilder] = useState(false);
-
+  // local state to hold the search value without modifying URL
+  const [searchTerm, setSearchTerm] = useState<string>('');
   const handleClose = useCallback(() => setDisplayQueryBuilder(false), []);
 
-  // local state to hold the search value without modifying URL
-  const [searchTerm, setSearchTerm] = useState<string>(
-    // initialise with whatever is already in the URL
-    () => {
-      const { query } = queryString.parse(history.location.search, {
-        decode: true,
-      });
-      if (
-        history.location.pathname.includes(LocationToPath[Location.HelpResults])
-      ) {
-        return '';
-      }
-      if (Array.isArray(query)) {
-        return query[0];
-      }
-      return query || '';
-    }
+  const toolResultsLocation = useMemo(
+    () => getToolResultsLocation(history.location.pathname),
+    [history.location.pathname]
   );
+
+  const match = useRouteMatch<{
+    id: string;
+  }>(
+    toolResultsLocation && toolResultsLocation in LocationToPath
+      ? LocationToPath[toolResultsLocation]
+      : []
+  );
+  const jobId = match?.params.id;
 
   const handleSubmit = (event: SyntheticEvent) => {
     // prevent normal browser submission
@@ -140,34 +138,42 @@ const SearchContainer: FC<
     setSearchTerm(example);
   };
 
-  const secondaryButtons = [
-    {
-      label:
-        // TODO:
-        // <span
-        //   onPointerOver={QueryBuilder.preload}
-        //   onFocus={QueryBuilder.preload}
-        // >
-        //   Advanced
-        // </span>
-        'Advanced',
-      action: () => {
-        setDisplayQueryBuilder((value) => !value);
-      },
-    },
-    {
+  const secondaryButtons = useMemo(() => {
+    const buttons = [];
+    if (toolResultsLocation !== Location.AlignResult) {
+      buttons.push({
+        label:
+          // TODO:
+          // <span
+          //   onPointerOver={QueryBuilder.preload}
+          //   onFocus={QueryBuilder.preload}
+          // >
+          //   Advanced
+          // </span>
+          'Advanced',
+        action: () => {
+          setDisplayQueryBuilder((value) => !value);
+        },
+      });
+    }
+    buttons.push({
       label: 'List',
       action: () => {
         history.push({
           pathname: LocationToPath[Location.IDMapping],
         });
       },
-    },
-  ];
+    });
+    return buttons;
+  }, [history, toolResultsLocation]);
 
   // reset the text content when there is a navigation to reflect what is in the
   // URL. That includes removing the text when browsing to a non-search page.
   useEffect(() => {
+    const queryTokens = [];
+    if (jobId) {
+      queryTokens.push(`job:${jobId}`);
+    }
     const { query } = queryString.parse(location.search, { decode: true });
     // Using history here because history won't change, while location will
     if (
@@ -175,12 +181,16 @@ const SearchContainer: FC<
     ) {
       return;
     }
-    if (Array.isArray(query)) {
-      setSearchTerm(query[0]);
-      return;
+    // Don't add any query that may be in URL for Align results
+    if (toolResultsLocation !== Location.AlignResult) {
+      if (Array.isArray(query)) {
+        queryTokens.push(query[0]);
+      } else if (query) {
+        queryTokens.push(query);
+      }
     }
-    setSearchTerm(query || '');
-  }, [history, location.search]);
+    setSearchTerm(queryTokens.join(' AND '));
+  }, [history, location.search, jobId, toolResultsLocation]);
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { generatePath } from 'react-router-dom';
+import { generatePath, matchPath } from 'react-router-dom';
 import { partial } from 'lodash-es';
 import { LocationDescriptorObject } from 'history';
 
@@ -288,3 +288,11 @@ export const changePathnameOnly =
     ...location,
     pathname,
   });
+
+export const getToolResultsLocation = (pathname: string) =>
+  [
+    Location.AlignResult,
+    Location.BlastResult,
+    Location.IDMappingResult,
+    Location.PeptideSearchResult,
+  ].find((location) => matchPath(pathname, { path: LocationToPath[location] }));
