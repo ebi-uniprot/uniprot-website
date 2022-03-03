@@ -1,6 +1,11 @@
 import { Dispatch, MouseEvent, SetStateAction } from 'react';
 import { useLocation } from 'react-router-dom';
-import { DropdownButton, Button, CopyIcon } from 'franklin-sites';
+import {
+  DropdownButton,
+  Button,
+  CopyIcon,
+  ShareNodesIcon,
+} from 'franklin-sites';
 import { createPath } from 'history';
 
 import useNS from '../../hooks/useNS';
@@ -91,7 +96,15 @@ const ShareDropdown = ({
   }
 
   return (
-    <DropdownButton variant="tertiary" label="Share">
+    <DropdownButton
+      variant="tertiary"
+      label={
+        <>
+          <ShareNodesIcon />
+          Share
+        </>
+      }
+    >
       <div className="dropdown-menu__content">
         <ul>
           <li>
