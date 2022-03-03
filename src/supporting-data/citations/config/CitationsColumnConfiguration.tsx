@@ -45,6 +45,7 @@ export const defaultColumns = [
   CitationsColumn.journal,
   CitationsColumn.firstPage,
   CitationsColumn.lastPage,
+  CitationsColumn.statistics,
 ];
 
 export const primaryKeyColumns = [CitationsColumn.id];
