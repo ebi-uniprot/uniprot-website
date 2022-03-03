@@ -16,6 +16,7 @@ import {
   rePubMed,
   reUniProtKBAccession,
   reFamily,
+  familyExtractor,
 } from '../../utils';
 
 import { Namespace } from '../../../shared/types/namespaces';
@@ -67,21 +68,23 @@ export const TextView = ({ comments, noEvidence }: TextViewProps) => (
               );
             }
             if (reFamily.test(part)) {
-              const family = part.replace('Belongs to the ', '');
-              return (
-                // eslint-disable-next-line react/no-array-index-key
-                <Fragment key={index}>
-                  Belongs to the{' '}
-                  <Link
-                    to={{
-                      pathname: LocationToPath[Location.UniProtKBResults],
-                      search: `query=(family:"${family}")`,
-                    }}
-                  >
-                    {family}
-                  </Link>
-                </Fragment>
-              );
+              return part.split(familyExtractor).map((familyPart) => {
+                if (familyPart.endsWith('family')) {
+                  return (
+                    // eslint-disable-next-line react/no-array-index-key
+                    <Link
+                      key={familyPart}
+                      to={{
+                        pathname: LocationToPath[Location.UniProtKBResults],
+                        search: `query=(family:"${familyPart}")`,
+                      }}
+                    >
+                      {familyPart}
+                    </Link>
+                  );
+                }
+                return familyPart;
+              });
             }
             // On blocks starting with "). " replace the whitespaces with <br />
             if (needsNewLineRE.test(part)) {
