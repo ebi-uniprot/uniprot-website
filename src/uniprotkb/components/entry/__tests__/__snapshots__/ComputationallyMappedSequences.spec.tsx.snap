@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Computationally mapped isoforms Should render correctly 1`] = `
+exports[`Computationally mapped isoforms should render correctly 1`] = `
 <DocumentFragment>
   <div
     class="text-block"
@@ -42,7 +42,7 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
         Add
       </button>
       <a
-        href="/uniprotkb?query=(accession:A0A0A0MRG2 OR accession:E9PG40 OR accession:H7C0V9 OR accession:H7C2L2)"
+        href="/uniprotkb?query=accession:P05067 OR accession:A0A0A0MRG2 OR accession:E9PG40 OR accession:H7C0V9 OR accession:H7C2L2"
       >
         View all
       </a>
