@@ -604,17 +604,17 @@ exports[`non-critical HomePage component should render 1`] = `
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/243/"
+          href="https://www.proteinspotlight.org/back_issues/244/"
           rel="noopener"
           target="_blank"
         >
-          Constructive futility
+          For the sake of sap
         </a>
       </h3>
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/243/"
+        href="https://www.proteinspotlight.org/back_issues/244/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
@@ -623,14 +623,14 @@ exports[`non-critical HomePage component should render 1`] = `
           alt=""
           height="86.65"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt243.jpg"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt244.jpg"
           width="125.46"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          Who  has  not  seen  mould  spread  in  the  corner  of  a  bathroom  or  on  the  edges  of  wallpaper  in  a  damp  house?  Or  winced  at  the  green  growth  on  the  edges  of  a  jam  jar  or  on  yoghourt  left  in  the  open  air  too  long?  Moulds  are  also  sure  to  flourish  on…
+          When  rain  is  pelting  down  and  you  have  no  protection,  the  umbrellas  carried  by  other  pedestrians  suddenly  become  attractive.  The  thought  of  making  one  yours  might  even  occur  to  you.  In  the  same  vein,  a  child  who  is  being  hit  with  a  stick  by  another  child…
       </p>
     </article>
   </section>
