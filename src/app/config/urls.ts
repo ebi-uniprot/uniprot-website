@@ -8,6 +8,7 @@ import {
   SearchableNamespace,
   supportingDataNamespaces,
   supportingDataAndAANamespaces,
+  namespaceAndToolsLabels,
 } from '../../shared/types/namespaces';
 import { databaseToNamespace } from '../../tools/blast/config/BlastFormData';
 
@@ -286,10 +287,29 @@ export const changePathnameOnly =
     pathname,
   });
 
-export const getToolResultsLocation = (pathname: string) =>
-  [
+export type ToolsResultsLocations =
+  | Location.AlignResult
+  | Location.BlastResult
+  | Location.IDMappingResult
+  | Location.PeptideSearchResult;
+
+export const toolsResultsLocationToLabel: Record<
+  ToolsResultsLocations,
+  string
+> = {
+  [Location.IDMappingResult]: namespaceAndToolsLabels[Namespace.idmapping],
+  [Location.AlignResult]: namespaceAndToolsLabels[JobTypes.ALIGN],
+  [Location.BlastResult]: namespaceAndToolsLabels[JobTypes.BLAST],
+  [Location.PeptideSearchResult]:
+    namespaceAndToolsLabels[JobTypes.PEPTIDE_SEARCH],
+};
+
+export const getToolResultsLocation = (pathname: string) => {
+  const found = [
     Location.AlignResult,
     Location.BlastResult,
     Location.IDMappingResult,
     Location.PeptideSearchResult,
   ].find((location) => matchPath(pathname, { path: LocationToPath[location] }));
+  return found ? (found as ToolsResultsLocations) : undefined;
+};
