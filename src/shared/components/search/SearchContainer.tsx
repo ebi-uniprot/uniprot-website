@@ -106,12 +106,16 @@ const SearchContainer: FC<
 
   const match = useRouteMatch<{
     id: string;
+    namespace?: string;
   }>(
     toolResultsLocation && toolResultsLocation in LocationToPath
       ? LocationToPath[toolResultsLocation]
       : []
   );
   const jobId = match?.params.id;
+  const toolNamespace = match?.params.namespace
+    ? (match?.params.namespace as SearchableNamespace)
+    : undefined;
 
   const handleSubmit = (event: SyntheticEvent) => {
     // prevent normal browser submission
@@ -251,6 +255,9 @@ const SearchContainer: FC<
               <QueryBuilder
                 onCancel={handleClose}
                 initialNamespace={namespace}
+                jobId={jobId}
+                toolResultsLocation={toolResultsLocation}
+                toolNamespace={toolNamespace}
               />
             </ErrorBoundary>
           </SlidingPanel>
