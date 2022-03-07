@@ -16,6 +16,7 @@ import { FormParameters as IdMappingFormParameters } from '../../tools/id-mappin
 import { FormParameters as BLASTFormParameters } from '../../tools/blast/types/blastFormParameters';
 import { Job, FinishedJob } from '../../tools/types/toolsJob';
 import { JobTypes } from '../../tools/types/toolsJobTypes';
+import { Database } from '../../tools/blast/types/blastServerParameters';
 
 export const IDMappingNamespaces = [
   Namespace.uniprotkb,
@@ -245,16 +246,12 @@ export const jobTypeToPath = (type: JobTypes, job?: Job) => {
       if (!job) {
         return LocationToPath[Location.IDMapping];
       }
-      // eslint-disable-next-line no-case-declarations
-      const idMappingNamespace =
-        Namespace[
+      return generatePath(LocationToPath[Location.IDMappingResult], {
+        namespace: databaseToNamespace(
           (
             job?.parameters as IdMappingFormParameters
-          )?.to.toLowerCase() as keyof typeof Namespace
-        ];
-      // return mainNamespaces.has(idMappingNamespace) ?
-      return generatePath(LocationToPath[Location.IDMappingResult], {
-        namespace: idMappingNamespace,
+          )?.to.toLowerCase() as Database
+        ),
         id: (job as FinishedJob<JobTypes.ID_MAPPING>).remoteID,
       });
     case JobTypes.PEPTIDE_SEARCH:
