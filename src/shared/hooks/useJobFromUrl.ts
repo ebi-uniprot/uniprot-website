@@ -1,9 +1,13 @@
 import { useMemo } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 
-import { getJobResultsLocation, LocationToPath } from '../../app/config/urls';
+import {
+  getJobResultsLocation,
+  LocationToPath,
+  Location,
+} from '../../app/config/urls';
 
-import { SearchableNamespace } from '../types/namespaces';
+import { Namespace, SearchableNamespace } from '../types/namespaces';
 
 const useJobFromUrl = () => {
   const history = useHistory();
@@ -20,9 +24,13 @@ const useJobFromUrl = () => {
       : []
   );
   const jobId = match?.params.id;
-  const jobResultsNamespace = match?.params.namespace
-    ? (match?.params.namespace as SearchableNamespace)
-    : undefined;
+  let jobResultsNamespace: SearchableNamespace | undefined;
+  if (match?.params.namespace) {
+    jobResultsNamespace = match?.params.namespace as SearchableNamespace;
+  } else if (jobResultsLocation === Location.PeptideSearchResult) {
+    jobResultsNamespace = Namespace.uniprotkb;
+  }
+
   return { jobId, jobResultsLocation, jobResultsNamespace };
 };
 
