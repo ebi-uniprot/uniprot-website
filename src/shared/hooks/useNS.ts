@@ -1,7 +1,7 @@
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import {
   allSearchResultLocations,
-  getToolResultsLocation,
+  getJobResultsLocation,
   LocationToPath,
 } from '../../app/config/urls';
 
@@ -16,23 +16,23 @@ const useNS = (override?: Namespace): Namespace | undefined => {
   }>(allSearchResultLocations);
 
   const history = useHistory();
-  const toolResultsLocation = getToolResultsLocation(history.location.pathname);
+  const jobResultsLocation = getJobResultsLocation(history.location.pathname);
 
   const toolMatch = useRouteMatch<{
     namespace?: string;
   }>(
-    toolResultsLocation && toolResultsLocation in LocationToPath
-      ? LocationToPath[toolResultsLocation]
+    jobResultsLocation && jobResultsLocation in LocationToPath
+      ? LocationToPath[jobResultsLocation]
       : []
   );
-  const toolNamespace = toolMatch?.params.namespace;
+  const jobResultsNamespace = toolMatch?.params.namespace;
 
   if (override) {
     return override;
   }
 
-  if (toolNamespace) {
-    return findNamespace(toolNamespace);
+  if (jobResultsNamespace) {
+    return findNamespace(jobResultsNamespace);
   }
 
   if (!match) {

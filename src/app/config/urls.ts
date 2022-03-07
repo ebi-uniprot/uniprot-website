@@ -304,7 +304,7 @@ export const toolsResultsLocationToLabel: Record<
     namespaceAndToolsLabels[JobTypes.PEPTIDE_SEARCH],
 };
 
-export const getToolResultsLocation = (pathname: string) => {
+export const getJobResultsLocation = (pathname: string) => {
   const found = [
     Location.AlignResult,
     Location.BlastResult,
