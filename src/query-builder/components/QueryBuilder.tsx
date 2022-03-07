@@ -7,7 +7,7 @@ import {
   CSSProperties,
   useCallback,
 } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { generatePath, useHistory, useLocation } from 'react-router-dom';
 import qs from 'query-string';
 import { frame } from 'timing-functions';
 import { PageIntro, Loader, Button } from 'franklin-sites';
@@ -33,6 +33,7 @@ import {
   SearchableNamespace,
 } from '../../shared/types/namespaces';
 import {
+  LocationToPath,
   SearchResultsLocations,
   ToolsResultsLocations,
   toolsResultsLocationToLabel,
@@ -102,7 +103,7 @@ const QueryBuilder = ({
 
   useEffect(() => {
     setClauses([]);
-  }, [namespace]);
+  }, [searchSpace]);
 
   useEffect(() => {
     if (!(searchTermsData && namespace) || loading) {
@@ -241,8 +242,15 @@ const QueryBuilder = ({
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     const queryString = stringify(clauses) || '*';
+    const pathname =
+      searchSpace === 'job' && jobId && toolResultsLocation
+        ? generatePath(LocationToPath[toolResultsLocation], {
+            id: jobId,
+            namespace: toolNamespace,
+          })
+        : SearchResultsLocations[namespace];
     history.push({
-      pathname: SearchResultsLocations[namespace],
+      pathname,
       search: `query=${queryString}`,
     });
     onCancel();
