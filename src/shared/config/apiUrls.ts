@@ -225,7 +225,7 @@ export const getAPIQueryUrl = ({
   }
   return `${apiUrls.search(namespace)}?${queryString.stringify({
     size,
-    query: `${[`(${query})` || '*', createFacetsQueryString(selectedFacets)]
+    query: `${[`(${query})`, createFacetsQueryString(selectedFacets)]
       .filter(Boolean)
       .join(' AND ')}`,
     fields: columns?.join(',') || undefined,

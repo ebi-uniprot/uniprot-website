@@ -57,6 +57,7 @@ type Return<T extends JobTypes> = Readonly<{
       facets?: string[];
       size?: number;
       selectedFacets?: SelectedFacet[];
+      query?: string;
     }
   ) => string;
   detailsUrl?: (jobId: string) => string;
@@ -78,11 +79,20 @@ function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
         statusUrl: (jobId) =>
           // The cachebust extra query is just here to avoid using cached value
           `${baseURL}/status/${jobId}?cachebust=${new Date().getTime()}`,
-        resultUrl: (redirectUrl, { facets, size, selectedFacets = [] }) =>
+        resultUrl: (
+          redirectUrl,
+          { facets, size, selectedFacets = [], query }
+        ) =>
           `${redirectUrl}?${queryString.stringify({
             size,
             facets: facets?.join(','),
-            query: createFacetsQueryString(selectedFacets),
+            // Similar approach to the one in apiUrls.ts file
+            query: `${[
+              `(${query || '*'})`,
+              createFacetsQueryString(selectedFacets),
+            ]
+              .filter(Boolean)
+              .join(' AND ')}`,
           })}`,
         detailsUrl: (jobId) => `${baseURL}/details/${jobId}`,
       });

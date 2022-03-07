@@ -55,7 +55,7 @@ const IDMappingResult = () => {
   const location = useLocation();
   const databaseInfoMaps = useDatabaseInfoMaps();
   const { search: queryParamFromUrl } = location;
-  const [{ selectedFacets }] = getParamsFromURL(queryParamFromUrl);
+  const [{ selectedFacets, query }] = getParamsFromURL(queryParamFromUrl);
 
   const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
     useItemSelect();
@@ -70,7 +70,7 @@ const IDMappingResult = () => {
   // Query for results data from the idmapping endpoint
   const initialApiUrl =
     detailsData?.redirectURL &&
-    urls.resultUrl(detailsData.redirectURL, { selectedFacets });
+    urls.resultUrl(detailsData.redirectURL, { selectedFacets, query });
 
   const converter = useMemo(() => idMappingConverter(toDBInfo), [toDBInfo]);
 
@@ -112,6 +112,7 @@ const IDMappingResult = () => {
       facets,
       size: 0,
       selectedFacets,
+      query,
     });
   const facetsData = useDataApiWithStale<Response['data']>(facetsUrl);
 
