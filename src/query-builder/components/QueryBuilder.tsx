@@ -5,8 +5,9 @@ import {
   useMemo,
   useRef,
   CSSProperties,
+  useCallback,
 } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { generatePath, useHistory, useLocation } from 'react-router-dom';
 import qs from 'query-string';
 import { frame } from 'timing-functions';
 import { PageIntro, Loader, Button } from 'franklin-sites';
@@ -18,6 +19,7 @@ import ClauseList from './ClauseList';
 
 import { useMessagesDispatch } from '../../shared/contexts/Messages';
 import useDataApi from '../../shared/hooks/useDataApi';
+import useJobFromUrl from '../../shared/hooks/useJobFromUrl';
 
 import { createEmptyClause, defaultQueryFor, getNextId } from '../utils/clause';
 import { pluralise } from '../../shared/utils/utils';
@@ -31,7 +33,11 @@ import {
   searchableNamespaceLabels,
   SearchableNamespace,
 } from '../../shared/types/namespaces';
-import { SearchResultsLocations } from '../../app/config/urls';
+import {
+  LocationToPath,
+  SearchResultsLocations,
+  toolsResultsLocationToLabel,
+} from '../../app/config/urls';
 
 import {
   MessageFormat,
@@ -69,7 +75,12 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialNamespace }: Props) => {
 
   const [clauses, setClauses] = useState<Clause[]>([]);
 
+  const { jobId, jobResultsNamespace, jobResultsLocation } = useJobFromUrl();
+
   const [namespace, setNamespace] = useState(initialNamespace);
+  const [searchSpace, setSearchSpace] = useState<SearchableNamespace | 'job'>(
+    jobId ? 'job' : initialNamespace
+  );
   const style = useMemo<Style>(
     () => ({
       // change color of all buttons within this element to match the namespace
@@ -84,7 +95,7 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialNamespace }: Props) => {
 
   useEffect(() => {
     setClauses([]);
-  }, [namespace]);
+  }, [searchSpace]);
 
   useEffect(() => {
     if (!(searchTermsData && namespace) || loading) {
@@ -144,6 +155,43 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialNamespace }: Props) => {
     fieldToAdd,
   ]);
 
+  const searchSpaceOptions = useMemo(() => {
+    const options = [];
+    for (const [ns, label] of Object.entries(searchableNamespaceLabels)) {
+      // If the user is looking at a job result populate the "Searching in" with this
+      // as an option just before the corresponding namespace
+      if (
+        ns === jobResultsNamespace &&
+        jobResultsNamespace &&
+        jobResultsLocation &&
+        jobId
+      ) {
+        const jobResultsNamespaceLabel =
+          searchableNamespaceLabels[jobResultsNamespace];
+        const jobToolLabel = toolsResultsLocationToLabel[jobResultsLocation];
+        options.push({
+          label: `${jobResultsNamespaceLabel} / ${jobToolLabel} / ${jobId}`,
+          value: 'job',
+        });
+      }
+      options.push({ label, value: ns });
+    }
+    return options;
+  }, [jobId, jobResultsNamespace, jobResultsLocation]);
+
+  const onSearchSpaceChange = useCallback(
+    ({ target: { value } }: React.ChangeEvent<HTMLSelectElement>) => {
+      if (value === 'job' && jobResultsNamespace) {
+        setNamespace(jobResultsNamespace);
+        setSearchSpace('job');
+        return;
+      }
+      setNamespace(value as SearchableNamespace);
+      setSearchSpace(value as SearchableNamespace);
+    },
+    [jobResultsNamespace]
+  );
+
   // Has the input corresponding to the added field been focused already?
   const focusedFlag = useRef(false);
   // Effect to focus *only once* the added field whenever it gets added
@@ -193,8 +241,15 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialNamespace }: Props) => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     const queryString = stringify(clauses) || '*';
+    const pathname =
+      searchSpace === 'job' && jobId && jobResultsLocation
+        ? generatePath(LocationToPath[jobResultsLocation], {
+            id: jobId,
+            namespace: jobResultsNamespace,
+          })
+        : SearchResultsLocations[namespace];
     history.push({
-      pathname: SearchResultsLocations[namespace],
+      pathname,
       search: `query=${queryString}`,
     });
     onCancel();
@@ -213,14 +268,12 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialNamespace }: Props) => {
           Searching in
           <select
             id="namespace-select"
-            onChange={(e) =>
-              setNamespace(e.target.value as SearchableNamespace)
-            }
-            value={namespace}
+            onChange={onSearchSpaceChange}
+            value={searchSpace}
           >
-            {Object.keys(searchableNamespaceLabels).map((key) => (
-              <option value={key} key={key}>
-                {searchableNamespaceLabels[key as SearchableNamespace]}
+            {searchSpaceOptions.map(({ value, label }) => (
+              <option value={value} key={label}>
+                {label}
               </option>
             ))}
           </select>

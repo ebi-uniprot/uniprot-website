@@ -9,16 +9,17 @@ import {
   SyntheticEvent,
   useMemo,
 } from 'react';
-import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import { MainSearch, Button, SlidingPanel } from 'franklin-sites';
 
 import ErrorBoundary from '../error-component/ErrorBoundary';
 
+import useJobFromUrl from '../../hooks/useJobFromUrl';
+
 import lazy from '../../utils/lazy';
 
 import {
-  getToolResultsLocation,
   Location,
   LocationToPath,
   SearchResultsLocations,
@@ -101,20 +102,7 @@ const SearchContainer: FC<
   const [searchTerm, setSearchTerm] = useState<string>('');
   const handleClose = useCallback(() => setDisplayQueryBuilder(false), []);
 
-  const toolResultsLocation = useMemo(
-    () => getToolResultsLocation(location.pathname),
-    [location.pathname]
-  );
-
-  const match = useRouteMatch<{
-    id: string;
-  }>(
-    toolResultsLocation && toolResultsLocation in LocationToPath
-      ? LocationToPath[toolResultsLocation]
-      : []
-  );
-  const jobId = match?.params.id;
-
+  const { jobId, jobResultsLocation } = useJobFromUrl();
   const handleSubmit = (event: SyntheticEvent) => {
     // prevent normal browser submission
     event.preventDefault();
@@ -145,7 +133,7 @@ const SearchContainer: FC<
 
   const secondaryButtons = useMemo(() => {
     const buttons = [];
-    if (toolResultsLocation !== Location.AlignResult) {
+    if (jobResultsLocation !== Location.AlignResult) {
       buttons.push({
         label:
           // TODO:
@@ -170,7 +158,7 @@ const SearchContainer: FC<
       },
     });
     return buttons;
-  }, [history, toolResultsLocation]);
+  }, [history, jobResultsLocation]);
 
   // reset the text content when there is a navigation to reflect what is in the
   // URL. That includes removing the text when browsing to a non-search page.
@@ -187,7 +175,7 @@ const SearchContainer: FC<
       return;
     }
     // Don't add any query that may be in URL for Align results
-    if (toolResultsLocation !== Location.AlignResult) {
+    if (jobResultsLocation !== Location.AlignResult) {
       if (Array.isArray(query)) {
         queryTokens.push(query[0]);
       } else if (query) {
@@ -195,7 +183,7 @@ const SearchContainer: FC<
       }
     }
     setSearchTerm(queryTokens.join(' AND '));
-  }, [history, location.search, jobId, toolResultsLocation]);
+  }, [history, location.search, jobId, jobResultsLocation]);
 
   return (
     <>
