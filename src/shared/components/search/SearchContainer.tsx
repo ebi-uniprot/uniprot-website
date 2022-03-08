@@ -103,6 +103,7 @@ const SearchContainer: FC<
   const handleClose = useCallback(() => setDisplayQueryBuilder(false), []);
 
   const { jobId, jobResultsLocation } = useJobFromUrl();
+
   const handleSubmit = (event: SyntheticEvent) => {
     // prevent normal browser submission
     event.preventDefault();
@@ -116,9 +117,7 @@ const SearchContainer: FC<
     // push a new location to the history containing the modified search term
     history.push({
       // If there was a job ID in the search bar, keep the same URL (job result)
-      pathname: jobRE.test(searchTerm)
-        ? location.pathname
-        : SearchResultsLocations[namespace],
+      pathname: jobId ? location.pathname : SearchResultsLocations[namespace],
       search: stringifiedSearch,
     });
   };
