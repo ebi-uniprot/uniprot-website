@@ -303,13 +303,16 @@ export const toolsResultsLocationToLabel: Record<
   [Location.PeptideSearchResult]:
     namespaceAndToolsLabels[JobTypes.PEPTIDE_SEARCH],
 };
+const toolsResultsLocations = [
+  Location.AlignResult,
+  Location.BlastResult,
+  Location.IDMappingResult,
+  Location.PeptideSearchResult,
+] as const;
 
-export const getJobResultsLocation = (pathname: string) => {
-  const found = [
-    Location.AlignResult,
-    Location.BlastResult,
-    Location.IDMappingResult,
-    Location.PeptideSearchResult,
-  ].find((location) => matchPath(pathname, { path: LocationToPath[location] }));
-  return found ? (found as ToolsResultsLocations) : undefined;
-};
+export const getJobResultsLocation = (
+  pathname: string
+): ToolsResultsLocations | undefined =>
+  toolsResultsLocations.find((location) =>
+    matchPath(pathname, { path: LocationToPath[location] })
+  );
