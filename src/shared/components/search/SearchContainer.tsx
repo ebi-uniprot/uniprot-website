@@ -15,6 +15,8 @@ import { MainSearch, Button, SlidingPanel } from 'franklin-sites';
 
 import ErrorBoundary from '../error-component/ErrorBoundary';
 
+import useJobFromUrl from '../../hooks/useJobFromUrl';
+
 import lazy from '../../utils/lazy';
 
 import {
@@ -29,7 +31,6 @@ import {
 } from '../../types/namespaces';
 
 import './styles/search-container.scss';
-import useJobFromUrl from '../../hooks/useJobFromUrl';
 
 const QueryBuilder = lazy(
   () =>

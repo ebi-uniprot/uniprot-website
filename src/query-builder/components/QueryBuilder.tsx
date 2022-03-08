@@ -19,6 +19,7 @@ import ClauseList from './ClauseList';
 
 import { useMessagesDispatch } from '../../shared/contexts/Messages';
 import useDataApi from '../../shared/hooks/useDataApi';
+import useJobFromUrl from '../../shared/hooks/useJobFromUrl';
 
 import { createEmptyClause, defaultQueryFor, getNextId } from '../utils/clause';
 import { pluralise } from '../../shared/utils/utils';
@@ -46,7 +47,6 @@ import { Clause, SearchTermType } from '../types/searchTypes';
 
 import '../../shared/components/search/styles/search-container.scss';
 import './styles/query-builder.scss';
-import useJobFromUrl from '../../shared/hooks/useJobFromUrl';
 
 type Props = {
   /**
