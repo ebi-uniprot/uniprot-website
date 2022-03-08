@@ -157,16 +157,22 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialNamespace }: Props) => {
 
   const searchSpaceOptions = useMemo(() => {
     const options = [];
-    let jobOption: string | undefined;
-    if (jobResultsNamespace && jobResultsLocation && jobId) {
-      const jobResultsNamespaceLabel =
-        searchableNamespaceLabels[jobResultsNamespace];
-      const toolLabel = toolsResultsLocationToLabel[jobResultsLocation];
-      jobOption = `${jobResultsNamespaceLabel} / ${toolLabel} / ${jobId}`;
-    }
     for (const [ns, label] of Object.entries(searchableNamespaceLabels)) {
-      if (ns === jobResultsNamespace) {
-        options.push({ label: jobOption, value: 'job' });
+      // If the user is looking at a job result populate the "Searching in" with this
+      // as an option just before the corresponding namespace
+      if (
+        ns === jobResultsNamespace &&
+        jobResultsNamespace &&
+        jobResultsLocation &&
+        jobId
+      ) {
+        const jobResultsNamespaceLabel =
+          searchableNamespaceLabels[jobResultsNamespace];
+        const jobToolLabel = toolsResultsLocationToLabel[jobResultsLocation];
+        options.push({
+          label: `${jobResultsNamespaceLabel} / ${jobToolLabel} / ${jobId}`,
+          value: 'job',
+        });
       }
       options.push({ label, value: ns });
     }
