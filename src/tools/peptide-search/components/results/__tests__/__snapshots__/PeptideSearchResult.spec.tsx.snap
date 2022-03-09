@@ -396,12 +396,9 @@ exports[`PeptideSearchResult should render with the correct number of results in
         <h1
           class=""
         >
-          UniProtKB
+          Peptide search
           <small>
              2 results 
-          </small>
-          <small>
-             found in peptide search title
           </small>
         </h1>
       </div>
