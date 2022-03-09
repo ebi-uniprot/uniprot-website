@@ -6,6 +6,8 @@ import ResultsButtons from './ResultsButtons';
 import useNS from '../../hooks/useNS';
 
 import { Namespace, namespaceAndToolsLabels } from '../../types/namespaces';
+import { toolsResultsLocationToLabel } from '../../../app/config/urls';
+import useJobFromUrl from '../../hooks/useJobFromUrl';
 
 const ResultsDataHeader: FC<{
   total?: number;
@@ -28,11 +30,15 @@ const ResultsDataHeader: FC<{
   children,
 }) => {
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
-
+  const { jobResultsLocation } = useJobFromUrl();
   return (
     <>
       <PageIntro
-        title={namespaceAndToolsLabels[namespace]}
+        title={
+          jobResultsLocation
+            ? toolsResultsLocationToLabel?.[jobResultsLocation]
+            : namespaceAndToolsLabels[namespace]
+        }
         titlePostscript={titlePostscript}
         resultsCount={total}
       >
