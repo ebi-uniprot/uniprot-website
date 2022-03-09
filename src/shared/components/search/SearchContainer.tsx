@@ -90,6 +90,8 @@ type Props = {
   onNamespaceChange: (namespace: SearchableNamespace) => void;
 };
 
+const jobRE = /job:[^ ]+( AND )?/i;
+
 const SearchContainer: FC<
   Props & Exclude<HTMLAttributes<HTMLDivElement>, 'role'>
 > = ({ isOnHomePage, namespace, onNamespaceChange, ...props }) => {
@@ -101,19 +103,21 @@ const SearchContainer: FC<
   const handleClose = useCallback(() => setDisplayQueryBuilder(false), []);
 
   const { jobId, jobResultsLocation } = useJobFromUrl();
+
   const handleSubmit = (event: SyntheticEvent) => {
     // prevent normal browser submission
     event.preventDefault();
 
     // restringify the resulting search
     const stringifiedSearch = queryString.stringify(
-      { query: searchTerm || '*' },
+      { query: searchTerm.replace(jobRE, '') || '*' },
       { encode: true }
     );
 
     // push a new location to the history containing the modified search term
     history.push({
-      pathname: SearchResultsLocations[namespace],
+      // If there was a job ID in the search bar, keep the same URL (job result)
+      pathname: jobId ? location.pathname : SearchResultsLocations[namespace],
       search: stringifiedSearch,
     });
   };
