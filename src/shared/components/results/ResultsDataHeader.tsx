@@ -6,8 +6,9 @@ import ResultsButtons from './ResultsButtons';
 import useNS from '../../hooks/useNS';
 import useJobFromUrl from '../../hooks/useJobFromUrl';
 
-import { Namespace, namespaceAndToolsLabels } from '../../types/namespaces';
 import { toolsResultsLocationToLabel } from '../../../app/config/urls';
+
+import { Namespace, namespaceAndToolsLabels } from '../../types/namespaces';
 
 const ResultsDataHeader: FC<{
   total?: number;
