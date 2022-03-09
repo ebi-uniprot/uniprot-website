@@ -4,10 +4,10 @@ import { FC, memo, ReactNode } from 'react';
 import ResultsButtons from './ResultsButtons';
 
 import useNS from '../../hooks/useNS';
+import useJobFromUrl from '../../hooks/useJobFromUrl';
 
 import { Namespace, namespaceAndToolsLabels } from '../../types/namespaces';
 import { toolsResultsLocationToLabel } from '../../../app/config/urls';
-import useJobFromUrl from '../../hooks/useJobFromUrl';
 
 const ResultsDataHeader: FC<{
   total?: number;
