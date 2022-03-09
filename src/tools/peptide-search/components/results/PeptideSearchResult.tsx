@@ -1,7 +1,7 @@
 import { useMemo, useRef } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { Loader } from 'franklin-sites';
-import { partialRight, truncate } from 'lodash-es';
+import { partialRight } from 'lodash-es';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
@@ -164,15 +164,6 @@ const PeptideSearchResult = ({
         total={total}
         loadedTotal={sortedResultsDataObject.allResults.length}
         selectedEntries={selectedEntries}
-        titlePostscript={
-          total && (
-            <small>
-              {` found in peptide search ${
-                truncate(jobSubmission.current?.title, { length: 15 }) || ''
-              }`}
-            </small>
-          )
-        }
         accessions={accessions}
       />
       <ResultsData
