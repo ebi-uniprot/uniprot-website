@@ -164,15 +164,6 @@ const PeptideSearchResult = ({
         total={total}
         loadedTotal={sortedResultsDataObject.allResults.length}
         selectedEntries={selectedEntries}
-        titlePostscript={
-          total && (
-            <small>
-              {` found in peptide search ${
-                truncate(jobSubmission.current?.title, { length: 15 }) || ''
-              }`}
-            </small>
-          )
-        }
         accessions={accessions}
       />
       <ResultsData
