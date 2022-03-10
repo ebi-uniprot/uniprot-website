@@ -66,11 +66,11 @@ export const searchableNamespaceLabels: Record<SearchableNamespace, string> = {
   [Namespace.unirule]: 'UniRule',
   [Namespace.arba]: 'ARBA',
 };
-export const toolResults = 'Tool results' as const;
+export const toolResults = 'toolResults' as const;
 export type ToolResults = typeof toolResults;
 export type Searchspace = SearchableNamespace | ToolResults;
 export const searchspaceLabels = {
-  [toolResults]: toolResults,
+  [toolResults]: 'Tool results',
   ...searchableNamespaceLabels,
 };
 

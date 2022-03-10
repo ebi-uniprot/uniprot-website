@@ -33,6 +33,7 @@ import {
   SearchableNamespace,
   searchableNamespaceLabels,
   Searchspace,
+  searchspaceLabels,
   toolResults,
 } from '../../shared/types/namespaces';
 import {
@@ -82,17 +83,12 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
   const namespace =
     searchspace === toolResults ? jobResultsNamespace : searchspace;
 
-  const color =
-    searchspace === toolResults
-      ? '#7F3D98'
-      : (colors as Record<string, string>)[searchspace];
-
   const style = useMemo<Style>(
     () => ({
       // change color of all buttons within this element to match the namespace
-      '--main-button-color': color,
+      '--main-button-color': (colors as Record<string, string>)[searchspace],
     }),
-    [color]
+    [searchspace]
   );
 
   const { loading, data: searchTermsData } = useDataApi<SearchTermType[]>(
@@ -165,23 +161,18 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
 
   const searchSpaceOptions = useMemo(() => {
     const options = [];
+    // If the user is looking at a job result populate the "Searching in" with this
+    // as an option just before the corresponding namespace
+    if (jobResultsNamespace && jobResultsLocation && jobId) {
+      const jobResultsNamespaceLabel =
+        searchableNamespaceLabels[jobResultsNamespace];
+      const jobToolLabel = toolsResultsLocationToLabel[jobResultsLocation];
+      options.push({
+        label: `${searchspaceLabels[toolResults]}: ${jobToolLabel} / ${jobResultsNamespaceLabel} / ${jobId}`,
+        value: toolResults,
+      });
+    }
     for (const [ns, label] of Object.entries(searchableNamespaceLabels)) {
-      // If the user is looking at a job result populate the "Searching in" with this
-      // as an option just before the corresponding namespace
-      if (
-        ns === jobResultsNamespace &&
-        jobResultsNamespace &&
-        jobResultsLocation &&
-        jobId
-      ) {
-        const jobResultsNamespaceLabel =
-          searchableNamespaceLabels[jobResultsNamespace];
-        const jobToolLabel = toolsResultsLocationToLabel[jobResultsLocation];
-        options.push({
-          label: `${jobResultsNamespaceLabel} / ${jobToolLabel} / ${jobId}`,
-          value: toolResults,
-        });
-      }
       options.push({ label, value: ns });
     }
     return options;
