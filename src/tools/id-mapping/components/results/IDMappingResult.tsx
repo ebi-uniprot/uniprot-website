@@ -15,6 +15,7 @@ import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 import useDatabaseInfoMaps from '../../../../shared/hooks/useDatabaseInfoMaps';
 import { useMatchWithRedirect } from '../../../utils/hooks';
 
+import { rawDBToNamespace } from '../../utils';
 import toolsURLs from '../../../config/urls';
 import idMappingConverter from '../../adapters/idMappingConverter';
 import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
@@ -36,7 +37,6 @@ import {
   namespaceAndToolsLabels,
 } from '../../../../shared/types/namespaces';
 import Response from '../../../../uniprotkb/types/responseTypes';
-import { rawDBToNamespace } from '../../utils';
 
 const jobType = JobTypes.ID_MAPPING;
 const urls = toolsURLs(jobType);

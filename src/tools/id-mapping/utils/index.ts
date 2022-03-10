@@ -1,8 +1,8 @@
 import { memoize } from 'lodash-es';
-import { Namespace } from '../../../shared/types/namespaces';
 
 import { RuleIdToRuleInfo } from '../components/IDMappingForm';
 
+import { Namespace } from '../../../shared/types/namespaces';
 import { IDMappingGroup } from '../types/idMappingFormConfig';
 
 // Memoize this as there could be lots of calls to this function as the user explores
