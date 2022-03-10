@@ -93,8 +93,6 @@ type Props = {
   onSearchspaceChange: (searchspace: Searchspace) => void;
 };
 
-const jobRE = /job:[^ ]+( AND )?/i;
-
 const SearchContainer: FC<
   Props & Exclude<HTMLAttributes<HTMLDivElement>, 'role'>
 > = ({ isOnHomePage, searchspace, onSearchspaceChange, ...props }) => {
@@ -113,7 +111,7 @@ const SearchContainer: FC<
 
     // restringify the resulting search
     const stringifiedSearch = queryString.stringify(
-      { query: searchTerm.replace(jobRE, '') || '*' },
+      { query: searchTerm || '*' },
       { encode: true }
     );
 
@@ -168,10 +166,6 @@ const SearchContainer: FC<
   // reset the text content when there is a navigation to reflect what is in the
   // URL. That includes removing the text when browsing to a non-search page.
   useEffect(() => {
-    const queryTokens = [];
-    if (jobId) {
-      queryTokens.push(`job:${jobId}`);
-    }
     const { query } = queryString.parse(location.search, { decode: true });
     // Using history here because history won't change, while location will
     if (
@@ -179,16 +173,12 @@ const SearchContainer: FC<
     ) {
       return;
     }
-    // Don't add any query that may be in URL for Align results
-    if (jobResultsLocation !== Location.AlignResult) {
-      if (Array.isArray(query)) {
-        queryTokens.push(query[0]);
-      } else if (query) {
-        queryTokens.push(query);
-      }
+    if (Array.isArray(query)) {
+      setSearchTerm(query[0]);
+      return;
     }
-    setSearchTerm(queryTokens.join(' AND '));
-  }, [history, location.search, jobId, jobResultsLocation]);
+    setSearchTerm(query || '');
+  }, [history, location.search]);
 
   const searchspaces = jobId ? searchspaceLabels : searchableNamespaceLabels;
 
