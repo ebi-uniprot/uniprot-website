@@ -20,7 +20,10 @@ import NoResultsPage from '../../../../shared/components/error-pages/NoResultsPa
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 
 import toolsURLs from '../../../config/urls';
-import { namespaceAndToolsLabels } from '../../../../shared/types/namespaces';
+import {
+  Namespace,
+  namespaceAndToolsLabels,
+} from '../../../../shared/types/namespaces';
 import { LocationToPath, Location } from '../../../../app/config/urls';
 import peptideSearchConverter from '../../adapters/peptideSearchConverter';
 
@@ -162,6 +165,9 @@ const PeptideSearchResult = ({
       <HTMLHead title={title} />
       <ResultsDataHeader
         total={total}
+        titlePostscript={
+          <small>found in {namespaceAndToolsLabels[Namespace.uniprotkb]}</small>
+        }
         loadedTotal={sortedResultsDataObject.allResults.length}
         selectedEntries={selectedEntries}
         accessions={accessions}
