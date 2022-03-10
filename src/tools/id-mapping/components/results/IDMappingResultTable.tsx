@@ -3,8 +3,11 @@ import { ExpandableList, HeroContainer } from 'franklin-sites';
 import ResultsData from '../../../../shared/components/results/ResultsData';
 import ResultsButtons from '../../../../shared/components/results/ResultsButtons';
 
+import { IDMappingFromContext } from './FromColumn';
+
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
 
+import { rawDBToNamespace } from '../../utils';
 import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
 
 import { Namespace } from '../../../../shared/types/namespaces';
@@ -49,14 +52,18 @@ const IDMappingResultTable = ({
           </ExpandableList>
         </HeroContainer>
       )}
-      <ResultsData
-        resultsDataObject={resultsDataObject}
-        setSelectedItemFromEvent={setSelectedItemFromEvent}
-        setSelectedEntries={setSelectedEntries}
-        namespaceOverride={namespaceOverride}
-        displayIdMappingColumns
-        disableCardToggle
-      />
+      <IDMappingFromContext.Provider
+        value={rawDBToNamespace(detailsData?.from)}
+      >
+        <ResultsData
+          resultsDataObject={resultsDataObject}
+          setSelectedItemFromEvent={setSelectedItemFromEvent}
+          setSelectedEntries={setSelectedEntries}
+          namespaceOverride={namespaceOverride}
+          displayIdMappingColumns
+          disableCardToggle
+        />
+      </IDMappingFromContext.Provider>
     </>
   );
 };

@@ -1,4 +1,5 @@
 import { memoize } from 'lodash-es';
+import { Namespace } from '../../../shared/types/namespaces';
 
 import { RuleIdToRuleInfo } from '../components/IDMappingForm';
 
@@ -36,3 +37,17 @@ export const getTreeData = memoize(
   // so let 0 be the memoize's WeakMap key for quick retrieval
   (_dbs, _ruleIdToRuleInfo, rule?: number) => rule ?? 0
 );
+
+export const rawDBToNamespace = (db?: string) => {
+  const lowerCaseDB = db?.toLowerCase() || '';
+  if (lowerCaseDB.includes('uniprotkb')) {
+    return Namespace.uniprotkb;
+  }
+  if (lowerCaseDB.includes('uniref')) {
+    return Namespace.uniref;
+  }
+  if (lowerCaseDB.includes('uniparc')) {
+    return Namespace.uniparc;
+  }
+  return Namespace.idmapping;
+};
