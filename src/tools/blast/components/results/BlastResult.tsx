@@ -1,11 +1,5 @@
 import { useMemo, useEffect, useState, lazy, Suspense } from 'react';
-import {
-  Link,
-  useRouteMatch,
-  useHistory,
-  useLocation,
-  generatePath,
-} from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Loader, PageIntro, Tabs, Tab } from 'franklin-sites';
 import cn from 'classnames';
 
@@ -36,7 +30,6 @@ import {
   blastNamespaces,
   changePathnameOnly,
   Location,
-  LocationToPath,
 } from '../../../../app/config/urls';
 import toolsURLs from '../../../config/urls';
 import { getAccessionsURL } from '../../../../shared/config/apiUrls';
