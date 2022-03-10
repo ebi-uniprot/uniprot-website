@@ -190,22 +190,19 @@ const SearchContainer: FC<
     setSearchTerm(queryTokens.join(' AND '));
   }, [history, location.search, jobId, jobResultsLocation]);
 
-  // const [searchSpace, searchSpaces] = useMemo(
-  //   () =>
-  //     jobId
-  //       ? [
-  //           'Tool results',
-  //           { 'Tool results': 'Tool results', ...searchableNamespaceLabels },
-  //         ]
-  //       : [searchspace, searchableNamespaceLabels],
-  //   [jobId]
-  // );
+  const searchspaces = useMemo(
+    () =>
+      jobId
+        ? { toolResults, ...searchableNamespaceLabels }
+        : searchableNamespaceLabels,
+    [jobId]
+  );
 
   return (
     <>
       <section role="search" {...props}>
         <MainSearch
-          namespaces={searchSpaces}
+          namespaces={searchspaces}
           searchTerm={searchTerm}
           onTextChange={setSearchTerm}
           onSubmit={handleSubmit}
