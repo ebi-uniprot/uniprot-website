@@ -123,7 +123,7 @@ export const LocationToPath: Record<Location, string> = {
   [Location.PeptideSearch]: '/peptide-search',
   [Location.IDMappingResult]: `/id-mapping/:namespace(${IDMappingNamespaces.join(
     '|'
-  )})?/:id`,
+  )})?/:id/:subPage?`,
   [Location.IDMapping]: '/id-mapping',
   // Help
   [Location.HelpEntry]: '/help/:accession',

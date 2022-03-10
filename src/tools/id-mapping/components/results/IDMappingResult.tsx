@@ -1,19 +1,18 @@
-import { useMemo } from 'react';
+import { useMemo, useEffect, lazy, Suspense } from 'react';
+import { Loader, PageIntro, Tab, Tabs } from 'franklin-sites';
 import {
-  ExpandableList,
-  HeroContainer,
-  Loader,
-  PageIntro,
-} from 'franklin-sites';
-import { useLocation, useRouteMatch } from 'react-router-dom';
+  generatePath,
+  Link,
+  useHistory,
+  useLocation,
+  useRouteMatch,
+} from 'react-router-dom';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
-import ResultsData from '../../../../shared/components/results/ResultsData';
-import ResultsButtons from '../../../../shared/components/results/ResultsButtons';
+import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
 
-import useItemSelect from '../../../../shared/hooks/useItemSelect';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import usePagination from '../../../../shared/hooks/usePagination';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
@@ -23,11 +22,11 @@ import useDatabaseInfoMaps from '../../../../shared/hooks/useDatabaseInfoMaps';
 import toolsURLs from '../../../config/urls';
 import idMappingConverter from '../../adapters/idMappingConverter';
 import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
-import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
 import { defaultFacets } from '../../../../shared/config/apiUrls';
 
 import { JobTypes } from '../../../types/toolsJobTypes';
 import {
+  changePathnameOnly,
   IDMappingNamespaces,
   Location,
   LocationToPath,
@@ -47,18 +46,64 @@ const jobType = JobTypes.ID_MAPPING;
 const urls = toolsURLs(jobType);
 const title = `${namespaceAndToolsLabels[jobType]} results`;
 
-const IDMappingResult = () => {
-  const match = useRouteMatch<{
-    id: string;
-    namespace?: typeof IDMappingNamespaces[number];
-  }>(LocationToPath[Location.IDMappingResult]);
-  const location = useLocation();
-  const databaseInfoMaps = useDatabaseInfoMaps();
-  const { search: queryParamFromUrl } = location;
-  const [{ selectedFacets, query }] = getParamsFromURL(queryParamFromUrl);
+// overview
+const IDMappingResultTable = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "id-mapping-result-page" */ './IDMappingResultTable'
+    )
+);
+// input-parameters
+// const InputParameters = lazy(
+//   () =>
+//     import(
+//       /* webpackChunkName: "input-parameters" */ '../../../components/InputParameters'
+//     )
+// );
+// input-parameters
+// const APIRequest = lazy(
+//   () =>
+//     import(
+//       /* webpackChunkName: "api-request" */ '../../../components/APIRequest'
+//     )
+// );
 
-  const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
-    useItemSelect();
+enum TabLocation {
+  Overview = 'overview',
+  InputParameters = 'input-parameters',
+  APIRequest = 'api-request',
+}
+
+type Params = {
+  id: string;
+  namespace?: typeof IDMappingNamespaces[number];
+  subPage?: TabLocation;
+};
+
+const IDMappingResult = () => {
+  const history = useHistory();
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const match = useRouteMatch<Params>(
+    LocationToPath[Location.IDMappingResult]
+  )!;
+  const location = useLocation();
+
+  const databaseInfoMaps = useDatabaseInfoMaps();
+
+  const [{ selectedFacets, query }] = getParamsFromURL(location.search);
+
+  // if URL doesn't finish with "overview" redirect to /overview by default
+  useEffect(() => {
+    if (match && !match.params.subPage) {
+      history.replace({
+        ...history.location,
+        pathname: generatePath(LocationToPath[Location.IDMappingResult], {
+          ...match.params,
+          subPage: TabLocation.Overview,
+        }),
+      });
+    }
+  }, [match, history]);
 
   const detailApiUrl =
     urls.detailsUrl && urls.detailsUrl(match?.params.id || '');
@@ -81,7 +126,7 @@ const IDMappingResult = () => {
 
   const {
     initialLoading: resultsDataInitialLoading,
-    failedIds,
+    progress,
     total,
   } = resultsDataObject;
 
@@ -108,6 +153,7 @@ const IDMappingResult = () => {
   const facets = defaultFacets.get(namespaceOverride);
   const facetsUrl =
     detailsData?.redirectURL &&
+    facets &&
     urls.resultUrl(detailsData.redirectURL, {
       facets,
       size: 0,
@@ -126,13 +172,32 @@ const IDMappingResult = () => {
     resultsDataInitialLoading &&
     !facetHasStaleData
   ) {
-    return <Loader />;
+    return <Loader progress={progress} />;
   }
 
-  const getIdKey = getIdKeyFor(namespaceOverride);
+  let sidebar: JSX.Element;
+  // Deciding what should be displayed on the sidebar
+  switch (match.params.subPage) {
+    case TabLocation.InputParameters:
+    case TabLocation.APIRequest:
+      sidebar = <div className="sidebar-layout__sidebar-content--empty" />;
+      break;
+
+    default:
+      sidebar = (
+        <ErrorBoundary>
+          <ResultsFacets dataApiObject={facetsData} />
+        </ErrorBoundary>
+      );
+      break;
+  }
+
+  const basePath = `/id-mapping/${
+    namespaceOverride === Namespace.idmapping ? '' : `${namespaceOverride}/`
+  }${match.params.id}/`;
 
   return (
-    <SideBarLayout sidebar={<ResultsFacets dataApiObject={facetsData} />}>
+    <SideBarLayout sidebar={sidebar}>
       <HTMLHead
         title={[
           title,
@@ -151,34 +216,57 @@ const IDMappingResult = () => {
         }
         resultsCount={total}
       />
-      <ResultsButtons
-        total={total || 0}
-        loadedTotal={resultsDataObject.allResults.length}
-        selectedEntries={selectedEntries}
-        accessions={resultsDataObject.allResults.map(getIdKey)}
-        namespaceOverride={namespaceOverride}
-        disableCardToggle
-        base={detailsData?.redirectURL}
-        notCustomisable={namespaceOverride === Namespace.idmapping}
-      />
-
-      {failedIds && (
-        <HeroContainer>
-          <strong>{failedIds.length}</strong> id
-          {failedIds.length === 1 ? ' is' : 's were'} not mapped:
-          <ExpandableList descriptionString="ids" numberCollapsedItems={0}>
-            {failedIds}
-          </ExpandableList>
-        </HeroContainer>
-      )}
-      <ResultsData
-        resultsDataObject={resultsDataObject}
-        setSelectedItemFromEvent={setSelectedItemFromEvent}
-        setSelectedEntries={setSelectedEntries}
-        namespaceOverride={namespaceOverride}
-        displayIdMappingColumns
-        disableCardToggle
-      />
+      <Tabs active={match.params.subPage}>
+        <Tab
+          id={TabLocation.Overview}
+          title={
+            <Link to={changePathnameOnly(basePath + TabLocation.Overview)}>
+              Overview
+            </Link>
+          }
+          cache
+        >
+          <Suspense fallback={<Loader />}>
+            <IDMappingResultTable
+              namespaceOverride={namespaceOverride}
+              resultsDataObject={resultsDataObject}
+              detailsData={detailsData}
+            />
+          </Suspense>
+        </Tab>
+        <Tab
+          id={TabLocation.InputParameters}
+          title={
+            <Link
+              to={changePathnameOnly(basePath + TabLocation.InputParameters)}
+            >
+              Input Parameters
+            </Link>
+          }
+        >
+          <HTMLHead title={[title, 'Input Parameters']} />
+          <Suspense fallback={<Loader />}>
+            {/* <InputParameters
+              id={match.params.id}
+              inputParamsData={inputParamsData}
+              jobType={jobType}
+            /> */}
+          </Suspense>
+        </Tab>
+        <Tab
+          id={TabLocation.APIRequest}
+          title={
+            <Link to={changePathnameOnly(basePath + TabLocation.APIRequest)}>
+              API Request
+            </Link>
+          }
+        >
+          <HTMLHead title={[title, 'API Request']} />
+          <Suspense fallback={<Loader />}>
+            {/* <APIRequest jobType={jobType} inputParamsData={inputParamsData} /> */}
+          </Suspense>
+        </Tab>
+      </Tabs>
     </SideBarLayout>
   );
 };

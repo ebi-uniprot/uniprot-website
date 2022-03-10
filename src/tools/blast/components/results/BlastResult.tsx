@@ -311,33 +311,25 @@ const BlastResult = () => {
     return <ErrorHandler status={blastStatus} />;
   }
 
-  // sidebar option 1
-  const facetsSidebar = (
-    <ErrorBoundary>
-      <BlastResultSidebar
-        accessions={accessionsFilteredByLocalFacets}
-        allHits={blastData.hits}
-        namespace={namespace}
-      />
-    </ErrorBoundary>
-  );
-
-  // sidebar option 2
-  const emptySidebar = (
-    <div className="sidebar-layout__sidebar-content--empty" />
-  );
-
   let sidebar: JSX.Element;
   // Deciding what should be displayed on the sidebar
   switch (match.params.subPage) {
     case TabLocation.TextOutput:
     case TabLocation.InputParameters:
     case TabLocation.APIRequest:
-      sidebar = emptySidebar;
+      sidebar = <div className="sidebar-layout__sidebar-content--empty" />;
       break;
 
     default:
-      sidebar = facetsSidebar;
+      sidebar = (
+        <ErrorBoundary>
+          <BlastResultSidebar
+            accessions={accessionsFilteredByLocalFacets}
+            allHits={blastData.hits}
+            namespace={namespace}
+          />
+        </ErrorBoundary>
+      );
       break;
   }
 
