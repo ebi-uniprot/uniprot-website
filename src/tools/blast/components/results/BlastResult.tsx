@@ -57,7 +57,7 @@ import sticky from '../../../../shared/styles/sticky.module.scss';
 
 const jobType = JobTypes.BLAST;
 const urls = toolsURLs(jobType);
-const title = `${namespaceAndToolsLabels[jobType]} results`;
+const title = `${namespaceAndToolsLabels[jobType]}`;
 
 // overview
 const BlastResultTable = lazy(
@@ -356,7 +356,15 @@ const BlastResult = () => {
 
   return (
     <SideBarLayout
-      title={<PageIntro title={title} resultsCount={hitsFiltered.length} />}
+      title={
+        <PageIntro
+          title={title}
+          titlePostscript={
+            <small>found in {namespaceAndToolsLabels[namespace]}</small>
+          }
+          resultsCount={hitsFiltered.length}
+        />
+      }
       sidebar={sidebar}
       className={sticky['sticky-tabs-container']}
     >
