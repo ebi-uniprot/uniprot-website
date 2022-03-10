@@ -24,6 +24,9 @@ exports[`PeptideSearchResult should render with the correct number of results in
           <small>
              2 results 
           </small>
+          <small>
+            found in UniProtKB
+          </small>
         </h1>
       </div>
       <div
@@ -399,6 +402,9 @@ exports[`PeptideSearchResult should render with the correct number of results in
           Peptide search
           <small>
              2 results 
+          </small>
+          <small>
+            found in UniProtKB
           </small>
         </h1>
       </div>

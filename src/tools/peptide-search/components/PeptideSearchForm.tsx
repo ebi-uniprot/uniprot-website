@@ -13,6 +13,7 @@ import { useHistory } from 'react-router-dom';
 import { Chip, PageIntro, SpinnerIcon } from 'franklin-sites';
 import { sleep } from 'timing-functions';
 import cn from 'classnames';
+import { truncate } from 'lodash-es';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
@@ -240,7 +241,7 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
       return;
     }
     if (parsedSequences.length > 0) {
-      const potentialJobName = `${firstParsedSequence}${
+      const potentialJobName = `${truncate(firstParsedSequence)}${
         parsedSequences.length > 1 ? ` +${parsedSequences.length - 1}` : ''
       }`;
       setJobName((jobName) => {
