@@ -53,7 +53,6 @@ import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter'
 import { UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
 
 import helper from '../../../../shared/styles/helper.module.scss';
-import sticky from '../../../../shared/styles/sticky.module.scss';
 
 const jobType = JobTypes.BLAST;
 const urls = toolsURLs(jobType);
@@ -350,7 +349,6 @@ const BlastResult = () => {
     <SideBarLayout
       title={<PageIntro title={title} resultsCount={hitsFiltered.length} />}
       sidebar={sidebar}
-      className={sticky['sticky-tabs-container']}
     >
       <HTMLHead title={title} />
       <Tabs

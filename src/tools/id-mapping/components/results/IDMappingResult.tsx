@@ -197,7 +197,22 @@ const IDMappingResult = () => {
   }${match.params.id}/`;
 
   return (
-    <SideBarLayout sidebar={sidebar}>
+    <SideBarLayout
+      title={
+        <PageIntro
+          title={namespaceAndToolsLabels[Namespace.idmapping]}
+          titlePostscript={
+            total && (
+              <small>
+                for {detailsData?.from} → {detailsData?.to}
+              </small>
+            )
+          }
+          resultsCount={total}
+        />
+      }
+      sidebar={sidebar}
+    >
       <HTMLHead
         title={[
           title,
@@ -205,17 +220,7 @@ const IDMappingResult = () => {
             namespaceAndToolsLabels[namespaceOverride],
         ]}
       />
-      <PageIntro
-        title={namespaceAndToolsLabels[namespaceOverride]}
-        titlePostscript={
-          total && (
-            <small>
-              for {detailsData?.from} → {detailsData?.to}
-            </small>
-          )
-        }
-        resultsCount={total}
-      />
+
       <Tabs active={match.params.subPage}>
         <Tab
           id={TabLocation.Overview}

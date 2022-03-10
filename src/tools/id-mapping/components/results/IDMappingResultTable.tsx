@@ -11,7 +11,7 @@ import { Namespace } from '../../../../shared/types/namespaces';
 import { PaginatedResults } from '../../../../shared/hooks/usePagination';
 import { MappingDetails } from '../../types/idMappingSearchResults';
 
-type IDMappingResultTable = {
+type IDMappingResultTableProps = {
   namespaceOverride: Namespace;
   resultsDataObject: PaginatedResults;
   detailsData?: MappingDetails;
@@ -21,7 +21,7 @@ const IDMappingResultTable = ({
   namespaceOverride,
   resultsDataObject,
   detailsData,
-}: IDMappingResultTable) => {
+}: IDMappingResultTableProps) => {
   const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
     useItemSelect();
 
@@ -39,7 +39,6 @@ const IDMappingResultTable = ({
         base={detailsData?.redirectURL}
         notCustomisable={namespaceOverride === Namespace.idmapping}
       />
-
       {resultsDataObject.failedIds && (
         <HeroContainer>
           <strong>{resultsDataObject.failedIds.length}</strong> id
