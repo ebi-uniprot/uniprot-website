@@ -28,6 +28,8 @@ import {
   Namespace,
   searchableNamespaceLabels,
   SearchableNamespace,
+  Searchspace,
+  toolResults,
 } from '../../types/namespaces';
 
 import './styles/search-container.scss';
@@ -86,15 +88,15 @@ const examples: Record<SearchableNamespace, string[]> = {
 
 type Props = {
   isOnHomePage?: boolean;
-  namespace: SearchableNamespace;
-  onNamespaceChange: (namespace: SearchableNamespace) => void;
+  searchspace: Searchspace;
+  onSearchspaceChange: (searchspace: Searchspace) => void;
 };
 
 const jobRE = /job:[^ ]+( AND )?/i;
 
 const SearchContainer: FC<
   Props & Exclude<HTMLAttributes<HTMLDivElement>, 'role'>
-> = ({ isOnHomePage, namespace, onNamespaceChange, ...props }) => {
+> = ({ isOnHomePage, searchspace, onSearchspaceChange, ...props }) => {
   const history = useHistory();
   const location = useLocation();
   const [displayQueryBuilder, setDisplayQueryBuilder] = useState(false);
@@ -117,13 +119,17 @@ const SearchContainer: FC<
     // push a new location to the history containing the modified search term
     history.push({
       // If there was a job ID in the search bar, keep the same URL (job result)
-      pathname: jobId ? location.pathname : SearchResultsLocations[namespace],
+      pathname:
+        searchspace === toolResults
+          ? location.pathname
+          : SearchResultsLocations[searchspace],
       search: stringifiedSearch,
     });
   };
 
-  const setNamespace = (namespace: string) => {
-    onNamespaceChange(namespace as SearchableNamespace);
+  const setSearchspace = (searchspace: string) => {
+    console.log(searchspace);
+    onSearchspaceChange(searchspace as Searchspace);
   };
 
   const loadExample = (example: string) => {
@@ -184,16 +190,27 @@ const SearchContainer: FC<
     setSearchTerm(queryTokens.join(' AND '));
   }, [history, location.search, jobId, jobResultsLocation]);
 
+  // const [searchSpace, searchSpaces] = useMemo(
+  //   () =>
+  //     jobId
+  //       ? [
+  //           'Tool results',
+  //           { 'Tool results': 'Tool results', ...searchableNamespaceLabels },
+  //         ]
+  //       : [searchspace, searchableNamespaceLabels],
+  //   [jobId]
+  // );
+
   return (
     <>
       <section role="search" {...props}>
         <MainSearch
-          namespaces={searchableNamespaceLabels}
+          namespaces={searchSpaces}
           searchTerm={searchTerm}
           onTextChange={setSearchTerm}
           onSubmit={handleSubmit}
-          onNamespaceChange={setNamespace}
-          selectedNamespace={namespace}
+          onNamespaceChange={setSearchspace}
+          selectedNamespace={searchspace}
           secondaryButtons={secondaryButtons}
           autoFocus={isOnHomePage}
         />
@@ -242,7 +259,7 @@ const SearchContainer: FC<
             <ErrorBoundary>
               <QueryBuilder
                 onCancel={handleClose}
-                initialNamespace={namespace}
+                initialNamespace={searchspace}
               />
             </ErrorBoundary>
           </SlidingPanel>
