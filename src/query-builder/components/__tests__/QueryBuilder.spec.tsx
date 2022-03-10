@@ -22,7 +22,7 @@ describe('QueryBuilder', () => {
     rendered = customRender(
       <QueryBuilder
         onCancel={onCancel}
-        initialNamespace={Namespace.uniprotkb}
+        initialSearchspace={Namespace.uniprotkb}
       />
     );
   });
@@ -34,7 +34,7 @@ describe('QueryBuilder', () => {
     rendered = customRender(
       <QueryBuilder
         onCancel={onCancel}
-        initialNamespace={Namespace.uniprotkb}
+        initialSearchspace={Namespace.uniprotkb}
       />
     );
 

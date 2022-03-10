@@ -12,8 +12,8 @@ describe('Search component on home page', () => {
     rendered = customRender(
       <SearchContainer
         isOnHomePage
-        namespace={Namespace.uniprotkb}
-        onNamespaceChange={jest.fn()}
+        searchspace={Namespace.uniprotkb}
+        onSearchspaceChange={jest.fn()}
       />
     );
   });
@@ -35,8 +35,8 @@ describe('Search component on results page', () => {
     customRender(
       <SearchContainer
         isOnHomePage={false}
-        namespace={Namespace.uniprotkb}
-        onNamespaceChange={jest.fn()}
+        searchspace={Namespace.uniprotkb}
+        onSearchspaceChange={jest.fn()}
       />,
       { route }
     );

@@ -30,9 +30,10 @@ import { addMessage } from '../../messages/state/messagesActions';
 
 import apiUrls from '../../shared/config/apiUrls';
 import {
-  searchableNamespaceLabels,
   SearchableNamespace,
+  searchableNamespaceLabels,
   Searchspace,
+  toolResults,
 } from '../../shared/types/namespaces';
 import {
   LocationToPath,
@@ -73,25 +74,29 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
   const history = useHistory();
   const location = useLocation();
   const dispatch = useMessagesDispatch();
-  console.log(initialSearchspace);
   const [clauses, setClauses] = useState<Clause[]>([]);
-
   const { jobId, jobResultsNamespace, jobResultsLocation } = useJobFromUrl();
+  const [searchspace, setSearchspace] =
+    useState<Searchspace>(initialSearchspace);
 
-  const [namespace, setNamespace] = useState(initialSearchspace);
-  const [searchspace, setSearchspace] = useState<SearchableNamespace | 'job'>(
-    jobId ? 'job' : initialSearchspace
-  );
+  const namespace =
+    searchspace === toolResults ? jobResultsNamespace : searchspace;
+
+  const color =
+    searchspace === toolResults
+      ? '#7F3D98'
+      : (colors as Record<string, string>)[searchspace];
+
   const style = useMemo<Style>(
     () => ({
       // change color of all buttons within this element to match the namespace
-      '--main-button-color': (colors as Record<string, string>)[namespace],
+      '--main-button-color': color,
     }),
-    [namespace]
+    [color]
   );
 
   const { loading, data: searchTermsData } = useDataApi<SearchTermType[]>(
-    namespace && apiUrls.queryBuilderTerms(namespace)
+    namespace ? apiUrls.queryBuilderTerms(namespace) : undefined
   );
 
   useEffect(() => {
@@ -151,9 +156,11 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
     dispatch,
     location.search,
     loading,
-    namespace,
     searchTermsData,
     fieldToAdd,
+    searchspace,
+    jobResultsNamespace,
+    namespace,
   ]);
 
   const searchSpaceOptions = useMemo(() => {
@@ -172,7 +179,7 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
         const jobToolLabel = toolsResultsLocationToLabel[jobResultsLocation];
         options.push({
           label: `${jobResultsNamespaceLabel} / ${jobToolLabel} / ${jobId}`,
-          value: 'job',
+          value: toolResults,
         });
       }
       options.push({ label, value: ns });
@@ -182,15 +189,9 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
 
   const onSearchSpaceChange = useCallback(
     ({ target: { value } }: React.ChangeEvent<HTMLSelectElement>) => {
-      if (value === 'job' && jobResultsNamespace) {
-        setNamespace(jobResultsNamespace);
-        setSearchspace('job');
-        return;
-      }
-      setNamespace(value as SearchableNamespace);
-      setSearchspace(value as SearchableNamespace);
+      setSearchspace(value as Searchspace);
     },
-    [jobResultsNamespace]
+    []
   );
 
   // Has the input corresponding to the added field been focused already?
@@ -219,7 +220,7 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
     );
   }
 
-  if (!searchTermsData || !namespace) {
+  if (!searchTermsData || !searchspace) {
     return null;
   }
 
@@ -243,12 +244,12 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
     event.preventDefault();
     const queryString = stringify(clauses) || '*';
     const pathname =
-      searchspace === 'job' && jobId && jobResultsLocation
+      searchspace === toolResults && jobId && jobResultsLocation
         ? generatePath(LocationToPath[jobResultsLocation], {
             id: jobId,
             namespace: jobResultsNamespace,
           })
-        : SearchResultsLocations[namespace];
+        : SearchResultsLocations[searchspace as SearchableNamespace];
     history.push({
       pathname,
       search: `query=${queryString}`,
