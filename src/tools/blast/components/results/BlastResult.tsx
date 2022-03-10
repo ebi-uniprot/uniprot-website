@@ -329,7 +329,15 @@ const BlastResult = () => {
 
   return (
     <SideBarLayout
-      title={<PageIntro title={title} resultsCount={hitsFiltered.length} />}
+      title={
+        <PageIntro
+          title={namespaceAndToolsLabels[jobType]}
+          titlePostscript={
+            <small>found in {namespaceAndToolsLabels[namespace]}</small>
+          }
+          resultsCount={hitsFiltered.length}
+        />
+      }
       sidebar={sidebar}
     >
       <HTMLHead title={title} />

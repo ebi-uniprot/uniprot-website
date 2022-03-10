@@ -193,7 +193,7 @@ const IDMappingResult = () => {
           titlePostscript={
             total && (
               <small>
-                for {detailsData?.from} → {detailsData?.to}
+                found for {detailsData?.from} → {detailsData?.to}
               </small>
             )
           }
@@ -209,7 +209,6 @@ const IDMappingResult = () => {
             namespaceAndToolsLabels[namespaceOverride],
         ]}
       />
-
       <Tabs active={match.params.subPage}>
         <Tab
           id={TabLocation.Overview}

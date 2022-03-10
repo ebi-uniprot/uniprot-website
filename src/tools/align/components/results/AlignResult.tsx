@@ -169,7 +169,10 @@ const AlignResult = () => {
   return (
     <SingleColumnLayout className={sticky['sticky-tabs-container']}>
       <HTMLHead title={title} />
-      <PageIntro title="Align Results" />
+      <PageIntro
+        title={namespaceAndToolsLabels[jobType]}
+        titlePostscript={<small> results</small>}
+      />
       <Tabs active={match.params.subPage}>
         <Tab
           id={TabLocation.Overview}

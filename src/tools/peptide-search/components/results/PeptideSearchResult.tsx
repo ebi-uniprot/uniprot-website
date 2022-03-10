@@ -223,7 +223,9 @@ const PeptideSearchResult = ({
           title={namespaceAndToolsLabels[JobTypes.PEPTIDE_SEARCH]}
           titlePostscript={
             total && (
-              <small>in {namespaceAndToolsLabels[Namespace.uniprotkb]}</small>
+              <small>
+                found in {namespaceAndToolsLabels[Namespace.uniprotkb]}
+              </small>
             )
           }
           resultsCount={total}
