@@ -141,11 +141,11 @@ const IDMappingResult = () => {
         ]}
       />
       <PageIntro
-        title={namespaceAndToolsLabels[namespaceOverride]}
+        title={namespaceAndToolsLabels[Namespace.idmapping]}
         titlePostscript={
           total && (
             <small>
-              for {detailsData?.from} → {detailsData?.to}
+              found for {detailsData?.from} → {detailsData?.to}
             </small>
           )
         }
