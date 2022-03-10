@@ -57,7 +57,7 @@ import sticky from '../../../../shared/styles/sticky.module.scss';
 
 const jobType = JobTypes.BLAST;
 const urls = toolsURLs(jobType);
-const title = `${namespaceAndToolsLabels[jobType]}`;
+const title = namespaceAndToolsLabels[jobType];
 
 // overview
 const BlastResultTable = lazy(
