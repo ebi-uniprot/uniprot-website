@@ -53,6 +53,7 @@ import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter'
 import { UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
 
 import helper from '../../../../shared/styles/helper.module.scss';
+import { useMatchWithRedirect } from '../../../utils/hooks';
 
 const jobType = JobTypes.BLAST;
 const urls = toolsURLs(jobType);
@@ -184,29 +185,17 @@ export const enrich = (
 };
 
 const BlastResult = () => {
-  const history = useHistory();
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const match = useRouteMatch<Params>(LocationToPath[Location.BlastResult])!;
   const location = useLocation();
+  const match = useMatchWithRedirect<Params>(
+    Location.BlastResult,
+    TabLocation.Overview
+  );
 
   const [selectedEntries, setSelectedItemFromEvent] = useItemSelect();
   const [hspDetailPanel, setHspDetailPanel] =
     useState<HSPDetailPanelProps | null>();
 
   const [{ query }] = getParamsFromURL(location.search);
-
-  // if URL doesn't finish with "overview" redirect to /overview by default
-  useEffect(() => {
-    if (match && !match.params.subPage) {
-      history.replace({
-        ...history.location,
-        pathname: generatePath(LocationToPath[Location.AlignResult], {
-          ...match.params,
-          subPage: TabLocation.Overview,
-        }),
-      });
-    }
-  }, [match, history]);
 
   // get data from the blast endpoint
   const {
@@ -289,7 +278,7 @@ const BlastResult = () => {
     [data]
   );
 
-  useMarkJobAsSeen(data, match.params.id);
+  useMarkJobAsSeen(data, match?.params.id);
 
   const inputParamsData = useParamsData(match?.params.id || '');
 

@@ -1,10 +1,5 @@
-import { useMemo, useEffect, useRef, lazy, Suspense } from 'react';
-import {
-  generatePath,
-  Link,
-  useHistory,
-  useRouteMatch,
-} from 'react-router-dom';
+import { useMemo, useRef, lazy, Suspense } from 'react';
+import { Link } from 'react-router-dom';
 import { Loader, PageIntro, Tab, Tabs } from 'franklin-sites';
 import { partialRight } from 'lodash-es';
 
@@ -14,6 +9,7 @@ import useNSQuery from '../../../../shared/hooks/useNSQuery';
 import usePagination from '../../../../shared/hooks/usePagination';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 import { useToolsState } from '../../../../shared/contexts/Tools';
+import { useMatchWithRedirect } from '../../../utils/hooks';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
@@ -27,11 +23,7 @@ import {
   Namespace,
   namespaceAndToolsLabels,
 } from '../../../../shared/types/namespaces';
-import {
-  LocationToPath,
-  Location,
-  changePathnameOnly,
-} from '../../../../app/config/urls';
+import { Location, changePathnameOnly } from '../../../../app/config/urls';
 import peptideSearchConverter from '../../adapters/peptideSearchConverter';
 
 import Response from '../../../../uniprotkb/types/responseTypes';
@@ -85,11 +77,10 @@ const PeptideSearchResult = ({
 }: {
   toolsState: NonNullable<ToolsState>;
 }) => {
-  const history = useHistory();
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const match = useRouteMatch<Params>(
-    LocationToPath[Location.PeptideSearchResult]
-  )!;
+  const match = useMatchWithRedirect<Params>(
+    Location.PeptideSearchResult,
+    TabLocation.Overview
+  );
 
   const jobSubmission = useRef<FinishedJob<JobTypes.PEPTIDE_SEARCH> | null>(
     null
@@ -102,31 +93,18 @@ const PeptideSearchResult = ({
     status: jobResultStatus,
   } = useDataApi<PeptideSearchResults>(urls.resultUrl(jobID, {}));
 
-  // if URL doesn't finish with "overview" redirect to /overview by default
-  useEffect(() => {
-    if (match && !match.params.subPage) {
-      history.replace({
-        ...history.location,
-        pathname: generatePath(LocationToPath[Location.PeptideSearchResult], {
-          ...match.params,
-          subPage: TabLocation.Overview,
-        }),
-      });
-    }
-  }, [match, history]);
-
   // Get the job mission from local tools state. Save this in a reference as
   // the job may change with useMarkJobAsSeen but we don't want to have to
   // recreate the converter which will cause usePagination to duplicate rows
   if (!jobSubmission.current) {
-    const found = Object.values(toolsState).find(
-      (jobSubmission) =>
-        jobSubmission.status === Status.FINISHED &&
-        jobSubmission?.remoteID === jobID
-    );
-    jobSubmission.current = found
-      ? (found as FinishedJob<JobTypes.PEPTIDE_SEARCH>)
-      : null;
+    jobSubmission.current =
+      Object.values(toolsState).find(
+        (
+          jobSubmission
+        ): jobSubmission is FinishedJob<JobTypes.PEPTIDE_SEARCH> =>
+          jobSubmission.status === Status.FINISHED &&
+          jobSubmission?.remoteID === jobID
+      ) || null;
   }
 
   const accessions = useMemo(
@@ -197,7 +175,7 @@ const PeptideSearchResult = ({
     total = +resultsDataTotal;
   }
 
-  if (jobResultError) {
+  if (jobResultError || !match) {
     return <ErrorHandler status={jobResultStatus} />;
   }
 
@@ -222,7 +200,6 @@ const PeptideSearchResult = ({
   let sidebar: JSX.Element;
   // Deciding what should be displayed on the sidebar
   switch (match.params.subPage) {
-    case TabLocation.TextOutput:
     case TabLocation.InputParameters:
     case TabLocation.APIRequest:
       sidebar = <div className="sidebar-layout__sidebar-content--empty" />;

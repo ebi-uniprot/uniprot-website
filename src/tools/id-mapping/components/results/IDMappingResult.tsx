@@ -1,23 +1,19 @@
-import { useMemo, useEffect, lazy, Suspense } from 'react';
+import { useMemo, lazy, Suspense } from 'react';
 import { Loader, PageIntro, Tab, Tabs } from 'franklin-sites';
-import {
-  generatePath,
-  Link,
-  useHistory,
-  useLocation,
-  useRouteMatch,
-} from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
+import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import usePagination from '../../../../shared/hooks/usePagination';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 import useDatabaseInfoMaps from '../../../../shared/hooks/useDatabaseInfoMaps';
+import { useMatchWithRedirect } from '../../../utils/hooks';
 
 import toolsURLs from '../../../config/urls';
 import idMappingConverter from '../../adapters/idMappingConverter';
@@ -29,7 +25,6 @@ import {
   changePathnameOnly,
   IDMappingNamespaces,
   Location,
-  LocationToPath,
 } from '../../../../app/config/urls';
 import {
   MappingAPIModel,
@@ -81,33 +76,23 @@ type Params = {
 };
 
 const IDMappingResult = () => {
-  const history = useHistory();
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const match = useRouteMatch<Params>(
-    LocationToPath[Location.IDMappingResult]
-  )!;
   const location = useLocation();
+  const match = useMatchWithRedirect<Params>(
+    Location.IDMappingResult,
+    TabLocation.Overview
+  );
 
   const databaseInfoMaps = useDatabaseInfoMaps();
 
   const [{ selectedFacets, query }] = getParamsFromURL(location.search);
 
-  // if URL doesn't finish with "overview" redirect to /overview by default
-  useEffect(() => {
-    if (match && !match.params.subPage) {
-      history.replace({
-        ...history.location,
-        pathname: generatePath(LocationToPath[Location.IDMappingResult], {
-          ...match.params,
-          subPage: TabLocation.Overview,
-        }),
-      });
-    }
-  }, [match, history]);
-
   const detailApiUrl =
     urls.detailsUrl && urls.detailsUrl(match?.params.id || '');
-  const { data: detailsData } = useDataApi<MappingDetails>(detailApiUrl);
+  const {
+    data: detailsData,
+    error,
+    status,
+  } = useDataApi<MappingDetails>(detailApiUrl);
 
   const toDBInfo =
     detailsData && databaseInfoMaps?.databaseToDatabaseInfo[detailsData.to];
@@ -166,6 +151,10 @@ const IDMappingResult = () => {
     facetsData;
 
   useMarkJobAsSeen(resultsDataObject.allResults.length, match?.params.id);
+
+  if (error || !match) {
+    return <ErrorHandler status={status} />;
+  }
 
   if (
     facetInititialLoading &&
