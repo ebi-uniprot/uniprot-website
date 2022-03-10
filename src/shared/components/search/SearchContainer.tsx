@@ -30,6 +30,7 @@ import {
   SearchableNamespace,
   Searchspace,
   toolResults,
+  searchspaceLabels,
 } from '../../types/namespaces';
 
 import './styles/search-container.scss';
@@ -122,13 +123,12 @@ const SearchContainer: FC<
       pathname:
         searchspace === toolResults
           ? location.pathname
-          : SearchResultsLocations[searchspace],
+          : SearchResultsLocations[searchspace as SearchableNamespace],
       search: stringifiedSearch,
     });
   };
 
   const setSearchspace = (searchspace: string) => {
-    console.log(searchspace);
     onSearchspaceChange(searchspace as Searchspace);
   };
 
@@ -190,13 +190,7 @@ const SearchContainer: FC<
     setSearchTerm(queryTokens.join(' AND '));
   }, [history, location.search, jobId, jobResultsLocation]);
 
-  const searchspaces = useMemo(
-    () =>
-      jobId
-        ? { toolResults, ...searchableNamespaceLabels }
-        : searchableNamespaceLabels,
-    [jobId]
-  );
+  const searchspaces = jobId ? searchspaceLabels : searchableNamespaceLabels;
 
   return (
     <>
@@ -214,20 +208,22 @@ const SearchContainer: FC<
         {isOnHomePage && (
           <div className="search-container-footer">
             <div>
-              {examples[namespace] && (
+              {examples[searchspace as SearchableNamespace] && (
                 <>
                   Examples:{' '}
-                  {examples[namespace]?.map((example, index) => (
-                    <Fragment key={example}>
-                      {index === 0 ? null : ', '}
-                      <Button
-                        variant="tertiary"
-                        onClick={() => loadExample(example)}
-                      >
-                        {example}
-                      </Button>
-                    </Fragment>
-                  ))}
+                  {examples[searchspace as SearchableNamespace]?.map(
+                    (example, index) => (
+                      <Fragment key={example}>
+                        {index === 0 ? null : ', '}
+                        <Button
+                          variant="tertiary"
+                          onClick={() => loadExample(example)}
+                        >
+                          {example}
+                        </Button>
+                      </Fragment>
+                    )
+                  )}
                 </>
               )}
             </div>
@@ -256,7 +252,7 @@ const SearchContainer: FC<
             <ErrorBoundary>
               <QueryBuilder
                 onCancel={handleClose}
-                initialNamespace={searchspace}
+                initialSearchspace={searchspace}
               />
             </ErrorBoundary>
           </SlidingPanel>

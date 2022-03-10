@@ -11,12 +11,7 @@ import useJobFromUrl from '../../hooks/useJobFromUrl';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
-import {
-  Namespace,
-  SearchableNamespace,
-  Searchspace,
-  toolResults,
-} from '../../types/namespaces';
+import { Namespace, Searchspace, toolResults } from '../../types/namespaces';
 
 import Logo from '../../../images/uniprot-logo-beta.svg';
 
@@ -45,24 +40,24 @@ const headerItems = [
 
 const SearchContainerWithNamespace = () => {
   const { jobId } = useJobFromUrl();
-  const searchspace = jobId ? toolResults : useNS() || Namespace.uniprotkb;
+  // namespace are proper namespaces of uniprot eg uniprotkb, uniref
+  const namespace = useNS() || Namespace.uniprotkb;
+  // searchspace is more general to include Tool results
+  const searchspace = jobId ? toolResults : namespace;
 
   const [selectedSearchspace, setSelectedSearchspace] = useState(searchspace);
 
   useEffect(() => {
     if (searchspace) {
-      console.log(searchspace);
       setSelectedSearchspace(searchspace);
     }
   }, [searchspace]);
 
-  console.log(selectedSearchspace);
-
   return (
     <SearchContainer
-      searchspace={selectedSearchspace}
-      onSearchspaceChange={(namespace: Searchspace) => {
-        setSelectedSearchspace(namespace);
+      searchspace={selectedSearchspace as Searchspace}
+      onSearchspaceChange={(searchspace: Searchspace) => {
+        setSelectedSearchspace(searchspace);
       }}
     />
   );
