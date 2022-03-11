@@ -78,9 +78,7 @@ const InputParameters = ({
               .filter(([key, value]) => !fieldsToHide.has(key) && value)
               .map(([key, value]) => ({
                 title: key,
-                content: (
-                  <CodeBlock lightMode className="hey">{`${value}`}</CodeBlock>
-                ),
+                content: <CodeBlock lightMode>{`${value}`}</CodeBlock>,
               }))}
           />
         )}
