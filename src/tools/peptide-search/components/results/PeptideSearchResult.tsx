@@ -46,13 +46,13 @@ const PeptideSearchResultTable = lazy(
       /* webpackChunkName: "peptide-search-result-page" */ './PeptideSearchResultTable'
     )
 );
-// // input-parameters
-// const InputParameters = lazy(
-//   () =>
-//     import(
-//       /* webpackChunkName: "input-parameters" */ '../../../components/InputParameters'
-//     )
-// );
+// input-parameters
+const InputParameters = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "input-parameters" */ '../../../components/InputParameters'
+    )
+);
 // // input-parameters
 // const APIRequest = lazy(
 //   () =>
@@ -268,11 +268,11 @@ const PeptideSearchResult = ({
         >
           <HTMLHead title={[title, 'Input Parameters']} />
           <Suspense fallback={<Loader />}>
-            {/* <InputParameters
+            <InputParameters
               id={match.params.id}
-              inputParamsData={inputParamsData}
+              inputParamsData={jobSubmission.current}
               jobType={jobType}
-            /> */}
+            />
           </Suspense>
         </Tab>
         <Tab

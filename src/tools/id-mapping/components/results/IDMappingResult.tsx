@@ -15,6 +15,7 @@ import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 import useDatabaseInfoMaps from '../../../../shared/hooks/useDatabaseInfoMaps';
 import { useMatchWithRedirect } from '../../../utils/hooks';
 
+import { rawDBToNamespace } from '../../utils';
 import toolsURLs from '../../../config/urls';
 import idMappingConverter from '../../adapters/idMappingConverter';
 import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
@@ -49,12 +50,12 @@ const IDMappingResultTable = lazy(
     )
 );
 // input-parameters
-// const InputParameters = lazy(
-//   () =>
-//     import(
-//       /* webpackChunkName: "input-parameters" */ '../../../components/InputParameters'
-//     )
-// );
+const InputParameters = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "input-parameters" */ '../../../components/InputParameters'
+    )
+);
 // input-parameters
 // const APIRequest = lazy(
 //   () =>
@@ -88,11 +89,8 @@ const IDMappingResult = () => {
 
   const detailApiUrl =
     urls.detailsUrl && urls.detailsUrl(match?.params.id || '');
-  const {
-    data: detailsData,
-    error,
-    status,
-  } = useDataApi<MappingDetails>(detailApiUrl);
+  const detailsDataObject = useDataApi<MappingDetails>(detailApiUrl);
+  const { data: detailsData, error, status } = detailsDataObject;
 
   const toDBInfo =
     detailsData && databaseInfoMaps?.databaseToDatabaseInfo[detailsData.to];
@@ -115,24 +113,7 @@ const IDMappingResult = () => {
     total,
   } = resultsDataObject;
 
-  let namespaceOverride;
-  switch (detailsData?.to.toLowerCase()) {
-    case Namespace.uniprotkb:
-    case 'uniprotkb-swiss-prot':
-      namespaceOverride = Namespace.uniprotkb;
-      break;
-    case Namespace.uniref:
-    case 'uniref50':
-    case 'uniref90':
-    case 'uniref100':
-      namespaceOverride = Namespace.uniref;
-      break;
-    case Namespace.uniparc:
-      namespaceOverride = Namespace.uniparc;
-      break;
-    default:
-      namespaceOverride = Namespace.idmapping;
-  }
+  const namespaceOverride = rawDBToNamespace(detailsData?.to);
 
   // Run facet query
   const facets = defaultFacets.get(namespaceOverride);
@@ -239,11 +220,11 @@ const IDMappingResult = () => {
         >
           <HTMLHead title={[title, 'Input Parameters']} />
           <Suspense fallback={<Loader />}>
-            {/* <InputParameters
+            <InputParameters
               id={match.params.id}
-              inputParamsData={inputParamsData}
+              inputParamsData={detailsDataObject}
               jobType={jobType}
-            /> */}
+            />
           </Suspense>
         </Tab>
         <Tab

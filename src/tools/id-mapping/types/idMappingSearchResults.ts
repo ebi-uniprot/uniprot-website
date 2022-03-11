@@ -1,4 +1,6 @@
 /* Results as given by the server */
+import { ServerParameters } from './idMappingServerParameters';
+
 import { UniParcAPIModel } from '../../../uniparc/adapters/uniParcConverter';
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { UniRefLiteAPIModel } from '../../../uniref/adapters/uniRefConverter';
@@ -9,12 +11,8 @@ export type MappingAPIModel = {
   failedIds?: string[]; // TODO handle this
 };
 
-export type MappingDetails = {
-  from: string;
-  to: string;
-  ids: string;
+export type MappingDetails = ServerParameters & {
   redirectURL?: string;
-  taxId?: string;
 };
 
 export type IDMappingSearchResults = {
