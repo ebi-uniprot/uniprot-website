@@ -37,6 +37,7 @@ import {
   namespaceAndToolsLabels,
 } from '../../../../shared/types/namespaces';
 import Response from '../../../../uniprotkb/types/responseTypes';
+import useIDMappingDetails from '../../../../shared/hooks/useIDMappingDetails';
 
 const jobType = JobTypes.ID_MAPPING;
 const urls = toolsURLs(jobType);
@@ -84,13 +85,13 @@ const IDMappingResult = () => {
   );
 
   const databaseInfoMaps = useDatabaseInfoMaps();
+  const detailsData = useIDMappingDetails();
 
   const [{ selectedFacets, query }] = getParamsFromURL(location.search);
 
   const detailApiUrl =
     urls.detailsUrl && urls.detailsUrl(match?.params.id || '');
   const detailsDataObject = useDataApi<MappingDetails>(detailApiUrl);
-  const { data: detailsData, error, status } = detailsDataObject;
 
   const toDBInfo =
     detailsData && databaseInfoMaps?.databaseToDatabaseInfo[detailsData.to];
@@ -133,8 +134,8 @@ const IDMappingResult = () => {
 
   useMarkJobAsSeen(resultsDataObject.allResults.length, match?.params.id);
 
-  if (error || !match) {
-    return <ErrorHandler status={status} />;
+  if (!match) {
+    return <ErrorHandler />;
   }
 
   if (
