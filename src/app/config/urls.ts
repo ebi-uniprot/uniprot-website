@@ -123,7 +123,7 @@ export const LocationToPath: Record<Location, string> = {
   [Location.PeptideSearch]: '/peptide-search',
   [Location.IDMappingResult]: `/id-mapping/:namespace(${IDMappingNamespaces.join(
     '|'
-  )})?/:id`,
+  )})?/:id/:subPage?`,
   [Location.IDMapping]: '/id-mapping',
   // Help
   [Location.HelpEntry]: '/help/:accession',
@@ -254,6 +254,7 @@ export const jobTypeToPath = (type: JobTypes, job?: Job) => {
           )?.to.toLowerCase() as Database
         ),
         id: (job as FinishedJob<JobTypes.ID_MAPPING>).remoteID,
+        subPage: 'overview',
       });
     case JobTypes.PEPTIDE_SEARCH:
       if (!job) {
@@ -261,6 +262,7 @@ export const jobTypeToPath = (type: JobTypes, job?: Job) => {
       }
       return generatePath(LocationToPath[Location.PeptideSearchResult], {
         id: (job as FinishedJob<JobTypes.PEPTIDE_SEARCH>).remoteID,
+        subPage: 'overview',
       });
     default:
     //

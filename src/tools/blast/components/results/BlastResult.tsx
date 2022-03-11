@@ -1,11 +1,5 @@
 import { useMemo, useEffect, useState, lazy, Suspense } from 'react';
-import {
-  Link,
-  useRouteMatch,
-  useHistory,
-  useLocation,
-  generatePath,
-} from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Loader, PageIntro, Tabs, Tab } from 'franklin-sites';
 import cn from 'classnames';
 
@@ -36,7 +30,6 @@ import {
   blastNamespaces,
   changePathnameOnly,
   Location,
-  LocationToPath,
 } from '../../../../app/config/urls';
 import toolsURLs from '../../../config/urls';
 import { getAccessionsURL } from '../../../../shared/config/apiUrls';
@@ -53,11 +46,11 @@ import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter'
 import { UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
 
 import helper from '../../../../shared/styles/helper.module.scss';
-import sticky from '../../../../shared/styles/sticky.module.scss';
+import { useMatchWithRedirect } from '../../../utils/hooks';
 
 const jobType = JobTypes.BLAST;
 const urls = toolsURLs(jobType);
-const title = namespaceAndToolsLabels[jobType];
+const title = `${namespaceAndToolsLabels[jobType]} results`;
 
 // overview
 const BlastResultTable = lazy(
@@ -185,29 +178,17 @@ export const enrich = (
 };
 
 const BlastResult = () => {
-  const history = useHistory();
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const match = useRouteMatch<Params>(LocationToPath[Location.BlastResult])!;
   const location = useLocation();
+  const match = useMatchWithRedirect<Params>(
+    Location.BlastResult,
+    TabLocation.Overview
+  );
 
   const [selectedEntries, setSelectedItemFromEvent] = useItemSelect();
   const [hspDetailPanel, setHspDetailPanel] =
     useState<HSPDetailPanelProps | null>();
 
   const [{ query }] = getParamsFromURL(location.search);
-
-  // if URL doesn't finish with "overview" redirect to /overview by default
-  useEffect(() => {
-    if (match && !match.params.subPage) {
-      history.replace({
-        ...history.location,
-        pathname: generatePath(LocationToPath[Location.AlignResult], {
-          ...match.params,
-          subPage: TabLocation.Overview,
-        }),
-      });
-    }
-  }, [match, history]);
 
   // get data from the blast endpoint
   const {
@@ -290,7 +271,7 @@ const BlastResult = () => {
     [data]
   );
 
-  useMarkJobAsSeen(data, match.params.id);
+  useMarkJobAsSeen(data, match?.params.id);
 
   const inputParamsData = useParamsData(match?.params.id || '');
 
@@ -311,33 +292,25 @@ const BlastResult = () => {
     return <ErrorHandler status={blastStatus} />;
   }
 
-  // sidebar option 1
-  const facetsSidebar = (
-    <ErrorBoundary>
-      <BlastResultSidebar
-        accessions={accessionsFilteredByLocalFacets}
-        allHits={blastData.hits}
-        namespace={namespace}
-      />
-    </ErrorBoundary>
-  );
-
-  // sidebar option 2
-  const emptySidebar = (
-    <div className="sidebar-layout__sidebar-content--empty" />
-  );
-
   let sidebar: JSX.Element;
   // Deciding what should be displayed on the sidebar
   switch (match.params.subPage) {
     case TabLocation.TextOutput:
     case TabLocation.InputParameters:
     case TabLocation.APIRequest:
-      sidebar = emptySidebar;
+      sidebar = <div className="sidebar-layout__sidebar-content--empty" />;
       break;
 
     default:
-      sidebar = facetsSidebar;
+      sidebar = (
+        <ErrorBoundary>
+          <BlastResultSidebar
+            accessions={accessionsFilteredByLocalFacets}
+            allHits={blastData.hits}
+            namespace={namespace}
+          />
+        </ErrorBoundary>
+      );
       break;
   }
 
@@ -358,7 +331,7 @@ const BlastResult = () => {
     <SideBarLayout
       title={
         <PageIntro
-          title={title}
+          title={namespaceAndToolsLabels[jobType]}
           titlePostscript={
             <small>found in {namespaceAndToolsLabels[namespace]}</small>
           }
@@ -366,7 +339,6 @@ const BlastResult = () => {
         />
       }
       sidebar={sidebar}
-      className={sticky['sticky-tabs-container']}
     >
       <HTMLHead title={title} />
       <Tabs

@@ -26,7 +26,7 @@ mock
 describe('IDMappingResult tests', () => {
   it('should render simple from/to mapping', async () => {
     customRender(<IDMappingResult />, {
-      route: '/id-mapping/id1',
+      route: '/id-mapping/id1/overview',
       initialLocalStorage: {
         'view-mode': 'table' as ViewMode, // This should eventually be removed
       },
@@ -36,7 +36,7 @@ describe('IDMappingResult tests', () => {
 
   it('should render mapping to UniProtKB and apply filter', async () => {
     const { history } = customRender(<IDMappingResult />, {
-      route: '/id-mapping/id2',
+      route: '/id-mapping/uniprotkb/id2/overview',
       initialLocalStorage: {
         'view-mode': 'table' as ViewMode, // This should eventually be removed
       },

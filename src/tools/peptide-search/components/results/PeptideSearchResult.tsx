@@ -1,20 +1,19 @@
-import { useMemo, useRef } from 'react';
-import { useRouteMatch } from 'react-router-dom';
-import { Loader } from 'franklin-sites';
+import { useMemo, useRef, lazy, Suspense } from 'react';
+import { Link } from 'react-router-dom';
+import { Loader, PageIntro, Tab, Tabs } from 'franklin-sites';
 import { partialRight } from 'lodash-es';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 import useNSQuery from '../../../../shared/hooks/useNSQuery';
-import useItemSelect from '../../../../shared/hooks/useItemSelect';
 import usePagination from '../../../../shared/hooks/usePagination';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 import { useToolsState } from '../../../../shared/contexts/Tools';
+import { useMatchWithRedirect } from '../../../utils/hooks';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
-import ResultsData from '../../../../shared/components/results/ResultsData';
+import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
-import ResultsDataHeader from '../../../../shared/components/results/ResultsDataHeader';
 import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
 import NoResultsPage from '../../../../shared/components/error-pages/NoResultsPage';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
@@ -24,30 +23,67 @@ import {
   Namespace,
   namespaceAndToolsLabels,
 } from '../../../../shared/types/namespaces';
-import { LocationToPath, Location } from '../../../../app/config/urls';
+import { Location, changePathnameOnly } from '../../../../app/config/urls';
 import peptideSearchConverter from '../../adapters/peptideSearchConverter';
 
 import Response from '../../../../uniprotkb/types/responseTypes';
 import { PeptideSearchResults } from '../../types/peptideSearchResults';
 import { JobTypes } from '../../../types/toolsJobTypes';
 import { Status } from '../../../types/toolsStatuses';
-import { FinishedJob, Job } from '../../../types/toolsJob';
+import { FinishedJob } from '../../../types/toolsJob';
+import { ToolsState } from '../../../state/toolsInitialState';
+
+import helper from '../../../../shared/styles/helper.module.scss';
 
 const jobType = JobTypes.PEPTIDE_SEARCH;
 const urls = toolsURLs(jobType);
 const title = `${namespaceAndToolsLabels[jobType]} results`;
 
+// overview
+const PeptideSearchResultTable = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "peptide-search-result-page" */ './PeptideSearchResultTable'
+    )
+);
+// // input-parameters
+// const InputParameters = lazy(
+//   () =>
+//     import(
+//       /* webpackChunkName: "input-parameters" */ '../../../components/InputParameters'
+//     )
+// );
+// // input-parameters
+// const APIRequest = lazy(
+//   () =>
+//     import(
+//       /* webpackChunkName: "api-request" */ '../../../components/APIRequest'
+//     )
+// );
+
+enum TabLocation {
+  Overview = 'overview',
+  InputParameters = 'input-parameters',
+  APIRequest = 'api-request',
+}
+
+type Params = {
+  id: string;
+  subPage?: TabLocation;
+};
+
 const PeptideSearchResult = ({
   toolsState,
 }: {
-  toolsState: { [key: string]: Job };
+  toolsState: NonNullable<ToolsState>;
 }) => {
-  const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
-    useItemSelect();
-  const jobSubmission = useRef<FinishedJob<JobTypes.PEPTIDE_SEARCH>>();
+  const match = useMatchWithRedirect<Params>(
+    Location.PeptideSearchResult,
+    TabLocation.Overview
+  );
 
-  const match = useRouteMatch<{ id: string }>(
-    LocationToPath[Location.PeptideSearchResult]
+  const jobSubmission = useRef<FinishedJob<JobTypes.PEPTIDE_SEARCH> | null>(
+    null
   );
   const jobID = match?.params.id || '';
   const {
@@ -61,14 +97,14 @@ const PeptideSearchResult = ({
   // the job may change with useMarkJobAsSeen but we don't want to have to
   // recreate the converter which will cause usePagination to duplicate rows
   if (!jobSubmission.current) {
-    const found = Object.values(toolsState).find(
-      (jobSubmission) =>
-        jobSubmission.status === Status.FINISHED &&
-        jobSubmission?.remoteID === jobID
-    );
-    jobSubmission.current = found
-      ? (found as FinishedJob<JobTypes.PEPTIDE_SEARCH>)
-      : undefined;
+    jobSubmission.current =
+      Object.values(toolsState).find(
+        (
+          jobSubmission
+        ): jobSubmission is FinishedJob<JobTypes.PEPTIDE_SEARCH> =>
+          jobSubmission.status === Status.FINISHED &&
+          jobSubmission?.remoteID === jobID
+      ) || null;
   }
 
   const accessions = useMemo(
@@ -139,7 +175,7 @@ const PeptideSearchResult = ({
     total = +resultsDataTotal;
   }
 
-  if (jobResultError) {
+  if (jobResultError || !match) {
     return <ErrorHandler status={jobResultStatus} />;
   }
 
@@ -160,25 +196,99 @@ const PeptideSearchResult = ({
   ) {
     return <Loader progress={resultsDataProgress} />;
   }
+
+  let sidebar: JSX.Element;
+  // Deciding what should be displayed on the sidebar
+  switch (match.params.subPage) {
+    case TabLocation.InputParameters:
+    case TabLocation.APIRequest:
+      sidebar = <div className="sidebar-layout__sidebar-content--empty" />;
+      break;
+
+    default:
+      sidebar = (
+        <ErrorBoundary>
+          <ResultsFacets dataApiObject={facetApiObject} />
+        </ErrorBoundary>
+      );
+      break;
+  }
+
+  const basePath = `/peptide-search/${match.params.id}/`;
+
   return (
-    <SideBarLayout sidebar={<ResultsFacets dataApiObject={facetApiObject} />}>
+    <SideBarLayout
+      title={
+        <PageIntro
+          title={namespaceAndToolsLabels[JobTypes.PEPTIDE_SEARCH]}
+          titlePostscript={
+            total && (
+              <small>
+                found in {namespaceAndToolsLabels[Namespace.uniprotkb]}
+              </small>
+            )
+          }
+          resultsCount={total}
+        />
+      }
+      sidebar={sidebar}
+    >
       <HTMLHead title={title} />
-      <ResultsDataHeader
-        total={total}
-        titlePostscript={
-          <small>found in {namespaceAndToolsLabels[Namespace.uniprotkb]}</small>
-        }
-        loadedTotal={sortedResultsDataObject.allResults.length}
-        selectedEntries={selectedEntries}
-        accessions={accessions}
-      />
-      <ResultsData
-        resultsDataObject={sortedResultsDataObject}
-        setSelectedItemFromEvent={setSelectedItemFromEvent}
-        setSelectedEntries={setSelectedEntries}
-        // TODO: change logic when peptide search API is able to return submitted jobSubmission information
-        displayPeptideSearchMatchColumns={Boolean(jobSubmission.current)}
-      />
+      <Tabs
+        active={match.params.subPage}
+        className={jobResultLoading ? helper.stale : undefined}
+      >
+        <Tab
+          id={TabLocation.Overview}
+          title={
+            <Link to={changePathnameOnly(basePath + TabLocation.Overview)}>
+              Overview
+            </Link>
+          }
+          cache
+        >
+          <Suspense fallback={<Loader />}>
+            <PeptideSearchResultTable
+              total={total}
+              sortedResultsDataObject={sortedResultsDataObject}
+              accessions={accessions}
+              jobSubmission={jobSubmission}
+            />
+          </Suspense>
+        </Tab>
+        <Tab
+          id={TabLocation.InputParameters}
+          title={
+            <Link
+              to={changePathnameOnly(basePath + TabLocation.InputParameters)}
+            >
+              Input Parameters
+            </Link>
+          }
+        >
+          <HTMLHead title={[title, 'Input Parameters']} />
+          <Suspense fallback={<Loader />}>
+            {/* <InputParameters
+              id={match.params.id}
+              inputParamsData={inputParamsData}
+              jobType={jobType}
+            /> */}
+          </Suspense>
+        </Tab>
+        <Tab
+          id={TabLocation.APIRequest}
+          title={
+            <Link to={changePathnameOnly(basePath + TabLocation.APIRequest)}>
+              API Request
+            </Link>
+          }
+        >
+          <HTMLHead title={[title, 'API Request']} />
+          <Suspense fallback={<Loader />}>
+            {/* <APIRequest jobType={jobType} inputParamsData={inputParamsData} /> */}
+          </Suspense>
+        </Tab>
+      </Tabs>
     </SideBarLayout>
   );
 };

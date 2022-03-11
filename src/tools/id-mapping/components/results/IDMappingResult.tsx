@@ -1,36 +1,30 @@
-import { useMemo } from 'react';
-import {
-  ExpandableList,
-  HeroContainer,
-  Loader,
-  PageIntro,
-} from 'franklin-sites';
-import { useLocation, useRouteMatch } from 'react-router-dom';
+import { useMemo, lazy, Suspense } from 'react';
+import { Loader, PageIntro, Tab, Tabs } from 'franklin-sites';
+import { Link, useLocation } from 'react-router-dom';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
-import ResultsData from '../../../../shared/components/results/ResultsData';
-import ResultsButtons from '../../../../shared/components/results/ResultsButtons';
+import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
+import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 
-import useItemSelect from '../../../../shared/hooks/useItemSelect';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import usePagination from '../../../../shared/hooks/usePagination';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 import useDatabaseInfoMaps from '../../../../shared/hooks/useDatabaseInfoMaps';
+import { useMatchWithRedirect } from '../../../utils/hooks';
 
 import toolsURLs from '../../../config/urls';
 import idMappingConverter from '../../adapters/idMappingConverter';
 import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
-import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
 import { defaultFacets } from '../../../../shared/config/apiUrls';
 
 import { JobTypes } from '../../../types/toolsJobTypes';
 import {
+  changePathnameOnly,
   IDMappingNamespaces,
   Location,
-  LocationToPath,
 } from '../../../../app/config/urls';
 import {
   MappingAPIModel,
@@ -47,22 +41,58 @@ const jobType = JobTypes.ID_MAPPING;
 const urls = toolsURLs(jobType);
 const title = `${namespaceAndToolsLabels[jobType]} results`;
 
-const IDMappingResult = () => {
-  const match = useRouteMatch<{
-    id: string;
-    namespace?: typeof IDMappingNamespaces[number];
-  }>(LocationToPath[Location.IDMappingResult]);
-  const location = useLocation();
-  const databaseInfoMaps = useDatabaseInfoMaps();
-  const { search: queryParamFromUrl } = location;
-  const [{ selectedFacets, query }] = getParamsFromURL(queryParamFromUrl);
+// overview
+const IDMappingResultTable = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "id-mapping-result-page" */ './IDMappingResultTable'
+    )
+);
+// input-parameters
+// const InputParameters = lazy(
+//   () =>
+//     import(
+//       /* webpackChunkName: "input-parameters" */ '../../../components/InputParameters'
+//     )
+// );
+// input-parameters
+// const APIRequest = lazy(
+//   () =>
+//     import(
+//       /* webpackChunkName: "api-request" */ '../../../components/APIRequest'
+//     )
+// );
 
-  const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
-    useItemSelect();
+enum TabLocation {
+  Overview = 'overview',
+  InputParameters = 'input-parameters',
+  APIRequest = 'api-request',
+}
+
+type Params = {
+  id: string;
+  namespace?: typeof IDMappingNamespaces[number];
+  subPage?: TabLocation;
+};
+
+const IDMappingResult = () => {
+  const location = useLocation();
+  const match = useMatchWithRedirect<Params>(
+    Location.IDMappingResult,
+    TabLocation.Overview
+  );
+
+  const databaseInfoMaps = useDatabaseInfoMaps();
+
+  const [{ selectedFacets, query }] = getParamsFromURL(location.search);
 
   const detailApiUrl =
     urls.detailsUrl && urls.detailsUrl(match?.params.id || '');
-  const { data: detailsData } = useDataApi<MappingDetails>(detailApiUrl);
+  const {
+    data: detailsData,
+    error,
+    status,
+  } = useDataApi<MappingDetails>(detailApiUrl);
 
   const toDBInfo =
     detailsData && databaseInfoMaps?.databaseToDatabaseInfo[detailsData.to];
@@ -81,7 +111,7 @@ const IDMappingResult = () => {
 
   const {
     initialLoading: resultsDataInitialLoading,
-    failedIds,
+    progress,
     total,
   } = resultsDataObject;
 
@@ -108,6 +138,7 @@ const IDMappingResult = () => {
   const facets = defaultFacets.get(namespaceOverride);
   const facetsUrl =
     detailsData?.redirectURL &&
+    facets &&
     urls.resultUrl(detailsData.redirectURL, {
       facets,
       size: 0,
@@ -121,18 +152,56 @@ const IDMappingResult = () => {
 
   useMarkJobAsSeen(resultsDataObject.allResults.length, match?.params.id);
 
+  if (error || !match) {
+    return <ErrorHandler status={status} />;
+  }
+
   if (
     facetInititialLoading &&
     resultsDataInitialLoading &&
     !facetHasStaleData
   ) {
-    return <Loader />;
+    return <Loader progress={progress} />;
   }
 
-  const getIdKey = getIdKeyFor(namespaceOverride);
+  let sidebar: JSX.Element;
+  // Deciding what should be displayed on the sidebar
+  switch (match.params.subPage) {
+    case TabLocation.InputParameters:
+    case TabLocation.APIRequest:
+      sidebar = <div className="sidebar-layout__sidebar-content--empty" />;
+      break;
+
+    default:
+      sidebar = (
+        <ErrorBoundary>
+          <ResultsFacets dataApiObject={facetsData} />
+        </ErrorBoundary>
+      );
+      break;
+  }
+
+  const basePath = `/id-mapping/${
+    namespaceOverride === Namespace.idmapping ? '' : `${namespaceOverride}/`
+  }${match.params.id}/`;
 
   return (
-    <SideBarLayout sidebar={<ResultsFacets dataApiObject={facetsData} />}>
+    <SideBarLayout
+      title={
+        <PageIntro
+          title={namespaceAndToolsLabels[Namespace.idmapping]}
+          titlePostscript={
+            total && (
+              <small>
+                found for {detailsData?.from} → {detailsData?.to}
+              </small>
+            )
+          }
+          resultsCount={total}
+        />
+      }
+      sidebar={sidebar}
+    >
       <HTMLHead
         title={[
           title,
@@ -140,45 +209,57 @@ const IDMappingResult = () => {
             namespaceAndToolsLabels[namespaceOverride],
         ]}
       />
-      <PageIntro
-        title={namespaceAndToolsLabels[Namespace.idmapping]}
-        titlePostscript={
-          total && (
-            <small>
-              found for {detailsData?.from} → {detailsData?.to}
-            </small>
-          )
-        }
-        resultsCount={total}
-      />
-      <ResultsButtons
-        total={total || 0}
-        loadedTotal={resultsDataObject.allResults.length}
-        selectedEntries={selectedEntries}
-        accessions={resultsDataObject.allResults.map(getIdKey)}
-        namespaceOverride={namespaceOverride}
-        disableCardToggle
-        base={detailsData?.redirectURL}
-        notCustomisable={namespaceOverride === Namespace.idmapping}
-      />
-
-      {failedIds && (
-        <HeroContainer>
-          <strong>{failedIds.length}</strong> id
-          {failedIds.length === 1 ? ' is' : 's were'} not mapped:
-          <ExpandableList descriptionString="ids" numberCollapsedItems={0}>
-            {failedIds}
-          </ExpandableList>
-        </HeroContainer>
-      )}
-      <ResultsData
-        resultsDataObject={resultsDataObject}
-        setSelectedItemFromEvent={setSelectedItemFromEvent}
-        setSelectedEntries={setSelectedEntries}
-        namespaceOverride={namespaceOverride}
-        displayIdMappingColumns
-        disableCardToggle
-      />
+      <Tabs active={match.params.subPage}>
+        <Tab
+          id={TabLocation.Overview}
+          title={
+            <Link to={changePathnameOnly(basePath + TabLocation.Overview)}>
+              Overview
+            </Link>
+          }
+          cache
+        >
+          <Suspense fallback={<Loader />}>
+            <IDMappingResultTable
+              namespaceOverride={namespaceOverride}
+              resultsDataObject={resultsDataObject}
+              detailsData={detailsData}
+            />
+          </Suspense>
+        </Tab>
+        <Tab
+          id={TabLocation.InputParameters}
+          title={
+            <Link
+              to={changePathnameOnly(basePath + TabLocation.InputParameters)}
+            >
+              Input Parameters
+            </Link>
+          }
+        >
+          <HTMLHead title={[title, 'Input Parameters']} />
+          <Suspense fallback={<Loader />}>
+            {/* <InputParameters
+              id={match.params.id}
+              inputParamsData={inputParamsData}
+              jobType={jobType}
+            /> */}
+          </Suspense>
+        </Tab>
+        <Tab
+          id={TabLocation.APIRequest}
+          title={
+            <Link to={changePathnameOnly(basePath + TabLocation.APIRequest)}>
+              API Request
+            </Link>
+          }
+        >
+          <HTMLHead title={[title, 'API Request']} />
+          <Suspense fallback={<Loader />}>
+            {/* <APIRequest jobType={jobType} inputParamsData={inputParamsData} /> */}
+          </Suspense>
+        </Tab>
+      </Tabs>
     </SideBarLayout>
   );
 };
