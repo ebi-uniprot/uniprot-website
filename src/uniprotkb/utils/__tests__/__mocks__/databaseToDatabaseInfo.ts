@@ -760,6 +760,29 @@ const databaseToDatabaseInfo: DatabaseToDatabaseInfo = {
     attributes: [{ name: 'Description', xmlTag: 'description' }],
     idMappingName: 'KEGG_ID',
   },
+  'MANE-Select': {
+    name: 'MANE-Select',
+    displayName: 'MANE-Select',
+    category: 'GMA',
+    uriLink: 'https://www.ensembl.org/id/%id',
+    attributes: [
+      {
+        name: 'ProteinId',
+        xmlTag: 'protein sequence ID',
+        uriLink: 'https://www.ensembl.org/id/%ProteinId',
+      },
+      {
+        name: 'RefSeqNucleotideId',
+        xmlTag: 'RefSeq nucleotide sequence ID',
+        uriLink: 'https://www.ncbi.nlm.nih.gov/nuccore/%RefSeqNucleotideId',
+      },
+      {
+        name: 'RefSeqProteinId',
+        xmlTag: 'RefSeq protein sequence ID',
+        uriLink: 'https://www.ncbi.nlm.nih.gov/protein/%RefSeqProteinId',
+      },
+    ],
+  },
   PATRIC: {
     name: 'PATRIC',
     displayName: 'PATRIC',

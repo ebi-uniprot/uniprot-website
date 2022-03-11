@@ -209,12 +209,12 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 class="checkbox-cell"
               >
                 <input
-                  data-id="P35575"
+                  data-id="P11413"
                   id="3"
                   type="checkbox"
                 />
                 <label
-                  aria-label="P35575"
+                  aria-label="P11413"
                   for="3"
                   title="click to select, shift+click for multiple selection"
                 />
@@ -225,9 +225,9 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 >
                   <a
                     class="accession"
-                    href="/uniprotkb/P35575"
+                    href="/uniprotkb/P11413"
                   >
-                    P35575
+                    P11413
                   </a>
                 </span>
               </td>
@@ -241,14 +241,14 @@ exports[`PeptideSearchResult should render with the correct number of results in
               </td>
               <td>
                 <span>
-                  G6PC1_HUMAN
+                  G6PD_HUMAN
                 </span>
               </td>
               <td>
                 <span
                   style="font-weight: bolder;"
                 >
-                  Glucose-6-phosphatase catalytic subunit 1
+                  Glucose-6-phosphate 1-dehydrogenase
                 </span>
                 <button
                   aria-expanded="false"
@@ -263,16 +263,8 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 <span
                   style="font-weight: bolder;"
                 >
-                  G6PC1
+                  G6PD
                 </span>
-                <button
-                  aria-expanded="false"
-                  class="button tertiary ellipsis-reveal"
-                  title="Show more"
-                  type="button"
-                >
-                  [...]
-                </button>
               </td>
               <td>
                 <a
@@ -283,7 +275,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 </a>
               </td>
               <td>
-                357 AA
+                515 AA
               </td>
             </tr>
             <tr>
@@ -291,12 +283,12 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 class="checkbox-cell"
               >
                 <input
-                  data-id="O43826"
+                  data-id="P36871"
                   id="4"
                   type="checkbox"
                 />
                 <label
-                  aria-label="O43826"
+                  aria-label="P36871"
                   for="4"
                   title="click to select, shift+click for multiple selection"
                 />
@@ -307,9 +299,9 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 >
                   <a
                     class="accession"
-                    href="/uniprotkb/O43826"
+                    href="/uniprotkb/P36871"
                   >
-                    O43826
+                    P36871
                   </a>
                 </span>
               </td>
@@ -323,14 +315,14 @@ exports[`PeptideSearchResult should render with the correct number of results in
               </td>
               <td>
                 <span>
-                  G6PT1_HUMAN
+                  PGM1_HUMAN
                 </span>
               </td>
               <td>
                 <span
                   style="font-weight: bolder;"
                 >
-                  Glucose-6-phosphate exchanger SLC37A4
+                  Phosphoglucomutase-1
                 </span>
                 <button
                   aria-expanded="false"
@@ -345,16 +337,8 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 <span
                   style="font-weight: bolder;"
                 >
-                  SLC37A4
+                  PGM1
                 </span>
-                <button
-                  aria-expanded="false"
-                  class="button tertiary ellipsis-reveal"
-                  title="Show more"
-                  type="button"
-                >
-                  [...]
-                </button>
               </td>
               <td>
                 <a
@@ -365,7 +349,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 </a>
               </td>
               <td>
-                429 AA
+                562 AA
               </td>
             </tr>
           </tbody>
@@ -599,12 +583,12 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 class="checkbox-cell"
               >
                 <input
-                  data-id="P35575"
+                  data-id="P11413"
                   id="3"
                   type="checkbox"
                 />
                 <label
-                  aria-label="P35575"
+                  aria-label="P11413"
                   for="3"
                   title="click to select, shift+click for multiple selection"
                 />
@@ -615,29 +599,13 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 >
                   <a
                     class="accession"
-                    href="/uniprotkb/P35575"
+                    href="/uniprotkb/P11413"
                   >
-                    P35575
+                    P11413
                   </a>
                 </span>
               </td>
-              <td>
-                <ul
-                  class="no-bullet no-wrap"
-                >
-                  <li>
-                    Positions 13-59: IQSTHYLQVN
-                    <button
-                      aria-expanded="false"
-                      class="button tertiary ellipsis-reveal"
-                      title="Show more"
-                      type="button"
-                    >
-                      [...]
-                    </button>
-                  </li>
-                </ul>
-              </td>
+              <td />
               <td>
                 <span
                   class="entry-title__status icon--reviewed"
@@ -648,14 +616,14 @@ exports[`PeptideSearchResult should render with the correct number of results in
               </td>
               <td>
                 <span>
-                  G6PC1_HUMAN
+                  G6PD_HUMAN
                 </span>
               </td>
               <td>
                 <span
                   style="font-weight: bolder;"
                 >
-                  Glucose-6-phosphatase catalytic subunit 1
+                  Glucose-6-phosphate 1-dehydrogenase
                 </span>
                 <button
                   aria-expanded="false"
@@ -670,16 +638,8 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 <span
                   style="font-weight: bolder;"
                 >
-                  G6PC1
+                  G6PD
                 </span>
-                <button
-                  aria-expanded="false"
-                  class="button tertiary ellipsis-reveal"
-                  title="Show more"
-                  type="button"
-                >
-                  [...]
-                </button>
               </td>
               <td>
                 <a
@@ -690,7 +650,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 </a>
               </td>
               <td>
-                357 AA
+                515 AA
               </td>
             </tr>
             <tr>
@@ -698,12 +658,12 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 class="checkbox-cell"
               >
                 <input
-                  data-id="O43826"
+                  data-id="P36871"
                   id="4"
                   type="checkbox"
                 />
                 <label
-                  aria-label="O43826"
+                  aria-label="P36871"
                   for="4"
                   title="click to select, shift+click for multiple selection"
                 />
@@ -714,29 +674,13 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 >
                   <a
                     class="accession"
-                    href="/uniprotkb/O43826"
+                    href="/uniprotkb/P36871"
                   >
-                    O43826
+                    P36871
                   </a>
                 </span>
               </td>
-              <td>
-                <ul
-                  class="no-bullet no-wrap"
-                >
-                  <li>
-                    Positions 2-33: AAQGYGYYRT
-                    <button
-                      aria-expanded="false"
-                      class="button tertiary ellipsis-reveal"
-                      title="Show more"
-                      type="button"
-                    >
-                      [...]
-                    </button>
-                  </li>
-                </ul>
-              </td>
+              <td />
               <td>
                 <span
                   class="entry-title__status icon--reviewed"
@@ -747,14 +691,14 @@ exports[`PeptideSearchResult should render with the correct number of results in
               </td>
               <td>
                 <span>
-                  G6PT1_HUMAN
+                  PGM1_HUMAN
                 </span>
               </td>
               <td>
                 <span
                   style="font-weight: bolder;"
                 >
-                  Glucose-6-phosphate exchanger SLC37A4
+                  Phosphoglucomutase-1
                 </span>
                 <button
                   aria-expanded="false"
@@ -769,16 +713,8 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 <span
                   style="font-weight: bolder;"
                 >
-                  SLC37A4
+                  PGM1
                 </span>
-                <button
-                  aria-expanded="false"
-                  class="button tertiary ellipsis-reveal"
-                  title="Show more"
-                  type="button"
-                >
-                  [...]
-                </button>
               </td>
               <td>
                 <a
@@ -789,7 +725,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 </a>
               </td>
               <td>
-                429 AA
+                562 AA
               </td>
             </tr>
           </tbody>
