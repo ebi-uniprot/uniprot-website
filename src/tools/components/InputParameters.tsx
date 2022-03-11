@@ -9,6 +9,8 @@ import { PublicServerParameters } from '../types/toolsServerParameters';
 import { JobTypes } from '../types/toolsJobTypes';
 import { FinishedJob } from '../types/toolsJob';
 
+import styles from './styles/input-parameters.module.css';
+
 type InputParametersProps = {
   id: string;
   // No public endpoint to expose this for peptide search, so for now replace
@@ -63,7 +65,7 @@ const InputParameters = ({
       {inputParameters && (
         <ResubmitButton inputParamsData={inputParameters} jobType={jobType} />
       )}
-      <section>
+      <section className={styles.container}>
         <p>
           The job with ID <code>{id}</code> has been submitted with these raw
           input values:
@@ -76,7 +78,9 @@ const InputParameters = ({
               .filter(([key, value]) => !fieldsToHide.has(key) && value)
               .map(([key, value]) => ({
                 title: key,
-                content: <CodeBlock lightMode>{`${value}`}</CodeBlock>,
+                content: (
+                  <CodeBlock lightMode className="hey">{`${value}`}</CodeBlock>
+                ),
               }))}
           />
         )}
