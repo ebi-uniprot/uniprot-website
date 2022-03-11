@@ -134,10 +134,9 @@ const SearchContainer: FC<
     setSearchTerm(example);
   };
 
-  const secondaryButtons = useMemo(() => {
-    const buttons = [];
-    if (jobResultsLocation !== Location.AlignResult) {
-      buttons.push({
+  const secondaryButtons = useMemo(
+    () => [
+      {
         label:
           // TODO:
           // <span
@@ -150,18 +149,18 @@ const SearchContainer: FC<
         action: () => {
           setDisplayQueryBuilder((value) => !value);
         },
-      });
-    }
-    buttons.push({
-      label: 'List',
-      action: () => {
-        history.push({
-          pathname: LocationToPath[Location.IDMapping],
-        });
       },
-    });
-    return buttons;
-  }, [history, jobResultsLocation]);
+      {
+        label: 'List',
+        action: () => {
+          history.push({
+            pathname: LocationToPath[Location.IDMapping],
+          });
+        },
+      },
+    ],
+    [history]
+  );
 
   // reset the text content when there is a navigation to reflect what is in the
   // URL. That includes removing the text when browsing to a non-search page.
