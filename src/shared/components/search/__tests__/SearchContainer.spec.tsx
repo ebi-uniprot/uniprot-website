@@ -45,7 +45,7 @@ describe('Search component on results page', () => {
     renderWithRoute('/id-mapping/uniparc/job123');
     expect(screen.getByLabelText('Text query in uniprotkb')).toHaveValue('');
   });
-  it('should display the job id and query when on a tools results page', () => {
+  it('should display the query when on a tools results page', () => {
     renderWithRoute('/id-mapping/uniparc/job123?query=foo');
     expect(screen.getByLabelText('Text query in uniprotkb')).toHaveValue('foo');
     expect(
