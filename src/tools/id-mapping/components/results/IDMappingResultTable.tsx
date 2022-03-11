@@ -44,7 +44,7 @@ const IDMappingResultTable = ({
       />
       {resultsDataObject.failedIds && (
         <HeroContainer>
-          <strong>{resultsDataObject.failedIds.length}</strong> id
+          <strong>{resultsDataObject.failedIds.length}</strong> ID
           {resultsDataObject.failedIds.length === 1 ? ' is' : 's were'} not
           mapped:
           <ExpandableList descriptionString="ids" numberCollapsedItems={0}>
