@@ -56,10 +56,9 @@ const InputParameters = ({
 
   return (
     <>
-      <ResubmitButton
-        inputParamsData={inputParamsData.data}
-        jobType={jobType}
-      />
+      {inputParameters && (
+        <ResubmitButton inputParamsData={inputParameters} jobType={jobType} />
+      )}
       <section>
         <p>
           The job with ID <code>{id}</code> has been submitted with these raw
