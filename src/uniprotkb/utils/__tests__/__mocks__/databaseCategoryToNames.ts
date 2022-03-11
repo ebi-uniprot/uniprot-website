@@ -122,6 +122,7 @@ const databaseCategoryToNames: DatabaseCategoryToNames = new Map([
       'GeneID',
       'Gramene',
       'KEGG',
+      'MANE-Select',
       'PATRIC',
       'UCSC',
       'VectorBase',

@@ -240,6 +240,7 @@ export enum UniProtKBColumn {
   xrefLeproma = 'xref_leproma',
   xrefMaizegdb = 'xref_maizegdb',
   xrefMalacards = 'xref_malacards',
+  xrefManeSelect = 'xref_mane-select',
   xrefMassive = 'xref_massive',
   xrefMaxqb = 'xref_maxqb',
   xrefMetosite = 'xref_metosite',

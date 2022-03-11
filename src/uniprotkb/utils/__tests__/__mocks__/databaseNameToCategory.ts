@@ -86,6 +86,7 @@ const databaseNameToCategory: DatabaseNameToCategory = new Map([
   ['GeneID', DatabaseCategory.GENOME],
   ['Gramene', DatabaseCategory.GENOME],
   ['KEGG', DatabaseCategory.GENOME],
+  ['MANE-Select', DatabaseCategory.GENOME],
   ['PATRIC', DatabaseCategory.GENOME],
   ['UCSC', DatabaseCategory.GENOME],
   ['VectorBase', DatabaseCategory.GENOME],

@@ -4,8 +4,7 @@ import { DatabaseInfo } from '../../../types/databaseRefs';
 // showing it for when it is up and running again. Until then it will have no uriLink.
 
 // Source: /configure/uniprotkb/allDatabases
-// Retrieved: 2021-11-29
-
+// Retrieved: 2022-03-11
 const databaseInfo: DatabaseInfo = [
   {
     name: 'EMBL',
@@ -86,7 +85,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'CCDS_ID',
   },
   {
     name: 'PIR',
@@ -99,7 +97,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'entry name',
       },
     ],
-    idMappingName: 'PIR_ID',
   },
   {
     name: 'RefSeq',
@@ -133,7 +130,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'chains',
       },
     ],
-    idMappingName: 'PDB_ID',
   },
   {
     name: 'PDBsum',
@@ -279,7 +275,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'interactions',
       },
     ],
-    idMappingName: 'BIOGRID_ID',
   },
   {
     name: 'ComplexPortal',
@@ -292,7 +287,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'entry name',
       },
     ],
-    idMappingName: 'COMPLEXPORTAL_ID',
   },
   {
     name: 'CORUM',
@@ -317,7 +311,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'DIP_ID',
   },
   {
     name: 'ELM',
@@ -366,7 +359,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'STRING_ID',
   },
   {
     name: 'BindingDB',
@@ -391,7 +383,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'CHEMBL_ID',
   },
   {
     name: 'DrugBank',
@@ -404,7 +395,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'generic name',
       },
     ],
-    idMappingName: 'DRUGBANK_ID',
   },
   {
     name: 'GuidetoPHARMACOLOGY',
@@ -418,7 +408,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'GUIDETOPHARMACOLOGY_ID',
   },
   {
     name: 'SwissLipids',
@@ -431,7 +420,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'SWISSLIPIDS_ID',
   },
   {
     name: 'Allergome',
@@ -444,7 +432,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'allergen name',
       },
     ],
-    idMappingName: 'ALLERGOME_ID',
   },
   {
     name: 'CAZy',
@@ -470,7 +457,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'family name',
       },
     ],
-    idMappingName: 'ESTHER_ID',
   },
   {
     name: 'IMGT_GENE-DB',
@@ -496,7 +482,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'MEROPS_ID',
   },
   {
     name: 'MoonDB',
@@ -533,7 +518,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'CLAE_ID',
   },
   {
     name: 'PeroxiBase',
@@ -546,7 +530,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'entry name',
       },
     ],
-    idMappingName: 'PEROXIBASE_ID',
   },
   {
     name: 'REBASE',
@@ -559,7 +542,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'entry name',
       },
     ],
-    idMappingName: 'REBASE_ID',
   },
   {
     name: 'TCDB',
@@ -572,7 +554,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'family name',
       },
     ],
-    idMappingName: 'TCDB_ID',
   },
   {
     name: 'UniLectin',
@@ -636,18 +617,16 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'glycosylation',
       },
     ],
-    idMappingName: 'GLYCONNECT_ID',
   },
   {
     name: 'GlyGen',
     displayName: 'GlyGen',
     category: 'PTM',
-    uriLink:
-      'https://www.glygen.org/glycoprotein_detail.html?uniprot_canonical_ac=%id',
+    uriLink: 'https://www.glygen.org/protein/%id',
     attributes: [
       {
-        name: 'Description',
-        xmlTag: 'description',
+        name: 'glycosylation',
+        xmlTag: 'glycosylation',
       },
     ],
   },
@@ -723,7 +702,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'BIOMUTA_ID',
   },
   {
     name: 'DMDM',
@@ -737,7 +715,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'DMDM_ID',
   },
   {
     name: 'dbSNP',
@@ -834,7 +811,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'WORLD_2DPAGE_ID',
   },
   {
     name: 'CPTAC',
@@ -847,7 +823,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'CPTAC_ID',
   },
   {
     name: 'EPD',
@@ -935,7 +910,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'PROTEOMICSDB_ID',
   },
   {
     name: 'TopDownProteomics',
@@ -985,7 +959,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'DNASU_ID',
   },
   {
     name: 'Ensembl',
@@ -1004,7 +977,6 @@ const databaseInfo: DatabaseInfo = [
         uriLink: 'https://www.ensembl.org/id/%GeneId',
       },
     ],
-    idMappingName: 'ENSEMBL_ID',
   },
   {
     name: 'EnsemblBacteria',
@@ -1107,7 +1079,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'GENEDB_ID',
   },
   {
     name: 'GeneID',
@@ -1120,7 +1091,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'P_ENTREZGENEID',
   },
   {
     name: 'Gramene',
@@ -1151,7 +1121,29 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'KEGG_ID',
+  },
+  {
+    name: 'MANE-Select',
+    displayName: 'MANE-Select',
+    category: 'GMA',
+    uriLink: 'https://www.ensembl.org/id/%id',
+    attributes: [
+      {
+        name: 'ProteinId',
+        xmlTag: 'protein sequence ID',
+        uriLink: 'https://www.ensembl.org/id/%ProteinId',
+      },
+      {
+        name: 'RefSeqNucleotideId',
+        xmlTag: 'RefSeq nucleotide sequence ID',
+        uriLink: 'https://www.ncbi.nlm.nih.gov/nuccore/%RefSeqNucleotideId',
+      },
+      {
+        name: 'RefSeqProteinId',
+        xmlTag: 'RefSeq protein sequence ID',
+        uriLink: 'https://www.ncbi.nlm.nih.gov/protein/%RefSeqProteinId',
+      },
+    ],
   },
   {
     name: 'PATRIC',
@@ -1164,7 +1156,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'gene designation',
       },
     ],
-    idMappingName: 'PATRIC_ID',
   },
   {
     name: 'UCSC',
@@ -1177,7 +1168,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'organism name',
       },
     ],
-    idMappingName: 'UCSC_ID',
   },
   {
     name: 'VectorBase',
@@ -1214,7 +1204,6 @@ const databaseInfo: DatabaseInfo = [
         uriLink: 'https://parasite.wormbase.org/id/%GeneId',
       },
     ],
-    idMappingName: 'WBPARASITE_ID',
   },
   {
     name: 'ArachnoServer',
@@ -1227,7 +1216,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'toxin name',
       },
     ],
-    idMappingName: 'ARACHNOSERVER_ID',
   },
   {
     name: 'Araport',
@@ -1240,7 +1228,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'ARAPORT_ID',
   },
   {
     name: 'CGD',
@@ -1253,7 +1240,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'gene designation',
       },
     ],
-    idMappingName: 'CGD',
   },
   {
     name: 'ConoServer',
@@ -1266,7 +1252,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'toxin name',
       },
     ],
-    idMappingName: 'CONOSERVER_ID',
   },
   {
     name: 'CTD',
@@ -1291,7 +1276,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'gene designation',
       },
     ],
-    idMappingName: 'DICTYBASE_ID',
   },
   {
     name: 'DisGeNET',
@@ -1316,7 +1300,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'ECHOBASE_ID',
   },
   {
     name: 'euHCVdb',
@@ -1329,7 +1312,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'EUHCVDB_ID',
   },
   {
     name: 'VEuPathDB',
@@ -1342,7 +1324,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'VEUPATHDB_ID',
   },
   {
     name: 'FlyBase',
@@ -1355,7 +1336,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'gene designation',
       },
     ],
-    idMappingName: 'FLYBASE_ID',
   },
   {
     name: 'GeneCards',
@@ -1368,7 +1348,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'GENECARDS_ID',
   },
   {
     name: 'GeneReviews',
@@ -1381,7 +1360,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'GENEREVIEWS_ID',
   },
   {
     name: 'HGNC',
@@ -1394,7 +1372,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'gene designation',
       },
     ],
-    idMappingName: 'HGNC_ID',
   },
   {
     name: 'GenAtlas',
@@ -1418,8 +1395,8 @@ const databaseInfo: DatabaseInfo = [
     uriLink: 'http://www.proteinatlas.org/tissue_profile.php?antibody_id=%id',
     attributes: [
       {
-        name: 'Description',
-        xmlTag: 'description',
+        name: 'ExpressionPatterns',
+        xmlTag: 'expression patterns',
       },
     ],
   },
@@ -1435,7 +1412,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'LEGIOLIST_ID',
   },
   {
     name: 'Leproma',
@@ -1448,7 +1424,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'LEPROMA_ID',
   },
   {
     name: 'MaizeGDB',
@@ -1461,7 +1436,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'MAIZEGDB_ID',
   },
   {
     name: 'MalaCards',
@@ -1486,7 +1460,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'gene designation',
       },
     ],
-    idMappingName: 'MGI_ID',
   },
   {
     name: 'MIM',
@@ -1499,7 +1472,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'type',
       },
     ],
-    idMappingName: 'MIM_ID',
   },
   {
     name: 'NIAGADS',
@@ -1525,7 +1497,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'NEXTPROT_ID',
   },
   {
     name: 'OpenTargets',
@@ -1551,7 +1522,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'disease',
       },
     ],
-    idMappingName: 'ORPHANET_ID',
   },
   {
     name: 'PharmGKB',
@@ -1564,7 +1534,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'PHARMGKB_ID',
   },
   {
     name: 'PomBase',
@@ -1577,7 +1546,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'gene designation',
       },
     ],
-    idMappingName: 'POMBASE_ID',
   },
   {
     name: 'PseudoCAP',
@@ -1590,7 +1558,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'PSEUDOCAP_ID',
   },
   {
     name: 'RGD',
@@ -1603,7 +1570,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'gene designation',
       },
     ],
-    idMappingName: 'RGD_ID',
   },
   {
     name: 'SGD',
@@ -1616,7 +1582,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'gene designation',
       },
     ],
-    idMappingName: 'SGD_ID',
   },
   {
     name: 'TAIR',
@@ -1641,7 +1606,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'TUBERCULIST_ID',
   },
   {
     name: 'VGNC',
@@ -1655,7 +1619,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'gene designation',
       },
     ],
-    idMappingName: 'VGNC_ID',
   },
   {
     name: 'WormBase',
@@ -1679,7 +1642,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'gene designation',
       },
     ],
-    idMappingName: 'WORMBASE_ID',
   },
   {
     name: 'Xenbase',
@@ -1693,7 +1655,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'gene designation',
       },
     ],
-    idMappingName: 'XENBASE_ID',
   },
   {
     name: 'ZFIN',
@@ -1706,7 +1667,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'gene designation',
       },
     ],
-    idMappingName: 'ZFIN_ID',
   },
   {
     name: 'HUGE',
@@ -1748,7 +1708,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'taxonomic scope',
       },
     ],
-    idMappingName: 'EGGNOG_ID',
   },
   {
     name: 'GeneTree',
@@ -1761,7 +1720,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'GENETREE_ID',
   },
   {
     name: 'HOGENOM',
@@ -1774,7 +1732,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'HOGENOM_ID',
   },
   {
     name: 'InParanoid',
@@ -1811,7 +1768,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'fingerprint',
       },
     ],
-    idMappingName: 'OMA_ID',
   },
   {
     name: 'OrthoDB',
@@ -1824,7 +1780,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'ORTHODB_ID',
   },
   {
     name: 'PhylomeDB',
@@ -1849,7 +1804,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'TREEFAM_ID',
   },
   {
     name: 'BioCyc',
@@ -1862,7 +1816,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'BIOCYC_ID',
   },
   {
     name: 'BRENDA',
@@ -1889,7 +1842,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'pathway name',
       },
     ],
-    idMappingName: 'REACTOME_ID',
   },
   {
     name: 'SABIO-RK',
@@ -1937,7 +1889,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'reaction ID',
       },
     ],
-    idMappingName: 'UNIPATHWAY_ID',
   },
   {
     name: 'PlantReactome',
@@ -1951,7 +1902,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'pathway name',
       },
     ],
-    idMappingName: 'PLANT_REACTOME_ID',
   },
   {
     name: 'ENZYME',
@@ -1979,7 +1929,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'organism name',
       },
     ],
-    idMappingName: 'CHITARS_ID',
   },
   {
     name: 'EvolutionaryTrace',
@@ -2005,7 +1954,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'GENEWIKI_ID',
   },
   {
     name: 'GenomeRNAi',
@@ -2018,7 +1966,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'GENOMERNAI_ID',
   },
   {
     name: 'PHI-base',
@@ -2031,7 +1978,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'PHI_BASE_ID',
   },
   {
     name: 'PRO',
@@ -2111,7 +2057,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'COLLECTF_ID',
   },
   {
     name: 'ExpressionAtlas',
@@ -2196,7 +2141,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'IDEAL_ID',
   },
   {
     name: 'InterPro',
@@ -2379,7 +2323,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-    idMappingName: 'DISPROT_ID',
   },
   {
     name: 'MobiDB',
@@ -2460,8 +2403,8 @@ const databaseInfo: DatabaseInfo = [
     uriLink: 'https://pharos.nih.gov/targets/%id',
     attributes: [
       {
-        name: 'Description',
-        xmlTag: 'description',
+        name: 'DevelopmentLevel',
+        xmlTag: 'development level',
       },
     ],
   },
@@ -2484,8 +2427,8 @@ const databaseInfo: DatabaseInfo = [
     uriLink: 'https://web.expasy.org/cgi-bin/abcd/search_abcd.pl?input=%id',
     attributes: [
       {
-        name: 'Description',
-        xmlTag: 'description',
+        name: 'antibodies',
+        xmlTag: 'antibodies',
       },
     ],
   },
@@ -2521,7 +2464,7 @@ const databaseInfo: DatabaseInfo = [
     attributes: [
       {
         name: 'moleculeType',
-        xmlTag: 'moleculeType',
+        xmlTag: 'molecule type',
       },
     ],
   },
