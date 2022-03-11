@@ -138,7 +138,7 @@ const AlignResult = () => {
   // get data from the align endpoint
   const { loading, data, error, status, progress } = useDataApi<AlignResults>(
     match?.params.id &&
-      urls.resultUrl(match.params.id || '', { format: 'aln-clustal_num' })
+      urls.resultUrl(match.params.id, { format: 'aln-clustal_num' })
   );
 
   const inputParamsData = useParamsData(match?.params.id || '');
