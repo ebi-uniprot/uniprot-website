@@ -27,10 +27,14 @@ const InputParameters = ({
   inputParamsData,
   jobType,
 }: InputParametersProps) => {
-  if (inputParamsData && !('type' in inputParamsData)) {
-    if (inputParamsData.error || !inputParamsData.data) {
-      return <ErrorHandler status={inputParamsData.status} />;
-    }
+  if (
+    inputParamsData &&
+    // This is for TS to typeguard, after that we're sure it's not a local job
+    !('type' in inputParamsData) &&
+    // We now have a data payload for sure, check for errors normally
+    (inputParamsData.error || !inputParamsData.data)
+  ) {
+    return <ErrorHandler status={inputParamsData.status} />;
   }
 
   if (!inputParamsData) {
