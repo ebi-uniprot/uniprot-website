@@ -89,6 +89,27 @@ const LatestNews = () => {
             <article>
               <h3 className="tiny">
                 <ExternalLink
+                  url="https://www.uniprot.org/news/2022/02/23/release"
+                  noIcon
+                >
+                  UniProt release 2022_01
+                </ExternalLink>
+              </h3>
+              <p
+                className={cn(
+                  styles['latest-news__abstract'],
+                  styles['latest-news__abstract--2-lines']
+                )}
+              >
+                A phospholipase for clear vision | Cross-references to
+                MANE-Select
+              </p>
+            </article>
+          </li>
+          <li>
+            <article>
+              <h3 className="tiny">
+                <ExternalLink
                   url="https://www.uniprot.org/news/2021/11/17/release"
                   noIcon
                 >
