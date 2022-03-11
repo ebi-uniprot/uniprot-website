@@ -53,13 +53,13 @@ const InputParameters = lazy(
       /* webpackChunkName: "input-parameters" */ '../../../components/InputParameters'
     )
 );
-// // input-parameters
-// const APIRequest = lazy(
-//   () =>
-//     import(
-//       /* webpackChunkName: "api-request" */ '../../../components/APIRequest'
-//     )
-// );
+// input-parameters
+const APIRequest = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "api-request" */ '../../../components/APIRequest'
+    )
+);
 
 enum TabLocation {
   Overview = 'overview',
@@ -270,7 +270,7 @@ const PeptideSearchResult = ({
           <Suspense fallback={<Loader />}>
             <InputParameters
               id={match.params.id}
-              inputParamsData={jobSubmission.current}
+              inputParamsData={jobSubmission.current?.parameters}
               jobType={jobType}
             />
           </Suspense>
@@ -285,7 +285,10 @@ const PeptideSearchResult = ({
         >
           <HTMLHead title={[title, 'API Request']} />
           <Suspense fallback={<Loader />}>
-            {/* <APIRequest jobType={jobType} inputParamsData={inputParamsData} /> */}
+            <APIRequest
+              jobType={jobType}
+              inputParamsData={jobSubmission.current?.parameters}
+            />
           </Suspense>
         </Tab>
       </Tabs>
