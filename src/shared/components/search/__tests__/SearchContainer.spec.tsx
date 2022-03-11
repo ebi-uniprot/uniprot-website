@@ -12,8 +12,8 @@ describe('Search component on home page', () => {
     rendered = customRender(
       <SearchContainer
         isOnHomePage
-        namespace={Namespace.uniprotkb}
-        onNamespaceChange={jest.fn()}
+        searchspace={Namespace.uniprotkb}
+        onSearchspaceChange={jest.fn()}
       />
     );
   });
@@ -35,32 +35,25 @@ describe('Search component on results page', () => {
     customRender(
       <SearchContainer
         isOnHomePage={false}
-        namespace={Namespace.uniprotkb}
-        onNamespaceChange={jest.fn()}
+        searchspace={Namespace.uniprotkb}
+        onSearchspaceChange={jest.fn()}
       />,
       { route }
     );
   };
-  it('should display the job id when on a tools results page', () => {
+  it('should not display the job id when on a tools results page', () => {
     renderWithRoute('/id-mapping/uniparc/job123');
-    expect(screen.getByLabelText('Text query in uniprotkb')).toHaveValue(
-      'job:job123'
-    );
+    expect(screen.getByLabelText('Text query in uniprotkb')).toHaveValue('');
   });
-  it('should display the job id and query when on a tools results page', () => {
+  it('should display the query when on a tools results page', () => {
     renderWithRoute('/id-mapping/uniparc/job123?query=foo');
-    expect(screen.getByLabelText('Text query in uniprotkb')).toHaveValue(
-      'job:job123 AND foo'
-    );
+    expect(screen.getByLabelText('Text query in uniprotkb')).toHaveValue('foo');
     expect(
       screen.getByRole('button', { name: 'Advanced' })
     ).toBeInTheDocument();
   });
-  it('should only display the job id when on an align tool results page', () => {
-    renderWithRoute('/align/job123?query=foo');
-    expect(screen.getByLabelText('Text query in uniprotkb')).toHaveValue(
-      'job:job123'
-    );
+  it('should not display the advanced search when on an align tool results page', () => {
+    renderWithRoute('/align/job123');
     expect(
       screen.queryByRole('button', { name: 'Advanced' })
     ).not.toBeInTheDocument();
