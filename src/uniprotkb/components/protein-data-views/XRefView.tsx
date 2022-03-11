@@ -183,6 +183,13 @@ type XRefProps = {
   databaseToDatabaseInfo: DatabaseToDatabaseInfo;
 };
 
+const propertyKeySet = new Set<PropertyKey>([
+  PropertyKey.ProteinId,
+  PropertyKey.GeneId,
+  PropertyKey.RefSeqNucleotideId,
+  PropertyKey.RefSeqProteinId,
+]);
+
 export const XRef = ({
   database,
   xref,
@@ -200,9 +207,7 @@ export const XRef = ({
   const propertyStrings = [];
   if (properties && !implicit) {
     for (const [key, value] of Object.entries(properties)) {
-      if (
-        [PropertyKey.ProteinId, PropertyKey.GeneId].includes(key as PropertyKey)
-      ) {
+      if (propertyKeySet.has(key as PropertyKey)) {
         const attrs = getPropertyLinkAttributes(
           databaseInfo,
           key as PropertyKey,

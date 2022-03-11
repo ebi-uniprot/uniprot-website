@@ -942,6 +942,21 @@ exports[`ColumnSelect component should render 1`] = `
                   data-testid="accordion-search-list-item"
                 >
                   <label
+                    for="checkbox-rhea"
+                  >
+                    <input
+                      class="accordion-search__list__item-checkbox"
+                      id="checkbox-rhea"
+                      type="checkbox"
+                    />
+                    Rhea ID
+                  </label>
+                </li>
+                <li
+                  class="accordion-search__list__item"
+                  data-testid="accordion-search-list-item"
+                >
+                  <label
                     for="checkbox-ft_site"
                   >
                     <input
@@ -1034,21 +1049,6 @@ exports[`ColumnSelect component should render 1`] = `
                       type="checkbox"
                     />
                     Caution
-                  </label>
-                </li>
-                <li
-                  class="accordion-search__list__item"
-                  data-testid="accordion-search-list-item"
-                >
-                  <label
-                    for="checkbox-feature"
-                  >
-                    <input
-                      class="accordion-search__list__item-checkbox"
-                      id="checkbox-feature"
-                      type="checkbox"
-                    />
-                    Features
                   </label>
                 </li>
                 <li
