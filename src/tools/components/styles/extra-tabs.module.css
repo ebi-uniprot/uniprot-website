@@ -2,3 +2,7 @@
   line-break: anywhere;
   white-space: break-spaces;
 }
+
+.api-request pre {
+  margin-block-end: 1em;
+}

@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { Loader, CodeBlock, ExternalLink } from 'franklin-sites';
+import cn from 'classnames';
 
 import ErrorHandler from '../../shared/components/error-pages/ErrorHandler';
 
@@ -112,7 +113,7 @@ const APIRequest: FC<APIRequestProps> = ({ inputParamsData, jobType }) => {
     ('peps' in inputParamsData ? inputParamsData : inputParamsData.data);
 
   return (
-    <section className={styles.container}>
+    <section className={cn(styles.container, styles['api-request'])}>
       <p>
         Using{' '}
         <a
