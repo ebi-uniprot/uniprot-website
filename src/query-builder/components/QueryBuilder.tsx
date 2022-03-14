@@ -54,6 +54,8 @@ import { Clause, SearchTermType } from '../types/searchTypes';
 
 import '../../shared/components/search/styles/search-container.scss';
 import './styles/query-builder.scss';
+import { cannotQueryMessages } from '../../shared/components/search/SearchContainer';
+import { JobTypes } from '../../tools/types/toolsJobTypes';
 
 type Props = {
   /**
@@ -273,21 +275,25 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
   };
 
   let queryNotPossibleMessage: JSX.Element | null = null;
-  if (jobResultsLocation === Location.AlignResult) {
+  if (
+    searchspace === toolResults &&
+    jobResultsLocation === Location.AlignResult
+  ) {
     queryNotPossibleMessage = (
       <QueryNotPossibleMessage
-        text="Filtering Align results is not possible as all of its sequences constitute the alignment."
+        text={cannotQueryMessages[JobTypes.ALIGN]}
         onCancel={onCancel}
       />
     );
   } else if (
     searchspace === toolResults &&
+    jobResultsLocation === Location.IDMappingResult &&
     idMappingDetails &&
     rawDBToNamespace(idMappingDetails.to) === Namespace.idmapping
   ) {
     queryNotPossibleMessage = (
       <QueryNotPossibleMessage
-        text="Search queries are not possible for ID mapping results which map to an external database."
+        text={cannotQueryMessages[JobTypes.ID_MAPPING]}
         onCancel={onCancel}
       />
     );

@@ -16,6 +16,7 @@ import { MainSearch, Button, SlidingPanel } from 'franklin-sites';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 
 import useJobFromUrl from '../../hooks/useJobFromUrl';
+import useIDMappingDetails from '../../hooks/useIDMappingDetails';
 
 import lazy from '../../utils/lazy';
 
@@ -34,6 +35,14 @@ import {
 } from '../../types/namespaces';
 
 import './styles/search-container.scss';
+import { useMessagesDispatch } from '../../contexts/Messages';
+import { addMessage } from '../../../messages/state/messagesActions';
+import {
+  MessageFormat,
+  MessageLevel,
+} from '../../../messages/types/messagesTypes';
+import { rawDBToNamespace } from '../../../tools/id-mapping/utils';
+import { JobTypes } from '../../../tools/types/toolsJobTypes';
 
 const QueryBuilder = lazy(
   () =>
@@ -87,6 +96,13 @@ const examples: Record<SearchableNamespace, string[]> = {
   [Namespace.arba]: ['Insulin', 'Eukaryota'],
 };
 
+export const cannotQueryMessages = {
+  [JobTypes.ID_MAPPING]:
+    'Search queries are not possible for ID mapping results which map to an external database.',
+  [JobTypes.ALIGN]:
+    'Filtering Align results is not possible as all of its sequences constitute the alignment.',
+};
+
 type Props = {
   isOnHomePage?: boolean;
   searchspace: Searchspace;
@@ -103,11 +119,45 @@ const SearchContainer: FC<
   const [searchTerm, setSearchTerm] = useState<string>('');
   const handleClose = useCallback(() => setDisplayQueryBuilder(false), []);
 
-  const { jobId } = useJobFromUrl();
+  const idMappingDetails = useIDMappingDetails();
+  const dispatch = useMessagesDispatch();
+
+  const { jobId, jobResultsLocation } = useJobFromUrl();
 
   const handleSubmit = (event: SyntheticEvent) => {
     // prevent normal browser submission
     event.preventDefault();
+
+    if (
+      searchspace === toolResults &&
+      jobResultsLocation === Location.AlignResult
+    ) {
+      dispatch(
+        addMessage({
+          format: MessageFormat.POP_UP,
+          level: MessageLevel.INFO,
+          content: cannotQueryMessages[JobTypes.ALIGN],
+          displayTime: 5_000,
+        })
+      );
+      return;
+    }
+    if (
+      searchspace === toolResults &&
+      jobResultsLocation === Location.IDMappingResult &&
+      idMappingDetails &&
+      rawDBToNamespace(idMappingDetails.to) === Namespace.idmapping
+    ) {
+      dispatch(
+        addMessage({
+          format: MessageFormat.POP_UP,
+          level: MessageLevel.INFO,
+          content: cannotQueryMessages[JobTypes.ID_MAPPING],
+          displayTime: 5_000,
+        })
+      );
+      return;
+    }
 
     // restringify the resulting search
     const stringifiedSearch = queryString.stringify(

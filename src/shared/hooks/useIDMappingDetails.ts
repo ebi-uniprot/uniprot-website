@@ -8,7 +8,7 @@ const useIDMappingDetails = () => {
   const context = useContext(IDMappingDetailsContext);
   if (context === undefined) {
     logging.error(
-      'useIDMappingDetails must be used within a DatabaseInfoMapsProvider'
+      'useIDMappingDetails must be used within a IDMappingDetailsProvider'
     );
   }
   return context;

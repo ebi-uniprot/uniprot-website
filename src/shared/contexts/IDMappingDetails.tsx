@@ -10,9 +10,9 @@ import ErrorHandler from '../components/error-pages/ErrorHandler';
 
 const idMappingURLs = toolsURLs(JobTypes.ID_MAPPING);
 
-export const IDMappingDetailsContext = createContext<
-  MappingDetails | undefined
->(undefined);
+export const IDMappingDetailsContext = createContext<MappingDetails | null>(
+  null
+);
 
 export const IDMappingDetailsProvider: FC = ({ children }) => {
   const { jobId, jobResultsLocation } = useJobFromUrl();
@@ -37,7 +37,7 @@ export const IDMappingDetailsProvider: FC = ({ children }) => {
   }
 
   return (
-    <IDMappingDetailsContext.Provider value={data}>
+    <IDMappingDetailsContext.Provider value={data || null}>
       {children}
     </IDMappingDetailsContext.Provider>
   );
