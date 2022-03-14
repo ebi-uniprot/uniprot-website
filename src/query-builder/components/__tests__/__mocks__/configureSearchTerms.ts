@@ -4,8 +4,8 @@ import { flatten } from '../../../utils/parseAndMatchQuery';
 
 import { SearchTermType } from '../../../types/searchTypes';
 
-// Source: /api/configure/uniprotkb/search-fields
-// Retrieved: 2021-10-14
+// Source: /configure/uniprotkb/search-fields
+// Retrieved: 2022-03-11
 const configureSearchTerms = [
   {
     id: 'accession_field',
@@ -9947,6 +9947,15 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             valuePrefix: 'kegg-',
+          },
+          {
+            id: 'xref_mane-select',
+            label: 'MANE-Select',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'mane-select-',
           },
           {
             id: 'xref_patric',

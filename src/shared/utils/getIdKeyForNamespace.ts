@@ -30,11 +30,24 @@ export const getIdKeyFor = (
   switch (namespace) {
     // Main namespaces
     case Namespace.uniprotkb:
-      return (data) => (data as UniProtkbAPIModel).primaryAccession;
+      return (data) => {
+        const { from } = data as UniProtkbAPIModel;
+        return `${from ? `${from}|` : ''}${
+          (data as UniProtkbAPIModel).primaryAccession
+        }`;
+      };
     case Namespace.uniref:
-      return (data) => (data as UniRefLiteAPIModel).id;
+      return (data) => {
+        const { from } = data as UniRefLiteAPIModel;
+        return `${from ? `${from}|` : ''}${(data as UniRefLiteAPIModel).id}`;
+      };
     case Namespace.uniparc:
-      return (data) => (data as UniParcAPIModel).uniParcId;
+      return (data) => {
+        const { from } = data as UniParcAPIModel;
+        return `${from ? `${from}|` : ''}${
+          (data as UniParcAPIModel).uniParcId
+        }`;
+      };
     case Namespace.proteomes:
       return (data) => (data as ProteomesAPIModel).id;
     // Supporting data

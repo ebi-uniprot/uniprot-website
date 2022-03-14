@@ -56,12 +56,12 @@ const InputParameters = lazy(
     )
 );
 // input-parameters
-// const APIRequest = lazy(
-//   () =>
-//     import(
-//       /* webpackChunkName: "api-request" */ '../../../components/APIRequest'
-//     )
-// );
+const APIRequest = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "api-request" */ '../../../components/APIRequest'
+    )
+);
 
 enum TabLocation {
   Overview = 'overview',
@@ -241,7 +241,7 @@ const IDMappingResult = () => {
         >
           <HTMLHead title={[title, 'API Request']} />
           <Suspense fallback={<Loader />}>
-            {/* <APIRequest jobType={jobType} inputParamsData={inputParamsData} /> */}
+            <APIRequest jobType={jobType} inputParamsData={detailsDataObject} />
           </Suspense>
         </Tab>
       </Tabs>

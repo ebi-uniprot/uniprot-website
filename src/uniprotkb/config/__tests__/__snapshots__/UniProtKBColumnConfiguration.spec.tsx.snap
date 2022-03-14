@@ -2263,6 +2263,8 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_maize
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_malacards": xref_malacards 1`] = `<DocumentFragment />`;
 
+exports[`UniProtKBColumnConfiguration component should render column "xref_mane-select": xref_mane-select 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render column "xref_massive": xref_massive 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_maxqb": xref_maxqb 1`] = `<DocumentFragment />`;

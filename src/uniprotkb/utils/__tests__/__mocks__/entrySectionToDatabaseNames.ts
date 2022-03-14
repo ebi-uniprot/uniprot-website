@@ -187,6 +187,7 @@ const entrySectionToDatabaseNames: EntrySectionToDatabaseNames = new Map([
       'GeneID',
       'Gramene',
       'KEGG',
+      'MANE-Select',
       'PATRIC',
       'UCSC',
       'VectorBase',

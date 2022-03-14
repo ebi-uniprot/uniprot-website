@@ -36,6 +36,8 @@ export enum PropertyKey {
   Project = 'Project',
   ProteinId = 'ProteinId',
   RectionId = 'RectionId',
+  RefSeqNucleotideId = 'RefSeqNucleotideId',
+  RefSeqProteinId = 'RefSeqProteinId',
   Resolution = 'Resolution',
   Status = 'Status',
   ToxinName = 'ToxinName',
