@@ -52,10 +52,4 @@ describe('Search component on results page', () => {
       screen.getByRole('button', { name: 'Advanced' })
     ).toBeInTheDocument();
   });
-  it('should not display the advanced search when on an align tool results page', () => {
-    renderWithRoute('/align/job123');
-    expect(
-      screen.queryByRole('button', { name: 'Advanced' })
-    ).not.toBeInTheDocument();
-  });
 });
