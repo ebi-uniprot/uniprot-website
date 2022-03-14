@@ -7,17 +7,17 @@ import { UseDataAPIState } from '../../shared/hooks/useDataApi';
 
 import { PublicServerParameters } from '../types/toolsServerParameters';
 import { JobTypes } from '../types/toolsJobTypes';
-import { FinishedJob } from '../types/toolsJob';
+import { FormParameters as PeptideSearchFormParameters } from '../peptide-search/types/peptideSearchFormParameters';
 
-import styles from './styles/input-parameters.module.css';
+import styles from './styles/extra-tabs.module.css';
 
 type InputParametersProps = {
   id: string;
   // No public endpoint to expose this for peptide search, so for now replace
   // with a "possible" job object in the case it's the same user that created it
-  inputParamsData:
+  inputParamsData?:
     | Partial<UseDataAPIState<PublicServerParameters[JobTypes]>>
-    | FinishedJob<JobTypes.PEPTIDE_SEARCH>
+    | PeptideSearchFormParameters
     | null;
   jobType: JobTypes;
 };
@@ -32,7 +32,7 @@ const InputParameters = ({
   if (
     inputParamsData &&
     // This is for TS to typeguard, after that we're sure it's not a local job
-    !('type' in inputParamsData) &&
+    !('peps' in inputParamsData) &&
     // We now have a data payload for sure, check for errors normally
     (inputParamsData.error || !inputParamsData.data)
   ) {
@@ -56,9 +56,7 @@ const InputParameters = ({
   }
 
   const inputParameters =
-    'parameters' in inputParamsData
-      ? inputParamsData.parameters
-      : inputParamsData.data;
+    'peps' in inputParamsData ? inputParamsData : inputParamsData.data;
 
   return (
     <>
