@@ -83,11 +83,12 @@ const IDMappingResult = () => {
   );
 
   const databaseInfoMaps = useDatabaseInfoMaps();
+  const idMappingDetails = useIDMappingDetails();
   const {
     data: detailsData,
     loading: detailsLoading,
     error: detailsError,
-  } = useIDMappingDetails() || {};
+  } = idMappingDetails || {};
 
   const [{ selectedFacets, query }] = getParamsFromURL(location.search);
 
@@ -137,10 +138,10 @@ const IDMappingResult = () => {
   }
 
   if (
-    facetInititialLoading &&
-    resultsDataInitialLoading &&
-    detailsLoading &&
-    !facetHasStaleData
+    (facetInititialLoading &&
+      resultsDataInitialLoading &&
+      !facetHasStaleData) ||
+    detailsLoading
   ) {
     return <Loader progress={progress} />;
   }
@@ -226,7 +227,7 @@ const IDMappingResult = () => {
           <Suspense fallback={<Loader />}>
             <InputParameters
               id={match.params.id}
-              inputParamsData={detailsData}
+              inputParamsData={idMappingDetails}
               jobType={jobType}
             />
           </Suspense>
@@ -241,7 +242,7 @@ const IDMappingResult = () => {
         >
           <HTMLHead title={[title, 'API Request']} />
           <Suspense fallback={<Loader />}>
-            <APIRequest jobType={jobType} inputParamsData={detailsDataObject} />
+            <APIRequest jobType={jobType} inputParamsData={idMappingDetails} />
           </Suspense>
         </Tab>
       </Tabs>
