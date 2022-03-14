@@ -10,7 +10,7 @@ import {
 import { generatePath, useHistory, useLocation } from 'react-router-dom';
 import qs from 'query-string';
 import { frame } from 'timing-functions';
-import { PageIntro, Loader, Button } from 'franklin-sites';
+import { PageIntro, Loader, Button, Message } from 'franklin-sites';
 
 // eslint-disable-next-line import/no-relative-packages
 import colors from '../../../node_modules/franklin-sites/src/styles/colours.json';
@@ -20,16 +20,19 @@ import ClauseList from './ClauseList';
 import { useMessagesDispatch } from '../../shared/contexts/Messages';
 import useDataApi from '../../shared/hooks/useDataApi';
 import useJobFromUrl from '../../shared/hooks/useJobFromUrl';
+import useIDMappingDetails from '../../shared/hooks/useIDMappingDetails';
 
 import { createEmptyClause, defaultQueryFor, getNextId } from '../utils/clause';
 import { pluralise } from '../../shared/utils/utils';
 import { stringify } from '../utils/queryStringProcessor';
 import parseAndMatchQuery from '../utils/parseAndMatchQuery';
+import { rawDBToNamespace } from '../../tools/id-mapping/utils';
 
 import { addMessage } from '../../messages/state/messagesActions';
 
 import apiUrls from '../../shared/config/apiUrls';
 import {
+  Namespace,
   SearchableNamespace,
   searchableNamespaceLabels,
   Searchspace,
@@ -37,6 +40,7 @@ import {
   toolResults,
 } from '../../shared/types/namespaces';
 import {
+  Location,
   LocationToPath,
   SearchResultsLocations,
   toolsResultsLocationToLabel,
@@ -71,6 +75,23 @@ interface Style extends CSSProperties {
   '--main-button-color': string;
 }
 
+const QueryNotPossibleMessage = ({
+  text,
+  onCancel,
+}: {
+  text: string;
+  onCancel: () => void;
+}) => (
+  <>
+    <Message level="info">{text}</Message>
+    <div className="query-builder__actions button-group sliding-panel__button-row">
+      <Button variant="secondary" onClick={onCancel}>
+        Cancel
+      </Button>
+    </div>
+  </>
+);
+
 const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
   const history = useHistory();
   const location = useLocation();
@@ -79,6 +100,7 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
   const { jobId, jobResultsNamespace, jobResultsLocation } = useJobFromUrl();
   const [searchspace, setSearchspace] =
     useState<Searchspace>(initialSearchspace);
+  const idMappingDetails = useIDMappingDetails();
 
   const namespace =
     searchspace === toolResults ? jobResultsNamespace : searchspace;
@@ -163,12 +185,14 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
     const options = [];
     // If the user is looking at a job result populate the "Searching in" with this
     // as an option just before the corresponding namespace
-    if (jobResultsNamespace && jobResultsLocation && jobId) {
-      const jobResultsNamespaceLabel =
-        searchableNamespaceLabels[jobResultsNamespace];
-      const jobToolLabel = toolsResultsLocationToLabel[jobResultsLocation];
+    if (jobResultsLocation && jobId) {
+      const pathParts = [
+        toolsResultsLocationToLabel[jobResultsLocation],
+        jobResultsNamespace && searchableNamespaceLabels[jobResultsNamespace],
+        jobId,
+      ].filter(Boolean);
       options.push({
-        label: `${searchspaceLabels[toolResults]}: ${jobToolLabel} / ${jobResultsNamespaceLabel} / ${jobId}`,
+        label: `${searchspaceLabels[toolResults]}: ${pathParts.join(' / ')}`,
         value: toolResults,
       });
     }
@@ -211,7 +235,7 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
     );
   }
 
-  if (!searchTermsData || !searchspace) {
+  if ((namespace && !searchTermsData) || !searchspace) {
     return null;
   }
 
@@ -248,30 +272,29 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
     onCancel();
   };
 
-  return (
-    <form
-      className="query-builder"
-      onSubmit={handleSubmit}
-      data-testid="query-builder-form"
-      aria-label="Query builder form"
-      style={style}
-    >
-      <fieldset>
-        <label htmlFor="namespace-select">
-          Searching in
-          <select
-            id="namespace-select"
-            onChange={onSearchSpaceChange}
-            value={searchspace}
-          >
-            {searchSpaceOptions.map(({ value, label }) => (
-              <option value={value} key={label}>
-                {label}
-              </option>
-            ))}
-          </select>
-        </label>
-      </fieldset>
+  let queryNotPossibleMessage: JSX.Element | null = null;
+  if (jobResultsLocation === Location.AlignResult) {
+    queryNotPossibleMessage = (
+      <QueryNotPossibleMessage
+        text="Filtering Align results is not possible as all of its sequences constitute the alignment."
+        onCancel={onCancel}
+      />
+    );
+  } else if (
+    searchspace === toolResults &&
+    idMappingDetails &&
+    rawDBToNamespace(idMappingDetails.to) === Namespace.idmapping
+  ) {
+    queryNotPossibleMessage = (
+      <QueryNotPossibleMessage
+        text="Search queries are not possible for ID mapping results which map to an external database."
+        onCancel={onCancel}
+      />
+    );
+  }
+
+  const clauseListWithButtons = searchTermsData && (
+    <>
       <fieldset>
         <ClauseList
           removeClause={removeClause}
@@ -298,6 +321,34 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
         Type * in the search box to search for all values for the selected
         field.
       </small>
+    </>
+  );
+
+  return (
+    <form
+      className="query-builder"
+      onSubmit={handleSubmit}
+      data-testid="query-builder-form"
+      aria-label="Query builder form"
+      style={style}
+    >
+      <fieldset>
+        <label htmlFor="namespace-select">
+          Searching in
+          <select
+            id="namespace-select"
+            onChange={onSearchSpaceChange}
+            value={searchspace}
+          >
+            {searchSpaceOptions.map(({ value, label }) => (
+              <option value={value} key={label}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </label>
+      </fieldset>
+      {queryNotPossibleMessage || clauseListWithButtons}
     </form>
   );
 };

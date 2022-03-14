@@ -103,7 +103,7 @@ const SearchContainer: FC<
   const [searchTerm, setSearchTerm] = useState<string>('');
   const handleClose = useCallback(() => setDisplayQueryBuilder(false), []);
 
-  const { jobId, jobResultsLocation } = useJobFromUrl();
+  const { jobId } = useJobFromUrl();
 
   const handleSubmit = (event: SyntheticEvent) => {
     // prevent normal browser submission
