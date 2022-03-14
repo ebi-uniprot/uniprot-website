@@ -102,7 +102,6 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
   const { jobId, jobResultsNamespace, jobResultsLocation } = useJobFromUrl();
   const [searchspace, setSearchspace] =
     useState<Searchspace>(initialSearchspace);
-  const idMappingDetails = useIDMappingDetails();
 
   const namespace =
     searchspace === toolResults ? jobResultsNamespace : searchspace;
@@ -115,16 +114,20 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
     [searchspace]
   );
 
-  const { loading, data: searchTermsData } = useDataApi<SearchTermType[]>(
-    namespace ? apiUrls.queryBuilderTerms(namespace) : undefined
-  );
+  const { data: idMappingDetailsData, loading: idMappingDetailsLoading } =
+    useIDMappingDetails() || {};
+  const { data: searchTermsData, loading: searchTermsLoading } = useDataApi<
+    SearchTermType[]
+  >(namespace ? apiUrls.queryBuilderTerms(namespace) : undefined);
+
+  const loading = idMappingDetailsLoading || searchTermsLoading;
 
   useEffect(() => {
     setClauses([]);
   }, [searchspace]);
 
   useEffect(() => {
-    if (!(searchTermsData && namespace) || loading) {
+    if (!(searchTermsData && namespace) || !idMappingDetailsData || loading) {
       return;
     }
 
@@ -181,6 +184,7 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
     searchspace,
     jobResultsNamespace,
     namespace,
+    idMappingDetailsData,
   ]);
 
   const searchSpaceOptions = useMemo(() => {
@@ -288,8 +292,8 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
   } else if (
     searchspace === toolResults &&
     jobResultsLocation === Location.IDMappingResult &&
-    idMappingDetails &&
-    rawDBToNamespace(idMappingDetails.to) === Namespace.idmapping
+    idMappingDetailsData &&
+    rawDBToNamespace(idMappingDetailsData.to) === Namespace.idmapping
   ) {
     queryNotPossibleMessage = (
       <QueryNotPossibleMessage

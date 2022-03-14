@@ -1,18 +1,15 @@
 import { createContext, FC } from 'react';
-import { Loader } from 'franklin-sites';
 import { JobTypes } from '../../tools/types/toolsJobTypes';
-import useDataApi from '../hooks/useDataApi';
+import useDataApi, { UseDataAPIState } from '../hooks/useDataApi';
 import { MappingDetails } from '../../tools/id-mapping/types/idMappingSearchResults';
 import useJobFromUrl from '../hooks/useJobFromUrl';
 import toolsURLs from '../../tools/config/urls';
 import { Location } from '../../app/config/urls';
-import ErrorHandler from '../components/error-pages/ErrorHandler';
 
 const idMappingURLs = toolsURLs(JobTypes.ID_MAPPING);
 
-export const IDMappingDetailsContext = createContext<MappingDetails | null>(
-  null
-);
+export const IDMappingDetailsContext =
+  createContext<UseDataAPIState<MappingDetails> | null>(null);
 
 export const IDMappingDetailsProvider: FC = ({ children }) => {
   const { jobId, jobResultsLocation } = useJobFromUrl();
@@ -24,20 +21,10 @@ export const IDMappingDetailsProvider: FC = ({ children }) => {
     jobId &&
     idMappingURLs.detailsUrl &&
     idMappingURLs?.detailsUrl(jobId);
-  const { data, loading, error, status, progress } = useDataApi<MappingDetails>(
-    idMappingDetailsUrl || ''
-  );
-
-  if (loading) {
-    return <Loader progress={progress} />;
-  }
-
-  if (error || (idMappingDetailsUrl && !data)) {
-    return <ErrorHandler status={status} />;
-  }
+  const mappingDetails = useDataApi<MappingDetails>(idMappingDetailsUrl || '');
 
   return (
-    <IDMappingDetailsContext.Provider value={data || null}>
+    <IDMappingDetailsContext.Provider value={mappingDetails}>
       {children}
     </IDMappingDetailsContext.Provider>
   );

@@ -8,7 +8,6 @@ import ErrorBoundary from '../../../../shared/components/error-component/ErrorBo
 import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 
-import useDataApi from '../../../../shared/hooks/useDataApi';
 import usePagination from '../../../../shared/hooks/usePagination';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
@@ -29,7 +28,6 @@ import {
 } from '../../../../app/config/urls';
 import {
   MappingAPIModel,
-  MappingDetails,
   MappingFlat,
 } from '../../types/idMappingSearchResults';
 import {
@@ -85,13 +83,13 @@ const IDMappingResult = () => {
   );
 
   const databaseInfoMaps = useDatabaseInfoMaps();
-  const detailsData = useIDMappingDetails();
+  const {
+    data: detailsData,
+    loading: detailsLoading,
+    error: detailsError,
+  } = useIDMappingDetails() || {};
 
   const [{ selectedFacets, query }] = getParamsFromURL(location.search);
-
-  const detailApiUrl =
-    urls.detailsUrl && urls.detailsUrl(match?.params.id || '');
-  const detailsDataObject = useDataApi<MappingDetails>(detailApiUrl);
 
   const toDBInfo =
     detailsData && databaseInfoMaps?.databaseToDatabaseInfo[detailsData.to];
@@ -134,16 +132,21 @@ const IDMappingResult = () => {
 
   useMarkJobAsSeen(resultsDataObject.allResults.length, match?.params.id);
 
-  if (!match) {
+  if (!match || detailsError) {
     return <ErrorHandler />;
   }
 
   if (
     facetInititialLoading &&
     resultsDataInitialLoading &&
+    detailsLoading &&
     !facetHasStaleData
   ) {
     return <Loader progress={progress} />;
+  }
+
+  if (!detailsData) {
+    return <ErrorHandler />;
   }
 
   let sidebar: JSX.Element;
@@ -223,7 +226,7 @@ const IDMappingResult = () => {
           <Suspense fallback={<Loader />}>
             <InputParameters
               id={match.params.id}
-              inputParamsData={detailsDataObject}
+              inputParamsData={detailsData}
               jobType={jobType}
             />
           </Suspense>

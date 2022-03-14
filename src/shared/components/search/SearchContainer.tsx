@@ -119,9 +119,8 @@ const SearchContainer: FC<
   const [searchTerm, setSearchTerm] = useState<string>('');
   const handleClose = useCallback(() => setDisplayQueryBuilder(false), []);
 
-  const idMappingDetails = useIDMappingDetails();
   const dispatch = useMessagesDispatch();
-
+  const idMappingDetails = useIDMappingDetails();
   const { jobId, jobResultsLocation } = useJobFromUrl();
 
   const handleSubmit = (event: SyntheticEvent) => {
@@ -145,8 +144,8 @@ const SearchContainer: FC<
     if (
       searchspace === toolResults &&
       jobResultsLocation === Location.IDMappingResult &&
-      idMappingDetails &&
-      rawDBToNamespace(idMappingDetails.to) === Namespace.idmapping
+      idMappingDetails?.data?.to &&
+      rawDBToNamespace(idMappingDetails.data.to) === Namespace.idmapping
     ) {
       dispatch(
         addMessage({
