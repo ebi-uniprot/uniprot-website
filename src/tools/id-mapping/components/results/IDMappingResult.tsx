@@ -88,6 +88,7 @@ const IDMappingResult = () => {
     data: detailsData,
     loading: detailsLoading,
     error: detailsError,
+    progress: detailsProgress,
   } = idMappingDetails || {};
 
   const [{ selectedFacets, query }] = getParamsFromURL(location.search);
@@ -138,12 +139,15 @@ const IDMappingResult = () => {
   }
 
   if (
-    (facetInititialLoading &&
-      resultsDataInitialLoading &&
-      !facetHasStaleData) ||
-    detailsLoading
+    facetInititialLoading &&
+    resultsDataInitialLoading &&
+    !facetHasStaleData
   ) {
     return <Loader progress={progress} />;
+  }
+
+  if (detailsLoading) {
+    return <Loader progress={detailsProgress} />;
   }
 
   if (!detailsData) {
