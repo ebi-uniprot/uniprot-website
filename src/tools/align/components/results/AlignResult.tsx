@@ -1,10 +1,5 @@
 import { useEffect, useState, lazy, Suspense, useCallback } from 'react';
-import {
-  Link,
-  useRouteMatch,
-  useHistory,
-  generatePath,
-} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Loader, PageIntro, Tabs, Tab } from 'franklin-sites';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
@@ -19,10 +14,11 @@ import useDataApi, {
 import useSequenceInfo from '../../utils/useSequenceInfo';
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
+import { useMatchWithRedirect } from '../../../utils/hooks';
 
 import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
 
-import { Location, LocationToPath } from '../../../../app/config/urls';
+import { changePathnameOnly, Location } from '../../../../app/config/urls';
 import toolsURLs from '../../../config/urls';
 import { namespaceAndToolsLabels } from '../../../../shared/types/namespaces';
 
@@ -122,9 +118,10 @@ type Params = {
 };
 
 const AlignResult = () => {
-  const history = useHistory();
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const match = useRouteMatch<Params>(LocationToPath[Location.AlignResult])!;
+  const match = useMatchWithRedirect<Params>(
+    Location.AlignResult,
+    TabLocation.Overview
+  );
 
   const [selectedEntries, , setSelectedEntries] = useItemSelect();
   const handleEntrySelection = useCallback(
@@ -138,29 +135,17 @@ const AlignResult = () => {
     [setSelectedEntries]
   );
 
-  // if URL doesn't finish with "overview" redirect to /overview by default
-  useEffect(() => {
-    if (match && !match.params.subPage) {
-      history.replace({
-        ...history.location,
-        pathname: generatePath(LocationToPath[Location.AlignResult], {
-          ...match.params,
-          subPage: TabLocation.Overview,
-        }),
-      });
-    }
-  }, [match, history]);
-
   // get data from the align endpoint
   const { loading, data, error, status, progress } = useDataApi<AlignResults>(
-    urls.resultUrl(match.params.id || '', { format: 'aln-clustal_num' })
+    match?.params.id &&
+      urls.resultUrl(match.params.id, { format: 'aln-clustal_num' })
   );
 
   const inputParamsData = useParamsData(match?.params.id || '');
 
   const sequenceInfo = useSequenceInfo(inputParamsData.data?.sequence);
 
-  useMarkJobAsSeen(data, match.params.id);
+  useMarkJobAsSeen(data, match?.params.id);
 
   if (loading) {
     return <Loader progress={progress} />;
@@ -179,20 +164,20 @@ const AlignResult = () => {
     />
   );
 
+  const basePath = `/align/${match.params.id}/`;
+
   return (
     <SingleColumnLayout className={sticky['sticky-tabs-container']}>
       <HTMLHead title={title} />
-      <PageIntro title="Align Results" />
+      <PageIntro
+        title={namespaceAndToolsLabels[jobType]}
+        titlePostscript={<small> results</small>}
+      />
       <Tabs active={match.params.subPage}>
         <Tab
           id={TabLocation.Overview}
           title={
-            <Link
-              to={(location) => ({
-                ...location,
-                pathname: `/align/${match.params.id}/${TabLocation.Overview}`,
-              })}
-            >
+            <Link to={changePathnameOnly(basePath + TabLocation.Overview)}>
               Overview
             </Link>
           }
@@ -212,12 +197,7 @@ const AlignResult = () => {
         <Tab
           id={TabLocation.PhyloTree}
           title={
-            <Link
-              to={(location) => ({
-                ...location,
-                pathname: `/align/${match.params.id}/${TabLocation.PhyloTree}`,
-              })}
-            >
+            <Link to={changePathnameOnly(basePath + TabLocation.PhyloTree)}>
               Phylogenetic Tree
             </Link>
           }
@@ -238,12 +218,7 @@ const AlignResult = () => {
         <Tab
           id={TabLocation.PIM}
           title={
-            <Link
-              to={(location) => ({
-                ...location,
-                pathname: `/align/${match.params.id}/${TabLocation.PIM}`,
-              })}
-            >
+            <Link to={changePathnameOnly(basePath + TabLocation.PIM)}>
               Percent Identity Matrix
             </Link>
           }
@@ -264,12 +239,7 @@ const AlignResult = () => {
         <Tab
           id={TabLocation.TextOutput}
           title={
-            <Link
-              to={(location) => ({
-                ...location,
-                pathname: `/align/${match.params.id}/${TabLocation.TextOutput}`,
-              })}
-            >
+            <Link to={changePathnameOnly(basePath + TabLocation.TextOutput)}>
               Text Output
             </Link>
           }
@@ -285,10 +255,7 @@ const AlignResult = () => {
           id={TabLocation.InputParameters}
           title={
             <Link
-              to={(location) => ({
-                ...location,
-                pathname: `/align/${match.params.id}/${TabLocation.InputParameters}`,
-              })}
+              to={changePathnameOnly(basePath + TabLocation.InputParameters)}
             >
               Input Parameters
             </Link>
@@ -308,12 +275,7 @@ const AlignResult = () => {
         <Tab
           id={TabLocation.APIRequest}
           title={
-            <Link
-              to={(location) => ({
-                ...location,
-                pathname: `/align/${match.params.id}/${TabLocation.APIRequest}`,
-              })}
-            >
+            <Link to={changePathnameOnly(basePath + TabLocation.APIRequest)}>
               API Request
             </Link>
           }

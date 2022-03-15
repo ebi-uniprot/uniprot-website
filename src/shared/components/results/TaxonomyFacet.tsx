@@ -89,7 +89,7 @@ const TaxonomyFacet: FC<{ namespace: SearchableNamespace }> = ({
               <QueryBuilder
                 onCancel={handleClose}
                 fieldToAdd="taxonomy_name"
-                initialNamespace={namespace}
+                initialSearchspace={namespace}
               />
             </ErrorBoundary>
           </SlidingPanel>

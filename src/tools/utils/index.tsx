@@ -1,4 +1,4 @@
-import { Link, generatePath } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AxiosResponse } from 'axios';
 import { LocationDescriptor } from 'history';
 
@@ -164,10 +164,7 @@ export const getJobMessage = ({
   let location: LocationDescriptor<LocationStateFromJobLink> | undefined;
   if ('remoteID' in job && job.remoteID && nHits !== 0) {
     location = {
-      pathname: generatePath(jobTypeToPath(job.type, true), {
-        id: job.remoteID,
-        subPage: 'overview',
-      }),
+      pathname: jobTypeToPath(job.type, job),
       state: { internalID: job.internalID },
     };
   }
