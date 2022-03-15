@@ -2,6 +2,8 @@ import { fireEvent, screen, getByText } from '@testing-library/react';
 
 import QueryBuilder from '../QueryBuilder';
 
+import { IDMappingDetailsContext } from '../../../shared/contexts/IDMappingDetails';
+
 import customRender from '../../../shared/__test-helpers__/customRender';
 import searchTermData from './__mocks__/configureSearchTerms';
 
@@ -20,10 +22,12 @@ describe('QueryBuilder', () => {
     (useDataApi as jest.Mock).mockReturnValue({ data: searchTermData });
 
     rendered = customRender(
-      <QueryBuilder
-        onCancel={onCancel}
-        initialSearchspace={Namespace.uniprotkb}
-      />
+      <IDMappingDetailsContext.Provider value={null}>
+        <QueryBuilder
+          onCancel={onCancel}
+          initialSearchspace={Namespace.uniprotkb}
+        />
+      </IDMappingDetailsContext.Provider>
     );
   });
 

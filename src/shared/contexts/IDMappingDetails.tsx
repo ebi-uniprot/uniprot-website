@@ -13,16 +13,15 @@ export const IDMappingDetailsContext =
 
 export const IDMappingDetailsProvider: FC = ({ children }) => {
   const { jobId, jobResultsLocation } = useJobFromUrl();
-
-  // If user is looking at ID mapping results fetch the job details and look
-  // at if "to" is a UniProt DB
+  // If the user is looking at ID mapping results fetch the job details.
+  // This is useful as a context as there are several places the "to" field
+  // is checked to determine if the results are in a UniProt DB
   const idMappingDetailsUrl =
     jobResultsLocation === Location.IDMappingResult &&
     jobId &&
     idMappingURLs.detailsUrl &&
     idMappingURLs?.detailsUrl(jobId);
   const mappingDetails = useDataApi<MappingDetails>(idMappingDetailsUrl || '');
-
   return (
     <IDMappingDetailsContext.Provider value={mappingDetails}>
       {children}

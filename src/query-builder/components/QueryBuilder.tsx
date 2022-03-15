@@ -121,13 +121,16 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
   >(namespace ? apiUrls.queryBuilderTerms(namespace) : undefined);
 
   const loading = idMappingDetailsLoading || searchTermsLoading;
-
   useEffect(() => {
     setClauses([]);
   }, [searchspace]);
 
   useEffect(() => {
-    if (!(searchTermsData && namespace) || !idMappingDetailsData || loading) {
+    if (
+      !(searchTermsData && namespace) ||
+      (!idMappingDetailsData && idMappingDetailsLoading) ||
+      loading
+    ) {
       return;
     }
 
@@ -185,6 +188,7 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
     jobResultsNamespace,
     namespace,
     idMappingDetailsData,
+    idMappingDetailsLoading,
   ]);
 
   const searchSpaceOptions = useMemo(() => {
