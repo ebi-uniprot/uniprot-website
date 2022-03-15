@@ -17,8 +17,11 @@ import ErrorBoundary from '../error-component/ErrorBoundary';
 
 import useJobFromUrl from '../../hooks/useJobFromUrl';
 import useIDMappingDetails from '../../hooks/useIDMappingDetails';
+import { useMessagesDispatch } from '../../contexts/Messages';
 
 import lazy from '../../utils/lazy';
+import { addMessage } from '../../../messages/state/messagesActions';
+import { rawDBToNamespace } from '../../../tools/id-mapping/utils';
 
 import {
   Location,
@@ -33,16 +36,13 @@ import {
   toolResults,
   searchspaceLabels,
 } from '../../types/namespaces';
-
-import './styles/search-container.scss';
-import { useMessagesDispatch } from '../../contexts/Messages';
-import { addMessage } from '../../../messages/state/messagesActions';
 import {
   MessageFormat,
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
-import { rawDBToNamespace } from '../../../tools/id-mapping/utils';
 import { JobTypes } from '../../../tools/types/toolsJobTypes';
+
+import './styles/search-container.scss';
 
 const QueryBuilder = lazy(
   () =>

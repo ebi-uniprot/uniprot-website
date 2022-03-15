@@ -13,6 +13,7 @@ import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 import useDatabaseInfoMaps from '../../../../shared/hooks/useDatabaseInfoMaps';
 import { useMatchWithRedirect } from '../../../utils/hooks';
+import useIDMappingDetails from '../../../../shared/hooks/useIDMappingDetails';
 
 import { rawDBToNamespace } from '../../utils';
 import toolsURLs from '../../../config/urls';
@@ -35,7 +36,6 @@ import {
   namespaceAndToolsLabels,
 } from '../../../../shared/types/namespaces';
 import Response from '../../../../uniprotkb/types/responseTypes';
-import useIDMappingDetails from '../../../../shared/hooks/useIDMappingDetails';
 
 const jobType = JobTypes.ID_MAPPING;
 const urls = toolsURLs(jobType);

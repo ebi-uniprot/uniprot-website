@@ -1,9 +1,12 @@
 import { createContext, FC } from 'react';
-import { JobTypes } from '../../tools/types/toolsJobTypes';
+
 import useDataApi, { UseDataAPIState } from '../hooks/useDataApi';
-import { MappingDetails } from '../../tools/id-mapping/types/idMappingSearchResults';
 import useJobFromUrl from '../hooks/useJobFromUrl';
+
 import toolsURLs from '../../tools/config/urls';
+
+import { JobTypes } from '../../tools/types/toolsJobTypes';
+import { MappingDetails } from '../../tools/id-mapping/types/idMappingSearchResults';
 import { Location } from '../../app/config/urls';
 
 const idMappingURLs = toolsURLs(JobTypes.ID_MAPPING);

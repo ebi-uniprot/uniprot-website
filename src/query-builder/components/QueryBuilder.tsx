@@ -45,17 +45,17 @@ import {
   SearchResultsLocations,
   toolsResultsLocationToLabel,
 } from '../../app/config/urls';
+import { cannotQueryMessages } from '../../shared/components/search/SearchContainer';
 
 import {
   MessageFormat,
   MessageLevel,
 } from '../../messages/types/messagesTypes';
 import { Clause, SearchTermType } from '../types/searchTypes';
+import { JobTypes } from '../../tools/types/toolsJobTypes';
 
 import '../../shared/components/search/styles/search-container.scss';
 import './styles/query-builder.scss';
-import { cannotQueryMessages } from '../../shared/components/search/SearchContainer';
-import { JobTypes } from '../../tools/types/toolsJobTypes';
 
 type Props = {
   /**
