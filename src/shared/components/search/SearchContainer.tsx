@@ -16,8 +16,12 @@ import { MainSearch, Button, SlidingPanel } from 'franklin-sites';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 
 import useJobFromUrl from '../../hooks/useJobFromUrl';
+import useIDMappingDetails from '../../hooks/useIDMappingDetails';
+import { useMessagesDispatch } from '../../contexts/Messages';
 
 import lazy from '../../utils/lazy';
+import { addMessage } from '../../../messages/state/messagesActions';
+import { rawDBToNamespace } from '../../../tools/id-mapping/utils';
 
 import {
   Location,
@@ -32,6 +36,11 @@ import {
   toolResults,
   searchspaceLabels,
 } from '../../types/namespaces';
+import {
+  MessageFormat,
+  MessageLevel,
+} from '../../../messages/types/messagesTypes';
+import { JobTypes } from '../../../tools/types/toolsJobTypes';
 
 import './styles/search-container.scss';
 
@@ -87,6 +96,13 @@ const examples: Record<SearchableNamespace, string[]> = {
   [Namespace.arba]: ['Insulin', 'Eukaryota'],
 };
 
+export const cannotQueryMessages = {
+  [JobTypes.ID_MAPPING]:
+    'Search queries are not possible for ID mapping results which map to an external database.',
+  [JobTypes.ALIGN]:
+    'Filtering Align results is not possible as all of its sequences constitute the alignment.',
+};
+
 type Props = {
   isOnHomePage?: boolean;
   searchspace: Searchspace;
@@ -103,11 +119,44 @@ const SearchContainer: FC<
   const [searchTerm, setSearchTerm] = useState<string>('');
   const handleClose = useCallback(() => setDisplayQueryBuilder(false), []);
 
+  const dispatch = useMessagesDispatch();
+  const idMappingDetails = useIDMappingDetails();
   const { jobId, jobResultsLocation } = useJobFromUrl();
 
   const handleSubmit = (event: SyntheticEvent) => {
     // prevent normal browser submission
     event.preventDefault();
+
+    if (
+      searchspace === toolResults &&
+      jobResultsLocation === Location.AlignResult
+    ) {
+      dispatch(
+        addMessage({
+          format: MessageFormat.POP_UP,
+          level: MessageLevel.INFO,
+          content: cannotQueryMessages[JobTypes.ALIGN],
+          displayTime: 5_000,
+        })
+      );
+      return;
+    }
+    if (
+      searchspace === toolResults &&
+      jobResultsLocation === Location.IDMappingResult &&
+      idMappingDetails?.data?.to &&
+      rawDBToNamespace(idMappingDetails.data.to) === Namespace.idmapping
+    ) {
+      dispatch(
+        addMessage({
+          format: MessageFormat.POP_UP,
+          level: MessageLevel.INFO,
+          content: cannotQueryMessages[JobTypes.ID_MAPPING],
+          displayTime: 5_000,
+        })
+      );
+      return;
+    }
 
     // restringify the resulting search
     const stringifiedSearch = queryString.stringify(
@@ -134,10 +183,9 @@ const SearchContainer: FC<
     setSearchTerm(example);
   };
 
-  const secondaryButtons = useMemo(() => {
-    const buttons = [];
-    if (jobResultsLocation !== Location.AlignResult) {
-      buttons.push({
+  const secondaryButtons = useMemo(
+    () => [
+      {
         label:
           // TODO:
           // <span
@@ -150,18 +198,18 @@ const SearchContainer: FC<
         action: () => {
           setDisplayQueryBuilder((value) => !value);
         },
-      });
-    }
-    buttons.push({
-      label: 'List',
-      action: () => {
-        history.push({
-          pathname: LocationToPath[Location.IDMapping],
-        });
       },
-    });
-    return buttons;
-  }, [history, jobResultsLocation]);
+      {
+        label: 'List',
+        action: () => {
+          history.push({
+            pathname: LocationToPath[Location.IDMapping],
+          });
+        },
+      },
+    ],
+    [history]
+  );
 
   // reset the text content when there is a navigation to reflect what is in the
   // URL. That includes removing the text when browsing to a non-search page.

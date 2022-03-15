@@ -9,6 +9,7 @@ import { Router } from 'react-router-dom';
 import { MessagesProvider } from '../../shared/contexts/Messages';
 import { ToolsProvider } from '../../shared/contexts/Tools';
 import { DatabaseInfoMapsProvider } from '../../shared/contexts/DatabaseInfoMaps';
+import { IDMappingDetailsProvider } from '../../shared/contexts/IDMappingDetails';
 
 import history from '../../shared/utils/browserHistory';
 
@@ -19,7 +20,9 @@ const GlobalContext: FC = ({ children }) => (
         <MessagesProvider>
           {/* Order is important, tools needs to be within messages */}
           <ToolsProvider>
-            <DatabaseInfoMapsProvider>{children}</DatabaseInfoMapsProvider>
+            <DatabaseInfoMapsProvider>
+              <IDMappingDetailsProvider>{children}</IDMappingDetailsProvider>
+            </DatabaseInfoMapsProvider>
           </ToolsProvider>
         </MessagesProvider>
       </Router>

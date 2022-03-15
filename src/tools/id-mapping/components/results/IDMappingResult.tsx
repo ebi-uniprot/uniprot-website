@@ -8,12 +8,12 @@ import ErrorBoundary from '../../../../shared/components/error-component/ErrorBo
 import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 
-import useDataApi from '../../../../shared/hooks/useDataApi';
 import usePagination from '../../../../shared/hooks/usePagination';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 import useDatabaseInfoMaps from '../../../../shared/hooks/useDatabaseInfoMaps';
 import { useMatchWithRedirect } from '../../../utils/hooks';
+import useIDMappingDetails from '../../../../shared/hooks/useIDMappingDetails';
 
 import { rawDBToNamespace } from '../../utils';
 import toolsURLs from '../../../config/urls';
@@ -29,7 +29,6 @@ import {
 } from '../../../../app/config/urls';
 import {
   MappingAPIModel,
-  MappingDetails,
   MappingFlat,
 } from '../../types/idMappingSearchResults';
 import {
@@ -84,13 +83,15 @@ const IDMappingResult = () => {
   );
 
   const databaseInfoMaps = useDatabaseInfoMaps();
+  const idMappingDetails = useIDMappingDetails();
+  const {
+    data: detailsData,
+    loading: detailsLoading,
+    error: detailsError,
+    progress: detailsProgress,
+  } = idMappingDetails || {};
 
   const [{ selectedFacets, query }] = getParamsFromURL(location.search);
-
-  const detailApiUrl =
-    urls.detailsUrl && urls.detailsUrl(match?.params.id || '');
-  const detailsDataObject = useDataApi<MappingDetails>(detailApiUrl);
-  const { data: detailsData, error, status } = detailsDataObject;
 
   const toDBInfo =
     detailsData && databaseInfoMaps?.databaseToDatabaseInfo[detailsData.to];
@@ -133,8 +134,8 @@ const IDMappingResult = () => {
 
   useMarkJobAsSeen(resultsDataObject.allResults.length, match?.params.id);
 
-  if (error || !match) {
-    return <ErrorHandler status={status} />;
+  if (!match || detailsError) {
+    return <ErrorHandler />;
   }
 
   if (
@@ -143,6 +144,14 @@ const IDMappingResult = () => {
     !facetHasStaleData
   ) {
     return <Loader progress={progress} />;
+  }
+
+  if (detailsLoading) {
+    return <Loader progress={detailsProgress} />;
+  }
+
+  if (!detailsData) {
+    return <ErrorHandler />;
   }
 
   let sidebar: JSX.Element;
@@ -222,7 +231,7 @@ const IDMappingResult = () => {
           <Suspense fallback={<Loader />}>
             <InputParameters
               id={match.params.id}
-              inputParamsData={detailsDataObject}
+              inputParamsData={idMappingDetails}
               jobType={jobType}
             />
           </Suspense>
@@ -237,7 +246,7 @@ const IDMappingResult = () => {
         >
           <HTMLHead title={[title, 'API Request']} />
           <Suspense fallback={<Loader />}>
-            <APIRequest jobType={jobType} inputParamsData={detailsDataObject} />
+            <APIRequest jobType={jobType} inputParamsData={idMappingDetails} />
           </Suspense>
         </Tab>
       </Tabs>
