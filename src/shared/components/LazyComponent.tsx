@@ -14,6 +14,9 @@ const defaultFallback = <Loader />;
 type Props = {
   fallback?: ReactNode;
   rootMargin?: string;
+  // Might be useful to debug, or to manually control the rendering with logic
+  // external to this component
+  render?: boolean;
 };
 
 const ioSupported = globalThis && 'IntersectionObserver' in globalThis;
@@ -22,6 +25,7 @@ const LazyComponent: FC<Props> = ({
   fallback = defaultFallback,
   rootMargin,
   children,
+  render,
 }) => {
   // In case of not supported browser, just display the component
   const [wasShown, setWasShown] = useState(!ioSupported);
@@ -29,6 +33,7 @@ const LazyComponent: FC<Props> = ({
 
   const observer = useMemo(
     () =>
+      render === undefined &&
       ioSupported &&
       new globalThis.IntersectionObserver(
         ([entry]) => {
@@ -38,19 +43,19 @@ const LazyComponent: FC<Props> = ({
         },
         { rootMargin }
       ),
-    [rootMargin]
+    [rootMargin, render]
   );
 
   // eslint-disable-next-line consistent-return
   useEffect(() => {
-    if (observer && ref.current && !wasShown) {
+    if (render === undefined && observer && ref.current && !wasShown) {
       observer.observe(ref.current);
       // Should disconnect as soon as the intersection observer was triggered
       return () => observer.disconnect();
     }
-  }, [observer, wasShown]);
+  }, [render, observer, wasShown]);
 
-  if (wasShown) {
+  if (render ?? wasShown) {
     return <Suspense fallback={fallback}>{children}</Suspense>;
   }
 
