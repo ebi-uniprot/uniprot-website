@@ -220,6 +220,7 @@ $latest-news-height: 18rem;
   }
 
   &__tutorial-videos-bottom {
+    align-self: start;
     grid-row-start: 2;
 
     a {
