@@ -331,10 +331,10 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
         </Button>
         <Button type="submit">Search</Button>
       </div>
-      <small>
+      <Message level="info">
         Type * in the search box to search for all values for the selected
         field.
-      </small>
+      </Message>
     </>
   );
 
