@@ -422,8 +422,10 @@ const EntryHistory = ({ accession }: { accession: string }) => {
   );
 
   if (version && Array.isArray(version) && version.length === 2) {
-    const min = Math.min(+version[0], +version[1]);
-    const max = Math.max(+version[0], +version[1]);
+    const v0 = +(version[0] || 0);
+    const v1 = +(version[1] || 0);
+    const min = Math.min(v0, v1);
+    const max = Math.max(v0, v1);
     const pathname = getEntryPath(
       Namespace.uniprotkb,
       accession,
