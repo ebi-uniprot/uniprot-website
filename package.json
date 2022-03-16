@@ -102,7 +102,7 @@
     "@sentry/types": "6.18.2",
     "@swissprot/rhea-reaction-visualizer": "0.0.21",
     "@swissprot/swissbiopics-visualizer": "0.0.28",
-    "@types/gtag.js": "0.0.8",
+    "@types/gtag.js": "0.0.9",
     "@types/marked": "4.0.2",
     "axios": "0.26.1",
     "classnames": "2.3.1",
