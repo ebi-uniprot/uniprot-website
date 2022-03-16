@@ -2,6 +2,7 @@ import { useRouteMatch } from 'react-router-dom';
 import { DropdownButton, DownloadIcon } from 'franklin-sites';
 
 import apiUrls from '../../config/apiUrls';
+import uniparcApiUrls from '../../../uniparc/config/apiUrls';
 import { allEntryPages } from '../../../app/config/urls';
 
 import { fileFormatEntryDownload as uniProtKBFFED } from '../../../uniprotkb/config/download';
@@ -60,7 +61,14 @@ const EntryDownload = () => {
         <ul>
           {fileFormatEntryDownload.map((fileFormat) => (
             <li key={fileFormat}>
-              <a href={apiUrls.entryDownload(accession, fileFormat, namespace)}>
+              <a
+                href={
+                  namespace === Namespace.uniparc &&
+                  fileFormat === FileFormat.tsv
+                    ? uniparcApiUrls.databases(accession)
+                    : apiUrls.entryDownload(accession, fileFormat, namespace)
+                }
+              >
                 {fileFormat}
               </a>
             </li>
