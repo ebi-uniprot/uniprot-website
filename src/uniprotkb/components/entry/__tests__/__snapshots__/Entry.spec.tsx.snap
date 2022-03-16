@@ -906,29 +906,31 @@ exports[`Entry basic should render main 1`] = `
                         <div
                           class="decorated-list-item__content"
                         >
-                          rec full Name 
-                          <button
-                            aria-controls="13"
-                            aria-expanded="false"
-                            class="svg-colour-unreviewed evidence-tag"
-                            data-testid="evidence-tag-trigger"
-                            type="button"
-                          >
-                            <test-file-stub
-                              height="12"
-                              width="12"
-                            />
-                            <span
-                              class="evidence-tag__label"
+                          <strong>
+                            rec full Name 
+                            <button
+                              aria-controls="13"
+                              aria-expanded="false"
+                              class="svg-colour-unreviewed evidence-tag"
+                              data-testid="evidence-tag-trigger"
+                              type="button"
                             >
-                              1 automatic annotation
-                            </span>
-                          </button>
-                          <div
-                            class="evidence-tag-content "
-                            data-testid="evidence-tag-content"
-                            id="13"
-                          />
+                              <test-file-stub
+                                height="12"
+                                width="12"
+                              />
+                              <span
+                                class="evidence-tag__label"
+                              >
+                                1 automatic annotation
+                              </span>
+                            </button>
+                            <div
+                              class="evidence-tag-content "
+                              data-testid="evidence-tag-content"
+                              id="13"
+                            />
+                          </strong>
                         </div>
                       </div>
                     </li>
@@ -1482,29 +1484,31 @@ exports[`Entry basic should render main 1`] = `
                         <div
                           class="decorated-list-item__content"
                         >
-                          includesrec full Name 
-                          <button
-                            aria-controls="27"
-                            aria-expanded="false"
-                            class="svg-colour-unreviewed evidence-tag"
-                            data-testid="evidence-tag-trigger"
-                            type="button"
-                          >
-                            <test-file-stub
-                              height="12"
-                              width="12"
-                            />
-                            <span
-                              class="evidence-tag__label"
+                          <strong>
+                            includesrec full Name 
+                            <button
+                              aria-controls="27"
+                              aria-expanded="false"
+                              class="svg-colour-unreviewed evidence-tag"
+                              data-testid="evidence-tag-trigger"
+                              type="button"
                             >
-                              1 automatic annotation
-                            </span>
-                          </button>
-                          <div
-                            class="evidence-tag-content "
-                            data-testid="evidence-tag-content"
-                            id="27"
-                          />
+                              <test-file-stub
+                                height="12"
+                                width="12"
+                              />
+                              <span
+                                class="evidence-tag__label"
+                              >
+                                1 automatic annotation
+                              </span>
+                            </button>
+                            <div
+                              class="evidence-tag-content "
+                              data-testid="evidence-tag-content"
+                              id="27"
+                            />
+                          </strong>
                         </div>
                       </div>
                     </li>
