@@ -405,9 +405,7 @@ export const EntryHistoryList = ({ accession }: { accession: string }) => {
 };
 
 const EntryHistory = ({ accession }: { accession: string }) => {
-  const { version } = parseQueryString(useLocation().search, {
-    parseNumbers: true,
-  });
+  const { version } = parseQueryString(useLocation().search);
 
   const title = <h2>Entry history</h2>;
 
@@ -423,7 +421,7 @@ const EntryHistory = ({ accession }: { accession: string }) => {
     </div>
   );
 
-  if (version && Array.isArray(version) && version.length === 2) {
+  if (version && version.length === 2) {
     const v1 = +(version[0] || 0);
     const v2 = +(version[1] || 0);
     const min = Math.min(v1, v2);
