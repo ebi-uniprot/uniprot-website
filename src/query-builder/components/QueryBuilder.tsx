@@ -139,10 +139,20 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
         return clauses;
       }
 
-      let query = qs.parse(location.search, { decode: true })?.query;
+      let query = qs
+        .parse(location.search, { decode: true })
+        ?.query.filter((q: string | null): q is string => !!q);
       if (query === '*') {
         // if the query is a star query, don't parse it, default to example form
         query = null;
+      }
+      if (query === null) {
+        query = 'a';
+      }
+      if (Array.isArray(query)) {
+        const t = query.filter((q: string | null): q is string => !!q);
+        query = t as string[];
+        query = false;
       }
 
       const [validatedQuery, invalidClauses] = parseAndMatchQuery(
