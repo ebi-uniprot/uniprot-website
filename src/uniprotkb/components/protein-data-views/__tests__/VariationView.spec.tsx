@@ -8,7 +8,7 @@ import useDataApi from '../../../../shared/hooks/useDataApi';
 jest.mock('../../../../shared/hooks/useDataApi');
 
 describe('VariationView component', () => {
-  test('renders on loading', async () => {
+  it('renders on loading', async () => {
     (useDataApi as jest.Mock).mockReturnValue({ loading: true });
     await act(async () => {
       const { asFragment } = render(
@@ -18,7 +18,7 @@ describe('VariationView component', () => {
     });
   });
 
-  test('renders on error', async () => {
+  it('renders on error', async () => {
     (useDataApi as jest.Mock).mockReturnValue({
       loading: false,
       error: new Error('some error'),
@@ -32,7 +32,7 @@ describe('VariationView component', () => {
     });
   });
 
-  test('renders on no data', async () => {
+  it('renders on no data', async () => {
     (useDataApi as jest.Mock).mockReturnValue({
       loading: false,
       error: new Error('some error'),
@@ -44,7 +44,7 @@ describe('VariationView component', () => {
     });
   });
 
-  test('renders on data', async () => {
+  it('renders on data', async () => {
     // protvista-variation-adapter is already mocked
     // but we still need the call
     (useDataApi as jest.Mock).mockReturnValue({
@@ -53,7 +53,7 @@ describe('VariationView component', () => {
     });
     await act(async () => {
       const { asFragment } = render(
-        <VariationView primaryAccession="P05067" title="some title" />
+        <VariationView primaryAccession="P05067" title="some title" onlyTable />
       );
       expect(asFragment()).toMatchSnapshot();
     });

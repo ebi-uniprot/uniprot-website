@@ -1,3 +1,4 @@
+import { lazy } from 'react';
 import { groupBy } from 'lodash-es';
 import { Card } from 'franklin-sites';
 
@@ -9,13 +10,20 @@ import EntrySection, {
 import { UIModel } from '../../adapters/sectionConverter';
 import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import XRefView from '../protein-data-views/XRefView';
-import StructureView from '../protein-data-views/StructureView';
+import LazyComponent from '../../../shared/components/LazyComponent';
 
 import {
   partitionStructureDatabases,
   XrefUIModel,
 } from '../../utils/xrefUtils';
 import { DatabaseCategory } from '../../types/databaseRefs';
+
+const StructureView = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "structure-view" */ '../protein-data-views/StructureView'
+    )
+);
 
 type Props = {
   data: UIModel;
@@ -93,7 +101,9 @@ const StructureSection = ({
       id={EntrySection.Structure}
       data-entry-section
     >
-      <StructureView primaryAccession={primaryAccession} />
+      <LazyComponent rootMargin="100px">
+        <StructureView primaryAccession={primaryAccession} />
+      </LazyComponent>
       <FeaturesView
         primaryAccession={primaryAccession}
         features={data.featuresData}

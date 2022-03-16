@@ -1,20 +1,24 @@
-import { useCallback, useMemo, Fragment } from 'react';
+import { useMemo, Fragment, lazy } from 'react';
 import { Loader } from 'franklin-sites';
 import joinUrl from 'url-join';
 
-import { filterConfig, colorConfig } from 'protvista-uniprot';
 import { ProteinsAPIVariation } from 'protvista-variation-adapter/dist/es/variants';
 import { transformData, TransformedVariant } from 'protvista-variation-adapter';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
-import NightingaleZoomTool from './NightingaleZoomTool';
+import LazyComponent from '../../../shared/components/LazyComponent';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 
 import apiUrls from '../../../shared/config/apiUrls';
 
-import './styles/variation-view.scss';
+const VisualVariationView = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "visual-variation-view" */ './VisualVariationView'
+    )
+);
 
 const sortByLocation = (a: TransformedVariant, b: TransformedVariant) => {
   const aStart = +a.start;
@@ -50,64 +54,6 @@ const VariationView = ({
     [data]
   );
 
-  const filterElement = useCustomElement(
-    /* istanbul ignore next */
-    () => import(/* webpackChunkName: "protvista-filter" */ 'protvista-filter'),
-    'protvista-filter'
-  );
-
-  const protvistaFilterRef = useCallback(
-    (node) => {
-      if (node && filterElement.defined) {
-        // eslint-disable-next-line no-param-reassign
-        node.filters = filterConfig;
-      }
-    },
-    [filterElement.defined]
-  );
-
-  const variationElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(
-        /* webpackChunkName: "protvista-variation" */ 'protvista-variation'
-      ),
-    'protvista-variation'
-  );
-
-  const protvistaVariationRef = useCallback(
-    (node) => {
-      if (
-        node &&
-        variationElement.defined &&
-        transformedData &&
-        transformedData.variants
-      ) {
-        // eslint-disable-next-line no-param-reassign
-        node.colorConfig = colorConfig;
-        // eslint-disable-next-line no-param-reassign
-        node.data = transformedData;
-        // eslint-disable-next-line no-param-reassign
-        node.length = transformedData.sequence.length;
-      }
-    },
-    [variationElement.defined, transformedData]
-  );
-
-  const navigationElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(
-        /* webpackChunkName: "protvista-navigation" */ 'protvista-navigation'
-      ),
-    'protvista-navigation'
-  );
-  const sequenceElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(/* webpackChunkName: "protvista-sequence" */ 'protvista-sequence'),
-    'protvista-sequence'
-  );
   const managerElement = useCustomElement(
     /* istanbul ignore next */
     () =>
@@ -122,14 +68,6 @@ const VariationView = ({
       ),
     'protvista-datatable'
   );
-  const ceDefined =
-    filterElement.defined &&
-    variationElement.defined &&
-    navigationElement.defined &&
-    sequenceElement.defined &&
-    managerElement.defined &&
-    dataTableElement.defined;
-
   if (loading) {
     return <Loader />;
   }
@@ -169,7 +107,11 @@ const VariationView = ({
 
             return (
               <Fragment key={variantFeature.protvistaFeatureId}>
-                <tr data-id={variantFeature.protvistaFeatureId}>
+                <tr
+                  data-id={variantFeature.protvistaFeatureId}
+                  data-start={variantFeature.start}
+                  data-end={variantFeature.end}
+                >
                   <td>{position}</td>
                   <td>
                     {variantFeature.wildType}
@@ -192,7 +134,11 @@ const VariationView = ({
                       : 'N'}
                   </td>
                 </tr>
-                <tr data-group-for={variantFeature.protvistaFeatureId}>
+                <tr
+                  data-group-for={variantFeature.protvistaFeatureId}
+                  data-start={variantFeature.start}
+                  data-end={variantFeature.end}
+                >
                   <td>
                     <div>
                       <strong>Consequence: </strong>
@@ -258,26 +204,10 @@ const VariationView = ({
     <div>
       {title && <h3>{title}</h3>}
       <managerElement.name attributes="highlight displaystart displayend activefilters filters selectedid">
-        {!onlyTable && ceDefined && (
-          <div className="variation-view">
-            <NightingaleZoomTool length={transformedData.sequence.length} />
-            <navigationElement.name length={transformedData.sequence.length} />
-            <sequenceElement.name
-              length={transformedData.sequence.length}
-              sequence={transformedData.sequence}
-              height="20"
-              filter-scroll
-            />
-            <filterElement.name
-              for="variation-component"
-              ref={protvistaFilterRef}
-            />
-            <variationElement.name
-              id="variation-component"
-              length={transformedData.sequence.length}
-              ref={protvistaVariationRef}
-            />
-          </div>
+        {!onlyTable && (
+          <LazyComponent rootMargin="50px">
+            <VisualVariationView {...transformedData} />
+          </LazyComponent>
         )}
         <dataTableElement.name filter-scroll>{table}</dataTableElement.name>
       </managerElement.name>
