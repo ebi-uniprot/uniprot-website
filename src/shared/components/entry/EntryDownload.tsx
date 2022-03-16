@@ -62,12 +62,14 @@ const EntryDownload = () => {
           {fileFormatEntryDownload.map((fileFormat) => (
             <li key={fileFormat}>
               <a
+                target="_blank"
                 href={
                   namespace === Namespace.uniparc &&
                   fileFormat === FileFormat.tsv
                     ? uniparcApiUrls.databases(accession)
                     : apiUrls.entryDownload(accession, fileFormat, namespace)
                 }
+                rel="noreferrer"
               >
                 {fileFormat}
               </a>
