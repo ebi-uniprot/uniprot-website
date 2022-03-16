@@ -380,9 +380,25 @@ exports[`QueryBuilder should render 1`] = `
         Search
       </button>
     </div>
-    <small>
-      Type * in the search box to search for all values for the selected field.
-    </small>
+    <div
+      class="message message--info"
+      role="status"
+    >
+      <div
+        class="message__side-border"
+      />
+      <test-file-stub
+        height="1.125em"
+        width="1.125em"
+      />
+      <section
+        class="message__content"
+      >
+        <small>
+          Type * in the search box to search for all values for the selected field.
+        </small>
+      </section>
+    </div>
   </form>
 </DocumentFragment>
 `;
