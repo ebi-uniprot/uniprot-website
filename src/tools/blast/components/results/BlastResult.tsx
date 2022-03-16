@@ -1,11 +1,5 @@
 import { useMemo, useEffect, useState, lazy, Suspense } from 'react';
-import {
-  Link,
-  useRouteMatch,
-  useHistory,
-  useLocation,
-  generatePath,
-} from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Loader, PageIntro, Tabs, Tab } from 'franklin-sites';
 import cn from 'classnames';
 
@@ -32,7 +26,11 @@ import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
 
 import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
 
-import { Location, LocationToPath } from '../../../../app/config/urls';
+import {
+  blastNamespaces,
+  changePathnameOnly,
+  Location,
+} from '../../../../app/config/urls';
 import toolsURLs from '../../../config/urls';
 import { getAccessionsURL } from '../../../../shared/config/apiUrls';
 
@@ -48,7 +46,7 @@ import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter'
 import { UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
 
 import helper from '../../../../shared/styles/helper.module.scss';
-import sticky from '../../../../shared/styles/sticky.module.scss';
+import { useMatchWithRedirect } from '../../../utils/hooks';
 
 const jobType = JobTypes.BLAST;
 const urls = toolsURLs(jobType);
@@ -105,6 +103,7 @@ enum TabLocation {
 
 type Params = {
   id: string;
+  namespace?: typeof blastNamespaces[number];
   subPage?: TabLocation;
 };
 
@@ -179,27 +178,17 @@ export const enrich = (
 };
 
 const BlastResult = () => {
-  const history = useHistory();
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const match = useRouteMatch<Params>(LocationToPath[Location.BlastResult])!;
   const location = useLocation();
+  const match = useMatchWithRedirect<Params>(
+    Location.BlastResult,
+    TabLocation.Overview
+  );
 
   const [selectedEntries, setSelectedItemFromEvent] = useItemSelect();
   const [hspDetailPanel, setHspDetailPanel] =
     useState<HSPDetailPanelProps | null>();
 
-  // if URL doesn't finish with "overview" redirect to /overview by default
-  useEffect(() => {
-    if (match && !match.params.subPage) {
-      history.replace({
-        ...history.location,
-        pathname: generatePath(LocationToPath[Location.AlignResult], {
-          ...match.params,
-          subPage: TabLocation.Overview,
-        }),
-      });
-    }
-  }, [match, history]);
+  const [{ query }] = getParamsFromURL(location.search);
 
   // get data from the blast endpoint
   const {
@@ -253,8 +242,14 @@ const BlastResult = () => {
           namespace,
           selectedFacets: urlParams.selectedFacets,
           facets: [],
+          query,
         }),
-      [accessionsFilteredByLocalFacets, namespace, urlParams.selectedFacets]
+      [
+        accessionsFilteredByLocalFacets,
+        namespace,
+        query,
+        urlParams.selectedFacets,
+      ]
     )
   );
 
@@ -276,7 +271,7 @@ const BlastResult = () => {
     [data]
   );
 
-  useMarkJobAsSeen(data, match.params.id);
+  useMarkJobAsSeen(data, match?.params.id);
 
   const inputParamsData = useParamsData(match?.params.id || '');
 
@@ -297,33 +292,25 @@ const BlastResult = () => {
     return <ErrorHandler status={blastStatus} />;
   }
 
-  // sidebar option 1
-  const facetsSidebar = (
-    <ErrorBoundary>
-      <BlastResultSidebar
-        accessions={accessionsFilteredByLocalFacets}
-        allHits={blastData.hits}
-        namespace={namespace}
-      />
-    </ErrorBoundary>
-  );
-
-  // sidebar option 2
-  const emptySidebar = (
-    <div className="sidebar-layout__sidebar-content--empty" />
-  );
-
   let sidebar: JSX.Element;
   // Deciding what should be displayed on the sidebar
   switch (match.params.subPage) {
     case TabLocation.TextOutput:
     case TabLocation.InputParameters:
     case TabLocation.APIRequest:
-      sidebar = emptySidebar;
+      sidebar = <div className="sidebar-layout__sidebar-content--empty" />;
       break;
 
     default:
-      sidebar = facetsSidebar;
+      sidebar = (
+        <ErrorBoundary>
+          <BlastResultSidebar
+            accessions={accessionsFilteredByLocalFacets}
+            allHits={blastData.hits}
+            namespace={namespace}
+          />
+        </ErrorBoundary>
+      );
       break;
   }
 
@@ -338,11 +325,20 @@ const BlastResult = () => {
     />
   );
 
+  const basePath = `/blast/${namespace}/${match.params.id}/`;
+
   return (
     <SideBarLayout
-      title={<PageIntro title={title} resultsCount={hitsFiltered.length} />}
+      title={
+        <PageIntro
+          title={namespaceAndToolsLabels[jobType]}
+          titlePostscript={
+            <small>found in {namespaceAndToolsLabels[namespace]}</small>
+          }
+          resultsCount={hitsFiltered.length}
+        />
+      }
       sidebar={sidebar}
-      className={sticky['sticky-tabs-container']}
     >
       <HTMLHead title={title} />
       <Tabs
@@ -352,12 +348,7 @@ const BlastResult = () => {
         <Tab
           id={TabLocation.Overview}
           title={
-            <Link
-              to={(location) => ({
-                ...location,
-                pathname: `/blast/${match.params.id}/${TabLocation.Overview}`,
-              })}
-            >
+            <Link to={changePathnameOnly(basePath + TabLocation.Overview)}>
               Overview
             </Link>
           }
@@ -386,10 +377,7 @@ const BlastResult = () => {
           })}
           title={
             <Link
-              to={(location) => ({
-                ...location,
-                pathname: `/blast/${match.params.id}/${TabLocation.Taxonomy}`,
-              })}
+              to={changePathnameOnly(basePath + TabLocation.Taxonomy)}
               tabIndex={namespace !== Namespace.uniprotkb ? -1 : undefined}
             >
               Taxonomy
@@ -404,10 +392,7 @@ const BlastResult = () => {
           id={TabLocation.HitDistribution}
           title={
             <Link
-              to={(location) => ({
-                ...location,
-                pathname: `/blast/${match.params.id}/${TabLocation.HitDistribution}`,
-              })}
+              to={changePathnameOnly(basePath + TabLocation.HitDistribution)}
             >
               Hit Distribution
             </Link>
@@ -424,12 +409,7 @@ const BlastResult = () => {
         <Tab
           id={TabLocation.TextOutput}
           title={
-            <Link
-              to={(location) => ({
-                ...location,
-                pathname: `/blast/${match.params.id}/${TabLocation.TextOutput}`,
-              })}
-            >
+            <Link to={changePathnameOnly(basePath + TabLocation.TextOutput)}>
               Text Output
             </Link>
           }
@@ -443,10 +423,7 @@ const BlastResult = () => {
           id={TabLocation.InputParameters}
           title={
             <Link
-              to={(location) => ({
-                ...location,
-                pathname: `/blast/${match.params.id}/${TabLocation.InputParameters}`,
-              })}
+              to={changePathnameOnly(basePath + TabLocation.InputParameters)}
             >
               Input Parameters
             </Link>
@@ -464,12 +441,7 @@ const BlastResult = () => {
         <Tab
           id={TabLocation.APIRequest}
           title={
-            <Link
-              to={(location) => ({
-                ...location,
-                pathname: `/blast/${match.params.id}/${TabLocation.APIRequest}`,
-              })}
-            >
+            <Link to={changePathnameOnly(basePath + TabLocation.APIRequest)}>
               API Request
             </Link>
           }

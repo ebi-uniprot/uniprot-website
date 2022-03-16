@@ -127,9 +127,9 @@ const HomePageHeader = memo(() => {
     >
       <div className="uniprot-grid uniprot-grid--centered">
         <SearchContainer
-          namespace={selectedNamespace}
-          onNamespaceChange={useCallback((namespace) => {
-            setSelectedNamespace(namespace);
+          searchspace={selectedNamespace}
+          onSearchspaceChange={useCallback((namespace) => {
+            setSelectedNamespace(namespace as SearchableNamespace);
             const textInput: HTMLInputElement | null = document.querySelector(
               'form.main-search input[type="text"]'
             );

@@ -225,7 +225,7 @@ export const getAPIQueryUrl = ({
   }
   return `${apiUrls.search(namespace)}?${queryString.stringify({
     size,
-    query: `${[`(${query})` || '*', createFacetsQueryString(selectedFacets)]
+    query: `${[`(${query})`, createFacetsQueryString(selectedFacets)]
       .filter(Boolean)
       .join(' AND ')}`,
     fields: columns?.join(',') || undefined,
@@ -248,6 +248,7 @@ type GetOptions = {
   sortDirection?: SortDirection;
   facets?: Facets[] | null;
   size?: number;
+  query?: string;
 };
 
 export const getAccessionsURL = (
@@ -260,6 +261,7 @@ export const getAccessionsURL = (
     sortDirection = SortDirection.ascend,
     facets,
     size,
+    query,
   }: GetOptions = {}
 ) => {
   if (!(accessions && accessions.length)) {
@@ -279,6 +281,7 @@ export const getAccessionsURL = (
       size,
       // sort to improve possible cache hit
       [key]: Array.from(accessions).sort().join(','),
+      query: query || undefined,
       facetFilter:
         createFacetsQueryString(
           selectedFacets.filter(excludeLocalBlastFacets)

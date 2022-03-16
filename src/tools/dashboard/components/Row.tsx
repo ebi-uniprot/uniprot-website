@@ -306,20 +306,10 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
 
   let jobLink: LocationDescriptor<LocationStateFromJobLink> | undefined;
   if ('remoteID' in job && job.status === Status.FINISHED && !hasExpired) {
-    if (
-      job.type === JobTypes.ID_MAPPING ||
-      job.type === JobTypes.PEPTIDE_SEARCH
-    ) {
-      jobLink = {
-        pathname: `${jobTypeToPath(job.type)}/${job.remoteID}`,
-        state: { internalID: job.internalID },
-      };
-    } else {
-      jobLink = {
-        pathname: `${jobTypeToPath(job.type)}/${job.remoteID}/overview`,
-        state: { internalID: job.internalID },
-      };
-    }
+    jobLink = {
+      pathname: jobTypeToPath(job.type, job),
+      state: { internalID: job.internalID },
+    };
   }
 
   const handleDelete = () => {

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Search shallow components should render 1`] = `
+exports[`Search component on home page should render 1`] = `
 <DocumentFragment>
   <section
     role="search"
