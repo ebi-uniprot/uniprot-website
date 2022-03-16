@@ -1,8 +1,9 @@
-import { FC, Suspense, lazy, ReactNode, ReactElement } from 'react';
+import { FC, lazy, ReactNode, ReactElement } from 'react';
 import { Tabs, Tab, HeroContainer } from 'franklin-sites';
 
 import SubcellularLocationView from './SubcellularLocationView';
 import SubcellularLocationGOView from './SubcellularLocationGOView';
+import LazyComponent from '../../../shared/components/LazyComponent';
 
 import {
   getEvidenceCodeData,
@@ -163,8 +164,19 @@ const SubcellularLocationWithVizView: FC<
     goTabContent = getNoAnnotationMessage('GO');
   }
 
+  const fallback = (
+    <Tabs>
+      <Tab cache title="UniProt Annotation">
+        {uniprotTextContent}
+      </Tab>
+      <Tab cache title="GO Annotation" defaultSelected={selectGoTab}>
+        {goTextContent}
+      </Tab>
+    </Tabs>
+  );
+
   return (
-    <Suspense fallback={null}>
+    <LazyComponent fallback={fallback} rootMargin="50px">
       <Tabs>
         <Tab cache title="UniProt Annotation">
           {uniprotTabContent}
@@ -173,7 +185,7 @@ const SubcellularLocationWithVizView: FC<
           {goTabContent}
         </Tab>
       </Tabs>
-    </Suspense>
+    </LazyComponent>
   );
 };
 
