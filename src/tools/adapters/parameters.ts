@@ -140,8 +140,9 @@ export function formParametersToServerParameters<T extends JobTypes>(
       } as ServerParameters[T];
       return new URLSearchParams(Object.entries(serverParameters));
     }
+    /* istanbul ignore next */
     default:
-    //
+      logging.warn(`Forgot to implement for ${type}`);
   }
 
   return objectToFormData(serverParameters as ServerParameters[T]);
@@ -215,13 +216,26 @@ export function serverParametersToFormParameters<T extends JobTypes>(
       }
       break;
     case JobTypes.ID_MAPPING:
-      logging.warn('Not implementable');
+      {
+        const { from, to, ids, taxId } =
+          serverParameters as PublicServerParameters[JobTypes.ID_MAPPING];
+
+        formParameters = {
+          from,
+          to,
+          ids: ids.split(','),
+          taxId, // TODO: check
+        } as FormParameters[T];
+      }
       break;
     case JobTypes.PEPTIDE_SEARCH:
-      logging.warn('Not implementable');
+      formParameters = {
+        ...(serverParameters as ServerParameters[JobTypes.PEPTIDE_SEARCH]),
+      } as FormParameters[T];
       break;
+    /* istanbul ignore next */
     default:
-    //
+      logging.warn(`Forgot to implement for ${type}`);
   }
 
   return formParameters as FormParameters[T];

@@ -1,8 +1,9 @@
 import deepFreeze from 'deep-freeze';
 
-import { Program } from '../types/blastServerParameters';
+import { Database, Program } from '../types/blastServerParameters';
 import { FormParameters } from '../types/blastFormParameters';
 import { SelectedTaxon } from '../../types/toolsFormData';
+import { Namespace } from '../../../shared/types/namespaces';
 
 export type BlastFormValue = {
   fieldName: string;
@@ -156,5 +157,20 @@ const formData: Readonly<BlastFormValues> = deepFreeze({
 
 export const excludeTaxonForDB = (db: BlastFormValue['selected']) =>
   typeof db === 'string' && /uni(ref|parc)/i.test(db);
+
+export const databaseToNamespace = (
+  database: Database
+): Namespace.uniprotkb | Namespace.uniparc | Namespace.uniref | undefined => {
+  if (database.startsWith(Namespace.uniprotkb)) {
+    return Namespace.uniprotkb;
+  }
+  if (database.startsWith(Namespace.uniparc)) {
+    return Namespace.uniparc;
+  }
+  if (database.startsWith(Namespace.uniref)) {
+    return Namespace.uniref;
+  }
+  return undefined;
+};
 
 export default formData;

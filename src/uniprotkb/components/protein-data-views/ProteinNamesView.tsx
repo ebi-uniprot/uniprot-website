@@ -175,10 +175,14 @@ const getInfoListForNames = (name: ProteinNames, noEvidence: boolean) => {
   if (name.fullName) {
     infoData.push({
       title: 'Recommended name',
-      content: noEvidence ? (
-        <>{name.fullName.value}</>
-      ) : (
-        <NameWithEvidence data={name.fullName} />
+      content: (
+        <strong>
+          {noEvidence ? (
+            <>{name.fullName.value}</>
+          ) : (
+            <NameWithEvidence data={name.fullName} />
+          )}
+        </strong>
       ),
     });
   }

@@ -1,4 +1,4 @@
-/* Parameters of a blast job as required by the server */
+/* Parameters of an align job as required by the server */
 // https://www.ebi.ac.uk/Tools/services/rest/clustalo?wadl
 // https://www.ebi.ac.uk/Tools/services/rest/clustalo/parameters
 // parameter-specific documentation at

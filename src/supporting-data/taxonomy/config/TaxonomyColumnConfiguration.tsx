@@ -96,7 +96,9 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.links, {
     links?.length ? (
       <ExpandableList descriptionString="links" displayNumberOfHiddenItems>
         {links?.map((link) => (
-          <ExternalLink key={link} url={link} tidyUrl />
+          <ExternalLink key={link} url={link} tidyUrl>
+            {new URL(link).hostname}
+          </ExternalLink>
         ))}
       </ExpandableList>
     ) : null,

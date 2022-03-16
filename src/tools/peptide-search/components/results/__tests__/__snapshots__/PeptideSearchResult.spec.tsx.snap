@@ -13,350 +13,409 @@ exports[`PeptideSearchResult should render with the correct number of results in
     >
       <section
         class="sidebar-layout__title"
-      />
-      <div
-        class="page-intro"
       >
-        <h1
-          class=""
-        >
-          UniProtKB
-          <small>
-             2 results 
-          </small>
-          <small>
-             found in peptide search 
-          </small>
-        </h1>
-      </div>
-      <div
-        class="button-group results-buttons"
-      >
-        <button
-          class="button tertiary disabled"
-          disabled=""
-          title="Select at least one entry to run a BLAST job"
-          type="button"
-        >
-          BLAST
-        </button>
-        <button
-          class="button tertiary disabled"
-          disabled=""
-          title="Select at least 2 entries to run an Align job"
-          type="button"
-        >
-          Align
-        </button>
-        <button
-          class="button tertiary disabled"
-          disabled=""
-          title="Select at least one entry to map"
-          type="button"
-        >
-          Map IDs
-        </button>
-        <button
-          class="button tertiary"
-          type="button"
-        >
-          <test-file-stub />
-          Download
-        </button>
-        <button
-          class="button tertiary disabled"
-          disabled=""
-          title="Select at least one entry to add to the basket"
-          type="button"
-        >
-          <test-file-stub />
-          Add
-        </button>
-        <span
-          role="radiogroup"
-        >
-          View:
-          <label>
-            Table 
-            <input
-              checked=""
-              name="view"
-              type="radio"
-            />
-          </label>
-          <label>
-            Card 
-            <input
-              name="view"
-              type="radio"
-            />
-          </label>
-        </span>
-        <button
-          class="button tertiary"
-          type="button"
-        >
-          <test-file-stub />
-          Customize columns
-        </button>
-      </div>
-      <div
-        class="results-data"
-      >
-        <table
-          class="data-table"
-        >
-          <thead>
-            <tr>
-              <th
-                class="data-table__header-cell--checkbox"
-              >
-                <div
-                  class="checkbox-cell"
-                >
-                  <input
-                    id="1"
-                    type="checkbox"
-                  />
-                  <label
-                    aria-label="Selection control for all visible items"
-                    for="1"
-                  />
-                </div>
-              </th>
-              <th
-                class=""
-              >
-                <span
-                  aria-expanded="false"
-                >
-                  <span>
-                    Entry
-                  </span>
-                </span>
-              </th>
-              <th
-                class=""
-              />
-              <th
-                class=""
-              >
-                <span
-                  aria-expanded="false"
-                >
-                  <span
-                    data-article-id="entry_name"
-                  >
-                    Entry Name
-                  </span>
-                </span>
-              </th>
-              <th
-                class=""
-              >
-                <span
-                  aria-expanded="false"
-                >
-                  <span
-                    data-article-id="protein_names"
-                  >
-                    Protein Names
-                  </span>
-                </span>
-              </th>
-              <th
-                class=""
-              >
-                <span
-                  aria-expanded="false"
-                >
-                  <span
-                    data-article-id="gene_name"
-                  >
-                    Gene Names
-                  </span>
-                </span>
-              </th>
-              <th
-                class=""
-              >
-                <span
-                  aria-expanded="false"
-                >
-                  <span
-                    data-article-id="organism-name"
-                  >
-                    Organism
-                  </span>
-                </span>
-              </th>
-              <th
-                class=""
-              >
-                <span
-                  aria-expanded="false"
-                >
-                  <span>
-                    Length
-                  </span>
-                </span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td
-                class="checkbox-cell"
-              >
-                <input
-                  data-id="P11413"
-                  id="3"
-                  type="checkbox"
-                />
-                <label
-                  aria-label="P11413"
-                  for="3"
-                  title="click to select, shift+click for multiple selection"
-                />
-              </td>
-              <td>
-                <span
-                  class="no-wrap accession-view"
-                >
-                  <a
-                    class="accession"
-                    href="/uniprotkb/P11413"
-                  >
-                    P11413
-                  </a>
-                </span>
-              </td>
-              <td>
-                <span
-                  class="entry-title__status icon--reviewed"
-                  title="This marks a reviewed UniProtKB entry"
-                >
-                  <test-file-stub />
-                </span>
-              </td>
-              <td>
-                <span>
-                  G6PD_HUMAN
-                </span>
-              </td>
-              <td>
-                <span
-                  style="font-weight: bolder;"
-                >
-                  Glucose-6-phosphate 1-dehydrogenase
-                </span>
-                <button
-                  aria-expanded="false"
-                  class="button tertiary ellipsis-reveal"
-                  title="Show more"
-                  type="button"
-                >
-                  [...]
-                </button>
-              </td>
-              <td>
-                <span
-                  style="font-weight: bolder;"
-                >
-                  G6PD
-                </span>
-              </td>
-              <td>
-                <a
-                  href="/taxonomy/9606"
-                  title="Homo sapiens (Human), taxon ID 9606"
-                >
-                  Homo sapiens (Human)
-                </a>
-              </td>
-              <td>
-                515 AA
-              </td>
-            </tr>
-            <tr>
-              <td
-                class="checkbox-cell"
-              >
-                <input
-                  data-id="P36871"
-                  id="4"
-                  type="checkbox"
-                />
-                <label
-                  aria-label="P36871"
-                  for="4"
-                  title="click to select, shift+click for multiple selection"
-                />
-              </td>
-              <td>
-                <span
-                  class="no-wrap accession-view"
-                >
-                  <a
-                    class="accession"
-                    href="/uniprotkb/P36871"
-                  >
-                    P36871
-                  </a>
-                </span>
-              </td>
-              <td>
-                <span
-                  class="entry-title__status icon--reviewed"
-                  title="This marks a reviewed UniProtKB entry"
-                >
-                  <test-file-stub />
-                </span>
-              </td>
-              <td>
-                <span>
-                  PGM1_HUMAN
-                </span>
-              </td>
-              <td>
-                <span
-                  style="font-weight: bolder;"
-                >
-                  Phosphoglucomutase-1
-                </span>
-                <button
-                  aria-expanded="false"
-                  class="button tertiary ellipsis-reveal"
-                  title="Show more"
-                  type="button"
-                >
-                  [...]
-                </button>
-              </td>
-              <td>
-                <span
-                  style="font-weight: bolder;"
-                >
-                  PGM1
-                </span>
-              </td>
-              <td>
-                <a
-                  href="/taxonomy/9606"
-                  title="Homo sapiens (Human), taxon ID 9606"
-                >
-                  Homo sapiens (Human)
-                </a>
-              </td>
-              <td>
-                562 AA
-              </td>
-            </tr>
-          </tbody>
-        </table>
         <div
-          class="data-loader__loading"
-        />
+          class="page-intro"
+        >
+          <h1
+            class=""
+          >
+            Peptide search
+            <small>
+               2 results 
+            </small>
+            <small>
+              found in UniProtKB
+            </small>
+          </h1>
+        </div>
+      </section>
+      <div
+        class="tabs"
+      >
+        <div
+          class="tabs__header"
+          role="tablist"
+        >
+          <div
+            aria-controls="1"
+            class="tabs__header__item tabs__header__item--active"
+            data-target="overview"
+            data-testid="tab-title"
+            role="tab"
+          >
+            <a
+              href="/peptide-search/remote-id/overview"
+            >
+              Overview
+            </a>
+          </div>
+          <div
+            aria-controls="1"
+            class="tabs__header__item"
+            data-target="input-parameters"
+            data-testid="tab-title"
+            role="tab"
+          >
+            <a
+              href="/peptide-search/remote-id/input-parameters"
+            >
+              Input Parameters
+            </a>
+          </div>
+          <div
+            aria-controls="1"
+            class="tabs__header__item"
+            data-target="api-request"
+            data-testid="tab-title"
+            role="tab"
+          >
+            <a
+              href="/peptide-search/remote-id/api-request"
+            >
+              API Request
+            </a>
+          </div>
+        </div>
+        <div
+          data-testid="tab-content"
+          id="1"
+          role="tabpanel"
+        >
+          <div
+            style="display: block;"
+          >
+            <div
+              class="button-group results-buttons"
+            >
+              <button
+                class="button tertiary disabled"
+                disabled=""
+                title="Select at least one entry to run a BLAST job"
+                type="button"
+              >
+                BLAST
+              </button>
+              <button
+                class="button tertiary disabled"
+                disabled=""
+                title="Select at least 2 entries to run an Align job"
+                type="button"
+              >
+                Align
+              </button>
+              <button
+                class="button tertiary disabled"
+                disabled=""
+                title="Select at least one entry to map"
+                type="button"
+              >
+                Map IDs
+              </button>
+              <button
+                class="button tertiary"
+                type="button"
+              >
+                <test-file-stub />
+                Download
+              </button>
+              <button
+                class="button tertiary disabled"
+                disabled=""
+                title="Select at least one entry to add to the basket"
+                type="button"
+              >
+                <test-file-stub />
+                Add
+              </button>
+              <span
+                role="radiogroup"
+              >
+                View:
+                <label>
+                  Table 
+                  <input
+                    checked=""
+                    name="view"
+                    type="radio"
+                  />
+                </label>
+                <label>
+                  Card 
+                  <input
+                    name="view"
+                    type="radio"
+                  />
+                </label>
+              </span>
+              <button
+                class="button tertiary"
+                type="button"
+              >
+                <test-file-stub />
+                Customize columns
+              </button>
+            </div>
+            <div
+              class="results-data"
+            >
+              <table
+                class="data-table"
+              >
+                <thead>
+                  <tr>
+                    <th
+                      class="data-table__header-cell--checkbox"
+                    >
+                      <div
+                        class="checkbox-cell"
+                      >
+                        <input
+                          id="3"
+                          type="checkbox"
+                        />
+                        <label
+                          aria-label="Selection control for all visible items"
+                          for="3"
+                        />
+                      </div>
+                    </th>
+                    <th
+                      class=""
+                    >
+                      <span
+                        aria-expanded="false"
+                      >
+                        <span>
+                          Entry
+                        </span>
+                      </span>
+                    </th>
+                    <th
+                      class=""
+                    />
+                    <th
+                      class=""
+                    >
+                      <span
+                        aria-expanded="false"
+                      >
+                        <span
+                          data-article-id="entry_name"
+                        >
+                          Entry Name
+                        </span>
+                      </span>
+                    </th>
+                    <th
+                      class=""
+                    >
+                      <span
+                        aria-expanded="false"
+                      >
+                        <span
+                          data-article-id="protein_names"
+                        >
+                          Protein Names
+                        </span>
+                      </span>
+                    </th>
+                    <th
+                      class=""
+                    >
+                      <span
+                        aria-expanded="false"
+                      >
+                        <span
+                          data-article-id="gene_name"
+                        >
+                          Gene Names
+                        </span>
+                      </span>
+                    </th>
+                    <th
+                      class=""
+                    >
+                      <span
+                        aria-expanded="false"
+                      >
+                        <span
+                          data-article-id="organism-name"
+                        >
+                          Organism
+                        </span>
+                      </span>
+                    </th>
+                    <th
+                      class=""
+                    >
+                      <span
+                        aria-expanded="false"
+                      >
+                        <span>
+                          Length
+                        </span>
+                      </span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td
+                      class="checkbox-cell"
+                    >
+                      <input
+                        data-id="P11413"
+                        id="6"
+                        type="checkbox"
+                      />
+                      <label
+                        aria-label="P11413"
+                        for="6"
+                        title="click to select, shift+click for multiple selection"
+                      />
+                    </td>
+                    <td>
+                      <span
+                        class="no-wrap accession-view"
+                      >
+                        <a
+                          class="accession"
+                          href="/uniprotkb/P11413"
+                        >
+                          P11413
+                        </a>
+                      </span>
+                    </td>
+                    <td>
+                      <span
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed UniProtKB entry"
+                      >
+                        <test-file-stub />
+                      </span>
+                    </td>
+                    <td>
+                      <span>
+                        G6PD_HUMAN
+                      </span>
+                    </td>
+                    <td>
+                      <span
+                        style="font-weight: bolder;"
+                      >
+                        Glucose-6-phosphate 1-dehydrogenase
+                      </span>
+                      <button
+                        aria-expanded="false"
+                        class="button tertiary ellipsis-reveal"
+                        title="Show more"
+                        type="button"
+                      >
+                        [...]
+                      </button>
+                    </td>
+                    <td>
+                      <span
+                        style="font-weight: bolder;"
+                      >
+                        G6PD
+                      </span>
+                    </td>
+                    <td>
+                      <a
+                        href="/taxonomy/9606"
+                        title="Homo sapiens (Human), taxon ID 9606"
+                      >
+                        Homo sapiens (Human)
+                      </a>
+                    </td>
+                    <td>
+                      515 AA
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      class="checkbox-cell"
+                    >
+                      <input
+                        data-id="P36871"
+                        id="7"
+                        type="checkbox"
+                      />
+                      <label
+                        aria-label="P36871"
+                        for="7"
+                        title="click to select, shift+click for multiple selection"
+                      />
+                    </td>
+                    <td>
+                      <span
+                        class="no-wrap accession-view"
+                      >
+                        <a
+                          class="accession"
+                          href="/uniprotkb/P36871"
+                        >
+                          P36871
+                        </a>
+                      </span>
+                    </td>
+                    <td>
+                      <span
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed UniProtKB entry"
+                      >
+                        <test-file-stub />
+                      </span>
+                    </td>
+                    <td>
+                      <span>
+                        PGM1_HUMAN
+                      </span>
+                    </td>
+                    <td>
+                      <span
+                        style="font-weight: bolder;"
+                      >
+                        Phosphoglucomutase-1
+                      </span>
+                      <button
+                        aria-expanded="false"
+                        class="button tertiary ellipsis-reveal"
+                        title="Show more"
+                        type="button"
+                      >
+                        [...]
+                      </button>
+                    </td>
+                    <td>
+                      <span
+                        style="font-weight: bolder;"
+                      >
+                        PGM1
+                      </span>
+                    </td>
+                    <td>
+                      <a
+                        href="/taxonomy/9606"
+                        title="Homo sapiens (Human), taxon ID 9606"
+                      >
+                        Homo sapiens (Human)
+                      </a>
+                    </td>
+                    <td>
+                      562 AA
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div
+                class="data-loader__loading"
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   </div>
@@ -376,363 +435,422 @@ exports[`PeptideSearchResult should render with the correct number of results in
     >
       <section
         class="sidebar-layout__title"
-      />
-      <div
-        class="page-intro"
       >
-        <h1
-          class=""
-        >
-          UniProtKB
-          <small>
-             2 results 
-          </small>
-          <small>
-             found in peptide search title
-          </small>
-        </h1>
-      </div>
-      <div
-        class="button-group results-buttons"
-      >
-        <button
-          class="button tertiary disabled"
-          disabled=""
-          title="Select at least one entry to run a BLAST job"
-          type="button"
-        >
-          BLAST
-        </button>
-        <button
-          class="button tertiary disabled"
-          disabled=""
-          title="Select at least 2 entries to run an Align job"
-          type="button"
-        >
-          Align
-        </button>
-        <button
-          class="button tertiary disabled"
-          disabled=""
-          title="Select at least one entry to map"
-          type="button"
-        >
-          Map IDs
-        </button>
-        <button
-          class="button tertiary"
-          type="button"
-        >
-          <test-file-stub />
-          Download
-        </button>
-        <button
-          class="button tertiary disabled"
-          disabled=""
-          title="Select at least one entry to add to the basket"
-          type="button"
-        >
-          <test-file-stub />
-          Add
-        </button>
-        <span
-          role="radiogroup"
-        >
-          View:
-          <label>
-            Table 
-            <input
-              checked=""
-              name="view"
-              type="radio"
-            />
-          </label>
-          <label>
-            Card 
-            <input
-              name="view"
-              type="radio"
-            />
-          </label>
-        </span>
-        <button
-          class="button tertiary"
-          type="button"
-        >
-          <test-file-stub />
-          Customize columns
-        </button>
-      </div>
-      <div
-        class="results-data"
-      >
-        <table
-          class="data-table"
-        >
-          <thead>
-            <tr>
-              <th
-                class="data-table__header-cell--checkbox"
-              >
-                <div
-                  class="checkbox-cell"
-                >
-                  <input
-                    id="1"
-                    type="checkbox"
-                  />
-                  <label
-                    aria-label="Selection control for all visible items"
-                    for="1"
-                  />
-                </div>
-              </th>
-              <th
-                class=""
-              >
-                <span
-                  aria-expanded="false"
-                >
-                  <span>
-                    Entry
-                  </span>
-                </span>
-              </th>
-              <th
-                class=""
-              >
-                <span
-                  aria-expanded="false"
-                >
-                  <span>
-                    Match
-                  </span>
-                </span>
-              </th>
-              <th
-                class=""
-              />
-              <th
-                class=""
-              >
-                <span
-                  aria-expanded="false"
-                >
-                  <span
-                    data-article-id="entry_name"
-                  >
-                    Entry Name
-                  </span>
-                </span>
-              </th>
-              <th
-                class=""
-              >
-                <span
-                  aria-expanded="false"
-                >
-                  <span
-                    data-article-id="protein_names"
-                  >
-                    Protein Names
-                  </span>
-                </span>
-              </th>
-              <th
-                class=""
-              >
-                <span
-                  aria-expanded="false"
-                >
-                  <span
-                    data-article-id="gene_name"
-                  >
-                    Gene Names
-                  </span>
-                </span>
-              </th>
-              <th
-                class=""
-              >
-                <span
-                  aria-expanded="false"
-                >
-                  <span
-                    data-article-id="organism-name"
-                  >
-                    Organism
-                  </span>
-                </span>
-              </th>
-              <th
-                class=""
-              >
-                <span
-                  aria-expanded="false"
-                >
-                  <span>
-                    Length
-                  </span>
-                </span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td
-                class="checkbox-cell"
-              >
-                <input
-                  data-id="P11413"
-                  id="3"
-                  type="checkbox"
-                />
-                <label
-                  aria-label="P11413"
-                  for="3"
-                  title="click to select, shift+click for multiple selection"
-                />
-              </td>
-              <td>
-                <span
-                  class="no-wrap accession-view"
-                >
-                  <a
-                    class="accession"
-                    href="/uniprotkb/P11413"
-                  >
-                    P11413
-                  </a>
-                </span>
-              </td>
-              <td />
-              <td>
-                <span
-                  class="entry-title__status icon--reviewed"
-                  title="This marks a reviewed UniProtKB entry"
-                >
-                  <test-file-stub />
-                </span>
-              </td>
-              <td>
-                <span>
-                  G6PD_HUMAN
-                </span>
-              </td>
-              <td>
-                <span
-                  style="font-weight: bolder;"
-                >
-                  Glucose-6-phosphate 1-dehydrogenase
-                </span>
-                <button
-                  aria-expanded="false"
-                  class="button tertiary ellipsis-reveal"
-                  title="Show more"
-                  type="button"
-                >
-                  [...]
-                </button>
-              </td>
-              <td>
-                <span
-                  style="font-weight: bolder;"
-                >
-                  G6PD
-                </span>
-              </td>
-              <td>
-                <a
-                  href="/taxonomy/9606"
-                  title="Homo sapiens (Human), taxon ID 9606"
-                >
-                  Homo sapiens (Human)
-                </a>
-              </td>
-              <td>
-                515 AA
-              </td>
-            </tr>
-            <tr>
-              <td
-                class="checkbox-cell"
-              >
-                <input
-                  data-id="P36871"
-                  id="4"
-                  type="checkbox"
-                />
-                <label
-                  aria-label="P36871"
-                  for="4"
-                  title="click to select, shift+click for multiple selection"
-                />
-              </td>
-              <td>
-                <span
-                  class="no-wrap accession-view"
-                >
-                  <a
-                    class="accession"
-                    href="/uniprotkb/P36871"
-                  >
-                    P36871
-                  </a>
-                </span>
-              </td>
-              <td />
-              <td>
-                <span
-                  class="entry-title__status icon--reviewed"
-                  title="This marks a reviewed UniProtKB entry"
-                >
-                  <test-file-stub />
-                </span>
-              </td>
-              <td>
-                <span>
-                  PGM1_HUMAN
-                </span>
-              </td>
-              <td>
-                <span
-                  style="font-weight: bolder;"
-                >
-                  Phosphoglucomutase-1
-                </span>
-                <button
-                  aria-expanded="false"
-                  class="button tertiary ellipsis-reveal"
-                  title="Show more"
-                  type="button"
-                >
-                  [...]
-                </button>
-              </td>
-              <td>
-                <span
-                  style="font-weight: bolder;"
-                >
-                  PGM1
-                </span>
-              </td>
-              <td>
-                <a
-                  href="/taxonomy/9606"
-                  title="Homo sapiens (Human), taxon ID 9606"
-                >
-                  Homo sapiens (Human)
-                </a>
-              </td>
-              <td>
-                562 AA
-              </td>
-            </tr>
-          </tbody>
-        </table>
         <div
-          class="data-loader__loading"
-        />
+          class="page-intro"
+        >
+          <h1
+            class=""
+          >
+            Peptide search
+            <small>
+               2 results 
+            </small>
+            <small>
+              found in UniProtKB
+            </small>
+          </h1>
+        </div>
+      </section>
+      <div
+        class="tabs"
+      >
+        <div
+          class="tabs__header"
+          role="tablist"
+        >
+          <div
+            aria-controls="2"
+            class="tabs__header__item tabs__header__item--active"
+            data-target="overview"
+            data-testid="tab-title"
+            role="tab"
+          >
+            <a
+              href="/peptide-search/remote-id/overview"
+            >
+              Overview
+            </a>
+          </div>
+          <div
+            aria-controls="2"
+            class="tabs__header__item"
+            data-target="input-parameters"
+            data-testid="tab-title"
+            role="tab"
+          >
+            <a
+              href="/peptide-search/remote-id/input-parameters"
+            >
+              Input Parameters
+            </a>
+          </div>
+          <div
+            aria-controls="2"
+            class="tabs__header__item"
+            data-target="api-request"
+            data-testid="tab-title"
+            role="tab"
+          >
+            <a
+              href="/peptide-search/remote-id/api-request"
+            >
+              API Request
+            </a>
+          </div>
+        </div>
+        <div
+          data-testid="tab-content"
+          id="2"
+          role="tabpanel"
+        >
+          <div
+            style="display: block;"
+          >
+            <div
+              class="button-group results-buttons"
+            >
+              <button
+                class="button tertiary disabled"
+                disabled=""
+                title="Select at least one entry to run a BLAST job"
+                type="button"
+              >
+                BLAST
+              </button>
+              <button
+                class="button tertiary disabled"
+                disabled=""
+                title="Select at least 2 entries to run an Align job"
+                type="button"
+              >
+                Align
+              </button>
+              <button
+                class="button tertiary disabled"
+                disabled=""
+                title="Select at least one entry to map"
+                type="button"
+              >
+                Map IDs
+              </button>
+              <button
+                class="button tertiary"
+                type="button"
+              >
+                <test-file-stub />
+                Download
+              </button>
+              <button
+                class="button tertiary disabled"
+                disabled=""
+                title="Select at least one entry to add to the basket"
+                type="button"
+              >
+                <test-file-stub />
+                Add
+              </button>
+              <span
+                role="radiogroup"
+              >
+                View:
+                <label>
+                  Table 
+                  <input
+                    checked=""
+                    name="view"
+                    type="radio"
+                  />
+                </label>
+                <label>
+                  Card 
+                  <input
+                    name="view"
+                    type="radio"
+                  />
+                </label>
+              </span>
+              <button
+                class="button tertiary"
+                type="button"
+              >
+                <test-file-stub />
+                Customize columns
+              </button>
+            </div>
+            <div
+              class="results-data"
+            >
+              <table
+                class="data-table"
+              >
+                <thead>
+                  <tr>
+                    <th
+                      class="data-table__header-cell--checkbox"
+                    >
+                      <div
+                        class="checkbox-cell"
+                      >
+                        <input
+                          id="4"
+                          type="checkbox"
+                        />
+                        <label
+                          aria-label="Selection control for all visible items"
+                          for="4"
+                        />
+                      </div>
+                    </th>
+                    <th
+                      class=""
+                    >
+                      <span
+                        aria-expanded="false"
+                      >
+                        <span>
+                          Entry
+                        </span>
+                      </span>
+                    </th>
+                    <th
+                      class=""
+                    >
+                      <span
+                        aria-expanded="false"
+                      >
+                        <span>
+                          Match
+                        </span>
+                      </span>
+                    </th>
+                    <th
+                      class=""
+                    />
+                    <th
+                      class=""
+                    >
+                      <span
+                        aria-expanded="false"
+                      >
+                        <span
+                          data-article-id="entry_name"
+                        >
+                          Entry Name
+                        </span>
+                      </span>
+                    </th>
+                    <th
+                      class=""
+                    >
+                      <span
+                        aria-expanded="false"
+                      >
+                        <span
+                          data-article-id="protein_names"
+                        >
+                          Protein Names
+                        </span>
+                      </span>
+                    </th>
+                    <th
+                      class=""
+                    >
+                      <span
+                        aria-expanded="false"
+                      >
+                        <span
+                          data-article-id="gene_name"
+                        >
+                          Gene Names
+                        </span>
+                      </span>
+                    </th>
+                    <th
+                      class=""
+                    >
+                      <span
+                        aria-expanded="false"
+                      >
+                        <span
+                          data-article-id="organism-name"
+                        >
+                          Organism
+                        </span>
+                      </span>
+                    </th>
+                    <th
+                      class=""
+                    >
+                      <span
+                        aria-expanded="false"
+                      >
+                        <span>
+                          Length
+                        </span>
+                      </span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td
+                      class="checkbox-cell"
+                    >
+                      <input
+                        data-id="P11413"
+                        id="7"
+                        type="checkbox"
+                      />
+                      <label
+                        aria-label="P11413"
+                        for="7"
+                        title="click to select, shift+click for multiple selection"
+                      />
+                    </td>
+                    <td>
+                      <span
+                        class="no-wrap accession-view"
+                      >
+                        <a
+                          class="accession"
+                          href="/uniprotkb/P11413"
+                        >
+                          P11413
+                        </a>
+                      </span>
+                    </td>
+                    <td />
+                    <td>
+                      <span
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed UniProtKB entry"
+                      >
+                        <test-file-stub />
+                      </span>
+                    </td>
+                    <td>
+                      <span>
+                        G6PD_HUMAN
+                      </span>
+                    </td>
+                    <td>
+                      <span
+                        style="font-weight: bolder;"
+                      >
+                        Glucose-6-phosphate 1-dehydrogenase
+                      </span>
+                      <button
+                        aria-expanded="false"
+                        class="button tertiary ellipsis-reveal"
+                        title="Show more"
+                        type="button"
+                      >
+                        [...]
+                      </button>
+                    </td>
+                    <td>
+                      <span
+                        style="font-weight: bolder;"
+                      >
+                        G6PD
+                      </span>
+                    </td>
+                    <td>
+                      <a
+                        href="/taxonomy/9606"
+                        title="Homo sapiens (Human), taxon ID 9606"
+                      >
+                        Homo sapiens (Human)
+                      </a>
+                    </td>
+                    <td>
+                      515 AA
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      class="checkbox-cell"
+                    >
+                      <input
+                        data-id="P36871"
+                        id="8"
+                        type="checkbox"
+                      />
+                      <label
+                        aria-label="P36871"
+                        for="8"
+                        title="click to select, shift+click for multiple selection"
+                      />
+                    </td>
+                    <td>
+                      <span
+                        class="no-wrap accession-view"
+                      >
+                        <a
+                          class="accession"
+                          href="/uniprotkb/P36871"
+                        >
+                          P36871
+                        </a>
+                      </span>
+                    </td>
+                    <td />
+                    <td>
+                      <span
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed UniProtKB entry"
+                      >
+                        <test-file-stub />
+                      </span>
+                    </td>
+                    <td>
+                      <span>
+                        PGM1_HUMAN
+                      </span>
+                    </td>
+                    <td>
+                      <span
+                        style="font-weight: bolder;"
+                      >
+                        Phosphoglucomutase-1
+                      </span>
+                      <button
+                        aria-expanded="false"
+                        class="button tertiary ellipsis-reveal"
+                        title="Show more"
+                        type="button"
+                      >
+                        [...]
+                      </button>
+                    </td>
+                    <td>
+                      <span
+                        style="font-weight: bolder;"
+                      >
+                        PGM1
+                      </span>
+                    </td>
+                    <td>
+                      <a
+                        href="/taxonomy/9606"
+                        title="Homo sapiens (Human), taxon ID 9606"
+                      >
+                        Homo sapiens (Human)
+                      </a>
+                    </td>
+                    <td>
+                      562 AA
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div
+                class="data-loader__loading"
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   </div>

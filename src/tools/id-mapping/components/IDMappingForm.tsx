@@ -80,9 +80,10 @@ export type RuleIdToRuleInfo = {
 
 type Props = {
   initialFormValues: Readonly<IDMappingFormValues>;
+  formConfigData: IDMappingFormConfig;
 };
 
-const IDMappingForm = ({ initialFormValues }: Props) => {
+const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
   // refs
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -117,31 +118,20 @@ const IDMappingForm = ({ initialFormValues }: Props) => {
   const [submitDisabled, setSubmitDisabled] = useState(false);
   const [sending, setSending] = useState(false);
 
-  const { loading, data, error } = useDataApi<IDMappingFormConfig>(
-    apiUrls.idMappingFields
-  );
-
   const [dbNameToDbInfo, ruleIdToRuleInfo]: [
     DbNameToDbInfo | undefined | null,
     RuleIdToRuleInfo | undefined | null
   ] = useMemo(() => {
-    if (!data) {
-      return [null, null];
-    }
-    let dbNameToDbInfo;
-    let ruleIdToRuleInfo;
-    if (data) {
-      dbNameToDbInfo = Object.fromEntries(
-        data.groups.flatMap(({ items }) =>
-          items.map((item) => [item.name, item])
-        )
-      );
-      ruleIdToRuleInfo = Object.fromEntries(
-        data.rules.map((rule) => [rule.ruleId, rule])
-      );
-    }
+    const dbNameToDbInfo = Object.fromEntries(
+      formConfigData.groups.flatMap(({ items }) =>
+        items.map((item) => [item.name, item])
+      )
+    );
+    const ruleIdToRuleInfo = Object.fromEntries(
+      formConfigData.rules.map((rule) => [rule.ruleId, rule])
+    );
     return [dbNameToDbInfo, ruleIdToRuleInfo];
-  }, [data]);
+  }, [formConfigData]);
 
   const parsedIDs = useMemo(
     () => Array.from(new Set(splitAndTidyText(textIDs))),
@@ -275,15 +265,26 @@ const IDMappingForm = ({ initialFormValues }: Props) => {
   const toDbInfo = dbNameToDbInfo?.[toDb.selected as string];
   const ruleInfo = fromDbInfo?.ruleId && ruleIdToRuleInfo?.[fromDbInfo.ruleId];
   const fromTreeData =
-    data && ruleIdToRuleInfo && getTreeData(data?.groups, ruleIdToRuleInfo);
+    ruleIdToRuleInfo && getTreeData(formConfigData.groups, ruleIdToRuleInfo);
   const toTreeData =
-    data &&
     ruleIdToRuleInfo &&
     fromDbInfo?.ruleId &&
-    getTreeData(data?.groups, ruleIdToRuleInfo, fromDbInfo.ruleId);
+    getTreeData(formConfigData.groups, ruleIdToRuleInfo, fromDbInfo.ruleId);
 
-  if (error) {
-    return <Message level="failure">{error?.message}</Message>;
+  if (
+    !fromTreeData ||
+    !toTreeData ||
+    !dbNameToDbInfo ||
+    !ruleIdToRuleInfo ||
+    !ruleInfo ||
+    !toDbInfo ||
+    !fromDbInfo
+  ) {
+    return (
+      <Message level="failure">
+        Something went wrong, please try reloading the page
+      </Message>
+    );
   }
 
   return (
@@ -322,143 +323,146 @@ const IDMappingForm = ({ initialFormValues }: Props) => {
             )}
           </section>
         </fieldset>
-        {loading ||
-        !fromTreeData ||
-        !toTreeData ||
-        !dbNameToDbInfo ||
-        !ruleIdToRuleInfo ||
-        !ruleInfo ||
-        !toDbInfo ||
-        !fromDbInfo ? (
-          <Loader />
-        ) : (
-          <fieldset>
-            <section className="tools-form-section">
-              <section className="tools-form-section__item">
-                <label>From database</label>
-                <TreeSelect
-                  data={fromTreeData}
-                  autocomplete
-                  autocompleteFilter
-                  autocompletePlaceholder="Search database name"
-                  onSelect={({ id }: TreeDataNode) => {
-                    setFromDb((fromDb) => ({ ...fromDb, selected: id }));
-                    setToDb((toDb) => {
-                      const ruleId = dbNameToDbInfo[id]?.ruleId;
-                      let nextToDb = toDb;
-                      if (ruleId) {
-                        const newRuleInfo = ruleIdToRuleInfo[ruleId];
-                        const newTos = newRuleInfo.tos;
-                        // If old "to" is in the new rule's too don't update otherwise select defaultTo
-                        if (
-                          newTos.length > 0 &&
-                          !newTos.includes(toDb.selected as string)
-                        ) {
-                          nextToDb = {
-                            ...toDb,
-                            selected: newRuleInfo.defaultTo,
-                          };
-                        }
+        <fieldset>
+          <section className="tools-form-section">
+            <section className="tools-form-section__item">
+              <label>From database</label>
+              <TreeSelect
+                data={fromTreeData}
+                autocomplete
+                autocompleteFilter
+                autocompletePlaceholder="Search database name"
+                onSelect={({ id }: TreeDataNode) => {
+                  setFromDb((fromDb) => ({ ...fromDb, selected: id }));
+                  setToDb((toDb) => {
+                    const ruleId = dbNameToDbInfo[id]?.ruleId;
+                    let nextToDb = toDb;
+                    if (ruleId) {
+                      const newRuleInfo = ruleIdToRuleInfo[ruleId];
+                      const newTos = newRuleInfo.tos;
+                      // If old "to" is in the new rule's too don't update otherwise select defaultTo
+                      if (
+                        newTos.length > 0 &&
+                        !newTos.includes(toDb.selected as string)
+                      ) {
+                        nextToDb = {
+                          ...toDb,
+                          selected: newRuleInfo.defaultTo,
+                        };
                       }
-                      return nextToDb;
-                    });
-                  }}
-                  label={fromDbInfo.displayName}
-                  defaultActiveNodes={[fromDb.selected as string]}
+                    }
+                    return nextToDb;
+                  });
+                }}
+                label={fromDbInfo.displayName}
+                defaultActiveNodes={[fromDb.selected as string]}
+              />
+            </section>
+            <section className="tools-form-section__item">
+              <label>To database</label>
+              <TreeSelect
+                data={toTreeData}
+                autocomplete
+                autocompleteFilter
+                autocompletePlaceholder="Search database name"
+                onSelect={({ id }: TreeDataNode) => {
+                  setToDb((toDb) => ({ ...toDb, selected: id }));
+                }}
+                label={toDbInfo.displayName}
+                defaultActiveNodes={[toDb.selected as string]}
+              />
+            </section>
+            {ruleInfo.taxonId && (
+              <section className="tools-form-section__item tools-form-section__item--taxon-select">
+                <AutocompleteWrapper
+                  placeholder="Enter taxon name or ID"
+                  url={apiUrls.taxonomySuggester}
+                  onSelect={handleTaxonFormValue}
+                  title="Restrict by taxonomy"
+                  value={(taxID.selected as SelectedTaxon)?.label}
                 />
               </section>
-              <section className="tools-form-section__item">
-                <label>To database</label>
-                <TreeSelect
-                  data={toTreeData}
-                  autocomplete
-                  autocompleteFilter
-                  autocompletePlaceholder="Search database name"
-                  onSelect={({ id }: TreeDataNode) => {
-                    setToDb((toDb) => ({ ...toDb, selected: id }));
+            )}
+          </section>
+          <section className="tools-form-section">
+            <section className="tools-form-section__item">
+              <label>
+                Name your ID Mapping job
+                <input
+                  name="title"
+                  type="text"
+                  autoComplete="off"
+                  maxLength={100}
+                  style={{
+                    width: `${(jobName.selected as string).length + 2}ch`,
                   }}
-                  label={toDbInfo.displayName}
-                  defaultActiveNodes={[toDb.selected as string]}
+                  placeholder={'"my job title"'}
+                  value={jobName.selected as string}
+                  onFocus={(event) => {
+                    if (!jobNameEdited) {
+                      event.target.select();
+                    }
+                  }}
+                  onChange={(event) => {
+                    setJobNameEdited(Boolean(event.target.value));
+                    setJobName({ ...jobName, selected: event.target.value });
+                  }}
                 />
-              </section>
-              {ruleInfo.taxonId && (
-                <section className="tools-form-section__item tools-form-section__item--taxon-select">
-                  <AutocompleteWrapper
-                    placeholder="Enter taxon name or ID"
-                    url={apiUrls.taxonomySuggester}
-                    onSelect={handleTaxonFormValue}
-                    title="Restrict by taxonomy"
-                    value={(taxID.selected as SelectedTaxon)?.label}
-                  />
-                </section>
+              </label>
+            </section>
+          </section>
+          <section
+            className={cn('tools-form-section', sticky['sticky-bottom-right'])}
+          >
+            <section className="button-group tools-form-section__buttons">
+              {sending && !reducedMotion && (
+                <>
+                  <SpinnerIcon />
+                  &nbsp;
+                </>
               )}
+              <input className="button secondary" type="reset" />
+              <button
+                className="button primary"
+                type="submit"
+                disabled={submitDisabled}
+                onClick={submitIDMappingJob}
+              >
+                {`Map ${
+                  parsedIDs.length ? `${parsedIDs.length} ` : ''
+                } ${pluralise('ID', parsedIDs.length)}`}
+              </button>
             </section>
-            <section className="tools-form-section">
-              <section className="tools-form-section__item">
-                <label>
-                  Name your ID Mapping job
-                  <input
-                    name="title"
-                    type="text"
-                    autoComplete="off"
-                    maxLength={100}
-                    style={{
-                      width: `${(jobName.selected as string).length + 2}ch`,
-                    }}
-                    placeholder={'"my job title"'}
-                    value={jobName.selected as string}
-                    onFocus={(event) => {
-                      if (!jobNameEdited) {
-                        event.target.select();
-                      }
-                    }}
-                    onChange={(event) => {
-                      setJobNameEdited(Boolean(event.target.value));
-                      setJobName({ ...jobName, selected: event.target.value });
-                    }}
-                  />
-                </label>
-              </section>
-            </section>
-            <section
-              className={cn(
-                'tools-form-section',
-                sticky['sticky-bottom-right']
-              )}
-            >
-              <section className="button-group tools-form-section__buttons">
-                {sending && !reducedMotion && (
-                  <>
-                    <SpinnerIcon />
-                    &nbsp;
-                  </>
-                )}
-                <input className="button secondary" type="reset" />
-                <button
-                  className="button primary"
-                  type="submit"
-                  disabled={submitDisabled}
-                  onClick={submitIDMappingJob}
-                >
-                  {`Map ${
-                    parsedIDs.length ? `${parsedIDs.length} ` : ''
-                  } ${pluralise('ID', parsedIDs.length)}`}
-                </button>
-              </section>
-            </section>
-          </fieldset>
-        )}
+          </section>
+        </fieldset>
       </form>
     </>
   );
 };
 
-const IDMappingFormWithProvider = () => (
-  <InitialFormParametersProvider defaultFormValues={defaultFormValues}>
-    {(initialFormValues) => (
-      <IDMappingForm initialFormValues={initialFormValues} />
-    )}
-  </InitialFormParametersProvider>
-);
+const IDMappingFormWithProvider = () => {
+  const { loading, progress, data, error } = useDataApi<IDMappingFormConfig>(
+    apiUrls.idMappingFields
+  );
+
+  if (loading) {
+    return <Loader progress={progress} />;
+  }
+
+  if (error || !data) {
+    return <Message level="failure">{error?.message}</Message>;
+  }
+
+  return (
+    <InitialFormParametersProvider defaultFormValues={defaultFormValues}>
+      {(initialFormValues) => (
+        <IDMappingForm
+          initialFormValues={initialFormValues}
+          formConfigData={data}
+        />
+      )}
+    </InitialFormParametersProvider>
+  );
+};
 
 export default IDMappingFormWithProvider;

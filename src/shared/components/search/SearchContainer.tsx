@@ -7,6 +7,7 @@ import {
   useCallback,
   Suspense,
   SyntheticEvent,
+  useMemo,
 } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
@@ -14,7 +15,13 @@ import { MainSearch, Button, SlidingPanel } from 'franklin-sites';
 
 import ErrorBoundary from '../error-component/ErrorBoundary';
 
+import useJobFromUrl from '../../hooks/useJobFromUrl';
+import useIDMappingDetails from '../../hooks/useIDMappingDetails';
+import { useMessagesDispatch } from '../../contexts/Messages';
+
 import lazy from '../../utils/lazy';
+import { addMessage } from '../../../messages/state/messagesActions';
+import { rawDBToNamespace } from '../../../tools/id-mapping/utils';
 
 import {
   Location,
@@ -25,7 +32,15 @@ import {
   Namespace,
   searchableNamespaceLabels,
   SearchableNamespace,
+  Searchspace,
+  toolResults,
+  searchspaceLabels,
 } from '../../types/namespaces';
+import {
+  MessageFormat,
+  MessageLevel,
+} from '../../../messages/types/messagesTypes';
+import { JobTypes } from '../../../tools/types/toolsJobTypes';
 
 import './styles/search-container.scss';
 
@@ -81,43 +96,67 @@ const examples: Record<SearchableNamespace, string[]> = {
   [Namespace.arba]: ['Insulin', 'Eukaryota'],
 };
 
+export const cannotQueryMessages = {
+  [JobTypes.ID_MAPPING]:
+    'Search queries are not possible for ID mapping results which map to an external database.',
+  [JobTypes.ALIGN]:
+    'Filtering Align results is not possible as all of its sequences constitute the alignment.',
+};
+
 type Props = {
   isOnHomePage?: boolean;
-  namespace: SearchableNamespace;
-  onNamespaceChange: (namespace: SearchableNamespace) => void;
+  searchspace: Searchspace;
+  onSearchspaceChange: (searchspace: Searchspace) => void;
 };
 
 const SearchContainer: FC<
   Props & Exclude<HTMLAttributes<HTMLDivElement>, 'role'>
-> = ({ isOnHomePage, namespace, onNamespaceChange, ...props }) => {
+> = ({ isOnHomePage, searchspace, onSearchspaceChange, ...props }) => {
   const history = useHistory();
   const location = useLocation();
   const [displayQueryBuilder, setDisplayQueryBuilder] = useState(false);
-
+  // local state to hold the search value without modifying URL
+  const [searchTerm, setSearchTerm] = useState<string>('');
   const handleClose = useCallback(() => setDisplayQueryBuilder(false), []);
 
-  // local state to hold the search value without modifying URL
-  const [searchTerm, setSearchTerm] = useState<string>(
-    // initialise with whatever is already in the URL
-    () => {
-      const { query } = queryString.parse(history.location.search, {
-        decode: true,
-      });
-      if (
-        history.location.pathname.includes(LocationToPath[Location.HelpResults])
-      ) {
-        return '';
-      }
-      if (Array.isArray(query)) {
-        return query[0];
-      }
-      return query || '';
-    }
-  );
+  const dispatch = useMessagesDispatch();
+  const idMappingDetails = useIDMappingDetails();
+  const { jobId, jobResultsLocation } = useJobFromUrl();
 
   const handleSubmit = (event: SyntheticEvent) => {
     // prevent normal browser submission
     event.preventDefault();
+
+    if (
+      searchspace === toolResults &&
+      jobResultsLocation === Location.AlignResult
+    ) {
+      dispatch(
+        addMessage({
+          format: MessageFormat.POP_UP,
+          level: MessageLevel.INFO,
+          content: cannotQueryMessages[JobTypes.ALIGN],
+          displayTime: 5_000,
+        })
+      );
+      return;
+    }
+    if (
+      searchspace === toolResults &&
+      jobResultsLocation === Location.IDMappingResult &&
+      idMappingDetails?.data?.to &&
+      rawDBToNamespace(idMappingDetails.data.to) === Namespace.idmapping
+    ) {
+      dispatch(
+        addMessage({
+          format: MessageFormat.POP_UP,
+          level: MessageLevel.INFO,
+          content: cannotQueryMessages[JobTypes.ID_MAPPING],
+          displayTime: 5_000,
+        })
+      );
+      return;
+    }
 
     // restringify the resulting search
     const stringifiedSearch = queryString.stringify(
@@ -127,43 +166,50 @@ const SearchContainer: FC<
 
     // push a new location to the history containing the modified search term
     history.push({
-      pathname: SearchResultsLocations[namespace],
+      // If there was a job ID in the search bar, keep the same URL (job result)
+      pathname:
+        searchspace === toolResults
+          ? location.pathname
+          : SearchResultsLocations[searchspace as SearchableNamespace],
       search: stringifiedSearch,
     });
   };
 
-  const setNamespace = (namespace: string) => {
-    onNamespaceChange(namespace as SearchableNamespace);
+  const setSearchspace = (searchspace: string) => {
+    onSearchspaceChange(searchspace as Searchspace);
   };
 
   const loadExample = (example: string) => {
     setSearchTerm(example);
   };
 
-  const secondaryButtons = [
-    {
-      label:
-        // TODO:
-        // <span
-        //   onPointerOver={QueryBuilder.preload}
-        //   onFocus={QueryBuilder.preload}
-        // >
-        //   Advanced
-        // </span>
-        'Advanced',
-      action: () => {
-        setDisplayQueryBuilder((value) => !value);
+  const secondaryButtons = useMemo(
+    () => [
+      {
+        label:
+          // TODO:
+          // <span
+          //   onPointerOver={QueryBuilder.preload}
+          //   onFocus={QueryBuilder.preload}
+          // >
+          //   Advanced
+          // </span>
+          'Advanced',
+        action: () => {
+          setDisplayQueryBuilder((value) => !value);
+        },
       },
-    },
-    {
-      label: 'List',
-      action: () => {
-        history.push({
-          pathname: LocationToPath[Location.IDMapping],
-        });
+      {
+        label: 'List',
+        action: () => {
+          history.push({
+            pathname: LocationToPath[Location.IDMapping],
+          });
+        },
       },
-    },
-  ];
+    ],
+    [history]
+  );
 
   // reset the text content when there is a navigation to reflect what is in the
   // URL. That includes removing the text when browsing to a non-search page.
@@ -182,36 +228,40 @@ const SearchContainer: FC<
     setSearchTerm(query || '');
   }, [history, location.search]);
 
+  const searchspaces = jobId ? searchspaceLabels : searchableNamespaceLabels;
+
   return (
     <>
       <section role="search" {...props}>
         <MainSearch
-          namespaces={searchableNamespaceLabels}
+          namespaces={searchspaces}
           searchTerm={searchTerm}
           onTextChange={setSearchTerm}
           onSubmit={handleSubmit}
-          onNamespaceChange={setNamespace}
-          selectedNamespace={namespace}
+          onNamespaceChange={setSearchspace}
+          selectedNamespace={searchspace}
           secondaryButtons={secondaryButtons}
           autoFocus={isOnHomePage}
         />
         {isOnHomePage && (
           <div className="search-container-footer">
             <div>
-              {examples[namespace] && (
+              {examples[searchspace as SearchableNamespace] && (
                 <>
                   Examples:{' '}
-                  {examples[namespace]?.map((example, index) => (
-                    <Fragment key={example}>
-                      {index === 0 ? null : ', '}
-                      <Button
-                        variant="tertiary"
-                        onClick={() => loadExample(example)}
-                      >
-                        {example}
-                      </Button>
-                    </Fragment>
-                  ))}
+                  {examples[searchspace as SearchableNamespace]?.map(
+                    (example, index) => (
+                      <Fragment key={example}>
+                        {index === 0 ? null : ', '}
+                        <Button
+                          variant="tertiary"
+                          onClick={() => loadExample(example)}
+                        >
+                          {example}
+                        </Button>
+                      </Fragment>
+                    )
+                  )}
                 </>
               )}
             </div>
@@ -240,7 +290,7 @@ const SearchContainer: FC<
             <ErrorBoundary>
               <QueryBuilder
                 onCancel={handleClose}
-                initialNamespace={namespace}
+                initialSearchspace={searchspace}
               />
             </ErrorBoundary>
           </SlidingPanel>
