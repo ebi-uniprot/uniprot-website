@@ -41,6 +41,7 @@ import {
 import { Namespace } from '../../types/namespaces';
 
 import styles from './styles/sequence-view.module.css';
+import LazyComponent from '../LazyComponent';
 
 export type SequenceData = {
   value: string;
@@ -100,21 +101,29 @@ export const SequenceInfo = ({
   ];
 
   return (
-    <Sequence
-      sequence={dataToDisplay?.value}
-      onShowSequence={() => setIsoformToFetch(isoformId)}
-      infoData={infoData}
-      accession={isoformId}
-      downloadUrl={apiUrls.sequenceFasta(isoformId)}
-      onBlastClick={() =>
-        history.push(LocationToPath[Location.Blast], {
-          parameters: { sequence: dataToDisplay?.value },
-        })
+    <LazyComponent
+      fallback={
+        <div style={{ wordBreak: 'break-all' }}>
+          {dataToDisplay?.value || null}
+        </div>
       }
-      addToBasketButton={<AddToBasketButton selectedEntries={isoformId} />}
-      isCollapsible={!openByDefault}
-      isLoading={loading}
-    />
+    >
+      <Sequence
+        sequence={dataToDisplay?.value}
+        onShowSequence={() => setIsoformToFetch(isoformId)}
+        infoData={infoData}
+        accession={isoformId}
+        downloadUrl={apiUrls.sequenceFasta(isoformId)}
+        onBlastClick={() =>
+          history.push(LocationToPath[Location.Blast], {
+            parameters: { sequence: dataToDisplay?.value },
+          })
+        }
+        addToBasketButton={<AddToBasketButton selectedEntries={isoformId} />}
+        isCollapsible={!openByDefault}
+        isLoading={loading}
+      />
+    </LazyComponent>
   );
 };
 
