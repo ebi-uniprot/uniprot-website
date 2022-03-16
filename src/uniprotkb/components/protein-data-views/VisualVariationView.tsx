@@ -1,5 +1,8 @@
 import { useCallback } from 'react';
 
+// We have to import this specific file otherwise it gets everything in at the
+// same time (including molstar...). But this path causes issues with Jest
+// because it doesn't support es modules natively yet. So, not testable atm
 import filterConfig, {
   colorConfig,
 } from 'protvista-uniprot/dist/es/filterConfig';

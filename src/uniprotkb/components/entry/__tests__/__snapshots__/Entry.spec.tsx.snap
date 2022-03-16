@@ -2289,7 +2289,7 @@ exports[`Entry basic should render main 1`] = `
                         <div
                           id="fakeContent"
                         />
-                        <sib-swissbiopics-sl-uniprot-52
+                        <sib-swissbiopics-sl-uniprot-56
                           contentid="fakeContent"
                           sls=""
                           taxid="9606"
@@ -2316,7 +2316,7 @@ exports[`Entry basic should render main 1`] = `
                               </strong>
                                
                               <button
-                                aria-controls="53"
+                                aria-controls="57"
                                 aria-expanded="false"
                                 class="svg-colour-unreviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
@@ -2335,11 +2335,11 @@ exports[`Entry basic should render main 1`] = `
                               <div
                                 class="evidence-tag-content "
                                 data-testid="evidence-tag-content"
-                                id="53"
+                                id="57"
                               />
                               ; topology value 
                               <button
-                                aria-controls="54"
+                                aria-controls="58"
                                 aria-expanded="false"
                                 class="svg-colour-unreviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
@@ -2358,7 +2358,7 @@ exports[`Entry basic should render main 1`] = `
                               <div
                                 class="evidence-tag-content "
                                 data-testid="evidence-tag-content"
-                                id="54"
+                                id="58"
                               />
                             </div>
                             <div
@@ -2366,7 +2366,7 @@ exports[`Entry basic should render main 1`] = `
                             >
                               value.
                               <button
-                                aria-controls="55"
+                                aria-controls="59"
                                 aria-expanded="false"
                                 class="svg-colour-unreviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
@@ -2385,11 +2385,11 @@ exports[`Entry basic should render main 1`] = `
                               <div
                                 class="evidence-tag-content "
                                 data-testid="evidence-tag-content"
-                                id="55"
+                                id="59"
                               />
                             </div>
                           </section>
-                        </sib-swissbiopics-sl-uniprot-52>
+                        </sib-swissbiopics-sl-uniprot-56>
                       </div>
                       <div
                         style="display: none;"
@@ -2435,7 +2435,7 @@ exports[`Entry basic should render main 1`] = `
                     class="text-block"
                   >
                     <button
-                      aria-controls="42"
+                      aria-controls="46"
                       aria-expanded="false"
                       class="svg-colour-unreviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -2454,7 +2454,7 @@ exports[`Entry basic should render main 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="42"
+                      id="46"
                     />
                   </span>
                   <ul
@@ -2478,7 +2478,7 @@ exports[`Entry basic should render main 1`] = `
                             <li>
                               value2
                               <button
-                                aria-controls="43"
+                                aria-controls="47"
                                 aria-expanded="false"
                                 class="svg-colour-unreviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
@@ -2497,7 +2497,7 @@ exports[`Entry basic should render main 1`] = `
                               <div
                                 class="evidence-tag-content "
                                 data-testid="evidence-tag-content"
-                                id="43"
+                                id="47"
                               />
                             </li>
                           </ul>
@@ -2568,7 +2568,7 @@ exports[`Entry basic should render main 1`] = `
                   >
                     value.
                     <button
-                      aria-controls="44"
+                      aria-controls="48"
                       aria-expanded="false"
                       class="svg-colour-unreviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -2587,7 +2587,7 @@ exports[`Entry basic should render main 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="44"
+                      id="48"
                     />
                   </div>
                   <h4
@@ -2604,7 +2604,7 @@ exports[`Entry basic should render main 1`] = `
                   >
                     value.
                     <button
-                      aria-controls="45"
+                      aria-controls="49"
                       aria-expanded="false"
                       class="svg-colour-unreviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -2623,7 +2623,7 @@ exports[`Entry basic should render main 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="45"
+                      id="49"
                     />
                   </div>
                 </div>
@@ -2750,7 +2750,7 @@ exports[`Entry basic should render main 1`] = `
                             <td>
                               description value 123
                               <button
-                                aria-controls="46"
+                                aria-controls="50"
                                 aria-expanded="false"
                                 class="svg-colour-reviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
@@ -2769,7 +2769,7 @@ exports[`Entry basic should render main 1`] = `
                               <div
                                 class="evidence-tag-content "
                                 data-testid="evidence-tag-content"
-                                id="46"
+                                id="50"
                               />
                             </td>
                             <td>
@@ -3104,7 +3104,7 @@ exports[`Entry basic should render main 1`] = `
                                  #keyword value
                               </a>
                               <button
-                                aria-controls="47"
+                                aria-controls="51"
                                 aria-expanded="false"
                                 class="svg-colour-unreviewed evidence-tag"
                                 data-testid="evidence-tag-trigger"
@@ -3123,7 +3123,7 @@ exports[`Entry basic should render main 1`] = `
                               <div
                                 class="evidence-tag-content "
                                 data-testid="evidence-tag-content"
-                                id="47"
+                                id="51"
                               />
                             </li>
                           </ul>
@@ -3408,7 +3408,7 @@ exports[`Entry basic should render main 1`] = `
                     </a>
                      differs from that shown. Reason: Erroneous gene model prediction Text note
                     <button
-                      aria-controls="48"
+                      aria-controls="52"
                       aria-expanded="false"
                       class="svg-colour-unreviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -3427,7 +3427,7 @@ exports[`Entry basic should render main 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="48"
+                      id="52"
                     />
                   </section>
                   <h3
@@ -3443,7 +3443,7 @@ exports[`Entry basic should render main 1`] = `
                     </h4>
                     Molecular mass is 2.1 Da. Determined by LSI. note value
                     <button
-                      aria-controls="49"
+                      aria-controls="53"
                       aria-expanded="false"
                       class="svg-colour-unreviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -3462,7 +3462,7 @@ exports[`Entry basic should render main 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="49"
+                      id="53"
                     />
                   </section>
                   <h3
@@ -3478,7 +3478,7 @@ exports[`Entry basic should render main 1`] = `
                       <span>
                         1 
                         <button
-                          aria-controls="50"
+                          aria-controls="54"
                           aria-expanded="false"
                           class="svg-colour-unreviewed evidence-tag"
                           data-testid="evidence-tag-trigger"
@@ -3497,7 +3497,7 @@ exports[`Entry basic should render main 1`] = `
                         <div
                           class="evidence-tag-content "
                           data-testid="evidence-tag-content"
-                          id="50"
+                          id="54"
                         />
                       </span>
                     </div>
@@ -3505,7 +3505,7 @@ exports[`Entry basic should render main 1`] = `
                       <span>
                         value 
                         <button
-                          aria-controls="51"
+                          aria-controls="55"
                           aria-expanded="false"
                           class="svg-colour-unreviewed evidence-tag"
                           data-testid="evidence-tag-trigger"
@@ -3524,7 +3524,7 @@ exports[`Entry basic should render main 1`] = `
                         <div
                           class="evidence-tag-content "
                           data-testid="evidence-tag-content"
-                          id="51"
+                          id="55"
                         />
                       </span>
                     </div>
