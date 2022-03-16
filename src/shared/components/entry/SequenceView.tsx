@@ -13,6 +13,7 @@ import FreeTextView from '../../../uniprotkb/components/protein-data-views/FreeT
 import BlastButton from '../action-buttons/Blast';
 import AlignButton from '../action-buttons/Align';
 import AddToBasketButton from '../action-buttons/AddToBasket';
+import LazyComponent from '../LazyComponent';
 
 import useDataApi from '../../hooks/useDataApi';
 
@@ -41,7 +42,6 @@ import {
 import { Namespace } from '../../types/namespaces';
 
 import styles from './styles/sequence-view.module.css';
-import LazyComponent from '../LazyComponent';
 
 export type SequenceData = {
   value: string;
@@ -103,7 +103,7 @@ export const SequenceInfo = ({
   return (
     <LazyComponent
       fallback={
-        <div style={{ wordBreak: 'break-all' }}>
+        <div className={styles['lazy-fallback']}>
           {dataToDisplay?.value || null}
         </div>
       }
