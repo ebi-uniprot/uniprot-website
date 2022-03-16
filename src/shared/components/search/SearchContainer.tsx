@@ -22,6 +22,7 @@ import { useMessagesDispatch } from '../../contexts/Messages';
 import lazy from '../../utils/lazy';
 import { addMessage } from '../../../messages/state/messagesActions';
 import { rawDBToNamespace } from '../../../tools/id-mapping/utils';
+import { parseQueryString } from '../../utils/url';
 
 import {
   Location,
@@ -214,15 +215,11 @@ const SearchContainer: FC<
   // reset the text content when there is a navigation to reflect what is in the
   // URL. That includes removing the text when browsing to a non-search page.
   useEffect(() => {
-    const { query } = queryString.parse(location.search, { decode: true });
+    const { query } = parseQueryString(location.search, { decode: true });
     // Using history here because history won't change, while location will
     if (
       history.location.pathname.includes(LocationToPath[Location.HelpResults])
     ) {
-      return;
-    }
-    if (Array.isArray(query)) {
-      setSearchTerm(query[0]);
       return;
     }
     setSearchTerm(query || '');

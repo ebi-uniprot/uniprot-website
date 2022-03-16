@@ -1,4 +1,4 @@
-import qs from 'query-string';
+import { parseQueryString } from '../../shared/utils/url';
 
 import { Column } from '../../shared/config/columns';
 import { SortableColumn } from '../types/columnTypes';
@@ -51,7 +51,7 @@ export const getParamsFromURL = (
     fields, // Handled in useColumnNames
     view, // Handled in useViewMode
     ...restParams
-  } = qs.parse(url);
+  } = parseQueryString(url);
 
   let selectedFacets: SelectedFacet[] = [];
   if (facets && typeof facets === 'string') {
@@ -60,9 +60,8 @@ export const getParamsFromURL = (
   const sortDirection = dir as keyof typeof SortDirection;
 
   const params: URLResultParams = {
-    query: query && typeof query === 'string' ? query : '',
-    activeFacet:
-      activeFacet && typeof activeFacet === 'string' ? activeFacet : undefined,
+    query: query || '',
+    activeFacet: activeFacet || undefined,
     selectedFacets,
     sortColumn: sort as SortableColumn,
     sortDirection: sortDirection && SortDirection[sortDirection],

@@ -9,7 +9,6 @@ import {
   Loader,
   Message,
 } from 'franklin-sites';
-import qs from 'query-string';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
@@ -20,12 +19,14 @@ import {
 } from '../../../shared/components/error-pages/ObsoleteEntryPage';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
+import useItemSelect from '../../../shared/hooks/useItemSelect';
 
 import parseDate from '../../../shared/utils/parseDate';
 import listFormat from '../../../shared/utils/listFormat';
 import { unisave } from '../../../shared/config/apiUrls';
 import { getEntryPath } from '../../../app/config/urls';
 import * as logging from '../../../shared/utils/logging';
+import { parseQueryString } from '../../../shared/utils/url';
 
 import { TabLocation } from './Entry';
 import {
@@ -38,7 +39,6 @@ import { ColumnDescriptor } from '../../../shared/hooks/useColumns';
 import { Namespace } from '../../../shared/types/namespaces';
 
 import helper from '../../../shared/styles/helper.module.scss';
-import useItemSelect from '../../../shared/hooks/useItemSelect';
 
 type UniSaveVersionWithEvents = UniSaveVersion & {
   events?: Record<UniSaveEventType, string[]>;
@@ -405,7 +405,9 @@ export const EntryHistoryList = ({ accession }: { accession: string }) => {
 };
 
 const EntryHistory = ({ accession }: { accession: string }) => {
-  const { version } = qs.parse(useLocation().search, { parseNumbers: true });
+  const { version } = parseQueryString(useLocation().search, {
+    parseNumbers: true,
+  });
 
   const title = <h2>Entry history</h2>;
 

@@ -8,7 +8,6 @@ import {
   useCallback,
 } from 'react';
 import { generatePath, useHistory, useLocation } from 'react-router-dom';
-import qs from 'query-string';
 import { frame } from 'timing-functions';
 import { PageIntro, Loader, Button, Message } from 'franklin-sites';
 
@@ -27,6 +26,7 @@ import { pluralise } from '../../shared/utils/utils';
 import { stringify } from '../utils/queryStringProcessor';
 import parseAndMatchQuery from '../utils/parseAndMatchQuery';
 import { rawDBToNamespace } from '../../tools/id-mapping/utils';
+import { parseQueryString } from '../../shared/utils/url';
 
 import { addMessage } from '../../messages/state/messagesActions';
 
@@ -139,14 +139,10 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
         return clauses;
       }
 
-      let query = qs.parse(location.search, { decode: true })?.query;
+      let query = parseQueryString(location.search, { decode: true })?.query;
       if (query === '*') {
         // if the query is a star query, don't parse it, default to example form
         query = null;
-      }
-      if (Array.isArray(query)) {
-        const t = query.filter((q: string | null): q is string => q !== null);
-        query = t;
       }
 
       const [validatedQuery, invalidClauses] = parseAndMatchQuery(

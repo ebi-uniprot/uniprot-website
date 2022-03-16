@@ -468,7 +468,7 @@ export const help = {
           // Sort in order to improve cache hits
           .sort()
           .map((facet) => {
-            const [facetName, facetValue] = facet.split(':');
+            const [facetName, facetValue] = (facet || '').split(':');
             return `(${facetName}:${
               facetValue.includes(' ') ? `"${facetValue}"` : facetValue
             })`;
