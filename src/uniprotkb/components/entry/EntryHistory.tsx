@@ -372,15 +372,9 @@ export const EntryHistoryList = ({ accession }: { accession: string }) => {
             pathname,
             search: compareDisabled
               ? undefined
-              : `version=${
-                  selectedEntries[0] < selectedEntries[1]
-                    ? selectedEntries[0]
-                    : selectedEntries[1]
-                }&version=${
-                  selectedEntries[0] < selectedEntries[1]
-                    ? selectedEntries[1]
-                    : selectedEntries[0]
-                }`,
+              : `versions=${Array.from(selectedEntries).sort(
+                  (a, b) => +a - +b
+                )}`,
           }}
           title={
             compareDisabled ? 'Please select 2 versions to compare' : undefined
@@ -405,7 +399,7 @@ export const EntryHistoryList = ({ accession }: { accession: string }) => {
 };
 
 const EntryHistory = ({ accession }: { accession: string }) => {
-  const { version } = parseQueryString(useLocation().search);
+  const { version, versions } = parseQueryString(useLocation().search);
 
   const title = <h2>Entry history</h2>;
 
@@ -420,6 +414,8 @@ const EntryHistory = ({ accession }: { accession: string }) => {
       </Button>
     </div>
   );
+
+  console.log(versions);
 
   if (version && version.length === 2) {
     const v1 = +(version[0] || 0);
