@@ -9,6 +9,8 @@ import {
 } from 'react';
 import { Loader } from 'franklin-sites';
 
+import ErrorBoundary from './error-component/ErrorBoundary';
+
 const defaultFallback = <Loader />;
 
 type Props = {
@@ -56,7 +58,11 @@ const LazyComponent: FC<Props> = ({
   }, [render, observer, wasShown]);
 
   if (render ?? wasShown) {
-    return <Suspense fallback={fallback}>{children}</Suspense>;
+    return (
+      <Suspense fallback={fallback}>
+        <ErrorBoundary>{children}</ErrorBoundary>
+      </Suspense>
+    );
   }
 
   return <div ref={ref}>{fallback}</div>;
