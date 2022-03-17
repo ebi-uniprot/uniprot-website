@@ -5,16 +5,16 @@ import customRender from '../../../__test-helpers__/customRender';
 
 import Download, { getPreviewFileFormat } from '../Download';
 
+import { IDMappingDetailsContext } from '../../../contexts/IDMappingDetails';
+
 import { FileFormat } from '../../../types/resultsDownload';
 import { Namespace } from '../../../types/namespaces';
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 
 import mockFasta from '../../../../uniprotkb/components/__mocks__/fasta.json';
-
-import '../../../../uniprotkb/components/__mocks__/mockApi';
-import { IDMappingDetailsContext } from '../../../contexts/IDMappingDetails';
 import SimpleMappingDetails from '../../../../tools/id-mapping/components/results/__mocks__/SimpleMappingDetails';
 import UniProtkbMappingDetails from '../../../../tools/id-mapping/components/results/__mocks__/UniProtkbMappingDetails';
+import '../../../../uniprotkb/components/__mocks__/mockApi';
 
 const initialColumns = [
   UniProtKBColumn.accession,
