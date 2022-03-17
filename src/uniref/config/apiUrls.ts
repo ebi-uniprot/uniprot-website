@@ -12,7 +12,7 @@ const apiUrls = {
       facets?: Readonly<string[]>;
       selectedFacets?: string[];
       size?: number;
-      format?: FileFormat.json | FileFormat.list; // TODO: add when supported: | FileFormat.tsv | FileFormat.xml https://www.ebi.ac.uk/panda/jira/browse/TRM-27641
+      format?: FileFormat.json | FileFormat.list;
     } = {}
   ) =>
     qs.stringifyUrl({
