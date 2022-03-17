@@ -56,13 +56,13 @@ const Download: FC<DownloadProps> = ({
 
   const { search: queryParamFromUrl } = useLocation();
 
-  const fileFormats = nsToFileFormatsResultsDownload[namespace] as FileFormat[];
+  const fileFormats = nsToFileFormatsResultsDownload[namespace];
 
   const [selectedColumns, setSelectedColumns] = useState<Column[]>(columnNames);
   // Defaults to "download all" if no selection
   const [downloadAll, setDownloadAll] = useState(!selectedEntries.length);
   const [fileFormat, setFileFormat] = useState(fileFormats[0]);
-  const [compressed, setCompressed] = useState(true);
+  const [compressed, setCompressed] = useState(namespace !== Namespace.unisave);
   const [extraContent, setExtraContent] = useState<null | ExtraContent>(null);
 
   const [
@@ -187,29 +187,34 @@ const Download: FC<DownloadProps> = ({
           </select>
         </label>
       </fieldset>
-      <fieldset>
-        <legend>Compressed</legend>
-        <label>
-          <input
-            type="radio"
-            name="compressed"
-            value="true"
-            checked={compressed}
-            onChange={handleCompressedChange}
-          />
-          Yes
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="compressed"
-            value="false"
-            checked={!compressed}
-            onChange={handleCompressedChange}
-          />
-          No
-        </label>
-      </fieldset>
+      {/* compressed not supported in UniSave */}
+      {namespace !== Namespace.unisave && (
+        <fieldset>
+          <legend>Compressed</legend>
+          <label>
+            <input
+              aria-label="compressed"
+              type="radio"
+              name="compressed"
+              value="true"
+              checked={compressed}
+              onChange={handleCompressedChange}
+            />
+            Yes
+          </label>
+          <label>
+            <input
+              aria-label="not compressed"
+              type="radio"
+              name="compressed"
+              value="false"
+              checked={!compressed}
+              onChange={handleCompressedChange}
+            />
+            No
+          </label>
+        </fieldset>
+      )}
       {fileFormatsWithColumns.has(fileFormat) &&
         namespace !== Namespace.idmapping && (
           <>
@@ -236,7 +241,7 @@ const Download: FC<DownloadProps> = ({
           variant="tertiary"
           onClick={() => displayExtraContent('preview')}
         >
-          Preview {nPreview}
+          Preview {namespace === Namespace.unisave ? 'file' : nPreview}
         </Button>
         <Button variant="secondary" onClick={onClose}>
           Cancel

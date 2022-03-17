@@ -16,7 +16,11 @@ export const IDMappingFromContext = createContext<Namespace | undefined>(
 const From = ({ from }: Partial<MappingFlat>) => {
   const fromNamespace = useContext(IDMappingFromContext);
 
-  if (!(from && fromNamespace) || fromNamespace === Namespace.idmapping) {
+  if (
+    !(from && fromNamespace) ||
+    fromNamespace === Namespace.idmapping ||
+    fromNamespace === Namespace.unisave
+  ) {
     return <>{from}</> || null;
   }
 

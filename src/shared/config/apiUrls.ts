@@ -321,6 +321,7 @@ type Parameters = {
   accessions?: string;
   upis?: string;
   ids?: string;
+  versions?: string;
   format: string;
   // TODO: change to set of possible fields (if possible, depending on namespace)
   fields?: string;
@@ -399,6 +400,8 @@ export const getDownloadUrl = ({
     if (selectedFacets.length) {
       parameters.facetFilter = createFacetsQueryString(selectedFacets);
     }
+  } else if (namespace === Namespace.unisave) {
+    parameters.versions = selected.join(',');
   } else {
     parameters.query = selected.length
       ? createSelectedQueryString(selected, selectedIdField)
