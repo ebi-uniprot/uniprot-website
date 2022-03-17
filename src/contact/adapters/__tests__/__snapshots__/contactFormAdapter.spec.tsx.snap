@@ -6,11 +6,11 @@ Object {
   "message": "I would like this entry to be updated
 
 Name: Postman Pat
-Referred from: /uniprotkb/P05067
+Referred from: http://localhost/uniprotkb/P05067
 Browser: Browser and OS info
 Git commit: #git_commit_id",
   "requiredForRobots": "",
-  "subject": "General enquiry",
+  "subject": "[uuw] General enquiry",
   "token": "random_token",
 }
 `;
