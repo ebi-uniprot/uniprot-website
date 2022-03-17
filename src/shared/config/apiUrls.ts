@@ -321,7 +321,8 @@ type Parameters = {
   accessions?: string;
   upis?: string;
   ids?: string;
-  versions?: string;
+  versions?: string; // UniSave-specific
+  uniqueSequences?: boolean; // UniSave-specific
   format: string;
   // TODO: change to set of possible fields (if possible, depending on namespace)
   fields?: string;
@@ -402,6 +403,9 @@ export const getDownloadUrl = ({
     }
   } else if (namespace === Namespace.unisave) {
     parameters.versions = selected.length ? selected.join(',') : undefined;
+    if (fileFormat === FileFormat.fasta) {
+      parameters.uniqueSequences = true;
+    }
   } else {
     parameters.query = selected.length
       ? createSelectedQueryString(selected, selectedIdField)
