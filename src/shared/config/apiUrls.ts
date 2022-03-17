@@ -401,7 +401,7 @@ export const getDownloadUrl = ({
       parameters.facetFilter = createFacetsQueryString(selectedFacets);
     }
   } else if (namespace === Namespace.unisave) {
-    parameters.versions = selected.join(',');
+    parameters.versions = selected.length ? selected.join(',') : undefined;
   } else {
     parameters.query = selected.length
       ? createSelectedQueryString(selected, selectedIdField)
