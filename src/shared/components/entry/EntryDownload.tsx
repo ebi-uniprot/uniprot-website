@@ -48,7 +48,7 @@ const getEntryDownloadUrl = (
     }
   }
   if (namespace === Namespace.uniref) {
-    // TODO: eventually when the members endpoint supports TSV, XML add these to the check
+    // TODO: eventually when the members endpoint supports TSV, XML add these to the check. https://www.ebi.ac.uk/panda/jira/browse/TRM-27641
     if (fileFormat === FileFormat.list) {
       return unirefApiUrls.members(accession, { format: fileFormat });
     }
