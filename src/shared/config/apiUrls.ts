@@ -416,7 +416,8 @@ export const getDownloadUrl = ({
         SortDirection[sortDirection]
       )}`;
     }
-    if (columns) {
+    // Can't customise columns on UniSave
+    if (columns && namespace !== Namespace.unisave) {
       parameters.fields = columns.join(',');
     }
   }

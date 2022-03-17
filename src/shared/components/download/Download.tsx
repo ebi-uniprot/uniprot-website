@@ -216,7 +216,8 @@ const Download: FC<DownloadProps> = ({
         </fieldset>
       )}
       {fileFormatsWithColumns.has(fileFormat) &&
-        namespace !== Namespace.idmapping && (
+        namespace !== Namespace.idmapping &&
+        namespace !== Namespace.unisave && (
           <>
             <legend>Customize columns</legend>
             <ColumnSelect

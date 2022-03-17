@@ -26,5 +26,6 @@ export const fileFormatEntryDownload = [
 export const fileFormatHistoryDownload = [
   FileFormat.text,
   FileFormat.fasta,
+  FileFormat.tsv,
   FileFormat.json,
 ];
