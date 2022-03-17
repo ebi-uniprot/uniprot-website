@@ -3,6 +3,7 @@ import { DropdownButton, DownloadIcon } from 'franklin-sites';
 
 import apiUrls from '../../config/apiUrls';
 import uniparcApiUrls from '../../../uniparc/config/apiUrls';
+import unirefApiUrls from '../../../uniref/config/apiUrls';
 import { allEntryPages } from '../../../app/config/urls';
 
 import { fileFormatEntryDownload as uniProtKBFFED } from '../../../uniprotkb/config/download';
@@ -36,6 +37,25 @@ const formatMap = new Map<Namespace, FileFormat[]>([
   [Namespace.arba, arbaFFED],
 ]);
 
+const getEntryDownloadUrl = (
+  accession: string,
+  fileFormat: FileFormat,
+  namespace: Namespace
+) => {
+  if (namespace === Namespace.uniparc) {
+    if (fileFormat === FileFormat.tsv) {
+      return uniparcApiUrls.databases(accession);
+    }
+  }
+  if (namespace === Namespace.uniref) {
+    // TODO: eventually when the members endpoint supports TSV, XML add these to the check
+    if (fileFormat === FileFormat.list) {
+      return unirefApiUrls.members(accession, { format: fileFormat });
+    }
+  }
+  return apiUrls.entryDownload(accession, fileFormat, namespace);
+};
+
 const EntryDownload = () => {
   const match =
     useRouteMatch<{ namespace: Namespace; accession: string }>(allEntryPages);
@@ -63,12 +83,7 @@ const EntryDownload = () => {
             <li key={fileFormat}>
               <a
                 target="_blank"
-                href={
-                  namespace === Namespace.uniparc &&
-                  fileFormat === FileFormat.tsv
-                    ? uniparcApiUrls.databases(accession)
-                    : apiUrls.entryDownload(accession, fileFormat, namespace)
-                }
+                href={getEntryDownloadUrl(accession, fileFormat, namespace)}
                 rel="noreferrer"
               >
                 {fileFormat}
