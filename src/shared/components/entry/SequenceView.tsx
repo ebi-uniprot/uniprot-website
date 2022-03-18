@@ -13,6 +13,7 @@ import FreeTextView from '../../../uniprotkb/components/protein-data-views/FreeT
 import BlastButton from '../action-buttons/Blast';
 import AlignButton from '../action-buttons/Align';
 import AddToBasketButton from '../action-buttons/AddToBasket';
+import LazyComponent from '../LazyComponent';
 
 import useDataApi from '../../hooks/useDataApi';
 
@@ -100,21 +101,30 @@ export const SequenceInfo = ({
   ];
 
   return (
-    <Sequence
-      sequence={dataToDisplay?.value}
-      onShowSequence={() => setIsoformToFetch(isoformId)}
-      infoData={infoData}
-      accession={isoformId}
-      downloadUrl={apiUrls.sequenceFasta(isoformId)}
-      onBlastClick={() =>
-        history.push(LocationToPath[Location.Blast], {
-          parameters: { sequence: dataToDisplay?.value },
-        })
+    <LazyComponent
+      fallback={
+        <div className={styles['lazy-fallback']}>
+          {dataToDisplay?.value || null}
+        </div>
       }
-      addToBasketButton={<AddToBasketButton selectedEntries={isoformId} />}
-      isCollapsible={!openByDefault}
-      isLoading={loading}
-    />
+      rootMargin="50px"
+    >
+      <Sequence
+        sequence={dataToDisplay?.value}
+        onShowSequence={() => setIsoformToFetch(isoformId)}
+        infoData={infoData}
+        accession={isoformId}
+        downloadUrl={apiUrls.sequenceFasta(isoformId)}
+        onBlastClick={() =>
+          history.push(LocationToPath[Location.Blast], {
+            parameters: { sequence: dataToDisplay?.value },
+          })
+        }
+        addToBasketButton={<AddToBasketButton selectedEntries={isoformId} />}
+        isCollapsible={!openByDefault}
+        isLoading={loading}
+      />
+    </LazyComponent>
   );
 };
 

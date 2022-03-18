@@ -878,24 +878,7 @@ exports[`non-critical HomePage component should render 1`] = `
     </div>
     <div
       class="uniprot-grid-cell--span-3 need-help__tutorial-videos-top"
-    >
-      <lite-youtube
-        playlabel="Welcome to UniProt || UniProt introduction"
-        style="background-image: url(https://i.ytimg.com/vi/OwOJmKmc7VM/hqdefault.jpg);"
-        videoid="OwOJmKmc7VM"
-      >
-        <button
-          class="lty-playbtn"
-          type="button"
-        >
-          <span
-            class="visually-hidden"
-          >
-            Welcome to UniProt || UniProt introduction
-          </span>
-        </button>
-      </lite-youtube>
-    </div>
+    />
     <div
       class="uniprot-grid-cell--span-3 need-help__tutorial-videos-bottom"
     >

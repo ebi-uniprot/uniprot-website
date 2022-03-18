@@ -1,3 +1,7 @@
+.lazy-fallback {
+  word-break: break-all;
+}
+
 .modifications {
   font-family: monospace;
   word-break: break-word;

@@ -24,15 +24,21 @@ export const modifyFormData = (formData: FormData, token: string) => {
   const output = new FormData();
   output.set('token', token);
   output.set('email', formData.get('email') || '');
-  output.set('subject', formData.get('subject') || '');
+  output.set(
+    'subject',
+    `[uuw${globalThis.location.hostname.includes('beta') ? '-beta' : ''}] ${
+      formData.get('subject') || ''
+    }`
+  );
   output.set('requiredForRobots', formData.get('requiredForRobots') || '');
   output.set(
     'message',
     `${formData.get('message')}\r\n\r\nName: ${formData.get(
       'name'
-    )}\r\nReferred from: ${formData.get('referrer')}\r\nBrowser: ${
-      navigator.userAgent
-    }\r\nGit commit: ${GIT_COMMIT_HASH}` || ''
+    )}\r\nReferred from: ${globalThis.location.origin}${formData.get(
+      'referrer'
+    )}\r\nBrowser: ${navigator.userAgent}\r\nGit commit: ${GIT_COMMIT_HASH}` ||
+      ''
   );
   return output;
 };

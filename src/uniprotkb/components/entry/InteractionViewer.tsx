@@ -1,6 +1,10 @@
 import 'interaction-viewer';
 
-const InteractionViewer = ({ accession }: { accession: string }) => (
+type Props = {
+  accession: string;
+};
+
+const InteractionViewer = ({ accession }: Props) => (
   <interaction-viewer accession={accession} />
 );
 

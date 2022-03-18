@@ -1,4 +1,4 @@
-import { Fragment, useMemo, ReactNode } from 'react';
+import { Fragment, useMemo, ReactNode, useState, Suspense } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer';
 import {
@@ -6,10 +6,13 @@ import {
   Card,
   CodeBlock,
   DataTable,
+  DownloadIcon,
   Loader,
   Message,
+  SlidingPanel,
 } from 'franklin-sites';
 
+import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 import {
@@ -21,6 +24,7 @@ import {
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useItemSelect from '../../../shared/hooks/useItemSelect';
 
+import lazy from '../../../shared/utils/lazy';
 import parseDate from '../../../shared/utils/parseDate';
 import listFormat from '../../../shared/utils/listFormat';
 import { unisave } from '../../../shared/config/apiUrls';
@@ -39,6 +43,14 @@ import { ColumnDescriptor } from '../../../shared/hooks/useColumns';
 import { Namespace } from '../../../shared/types/namespaces';
 
 import helper from '../../../shared/styles/helper.module.scss';
+
+const DownloadComponent = lazy(
+  /* istanbul ignore next */
+  () =>
+    import(
+      /* webpackChunkName: "download" */ '../../../shared/components/download/Download'
+    )
+);
 
 type UniSaveVersionWithEvents = UniSaveVersion & {
   events?: Record<UniSaveEventType, string[]>;
@@ -157,18 +169,16 @@ const columns: ColumnDescriptor<UniSaveVersionWithEvents>[] = [
     render: (entry) => (
       <>
         {entry.entryVersion}&nbsp;
-        <Link
-          to={{
-            pathname: getEntryPath(
-              Namespace.uniprotkb,
-              entry.accession,
-              TabLocation.History
-            ),
-            search: `version=${entry.entryVersion}`,
-          }}
+        {/* eslint-disable-next-line react/jsx-no-target-blank */}
+        <a
+          href={unisave.accession(entry.accession, {
+            entryVersions: entry.entryVersion,
+            format: 'txt',
+          })}
+          target="_blank"
         >
           (txt)
-        </Link>
+        </a>
       </>
     ),
   },
@@ -184,13 +194,13 @@ const columns: ColumnDescriptor<UniSaveVersionWithEvents>[] = [
     render: (entry) => (
       <>
         {entry.sequenceVersion}&nbsp;
+        {/* eslint-disable-next-line react/jsx-no-target-blank */}
         <a
           href={unisave.accession(entry.accession, {
             entryVersions: entry.entryVersion,
             format: 'fasta',
-            download: true,
           })}
-          download={`${entry.accession}.${entry.sequenceVersion}.fasta`}
+          target="_blank"
         >
           (fasta)
         </a>
@@ -260,6 +270,8 @@ export const EntryHistoryList = ({ accession }: { accession: string }) => {
     unisave.accession(accession)
   );
   const statusData = useDataApi<UniSaveStatus>(unisave.status(accession));
+
+  const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
   const [selectedEntries, setSelectedItemFromEvent] = useItemSelect();
 
@@ -362,6 +374,26 @@ export const EntryHistoryList = ({ accession }: { accession: string }) => {
 
   return (
     <>
+      {displayDownloadPanel && (
+        <Suspense fallback={null}>
+          <SlidingPanel
+            title="Download"
+            // Meaning, in basket mini view, slide from the right
+            position="left"
+            onClose={() => setDisplayDownloadPanel(false)}
+          >
+            <ErrorBoundary>
+              <DownloadComponent
+                selectedEntries={selectedEntries}
+                totalNumberResults={data.length}
+                onClose={() => setDisplayDownloadPanel(false)}
+                namespace={Namespace.unisave}
+                base={`/unisave/${accession}`}
+              />
+            </ErrorBoundary>
+          </SlidingPanel>
+        </Suspense>
+      )}
       {message && <Message level="info">{message}</Message>}
       <div className="button-group">
         <Button
@@ -372,21 +404,24 @@ export const EntryHistoryList = ({ accession }: { accession: string }) => {
             pathname,
             search: compareDisabled
               ? undefined
-              : `version=${
-                  selectedEntries[0] < selectedEntries[1]
-                    ? selectedEntries[0]
-                    : selectedEntries[1]
-                }&version=${
-                  selectedEntries[0] < selectedEntries[1]
-                    ? selectedEntries[1]
-                    : selectedEntries[0]
-                }`,
+              : `versions=${Array.from(selectedEntries).sort(
+                  (a, b) => +a - +b
+                )}`,
           }}
           title={
             compareDisabled ? 'Please select 2 versions to compare' : undefined
           }
         >
           Compare
+        </Button>
+        <Button
+          variant="tertiary"
+          onPointerOver={DownloadComponent.preload}
+          onFocus={DownloadComponent.preload}
+          onClick={() => setDisplayDownloadPanel((value) => !value)}
+        >
+          <DownloadIcon />
+          Download
         </Button>
       </div>
       {data.length ? (
@@ -405,9 +440,7 @@ export const EntryHistoryList = ({ accession }: { accession: string }) => {
 };
 
 const EntryHistory = ({ accession }: { accession: string }) => {
-  const { version } = parseQueryString(useLocation().search, {
-    parseNumbers: true,
-  });
+  const { versions: rawVersions } = parseQueryString(useLocation().search);
 
   const title = <h2>Entry history</h2>;
 
@@ -423,9 +456,11 @@ const EntryHistory = ({ accession }: { accession: string }) => {
     </div>
   );
 
-  if (version && Array.isArray(version) && version.length === 2) {
-    const v1 = +(version[0] || 0);
-    const v2 = +(version[1] || 0);
+  const versions = rawVersions?.split(',').map((v) => +v);
+
+  if (versions?.length === 2) {
+    const v1 = versions[0] || 0;
+    const v2 = versions[1] || 0;
     const min = Math.min(v1, v2);
     const max = Math.max(v1, v2);
     const pathname = getEntryPath(
@@ -449,21 +484,6 @@ const EntryHistory = ({ accession }: { accession: string }) => {
       >
         {backToOverview}
         <EntryHistoryDiff accession={accession} version1={min} version2={max} />
-      </Card>
-    );
-  }
-  if (typeof version === 'number') {
-    return (
-      <Card
-        header={
-          <>
-            {title}
-            <span>Viewing version {version}</span>
-          </>
-        }
-      >
-        {backToOverview}
-        <EntryHistoryView accession={accession} version={version} />
       </Card>
     );
   }

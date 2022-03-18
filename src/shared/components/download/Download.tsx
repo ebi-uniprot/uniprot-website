@@ -11,7 +11,7 @@ import useColumnNames from '../../hooks/useColumnNames';
 
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 
-import { getDownloadUrl } from '../../config/apiUrls';
+import { getDownloadUrl, DownloadUrlOptions } from '../../config/apiUrls';
 import { Column, nsToPrimaryKeyColumns } from '../../config/columns';
 import {
   fileFormatsWithColumns,
@@ -53,16 +53,15 @@ const Download: FC<DownloadProps> = ({
   base,
 }) => {
   const { columnNames } = useColumnNames();
-
   const { search: queryParamFromUrl } = useLocation();
 
-  const fileFormats = nsToFileFormatsResultsDownload[namespace] as FileFormat[];
+  const fileFormats = nsToFileFormatsResultsDownload[namespace];
 
   const [selectedColumns, setSelectedColumns] = useState<Column[]>(columnNames);
   // Defaults to "download all" if no selection
   const [downloadAll, setDownloadAll] = useState(!selectedEntries.length);
   const [fileFormat, setFileFormat] = useState(fileFormats[0]);
-  const [compressed, setCompressed] = useState(true);
+  const [compressed, setCompressed] = useState(namespace !== Namespace.unisave);
   const [extraContent, setExtraContent] = useState<null | ExtraContent>(null);
 
   const [
@@ -85,11 +84,22 @@ const Download: FC<DownloadProps> = ({
     // If selectedQuery prop provided assume this already specifies how to select
     // a subset of entries.
     urlSelected = selectedQuery ? [] : selectedEntries;
+    if (
+      namespace === Namespace.unisave &&
+      selectedEntries.length === totalNumberResults
+    ) {
+      // If all history entries are selected, act as if it was a "download all"
+      urlSelected = [];
+    }
   }
 
-  const downloadUrl = getDownloadUrl({
+  const hasColumns =
+    fileFormatsWithColumns.has(fileFormat) &&
+    namespace !== Namespace.idmapping &&
+    namespace !== Namespace.unisave;
+
+  const downloadOptions: DownloadUrlOptions = {
     query: urlQuery,
-    columns: selectedColumns,
     selectedFacets,
     sortColumn,
     sortDirection,
@@ -100,30 +110,29 @@ const Download: FC<DownloadProps> = ({
     namespace,
     accessions,
     base,
-  });
+  };
+  if (hasColumns) {
+    downloadOptions.columns = selectedColumns;
+  }
+  const downloadUrl = getDownloadUrl(downloadOptions);
 
   const nSelectedEntries = numberSelectedEntries || selectedEntries.length;
   const nPreview = Math.min(
     10,
     downloadAll ? totalNumberResults : nSelectedEntries
   );
-
   const previewFileFormat = getPreviewFileFormat(fileFormat);
-  const previewUrl = getDownloadUrl({
-    query: urlQuery,
-    columns: selectedColumns,
-    selectedFacets,
-    sortColumn,
-    sortDirection,
+  const previewOptions: DownloadUrlOptions = {
+    ...downloadOptions,
     fileFormat: previewFileFormat,
     compressed: false,
     size: nPreview,
-    selected: urlSelected,
-    selectedIdField,
-    namespace,
-    accessions,
-    base,
-  });
+  };
+  if (namespace === Namespace.unisave) {
+    // get only the first 10 entries instead of using the size parameters
+    previewOptions.selected = previewOptions.selected.slice(0, 10);
+  }
+  const previewUrl = getDownloadUrl(previewOptions);
 
   const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) =>
     setDownloadAll(e.target.value === 'true');
@@ -187,40 +196,44 @@ const Download: FC<DownloadProps> = ({
           </select>
         </label>
       </fieldset>
-      <fieldset>
-        <legend>Compressed</legend>
-        <label>
-          <input
-            type="radio"
-            name="compressed"
-            value="true"
-            checked={compressed}
-            onChange={handleCompressedChange}
-          />
-          Yes
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="compressed"
-            value="false"
-            checked={!compressed}
-            onChange={handleCompressedChange}
-          />
-          No
-        </label>
-      </fieldset>
-      {fileFormatsWithColumns.has(fileFormat) &&
-        namespace !== Namespace.idmapping && (
-          <>
-            <legend>Customize columns</legend>
-            <ColumnSelect
-              onChange={setSelectedColumns}
-              selectedColumns={selectedColumns}
-              namespace={namespace}
+      {/* compressed not supported in UniSave */}
+      {namespace !== Namespace.unisave && (
+        <fieldset>
+          <legend>Compressed</legend>
+          <label>
+            <input
+              aria-label="compressed"
+              type="radio"
+              name="compressed"
+              value="true"
+              checked={compressed}
+              onChange={handleCompressedChange}
             />
-          </>
-        )}
+            Yes
+          </label>
+          <label>
+            <input
+              aria-label="not compressed"
+              type="radio"
+              name="compressed"
+              value="false"
+              checked={!compressed}
+              onChange={handleCompressedChange}
+            />
+            No
+          </label>
+        </fieldset>
+      )}
+      {hasColumns && (
+        <>
+          <legend>Customize columns</legend>
+          <ColumnSelect
+            onChange={setSelectedColumns}
+            selectedColumns={selectedColumns}
+            namespace={namespace}
+          />
+        </>
+      )}
       <section
         className={cn(
           'button-group',
@@ -236,7 +249,10 @@ const Download: FC<DownloadProps> = ({
           variant="tertiary"
           onClick={() => displayExtraContent('preview')}
         >
-          Preview {nPreview}
+          Preview{' '}
+          {namespace === Namespace.unisave && !selectedEntries.length
+            ? 'file'
+            : nPreview}
         </Button>
         <Button variant="secondary" onClick={onClose}>
           Cancel

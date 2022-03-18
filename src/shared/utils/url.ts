@@ -19,7 +19,7 @@ returns only the first value of a parameter if it is an array.
 */
 export const parseQueryString = (
   query: string,
-  options?: { parseNumbers?: true } & queryString.ParseOptions
+  options?: queryString.ParseOptions
 ) => {
   const parsed = queryString.parse(query, options);
   const parsedWithoutArrayValues: { [key: string]: string | null } = {};
