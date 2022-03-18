@@ -22,3 +22,10 @@ export const fileFormatEntryDownload = [
   FileFormat.rdfXml,
   FileFormat.gff,
 ];
+
+export const fileFormatHistoryDownload = [
+  FileFormat.text,
+  FileFormat.fasta,
+  FileFormat.tsv,
+  FileFormat.json,
+];

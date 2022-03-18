@@ -153,7 +153,8 @@ const APIRequest: FC<APIRequestProps> = ({ inputParamsData, jobType }) => {
         <p>
           Refer to the{' '}
           <ExternalLink url={documentationURL}>API documentation</ExternalLink>{' '}
-          for information about parameters and instructions to retrieve the results.
+          for information about parameters and instructions to retrieve the
+          results.
         </p>
       )}
     </section>

@@ -5,6 +5,8 @@ import qs from 'query-string';
 import useColumnNames from './useColumnNames';
 import useLocalStorage from './useLocalStorage';
 
+import { parseQueryString } from '../utils/url';
+
 import { Namespace } from '../types/namespaces';
 import { InvalidParamValue } from '../../uniprotkb/utils/resultsUtils';
 
@@ -46,7 +48,8 @@ const useViewMode = (
   let invalidUrlViewMode: InvalidParamValue | undefined;
   let fromUrl = false;
 
-  const { view: viewModeFromUrl, ...urlParams } = qs.parse(locationSearch);
+  const { view: viewModeFromUrl, ...urlParams } =
+    parseQueryString(locationSearch);
 
   if (disableCardToggle) {
     viewMode = 'table';

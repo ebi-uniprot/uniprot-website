@@ -13,13 +13,14 @@ import {
   ErrorIcon,
   SuccessIcon,
 } from 'franklin-sites';
-import qs from 'query-string';
 import cn from 'classnames';
 import { createPath, LocationDescriptor } from 'history';
 
 import HTMLHead from '../../shared/components/HTMLHead';
 
 import { useFormLogic } from '../adapters/contactFormAdapter';
+
+import { parseQueryString } from '../../shared/utils/url';
 
 import { LocationToPath, Location } from '../../app/config/urls';
 
@@ -65,7 +66,7 @@ const ContactForm = () => {
 
   let subjectDefault: undefined | string;
   if (isUpdate) {
-    const { entry, entryType } = qs.parse(search);
+    const { entry, entryType } = parseQueryString(search);
     if (entryType && entry) {
       subjectDefault = `${entryType} ${entry} entry update request`;
     } else if (entry) {

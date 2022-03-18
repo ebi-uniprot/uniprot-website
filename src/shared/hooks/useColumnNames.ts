@@ -1,14 +1,14 @@
 import { Dispatch, SetStateAction } from 'react';
 import { useLocation } from 'react-router-dom';
 import { partition } from 'lodash-es';
-import qs from 'query-string';
 
 import useLocalStorage from './useLocalStorage';
 import useNS from './useNS';
 
 import { Column, nsToDefaultColumns } from '../config/columns';
-import { ColumnConfigurations } from './useColumns';
+import { parseQueryString } from '../utils/url';
 
+import { ColumnConfigurations } from './useColumns';
 import { Namespace } from '../types/namespaces';
 import { IDMappingColumn } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 import { InvalidParamValue } from '../../uniprotkb/utils/resultsUtils';
@@ -35,7 +35,7 @@ const useColumnNames = ({
   displayPeptideSearchMatchColumns,
 }: UseColumnNameArgs = {}): UseColumnNameReturn => {
   const ns = useNS(namespaceOverride) || Namespace.uniprotkb;
-  const { fields: columnNamesFromUrl } = qs.parse(useLocation().search);
+  const { fields: columnNamesFromUrl } = parseQueryString(useLocation().search);
   const [columnNamesFromStorage, setColumnNames] = useLocalStorage<Column[]>(
     `table columns for ${ns}` as const,
     nsToDefaultColumns(ns)

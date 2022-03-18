@@ -321,6 +321,8 @@ type Parameters = {
   accessions?: string;
   upis?: string;
   ids?: string;
+  versions?: string; // UniSave-specific
+  uniqueSequences?: boolean; // UniSave-specific
   format: string;
   // TODO: change to set of possible fields (if possible, depending on namespace)
   fields?: string;
@@ -332,10 +334,10 @@ type Parameters = {
   facetFilter?: string;
 };
 
-type GetDownloadUrlProps = {
+export type DownloadUrlOptions = {
   base?: string;
   query?: string;
-  columns: string[];
+  columns?: string[];
   selectedFacets: SelectedFacet[];
   sortColumn?: SortableColumn;
   sortDirection?: SortDirection;
@@ -363,7 +365,7 @@ export const getDownloadUrl = ({
   selectedIdField,
   namespace,
   accessions,
-}: GetDownloadUrlProps) => {
+}: DownloadUrlOptions) => {
   // If the consumer of this fn has passed specified a size we have to use the search endpoint
   // otherwise use download/stream which is much quicker but doesn't allow specification of size
 
@@ -376,10 +378,14 @@ export const getDownloadUrl = ({
   }
 
   let endpoint = apiUrls.download(namespace);
-  if (accessions) {
+  if (base) {
+    if (base.startsWith(apiPrefix)) {
+      endpoint = base;
+    } else {
+      endpoint = joinUrl(apiPrefix, base);
+    }
+  } else if (accessions) {
     endpoint = joinUrl(apiPrefix, `/${namespace}/${accessionKey}`);
-  } else if (base) {
-    endpoint = joinUrl(apiPrefix, base);
   } else if (size) {
     endpoint = apiUrls.search(namespace);
   }
@@ -399,6 +405,11 @@ export const getDownloadUrl = ({
     if (selectedFacets.length) {
       parameters.facetFilter = createFacetsQueryString(selectedFacets);
     }
+  } else if (namespace === Namespace.unisave) {
+    parameters.versions = selected.length ? selected.join(',') : undefined;
+    if (fileFormat === FileFormat.fasta) {
+      parameters.uniqueSequences = true;
+    }
   } else {
     parameters.query = selected.length
       ? createSelectedQueryString(selected, selectedIdField)
@@ -413,7 +424,8 @@ export const getDownloadUrl = ({
         SortDirection[sortDirection]
       )}`;
     }
-    if (columns) {
+    // Can't customise columns on UniSave
+    if (columns && namespace !== Namespace.unisave) {
       parameters.fields = columns.join(',');
     }
   }
@@ -468,7 +480,7 @@ export const help = {
           // Sort in order to improve cache hits
           .sort()
           .map((facet) => {
-            const [facetName, facetValue] = facet.split(':');
+            const [facetName, facetValue] = (facet || '').split(':');
             return `(${facetName}:${
               facetValue.includes(' ') ? `"${facetValue}"` : facetValue
             })`;

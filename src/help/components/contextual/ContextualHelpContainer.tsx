@@ -8,7 +8,6 @@ import {
   useHistory,
   useLocation,
 } from 'react-router-dom';
-import qs from 'query-string';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import NavigationBar from './NavigationBar';
@@ -23,6 +22,7 @@ import HelpLandingPage from './Landing';
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 
 import { help as helpURL } from '../../../shared/config/apiUrls';
+import { parseQueryString } from '../../../shared/utils/url';
 
 import {
   LocationToPath,
@@ -40,7 +40,7 @@ const ContextualHepRouterContent = ({
 }) => {
   const location = useLocation();
 
-  const { query } = qs.parse(location.search);
+  const { query } = parseQueryString(location.search);
   const dataObject = useDataApiWithStale<HelpSearchResponse>(
     query && helpURL.search({ query })
   );

@@ -3,6 +3,7 @@
   display: inline-block;
 
   :global(.codeblock) {
+    width: 100%;
     overflow: hidden;
     display: inline-block;
     border: 1px solid black;

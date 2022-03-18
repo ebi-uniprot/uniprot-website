@@ -5,12 +5,15 @@ import customRender from '../../../__test-helpers__/customRender';
 
 import Download, { getPreviewFileFormat } from '../Download';
 
+import { IDMappingDetailsContext } from '../../../contexts/IDMappingDetails';
+
 import { FileFormat } from '../../../types/resultsDownload';
 import { Namespace } from '../../../types/namespaces';
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 
 import mockFasta from '../../../../uniprotkb/components/__mocks__/fasta.json';
-
+import SimpleMappingDetails from '../../../../tools/id-mapping/components/results/__mocks__/SimpleMappingDetails';
+import UniProtkbMappingDetails from '../../../../tools/id-mapping/components/results/__mocks__/UniProtkbMappingDetails';
 import '../../../../uniprotkb/components/__mocks__/mockApi';
 
 const initialColumns = [
@@ -165,5 +168,125 @@ describe('Download with passed query and selectedQuery props', () => {
     expect(downloadLink.href).toEqual(
       expect.stringContaining(queryString.stringify({ query: selectedQuery }))
     );
+  });
+});
+
+describe('Download with UniProtKB entry history / UniSave', () => {
+  it('should render as expected, 2 selected', () => {
+    const onCloseMock = jest.fn();
+    const selectedEntries = ['23', '22'];
+    const accession = 'P05067';
+
+    customRender(
+      <Download
+        selectedEntries={selectedEntries}
+        totalNumberResults={30}
+        onClose={onCloseMock}
+        namespace={Namespace.unisave}
+        base={`/unisave/${accession}`}
+      />
+    );
+
+    // No compressed radio button
+    expect(
+      screen.queryByRole('radio', { name: 'compressed' })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: `Preview ${selectedEntries.length}` })
+    ).toBeInTheDocument();
+    // Correct link
+    const downloadLink = screen.getByRole<HTMLAnchorElement>('link');
+    expect(downloadLink.href).toEqual(
+      expect.stringContaining(
+        `unisave/${accession}?download=true&format=txt&versions=${selectedEntries[0]}%2C${selectedEntries[1]}`
+      )
+    );
+  });
+
+  it('should render as expected, none selected, "download all"', () => {
+    const onCloseMock = jest.fn();
+    const accession = 'P05067';
+
+    customRender(
+      <Download
+        selectedEntries={[]}
+        totalNumberResults={30}
+        onClose={onCloseMock}
+        namespace={Namespace.unisave}
+        base={`/unisave/${accession}`}
+      />
+    );
+
+    // No compressed radio button
+    expect(
+      screen.queryByRole('radio', { name: 'compressed' })
+    ).not.toBeInTheDocument();
+    // Specific "preview file" button
+    expect(
+      screen.getByRole('button', { name: `Preview file` })
+    ).toBeInTheDocument();
+    // Correct link
+    const downloadLink = screen.getByRole<HTMLAnchorElement>('link');
+    expect(downloadLink.href).toEqual(
+      expect.stringContaining(`unisave/${accession}?download=true&format=txt`)
+    );
+  });
+});
+
+describe('Download with ID mapping results', () => {
+  it('should not display column selection for results which map to a non-uniprot namespace and have correct download link', () => {
+    customRender(
+      <IDMappingDetailsContext.Provider
+        // eslint-disable-next-line react/jsx-no-constructed-context-values
+        value={{ loading: false, data: SimpleMappingDetails }}
+      >
+        <Download
+          query="*"
+          totalNumberResults={3}
+          onClose={jest.fn()}
+          namespace={Namespace.idmapping}
+          base={SimpleMappingDetails.redirectURL}
+        />
+      </IDMappingDetailsContext.Provider>,
+      {
+        route: `id-mapping/id1`,
+      }
+    );
+    const formatSelect = screen.getByTestId('file-format-select');
+    fireEvent.change(formatSelect, { target: { value: FileFormat.tsv } });
+    const downloadLink = screen.getByRole<HTMLAnchorElement>('link');
+    expect(downloadLink.href).toEqual(
+      expect.stringContaining('/idmapping/results/id1')
+    );
+    expect(screen.queryByText('Customize columns')).not.toBeInTheDocument();
+  });
+  it('should display column selection for results which map to a non-uniprot namespace and have correct download link', async () => {
+    customRender(
+      <IDMappingDetailsContext.Provider
+        // eslint-disable-next-line react/jsx-no-constructed-context-values
+        value={{ loading: false, data: UniProtkbMappingDetails }}
+      >
+        <Download
+          query="*"
+          totalNumberResults={3}
+          onClose={jest.fn()}
+          namespace={Namespace.uniprotkb}
+          base={UniProtkbMappingDetails.redirectURL}
+        />
+      </IDMappingDetailsContext.Provider>,
+      {
+        route: 'id-mapping/id2',
+        initialLocalStorage: {
+          'table columns for uniprotkb': initialColumns,
+        },
+      }
+    );
+    const formatSelect = screen.getByTestId('file-format-select');
+    fireEvent.change(formatSelect, { target: { value: FileFormat.tsv } });
+    const downloadLink = screen.getByRole<HTMLAnchorElement>('link');
+    expect(downloadLink.href).toEqual(
+      expect.stringContaining('/idmapping/results/uniprotkb/id2')
+    );
+    expect(await screen.findByText('Customize columns')).toBeInTheDocument();
   });
 });
