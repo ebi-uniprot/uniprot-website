@@ -84,6 +84,13 @@ const Download: FC<DownloadProps> = ({
     // If selectedQuery prop provided assume this already specifies how to select
     // a subset of entries.
     urlSelected = selectedQuery ? [] : selectedEntries;
+    if (
+      namespace === Namespace.unisave &&
+      selectedEntries.length === totalNumberResults
+    ) {
+      // If all history entries are selected, act as if it was a "download all"
+      urlSelected = [];
+    }
   }
 
   const hasColumns =
@@ -121,6 +128,10 @@ const Download: FC<DownloadProps> = ({
     compressed: false,
     size: nPreview,
   };
+  if (namespace === Namespace.unisave) {
+    // get only the first 10 entries instead of using the size parameters
+    previewOptions.selected = previewOptions.selected.slice(0, 10);
+  }
   const previewUrl = getDownloadUrl(previewOptions);
 
   const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) =>
@@ -238,7 +249,10 @@ const Download: FC<DownloadProps> = ({
           variant="tertiary"
           onClick={() => displayExtraContent('preview')}
         >
-          Preview {namespace === Namespace.unisave ? 'file' : nPreview}
+          Preview{' '}
+          {namespace === Namespace.unisave && !selectedEntries.length
+            ? 'file'
+            : nPreview}
         </Button>
         <Button variant="secondary" onClick={onClose}>
           Cancel
