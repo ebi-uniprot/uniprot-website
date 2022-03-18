@@ -271,8 +271,12 @@ const useColumns = (
 
   const updateColumnSort = useCallback(
     (columnName: string) => {
-      // No sorting for id mapping
-      if (namespace === Namespace.idmapping) {
+      if (
+        // No sorting for id mapping
+        namespace === Namespace.idmapping ||
+        // No sorting for unisave
+        namespace === Namespace.unisave
+      ) {
         return;
       }
       const newSortColumn = sortableColumnToSortColumn.get(

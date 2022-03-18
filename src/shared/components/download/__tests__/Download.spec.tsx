@@ -171,6 +171,68 @@ describe('Download with passed query and selectedQuery props', () => {
   });
 });
 
+describe('Download with UniProtKB entry history / UniSave', () => {
+  it('should render as expected, 2 selected', () => {
+    const onCloseMock = jest.fn();
+    const selectedEntries = ['23', '22'];
+    const accession = 'P05067';
+
+    customRender(
+      <Download
+        selectedEntries={selectedEntries}
+        totalNumberResults={30}
+        onClose={onCloseMock}
+        namespace={Namespace.unisave}
+        base={`/unisave/${accession}`}
+      />
+    );
+
+    // No compressed radio button
+    expect(
+      screen.queryByRole('radio', { name: 'compressed' })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: `Preview ${selectedEntries.length}` })
+    ).toBeInTheDocument();
+    // Correct link
+    const downloadLink = screen.getByRole<HTMLAnchorElement>('link');
+    expect(downloadLink.href).toEqual(
+      expect.stringContaining(
+        `unisave/${accession}?download=true&format=txt&versions=${selectedEntries[0]}%2C${selectedEntries[1]}`
+      )
+    );
+  });
+
+  it('should render as expected, none selected, "download all"', () => {
+    const onCloseMock = jest.fn();
+    const accession = 'P05067';
+
+    customRender(
+      <Download
+        selectedEntries={[]}
+        totalNumberResults={30}
+        onClose={onCloseMock}
+        namespace={Namespace.unisave}
+        base={`/unisave/${accession}`}
+      />
+    );
+
+    // No compressed radio button
+    expect(
+      screen.queryByRole('radio', { name: 'compressed' })
+    ).not.toBeInTheDocument();
+    // Specific "preview file" button
+    expect(
+      screen.getByRole('button', { name: `Preview file` })
+    ).toBeInTheDocument();
+    // Correct link
+    const downloadLink = screen.getByRole<HTMLAnchorElement>('link');
+    expect(downloadLink.href).toEqual(
+      expect.stringContaining(`unisave/${accession}?download=true&format=txt`)
+    );
+  });
+});
+
 describe('Download with ID mapping results', () => {
   it('should not display column selection for results which map to a non-uniprot namespace and have correct download link', () => {
     customRender(

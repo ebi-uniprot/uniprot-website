@@ -321,6 +321,8 @@ type Parameters = {
   accessions?: string;
   upis?: string;
   ids?: string;
+  versions?: string; // UniSave-specific
+  uniqueSequences?: boolean; // UniSave-specific
   format: string;
   // TODO: change to set of possible fields (if possible, depending on namespace)
   fields?: string;
@@ -403,6 +405,11 @@ export const getDownloadUrl = ({
     if (selectedFacets.length) {
       parameters.facetFilter = createFacetsQueryString(selectedFacets);
     }
+  } else if (namespace === Namespace.unisave) {
+    parameters.versions = selected.length ? selected.join(',') : undefined;
+    if (fileFormat === FileFormat.fasta) {
+      parameters.uniqueSequences = true;
+    }
   } else {
     parameters.query = selected.length
       ? createSelectedQueryString(selected, selectedIdField)
@@ -417,7 +424,8 @@ export const getDownloadUrl = ({
         SortDirection[sortDirection]
       )}`;
     }
-    if (columns) {
+    // Can't customise columns on UniSave
+    if (columns && namespace !== Namespace.unisave) {
       parameters.fields = columns.join(',');
     }
   }
