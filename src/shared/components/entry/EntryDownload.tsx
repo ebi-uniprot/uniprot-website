@@ -46,7 +46,10 @@ const getEntryDownloadUrl = (
     if (fileFormat === FileFormat.tsv) {
       return uniparcApiUrls.databases(accession, {
         format: fileFormat,
-        size: 500, // TODO: remove when this endpoint has streaming https://www.ebi.ac.uk/panda/jira/browse/TRM-27649
+        // TODO: remove when this endpoint has streaming https://www.ebi.ac.uk/panda/jira/browse/TRM-27649
+        // If this isn't ready by full release then remove this download choice altogether to avoid users
+        // having truncated results
+        size: 500,
       });
     }
   }
@@ -54,7 +57,10 @@ const getEntryDownloadUrl = (
     if (fileFormat === FileFormat.list) {
       return unirefApiUrls.members(accession, {
         format: fileFormat,
-        size: 500, // TODO: remove when this endpoint has streaming https://www.ebi.ac.uk/panda/jira/browse/TRM-27650
+        // TODO: remove when this endpoint has streaming https://www.ebi.ac.uk/panda/jira/browse/TRM-27650
+        // If this isn't ready by full release then remove this download choice altogether to avoid users
+        // having truncated results
+        size: 500,
       });
     }
   }
