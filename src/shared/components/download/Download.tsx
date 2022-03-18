@@ -11,7 +11,7 @@ import useColumnNames from '../../hooks/useColumnNames';
 
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 
-import { getDownloadUrl } from '../../config/apiUrls';
+import { getDownloadUrl, DownloadUrlOptions } from '../../config/apiUrls';
 import { Column, nsToPrimaryKeyColumns } from '../../config/columns';
 import {
   fileFormatsWithColumns,
@@ -53,7 +53,6 @@ const Download: FC<DownloadProps> = ({
   base,
 }) => {
   const { columnNames } = useColumnNames();
-
   const { search: queryParamFromUrl } = useLocation();
 
   const fileFormats = nsToFileFormatsResultsDownload[namespace] as FileFormat[];
@@ -87,9 +86,11 @@ const Download: FC<DownloadProps> = ({
     urlSelected = selectedQuery ? [] : selectedEntries;
   }
 
-  const downloadUrl = getDownloadUrl({
+  const hasColumns =
+    fileFormatsWithColumns.has(fileFormat) && namespace !== Namespace.idmapping;
+
+  const downloadOptions: DownloadUrlOptions = {
     query: urlQuery,
-    columns: selectedColumns,
     selectedFacets,
     sortColumn,
     sortDirection,
@@ -100,30 +101,25 @@ const Download: FC<DownloadProps> = ({
     namespace,
     accessions,
     base,
-  });
+  };
+  if (hasColumns) {
+    downloadOptions.columns = selectedColumns;
+  }
+  const downloadUrl = getDownloadUrl(downloadOptions);
 
   const nSelectedEntries = numberSelectedEntries || selectedEntries.length;
   const nPreview = Math.min(
     10,
     downloadAll ? totalNumberResults : nSelectedEntries
   );
-
   const previewFileFormat = getPreviewFileFormat(fileFormat);
-  const previewUrl = getDownloadUrl({
-    query: urlQuery,
-    columns: selectedColumns,
-    selectedFacets,
-    sortColumn,
-    sortDirection,
+  const previewOptions: DownloadUrlOptions = {
+    ...downloadOptions,
     fileFormat: previewFileFormat,
     compressed: false,
     size: nPreview,
-    selected: urlSelected,
-    selectedIdField,
-    namespace,
-    accessions,
-    base,
-  });
+  };
+  const previewUrl = getDownloadUrl(previewOptions);
 
   const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) =>
     setDownloadAll(e.target.value === 'true');
@@ -210,17 +206,16 @@ const Download: FC<DownloadProps> = ({
           No
         </label>
       </fieldset>
-      {fileFormatsWithColumns.has(fileFormat) &&
-        namespace !== Namespace.idmapping && (
-          <>
-            <legend>Customize columns</legend>
-            <ColumnSelect
-              onChange={setSelectedColumns}
-              selectedColumns={selectedColumns}
-              namespace={namespace}
-            />
-          </>
-        )}
+      {hasColumns && (
+        <>
+          <legend>Customize columns</legend>
+          <ColumnSelect
+            onChange={setSelectedColumns}
+            selectedColumns={selectedColumns}
+            namespace={namespace}
+          />
+        </>
+      )}
       <section
         className={cn(
           'button-group',
