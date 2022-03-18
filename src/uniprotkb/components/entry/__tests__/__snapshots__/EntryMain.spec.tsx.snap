@@ -2521,6 +2521,15 @@ exports[`Entry view should render 1`] = `
         >
           Binary interactions
         </h3>
+        <div
+          class="loader-container"
+        >
+          <test-file-stub
+            classname="loader"
+            height="100"
+            width="100"
+          />
+        </div>
         <protvista-datatable
           filter-scroll="true"
         >

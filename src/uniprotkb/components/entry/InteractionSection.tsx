@@ -1,4 +1,4 @@
-import { lazy, Suspense, useMemo } from 'react';
+import { lazy, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, ExternalLink } from 'franklin-sites';
 
@@ -7,7 +7,7 @@ import EntrySection, {
 } from '../../types/entrySection';
 import FreeTextView from '../protein-data-views/FreeTextView';
 import XRefView from '../protein-data-views/XRefView';
-import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
+import LazyComponent from '../../../shared/components/LazyComponent';
 
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 
@@ -150,11 +150,9 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
       {tableData.length ? (
         <>
           <h3 data-article-id="binary_interactions">Binary interactions</h3>
-          <Suspense fallback={null}>
-            <ErrorBoundary fallback={null}>
-              <InteractionViewer accession={primaryAccession} />
-            </ErrorBoundary>
-          </Suspense>
+          <LazyComponent rootMargin="50px">
+            <InteractionViewer accession={primaryAccession} />
+          </LazyComponent>
           <datatableElement.name filter-scroll>
             <table>
               <thead>
