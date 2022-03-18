@@ -9,11 +9,14 @@ import { FileFormat } from '../../shared/types/resultsDownload';
 const apiUrls = {
   databases: (
     upid: string,
-    format: FileFormat.tsv | FileFormat.json = FileFormat.tsv
+    options: { format?: FileFormat.tsv | FileFormat.json; size?: number } = {}
   ) =>
     qs.stringifyUrl({
       url: joinUrl(apiPrefix, 'uniparc', upid, 'databases'),
-      query: { format: fileFormatToUrlParameter[format] },
+      query: {
+        format: fileFormatToUrlParameter[options.format || FileFormat.json],
+        size: options.size,
+      },
     }),
 };
 
