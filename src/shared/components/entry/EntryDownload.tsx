@@ -44,12 +44,18 @@ const getEntryDownloadUrl = (
 ) => {
   if (namespace === Namespace.uniparc) {
     if (fileFormat === FileFormat.tsv) {
-      return uniparcApiUrls.databases(accession);
+      return uniparcApiUrls.databases(accession, {
+        format: fileFormat,
+        size: 500, // TODO: remove when this endpoint has streaming https://www.ebi.ac.uk/panda/jira/browse/TRM-27649
+      });
     }
   }
   if (namespace === Namespace.uniref) {
     if (fileFormat === FileFormat.list) {
-      return unirefApiUrls.members(accession, { format: fileFormat });
+      return unirefApiUrls.members(accession, {
+        format: fileFormat,
+        size: 500, // TODO: remove when this endpoint has streaming https://www.ebi.ac.uk/panda/jira/browse/TRM-27650
+      });
     }
   }
   return apiUrls.entryDownload(accession, fileFormat, namespace);
