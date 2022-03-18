@@ -11,8 +11,7 @@ export const fileFormatsResultsDownload = [
 export const fileFormatEntryDownload = [
   FileFormat.fastaRepresentative,
   FileFormat.json,
-  FileFormat.excel,
   FileFormat.xml,
-  FileFormat.tsv,
+  FileFormat.rdfXml,
   FileFormat.list,
 ];

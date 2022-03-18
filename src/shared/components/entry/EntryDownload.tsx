@@ -2,6 +2,8 @@ import { useRouteMatch } from 'react-router-dom';
 import { DropdownButton, DownloadIcon } from 'franklin-sites';
 
 import apiUrls from '../../config/apiUrls';
+import uniparcApiUrls from '../../../uniparc/config/apiUrls';
+import unirefApiUrls from '../../../uniref/config/apiUrls';
 import { allEntryPages } from '../../../app/config/urls';
 
 import { fileFormatEntryDownload as uniProtKBFFED } from '../../../uniprotkb/config/download';
@@ -35,6 +37,36 @@ const formatMap = new Map<Namespace, FileFormat[]>([
   [Namespace.arba, arbaFFED],
 ]);
 
+const getEntryDownloadUrl = (
+  accession: string,
+  fileFormat: FileFormat,
+  namespace: Namespace
+) => {
+  if (namespace === Namespace.uniparc) {
+    if (fileFormat === FileFormat.tsv) {
+      return uniparcApiUrls.databases(accession, {
+        format: fileFormat,
+        // TODO: remove when this endpoint has streaming https://www.ebi.ac.uk/panda/jira/browse/TRM-27649
+        // If this isn't ready by full release then remove this download choice altogether to avoid users
+        // having truncated results
+        size: 500,
+      });
+    }
+  }
+  if (namespace === Namespace.uniref) {
+    if (fileFormat === FileFormat.list) {
+      return unirefApiUrls.members(accession, {
+        format: fileFormat,
+        // TODO: remove when this endpoint has streaming https://www.ebi.ac.uk/panda/jira/browse/TRM-27650
+        // If this isn't ready by full release then remove this download choice altogether to avoid users
+        // having truncated results
+        size: 500,
+      });
+    }
+  }
+  return apiUrls.entryDownload(accession, fileFormat, namespace);
+};
+
 const EntryDownload = () => {
   const match =
     useRouteMatch<{ namespace: Namespace; accession: string }>(allEntryPages);
@@ -60,7 +92,11 @@ const EntryDownload = () => {
         <ul>
           {fileFormatEntryDownload.map((fileFormat) => (
             <li key={fileFormat}>
-              <a href={apiUrls.entryDownload(accession, fileFormat, namespace)}>
+              <a
+                target="_blank"
+                href={getEntryDownloadUrl(accession, fileFormat, namespace)}
+                rel="noreferrer"
+              >
                 {fileFormat}
               </a>
             </li>

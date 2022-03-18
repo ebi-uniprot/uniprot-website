@@ -16,4 +16,5 @@ export const fileFormatEntryDownload = [
   FileFormat.excel,
   FileFormat.xml,
   FileFormat.rdfXml,
+  FileFormat.tsv,
 ];
