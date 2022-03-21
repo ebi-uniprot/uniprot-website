@@ -33,6 +33,8 @@ import { Namespace } from '../../types/namespaces';
 import { Status } from '../../../tools/types/toolsStatuses';
 
 import styles from './styles/secondary-items.module.scss';
+import { Button } from 'franklin-sites';
+import { ContactLocationState } from '../../../contact/components/ContactForm';
 
 const BasketMiniView = lazy(
   () =>
@@ -243,43 +245,44 @@ const SecondaryItems = () => {
     []
   );
 
-  return [
-    {
-      label: (
+  return (
+    <>
+      <Button
+        variant="tertiary"
+        onClick={() => {
+          if (!displayDashboard) {
+            setDisplayDashboard(true);
+          }
+        }}
+      >
         <ToolsDashboard
           display={displayDashboard}
           close={closeDisplayDashboard}
         />
-      ),
-      onClick: () => {
-        if (!displayDashboard) {
-          setDisplayDashboard(true);
-        }
-      },
-    },
-    {
-      label: <Basket display={displayBasket} close={closeDisplayBasket} />,
-      onClick: () => {
-        if (!displayBasket) {
-          setDisplayBasket(true);
-        }
-      },
-    },
-    {
-      label: (
-        <span title="Contact" className={styles['secondary-item']}>
-          <EnvelopeIcon width={secondaryItemIconSize} />
-        </span>
-      ),
-      // TODO: need to pass the referrer state here somehow
-      // -> refactor secondary items in franklin's Header component?
-      path: LocationToPath[Location.ContactGeneric],
-    },
-    {
-      label: 'Help',
-      path: LocationToPath[Location.HelpResults],
-    },
-  ];
+      </Button>
+      <Button
+        variant="tertiary"
+        onClick={() => {
+          if (!displayBasket) {
+            setDisplayBasket(true);
+          }
+        }}
+      >
+        <Basket display={displayBasket} close={closeDisplayBasket} />
+      </Button>
+      <Link<ContactLocationState>
+        to={(location) => ({
+          pathname: LocationToPath[Location.ContactGeneric],
+          state: { referrer: location },
+        })}
+        title="Contact"
+        className={styles['secondary-item']}
+      >
+        <EnvelopeIcon width={secondaryItemIconSize} />
+      </Link>
+      <Link to={LocationToPath[Location.HelpResults]}>Help</Link>
+    </>
+  );
 };
 
 export default SecondaryItems;

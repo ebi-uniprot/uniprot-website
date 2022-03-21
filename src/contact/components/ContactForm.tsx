@@ -189,7 +189,6 @@ const ContactForm = () => {
             tabIndex={-1}
             aria-hidden="true"
           />
-          <input hidden name="referrer" value={referrerValue} />
           <Button type="submit" disabled={sending}>{`Send${
             sending ? 'ing' : ''
           } message`}</Button>
