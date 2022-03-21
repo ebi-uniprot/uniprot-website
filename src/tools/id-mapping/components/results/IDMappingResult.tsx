@@ -91,7 +91,8 @@ const IDMappingResult = () => {
     progress: detailsProgress,
   } = idMappingDetails || {};
 
-  const [{ selectedFacets, query }] = getParamsFromURL(location.search);
+  const [{ selectedFacets, query, sortColumn, sortDirection }] =
+    getParamsFromURL(location.search);
 
   const toDBInfo =
     detailsData && databaseInfoMaps?.databaseToDatabaseInfo[detailsData.to];
@@ -99,7 +100,12 @@ const IDMappingResult = () => {
   // Query for results data from the idmapping endpoint
   const initialApiUrl =
     detailsData?.redirectURL &&
-    urls.resultUrl(detailsData.redirectURL, { selectedFacets, query });
+    urls.resultUrl(detailsData.redirectURL, {
+      selectedFacets,
+      query,
+      sortColumn,
+      sortDirection,
+    });
 
   const converter = useMemo(() => idMappingConverter(toDBInfo), [toDBInfo]);
 

@@ -14,7 +14,6 @@ import useDatabaseInfoMaps from './useDatabaseInfoMaps';
 import useColumnNames from './useColumnNames';
 
 import apiUrls from '../config/apiUrls';
-import { SearchResultsLocations } from '../../app/config/urls';
 import { getIdKeyFor } from '../utils/getIdKeyForNamespace';
 import {
   getParamsFromURL,
@@ -294,8 +293,9 @@ const useColumns = (
 
       // TODO: this changes the URL from encoded to decoded which is different to the facet behavior
       history.push(
+        // eslint-disable-next-line uniprot-website/use-config-location
         getLocationObjForParams({
-          pathname: SearchResultsLocations[namespace],
+          pathname: history.location.pathname,
           query,
           selectedFacets,
           sortColumn: newSortColumn,

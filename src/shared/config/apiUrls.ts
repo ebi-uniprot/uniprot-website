@@ -418,16 +418,19 @@ export const getDownloadUrl = ({
           .join(' AND ');
   }
 
-  if (fileFormatsWithColumns.has(fileFormat)) {
-    if (sortColumn) {
-      parameters.sort = `${sortColumn} ${getApiSortDirection(
-        SortDirection[sortDirection]
-      )}`;
-    }
-    // Can't customise columns on UniSave
-    if (columns && namespace !== Namespace.unisave) {
-      parameters.fields = columns.join(',');
-    }
+  if (sortColumn) {
+    parameters.sort = `${sortColumn} ${getApiSortDirection(
+      SortDirection[sortDirection]
+    )}`;
+  }
+
+  // Can't customise columns on UniSave
+  if (
+    fileFormatsWithColumns.has(fileFormat) &&
+    columns &&
+    namespace !== Namespace.unisave
+  ) {
+    parameters.fields = columns.join(',');
   }
 
   if (fileFormat === FileFormat.fastaCanonicalIsoform) {
