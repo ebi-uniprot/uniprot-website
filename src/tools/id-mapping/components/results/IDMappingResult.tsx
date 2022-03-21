@@ -169,11 +169,15 @@ const IDMappingResult = () => {
       break;
 
     default:
-      sidebar = (
-        <ErrorBoundary>
-          <ResultsFacets dataApiObject={facetsData} />
-        </ErrorBoundary>
-      );
+      if (namespaceOverride === Namespace.idmapping) {
+        sidebar = <div className="sidebar-layout__sidebar-content--empty" />;
+      } else {
+        sidebar = (
+          <ErrorBoundary>
+            <ResultsFacets dataApiObject={facetsData} />
+          </ErrorBoundary>
+        );
+      }
       break;
   }
 
