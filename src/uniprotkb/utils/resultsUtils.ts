@@ -1,3 +1,4 @@
+import qs from 'query-string';
 import { parseQueryString } from '../../shared/utils/url';
 
 import { Column } from '../../shared/config/columns';
@@ -74,16 +75,10 @@ export const getParamsFromURL = (
   return [params, unknownParams];
 };
 
-export const facetsAsString = (facets?: SelectedFacet[]): string => {
-  if (!facets?.length) {
-    return '';
-  }
-  return facets.reduce(
-    (accumulator, facet, i) =>
-      `${accumulator}${i > 0 ? ',' : ''}${facet.name}:${facet.value}`,
-    'facets='
-  );
-};
+export const facetsAsString = (facets?: SelectedFacet[]): string | undefined =>
+  facets?.length
+    ? facets.map(({ name, value }) => `${name}:${value}`).join(',')
+    : undefined;
 
 type GetLocationObjForParams = {
   pathname?: string;
@@ -107,16 +102,18 @@ export const getLocationObjForParams = ({
   viewMode,
 }: GetLocationObjForParams = {}) => ({
   pathname,
-  search: [
-    `${[query && `query=${query}`, facetsAsString(selectedFacets)]
-      .filter(Boolean)
-      .join('&')}`,
-    `${sortColumn ? `&sort=${sortColumn}` : ''}`,
-    `${sortDirection ? `&dir=${sortDirection}` : ''}`,
-    `${activeFacet ? `&activeFacet=${activeFacet}` : ''}`,
-    `${columns ? `&fields=${columns}` : ''}`,
-    `${viewMode ? `&view=${viewMode}` : ''}`,
-  ].join(''),
+  search: qs.stringify(
+    {
+      query: query || undefined,
+      facets: facetsAsString(selectedFacets),
+      sort: sortColumn,
+      dir: sortDirection,
+      activeFacet,
+      fields: columns,
+      view: viewMode,
+    },
+    { encode: false }
+  ),
 });
 
 export const getSortableColumnToSortColumn = (
