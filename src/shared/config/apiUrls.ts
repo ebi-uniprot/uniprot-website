@@ -1,6 +1,7 @@
 import queryString from 'query-string';
 import joinUrl from './testingApiUrls'; // TODO: revert import to: import joinUrl from 'url-join'
 
+import { fromCleanMapper } from '../utils/getIdKeyForNamespace';
 import {
   getApiSortDirection,
   SortDirection,
@@ -160,8 +161,7 @@ export const createFacetsQueryString = (facets: SelectedFacet[]) =>
     .join(' AND ');
 
 export const createSelectedQueryString = (ids: string[], idField: Column) =>
-  ids
-    .map((id) => `${idField}:${id}`)
+  Array.from(new Set(ids.map((id) => `${idField}:${fromCleanMapper(id)}`)))
     .sort() // to improve possible cache hit
     .join(' OR ');
 
