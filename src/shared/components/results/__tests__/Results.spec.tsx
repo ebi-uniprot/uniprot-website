@@ -42,21 +42,21 @@ describe('Results component', () => {
     fireEvent.click(columnHeader);
     await waitFor(() => {
       expect(history.location.search).toBe(
-        '?query=blah&sort=accession&dir=ascend'
+        '?dir=ascend&query=blah&sort=accession'
       );
     });
     columnHeader = await screen.findByText('Entry');
     fireEvent.click(columnHeader);
     await waitFor(() => {
       expect(history.location.search).toBe(
-        '?query=blah&sort=accession&dir=descend'
+        '?dir=descend&query=blah&sort=accession'
       );
     });
     columnHeader = await screen.findByText('Entry');
     await waitFor(() => {
       fireEvent.click(columnHeader);
       expect(history.location.search).toBe(
-        '?query=blah&sort=accession&dir=ascend'
+        '?dir=ascend&query=blah&sort=accession'
       );
     });
   });
