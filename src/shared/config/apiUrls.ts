@@ -416,6 +416,8 @@ export const getDownloadUrl = ({
       : [query, createFacetsQueryString(selectedFacets)]
           .filter(Boolean)
           .join(' AND ');
+    // If nullish, just set to undefined to remove from the URL
+    parameters.query ||= undefined;
   }
 
   if (sortColumn) {
