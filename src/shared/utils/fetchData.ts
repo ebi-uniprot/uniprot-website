@@ -9,11 +9,16 @@ export default function fetchData<T>(
   return axios({
     url,
     method: 'GET',
+    responseType:
+      headers.Accept && !headers.Accept.includes('json') ? 'text' : 'json',
     headers: {
       Accept: 'application/json',
       ...headers,
     },
     cancelToken,
+    transitional: {
+      silentJSONParsing: false,
+    },
     ...axiosOptions,
   });
 }
