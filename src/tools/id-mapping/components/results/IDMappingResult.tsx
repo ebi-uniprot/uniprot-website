@@ -12,7 +12,7 @@ import usePagination from '../../../../shared/hooks/usePagination';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 import useDatabaseInfoMaps from '../../../../shared/hooks/useDatabaseInfoMaps';
-import { useMatchWithRedirect } from '../../../utils/hooks';
+import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect';
 import useIDMappingDetails from '../../../../shared/hooks/useIDMappingDetails';
 
 import { rawDBToNamespace } from '../../utils';
@@ -79,7 +79,8 @@ const IDMappingResult = () => {
   const location = useLocation();
   const match = useMatchWithRedirect<Params>(
     Location.IDMappingResult,
-    TabLocation.Overview
+    TabLocation.Overview,
+    TabLocation
   );
 
   const databaseInfoMaps = useDatabaseInfoMaps();

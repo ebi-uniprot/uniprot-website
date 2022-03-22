@@ -14,7 +14,7 @@ import useDataApi, {
 import useSequenceInfo from '../../utils/useSequenceInfo';
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
-import { useMatchWithRedirect } from '../../../utils/hooks';
+import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect';
 
 import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
 
@@ -120,7 +120,8 @@ type Params = {
 const AlignResult = () => {
   const match = useMatchWithRedirect<Params>(
     Location.AlignResult,
-    TabLocation.Overview
+    TabLocation.Overview,
+    TabLocation
   );
 
   const [selectedEntries, , setSelectedEntries] = useItemSelect();
