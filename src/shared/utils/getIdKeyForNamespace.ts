@@ -28,7 +28,14 @@ const fromSeparator = '|';
 
 export const fromCleanMapper = (entry: string) => {
   if (entry.includes(fromSeparator)) {
-    return entry.split(fromSeparator)[1];
+    const split = entry.split(fromSeparator);
+    /* istanbul ignore if */
+    if (split.length > 2) {
+      logging.warn(
+        `Found more than 1 separator in "${entry}". Unexpected accession format.`
+      );
+    }
+    return split[1];
   }
   return entry;
 };
