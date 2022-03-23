@@ -65,7 +65,7 @@ const Download: FC<DownloadProps> = ({
   const [fileFormat, setFileFormat] = useState(fileFormats[0]);
   const [compressed, setCompressed] = useState(namespace !== Namespace.unisave);
   const [extraContent, setExtraContent] = useState<null | ExtraContent>(null);
-  const { jobResultsLocation } = useJobFromUrl();
+  const { jobResultsLocation, jobResultsNamespace } = useJobFromUrl();
 
   const [
     { query: queryFromUrl, selectedFacets = [], sortColumn, sortDirection },
@@ -101,12 +101,16 @@ const Download: FC<DownloadProps> = ({
     namespace !== Namespace.idmapping &&
     namespace !== Namespace.unisave;
 
-  // The ID Mapping URL provided from the job details is for the paginated /results/
-  // endpoint while /stream/ is required
-  const downloadBase =
-    jobResultsLocation === Location.IDMappingResult
-      ? base?.replace('/results/', '/stream/')
-      : base;
+  // The ID Mapping URL provided from the job details is for the paginated results
+  // endpoint while the stream endpoint is required for downloads
+  let downloadBase = base;
+  if (jobResultsLocation === Location.IDMappingResult) {
+    if (jobResultsNamespace) {
+      downloadBase = downloadBase?.replace('/results/', '/results/stream/');
+    } else {
+      downloadBase = downloadBase?.replace('/results/', '/stream/');
+    }
+  }
 
   const downloadOptions: DownloadUrlOptions = {
     query: urlQuery,

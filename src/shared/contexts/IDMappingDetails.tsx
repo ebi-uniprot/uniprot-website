@@ -22,8 +22,7 @@ export const IDMappingDetailsProvider: FC = ({ children }) => {
   const idMappingDetailsUrl =
     jobResultsLocation === Location.IDMappingResult &&
     jobId &&
-    idMappingURLs.detailsUrl &&
-    idMappingURLs?.detailsUrl(jobId);
+    idMappingURLs?.detailsUrl?.(jobId);
   const mappingDetails = useDataApi<MappingDetails>(idMappingDetailsUrl || '');
   return (
     <IDMappingDetailsContext.Provider value={mappingDetails}>
