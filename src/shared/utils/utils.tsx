@@ -138,3 +138,11 @@ export const addBlastLinksToFreeText = (
       })
       .filter((item) => item);
   });
+
+export function keysToLowerCase<T>(o: { [k: string]: T } = {}): {
+  [key: string]: T;
+} {
+  return Object.fromEntries(
+    Object.entries(o).map(([k, v]) => [k.toLowerCase(), v])
+  );
+}

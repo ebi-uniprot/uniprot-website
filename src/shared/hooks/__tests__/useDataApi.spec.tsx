@@ -22,13 +22,13 @@ afterAll(() => {
 });
 
 describe('useDataApi hook', () => {
-  test('no URL', async () => {
+  it('should handle no URL', async () => {
     const { result } = renderHook(() => useDataApi());
 
     expect(result.current).toEqual({ loading: false });
   });
 
-  test('no error', async () => {
+  it('should return no error', async () => {
     mock.onGet(url).reply(200, 'some data');
     const { result, waitForNextUpdate } = renderHook(() => useDataApi(url));
 
@@ -45,7 +45,7 @@ describe('useDataApi hook', () => {
     });
   });
 
-  test('no network', async () => {
+  it('should return no network error', async () => {
     mock.onGet(url).networkError();
     const { result, waitForNextUpdate } = renderHook(() => useDataApi(url));
 
@@ -60,7 +60,7 @@ describe('useDataApi hook', () => {
     });
   });
 
-  test('timeout', async () => {
+  it('should return timeout error', async () => {
     mock.onGet(url).timeout();
     const { result, waitForNextUpdate } = renderHook(() => useDataApi(url));
 
@@ -75,7 +75,7 @@ describe('useDataApi hook', () => {
     });
   });
 
-  test('400', async () => {
+  it('should return 400', async () => {
     const message = '??? does not exist';
     mock.onGet(url).reply(400, { messages: [message] });
     const mockDispatch = jest.fn();
@@ -110,7 +110,7 @@ describe('useDataApi hook', () => {
     });
   });
 
-  test('404', async () => {
+  it('should return 404', async () => {
     mock.onGet(url).reply(404);
     const { result, waitForNextUpdate } = renderHook(() => useDataApi(url));
 
@@ -126,7 +126,7 @@ describe('useDataApi hook', () => {
     });
   });
 
-  test('cancellation', async () => {
+  it('should handle cancellation', async () => {
     mock.onGet(url).reply(200, 'some data');
     const { result, unmount } = renderHook(() => useDataApi(url));
 
@@ -137,7 +137,7 @@ describe('useDataApi hook', () => {
     // error when we cancel before getting data
   });
 
-  test('change of URL', async () => {
+  it('should handle change of URL', async () => {
     mock.onGet(url).reply(200, 'some data');
     mock.onGet(url2).reply(200, 'some other data');
     const { result, waitForNextUpdate, rerender } = renderHook(
@@ -172,7 +172,7 @@ describe('useDataApi hook', () => {
     });
   });
 
-  test('change of URL without waiting', async () => {
+  it('should handle change of URL without waiting', async () => {
     mock.onGet(url).reply(200, 'some data');
     mock.onGet(url2).reply(200, 'some other data');
     const { result, waitForNextUpdate, rerender } = renderHook(
@@ -197,7 +197,7 @@ describe('useDataApi hook', () => {
     });
   });
 
-  test('detect redirect', async () => {
+  it('should detect redirect', async () => {
     mock.onGet(url).reply(200, 'some data');
     mock.onGet(url2).reply(() => axios.get(url));
 
@@ -218,7 +218,7 @@ describe('useDataApi hook', () => {
 });
 
 describe('useDataApiWithStale hook', () => {
-  test('change of URL', async () => {
+  it('should change URL', async () => {
     mock.onGet(url).reply(200, 'some data');
     mock.onGet(url2).reply(200, 'some other data');
     const { result, waitForNextUpdate, rerender } = renderHook(
@@ -255,6 +255,23 @@ describe('useDataApiWithStale hook', () => {
       url: url2,
       data: 'some other data',
       status: 200,
+    });
+  });
+
+  it('should return SyntaxError with invalid json from a 200 response', async () => {
+    mock
+      .onGet(url)
+      .reply(200, '{"key" : "value",,', { 'Content-Type': 'application/json' });
+    const { result, waitForNextUpdate } = renderHook(() => useDataApi(url));
+
+    expect(result.current).toEqual({ loading: true, url });
+
+    await waitForNextUpdate();
+
+    expect(result.current).toEqual({
+      error: new SyntaxError('Unexpected token , in JSON at position 17'),
+      loading: false,
+      url,
     });
   });
 });
