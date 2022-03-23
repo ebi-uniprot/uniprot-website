@@ -1,17 +1,15 @@
-import { Loader, Message, Tabs, Tab, Card, Button } from 'franklin-sites';
-import { useMemo, useEffect } from 'react';
-import { groupBy, zipWith } from 'lodash-es';
+import { Loader, Tabs, Tab, Card, Button } from 'franklin-sites';
+import { useMemo, useEffect, Fragment } from 'react';
+import { zip } from 'lodash-es';
 import { Link } from 'react-router-dom';
 
 import SimilarProteinsTable from './SimilarProteinsTable';
 
-import useDataApi from '../../../../shared/hooks/useDataApi';
 import useSafeState from '../../../../shared/hooks/useSafeState';
 
-import apiUrls, {
-  getClustersForProteins,
-} from '../../../../shared/config/apiUrls';
+import apiUrls from '../../../../shared/config/apiUrls';
 import fetchData from '../../../../shared/utils/fetchData';
+import listFormat from '../../../../shared/utils/listFormat';
 
 import {
   getEntryPath,
@@ -28,6 +26,13 @@ import {
   UniRefLiteAPIModel,
 } from '../../../../uniref/adapters/uniRefConverter';
 
+type IsoformsAndCluster = {
+  isoforms: string[];
+  cluster: UniRefLiteAPIModel;
+};
+
+type Mapping = Record<UniRefEntryType, IsoformsAndCluster[]>;
+
 type Props = {
   isoforms: { isoforms: string[] };
   primaryAccession: string;
@@ -43,9 +48,7 @@ const SimilarProteins = ({ isoforms, primaryAccession }: Props) => {
     [primaryAccession, isoforms]
   );
 
-  const [mappingData, setMappingData] = useSafeState<
-    Record<string, Record<UniRefEntryType, UniRefLiteAPIModel>>
-  >({});
+  const [mappingData, setMappingData] = useSafeState<Mapping | null>(null);
   const [mappingLoading, setMappingLoading] = useSafeState(true);
 
   useEffect(() => {
@@ -56,73 +59,36 @@ const SimilarProteins = ({ isoforms, primaryAccession }: Props) => {
       }>(`${apiUrls.search(Namespace.uniref)}?query=(uniprot_id:${accession})`)
     );
     Promise.all(promises).then((responses) => {
-      const accessionsToClusters = Object.fromEntries(
-        zipWith(allAccessions, responses, (accession, response) => [
-          accession,
-          Object.fromEntries(
-            response.data.results.map((entry) => [entry.entryType, entry])
-          ) as Record<UniRefEntryType, UniRefLiteAPIModel>,
-        ])
-      );
-      setMappingData(accessionsToClusters);
+      const mapping: Mapping = {
+        UniRef100: [],
+        UniRef90: [],
+        UniRef50: [],
+      };
+      for (const [accession, response] of zip(allAccessions, responses)) {
+        /* istanbul ignore if */
+        if (!accession || !response) {
+          break; // Shouldn't happen, used to restric types
+        }
+        for (const cluster of response.data.results) {
+          let association: IsoformsAndCluster | undefined = mapping[
+            cluster.entryType
+          ].find((association) => association.cluster.id === cluster.id);
+          if (!association) {
+            association = { isoforms: [], cluster };
+            mapping[cluster.entryType].push(association);
+          }
+          association.isoforms.push(accession);
+        }
+      }
+      setMappingData(mapping);
       setMappingLoading(false);
     });
   }, [allAccessions, setMappingData, setMappingLoading]);
 
-  console.log(mappingData);
-
-  const searchUrl = getClustersForProteins(allAccessions);
-
-  // Get the clusters in which the canonical and isoforms are found
-  const { loading, data, error } = useDataApi<{
-    results: UniRefLiteAPIModel[];
-  }>(searchUrl);
-
-  const clusterData = useMemo(() => {
-    if (data) {
-      const { results } = data;
-      // Remove all items with only 1 member as it will be canonical/isoform
-
-      const filtered = results
-        .map((item) => ({
-          ...item,
-          members: item.members.filter(
-            (member) =>
-              !member.startsWith('UPI') && !allAccessions.includes(member)
-          ),
-        }))
-        .filter((item) => item.members.length > 1);
-
-      if (filtered.length === 0) {
-        return null;
-      }
-
-      const clusterTypeGroups: Partial<
-        Record<UniRefEntryType, UniRefLiteAPIModel[]>
-      > = groupBy(filtered, (cluster) => cluster.entryType);
-      const allClusterTypesGroups: Partial<
-        Record<UniRefEntryType, Record<string, UniRefLiteAPIModel[]>>
-      > = Object.fromEntries(
-        Object.entries(clusterTypeGroups).map(([key, clusters]) => [
-          key,
-          groupBy(
-            clusters,
-            (cluster) => cluster.representativeMember.memberId
-          ) || [],
-        ])
-      );
-      return allClusterTypesGroups;
-    }
-    return null;
-  }, [data, allAccessions]);
-
   const nameAndId = getEntrySectionNameAndId(EntrySection.SimilarProteins);
 
-  if (loading) {
+  if (mappingLoading) {
     return <Loader />;
-  }
-  if (error) {
-    return <Message level="failure">{error?.message}</Message>;
   }
 
   return (
@@ -133,7 +99,7 @@ const SimilarProteins = ({ isoforms, primaryAccession }: Props) => {
       id={EntrySection.SimilarProteins}
       data-entry-section
     >
-      {clusterData ? (
+      {mappingData ? (
         <Tabs>
           {Object.entries(uniRefEntryTypeToPercent).map(
             ([clusterType, percentValue]) => (
@@ -142,34 +108,50 @@ const SimilarProteins = ({ isoforms, primaryAccession }: Props) => {
                 title={`${percentValue} identity`}
                 key={clusterType}
               >
-                {Object.entries(mappingData || {}).map(
-                  ([isoform, clusters]) => {
-                    const cluster = clusters[clusterType as UniRefEntryType];
-                    if (!cluster) {
-                      return null;
-                    }
+                {mappingData[clusterType as UniRefEntryType].map(
+                  ({ isoforms, cluster }) => {
                     const unirefEntryUrl = getEntryPath(
                       Namespace.uniref,
                       cluster.id
                     );
+                    const usableMembers = cluster.members.filter(
+                      (member) => !member.startsWith('UPI')
+                    );
                     return (
-                      <section key={isoform} className="text-block">
-                        <h4>{isoform}</h4>
-                        <section key={cluster.id}>
-                          <h5>
-                            <Link to={unirefEntryUrl}>{cluster.id}</Link>
-                          </h5>
-                          <SimilarProteinsTable
-                            members={cluster.members.filter(
-                              (member) => !member.startsWith('UPI')
-                            )}
-                          />
-                          {cluster.memberCount - cluster.members.length - 1 >
-                            0 && (
-                            <Link to={unirefEntryUrl}>
-                              {cluster.memberCount - cluster.members.length - 1}{' '}
-                              more
-                            </Link>
+                      <section key={cluster.id} className="text-block">
+                        <h4>
+                          {isoforms.map((isoform, index) => (
+                            <Fragment key={isoform}>
+                              {listFormat(index, isoforms)}
+                              {isoform}
+                            </Fragment>
+                          ))}
+                        </h4>
+                        <section>
+                          {isoforms.length !== 1 || cluster.memberCount - 1 ? (
+                            <>
+                              <h5>
+                                <Link to={unirefEntryUrl}>{cluster.id}</Link>
+                              </h5>
+                              <SimilarProteinsTable members={usableMembers} />
+                              {cluster.memberCount -
+                                cluster.members.length -
+                                1 >
+                                0 && (
+                                <Link to={unirefEntryUrl}>
+                                  {cluster.memberCount -
+                                    cluster.members.length -
+                                    1}{' '}
+                                  more
+                                </Link>
+                              )}
+                            </>
+                          ) : (
+                            `no similar proteins at ${
+                              uniRefEntryTypeToPercent[
+                                clusterType as UniRefEntryType
+                              ]
+                            } identity for this isoform`
                           )}
                         </section>
                         <hr />
@@ -177,19 +159,19 @@ const SimilarProteins = ({ isoforms, primaryAccession }: Props) => {
                     );
                   }
                 )}
-                {/* TODO: This query doesn't seem to work currently */}
                 <Button
                   element={Link}
                   to={{
                     pathname: LocationToPath[Location.UniProtKBResults],
-                    search: `query=(${data?.results
-                      .filter(({ entryType }) => entryType === clusterType)
+                    search: `query=(${mappingData[
+                      clusterType as UniRefEntryType
+                    ]
                       .map(
-                        ({ id }) =>
+                        ({ cluster }) =>
                           `uniref_cluster_${clusterType.replace(
                             'UniRef',
                             ''
-                          )}:${id}`
+                          )}:${cluster.id}`
                       )
                       .sort()
                       .join(' OR ')})`,
