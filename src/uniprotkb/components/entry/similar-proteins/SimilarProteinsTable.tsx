@@ -1,5 +1,5 @@
-import { FC } from 'react';
 import { DataTable, Loader, Message } from 'franklin-sites';
+import { Link } from 'react-router-dom';
 
 import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
 import TaxonomyView from '../../../../shared/components/entry/TaxonomyView';
@@ -7,12 +7,15 @@ import AccessionView from '../../../../shared/components/results/AccessionView';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 
-import { getAccessionsURL } from '../../../../shared/config/apiUrls';
+import { getAPIQueryUrl } from '../../../../shared/config/apiUrls';
+import { pluralise } from '../../../../shared/utils/utils';
 
 import { Namespace } from '../../../../shared/types/namespaces';
+import { LocationToPath, Location } from '../../../../app/config/urls';
 
 import { UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
 import { UniProtKBColumn } from '../../../types/columnTypes';
+import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
 
 const columns = [
   UniProtKBColumn.accession,
@@ -61,14 +64,27 @@ const columnConfig = [
   },
 ];
 
-const SimilarProteinsTable: FC<{ members: string[] }> = ({ members }) => {
-  const membersURL = getAccessionsURL(members, {
+type Props = {
+  cluster: UniRefLiteAPIModel;
+  isoforms: string[];
+};
+
+const SimilarProteinsTable = ({ cluster, isoforms }: Props) => {
+  const query = `(uniref_cluster_${cluster.entryType.replace('UniRef', '')}:${
+    cluster.id
+  })${isoforms.map((isoform) => ` AND NOT (accession:${isoform})`).join('')}`;
+  const url = getAPIQueryUrl({
+    namespace: Namespace.uniprotkb,
+    query,
     facets: [],
     columns,
+    size: 10,
   });
-  const { loading, data, error } = useDataApi<{
+  const { loading, data, error, headers } = useDataApi<{
     results: UniProtkbAPIModel[];
-  }>(membersURL);
+  }>(url);
+
+  const total = +(headers?.['x-total-records'] || 0);
 
   if (loading) {
     return <Loader />;
@@ -81,12 +97,22 @@ const SimilarProteinsTable: FC<{ members: string[] }> = ({ members }) => {
   }
 
   return (
-    <DataTable
-      data={data.results}
-      columns={columnConfig}
-      getIdKey={(row) => row.primaryAccession}
-      density="compact"
-    />
+    <>
+      <DataTable
+        data={data.results}
+        columns={columnConfig}
+        getIdKey={(row) => row.primaryAccession}
+        density="compact"
+      />
+      <Link
+        to={{
+          pathname: LocationToPath[Location.UniProtKBResults],
+          search: `query=${query}`,
+        }}
+      >
+        Show all {total} UniProtKB {pluralise('entry', total, 'entries')}
+      </Link>
+    </>
   );
 };
 

@@ -114,9 +114,6 @@ const SimilarProteins = ({ isoforms, primaryAccession }: Props) => {
                       Namespace.uniref,
                       cluster.id
                     );
-                    const usableMembers = cluster.members.filter(
-                      (member) => !member.startsWith('UPI')
-                    );
                     return (
                       <section key={cluster.id} className="text-block">
                         <h4>
@@ -133,18 +130,10 @@ const SimilarProteins = ({ isoforms, primaryAccession }: Props) => {
                               <h5>
                                 <Link to={unirefEntryUrl}>{cluster.id}</Link>
                               </h5>
-                              <SimilarProteinsTable members={usableMembers} />
-                              {cluster.memberCount -
-                                cluster.members.length -
-                                1 >
-                                0 && (
-                                <Link to={unirefEntryUrl}>
-                                  {cluster.memberCount -
-                                    cluster.members.length -
-                                    1}{' '}
-                                  more
-                                </Link>
-                              )}
+                              <SimilarProteinsTable
+                                cluster={cluster}
+                                isoforms={isoforms}
+                              />
                             </>
                           ) : (
                             `no similar proteins at ${
