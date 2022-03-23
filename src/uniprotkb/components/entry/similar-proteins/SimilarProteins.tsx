@@ -1,13 +1,17 @@
 import { Loader, Message, Tabs, Tab, Card, Button } from 'franklin-sites';
-import { useMemo } from 'react';
-import { groupBy } from 'lodash-es';
+import { useMemo, useEffect } from 'react';
+import { groupBy, zipWith } from 'lodash-es';
 import { Link } from 'react-router-dom';
 
 import SimilarProteinsTable from './SimilarProteinsTable';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
+import useSafeState from '../../../../shared/hooks/useSafeState';
 
-import { getClustersForProteins } from '../../../../shared/config/apiUrls';
+import apiUrls, {
+  getClustersForProteins,
+} from '../../../../shared/config/apiUrls';
+import fetchData from '../../../../shared/utils/fetchData';
 
 import {
   getEntryPath,
@@ -31,9 +35,41 @@ type Props = {
 
 const SimilarProteins = ({ isoforms, primaryAccession }: Props) => {
   const allAccessions = useMemo(
-    () => [primaryAccession, ...isoforms.isoforms],
+    () =>
+      [primaryAccession, ...isoforms.isoforms].filter(
+        // remove first isoform, it'll be the primary accession
+        (accession) => !accession.endsWith('-1')
+      ),
     [primaryAccession, isoforms]
   );
+
+  const [mappingData, setMappingData] = useSafeState<
+    Record<string, Record<UniRefEntryType, UniRefLiteAPIModel>>
+  >({});
+  const [mappingLoading, setMappingLoading] = useSafeState(true);
+
+  useEffect(() => {
+    setMappingLoading(true);
+    const promises = allAccessions.map((accession) =>
+      fetchData<{
+        results: UniRefLiteAPIModel[];
+      }>(`${apiUrls.search(Namespace.uniref)}?query=(uniprot_id:${accession})`)
+    );
+    Promise.all(promises).then((responses) => {
+      const accessionsToClusters = Object.fromEntries(
+        zipWith(allAccessions, responses, (accession, response) => [
+          accession,
+          Object.fromEntries(
+            response.data.results.map((entry) => [entry.entryType, entry])
+          ) as Record<UniRefEntryType, UniRefLiteAPIModel>,
+        ])
+      );
+      setMappingData(accessionsToClusters);
+      setMappingLoading(false);
+    });
+  }, [allAccessions, setMappingData, setMappingLoading]);
+
+  console.log(mappingData);
 
   const searchUrl = getClustersForProteins(allAccessions);
 
@@ -100,63 +136,69 @@ const SimilarProteins = ({ isoforms, primaryAccession }: Props) => {
       {clusterData ? (
         <Tabs>
           {Object.entries(uniRefEntryTypeToPercent).map(
-            ([clusterType, percentValue]) =>
-              clusterType in clusterData &&
-              clusterData[clusterType as UniRefEntryType] ? (
-                <Tab
-                  id={clusterType}
-                  title={`${percentValue} identity`}
-                  key={clusterType}
-                >
-                  {Object.entries(
-                    clusterData[clusterType as UniRefEntryType] || {}
-                  ).map(([representativeId, clusters]) => (
-                    <section key={representativeId} className="text-block">
-                      <h4>{representativeId}</h4>
-                      {clusters.map((row) => {
-                        const unirefEntryUrl = getEntryPath(
-                          Namespace.uniref,
-                          row.id
-                        );
-                        return (
-                          <section key={row.id}>
-                            <h5>
-                              <Link to={unirefEntryUrl}>{row.id}</Link>
-                            </h5>
-                            <SimilarProteinsTable members={row.members} />
-                            {row.memberCount - row.members.length - 1 > 0 && (
-                              <Link to={unirefEntryUrl}>
-                                {row.memberCount - row.members.length - 1} more
-                              </Link>
+            ([clusterType, percentValue]) => (
+              <Tab
+                id={clusterType}
+                title={`${percentValue} identity`}
+                key={clusterType}
+              >
+                {Object.entries(mappingData || {}).map(
+                  ([isoform, clusters]) => {
+                    const cluster = clusters[clusterType as UniRefEntryType];
+                    if (!cluster) {
+                      return null;
+                    }
+                    const unirefEntryUrl = getEntryPath(
+                      Namespace.uniref,
+                      cluster.id
+                    );
+                    return (
+                      <section key={isoform} className="text-block">
+                        <h4>{isoform}</h4>
+                        <section key={cluster.id}>
+                          <h5>
+                            <Link to={unirefEntryUrl}>{cluster.id}</Link>
+                          </h5>
+                          <SimilarProteinsTable
+                            members={cluster.members.filter(
+                              (member) => !member.startsWith('UPI')
                             )}
-                          </section>
-                        );
-                      })}
-                      <hr />
-                    </section>
-                  ))}
-                  {/* TODO: This query doesn't seem to work currently */}
-                  <Button
-                    element={Link}
-                    to={{
-                      pathname: LocationToPath[Location.UniProtKBResults],
-                      search: `query=(${data?.results
-                        .filter(({ entryType }) => entryType === clusterType)
-                        .map(
-                          ({ id }) =>
-                            `uniref_cluster_${clusterType.replace(
-                              'UniRef',
-                              ''
-                            )}:${id}`
-                        )
-                        .sort()
-                        .join(' OR ')})`,
-                    }}
-                  >
-                    View all
-                  </Button>
-                </Tab>
-              ) : null
+                          />
+                          {cluster.memberCount - cluster.members.length - 1 >
+                            0 && (
+                            <Link to={unirefEntryUrl}>
+                              {cluster.memberCount - cluster.members.length - 1}{' '}
+                              more
+                            </Link>
+                          )}
+                        </section>
+                        <hr />
+                      </section>
+                    );
+                  }
+                )}
+                {/* TODO: This query doesn't seem to work currently */}
+                <Button
+                  element={Link}
+                  to={{
+                    pathname: LocationToPath[Location.UniProtKBResults],
+                    search: `query=(${data?.results
+                      .filter(({ entryType }) => entryType === clusterType)
+                      .map(
+                        ({ id }) =>
+                          `uniref_cluster_${clusterType.replace(
+                            'UniRef',
+                            ''
+                          )}:${id}`
+                      )
+                      .sort()
+                      .join(' OR ')})`,
+                  }}
+                >
+                  View all
+                </Button>
+              </Tab>
+            )
           )}
         </Tabs>
       ) : (
