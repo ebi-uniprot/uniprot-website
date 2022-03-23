@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
 import TaxonomyView from '../../../../shared/components/entry/TaxonomyView';
-import AccessionView from '../../../../shared/components/results/AccessionView';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 
@@ -11,7 +10,11 @@ import { getAPIQueryUrl } from '../../../../shared/config/apiUrls';
 import { pluralise } from '../../../../shared/utils/utils';
 
 import { Namespace } from '../../../../shared/types/namespaces';
-import { LocationToPath, Location } from '../../../../app/config/urls';
+import {
+  LocationToPath,
+  Location,
+  getEntryPath,
+} from '../../../../app/config/urls';
 
 import { UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
 import { UniProtKBColumn } from '../../../types/columnTypes';
@@ -36,9 +39,12 @@ const columnConfig = [
   {
     label: 'Protein name',
     name: 'protein_name',
-    render: (row: UniProtkbAPIModel) =>
-      row.proteinDescription?.recommendedName?.fullName.value ||
-      row.proteinDescription?.submissionNames?.[0].fullName.value,
+    render: (row: UniProtkbAPIModel) => (
+      <Link to={getEntryPath(Namespace.uniprotkb, row.primaryAccession)}>
+        {row.proteinDescription?.recommendedName?.fullName.value ||
+          row.proteinDescription?.submissionNames?.[0].fullName.value}
+      </Link>
+    ),
   },
   {
     label: 'Organism',
