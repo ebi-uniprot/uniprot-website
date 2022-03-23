@@ -31,10 +31,6 @@ export default function fetchData<T>(
       ...headers,
     },
     cancelToken,
-    // NOTE: this was used initially but it would try to parse everything as JSON
-    // transitional: {
-    //   silentJSONParsing: false,
-    // },
     ...axiosOptions,
   });
 }
