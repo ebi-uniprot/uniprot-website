@@ -26,7 +26,6 @@ const IDMappingResultTable = ({
 }: IDMappingResultTableProps) => {
   const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
     useItemSelect();
-
   return (
     <>
       <ResultsButtons
