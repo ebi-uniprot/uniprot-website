@@ -1,5 +1,5 @@
-import { FC, useEffect, useMemo } from 'react';
-import { useRouteMatch, useLocation, Link, useHistory } from 'react-router-dom';
+import { useMemo } from 'react';
+import { useLocation, Link } from 'react-router-dom';
 import { stringify } from 'query-string';
 import { Loader, Tabs, Tab } from 'franklin-sites';
 
@@ -19,6 +19,7 @@ import ErrorBoundary from '../../../shared/components/error-component/ErrorBound
 
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 import useLocalStorage from '../../../shared/hooks/useLocalStorage';
+import useMatchWithRedirect from '../../../shared/hooks/useMatchWithRedirect';
 
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 import apiUrls from '../../../shared/config/apiUrls';
@@ -26,11 +27,7 @@ import {
   defaultColumns,
   UniParcXRefsColumn,
 } from '../../config/UniParcXRefsColumnConfiguration';
-import {
-  LocationToPath,
-  Location,
-  getEntryPath,
-} from '../../../app/config/urls';
+import { Location, getEntryPath } from '../../../app/config/urls';
 
 import uniParcConverter, {
   UniParcAPIModel,
@@ -47,31 +44,17 @@ export enum TabLocation {
   FeatureViewer = 'feature-viewer',
 }
 
-const Entry: FC = () => {
-  const match = useRouteMatch<{ accession: string; subPage?: TabLocation }>(
-    LocationToPath[Location.UniParcEntry]
-  );
-  const history = useHistory();
+const Entry = () => {
+  const match = useMatchWithRedirect<{
+    accession: string;
+    subPage?: TabLocation;
+  }>(Location.UniParcEntry, TabLocation);
   const { search } = useLocation();
 
   const [columns] = useLocalStorage(
     `table columns for ${Namespace.uniparc} entry page` as const,
     defaultColumns
   );
-
-  // if URL doesn't finish with "entry" redirect to /entry by default
-  useEffect(() => {
-    if (match && !match.params.subPage) {
-      history.replace({
-        ...history.location,
-        pathname: getEntryPath(
-          Namespace.uniparc,
-          match.params.accession,
-          TabLocation.Entry
-        ),
-      });
-    }
-  }, [match, history]);
 
   const baseURL = apiUrls.entry(match?.params.accession, Namespace.uniparc);
   const xRefsURL = useMemo(() => {

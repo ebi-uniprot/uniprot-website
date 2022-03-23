@@ -1,5 +1,5 @@
 import { useMemo, useEffect, Suspense } from 'react';
-import { Link, useRouteMatch, useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { InPageNav, Loader, Tabs, Tab } from 'franklin-sites';
 import cn from 'classnames';
 import qs from 'query-string';
@@ -35,6 +35,7 @@ import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { useMessagesDispatch } from '../../../shared/contexts/Messages';
+import useMatchWithRedirect from '../../../shared/hooks/useMatchWithRedirect';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 
@@ -74,6 +75,8 @@ export enum TabLocation {
   History = 'history',
 }
 
+const legacyToNewSubPages = { protvista: TabLocation.FeatureViewer };
+
 const FeatureViewer = lazy(
   () =>
     import(
@@ -103,23 +106,15 @@ const EntryHistory = lazy(
 const Entry = () => {
   const dispatch = useMessagesDispatch();
   const history = useHistory();
-  const match = useRouteMatch<{ accession: string; subPage?: TabLocation }>(
-    LocationToPath[Location.UniProtKBEntry]
+  const match = useMatchWithRedirect<{
+    accession: string;
+    subPage?: TabLocation;
+  }>(
+    Location.UniProtKBEntry,
+    TabLocation,
+    TabLocation.Entry,
+    legacyToNewSubPages
   );
-
-  // if URL doesn't finish with "entry" redirect to /entry by default
-  useEffect(() => {
-    if (match && !match.params.subPage) {
-      history.replace({
-        ...history.location,
-        pathname: getEntryPath(
-          Namespace.uniprotkb,
-          match.params.accession,
-          TabLocation.Entry
-        ),
-      });
-    }
-  }, [match, history]);
 
   const { loading, data, status, error, redirectedTo, progress } =
     useDataApi<UniProtkbAPIModel>(
