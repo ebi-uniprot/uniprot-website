@@ -79,7 +79,6 @@ const IDMappingResult = () => {
   const location = useLocation();
   const match = useMatchWithRedirect<Params>(
     Location.IDMappingResult,
-    TabLocation.Overview,
     TabLocation
   );
 

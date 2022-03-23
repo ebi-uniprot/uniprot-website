@@ -179,11 +179,7 @@ export const enrich = (
 
 const BlastResult = () => {
   const location = useLocation();
-  const match = useMatchWithRedirect<Params>(
-    Location.BlastResult,
-    TabLocation.Overview,
-    TabLocation
-  );
+  const match = useMatchWithRedirect<Params>(Location.BlastResult, TabLocation);
 
   const [selectedEntries, setSelectedItemFromEvent] = useItemSelect();
   const [hspDetailPanel, setHspDetailPanel] =

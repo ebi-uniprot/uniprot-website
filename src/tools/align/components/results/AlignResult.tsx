@@ -118,11 +118,7 @@ type Params = {
 };
 
 const AlignResult = () => {
-  const match = useMatchWithRedirect<Params>(
-    Location.AlignResult,
-    TabLocation.Overview,
-    TabLocation
-  );
+  const match = useMatchWithRedirect<Params>(Location.AlignResult, TabLocation);
 
   const [selectedEntries, , setSelectedEntries] = useItemSelect();
   const handleEntrySelection = useCallback(

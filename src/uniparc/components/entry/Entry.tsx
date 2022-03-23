@@ -48,7 +48,7 @@ const Entry = () => {
   const match = useMatchWithRedirect<{
     accession: string;
     subPage?: TabLocation;
-  }>(Location.UniParcEntry, TabLocation.Entry, TabLocation);
+  }>(Location.UniParcEntry, TabLocation);
   const { search } = useLocation();
 
   const [columns] = useLocalStorage(

@@ -5,29 +5,45 @@ import { LocationToPath, Location } from '../../app/config/urls';
 
 const useMatchWithRedirect = <T extends { subPage?: string }>(
   location: Location,
-  defaultSubPage: string,
-  possibleSubPages: Record<string, string>
+  possibleSubPages: Record<string, string>,
+  defaultSubPage?: string,
+  redirect?: Record<string, string>
 ) => {
   const history = useHistory();
   const match = useRouteMatch<T>(LocationToPath[location]);
 
   useEffect(() => {
+    if (!match) {
+      return;
+    }
+    const { subPage } = match.params;
+    // if the subpage matches a redirect pattern, redirect to new subpage
+    if (subPage && redirect?.[subPage]) {
+      history.replace({
+        ...history.location,
+        pathname: generatePath(LocationToPath[location], {
+          ...match.params,
+          subPage: redirect[subPage],
+        }),
+      });
+      return;
+    }
+    const subPageValues = Object.values(possibleSubPages);
     if (
-      match &&
       // if URL doesn't finish with a subpage redirect to the default
-      (!match.params.subPage ||
-        // if URL doesn't finish with an a valid subpage redirect to the default
-        !Object.values(possibleSubPages).includes(match.params.subPage))
+      !subPage ||
+      // if URL doesn't finish with an a valid subpage redirect to the default
+      !subPageValues.includes(subPage)
     ) {
       history.replace({
         ...history.location,
         pathname: generatePath(LocationToPath[location], {
           ...match.params,
-          subPage: defaultSubPage,
+          subPage: defaultSubPage || subPageValues[0],
         }),
       });
     }
-  }, [match, history, location, defaultSubPage, possibleSubPages]);
+  }, [match, history, location, defaultSubPage, possibleSubPages, redirect]);
 
   return match;
 };

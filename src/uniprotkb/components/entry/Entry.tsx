@@ -75,6 +75,8 @@ export enum TabLocation {
   History = 'history',
 }
 
+const legacyToNewSubPages = { protvista: TabLocation.FeatureViewer };
+
 const FeatureViewer = lazy(
   () =>
     import(
@@ -107,7 +109,12 @@ const Entry = () => {
   const match = useMatchWithRedirect<{
     accession: string;
     subPage?: TabLocation;
-  }>(Location.UniProtKBEntry, TabLocation.Entry, TabLocation);
+  }>(
+    Location.UniProtKBEntry,
+    TabLocation,
+    TabLocation.Entry,
+    legacyToNewSubPages
+  );
 
   const { loading, data, status, error, redirectedTo, progress } =
     useDataApi<UniProtkbAPIModel>(

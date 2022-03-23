@@ -79,7 +79,6 @@ const PeptideSearchResult = ({
 }) => {
   const match = useMatchWithRedirect<Params>(
     Location.PeptideSearchResult,
-    TabLocation.Overview,
     TabLocation
   );
 
