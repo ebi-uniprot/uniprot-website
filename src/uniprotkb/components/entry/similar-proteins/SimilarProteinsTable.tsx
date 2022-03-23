@@ -18,7 +18,6 @@ import { UniProtKBColumn } from '../../../types/columnTypes';
 import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
 
 const columns = [
-  UniProtKBColumn.accession,
   UniProtKBColumn.id,
   UniProtKBColumn.reviewed,
   UniProtKBColumn.organismName,
@@ -27,16 +26,6 @@ const columns = [
 ];
 
 const columnConfig = [
-  {
-    label: 'Accession',
-    name: 'accession',
-    render: (row: UniProtkbAPIModel) => (
-      <AccessionView
-        id={row.primaryAccession}
-        namespace={Namespace.uniprotkb}
-      />
-    ),
-  },
   {
     label: '',
     name: 'reviewed',
