@@ -45,7 +45,8 @@ const columnConfig = [
     label: 'Protein name',
     name: 'protein_name',
     render: (row: UniProtkbAPIModel) =>
-      row.proteinDescription?.recommendedName?.fullName.value,
+      row.proteinDescription?.recommendedName?.fullName.value ||
+      row.proteinDescription?.submissionNames?.[0].fullName.value,
   },
   {
     label: 'Organism',
