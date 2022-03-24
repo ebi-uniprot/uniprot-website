@@ -91,7 +91,9 @@ const PeptideSearchResult = ({
     loading: jobResultLoading,
     error: jobResultError,
     status: jobResultStatus,
-  } = useDataApi<PeptideSearchResults>(urls.resultUrl(jobID, {}));
+  } = useDataApi<PeptideSearchResults>(urls.resultUrl(jobID, {}), {
+    headers: { accept: 'text/plain' },
+  });
 
   // Get the job mission from local tools state. Save this in a reference as
   // the job may change with useMarkJobAsSeen but we don't want to have to
