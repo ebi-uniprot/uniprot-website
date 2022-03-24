@@ -19,8 +19,7 @@ export enum ARBAColumn {
 
 export const defaultColumns = [
   ARBAColumn.ruleId,
-  // TODO: commnent out when backend fixes the statistics column
-  // ARBAColumn.statistics,
+  ARBAColumn.statistics,
   ARBAColumn.taxonomicScope,
   ARBAColumn.annotationCovered,
 ];

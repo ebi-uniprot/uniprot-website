@@ -142,7 +142,7 @@ const NiceStatus = ({ job, jobLink }: NiceStatusProps) => {
           Running <SpinnerIcon width="12" height="12" />
           <br />
           <span className="dashboard__body__notify_message">
-            We&apos;ll notify you when it&apos;s done
+            We will notify you when your results are ready
           </span>
         </>
       );
