@@ -1,5 +1,4 @@
 import axios, { AxiosPromise, AxiosRequestConfig, CancelToken } from 'axios';
-import { cloneDeep } from 'lodash-es';
 
 import { keysToLowerCase } from './utils';
 
@@ -22,7 +21,7 @@ export default function fetchData<T>(
   cancelToken: CancelToken | undefined = undefined,
   axiosOptions: AxiosRequestConfig = {}
 ): AxiosPromise<T> {
-  const options = cloneDeep(axiosOptions);
+  const options = { ...axiosOptions };
   if (!options.responseType) {
     options.responseType =
       typeof axiosOptions?.headers?.Accept === 'string' &&
@@ -34,7 +33,7 @@ export default function fetchData<T>(
     options.headers = {};
   }
   if (!options.headers.Accept) {
-    options.headers.Accept = 'application/json';
+    options.headers = { ...options.headers, Accept: 'application/json' };
   }
   return axios({
     url,
