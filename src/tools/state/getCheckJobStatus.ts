@@ -47,7 +47,9 @@ const getCheckJobStatus =
       if (
         !response.ok &&
         status !== Status.FAILURE &&
-        status !== Status.ERRORED
+        status !== Status.ERRORED &&
+        // When doing Peptide Search weird redirects happen and mess this up
+        job.type !== JobTypes.PEPTIDE_SEARCH
       ) {
         throw new Error(`${response.status}: ${response.statusText}`);
       }
