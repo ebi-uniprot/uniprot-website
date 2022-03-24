@@ -1,5 +1,7 @@
 import ToolsButton from './ToolsButton';
 
+import { fromCleanMapper } from '../../utils/getIdKeyForNamespace';
+
 import { Location } from '../../../app/config/urls';
 
 const ALIGN_LIMIT = 100;
@@ -10,7 +12,11 @@ type AlignButtonProps = {
 };
 
 const AlignButton = ({ selectedEntries, textSuffix }: AlignButtonProps) => {
-  const n = selectedEntries.length;
+  const cleanedSelectedEntries = Array.from(
+    new Set(selectedEntries.map(fromCleanMapper))
+  );
+
+  const n = cleanedSelectedEntries.length;
 
   const disabled = n <= 1 || n > ALIGN_LIMIT;
 
@@ -25,7 +31,7 @@ const AlignButton = ({ selectedEntries, textSuffix }: AlignButtonProps) => {
 
   return (
     <ToolsButton
-      selectedEntries={selectedEntries}
+      selectedEntries={cleanedSelectedEntries}
       disabled={disabled}
       title={title}
       location={Location.Align}

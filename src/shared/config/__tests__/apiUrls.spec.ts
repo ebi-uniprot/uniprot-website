@@ -1,8 +1,14 @@
-import apiUrls, { getAPIQueryUrl, createFacetsQueryString } from '../apiUrls';
+import apiUrls, {
+  getAPIQueryUrl,
+  createFacetsQueryString,
+  createSelectedQueryString,
+} from '../apiUrls';
+
 import { FileFormat } from '../../types/resultsDownload';
+import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
 
 describe('getQueryUrl', () => {
-  test('should generate facet url', () => {
+  it('should generate facet url', () => {
     const facets = [
       { name: 'facet1', value: 'value 1' },
       { name: 'facet2', value: 'value 3' },
@@ -21,7 +27,7 @@ describe('getQueryUrl', () => {
 });
 
 describe('createFacetsQueryString', () => {
-  test('should generate facet query', () => {
+  it('should generate facet query', () => {
     const facets = [
       { name: 'facet1', value: 'value 1' },
       { name: 'facet2', value: 'value 3' },
@@ -38,37 +44,52 @@ describe('createFacetsQueryString', () => {
 describe('apiUrls', () => {
   const getLastPath = (url: string) => url.substr(url.lastIndexOf('/') + 1);
   const accession = 'P123456';
-  const testCases = [
-    {
-      fileFormat: FileFormat.text,
-      lastPath: 'P123456.txt',
-    },
-    {
-      fileFormat: FileFormat.fastaCanonical,
-      lastPath: 'P123456.fasta',
-    },
-    {
-      fileFormat: FileFormat.fastaCanonicalIsoform,
-      lastPath:
-        'search?format=fasta&includeIsoform=true&query=accession%3AP123456',
-    },
-    {
-      fileFormat: FileFormat.xml,
-      lastPath: 'P123456.xml',
-    },
-    {
-      fileFormat: FileFormat.rdfXml,
-      lastPath: 'P123456.rdf',
-    },
-    {
-      fileFormat: FileFormat.gff,
-      lastPath: 'P123456.gff',
-    },
+  const testCases: Array<[FileFormat, string]> = [
+    [FileFormat.text, 'P123456.txt'],
+    [FileFormat.fastaCanonical, 'P123456.fasta'],
+    [
+      FileFormat.fastaCanonicalIsoform,
+      'search?format=fasta&includeIsoform=true&query=accession%3AP123456',
+    ],
+    [FileFormat.xml, 'P123456.xml'],
+    [FileFormat.rdfXml, 'P123456.rdf'],
+    [FileFormat.gff, 'P123456.gff'],
   ];
-  testCases.forEach(({ fileFormat, lastPath }) => {
-    test(`should return correct download URL for file format ${fileFormat}`, () => {
+
+  it.each(testCases)(
+    'should return correct download URL for file format %s',
+    (fileFormat, lastPath) => {
       const url = apiUrls.entryDownload(accession, fileFormat);
       expect(getLastPath(url)).toBe(lastPath);
-    });
+    }
+  );
+});
+
+describe('createSelectedQueryString', () => {
+  it('should generate a query including all IDs', () => {
+    expect(
+      createSelectedQueryString(['a1', 'b2', 'c3'], UniProtKBColumn.id)
+    ).toBe('id:a1 OR id:b2 OR id:c3');
+  });
+
+  it('should deduplicate IDs', () => {
+    expect(
+      createSelectedQueryString(['a1', 'b2', 'c3', 'a1'], UniProtKBColumn.id)
+    ).toBe('id:a1 OR id:b2 OR id:c3');
+  });
+
+  it('should generate a query including all IDs, but removing from', () => {
+    expect(
+      createSelectedQueryString(['z|a1', 'z|b2', 'y|c3'], UniProtKBColumn.id)
+    ).toBe('id:a1 OR id:b2 OR id:c3');
+  });
+
+  it('should deduplicate IDs, but removing from', () => {
+    expect(
+      createSelectedQueryString(
+        ['z|a1', 'z|b2', 'y|c3', 'y|a1'],
+        UniProtKBColumn.id
+      )
+    ).toBe('id:a1 OR id:b2 OR id:c3');
   });
 });

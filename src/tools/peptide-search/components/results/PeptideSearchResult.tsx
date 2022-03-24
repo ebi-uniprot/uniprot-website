@@ -9,7 +9,7 @@ import useNSQuery from '../../../../shared/hooks/useNSQuery';
 import usePagination from '../../../../shared/hooks/usePagination';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 import { useToolsState } from '../../../../shared/contexts/Tools';
-import { useMatchWithRedirect } from '../../../utils/hooks';
+import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
@@ -79,7 +79,7 @@ const PeptideSearchResult = ({
 }) => {
   const match = useMatchWithRedirect<Params>(
     Location.PeptideSearchResult,
-    TabLocation.Overview
+    TabLocation
   );
 
   const jobSubmission = useRef<FinishedJob<JobTypes.PEPTIDE_SEARCH> | null>(

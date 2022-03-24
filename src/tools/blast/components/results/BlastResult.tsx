@@ -16,6 +16,7 @@ import useDataApi, {
 } from '../../../../shared/hooks/useDataApi';
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
+import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect';
 
 import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
 import {
@@ -46,7 +47,6 @@ import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter'
 import { UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
 
 import helper from '../../../../shared/styles/helper.module.scss';
-import { useMatchWithRedirect } from '../../../utils/hooks';
 
 const jobType = JobTypes.BLAST;
 const urls = toolsURLs(jobType);
@@ -179,10 +179,7 @@ export const enrich = (
 
 const BlastResult = () => {
   const location = useLocation();
-  const match = useMatchWithRedirect<Params>(
-    Location.BlastResult,
-    TabLocation.Overview
-  );
+  const match = useMatchWithRedirect<Params>(Location.BlastResult, TabLocation);
 
   const [selectedEntries, setSelectedItemFromEvent] = useItemSelect();
   const [hspDetailPanel, setHspDetailPanel] =
