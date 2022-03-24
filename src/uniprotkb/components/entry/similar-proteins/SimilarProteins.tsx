@@ -33,6 +33,34 @@ type IsoformsAndCluster = {
 
 type Mapping = Record<UniRefEntryType, IsoformsAndCluster[]>;
 
+const getClusterMapping = (
+  allAccessions: string[],
+  clusterData: UniRefLiteAPIModel[][]
+) => {
+  const mapping: Mapping = {
+    UniRef100: [],
+    UniRef90: [],
+    UniRef50: [],
+  };
+  for (const [accession, clusters] of zip(allAccessions, clusterData)) {
+    /* istanbul ignore if */
+    if (!accession || !clusters) {
+      break; // Shouldn't happen, used to restric types
+    }
+    for (const cluster of clusters) {
+      let association: IsoformsAndCluster | undefined = mapping[
+        cluster.entryType
+      ].find((association) => association.cluster.id === cluster.id);
+      if (!association) {
+        association = { isoforms: [], cluster };
+        mapping[cluster.entryType].push(association);
+      }
+      association.isoforms.push(accession);
+    }
+  }
+  return mapping;
+};
+
 type Props = {
   isoforms: { isoforms: string[] };
   primaryAccession: string;
@@ -59,27 +87,8 @@ const SimilarProteins = ({ isoforms, primaryAccession }: Props) => {
       }>(`${apiUrls.search(Namespace.uniref)}?query=(uniprot_id:${accession})`)
     );
     Promise.all(promises).then((responses) => {
-      const mapping: Mapping = {
-        UniRef100: [],
-        UniRef90: [],
-        UniRef50: [],
-      };
-      for (const [accession, response] of zip(allAccessions, responses)) {
-        /* istanbul ignore if */
-        if (!accession || !response) {
-          break; // Shouldn't happen, used to restric types
-        }
-        for (const cluster of response.data.results) {
-          let association: IsoformsAndCluster | undefined = mapping[
-            cluster.entryType
-          ].find((association) => association.cluster.id === cluster.id);
-          if (!association) {
-            association = { isoforms: [], cluster };
-            mapping[cluster.entryType].push(association);
-          }
-          association.isoforms.push(accession);
-        }
-      }
+      const clusterData = responses.map((response) => response.data.results);
+      const mapping = getClusterMapping(allAccessions, clusterData);
       setMappingData(mapping);
       setMappingLoading(false);
     });
