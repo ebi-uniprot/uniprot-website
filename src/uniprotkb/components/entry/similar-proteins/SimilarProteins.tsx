@@ -127,9 +127,7 @@ const SimilarProteins = ({ isoforms, primaryAccession }: Props) => {
                         <section>
                           {isoforms.length !== 1 || cluster.memberCount - 1 ? (
                             <>
-                              <h5>
-                                <Link to={unirefEntryUrl}>{cluster.id}</Link>
-                              </h5>
+                              <Link to={unirefEntryUrl}>{cluster.id}</Link>
                               <SimilarProteinsTable
                                 cluster={cluster}
                                 isoforms={isoforms}
