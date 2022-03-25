@@ -1,4 +1,5 @@
 import axios, { AxiosPromise, AxiosRequestConfig, CancelToken } from 'axios';
+
 import { keysToLowerCase } from './utils';
 
 axios.interceptors.response.use((response) => {
@@ -17,20 +18,27 @@ axios.interceptors.response.use((response) => {
 
 export default function fetchData<T>(
   url: string,
-  headers: Record<string, string> = {},
   cancelToken: CancelToken | undefined = undefined,
   axiosOptions: AxiosRequestConfig = {}
 ): AxiosPromise<T> {
+  const options = { ...axiosOptions };
+  if (!options.responseType) {
+    options.responseType =
+      typeof axiosOptions?.headers?.Accept === 'string' &&
+      !axiosOptions.headers.Accept.includes('json')
+        ? 'text'
+        : 'json';
+  }
+  if (!options?.headers) {
+    options.headers = {};
+  }
+  if (!options.headers.Accept) {
+    options.headers = { ...options.headers, Accept: 'application/json' };
+  }
   return axios({
     url,
     method: 'GET',
-    responseType:
-      headers.Accept && !headers.Accept.includes('json') ? 'text' : 'json',
-    headers: {
-      Accept: 'application/json',
-      ...headers,
-    },
     cancelToken,
-    ...axiosOptions,
+    ...options,
   });
 }

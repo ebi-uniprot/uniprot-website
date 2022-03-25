@@ -153,12 +153,9 @@ const getCheckJobStatus =
         );
       } else if (job.type === JobTypes.ID_MAPPING && idMappingResultsUrl) {
         // only ID Mapping jobs
-        const response = await fetchData(
-          idMappingResultsUrl,
-          undefined,
-          undefined,
-          { method: 'HEAD' }
-        );
+        const response = await fetchData(idMappingResultsUrl, undefined, {
+          method: 'HEAD',
+        });
 
         // get a new reference to the job
         currentStateOfJob = stateRef.current[job.internalID];
