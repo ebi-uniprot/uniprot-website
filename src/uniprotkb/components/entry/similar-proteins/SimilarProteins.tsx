@@ -33,7 +33,7 @@ type IsoformsAndCluster = {
 
 type Mapping = Record<UniRefEntryType, IsoformsAndCluster[]>;
 
-const getClusterMapping = (
+export const getClusterMapping = (
   allAccessions: string[],
   clusterData: UniRefLiteAPIModel[][]
 ) => {
@@ -42,20 +42,23 @@ const getClusterMapping = (
     UniRef90: [],
     UniRef50: [],
   };
+
   for (const [accession, clusters] of zip(allAccessions, clusterData)) {
     /* istanbul ignore if */
     if (!accession || !clusters) {
       break; // Shouldn't happen, used to restric types
     }
     for (const cluster of clusters) {
-      let association: IsoformsAndCluster | undefined = mapping[
+      let found: IsoformsAndCluster | undefined = mapping[
         cluster.entryType
-      ].find((association) => association.cluster.id === cluster.id);
-      if (!association) {
-        association = { isoforms: [], cluster };
-        mapping[cluster.entryType].push(association);
+      ].find(
+        (isoformsAndCluster) => isoformsAndCluster.cluster.id === cluster.id
+      );
+      if (!found) {
+        found = { isoforms: [], cluster };
+        mapping[cluster.entryType].push(found);
       }
-      association.isoforms.push(accession);
+      found.isoforms.push(accession);
     }
   }
   return mapping;

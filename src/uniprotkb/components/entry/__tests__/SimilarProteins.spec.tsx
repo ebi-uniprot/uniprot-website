@@ -5,10 +5,17 @@ import MockAdapter from 'axios-mock-adapter';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
 
-import SimilarProteins from '../similar-proteins/SimilarProteins';
+import SimilarProteins, {
+  getClusterMapping,
+} from '../similar-proteins/SimilarProteins';
 
 import similarProteinsData from './__mocks__/similarProteinsData';
 import accessionsData from './__mocks__/accessionsData.json';
+import {
+  allAccessions,
+  clusterData,
+  mapping,
+} from './__mocks__/clusterMappingData';
 
 const axiosMock = new MockAdapter(axios);
 axiosMock
@@ -47,5 +54,11 @@ describe('SimilarProteins tests', () => {
       '?query=(uniref_cluster_100:UniRef100_P05067 OR uniref_cluster_100:UniRef100_P05067-10 OR uniref_cluster_100:UniRef100_P05067-11 OR uniref_cluster_100:UniRef100_P05067-2 OR uniref_cluster_100:UniRef100_P05067-3 OR uniref_cluster_100:UniRef100_P05067-4 OR uniref_cluster_100:UniRef100_P05067-5 OR uniref_cluster_100:UniRef100_P05067-6 OR uniref_cluster_100:UniRef100_P05067-7 OR uniref_cluster_100:UniRef100_P05067-8 OR uniref_cluster_100:UniRef100_P05067-9)'
     );
     expect(rendered.history.location.pathname).toEqual('/uniprotkb');
+  });
+});
+
+describe('getClusterMapping', () => {
+  it('should return the correct mapping', () => {
+    expect(getClusterMapping(allAccessions, clusterData)).toEqual(mapping);
   });
 });
