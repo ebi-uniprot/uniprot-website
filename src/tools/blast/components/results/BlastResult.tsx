@@ -229,7 +229,7 @@ const BlastResult = () => {
     namespace = Namespace.uniparc;
   }
 
-  // get data from accessions endpoint with facets applied
+  // get data from accessions endpoint with search applied
   const { loading: accessionsLoading, data: accessionsData } = useDataApi<{
     results: Array<UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel>;
   }>(

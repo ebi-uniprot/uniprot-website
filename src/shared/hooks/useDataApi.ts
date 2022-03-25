@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from 'react';
+import { useEffect, useReducer, useRef } from 'react';
 import axios, { AxiosResponse, AxiosError, AxiosRequestConfig } from 'axios';
 
 import { useMessagesDispatch } from '../contexts/Messages';
@@ -121,11 +121,17 @@ const createReducer =
 
 function useDataApi<T>(
   url?: string | null,
-  // Watch out, memoize if using this!
   options?: AxiosRequestConfig
 ): UseDataAPIState<T> {
   const [state, dispatch] = useReducer(createReducer<T>(), { loading: !!url });
   const messagesDispatch = useMessagesDispatch();
+  const optionsRef = useRef(options);
+
+  useEffect(() => {
+    if (options !== optionsRef.current) {
+      optionsRef.current = options;
+    }
+  }, [options]);
 
   useEffect(() => {
     // need this variable to ensure state updates don't occur when cancelled/unmounted
@@ -147,10 +153,10 @@ function useDataApi<T>(
     // to keep track of the last time we dispatched a progress action
     let lastProgressDate: number;
     // actual request
-    fetchData<T>(url, undefined, source.token, {
-      ...options,
+    fetchData<T>(url, source.token, {
+      ...optionsRef.current,
       onDownloadProgress: (progressEvent: ProgressEvent) => {
-        options?.onDownloadProgress?.(progressEvent);
+        optionsRef.current?.onDownloadProgress?.(progressEvent);
         if (
           didCancel ||
           !progressEvent.lengthComputable ||
@@ -209,7 +215,7 @@ function useDataApi<T>(
       source.cancel();
       didCancel = true;
     };
-  }, [url, options]);
+  }, [url, optionsRef]);
 
   useEffect(() => {
     // TODO: when refactoring, accept a onError callback to do this from outside
