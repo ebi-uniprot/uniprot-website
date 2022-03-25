@@ -1,17 +1,14 @@
-import { Loader, Tabs, Tab, Card, Button } from 'franklin-sites';
-import { useMemo, useEffect, Fragment } from 'react';
+import { Loader, Tabs, Card, Tab } from 'franklin-sites';
+import { useMemo, useEffect } from 'react';
 import { zip } from 'lodash-es';
-import { Link } from 'react-router-dom';
 
-import SimilarProteinsTable from './SimilarProteinsTable';
+import SimilarProteinsTabContent from './SimilarProteinsTabContent';
 
 import useSafeState from '../../../../shared/hooks/useSafeState';
 
 import apiUrls from '../../../../shared/config/apiUrls';
 import fetchData from '../../../../shared/utils/fetchData';
-import listFormat from '../../../../shared/utils/listFormat';
 
-import { Location, LocationToPath } from '../../../../app/config/urls';
 import { Namespace } from '../../../../shared/types/namespaces';
 import EntrySection, {
   getEntrySectionNameAndId,
@@ -22,18 +19,18 @@ import {
   UniRefLiteAPIModel,
 } from '../../../../uniref/adapters/uniRefConverter';
 
-type IsoformsAndCluster = {
+export type IsoformsAndCluster = {
   isoforms: string[];
   cluster: UniRefLiteAPIModel;
 };
 
-type Mapping = Record<UniRefEntryType, IsoformsAndCluster[]>;
+export type ClusterMapping = Record<UniRefEntryType, IsoformsAndCluster[]>;
 
 export const getClusterMapping = (
   allAccessions: string[],
   clusterData: UniRefLiteAPIModel[][]
 ) => {
-  const mapping: Mapping = {
+  const mapping: ClusterMapping = {
     UniRef100: [],
     UniRef90: [],
     UniRef50: [],
@@ -75,7 +72,9 @@ const SimilarProteins = ({ isoforms, primaryAccession }: Props) => {
     [primaryAccession, isoforms]
   );
 
-  const [mappingData, setMappingData] = useSafeState<Mapping | null>(null);
+  const [mappingData, setMappingData] = useSafeState<ClusterMapping | null>(
+    null
+  );
   const [mappingLoading, setMappingLoading] = useSafeState(true);
 
   useEffect(() => {
@@ -116,48 +115,12 @@ const SimilarProteins = ({ isoforms, primaryAccession }: Props) => {
                 title={`${percentValue} identity`}
                 key={clusterType}
               >
-                {mappingData[clusterType as UniRefEntryType].map(
-                  ({ isoforms, cluster }) => (
-                    <section key={cluster.id} className="text-block">
-                      <h4>
-                        {isoforms.map((isoform, index) => (
-                          <Fragment key={isoform}>
-                            {listFormat(index, isoforms)}
-                            {isoform}
-                          </Fragment>
-                        ))}
-                      </h4>
-                      <section>
-                        <SimilarProteinsTable
-                          clusterType={clusterType}
-                          cluster={cluster}
-                          isoforms={isoforms}
-                        />
-                      </section>
-                      <hr />
-                    </section>
-                  )
-                )}
-                <Button
-                  element={Link}
-                  to={{
-                    pathname: LocationToPath[Location.UniProtKBResults],
-                    search: `query=(${mappingData[
-                      clusterType as UniRefEntryType
-                    ]
-                      .map(
-                        ({ cluster }) =>
-                          `uniref_cluster_${clusterType.replace(
-                            'UniRef',
-                            ''
-                          )}:${cluster.id}`
-                      )
-                      .sort()
-                      .join(' OR ')})`,
-                  }}
-                >
-                  View all
-                </Button>
+                <SimilarProteinsTabContent
+                  clusterType={clusterType}
+                  isoformsAndClusters={
+                    mappingData[clusterType as UniRefEntryType]
+                  }
+                />
               </Tab>
             )
           )}
