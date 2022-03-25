@@ -31,16 +31,16 @@ type IsoformsAndCluster = {
   cluster: UniRefLiteAPIModel;
 };
 
-type Mapping = Record<UniRefEntryType, IsoformsAndCluster[]>;
+type Mapping = Record<UniRefEntryType, Record<string, IsoformsAndCluster>>;
 
 export const getClusterMapping = (
   allAccessions: string[],
   clusterData: UniRefLiteAPIModel[][]
 ) => {
   const mapping: Mapping = {
-    UniRef100: [],
-    UniRef90: [],
-    UniRef50: [],
+    UniRef100: {},
+    UniRef90: {},
+    UniRef50: {},
   };
 
   for (const [accession, clusters] of zip(allAccessions, clusterData)) {
@@ -49,16 +49,12 @@ export const getClusterMapping = (
       break; // Shouldn't happen, used to restric types
     }
     for (const cluster of clusters) {
-      let found: IsoformsAndCluster | undefined = mapping[
-        cluster.entryType
-      ].find(
-        (isoformsAndCluster) => isoformsAndCluster.cluster.id === cluster.id
-      );
-      if (!found) {
-        found = { isoforms: [], cluster };
-        mapping[cluster.entryType].push(found);
-      }
-      found.isoforms.push(accession);
+      const isoformAndCluster = mapping[cluster.entryType][cluster.id] || {
+        isoforms: [],
+        cluster,
+      };
+      isoformAndCluster.isoforms.push(accession);
+      mapping[cluster.entryType][cluster.id] = isoformAndCluster;
     }
   }
   return mapping;
@@ -120,7 +116,7 @@ const SimilarProteins = ({ isoforms, primaryAccession }: Props) => {
                 title={`${percentValue} identity`}
                 key={clusterType}
               >
-                {mappingData[clusterType as UniRefEntryType].map(
+                {Object.values(mappingData[clusterType as UniRefEntryType]).map(
                   ({ isoforms, cluster }) => {
                     const unirefEntryUrl = getEntryPath(
                       Namespace.uniref,
@@ -162,9 +158,9 @@ const SimilarProteins = ({ isoforms, primaryAccession }: Props) => {
                   element={Link}
                   to={{
                     pathname: LocationToPath[Location.UniProtKBResults],
-                    search: `query=(${mappingData[
-                      clusterType as UniRefEntryType
-                    ]
+                    search: `query=(${Object.values(
+                      mappingData[clusterType as UniRefEntryType]
+                    )
                       .map(
                         ({ cluster }) =>
                           `uniref_cluster_${clusterType.replace(

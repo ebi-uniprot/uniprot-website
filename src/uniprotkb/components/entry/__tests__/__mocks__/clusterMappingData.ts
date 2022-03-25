@@ -177,145 +177,145 @@ export const clusterData = [
 ] as UniRefLiteAPIModel[][];
 
 export const mapping = {
-  UniRef100: [
-    {
+  UniRef100: {
+    UniRef100_P05067: {
       isoforms: ['P05067'],
       cluster: {
         id: 'UniRef100_P05067',
         entryType: 'UniRef100',
       },
     },
-    {
+    'UniRef100_P05067-2': {
       isoforms: ['P05067-2'],
       cluster: {
         id: 'UniRef100_P05067-2',
         entryType: 'UniRef100',
       },
     },
-    {
+    'UniRef100_P05067-3': {
       isoforms: ['P05067-3'],
       cluster: {
         id: 'UniRef100_P05067-3',
         entryType: 'UniRef100',
       },
     },
-    {
+    'UniRef100_P05067-4': {
       isoforms: ['P05067-4'],
       cluster: {
         id: 'UniRef100_P05067-4',
         entryType: 'UniRef100',
       },
     },
-    {
+    'UniRef100_P05067-5': {
       isoforms: ['P05067-5'],
       cluster: {
         id: 'UniRef100_P05067-5',
         entryType: 'UniRef100',
       },
     },
-    {
+    'UniRef100_P05067-6': {
       isoforms: ['P05067-6'],
       cluster: {
         id: 'UniRef100_P05067-6',
         entryType: 'UniRef100',
       },
     },
-    {
+    'UniRef100_P05067-7': {
       isoforms: ['P05067-7'],
       cluster: {
         id: 'UniRef100_P05067-7',
         entryType: 'UniRef100',
       },
     },
-    {
+    'UniRef100_P05067-8': {
       isoforms: ['P05067-8'],
       cluster: {
         id: 'UniRef100_P05067-8',
         entryType: 'UniRef100',
       },
     },
-    {
+    'UniRef100_P05067-9': {
       isoforms: ['P05067-9'],
       cluster: {
         id: 'UniRef100_P05067-9',
         entryType: 'UniRef100',
       },
     },
-    {
+    'UniRef100_P05067-10': {
       isoforms: ['P05067-10'],
       cluster: {
         id: 'UniRef100_P05067-10',
         entryType: 'UniRef100',
       },
     },
-    {
+    'UniRef100_P05067-11': {
       isoforms: ['P05067-11'],
       cluster: {
         id: 'UniRef100_P05067-11',
         entryType: 'UniRef100',
       },
     },
-  ],
-  UniRef90: [
-    {
+  },
+  UniRef90: {
+    UniRef90_P05067: {
       isoforms: ['P05067'],
       cluster: {
         id: 'UniRef90_P05067',
         entryType: 'UniRef90',
       },
     },
-    {
+    'UniRef90_P05067-2': {
       isoforms: ['P05067-2'],
       cluster: {
         id: 'UniRef90_P05067-2',
         entryType: 'UniRef90',
       },
     },
-    {
+    'UniRef90_P05067-5': {
       isoforms: ['P05067-3', 'P05067-5'],
       cluster: {
         id: 'UniRef90_P05067-5',
         entryType: 'UniRef90',
       },
     },
-    {
+    'UniRef90_P05067-4': {
       isoforms: ['P05067-4'],
       cluster: {
         id: 'UniRef90_P05067-4',
         entryType: 'UniRef90',
       },
     },
-    {
+    'UniRef90_P05067-6': {
       isoforms: ['P05067-6'],
       cluster: {
         id: 'UniRef90_P05067-6',
         entryType: 'UniRef90',
       },
     },
-    {
+    'UniRef90_P05067-8': {
       isoforms: ['P05067-7', 'P05067-8', 'P05067-11'],
       cluster: {
         id: 'UniRef90_P05067-8',
         entryType: 'UniRef90',
       },
     },
-    {
+    'UniRef90_P05067-9': {
       isoforms: ['P05067-9'],
       cluster: {
         id: 'UniRef90_P05067-9',
         entryType: 'UniRef90',
       },
     },
-    {
+    'UniRef90_P05067-10': {
       isoforms: ['P05067-10'],
       cluster: {
         id: 'UniRef90_P05067-10',
         entryType: 'UniRef90',
       },
     },
-  ],
-  UniRef50: [
-    {
+  },
+  UniRef50: {
+    UniRef50_P05067: {
       isoforms: [
         'P05067',
         'P05067-3',
@@ -333,12 +333,12 @@ export const mapping = {
         entryType: 'UniRef50',
       },
     },
-    {
+    'UniRef50_P05067-2': {
       isoforms: ['P05067-2'],
       cluster: {
         id: 'UniRef50_P05067-2',
         entryType: 'UniRef50',
       },
     },
-  ],
+  },
 };
