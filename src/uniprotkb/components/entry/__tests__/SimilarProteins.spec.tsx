@@ -28,7 +28,7 @@ axiosMock
   .reply(200, accessionsData)
   .onGet(/\/uniref\/search\?query=(uniprot_id:P05067)/)
   .reply(200, unirefP05067)
-  .onGet(/\/uniref\/search\?query=(uniprot_id:P05067\-4)/)
+  .onGet(/\/uniref\/search\?query=(uniprot_id:P05067-4)/)
   .reply(200, unirefP05067isoform4)
   .onGet(/\/uniprotkb\/search/)
   .reply(200, uniprotkbClusterSearch);

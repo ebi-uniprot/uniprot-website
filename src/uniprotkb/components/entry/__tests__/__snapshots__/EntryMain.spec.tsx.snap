@@ -3302,15 +3302,38 @@ exports[`Entry view should render 1`] = `
       </div>
     </div>
   </section>
-  <div
-    class="loader-container"
+  <section
+    class="card"
+    data-entry-section="true"
+    id="similar-proteins"
   >
-    <test-file-stub
-      classname="loader"
-      height="100"
-      width="100"
-    />
-  </div>
+    <div
+      class="card__container"
+    >
+      <div
+        class="card__header card__header--with-separator"
+      >
+        <h2
+          data-article-id="similar_proteins_section"
+        >
+          Similar Proteins
+        </h2>
+      </div>
+      <div
+        class="card__content"
+      >
+        <div
+          class="loader-container"
+        >
+          <test-file-stub
+            classname="loader"
+            height="100"
+            width="100"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
   <section
     class="hero-container hero-container--side-padding"
   >
@@ -7387,15 +7410,38 @@ exports[`Entry view should render for non-human entry 1`] = `
       </div>
     </div>
   </section>
-  <div
-    class="loader-container"
+  <section
+    class="card"
+    data-entry-section="true"
+    id="similar-proteins"
   >
-    <test-file-stub
-      classname="loader"
-      height="100"
-      width="100"
-    />
-  </div>
+    <div
+      class="card__container"
+    >
+      <div
+        class="card__header card__header--with-separator"
+      >
+        <h2
+          data-article-id="similar_proteins_section"
+        >
+          Similar Proteins
+        </h2>
+      </div>
+      <div
+        class="card__content"
+      >
+        <div
+          class="loader-container"
+        >
+          <test-file-stub
+            classname="loader"
+            height="100"
+            width="100"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
   <section
     class="hero-container hero-container--side-padding"
   >

@@ -1,6 +1,13 @@
+import { SetOptional } from 'type-fest';
+
 import { UniProtkbAPIModel } from '../../../../adapters/uniProtkbConverter';
 
-const mock: { results: UniProtkbAPIModel[] } = {
+const mock: {
+  results: SetOptional<
+    UniProtkbAPIModel,
+    'annotationScore' | 'proteinExistence'
+  >[];
+} = {
   results: [
     {
       entryType: 'UniProtKB unreviewed (TrEMBL)',
