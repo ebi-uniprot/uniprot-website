@@ -278,7 +278,7 @@ const BlastResultTable = ({
   const [selectedScoring, setSelectedScoring] =
     useState<keyof BlastHsp>('hsp_identity');
 
-  if (data?.hits.length) {
+  if (data?.hits) {
     hitsRef.current = data?.hits || [];
   }
 
