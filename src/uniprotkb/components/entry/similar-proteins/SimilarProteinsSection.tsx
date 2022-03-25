@@ -1,9 +1,11 @@
 import { Card } from 'franklin-sites';
 
+import SimilarProteins from './SimilarProteins';
+import LazyComponent from '../../../../shared/components/LazyComponent';
+
 import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../../types/entrySection';
-import SimilarProteins from './SimilarProteins';
 
 type Props = {
   isoforms: { isoforms: string[] };
@@ -17,10 +19,12 @@ const SimilarProteinsSection = ({ isoforms, primaryAccession }: Props) => {
       id={id}
       data-entry-section
     >
-      <SimilarProteins
-        isoforms={isoforms}
-        primaryAccession={primaryAccession}
-      />
+      <LazyComponent>
+        <SimilarProteins
+          isoforms={isoforms}
+          primaryAccession={primaryAccession}
+        />
+      </LazyComponent>
     </Card>
   );
 };
