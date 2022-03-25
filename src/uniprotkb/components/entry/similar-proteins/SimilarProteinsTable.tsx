@@ -7,7 +7,6 @@ import TaxonomyView from '../../../../shared/components/entry/TaxonomyView';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 
 import { getAPIQueryUrl } from '../../../../shared/config/apiUrls';
-import { pluralise } from '../../../../shared/utils/utils';
 
 import { Namespace } from '../../../../shared/types/namespaces';
 import {
