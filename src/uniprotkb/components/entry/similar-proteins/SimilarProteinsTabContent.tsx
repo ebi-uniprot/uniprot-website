@@ -30,6 +30,11 @@ type HasSimilarProteins = {
   uniprotkbQuery: string;
 };
 
+const getUniprotkbQuery = (cluster: UniRefLiteAPIModel, isoforms: string[]) =>
+  `(uniref_cluster_${cluster.entryType.replace('UniRef', '')}:${
+    cluster.id
+  })${isoforms.map((isoform) => ` AND NOT (accession:${isoform})`).join('')}`;
+
 const SimilarProteinsTabContent = ({
   clusterType,
   isoformsAndClusters,
@@ -42,15 +47,9 @@ const SimilarProteinsTabContent = ({
       if (isoforms.length <= 1 && cluster.memberCount <= 1) {
         return null;
       }
-      const query = `(uniref_cluster_${cluster.entryType.replace(
-        'UniRef',
-        ''
-      )}:${cluster.id})${isoforms
-        .map((isoform) => ` AND NOT (accession:${isoform})`)
-        .join('')}`;
       const url = getAPIQueryUrl({
         namespace: Namespace.uniprotkb,
-        query,
+        query: getUniprotkbQuery(cluster, isoforms),
         facets: [],
         columns,
         size: 10,
@@ -78,12 +77,7 @@ const SimilarProteinsTabContent = ({
             isoforms,
             cluster,
             uniprotkbResults: response?.data.results,
-            uniprotkbQuery: `(uniref_cluster_${cluster.entryType.replace(
-              'UniRef',
-              ''
-            )}:${cluster.id})${isoforms
-              .map((isoform) => ` AND NOT (accession:${isoform})`)
-              .join('')}`,
+            uniprotkbQuery: getUniprotkbQuery(cluster, isoforms),
           });
         } else if (isoforms) {
           noSimilar.push(isoforms);
