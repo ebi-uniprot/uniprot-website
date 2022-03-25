@@ -24,16 +24,19 @@ export type IsoformsAndCluster = {
   cluster: UniRefLiteAPIModel;
 };
 
-export type ClusterMapping = Record<UniRefEntryType, IsoformsAndCluster[]>;
+export type ClusterMapping = Record<
+  UniRefEntryType,
+  Record<string, IsoformsAndCluster>
+>;
 
 export const getClusterMapping = (
   allAccessions: string[],
   clusterData: UniRefLiteAPIModel[][]
 ) => {
   const mapping: ClusterMapping = {
-    UniRef100: [],
-    UniRef90: [],
-    UniRef50: [],
+    UniRef100: {},
+    UniRef90: {},
+    UniRef50: {},
   };
 
   for (const [accession, clusters] of zip(allAccessions, clusterData)) {
@@ -42,16 +45,12 @@ export const getClusterMapping = (
       break; // Shouldn't happen, used to restric types
     }
     for (const cluster of clusters) {
-      let found: IsoformsAndCluster | undefined = mapping[
-        cluster.entryType
-      ].find(
-        (isoformsAndCluster) => isoformsAndCluster.cluster.id === cluster.id
-      );
-      if (!found) {
-        found = { isoforms: [], cluster };
-        mapping[cluster.entryType].push(found);
-      }
-      found.isoforms.push(accession);
+      const isoformsAndCluster = mapping[cluster.entryType][cluster.id] || {
+        isoforms: [],
+        cluster,
+      };
+      isoformsAndCluster.isoforms.push(accession);
+      mapping[cluster.entryType][cluster.id] = isoformsAndCluster;
     }
   }
   return mapping;
@@ -117,9 +116,9 @@ const SimilarProteins = ({ isoforms, primaryAccession }: Props) => {
               >
                 <SimilarProteinsTabContent
                   clusterType={clusterType}
-                  isoformsAndClusters={
+                  isoformsAndClusters={Object.values(
                     mappingData[clusterType as UniRefEntryType]
-                  }
+                  )}
                 />
               </Tab>
             )
