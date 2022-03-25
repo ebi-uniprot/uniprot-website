@@ -49,12 +49,12 @@ export const getClusterMapping = (
       break; // Shouldn't happen, used to restric types
     }
     for (const cluster of clusters) {
-      const isoformAndCluster = mapping[cluster.entryType][cluster.id] || {
+      const isoformsAndCluster = mapping[cluster.entryType][cluster.id] || {
         isoforms: [],
         cluster,
       };
-      isoformAndCluster.isoforms.push(accession);
-      mapping[cluster.entryType][cluster.id] = isoformAndCluster;
+      isoformsAndCluster.isoforms.push(accession);
+      mapping[cluster.entryType][cluster.id] = isoformsAndCluster;
     }
   }
   return mapping;
