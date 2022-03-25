@@ -334,19 +334,5 @@ const mock: { results: UniRefLiteAPIModel[] } = {
       ],
     },
   ],
-  suggestions: [
-    {
-      query: '( uniprot_id:p25037 )',
-      hits: 1,
-    },
-    {
-      query: '( uniprot_id:p05085 )',
-      hits: 1,
-    },
-    {
-      query: '( uniprot_id:p55567 )',
-      hits: 1,
-    },
-  ],
 };
 export default mock;
