@@ -17,7 +17,11 @@ import {
 
 import { UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
 import { UniProtKBColumn } from '../../../types/columnTypes';
-import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
+import {
+  UniRefEntryType,
+  uniRefEntryTypeToPercent,
+  UniRefLiteAPIModel,
+} from '../../../../uniref/adapters/uniRefConverter';
 
 const columns = [
   UniProtKBColumn.id,
@@ -59,11 +63,13 @@ const columnConfig = [
 ];
 
 type Props = {
+  clusterType: string;
   cluster: UniRefLiteAPIModel;
   isoforms: string[];
 };
 
-const SimilarProteinsTable = ({ cluster, isoforms }: Props) => {
+const SimilarProteinsTable = ({ clusterType, cluster, isoforms }: Props) => {
+  const hasSimilarProteins = isoforms.length !== 1 || cluster.memberCount - 1;
   const query = `(uniref_cluster_${cluster.entryType.replace('UniRef', '')}:${
     cluster.id
   })${isoforms.map((isoform) => ` AND NOT (accession:${isoform})`).join('')}`;
@@ -76,7 +82,7 @@ const SimilarProteinsTable = ({ cluster, isoforms }: Props) => {
   });
   const { loading, data, error, headers } = useDataApi<{
     results: UniProtkbAPIModel[];
-  }>(url);
+  }>(hasSimilarProteins ? url : null);
 
   const total = +(headers?.['x-total-records'] || 0);
 
@@ -86,12 +92,21 @@ const SimilarProteinsTable = ({ cluster, isoforms }: Props) => {
   if (error) {
     return <Message level="failure">{error?.message}</Message>;
   }
-  if (!data) {
-    return null;
+  if (!hasSimilarProteins || !data?.results.length) {
+    return (
+      <>
+        no similar proteins at{' '}
+        {uniRefEntryTypeToPercent[clusterType as UniRefEntryType]} identity for
+        this isoform
+      </>
+    );
   }
+
+  const unirefEntryUrl = getEntryPath(Namespace.uniref, cluster.id);
 
   return (
     <>
+      <Link to={unirefEntryUrl}>{cluster.id}</Link>
       <DataTable
         data={data.results}
         columns={columnConfig}

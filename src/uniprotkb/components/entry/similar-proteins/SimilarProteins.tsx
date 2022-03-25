@@ -11,11 +11,7 @@ import apiUrls from '../../../../shared/config/apiUrls';
 import fetchData from '../../../../shared/utils/fetchData';
 import listFormat from '../../../../shared/utils/listFormat';
 
-import {
-  getEntryPath,
-  Location,
-  LocationToPath,
-} from '../../../../app/config/urls';
+import { Location, LocationToPath } from '../../../../app/config/urls';
 import { Namespace } from '../../../../shared/types/namespaces';
 import EntrySection, {
   getEntrySectionNameAndId,
@@ -121,42 +117,26 @@ const SimilarProteins = ({ isoforms, primaryAccession }: Props) => {
                 key={clusterType}
               >
                 {mappingData[clusterType as UniRefEntryType].map(
-                  ({ isoforms, cluster }) => {
-                    const unirefEntryUrl = getEntryPath(
-                      Namespace.uniref,
-                      cluster.id
-                    );
-                    return (
-                      <section key={cluster.id} className="text-block">
-                        <h4>
-                          {isoforms.map((isoform, index) => (
-                            <Fragment key={isoform}>
-                              {listFormat(index, isoforms)}
-                              {isoform}
-                            </Fragment>
-                          ))}
-                        </h4>
-                        <section>
-                          {isoforms.length !== 1 || cluster.memberCount - 1 ? (
-                            <>
-                              <Link to={unirefEntryUrl}>{cluster.id}</Link>
-                              <SimilarProteinsTable
-                                cluster={cluster}
-                                isoforms={isoforms}
-                              />
-                            </>
-                          ) : (
-                            `no similar proteins at ${
-                              uniRefEntryTypeToPercent[
-                                clusterType as UniRefEntryType
-                              ]
-                            } identity for this isoform`
-                          )}
-                        </section>
-                        <hr />
+                  ({ isoforms, cluster }) => (
+                    <section key={cluster.id} className="text-block">
+                      <h4>
+                        {isoforms.map((isoform, index) => (
+                          <Fragment key={isoform}>
+                            {listFormat(index, isoforms)}
+                            {isoform}
+                          </Fragment>
+                        ))}
+                      </h4>
+                      <section>
+                        <SimilarProteinsTable
+                          clusterType={clusterType}
+                          cluster={cluster}
+                          isoforms={isoforms}
+                        />
                       </section>
-                    );
-                  }
+                      <hr />
+                    </section>
+                  )
                 )}
                 <Button
                   element={Link}
