@@ -105,7 +105,7 @@ const SimilarProteinsTable = ({ cluster, isoforms }: Props) => {
           search: `query=${query}`,
         }}
       >
-        Show all {total} UniProtKB {pluralise('entry', total, 'entries')}
+        Show all ({total}) UniProtKB entries
       </Link>
     </>
   );
