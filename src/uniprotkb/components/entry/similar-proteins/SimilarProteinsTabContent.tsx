@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from 'franklin-sites';
+import { Button, Loader } from 'franklin-sites';
 import { zip } from 'lodash-es';
 
 import SimilarProteinsTable, { columns } from './SimilarProteinsTable';
@@ -45,7 +45,9 @@ const SimilarProteinsTabContent = ({
   const [partitionedProteins, setPartitionedProteins] = useState<
     [string[], HasSimilarProteins[]]
   >([[], []]);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
+    setLoading(true);
     const promises = isoformsAndClusters.map(({ isoforms, cluster }) => {
       if (isoforms.length <= 1 && cluster.memberCount <= 1) {
         return null;
@@ -87,8 +89,14 @@ const SimilarProteinsTabContent = ({
         }
       }
       setPartitionedProteins([noSimilar.flat(), hasSimilar]);
+      setLoading(false);
     });
   }, [isoformsAndClusters]);
+
+  if (loading) {
+    return <Loader />;
+  }
+
   const [noSimilarProteins, hasSimilarProteins] = partitionedProteins;
   return (
     <>
