@@ -1,4 +1,4 @@
-import { DataTable, Loader, Message } from 'franklin-sites';
+import { DataTable, Loader, LongNumber, Message } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
 import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
@@ -119,7 +119,7 @@ const SimilarProteinsTable = ({ clusterType, cluster, isoforms }: Props) => {
           search: `query=${query}`,
         }}
       >
-        Show all ({total}) UniProtKB entries
+        Show all (<LongNumber>{total}</LongNumber>) UniProtKB entries
       </Link>
     </>
   );
