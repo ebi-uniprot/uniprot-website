@@ -1,13 +1,16 @@
-import { Button } from 'franklin-sites';
-import { zip } from 'lodash-es';
 import { Fragment, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Location, LocationToPath } from '../../../../app/config/urls';
+import { Button } from 'franklin-sites';
+import { zip } from 'lodash-es';
+
+import SimilarProteinsTable, { columns } from './SimilarProteinsTable';
+
 import { getAPIQueryUrl } from '../../../../shared/config/apiUrls';
-import { Namespace } from '../../../../shared/types/namespaces';
 import fetchData from '../../../../shared/utils/fetchData';
 import listFormat from '../../../../shared/utils/listFormat';
 import { pluralise } from '../../../../shared/utils/utils';
+
+import { Location, LocationToPath } from '../../../../app/config/urls';
 import {
   UniRefEntryType,
   uniRefEntryTypeToPercent,
@@ -15,7 +18,7 @@ import {
 } from '../../../../uniref/adapters/uniRefConverter';
 import { UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
 import { IsoformsAndCluster } from './SimilarProteins';
-import SimilarProteinsTable, { columns } from './SimilarProteinsTable';
+import { Namespace } from '../../../../shared/types/namespaces';
 
 type Props = {
   clusterType: string;

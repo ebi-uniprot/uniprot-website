@@ -1,4 +1,4 @@
-import { Loader, Tabs, Card, Tab } from 'franklin-sites';
+import { Loader, Tabs, Tab } from 'franklin-sites';
 import { useMemo, useEffect } from 'react';
 import { zip } from 'lodash-es';
 
@@ -10,9 +10,6 @@ import apiUrls from '../../../../shared/config/apiUrls';
 import fetchData from '../../../../shared/utils/fetchData';
 
 import { Namespace } from '../../../../shared/types/namespaces';
-import EntrySection, {
-  getEntrySectionNameAndId,
-} from '../../../types/entrySection';
 import {
   UniRefEntryType,
   uniRefEntryTypeToPercent,
@@ -91,43 +88,31 @@ const SimilarProteins = ({ isoforms, primaryAccession }: Props) => {
     });
   }, [allAccessions, setMappingData, setMappingLoading]);
 
-  const nameAndId = getEntrySectionNameAndId(EntrySection.SimilarProteins);
-
   if (mappingLoading) {
     return <Loader />;
   }
 
-  return (
-    <Card
-      header={
-        <h2 data-article-id="similar_proteins_section">{nameAndId.name}</h2>
-      }
-      id={EntrySection.SimilarProteins}
-      data-entry-section
-    >
-      {mappingData ? (
-        <Tabs>
-          {Object.entries(uniRefEntryTypeToPercent).map(
-            ([clusterType, percentValue]) => (
-              <Tab
-                id={clusterType}
-                title={`${percentValue} identity`}
-                key={clusterType}
-              >
-                <SimilarProteinsTabContent
-                  clusterType={clusterType}
-                  isoformsAndClusters={Object.values(
-                    mappingData[clusterType as UniRefEntryType]
-                  )}
-                />
-              </Tab>
-            )
-          )}
-        </Tabs>
-      ) : (
-        <em>No similar UniProtKB entry found.</em>
+  return mappingData ? (
+    <Tabs>
+      {Object.entries(uniRefEntryTypeToPercent).map(
+        ([clusterType, percentValue]) => (
+          <Tab
+            id={clusterType}
+            title={`${percentValue} identity`}
+            key={clusterType}
+          >
+            <SimilarProteinsTabContent
+              clusterType={clusterType}
+              isoformsAndClusters={Object.values(
+                mappingData[clusterType as UniRefEntryType]
+              )}
+            />
+          </Tab>
+        )
       )}
-    </Card>
+    </Tabs>
+  ) : (
+    <em>No similar UniProtKB entry found.</em>
   );
 };
 
