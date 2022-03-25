@@ -55,7 +55,6 @@ const SimilarProteinsTabContent = ({
       const url = getAPIQueryUrl({
         namespace: Namespace.uniprotkb,
         query: getUniprotkbQuery(cluster, isoforms),
-        facets: [],
         columns,
         size: 10,
       });

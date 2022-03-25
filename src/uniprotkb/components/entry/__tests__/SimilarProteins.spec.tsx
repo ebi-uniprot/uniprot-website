@@ -16,12 +16,22 @@ import {
   clusterData,
   mapping,
 } from './__mocks__/clusterMappingData';
+import unirefP05067 from './__mocks__/unirefP05067';
+import unirefP05067isoform4 from './__mocks__/unirefP05067-4';
+import uniprotkbClusterSearch from './__mocks__/uniprotkbClusterSearch';
 
 const axiosMock = new MockAdapter(axios);
 axiosMock
   .onGet(/\/uniref\/search/)
-  .reply(200, { results: similarProteinsData });
-axiosMock.onGet(/\/uniprotkb\/accessions/).reply(200, accessionsData);
+  .reply(200, { results: similarProteinsData })
+  .onGet(/\/uniprotkb\/accessions/)
+  .reply(200, accessionsData)
+  .onGet(/\/uniref\/search\?query=(uniprot_id:P05067)/)
+  .reply(200, unirefP05067)
+  .onGet(/\/uniref\/search\?query=(uniprot_id:P05067\-4)/)
+  .reply(200, unirefP05067isoform4)
+  .onGet(/\/uniprotkb\/search/)
+  .reply(200, uniprotkbClusterSearch);
 
 let rendered: ReturnType<typeof customRender>;
 
@@ -39,7 +49,7 @@ describe('SimilarProteins tests', () => {
 
   it('should call useDataApi and render', async () => {
     // what is this testing?
-    expect(await screen.findAllByText(/0FGN2/)).toHaveLength(5);
+    expect(await screen.findAllByText(/P05067-4/)).toHaveLength(5);
   });
 
   // Skip for now, just to get going
