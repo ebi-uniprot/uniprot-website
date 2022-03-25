@@ -7,6 +7,7 @@ import { getAPIQueryUrl } from '../../../../shared/config/apiUrls';
 import { Namespace } from '../../../../shared/types/namespaces';
 import fetchData from '../../../../shared/utils/fetchData';
 import listFormat from '../../../../shared/utils/listFormat';
+import { pluralise } from '../../../../shared/utils/utils';
 import {
   UniRefEntryType,
   uniRefEntryTypeToPercent,
@@ -117,22 +118,28 @@ const SimilarProteinsTabContent = ({
           </section>
         )
       )}
-      <section key="no-similar-proteins" className="text-block">
-        <h4>
-          {noSimilarProteins.map((isoform, index) => (
-            <Fragment key={isoform}>
-              {listFormat(index, noSimilarProteins)}
-              {isoform}
-            </Fragment>
-          ))}
-        </h4>
-        <section>
-          No similar proteins at{' '}
-          {uniRefEntryTypeToPercent[clusterType as UniRefEntryType]} identity
-          for this isoform
+      {!!noSimilarProteins.length && (
+        <section key="no-similar-proteins" className="text-block">
+          <h4>
+            {noSimilarProteins.map((isoform, index) => (
+              <Fragment key={isoform}>
+                {listFormat(index, noSimilarProteins)}
+                {isoform}
+              </Fragment>
+            ))}
+          </h4>
+          <section>
+            {`No similar proteins at ${
+              uniRefEntryTypeToPercent[clusterType as UniRefEntryType]
+            } identity for ${pluralise(
+              'this isoform.',
+              noSimilarProteins.length,
+              'these isoforms.'
+            )}`}
+          </section>
+          <hr />
         </section>
-        <hr />
-      </section>
+      )}
       <Button
         element={Link}
         to={{
