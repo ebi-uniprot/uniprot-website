@@ -455,15 +455,6 @@ export const getDownloadUrl = ({
 export const getProteinsApiUrl = (accession: string) =>
   `https://www.ebi.ac.uk/proteins/api/proteins/${accession}`;
 
-export const getClustersForProteins = (accessions: string[]) =>
-  joinUrl(
-    apiPrefix,
-    `/uniref/search?query=(${accessions
-      .map((accession) => `uniprot_id:${accession}`)
-      .sort()
-      .join(' OR ')})`
-  );
-
 // Help endpoints
 export const help = {
   accession: (accession?: string) =>

@@ -3,8 +3,8 @@ import extractIsoforms from '../extractIsoformsConverter';
 import modelData from '../../__mocks__/uniProtKBEntryModelData';
 
 describe('Accessions data converter', () => {
-  test('should extract all accessions', () => {
+  it('should extract all isoforms', () => {
     const isoformData = extractIsoforms(modelData);
-    expect(isoformData).toStrictEqual({ isoforms: ['isoID1'] });
+    expect(isoformData).toEqual(['isoID1']);
   });
 });
