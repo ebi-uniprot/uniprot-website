@@ -1,6 +1,6 @@
 import { SetOptional } from 'type-fest';
 
-import { UniProtkbAPIModel } from '../../../../adapters/uniProtkbConverter';
+import { UniProtkbAPIModel } from '../../../../../adapters/uniProtkbConverter';
 
 const mock: {
   results: SetOptional<

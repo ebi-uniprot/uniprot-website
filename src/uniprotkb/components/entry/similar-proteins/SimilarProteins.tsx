@@ -1,5 +1,5 @@
 import { Loader, Tabs, Tab } from 'franklin-sites';
-import { useMemo, useEffect } from 'react';
+import { useEffect } from 'react';
 import { zip } from 'lodash-es';
 
 import SimilarProteinsTabContent from './SimilarProteinsTabContent';
@@ -27,7 +27,7 @@ export type ClusterMapping = Record<
 >;
 
 export const getClusterMapping = (
-  allAccessions: string[],
+  isoforms: string[],
   clusterData: UniRefLiteAPIModel[][]
 ) => {
   const mapping: ClusterMapping = {
@@ -36,9 +36,9 @@ export const getClusterMapping = (
     UniRef50: {},
   };
 
-  for (const [accession, clusters] of zip(allAccessions, clusterData)) {
+  for (const [isoform, clusters] of zip(isoforms, clusterData)) {
     /* istanbul ignore if */
-    if (!accession || !clusters) {
+    if (!isoform || !clusters) {
       break; // Shouldn't happen, used to restric types
     }
     for (const cluster of clusters) {
@@ -46,47 +46,39 @@ export const getClusterMapping = (
         isoforms: [],
         cluster,
       };
-      isoformsAndCluster.isoforms.push(accession);
+      isoformsAndCluster.isoforms.push(isoform);
       mapping[cluster.entryType][cluster.id] = isoformsAndCluster;
     }
   }
   return mapping;
 };
 
-type Props = {
-  isoforms: { isoforms: string[] };
-  primaryAccession: string;
-};
+const canonicalIsoformRE = /-1$/;
 
-const SimilarProteins = ({ isoforms, primaryAccession }: Props) => {
-  const allAccessions = useMemo(
-    () =>
-      [primaryAccession, ...isoforms.isoforms].filter(
-        // remove first isoform, it'll be the primary accession
-        (accession) => !accession.endsWith('-1')
-      ),
-    [primaryAccession, isoforms]
-  );
-
+const SimilarProteins = ({ isoforms }: { isoforms: string[] }) => {
   const [mappingData, setMappingData] = useSafeState<ClusterMapping | null>(
     null
   );
   const [mappingLoading, setMappingLoading] = useSafeState(true);
 
   useEffect(() => {
-    setMappingLoading(true);
-    const promises = allAccessions.map((accession) =>
+    const promises = isoforms.map((accession) =>
       fetchData<{
         results: UniRefLiteAPIModel[];
-      }>(`${apiUrls.search(Namespace.uniref)}?query=(uniprot_id:${accession})`)
+      }>(
+        `${apiUrls.search(Namespace.uniref)}?query=(uniprot_id:${
+          // replace isoform name "-1" for canonical to get data from API
+          accession.replace(canonicalIsoformRE, '')
+        })`
+      )
     );
     Promise.all(promises).then((responses) => {
       const clusterData = responses.map((response) => response.data.results);
-      const mapping = getClusterMapping(allAccessions, clusterData);
+      const mapping = getClusterMapping(isoforms, clusterData);
       setMappingData(mapping);
       setMappingLoading(false);
     });
-  }, [allAccessions, setMappingData, setMappingLoading]);
+  }, [isoforms, setMappingData, setMappingLoading]);
 
   if (mappingLoading) {
     return <Loader />;

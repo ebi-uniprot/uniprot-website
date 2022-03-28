@@ -1,9 +1,11 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Loader } from 'franklin-sites';
 import { zip } from 'lodash-es';
 
 import SimilarProteinsTable, { columns } from './SimilarProteinsTable';
+
+import useSafeState from '../../../../shared/hooks/useSafeState';
 
 import { getAPIQueryUrl } from '../../../../shared/config/apiUrls';
 import fetchData from '../../../../shared/utils/fetchData';
@@ -33,21 +35,28 @@ type HasSimilarProteins = {
   uniprotkbQuery: string;
 };
 
+const canonicalIsoformRE = /-1$/;
+
 const getUniprotkbQuery = (cluster: UniRefLiteAPIModel, isoforms: string[]) =>
   `(uniref_cluster_${cluster.entryType.replace('UniRef', '')}:${
     cluster.id
-  })${isoforms.map((isoform) => ` AND NOT (accession:${isoform})`).join('')}`;
+  })${isoforms
+    .map(
+      (isoform) =>
+        ` AND NOT (accession:${isoform.replace(canonicalIsoformRE, '')})`
+    )
+    .join('')}`;
 
 const SimilarProteinsTabContent = ({
   clusterType,
   isoformsAndClusters,
 }: Props) => {
-  const [partitionedProteins, setPartitionedProteins] = useState<
+  const [partitionedProteins, setPartitionedProteins] = useSafeState<
     [string[], HasSimilarProteins[]]
   >([[], []]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useSafeState(true);
+
   useEffect(() => {
-    setLoading(true);
     const promises = isoformsAndClusters.map(({ isoforms, cluster }) => {
       if (isoforms.length <= 1 && cluster.memberCount <= 1) {
         return null;
@@ -64,14 +73,14 @@ const SimilarProteinsTabContent = ({
     });
     Promise.all(promises).then((responses) => {
       const hasSimilar: HasSimilarProteins[] = [];
-      const noSimilar: string[][] = [];
+      const noSimilar: string[] = [];
       for (const [isoformsAndCluster, response] of zip(
         isoformsAndClusters,
         responses
       )) {
         /* istanbul ignore if */
         if (!isoformsAndCluster) {
-          break; // Shouldn't happen, used to restric types
+          break; // Shouldn't happen, used to restrict types
         }
         const { isoforms, cluster } = isoformsAndCluster;
         const total = +(response?.headers?.['x-total-records'] || 0);
@@ -84,13 +93,13 @@ const SimilarProteinsTabContent = ({
             uniprotkbQuery: getUniprotkbQuery(cluster, isoforms),
           });
         } else if (isoforms) {
-          noSimilar.push(isoforms);
+          noSimilar.push(...isoforms);
         }
       }
-      setPartitionedProteins([noSimilar.flat(), hasSimilar]);
+      setPartitionedProteins([noSimilar, hasSimilar]);
       setLoading(false);
     });
-  }, [isoformsAndClusters]);
+  }, [isoformsAndClusters, setLoading, setPartitionedProteins]);
 
   if (loading) {
     return <Loader />;
@@ -148,7 +157,7 @@ const SimilarProteinsTabContent = ({
         element={Link}
         to={{
           pathname: LocationToPath[Location.UniProtKBResults],
-          search: `query=(${isoformsAndClusters
+          search: `query=${isoformsAndClusters
             .map(
               ({ cluster }) =>
                 `uniref_cluster_${clusterType.replace('UniRef', '')}:${
@@ -156,7 +165,7 @@ const SimilarProteinsTabContent = ({
                 }`
             )
             .sort()
-            .join(' OR ')})`,
+            .join(' OR ')}`,
         }}
       >
         View all

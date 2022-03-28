@@ -1,4 +1,4 @@
-import { UniRefLiteAPIModel } from '../../../../../uniref/adapters/uniRefConverter';
+import { UniRefLiteAPIModel } from '../../../../../../uniref/adapters/uniRefConverter';
 
 const mock: { results: UniRefLiteAPIModel[] } = {
   results: [
