@@ -6,53 +6,92 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
-import useInitialFormParameters from '../useInitialFormParameters';
+import useInitialFormParameters, {
+  FormValues,
+} from '../useInitialFormParameters';
 
-import defaultFormValues from '../../align/config/AlignFormData';
+import defaultAlignFormValues from '../../align/config/AlignFormData';
+import defaultPeptideSearchFormValues from '../../peptide-search/config/PeptideSearchFormData';
 import accessionsData from '../../../uniprotkb/components/entry/__tests__/__mocks__/accessionsData.json';
 
-describe('useInitialFormParameters', () => {
-  const customRenderHook = (path?: string, state?: unknown) => {
-    const history = createMemoryHistory();
-    if (path) {
-      history.push(path, state);
-    }
-    return renderHook(() => useInitialFormParameters(defaultFormValues), {
-      wrapper: ({ children }) => <Router history={history}>{children}</Router>,
-    });
-  };
+function customRenderHook<Fields extends string>(
+  defaultAlignFormValues: Readonly<FormValues<Fields>>,
+  path?: string,
+  state?: unknown
+) {
+  const history = createMemoryHistory();
+  if (path) {
+    history.push(path, state);
+  }
+  return renderHook(() => useInitialFormParameters(defaultAlignFormValues), {
+    wrapper: ({ children }) => <Router history={history}>{children}</Router>,
+  });
+}
 
-  it('should return defaultFormValues if nothing in history state or url parameters', () => {
-    const { result } = customRenderHook();
-    expect(result.current.initialFormValues).toEqual(defaultFormValues);
+describe('useInitialFormParameters: Align', () => {
+  it('should return defaultAlignFormValues if nothing in history state or url parameters', () => {
+    const { result } = customRenderHook(defaultAlignFormValues);
+    expect(result.current.initialFormValues).toEqual(defaultAlignFormValues);
     expect(result.current.loading).toEqual(false);
   });
 
-  it('should return defaultFormValues including sequence from history state and nothing in url parameters', () => {
+  it('should return defaultAlignFormValues and sequence from history state and nothing in url parameters', () => {
     const sequence = 'ABCDEF';
-    const { result } = customRenderHook(LocationToPath[Location.Align], {
-      parameters: { sequence },
-    });
+    const { result } = customRenderHook(
+      defaultAlignFormValues,
+      LocationToPath[Location.Align],
+      {
+        parameters: { sequence },
+      }
+    );
     expect(result.current.initialFormValues).toEqual({
-      ...defaultFormValues,
-      Sequence: { ...defaultFormValues.Sequence, selected: sequence },
+      ...defaultAlignFormValues,
+      Sequence: { ...defaultAlignFormValues.Sequence, selected: sequence },
     });
     expect(result.current.loading).toEqual(false);
   });
 
-  it('should load the sequence corresponding to the ID passed in URL parameters', async () => {
+  it('should load the sequence corresponding to the ID passed in URL parameters and ignore history state parameter', async () => {
+    const sequence = 'ABCDEF';
     const axiosMock = new MockAdapter(axios);
     axiosMock.onGet(/\/uniprotkb\/accessions/).reply(200, accessionsData);
     const { result, waitForNextUpdate } = customRenderHook(
-      `${LocationToPath[Location.Blast]}?${queryString.stringify({
-        ids: 'P05067[1-10]',
-      })}`
+      defaultAlignFormValues,
+      queryString.stringifyUrl({
+        url: LocationToPath[Location.Blast],
+        query: {
+          ids: 'P05067[1-10]',
+        },
+      }),
+      {
+        parameters: { sequence },
+      }
     );
     await waitForNextUpdate();
     expect(result.current.initialFormValues).toEqual({
-      ...defaultFormValues,
+      ...defaultAlignFormValues,
       Sequence: { fieldName: 'sequence', selected: '>\nMLPGLALLLL' },
     });
     expect(result.current.loading).toBe(false);
+  });
+});
+
+describe('useInitialFormParameters: Peptide Search', () => {
+  it('should return defaultAlignFormValues and peps from url parameters', () => {
+    const peps = 'ABCDEF';
+    const { result } = customRenderHook(
+      defaultPeptideSearchFormValues,
+      queryString.stringifyUrl({
+        url: LocationToPath[Location.PeptideSearch],
+        query: { peps },
+      })
+    );
+    expect(result.current.initialFormValues).toEqual({
+      ...defaultPeptideSearchFormValues,
+      'Peptide sequences': {
+        ...defaultPeptideSearchFormValues['Peptide sequences'],
+        selected: peps,
+      },
+    });
   });
 });
