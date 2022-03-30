@@ -5,6 +5,7 @@ import { sequenceProcessor } from 'franklin-sites';
 import useDataApi from '../../shared/hooks/useDataApi';
 import { useMessagesDispatch } from '../../shared/contexts/Messages';
 
+import { addMessage } from '../../messages/state/messagesActions';
 import { parseIdsFromSearchParams } from '../utils/urls';
 import { getAccessionsURL } from '../../shared/config/apiUrls';
 import entryToFASTAWithHeaders from '../../shared/utils/entryToFASTAWithHeaders';
@@ -13,7 +14,6 @@ import { Location, LocationToPath } from '../../app/config/urls';
 
 import { SelectedTaxon } from '../types/toolsFormData';
 import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
-import { addMessage } from '../../messages/state/messagesActions';
 import {
   MessageFormat,
   MessageLevel,
@@ -60,7 +60,6 @@ function useInitialFormParameters<
   );
 
   const idsMaybeWithRange = useMemo(() => {
-    // This only happens on first mount as we reset the history.location.search in a useEffect hook
     if (!alignmentLocations.has(history.location.pathname)) {
       return null;
     }
