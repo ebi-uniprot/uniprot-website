@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { sequenceProcessor } from 'franklin-sites';
 
@@ -50,25 +50,27 @@ function useInitialFormParameters<
   initialFormValues: Readonly<FormValues<Fields>> | null;
 } {
   const history = useHistory();
+  // Keep initial history.location?.search as we later remove this in a useEffect hook
+  const historyLocationSearch = useRef(history.location?.search).current;
   const dispatchMessages = useMessagesDispatch();
 
-  const parametersFromSearch = useMemo(
-    () => new URLSearchParams(history.location?.search),
-    [history.location?.search]
+  const parametersFromHistorySearch = useMemo(
+    () => new URLSearchParams(historyLocationSearch),
+    [historyLocationSearch]
   );
 
   const idsMaybeWithRange = useMemo(() => {
-    // This only happens on first mount as we reset the history.location.search in a separate useEffect hook
+    // This only happens on first mount as we reset the history.location.search in a useEffect hook
     if (!alignmentLocations.has(history.location.pathname)) {
       return null;
     }
-    for (const [key, value] of parametersFromSearch) {
+    for (const [key, value] of parametersFromHistorySearch) {
       if (key === 'ids') {
         return parseIdsFromSearchParams(value);
       }
     }
     return null;
-  }, [history.location.pathname, parametersFromSearch]);
+  }, [history.location.pathname, parametersFromHistorySearch]);
 
   const accessionsFromParams = (idsMaybeWithRange || []).map(({ id }) => id);
   const url = getAccessionsURL(accessionsFromParams, { facets: null });
@@ -78,8 +80,8 @@ function useInitialFormParameters<
 
   useEffect(() => {
     if (
-      parametersFromSearch.has('sequence') &&
-      parametersFromSearch.has('ids') &&
+      parametersFromHistorySearch.has('sequence') &&
+      parametersFromHistorySearch.has('ids') &&
       accessionsData
     ) {
       dispatchMessages(
@@ -92,7 +94,7 @@ function useInitialFormParameters<
         })
       );
     }
-  }, [accessionsData, dispatchMessages, parametersFromSearch]);
+  }, [accessionsData, dispatchMessages, parametersFromHistorySearch]);
 
   // Discard 'search' part of url to avoid url state issues.
   useEffect(() => {
@@ -115,7 +117,7 @@ function useInitialFormParameters<
 
     // This will eventually be filled in
     const formValues: Partial<FormValues<Fields>> = {};
-    if (parametersFromHistoryState || parametersFromSearch) {
+    if (parametersFromHistoryState || parametersFromHistorySearch) {
       const defaultValuesEntries = Object.entries<FormValue>(defaultFormValues);
       for (const [key, field] of defaultValuesEntries) {
         const fieldName = field.fieldName as keyof FormParameters;
@@ -123,8 +125,8 @@ function useInitialFormParameters<
           ...field,
           selected:
             // url params
-            (parametersFromSearch &&
-              parametersFromSearch.get(fieldName.toString())) ||
+            (parametersFromHistorySearch &&
+              parametersFromHistorySearch.get(fieldName.toString())) ||
             // history state
             (parametersFromHistoryState &&
               parametersFromHistoryState[fieldName]) ||
@@ -176,7 +178,7 @@ function useInitialFormParameters<
   }, [
     accessionsLoading,
     history.location?.state,
-    parametersFromSearch,
+    parametersFromHistorySearch,
     accessionsData?.results,
     idsMaybeWithRange,
     defaultFormValues,
