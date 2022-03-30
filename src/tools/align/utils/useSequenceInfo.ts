@@ -10,10 +10,7 @@ import { getAccessionsURL } from '../../../shared/config/apiUrls';
 
 import { FeatureData } from '../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
-
-type UniProtkbAccessionsAPI = {
-  results: UniProtkbAPIModel[];
-};
+import { SearchResults } from '../../../shared/types/results';
 
 export type ParsedSequenceAndFeatures = SequenceObject & {
   accession: string;
@@ -49,7 +46,8 @@ const useSequenceInfo = (rawSequences?: string): SequenceInfo => {
   const endpoint = getAccessionsURL(
     processedArray.map((processed) => processed.accession)
   );
-  const { data, loading, error } = useDataApi<UniProtkbAccessionsAPI>(endpoint);
+  const { data, loading, error } =
+    useDataApi<SearchResults<UniProtkbAPIModel>>(endpoint);
 
   const outputData = useMemo(() => {
     const dataPerAccession = new Map(

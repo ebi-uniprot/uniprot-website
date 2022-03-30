@@ -13,10 +13,7 @@ import {
 } from '../../types/namespaces';
 
 import { UseDataAPIWithStaleState } from '../../hooks/useDataApiWithStale';
-import {
-  FacetObject,
-  FacetValue,
-} from '../../../uniprotkb/types/responseTypes';
+import { FacetObject, FacetValue } from '../../types/results';
 
 import helper from '../../styles/helper.module.scss';
 import './styles/results-data.scss';

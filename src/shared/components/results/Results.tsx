@@ -22,7 +22,8 @@ import {
   searchableNamespaceLabels,
   SearchableNamespace,
 } from '../../types/namespaces';
-import Response from '../../../uniprotkb/types/responseTypes';
+import { SearchResults } from '../../types/results';
+import { APIModel } from '../../types/apiModel';
 
 const Results = () => {
   const ns = useNS();
@@ -37,7 +38,7 @@ const Results = () => {
     withColumns: false,
   });
   const facetApiObject =
-    useDataApiWithStale<Response['data']>(initialApiFacetUrl);
+    useDataApiWithStale<SearchResults<APIModel>>(initialApiFacetUrl);
 
   const {
     loading: facetInitialLoading,

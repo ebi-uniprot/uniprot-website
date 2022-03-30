@@ -1,6 +1,5 @@
 import { SetRequired } from 'type-fest';
-
-import { FacetObject } from '../../uniprotkb/types/responseTypes';
+import { SearchResults } from '../../shared/types/results';
 
 export type HelpAPIModel = {
   id: string;
@@ -20,10 +19,7 @@ export type HelpUIModel = HelpAPIModel & {
   // any addition/change by the converter
 };
 
-export type HelpSearchResponse = {
-  results: HelpAPIModel[];
-  facets?: FacetObject[];
-};
+export type HelpSearchResponse = SearchResults<HelpAPIModel>;
 
 export type HelpEntryResponse = SetRequired<
   Omit<HelpAPIModel, 'matches'>,
