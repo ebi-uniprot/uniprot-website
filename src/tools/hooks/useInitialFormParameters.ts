@@ -1,15 +1,23 @@
 import { useEffect, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
-
 import { sequenceProcessor } from 'franklin-sites';
+
 import useDataApi from '../../shared/hooks/useDataApi';
+import { useMessagesDispatch } from '../../shared/contexts/Messages';
 
 import { parseIdsFromSearchParams } from '../utils/urls';
 import { getAccessionsURL } from '../../shared/config/apiUrls';
 import entryToFASTAWithHeaders from '../../shared/utils/entryToFASTAWithHeaders';
 
+import { Location, LocationToPath } from '../../app/config/urls';
+
 import { SelectedTaxon } from '../types/toolsFormData';
 import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
+import { addMessage } from '../../messages/state/messagesActions';
+import {
+  MessageFormat,
+  MessageLevel,
+} from '../../messages/types/messagesTypes';
 
 interface CustomLocationState<T> {
   parameters?: Partial<T>;
@@ -27,6 +35,11 @@ export type FormValue = {
 
 export type FormValues<Fields extends string> = Record<Fields, FormValue>;
 
+const alignmentLocations = new Set([
+  LocationToPath[Location.Blast],
+  LocationToPath[Location.Align],
+]);
+
 function useInitialFormParameters<
   Fields extends string,
   FormParameters extends Record<Fields, unknown>
@@ -37,22 +50,49 @@ function useInitialFormParameters<
   initialFormValues: Readonly<FormValues<Fields>> | null;
 } {
   const history = useHistory();
+  const dispatchMessages = useMessagesDispatch();
+
+  const parametersFromSearch = useMemo(
+    () => new URLSearchParams(history.location?.search),
+    [history.location?.search]
+  );
+
   const idsMaybeWithRange = useMemo(() => {
-    // This only happens on first mount
-    const urlSearchParams = new URLSearchParams(history.location?.search);
-    for (const [key, value] of urlSearchParams) {
+    // This only happens on first mount as we reset the history.location.search in a separate useEffect hook
+    if (!alignmentLocations.has(history.location.pathname)) {
+      return null;
+    }
+    for (const [key, value] of parametersFromSearch) {
       if (key === 'ids') {
         return parseIdsFromSearchParams(value);
       }
     }
     return null;
-  }, [history]);
+  }, [history.location.pathname, parametersFromSearch]);
 
   const accessionsFromParams = (idsMaybeWithRange || []).map(({ id }) => id);
   const url = getAccessionsURL(accessionsFromParams, { facets: null });
   const { loading: accessionsLoading, data: accessionsData } = useDataApi<{
     results: UniProtkbAPIModel[];
   }>(url);
+
+  useEffect(() => {
+    if (
+      parametersFromSearch.has('sequence') &&
+      parametersFromSearch.has('ids') &&
+      accessionsData
+    ) {
+      dispatchMessages(
+        addMessage({
+          content:
+            'Found both "ids" and "sequence" in URL parameters. Sequence data will be loaded from "ids".',
+          format: MessageFormat.POP_UP,
+          level: MessageLevel.INFO,
+          displayTime: 5_000,
+        })
+      );
+    }
+  }, [accessionsData, dispatchMessages, parametersFromSearch]);
 
   // Discard 'search' part of url to avoid url state issues.
   // useEffect(() => {
@@ -73,7 +113,6 @@ function useInitialFormParameters<
       history.location?.state as CustomLocationState<FormParameters>
     )?.parameters;
 
-    const parametersFromSearch = new URLSearchParams(history.location?.search);
     // This will eventually be filled in
     const formValues: Partial<FormValues<Fields>> = {};
     if (parametersFromHistoryState || parametersFromSearch) {
@@ -121,6 +160,7 @@ function useInitialFormParameters<
         })
         .filter(Boolean)
         .join('\n\n');
+
       formValues['Sequence' as Fields] = Object.freeze({
         fieldName: 'sequence',
         selected: sequences,
@@ -136,10 +176,10 @@ function useInitialFormParameters<
   }, [
     accessionsLoading,
     history.location?.state,
-    history.location?.search,
-    defaultFormValues,
+    parametersFromSearch,
     accessionsData?.results,
     idsMaybeWithRange,
+    defaultFormValues,
   ]);
 
   return {
