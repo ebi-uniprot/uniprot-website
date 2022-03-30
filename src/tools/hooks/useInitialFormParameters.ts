@@ -95,14 +95,14 @@ function useInitialFormParameters<
   }, [accessionsData, dispatchMessages, parametersFromSearch]);
 
   // Discard 'search' part of url to avoid url state issues.
-  // useEffect(() => {
-  //   if (history.location?.search) {
-  //     // eslint-disable-next-line uniprot-website/use-config-location
-  //     history.replace({
-  //       pathname: history.location.pathname,
-  //     });
-  //   }
-  // }, [history]);
+  useEffect(() => {
+    if (history.location?.search) {
+      // eslint-disable-next-line uniprot-website/use-config-location
+      history.replace({
+        pathname: history.location.pathname,
+      });
+    }
+  }, [history]);
 
   const initialFormValues = useMemo(() => {
     if (accessionsLoading) {
