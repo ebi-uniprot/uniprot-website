@@ -77,13 +77,14 @@ describe('useInitialFormParameters: Align', () => {
 });
 
 describe('useInitialFormParameters: Peptide Search', () => {
-  it('should return defaultAlignFormValues and peps from url parameters', () => {
+  it('should return defaultAlignFormValues and peps, lEQi, spOnly from url parameters', () => {
     const peps = 'ABCDEF';
+
     const { result } = customRenderHook(
       defaultPeptideSearchFormValues,
       queryString.stringifyUrl({
         url: LocationToPath[Location.PeptideSearch],
-        query: { peps },
+        query: { peps, lEQi: 'on', spOnly: 'off' },
       })
     );
     expect(result.current.initialFormValues).toEqual({
@@ -91,6 +92,18 @@ describe('useInitialFormParameters: Peptide Search', () => {
       'Peptide sequences': {
         ...defaultPeptideSearchFormValues['Peptide sequences'],
         selected: peps,
+      },
+      'Search UniProt Reviewed (Swiss-Prot) only': {
+        ...defaultPeptideSearchFormValues[
+          'Search UniProt Reviewed (Swiss-Prot) only'
+        ],
+        selected: 'off',
+      },
+      'Treat isoleucine and leucine as equivalent': {
+        ...defaultPeptideSearchFormValues[
+          'Treat isoleucine and leucine as equivalent'
+        ],
+        selected: 'on',
       },
     });
   });
