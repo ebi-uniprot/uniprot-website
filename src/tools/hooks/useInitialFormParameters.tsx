@@ -81,19 +81,34 @@ function useInitialFormParameters<
     if (
       parametersFromHistorySearch.has('sequence') &&
       parametersFromHistorySearch.has('ids') &&
+      idsMaybeWithRange?.length &&
       accessionsData
     ) {
       dispatchMessages(
         addMessage({
-          content:
-            'Found both "ids" and "sequence" in URL parameters. Sequence data will be loaded from "ids".',
+          content: (
+            <>
+              Found both <code>ids</code> and <code>sequence</code> in URL
+              parameters. Sequence data will be loaded from <code>ids</code>:{' '}
+              {`${idsMaybeWithRange
+                .slice(0, 3)
+                .map(({ id }) => id)
+                .join(', ')}${idsMaybeWithRange.length > 3 ? ', …' : ''}`}
+              .
+            </>
+          ),
           format: MessageFormat.POP_UP,
           level: MessageLevel.INFO,
-          displayTime: 5_000,
+          displayTime: 15_000,
         })
       );
     }
-  }, [accessionsData, dispatchMessages, parametersFromHistorySearch]);
+  }, [
+    accessionsData,
+    dispatchMessages,
+    idsMaybeWithRange,
+    parametersFromHistorySearch,
+  ]);
 
   // Discard 'search' part of url to avoid url state issues.
   useEffect(() => {
