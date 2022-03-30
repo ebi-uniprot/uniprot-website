@@ -15,7 +15,7 @@ import defaultPeptideSearchFormValues from '../../peptide-search/config/PeptideS
 import accessionsData from '../../../uniprotkb/components/entry/__tests__/__mocks__/accessionsData.json';
 
 function customRenderHook<Fields extends string>(
-  defaultAlignFormValues: Readonly<FormValues<Fields>>,
+  defaultFormValues: Readonly<FormValues<Fields>>,
   path?: string,
   state?: unknown
 ) {
@@ -23,7 +23,7 @@ function customRenderHook<Fields extends string>(
   if (path) {
     history.push(path, state);
   }
-  return renderHook(() => useInitialFormParameters(defaultAlignFormValues), {
+  return renderHook(() => useInitialFormParameters(defaultFormValues), {
     wrapper: ({ children }) => <Router history={history}>{children}</Router>,
   });
 }
