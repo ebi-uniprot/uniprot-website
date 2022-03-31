@@ -15,6 +15,7 @@ import NoResultsPage from '../error-pages/NoResultsPage';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 import ResultsDataHeader from './ResultsDataHeader';
 import SearchSuggestions from './SearchSuggestions';
+import DidYouMean from './DidYouMean';
 
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 
@@ -24,6 +25,8 @@ import {
 } from '../../types/namespaces';
 import { SearchResults } from '../../types/results';
 import { APIModel } from '../../types/apiModel';
+
+import styles from './styles/results.module.scss';
 
 const Results = () => {
   const ns = useNS();
@@ -83,6 +86,11 @@ const Results = () => {
     );
   }
 
+  const { suggestions } = facetApiObject.data || {};
+  const didYouMean = suggestions?.length ? (
+    <DidYouMean suggestions={suggestions} />
+  ) : undefined;
+
   if (
     (!resultsDataInitialLoading && !facetInitialLoading && !total) ||
     total === 0
@@ -90,10 +98,12 @@ const Results = () => {
     return (
       <>
         {helmet}
-        <NoResultsPage />
+        <NoResultsPage message={didYouMean} />
       </>
     );
   }
+
+  console.log(suggestions, didYouMean);
 
   return (
     <SideBarLayout sidebar={<ResultsFacets dataApiObject={facetApiObject} />}>
@@ -118,6 +128,11 @@ const Results = () => {
         setSelectedItemFromEvent={setSelectedItemFromEvent}
         setSelectedEntries={setSelectedEntries}
       />
+      {didYouMean && (
+        <section className={styles['did-you-mean-with-results']}>
+          {didYouMean}
+        </section>
+      )}
     </SideBarLayout>
   );
 };
