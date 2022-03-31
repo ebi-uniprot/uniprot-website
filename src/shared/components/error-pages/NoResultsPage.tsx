@@ -11,10 +11,14 @@ const ErrorMessage = () => (
   </Message>
 );
 
-const NoResultsPage = () => (
+type Props = {
+  message?: JSX.Element;
+};
+
+const NoResultsPage = ({ message = <ErrorMessage /> }: Props) => (
   <ErrorPage
     artwork={<ArtWork />}
-    message={<ErrorMessage />}
+    message={message}
     data-testid="no-results-page"
   />
 );
