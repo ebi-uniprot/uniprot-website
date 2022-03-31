@@ -26,7 +26,8 @@ import {
 import { Location, changePathnameOnly } from '../../../../app/config/urls';
 import peptideSearchConverter from '../../adapters/peptideSearchConverter';
 
-import Response from '../../../../uniprotkb/types/responseTypes';
+import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
+import { SearchResults } from '../../../../shared/types/results';
 import { PeptideSearchResults } from '../../types/peptideSearchResults';
 import { JobTypes } from '../../../types/toolsJobTypes';
 import { Status } from '../../../types/toolsStatuses';
@@ -122,7 +123,7 @@ const PeptideSearchResult = ({
     accessions,
   });
   const facetApiObject =
-    useDataApiWithStale<Response['data']>(initialApiFacetUrl);
+    useDataApiWithStale<SearchResults<UniProtkbAPIModel>>(initialApiFacetUrl);
   const {
     loading: facetInititialLoading,
     headers: facetHeaders,

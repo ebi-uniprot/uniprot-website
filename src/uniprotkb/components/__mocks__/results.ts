@@ -1,8 +1,9 @@
-import Response from '../../types/responseTypes';
+import { SearchResults } from '../../../shared/types/results';
+import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
 // https://rest.uniprot.org/beta/uniprotkb/search?facets=reviewed%2Cmodel_organism%2Cproteins_with%2Cexistence%2Cannotation_score%2Clength&query=glucose&size=25
 // 2022-03-11
-const mock: Response['data'] = {
+const mock: SearchResults<UniProtkbAPIModel> = {
   facets: [
     {
       label: 'Status',

@@ -11,6 +11,7 @@ import entryToFASTAWithHeaders from '../../shared/utils/entryToFASTAWithHeaders'
 
 import { SelectedTaxon } from '../types/toolsFormData';
 import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
+import { SearchResults } from '../../shared/types/results';
 
 interface CustomLocationState<T> {
   parameters?: Partial<T>;
@@ -51,9 +52,8 @@ function useInitialFormParameters<
 
   const accessionsFromParams = (idsMaybeWithRange || []).map(({ id }) => id);
   const url = getAccessionsURL(accessionsFromParams, { facets: null });
-  const { loading: accessionsLoading, data: accessionsData } = useDataApi<{
-    results: UniProtkbAPIModel[];
-  }>(url);
+  const { loading: accessionsLoading, data: accessionsData } =
+    useDataApi<SearchResults<UniProtkbAPIModel>>(url);
 
   // Discard 'search' part of url to avoid url state issues.
   useEffect(() => {
