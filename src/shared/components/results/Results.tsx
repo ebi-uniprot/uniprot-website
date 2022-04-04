@@ -26,6 +26,7 @@ import {
 import { SearchResults } from '../../types/results';
 import { APIModel } from '../../types/apiModel';
 
+// TODO: remove if not used
 import styles from './styles/results.module.scss';
 
 const Results = () => {
@@ -87,9 +88,6 @@ const Results = () => {
   }
 
   const { suggestions } = facetApiObject.data || {};
-  const didYouMean = suggestions?.length ? (
-    <DidYouMean suggestions={suggestions} />
-  ) : undefined;
 
   if (
     (!resultsDataInitialLoading && !facetInitialLoading && !total) ||
@@ -98,12 +96,16 @@ const Results = () => {
     return (
       <>
         {helmet}
-        <NoResultsPage message={didYouMean} />
+        <NoResultsPage
+          message={
+            suggestions?.length ? (
+              <DidYouMean suggestions={suggestions} />
+            ) : undefined
+          }
+        />
       </>
     );
   }
-
-  console.log(suggestions, didYouMean);
 
   return (
     <SideBarLayout sidebar={<ResultsFacets dataApiObject={facetApiObject} />}>
@@ -128,11 +130,6 @@ const Results = () => {
         setSelectedItemFromEvent={setSelectedItemFromEvent}
         setSelectedEntries={setSelectedEntries}
       />
-      {didYouMean && (
-        <section className={styles['did-you-mean-with-results']}>
-          {didYouMean}
-        </section>
-      )}
     </SideBarLayout>
   );
 };
