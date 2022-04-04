@@ -1,22 +1,25 @@
+import { useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import queryString from 'query-string';
 import { orderBy, zip } from 'lodash-es';
 import { Loader, Message } from 'franklin-sites';
-import queryString from 'query-string';
 
 import useNS from '../../hooks/useNS';
+import useSafeState from '../../hooks/useSafeState';
 
-import { Suggestion } from '../../types/results';
+import fetchData from '../../utils/fetchData';
+import { parseQueryString } from '../../utils/url';
+
+import { searchLocations } from '../../../app/config/urls';
+import apiUrls from '../../config/apiUrls';
+
 import {
   Namespace,
   SearchableNamespace,
   searchableNamespaceLabels,
 } from '../../types/namespaces';
-import fetchData from '../../utils/fetchData';
+import { Suggestion } from '../../types/results';
 import { APIModel } from '../../types/apiModel';
-import { useLocation } from 'react-router-dom';
-import { parseQueryString } from '../../utils/url';
-import apiUrls from '../../config/apiUrls';
-import useSafeState from '../../hooks/useSafeState';
-import { useEffect, useState } from 'react';
 
 // TODO: delete line and file if not needed
 // import styles from './styles/did-you-mean.module.scss';
@@ -33,9 +36,14 @@ const SuggestionsSentence = ({
   <>
     {suggestions.map(({ query }, i, a) => [
       (i > 0 && i < a.length - 1 && ', ') || (i === a.length - 1 && ' or '),
-      <a href="#" key={query}>
+      <Link
+        to={{
+          pathname: searchLocations[namespace],
+          search: queryString.stringify({ query }),
+        }}
+      >
         {query}
-      </a>,
+      </Link>,
     ])}
     {` in ${searchableNamespaceLabels[namespace]}?`}
   </>
@@ -120,6 +128,7 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
   }
 
   const suggestionsSortedByHits = orderBy(suggestions, ['hits'], ['desc']);
+
   return (
     <Message level="info">
       Did you mean to search for:
