@@ -20,6 +20,8 @@ import {
 } from '../../types/namespaces';
 import { Suggestion } from '../../types/results';
 import { APIModel } from '../../types/apiModel';
+import { uuid4 } from '@sentry/utils';
+import { namespace } from 'd3';
 
 // TODO: delete line and file if not needed
 // import styles from './styles/did-you-mean.module.scss';
@@ -33,7 +35,7 @@ const QuerySuggestionListItem = ({
   suggestions,
   namespace,
 }: QuerySuggestionListItemProps) => (
-  <li key={namespace}>
+  <li>
     {suggestions.map(({ query }, i, a) => [
       (i > 0 && i < a.length - 1 && ', ') || (i === a.length - 1 && ' or '),
       <Link
@@ -41,7 +43,6 @@ const QuerySuggestionListItem = ({
           pathname: searchLocations[namespace],
           search: queryString.stringify({ query }),
         }}
-        key={query}
       >
         {query}
       </Link>,
@@ -141,12 +142,14 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
           <QuerySuggestionListItem
             suggestions={suggestionsSortedByHits}
             namespace={currentNamespace as DidYouMeanNamespace}
+            key={currentNamespace}
           />
         )}
         {otherNamespaceSuggestions.map(({ namespace, suggestion }) => (
           <QuerySuggestionListItem
             namespace={namespace}
             suggestions={[suggestion]}
+            key={namespace}
           />
         ))}
       </ul>
