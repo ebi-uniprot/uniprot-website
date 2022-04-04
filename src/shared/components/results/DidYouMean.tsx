@@ -13,18 +13,11 @@ import { parseQueryString } from '../../utils/url';
 import { searchLocations } from '../../../app/config/urls';
 import apiUrls from '../../config/apiUrls';
 
-import {
-  Namespace,
-  SearchableNamespace,
-  searchableNamespaceLabels,
-} from '../../types/namespaces';
+import { Namespace, searchableNamespaceLabels } from '../../types/namespaces';
 import { Suggestion } from '../../types/results';
 import { APIModel } from '../../types/apiModel';
-import { uuid4 } from '@sentry/utils';
-import { namespace } from 'd3';
 
-// TODO: delete line and file if not needed
-// import styles from './styles/did-you-mean.module.scss';
+import styles from './styles/did-you-mean.module.scss';
 
 type QuerySuggestionListItemProps = {
   suggestions: Suggestion[];
@@ -37,7 +30,8 @@ const QuerySuggestionListItem = ({
 }: QuerySuggestionListItemProps) => (
   <li>
     {suggestions.map(({ query }, i, a) => [
-      (i > 0 && i < a.length - 1 && ', ') || (i === a.length - 1 && ' or '),
+      (i > 0 && i < a.length - 1 && ', ') ||
+        (a.length > 1 && i === a.length - 1 && ' or '),
       <Link
         to={{
           pathname: searchLocations[namespace],
@@ -48,7 +42,7 @@ const QuerySuggestionListItem = ({
         {query}
       </Link>,
     ])}
-    {` in ${searchableNamespaceLabels[namespace]}?`}
+    {` in ${searchableNamespaceLabels[namespace]}`}
   </li>
 );
 
@@ -127,8 +121,6 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
     });
   }, [currentNamespace]);
 
-  console.log(otherNamespaceSuggestions);
-
   if (dataLoading) {
     return <Loader />;
   }
@@ -137,23 +129,26 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
 
   return (
     <Message level="info">
-      Did you mean to search for:
-      <ul>
-        {!!suggestionsSortedByHits.length && (
-          <QuerySuggestionListItem
-            suggestions={suggestionsSortedByHits}
-            namespace={currentNamespace as DidYouMeanNamespace}
-            key={currentNamespace}
-          />
-        )}
-        {otherNamespaceSuggestions.map(({ namespace, suggestion }) => (
-          <QuerySuggestionListItem
-            namespace={namespace}
-            suggestions={[suggestion]}
-            key={namespace}
-          />
-        ))}
-      </ul>
+      <h4>Sorry, no results were found!</h4>
+      <div className={styles.suggestions}>
+        Did you mean to search for:
+        <ul className={styles['suggestion-list']}>
+          {!!suggestionsSortedByHits.length && (
+            <QuerySuggestionListItem
+              suggestions={suggestionsSortedByHits}
+              namespace={currentNamespace as DidYouMeanNamespace}
+              key={currentNamespace}
+            />
+          )}
+          {otherNamespaceSuggestions.map(({ namespace, suggestion }) => (
+            <QuerySuggestionListItem
+              namespace={namespace}
+              suggestions={[suggestion]}
+              key={namespace}
+            />
+          ))}
+        </ul>
+      </div>
     </Message>
   );
 };
