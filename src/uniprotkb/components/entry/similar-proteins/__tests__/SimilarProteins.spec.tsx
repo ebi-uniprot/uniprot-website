@@ -33,7 +33,10 @@ describe('SimilarProteins tests', () => {
   beforeEach(async () => {
     await act(async () => {
       rendered = customRender(
-        <SimilarProteins isoforms={['P05067-1', 'P05067-4']} />
+        <SimilarProteins
+          isoforms={['P05067-1', 'P05067-4']}
+          primaryAccession="P05067"
+        />
       );
     });
     // Wait for everything to be loaded
