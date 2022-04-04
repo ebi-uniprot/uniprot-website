@@ -96,13 +96,7 @@ const Results = () => {
     return (
       <>
         {helmet}
-        <NoResultsPage
-          message={
-            suggestions?.length ? (
-              <DidYouMean suggestions={suggestions} />
-            ) : undefined
-          }
-        />
+        <NoResultsPage message={<DidYouMean suggestions={suggestions} />} />
       </>
     );
   }
