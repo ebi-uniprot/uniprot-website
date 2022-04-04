@@ -11,7 +11,12 @@ const SimilarProteins = lazy(
   () => import(/* webpackChunkName: "similar-proteins" */ './SimilarProteins')
 );
 
-const SimilarProteinsSection = ({ isoforms }: { isoforms: string[] }) => {
+type Props = {
+  isoforms: string[];
+  primaryAccession: string;
+};
+
+const SimilarProteinsSection = ({ isoforms, primaryAccession }: Props) => {
   const { name, id } = getEntrySectionNameAndId(EntrySection.SimilarProteins);
   return (
     <Card
@@ -20,7 +25,10 @@ const SimilarProteinsSection = ({ isoforms }: { isoforms: string[] }) => {
       data-entry-section
     >
       <LazyComponent>
-        <SimilarProteins isoforms={isoforms} />
+        <SimilarProteins
+          isoforms={isoforms}
+          primaryAccession={primaryAccession}
+        />
       </LazyComponent>
     </Card>
   );
