@@ -5,6 +5,7 @@ import useNS from '../../hooks/useNS';
 
 import { Suggestion } from '../../types/results';
 import {
+  Namespace,
   SearchableNamespace,
   searchableNamespaceLabels,
 } from '../../types/namespaces';
@@ -36,9 +37,17 @@ type DidYouMeanProps = {
   suggestions: Suggestion[];
 };
 
+const didYouMeanNamespaces = [
+  Namespace.uniprotkb,
+  Namespace.uniref,
+  Namespace.uniparc,
+  Namespace.proteomes,
+];
+
 const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
   const namespace = useNS();
-  if (!namespace) {
+
+  if (!namespace || !didYouMeanNamespaces.includes(namespace)) {
     return null;
   }
 
@@ -50,7 +59,7 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
         <li>
           <SuggestionsSentence
             suggestions={suggestionsSortedByHits}
-            namespace={namespace as SearchableNamespace}
+            namespace={namespace}
           />
         </li>
       </ul>
