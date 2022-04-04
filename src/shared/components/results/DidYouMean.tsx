@@ -43,6 +43,7 @@ const QuerySuggestionListItem = ({
           pathname: searchLocations[namespace],
           search: queryString.stringify({ query }),
         }}
+        key={query}
       >
         {query}
       </Link>,
