@@ -56,9 +56,7 @@ const toolsReducers = (
       }
       const { [action.payload]: jobToRemove, ...newState } = state;
       // Because these things happen async it might already be gone, check again
-      if (jobToRemove) {
-        store.del(jobToRemove.internalID);
-      }
+      store.del(jobToRemove?.internalID);
 
       return newState;
     }
