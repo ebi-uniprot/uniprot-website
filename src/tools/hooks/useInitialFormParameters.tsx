@@ -1,16 +1,23 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
-import { cloneDeep } from 'lodash-es';
-
 import { sequenceProcessor } from 'franklin-sites';
-import useDataApi from '../../shared/hooks/useDataApi';
 
+import useDataApi from '../../shared/hooks/useDataApi';
+import { useMessagesDispatch } from '../../shared/contexts/Messages';
+
+import { addMessage } from '../../messages/state/messagesActions';
 import { parseIdsFromSearchParams } from '../utils/urls';
 import { getAccessionsURL } from '../../shared/config/apiUrls';
 import entryToFASTAWithHeaders from '../../shared/utils/entryToFASTAWithHeaders';
 
+import { Location, LocationToPath } from '../../app/config/urls';
+
 import { SelectedTaxon } from '../types/toolsFormData';
 import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
+import {
+  MessageFormat,
+  MessageLevel,
+} from '../../messages/types/messagesTypes';
 
 interface CustomLocationState<T> {
   parameters?: Partial<T>;
@@ -28,6 +35,11 @@ export type FormValue = {
 
 export type FormValues<Fields extends string> = Record<Fields, FormValue>;
 
+const alignmentLocations = new Set([
+  LocationToPath[Location.Blast],
+  LocationToPath[Location.Align],
+]);
+
 function useInitialFormParameters<
   Fields extends string,
   FormParameters extends Record<Fields, unknown>
@@ -38,22 +50,65 @@ function useInitialFormParameters<
   initialFormValues: Readonly<FormValues<Fields>> | null;
 } {
   const history = useHistory();
+  // Keep initial history.location?.search as we later remove this in a useEffect hook
+  const historyLocationSearch = useRef(history.location?.search).current;
+  const dispatchMessages = useMessagesDispatch();
+
+  const parametersFromHistorySearch = useMemo(
+    () => new URLSearchParams(historyLocationSearch),
+    [historyLocationSearch]
+  );
+
   const idsMaybeWithRange = useMemo(() => {
-    // This only happens on first mount
-    const urlSearchParams = new URLSearchParams(history.location?.search);
-    for (const [key, value] of urlSearchParams) {
+    if (!alignmentLocations.has(history.location.pathname)) {
+      return null;
+    }
+    for (const [key, value] of parametersFromHistorySearch) {
       if (key === 'ids') {
         return parseIdsFromSearchParams(value);
       }
     }
     return null;
-  }, [history]);
+  }, [history.location.pathname, parametersFromHistorySearch]);
 
   const accessionsFromParams = (idsMaybeWithRange || []).map(({ id }) => id);
   const url = getAccessionsURL(accessionsFromParams, { facets: null });
   const { loading: accessionsLoading, data: accessionsData } = useDataApi<{
     results: UniProtkbAPIModel[];
   }>(url);
+
+  useEffect(() => {
+    if (
+      parametersFromHistorySearch.has('sequence') &&
+      parametersFromHistorySearch.has('ids') &&
+      idsMaybeWithRange?.length &&
+      accessionsData
+    ) {
+      dispatchMessages(
+        addMessage({
+          content: (
+            <>
+              Found both <code>ids</code> and <code>sequence</code> in URL
+              parameters. Sequence data will be loaded from <code>ids</code>:{' '}
+              {`${idsMaybeWithRange
+                .slice(0, 3)
+                .map(({ id }) => id)
+                .join(', ')}${idsMaybeWithRange.length > 3 ? ', …' : ''}`}
+              .
+            </>
+          ),
+          format: MessageFormat.POP_UP,
+          level: MessageLevel.INFO,
+          displayTime: 15_000,
+        })
+      );
+    }
+  }, [
+    accessionsData,
+    dispatchMessages,
+    idsMaybeWithRange,
+    parametersFromHistorySearch,
+  ]);
 
   // Discard 'search' part of url to avoid url state issues.
   useEffect(() => {
@@ -70,28 +125,28 @@ function useInitialFormParameters<
       return null;
     }
 
-    // NOTE: we should use a similar logic to pre-fill fields based on querystring
     const parametersFromHistoryState = (
       history.location?.state as CustomLocationState<FormParameters>
     )?.parameters;
 
-    // Might want to use structuredClone eventually, but it's really new and we
-    // need to make sure that it's polyfilled by core-js first.
-    // See: https://developer.mozilla.org/en-US/docs/Web/API/structuredClone
-    const formValues: FormValues<Fields> = cloneDeep(defaultFormValues);
-    // Parameters from state
-    if (parametersFromHistoryState) {
+    // This will eventually be filled in
+    const formValues: Partial<FormValues<Fields>> = {};
+    if (parametersFromHistoryState || parametersFromHistorySearch) {
       const defaultValuesEntries = Object.entries<FormValue>(defaultFormValues);
-      // for every field of the form, get its value from the history state if
-      // present, otherwise leave as the default value
       for (const [key, field] of defaultValuesEntries) {
         const fieldName = field.fieldName as keyof FormParameters;
-        if (fieldName in parametersFromHistoryState) {
-          formValues[key as Fields] = Object.freeze({
-            ...field,
-            selected: parametersFromHistoryState[fieldName],
-          } as FormValue);
-        }
+        formValues[key as Fields] = Object.freeze({
+          ...field,
+          selected:
+            // url params
+            (parametersFromHistorySearch &&
+              parametersFromHistorySearch.get(fieldName.toString())) ||
+            // history state
+            (parametersFromHistoryState &&
+              parametersFromHistoryState[fieldName]) ||
+            // default
+            field.selected,
+        } as FormValue);
       }
     }
 
@@ -121,6 +176,7 @@ function useInitialFormParameters<
         })
         .filter(Boolean)
         .join('\n\n');
+
       formValues['Sequence' as Fields] = Object.freeze({
         fieldName: 'sequence',
         selected: sequences,
@@ -132,13 +188,14 @@ function useInitialFormParameters<
       });
     }
 
-    return Object.freeze(formValues);
+    return Object.freeze(formValues as FormValues<Fields>);
   }, [
     accessionsLoading,
     history.location?.state,
-    defaultFormValues,
+    parametersFromHistorySearch,
     accessionsData?.results,
     idsMaybeWithRange,
+    defaultFormValues,
   ]);
 
   return {
