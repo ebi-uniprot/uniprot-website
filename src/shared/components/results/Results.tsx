@@ -26,9 +26,6 @@ import {
 import { SearchResults } from '../../types/results';
 import { APIModel } from '../../types/apiModel';
 
-// TODO: remove if not used
-import styles from './styles/results.module.scss';
-
 const Results = () => {
   const ns = useNS();
   const { search } = useLocation();
