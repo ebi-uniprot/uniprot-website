@@ -10,7 +10,11 @@ import useSafeState from '../../hooks/useSafeState';
 import fetchData from '../../utils/fetchData';
 import { parseQueryString } from '../../utils/url';
 
-import { searchLocations } from '../../../app/config/urls';
+import {
+  LocationToPath,
+  Location,
+  searchLocations,
+} from '../../../app/config/urls';
 import apiUrls from '../../config/apiUrls';
 
 import { Namespace, searchableNamespaceLabels } from '../../types/namespaces';
@@ -149,6 +153,8 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
           ))}
         </ul>
       </div>
+      Can't find what you are looking for? Please{' '}
+      <Link to={LocationToPath[Location.ContactGeneric]}>contact us</Link>
     </Message>
   );
 };
