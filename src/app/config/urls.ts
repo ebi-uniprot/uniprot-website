@@ -190,7 +190,7 @@ export const EntryLocations: Record<SearchableNamespace, string> = {
   [Namespace.arba]: LocationToPath[Location.ARBAEntry],
 };
 
-export const SearchLocations: Record<SearchableNamespace, string> = {
+export const searchLocations: Record<SearchableNamespace, string> = {
   // Main data
   [Namespace.uniprotkb]: LocationToPath[Location.UniProtKBResults],
   [Namespace.uniref]: LocationToPath[Location.UniRefResults],

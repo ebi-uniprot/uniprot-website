@@ -24,16 +24,16 @@ import { APIModel } from '../../types/apiModel';
 // TODO: delete line and file if not needed
 // import styles from './styles/did-you-mean.module.scss';
 
-type SuggestionSentenceProps = {
+type QuerySuggestionListItemProps = {
   suggestions: Suggestion[];
-  namespace: SearchableNamespace;
+  namespace: DidYouMeanNamespace;
 };
 
-const SuggestionsSentence = ({
+const QuerySuggestionListItem = ({
   suggestions,
   namespace,
-}: SuggestionSentenceProps) => (
-  <>
+}: QuerySuggestionListItemProps) => (
+  <li key={namespace}>
     {suggestions.map(({ query }, i, a) => [
       (i > 0 && i < a.length - 1 && ', ') || (i === a.length - 1 && ' or '),
       <Link
@@ -41,12 +41,13 @@ const SuggestionsSentence = ({
           pathname: searchLocations[namespace],
           search: queryString.stringify({ query }),
         }}
+        key={query}
       >
         {query}
       </Link>,
     ])}
     {` in ${searchableNamespaceLabels[namespace]}?`}
-  </>
+  </li>
 );
 
 type DidYouMeanNamespace =
@@ -64,7 +65,7 @@ const didYouMeanNamespaces: DidYouMeanNamespace[] = [
 
 type OtherNamespaceSuggestion = {
   namespace: DidYouMeanNamespace;
-  hits: number;
+  suggestion: Suggestion;
 };
 
 type DidYouMeanProps = {
@@ -80,6 +81,7 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
 
   const { query } = parseQueryString(location.search);
   if (
+    !query ||
     !currentNamespace ||
     !didYouMeanNamespaces.includes(currentNamespace as DidYouMeanNamespace)
   ) {
@@ -111,11 +113,13 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
         }
         const hits = +(response?.headers?.['x-total-records'] || 0);
         if (hits) {
-          suggestionsWithData.push({ namespace, hits });
+          suggestionsWithData.push({ namespace, suggestion: { query, hits } });
         }
       }
       setOtherNamespaceSuggestions(
-        orderBy(suggestionsWithData, ['hits'], ['desc'])
+        orderBy(suggestionsWithData, ({ suggestion }) => suggestion.hits, [
+          'desc',
+        ])
       );
       setDataLoading(false);
     });
@@ -133,12 +137,18 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
     <Message level="info">
       Did you mean to search for:
       <ul>
-        <li>
-          <SuggestionsSentence
+        {!!suggestionsSortedByHits.length && (
+          <QuerySuggestionListItem
             suggestions={suggestionsSortedByHits}
-            namespace={currentNamespace}
+            namespace={currentNamespace as DidYouMeanNamespace}
           />
-        </li>
+        )}
+        {otherNamespaceSuggestions.map(({ namespace, suggestion }) => (
+          <QuerySuggestionListItem
+            namespace={namespace}
+            suggestions={[suggestion]}
+          />
+        ))}
       </ul>
     </Message>
   );
