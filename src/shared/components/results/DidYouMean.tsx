@@ -86,9 +86,10 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
   const { query } = parseQueryString(location.search);
 
   useEffect(() => {
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       setHasTimedOut(true);
     }, TIMEOUT);
+    return () => clearTimeout(timeout);
   }, [setHasTimedOut]);
 
   useEffect(() => {
