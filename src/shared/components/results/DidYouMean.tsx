@@ -42,6 +42,7 @@ const QuerySuggestionListItem = ({
           search: queryString.stringify({ query }),
         }}
         key={query}
+        className={styles['query-suggestion-link']}
       >
         {query}
       </Link>,
