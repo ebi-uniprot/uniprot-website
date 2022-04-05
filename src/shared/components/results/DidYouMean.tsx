@@ -64,32 +64,38 @@ const didYouMeanNamespaces: DidYouMeanNamespace[] = [
   Namespace.proteomes,
 ];
 
-type OtherNamespaceSuggestion = {
+type NamespaceSuggestions = {
   namespace: DidYouMeanNamespace;
-  suggestion: Suggestion;
+  suggestions: Suggestion[];
 };
 
 type DidYouMeanProps = {
   suggestions?: Suggestion[];
 };
 
+const TIMEOUT = 3_000;
+
 const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
   const currentNamespace = useNS();
   const location = useLocation();
   const [dataLoading, setDataLoading] = useSafeState(true);
+  const [hasTimedOut, setHasTimedOut] = useSafeState(false);
   const [otherNamespaceSuggestions, setOtherNamespaceSuggestions] =
-    useSafeState<OtherNamespaceSuggestion[]>([]);
+    useSafeState<NamespaceSuggestions[]>([]);
 
   const { query } = parseQueryString(location.search);
-  if (
-    !query ||
-    !currentNamespace ||
-    !didYouMeanNamespaces.includes(currentNamespace as DidYouMeanNamespace)
-  ) {
-    return null;
-  }
 
   useEffect(() => {
+    setTimeout(() => {
+      setHasTimedOut(true);
+    }, TIMEOUT);
+  }, [setHasTimedOut]);
+
+  useEffect(() => {
+    if (!query || !currentNamespace) {
+      return;
+    }
+
     const otherNamespaces = didYouMeanNamespaces.filter(
       (ns) => ns !== currentNamespace
     );
@@ -106,7 +112,7 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
     );
 
     Promise.all(promises).then((responses) => {
-      const suggestionsWithData: OtherNamespaceSuggestion[] = [];
+      const suggestionsWithData: NamespaceSuggestions[] = [];
       for (const [namespace, response] of zip(otherNamespaces, responses)) {
         /* istanbul ignore if */
         if (!namespace) {
@@ -114,47 +120,56 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
         }
         const hits = +(response?.headers?.['x-total-records'] || 0);
         if (hits) {
-          suggestionsWithData.push({ namespace, suggestion: { query, hits } });
+          suggestionsWithData.push({
+            namespace,
+            suggestions: [{ query, hits }],
+          });
         }
       }
       setOtherNamespaceSuggestions(
-        orderBy(suggestionsWithData, ({ suggestion }) => suggestion.hits, [
+        orderBy(suggestionsWithData, ({ suggestions }) => suggestions[0].hits, [
           'desc',
         ])
       );
       setDataLoading(false);
     });
-  }, [currentNamespace]);
+  }, [currentNamespace, query, setDataLoading, setOtherNamespaceSuggestions]);
 
-  if (dataLoading) {
+  if (dataLoading && !hasTimedOut) {
     return <Loader />;
   }
 
   const suggestionsSortedByHits = orderBy(suggestions, ['hits'], ['desc']);
+  const allSuggestions: NamespaceSuggestions[] = [
+    ...(suggestionsSortedByHits.length
+      ? [
+          {
+            suggestions: suggestionsSortedByHits,
+            namespace: currentNamespace as DidYouMeanNamespace,
+          },
+        ]
+      : []),
+    ...otherNamespaceSuggestions,
+  ];
 
   return (
     <Message level="info">
       <h4>Sorry, no results were found!</h4>
-      <div className={styles.suggestions}>
-        Did you mean to search for:
-        <ul className={styles['suggestion-list']}>
-          {!!suggestionsSortedByHits.length && (
-            <QuerySuggestionListItem
-              suggestions={suggestionsSortedByHits}
-              namespace={currentNamespace as DidYouMeanNamespace}
-              key={currentNamespace}
-            />
-          )}
-          {otherNamespaceSuggestions.map(({ namespace, suggestion }) => (
-            <QuerySuggestionListItem
-              namespace={namespace}
-              suggestions={[suggestion]}
-              key={namespace}
-            />
-          ))}
-        </ul>
-      </div>
-      Can't find what you are looking for? Please{' '}
+      {!!allSuggestions.length && (
+        <div className={styles.suggestions}>
+          Did you mean to search for:
+          <ul className={styles['suggestion-list']}>
+            {allSuggestions.map(({ namespace, suggestions }) => (
+              <QuerySuggestionListItem
+                suggestions={suggestions}
+                namespace={namespace}
+                key={namespace}
+              />
+            ))}
+          </ul>
+        </div>
+      )}
+      Can&apos;t find what you are looking for? Please{' '}
       <Link to={LocationToPath[Location.ContactGeneric]}>contact us</Link>
     </Message>
   );
