@@ -154,12 +154,12 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
   ];
 
   return (
-    <Message level="info">
+    <Message level="info" className={styles['did-you-mean-message']}>
       <h4>Sorry, no results were found!</h4>
       {!!allSuggestions.length && (
         <div className={styles.suggestions}>
           Did you mean to search for:
-          <ul className={styles['suggestion-list']}>
+          <ul className={styles['suggestions-list']}>
             {allSuggestions.map(({ namespace, suggestions }) => (
               <QuerySuggestionListItem
                 suggestions={suggestions}

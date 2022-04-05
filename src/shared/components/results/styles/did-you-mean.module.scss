@@ -1,9 +1,14 @@
-.suggestion-list {
-  padding-top: 0.5rem;
+.did-you-mean-message {
+  text-align: left;
 }
 
 .suggestions {
   text-align: left;
+  padding: 0.5rem 0.5rem 0rem;
+}
+
+.suggestions-list {
+  padding-top: 0.5rem;
 }
 
 .query-suggestion-link {
