@@ -17,7 +17,11 @@ import {
 } from '../../../app/config/urls';
 import apiUrls from '../../config/apiUrls';
 
-import { Namespace, searchableNamespaceLabels } from '../../types/namespaces';
+import {
+  Namespace,
+  SearchableNamespace,
+  searchableNamespaceLabels,
+} from '../../types/namespaces';
 import { Suggestion } from '../../types/results';
 import { APIModel } from '../../types/apiModel';
 
@@ -25,7 +29,7 @@ import styles from './styles/did-you-mean.module.scss';
 
 type QuerySuggestionListItemProps = {
   suggestions: Suggestion[];
-  namespace: DidYouMeanNamespace;
+  namespace: SearchableNamespace;
 };
 
 const QuerySuggestionListItem = ({
@@ -51,13 +55,7 @@ const QuerySuggestionListItem = ({
   </li>
 );
 
-type DidYouMeanNamespace =
-  | Namespace.uniprotkb
-  | Namespace.uniref
-  | Namespace.uniparc
-  | Namespace.proteomes;
-
-const didYouMeanNamespaces: DidYouMeanNamespace[] = [
+const didYouMeanNamespaces: SearchableNamespace[] = [
   Namespace.uniprotkb,
   Namespace.uniref,
   Namespace.uniparc,
@@ -65,7 +63,7 @@ const didYouMeanNamespaces: DidYouMeanNamespace[] = [
 ];
 
 type NamespaceSuggestions = {
-  namespace: DidYouMeanNamespace;
+  namespace: SearchableNamespace;
   suggestions: Suggestion[];
 };
 
@@ -142,11 +140,11 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
 
   const suggestionsSortedByHits = orderBy(suggestions, ['hits'], ['desc']);
   const querySuggestions: NamespaceSuggestions[] = [
-    ...(suggestionsSortedByHits.length
+    ...(suggestionsSortedByHits.length && currentNamespace
       ? [
           {
             suggestions: suggestionsSortedByHits,
-            namespace: currentNamespace as DidYouMeanNamespace,
+            namespace: currentNamespace as SearchableNamespace,
           },
         ]
       : []),
