@@ -69,11 +69,11 @@ type NamespaceSuggestions = {
   suggestions: Suggestion[];
 };
 
+const TIMEOUT = 3_000;
+
 type DidYouMeanProps = {
   suggestions?: Suggestion[];
 };
-
-const TIMEOUT = 3_000;
 
 const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
   const currentNamespace = useNS();
@@ -141,7 +141,7 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
   }
 
   const suggestionsSortedByHits = orderBy(suggestions, ['hits'], ['desc']);
-  const allSuggestions: NamespaceSuggestions[] = [
+  const querySuggestions: NamespaceSuggestions[] = [
     ...(suggestionsSortedByHits.length
       ? [
           {
@@ -156,11 +156,11 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
   return (
     <Message level="info" className={styles['did-you-mean-message']}>
       <h4>Sorry, no results were found!</h4>
-      {!!allSuggestions.length && (
+      {!!querySuggestions.length && (
         <div className={styles.suggestions}>
           Did you mean to search for:
           <ul className={styles['suggestions-list']}>
-            {allSuggestions.map(({ namespace, suggestions }) => (
+            {querySuggestions.map(({ namespace, suggestions }) => (
               <QuerySuggestionListItem
                 suggestions={suggestions}
                 namespace={namespace}
