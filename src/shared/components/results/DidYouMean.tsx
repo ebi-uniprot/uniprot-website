@@ -105,7 +105,7 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
       }>(
         queryString.stringifyUrl({
           url: apiUrls.search(ns),
-          query: { query },
+          query: { query, size: 0 },
         })
       )
     );
