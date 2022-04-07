@@ -34,7 +34,11 @@ const IDMappingResultTable = ({
         selectedEntries={selectedEntries}
         namespaceOverride={namespaceOverride}
         disableCardToggle
-        base={detailsData?.redirectURL}
+        // TODO: remove this replace hack
+        base={detailsData?.redirectURL?.replace(
+          'https://rest.uniprot.org',
+          'https://rest.uniprot.org/beta'
+        )}
         notCustomisable={namespaceOverride === Namespace.idmapping}
       />
       {resultsDataObject.failedIds && (
