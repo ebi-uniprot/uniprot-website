@@ -75,7 +75,7 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
   const currentNamespace = useNS();
   const location = useLocation();
   // Blocks a render until we have all network results, or we have timed out
-  const [hasTimedOut, setHasTimedOut] = useSafeState(false);
+  const [renderContent, setRenderContent] = useSafeState(false);
   const otherNamespaceSuggestions = useRef<NamespaceSuggestions[]>([]);
 
   const { query } = parseQueryString(location.search);
@@ -110,19 +110,19 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
 
     // If all of the queries have finished, trigger a render even before timeout
     Promise.all(promises).then(() => {
-      setHasTimedOut(true);
+      setRenderContent(true);
     });
-  }, [currentNamespace, query, setHasTimedOut]);
+  }, [currentNamespace, query, setRenderContent]);
 
   // Trigger the render after a set timeout
   useEffect(() => {
     const timeout = setTimeout(() => {
-      setHasTimedOut(true);
+      setRenderContent(true);
     }, TIMEOUT);
     return () => clearTimeout(timeout);
-  }, [setHasTimedOut]);
+  }, [setRenderContent]);
 
-  if (!hasTimedOut) {
+  if (!renderContent) {
     return <Loader />;
   }
 
