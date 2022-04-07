@@ -4,17 +4,15 @@ import queryString from 'query-string';
 import { orderBy } from 'lodash-es';
 import { Loader, Message } from 'franklin-sites';
 
+import ContactLink from '../../../contact/components/ContactLink';
+
 import useNS from '../../hooks/useNS';
 import useSafeState from '../../hooks/useSafeState';
 
 import fetchData from '../../utils/fetchData';
 import { parseQueryString } from '../../utils/url';
 
-import {
-  LocationToPath,
-  Location,
-  searchLocations,
-} from '../../../app/config/urls';
+import { searchLocations } from '../../../app/config/urls';
 import apiUrls from '../../config/apiUrls';
 
 import {
@@ -163,7 +161,7 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
         </div>
       )}
       Can&apos;t find what you are looking for? Please{' '}
-      <Link to={LocationToPath[Location.ContactGeneric]}>contact us</Link>
+      <ContactLink>contact us</ContactLink>
     </Message>
   );
 };
