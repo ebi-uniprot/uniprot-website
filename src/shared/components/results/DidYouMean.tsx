@@ -147,7 +147,7 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
 
   return (
     <Message level="info" className={styles['did-you-mean-message']}>
-      <h4>Sorry, no results were found!</h4>
+      <h1 className="small">Sorry, no results were found!</h1>
       {!!querySuggestions.length && (
         <div className={styles.suggestions}>
           Did you mean to search for:
