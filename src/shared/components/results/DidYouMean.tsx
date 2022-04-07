@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
-import { orderBy, zip } from 'lodash-es';
+import { orderBy } from 'lodash-es';
 import { Loader, Message } from 'franklin-sites';
 
 import useNS from '../../hooks/useNS';
@@ -76,19 +76,11 @@ type DidYouMeanProps = {
 const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
   const currentNamespace = useNS();
   const location = useLocation();
-  const [dataLoading, setDataLoading] = useSafeState(true);
+  // Blocks a render until we have all network results, or we have timed out
   const [hasTimedOut, setHasTimedOut] = useSafeState(false);
-  const [otherNamespaceSuggestions, setOtherNamespaceSuggestions] =
-    useSafeState<NamespaceSuggestions[]>([]);
+  const otherNamespaceSuggestions = useRef<NamespaceSuggestions[]>([]);
 
   const { query } = parseQueryString(location.search);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setHasTimedOut(true);
-    }, TIMEOUT);
-    return () => clearTimeout(timeout);
-  }, [setHasTimedOut]);
 
   useEffect(() => {
     if (!query || !currentNamespace) {
@@ -107,34 +99,32 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
           url: apiUrls.search(ns),
           query: { query, size: 0 },
         })
-      )
-    );
-
-    Promise.all(promises).then((responses) => {
-      const suggestionsWithData: NamespaceSuggestions[] = [];
-      for (const [namespace, response] of zip(otherNamespaces, responses)) {
-        /* istanbul ignore if */
-        if (!namespace) {
-          break; // Shouldn't happen, used to restrict types
-        }
+      ).then((response) => {
         const hits = +(response?.headers?.['x-total-records'] || 0);
         if (hits) {
-          suggestionsWithData.push({
-            namespace,
+          otherNamespaceSuggestions.current.push({
+            namespace: ns,
             suggestions: [{ query, hits }],
           });
         }
-      }
-      setOtherNamespaceSuggestions(
-        orderBy(suggestionsWithData, ({ suggestions }) => suggestions[0].hits, [
-          'desc',
-        ])
-      );
-      setDataLoading(false);
-    });
-  }, [currentNamespace, query, setDataLoading, setOtherNamespaceSuggestions]);
+      })
+    );
 
-  if (dataLoading && !hasTimedOut) {
+    // If all of the queries have finished, trigger a render even before timeout
+    Promise.all(promises).then(() => {
+      setHasTimedOut(true);
+    });
+  }, [currentNamespace, query, setHasTimedOut]);
+
+  // Trigger the render after a set timeout
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setHasTimedOut(true);
+    }, TIMEOUT);
+    return () => clearTimeout(timeout);
+  }, [setHasTimedOut]);
+
+  if (!hasTimedOut) {
     return <Loader />;
   }
 
@@ -148,7 +138,11 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
           },
         ]
       : []),
-    ...otherNamespaceSuggestions,
+    ...orderBy(
+      otherNamespaceSuggestions.current,
+      ({ suggestions }) => suggestions[0].hits,
+      ['desc']
+    ),
   ];
 
   return (
