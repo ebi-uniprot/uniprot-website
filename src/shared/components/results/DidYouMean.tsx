@@ -30,7 +30,10 @@ import styles from './styles/did-you-mean.module.scss';
 // example input: '( abc )' -> capturing group: 'abc'
 // not matching '( id:abc )' or '( abc OR def )'
 const reCleanUp = /^\( ([^: ]+) \)$/;
-const reUniparcIdWithVersion = /(?<upid>UPI[\w]{10})\.\d+/;
+
+// Matches any generic ID that might exist within UniParc
+// eg: P05067.1, P05066.1-1, xref-id.1
+const reIdWithVersion = /(?<id>\S+)\.\d+/;
 
 type QuerySuggestionListItemProps = {
   suggestions: Suggestion[];
@@ -129,14 +132,14 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
   const suggestionsSortedByHits = orderBy(suggestions, 'hits', 'desc');
 
   if (currentNamespace === Namespace.uniparc) {
-    const match = query?.match(reUniparcIdWithVersion);
-    const upid = match?.groups?.upid;
-    if (upid) {
+    const match = query?.match(reIdWithVersion);
+    const id = match?.groups?.id;
+    if (id) {
       const upidAlreadySuggested = suggestionsSortedByHits.some(
-        (s) => s.query.replace(reCleanUp, '$1') === upid
+        (s) => s.query.replace(reCleanUp, '$1') === id
       );
       if (!upidAlreadySuggested) {
-        suggestionsSortedByHits.unshift({ query: upid, hits: 1 });
+        suggestionsSortedByHits.unshift({ query: id, hits: 1 });
       }
     }
   }
