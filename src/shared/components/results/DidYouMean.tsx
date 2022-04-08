@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useRef } from 'react';
+import { Fragment, ReactNode, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import { orderBy } from 'lodash-es';
@@ -127,36 +127,42 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
 
   const suggestionsSortedByHits = orderBy(suggestions, 'hits', 'desc');
 
+  const suggestionNodes: ReactNode[] = [];
+  // Main suggestion
+  if (suggestionsSortedByHits.length && currentNamespace) {
+    suggestionNodes.push(
+      <QuerySuggestionListItem
+        suggestions={suggestionsSortedByHits}
+        namespace={currentNamespace as SearchableNamespace}
+      />
+    );
+  }
+  // Other namespace suggestions
+  for (const [namespace, suggestions] of orderBy(
+    Array.from(otherNamespaceSuggestions.current.entries()),
+    ([, suggestions]) => suggestions[0].hits,
+    'desc'
+  )) {
+    suggestionNodes.push(
+      <QuerySuggestionListItem
+        suggestions={suggestions}
+        namespace={namespace}
+        key={namespace}
+      />
+    );
+  }
+  // Peptide Search suggestion
+  // TODO (other branch)
+  // UniParc-specific versionless suggestion
+  // TODO
+
   return (
     <Message level="info" className={styles['did-you-mean-message']}>
       <h1 className="small">Sorry, no results were found!</h1>
-      {suggestionsSortedByHits.length ||
-      otherNamespaceSuggestions.current.size ? (
+      {suggestionNodes.length ? (
         <div className={styles.suggestions}>
           Did you mean to search for:
-          <ul className={styles['suggestions-list']}>
-            {/* current namespace */}
-            {suggestionsSortedByHits.length && currentNamespace ? (
-              <QuerySuggestionListItem
-                suggestions={suggestionsSortedByHits}
-                namespace={currentNamespace as SearchableNamespace}
-              />
-            ) : null}
-            {/* other namespaces */}
-            {otherNamespaceSuggestions.current.size
-              ? orderBy(
-                  Array.from(otherNamespaceSuggestions.current.entries()),
-                  ([, suggestions]) => suggestions[0].hits,
-                  'desc'
-                ).map(([namespace, suggestions]) => (
-                  <QuerySuggestionListItem
-                    suggestions={suggestions}
-                    namespace={namespace}
-                    key={namespace}
-                  />
-                ))
-              : null}
-          </ul>
+          <ul className={styles['suggestions-list']}>{suggestionNodes}</ul>
         </div>
       ) : null}
       Can&apos;t find what you are looking for? Please{' '}
