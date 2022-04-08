@@ -29,7 +29,8 @@ import styles from './styles/did-you-mean.module.scss';
 
 // example input: '( abc )' -> capturing group: 'abc'
 // not matching '( id:abc )' or '( abc OR def )'
-const cleanUpRE = /^\( ([^: ]+) \)$/;
+const reCleanUp = /^\( ([^: ]+) \)$/;
+const reUniparcIdWithVersion = /(?<upid>UPI[\w]{10})\.\d+/;
 
 type QuerySuggestionListItemProps = {
   suggestions: Suggestion[];
@@ -42,7 +43,7 @@ const QuerySuggestionListItem = ({
 }: QuerySuggestionListItemProps) => (
   <li>
     {suggestions.map(({ query }, i, a) => {
-      const cleanedQuery = query.replace(cleanUpRE, '$1');
+      const cleanedQuery = query.replace(reCleanUp, '$1');
       return (
         <Fragment key={query}>
           {listFormat(i, a, 'or')}
@@ -127,6 +128,19 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
 
   const suggestionsSortedByHits = orderBy(suggestions, 'hits', 'desc');
 
+  if (currentNamespace === Namespace.uniparc) {
+    const match = query?.match(reUniparcIdWithVersion);
+    const upid = match?.groups?.upid;
+    if (upid) {
+      const upidAlreadySuggested = suggestionsSortedByHits.some(
+        (s) => s.query.replace(reCleanUp, '$1') === upid
+      );
+      if (!upidAlreadySuggested) {
+        suggestionsSortedByHits.unshift({ query: upid, hits: 1 });
+      }
+    }
+  }
+
   const suggestionNodes: ReactNode[] = [];
   // Main suggestion
   if (suggestionsSortedByHits.length && currentNamespace) {
@@ -154,8 +168,6 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
   }
   // Peptide Search suggestion
   // TODO (other branch)
-  // UniParc-specific versionless suggestion
-  // TODO
 
   return (
     <Message level="info" className={styles['did-you-mean-message']}>
