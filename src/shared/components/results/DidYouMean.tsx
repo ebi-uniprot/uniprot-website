@@ -135,10 +135,10 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
     const match = query?.match(reIdWithVersion);
     const id = match?.groups?.id;
     if (id) {
-      const upidAlreadySuggested = suggestionsSortedByHits.some(
+      const idAlreadySuggested = suggestionsSortedByHits.some(
         (s) => s.query.replace(reCleanUp, '$1') === id
       );
-      if (!upidAlreadySuggested) {
+      if (!idAlreadySuggested) {
         suggestionsSortedByHits.unshift({ query: id, hits: 1 });
       }
     }
