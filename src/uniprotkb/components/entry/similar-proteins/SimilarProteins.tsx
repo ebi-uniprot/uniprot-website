@@ -1,5 +1,5 @@
 import { Loader, Tabs, Tab } from 'franklin-sites';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { zip } from 'lodash-es';
 
 import SimilarProteinsTabContent from './SimilarProteinsTabContent';
@@ -53,16 +53,28 @@ export const getClusterMapping = (
   return mapping;
 };
 
+// TODO: check cases when the canonical might not be the first isoforms!!!
 const canonicalIsoformRE = /-1$/;
 
-const SimilarProteins = ({ isoforms }: { isoforms: string[] }) => {
+type Props = {
+  isoforms: string[];
+  primaryAccession: string;
+};
+
+const SimilarProteins = ({ isoforms, primaryAccession }: Props) => {
   const [mappingData, setMappingData] = useSafeState<ClusterMapping | null>(
     null
   );
   const [mappingLoading, setMappingLoading] = useSafeState(true);
 
+  // Note, in the case of no other isoforms, the `isoforms` array is empty
+  const allIsoforms = useMemo(
+    () => Array.from(new Set([`${primaryAccession}-1`, ...isoforms])),
+    [primaryAccession, isoforms]
+  );
+
   useEffect(() => {
-    const promises = isoforms.map((accession) =>
+    const promises = allIsoforms.map((accession) =>
       fetchData<{
         results: UniRefLiteAPIModel[];
       }>(
@@ -74,11 +86,11 @@ const SimilarProteins = ({ isoforms }: { isoforms: string[] }) => {
     );
     Promise.all(promises).then((responses) => {
       const clusterData = responses.map((response) => response.data.results);
-      const mapping = getClusterMapping(isoforms, clusterData);
+      const mapping = getClusterMapping(allIsoforms, clusterData);
       setMappingData(mapping);
       setMappingLoading(false);
     });
-  }, [isoforms, setMappingData, setMappingLoading]);
+  }, [allIsoforms, setMappingData, setMappingLoading]);
 
   if (mappingLoading) {
     return <Loader />;

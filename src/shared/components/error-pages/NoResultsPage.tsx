@@ -6,15 +6,19 @@ import ArtWork from './svgs/no-results-found.svg';
 
 const ErrorMessage = () => (
   <Message level="info">
-    <h4>Sorry, no results were found!</h4>
+    <h1 className="small">Sorry, no results were found!</h1>
     <span>Please try a different criteria</span>
   </Message>
 );
 
-const NoResultsPage = () => (
+type Props = {
+  message?: JSX.Element;
+};
+
+const NoResultsPage = ({ message = <ErrorMessage /> }: Props) => (
   <ErrorPage
     artwork={<ArtWork />}
-    message={<ErrorMessage />}
+    message={message}
     data-testid="no-results-page"
   />
 );

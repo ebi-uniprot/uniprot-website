@@ -313,14 +313,15 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
   }
 
   const handleDelete = () => {
+    const { internalID } = job;
     if (reducedMotion || !(ref.current && 'animate' in ref.current)) {
-      dispatch(deleteJob(job.internalID));
+      dispatch(deleteJob(internalID));
       return;
     }
     ref.current.animate(
       KeyframesForDelete,
       animationOptionsForDelete
-    ).onfinish = () => dispatch(deleteJob(job.internalID));
+    ).onfinish = () => dispatch(deleteJob(internalID));
   };
 
   // if the state of the current location contains the parameters from this job,
