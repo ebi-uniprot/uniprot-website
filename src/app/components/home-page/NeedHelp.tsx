@@ -12,6 +12,7 @@ import {
 import cn from 'classnames';
 
 import LazyComponent from '../../../shared/components/LazyComponent';
+import ContactLink from '../../../contact/components/ContactLink';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useStructuredData from '../../../shared/hooks/useStructuredData';
@@ -148,12 +149,9 @@ const NeedHelp = () => {
         >
           Help center
         </Link>{' '}
-        <Link
-          to={LocationToPath[Location.ContactGeneric]}
-          className={cn(styles['help-center-link'])}
-        >
+        <ContactLink className={cn(styles['help-center-link'])}>
           Contact us
-        </Link>
+        </ContactLink>
         <br />
         <ExternalLink
           url="https://twitter.com/uniprot"

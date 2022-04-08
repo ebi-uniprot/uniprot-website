@@ -15,6 +15,7 @@ import NoResultsPage from '../error-pages/NoResultsPage';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 import ResultsDataHeader from './ResultsDataHeader';
 import SearchSuggestions from './SearchSuggestions';
+import DidYouMean from './DidYouMean';
 
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 
@@ -83,6 +84,8 @@ const Results = () => {
     );
   }
 
+  const { suggestions } = facetApiObject.data || {};
+
   if (
     (!resultsDataInitialLoading && !facetInitialLoading && !total) ||
     total === 0
@@ -90,7 +93,7 @@ const Results = () => {
     return (
       <>
         {helmet}
-        <NoResultsPage />
+        <NoResultsPage message={<DidYouMean suggestions={suggestions} />} />
       </>
     );
   }
