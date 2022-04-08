@@ -134,6 +134,7 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
       <QuerySuggestionListItem
         suggestions={suggestionsSortedByHits}
         namespace={currentNamespace as SearchableNamespace}
+        key={currentNamespace}
       />
     );
   }
