@@ -104,6 +104,14 @@ export const cannotQueryMessages = {
     'Filtering Align results is not possible as all of its sequences constitute the alignment.',
 };
 
+const reSearchSpecialWords = /(^| )(or|and|not) /gi;
+const rawQueryClean = (raw: string) =>
+  raw
+    // "     app " -> "app"
+    .trim()
+    // "not app and human oR whatever" -> "NOT app AND human OR whatever"
+    .replaceAll(reSearchSpecialWords, (match) => match.toUpperCase()) || '*';
+
 type Props = {
   isOnHomePage?: boolean;
   searchspace: Searchspace;
@@ -161,7 +169,7 @@ const SearchContainer: FC<
 
     // restringify the resulting search
     const stringifiedSearch = queryString.stringify(
-      { query: searchTerm || '*' },
+      { query: rawQueryClean(searchTerm) },
       { encode: true }
     );
 
