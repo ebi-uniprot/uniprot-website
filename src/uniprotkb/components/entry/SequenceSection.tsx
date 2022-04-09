@@ -46,18 +46,18 @@ const SequenceSection = ({ data, primaryAccession }: Props) => {
     >
       <SequenceView data={data} accession={primaryAccession} />
       <ComputationalyMappedSequences primaryAccession={primaryAccession} />
+      {data.sequenceCaution && data.sequenceCaution.length > 0 && (
+        <>
+          <h3 data-article-id="sequence_caution">Sequence caution</h3>
+          <SequenceCautionView data={data.sequenceCaution} />
+        </>
+      )}
       {data.featuresData && (
         <FeaturesView
           primaryAccession={primaryAccession}
           features={data.featuresData}
           sequence={data.sequence.value}
         />
-      )}
-      {data.sequenceCaution && data.sequenceCaution.length > 0 && (
-        <>
-          <h3 data-article-id="sequence_caution">Sequence caution</h3>
-          <SequenceCautionView data={data.sequenceCaution} />
-        </>
       )}
       {data.massSpectrometry && data.massSpectrometry.length > 0 && (
         <>
