@@ -56,9 +56,9 @@ const Dashboard = ({ closePanel }: { closePanel?: () => void }) => {
       {fullPageContent}
       <p>
         Your tool analysis results from the last{' '}
-        <ClockIcon height="1em" width="3ch" /> 7 days are listed below. For any
-        tools still running, you can navigate away to other pages and will be
-        notified once the job is finished.
+        <ClockIcon height="1em" width="3ch" /> 7 days are listed below. If you
+        have tools jobs running, you can navigate away to other pages and you
+        will be notified once the job is completed.
       </p>
       <div className="dashboard">
         <div className="dashboard__header">
@@ -78,10 +78,11 @@ const Dashboard = ({ closePanel }: { closePanel?: () => void }) => {
           <>
             <br />
             <p>
-              Below your previous jobs that have now expired. You can still
-              resubmit them &nbsp;
-              <ReSubmitIcon width="1em" />. They will be completely deleted 14
-              days after their initial submission, unless you save them ★.
+              Your expired jobs are listed below. You can still resubmit
+              them&nbsp;
+              <ReSubmitIcon width="1em" />. These jobs will be deleted 14 days
+              after their submission date, unless you save them by clicking the
+              star icon ★.
             </p>
             <div className="dashboard__body">
               {expiredJobs.map((job) => (
