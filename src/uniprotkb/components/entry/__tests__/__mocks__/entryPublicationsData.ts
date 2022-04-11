@@ -1,13 +1,8 @@
+import { SearchResults } from '../../../../../shared/types/results';
 import { CitationsAPIModel } from '../../../../../supporting-data/citations/adapters/citationsConverter';
-import { FacetObject } from '../../../../types/responseTypes';
-
-type Payload = {
-  facets: FacetObject[];
-  results: Partial<CitationsAPIModel>[];
-};
 
 // api/uniprotkb/O43865/publications?facets=types%2Ccategories%2Cis_large_scale
-const mock: Payload = {
+const mock: SearchResults<Partial<CitationsAPIModel>> = {
   facets: [
     {
       label: 'Source',

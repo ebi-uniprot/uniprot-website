@@ -14,6 +14,7 @@ import { Location, LocationToPath } from '../../app/config/urls';
 
 import { SelectedTaxon } from '../types/toolsFormData';
 import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
+import { SearchResults } from '../../shared/types/results';
 import {
   MessageFormat,
   MessageLevel,
@@ -73,9 +74,8 @@ function useInitialFormParameters<
 
   const accessionsFromParams = (idsMaybeWithRange || []).map(({ id }) => id);
   const url = getAccessionsURL(accessionsFromParams, { facets: null });
-  const { loading: accessionsLoading, data: accessionsData } = useDataApi<{
-    results: UniProtkbAPIModel[];
-  }>(url);
+  const { loading: accessionsLoading, data: accessionsData } =
+    useDataApi<SearchResults<UniProtkbAPIModel>>(url);
 
   useEffect(() => {
     if (

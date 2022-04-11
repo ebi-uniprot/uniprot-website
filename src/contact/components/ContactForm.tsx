@@ -17,6 +17,7 @@ import cn from 'classnames';
 import { createPath, LocationDescriptor } from 'history';
 
 import HTMLHead from '../../shared/components/HTMLHead';
+import ContactLink from './ContactLink';
 
 import { useFormLogic } from '../adapters/contactFormAdapter';
 
@@ -205,22 +206,20 @@ const ContactForm = () => {
             {/* Link to switch the contact form */}
             <ul className="no-bullet">
               <li>
-                <Link<ContactLocationState>
+                <ContactLink
                   to={{
                     pathname:
                       LocationToPath[
                         isUpdate
-                          ? Location.ContactGeneric
-                          : Location.ContactUpdate
+                          ? Location.ContactUpdate
+                          : Location.ContactGeneric
                       ],
-                    // Make sure to pass along the previour referrer if switching
-                    state: { referrer: locationState?.referrer },
                   }}
                 >
                   {isUpdate
-                    ? 'Send us general questions and suggestions'
-                    : 'Send updates or corrections'}
-                </Link>
+                    ? 'Send updates or corrections'
+                    : 'Send us general questions and suggestions'}
+                </ContactLink>
               </li>
               <li>
                 <ExternalLink url="https://www.ebi.ac.uk/swissprot/Submissions/spin/">

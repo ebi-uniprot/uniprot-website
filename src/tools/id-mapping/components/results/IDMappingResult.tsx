@@ -21,6 +21,7 @@ import idMappingConverter from '../../adapters/idMappingConverter';
 import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
 import { defaultFacets } from '../../../../shared/config/apiUrls';
 
+import { SearchResults } from '../../../../shared/types/results';
 import { JobTypes } from '../../../types/toolsJobTypes';
 import {
   changePathnameOnly,
@@ -35,7 +36,7 @@ import {
   Namespace,
   namespaceAndToolsLabels,
 } from '../../../../shared/types/namespaces';
-import Response from '../../../../uniprotkb/types/responseTypes';
+import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 
 const jobType = JobTypes.ID_MAPPING;
 const urls = toolsURLs(jobType);
@@ -147,7 +148,8 @@ const IDMappingResult = () => {
         query,
       }
     );
-  const facetsData = useDataApiWithStale<Response['data']>(facetsUrl);
+  const facetsData =
+    useDataApiWithStale<SearchResults<UniProtkbAPIModel>>(facetsUrl);
 
   const { loading: facetInititialLoading, isStale: facetHasStaleData } =
     facetsData;
