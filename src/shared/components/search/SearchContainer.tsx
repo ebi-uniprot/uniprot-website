@@ -109,8 +109,9 @@ const rawQueryClean = (raw: string) =>
   raw
     // "     app " -> "app"
     .trim()
+    .replace(/\s+/g, ' ');
     // "not app and human oR whatever" -> "NOT app AND human OR whatever"
-    .replaceAll(reSearchSpecialWords, (match) => match.toUpperCase()) || '*';
+    .replace(reSearchSpecialWords, (match) => match.toUpperCase()) || '*';
 
 type Props = {
   isOnHomePage?: boolean;
