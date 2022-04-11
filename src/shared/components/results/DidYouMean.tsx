@@ -2,7 +2,7 @@ import { Fragment, ReactNode, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import { orderBy } from 'lodash-es';
-import { Loader, Message } from 'franklin-sites';
+import { Loader, Message, sequenceProcessor } from 'franklin-sites';
 import { sleep } from 'timing-functions';
 
 import ContactLink from '../../../contact/components/ContactLink';
@@ -14,7 +14,11 @@ import fetchData from '../../utils/fetchData';
 import listFormat from '../../utils/listFormat';
 import { parseQueryString } from '../../utils/url';
 
-import { searchLocations } from '../../../app/config/urls';
+import {
+  searchLocations,
+  LocationToPath,
+  Location,
+} from '../../../app/config/urls';
 import apiUrls from '../../config/apiUrls';
 
 import {
@@ -64,6 +68,24 @@ const QuerySuggestionListItem = ({
       );
     })}
     {` in ${searchableNamespaceLabels[namespace]}`}
+  </li>
+);
+
+const PeptideSearchSuggestion = ({
+  potentialPeptide,
+}: {
+  potentialPeptide: string;
+}) => (
+  <li>
+    <Link
+      to={{
+        pathname: LocationToPath[Location.PeptideSearch],
+        search: `peps=${potentialPeptide}`,
+      }}
+    >
+      {potentialPeptide}
+    </Link>{' '}
+    as a peptide search
   </li>
 );
 
@@ -170,7 +192,17 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
     );
   }
   // Peptide Search suggestion
-  // TODO (other branch)
+  const potentialPeptide = query?.toUpperCase() || '';
+  const [processed] = sequenceProcessor(potentialPeptide);
+
+  if (potentialPeptide && processed.valid && processed.likelyType === 'aa') {
+    suggestionNodes.push(
+      <PeptideSearchSuggestion
+        potentialPeptide={potentialPeptide}
+        key="peptide search"
+      />
+    );
+  }
 
   return (
     <Message level="info" className={styles['did-you-mean-message']}>
