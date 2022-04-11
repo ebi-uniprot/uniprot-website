@@ -109,7 +109,7 @@ const rawQueryClean = (raw: string) =>
   raw
     // "     app " -> "app"
     .trim()
-    .replace(/\s+/g, ' ');
+    .replace(/\s+/g, ' ')
     // "not app and human oR whatever" -> "NOT app AND human OR whatever"
     .replace(reSearchSpecialWords, (match) => match.toUpperCase()) || '*';
 
