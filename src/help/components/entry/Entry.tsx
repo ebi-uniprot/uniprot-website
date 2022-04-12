@@ -10,6 +10,7 @@ import {
   IOptions,
 } from 'sanitize-html';
 import cn from 'classnames';
+import fm from 'front-matter';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
 import SingleColumnLayout from '../../../shared/components/layouts/SingleColumnLayout';
@@ -17,7 +18,10 @@ import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 
-import { help as helpURL } from '../../../shared/config/apiUrls';
+import {
+  help as helpURL,
+  news as newsURL,
+} from '../../../shared/config/apiUrls';
 import cleanText, {
   cleanTextDefaultOptions,
   getTransformTags,
@@ -147,7 +151,21 @@ const HelpEntry = ({
   inPanel,
   overrideContent,
 }: RouteChildrenProps<{ accession: string }> & Props) => {
-  const accession = match?.params.accession;
+  let accession = match?.params.accession;
+  const isNews = match?.path.includes('news');
+  if (isNews) {
+    accession = accession?.replace(/\//g, '-');
+  }
+  console.log({ isNews, accession });
+
+  let url = null;
+  if (!overrideContent) {
+    if (isNews) {
+      url = newsURL.accession(accession);
+    } else {
+      url = helpURL.accession(accession);
+    }
+  }
 
   const {
     data: loadedData,
@@ -156,11 +174,28 @@ const HelpEntry = ({
     status,
     progress,
     isStale,
-  } = useDataApiWithStale<HelpEntryResponse>(
-    overrideContent ? null : helpURL.accession(accession)
-  );
+  } = useDataApiWithStale<HelpEntryResponse | string>(url);
 
-  const data = overrideContent || loadedData;
+  let data = overrideContent || loadedData;
+
+  if (isNews && typeof data === 'string') {
+    const {
+      attributes: { title },
+      body,
+    } = fm<{
+      title?: string;
+      categories?: string;
+      [key: string]: string | undefined;
+    }>(data.trim());
+    const content = cleanText(marked(body), getCleanTextOptions('h1'));
+    data = {
+      id: accession!,
+      title: title || '',
+      categories: [],
+      content,
+      lastModified: '',
+    };
+  }
 
   const lastModifed = useMemo(() => {
     if (data?.content) {
@@ -189,9 +224,11 @@ const HelpEntry = ({
   return (
     <SingleColumnLayout>
       <HTMLHead title={[data.title, 'UniProt help']} />
-      <Message level="info" className={styles['beta-message']}>
-        During the beta phase, help content may not be up to date.
-      </Message>
+      {!isNews && (
+        <Message level="info" className={styles['beta-message']}>
+          During the beta phase, help content may not be up to date.
+        </Message>
+      )}
       <h1 className={data.categories.includes('faq') ? 'big' : undefined}>
         {data.title}
       </h1>

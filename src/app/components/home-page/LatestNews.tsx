@@ -1,7 +1,9 @@
 import { HeroContainer, ExternalLink } from 'franklin-sites';
 import cn from 'classnames';
+import { generatePath, Link } from 'react-router-dom';
 
 // import useDataApi from '../../../shared/hooks/useDataApi';
+import { LocationToPath, Location } from '../../config/urls';
 
 import styles from './styles/non-critical.module.scss';
 
@@ -88,12 +90,13 @@ const LatestNews = () => {
           <li>
             <article>
               <h3 className="tiny">
-                <ExternalLink
-                  url="https://www.uniprot.org/news/2022/02/23/release"
-                  noIcon
+                <Link
+                  to={generatePath(LocationToPath[Location.NewsEntry], {
+                    accession: '2022-02-23-release',
+                  })}
                 >
                   UniProt release 2022_01
-                </ExternalLink>
+                </Link>
               </h3>
               <p
                 className={cn(
@@ -109,12 +112,13 @@ const LatestNews = () => {
           <li>
             <article>
               <h3 className="tiny">
-                <ExternalLink
-                  url="https://www.uniprot.org/news/2021/11/17/release"
-                  noIcon
+                <Link
+                  to={generatePath(LocationToPath[Location.NewsEntry], {
+                    accession: '2021-11-17-release',
+                  })}
                 >
                   UniProt release 2021_04
-                </ExternalLink>
+                </Link>
               </h3>
               <p
                 className={cn(

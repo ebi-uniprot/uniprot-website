@@ -426,6 +426,15 @@ const App = () => {
               path={LocationToPath[Location.HelpResults]}
               component={ResultsOrLanding(HelpResults, HelpLandingPage)}
             />
+            {/* News */}
+            <Route
+              path={LocationToPath[Location.NewsEntry]}
+              component={HelpEntryPage}
+            />
+            <Route
+              path={LocationToPath[Location.NewsResults]}
+              component={HelpResults}
+            />
             {/* Contact */}
             <Route
               path={LocationToPath[Location.ContactGeneric]}
