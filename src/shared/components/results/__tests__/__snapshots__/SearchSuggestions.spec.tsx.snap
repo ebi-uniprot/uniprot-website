@@ -9,42 +9,42 @@ exports[`SearchSuggestions should render suggestions 1`] = `
         class="no-wrap"
         href="/uniprotkb?query=strain:eve"
       >
-        Strain (14,411)
+        Strain
       </a>
       , 
       <a
         class="no-wrap"
         href="/uniprotkb?query=protein_name:eve"
       >
-        Protein Name (13,014)
+        Protein Name
       </a>
       , 
       <a
         class="no-wrap"
         href="/uniprotkb?query=gene:eve"
       >
-        Gene Name (88)
+        Gene Name
       </a>
       , 
       <a
         class="no-wrap"
         href="/uniprotkb?query=lit_author:eve"
       >
-        Author (2)
+        Author
       </a>
       , 
       <a
         class="no-wrap"
         href="/uniprotkb?query=organism_name:eve"
       >
-        Organism (1)
+        Organism
       </a>
       , or 
       <a
         class="no-wrap"
         href="/uniprotkb?query=taxonomy_name:eve"
       >
-        Taxonomy (1)
+        Taxonomy
       </a>
     </small>
   </span>

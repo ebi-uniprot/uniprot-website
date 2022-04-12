@@ -1,6 +1,6 @@
 import { Fragment, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { LongNumber, EllipsisReveal } from 'franklin-sites';
+import { EllipsisReveal } from 'franklin-sites';
 import qs from 'query-string';
 
 import useDataApi from '../../hooks/useDataApi';
@@ -139,7 +139,7 @@ const SearchSuggestions = ({
         }}
         className={helper['no-wrap']}
       >
-        {matchedField.label} (<LongNumber>{matchedField.hits}</LongNumber>)
+        {matchedField.label}
       </Link>
     </Fragment>
   ));
