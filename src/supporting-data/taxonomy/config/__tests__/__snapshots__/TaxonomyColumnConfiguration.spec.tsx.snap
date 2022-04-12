@@ -72,7 +72,28 @@ exports[`TaxonomyColumnConfiguration component should render column "lineage": l
 </DocumentFragment>
 `;
 
-exports[`TaxonomyColumnConfiguration component should render column "links": links 1`] = `<DocumentFragment />`;
+exports[`TaxonomyColumnConfiguration component should render column "links": links 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      <a
+        class="external-link"
+        href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?lvl=0&amp;id=11652"
+        rel="noopener"
+        target="_blank"
+      >
+        www.ncbi.nlm.nih.gov
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
 
 exports[`TaxonomyColumnConfiguration component should render column "mnemonic": mnemonic 1`] = `
 <DocumentFragment>
