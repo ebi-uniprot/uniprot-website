@@ -11,7 +11,7 @@ import { Property, PropertyKey } from '../types/modelTypes';
 export const hasExternalLinks = (transformedData: UniProtkbUIModel) =>
   UniProtKBEntryConfig.some(({ id }) => {
     const data = transformedData[id];
-    return Boolean(data.xrefData?.length);
+    return Boolean('xrefData' in data && data.xrefData?.length);
   });
 
 export const flattenGeneNameData = (geneNamesData: GeneNamesData) => {

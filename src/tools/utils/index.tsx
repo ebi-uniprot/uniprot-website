@@ -84,9 +84,14 @@ export const getStatusFromResponse = async (
       break;
     case JobTypes.PEPTIDE_SEARCH:
       // This deduces the job status from the HTTP response status
-      if (response.status === 200) {
+      if (!response.status) {
+        // That's a bit weird, but that's what happens
+        status = Status.RUNNING;
+      } else if (response.status === 200) {
         status = Status.FINISHED;
       } else if (response.status === 303) {
+        status = Status.RUNNING;
+      } else if (response.status === 202) {
         status = Status.RUNNING;
       } else if (response.status >= 400) {
         status = Status.FAILURE;

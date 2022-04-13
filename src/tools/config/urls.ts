@@ -102,7 +102,7 @@ function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
             facets: facets?.join(','),
             // Similar approach to the one in apiUrls.ts file
             query: `${[
-              `(${query || '*'})`,
+              query ? `(${query})` : null,
               createFacetsQueryString(selectedFacets),
             ]
               .filter(Boolean)

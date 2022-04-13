@@ -8,11 +8,7 @@ import { frame } from 'timing-functions';
 import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
-import {
-  MessageLevel,
-  MessageFormat,
-  MessageTag,
-} from '../../../messages/types/messagesTypes';
+import ContactLink from '../../../contact/components/ContactLink';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
@@ -61,7 +57,11 @@ import {
   searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
 import { EntryType } from '../../../shared/components/entry/EntryTypeIcon';
-import { ContactLocationState } from '../../../contact/components/ContactForm';
+import {
+  MessageLevel,
+  MessageFormat,
+  MessageTag,
+} from '../../../messages/types/messagesTypes';
 
 import helper from '../../../shared/styles/helper.module.scss';
 import sticky from '../../../shared/styles/sticky.module.scss';
@@ -154,7 +154,7 @@ const Entry = () => {
             break;
           case EntrySection.SubCellularLocation:
             disabled = !subcellularLocationSectionHasContent(
-              transformedData['subcellular-location']
+              transformedData[EntrySection.SubCellularLocation]
             );
             break;
           default:
@@ -355,8 +355,8 @@ const Entry = () => {
                   Add a publication
                 </a>
                 {/* eslint-disable-next-line react/jsx-no-target-blank */}
-                <Link<ContactLocationState>
-                  to={(location) => ({
+                <ContactLink
+                  to={{
                     pathname: LocationToPath[Location.ContactUpdate],
                     search: qs.stringify({
                       entry: match.params.accession,
@@ -365,12 +365,11 @@ const Entry = () => {
                           ? 'Reviewed (Swiss-Prot)'
                           : 'Unreviewed (TrEMBL)',
                     }),
-                    state: { referrer: location },
-                  })}
+                  }}
                   className="button tertiary"
                 >
                   Entry feedback
-                </Link>
+                </ContactLink>
               </div>
               <EntryMain transformedData={transformedData} />
             </>

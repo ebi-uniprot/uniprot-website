@@ -1,4 +1,4 @@
-import { FacetObject } from '../../uniprotkb/types/responseTypes';
+import { FacetObject } from '../../shared/types/results';
 import { UniRefLiteAPIModel } from '../adapters/uniRefConverter';
 
 type Payload = {

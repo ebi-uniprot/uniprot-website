@@ -39,6 +39,7 @@ import {
   Namespace,
   namespaceAndToolsLabels,
 } from '../../../../shared/types/namespaces';
+import { SearchResults } from '../../../../shared/types/results';
 import { BlastResults, BlastHit } from '../../types/blastResults';
 import { JobTypes } from '../../../types/toolsJobTypes';
 import { PublicServerParameters } from '../../types/blastServerParameters';
@@ -153,11 +154,13 @@ export interface EnrichedData extends BlastResults {
   hits: Array<EnrichedBlastHit>;
 }
 
+type ApiData = SearchResults<
+  UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel
+>;
+
 export const enrich = (
   blastData?: BlastResults,
-  apiData?: {
-    results: Array<UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel>;
-  },
+  apiData?: ApiData,
   namespace?: Namespace
 ): EnrichedData | null => {
   if (!(blastData && apiData)) {
@@ -229,26 +232,25 @@ const BlastResult = () => {
     namespace = Namespace.uniparc;
   }
 
-  // get data from accessions endpoint with facets applied
-  const { loading: accessionsLoading, data: accessionsData } = useDataApi<{
-    results: Array<UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel>;
-  }>(
-    useMemo(
-      () =>
-        getAccessionsURL(accessionsFilteredByLocalFacets, {
+  // get data from accessions endpoint with search applied
+  const { loading: accessionsLoading, data: accessionsData } =
+    useDataApi<ApiData>(
+      useMemo(
+        () =>
+          getAccessionsURL(accessionsFilteredByLocalFacets, {
+            namespace,
+            selectedFacets: urlParams.selectedFacets,
+            facets: [],
+            query,
+          }),
+        [
+          accessionsFilteredByLocalFacets,
           namespace,
-          selectedFacets: urlParams.selectedFacets,
-          facets: [],
           query,
-        }),
-      [
-        accessionsFilteredByLocalFacets,
-        namespace,
-        query,
-        urlParams.selectedFacets,
-      ]
-    )
-  );
+          urlParams.selectedFacets,
+        ]
+      )
+    );
 
   // filter BLAST results according to facets (through accession endpoint and other BLAST facets facets)
   const filteredBlastData =

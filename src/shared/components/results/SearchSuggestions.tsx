@@ -1,6 +1,6 @@
 import { Fragment, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { LongNumber, EllipsisReveal } from 'franklin-sites';
+import { EllipsisReveal } from 'franklin-sites';
 import qs from 'query-string';
 
 import useDataApi from '../../hooks/useDataApi';
@@ -13,16 +13,12 @@ import { Namespace } from '../../types/namespaces';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { SearchTermType } from '../../../query-builder/types/searchTypes';
+import { MatchedField } from '../../types/results';
 
 import helper from '../../styles/helper.module.scss';
 
-type MatchedFields = Array<{
-  name: string;
-  hits: number;
-}>;
-
 type MatchedFieldsResponse = {
-  matchedFields?: MatchedFields;
+  matchedFields?: Array<MatchedField>;
 };
 
 const simpleQuery = /^[a-zA-Z0-9]+$/;
@@ -143,7 +139,7 @@ const SearchSuggestions = ({
         }}
         className={helper['no-wrap']}
       >
-        {matchedField.label} (<LongNumber>{matchedField.hits}</LongNumber>)
+        {matchedField.label}
       </Link>
     </Fragment>
   ));

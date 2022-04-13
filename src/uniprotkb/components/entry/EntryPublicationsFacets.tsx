@@ -10,7 +10,7 @@ import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
 import { getParamsFromURL } from '../../utils/resultsUtils';
 
-import { FacetObject } from '../../types/responseTypes';
+import { FacetObject } from '../../../shared/types/results';
 
 import helper from '../../../shared/styles/helper.module.scss';
 

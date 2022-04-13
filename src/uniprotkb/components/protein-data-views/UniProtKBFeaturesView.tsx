@@ -162,7 +162,7 @@ const UniProtKBFeaturesView = ({
                 </td>
                 <td>
                   {/* Not using React Router link as this is copied into the table DOM */}
-                  {feature.end - feature.start >= 3 && (
+                  {feature.end - feature.start >= 2 && (
                     <Button
                       element="a"
                       variant="tertiary"

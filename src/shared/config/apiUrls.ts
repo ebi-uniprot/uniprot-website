@@ -281,11 +281,14 @@ export const getAccessionsURL = (
       size,
       // sort to improve possible cache hit
       [key]: Array.from(accessions).sort().join(','),
-      query: query || undefined,
-      facetFilter:
+      query: [
+        query,
         createFacetsQueryString(
           selectedFacets.filter(excludeLocalBlastFacets)
         ) || undefined,
+      ]
+        .filter(Boolean)
+        .join(' AND '),
       fields: (columns && columns.join(',')) || undefined,
       facets: finalFacets?.join(',') || undefined,
       sort:
@@ -331,7 +334,6 @@ type Parameters = {
   size?: number;
   compressed?: boolean;
   download: true;
-  facetFilter?: string;
 };
 
 export type DownloadUrlOptions = {
@@ -402,9 +404,9 @@ export const getDownloadUrl = ({
     )
       .sort()
       .join(',');
-    if (selectedFacets.length) {
-      parameters.facetFilter = createFacetsQueryString(selectedFacets);
-    }
+    parameters.query = [query, createFacetsQueryString(selectedFacets)]
+      .filter(Boolean)
+      .join(' AND ');
   } else if (namespace === Namespace.unisave) {
     parameters.versions = selected.length ? selected.join(',') : undefined;
     if (fileFormat === FileFormat.fasta) {
@@ -416,9 +418,9 @@ export const getDownloadUrl = ({
       : [query, createFacetsQueryString(selectedFacets)]
           .filter(Boolean)
           .join(' AND ');
-    // If nullish, just set to undefined to remove from the URL
-    parameters.query ||= undefined;
   }
+  // If nullish, just set to undefined to remove from the URL
+  parameters.query ||= undefined;
 
   if (sortColumn) {
     parameters.sort = `${sortColumn} ${getApiSortDirection(
@@ -452,15 +454,6 @@ export const getDownloadUrl = ({
 
 export const getProteinsApiUrl = (accession: string) =>
   `https://www.ebi.ac.uk/proteins/api/proteins/${accession}`;
-
-export const getClustersForProteins = (accessions: string[]) =>
-  joinUrl(
-    apiPrefix,
-    `/uniref/search?query=(${accessions
-      .map((accession) => `uniprot_id:${accession}`)
-      .sort()
-      .join(' OR ')})`
-  );
 
 // Help endpoints
 export const help = {
