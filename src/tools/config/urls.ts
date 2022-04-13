@@ -1,11 +1,11 @@
 import queryString from 'query-string';
 import deepFreeze from 'deep-freeze';
+import joinUrl from 'url-join';
 
 import {
   createFacetsQueryString,
   apiPrefix,
 } from '../../shared/config/apiUrls';
-import joinUrl from '../../shared/config/testingApiUrls'; // TODO: revert import to: import joinUrl from 'url-join'
 import {
   getApiSortDirection,
   SelectedFacet,
