@@ -29,7 +29,7 @@ exports[`Entry basic should render main 1`] = `
         >
           <a
             class=""
-            href="/uniprotkb/P21802/entry#names-and-taxonomy"
+            href="/uniprotkb/P21802/entry#names_and_taxonomy"
           >
             Names & Taxonomy
           </a>
@@ -39,7 +39,7 @@ exports[`Entry basic should render main 1`] = `
         >
           <a
             class=""
-            href="/uniprotkb/P21802/entry#subcellular-location"
+            href="/uniprotkb/P21802/entry#subcellular_location"
           >
             Subcellular Location
           </a>
@@ -49,7 +49,7 @@ exports[`Entry basic should render main 1`] = `
         >
           <a
             class=""
-            href="/uniprotkb/P21802/entry#disease-and-drugs"
+            href="/uniprotkb/P21802/entry#disease_and_drugs"
           >
             Disease & Drugs
           </a>
@@ -59,7 +59,7 @@ exports[`Entry basic should render main 1`] = `
         >
           <a
             class=""
-            href="/uniprotkb/P21802/entry#ptm-processing"
+            href="/uniprotkb/P21802/entry#ptm_processing"
           >
             PTM/Processing
           </a>
@@ -99,7 +99,7 @@ exports[`Entry basic should render main 1`] = `
         >
           <a
             class=""
-            href="/uniprotkb/P21802/entry#family-and-domains"
+            href="/uniprotkb/P21802/entry#family_and_domains"
           >
             Family & Domains
           </a>
@@ -119,7 +119,7 @@ exports[`Entry basic should render main 1`] = `
         >
           <a
             class=""
-            href="/uniprotkb/P21802/entry#similar-proteins"
+            href="/uniprotkb/P21802/entry#similar_proteins"
           >
             Similar Proteins
           </a>

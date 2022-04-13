@@ -553,7 +553,7 @@ exports[`Entry view should render 1`] = `
   <section
     class="card"
     data-entry-section="true"
-    id="names-and-taxonomy"
+    id="names_and_taxonomy"
   >
     <div
       class="card__container"
@@ -1917,7 +1917,7 @@ exports[`Entry view should render 1`] = `
   <section
     class="card"
     data-entry-section="true"
-    id="subcellular-location"
+    id="subcellular_location"
   >
     <div
       class="card__container"
@@ -2119,7 +2119,7 @@ exports[`Entry view should render 1`] = `
   <section
     class="card"
     data-entry-section="true"
-    id="disease-and-drugs"
+    id="disease_and_drugs"
   >
     <div
       class="card__container"
@@ -2358,7 +2358,7 @@ exports[`Entry view should render 1`] = `
   <section
     class="card"
     data-entry-section="true"
-    id="ptm-processing"
+    id="ptm_processing"
   >
     <div
       class="card__container"
@@ -2764,7 +2764,7 @@ exports[`Entry view should render 1`] = `
   <section
     class="card"
     data-entry-section="true"
-    id="family-and-domains"
+    id="family_and_domains"
   >
     <div
       class="card__container"
@@ -4675,7 +4675,7 @@ exports[`Entry view should render for non-human entry 1`] = `
   <section
     class="card"
     data-entry-section="true"
-    id="names-and-taxonomy"
+    id="names_and_taxonomy"
   >
     <div
       class="card__container"
@@ -5390,7 +5390,7 @@ exports[`Entry view should render for non-human entry 1`] = `
   <section
     class="card"
     data-entry-section="true"
-    id="ptm-processing"
+    id="ptm_processing"
   >
     <div
       class="card__container"
@@ -5751,7 +5751,7 @@ exports[`Entry view should render for non-human entry 1`] = `
   <section
     class="card"
     data-entry-section="true"
-    id="family-and-domains"
+    id="family_and_domains"
   >
     <div
       class="card__container"
