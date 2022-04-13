@@ -151,16 +151,12 @@ const HelpEntry = ({
   inPanel,
   overrideContent,
 }: RouteChildrenProps<{ accession: string }> & Props) => {
-  let accession = match?.params.accession;
-  const isNews = match?.path.includes('news');
-  if (isNews) {
-    accession = accession?.replace(/\//g, '-');
-  }
-  console.log({ isNews, accession });
+  const accession = match?.params.accession;
+  const isReleaseNotes = match?.path.includes('news');
 
   let url = null;
   if (!overrideContent) {
-    if (isNews) {
+    if (isReleaseNotes) {
       url = newsURL.accession(accession);
     } else {
       url = helpURL.accession(accession);
@@ -178,7 +174,7 @@ const HelpEntry = ({
 
   let data = overrideContent || loadedData;
 
-  if (isNews && typeof data === 'string') {
+  if (typeof data === 'string') {
     const {
       attributes: { title },
       body,
@@ -224,7 +220,7 @@ const HelpEntry = ({
   return (
     <SingleColumnLayout>
       <HTMLHead title={[data.title, 'UniProt help']} />
-      {!isNews && (
+      {!isReleaseNotes && (
         <Message level="info" className={styles['beta-message']}>
           During the beta phase, help content may not be up to date.
         </Message>
