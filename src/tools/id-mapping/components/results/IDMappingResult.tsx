@@ -99,21 +99,14 @@ const IDMappingResult = () => {
     detailsData && databaseInfoMaps?.databaseToDatabaseInfo[detailsData.to];
 
   // Query for results data from the idmapping endpoint
-  // TODO: remove this replace hack
   const initialApiUrl =
     detailsData?.redirectURL &&
-    urls.resultUrl(
-      detailsData.redirectURL.replace(
-        'https://rest.uniprot.org',
-        'https://rest.uniprot.org/beta'
-      ),
-      {
-        selectedFacets,
-        query,
-        sortColumn,
-        sortDirection,
-      }
-    );
+    urls.resultUrl(detailsData.redirectURL, {
+      selectedFacets,
+      query,
+      sortColumn,
+      sortDirection,
+    });
 
   const converter = useMemo(() => idMappingConverter(toDBInfo), [toDBInfo]);
 
@@ -132,22 +125,15 @@ const IDMappingResult = () => {
 
   // Run facet query
   const facets = defaultFacets.get(namespaceOverride);
-  // TODO: remove this replace hack
   const facetsUrl =
     detailsData?.redirectURL &&
     facets &&
-    urls.resultUrl(
-      detailsData.redirectURL.replace(
-        'https://rest.uniprot.org',
-        'https://rest.uniprot.org/beta'
-      ),
-      {
-        facets,
-        size: 0,
-        selectedFacets,
-        query,
-      }
-    );
+    urls.resultUrl(detailsData.redirectURL, {
+      facets,
+      size: 0,
+      selectedFacets,
+      query,
+    });
   const facetsData =
     useDataApiWithStale<SearchResults<UniProtkbAPIModel>>(facetsUrl);
 
