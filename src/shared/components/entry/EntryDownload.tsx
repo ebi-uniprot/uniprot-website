@@ -181,7 +181,7 @@ const EntryDownload = ({ nResults }: Props) => {
                       'pagination'
                     )}
                   >
-                    pagination documenation
+                    pagination documentation
                   </Link>{' '}
                   to download all <LongNumber>{nResults as number}</LongNumber>{' '}
                   members programmatically
