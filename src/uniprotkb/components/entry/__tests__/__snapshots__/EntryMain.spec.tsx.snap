@@ -4396,7 +4396,9 @@ exports[`Entry view should render for non-human entry 1`] = `
           >
             GO Annotations
           </h3>
-          <protvista-datatable>
+          <protvista-datatable
+            filter-scroll="true"
+          >
             <table>
               <thead>
                 <tr>

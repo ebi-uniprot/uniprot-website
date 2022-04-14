@@ -212,7 +212,7 @@ const GoRibbon = ({
       )}
       {elementLoaded && ribbon}
       {!!filteredGoTerms.length && (
-        <datatableElement.name>
+        <datatableElement.name filter-scroll>
           <table>
             <thead>
               <tr>
