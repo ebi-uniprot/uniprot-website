@@ -29,6 +29,7 @@ import {
   getLocationEntryPathFor,
   Location,
 } from '../../../app/config/urls';
+import { warn } from '../../utils/logging';
 
 import { fileFormatEntryDownload as uniProtKBFFED } from '../../../uniprotkb/config/download';
 import { fileFormatEntryDownload as uniRefFFED } from '../../../uniref/config/download';
@@ -126,6 +127,7 @@ const EntryDownload = ({ nResults }: Props) => {
 
   const downloadOnClick = useCallback(() => {
     if (namespace === Namespace.uniparc) {
+      warn('tried downloading a UniParc XRef list > 500');
       messagesDispatch(
         addMessage({
           id: 'uniparc-stream-warning',
@@ -165,6 +167,7 @@ const EntryDownload = ({ nResults }: Props) => {
         })
       );
     } else if (namespace === Namespace.uniref) {
+      warn('tried downloading a UniRef member tsv > 500');
       messagesDispatch(
         addMessage({
           id: 'uniref-stream-warning',
