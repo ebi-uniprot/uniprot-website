@@ -1,5 +1,5 @@
 import qs from 'query-string';
-import joinUrl from '../../shared/config/testingApiUrls'; // TODO: revert import to: import joinUrl from 'url-join'
+import joinUrl from 'url-join';
 
 import { apiPrefix } from '../../shared/config/apiUrls';
 import { FileFormat } from '../../shared/types/resultsDownload';
