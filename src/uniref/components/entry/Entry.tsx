@@ -95,7 +95,10 @@ const Entry = () => {
           <Overview transformedData={transformedData} />
           <div className="button-group">
             <BlastButton selectedEntries={[accession]} />
-            <EntryDownload />
+            {
+              // TODO: evenutally remove nResults prop (see note in EntryDownload)
+            }
+            <EntryDownload nResults={transformedData.memberCount} />
             <AddToBasketButton selectedEntries={accession} />
           </div>
         </ErrorBoundary>
