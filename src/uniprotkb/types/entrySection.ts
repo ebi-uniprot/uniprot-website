@@ -7,7 +7,7 @@ export enum EntrySection {
   DiseaseAndDrugs = 'disease_and_drugs',
   Phenotypes = 'phenotypes',
   ProteinProcessing = 'ptm_processing',
-  Sequence = 'sequence',
+  Sequence = 'sequences',
   Structure = 'structure',
   SubCellularLocation = 'subcellular_location',
   ExternalLinks = 'external_links',
