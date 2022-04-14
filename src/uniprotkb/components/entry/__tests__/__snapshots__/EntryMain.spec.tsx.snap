@@ -2619,7 +2619,7 @@ exports[`Entry view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb/P12345#sequence"
+                    href="/uniprotkb/P12345#sequences"
                   >
                     gene1 PROC_12347 P12345-1
                   </a>
@@ -2925,7 +2925,7 @@ exports[`Entry view should render 1`] = `
   <section
     class="card"
     data-entry-section="true"
-    id="sequence"
+    id="sequences"
   >
     <div
       class="card__container"
@@ -6675,7 +6675,7 @@ exports[`Entry view should render for non-human entry 1`] = `
   <section
     class="card"
     data-entry-section="true"
-    id="sequence"
+    id="sequences"
   >
     <div
       class="card__container"

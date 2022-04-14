@@ -160,7 +160,7 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/P11413#sequence"
+              href="/uniprotkb/P11413#sequences"
             >
               3 isoforms
             </a>
@@ -348,7 +348,7 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/P36871#sequence"
+              href="/uniprotkb/P36871#sequences"
             >
               3 isoforms
             </a>
@@ -663,7 +663,7 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/P13866#sequence"
+              href="/uniprotkb/P13866#sequences"
             >
               2 isoforms
             </a>
@@ -988,7 +988,7 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/O95479#sequence"
+              href="/uniprotkb/O95479#sequences"
             >
               2 isoforms
             </a>
@@ -1152,7 +1152,7 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/P31639#sequence"
+              href="/uniprotkb/P31639#sequences"
             >
               2 isoforms
             </a>
@@ -1510,7 +1510,7 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/Q16851#sequence"
+              href="/uniprotkb/Q16851#sequences"
             >
               2 isoforms
             </a>
@@ -1683,7 +1683,7 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/Q96G03#sequence"
+              href="/uniprotkb/Q96G03#sequences"
             >
               2 isoforms
             </a>
@@ -2410,7 +2410,7 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/P11168#sequence"
+              href="/uniprotkb/P11168#sequences"
             >
               2 isoforms
             </a>
@@ -2569,7 +2569,7 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/Q8TDB8#sequence"
+              href="/uniprotkb/Q8TDB8#sequences"
             >
               5 isoforms
             </a>
@@ -2713,7 +2713,7 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/Q9UGQ3#sequence"
+              href="/uniprotkb/Q9UGQ3#sequences"
             >
               2 isoforms
             </a>
@@ -3160,7 +3160,7 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/Q9BYW1#sequence"
+              href="/uniprotkb/Q9BYW1#sequences"
             >
               4 isoforms
             </a>
@@ -3607,7 +3607,7 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/P35575#sequence"
+              href="/uniprotkb/P35575#sequences"
             >
               2 isoforms
             </a>

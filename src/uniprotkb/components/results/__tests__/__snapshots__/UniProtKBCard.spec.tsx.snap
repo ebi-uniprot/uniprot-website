@@ -104,7 +104,7 @@ exports[`UniProtKBCard component should render 1`] = `
     >
       <a
         class="card-action"
-        href="/uniprotkb/P21802#sequence"
+        href="/uniprotkb/P21802#sequences"
       >
         1 isoform
       </a>
