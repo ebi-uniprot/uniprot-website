@@ -1,10 +1,4 @@
-.variation-view {
-  display: grid;
-  grid-template-columns: 12vw 1fr;
-  gap: 0.2rem 0.7rem;
-
-  protvista-navigation,
-  protvista-sequence {
-    grid-column-start: 2;
-  }
+.change {
+  max-inline-size: 10ch;
+  word-wrap: break-word;
 }
