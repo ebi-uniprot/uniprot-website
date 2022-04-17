@@ -242,6 +242,14 @@ const BlastResult = () => {
             selectedFacets: urlParams.selectedFacets,
             facets: [],
             query,
+            // Most of the needed data is already in the BLAST JSON payload
+            columns: [
+              namespace === Namespace.uniprotkb && 'accession',
+              namespace === Namespace.uniref && 'id',
+              namespace === Namespace.uniref && 'name',
+              namespace === Namespace.uniref && 'common_taxon',
+              namespace === Namespace.uniparc && 'upi',
+            ].filter((x: string | boolean): x is string => Boolean(x)),
           }),
         [
           accessionsFilteredByLocalFacets,

@@ -118,6 +118,11 @@ const toolsMiddleware = (
     expiredJobs();
   };
 
+  // Just one time on instantiation in case there are pending jobs
+  pollJobs.schedule();
+  // Just one time on instantiation in case there are expired jobs
+  expiredJobs.schedule();
+
   return (action) => {
     if (action.type === CREATE_JOB) {
       pollJobs.schedule();
