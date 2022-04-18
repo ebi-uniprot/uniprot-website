@@ -1,4 +1,4 @@
-import { FC, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { DoughnutChart, ChevronDownIcon } from 'franklin-sites';
 
 import { EnrichedData } from './BlastResult';
@@ -16,7 +16,7 @@ type TaxItemProps = {
   ratio: number;
 };
 
-const TaxItem: FC<TaxItemProps> = ({ taxNode, ratio }) => {
+const TaxItem = ({ taxNode, ratio }: TaxItemProps) => {
   const [open, setOpen] = useState(true);
 
   let chevronMaybe = null;
@@ -51,7 +51,7 @@ const isDefined = (value: string | false | undefined): value is string =>
   Boolean(value);
 
 // Only works for UniProtKB results at the moment
-const BlastResultTaxonomy: FC<{ data: EnrichedData | null }> = ({ data }) => {
+const BlastResultTaxonomy = ({ data }: { data: EnrichedData | null }) => {
   const tree = useMemo(() => {
     const lineages = ((data || {}).hits || [])
       // extract lineages and do copy (to not mess up the original)
