@@ -5,6 +5,8 @@ import { Button, SlidingPanel } from 'franklin-sites';
 
 import ErrorBoundary from '../error-component/ErrorBoundary';
 
+import useJobFromUrl from '../../hooks/useJobFromUrl';
+
 import lazy from '../../utils/lazy';
 
 import {
@@ -27,6 +29,7 @@ const TaxonomyFacet: FC<{ namespace: SearchableNamespace }> = ({
   namespace,
 }) => {
   const { search } = useLocation();
+  const { jobId } = useJobFromUrl();
 
   const parsedSearch = qsParse(search);
   const parsedClauses = parse(parsedSearch?.query as string | undefined);
@@ -89,7 +92,7 @@ const TaxonomyFacet: FC<{ namespace: SearchableNamespace }> = ({
               <QueryBuilder
                 onCancel={handleClose}
                 fieldToAdd="taxonomy_name"
-                initialSearchspace={namespace}
+                initialSearchspace={jobId ? 'toolResults' : namespace}
               />
             </ErrorBoundary>
           </SlidingPanel>
