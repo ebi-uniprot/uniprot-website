@@ -211,7 +211,10 @@ const PeptideSearchResult = ({
     default:
       sidebar = (
         <ErrorBoundary>
-          <ResultsFacets dataApiObject={facetApiObject} />
+          <ResultsFacets
+            dataApiObject={facetApiObject}
+            namespaceOverride={Namespace.uniprotkb}
+          />
         </ErrorBoundary>
       );
       break;
