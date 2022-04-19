@@ -5,10 +5,10 @@ exports[`ResultsData component should render the card view with the correct numb
   <div
     class="results-data"
   >
-    <div
-      class="data-list"
+    <ul
+      class="data-list no-bullet"
     >
-      <section>
+      <li>
         <section
           class="card"
         >
@@ -187,8 +187,8 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -372,8 +372,8 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -502,8 +502,8 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -675,8 +675,8 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -815,8 +815,8 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -988,8 +988,8 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -1155,8 +1155,8 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -1338,8 +1338,8 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -1513,8 +1513,8 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -1671,8 +1671,8 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -1800,8 +1800,8 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -1945,8 +1945,8 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -2091,8 +2091,8 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -2231,8 +2231,8 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -2383,8 +2383,8 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -2533,8 +2533,8 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -2680,8 +2680,8 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -2831,8 +2831,8 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -2977,8 +2977,8 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -3112,8 +3112,8 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -3259,8 +3259,8 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -3399,8 +3399,8 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -3562,8 +3562,8 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -3691,8 +3691,8 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -3841,8 +3841,8 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
           </div>
         </section>
-      </section>
-    </div>
+      </li>
+    </ul>
     <div
       class="data-loader__loading"
     >

@@ -1567,10 +1567,10 @@ exports[`EntryMain view should render 1`] = `
     <h2>
       Publications
     </h2>
-    <div
-      class="data-list"
+    <ul
+      class="data-list no-bullet"
     >
-      <section>
+      <li>
         <section
           class="card"
         >
@@ -1737,8 +1737,8 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -1905,8 +1905,8 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -2073,8 +2073,8 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -2241,8 +2241,8 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -2409,8 +2409,8 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -2577,8 +2577,8 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -2745,8 +2745,8 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -2913,8 +2913,8 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -3081,8 +3081,8 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -3249,8 +3249,8 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -3417,8 +3417,8 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -3585,8 +3585,8 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -3753,8 +3753,8 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -3921,8 +3921,8 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -4089,8 +4089,8 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -4257,8 +4257,8 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -4425,8 +4425,8 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -4593,8 +4593,8 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -4761,8 +4761,8 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -4929,8 +4929,8 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -5102,8 +5102,8 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -5270,8 +5270,8 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -5438,8 +5438,8 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
           class="card"
         >
@@ -5606,8 +5606,8 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-    </div>
+      </li>
+    </ul>
   </section>
 </DocumentFragment>
 `;
