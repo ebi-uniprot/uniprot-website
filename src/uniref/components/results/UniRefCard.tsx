@@ -1,4 +1,5 @@
 import { Card } from 'franklin-sites';
+import { Link } from 'react-router-dom';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import RenderColumnsInCard from '../../../shared/components/results/RenderColumnsInCard';
@@ -33,13 +34,14 @@ const UniRefCard = ({ data }: { data: UniRefLiteAPIModel }) => {
         <>
           <CardCheckboxCell id={id} />
           <h2 className="small">
-            <EntryTitle mainTitle={id} entryType={data.memberIdTypes} />
+            <Link to={getEntryPath(Namespace.uniref, id)}>
+              <EntryTitle mainTitle={id} entryType={data.memberIdTypes} />
+            </Link>
           </h2>
           <BasketStatus id={id} className="tiny" />
         </>
       }
       headerSeparator={false}
-      to={getEntryPath(Namespace.uniref, id)}
     >
       <RenderColumnsInCard data={data} renderers={mainInfoColumns} />
     </Card>

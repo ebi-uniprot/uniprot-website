@@ -1567,20 +1567,13 @@ exports[`EntryMain view should render 1`] = `
     <h2>
       Publications
     </h2>
-    <div
-      class="data-list"
+    <ul
+      class="data-list no-bullet"
     >
-      <section>
+      <li>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/citations/7219534"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -1602,7 +1595,11 @@ exports[`EntryMain view should render 1`] = `
                       <h3
                         class="publication__heading small"
                       >
-                        Sequence and organization of the human mitochondrial genome.
+                        <a
+                          href="/citations/7219534"
+                        >
+                          Sequence and organization of the human mitochondrial genome.
+                        </a>
                       </h3>
                       <div
                         class="publication__authors"
@@ -1740,18 +1737,11 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/citations/10591208"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -1773,7 +1763,11 @@ exports[`EntryMain view should render 1`] = `
                       <h3
                         class="publication__heading small"
                       >
-                        The DNA sequence of human chromosome 22.
+                        <a
+                          href="/citations/10591208"
+                        >
+                          The DNA sequence of human chromosome 22.
+                        </a>
                       </h3>
                       <div
                         class="publication__authors"
@@ -1911,18 +1905,11 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/citations/10830953"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -1944,7 +1931,11 @@ exports[`EntryMain view should render 1`] = `
                       <h3
                         class="publication__heading small"
                       >
-                        The DNA sequence of human chromosome 21.
+                        <a
+                          href="/citations/10830953"
+                        >
+                          The DNA sequence of human chromosome 21.
+                        </a>
                       </h3>
                       <div
                         class="publication__authors"
@@ -2082,18 +2073,11 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/citations/11780052"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -2115,7 +2099,11 @@ exports[`EntryMain view should render 1`] = `
                       <h3
                         class="publication__heading small"
                       >
-                        The DNA sequence and comparative analysis of human chromosome 20.
+                        <a
+                          href="/citations/11780052"
+                        >
+                          The DNA sequence and comparative analysis of human chromosome 20.
+                        </a>
                       </h3>
                       <div
                         class="publication__authors"
@@ -2253,18 +2241,11 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/citations/12508121"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -2286,7 +2267,11 @@ exports[`EntryMain view should render 1`] = `
                       <h3
                         class="publication__heading small"
                       >
-                        The DNA sequence and analysis of human chromosome 14.
+                        <a
+                          href="/citations/12508121"
+                        >
+                          The DNA sequence and analysis of human chromosome 14.
+                        </a>
                       </h3>
                       <div
                         class="publication__authors"
@@ -2424,18 +2409,11 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/citations/12815422"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -2457,7 +2435,11 @@ exports[`EntryMain view should render 1`] = `
                       <h3
                         class="publication__heading small"
                       >
-                        The male-specific region of the human Y chromosome is a mosaic of discrete sequence classes.
+                        <a
+                          href="/citations/12815422"
+                        >
+                          The male-specific region of the human Y chromosome is a mosaic of discrete sequence classes.
+                        </a>
                       </h3>
                       <div
                         class="publication__authors"
@@ -2595,18 +2577,11 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/citations/12853948"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -2628,7 +2603,11 @@ exports[`EntryMain view should render 1`] = `
                       <h3
                         class="publication__heading small"
                       >
-                        The DNA sequence of human chromosome 7.
+                        <a
+                          href="/citations/12853948"
+                        >
+                          The DNA sequence of human chromosome 7.
+                        </a>
                       </h3>
                       <div
                         class="publication__authors"
@@ -2766,18 +2745,11 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/citations/14574404"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -2799,7 +2771,11 @@ exports[`EntryMain view should render 1`] = `
                       <h3
                         class="publication__heading small"
                       >
-                        The DNA sequence and analysis of human chromosome 6.
+                        <a
+                          href="/citations/14574404"
+                        >
+                          The DNA sequence and analysis of human chromosome 6.
+                        </a>
                       </h3>
                       <div
                         class="publication__authors"
@@ -2937,18 +2913,11 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/citations/15057823"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -2970,7 +2939,11 @@ exports[`EntryMain view should render 1`] = `
                       <h3
                         class="publication__heading small"
                       >
-                        The DNA sequence and analysis of human chromosome 13.
+                        <a
+                          href="/citations/15057823"
+                        >
+                          The DNA sequence and analysis of human chromosome 13.
+                        </a>
                       </h3>
                       <div
                         class="publication__authors"
@@ -3108,18 +3081,11 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/citations/15057824"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -3141,7 +3107,11 @@ exports[`EntryMain view should render 1`] = `
                       <h3
                         class="publication__heading small"
                       >
-                        The DNA sequence and biology of human chromosome 19.
+                        <a
+                          href="/citations/15057824"
+                        >
+                          The DNA sequence and biology of human chromosome 19.
+                        </a>
                       </h3>
                       <div
                         class="publication__authors"
@@ -3279,18 +3249,11 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/citations/15164053"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -3312,7 +3275,11 @@ exports[`EntryMain view should render 1`] = `
                       <h3
                         class="publication__heading small"
                       >
-                        DNA sequence and analysis of human chromosome 9.
+                        <a
+                          href="/citations/15164053"
+                        >
+                          DNA sequence and analysis of human chromosome 9.
+                        </a>
                       </h3>
                       <div
                         class="publication__authors"
@@ -3450,18 +3417,11 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/citations/15164054"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -3483,7 +3443,11 @@ exports[`EntryMain view should render 1`] = `
                       <h3
                         class="publication__heading small"
                       >
-                        The DNA sequence and comparative analysis of human chromosome 10.
+                        <a
+                          href="/citations/15164054"
+                        >
+                          The DNA sequence and comparative analysis of human chromosome 10.
+                        </a>
                       </h3>
                       <div
                         class="publication__authors"
@@ -3621,18 +3585,11 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/citations/15372022"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -3654,7 +3611,11 @@ exports[`EntryMain view should render 1`] = `
                       <h3
                         class="publication__heading small"
                       >
-                        The DNA sequence and comparative analysis of human chromosome 5.
+                        <a
+                          href="/citations/15372022"
+                        >
+                          The DNA sequence and comparative analysis of human chromosome 5.
+                        </a>
                       </h3>
                       <div
                         class="publication__authors"
@@ -3792,18 +3753,11 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/citations/15616553"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -3825,7 +3779,11 @@ exports[`EntryMain view should render 1`] = `
                       <h3
                         class="publication__heading small"
                       >
-                        The sequence and analysis of duplication-rich human chromosome 16.
+                        <a
+                          href="/citations/15616553"
+                        >
+                          The sequence and analysis of duplication-rich human chromosome 16.
+                        </a>
                       </h3>
                       <div
                         class="publication__authors"
@@ -3963,18 +3921,11 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/citations/15772651"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -3996,7 +3947,11 @@ exports[`EntryMain view should render 1`] = `
                       <h3
                         class="publication__heading small"
                       >
-                        The DNA sequence of the human X chromosome.
+                        <a
+                          href="/citations/15772651"
+                        >
+                          The DNA sequence of the human X chromosome.
+                        </a>
                       </h3>
                       <div
                         class="publication__authors"
@@ -4134,18 +4089,11 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/citations/15815621"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -4167,7 +4115,11 @@ exports[`EntryMain view should render 1`] = `
                       <h3
                         class="publication__heading small"
                       >
-                        Generation and annotation of the DNA sequences of human chromosomes 2 and 4.
+                        <a
+                          href="/citations/15815621"
+                        >
+                          Generation and annotation of the DNA sequences of human chromosomes 2 and 4.
+                        </a>
                       </h3>
                       <div
                         class="publication__authors"
@@ -4305,18 +4257,11 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/citations/16177791"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -4338,7 +4283,11 @@ exports[`EntryMain view should render 1`] = `
                       <h3
                         class="publication__heading small"
                       >
-                        DNA sequence and analysis of human chromosome 18.
+                        <a
+                          href="/citations/16177791"
+                        >
+                          DNA sequence and analysis of human chromosome 18.
+                        </a>
                       </h3>
                       <div
                         class="publication__authors"
@@ -4476,18 +4425,11 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/citations/16421571"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -4509,7 +4451,11 @@ exports[`EntryMain view should render 1`] = `
                       <h3
                         class="publication__heading small"
                       >
-                        DNA sequence and analysis of human chromosome 8.
+                        <a
+                          href="/citations/16421571"
+                        >
+                          DNA sequence and analysis of human chromosome 8.
+                        </a>
                       </h3>
                       <div
                         class="publication__authors"
@@ -4647,18 +4593,11 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/citations/16625196"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -4680,7 +4619,11 @@ exports[`EntryMain view should render 1`] = `
                       <h3
                         class="publication__heading small"
                       >
-                        DNA sequence of human chromosome 17 and analysis of rearrangement in the human lineage.
+                        <a
+                          href="/citations/16625196"
+                        >
+                          DNA sequence of human chromosome 17 and analysis of rearrangement in the human lineage.
+                        </a>
                       </h3>
                       <div
                         class="publication__authors"
@@ -4818,18 +4761,11 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/citations/16641997"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -4851,7 +4787,11 @@ exports[`EntryMain view should render 1`] = `
                       <h3
                         class="publication__heading small"
                       >
-                        The DNA sequence, annotation and analysis of human chromosome 3.
+                        <a
+                          href="/citations/16641997"
+                        >
+                          The DNA sequence, annotation and analysis of human chromosome 3.
+                        </a>
                       </h3>
                       <div
                         class="publication__authors"
@@ -4989,18 +4929,11 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/citations/16541075"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -5022,7 +4955,11 @@ exports[`EntryMain view should render 1`] = `
                       <h3
                         class="publication__heading small"
                       >
-                        The finished DNA sequence of human chromosome 12.
+                        <a
+                          href="/citations/16541075"
+                        >
+                          The finished DNA sequence of human chromosome 12.
+                        </a>
                       </h3>
                       <div
                         class="publication__authors"
@@ -5165,18 +5102,11 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/citations/16554811"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -5198,7 +5128,11 @@ exports[`EntryMain view should render 1`] = `
                       <h3
                         class="publication__heading small"
                       >
-                        Human chromosome 11 DNA sequence and analysis including novel gene identification.
+                        <a
+                          href="/citations/16554811"
+                        >
+                          Human chromosome 11 DNA sequence and analysis including novel gene identification.
+                        </a>
                       </h3>
                       <div
                         class="publication__authors"
@@ -5336,18 +5270,11 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/citations/16572171"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -5369,7 +5296,11 @@ exports[`EntryMain view should render 1`] = `
                       <h3
                         class="publication__heading small"
                       >
-                        Analysis of the DNA sequence and duplication history of human chromosome 15.
+                        <a
+                          href="/citations/16572171"
+                        >
+                          Analysis of the DNA sequence and duplication history of human chromosome 15.
+                        </a>
                       </h3>
                       <div
                         class="publication__authors"
@@ -5507,18 +5438,11 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-      <section>
+      </li>
+      <li>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/citations/16710414"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -5540,7 +5464,11 @@ exports[`EntryMain view should render 1`] = `
                       <h3
                         class="publication__heading small"
                       >
-                        The DNA sequence and biological annotation of human chromosome 1.
+                        <a
+                          href="/citations/16710414"
+                        >
+                          The DNA sequence and biological annotation of human chromosome 1.
+                        </a>
                       </h3>
                       <div
                         class="publication__authors"
@@ -5678,8 +5606,8 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </div>
         </section>
-      </section>
-    </div>
+      </li>
+    </ul>
   </section>
 </DocumentFragment>
 `;

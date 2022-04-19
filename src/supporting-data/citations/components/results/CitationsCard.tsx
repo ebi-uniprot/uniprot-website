@@ -3,7 +3,6 @@ import { Card } from 'franklin-sites';
 import LiteratureCitation from '../LiteratureCitation';
 import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';
 
-import { getEntryPath } from '../../../../app/config/urls';
 import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
 
 import { Namespace } from '../../../../shared/types/namespaces';
@@ -23,10 +22,14 @@ const CitationsCard = ({ data, headingLevel = 'h2', notSelectable }: Props) => {
   const id = getIdKey(data);
 
   return (
-    <Card to={getEntryPath(Namespace.citations, id)}>
+    <Card>
       <div className={styles['card-content']}>
         {notSelectable ? null : <CardCheckboxCell id={id} />}
-        <LiteratureCitation data={data} headingLevel={headingLevel} />
+        <LiteratureCitation
+          data={data}
+          headingLevel={headingLevel}
+          linkToEntry
+        />
       </div>
     </Card>
   );

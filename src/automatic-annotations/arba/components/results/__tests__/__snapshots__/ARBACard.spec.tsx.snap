@@ -3,15 +3,8 @@
 exports[`ARBACard tests should render the card component 1`] = `
 <DocumentFragment>
   <section
-    class="card card--has-link"
+    class="card"
   >
-    <a
-      aria-hidden="true"
-      class="card__link"
-      data-testid="background-link"
-      href="/arba/ARBA00013665"
-      tabindex="-1"
-    />
     <div
       class="card__container"
     >
@@ -35,12 +28,13 @@ exports[`ARBACard tests should render the card component 1`] = `
         <h2
           class="small"
         >
-          ARBA00013665
+          <a
+            href="/arba/ARBA00013665"
+          >
+            ARBA00013665
+          </a>
         </h2>
       </div>
-      <div
-        class="card__content"
-      />
     </div>
     <div
       class="card__actions"

@@ -27,7 +27,6 @@ const HelpCard = ({ id, title, titleMatch, contentMatch }: Props) => {
         </h2>
       }
       headerSeparator={false}
-      to={to}
     >
       {contentMatch && <CleanHighlightMarkDown md={contentMatch} />}
     </Card>

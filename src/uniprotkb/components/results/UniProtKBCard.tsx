@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { Card } from 'franklin-sites';
+import { Link } from 'react-router-dom';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import { KeywordList } from '../protein-data-views/KeywordView';
@@ -41,17 +42,18 @@ const UniProtKBCard = ({ data }: { data: UniProtkbAPIModel }) => {
         <>
           <CardCheckboxCell id={id} />
           <h2 className="small">
-            <EntryTitle
-              mainTitle={id}
-              optionalTitle={data.uniProtkbId}
-              entryType={data.entryType}
-            />
+            <Link to={getEntryPath(Namespace.uniprotkb, id)}>
+              <EntryTitle
+                mainTitle={id}
+                optionalTitle={data.uniProtkbId}
+                entryType={data.entryType}
+              />
+            </Link>
           </h2>
           <BasketStatus id={id} className="tiny" />
         </>
       }
       headerSeparator={false}
-      to={getEntryPath(Namespace.uniprotkb, id)}
       links={highlights}
     >
       <ProteinOverview data={data} />

@@ -25,11 +25,7 @@ import { getIdKeyFor } from '../../../shared/utils/getIdKeyForNamespace';
 import { getParamsFromURL } from '../../utils/resultsUtils';
 import { processUrlTemplate } from '../protein-data-views/XRefView';
 
-import {
-  getEntryPath,
-  Location,
-  LocationToPath,
-} from '../../../app/config/urls';
+import { Location, LocationToPath } from '../../../app/config/urls';
 import { getUniProtPublicationsQueryUrl } from '../../../shared/config/apiUrls';
 
 import {
@@ -174,8 +170,8 @@ const cardRendererFor =
     >
   ) =>
     (
-      <Card to={getEntryPath(Namespace.citations, getIdKey(data))}>
-        <LiteratureCitation data={data} headingLevel="h3">
+      <Card>
+        <LiteratureCitation data={data} headingLevel="h3" linkToEntry>
           {data.references.map((reference, index) => (
             <PublicationReference
               reference={reference}
