@@ -142,7 +142,7 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
     );
 
     // Race between all of the queries having finished or the timeout triggering
-    Promise.race([Promise.all(promises), sleep(TIMEOUT)]).then(() => {
+    Promise.race([Promise.all(promises), sleep(TIMEOUT)]).finally(() => {
       setRenderContent(true);
     });
   }, [currentNamespace, query, setRenderContent]);
