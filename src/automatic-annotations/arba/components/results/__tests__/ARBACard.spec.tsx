@@ -1,4 +1,4 @@
-import { fireEvent, screen } from '@testing-library/react';
+import { fireEvent, screen, within } from '@testing-library/react';
 
 import customRender from '../../../../../shared/__test-helpers__/customRender';
 
@@ -14,7 +14,7 @@ describe('ARBACard tests', () => {
 
   it('should allow card navigation', () => {
     const { history } = customRender(<ARBACard data={arbaData[0]} />);
-    fireEvent.click(screen.getByTestId('background-link'));
+    fireEvent.click(within(screen.getByRole('heading')).getByRole('link'));
     expect(history.location.pathname).toMatch('/arba/ARBA00013665');
   });
 });

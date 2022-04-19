@@ -3,15 +3,8 @@
 exports[`ProteomesCard tests should render the card component 1`] = `
 <DocumentFragment>
   <section
-    class="card card--has-link"
+    class="card"
   >
-    <a
-      aria-hidden="true"
-      class="card__link"
-      data-testid="background-link"
-      href="/proteomes/UP000005640"
-      tabindex="-1"
-    />
     <div
       class="card__container"
     >
@@ -35,17 +28,21 @@ exports[`ProteomesCard tests should render the card component 1`] = `
         <h2
           class="small"
         >
-          <span
-            class="entry-title"
+          <a
+            href="/proteomes/UP000005640"
           >
             <span
-              class="entry-title__status icon--reference-proteome"
-              title="This marks a reference Proteome entry"
+              class="entry-title"
             >
-              <test-file-stub />
+              <span
+                class="entry-title__status icon--reference-proteome"
+                title="This marks a reference Proteome entry"
+              >
+                <test-file-stub />
+              </span>
+              UP000005640
             </span>
-            UP000005640
-          </span>
+          </a>
         </h2>
       </div>
       <div

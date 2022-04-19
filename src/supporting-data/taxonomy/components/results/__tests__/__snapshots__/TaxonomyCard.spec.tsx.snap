@@ -3,15 +3,8 @@
 exports[`Taxonomy Card tests should render 1`] = `
 <DocumentFragment>
   <section
-    class="card card--has-link"
+    class="card"
   >
-    <a
-      aria-hidden="true"
-      class="card__link"
-      data-testid="background-link"
-      href="/taxonomy/11652"
-      tabindex="-1"
-    />
     <div
       class="card__container"
     >

@@ -10,15 +10,8 @@ exports[`ResultsData component should render the card view with the correct numb
     >
       <section>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/uniprotkb/P11413"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -42,17 +35,21 @@ exports[`ResultsData component should render the card view with the correct numb
               <h2
                 class="small"
               >
-                <span
-                  class="entry-title"
+                <a
+                  href="/uniprotkb/P11413"
                 >
                   <span
-                    class="entry-title__status icon--reviewed"
-                    title="This marks a reviewed UniProtKB entry"
+                    class="entry-title"
                   >
-                    <test-file-stub />
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    P11413 · G6PD_HUMAN
                   </span>
-                  P11413 · G6PD_HUMAN
-                </span>
+                </a>
               </h2>
             </div>
             <div
@@ -193,15 +190,8 @@ exports[`ResultsData component should render the card view with the correct numb
       </section>
       <section>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/uniprotkb/P36871"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -225,17 +215,21 @@ exports[`ResultsData component should render the card view with the correct numb
               <h2
                 class="small"
               >
-                <span
-                  class="entry-title"
+                <a
+                  href="/uniprotkb/P36871"
                 >
                   <span
-                    class="entry-title__status icon--reviewed"
-                    title="This marks a reviewed UniProtKB entry"
+                    class="entry-title"
                   >
-                    <test-file-stub />
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    P36871 · PGM1_HUMAN
                   </span>
-                  P36871 · PGM1_HUMAN
-                </span>
+                </a>
               </h2>
             </div>
             <div
@@ -381,15 +375,8 @@ exports[`ResultsData component should render the card view with the correct numb
       </section>
       <section>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/uniprotkb/P19926"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -413,17 +400,21 @@ exports[`ResultsData component should render the card view with the correct numb
               <h2
                 class="small"
               >
-                <span
-                  class="entry-title"
+                <a
+                  href="/uniprotkb/P19926"
                 >
                   <span
-                    class="entry-title__status icon--reviewed"
-                    title="This marks a reviewed UniProtKB entry"
+                    class="entry-title"
                   >
-                    <test-file-stub />
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    P19926 · AGP_ECOLI
                   </span>
-                  P19926 · AGP_ECOLI
-                </span>
+                </a>
               </h2>
             </div>
             <div
@@ -514,15 +505,8 @@ exports[`ResultsData component should render the card view with the correct numb
       </section>
       <section>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/uniprotkb/P13866"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -546,17 +530,21 @@ exports[`ResultsData component should render the card view with the correct numb
               <h2
                 class="small"
               >
-                <span
-                  class="entry-title"
+                <a
+                  href="/uniprotkb/P13866"
                 >
                   <span
-                    class="entry-title__status icon--reviewed"
-                    title="This marks a reviewed UniProtKB entry"
+                    class="entry-title"
                   >
-                    <test-file-stub />
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    P13866 · SC5A1_HUMAN
                   </span>
-                  P13866 · SC5A1_HUMAN
-                </span>
+                </a>
               </h2>
             </div>
             <div
@@ -690,15 +678,8 @@ exports[`ResultsData component should render the card view with the correct numb
       </section>
       <section>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/uniprotkb/P11411"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -722,17 +703,21 @@ exports[`ResultsData component should render the card view with the correct numb
               <h2
                 class="small"
               >
-                <span
-                  class="entry-title"
+                <a
+                  href="/uniprotkb/P11411"
                 >
                   <span
-                    class="entry-title__status icon--reviewed"
-                    title="This marks a reviewed UniProtKB entry"
+                    class="entry-title"
                   >
-                    <test-file-stub />
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    P11411 · G6PD_LEUME
                   </span>
-                  P11411 · G6PD_LEUME
-                </span>
+                </a>
               </h2>
             </div>
             <div
@@ -833,15 +818,8 @@ exports[`ResultsData component should render the card view with the correct numb
       </section>
       <section>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/uniprotkb/O95479"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -865,17 +843,21 @@ exports[`ResultsData component should render the card view with the correct numb
               <h2
                 class="small"
               >
-                <span
-                  class="entry-title"
+                <a
+                  href="/uniprotkb/O95479"
                 >
                   <span
-                    class="entry-title__status icon--reviewed"
-                    title="This marks a reviewed UniProtKB entry"
+                    class="entry-title"
                   >
-                    <test-file-stub />
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    O95479 · G6PE_HUMAN
                   </span>
-                  O95479 · G6PE_HUMAN
-                </span>
+                </a>
               </h2>
             </div>
             <div
@@ -1009,15 +991,8 @@ exports[`ResultsData component should render the card view with the correct numb
       </section>
       <section>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/uniprotkb/P31639"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -1041,17 +1016,21 @@ exports[`ResultsData component should render the card view with the correct numb
               <h2
                 class="small"
               >
-                <span
-                  class="entry-title"
+                <a
+                  href="/uniprotkb/P31639"
                 >
                   <span
-                    class="entry-title__status icon--reviewed"
-                    title="This marks a reviewed UniProtKB entry"
+                    class="entry-title"
                   >
-                    <test-file-stub />
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    P31639 · SC5A2_HUMAN
                   </span>
-                  P31639 · SC5A2_HUMAN
-                </span>
+                </a>
               </h2>
             </div>
             <div
@@ -1179,15 +1158,8 @@ exports[`ResultsData component should render the card view with the correct numb
       </section>
       <section>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/uniprotkb/P11166"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -1211,17 +1183,21 @@ exports[`ResultsData component should render the card view with the correct numb
               <h2
                 class="small"
               >
-                <span
-                  class="entry-title"
+                <a
+                  href="/uniprotkb/P11166"
                 >
                   <span
-                    class="entry-title__status icon--reviewed"
-                    title="This marks a reviewed UniProtKB entry"
+                    class="entry-title"
                   >
-                    <test-file-stub />
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    P11166 · GTR1_HUMAN
                   </span>
-                  P11166 · GTR1_HUMAN
-                </span>
+                </a>
               </h2>
             </div>
             <div
@@ -1365,15 +1341,8 @@ exports[`ResultsData component should render the card view with the correct numb
       </section>
       <section>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/uniprotkb/Q16851"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -1397,17 +1366,21 @@ exports[`ResultsData component should render the card view with the correct numb
               <h2
                 class="small"
               >
-                <span
-                  class="entry-title"
+                <a
+                  href="/uniprotkb/Q16851"
                 >
                   <span
-                    class="entry-title__status icon--reviewed"
-                    title="This marks a reviewed UniProtKB entry"
+                    class="entry-title"
                   >
-                    <test-file-stub />
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    Q16851 · UGPA_HUMAN
                   </span>
-                  Q16851 · UGPA_HUMAN
-                </span>
+                </a>
               </h2>
             </div>
             <div
@@ -1543,15 +1516,8 @@ exports[`ResultsData component should render the card view with the correct numb
       </section>
       <section>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/uniprotkb/Q96G03"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -1575,17 +1541,21 @@ exports[`ResultsData component should render the card view with the correct numb
               <h2
                 class="small"
               >
-                <span
-                  class="entry-title"
+                <a
+                  href="/uniprotkb/Q96G03"
                 >
                   <span
-                    class="entry-title__status icon--reviewed"
-                    title="This marks a reviewed UniProtKB entry"
+                    class="entry-title"
                   >
-                    <test-file-stub />
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    Q96G03 · PGM2_HUMAN
                   </span>
-                  Q96G03 · PGM2_HUMAN
-                </span>
+                </a>
               </h2>
             </div>
             <div
@@ -1704,15 +1674,8 @@ exports[`ResultsData component should render the card view with the correct numb
       </section>
       <section>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/uniprotkb/Q9NY64"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -1736,17 +1699,21 @@ exports[`ResultsData component should render the card view with the correct numb
               <h2
                 class="small"
               >
-                <span
-                  class="entry-title"
+                <a
+                  href="/uniprotkb/Q9NY64"
                 >
                   <span
-                    class="entry-title__status icon--reviewed"
-                    title="This marks a reviewed UniProtKB entry"
+                    class="entry-title"
                   >
-                    <test-file-stub />
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    Q9NY64 · GTR8_HUMAN
                   </span>
-                  Q9NY64 · GTR8_HUMAN
-                </span>
+                </a>
               </h2>
             </div>
             <div
@@ -1836,15 +1803,8 @@ exports[`ResultsData component should render the card view with the correct numb
       </section>
       <section>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/uniprotkb/Q9FK51"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -1868,17 +1828,21 @@ exports[`ResultsData component should render the card view with the correct numb
               <h2
                 class="small"
               >
-                <span
-                  class="entry-title"
+                <a
+                  href="/uniprotkb/Q9FK51"
                 >
                   <span
-                    class="entry-title__status icon--reviewed"
-                    title="This marks a reviewed UniProtKB entry"
+                    class="entry-title"
                   >
-                    <test-file-stub />
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    Q9FK51 · AGLUP_ARATH
                   </span>
-                  Q9FK51 · AGLUP_ARATH
-                </span>
+                </a>
               </h2>
             </div>
             <div
@@ -1984,15 +1948,8 @@ exports[`ResultsData component should render the card view with the correct numb
       </section>
       <section>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/uniprotkb/Q42525"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -2016,17 +1973,21 @@ exports[`ResultsData component should render the card view with the correct numb
               <h2
                 class="small"
               >
-                <span
-                  class="entry-title"
+                <a
+                  href="/uniprotkb/Q42525"
                 >
                   <span
-                    class="entry-title__status icon--reviewed"
-                    title="This marks a reviewed UniProtKB entry"
+                    class="entry-title"
                   >
-                    <test-file-stub />
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    Q42525 · HXK1_ARATH
                   </span>
-                  Q42525 · HXK1_ARATH
-                </span>
+                </a>
               </h2>
             </div>
             <div
@@ -2133,15 +2094,8 @@ exports[`ResultsData component should render the card view with the correct numb
       </section>
       <section>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/uniprotkb/P38263"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -2165,17 +2119,21 @@ exports[`ResultsData component should render the card view with the correct numb
               <h2
                 class="small"
               >
-                <span
-                  class="entry-title"
+                <a
+                  href="/uniprotkb/P38263"
                 >
                   <span
-                    class="entry-title__status icon--reviewed"
-                    title="This marks a reviewed UniProtKB entry"
+                    class="entry-title"
                   >
-                    <test-file-stub />
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    P38263 · GID4_YEAST
                   </span>
-                  P38263 · GID4_YEAST
-                </span>
+                </a>
               </h2>
             </div>
             <div
@@ -2276,15 +2234,8 @@ exports[`ResultsData component should render the card view with the correct numb
       </section>
       <section>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/uniprotkb/P11168"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -2308,17 +2259,21 @@ exports[`ResultsData component should render the card view with the correct numb
               <h2
                 class="small"
               >
-                <span
-                  class="entry-title"
+                <a
+                  href="/uniprotkb/P11168"
                 >
                   <span
-                    class="entry-title__status icon--reviewed"
-                    title="This marks a reviewed UniProtKB entry"
+                    class="entry-title"
                   >
-                    <test-file-stub />
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    P11168 · GTR2_HUMAN
                   </span>
-                  P11168 · GTR2_HUMAN
-                </span>
+                </a>
               </h2>
             </div>
             <div
@@ -2431,15 +2386,8 @@ exports[`ResultsData component should render the card view with the correct numb
       </section>
       <section>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/uniprotkb/Q8TDB8"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -2463,17 +2411,21 @@ exports[`ResultsData component should render the card view with the correct numb
               <h2
                 class="small"
               >
-                <span
-                  class="entry-title"
+                <a
+                  href="/uniprotkb/Q8TDB8"
                 >
                   <span
-                    class="entry-title__status icon--reviewed"
-                    title="This marks a reviewed UniProtKB entry"
+                    class="entry-title"
                   >
-                    <test-file-stub />
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    Q8TDB8 · GTR14_HUMAN
                   </span>
-                  Q8TDB8 · GTR14_HUMAN
-                </span>
+                </a>
               </h2>
             </div>
             <div
@@ -2584,15 +2536,8 @@ exports[`ResultsData component should render the card view with the correct numb
       </section>
       <section>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/uniprotkb/Q9UGQ3"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -2616,17 +2561,21 @@ exports[`ResultsData component should render the card view with the correct numb
               <h2
                 class="small"
               >
-                <span
-                  class="entry-title"
+                <a
+                  href="/uniprotkb/Q9UGQ3"
                 >
                   <span
-                    class="entry-title__status icon--reviewed"
-                    title="This marks a reviewed UniProtKB entry"
+                    class="entry-title"
                   >
-                    <test-file-stub />
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    Q9UGQ3 · GTR6_HUMAN
                   </span>
-                  Q9UGQ3 · GTR6_HUMAN
-                </span>
+                </a>
               </h2>
             </div>
             <div
@@ -2734,15 +2683,8 @@ exports[`ResultsData component should render the card view with the correct numb
       </section>
       <section>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/uniprotkb/Q6PCE3"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -2766,17 +2708,21 @@ exports[`ResultsData component should render the card view with the correct numb
               <h2
                 class="small"
               >
-                <span
-                  class="entry-title"
+                <a
+                  href="/uniprotkb/Q6PCE3"
                 >
                   <span
-                    class="entry-title__status icon--reviewed"
-                    title="This marks a reviewed UniProtKB entry"
+                    class="entry-title"
                   >
-                    <test-file-stub />
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    Q6PCE3 · PGM2L_HUMAN
                   </span>
-                  Q6PCE3 · PGM2L_HUMAN
-                </span>
+                </a>
               </h2>
             </div>
             <div
@@ -2888,15 +2834,8 @@ exports[`ResultsData component should render the card view with the correct numb
       </section>
       <section>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/uniprotkb/Q9BUM1"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -2920,17 +2859,21 @@ exports[`ResultsData component should render the card view with the correct numb
               <h2
                 class="small"
               >
-                <span
-                  class="entry-title"
+                <a
+                  href="/uniprotkb/Q9BUM1"
                 >
                   <span
-                    class="entry-title__status icon--reviewed"
-                    title="This marks a reviewed UniProtKB entry"
+                    class="entry-title"
                   >
-                    <test-file-stub />
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    Q9BUM1 · G6PC3_HUMAN
                   </span>
-                  Q9BUM1 · G6PC3_HUMAN
-                </span>
+                </a>
               </h2>
             </div>
             <div
@@ -3037,15 +2980,8 @@ exports[`ResultsData component should render the card view with the correct numb
       </section>
       <section>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/uniprotkb/Q9BYW1"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -3069,17 +3005,21 @@ exports[`ResultsData component should render the card view with the correct numb
               <h2
                 class="small"
               >
-                <span
-                  class="entry-title"
+                <a
+                  href="/uniprotkb/Q9BYW1"
                 >
                   <span
-                    class="entry-title__status icon--reviewed"
-                    title="This marks a reviewed UniProtKB entry"
+                    class="entry-title"
                   >
-                    <test-file-stub />
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    Q9BYW1 · GTR11_HUMAN
                   </span>
-                  Q9BYW1 · GTR11_HUMAN
-                </span>
+                </a>
               </h2>
             </div>
             <div
@@ -3175,15 +3115,8 @@ exports[`ResultsData component should render the card view with the correct numb
       </section>
       <section>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/uniprotkb/P11169"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -3207,17 +3140,21 @@ exports[`ResultsData component should render the card view with the correct numb
               <h2
                 class="small"
               >
-                <span
-                  class="entry-title"
+                <a
+                  href="/uniprotkb/P11169"
                 >
                   <span
-                    class="entry-title__status icon--reviewed"
-                    title="This marks a reviewed UniProtKB entry"
+                    class="entry-title"
                   >
-                    <test-file-stub />
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    P11169 · GTR3_HUMAN
                   </span>
-                  P11169 · GTR3_HUMAN
-                </span>
+                </a>
               </h2>
             </div>
             <div
@@ -3325,15 +3262,8 @@ exports[`ResultsData component should render the card view with the correct numb
       </section>
       <section>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/uniprotkb/O95528"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -3357,17 +3287,21 @@ exports[`ResultsData component should render the card view with the correct numb
               <h2
                 class="small"
               >
-                <span
-                  class="entry-title"
+                <a
+                  href="/uniprotkb/O95528"
                 >
                   <span
-                    class="entry-title__status icon--reviewed"
-                    title="This marks a reviewed UniProtKB entry"
+                    class="entry-title"
                   >
-                    <test-file-stub />
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    O95528 · GTR10_HUMAN
                   </span>
-                  O95528 · GTR10_HUMAN
-                </span>
+                </a>
               </h2>
             </div>
             <div
@@ -3468,15 +3402,8 @@ exports[`ResultsData component should render the card view with the correct numb
       </section>
       <section>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/uniprotkb/P35575"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -3500,17 +3427,21 @@ exports[`ResultsData component should render the card view with the correct numb
               <h2
                 class="small"
               >
-                <span
-                  class="entry-title"
+                <a
+                  href="/uniprotkb/P35575"
                 >
                   <span
-                    class="entry-title__status icon--reviewed"
-                    title="This marks a reviewed UniProtKB entry"
+                    class="entry-title"
                   >
-                    <test-file-stub />
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    P35575 · G6PC1_HUMAN
                   </span>
-                  P35575 · G6PC1_HUMAN
-                </span>
+                </a>
               </h2>
             </div>
             <div
@@ -3634,15 +3565,8 @@ exports[`ResultsData component should render the card view with the correct numb
       </section>
       <section>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/uniprotkb/Q6PXP3"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -3666,17 +3590,21 @@ exports[`ResultsData component should render the card view with the correct numb
               <h2
                 class="small"
               >
-                <span
-                  class="entry-title"
+                <a
+                  href="/uniprotkb/Q6PXP3"
                 >
                   <span
-                    class="entry-title__status icon--reviewed"
-                    title="This marks a reviewed UniProtKB entry"
+                    class="entry-title"
                   >
-                    <test-file-stub />
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    Q6PXP3 · GTR7_HUMAN
                   </span>
-                  Q6PXP3 · GTR7_HUMAN
-                </span>
+                </a>
               </h2>
             </div>
             <div
@@ -3766,15 +3694,8 @@ exports[`ResultsData component should render the card view with the correct numb
       </section>
       <section>
         <section
-          class="card card--has-link"
+          class="card"
         >
-          <a
-            aria-hidden="true"
-            class="card__link"
-            data-testid="background-link"
-            href="/uniprotkb/Q16739"
-            tabindex="-1"
-          />
           <div
             class="card__container"
           >
@@ -3798,17 +3719,21 @@ exports[`ResultsData component should render the card view with the correct numb
               <h2
                 class="small"
               >
-                <span
-                  class="entry-title"
+                <a
+                  href="/uniprotkb/Q16739"
                 >
                   <span
-                    class="entry-title__status icon--reviewed"
-                    title="This marks a reviewed UniProtKB entry"
+                    class="entry-title"
                   >
-                    <test-file-stub />
+                    <span
+                      class="entry-title__status icon--reviewed"
+                      title="This marks a reviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    Q16739 · CEGT_HUMAN
                   </span>
-                  Q16739 · CEGT_HUMAN
-                </span>
+                </a>
               </h2>
             </div>
             <div
