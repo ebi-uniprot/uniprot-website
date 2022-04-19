@@ -33,9 +33,9 @@ import {
   CitationType,
   formatCitationData,
 } from '../adapters/citationsConverter';
+import { Namespace } from '../../../shared/types/namespaces';
 
 import '../../../shared/styles/literature-citation.scss';
-import { Namespace } from '../../../shared/types/namespaces';
 
 type AuthorProps = {
   authors?: string[];
