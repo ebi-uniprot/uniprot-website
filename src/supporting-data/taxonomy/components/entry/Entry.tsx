@@ -1,6 +1,5 @@
 import { RouteChildrenProps } from 'react-router-dom';
 import { Loader, Card, InfoList } from 'franklin-sites';
-import cn from 'classnames';
 import { pick } from 'lodash-es';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
@@ -8,10 +7,11 @@ import SingleColumnLayout from '../../../../shared/components/layouts/SingleColu
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import EntryDownload from '../../../../shared/components/entry/EntryDownload';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
+import ChildNavigation, { CHILDREN_TO_DISPLAY } from './ChildNavigation';
 
-import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
+import useDataApi from '../../../../shared/hooks/useDataApi';
 
-import apiUrls from '../../../../shared/config/apiUrls';
+import apiUrls, { getAPIQueryUrl } from '../../../../shared/config/apiUrls';
 import generatePageTitle from '../../adapters/generatePageTitle';
 
 import {
@@ -23,8 +23,8 @@ import TaxonomyColumnConfiguration, {
   TaxonomyColumn,
 } from '../../config/TaxonomyColumnConfiguration';
 import { Statistics } from '../../../../shared/types/apiModel';
+import { SearchResults } from '../../../../shared/types/results';
 
-import helper from '../../../../shared/styles/helper.module.scss';
 import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
 
 const columns = [
@@ -45,17 +45,31 @@ const columns = [
 const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   const accession = props.match?.params.accession;
 
-  const { data, loading, error, status, progress, isStale } =
-    useDataApiWithStale<TaxonomyAPIModel>(
-      apiUrls.entry(accession, Namespace.taxonomy)
-    );
+  const mainData = useDataApi<TaxonomyAPIModel>(
+    apiUrls.entry(accession, Namespace.taxonomy)
+  );
+  const childrenData = useDataApi<SearchResults<TaxonomyAPIModel>>(
+    getAPIQueryUrl({
+      namespace: Namespace.taxonomy,
+      query: `parent:${accession}`,
+      columns: [TaxonomyColumn.scientificName, TaxonomyColumn.commonName],
+      facets: null,
+      size: CHILDREN_TO_DISPLAY,
+    })
+  );
 
-  if (error || !accession || (!loading && !data)) {
-    return <ErrorHandler status={status} />;
+  if (mainData.error || !accession || (!mainData.loading && !mainData.data)) {
+    return <ErrorHandler status={mainData.status} />;
   }
 
-  if (!data) {
-    return <Loader progress={progress} />;
+  if (childrenData.error || (!childrenData.loading && !childrenData.data)) {
+    return <ErrorHandler status={childrenData.status} />;
+  }
+
+  const { data } = mainData;
+
+  if (!(data && childrenData.data)) {
+    return <Loader progress={mainData.progress || childrenData.progress} />;
   }
 
   const proteinStatistics = pick<Partial<Statistics>>(data.statistics, [
@@ -67,15 +81,25 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
     'referenceProteomeCount',
   ]);
 
-  const infoData =
-    data &&
-    columns.map((column) => {
+  const infoData = [
+    {
+      title: 'Children',
+      content: childrenData.data.results.length ? (
+        <ChildNavigation
+          childTaxons={childrenData.data.results}
+          total={+(childrenData.headers?.['x-total-records'] || 0)}
+          taxonId={data.taxonId}
+        />
+      ) : null,
+    },
+    ...columns.map((column) => {
       const renderer = TaxonomyColumnConfiguration.get(column);
       return {
         title: renderer?.label,
         content: renderer?.render(data),
       };
-    });
+    }),
+  ];
 
   return (
     <SingleColumnLayout>
@@ -89,7 +113,7 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
         {searchableNamespaceLabels[Namespace.taxonomy]} -{' '}
         {data.scientificName || data.taxonId} <small>({data.rank})</small>
       </h1>
-      <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
+      <Card className={entryPageStyles.card}>
         <div className="button-group">
           <EntryDownload />
           <MapToDropdown statistics={proteinStatistics} />
