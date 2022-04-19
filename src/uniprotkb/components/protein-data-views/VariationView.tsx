@@ -213,7 +213,8 @@ const VariationView = ({
               >
                 <td>
                   {Array.from(
-                    new Set(variantFeature.xrefs.map((xref) => xref.id))
+                    // note that the type needs to be updated, xrefs is optional on association object
+                    new Set(variantFeature.xrefs?.map((xref) => xref.id))
                   ).map((id, i) => (
                     <Fragment key={id}>
                       {i !== 0 && <br />}
@@ -379,6 +380,7 @@ const VariationView = ({
                     <strong>Source type: </strong>{' '}
                     {variantFeature.sourceType.replace(/_/g, ' ')}
                   </div>
+                  {/* note that the type needs to be updated, xrefs is optional on association object */}
                   {variantFeature.xrefs?.length ? (
                     <div>
                       <strong>Cross-references: </strong>
