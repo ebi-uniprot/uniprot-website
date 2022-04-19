@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { Card } from 'franklin-sites';
+import { Link } from 'react-router-dom';
 
 import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';
 
@@ -30,11 +31,14 @@ const UniRuleCard = ({ data }: { data: UniRuleAPIModel }) => {
       header={
         <>
           <CardCheckboxCell id={id} />
-          <h2 className="small">{data.uniRuleId}</h2>
+          <h2 className="small">
+            <Link to={getEntryPath(Namespace.unirule, id)}>
+              {data.uniRuleId}
+            </Link>
+          </h2>
         </>
       }
       headerSeparator={false}
-      to={getEntryPath(Namespace.unirule, id)}
       links={links}
     />
   );
