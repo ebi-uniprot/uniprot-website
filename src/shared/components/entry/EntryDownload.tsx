@@ -133,8 +133,8 @@ const EntryDownload = ({ nResults }: Props) => {
           id: 'uniparc-stream-warning',
           content: (
             <>
-              There is a current limitation where UniParc cross reference TSV
-              downloads are limited to 500 entries. Until this is fixed there
+              There is a current limitation where UniParc cross-reference TSV
+              downloads are limited to 500 entries. Until this is fixed, there
               are several options:
               <ul>
                 <li>
@@ -145,8 +145,9 @@ const EntryDownload = ({ nResults }: Props) => {
                     namespace={namespace}
                   />{' '}
                   file format instead which includes all{' '}
-                  <LongNumber>{nResults as number}</LongNumber> of the cross
-                  references in the <pre>uniParcCrossReferences</pre> attribute
+                  <LongNumber>{nResults as number}</LongNumber> of the
+                  cross-references in the <pre>uniParcCrossReferences</pre>{' '}
+                  attribute
                 </li>
                 <li>
                   Continue to download the{' '}
@@ -155,9 +156,9 @@ const EntryDownload = ({ nResults }: Props) => {
                     fileFormat={FileFormat.tsv}
                     namespace={namespace}
                   />{' '}
-                  file format which only has only 500 entries (meaning{' '}
-                  <LongNumber>{(nResults as number) - 500}</LongNumber> cross
-                  references will not be downloaded)
+                  file format which has only 500 entries (meaning{' '}
+                  <LongNumber>{(nResults as number) - 500}</LongNumber>{' '}
+                  cross-references will not be downloaded)
                 </li>
               </ul>
             </>
@@ -174,7 +175,7 @@ const EntryDownload = ({ nResults }: Props) => {
           content: (
             <>
               There is a current limitation where UniRef member list downloads
-              are limited to 500 entries. Until this is fixed there are several
+              are limited to 500 entries. Until this is fixed, there are several
               options:
               <ul>
                 <li>
@@ -196,9 +197,9 @@ const EntryDownload = ({ nResults }: Props) => {
                     fileFormat={FileFormat.list}
                     namespace={namespace}
                   />{' '}
-                  file format which only has only 500 entries (meaning{' '}
-                  <LongNumber>{(nResults as number) - 500}</LongNumber> cross
-                  references will not be downloaded)
+                  file format which has only 500 entries (meaning{' '}
+                  <LongNumber>{(nResults as number) - 500}</LongNumber> members
+                  will not be downloaded)
                 </li>
               </ul>
             </>
