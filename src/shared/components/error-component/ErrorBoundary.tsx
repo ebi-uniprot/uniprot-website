@@ -32,6 +32,23 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 
   static getDerivedStateFromError(error: Error) {
+    // before keeping the error in the state
+    try {
+      if (!sessionStorage.getItem('reloaded') && chunkError.test(error.name)) {
+        sessionStorage.setItem('reloaded', 'true');
+        window.location.reload();
+      }
+    } catch {
+      /* */
+    }
+    setTimeout(() => {
+      try {
+        sessionStorage.removeItem('reloaded');
+      } catch {
+        /*
+         */
+      }
+    }, 1000);
     return { error };
   }
 
@@ -65,25 +82,6 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 
   render() {
     if (this.state.error) {
-      try {
-        if (
-          !sessionStorage.getItem('reloaded') &&
-          chunkError.test(this.state.error.name)
-        ) {
-          sessionStorage.setItem('reloaded', 'true');
-          window.location.reload();
-        }
-      } catch {
-        /* */
-      }
-      setTimeout(() => {
-        try {
-          sessionStorage.removeItem('reloaded');
-        } catch {
-          /*
-           */
-        }
-      }, 1000);
       return this.props.fallback;
     }
 
