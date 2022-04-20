@@ -47,7 +47,7 @@ const useNSQuery = ({
   let queryColumns: Column[] | undefined = columnNames;
 
   // TODO: put this into useColumnNames
-  if (viewMode === 'card') {
+  if (viewMode === 'cards') {
     // TODO: Do similar things for the rest of namespaces
     if (namespace === Namespace.uniprotkb) {
       queryColumns = fieldsForUniProtKBCards;

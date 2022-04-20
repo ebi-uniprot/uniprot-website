@@ -142,7 +142,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
   ]);
 
   const handleToggleView = () =>
-    setViewMode(viewMode === 'card' ? 'table' : 'card');
+    setViewMode(viewMode === 'cards' ? 'table' : 'cards');
 
   const isMain = mainNamespaces.has(namespace);
 
@@ -209,21 +209,21 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
         <span role="radiogroup">
           View:
           <label>
-            Table{' '}
+            Cards{' '}
             <input
               type="radio"
               name="view"
-              checked={viewMode === 'table'}
+              checked={viewMode === 'cards'}
               onChange={handleToggleView}
               disabled={disableCardToggle}
             />
           </label>
           <label>
-            Card{' '}
+            Table{' '}
             <input
               type="radio"
               name="view"
-              checked={viewMode === 'card'}
+              checked={viewMode === 'table'}
               onChange={handleToggleView}
               disabled={disableCardToggle}
             />
