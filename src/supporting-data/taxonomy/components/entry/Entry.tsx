@@ -27,15 +27,18 @@ import { SearchResults } from '../../../../shared/types/results';
 
 import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
 
-const columns = [
+const firstColumns = [
   TaxonomyColumn.mnemonic,
   TaxonomyColumn.id,
   TaxonomyColumn.scientificName,
-  TaxonomyColumn.commonName,
-  TaxonomyColumn.otherNames,
-  TaxonomyColumn.synonyms,
-  TaxonomyColumn.rank,
   TaxonomyColumn.parent,
+];
+
+const lastColumns = [
+  TaxonomyColumn.commonName,
+  TaxonomyColumn.synonyms,
+  TaxonomyColumn.otherNames,
+  TaxonomyColumn.rank,
   TaxonomyColumn.lineage,
   TaxonomyColumn.hosts,
   TaxonomyColumn.strains,
@@ -81,7 +84,16 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
     'referenceProteomeCount',
   ]);
 
+  const infoDataRenderer = (column: TaxonomyColumn) => {
+    const renderer = TaxonomyColumnConfiguration.get(column);
+    return {
+      title: renderer?.label,
+      content: renderer?.render(data),
+    };
+  };
+
   const infoData = [
+    ...firstColumns.map(infoDataRenderer),
     {
       title: 'Children',
       content: childrenData.data.results.length ? (
@@ -92,13 +104,7 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
         />
       ) : null,
     },
-    ...columns.map((column) => {
-      const renderer = TaxonomyColumnConfiguration.get(column);
-      return {
-        title: renderer?.label,
-        content: renderer?.render(data),
-      };
-    }),
+    ...lastColumns.map(infoDataRenderer),
   ];
 
   return (
