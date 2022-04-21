@@ -10,9 +10,7 @@ deploy:
     refs:
       - dev
   stage: deploy
-  image:
-    name: alpine/helm:3.8.2
-    entrypoint: ['']
+  image: alpine/k8s:1.22.6
   script:
     - NAME=uniprot-website-dev
     - git clone $DEPLOY_REPO_URL
