@@ -14,5 +14,5 @@ deploy:
   script:
     - git clone $DEPLOY_REPO_URL
     - ./deploy/pre-deploy.sh HH uniprot-front-end-dev
-    - helm install -f uniprot-website-dev.yaml uniprot-website-dev $DEPLOY_REPO
+    - helm install -f ${DEPLOY_REPO}/uniprot-website-dev.yaml uniprot-website-dev $DEPLOY_REPO
     - ./deploy/post-deploy.sh
