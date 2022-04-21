@@ -7,7 +7,7 @@ import SingleColumnLayout from '../../../../shared/components/layouts/SingleColu
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import EntryDownload from '../../../../shared/components/entry/EntryDownload';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
-import ChildNavigation, { CHILDREN_TO_DISPLAY } from './ChildNavigation';
+import ChildNavigation from './ChildNavigation';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 
@@ -54,7 +54,7 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
       query: `parent:${accession}`,
       columns: [TaxonomyColumn.scientificName, TaxonomyColumn.commonName],
       facets: null,
-      size: CHILDREN_TO_DISPLAY,
+      size: 5, // Match the "ExpandableList" default count
     })
   );
 

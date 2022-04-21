@@ -45,67 +45,7 @@ exports[`ChildNavigation should render, lots 1`] = `
         class="button tertiary no-margin"
         href="/taxonomy?query=parent:9606"
       >
-        5 more direct children
-      </a>
-    </li>
-    <li>
-      <a
-        class="button tertiary"
-        href="/taxonomy?query=ancestor:9606"
-      >
-        Browse all descendants
-      </a>
-    </li>
-  </ul>
-</DocumentFragment>
-`;
-
-exports[`ChildNavigation should render, many 1`] = `
-<DocumentFragment>
-  <ul
-    class="no-bullet"
-  >
-    <li>
-      <a
-        href="/taxonomy/0"
-      >
-        Primate lentivirus group
-      </a>
-    </li>
-    <li>
-      <a
-        href="/taxonomy/1"
-      >
-        Primate calicivirus
-      </a>
-    </li>
-    <li>
-      <a
-        href="/taxonomy/2"
-      >
-        Primate lentivirus group
-      </a>
-    </li>
-    <li>
-      <a
-        href="/taxonomy/3"
-      >
-        Primate calicivirus
-      </a>
-    </li>
-    <li>
-      <a
-        href="/taxonomy/4"
-      >
-        Primate lentivirus group
-      </a>
-    </li>
-    <li>
-      <a
-        class="button tertiary no-margin"
-        href="/taxonomy?query=parent:9606"
-      >
-        Browse all direct children
+        Browse all direct children (10)
       </a>
     </li>
     <li>
@@ -137,7 +77,7 @@ exports[`ChildNavigation should render, one 1`] = `
         class="button tertiary no-margin"
         href="/taxonomy?query=parent:9606"
       >
-        Browse all direct children
+        Browse all direct children (1)
       </a>
     </li>
     <li>

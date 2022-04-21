@@ -19,21 +19,6 @@ describe('ChildNavigation', () => {
     expect(screen.getAllByRole('link')).toHaveLength(3);
   });
 
-  it('should render, many', () => {
-    const { asFragment } = customRender(
-      <ChildNavigation
-        taxonId={9606}
-        childTaxons={Array.from({ length: 5 }, (_, i) => ({
-          ...taxonomyData[i % 2],
-          taxonId: i,
-        }))}
-        total={5}
-      />
-    );
-    expect(asFragment()).toMatchSnapshot();
-    expect(screen.getAllByRole('link')).toHaveLength(7);
-  });
-
   it('should render, lots', () => {
     const { asFragment } = customRender(
       <ChildNavigation
