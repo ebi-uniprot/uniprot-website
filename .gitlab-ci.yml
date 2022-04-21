@@ -12,8 +12,7 @@ deploy:
   stage: deploy
   image: alpine/k8s:1.22.6
   script:
-    - NAME=uniprot-website-dev
     - git clone $DEPLOY_REPO_URL
-    - ./deploy/pre-deploy.sh HH $NAME
-    - helm install -f ${NAME}.yaml $NAME $DEPLOY_REPO
+    - ./deploy/pre-deploy.sh HH uniprot-front-end-dev
+    - helm install -f uniprot-website-dev.yaml uniprot-website-dev $DEPLOY_REPO
     - ./deploy/post-deploy.sh
