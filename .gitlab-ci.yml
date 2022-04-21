@@ -3,9 +3,9 @@ variables:
   DEPLOY_REPO_URL: 'https://gitlab-ci-token:${GITLAB_USER_API_TOKEN}@gitlab.ebi.ac.uk/uniprot/front-end/${DEPLOY_REPO}.git'
 
 stages:
-  - test
-  - build_static_assets
-  - build_docker_image
+  # - test
+  # - build_static_assets
+  # - build_docker_image
   - deploy
 
 .js:
@@ -86,7 +86,9 @@ deploy:
     refs:
       - dev
   stage: deploy
-  image: alpine/helm:3.8.2
+  image:
+    name: alpine/helm:3.8.2
+    entrypoint: ['']
   script:
     - NAME=uniprot-website-dev
     - git clone $DEPLOY_REPO_URL
