@@ -625,17 +625,17 @@ exports[`non-critical HomePage component should render 1`] = `
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/245/"
+          href="https://www.proteinspotlight.org/back_issues/246/"
           rel="noopener"
           target="_blank"
         >
-          I'll borrow that, thank you
+          Luck of the draw
         </a>
       </h3>
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/245/"
+        href="https://www.proteinspotlight.org/back_issues/246/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
@@ -644,14 +644,14 @@ exports[`non-critical HomePage component should render 1`] = `
           alt=""
           height="86.65"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt245_1.jpg"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt246.jpg"
           width="125.46"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          Who  hasn't  found  an  item  and  kept  it  -  'you  never  know,  it  might  come  in  handy  one  day'?  A  notepad  left  on  a  bus,  a  paper  clip  ditched  on  the  street,  a  biro  left  behind  on  a  table.  It  may  take  weeks,  months  or  perhaps  even  years,  before  you  remember…
+          When  something  gets  uncomfortably  close  to  you  -  in  whichever  way  it  may  be  -  you  will  seek  to  fend  it  off.  By  walking  away,  choosing  to  ignore  it,  using  physical  force  or,  if  it  is  a  person,  perhaps  verbal  abuse.  In  the  same  vein,  across  all  kingdoms,…
       </p>
     </article>
   </section>
