@@ -40,7 +40,7 @@ exports[`non-critical HomePage component should render 1`] = `
       UniProt core data
     </h2>
     <div
-      class="uniprot-grid-cell--span-3 tile tile-gradient"
+      class="uniprot-grid-cell--span-3 core-data-tile tile tile-gradient"
       style="--tile-background: #00639a; width: 100%;"
     >
       <div
@@ -76,31 +76,34 @@ exports[`non-critical HomePage component should render 1`] = `
             href="/uniprotkb?query=reviewed:true"
           >
             <test-file-stub
-              width="2.5em"
+              classname="core-data__reviewed-icon"
+              width="1.75em"
             />
             <div
               class="core-data__status"
             >
               Reviewed
             </div>
-            <small>
-              Swiss-Prot
-            </small>
+            <div>
+              (Swiss-Prot)
+            </div>
+            <div />
           </a>
           <a
             href="/uniprotkb?query=reviewed:false"
           >
             <test-file-stub
-              width="2.5em"
+              width="1.75em"
             />
             <div
               class="core-data__status"
             >
               Unreviewed
             </div>
-            <small>
-              TrEMBL
-            </small>
+            <div>
+              (TrEMBL)
+            </div>
+            <div />
           </a>
         </span>
       </small>
