@@ -1,3 +1,7 @@
+variables:
+  DEPLOY_REPO: 'front-end-deploy'
+  DEPLOY_REPO_URL: 'https://gitlab-ci-token:${GITLAB_USER_API_TOKEN}@gitlab.ebi.ac.uk/uniprot/front-end/${DEPLOY_REPO}.git'
+
 stages:
   - test
   - build_static_assets
@@ -5,7 +9,7 @@ stages:
   - deploy
 
 .js:
-  image: node:16
+  image: node:16.14.2
   before_script:
     - git --version
     - node --version
@@ -40,7 +44,7 @@ merge_and_test:
 build_static_assets:
   only:
     refs:
-      - main
+      - dev
   extends: .js
   stage: build_static_assets
   script:
@@ -56,47 +60,36 @@ build_static_assets:
 build_docker_image:
   only:
     refs:
-      - main
+      - dev
   stage: build_docker_image
-  image: docker:latest
+  image: docker:20.10.14-git
   tags:
     - dind
   services:
     - docker:dind
   script:
-    - echo "$CI_REGISTRY_PASSWORD" | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
+    - git clone $DEPLOY_REPO_URL
+    - cp $DEPLOY_REPO/docker/Dockerfile .
     - docker --version
-    - CONTAINER_IMAGE=${CI_REGISTRY_IMAGE}:latest
+    - git --version
+    - echo "$CI_REGISTRY_PASSWORD" | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
+    - CONTAINER_IMAGE=${CI_REGISTRY_IMAGE}/${CI_COMMIT_BRANCH}:latest
     - echo ${CONTAINER_IMAGE}
-    - docker build -t ${CONTAINER_IMAGE} --no-cache .
+    - docker build -t $CONTAINER_IMAGE --no-cache .
     - docker image ls
-    - docker push ${CONTAINER_IMAGE}
-    - docker rmi ${CONTAINER_IMAGE}
+    - docker push $CONTAINER_IMAGE
+    - docker rmi $CONTAINER_IMAGE
     - docker logout "$CI_REGISTRY"
-
-.kubectl:
-  image: alpine
-  before_script:
-    - apk add --no-cache curl git bash
-    - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
-    - chmod +x ./kubectl
-    - mv ./kubectl /usr/local/bin/kubectl
 
 deploy:
   only:
     refs:
-      - main
+      - dev
   stage: deploy
-  extends: .kubectl
+  image: alpine/helm:3.8.2
   script:
-    - ./deploy/deploy.sh HX # fallback
-    - ./deploy/deploy.sh HH # main
-
-deploy-fallback-only:
-  only:
-    refs:
-      - deploy-fallback-only
-  stage: deploy
-  extends: .kubectl
-  script:
-    - ./deploy/deploy.sh HX # fallback
+    - NAME=uniprot-website-dev
+    - git clone $DEPLOY_REPO_URL
+    - ./deploy/pre-deploy.sh HH $NAME
+    - helm install -f ${NAME}.yaml $NAME $DEPLOY_REPO
+    - ./deploy/post-deploy.sh
