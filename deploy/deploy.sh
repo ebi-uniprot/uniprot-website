@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -ex
 
 DC=$1
 CHART_NAME=$2
