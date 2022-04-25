@@ -59,7 +59,7 @@ build_static_assets:
     - >
       if [ "$CI_COMMIT_BRANCH" == "main" ]; then
         yarn build:prod
-      elif [ "$CI_COMMIT_BRANCH" == "dev" ]
+      elif [ "$CI_COMMIT_BRANCH" == "dev" ]; then
         yarn build:dev
       fi
     - apt-get update
@@ -105,6 +105,6 @@ deploy:
       if [ "$CI_COMMIT_BRANCH" == "main" ]; then
         ./deploy/deploy.sh HX uniprot-website-fallback
         ./deploy/deploy.sh HH uniprot-website-prod
-      elif [ "$CI_COMMIT_BRANCH" == "dev" ]
+      elif [ "$CI_COMMIT_BRANCH" == "dev" ]; then
         ./deploy/deploy.sh HH uniprot-website-dev
       fi
