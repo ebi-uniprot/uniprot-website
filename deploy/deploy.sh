@@ -16,6 +16,7 @@ elif [ "$CI_COMMIT_BRANCH" == "dev" ]; then
   NAMESPACE="uniprot-front-end-dev"
 else
   echo "$CI_COMMIT_BRANCH must be main or dev"
+  exit 1
 fi
 
 if [ -z "$CHART_NAME" ]; then
