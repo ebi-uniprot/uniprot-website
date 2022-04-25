@@ -82,7 +82,7 @@ build_docker_image:
     - docker:dind
   script:
     - git clone $DEPLOY_REPO_URL
-    - cp $DEPLOY_REPO/docker/Dockerfile .
+    - cp $DEPLOY_REPO/docker/Dockerfile $DEPLOY_REPO/docker/nginx.conf $DEPLOY_REPO/docker/logrotate .
     - docker --version
     - git --version
     - echo "$CI_REGISTRY_PASSWORD" | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
