@@ -40,6 +40,6 @@ helm install -f ${DEPLOY_REPO}/${CHART_NAME}.yaml $CHART_NAME $DEPLOY_REPO
 
 kubectl rollout status statefulset.apps/$CHART_NAME --timeout=1m || { echo 'Deployment failed!' ; exit 1; }
 echo "Deployment succeeded!"
-NODE_PORT=$(kubectl get services -o=jsonpath='{.items[?(@.metadata.name=="uniprot-website-dev")].spec.ports[0].nodePort}')
+NODE_PORT=$(kubectl get services -o=jsonpath='{.items[?(@.metadata.name=="'"$CHART_NAME"'")].spec.ports[0].nodePort}')
 NODE_HOST_NAME=$(kubectl get nodes -o=jsonpath='{.items[0].status.addresses[?(@.type=="Hostname")].address}')
 echo $'\n\n'$Internally avaialable at: http://$NODE_HOST_NAME:$NODE_PORT
