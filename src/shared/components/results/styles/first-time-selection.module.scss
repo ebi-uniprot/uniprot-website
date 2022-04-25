@@ -1,0 +1,58 @@
+@import 'franklin-sites/src/styles/colours';
+@import 'franklin-sites/src/styles/settings';
+@import 'franklin-sites/src/styles/common/z-index';
+
+.card-table-selector {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  backdrop-filter: blur(0.1rem);
+  z-index: $z-index-high;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+
+  & > * {
+    background: $colour-sky-white;
+    padding: $global-padding;
+    border: 1px solid $colour-sapphire-blue;
+    border-radius: 0.5ch;
+  }
+
+  & p {
+    text-align: center;
+    font-size: 150%;
+    font-weight: bold;
+  }
+
+  & label {
+    text-align: center;
+    cursor: pointer;
+  }
+
+  img {
+    user-select: none;
+    display: block;
+    border-radius: 0.5ch;
+    border: 1px solid transparent;
+  }
+
+  & input {
+    margin-inline: 1ch;
+  }
+
+  & input:checked + img {
+    border-color: $colour-sapphire-blue;
+  }
+
+  & [role='radiogroup'] {
+    display: flex;
+  }
+
+  :global(.button-group .button) {
+    margin-block-start: $global-margin;
+    margin-inline-start: auto;
+  }
+}

@@ -1,6 +1,5 @@
 @import 'franklin-sites/src/styles/common/z-index';
 @import 'franklin-sites/src/styles/colours';
-@import 'franklin-sites/src/styles/settings';
 @import '../../../styles/settings';
 
 .results-buttons {
@@ -44,38 +43,5 @@
     &--active {
       color: $colour-platinum;
     }
-  }
-}
-
-.card-table-selector {
-  & p {
-    text-align: center;
-    font-size: 150%;
-    font-weight: bold;
-  }
-
-  & label {
-    text-align: center;
-    cursor: pointer;
-  }
-
-  img {
-    user-select: none;
-    display: block;
-    border-radius: 0.5ch;
-    border: 1px solid transparent;
-  }
-
-  & input:checked + img {
-    border-color: $colour-sapphire-blue;
-  }
-
-  & [role='radiogroup'] {
-    display: flex;
-  }
-
-  :global(.button-group .button) {
-    margin-block-start: $global-margin;
-    margin-inline-start: auto;
   }
 }
