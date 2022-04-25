@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 DC=$1
+CHART_NAME=$2
 
 if [ "$DC" != "HH" ] && [ "$DC" != "HX" ]; then
   echo "DC variable not being defined as HH or HX."
@@ -16,7 +17,12 @@ else
   echo "$CI_COMMIT_BRANCH must be main or dev"
 fi
 
-echo "--- Deploying ${DC} to Namespace ${NAMESPACE} ---"
+if [ -z "$CHART_NAME" ]; then
+    echo "No chart name supplied"
+    exit 1
+fi
+
+echo "--- Deploying ${DC} to Namespace ${NAMESPACE} with Chart ${CHART_NAME} ---"
 
 K8S_CERTIFICATE=${DC}_K8S_CERTIFICATE
 K8S_URL=${DC}_K8S_URL
@@ -32,9 +38,6 @@ kubectl config use-context team-admin-wp-webadmin-02
 kubectl config set-context --current --namespace=$NAMESPACE
 printf "$(kubectl create secret docker-registry gitlab-registry --docker-server=$CI_REGISTRY --docker-username=$CI_DEPLOY_USER --docker-password=$CI_DEPLOY_PASSWORD --docker-email=$GITLAB_USER_EMAIL -o yaml --dry-run=client)" | kubectl apply -f -
 
-git clone $DEPLOY_REPO_URL
-CHART_NAME=${CI_PROJECT_NAME}-${CI_COMMIT_BRANCH}
-echo $CHART_NAME
 helm uninstall $CHART_NAME
 helm install -f ${DEPLOY_REPO}/${CHART_NAME}.yaml $CHART_NAME $DEPLOY_REPO
 

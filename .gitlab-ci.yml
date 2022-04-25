@@ -14,6 +14,12 @@ stages:
     - npm --version
     - yarn --version
 
+.k8s:
+  image: alpine/k8s:1.22.6
+  before_script:
+    - git clone $DEPLOY_REPO_URL
+  stage: deploy
+
 # TODO: when we want to run test:functional and test:visual use image: buildkite/puppeteer
 test:
   extends: .js
@@ -58,6 +64,7 @@ build_static_assets:
 build_docker_image:
   only:
     refs:
+      - main
       - dev
   stage: build_docker_image
   image: docker:20.10.14-git
@@ -82,8 +89,16 @@ build_docker_image:
 deploy:
   only:
     refs:
-      - dev
-  stage: deploy
-  image: alpine/k8s:1.22.6
+      - main
+  extends: .k8s
   script:
-    - ./deploy/deploy.sh HH
+    - ./deploy/deploy.sh HX uniprot-website-fallback
+    - ./deploy/deploy.sh HH uniprot-website-prod
+
+deploy_dev:
+  only:
+    refs:
+      - dev
+  extends: .k8s
+  script:
+    - ./deploy/deploy.sh HH uniprot-website-dev
