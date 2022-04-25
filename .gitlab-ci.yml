@@ -50,6 +50,7 @@ merge_and_test:
 build_static_assets:
   only:
     refs:
+      - main
       - dev
   extends: .js
   stage: build_static_assets
