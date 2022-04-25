@@ -13,6 +13,9 @@ import {
   Button,
   SlidingPanel,
 } from 'franklin-sites';
+import cn from 'classnames';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/themes/light.css';
 
 import BlastButton from '../action-buttons/Blast';
 import AlignButton from '../action-buttons/Align';
@@ -41,12 +44,60 @@ import {
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
 
-import './styles/results-buttons.scss';
+import styles from './styles/results-buttons.module.scss';
+
+import CardsViewImg from '../../../images/cards-view.jpg';
+import TableViewImg from '../../../images/table-view.jpg';
 
 const DownloadComponent = lazy(
   /* istanbul ignore next */
   () => import(/* webpackChunkName: "download" */ '../download/Download')
 );
+
+const TooltipContent = () => {
+  const [previewViewMode, setPreviewViewMode] = useState<typeof viewMode>(null);
+
+  return (
+    <form className={styles['card-table-selector']}>
+      <p>Select how you would like to view your results {previewViewMode}</p>
+      <span role="radiogroup">
+        <label>
+          <span>Cards</span>
+          <input
+            type="radio"
+            name="tooltip-view"
+            checked={previewViewMode === 'cards'}
+            onChange={() => setPreviewViewMode('cards')}
+          />
+          <img src={CardsViewImg} alt="" width="300" height="243" />
+        </label>
+        <label>
+          <span>Table</span>
+          <input
+            type="radio"
+            name="tooltip-view"
+            checked={previewViewMode === 'table'}
+            onChange={() => setPreviewViewMode('table')}
+          />
+          <img src={TableViewImg} alt="" width="300" height="243" />
+        </label>
+      </span>
+      <section className="button-group">
+        <Button
+          variant="primary"
+          type="submit"
+          // disabled={!previewViewMode}
+          onClick={(e: MouseEvent) => {
+            console.log(e);
+            e.preventDefault();
+          }}
+        >
+          View results ({previewViewMode})
+        </Button>
+      </section>
+    </form>
+  );
+};
 
 type ResultsButtonsProps = {
   selectedEntries: string[];
@@ -87,6 +138,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
   const dispatch = useMessagesDispatch();
 
   const sharedUrlMode = viewModeIsFromUrl || columnNamesAreFromUrl;
+  const [previewViewMode, setPreviewViewMode] = useState<typeof viewMode>(null);
 
   useEffect(() => {
     const invalidParamValues = [
@@ -169,7 +221,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
           </SlidingPanel>
         </Suspense>
       )}
-      <div className="button-group results-buttons">
+      <div className={cn('button-group', styles['results-buttons'])}>
         {isMain && namespace !== Namespace.proteomes && (
           <BlastButton selectedEntries={selectedEntries} />
         )}
@@ -206,28 +258,105 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
           </Button>
         )} */}
         {/* TODO: check if we want to add that to franklin, eventually... */}
-        <span role="radiogroup">
-          View:
-          <label>
-            Cards{' '}
-            <input
-              type="radio"
-              name="view"
-              checked={viewMode === 'cards'}
-              onChange={handleToggleView}
-              disabled={disableCardToggle}
-            />
-          </label>
-          <label>
-            Table{' '}
-            <input
-              type="radio"
-              name="view"
-              checked={viewMode === 'table'}
-              onChange={handleToggleView}
-              disabled={disableCardToggle}
-            />
-          </label>
+        <span>
+          <Tippy
+            content={
+              <form className={styles['card-table-selector']}>
+                <p>
+                  Select how you would like to view your results{' '}
+                  {previewViewMode}
+                </p>
+                <span role="radiogroup">
+                  <label>
+                    <span>Cards</span>
+                    <input
+                      type="radio"
+                      name="tooltip-view"
+                      checked={previewViewMode === 'cards'}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setPreviewViewMode('cards');
+                        }
+                      }}
+                    />
+                    <img
+                      draggable={false}
+                      src={CardsViewImg}
+                      alt=""
+                      width="300"
+                      height="243"
+                    />
+                  </label>
+                  <label>
+                    <span>Table</span>
+                    <input
+                      type="radio"
+                      name="tooltip-view"
+                      checked={previewViewMode === 'table'}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setPreviewViewMode('table');
+                        }
+                      }}
+                    />
+                    <img
+                      draggable={false}
+                      src={TableViewImg}
+                      alt=""
+                      width="300"
+                      height="243"
+                    />
+                  </label>
+                </span>
+                <section className="button-group">
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    // disabled={!previewViewMode}
+                    onClick={(e: MouseEvent) => {
+                      console.log(e);
+                      e.preventDefault();
+                    }}
+                  >
+                    View results ({previewViewMode})
+                  </Button>
+                </section>
+              </form>
+            }
+            disabled={Boolean(viewMode)}
+            placement="bottom"
+            trigger="manual"
+            interactive
+            showOnCreate
+            hideOnClick={false}
+            theme="light"
+            maxWidth="none"
+            appendTo={() => document.body}
+          >
+            <span role="radiogroup">
+              View:
+              <label>
+                Cards{' '}
+                <input
+                  type="radio"
+                  name="view"
+                  checked={viewMode === 'cards'}
+                  onChange={handleToggleView}
+                  disabled={disableCardToggle}
+                />
+              </label>
+              <label>
+                Table{' '}
+                <input
+                  type="radio"
+                  name="view"
+                  checked={viewMode === 'table'}
+                  onChange={handleToggleView}
+                  disabled={disableCardToggle}
+                />
+              </label>
+            </span>
+          </Tippy>
         </span>
         {!notCustomisable &&
           !sharedUrlMode &&
