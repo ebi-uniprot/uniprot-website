@@ -56,7 +56,12 @@ build_static_assets:
   stage: build_static_assets
   script:
     - yarn
-    - yarn build:prod
+    - >
+      if [ "$CI_COMMIT_BRANCH" == "main" ]; then
+        yarn build:prod
+      elif [ "$CI_COMMIT_BRANCH" == "dev" ]
+        yarn build:dev
+      fi
     - apt-get update
     - apt-get install brotli
     - ./deploy/compress.sh
@@ -93,15 +98,13 @@ deploy:
   only:
     refs:
       - main
-  extends: .k8s
-  script:
-    - ./deploy/deploy.sh HX uniprot-website-fallback
-    - ./deploy/deploy.sh HH uniprot-website-prod
-
-deploy_dev:
-  only:
-    refs:
       - dev
   extends: .k8s
   script:
-    - ./deploy/deploy.sh HH uniprot-website-dev
+    - >
+      if [ "$CI_COMMIT_BRANCH" == "main" ]; then
+        ./deploy/deploy.sh HX uniprot-website-fallback
+        ./deploy/deploy.sh HH uniprot-website-prod
+      elif [ "$CI_COMMIT_BRANCH" == "dev" ]
+        ./deploy/deploy.sh HH uniprot-website-dev
+      fi
