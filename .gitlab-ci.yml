@@ -16,12 +16,6 @@ stages:
     - npm --version
     - yarn --version
 
-.k8s:
-  image: alpine/k8s:1.22.6
-  before_script:
-    - git clone $DEPLOY_REPO_URL
-  stage: deploy
-
 # TODO: when we want to run test:functional and test:visual use image: buildkite/puppeteer
 test:
   extends: .js
@@ -55,6 +49,7 @@ build_static_assets:
   extends: .js
   stage: build_static_assets
   script:
+    - git clone $DEPLOY_REPO_URL
     - yarn
     - >
       if [ "$CI_COMMIT_BRANCH" == "main" ]; then
@@ -64,7 +59,7 @@ build_static_assets:
       fi
     - apt-get update
     - apt-get install brotli
-    - ./deploy/compress.sh
+    - ./${DEPLOY_REPO}/scripts/compress.sh
   artifacts:
     paths:
       - build/
@@ -82,12 +77,12 @@ build_docker_image:
     - docker:dind
   script:
     - git clone $DEPLOY_REPO_URL
-    - cp $DEPLOY_REPO/docker/Dockerfile $DEPLOY_REPO/docker/nginx.conf $DEPLOY_REPO/docker/logrotate .
+    - cp ${DEPLOY_REPO}/docker/Dockerfile ${DEPLOY_REPO}/docker/nginx.conf ${DEPLOY_REPO}/docker/logrotate .
     - docker --version
     - git --version
     - echo "$CI_REGISTRY_PASSWORD" | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
     - CONTAINER_IMAGE=${CI_REGISTRY_IMAGE}/${CI_COMMIT_BRANCH}:latest
-    - echo ${CONTAINER_IMAGE}
+    - echo $CONTAINER_IMAGE
     - docker build -t $CONTAINER_IMAGE --no-cache .
     - docker image ls
     - docker push $CONTAINER_IMAGE
@@ -99,12 +94,14 @@ deploy:
     refs:
       - main
       - dev
-  extends: .k8s
+  stage: deploy
+  image: alpine/k8s:1.22.6
   script:
+    - git clone $DEPLOY_REPO_URL
     - >
       if [ "$CI_COMMIT_BRANCH" == "main" ]; then
-        ./deploy/deploy.sh HX uniprot-website-fallback
-        ./deploy/deploy.sh HH uniprot-website-prod
+        ./${DEPLOY_REPO}/deploy/deploy.sh HX uniprot-website-fallback
+        ./${DEPLOY_REPO}/deploy/deploy.sh HH uniprot-website-prod
       elif [ "$CI_COMMIT_BRANCH" == "dev" ]; then
-        ./deploy/deploy.sh HH uniprot-website-dev
+        ./${DEPLOY_REPO}/deploy/deploy.sh HH uniprot-website-dev
       fi
