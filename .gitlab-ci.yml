@@ -100,8 +100,8 @@ deploy:
     - git clone $DEPLOY_REPO_URL
     - >
       if [ "$CI_COMMIT_BRANCH" == "main" ]; then
-        ./${DEPLOY_REPO}/deploy/deploy.sh HX uniprot-website-fallback
-        ./${DEPLOY_REPO}/deploy/deploy.sh HH uniprot-website-prod
+        ./${DEPLOY_REPO}/scripts/deploy.sh HX uniprot-website-fallback
+        ./${DEPLOY_REPO}/scripts/deploy.sh HH uniprot-website-prod
       elif [ "$CI_COMMIT_BRANCH" == "dev" ]; then
-        ./${DEPLOY_REPO}/deploy/deploy.sh HH uniprot-website-dev
+        ./${DEPLOY_REPO}/scripts/deploy.sh HH uniprot-website-dev
       fi
