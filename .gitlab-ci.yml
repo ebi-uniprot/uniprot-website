@@ -46,6 +46,8 @@ build_static_assets:
     refs:
       - main
       - dev
+  not:
+    - external_pull_requests
   extends: .js
   stage: build_static_assets
   script:
@@ -69,6 +71,8 @@ build_docker_image:
     refs:
       - main
       - dev
+  not:
+    - external_pull_requests
   stage: build_docker_image
   image: docker:20.10.14-git
   tags:
@@ -77,13 +81,13 @@ build_docker_image:
     - docker:dind
   script:
     - git clone $DEPLOY_REPO_URL
-    - cp ${DEPLOY_REPO}/docker/Dockerfile ${DEPLOY_REPO}/docker/nginx.conf ${DEPLOY_REPO}/docker/logrotate .
-    - docker --version
-    - git --version
+    - mv build ${DEPLOY_REPO}/docker/
+    - cat ${DEPLOY_REPO}/docker/nginx.conf
+    - ls ${DEPLOY_REPO}/docker
     - echo "$CI_REGISTRY_PASSWORD" | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
     - CONTAINER_IMAGE=${CI_REGISTRY_IMAGE}/${CI_COMMIT_BRANCH}:latest
     - echo $CONTAINER_IMAGE
-    - docker build -t $CONTAINER_IMAGE --no-cache .
+    - docker build -t $CONTAINER_IMAGE --no-cache ${DEPLOY_REPO}/docker
     - docker image ls
     - docker push $CONTAINER_IMAGE
     - docker rmi $CONTAINER_IMAGE
@@ -94,6 +98,8 @@ deploy:
     refs:
       - main
       - dev
+  not:
+    - external_pull_requests
   stage: deploy
   image: alpine/k8s:1.22.6
   script:
