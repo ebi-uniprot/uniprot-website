@@ -46,7 +46,7 @@ build_static_assets:
     refs:
       - main
       - dev
-  not:
+  except:
     - external_pull_requests
   extends: .js
   stage: build_static_assets
@@ -71,7 +71,7 @@ build_docker_image:
     refs:
       - main
       - dev
-  not:
+  except:
     - external_pull_requests
   stage: build_docker_image
   image: docker:20.10.14-git
@@ -98,7 +98,7 @@ deploy:
     refs:
       - main
       - dev
-  not:
+  except:
     - external_pull_requests
   stage: deploy
   image: alpine/k8s:1.22.6
