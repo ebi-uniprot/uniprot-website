@@ -82,8 +82,6 @@ build_docker_image:
   script:
     - git clone $DEPLOY_REPO_URL
     - mv build ${DEPLOY_REPO}/docker/
-    - cat ${DEPLOY_REPO}/docker/nginx.conf
-    - ls ${DEPLOY_REPO}/docker
     - echo "$CI_REGISTRY_PASSWORD" | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
     - CONTAINER_IMAGE=${CI_REGISTRY_IMAGE}/${CI_COMMIT_BRANCH}:latest
     - echo $CONTAINER_IMAGE
