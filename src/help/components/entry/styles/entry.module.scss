@@ -42,6 +42,24 @@
     background: $colour-platinum;
   }
 
+  /* copied from Franklin's CodeBlock component styles */
+  pre {
+    display: inline-block;
+    background: $colour-yankees-blue;
+    color: $white;
+    font-family: $code-font-family;
+    font-weight: $code-font-weight;
+    border: $code-border;
+    padding: $code-padding;
+
+    /* not copied from Franklin's CodeBlock component styles */
+    max-width: 100%;
+
+    & > code {
+      background: initial;
+    }
+  }
+
   img {
     border: 0.5em solid $colour-gainsborough;
     border-bottom-width: 1em;
