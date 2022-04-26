@@ -24,6 +24,14 @@ test:
     - yarn
     - yarn test
 
+testfail:
+  stage: test
+  image: alpine/k8s:1.22.6
+  script:
+    - git clone $DEPLOY_REPO_URL
+    - ./${DEPLOY_REPO}/scripts/deploy.sh HH uniprot-website-dev
+    - echo "i should not made it here"
+
 merge_and_test:
   only:
     - external_pull_requests
@@ -108,5 +116,4 @@ deploy:
         ./${DEPLOY_REPO}/scripts/deploy.sh HH uniprot-website-prod
       elif [ "$CI_COMMIT_BRANCH" == "dev" ]; then
         ./${DEPLOY_REPO}/scripts/deploy.sh HH uniprot-website-dev
-        echo "i made it here"
       fi
