@@ -42,12 +42,12 @@ const DownloadAPIURL = ({
     [dispatch, onCopy]
   );
 
+  const isStreamEndpoint = apiURL.includes('/stream');
+
   return (
     <div className={styles['api-url']}>
-      <h4>
-        API URL {apiURL.includes('/stream') && ' using the streaming endpoint'}
-      </h4>
-      {apiURL.includes('/stream') &&
+      <h4>API URL {isStreamEndpoint && ' using the streaming endpoint'}</h4>
+      {isStreamEndpoint &&
         'This endpoint is resource-heavy but will return all requested results.'}
       <CodeBlock lightMode>{apiURL}</CodeBlock>
       <section className="button-group">
@@ -60,7 +60,7 @@ const DownloadAPIURL = ({
           Copy
         </Button>
       </section>
-      {apiURL.includes('/stream') && (
+      {isStreamEndpoint && (
         <>
           <br />
           <h4>API URL using the search endpoint</h4>
