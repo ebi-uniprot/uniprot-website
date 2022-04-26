@@ -108,4 +108,5 @@ deploy:
         ./${DEPLOY_REPO}/scripts/deploy.sh HH uniprot-website-prod
       elif [ "$CI_COMMIT_BRANCH" == "dev" ]; then
         ./${DEPLOY_REPO}/scripts/deploy.sh HH uniprot-website-dev
+        echo "i made it here"
       fi
