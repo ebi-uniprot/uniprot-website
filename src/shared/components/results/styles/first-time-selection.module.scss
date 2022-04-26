@@ -1,24 +1,39 @@
 @import 'franklin-sites/src/styles/colours';
 @import 'franklin-sites/src/styles/settings';
+@import 'franklin-sites/src/styles/mixins';
 @import 'franklin-sites/src/styles/common/z-index';
 
+/* whole container, acting as backdrop too */
 .card-table-selector {
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  backdrop-filter: blur(0.1rem);
+  backdrop-filter: blur(0.2rem);
   z-index: $z-index-high;
   display: grid;
   justify-content: center;
   align-content: center;
 
+  /* visible container box */
   & > * {
+    font-size: 100%;
+    @include box-shadow();
+    max-width: 80vw;
     background: $colour-sky-white;
     padding: $global-padding;
-    border: 1px solid $colour-sapphire-blue;
+    border: 1px solid $colour-yankees-blue;
     border-radius: 0.5ch;
+
+    opacity: 1;
+
+    // animation on mount
+    animation-duration: 500ms;
+    animation-name: appear;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: backwards;
   }
 
   & p {
@@ -28,6 +43,7 @@
   }
 
   & label {
+    font-size: 125%;
     text-align: center;
     cursor: pointer;
   }
@@ -54,5 +70,13 @@
   :global(.button-group .button) {
     margin-block-start: $global-margin;
     margin-inline-start: auto;
+  }
+}
+
+// keyframe to have the base style when the component mounts,
+// the "to" is automatically decided with what we define in the component's code
+@keyframes appear {
+  from {
+    opacity: 0;
   }
 }

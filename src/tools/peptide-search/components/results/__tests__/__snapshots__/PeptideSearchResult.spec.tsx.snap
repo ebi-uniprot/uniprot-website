@@ -137,6 +137,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                   <input
                     name="view"
                     type="radio"
+                    value="cards"
                   />
                 </label>
                 <label>
@@ -145,6 +146,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     checked=""
                     name="view"
                     type="radio"
+                    value="table"
                   />
                 </label>
               </span>
@@ -559,6 +561,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                   <input
                     name="view"
                     type="radio"
+                    value="cards"
                   />
                 </label>
                 <label>
@@ -567,6 +570,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     checked=""
                     name="view"
                     type="radio"
+                    value="table"
                   />
                 </label>
               </span>
