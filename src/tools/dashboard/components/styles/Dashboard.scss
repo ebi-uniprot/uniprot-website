@@ -98,7 +98,6 @@
 
     // ".card__content" comes from Franklin
     & .card__content {
-      user-select: none;
       display: grid;
       grid-template-areas:
         'type name time status actions'

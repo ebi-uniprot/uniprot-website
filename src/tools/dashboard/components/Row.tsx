@@ -397,9 +397,12 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
         <Actions job={job} onDelete={handleDelete} />
       </span>
       <span className="dashboard__body__id">
-        {'remoteID' in job && jobLink && !noResults && (
-          <Link to={jobLink}>{job.remoteID}</Link>
-        )}
+        {'remoteID' in job &&
+          (jobLink && !noResults ? (
+            <Link to={jobLink}>{job.remoteID}</Link>
+          ) : (
+            job.remoteID
+          ))}
       </span>
     </Card>
   );
