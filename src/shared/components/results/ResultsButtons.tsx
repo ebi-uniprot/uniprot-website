@@ -24,6 +24,7 @@ import CustomiseButton from '../action-buttons/CustomiseButton';
 import ShareDropdown from '../action-buttons/ShareDropdown';
 import ItemCount from '../ItemCount';
 import ErrorBoundary from '../error-component/ErrorBoundary';
+import FirstTimeSelection from './FirstTimeSelection';
 
 import useNS from '../../hooks/useNS';
 import useViewMode, { ViewMode } from '../../hooks/useViewMode';
@@ -44,7 +45,6 @@ import {
 } from '../../../messages/types/messagesTypes';
 
 import styles from './styles/results-buttons.module.scss';
-import FirstTimeSelection from './FirstTimeSelection';
 
 const DownloadComponent = lazy(
   /* istanbul ignore next */
