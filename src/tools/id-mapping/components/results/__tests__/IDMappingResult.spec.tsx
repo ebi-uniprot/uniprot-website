@@ -13,8 +13,6 @@ import SimpleMappingDetails from '../__mocks__/SimpleMappingDetails';
 import UniProtkbMapping from '../__mocks__/UniProtkbMapping';
 import UniProtkbMappingDetails from '../__mocks__/UniProtkbMappingDetails';
 
-import { ViewMode } from '../../../../../shared/hooks/useViewMode';
-
 const mock = new MockAdapter(axios);
 mock
   .onGet(/\/api\/idmapping\/results\/id1/)
@@ -34,7 +32,7 @@ describe('IDMappingResult tests', () => {
       {
         route: '/id-mapping/id1/overview',
         initialLocalStorage: {
-          'view-mode': 'table' as ViewMode, // TODO: This should eventually be removed
+          'view-mode': 'table', // TODO: This should eventually be removed
         },
       }
     );
@@ -53,7 +51,7 @@ describe('IDMappingResult tests', () => {
       {
         route: '/id-mapping/uniprotkb/id2/overview',
         initialLocalStorage: {
-          'view-mode': 'table' as ViewMode, // TODO: This should eventually be removed
+          'view-mode': 'table', // TODO: This should eventually be removed
         },
       }
     );

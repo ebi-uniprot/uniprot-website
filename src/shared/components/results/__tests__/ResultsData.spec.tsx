@@ -1,7 +1,6 @@
 import { screen, waitFor } from '@testing-library/react';
 
 import ResultsData from '../ResultsData';
-import { ViewMode } from '../../../hooks/useViewMode';
 
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 
@@ -26,7 +25,7 @@ describe('ResultsData component', () => {
       {
         route: '/uniprotkb?query=blah',
         initialLocalStorage: {
-          'view-mode': 'table' as ViewMode,
+          'view-mode': 'table',
           'table columns for uniprotkb': [UniProtKBColumn.accession],
         },
       }
@@ -51,7 +50,7 @@ describe('ResultsData component', () => {
       {
         route: '/uniprotkb?query=blah',
         initialLocalStorage: {
-          'view-mode': 'cards' as ViewMode,
+          'view-mode': 'cards',
           'table columns for uniprotkb': [UniProtKBColumn.accession],
         },
       }
