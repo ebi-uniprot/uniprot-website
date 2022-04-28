@@ -357,7 +357,9 @@ const BlastResult = () => {
       }
       sidebar={sidebar}
     >
-      <HTMLHead title={title} />
+      <HTMLHead title={title}>
+        <meta name="robots" content="noindex" />
+      </HTMLHead>
       <Tabs
         active={match.params.subPage}
         className={accessionsLoading ? helper.stale : undefined}

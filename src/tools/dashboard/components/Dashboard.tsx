@@ -37,7 +37,9 @@ const Dashboard = ({ closePanel }: { closePanel?: () => void }) => {
 
   const fullPageContent = closePanel ? null : (
     <>
-      <HTMLHead title="Tool results" />
+      <HTMLHead title="Tool results">
+        <meta name="robots" content="noindex" />
+      </HTMLHead>
       <PageIntro title="Tool results" />
     </>
   );
