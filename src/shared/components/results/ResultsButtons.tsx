@@ -148,7 +148,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
   const handleToggleView = (event: ChangeEvent<HTMLInputElement>) => {
     gtag('event', 'result_view', {
       result_view: event.target.value,
-      result_view_change: 1,
+      result_view_set: 1,
     });
     setViewMode(event.target.value as ViewMode);
   };
