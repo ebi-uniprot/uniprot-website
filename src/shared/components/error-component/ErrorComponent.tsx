@@ -1,4 +1,4 @@
-import { Message } from 'franklin-sites';
+import { ExternalLink, Message } from 'franklin-sites';
 
 import styles from './styles/error-component.module.scss';
 
@@ -20,6 +20,13 @@ const ErrorComponent = () => (
           report this bug here
         </a>
         .
+      </p>
+      <p>
+        If you still need it, the{' '}
+        <ExternalLink url="https://legacy.uniprot.org" rel="nofollow" noIcon>
+          legacy version of the website is still available here
+        </ExternalLink>{' '}
+        until the 2022_02 release.
       </p>
     </Message>
   </div>
