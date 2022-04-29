@@ -13,6 +13,7 @@ import { Location, LocationToPath } from '../../../app/config/urls';
 
 jest.mock('../../adapters/contactFormAdapter');
 const handleSubmit = jest.fn();
+const handleChange = jest.fn();
 
 describe('ContactForm', () => {
   beforeEach(async () => {
@@ -20,6 +21,7 @@ describe('ContactForm', () => {
     (useFormLogic as jest.Mock<UseFormLogicReturnType>).mockReturnValue({
       sending: false,
       handleSubmit,
+      handleChange,
     });
   });
 
@@ -50,6 +52,7 @@ describe('ContactForm', () => {
     (useFormLogic as jest.Mock<UseFormLogicReturnType>).mockReturnValue({
       sending: true,
       handleSubmit,
+      handleChange,
     });
     const { asFragment } = customRender(<ContactForm />);
     expect(asFragment()).toMatchSnapshot();
