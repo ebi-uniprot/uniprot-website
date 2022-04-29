@@ -37,6 +37,7 @@ import {
   getParamsFromURL,
   InvalidParamValue,
 } from '../../../uniprotkb/utils/resultsUtils';
+import { gtag } from '../../utils/logging';
 
 import { Namespace, mainNamespaces } from '../../types/namespaces';
 import {
