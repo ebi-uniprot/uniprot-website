@@ -142,14 +142,10 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
     );
 
     // Race between all of the queries having finished or the timeout triggering
-    Promise.race([Promise.all(promises), sleep(TIMEOUT)]).then(() => {
+    Promise.race([Promise.all(promises), sleep(TIMEOUT)]).finally(() => {
       setRenderContent(true);
     });
   }, [currentNamespace, query, setRenderContent]);
-
-  if (!renderContent) {
-    return <Loader />;
-  }
 
   const suggestionsSortedByHits = orderBy(suggestions, 'hits', 'desc');
 
@@ -204,17 +200,30 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
     );
   }
 
-  return (
-    <Message level="info" className={styles['did-you-mean-message']}>
-      <h1 className="small">Sorry, no results were found!</h1>
-      {suggestionNodes.length ? (
+  let content: ReactNode = null;
+  if (renderContent) {
+    if (suggestionNodes.length) {
+      content = (
         <div className={styles.suggestions}>
           Did you mean to search for:
           <ul className={styles['suggestions-list']}>{suggestionNodes}</ul>
         </div>
-      ) : null}
-      Can&apos;t find what you are looking for? Please{' '}
-      <ContactLink>contact us</ContactLink>
+      );
+    }
+  } else {
+    content = <Loader />;
+  }
+
+  return (
+    <Message level="info" className={styles['did-you-mean-message']}>
+      <h1 className="small">Sorry, no results were found!</h1>
+      {content}
+      {renderContent && (
+        <>
+          Can&apos;t find what you are looking for? Please{' '}
+          <ContactLink>contact us</ContactLink>
+        </>
+      )}
     </Message>
   );
 };

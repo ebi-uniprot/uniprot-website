@@ -3,15 +3,8 @@
 exports[`DiseasesCard tests should render the card component 1`] = `
 <DocumentFragment>
   <section
-    class="card card--has-link"
+    class="card"
   >
-    <a
-      aria-hidden="true"
-      class="card__link"
-      data-testid="background-link"
-      href="/diseases/DI-00550"
-      tabindex="-1"
-    />
     <div
       class="card__container"
     >
@@ -35,7 +28,11 @@ exports[`DiseasesCard tests should render the card component 1`] = `
         <h2
           class="small"
         >
-          Hereditary non-polyposis colorectal cancer 1
+          <a
+            href="/diseases/DI-00550"
+          >
+            Hereditary non-polyposis colorectal cancer 1
+          </a>
         </h2>
       </div>
       <div

@@ -3,15 +3,8 @@
 exports[`CitationsCard tests should render the card component 1`] = `
 <DocumentFragment>
   <section
-    class="card card--has-link"
+    class="card"
   >
-    <a
-      aria-hidden="true"
-      class="card__link"
-      data-testid="background-link"
-      href="/citations/14702039"
-      tabindex="-1"
-    />
     <div
       class="card__container"
     >
@@ -47,7 +40,11 @@ exports[`CitationsCard tests should render the card component 1`] = `
                 <h2
                   class="publication__heading small"
                 >
-                  Complete sequencing and characterization of 21,243 full-length human cDNAs.
+                  <a
+                    href="/citations/14702039"
+                  >
+                    Complete sequencing and characterization of 21,243 full-length human cDNAs.
+                  </a>
                 </h2>
                 <div
                   class="publication__authors"

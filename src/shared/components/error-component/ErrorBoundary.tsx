@@ -10,7 +10,11 @@ type ErrorBoundaryProps = RouteComponentProps & {
   children: ReactNode;
   fallback?: ReactNode;
 };
-type ErrorBoundaryState = { error?: Error; location?: Location };
+type ErrorBoundaryState = {
+  error?: Error;
+  location?: Location;
+  willReload: boolean;
+};
 
 /**
  * Use this ErrorBoundary to wrap any unit of components which might, for any
@@ -28,11 +32,29 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
     super(props);
 
-    this.state = { location: props.location };
+    this.state = { location: props.location, willReload: false };
   }
 
   static getDerivedStateFromError(error: Error) {
-    return { error };
+    let willReload = false;
+    // before keeping the error in the state
+    try {
+      if (!sessionStorage.getItem('reloaded') && chunkError.test(error.name)) {
+        sessionStorage.setItem('reloaded', 'true');
+        willReload = true;
+        window.location.reload(); // This is async
+      }
+    } catch {
+      /* */
+    }
+    setTimeout(() => {
+      try {
+        sessionStorage.removeItem('reloaded');
+      } catch {
+        /* */
+      }
+    }, 1000);
+    return { error, willReload };
   }
 
   static getDerivedStateFromProps(
@@ -47,7 +69,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
       return null;
     }
     // otherwise, reset error, and keep new location in state
-    return { error: null, location: nextProps.location };
+    return { error: null, location: nextProps.location, willReload: false };
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
@@ -64,26 +86,12 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 
   render() {
+    if (this.state.willReload) {
+      // Don't display any message if we know we're gonna reload the page
+      return null;
+    }
+
     if (this.state.error) {
-      try {
-        if (
-          !sessionStorage.getItem('reloaded') &&
-          chunkError.test(this.state.error.name)
-        ) {
-          sessionStorage.setItem('reloaded', 'true');
-          window.location.reload();
-        }
-      } catch {
-        /* */
-      }
-      setTimeout(() => {
-        try {
-          sessionStorage.removeItem('reloaded');
-        } catch {
-          /*
-           */
-        }
-      }, 1000);
       return this.props.fallback;
     }
 

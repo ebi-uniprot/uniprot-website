@@ -6,9 +6,16 @@
   margin-bottom: $global-margin * 2;
 }
 
+.core-data-tile {
+  & :global(.tile__description) {
+    // reduce from default 0.7em to fit more content
+    padding: 0.5em;
+  }
+}
+
 .core-data {
   display: flex;
-  line-height: 1;
+  line-height: 1.2;
 
   & > * {
     flex: 1;
@@ -20,12 +27,12 @@
     color: currentColor;
   }
 
-  svg :global(.swissprot_svg__star) {
-    fill: $colour-reviewed;
+  & &__reviewed-icon {
+    color: $colour-reviewed;
   }
 
-  &__status {
-    font-weight: bold;
+  div:not(.core-data__status) {
+    font-weight: lighter;
   }
 }
 

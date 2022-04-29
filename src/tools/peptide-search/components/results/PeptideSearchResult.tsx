@@ -211,7 +211,10 @@ const PeptideSearchResult = ({
     default:
       sidebar = (
         <ErrorBoundary>
-          <ResultsFacets dataApiObject={facetApiObject} />
+          <ResultsFacets
+            dataApiObject={facetApiObject}
+            namespaceOverride={Namespace.uniprotkb}
+          />
         </ErrorBoundary>
       );
       break;
@@ -236,7 +239,9 @@ const PeptideSearchResult = ({
       }
       sidebar={sidebar}
     >
-      <HTMLHead title={title} />
+      <HTMLHead title={title}>
+        <meta name="robots" content="noindex" />
+      </HTMLHead>
       <Tabs
         active={match.params.subPage}
         className={jobResultLoading ? helper.stale : undefined}

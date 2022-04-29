@@ -10,24 +10,27 @@ import AlignmentView, {
   Tool,
 } from '../../../components/AlignmentView';
 
+import useDataApi from '../../../../shared/hooks/useDataApi';
+
 import { removeFeaturesWithUnknownModifier } from '../../../utils/sequences';
 import { processFeaturesData } from '../../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
+import apiUrls from '../../../../shared/config/apiUrls';
 
 import { BlastHsp } from '../../types/blastResults';
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
 import { UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
+import { Namespace } from '../../../../shared/types/namespaces';
 
 import './styles/HSPDetailPanel.scss';
 
 export type HSPDetailPanelProps = {
   hsp: BlastHsp;
   hitAccession: string;
-  extra?: UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel;
   onClose: () => void;
   hitLength: number;
   queryLength: number;
-  loading?: boolean;
+  namespace: Namespace;
 };
 
 export const convertHSPtoMSAInputs = (
@@ -70,36 +73,37 @@ export const convertHSPtoMSAInputs = (
   ];
 };
 
+type ApiData = UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel;
+
 const HSPDetailPanel = ({
   hsp,
   hitAccession,
   onClose,
   hitLength,
   queryLength,
-  extra,
-  loading,
+  namespace,
 }: HSPDetailPanelProps) => {
   const { hsp_align_len } = hsp;
+  let url = apiUrls.entry(hitAccession, namespace);
+  if (namespace === Namespace.uniref) {
+    url += '/light';
+  }
+  const { data, loading, status } = useDataApi<ApiData>(url);
 
   let recommendedName: string | undefined;
-  if (extra && 'proteinDescription' in extra) {
-    recommendedName =
-      extra?.proteinDescription?.recommendedName?.fullName.value;
+  if (data && 'proteinDescription' in data) {
+    recommendedName = data?.proteinDescription?.recommendedName?.fullName.value;
   }
-  if (extra && 'representativeMember' in extra) {
-    recommendedName = extra?.representativeMember?.proteinName;
+  if (data && 'representativeMember' in data) {
+    recommendedName = data?.representativeMember?.proteinName;
   }
 
   let organism: string | undefined;
-  if (extra && 'organism' in extra) {
-    organism = extra?.organism?.scientificName;
+  if (data && 'organism' in data) {
+    organism = data?.organism?.scientificName;
   }
-  if (
-    extra &&
-    'commonTaxon' in extra &&
-    typeof extra.commonTaxon !== 'string'
-  ) {
-    organism = extra?.commonTaxon?.scientificName;
+  if (data && 'commonTaxon' in data && typeof data.commonTaxon !== 'string') {
+    organism = data?.commonTaxon?.scientificName;
   }
 
   const title = [hitAccession, recommendedName, organism]
@@ -108,18 +112,18 @@ const HSPDetailPanel = ({
 
   const alignment: MSAInput[] = useMemo(
     () =>
-      convertHSPtoMSAInputs(hsp, queryLength, hitLength, hitAccession, extra),
-    [extra, hitAccession, hitLength, hsp, queryLength]
+      convertHSPtoMSAInputs(hsp, queryLength, hitLength, hitAccession, data),
+    [data, hitAccession, hitLength, hsp, queryLength]
   );
 
   const containerClass = 'hsp-detail-panel';
   const containerSelector = `.${containerClass}`;
   let content;
-  if (!extra) {
+  if (!data) {
     if (loading) {
       content = <Loader />;
     } else {
-      content = <ErrorHandler />;
+      content = <ErrorHandler status={status} />;
     }
   } else {
     content = (

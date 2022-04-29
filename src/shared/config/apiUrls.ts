@@ -1,5 +1,5 @@
 import queryString from 'query-string';
-import joinUrl from './testingApiUrls'; // TODO: revert import to: import joinUrl from 'url-join'
+import joinUrl from 'url-join';
 
 import { fromCleanMapper } from '../utils/getIdKeyForNamespace';
 import {

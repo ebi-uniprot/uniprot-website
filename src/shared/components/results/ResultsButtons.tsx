@@ -5,6 +5,7 @@ import {
   Dispatch,
   SetStateAction,
   useEffect,
+  ChangeEvent,
 } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
@@ -13,6 +14,7 @@ import {
   Button,
   SlidingPanel,
 } from 'franklin-sites';
+import cn from 'classnames';
 
 import BlastButton from '../action-buttons/Blast';
 import AlignButton from '../action-buttons/Align';
@@ -22,9 +24,10 @@ import CustomiseButton from '../action-buttons/CustomiseButton';
 import ShareDropdown from '../action-buttons/ShareDropdown';
 import ItemCount from '../ItemCount';
 import ErrorBoundary from '../error-component/ErrorBoundary';
+import FirstTimeSelection from './FirstTimeSelection';
 
 import useNS from '../../hooks/useNS';
-import useViewMode from '../../hooks/useViewMode';
+import useViewMode, { ViewMode } from '../../hooks/useViewMode';
 import useColumnNames from '../../hooks/useColumnNames';
 import { useMessagesDispatch } from '../../contexts/Messages';
 
@@ -41,7 +44,7 @@ import {
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
 
-import './styles/results-buttons.scss';
+import styles from './styles/results-buttons.module.scss';
 
 const DownloadComponent = lazy(
   /* istanbul ignore next */
@@ -141,8 +144,8 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
     invalidUrlViewMode,
   ]);
 
-  const handleToggleView = () =>
-    setViewMode(viewMode === 'card' ? 'table' : 'card');
+  const handleToggleView = (event: ChangeEvent<HTMLInputElement>) =>
+    setViewMode(event.target.value as ViewMode);
 
   const isMain = mainNamespaces.has(namespace);
 
@@ -169,7 +172,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
           </SlidingPanel>
         </Suspense>
       )}
-      <div className="button-group results-buttons">
+      <div className={cn('button-group', styles['results-buttons'])}>
         {isMain && namespace !== Namespace.proteomes && (
           <BlastButton selectedEntries={selectedEntries} />
         )}
@@ -207,23 +210,26 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
         )} */}
         {/* TODO: check if we want to add that to franklin, eventually... */}
         <span role="radiogroup">
+          {!viewMode && <FirstTimeSelection setViewMode={setViewMode} />}
           View:
           <label>
-            Table{' '}
+            Cards{' '}
             <input
               type="radio"
               name="view"
-              checked={viewMode === 'table'}
+              value="cards"
+              checked={viewMode === 'cards'}
               onChange={handleToggleView}
               disabled={disableCardToggle}
             />
           </label>
           <label>
-            Card{' '}
+            Table{' '}
             <input
               type="radio"
               name="view"
-              checked={viewMode === 'card'}
+              value="table"
+              checked={viewMode === 'table'}
               onChange={handleToggleView}
               disabled={disableCardToggle}
             />

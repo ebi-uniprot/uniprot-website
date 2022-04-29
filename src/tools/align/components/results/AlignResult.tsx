@@ -165,7 +165,9 @@ const AlignResult = () => {
 
   return (
     <SingleColumnLayout className={sticky['sticky-tabs-container']}>
-      <HTMLHead title={title} />
+      <HTMLHead title={title}>
+        <meta name="robots" content="noindex" />
+      </HTMLHead>
       <PageIntro
         title={namespaceAndToolsLabels[jobType]}
         titlePostscript={<small> results</small>}

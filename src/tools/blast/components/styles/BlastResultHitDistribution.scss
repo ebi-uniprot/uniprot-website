@@ -1,11 +1,10 @@
 @import 'franklin-sites/src/styles/colours';
 
 .blast-result-hit-distribution {
-  padding-top: 4rem;
-  padding-left: 4rem;
-  padding-right: 1rem;
-  max-width: 60rem;
-  margin-bottom: 1rem;
+  padding-block-start: 4rem;
+  padding-inline: 4rem 1rem;
+  max-inline-size: 60rem;
+  margin-block-end: 1rem;
 
   &.identity {
     --main-histogram-color: #{$colour-sapphire-blue};
@@ -18,12 +17,16 @@
   &.evalue {
     --main-histogram-color: #{$colour-outer-space};
   }
+
+  &:last-child {
+    padding-block-end: 4rem;
+  }
 }
 
 .nbin-selection {
   float: right;
 
   & select {
-    width: auto;
+    inline-size: auto;
   }
 }

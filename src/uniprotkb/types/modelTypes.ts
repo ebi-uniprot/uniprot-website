@@ -2,6 +2,7 @@ export type Evidence = {
   evidenceCode: `ECO:${number}`;
   source?: string;
   id?: string;
+  url?: string;
 };
 
 export type ValueWithEvidence = {

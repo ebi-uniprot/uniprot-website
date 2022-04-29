@@ -2,6 +2,7 @@ import { useMemo, useEffect, useState, lazy, Suspense } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Loader, PageIntro, Tabs, Tab } from 'franklin-sites';
 import cn from 'classnames';
+import { Except } from 'type-fest';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
@@ -185,8 +186,10 @@ const BlastResult = () => {
   const match = useMatchWithRedirect<Params>(Location.BlastResult, TabLocation);
 
   const [selectedEntries, setSelectedItemFromEvent] = useItemSelect();
-  const [hspDetailPanel, setHspDetailPanel] =
-    useState<HSPDetailPanelProps | null>();
+  const [hspDetailPanel, setHspDetailPanel] = useState<Except<
+    HSPDetailPanelProps,
+    'namespace'
+  > | null>();
 
   const [{ query }] = getParamsFromURL(location.search);
 
@@ -242,6 +245,21 @@ const BlastResult = () => {
             selectedFacets: urlParams.selectedFacets,
             facets: [],
             query,
+            // Most of the needed data is already in the BLAST JSON payload
+            columns: [
+              // UniProtKB
+              namespace === Namespace.uniprotkb && 'accession',
+              // "organism_name" returns the whole taxon object with lineage
+              namespace === Namespace.uniprotkb && 'organism_name',
+              // for the detail panel
+              namespace === Namespace.uniprotkb && 'protein_name',
+              // UniRef
+              namespace === Namespace.uniref && 'id',
+              namespace === Namespace.uniref && 'name',
+              namespace === Namespace.uniref && 'common_taxon',
+              // UniParc
+              namespace === Namespace.uniparc && 'upi',
+            ].filter((x: string | boolean): x is string => Boolean(x)),
           }),
         [
           accessionsFilteredByLocalFacets,
@@ -339,7 +357,9 @@ const BlastResult = () => {
       }
       sidebar={sidebar}
     >
-      <HTMLHead title={title} />
+      <HTMLHead title={title}>
+        <meta name="robots" content="noindex" />
+      </HTMLHead>
       <Tabs
         active={match.params.subPage}
         className={accessionsLoading ? helper.stale : undefined}
@@ -454,8 +474,8 @@ const BlastResult = () => {
       {hspDetailPanel && (
         <HSPDetailPanel
           {...hspDetailPanel}
+          namespace={namespace}
           onClose={() => setHspDetailPanel(null)}
-          loading={accessionsLoading}
         />
       )}
     </SideBarLayout>

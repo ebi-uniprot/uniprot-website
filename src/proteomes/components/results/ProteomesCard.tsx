@@ -1,5 +1,6 @@
 import { Card } from 'franklin-sites';
 import cn from 'classnames';
+import { Link } from 'react-router-dom';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import RenderColumnsInCard from '../../../shared/components/results/RenderColumnsInCard';
@@ -40,12 +41,13 @@ const ProteomesCard = ({ data }: { data: ProteomesAPIModel }) => {
         <>
           <CardCheckboxCell id={id} />
           <h2 className="small">
-            <EntryTitle mainTitle={id} entryType={data.proteomeType} />
+            <Link to={getEntryPath(Namespace.proteomes, id)}>
+              <EntryTitle mainTitle={id} entryType={data.proteomeType} />
+            </Link>
           </h2>
         </>
       }
       headerSeparator={false}
-      to={getEntryPath(Namespace.proteomes, id)}
     >
       <RenderColumnsInCard data={data} renderers={mainInfoColumns} />
       {buscoColumnRenderer && buscoRendered && (

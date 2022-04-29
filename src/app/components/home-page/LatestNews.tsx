@@ -16,7 +16,7 @@ const insideUniProtAbstract2 =
   'We would like to invite the machine learning community to help UniProt by creating computational methods to predict metal binding sites across the whole of UniProtKB.';
 
 const proteinSpotlightAbstract =
-  "Who hasn't found an item and kept it - 'you never know, it might come in handy one day'? A notepad left on a bus, a paper clip ditched on the street, a biro left behind on a table. It may take weeks, months or perhaps even years, before you remember it, or happen to rediscover it, just exactly when you need it.";
+  'When something gets uncomfortably close to you - in whichever way it may be - you will seek to fend it off. By walking away, choosing to ignore it, using physical force or, if it is a person, perhaps verbal abuse. In the same vein, across all kingdoms, organisms have developed a multi-faceted system to fight off the more invisible world of microbial infection: the immune response.';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -232,21 +232,21 @@ const LatestNews = () => {
       >
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/245/"
+            url="https://www.proteinspotlight.org/back_issues/246/"
             noIcon
           >
-            I&apos;ll borrow that, thank you
+            Luck of the draw
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/245/"
+          url="https://www.proteinspotlight.org/back_issues/246/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt245_1.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt246.jpg"
             alt=""
             width="125.46"
             height="86.65"

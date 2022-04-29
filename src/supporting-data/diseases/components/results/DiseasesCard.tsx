@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { Card } from 'franklin-sites';
+import { Link } from 'react-router-dom';
 
 import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';
 
@@ -27,11 +28,12 @@ const DiseasesCard = ({ data }: { data: DiseasesAPIModel }) => {
       header={
         <>
           <CardCheckboxCell id={id} />
-          <h2 className="small">{data.name}</h2>
+          <h2 className="small">
+            <Link to={getEntryPath(Namespace.diseases, id)}>{data.name}</Link>
+          </h2>
         </>
       }
       headerSeparator={false}
-      to={getEntryPath(Namespace.diseases, id)}
       links={links}
     >
       <div className={renderColumnsInCardStyles['result-card__info-container']}>

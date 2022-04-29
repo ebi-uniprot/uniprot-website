@@ -139,7 +139,7 @@ const Results = ({
         </>
       }
     >
-      {/* TODO: check and chage this title when implementing Help */}
+      {/* TODO: check and change this title when implementing Help */}
       <HTMLHead title={`${searchValue} in UniProt help`} />
       <div className={styles['results-header']}>
         <HelperImage className={styles.helper} />

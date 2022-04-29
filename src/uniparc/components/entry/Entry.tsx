@@ -154,7 +154,12 @@ const Entry = () => {
         >
           <div className="button-group">
             <BlastButton selectedEntries={[match.params.accession]} />
-            <EntryDownload />
+            {
+              // TODO: evenutally remove nResults prop (see note in EntryDownload)
+            }
+            <EntryDownload
+              nResults={xrefsDataObject.data?.uniParcCrossReferences?.length}
+            />
             <AddToBasketButton selectedEntries={match.params.accession} />
           </div>
           <EntryMain

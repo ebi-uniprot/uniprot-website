@@ -147,7 +147,7 @@ const ResultsData = ({
 
   return (
     <div className="results-data">
-      {viewMode === 'card' && !displayIdMappingColumns ? (
+      {viewMode === 'cards' && !displayIdMappingColumns ? (
         // Card view
         <DataListWithLoader<APIModel>
           getIdKey={getIdKey}

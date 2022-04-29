@@ -1,9 +1,9 @@
 import { Message } from 'franklin-sites';
 
-import './styles/error-component.scss';
+import styles from './styles/error-component.module.scss';
 
 const ErrorComponent = () => (
-  <div className="error-component">
+  <div className={styles['error-component']}>
     <Message level="failure">
       <h5>An unexpected issue occurred</h5>
       <p>

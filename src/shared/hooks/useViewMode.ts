@@ -10,19 +10,22 @@ import { parseQueryString } from '../utils/url';
 import { Namespace } from '../types/namespaces';
 import { InvalidParamValue } from '../../uniprotkb/utils/resultsUtils';
 
-const viewModes: Set<ViewMode> = new Set(['card', 'table']);
-export type ViewMode = 'table' | 'card';
-export const defaultViewMode: ViewMode = 'card';
+const viewModes: Set<ViewMode> = new Set(['cards', 'table', null]);
+export type ViewMode = 'table' | 'cards' | null;
+export const defaultViewMode: ViewMode = null;
 
 // TODO: eventually remove it
 // This is just to convert for people currently using the website as they
 // might have a viewMode of 0 or 1 because of the previous way it was stored
 const normalize = (viewMode: ViewMode) => {
-  if (viewMode !== 'card' && viewMode !== 'table') {
+  if (viewMode !== 'cards' && viewMode !== 'table') {
     if (viewMode === 0) {
       return 'table';
     }
-    return 'card';
+    if (viewMode === 'cards') {
+      return 'cards';
+    }
+    return null;
   }
   return viewMode;
 };

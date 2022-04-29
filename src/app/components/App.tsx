@@ -47,9 +47,24 @@ if (process.env.NODE_ENV !== 'development') {
             sentryReact.reactRouterV5Instrumentation(history),
         }),
       ],
+      maxBreadcrumbs: 50,
       // Proportion of sessions being used to track performance
       // Adjust to a lower value when we start getting enough data
-      tracesSampleRate: 0.5,
+      tracesSampleRate: 0.25,
+      // Proportion of errors being reported
+      sampleRate: 0.75,
+      // errors to be ignored completely
+      ignoreErrors: [
+        // errors caused by an extension
+        'chrome-extensions://',
+      ],
+      // Programmatically filter out errors from Sentry
+      // beforeSend(event, hint){
+      //   if (/* condition to discard error */) {
+      //     return null;
+      //   }
+      //   return event;
+      // },
     });
   });
 }

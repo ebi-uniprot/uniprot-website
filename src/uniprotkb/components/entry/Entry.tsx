@@ -154,7 +154,7 @@ const Entry = () => {
             break;
           case EntrySection.SubCellularLocation:
             disabled = !subcellularLocationSectionHasContent(
-              transformedData['subcellular-location']
+              transformedData[EntrySection.SubCellularLocation]
             );
             break;
           default:

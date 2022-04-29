@@ -54,9 +54,9 @@ export const UniProtEvidenceTagContent = ({
       {Object.entries(groupedEvidencesWithoutPubs).map(
         ([key, mappedEvidences], index) => (
           <Fragment key={key || index}>
-            {mappedEvidences.map(({ id }: Evidence, index) => (
+            {mappedEvidences.map(({ id, url }: Evidence, index) => (
               <div key={id || index}>
-                <EvidenceLink source={key} value={id} />
+                <EvidenceLink source={key} value={id} url={url} />
               </div>
             ))}
           </Fragment>
