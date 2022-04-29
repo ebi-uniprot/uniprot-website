@@ -144,8 +144,13 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
     invalidUrlViewMode,
   ]);
 
-  const handleToggleView = (event: ChangeEvent<HTMLInputElement>) =>
+  const handleToggleView = (event: ChangeEvent<HTMLInputElement>) => {
+    gtag('event', 'result_view', {
+      result_view: event.target.value,
+      result_view_change: 1,
+    });
     setViewMode(event.target.value as ViewMode);
+  };
 
   const isMain = mainNamespaces.has(namespace);
 

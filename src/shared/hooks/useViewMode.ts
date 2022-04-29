@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import qs from 'query-string';
 
@@ -69,6 +69,12 @@ const useViewMode = (
   } else if (columnNamesAreFromUrl) {
     viewMode = 'table';
   }
+
+  useEffect(() => {
+    gtag('event', 'result_view', {
+      result_view: `${viewMode}`,
+    });
+  }, [viewMode]);
 
   const setViewMode = useCallback(
     (vm: ViewMode) => {
