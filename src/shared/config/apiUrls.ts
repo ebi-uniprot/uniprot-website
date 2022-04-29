@@ -496,6 +496,12 @@ export const help = {
     })}`,
 };
 
+// Help endpoints
+export const news = {
+  accession: (accession?: string) =>
+    accession && joinUrl(apiPrefix, 'release-notes', accession),
+};
+
 export const unisave = {
   accession: (
     accession: string,

@@ -1,5 +1,5 @@
 import { useCallback, MouseEventHandler, useMemo, useEffect } from 'react';
-import { RouteChildrenProps, useHistory } from 'react-router-dom';
+import { generatePath, RouteChildrenProps, useHistory } from 'react-router-dom';
 import { Card, Loader, Message } from 'franklin-sites';
 import { marked } from 'marked';
 import {
@@ -17,7 +17,10 @@ import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 
-import { help as helpURL } from '../../../shared/config/apiUrls';
+import {
+  help as helpURL,
+  news as newsURL,
+} from '../../../shared/config/apiUrls';
 import cleanText, {
   cleanTextDefaultOptions,
   getTransformTags,
@@ -26,6 +29,7 @@ import cleanText, {
 import parseDate from '../../../shared/utils/parseDate';
 
 import { HelpEntryResponse } from '../../adapters/helpConverter';
+import { LocationToPath, Location } from '../../../app/config/urls';
 
 import helper from '../../../shared/styles/helper.module.scss';
 import styles from './styles/entry.module.scss';
@@ -143,11 +147,35 @@ type Props = {
 };
 
 const HelpEntry = ({
+  history,
   match,
   inPanel,
   overrideContent,
 }: RouteChildrenProps<{ accession: string }> & Props) => {
   const accession = match?.params.accession;
+  const isReleaseNotes = match?.path.includes('release-notes');
+
+  let url = null;
+  if (!overrideContent) {
+    if (isReleaseNotes) {
+      url = newsURL.accession(accession);
+    } else {
+      url = helpURL.accession(accession);
+    }
+  }
+
+  useEffect(() => {
+    if (!isReleaseNotes || !accession || !accession.includes('/')) {
+      return;
+    }
+    // if the accession has slashes, replace with dashes
+    history.replace({
+      ...history.location,
+      pathname: generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+        accession: accession.replaceAll('/', '-'),
+      }),
+    });
+  }, [isReleaseNotes, accession, history]);
 
   const {
     data: loadedData,
@@ -156,18 +184,16 @@ const HelpEntry = ({
     status,
     progress,
     isStale,
-  } = useDataApiWithStale<HelpEntryResponse>(
-    overrideContent ? null : helpURL.accession(accession)
-  );
+  } = useDataApiWithStale<HelpEntryResponse>(url);
 
   const data = overrideContent || loadedData;
 
-  const lastModifed = useMemo(() => {
+  const date = useMemo(() => {
     if (data?.content) {
-      return parseDate(data.lastModified);
+      return parseDate(isReleaseNotes ? data.releaseDate : data.lastModified);
     }
     return null;
-  }, [data]);
+  }, [data, isReleaseNotes]);
 
   if (loading && !data) {
     return <Loader progress={progress} />;
@@ -186,29 +212,32 @@ const HelpEntry = ({
     );
   }
 
+  const dateNode = date && (
+    <div className={isReleaseNotes ? undefined : styles['last-updated-help']}>
+      <small>
+        {' '}
+        {isReleaseNotes ? 'Released on' : 'Page last modified'}:{' '}
+        <time dateTime={date.toISOString()}>{date.toDateString()}</time>
+      </small>
+    </div>
+  );
+
   return (
     <SingleColumnLayout>
       <HTMLHead title={[data.title, 'UniProt help']} />
-      <Message level="info" className={styles['beta-message']}>
-        During the beta phase, help content may not be up to date.
-      </Message>
-      <h1 className={data.categories.includes('faq') ? 'big' : undefined}>
+      {!isReleaseNotes && (
+        <Message level="info" className={styles['beta-message']}>
+          During the beta phase, help content may not be up to date.
+        </Message>
+      )}
+      <h1 className={data.categories?.includes('faq') ? 'big' : undefined}>
         {data.title}
       </h1>
+      {isReleaseNotes && accession !== 'forthcoming-changes' && dateNode}
       <Card className={cn(styles.content, { [helper.stale]: isStale })}>
         <HelpEntryContent data={data} />
       </Card>
-      {lastModifed && (
-        <div className={styles['last-updated-help']}>
-          <small>
-            {' '}
-            Page last modified:{' '}
-            <time dateTime={lastModifed.toISOString()}>
-              {lastModifed.toDateString()}
-            </time>
-          </small>
-        </div>
-      )}
+      {!isReleaseNotes && dateNode}
     </SingleColumnLayout>
   );
 };

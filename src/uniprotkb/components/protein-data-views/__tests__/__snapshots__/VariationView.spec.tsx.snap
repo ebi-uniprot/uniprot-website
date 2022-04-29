@@ -275,3 +275,15 @@ exports[`VariationView component renders on loading 1`] = `
   </div>
 </DocumentFragment>
 `;
+
+exports[`VariationView component renders on no data 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="no-data"
+    >
+      No variation information available for P05067
+    </div>
+  </div>
+</DocumentFragment>
+`;

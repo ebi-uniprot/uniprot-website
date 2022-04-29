@@ -39,8 +39,10 @@ describe('VariationView component', () => {
       status: 404,
     });
     await act(async () => {
-      const { container } = render(<VariationView primaryAccession="P05067" />);
-      expect(container).toBeEmptyDOMElement();
+      const { asFragment } = render(
+        <VariationView primaryAccession="P05067" />
+      );
+      expect(asFragment()).toMatchSnapshot();
     });
   });
 

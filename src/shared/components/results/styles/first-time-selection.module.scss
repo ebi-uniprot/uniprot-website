@@ -10,11 +10,17 @@
   right: 0;
   bottom: 0;
   left: 0;
-  backdrop-filter: blur(0.2rem);
   z-index: $z-index-high;
   display: grid;
   justify-content: center;
   align-content: center;
+
+  background: rgba(255, 255, 255, 0.75);
+
+  @supports (backdrop-filter: blur(0.2rem)) {
+    backdrop-filter: blur(0.2rem);
+    background: none;
+  }
 
   /* visible container box */
   & > * {

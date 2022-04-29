@@ -10,7 +10,6 @@ import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
 
-import { hasContent } from '../../../shared/utils/utils';
 import { UIModel } from '../../adapters/sectionConverter';
 
 import { DiseaseComment, FreeTextComment } from '../../types/commentTypes';
