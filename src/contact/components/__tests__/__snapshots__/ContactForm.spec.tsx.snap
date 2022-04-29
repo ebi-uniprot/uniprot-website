@@ -38,6 +38,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
           name="name"
           placeholder=" "
           type="text"
+          value=""
         />
         <span
           aria-hidden="true"
@@ -73,6 +74,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
           placeholder="myemail@example.com"
           required=""
           type="email"
+          value=""
         />
         <span
           aria-hidden="true"
@@ -191,6 +193,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
       <input
         hidden=""
         name="referrer"
+        readonly=""
         value=""
       />
       <button
@@ -215,9 +218,9 @@ exports[`ContactForm should be disabled when submitting 1`] = `
         >
           <li>
             <a
-              href="/contact"
+              href="/update"
             >
-              Send us general questions and suggestions
+              Send updates or corrections
             </a>
           </li>
           <li>
@@ -279,6 +282,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
           name="name"
           placeholder=" "
           type="text"
+          value=""
         />
         <span
           aria-hidden="true"
@@ -314,6 +318,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
           placeholder="myemail@example.com"
           required=""
           type="email"
+          value=""
         />
         <span
           aria-hidden="true"
@@ -432,6 +437,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
       <input
         hidden=""
         name="referrer"
+        readonly=""
         value=""
       />
       <button
@@ -455,9 +461,9 @@ exports[`ContactForm should render for feedback contact form 1`] = `
         >
           <li>
             <a
-              href="/update"
+              href="/contact"
             >
-              Send updates or corrections
+              Send us general questions and suggestions
             </a>
           </li>
           <li>
@@ -519,6 +525,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
           name="name"
           placeholder=" "
           type="text"
+          value=""
         />
         <span
           aria-hidden="true"
@@ -554,6 +561,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
           placeholder="myemail@example.com"
           required=""
           type="email"
+          value=""
         />
         <span
           aria-hidden="true"
@@ -672,6 +680,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
       <input
         hidden=""
         name="referrer"
+        readonly=""
         value=""
       />
       <button
@@ -695,9 +704,9 @@ exports[`ContactForm should render for generic contact form 1`] = `
         >
           <li>
             <a
-              href="/contact"
+              href="/update"
             >
-              Send us general questions and suggestions
+              Send updates or corrections
             </a>
           </li>
           <li>
