@@ -47,6 +47,8 @@ const redirectMap = new Map<RedirectEntry[0], RedirectEntry[1]>([
   [/^\/upload-?lists?(?<rest>\/.*)?$/i, `/id-mapping$<rest>`],
   // help
   misspeltHelpTuple,
+  // release notes
+  [/^\/(news|release-note)(?<rest>\/.*)?$/i, `/release-notes$<rest>`],
   // other
   [/^\/statistics?$/i, `/help/release-statistics`],
   [/^\/downloads?$/i, `/help/downloads`],
