@@ -441,15 +441,16 @@ const App = () => {
               path={LocationToPath[Location.HelpResults]}
               component={ResultsOrLanding(HelpResults, HelpLandingPage)}
             />
-            {/* News */}
+            {/* Release notes */}
             <Route
-              path={LocationToPath[Location.NewsEntry]}
+              path={LocationToPath[Location.ReleaseNotesEntry]}
               component={HelpEntryPage}
             />
-            <Route
-              path={LocationToPath[Location.NewsResults]}
+            {/* TODO: add a search results view */}
+            {/* <Route
+              path={LocationToPath[Location.ReleaseNotesResults]}
               component={HelpResults}
-            />
+            /> */}
             {/* Contact */}
             <Route
               path={LocationToPath[Location.ContactGeneric]}

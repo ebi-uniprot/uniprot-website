@@ -1,5 +1,5 @@
 import { useCallback, MouseEventHandler, useMemo, useEffect } from 'react';
-import { RouteChildrenProps, useHistory } from 'react-router-dom';
+import { generatePath, RouteChildrenProps, useHistory } from 'react-router-dom';
 import { Card, Loader, Message } from 'franklin-sites';
 import { marked } from 'marked';
 import {
@@ -10,7 +10,6 @@ import {
   IOptions,
 } from 'sanitize-html';
 import cn from 'classnames';
-import fm from 'front-matter';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
 import SingleColumnLayout from '../../../shared/components/layouts/SingleColumnLayout';
@@ -30,6 +29,7 @@ import cleanText, {
 import parseDate from '../../../shared/utils/parseDate';
 
 import { HelpEntryResponse } from '../../adapters/helpConverter';
+import { LocationToPath, Location } from '../../../app/config/urls';
 
 import helper from '../../../shared/styles/helper.module.scss';
 import styles from './styles/entry.module.scss';
@@ -147,12 +147,13 @@ type Props = {
 };
 
 const HelpEntry = ({
+  history,
   match,
   inPanel,
   overrideContent,
 }: RouteChildrenProps<{ accession: string }> & Props) => {
   const accession = match?.params.accession;
-  const isReleaseNotes = match?.path.includes('news');
+  const isReleaseNotes = match?.path.includes('release-notes');
 
   let url = null;
   if (!overrideContent) {
@@ -163,6 +164,19 @@ const HelpEntry = ({
     }
   }
 
+  useEffect(() => {
+    if (!isReleaseNotes || !accession || !accession.includes('/')) {
+      return;
+    }
+    // if the accession has slashes, replace with dashes
+    history.replace({
+      ...history.location,
+      pathname: generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+        accession: accession.replaceAll('/', '-'),
+      }),
+    });
+  }, [isReleaseNotes, accession, history]);
+
   const {
     data: loadedData,
     loading,
@@ -170,35 +184,16 @@ const HelpEntry = ({
     status,
     progress,
     isStale,
-  } = useDataApiWithStale<HelpEntryResponse | string>(url);
+  } = useDataApiWithStale<HelpEntryResponse>(url);
 
-  let data = overrideContent || loadedData;
+  const data = overrideContent || loadedData;
 
-  if (typeof data === 'string') {
-    const {
-      attributes: { title },
-      body,
-    } = fm<{
-      title?: string;
-      categories?: string;
-      [key: string]: string | undefined;
-    }>(data.trim());
-    const content = cleanText(marked(body), getCleanTextOptions('h1'));
-    data = {
-      id: accession!,
-      title: title || '',
-      categories: [],
-      content,
-      lastModified: '',
-    };
-  }
-
-  const lastModifed = useMemo(() => {
+  const date = useMemo(() => {
     if (data?.content) {
-      return parseDate(data.lastModified);
+      return parseDate(isReleaseNotes ? data.releaseDate : data.lastModified);
     }
     return null;
-  }, [data]);
+  }, [data, isReleaseNotes]);
 
   if (loading && !data) {
     return <Loader progress={progress} />;
@@ -217,6 +212,16 @@ const HelpEntry = ({
     );
   }
 
+  const dateNode = date && (
+    <div className={isReleaseNotes ? undefined : styles['last-updated-help']}>
+      <small>
+        {' '}
+        {isReleaseNotes ? 'Released on' : 'Page last modified'}:{' '}
+        <time dateTime={date.toISOString()}>{date.toDateString()}</time>
+      </small>
+    </div>
+  );
+
   return (
     <SingleColumnLayout>
       <HTMLHead title={[data.title, 'UniProt help']} />
@@ -228,20 +233,11 @@ const HelpEntry = ({
       <h1 className={data.categories.includes('faq') ? 'big' : undefined}>
         {data.title}
       </h1>
+      {isReleaseNotes && dateNode}
       <Card className={cn(styles.content, { [helper.stale]: isStale })}>
         <HelpEntryContent data={data} />
       </Card>
-      {lastModifed && (
-        <div className={styles['last-updated-help']}>
-          <small>
-            {' '}
-            Page last modified:{' '}
-            <time dateTime={lastModifed.toISOString()}>
-              {lastModifed.toDateString()}
-            </time>
-          </small>
-        </div>
-      )}
+      {!isReleaseNotes && dateNode}
     </SingleColumnLayout>
   );
 };

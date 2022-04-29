@@ -92,7 +92,7 @@ const LatestNews = () => {
             <article>
               <h3 className="tiny">
                 <Link
-                  to={generatePath(LocationToPath[Location.NewsEntry], {
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
                     accession: '2022-02-23-release',
                   })}
                 >
@@ -114,7 +114,7 @@ const LatestNews = () => {
             <article>
               <h3 className="tiny">
                 <Link
-                  to={generatePath(LocationToPath[Location.NewsEntry], {
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
                     accession: '2021-11-17-release',
                   })}
                 >
@@ -135,7 +135,7 @@ const LatestNews = () => {
             <article>
               <h3 className="tiny">
                 <Link
-                  to={generatePath(LocationToPath[Location.NewsEntry], {
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
                     accession: '2021-06-02-release',
                   })}
                 >

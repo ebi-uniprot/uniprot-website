@@ -397,7 +397,7 @@ exports[`non-critical HomePage component should render 1`] = `
               class="tiny"
             >
               <a
-                href="/news/2022-02-23-release"
+                href="/release-notes/2022-02-23-release"
               >
                 UniProt release 2022_01
               </a>
@@ -415,7 +415,7 @@ exports[`non-critical HomePage component should render 1`] = `
               class="tiny"
             >
               <a
-                href="/news/2021-11-17-release"
+                href="/release-notes/2021-11-17-release"
               >
                 UniProt release 2021_04
               </a>
@@ -433,7 +433,7 @@ exports[`non-critical HomePage component should render 1`] = `
               class="tiny"
             >
               <a
-                href="/news/2021-06-02-release"
+                href="/release-notes/2021-06-02-release"
               >
                 UniProt release 2021_03
               </a>

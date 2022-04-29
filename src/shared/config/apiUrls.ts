@@ -499,8 +499,7 @@ export const help = {
 // Help endpoints
 export const news = {
   accession: (accession?: string) =>
-    accession &&
-    `https://raw.githubusercontent.com/ebi-uniprot/uniprot-manual/main/release-notes/${accession}.md`,
+    accession && joinUrl(apiPrefix, 'release-notes', accession),
 };
 
 export const unisave = {
