@@ -210,7 +210,9 @@ const IDMappingResult = () => {
           namespaceOverride !== Namespace.idmapping &&
             namespaceAndToolsLabels[namespaceOverride],
         ]}
-      />
+      >
+        <meta name="robots" content="noindex" />
+      </HTMLHead>
       <Tabs active={match.params.subPage}>
         <Tab
           id={TabLocation.Overview}

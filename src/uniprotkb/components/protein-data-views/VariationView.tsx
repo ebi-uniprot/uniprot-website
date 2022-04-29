@@ -174,7 +174,14 @@ const VariationView = ({
     !sortedVariants?.length ||
     !filteredVariants
   ) {
-    return null;
+    return (
+      <div>
+        {title && <h3>{title}</h3>}
+        <div className={styles['no-data']}>
+          No variation information available for {primaryAccession}
+        </div>
+      </div>
+    );
   }
 
   const table = (

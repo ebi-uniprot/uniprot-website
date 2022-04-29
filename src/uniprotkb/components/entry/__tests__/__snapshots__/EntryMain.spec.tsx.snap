@@ -2119,7 +2119,7 @@ exports[`Entry view should render 1`] = `
   <section
     class="card"
     data-entry-section="true"
-    id="disease_and_drugs"
+    id="disease_phenotypes"
   >
     <div
       class="card__container"
@@ -2130,7 +2130,7 @@ exports[`Entry view should render 1`] = `
         <h2
           data-article-id="pathology_and_biotech_section"
         >
-          Disease & Drugs
+          Disease/Phenotypes
         </h2>
       </div>
       <div

@@ -72,7 +72,9 @@ const BasketFullView = () => {
   if (!accessions.length) {
     return (
       <>
-        <HTMLHead title="My basket" />
+        <HTMLHead title="My basket">
+          <meta name="robots" content="noindex" />
+        </HTMLHead>
         <EmptyBasket />
       </>
     );
@@ -106,7 +108,9 @@ const BasketFullView = () => {
           }`,
           'My basket',
         ]}
-      />
+      >
+        <meta name="robots" content="noindex" />
+      </HTMLHead>
       <PageIntro
         title={namespaceAndToolsLabels[namespace]}
         titlePostscript={<small> in your basket</small>}

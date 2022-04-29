@@ -10,7 +10,6 @@ import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
 
-import { hasContent } from '../../../shared/utils/utils';
 import { UIModel } from '../../adapters/sectionConverter';
 
 import { DiseaseComment, FreeTextComment } from '../../types/commentTypes';
@@ -28,11 +27,9 @@ const DiseaseAndDrugsSection = ({
   sequence,
   taxId,
 }: Props) => {
-  if (!hasContent(data)) {
-    return null;
-  }
+  // NOTE: do not check if content is there or not, always display because of variants
   const nameAndId = getEntrySectionNameAndId(
-    EntrySection.DiseaseAndDrugs,
+    EntrySection.DiseasePhenotypes,
     taxId
   );
   return (

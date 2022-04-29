@@ -5,7 +5,8 @@ export type HelpAPIModel = {
   id: string;
   title: string;
   lastModified: string;
-  categories: string[];
+  releaseDate?: string; // specific to news / release notes
+  categories?: string[];
 
   content?: string;
 

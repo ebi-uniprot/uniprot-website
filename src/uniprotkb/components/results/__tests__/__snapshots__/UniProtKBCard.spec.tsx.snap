@@ -113,7 +113,7 @@ exports[`UniProtKBCard component should render 1`] = `
       </a>
       <a
         class="card-action"
-        href="/uniprotkb/P21802#disease_and_drugs"
+        href="/uniprotkb/P21802#disease_phenotypes"
       >
         1 disease
       </a>

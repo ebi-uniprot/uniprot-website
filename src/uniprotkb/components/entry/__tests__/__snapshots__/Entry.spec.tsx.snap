@@ -49,9 +49,9 @@ exports[`Entry basic should render main 1`] = `
         >
           <a
             class=""
-            href="/uniprotkb/P21802/entry#disease_and_drugs"
+            href="/uniprotkb/P21802/entry#disease_phenotypes"
           >
-            Disease & Drugs
+            Disease/Phenotypes
           </a>
         </li>
         <li

@@ -44,7 +44,7 @@ export const getEntrySectionToDatabaseNames = (
   const databaseSelector = selectDatabases(databaseCategoryToNames);
 
   const entrySectionToDatabaseNames = new Map<EntrySection, string[]>();
-  entrySectionToDatabaseNames.set(EntrySection.DiseaseAndDrugs, [
+  entrySectionToDatabaseNames.set(EntrySection.DiseasePhenotypes, [
     'DisGeNET',
     'GeneReviews',
     'MalaCards',

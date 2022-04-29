@@ -14,7 +14,7 @@ import ArtWork from './svgs/404.svg';
 type RedirectEntry = [pattern: RegExp, replacement: string];
 
 export const misspeltHelpTuple: RedirectEntry = [
-  /^\/(manual|faqs?|docs?|biocuration_project)(?<rest>\/.*)?$/i,
+  /^\/(manual|faqs?|docs?|biocuration_project|program)(?<rest>\/.*)?$/i,
   `/help$<rest>`,
 ];
 
@@ -47,6 +47,8 @@ const redirectMap = new Map<RedirectEntry[0], RedirectEntry[1]>([
   [/^\/upload-?lists?(?<rest>\/.*)?$/i, `/id-mapping$<rest>`],
   // help
   misspeltHelpTuple,
+  // release notes
+  [/^\/(news|release-note)(?<rest>\/.*)?$/i, `/release-notes$<rest>`],
   // other
   [/^\/statistics?$/i, `/help/release-statistics`],
   [/^\/downloads?$/i, `/help/downloads`],
