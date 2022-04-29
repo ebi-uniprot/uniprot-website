@@ -230,10 +230,10 @@ const HelpEntry = ({
           During the beta phase, help content may not be up to date.
         </Message>
       )}
-      <h1 className={data.categories.includes('faq') ? 'big' : undefined}>
+      <h1 className={data.categories?.includes('faq') ? 'big' : undefined}>
         {data.title}
       </h1>
-      {isReleaseNotes && dateNode}
+      {isReleaseNotes && accession !== 'forthcoming-changes' && dateNode}
       <Card className={cn(styles.content, { [helper.stale]: isStale })}>
         <HelpEntryContent data={data} />
       </Card>

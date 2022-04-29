@@ -376,10 +376,7 @@ exports[`non-critical HomePage component should render 1`] = `
               class="tiny"
             >
               <a
-                class="external-link"
-                href="https://www.uniprot.org/changes?sort=published"
-                rel="noopener"
-                target="_blank"
+                href="/release-notes/forthcoming-changes"
               >
                 Forthcoming changes
               </a>

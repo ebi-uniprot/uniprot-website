@@ -6,7 +6,7 @@ export type HelpAPIModel = {
   title: string;
   lastModified: string;
   releaseDate?: string; // specific to news / release notes
-  categories: string[];
+  categories?: string[];
 
   content?: string;
 

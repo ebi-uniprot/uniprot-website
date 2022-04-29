@@ -71,12 +71,13 @@ const LatestNews = () => {
           <li>
             <article>
               <h3 className="tiny">
-                <ExternalLink
-                  url="https://www.uniprot.org/changes?sort=published"
-                  noIcon
+                <Link
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                    accession: 'forthcoming-changes',
+                  })}
                 >
                   Forthcoming changes
-                </ExternalLink>
+                </Link>
               </h3>
               <p
                 className={cn(
