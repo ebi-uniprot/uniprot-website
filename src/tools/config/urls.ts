@@ -1,13 +1,18 @@
 import queryString from 'query-string';
 import deepFreeze from 'deep-freeze';
+import joinUrl from 'url-join';
 
 import {
   createFacetsQueryString,
   apiPrefix,
 } from '../../shared/config/apiUrls';
-import joinUrl from '../../shared/config/testingApiUrls'; // TODO: revert import to: import joinUrl from 'url-join'
-import { SelectedFacet } from '../../uniprotkb/types/resultsTypes';
+import {
+  getApiSortDirection,
+  SelectedFacet,
+  SortDirection,
+} from '../../uniprotkb/types/resultsTypes';
 import { JobTypes } from '../types/toolsJobTypes';
+import { Column } from '../../shared/config/columns';
 
 type CommonResultFormats =
   | 'out' // raw output of the tool
@@ -58,6 +63,8 @@ type Return<T extends JobTypes> = Readonly<{
       size?: number;
       selectedFacets?: SelectedFacet[];
       query?: string;
+      sortColumn?: Column;
+      sortDirection?: SortDirection;
     }
   ) => string;
   detailsUrl?: (jobId: string) => string;
@@ -81,18 +88,29 @@ function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
           `${baseURL}/status/${jobId}?cachebust=${new Date().getTime()}`,
         resultUrl: (
           redirectUrl,
-          { facets, size, selectedFacets = [], query }
+          {
+            facets,
+            size,
+            selectedFacets = [],
+            query,
+            sortColumn,
+            sortDirection,
+          }
         ) =>
           `${redirectUrl}?${queryString.stringify({
             size,
             facets: facets?.join(','),
             // Similar approach to the one in apiUrls.ts file
             query: `${[
-              `(${query || '*'})`,
+              query ? `(${query})` : null,
               createFacetsQueryString(selectedFacets),
             ]
               .filter(Boolean)
               .join(' AND ')}`,
+            sort:
+              sortColumn && sortDirection
+                ? `${sortColumn} ${getApiSortDirection(sortDirection)}`
+                : undefined,
           })}`,
         detailsUrl: (jobId) => `${baseURL}/details/${jobId}`,
       });

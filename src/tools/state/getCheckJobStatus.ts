@@ -47,7 +47,9 @@ const getCheckJobStatus =
       if (
         !response.ok &&
         status !== Status.FAILURE &&
-        status !== Status.ERRORED
+        status !== Status.ERRORED &&
+        // When doing Peptide Search weird redirects happen and mess this up
+        job.type !== JobTypes.PEPTIDE_SEARCH
       ) {
         throw new Error(`${response.status}: ${response.statusText}`);
       }
@@ -151,12 +153,9 @@ const getCheckJobStatus =
         );
       } else if (job.type === JobTypes.ID_MAPPING && idMappingResultsUrl) {
         // only ID Mapping jobs
-        const response = await fetchData(
-          idMappingResultsUrl,
-          undefined,
-          undefined,
-          { method: 'HEAD' }
-        );
+        const response = await fetchData(idMappingResultsUrl, undefined, {
+          method: 'HEAD',
+        });
 
         // get a new reference to the job
         currentStateOfJob = stateRef.current[job.internalID];

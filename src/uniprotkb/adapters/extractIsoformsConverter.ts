@@ -11,10 +11,9 @@ const finder = (
 
 const extractIsoforms = (data: UniProtkbAPIModel) => {
   const alternativeProducts = data.comments?.find(finder);
-  const isoforms = alternativeProducts?.isoforms.flatMap((isoform) =>
-    isoform.isoformIds.map((isoformId) => isoformId)
+  return (
+    alternativeProducts?.isoforms.flatMap((isoform) => isoform.isoformIds) || []
   );
-  return { isoforms: isoforms || [] };
 };
 
 export default extractIsoforms;

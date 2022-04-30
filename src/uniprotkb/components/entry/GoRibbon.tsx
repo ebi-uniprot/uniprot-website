@@ -63,7 +63,7 @@ const GoRibbon = ({
     'protvista-datatable'
   );
 
-  const [selectedSet, setSelectedSet] = useState('goslim_agr');
+  const [selectedSet, setSelectedSet] = useState('goslim_generic');
 
   // NOTE: loading is also available, do we want to do anything with it?
   const { loading, slimmedData, selectedSlimSet, slimSets } = useGOData(
@@ -212,7 +212,7 @@ const GoRibbon = ({
       )}
       {elementLoaded && ribbon}
       {!!filteredGoTerms.length && (
-        <datatableElement.name>
+        <datatableElement.name filter-scroll>
           <table>
             <thead>
               <tr>

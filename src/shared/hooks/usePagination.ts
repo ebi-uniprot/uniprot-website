@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 
 import usePrefetch from './usePrefetch';
+import useDataApi from './useDataApi';
+
+import getNextURLFromHeaders from '../utils/getNextURLFromHeaders';
 
 import { APIModel } from '../types/apiModel';
-import useDataApi from './useDataApi';
-import getNextURLFromHeaders from '../utils/getNextURLFromHeaders';
+import { SearchResults } from '../types/results';
 
 export type PaginatedResults = {
   allResults: APIModel[];
@@ -35,10 +37,11 @@ const usePagination = <T extends APIModel, R extends APIModel>(
     setUrl(initialApiUrl);
   }, [initialApiUrl]);
 
-  const { data, loading, progress, headers } = useDataApi<{
-    results: APIModel[];
-    failedIds?: string[];
-  }>(url);
+  const { data, loading, progress, headers } = useDataApi<
+    SearchResults<APIModel> & {
+      failedIds?: string[];
+    }
+  >(url);
 
   useEffect(() => {
     if (!data) {

@@ -168,30 +168,41 @@ export const getEvidenceLink = (
 const EvidenceLink = ({
   source,
   value,
+  url,
   className,
 }: {
   source: string;
   value?: string;
+  url?: string;
   className?: string;
 }) => {
   if (!value) {
     return null;
   }
 
-  const { url, isInternal } = getEvidenceLink(source, value);
+  const content = formatEvidenceContent(value);
 
-  if (!url) {
-    return <>{formatEvidenceContent(value)}</>;
+  let renderedURL = url;
+  let isInternal = false;
+
+  if (!renderedURL) {
+    const evidenceLink = getEvidenceLink(source, value);
+    renderedURL = evidenceLink.url;
+    isInternal = evidenceLink.isInternal;
+  }
+
+  if (!renderedURL) {
+    return <>{content}</>;
   }
 
   return isInternal ? (
     // eslint-disable-next-line uniprot-website/use-config-location
-    <Link to={url} className={className}>
-      {formatEvidenceContent(value)}
+    <Link to={renderedURL} className={className}>
+      {content}
     </Link>
   ) : (
-    <ExternalLink url={url} className={className}>
-      {formatEvidenceContent(value)}
+    <ExternalLink url={renderedURL} className={className}>
+      {content}
     </ExternalLink>
   );
 };

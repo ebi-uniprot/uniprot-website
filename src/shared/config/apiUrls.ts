@@ -1,6 +1,7 @@
 import queryString from 'query-string';
-import joinUrl from './testingApiUrls'; // TODO: revert import to: import joinUrl from 'url-join'
+import joinUrl from 'url-join';
 
+import { fromCleanMapper } from '../utils/getIdKeyForNamespace';
 import {
   getApiSortDirection,
   SortDirection,
@@ -160,8 +161,7 @@ export const createFacetsQueryString = (facets: SelectedFacet[]) =>
     .join(' AND ');
 
 export const createSelectedQueryString = (ids: string[], idField: Column) =>
-  ids
-    .map((id) => `${idField}:${id}`)
+  Array.from(new Set(ids.map((id) => `${idField}:${fromCleanMapper(id)}`)))
     .sort() // to improve possible cache hit
     .join(' OR ');
 
@@ -281,11 +281,14 @@ export const getAccessionsURL = (
       size,
       // sort to improve possible cache hit
       [key]: Array.from(accessions).sort().join(','),
-      query: query || undefined,
-      facetFilter:
+      query: [
+        query,
         createFacetsQueryString(
           selectedFacets.filter(excludeLocalBlastFacets)
         ) || undefined,
+      ]
+        .filter(Boolean)
+        .join(' AND '),
       fields: (columns && columns.join(',')) || undefined,
       facets: finalFacets?.join(',') || undefined,
       sort:
@@ -331,7 +334,6 @@ type Parameters = {
   size?: number;
   compressed?: boolean;
   download: true;
-  facetFilter?: string;
 };
 
 export type DownloadUrlOptions = {
@@ -402,9 +404,9 @@ export const getDownloadUrl = ({
     )
       .sort()
       .join(',');
-    if (selectedFacets.length) {
-      parameters.facetFilter = createFacetsQueryString(selectedFacets);
-    }
+    parameters.query = [query, createFacetsQueryString(selectedFacets)]
+      .filter(Boolean)
+      .join(' AND ');
   } else if (namespace === Namespace.unisave) {
     parameters.versions = selected.length ? selected.join(',') : undefined;
     if (fileFormat === FileFormat.fasta) {
@@ -417,17 +419,22 @@ export const getDownloadUrl = ({
           .filter(Boolean)
           .join(' AND ');
   }
+  // If nullish, just set to undefined to remove from the URL
+  parameters.query ||= undefined;
 
-  if (fileFormatsWithColumns.has(fileFormat)) {
-    if (sortColumn) {
-      parameters.sort = `${sortColumn} ${getApiSortDirection(
-        SortDirection[sortDirection]
-      )}`;
-    }
-    // Can't customise columns on UniSave
-    if (columns && namespace !== Namespace.unisave) {
-      parameters.fields = columns.join(',');
-    }
+  if (sortColumn) {
+    parameters.sort = `${sortColumn} ${getApiSortDirection(
+      SortDirection[sortDirection]
+    )}`;
+  }
+
+  // Can't customise columns on UniSave
+  if (
+    fileFormatsWithColumns.has(fileFormat) &&
+    columns &&
+    namespace !== Namespace.unisave
+  ) {
+    parameters.fields = columns.join(',');
   }
 
   if (fileFormat === FileFormat.fastaCanonicalIsoform) {
@@ -447,15 +454,6 @@ export const getDownloadUrl = ({
 
 export const getProteinsApiUrl = (accession: string) =>
   `https://www.ebi.ac.uk/proteins/api/proteins/${accession}`;
-
-export const getClustersForProteins = (accessions: string[]) =>
-  joinUrl(
-    apiPrefix,
-    `/uniref/search?query=(${accessions
-      .map((accession) => `uniprot_id:${accession}`)
-      .sort()
-      .join(' OR ')})`
-  );
 
 // Help endpoints
 export const help = {
@@ -496,6 +494,12 @@ export const help = {
       // section of the website, isolating it more from the rest
       size: size || 500,
     })}`,
+};
+
+// Help endpoints
+export const news = {
+  accession: (accession?: string) =>
+    accession && joinUrl(apiPrefix, 'release-notes', accession),
 };
 
 export const unisave = {

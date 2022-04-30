@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { Card } from 'franklin-sites';
+import { Link } from 'react-router-dom';
 
 import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';
 
@@ -25,11 +26,12 @@ const ARBACard = ({ data }: { data: ARBAAPIModel }) => {
       header={
         <>
           <CardCheckboxCell id={id} />
-          <h2 className="small">{data.uniRuleId}</h2>
+          <h2 className="small">
+            <Link to={getEntryPath(Namespace.arba, id)}>{data.uniRuleId}</Link>
+          </h2>
         </>
       }
       headerSeparator={false}
-      to={getEntryPath(Namespace.arba, id)}
       links={links}
     />
   );

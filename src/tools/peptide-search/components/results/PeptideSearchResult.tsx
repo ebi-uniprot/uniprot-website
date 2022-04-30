@@ -9,7 +9,7 @@ import useNSQuery from '../../../../shared/hooks/useNSQuery';
 import usePagination from '../../../../shared/hooks/usePagination';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 import { useToolsState } from '../../../../shared/contexts/Tools';
-import { useMatchWithRedirect } from '../../../utils/hooks';
+import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
@@ -26,7 +26,8 @@ import {
 import { Location, changePathnameOnly } from '../../../../app/config/urls';
 import peptideSearchConverter from '../../adapters/peptideSearchConverter';
 
-import Response from '../../../../uniprotkb/types/responseTypes';
+import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
+import { SearchResults } from '../../../../shared/types/results';
 import { PeptideSearchResults } from '../../types/peptideSearchResults';
 import { JobTypes } from '../../../types/toolsJobTypes';
 import { Status } from '../../../types/toolsStatuses';
@@ -79,7 +80,7 @@ const PeptideSearchResult = ({
 }) => {
   const match = useMatchWithRedirect<Params>(
     Location.PeptideSearchResult,
-    TabLocation.Overview
+    TabLocation
   );
 
   const jobSubmission = useRef<FinishedJob<JobTypes.PEPTIDE_SEARCH> | null>(
@@ -91,7 +92,9 @@ const PeptideSearchResult = ({
     loading: jobResultLoading,
     error: jobResultError,
     status: jobResultStatus,
-  } = useDataApi<PeptideSearchResults>(urls.resultUrl(jobID, {}));
+  } = useDataApi<PeptideSearchResults>(urls.resultUrl(jobID, {}), {
+    headers: { accept: 'text/plain' },
+  });
 
   // Get the job mission from local tools state. Save this in a reference as
   // the job may change with useMarkJobAsSeen but we don't want to have to
@@ -120,7 +123,7 @@ const PeptideSearchResult = ({
     accessions,
   });
   const facetApiObject =
-    useDataApiWithStale<Response['data']>(initialApiFacetUrl);
+    useDataApiWithStale<SearchResults<UniProtkbAPIModel>>(initialApiFacetUrl);
   const {
     loading: facetInititialLoading,
     headers: facetHeaders,
@@ -208,7 +211,10 @@ const PeptideSearchResult = ({
     default:
       sidebar = (
         <ErrorBoundary>
-          <ResultsFacets dataApiObject={facetApiObject} />
+          <ResultsFacets
+            dataApiObject={facetApiObject}
+            namespaceOverride={Namespace.uniprotkb}
+          />
         </ErrorBoundary>
       );
       break;
@@ -233,7 +239,9 @@ const PeptideSearchResult = ({
       }
       sidebar={sidebar}
     >
-      <HTMLHead title={title} />
+      <HTMLHead title={title}>
+        <meta name="robots" content="noindex" />
+      </HTMLHead>
       <Tabs
         active={match.params.subPage}
         className={jobResultLoading ? helper.stale : undefined}

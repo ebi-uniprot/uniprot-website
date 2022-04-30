@@ -2,6 +2,7 @@ import { useMemo, useEffect, useState, lazy, Suspense } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Loader, PageIntro, Tabs, Tab } from 'franklin-sites';
 import cn from 'classnames';
+import { Except } from 'type-fest';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
@@ -16,6 +17,7 @@ import useDataApi, {
 } from '../../../../shared/hooks/useDataApi';
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
+import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect';
 
 import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
 import {
@@ -38,6 +40,7 @@ import {
   Namespace,
   namespaceAndToolsLabels,
 } from '../../../../shared/types/namespaces';
+import { SearchResults } from '../../../../shared/types/results';
 import { BlastResults, BlastHit } from '../../types/blastResults';
 import { JobTypes } from '../../../types/toolsJobTypes';
 import { PublicServerParameters } from '../../types/blastServerParameters';
@@ -46,7 +49,6 @@ import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter'
 import { UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
 
 import helper from '../../../../shared/styles/helper.module.scss';
-import { useMatchWithRedirect } from '../../../utils/hooks';
 
 const jobType = JobTypes.BLAST;
 const urls = toolsURLs(jobType);
@@ -153,11 +155,13 @@ export interface EnrichedData extends BlastResults {
   hits: Array<EnrichedBlastHit>;
 }
 
+type ApiData = SearchResults<
+  UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel
+>;
+
 export const enrich = (
   blastData?: BlastResults,
-  apiData?: {
-    results: Array<UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel>;
-  },
+  apiData?: ApiData,
   namespace?: Namespace
 ): EnrichedData | null => {
   if (!(blastData && apiData)) {
@@ -179,14 +183,13 @@ export const enrich = (
 
 const BlastResult = () => {
   const location = useLocation();
-  const match = useMatchWithRedirect<Params>(
-    Location.BlastResult,
-    TabLocation.Overview
-  );
+  const match = useMatchWithRedirect<Params>(Location.BlastResult, TabLocation);
 
   const [selectedEntries, setSelectedItemFromEvent] = useItemSelect();
-  const [hspDetailPanel, setHspDetailPanel] =
-    useState<HSPDetailPanelProps | null>();
+  const [hspDetailPanel, setHspDetailPanel] = useState<Except<
+    HSPDetailPanelProps,
+    'namespace'
+  > | null>();
 
   const [{ query }] = getParamsFromURL(location.search);
 
@@ -232,26 +235,40 @@ const BlastResult = () => {
     namespace = Namespace.uniparc;
   }
 
-  // get data from accessions endpoint with facets applied
-  const { loading: accessionsLoading, data: accessionsData } = useDataApi<{
-    results: Array<UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel>;
-  }>(
-    useMemo(
-      () =>
-        getAccessionsURL(accessionsFilteredByLocalFacets, {
+  // get data from accessions endpoint with search applied
+  const { loading: accessionsLoading, data: accessionsData } =
+    useDataApi<ApiData>(
+      useMemo(
+        () =>
+          getAccessionsURL(accessionsFilteredByLocalFacets, {
+            namespace,
+            selectedFacets: urlParams.selectedFacets,
+            facets: [],
+            query,
+            // Most of the needed data is already in the BLAST JSON payload
+            columns: [
+              // UniProtKB
+              namespace === Namespace.uniprotkb && 'accession',
+              // "organism_name" returns the whole taxon object with lineage
+              namespace === Namespace.uniprotkb && 'organism_name',
+              // for the detail panel
+              namespace === Namespace.uniprotkb && 'protein_name',
+              // UniRef
+              namespace === Namespace.uniref && 'id',
+              namespace === Namespace.uniref && 'name',
+              namespace === Namespace.uniref && 'common_taxon',
+              // UniParc
+              namespace === Namespace.uniparc && 'upi',
+            ].filter((x: string | boolean): x is string => Boolean(x)),
+          }),
+        [
+          accessionsFilteredByLocalFacets,
           namespace,
-          selectedFacets: urlParams.selectedFacets,
-          facets: [],
           query,
-        }),
-      [
-        accessionsFilteredByLocalFacets,
-        namespace,
-        query,
-        urlParams.selectedFacets,
-      ]
-    )
-  );
+          urlParams.selectedFacets,
+        ]
+      )
+    );
 
   // filter BLAST results according to facets (through accession endpoint and other BLAST facets facets)
   const filteredBlastData =
@@ -340,7 +357,9 @@ const BlastResult = () => {
       }
       sidebar={sidebar}
     >
-      <HTMLHead title={title} />
+      <HTMLHead title={title}>
+        <meta name="robots" content="noindex" />
+      </HTMLHead>
       <Tabs
         active={match.params.subPage}
         className={accessionsLoading ? helper.stale : undefined}
@@ -455,8 +474,8 @@ const BlastResult = () => {
       {hspDetailPanel && (
         <HSPDetailPanel
           {...hspDetailPanel}
+          namespace={namespace}
           onClose={() => setHspDetailPanel(null)}
-          loading={accessionsLoading}
         />
       )}
     </SideBarLayout>

@@ -1,3 +1,7 @@
+variables:
+  DEPLOY_REPO: 'front-end-deploy'
+  DEPLOY_REPO_URL: 'https://gitlab-ci-token:${GITLAB_USER_API_TOKEN}@gitlab.ebi.ac.uk/uniprot/front-end/${DEPLOY_REPO}.git'
+
 stages:
   - test
   - build_static_assets
@@ -5,7 +9,7 @@ stages:
   - deploy
 
 .js:
-  image: node:16
+  image: node:16.14.2
   before_script:
     - git --version
     - node --version
@@ -41,14 +45,23 @@ build_static_assets:
   only:
     refs:
       - main
+      - dev
+  except:
+    - external_pull_requests
   extends: .js
   stage: build_static_assets
   script:
+    - git clone $DEPLOY_REPO_URL
     - yarn
-    - yarn build:prod
+    - >
+      if [ "$CI_COMMIT_BRANCH" == "main" ]; then
+        yarn build:prod
+      elif [ "$CI_COMMIT_BRANCH" == "dev" ]; then
+        yarn build:dev
+      fi
     - apt-get update
     - apt-get install brotli
-    - ./deploy/compress.sh
+    - ./${DEPLOY_REPO}/scripts/compress.sh
   artifacts:
     paths:
       - build/
@@ -57,46 +70,42 @@ build_docker_image:
   only:
     refs:
       - main
+      - dev
+  except:
+    - external_pull_requests
   stage: build_docker_image
-  image: docker:latest
+  image: docker:20.10.14-git
   tags:
     - dind
   services:
     - docker:dind
   script:
+    - git clone $DEPLOY_REPO_URL
+    - mv build ${DEPLOY_REPO}/docker/
     - echo "$CI_REGISTRY_PASSWORD" | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
-    - docker --version
-    - CONTAINER_IMAGE=${CI_REGISTRY_IMAGE}:latest
-    - echo ${CONTAINER_IMAGE}
-    - docker build -t ${CONTAINER_IMAGE} --no-cache .
+    - CONTAINER_IMAGE=${CI_REGISTRY_IMAGE}/${CI_COMMIT_BRANCH}:latest
+    - echo $CONTAINER_IMAGE
+    - docker build -t $CONTAINER_IMAGE --no-cache ${DEPLOY_REPO}/docker
     - docker image ls
-    - docker push ${CONTAINER_IMAGE}
-    - docker rmi ${CONTAINER_IMAGE}
+    - docker push $CONTAINER_IMAGE
+    - docker rmi $CONTAINER_IMAGE
     - docker logout "$CI_REGISTRY"
-
-.kubectl:
-  image: alpine
-  before_script:
-    - apk add --no-cache curl git bash
-    - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
-    - chmod +x ./kubectl
-    - mv ./kubectl /usr/local/bin/kubectl
 
 deploy:
   only:
     refs:
       - main
+      - dev
+  except:
+    - external_pull_requests
   stage: deploy
-  extends: .kubectl
+  image: alpine/k8s:1.22.6
   script:
-    - ./deploy/deploy.sh HX # fallback
-    - ./deploy/deploy.sh HH # main
-
-deploy-fallback-only:
-  only:
-    refs:
-      - deploy-fallback-only
-  stage: deploy
-  extends: .kubectl
-  script:
-    - ./deploy/deploy.sh HX # fallback
+    - git clone $DEPLOY_REPO_URL
+    - >
+      if [ "$CI_COMMIT_BRANCH" == "main" ]; then
+        ./${DEPLOY_REPO}/scripts/deploy.sh HX uniprot-website-fallback
+        ./${DEPLOY_REPO}/scripts/deploy.sh HH uniprot-website-prod
+      elif [ "$CI_COMMIT_BRANCH" == "dev" ]; then
+        ./${DEPLOY_REPO}/scripts/deploy.sh HH uniprot-website-dev
+      fi

@@ -1,5 +1,5 @@
 import { useMemo, useEffect, Suspense } from 'react';
-import { Link, useRouteMatch, useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { InPageNav, Loader, Tabs, Tab } from 'franklin-sites';
 import cn from 'classnames';
 import qs from 'query-string';
@@ -8,11 +8,7 @@ import { frame } from 'timing-functions';
 import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
-import {
-  MessageLevel,
-  MessageFormat,
-  MessageTag,
-} from '../../../messages/types/messagesTypes';
+import ContactLink from '../../../contact/components/ContactLink';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
@@ -35,6 +31,7 @@ import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { useMessagesDispatch } from '../../../shared/contexts/Messages';
+import useMatchWithRedirect from '../../../shared/hooks/useMatchWithRedirect';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 
@@ -60,7 +57,11 @@ import {
   searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
 import { EntryType } from '../../../shared/components/entry/EntryTypeIcon';
-import { ContactLocationState } from '../../../contact/components/ContactForm';
+import {
+  MessageLevel,
+  MessageFormat,
+  MessageTag,
+} from '../../../messages/types/messagesTypes';
 
 import helper from '../../../shared/styles/helper.module.scss';
 import sticky from '../../../shared/styles/sticky.module.scss';
@@ -73,6 +74,8 @@ export enum TabLocation {
   ExternalLinks = 'external-links',
   History = 'history',
 }
+
+const legacyToNewSubPages = { protvista: TabLocation.FeatureViewer };
 
 const FeatureViewer = lazy(
   () =>
@@ -103,23 +106,15 @@ const EntryHistory = lazy(
 const Entry = () => {
   const dispatch = useMessagesDispatch();
   const history = useHistory();
-  const match = useRouteMatch<{ accession: string; subPage?: TabLocation }>(
-    LocationToPath[Location.UniProtKBEntry]
+  const match = useMatchWithRedirect<{
+    accession: string;
+    subPage?: TabLocation;
+  }>(
+    Location.UniProtKBEntry,
+    TabLocation,
+    TabLocation.Entry,
+    legacyToNewSubPages
   );
-
-  // if URL doesn't finish with "entry" redirect to /entry by default
-  useEffect(() => {
-    if (match && !match.params.subPage) {
-      history.replace({
-        ...history.location,
-        pathname: getEntryPath(
-          Namespace.uniprotkb,
-          match.params.accession,
-          TabLocation.Entry
-        ),
-      });
-    }
-  }, [match, history]);
 
   const { loading, data, status, error, redirectedTo, progress } =
     useDataApi<UniProtkbAPIModel>(
@@ -155,11 +150,13 @@ const Entry = () => {
             disabled = !hasExternalLinks(transformedData);
             break;
           case EntrySection.SimilarProteins:
+          case EntrySection.DiseasePhenotypes:
+          case EntrySection.Phenotypes:
             disabled = false;
             break;
           case EntrySection.SubCellularLocation:
             disabled = !subcellularLocationSectionHasContent(
-              transformedData['subcellular-location']
+              transformedData[EntrySection.SubCellularLocation]
             );
             break;
           default:
@@ -360,8 +357,8 @@ const Entry = () => {
                   Add a publication
                 </a>
                 {/* eslint-disable-next-line react/jsx-no-target-blank */}
-                <Link<ContactLocationState>
-                  to={(location) => ({
+                <ContactLink
+                  to={{
                     pathname: LocationToPath[Location.ContactUpdate],
                     search: qs.stringify({
                       entry: match.params.accession,
@@ -370,12 +367,11 @@ const Entry = () => {
                           ? 'Reviewed (Swiss-Prot)'
                           : 'Unreviewed (TrEMBL)',
                     }),
-                    state: { referrer: location },
-                  })}
+                  }}
                   className="button tertiary"
                 >
                   Entry feedback
-                </Link>
+                </ContactLink>
               </div>
               <EntryMain transformedData={transformedData} />
             </>

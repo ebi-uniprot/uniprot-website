@@ -142,7 +142,7 @@ const NiceStatus = ({ job, jobLink }: NiceStatusProps) => {
           Running <SpinnerIcon width="12" height="12" />
           <br />
           <span className="dashboard__body__notify_message">
-            We&apos;ll notify you when it&apos;s done
+            We will notify you when your results are ready
           </span>
         </>
       );
@@ -313,14 +313,15 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
   }
 
   const handleDelete = () => {
+    const { internalID } = job;
     if (reducedMotion || !(ref.current && 'animate' in ref.current)) {
-      dispatch(deleteJob(job.internalID));
+      dispatch(deleteJob(internalID));
       return;
     }
     ref.current.animate(
       KeyframesForDelete,
       animationOptionsForDelete
-    ).onfinish = () => dispatch(deleteJob(job.internalID));
+    ).onfinish = () => dispatch(deleteJob(internalID));
   };
 
   // if the state of the current location contains the parameters from this job,
@@ -360,7 +361,6 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
 
   return (
     <Card
-      to={noResults ? undefined : jobLink}
       ref={ref}
       className={bem({
         b: 'card',
@@ -397,7 +397,12 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
         <Actions job={job} onDelete={handleDelete} />
       </span>
       <span className="dashboard__body__id">
-        {'remoteID' in job && job.remoteID}
+        {'remoteID' in job &&
+          (jobLink && !noResults ? (
+            <Link to={jobLink}>{job.remoteID}</Link>
+          ) : (
+            job.remoteID
+          ))}
       </span>
     </Card>
   );

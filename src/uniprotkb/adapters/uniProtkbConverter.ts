@@ -37,7 +37,6 @@ import { transfromProperties } from '../utils';
 import { Property } from '../types/modelTypes';
 import { GeneLocation } from '../types/geneLocationType';
 import { InternalSectionType } from '../types/internalSectionType';
-import { XrefUIModel } from '../utils/xrefUtils';
 import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import {
   Citation,
@@ -98,7 +97,7 @@ export type UniProtkbUIModel = {
   [EntrySection.Function]: UIModel;
   [EntrySection.NamesAndTaxonomy]: NamesAndTaxonomyUIModel;
   [EntrySection.SubCellularLocation]: UIModel;
-  [EntrySection.DiseaseAndDrugs]: UIModel;
+  [EntrySection.DiseasePhenotypes]: UIModel;
   [EntrySection.Phenotypes]: UIModel;
   [EntrySection.ProteinProcessing]: UIModel;
   [EntrySection.Expression]: UIModel;
@@ -107,10 +106,7 @@ export type UniProtkbUIModel = {
   [EntrySection.Structure]: UIModel;
   [EntrySection.FamilyAndDomains]: UIModel;
   [EntrySection.ExternalLinks]: UIModel;
-  [EntrySection.SimilarProteins]: {
-    isoforms: string[];
-    xrefData?: XrefUIModel[]; // Dummy, not used
-  };
+  [EntrySection.SimilarProteins]: string[];
   references?: UniProtKBReference[];
   extraAttributes: UniProtkbAPIModel['extraAttributes'];
   from?: string; // ID Mapping
@@ -170,7 +166,7 @@ const uniProtKbConverter = (
       databaseInfoMaps,
       uniProtKBCrossReferences
     ),
-    [EntrySection.DiseaseAndDrugs]: convertDiseaseAndDrugs(
+    [EntrySection.DiseasePhenotypes]: convertDiseaseAndDrugs(
       dataCopy,
       databaseInfoMaps,
       uniProtKBCrossReferences

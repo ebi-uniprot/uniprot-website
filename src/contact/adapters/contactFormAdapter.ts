@@ -8,6 +8,7 @@ import {
 } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AxiosRequestConfig } from 'axios';
+import { LocationDescriptor } from 'history';
 
 import useDataApi from '../../shared/hooks/useDataApi';
 import { useMessagesDispatch } from '../../shared/contexts/Messages';
@@ -19,6 +20,13 @@ import {
   MessageLevel,
 } from '../../messages/types/messagesTypes';
 import { Location, LocationToPath } from '../../app/config/urls';
+
+export type ContactLocationState =
+  | undefined
+  | {
+      referrer?: LocationDescriptor;
+      formValues?: Record<string, string>;
+    };
 
 export const modifyFormData = (formData: FormData, token: string) => {
   const output = new FormData();
@@ -46,11 +54,12 @@ export const modifyFormData = (formData: FormData, token: string) => {
 export type UseFormLogicReturnType = {
   sending: boolean;
   handleSubmit: FormEventHandler<HTMLFormElement>;
+  handleChange: FormEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 };
 
 export const useFormLogic = (referrer?: string): UseFormLogicReturnType => {
   const dispatch = useMessagesDispatch();
-  const history = useHistory();
+  const history = useHistory<ContactLocationState>();
   const [formData, setFormData] = useState<undefined | FormData>();
 
   const subject = formData?.get('subject') as undefined | string;
@@ -135,5 +144,32 @@ export const useFormLogic = (referrer?: string): UseFormLogicReturnType => {
     [loading]
   );
 
-  return { sending: loading, handleSubmit };
+  const handleChange: FormEventHandler<HTMLInputElement | HTMLTextAreaElement> =
+    useCallback(
+      (event) => {
+        const element = event.target;
+        if (
+          !(
+            element instanceof HTMLInputElement ||
+            element instanceof HTMLTextAreaElement
+          ) ||
+          loading
+        ) {
+          return;
+        }
+        history.replace({
+          ...history.location,
+          state: {
+            ...history.location.state,
+            formValues: {
+              ...(history.location.state?.formValues || {}),
+              [element.name]: element.value,
+            },
+          },
+        });
+      },
+      [loading, history]
+    );
+
+  return { sending: loading, handleSubmit, handleChange };
 };

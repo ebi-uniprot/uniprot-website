@@ -14,7 +14,7 @@ import useDataApi, {
 import useSequenceInfo from '../../utils/useSequenceInfo';
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
-import { useMatchWithRedirect } from '../../../utils/hooks';
+import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect';
 
 import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
 
@@ -118,10 +118,7 @@ type Params = {
 };
 
 const AlignResult = () => {
-  const match = useMatchWithRedirect<Params>(
-    Location.AlignResult,
-    TabLocation.Overview
-  );
+  const match = useMatchWithRedirect<Params>(Location.AlignResult, TabLocation);
 
   const [selectedEntries, , setSelectedEntries] = useItemSelect();
   const handleEntrySelection = useCallback(
@@ -168,7 +165,9 @@ const AlignResult = () => {
 
   return (
     <SingleColumnLayout className={sticky['sticky-tabs-container']}>
-      <HTMLHead title={title} />
+      <HTMLHead title={title}>
+        <meta name="robots" content="noindex" />
+      </HTMLHead>
       <PageIntro
         title={namespaceAndToolsLabels[jobType]}
         titlePostscript={<small> results</small>}

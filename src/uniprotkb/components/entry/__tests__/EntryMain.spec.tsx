@@ -12,6 +12,12 @@ import databaseInfoMaps from '../../../utils/__tests__/__mocks__/databaseInfoMap
 
 enableFetchMocks();
 
+// TODO: mock more content of this page that is already tested elsewhere
+jest.mock('../similar-proteins/SimilarProteinsSection', () => ({
+  __esModule: true,
+  default: () => '{{ SimilarProteinsSection }}',
+}));
+
 describe('Entry view', () => {
   beforeAll(() => {
     // eslint-disable-next-line no-console

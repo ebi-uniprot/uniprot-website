@@ -53,7 +53,7 @@ export const MemberIcons: FC<{ id: string }> = ({ id }) => {
     return null;
   }
 
-  const uniProtKBFacetValues = data?.facets.find(
+  const uniProtKBFacetValues = data?.facets?.find(
     (f) => f?.name === 'uniprot_member_id_type'
   )?.values;
   const uniProtReviewedCount = uniProtKBFacetValues?.find(
@@ -63,7 +63,7 @@ export const MemberIcons: FC<{ id: string }> = ({ id }) => {
     (fv) => fv.value === MemberTypes.Unreviewed
   )?.count;
   const uniParcCount = data?.facets
-    .find((f) => f?.name === 'member_id_type')
+    ?.find((f) => f?.name === 'member_id_type')
     ?.values?.find((fv) => fv.value === MemberTypes.UniParc)?.count;
 
   const pathname = getEntryPath(Namespace.uniref, id);

@@ -8,6 +8,7 @@ import DownloadPreview from './DownloadPreview';
 import DownloadAPIURL from './DownloadAPIURL';
 
 import useColumnNames from '../../hooks/useColumnNames';
+import useJobFromUrl from '../../hooks/useJobFromUrl';
 
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 
@@ -20,6 +21,7 @@ import {
 
 import { FileFormat } from '../../types/resultsDownload';
 import { Namespace } from '../../types/namespaces';
+import { Location } from '../../../app/config/urls';
 
 import sticky from '../../styles/sticky.module.scss';
 import styles from './styles/download.module.scss';
@@ -63,6 +65,7 @@ const Download: FC<DownloadProps> = ({
   const [fileFormat, setFileFormat] = useState(fileFormats[0]);
   const [compressed, setCompressed] = useState(namespace !== Namespace.unisave);
   const [extraContent, setExtraContent] = useState<null | ExtraContent>(null);
+  const { jobResultsLocation, jobResultsNamespace } = useJobFromUrl();
 
   const [
     { query: queryFromUrl, selectedFacets = [], sortColumn, sortDirection },
@@ -98,6 +101,17 @@ const Download: FC<DownloadProps> = ({
     namespace !== Namespace.idmapping &&
     namespace !== Namespace.unisave;
 
+  // The ID Mapping URL provided from the job details is for the paginated results
+  // endpoint while the stream endpoint is required for downloads
+  let downloadBase = base;
+  if (jobResultsLocation === Location.IDMappingResult) {
+    if (jobResultsNamespace) {
+      downloadBase = downloadBase?.replace('/results/', '/results/stream/');
+    } else {
+      downloadBase = downloadBase?.replace('/results/', '/stream/');
+    }
+  }
+
   const downloadOptions: DownloadUrlOptions = {
     query: urlQuery,
     selectedFacets,
@@ -109,7 +123,7 @@ const Download: FC<DownloadProps> = ({
     selectedIdField,
     namespace,
     accessions,
-    base,
+    base: downloadBase,
   };
   if (hasColumns) {
     downloadOptions.columns = selectedColumns;
@@ -127,11 +141,13 @@ const Download: FC<DownloadProps> = ({
     fileFormat: previewFileFormat,
     compressed: false,
     size: nPreview,
+    base,
   };
   if (namespace === Namespace.unisave) {
     // get only the first 10 entries instead of using the size parameters
     previewOptions.selected = previewOptions.selected.slice(0, 10);
   }
+
   const previewUrl = getDownloadUrl(previewOptions);
 
   const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) =>

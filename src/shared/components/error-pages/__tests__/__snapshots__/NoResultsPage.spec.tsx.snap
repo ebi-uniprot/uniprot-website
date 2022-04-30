@@ -24,11 +24,13 @@ exports[`NoResultsPage component should render 1`] = `
         class="message__content"
       >
         <small>
-          <h4>
+          <h1
+            class="small"
+          >
             Sorry, no results were found!
-          </h4>
+          </h1>
           <span>
-            Please try a different criteria
+            Please try different criteria
           </span>
         </small>
       </section>

@@ -2,6 +2,8 @@ import { Link, Router } from 'react-router-dom';
 import { CitedIcon, EnvelopeIcon, HelpIcon } from 'franklin-sites';
 import { History } from 'history';
 
+import ContactLink from '../../../contact/components/ContactLink';
+
 import {
   LocationToPath,
   Location,
@@ -22,10 +24,10 @@ const Shortcuts = ({ globalHistory }: { globalHistory: History }) => (
       </Link>
       {/* Blocked until we manage to get the contact page changes in main */}
       {/* eslint-disable-next-line */}
-      <Link to={LocationToPath[Location.ContactGeneric]}>
+      <ContactLink>
         <EnvelopeIcon width={iconWidth} />
         Contact us
-      </Link>
+      </ContactLink>
       <Link to={getLocationEntryPath(Location.HelpEntry, 'publications')}>
         <CitedIcon width={iconWidth} />
         Cite us

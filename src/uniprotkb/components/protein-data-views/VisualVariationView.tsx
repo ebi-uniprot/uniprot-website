@@ -12,7 +12,7 @@ import NightingaleZoomTool from './NightingaleZoomTool';
 
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 
-import styles from './styles/variation-view.module.scss';
+import styles from './styles/visual-variation-view.module.scss';
 
 type VariationViewProps = {
   sequence: string;

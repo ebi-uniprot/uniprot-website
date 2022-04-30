@@ -35,7 +35,8 @@ describe('HelpCard tests', () => {
       cleanText(html, { allowedTags: [], allowedAttributes: {} });
 
     // Content match
-    const card = screen.getByTestId('help-card').children[1];
+    // getting:            .help-card > .card__container > .card__content
+    const card = screen.getByTestId('help-card').children[0].children[1];
     expect(card).toHaveTextContent(clean(contentMatch || ''));
 
     // Title match

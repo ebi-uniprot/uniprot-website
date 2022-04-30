@@ -9,6 +9,8 @@ import { Lineage, TaxonomyAPIModel } from '../adapters/taxonomyConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 import { Namespace } from '../../../shared/types/namespaces';
 
+import styles from './styles/taxonomy-columns.module.css';
+
 export enum TaxonomyColumn {
   commonName = 'common_name',
   hosts = 'hosts',
@@ -80,10 +82,13 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.lineage, {
     lineage?.length &&
     Array.from(lineage as Lineage)
       ?.reverse()
-      .map(({ taxonId, scientificName, commonName }, index) => (
+      .map(({ taxonId, scientificName, commonName, hidden }, index) => (
         <Fragment key={taxonId}>
           {index ? ' > ' : undefined}
-          <Link to={getEntryPath(taxonId)}>
+          <Link
+            to={getEntryPath(taxonId)}
+            className={hidden ? styles['hidden-taxon'] : undefined}
+          >
             {scientificName || commonName || taxonId}
           </Link>
         </Fragment>
@@ -92,16 +97,22 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.lineage, {
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.links, {
   label: 'Links',
-  render: ({ links }) =>
-    links?.length ? (
+  render: ({ taxonId, links }) => {
+    const allLinks = [
+      // Exception, always add the NCBI one as it's not in the data
+      `https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?lvl=0&amp;id=${taxonId}`,
+      ...(links || []),
+    ];
+    return (
       <ExpandableList descriptionString="links" displayNumberOfHiddenItems>
-        {links?.map((link) => (
+        {allLinks.map((link) => (
           <ExternalLink key={link} url={link} tidyUrl>
             {new URL(link).hostname}
           </ExternalLink>
         ))}
       </ExpandableList>
-    ) : null,
+    );
+  },
 });
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.mnemonic, {

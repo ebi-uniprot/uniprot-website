@@ -1,6 +1,6 @@
 import { memo, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Card, DataTableWithLoader, Loader } from 'franklin-sites';
+import { Card, DataTableWithLoader, Loader, LongNumber } from 'franklin-sites';
 
 import AddToBasket from '../../../shared/components/action-buttons/AddToBasket';
 import AlignButton from '../../../shared/components/action-buttons/Align';
@@ -315,10 +315,13 @@ export const MembersSection = ({
   return (
     <Card
       header={
-        <h2>{`${total} ${pluralise(
-          getEntrySectionNameAndId(EntrySection.Members).name,
-          total
-        )}`}</h2>
+        <h2>
+          <LongNumber>{total}</LongNumber>{' '}
+          {pluralise(
+            getEntrySectionNameAndId(EntrySection.Members).name,
+            total
+          )}
+        </h2>
       }
       id={EntrySection.Members}
     >

@@ -14,20 +14,18 @@ import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import usePrefetch from '../../../shared/hooks/usePrefetch';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 import LiteratureCitation from '../../../supporting-data/citations/components/LiteratureCitation';
 
+import { addBlastLinksToFreeText } from '../../../shared/utils/utils';
 import getNextURLFromHeaders from '../../../shared/utils/getNextURLFromHeaders';
 import { getIdKeyFor } from '../../../shared/utils/getIdKeyForNamespace';
 import { getParamsFromURL } from '../../utils/resultsUtils';
 import { processUrlTemplate } from '../protein-data-views/XRefView';
 
-import {
-  getEntryPath,
-  Location,
-  LocationToPath,
-} from '../../../app/config/urls';
+import { Location, LocationToPath } from '../../../app/config/urls';
 import { getUniProtPublicationsQueryUrl } from '../../../shared/config/apiUrls';
 
 import {
@@ -35,8 +33,7 @@ import {
   Reference,
 } from '../../../supporting-data/citations/adapters/citationsConverter';
 import { Namespace } from '../../../shared/types/namespaces';
-import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
-import { addBlastLinksToFreeText } from '../../../shared/utils/utils';
+import { SearchResults } from '../../../shared/types/results';
 
 const PublicationReference: FC<{
   reference: Reference;
@@ -173,8 +170,8 @@ const cardRendererFor =
     >
   ) =>
     (
-      <Card to={getEntryPath(Namespace.citations, getIdKey(data))}>
-        <LiteratureCitation data={data} headingLevel="h3">
+      <Card>
+        <LiteratureCitation data={data} headingLevel="h3" linkToEntry>
           {data.references.map((reference, index) => (
             <PublicationReference
               reference={reference}
@@ -209,9 +206,8 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
   }>(() => ({ total: 0, nextUrl: undefined }));
   usePrefetch(metaData.nextUrl);
 
-  const { data, loading, status, error, headers } = useDataApi<{
-    results: CitationsAPIModel[];
-  }>(url);
+  const { data, loading, status, error, headers } =
+    useDataApi<SearchResults<CitationsAPIModel>>(url);
 
   const resultsWithReferences = useMemo(
     () => allResults.filter(hasReference),

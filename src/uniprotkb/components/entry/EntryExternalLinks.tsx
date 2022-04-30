@@ -50,9 +50,10 @@ const EntryExternalLinks = ({ transformedData }: EntryExternalLinksProps) => {
     DatabaseCategory,
     XrefsGoupedByDatabase[]
   >();
-  Object.values(EntrySection).forEach((entrySection) => {
-    transformedData[entrySection as EntrySection].xrefData?.forEach(
-      ({ category, databases }) => {
+  for (const entrySection of Object.values(EntrySection)) {
+    const section = transformedData[entrySection];
+    if ('xrefData' in section) {
+      for (const { category, databases } of section.xrefData || []) {
         const currentDatabases =
           databaseCategoryToXrefsGoupedByDatabase.get(category);
         const newDatabases = currentDatabases
@@ -60,8 +61,8 @@ const EntryExternalLinks = ({ transformedData }: EntryExternalLinksProps) => {
           : databases;
         databaseCategoryToXrefsGoupedByDatabase.set(category, newDatabases);
       }
-    );
-  });
+    }
+  }
 
   const xrefData = Array.from(
     databaseCategoryToXrefsGoupedByDatabase.entries()

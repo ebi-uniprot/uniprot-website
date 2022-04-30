@@ -9,6 +9,7 @@ import {
   isSameEntry,
   deepFindAllByKey,
   addBlastLinksToFreeText,
+  keysToLowerCase,
 } from '../utils';
 
 describe('Model Utils', () => {
@@ -200,5 +201,14 @@ describe('deepFindAllByKey', () => {
       const result = addBlastLinksToFreeText(['SOME TEXT'], 'UP_ACCESSION');
       expect(result).toMatchSnapshot();
     });
+  });
+});
+
+describe('keysToLowerCase', () => {
+  it('should convert lowercase all keys', () => {
+    expect(keysToLowerCase({ Foo: 1, BAR: 2 })).toEqual({ foo: 1, bar: 2 });
+  });
+  it('should return empty object with nothing provided', () => {
+    expect(keysToLowerCase(undefined)).toEqual({});
   });
 });

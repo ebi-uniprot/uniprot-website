@@ -24,6 +24,22 @@ import {
 
 import { Namespace } from '../types/namespaces';
 
+const fromSeparator = '|';
+
+export const fromCleanMapper = (entry: string) => {
+  if (entry.includes(fromSeparator)) {
+    const split = entry.split(fromSeparator);
+    /* istanbul ignore if */
+    if (split.length > 2) {
+      logging.warn(
+        `Found more than 1 separator in "${entry}". Unexpected accession format.`
+      );
+    }
+    return split[1];
+  }
+  return entry;
+};
+
 export const getIdKeyFor = (
   namespace: Namespace
 ): ((data: APIModel) => string) => {
@@ -32,19 +48,21 @@ export const getIdKeyFor = (
     case Namespace.uniprotkb:
       return (data) => {
         const { from } = data as UniProtkbAPIModel;
-        return `${from ? `${from}|` : ''}${
+        return `${from ? `${from}${fromSeparator}` : ''}${
           (data as UniProtkbAPIModel).primaryAccession
         }`;
       };
     case Namespace.uniref:
       return (data) => {
         const { from } = data as UniRefLiteAPIModel;
-        return `${from ? `${from}|` : ''}${(data as UniRefLiteAPIModel).id}`;
+        return `${from ? `${from}${fromSeparator}` : ''}${
+          (data as UniRefLiteAPIModel).id
+        }`;
       };
     case Namespace.uniparc:
       return (data) => {
         const { from } = data as UniParcAPIModel;
-        return `${from ? `${from}|` : ''}${
+        return `${from ? `${from}${fromSeparator}` : ''}${
           (data as UniParcAPIModel).uniParcId
         }`;
       };

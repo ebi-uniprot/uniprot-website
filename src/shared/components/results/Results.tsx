@@ -15,6 +15,7 @@ import NoResultsPage from '../error-pages/NoResultsPage';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 import ResultsDataHeader from './ResultsDataHeader';
 import SearchSuggestions from './SearchSuggestions';
+import DidYouMean from './DidYouMean';
 
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 
@@ -22,7 +23,8 @@ import {
   searchableNamespaceLabels,
   SearchableNamespace,
 } from '../../types/namespaces';
-import Response from '../../../uniprotkb/types/responseTypes';
+import { SearchResults } from '../../types/results';
+import { APIModel } from '../../types/apiModel';
 
 const Results = () => {
   const ns = useNS();
@@ -37,7 +39,7 @@ const Results = () => {
     withColumns: false,
   });
   const facetApiObject =
-    useDataApiWithStale<Response['data']>(initialApiFacetUrl);
+    useDataApiWithStale<SearchResults<APIModel>>(initialApiFacetUrl);
 
   const {
     loading: facetInitialLoading,
@@ -82,6 +84,8 @@ const Results = () => {
     );
   }
 
+  const { suggestions } = facetApiObject.data || {};
+
   if (
     (!resultsDataInitialLoading && !facetInitialLoading && !total) ||
     total === 0
@@ -89,7 +93,7 @@ const Results = () => {
     return (
       <>
         {helmet}
-        <NoResultsPage />
+        <NoResultsPage message={<DidYouMean suggestions={suggestions} />} />
       </>
     );
   }

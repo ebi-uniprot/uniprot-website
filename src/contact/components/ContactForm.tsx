@@ -14,11 +14,15 @@ import {
   SuccessIcon,
 } from 'franklin-sites';
 import cn from 'classnames';
-import { createPath, LocationDescriptor } from 'history';
+import { createPath } from 'history';
 
 import HTMLHead from '../../shared/components/HTMLHead';
+import ContactLink from './ContactLink';
 
-import { useFormLogic } from '../adapters/contactFormAdapter';
+import {
+  useFormLogic,
+  ContactLocationState,
+} from '../adapters/contactFormAdapter';
 
 import { parseQueryString } from '../../shared/utils/url';
 
@@ -27,10 +31,6 @@ import { LocationToPath, Location } from '../../app/config/urls';
 import styles from './styles/contact-form.module.scss';
 
 import HelperContactImage from './svgs/helper-contact.svg';
-
-export type ContactLocationState =
-  | undefined
-  | { referrer?: LocationDescriptor };
 
 // ARIA hide all of these, are the state is available in the form already
 const validity = (
@@ -81,7 +81,7 @@ const ContactForm = () => {
       e.target.checked ? '' : 'Please tick the box to agree.'
     );
 
-  const { handleSubmit, sending } = useFormLogic(referrerValue);
+  const { handleSubmit, handleChange, sending } = useFormLogic(referrerValue);
 
   const description = isUpdate
     ? 'Submit updates or corrections to UniProt'
@@ -108,6 +108,8 @@ const ContactForm = () => {
               placeholder=" "
               id={`name-${id}`}
               maxLength={100}
+              onChange={handleChange}
+              defaultValue={locationState?.formValues?.name}
             />
             {validity}
           </span>
@@ -124,6 +126,8 @@ const ContactForm = () => {
               required
               minLength={4}
               maxLength={100}
+              onChange={handleChange}
+              defaultValue={locationState?.formValues?.email}
             />
             {validity}
           </span>
@@ -133,6 +137,7 @@ const ContactForm = () => {
           </label>
           <span className={styles.input}>
             <input
+              key={isUpdate ? 'update' : 'contact'}
               type="text"
               name="subject"
               placeholder=" "
@@ -140,7 +145,10 @@ const ContactForm = () => {
               required
               minLength={1}
               maxLength={100}
-              defaultValue={subjectDefault}
+              onChange={handleChange}
+              defaultValue={
+                locationState?.formValues?.subject || subjectDefault
+              }
             />
             {validity}
           </span>
@@ -155,6 +163,8 @@ const ContactForm = () => {
               id={`message-${id}`}
               required
               minLength={1}
+              onChange={handleChange}
+              defaultValue={locationState?.formValues?.message}
             />
             {validity}
           </span>
@@ -189,6 +199,7 @@ const ContactForm = () => {
             tabIndex={-1}
             aria-hidden="true"
           />
+          <input hidden name="referrer" value={referrerValue} readOnly />
           <Button type="submit" disabled={sending}>{`Send${
             sending ? 'ing' : ''
           } message`}</Button>
@@ -204,7 +215,7 @@ const ContactForm = () => {
             {/* Link to switch the contact form */}
             <ul className="no-bullet">
               <li>
-                <Link<ContactLocationState>
+                <ContactLink
                   to={{
                     pathname:
                       LocationToPath[
@@ -212,14 +223,12 @@ const ContactForm = () => {
                           ? Location.ContactGeneric
                           : Location.ContactUpdate
                       ],
-                    // Make sure to pass along the previour referrer if switching
-                    state: { referrer: locationState?.referrer },
                   }}
                 >
                   {isUpdate
                     ? 'Send us general questions and suggestions'
                     : 'Send updates or corrections'}
-                </Link>
+                </ContactLink>
               </li>
               <li>
                 <ExternalLink url="https://www.ebi.ac.uk/swissprot/Submissions/spin/">

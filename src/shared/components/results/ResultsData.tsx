@@ -27,7 +27,7 @@ import './styles/results-data.scss';
 type Props = {
   resultsDataObject: PaginatedResults;
   setSelectedEntries?: Dispatch<SetStateAction<string[]>>;
-  setSelectedItemFromEvent: (event: MouseEvent | KeyboardEvent) => void;
+  setSelectedItemFromEvent?: (event: MouseEvent | KeyboardEvent) => void;
   namespaceOverride?: Namespace;
   columnsOverride?: ColumnDescriptor<APIModel>[];
   displayIdMappingColumns?: boolean;
@@ -147,7 +147,7 @@ const ResultsData = ({
 
   return (
     <div className="results-data">
-      {viewMode === 'card' && !displayIdMappingColumns ? (
+      {viewMode === 'cards' && !displayIdMappingColumns ? (
         // Card view
         <DataListWithLoader<APIModel>
           getIdKey={getIdKey}

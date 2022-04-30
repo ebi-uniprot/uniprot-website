@@ -6,14 +6,13 @@ import customRender from '../../../__test-helpers__/customRender';
 
 import '../../../../uniprotkb/components/__mocks__/mockApi';
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
-import { ViewMode } from '../../../hooks/useViewMode';
 
 describe('Results component', () => {
   // Testing the button, and testing the 2 views, this is probably enough
   it('should toggle card view to table', async () => {
     customRender(<Results />, {
       route: '/uniprotkb?query=blah',
-      initialLocalStorage: { 'view-mode': 'card' as ViewMode },
+      initialLocalStorage: { 'view-mode': 'cards' },
     });
     await screen.findAllByText('Gene:');
     const radio = await screen.findByRole('radio', { name: /table/i });
@@ -34,7 +33,7 @@ describe('Results component', () => {
     const { history } = customRender(<Results />, {
       route: '/uniprotkb?query=blah',
       initialLocalStorage: {
-        'view-mode': 'table' as ViewMode,
+        'view-mode': 'table',
         'table columns for uniprotkb': [UniProtKBColumn.accession],
       },
     });
@@ -42,30 +41,30 @@ describe('Results component', () => {
     fireEvent.click(columnHeader);
     await waitFor(() => {
       expect(history.location.search).toBe(
-        '?query=blah&sort=accession&dir=ascend'
+        '?dir=ascend&query=blah&sort=accession'
       );
     });
     columnHeader = await screen.findByText('Entry');
     fireEvent.click(columnHeader);
     await waitFor(() => {
       expect(history.location.search).toBe(
-        '?query=blah&sort=accession&dir=descend'
+        '?dir=descend&query=blah&sort=accession'
       );
     });
     columnHeader = await screen.findByText('Entry');
     await waitFor(() => {
       fireEvent.click(columnHeader);
       expect(history.location.search).toBe(
-        '?query=blah&sort=accession&dir=ascend'
+        '?dir=ascend&query=blah&sort=accession'
       );
     });
   });
 
-  it('should show card view if URL has view=card as well as fields', async () => {
+  it('should show card view if URL has view=cards as well as fields', async () => {
     customRender(<Results />, {
-      route: '/uniprotkb?query=blah&view=card&fields=accession,id',
+      route: '/uniprotkb?query=blah&view=cards&fields=accession,id',
       initialLocalStorage: {
-        'view-mode': 'table' as ViewMode,
+        'view-mode': 'table',
         'table columns for uniprotkb': [UniProtKBColumn.accession],
       },
     });
@@ -77,7 +76,7 @@ describe('Results component', () => {
     customRender(<Results />, {
       route: '/uniprotkb?query=blah&fields=accession,id',
       initialLocalStorage: {
-        'view-mode': 'card' as ViewMode,
+        'view-mode': 'cards',
         'table columns for uniprotkb': [UniProtKBColumn.accession],
       },
     });

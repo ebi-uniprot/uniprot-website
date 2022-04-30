@@ -24,8 +24,7 @@ export enum UniRuleColumn {
 
 export const defaultColumns = [
   UniRuleColumn.ruleId,
-  // TODO: commnent out when backend fixes the statistics column
-  // UniRuleColumn.statistics,
+  UniRuleColumn.statistics,
   UniRuleColumn.taxonomicScope,
   UniRuleColumn.annotationCovered,
   UniRuleColumn.predictedProteinName,

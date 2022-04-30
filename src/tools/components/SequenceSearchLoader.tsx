@@ -34,6 +34,7 @@ import {
   getEntryTypeFromString,
   EntryType,
 } from '../../shared/components/entry/EntryTypeIcon';
+import { SearchResults } from '../../shared/types/results';
 
 const getURLForAccessionOrID = (input: string) => {
   const cleanedInput = input.trim().toUpperCase();
@@ -71,7 +72,7 @@ const nameFromEntry = (entry: APISequenceData) =>
       }|${entry.primaryAccession}|${entry.uniProtkbId}`
     : '';
 
-type NetworkResponses = { results: APISequenceData[] } | APISequenceData;
+type NetworkResponses = SearchResults<APISequenceData> | APISequenceData;
 
 export interface SequenceSearchLoaderInterface {
   reset: () => void;

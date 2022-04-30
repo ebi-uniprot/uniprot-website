@@ -76,6 +76,9 @@ export enum Location {
   // Help
   HelpEntry = 'HelpEntry',
   HelpResults = 'HelpResults',
+  // Release Notes
+  ReleaseNotesEntry = 'ReleaseNotesEntry',
+  ReleaseNotesResults = 'ReleaseNotesResults',
   // Contact
   ContactGeneric = 'ContactGeneric',
   ContactUpdate = 'ContactUpdate',
@@ -128,6 +131,9 @@ export const LocationToPath: Record<Location, string> = {
   // Help
   [Location.HelpEntry]: '/help/:accession',
   [Location.HelpResults]: '/help',
+  // News
+  [Location.ReleaseNotesEntry]: '/release-notes/:accession+',
+  [Location.ReleaseNotesResults]: '/release-notes',
   // Contact
   [Location.ContactGeneric]: '/contact',
   [Location.ContactUpdate]: '/update',
@@ -188,6 +194,24 @@ export const EntryLocations: Record<SearchableNamespace, string> = {
   // Annotations
   [Namespace.unirule]: LocationToPath[Location.UniRuleEntry],
   [Namespace.arba]: LocationToPath[Location.ARBAEntry],
+};
+
+export const searchLocations: Record<SearchableNamespace, string> = {
+  // Main data
+  [Namespace.uniprotkb]: LocationToPath[Location.UniProtKBResults],
+  [Namespace.uniref]: LocationToPath[Location.UniRefResults],
+  [Namespace.uniparc]: LocationToPath[Location.UniParcResults],
+  [Namespace.proteomes]: LocationToPath[Location.ProteomesResults],
+  // Supporting data
+  [Namespace.taxonomy]: LocationToPath[Location.TaxonomyResults],
+  [Namespace.keywords]: LocationToPath[Location.KeywordsResults],
+  [Namespace.citations]: LocationToPath[Location.CitationsResults],
+  [Namespace.diseases]: LocationToPath[Location.DiseasesResults],
+  [Namespace.database]: LocationToPath[Location.DatabaseResults],
+  [Namespace.locations]: LocationToPath[Location.LocationsResults],
+  // Annotations
+  [Namespace.unirule]: LocationToPath[Location.UniRuleResults],
+  [Namespace.arba]: LocationToPath[Location.ARBAResults],
 };
 
 export const getEntryPath = (

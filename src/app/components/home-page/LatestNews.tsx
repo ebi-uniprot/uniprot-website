@@ -1,7 +1,9 @@
 import { HeroContainer, ExternalLink } from 'franklin-sites';
 import cn from 'classnames';
+import { generatePath, Link } from 'react-router-dom';
 
 // import useDataApi from '../../../shared/hooks/useDataApi';
+import { LocationToPath, Location } from '../../config/urls';
 
 import styles from './styles/non-critical.module.scss';
 
@@ -14,7 +16,7 @@ const insideUniProtAbstract2 =
   'We would like to invite the machine learning community to help UniProt by creating computational methods to predict metal binding sites across the whole of UniProtKB.';
 
 const proteinSpotlightAbstract =
-  'When rain is pelting down and you have no protection, the umbrellas carried by other pedestrians suddenly become attractive. The thought of making one yours might even occur to you. In the same vein, a child who is being hit with a stick by another child might decide to grab the stick and hit their assailant with it in return.';
+  'When something gets uncomfortably close to you - in whichever way it may be - you will seek to fend it off. By walking away, choosing to ignore it, using physical force or, if it is a person, perhaps verbal abuse. In the same vein, across all kingdoms, organisms have developed a multi-faceted system to fight off the more invisible world of microbial infection: the immune response.';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -60,20 +62,22 @@ const LatestNews = () => {
       >
         <div className={styles['latest-news__news-roll-heading']}>
           <h2>Latest News</h2>
-          <ExternalLink url="https://www.uniprot.org/news?sort=created" noIcon>
+          {/* TODO: remove comment when we have a list page */}
+          {/* <ExternalLink url="https://www.uniprot.org/news?sort=created" noIcon>
             View archive
-          </ExternalLink>
+          </ExternalLink> */}
         </div>
         <ul className="no-bullet">
           <li>
             <article>
               <h3 className="tiny">
-                <ExternalLink
-                  url="https://www.uniprot.org/changes?sort=published"
-                  noIcon
+                <Link
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                    accession: 'forthcoming-changes',
+                  })}
                 >
                   Forthcoming changes
-                </ExternalLink>
+                </Link>
               </h3>
               <p
                 className={cn(
@@ -88,12 +92,13 @@ const LatestNews = () => {
           <li>
             <article>
               <h3 className="tiny">
-                <ExternalLink
-                  url="https://www.uniprot.org/news/2022/02/23/release"
-                  noIcon
+                <Link
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                    accession: '2022-02-23-release',
+                  })}
                 >
                   UniProt release 2022_01
-                </ExternalLink>
+                </Link>
               </h3>
               <p
                 className={cn(
@@ -109,12 +114,13 @@ const LatestNews = () => {
           <li>
             <article>
               <h3 className="tiny">
-                <ExternalLink
-                  url="https://www.uniprot.org/news/2021/11/17/release"
-                  noIcon
+                <Link
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                    accession: '2021-11-17-release',
+                  })}
                 >
                   UniProt release 2021_04
-                </ExternalLink>
+                </Link>
               </h3>
               <p
                 className={cn(
@@ -129,12 +135,13 @@ const LatestNews = () => {
           <li>
             <article>
               <h3 className="tiny">
-                <ExternalLink
-                  url="https://www.uniprot.org/news/2021/06/02/release"
-                  noIcon
+                <Link
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                    accession: '2021-06-02-release',
+                  })}
                 >
                   UniProt release 2021_03
-                </ExternalLink>
+                </Link>
               </h3>
               <p
                 className={cn(
@@ -145,92 +152,6 @@ const LatestNews = () => {
                 The importance of being disordered | MobiDB-lite predictions for
                 intrinsically disordered regions | UniProtKB via AWS Open Data
                 and Amazo...
-              </p>
-            </article>
-          </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <ExternalLink
-                  url="https://www.uniprot.org/news/2021/04/07/release"
-                  noIcon
-                >
-                  UniProt release 2021_02
-                </ExternalLink>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                With a little help from my friend | SwissBioPics subcellular
-                location visualization | Change of evidence codes for
-                combinatorial evidence
-              </p>
-            </article>
-          </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <ExternalLink
-                  url="https://www.uniprot.org/news/2021/02/10/release"
-                  noIcon
-                >
-                  UniProt release 2021_01
-                </ExternalLink>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                (Almost) all about that CBASS | Cross-references to VEuPathDB |
-                Changes to humsavar.txt and related keywords | Reference
-                proteomes downlo...
-              </p>
-            </article>
-          </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <ExternalLink
-                  url="https://www.uniprot.org/news/2020/12/02/release"
-                  noIcon
-                >
-                  UniProt release 2020_06
-                </ExternalLink>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                Venoms, gold mines for new antiprotozoal drugs | Removal of
-                cross-references to KO
-              </p>
-            </article>
-          </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <ExternalLink
-                  url="https://www.uniprot.org/news/2020/10/07/release"
-                  noIcon
-                >
-                  UniProt release 2020_05
-                </ExternalLink>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                PCK1 vacillating between gluconeogenesis and lipogenesis |
-                Cross-references to CPTC, BMRB, PCDDB and SASBDB
               </p>
             </article>
           </li>
@@ -312,21 +233,21 @@ const LatestNews = () => {
       >
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/244/"
+            url="https://www.proteinspotlight.org/back_issues/246/"
             noIcon
           >
-            For the sake of sap
+            Luck of the draw
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/244/"
+          url="https://www.proteinspotlight.org/back_issues/246/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt244.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt246.jpg"
             alt=""
             width="125.46"
             height="86.65"

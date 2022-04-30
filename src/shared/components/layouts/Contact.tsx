@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { EnvelopeIcon, ExternalLink } from 'franklin-sites';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
-import { ContactLocationState } from '../../../contact/components/ContactForm';
+import { ContactLocationState } from '../../../contact/adapters/contactFormAdapter';
 
 import footer from './styles/contact.module.scss';
 

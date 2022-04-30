@@ -21,7 +21,8 @@ import {
   searchableNamespaceLabels,
   namespaceAndToolsLabels,
 } from '../shared/types/namespaces';
-import Response from '../uniprotkb/types/responseTypes';
+import { SearchResults } from '../shared/types/results';
+import { APIModel } from '../shared/types/apiModel';
 
 const BasketFullView = () => {
   // Basket specific data
@@ -46,7 +47,7 @@ const BasketFullView = () => {
     withColumns: false,
   });
   const facetApiObject =
-    useDataApiWithStale<Response['data']>(initialApiFacetUrl);
+    useDataApiWithStale<SearchResults<APIModel>>(initialApiFacetUrl);
 
   const {
     loading: facetInitialLoading,
@@ -71,7 +72,9 @@ const BasketFullView = () => {
   if (!accessions.length) {
     return (
       <>
-        <HTMLHead title="My basket" />
+        <HTMLHead title="My basket">
+          <meta name="robots" content="noindex" />
+        </HTMLHead>
         <EmptyBasket />
       </>
     );
@@ -105,7 +108,9 @@ const BasketFullView = () => {
           }`,
           'My basket',
         ]}
-      />
+      >
+        <meta name="robots" content="noindex" />
+      </HTMLHead>
       <PageIntro
         title={namespaceAndToolsLabels[namespace]}
         titlePostscript={<small> in your basket</small>}

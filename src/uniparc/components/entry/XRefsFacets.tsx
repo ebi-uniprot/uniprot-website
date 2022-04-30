@@ -14,12 +14,9 @@ import {
   XRefsInternalDatabases,
   XRefsInternalDatabasesEnum,
 } from '../../adapters/uniParcConverter';
-import {
-  FacetObject,
-  FacetValue,
-} from '../../../uniprotkb/types/responseTypes';
 import { UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithStale';
 import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { FacetObject, FacetValue } from '../../../shared/types/results';
 
 import helper from '../../../shared/styles/helper.module.scss';
 
@@ -28,7 +25,7 @@ const exceptions = new Set<string | XRefsInternalDatabases>([
   XRefsInternalDatabasesEnum.UNREVIEWED,
 ]);
 
-const sortByCount = (a: FacetValue, b: FacetValue) => {
+const sortByCount = (a: FacetValue<ReactNode>, b: FacetValue<ReactNode>) => {
   if (exceptions.has(a.value) && exceptions.has(b.value)) {
     return a.value === XRefsInternalDatabasesEnum.REVIEWED ? -1 : 1;
   }
@@ -43,7 +40,7 @@ const sortByCount = (a: FacetValue, b: FacetValue) => {
 
 type OrganismTuple = [taxon: TaxonomyDatum, count: number];
 
-const xrefsToFacets = (xrefs?: UniParcXRef[]): FacetObject[] => {
+const xrefsToFacets = (xrefs?: UniParcXRef[]): FacetObject<ReactNode>[] => {
   if (!xrefs?.length) {
     return [];
   }

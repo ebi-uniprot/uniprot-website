@@ -13,9 +13,10 @@ import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
 import { FacetsEnum as FacetsEnumUniProtKB } from '../../../../uniprotkb/config/UniProtKBFacetConfiguration';
 import { defaultFacets as defaultFacetsUniParc } from '../../../../uniparc/config/UniParcFacetConfiguration';
 
+import { SearchResults } from '../../../../shared/types/results';
+import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import { Namespace } from '../../../../shared/types/namespaces';
 import { BlastHit } from '../../types/blastResults';
-import Response from '../../../../uniprotkb/types/responseTypes';
 
 // Same as default, but with OtherOrganism in the middle too
 const defaultFacetsUniProtKB = [
@@ -37,8 +38,8 @@ type BlastResultSidebarProps = {
 const BlastResultSidebar = memo<BlastResultSidebarProps>(
   ({ accessions, allHits, namespace }) => {
     const { search } = useLocation();
-    const [{ selectedFacets }] = getParamsFromURL(search);
-    const dataApiObject = useDataApiWithStale<Response['data']>(
+    const [{ selectedFacets, query }] = getParamsFromURL(search);
+    const dataApiObject = useDataApiWithStale<SearchResults<UniProtkbAPIModel>>(
       // For UniRef, the only avalailable facet is the identity value, which
       // doesn't make sense in BLAST's context where all have the same value
       namespace === Namespace.uniref
@@ -50,6 +51,7 @@ const BlastResultSidebar = memo<BlastResultSidebarProps>(
               namespace === Namespace.uniprotkb
                 ? defaultFacetsUniProtKB
                 : defaultFacetsUniParc,
+            query,
             selectedFacets,
           })
     );

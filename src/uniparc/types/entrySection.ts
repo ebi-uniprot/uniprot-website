@@ -1,6 +1,6 @@
 export enum EntrySection {
   Sequence = 'sequence',
-  XRefs = 'cross-references',
+  XRefs = 'cross_references',
 }
 
 export type EntrySectionNameAndId = {

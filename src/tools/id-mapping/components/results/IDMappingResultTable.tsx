@@ -26,7 +26,6 @@ const IDMappingResultTable = ({
 }: IDMappingResultTableProps) => {
   const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
     useItemSelect();
-
   return (
     <>
       <ResultsButtons
@@ -53,8 +52,18 @@ const IDMappingResultTable = ({
       >
         <ResultsData
           resultsDataObject={resultsDataObject}
-          setSelectedItemFromEvent={setSelectedItemFromEvent}
-          setSelectedEntries={setSelectedEntries}
+          setSelectedItemFromEvent={
+            // No selection when not a UniProt target
+            namespaceOverride === Namespace.idmapping
+              ? undefined
+              : setSelectedItemFromEvent
+          }
+          setSelectedEntries={
+            // No selection when not a UniProt target
+            namespaceOverride === Namespace.idmapping
+              ? undefined
+              : setSelectedEntries
+          }
           namespaceOverride={namespaceOverride}
           displayIdMappingColumns
           disableCardToggle

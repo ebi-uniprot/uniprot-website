@@ -40,7 +40,7 @@ exports[`non-critical HomePage component should render 1`] = `
       UniProt core data
     </h2>
     <div
-      class="uniprot-grid-cell--span-3 tile tile-gradient"
+      class="uniprot-grid-cell--span-3 core-data-tile tile tile-gradient"
       style="--tile-background: #00639a; width: 100%;"
     >
       <div
@@ -76,31 +76,34 @@ exports[`non-critical HomePage component should render 1`] = `
             href="/uniprotkb?query=reviewed:true"
           >
             <test-file-stub
-              width="2.5em"
+              classname="core-data__reviewed-icon"
+              width="1.75em"
             />
             <div
               class="core-data__status"
             >
               Reviewed
             </div>
-            <small>
-              Swiss-Prot
-            </small>
+            <div>
+              (Swiss-Prot)
+            </div>
+            <div />
           </a>
           <a
             href="/uniprotkb?query=reviewed:false"
           >
             <test-file-stub
-              width="2.5em"
+              width="1.75em"
             />
             <div
               class="core-data__status"
             >
               Unreviewed
             </div>
-            <small>
-              TrEMBL
-            </small>
+            <div>
+              (TrEMBL)
+            </div>
+            <div />
           </a>
         </span>
       </small>
@@ -363,14 +366,6 @@ exports[`non-critical HomePage component should render 1`] = `
         <h2>
           Latest News
         </h2>
-        <a
-          class="external-link"
-          href="https://www.uniprot.org/news?sort=created"
-          rel="noopener"
-          target="_blank"
-        >
-          View archive
-        </a>
       </div>
       <ul
         class="no-bullet"
@@ -381,10 +376,7 @@ exports[`non-critical HomePage component should render 1`] = `
               class="tiny"
             >
               <a
-                class="external-link"
-                href="https://www.uniprot.org/changes?sort=published"
-                rel="noopener"
-                target="_blank"
+                href="/release-notes/forthcoming-changes"
               >
                 Forthcoming changes
               </a>
@@ -402,10 +394,7 @@ exports[`non-critical HomePage component should render 1`] = `
               class="tiny"
             >
               <a
-                class="external-link"
-                href="https://www.uniprot.org/news/2022/02/23/release"
-                rel="noopener"
-                target="_blank"
+                href="/release-notes/2022-02-23-release"
               >
                 UniProt release 2022_01
               </a>
@@ -423,10 +412,7 @@ exports[`non-critical HomePage component should render 1`] = `
               class="tiny"
             >
               <a
-                class="external-link"
-                href="https://www.uniprot.org/news/2021/11/17/release"
-                rel="noopener"
-                target="_blank"
+                href="/release-notes/2021-11-17-release"
               >
                 UniProt release 2021_04
               </a>
@@ -444,10 +430,7 @@ exports[`non-critical HomePage component should render 1`] = `
               class="tiny"
             >
               <a
-                class="external-link"
-                href="https://www.uniprot.org/news/2021/06/02/release"
-                rel="noopener"
-                target="_blank"
+                href="/release-notes/2021-06-02-release"
               >
                 UniProt release 2021_03
               </a>
@@ -456,90 +439,6 @@ exports[`non-critical HomePage component should render 1`] = `
               class="latest-news__abstract latest-news__abstract--2-lines"
             >
               The importance of being disordered | MobiDB-lite predictions for intrinsically disordered regions | UniProtKB via AWS Open Data and Amazo...
-            </p>
-          </article>
-        </li>
-        <li>
-          <article>
-            <h3
-              class="tiny"
-            >
-              <a
-                class="external-link"
-                href="https://www.uniprot.org/news/2021/04/07/release"
-                rel="noopener"
-                target="_blank"
-              >
-                UniProt release 2021_02
-              </a>
-            </h3>
-            <p
-              class="latest-news__abstract latest-news__abstract--2-lines"
-            >
-              With a little help from my friend | SwissBioPics subcellular location visualization | Change of evidence codes for combinatorial evidence
-            </p>
-          </article>
-        </li>
-        <li>
-          <article>
-            <h3
-              class="tiny"
-            >
-              <a
-                class="external-link"
-                href="https://www.uniprot.org/news/2021/02/10/release"
-                rel="noopener"
-                target="_blank"
-              >
-                UniProt release 2021_01
-              </a>
-            </h3>
-            <p
-              class="latest-news__abstract latest-news__abstract--2-lines"
-            >
-              (Almost) all about that CBASS | Cross-references to VEuPathDB | Changes to humsavar.txt and related keywords | Reference proteomes downlo...
-            </p>
-          </article>
-        </li>
-        <li>
-          <article>
-            <h3
-              class="tiny"
-            >
-              <a
-                class="external-link"
-                href="https://www.uniprot.org/news/2020/12/02/release"
-                rel="noopener"
-                target="_blank"
-              >
-                UniProt release 2020_06
-              </a>
-            </h3>
-            <p
-              class="latest-news__abstract latest-news__abstract--2-lines"
-            >
-              Venoms, gold mines for new antiprotozoal drugs | Removal of cross-references to KO
-            </p>
-          </article>
-        </li>
-        <li>
-          <article>
-            <h3
-              class="tiny"
-            >
-              <a
-                class="external-link"
-                href="https://www.uniprot.org/news/2020/10/07/release"
-                rel="noopener"
-                target="_blank"
-              >
-                UniProt release 2020_05
-              </a>
-            </h3>
-            <p
-              class="latest-news__abstract latest-news__abstract--2-lines"
-            >
-              PCK1 vacillating between gluconeogenesis and lipogenesis | Cross-references to CPTC, BMRB, PCDDB and SASBDB
             </p>
           </article>
         </li>
@@ -625,17 +524,17 @@ exports[`non-critical HomePage component should render 1`] = `
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/244/"
+          href="https://www.proteinspotlight.org/back_issues/246/"
           rel="noopener"
           target="_blank"
         >
-          For the sake of sap
+          Luck of the draw
         </a>
       </h3>
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/244/"
+        href="https://www.proteinspotlight.org/back_issues/246/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
@@ -644,14 +543,14 @@ exports[`non-critical HomePage component should render 1`] = `
           alt=""
           height="86.65"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt244.jpg"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt246.jpg"
           width="125.46"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          When  rain  is  pelting  down  and  you  have  no  protection,  the  umbrellas  carried  by  other  pedestrians  suddenly  become  attractive.  The  thought  of  making  one  yours  might  even  occur  to  you.  In  the  same  vein,  a  child  who  is  being  hit  with  a  stick  by  another  child…
+          When  something  gets  uncomfortably  close  to  you  -  in  whichever  way  it  may  be  -  you  will  seek  to  fend  it  off.  By  walking  away,  choosing  to  ignore  it,  using  physical  force  or,  if  it  is  a  person,  perhaps  verbal  abuse.  In  the  same  vein,  across  all  kingdoms,…
       </p>
     </article>
   </section>
@@ -930,6 +829,38 @@ exports[`non-critical HomePage component should render 1`] = `
       </div>
     </div>
   </section>
+  <div
+    class="uniprot-grid uniprot-grid--centered home-page-section"
+  >
+    <div
+      class="uniprot-grid-cell--span-12 message message--info"
+      role="status"
+    >
+      <div
+        class="message__side-border"
+      />
+      <test-file-stub
+        height="1.125em"
+        width="1.125em"
+      />
+      <section
+        class="message__content"
+      >
+        <small>
+          If you still need it, the 
+          <a
+            class="external-link"
+            href="https://legacy.uniprot.org"
+            rel="noopener nofollow"
+            target="_blank"
+          >
+            legacy version of the website is still available here
+          </a>
+           until the 2022_02 release.
+        </small>
+      </section>
+    </div>
+  </div>
   <section
     class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section"
   >

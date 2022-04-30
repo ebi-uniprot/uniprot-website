@@ -12,7 +12,7 @@ import usePagination from '../../../../shared/hooks/usePagination';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 import useDatabaseInfoMaps from '../../../../shared/hooks/useDatabaseInfoMaps';
-import { useMatchWithRedirect } from '../../../utils/hooks';
+import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect';
 import useIDMappingDetails from '../../../../shared/hooks/useIDMappingDetails';
 
 import { rawDBToNamespace } from '../../utils';
@@ -21,6 +21,7 @@ import idMappingConverter from '../../adapters/idMappingConverter';
 import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
 import { defaultFacets } from '../../../../shared/config/apiUrls';
 
+import { SearchResults } from '../../../../shared/types/results';
 import { JobTypes } from '../../../types/toolsJobTypes';
 import {
   changePathnameOnly,
@@ -35,7 +36,7 @@ import {
   Namespace,
   namespaceAndToolsLabels,
 } from '../../../../shared/types/namespaces';
-import Response from '../../../../uniprotkb/types/responseTypes';
+import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 
 const jobType = JobTypes.ID_MAPPING;
 const urls = toolsURLs(jobType);
@@ -79,7 +80,7 @@ const IDMappingResult = () => {
   const location = useLocation();
   const match = useMatchWithRedirect<Params>(
     Location.IDMappingResult,
-    TabLocation.Overview
+    TabLocation
   );
 
   const databaseInfoMaps = useDatabaseInfoMaps();
@@ -91,7 +92,8 @@ const IDMappingResult = () => {
     progress: detailsProgress,
   } = idMappingDetails || {};
 
-  const [{ selectedFacets, query }] = getParamsFromURL(location.search);
+  const [{ selectedFacets, query, sortColumn, sortDirection }] =
+    getParamsFromURL(location.search);
 
   const toDBInfo =
     detailsData && databaseInfoMaps?.databaseToDatabaseInfo[detailsData.to];
@@ -99,7 +101,12 @@ const IDMappingResult = () => {
   // Query for results data from the idmapping endpoint
   const initialApiUrl =
     detailsData?.redirectURL &&
-    urls.resultUrl(detailsData.redirectURL, { selectedFacets, query });
+    urls.resultUrl(detailsData.redirectURL, {
+      selectedFacets,
+      query,
+      sortColumn,
+      sortDirection,
+    });
 
   const converter = useMemo(() => idMappingConverter(toDBInfo), [toDBInfo]);
 
@@ -127,7 +134,8 @@ const IDMappingResult = () => {
       selectedFacets,
       query,
     });
-  const facetsData = useDataApiWithStale<Response['data']>(facetsUrl);
+  const facetsData =
+    useDataApiWithStale<SearchResults<UniProtkbAPIModel>>(facetsUrl);
 
   const { loading: facetInititialLoading, isStale: facetHasStaleData } =
     facetsData;
@@ -163,11 +171,15 @@ const IDMappingResult = () => {
       break;
 
     default:
-      sidebar = (
-        <ErrorBoundary>
-          <ResultsFacets dataApiObject={facetsData} />
-        </ErrorBoundary>
-      );
+      if (namespaceOverride === Namespace.idmapping) {
+        sidebar = <div className="sidebar-layout__sidebar-content--empty" />;
+      } else {
+        sidebar = (
+          <ErrorBoundary>
+            <ResultsFacets dataApiObject={facetsData} />
+          </ErrorBoundary>
+        );
+      }
       break;
   }
 
@@ -198,7 +210,9 @@ const IDMappingResult = () => {
           namespaceOverride !== Namespace.idmapping &&
             namespaceAndToolsLabels[namespaceOverride],
         ]}
-      />
+      >
+        <meta name="robots" content="noindex" />
+      </HTMLHead>
       <Tabs active={match.params.subPage}>
         <Tab
           id={TabLocation.Overview}

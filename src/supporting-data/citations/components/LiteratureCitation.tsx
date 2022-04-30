@@ -15,7 +15,11 @@ import {
 import { capitalize } from 'lodash-es';
 import { SetOptional } from 'type-fest';
 
-import { Location, LocationToPath } from '../../../app/config/urls';
+import {
+  getEntryPath,
+  Location,
+  LocationToPath,
+} from '../../../app/config/urls';
 import externalUrls from '../../../shared/config/externalUrls';
 
 import parseDate from '../../../shared/utils/parseDate';
@@ -29,6 +33,7 @@ import {
   CitationType,
   formatCitationData,
 } from '../adapters/citationsConverter';
+import { Namespace } from '../../../shared/types/namespaces';
 
 import '../../../shared/styles/literature-citation.scss';
 
@@ -324,12 +329,14 @@ const LiteratureCitation: FC<
     data: SetOptional<CitationsAPIModel, 'statistics'>;
     displayAll?: boolean;
     headingLevel?: `h${1 | 2 | 3 | 4 | 5 | 6}`;
+    linkToEntry?: boolean;
   } & HTMLAttributes<HTMLElement>
 > = ({
   data,
   displayAll,
   headingLevel = 'h5',
   children,
+  linkToEntry,
   className,
   ...props
 }) => {
@@ -337,19 +344,29 @@ const LiteratureCitation: FC<
   const { title, authors, literatureAbstract, authoringGroup } = citation;
   const { pubmedId, journalInfo } = formatCitationData(citation);
 
+  const headingContent = title || <em>No title available.</em>;
+
+  const heading = createElement(
+    headingLevel,
+    {
+      className: cn('publication__heading', 'small', {
+        'publication__heading--no-title': !title,
+      }),
+    },
+    linkToEntry ? (
+      <Link to={getEntryPath(Namespace.citations, citation.id)}>
+        {headingContent}
+      </Link>
+    ) : (
+      headingContent
+    )
+  );
+
   return (
     <article className={cn(className, 'publication')} {...props}>
       <div className="publication__columns">
         <div className="publication__columns__main">
-          {createElement(
-            headingLevel,
-            {
-              className: cn('publication__heading', 'small', {
-                'publication__heading--no-title': !title,
-              }),
-            },
-            title || <em>No title available.</em>
-          )}
+          {heading}
           <Authors
             authors={authors}
             authoringGroup={authoringGroup}

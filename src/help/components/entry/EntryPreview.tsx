@@ -155,12 +155,12 @@ const EntryPreview = (
               <dl>
                 <dt>
                   categories{' '}
-                  {parsedData.categories.length
+                  {parsedData.categories?.length
                     ? '✅'
                     : '❌ one or more categories need to be provided'}
                 </dt>
                 <dd>
-                  {parsedData.categories.map((category) => (
+                  {parsedData.categories?.map((category) => (
                     <Category category={category} key={category} />
                   ))}
                 </dd>

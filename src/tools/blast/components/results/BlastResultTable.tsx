@@ -11,6 +11,7 @@ import {
 import { DataTable, Chip, Loader, Button } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
+import { Except } from 'type-fest';
 
 // eslint-disable-next-line import/no-relative-packages
 import colors from '../../../../../node_modules/franklin-sites/src/styles/colours.json';
@@ -30,9 +31,6 @@ import {
 
 import { EnrichedBlastHit } from './BlastResult';
 import { BlastResults, BlastHsp, BlastHit } from '../../types/blastResults';
-import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
-import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
-import { UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
 
 import './styles/BlastResultTable.scss';
 
@@ -50,10 +48,9 @@ const scoringColorDict: Partial<Record<keyof BlastHsp, string>> = {
 
 type BlastSummaryTrackProps = {
   hsp: BlastHsp;
-  extra?: UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel;
   queryLength: number;
   hitLength: number;
-  setHspDetailPanel: (props: HSPDetailPanelProps) => void;
+  setHspDetailPanel: (props: Except<HSPDetailPanelProps, 'namespace'>) => void;
   hitAccession: string;
   selectedScoring: keyof BlastHsp;
   setSelectedScoring: Dispatch<SetStateAction<keyof BlastHsp>>;
@@ -66,7 +63,6 @@ const BlastSummaryTrack = ({
   hitLength,
   setHspDetailPanel,
   hitAccession,
-  extra,
   selectedScoring,
   setSelectedScoring,
   maxScorings,
@@ -148,7 +144,6 @@ const BlastSummaryTrack = ({
               onClose: () => null,
               queryLength,
               hitLength,
-              extra,
             });
           }}
         />
@@ -180,8 +175,7 @@ type BlastSummaryHspsProps = {
   queryLength: number;
   hitLength: number;
   hitAccession: string;
-  extra?: UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel;
-  setHspDetailPanel: (props: HSPDetailPanelProps) => void;
+  setHspDetailPanel: (props: Except<HSPDetailPanelProps, 'namespace'>) => void;
   selectedScoring: keyof BlastHsp;
   setSelectedScoring: Dispatch<SetStateAction<keyof BlastHsp>>;
   maxScorings: Partial<Record<keyof BlastHsp, number>>;
@@ -193,7 +187,6 @@ const BlastSummaryHsps = ({
   hitLength,
   setHspDetailPanel,
   hitAccession,
-  extra,
   selectedScoring,
   setSelectedScoring,
   maxScorings,
@@ -218,7 +211,6 @@ const BlastSummaryHsps = ({
           queryLength={queryLength}
           hitLength={hitLength}
           hitAccession={hitAccession}
-          extra={extra}
           setHspDetailPanel={setHspDetailPanel}
           selectedScoring={selectedScoring}
           setSelectedScoring={setSelectedScoring}
@@ -231,7 +223,6 @@ const BlastSummaryHsps = ({
             hitLength={hitLength}
             key={`hsp_${hsp.hsp_num}`}
             hitAccession={hitAccession}
-            extra={extra}
             setHspDetailPanel={setHspDetailPanel}
             selectedScoring={selectedScoring}
             setSelectedScoring={setSelectedScoring}
@@ -260,7 +251,7 @@ type ColumnRenderer = {
 type BlastResultTableProps = {
   data: BlastResults | null;
   setSelectedItemFromEvent: (event: MouseEvent | KeyboardEvent) => void;
-  setHspDetailPanel: (props: HSPDetailPanelProps) => void;
+  setHspDetailPanel: (props: Except<HSPDetailPanelProps, 'namespace'>) => void;
   loading: boolean;
   namespace: SearchableNamespace;
 };
@@ -278,7 +269,7 @@ const BlastResultTable = ({
   const [selectedScoring, setSelectedScoring] =
     useState<keyof BlastHsp>('hsp_identity');
 
-  if (data?.hits.length) {
+  if (data?.hits) {
     hitsRef.current = data?.hits || [];
   }
 
@@ -427,7 +418,6 @@ const BlastResultTable = ({
           hitLength={hit.hit_len}
           hitAccession={hit.hit_acc}
           setHspDetailPanel={setHspDetailPanel}
-          extra={'extra' in hit ? hit.extra : undefined}
           selectedScoring={selectedScoring}
           setSelectedScoring={setSelectedScoring}
           maxScorings={maxScorings}
