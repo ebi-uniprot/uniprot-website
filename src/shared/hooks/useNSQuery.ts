@@ -16,6 +16,7 @@ type Arg = {
   size?: number;
   withFacets?: boolean;
   withColumns?: boolean;
+  withQuery?: boolean;
   accessions?: string[];
   overrideNS?: Namespace;
   facetsNotApplied?: boolean;
@@ -26,6 +27,7 @@ const useNSQuery = ({
   size,
   withFacets = false,
   withColumns = true,
+  withQuery = true,
   accessions,
   overrideNS,
   facetsNotApplied,
@@ -63,7 +65,7 @@ const useNSQuery = ({
 
     const options = {
       namespace,
-      query,
+      query: withQuery ? query : undefined,
       columns: withColumns ? queryColumns : undefined,
       selectedFacets: facetsNotApplied ? undefined : selectedFacets,
       facets: withFacets ? undefined : null,
@@ -78,11 +80,12 @@ const useNSQuery = ({
     query,
     accessions,
     namespace,
+    withFacets,
     withColumns,
+    withQuery,
     queryColumns,
     facetsNotApplied,
     selectedFacets,
-    withFacets,
     sortColumn,
     sortDirection,
     size,
