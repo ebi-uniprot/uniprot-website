@@ -6,7 +6,7 @@ import useColumnNames from './useColumnNames';
 import useLocalStorage from './useLocalStorage';
 
 import { parseQueryString } from '../utils/url';
-import { gtag } from '../utils/logging';
+import { gtagFn } from '../utils/logging';
 
 import { Namespace } from '../types/namespaces';
 import { InvalidParamValue } from '../../uniprotkb/utils/resultsUtils';
@@ -72,7 +72,7 @@ const useViewMode = (
   }
 
   useEffect(() => {
-    gtag('event', 'result_view', {
+    gtagFn('event', 'result_view', {
       result_view: `${viewMode}`,
     });
   }, [viewMode]);

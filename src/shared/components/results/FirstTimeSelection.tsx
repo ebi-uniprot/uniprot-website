@@ -4,7 +4,7 @@ import { Button } from 'franklin-sites';
 
 import { ViewMode } from '../../hooks/useViewMode';
 
-import { gtag } from '../../utils/logging';
+import { gtagFn } from '../../utils/logging';
 
 import styles from './styles/first-time-selection.module.scss';
 
@@ -71,7 +71,7 @@ const FirstTimeSelection = ({
             disabled={!previewViewMode}
             onClick={(e: MouseEvent) => {
               e.preventDefault();
-              gtag('event', 'result_view', {
+              gtagFn('event', 'result_view', {
                 result_view: previewViewMode,
                 result_view_set: 1,
               });

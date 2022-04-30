@@ -37,7 +37,7 @@ import {
   getParamsFromURL,
   InvalidParamValue,
 } from '../../../uniprotkb/utils/resultsUtils';
-import { gtag } from '../../utils/logging';
+import { gtagFn } from '../../utils/logging';
 
 import { Namespace, mainNamespaces } from '../../types/namespaces';
 import {
@@ -146,7 +146,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
   ]);
 
   const handleToggleView = (event: ChangeEvent<HTMLInputElement>) => {
-    gtag('event', 'result_view', {
+    gtagFn('event', 'result_view', {
       result_view: event.target.value,
       result_view_set: 1,
     });

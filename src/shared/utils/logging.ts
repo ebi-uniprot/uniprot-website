@@ -38,7 +38,7 @@ export const createGtagEvent = (message: any, data?: Partial<ScopeContext>) => {
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-export const gtag: Gtag.Gtag = (...args) => {
+export const gtagFn: Gtag.Gtag = (...args) => {
   // Prevent crashing if not defined (like in dev mode)
   if (typeof globalThis.gtag === 'function') {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
