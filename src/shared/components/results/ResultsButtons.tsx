@@ -250,7 +250,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
           (viewMode === 'table' || disableCardToggle) && (
             <CustomiseButton namespace={namespace} />
           )}
-        {!notCustomisable && (
+        {!notCustomisable && !inBasket && (
           <ShareDropdown
             setDisplayDownloadPanel={setDisplayDownloadPanel}
             namespaceOverride={namespaceOverride}
