@@ -215,32 +215,35 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
           </Button>
         )} */}
         {/* TODO: check if we want to add that to franklin, eventually... */}
-        <span role="radiogroup">
-          {!viewMode && <FirstTimeSelection setViewMode={setViewMode} />}
-          View:
-          <label>
-            Cards{' '}
-            <input
-              type="radio"
-              name="view"
-              value="cards"
-              checked={viewMode === 'cards'}
-              onChange={handleToggleView}
-              disabled={disableCardToggle}
-            />
-          </label>
-          <label>
-            Table{' '}
-            <input
-              type="radio"
-              name="view"
-              value="table"
-              checked={viewMode === 'table'}
-              onChange={handleToggleView}
-              disabled={disableCardToggle}
-            />
-          </label>
-        </span>
+        <form aria-label="Result view selector">
+          {/* Wrapped in a form so that multiple instances don't interact */}
+          <span role="radiogroup">
+            {!viewMode && <FirstTimeSelection setViewMode={setViewMode} />}
+            View:
+            <label>
+              Cards{' '}
+              <input
+                type="radio"
+                name="view"
+                value="cards"
+                checked={viewMode === 'cards'}
+                onChange={handleToggleView}
+                disabled={disableCardToggle}
+              />
+            </label>
+            <label>
+              Table{' '}
+              <input
+                type="radio"
+                name="view"
+                value="table"
+                checked={viewMode === 'table'}
+                onChange={handleToggleView}
+                disabled={disableCardToggle}
+              />
+            </label>
+          </span>
+        </form>
         {!notCustomisable &&
           !sharedUrlMode &&
           // Exception for ID mapping results!
