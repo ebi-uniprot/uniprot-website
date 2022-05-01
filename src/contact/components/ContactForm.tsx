@@ -12,6 +12,7 @@ import {
   ExternalLink,
   ErrorIcon,
   SuccessIcon,
+  Message,
 } from 'franklin-sites';
 import cn from 'classnames';
 import { createPath } from 'history';
@@ -238,6 +239,13 @@ const ContactForm = () => {
             </ul>
           </aside>
         </form>
+        <Message level="info" className="uniprot-grid-cell--span-12">
+          If you still need it, the{' '}
+          <ExternalLink url="https://legacy.uniprot.org" rel="nofollow" noIcon>
+            legacy version of the website is still available here
+          </ExternalLink>{' '}
+          until the 2022_02 release.
+        </Message>
       </section>
     </>
   );
