@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
-import { Header, UncontrolledDropdown, Button } from 'franklin-sites';
+import { Link, useRouteMatch, useLocation } from 'react-router-dom';
+import { Header, Dropdown, Button } from 'franklin-sites';
 import cn from 'classnames';
 
 import SearchContainer from '../search/SearchContainer';
@@ -53,6 +53,7 @@ const mediumPlusMediaQuery = 'only screen and (min-width: 840px)';
 const HeaderContent = ({ isHomePage }: { isHomePage: boolean }) => {
   const wideScreen = useMatchMedia(largeMediaQuery);
   const mediumPlusScreen = useMatchMedia(mediumPlusMediaQuery);
+  const location = useLocation();
 
   return (
     <ul className={cn('no-bullet', styles['main-content'])}>
@@ -63,11 +64,12 @@ const HeaderContent = ({ isHomePage }: { isHomePage: boolean }) => {
       ) : (
         // otherwise display all tools links in a dropdown
         <li>
-          <UncontrolledDropdown
+          <Dropdown
             visibleElement={<Button variant="tertiary">Tools</Button>}
+            propChangeToClose={location}
           >
             <ul className="no-bullet">{toolsLinks}</ul>
-          </UncontrolledDropdown>
+          </Dropdown>
         </li>
       )}
       {sparqlLink}

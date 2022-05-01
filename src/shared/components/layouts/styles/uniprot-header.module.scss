@@ -1,3 +1,14 @@
 .main-content {
-  display: contents;
+  margin: 0;
+
+  & > li {
+    display: inline-block;
+    margin-inline: 0.25ch;
+  }
+
+  :global(.dropdown) {
+    /* "Visually" aligned with "SPARQL" */
+    /* TODO: find a better way to align this */
+    transform: translateY(-2px);
+  }
 }

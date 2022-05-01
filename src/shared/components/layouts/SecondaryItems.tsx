@@ -31,10 +31,9 @@ import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { Namespace } from '../../types/namespaces';
 import { Status } from '../../../tools/types/toolsStatuses';
+import { ContactLocationState } from '../../../contact/adapters/contactFormAdapter';
 
 import styles from './styles/secondary-items.module.scss';
-import { Button } from 'franklin-sites';
-import { ContactLocationState } from '../../../contact/components/ContactForm';
 
 const BasketMiniView = lazy(
   () =>
@@ -108,15 +107,7 @@ const ToolsDashboard = ({ display, close }: Props) => {
 
   return (
     <>
-      <span
-        title="Tools dashboard"
-        className={styles['secondary-item']}
-        ref={spanRef}
-        onPointerOver={Dashboard.preload}
-        // Not a focus target, so no need, do that when we can use a link as a
-        // secondary item (after franklin's Header refactor/simplification)
-        // onFocus={Dashboard.preload}
-      >
+      <span ref={spanRef}>
         <ToolboxIcon width={secondaryItemIconSize} />
         {count ? (
           <Bubble
@@ -185,15 +176,7 @@ export const Basket = ({ display, close }: Props) => {
 
   return (
     <>
-      <span
-        title="Basket"
-        className={styles['secondary-item']}
-        ref={spanRef}
-        onPointerOver={BasketMiniView.preload}
-        // Not a focus target, so no need, do that when we can use a link as a
-        // secondary item (after franklin's Header refactor/simplification)
-        // onFocus={BasketMiniView.preload}
-      >
+      <span ref={spanRef}>
         <BasketIcon width={secondaryItemIconSize} />
         {count ? (
           <Bubble
@@ -247,29 +230,45 @@ const SecondaryItems = () => {
 
   return (
     <>
-      <Button
-        variant="tertiary"
-        onClick={() => {
+      <Link
+        to={LocationToPath[Location.Dashboard]}
+        onClick={(event) => {
+          if (event.metaKey || event.ctrlKey) {
+            return; // default behaviour of opening a new tab
+          }
+          event.preventDefault();
           if (!displayDashboard) {
             setDisplayDashboard(true);
           }
         }}
+        title="Tools dashboard"
+        className={styles['secondary-item']}
+        onPointerOver={Dashboard.preload}
+        onFocus={Dashboard.preload}
       >
         <ToolsDashboard
           display={displayDashboard}
           close={closeDisplayDashboard}
         />
-      </Button>
-      <Button
-        variant="tertiary"
-        onClick={() => {
+      </Link>
+      <Link
+        to={LocationToPath[Location.Basket]}
+        onClick={(event) => {
+          if (event.metaKey || event.ctrlKey) {
+            return; // default behaviour of opening a new tab
+          }
+          event.preventDefault();
           if (!displayBasket) {
             setDisplayBasket(true);
           }
         }}
+        title="Basket"
+        className={styles['secondary-item']}
+        onPointerOver={BasketMiniView.preload}
+        onFocus={BasketMiniView.preload}
       >
         <Basket display={displayBasket} close={closeDisplayBasket} />
-      </Button>
+      </Link>
       <Link<ContactLocationState>
         to={(location) => ({
           pathname: LocationToPath[Location.ContactGeneric],

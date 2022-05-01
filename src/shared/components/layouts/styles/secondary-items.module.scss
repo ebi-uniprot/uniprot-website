@@ -5,15 +5,15 @@
   position: relative;
 
   svg {
-    width: initial;
-    height: initial;
+    width: 2ch;
+    height: 2ch;
   }
 }
 
 .bubble {
   position: absolute;
-  left: 0;
-  top: -1em;
+  left: 1ch;
+  top: -1.25em;
   z-index: $z-index-low;
   transform: scale(0.75);
 

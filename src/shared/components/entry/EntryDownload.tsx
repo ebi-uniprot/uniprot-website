@@ -8,12 +8,7 @@
 
 import { useCallback } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
-import {
-  DropdownButton,
-  DownloadIcon,
-  Button,
-  LongNumber,
-} from 'franklin-sites';
+import { Dropdown, DownloadIcon, Button, LongNumber } from 'franklin-sites';
 
 // eslint-disable-next-line import/no-relative-packages
 import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
@@ -216,42 +211,39 @@ const EntryDownload = ({ nResults }: Props) => {
   }
 
   return (
-    <DropdownButton
-      variant="tertiary"
-      label={
-        <>
+    <Dropdown
+      visibleElement={
+        <Button variant="tertiary">
           <DownloadIcon />
           Download
-        </>
+        </Button>
       }
     >
-      <div className="dropdown-menu__content">
-        <ul>
-          {fileFormatEntryDownload.map((fileFormat) => (
-            <li key={fileFormat}>
-              {nResults &&
-              nResults > maxPaginationDownload &&
-              (isUniRefList(namespace, fileFormat) ||
-                isUniparcTsv(namespace, fileFormat)) ? (
-                <Button
-                  variant="tertiary"
-                  onClick={downloadOnClick}
-                  style={{ color: colors.sapphireBlue }}
-                >
-                  {fileFormat}
-                </Button>
-              ) : (
-                <DownloadAnchor
-                  accession={accession}
-                  fileFormat={fileFormat}
-                  namespace={namespace}
-                />
-              )}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </DropdownButton>
+      <ul>
+        {fileFormatEntryDownload.map((fileFormat) => (
+          <li key={fileFormat}>
+            {nResults &&
+            nResults > maxPaginationDownload &&
+            (isUniRefList(namespace, fileFormat) ||
+              isUniparcTsv(namespace, fileFormat)) ? (
+              <Button
+                variant="tertiary"
+                onClick={downloadOnClick}
+                style={{ color: colors.sapphireBlue }}
+              >
+                {fileFormat}
+              </Button>
+            ) : (
+              <DownloadAnchor
+                accession={accession}
+                fileFormat={fileFormat}
+                namespace={namespace}
+              />
+            )}
+          </li>
+        ))}
+      </ul>
+    </Dropdown>
   );
 };
 

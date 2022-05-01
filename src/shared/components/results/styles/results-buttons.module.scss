@@ -13,6 +13,10 @@
   position: sticky;
   top: $header-height;
 
+  :global(.sliding-panel) & {
+    top: 0;
+  }
+
   // Makes sure that on small screens the end doesn't wrap
   flex-wrap: nowrap;
   white-space: nowrap;
