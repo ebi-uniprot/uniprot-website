@@ -218,7 +218,9 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
         <form aria-label="Result view selector">
           {/* Wrapped in a form so that multiple instances don't interact */}
           <span role="radiogroup">
-            {!viewMode && <FirstTimeSelection setViewMode={setViewMode} />}
+            {!viewMode && !sharedUrlMode && !inBasket && (
+              <FirstTimeSelection setViewMode={setViewMode} />
+            )}
             View:
             <label>
               Cards{' '}

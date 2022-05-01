@@ -240,6 +240,34 @@ exports[`ContactForm should be disabled when submitting 1`] = `
         </ul>
       </aside>
     </form>
+    <div
+      class="uniprot-grid-cell--span-12 message message--info"
+      role="status"
+    >
+      <div
+        class="message__side-border"
+      />
+      <test-file-stub
+        height="1.125em"
+        width="1.125em"
+      />
+      <section
+        class="message__content"
+      >
+        <small>
+          If you still need it, the 
+          <a
+            class="external-link"
+            href="https://legacy.uniprot.org"
+            rel="noopener nofollow"
+            target="_blank"
+          >
+            legacy version of the website is still available here
+          </a>
+           until the 2022_02 release.
+        </small>
+      </section>
+    </div>
   </section>
 </DocumentFragment>
 `;
@@ -483,6 +511,34 @@ exports[`ContactForm should render for feedback contact form 1`] = `
         </ul>
       </aside>
     </form>
+    <div
+      class="uniprot-grid-cell--span-12 message message--info"
+      role="status"
+    >
+      <div
+        class="message__side-border"
+      />
+      <test-file-stub
+        height="1.125em"
+        width="1.125em"
+      />
+      <section
+        class="message__content"
+      >
+        <small>
+          If you still need it, the 
+          <a
+            class="external-link"
+            href="https://legacy.uniprot.org"
+            rel="noopener nofollow"
+            target="_blank"
+          >
+            legacy version of the website is still available here
+          </a>
+           until the 2022_02 release.
+        </small>
+      </section>
+    </div>
   </section>
 </DocumentFragment>
 `;
@@ -726,6 +782,34 @@ exports[`ContactForm should render for generic contact form 1`] = `
         </ul>
       </aside>
     </form>
+    <div
+      class="uniprot-grid-cell--span-12 message message--info"
+      role="status"
+    >
+      <div
+        class="message__side-border"
+      />
+      <test-file-stub
+        height="1.125em"
+        width="1.125em"
+      />
+      <section
+        class="message__content"
+      >
+        <small>
+          If you still need it, the 
+          <a
+            class="external-link"
+            href="https://legacy.uniprot.org"
+            rel="noopener nofollow"
+            target="_blank"
+          >
+            legacy version of the website is still available here
+          </a>
+           until the 2022_02 release.
+        </small>
+      </section>
+    </div>
   </section>
 </DocumentFragment>
 `;
