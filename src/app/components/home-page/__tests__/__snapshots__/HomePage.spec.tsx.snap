@@ -34,27 +34,26 @@ exports[`HomePage component should render 1`] = `
             <form
               aria-label="Main search"
               class="main-search"
-              style="--main-button-color: #00639a;"
             >
               <div
-                class="dropdown-container"
+                aria-expanded="false"
+                aria-haspopup="true"
+                class="dropdown"
               >
                 <button
-                  class="button primary dropdown"
+                  class="button primary"
+                  style="--main-button-color: #00639a;"
                   type="button"
                 >
                   UniProtKB
                 </button>
-                <div
-                  class="dropdown-menu"
-                />
               </div>
               <div
                 class="main-search__input-container"
               >
                 <input
                   aria-label="Text query in uniprotkb"
-                  style="padding-right: 12ch; min-width: 14ch;"
+                  style="--input-padding: 12ch;"
                   type="text"
                   value=""
                 />
