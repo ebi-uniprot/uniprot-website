@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
 import { Link, LinkProps, useRouteMatch } from 'react-router-dom';
-import { DropdownButton, LongNumber } from 'franklin-sites';
+import { Button, LongNumber, Dropdown } from 'franklin-sites';
 import { SetOptional } from 'type-fest';
 
 import { pluralise } from '../utils/utils';
@@ -233,7 +233,7 @@ export const MapToDropdown: FC<Props> = ({
   }
 
   return (
-    <DropdownButton variant="tertiary" label={children}>
+    <Dropdown visibleElement={<Button variant="tertiary">{children}</Button>}>
       <div className="dropdown-menu__content">
         <ul>
           {enrichedStatistics.map(({ key, count, label, to }) => (
@@ -246,7 +246,7 @@ export const MapToDropdown: FC<Props> = ({
           ))}
         </ul>
       </div>
-    </DropdownButton>
+    </Dropdown>
   );
 };
 

@@ -6745,17 +6745,16 @@ exports[`Entry view should render for non-human entry 1`] = `
             class="action-bar button-group"
           >
             <div
-              class="dropdown-container"
+              aria-expanded="false"
+              aria-haspopup="true"
+              class="dropdown"
             >
               <button
-                class="button primary dropdown tertiary"
+                class="button tertiary"
                 type="button"
               >
                 Tools
               </button>
-              <div
-                class="dropdown-menu"
-              />
             </div>
             <a
               class="button tertiary"
@@ -6774,17 +6773,16 @@ exports[`Entry view should render for non-human entry 1`] = `
               Add
             </button>
             <div
-              class="dropdown-container"
+              aria-expanded="false"
+              aria-haspopup="true"
+              class="dropdown"
             >
               <button
-                class="button primary dropdown tertiary"
+                class="button tertiary"
                 type="button"
               >
                 Highlight
               </button>
-              <div
-                class="dropdown-menu"
-              />
             </div>
           </div>
           <ul
