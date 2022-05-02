@@ -189,7 +189,9 @@ export const Basket = () => {
     <>
       <Link
         ref={ref}
-        to={LocationToPath[Location.Basket]}
+        to={generatePath(LocationToPath[Location.Basket], {
+          namespace: Namespace.uniprotkb,
+        })}
         onClick={(event) => {
           if (event.metaKey || event.ctrlKey) {
             return; // default behaviour of opening a new tab
