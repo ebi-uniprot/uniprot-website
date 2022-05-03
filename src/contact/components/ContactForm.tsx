@@ -12,14 +12,18 @@ import {
   ExternalLink,
   ErrorIcon,
   SuccessIcon,
+  Message,
 } from 'franklin-sites';
 import cn from 'classnames';
-import { createPath, LocationDescriptor } from 'history';
+import { createPath } from 'history';
 
 import HTMLHead from '../../shared/components/HTMLHead';
 import ContactLink from './ContactLink';
 
-import { useFormLogic } from '../adapters/contactFormAdapter';
+import {
+  useFormLogic,
+  ContactLocationState,
+} from '../adapters/contactFormAdapter';
 
 import { parseQueryString } from '../../shared/utils/url';
 
@@ -28,10 +32,6 @@ import { LocationToPath, Location } from '../../app/config/urls';
 import styles from './styles/contact-form.module.scss';
 
 import HelperContactImage from './svgs/helper-contact.svg';
-
-export type ContactLocationState =
-  | undefined
-  | { referrer?: LocationDescriptor };
 
 // ARIA hide all of these, are the state is available in the form already
 const validity = (
@@ -82,7 +82,7 @@ const ContactForm = () => {
       e.target.checked ? '' : 'Please tick the box to agree.'
     );
 
-  const { handleSubmit, sending } = useFormLogic(referrerValue);
+  const { handleSubmit, handleChange, sending } = useFormLogic(referrerValue);
 
   const description = isUpdate
     ? 'Submit updates or corrections to UniProt'
@@ -109,6 +109,8 @@ const ContactForm = () => {
               placeholder=" "
               id={`name-${id}`}
               maxLength={100}
+              onChange={handleChange}
+              defaultValue={locationState?.formValues?.name}
             />
             {validity}
           </span>
@@ -125,6 +127,8 @@ const ContactForm = () => {
               required
               minLength={4}
               maxLength={100}
+              onChange={handleChange}
+              defaultValue={locationState?.formValues?.email}
             />
             {validity}
           </span>
@@ -134,6 +138,7 @@ const ContactForm = () => {
           </label>
           <span className={styles.input}>
             <input
+              key={isUpdate ? 'update' : 'contact'}
               type="text"
               name="subject"
               placeholder=" "
@@ -141,7 +146,10 @@ const ContactForm = () => {
               required
               minLength={1}
               maxLength={100}
-              defaultValue={subjectDefault}
+              onChange={handleChange}
+              defaultValue={
+                locationState?.formValues?.subject || subjectDefault
+              }
             />
             {validity}
           </span>
@@ -156,6 +164,8 @@ const ContactForm = () => {
               id={`message-${id}`}
               required
               minLength={1}
+              onChange={handleChange}
+              defaultValue={locationState?.formValues?.message}
             />
             {validity}
           </span>
@@ -190,7 +200,7 @@ const ContactForm = () => {
             tabIndex={-1}
             aria-hidden="true"
           />
-          <input hidden name="referrer" value={referrerValue} />
+          <input hidden name="referrer" value={referrerValue} readOnly />
           <Button type="submit" disabled={sending}>{`Send${
             sending ? 'ing' : ''
           } message`}</Button>
@@ -211,14 +221,14 @@ const ContactForm = () => {
                     pathname:
                       LocationToPath[
                         isUpdate
-                          ? Location.ContactUpdate
-                          : Location.ContactGeneric
+                          ? Location.ContactGeneric
+                          : Location.ContactUpdate
                       ],
                   }}
                 >
                   {isUpdate
-                    ? 'Send updates or corrections'
-                    : 'Send us general questions and suggestions'}
+                    ? 'Send us general questions and suggestions'
+                    : 'Send updates or corrections'}
                 </ContactLink>
               </li>
               <li>
@@ -229,6 +239,13 @@ const ContactForm = () => {
             </ul>
           </aside>
         </form>
+        <Message level="info" className="uniprot-grid-cell--span-12">
+          If you still need it, the{' '}
+          <ExternalLink url="https://legacy.uniprot.org" rel="nofollow" noIcon>
+            legacy version of the website is still available here
+          </ExternalLink>{' '}
+          until the 2022_02 release.
+        </Message>
       </section>
     </>
   );

@@ -4,7 +4,7 @@ import { Except } from 'type-fest';
 import { LocationDescriptorObject } from 'history';
 
 import { LocationToPath, Location } from '../../app/config/urls';
-import { ContactLocationState } from './ContactForm';
+import { ContactLocationState } from '../adapters/contactFormAdapter';
 
 type Props = Except<ComponentProps<Link<ContactLocationState>>, 'to'> & {
   to?: LocationDescriptorObject<ContactLocationState>;

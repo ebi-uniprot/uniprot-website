@@ -1,11 +1,6 @@
 import { Dispatch, MouseEvent, SetStateAction } from 'react';
 import { useLocation } from 'react-router-dom';
-import {
-  DropdownButton,
-  Button,
-  CopyIcon,
-  ShareNodesIcon,
-} from 'franklin-sites';
+import { Dropdown, Button, CopyIcon, ShareNodesIcon } from 'franklin-sites';
 import { createPath } from 'history';
 
 import useNS from '../../hooks/useNS';
@@ -96,38 +91,35 @@ const ShareDropdown = ({
   }
 
   return (
-    <DropdownButton
-      variant="tertiary"
-      label={
-        <>
+    <Dropdown
+      visibleElement={
+        <Button variant="tertiary">
           <ShareNodesIcon />
           Share
-        </>
+        </Button>
       }
     >
-      <div className="dropdown-menu__content">
-        <ul>
-          <li>
-            <CopyLinkWebsite
-              namespaceOverride={namespaceOverride}
-              disableCardToggle={disableCardToggle}
-            />
-          </li>
-          <li>
-            <Button
-              variant="tertiary"
-              onClick={(event: MouseEvent<HTMLElement>) => {
-                setDisplayDownloadPanel(true);
-                // TODO: expose way to close dropdown (in Franklin)
-                clickOnDropdown(event.target as HTMLElement);
-              }}
-            >
-              Generate URL for API
-            </Button>
-          </li>
-        </ul>
-      </div>
-    </DropdownButton>
+      <ul>
+        <li>
+          <CopyLinkWebsite
+            namespaceOverride={namespaceOverride}
+            disableCardToggle={disableCardToggle}
+          />
+        </li>
+        <li>
+          <Button
+            variant="tertiary"
+            onClick={(event: MouseEvent<HTMLElement>) => {
+              setDisplayDownloadPanel(true);
+              // TODO: expose way to close dropdown (in Franklin)
+              clickOnDropdown(event.target as HTMLElement);
+            }}
+          >
+            Generate URL for API
+          </Button>
+        </li>
+      </ul>
+    </Dropdown>
   );
 };
 

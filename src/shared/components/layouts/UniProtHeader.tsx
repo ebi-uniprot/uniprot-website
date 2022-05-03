@@ -1,42 +1,81 @@
 import { useState, useEffect } from 'react';
-import { useRouteMatch } from 'react-router-dom';
-import { Header } from 'franklin-sites';
+import { Link, useRouteMatch, useLocation } from 'react-router-dom';
+import { Header, Dropdown, Button } from 'franklin-sites';
+import cn from 'classnames';
 
 import SearchContainer from '../search/SearchContainer';
 import ReleaseInfo from './ReleaseInfo';
-import secondaryItems from './SecondaryItems';
+import SecondaryItems from './SecondaryItems';
 
 import useNS from '../../hooks/useNS';
 import useJobFromUrl from '../../hooks/useJobFromUrl';
+import useMatchMedia from '../../hooks/useMatchMedia';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { Namespace, Searchspace, toolResults } from '../../types/namespaces';
 
+import styles from './styles/uniprot-header.module.scss';
+
 import Logo from '../../../images/uniprot-logo-beta.svg';
 
-const headerItems = [
-  {
-    label: 'BLAST',
-    path: LocationToPath[Location.Blast],
-  },
-  {
-    label: 'Align',
-    path: LocationToPath[Location.Align],
-  },
-  {
-    label: 'Peptide search',
-    path: LocationToPath[Location.PeptideSearch],
-  },
-  {
-    label: 'ID mapping',
-    path: LocationToPath[Location.IDMapping],
-  },
-  {
-    label: 'SPARQL',
-    href: 'https://sparql.uniprot.org/',
-  },
-];
+const toolsLinks = (
+  <>
+    <li>
+      <Link to={LocationToPath[Location.Blast]}>BLAST</Link>
+    </li>
+    <li>
+      <Link to={LocationToPath[Location.Align]}>Align</Link>
+    </li>
+    <li>
+      <Link to={LocationToPath[Location.PeptideSearch]}>Peptide search</Link>
+    </li>
+    <li>
+      <Link to={LocationToPath[Location.IDMapping]}>ID mapping</Link>
+    </li>
+  </>
+);
+
+const sparqlLink = (
+  <li>
+    {/* eslint-disable-next-line react/jsx-no-target-blank */}
+    <a href="https://sparql.uniprot.org/" target="_blank" rel="noopener">
+      SPARQL
+    </a>
+  </li>
+);
+
+// "large" breakpoint in Franklin
+const largeMediaQuery = 'only screen and (min-width: 1024px)';
+// "medium" breakpoint in Franklin is 640, go a bit higher
+const mediumPlusMediaQuery = 'only screen and (min-width: 840px)';
+
+const HeaderContent = ({ isHomePage }: { isHomePage: boolean }) => {
+  const wideScreen = useMatchMedia(largeMediaQuery);
+  const mediumPlusScreen = useMatchMedia(mediumPlusMediaQuery);
+  const location = useLocation();
+
+  return (
+    <ul className={cn('no-bullet', styles['main-content'])}>
+      {/* If wide screen, or not so wide but home page */}
+      {wideScreen || (mediumPlusScreen && isHomePage) ? (
+        // display all tools links
+        toolsLinks
+      ) : (
+        // otherwise display all tools links in a dropdown
+        <li>
+          <Dropdown
+            visibleElement={<Button variant="tertiary">Tools</Button>}
+            propChangeToClose={location}
+          >
+            <ul className="no-bullet">{toolsLinks}</ul>
+          </Dropdown>
+        </li>
+      )}
+      {sparqlLink}
+    </ul>
+  );
+};
 
 const SearchContainerWithNamespace = () => {
   const { jobId } = useJobFromUrl();
@@ -70,12 +109,13 @@ const UniProtHeader = () => {
 
   return (
     <Header
-      items={headerItems}
       isNegative={isHomePage}
       search={isHomePage ? <ReleaseInfo /> : <SearchContainerWithNamespace />}
       logo={<Logo width={120} height={50} aria-label="UniProt home page" />}
-      secondaryItems={secondaryItems()}
-    />
+      secondaryItems={<SecondaryItems />}
+    >
+      <HeaderContent isHomePage={isHomePage} />
+    </Header>
   );
 };
 export default UniProtHeader;

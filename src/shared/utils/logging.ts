@@ -36,6 +36,17 @@ export const createGtagEvent = (message: any, data?: Partial<ScopeContext>) => {
   return event;
 };
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+export const gtagFn: Gtag.Gtag = (...args) => {
+  // Prevent crashing if not defined (like in dev mode)
+  if (typeof globalThis.gtag === 'function') {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    globalThis.gtag(...args);
+  }
+};
+
 /* istanbul ignore next */
 export const sendGtagEvent = (
   eventCategory: CustomCategories | Gtag.EventNames | string,
@@ -43,9 +54,7 @@ export const sendGtagEvent = (
   data?: Partial<ScopeContext>
 ) => {
   const event = createGtagEvent(message, data);
-  if (typeof gtag === 'function') {
-    gtag('event', eventCategory, event);
-  }
+  gtag('event', eventCategory, event);
 };
 
 type LoggingHelper = (

@@ -2007,17 +2007,16 @@ exports[`UniProtKBColumnConfiguration component should render column "temp_depen
 exports[`UniProtKBColumnConfiguration component should render column "tools": tools 1`] = `
 <DocumentFragment>
   <div
-    class="dropdown-container"
+    aria-expanded="false"
+    aria-haspopup="true"
+    class="dropdown"
   >
     <button
-      class="button primary dropdown tertiary"
+      class="button tertiary"
       type="button"
     >
       Tools
     </button>
-    <div
-      class="dropdown-menu"
-    />
   </div>
 </DocumentFragment>
 `;

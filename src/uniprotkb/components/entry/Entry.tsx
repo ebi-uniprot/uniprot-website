@@ -255,6 +255,9 @@ const Entry = () => {
     // if we're gonna redirect, show loading in the meantime
     (redirectedTo && match?.params.subPage !== TabLocation.History)
   ) {
+    if (error) {
+      return <ErrorHandler status={status} />;
+    }
     return <Loader progress={progress} />;
   }
 

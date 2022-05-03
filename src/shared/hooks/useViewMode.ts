@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import qs from 'query-string';
 
@@ -6,6 +6,7 @@ import useColumnNames from './useColumnNames';
 import useLocalStorage from './useLocalStorage';
 
 import { parseQueryString } from '../utils/url';
+import { gtagFn } from '../utils/logging';
 
 import { Namespace } from '../types/namespaces';
 import { InvalidParamValue } from '../../uniprotkb/utils/resultsUtils';
@@ -69,6 +70,12 @@ const useViewMode = (
   } else if (columnNamesAreFromUrl) {
     viewMode = 'table';
   }
+
+  useEffect(() => {
+    gtagFn('event', 'result_view', {
+      result_view: `${viewMode}`,
+    });
+  }, [viewMode]);
 
   const setViewMode = useCallback(
     (vm: ViewMode) => {

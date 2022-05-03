@@ -195,17 +195,10 @@ function useDataApi<T>(
           return;
         }
         // Ignore 404 because it might mean "valid request but no data"
-        if (error.response?.status === 404) {
-          dispatch({
-            type: ActionType.SUCCESS,
-            response: error.response,
-            originalURL: url,
-            progress: 1,
-          });
-        } else {
+        if (error.response?.status !== 404) {
           logging.error(error, { tags: { origin: 'useDataApi', url } });
-          dispatch({ type: ActionType.ERROR, error });
         }
+        dispatch({ type: ActionType.ERROR, error });
       }
     );
 
