@@ -291,18 +291,17 @@ exports[`Entry basic should render main 1`] = `
                 Align
               </button>
               <div
-                class="dropdown-container"
+                aria-expanded="false"
+                aria-haspopup="true"
+                class="dropdown"
               >
                 <button
-                  class="button tertiary dropdown"
+                  class="button tertiary"
                   type="button"
                 >
                   <test-file-stub />
                   Download
                 </button>
-                <div
-                  class="dropdown-menu"
-                />
               </div>
               <button
                 class="button tertiary"

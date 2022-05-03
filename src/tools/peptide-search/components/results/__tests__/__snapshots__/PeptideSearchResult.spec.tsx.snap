@@ -128,28 +128,32 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 <test-file-stub />
                 Add
               </button>
-              <span
-                role="radiogroup"
+              <form
+                aria-label="Result view selector"
               >
-                View:
-                <label>
-                  Cards 
-                  <input
-                    name="view"
-                    type="radio"
-                    value="cards"
-                  />
-                </label>
-                <label>
-                  Table 
-                  <input
-                    checked=""
-                    name="view"
-                    type="radio"
-                    value="table"
-                  />
-                </label>
-              </span>
+                <span
+                  role="radiogroup"
+                >
+                  View:
+                  <label>
+                    Cards 
+                    <input
+                      name="view"
+                      type="radio"
+                      value="cards"
+                    />
+                  </label>
+                  <label>
+                    Table 
+                    <input
+                      checked=""
+                      name="view"
+                      type="radio"
+                      value="table"
+                    />
+                  </label>
+                </span>
+              </form>
               <button
                 class="button tertiary"
                 type="button"
@@ -552,28 +556,32 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 <test-file-stub />
                 Add
               </button>
-              <span
-                role="radiogroup"
+              <form
+                aria-label="Result view selector"
               >
-                View:
-                <label>
-                  Cards 
-                  <input
-                    name="view"
-                    type="radio"
-                    value="cards"
-                  />
-                </label>
-                <label>
-                  Table 
-                  <input
-                    checked=""
-                    name="view"
-                    type="radio"
-                    value="table"
-                  />
-                </label>
-              </span>
+                <span
+                  role="radiogroup"
+                >
+                  View:
+                  <label>
+                    Cards 
+                    <input
+                      name="view"
+                      type="radio"
+                      value="cards"
+                    />
+                  </label>
+                  <label>
+                    Table 
+                    <input
+                      checked=""
+                      name="view"
+                      type="radio"
+                      value="table"
+                    />
+                  </label>
+                </span>
+              </form>
               <button
                 class="button tertiary"
                 type="button"

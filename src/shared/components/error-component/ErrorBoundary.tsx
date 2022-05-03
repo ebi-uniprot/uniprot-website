@@ -25,7 +25,8 @@ type ErrorBoundaryState = {
  * Will try to rerender on location change.
  */
 
-const chunkError = /chunk/i;
+// Known errors that might happen when the app has be updated
+const updateError = /(chunk|\.forEach)/i;
 class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   static defaultProps = { fallback: <ErrorComponent /> };
 
@@ -39,7 +40,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     let willReload = false;
     // before keeping the error in the state
     try {
-      if (!sessionStorage.getItem('reloaded') && chunkError.test(error.name)) {
+      if (!sessionStorage.getItem('reloaded') && updateError.test(error.name)) {
         sessionStorage.setItem('reloaded', 'true');
         willReload = true;
         window.location.reload(); // This is async
@@ -76,7 +77,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     // Don't log if we're going to try to reload to fix the issue
     if (
       sessionStorage.getItem('reloaded') ||
-      !chunkError.test(this.state.error?.name || '')
+      !updateError.test(this.state.error?.name || '')
     ) {
       logging.error(error, {
         extra: { errorInfo },

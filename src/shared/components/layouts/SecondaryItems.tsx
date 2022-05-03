@@ -5,6 +5,7 @@ import {
   useEffect,
   useCallback,
   Suspense,
+  memo,
 } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 import { schedule } from 'timing-functions';
@@ -31,6 +32,7 @@ import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { Namespace } from '../../types/namespaces';
 import { Status } from '../../../tools/types/toolsStatuses';
+import { ContactLocationState } from '../../../contact/adapters/contactFormAdapter';
 
 import styles from './styles/secondary-items.module.scss';
 
@@ -57,18 +59,13 @@ const getArrowX = (element: HTMLSpanElement) => {
   return xPos + iconWidth / 2;
 };
 
-type Props = {
-  display: boolean;
-  close: () => void;
-};
-
 const statusesToNotify = new Set([
   Status.FINISHED,
   Status.FAILURE,
   Status.ERRORED,
 ]);
 
-const ToolsDashboard = ({ display, close }: Props) => {
+const ToolsDashboard = () => {
   const tools = useToolsState();
 
   const count = useMemo(
@@ -82,11 +79,11 @@ const ToolsDashboard = ({ display, close }: Props) => {
     [tools]
   );
 
-  const [dashboardButtonX, setDashboardButtonX] = useSafeState<
-    number | undefined
-  >(undefined);
+  const [display, setDisplay] = useState(false);
+  const close = useCallback(() => setDisplay(false), []);
+  const [buttonX, setButtonX] = useSafeState<number | undefined>(undefined);
 
-  const spanRef = useRef<HTMLSpanElement>(null);
+  const ref = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     if (!display) {
@@ -94,26 +91,32 @@ const ToolsDashboard = ({ display, close }: Props) => {
     }
     const ro = new window.ResizeObserver(() => {
       schedule().then(() => {
-        if (spanRef.current) {
-          setDashboardButtonX(getArrowX(spanRef.current));
+        if (ref.current) {
+          setButtonX(getArrowX(ref.current));
         }
       });
     });
     ro.observe(document.body);
     // eslint-disable-next-line consistent-return
     return () => ro.unobserve(document.body);
-  }, [display, setDashboardButtonX]);
+  }, [display, setButtonX]);
 
   return (
     <>
-      <span
+      <Link
+        ref={ref}
+        to={LocationToPath[Location.Dashboard]}
+        onClick={(event) => {
+          if (event.metaKey || event.ctrlKey) {
+            return; // default behaviour of opening a new tab
+          }
+          event.preventDefault();
+          setDisplay(true);
+        }}
         title="Tools dashboard"
         className={styles['secondary-item']}
-        ref={spanRef}
         onPointerOver={Dashboard.preload}
-        // Not a focus target, so no need, do that when we can use a link as a
-        // secondary item (after franklin's Header refactor/simplification)
-        // onFocus={Dashboard.preload}
+        onFocus={Dashboard.preload}
       >
         <ToolboxIcon width={secondaryItemIconSize} />
         {count ? (
@@ -123,7 +126,7 @@ const ToolsDashboard = ({ display, close }: Props) => {
             title={`${count} new job ${pluralise('result', count)}`}
           />
         ) : null}
-      </span>
+      </Link>
       {display && (
         <SlidingPanel
           title={
@@ -139,7 +142,7 @@ const ToolsDashboard = ({ display, close }: Props) => {
           position="right"
           size="medium"
           onClose={close}
-          arrowX={dashboardButtonX}
+          arrowX={buttonX}
         >
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
@@ -152,13 +155,14 @@ const ToolsDashboard = ({ display, close }: Props) => {
   );
 };
 
-export const Basket = ({ display, close }: Props) => {
+export const Basket = () => {
   const [basket] = useBasket();
-  const [basketButtonX, setBasketButtonX] = useSafeState<number | undefined>(
-    undefined
-  );
 
-  const spanRef = useRef<HTMLSpanElement>(null);
+  const [display, setDisplay] = useState(false);
+  const close = useCallback(() => setDisplay(false), []);
+  const [buttonX, setButtonX] = useSafeState<number | undefined>(undefined);
+
+  const ref = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     if (!display) {
@@ -166,15 +170,15 @@ export const Basket = ({ display, close }: Props) => {
     }
     const ro = new window.ResizeObserver(() => {
       schedule().then(() => {
-        if (spanRef.current) {
-          setBasketButtonX(getArrowX(spanRef.current));
+        if (ref.current) {
+          setButtonX(getArrowX(ref.current));
         }
       });
     });
     ro.observe(document.body);
     // eslint-disable-next-line consistent-return
     return () => ro.unobserve(document.body);
-  }, [display, setBasketButtonX]);
+  }, [display, setButtonX]);
 
   const count = useMemo(
     () => sumBy(Array.from(basket.values()), 'size'),
@@ -183,14 +187,22 @@ export const Basket = ({ display, close }: Props) => {
 
   return (
     <>
-      <span
+      <Link
+        ref={ref}
+        to={generatePath(LocationToPath[Location.Basket], {
+          namespace: Namespace.uniprotkb,
+        })}
+        onClick={(event) => {
+          if (event.metaKey || event.ctrlKey) {
+            return; // default behaviour of opening a new tab
+          }
+          event.preventDefault();
+          setDisplay(true);
+        }}
         title="Basket"
         className={styles['secondary-item']}
-        ref={spanRef}
         onPointerOver={BasketMiniView.preload}
-        // Not a focus target, so no need, do that when we can use a link as a
-        // secondary item (after franklin's Header refactor/simplification)
-        // onFocus={BasketMiniView.preload}
+        onFocus={BasketMiniView.preload}
       >
         <BasketIcon width={secondaryItemIconSize} />
         {count ? (
@@ -202,7 +214,7 @@ export const Basket = ({ display, close }: Props) => {
             {count}
           </Bubble>
         ) : null}
-      </span>
+      </Link>
       {display && (
         <SlidingPanel
           title={
@@ -220,7 +232,7 @@ export const Basket = ({ display, close }: Props) => {
           position="right"
           size="medium"
           onClose={close}
-          arrowX={basketButtonX}
+          arrowX={buttonX}
           className={styles['basket-panel']}
         >
           <ErrorBoundary>
@@ -234,52 +246,22 @@ export const Basket = ({ display, close }: Props) => {
   );
 };
 
-const SecondaryItems = () => {
-  const [displayBasket, setDisplayBasket] = useState(false);
-  const closeDisplayBasket = useCallback(() => setDisplayBasket(false), []);
-  const [displayDashboard, setDisplayDashboard] = useState(false);
-  const closeDisplayDashboard = useCallback(
-    () => setDisplayDashboard(false),
-    []
-  );
+const SecondaryItems = () => (
+  <>
+    <ToolsDashboard />
+    <Basket />
+    <Link<ContactLocationState>
+      to={(location) => ({
+        pathname: LocationToPath[Location.ContactGeneric],
+        state: { referrer: location },
+      })}
+      title="Contact"
+      className={styles['secondary-item']}
+    >
+      <EnvelopeIcon width={secondaryItemIconSize} />
+    </Link>
+    <Link to={LocationToPath[Location.HelpResults]}>Help</Link>
+  </>
+);
 
-  return [
-    {
-      label: (
-        <ToolsDashboard
-          display={displayDashboard}
-          close={closeDisplayDashboard}
-        />
-      ),
-      onClick: () => {
-        if (!displayDashboard) {
-          setDisplayDashboard(true);
-        }
-      },
-    },
-    {
-      label: <Basket display={displayBasket} close={closeDisplayBasket} />,
-      onClick: () => {
-        if (!displayBasket) {
-          setDisplayBasket(true);
-        }
-      },
-    },
-    {
-      label: (
-        <span title="Contact" className={styles['secondary-item']}>
-          <EnvelopeIcon width={secondaryItemIconSize} />
-        </span>
-      ),
-      // TODO: need to pass the referrer state here somehow
-      // -> refactor secondary items in franklin's Header component?
-      path: LocationToPath[Location.ContactGeneric],
-    },
-    {
-      label: 'Help',
-      path: LocationToPath[Location.HelpResults],
-    },
-  ];
-};
-
-export default SecondaryItems;
+export default memo(SecondaryItems);

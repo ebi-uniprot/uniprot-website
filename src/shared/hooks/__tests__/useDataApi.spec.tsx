@@ -119,8 +119,8 @@ describe('useDataApi hook', () => {
     await waitForNextUpdate();
 
     expect(result.current).toEqual({
+      error: new Error('Request failed with status code 404'),
       loading: false,
-      progress: 1,
       url,
       status: 404,
     });
