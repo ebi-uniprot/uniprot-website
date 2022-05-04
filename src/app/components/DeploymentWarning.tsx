@@ -7,19 +7,19 @@ const reUniProtOrg = /^https?:\/\/www\.uniprot\.org/;
 const DeploymentWarning = () => {
   const [dismissed, setDismissed] = useState(false);
   return (
-    !window.location.href.match(reUniProtOrg) &&
-    !LIVE_RELOAD &&
-    !dismissed && (
-      <Message
-        className={style['deployment-warning']}
-        level="warning"
-        onDismiss={() => setDismissed(true)}
-      >
-        {`This is a development version of `}
-        <a href="https://www.uniprot.org">www.uniprot.org</a>
-        {` |  git branch: ${GIT_BRANCH} |  API: ${API_PREFIX}`}
-      </Message>
-    )
+    <>
+      {!window.location.href.match(reUniProtOrg) && !LIVE_RELOAD && !dismissed && (
+        <Message
+          className={style['deployment-warning']}
+          level="warning"
+          onDismiss={() => setDismissed(true)}
+        >
+          {`This is a development version of `}
+          <a href="https://www.uniprot.org">www.uniprot.org</a>
+          {` |  git branch: ${GIT_BRANCH} |  API: ${API_PREFIX}`}
+        </Message>
+      )}
+    </>
   );
 };
 
