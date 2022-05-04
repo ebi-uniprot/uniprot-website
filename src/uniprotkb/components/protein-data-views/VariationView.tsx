@@ -2,6 +2,7 @@ import { useMemo, Fragment, lazy, useRef, useEffect, useState } from 'react';
 import { ExternalLink, Loader } from 'franklin-sites';
 import joinUrl from 'url-join';
 import { groupBy, intersection, union } from 'lodash-es';
+import cn from 'classnames';
 
 import { ProteinsAPIVariation } from 'protvista-variation-adapter/dist/es/variants';
 import { transformData, TransformedVariant } from 'protvista-variation-adapter';
@@ -32,6 +33,25 @@ const sortByLocation = (a: TransformedVariant, b: TransformedVariant) => {
     return aEnd - bEnd;
   }
   return aStart - bStart;
+};
+
+type Description = Exclude<TransformedVariant['descriptions'], undefined>[0];
+type Source = Description['sources'][0];
+
+const isUniProtID = (id: string) => id.startsWith('VAR_');
+const sortIDByUniProtFirst = (a: string, b: string) =>
+  +isUniProtID(b) - +isUniProtID(a);
+
+const sortDescriptionByUniProtFirst = (a: Description, b: Description) => {
+  const aUniProt = a.sources.includes('UniProt' as Source);
+  const bUniProt = b.sources.includes('UniProt' as Source);
+  return +bUniProt - +aUniProt;
+};
+
+const sortProvenanceByUniProtFirst = (a: string, b: string) => {
+  const aUniProt = a === 'UniProt';
+  const bUniProt = b === 'UniProt';
+  return +bUniProt - +aUniProt;
 };
 
 type ObjWithVariants = { variants: TransformedVariant[] };
@@ -222,12 +242,20 @@ const VariationView = ({
                   {Array.from(
                     // note that the type needs to be updated, xrefs is optional on association object
                     new Set(variantFeature.xrefs?.map((xref) => xref.id))
-                  ).map((id, i) => (
-                    <Fragment key={id}>
-                      {i !== 0 && <br />}
-                      {id}
-                    </Fragment>
-                  ))}
+                  )
+                    .sort(sortIDByUniProtFirst)
+                    .map((id, i) => (
+                      <Fragment key={id}>
+                        {i !== 0 && <br />}
+                        <span
+                          className={cn({
+                            [styles.bold]: id.startsWith('VAR_'),
+                          })}
+                        >
+                          {id}
+                        </span>
+                      </Fragment>
+                    ))}
                 </td>
                 <td>{position}</td>
                 <td className={styles.change}>
@@ -236,13 +264,23 @@ const VariationView = ({
                   {variantFeature.alternativeSequence || <em>missing</em>}
                 </td>
                 <td>
-                  {variantFeature.descriptions?.map((description) => (
-                    <div key={description.value}>
-                      {`${description.value} (${description.sources.join(
-                        ', '
-                      )})`}
-                    </div>
-                  ))}
+                  {variantFeature.descriptions &&
+                    Array.from(variantFeature.descriptions)
+                      .sort(sortDescriptionByUniProtFirst)
+                      .map((description) => (
+                        <div
+                          key={description.value}
+                          className={cn({
+                            [styles.bold]: description.sources.includes(
+                              'UniProt' as Source
+                            ),
+                          })}
+                        >
+                          {`${description.value} (${description.sources.join(
+                            ', '
+                          )})`}
+                        </div>
+                      ))}
                 </td>
                 <td>
                   {variantFeature.association &&
@@ -251,14 +289,28 @@ const VariationView = ({
                     : 'No'}
                 </td>
                 <td>
-                  {Array.from(new Set(variantFeature.xrefNames)).map(
-                    (name, i) => (
+                  {Array.from(
+                    new Set(
+                      // 'uniprot' gets injected somehow in
+                      // 'protvista-variation-adapter' transformData, remove it
+                      variantFeature.xrefNames.map((name) =>
+                        name === 'uniprot' ? 'UniProt' : name
+                      )
+                    )
+                  )
+                    .sort(sortProvenanceByUniProtFirst)
+                    .map((name, i) => (
                       <Fragment key={name}>
                         {i !== 0 && <br />}
-                        {name}
+                        <span
+                          className={cn({
+                            [styles.bold]: name === 'UniProt',
+                          })}
+                        >
+                          {name}
+                        </span>
                       </Fragment>
-                    )
-                  )}
+                    ))}
                 </td>
               </tr>
               <tr
