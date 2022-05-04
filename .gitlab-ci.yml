@@ -104,7 +104,7 @@ deploy:
     - git clone $DEPLOY_REPO_URL
     - >
       DEPLOY=./${DEPLOY_REPO}/scripts/deploy.sh
-      elif [ "$CI_COMMIT_BRANCH" == "main" ]; then
+      if [ "$CI_COMMIT_BRANCH" == "main" ]; then
         if [ "$DEPLOY_FALLBACK_ONLY" = true ]; then
           $DEPLOY HX uniprot-website-fallback 
         elif [ "$DEPLOY_PROD_ONLY" = true ]; then
