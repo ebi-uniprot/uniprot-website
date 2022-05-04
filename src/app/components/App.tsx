@@ -7,13 +7,14 @@ import {
   generatePath,
 } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Loader, Message } from 'franklin-sites';
+import { Loader } from 'franklin-sites';
 import { sleep } from 'timing-functions';
 
 import BaseLayout from '../../shared/components/layouts/BaseLayout';
 import SingleColumnLayout from '../../shared/components/layouts/SingleColumnLayout';
 import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
 import GDPR from '../../shared/components/gdpr/GDPR';
+import DeploymentWarning from './DeploymentWarning';
 
 import history from '../../shared/utils/browserHistory';
 
@@ -295,10 +296,7 @@ const App = () => {
           content="UniProt is the world’s leading high-quality, comprehensive and freely accessible resource of protein sequence and functional information."
         />
       </Helmet>
-      <Message level="warning" style={{ marginBottom: 0 }}>
-        This is the development version of the UniProt website using the
-        development API
-      </Message>
+      <DeploymentWarning />
       <BaseLayout>
         <Suspense fallback={<Loader />}>
           <Switch>
