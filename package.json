@@ -6,9 +6,9 @@
   "license": "MIT",
   "scripts": {
     "start": "npm run start:prod",
-    "start:dev": "webpack serve --env API_PREFIX=https://wwwdev.ebi.ac.uk/uniprot/beta/api --env DEV_BANNER=true --mode development",
+    "start:dev": "webpack serve --env API_PREFIX=https://wwwdev.ebi.ac.uk/uniprot/beta/api --mode development",
     "start:prod": "webpack serve --env API_PREFIX=https://rest.uniprot.org --mode development",
-    "build:dev": "webpack --env API_PREFIX=https://wwwdev.ebi.ac.uk/uniprot/beta/api --env PUBLIC_PATH=/uniprot/front-end --env DEV_BANNER=true --mode development",
+    "build:dev": "webpack --env API_PREFIX=https://wwwdev.ebi.ac.uk/uniprot/beta/api --env PUBLIC_PATH=/uniprot/front-end --mode development",
     "build:prod": "webpack --env API_PREFIX=https://rest.uniprot.org --mode production",
     "lint-fix": "eslint src --ext .ts,.tsx --fix",
     "analyse": "webpack-bundle-analyzer build/stats.json",
