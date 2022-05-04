@@ -20,22 +20,39 @@ exports[`non-critical HomePage component should render 1`] = `
         class="message__content"
       >
         <small>
-          - Accessing UniProt programmatically? Have a look at the 
+          Accessing UniProt programmatically? Have a look at the 
           <a
             href="/help/api"
           >
             new API documentation
           </a>
           .
-          <br />
-          - If you still need it, the 
+        </small>
+      </section>
+    </div>
+    <div
+      class="uniprot-grid-cell--span-12 message message--info"
+      role="status"
+    >
+      <div
+        class="message__side-border"
+      />
+      <test-file-stub
+        height="1.125em"
+        width="1.125em"
+      />
+      <section
+        class="message__content"
+      >
+        <small>
+          If you still need it, the 
           <a
             class="external-link"
             href="https://legacy.uniprot.org"
             rel="noopener nofollow"
             target="_blank"
           >
-            legacy version of the website is available here
+            legacy version of the website is still available here
           </a>
            until the 2022_02 release.
         </small>
