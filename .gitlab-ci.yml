@@ -53,7 +53,7 @@ build_static_assets:
   script:
     - git clone $DEPLOY_REPO_URL
     - yarn
-    - >
+    - |
       if [ "$CI_COMMIT_BRANCH" == "main" ]; then
         yarn build:prod
       elif [ "$CI_COMMIT_BRANCH" == "dev" ]; then
@@ -102,7 +102,7 @@ deploy:
   image: alpine/k8s:1.22.6
   script:
     - git clone $DEPLOY_REPO_URL
-    - >
+    - |
       DEPLOY=./${DEPLOY_REPO}/scripts/deploy.sh
       if [ "$CI_COMMIT_BRANCH" == "main" ]; then
         if [ "$DEPLOY_FALLBACK_ONLY" == "true" ]; then
