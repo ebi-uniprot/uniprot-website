@@ -11,7 +11,7 @@
   background-color: $colour-sky-white;
   height: $action-buttons-height;
   position: sticky;
-  top: $header-height;
+  top: var(--top-header-margin);
 
   :global(.sliding-panel) & {
     top: 0;

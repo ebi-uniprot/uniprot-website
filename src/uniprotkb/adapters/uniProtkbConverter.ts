@@ -97,8 +97,8 @@ export type UniProtkbUIModel = {
   [EntrySection.Function]: UIModel;
   [EntrySection.NamesAndTaxonomy]: NamesAndTaxonomyUIModel;
   [EntrySection.SubCellularLocation]: UIModel;
-  [EntrySection.DiseasePhenotypes]: UIModel;
-  [EntrySection.Phenotypes]: UIModel;
+  [EntrySection.DiseaseVariants]: UIModel;
+  [EntrySection.PhenotypesVariants]: UIModel;
   [EntrySection.ProteinProcessing]: UIModel;
   [EntrySection.Expression]: UIModel;
   [EntrySection.Sequence]: SequenceUIModel;
@@ -166,12 +166,12 @@ const uniProtKbConverter = (
       databaseInfoMaps,
       uniProtKBCrossReferences
     ),
-    [EntrySection.DiseasePhenotypes]: convertDiseaseAndDrugs(
+    [EntrySection.DiseaseVariants]: convertDiseaseAndDrugs(
       dataCopy,
       databaseInfoMaps,
       uniProtKBCrossReferences
     ),
-    [EntrySection.Phenotypes]: convertDiseaseAndDrugs(
+    [EntrySection.PhenotypesVariants]: convertDiseaseAndDrugs(
       dataCopy,
       databaseInfoMaps,
       uniProtKBCrossReferences

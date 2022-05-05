@@ -2,6 +2,7 @@ import { useMemo, Fragment, lazy, useRef, useEffect, useState } from 'react';
 import { ExternalLink, Loader } from 'franklin-sites';
 import joinUrl from 'url-join';
 import { groupBy, intersection, union } from 'lodash-es';
+import cn from 'classnames';
 
 import { ProteinsAPIVariation } from 'protvista-variation-adapter/dist/es/variants';
 import { transformData, TransformedVariant } from 'protvista-variation-adapter';
@@ -33,6 +34,26 @@ const sortByLocation = (a: TransformedVariant, b: TransformedVariant) => {
   }
   return aStart - bStart;
 };
+
+type Evidence = Exclude<TransformedVariant['evidences'], undefined>[0];
+type Description = Exclude<TransformedVariant['descriptions'], undefined>[0];
+type Source = Description['sources'][0];
+
+const isUniProtID = (id: string) => id.startsWith('VAR_');
+const sortIDByUniProtFirst = (a: string, b: string) =>
+  +isUniProtID(b) - +isUniProtID(a);
+
+const hasUniProtSource = (description: Description) =>
+  description.sources.includes('UniProt' as Source);
+const sortDescriptionByUniProtFirst = (a: Description, b: Description) =>
+  +hasUniProtSource(b) - +hasUniProtSource(a);
+
+const isUniProt = (string: string) => string === 'UniProt';
+const sortProvenanceByUniProtFirst = (a: string, b: string) =>
+  +isUniProt(b) - +isUniProt(a);
+
+const isUniProtEvidence = (evidence: Evidence) =>
+  evidence.code === 'ECO:0000269';
 
 type ObjWithVariants = { variants: TransformedVariant[] };
 
@@ -222,12 +243,18 @@ const VariationView = ({
                   {Array.from(
                     // note that the type needs to be updated, xrefs is optional on association object
                     new Set(variantFeature.xrefs?.map((xref) => xref.id))
-                  ).map((id, i) => (
-                    <Fragment key={id}>
-                      {i !== 0 && <br />}
-                      {id}
-                    </Fragment>
-                  ))}
+                  )
+                    .sort(sortIDByUniProtFirst)
+                    .map((id, i) => (
+                      <Fragment key={id}>
+                        {i !== 0 && <br />}
+                        <span
+                          className={cn({ [styles.bold]: isUniProtID(id) })}
+                        >
+                          {id}
+                        </span>
+                      </Fragment>
+                    ))}
                 </td>
                 <td>{position}</td>
                 <td className={styles.change}>
@@ -236,13 +263,40 @@ const VariationView = ({
                   {variantFeature.alternativeSequence || <em>missing</em>}
                 </td>
                 <td>
-                  {variantFeature.descriptions?.map((description) => (
-                    <div key={description.value}>
-                      {`${description.value} (${description.sources.join(
-                        ', '
-                      )})`}
-                    </div>
-                  ))}
+                  {variantFeature.descriptions &&
+                    Array.from(variantFeature.descriptions)
+                      .sort(sortDescriptionByUniProtFirst)
+                      .map((description) => {
+                        const isUniProtDescription =
+                          hasUniProtSource(description);
+                        const uniProtEvidences =
+                          isUniProtDescription &&
+                          variantFeature.evidences
+                            ?.filter(isUniProtEvidence)
+                            .map((evidence) => ({
+                              evidenceCode: evidence.code as `ECO:${number}`,
+                              id: evidence.source.id,
+                              source: evidence.source.name,
+                              url: evidence.source.url,
+                            }));
+                        return (
+                          <div
+                            key={description.value}
+                            className={cn({
+                              [styles.bold]: isUniProtDescription,
+                            })}
+                          >
+                            {`${description.value} (${description.sources.join(
+                              ', '
+                            )})`}
+                            {uniProtEvidences && (
+                              <UniProtKBEvidenceTag
+                                evidences={uniProtEvidences}
+                              />
+                            )}
+                          </div>
+                        );
+                      })}
                 </td>
                 <td>
                   {variantFeature.association &&
@@ -251,14 +305,26 @@ const VariationView = ({
                     : 'No'}
                 </td>
                 <td>
-                  {Array.from(new Set(variantFeature.xrefNames)).map(
-                    (name, i) => (
+                  {Array.from(
+                    new Set(
+                      // 'uniprot' gets injected somehow in
+                      // 'protvista-variation-adapter' transformData, remove it
+                      variantFeature.xrefNames.map((name) =>
+                        name === 'uniprot' ? 'UniProt' : name
+                      )
+                    )
+                  )
+                    .sort(sortProvenanceByUniProtFirst)
+                    .map((name, i) => (
                       <Fragment key={name}>
                         {i !== 0 && <br />}
-                        {name}
+                        <span
+                          className={cn({ [styles.bold]: isUniProt(name) })}
+                        >
+                          {name}
+                        </span>
                       </Fragment>
-                    )
-                  )}
+                    ))}
                 </td>
               </tr>
               <tr
@@ -363,22 +429,6 @@ const VariationView = ({
                         >
                           {'- '}
                           {association.name}
-                          {/* note that the type needs to be updated, evidences is optional on association object */}
-                          {/* Example in P42771 */}
-                          {association.evidences?.length ? (
-                            // These evidences cover only one "association"
-                            <UniProtKBEvidenceTag
-                              evidences={association.evidences.map(
-                                (evidence) => ({
-                                  evidenceCode:
-                                    evidence.code as `ECO:${number}`,
-                                  id: evidence.source.id,
-                                  source: evidence.source.name,
-                                  url: evidence.source.url,
-                                })
-                              )}
-                            />
-                          ) : null}
                         </div>
                       ))}
                     </div>
@@ -400,20 +450,6 @@ const VariationView = ({
                         </div>
                       ))}
                     </div>
-                  ) : null}
-                  {/* These evidences probably cover the variant as a whole */}
-                  {variantFeature.evidences?.length ? (
-                    <>
-                      <br />
-                      <UniProtKBEvidenceTag
-                        evidences={variantFeature.evidences.map((evidence) => ({
-                          evidenceCode: evidence.code as `ECO:${number}`,
-                          id: evidence.source.id,
-                          source: evidence.source.name,
-                          url: evidence.source.url,
-                        }))}
-                      />
-                    </>
                   ) : null}
                 </td>
               </tr>

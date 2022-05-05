@@ -262,7 +262,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
             rel="noopener nofollow"
             target="_blank"
           >
-            legacy version of the website is still available here
+            legacy version of the website is available here
           </a>
            until the 2022_02 release.
         </small>
@@ -533,7 +533,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
             rel="noopener nofollow"
             target="_blank"
           >
-            legacy version of the website is still available here
+            legacy version of the website is available here
           </a>
            until the 2022_02 release.
         </small>
@@ -804,7 +804,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
             rel="noopener nofollow"
             target="_blank"
           >
-            legacy version of the website is still available here
+            legacy version of the website is available here
           </a>
            until the 2022_02 release.
         </small>

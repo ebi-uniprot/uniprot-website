@@ -20,6 +20,9 @@ module.exports = (env, argv) => {
   const gitCommitState = childProcess
     .execSync('git status --porcelain')
     .toString();
+  const gitBranch = childProcess
+    .execSync('git rev-parse --abbrev-ref HEAD')
+    .toString();
 
   let publicPath = '/';
   if (env.PUBLIC_PATH) {
@@ -257,6 +260,7 @@ module.exports = (env, argv) => {
         LIVE_RELOAD: JSON.stringify(isLiveReload),
         GIT_COMMIT_HASH: JSON.stringify(gitCommitHash),
         GIT_COMMIT_STATE: JSON.stringify(gitCommitState),
+        GIT_BRANCH: JSON.stringify(gitBranch),
       }),
       !isLiveReload &&
         new (require('workbox-webpack-plugin').InjectManifest)({

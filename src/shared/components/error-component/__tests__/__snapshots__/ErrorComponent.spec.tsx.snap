@@ -45,7 +45,7 @@ exports[`ErrorComponent should render 1`] = `
               rel="noopener nofollow"
               target="_blank"
             >
-              legacy version of the website is still available here
+              legacy version of the website is available here
             </a>
              until the 2022_02 release.
           </p>
