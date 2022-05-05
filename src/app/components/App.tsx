@@ -14,6 +14,7 @@ import BaseLayout from '../../shared/components/layouts/BaseLayout';
 import SingleColumnLayout from '../../shared/components/layouts/SingleColumnLayout';
 import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
 import GDPR from '../../shared/components/gdpr/GDPR';
+import DeploymentWarning from './DeploymentWarning';
 
 import history from '../../shared/utils/browserHistory';
 
@@ -295,6 +296,7 @@ const App = () => {
           content="UniProt is the world’s leading high-quality, comprehensive and freely accessible resource of protein sequence and functional information."
         />
       </Helmet>
+      <DeploymentWarning />
       <BaseLayout>
         <Suspense fallback={<Loader />}>
           <Switch>
