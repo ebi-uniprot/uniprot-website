@@ -10,7 +10,7 @@ stages:
   - deploy
 
 .js:
-  image: ${DOCKER_REPO}/alpine-node-git-brotli:1
+  image: ${DOCKER_REPO}/alpine-node-git-brotli-bash:1
   before_script:
     - git --version
     - node --version
