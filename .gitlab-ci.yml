@@ -9,7 +9,7 @@ stages:
   - deploy
 
 .js:
-  image: node:16.14.2
+  image: dockerhub.ebi.ac.uk/uniprot/front-end/front-end-docker/alpine-node-git:1
   before_script:
     - git --version
     - node --version
