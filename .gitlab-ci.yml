@@ -1,6 +1,7 @@
 variables:
   DEPLOY_REPO: 'front-end-deploy'
   DEPLOY_REPO_URL: 'https://gitlab-ci-token:${GITLAB_USER_API_TOKEN}@gitlab.ebi.ac.uk/uniprot/front-end/${DEPLOY_REPO}.git'
+  DOCKER_REPO: 'dockerhub.ebi.ac.uk/uniprot/front-end/front-end-docker'
 
 stages:
   - test
@@ -9,7 +10,7 @@ stages:
   - deploy
 
 .js:
-  image: dockerhub.ebi.ac.uk/uniprot/front-end/front-end-docker/alpine-node-git:1
+  image: ${DOCKER_REPO}/alpine-node-git-brotli:1
   before_script:
     - git --version
     - node --version
