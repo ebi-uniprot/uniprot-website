@@ -42,17 +42,14 @@ const isUniProtID = (id: string) => id.startsWith('VAR_');
 const sortIDByUniProtFirst = (a: string, b: string) =>
   +isUniProtID(b) - +isUniProtID(a);
 
-const sortDescriptionByUniProtFirst = (a: Description, b: Description) => {
-  const aUniProt = a.sources.includes('UniProt' as Source);
-  const bUniProt = b.sources.includes('UniProt' as Source);
-  return +bUniProt - +aUniProt;
-};
+const hasUniProtSource = (description: Description) =>
+  description.sources.includes('UniProt' as Source);
+const sortDescriptionByUniProtFirst = (a: Description, b: Description) =>
+  +hasUniProtSource(b) - +hasUniProtSource(a);
 
-const sortProvenanceByUniProtFirst = (a: string, b: string) => {
-  const aUniProt = a === 'UniProt';
-  const bUniProt = b === 'UniProt';
-  return +bUniProt - +aUniProt;
-};
+const isUniProt = (string: string) => string === 'UniProt';
+const sortProvenanceByUniProtFirst = (a: string, b: string) =>
+  +isUniProt(b) - +isUniProt(a);
 
 type ObjWithVariants = { variants: TransformedVariant[] };
 
@@ -248,9 +245,7 @@ const VariationView = ({
                       <Fragment key={id}>
                         {i !== 0 && <br />}
                         <span
-                          className={cn({
-                            [styles.bold]: id.startsWith('VAR_'),
-                          })}
+                          className={cn({ [styles.bold]: isUniProtID(id) })}
                         >
                           {id}
                         </span>
@@ -271,9 +266,7 @@ const VariationView = ({
                         <div
                           key={description.value}
                           className={cn({
-                            [styles.bold]: description.sources.includes(
-                              'UniProt' as Source
-                            ),
+                            [styles.bold]: hasUniProtSource(description),
                           })}
                         >
                           {`${description.value} (${description.sources.join(
@@ -303,9 +296,7 @@ const VariationView = ({
                       <Fragment key={name}>
                         {i !== 0 && <br />}
                         <span
-                          className={cn({
-                            [styles.bold]: name === 'UniProt',
-                          })}
+                          className={cn({ [styles.bold]: isUniProt(name) })}
                         >
                           {name}
                         </span>
