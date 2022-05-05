@@ -157,7 +157,7 @@ const ArticleTitle = ({ id, firstVisible, isVisible }: ArticleTitleProps) => {
   );
 };
 
-const headerHeight = 70; // 70px, also defined in _settings.scss -> keep in sync
+const headerHeight = 70; // 70px, also defined in franklin -> keep in sync
 
 type InPageArticles = Map<string, boolean>;
 
