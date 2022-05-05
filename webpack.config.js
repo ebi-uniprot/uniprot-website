@@ -21,7 +21,7 @@ module.exports = (env, argv) => {
     .execSync('git status --porcelain')
     .toString();
   const gitBranch = childProcess
-    .execSync('git branch --show-current')
+    .execSync('git rev-parse --abbrev-ref HEAD')
     .toString();
 
   let publicPath = '/';
