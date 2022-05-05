@@ -51,7 +51,9 @@ exports[`VariationView component renders on data 1`] = `
             </em>
           </td>
           <td>
-            <div>
+            <div
+              class=""
+            >
               a description (uniprot)
             </div>
           </td>
@@ -115,7 +117,11 @@ exports[`VariationView component renders on data 1`] = `
           data-start="10"
         >
           <td>
-            rs1446208112
+            <span
+              class=""
+            >
+              rs1446208112
+            </span>
           </td>
           <td>
             10
@@ -130,9 +136,17 @@ exports[`VariationView component renders on data 1`] = `
             No
           </td>
           <td>
-            TOPMed
+            <span
+              class=""
+            >
+              TOPMed
+            </span>
             <br />
-            gnomAD
+            <span
+              class=""
+            >
+              gnomAD
+            </span>
           </td>
         </tr>
         <tr

@@ -157,7 +157,7 @@ const ArticleTitle = ({ id, firstVisible, isVisible }: ArticleTitleProps) => {
   );
 };
 
-const headerHeight = 70; // 70px, also defined in _settings.scss -> keep in sync
+const headerHeight = 70; // 70px, also defined in franklin -> keep in sync
 
 type InPageArticles = Map<string, boolean>;
 
@@ -239,6 +239,13 @@ const Landing = () => {
 
   return (
     <section className={styles.container}>
+      <Message level="info" className="uniprot-grid-cell--span-12">
+        If you still need it, the{' '}
+        <ExternalLink url="https://legacy.uniprot.org" rel="nofollow" noIcon>
+          legacy version of the website is available here
+        </ExternalLink>{' '}
+        until the 2022_02 release.
+      </Message>
       <ul className="no-bullet">
         <h2 className="medium">Start here</h2>
         {inPageArticles.size
@@ -260,13 +267,6 @@ const Landing = () => {
             })
           : fallbackLandingContent}
       </ul>
-      <Message level="info" className="uniprot-grid-cell--span-12">
-        If you still need it, the{' '}
-        <ExternalLink url="https://legacy.uniprot.org" rel="nofollow" noIcon>
-          legacy version of the website is still available here
-        </ExternalLink>{' '}
-        until the 2022_02 release.
-      </Message>
     </section>
   );
 };

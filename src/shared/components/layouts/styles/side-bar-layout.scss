@@ -16,8 +16,8 @@
   &__sidebar {
     @include scroll-shadow;
     position: sticky;
-    top: $header-height;
-    max-height: calc(100vh - #{$header-height});
+    top: var(--top-header-margin);
+    max-height: calc(100vh - var(--top-header-margin));
     min-width: 100px;
     width: 30ch;
     padding: $gutter-size;

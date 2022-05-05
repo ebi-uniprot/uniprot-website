@@ -4,8 +4,8 @@ export enum EntrySection {
   Expression = 'expression',
   Interaction = 'interaction',
   NamesAndTaxonomy = 'names_and_taxonomy',
-  DiseasePhenotypes = 'disease_phenotypes',
-  Phenotypes = 'phenotypes',
+  DiseaseVariants = 'disease_variants',
+  PhenotypesVariants = 'phenotypes_variants',
   ProteinProcessing = 'ptm_processing',
   Sequence = 'sequences',
   Structure = 'structure',
@@ -15,7 +15,7 @@ export enum EntrySection {
 }
 
 export type EntrySectionWithFeatures =
-  | EntrySection.DiseasePhenotypes
+  | EntrySection.DiseaseVariants
   | EntrySection.FamilyAndDomains
   | EntrySection.Function
   | EntrySection.ProteinProcessing
@@ -81,16 +81,16 @@ export const getEntrySectionNameAndId = (
         name: 'External Links',
         id: EntrySection.ExternalLinks,
       };
-    case EntrySection.DiseasePhenotypes:
-    case EntrySection.Phenotypes:
+    case EntrySection.DiseaseVariants:
+    case EntrySection.PhenotypesVariants:
       return taxId && taxId === 9606
         ? {
-            name: 'Disease/Phenotypes',
-            id: EntrySection.DiseasePhenotypes,
+            name: 'Disease/Variants',
+            id: EntrySection.DiseaseVariants,
           }
         : {
-            name: 'Phenotypes',
-            id: EntrySection.Phenotypes,
+            name: 'Phenotypes/Variants',
+            id: EntrySection.PhenotypesVariants,
           };
 
     case EntrySection.Sequence: {

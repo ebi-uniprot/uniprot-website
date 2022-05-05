@@ -503,7 +503,7 @@ addFeaturesToConfiguration<SequenceFeatures>(
 );
 addFeaturesToConfiguration<DiseaseAndDrugsFeatures>(
   diseaseAndDrugsFeaturesToColumns,
-  EntrySection.DiseasePhenotypes
+  EntrySection.DiseaseVariants
 );
 addFeaturesToConfiguration<SubcellularLocationFeatures>(
   subcellularLocationFeaturesToColumns,
@@ -1217,7 +1217,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccAllergen, {
     'allergenic_properties'
   ),
   render: (data) => {
-    const allergenData = data[EntrySection.DiseasePhenotypes].commentsData.get(
+    const allergenData = data[EntrySection.DiseaseVariants].commentsData.get(
       'ALLERGEN'
     ) as FreeTextComment[] | undefined;
     return <FreeTextView comments={allergenData} noEvidence />;
@@ -1231,7 +1231,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccBiotechnology, {
     'biotechnological_use'
   ),
   render: (data) => {
-    const biotechData = data[EntrySection.DiseasePhenotypes].commentsData.get(
+    const biotechData = data[EntrySection.DiseaseVariants].commentsData.get(
       'BIOTECHNOLOGY'
     ) as FreeTextComment[] | undefined;
     return <FreeTextView comments={biotechData} noEvidence />;
@@ -1245,9 +1245,9 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDisruptionPhenotype, {
     'disruption_phenotype'
   ),
   render: (data) => {
-    const disruptionData = data[
-      EntrySection.DiseasePhenotypes
-    ].commentsData.get('DISRUPTION PHENOTYPE') as FreeTextComment[] | undefined;
+    const disruptionData = data[EntrySection.DiseaseVariants].commentsData.get(
+      'DISRUPTION PHENOTYPE'
+    ) as FreeTextComment[] | undefined;
     return <FreeTextView comments={disruptionData} noEvidence />;
   },
 });
@@ -1259,9 +1259,9 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDisease, {
     'involvement_in_disease'
   ),
   render: (data) => {
-    const diseaseComments = data[
-      EntrySection.DiseasePhenotypes
-    ].commentsData.get('DISEASE') as DiseaseComment[] | undefined;
+    const diseaseComments = data[EntrySection.DiseaseVariants].commentsData.get(
+      'DISEASE'
+    ) as DiseaseComment[] | undefined;
     return (
       diseaseComments && (
         <DiseaseInvolvementView
@@ -1280,7 +1280,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPharmaceutical, {
     'pharmaceutical_use'
   ),
   render: (data) => {
-    const pharmaData = data[EntrySection.DiseasePhenotypes].commentsData.get(
+    const pharmaData = data[EntrySection.DiseaseVariants].commentsData.get(
       'PHARMACEUTICAL'
     ) as FreeTextComment[] | undefined;
     return <FreeTextView comments={pharmaData} noEvidence />;
@@ -1294,7 +1294,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccToxicDose, {
     'toxic_dose'
   ),
   render: (data) => {
-    const toxicData = data[EntrySection.DiseasePhenotypes].commentsData.get(
+    const toxicData = data[EntrySection.DiseaseVariants].commentsData.get(
       'TOXIC DOSE'
     ) as FreeTextComment[] | undefined;
     return <FreeTextView comments={toxicData} noEvidence />;

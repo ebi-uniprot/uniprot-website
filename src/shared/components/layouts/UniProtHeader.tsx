@@ -47,11 +47,13 @@ const sparqlLink = (
 
 // "large" breakpoint in Franklin
 const largeMediaQuery = 'only screen and (min-width: 1024px)';
-// "medium" breakpoint in Franklin is 640, go a bit higher
+// just a bit more than "medium" breakpoint in Franklin (640px)
 const mediumPlusMediaQuery = 'only screen and (min-width: 840px)';
+// just a bit more than the "large" breakpoint in Franklin (1024px)
+const largePlusMediaQuery = 'only screen and (min-width: 1100px)';
 
 const HeaderContent = ({ isHomePage }: { isHomePage: boolean }) => {
-  const wideScreen = useMatchMedia(largeMediaQuery);
+  const wideScreen = useMatchMedia(largePlusMediaQuery);
   const mediumPlusScreen = useMatchMedia(mediumPlusMediaQuery);
   const location = useLocation();
 
@@ -103,6 +105,7 @@ const SearchContainerWithNamespace = () => {
 };
 
 const UniProtHeader = () => {
+  const wideScreen = useMatchMedia(largeMediaQuery);
   const homeMatch = useRouteMatch(LocationToPath[Location.Home]);
 
   const isHomePage = Boolean(homeMatch?.isExact);
@@ -111,7 +114,13 @@ const UniProtHeader = () => {
     <Header
       isNegative={isHomePage}
       search={isHomePage ? <ReleaseInfo /> : <SearchContainerWithNamespace />}
-      logo={<Logo width={120} height={50} aria-label="UniProt home page" />}
+      logo={
+        <Logo
+          width={wideScreen ? 100 : 80}
+          height={wideScreen ? 50 : 40}
+          aria-label="UniProt home page"
+        />
+      }
       secondaryItems={<SecondaryItems />}
     >
       <HeaderContent isHomePage={isHomePage} />

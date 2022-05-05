@@ -3,7 +3,7 @@ import EntrySection from '../../../types/entrySection';
 
 const entrySectionToDatabaseNames: EntrySectionToDatabaseNames = new Map([
   [
-    EntrySection.DiseasePhenotypes,
+    EntrySection.DiseaseVariants,
     [
       'DisGeNET',
       'GeneReviews',

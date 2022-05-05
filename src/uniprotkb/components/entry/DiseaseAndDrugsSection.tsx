@@ -29,7 +29,7 @@ const DiseaseAndDrugsSection = ({
 }: Props) => {
   // NOTE: do not check if content is there or not, always display because of variants
   const nameAndId = getEntrySectionNameAndId(
-    EntrySection.DiseasePhenotypes,
+    EntrySection.DiseaseVariants,
     taxId
   );
   return (

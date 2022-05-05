@@ -53,14 +53,14 @@ const UniProtKBEntryConfig: {
     ),
   },
   {
-    id: EntrySection.DiseasePhenotypes,
+    id: EntrySection.DiseaseVariants,
     sectionContent: (data) => (
       <DiseaseAndDrugsSection
-        data={data[EntrySection.DiseasePhenotypes]}
+        data={data[EntrySection.DiseaseVariants]}
         primaryAccession={data.primaryAccession}
         sequence={data[EntrySection.Sequence].sequence.value}
         taxId={data[EntrySection.NamesAndTaxonomy].organismData?.taxonId}
-        key={EntrySection.DiseasePhenotypes}
+        key={EntrySection.DiseaseVariants}
       />
     ),
   },

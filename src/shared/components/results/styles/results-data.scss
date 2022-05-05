@@ -6,7 +6,7 @@
 
   // only apply to the top-level table we don't want inner tables to be affected
   .data-table > thead th {
-    top: calc(#{$header-height} + #{$action-buttons-height}) !important;
+    top: calc(var(--top-header-margin) + #{$action-buttons-height}) !important;
   }
 
   // Note: shouldn't use protvista-datatable in results
