@@ -35,6 +35,7 @@ const sortByLocation = (a: TransformedVariant, b: TransformedVariant) => {
   return aStart - bStart;
 };
 
+type Evidence = Exclude<TransformedVariant['evidences'], undefined>[0];
 type Description = Exclude<TransformedVariant['descriptions'], undefined>[0];
 type Source = Description['sources'][0];
 
@@ -50,6 +51,9 @@ const sortDescriptionByUniProtFirst = (a: Description, b: Description) =>
 const isUniProt = (string: string) => string === 'UniProt';
 const sortProvenanceByUniProtFirst = (a: string, b: string) =>
   +isUniProt(b) - +isUniProt(a);
+
+const isUniProtEvidence = (evidence: Evidence) =>
+  evidence.code === 'ECO:0000269';
 
 type ObjWithVariants = { variants: TransformedVariant[] };
 
@@ -262,18 +266,37 @@ const VariationView = ({
                   {variantFeature.descriptions &&
                     Array.from(variantFeature.descriptions)
                       .sort(sortDescriptionByUniProtFirst)
-                      .map((description) => (
-                        <div
-                          key={description.value}
-                          className={cn({
-                            [styles.bold]: hasUniProtSource(description),
-                          })}
-                        >
-                          {`${description.value} (${description.sources.join(
-                            ', '
-                          )})`}
-                        </div>
-                      ))}
+                      .map((description) => {
+                        const isUniProtDescription =
+                          hasUniProtSource(description);
+                        const uniProtEvidences =
+                          isUniProtDescription &&
+                          variantFeature.evidences
+                            ?.filter(isUniProtEvidence)
+                            .map((evidence) => ({
+                              evidenceCode: evidence.code as `ECO:${number}`,
+                              id: evidence.source.id,
+                              source: evidence.source.name,
+                              url: evidence.source.url,
+                            }));
+                        return (
+                          <div
+                            key={description.value}
+                            className={cn({
+                              [styles.bold]: isUniProtDescription,
+                            })}
+                          >
+                            {`${description.value} (${description.sources.join(
+                              ', '
+                            )})`}
+                            {uniProtEvidences && (
+                              <UniProtKBEvidenceTag
+                                evidences={uniProtEvidences}
+                              />
+                            )}
+                          </div>
+                        );
+                      })}
                 </td>
                 <td>
                   {variantFeature.association &&
@@ -406,22 +429,6 @@ const VariationView = ({
                         >
                           {'- '}
                           {association.name}
-                          {/* note that the type needs to be updated, evidences is optional on association object */}
-                          {/* Example in P42771 */}
-                          {association.evidences?.length ? (
-                            // These evidences cover only one "association"
-                            <UniProtKBEvidenceTag
-                              evidences={association.evidences.map(
-                                (evidence) => ({
-                                  evidenceCode:
-                                    evidence.code as `ECO:${number}`,
-                                  id: evidence.source.id,
-                                  source: evidence.source.name,
-                                  url: evidence.source.url,
-                                })
-                              )}
-                            />
-                          ) : null}
                         </div>
                       ))}
                     </div>
@@ -443,20 +450,6 @@ const VariationView = ({
                         </div>
                       ))}
                     </div>
-                  ) : null}
-                  {/* These evidences probably cover the variant as a whole */}
-                  {variantFeature.evidences?.length ? (
-                    <>
-                      <br />
-                      <UniProtKBEvidenceTag
-                        evidences={variantFeature.evidences.map((evidence) => ({
-                          evidenceCode: evidence.code as `ECO:${number}`,
-                          id: evidence.source.id,
-                          source: evidence.source.name,
-                          url: evidence.source.url,
-                        }))}
-                      />
-                    </>
                   ) : null}
                 </td>
               </tr>
