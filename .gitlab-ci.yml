@@ -60,8 +60,6 @@ build_static_assets:
       elif [ "$CI_COMMIT_BRANCH" == "dev" ]; then
         yarn build:dev
       fi
-    - apt-get update
-    - apt-get install brotli
     - ./${DEPLOY_REPO}/scripts/compress.sh
   artifacts:
     paths:
@@ -75,7 +73,7 @@ build_docker_image:
   except:
     - external_pull_requests
   stage: build_docker_image
-  image: docker:20.10.14-git
+  image: ${DOCKER_REPO}/docker-git:1
   tags:
     - dind
   services:
@@ -100,7 +98,7 @@ deploy:
   except:
     - external_pull_requests
   stage: deploy
-  image: alpine/k8s:1.22.6
+  image: ${DOCKER_REPO}/alpine-k8s:1
   script:
     - git clone $DEPLOY_REPO_URL
     - |
