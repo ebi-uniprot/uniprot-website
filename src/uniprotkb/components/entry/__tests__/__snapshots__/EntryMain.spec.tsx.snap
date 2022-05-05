@@ -2119,7 +2119,7 @@ exports[`Entry view should render 1`] = `
   <section
     class="card"
     data-entry-section="true"
-    id="disease_phenotypes"
+    id="disease_variants"
   >
     <div
       class="card__container"
@@ -2130,7 +2130,7 @@ exports[`Entry view should render 1`] = `
         <h2
           data-article-id="pathology_and_biotech_section"
         >
-          Disease/Phenotypes
+          Disease/Variants
         </h2>
       </div>
       <div
@@ -5005,7 +5005,7 @@ exports[`Entry view should render for non-human entry 1`] = `
   <section
     class="card"
     data-entry-section="true"
-    id="phenotypes"
+    id="phenotypes_variants"
   >
     <div
       class="card__container"
@@ -5016,7 +5016,7 @@ exports[`Entry view should render for non-human entry 1`] = `
         <h2
           data-article-id="pathology_and_biotech_section"
         >
-          Phenotypes
+          Phenotypes/Variants
         </h2>
       </div>
       <div

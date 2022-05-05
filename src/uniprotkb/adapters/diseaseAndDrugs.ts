@@ -37,7 +37,7 @@ const convertDiseaseAndDrugs = (
     commentsCategories,
     keywordsCategories,
     featuresCategories,
-    EntrySection.DiseasePhenotypes,
+    EntrySection.DiseaseVariants,
     uniProtKBCrossReferences
   );
 

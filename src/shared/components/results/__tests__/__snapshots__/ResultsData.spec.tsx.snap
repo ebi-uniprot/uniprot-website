@@ -145,7 +145,7 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/P11413#disease_phenotypes"
+              href="/uniprotkb/P11413#disease_variants"
             >
               71 reviewed variants
             </a>
@@ -169,7 +169,7 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/P11413#disease_phenotypes"
+              href="/uniprotkb/P11413#disease_variants"
             >
               1 disease
             </a>
@@ -330,7 +330,7 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/P36871#disease_phenotypes"
+              href="/uniprotkb/P36871#disease_variants"
             >
               18 reviewed variants
             </a>
@@ -354,7 +354,7 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/P36871#disease_phenotypes"
+              href="/uniprotkb/P36871#disease_variants"
             >
               1 disease
             </a>
@@ -645,7 +645,7 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/P13866#disease_phenotypes"
+              href="/uniprotkb/P13866#disease_variants"
             >
               7 reviewed variants
             </a>
@@ -663,7 +663,7 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/P13866#disease_phenotypes"
+              href="/uniprotkb/P13866#disease_variants"
             >
               1 disease
             </a>
@@ -958,7 +958,7 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/O95479#disease_phenotypes"
+              href="/uniprotkb/O95479#disease_variants"
             >
               10 reviewed variants
             </a>
@@ -976,7 +976,7 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/O95479#disease_phenotypes"
+              href="/uniprotkb/O95479#disease_variants"
             >
               1 disease
             </a>
@@ -1125,7 +1125,7 @@ exports[`ResultsData component should render the card view with the correct numb
           >
             <a
               class="card-action"
-              href="/uniprotkb/P31639#disease_phenotypes"
+              href="/uniprotkb/P31639#disease_variants"
             >
               1 reviewed variant
             </a>
@@ -1137,7 +1137,7 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/P31639#disease_phenotypes"
+              href="/uniprotkb/P31639#disease_variants"
             >
               1 disease
             </a>
@@ -1308,7 +1308,7 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/P11166#disease_phenotypes"
+              href="/uniprotkb/P11166#disease_variants"
             >
               53 reviewed variants
             </a>
@@ -1320,7 +1320,7 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/P11166#disease_phenotypes"
+              href="/uniprotkb/P11166#disease_variants"
             >
               5 diseases
             </a>
@@ -1471,7 +1471,7 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/Q16851#disease_phenotypes"
+              href="/uniprotkb/Q16851#disease_variants"
             >
               2 reviewed variants
             </a>
@@ -1495,7 +1495,7 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/Q16851#disease_phenotypes"
+              href="/uniprotkb/Q16851#disease_variants"
             >
               1 disease
             </a>
@@ -1641,7 +1641,7 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/Q96G03#disease_phenotypes"
+              href="/uniprotkb/Q96G03#disease_variants"
             >
               2 reviewed variants
             </a>
@@ -1788,7 +1788,7 @@ exports[`ResultsData component should render the card view with the correct numb
           >
             <a
               class="card-action"
-              href="/uniprotkb/Q9NY64#disease_phenotypes"
+              href="/uniprotkb/Q9NY64#disease_variants"
             >
               1 reviewed variant
             </a>
@@ -2359,7 +2359,7 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/P11168#disease_phenotypes"
+              href="/uniprotkb/P11168#disease_variants"
             >
               9 reviewed variants
             </a>
@@ -2371,7 +2371,7 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/P11168#disease_phenotypes"
+              href="/uniprotkb/P11168#disease_variants"
             >
               1 disease
             </a>
@@ -2515,7 +2515,7 @@ exports[`ResultsData component should render the card view with the correct numb
           >
             <a
               class="card-action"
-              href="/uniprotkb/Q8TDB8#disease_phenotypes"
+              href="/uniprotkb/Q8TDB8#disease_variants"
             >
               1 reviewed variant
             </a>
@@ -2656,7 +2656,7 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/Q9UGQ3#disease_phenotypes"
+              href="/uniprotkb/Q9UGQ3#disease_variants"
             >
               1 reviewed variant
             </a>
@@ -2813,7 +2813,7 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/Q6PCE3#disease_phenotypes"
+              href="/uniprotkb/Q6PCE3#disease_variants"
             >
               3 reviewed variants
             </a>
@@ -2953,7 +2953,7 @@ exports[`ResultsData component should render the card view with the correct numb
           >
             <a
               class="card-action"
-              href="/uniprotkb/Q9BUM1#disease_phenotypes"
+              href="/uniprotkb/Q9BUM1#disease_variants"
             >
               22 reviewed variants
             </a>
@@ -2965,7 +2965,7 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/Q9BUM1#disease_phenotypes"
+              href="/uniprotkb/Q9BUM1#disease_variants"
             >
               2 diseases
             </a>
@@ -3094,7 +3094,7 @@ exports[`ResultsData component should render the card view with the correct numb
           >
             <a
               class="card-action"
-              href="/uniprotkb/Q9BYW1#disease_phenotypes"
+              href="/uniprotkb/Q9BYW1#disease_variants"
             >
               5 reviewed variants
             </a>
@@ -3235,7 +3235,7 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/P11169#disease_phenotypes"
+              href="/uniprotkb/P11169#disease_variants"
             >
               1 reviewed variant
             </a>
@@ -3381,13 +3381,13 @@ exports[`ResultsData component should render the card view with the correct numb
           >
             <a
               class="card-action"
-              href="/uniprotkb/O95528#disease_phenotypes"
+              href="/uniprotkb/O95528#disease_variants"
             >
               13 reviewed variants
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/O95528#disease_phenotypes"
+              href="/uniprotkb/O95528#disease_variants"
             >
               1 disease
             </a>
@@ -3526,7 +3526,7 @@ exports[`ResultsData component should render the card view with the correct numb
           >
             <a
               class="card-action"
-              href="/uniprotkb/P35575#disease_phenotypes"
+              href="/uniprotkb/P35575#disease_variants"
             >
               56 reviewed variants
             </a>
@@ -3550,7 +3550,7 @@ exports[`ResultsData component should render the card view with the correct numb
             </a>
             <a
               class="card-action"
-              href="/uniprotkb/P35575#disease_phenotypes"
+              href="/uniprotkb/P35575#disease_variants"
             >
               1 disease
             </a>
@@ -3679,7 +3679,7 @@ exports[`ResultsData component should render the card view with the correct numb
           >
             <a
               class="card-action"
-              href="/uniprotkb/Q6PXP3#disease_phenotypes"
+              href="/uniprotkb/Q6PXP3#disease_variants"
             >
               2 reviewed variants
             </a>

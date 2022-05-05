@@ -3,10 +3,7 @@ import { EntrySectionToDatabaseCategoryOrder } from '../../database';
 
 const entrySectionToDatabaseCategoryOrder: EntrySectionToDatabaseCategoryOrder =
   new Map([
-    [
-      EntrySection.DiseasePhenotypes,
-      ['ORG', 'CHEMISTRY', 'GVD', 'PFAM', 'MISC'],
-    ],
+    [EntrySection.DiseaseVariants, ['ORG', 'CHEMISTRY', 'GVD', 'PFAM', 'MISC']],
     [EntrySection.Expression, ['GEP', 'ORG']],
     [EntrySection.FamilyAndDomains, ['PLG', 'FMD', 'PFAM']],
     [EntrySection.Function, ['EAP', 'PFAM', 'CHEMISTRY']],
