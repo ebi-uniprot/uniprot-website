@@ -7,8 +7,9 @@ import { getDatabaseInfoAttribute, processUrlTemplate } from './XRefView';
 import * as logging from '../../../shared/utils/logging';
 
 import { Xref } from '../../../shared/types/apiModel';
-import EMBLXrefProperties from '../../config/emblXrefPropertiesData.json';
 import { PropertyKey } from '../../types/modelTypes';
+
+import EMBLXrefProperties from '../../config/emblXrefPropertiesData.json';
 
 const processData = (xrefs: Xref[]) =>
   xrefs.flatMap(({ id, properties, additionalIds }) => {
