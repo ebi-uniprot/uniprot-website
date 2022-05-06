@@ -85,11 +85,11 @@ export const getEntrySectionNameAndId = (
     case EntrySection.PhenotypesVariants:
       return taxId && taxId === 9606
         ? {
-            name: 'Disease/Variants',
+            name: 'Disease & Variants',
             id: EntrySection.DiseaseVariants,
           }
         : {
-            name: 'Phenotypes/Variants',
+            name: 'Phenotypes & Variants',
             id: EntrySection.PhenotypesVariants,
           };
 

@@ -20,10 +20,9 @@ module.exports = (env, argv) => {
   const gitCommitState = childProcess
     .execSync('git status --porcelain')
     .toString();
-  const gitBranch = childProcess
-    .execSync('git branch --show-current')
-    .toString();
-
+  const gitBranch =
+    env.GIT_BRANCH ||
+    childProcess.execSync('git symbolic-ref --short HEAD').toString();
   let publicPath = '/';
   if (env.PUBLIC_PATH) {
     // if we have an array, it means we've probably overriden env in the CLI
@@ -249,11 +248,6 @@ module.exports = (env, argv) => {
           isLiveReload,
         }),
       }),
-      !isDev &&
-        new HtmlWebPackPlugin({
-          template: `${__dirname}/404.html`,
-          filename: '404.html',
-        }),
       new DefinePlugin({
         BASE_URL: JSON.stringify(publicPath),
         API_PREFIX: JSON.stringify(apiPrefix),

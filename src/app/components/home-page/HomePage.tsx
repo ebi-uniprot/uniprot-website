@@ -30,8 +30,15 @@ const HomePageNonCritical = lazy(
 
 const mission = (
   <>
-    UniProt is the world’s leading high-quality, comprehensive and freely
-    accessible resource of protein sequence and functional information.{' '}
+    <Link
+      to={generatePath(LocationToPath[Location.HelpEntry], {
+        accession: 'about',
+      })}
+    >
+      UniProt
+    </Link>{' '}
+    is the world’s leading high-quality, comprehensive and freely accessible
+    resource of protein sequence and functional information.{' '}
     {/* TODO: update link */}
     <Link
       to={generatePath(LocationToPath[Location.HelpEntry], {
