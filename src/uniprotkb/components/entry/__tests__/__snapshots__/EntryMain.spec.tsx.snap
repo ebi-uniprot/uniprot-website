@@ -2130,7 +2130,7 @@ exports[`Entry view should render 1`] = `
         <h2
           data-article-id="pathology_and_biotech_section"
         >
-          Disease/Variants
+          Disease & Variants
         </h2>
       </div>
       <div
@@ -5016,7 +5016,7 @@ exports[`Entry view should render for non-human entry 1`] = `
         <h2
           data-article-id="pathology_and_biotech_section"
         >
-          Phenotypes/Variants
+          Phenotypes & Variants
         </h2>
       </div>
       <div

@@ -51,7 +51,7 @@ exports[`Entry basic should render main 1`] = `
             class=""
             href="/uniprotkb/P21802/entry#disease_variants"
           >
-            Disease/Variants
+            Disease & Variants
           </a>
         </li>
         <li
