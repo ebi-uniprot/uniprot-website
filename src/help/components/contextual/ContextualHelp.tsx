@@ -95,7 +95,7 @@ const ContextualHelp = () => {
   }, []);
 
   useEffect(() => {
-    if (displayButton && shouldBeVisible) {
+    if (displayButton === false && shouldBeVisible) {
       gtagFn('event', 'help render', {
         event_category: 'panel',
         event_label: articlePath,
