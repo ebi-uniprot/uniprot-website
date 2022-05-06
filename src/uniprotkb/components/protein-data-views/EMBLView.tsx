@@ -4,6 +4,7 @@ import useCustomElement from '../../../shared/hooks/useCustomElement';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
 import { getDatabaseInfoAttribute, processUrlTemplate } from './XRefView';
+import * as logging from '../../../shared/utils/logging';
 
 import { Xref } from '../../../shared/types/apiModel';
 import EMBLXrefProperties from '../../config/emblXrefPropertiesData.json';
@@ -60,7 +61,14 @@ const EMBLView = ({ xrefs }: { xrefs: Xref[] }) => {
   const genBankProteinLink = genBankInfo.uriLink;
   const ddbjProteinLink = ddbjInfo.uriLink;
 
-  if (!emblInfo.attributes || !genBankInfo.attributes || !ddbjInfo.attributes) {
+  if (
+    !emblInfo?.attributes ||
+    !genBankInfo?.attributes ||
+    !ddbjInfo?.attributes
+  ) {
+    logging.error(
+      'EMBL, GenBank or DDBJ database information not found in database configuration file'
+    );
     return null;
   }
 
