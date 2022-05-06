@@ -63,8 +63,9 @@ const EMBLView = ({ xrefs }: { xrefs: Xref[] }) => {
   if (!emblInfo.attributes || !genBankInfo.attributes || !ddbjInfo.attributes) {
     return null;
   }
+
   const emblDnaLink = getDatabaseInfoAttribute(
-    emblInfo.attributes,
+    emblInfo?.attributes,
     PropertyKey.ProteinId
   )?.uriLink;
   const genBankDnaLink = getDatabaseInfoAttribute(
@@ -93,7 +94,7 @@ const EMBLView = ({ xrefs }: { xrefs: Xref[] }) => {
         <thead>
           <tr>
             <th>Sequence</th>
-            <th>Protein ID</th>
+            <th>Protein</th>
             <th>Molecule Type</th>
             <th>Status</th>
           </tr>
