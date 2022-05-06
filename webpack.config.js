@@ -249,11 +249,6 @@ module.exports = (env, argv) => {
           isLiveReload,
         }),
       }),
-      !isDev &&
-        new HtmlWebPackPlugin({
-          template: `${__dirname}/404.html`,
-          filename: '404.html',
-        }),
       new DefinePlugin({
         BASE_URL: JSON.stringify(publicPath),
         API_PREFIX: JSON.stringify(apiPrefix),
