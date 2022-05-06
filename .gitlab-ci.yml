@@ -73,7 +73,7 @@ build_docker_image:
   except:
     - external_pull_requests
   stage: build_docker_image
-  image: ${DOCKER_REPO}/docker-git:1
+  image: ${DOCKER_REPO}/alpine-docker-git:1
   tags:
     - dind
   services:
