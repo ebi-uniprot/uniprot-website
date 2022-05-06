@@ -1,6 +1,7 @@
 variables:
   DEPLOY_REPO: 'front-end-deploy'
   DEPLOY_REPO_URL: 'https://gitlab-ci-token:${GITLAB_USER_API_TOKEN}@gitlab.ebi.ac.uk/uniprot/front-end/${DEPLOY_REPO}.git'
+  DOCKER_REPO: 'dockerhub.ebi.ac.uk/uniprot/front-end/front-end-docker'
 
 stages:
   - test
@@ -9,7 +10,7 @@ stages:
   - deploy
 
 .js:
-  image: node:16.14.2
+  image: ${DOCKER_REPO}/alpine-js:1
   before_script:
     - git --version
     - node --version
@@ -59,8 +60,6 @@ build_static_assets:
       elif [ "$CI_COMMIT_BRANCH" == "dev" ]; then
         yarn build:dev
       fi
-    - apt-get update
-    - apt-get install brotli
     - ./${DEPLOY_REPO}/scripts/compress.sh
   artifacts:
     paths:
@@ -74,7 +73,7 @@ build_docker_image:
   except:
     - external_pull_requests
   stage: build_docker_image
-  image: docker:20.10.14-git
+  image: ${DOCKER_REPO}/alpine-docker-git:1
   tags:
     - dind
   services:
@@ -99,7 +98,7 @@ deploy:
   except:
     - external_pull_requests
   stage: deploy
-  image: alpine/k8s:1.22.6
+  image: ${DOCKER_REPO}/alpine-k8s:1
   script:
     - git clone $DEPLOY_REPO_URL
     - |
