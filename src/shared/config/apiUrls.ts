@@ -231,8 +231,9 @@ export const getAPIQueryUrl = ({
     fields: columns?.join(',') || undefined,
     facets: facetField?.join(','),
     sort:
-      sortColumn &&
-      `${sortColumn} ${getApiSortDirection(SortDirection[sortDirection])}`,
+      sortColumn && sortColumn !== ('score' as SortableColumn)
+        ? `${sortColumn} ${getApiSortDirection(SortDirection[sortDirection])}`
+        : undefined,
   })}`;
 };
 

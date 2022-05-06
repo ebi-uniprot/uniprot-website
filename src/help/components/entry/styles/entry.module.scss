@@ -5,6 +5,10 @@
   padding-block-start: $global-padding;
 }
 
+.content *[id] {
+  scroll-margin-top: calc(var(--top-header-margin) + #{$global-margin * 0.5});
+}
+
 .content,
 .in-panel {
   table {
@@ -35,6 +39,11 @@
 
   code {
     background: $colour-platinum;
+  }
+
+  p,
+  pre {
+    margin-block-end: $global-margin;
   }
 
   /* copied from Franklin's CodeBlock component styles */
