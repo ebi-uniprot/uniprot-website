@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { isEqual, sortBy, uniqWith } from 'lodash-es';
+import { isEqual, partition, sortBy, uniqWith } from 'lodash-es';
 import { InfoList, ExternalLink, ExpandableList } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 import { InfoListItem } from 'franklin-sites/dist/types/components/info-list';
@@ -8,6 +8,7 @@ import { pluralise } from '../../../shared/utils/utils';
 import * as logging from '../../../shared/utils/logging';
 
 import PDBView from './PDBView';
+import EMBLView from './EMBLView';
 
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
@@ -349,7 +350,13 @@ const XRefsGroupedByCategory = ({
     return null;
   }
   const { databaseToDatabaseInfo } = databaseInfoMaps;
-  const infoData: InfoListItem[] = sortBy(databases, ({ database }) => [
+
+  const [emblDatabase, restDatabases] = partition(
+    databases,
+    ({ database }) => database === 'EMBL'
+  );
+
+  const infoData: InfoListItem[] = sortBy(restDatabases, ({ database }) => [
     databaseToDatabaseInfo?.[database].implicit,
     database,
   ]).map((database) => {
@@ -375,7 +382,14 @@ const XRefsGroupedByCategory = ({
       ),
     };
   });
-  return <InfoList infoData={infoData} columns />;
+  return (
+    <>
+      <InfoList infoData={infoData} columns />
+      {!!emblDatabase?.[0]?.xrefs.length && (
+        <EMBLView xrefs={emblDatabase[0].xrefs} />
+      )}
+    </>
+  );
 };
 
 type StructureXRefsGroupedByCategoryProps = {
