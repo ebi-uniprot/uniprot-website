@@ -46,6 +46,11 @@
     background: $colour-platinum;
   }
 
+  p,
+  pre {
+    margin-block-end: $global-margin;
+  }
+
   /* copied from Franklin's CodeBlock component styles */
   pre {
     display: inline-block;
