@@ -50,7 +50,15 @@ precacheAndRoute(self.__WB_MANIFEST);
 
 // respond to all 'navigation' requests with this document (browsing)
 registerRoute(
-  new NavigationRoute(createHandlerBoundToURL(`${BASE_URL}index.html`))
+  new NavigationRoute(createHandlerBoundToURL(`${BASE_URL}index.html`), {
+    // Let the request fall through to the server that will handle either
+    // serving or redirecting. This is only triggered for "navigation" requests.
+    denylist: [
+      /^\/sitemap/,
+      /\?format=/,
+      /.+\/.+\.(fasta|gff|json|list|obo|rdf|tab|tsv|ttl|txt|xlsx|xml)$/i,
+    ],
+  })
 );
 
 // https://www.ebi.ac.uk/interpro/api/entry/interpro/protein/uniprot/A1L3X0?page_size=100&type=family
