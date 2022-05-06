@@ -10,6 +10,10 @@
   margin: 1rem 1rem 0 0;
 }
 
+.content *[id] {
+  scroll-margin-top: calc(var(--top-header-margin) + #{$global-margin * 0.5});
+}
+
 .content,
 .in-panel {
   table {
