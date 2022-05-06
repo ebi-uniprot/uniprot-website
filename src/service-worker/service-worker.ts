@@ -53,7 +53,11 @@ registerRoute(
   new NavigationRoute(createHandlerBoundToURL(`${BASE_URL}index.html`), {
     // Let the request fall through to the server that will handle either
     // serving or redirecting. This is only triggered for "navigation" requests.
-    denylist: [/^\/sitemap/, /\?format=/],
+    denylist: [
+      /^\/sitemap/,
+      /\?format=/,
+      /.+\/.+\.(fasta|gff|json|list|obo|rdf|tab|tsv|ttl|txt|xlsx|xml)$/i,
+    ],
   })
 );
 
