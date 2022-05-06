@@ -72,8 +72,10 @@ const useViewMode = (
   }
 
   useEffect(() => {
-    gtagFn('event', 'result_view', {
-      result_view: `${viewMode}`,
+    gtagFn('event', 'render results', {
+      event_category: 'result view',
+      event_label: viewMode,
+      result_view: viewMode,
     });
   }, [viewMode]);
 
