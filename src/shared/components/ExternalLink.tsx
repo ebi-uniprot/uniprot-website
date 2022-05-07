@@ -7,11 +7,16 @@ const clickHandler = (
   event: MouseEvent<HTMLAnchorElement>,
   handler?: MouseEventHandler<HTMLAnchorElement>
 ) => {
-  gtagFn('event', 'outbound link click', {
-    event_category: 'outbound link',
-    event_label: (event.target as HTMLAnchorElement).href,
-    transport: 'beacon',
-  });
+  try {
+    const url = new URL((event.target as HTMLAnchorElement).href);
+    gtagFn('event', url.origin, {
+      event_category: 'outbound link',
+      event_label: url,
+      transport: 'beacon',
+    });
+  } catch {
+    /**/
+  }
   handler?.(event);
 };
 
