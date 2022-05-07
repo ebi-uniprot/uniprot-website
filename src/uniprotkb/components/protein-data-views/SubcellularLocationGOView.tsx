@@ -1,5 +1,7 @@
 import { FC } from 'react';
-import { ExternalLink, LocationPinIcon } from 'franklin-sites';
+import { LocationPinIcon } from 'franklin-sites';
+
+import ExternalLink from '../../../shared/components/ExternalLink';
 
 import externalUrls from '../../../shared/config/externalUrls';
 

@@ -1,8 +1,10 @@
 import { useEffect, useState, useMemo, useRef } from 'react';
 import { throttle } from 'lodash-es';
 import { Link } from 'react-router-dom';
-import { ExternalLink, Message } from 'franklin-sites';
+import { Message } from 'franklin-sites';
 import cn from 'classnames';
+
+import ExternalLink from '../../../shared/components/ExternalLink';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
@@ -14,8 +16,9 @@ import {
   LocationToPath,
 } from '../../../app/config/urls';
 
-import styles from './styles/landing.module.scss';
 import { HelpEntryResponse } from '../../adapters/helpConverter';
+
+import styles from './styles/landing.module.scss';
 
 const getHelpEntryPath = getLocationEntryPathFor(Location.HelpEntry);
 

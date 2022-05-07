@@ -1,7 +1,9 @@
 import { memo } from 'react';
-import { Message, ExternalLink } from 'franklin-sites';
+import { Message } from 'franklin-sites';
 import { generatePath, Link } from 'react-router-dom';
 import cn from 'classnames';
+
+import ExternalLink from '../../../shared/components/ExternalLink';
 
 // Sections
 import CoreData from './CoreData';

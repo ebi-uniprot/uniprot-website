@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { ExternalLink } from 'franklin-sites';
 
+import ExternalLink from '../../shared/components/ExternalLink';
 import Timeline from '../components/entry/Timeline';
 import {
   EntryType,

@@ -1,7 +1,8 @@
 import { lazy, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, ExternalLink } from 'franklin-sites';
+import { Card } from 'franklin-sites';
 
+import ExternalLink from '../../../shared/components/ExternalLink';
 import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';

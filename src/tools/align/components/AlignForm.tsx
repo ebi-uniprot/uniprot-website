@@ -13,7 +13,6 @@ import {
   PageIntro,
   SpinnerIcon,
   sequenceProcessor,
-  ExternalLink,
 } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
@@ -21,6 +20,7 @@ import cn from 'classnames';
 // TODO: find a way to export this transparently from franklin
 import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
 
+import ExternalLink from '../../../shared/components/ExternalLink';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import SequenceSearchLoader from '../../components/SequenceSearchLoader';
 import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';

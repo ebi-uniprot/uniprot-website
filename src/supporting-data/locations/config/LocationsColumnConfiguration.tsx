@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
-import { ExpandableList, ExternalLink } from 'franklin-sites';
+import { ExpandableList } from 'franklin-sites';
 
+import ExternalLink from '../../../shared/components/ExternalLink';
 import AccessionView from '../../../shared/components/results/AccessionView';
 
 import { getEntryPathFor } from '../../../app/config/urls';

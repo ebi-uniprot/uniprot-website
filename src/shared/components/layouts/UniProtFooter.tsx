@@ -1,8 +1,9 @@
 import { memo, HTMLAttributes } from 'react';
 import { Link, generatePath } from 'react-router-dom';
+import { CitedIcon } from 'franklin-sites';
 import cn from 'classnames';
-import { CitedIcon, ExternalLink } from 'franklin-sites';
 
+import ExternalLink from '../ExternalLink';
 import ReleaseInfo from './ReleaseInfo';
 import Contact from './Contact';
 

@@ -1,5 +1,5 @@
 import { useMemo, Fragment, lazy, useRef, useEffect, useState } from 'react';
-import { ExternalLink, Loader } from 'franklin-sites';
+import { Loader } from 'franklin-sites';
 import joinUrl from 'url-join';
 import { groupBy, intersection, union } from 'lodash-es';
 import cn from 'classnames';
@@ -7,6 +7,7 @@ import cn from 'classnames';
 import { ProteinsAPIVariation } from 'protvista-variation-adapter/dist/es/variants';
 import { transformData, TransformedVariant } from 'protvista-variation-adapter';
 
+import ExternalLink from '../../../shared/components/ExternalLink';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import LazyComponent from '../../../shared/components/LazyComponent';
 
