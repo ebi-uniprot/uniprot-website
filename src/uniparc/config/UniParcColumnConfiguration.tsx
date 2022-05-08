@@ -1,13 +1,9 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { uniqBy } from 'lodash-es';
-import {
-  ExpandableList,
-  ExternalLink,
-  LongNumber,
-  Sequence,
-} from 'franklin-sites';
+import { ExpandableList, LongNumber, Sequence } from 'franklin-sites';
 
+import ExternalLink from '../../shared/components/ExternalLink';
 import { EntryTypeIcon } from '../../shared/components/entry/EntryTypeIcon';
 import AccessionView from '../../shared/components/results/AccessionView';
 import TaxonomyView from '../../shared/components/entry/TaxonomyView';

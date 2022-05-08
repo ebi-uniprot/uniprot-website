@@ -1,7 +1,6 @@
 import { Fragment, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  ExternalLink,
   InfoList,
   // EvidenceTag,
   // InformationIcon,
@@ -9,6 +8,7 @@ import {
 import { isEqual, pullAll /* , omit */ } from 'lodash-es';
 import cn from 'classnames';
 
+import ExternalLink from '../../../shared/components/ExternalLink';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 // import AccessionView from '../../../shared/components/results/AccessionView';
 import CSVView from '../../../uniprotkb/components/protein-data-views/CSVView';

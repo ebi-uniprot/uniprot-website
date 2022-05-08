@@ -1,6 +1,7 @@
 import axios, { AxiosPromise, AxiosRequestConfig, CancelToken } from 'axios';
 
 import { keysToLowerCase } from './utils';
+import { gtagFn } from './logging';
 
 axios.interceptors.response.use((response) => {
   if (
@@ -35,10 +36,27 @@ export default function fetchData<T>(
   if (!options.headers.Accept) {
     options.headers = { ...options.headers, Accept: 'application/json' };
   }
-  return axios({
+  const promise = axios({
     url,
     method: 'GET',
     cancelToken,
     ...options,
   });
+
+  promise.then(
+    () => {
+      gtagFn('event', 'success', {
+        event_category: 'data load',
+        event_label: url,
+      });
+    },
+    () => {
+      gtagFn('event', 'error', {
+        event_category: 'data load',
+        event_label: url,
+      });
+    }
+  );
+
+  return promise;
 }

@@ -1,9 +1,11 @@
-import { ExternalLink } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
+import ExternalLink from '../../shared/components/ExternalLink';
+
 import { getEntryPath } from '../../app/config/urls';
-import { Namespace } from '../../shared/types/namespaces';
 import { processUrlTemplate } from '../components/protein-data-views/XRefView';
+
+import { Namespace } from '../../shared/types/namespaces';
 
 type InternalSource =
   | 'HAMAP-Rule'

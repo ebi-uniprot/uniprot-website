@@ -2,7 +2,6 @@ import { useMemo, lazy } from 'react';
 import { Link } from 'react-router-dom';
 import {
   HeroContainer,
-  ExternalLink,
   Loader,
   CalendarIcon,
   CameraIcon,
@@ -13,6 +12,7 @@ import cn from 'classnames';
 
 import LazyComponent from '../../../shared/components/LazyComponent';
 import ContactLink from '../../../contact/components/ContactLink';
+import ExternalLink from '../../../shared/components/ExternalLink';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useStructuredData from '../../../shared/hooks/useStructuredData';

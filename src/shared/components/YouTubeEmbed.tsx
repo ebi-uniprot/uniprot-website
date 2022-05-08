@@ -1,4 +1,4 @@
-import { ExternalLink } from 'franklin-sites';
+import ExternalLink from './ExternalLink';
 
 import useCustomElement from '../hooks/useCustomElement';
 

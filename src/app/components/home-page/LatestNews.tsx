@@ -1,6 +1,8 @@
-import { HeroContainer, ExternalLink } from 'franklin-sites';
+import { HeroContainer } from 'franklin-sites';
 import cn from 'classnames';
 import { generatePath, Link } from 'react-router-dom';
+
+import ExternalLink from '../../../shared/components/ExternalLink';
 
 // import useDataApi from '../../../shared/hooks/useDataApi';
 import { LocationToPath, Location } from '../../config/urls';

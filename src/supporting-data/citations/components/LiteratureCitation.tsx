@@ -9,11 +9,12 @@ import {
   CommunityAnnotationIcon,
   SwissProtIcon,
   TremblIcon,
-  ExternalLink,
   EllipsisReveal,
 } from 'franklin-sites';
 import { capitalize } from 'lodash-es';
 import { SetOptional } from 'type-fest';
+
+import ExternalLink from '../../../shared/components/ExternalLink';
 
 import {
   getEntryPath,

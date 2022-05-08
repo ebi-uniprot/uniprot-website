@@ -27,6 +27,7 @@ import { useToolsState } from '../../contexts/Tools';
 
 import lazy from '../../utils/lazy';
 import { pluralise } from '../../utils/utils';
+import { gtagFn } from '../../utils/logging';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -111,6 +112,7 @@ const ToolsDashboard = () => {
             return; // default behaviour of opening a new tab
           }
           event.preventDefault();
+          gtagFn('event', 'dashboard render', { event_category: 'panel' });
           setDisplay(true);
         }}
         title="Tools dashboard"
@@ -197,6 +199,7 @@ export const Basket = () => {
             return; // default behaviour of opening a new tab
           }
           event.preventDefault();
+          gtagFn('event', 'basket render', { event_category: 'panel' });
           setDisplay(true);
         }}
         title="Basket"

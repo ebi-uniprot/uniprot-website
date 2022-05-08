@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState, useRef, ReactNode } from 'react';
-import { ExternalLink, Loader } from 'franklin-sites';
+import { Loader } from 'franklin-sites';
 import { Helmet } from 'react-helmet-async';
 
+import ExternalLink from '../../../shared/components/ExternalLink';
 import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
 import GOTermEvidenceTag from '../protein-data-views/GOTermEvidenceTag';
 

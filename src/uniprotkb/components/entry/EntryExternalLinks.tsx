@@ -1,6 +1,7 @@
-import { Card, ExpandableList, ExternalLink } from 'franklin-sites';
+import { Card, ExpandableList } from 'franklin-sites';
 import { groupBy } from 'lodash-es';
 
+import ExternalLink from '../../../shared/components/ExternalLink';
 import XRefView from '../protein-data-views/XRefView';
 
 import { UniProtkbUIModel } from '../../adapters/uniProtkbConverter';

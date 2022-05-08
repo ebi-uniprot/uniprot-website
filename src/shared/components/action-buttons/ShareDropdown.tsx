@@ -13,6 +13,8 @@ import {
   copySuccessMessage,
 } from '../../../messages/state/messagesActions';
 
+import { gtagFn } from '../../utils/logging';
+
 import { Namespace } from '../../types/namespaces';
 
 const isCopySupported =
@@ -59,6 +61,10 @@ const CopyLinkWebsite = ({
       await navigator.clipboard.writeText(url);
       // Success with Clipboard API, display message
       dispatch(copySuccessMessage());
+      gtagFn('event', 'copy shared view', {
+        event_category: 'copy',
+        event_label: url,
+      });
     } catch {
       // Issue with Clipboard API too, bail with error message
       dispatch(copyFailureMessage());

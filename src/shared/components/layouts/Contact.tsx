@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
-import { EnvelopeIcon, ExternalLink } from 'franklin-sites';
+import { EnvelopeIcon } from 'franklin-sites';
+
+import ExternalLink from '../ExternalLink';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { ContactLocationState } from '../../../contact/adapters/contactFormAdapter';

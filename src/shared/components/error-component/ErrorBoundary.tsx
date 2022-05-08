@@ -26,7 +26,7 @@ type ErrorBoundaryState = {
  */
 
 // Known errors that might happen when the app has be updated
-const updateError = /(chunk|\.forEach)/i;
+const updateError = /(chunk)/i;
 class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   static defaultProps = { fallback: <ErrorComponent /> };
 
