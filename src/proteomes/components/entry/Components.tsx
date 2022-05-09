@@ -1,9 +1,10 @@
 import { Fragment, FC, ReactNode, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, DataTable, ExternalLink, LongNumber } from 'franklin-sites';
+import { Card, DataTable, LongNumber } from 'franklin-sites';
 
 import useItemSelect from '../../../shared/hooks/useItemSelect';
 
+import ExternalLink from '../../../shared/components/ExternalLink';
 import ComponentsButtons from './ComponentsButtons';
 
 import externalUrls from '../../../shared/config/externalUrls';

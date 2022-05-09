@@ -6,9 +6,9 @@ import {
   Loader,
   ChevronDownIcon,
   ChevronUpIcon,
-  ExternalLink,
 } from 'franklin-sites';
 
+import ExternalLink from '../../../shared/components/ExternalLink';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import { ECNumbersView } from './ProteinNamesView';
 

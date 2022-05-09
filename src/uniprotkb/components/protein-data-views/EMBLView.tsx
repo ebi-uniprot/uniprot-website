@@ -1,4 +1,6 @@
-import { ExternalLink, Loader } from 'franklin-sites';
+import { Loader } from 'franklin-sites';
+
+import ExternalLink from '../../../shared/components/ExternalLink';
 
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';

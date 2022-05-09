@@ -27,6 +27,7 @@ import cleanText, {
   HeadingLevels,
 } from '../../../shared/utils/cleanText';
 import parseDate from '../../../shared/utils/parseDate';
+import { gtagFn } from '../../../shared/utils/logging';
 
 import { HelpEntryResponse } from '../../adapters/helpConverter';
 import { LocationToPath, Location } from '../../../app/config/urls';
@@ -110,6 +111,14 @@ export const HelpEntryContent = ({
           // And just replace the current URL with the next page
           // eslint-disable-next-line uniprot-website/use-config-location
           history.push(href.replace(sameAppURL, '/'));
+        } else {
+          // analytics, similar as in InstrumentedExternalLink
+          const url = new URL(href);
+          gtagFn('event', url.origin, {
+            event_category: 'outbound link',
+            event_label: url,
+            transport: 'beacon',
+          });
         }
       }
     },

@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
-import { Card, InfoList, ExternalLink, LongNumber } from 'franklin-sites';
+import { Card, InfoList, LongNumber } from 'franklin-sites';
 
+import ExternalLink from '../../../shared/components/ExternalLink';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import { EntryTypeIcon } from '../../../shared/components/entry/EntryTypeIcon';

@@ -1,13 +1,8 @@
 import { Fragment, ReactNode, useState } from 'react';
-import {
-  InfoList,
-  Sequence,
-  ExternalLink,
-  Button,
-  LongNumber,
-} from 'franklin-sites';
+import { InfoList, Sequence, Button, LongNumber } from 'franklin-sites';
 import { Link, useHistory } from 'react-router-dom';
 
+import ExternalLink from '../ExternalLink';
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
 import FreeTextView from '../../../uniprotkb/components/protein-data-views/FreeTextView';
 import BlastButton from '../action-buttons/Blast';

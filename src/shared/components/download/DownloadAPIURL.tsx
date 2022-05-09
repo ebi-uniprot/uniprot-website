@@ -9,6 +9,8 @@ import {
   copySuccessMessage,
 } from '../../../messages/state/messagesActions';
 
+import { gtagFn } from '../../utils/logging';
+
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 import styles from './styles/download-api-url.module.scss';
@@ -33,6 +35,10 @@ const DownloadAPIURL = ({
         await navigator.clipboard.writeText(text);
         // Success with Clipboard API, display message
         dispatch(copySuccessMessage());
+        gtagFn('event', 'copy API URL', {
+          event_category: 'copy',
+          event_label: text,
+        });
       } catch {
         // Issue with Clipboard API too, bail with error message
         dispatch(copyFailureMessage());

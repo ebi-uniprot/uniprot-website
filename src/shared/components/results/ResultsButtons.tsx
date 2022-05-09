@@ -146,7 +146,9 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
   ]);
 
   const handleToggleView = (event: ChangeEvent<HTMLInputElement>) => {
-    gtagFn('event', 'result_view', {
+    gtagFn('event', 'normal selection', {
+      event_category: 'result view',
+      event_label: event.target.value,
       result_view: event.target.value,
       result_view_set: 1,
     });

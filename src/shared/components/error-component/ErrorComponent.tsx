@@ -1,4 +1,6 @@
-import { ExternalLink, Message } from 'franklin-sites';
+import { Message } from 'franklin-sites';
+
+import ExternalLink from '../ExternalLink';
 
 import styles from './styles/error-component.module.scss';
 

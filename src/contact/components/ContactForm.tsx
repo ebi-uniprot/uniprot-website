@@ -9,7 +9,6 @@ import {
 import {
   Button,
   PageIntro,
-  ExternalLink,
   ErrorIcon,
   SuccessIcon,
   Message,
@@ -19,6 +18,7 @@ import { createPath } from 'history';
 
 import HTMLHead from '../../shared/components/HTMLHead';
 import ContactLink from './ContactLink';
+import ExternalLink from '../../shared/components/ExternalLink';
 
 import {
   useFormLogic,

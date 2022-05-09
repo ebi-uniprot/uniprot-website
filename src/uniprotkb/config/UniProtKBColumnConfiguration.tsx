@@ -1,15 +1,15 @@
 /* eslint-disable camelcase */
 import {
   ExpandableList,
-  ExternalLink,
   LongNumber,
   SearchIcon,
   Sequence,
   SequenceTools,
 } from 'franklin-sites';
 import { Link } from 'react-router-dom';
-
 import { omit } from 'lodash-es';
+
+import ExternalLink from '../../shared/components/ExternalLink';
 import SimpleView from '../../shared/components/views/SimpleView';
 import { ECNumbersView } from '../components/protein-data-views/ProteinNamesView';
 import TaxonomyView, {

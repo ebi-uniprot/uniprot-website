@@ -1,7 +1,7 @@
-import { ExternalLink } from 'franklin-sites';
 import { sortBy } from 'lodash-es';
 import { FC, useMemo } from 'react';
 
+import ExternalLink from '../../../shared/components/ExternalLink';
 import FeaturesView, {
   ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';

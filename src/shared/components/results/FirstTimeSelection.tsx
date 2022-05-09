@@ -71,7 +71,9 @@ const FirstTimeSelection = ({
             disabled={!previewViewMode}
             onClick={(e: MouseEvent) => {
               e.preventDefault();
-              gtagFn('event', 'result_view', {
+              gtagFn('event', 'popup selection', {
+                event_category: 'result view',
+                event_label: previewViewMode,
                 result_view: previewViewMode,
                 result_view_set: 1,
               });

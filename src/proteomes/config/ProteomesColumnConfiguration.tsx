@@ -1,8 +1,9 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { ExternalLink, ExpandableList, LongNumber } from 'franklin-sites';
+import { ExpandableList, LongNumber } from 'franklin-sites';
 import { capitalize } from 'lodash-es';
 
+import ExternalLink from '../../shared/components/ExternalLink';
 import BuscoView from '../components/BuscoView';
 import BuscoLegend from '../components/BuscoLegend';
 import AccessionView from '../../shared/components/results/AccessionView';

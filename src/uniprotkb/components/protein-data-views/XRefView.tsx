@@ -1,8 +1,10 @@
 import { Fragment } from 'react';
 import { isEqual, partition, sortBy, uniqWith } from 'lodash-es';
-import { InfoList, ExternalLink, ExpandableList } from 'franklin-sites';
+import { InfoList, ExpandableList } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 import { InfoListItem } from 'franklin-sites/dist/types/components/info-list';
+
+import ExternalLink from '../../../shared/components/ExternalLink';
 
 import { pluralise } from '../../../shared/utils/utils';
 

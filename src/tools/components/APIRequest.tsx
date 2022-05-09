@@ -1,7 +1,8 @@
 import { FC } from 'react';
-import { Loader, CodeBlock, ExternalLink } from 'franklin-sites';
+import { Loader, CodeBlock } from 'franklin-sites';
 import cn from 'classnames';
 
+import ExternalLink from '../../shared/components/ExternalLink';
 import ErrorHandler from '../../shared/components/error-pages/ErrorHandler';
 
 import { UseDataAPIState } from '../../shared/hooks/useDataApi';

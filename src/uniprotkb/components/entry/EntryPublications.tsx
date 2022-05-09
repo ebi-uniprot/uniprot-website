@@ -1,15 +1,10 @@
 import { FC, useState, useEffect, useMemo, Fragment } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import {
-  Card,
-  Loader,
-  DataListWithLoader,
-  InfoList,
-  ExternalLink,
-} from 'franklin-sites';
+import { Card, Loader, DataListWithLoader, InfoList } from 'franklin-sites';
 import { Except, SetRequired, Simplify } from 'type-fest';
 import { groupBy, capitalize } from 'lodash-es';
 
+import ExternalLink from '../../../shared/components/ExternalLink';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
 import useDataApi from '../../../shared/hooks/useDataApi';

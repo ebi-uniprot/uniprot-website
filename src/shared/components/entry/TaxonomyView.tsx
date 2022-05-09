@@ -1,7 +1,8 @@
 import { FC, ReactNode } from 'react';
-import { InfoList, ExternalLink, ExpandableList } from 'franklin-sites';
+import { InfoList, ExpandableList } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
+import ExternalLink from '../ExternalLink';
 import SimpleView from '../views/SimpleView';
 
 import externalUrls from '../../config/externalUrls';
