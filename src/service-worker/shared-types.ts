@@ -6,4 +6,5 @@ export enum CacheName {
   ProteinsAPI = 'proteins-api',
   WebsiteAPI = 'website-api',
   WebsiteAPIStatic = 'website-api-static',
+  WebsiteAPITextContent = 'website-api-text-content',
 }

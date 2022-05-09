@@ -204,6 +204,28 @@ registerRoute(
 registerRoute(
   new Route(
     ({ url }) =>
+      (url.origin === 'https://rest.uniprot.org' &&
+        url.pathname.includes('/help/')) ||
+      url.pathname.includes('release-notes'),
+    new StaleWhileRevalidate({
+      cacheName: CacheName.WebsiteAPITextContent,
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 800,
+          maxAgeSeconds: 8 * WEEK,
+          purgeOnQuotaError: true,
+        }),
+      ],
+    })
+  )
+);
+
+// stale while revalidate until we find a way to read and process the
+// 'x-release-date' header and dump the cache when that changes
+// UniProt website API - Stale While Revalidate
+registerRoute(
+  new Route(
+    ({ url }) =>
       url.origin === 'https://rest.uniprot.org' &&
       !url.pathname.includes('/contact/'),
     new StaleWhileRevalidate({
