@@ -179,7 +179,7 @@ registerRoute(
   )
 );
 
-// UniProt website API - Cache First
+// UniProt website API - static payload endpoints - Cache First
 registerRoute(
   new Route(
     ({ url }) =>
@@ -198,9 +198,7 @@ registerRoute(
   )
 );
 
-// stale while revalidate until we find a way to read and process the
-// 'x-release-date' header and dump the cache when that changes
-// UniProt website API - Stale While Revalidate
+// UniProt website API - text content (news, etc) - Stale While Revalidate
 registerRoute(
   new Route(
     ({ url }) =>
