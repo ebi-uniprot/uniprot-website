@@ -1,6 +1,6 @@
 import { useCallback, MouseEventHandler, useMemo, useEffect } from 'react';
 import { generatePath, RouteChildrenProps, useHistory } from 'react-router-dom';
-import { Card, Loader, Message } from 'franklin-sites';
+import { Card, Loader } from 'franklin-sites';
 import { marked } from 'marked';
 import {
   Attributes,
@@ -234,11 +234,6 @@ const HelpEntry = ({
   return (
     <SingleColumnLayout>
       <HTMLHead title={[data.title, 'UniProt help']} />
-      {!isReleaseNotes && (
-        <Message level="info" className={styles['beta-message']}>
-          During the beta phase, help content may not be up to date.
-        </Message>
-      )}
       <h1 className={data.categories?.includes('faq') ? 'big' : undefined}>
         {data.title}
       </h1>

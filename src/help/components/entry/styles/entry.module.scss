@@ -5,11 +5,6 @@
   padding-block-start: $global-padding;
 }
 
-.beta-message {
-  // right margin is to match the style of the card
-  margin: 1rem 1rem 0 0;
-}
-
 .content *[id] {
   scroll-margin-top: calc(var(--top-header-margin) + #{$global-margin * 0.5});
 }
