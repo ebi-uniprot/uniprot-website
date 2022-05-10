@@ -218,6 +218,9 @@ registerRoute(
   )
 );
 
+// Contact endpoint, and job status
+const needsFreshData = /\/(contact|status)\//;
+
 // stale while revalidate until we find a way to read and process the
 // 'x-release-date' header and dump the cache when that changes
 // UniProt website API - Stale While Revalidate
@@ -225,7 +228,7 @@ registerRoute(
   new Route(
     ({ url }) =>
       url.origin === 'https://rest.uniprot.org' &&
-      !url.pathname.includes('/contact/'),
+      !needsFreshData.test(url.pathname),
     new StaleWhileRevalidate({
       cacheName: CacheName.WebsiteAPI,
       plugins: [
