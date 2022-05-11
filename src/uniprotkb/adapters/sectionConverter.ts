@@ -16,7 +16,7 @@ import { UniProtkbAPIModel } from './uniProtkbConverter';
 import { Xref } from '../../shared/types/apiModel';
 import { DatabaseInfoMaps } from '../utils/database';
 
-export const reDiseaseAcronym = /^in (?<acronym>[^;]+);/i;
+const reDiseaseAcronym = /^in (?<acronym>[^;]+);/i;
 
 export type UIModel = {
   commentsData: Map<CommentType, Comment[] | undefined>;

@@ -9,7 +9,6 @@ import useCustomElement from '../../../shared/hooks/useCustomElement';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
 import { getEntryPath } from '../../../app/config/urls';
-import { reDiseaseAcronym } from '../../adapters/sectionConverter';
 
 import { DiseaseComment } from '../../types/commentTypes';
 import { Namespace } from '../../../shared/types/namespaces';
@@ -59,7 +58,7 @@ export const DiseaseVariants = ({ variants }: { variants: FeatureData }) => {
                     )}
                   </td>
                   <td>
-                    {variant.description?.replace(reDiseaseAcronym, '')}
+                    {variant.description}
                     {variant.evidences && (
                       <UniProtKBEvidenceTag evidences={variant.evidences} />
                     )}
