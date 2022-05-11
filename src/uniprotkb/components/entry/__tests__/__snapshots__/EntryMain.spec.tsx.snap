@@ -2343,15 +2343,7 @@ exports[`Entry view should render 1`] = `
             id="48"
           />
         </div>
-        <div
-          class="loader-container"
-        >
-          <test-file-stub
-            classname="loader"
-            height="100"
-            width="100"
-          />
-        </div>
+        Variants
       </div>
     </div>
   </section>
@@ -5378,13 +5370,55 @@ exports[`Entry view should render for non-human entry 1`] = `
           </protvista-datatable>
         </protvista-manager>
         <div
-          class="loader-container"
+          class="error-component"
         >
-          <test-file-stub
-            classname="loader"
-            height="100"
-            width="100"
-          />
+          <div
+            class="message message--failure"
+            role="status"
+          >
+            <div
+              class="message__side-border"
+            />
+            <test-file-stub
+              height="1.125em"
+              width="1.125em"
+            />
+            <section
+              class="message__content"
+            >
+              <small>
+                <h5>
+                  An unexpected issue occurred
+                </h5>
+                <p>
+                  You can try to reload the page, use the rest of this page, or go back to the previous page.
+                </p>
+                <p>
+                  If the error persists, please 
+                  <a
+                    href="https://goo.gl/forms/VrAGbqg2XFg6Mpbh1"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    report this bug here
+                  </a>
+                  .
+                </p>
+                <p>
+                  If you still need it, the 
+                  <a
+                    class="external-link"
+                    href="https://legacy.uniprot.org"
+                    rel="noopener nofollow"
+                    target="_blank"
+                  >
+                    legacy version of the website is available here
+                  </a>
+                   until the 2022_02 release.
+                </p>
+              </small>
+            </section>
+          </div>
         </div>
       </div>
     </div>

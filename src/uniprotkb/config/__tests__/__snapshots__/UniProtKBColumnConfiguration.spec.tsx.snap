@@ -1329,15 +1329,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_var_seq
 
 exports[`UniProtKBColumnConfiguration component should render column "ft_variant": ft_variant 1`] = `
 <DocumentFragment>
-  <div
-    class="loader-container"
-  >
-    <test-file-stub
-      classname="loader"
-      height="100"
-      width="100"
-    />
-  </div>
+  Variants
 </DocumentFragment>
 `;
 

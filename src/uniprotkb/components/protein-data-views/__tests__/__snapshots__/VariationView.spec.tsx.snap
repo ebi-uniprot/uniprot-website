@@ -278,14 +278,16 @@ exports[`VariationView component renders on error 1`] = `
 
 exports[`VariationView component renders on loading 1`] = `
 <DocumentFragment>
-  <div
-    class="loader-container"
-  >
-    <test-file-stub
-      classname="loader"
-      height="100"
-      width="100"
-    />
+  <div>
+    <div
+      class="loader-container"
+    >
+      <test-file-stub
+        classname="loader"
+        height="100"
+        width="100"
+      />
+    </div>
   </div>
 </DocumentFragment>
 `;
