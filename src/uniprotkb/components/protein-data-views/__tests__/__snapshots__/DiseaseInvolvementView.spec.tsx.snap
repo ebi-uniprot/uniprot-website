@@ -94,5 +94,108 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
       </div>
     </li>
   </ul>
+  <h5>
+    Natural variants in AD
+  </h5>
+  <protvista-datatable
+    filter-scroll="true"
+  >
+    <table>
+      <thead>
+        <tr>
+          <th>
+            Variant ID
+          </th>
+          <th>
+            Position(s)
+          </th>
+          <th>
+            Change
+          </th>
+          <th>
+            Description
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            VAR_019255
+          </td>
+          <td>
+            23
+          </td>
+          <td
+            class="change"
+          >
+            Q&gt;P
+          </td>
+          <td>
+            in dbSNP:rs13447459
+            <button
+              aria-controls="0"
+              aria-expanded="false"
+              class="svg-colour-reviewed evidence-tag"
+              data-testid="evidence-tag-trigger"
+              type="button"
+            >
+              <test-file-stub
+                height="12"
+                width="12"
+              />
+              <span
+                class="evidence-tag__label"
+              >
+                1 publication
+              </span>
+            </button>
+            <div
+              class="evidence-tag-content "
+              data-testid="evidence-tag-content"
+              id="0"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            VAR_019256
+          </td>
+          <td>
+            99
+          </td>
+          <td
+            class="change"
+          >
+            I&gt;V
+          </td>
+          <td>
+            in dbSNP:rs13447492
+            <button
+              aria-controls="1"
+              aria-expanded="false"
+              class="svg-colour-reviewed evidence-tag"
+              data-testid="evidence-tag-trigger"
+              type="button"
+            >
+              <test-file-stub
+                height="12"
+                width="12"
+              />
+              <span
+                class="evidence-tag__label"
+              >
+                1 publication
+              </span>
+            </button>
+            <div
+              class="evidence-tag-content "
+              data-testid="evidence-tag-content"
+              id="1"
+            />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </protvista-datatable>
 </DocumentFragment>
 `;

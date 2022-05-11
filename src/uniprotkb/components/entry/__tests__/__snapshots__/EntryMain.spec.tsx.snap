@@ -2343,15 +2343,7 @@ exports[`Entry view should render 1`] = `
             id="48"
           />
         </div>
-        <div
-          class="loader-container"
-        >
-          <test-file-stub
-            classname="loader"
-            height="100"
-            width="100"
-          />
-        </div>
+        Variants
       </div>
     </div>
   </section>
@@ -5377,15 +5369,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             </table>
           </protvista-datatable>
         </protvista-manager>
-        <div
-          class="loader-container"
-        >
-          <test-file-stub
-            classname="loader"
-            height="100"
-            width="100"
-          />
-        </div>
+        {{ VariationView }} 
       </div>
     </div>
   </section>

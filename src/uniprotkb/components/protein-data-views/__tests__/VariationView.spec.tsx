@@ -6,6 +6,11 @@ import VariationView from '../VariationView';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 
 jest.mock('../../../../shared/hooks/useDataApi');
+// Mock this because this is only the visual bit and jest has issues with ES
+jest.mock('../VisualVariationView', () => ({
+  __esModule: true,
+  default: () => null,
+}));
 
 describe('VariationView component', () => {
   it('renders on loading', async () => {
