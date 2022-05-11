@@ -385,12 +385,12 @@ const LiteratureCitation: FC<
               {pubmedId && (
                 <>
                   <li>
-                    <ExternalLink noIcon url={externalUrls.PubMed(pubmedId)}>
+                    <ExternalLink url={externalUrls.PubMed(pubmedId)}>
                       PubMed
                     </ExternalLink>
                   </li>
                   <li>
-                    <ExternalLink noIcon url={externalUrls.EuropePMC(pubmedId)}>
+                    <ExternalLink url={externalUrls.EuropePMC(pubmedId)}>
                       Europe PMC
                     </ExternalLink>
                   </li>

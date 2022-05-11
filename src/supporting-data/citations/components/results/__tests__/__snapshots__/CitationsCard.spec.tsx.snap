@@ -149,6 +149,10 @@ exports[`CitationsCard tests should render the card component 1`] = `
                         target="_blank"
                       >
                         PubMed
+                        <test-file-stub
+                          data-testid="external-link-icon"
+                          width="12.5"
+                        />
                       </a>
                     </li>
                     <li>
@@ -159,6 +163,10 @@ exports[`CitationsCard tests should render the card component 1`] = `
                         target="_blank"
                       >
                         Europe PMC
+                        <test-file-stub
+                          data-testid="external-link-icon"
+                          width="12.5"
+                        />
                       </a>
                     </li>
                     <li>

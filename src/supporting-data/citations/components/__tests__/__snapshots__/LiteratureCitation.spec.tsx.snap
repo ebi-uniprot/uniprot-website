@@ -119,6 +119,10 @@ exports[`Publication component should render 1`] = `
                 target="_blank"
               >
                 PubMed
+                <test-file-stub
+                  data-testid="external-link-icon"
+                  width="12.5"
+                />
               </a>
             </li>
             <li>
@@ -129,6 +133,10 @@ exports[`Publication component should render 1`] = `
                 target="_blank"
               >
                 Europe PMC
+                <test-file-stub
+                  data-testid="external-link-icon"
+                  width="12.5"
+                />
               </a>
             </li>
             <li>
