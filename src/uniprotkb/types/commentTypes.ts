@@ -117,6 +117,7 @@ export type DiseaseType = {
 export interface DiseaseComment extends GenericComment<'DISEASE'> {
   disease?: DiseaseType;
   note?: { texts?: TextWithEvidence[] };
+  variants?: Record<string, FeatureData[0]>;
 }
 
 export enum InteractionType {
