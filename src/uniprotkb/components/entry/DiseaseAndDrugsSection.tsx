@@ -1,7 +1,8 @@
+import { lazy } from 'react';
 import { Card } from 'franklin-sites';
 
+import LazyComponent from '../../../shared/components/LazyComponent';
 import XRefView from '../protein-data-views/XRefView';
-import VariationView from '../protein-data-views/VariationView';
 import FreeTextView from '../protein-data-views/FreeTextView';
 import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import DiseaseInvolvementView from '../protein-data-views/DiseaseInvolvementView';
@@ -13,6 +14,13 @@ import EntrySection, {
 import { UIModel } from '../../adapters/sectionConverter';
 
 import { DiseaseComment, FreeTextComment } from '../../types/commentTypes';
+
+const VariationView = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "variation-view" */ '../protein-data-views/VariationView'
+    )
+);
 
 type Props = {
   data: UIModel;
@@ -82,7 +90,9 @@ const DiseaseAndDrugsSection = ({
         features={data.featuresData}
         sequence={sequence}
       />
-      <VariationView primaryAccession={primaryAccession} title="Variants" />
+      <LazyComponent fallback="Variants" rootMargin="50px">
+        <VariationView primaryAccession={primaryAccession} title="Variants" />
+      </LazyComponent>
       <KeywordView keywords={data.keywordData} />
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
     </Card>

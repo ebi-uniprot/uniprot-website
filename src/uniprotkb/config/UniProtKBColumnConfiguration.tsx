@@ -1,4 +1,6 @@
 /* eslint-disable camelcase */
+import { lazy } from 'react';
+import { Link } from 'react-router-dom';
 import {
   ExpandableList,
   LongNumber,
@@ -6,9 +8,9 @@ import {
   Sequence,
   SequenceTools,
 } from 'franklin-sites';
-import { Link } from 'react-router-dom';
 import { omit } from 'lodash-es';
 
+import LazyComponent from '../../shared/components/LazyComponent';
 import ExternalLink from '../../shared/components/ExternalLink';
 import SimpleView from '../../shared/components/views/SimpleView';
 import { ECNumbersView } from '../components/protein-data-views/ProteinNamesView';
@@ -73,7 +75,6 @@ import CatalyticActivityView, {
   getRheaId,
   isRheaReactionReference,
 } from '../components/protein-data-views/CatalyticActivityView';
-import VariationView from '../components/protein-data-views/VariationView';
 import {
   structureFeaturesToColumns,
   StructureUIModel,
@@ -112,6 +113,13 @@ import { Interactant } from '../adapters/interactionConverter';
 import { ValueWithEvidence } from '../types/modelTypes';
 
 import helper from '../../shared/styles/helper.module.scss';
+
+const VariationView = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "variation-view" */ '../components/protein-data-views/VariationView'
+    )
+);
 
 export const defaultColumns = [
   UniProtKBColumn.accession,
@@ -470,7 +478,9 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ftVariant, {
     'variant'
   ),
   render: (data) => (
-    <VariationView primaryAccession={data.primaryAccession} onlyTable />
+    <LazyComponent fallback="Variants">
+      <VariationView primaryAccession={data.primaryAccession} onlyTable />
+    </LazyComponent>
   ),
 });
 
