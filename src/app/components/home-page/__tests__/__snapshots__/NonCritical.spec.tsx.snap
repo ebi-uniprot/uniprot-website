@@ -52,9 +52,9 @@ exports[`non-critical HomePage component should render 1`] = `
             rel="noopener nofollow"
             target="_blank"
           >
-            legacy version of the website is still available here
+            legacy version of the website
           </a>
-           until the 2022_02 release.
+           is available until the 2022_02 release.
         </small>
       </section>
     </div>
