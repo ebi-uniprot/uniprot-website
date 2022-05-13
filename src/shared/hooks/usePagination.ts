@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { AxiosError } from 'axios';
 
 import usePrefetch from './usePrefetch';
 import useDataApi from './useDataApi';
@@ -16,6 +17,8 @@ export type PaginatedResults = {
   handleLoadMoreRows: () => void;
   total?: number;
   failedIds?: string[];
+  error?: AxiosError<{ messages?: string[] }>;
+  status?: number | undefined;
 };
 
 const usePagination = <T extends APIModel, R extends APIModel>(
@@ -37,7 +40,7 @@ const usePagination = <T extends APIModel, R extends APIModel>(
     setUrl(initialApiUrl);
   }, [initialApiUrl]);
 
-  const { data, loading, progress, headers } = useDataApi<
+  const { data, loading, progress, headers, error, status } = useDataApi<
     SearchResults<APIModel> & {
       failedIds?: string[];
     }
@@ -73,6 +76,8 @@ const usePagination = <T extends APIModel, R extends APIModel>(
     handleLoadMoreRows,
     total,
     failedIds: data?.failedIds,
+    error,
+    status,
   };
 };
 
