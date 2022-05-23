@@ -24,7 +24,7 @@ import { FreeTextComment, TextWithEvidence } from '../../types/commentTypes';
 
 import helper from '../../../shared/styles/helper.module.scss';
 
-const needsNewLineRE = /^\).\s+/;
+const needsNewLineRE = /^\)\.\s+/;
 
 const getEntryPathForCitation = getEntryPathFor(Namespace.citations);
 
