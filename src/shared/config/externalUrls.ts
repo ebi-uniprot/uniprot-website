@@ -59,10 +59,9 @@ export const getIntActQueryUrl = (
   firstInteractor: string,
   secondInteractor: string
 ) =>
-  joinUrl(
+  `${joinUrl(
     IntActBase,
-    'query',
-    `(id:${firstInteractor} AND id:${secondInteractor})`
-  );
+    'search'
+  )}?query=(id:${firstInteractor} AND id:${secondInteractor})`;
 
 export default externalUrls;

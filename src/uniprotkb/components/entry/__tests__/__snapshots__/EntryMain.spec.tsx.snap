@@ -2580,7 +2580,7 @@ exports[`Entry view should render 1`] = `
                 <td>
                   <a
                     class="external-link"
-                    href="//www.ebi.ac.uk/intact/query/(id:EBI-00011 AND id:EBI-00012)"
+                    href="//www.ebi.ac.uk/intact/search?query=(id:EBI-00011 AND id:EBI-00012)"
                     rel="noopener"
                     target="_blank"
                   >
@@ -2622,7 +2622,7 @@ exports[`Entry view should render 1`] = `
                 <td>
                   <a
                     class="external-link"
-                    href="//www.ebi.ac.uk/intact/query/(id:EBI-0001 AND id:EBI-0002)"
+                    href="//www.ebi.ac.uk/intact/search?query=(id:EBI-0001 AND id:EBI-0002)"
                     rel="noopener"
                     target="_blank"
                   >
