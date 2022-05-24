@@ -18,7 +18,7 @@ const insideUniProtAbstract2 =
   'We would like to invite the machine learning community to help UniProt by creating computational methods to predict metal binding sites across the whole of UniProtKB.';
 
 const proteinSpotlightAbstract =
-  'When something gets uncomfortably close to you - in whichever way it may be - you will seek to fend it off. By walking away, choosing to ignore it, using physical force or, if it is a person, perhaps verbal abuse. In the same vein, across all kingdoms, organisms have developed a multi-faceted system to fight off the more invisible world of microbial infection: the immune response.';
+  "The moment life emerged on earth, the fight - or indeed the right - to multiply began. The notion of battle is particularly true for microbes such as bacteria, fungi and viruses, that may frequently depend on hosts to replicate. Over the aeons, the art of infection and its twin image immunity have both had plenty of time to devise intricate strategies, either to attack the enemy or to fend it off, respectively. If on the offensive, one way of diminishing an opponent's strength would be to confiscate an element of their protective gear. Let's say a soldier's helmet, or their walkie-talkie, or their bullet-proof jacket, or their gun. This is precisely one of the schemes pathogens have thought up to weaken their host's immune response - and there are many different ways of achieving it. As an illustration, the rice pathogen Magnaporthe oryzae is a filamentous fungus that secretes proteins, known as effectors, into the plant cell, whose role is to weaken the plant's immune response one way or another. Recently, researchers characterized two M.oryzae effectors that go straight into the nucleus of host rice cells. What do they do there? Tamper with the expression of genes involved in the plant's immune response. Their name: HTR1 and HTR2, for Host Transcription Reprogramming 1 and 2.";
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -235,21 +235,21 @@ const LatestNews = () => {
       >
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/246/"
+            url="https://www.proteinspotlight.org/back_issues/247/"
             noIcon
           >
-            Luck of the draw
+            Sapped
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/246/"
+          url="https://www.proteinspotlight.org/back_issues/247/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt246.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt247.jpg"
             alt=""
             width="125.46"
             height="86.65"
