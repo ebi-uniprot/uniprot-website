@@ -59,13 +59,17 @@ export const getIntActQueryForAccessionUrl = (accession: string) =>
   joinUrl(
     IntActBase,
     'query',
-    `(  idA:${accession} AND idB:${accession}  ) OR (  idA:${accession} AND idB:-  ) OR (  idA:- AND idB:${accession}  )`
+    `(idA:${accession} AND idB:${accession}) OR (idA:${accession} AND idB:-) OR (idA:- AND idB:${accession})`
   );
 
 export const getIntActQueryUrl = (
   firstInteractor: string,
   secondInteractor: string
 ) =>
-  joinUrl(IntActBase, 'query', `(${firstInteractor} AND ${secondInteractor})`);
+  joinUrl(
+    IntActBase,
+    'query',
+    `(id:${firstInteractor} AND id:${secondInteractor})`
+  );
 
 export default externalUrls;
