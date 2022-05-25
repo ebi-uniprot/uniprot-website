@@ -57,11 +57,14 @@ const externalUrls: Record<string, (id: string | number) => string> = {
 
 export const getIntActQueryUrl = (
   firstInteractor: string,
-  secondInteractor: string
-) =>
-  `${joinUrl(
-    IntActBase,
-    'search'
-  )}?query=(id:${firstInteractor} AND id:${secondInteractor})`;
+  secondInteractor: string,
+  accession?: string
+) => {
+  const base = joinUrl(IntActBase, 'search');
+  if (accession && firstInteractor === secondInteractor) {
+    return `${base}?query=(idA:${accession} AND idB:${accession}) OR (idA:${accession} AND idB:"-") OR (idA:"-" AND idB:${accession})`;
+  }
+  return `${base}?query=(id:${firstInteractor} AND id:${secondInteractor})`;
+};
 
 export default externalUrls;
