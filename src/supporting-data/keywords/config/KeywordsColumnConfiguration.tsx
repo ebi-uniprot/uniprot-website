@@ -10,6 +10,8 @@ import { mapToLinks } from '../../../shared/components/MapTo';
 import { KeywordsAPIModel } from '../adapters/keywordsConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 import { Namespace } from '../../../shared/types/namespaces';
+import { find } from 'lodash';
+import KeywordsGraph from '../components/results/KeywordsGraph';
 
 export enum KeywordsColumn {
   category = 'category',
@@ -24,6 +26,7 @@ export enum KeywordsColumn {
   links = 'links',
   statistics = 'statistics',
   synonyms = 'synonyms',
+  graphical = 'graph',
 }
 
 export const defaultColumns = [
@@ -150,6 +153,42 @@ KeywordsColumnConfiguration.set(KeywordsColumn.statistics, {
       )}
     </ExpandableList>
   ),
+});
+
+KeywordsColumnConfiguration.set(KeywordsColumn.graphical, {
+  label: 'Graphical',
+  render: ({ keyword, parents, children }) => {
+    // expected data structure
+    // [
+    //   ['parent', 'child']
+    // ]
+    //
+    // const data = [ ["parent", "child"] ];
+    // const create = connect();
+    // const dag = create(data);
+
+    const data = [];
+
+    const constructData = (key, children, keepOrder = true) => {
+      children.forEach((child) => {
+        if (keepOrder) data.push([key, child.keyword.name]);
+        else data.push([child.keyword.name, key]);
+
+        if (child.children?.length) {
+          constructData(child.keyword.name, child.children, keepOrder);
+        }
+      });
+    };
+
+    if (children?.length) {
+      constructData(keyword?.name, children, false);
+    }
+    if (parents?.length) {
+      constructData(keyword?.name, parents);
+    }
+
+    return <KeywordsGraph data={data} />;
+  },
 });
 
 export default KeywordsColumnConfiguration;

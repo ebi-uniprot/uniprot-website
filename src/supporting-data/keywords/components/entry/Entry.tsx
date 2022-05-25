@@ -35,6 +35,7 @@ const columns = [
   KeywordsColumn.parents,
   KeywordsColumn.children,
   KeywordsColumn.links,
+  KeywordsColumn.graphical,
 ];
 
 const reNumber = /^\d+$/;
