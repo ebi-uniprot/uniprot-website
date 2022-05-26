@@ -25,6 +25,8 @@ import {
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
+import AccessionView from '../../../shared/components/results/AccessionView';
+import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 
 const Entry = () => {
   const match = useRouteMatch<{ accession: string }>(
@@ -69,6 +71,19 @@ const Entry = () => {
         {' · '}
         <TaxonomyView data={mainData.data.taxonomy} noLink />
       </h1>
+      {transformedData.proteomeType === 'Redundant proteome' &&
+      transformedData.redundantTo ? (
+        <div>
+          <EntryTypeIcon entryType={transformedData.proteomeType} />
+          This proteome is redundant
+          <span data-article-id={'proteome_redundancy'} /> to{' '}
+          <AccessionView
+            id={transformedData.redundantTo}
+            namespace={Namespace.proteomes}
+          />
+          .
+        </div>
+      ) : null}
       <div className="button-group">
         <EntryDownload />
       </div>
