@@ -123,7 +123,11 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
         <div className="button-group">
           <EntryDownload />
           <MapToDropdown statistics={proteinStatistics} />
-          <MapToDropdown statistics={proteomeStatistics}>
+          <MapToDropdown
+            statistics={proteomeStatistics}
+            // NOTE: inconsistent field search compared with the protein searches
+            fieldNameOverride="organism_id"
+          >
             View proteomes
           </MapToDropdown>
         </div>
