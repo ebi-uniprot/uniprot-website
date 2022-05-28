@@ -54,7 +54,7 @@ exports[`non-critical HomePage component should render 1`] = `
           >
             legacy version of the website
           </a>
-           is available until the 2022_02 release.
+           is available until the 2022_03 release.
         </small>
       </section>
     </div>
@@ -413,6 +413,24 @@ exports[`non-critical HomePage component should render 1`] = `
               class="latest-news__abstract latest-news__abstract--2-lines"
             >
               Planned changes for UniProt
+            </p>
+          </article>
+        </li>
+        <li>
+          <article>
+            <h3
+              class="tiny"
+            >
+              <a
+                href="/release-notes/2022-05-25-release"
+              >
+                UniProt release 2022_02
+              </a>
+            </h3>
+            <p
+              class="latest-news__abstract latest-news__abstract--2-lines"
+            >
+              Prenylation for antiviral activity | Cross-references to AlphaFoldDB | Version numbers for identifiers in Ensembl cross-references in Uni...
             </p>
           </article>
         </li>
