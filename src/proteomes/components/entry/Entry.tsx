@@ -76,7 +76,7 @@ const Entry = () => {
         <div>
           <EntryTypeIcon entryType={transformedData.proteomeType} />
           This proteome is redundant
-          <span data-article-id={'proteome_redundancy'} /> to{' '}
+          <span data-article-id="proteome_redundancy" /> to&nbsp;
           <AccessionView
             id={transformedData.redundantTo}
             namespace={Namespace.proteomes}
