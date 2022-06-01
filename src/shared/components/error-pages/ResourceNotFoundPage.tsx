@@ -95,7 +95,7 @@ const ResourceNotFoundPage = () => {
     return (
       <>
         <HTMLHead>
-          <meta httpEquiv="refresh" content={`1; URL=${newURL}`} />
+          <meta httpEquiv="refresh" content={`0; URL=${newURL}`} />
         </HTMLHead>
         <Redirect to={newLocation} />
       </>
