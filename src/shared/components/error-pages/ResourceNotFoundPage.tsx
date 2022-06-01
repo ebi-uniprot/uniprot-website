@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Redirect, useLocation } from 'react-router-dom';
+import { createPath } from 'history';
 import { Message } from 'franklin-sites';
 
 import HTMLHead from '../HTMLHead';
@@ -89,7 +90,16 @@ const ResourceNotFoundPage = () => {
     if (location.state && typeof location.state === 'object') {
       state = { ...location.state, ...state };
     }
-    return <Redirect to={{ ...location, pathname: newPathname, state }} />;
+    const newLocation = { ...location, pathname: newPathname, state };
+    const newURL = document.location.origin + createPath(newLocation);
+    return (
+      <>
+        <HTMLHead>
+          <meta httpEquiv="refresh" content={`1; URL=${newURL}`} />
+        </HTMLHead>
+        <Redirect to={newLocation} />
+      </>
+    );
   }
 
   return (
