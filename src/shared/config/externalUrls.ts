@@ -62,9 +62,9 @@ export const getIntActQueryUrl = (
 ) => {
   const base = joinUrl(IntActBase, 'search');
   if (accession && firstInteractor === secondInteractor) {
-    return `${base}?query=(idA:${accession} AND idB:${accession}) OR (idA:${accession} AND idB:"-") OR (idA:"-" AND idB:${accession})`;
+    return `${base}?query=(idA:${accession} AND idB:${accession}) OR (idA:${accession} AND idB:"-") OR (idA:"-" AND idB:${accession})#interactor`;
   }
-  return `${base}?query=(id:${firstInteractor} AND id:${secondInteractor})`;
+  return `${base}?query=(id:${firstInteractor} AND id:${secondInteractor})#interactor`;
 };
 
 export default externalUrls;
