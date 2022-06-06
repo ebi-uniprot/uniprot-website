@@ -76,7 +76,7 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
       },
       {
         title: 'Strain',
-        content: data.strain && <span>{data.strain}</span>,
+        content: data.strain,
       },
       {
         title: (

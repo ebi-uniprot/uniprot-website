@@ -7,6 +7,7 @@ import ErrorBoundary from '../../../shared/components/error-component/ErrorBound
 import lazy from '../../../shared/utils/lazy';
 
 import { createSelectedQueryString } from '../../../shared/config/apiUrls';
+import { fileFormatsResultsDownloadForRedundant } from '../../config/download';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
@@ -15,7 +16,6 @@ import {
   ProteomesAPIModel,
 } from '../../adapters/proteomesConverter';
 import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
-import { fileFormatsResultsDownloadForRedundant } from '../../config/download';
 
 const DownloadComponent = lazy(
   () =>

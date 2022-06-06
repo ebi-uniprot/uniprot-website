@@ -8,6 +8,8 @@ import HTMLHead from '../../../shared/components/HTMLHead';
 import EntryDownload from '../../../shared/components/entry/EntryDownload';
 import SingleColumnLayout from '../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
+import AccessionView from '../../../shared/components/results/AccessionView';
+import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 
 import apiUrls from '../../../shared/config/apiUrls';
 
@@ -25,8 +27,6 @@ import {
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
-import AccessionView from '../../../shared/components/results/AccessionView';
-import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 
 const Entry = () => {
   const match = useRouteMatch<{ accession: string }>(
@@ -75,8 +75,8 @@ const Entry = () => {
       transformedData.redundantTo ? (
         <div>
           <EntryTypeIcon entryType={transformedData.proteomeType} />
-          This proteome is redundant
-          <span data-article-id="proteome_redundancy" /> to&nbsp;
+          This proteome is{' '}
+          <span data-article-id="proteome_redundancy">redundant</span> to&nbsp;
           <AccessionView
             id={transformedData.redundantTo}
             namespace={Namespace.proteomes}
