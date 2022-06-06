@@ -39,6 +39,7 @@ type DownloadProps = {
   onClose: () => void;
   accessions?: string[];
   base?: string;
+  supportedFormats?: FileFormat[];
 };
 
 type ExtraContent = 'url' | 'preview';
@@ -53,11 +54,13 @@ const Download: FC<DownloadProps> = ({
   namespace,
   accessions,
   base,
+  supportedFormats,
 }) => {
   const { columnNames } = useColumnNames();
   const { search: queryParamFromUrl } = useLocation();
 
-  const fileFormats = nsToFileFormatsResultsDownload[namespace];
+  const fileFormats =
+    supportedFormats || nsToFileFormatsResultsDownload[namespace];
 
   const [selectedColumns, setSelectedColumns] = useState<Column[]>(columnNames);
   // Defaults to "download all" if no selection

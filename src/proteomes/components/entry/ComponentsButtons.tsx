@@ -7,6 +7,7 @@ import ErrorBoundary from '../../../shared/components/error-component/ErrorBound
 import lazy from '../../../shared/utils/lazy';
 
 import { createSelectedQueryString } from '../../../shared/config/apiUrls';
+import { fileFormatsResultsDownloadForRedundant } from '../../config/download';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
@@ -24,10 +25,13 @@ const DownloadComponent = lazy(
 );
 
 const ComponentsButtons: FC<
-  Pick<ProteomesAPIModel, 'id' | 'components' | 'proteinCount'> & {
+  Pick<
+    ProteomesAPIModel,
+    'id' | 'components' | 'proteinCount' | 'proteomeType'
+  > & {
     selectedEntries: string[];
   }
-> = ({ id, components, selectedEntries, proteinCount }) => {
+> = ({ id, components, selectedEntries, proteinCount, proteomeType }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
   const allQuery = `(${UniProtKBColumn.proteome}:${id})`;
@@ -80,6 +84,11 @@ const ComponentsButtons: FC<
                 totalNumberResults={proteinCount}
                 onClose={() => setDisplayDownloadPanel(false)}
                 namespace={Namespace.uniprotkb}
+                supportedFormats={
+                  proteomeType === 'Redundant proteome'
+                    ? fileFormatsResultsDownloadForRedundant
+                    : undefined
+                }
               />
             </ErrorBoundary>
           </SlidingPanel>

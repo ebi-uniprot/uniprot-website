@@ -29,6 +29,7 @@ const columns = [
   DiseasesColumn.definition,
   DiseasesColumn.acronym,
   DiseasesColumn.alternativeNames,
+  DiseasesColumn.keywords,
   DiseasesColumn.crossReferences,
 ];
 
