@@ -166,8 +166,13 @@ ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
     if (!proteinCount) {
       return 0;
     }
-    const shouldPointToUniParc =
-      proteomeType === 'Excluded' || proteomeType === 'Redundant proteome';
+    // Excluded not supported at the moment, need to wait for TRM-28011
+    if (proteomeType === 'Excluded') {
+      return <LongNumber>{proteinCount}</LongNumber>;
+    }
+    // const shouldPointToUniParc =
+    //   proteomeType === 'Excluded' || proteomeType === 'Redundant proteome';
+    const shouldPointToUniParc = proteomeType === 'Redundant proteome';
     return (
       <Link
         to={{
