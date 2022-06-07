@@ -96,6 +96,29 @@ const LatestNews = () => {
               <h3 className="tiny">
                 <Link
                   to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                    accession: '2022-05-25-release',
+                  })}
+                >
+                  UniProt release 2022_02
+                </Link>
+              </h3>
+              <p
+                className={cn(
+                  styles['latest-news__abstract'],
+                  styles['latest-news__abstract--2-lines']
+                )}
+              >
+                Prenylation for antiviral activity | Cross-references to
+                AlphaFoldDB | Version numbers for identifiers in Ensembl
+                cross-references in Uni...
+              </p>
+            </article>
+          </li>
+          <li>
+            <article>
+              <h3 className="tiny">
+                <Link
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
                     accession: '2022-02-23-release',
                   })}
                 >

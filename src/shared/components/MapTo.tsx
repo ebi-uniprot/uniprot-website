@@ -148,7 +148,7 @@ const namespaceToUniProtKBFieldMap = new Map([
   [Namespace.diseases, 'cc_disease'],
   [Namespace.keywords, 'keyword'],
   [Namespace.locations, 'cc_scl_term'],
-  // NOTE: to get high-level nodes, currently only `tax_id` works...
+  // NOTE: to get high-level nodes, currently only `taxonomy_id` works
   [Namespace.taxonomy, 'taxonomy_id'],
   // Annotations
   [Namespace.unirule, 'source'],
@@ -205,18 +205,22 @@ const enrichStatistics = (
 type Props = {
   statistics: Partial<Statistics> | undefined;
   accession?: string;
+  fieldNameOverride?: string;
 };
 
 export const MapToDropdown: FC<Props> = ({
   statistics,
   accession,
   children = 'View proteins',
+  fieldNameOverride,
 }) => {
   const match = useRouteMatch<{ namespace: Namespace; accession: string }>(
     allSupportingDataAndAAEntryLocations
   );
   const { namespace, accession: accessionFromPath } = match?.params || {};
-  const fieldName = namespace && namespaceToUniProtKBFieldMap.get(namespace);
+  const fieldName =
+    fieldNameOverride ||
+    (namespace && namespaceToUniProtKBFieldMap.get(namespace));
 
   if (!(statistics && namespace && accessionFromPath && fieldName)) {
     return null;

@@ -224,7 +224,8 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
                       <ExternalLink
                         url={getIntActQueryUrl(
                           interaction.interactantOne.intActId,
-                          interaction.interactantTwo.intActId
+                          interaction.interactantTwo.intActId,
+                          interaction.interactantOne.uniProtKBAccession
                         )}
                       >
                         {interaction.interactantOne.intActId},{' '}

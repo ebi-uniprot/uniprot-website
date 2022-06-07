@@ -247,7 +247,7 @@ const Landing = () => {
         <ExternalLink url="https://legacy.uniprot.org" rel="nofollow" noIcon>
           legacy version of the website
         </ExternalLink>{' '}
-        is available until the 2022_02 release.
+        is available until the 2022_03 release.
       </Message>
       <ul className="no-bullet">
         <h2 className="medium">Start here</h2>

@@ -47,7 +47,7 @@ exports[`ErrorComponent should render 1`] = `
             >
               legacy version of the website
             </a>
-             is available until the 2022_02 release.
+             is available until the 2022_03 release.
           </p>
         </small>
       </section>
