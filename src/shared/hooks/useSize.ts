@@ -2,6 +2,8 @@ import { MutableRefObject, useCallback, useEffect, useState } from 'react';
 
 type ContainerElement = HTMLElement | SVGElement | SVGSVGElement;
 
+// NOTE: we might want to use ResizeObserver in the future
+
 /**
  * given a reference to an actual HTML element, gives us access to its size
  * even through resizes and zoom
