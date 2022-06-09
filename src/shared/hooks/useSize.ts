@@ -35,7 +35,7 @@ function useSize<E extends ContainerElement = ContainerElement>(
 
   useEffect(() => {
     onResize(); // first time
-    window.addEventListener('resize', onResize);
+    window.addEventListener('resize', onResize, { passive: true });
     // eslint-disable-next-line consistent-return
     return () => window.removeEventListener('resize', onResize);
   }, [ref, onResize]);
