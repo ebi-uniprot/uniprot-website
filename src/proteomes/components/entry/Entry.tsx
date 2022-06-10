@@ -5,7 +5,7 @@ import EntryMain from './EntryMain';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
-import EntryDownload from '../../../shared/components/entry/EntryDownload';
+// import EntryDownload from '../../../shared/components/entry/EntryDownload';
 import SingleColumnLayout from '../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import AccessionView from '../../../shared/components/results/AccessionView';
@@ -84,9 +84,10 @@ const Entry = () => {
           .
         </div>
       ) : null}
-      <div className="button-group">
+      {/* Commented out for now */}
+      {/* <div className="button-group">
         <EntryDownload />
-      </div>
+      </div> */}
       <EntryMain transformedData={transformedData} />
     </SingleColumnLayout>
   );
