@@ -238,18 +238,16 @@ export const MapToDropdown: FC<Props> = ({
 
   return (
     <Dropdown visibleElement={<Button variant="tertiary">{children}</Button>}>
-      <div className="dropdown-menu__content">
-        <ul>
-          {enrichedStatistics.map(({ key, count, label, to }) => (
-            <li key={key}>
-              {/* eslint-disable-next-line uniprot-website/use-config-location */}
-              <Link to={to}>
-                {label} (<LongNumber>{count}</LongNumber>)
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <ul>
+        {enrichedStatistics.map(({ key, count, label, to }) => (
+          <li key={key}>
+            {/* eslint-disable-next-line uniprot-website/use-config-location */}
+            <Link to={to}>
+              {label} (<LongNumber>{count}</LongNumber>)
+            </Link>
+          </li>
+        ))}
+      </ul>
     </Dropdown>
   );
 };

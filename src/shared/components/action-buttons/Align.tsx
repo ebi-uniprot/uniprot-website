@@ -1,17 +1,29 @@
+import { Button, Dropdown } from 'franklin-sites';
+
 import ToolsButton from './ToolsButton';
 
 import { fromCleanMapper } from '../../utils/getIdKeyForNamespace';
+import { pluralise } from '../../utils/utils';
 
 import { Location } from '../../../app/config/urls';
+import { JobTypes } from '../../../tools/types/toolsJobTypes';
+import { PublicServerParameters } from '../../../tools/types/toolsServerParameters';
+
+import styles from './styles/align.module.css';
 
 const ALIGN_LIMIT = 100;
 
 type AlignButtonProps = {
   selectedEntries: string[];
   textSuffix?: string;
+  inputParamsData?: PublicServerParameters[JobTypes];
 };
 
-const AlignButton = ({ selectedEntries, textSuffix }: AlignButtonProps) => {
+const AlignButton = ({
+  selectedEntries,
+  textSuffix,
+  inputParamsData,
+}: AlignButtonProps) => {
   const cleanedSelectedEntries = Array.from(
     new Set(selectedEntries.map(fromCleanMapper))
   );
@@ -27,6 +39,54 @@ const AlignButton = ({ selectedEntries, textSuffix }: AlignButtonProps) => {
     } else {
       title = `Run an Align job against ${n} entries`;
     }
+  }
+
+  const sequence =
+    inputParamsData &&
+    'sequence' in inputParamsData &&
+    inputParamsData.sequence;
+  if (sequence) {
+    console.log(sequence);
+  }
+
+  if (sequence) {
+    return (
+      <Dropdown
+        visibleElement={
+          <Button
+            disabled={cleanedSelectedEntries.length === 0}
+            variant="tertiary"
+          >
+            Align
+          </Button>
+        }
+        className={styles.align}
+      >
+        <ul>
+          <li>
+            <ToolsButton
+              selectedEntries={cleanedSelectedEntries}
+              disabled={disabled}
+              title={title}
+              location={Location.Align}
+            >
+              Align query and selected{' '}
+              {pluralise('result', cleanedSelectedEntries.length)}
+            </ToolsButton>
+          </li>
+          <li>
+            <ToolsButton
+              selectedEntries={cleanedSelectedEntries}
+              disabled={disabled}
+              title={title}
+              location={Location.Align}
+            >
+              Align selected results
+            </ToolsButton>
+          </li>
+        </ul>
+      </Dropdown>
+    );
   }
 
   return (
