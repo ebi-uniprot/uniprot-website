@@ -1,0 +1,28 @@
+.graph {
+  position: relative;
+  width: 500px;
+  height: calc(50vh - 100px);
+}
+
+.container {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: calc(50vh - 100px);
+  position: absolute;
+}
+
+.keyword-node {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  text-align: center;
+  flex-wrap: wrap;
+}
+
+.arrows {
+  position: absolute;
+  z-index: 5;
+}

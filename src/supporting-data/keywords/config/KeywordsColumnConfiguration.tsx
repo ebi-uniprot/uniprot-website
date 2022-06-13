@@ -2,16 +2,17 @@ import { Link } from 'react-router-dom';
 import { ExpandableList } from 'franklin-sites';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
+import KeywordsGraph from '../components/entry/KeywordsGraph';
 
 import { getEntryPathFor } from '../../../app/config/urls';
 import externalUrls from '../../../shared/config/externalUrls';
 import { mapToLinks } from '../../../shared/components/MapTo';
 
-import { KeywordsAPIModel } from '../adapters/keywordsConverter';
+import { KeywordsAPIModel, KeywordsLite } from '../adapters/keywordsConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 import { Namespace } from '../../../shared/types/namespaces';
-import { find } from 'lodash';
-import KeywordsGraph from '../components/results/KeywordsGraph';
+
+const CUTOFF = 10;
 
 export enum KeywordsColumn {
   category = 'category',
@@ -158,36 +159,83 @@ KeywordsColumnConfiguration.set(KeywordsColumn.statistics, {
 KeywordsColumnConfiguration.set(KeywordsColumn.graphical, {
   label: 'Graphical',
   render: ({ keyword, parents, children }) => {
-    // expected data structure
-    // [
-    //   ['parent', 'child']
-    // ]
-    //
-    // const data = [ ["parent", "child"] ];
-    // const create = connect();
-    // const dag = create(data);
+    // If the number of nodes are more than the cutoff, no graph is drawn
+    if (
+      (children && children?.length > CUTOFF) ||
+      (parents && parents?.length > CUTOFF)
+    ) {
+      return null;
+    }
 
-    const data = [];
+    type tlevels = {
+      [key: number]: string[];
+    };
 
-    const constructData = (key, children, keepOrder = true) => {
-      children.forEach((child) => {
-        if (keepOrder) data.push([key, child.keyword.name]);
-        else data.push([child.keyword.name, key]);
+    const levels: tlevels = {};
+    const links: string[] = [];
+    const keywordIdMap: Map<string, string> = new Map();
+    const ancestorHierarchy: string[] = [];
 
-        if (child.children?.length) {
-          constructData(child.keyword.name, child.children, keepOrder);
+    // Ancestors
+    const findHierarchy = (obj: KeywordsLite, hierarchyString: string = '') => {
+      keywordIdMap.set(obj.keyword.name, obj.keyword.id);
+      hierarchyString += `${obj.keyword?.name}|`;
+      obj.children?.forEach((el) => {
+        if (el.children?.length) {
+          findHierarchy(el, hierarchyString);
+        } else {
+          keywordIdMap.set(el.keyword.name, el.keyword.id);
+          hierarchyString += `${el.keyword.name}`;
         }
       });
+      if (!ancestorHierarchy.some((str) => str.includes(hierarchyString)))
+        ancestorHierarchy.push(hierarchyString);
     };
 
     if (children?.length) {
-      constructData(keyword?.name, children, false);
-    }
-    if (parents?.length) {
-      constructData(keyword?.name, parents);
+      keywordIdMap.set(keyword?.name, keyword?.id);
+      children.forEach((child) => {
+        findHierarchy(child);
+      });
     }
 
-    return <KeywordsGraph data={data} />;
+    ancestorHierarchy.forEach((h) => {
+      const nodes = h.split('|').reverse().filter(Boolean);
+      // Finding the levels of each node
+      for (let i = 0; i < nodes.length; i++) {
+        if (levels[i]) {
+          if (!levels[i].includes(nodes[i])) levels[i].push(nodes[i]);
+        } else {
+          levels[i] = [nodes[i]];
+        }
+      }
+
+      // Populating the links
+      const fullHierarchy = `${keyword?.name}|${h}`;
+      const ptcHierarchy = fullHierarchy.split('|').reverse().filter(Boolean);
+      for (let i = 0; i < ptcHierarchy.length - 1; i++) {
+        const link = `${ptcHierarchy[i]}|${ptcHierarchy[i + 1]}`;
+        if (!links.includes(link)) links.push(link);
+      }
+    });
+
+    // Adding the keyword into the levels after the ancestors
+    const presentAncestorsCount = Object.keys(levels).length;
+    levels[presentAncestorsCount] = [keyword?.name];
+
+    // Descendants
+    if (parents?.length) {
+      levels[presentAncestorsCount + 1] = [];
+      parents.forEach((desc) => {
+        levels[presentAncestorsCount + 1].push(desc.keyword.name);
+        links.push(`${keyword?.name}|${desc.keyword.name}`);
+        keywordIdMap.set(desc.keyword.name, desc.keyword.id);
+      });
+    }
+
+    return (
+      <KeywordsGraph nodes={levels} links={links} keywords={keywordIdMap} />
+    );
   },
 });
 
