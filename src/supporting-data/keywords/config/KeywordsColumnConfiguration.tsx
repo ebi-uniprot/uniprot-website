@@ -240,7 +240,12 @@ KeywordsColumnConfiguration.set(KeywordsColumn.graphical, {
     }
 
     return (
-      <KeywordsGraph nodes={levels} links={links} keywords={keywordIdMap} />
+      <KeywordsGraph
+        nodes={levels}
+        links={links}
+        keywords={keywordIdMap}
+        key={keyword?.id}
+      />
     );
   },
 });
