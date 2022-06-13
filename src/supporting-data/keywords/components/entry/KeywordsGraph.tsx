@@ -10,8 +10,8 @@ import { Namespace } from '../../../../shared/types/namespaces';
 
 import styles from './styles/keywords-graph.module.scss';
 
-const ARROW_WIDTH = 5;
-const ARROW_HEIGHT = 3;
+const ARROW_WIDTH = 6;
+const ARROW_HEIGHT = 5;
 const getEntryPath = getEntryPathFor(Namespace.keywords);
 
 const renderGraph = (
@@ -29,7 +29,7 @@ const renderGraph = (
   const nodeDetails: Record<string, HTMLSpanElement> = {};
   nodeElements?.forEach((el) => {
     const key = el.textContent;
-    nodeDetails[`keyword ${key}`] = el;
+    nodeDetails[`keyword-${key}`] = el;
   });
 
   const svg = select(svgElement).attr('width', width).attr('height', height);
@@ -42,17 +42,17 @@ const renderGraph = (
     .attr('id', 'arrow')
     .attr('markerWidth', ARROW_WIDTH)
     .attr('markerHeight', ARROW_HEIGHT)
-    .attr('refX', 0)
-    .attr('refY', 1.5)
+    .attr('refX', ARROW_HEIGHT)
+    .attr('refY', ARROW_HEIGHT / 2)
     .attr('orient', 'auto')
     .append('path')
-    .attr('d', 'M0,0 L3,1.5 L0,3 z')
+    .attr('d', `M0,0 L${ARROW_WIDTH},${ARROW_HEIGHT / 2} L0,${ARROW_HEIGHT} z`)
     .attr('fill', '#000');
 
   for (let i = 0; i < links.length; i += 1) {
     const [source, target] = links[i].split('|');
-    const sourceEl = nodeDetails[`keyword ${source}`].getBoundingClientRect();
-    const targetEl = nodeDetails[`keyword ${target}`].getBoundingClientRect();
+    const sourceEl = nodeDetails[`keyword-${source}`].getBoundingClientRect();
+    const targetEl = nodeDetails[`keyword-${target}`].getBoundingClientRect();
     const x1 = sourceEl.x + sourceEl.width / 2 - xPosition;
     const y1 = sourceEl.y + sourceEl.height - yPosition;
     const x2 = targetEl.x + targetEl.width / 2 - xPosition;
@@ -66,6 +66,7 @@ const renderGraph = (
       .attr('stroke', '#000')
       .attr('stroke-width', 1.5)
       .attr('marker-end', 'url(#arrow)');
+    svg.append('path').attr('d');
   }
 };
 
@@ -103,7 +104,7 @@ const KeywordsGraph = ({ nodes, links, keywords }: graphProps) => {
         {Object.values(nodes).map((nodeArray, i) => (
           <div key={i} className={styles['keyword-node']}>
             {nodeArray.map((node) => (
-              <span key={`keyword ${node}`} className="node">
+              <span key={`keyword-${node}`} className="node">
                 <Link to={getEntryPath(keywords.get(node))}>{node}</Link>
               </span>
             ))}
