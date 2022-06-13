@@ -7,6 +7,7 @@ import { Namespace } from '../../../../shared/types/namespaces';
 import { getEntryPathFor } from '../../../../app/config/urls';
 
 import styles from './styles/keywords-graph.module.css';
+import { sleep } from 'timing-functions';
 
 const ARROW_WIDTH = 5;
 const ARROW_HEIGHT = 3;
@@ -26,13 +27,7 @@ const KeywordsGraph = ({ nodes, links, keywords }: graphProps) => {
 
   const [size] = useSize(containerRef);
 
-  let nodeDetails = {};
-
-  useEffect(() => {
-    if (size) {
-      renderGraph(size.width, size.height, size.x, size.y);
-    }
-  }, [size?.width, size?.height, size?.x, size?.y, nodes, links]);
+  const nodeDetails = {};
 
   const renderGraph = (
     width: number,
@@ -42,18 +37,24 @@ const KeywordsGraph = ({ nodes, links, keywords }: graphProps) => {
   ) => {
     const container = containerRef.current;
     const nodeElements = container?.querySelectorAll('span.node');
+
+    nodeElements?.forEach((el) => {
+      const key = el.textContent;
+      nodeDetails[`keyword ${key}`] = el;
+    });
+
     const svg = select(svgRef.current)
       .attr('width', width)
       .attr('height', height);
 
     svg.selectAll('line').remove();
 
-    const arrows = svg
+    svg
       .append('defs')
       .append('marker')
       .attr('id', 'arrow')
       .attr('markerWidth', ARROW_WIDTH)
-      .attr('markerHeight', ARROW_WIDTH)
+      .attr('markerHeight', ARROW_HEIGHT)
       .attr('refX', 0)
       .attr('refY', 1.5)
       .attr('orient', 'auto')
@@ -61,15 +62,10 @@ const KeywordsGraph = ({ nodes, links, keywords }: graphProps) => {
       .attr('d', 'M0,0 L3,1.5 L0,3 z')
       .attr('fill', '#000');
 
-    nodeElements?.forEach((el) => {
-      const key = el.textContent;
-      nodeDetails[key] = el;
-    });
-
-    for (let i = 0; i < links.length; i++) {
+    for (let i = 0; i < links.length; i += 1) {
       const [source, target] = links[i].split('|');
-      const sourceEl = nodeDetails[source].getBoundingClientRect();
-      const targetEl = nodeDetails[target].getBoundingClientRect();
+      const sourceEl = nodeDetails[`keyword ${source}`].getBoundingClientRect();
+      const targetEl = nodeDetails[`keyword ${target}`].getBoundingClientRect();
       const x1 = sourceEl.x + sourceEl.width / 2 - xPosition;
       const y1 = sourceEl.y + sourceEl.height - yPosition;
       const x2 = targetEl.x + targetEl.width / 2 - xPosition;
@@ -86,20 +82,24 @@ const KeywordsGraph = ({ nodes, links, keywords }: graphProps) => {
     }
   };
 
+  useEffect(() => {
+    if (size) {
+      renderGraph(size.width, size.height, size.x, size.y);
+    }
+  }, [size?.width, size?.height, size?.x, size?.y, nodes, links]);
+
   return (
     <div className={styles['graph']}>
       <div className={styles['container']} ref={containerRef}>
-        {Object.values(nodes).map((nodeArray, i) => {
-          return (
-            <div key={i} className={styles['keyword-node']}>
-              {nodeArray.map((node) => (
-                <span key={node} className="node">
-                  <Link to={getEntryPath(keywords.get(node))}>{node}</Link>
-                </span>
-              ))}
-            </div>
-          );
-        })}
+        {Object.values(nodes).map((nodeArray, i) => (
+          <div key={i} className={styles['keyword-node']}>
+            {nodeArray.map((node) => (
+              <span key={`keyword ${node}`} className="node">
+                <Link to={getEntryPath(keywords.get(node))}>{node}</Link>
+              </span>
+            ))}
+          </div>
+        ))}
       </div>
       <svg ref={svgRef} className={styles['arrows']} />
     </div>

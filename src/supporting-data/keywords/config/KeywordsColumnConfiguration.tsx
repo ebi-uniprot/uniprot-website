@@ -177,8 +177,9 @@ KeywordsColumnConfiguration.set(KeywordsColumn.graphical, {
     const ancestorHierarchy: string[] = [];
 
     // Ancestors
-    const findHierarchy = (obj: KeywordsLite, hierarchyString: string = '') => {
+    const findHierarchy = (obj: KeywordsLite, str: string) => {
       keywordIdMap.set(obj.keyword.name, obj.keyword.id);
+      let hierarchyString = str;
       hierarchyString += `${obj.keyword?.name}|`;
       obj.children?.forEach((el) => {
         if (el.children?.length) {
@@ -188,23 +189,26 @@ KeywordsColumnConfiguration.set(KeywordsColumn.graphical, {
           hierarchyString += `${el.keyword.name}`;
         }
       });
-      if (!ancestorHierarchy.some((str) => str.includes(hierarchyString)))
+      if (!ancestorHierarchy.some((str) => str.includes(hierarchyString))) {
         ancestorHierarchy.push(hierarchyString);
+      }
     };
 
     if (children?.length) {
       keywordIdMap.set(keyword?.name, keyword?.id);
       children.forEach((child) => {
-        findHierarchy(child);
+        findHierarchy(child, '');
       });
     }
 
     ancestorHierarchy.forEach((h) => {
       const nodes = h.split('|').reverse().filter(Boolean);
       // Finding the levels of each node
-      for (let i = 0; i < nodes.length; i++) {
+      for (let i = 0; i < nodes.length; i += 1) {
         if (levels[i]) {
-          if (!levels[i].includes(nodes[i])) levels[i].push(nodes[i]);
+          if (!levels[i].includes(nodes[i])) {
+            levels[i].push(nodes[i]);
+          }
         } else {
           levels[i] = [nodes[i]];
         }
@@ -213,9 +217,11 @@ KeywordsColumnConfiguration.set(KeywordsColumn.graphical, {
       // Populating the links
       const fullHierarchy = `${keyword?.name}|${h}`;
       const ptcHierarchy = fullHierarchy.split('|').reverse().filter(Boolean);
-      for (let i = 0; i < ptcHierarchy.length - 1; i++) {
+      for (let i = 0; i < ptcHierarchy.length - 1; i += 1) {
         const link = `${ptcHierarchy[i]}|${ptcHierarchy[i + 1]}`;
-        if (!links.includes(link)) links.push(link);
+        if (!links.includes(link)) {
+          links.push(link);
+        }
       }
     });
 
