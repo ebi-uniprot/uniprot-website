@@ -706,6 +706,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ec, {
     if (proteinNamesData?.recommendedName?.ecNumbers) {
       ecNumbers.push(...proteinNamesData.recommendedName.ecNumbers);
     }
+    for (const submissionName of proteinNamesData?.submissionNames || []) {
+      if (submissionName.ecNumbers) {
+        ecNumbers.push(...submissionName.ecNumbers);
+      }
+    }
     for (const alternativeName of proteinNamesData?.alternativeNames || []) {
       if (alternativeName.ecNumbers) {
         ecNumbers.push(...alternativeName.ecNumbers);
