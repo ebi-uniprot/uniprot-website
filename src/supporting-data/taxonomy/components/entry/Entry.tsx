@@ -99,7 +99,7 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
       content: childrenData.data.results.length ? (
         <ChildNavigation
           childTaxons={childrenData.data.results}
-          total={+(childrenData.headers?.['x-total-records'] || 0)}
+          total={+(childrenData.headers?.['x-total-results'] || 0)}
           taxonId={data.taxonId}
         />
       ) : null,

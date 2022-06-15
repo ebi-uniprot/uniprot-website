@@ -129,7 +129,7 @@ const PeptideSearchResult = ({
     headers: facetHeaders,
     isStale: facetHasStaleData,
   } = facetApiObject;
-  const facetTotal = facetHeaders?.['x-total-records'];
+  const facetTotal = facetHeaders?.['x-total-results'];
 
   const converter = useMemo(() => {
     const peps = jobSubmission.current?.parameters.peps;
