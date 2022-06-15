@@ -24,7 +24,7 @@ const ReleaseInfo = () => {
     fetchOptions
   );
   // NOTE: don't use release number as date, might be different
-  const releaseNumber = headers?.['x-release-number'];
+  const releaseNumber = headers?.['X-UniProt-Release'];
 
   return (
     <span

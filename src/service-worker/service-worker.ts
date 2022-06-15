@@ -222,7 +222,7 @@ registerRoute(
 const needsFreshData = /\/(contact|status)\//;
 
 // stale while revalidate until we find a way to read and process the
-// 'x-release-date' header and dump the cache when that changes
+// 'X-UniProt-Release-Date' header and dump the cache when that changes
 // UniProt website API - Stale While Revalidate
 registerRoute(
   new Route(
@@ -234,8 +234,8 @@ registerRoute(
       plugins: [
         new BroadcastUpdatePlugin({
           headersToCheck: [
-            'x-release-date',
-            'x-release-number',
+            'X-UniProt-Release-Date',
+            'X-UniProt-Release',
             // NOTE: "Content-Length" doesn't work for that now as it is
             // NOTE: inconsistently set by the server
             // 'Content-Length',
