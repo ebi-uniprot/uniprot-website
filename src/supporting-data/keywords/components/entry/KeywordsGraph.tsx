@@ -11,7 +11,7 @@ import { Namespace } from '../../../../shared/types/namespaces';
 import styles from './styles/keywords-graph.module.scss';
 
 const ARROW_WIDTH = 6;
-const ARROW_HEIGHT = 5;
+const ARROW_HEIGHT = 4;
 const getEntryPath = getEntryPathFor(Namespace.keywords);
 
 const renderGraph = (
@@ -42,7 +42,7 @@ const renderGraph = (
     .attr('id', 'arrow')
     .attr('markerWidth', ARROW_WIDTH)
     .attr('markerHeight', ARROW_HEIGHT)
-    .attr('refX', ARROW_HEIGHT)
+    .attr('refX', ARROW_WIDTH * 0.8)
     .attr('refY', ARROW_HEIGHT / 2)
     .attr('orient', 'auto')
     .append('path')
@@ -66,7 +66,6 @@ const renderGraph = (
       .attr('stroke', '#000')
       .attr('stroke-width', 1.5)
       .attr('marker-end', 'url(#arrow)');
-    svg.append('path').attr('d');
   }
 };
 
@@ -99,19 +98,29 @@ const KeywordsGraph = ({ nodes, links, keywords }: graphProps) => {
   }, [size?.width, size?.height, size?.x, size?.y, links]);
 
   return (
-    <div className={styles['graph']}>
-      <div className={styles['container']} ref={containerRef}>
-        {Object.values(nodes).map((nodeArray, i) => (
-          <div key={i} className={styles['keyword-node']}>
-            {nodeArray.map((node) => (
-              <span key={`keyword-${node}`} className="node">
-                <Link to={getEntryPath(keywords.get(node))}>{node}</Link>
-              </span>
-            ))}
-          </div>
-        ))}
+    <div className={styles.graph}>
+      <div className={styles.container} ref={containerRef}>
+        {Object.values(nodes).map((nodeArray, i) => {
+          const id = `level${i}`;
+          return (
+            <div key={id} className={styles['keyword-node']}>
+              {nodeArray.map((node) => {
+                const nodeId = keywords.get(node);
+                return (
+                  <span key={`keyword-${node}`} className="node">
+                    {nodeId ? (
+                      <Link to={getEntryPath(nodeId)}>{node}</Link>
+                    ) : (
+                      { node }
+                    )}
+                  </span>
+                );
+              })}
+            </div>
+          );
+        })}
       </div>
-      <svg ref={svgRef} className={styles['arrows']} />
+      <svg ref={svgRef} className={styles.arrows} />
     </div>
   );
 };

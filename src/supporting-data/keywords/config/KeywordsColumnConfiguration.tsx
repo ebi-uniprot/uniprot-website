@@ -194,8 +194,8 @@ KeywordsColumnConfiguration.set(KeywordsColumn.graphical, {
       }
     };
 
-    if (children?.length) {
-      keywordIdMap.set(keyword?.name, keyword?.id);
+    if (keyword?.name && keyword?.id && children?.length) {
+      keywordIdMap.set(keyword.name, keyword.id);
       children.forEach((child) => {
         findHierarchy(child, '');
       });
@@ -227,7 +227,9 @@ KeywordsColumnConfiguration.set(KeywordsColumn.graphical, {
 
     // Adding the keyword into the levels after the ancestors
     const presentAncestorsCount = Object.keys(levels).length;
-    levels[presentAncestorsCount] = [keyword?.name];
+    if (keyword?.name && keyword?.id) {
+      levels[presentAncestorsCount] = [keyword.name];
+    }
 
     // Descendants
     if (parents?.length) {
