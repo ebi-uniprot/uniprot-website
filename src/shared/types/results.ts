@@ -39,7 +39,7 @@ export type SearchResults<Schema> = {
 export type Response<Schema> = {
   data: SearchResults<Schema>;
   headers: {
-    ['X-Total-Results']: string;
+    ['x-total-results']: string;
     link: string;
   };
 };

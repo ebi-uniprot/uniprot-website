@@ -11,11 +11,11 @@ import { Suggestion } from '../../../types/results';
 const mock = new MockAdapter(axios);
 mock
   .onGet(/api\/uniparc/)
-  .reply(200, {}, { 'X-Total-Results': '3' })
+  .reply(200, {}, { 'x-total-results': '3' })
   .onGet(/api\/uniref/)
-  .reply(200, {}, { 'X-Total-Results': '2' })
+  .reply(200, {}, { 'x-total-results': '2' })
   .onGet(/api\/proteomes/)
-  .reply(200, {}, { 'X-Total-Results': '0' });
+  .reply(200, {}, { 'x-total-results': '0' });
 
 const suggestions: Suggestion[] = [
   {

@@ -54,7 +54,7 @@ const BasketFullView = () => {
     headers: facetHeaders,
     isStale: facetHasStaleData,
   } = facetApiObject;
-  const facetTotal = facetHeaders?.['X-Total-Results'];
+  const facetTotal = facetHeaders?.['x-total-results'];
 
   // Query for basket data
   const initialApiUrl = useNSQuery({

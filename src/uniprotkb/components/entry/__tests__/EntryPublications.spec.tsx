@@ -6,7 +6,7 @@ import useDataApi from '../../../../shared/hooks/useDataApi';
 
 jest.mock('../../../../shared/hooks/useDataApi', () => jest.fn());
 
-const headers = { 'X-Total-Results': mockPublicationsData.results.length };
+const headers = { 'x-total-results': mockPublicationsData.results.length };
 const dataMock = {
   loading: false,
   data: mockPublicationsData,

@@ -42,7 +42,7 @@ mockRequests
   .reply(
     200,
     { results: uniprotkbResults.results.slice(0, 2) },
-    { 'X-Total-Results': 2 }
+    { 'x-total-results': 2 }
   );
 
 describe('PeptideSearchResult', () => {

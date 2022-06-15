@@ -166,7 +166,7 @@ const getCheckJobStatus =
 
         const now = Date.now();
 
-        const hits: string = response.headers['X-Total-Results'] || '0';
+        const hits: string = response.headers['x-total-results'] || '0';
 
         dispatch(
           updateJob(job.internalID, {

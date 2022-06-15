@@ -25,7 +25,7 @@ axiosMock
   .reply(200, unirefP05067isoform4)
   // find members of cluster (always same response for testing)
   .onGet(/\/uniprotkb\/search/)
-  .reply(200, uniprotkbClusterSearch, { 'X-Total-Results': 2 });
+  .reply(200, uniprotkbClusterSearch, { 'x-total-results': 2 });
 
 let rendered: ReturnType<typeof customRender>;
 

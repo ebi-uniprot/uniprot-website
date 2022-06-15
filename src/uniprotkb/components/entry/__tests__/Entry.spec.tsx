@@ -37,7 +37,7 @@ mock
       selectedFacets: [],
     })
   )
-  .reply(200, entryPublicationsData, { 'X-Total-Results': 25 })
+  .reply(200, entryPublicationsData, { 'x-total-results': 25 })
   .onGet(filteredUrl)
   .reply(
     200,
@@ -56,7 +56,7 @@ mock
       ],
       results: entryPublicationsData.results,
     },
-    { 'X-Total-Results': 25 }
+    { 'x-total-results': 25 }
   )
   .onAny()
   .reply(500);
