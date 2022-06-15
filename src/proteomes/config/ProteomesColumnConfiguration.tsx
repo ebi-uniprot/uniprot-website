@@ -19,7 +19,6 @@ import {
   ProteomesUIModel,
 } from '../adapters/proteomesConverter';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
-import { UniProtKBColumn } from '../../uniprotkb/types/columnTypes';
 
 export enum ProteomesColumn {
   // Names & taxonomy
@@ -163,19 +162,33 @@ ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
     'Protein count',
     'Number of protein entries associated with this proteome: UniProtKB entries for regular proteomes or UniParc entries for redundant proteomes'
   ),
-  render: ({ id, proteinCount }) =>
-    proteinCount ? (
+  render: ({ id, proteinCount, proteomeType }) => {
+    if (!proteinCount) {
+      return 0;
+    }
+    // Excluded not supported at the moment, need to wait for TRM-28011
+    if (proteomeType === 'Excluded') {
+      return <LongNumber>{proteinCount}</LongNumber>;
+    }
+    // const shouldPointToUniParc =
+    //   proteomeType === 'Excluded' || proteomeType === 'Redundant proteome';
+    const shouldPointToUniParc = proteomeType === 'Redundant proteome';
+    return (
       <Link
         to={{
-          pathname: LocationToPath[Location.UniProtKBResults],
-          search: `query=${UniProtKBColumn.proteome}:${id}`,
+          pathname:
+            LocationToPath[
+              shouldPointToUniParc
+                ? Location.UniParcResults
+                : Location.UniProtKBResults
+            ],
+          search: `query=${shouldPointToUniParc ? 'upid' : 'proteome'}:${id}`,
         }}
       >
         <LongNumber>{proteinCount}</LongNumber>
       </Link>
-    ) : (
-      0
-    ),
+    );
+  },
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.busco, {

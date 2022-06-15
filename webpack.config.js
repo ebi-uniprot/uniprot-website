@@ -238,7 +238,24 @@ module.exports = (env, argv) => {
       !isLiveReload &&
         // Copy static (or near-static) files
         new CopyPlugin({
-          patterns: [{ from: 'static' }],
+          patterns: [
+            {
+              from: 'static',
+              transform: (input, absoluteFilename) => {
+                // For the "robots.txt" file
+                if (absoluteFilename.includes('robots.txt')) {
+                  return (
+                    input +
+                    // Block everything if in dev mode, link to sitemap if not
+                    (isDev
+                      ? '\nDisallow: /'
+                      : '\nSitemap: https://www.uniprot.org/sitemap-index.xml')
+                  );
+                }
+                return input;
+              },
+            },
+          ],
         }),
       new HtmlWebPackPlugin({
         template: `${__dirname}/index.html`,

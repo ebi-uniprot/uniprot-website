@@ -2343,15 +2343,7 @@ exports[`Entry view should render 1`] = `
             id="48"
           />
         </div>
-        <div
-          class="loader-container"
-        >
-          <test-file-stub
-            classname="loader"
-            height="100"
-            width="100"
-          />
-        </div>
+        Variants
       </div>
     </div>
   </section>
@@ -2588,7 +2580,7 @@ exports[`Entry view should render 1`] = `
                 <td>
                   <a
                     class="external-link"
-                    href="//www.ebi.ac.uk/intact/query/(EBI-00011 AND EBI-00012)"
+                    href="//www.ebi.ac.uk/intact/search?query=(id:EBI-00011 AND id:EBI-00012)#interactor"
                     rel="noopener"
                     target="_blank"
                   >
@@ -2630,7 +2622,7 @@ exports[`Entry view should render 1`] = `
                 <td>
                   <a
                     class="external-link"
-                    href="//www.ebi.ac.uk/intact/query/(EBI-0001 AND EBI-0002)"
+                    href="//www.ebi.ac.uk/intact/search?query=(id:EBI-0001 AND id:EBI-0002)#interactor"
                     rel="noopener"
                     target="_blank"
                   >
@@ -5377,15 +5369,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             </table>
           </protvista-datatable>
         </protvista-manager>
-        <div
-          class="loader-container"
-        >
-          <test-file-stub
-            classname="loader"
-            height="100"
-            width="100"
-          />
-        </div>
+        {{ VariationView }} 
       </div>
     </div>
   </section>

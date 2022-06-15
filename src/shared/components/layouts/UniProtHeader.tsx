@@ -17,7 +17,7 @@ import { Namespace, Searchspace, toolResults } from '../../types/namespaces';
 
 import styles from './styles/uniprot-header.module.scss';
 
-import Logo from '../../../images/uniprot-logo-beta.svg';
+import Logo from '../../../images/uniprot-logo.svg';
 
 const toolsLinks = (
   <>

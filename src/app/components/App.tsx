@@ -50,10 +50,10 @@ if (process.env.NODE_ENV !== 'development') {
       ],
       maxBreadcrumbs: 50,
       // Proportion of sessions being used to track performance
-      // Adjust to a lower value when we start getting enough data
-      tracesSampleRate: 0.25,
+      // Adjust to a low value when we start getting enough data
+      tracesSampleRate: 0.15,
       // Proportion of errors being reported
-      sampleRate: 0.75,
+      sampleRate: 0.5,
       // errors to be ignored completely
       ignoreErrors: [
         // errors caused by an extension
@@ -263,6 +263,15 @@ const ContextualHelp = lazy(() =>
     () =>
       import(
         /* webpackChunkName: "contextual-help" */ '../../help/components/contextual/ContextualHelp'
+      )
+  )
+);
+
+const BackToTheTop = lazy(() =>
+  sleep(1000).then(
+    () =>
+      import(
+        /* webpackChunkName: "back-to-the-top" */ '../../shared/components/BackToTheTop'
       )
   )
 );
@@ -488,6 +497,11 @@ const App = () => {
       <Suspense fallback={null}>
         <ErrorBoundary fallback={null}>
           <ContextualHelp />
+        </ErrorBoundary>
+      </Suspense>
+      <Suspense fallback={null}>
+        <ErrorBoundary fallback={null}>
+          <BackToTheTop />
         </ErrorBoundary>
       </Suspense>
     </>

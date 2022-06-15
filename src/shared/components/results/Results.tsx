@@ -12,6 +12,7 @@ import ResultsData from './ResultsData';
 import ResultsFacets from './ResultsFacets';
 import SideBarLayout from '../layouts/SideBarLayout';
 import NoResultsPage from '../error-pages/NoResultsPage';
+import ErrorHandler from '../error-pages/ErrorHandler';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 import ResultsDataHeader from './ResultsDataHeader';
 import SearchSuggestions from './SearchSuggestions';
@@ -82,6 +83,10 @@ const Results = () => {
         <Loader progress={resultsDataProgress} />
       </>
     );
+  }
+
+  if (!resultsDataObject.allResults.length && resultsDataObject.error) {
+    return <ErrorHandler status={resultsDataObject.status} />;
   }
 
   const { suggestions } = facetApiObject.data || {};

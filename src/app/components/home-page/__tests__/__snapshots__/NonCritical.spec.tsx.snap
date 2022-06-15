@@ -52,9 +52,9 @@ exports[`non-critical HomePage component should render 1`] = `
             rel="noopener nofollow"
             target="_blank"
           >
-            legacy version of the website is still available here
+            legacy version of the website
           </a>
-           until the 2022_02 release.
+           is available until the 2022_03 release.
         </small>
       </section>
     </div>
@@ -422,6 +422,24 @@ exports[`non-critical HomePage component should render 1`] = `
               class="tiny"
             >
               <a
+                href="/release-notes/2022-05-25-release"
+              >
+                UniProt release 2022_02
+              </a>
+            </h3>
+            <p
+              class="latest-news__abstract latest-news__abstract--2-lines"
+            >
+              Prenylation for antiviral activity | Cross-references to AlphaFoldDB | Version numbers for identifiers in Ensembl cross-references in Uni...
+            </p>
+          </article>
+        </li>
+        <li>
+          <article>
+            <h3
+              class="tiny"
+            >
+              <a
                 href="/release-notes/2022-02-23-release"
               >
                 UniProt release 2022_01
@@ -552,17 +570,17 @@ exports[`non-critical HomePage component should render 1`] = `
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/246/"
+          href="https://www.proteinspotlight.org/back_issues/247/"
           rel="noopener"
           target="_blank"
         >
-          Luck of the draw
+          Sapped
         </a>
       </h3>
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/246/"
+        href="https://www.proteinspotlight.org/back_issues/247/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
@@ -571,14 +589,14 @@ exports[`non-critical HomePage component should render 1`] = `
           alt=""
           height="86.65"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt246.jpg"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt247.jpg"
           width="125.46"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          When  something  gets  uncomfortably  close  to  you  -  in  whichever  way  it  may  be  -  you  will  seek  to  fend  it  off.  By  walking  away,  choosing  to  ignore  it,  using  physical  force  or,  if  it  is  a  person,  perhaps  verbal  abuse.  In  the  same  vein,  across  all  kingdoms,…
+          The  moment  life  emerged  on  earth,  the  fight  -  or  indeed  the  right  -  to  multiply  began.  The  notion  of  battle  is  particularly  true  for  microbes  such  as  bacteria,  fungi  and  viruses,  that  may  frequently  depend  on  hosts  to  replicate.  Over  the  aeons,  the  art…
       </p>
     </article>
   </section>

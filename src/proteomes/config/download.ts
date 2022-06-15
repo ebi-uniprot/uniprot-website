@@ -16,3 +16,5 @@ export const fileFormatEntryDownload = [
   FileFormat.tsv,
   FileFormat.list,
 ];
+
+export const fileFormatsResultsDownloadForRedundant = [FileFormat.fasta];

@@ -52,7 +52,9 @@ exports[`UniProtKBEvidenceTag components should render automatic  2`] = `
     id="0"
   >
     <div>
-      <h5>
+      <h5
+        data-article-id="evidences"
+      >
         Automatic assertion inferred from database entries 
         <small>
           (Automatically imported)
@@ -116,7 +118,9 @@ exports[`UniProtKBEvidenceTag components should render automatic annotation 2`] 
     id="0"
   >
     <div>
-      <h5>
+      <h5
+        data-article-id="evidences"
+      >
         Automatic assertion according to rules 
         <small>
           (Inferred from sequence model)
@@ -193,7 +197,9 @@ exports[`UniProtKBEvidenceTag components should render publications count 2`] = 
     id="0"
   >
     <div>
-      <h5>
+      <h5
+        data-article-id="evidences"
+      >
         Manual assertion based on experiment 
         <small>
           (Inferred from experiment)

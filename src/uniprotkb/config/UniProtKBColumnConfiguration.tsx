@@ -1,4 +1,6 @@
 /* eslint-disable camelcase */
+import { lazy } from 'react';
+import { Link } from 'react-router-dom';
 import {
   ExpandableList,
   LongNumber,
@@ -6,9 +8,9 @@ import {
   Sequence,
   SequenceTools,
 } from 'franklin-sites';
-import { Link } from 'react-router-dom';
 import { omit } from 'lodash-es';
 
+import LazyComponent from '../../shared/components/LazyComponent';
 import ExternalLink from '../../shared/components/ExternalLink';
 import SimpleView from '../../shared/components/views/SimpleView';
 import { ECNumbersView } from '../components/protein-data-views/ProteinNamesView';
@@ -73,7 +75,6 @@ import CatalyticActivityView, {
   getRheaId,
   isRheaReactionReference,
 } from '../components/protein-data-views/CatalyticActivityView';
-import VariationView from '../components/protein-data-views/VariationView';
 import {
   structureFeaturesToColumns,
   StructureUIModel,
@@ -110,8 +111,16 @@ import { Namespace } from '../../shared/types/namespaces';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
 import { Interactant } from '../adapters/interactionConverter';
 import { ValueWithEvidence } from '../types/modelTypes';
+import { ProteinDescription } from '../adapters/namesAndTaxonomyConverter';
 
 import helper from '../../shared/styles/helper.module.scss';
+
+const VariationView = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "variation-view" */ '../components/protein-data-views/VariationView'
+    )
+);
 
 export const defaultColumns = [
   UniProtKBColumn.accession,
@@ -470,7 +479,9 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ftVariant, {
     'variant'
   ),
   render: (data) => (
-    <VariationView primaryAccession={data.primaryAccession} onlyTable />
+    <LazyComponent fallback="Variants">
+      <VariationView primaryAccession={data.primaryAccession} onlyTable />
+    </LazyComponent>
   ),
 });
 
@@ -685,6 +696,24 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCofactor, {
   },
 });
 
+const ecExtractor = (proteinDescription?: ProteinDescription) => {
+  const ecNumbers: ValueWithEvidence[] = [];
+  if (proteinDescription?.recommendedName?.ecNumbers) {
+    ecNumbers.push(...proteinDescription.recommendedName.ecNumbers);
+  }
+  for (const submissionName of proteinDescription?.submissionNames || []) {
+    if (submissionName.ecNumbers) {
+      ecNumbers.push(...submissionName.ecNumbers);
+    }
+  }
+  for (const alternativeName of proteinDescription?.alternativeNames || []) {
+    if (alternativeName.ecNumbers) {
+      ecNumbers.push(...alternativeName.ecNumbers);
+    }
+  }
+  return ecNumbers;
+};
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ec, {
   ...getLabelAndTooltip(
     'EC Number',
@@ -692,15 +721,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ec, {
   ),
   render: (data) => {
     const { proteinNamesData } = data[EntrySection.NamesAndTaxonomy];
-    const ecNumbers: ValueWithEvidence[] = [];
-    if (proteinNamesData?.recommendedName?.ecNumbers) {
-      ecNumbers.push(...proteinNamesData.recommendedName.ecNumbers);
-    }
-    for (const alternativeName of proteinNamesData?.alternativeNames || []) {
-      if (alternativeName.ecNumbers) {
-        ecNumbers.push(...alternativeName.ecNumbers);
-      }
-    }
+    const ecNumbers: ValueWithEvidence[] = [
+      ...ecExtractor(proteinNamesData),
+      ...(proteinNamesData?.includes?.flatMap(ecExtractor) || []),
+      ...(proteinNamesData?.contains?.flatMap(ecExtractor) || []),
+    ];
 
     return (
       <ECNumbersView

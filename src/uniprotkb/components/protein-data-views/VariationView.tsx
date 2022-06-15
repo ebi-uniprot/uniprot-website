@@ -1,4 +1,4 @@
-import { useMemo, Fragment, lazy, useRef, useEffect, useState } from 'react';
+import { useMemo, Fragment, useRef, useEffect, useState } from 'react';
 import { Loader } from 'franklin-sites';
 import joinUrl from 'url-join';
 import { groupBy, intersection, union } from 'lodash-es';
@@ -7,9 +7,9 @@ import cn from 'classnames';
 import { ProteinsAPIVariation } from 'protvista-variation-adapter/dist/es/variants';
 import { transformData, TransformedVariant } from 'protvista-variation-adapter';
 
+import VisualVariationView from './VisualVariationView';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
-import LazyComponent from '../../../shared/components/LazyComponent';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useCustomElement from '../../../shared/hooks/useCustomElement';
@@ -17,13 +17,6 @@ import useCustomElement from '../../../shared/hooks/useCustomElement';
 import apiUrls from '../../../shared/config/apiUrls';
 
 import styles from './styles/variation-view.module.scss';
-
-const VisualVariationView = lazy(
-  () =>
-    import(
-      /* webpackChunkName: "visual-variation-view" */ './VisualVariationView'
-    )
-);
 
 const sortByLocation = (a: TransformedVariant, b: TransformedVariant) => {
   const aStart = +a.start;
@@ -115,9 +108,10 @@ const VariationView = ({
   title,
   onlyTable = false,
 }: VariationViewProps) => {
-  const { loading, data, error, status } = useDataApi<ProteinsAPIVariation>(
-    joinUrl(apiUrls.variation, primaryAccession)
-  );
+  const { loading, data, progress, error, status } =
+    useDataApi<ProteinsAPIVariation>(
+      joinUrl(apiUrls.variation, primaryAccession)
+    );
 
   const [filters, setFilters] = useState([]);
   const managerRef = useRef<HTMLElement>(null);
@@ -181,7 +175,12 @@ const VariationView = ({
   );
 
   if (loading) {
-    return <Loader />;
+    return (
+      <div>
+        {title && <h3>{title}</h3>}
+        <Loader progress={progress} />
+      </div>
+    );
   }
 
   if (error && status !== 404) {
@@ -472,11 +471,7 @@ const VariationView = ({
         attributes="highlight displaystart displayend activefilters filters selectedid"
         ref={managerRef}
       >
-        {!onlyTable && (
-          <LazyComponent rootMargin="50px">
-            <VisualVariationView {...transformedData} />
-          </LazyComponent>
-        )}
+        {!onlyTable && <VisualVariationView {...transformedData} />}
         <dataTableElement.name filter-scroll>{table}</dataTableElement.name>
       </managerElement.name>
     </div>

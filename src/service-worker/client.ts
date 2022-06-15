@@ -51,6 +51,8 @@ export function register() {
       // drop the quickGO cache whenever we drop the website API cache
       // it should happen on UniProt data update
       dropCache(CacheName.QuickGO);
+      // drop the static endpoints of the website API too
+      dropCache(CacheName.WebsiteAPIStatic);
     }
     dropCache(cacheName);
   });

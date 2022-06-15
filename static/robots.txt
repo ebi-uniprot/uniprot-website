@@ -4,4 +4,4 @@ Disallow: /align/
 Disallow: /peptide-search/
 Disallow: /id-mapping/
 Disallow: /basket/
-Disallow: /
+Disallow: /*?

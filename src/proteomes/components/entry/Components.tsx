@@ -22,8 +22,8 @@ const genomeAccessionDB = 'GenomeAccession' as const;
 const getIdKey = ({ name }: Component) => name;
 
 export const Components: FC<
-  Pick<ProteomesAPIModel, 'components' | 'id' | 'proteinCount'>
-> = ({ components, id, proteinCount }) => {
+  Pick<ProteomesAPIModel, 'components' | 'id' | 'proteinCount' | 'proteomeType'>
+> = ({ components, id, proteinCount, proteomeType }) => {
   const [selectedEntries, setSelectedItemFromEvent] = useItemSelect();
 
   const columns = useMemo<
@@ -62,8 +62,19 @@ export const Components: FC<
       {
         label: 'Protein count',
         name: 'proteins',
-        render: ({ proteinCount, name }) =>
-          proteinCount ? (
+        render: ({ proteinCount, name }) => {
+          if (!proteinCount) {
+            return 0;
+          }
+          if (
+            // Excluded not supported at the moment, need to wait for TRM-28011
+            proteomeType === 'Excluded' ||
+            // Redundant not supported at the moment, need to wait for TRM-28015
+            proteomeType === 'Redundant proteome'
+          ) {
+            return <LongNumber>{proteinCount}</LongNumber>;
+          }
+          return (
             <Link
               to={{
                 pathname: LocationToPath[Location.UniProtKBResults],
@@ -72,12 +83,11 @@ export const Components: FC<
             >
               <LongNumber>{proteinCount}</LongNumber>
             </Link>
-          ) : (
-            0
-          ),
+          );
+        },
       },
     ],
-    [id]
+    [id, proteomeType]
   );
 
   if (!components?.length) {
@@ -91,13 +101,20 @@ export const Components: FC<
         selectedEntries={selectedEntries}
         proteinCount={proteinCount}
         id={id}
+        proteomeType={proteomeType}
       />
       <DataTable
         getIdKey={getIdKey}
         density="compact"
         columns={columns}
         data={components}
-        onSelectionChange={setSelectedItemFromEvent}
+        onSelectionChange={
+          // Excluded not supported at the moment, need to wait for TRM-28011
+          // Redundant not supported at the moment, need to wait for TRM-28015
+          proteomeType === 'Excluded' || proteomeType === 'Redundant proteome'
+            ? undefined
+            : setSelectedItemFromEvent
+        }
         fixedLayout
       />
     </Card>

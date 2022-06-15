@@ -2,10 +2,13 @@ import { Message } from 'franklin-sites';
 import { useState } from 'react';
 import style from './styles/deployment-warning.module.scss';
 
-const reUniProtOrg = /^https?:\/\/beta\.uniprot\.org/;
+const reUniProtOrg = /^https?:\/\/www\.uniprot\.org/;
 
 const DeploymentWarning = () => {
-  const [dismissed, setDismissed] = useState(false);
+  const [dismissed, setDismissed] = useState(
+    // Temporary
+    globalThis?.location.origin.includes('beta')
+  );
   return (
     <>
       {!window.location.href.match(reUniProtOrg) &&

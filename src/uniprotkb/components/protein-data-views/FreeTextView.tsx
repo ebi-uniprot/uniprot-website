@@ -24,7 +24,7 @@ import { FreeTextComment, TextWithEvidence } from '../../types/commentTypes';
 
 import helper from '../../../shared/styles/helper.module.scss';
 
-const needsNewLineRE = /^\).\s+/;
+const needsNewLineRE = /^\)\.\s+/;
 
 const getEntryPathForCitation = getEntryPathFor(Namespace.citations);
 
@@ -60,7 +60,8 @@ export const TextView = ({ comments, noEvidence }: TextViewProps) => (
               return (
                 // eslint-disable-next-line react/no-array-index-key
                 <Fragment key={index}>
-                  {`AC `}
+                  {/* Somehow the part kept "AC ", so put it back */}
+                  {part.startsWith('AC ') ? `AC ` : ''}
                   <Link to={getEntryPath(Namespace.uniprotkb, accession)}>
                     {accession}
                   </Link>

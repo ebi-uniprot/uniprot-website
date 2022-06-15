@@ -5,9 +5,11 @@ import EntryMain from './EntryMain';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
-import EntryDownload from '../../../shared/components/entry/EntryDownload';
+// import EntryDownload from '../../../shared/components/entry/EntryDownload';
 import SingleColumnLayout from '../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
+import AccessionView from '../../../shared/components/results/AccessionView';
+import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 
 import apiUrls from '../../../shared/config/apiUrls';
 
@@ -69,9 +71,23 @@ const Entry = () => {
         {' · '}
         <TaxonomyView data={mainData.data.taxonomy} noLink />
       </h1>
-      <div className="button-group">
+      {transformedData.proteomeType === 'Redundant proteome' &&
+      transformedData.redundantTo ? (
+        <div>
+          <EntryTypeIcon entryType={transformedData.proteomeType} />
+          This proteome is{' '}
+          <span data-article-id="proteome_redundancy">redundant</span> to&nbsp;
+          <AccessionView
+            id={transformedData.redundantTo}
+            namespace={Namespace.proteomes}
+          />
+          .
+        </div>
+      ) : null}
+      {/* Commented out for now */}
+      {/* <div className="button-group">
         <EntryDownload />
-      </div>
+      </div> */}
       <EntryMain transformedData={transformedData} />
     </SingleColumnLayout>
   );

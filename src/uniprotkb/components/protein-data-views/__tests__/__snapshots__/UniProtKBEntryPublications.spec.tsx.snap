@@ -105,6 +105,10 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
                 target="_blank"
               >
                 PubMed
+                <test-file-stub
+                  data-testid="external-link-icon"
+                  width="12.5"
+                />
               </a>
             </li>
             <li>
@@ -115,6 +119,10 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
                 target="_blank"
               >
                 Europe PMC
+                <test-file-stub
+                  data-testid="external-link-icon"
+                  width="12.5"
+                />
               </a>
             </li>
             <li>
@@ -268,6 +276,10 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
                 target="_blank"
               >
                 PubMed
+                <test-file-stub
+                  data-testid="external-link-icon"
+                  width="12.5"
+                />
               </a>
             </li>
             <li>
@@ -278,6 +290,10 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
                 target="_blank"
               >
                 Europe PMC
+                <test-file-stub
+                  data-testid="external-link-icon"
+                  width="12.5"
+                />
               </a>
             </li>
             <li>
@@ -457,6 +473,10 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
                 target="_blank"
               >
                 PubMed
+                <test-file-stub
+                  data-testid="external-link-icon"
+                  width="12.5"
+                />
               </a>
             </li>
             <li>
@@ -467,6 +487,10 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
                 target="_blank"
               >
                 Europe PMC
+                <test-file-stub
+                  data-testid="external-link-icon"
+                  width="12.5"
+                />
               </a>
             </li>
             <li>
