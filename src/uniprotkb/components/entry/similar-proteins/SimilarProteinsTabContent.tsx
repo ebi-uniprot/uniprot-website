@@ -83,7 +83,7 @@ const SimilarProteinsTabContent = ({
           break; // Shouldn't happen, used to restrict types
         }
         const { isoforms, cluster } = isoformsAndCluster;
-        const total = +(response?.headers?.['x-total-records'] || 0);
+        const total = +(response?.headers?.['X-Total-Results'] || 0);
         if (total && response?.data.results && isoforms && cluster) {
           hasSimilar.push({
             total,

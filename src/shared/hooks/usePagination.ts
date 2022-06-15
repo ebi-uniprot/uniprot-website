@@ -52,7 +52,7 @@ const usePagination = <T extends APIModel, R extends APIModel>(
     }
     const { results } = data;
     const transformedResults = converter ? converter(results as T[]) : results;
-    const total: string | undefined = headers?.['x-total-records'];
+    const total: string | undefined = headers?.['X-Total-Results'];
     setAllResults((allRes) => [...allRes, ...transformedResults]);
     setMetaData(() => ({
       total: total ? parseInt(total, 10) : 0,

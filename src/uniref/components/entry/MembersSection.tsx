@@ -299,7 +299,7 @@ export const MembersSection = ({
     const { results } = data;
     setAllResults((allRes) => [...allRes, ...results]);
     setMetadata(() => ({
-      total: +(headers?.['x-total-records'] || 0),
+      total: +(headers?.['X-Total-Results'] || 0),
       nextUrl: getNextURLFromHeaders(headers),
     }));
   }, [data, headers]);

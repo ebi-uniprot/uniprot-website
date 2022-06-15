@@ -13,7 +13,7 @@ describe('ResultsFacets', () => {
         dataApiObject={{
           data: results,
           headers: {
-            'x-total-records': results.results.length.toString(),
+            'X-Total-Results': results.results.length.toString(),
             link: '<https://link/to/next/results>; rel="next"',
           },
           loading: false,

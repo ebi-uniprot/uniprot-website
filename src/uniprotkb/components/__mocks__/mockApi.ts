@@ -13,11 +13,11 @@ import mockFasta from './fasta.json';
 const mock = new MockAdapter(axios);
 mock
   .onGet(/.+noresult/)
-  .reply(200, noResults, { 'x-total-records': 0 })
+  .reply(200, noResults, { 'X-Total-Results': 0 })
   .onGet(/\/uniprotkb\/search.*&format=fasta.*/)
   .reply(200, mockFasta, { 'content-type': ContentType.fasta })
   .onGet(/\/uniprotkb\/search/)
-  .reply(200, results, { 'x-total-records': 25 })
+  .reply(200, results, { 'X-Total-Results': 25 })
   .onGet(/\/uniprotkb\/result-fields/)
   .reply(200, resultFields)
   .onGet(/\/uniprotkb\/stream/)
