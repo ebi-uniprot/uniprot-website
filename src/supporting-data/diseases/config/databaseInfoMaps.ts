@@ -1,14 +1,14 @@
-export type DiseaseDatabaseInfoPoint = {
+export type DiseasesDatabaseInfoPoint = {
   name: string;
   displayName: string;
   uriLink: string;
 };
 
-export type DiseaseDatabaseToDatabaseInfo = {
-  [database: string]: DiseaseDatabaseInfoPoint;
+export type DiseasesDatabaseToDatabaseInfo = {
+  [database: string]: DiseasesDatabaseInfoPoint;
 };
 
-const allDatabases: DiseaseDatabaseInfoPoint[] = [
+const allDatabases: DiseasesDatabaseInfoPoint[] = [
   {
     name: 'MedGen',
     displayName: 'MedGen',
@@ -26,7 +26,7 @@ const allDatabases: DiseaseDatabaseInfoPoint[] = [
   },
 ];
 
-const databaseToDatabaseInfo: DiseaseDatabaseToDatabaseInfo =
+const databaseToDatabaseInfo: DiseasesDatabaseToDatabaseInfo =
   Object.fromEntries(allDatabases.map((db) => [db.name, db]));
 
 export default databaseToDatabaseInfo;
