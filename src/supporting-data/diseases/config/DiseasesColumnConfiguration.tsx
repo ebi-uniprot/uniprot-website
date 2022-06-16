@@ -64,39 +64,38 @@ DiseasesColumnConfiguration.set(DiseasesColumn.alternativeNames, {
 
 DiseasesColumnConfiguration.set(DiseasesColumn.crossReferences, {
   label: 'Cross references',
-  render: ({ crossReferences }) =>
-    Boolean(crossReferences?.length) && (
-      <ExpandableList
-        descriptionString="cross references"
-        displayNumberOfHiddenItems
-      >
-        {crossReferences?.map(({ databaseType, id, properties }) => {
-          let idNode;
-          const databaseInfo = databaseToDatabaseInfo[databaseType];
-          if (databaseInfo) {
-            idNode = (
-              // eslint-disable-next-line uniprot-website/use-config-location
-              <ExternalLink
-                url={processUrlTemplate(databaseInfo.uriLink, { id })}
-              >
-                {id}
-              </ExternalLink>
-            );
-          } else {
-            logging.warn(
-              `Disease database information not found for ${databaseType}`
-            );
-            idNode = id;
-          }
-          return (
-            <span key={`${databaseType}-${id}`} className={helper['no-wrap']}>
-              {databaseType}: {idNode}
-              {`${properties?.length ? ` (${properties.join(', ')})` : ''}`}
-            </span>
+  render: ({ crossReferences }) => (
+    <ExpandableList
+      descriptionString="cross references"
+      displayNumberOfHiddenItems
+    >
+      {crossReferences?.map(({ databaseType, id, properties }) => {
+        let idNode;
+        const databaseInfo = databaseToDatabaseInfo[databaseType];
+        if (databaseInfo) {
+          idNode = (
+            // eslint-disable-next-line uniprot-website/use-config-location
+            <ExternalLink
+              url={processUrlTemplate(databaseInfo.uriLink, { id })}
+            >
+              {id}
+            </ExternalLink>
           );
-        })}
-      </ExpandableList>
-    ),
+        } else {
+          logging.warn(
+            `Disease database information not found for ${databaseType}`
+          );
+          idNode = id;
+        }
+        return (
+          <span key={`${databaseType}-${id}`} className={helper['no-wrap']}>
+            {databaseType}: {idNode}
+            {`${properties?.length ? ` (${properties.join(', ')})` : ''}`}
+          </span>
+        );
+      })}
+    </ExpandableList>
+  ),
 });
 
 DiseasesColumnConfiguration.set(DiseasesColumn.definition, {
