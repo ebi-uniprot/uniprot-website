@@ -4,6 +4,7 @@ export type IDMappingGroupItem = {
   from: boolean;
   to: boolean;
   ruleId?: number | null;
+  uriLink: string;
 };
 
 export type IDMappingGroup = {
