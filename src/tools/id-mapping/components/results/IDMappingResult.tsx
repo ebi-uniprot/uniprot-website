@@ -11,15 +11,15 @@ import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler
 import usePagination from '../../../../shared/hooks/usePagination';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
-import useDatabaseInfoMaps from '../../../../shared/hooks/useDatabaseInfoMaps';
 import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect';
 import useIDMappingDetails from '../../../../shared/hooks/useIDMappingDetails';
+import useDataApi from '../../../../shared/hooks/useDataApi';
 
 import { rawDBToNamespace } from '../../utils';
 import toolsURLs from '../../../config/urls';
 import idMappingConverter from '../../adapters/idMappingConverter';
 import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
-import { defaultFacets } from '../../../../shared/config/apiUrls';
+import apiUrls, { defaultFacets } from '../../../../shared/config/apiUrls';
 
 import { SearchResults } from '../../../../shared/types/results';
 import { JobTypes } from '../../../types/toolsJobTypes';
@@ -37,6 +37,7 @@ import {
   namespaceAndToolsLabels,
 } from '../../../../shared/types/namespaces';
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
+import { IDMappingFormConfig } from '../../types/idMappingFormConfig';
 
 const jobType = JobTypes.ID_MAPPING;
 const urls = toolsURLs(jobType);
@@ -64,6 +65,20 @@ const APIRequest = lazy(
     )
 );
 
+export const findUriLink = (fields?: IDMappingFormConfig, dbName?: string) => {
+  if (!fields || !dbName) {
+    return null;
+  }
+  for (const group of fields.groups) {
+    for (const item of group.items) {
+      if (item.name === dbName) {
+        return item.uriLink;
+      }
+    }
+  }
+  return null;
+};
+
 enum TabLocation {
   Overview = 'overview',
   InputParameters = 'input-parameters',
@@ -82,21 +97,18 @@ const IDMappingResult = () => {
     Location.IDMappingResult,
     TabLocation
   );
-
-  const databaseInfoMaps = useDatabaseInfoMaps();
   const idMappingDetails = useIDMappingDetails();
   const {
     data: detailsData,
     loading: detailsLoading,
     error: detailsError,
-    progress: detailsProgress,
   } = idMappingDetails || {};
 
   const [{ selectedFacets, query, sortColumn, sortDirection }] =
     getParamsFromURL(location.search);
 
-  const toDBInfo =
-    detailsData && databaseInfoMaps?.databaseToDatabaseInfo[detailsData.to];
+  const { loading: fieldsLoading, data: fieldsData } =
+    useDataApi<IDMappingFormConfig>(apiUrls.idMappingFields);
 
   // Query for results data from the idmapping endpoint
   const initialApiUrl =
@@ -108,7 +120,10 @@ const IDMappingResult = () => {
       sortDirection,
     });
 
-  const converter = useMemo(() => idMappingConverter(toDBInfo), [toDBInfo]);
+  const converter = useMemo(
+    () => idMappingConverter(findUriLink(fieldsData, detailsData?.to)),
+    [fieldsData, detailsData?.to]
+  );
 
   const resultsDataObject = usePagination<MappingAPIModel, MappingFlat>(
     initialApiUrl,
@@ -154,8 +169,8 @@ const IDMappingResult = () => {
     return <Loader progress={progress} />;
   }
 
-  if (detailsLoading) {
-    return <Loader progress={detailsProgress} />;
+  if (detailsLoading || fieldsLoading) {
+    return <Loader />;
   }
 
   if (!detailsData) {

@@ -2,7 +2,7 @@ import { fireEvent, screen, waitFor } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 
-import IDMappingResult from '../IDMappingResult';
+import IDMappingResult, { findUriLink } from '../IDMappingResult';
 
 import { IDMappingDetailsContext } from '../../../../../shared/contexts/IDMappingDetails';
 
@@ -12,13 +12,16 @@ import SimpleMappingData from '../__mocks__/SimpleMapping';
 import SimpleMappingDetails from '../__mocks__/SimpleMappingDetails';
 import UniProtkbMapping from '../__mocks__/UniProtkbMapping';
 import UniProtkbMappingDetails from '../__mocks__/UniProtkbMappingDetails';
+import idMappingFields from '../../__tests__/__mocks__/idMappingFormConfig';
 
 const mock = new MockAdapter(axios);
 mock
   .onGet(/\/api\/idmapping\/results\/id1/)
   .reply(200, SimpleMappingData)
   .onGet(/\/api\/idmapping\/results\/uniprotkb\/id2/)
-  .reply(200, UniProtkbMapping);
+  .reply(200, UniProtkbMapping)
+  .onGet(/\/configure\/idmapping\/fields/)
+  .reply(200, idMappingFields);
 
 describe('IDMappingResult tests', () => {
   it('should render simple from/to mapping', async () => {
@@ -60,5 +63,19 @@ describe('IDMappingResult tests', () => {
     fireEvent.click(facetLink);
     await waitFor(() => screen.getByRole('table'));
     expect(history.location.search).toEqual('?facets=reviewed%3Atrue');
+  });
+});
+
+describe('findUriLink', () => {
+  it('should find the link', () => {
+    expect(findUriLink(idMappingFields, 'ComplexPortal')).toEqual(
+      'https://www.ebi.ac.uk/complexportal/complex/%id'
+    );
+  });
+  it('should not find the link', () => {
+    expect(findUriLink(idMappingFields, 'foo')).toEqual(null);
+  });
+  it('should return null when fields config and db name are undefined', () => {
+    expect(findUriLink(undefined, undefined)).toEqual(null);
   });
 });
