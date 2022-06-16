@@ -65,18 +65,6 @@ const APIRequest = lazy(
     )
 );
 
-enum TabLocation {
-  Overview = 'overview',
-  InputParameters = 'input-parameters',
-  APIRequest = 'api-request',
-}
-
-type Params = {
-  id: string;
-  namespace?: typeof IDMappingNamespaces[number];
-  subPage?: TabLocation;
-};
-
 export const findUriLink = (fields?: IDMappingFormConfig, dbName?: string) => {
   if (!fields || !dbName) {
     return null;
@@ -89,6 +77,18 @@ export const findUriLink = (fields?: IDMappingFormConfig, dbName?: string) => {
     }
   }
   return null;
+};
+
+enum TabLocation {
+  Overview = 'overview',
+  InputParameters = 'input-parameters',
+  APIRequest = 'api-request',
+}
+
+type Params = {
+  id: string;
+  namespace?: typeof IDMappingNamespaces[number];
+  subPage?: TabLocation;
 };
 
 const IDMappingResult = () => {
