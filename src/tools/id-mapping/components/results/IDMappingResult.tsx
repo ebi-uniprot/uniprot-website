@@ -77,7 +77,7 @@ type Params = {
   subPage?: TabLocation;
 };
 
-const findUriLink = (fields?: IDMappingFormConfig, dbName?: string) => {
+export const findUriLink = (fields?: IDMappingFormConfig, dbName?: string) => {
   if (!fields || !dbName) {
     return null;
   }
@@ -178,7 +178,7 @@ const IDMappingResult = () => {
     return <ErrorHandler />;
   }
 
-  if (fieldsError || !fieldsData) {
+  if (fieldsError) {
     return <Message level="failure">{fieldsError?.message}</Message>;
   }
 
