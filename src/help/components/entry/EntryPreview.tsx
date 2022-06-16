@@ -44,7 +44,7 @@ const Category = ({ category }: { category: string }) => {
     )
   );
 
-  const total = +(headers?.['x-total-records'] || 0);
+  const total = +(headers?.['x-total-results'] || 0);
 
   if (!headers) {
     return <Chip>{category}</Chip>;
