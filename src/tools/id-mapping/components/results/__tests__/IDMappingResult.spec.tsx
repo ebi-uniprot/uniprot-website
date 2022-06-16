@@ -2,7 +2,7 @@ import { fireEvent, screen, waitFor } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 
-import IDMappingResult from '../IDMappingResult';
+import IDMappingResult, { findUriLink } from '../IDMappingResult';
 
 import { IDMappingDetailsContext } from '../../../../../shared/contexts/IDMappingDetails';
 
@@ -12,6 +12,7 @@ import SimpleMappingData from '../__mocks__/SimpleMapping';
 import SimpleMappingDetails from '../__mocks__/SimpleMappingDetails';
 import UniProtkbMapping from '../__mocks__/UniProtkbMapping';
 import UniProtkbMappingDetails from '../__mocks__/UniProtkbMappingDetails';
+import idMappingFields from '../__mocks__/idMappingFields';
 
 const mock = new MockAdapter(axios);
 mock
@@ -60,5 +61,17 @@ describe('IDMappingResult tests', () => {
     fireEvent.click(facetLink);
     await waitFor(() => screen.getByRole('table'));
     expect(history.location.search).toEqual('?facets=reviewed%3Atrue');
+  });
+});
+
+describe('findUriLink', () => {
+  it('should find the link', () => {
+    expect(findUriLink(idMappingFields, 'baz')).toEqual('/baz');
+  });
+  it('should not find the link', () => {
+    expect(findUriLink(idMappingFields, 'qaz')).toEqual(null);
+  });
+  it('should return null when fields config and db name are undefined', () => {
+    expect(findUriLink(undefined, undefined)).toEqual(null);
   });
 });
