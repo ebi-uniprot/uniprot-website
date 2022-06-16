@@ -1,5 +1,5 @@
 import { useMemo, lazy, Suspense } from 'react';
-import { Loader, Message, PageIntro, Tab, Tabs } from 'franklin-sites';
+import { Loader, PageIntro, Tab, Tabs } from 'franklin-sites';
 import { Link, useLocation } from 'react-router-dom';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
@@ -107,13 +107,9 @@ const IDMappingResult = () => {
   const [{ selectedFacets, query, sortColumn, sortDirection }] =
     getParamsFromURL(location.search);
 
-  const {
-    loading: fieldsLoading,
-    data: fieldsData,
-    error: fieldsError,
-  } = useDataApi<IDMappingFormConfig>(apiUrls.idMappingFields);
+  const { loading: fieldsLoading, data: fieldsData } =
+    useDataApi<IDMappingFormConfig>(apiUrls.idMappingFields);
 
-  const toDBLink = findUriLink(fieldsData, detailsData?.to);
   // Query for results data from the idmapping endpoint
   const initialApiUrl =
     detailsData?.redirectURL &&
@@ -124,7 +120,10 @@ const IDMappingResult = () => {
       sortDirection,
     });
 
-  const converter = useMemo(() => idMappingConverter(toDBLink), [toDBLink]);
+  const converter = useMemo(
+    () => idMappingConverter(findUriLink(fieldsData, detailsData?.to)),
+    [fieldsData, detailsData?.to]
+  );
 
   const resultsDataObject = usePagination<MappingAPIModel, MappingFlat>(
     initialApiUrl,
@@ -176,10 +175,6 @@ const IDMappingResult = () => {
 
   if (!detailsData) {
     return <ErrorHandler />;
-  }
-
-  if (fieldsError) {
-    return <Message level="failure">{fieldsError?.message}</Message>;
   }
 
   let sidebar: JSX.Element;
