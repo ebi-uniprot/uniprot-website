@@ -11,6 +11,7 @@ describe('getTreeData', () => {
           from: true,
           to: true,
           ruleId: 1,
+          uriLink: '/item/1/1/link',
         },
         {
           displayName: 'item 1 2',
@@ -18,6 +19,7 @@ describe('getTreeData', () => {
           from: true,
           to: false,
           ruleId: 1,
+          uriLink: '/item/1/2/link',
         },
       ],
     },
@@ -30,6 +32,7 @@ describe('getTreeData', () => {
           from: false,
           to: true,
           ruleId: 2,
+          uriLink: '/item/2/1/link',
         },
         {
           displayName: 'item 2 2',
@@ -37,6 +40,7 @@ describe('getTreeData', () => {
           from: true,
           to: true,
           ruleId: 2,
+          uriLink: '/item/2/2/link',
         },
       ],
     },
