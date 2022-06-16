@@ -1,5 +1,5 @@
 import { useMemo, lazy, Suspense } from 'react';
-import { Loader, PageIntro, Tab, Tabs } from 'franklin-sites';
+import { Loader, Message, PageIntro, Tab, Tabs } from 'franklin-sites';
 import { Link, useLocation } from 'react-router-dom';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
@@ -11,7 +11,6 @@ import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler
 import usePagination from '../../../../shared/hooks/usePagination';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
-import useDatabaseInfoMaps from '../../../../shared/hooks/useDatabaseInfoMaps';
 import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect';
 import useIDMappingDetails from '../../../../shared/hooks/useIDMappingDetails';
 
@@ -19,7 +18,7 @@ import { rawDBToNamespace } from '../../utils';
 import toolsURLs from '../../../config/urls';
 import idMappingConverter from '../../adapters/idMappingConverter';
 import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
-import { defaultFacets } from '../../../../shared/config/apiUrls';
+import apiUrls, { defaultFacets } from '../../../../shared/config/apiUrls';
 
 import { SearchResults } from '../../../../shared/types/results';
 import { JobTypes } from '../../../types/toolsJobTypes';
@@ -37,6 +36,8 @@ import {
   namespaceAndToolsLabels,
 } from '../../../../shared/types/namespaces';
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
+import useDataApi from '../../../../shared/hooks/useDataApi';
+import { IDMappingFormConfig } from '../../types/idMappingFormConfig';
 
 const jobType = JobTypes.ID_MAPPING;
 const urls = toolsURLs(jobType);
@@ -76,28 +77,43 @@ type Params = {
   subPage?: TabLocation;
 };
 
+const findUriLink = (fields?: IDMappingFormConfig, dbName?: string) => {
+  if (!fields || !dbName) {
+    return null;
+  }
+  for (const group of fields.groups) {
+    for (const item of group.items) {
+      if (item.name === dbName) {
+        return item.uriLink;
+      }
+    }
+  }
+  return null;
+};
+
 const IDMappingResult = () => {
   const location = useLocation();
   const match = useMatchWithRedirect<Params>(
     Location.IDMappingResult,
     TabLocation
   );
-
-  const databaseInfoMaps = useDatabaseInfoMaps();
   const idMappingDetails = useIDMappingDetails();
   const {
     data: detailsData,
     loading: detailsLoading,
     error: detailsError,
-    progress: detailsProgress,
   } = idMappingDetails || {};
 
   const [{ selectedFacets, query, sortColumn, sortDirection }] =
     getParamsFromURL(location.search);
 
-  const toDBInfo =
-    detailsData && databaseInfoMaps?.databaseToDatabaseInfo[detailsData.to];
+  const {
+    loading: fieldsLoading,
+    data: fieldsData,
+    error: fieldsError,
+  } = useDataApi<IDMappingFormConfig>(apiUrls.idMappingFields);
 
+  const toDBLink = findUriLink(fieldsData, detailsData?.to);
   // Query for results data from the idmapping endpoint
   const initialApiUrl =
     detailsData?.redirectURL &&
@@ -108,7 +124,7 @@ const IDMappingResult = () => {
       sortDirection,
     });
 
-  const converter = useMemo(() => idMappingConverter(toDBInfo), [toDBInfo]);
+  const converter = useMemo(() => idMappingConverter(toDBLink), [toDBLink]);
 
   const resultsDataObject = usePagination<MappingAPIModel, MappingFlat>(
     initialApiUrl,
@@ -154,12 +170,16 @@ const IDMappingResult = () => {
     return <Loader progress={progress} />;
   }
 
-  if (detailsLoading) {
-    return <Loader progress={detailsProgress} />;
+  if (detailsLoading || fieldsLoading) {
+    return <Loader />;
   }
 
   if (!detailsData) {
     return <ErrorHandler />;
+  }
+
+  if (fieldsError || !fieldsData) {
+    return <Message level="failure">{fieldsError?.message}</Message>;
   }
 
   let sidebar: JSX.Element;
