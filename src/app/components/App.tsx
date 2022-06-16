@@ -267,6 +267,15 @@ const ContextualHelp = lazy(() =>
   )
 );
 
+const BackToTheTop = lazy(() =>
+  sleep(1000).then(
+    () =>
+      import(
+        /* webpackChunkName: "back-to-the-top" */ '../../shared/components/BackToTheTop'
+      )
+  )
+);
+
 // Helper component to render a landing page or the results page depending on
 // the presence of absence of a querystring
 const ResultsOrLanding =
@@ -488,6 +497,11 @@ const App = () => {
       <Suspense fallback={null}>
         <ErrorBoundary fallback={null}>
           <ContextualHelp />
+        </ErrorBoundary>
+      </Suspense>
+      <Suspense fallback={null}>
+        <ErrorBoundary fallback={null}>
+          <BackToTheTop />
         </ErrorBoundary>
       </Suspense>
     </>

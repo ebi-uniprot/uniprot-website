@@ -134,7 +134,7 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
           query: { query, size: 0 },
         })
       ).then((response) => {
-        const hits = +(response?.headers?.['x-total-records'] || 0);
+        const hits = +(response?.headers?.['x-total-results'] || 0);
         if (hits) {
           otherNamespaceSuggestions.current.set(ns, [{ query, hits }]);
         }

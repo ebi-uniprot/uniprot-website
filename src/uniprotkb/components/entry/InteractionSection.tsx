@@ -13,10 +13,7 @@ import LazyComponent from '../../../shared/components/LazyComponent';
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 
 import { hasContent } from '../../../shared/utils/utils';
-import {
-  getIntActQueryUrl,
-  getIntActQueryForAccessionUrl,
-} from '../../../shared/config/externalUrls';
+import { getIntActQueryUrl } from '../../../shared/config/externalUrls';
 import { getEntryPath } from '../../../app/config/urls';
 
 import {
@@ -225,14 +222,11 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
                     <td>{interaction.numberOfExperiments}</td>
                     <td>
                       <ExternalLink
-                        url={
+                        url={getIntActQueryUrl(
+                          interaction.interactantOne.intActId,
+                          interaction.interactantTwo.intActId,
                           interaction.interactantOne.uniProtKBAccession
-                            ? getIntActQueryUrl(
-                                interaction.interactantOne.intActId,
-                                interaction.interactantTwo.intActId
-                              )
-                            : getIntActQueryForAccessionUrl(primaryAccession)
-                        }
+                        )}
                       >
                         {interaction.interactantOne.intActId},{' '}
                         {interaction.interactantTwo.intActId}
