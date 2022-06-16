@@ -70,8 +70,7 @@ const AlignButton = ({
               title={title}
               location={Location.Align}
             >
-              Align query and selected{' '}
-              {pluralise('result', cleanedSelectedEntries.length)}
+              Align selected results
             </ToolsButton>
           </li>
           <li>
@@ -81,7 +80,8 @@ const AlignButton = ({
               title={title}
               location={Location.Align}
             >
-              Align selected results
+              Align selected{' '}
+              {pluralise('result', cleanedSelectedEntries.length)} with query
             </ToolsButton>
           </li>
         </ul>
