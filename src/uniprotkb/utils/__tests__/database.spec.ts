@@ -42,6 +42,7 @@ describe('selectDatabases', () => {
       'PDBe-KB',
       'PDBj',
       'RCSB-PDB',
+      'AlphaFoldDB',
       'EvolutionaryTrace',
     ]);
   });
