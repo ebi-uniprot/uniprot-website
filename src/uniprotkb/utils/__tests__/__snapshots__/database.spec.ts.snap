@@ -2924,6 +2924,7 @@ Object {
       "MISC",
       "PAM",
       "ORG",
+      "GVD",
       "3DS",
     ],
     "family_and_domains": Array [
@@ -3003,6 +3004,8 @@ Object {
       "HUGE",
       "Rouge",
       "GenAtlas",
+      "ClinGen",
+      "GenCC",
       "PDB",
       "RCSB-PDB",
       "PDBj",
