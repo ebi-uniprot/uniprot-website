@@ -9,8 +9,6 @@ import { Location } from '../../../app/config/urls';
 import { JobTypes } from '../../../tools/types/toolsJobTypes';
 import { PublicServerParameters } from '../../../tools/types/toolsServerParameters';
 
-import styles from './styles/align.module.css';
-
 const ALIGN_LIMIT = 100;
 
 type AlignButtonProps = {
@@ -45,9 +43,6 @@ const AlignButton = ({
     inputParamsData &&
     'sequence' in inputParamsData &&
     inputParamsData.sequence;
-  if (sequence) {
-    console.log(sequence);
-  }
 
   if (sequence) {
     return (
@@ -60,7 +55,6 @@ const AlignButton = ({
             Align
           </Button>
         }
-        className={styles.align}
       >
         <ul>
           <li>
@@ -76,7 +70,8 @@ const AlignButton = ({
           <li>
             <ToolsButton
               selectedEntries={cleanedSelectedEntries}
-              disabled={disabled}
+              sequence={sequence}
+              disabled={cleanedSelectedEntries.length === 0}
               title={title}
               location={Location.Align}
             >
