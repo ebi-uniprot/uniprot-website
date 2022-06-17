@@ -158,6 +158,8 @@ export const getEntrySectionToDatabaseNames = (
         'HUGE', // Implicit
         'Rouge', // Implicit
         'GenAtlas', // Implicit
+        'ClinGen', // Implicit
+        'GenCC', // Implicit
         ...PDBMirrors,
       ],
     })
@@ -172,7 +174,7 @@ export const implicitDatabaseDRPresence: { [key: string]: string[] } = {
   PDB: ['PDBe-KB'], // eg P05067
   MIM: ['SOURCE_MIM'], // eg P05067
   MGI: ['SOURCE_MGI'], // eg E9PXF8
-  HGNC: ['GenAtlas'], // eg Q9Y263
+  HGNC: ['GenAtlas', 'ClinGen', 'GenCC'], // eg Q9Y263
 };
 
 // If each of the keys are not present then show the value
