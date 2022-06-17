@@ -52,7 +52,7 @@ const AlignButton = ({
             // If both buttons within were to be disabled
             disabled={isDisabled(n) && isDisabled(n + 1)}
             variant="tertiary"
-            title={`Select from 2 to ${ALIGN_LIMIT} entries to run an Align job`}
+            title={`Select from 1 to ${ALIGN_LIMIT} entries to run an Align job`}
           >
             Align
           </Button>
