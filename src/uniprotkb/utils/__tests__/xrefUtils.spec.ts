@@ -6,7 +6,9 @@ import {
   getUnconditionalImplicitXrefs,
   getJoinedXrefs,
 } from '../xrefUtils';
-import implicitDatabaseXRefs from './__mocks__/implicitDatabaseXrefs';
+import databaseInfoMaps from './__mocks__/databaseInfoMaps';
+
+const { implicitDatabaseXRefs } = databaseInfoMaps;
 
 describe('xrefUtils tests', () => {
   test('should getDRImplicitXrefs', () => {

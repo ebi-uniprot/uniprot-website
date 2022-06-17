@@ -1,23 +1,6 @@
-import databaseCategoryToNames from './databaseCategoryToNames';
-import databaseNameToCategory from './databaseNameToCategory';
-import databaseToDatabaseInfo from './databaseToDatabaseInfo';
-import entrySectionToDatabaseCategoryOrder from './entrySectionToDatabaseCategoryOrder';
-import entrySectionToDatabaseNames from './entrySectionToDatabaseNames';
-import implicitDatabaseXRefs from './implicitDatabaseXrefs';
+import { getDatabaseInfoMaps } from '../../database';
+import databaseInfo from './databaseInfo';
 
-import { DatabaseInfoMaps } from '../../database';
-
-/**
- * This is generated, based on data from '/configure/uniprotkb/allDatabases'
- */
-
-const databaseInfoMaps: DatabaseInfoMaps = {
-  databaseCategoryToNames,
-  databaseNameToCategory,
-  databaseToDatabaseInfo,
-  implicitDatabaseXRefs,
-  entrySectionToDatabaseNames,
-  entrySectionToDatabaseCategoryOrder,
-};
+const databaseInfoMaps = getDatabaseInfoMaps(databaseInfo);
 
 export default databaseInfoMaps;
