@@ -1,5 +1,5 @@
 // Source: /configure/uniprotkb/result-fields
-// Retrieved: 2022-03-11
+// Retrieved: 2022-06-17
 const mock = [
   {
     groupName: 'Names & Taxonomy',
@@ -705,6 +705,11 @@ const mock = [
     id: '3d_structure',
     fields: [
       {
+        label: 'AlphaFoldDB',
+        name: 'xref_alphafolddb',
+        id: '3d_structure/alphafolddb',
+      },
+      {
         label: 'BMRB',
         name: 'xref_bmrb',
         id: '3d_structure/bmrb',
@@ -1128,11 +1133,6 @@ const mock = [
         id: 'genome_annotation/ensemblprotists',
       },
       {
-        label: 'GeneDB',
-        name: 'xref_genedb',
-        id: 'genome_annotation/genedb',
-      },
-      {
         label: 'GeneID',
         name: 'xref_geneid',
         id: 'genome_annotation/geneid',
@@ -1171,6 +1171,11 @@ const mock = [
         label: 'WBParaSite',
         name: 'xref_wbparasite',
         id: 'genome_annotation/wbparasite',
+      },
+      {
+        label: 'WBParaSiteTranscriptProtein',
+        name: 'xref_wbparasitetranscriptprotein',
+        id: 'genome_annotation/wbparasitetranscriptprotein',
       },
     ],
   },
