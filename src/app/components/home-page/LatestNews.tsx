@@ -18,7 +18,7 @@ const insideUniProtAbstract2 =
   'We would like to invite the machine learning community to help UniProt by creating computational methods to predict metal binding sites across the whole of UniProtKB.';
 
 const proteinSpotlightAbstract =
-  "The moment life emerged on earth, the fight - or indeed the right - to multiply began. The notion of battle is particularly true for microbes such as bacteria, fungi and viruses, that may frequently depend on hosts to replicate. Over the aeons, the art of infection and its twin image immunity have both had plenty of time to devise intricate strategies, either to attack the enemy or to fend it off, respectively. If on the offensive, one way of diminishing an opponent's strength would be to confiscate an element of their protective gear. Let's say a soldier's helmet, or their walkie-talkie, or their bullet-proof jacket, or their gun. This is precisely one of the schemes pathogens have thought up to weaken their host's immune response - and there are many different ways of achieving it. As an illustration, the rice pathogen Magnaporthe oryzae is a filamentous fungus that secretes proteins, known as effectors, into the plant cell, whose role is to weaken the plant's immune response one way or another. Recently, researchers characterized two M.oryzae effectors that go straight into the nucleus of host rice cells. What do they do there? Tamper with the expression of genes involved in the plant's immune response. Their name: HTR1 and HTR2, for Host Transcription Reprogramming 1 and 2.";
+  "All organisms depend on sets of vital connections, on parts that link to one another to form an intricate and organised whole. Without these connections, all things physiological and metabolic would simply fall apart. Consider animals - for the sake of simplicity. First of all, they require a membrane of sorts, such as skin, to hold everything together and in one place. Skeletons, if they have one, form a scaffold to which is attached muscle. In turn, muscles help to hold various organs in place as does their surrounding connective tissue. Connective tissue can be seen as a sort of biological glue-cum-support that fills in the 'empty' spaces and is composed of cells and 'extracellular matrix' - which, broadly speaking, is a collection of highly organized protein fibres. One of these fibres is fibrillin. Fibrillin is not new to researchers. However, what has recently come as a surprise is the destiny of the C-terminal end of one fibrillin sequence after maturation. Contrary to what had been thought until now, this end is not simply discarded but is actually the sequence of another protein: a protein hormone, since named asprosin.";
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -258,28 +258,28 @@ const LatestNews = () => {
       >
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/247/"
+            url="https://www.proteinspotlight.org/back_issues/248/"
             noIcon
           >
-            Sapped
+            Two birds, one stone
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/247/"
+          url="https://www.proteinspotlight.org/back_issues/248/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt247.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt248.jpg"
             alt=""
             width="125.46"
             height="86.65"
           />
         </ExternalLink>
         <p className={cn(styles['latest-news__abstract'])}>
-          {getWordsUpTo(proteinSpotlightAbstract, 300)}
+          {getWordsUpTo(proteinSpotlightAbstract, 250)}
         </p>
       </article>
     </HeroContainer>
