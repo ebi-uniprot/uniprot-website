@@ -10,6 +10,17 @@ import { JobTypes } from '../../../tools/types/toolsJobTypes';
 import { PublicServerParameters } from '../../../tools/types/toolsServerParameters';
 
 const ALIGN_LIMIT = 100;
+const isDisabled = (n: number) => n <= 1 || n > ALIGN_LIMIT;
+
+const getTitle = (n: number) => {
+  if (n > 1) {
+    if (n > ALIGN_LIMIT) {
+      return `Please select a maximum of ${ALIGN_LIMIT} entries to run an Align job`;
+    }
+    return `Run an Align job against ${n} entries`;
+  }
+  return 'Select at least 2 entries to run an Align job';
+};
 
 type AlignButtonProps = {
   selectedEntries: string[];
@@ -28,17 +39,6 @@ const AlignButton = ({
 
   const n = cleanedSelectedEntries.length;
 
-  const disabled = n <= 1 || n > ALIGN_LIMIT;
-
-  let title = 'Select at least 2 entries to run an Align job';
-  if (n > 1) {
-    if (n > ALIGN_LIMIT) {
-      title = `Please select a maximum of ${ALIGN_LIMIT} entries to run an Align job`;
-    } else {
-      title = `Run an Align job against ${n} entries`;
-    }
-  }
-
   const sequence =
     inputParamsData &&
     'sequence' in inputParamsData &&
@@ -49,8 +49,10 @@ const AlignButton = ({
       <Dropdown
         visibleElement={
           <Button
-            disabled={cleanedSelectedEntries.length === 0}
+            // If both buttons within were to be disabled
+            disabled={isDisabled(n) && isDisabled(n + 1)}
             variant="tertiary"
+            title={`Select from 2 to ${ALIGN_LIMIT} entries to run an Align job`}
           >
             Align
           </Button>
@@ -60,8 +62,8 @@ const AlignButton = ({
           <li>
             <ToolsButton
               selectedEntries={cleanedSelectedEntries}
-              disabled={disabled}
-              title={title}
+              disabled={isDisabled(n)}
+              title={getTitle(n)}
               location={Location.Align}
             >
               Align selected results
@@ -71,12 +73,11 @@ const AlignButton = ({
             <ToolsButton
               selectedEntries={cleanedSelectedEntries}
               sequence={sequence}
-              disabled={cleanedSelectedEntries.length === 0}
-              title={title}
+              disabled={isDisabled(n + 1)}
+              title={getTitle(n + 1)}
               location={Location.Align}
             >
-              Align selected{' '}
-              {pluralise('result', cleanedSelectedEntries.length)} with query
+              Align selected {pluralise('result', n)} with query
             </ToolsButton>
           </li>
         </ul>
@@ -87,8 +88,8 @@ const AlignButton = ({
   return (
     <ToolsButton
       selectedEntries={cleanedSelectedEntries}
-      disabled={disabled}
-      title={title}
+      disabled={isDisabled(n)}
+      title={getTitle(n)}
       location={Location.Align}
     >
       Align{textSuffix && ` ${textSuffix}`}
