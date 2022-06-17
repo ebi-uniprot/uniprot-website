@@ -51,6 +51,16 @@ describe('xrefUtils tests', () => {
         properties: { GeneName: 'APP' },
       },
       {
+        database: 'ClinGen',
+        implicit: true,
+        properties: { GeneName: 'APP' },
+      },
+      {
+        database: 'GenCC',
+        implicit: true,
+        properties: { GeneName: 'APP' },
+      },
+      {
         database: 'SWISS-MODEL-Workspace',
         implicit: true,
         properties: { GeneName: 'APP' },

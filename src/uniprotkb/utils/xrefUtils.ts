@@ -272,7 +272,6 @@ export const getXrefsForSection = (
     if (!name) {
       return;
     }
-    // eslint-disable-next-line no-param-reassign
     if (!databasesForSection.includes(name)) {
       return;
     }
