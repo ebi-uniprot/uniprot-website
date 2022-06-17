@@ -1,4 +1,4 @@
-import { FC, useState, Suspense } from 'react';
+import { useState, Suspense } from 'react';
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
 import {
@@ -30,10 +30,10 @@ type ResubmitButtonProps<T extends JobTypes> = {
   inputParamsData?: PublicServerParameters[T];
 };
 
-export const ResubmitButton: FC<ResubmitButtonProps<JobTypes>> = ({
+export const ResubmitButton = ({
   jobType,
   inputParamsData,
-}) => {
+}: ResubmitButtonProps<JobTypes>) => {
   const history = useHistory();
 
   const [disabled, setDisabled] = useState(false);
@@ -111,14 +111,14 @@ const ResultDownload = lazy(
   () => import(/* webpackChunkName: "result-download" */ './ResultDownload')
 );
 
-const ResultButtons: FC<ResultButtonsProps<JobTypes>> = ({
+const ResultButtons = ({
   jobType,
   jobId,
   selectedEntries,
   inputParamsData,
   nHits,
   isTableResultsFiltered,
-}) => {
+}: ResultButtonsProps<JobTypes>) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
   return (
@@ -146,7 +146,10 @@ const ResultButtons: FC<ResultButtonsProps<JobTypes>> = ({
       )}
       <div className="button-group">
         <BlastButton selectedEntries={selectedEntries} />
-        <AlignButton selectedEntries={selectedEntries} />
+        <AlignButton
+          selectedEntries={selectedEntries}
+          inputParamsData={inputParamsData}
+        />
         <Button
           variant="tertiary"
           onPointerOver={ResultDownload.preload}
