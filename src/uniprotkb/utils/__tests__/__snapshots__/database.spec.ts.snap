@@ -24,6 +24,7 @@ Object {
       "PDBe-KB",
       "PDBj",
       "RCSB-PDB",
+      "AlphaFoldDB",
     ],
     "CHEMISTRY": Array [
       "BindingDB",
@@ -79,7 +80,6 @@ Object {
       "EnsemblMetazoa",
       "EnsemblPlants",
       "EnsemblProtists",
-      "GeneDB",
       "GeneID",
       "Gramene",
       "KEGG",
@@ -88,11 +88,14 @@ Object {
       "UCSC",
       "VectorBase",
       "WBParaSite",
+      "WBParaSiteTranscriptProtein",
     ],
     "GVD": Array [
       "BioMuta",
       "DMDM",
       "dbSNP",
+      "ClinGen",
+      "GenCC",
     ],
     "MISC": Array [
       "ChiTaRS",
@@ -232,6 +235,7 @@ Object {
   "databaseNameToCategory": Object {
     "ABCD": "PAM",
     "Allergome": "PFAM",
+    "AlphaFoldDB": "3DS",
     "Antibodypedia": "PAM",
     "ArachnoServer": "ORG",
     "Araport": "ORG",
@@ -257,6 +261,7 @@ Object {
     "ChEMBL": "CHEMISTRY",
     "ChiTaRS": "MISC",
     "CleanEx": "GEP",
+    "ClinGen": "GVD",
     "CollecTF": "GEP",
     "ComplexPortal": "PPI",
     "ConoServer": "ORG",
@@ -289,9 +294,9 @@ Object {
     "GPCRDB": "PFAM",
     "GenAtlas": "ORG",
     "GenBank": "SEQ",
+    "GenCC": "GVD",
     "Gene3D": "FMD",
     "GeneCards": "ORG",
-    "GeneDB": "GMA",
     "GeneID": "GMA",
     "GeneReviews": "ORG",
     "GeneTree": "PLG",
@@ -406,6 +411,7 @@ Object {
     "VGNC": "ORG",
     "VectorBase": "GMA",
     "WBParaSite": "GMA",
+    "WBParaSiteTranscriptProtein": "GMA",
     "World-2DPAGE": "2DG",
     "WormBase": "ORG",
     "Xenbase": "ORG",
@@ -442,6 +448,18 @@ Object {
       "displayName": "Allergome",
       "name": "Allergome",
       "uriLink": "http://www.allergome.org/script/dettaglio.php?id_molecule=%id",
+    },
+    "AlphaFoldDB": Object {
+      "attributes": Array [
+        Object {
+          "name": "Description",
+          "xmlTag": "description",
+        },
+      ],
+      "category": "3DS",
+      "displayName": "AlphaFoldDB",
+      "name": "AlphaFoldDB",
+      "uriLink": "https://alphafold.ebi.ac.uk/entry/%id",
     },
     "Antibodypedia": Object {
       "attributes": Array [
@@ -746,6 +764,20 @@ Object {
       "displayName": "CleanEx",
       "name": "CleanEx",
       "uriLink": "https://cleanex.vital-it.ch/cgi-bin/get_doc?db=cleanex&format=nice&entry=%id",
+    },
+    "ClinGen": Object {
+      "attributes": Array [
+        Object {
+          "name": "Description",
+          "xmlTag": "description",
+        },
+      ],
+      "category": "GVD",
+      "displayName": "ClinGen",
+      "implicit": true,
+      "linkedReason": "DR:HGNC",
+      "name": "ClinGen",
+      "uriLink": "https://search.clinicalgenome.org/kb/genes/%id",
     },
     "CollecTF": Object {
       "attributes": Array [
@@ -1212,6 +1244,20 @@ Object {
       "name": "GenBank",
       "uriLink": "https://www.ncbi.nlm.nih.gov/protein/%id",
     },
+    "GenCC": Object {
+      "attributes": Array [
+        Object {
+          "name": "Description",
+          "xmlTag": "description",
+        },
+      ],
+      "category": "GVD",
+      "displayName": "GenCC",
+      "implicit": true,
+      "linkedReason": "DR:HGNC",
+      "name": "GenCC",
+      "uriLink": "https://search.thegencc.org/genes/%id",
+    },
     "Gene3D": Object {
       "attributes": Array [
         Object {
@@ -1239,18 +1285,6 @@ Object {
       "displayName": "GeneCards",
       "name": "GeneCards",
       "uriLink": "https://www.genecards.org/cgi-bin/carddisp.pl?gene=%id",
-    },
-    "GeneDB": Object {
-      "attributes": Array [
-        Object {
-          "name": "Description",
-          "xmlTag": "description",
-        },
-      ],
-      "category": "GMA",
-      "displayName": "GeneDB",
-      "name": "GeneDB",
-      "uriLink": "https://www.genedb.org/gene/%id",
     },
     "GeneID": Object {
       "attributes": Array [
@@ -2352,7 +2386,7 @@ Object {
       "category": "FMD",
       "displayName": "SFLD",
       "name": "SFLD",
-      "uriLink": "http://sfld.rbvi.ucsf.edu/django/lookup/%id",
+      "uriLink": "https://www.ebi.ac.uk/interpro/entry/sfld/%id",
     },
     "SGD": Object {
       "attributes": Array [
@@ -2486,7 +2520,7 @@ Object {
       "implicit": true,
       "linkedReason": "DR:SMR<1",
       "name": "SWISS-MODEL-Workspace",
-      "uriLink": "http://salilab.org/modbase-cgi/model_search.cgi?searchkw=name&kword=%primaryAccession",
+      "uriLink": "https://swissmodel.expasy.org/interactive/?ac=%primaryAccession",
     },
     "SignaLink": Object {
       "attributes": Array [
@@ -2717,6 +2751,18 @@ Object {
       "category": "GMA",
       "displayName": "WBParaSite",
       "name": "WBParaSite",
+      "uriLink": "https://parasite.wormbase.org/id/%id",
+    },
+    "WBParaSiteTranscriptProtein": Object {
+      "attributes": Array [
+        Object {
+          "name": "Description",
+          "xmlTag": "description",
+        },
+      ],
+      "category": "GMA",
+      "displayName": "WBParaSite Transcript/Protein",
+      "name": "WBParaSiteTranscriptProtein",
       "uriLink": "https://parasite.wormbase.org/id/%id",
     },
     "World-2DPAGE": Object {
@@ -3102,7 +3148,6 @@ Object {
       "EnsemblMetazoa",
       "EnsemblPlants",
       "EnsemblProtists",
-      "GeneDB",
       "GeneID",
       "Gramene",
       "KEGG",
@@ -3111,6 +3156,7 @@ Object {
       "UCSC",
       "VectorBase",
       "WBParaSite",
+      "WBParaSiteTranscriptProtein",
     ],
     "structure": Array [
       "PDB",
@@ -3124,11 +3170,16 @@ Object {
       "PDBe-KB",
       "PDBj",
       "RCSB-PDB",
+      "AlphaFoldDB",
       "EvolutionaryTrace",
       "ModBase",
     ],
   },
   "implicitDatabaseXRefs": Object {
+    "ClinGen": Object {
+      "database": "ClinGen",
+      "implicit": true,
+    },
     "DDBJ": Object {
       "database": "DDBJ",
       "implicit": true,
@@ -3147,6 +3198,10 @@ Object {
     },
     "GenBank": Object {
       "database": "GenBank",
+      "implicit": true,
+    },
+    "GenCC": Object {
+      "database": "GenCC",
       "implicit": true,
     },
     "HUGE": Object {
