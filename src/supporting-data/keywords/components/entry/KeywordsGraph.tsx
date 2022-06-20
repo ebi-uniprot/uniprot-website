@@ -12,6 +12,7 @@ import styles from './styles/keywords-graph.module.scss';
 
 const ARROW_WIDTH = 6;
 const ARROW_HEIGHT = 4;
+const SPACE_BETWEEN_ARROWS = 5;
 const getEntryPath = getEntryPathFor(Namespace.keywords);
 
 const renderGraph = (
@@ -51,13 +52,29 @@ const renderGraph = (
     .attr('d', `M0,0 L${ARROW_WIDTH},${ARROW_HEIGHT / 2} L0,${ARROW_HEIGHT} z`)
     .attr('fill', '#000');
 
+  const targets: string[] = [];
   for (const link of links) {
+    let spacing = 0;
     const [source, target] = link.split('|');
+
     const sourceEl = nodeDetails[source].getBoundingClientRect();
     const targetEl = nodeDetails[target].getBoundingClientRect();
     const x1 = sourceEl.x + sourceEl.width / 2 - xPosition;
     const y1 = sourceEl.y + sourceEl.height - yPosition;
-    const x2 = targetEl.x + targetEl.width / 2 - xPosition;
+    const targetMidPoint = targetEl.x + targetEl.width / 2 - xPosition;
+
+    if (targets.includes(target)) {
+      // Spacing the arrows based on the source's position whether it is to the left or right of the target in case of multiple parents
+      if (x1 < targetMidPoint) {
+        spacing -= SPACE_BETWEEN_ARROWS;
+      } else {
+        spacing += SPACE_BETWEEN_ARROWS;
+      }
+    } else {
+      targets.push(target);
+    }
+
+    const x2 = targetEl.x + targetEl.width / 2 - xPosition + spacing;
     const y2 = targetEl.y - yPosition;
     svg
       .append('line')
