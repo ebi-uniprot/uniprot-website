@@ -276,20 +276,20 @@ exports[`Entry basic should render main 1`] = `
             <div
               class="button-group"
             >
-              <button
+              <a
                 class="button tertiary"
+                href="/blast?ids=P21802"
                 title="Run a BLAST job against P21802"
-                type="button"
               >
                 BLAST
-              </button>
-              <button
+              </a>
+              <a
                 class="button tertiary"
+                href="/align?ids=P21802%2CisoID1"
                 title="Run an Align job against 2 entries"
-                type="button"
               >
                 Align
-              </button>
+              </a>
               <div
                 aria-expanded="false"
                 aria-haspopup="true"

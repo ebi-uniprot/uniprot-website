@@ -115,8 +115,8 @@ export type ServerError = {
   response: AxiosResponse<string | { messages: string[] }>;
 };
 
-export const getServerErrorDescription = (error: ServerError) => {
-  const data = error?.response?.data;
+export const getServerErrorDescription = (error: ServerError | string) => {
+  const data = typeof error === 'string' ? error : error?.response?.data;
   if (!data) {
     return null;
   }

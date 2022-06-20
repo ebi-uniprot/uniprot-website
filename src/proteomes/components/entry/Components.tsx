@@ -68,17 +68,25 @@ export const Components: FC<
           }
           if (
             // Excluded not supported at the moment, need to wait for TRM-28011
-            proteomeType === 'Excluded' ||
-            // Redundant not supported at the moment, need to wait for TRM-28015
-            proteomeType === 'Redundant proteome'
+            proteomeType === 'Excluded'
           ) {
             return <LongNumber>{proteinCount}</LongNumber>;
           }
+          // const shouldPointToUniParc =
+          //   proteomeType === 'Excluded' || proteomeType === 'Redundant proteome';
+          const shouldPointToUniParc = proteomeType === 'Redundant proteome';
           return (
             <Link
               to={{
-                pathname: LocationToPath[Location.UniProtKBResults],
-                search: `query=(proteome:${id}) AND (proteomecomponent:"${name}")`,
+                pathname:
+                  LocationToPath[
+                    shouldPointToUniParc
+                      ? Location.UniParcResults
+                      : Location.UniProtKBResults
+                  ],
+                search: `query=(${
+                  shouldPointToUniParc ? 'upid' : 'proteome'
+                }:${id}) AND (proteomecomponent:"${name}")`,
               }}
             >
               <LongNumber>{proteinCount}</LongNumber>
@@ -110,10 +118,7 @@ export const Components: FC<
         data={components}
         onSelectionChange={
           // Excluded not supported at the moment, need to wait for TRM-28011
-          // Redundant not supported at the moment, need to wait for TRM-28015
-          proteomeType === 'Excluded' || proteomeType === 'Redundant proteome'
-            ? undefined
-            : setSelectedItemFromEvent
+          proteomeType === 'Excluded' ? undefined : setSelectedItemFromEvent
         }
         fixedLayout
       />

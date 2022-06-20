@@ -294,7 +294,7 @@ exports[`Entry - External Links view should render 1`] = `
                   <li>
                     <a
                       class="external-link"
-                      href="http://salilab.org/modbase-cgi/model_search.cgi?searchkw=name&kword=P21802"
+                      href="https://swissmodel.expasy.org/interactive/?ac=P21802"
                       rel="noopener"
                       target="_blank"
                     >

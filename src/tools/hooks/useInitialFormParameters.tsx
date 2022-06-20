@@ -3,9 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { sequenceProcessor } from 'franklin-sites';
 
 import useDataApi from '../../shared/hooks/useDataApi';
-import { useMessagesDispatch } from '../../shared/contexts/Messages';
 
-import { addMessage } from '../../messages/state/messagesActions';
 import { parseIdsFromSearchParams } from '../utils/urls';
 import { getAccessionsURL } from '../../shared/config/apiUrls';
 import entryToFASTAWithHeaders from '../../shared/utils/entryToFASTAWithHeaders';
@@ -15,10 +13,6 @@ import { Location, LocationToPath } from '../../app/config/urls';
 import { SelectedTaxon } from '../types/toolsFormData';
 import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
 import { SearchResults } from '../../shared/types/results';
-import {
-  MessageFormat,
-  MessageLevel,
-} from '../../messages/types/messagesTypes';
 
 interface CustomLocationState<T> {
   parameters?: Partial<T>;
@@ -53,7 +47,6 @@ function useInitialFormParameters<
   const history = useHistory();
   // Keep initial history.location?.search as we later remove this in a useEffect hook
   const historyLocationSearch = useRef(history.location?.search).current;
-  const dispatchMessages = useMessagesDispatch();
 
   const parametersFromHistorySearch = useMemo(
     () => new URLSearchParams(historyLocationSearch),
@@ -76,39 +69,6 @@ function useInitialFormParameters<
   const url = getAccessionsURL(accessionsFromParams, { facets: null });
   const { loading: accessionsLoading, data: accessionsData } =
     useDataApi<SearchResults<UniProtkbAPIModel>>(url);
-
-  useEffect(() => {
-    if (
-      parametersFromHistorySearch.has('sequence') &&
-      parametersFromHistorySearch.has('ids') &&
-      idsMaybeWithRange?.length &&
-      accessionsData
-    ) {
-      dispatchMessages(
-        addMessage({
-          content: (
-            <>
-              Found both <code>ids</code> and <code>sequence</code> in URL
-              parameters. Sequence data will be loaded from <code>ids</code>:{' '}
-              {`${idsMaybeWithRange
-                .slice(0, 3)
-                .map(({ id }) => id)
-                .join(', ')}${idsMaybeWithRange.length > 3 ? ', …' : ''}`}
-              .
-            </>
-          ),
-          format: MessageFormat.POP_UP,
-          level: MessageLevel.INFO,
-          displayTime: 15_000,
-        })
-      );
-    }
-  }, [
-    accessionsData,
-    dispatchMessages,
-    idsMaybeWithRange,
-    parametersFromHistorySearch,
-  ]);
 
   // Discard 'search' part of url to avoid url state issues.
   useEffect(() => {
@@ -155,8 +115,12 @@ function useInitialFormParameters<
       const idToSequence = new Map(
         accessionsData.results.map((datum) => [datum.primaryAccession, datum])
       );
-      const sequences = idsMaybeWithRange
-        .map(({ id, start, end }) => {
+      const sequences = [
+        // load initial sequence value to prepend with the ones loaded from IDs
+        (
+          formValues['Sequence' as Fields]?.selected as string | undefined
+        )?.trim(),
+        ...idsMaybeWithRange.map(({ id, start, end }) => {
           const entry = idToSequence.get(id);
           if (!entry) {
             // TODO: currently this will not be reached - if any accession fails in the accessions request
@@ -173,7 +137,8 @@ function useInitialFormParameters<
           const subsets = start && end ? [{ start, end }] : [];
           const fasta = entryToFASTAWithHeaders(entry, { subsets });
           return fasta;
-        })
+        }),
+      ]
         .filter(Boolean)
         .join('\n\n');
 

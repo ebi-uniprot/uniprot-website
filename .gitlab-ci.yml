@@ -2,6 +2,7 @@ variables:
   DEPLOY_REPO: 'front-end-deploy'
   DEPLOY_REPO_URL: 'https://gitlab-ci-token:${GITLAB_USER_API_TOKEN}@gitlab.ebi.ac.uk/uniprot/front-end/${DEPLOY_REPO}.git'
   DOCKER_REPO: 'dockerhub.ebi.ac.uk/uniprot/front-end/front-end-docker'
+  DOCKER_IMAGE_VERSION: 2
 
 stages:
   - test
@@ -10,7 +11,7 @@ stages:
   - deploy
 
 .js:
-  image: ${DOCKER_REPO}/alpine-js:1
+  image: ${DOCKER_REPO}/alpine-js:${DOCKER_IMAGE_VERSION}
   before_script:
     - git --version
     - node --version
@@ -73,7 +74,7 @@ build_docker_image:
   except:
     - external_pull_requests
   stage: build_docker_image
-  image: ${DOCKER_REPO}/alpine-docker-git:1
+  image: ${DOCKER_REPO}/alpine-docker-git:${DOCKER_IMAGE_VERSION}
   tags:
     - dind
   services:
@@ -98,7 +99,7 @@ deploy:
   except:
     - external_pull_requests
   stage: deploy
-  image: ${DOCKER_REPO}/alpine-k8s:1
+  image: ${DOCKER_REPO}/alpine-k8s:${DOCKER_IMAGE_VERSION}
   script:
     - git clone $DEPLOY_REPO_URL
     - |

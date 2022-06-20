@@ -2734,7 +2734,7 @@ exports[`Entry view should render 1`] = `
                   <li>
                     <a
                       class="external-link"
-                      href="http://salilab.org/modbase-cgi/model_search.cgi?searchkw=name&kword=P21802"
+                      href="https://swissmodel.expasy.org/interactive/?ac=P21802"
                       rel="noopener"
                       target="_blank"
                     >
@@ -2937,13 +2937,13 @@ exports[`Entry view should render 1`] = `
         <div
           class="button-group"
         >
-          <button
+          <a
             class="button tertiary"
+            href="/blast?ids=isoID1"
             title="Run a BLAST job against isoID1"
-            type="button"
           >
             BLAST 1 isoform
-          </button>
+          </a>
           <button
             class="button tertiary disabled"
             disabled=""
