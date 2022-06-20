@@ -1,19 +1,18 @@
 .graph {
   position: relative;
-  width: 500px;
-  height: calc(50vh - 100px);
+  width: 30rem;
 }
 
 .container {
-  width: 500px;
+  width: 30rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: calc(50vh - 100px);
   position: absolute;
 
   :global(.node) {
-    width: min-content;
+    // width: min-content;
+    padding: 0.1rem;
   }
 }
 

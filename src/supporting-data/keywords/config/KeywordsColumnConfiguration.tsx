@@ -172,7 +172,7 @@ KeywordsColumnConfiguration.set(KeywordsColumn.graphical, {
     };
 
     const levels: tlevels = {};
-    const links: string[] = [];
+    const links: Set<string> = new Set();
     const keywordIdMap: Map<string, string> = new Map();
     const ancestorHierarchy: string[] = [];
 
@@ -194,8 +194,7 @@ KeywordsColumnConfiguration.set(KeywordsColumn.graphical, {
       }
     };
 
-    if (keyword?.name && keyword?.id && children?.length) {
-      keywordIdMap.set(keyword.name, keyword.id);
+    if (children?.length) {
       children.forEach((child) => {
         findHierarchy(child, '');
       });
@@ -219,15 +218,14 @@ KeywordsColumnConfiguration.set(KeywordsColumn.graphical, {
       const ptcHierarchy = fullHierarchy.split('|').reverse().filter(Boolean);
       for (let i = 0; i < ptcHierarchy.length - 1; i += 1) {
         const link = `${ptcHierarchy[i]}|${ptcHierarchy[i + 1]}`;
-        if (!links.includes(link)) {
-          links.push(link);
-        }
+        links.add(link);
       }
     });
 
     // Adding the keyword into the levels after the ancestors
     const presentAncestorsCount = Object.keys(levels).length;
     if (keyword?.name && keyword?.id) {
+      keywordIdMap.set(keyword.name, keyword.id);
       levels[presentAncestorsCount] = [keyword.name];
     }
 
@@ -236,7 +234,7 @@ KeywordsColumnConfiguration.set(KeywordsColumn.graphical, {
       levels[presentAncestorsCount + 1] = [];
       parents.forEach((desc) => {
         levels[presentAncestorsCount + 1].push(desc.keyword.name);
-        links.push(`${keyword?.name}|${desc.keyword.name}`);
+        links.add(`${keyword?.name}|${desc.keyword.name}`);
         keywordIdMap.set(desc.keyword.name, desc.keyword.id);
       });
     }

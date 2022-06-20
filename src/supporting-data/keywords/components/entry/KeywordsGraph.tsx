@@ -19,7 +19,7 @@ const renderGraph = (
   height: number,
   xPosition: number,
   yPosition: number,
-  links: string[],
+  links: Set<string>,
   container: HTMLDivElement | null,
   svgElement: SVGSVGElement | null
 ) => {
@@ -29,7 +29,9 @@ const renderGraph = (
   const nodeDetails: Record<string, HTMLSpanElement> = {};
   nodeElements?.forEach((el) => {
     const key = el.textContent;
-    nodeDetails[`keyword-${key}`] = el;
+    if (key) {
+      nodeDetails[key] = el;
+    }
   });
 
   const svg = select(svgElement).attr('width', width).attr('height', height);
@@ -49,10 +51,10 @@ const renderGraph = (
     .attr('d', `M0,0 L${ARROW_WIDTH},${ARROW_HEIGHT / 2} L0,${ARROW_HEIGHT} z`)
     .attr('fill', '#000');
 
-  for (let i = 0; i < links.length; i += 1) {
-    const [source, target] = links[i].split('|');
-    const sourceEl = nodeDetails[`keyword-${source}`].getBoundingClientRect();
-    const targetEl = nodeDetails[`keyword-${target}`].getBoundingClientRect();
+  for (const link of links) {
+    const [source, target] = link.split('|');
+    const sourceEl = nodeDetails[source].getBoundingClientRect();
+    const targetEl = nodeDetails[target].getBoundingClientRect();
     const x1 = sourceEl.x + sourceEl.width / 2 - xPosition;
     const y1 = sourceEl.y + sourceEl.height - yPosition;
     const x2 = targetEl.x + targetEl.width / 2 - xPosition;
@@ -73,7 +75,7 @@ type graphProps = {
   nodes: {
     [key: number]: string[];
   };
-  links: string[];
+  links: Set<string>;
   keywords: Map<string, string>;
 };
 
@@ -97,9 +99,15 @@ const KeywordsGraph = ({ nodes, links, keywords }: graphProps) => {
     }
   }, [size?.width, size?.height, size?.x, size?.y, links]);
 
+  // Setting the height to a minimum of three levels to avoid cluttering in case of many children
+  const height =
+    Object.values(nodes).length > 2
+      ? `calc(5em * ${Object.values(nodes).length})`
+      : `calc(5em * 3)`;
+
   return (
-    <div className={styles.graph}>
-      <div className={styles.container} ref={containerRef}>
+    <div className={styles.graph} style={{ height }}>
+      <div className={styles.container} ref={containerRef} style={{ height }}>
         {Object.values(nodes).map((nodeArray, i) => {
           const id = `level${i}`;
           return (
@@ -107,7 +115,7 @@ const KeywordsGraph = ({ nodes, links, keywords }: graphProps) => {
               {nodeArray.map((node) => {
                 const nodeId = keywords.get(node);
                 return (
-                  <span key={`keyword-${node}`} className="node">
+                  <span key={node} className="node">
                     {nodeId ? (
                       <Link to={getEntryPath(nodeId)}>{node}</Link>
                     ) : (
