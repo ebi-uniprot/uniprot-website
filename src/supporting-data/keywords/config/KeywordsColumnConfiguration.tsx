@@ -205,7 +205,7 @@ KeywordsColumnConfiguration.set(KeywordsColumn.graphical, {
       // Finding the levels of each node
       for (let i = 0; i < nodes.length; i += 1) {
         if (levels[i]) {
-          if (!levels[i].includes(nodes[i])) {
+          if (!Object.values(levels).flat().includes(nodes[i])) {
             levels[i].push(nodes[i]);
           }
         } else {
