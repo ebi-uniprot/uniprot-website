@@ -244,7 +244,7 @@ KeywordsColumnConfiguration.set(KeywordsColumn.graphical, {
         nodes={levels}
         links={links}
         keywords={keywordIdMap}
-        key={keyword?.id}
+        currentKeyword={keyword?.id}
       />
     );
   },

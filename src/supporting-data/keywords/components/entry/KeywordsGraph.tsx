@@ -25,7 +25,7 @@ const renderGraph = (
   svgElement: SVGSVGElement | null
 ) => {
   const nodeElements =
-    container?.querySelectorAll<HTMLSpanElement>(`span.node`);
+    container?.querySelectorAll<HTMLSpanElement>('span.node');
 
   const nodeDetails: Record<string, HTMLSpanElement> = {};
   nodeElements?.forEach((el) => {
@@ -94,9 +94,15 @@ type graphProps = {
   };
   links: Set<string>;
   keywords: Map<string, string>;
+  currentKeyword?: string;
 };
 
-const KeywordsGraph = ({ nodes, links, keywords }: graphProps) => {
+const KeywordsGraph = ({
+  nodes,
+  links,
+  keywords,
+  currentKeyword,
+}: graphProps) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -133,10 +139,11 @@ const KeywordsGraph = ({ nodes, links, keywords }: graphProps) => {
                 const nodeId = keywords.get(node);
                 return (
                   <span key={node} className="node">
-                    {nodeId ? (
+                    {/* Only generate a link if it's to another keyword */}
+                    {nodeId && currentKeyword !== nodeId ? (
                       <Link to={getEntryPath(nodeId)}>{node}</Link>
                     ) : (
-                      { node }
+                      node
                     )}
                   </span>
                 );

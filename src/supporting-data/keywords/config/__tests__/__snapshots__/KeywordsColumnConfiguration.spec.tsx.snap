@@ -98,11 +98,7 @@ exports[`KeywordsColumnConfiguration component should render column "graph": gra
         <span
           class="node"
         >
-          <a
-            href="/keywords/KW-0021"
-          >
-            Allosteric enzyme
-          </a>
+          Allosteric enzyme
         </span>
       </div>
     </div>
