@@ -1,5 +1,4 @@
 import { Loader, Card, InfoList } from 'franklin-sites';
-import cn from 'classnames';
 
 import { LocationDescriptor } from 'history';
 import { RouteChildrenProps, Redirect } from 'react-router-dom';
@@ -10,7 +9,7 @@ import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler
 import EntryDownload from '../../../../shared/components/entry/EntryDownload';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
 
-import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
+import useDataApi from '../../../../shared/hooks/useDataApi';
 
 import apiUrls from '../../../../shared/config/apiUrls';
 import { getEntryPathFor } from '../../../../app/config/urls';
@@ -24,7 +23,6 @@ import KeywordsColumnConfiguration, {
   KeywordsColumn,
 } from '../../config/KeywordsColumnConfiguration';
 
-import helper from '../../../../shared/styles/helper.module.scss';
 import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
 
 const columns = [
@@ -35,6 +33,7 @@ const columns = [
   KeywordsColumn.parents,
   KeywordsColumn.children,
   KeywordsColumn.links,
+  KeywordsColumn.graphical,
 ];
 
 const reNumber = /^\d+$/;
@@ -54,8 +53,8 @@ const KeywordsEntry = ({
     };
   }
 
-  const { data, loading, error, status, progress, isStale } =
-    useDataApiWithStale<KeywordsAPIModel>(
+  const { data, loading, error, status, progress } =
+    useDataApi<KeywordsAPIModel>(
       redirectTo ? undefined : apiUrls.entry(accession, Namespace.keywords)
     );
 
@@ -95,7 +94,7 @@ const KeywordsEntry = ({
         {searchableNamespaceLabels[Namespace.keywords]} - {data.keyword.name} (
         {data.keyword.id})
       </h1>
-      <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
+      <Card className={entryPageStyles.card}>
         <div className="button-group">
           <EntryDownload />
           <MapToDropdown statistics={data.statistics} />

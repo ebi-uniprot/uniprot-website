@@ -69,6 +69,46 @@ exports[`KeywordsColumnConfiguration component should render column "gene_ontolo
 </DocumentFragment>
 `;
 
+exports[`KeywordsColumnConfiguration component should render column "graph": graph 1`] = `
+<DocumentFragment>
+  <div
+    class="graph"
+    style="height: calc(5em * 3);"
+  >
+    <svg
+      class="arrows"
+    />
+    <div
+      class="container"
+      style="height: calc(5em * 3);"
+    >
+      <div
+        class="keyword-node"
+      >
+        <span
+          class="node"
+        >
+          <a
+            href="/keywords/KW-9992"
+          >
+            Molecular function
+          </a>
+        </span>
+      </div>
+      <div
+        class="keyword-node"
+      >
+        <span
+          class="node"
+        >
+          Allosteric enzyme
+        </span>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`KeywordsColumnConfiguration component should render column "id": id 1`] = `
 <DocumentFragment>
   <a

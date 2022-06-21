@@ -1,0 +1,32 @@
+@import '../../../../../../node_modules/franklin-sites/src/styles/colours';
+
+.graph {
+  position: relative;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: absolute;
+
+  :global(.node) {
+    padding: 0.1rem;
+    background-color: rgba($colour-platinum, 0.9);
+  }
+}
+
+.keyword-node {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  text-align: center;
+  flex-wrap: wrap;
+}
+
+.arrows {
+  position: absolute;
+  pointer-events: none;
+}
