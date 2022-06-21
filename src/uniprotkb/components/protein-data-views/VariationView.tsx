@@ -258,9 +258,16 @@ const VariationView = ({
                 </td>
                 <td>{position}</td>
                 <td className={styles.change}>
-                  {variantFeature.wildType}
-                  {'>'}
-                  {variantFeature.alternativeSequence || <em>missing</em>}
+                  {variantFeature.wildType ||
+                  variantFeature.alternativeSequence ? (
+                    <>
+                      {variantFeature.wildType || <em>missing</em>}
+                      {'>'}
+                      {variantFeature.alternativeSequence || <em>missing</em>}
+                    </>
+                  ) : (
+                    <em>missing</em>
+                  )}
                 </td>
                 <td>
                   {variantFeature.descriptions &&

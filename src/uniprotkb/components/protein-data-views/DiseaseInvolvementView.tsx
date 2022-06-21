@@ -51,9 +51,17 @@ export const DiseaseVariants = ({ variants }: { variants: FeatureData }) => {
                   <td>{variant.featureId}</td>
                   <td>{position}</td>
                   <td className={styles.change}>
-                    {variant.alternativeSequence?.originalSequence}
-                    {'>'}
-                    {variant.alternativeSequence?.alternativeSequences?.[0] || (
+                    {variant.alternativeSequence?.originalSequence ||
+                    variant.alternativeSequence?.alternativeSequences?.[0] ? (
+                      <>
+                        {variant.alternativeSequence?.originalSequence || (
+                          <em>missing</em>
+                        )}
+                        {'>'}
+                        {variant.alternativeSequence
+                          ?.alternativeSequences?.[0] || <em>missing</em>}
+                      </>
+                    ) : (
                       <em>missing</em>
                     )}
                   </td>
