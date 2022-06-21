@@ -56,6 +56,7 @@ const renderGraph = (
   for (const link of links) {
     let spacing = 0;
     const [source, target] = link.split('|');
+    targets.push(target);
 
     const sourceEl = nodeDetails[source].getBoundingClientRect();
     const targetEl = nodeDetails[target].getBoundingClientRect();
@@ -63,16 +64,25 @@ const renderGraph = (
     const y1 = sourceEl.y + sourceEl.height - yPosition;
     const targetMidPoint = targetEl.x + targetEl.width / 2 - xPosition;
 
-    if (targets.includes(target)) {
-      // Spacing the arrows based on the source's position whether it is to the left or right of the target in case of multiple parents
+    // Spacing the arrows based on the source's position whether it is to the left or right of the target in case of multiple parents
+    const count = targets.filter((t) => t === target).length;
+    if (count > 1) {
       if (x1 < targetMidPoint) {
-        spacing -= SPACE_BETWEEN_ARROWS;
+        spacing -= SPACE_BETWEEN_ARROWS * count;
       } else {
-        spacing += SPACE_BETWEEN_ARROWS;
+        spacing += SPACE_BETWEEN_ARROWS * count;
       }
-    } else {
-      targets.push(target);
     }
+    // if (targets.includes(target)) {
+    //   // Spacing the arrows based on the source's position whether it is to the left or right of the target in case of multiple parents
+    //   if (x1 < targetMidPoint) {
+    //     spacing -= SPACE_BETWEEN_ARROWS;
+    //   } else {
+    //     spacing += SPACE_BETWEEN_ARROWS;
+    //   }
+    // } else {
+    //   targets.push(target);
+    // }
 
     const x2 = targetEl.x + targetEl.width / 2 - xPosition + spacing;
     const y2 = targetEl.y - yPosition;

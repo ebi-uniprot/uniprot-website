@@ -189,7 +189,7 @@ KeywordsColumnConfiguration.set(KeywordsColumn.graphical, {
           hierarchyString += `${el.keyword.name}`;
         }
       });
-      if (!ancestorHierarchy.some((str) => str.includes(hierarchyString))) {
+      if (!ancestorHierarchy.some((str) => str === hierarchyString)) {
         ancestorHierarchy.push(hierarchyString);
       }
     };
