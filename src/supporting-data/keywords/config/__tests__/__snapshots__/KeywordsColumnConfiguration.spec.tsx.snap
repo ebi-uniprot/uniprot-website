@@ -75,6 +75,9 @@ exports[`KeywordsColumnConfiguration component should render column "graph": gra
     class="graph"
     style="height: calc(5em * 3);"
   >
+    <svg
+      class="arrows"
+    />
     <div
       class="container"
       style="height: calc(5em * 3);"
@@ -102,9 +105,6 @@ exports[`KeywordsColumnConfiguration component should render column "graph": gra
         </span>
       </div>
     </div>
-    <svg
-      class="arrows"
-    />
   </div>
 </DocumentFragment>
 `;

@@ -1,3 +1,5 @@
+@import '../../../../../../node_modules/franklin-sites/src/styles/colours';
+
 .graph {
   position: relative;
 }
@@ -10,8 +12,8 @@
   position: absolute;
 
   :global(.node) {
-    // width: min-content;
     padding: 0.1rem;
+    background-color: rgba($colour-platinum, 0.9);
   }
 }
 

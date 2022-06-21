@@ -73,16 +73,6 @@ const renderGraph = (
         spacing += SPACE_BETWEEN_ARROWS * count;
       }
     }
-    // if (targets.includes(target)) {
-    //   // Spacing the arrows based on the source's position whether it is to the left or right of the target in case of multiple parents
-    //   if (x1 < targetMidPoint) {
-    //     spacing -= SPACE_BETWEEN_ARROWS;
-    //   } else {
-    //     spacing += SPACE_BETWEEN_ARROWS;
-    //   }
-    // } else {
-    //   targets.push(target);
-    // }
 
     const x2 = targetEl.x + targetEl.width / 2 - xPosition + spacing;
     const y2 = targetEl.y - yPosition;
@@ -140,6 +130,7 @@ const KeywordsGraph = ({
 
   return (
     <div className={styles.graph} style={{ height }}>
+      <svg ref={svgRef} className={styles.arrows} />
       <div className={styles.container} ref={containerRef} style={{ height }}>
         {Object.values(nodes).map((nodeArray, i) => {
           const id = `level${i}`;
@@ -162,7 +153,6 @@ const KeywordsGraph = ({
           );
         })}
       </div>
-      <svg ref={svgRef} className={styles.arrows} />
     </div>
   );
 };
