@@ -51,13 +51,13 @@ if (process.env.NODE_ENV !== 'development') {
       maxBreadcrumbs: 50,
       // Proportion of sessions being used to track performance
       // Adjust to a low value when we start getting enough data
-      tracesSampleRate: 0.15,
+      tracesSampleRate: 0.1,
       // Proportion of errors being reported
-      sampleRate: 0.5,
+      sampleRate: 0.4,
       // errors to be ignored completely
       ignoreErrors: [
-        // errors caused by an extension
-        'chrome-extensions://',
+        'chrome-extensions://', // errors caused by an extension
+        'Request aborted', // aborted network requests, expected to happen
       ],
       // Programmatically filter out errors from Sentry
       // beforeSend(event, hint){
