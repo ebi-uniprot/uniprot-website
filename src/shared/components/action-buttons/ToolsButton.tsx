@@ -24,6 +24,7 @@ const ToolsButton: FC<ToolsButtonProps> = ({
   if (sequence) {
     searchParams.set('sequence', sequence);
   }
+
   return (
     <Button
       element={disabled ? 'button' : Link}

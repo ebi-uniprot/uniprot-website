@@ -2,17 +2,12 @@ import { useEffect, useMemo, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { sequenceProcessor } from 'franklin-sites';
 
-import useDataApi from '../../shared/hooks/useDataApi';
-
 import { parseIdsFromSearchParams } from '../utils/urls';
-import { getAccessionsURL } from '../../shared/config/apiUrls';
-import entryToFASTAWithHeaders from '../../shared/utils/entryToFASTAWithHeaders';
 
 import { Location, LocationToPath } from '../../app/config/urls';
 
 import { SelectedTaxon } from '../types/toolsFormData';
-import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
-import { SearchResults } from '../../shared/types/results';
+import useGetFASTAFromAccesion from '../../shared/hooks/useGetFASTAFromAccession';
 
 interface CustomLocationState<T> {
   parameters?: Partial<T>;
@@ -65,10 +60,8 @@ function useInitialFormParameters<
     return null;
   }, [history.location.pathname, parametersFromHistorySearch]);
 
-  const accessionsFromParams = (idsMaybeWithRange || []).map(({ id }) => id);
-  const url = getAccessionsURL(accessionsFromParams, { facets: null });
-  const { loading: accessionsLoading, data: accessionsData } =
-    useDataApi<SearchResults<UniProtkbAPIModel>>(url);
+  const { loading: fastaLoading, fasta } =
+    useGetFASTAFromAccesion(idsMaybeWithRange);
 
   // Discard 'search' part of url to avoid url state issues.
   useEffect(() => {
@@ -81,7 +74,7 @@ function useInitialFormParameters<
   }, [history]);
 
   const initialFormValues = useMemo(() => {
-    if (accessionsLoading) {
+    if (fastaLoading) {
       return null;
     }
 
@@ -111,33 +104,13 @@ function useInitialFormParameters<
     }
 
     // ids parameter from the url has been passed so handle the fetched accessions once loaded
-    if (!!accessionsData?.results?.length && idsMaybeWithRange) {
-      const idToSequence = new Map(
-        accessionsData.results.map((datum) => [datum.primaryAccession, datum])
-      );
+    if (fasta) {
       const sequences = [
         // load initial sequence value to prepend with the ones loaded from IDs
         (
           formValues['Sequence' as Fields]?.selected as string | undefined
         )?.trim(),
-        ...idsMaybeWithRange.map(({ id, start, end }) => {
-          const entry = idToSequence.get(id);
-          if (!entry) {
-            // TODO: currently this will not be reached - if any accession fails in the accessions request
-            // then the whole request fails. Leaving here in case this ever changes
-            // dispatchMessages(
-            //   addMessage({
-            //     content: `ID ${id} not found`,
-            //     format: MessageFormat.POP_UP,
-            //     level: MessageLevel.WARNING,
-            //   })
-            // );
-            return null;
-          }
-          const subsets = start && end ? [{ start, end }] : [];
-          const fasta = entryToFASTAWithHeaders(entry, { subsets });
-          return fasta;
-        }),
+        fasta,
       ]
         .filter(Boolean)
         .join('\n\n');
@@ -155,16 +128,15 @@ function useInitialFormParameters<
 
     return Object.freeze(formValues as FormValues<Fields>);
   }, [
-    accessionsLoading,
+    fastaLoading,
     history.location?.state,
     parametersFromHistorySearch,
-    accessionsData?.results,
-    idsMaybeWithRange,
+    fasta,
     defaultFormValues,
   ]);
 
   return {
-    loading: !!idsMaybeWithRange?.length && accessionsLoading,
+    loading: fastaLoading,
     initialFormValues,
   };
 }
