@@ -1,6 +1,8 @@
 import { lazy, Suspense } from 'react';
 import { Card, Loader, Message } from 'franklin-sites';
 
+import useCustomElement from '../../../shared/hooks/useCustomElement';
+
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
@@ -46,39 +48,154 @@ export const AbsorptionView = ({ data }: { data: Absorption }) => (
   </>
 );
 
-export const KineticsView = ({ data }: { data: KineticParameters }) => (
-  <>
-    <section className="text-block">
-      {data.michaelisConstants && (
-        <ul className="no-bullet">
-          {data.michaelisConstants.map((km) => (
-            <li key={`${km.constant}-${km.substrate}`}>
-              K<sub>M</sub>
-              {`=${km.constant}${km.unit.replace('uM', 'μM')} for ${
-                km.substrate
-              } `}
-              <UniProtKBEvidenceTag evidences={km.evidences} />
-            </li>
-          ))}
-        </ul>
+const KineticsTable = ({ columns, data }) => {
+  const protvistaDataTableElement = useCustomElement(
+    () =>
+      import(
+        /* webpackChunkName: "protvista-datatable" */ 'protvista-datatable'
+      ),
+    'protvista-datatable'
+  );
+
+  if (data && data.length) {
+    return (
+      <protvistaDataTableElement.name>
+        <table>
+          <thead>
+            <tr>
+              {columns.map((name) => (
+                <th key={name}> {name} </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((value) => (
+              <tr data-id="row" key={value.key}>
+                <td>{value.constant}</td>
+                {value.substrate && <td>{value.substrate}</td>}
+                <td>{value.ph}</td>
+                <td>{value.temp}</td>
+                <td>{value.notes}</td>
+                <td>
+                  <UniProtKBEvidenceTag evidences={value.evidences} />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </protvistaDataTableElement.name>
+    );
+  } else {
+    return null;
+  }
+};
+
+export const KineticsView = ({ data }: { data: KineticParameters }) => {
+  const pHRegEX = /pH\s([0-9]+)/;
+  const tempRegEx = /([0-9]+)\sdegrees/;
+
+  let km = [];
+  let vmax = [];
+  let kcats = [];
+  let additionalNotes = false;
+
+  if (data.michaelisConstants) {
+    km = data.michaelisConstants.map((km) => {
+      const [substrate] = km.substrate.split('(at');
+      const [, ph] = km.substrate.match(pHRegEX)
+        ? km.substrate.match(pHRegEX)
+        : [, null];
+      const [, temp] = km.substrate.match(tempRegEx)
+        ? km.substrate.match(tempRegEx)
+        : [, null];
+
+      return {
+        key: `${km.constant}${km.substrate}`,
+        constant: `${km.constant}${km.unit.replace('uM', 'μM')}`,
+        substrate: substrate.trim(),
+        ph,
+        temp, // TODO Take care of notes
+        evidences: km.evidences,
+      };
+    });
+  }
+
+  if (data.maximumVelocities) {
+    vmax = data.maximumVelocities.map((mv) => {
+      const [, ph] = mv.enzyme.match(pHRegEX)
+        ? mv.enzyme.match(pHRegEX)
+        : [, null];
+      const [, temp] = mv.enzyme.match(tempRegEx)
+        ? mv.enzyme.match(tempRegEx)
+        : [, null];
+      const [substrateInfo] = mv.enzyme.split('(at');
+      const [, substrate] = substrateInfo.split('enzyme');
+
+      return {
+        key: `${mv.velocity}-${mv.enzyme}`,
+        constant: `${mv.velocity}${mv.unit}`,
+        ph,
+        temp,
+        notes: substrate.trim(),
+        evidences: mv.evidences,
+      };
+    });
+  }
+
+  if (data.note?.texts) {
+    const kcatRegEx = /\)\.\s/;
+    const kcatConstantRegEx = /([0-9]*[.])?[0-9]+\ssec\(-1\)/;
+
+    data.note?.texts.forEach((text) => {
+      if (text.value.startsWith('kcat')) {
+        const kcatValues = text.value.split(kcatRegEx);
+        const evidencesForWhole = text.evidences;
+        kcats = kcatValues.map((value) => {
+          const [constant] = value.match(kcatConstantRegEx);
+          const [notes, phTemp, pubMed] = value
+            .substring(value.indexOf('with'))
+            .split('(');
+          const evidences = [];
+          if (evidencesForWhole) {
+            evidencesForWhole.forEach((e) => {
+              if (pubMed.includes(e.id)) {
+                evidences.push(e);
+              }
+            });
+          }
+          const [, ph] = phTemp.match(pHRegEX);
+          const [, temp] = phTemp.match(tempRegEx);
+          return {
+            key: `kcat${constant}`,
+            constant,
+            notes,
+            ph,
+            temp,
+            evidences,
+          };
+        });
+      }
+      if (!text.value.startsWith('kcat')) {
+        additionalNotes = true;
+      }
+    });
+  }
+
+  const columns = ['pH', 'TEMPERATURE[C]', 'NOTES', 'EVIDENCE'];
+  return (
+    <>
+      <KineticsTable columns={['KM', 'SUBSTRATE', ...columns]} data={km} />
+      <KineticsTable columns={['Vmax', ...columns]} data={vmax} />
+      <KineticsTable columns={['kcat', ...columns]} data={kcats} />
+
+      {additionalNotes && (
+        <section className="text-block">
+          {data.note && <TextView comments={data.note.texts} />}
+        </section>
       )}
-      {data.maximumVelocities && (
-        <ul className="no-bullet">
-          {data.maximumVelocities.map((mv) => (
-            <li key={`${mv.velocity}-${mv.enzyme}`}>
-              V<sub>max</sub>
-              {`=${mv.velocity}${mv.unit} for ${mv.enzyme} `}
-              <UniProtKBEvidenceTag evidences={mv.evidences} />
-            </li>
-          ))}
-        </ul>
-      )}
-    </section>
-    <section className="text-block">
-      {data.note && <TextView comments={data.note.texts} />}
-    </section>
-  </>
-);
+    </>
+  );
+};
 
 const BioPhysicoChemicalPropertiesView = ({
   data,
