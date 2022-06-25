@@ -337,6 +337,7 @@ const BlastResult = () => {
 
   const actionBar = (
     <ResultButtons
+      namespace={namespace}
       jobType={jobType}
       jobId={match.params.id}
       selectedEntries={selectedEntries}

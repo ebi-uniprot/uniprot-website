@@ -5,24 +5,18 @@ import useDataApi from './useDataApi';
 
 import { getAccessionsURL } from '../config/apiUrls';
 
+import entryToFASTAWithHeaders from '../utils/entryToFASTAWithHeaders';
+import accessionToNamespace from '../utils/accessionToNamespace';
+import { getIdKeyFor } from '../utils/getIdKeyForNamespace';
+
 import { IdMaybeWithRange } from '../../tools/utils/urls';
 import { Namespace } from '../types/namespaces';
 import { SearchResults } from '../types/results';
 import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
 import { UniRefLiteAPIModel } from '../../uniref/adapters/uniRefConverter';
 import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
-import entryToFASTAWithHeaders from '../utils/entryToFASTAWithHeaders';
-import { getIdKeyFor } from '../utils/getIdKeyForNamespace';
 
-const groupByNamespace = ({ id }: IdMaybeWithRange) => {
-  if (id.startsWith('UniRef')) {
-    return Namespace.uniref;
-  }
-  if (id.startsWith('UPI')) {
-    return Namespace.uniparc;
-  }
-  return Namespace.uniprotkb;
-};
+const groupByNamespace = ({ id }: IdMaybeWithRange) => accessionToNamespace(id);
 
 const useGetFASTAFromAccesion = (
   idsMaybeWithRange?: IdMaybeWithRange[] | null
