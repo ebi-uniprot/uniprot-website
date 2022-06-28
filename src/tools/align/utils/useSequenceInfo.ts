@@ -44,7 +44,8 @@ const useSequenceInfo = (rawSequences?: string): SequenceInfo => {
   );
 
   const endpoint = getAccessionsURL(
-    processedArray.map((processed) => processed.accession)
+    processedArray.map((processed) => processed.accession),
+    { facets: null }
   );
   const { data, loading, error } =
     useDataApi<SearchResults<UniProtkbAPIModel>>(endpoint);

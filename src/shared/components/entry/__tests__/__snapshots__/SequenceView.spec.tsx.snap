@@ -84,7 +84,11 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
   <h3
     id="Isoform_APP770"
   >
-    P05067-1
+    <span
+      id="P05067-1"
+    >
+      P05067-1
+    </span>
   </h3>
   <p>
     This isoform has been chosen as the 
@@ -319,7 +323,11 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
   <h3
     id="Isoform_APP770-2"
   >
-    P05067-2
+    <span
+      id="P05067-2"
+    >
+      P05067-2
+    </span>
   </h3>
   <ul
     class="info-list info-list--columns"

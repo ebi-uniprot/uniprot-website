@@ -10,6 +10,7 @@ import {
 
 import BlastButton from '../../shared/components/action-buttons/Blast';
 import AlignButton from '../../shared/components/action-buttons/Align';
+import MapIDButton from '../../shared/components/action-buttons/MapID';
 import AddToBasketButton from '../../shared/components/action-buttons/AddToBasket';
 import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
 
@@ -24,6 +25,7 @@ import lazy from '../../shared/utils/lazy';
 import { PublicServerParameters } from '../types/toolsServerParameters';
 import { Suggestions } from '../../query-builder/components/AutocompleteWrapper';
 import { JobTypes } from '../types/toolsJobTypes';
+import { Namespace } from '../../shared/types/namespaces';
 
 type ResubmitButtonProps<T extends JobTypes> = {
   jobType: T;
@@ -99,6 +101,7 @@ export const ResubmitButton = ({
 };
 
 type ResultButtonsProps<T extends JobTypes> = {
+  namespace: Namespace;
   jobType: T;
   jobId: string;
   selectedEntries: string[];
@@ -112,6 +115,7 @@ const ResultDownload = lazy(
 );
 
 const ResultButtons = ({
+  namespace,
   jobType,
   jobId,
   selectedEntries,
@@ -150,6 +154,7 @@ const ResultButtons = ({
           selectedEntries={selectedEntries}
           inputParamsData={inputParamsData}
         />
+        <MapIDButton selectedEntries={selectedEntries} namespace={namespace} />
         <Button
           variant="tertiary"
           onPointerOver={ResultDownload.preload}

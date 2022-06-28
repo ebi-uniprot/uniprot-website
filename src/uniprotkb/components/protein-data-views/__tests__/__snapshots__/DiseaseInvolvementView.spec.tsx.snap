@@ -85,7 +85,7 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
           </a>
           value1 [
           <a
-            href="#some isoform"
+            href="/uniprotkb/P05067#some isoform"
           >
             some isoform
           </a>

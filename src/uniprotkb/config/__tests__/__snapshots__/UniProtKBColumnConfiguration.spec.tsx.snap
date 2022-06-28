@@ -141,7 +141,11 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_alterna
   <h3
     id="Isoform_name"
   >
-    isoID1
+    <span
+      id="isoID1"
+    >
+      isoID1
+    </span>
   </h3>
   <ul
     class="info-list info-list--columns"
@@ -2539,7 +2543,7 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_ensem
       </a>
       Model [
       <a
-        href="#Q9NXB0-1"
+        href="/uniprotkb/P21802#Q9NXB0-1"
       >
         Q9NXB0-1
       </a>

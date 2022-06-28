@@ -18,6 +18,7 @@ import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect'
 
 import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
 
+import accessionToNamespace from '../../../../shared/utils/accessionToNamespace';
 import { changePathnameOnly, Location } from '../../../../app/config/urls';
 import toolsURLs from '../../../config/urls';
 import { namespaceAndToolsLabels } from '../../../../shared/types/namespaces';
@@ -154,6 +155,7 @@ const AlignResult = () => {
 
   const actionBar = (
     <ResultButtons
+      namespace={accessionToNamespace(selectedEntries[0])}
       jobType={jobType}
       jobId={match.params.id}
       selectedEntries={selectedEntries}

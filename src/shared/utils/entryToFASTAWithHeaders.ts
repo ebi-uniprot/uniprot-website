@@ -2,7 +2,10 @@ import { formatFASTA } from 'franklin-sites';
 
 import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
 import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
-import { UniRefAPIModel } from '../../uniref/adapters/uniRefConverter';
+import {
+  UniRefAPIModel,
+  UniRefLiteAPIModel,
+} from '../../uniref/adapters/uniRefConverter';
 import {
   getEntryTypeFromString,
   EntryType,
@@ -11,12 +14,17 @@ import { APISequenceData } from '../../tools/blast/types/apiSequenceData';
 
 type Subset = { start: number; end: number };
 
-type Modifications = { subsets: Subset[] }; // keep open for variant for example?
+export type Modifications = { subsets: Subset[] }; // keep open for variant for example?
 
 // build a "nicely"-formatted FASTA string
 // See https://www.uniprot.org/help/fasta-headers for current headers
 const entryToFASTAWithHeaders = (
-  entry: UniProtkbAPIModel | UniParcAPIModel | APISequenceData | UniRefAPIModel,
+  entry:
+    | UniProtkbAPIModel
+    | UniParcAPIModel
+    | APISequenceData
+    | UniRefAPIModel
+    | UniRefLiteAPIModel,
   modifications?: Modifications
 ): string => {
   let sequence =

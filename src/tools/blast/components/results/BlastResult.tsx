@@ -185,7 +185,6 @@ const BlastResult = () => {
   const location = useLocation();
   const match = useMatchWithRedirect<Params>(Location.BlastResult, TabLocation);
 
-  const [selectedEntries, setSelectedItemFromEvent] = useItemSelect();
   const [hspDetailPanel, setHspDetailPanel] = useState<Except<
     HSPDetailPanelProps,
     'namespace'
@@ -270,6 +269,11 @@ const BlastResult = () => {
       )
     );
 
+  const loading =
+    blastLoading || (localFacetsChangedSelection && accessionsLoading);
+
+  const [selectedEntries, setSelectedItemFromEvent] = useItemSelect(loading);
+
   // filter BLAST results according to facets (through accession endpoint and other BLAST facets facets)
   const filteredBlastData =
     blastData &&
@@ -333,6 +337,7 @@ const BlastResult = () => {
 
   const actionBar = (
     <ResultButtons
+      namespace={namespace}
       jobType={jobType}
       jobId={match.params.id}
       selectedEntries={selectedEntries}
@@ -377,10 +382,7 @@ const BlastResult = () => {
           <Suspense fallback={<Loader />}>
             <ErrorBoundary>
               <BlastResultTable
-                loading={
-                  blastLoading ||
-                  (localFacetsChangedSelection && accessionsLoading)
-                }
+                loading={loading}
                 data={resultTableData}
                 setSelectedItemFromEvent={setSelectedItemFromEvent}
                 setHspDetailPanel={setHspDetailPanel}

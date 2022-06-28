@@ -2,10 +2,10 @@ import queryString from 'query-string';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
+import getCustomRenderHook from '../../../shared/__test-helpers__/customRenderHook';
+
 import { LocationToPath, Location } from '../../../app/config/urls';
 import useInitialFormParameters from '../useInitialFormParameters';
-
-import getCustomRenderHook from '../../../shared/__test-helpers__/customRenderHook';
 
 import defaultAlignFormValues from '../../align/config/AlignFormData';
 import defaultPeptideSearchFormValues from '../../peptide-search/config/PeptideSearchFormData';
@@ -15,6 +15,7 @@ describe('useInitialFormParameters: Align', () => {
   const customRenderHook = getCustomRenderHook(() =>
     useInitialFormParameters(defaultAlignFormValues)
   );
+
   it('should return defaultAlignFormValues if nothing in history state or url parameters', () => {
     const { result } = customRenderHook();
     expect(result.current.initialFormValues).toEqual(defaultAlignFormValues);

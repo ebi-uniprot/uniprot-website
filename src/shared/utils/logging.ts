@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
-import * as Sentry from '@sentry/react';
+import { captureException, captureMessage } from '@sentry/react';
 import { ScopeContext } from '@sentry/types';
 
 // Expand as we add more events
@@ -66,9 +66,9 @@ type LoggingHelper = (
 export const log: LoggingHelper = (message, context) => {
   if (isProduction) {
     sendGtagEvent('console.log', message.toString(), context);
-    Sentry.captureMessage(message.toString(), {
+    captureMessage(message.toString(), {
       ...(context || {}),
-      level: Sentry.Severity.Log,
+      level: 'log',
     });
   } else if (!isTest) {
     console.log(message, context);
@@ -79,9 +79,9 @@ export const log: LoggingHelper = (message, context) => {
 export const warn: LoggingHelper = (message, context) => {
   if (isProduction) {
     sendGtagEvent('console.warn', message.toString(), context);
-    Sentry.captureMessage(message.toString(), {
+    captureMessage(message.toString(), {
       ...(context || {}),
-      level: Sentry.Severity.Warning,
+      level: 'warning',
     });
   } else if (!isTest) {
     console.warn(message, context);
@@ -92,7 +92,7 @@ export const warn: LoggingHelper = (message, context) => {
 export const error: LoggingHelper = (message, context) => {
   if (isProduction) {
     sendGtagEvent('exception', message.toString(), context);
-    Sentry.captureException(message, context);
+    captureException(message, context);
   }
   if (!isTest) {
     console.error(message, context);
