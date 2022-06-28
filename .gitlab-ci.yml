@@ -3,6 +3,9 @@ variables:
   DEPLOY_REPO_URL: 'https://gitlab-ci-token:${GITLAB_USER_API_TOKEN}@gitlab.ebi.ac.uk/uniprot/front-end/${DEPLOY_REPO}.git'
   DOCKER_REPO: 'dockerhub.ebi.ac.uk/uniprot/front-end/front-end-docker'
   DOCKER_IMAGE_VERSION: 2
+  CHART_PROD: 'uniprot-website-prod'
+  CHART_FALLBACK: 'uniprot-website-fallback'
+  CHART_DEV: 'uniprot-website-dev'
 
 stages:
   - test
@@ -106,13 +109,13 @@ deploy:
       DEPLOY=./${DEPLOY_REPO}/scripts/deploy.sh
       if [ "$CI_COMMIT_BRANCH" == "main" ]; then
         if [ "$DEPLOY_FALLBACK_ONLY" == "true" ]; then
-          $DEPLOY HX uniprot-website-fallback 
+          $DEPLOY HX $CHART_FALLBACK
         elif [ "$DEPLOY_PROD_ONLY" == "true" ]; then
-          $DEPLOY HH uniprot-website-prod
+          $DEPLOY HH $CHART_PROD
         else
-          $DEPLOY HX uniprot-website-fallback
-          $DEPLOY HH uniprot-website-prod
+          $DEPLOY HX $CHART_FALLBACK
+          $DEPLOY HH $CHART_PROD
         fi
       elif [ "$CI_COMMIT_BRANCH" == "dev" ]; then
-        $DEPLOY HH uniprot-website-dev
+        $DEPLOY HH $CHART_DEV
       fi
