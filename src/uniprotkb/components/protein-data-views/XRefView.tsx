@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { isEqual, partition, sortBy, uniqWith } from 'lodash-es';
 import { InfoList, ExpandableList } from 'franklin-sites';
-import { Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router-dom';
 import { InfoListItem } from 'franklin-sites/dist/types/components/info-list';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
@@ -142,7 +142,18 @@ export const XRef = ({
   if (isoformId) {
     isoformNode = (
       <>
-        [<a href={`#${isoformId}`}>{isoformId}</a>]
+        [
+        <Link
+          to={{
+            pathname: generatePath(LocationToPath[Location.UniProtKBEntry], {
+              accession: primaryAccession,
+            }),
+            hash: isoformId,
+          }}
+        >
+          {isoformId}
+        </Link>
+        ]
       </>
     );
   }
