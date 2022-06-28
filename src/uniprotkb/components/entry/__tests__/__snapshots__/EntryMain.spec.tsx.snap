@@ -6203,7 +6203,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
-                     1 hit
+                    1 hit
                   </li>
                   <li>
                     <a
@@ -6218,7 +6218,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
-                     2 hits
+                    2 hits
                   </li>
                 </ul>
               </div>

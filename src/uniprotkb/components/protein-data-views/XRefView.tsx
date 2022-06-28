@@ -54,7 +54,7 @@ const formatSuffixWithCount = (prefix: string, number: string) => {
   if (count <= 0) {
     return '';
   }
-  return ` ${count} ${pluralise(prefix, count)}`;
+  return `${count} ${pluralise(prefix, count)}`;
 };
 
 export const getPropertyString = (key?: string, value?: string) => {
@@ -203,7 +203,11 @@ export const XRef = ({
           text
         )
       )}
-      {propertyStrings}
+      {propertyStrings
+        // remove empty strings
+        .filter(Boolean)
+        // add space between strings
+        .join(' ')}
       {isoformNode && <> {isoformNode}</>}
     </>
   );
