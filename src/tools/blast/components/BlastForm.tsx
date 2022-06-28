@@ -9,7 +9,6 @@ import {
   Dispatch,
   SetStateAction,
 } from 'react';
-import { useDispatch } from 'react-redux';
 import {
   Chip,
   SequenceSubmission,
@@ -19,21 +18,22 @@ import {
 } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
-import { v1 } from 'uuid';
 import cn from 'classnames';
+import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
 import SequenceSearchLoader, {
-  ParsedSequence,
   SequenceSearchLoaderInterface,
 } from '../../components/SequenceSearchLoader';
 import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 
-import useReducedMotion from '../../../shared/hooks/useReducedMotion';
+import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
+import { useToolsDispatch } from '../../../shared/contexts/Tools';
+import { useMessagesDispatch } from '../../../shared/contexts/Messages';
 
 import { truncateTaxonLabel } from '../../utils';
 import { createJob } from '../../state/toolsActions';
@@ -71,7 +71,7 @@ import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 
 const BLAST_LIMIT = 20;
-const isInvalid = (parsedSequences: ParsedSequence[]) =>
+const isInvalid = (parsedSequences: SequenceObject[]) =>
   !parsedSequences.length ||
   parsedSequences.length > BLAST_LIMIT ||
   parsedSequences.some((parsedSequence) => !parsedSequence.valid);
@@ -79,7 +79,10 @@ const isInvalid = (parsedSequences: ParsedSequence[]) =>
 const title = namespaceAndToolsLabels[JobTypes.BLAST];
 
 // https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3848038/
-const getAutoMatrixFor = (sequence: string): FormParameters['matrix'] => {
+const getAutoMatrixFor = (sequence?: string): FormParameters['matrix'] => {
+  if (!sequence?.length) {
+    return 'BLOSUM62';
+  }
   if (sequence.length <= 34) {
     return 'PAM30';
   }
@@ -136,7 +139,8 @@ const BlastForm = ({ initialFormValues }: Props) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // hooks
-  const dispatch = useDispatch();
+  const dispatchTools = useToolsDispatch();
+  const dispatchMessages = useMessagesDispatch();
   const history = useHistory();
   const reducedMotion = useReducedMotion();
 
@@ -144,7 +148,9 @@ const BlastForm = ({ initialFormValues }: Props) => {
   const [submitDisabled, setSubmitDisabled] = useState(() =>
     // default sequence value will tell us if submit should be disabled or not
     isInvalid(
-      sequenceProcessor(initialFormValues[BlastFields.sequence].selected)
+      sequenceProcessor(
+        `${initialFormValues[BlastFields.sequence].selected || ''}`
+      )
     )
   );
   // used when the form is about to be submitted to the server
@@ -152,8 +158,10 @@ const BlastForm = ({ initialFormValues }: Props) => {
   // flag to see if the user manually changed the title
   const [jobNameEdited, setJobNameEdited] = useState(false);
   // store parsed sequence objects
-  const [parsedSequences, setParsedSequences] = useState<ParsedSequence[]>(
-    sequenceProcessor(initialFormValues[BlastFields.sequence].selected)
+  const [parsedSequences, setParsedSequences] = useState<SequenceObject[]>(
+    sequenceProcessor(
+      `${initialFormValues[BlastFields.sequence].selected || ''}`
+    )
   );
 
   // actual form fields
@@ -296,7 +304,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
       // remove "auto", and transform into corresponding matrix
       matrix:
         matrix.selected === 'auto'
-          ? getAutoMatrixFor(sequence.selected as string)
+          ? getAutoMatrixFor(parsedSequences[0]?.sequence)
           : (matrix.selected as Matrix),
       filter: filter.selected as Filter,
       gapped: gapped.selected as GapAlign,
@@ -329,7 +337,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
             name = `${jobName.selected as string} - ${i + 1}`;
           }
         }
-        dispatch(createJob(multipleParameters[i], JobTypes.BLAST, name));
+        dispatchTools(createJob(multipleParameters[i], JobTypes.BLAST, name));
       }
 
       history.push(LocationToPath[Location.Dashboard], {
@@ -341,7 +349,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
   // effects
   // set the "Auto" matrix to the have the correct label depending on sequence
   useEffect(() => {
-    const autoMatrix = getAutoMatrixFor(sequence.selected as string);
+    const autoMatrix = getAutoMatrixFor(parsedSequences[0]?.sequence);
     setMatrix((matrix) => ({
       ...matrix,
       values: [
@@ -349,10 +357,10 @@ const BlastForm = ({ initialFormValues }: Props) => {
         ...(matrix.values || []).filter((option) => option.value !== 'auto'),
       ],
     }));
-  }, [sequence.selected]);
+  }, [parsedSequences]);
 
   const onSequenceChange = useCallback(
-    (parsedSequences: ParsedSequence[]) => {
+    (parsedSequences: SequenceObject[]) => {
       const rawSequence = parsedSequences
         .map((parsedSequence) => parsedSequence.raw)
         .join('\n');
@@ -406,9 +414,8 @@ const BlastForm = ({ initialFormValues }: Props) => {
     inputRef: fileInputRef,
     onFileContent: (content) => onSequenceChange(sequenceProcessor(content)),
     onError: (error) =>
-      dispatch(
+      dispatchMessages(
         addMessage({
-          id: v1(),
           content: error.message,
           format: MessageFormat.POP_UP,
           level: MessageLevel.FAILURE,

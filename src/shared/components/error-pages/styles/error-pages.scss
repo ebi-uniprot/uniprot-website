@@ -10,8 +10,10 @@
   align-items: center;
 
   &__art-work {
-    width: 25rem;
-    height: 25rem;
-    margin-bottom: 3rem;
+    width: 50vmin;
+    max-width: 25rem;
+    height: 50vmin;
+    max-height: 25rem;
+    margin-bottom: min(3rem, 3vmin);
   }
 }

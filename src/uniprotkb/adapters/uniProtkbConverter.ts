@@ -37,13 +37,13 @@ import { transfromProperties } from '../utils';
 import { Property } from '../types/modelTypes';
 import { GeneLocation } from '../types/geneLocationType';
 import { InternalSectionType } from '../types/internalSectionType';
-import { XrefUIModel } from '../utils/xrefUtils';
 import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import {
   Citation,
   Reference,
 } from '../../supporting-data/citations/adapters/citationsConverter';
 import { DatabaseInfoMaps } from '../utils/database';
+import { PeptideSearchMatch } from '../../tools/peptide-search/components/PeptideSearchMatches';
 
 // 🤷🏽
 type UniProtKBReference = Omit<Reference, 'citationId'> & {
@@ -83,6 +83,7 @@ export type UniProtkbAPIModel = {
     uniParcId?: string;
   };
   from?: string; // ID Mapping results
+  peptideSearchMatches?: PeptideSearchMatch[]; // Peptide Search
 };
 
 export type UniProtkbUIModel = {
@@ -96,8 +97,8 @@ export type UniProtkbUIModel = {
   [EntrySection.Function]: UIModel;
   [EntrySection.NamesAndTaxonomy]: NamesAndTaxonomyUIModel;
   [EntrySection.SubCellularLocation]: UIModel;
-  [EntrySection.DiseaseAndDrugs]: UIModel;
-  [EntrySection.Phenotypes]: UIModel;
+  [EntrySection.DiseaseVariants]: UIModel;
+  [EntrySection.PhenotypesVariants]: UIModel;
   [EntrySection.ProteinProcessing]: UIModel;
   [EntrySection.Expression]: UIModel;
   [EntrySection.Sequence]: SequenceUIModel;
@@ -105,13 +106,11 @@ export type UniProtkbUIModel = {
   [EntrySection.Structure]: UIModel;
   [EntrySection.FamilyAndDomains]: UIModel;
   [EntrySection.ExternalLinks]: UIModel;
-  [EntrySection.SimilarProteins]: {
-    isoforms: string[];
-    xrefData?: XrefUIModel[]; // Dummy, not used
-  };
+  [EntrySection.SimilarProteins]: string[];
   references?: UniProtKBReference[];
   extraAttributes: UniProtkbAPIModel['extraAttributes'];
   from?: string; // ID Mapping
+  peptideSearchMatches?: PeptideSearchMatch[]; // Peptide Search
 };
 
 export type InactiveReasonType =
@@ -167,12 +166,12 @@ const uniProtKbConverter = (
       databaseInfoMaps,
       uniProtKBCrossReferences
     ),
-    [EntrySection.DiseaseAndDrugs]: convertDiseaseAndDrugs(
+    [EntrySection.DiseaseVariants]: convertDiseaseAndDrugs(
       dataCopy,
       databaseInfoMaps,
       uniProtKBCrossReferences
     ),
-    [EntrySection.Phenotypes]: convertDiseaseAndDrugs(
+    [EntrySection.PhenotypesVariants]: convertDiseaseAndDrugs(
       dataCopy,
       databaseInfoMaps,
       uniProtKBCrossReferences
@@ -216,6 +215,7 @@ const uniProtKbConverter = (
     references: dataCopy.references || [],
     extraAttributes: data.extraAttributes,
     from: dataCopy.from,
+    peptideSearchMatches: dataCopy.peptideSearchMatches,
   };
 };
 

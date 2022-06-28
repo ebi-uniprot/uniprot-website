@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
 import { Link, LinkProps, useRouteMatch } from 'react-router-dom';
-import { DropdownButton, LongNumber } from 'franklin-sites';
+import { Button, LongNumber, Dropdown } from 'franklin-sites';
 import { SetOptional } from 'type-fest';
 
 import { pluralise } from '../utils/utils';
@@ -148,7 +148,7 @@ const namespaceToUniProtKBFieldMap = new Map([
   [Namespace.diseases, 'cc_disease'],
   [Namespace.keywords, 'keyword'],
   [Namespace.locations, 'cc_scl_term'],
-  // NOTE: to get high-level nodes, currently only `tax_id` works...
+  // NOTE: to get high-level nodes, currently only `taxonomy_id` works
   [Namespace.taxonomy, 'taxonomy_id'],
   // Annotations
   [Namespace.unirule, 'source'],
@@ -174,7 +174,7 @@ const enrichStatistics = (
 ): EnrichedStatistics[] => {
   const entries = statistics && Object.entries(statistics);
 
-  // Prepend a compond value for UniProtKB reviewed + unreviewed
+  // Prepend a compound value for UniProtKB reviewed + unreviewed
   if (statistics?.reviewedProteinCount || statistics?.unreviewedProteinCount) {
     entries?.unshift([
       'proteinCount',
@@ -205,18 +205,22 @@ const enrichStatistics = (
 type Props = {
   statistics: Partial<Statistics> | undefined;
   accession?: string;
+  fieldNameOverride?: string;
 };
 
 export const MapToDropdown: FC<Props> = ({
   statistics,
   accession,
   children = 'View proteins',
+  fieldNameOverride,
 }) => {
   const match = useRouteMatch<{ namespace: Namespace; accession: string }>(
     allSupportingDataAndAAEntryLocations
   );
   const { namespace, accession: accessionFromPath } = match?.params || {};
-  const fieldName = namespace && namespaceToUniProtKBFieldMap.get(namespace);
+  const fieldName =
+    fieldNameOverride ||
+    (namespace && namespaceToUniProtKBFieldMap.get(namespace));
 
   if (!(statistics && namespace && accessionFromPath && fieldName)) {
     return null;
@@ -233,20 +237,18 @@ export const MapToDropdown: FC<Props> = ({
   }
 
   return (
-    <DropdownButton variant="tertiary" label={children}>
-      <div className="dropdown-menu__content">
-        <ul>
-          {enrichedStatistics.map(({ key, count, label, to }) => (
-            <li key={key}>
-              {/* eslint-disable-next-line uniprot-website/use-config-location */}
-              <Link to={to}>
-                {label} (<LongNumber>{count}</LongNumber>)
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </DropdownButton>
+    <Dropdown visibleElement={<Button variant="tertiary">{children}</Button>}>
+      <ul>
+        {enrichedStatistics.map(({ key, count, label, to }) => (
+          <li key={key}>
+            {/* eslint-disable-next-line uniprot-website/use-config-location */}
+            <Link to={to}>
+              {label} (<LongNumber>{count}</LongNumber>)
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </Dropdown>
   );
 };
 

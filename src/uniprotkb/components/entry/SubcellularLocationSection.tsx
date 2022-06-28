@@ -16,15 +16,27 @@ type Props = {
   sequence: string;
 };
 
+export const subcellularLocationSectionHasContent = <
+  T extends Record<string | number | symbol, unknown>
+>(
+  data?: T
+) => {
+  if (!data) {
+    return false;
+  }
+  const { commentsData, featuresData, goXrefs } = data;
+  return hasContent({ commentsData, featuresData, goXrefs });
+};
+
 const SubcellularLocationSection = ({ data, sequence }: Props) => {
-  if (!hasContent(data)) {
+  if (!subcellularLocationSectionHasContent(data)) {
     return null;
   }
 
   return (
     <Card
       header={
-        <h2>
+        <h2 data-article-id="subcellular_location_section">
           {getEntrySectionNameAndId(EntrySection.SubCellularLocation).name}
         </h2>
       }

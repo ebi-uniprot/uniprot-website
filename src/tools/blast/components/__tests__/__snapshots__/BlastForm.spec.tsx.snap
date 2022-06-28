@@ -326,7 +326,7 @@ exports[`BlastForm test Renders the form 1`] = `
                   data-testid="Matrix-auto"
                   value="auto"
                 >
-                  Auto - PAM30
+                  Auto - BLOSUM62
                 </option>
                 <option
                   data-testid="Matrix-BLOSUM45"

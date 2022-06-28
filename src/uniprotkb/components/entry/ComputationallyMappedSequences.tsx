@@ -102,15 +102,21 @@ const ComputationalyMappedSequences: FC<{ primaryAccession: string }> = ({
     return null;
   }
 
-  if (!data?.relatedProteins || (error && status === 404)) {
+  if (
+    !data?.relatedProteins ||
+    (error && status === 404) ||
+    !filteredData?.length
+  ) {
     // Fail silently, this just means there's no data
     return null;
   }
 
   return (
     <div className="text-block">
-      <h3>Computationally mapped potential isoform sequences</h3>
-      {error || !filteredData ? (
+      <h3 data-article-id="gene_centric_isoform_mapping">
+        Computationally mapped potential isoform sequences
+      </h3>
+      {error ? (
         <Message level={MessageLevel.FAILURE}>
           Could not load computationally mapped sequences
           {error?.message && `: ${error.message}`}
@@ -122,34 +128,30 @@ const ComputationalyMappedSequences: FC<{ primaryAccession: string }> = ({
             {filteredData.length} potential{' '}
             {pluralise('isoform', filteredData.length)} mapped to this entry
           </p>
-          {filteredData.length ? (
-            <>
-              <div className="button-group">
-                <BlastButton selectedEntries={selectedEntries} />
-                <AlignButton selectedEntries={selectedEntries} />
-                <AddToBasket selectedEntries={selectedEntries} />
-                <Link
-                  to={{
-                    pathname: LocationToPath[Location.UniProtKBResults],
-                    search: `query=(${filteredData
-                      ?.map(({ id }) => `accession:${id}`)
-                      .sort()
-                      .join(' OR ')})`,
-                  }}
-                >
-                  View all
-                </Link>
-              </div>
+          <div className="button-group">
+            <BlastButton selectedEntries={selectedEntries} />
+            <AlignButton selectedEntries={selectedEntries} />
+            <AddToBasket selectedEntries={selectedEntries} />
+            <Link
+              to={{
+                pathname: LocationToPath[Location.UniProtKBResults],
+                search: `query=accession:${primaryAccession} OR ${filteredData
+                  ?.map(({ id }) => `accession:${id}`)
+                  .sort()
+                  .join(' OR ')}`,
+              }}
+            >
+              View all
+            </Link>
+          </div>
 
-              <DataTable
-                getIdKey={({ id }) => id}
-                density="compact"
-                columns={columns}
-                data={filteredData}
-                onSelectionChange={setSelectedItemFromEvent}
-              />
-            </>
-          ) : null}
+          <DataTable
+            getIdKey={({ id }) => id}
+            density="compact"
+            columns={columns}
+            data={filteredData}
+            onSelectionChange={setSelectedItemFromEvent}
+          />
         </>
       )}
     </div>

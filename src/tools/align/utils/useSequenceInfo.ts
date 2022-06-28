@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { sequenceProcessor } from 'franklin-sites';
+import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
@@ -8,14 +9,10 @@ import extractAccession from './extractAccession';
 import { getAccessionsURL } from '../../../shared/config/apiUrls';
 
 import { FeatureData } from '../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
-import { ParsedSequence } from '../../components/SequenceSearchLoader';
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import { SearchResults } from '../../../shared/types/results';
 
-type UniProtkbAccessionsAPI = {
-  results: UniProtkbAPIModel[];
-};
-
-export type ParsedSequenceAndFeatures = ParsedSequence & {
+export type ParsedSequenceAndFeatures = SequenceObject & {
   accession: string;
   features?: FeatureData;
 };
@@ -26,7 +23,7 @@ export type SequenceInfo = {
 };
 
 const hasAccession = (
-  value: ParsedSequence | ParsedSequenceAndFeatures
+  value: SequenceObject | ParsedSequenceAndFeatures
 ): value is ParsedSequenceAndFeatures =>
   (value as ParsedSequenceAndFeatures).accession !== undefined;
 
@@ -36,7 +33,7 @@ const hasAccession = (
 const useSequenceInfo = (rawSequences?: string): SequenceInfo => {
   const processedArray: ParsedSequenceAndFeatures[] = useMemo(
     () =>
-      (sequenceProcessor(rawSequences || '') as ParsedSequence[])
+      sequenceProcessor(rawSequences || '')
         .map((processed) => ({
           ...processed,
           accession: extractAccession(processed.name),
@@ -47,9 +44,11 @@ const useSequenceInfo = (rawSequences?: string): SequenceInfo => {
   );
 
   const endpoint = getAccessionsURL(
-    processedArray.map((processed) => processed.accession)
+    processedArray.map((processed) => processed.accession),
+    { facets: null }
   );
-  const { data, loading, error } = useDataApi<UniProtkbAccessionsAPI>(endpoint);
+  const { data, loading, error } =
+    useDataApi<SearchResults<UniProtkbAPIModel>>(endpoint);
 
   const outputData = useMemo(() => {
     const dataPerAccession = new Map(

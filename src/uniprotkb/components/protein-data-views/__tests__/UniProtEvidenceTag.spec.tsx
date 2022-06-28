@@ -1,3 +1,5 @@
+import { fireEvent, screen } from '@testing-library/react';
+
 import customRender from '../../../../shared/__test-helpers__/customRender';
 
 import UniProtKBEvidenceTag from '../UniProtKBEvidenceTag';
@@ -5,7 +7,7 @@ import UniProtKBEvidenceTag from '../UniProtKBEvidenceTag';
 import { Evidence } from '../../../types/modelTypes';
 
 describe('UniProtKBEvidenceTag components', () => {
-  test('should render automatic annotation', () => {
+  it('should render automatic annotation', () => {
     const evidences: Evidence[] = [
       {
         evidenceCode: 'ECO:0000255',
@@ -17,9 +19,13 @@ describe('UniProtKBEvidenceTag components', () => {
       <UniProtKBEvidenceTag evidences={evidences} />
     );
     expect(asFragment()).toMatchSnapshot();
+
+    const button = screen.getByRole('button');
+    fireEvent.click(button);
+    expect(asFragment()).toMatchSnapshot();
   });
 
-  test('should render publications count', () => {
+  it('should render publications count', () => {
     const evidences: Evidence[] = [
       {
         evidenceCode: 'ECO:0000269',
@@ -36,9 +42,13 @@ describe('UniProtKBEvidenceTag components', () => {
       <UniProtKBEvidenceTag evidences={evidences} />
     );
     expect(asFragment()).toMatchSnapshot();
+
+    const button = screen.getByRole('button');
+    fireEvent.click(button);
+    expect(asFragment()).toMatchSnapshot();
   });
 
-  test('should render automatic ', () => {
+  it('should render automatic ', () => {
     const evidences: Evidence[] = [
       {
         evidenceCode: 'ECO:0000313',
@@ -47,6 +57,10 @@ describe('UniProtKBEvidenceTag components', () => {
     const { asFragment } = customRender(
       <UniProtKBEvidenceTag evidences={evidences} />
     );
+    expect(asFragment()).toMatchSnapshot();
+
+    const button = screen.getByRole('button');
+    fireEvent.click(button);
     expect(asFragment()).toMatchSnapshot();
   });
 });

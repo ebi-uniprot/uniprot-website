@@ -7,7 +7,7 @@ import { Message } from 'franklin-sites';
 import AlignLabel from './AlignLabel';
 
 import useSize from '../../../../shared/hooks/useSize';
-import useReducedMotion from '../../../../shared/hooks/useReducedMotion';
+import { useReducedMotion } from '../../../../shared/hooks/useMatchMedia';
 
 import phylotree from '../../adapters/phylotree';
 

@@ -1,13 +1,16 @@
 /**
  * @jest-environment node
  */
+import { Dispatch, MutableRefObject } from 'react';
 import { sleep } from 'timing-functions';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { Store } from 'redux';
 
 import toolsMiddleware from '../toolsMiddleware';
 
+import { ToolsAction } from '../toolsReducers';
+import { ToolsState } from '../toolsInitialState';
+import { MessagesAction } from '../../../messages/state/messagesReducers';
 import JobStore from '../../utils/storage';
 import { Stores } from '../../utils/stores';
 
@@ -17,41 +20,22 @@ const axiosMock = new MockAdapter(axios);
 
 axiosMock.onPost().reply(200, { data: 'ncbiblast-R20200505-A-B-C-D' });
 
-const create = (initalState = {}) => {
-  const store: Store = {
-    getState: jest.fn(() => ({ tools: initalState })),
-    dispatch: jest.fn(),
-    subscribe: jest.fn(),
-    replaceReducer: jest.fn(),
-    [Symbol.observable]: jest.fn(),
-  };
-  const next = jest.fn();
-
-  const invoke = (action: { type: string }) =>
-    toolsMiddleware(store)(next)(action);
-
-  return { store, next, invoke };
+const dispatch: jest.Mock<Dispatch<ToolsAction>> = jest.fn();
+const stateRef: MutableRefObject<ToolsState> = {
+  current: {},
 };
+const messagesDispatch: jest.Mock<Dispatch<MessagesAction>> = jest.fn();
 
 describe('toolsMiddleware', () => {
-  it('should let other actions pass through', () => {
-    const { next, invoke } = create();
-    const action = { type: 'TEST' };
-    invoke(action);
-
-    expect(next).toHaveBeenCalledWith(action);
-  });
-
   it('should automatically dispatch a rehydration event from jobs in storage', async () => {
     const idbStore = new JobStore(Stores.METADATA);
     await idbStore.set(createdJob.internalID, createdJob);
 
-    const { invoke, store } = create();
-    invoke({ type: '@@INIT' });
+    toolsMiddleware(dispatch, stateRef, messagesDispatch);
 
     await sleep(1000);
 
-    expect(store.dispatch).toHaveBeenLastCalledWith({
+    expect(dispatch).toHaveBeenCalledWith({
       type: 'REHYDRATE_JOBS',
       payload: { jobs: { [createdJob.internalID]: createdJob } },
     });

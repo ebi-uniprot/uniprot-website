@@ -55,17 +55,16 @@ const externalUrls: Record<string, (id: string | number) => string> = {
   RheaEntry: (id) => `https://www.rhea-db.org/rhea/${id}`,
 };
 
-export const getIntActQueryForAccessionUrl = (accession: string) =>
-  joinUrl(
-    IntActBase,
-    'query',
-    `(  idA:${accession} AND idB:${accession}  ) OR (  idA:${accession} AND idB:-  ) OR (  idA:- AND idB:${accession}  )`
-  );
-
 export const getIntActQueryUrl = (
   firstInteractor: string,
-  secondInteractor: string
-) =>
-  joinUrl(IntActBase, 'query', `(${firstInteractor} AND ${secondInteractor})`);
+  secondInteractor: string,
+  accession?: string
+) => {
+  const base = joinUrl(IntActBase, 'search');
+  if (accession && firstInteractor === secondInteractor) {
+    return `${base}?query=(idA:${accession} AND idB:${accession}) OR (idA:${accession} AND idB:"-") OR (idA:"-" AND idB:${accession})#interactor`;
+  }
+  return `${base}?query=(id:${firstInteractor} AND id:${secondInteractor})#interactor`;
+};
 
 export default externalUrls;

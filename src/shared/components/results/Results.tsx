@@ -12,14 +12,20 @@ import ResultsData from './ResultsData';
 import ResultsFacets from './ResultsFacets';
 import SideBarLayout from '../layouts/SideBarLayout';
 import NoResultsPage from '../error-pages/NoResultsPage';
+import ErrorHandler from '../error-pages/ErrorHandler';
+import ErrorBoundary from '../error-component/ErrorBoundary';
 import ResultsDataHeader from './ResultsDataHeader';
+import SearchSuggestions from './SearchSuggestions';
+import DidYouMean from './DidYouMean';
 
-import Response from '../../../uniprotkb/types/responseTypes';
+import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
+
 import {
   searchableNamespaceLabels,
   SearchableNamespace,
 } from '../../types/namespaces';
-import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
+import { SearchResults } from '../../types/results';
+import { APIModel } from '../../types/apiModel';
 
 const Results = () => {
   const ns = useNS();
@@ -34,14 +40,14 @@ const Results = () => {
     withColumns: false,
   });
   const facetApiObject =
-    useDataApiWithStale<Response['data']>(initialApiFacetUrl);
+    useDataApiWithStale<SearchResults<APIModel>>(initialApiFacetUrl);
 
   const {
     loading: facetInitialLoading,
     headers: facetHeaders,
     isStale: facetHasStaleData,
   } = facetApiObject;
-  const facetTotal = facetHeaders?.['x-total-records'];
+  const facetTotal = facetHeaders?.['x-total-results'];
 
   // Query for results data
   const initialApiUrl = useNSQuery({ withFacets: false });
@@ -60,9 +66,11 @@ const Results = () => {
     total = +resultsDataTotal;
   }
 
+  const [params] = getParamsFromURL(search);
+
   const helmet = ns && (
     <HTMLHead
-      title={`${getParamsFromURL(search).query} in ${
+      title={`${params.query} in ${
         searchableNamespaceLabels[ns as SearchableNamespace]
       }${total !== undefined ? ` (${total})` : ''}`}
     />
@@ -77,6 +85,12 @@ const Results = () => {
     );
   }
 
+  if (!resultsDataObject.allResults.length && resultsDataObject.error) {
+    return <ErrorHandler status={resultsDataObject.status} />;
+  }
+
+  const { suggestions } = facetApiObject.data || {};
+
   if (
     (!resultsDataInitialLoading && !facetInitialLoading && !total) ||
     total === 0
@@ -84,7 +98,7 @@ const Results = () => {
     return (
       <>
         {helmet}
-        <NoResultsPage />
+        <NoResultsPage message={<DidYouMean suggestions={suggestions} />} />
       </>
     );
   }
@@ -96,7 +110,17 @@ const Results = () => {
         total={total}
         loadedTotal={resultsDataObject.allResults.length}
         selectedEntries={selectedEntries}
-      />
+      >
+        <ErrorBoundary fallback={null}>
+          {params.selectedFacets.length ? null : (
+            <SearchSuggestions
+              query={params.query}
+              namespace={ns}
+              total={total}
+            />
+          )}
+        </ErrorBoundary>
+      </ResultsDataHeader>
       <ResultsData
         resultsDataObject={resultsDataObject}
         setSelectedItemFromEvent={setSelectedItemFromEvent}

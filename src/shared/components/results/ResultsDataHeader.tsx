@@ -4,6 +4,9 @@ import { FC, memo, ReactNode } from 'react';
 import ResultsButtons from './ResultsButtons';
 
 import useNS from '../../hooks/useNS';
+import useJobFromUrl from '../../hooks/useJobFromUrl';
+
+import { toolsResultsLocationToLabel } from '../../../app/config/urls';
 
 import { Namespace, namespaceAndToolsLabels } from '../../types/namespaces';
 
@@ -25,16 +28,23 @@ const ResultsDataHeader: FC<{
   accessions,
   base,
   disableCardToggle = false,
+  children,
 }) => {
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
-
+  const { jobResultsLocation } = useJobFromUrl();
   return (
     <>
       <PageIntro
-        title={namespaceAndToolsLabels[namespace]}
+        title={
+          jobResultsLocation
+            ? toolsResultsLocationToLabel?.[jobResultsLocation]
+            : namespaceAndToolsLabels[namespace]
+        }
         titlePostscript={titlePostscript}
         resultsCount={total}
-      />
+      >
+        {children}
+      </PageIntro>
       <ResultsButtons
         total={total}
         loadedTotal={loadedTotal}
@@ -48,4 +58,4 @@ const ResultsDataHeader: FC<{
   );
 };
 
-export default memo(ResultsDataHeader);
+export default memo<typeof ResultsDataHeader>(ResultsDataHeader);

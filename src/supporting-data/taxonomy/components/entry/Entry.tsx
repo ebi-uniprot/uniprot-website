@@ -1,6 +1,5 @@
 import { RouteChildrenProps } from 'react-router-dom';
 import { Loader, Card, InfoList } from 'franklin-sites';
-import cn from 'classnames';
 import { pick } from 'lodash-es';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
@@ -8,10 +7,11 @@ import SingleColumnLayout from '../../../../shared/components/layouts/SingleColu
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import EntryDownload from '../../../../shared/components/entry/EntryDownload';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
+import ChildNavigation from './ChildNavigation';
 
-import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
+import useDataApi from '../../../../shared/hooks/useDataApi';
 
-import apiUrls from '../../../../shared/config/apiUrls';
+import apiUrls, { getAPIQueryUrl } from '../../../../shared/config/apiUrls';
 import generatePageTitle from '../../adapters/generatePageTitle';
 
 import {
@@ -23,19 +23,22 @@ import TaxonomyColumnConfiguration, {
   TaxonomyColumn,
 } from '../../config/TaxonomyColumnConfiguration';
 import { Statistics } from '../../../../shared/types/apiModel';
+import { SearchResults } from '../../../../shared/types/results';
 
-import helper from '../../../../shared/styles/helper.module.scss';
 import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
 
-const columns = [
+const firstColumns = [
   TaxonomyColumn.mnemonic,
   TaxonomyColumn.id,
   TaxonomyColumn.scientificName,
-  TaxonomyColumn.commonName,
-  TaxonomyColumn.otherNames,
-  TaxonomyColumn.synonyms,
-  TaxonomyColumn.rank,
   TaxonomyColumn.parent,
+];
+
+const lastColumns = [
+  TaxonomyColumn.commonName,
+  TaxonomyColumn.synonyms,
+  TaxonomyColumn.otherNames,
+  TaxonomyColumn.rank,
   TaxonomyColumn.lineage,
   TaxonomyColumn.hosts,
   TaxonomyColumn.strains,
@@ -45,17 +48,31 @@ const columns = [
 const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   const accession = props.match?.params.accession;
 
-  const { data, loading, error, status, progress, isStale } =
-    useDataApiWithStale<TaxonomyAPIModel>(
-      apiUrls.entry(accession, Namespace.taxonomy)
-    );
+  const mainData = useDataApi<TaxonomyAPIModel>(
+    apiUrls.entry(accession, Namespace.taxonomy)
+  );
+  const childrenData = useDataApi<SearchResults<TaxonomyAPIModel>>(
+    getAPIQueryUrl({
+      namespace: Namespace.taxonomy,
+      query: `parent:${accession}`,
+      columns: [TaxonomyColumn.scientificName, TaxonomyColumn.commonName],
+      facets: null,
+      size: 5, // Match the "ExpandableList" default count
+    })
+  );
 
-  if (error || !accession || (!loading && !data)) {
-    return <ErrorHandler status={status} />;
+  if (mainData.error || !accession || (!mainData.loading && !mainData.data)) {
+    return <ErrorHandler status={mainData.status} />;
   }
 
-  if (!data) {
-    return <Loader progress={progress} />;
+  if (childrenData.error || (!childrenData.loading && !childrenData.data)) {
+    return <ErrorHandler status={childrenData.status} />;
+  }
+
+  const { data } = mainData;
+
+  if (!(data && childrenData.data)) {
+    return <Loader progress={mainData.progress || childrenData.progress} />;
   }
 
   const proteinStatistics = pick<Partial<Statistics>>(data.statistics, [
@@ -67,15 +84,28 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
     'referenceProteomeCount',
   ]);
 
-  const infoData =
-    data &&
-    columns.map((column) => {
-      const renderer = TaxonomyColumnConfiguration.get(column);
-      return {
-        title: renderer?.label,
-        content: renderer?.render(data),
-      };
-    });
+  const infoDataRenderer = (column: TaxonomyColumn) => {
+    const renderer = TaxonomyColumnConfiguration.get(column);
+    return {
+      title: renderer?.label,
+      content: renderer?.render(data),
+    };
+  };
+
+  const infoData = [
+    ...firstColumns.map(infoDataRenderer),
+    {
+      title: 'Children',
+      content: childrenData.data.results.length ? (
+        <ChildNavigation
+          childTaxons={childrenData.data.results}
+          total={+(childrenData.headers?.['x-total-results'] || 0)}
+          taxonId={data.taxonId}
+        />
+      ) : null,
+    },
+    ...lastColumns.map(infoDataRenderer),
+  ];
 
   return (
     <SingleColumnLayout>
@@ -89,15 +119,19 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
         {searchableNamespaceLabels[Namespace.taxonomy]} -{' '}
         {data.scientificName || data.taxonId} <small>({data.rank})</small>
       </h1>
-      <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
+      <Card className={entryPageStyles.card}>
         <div className="button-group">
           <EntryDownload />
           <MapToDropdown statistics={proteinStatistics} />
-          <MapToDropdown statistics={proteomeStatistics}>
+          <MapToDropdown
+            statistics={proteomeStatistics}
+            // NOTE: inconsistent field search compared with the protein searches
+            fieldNameOverride="organism_id"
+          >
             View proteomes
           </MapToDropdown>
         </div>
-        {infoData && <InfoList infoData={infoData} isCompact columns />}
+        <InfoList infoData={infoData} columns />
       </Card>
     </SingleColumnLayout>
   );

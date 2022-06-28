@@ -4,8 +4,8 @@ import { flatten } from '../../../utils/parseAndMatchQuery';
 
 import { SearchTermType } from '../../../types/searchTypes';
 
-// Source: /api/configure/uniprotkb/search-fields
-// Retrieved: 2021-10-14
+// Source: /configure/uniprotkb/search-fields
+// Retrieved: 2022-03-11
 const configureSearchTerms = [
   {
     id: 'accession_field',
@@ -134,6 +134,7 @@ const configureSearchTerms = [
             id: 'chebi_term',
             label: 'ChEBI term',
             itemType: 'sibling_group',
+            tags: ['CHEBI', 'InChIKey'],
             siblings: [
               {
                 id: 'cc_cofactor_chebi',
@@ -142,7 +143,7 @@ const configureSearchTerms = [
                 dataType: 'string',
                 fieldType: 'general',
                 example: '29105',
-                autoComplete: '/suggester?dict=chebi&query=?',
+                autoComplete: '/suggester?dict=cofactor&query=?',
                 autoCompleteQueryTerm: 'cc_cofactor_chebi',
               },
               {
@@ -945,6 +946,7 @@ const configureSearchTerms = [
         id: 'catalytic_activity',
         label: 'Catalytic Activity',
         itemType: 'sibling_group',
+        tags: ['RHEA', 'CHEBI', 'InChIKey'],
         siblings: [
           {
             id: 'cc_catalytic_activity_field',
@@ -3063,7 +3065,7 @@ const configureSearchTerms = [
       },
       {
         id: 'alergenic_properties',
-        label: 'Alergenic properties',
+        label: 'Allergenic properties',
         itemType: 'sibling_group',
         siblings: [
           {
@@ -9255,6 +9257,15 @@ const configureSearchTerms = [
             fieldType: 'general',
             valuePrefix: 'smr-',
           },
+          {
+            id: 'xref_alphafolddb',
+            label: 'AlphaFoldDB',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'alphafolddb-',
+          },
         ],
       },
       {
@@ -9913,15 +9924,6 @@ const configureSearchTerms = [
             valuePrefix: 'ensemblprotists-',
           },
           {
-            id: 'xref_genedb',
-            label: 'GeneDB',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'genedb-',
-          },
-          {
             id: 'xref_geneid',
             label: 'GeneID',
             itemType: 'single',
@@ -9947,6 +9949,15 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             valuePrefix: 'kegg-',
+          },
+          {
+            id: 'xref_mane-select',
+            label: 'MANE-Select',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'mane-select-',
           },
           {
             id: 'xref_patric',
@@ -9983,6 +9994,15 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             valuePrefix: 'wbparasite-',
+          },
+          {
+            id: 'xref_wbparasitetranscriptprotein',
+            label: 'WBParaSiteTranscriptProtein',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'wbparasitetranscriptprotein-',
           },
         ],
       },
@@ -11099,6 +11119,33 @@ const configureSearchTerms = [
     ],
   },
   {
+    id: 'small_molecule',
+    label: 'Small molecule',
+    itemType: 'group',
+    items: [
+      {
+        id: 'chebi_field',
+        label: 'CHEBI ID',
+        itemType: 'single',
+        term: 'chebi',
+        dataType: 'string',
+        fieldType: 'general',
+        example: '29105',
+        autoComplete: '/suggester?dict=chebi&query=?',
+        autoCompleteQueryTerm: 'chebi',
+      },
+      {
+        id: 'inchikey_field',
+        label: 'InChIKey',
+        itemType: 'single',
+        term: 'inchikey',
+        dataType: 'string',
+        fieldType: 'general',
+        example: 'XLYOFNOQVPJJNP-UHFFFAOYSA-N',
+      },
+    ],
+  },
+  {
     id: 'keyword_field',
     label: 'Keyword [KW]',
     itemType: 'single',
@@ -11262,6 +11309,53 @@ const configureSearchTerms = [
         value: 'false',
       },
     ],
+  },
+  {
+    id: 'uniref_group',
+    label: 'UniRef ID',
+    itemType: 'group',
+    items: [
+      {
+        id: 'uniref_cluster_50',
+        label: 'UniRef50',
+        itemType: 'single',
+        term: 'uniref_cluster_50',
+        dataType: 'string',
+        fieldType: 'general',
+        example: 'UniRef50_P05067',
+        regex: '^UniRef50_[\\w|-]+$',
+      },
+      {
+        id: 'uniref_cluster_90',
+        label: 'UniRef90',
+        itemType: 'single',
+        term: 'uniref_cluster_90',
+        dataType: 'string',
+        fieldType: 'general',
+        example: 'UniRef90_P05067',
+        regex: '^UniRef90_[\\w|-]+$',
+      },
+      {
+        id: 'uniref_cluster_100',
+        label: 'UniRef100',
+        itemType: 'single',
+        term: 'uniref_cluster_100',
+        dataType: 'string',
+        fieldType: 'general',
+        example: 'UniRef100_P05067',
+        regex: '^UniRef100_[\\w|-]+$',
+      },
+    ],
+  },
+  {
+    id: 'uniparc',
+    label: 'UniParc ID',
+    itemType: 'single',
+    term: 'uniparc',
+    dataType: 'string',
+    fieldType: 'general',
+    example: 'UPI000002DB1C',
+    regex: 'UPI[\\w]{10}',
   },
 ] as SearchTermType[];
 // TODO: remove type casting from configureSearchTerms https://www.ebi.ac.uk/panda/jira/browse/TRM-26787

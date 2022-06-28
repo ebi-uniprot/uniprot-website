@@ -5,20 +5,20 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
   <div
     class="button-group"
   >
-    <button
+    <a
       class="button tertiary"
+      href="/blast?ids=P05067-1%2CP05067-2"
       title="Run 2 BLAST jobs against the selected entries"
-      type="button"
     >
       BLAST 2 isoforms
-    </button>
-    <button
+    </a>
+    <a
       class="button tertiary"
+      href="/align?ids=P05067-1%2CP05067-2"
       title="Run an Align job against 2 entries"
-      type="button"
     >
       Align 2 isoforms
-    </button>
+    </a>
   </div>
   <ul
     class="info-list info-list--columns"
@@ -30,7 +30,11 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
         <div
           class="decorated-list-item__title tiny"
         >
-          Sequence status
+          <span
+            data-article-id="sequence_status"
+          >
+            Sequence status
+          </span>
         </div>
         <div
           class="decorated-list-item__content"
@@ -46,7 +50,11 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
         <div
           class="decorated-list-item__title tiny"
         >
-          Sequence processing
+          <span
+            data-article-id="sequence_processing"
+          >
+            Sequence processing
+          </span>
         </div>
         <div
           class="decorated-list-item__content"
@@ -61,7 +69,13 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
     <strong>
       2
     </strong>
-     isoforms produced by 
+     
+    <span
+      data-article-id="alternative_products"
+    >
+      isoforms
+    </span>
+     produced by 
     <strong>
       event 1 & event 2
     </strong>
@@ -165,17 +179,16 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
       class="action-bar button-group"
     >
       <div
-        class="dropdown-container"
+        aria-expanded="false"
+        aria-haspopup="true"
+        class="dropdown"
       >
         <button
-          class="button primary dropdown tertiary"
+          class="button tertiary"
           type="button"
         >
           Tools
         </button>
-        <div
-          class="dropdown-menu"
-        />
       </div>
       <a
         class="button tertiary"
@@ -194,17 +207,16 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
         Add
       </button>
       <div
-        class="dropdown-container"
+        aria-expanded="false"
+        aria-haspopup="true"
+        class="dropdown"
       >
         <button
-          class="button primary dropdown tertiary"
+          class="button tertiary"
           type="button"
         >
           Highlight
         </button>
-        <div
-          class="dropdown-menu"
-        />
       </div>
     </div>
     <ul
@@ -222,7 +234,7 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
           <div
             class="decorated-list-item__content"
           >
-            1234
+            1,234
           </div>
         </div>
       </li>
@@ -265,7 +277,11 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
           <div
             class="decorated-list-item__title tiny"
           >
-            Checksum
+            <span
+              data-article-id="checksum"
+            >
+              Checksum
+            </span>
           </div>
           <div
             class="decorated-list-item__content"

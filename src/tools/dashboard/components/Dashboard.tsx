@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Card,
@@ -14,9 +14,10 @@ import HTMLHead from '../../../shared/components/HTMLHead';
 import Row from './Row';
 import EmptyDashboard from './EmptyDashboard';
 
+import { useToolsState } from '../../../shared/contexts/Tools';
+
 import { LocationToPath, Location } from '../../../app/config/urls';
 
-import { RootState } from '../../../app/state/rootInitialState';
 import { Job } from '../../types/toolsJob';
 
 import './styles/Dashboard.scss';
@@ -26,17 +27,19 @@ const EXPIRED_TIME = 1000 * 60 * 60 * 24 * 7; // 1 week
 const sortNewestFirst = (a: Job, b: Job) => b.timeCreated - a.timeCreated;
 
 const Dashboard = ({ closePanel }: { closePanel?: () => void }) => {
-  const [activeJobs, expiredJobs] = useSelector<RootState, [Job[], Job[]]>(
-    (state) => {
-      const jobs = Array.from(Object.values(state.tools)).sort(sortNewestFirst);
-      const now = Date.now();
-      return partition(jobs, (job) => now - job.timeCreated < EXPIRED_TIME);
-    }
-  );
+  const tools = useToolsState();
+
+  const [activeJobs, expiredJobs] = useMemo(() => {
+    const jobs = Array.from(Object.values(tools ?? {})).sort(sortNewestFirst);
+    const now = Date.now();
+    return partition(jobs, (job) => now - job.timeCreated < EXPIRED_TIME);
+  }, [tools]);
 
   const fullPageContent = closePanel ? null : (
     <>
-      <HTMLHead title="Tool results" />
+      <HTMLHead title="Tool results">
+        <meta name="robots" content="noindex" />
+      </HTMLHead>
       <PageIntro title="Tool results" />
     </>
   );
@@ -55,9 +58,9 @@ const Dashboard = ({ closePanel }: { closePanel?: () => void }) => {
       {fullPageContent}
       <p>
         Your tool analysis results from the last{' '}
-        <ClockIcon height="1em" width="3ch" /> 7 days are listed below. For any
-        tools still running, you can navigate away to other pages and will be
-        notified once the job is finished.
+        <ClockIcon height="1em" width="3ch" /> 7 days are listed below. If you
+        have tools jobs running, you can navigate away to other pages and you
+        will be notified once the job is completed.
       </p>
       <div className="dashboard">
         <div className="dashboard__header">
@@ -77,10 +80,11 @@ const Dashboard = ({ closePanel }: { closePanel?: () => void }) => {
           <>
             <br />
             <p>
-              Below your previous jobs that have now expired. You can still
-              resubmit them &nbsp;
-              <ReSubmitIcon width="1em" />. They will be completely deleted 14
-              days after their initial submission, unless you save them ★.
+              Your expired jobs are listed below. You can still resubmit
+              them&nbsp;
+              <ReSubmitIcon width="1em" />. These jobs will be deleted 14 days
+              after their submission date, unless you save them by clicking the
+              star icon ★.
             </p>
             <div className="dashboard__body">
               {expiredJobs.map((job) => (

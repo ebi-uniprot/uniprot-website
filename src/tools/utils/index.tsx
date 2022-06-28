@@ -1,4 +1,4 @@
-import { Link, generatePath } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AxiosResponse } from 'axios';
 import { LocationDescriptor } from 'history';
 
@@ -84,9 +84,14 @@ export const getStatusFromResponse = async (
       break;
     case JobTypes.PEPTIDE_SEARCH:
       // This deduces the job status from the HTTP response status
-      if (response.status === 200) {
+      if (!response.status) {
+        // That's a bit weird, but that's what happens
+        status = Status.RUNNING;
+      } else if (response.status === 200) {
         status = Status.FINISHED;
       } else if (response.status === 303) {
+        status = Status.RUNNING;
+      } else if (response.status === 202) {
         status = Status.RUNNING;
       } else if (response.status >= 400) {
         status = Status.FAILURE;
@@ -110,8 +115,8 @@ export type ServerError = {
   response: AxiosResponse<string | { messages: string[] }>;
 };
 
-export const getServerErrorDescription = (error: ServerError) => {
-  const data = error?.response?.data;
+export const getServerErrorDescription = (error: ServerError | string) => {
+  const data = typeof error === 'string' ? error : error?.response?.data;
   if (!data) {
     return null;
   }
@@ -164,10 +169,7 @@ export const getJobMessage = ({
   let location: LocationDescriptor<LocationStateFromJobLink> | undefined;
   if ('remoteID' in job && job.remoteID && nHits !== 0) {
     location = {
-      pathname: generatePath(jobTypeToPath(job.type, true), {
-        id: job.remoteID,
-        subPage: 'overview',
-      }),
+      pathname: jobTypeToPath(job.type, job),
       state: { internalID: job.internalID },
     };
   }

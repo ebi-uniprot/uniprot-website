@@ -1,6 +1,8 @@
-import { ExternalLink } from 'franklin-sites';
+import ExternalLink from './ExternalLink';
 
 import useCustomElement from '../hooks/useCustomElement';
+
+import 'lite-youtube-embed/src/lite-yt-embed.css';
 
 const YouTubeEmbed = ({ id, title }: { id: string; title: string }) => {
   const liteYouTube = useCustomElement(

@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InPageMessageHub tests should render 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="message message--info"
+      role="status"
+    >
+      <div
+        class="message__side-border"
+      />
+      <test-file-stub
+        height="1.125em"
+        width="1.125em"
+      />
+      <section
+        class="message__content"
+      >
+        <small>
+          in page message
+        </small>
+      </section>
+      <button
+        class="message__dismiss"
+        type="button"
+      >
+        <test-file-stub
+          height="10"
+          width="10"
+        />
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;

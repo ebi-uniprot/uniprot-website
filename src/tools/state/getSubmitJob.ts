@@ -1,4 +1,4 @@
-import { AnyAction, MiddlewareAPI, Dispatch } from 'redux';
+import { Dispatch, MutableRefObject } from 'react';
 
 import { formParametersToServerParameters } from '../adapters/parameters';
 
@@ -14,13 +14,23 @@ import { updateJob } from './toolsActions';
 
 import toolsURLs from '../config/urls';
 
-import { RootState } from '../../app/state/rootInitialState';
+import { ToolsAction } from './toolsReducers';
+import { ToolsState } from './toolsInitialState';
+import { MessagesAction } from '../../messages/state/messagesReducers';
 import { Status } from '../types/toolsStatuses';
 import { CreatedJob } from '../types/toolsJob';
 
 const getSubmitJob =
-  ({ dispatch, getState }: MiddlewareAPI<Dispatch<AnyAction>, RootState>) =>
+  (
+    dispatch: Dispatch<ToolsAction>,
+    stateRef: MutableRefObject<ToolsState>,
+    messagesDispatch: Dispatch<MessagesAction>
+  ) =>
   async (job: CreatedJob) => {
+    // stateRef not hydrated yet
+    if (!stateRef.current) {
+      return;
+    }
     try {
       // specific logic to transform FormParameters to ServerParameters
       let formData;
@@ -40,13 +50,21 @@ const getSubmitJob =
       });
 
       if (!response.ok) {
-        throw new Error(`Request failed with status code ${response.status}`);
+        let message;
+        try {
+          message = getServerErrorDescription(await response.text());
+        } catch (e) {
+          /**/
+        }
+        throw new Error(
+          message || `Request failed with status code ${response.status}`
+        );
       }
 
       const remoteID = await getRemoteIDFromResponse(job.type, response);
 
       // get a new reference to the job
-      const currentStateOfJob = getState().tools[job.internalID];
+      const currentStateOfJob = stateRef.current[job.internalID];
       // check that the job is still in the state (it might have been removed)
       if (!currentStateOfJob) {
         return;
@@ -70,7 +88,7 @@ const getSubmitJob =
         errorDescription = `Could not run job: ${error.message}`;
       }
       // get a new reference to the job
-      const currentStateOfJob = getState().tools[job.internalID];
+      const currentStateOfJob = stateRef.current[job.internalID];
       // check that the job is still in the state (it might have been removed)
       if (!currentStateOfJob) {
         return;
@@ -82,7 +100,7 @@ const getSubmitJob =
           errorDescription,
         })
       );
-      dispatch(addMessage(getJobMessage({ job, errorDescription })));
+      messagesDispatch(addMessage(getJobMessage({ job, errorDescription })));
     }
   };
 

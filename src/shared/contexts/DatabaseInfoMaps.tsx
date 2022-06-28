@@ -1,4 +1,9 @@
-import { createContext, ReactNode, useEffect, useMemo } from 'react';
+import { createContext, FC, useEffect, useMemo } from 'react';
+import { Loader } from 'franklin-sites';
+
+import ErrorHandler from '../components/error-pages/ErrorHandler';
+
+import useDataApi from '../hooks/useDataApi';
 
 import {
   DatabaseInfoMaps,
@@ -7,9 +12,9 @@ import {
   isDatabaseColumn,
 } from '../../uniprotkb/utils/database';
 import apiUrls from '../config/apiUrls';
-import useDataApi from '../hooks/useDataApi';
 import * as logging from '../utils/logging';
 
+import { Namespace } from '../types/namespaces';
 import { UniProtKBColumn } from '../../uniprotkb/types/columnTypes';
 import { DatabaseInfo } from '../../uniprotkb/types/databaseRefs';
 
@@ -42,31 +47,33 @@ export const databaseInfoColumnsSanityCheck = (databaseInfo: DatabaseInfo) => {
   }
 };
 
-type DatabaseInfoMapsProviderProps = {
-  children: ReactNode;
-};
-
-export const DatabaseInfoMapsProvider = ({
-  children,
-}: DatabaseInfoMapsProviderProps) => {
-  const { data: databaseInfo } = useDataApi<DatabaseInfo>(
-    apiUrls.allUniProtKBDatabases
+export const DatabaseInfoMapsProvider: FC = ({ children }) => {
+  const { data, loading, progress, error, status } = useDataApi<DatabaseInfo>(
+    apiUrls.allDatabases(Namespace.uniprotkb)
   );
   const databaseInfoMaps = useMemo(
-    () => databaseInfo && getDatabaseInfoMaps(databaseInfo),
-    [databaseInfo]
+    () => data && getDatabaseInfoMaps(data),
+    [data]
   );
 
   useEffect(() => {
     // Sanity check for dynamic database info and static column definition
-    if (process.env.NODE_ENV === 'development' && databaseInfo) {
-      databaseInfoColumnsSanityCheck(databaseInfo);
+    if (process.env.NODE_ENV === 'development' && data) {
+      databaseInfoColumnsSanityCheck(data);
     }
-  }, [databaseInfo]);
+  }, [data]);
 
-  return databaseInfoMaps ? (
+  if (loading) {
+    return <Loader progress={progress} />;
+  }
+
+  if (error || !databaseInfoMaps) {
+    return <ErrorHandler status={status} />;
+  }
+
+  return (
     <DatabaseInfoMapsContext.Provider value={databaseInfoMaps}>
       {children}
     </DatabaseInfoMapsContext.Provider>
-  ) : null;
+  );
 };

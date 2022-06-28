@@ -3,9 +3,7 @@
 
 .entry-page {
   *[id] {
-    // NOTE: this needs to be changed according to the height of the sticky part
-    // of the page. It's the offset when scrolling to specific parts of the page
-    scroll-margin-top: calc(#{$header-height} + #{$global-margin * 0.5});
+    scroll-margin-top: calc(var(--top-header-margin) + #{$global-margin * 0.5});
   }
 
   & .tabs__header {

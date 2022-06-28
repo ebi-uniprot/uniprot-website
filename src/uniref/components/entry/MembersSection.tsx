@@ -1,6 +1,6 @@
 import { memo, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Card, DataTableWithLoader, Loader } from 'franklin-sites';
+import { Card, DataTableWithLoader, Loader, LongNumber } from 'franklin-sites';
 
 import AddToBasket from '../../../shared/components/action-buttons/AddToBasket';
 import AlignButton from '../../../shared/components/action-buttons/Align';
@@ -45,7 +45,7 @@ const getKey = (member: UniRefMember) =>
 
 type ColumDescriptor = {
   name: string;
-  label?: string;
+  label: string;
   render: (
     datum: UniRefMember
   ) => undefined | string | number | boolean | JSX.Element;
@@ -80,6 +80,7 @@ const columns: ColumDescriptor[] = [
   },
   {
     name: 'reviewed',
+    label: '',
     render: (member) => (
       <EntryTypeIcon
         entryType={member.memberIdType}
@@ -261,7 +262,7 @@ export const MembersSection = ({
   representativeMember,
 }: Props) => {
   const { search } = useLocation();
-  const { selectedFacets } = getParamsFromURL(search);
+  const [{ selectedFacets }] = getParamsFromURL(search);
 
   const initialUrl = apiUrls.members(id, {
     selectedFacets: selectedFacets.map(
@@ -298,7 +299,7 @@ export const MembersSection = ({
     const { results } = data;
     setAllResults((allRes) => [...allRes, ...results]);
     setMetadata(() => ({
-      total: +(headers?.['x-total-records'] || 0),
+      total: +(headers?.['x-total-results'] || 0),
       nextUrl: getNextURLFromHeaders(headers),
     }));
   }, [data, headers]);
@@ -314,10 +315,13 @@ export const MembersSection = ({
   return (
     <Card
       header={
-        <h2>{`${total} ${pluralise(
-          getEntrySectionNameAndId(EntrySection.Members).name,
-          total
-        )}`}</h2>
+        <h2>
+          <LongNumber>{total}</LongNumber>{' '}
+          {pluralise(
+            getEntrySectionNameAndId(EntrySection.Members).name,
+            total
+          )}
+        </h2>
       }
       id={EntrySection.Members}
     >

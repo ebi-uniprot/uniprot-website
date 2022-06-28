@@ -1,4 +1,4 @@
-import { AnyAction, MiddlewareAPI, Dispatch } from 'redux';
+import { Dispatch, MutableRefObject } from 'react';
 import { AxiosResponse } from 'axios';
 
 import fetchData from '../../shared/utils/fetchData';
@@ -10,7 +10,9 @@ import toolsURLs from '../config/urls';
 import { updateJob } from './toolsActions';
 import { addMessage } from '../../messages/state/messagesActions';
 
-import { RootState } from '../../app/state/rootInitialState';
+import { ToolsState } from './toolsInitialState';
+import { ToolsAction } from './toolsReducers';
+import { MessagesAction } from '../../messages/state/messagesReducers';
 import { RunningJob, FinishedJob } from '../types/toolsJob';
 import { Status } from '../types/toolsStatuses';
 import { BlastResults } from '../blast/types/blastResults';
@@ -19,7 +21,11 @@ import { JobTypes } from '../types/toolsJobTypes';
 const possibleStatuses = new Set(Object.values(Status));
 
 const getCheckJobStatus =
-  ({ dispatch, getState }: MiddlewareAPI<Dispatch<AnyAction>, RootState>) =>
+  (
+    dispatch: Dispatch<ToolsAction>,
+    stateRef: MutableRefObject<ToolsState>,
+    messagesDispatch: Dispatch<MessagesAction>
+  ) =>
   async (job: RunningJob | FinishedJob<JobTypes>) => {
     const urlConfig = toolsURLs(job.type);
     try {
@@ -41,13 +47,18 @@ const getCheckJobStatus =
       if (
         !response.ok &&
         status !== Status.FAILURE &&
-        status !== Status.ERRORED
+        status !== Status.ERRORED &&
+        // When doing Peptide Search weird redirects happen and mess this up
+        job.type !== JobTypes.PEPTIDE_SEARCH
       ) {
         throw new Error(`${response.status}: ${response.statusText}`);
       }
-
+      // stateRef not hydrated yet
+      if (!stateRef.current) {
+        return;
+      }
       // get a new reference to the job
-      let currentStateOfJob = getState().tools[job.internalID];
+      let currentStateOfJob = stateRef.current[job.internalID];
       // check that the job is still in the state (it might have been removed)
       if (!currentStateOfJob) {
         return;
@@ -100,7 +111,7 @@ const getCheckJobStatus =
         const results = response?.data;
 
         // get a new reference to the job
-        currentStateOfJob = getState().tools[job.internalID];
+        currentStateOfJob = stateRef.current[job.internalID];
         // check that the job is still in the state (it might have been removed)
         if (!currentStateOfJob) {
           return;
@@ -132,7 +143,7 @@ const getCheckJobStatus =
             data: { hits: results.hits.length },
           })
         );
-        dispatch(
+        messagesDispatch(
           addMessage(
             getJobMessage({
               job: currentStateOfJob,
@@ -142,15 +153,12 @@ const getCheckJobStatus =
         );
       } else if (job.type === JobTypes.ID_MAPPING && idMappingResultsUrl) {
         // only ID Mapping jobs
-        const response = await fetchData(
-          idMappingResultsUrl,
-          undefined,
-          undefined,
-          { method: 'HEAD' }
-        );
+        const response = await fetchData(idMappingResultsUrl, undefined, {
+          method: 'HEAD',
+        });
 
         // get a new reference to the job
-        currentStateOfJob = getState().tools[job.internalID];
+        currentStateOfJob = stateRef.current[job.internalID];
         // check that the job is still in the state (it might have been removed)
         if (!currentStateOfJob) {
           return;
@@ -158,7 +166,7 @@ const getCheckJobStatus =
 
         const now = Date.now();
 
-        const hits: string = response.headers['x-total-records'] || '0';
+        const hits: string = response.headers['x-total-results'] || '0';
 
         dispatch(
           updateJob(job.internalID, {
@@ -169,7 +177,7 @@ const getCheckJobStatus =
             data: { hits: +hits },
           })
         );
-        dispatch(
+        messagesDispatch(
           addMessage(getJobMessage({ job: currentStateOfJob, nHits: +hits }))
         );
       } else if (job.type === JobTypes.PEPTIDE_SEARCH) {
@@ -189,7 +197,7 @@ const getCheckJobStatus =
             data: { hits },
           })
         );
-        dispatch(
+        messagesDispatch(
           addMessage(getJobMessage({ job: currentStateOfJob, nHits: hits }))
         );
       } else {
@@ -203,7 +211,7 @@ const getCheckJobStatus =
             status,
           })
         );
-        dispatch(addMessage(getJobMessage({ job: currentStateOfJob })));
+        messagesDispatch(addMessage(getJobMessage({ job: currentStateOfJob })));
       }
     } catch (error) {
       if (error instanceof Error || typeof error === 'string') {

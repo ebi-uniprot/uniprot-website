@@ -119,6 +119,10 @@ exports[`Publication component should render 1`] = `
                 target="_blank"
               >
                 PubMed
+                <test-file-stub
+                  data-testid="external-link-icon"
+                  width="12.5"
+                />
               </a>
             </li>
             <li>
@@ -129,6 +133,10 @@ exports[`Publication component should render 1`] = `
                 target="_blank"
               >
                 Europe PMC
+                <test-file-stub
+                  data-testid="external-link-icon"
+                  width="12.5"
+                />
               </a>
             </li>
             <li>
@@ -158,40 +166,48 @@ exports[`Publication component should render 1`] = `
         <div
           class="publication__columns__side__item"
         >
-          <small>
-            Mapped to
-          </small>
           <div
             class="publication__statistics"
           >
-            <a
-              href="/uniprotkb?facets=reviewed:true&query=(lit_citation_id:14702039)"
-              title="UniProtKB reviewed entries: 32172"
+            <div
+              class="publication__statistics__content"
             >
-              <span
-                class="bubble--small"
+              <small>
+                Cited in
+              </small>
+              <div
+                class="publication__statistics__content__body"
               >
-                99+
-              </span>
-              <test-file-stub
-                classname="publication__statistics--reviewed"
-                height="1em"
-              />
-            </a>
-            <a
-              href="/uniprotkb?facets=reviewed:false&query=(lit_citation_id:14702039)"
-              title="UniProtKB unreviewed entries: 2615"
-            >
-              <span
-                class="bubble--small"
-              >
-                99+
-              </span>
-              <test-file-stub
-                classname="publication__statistics--unreviewed"
-                height="1em"
-              />
-            </a>
+                <a
+                  href="/uniprotkb?facets=reviewed:true&query=(lit_citation_id:14702039)"
+                  title="UniProtKB reviewed entries: 32172"
+                >
+                  <span
+                    class="bubble--small"
+                  >
+                    99+
+                  </span>
+                  <test-file-stub
+                    classname="publication__statistics__content__body--reviewed"
+                    height="1em"
+                  />
+                </a>
+                <a
+                  href="/uniprotkb?facets=reviewed:false&query=(lit_citation_id:14702039)"
+                  title="UniProtKB unreviewed entries: 2615"
+                >
+                  <span
+                    class="bubble--small"
+                  >
+                    99+
+                  </span>
+                  <test-file-stub
+                    classname="publication__statistics__content__body--unreviewed"
+                    height="1em"
+                  />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>

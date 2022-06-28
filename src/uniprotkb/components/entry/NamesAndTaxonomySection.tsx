@@ -28,12 +28,14 @@ const NamesAndTaxonomySection = ({ data, primaryAccession }: Props) => {
   return (
     <Card
       header={
-        <h2>{getEntrySectionNameAndId(EntrySection.NamesAndTaxonomy).name}</h2>
+        <h2 data-article-id="names_and_taxonomy_section">
+          {getEntrySectionNameAndId(EntrySection.NamesAndTaxonomy).name}
+        </h2>
       }
       id={EntrySection.NamesAndTaxonomy}
       data-entry-section
     >
-      <h3>Protein names</h3>
+      <h3 data-article-id="protein_names">Protein names</h3>
       <ProteinNamesView proteinNames={data.proteinNamesData} />
       {!!domains?.length && (
         <>
@@ -50,17 +52,17 @@ const NamesAndTaxonomySection = ({ data, primaryAccession }: Props) => {
       )}
       {data.geneNamesData && (
         <>
-          <h3>Gene names</h3>
+          <h3 data-article-id="gene_name">Gene names</h3>
           <GeneNamesView geneNamesData={data.geneNamesData} />
         </>
       )}
-      <h3>Organism names</h3>
+      <h3 data-article-id="organism-name">Organism names</h3>
       <TaxonomyListView data={data.organismData} hosts={data.organismHosts} />
       <h3>Accessions</h3>
       <AccessionsView data={data} />
       {!!data.proteomesData?.length && (
         <>
-          <h3>Proteome</h3>
+          <h3 data-article-id="proteomes_manual">Proteome</h3>
           <ProteomesListView data={data.proteomesData} />
         </>
       )}

@@ -1,21 +1,24 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { ExternalLink, ExpandableList, LongNumber } from 'franklin-sites';
+import { ExpandableList, LongNumber } from 'franklin-sites';
 import { capitalize } from 'lodash-es';
 
+import ExternalLink from '../../shared/components/ExternalLink';
 import BuscoView from '../components/BuscoView';
 import BuscoLegend from '../components/BuscoLegend';
 import AccessionView from '../../shared/components/results/AccessionView';
-import TaxonomyView from '../../shared/components/entry/TaxonomyView';
-import BuscoAbbr from '../components/BuscoAbbr';
 
 import { getEntryPath, LocationToPath, Location } from '../../app/config/urls';
-import abbreviationToTitle from '../../shared/config/abbreviations';
+import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
+
+import SharedColumnConfiguration from '../../shared/config/ColumnConfiguration';
 
 import { Namespace } from '../../shared/types/namespaces';
-import { ProteomesAPIModel } from '../adapters/proteomesConverter';
+import {
+  ProteomesAPIModel,
+  ProteomesUIModel,
+} from '../adapters/proteomesConverter';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
-import { UniProtKBColumn } from '../../uniprotkb/types/columnTypes';
 
 export enum ProteomesColumn {
   // Names & taxonomy
@@ -44,14 +47,15 @@ export const defaultColumns = [
 
 export const primaryKeyColumns = [ProteomesColumn.upid];
 
+type Schema = ProteomesAPIModel | ProteomesUIModel;
 export const ProteomesColumnConfiguration: ColumnConfiguration<
   ProteomesColumn,
-  ProteomesAPIModel
+  Schema
 > = new Map();
 
 // COLUMN RENDERERS BELOW
 ProteomesColumnConfiguration.set(ProteomesColumn.upid, {
-  label: 'Entry',
+  ...getLabelAndTooltip('Entry', 'Unique proteome identifier'),
   render: ({ id, proteomeType }) => (
     <AccessionView
       id={id}
@@ -61,18 +65,23 @@ ProteomesColumnConfiguration.set(ProteomesColumn.upid, {
   ),
 });
 
-ProteomesColumnConfiguration.set(ProteomesColumn.organismID, {
-  label: 'Organism ID',
-  render: ({ taxonomy }) => <TaxonomyView data={taxonomy} displayOnlyID />,
-});
+ProteomesColumnConfiguration.set(
+  ProteomesColumn.organismID,
+  SharedColumnConfiguration.organism_id(({ taxonomy }: Schema) => taxonomy)
+);
 
-ProteomesColumnConfiguration.set(ProteomesColumn.organism, {
-  label: 'Organism',
-  render: ({ taxonomy }) => <TaxonomyView data={taxonomy} />,
-});
+ProteomesColumnConfiguration.set(
+  ProteomesColumn.organism,
+  SharedColumnConfiguration.organism(({ taxonomy }: Schema) => taxonomy)
+);
 
 ProteomesColumnConfiguration.set(ProteomesColumn.components, {
-  label: 'Components',
+  ...getLabelAndTooltip(
+    'Components',
+    'Genomic components encoding the proteome',
+    'proteome_component'
+  ),
+
   render: ({ components }) => (
     <ExpandableList descriptionString="components" displayNumberOfHiddenItems>
       {components?.map(({ name }) => name)}
@@ -81,13 +90,21 @@ ProteomesColumnConfiguration.set(ProteomesColumn.components, {
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.mnemonic, {
-  label: 'Mnemonic',
+  ...getLabelAndTooltip(
+    'Mnemonic',
+    'Mnemonic organism identification code of at most 5 alphanumeric characters used in the entry names of UniProtKB entries',
+    'taxonomy'
+  ),
   render: ({ taxonomy }) => taxonomy.mnemonic,
 });
 
 // TODO: Eventually signify hidden nodes and unify view with UniProtKB as per https://www.ebi.ac.uk/panda/jira/browse/TRM-25206
 ProteomesColumnConfiguration.set(ProteomesColumn.lineage, {
-  label: 'Lineage',
+  ...getLabelAndTooltip(
+    'Lineage',
+    'Hierarchical classification of the source organism',
+    'taxonomic_lineage'
+  ),
   render: ({ taxonLineage }) =>
     taxonLineage?.map(({ scientificName, taxonId, rank }, index) => (
       <Fragment key={taxonId}>
@@ -101,13 +118,20 @@ ProteomesColumnConfiguration.set(ProteomesColumn.lineage, {
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.cpd, {
-  label: <abbr title={abbreviationToTitle.CPD}>CPD</abbr>,
+  ...getLabelAndTooltip(
+    'CPD',
+    'Complete Proteome Detector (CPD) is an algorithm which employs statistical evaluation of the completeness and quality of proteomes in UniProt',
+    'assessing_proteomes'
+  ),
   render: ({ proteomeCompletenessReport }) =>
     proteomeCompletenessReport?.cpdReport?.status,
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.genomeAssembly, {
-  label: 'Genome assembly ID',
+  ...getLabelAndTooltip(
+    'Genome assembly ID',
+    'Identifier for the genome assembly'
+  ),
   render: ({ genomeAssembly }) => {
     if (!genomeAssembly) {
       return null;
@@ -124,35 +148,58 @@ ProteomesColumnConfiguration.set(ProteomesColumn.genomeAssembly, {
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.genomeRepresentation, {
-  label: 'Genome representation',
+  ...getLabelAndTooltip(
+    'Genome representation',
+    'NCBI RefSeq’s assessment of genome assembly representation'
+  ),
+
   render: ({ genomeAssembly }) =>
     genomeAssembly && capitalize(genomeAssembly.level),
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
-  label: 'Protein count',
-  render: ({ id, proteinCount }) =>
-    proteinCount ? (
+  ...getLabelAndTooltip(
+    'Protein count',
+    'Number of protein entries associated with this proteome: UniProtKB entries for regular proteomes or UniParc entries for redundant proteomes'
+  ),
+  render: ({ id, proteinCount, proteomeType }) => {
+    if (!proteinCount) {
+      return 0;
+    }
+    // Excluded not supported at the moment, need to wait for TRM-28011
+    if (proteomeType === 'Excluded') {
+      return <LongNumber>{proteinCount}</LongNumber>;
+    }
+    // const shouldPointToUniParc =
+    //   proteomeType === 'Excluded' || proteomeType === 'Redundant proteome';
+    const shouldPointToUniParc = proteomeType === 'Redundant proteome';
+    return (
       <Link
         to={{
-          pathname: LocationToPath[Location.UniProtKBResults],
-          search: `query=${UniProtKBColumn.proteome}:${id}`,
+          pathname:
+            LocationToPath[
+              shouldPointToUniParc
+                ? Location.UniParcResults
+                : Location.UniProtKBResults
+            ],
+          search: `query=${shouldPointToUniParc ? 'upid' : 'proteome'}:${id}`,
         }}
       >
         <LongNumber>{proteinCount}</LongNumber>
       </Link>
-    ) : (
-      0
-    ),
+    );
+  },
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.busco, {
-  label: (
+  ...getLabelAndTooltip(
     <>
-      <BuscoAbbr />
+      BUSCO
       <br />
       <BuscoLegend />
-    </>
+    </>,
+    'The Benchmarking Universal Single-Copy Ortholog (BUSCO) assessment tool is used, for eukaryotic and bacterial proteomes, to provide quantitative measures of UniProt proteome data completeness in terms of expected gene content.',
+    'assessing_proteomes'
   ),
   render: ({ proteomeCompletenessReport }) =>
     proteomeCompletenessReport?.buscoReport && (

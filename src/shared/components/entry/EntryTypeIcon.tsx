@@ -4,6 +4,8 @@ import {
   TremblIcon,
   UniParcIcon,
   ReferenceProteomeIcon,
+  RedundantProteomeIcon,
+  ObsoleteIcon,
   CommunityAnnotationIcon,
 } from 'franklin-sites';
 
@@ -15,6 +17,8 @@ export enum EntryType {
   INACTIVE,
   UNIPARC,
   REFERENCE_PROTEOME,
+  REDUNDANT_PROTEOME,
+  EXCLUDED_PROTEOME,
   OTHER_PROTEOME,
   COMMUNITY_ANNOTATION,
 }
@@ -40,6 +44,12 @@ export const getEntryTypeFromString = (entryTypeString?: string) => {
   }
   if (entryTypeString.match(/Reference|Representative/gi)) {
     return EntryType.REFERENCE_PROTEOME;
+  }
+  if (entryTypeString.match(/Redundant/gi)) {
+    return EntryType.REDUNDANT_PROTEOME;
+  }
+  if (entryTypeString.match(/Excluded/gi)) {
+    return EntryType.EXCLUDED_PROTEOME;
   }
   if (entryTypeString.match(/Other\sproteome/gi)) {
     return EntryType.OTHER_PROTEOME;
@@ -101,6 +111,26 @@ export const EntryTypeIcon: FC<{
         title={title || 'This marks a reference Proteome entry'}
       >
         <ReferenceProteomeIcon />
+      </span>
+    );
+  }
+  if (entryTypeToCheck === EntryType.REDUNDANT_PROTEOME) {
+    return (
+      <span
+        className="entry-title__status icon--redundant-excluded-proteome"
+        title={title || 'This marks a redundant Proteome entry'}
+      >
+        <RedundantProteomeIcon />
+      </span>
+    );
+  }
+  if (entryTypeToCheck === EntryType.EXCLUDED_PROTEOME) {
+    return (
+      <span
+        className="entry-title__status icon--redundant-excluded-proteome"
+        title={title || 'This marks an excluded Proteome entry'}
+      >
+        <ObsoleteIcon />
       </span>
     );
   }

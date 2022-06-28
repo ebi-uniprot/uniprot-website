@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PanProteome should render a link to FASTA, when is a panproteome 1`] = `
+<DocumentFragment>
+  This proteome is part of the Homo sapiens pan proteome (
+  <a
+    href="https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/pan_proteomes/UP000005640.fasta.gz"
+  >
+    FASTA
+  </a>
+  )
+</DocumentFragment>
+`;
+
+exports[`PanProteome should render a link to entry and a link to FASTA, when is part of a panproteome 1`] = `
+<DocumentFragment>
+  This proteome is part of the 
+  <a
+    href="/proteomes/UP1"
+  >
+    Homo sapiens
+  </a>
+   pan proteome (
+  <a
+    href="https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/pan_proteomes/UP1.fasta.gz"
+  >
+    FASTA
+  </a>
+  )
+</DocumentFragment>
+`;

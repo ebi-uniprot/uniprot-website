@@ -9,7 +9,6 @@ import {
   ChangeEvent,
 } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import {
   Card,
   ReSubmitIcon,
@@ -26,7 +25,8 @@ import { updateJob, deleteJob } from '../../state/toolsActions';
 
 import { jobTypeToPath } from '../../../app/config/urls';
 
-import useReducedMotion from '../../../shared/hooks/useReducedMotion';
+import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
+import { useToolsDispatch } from '../../../shared/contexts/Tools';
 
 import { getBEMClassName as bem, pluralise } from '../../../shared/utils/utils';
 import parseDate from '../../../shared/utils/parseDate';
@@ -49,7 +49,7 @@ interface NameProps {
 }
 
 const Name = ({ children, id }: NameProps) => {
-  const dispatch = useDispatch();
+  const dispatch = useToolsDispatch();
   const [text, setText] = useState(children || '');
 
   const handleBlur = () => {
@@ -106,7 +106,7 @@ const Time = ({ children }: TimeProps) => {
 };
 
 const Seen = ({ job }: { job: FailedJob | FinishedJob<JobTypes> }) => {
-  const dispatch = useDispatch();
+  const dispatch = useToolsDispatch();
 
   if (job.seen) {
     return null;
@@ -142,7 +142,7 @@ const NiceStatus = ({ job, jobLink }: NiceStatusProps) => {
           Running <SpinnerIcon width="12" height="12" />
           <br />
           <span className="dashboard__body__notify_message">
-            We&apos;ll notify you when it&apos;s done
+            We will notify you when your results are ready
           </span>
         </>
       );
@@ -220,7 +220,7 @@ interface ActionsProps {
 
 const Actions = ({ job, onDelete }: ActionsProps) => {
   const history = useHistory();
-  const dispatch = useDispatch();
+  const dispatch = useToolsDispatch();
 
   return (
     <span className="dashboard__body__actions">
@@ -301,36 +301,27 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
   const firstTime = useRef<boolean>(true);
 
   const history = useHistory<CustomLocationState | undefined>();
-  const dispatch = useDispatch();
+  const dispatch = useToolsDispatch();
   const reducedMotion = useReducedMotion();
 
   let jobLink: LocationDescriptor<LocationStateFromJobLink> | undefined;
   if ('remoteID' in job && job.status === Status.FINISHED && !hasExpired) {
-    if (
-      job.type === JobTypes.ID_MAPPING ||
-      job.type === JobTypes.PEPTIDE_SEARCH
-    ) {
-      jobLink = {
-        pathname: `${jobTypeToPath(job.type)}/${job.remoteID}`,
-        state: { internalID: job.internalID },
-      };
-    } else {
-      jobLink = {
-        pathname: `${jobTypeToPath(job.type)}/${job.remoteID}/overview`,
-        state: { internalID: job.internalID },
-      };
-    }
+    jobLink = {
+      pathname: jobTypeToPath(job.type, job),
+      state: { internalID: job.internalID },
+    };
   }
 
   const handleDelete = () => {
+    const { internalID } = job;
     if (reducedMotion || !(ref.current && 'animate' in ref.current)) {
-      dispatch(deleteJob(job.internalID));
+      dispatch(deleteJob(internalID));
       return;
     }
     ref.current.animate(
       KeyframesForDelete,
       animationOptionsForDelete
-    ).onfinish = () => dispatch(deleteJob(job.internalID));
+    ).onfinish = () => dispatch(deleteJob(internalID));
   };
 
   // if the state of the current location contains the parameters from this job,
@@ -370,7 +361,6 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
 
   return (
     <Card
-      to={noResults ? undefined : jobLink}
       ref={ref}
       className={bem({
         b: 'card',
@@ -407,7 +397,12 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
         <Actions job={job} onDelete={handleDelete} />
       </span>
       <span className="dashboard__body__id">
-        {'remoteID' in job && job.remoteID}
+        {'remoteID' in job &&
+          (jobLink && !noResults ? (
+            <Link to={jobLink}>{job.remoteID}</Link>
+          ) : (
+            job.remoteID
+          ))}
       </span>
     </Card>
   );

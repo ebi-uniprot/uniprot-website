@@ -1,4 +1,5 @@
 import qs from 'query-string';
+import { parseQueryString } from '../../shared/utils/url';
 
 import { Column } from '../../shared/config/columns';
 import { SortableColumn } from '../types/columnTypes';
@@ -9,6 +10,7 @@ import {
 } from '../types/resultsTypes';
 import { Interactant } from '../adapters/interactionConverter';
 import { InteractionType } from '../types/commentTypes';
+import { ViewMode } from '../../shared/hooks/useViewMode';
 
 const facetsAsArray = (facetString: string): SelectedFacet[] =>
   facetString.split(',').map((stringItem) => {
@@ -26,10 +28,31 @@ export type URLResultParams = {
   sortDirection: SortDirection;
   activeFacet?: string;
   direct?: boolean;
+  columns?: Column[];
+  viewMode?: ViewMode;
 };
 
-export const getParamsFromURL = (url: string): URLResultParams => {
-  const { query, facets, sort, dir, activeFacet, direct } = qs.parse(url);
+export type InvalidParamValue = {
+  parameter: string;
+  value: string | string[];
+};
+
+type UnknownParams = string[];
+
+export const getParamsFromURL = (
+  url: string
+): [URLResultParams, UnknownParams] => {
+  const {
+    query,
+    facets,
+    sort,
+    dir,
+    activeFacet,
+    direct,
+    fields, // Handled in useColumnNames
+    view, // Handled in useViewMode
+    ...restParams
+  } = parseQueryString(url);
 
   let selectedFacets: SelectedFacet[] = [];
   if (facets && typeof facets === 'string') {
@@ -37,28 +60,25 @@ export const getParamsFromURL = (url: string): URLResultParams => {
   }
   const sortDirection = dir as keyof typeof SortDirection;
 
-  return {
-    query: query && typeof query === 'string' ? query : '',
-    activeFacet:
-      activeFacet && typeof activeFacet === 'string' ? activeFacet : undefined,
+  const params: URLResultParams = {
+    query: query || '',
+    activeFacet: activeFacet || undefined,
     selectedFacets,
     sortColumn: sort as SortableColumn,
     sortDirection: sortDirection && SortDirection[sortDirection],
     // flag, so if '?direct' we get null, if not in querystring we get undefined
     direct: direct !== undefined,
   };
+
+  const unknownParams = Object.keys(restParams);
+
+  return [params, unknownParams];
 };
 
-export const facetsAsString = (facets?: SelectedFacet[]): string => {
-  if (!facets?.length) {
-    return '';
-  }
-  return facets.reduce(
-    (accumulator, facet, i) =>
-      `${accumulator}${i > 0 ? ',' : ''}${facet.name}:${facet.value}`,
-    'facets='
-  );
-};
+export const facetsAsString = (facets?: SelectedFacet[]): string | undefined =>
+  facets?.length
+    ? facets.map(({ name, value }) => `${name}:${value}`).join(',')
+    : undefined;
 
 type GetLocationObjForParams = {
   pathname?: string;
@@ -67,6 +87,8 @@ type GetLocationObjForParams = {
   sortColumn?: string;
   sortDirection?: SortDirection;
   activeFacet?: string;
+  columns?: Column[];
+  viewMode?: ViewMode;
 };
 
 export const getLocationObjForParams = ({
@@ -76,16 +98,22 @@ export const getLocationObjForParams = ({
   sortColumn,
   sortDirection,
   activeFacet,
+  columns,
+  viewMode,
 }: GetLocationObjForParams = {}) => ({
   pathname,
-  search: [
-    `${[query && `query=${query}`, facetsAsString(selectedFacets)]
-      .filter(Boolean)
-      .join('&')}`,
-    `${sortColumn ? `&sort=${sortColumn}` : ''}`,
-    `${sortDirection ? `&dir=${sortDirection}` : ''}`,
-    `${activeFacet ? `&activeFacet=${activeFacet}` : ''}`,
-  ].join(''),
+  search: qs.stringify(
+    {
+      query: query || undefined,
+      facets: facetsAsString(selectedFacets),
+      sort: sortColumn,
+      dir: sortDirection,
+      activeFacet,
+      fields: columns,
+      view: viewMode,
+    },
+    { encode: false }
+  ),
 });
 
 export const getSortableColumnToSortColumn = (

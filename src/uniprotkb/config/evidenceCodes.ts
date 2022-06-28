@@ -272,7 +272,7 @@ export const ecoCodeToData = {
     label:
       'Manual assertion inferred from combination of experimental and computational evidence',
     description:
-      'Manually validated information inferred from a combination of experimental and computational evidence.',
+      'Combinatorial computational and experimental evidence used in manual assertion.',
     labelRender: () => labels.COMBINED,
   },
 };

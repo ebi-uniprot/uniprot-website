@@ -1,0 +1,144 @@
+import { useEffect, useMemo, useRef } from 'react';
+import { useHistory } from 'react-router-dom';
+import { sequenceProcessor } from 'franklin-sites';
+
+import { parseIdsFromSearchParams } from '../utils/urls';
+
+import { Location, LocationToPath } from '../../app/config/urls';
+
+import { SelectedTaxon } from '../types/toolsFormData';
+import useGetFASTAFromAccesion from '../../shared/hooks/useGetFASTAFromAccession';
+
+interface CustomLocationState<T> {
+  parameters?: Partial<T>;
+}
+
+export type FormValue = {
+  fieldName: string;
+  selected?: Readonly<
+    string | string[] | number | boolean | SelectedTaxon | SelectedTaxon[]
+  >;
+  values?: Readonly<
+    Array<{ label?: string; value?: string | boolean | number }>
+  >;
+};
+
+export type FormValues<Fields extends string> = Record<Fields, FormValue>;
+
+const alignmentLocations = new Set([
+  LocationToPath[Location.Blast],
+  LocationToPath[Location.Align],
+]);
+
+function useInitialFormParameters<
+  Fields extends string,
+  FormParameters extends Record<Fields, unknown>
+>(
+  defaultFormValues: Readonly<FormValues<Fields>>
+): {
+  loading: boolean;
+  initialFormValues: Readonly<FormValues<Fields>> | null;
+} {
+  const history = useHistory();
+  // Keep initial history.location?.search as we later remove this in a useEffect hook
+  const historyLocationSearch = useRef(history.location?.search).current;
+
+  const parametersFromHistorySearch = useMemo(
+    () => new URLSearchParams(historyLocationSearch),
+    [historyLocationSearch]
+  );
+
+  const idsMaybeWithRange = useMemo(() => {
+    if (!alignmentLocations.has(history.location.pathname)) {
+      return null;
+    }
+    for (const [key, value] of parametersFromHistorySearch) {
+      if (key === 'ids') {
+        return parseIdsFromSearchParams(value);
+      }
+    }
+    return null;
+  }, [history.location.pathname, parametersFromHistorySearch]);
+
+  const { loading: fastaLoading, fasta } =
+    useGetFASTAFromAccesion(idsMaybeWithRange);
+
+  // Discard 'search' part of url to avoid url state issues.
+  useEffect(() => {
+    if (history.location?.search) {
+      // eslint-disable-next-line uniprot-website/use-config-location
+      history.replace({
+        pathname: history.location.pathname,
+      });
+    }
+  }, [history]);
+
+  const initialFormValues = useMemo(() => {
+    if (fastaLoading) {
+      return null;
+    }
+
+    const parametersFromHistoryState = (
+      history.location?.state as CustomLocationState<FormParameters>
+    )?.parameters;
+
+    // This will eventually be filled in
+    const formValues: Partial<FormValues<Fields>> = {};
+    if (parametersFromHistoryState || parametersFromHistorySearch) {
+      const defaultValuesEntries = Object.entries<FormValue>(defaultFormValues);
+      for (const [key, field] of defaultValuesEntries) {
+        const fieldName = field.fieldName as keyof FormParameters;
+        formValues[key as Fields] = Object.freeze({
+          ...field,
+          selected:
+            // url params
+            (parametersFromHistorySearch &&
+              parametersFromHistorySearch.get(fieldName.toString())) ||
+            // history state
+            (parametersFromHistoryState &&
+              parametersFromHistoryState[fieldName]) ||
+            // default
+            field.selected,
+        } as FormValue);
+      }
+    }
+
+    // ids parameter from the url has been passed so handle the fetched accessions once loaded
+    if (fasta) {
+      const sequences = [
+        // load initial sequence value to prepend with the ones loaded from IDs
+        (
+          formValues['Sequence' as Fields]?.selected as string | undefined
+        )?.trim(),
+        fasta,
+      ]
+        .filter(Boolean)
+        .join('\n\n');
+
+      formValues['Sequence' as Fields] = Object.freeze({
+        fieldName: 'sequence',
+        selected: sequences,
+      });
+      const parsedSequences = sequenceProcessor(sequences);
+      formValues['Name' as Fields] = Object.freeze({
+        fieldName: 'name',
+        selected: parsedSequences[0]?.name || '',
+      });
+    }
+
+    return Object.freeze(formValues as FormValues<Fields>);
+  }, [
+    fastaLoading,
+    history.location?.state,
+    parametersFromHistorySearch,
+    fasta,
+    defaultFormValues,
+  ]);
+
+  return {
+    loading: fastaLoading,
+    initialFormValues,
+  };
+}
+
+export default useInitialFormParameters;

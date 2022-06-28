@@ -1,0 +1,15 @@
+@import 'franklin-sites/src/styles/settings';
+
+.container {
+  padding-block-start: $global-padding;
+
+  & li {
+    /* indentation in order to structure visually as we're not using bullets */
+    padding-inline-start: 1ch;
+  }
+}
+
+.in-view {
+  /* TODO: have nicer way to present visibility (vertical bar like in entry?) */
+  text-decoration: underline;
+}

@@ -1,28 +1,7 @@
 import { matchPath } from 'react-router-dom';
 import queryString from 'query-string';
-import { uniq } from 'lodash-es';
-import { LocationToPath } from '../../app/config/urls';
 
-export const urlsAreEqual = (
-  url1: string,
-  url2: string,
-  ignoreParams: string[] = []
-) => {
-  const urlObject1 = queryString.parseUrl(url1);
-  const urlObject2 = queryString.parseUrl(url2);
-  if (urlObject1.url !== urlObject2.url) {
-    return false;
-  }
-  const paramsIntersection = uniq([
-    ...Object.keys(urlObject1.query),
-    ...Object.keys(urlObject2.query),
-  ]);
-  return paramsIntersection.every(
-    (param) =>
-      ignoreParams.includes(param) ||
-      urlObject1.query[param] === urlObject2.query[param]
-  );
-};
+import { LocationToPath } from '../../app/config/urls';
 
 export const getLocationForPathname = (pathname: string) => {
   const found = Object.entries(LocationToPath).find(([, path]) =>
@@ -31,4 +10,21 @@ export const getLocationForPathname = (pathname: string) => {
   return found?.[0];
 };
 
-export default urlsAreEqual;
+/**
+Wrapper around query-string's parse function which takes the output of this and
+returns only the first value of a parameter if it is an array.
+
+@param query - The query string to parse.
+@param options - Options to pass query-string's parse 
+*/
+export const parseQueryString = (
+  query: string,
+  options?: queryString.ParseOptions
+) => {
+  const parsed = queryString.parse(query, options);
+  const parsedWithoutArrayValues: { [key: string]: string | null } = {};
+  for (const [key, value] of Object.entries(parsed)) {
+    parsedWithoutArrayValues[key] = Array.isArray(value) ? value[0] : value;
+  }
+  return parsedWithoutArrayValues;
+};

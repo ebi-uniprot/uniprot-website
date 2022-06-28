@@ -1,8 +1,7 @@
-import { useMemo } from 'react';
+import { useMemo, lazy } from 'react';
 import { Link } from 'react-router-dom';
 import {
   HeroContainer,
-  ExternalLink,
   Loader,
   CalendarIcon,
   CameraIcon,
@@ -11,7 +10,9 @@ import {
 } from 'franklin-sites';
 import cn from 'classnames';
 
-import YouTubeEmbed from '../../../shared/components/YouTubeEmbed';
+import LazyComponent from '../../../shared/components/LazyComponent';
+import ContactLink from '../../../contact/components/ContactLink';
+import ExternalLink from '../../../shared/components/ExternalLink';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useStructuredData from '../../../shared/hooks/useStructuredData';
@@ -32,6 +33,13 @@ import TwitterLogo from '../../../images/twitter-logo.svg';
 import FacebookLogo from '../../../images/facebook-logo.svg';
 
 import traingImg from '../../../images/training.jpg';
+
+const YouTubeEmbed = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "youtube-embed" */ '../../../shared/components/YouTubeEmbed'
+    )
+);
 
 const urlEBISearch =
   'https://www.ebi.ac.uk/ebisearch/ws/rest/ebiweb_training_events?query=timeframe:upcoming AND resources:UniProt The Universal Protein Resource 5544&facets=status:Open&format=json&fieldurl=true&viewurl=true&fields=title,subtitle,description,location,city,country,venue,date_time_clean,start_date,end_date,status&size=1&sort=start_date';
@@ -141,13 +149,9 @@ const NeedHelp = () => {
         >
           Help center
         </Link>{' '}
-        <ExternalLink
-          url="https://www.uniprot.org/contact"
-          noIcon
-          referrerPolicy="no-referrer-when-downgrade"
-        >
+        <ContactLink className={cn(styles['help-center-link'])}>
           Contact us
-        </ExternalLink>
+        </ContactLink>
         <br />
         <ExternalLink
           url="https://twitter.com/uniprot"
@@ -203,10 +207,12 @@ const NeedHelp = () => {
           styles['need-help__tutorial-videos-top']
         )}
       >
-        <YouTubeEmbed
-          id="OwOJmKmc7VM"
-          title="Welcome to UniProt || UniProt introduction"
-        />
+        <LazyComponent fallback={null} rootMargin="50px">
+          <YouTubeEmbed
+            id="OwOJmKmc7VM"
+            title="Welcome to UniProt || UniProt introduction"
+          />
+        </LazyComponent>
       </div>
       <div
         className={cn(

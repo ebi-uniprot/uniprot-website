@@ -1,11 +1,17 @@
-import { Tile, SwissProtIcon, TremblIcon } from 'franklin-sites';
+import { Tile, SwissProtIcon, TremblIcon, LongNumber } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
 // eslint-disable-next-line import/no-relative-packages
 import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
 
+import useDataApi from '../../../shared/hooks/useDataApi';
+
+import { getAPIQueryUrl } from '../../../shared/config/apiUrls';
+
 import { Location, LocationToPath } from '../../config/urls';
+import { Namespace } from '../../../shared/types/namespaces';
+import { SearchResults } from '../../../shared/types/results';
 
 import styles from './styles/non-critical.module.scss';
 
@@ -19,6 +25,61 @@ const getNamespaceTo = (location: Location) => ({
   search: 'query=*',
 });
 
+const UniProtKBLinks = () => {
+  const { data } = useDataApi<SearchResults<never>>(
+    getAPIQueryUrl({
+      namespace: Namespace.uniprotkb,
+      query: '*',
+      size: 0,
+      facets: ['reviewed'],
+    })
+  );
+
+  let numberReviewed: undefined | number;
+  let numberUnreviewed: undefined | number;
+
+  if (data?.facets?.[0].values?.length) {
+    numberReviewed = data?.facets?.[0].values.find(
+      (value) => value.value === 'true'
+    )?.count;
+    numberUnreviewed = data?.facets?.[0].values.find(
+      (value) => value.value === 'false'
+    )?.count;
+  }
+
+  return (
+    <>
+      <Link
+        to={{
+          pathname: LocationToPath[Location.UniProtKBResults],
+          search: 'query=reviewed:true',
+        }}
+      >
+        <SwissProtIcon
+          width="1.75em"
+          className={styles['core-data__reviewed-icon']}
+        />
+        <div className={styles['core-data__status']}>Reviewed</div>
+        <div>(Swiss-Prot)</div>
+        <div>{numberReviewed && <LongNumber>{numberReviewed}</LongNumber>}</div>
+      </Link>
+      <Link
+        to={{
+          pathname: LocationToPath[Location.UniProtKBResults],
+          search: 'query=reviewed:false',
+        }}
+      >
+        <TremblIcon width="1.75em" />
+        <div className={styles['core-data__status']}>Unreviewed</div>
+        <div>(TrEMBL)</div>
+        <div>
+          {numberUnreviewed && <LongNumber>{numberUnreviewed}</LongNumber>}
+        </div>
+      </Link>
+    </>
+  );
+};
+
 const CoreData = () => (
   <section
     className={cn(
@@ -30,7 +91,7 @@ const CoreData = () => (
     <h2 className="visually-hidden">UniProt core data</h2>
     <Tile
       title="Proteins"
-      className="uniprot-grid-cell--span-3"
+      className={cn('uniprot-grid-cell--span-3', styles['core-data-tile'])}
       subtitle="UniProt Knowledgebase"
       backgroundImage={<UniProtKBIllustration />}
       backgroundColor={colors.seaBlue}
@@ -38,26 +99,7 @@ const CoreData = () => (
       gradient
     >
       <span className={styles['core-data']}>
-        <Link
-          to={{
-            pathname: LocationToPath[Location.UniProtKBResults],
-            search: 'query=reviewed:true',
-          }}
-        >
-          <SwissProtIcon width="2.5em" />
-          <div className={styles['core-data__status']}>Reviewed</div>
-          <small>Swiss-Prot</small>
-        </Link>
-        <Link
-          to={{
-            pathname: LocationToPath[Location.UniProtKBResults],
-            search: 'query=reviewed:false',
-          }}
-        >
-          <TremblIcon width="2.5em" />
-          <div className={styles['core-data__status']}>Unreviewed</div>
-          <small>TrEMBL</small>
-        </Link>
+        <UniProtKBLinks />
       </span>
     </Tile>
     <Tile

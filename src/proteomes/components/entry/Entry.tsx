@@ -5,9 +5,11 @@ import EntryMain from './EntryMain';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
-import EntryDownload from '../../../shared/components/entry/EntryDownload';
+// import EntryDownload from '../../../shared/components/entry/EntryDownload';
 import SingleColumnLayout from '../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
+import AccessionView from '../../../shared/components/results/AccessionView';
+import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 
 import apiUrls from '../../../shared/config/apiUrls';
 
@@ -33,19 +35,28 @@ const Entry = () => {
 
   const accession = match?.params.accession;
 
-  const baseURL = apiUrls.entry(accession, Namespace.proteomes);
-  const { loading, data, status, error, progress } =
-    useDataApi<ProteomesAPIModel>(baseURL);
+  const mainData = useDataApi<ProteomesAPIModel>(
+    apiUrls.entry(accession, Namespace.proteomes)
+  );
 
-  if (error || !accession) {
-    return <ErrorHandler status={status} />;
+  const panProteomeData = useDataApi<ProteomesAPIModel>(
+    mainData.data?.panproteome && mainData.data.panproteome !== mainData.data.id
+      ? apiUrls.entry(mainData.data.panproteome, Namespace.proteomes)
+      : null
+  );
+
+  if (mainData.loading || panProteomeData.loading || !mainData.data) {
+    return <Loader progress={mainData.progress || panProteomeData.progress} />;
   }
 
-  if (loading || !data) {
-    return <Loader progress={progress} />;
+  if (mainData.error || panProteomeData.error || !accession || !mainData.data) {
+    return <ErrorHandler status={mainData.status || panProteomeData.status} />;
   }
 
-  const transformedData = proteomesConverter(data);
+  const transformedData = proteomesConverter(
+    mainData.data,
+    panProteomeData.data
+  );
 
   return (
     <SingleColumnLayout className="entry-page">
@@ -58,11 +69,25 @@ const Entry = () => {
       <h1>
         {searchableNamespaceLabels[Namespace.proteomes]}
         {' · '}
-        <TaxonomyView data={data.taxonomy} noLink />
+        <TaxonomyView data={mainData.data.taxonomy} noLink />
       </h1>
-      <div className="button-group">
+      {transformedData.proteomeType === 'Redundant proteome' &&
+      transformedData.redundantTo ? (
+        <div>
+          <EntryTypeIcon entryType={transformedData.proteomeType} />
+          This proteome is{' '}
+          <span data-article-id="proteome_redundancy">redundant</span> to&nbsp;
+          <AccessionView
+            id={transformedData.redundantTo}
+            namespace={Namespace.proteomes}
+          />
+          .
+        </div>
+      ) : null}
+      {/* Commented out for now */}
+      {/* <div className="button-group">
         <EntryDownload />
-      </div>
+      </div> */}
       <EntryMain transformedData={transformedData} />
     </SingleColumnLayout>
   );

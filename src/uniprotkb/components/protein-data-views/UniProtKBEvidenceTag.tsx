@@ -1,15 +1,15 @@
-import { FC, Fragment } from 'react';
+import { Fragment } from 'react';
 import { groupBy } from 'lodash-es';
-import { ExternalLink, EvidenceTag } from 'franklin-sites';
+import { EvidenceTag } from 'franklin-sites';
 import {
   getEvidenceCodeData,
   EvidenceData,
   getEcoNumberFromString,
 } from '../../config/evidenceCodes';
 import { Evidence } from '../../types/modelTypes';
+
 import UniProtKBEntryPublications from './UniProtKBEntryPublications';
-import { processUrlTemplate } from './XRefView';
-import evidenceUrls from '../../config/evidenceUrls';
+import EvidenceLink from '../../config/evidenceUrls';
 
 enum evidenceTagSourceTypes {
   PUBMED = 'PubMed',
@@ -17,10 +17,15 @@ enum evidenceTagSourceTypes {
   PROSITE_PRORULE = 'PROSITE-ProRule',
 }
 
-export const UniProtEvidenceTagContent: FC<{
+type UniProtEvidenceTagContentProps = {
   evidenceData: EvidenceData;
   evidences: Evidence[] | undefined;
-}> = ({ evidenceData, evidences }) => {
+};
+
+export const UniProtEvidenceTagContent = ({
+  evidenceData,
+  evidences,
+}: UniProtEvidenceTagContentProps) => {
   if (!evidences?.length) {
     return null;
   }
@@ -34,7 +39,7 @@ export const UniProtEvidenceTagContent: FC<{
 
   return (
     <div>
-      <h5>
+      <h5 data-article-id="evidences">
         {evidenceData.label} <small>({evidenceData.description})</small>
       </h5>
       {publicationReferences && (
@@ -47,24 +52,13 @@ export const UniProtEvidenceTagContent: FC<{
         />
       )}
       {Object.entries(groupedEvidencesWithoutPubs).map(
-        ([key, mappedEvidences]) => (
-          <Fragment key={key}>
-            {mappedEvidences.map(({ id }: Evidence) => {
-              if (!id) {
-                return null;
-              }
-              const urlPattern = evidenceUrls[key];
-              return urlPattern ? (
-                <ExternalLink
-                  url={processUrlTemplate(urlPattern, { value: id })}
-                  key={id}
-                >
-                  {id}
-                </ExternalLink>
-              ) : (
-                <Fragment key={id}>{id}</Fragment>
-              );
-            })}
+        ([key, mappedEvidences], index) => (
+          <Fragment key={key || index}>
+            {mappedEvidences.map(({ id, url }: Evidence, index) => (
+              <div key={id || index}>
+                <EvidenceLink source={key} value={id} url={url} />
+              </div>
+            ))}
           </Fragment>
         )
       )}

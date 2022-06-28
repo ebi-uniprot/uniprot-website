@@ -1,0 +1,52 @@
+@import 'franklin-sites/src/styles/colours';
+@import '../../../../shared/styles/mixins';
+
+[data-article-id] {
+  cursor: pointer;
+
+  &::after {
+    content: 'i';
+    padding-inline-start: 0.1rem;
+    font-size: 0.75rem;
+    font-family: Bookman, Garamond, serif;
+    position: relative;
+    line-height: 1rem;
+    vertical-align: super;
+  }
+
+  thead &::after {
+    display: none;
+  }
+
+  [data-tippy-root] &::after {
+    display: initial;
+  }
+}
+
+$help-height: 35em;
+
+@media only screen and (max-height: $help-height) {
+  .contextual-help-panel {
+    display: none;
+  }
+}
+
+.contextual-help-panel {
+  block-size: $help-height;
+  margin-block-start: calc(50vh - 0.5 * $help-height);
+  z-index: 2147483641;
+
+  :global(.sliding-panel__header) {
+    background-color: $colour-help-green;
+  }
+
+  :global(.sliding-panel__content) {
+    @include scroll-shadow($colour-sky-white);
+    overscroll-behavior: contain;
+  }
+
+  :global(.error-page-container) svg {
+    width: 50%;
+    height: 50%;
+  }
+}

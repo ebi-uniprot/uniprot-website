@@ -1,12 +1,8 @@
-import { createMemoryHistory } from 'history';
-import {
-  fireEvent,
-  screen,
-  getByText,
-  RenderResult,
-} from '@testing-library/react';
+import { fireEvent, screen, getByText } from '@testing-library/react';
 
 import QueryBuilder from '../QueryBuilder';
+
+import { IDMappingDetailsContext } from '../../../shared/contexts/IDMappingDetails';
 
 import customRender from '../../../shared/__test-helpers__/customRender';
 import searchTermData from './__mocks__/configureSearchTerms';
@@ -16,9 +12,8 @@ import { Namespace } from '../../../shared/types/namespaces';
 
 jest.mock('../../../shared/hooks/useDataApi');
 
-let rendered: RenderResult;
+let rendered: ReturnType<typeof customRender>;
 
-const history = createMemoryHistory();
 const onCancel = jest.fn();
 
 describe('QueryBuilder', () => {
@@ -27,24 +22,23 @@ describe('QueryBuilder', () => {
     (useDataApi as jest.Mock).mockReturnValue({ data: searchTermData });
 
     rendered = customRender(
-      <QueryBuilder
-        onCancel={onCancel}
-        initialNamespace={Namespace.uniprotkb}
-      />,
-      {
-        history,
-      }
+      <IDMappingDetailsContext.Provider value={null}>
+        <QueryBuilder
+          onCancel={onCancel}
+          initialSearchspace={Namespace.uniprotkb}
+        />
+      </IDMappingDetailsContext.Provider>
     );
   });
 
   // only exception where we want different payload
-  test('should render loading', async () => {
+  test('should render loading', () => {
     (useDataApi as jest.Mock).mockReturnValue({ loading: true });
 
     rendered = customRender(
       <QueryBuilder
         onCancel={onCancel}
-        initialNamespace={Namespace.uniprotkb}
+        initialSearchspace={Namespace.uniprotkb}
       />
     );
 
@@ -111,7 +105,7 @@ describe('QueryBuilder', () => {
     fireEvent.click(search);
 
     expect(onCancel).toHaveBeenCalledTimes(1);
-    expect(history.location.pathname).toBe('/uniprotkb');
-    expect(history.location.search).toBe('?query=(gene:zen) OR eve');
+    expect(rendered.history.location.pathname).toBe('/uniprotkb');
+    expect(rendered.history.location.search).toBe('?query=(gene:zen) OR eve');
   });
 });

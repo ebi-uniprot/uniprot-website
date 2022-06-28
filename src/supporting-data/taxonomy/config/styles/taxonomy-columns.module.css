@@ -1,0 +1,4 @@
+.hidden-taxon {
+  /* Can't go too light because the background is grey already */
+  color: darkslategray;
+}

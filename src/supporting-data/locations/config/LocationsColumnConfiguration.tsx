@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
-import { ExpandableList, ExternalLink } from 'franklin-sites';
+import { ExpandableList } from 'franklin-sites';
 
+import ExternalLink from '../../../shared/components/ExternalLink';
 import AccessionView from '../../../shared/components/results/AccessionView';
 
 import { getEntryPathFor } from '../../../app/config/urls';
@@ -66,7 +67,7 @@ LocationsColumnConfiguration.set(LocationsColumn.definition, {
 // NOTE: since these will be used in an info list, we need to return null when
 // NOTE: no content, otherwise it gets a truthy empty fragment instead
 LocationsColumnConfiguration.set(LocationsColumn.geneOntologies, {
-  label: 'Gene Ontologies',
+  label: 'Gene Ontology (GO)',
   render: ({ geneOntologies }) =>
     geneOntologies?.length ? (
       <ExpandableList descriptionString="GO terms" displayNumberOfHiddenItems>

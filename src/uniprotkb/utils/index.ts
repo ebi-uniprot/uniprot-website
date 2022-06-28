@@ -11,7 +11,7 @@ import { Property, PropertyKey } from '../types/modelTypes';
 export const hasExternalLinks = (transformedData: UniProtkbUIModel) =>
   UniProtKBEntryConfig.some(({ id }) => {
     const data = transformedData[id];
-    return Boolean(data.xrefData?.length);
+    return Boolean('xrefData' in data && data.xrefData?.length);
   });
 
 export const flattenGeneNameData = (geneNamesData: GeneNamesData) => {
@@ -81,7 +81,10 @@ export const reUniProtKBAccession =
 export const reAC = new RegExp(`(?:AC ${reUniProtKBAccession.source})`, 'i');
 export const rePubMedID = /\d{7,8}/;
 export const rePubMed = new RegExp(`(?:pubmed:${rePubMedID.source})`, 'i');
-export const rePubMedOrAC = new RegExp(
-  `(${rePubMed.source}|${reAC.source})`,
+export const reFamily = /^Belongs to the .+family/i;
+export const needTextProcessingRE = new RegExp(
+  `(${rePubMed.source}|${reAC.source}|By similarity|${reFamily.source})`,
   'i'
 );
+
+export const familyExtractor = /( the |\. )([^.]+ (?:sub)?family)/;

@@ -1,11 +1,15 @@
 import { Fragment } from 'react';
-import { isEqual, sortBy, uniqWith } from 'lodash-es';
-import { InfoList, ExternalLink, ExpandableList } from 'franklin-sites';
+import { isEqual, partition, sortBy, uniqWith } from 'lodash-es';
+import { InfoList, ExpandableList } from 'franklin-sites';
+import { Link } from 'react-router-dom';
+import { InfoListItem } from 'franklin-sites/dist/types/components/info-list';
+
+import ExternalLink from '../../../shared/components/ExternalLink';
 
 import { pluralise } from '../../../shared/utils/utils';
-import * as logging from '../../../shared/utils/logging';
 
 import PDBView from './PDBView';
+import EMBLView from './EMBLView';
 
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
@@ -19,8 +23,7 @@ import {
   partitionStructureDatabases,
 } from '../../utils/xrefUtils';
 
-import externalUrls from '../../../shared/config/externalUrls';
-
+import { LocationToPath, Location } from '../../../app/config/urls';
 import { Xref } from '../../../shared/types/apiModel';
 import { PropertyKey } from '../../types/modelTypes';
 import {
@@ -29,8 +32,6 @@ import {
   DatabaseCategory,
 } from '../../types/databaseRefs';
 import { DatabaseToDatabaseInfo } from '../../utils/database';
-
-import EMBLXrefProperties from '../../config/emblXrefPropertiesData.json';
 
 export const processUrlTemplate = (
   urlTemplate: string,
@@ -79,11 +80,7 @@ export const getPropertyLinkAttributes = (
     return null;
   }
   const attribute = getDatabaseInfoAttribute(attributes, property);
-  const { properties } = xref;
-  if (!properties) {
-    return null;
-  }
-  const id = properties[property];
+  const id = xref.properties?.[property];
   if (!id || !attribute || !attribute.uriLink) {
     return null;
   }
@@ -94,89 +91,6 @@ export const getPropertyLinkAttributes = (
   };
 };
 
-type EMBLXrefProps = {
-  databaseInfo: DatabaseInfoPoint;
-  genBankInfo: DatabaseInfoPoint;
-  ddbjInfo: DatabaseInfoPoint;
-  params: { [key: string]: string };
-  id: string | undefined;
-  xref: Xref;
-  isoformNode?: JSX.Element;
-};
-
-const EMBLXref = ({
-  databaseInfo,
-  genBankInfo,
-  ddbjInfo,
-  params,
-  id,
-  xref,
-  isoformNode,
-}: EMBLXrefProps) => {
-  // M28638 (EMBL|GenBank|DDBJ)
-  const { properties, additionalIds } = xref;
-  if (!databaseInfo?.uriLink || !genBankInfo?.uriLink || !ddbjInfo?.uriLink) {
-    logging.error(
-      'EMBL, GenBank or DDBJ database information not found in database configuration file'
-    );
-    return null;
-  }
-  let proteinIdPropertyLink;
-  if (properties && properties.ProteinId && properties.ProteinId !== '-') {
-    const linkAttributes = getPropertyLinkAttributes(
-      databaseInfo,
-      PropertyKey.ProteinId,
-      xref
-    );
-    if (linkAttributes) {
-      const { url, text } = linkAttributes;
-      proteinIdPropertyLink = (
-        <ExternalLink key={url} url={url}>
-          {text}
-        </ExternalLink>
-      );
-    }
-  }
-  return (
-    <>
-      (
-      <ExternalLink url={processUrlTemplate(databaseInfo.uriLink, params)}>
-        EMBL
-      </ExternalLink>
-      {' | '}
-      <ExternalLink url={processUrlTemplate(genBankInfo.uriLink, params)}>
-        GenBank
-      </ExternalLink>
-      {' | '}
-      <ExternalLink url={processUrlTemplate(ddbjInfo.uriLink, params)}>
-        DDBJ
-      </ExternalLink>
-      {') '}
-      {id && <ExternalLink url={externalUrls.ENA(id)}>{id}</ExternalLink>}
-      {additionalIds &&
-        additionalIds.map((additionalId) => (
-          <ExternalLink url={externalUrls.ENA(additionalId)} key={additionalId}>
-            {additionalId}
-          </ExternalLink>
-        ))}
-      {properties &&
-        properties.MoleculeType &&
-        `${
-          EMBLXrefProperties[
-            properties.MoleculeType as keyof typeof EMBLXrefProperties
-          ]
-        }: `}
-      {proteinIdPropertyLink}
-      {properties &&
-        properties.Status &&
-        EMBLXrefProperties[
-          properties.Status as keyof typeof EMBLXrefProperties
-        ]}
-      {isoformNode}
-    </>
-  );
-};
-
 type XRefProps = {
   database: string;
   xref: Xref;
@@ -184,6 +98,13 @@ type XRefProps = {
   crc64?: string;
   databaseToDatabaseInfo: DatabaseToDatabaseInfo;
 };
+
+const propertyKeySet = new Set<PropertyKey>([
+  PropertyKey.ProteinId,
+  PropertyKey.GeneId,
+  PropertyKey.RefSeqNucleotideId,
+  PropertyKey.RefSeqProteinId,
+]);
 
 export const XRef = ({
   database,
@@ -202,9 +123,7 @@ export const XRef = ({
   const propertyStrings = [];
   if (properties && !implicit) {
     for (const [key, value] of Object.entries(properties)) {
-      if (
-        [PropertyKey.ProteinId, PropertyKey.GeneId].includes(key as PropertyKey)
-      ) {
+      if (propertyKeySet.has(key as PropertyKey)) {
         const attrs = getPropertyLinkAttributes(
           databaseInfo,
           key as PropertyKey,
@@ -240,19 +159,6 @@ export const XRef = ({
     params.crc64 = crc64;
   }
 
-  if (database === 'EMBL') {
-    return (
-      <EMBLXref
-        databaseInfo={databaseInfo}
-        genBankInfo={databaseToDatabaseInfo.GenBank}
-        ddbjInfo={databaseToDatabaseInfo.DDBJ}
-        params={params}
-        id={id}
-        xref={xref}
-        isoformNode={isoformNode}
-      />
-    );
-  }
   let text;
   if (implicit) {
     text =
@@ -346,31 +252,46 @@ const XRefsGroupedByCategory = ({
     return null;
   }
   const { databaseToDatabaseInfo } = databaseInfoMaps;
-  const infoData = sortBy(databases, ({ database }) => [
+
+  const [emblDatabase, restDatabases] = partition(
+    databases,
+    ({ database }) => database === 'EMBL'
+  );
+
+  const infoData: InfoListItem[] = sortBy(restDatabases, ({ database }) => [
     databaseToDatabaseInfo?.[database].implicit,
     database,
-  ]).map(
-    (
-      database
-    ): {
-      title: string;
-      content: JSX.Element;
-    } => {
-      const databaseInfo = databaseToDatabaseInfo[database.database];
-      return {
-        title: databaseInfo.displayName,
-        content: (
-          <DatabaseList
-            xrefsGoupedByDatabase={database}
-            primaryAccession={primaryAccession}
-            crc64={crc64}
-            databaseToDatabaseInfo={databaseToDatabaseInfo}
-          />
-        ),
-      };
-    }
+  ]).map((database) => {
+    const databaseInfo = databaseToDatabaseInfo[database.database];
+    return {
+      title: (
+        <Link
+          to={{
+            pathname: LocationToPath[Location.DatabaseResults],
+            search: `query=(name:${databaseInfo.displayName})&direct`,
+          }}
+        >
+          {databaseInfo.displayName}
+        </Link>
+      ),
+      content: (
+        <DatabaseList
+          xrefsGoupedByDatabase={database}
+          primaryAccession={primaryAccession}
+          crc64={crc64}
+          databaseToDatabaseInfo={databaseToDatabaseInfo}
+        />
+      ),
+    };
+  });
+  return (
+    <>
+      <InfoList infoData={infoData} columns />
+      {!!emblDatabase?.[0]?.xrefs.length && (
+        <EMBLView xrefs={emblDatabase[0].xrefs} />
+      )}
+    </>
   );
-  return <InfoList infoData={infoData} columns />;
 };
 
 type StructureXRefsGroupedByCategoryProps = {

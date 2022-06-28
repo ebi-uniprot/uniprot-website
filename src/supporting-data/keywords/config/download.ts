@@ -5,6 +5,7 @@ export const fileFormatsResultsDownload = [
   FileFormat.excel,
   FileFormat.list,
   FileFormat.json,
+  FileFormat.obo,
 ];
 
 export const fileFormatEntryDownload = [
@@ -12,4 +13,5 @@ export const fileFormatEntryDownload = [
   FileFormat.tsv,
   FileFormat.excel,
   FileFormat.json,
+  FileFormat.obo,
 ];

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
-import { ExternalLink, CodeBlock, ExpandableList } from 'franklin-sites';
+import { CodeBlock, ExpandableList } from 'franklin-sites';
 
+import ExternalLink from '../../../shared/components/ExternalLink';
 import AccessionView from '../../../shared/components/results/AccessionView';
 
 import externalUrls from '../../../shared/config/externalUrls';
@@ -27,11 +28,6 @@ export enum DatabaseColumn {
   pubmedId = 'pubmed_id',
   // URL of the home page of the database
   server = 'server',
-  // TODO: remove this once the backend is fixed https://www.ebi.ac.uk/panda/jira/browse/TRM-26601
-  reviewedProteinCount = 'reviewed_protein_count',
-  // TODO: remove this once the backend is fixed https://www.ebi.ac.uk/panda/jira/browse/TRM-26601
-  unreviewedProteinCount = 'unreviewed_protein_count',
-  // NOTE: once the backend is fixed, this will be available https://www.ebi.ac.uk/panda/jira/browse/TRM-26601
   statistics = 'statistics',
 }
 
@@ -61,12 +57,12 @@ DatabaseColumnConfiguration.set(DatabaseColumn.category, {
     category && (
       <Link
         to={({ search }) => {
-          const parsed = getParamsFromURL(search);
+          const [params] = getParamsFromURL(search);
           return getLocationObjForParams({
             pathname: LocationToPath[Location.DatabaseResults],
-            ...parsed,
+            ...params,
             selectedFacets: [
-              ...parsed.selectedFacets.filter(
+              ...params.selectedFacets.filter(
                 ({ name }) => name !== 'category_exact'
               ),
               { name: 'category_exact', value: category },

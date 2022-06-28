@@ -20,10 +20,11 @@ import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
+import { SearchResults } from '../../../../shared/types/results';
+import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import { Namespace } from '../../../../shared/types/namespaces';
 import { BlastFacet, BlastHit } from '../../types/blastResults';
 import { SelectedFacet } from '../../../../uniprotkb/types/resultsTypes';
-import Response from '../../../../uniprotkb/types/responseTypes';
 
 import helper from '../../../../shared/styles/helper.module.scss';
 import './styles/results-view.scss';
@@ -119,10 +120,12 @@ const BlastResultLocalFacets: FC<{
 }> = ({ allHits, namespace }) => {
   const { search: queryParamFromUrl } = useLocation();
 
-  const { selectedFacets } = getParamsFromURL(queryParamFromUrl);
+  const [{ selectedFacets, query }] = getParamsFromURL(queryParamFromUrl);
 
   // get data from accessions endpoint with facets applied
-  const { data, isStale, loading } = useDataApiWithStale<Response['data']>(
+  const { data, isStale, loading } = useDataApiWithStale<
+    SearchResults<UniProtkbAPIModel>
+  >(
     useMemo(
       () =>
         // Trying to save network calls:
@@ -135,10 +138,11 @@ const BlastResultLocalFacets: FC<{
                 namespace,
                 selectedFacets,
                 facets: [],
+                query,
               }
             )
           : null,
-      [allHits, namespace, selectedFacets]
+      [allHits, namespace, selectedFacets, query]
     )
   );
 

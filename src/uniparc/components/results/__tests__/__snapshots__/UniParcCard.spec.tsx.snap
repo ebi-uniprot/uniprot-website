@@ -3,15 +3,8 @@
 exports[`UniRefCard tests should render and match snapshot 1`] = `
 <DocumentFragment>
   <section
-    class="card card--has-link"
+    class="card"
   >
-    <a
-      aria-hidden="true"
-      class="card__link"
-      data-testid="background-link"
-      href="/uniparc/UPI0000000001"
-      tabindex="-1"
-    />
     <div
       class="card__container"
     >
@@ -35,17 +28,21 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
         <h2
           class="small"
         >
-          <span
-            class="entry-title"
+          <a
+            href="/uniparc/UPI0000000001"
           >
             <span
-              class="entry-title__status icon--uniparc"
-              title="This marks a UniParc entry"
+              class="entry-title"
             >
-              <test-file-stub />
+              <span
+                class="entry-title__status icon--uniparc"
+                title="This marks a UniParc entry"
+              >
+                <test-file-stub />
+              </span>
+              UPI0000000001
             </span>
-            UPI0000000001
-          </span>
+          </a>
         </h2>
       </div>
       <div
@@ -78,7 +75,10 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
             class="result-card__info-bit"
           >
             <strong>
-              First seen: 
+              <span>
+                First seen
+              </span>
+              : 
             </strong>
             <time
               datetime="1988-11-01T00:00:00.000Z"
@@ -90,7 +90,10 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
             class="result-card__info-bit"
           >
             <strong>
-              Last seen: 
+              <span>
+                Last seen
+              </span>
+              : 
             </strong>
             <time
               datetime="2021-06-02T00:00:00.000Z"
@@ -102,7 +105,10 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
             class="result-card__info-bit"
           >
             <strong>
-              Length: 
+              <span>
+                Length
+              </span>
+              : 
             </strong>
             250
           </span>

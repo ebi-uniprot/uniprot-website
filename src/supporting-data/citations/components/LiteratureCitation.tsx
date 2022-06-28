@@ -9,12 +9,18 @@ import {
   CommunityAnnotationIcon,
   SwissProtIcon,
   TremblIcon,
-  ExternalLink,
   EllipsisReveal,
 } from 'franklin-sites';
+import { capitalize } from 'lodash-es';
 import { SetOptional } from 'type-fest';
 
-import { Location, LocationToPath } from '../../../app/config/urls';
+import ExternalLink from '../../../shared/components/ExternalLink';
+
+import {
+  getEntryPath,
+  Location,
+  LocationToPath,
+} from '../../../app/config/urls';
 import externalUrls from '../../../shared/config/externalUrls';
 
 import parseDate from '../../../shared/utils/parseDate';
@@ -25,13 +31,16 @@ import cleanText, {
 
 import {
   CitationsAPIModel,
+  CitationType,
   formatCitationData,
 } from '../adapters/citationsConverter';
+import { Namespace } from '../../../shared/types/namespaces';
 
 import '../../../shared/styles/literature-citation.scss';
 
 type AuthorProps = {
-  authors: string[];
+  authors?: string[];
+  authoringGroup?: string[];
   limit?: number;
 };
 
@@ -70,15 +79,30 @@ export const getLocatorUrl = (
   }
 };
 
-const Authors: FC<AuthorProps> = ({ authors, limit = 10 }) => {
-  const cutoff = authors.length > limit ? authors.length : limit;
+const getChoppedAuthorLists = (authors: string[], limit: number) => {
+  const cutoff = Math.max(authors.length, limit);
 
   const displayedAuthors = authors.slice(0, limit - 1);
   const hiddenAuthors = authors.slice(limit - 1, cutoff - 1);
   const lastAuthor = authors.slice(cutoff - 1);
+  return { displayedAuthors, hiddenAuthors, lastAuthor };
+};
+
+const Authors: FC<AuthorProps> = ({ authors, authoringGroup, limit = 10 }) => {
+  const { displayedAuthors, hiddenAuthors, lastAuthor } = getChoppedAuthorLists(
+    authors || [],
+    limit
+  );
 
   return (
     <div className="publication__authors">
+      {authoringGroup?.map((group, index) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <Fragment key={index}>
+          {index !== 0 && ', '}
+          <Link to={getLinkToAuthor(group)}>{group}</Link>
+        </Fragment>
+      ))}
       {displayedAuthors.map((author, index) => (
         // eslint-disable-next-line react/no-array-index-key
         <Fragment key={index}>
@@ -144,6 +168,7 @@ type JournalInfoProps = {
     volume?: string;
     doiId?: string;
     submissionDatabase?: string;
+    citationType?: CitationType;
     locator?: string;
   };
 };
@@ -157,6 +182,7 @@ export const JournalInfo: FC<JournalInfoProps> = ({
     volume,
     doiId,
     submissionDatabase,
+    citationType,
     locator,
   },
 }) => {
@@ -182,8 +208,16 @@ export const JournalInfo: FC<JournalInfoProps> = ({
     );
   }
 
+  const noDisplayCitationTypes: CitationType[] = [
+    'UniProt indexed literatures',
+    'journal article',
+  ];
+
   const content = (
     <>
+      {citationType && !noDisplayCitationTypes.includes(citationType) && (
+        <div className="tiny">{capitalize(citationType)}</div>
+      )}
       {name} {volume}
       {volume && page && ':'}
       {page}
@@ -214,67 +248,80 @@ const Statistics: FC<StatisticsProps> = ({ statistics, id }) => {
     communityMappedProteinCount,
   } = statistics || {};
   return (
-    <>
-      <small>Mapped to</small>
-      <div className="publication__statistics">
-        {reviewedProteinCount ? (
-          <Link
-            to={{
-              pathname: LocationToPath[Location.UniProtKBResults],
-              search: `facets=reviewed:true&query=(lit_citation_id:${id})`,
-            }}
-            title={`UniProtKB reviewed entries: ${reviewedProteinCount}`}
-          >
-            <Bubble size="small">{reviewedProteinCount}</Bubble>
-            <SwissProtIcon
-              className="publication__statistics--reviewed"
-              height="1em"
-            />
-          </Link>
-        ) : undefined}
-        {unreviewedProteinCount ? (
-          <Link
-            to={{
-              pathname: LocationToPath[Location.UniProtKBResults],
-              search: `facets=reviewed:false&query=(lit_citation_id:${id})`,
-            }}
-            title={`UniProtKB unreviewed entries: ${unreviewedProteinCount}`}
-          >
-            <Bubble size="small">{unreviewedProteinCount}</Bubble>
-            <TremblIcon
-              className="publication__statistics--unreviewed"
-              height="1em"
-            />
-          </Link>
-        ) : undefined}
-        {computationallyMappedProteinCount ? (
-          <Link
-            to={{
-              pathname: LocationToPath[Location.UniProtKBResults],
-              // NOTE: only works for PubMed IDs
-              search: `query=(computational_pubmed_id:${id})`,
-            }}
-            title={`Computationally mapped entries: ${computationallyMappedProteinCount}`}
-          >
-            <Bubble size="small">{computationallyMappedProteinCount}</Bubble>
-            <ComputerMappedIcon height="1em" />
-          </Link>
-        ) : undefined}
-        {communityMappedProteinCount ? (
-          <Link
-            to={{
-              pathname: LocationToPath[Location.UniProtKBResults],
-              // NOTE: only works for PubMed IDs
-              search: `query=(community_pubmed_id:${id})`,
-            }}
-            title={`Community mapped entries: ${communityMappedProteinCount}`}
-          >
-            <Bubble size="small">{communityMappedProteinCount}</Bubble>
-            <CommunityAnnotationIcon height="1em" />
-          </Link>
-        ) : undefined}
-      </div>
-    </>
+    <div className="publication__statistics">
+      {reviewedProteinCount || unreviewedProteinCount ? (
+        <div className="publication__statistics__content">
+          <small>Cited in</small>
+          <div className="publication__statistics__content__body">
+            {reviewedProteinCount ? (
+              <Link
+                to={{
+                  pathname: LocationToPath[Location.UniProtKBResults],
+                  search: `facets=reviewed:true&query=(lit_citation_id:${id})`,
+                }}
+                title={`UniProtKB reviewed entries: ${reviewedProteinCount}`}
+              >
+                <Bubble size="small">{reviewedProteinCount}</Bubble>
+                <SwissProtIcon
+                  className="publication__statistics__content__body--reviewed"
+                  height="1em"
+                />
+              </Link>
+            ) : undefined}
+            {unreviewedProteinCount ? (
+              <Link
+                to={{
+                  pathname: LocationToPath[Location.UniProtKBResults],
+                  search: `facets=reviewed:false&query=(lit_citation_id:${id})`,
+                }}
+                title={`UniProtKB unreviewed entries: ${unreviewedProteinCount}`}
+              >
+                <Bubble size="small">{unreviewedProteinCount}</Bubble>
+                <TremblIcon
+                  className="publication__statistics__content__body--unreviewed"
+                  height="1em"
+                />
+              </Link>
+            ) : undefined}
+          </div>
+        </div>
+      ) : undefined}
+      {computationallyMappedProteinCount || communityMappedProteinCount ? (
+        <div className="publication__statistics__content">
+          <small>Mapped to</small>
+          <div className="publication__statistics__content__body">
+            {computationallyMappedProteinCount ? (
+              <Link
+                to={{
+                  pathname: LocationToPath[Location.UniProtKBResults],
+                  // NOTE: only works for PubMed IDs
+                  search: `query=(computational_pubmed_id:${id})`,
+                }}
+                title={`Computationally mapped entries: ${computationallyMappedProteinCount}`}
+              >
+                <Bubble size="small">
+                  {computationallyMappedProteinCount}
+                </Bubble>
+                <ComputerMappedIcon height="1em" />
+              </Link>
+            ) : undefined}
+            {communityMappedProteinCount ? (
+              <Link
+                to={{
+                  pathname: LocationToPath[Location.UniProtKBResults],
+                  // NOTE: only works for PubMed IDs
+                  search: `query=(community_pubmed_id:${id})`,
+                }}
+                title={`Community mapped entries: ${communityMappedProteinCount}`}
+              >
+                <Bubble size="small">{communityMappedProteinCount}</Bubble>
+                <CommunityAnnotationIcon height="1em" />
+              </Link>
+            ) : undefined}
+          </div>
+        </div>
+      ) : undefined}
+    </div>
   );
 };
 
@@ -283,35 +330,49 @@ const LiteratureCitation: FC<
     data: SetOptional<CitationsAPIModel, 'statistics'>;
     displayAll?: boolean;
     headingLevel?: `h${1 | 2 | 3 | 4 | 5 | 6}`;
+    linkToEntry?: boolean;
   } & HTMLAttributes<HTMLElement>
 > = ({
   data,
   displayAll,
   headingLevel = 'h5',
   children,
+  linkToEntry,
   className,
   ...props
 }) => {
   const { citation, statistics } = data;
-  const { title, authors, literatureAbstract } = citation;
+  const { title, authors, literatureAbstract, authoringGroup } = citation;
   const { pubmedId, journalInfo } = formatCitationData(citation);
+
+  const headingContent = title || <em>No title available.</em>;
+
+  const heading = createElement(
+    headingLevel,
+    {
+      className: cn('publication__heading', 'small', {
+        'publication__heading--no-title': !title,
+      }),
+    },
+    linkToEntry ? (
+      <Link to={getEntryPath(Namespace.citations, citation.id)}>
+        {headingContent}
+      </Link>
+    ) : (
+      headingContent
+    )
+  );
 
   return (
     <article className={cn(className, 'publication')} {...props}>
       <div className="publication__columns">
         <div className="publication__columns__main">
-          {createElement(
-            headingLevel,
-            {
-              className: cn('publication__heading', 'small', {
-                'publication__heading--no-title': !title,
-              }),
-            },
-            title || <em>No title available.</em>
-          )}
-          {authors?.length && (
-            <Authors authors={authors} limit={displayAll ? +Infinity : 10} />
-          )}
+          {heading}
+          <Authors
+            authors={authors}
+            authoringGroup={authoringGroup}
+            limit={displayAll ? +Infinity : 10}
+          />
           {literatureAbstract && (
             <Abstract abstract={literatureAbstract} open={displayAll} />
           )}
@@ -324,12 +385,12 @@ const LiteratureCitation: FC<
               {pubmedId && (
                 <>
                   <li>
-                    <ExternalLink noIcon url={externalUrls.PubMed(pubmedId)}>
+                    <ExternalLink url={externalUrls.PubMed(pubmedId)}>
                       PubMed
                     </ExternalLink>
                   </li>
                   <li>
-                    <ExternalLink noIcon url={externalUrls.EuropePMC(pubmedId)}>
+                    <ExternalLink url={externalUrls.EuropePMC(pubmedId)}>
                       Europe PMC
                     </ExternalLink>
                   </li>

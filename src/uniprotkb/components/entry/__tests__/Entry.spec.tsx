@@ -1,8 +1,6 @@
-import { act } from 'react-dom/test-utils';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
-import { fireEvent, waitFor, screen } from '@testing-library/react';
-import joinUrl from 'url-join';
+import { fireEvent, waitFor, screen, act } from '@testing-library/react';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
 
@@ -15,16 +13,14 @@ import apiUrls, {
 import { Namespace } from '../../../../shared/types/namespaces';
 
 import entryData from '../../../__mocks__/uniProtKBEntryModelData';
-import nonHumanEntryData from '../../../__mocks__/nonHumanEntryModelData';
-import deletedEntryData from '../../../../shared/__mocks__/deletedEntryModelData.json';
-import demergedEntryData from '../../../../shared/__mocks__/demergedEntryModelData.json';
 import entryPublicationsData from './__mocks__/entryPublicationsData';
-import { SLIM_SETS_URL } from '../../../adapters/slimming/GORibbonHandler';
 
 const { primaryAccession } = entryData;
-const { primaryAccession: deleteEntryAccession } = deletedEntryData;
-const { primaryAccession: demergedEntryAccession } = demergedEntryData;
-const { primaryAccession: nonHumanEntryAccession } = nonHumanEntryData;
+
+jest.mock('../EntryMain', () => ({
+  __esModule: true,
+  default: () => '{{ EntryMain }}',
+}));
 
 const filteredUrl = getUniProtPublicationsQueryUrl({
   accession: primaryAccession,
@@ -33,21 +29,15 @@ const filteredUrl = getUniProtPublicationsQueryUrl({
 
 const mock = new MockAdapter(axios);
 mock
-  .onGet(apiUrls.entry(deleteEntryAccession, Namespace.uniprotkb))
-  .reply(200, deletedEntryData)
-  .onGet(apiUrls.entry(demergedEntryAccession, Namespace.uniprotkb))
-  .reply(200, demergedEntryData)
   .onGet(apiUrls.entry(primaryAccession, Namespace.uniprotkb))
   .reply(200, entryData)
-  .onGet(apiUrls.entry(nonHumanEntryAccession, Namespace.uniprotkb))
-  .reply(200, nonHumanEntryData)
   .onGet(
     getUniProtPublicationsQueryUrl({
       accession: primaryAccession,
       selectedFacets: [],
     })
   )
-  .reply(200, entryPublicationsData, { 'x-total-records': 25 })
+  .reply(200, entryPublicationsData, { 'x-total-results': 25 })
   .onGet(filteredUrl)
   .reply(
     200,
@@ -66,14 +56,8 @@ mock
       ],
       results: entryPublicationsData.results,
     },
-    { 'x-total-records': 25 }
+    { 'x-total-results': 25 }
   )
-  // Need to mock this request too as the whole Entry gets rendered.
-  // TODO: it would be nice to not render the whole entry...
-  .onGet(joinUrl(apiUrls.variation, primaryAccession))
-  .reply(200, {})
-  .onGet(SLIM_SETS_URL)
-  .reply(200, null)
   .onAny()
   .reply(500);
 

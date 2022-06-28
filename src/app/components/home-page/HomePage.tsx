@@ -13,7 +13,7 @@ import { HeroHeader, Loader, CitedIcon } from 'franklin-sites';
 import SearchContainer from '../../../shared/components/search/SearchContainer';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
-import useReducedMotion from '../../../shared/hooks/useReducedMotion';
+import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 
 import { LocationToPath, Location } from '../../config/urls';
 import {
@@ -30,8 +30,15 @@ const HomePageNonCritical = lazy(
 
 const mission = (
   <>
-    UniProt is the world’s leading high-quality, comprehensive and freely
-    accessible resource of protein sequence and functional information.{' '}
+    <Link
+      to={generatePath(LocationToPath[Location.HelpEntry], {
+        accession: 'about',
+      })}
+    >
+      UniProt
+    </Link>{' '}
+    is the world’s leading high-quality, comprehensive and freely accessible
+    resource of protein sequence and functional information.{' '}
     {/* TODO: update link */}
     <Link
       to={generatePath(LocationToPath[Location.HelpEntry], {
@@ -127,9 +134,9 @@ const HomePageHeader = memo(() => {
     >
       <div className="uniprot-grid uniprot-grid--centered">
         <SearchContainer
-          namespace={selectedNamespace}
-          onNamespaceChange={useCallback((namespace) => {
-            setSelectedNamespace(namespace);
+          searchspace={selectedNamespace}
+          onSearchspaceChange={useCallback((namespace) => {
+            setSelectedNamespace(namespace as SearchableNamespace);
             const textInput: HTMLInputElement | null = document.querySelector(
               'form.main-search input[type="text"]'
             );

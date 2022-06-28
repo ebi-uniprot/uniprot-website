@@ -1,4 +1,4 @@
-import { ExternalLink } from 'franklin-sites';
+import ExternalLink from '../../../../shared/components/ExternalLink';
 
 import externalUrls from '../../../../shared/config/externalUrls';
 

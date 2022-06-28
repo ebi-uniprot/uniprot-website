@@ -1,45 +1,58 @@
 import {
-  FC,
   FormEvent,
   useState,
   useEffect,
   useMemo,
   useRef,
   CSSProperties,
+  useCallback,
 } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import qs from 'query-string';
-import { v1 } from 'uuid';
+import { generatePath, useHistory, useLocation } from 'react-router-dom';
 import { frame } from 'timing-functions';
-import { PageIntro, Loader, Button } from 'franklin-sites';
+import { PageIntro, Loader, Button, Message } from 'franklin-sites';
 
 // eslint-disable-next-line import/no-relative-packages
 import colors from '../../../node_modules/franklin-sites/src/styles/colours.json';
 
 import ClauseList from './ClauseList';
 
+import { useMessagesDispatch } from '../../shared/contexts/Messages';
 import useDataApi from '../../shared/hooks/useDataApi';
+import useJobFromUrl from '../../shared/hooks/useJobFromUrl';
+import useIDMappingDetails from '../../shared/hooks/useIDMappingDetails';
 
 import { createEmptyClause, defaultQueryFor, getNextId } from '../utils/clause';
 import { pluralise } from '../../shared/utils/utils';
 import { stringify } from '../utils/queryStringProcessor';
 import parseAndMatchQuery from '../utils/parseAndMatchQuery';
+import { rawDBToNamespace } from '../../tools/id-mapping/utils';
+import { parseQueryString } from '../../shared/utils/url';
 
 import { addMessage } from '../../messages/state/messagesActions';
 
 import apiUrls from '../../shared/config/apiUrls';
 import {
-  searchableNamespaceLabels,
+  Namespace,
   SearchableNamespace,
+  searchableNamespaceLabels,
+  Searchspace,
+  searchspaceLabels,
+  toolResults,
 } from '../../shared/types/namespaces';
-import { SearchResultsLocations } from '../../app/config/urls';
+import {
+  Location,
+  LocationToPath,
+  SearchResultsLocations,
+  toolsResultsLocationToLabel,
+} from '../../app/config/urls';
+import { cannotQueryMessages } from '../../shared/components/search/SearchContainer';
 
 import {
   MessageFormat,
   MessageLevel,
 } from '../../messages/types/messagesTypes';
 import { Clause, SearchTermType } from '../types/searchTypes';
+import { JobTypes } from '../../tools/types/toolsJobTypes';
 
 import '../../shared/components/search/styles/search-container.scss';
 import './styles/query-builder.scss';
@@ -56,7 +69,7 @@ type Props = {
   /**
    * The namespace to initialise the dropdown with
    */
-  initialNamespace: SearchableNamespace;
+  initialSearchspace: Searchspace;
 };
 interface Style extends CSSProperties {
   // TODO: define and extend the supported custom properties in franklin
@@ -64,40 +77,60 @@ interface Style extends CSSProperties {
   '--main-button-color': string;
 }
 
-const QueryBuilder: FC<Props> = ({
+const QueryNotPossibleMessage = ({
+  text,
   onCancel,
-  fieldToAdd,
-  initialNamespace,
-}) => {
+}: {
+  text: string;
+  onCancel: () => void;
+}) => (
+  <>
+    <Message level="info">{text}</Message>
+    <div className="query-builder__actions button-group sliding-panel__button-row">
+      <Button variant="secondary" onClick={onCancel}>
+        Cancel
+      </Button>
+    </div>
+  </>
+);
+
+const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
   const history = useHistory();
   const location = useLocation();
-  const dispatch = useDispatch();
-
+  const dispatch = useMessagesDispatch();
   const [clauses, setClauses] = useState<Clause[]>([]);
+  const { jobId, jobResultsNamespace, jobResultsLocation } = useJobFromUrl();
+  const [searchspace, setSearchspace] =
+    useState<Searchspace>(initialSearchspace);
 
-  const [namespace, setNamespace] = useState(initialNamespace);
+  const namespace =
+    searchspace === toolResults ? jobResultsNamespace : searchspace;
+
   const style = useMemo<Style>(
     () => ({
       // change color of all buttons within this element to match the namespace
-      '--main-button-color': (colors as Record<string, string>)[namespace],
+      '--main-button-color': (colors as Record<string, string>)[searchspace],
     }),
-    [namespace]
+    [searchspace]
   );
 
-  const { loading, data: searchTermsData } = useDataApi<SearchTermType[]>(
-    namespace &&
-      apiUrls
-        .queryBuilderTerms(namespace)
-        // TODO: remove this when the backend is fixed https://www.ebi.ac.uk/panda/jira/browse/TRM-26571
-        .replace('/keywords/', '/keyword/')
-  );
+  const { data: idMappingDetailsData, loading: idMappingDetailsLoading } =
+    useIDMappingDetails() || {};
+  const { data: searchTermsData, loading: searchTermsLoading } = useDataApi<
+    SearchTermType[]
+  >(namespace ? apiUrls.queryBuilderTerms(namespace) : undefined);
 
+  const loading = idMappingDetailsLoading || searchTermsLoading;
   useEffect(() => {
     setClauses([]);
-  }, [namespace]);
+  }, [searchspace]);
 
   useEffect(() => {
-    if (!(searchTermsData && namespace) || loading) {
+    if (
+      !(searchTermsData && namespace) ||
+      (!idMappingDetailsData && idMappingDetailsLoading) ||
+      loading
+    ) {
       return;
     }
 
@@ -106,7 +139,7 @@ const QueryBuilder: FC<Props> = ({
         return clauses;
       }
 
-      let query = qs.parse(location.search, { decode: true })?.query;
+      let query = parseQueryString(location.search, { decode: true })?.query;
       if (query === '*') {
         // if the query is a star query, don't parse it, default to example form
         query = null;
@@ -123,7 +156,7 @@ const QueryBuilder: FC<Props> = ({
         frame().then(() => {
           dispatch(
             addMessage({
-              id: Array.isArray(query) ? query[0] : query ?? v1(),
+              id: Array.isArray(query) ? query[0] : query || undefined,
               content: `Found ${
                 invalidClauses.length
               } invalid query ${pluralise(
@@ -149,10 +182,42 @@ const QueryBuilder: FC<Props> = ({
     dispatch,
     location.search,
     loading,
-    namespace,
     searchTermsData,
     fieldToAdd,
+    searchspace,
+    jobResultsNamespace,
+    namespace,
+    idMappingDetailsData,
+    idMappingDetailsLoading,
   ]);
+
+  const searchSpaceOptions = useMemo(() => {
+    const options = [];
+    // If the user is looking at a job result populate the "Searching in" with this
+    // as an option just before the corresponding namespace
+    if (jobResultsLocation && jobId) {
+      const pathParts = [
+        toolsResultsLocationToLabel[jobResultsLocation],
+        jobResultsNamespace && searchableNamespaceLabels[jobResultsNamespace],
+        jobId,
+      ].filter(Boolean);
+      options.push({
+        label: `${searchspaceLabels[toolResults]}: ${pathParts.join(' / ')}`,
+        value: toolResults,
+      });
+    }
+    for (const [ns, label] of Object.entries(searchableNamespaceLabels)) {
+      options.push({ label, value: ns });
+    }
+    return options;
+  }, [jobId, jobResultsNamespace, jobResultsLocation]);
+
+  const onSearchSpaceChange = useCallback(
+    ({ target: { value } }: React.ChangeEvent<HTMLSelectElement>) => {
+      setSearchspace(value as Searchspace);
+    },
+    []
+  );
 
   // Has the input corresponding to the added field been focused already?
   const focusedFlag = useRef(false);
@@ -180,7 +245,7 @@ const QueryBuilder: FC<Props> = ({
     );
   }
 
-  if (!searchTermsData || !namespace) {
+  if ((namespace && !searchTermsData) || !searchspace) {
     return null;
   }
 
@@ -203,39 +268,47 @@ const QueryBuilder: FC<Props> = ({
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     const queryString = stringify(clauses) || '*';
+    const pathname =
+      searchspace === toolResults && jobId && jobResultsLocation
+        ? generatePath(LocationToPath[jobResultsLocation], {
+            id: jobId,
+            namespace: jobResultsNamespace,
+          })
+        : SearchResultsLocations[searchspace as SearchableNamespace];
     history.push({
-      pathname: SearchResultsLocations[namespace],
+      pathname,
       search: `query=${queryString}`,
     });
     onCancel();
   };
 
-  return (
-    <form
-      className="query-builder"
-      onSubmit={handleSubmit}
-      data-testid="query-builder-form"
-      aria-label="Query builder form"
-      style={style}
-    >
-      <fieldset>
-        <label htmlFor="namespace-select">
-          Searching in
-          <select
-            id="namespace-select"
-            onChange={(e) =>
-              setNamespace(e.target.value as SearchableNamespace)
-            }
-            value={namespace}
-          >
-            {Object.keys(searchableNamespaceLabels).map((key) => (
-              <option value={key} key={key}>
-                {searchableNamespaceLabels[key as SearchableNamespace]}
-              </option>
-            ))}
-          </select>
-        </label>
-      </fieldset>
+  let queryNotPossibleMessage: JSX.Element | null = null;
+  if (
+    searchspace === toolResults &&
+    jobResultsLocation === Location.AlignResult
+  ) {
+    queryNotPossibleMessage = (
+      <QueryNotPossibleMessage
+        text={cannotQueryMessages[JobTypes.ALIGN]}
+        onCancel={onCancel}
+      />
+    );
+  } else if (
+    searchspace === toolResults &&
+    jobResultsLocation === Location.IDMappingResult &&
+    idMappingDetailsData &&
+    rawDBToNamespace(idMappingDetailsData.to) === Namespace.idmapping
+  ) {
+    queryNotPossibleMessage = (
+      <QueryNotPossibleMessage
+        text={cannotQueryMessages[JobTypes.ID_MAPPING]}
+        onCancel={onCancel}
+      />
+    );
+  }
+
+  const clauseListWithButtons = searchTermsData && (
+    <>
       <fieldset>
         <ClauseList
           removeClause={removeClause}
@@ -258,10 +331,38 @@ const QueryBuilder: FC<Props> = ({
         </Button>
         <Button type="submit">Search</Button>
       </div>
-      <small>
+      <Message level="info">
         Type * in the search box to search for all values for the selected
         field.
-      </small>
+      </Message>
+    </>
+  );
+
+  return (
+    <form
+      className="query-builder"
+      onSubmit={handleSubmit}
+      data-testid="query-builder-form"
+      aria-label="Query builder form"
+      style={style}
+    >
+      <fieldset>
+        <label htmlFor="namespace-select">
+          Searching in
+          <select
+            id="namespace-select"
+            onChange={onSearchSpaceChange}
+            value={searchspace}
+          >
+            {searchSpaceOptions.map(({ value, label }) => (
+              <option value={value} key={label}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </label>
+      </fieldset>
+      {queryNotPossibleMessage || clauseListWithButtons}
     </form>
   );
 };

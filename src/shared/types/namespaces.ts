@@ -13,10 +13,13 @@ export enum Namespace {
   diseases = 'diseases',
   database = 'database',
   locations = 'locations',
+  // Tools
   idmapping = 'id-mapping',
   // Annotations
   unirule = 'unirule',
   arba = 'arba',
+  // UniSave
+  unisave = 'unisave',
 }
 
 export const mainNamespaces = new Set<Namespace>([
@@ -46,7 +49,10 @@ export const supportingDataAndAANamespaces = new Set<Namespace>([
   Namespace.arba,
 ]);
 
-export type SearchableNamespace = Exclude<Namespace, Namespace.idmapping>;
+export type SearchableNamespace = Exclude<
+  Namespace,
+  Namespace.idmapping | Namespace.unisave
+>;
 
 export const searchableNamespaceLabels: Record<SearchableNamespace, string> = {
   // Main data
@@ -65,11 +71,19 @@ export const searchableNamespaceLabels: Record<SearchableNamespace, string> = {
   [Namespace.unirule]: 'UniRule',
   [Namespace.arba]: 'ARBA',
 };
+export const toolResults = 'toolResults' as const;
+export type ToolResults = typeof toolResults;
+export type Searchspace = SearchableNamespace | ToolResults;
+export const searchspaceLabels = {
+  [toolResults]: 'Tool results',
+  ...searchableNamespaceLabels,
+};
 
 export const namespaceAndToolsLabels: Record<Namespace | JobTypes, string> = {
   ...searchableNamespaceLabels,
   // Non-searchable namespace
   [Namespace.idmapping]: 'ID mapping',
+  [Namespace.unisave]: 'UniProtKB entry history', // unused at the moment
   // Tools
   [JobTypes.ID_MAPPING]: 'Retrieve/ID mapping',
   [JobTypes.ALIGN]: 'Align',

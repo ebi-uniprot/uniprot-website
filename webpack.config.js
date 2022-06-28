@@ -20,7 +20,9 @@ module.exports = (env, argv) => {
   const gitCommitState = childProcess
     .execSync('git status --porcelain')
     .toString();
-
+  const gitBranch =
+    env.GIT_BRANCH ||
+    childProcess.execSync('git symbolic-ref --short HEAD').toString();
   let publicPath = '/';
   if (env.PUBLIC_PATH) {
     // if we have an array, it means we've probably overriden env in the CLI
@@ -33,7 +35,7 @@ module.exports = (env, argv) => {
     }
   }
 
-  let apiPrefix = 'https://rest.uniprot.org/beta';
+  let apiPrefix;
   if (env.API_PREFIX) {
     // if we have an array, it means we've probably overriden env in the CLI
     // from a predefined env in a yarn/npm script
@@ -43,6 +45,8 @@ module.exports = (env, argv) => {
     } else {
       apiPrefix = env.API_PREFIX;
     }
+  } else {
+    throw new Error('API_PREFIX must be set');
   }
 
   const config = {
@@ -80,7 +84,6 @@ module.exports = (env, argv) => {
         react: path.resolve('./node_modules/react'),
         'react-dom': path.resolve('./node_modules/react-dom'),
         'react-router-dom': path.resolve('./node_modules/react-router-dom'),
-        redux: path.resolve('./node_modules/redux'),
         // other packages
         classnames: path.resolve('./node_modules/classnames'),
         // go package uses a slightly earlier version of axios, link it to ours
@@ -152,11 +155,9 @@ module.exports = (env, argv) => {
             fs.realpathSync(`${__dirname}/node_modules/rheostat`),
             fs.realpathSync(`${__dirname}/node_modules/molstar/build`),
             fs.realpathSync(
-              `${__dirname}/node_modules/interaction-viewer/styles`
-            ),
-            fs.realpathSync(
               `${__dirname}/node_modules/tippy.js/dist/tippy.css`
             ),
+            fs.realpathSync(`${__dirname}/node_modules/lite-youtube-embed`),
           ],
           use: [
             {
@@ -237,7 +238,24 @@ module.exports = (env, argv) => {
       !isLiveReload &&
         // Copy static (or near-static) files
         new CopyPlugin({
-          patterns: [{ from: 'static' }],
+          patterns: [
+            {
+              from: 'static',
+              transform: (input, absoluteFilename) => {
+                // For the "robots.txt" file
+                if (absoluteFilename.includes('robots.txt')) {
+                  return (
+                    input +
+                    // Block everything if in dev mode, link to sitemap if not
+                    (isDev
+                      ? '\nDisallow: /'
+                      : '\nSitemap: https://www.uniprot.org/sitemap-index.xml')
+                  );
+                }
+                return input;
+              },
+            },
+          ],
         }),
       new HtmlWebPackPlugin({
         template: `${__dirname}/index.html`,
@@ -247,17 +265,13 @@ module.exports = (env, argv) => {
           isLiveReload,
         }),
       }),
-      !isDev &&
-        new HtmlWebPackPlugin({
-          template: `${__dirname}/404.html`,
-          filename: '404.html',
-        }),
       new DefinePlugin({
         BASE_URL: JSON.stringify(publicPath),
         API_PREFIX: JSON.stringify(apiPrefix),
         LIVE_RELOAD: JSON.stringify(isLiveReload),
         GIT_COMMIT_HASH: JSON.stringify(gitCommitHash),
         GIT_COMMIT_STATE: JSON.stringify(gitCommitState),
+        GIT_BRANCH: JSON.stringify(gitBranch),
       }),
       !isLiveReload &&
         new (require('workbox-webpack-plugin').InjectManifest)({
@@ -267,8 +281,10 @@ module.exports = (env, argv) => {
           maximumFileSizeToCacheInBytes: 1024 * 1024 * 3 * (isDev ? 4 : 1),
           // exclude fonts from precaching because one specific browser will
           // never need all fonts formats at the same time, will cache later
-          // whichever is actually used. Exclude sourcemaps too.
-          exclude: [/fonts/, /\.map$/],
+          // whichever is actually used.
+          // Exclude sourcemaps too.
+          // Exclude chunks marked as "nocache" (big and/or not used much)
+          exclude: [/fonts/, /\.map$/, /\.nocache/],
         }),
       !isLiveReload &&
         !isTest &&

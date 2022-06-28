@@ -3,13 +3,20 @@ import { Link } from 'react-router-dom';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
-import { getEntryPath, getEntryPathFor } from '../../../app/config/urls';
+import {
+  getEntryPath,
+  getEntryPathFor,
+  LocationToPath,
+  Location,
+} from '../../../app/config/urls';
 import {
   reAC,
+  needTextProcessingRE,
   rePubMedID,
-  rePubMedOrAC,
   rePubMed,
   reUniProtKBAccession,
+  reFamily,
+  familyExtractor,
 } from '../../utils';
 
 import { Namespace } from '../../../shared/types/namespaces';
@@ -17,7 +24,7 @@ import { FreeTextComment, TextWithEvidence } from '../../types/commentTypes';
 
 import helper from '../../../shared/styles/helper.module.scss';
 
-const needsNewLineRE = /^\).\s+/;
+const needsNewLineRE = /^\)\.\s+/;
 
 const getEntryPathForCitation = getEntryPathFor(Namespace.citations);
 
@@ -28,54 +35,77 @@ export const TextView = ({ comments, noEvidence }: TextViewProps) => (
     {comments.map((comment, index) => (
       // eslint-disable-next-line react/no-array-index-key
       <Fragment key={index}>
-        {comment.value.split(rePubMedOrAC).map((part, index, { length }) => {
-          // Capturing group will allow split to conserve that bit in the split parts
-          // NOTE: rePubMed and reAC should be using a lookbehind eg `/(?<=pubmed:)(\d{7,8})/i` but
-          // it is not supported in Safari yet. It's OK, we just get more chunks when splitting
-          const pubMedID = part.match(rePubMedID)?.[0];
-          if (rePubMed.test(part) && pubMedID) {
-            // PubMed ID, insert a link
-            // eg A0A075B6S6
-            return (
-              // eslint-disable-next-line react/no-array-index-key
-              <Fragment key={index}>
-                PubMed:
-                <Link to={getEntryPathForCitation(pubMedID)}>{pubMedID}</Link>
-              </Fragment>
-            );
-          }
-          const accession = part.match(reUniProtKBAccession)?.[0];
-          if (reAC.test(part) && accession) {
-            // Replace any occurrences of "AC <accession>" with "AC "<link to accession>
-            // eg A0A075B6S6
-            return (
-              // eslint-disable-next-line react/no-array-index-key
-              <Fragment key={index}>
-                {`AC `}
-                <Link to={getEntryPath(Namespace.uniprotkb, accession)}>
-                  {accession}
-                </Link>
-              </Fragment>
-            );
-          }
-          if (needsNewLineRE.test(part)) {
-            // add new line before adding the rest of the plain text
-            return (
-              // eslint-disable-next-line react/no-array-index-key
-              <Fragment key={index}>
-                ).
-                <br />
-                {part.replace(needsNewLineRE, '')}
-              </Fragment>
-            );
-          }
-          // If the last section doesn't end with a period, add it
-          if (index + 1 === length && !part.endsWith('.')) {
-            return `${part}.`;
-          }
-          // use plain text as such
-          return part;
-        })}
+        {comment.value
+          .split(needTextProcessingRE)
+          .map((part, index, { length }) => {
+            // Capturing group will allow split to conserve that bit in the split parts
+            // NOTE: rePubMed and reAC should be using a lookbehind eg `/(?<=pubmed:)(\d{7,8})/i` but
+            // it is not supported in Safari yet. It's OK, we just get more chunks when splitting
+            const pubMedID = part.match(rePubMedID)?.[0];
+            if (rePubMed.test(part) && pubMedID) {
+              // PubMed ID, insert a link
+              // eg A0A075B6S6
+              return (
+                // eslint-disable-next-line react/no-array-index-key
+                <Fragment key={index}>
+                  PubMed:
+                  <Link to={getEntryPathForCitation(pubMedID)}>{pubMedID}</Link>
+                </Fragment>
+              );
+            }
+            const accession = part.match(reUniProtKBAccession)?.[0];
+            if (reAC.test(part) && accession) {
+              // Replace any occurrences of "AC <accession>" with "AC "<link to accession>
+              // eg A0A075B6S6
+              return (
+                // eslint-disable-next-line react/no-array-index-key
+                <Fragment key={index}>
+                  {/* Somehow the part kept "AC ", so put it back */}
+                  {part.startsWith('AC ') ? `AC ` : ''}
+                  <Link to={getEntryPath(Namespace.uniprotkb, accession)}>
+                    {accession}
+                  </Link>
+                </Fragment>
+              );
+            }
+            if (reFamily.test(part)) {
+              return part.split(familyExtractor).map((familyPart) => {
+                if (familyPart.endsWith('family')) {
+                  return (
+                    // eslint-disable-next-line react/no-array-index-key
+                    <Link
+                      key={familyPart}
+                      to={{
+                        pathname: LocationToPath[Location.UniProtKBResults],
+                        search: `query=(family:"${familyPart}")`,
+                      }}
+                    >
+                      {familyPart}
+                    </Link>
+                  );
+                }
+                return familyPart;
+              });
+            }
+            // On blocks starting with "). " replace the whitespaces with <br />
+            if (needsNewLineRE.test(part)) {
+              // add new line before adding the rest of the plain text
+              return (
+                // eslint-disable-next-line react/no-array-index-key
+                <Fragment key={index}>
+                  ).
+                  <br />
+                  {part.replace(needsNewLineRE, '')}
+                </Fragment>
+              );
+            }
+            // If the last section doesn't end with a period, add it
+            if (index + 1 === length && !part.endsWith('.')) {
+              return `${part}.`;
+            }
+            // use plain text as such
+            return part;
+          })}
         {!noEvidence && comment.evidences && (
           <UniProtKBEvidenceTag evidences={comment.evidences} />
         )}
@@ -87,6 +117,7 @@ export const TextView = ({ comments, noEvidence }: TextViewProps) => (
 type FreeTextProps = {
   comments?: FreeTextComment[];
   title?: ReactNode;
+  articleId?: string;
   showMolecule?: boolean;
   noEvidence?: boolean;
 };
@@ -94,6 +125,7 @@ type FreeTextProps = {
 const FreeTextView: FC<FreeTextProps> = ({
   comments,
   title,
+  articleId,
   showMolecule = true,
   noEvidence,
 }) => {
@@ -123,7 +155,11 @@ const FreeTextView: FC<FreeTextProps> = ({
 
   return (
     <>
-      {title && <h3 className={helper.capitalize}>{title}</h3>}
+      {title && (
+        <h3 className={helper.capitalize} data-article-id={articleId}>
+          {title}
+        </h3>
+      )}
       {freeTextData}
     </>
   );

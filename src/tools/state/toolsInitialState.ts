@@ -1,9 +1,9 @@
 import { Job } from '../types/toolsJob';
 
-export type ToolsState = {
+export type ToolsState = null | {
   [key: string]: Job;
 };
 
-const toolsInitialState: ToolsState = {};
+const toolsInitialState: ToolsState = null;
 
 export default toolsInitialState;

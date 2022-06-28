@@ -1,14 +1,14 @@
 import { useMemo } from 'react';
-import { Card, InfoList, ExternalLink, LongNumber } from 'franklin-sites';
+import { Card, InfoList, LongNumber } from 'franklin-sites';
 
+import ExternalLink from '../../../shared/components/ExternalLink';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import { EntryTypeIcon } from '../../../shared/components/entry/EntryTypeIcon';
 import BuscoView from '../BuscoView';
 import BuscoLegend from '../BuscoLegend';
-import BuscoAbbr from '../BuscoAbbr';
+import { PanProteome } from './PanProteome';
 
-import parseDate from '../../../shared/utils/parseDate';
 import ftpUrls from '../../../shared/config/ftpUrls';
 import ProteomesColumnConfiguration, {
   ProteomesColumn,
@@ -20,13 +20,9 @@ import '../styles/overview.scss';
 
 export const Overview = ({ data }: { data: ProteomesUIModel }) => {
   const infoData = useMemo(() => {
-    const renderColumnAsInfoListItem = (column: ProteomesColumn) => {
+    const renderColumnContent = (column: ProteomesColumn) => {
       const config = ProteomesColumnConfiguration.get(column);
-      return {
-        title: config?.label,
-        content: config?.render(data),
-        key: column,
-      };
+      return config?.render(data) || null;
     };
 
     return [
@@ -36,13 +32,19 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
           <>
             <EntryTypeIcon entryType={data.proteomeType} />
             {data.proteomeType}
+            {data.exclusionReasons?.length ? (
+              <> ({data.exclusionReasons.join(', ')})</>
+            ) : null}
           </>
         ),
       },
-      renderColumnAsInfoListItem(ProteomesColumn.proteinCount),
+      {
+        title: <span data-article-id="proteome_redundancy">Protein count</span>,
+        content: renderColumnContent(ProteomesColumn.proteinCount),
+      },
       {
         title: 'Gene count',
-        content: (
+        content: data.geneCount ? (
           <>
             <LongNumber>{data.geneCount}</LongNumber>
             {data.geneCount && data.superkingdom && data.taxonomy.taxonId ? (
@@ -60,10 +62,10 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
               </>
             ) : null}
           </>
-        ),
+        ) : null,
       },
       {
-        title: 'Proteome ID',
+        title: <span data-article-id="proteome_id">Proteome ID</span>,
         content: data.id,
       },
       {
@@ -73,15 +75,15 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
         ),
       },
       {
-        title: 'Last modified',
-        content: (
-          <time dateTime={parseDate(data.modified)?.toISOString()}>
-            {data.modified}
-          </time>
-        ),
+        title: 'Strain',
+        content: data.strain,
       },
       {
-        title: 'Genome assembly and annotation',
+        title: (
+          <span data-article-id="https://www.ensembl.org/Help/Faq?id=216">
+            Genome assembly and annotation
+          </span>
+        ),
         content: data.genomeAssembly?.assemblyId &&
           data.genomeAssembly.genomeAssemblyUrl && (
             <ExternalLink url={data.genomeAssembly.genomeAssemblyUrl}>{`${
@@ -93,10 +95,28 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
             }`}</ExternalLink>
           ),
       },
-      renderColumnAsInfoListItem(ProteomesColumn.genomeRepresentation),
-      renderColumnAsInfoListItem(ProteomesColumn.cpd),
       {
-        title: <BuscoAbbr />,
+        title: 'Genome representation',
+        content: renderColumnContent(ProteomesColumn.genomeRepresentation),
+      },
+      {
+        title: 'Pan proteome',
+        content: data.panproteome && <PanProteome proteome={data} />,
+      },
+      {
+        title: (
+          <span data-article-id="assessing_proteomes#complete-proteome-detector-cpd">
+            Completeness (CPD)
+          </span>
+        ),
+        content: renderColumnContent(ProteomesColumn.cpd),
+      },
+      {
+        title: (
+          <span data-article-id="assessing_proteomes#benchmarking-universal-single-copy-orthologs-busco">
+            BUSCO
+          </span>
+        ),
         content: data.proteomeCompletenessReport?.buscoReport && (
           <div className="busco">
             <div className="busco__legend">

@@ -15,6 +15,7 @@ import HelpCard from './HelpCard';
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 
 import { help as helpURL } from '../../../shared/config/apiUrls';
+import { parseQueryString } from '../../../shared/utils/url';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { HelpAPIModel, HelpSearchResponse } from '../../adapters/helpConverter';
@@ -34,25 +35,35 @@ const dataRenderer = (article: HelpAPIModel) => (
 
 const getIdKey = (article: HelpAPIModel) => article.id;
 
-const Results = ({ history, location }: RouteChildrenProps) => {
+type Props = {
+  inPanel?: boolean;
+};
+
+const Results = ({
+  history,
+  location,
+  inPanel,
+}: RouteChildrenProps & Props) => {
   const [searchValue, setSearchValue] = useState<string>(() => {
-    const { query } = qs.parse(location.search);
-    const searchValue = Array.isArray(query) ? query.join(' ') : query;
-    if (!searchValue || searchValue === '*') {
+    const { query } = parseQueryString(location.search);
+    if (!query || query === '*') {
       return '';
     }
-    return searchValue;
+    return query;
   });
 
-  const parsed = qs.parse(location.search);
+  const parsed = parseQueryString(location.search);
   const dataObject = useDataApiWithStale<HelpSearchResponse>(
-    helpURL.search(parsed)
+    helpURL.search({
+      ...parsed,
+      queryFacets: parsed.facets,
+      facets: 'category',
+    })
   );
 
   const fallBackAppliedFacets = useMemo(() => {
-    const { facets } = qs.parse(location.search);
-    const facetValues =
-      (Array.isArray(facets) ? facets.join(',') : facets) || '';
+    const { facets } = parseQueryString(location.search);
+    const facetValues = facets || '';
     return {
       loading: false,
       data: facetValues
@@ -79,7 +90,7 @@ const Results = ({ history, location }: RouteChildrenProps) => {
         history.replace({
           pathname: LocationToPath[Location.HelpResults],
           search: qs.stringify({
-            ...qs.parse(history.location.search),
+            ...parseQueryString(history.location.search),
             query: searchValue || '*',
           }),
         });
@@ -111,6 +122,10 @@ const Results = ({ history, location }: RouteChildrenProps) => {
     );
   }
 
+  if (inPanel) {
+    return <>{main}</>;
+  }
+
   return (
     <SideBarLayout
       sidebar={
@@ -124,7 +139,7 @@ const Results = ({ history, location }: RouteChildrenProps) => {
         </>
       }
     >
-      {/* TODO: check and chage this title when implementing Help */}
+      {/* TODO: check and change this title when implementing Help */}
       <HTMLHead title={`${searchValue} in UniProt help`} />
       <div className={styles['results-header']}>
         <HelperImage className={styles.helper} />

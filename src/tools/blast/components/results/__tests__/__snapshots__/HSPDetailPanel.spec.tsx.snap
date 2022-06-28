@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HSPDetailPanel should change to wrapped and render when wrapped view is clicked 1`] = `
-<div
+<aside
   class="sliding-panel sliding-panel--bottom sliding-panel--bottom--medium hsp-detail-panel"
   data-testid="sliding-panel"
 >
@@ -11,10 +11,11 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
     <span
       class="small sliding-panel__header__title"
     >
-      P21802 · rec full Name · scientific name
+      U6MKN0 · rec full Name · scientific name
     </span>
     <button
       class="button tertiary sliding-panel__header__buttons"
+      title="Close panel"
       type="button"
     >
       <test-file-stub />
@@ -98,9 +99,9 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
             >
               Match:
               <a
-                href="/uniprotkb/P21802"
+                href="/uniprotkb/U6MKN0"
               >
-                P21802
+                U6MKN0
               </a>
               
             </button>
@@ -134,7 +135,7 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
           <span
             class="track-label annotation-label"
           >
-            P21802:Chain
+            U6MKN0:Chain
           </span>
           <div
             class="track annotation-track"
@@ -150,11 +151,11 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
       </div>
     </div>
   </div>
-</div>
+</aside>
 `;
 
 exports[`HSPDetailPanel should initially render overview 1`] = `
-<div
+<aside
   class="sliding-panel sliding-panel--bottom sliding-panel--bottom--medium hsp-detail-panel"
   data-testid="sliding-panel"
 >
@@ -164,10 +165,11 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
     <span
       class="small sliding-panel__header__title"
     >
-      P21802 · rec full Name · scientific name
+      U6MKN0 · rec full Name · scientific name
     </span>
     <button
       class="button tertiary sliding-panel__header__buttons"
+      title="Close panel"
       type="button"
     >
       <test-file-stub />
@@ -262,7 +264,7 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
             class="track-label"
             data-testid="track-label"
           >
-            P21802:Chain
+            U6MKN0:Chain
           </span>
           <div
             class="track"
@@ -289,9 +291,9 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
             >
               Match:
               <a
-                href="/uniprotkb/P21802"
+                href="/uniprotkb/U6MKN0"
               >
-                P21802
+                U6MKN0
               </a>
               
             </button>
@@ -335,5 +337,5 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
       </div>
     </div>
   </div>
-</div>
+</aside>
 `;

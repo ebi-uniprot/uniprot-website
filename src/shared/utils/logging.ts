@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
-import * as Sentry from '@sentry/react';
+import { captureException, captureMessage } from '@sentry/react';
 import { ScopeContext } from '@sentry/types';
 
 // Expand as we add more events
@@ -36,6 +36,17 @@ export const createGtagEvent = (message: any, data?: Partial<ScopeContext>) => {
   return event;
 };
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+export const gtagFn: Gtag.Gtag = (...args) => {
+  // Prevent crashing if not defined (like in dev mode)
+  if (typeof globalThis.gtag === 'function') {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    globalThis.gtag(...args);
+  }
+};
+
 /* istanbul ignore next */
 export const sendGtagEvent = (
   eventCategory: CustomCategories | Gtag.EventNames | string,
@@ -43,9 +54,7 @@ export const sendGtagEvent = (
   data?: Partial<ScopeContext>
 ) => {
   const event = createGtagEvent(message, data);
-  if (typeof gtag === 'function') {
-    gtag('event', eventCategory, event);
-  }
+  gtag('event', eventCategory, event);
 };
 
 type LoggingHelper = (
@@ -57,9 +66,9 @@ type LoggingHelper = (
 export const log: LoggingHelper = (message, context) => {
   if (isProduction) {
     sendGtagEvent('console.log', message.toString(), context);
-    Sentry.captureMessage(message.toString(), {
+    captureMessage(message.toString(), {
       ...(context || {}),
-      level: Sentry.Severity.Log,
+      level: 'log',
     });
   } else if (!isTest) {
     console.log(message, context);
@@ -70,9 +79,9 @@ export const log: LoggingHelper = (message, context) => {
 export const warn: LoggingHelper = (message, context) => {
   if (isProduction) {
     sendGtagEvent('console.warn', message.toString(), context);
-    Sentry.captureMessage(message.toString(), {
+    captureMessage(message.toString(), {
       ...(context || {}),
-      level: Sentry.Severity.Warning,
+      level: 'warning',
     });
   } else if (!isTest) {
     console.warn(message, context);
@@ -83,7 +92,7 @@ export const warn: LoggingHelper = (message, context) => {
 export const error: LoggingHelper = (message, context) => {
   if (isProduction) {
     sendGtagEvent('exception', message.toString(), context);
-    Sentry.captureException(message, context);
+    captureException(message, context);
   }
   if (!isTest) {
     console.error(message, context);

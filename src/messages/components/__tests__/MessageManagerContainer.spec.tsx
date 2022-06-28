@@ -1,5 +1,4 @@
 import { screen } from '@testing-library/react';
-import { v1 } from 'uuid';
 
 import MessageManagerContainer from '../MessageManagerContainer';
 
@@ -21,45 +20,40 @@ const getState = ({
 }: Pick<
   MessageType,
   'content' | 'format' | 'locations' | 'omitAndDeleteAtLocations'
->): { messages: MessagesState } => ({
-  messages: {
-    active: [
-      {
-        id: v1(),
-        content,
-        format,
-        level: MessageLevel.INFO,
-        locations,
-        omitAndDeleteAtLocations,
-      },
-    ],
-    deleted: {},
+>): MessagesState => ({
+  'message-id': {
+    id: 'message-id',
+    content,
+    format,
+    level: MessageLevel.INFO,
+    locations,
+    omitAndDeleteAtLocations,
   },
 });
 
 describe('Message Manager component', () => {
-  test('should show pop-up message', () => {
+  it('should show pop-up message', () => {
     const content = 'Pop-up message content';
     customRender(<MessageManagerContainer />, {
-      initialState: getState({ content, format: MessageFormat.POP_UP }),
+      messagesState: getState({ content, format: MessageFormat.POP_UP }),
     });
     const messageContent = screen.getByText(content);
     expect(messageContent).toBeInTheDocument();
   });
 
-  test('should show in-page message when location is not specified', () => {
+  it('should show in-page message when location is not specified', () => {
     const content = 'In-page message content';
     customRender(<MessageManagerContainer />, {
-      initialState: getState({ content, format: MessageFormat.IN_PAGE }),
+      messagesState: getState({ content, format: MessageFormat.IN_PAGE }),
     });
     const messageContent = screen.getByText(content);
     expect(messageContent).toBeInTheDocument();
   });
 
-  test('should show in-page message when location is specified and the router is at that location', () => {
+  it('should show in-page message when location is specified and the router is at that location', () => {
     const content = 'In-page message content';
     customRender(<MessageManagerContainer />, {
-      initialState: getState({
+      messagesState: getState({
         content,
         format: MessageFormat.IN_PAGE,
         locations: [Location.UniProtKBResults],
@@ -71,10 +65,10 @@ describe('Message Manager component', () => {
     expect(messageContent).toBeInTheDocument();
   });
 
-  test('should not show in-page message when location is specified but the router is not at that location', () => {
+  it('should not show in-page message when location is specified but the router is not at that location', () => {
     const content = 'In-page message content';
     customRender(<MessageManagerContainer />, {
-      initialState: getState({
+      messagesState: getState({
         content,
         format: MessageFormat.IN_PAGE,
         locations: [Location.UniProtKBResults],
@@ -86,10 +80,10 @@ describe('Message Manager component', () => {
     expect(messageContent).not.toBeInTheDocument();
   });
 
-  test('should delete and not show pop-up message when omitAndDeleteAtLocations is specified and the router is at that location', () => {
+  it('should delete and not show pop-up message when omitAndDeleteAtLocations is specified and the router is at that location', () => {
     const content = 'Pop-up message content';
     customRender(<MessageManagerContainer />, {
-      initialState: getState({
+      messagesState: getState({
         content,
         format: MessageFormat.POP_UP,
         omitAndDeleteAtLocations: [Location.Dashboard],

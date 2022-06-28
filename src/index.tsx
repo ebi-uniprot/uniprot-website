@@ -1,12 +1,12 @@
+import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 
 import App from './app/components/App';
 import GlobalContext from './app/contexts/Global';
 
-import * as logging from './shared/utils/logging';
-
 if (!LIVE_RELOAD) {
-  logging.debug(
+  // eslint-disable-next-line no-console
+  console.info(
     `Built with git commit ${GIT_COMMIT_HASH} ${
       GIT_COMMIT_STATE
         ? `with uncommitted changes:\n${GIT_COMMIT_STATE}`
@@ -16,9 +16,11 @@ if (!LIVE_RELOAD) {
 }
 
 ReactDOM.render(
-  <GlobalContext>
-    <App />
-  </GlobalContext>,
+  <StrictMode>
+    <GlobalContext>
+      <App />
+    </GlobalContext>
+  </StrictMode>,
   document.getElementById('root')
 );
 
@@ -26,9 +28,12 @@ if ('serviceWorker' in navigator) {
   import(
     /* webpackChunkName: "service-worker-client" */ './service-worker/client'
   ).then((serviceWorkerModule) => {
-    serviceWorkerModule.register();
-    // switch commented lines if we want to enable/disable service worker
-    // Use in case of emergency! (if something wrong with caching in production)
-    // serviceWorkerModule.unregister();
+    if (globalThis.location.origin.includes('beta')) {
+      serviceWorkerModule.register();
+    } else {
+      // switch commented lines if we want to enable/disable service worker
+      // Use in case of emergency! (if something wrong with caching in production)
+      serviceWorkerModule.unregister();
+    }
   });
 }

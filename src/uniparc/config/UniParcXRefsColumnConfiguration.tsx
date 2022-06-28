@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { ExternalLink } from 'franklin-sites';
 
+import ExternalLink from '../../shared/components/ExternalLink';
 import Timeline from '../components/entry/Timeline';
 import {
   EntryType,
@@ -9,12 +9,11 @@ import {
 } from '../../shared/components/entry/EntryTypeIcon';
 import TaxonomyView from '../../shared/components/entry/TaxonomyView';
 import BasketStatus from '../../basket/BasketStatus';
+import EvidenceLink from '../../uniprotkb/config/evidenceUrls';
 
 import { getEntryPath } from '../../app/config/urls';
 
 import parseDate from '../../shared/utils/parseDate';
-import { processUrlTemplate } from '../../uniprotkb/components/protein-data-views/XRefView';
-import evidenceUrls from '../../uniprotkb/config/evidenceUrls';
 import * as logging from '../../shared/utils/logging';
 
 import { Namespace } from '../../shared/types/namespaces';
@@ -157,12 +156,11 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.ncbiGi, {
   label: 'NCBI GI',
   render: (xref) =>
     xref.ncbiGi && (
-      <ExternalLink
-        url={processUrlTemplate(evidenceUrls.RefSeq, { value: xref.ncbiGi })}
+      <EvidenceLink
+        source="RefSeq"
+        value={xref.ncbiGi}
         className={xref.active ? undefined : 'xref-inactive'}
-      >
-        {xref.ncbiGi}
-      </ExternalLink>
+      />
     ),
 });
 

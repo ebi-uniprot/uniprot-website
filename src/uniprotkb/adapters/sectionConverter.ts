@@ -1,5 +1,9 @@
 import { getXrefsForSection, XrefUIModel } from '../utils/xrefUtils';
-import Comment, { CommentType, FreeTextComment } from '../types/commentTypes';
+import Comment, {
+  CommentType,
+  DiseaseComment,
+  FreeTextComment,
+} from '../types/commentTypes';
 import {
   getKeywordsForCategories,
   KeywordUIModel,
@@ -11,6 +15,9 @@ import FeatureType from '../types/featureType';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
 import { Xref } from '../../shared/types/apiModel';
 import { DatabaseInfoMaps } from '../utils/database';
+
+const reDiseaseAcronymSentence = /^in [^;]+;/i;
+const reDiseaseAcronym = /[A-Z0-9-_]{2,}/g;
 
 export type UIModel = {
   commentsData: Map<CommentType, Comment[] | undefined>;
@@ -37,12 +44,42 @@ export const convertSection = (
 
   const { comments, keywords, features, genes, organism, uniProtkbId } = data;
   if (sectionComments && comments) {
-    sectionComments.forEach((commentType) => {
-      convertedData.commentsData.set(
-        commentType,
-        comments.filter((comment) => comment.commentType === commentType)
+    const naturalVariants = features?.filter(
+      (variant) => variant.type === 'Natural variant'
+    );
+    for (const commentType of sectionComments) {
+      const commentsOfType = comments.filter(
+        (comment) => comment.commentType === commentType
       );
-    });
+      if (commentType === 'DISEASE' && naturalVariants) {
+        // Tie natural variants to specific diseases (not all will match)
+        for (const variant of naturalVariants) {
+          if (!variant.featureId) {
+            continue; // eslint-disable-line no-continue
+          }
+          // Extract acronyms from the description
+          const [acronymSentence] =
+            variant.description?.match(reDiseaseAcronymSentence) || [];
+          for (const acronym of (acronymSentence || '').match(
+            reDiseaseAcronym
+          ) || []) {
+            // Find a disease with that acronym and assign it this variant
+            const comment = (commentsOfType as DiseaseComment[]).find(
+              (comment) => comment.disease?.acronym === acronym
+            );
+            if (comment) {
+              // Assign to object because this bit of code might run multiple
+              // times so adding to a list might create duplicate variants
+              if (!comment.variants) {
+                comment.variants = {};
+              }
+              comment.variants[variant.featureId] = variant;
+            }
+          }
+        }
+      }
+      convertedData.commentsData.set(commentType, commentsOfType);
+    }
   }
   if (sectionKeywords && keywords) {
     convertedData.keywordData = getKeywordsForCategories(

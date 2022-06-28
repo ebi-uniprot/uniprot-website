@@ -31,7 +31,7 @@ const SequenceSection = ({ data, primaryAccession }: Props) => {
   return (
     <Card
       header={
-        <h2>
+        <h2 data-article-id="sequences_section">
           {
             getEntrySectionNameAndId(
               EntrySection.Sequence,
@@ -46,6 +46,12 @@ const SequenceSection = ({ data, primaryAccession }: Props) => {
     >
       <SequenceView data={data} accession={primaryAccession} />
       <ComputationalyMappedSequences primaryAccession={primaryAccession} />
+      {data.sequenceCaution && data.sequenceCaution.length > 0 && (
+        <>
+          <h3 data-article-id="sequence_caution">Sequence caution</h3>
+          <SequenceCautionView data={data.sequenceCaution} />
+        </>
+      )}
       {data.featuresData && (
         <FeaturesView
           primaryAccession={primaryAccession}
@@ -53,27 +59,21 @@ const SequenceSection = ({ data, primaryAccession }: Props) => {
           sequence={data.sequence.value}
         />
       )}
-      {data.sequenceCaution && data.sequenceCaution.length > 0 && (
-        <>
-          <h3>Sequence caution</h3>
-          <SequenceCautionView data={data.sequenceCaution} />
-        </>
-      )}
       {data.massSpectrometry && data.massSpectrometry.length > 0 && (
         <>
-          <h3>Mass Spectrometry</h3>
+          <h3 data-article-id="mass_spectrometry">Mass Spectrometry</h3>
           <MassSpectrometryView data={data.massSpectrometry} />
         </>
       )}
       {data.polymorphism && data.polymorphism.length > 0 && (
         <>
-          <h3>Polymorphism</h3>
+          <h3 data-article-id="polymorphism">Polymorphism</h3>
           <FreeTextView comments={data.polymorphism} />
         </>
       )}
       {data.rnaEditing && data.rnaEditing.length > 0 && (
         <>
-          <h3>RNA Editing</h3>
+          <h3 data-article-id="rna_editing">RNA Editing</h3>
           <RNAEditingView data={data.rnaEditing} />
         </>
       )}

@@ -71,6 +71,7 @@ export type ProteomesAPIModel = {
   modified: string;
   proteomeType: ProteomeType;
   components?: Component[];
+  exclusionReasons?: string[];
   citations: Citation[];
   annotationScore: number;
   superkingdom: string;
@@ -88,12 +89,16 @@ export type ProteomesAPIModel = {
   proteinCount: number; // use this in the results table - calculated sum of the components proteinCount: components.reduce((total, { proteinCount }) => proteinCount + total, 0)
 };
 
-export type ProteomesUIModel = ProteomesAPIModel & {
-  // any addition/change by the converter
+export type ProteomesUIModel = Omit<ProteomesAPIModel, 'panproteome'> & {
+  panproteome: ProteomesAPIModel['panproteome'] | ProteomesAPIModel;
 };
 
-const proteomesConverter = (data: ProteomesAPIModel): ProteomesUIModel => ({
+const proteomesConverter = (
+  data: ProteomesAPIModel,
+  panProteomeData?: ProteomesAPIModel
+): ProteomesUIModel => ({
   ...data,
+  panproteome: panProteomeData || data.panproteome,
 });
 
 export default proteomesConverter;

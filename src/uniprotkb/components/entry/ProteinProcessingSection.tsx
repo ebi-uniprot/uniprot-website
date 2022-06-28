@@ -31,7 +31,9 @@ const ProteinProcessingSection = ({
   return (
     <Card
       header={
-        <h2>{getEntrySectionNameAndId(EntrySection.ProteinProcessing).name}</h2>
+        <h2 data-article-id="ptm_processing_section">
+          {getEntrySectionNameAndId(EntrySection.ProteinProcessing).name}
+        </h2>
       }
       id={EntrySection.ProteinProcessing}
       data-entry-section
@@ -43,7 +45,8 @@ const ProteinProcessingSection = ({
       />
       <FreeTextView
         comments={commentsData.get('PTM') as FreeTextComment[] | undefined}
-        title="PTM"
+        articleId="post-translational_modification"
+        title="Post-translational modification"
       />
       <KeywordView keywords={keywordData} />
       <XRefView xrefs={xrefData} primaryAccession={primaryAccession} />

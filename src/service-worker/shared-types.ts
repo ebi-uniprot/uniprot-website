@@ -1,10 +1,10 @@
 export enum CacheName {
   ExternalAPIs = 'external-APIs',
-  ImagesAndFonts = 'images-and-fonts',
-  ExternalImages = 'external-images',
+  ImagesFontsAndScripts = 'images-fonts-and-scripts',
   GoogleFontsStylesheets = 'google-fonts-stylesheets',
-  GoogleFontsFiles = 'google-fonts-files',
   QuickGO = 'quickGO',
   ProteinsAPI = 'proteins-api',
   WebsiteAPI = 'website-api',
+  WebsiteAPIStatic = 'website-api-static',
+  WebsiteAPITextContent = 'website-api-text-content',
 }

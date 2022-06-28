@@ -1,6 +1,12 @@
-import { lazy, Suspense, FC, CSSProperties, useEffect, useRef } from 'react';
-import { Route, Switch, RouteChildrenProps, Redirect } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
+import { lazy, Suspense, FC } from 'react';
+import {
+  Route,
+  Switch,
+  RouteChildrenProps,
+  Redirect,
+  generatePath,
+} from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { Loader } from 'franklin-sites';
 import { sleep } from 'timing-functions';
 
@@ -8,6 +14,7 @@ import BaseLayout from '../../shared/components/layouts/BaseLayout';
 import SingleColumnLayout from '../../shared/components/layouts/SingleColumnLayout';
 import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
 import GDPR from '../../shared/components/gdpr/GDPR';
+import DeploymentWarning from './DeploymentWarning';
 
 import history from '../../shared/utils/browserHistory';
 
@@ -41,9 +48,24 @@ if (process.env.NODE_ENV !== 'development') {
             sentryReact.reactRouterV5Instrumentation(history),
         }),
       ],
+      maxBreadcrumbs: 50,
       // Proportion of sessions being used to track performance
-      // Adjust to a lower value when we start getting enough data
-      tracesSampleRate: 0.5,
+      // Adjust to a low value when we start getting enough data
+      tracesSampleRate: 0.1,
+      // Proportion of errors being reported
+      sampleRate: 0.4,
+      // errors to be ignored completely
+      ignoreErrors: [
+        'chrome-extensions://', // errors caused by an extension
+        'Request aborted', // aborted network requests, expected to happen
+      ],
+      // Programmatically filter out errors from Sentry
+      // beforeSend(event, hint){
+      //   if (/* condition to discard error */) {
+      //     return null;
+      //   }
+      //   return event;
+      // },
     });
   });
 }
@@ -202,6 +224,12 @@ const HelpLandingPage = lazy(
       /* webpackChunkName: "help-entry" */ '../../help/components/landing/HelpLandingPage'
     )
 );
+const HelpEntryPreviewPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "help-entry-preview.nocache" */ '../../help/components/entry/EntryPreview'
+    )
+);
 const HelpEntryPage = lazy(
   () =>
     import(
@@ -215,6 +243,14 @@ const HelpResults = lazy(
     )
 );
 
+// Contact
+const ContactForm = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "contact-form" */ '../../contact/components/ContactForm'
+    )
+);
+
 const ResourceNotFoundPage = lazy(
   () =>
     import(
@@ -222,23 +258,23 @@ const ResourceNotFoundPage = lazy(
     )
 );
 
-const reportBugLinkStyles: CSSProperties = {
-  fontSize: '.8rem',
-  lineHeight: '1rem',
-  padding: '1.5ch',
-  color: '#FFF',
-  backgroundColor: '#126A9F',
-  position: 'fixed',
-  bottom: 'calc(50% - 5ch)',
-  right: 0,
-  borderRadius: '0.5ch 0 0 0.5ch',
-  writingMode: 'vertical-rl',
-  textOrientation: 'sideways',
-  zIndex: 99,
-  opacity: 0,
-  transform: `translateX(100%)`,
-  transition: 'transform ease-out 0.25s',
-};
+const ContextualHelp = lazy(() =>
+  sleep(1000).then(
+    () =>
+      import(
+        /* webpackChunkName: "contextual-help" */ '../../help/components/contextual/ContextualHelp'
+      )
+  )
+);
+
+const BackToTheTop = lazy(() =>
+  sleep(1000).then(
+    () =>
+      import(
+        /* webpackChunkName: "back-to-the-top" */ '../../shared/components/BackToTheTop'
+      )
+  )
+);
 
 // Helper component to render a landing page or the results page depending on
 // the presence of absence of a querystring
@@ -260,23 +296,6 @@ const App = () => {
   useScrollToTop(history);
   useReloadApp(history);
 
-  const feedbackRef = useRef<HTMLAnchorElement>(null);
-
-  useEffect(() => {
-    sleep(3000).then(() => {
-      // If there's already Hotjar's feedback, don't do anything
-      if (document.querySelector('._hj_feedback_container')) {
-        return;
-      }
-      if (!feedbackRef.current) {
-        return;
-      }
-      feedbackRef.current.tabIndex = 0;
-      feedbackRef.current.style.opacity = '1';
-      feedbackRef.current.style.transform = 'translateX(0)';
-    });
-  });
-
   return (
     <>
       <Helmet titleTemplate="%s | UniProt" defaultTitle="UniProt">
@@ -286,6 +305,7 @@ const App = () => {
           content="UniProt is the world’s leading high-quality, comprehensive and freely accessible resource of protein sequence and functional information."
         />
       </Helmet>
+      <DeploymentWarning />
       <BaseLayout>
         <Suspense fallback={<Loader />}>
           <Switch>
@@ -412,9 +432,17 @@ const App = () => {
                 </SingleColumnLayout>
               )}
             />
+            {/* Basket */}
             <Route
               path={LocationToPath[Location.Basket]}
               component={BasketFullView}
+            />
+            {/* Help */}
+            <Route
+              path={generatePath(LocationToPath[Location.HelpEntry], {
+                accession: '_preview',
+              })}
+              component={HelpEntryPreviewPage}
             />
             <Route
               path={LocationToPath[Location.HelpEntry]}
@@ -424,13 +452,32 @@ const App = () => {
               path={LocationToPath[Location.HelpResults]}
               component={ResultsOrLanding(HelpResults, HelpLandingPage)}
             />
+            {/* Release notes */}
             <Route
-              path={LocationToPath[Location.Contact]}
-              component={() => {
-                // Temporary redirect to current website
-                window.location.href = 'https://www.uniprot.org/contact';
-                return null;
-              }}
+              path={LocationToPath[Location.ReleaseNotesEntry]}
+              component={HelpEntryPage}
+            />
+            {/* TODO: add a search results view */}
+            {/* <Route
+              path={LocationToPath[Location.ReleaseNotesResults]}
+              component={HelpResults}
+            /> */}
+            {/* Contact */}
+            <Route
+              path={LocationToPath[Location.ContactGeneric]}
+              render={() => (
+                <SingleColumnLayout>
+                  <ContactForm />
+                </SingleColumnLayout>
+              )}
+            />
+            <Route
+              path={LocationToPath[Location.ContactUpdate]}
+              render={() => (
+                <SingleColumnLayout>
+                  <ContactForm />
+                </SingleColumnLayout>
+              )}
             />
             {/* Catch-all handler -> Redirect or not found use ResourceNotFoundPage */}
             <Route
@@ -447,16 +494,16 @@ const App = () => {
       <ErrorBoundary fallback={null}>
         <GDPR />
       </ErrorBoundary>
-      <a
-        style={reportBugLinkStyles}
-        target="_blank"
-        href="https://goo.gl/forms/VrAGbqg2XFg6Mpbh1"
-        rel="noopener noreferrer"
-        tabIndex={-1}
-        ref={feedbackRef}
-      >
-        Feedback
-      </a>
+      <Suspense fallback={null}>
+        <ErrorBoundary fallback={null}>
+          <ContextualHelp />
+        </ErrorBoundary>
+      </Suspense>
+      <Suspense fallback={null}>
+        <ErrorBoundary fallback={null}>
+          <BackToTheTop />
+        </ErrorBoundary>
+      </Suspense>
     </>
   );
 };

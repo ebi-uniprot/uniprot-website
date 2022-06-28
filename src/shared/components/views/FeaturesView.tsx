@@ -1,18 +1,25 @@
-import { useCallback, useMemo } from 'react';
+import { Fragment, lazy, useMemo } from 'react';
 import TransformedVariant from 'protvista-variation-adapter';
+
+import LazyComponent from '../LazyComponent';
 
 import useCustomElement from '../../hooks/useCustomElement';
 import useStructuredData from '../../hooks/useStructuredData';
 
 import dataToSchema from './features.structured';
 
-import { Evidence } from '../../../uniprotkb/types/modelTypes';
-import NightingaleZoomTool from '../../../uniprotkb/components/protein-data-views/NightingaleZoomTool';
+import FeatureTypeHelpMappings from '../../../help/config/featureTypeHelpMappings';
 
 import FeatureType from '../../../uniprotkb/types/featureType';
 import { UniParcProcessedFeature } from '../../../uniparc/components/entry/UniParcFeaturesView';
+import { Evidence } from '../../../uniprotkb/types/modelTypes';
 
 import './styles/features-view.scss';
+
+const VisualFeaturesView = lazy(
+  () =>
+    import(/* webpackChunkName: "visual-feature-view" */ './VisualFeaturesView')
+);
 
 export type Fragment = {
   start: number;
@@ -46,24 +53,13 @@ type FeatureProps<T> = {
 
 const FeaturesView = <
   T extends ProcessedFeature | TransformedVariant | UniParcProcessedFeature
->(
-  props: FeatureProps<T>
-) => {
-  const { sequence, features, table, trackHeight, withTitle = true } = props;
-  const navigationElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(
-        /* webpackChunkName: "protvista-navigation" */ 'protvista-navigation'
-      ),
-    'protvista-navigation'
-  );
-  const sequenceElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(/* webpackChunkName: "protvista-sequence" */ 'protvista-sequence'),
-    'protvista-sequence'
-  );
+>({
+  sequence,
+  features,
+  table,
+  trackHeight,
+  withTitle = true,
+}: FeatureProps<T>) => {
   const managerElement = useCustomElement(
     /* istanbul ignore next */
     () =>
@@ -79,31 +75,9 @@ const FeaturesView = <
     'protvista-datatable'
   );
 
-  const ceDefined =
-    navigationElement.defined &&
-    sequenceElement.defined &&
-    managerElement.defined &&
-    datatableElement.defined;
-
   const featureTypes = useMemo(
-    () => Array.from(new Set(features.map(({ type }) => type.toLowerCase()))),
+    () => Array.from(new Set<FeatureType>(features.map(({ type }) => type))),
     [features]
-  );
-
-  const trackElement = useCustomElement(
-    /* istanbul ignore next */
-    () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
-    'protvista-track'
-  );
-
-  const setTrackData = useCallback(
-    (node): void => {
-      if (node && trackElement.defined) {
-        // eslint-disable-next-line no-param-reassign
-        node.data = features;
-      }
-    },
-    [trackElement.defined, features]
   );
 
   const structuredData = useMemo(() => dataToSchema<T>(features), [features]);
@@ -118,26 +92,33 @@ const FeaturesView = <
       {withTitle && (
         <>
           <h3>Features</h3>
-          <p>Showing features for {featureTypes.join(', ')}.</p>
+          <p>
+            Showing features for{' '}
+            {featureTypes.map((featureType, i) => (
+              <Fragment key={featureType}>
+                {i > 0 && ', '}
+                {featureType === 'Other' ? (
+                  featureType.toLowerCase()
+                ) : (
+                  <span data-article-id={FeatureTypeHelpMappings[featureType]}>
+                    {featureType.toLowerCase()}
+                  </span>
+                )}
+              </Fragment>
+            ))}
+            .
+          </p>
         </>
       )}
       <managerElement.name attributes="highlight displaystart displayend selectedid">
-        {ceDefined && sequence && (
-          <>
-            <NightingaleZoomTool length={sequence.length} />
-            <navigationElement.name length={sequence.length} />
-            <trackElement.name
-              ref={setTrackData}
-              length={sequence.length}
-              layout="non-overlapping"
-              height={trackHeight}
-            />
-            <sequenceElement.name
+        {sequence && (
+          <LazyComponent rootMargin="50px">
+            <VisualFeaturesView
+              features={features}
               sequence={sequence}
-              length={sequence.length}
-              height="20"
+              trackHeight={trackHeight}
             />
-          </>
+          </LazyComponent>
         )}
         <datatableElement.name filter-scroll>{table}</datatableElement.name>
       </managerElement.name>

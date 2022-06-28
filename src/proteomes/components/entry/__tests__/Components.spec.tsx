@@ -14,6 +14,7 @@ describe('Components view', () => {
         components={data.components}
         id={data.id}
         proteinCount={data.proteinCount}
+        proteomeType={data.proteomeType}
       />
     );
     expect(asFragment()).toMatchSnapshot();

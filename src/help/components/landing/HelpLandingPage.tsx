@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { CommunityAnnotationIcon } from 'franklin-sites';
+import { CommunityAnnotationIcon, PageIntro } from 'franklin-sites';
 import cn from 'classnames';
 
 // eslint-disable-next-line import/no-relative-packages
@@ -61,15 +61,22 @@ const tileData: IllustratedListTileProps[] = [
     title: 'Get started',
     linkList: [
       {
-        to: getHelpEntryPath('uniprotkb_manual'),
-        label: 'UniProtKB manual',
+        to: getHelpEntryPath('find_your_protein'),
+        label: 'Find your protein',
       },
       {
-        to: getHelpEntryPath('text-search'),
-        label: 'Text search and advanced search',
+        to: getHelpEntryPath('explore_uniprotkb_entry '),
+        label: 'Explore UniProtKB entry',
+      },
+      {
+        to: getHelpEntryPath('explore_proteomes '),
+        label: 'Explore proteomes',
       },
     ],
-    moreTo: 'https://www.ebi.ac.uk/training/online/courses/uniprot-quick-tour',
+    moreTo: {
+      pathname: LocationToPath[Location.HelpResults],
+      search: '?query=*&facets=category:Get started',
+    },
     image: <Cog />,
   },
   {
@@ -163,7 +170,7 @@ const HelpLandingPage = () => (
     )}
   >
     <HTMLHead title="Help" />
-    <h2 className="uniprot-grid-cell--span-12">Help center</h2>
+    <PageIntro title="Help center" className="uniprot-grid-cell--span-12" />
     <div className="uniprot-grid-cell--span-9">
       <HelpQuickSearch />
       <div className={landing['help-landing__tiles']}>
@@ -174,7 +181,7 @@ const HelpLandingPage = () => (
     </div>
     <div className="uniprot-grid-cell--span-3">
       <section className={landing['help-landing__faqs']}>
-        <h4>Suggested FAQs</h4>
+        <h2 className="small">Suggested FAQs</h2>
         <ul className="no-bullet">
           <li>
             <Link to={getHelpEntryPath('disease_query')}>

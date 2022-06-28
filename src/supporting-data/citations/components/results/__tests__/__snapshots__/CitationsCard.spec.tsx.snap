@@ -3,15 +3,8 @@
 exports[`CitationsCard tests should render the card component 1`] = `
 <DocumentFragment>
   <section
-    class="card card--has-link"
+    class="card"
   >
-    <a
-      aria-hidden="true"
-      class="card__link"
-      data-testid="background-link"
-      href="/citations/14702039"
-      tabindex="-1"
-    />
     <div
       class="card__container"
     >
@@ -47,7 +40,11 @@ exports[`CitationsCard tests should render the card component 1`] = `
                 <h2
                   class="publication__heading small"
                 >
-                  Complete sequencing and characterization of 21,243 full-length human cDNAs.
+                  <a
+                    href="/citations/14702039"
+                  >
+                    Complete sequencing and characterization of 21,243 full-length human cDNAs.
+                  </a>
                 </h2>
                 <div
                   class="publication__authors"
@@ -152,6 +149,10 @@ exports[`CitationsCard tests should render the card component 1`] = `
                         target="_blank"
                       >
                         PubMed
+                        <test-file-stub
+                          data-testid="external-link-icon"
+                          width="12.5"
+                        />
                       </a>
                     </li>
                     <li>
@@ -162,6 +163,10 @@ exports[`CitationsCard tests should render the card component 1`] = `
                         target="_blank"
                       >
                         Europe PMC
+                        <test-file-stub
+                          data-testid="external-link-icon"
+                          width="12.5"
+                        />
                       </a>
                     </li>
                     <li>
@@ -191,40 +196,48 @@ exports[`CitationsCard tests should render the card component 1`] = `
                 <div
                   class="publication__columns__side__item"
                 >
-                  <small>
-                    Mapped to
-                  </small>
                   <div
                     class="publication__statistics"
                   >
-                    <a
-                      href="/uniprotkb?facets=reviewed:true&query=(lit_citation_id:14702039)"
-                      title="UniProtKB reviewed entries: 32172"
+                    <div
+                      class="publication__statistics__content"
                     >
-                      <span
-                        class="bubble--small"
+                      <small>
+                        Cited in
+                      </small>
+                      <div
+                        class="publication__statistics__content__body"
                       >
-                        99+
-                      </span>
-                      <test-file-stub
-                        classname="publication__statistics--reviewed"
-                        height="1em"
-                      />
-                    </a>
-                    <a
-                      href="/uniprotkb?facets=reviewed:false&query=(lit_citation_id:14702039)"
-                      title="UniProtKB unreviewed entries: 2615"
-                    >
-                      <span
-                        class="bubble--small"
-                      >
-                        99+
-                      </span>
-                      <test-file-stub
-                        classname="publication__statistics--unreviewed"
-                        height="1em"
-                      />
-                    </a>
+                        <a
+                          href="/uniprotkb?facets=reviewed:true&query=(lit_citation_id:14702039)"
+                          title="UniProtKB reviewed entries: 32172"
+                        >
+                          <span
+                            class="bubble--small"
+                          >
+                            99+
+                          </span>
+                          <test-file-stub
+                            classname="publication__statistics__content__body--reviewed"
+                            height="1em"
+                          />
+                        </a>
+                        <a
+                          href="/uniprotkb?facets=reviewed:false&query=(lit_citation_id:14702039)"
+                          title="UniProtKB unreviewed entries: 2615"
+                        >
+                          <span
+                            class="bubble--small"
+                          >
+                            99+
+                          </span>
+                          <test-file-stub
+                            classname="publication__statistics__content__body--unreviewed"
+                            height="1em"
+                          />
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

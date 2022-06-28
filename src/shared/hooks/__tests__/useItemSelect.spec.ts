@@ -1,17 +1,21 @@
 import { waitFor } from '@testing-library/react';
-import { renderHook, act } from '@testing-library/react-hooks';
+import { act } from '@testing-library/react-hooks';
+
+import getCustomRenderHook from '../../__test-helpers__/customRenderHook';
 
 import useItemSelect from '../useItemSelect';
 
 describe('useItemSelect', () => {
+  const customRenderHook = getCustomRenderHook(() => useItemSelect());
+
   it('should return correct default selectedItems, setSelectedItemFromEvent', () => {
-    const { result } = renderHook(() => useItemSelect());
+    const { result } = customRenderHook();
     expect(result.current[0]).toEqual([]);
     expect(typeof result.current[1]).toBe('function');
   });
 
   it('should add and remove item', async () => {
-    const { result } = renderHook(() => useItemSelect());
+    const { result } = customRenderHook();
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.dataset.id = 'id1';

@@ -2,36 +2,53 @@
  * This tries to follow what is detailed here:
  * https://testing-library.com/docs/react-testing-library/setup#custom-render
  */
-import { ReactElement, Component } from 'react';
+import { ReactElement, Component, Dispatch } from 'react';
 import { Router, Route } from 'react-router-dom';
 import { createMemoryHistory, MemoryHistory, LocationState } from 'history';
-import { Provider as ReduxProvider } from 'react-redux';
-import { createStore, Store } from 'redux';
+import { HelmetProvider } from 'react-helmet-async';
 import { render, RenderOptions } from '@testing-library/react';
+
 import { SetRequired, JsonValue } from 'type-fest';
+
 import { getDatabaseInfoMaps } from '../../uniprotkb/utils/database';
 
-import rootReducer from '../../app/state/rootReducer';
-
-import { RootState } from '../../app/state/rootInitialState';
+import {
+  MessagesDispatchContext,
+  MessagesStateContext,
+} from '../contexts/Messages';
+import { ToolsDispatchContext, ToolsStateContext } from '../contexts/Tools';
 import { DatabaseInfoMapsContext } from '../contexts/DatabaseInfoMaps';
+
+import { MessagesState } from '../../messages/state/messagesInitialState';
+import { MessagesAction } from '../../messages/state/messagesReducers';
+import { ToolsState } from '../../tools/state/toolsInitialState';
+import { ToolsAction } from '../../tools/state/toolsReducers';
+
 import databaseInfo from '../../uniprotkb/utils/__tests__/__mocks__/databaseInfo';
 
 type ExtraRenderOptions = {
   // For react-router
   history?: MemoryHistory<LocationState>;
   path?: string;
-  /**
-   * For custom user preferences (used by useLocalStorage)
-   */
+  // For custom user preferences (used by useLocalStorage)
   initialLocalStorage?: Record<string, JsonValue>;
-  // For redux
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  store?: Store<RootState>;
+  // For app context
+  messagesState?: MessagesState;
+  messagesDispatch?: jest.Mock<Dispatch<MessagesAction>>;
+  toolsState?: ToolsState;
+  toolsDispatch?: jest.Mock<Dispatch<ToolsAction>>;
 };
 
 type WrapperProps = RenderOptions &
-  SetRequired<ExtraRenderOptions, 'history' | 'initialLocalStorage' | 'store'>;
+  SetRequired<
+    ExtraRenderOptions,
+    | 'history'
+    | 'initialLocalStorage'
+    | 'messagesState'
+    | 'messagesDispatch'
+    | 'toolsState'
+    | 'toolsDispatch'
+  >;
 
 const dbInfoMaps = getDatabaseInfoMaps(databaseInfo);
 
@@ -48,15 +65,35 @@ class Wrapper extends Component<WrapperProps> {
   }
 
   render() {
-    const { children, path, history, store } = this.props;
+    const {
+      children,
+      path,
+      history,
+      messagesDispatch,
+      messagesState,
+      toolsDispatch,
+      toolsState,
+    } = this.props;
     return (
-      <ReduxProvider store={store}>
-        <DatabaseInfoMapsContext.Provider value={dbInfoMaps}>
-          <Router history={history}>
-            {path ? <Route path={path} render={() => children} /> : children}
-          </Router>
-        </DatabaseInfoMapsContext.Provider>
-      </ReduxProvider>
+      <HelmetProvider>
+        <Router history={history}>
+          <MessagesDispatchContext.Provider value={messagesDispatch}>
+            <MessagesStateContext.Provider value={messagesState}>
+              <ToolsDispatchContext.Provider value={toolsDispatch}>
+                <ToolsStateContext.Provider value={toolsState}>
+                  <DatabaseInfoMapsContext.Provider value={dbInfoMaps}>
+                    {path ? (
+                      <Route path={path} render={() => children} />
+                    ) : (
+                      children
+                    )}
+                  </DatabaseInfoMapsContext.Provider>
+                </ToolsStateContext.Provider>
+              </ToolsDispatchContext.Provider>
+            </MessagesStateContext.Provider>
+          </MessagesDispatchContext.Provider>
+        </Router>
+      </HelmetProvider>
     );
   }
 }
@@ -68,14 +105,14 @@ const customRender = (
     path,
     history = createMemoryHistory({ initialEntries: [route] }),
     initialLocalStorage = {},
-    initialState,
-    store = createStore(rootReducer, initialState),
+    messagesState = {},
+    messagesDispatch = jest.fn(),
+    toolsState = {},
+    toolsDispatch = jest.fn(),
     ...options
   }: RenderOptions &
     ExtraRenderOptions & {
       route?: string;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      initialState?: any;
     } = {}
 ) => ({
   ...render(ui, {
@@ -84,14 +121,18 @@ const customRender = (
         path={path}
         history={history}
         initialLocalStorage={initialLocalStorage}
-        store={store}
+        messagesState={messagesState}
+        messagesDispatch={messagesDispatch}
+        toolsState={toolsState}
+        toolsDispatch={toolsDispatch}
         {...props}
       />
     ),
     ...options,
   }),
   history,
-  store,
+  messagesDispatch,
+  toolsDispatch,
 });
 
 export default customRender;

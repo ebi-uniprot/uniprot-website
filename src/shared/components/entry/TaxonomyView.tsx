@@ -1,7 +1,8 @@
-import { FC } from 'react';
-import { InfoList, ExternalLink, ExpandableList } from 'franklin-sites';
+import { FC, ReactNode } from 'react';
+import { InfoList, ExpandableList } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
+import ExternalLink from '../ExternalLink';
 import SimpleView from '../views/SimpleView';
 
 import externalUrls from '../../config/externalUrls';
@@ -87,7 +88,7 @@ export const TaxonomyListView: FC<{
   if (!data) {
     return null;
   }
-  const infoListData: { title: string; content: JSX.Element | string }[] = [];
+  const infoListData: { title: ReactNode; content: ReactNode }[] = [];
   if (data.scientificName && data.taxonId) {
     infoListData.push({
       title: 'Organism',
@@ -103,13 +104,15 @@ export const TaxonomyListView: FC<{
   }
   if (data.taxonId) {
     infoListData.push({
-      title: 'Taxonomic identifier',
+      title: (
+        <span data-article-id="taxonomic_identifier">Taxonomic identifier</span>
+      ),
       content: <TaxonomyId taxonId={data.taxonId} />,
     });
   }
   if (data.lineage) {
     infoListData.push({
-      title: 'Taxonomic lineage',
+      title: <span data-article-id="taxonomic_lineage">Taxonomic lineage</span>,
       content: <TaxonomyLineage lineage={data.lineage} />,
     });
   }

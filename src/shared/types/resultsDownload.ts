@@ -1,15 +1,16 @@
 export enum ContentType {
-  fasta = 'text/fasta',
-  tsv = 'text/tsv',
+  fasta = 'text/plain; format=fasta',
+  tsv = 'text/plain; format=tsv',
   excel = 'application/vnd.ms-excel',
   xml = 'application/xml',
   rdfXml = 'application/rdf+xml',
-  text = 'text/flatfile',
-  gff = 'text/gff',
-  list = 'text/list',
+  text = 'text/plain; format=flatfile',
+  gff = 'text/plain; format=gff',
+  list = 'text/plain; format=list',
   json = 'application/json',
-  obo = 'text/obo',
+  obo = 'text/plain; format=obo',
 }
+
 export enum FileFormat {
   fasta = 'FASTA',
   fastaCanonical = 'FASTA (canonical)',

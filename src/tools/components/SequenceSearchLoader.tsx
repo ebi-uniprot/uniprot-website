@@ -10,9 +10,9 @@ import {
 } from 'react';
 import queryString from 'query-string';
 import { SearchInput } from 'franklin-sites';
-import { useDispatch } from 'react-redux';
-import { v1 } from 'uuid';
+import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
 
+import { useMessagesDispatch } from '../../shared/contexts/Messages';
 import useDataApi from '../../shared/hooks/useDataApi';
 
 import { addMessage } from '../../messages/state/messagesActions';
@@ -34,6 +34,7 @@ import {
   getEntryTypeFromString,
   EntryType,
 } from '../../shared/components/entry/EntryTypeIcon';
+import { SearchResults } from '../../shared/types/results';
 
 const getURLForAccessionOrID = (input: string) => {
   const cleanedInput = input.trim().toUpperCase();
@@ -71,17 +72,7 @@ const nameFromEntry = (entry: APISequenceData) =>
       }|${entry.primaryAccession}|${entry.uniProtkbId}`
     : '';
 
-export type ParsedSequence = {
-  sequence: string;
-  raw: string;
-  header: string;
-  valid: boolean;
-  likelyType: 'na' | 'aa' | null;
-  message: string | null;
-  name?: string;
-};
-
-type NetworkResponses = { results: APISequenceData[] } | APISequenceData;
+type NetworkResponses = SearchResults<APISequenceData> | APISequenceData;
 
 export interface SequenceSearchLoaderInterface {
   reset: () => void;
@@ -89,12 +80,12 @@ export interface SequenceSearchLoaderInterface {
 
 const SequenceSearchLoader = forwardRef<
   SequenceSearchLoaderInterface,
-  { onLoad: (event: ParsedSequence[]) => void }
+  { onLoad: (event: SequenceObject[]) => void }
 >(({ onLoad }, ref) => {
   const [accessionOrID, setAccessionOrID] = useState('');
   // flag, abused to store previous value of the field
   const [pasteLoading, setPasteLoading] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useMessagesDispatch();
 
   useImperativeHandle(ref, () => ({
     reset: () => setAccessionOrID(''),
@@ -135,8 +126,7 @@ const SequenceSearchLoader = forwardRef<
           header: '',
           sequence: '',
           valid: false,
-          likelyType: null,
-          message: null,
+          name: '',
         },
       ]);
       return;
@@ -162,8 +152,6 @@ const SequenceSearchLoader = forwardRef<
         header: '',
         sequence: '',
         valid: true,
-        likelyType: null,
-        message: null,
         name: nameFromEntry(entry),
       },
     ]);
@@ -215,8 +203,6 @@ const SequenceSearchLoader = forwardRef<
               header: '',
               sequence: '',
               valid: true,
-              likelyType: null,
-              message: null,
               name: nameFromEntry(data),
             });
           } catch (_) {
@@ -227,7 +213,6 @@ const SequenceSearchLoader = forwardRef<
         if (errors.length) {
           dispatch(
             addMessage({
-              id: v1(),
               content: `There was an issue retrieving sequence data for: ${errors.join(
                 ', '
               )}`,

@@ -5,7 +5,6 @@ import TaxonomyView from '../../../../shared/components/entry/TaxonomyView';
 import RenderColumnsInCard from '../../../../shared/components/results/RenderColumnsInCard';
 import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';
 
-import { getEntryPath } from '../../../../app/config/urls';
 import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
 import { mapToLinks } from '../../../../shared/components/MapTo';
 
@@ -38,7 +37,6 @@ const TaxonomyCard = ({ data }: { data: TaxonomyAPIModel }) => {
         </>
       }
       headerSeparator={false}
-      to={getEntryPath(Namespace.taxonomy, id)}
       links={links}
     >
       <RenderColumnsInCard data={data} renderers={lineage} />

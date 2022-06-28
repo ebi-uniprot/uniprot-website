@@ -5,89 +5,26 @@ exports[`XRefView should render section 1`] = `
   <h3>
     Chemistry
   </h3>
-  <ul
-    class="info-list info-list--columns"
-  >
-    <li>
-      <div
-        class="decorated-list-item"
-      >
-        <div
-          class="decorated-list-item__title tiny"
-        >
-          EMBL
-        </div>
-        <div
-          class="decorated-list-item__content"
-        >
-          <ul
-            class="expandable-list no-bullet"
-          >
-            <li>
-              (
-              <a
-                class="external-link"
-                href="https://www.ebi.ac.uk/ena/data/view/1234"
-                rel="noopener"
-                target="_blank"
-              >
-                EMBL
-                <test-file-stub
-                  data-testid="external-link-icon"
-                  width="12.5"
-                />
-              </a>
-               | 
-              <a
-                class="external-link"
-                href="https://www.ncbi.nlm.nih.gov/protein/1234"
-                rel="noopener"
-                target="_blank"
-              >
-                GenBank
-                <test-file-stub
-                  data-testid="external-link-icon"
-                  width="12.5"
-                />
-              </a>
-               | 
-              <a
-                class="external-link"
-                href="http://getentry.ddbj.nig.ac.jp/getentry/dad/1234"
-                rel="noopener"
-                target="_blank"
-              >
-                DDBJ
-                <test-file-stub
-                  data-testid="external-link-icon"
-                  width="12.5"
-                />
-              </a>
-              ) 
-              <a
-                class="external-link"
-                href="//www.ebi.ac.uk/ena/data/view/1234"
-                rel="noopener"
-                target="_blank"
-              >
-                1234
-                <test-file-stub
-                  data-testid="external-link-icon"
-                  width="12.5"
-                />
-              </a>
-              [
-              <a
-                href="#ABCD"
-              >
-                ABCD
-              </a>
-              ]
-            </li>
-          </ul>
-        </div>
-      </div>
-    </li>
-  </ul>
+  <protvista-datatable>
+    <table>
+      <thead>
+        <tr>
+          <th>
+            Sequence
+          </th>
+          <th>
+            Protein
+          </th>
+          <th>
+            Molecule Type
+          </th>
+          <th>
+            Status
+          </th>
+        </tr>
+      </thead>
+      <tbody />
+    </table>
+  </protvista-datatable>
 </DocumentFragment>
 `;

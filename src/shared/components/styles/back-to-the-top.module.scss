@@ -1,0 +1,25 @@
+@import 'franklin-sites/src/styles/common/z-index';
+
+.button:global(.button) {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: $z-index-high + 3;
+  margin: 0;
+
+  pointer-events: none;
+
+  transform: translateY(2rem);
+  opacity: 0;
+
+  transition-duration: 0.25s;
+  transition-timing-function: ease-out;
+  transition-property: transform, opacity;
+
+  &.visible {
+    pointer-events: initial;
+
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

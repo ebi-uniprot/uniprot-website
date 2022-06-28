@@ -1,18 +1,14 @@
 import { Fragment, ReactNode, useState } from 'react';
-import {
-  InfoList,
-  Sequence,
-  ExternalLink,
-  Button,
-  LongNumber,
-} from 'franklin-sites';
+import { InfoList, Sequence, Button, LongNumber } from 'franklin-sites';
 import { Link, useHistory } from 'react-router-dom';
 
+import ExternalLink from '../ExternalLink';
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
 import FreeTextView from '../../../uniprotkb/components/protein-data-views/FreeTextView';
 import BlastButton from '../action-buttons/Blast';
 import AlignButton from '../action-buttons/Align';
 import AddToBasketButton from '../action-buttons/AddToBasket';
+import LazyComponent from '../LazyComponent';
 
 import useDataApi from '../../hooks/useDataApi';
 
@@ -81,7 +77,7 @@ export const SequenceInfo = ({
   const infoData = [
     {
       title: 'Length',
-      content: dataToDisplay && dataToDisplay.length,
+      content: dataToDisplay && <LongNumber>{dataToDisplay.length}</LongNumber>,
     },
     {
       title: 'Mass (Da)',
@@ -94,27 +90,36 @@ export const SequenceInfo = ({
       content: lastUpdateDate,
     },
     {
-      title: 'Checksum',
+      title: <span data-article-id="checksum">Checksum</span>,
       content: dataToDisplay && dataToDisplay.crc64,
     },
   ];
 
   return (
-    <Sequence
-      sequence={dataToDisplay?.value}
-      onShowSequence={() => setIsoformToFetch(isoformId)}
-      infoData={infoData}
-      accession={isoformId}
-      downloadUrl={apiUrls.sequenceFasta(isoformId)}
-      onBlastClick={() =>
-        history.push(LocationToPath[Location.Blast], {
-          parameters: { sequence: dataToDisplay?.value },
-        })
+    <LazyComponent
+      fallback={
+        <div className={styles['lazy-fallback']}>
+          {dataToDisplay?.value || null}
+        </div>
       }
-      addToBasketButton={<AddToBasketButton selectedEntries={isoformId} />}
-      isCollapsible={!openByDefault}
-      isLoading={loading}
-    />
+      rootMargin="50px"
+    >
+      <Sequence
+        sequence={dataToDisplay?.value}
+        onShowSequence={() => setIsoformToFetch(isoformId)}
+        infoData={infoData}
+        accession={isoformId}
+        downloadUrl={apiUrls.sequenceFasta(isoformId)}
+        onBlastClick={() =>
+          history.push(LocationToPath[Location.Blast], {
+            parameters: { sequence: dataToDisplay?.value },
+          })
+        }
+        addToBasketButton={<AddToBasketButton selectedEntries={isoformId} />}
+        isCollapsible={!openByDefault}
+        isLoading={loading}
+      />
+    </LazyComponent>
   );
 };
 
@@ -288,7 +293,7 @@ export const MassSpectrometryView = ({
   <>
     {data.map((item) => (
       <section className="text-block" key={`${item.molWeight}${item.method}`}>
-        {item.molecule && <h3>{item.molecule}</h3>}
+        {item.molecule && <h4>{item.molecule}</h4>}
         {`Molecular mass is `}
         <LongNumber>{item.molWeight}</LongNumber>
         {` Da. `}
@@ -362,7 +367,9 @@ export const IsoformView = ({
       <Fragment key="this entry describes...">
         {`This entry describes ${isIsoformPage ? 'one of the' : ''} `}
         <strong>{isoforms.length}</strong>
-        {` isoforms produced by `}
+        {` `}
+        <span data-article-id="alternative_products">isoforms</span>
+        {` produced by `}
         <strong>{events.join(' & ')}</strong>.{' '}
       </Fragment>
     );
@@ -421,21 +428,25 @@ export const IsoformView = ({
 };
 
 const SequenceView = ({ accession, data }: SequenceViewProps) => {
-  const sequenceInfoData = [
-    {
-      title: 'Sequence status',
-      content: data.status,
-    },
-    {
-      title: 'Sequence processing',
-      content: data.processing,
-    },
-  ];
-
   // Every entry should have a sequence
   if (!data.sequence) {
     return null;
   }
+
+  const sequenceInfoData = [
+    {
+      title: <span data-article-id="sequence_status">Sequence status</span>,
+      content: data.status,
+    },
+    {
+      title: (
+        <span data-article-id="sequence_processing">Sequence processing</span>
+      ),
+      content: data.processing,
+    },
+  ];
+
+  const infoListComponent = <InfoList infoData={sequenceInfoData} columns />;
 
   const canonicalComponent = (
     <SequenceInfo
@@ -446,12 +457,13 @@ const SequenceView = ({ accession, data }: SequenceViewProps) => {
     />
   );
 
-  if (!data.alternativeProducts && data.sequence) {
-    return canonicalComponent;
-  }
-
   if (!data.alternativeProducts) {
-    return null;
+    return (
+      <>
+        {infoListComponent}
+        {canonicalComponent}
+      </>
+    );
   }
 
   const allIsoformIds = data.alternativeProducts.isoforms
@@ -478,8 +490,7 @@ const SequenceView = ({ accession, data }: SequenceViewProps) => {
         />
         {/* Missing Add to basket */}
       </div>
-
-      <InfoList infoData={sequenceInfoData} columns />
+      {infoListComponent}
       <IsoformView
         alternativeProducts={data.alternativeProducts}
         canonicalComponent={canonicalComponent}

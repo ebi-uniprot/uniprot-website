@@ -43,7 +43,7 @@ const highlightToEntrySection: Record<
   },
   [highlightSection.variants]: {
     link: (_, taxId) => ({
-      hash: getEntrySectionNameAndId(EntrySection.DiseaseAndDrugs, taxId).id,
+      hash: getEntrySectionNameAndId(EntrySection.DiseaseVariants, taxId).id,
     }),
   },
   [highlightSection.activeSites]: {
@@ -57,7 +57,7 @@ const highlightToEntrySection: Record<
   },
   [highlightSection.disease]: {
     link: (_, taxId) => ({
-      hash: getEntrySectionNameAndId(EntrySection.DiseaseAndDrugs, taxId).id,
+      hash: getEntrySectionNameAndId(EntrySection.DiseaseVariants, taxId).id,
     }),
   },
   [highlightSection.interactions]: {

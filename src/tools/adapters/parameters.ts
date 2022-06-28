@@ -9,7 +9,6 @@ import {
 import { FormParameters } from '../types/toolsFormParameters';
 import { JobTypes } from '../types/toolsJobTypes';
 import { SelectedTaxon } from '../types/toolsFormData';
-import { ParsedSequence } from '../components/SequenceSearchLoader';
 
 const DEFAULT_EMAIL = 'uuw_dev@uniprot.org';
 
@@ -30,7 +29,7 @@ const stringifyTaxa = (taxa?: SelectedTaxon[]) =>
 
 const parseTaxa = (
   string = '',
-  taxonMapping: Map<string, string>
+  taxonMapping: Map<string, string> = new Map()
 ): SelectedTaxon[] => {
   const taxa = [];
   for (const taxid of string.split(',')) {
@@ -130,10 +129,9 @@ export function formParametersToServerParameters<T extends JobTypes>(
         spOnly,
       } = formParameters as FormParameters[JobTypes.PEPTIDE_SEARCH];
       serverParameters = {
-        peps: sequenceProcessor(peps)
-          .map(
-            (processedSequence: ParsedSequence) => processedSequence.sequence
-          )
+        // replace any white space with a FASTA comment line before processing
+        peps: sequenceProcessor(peps.split(/\s+/).join('\n>\n'))
+          .map((processedSequence) => processedSequence.sequence)
           .join(','),
         taxIds: stringifyTaxa(taxIds) || '',
         lEQi,
@@ -142,8 +140,9 @@ export function formParametersToServerParameters<T extends JobTypes>(
       } as ServerParameters[T];
       return new URLSearchParams(Object.entries(serverParameters));
     }
+    /* istanbul ignore next */
     default:
-    //
+      logging.warn(`Forgot to implement for ${type}`);
   }
 
   return objectToFormData(serverParameters as ServerParameters[T]);
@@ -217,13 +216,26 @@ export function serverParametersToFormParameters<T extends JobTypes>(
       }
       break;
     case JobTypes.ID_MAPPING:
-      logging.warn('Not implementable');
+      {
+        const { from, to, ids, taxId } =
+          serverParameters as PublicServerParameters[JobTypes.ID_MAPPING];
+
+        formParameters = {
+          from,
+          to,
+          ids: ids.split(','),
+          taxId, // TODO: check
+        } as FormParameters[T];
+      }
       break;
     case JobTypes.PEPTIDE_SEARCH:
-      logging.warn('Not implementable');
+      formParameters = {
+        ...(serverParameters as ServerParameters[JobTypes.PEPTIDE_SEARCH]),
+      } as FormParameters[T];
       break;
+    /* istanbul ignore next */
     default:
-    //
+      logging.warn(`Forgot to implement for ${type}`);
   }
 
   return formParameters as FormParameters[T];

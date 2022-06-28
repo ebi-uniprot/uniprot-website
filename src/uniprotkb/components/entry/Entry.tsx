@@ -1,18 +1,14 @@
-import { useMemo, useEffect, FC, Suspense } from 'react';
-import { useDispatch } from 'react-redux';
-import { Link, useRouteMatch, useHistory } from 'react-router-dom';
+import { useMemo, useEffect, Suspense } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { InPageNav, Loader, Tabs, Tab } from 'franklin-sites';
 import cn from 'classnames';
+import qs from 'query-string';
 import { frame } from 'timing-functions';
 
 import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
-import {
-  MessageLevel,
-  MessageFormat,
-  MessageTag,
-} from '../../../messages/types/messagesTypes';
+import ContactLink from '../../../contact/components/ContactLink';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
@@ -32,24 +28,25 @@ import CommunityAnnotationLink from './CommunityAnnotationLink';
 
 import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 
+import useDataApi from '../../../shared/hooks/useDataApi';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import { useMessagesDispatch } from '../../../shared/contexts/Messages';
+import useMatchWithRedirect from '../../../shared/hooks/useMatchWithRedirect';
+import useStructuredData from '../../../shared/hooks/useStructuredData';
+
+import dataToSchema from './entry.structured';
+
 import { addMessage } from '../../../messages/state/messagesActions';
 
 import { hasExternalLinks, getListOfIsoformAccessions } from '../../utils';
 import { hasContent } from '../../../shared/utils/utils';
 import lazy from '../../../shared/utils/lazy';
-import apiUrls from '../../../shared/config/apiUrls';
-import externalUrls from '../../../shared/config/externalUrls';
-
-import useDataApi from '../../../shared/hooks/useDataApi';
-import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
-import useStructuredData from '../../../shared/hooks/useStructuredData';
-
-import dataToSchema from './entry.structured';
 
 import uniProtKbConverter, {
   UniProtkbAPIModel,
 } from '../../adapters/uniProtkbConverter';
 import generatePageTitle from '../../adapters/generatePageTitle';
+import { subcellularLocationSectionHasContent } from './SubcellularLocationSection';
 
 import {
   LocationToPath,
@@ -61,6 +58,11 @@ import {
   searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
 import { EntryType } from '../../../shared/components/entry/EntryTypeIcon';
+import {
+  MessageLevel,
+  MessageFormat,
+  MessageTag,
+} from '../../../messages/types/messagesTypes';
 
 import helper from '../../../shared/styles/helper.module.scss';
 import sticky from '../../../shared/styles/sticky.module.scss';
@@ -73,6 +75,8 @@ export enum TabLocation {
   ExternalLinks = 'external-links',
   History = 'history',
 }
+
+const legacyToNewSubPages = { protvista: TabLocation.FeatureViewer };
 
 const FeatureViewer = lazy(
   () =>
@@ -100,26 +104,18 @@ const EntryHistory = lazy(
     import(/* webpackChunkName: "uniprotkb-entry-history" */ './EntryHistory')
 );
 
-const Entry: FC = () => {
-  const dispatch = useDispatch();
+const Entry = () => {
+  const dispatch = useMessagesDispatch();
   const history = useHistory();
-  const match = useRouteMatch<{ accession: string; subPage?: TabLocation }>(
-    LocationToPath[Location.UniProtKBEntry]
+  const match = useMatchWithRedirect<{
+    accession: string;
+    subPage?: TabLocation;
+  }>(
+    Location.UniProtKBEntry,
+    TabLocation,
+    TabLocation.Entry,
+    legacyToNewSubPages
   );
-
-  // if URL doesn't finish with "entry" redirect to /entry by default
-  useEffect(() => {
-    if (match && !match.params.subPage) {
-      history.replace({
-        ...history.location,
-        pathname: getEntryPath(
-          Namespace.uniprotkb,
-          match.params.accession,
-          TabLocation.Entry
-        ),
-      });
-    }
-  }, [match, history]);
 
   const { loading, data, status, error, redirectedTo, progress } =
     useDataApi<UniProtkbAPIModel>(
@@ -155,7 +151,14 @@ const Entry: FC = () => {
             disabled = !hasExternalLinks(transformedData);
             break;
           case EntrySection.SimilarProteins:
+          case EntrySection.DiseaseVariants:
+          case EntrySection.PhenotypesVariants:
             disabled = false;
+            break;
+          case EntrySection.SubCellularLocation:
+            disabled = !subcellularLocationSectionHasContent(
+              transformedData[EntrySection.SubCellularLocation]
+            );
             break;
           default:
             disabled = !hasContent(transformedData[nameAndId.id]);
@@ -186,7 +189,7 @@ const Entry: FC = () => {
       const newEntry = split[split.length - 1];
       dispatch(
         addMessage({
-          id: 'job-id',
+          id: 'accession-merge',
           content: (
             <>
               {match.params.accession} has been merged into {newEntry}. You have
@@ -206,8 +209,6 @@ const Entry: FC = () => {
           ),
           format: MessageFormat.IN_PAGE,
           level: MessageLevel.SUCCESS,
-          dateActive: Date.now(),
-          dateExpired: Date.now(),
           tag: MessageTag.REDIRECT,
         })
       );
@@ -258,6 +259,9 @@ const Entry: FC = () => {
     // if we're gonna redirect, show loading in the meantime
     (redirectedTo && match?.params.subPage !== TabLocation.History)
   ) {
+    if (error) {
+      return <ErrorHandler status={status} />;
+    }
     return <Loader progress={progress} />;
   }
 
@@ -360,15 +364,21 @@ const Entry: FC = () => {
                   Add a publication
                 </a>
                 {/* eslint-disable-next-line react/jsx-no-target-blank */}
-                <a
-                  href={`https://www.uniprot.org/update?entry=${match.params.accession}`}
+                <ContactLink
+                  to={{
+                    pathname: LocationToPath[Location.ContactUpdate],
+                    search: qs.stringify({
+                      entry: match.params.accession,
+                      entryType:
+                        transformedData?.entryType === EntryType.REVIEWED
+                          ? 'Reviewed (Swiss-Prot)'
+                          : 'Unreviewed (TrEMBL)',
+                    }),
+                  }}
                   className="button tertiary"
-                  target="_blank"
-                  rel="noopener"
-                  referrerPolicy="no-referrer-when-downgrade"
                 >
                   Entry feedback
-                </a>
+                </ContactLink>
               </div>
               <EntryMain transformedData={transformedData} />
             </>

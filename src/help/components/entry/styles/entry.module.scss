@@ -1,20 +1,33 @@
 @import 'franklin-sites/src/styles/colours';
 @import 'franklin-sites/src/styles/settings';
 
-.beta-message {
-  // right margin is to match the style of the card
-  margin: 1rem 1rem 0 0;
+.in-panel {
+  padding-block-start: $global-padding;
 }
 
-.content {
+.content *[id] {
+  scroll-margin-top: calc(var(--top-header-margin) + #{$global-margin * 0.5});
+}
+
+.content,
+.in-panel {
   table {
     border-spacing: 0;
-    border: 1px solid $colour-sea-blue;
+    overflow: auto;
+    display: block;
   }
 
   thead {
     color: $colour-sky-white;
     background: $colour-sea-blue;
+
+    a {
+      color: $colour-sky-white;
+    }
+  }
+
+  tbody {
+    border: 1px solid $colour-sea-blue;
   }
 
   th,
@@ -26,6 +39,29 @@
 
   code {
     background: $colour-platinum;
+  }
+
+  p,
+  pre {
+    margin-block-end: $global-margin;
+  }
+
+  /* copied from Franklin's CodeBlock component styles */
+  pre {
+    display: inline-block;
+    background: $colour-yankees-blue;
+    color: $white;
+    font-family: $code-font-family;
+    font-weight: $code-font-weight;
+    border: $code-border;
+    padding: $code-padding;
+
+    /* not copied from Franklin's CodeBlock component styles */
+    max-width: 100%;
+
+    & > code {
+      background: initial;
+    }
   }
 
   img {

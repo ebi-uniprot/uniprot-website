@@ -1,4 +1,4 @@
-import { Store } from 'redux';
+import { Dispatch, MutableRefObject } from 'react';
 
 import getSubmitJob from '../getSubmitJob';
 
@@ -16,15 +16,17 @@ import { ADD_MESSAGE } from '../../../messages/state/messagesActions';
 
 import { Location } from '../../../app/config/urls';
 
+import { ToolsAction } from '../toolsReducers';
+import { ToolsState } from '../toolsInitialState';
+import { MessagesAction } from '../../../messages/state/messagesReducers';
+
 let submitJob: ReturnType<typeof getSubmitJob>;
 
-const store: Store = {
-  getState: jest.fn(() => ({ tools: { [createdJob.internalID]: createdJob } })),
-  dispatch: jest.fn(),
-  subscribe: jest.fn(),
-  replaceReducer: jest.fn(),
-  [Symbol.observable]: jest.fn(),
+const dispatch: jest.Mock<Dispatch<ToolsAction>> = jest.fn();
+const stateRef: MutableRefObject<ToolsState> = {
+  current: { [createdJob.internalID]: createdJob },
 };
+const messagesDispatch: jest.Mock<Dispatch<MessagesAction>> = jest.fn();
 
 const serverUUID = 'ncbiblast-R20200522-953245-6299-98843150-p1m';
 
@@ -34,11 +36,12 @@ beforeAll(() => {
 });
 
 beforeEach(() => {
-  submitJob = getSubmitJob(store);
+  submitJob = getSubmitJob(dispatch, stateRef, messagesDispatch);
 });
 
 afterEach(() => {
-  (store.dispatch as jest.Mock).mockClear();
+  dispatch.mockClear();
+  messagesDispatch.mockClear();
 });
 
 describe('submitJob', () => {
@@ -52,7 +55,7 @@ describe('submitJob', () => {
       );
       await submitJob(createdJob);
 
-      expect(store.dispatch).toHaveBeenNthCalledWith(1, {
+      expect(dispatch).toHaveBeenCalledWith({
         payload: {
           id: createdJob.internalID,
           partialJob: {
@@ -64,7 +67,7 @@ describe('submitJob', () => {
         },
         type: UPDATE_JOB,
       });
-      expect(store.dispatch).toHaveBeenNthCalledWith(2, {
+      expect(messagesDispatch).toHaveBeenCalledWith({
         payload: {
           id: createdJob.internalID,
           content: 'Could not run job: Request failed with status code 500',
@@ -87,7 +90,7 @@ describe('submitJob', () => {
       );
       await submitJob(createdJob);
 
-      expect(store.dispatch).toHaveBeenNthCalledWith(1, {
+      expect(dispatch).toHaveBeenCalledWith({
         payload: {
           id: createdJob.internalID,
           partialJob: {
@@ -99,7 +102,7 @@ describe('submitJob', () => {
         },
         type: UPDATE_JOB,
       });
-      expect(store.dispatch).toHaveBeenNthCalledWith(2, {
+      expect(messagesDispatch).toHaveBeenCalledWith({
         payload: {
           id: createdJob.internalID,
           content: "Could not run job: The server didn't return a valid ID",
@@ -122,7 +125,8 @@ describe('submitJob', () => {
       );
       await submitJob({ ...createdJob, internalID: 'other id' });
 
-      expect(store.dispatch).not.toHaveBeenCalled();
+      expect(dispatch).not.toHaveBeenCalled();
+      expect(messagesDispatch).not.toHaveBeenCalled();
     });
   });
 
@@ -136,7 +140,7 @@ describe('submitJob', () => {
     );
     await submitJob(createdJob);
 
-    expect(store.dispatch).toHaveBeenCalledWith({
+    expect(dispatch).toHaveBeenCalledWith({
       payload: {
         id: createdJob.internalID,
         partialJob: {
@@ -148,5 +152,6 @@ describe('submitJob', () => {
       },
       type: UPDATE_JOB,
     });
+    expect(messagesDispatch).not.toHaveBeenCalled();
   });
 });

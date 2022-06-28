@@ -1,27 +1,20 @@
-import { FC } from 'react';
-import { Message } from 'franklin-sites';
+import MessageInHub from './MessageInHub';
 
 import { MessageType } from '../types/messagesTypes';
-import './styles/popup-message-hub.scss';
 
-const PopUpMessageHub: FC<{
+type Props = {
   messages: MessageType[];
-  onDismiss: (id: string) => void;
-}> = ({ messages, onDismiss }) => {
+};
+
+const PopUpMessageHub = ({ messages }: Props) => {
   if (messages.length === 0) {
     return null;
   }
 
   return (
     <div className="popup-message-container">
-      {messages.map((item) => (
-        <Message
-          level={item.level}
-          onDismiss={() => onDismiss(item.id)}
-          key={item.id}
-        >
-          {item.content}
-        </Message>
+      {messages.map((message) => (
+        <MessageInHub key={message.id} {...message} />
       ))}
     </div>
   );

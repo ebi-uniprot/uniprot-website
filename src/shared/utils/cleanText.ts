@@ -6,7 +6,7 @@ import deepFreeze from 'deep-freeze';
 import sanitizeHtml, { defaults, IOptions, Attributes } from 'sanitize-html';
 import styles from './styles/clean-text.module.scss';
 
-type HeadingLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'strong';
+export type HeadingLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'strong';
 const headingRegexp = /h(\d)/i;
 
 const getLowerHeadingLevel = (
@@ -63,7 +63,7 @@ export const cleanTextDefaultOptions = deepFreeze<IOptions>({
   allowedAttributes: {
     ...defaults.allowedAttributes,
     img: ['src', 'alt'],
-    '*': ['id'],
+    '*': ['id', 'style'],
   },
   transformTags: getTransformTags(),
 }) as IOptions;

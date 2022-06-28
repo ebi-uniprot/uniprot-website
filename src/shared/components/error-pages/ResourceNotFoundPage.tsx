@@ -1,15 +1,26 @@
+import { useEffect } from 'react';
 import { Redirect, useLocation } from 'react-router-dom';
+import { createPath } from 'history';
 import { Message } from 'franklin-sites';
 
 import HTMLHead from '../HTMLHead';
 import ErrorPage from './ErrorPage';
 
+import * as logging from '../../utils/logging';
+
 import { Namespace } from '../../types/namespaces';
 
 import ArtWork from './svgs/404.svg';
 
+type RedirectEntry = [pattern: RegExp, replacement: string];
+
+export const misspeltHelpTuple: RedirectEntry = [
+  /^\/(manual|faqs?|docs?|biocuration_project|program)(?<rest>\/.*)?$/i,
+  `/help$<rest>`,
+];
+
 // Regular expression magic incantations 🪄
-const redirectMap = new Map<RegExp, string>([
+const redirectMap = new Map<RedirectEntry[0], RedirectEntry[1]>([
   // main data
   [/^\/uniprot(?<rest>\/.*)?$/i, `/${Namespace.uniprotkb}$<rest>`],
   [/^\/unipark(?<rest>\/.*)?$/i, `/${Namespace.uniparc}$<rest>`],
@@ -36,26 +47,38 @@ const redirectMap = new Map<RegExp, string>([
   // TODO: check final URL for those
   [/^\/upload-?lists?(?<rest>\/.*)?$/i, `/id-mapping$<rest>`],
   // help
-  [/^\/(manual|faqs?|docs?)(?<rest>\/.*)?$/i, `/help$<rest>`],
-  [/^\/statistics$/i, `/help/release-statistics`],
-  [/^\/downloads$/i, `/help/downloads`],
+  misspeltHelpTuple,
+  // release notes
+  [/^\/(news|release-note)(?<rest>\/.*)?$/i, `/release-notes$<rest>`],
+  // other
+  [/^\/statistics?$/i, `/help/release-statistics`],
+  [/^\/downloads?$/i, `/help/downloads`],
 ]);
 
-// eslint-disable-next-line consistent-return
-export const redirectFromTo = (from: string) => {
-  for (const [pattern, replacement] of redirectMap.entries()) {
+export const redirectFromTo = (
+  from: string,
+  redirectEntries: Iterable<RedirectEntry> = redirectMap.entries()
+  // eslint-disable-next-line consistent-return
+) => {
+  for (const [pattern, replacement] of redirectEntries) {
     if (pattern.test(from)) {
       return from.replace(pattern, replacement);
     }
   }
 };
 
-const ErrorMessage = () => (
-  <Message level="failure">
-    <h4>Sorry, this page can&apos;t be found!</h4>
-    <span>Please check the address bar for any mistakes</span>
-  </Message>
-);
+const ErrorMessage = () => {
+  useEffect(() => {
+    logging.error('client-side 404');
+  }, []);
+
+  return (
+    <Message level="failure">
+      <h4>Sorry, this page can&apos;t be found!</h4>
+      <span>Please check the address bar for any mistakes</span>
+    </Message>
+  );
+};
 
 const ResourceNotFoundPage = () => {
   const location = useLocation();
@@ -67,7 +90,16 @@ const ResourceNotFoundPage = () => {
     if (location.state && typeof location.state === 'object') {
       state = { ...location.state, ...state };
     }
-    return <Redirect to={{ ...location, pathname: newPathname, state }} />;
+    const newLocation = { ...location, pathname: newPathname, state };
+    const newURL = document.location.origin + createPath(newLocation);
+    return (
+      <>
+        <HTMLHead>
+          <meta httpEquiv="refresh" content={`0; URL=${newURL}`} />
+        </HTMLHead>
+        <Redirect to={newLocation} />
+      </>
+    );
   }
 
   return (

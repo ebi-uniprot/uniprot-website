@@ -1,0 +1,16 @@
+.preview {
+  width: 100%;
+  display: inline-block;
+
+  :global(.codeblock) {
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 1px solid black;
+    code {
+      padding: 0.5rem;
+      height: 17.5rem;
+    }
+  }
+}

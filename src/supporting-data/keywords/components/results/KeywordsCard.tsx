@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { Card } from 'franklin-sites';
+import { Link } from 'react-router-dom';
 
 import RenderColumnsInCard from '../../../../shared/components/results/RenderColumnsInCard';
 import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';
@@ -33,11 +34,14 @@ const KeywordsCard = ({ data }: { data: KeywordsAPIModel }) => {
       header={
         <>
           <CardCheckboxCell id={id} />
-          <h2 className="small">{data.keyword.name}</h2>
+          <h2 className="small">
+            <Link to={getEntryPath(Namespace.keywords, id)}>
+              {data.keyword.name}
+            </Link>
+          </h2>
         </>
       }
       headerSeparator={false}
-      to={getEntryPath(Namespace.keywords, id)}
       links={links}
     >
       <div className={renderColumnsInCardStyles['result-card__info-container']}>

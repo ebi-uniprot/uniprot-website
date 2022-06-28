@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
+import { AxiosError } from 'axios';
 
 import usePrefetch from './usePrefetch';
+import useDataApi from './useDataApi';
+
+import getNextURLFromHeaders from '../utils/getNextURLFromHeaders';
 
 import { APIModel } from '../types/apiModel';
-import useDataApi from './useDataApi';
-import getNextURLFromHeaders from '../utils/getNextURLFromHeaders';
+import { SearchResults } from '../types/results';
 
 export type PaginatedResults = {
   allResults: APIModel[];
@@ -14,6 +17,8 @@ export type PaginatedResults = {
   handleLoadMoreRows: () => void;
   total?: number;
   failedIds?: string[];
+  error?: AxiosError<{ messages?: string[] }>;
+  status?: number | undefined;
 };
 
 const usePagination = <T extends APIModel, R extends APIModel>(
@@ -35,10 +40,11 @@ const usePagination = <T extends APIModel, R extends APIModel>(
     setUrl(initialApiUrl);
   }, [initialApiUrl]);
 
-  const { data, loading, progress, headers } = useDataApi<{
-    results: APIModel[];
-    failedIds?: string[];
-  }>(url);
+  const { data, loading, progress, headers, error, status } = useDataApi<
+    SearchResults<APIModel> & {
+      failedIds?: string[];
+    }
+  >(url);
 
   useEffect(() => {
     if (!data) {
@@ -46,7 +52,7 @@ const usePagination = <T extends APIModel, R extends APIModel>(
     }
     const { results } = data;
     const transformedResults = converter ? converter(results as T[]) : results;
-    const total: string | undefined = headers?.['x-total-records'];
+    const total: string | undefined = headers?.['x-total-results'];
     setAllResults((allRes) => [...allRes, ...transformedResults]);
     setMetaData(() => ({
       total: total ? parseInt(total, 10) : 0,
@@ -70,6 +76,8 @@ const usePagination = <T extends APIModel, R extends APIModel>(
     handleLoadMoreRows,
     total,
     failedIds: data?.failedIds,
+    error,
+    status,
   };
 };
 

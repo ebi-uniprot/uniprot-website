@@ -23,8 +23,9 @@ export type MessageType = {
   content: string | JSX.Element;
   format: MessageFormat;
   level: MessageLevel;
-  dateActive?: number;
-  dateExpired?: number;
+  // Length of time during which this message will be displayed
+  // short | medium | long
+  displayTime?: 5_000 | 15_000 | 30_000;
   tag?: MessageTag;
   locations?: Location[];
   omitAndDeleteAtLocations?: Location[];

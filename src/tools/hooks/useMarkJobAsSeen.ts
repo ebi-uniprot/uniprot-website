@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
-import { RootState } from '../../app/state/rootInitialState';
+
+import { useToolsState, useToolsDispatch } from '../../shared/contexts/Tools';
 
 import { updateJob } from '../state/toolsActions';
 
@@ -16,12 +16,16 @@ const useMarkJobAsSeen = (
   dataOrDataPresence: unknown,
   id?: FinishedJob<JobTypes>['remoteID']
 ) => {
-  const dispatch = useDispatch();
+  const tools = useToolsState();
+  const dispatch = useToolsDispatch();
   const location = useLocation<undefined | LocationStateFromJobLink>();
 
-  const jobs = useSelector<RootState, Array<FinishedJob<JobTypes>>>((state) => {
+  const jobs = useMemo(() => {
+    if (!tools) {
+      return [];
+    }
     if (location.state?.internalID) {
-      const job = state.tools[location.state.internalID];
+      const job = tools[location.state.internalID];
       if (job) {
         if (job.status === Status.FINISHED && !job.seen) {
           return [job];
@@ -29,11 +33,11 @@ const useMarkJobAsSeen = (
         return [];
       }
     }
-    return Object.values(state.tools).filter(
+    return Object.values(tools).filter(
       (job): job is FinishedJob<JobTypes> =>
         !job.seen && job.status === Status.FINISHED && job.remoteID === id
     );
-  });
+  }, [id, location, tools]);
 
   useEffect(() => {
     if (!id || !dataOrDataPresence || !jobs.length) {

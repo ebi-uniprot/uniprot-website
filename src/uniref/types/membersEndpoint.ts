@@ -1,10 +1,7 @@
-import { FacetObject } from '../../uniprotkb/types/responseTypes';
+import { SearchResults } from '../../shared/types/results';
 import { UniRefMember } from '../adapters/uniRefConverter';
 
-export type UniRefMembersResults = {
-  facets: FacetObject[];
-  results: UniRefMember[];
-};
+export type UniRefMembersResults = SearchResults<UniRefMember>;
 
 export const uniRefMembersFacets = [
   'member_id_type',

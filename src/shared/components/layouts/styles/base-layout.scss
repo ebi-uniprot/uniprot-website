@@ -11,7 +11,7 @@ $footer-peeking: 7em;
   align-items: stretch;
 
   header {
-    height: $header-height;
+    height: var(--top-header-margin);
     position: sticky;
     top: 0;
     width: 100%;
@@ -28,7 +28,7 @@ $footer-peeking: 7em;
 
   .main-content {
     flex: 1;
-    min-height: calc(100vh - #{$header-height} - #{$footer-peeking});
+    min-height: calc(100vh - var(--top-header-margin) - #{$footer-peeking});
   }
 
   .footer {

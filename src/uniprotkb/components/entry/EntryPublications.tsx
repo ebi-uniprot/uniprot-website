@@ -1,28 +1,26 @@
 import { FC, useState, useEffect, useMemo, Fragment } from 'react';
-import { useLocation } from 'react-router-dom';
-import {
-  Card,
-  Loader,
-  DataListWithLoader,
-  InfoList,
-  ExternalLink,
-} from 'franklin-sites';
+import { Link, useLocation } from 'react-router-dom';
+import { Card, Loader, DataListWithLoader, InfoList } from 'franklin-sites';
 import { Except, SetRequired, Simplify } from 'type-fest';
+import { groupBy, capitalize } from 'lodash-es';
 
+import ExternalLink from '../../../shared/components/ExternalLink';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import usePrefetch from '../../../shared/hooks/usePrefetch';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 import LiteratureCitation from '../../../supporting-data/citations/components/LiteratureCitation';
 
+import { addBlastLinksToFreeText } from '../../../shared/utils/utils';
 import getNextURLFromHeaders from '../../../shared/utils/getNextURLFromHeaders';
 import { getIdKeyFor } from '../../../shared/utils/getIdKeyForNamespace';
 import { getParamsFromURL } from '../../utils/resultsUtils';
 import { processUrlTemplate } from '../protein-data-views/XRefView';
 
-import { getEntryPath } from '../../../app/config/urls';
+import { Location, LocationToPath } from '../../../app/config/urls';
 import { getUniProtPublicationsQueryUrl } from '../../../shared/config/apiUrls';
 
 import {
@@ -30,13 +28,12 @@ import {
   Reference,
 } from '../../../supporting-data/citations/adapters/citationsConverter';
 import { Namespace } from '../../../shared/types/namespaces';
-import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
-import { addBlastLinksToFreeText } from '../../../shared/utils/utils';
+import { SearchResults } from '../../../shared/types/results';
 
-const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
-  reference,
-  accession,
-}) => {
+const PublicationReference: FC<{
+  reference: Reference;
+  accession: string;
+}> = ({ reference, accession }) => {
   const {
     referencePositions,
     referenceComments,
@@ -61,6 +58,8 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
     }
     return null;
   }, [databaseInfoMaps, source]);
+
+  const groupedReferenceComments = groupBy(referenceComments, 'type');
 
   const infoListData = [
     {
@@ -105,10 +104,35 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
           )
         ),
     },
-    {
-      title: 'Tissue',
-      content: referenceComments?.map(({ value }) => value).join(', '),
-    },
+    ...Object.entries(groupedReferenceComments).map(([type, comments]) => {
+      // Capitalise title
+      const title = capitalize(type);
+      return {
+        title,
+        content: (
+          <>
+            {comments.map((comment, i) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <Fragment key={i}>
+                {i > 0 && ', '}
+                {type === 'STRAIN' ? (
+                  <Link
+                    to={{
+                      pathname: LocationToPath[Location.UniProtKBResults],
+                      search: `query=strain:"${comment.value}"`,
+                    }}
+                  >
+                    {comment.value}
+                  </Link>
+                ) : (
+                  comment.value
+                )}
+              </Fragment>
+            ))}
+          </>
+        ),
+      };
+    }),
     {
       title: 'Annotation',
       // both mutually exclusive
@@ -141,8 +165,8 @@ const cardRendererFor =
     >
   ) =>
     (
-      <Card to={getEntryPath(Namespace.citations, getIdKey(data))}>
-        <LiteratureCitation data={data} headingLevel="h3">
+      <Card>
+        <LiteratureCitation data={data} headingLevel="h3" linkToEntry>
           {data.references.map((reference, index) => (
             <PublicationReference
               reference={reference}
@@ -163,7 +187,7 @@ const hasReference = (
 
 const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
   const { search } = useLocation();
-  const { selectedFacets } = getParamsFromURL(search);
+  const [{ selectedFacets }] = getParamsFromURL(search);
   const initialUrl = getUniProtPublicationsQueryUrl({
     accession,
     selectedFacets,
@@ -177,9 +201,8 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
   }>(() => ({ total: 0, nextUrl: undefined }));
   usePrefetch(metaData.nextUrl);
 
-  const { data, loading, status, error, headers } = useDataApi<{
-    results: CitationsAPIModel[];
-  }>(url);
+  const { data, loading, status, error, headers } =
+    useDataApi<SearchResults<CitationsAPIModel>>(url);
 
   const resultsWithReferences = useMemo(
     () => allResults.filter(hasReference),
@@ -199,7 +222,7 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
     const { results } = data;
     setAllResults((allRes) => [...allRes, ...results]);
     setMetaData(() => ({
-      total: +(headers?.['x-total-records'] || 0),
+      total: +(headers?.['x-total-results'] || 0),
       nextUrl: getNextURLFromHeaders(headers),
     }));
   }, [data, headers]);

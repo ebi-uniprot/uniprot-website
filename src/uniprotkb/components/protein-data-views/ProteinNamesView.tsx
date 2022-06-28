@@ -1,7 +1,8 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { InfoList, ExpandableList, ExternalLink } from 'franklin-sites';
+import { InfoList, ExpandableList } from 'franklin-sites';
 
+import ExternalLink from '../../../shared/components/ExternalLink';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
 import externalUrls from '../../../shared/config/externalUrls';
@@ -175,10 +176,14 @@ const getInfoListForNames = (name: ProteinNames, noEvidence: boolean) => {
   if (name.fullName) {
     infoData.push({
       title: 'Recommended name',
-      content: noEvidence ? (
-        <>{name.fullName.value}</>
-      ) : (
-        <NameWithEvidence data={name.fullName} />
+      content: (
+        <strong>
+          {noEvidence ? (
+            <>{name.fullName.value}</>
+          ) : (
+            <NameWithEvidence data={name.fullName} />
+          )}
+        </strong>
       ),
     });
   }
@@ -186,7 +191,11 @@ const getInfoListForNames = (name: ProteinNames, noEvidence: boolean) => {
     infoData.push({
       title: 'EC number',
       content: (
-        <ECNumbersView ecNumbers={name.ecNumbers} noEvidence={noEvidence} />
+        <ECNumbersView
+          ecNumbers={name.ecNumbers}
+          noEvidence={noEvidence}
+          orientation="vertical"
+        />
       ),
     });
   }
@@ -195,19 +204,17 @@ const getInfoListForNames = (name: ProteinNames, noEvidence: boolean) => {
       title: 'Short names',
       content: (
         <>
-          {name.shortNames.map(
-            (shortName, i): JSX.Element => (
-              // eslint-disable-next-line react/no-array-index-key
-              <Fragment key={i}>
-                {i > 0 && '; '}
-                {noEvidence ? (
-                  shortName.value
-                ) : (
-                  <NameWithEvidence data={shortName} />
-                )}
-              </Fragment>
-            )
-          )}
+          {name.shortNames.map((shortName, i) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <Fragment key={i}>
+              {i > 0 && '; '}
+              {noEvidence ? (
+                shortName.value
+              ) : (
+                <NameWithEvidence data={shortName} />
+              )}
+            </Fragment>
+          ))}
         </>
       ),
     });
@@ -239,11 +246,23 @@ const ProteinNamesView = ({
       content: (
         <ExpandableList descriptionString="alternative names">
           {proteinNames.alternativeNames.map((alternativeName, index) => (
-            <ProteinNamesViewFlat
+            <Fragment
               key={index} // eslint-disable-line react/no-array-index-key
-              names={alternativeName}
-              noEvidence={noEvidence}
-            />
+            >
+              <ProteinNamesViewFlat
+                names={alternativeName}
+                noEvidence={noEvidence}
+              />
+              {alternativeName.ecNumbers?.length ? (
+                <small>
+                  .{' '}
+                  <ECNumbersView
+                    ecNumbers={alternativeName.ecNumbers}
+                    noEvidence={noEvidence}
+                  />
+                </small>
+              ) : null}
+            </Fragment>
           ))}
         </ExpandableList>
       ),

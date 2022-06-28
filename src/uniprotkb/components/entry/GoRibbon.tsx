@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState, useRef, ReactNode } from 'react';
-import { ExternalLink, Loader } from 'franklin-sites';
-import { Helmet } from 'react-helmet';
+import { Loader } from 'franklin-sites';
+import { Helmet } from 'react-helmet-async';
 
+import ExternalLink from '../../../shared/components/ExternalLink';
 import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
 import GOTermEvidenceTag from '../protein-data-views/GOTermEvidenceTag';
 
@@ -63,7 +64,7 @@ const GoRibbon = ({
     'protvista-datatable'
   );
 
-  const [selectedSet, setSelectedSet] = useState('goslim_agr');
+  const [selectedSet, setSelectedSet] = useState('goslim_generic');
 
   // NOTE: loading is also available, do we want to do anything with it?
   const { loading, slimmedData, selectedSlimSet, slimSets } = useGOData(
@@ -188,7 +189,7 @@ const GoRibbon = ({
 
   return (
     <div className="GoRibbon">
-      <h3>GO Annotations</h3>
+      <h3 data-article-id="gene_ontology">GO Annotations</h3>
       <Helmet>
         <script
           type="module"
@@ -212,7 +213,7 @@ const GoRibbon = ({
       )}
       {elementLoaded && ribbon}
       {!!filteredGoTerms.length && (
-        <datatableElement.name>
+        <datatableElement.name filter-scroll>
           <table>
             <thead>
               <tr>

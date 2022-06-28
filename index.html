@@ -4,22 +4,24 @@
     <meta charset="utf-8" />
     <title>UniProt</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Prevent indexing while the website is not public ------------------------------>
-    <!-- This will have to be removed for production (configure in webpack) ------------>
-    <!-- also will have to visit https://support.google.com/webmasters/answer/9012289 -->
-    <meta name="robots" content="noindex" />
     <!-- theming, generated and adapted from https://realfavicongenerator.net/ -->
     <meta name="theme-color" content="#00639a" />
+    <!-- TODO!!! Remove after release -->
+    <meta name="robots" content="noindex" />
     <% if (!isLiveReload) { %>
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/manifest.json" />
-    <% } %> <% if (!isDev) { %>
+    <% } %> <% if (isDev) { %>
+    <!-- Prevent indexing when the website is not public ------------------------------>
+    <!-- also will have to visit https://support.google.com/webmasters/answer/9012289 to make sure things are OK after release -->
+    <meta name="robots" content="noindex" />
+    <% } else { %>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script
       async
-      src="https://www.googletagmanager.com/gtag/js?id=UA-6228219-2"
+      src="https://www.googletagmanager.com/gtag/js?id=UA-6228219-1"
     ></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -28,11 +30,15 @@
       }
       gtag('js', new Date());
 
-      gtag('config', 'UA-6228219-2', {
+      gtag('config', 'UA-6228219-1', {
         anonymize_ip: true,
         allow_google_signals: false,
         allow_ad_personalization_signals: false,
         restricted_data_processing: true,
+        custom_map: {
+          dimension1: 'result_view',
+          metric1: 'result_view_set',
+        },
       });
     </script>
     <!-- Hotjar Tracking Code for https://beta.uniprot.org -->

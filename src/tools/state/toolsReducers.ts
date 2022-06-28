@@ -16,6 +16,7 @@ export type ToolsAction = ActionType<typeof toolsActions>;
 const store = new JobStore(Stores.METADATA);
 
 const toolsReducers = (
+  // eslint-disable-next-line default-param-last
   state: ToolsState = toolsInitialState,
   action: ToolsAction
 ): ToolsState => {
@@ -23,7 +24,7 @@ const toolsReducers = (
     // rehydrate jobs
     case toolsActions.REHYDRATE_JOBS: {
       return {
-        ...state,
+        ...(state ?? {}),
         ...action.payload.jobs,
       };
     }
@@ -50,16 +51,19 @@ const toolsReducers = (
 
     // remove job
     case toolsActions.DELETE_JOB: {
+      if (!state) {
+        return state;
+      }
       const { [action.payload]: jobToRemove, ...newState } = state;
-
-      store.del(jobToRemove.internalID);
+      // Because these things happen async it might already be gone, check again
+      store.del(jobToRemove?.internalID);
 
       return newState;
     }
 
     // update job from internal ID and partial job info
     case toolsActions.UPDATE_JOB: {
-      const originalJob = state[action.payload.id];
+      const originalJob = state?.[action.payload.id];
       // in case we try to update a job that doesn't exist anymore, just bail
       if (!originalJob) {
         return state;

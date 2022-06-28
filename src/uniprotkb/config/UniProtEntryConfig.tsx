@@ -8,12 +8,12 @@ import SequenceSection from '../components/entry/SequenceSection';
 import InteractionSection from '../components/entry/InteractionSection';
 import FamilyAndDomainsSection from '../components/entry/FamilyAndDomainsSection';
 import StructureSection from '../components/entry/StructureSection';
+import SimilarProteinsSection from '../components/entry/similar-proteins/SimilarProteinsSection';
 
 import { UniProtkbUIModel } from '../adapters/uniProtkbConverter';
 import { FunctionUIModel } from '../adapters/functionConverter';
-import EntrySection from '../types/entrySection';
-import SimilarProteins from '../components/entry/similar-proteins/SimilarProteins';
 import { SubcellularLocationUIModel } from '../adapters/subcellularLocationConverter';
+import EntrySection from '../types/entrySection';
 
 const UniProtKBEntryConfig: {
   id: EntrySection;
@@ -53,14 +53,14 @@ const UniProtKBEntryConfig: {
     ),
   },
   {
-    id: EntrySection.DiseaseAndDrugs,
+    id: EntrySection.DiseaseVariants,
     sectionContent: (data) => (
       <DiseaseAndDrugsSection
-        data={data[EntrySection.DiseaseAndDrugs]}
+        data={data[EntrySection.DiseaseVariants]}
         primaryAccession={data.primaryAccession}
         sequence={data[EntrySection.Sequence].sequence.value}
         taxId={data[EntrySection.NamesAndTaxonomy].organismData?.taxonId}
-        key={EntrySection.DiseaseAndDrugs}
+        key={EntrySection.DiseaseVariants}
       />
     ),
   },
@@ -131,7 +131,7 @@ const UniProtKBEntryConfig: {
   {
     id: EntrySection.SimilarProteins,
     sectionContent: (data) => (
-      <SimilarProteins
+      <SimilarProteinsSection
         isoforms={data[EntrySection.SimilarProteins]}
         primaryAccession={data.primaryAccession}
         key={EntrySection.SimilarProteins}

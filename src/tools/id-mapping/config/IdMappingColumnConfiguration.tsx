@@ -1,4 +1,7 @@
-import { ExternalLink } from 'franklin-sites';
+import ExternalLink from '../../../shared/components/ExternalLink';
+
+import From from '../components/results/FromColumn';
+
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 import {
   MappingFlat,
@@ -22,7 +25,7 @@ export const IdMappingColumnConfiguration: ColumnConfiguration<
 
 export const fromColumnConfig = {
   label: 'From',
-  render: ({ from }: Partial<MappingFlat>) => from,
+  render: ({ from }: Partial<MappingFlat>) => <From from={from} />,
 };
 
 IdMappingColumnConfiguration.set(IDMappingColumn.from, fromColumnConfig);

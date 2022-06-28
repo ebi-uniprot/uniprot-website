@@ -153,6 +153,7 @@ export enum UniProtKBColumn {
   organismHosts = 'virus_hosts',
   xrefAbcd = 'xref_abcd',
   xrefAllergome = 'xref_allergome',
+  xrefAlphafolddb = 'xref_alphafolddb',
   xrefAntibodypedia = 'xref_antibodypedia',
   xrefArachnoserver = 'xref_arachnoserver',
   xrefAraport = 'xref_araport',
@@ -211,7 +212,6 @@ export enum UniProtKBColumn {
   xrefFlybase = 'xref_flybase',
   xrefGene3D = 'xref_gene3d',
   xrefGenecards = 'xref_genecards',
-  xrefGenedb = 'xref_genedb',
   xrefGeneid = 'xref_geneid',
   xrefGenereviews = 'xref_genereviews',
   xrefGenetree = 'xref_genetree',
@@ -240,6 +240,7 @@ export enum UniProtKBColumn {
   xrefLeproma = 'xref_leproma',
   xrefMaizegdb = 'xref_maizegdb',
   xrefMalacards = 'xref_malacards',
+  xrefManeSelect = 'xref_mane-select',
   xrefMassive = 'xref_massive',
   xrefMaxqb = 'xref_maxqb',
   xrefMetosite = 'xref_metosite',
@@ -317,11 +318,13 @@ export enum UniProtKBColumn {
   xrefVectorbase = 'xref_vectorbase',
   xrefVgnc = 'xref_vgnc',
   xrefWbparasite = 'xref_wbparasite',
+  xrefWbparasitetranscriptprotein = 'xref_wbparasitetranscriptprotein',
   xrefWorld2Dpage = 'xref_world-2dpage',
   xrefWormbase = 'xref_wormbase',
   xrefXenbase = 'xref_xenbase',
   xrefZfin = 'xref_zfin',
   from = 'from', // id mapping
+  match = 'match', // peptide search
 }
 
 export type SortableColumn =

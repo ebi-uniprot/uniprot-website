@@ -18,7 +18,7 @@ describe('Messages reducer', () => {
   let state: MessagesState;
   let message: MessageType;
   beforeEach(() => {
-    state = { active: [], deleted: {} };
+    state = {};
     message = {
       id: 'job-id',
       content: 'job message',
@@ -27,42 +27,36 @@ describe('Messages reducer', () => {
     };
   });
 
-  test('should add message', () => {
+  it('should add message', () => {
     const action = addMessage(message);
     expect(messagesReducers(state, action)).toEqual({
-      active: [message],
-      deleted: {},
+      [message.id]: message,
     });
   });
 
-  test('should not add message if it has already expired', () => {
-    message = {
-      ...message,
-      dateExpired: dateNow - 1,
-    };
-    const action = addMessage(message);
-    expect(messagesReducers(state, action)).toEqual(state);
+  it('should add id-less messages', () => {
+    const { id: _id, ...idLessMessage } = message;
+    // Add messages twice
+    const finalState = messagesReducers(
+      messagesReducers(state, addMessage(idLessMessage)),
+      addMessage(idLessMessage)
+    );
+    expect(Object.keys(finalState)).toHaveLength(2);
   });
 
-  test('should not add message if it is not active yet', () => {
-    message = {
-      ...message,
-      dateActive: dateNow + 1,
-    };
-    const action = addMessage(message);
-    expect(messagesReducers(state, action)).toEqual(state);
-  });
-
-  test('should delete message', () => {
-    const { id } = message;
+  it('should delete message', () => {
     state = {
-      ...state,
-      active: [message],
+      [message.id]: message,
     };
-    const action = deleteMessage(id);
-    expect(messagesReducers(state, action)).toEqual({
-      active: [],
-      deleted: { [id]: true },
-    });
+    const action = deleteMessage(message.id);
+    expect(messagesReducers(state, action)).toEqual({});
+  });
+
+  it('should try to delete a message, even if it is not there already', () => {
+    state = {
+      'other-id': { ...message, id: 'other-id' },
+    };
+    const action = deleteMessage(message.id);
+    expect(messagesReducers(state, action)).toEqual(state);
   });
 });

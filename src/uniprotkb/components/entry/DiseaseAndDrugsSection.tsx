@@ -1,7 +1,8 @@
+import { lazy } from 'react';
 import { Card } from 'franklin-sites';
 
+import LazyComponent from '../../../shared/components/LazyComponent';
 import XRefView from '../protein-data-views/XRefView';
-import VariationView from '../protein-data-views/VariationView';
 import FreeTextView from '../protein-data-views/FreeTextView';
 import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import DiseaseInvolvementView from '../protein-data-views/DiseaseInvolvementView';
@@ -10,10 +11,16 @@ import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
 
-import { hasContent } from '../../../shared/utils/utils';
 import { UIModel } from '../../adapters/sectionConverter';
 
 import { DiseaseComment, FreeTextComment } from '../../types/commentTypes';
+
+const VariationView = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "variation-view" */ '../protein-data-views/VariationView'
+    )
+);
 
 type Props = {
   data: UIModel;
@@ -28,16 +35,18 @@ const DiseaseAndDrugsSection = ({
   sequence,
   taxId,
 }: Props) => {
-  if (!hasContent(data)) {
-    return null;
-  }
+  // NOTE: do not check if content is there or not, always display because of variants
   const nameAndId = getEntrySectionNameAndId(
-    EntrySection.DiseaseAndDrugs,
+    EntrySection.DiseaseVariants,
     taxId
   );
   return (
     <Card
-      header={<h2>{nameAndId.name}</h2>}
+      header={
+        <h2 data-article-id="pathology_and_biotech_section">
+          {nameAndId.name}
+        </h2>
+      }
       id={nameAndId.id}
       data-entry-section
     >
@@ -81,7 +90,9 @@ const DiseaseAndDrugsSection = ({
         features={data.featuresData}
         sequence={sequence}
       />
-      <VariationView primaryAccession={primaryAccession} title="Variants" />
+      <LazyComponent fallback="Variants" rootMargin="50px">
+        <VariationView primaryAccession={primaryAccession} title="Variants" />
+      </LazyComponent>
       <KeywordView keywords={data.keywordData} />
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
     </Card>

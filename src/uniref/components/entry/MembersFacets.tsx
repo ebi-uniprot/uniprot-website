@@ -16,7 +16,7 @@ import helper from '../../../shared/styles/helper.module.scss';
 
 const MembersFacet = memo<{ accession: string }>(({ accession }) => {
   const { search } = useLocation();
-  const { selectedFacets } = getParamsFromURL(search);
+  const [{ selectedFacets }] = getParamsFromURL(search);
 
   const selectedFacetsStrings = selectedFacets.map(
     (facet) => `${facet.name}:${facet.value}`

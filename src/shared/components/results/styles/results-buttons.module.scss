@@ -1,0 +1,51 @@
+@import 'franklin-sites/src/styles/common/z-index';
+@import 'franklin-sites/src/styles/colours';
+@import '../../../styles/settings';
+
+.results-buttons {
+  padding-right: $gutter-size;
+  padding-left: calc(2 * #{$gutter-size});
+  margin-left: -$gutter-size;
+  padding-top: 0.5rem;
+  z-index: $z-index-medium;
+  background-color: $colour-sky-white;
+  height: $action-buttons-height;
+  position: sticky;
+  top: var(--top-header-margin);
+
+  :global(.sliding-panel) & {
+    top: 0;
+  }
+
+  // Makes sure that on small screens the end doesn't wrap
+  flex-wrap: nowrap;
+  white-space: nowrap;
+
+  & [role='radiogroup'] {
+    margin-inline-end: 1ch;
+
+    & label {
+      display: inline-block;
+      margin-inline-start: 1ch;
+      // override foundation style
+      font-size: 1rem;
+    }
+
+    & input {
+      margin: 0 0.2ch;
+      vertical-align: middle;
+    }
+  }
+
+  & > span,
+  & > div {
+    // any plain text needs to be aligned with the buttons
+    line-height: 1.9;
+  }
+
+  &__toggle {
+    &--active {
+      color: $colour-platinum;
+    }
+  }
+}

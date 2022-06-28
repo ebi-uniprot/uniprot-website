@@ -1,6 +1,9 @@
 import { FileFormat, ContentType } from '../types/resultsDownload';
 
-import { fileFormatsResultsDownload as fileFormatsResultsDownloadUniProtKB } from '../../uniprotkb/config/download';
+import {
+  fileFormatsResultsDownload as fileFormatsResultsDownloadUniProtKB,
+  fileFormatHistoryDownload as fileFormatsResultsDownloadUniSave,
+} from '../../uniprotkb/config/download';
 import { fileFormatsResultsDownload as fileFormatsResultsDownloadUniRef } from '../../uniref/config/download';
 import { fileFormatsResultsDownload as fileFormatsResultsDownloadUniParc } from '../../uniparc/config/download';
 import { fileFormatsResultsDownload as fileFormatsResultsDownloadProteomes } from '../../proteomes/config/download';
@@ -48,7 +51,10 @@ export const fileFormatToUrlParameter: Record<FileFormat, string> = {
   [FileFormat.obo]: 'obo',
 };
 
-export const fileFormatsWithColumns = [FileFormat.tsv, FileFormat.excel];
+export const fileFormatsWithColumns = new Set([
+  FileFormat.tsv,
+  FileFormat.excel,
+]);
 
 export const nsToFileFormatsResultsDownload: Record<Namespace, FileFormat[]> = {
   [Namespace.uniprotkb]: fileFormatsResultsDownloadUniProtKB,
@@ -64,4 +70,5 @@ export const nsToFileFormatsResultsDownload: Record<Namespace, FileFormat[]> = {
   [Namespace.unirule]: fileFormatsResultsDownloadUniRule,
   [Namespace.arba]: fileFormatsResultsDownloadARBA,
   [Namespace.idmapping]: fileFormatsResultsDownloadIDMapping,
+  [Namespace.unisave]: fileFormatsResultsDownloadUniSave,
 };

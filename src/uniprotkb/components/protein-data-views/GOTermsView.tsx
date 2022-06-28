@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
-import { ExpandableList, ExternalLink } from 'franklin-sites';
+import { ExpandableList } from 'franklin-sites';
 
+import ExternalLink from '../../../shared/components/ExternalLink';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
 import externalUrls from '../../../shared/config/externalUrls';

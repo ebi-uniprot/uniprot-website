@@ -1,13 +1,9 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { uniqBy } from 'lodash-es';
-import {
-  ExpandableList,
-  ExternalLink,
-  LongNumber,
-  Sequence,
-} from 'franklin-sites';
+import { ExpandableList, LongNumber, Sequence } from 'franklin-sites';
 
+import ExternalLink from '../../shared/components/ExternalLink';
 import { EntryTypeIcon } from '../../shared/components/entry/EntryTypeIcon';
 import AccessionView from '../../shared/components/results/AccessionView';
 import TaxonomyView from '../../shared/components/entry/TaxonomyView';
@@ -27,6 +23,7 @@ import {
   UniParcAPIModel,
   UniParcXRef,
 } from '../adapters/uniParcConverter';
+import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
 
 export enum UniParcColumn {
   // Names & taxonomy
@@ -114,14 +111,18 @@ const familyAndDomainRenderer =
 
 // COLUMN RENDERERS BELOW
 UniParcColumnConfiguration.set(UniParcColumn.upi, {
-  label: 'Entry',
+  ...getLabelAndTooltip('Entry', 'Unique and stable entry identifier'),
   render: ({ uniParcId }) => (
     <AccessionView id={uniParcId} namespace={Namespace.uniparc} />
   ),
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.gene, {
-  label: 'Gene names',
+  ...getLabelAndTooltip(
+    'Gene Names',
+    'Name(s) of the gene(s) encoding the protein',
+    'gene_name'
+  ),
   render: (data) => (
     <ExpandableList descriptionString="gene names" displayNumberOfHiddenItems>
       {xrefGetter(data, 'geneName')}
@@ -130,7 +131,11 @@ UniParcColumnConfiguration.set(UniParcColumn.gene, {
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.organismID, {
-  label: 'Organism IDs',
+  ...getLabelAndTooltip(
+    'Organism IDs',
+    'NCBI taxonomy identifiers of the source organisms ',
+    'taxonomic_identifier'
+  ),
   render: (data) => (
     <ExpandableList descriptionString="organisms" displayNumberOfHiddenItems>
       {xrefGetter(data, 'organism', 'taxonId')?.map((taxon) => (
@@ -141,7 +146,11 @@ UniParcColumnConfiguration.set(UniParcColumn.organismID, {
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.organism, {
-  label: 'Organisms',
+  ...getLabelAndTooltip(
+    'Organisms',
+    'Scientific name (and synonyms) of the source organism',
+    'organism-name'
+  ),
   render: (data) => (
     <ExpandableList descriptionString="organisms" displayNumberOfHiddenItems>
       {xrefGetter(data, 'organism', 'taxonId')?.map((taxon) => (
@@ -152,7 +161,11 @@ UniParcColumnConfiguration.set(UniParcColumn.organism, {
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.protein, {
-  label: 'Protein names',
+  ...getLabelAndTooltip(
+    'Protein Names',
+    'Name(s) and synonym(s) of the protein',
+    'protein_names'
+  ),
   render: (data) => (
     <ExpandableList
       descriptionString="protein names"
@@ -166,7 +179,10 @@ UniParcColumnConfiguration.set(UniParcColumn.protein, {
 type XRefWithProteomeId = UniParcXRef &
   Required<Pick<UniParcXRef, 'proteomeId'>>;
 UniParcColumnConfiguration.set(UniParcColumn.proteome, {
-  label: 'Proteomes',
+  ...getLabelAndTooltip(
+    'Proteomes',
+    'Unique proteome identifier(s) and component(s)'
+  ),
   render: ({ uniParcCrossReferences }) => (
     <ExpandableList descriptionString="proteomes" displayNumberOfHiddenItems>
       {uniqBy(
@@ -187,17 +203,17 @@ UniParcColumnConfiguration.set(UniParcColumn.proteome, {
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.checksum, {
-  label: 'Checksum',
+  ...getLabelAndTooltip('Checksum', 'Cyclic redundancy check value (CRC64)'),
   render: ({ sequence: { crc64 } }) => crc64,
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.length, {
-  label: 'Length',
+  ...getLabelAndTooltip('Length', 'Sequence length'),
   render: ({ sequence: { length } }) => <LongNumber>{length}</LongNumber>,
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.sequence, {
-  label: 'Sequence',
+  ...getLabelAndTooltip('Sequence', 'Amino acid sequence'),
   render: ({ sequence }) => (
     <Sequence sequence={sequence.value} showActionBar={false} />
   ),
@@ -206,7 +222,10 @@ UniParcColumnConfiguration.set(UniParcColumn.sequence, {
 type XRefWithDatabase = UniParcXRef &
   Required<Pick<UniParcXRef, 'database' | 'id'>>;
 UniParcColumnConfiguration.set(UniParcColumn.accession, {
-  label: 'UniProtKB',
+  ...getLabelAndTooltip(
+    'UniProtKB',
+    'UniProtKB entries describing this protein'
+  ),
   render: ({ uniParcCrossReferences }) => (
     <ExpandableList descriptionString="entries" displayNumberOfHiddenItems>
       {uniParcCrossReferences
@@ -230,7 +249,10 @@ UniParcColumnConfiguration.set(UniParcColumn.accession, {
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.firstSeen, {
-  label: 'First seen',
+  ...getLabelAndTooltip(
+    'First seen',
+    'Date when source database entry was associated with this sequence for the first time'
+  ),
   render(data) {
     // TODO: use `xref.oldestCrossRefCreated` whenever returned by backend
     const created = xrefGetter(data, 'created');
@@ -245,7 +267,10 @@ UniParcColumnConfiguration.set(UniParcColumn.firstSeen, {
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.lastSeen, {
-  label: 'Last seen',
+  ...getLabelAndTooltip(
+    'Last seen',
+    'Date when source database entry was last confirmed to be associated with this sequence'
+  ),
   render(data) {
     // TODO: use `xref.mostRecentCrossRefUpdated` whenever returned by backend
     const lastUpdated = xrefGetter(data, 'lastUpdated');

@@ -1,0 +1,12 @@
+@import 'franklin-sites/src/styles/colours';
+@import 'franklin-sites/src/styles/settings';
+
+.container {
+  padding-block-start: $global-padding;
+}
+
+.paragraph {
+  margin-block: 0.5 * $global-margin $global-margin;
+  padding-inline-start: 0.5 * $global-padding;
+  border-inline-start: 0.125rem solid $colour-gainsborough;
+}

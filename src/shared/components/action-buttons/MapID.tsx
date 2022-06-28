@@ -1,6 +1,8 @@
 import { Button } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 
+import { fromCleanMapper } from '../../utils/getIdKeyForNamespace';
+
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { Namespace } from '../../types/namespaces';
 
@@ -15,7 +17,11 @@ type MapIDButtonProps = {
 const MapIDButton = ({ selectedEntries, namespace }: MapIDButtonProps) => {
   const history = useHistory();
 
-  const n = selectedEntries.length;
+  const cleanedSelectedEntries = Array.from(
+    new Set(selectedEntries.map(fromCleanMapper))
+  );
+
+  const n = cleanedSelectedEntries.length;
 
   const disabled = !n || n > MAPID_LIMIT;
 
@@ -33,7 +39,7 @@ const MapIDButton = ({ selectedEntries, namespace }: MapIDButtonProps) => {
   let from = 'UniProtKB_AC-ID';
   let to = 'UniRef90';
   if (namespace === Namespace.uniref) {
-    from = selectedEntries[0]?.split('_')[0];
+    from = cleanedSelectedEntries[0]?.split('_')[0];
     to = 'UniProtKB';
   } else if (namespace === Namespace.uniparc) {
     from = 'UniParc';
@@ -41,7 +47,7 @@ const MapIDButton = ({ selectedEntries, namespace }: MapIDButtonProps) => {
 
   const handleClick = () => {
     history.push(LocationToPath[Location.IDMapping], {
-      parameters: { ids: selectedEntries, from, to },
+      parameters: { ids: cleanedSelectedEntries, from, to },
     });
   };
 

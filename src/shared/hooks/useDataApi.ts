@@ -1,7 +1,7 @@
-import { useEffect, useReducer } from 'react';
+import { useEffect, useReducer, useRef } from 'react';
 import axios, { AxiosResponse, AxiosError, AxiosRequestConfig } from 'axios';
-import { v1 } from 'uuid';
-import { useDispatch } from 'react-redux';
+
+import { useMessagesDispatch } from '../contexts/Messages';
 
 import fetchData from '../utils/fetchData';
 import { addMessage } from '../../messages/state/messagesActions';
@@ -124,7 +124,14 @@ function useDataApi<T>(
   options?: AxiosRequestConfig
 ): UseDataAPIState<T> {
   const [state, dispatch] = useReducer(createReducer<T>(), { loading: !!url });
-  const reduxDispatch = useDispatch();
+  const messagesDispatch = useMessagesDispatch();
+  const optionsRef = useRef(options);
+
+  useEffect(() => {
+    if (options !== optionsRef.current) {
+      optionsRef.current = options;
+    }
+  }, [options]);
 
   useEffect(() => {
     // need this variable to ensure state updates don't occur when cancelled/unmounted
@@ -146,10 +153,10 @@ function useDataApi<T>(
     // to keep track of the last time we dispatched a progress action
     let lastProgressDate: number;
     // actual request
-    fetchData<T>(url, undefined, source.token, {
-      ...options,
+    fetchData<T>(url, source.token, {
+      ...optionsRef.current,
       onDownloadProgress: (progressEvent: ProgressEvent) => {
-        options?.onDownloadProgress?.(progressEvent);
+        optionsRef.current?.onDownloadProgress?.(progressEvent);
         if (
           didCancel ||
           !progressEvent.lengthComputable ||
@@ -188,17 +195,10 @@ function useDataApi<T>(
           return;
         }
         // Ignore 404 because it might mean "valid request but no data"
-        if (error.response?.status === 404) {
-          dispatch({
-            type: ActionType.SUCCESS,
-            response: error.response,
-            originalURL: url,
-            progress: 1,
-          });
-        } else {
+        if (error.response?.status !== 404) {
           logging.error(error, { tags: { origin: 'useDataApi', url } });
-          dispatch({ type: ActionType.ERROR, error });
         }
+        dispatch({ type: ActionType.ERROR, error });
       }
     );
 
@@ -208,7 +208,7 @@ function useDataApi<T>(
       source.cancel();
       didCancel = true;
     };
-  }, [url, options]);
+  }, [url, optionsRef]);
 
   useEffect(() => {
     // TODO: when refactoring, accept a onError callback to do this from outside
@@ -251,17 +251,19 @@ function useDataApi<T>(
       } catch {
         /**/
       }
-      reduxDispatch(
+      const messageContent =
+        state.error?.response?.data?.messages?.join(',') || '400 Error';
+      messagesDispatch(
         addMessage({
-          id: v1(),
-          content:
-            state.error?.response?.data?.messages?.join(',') || '400 Error',
+          id: messageContent,
+          content: messageContent,
           format: MessageFormat.POP_UP,
           level: MessageLevel.FAILURE,
+          displayTime: 5_000,
         })
       );
     }
-  }, [reduxDispatch, state.status, state.error, state.url]);
+  }, [messagesDispatch, state.status, state.error, state.url]);
 
   // when changing the URL, the state is set asynchronously, this is to set it
   // to loading synchronously to avoid using previous data

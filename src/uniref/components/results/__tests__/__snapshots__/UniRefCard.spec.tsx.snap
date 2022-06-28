@@ -3,15 +3,8 @@
 exports[`UniRefCard tests should render and match snapshot 1`] = `
 <DocumentFragment>
   <section
-    class="card card--has-link"
+    class="card"
   >
-    <a
-      aria-hidden="true"
-      class="card__link"
-      data-testid="background-link"
-      href="/uniref/UniRef100_A0A0B7GQ86"
-      tabindex="-1"
-    />
     <div
       class="card__container"
     >
@@ -35,17 +28,21 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
         <h2
           class="small"
         >
-          <span
-            class="entry-title"
+          <a
+            href="/uniref/UniRef100_A0A0B7GQ86"
           >
             <span
-              class="entry-title__status icon--unreviewed"
-              title="This marks an unreviewed UniProtKB entry"
+              class="entry-title"
             >
-              <test-file-stub />
+              <span
+                class="entry-title__status icon--unreviewed"
+                title="This marks an unreviewed UniProtKB entry"
+              >
+                <test-file-stub />
+              </span>
+              UniRef100_A0A0B7GQ86
             </span>
-            UniRef100_A0A0B7GQ86
-          </span>
+          </a>
         </h2>
       </div>
       <div
@@ -58,7 +55,10 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
             class="result-card__info-bit"
           >
             <strong>
-              Cluster name: 
+              <span>
+                Cluster name
+              </span>
+              : 
             </strong>
             Cluster: PTS system glucose-specific EIICBA component [includes: glucose permease IIC component glucose-specific phosphotransferase enzyme IIB component glucose-specific phosphotransferase enzyme IIA compon...
           </span>
@@ -66,7 +66,10 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
             class="result-card__info-bit"
           >
             <strong>
-              Size: 
+              <span>
+                Size
+              </span>
+              : 
             </strong>
             1 member
           </span>
@@ -74,7 +77,10 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
             class="result-card__info-bit"
           >
             <strong>
-              Length: 
+              <span>
+                Length
+              </span>
+              : 
             </strong>
             730
           </span>
@@ -82,7 +88,10 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
             class="result-card__info-bit"
           >
             <strong>
-              Identity: 
+              <span>
+                Identity
+              </span>
+              : 
             </strong>
             UniRef100
           </span>

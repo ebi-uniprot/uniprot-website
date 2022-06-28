@@ -1,4 +1,4 @@
-import { FC, useState, Suspense, useMemo } from 'react';
+import { useState, Suspense, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, DownloadIcon, SlidingPanel } from 'franklin-sites';
 
@@ -7,6 +7,7 @@ import ErrorBoundary from '../../../shared/components/error-component/ErrorBound
 import lazy from '../../../shared/utils/lazy';
 
 import { createSelectedQueryString } from '../../../shared/config/apiUrls';
+import { fileFormatsResultsDownloadForRedundant } from '../../config/download';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
@@ -23,14 +24,26 @@ const DownloadComponent = lazy(
     )
 );
 
-const ComponentsButtons: FC<
-  Pick<ProteomesAPIModel, 'id' | 'components' | 'proteinCount'> & {
-    selectedEntries: string[];
-  }
-> = ({ id, components, selectedEntries, proteinCount }) => {
+type Props = Pick<
+  ProteomesAPIModel,
+  'id' | 'components' | 'proteinCount' | 'proteomeType'
+> & {
+  selectedEntries: string[];
+};
+
+const ComponentsButtons = ({
+  id,
+  components,
+  selectedEntries,
+  proteinCount,
+  proteomeType,
+}: Props) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
-  const allQuery = `(${UniProtKBColumn.proteome}:${id})`;
+  const allQuery = `(${
+    // Excluded not supported at the moment, need to wait for TRM-28011
+    proteomeType === 'Redundant proteome' ? 'upid' : 'proteome'
+  }:${id})`;
   const selectedQuery = useMemo(
     () =>
       `${allQuery}${
@@ -58,7 +71,8 @@ const ComponentsButtons: FC<
     );
   }, [components, selectedEntries]);
 
-  if (!components?.length) {
+  // Excluded not supported at the moment, need to wait for TRM-28011
+  if (!components?.length || proteomeType === 'Excluded') {
     return null;
   }
 
@@ -79,7 +93,17 @@ const ComponentsButtons: FC<
                 numberSelectedEntries={numberSelectedProteins}
                 totalNumberResults={proteinCount}
                 onClose={() => setDisplayDownloadPanel(false)}
-                namespace={Namespace.uniprotkb}
+                namespace={
+                  // Excluded not supported at the moment, need to wait for TRM-28011
+                  proteomeType === 'Redundant proteome'
+                    ? Namespace.uniparc
+                    : Namespace.uniprotkb
+                }
+                supportedFormats={
+                  proteomeType === 'Redundant proteome'
+                    ? fileFormatsResultsDownloadForRedundant
+                    : undefined
+                }
               />
             </ErrorBoundary>
           </SlidingPanel>
@@ -98,7 +122,12 @@ const ComponentsButtons: FC<
         <Button
           element={Link}
           to={{
-            pathname: LocationToPath[Location.UniProtKBResults],
+            pathname:
+              LocationToPath[
+                proteomeType === 'Redundant proteome'
+                  ? Location.UniParcResults
+                  : Location.UniProtKBResults
+              ],
             search: `query=${selectedQuery}`,
           }}
           variant="tertiary"

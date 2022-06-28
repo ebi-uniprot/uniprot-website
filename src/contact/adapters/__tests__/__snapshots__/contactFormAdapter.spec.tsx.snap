@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test contact form adapter should parse the inputs and generate a generic form 1`] = `
+Object {
+  "email": "pat@pencaster.co.uk",
+  "message": "I would like this entry to be updated
+
+Name: Postman Pat
+Referred from: http://localhost/uniprotkb/P05067
+Browser: Browser and OS info
+Git commit: #git_commit_id",
+  "requiredForRobots": "",
+  "subject": "[uuw] General enquiry",
+  "token": "random_token",
+}
+`;

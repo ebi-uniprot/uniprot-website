@@ -3,6 +3,8 @@ import { Message } from 'franklin-sites';
 import { generatePath, Link } from 'react-router-dom';
 import cn from 'classnames';
 
+import ExternalLink from '../../../shared/components/ExternalLink';
+
 // Sections
 import CoreData from './CoreData';
 import SupportingData from './SupportingData';
@@ -34,6 +36,13 @@ const HomePageNonCritical = () => (
           new API documentation
         </Link>
         .
+      </Message>
+      <Message level="info" className="uniprot-grid-cell--span-12">
+        If you still need it, the{' '}
+        <ExternalLink url="https://legacy.uniprot.org" rel="nofollow" noIcon>
+          legacy version of the website
+        </ExternalLink>{' '}
+        is available until the 2022_03 release.
       </Message>
     </div>
 

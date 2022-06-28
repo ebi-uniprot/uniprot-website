@@ -29,11 +29,12 @@ describe('ComponentsButtons', () => {
           components={components as Component[]}
           selectedEntries={selectedComponents}
           proteinCount={100}
+          proteomeType="Reference and representative proteome"
         />
       );
-      const link = screen.getByRole('link', {
+      const link = screen.getByRole<HTMLAnchorElement>('link', {
         name: 'View proteins',
-      }) as HTMLAnchorElement;
+      });
       expect(link).toBeInTheDocument();
       const {
         url,
@@ -46,7 +47,12 @@ describe('ComponentsButtons', () => {
 
   it('should render nothing when no components are passed', () => {
     const { container } = customRender(
-      <ComponentsButtons id="id" proteinCount={100} selectedEntries={[]} />
+      <ComponentsButtons
+        id="id"
+        proteinCount={100}
+        selectedEntries={[]}
+        proteomeType="Reference and representative proteome"
+      />
     );
     expect(container).toBeEmptyDOMElement();
   });
@@ -58,6 +64,7 @@ describe('ComponentsButtons', () => {
         proteinCount={100}
         selectedEntries={[]}
         components={getComponents(10) as Component[]}
+        proteomeType="Reference and representative proteome"
       />
     );
     const downloadButton = screen.getByRole('button', { name: 'Download' });

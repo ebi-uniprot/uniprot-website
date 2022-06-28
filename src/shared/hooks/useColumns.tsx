@@ -10,20 +10,20 @@ import { BinIcon, Button } from 'franklin-sites';
 
 import useDataApi from './useDataApi';
 import useNS from './useNS';
-import useLocalStorage from './useLocalStorage';
+import useDatabaseInfoMaps from './useDatabaseInfoMaps';
+import useColumnNames from './useColumnNames';
 
+import apiUrls from '../config/apiUrls';
+import { getIdKeyFor } from '../utils/getIdKeyForNamespace';
 import {
-  getLocationObjForParams,
   getParamsFromURL,
   getSortableColumnToSortColumn,
+  getLocationObjForParams,
 } from '../../uniprotkb/utils/resultsUtils';
-import apiUrls from '../config/apiUrls';
-import { SearchResultsLocations } from '../../app/config/urls';
-import { getIdKeyFor } from '../utils/getIdKeyForNamespace';
 import * as logging from '../utils/logging';
 
 import { mainNamespaces, Namespace } from '../types/namespaces';
-import { Column, nsToDefaultColumns } from '../config/columns';
+import { Column } from '../config/columns';
 import {
   ReceivedFieldData,
   SortDirection,
@@ -63,15 +63,11 @@ import LocationsColumnConfiguration from '../../supporting-data/locations/config
 import UniRuleColumnConfiguration from '../../automatic-annotations/unirule/config/UniRuleColumnConfiguration';
 import ARBAColumnConfiguration from '../../automatic-annotations/arba/config/ARBAColumnConfiguration';
 
-import {
-  IDMappingColumn,
-  IdMappingColumnConfiguration,
-} from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
+import { IdMappingColumnConfiguration } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 
 import { MappingAPIModel } from '../../tools/id-mapping/types/idMappingSearchResults';
 import { Basket } from './useBasket';
 import { DatabaseInfoMaps } from '../../uniprotkb/utils/database';
-import useDatabaseInfoMaps from './useDatabaseInfoMaps';
 
 export type ColumnDescriptor<Datum = APIModel> = {
   name: string;
@@ -127,7 +123,7 @@ const convertRow = (
 // TODO: create a "Column" type to cover the different column types
 // and a Column renderer type with label: string and a render definition.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const ColumnConfigurations: Partial<Record<Namespace, Map<any, any>>> = {
+export const ColumnConfigurations: Partial<Record<Namespace, Map<any, any>>> = {
   [Namespace.uniprotkb]: UniProtKBColumnConfiguration,
   [Namespace.uniref]: UniRefColumnConfiguration,
   [Namespace.uniparc]: UniParcColumnConfiguration,
@@ -157,6 +153,7 @@ export const getColumnsToDisplay = (
       const columnDescriptor = {
         label: columnConfig.label,
         name: columnName,
+        tooltip: columnConfig.tooltip,
         render: (row: APIModel) =>
           columnConfig.render(convertRow(row, namespace, databaseInfoMaps)),
       };
@@ -185,19 +182,20 @@ const useColumns = (
   displayIdMappingColumns?: boolean,
   basketSetter?: Dispatch<SetStateAction<Basket>>,
   columnsOverride?: ColumnDescriptor[],
-  setSelectedEntries?: Dispatch<SetStateAction<string[]>>
+  setSelectedEntries?: Dispatch<SetStateAction<string[]>>,
+  displayPeptideSearchMatchColumns?: boolean
 ): [ColumnDescriptor[] | undefined, ((columnName: string) => void) | null] => {
   const history = useHistory();
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
   const location = useLocation();
-  const [userColumns] = useLocalStorage<Column[]>(
-    `table columns for ${namespace}` as const,
-    nsToDefaultColumns(namespace)
-  );
+  const { columnNames } = useColumnNames({
+    namespaceOverride,
+    displayIdMappingColumns,
+    displayPeptideSearchMatchColumns,
+  });
   const databaseInfoMaps = useDatabaseInfoMaps();
-
   const { search: queryParamFromUrl } = location;
-  const { query, selectedFacets, sortColumn, sortDirection } =
+  const [{ query, selectedFacets, sortColumn, sortDirection }] =
     getParamsFromURL(queryParamFromUrl);
 
   const { data: dataResultFields, loading } = useDataApi<ReceivedFieldData>(
@@ -216,10 +214,6 @@ const useColumns = (
   const columns = useMemo(() => {
     let columns = columnsOverride;
     if (!columns && databaseInfoMaps) {
-      const columnNames =
-        displayIdMappingColumns && namespace !== Namespace.idmapping
-          ? [IDMappingColumn.from, ...userColumns]
-          : userColumns;
       columns = getColumnsToDisplay(
         namespace,
         columnNames,
@@ -266,9 +260,8 @@ const useColumns = (
     columnsOverride,
     databaseInfoMaps,
     basketSetter,
-    displayIdMappingColumns,
     namespace,
-    userColumns,
+    columnNames,
     sortableColumnToSortColumn,
     sortColumn,
     sortDirection,
@@ -277,8 +270,12 @@ const useColumns = (
 
   const updateColumnSort = useCallback(
     (columnName: string) => {
-      // No sorting for id mapping
-      if (namespace === Namespace.idmapping) {
+      if (
+        // No sorting for id mapping
+        namespace === Namespace.idmapping ||
+        // No sorting for unisave
+        namespace === Namespace.unisave
+      ) {
         return;
       }
       const newSortColumn = sortableColumnToSortColumn.get(
@@ -294,9 +291,11 @@ const useColumns = (
           ? SortDirection.ascend
           : SortDirection.descend;
 
+      // TODO: this changes the URL from encoded to decoded which is different to the facet behavior
       history.push(
+        // eslint-disable-next-line uniprot-website/use-config-location
         getLocationObjForParams({
-          pathname: SearchResultsLocations[namespace],
+          pathname: history.location.pathname,
           query,
           selectedFacets,
           sortColumn: newSortColumn,

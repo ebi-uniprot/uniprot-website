@@ -53,23 +53,18 @@ export const KeywordList = ({ keywords, idOnly, inline }: KeywordListProps) => {
   );
 };
 
-const KeywordView = ({ keywords }: { keywords: KeywordUIModel[] }) => {
-  if (!keywords?.length) {
-    return null;
-  }
-  const infoData = keywords.map((keywordCategory) => ({
+const KeywordView = ({ keywords }: { keywords?: KeywordUIModel[] }) => {
+  const infoData = keywords?.map((keywordCategory) => ({
     title: keywordCategory.category,
     content: <KeywordList keywords={keywordCategory.keywords} />,
   }));
-  if (!infoData.length) {
-    return null;
-  }
-  return (
+
+  return infoData?.length ? (
     <>
-      <h3>Keywords</h3>
+      <h3 data-article-id="keywords">Keywords</h3>
       <InfoList infoData={infoData} />
     </>
-  );
+  ) : null;
 };
 
 export default KeywordView;

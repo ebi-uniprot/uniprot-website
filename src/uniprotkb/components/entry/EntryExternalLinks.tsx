@@ -1,6 +1,7 @@
-import { Card, ExpandableList, ExternalLink } from 'franklin-sites';
+import { Card, ExpandableList } from 'franklin-sites';
 import { groupBy } from 'lodash-es';
 
+import ExternalLink from '../../../shared/components/ExternalLink';
 import XRefView from '../protein-data-views/XRefView';
 
 import { UniProtkbUIModel } from '../../adapters/uniProtkbConverter';
@@ -50,9 +51,10 @@ const EntryExternalLinks = ({ transformedData }: EntryExternalLinksProps) => {
     DatabaseCategory,
     XrefsGoupedByDatabase[]
   >();
-  Object.values(EntrySection).forEach((entrySection) => {
-    transformedData[entrySection as EntrySection].xrefData?.forEach(
-      ({ category, databases }) => {
+  for (const entrySection of Object.values(EntrySection)) {
+    const section = transformedData[entrySection];
+    if ('xrefData' in section) {
+      for (const { category, databases } of section.xrefData || []) {
         const currentDatabases =
           databaseCategoryToXrefsGoupedByDatabase.get(category);
         const newDatabases = currentDatabases
@@ -60,8 +62,8 @@ const EntryExternalLinks = ({ transformedData }: EntryExternalLinksProps) => {
           : databases;
         databaseCategoryToXrefsGoupedByDatabase.set(category, newDatabases);
       }
-    );
-  });
+    }
+  }
 
   const xrefData = Array.from(
     databaseCategoryToXrefsGoupedByDatabase.entries()
@@ -82,7 +84,7 @@ const EntryExternalLinks = ({ transformedData }: EntryExternalLinksProps) => {
     >
       {webResourceComments?.length ? (
         <>
-          <h3>Web resources</h3>
+          <h3 data-article-id="web_resource">Web resources</h3>
           <ExpandableList descriptionString="alternative names">
             {webResourceComments.map((comment, index) => (
               <WebResourceLink

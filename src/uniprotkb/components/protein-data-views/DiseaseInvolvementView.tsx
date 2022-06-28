@@ -1,29 +1,97 @@
-import { Fragment, FC } from 'react';
+import { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import { InfoList, ExpandableList } from 'franklin-sites';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import { XRef } from './XRefView';
 
-import { DiseaseComment } from '../../types/commentTypes';
+import useCustomElement from '../../../shared/hooks/useCustomElement';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
+import { getEntryPath } from '../../../app/config/urls';
+
+import { DiseaseComment } from '../../types/commentTypes';
+import { Namespace } from '../../../shared/types/namespaces';
+import { FeatureData } from './UniProtKBFeaturesView';
+
+import styles from './styles/variation-view.module.scss';
+
+export const DiseaseVariants = ({ variants }: { variants: FeatureData }) => {
+  const dataTableElement = useCustomElement(
+    /* istanbul ignore next */
+    () =>
+      import(
+        /* webpackChunkName: "protvista-datatable" */ 'protvista-datatable'
+      ),
+    'protvista-datatable'
+  );
+
+  return (
+    <dataTableElement.name filter-scroll>
+      <table>
+        <thead>
+          <tr>
+            <th>Variant ID</th>
+            <th>Position(s)</th>
+            <th>Change</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {variants.map((variant, i) => {
+            let position = `${variant.location.start.value}`;
+            if (variant.location.start.value !== variant.location.end.value) {
+              position += `-${variant.location.end.value}`;
+            }
+
+            return (
+              // eslint-disable-next-line react/no-array-index-key
+              <Fragment key={i}>
+                <tr>
+                  <td>{variant.featureId}</td>
+                  <td>{position}</td>
+                  <td className={styles.change}>
+                    {variant.alternativeSequence?.originalSequence ||
+                    variant.alternativeSequence?.alternativeSequences?.[0] ? (
+                      <>
+                        {variant.alternativeSequence?.originalSequence || (
+                          <em>missing</em>
+                        )}
+                        {'>'}
+                        {variant.alternativeSequence
+                          ?.alternativeSequences?.[0] || <em>missing</em>}
+                      </>
+                    ) : (
+                      <em>missing</em>
+                    )}
+                  </td>
+                  <td>
+                    {variant.description}
+                    {variant.evidences && (
+                      <UniProtKBEvidenceTag evidences={variant.evidences} />
+                    )}
+                  </td>
+                </tr>
+              </Fragment>
+            );
+          })}
+        </tbody>
+      </table>
+    </dataTableElement.name>
+  );
+};
+
 type DiseaseInvolvementEntryProps = {
-  comment: DiseaseComment[][0];
+  comment: DiseaseComment;
   accession: string;
 };
 
-type DiseaseInvolvementProps = {
-  comments?: DiseaseComment[];
-  primaryAccession: string;
-  includeTitle?: boolean;
-};
-
-export const DiseaseInvolvementEntry: FC<DiseaseInvolvementEntryProps> = ({
+export const DiseaseInvolvementEntry = ({
   comment,
   accession,
-}) => {
+}: DiseaseInvolvementEntryProps) => {
   const databaseInfoMaps = useDatabaseInfoMaps();
-  const { disease, note } = comment;
+  const { disease, note, variants } = comment;
 
   if (!disease && !note) {
     return null;
@@ -66,52 +134,85 @@ export const DiseaseInvolvementEntry: FC<DiseaseInvolvementEntryProps> = ({
 
   if (disease?.diseaseCrossReference) {
     const { database, id } = disease.diseaseCrossReference;
-    if (database && id && databaseInfoMaps?.databaseToDatabaseInfo[database]) {
+    const databaseInfo =
+      id && database && databaseInfoMaps?.databaseToDatabaseInfo[database];
+    if (databaseInfo) {
       infoData.push({
         title: 'See also',
         content: (
-          <XRef
-            database={database}
-            xref={disease.diseaseCrossReference}
-            primaryAccession={accession}
-            databaseToDatabaseInfo={databaseInfoMaps?.databaseToDatabaseInfo}
-          />
+          <>
+            {`${databaseInfo.displayName}:`}
+            <XRef
+              database={database}
+              xref={disease.diseaseCrossReference}
+              primaryAccession={accession}
+              databaseToDatabaseInfo={databaseInfoMaps?.databaseToDatabaseInfo}
+            />
+          </>
         ),
       });
     }
   }
+
+  const title = (
+    <>
+      {disease?.diseaseId ? disease.diseaseId : <em>No disease ID</em>}
+      {disease?.acronym && ` (${disease?.acronym})`}
+    </>
+  );
+
+  const variantList = Object.values(variants || {});
+
   return (
     <>
       <h4>
-        {disease?.diseaseId || <em>No disease ID</em>}
-        {disease?.acronym && ` (${disease?.acronym})`}
+        {disease?.diseaseAccession ? (
+          <Link to={getEntryPath(Namespace.diseases, disease.diseaseAccession)}>
+            {title}
+          </Link>
+        ) : (
+          title
+        )}
       </h4>
       <span className="text-block">{evidenceNodes}</span>
       <InfoList infoData={infoData} />
+      {variantList?.length ? (
+        <>
+          <h5>Natural variants in {disease?.acronym}</h5>
+          <DiseaseVariants variants={variantList} />
+        </>
+      ) : null}
     </>
   );
 };
 
-export const DiseaseInvolvementView: FC<DiseaseInvolvementProps> = ({
+type DiseaseInvolvementProps = {
+  comments?: DiseaseComment[];
+  primaryAccession: string;
+  includeTitle?: boolean;
+};
+
+export const DiseaseInvolvementView = ({
   comments,
   primaryAccession: accession,
   includeTitle = false,
-}) => {
+}: DiseaseInvolvementProps) => {
   if (!comments?.length) {
     return null;
   }
-  const nodes = comments.map((comment, index) => (
-    <DiseaseInvolvementEntry
-      // eslint-disable-next-line react/no-array-index-key
-      key={index}
-      comment={comment}
-      accession={accession}
-    />
-  ));
   return (
     <>
-      {includeTitle && <h3>Involvement in disease</h3>}
-      {nodes}
+      {includeTitle && (
+        <h3 data-article-id="involvement_in_disease">Involvement in disease</h3>
+      )}
+      {comments.map((comment, index) => (
+        <DiseaseInvolvementEntry
+          // eslint-disable-next-line react/no-array-index-key
+          key={index}
+          comment={comment}
+          accession={accession}
+        />
+      ))}
     </>
   );
 };

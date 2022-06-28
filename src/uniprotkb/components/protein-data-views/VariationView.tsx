@@ -1,11 +1,14 @@
-import { useCallback, useMemo, Fragment } from 'react';
+import { useMemo, Fragment, useRef, useEffect, useState } from 'react';
 import { Loader } from 'franklin-sites';
 import joinUrl from 'url-join';
+import { groupBy, intersection, union } from 'lodash-es';
+import cn from 'classnames';
 
-import { filterConfig, colorConfig } from 'protvista-uniprot';
 import { ProteinsAPIVariation } from 'protvista-variation-adapter/dist/es/variants';
-import { transformData } from 'protvista-variation-adapter';
+import { transformData, TransformedVariant } from 'protvista-variation-adapter';
 
+import VisualVariationView from './VisualVariationView';
+import ExternalLink from '../../../shared/components/ExternalLink';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -13,8 +16,86 @@ import useCustomElement from '../../../shared/hooks/useCustomElement';
 
 import apiUrls from '../../../shared/config/apiUrls';
 
-import './styles/variation-view.scss';
-import NightingaleZoomTool from './NightingaleZoomTool';
+import styles from './styles/variation-view.module.scss';
+
+const sortByLocation = (a: TransformedVariant, b: TransformedVariant) => {
+  const aStart = +a.start;
+  const aEnd = a.end ? +a.end : -Infinity;
+  const bStart = +b.start;
+  const bEnd = b.end ? +b.end : -Infinity;
+  if (aStart === bStart) {
+    return aEnd - bEnd;
+  }
+  return aStart - bStart;
+};
+
+type Evidence = Exclude<TransformedVariant['evidences'], undefined>[0];
+type Description = Exclude<TransformedVariant['descriptions'], undefined>[0];
+type Source = Description['sources'][0];
+
+const isUniProtID = (id: string) => id.startsWith('VAR_');
+const sortIDByUniProtFirst = (a: string, b: string) =>
+  +isUniProtID(b) - +isUniProtID(a);
+
+const hasUniProtSource = (description: Description) =>
+  description.sources.includes('UniProt' as Source);
+const sortDescriptionByUniProtFirst = (a: Description, b: Description) =>
+  +hasUniProtSource(b) - +hasUniProtSource(a);
+
+const isUniProt = (string: string) => string === 'UniProt';
+const sortProvenanceByUniProtFirst = (a: string, b: string) =>
+  +isUniProt(b) - +isUniProt(a);
+
+const isUniProtEvidence = (evidence: Evidence) =>
+  evidence.code === 'ECO:0000269';
+
+type ObjWithVariants = { variants: TransformedVariant[] };
+
+type Filter = {
+  category: string;
+  filterFn: (obj: ObjWithVariants[]) => ObjWithVariants[];
+};
+
+// copied/adapted logic from protvista-variation
+const deepArrayOperation = (
+  arrays: ObjWithVariants[][],
+  operation: typeof union | typeof intersection
+) => {
+  if (!arrays || arrays.length <= 0) {
+    return null;
+  }
+  const firstArray = arrays[0];
+  // Iterate over positions
+  firstArray.forEach((position, i) => {
+    const filteredVariants = arrays.map((array) => array[i].variants);
+    /* eslint-disable no-param-reassign */
+    position.variants = operation(...filteredVariants);
+  });
+  return firstArray;
+};
+
+// copied/adapted logic from protvista-variation
+const applyFilters = (variants: TransformedVariant[], filters: Filter[]) => {
+  if (!filters.length) {
+    return variants;
+  }
+
+  const originalData: ObjWithVariants[] = [{ variants }];
+
+  const groupedFilters = groupBy(filters, 'category');
+  const filteredGroups = Object.values(groupedFilters).map((filterGroup) => {
+    const filteredData = filterGroup.map((filterItem) =>
+      filterItem.filterFn(originalData)
+    );
+    // Basically, *within* groups, logical OR...
+    return deepArrayOperation(filteredData, union) || [];
+  });
+
+  const transformedData =
+    // ... and, *across* groups, logical AND
+    deepArrayOperation(filteredGroups, intersection) || [];
+  return transformedData[0]?.variants;
+};
 
 type VariationViewProps = {
   primaryAccession: string;
@@ -27,76 +108,57 @@ const VariationView = ({
   title,
   onlyTable = false,
 }: VariationViewProps) => {
-  const { loading, data, error, status } = useDataApi<ProteinsAPIVariation>(
-    joinUrl(apiUrls.variation, primaryAccession)
-  );
+  const { loading, data, progress, error, status } =
+    useDataApi<ProteinsAPIVariation>(
+      joinUrl(apiUrls.variation, primaryAccession)
+    );
+
+  const [filters, setFilters] = useState([]);
+  const managerRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const { current: element } = managerRef;
+
+    if (!element) {
+      return;
+    }
+
+    const listener = (event: Event) => {
+      const { detail } = event as CustomEvent;
+      if (detail?.type === 'filters') {
+        setFilters(detail.value);
+      }
+    };
+
+    element.addEventListener('change', listener);
+    // eslint-disable-next-line consistent-return
+    return () => element.removeEventListener('change', listener);
+  }, [data]);
+  // 'data' is not directly used in the effect, but we know it's when we're
+  // ready to attach the event listener and avoid re-calling this on each render
 
   // We pass the transformed data to both the variation viewer and the
   // data table as ids are set during the transformation - they are
   // used for the selection between the 2 components
+  // Transform data once
   const transformedData = useMemo(
     () => (data && data.features ? transformData(data) : undefined),
     [data]
   );
 
-  const filterElement = useCustomElement(
-    /* istanbul ignore next */
-    () => import(/* webpackChunkName: "protvista-filter" */ 'protvista-filter'),
-    'protvista-filter'
-  );
-
-  const protvistaFilterRef = useCallback(
-    (node) => {
-      if (node && filterElement.defined) {
-        // eslint-disable-next-line no-param-reassign
-        node.filters = filterConfig;
-      }
-    },
-    [filterElement.defined]
-  );
-
-  const variationElement = useCustomElement(
-    /* istanbul ignore next */
+  // Sort data once out of transformed data
+  const sortedVariants = useMemo(
     () =>
-      import(
-        /* webpackChunkName: "protvista-variation" */ 'protvista-variation'
-      ),
-    'protvista-variation'
+      transformedData &&
+      Array.from(transformedData.variants).sort(sortByLocation),
+    [transformedData]
   );
 
-  const protvistaVariationRef = useCallback(
-    (node) => {
-      if (
-        node &&
-        variationElement.defined &&
-        transformedData &&
-        transformedData.variants
-      ) {
-        // eslint-disable-next-line no-param-reassign
-        node.colorConfig = colorConfig;
-        // eslint-disable-next-line no-param-reassign
-        node.data = transformedData;
-        // eslint-disable-next-line no-param-reassign
-        node.length = transformedData.sequence.length;
-      }
-    },
-    [variationElement.defined, transformedData]
+  // Filter data on every filter interaction out of the memoised sorted data
+  const filteredVariants = useMemo(
+    () => sortedVariants && applyFilters(sortedVariants, filters),
+    [sortedVariants, filters]
   );
 
-  const navigationElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(
-        /* webpackChunkName: "protvista-navigation" */ 'protvista-navigation'
-      ),
-    'protvista-navigation'
-  );
-  const sequenceElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(/* webpackChunkName: "protvista-sequence" */ 'protvista-sequence'),
-    'protvista-sequence'
-  );
   const managerElement = useCustomElement(
     /* istanbul ignore next */
     () =>
@@ -111,16 +173,14 @@ const VariationView = ({
       ),
     'protvista-datatable'
   );
-  const ceDefined =
-    filterElement.defined &&
-    variationElement.defined &&
-    navigationElement.defined &&
-    sequenceElement.defined &&
-    managerElement.defined &&
-    dataTableElement.defined;
 
   if (loading) {
-    return <Loader />;
+    return (
+      <div>
+        {title && <h3>{title}</h3>}
+        <Loader progress={progress} />
+      </div>
+    );
   }
 
   if (error && status !== 404) {
@@ -132,23 +192,41 @@ const VariationView = ({
     status === 404 ||
     !transformedData ||
     !transformedData.sequence ||
-    !transformedData.variants?.length
+    !sortedVariants?.length ||
+    !filteredVariants
   ) {
-    return null;
+    return (
+      <div>
+        {title && <h3>{title}</h3>}
+        <div className={styles['no-data']}>
+          No variation information available for {primaryAccession}
+        </div>
+      </div>
+    );
   }
 
   const table = (
     <table>
       <thead>
         <tr>
+          <th>
+            Variant
+            <br />
+            ID(s)
+          </th>
           <th>Position(s)</th>
           <th>Change</th>
           <th>Description</th>
-          <th>Disease association</th>
+          <th>
+            Disease
+            <br />
+            association
+          </th>
+          <th>Provenance</th>
         </tr>
       </thead>
       <tbody>
-        {transformedData.variants.map((variantFeature) => {
+        {filteredVariants.map((variantFeature) => {
           let position = variantFeature.start;
           if (variantFeature.start !== variantFeature.end) {
             position += `-${variantFeature.end}`;
@@ -156,77 +234,230 @@ const VariationView = ({
 
           return (
             <Fragment key={variantFeature.protvistaFeatureId}>
-              <tr data-id={variantFeature.protvistaFeatureId}>
-                <td>{position}</td>
+              <tr
+                data-id={variantFeature.protvistaFeatureId}
+                data-start={variantFeature.start}
+                data-end={variantFeature.end}
+              >
                 <td>
-                  {variantFeature.wildType}
-                  {'>'}
-                  {variantFeature.alternativeSequence}
+                  {Array.from(
+                    // note that the type needs to be updated, xrefs is optional on association object
+                    new Set(variantFeature.xrefs?.map((xref) => xref.id))
+                  )
+                    .sort(sortIDByUniProtFirst)
+                    .map((id, i) => (
+                      <Fragment key={id}>
+                        {i !== 0 && <br />}
+                        <span
+                          className={cn({ [styles.bold]: isUniProtID(id) })}
+                        >
+                          {id}
+                        </span>
+                      </Fragment>
+                    ))}
+                </td>
+                <td>{position}</td>
+                <td className={styles.change}>
+                  {variantFeature.wildType ||
+                  variantFeature.alternativeSequence ? (
+                    <>
+                      {variantFeature.wildType || <em>missing</em>}
+                      {'>'}
+                      {variantFeature.alternativeSequence || <em>missing</em>}
+                    </>
+                  ) : (
+                    <em>missing</em>
+                  )}
                 </td>
                 <td>
-                  {variantFeature.descriptions?.map((description) => (
-                    <div key={description.value}>
-                      {`${description.value} (${description.sources.join(
-                        ', '
-                      )})`}
-                    </div>
-                  ))}
+                  {variantFeature.descriptions &&
+                    Array.from(variantFeature.descriptions)
+                      .sort(sortDescriptionByUniProtFirst)
+                      .map((description) => {
+                        const isUniProtDescription =
+                          hasUniProtSource(description);
+                        const uniProtEvidences =
+                          isUniProtDescription &&
+                          variantFeature.evidences
+                            ?.filter(isUniProtEvidence)
+                            .map((evidence) => ({
+                              evidenceCode: evidence.code as `ECO:${number}`,
+                              id: evidence.source.id,
+                              source: evidence.source.name,
+                              url: evidence.source.url,
+                            }));
+                        return (
+                          <div
+                            key={description.value}
+                            className={cn({
+                              [styles.bold]: isUniProtDescription,
+                            })}
+                          >
+                            {`${description.value} (${description.sources.join(
+                              ', '
+                            )})`}
+                            {uniProtEvidences && (
+                              <UniProtKBEvidenceTag
+                                evidences={uniProtEvidences}
+                              />
+                            )}
+                          </div>
+                        );
+                      })}
                 </td>
                 <td>
                   {variantFeature.association &&
                   variantFeature.association.length > 0
-                    ? 'Y'
-                    : 'N'}
+                    ? 'Yes'
+                    : 'No'}
+                </td>
+                <td>
+                  {Array.from(
+                    new Set(
+                      // 'uniprot' gets injected somehow in
+                      // 'protvista-variation-adapter' transformData, remove it
+                      variantFeature.xrefNames.map((name) =>
+                        name === 'uniprot' ? 'UniProt' : name
+                      )
+                    )
+                  )
+                    .sort(sortProvenanceByUniProtFirst)
+                    .map((name, i) => (
+                      <Fragment key={name}>
+                        {i !== 0 && <br />}
+                        <span
+                          className={cn({ [styles.bold]: isUniProt(name) })}
+                        >
+                          {name}
+                        </span>
+                      </Fragment>
+                    ))}
                 </td>
               </tr>
-              <tr data-group-for={variantFeature.protvistaFeatureId}>
+              <tr
+                data-group-for={variantFeature.protvistaFeatureId}
+                data-start={variantFeature.start}
+                data-end={variantFeature.end}
+              >
                 <td>
                   <div>
                     <strong>Consequence: </strong>
                     {variantFeature.consequenceType}
                   </div>
-                  <div>
-                    <strong>Predictions: </strong>
-                    {variantFeature.predictions?.map((pred) => (
-                      <div
-                        key={[
-                          pred.predAlgorithmNameType,
-                          pred.predictionValType,
-                          pred.score,
-                          pred.sources,
-                        ].join('-')}
-                      >
-                        {`${pred.predAlgorithmNameType}: ${pred.predictionValType} (${pred.score})`}
-                      </div>
-                    ))}
-                  </div>
+                  {variantFeature.predictions?.length ? (
+                    <div>
+                      <strong>Predictions: </strong>
+                      {variantFeature.predictions?.map((pred) => (
+                        <div
+                          key={[
+                            pred.predAlgorithmNameType,
+                            pred.predictionValType,
+                            pred.score,
+                            pred.sources,
+                          ].join('-')}
+                        >
+                          {`- ${pred.predAlgorithmNameType}: ${pred.predictionValType} (${pred.score})`}
+                        </div>
+                      ))}
+                    </div>
+                  ) : null}
                   <div>
                     <strong>Somatic: </strong>{' '}
-                    {variantFeature.somaticStatus === 1 ? 'Y' : 'N'}
+                    {variantFeature.somaticStatus === 1 ? 'Yes' : 'No'}
+                  </div>
+                  {variantFeature.clinicalSignificances?.length ? (
+                    <div>
+                      <strong>Clinical significances: </strong>
+                      {variantFeature.clinicalSignificances?.map(
+                        (clinicalSignificance) => (
+                          <div
+                            key={`${clinicalSignificance.sources.join('-')}-${
+                              clinicalSignificance.type
+                            }`}
+                          >
+                            {`- ${
+                              clinicalSignificance.type
+                            } (${clinicalSignificance.sources.join(', ')})`}
+                          </div>
+                        )
+                      )}
+                    </div>
+                  ) : null}
+                  {variantFeature.populationFrequencies?.length ? (
+                    <div>
+                      <strong>Population frequencies: </strong>
+                      {variantFeature.populationFrequencies?.map(
+                        (populationFrequency) => (
+                          <div
+                            key={`${populationFrequency.source}-${populationFrequency.populationName}`}
+                          >
+                            {`- ${populationFrequency.populationName}: ${populationFrequency.frequency} (${populationFrequency.source})`}
+                          </div>
+                        )
+                      )}
+                    </div>
+                  ) : null}
+                  <div>
+                    <strong>Accession: </strong> {variantFeature.accession}
+                  </div>
+                  {variantFeature.codon && (
+                    <div>
+                      <strong>Codon: </strong> {variantFeature.codon}
+                    </div>
+                  )}
+                  <div>
+                    <strong>Consequence type: </strong>{' '}
+                    {variantFeature.consequenceType}
                   </div>
                   <div>
-                    <strong>Disease association: </strong>
-                    {variantFeature.association?.map((association) => (
-                      <div
-                        key={`${association.name}-${association.description}`}
-                      >
-                        {association.name}
-                        {/* note that the type needs to be updated, evidences is optional on association object */}
-                        {/* Example in P42771 */}
-                        {association.evidences?.length ? (
-                          <UniProtKBEvidenceTag
-                            evidences={association.evidences.map(
-                              (evidence) => ({
-                                evidenceCode: evidence.code as `ECO:${number}`,
-                                id: evidence.source.id,
-                                source: evidence.source.name,
-                              })
-                            )}
-                          />
-                        ) : null}
-                      </div>
-                    ))}
+                    <strong>Cytogenetic band: </strong>{' '}
+                    {variantFeature.cytogeneticBand}
                   </div>
+                  <div>
+                    <strong>Genomic location: </strong>{' '}
+                    {variantFeature.genomicLocation}
+                  </div>
+                  {variantFeature.locations?.length ? (
+                    <div>
+                      <strong>Locations: </strong>
+                      {variantFeature.locations?.map((location) => (
+                        <div key={`${location.loc}-${location.seqId}`}>
+                          {`- ${location.loc} (${location.source}:${location.seqId})`}
+                        </div>
+                      ))}
+                    </div>
+                  ) : null}
+                  {variantFeature.association?.length ? (
+                    <div>
+                      <strong>Disease association: </strong>
+                      {variantFeature.association?.map((association) => (
+                        <div
+                          key={`${association.name}-${association.description}`}
+                        >
+                          {'- '}
+                          {association.name}
+                        </div>
+                      ))}
+                    </div>
+                  ) : null}
+                  <div>
+                    <strong>Source type: </strong>{' '}
+                    {variantFeature.sourceType.replace(/_/g, ' ')}
+                  </div>
+                  {/* note that the type needs to be updated, xrefs is optional on association object */}
+                  {variantFeature.xrefs?.length ? (
+                    <div>
+                      <strong>Cross-references: </strong>
+                      {variantFeature.xrefs?.map((xref) => (
+                        <div key={`${xref.name}-${xref.id}`}>
+                          {'- '}
+                          <ExternalLink url={xref.url}>
+                            {xref.name}: {xref.id}
+                          </ExternalLink>
+                        </div>
+                      ))}
+                    </div>
+                  ) : null}
                 </td>
               </tr>
             </Fragment>
@@ -243,28 +474,11 @@ const VariationView = ({
   return (
     <div>
       {title && <h3>{title}</h3>}
-      <managerElement.name attributes="highlight displaystart displayend activefilters filters selectedid">
-        {!onlyTable && ceDefined && (
-          <div className="variation-view">
-            <NightingaleZoomTool length={transformedData.sequence.length} />
-            <navigationElement.name length={transformedData.sequence.length} />
-            <sequenceElement.name
-              length={transformedData.sequence.length}
-              sequence={transformedData.sequence}
-              height="20"
-              filter-scroll
-            />
-            <filterElement.name
-              for="variation-component"
-              ref={protvistaFilterRef}
-            />
-            <variationElement.name
-              id="variation-component"
-              length={transformedData.sequence.length}
-              ref={protvistaVariationRef}
-            />
-          </div>
-        )}
+      <managerElement.name
+        attributes="highlight displaystart displayend activefilters filters selectedid"
+        ref={managerRef}
+      >
+        {!onlyTable && <VisualVariationView {...transformedData} />}
         <dataTableElement.name filter-scroll>{table}</dataTableElement.name>
       </managerElement.name>
     </div>

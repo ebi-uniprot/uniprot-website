@@ -23,7 +23,11 @@ const ExpressionSection = ({ data, primaryAccession }: Props) => {
   }
   return (
     <Card
-      header={<h2>{getEntrySectionNameAndId(EntrySection.Expression).name}</h2>}
+      header={
+        <h2 data-article-id="expression_section">
+          {getEntrySectionNameAndId(EntrySection.Expression).name}
+        </h2>
+      }
       id={EntrySection.Expression}
       data-entry-section
     >
@@ -34,12 +38,14 @@ const ExpressionSection = ({ data, primaryAccession }: Props) => {
             | undefined
         }
         title="tissue specificity"
+        articleId="tissue_specificity"
       />
       <FreeTextView
         comments={
           data.commentsData.get('INDUCTION') as FreeTextComment[] | undefined
         }
         title="induction"
+        articleId="induction"
       />
       <FreeTextView
         comments={
@@ -48,6 +54,7 @@ const ExpressionSection = ({ data, primaryAccession }: Props) => {
             | undefined
         }
         title="developmental stage"
+        articleId="developmental_stage"
       />
       <KeywordView keywords={data.keywordData} />
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />

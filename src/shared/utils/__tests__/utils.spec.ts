@@ -9,6 +9,7 @@ import {
   isSameEntry,
   deepFindAllByKey,
   addBlastLinksToFreeText,
+  keysToLowerCase,
 } from '../utils';
 
 describe('Model Utils', () => {
@@ -113,7 +114,7 @@ describe('getBEMClassName', () => {
 
 describe('formatPercentage', () => {
   it('should format numbers with many digits of precision to have the default precision of 1 and with rounding', () => {
-    const number = 10.1922323409823049823094;
+    const number = 10.192232340982;
     expect(formatPercentage(number)).toEqual('10.2%');
   });
 
@@ -200,5 +201,14 @@ describe('deepFindAllByKey', () => {
       const result = addBlastLinksToFreeText(['SOME TEXT'], 'UP_ACCESSION');
       expect(result).toMatchSnapshot();
     });
+  });
+});
+
+describe('keysToLowerCase', () => {
+  it('should convert lowercase all keys', () => {
+    expect(keysToLowerCase({ Foo: 1, BAR: 2 })).toEqual({ foo: 1, bar: 2 });
+  });
+  it('should return empty object with nothing provided', () => {
+    expect(keysToLowerCase(undefined)).toEqual({});
   });
 });

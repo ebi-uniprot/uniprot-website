@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { Card, LongNumber } from 'franklin-sites';
+import { Link } from 'react-router-dom';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import BasketStatus from '../../../basket/BasketStatus';
@@ -58,13 +59,14 @@ const UniParcCard = ({ data }: { data: UniParcAPIModel }) => {
         <>
           <CardCheckboxCell id={id} />
           <h2 className="small">
-            <EntryTitle mainTitle={id} entryType={EntryType.UNIPARC} />
+            <Link to={getEntryPath(Namespace.uniparc, id)}>
+              <EntryTitle mainTitle={id} entryType={EntryType.UNIPARC} />
+            </Link>
           </h2>
           <BasketStatus id={id} className="tiny" />
         </>
       }
       headerSeparator={false}
-      to={getEntryPath(Namespace.uniparc, id)}
     >
       <div className={renderColumnsInCardStyles['result-card__info-container']}>
         <span className={renderColumnsInCardStyles['result-card__info-bit']}>

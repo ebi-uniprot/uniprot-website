@@ -10,14 +10,14 @@ import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
 import { getParamsFromURL } from '../../utils/resultsUtils';
 
-import { FacetObject } from '../../types/responseTypes';
+import { FacetObject } from '../../../shared/types/results';
 
 import helper from '../../../shared/styles/helper.module.scss';
 
 const EntryPublicationsFacets: FC<{ accession: string }> = ({ accession }) => {
   const { search } = useLocation();
 
-  const { selectedFacets } = getParamsFromURL(search);
+  const [{ selectedFacets }] = getParamsFromURL(search);
   const url = getUniProtPublicationsQueryUrl({
     accession,
     facets: ['types', 'categories', 'is_large_scale'],

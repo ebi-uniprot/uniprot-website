@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom';
-import { ExpandableList } from 'franklin-sites';
+import { ExpandableList, ExternalLink } from 'franklin-sites';
 
 import { getEntryPathFor } from '../../../app/config/urls';
 import { mapToLinks } from '../../../shared/components/MapTo';
+import { processUrlTemplate } from '../../../uniprotkb/components/protein-data-views/XRefView';
+import * as logging from '../../../shared/utils/logging';
+
+import databaseToDatabaseInfo from './databaseInfoMaps';
 
 import { DiseasesAPIModel } from '../adapters/diseasesConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
@@ -18,11 +22,6 @@ export enum DiseasesColumn {
   id = 'id',
   keywords = 'keywords',
   name = 'name',
-  // TODO: remove this once the backend is fixed https://www.ebi.ac.uk/panda/jira/browse/TRM-26601
-  reviewedProteinCount = 'reviewed_protein_count',
-  // TODO: remove this once the backend is fixed https://www.ebi.ac.uk/panda/jira/browse/TRM-26601
-  unreviewedProteinCount = 'unreviewed_protein_count',
-  // NOTE: once the backend is fixed, this will be available https://www.ebi.ac.uk/panda/jira/browse/TRM-26601
   statistics = 'statistics',
 }
 
@@ -63,24 +62,40 @@ DiseasesColumnConfiguration.set(DiseasesColumn.alternativeNames, {
     ) : null,
 });
 
-// NOTE: should probably be links
 DiseasesColumnConfiguration.set(DiseasesColumn.crossReferences, {
   label: 'Cross references',
-  // TODO: https://www.ebi.ac.uk/panda/jira/browse/TRM-25838
-  render: ({ crossReferences }) =>
-    crossReferences?.length ? (
-      <ExpandableList
-        descriptionString="cross references"
-        displayNumberOfHiddenItems
-      >
-        {crossReferences?.map(
-          ({ databaseType, id, properties }) =>
-            `${databaseType}: ${id}${
-              properties?.length ? ` (${properties.join(', ')})` : ''
-            }`
-        )}
-      </ExpandableList>
-    ) : null,
+  render: ({ crossReferences }) => (
+    <ExpandableList
+      descriptionString="cross references"
+      displayNumberOfHiddenItems
+    >
+      {crossReferences?.map(({ databaseType, id, properties }) => {
+        let idNode;
+        const databaseInfo = databaseToDatabaseInfo[databaseType];
+        if (databaseInfo) {
+          idNode = (
+            // eslint-disable-next-line uniprot-website/use-config-location
+            <ExternalLink
+              url={processUrlTemplate(databaseInfo.uriLink, { id })}
+            >
+              {id}
+            </ExternalLink>
+          );
+        } else {
+          logging.warn(
+            `Disease database information not found for ${databaseType}`
+          );
+          idNode = id;
+        }
+        return (
+          <span key={`${databaseType}-${id}`} className={helper['no-wrap']}>
+            {databaseType}: {idNode}
+            {`${properties?.length ? ` (${properties.join(', ')})` : ''}`}
+          </span>
+        );
+      })}
+    </ExpandableList>
+  ),
 });
 
 DiseasesColumnConfiguration.set(DiseasesColumn.definition, {

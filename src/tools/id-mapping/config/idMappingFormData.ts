@@ -31,7 +31,7 @@ const formData: Readonly<IDMappingFormValues> = deepFreeze({
   },
   [IDMappingFields.toDb]: {
     fieldName: 'to',
-    selected: 'UniRef90',
+    selected: 'UniProtKB',
   },
   [IDMappingFields.name]: {
     fieldName: 'name',

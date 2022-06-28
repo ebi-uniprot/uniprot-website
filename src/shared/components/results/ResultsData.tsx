@@ -7,8 +7,8 @@ import {
 import { useHistory, useLocation } from 'react-router-dom';
 
 import useNS from '../../hooks/useNS';
-import useLocalStorage from '../../hooks/useLocalStorage';
 import useColumns, { ColumnDescriptor } from '../../hooks/useColumns';
+import useViewMode from '../../hooks/useViewMode';
 
 import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
@@ -24,20 +24,17 @@ import { Basket } from '../../hooks/useBasket';
 import './styles/warning.scss';
 import './styles/results-data.scss';
 
-export enum ViewMode {
-  TABLE,
-  CARD,
-}
-
 type Props = {
   resultsDataObject: PaginatedResults;
   setSelectedEntries?: Dispatch<SetStateAction<string[]>>;
-  setSelectedItemFromEvent: (event: MouseEvent | KeyboardEvent) => void;
+  setSelectedItemFromEvent?: (event: MouseEvent | KeyboardEvent) => void;
   namespaceOverride?: Namespace;
   columnsOverride?: ColumnDescriptor<APIModel>[];
   displayIdMappingColumns?: boolean;
   basketSetter?: Dispatch<SetStateAction<Basket>>;
   className?: string;
+  disableCardToggle?: boolean;
+  displayPeptideSearchMatchColumns?: boolean;
 };
 
 const ResultsData = ({
@@ -48,18 +45,21 @@ const ResultsData = ({
   columnsOverride,
   displayIdMappingColumns,
   basketSetter,
+  disableCardToggle = false,
   className,
+  displayPeptideSearchMatchColumns,
 }: Props) => {
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
-  const [viewMode] = useLocalStorage<ViewMode>('view-mode', ViewMode.CARD);
+  const { viewMode } = useViewMode(namespaceOverride, disableCardToggle);
   const history = useHistory();
-  const { query, direct } = getParamsFromURL(useLocation().search);
+  const [{ query, direct }] = getParamsFromURL(useLocation().search);
   const [columns, updateColumnSort] = useColumns(
     namespaceOverride,
     displayIdMappingColumns,
     basketSetter,
     columnsOverride,
-    setSelectedEntries
+    setSelectedEntries,
+    displayPeptideSearchMatchColumns
   );
   const {
     allResults,
@@ -147,7 +147,7 @@ const ResultsData = ({
 
   return (
     <div className="results-data">
-      {viewMode === ViewMode.CARD && !displayIdMappingColumns ? (
+      {viewMode === 'cards' && !displayIdMappingColumns ? (
         // Card view
         <DataListWithLoader<APIModel>
           getIdKey={getIdKey}

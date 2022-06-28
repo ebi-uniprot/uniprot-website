@@ -8,6 +8,10 @@ exports[`SubcellularLocationGOView should render 1`] = `
     <li
       class="GO5576"
     >
+      <test-file-stub
+        classname="sub-cell-viz__in-view-pin"
+        height="1em"
+      />
       <a
         class="external-link"
         href="//www.ebi.ac.uk/QuickGO/term/GO:0005576"
@@ -24,6 +28,10 @@ exports[`SubcellularLocationGOView should render 1`] = `
     <li
       class="GO5615"
     >
+      <test-file-stub
+        classname="sub-cell-viz__in-view-pin"
+        height="1em"
+      />
       <a
         class="external-link"
         href="//www.ebi.ac.uk/QuickGO/term/GO:0005615"

@@ -126,7 +126,13 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_alterna
     <strong>
       1
     </strong>
-     isoforms produced by 
+     
+    <span
+      data-article-id="alternative_products"
+    >
+      isoforms
+    </span>
+     produced by 
     <strong>
       Alternative initiation
     </strong>
@@ -239,41 +245,43 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_catalyt
       >
         backward
       </span>
-       direction 
+       direction.
     </div>
-    EC:1.2.4.5 (
-    <a
-      href="/uniprotkb?query=ec:1.2.4.5"
-    >
-      UniProtKB
-    </a>
-     | 
-    <a
-      class="external-link"
-      href="https://enzyme.expasy.org/EC/1.2.4.5"
-      rel="noopener"
-      target="_blank"
-    >
-      ENZYME
-      <test-file-stub
-        data-testid="external-link-icon"
-        width="12.5"
-      />
-    </a>
-     | 
-    <a
-      class="external-link"
-      href="https://www.rhea-db.org/rhea?query=ec:1.2.4.5"
-      rel="noopener"
-      target="_blank"
-    >
-      Rhea
-      <test-file-stub
-        data-testid="external-link-icon"
-        width="12.5"
-      />
-    </a>
-    )
+    <div>
+      EC:1.2.4.5 (
+      <a
+        href="/uniprotkb?query=ec:1.2.4.5"
+      >
+        UniProtKB
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="https://enzyme.expasy.org/EC/1.2.4.5"
+        rel="noopener"
+        target="_blank"
+      >
+        ENZYME
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="https://www.rhea-db.org/rhea?query=ec:1.2.4.5"
+        rel="noopener"
+        target="_blank"
+      >
+        Rhea
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+      )
+    </div>
     <div>
       <strong>
         Source: 
@@ -385,7 +393,11 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_develop
 exports[`UniProtKBColumnConfiguration component should render column "cc_disease": cc_disease 1`] = `
 <DocumentFragment>
   <h4>
-    DiseaseEntry Id (someAcron)
+    <a
+      href="/diseases/DiseaseEntry AC"
+    >
+      DiseaseEntry Id (someAcron)
+    </a>
   </h4>
   <span
     class="text-block"
@@ -488,6 +500,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_disease
         <div
           class="decorated-list-item__content"
         >
+          MIM:
           <a
             class="external-link"
             href="https://www.omim.org/entry/3124"
@@ -560,7 +573,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_interac
         class="no-wrap"
       >
         <a
-          href="/uniprotkb/P12345#sequence"
+          href="/uniprotkb/P12345#sequences"
         >
           P12345-1
         </a>
@@ -576,9 +589,9 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_mass_sp
   <section
     class="text-block"
   >
-    <h3>
+    <h4>
       isoform 1
-    </h3>
+    </h4>
     Molecular mass is 2.1 Da. Determined by LSI. note value
     <button
       aria-controls="0"
@@ -736,8 +749,16 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_subcell
     <div
       id="id1term"
     >
+      <test-file-stub
+        classname="sub-cell-viz__in-view-pin"
+        height="1em"
+      />
       <strong>
-        location value
+        <a
+          href="/locations/id1"
+        >
+          location value
+        </a>
       </strong>
        
       <button
@@ -1036,6 +1057,418 @@ exports[`UniProtKBColumnConfiguration component should render column "ec": ec 1`
       </a>
       )
     </li>
+    <li>
+      EC:1.2.3.5 (
+      <a
+        href="/uniprotkb?query=ec:1.2.3.5"
+      >
+        UniProtKB
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="https://enzyme.expasy.org/EC/1.2.3.5"
+        rel="noopener"
+        target="_blank"
+      >
+        ENZYME
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="https://www.rhea-db.org/rhea?query=ec:1.2.3.5"
+        rel="noopener"
+        target="_blank"
+      >
+        Rhea
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+      )
+    </li>
+    <li>
+      EC:1.2.3.3 (
+      <a
+        href="/uniprotkb?query=ec:1.2.3.3"
+      >
+        UniProtKB
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="https://enzyme.expasy.org/EC/1.2.3.3"
+        rel="noopener"
+        target="_blank"
+      >
+        ENZYME
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="https://www.rhea-db.org/rhea?query=ec:1.2.3.3"
+        rel="noopener"
+        target="_blank"
+      >
+        Rhea
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+      )
+    </li>
+    <li>
+      EC:1.2.3.4 (
+      <a
+        href="/uniprotkb?query=ec:1.2.3.4"
+      >
+        UniProtKB
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="https://enzyme.expasy.org/EC/1.2.3.4"
+        rel="noopener"
+        target="_blank"
+      >
+        ENZYME
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="https://www.rhea-db.org/rhea?query=ec:1.2.3.4"
+        rel="noopener"
+        target="_blank"
+      >
+        Rhea
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+      )
+    </li>
+    <li>
+      EC:1.2.3.3 (
+      <a
+        href="/uniprotkb?query=ec:1.2.3.3"
+      >
+        UniProtKB
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="https://enzyme.expasy.org/EC/1.2.3.3"
+        rel="noopener"
+        target="_blank"
+      >
+        ENZYME
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="https://www.rhea-db.org/rhea?query=ec:1.2.3.3"
+        rel="noopener"
+        target="_blank"
+      >
+        Rhea
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+      )
+    </li>
+    <li>
+      <button
+        class="button tertiary expandable-list__action"
+        data-testid="expandable-message"
+        type="button"
+      >
+        More items
+      </button>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ec": ec-expanded 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      EC:1.2.3.4 (
+      <a
+        href="/uniprotkb?query=ec:1.2.3.4"
+      >
+        UniProtKB
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="https://enzyme.expasy.org/EC/1.2.3.4"
+        rel="noopener"
+        target="_blank"
+      >
+        ENZYME
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="https://www.rhea-db.org/rhea?query=ec:1.2.3.4"
+        rel="noopener"
+        target="_blank"
+      >
+        Rhea
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+      )
+    </li>
+    <li>
+      EC:1.2.3.5 (
+      <a
+        href="/uniprotkb?query=ec:1.2.3.5"
+      >
+        UniProtKB
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="https://enzyme.expasy.org/EC/1.2.3.5"
+        rel="noopener"
+        target="_blank"
+      >
+        ENZYME
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="https://www.rhea-db.org/rhea?query=ec:1.2.3.5"
+        rel="noopener"
+        target="_blank"
+      >
+        Rhea
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+      )
+    </li>
+    <li>
+      EC:1.2.3.3 (
+      <a
+        href="/uniprotkb?query=ec:1.2.3.3"
+      >
+        UniProtKB
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="https://enzyme.expasy.org/EC/1.2.3.3"
+        rel="noopener"
+        target="_blank"
+      >
+        ENZYME
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="https://www.rhea-db.org/rhea?query=ec:1.2.3.3"
+        rel="noopener"
+        target="_blank"
+      >
+        Rhea
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+      )
+    </li>
+    <li>
+      EC:1.2.3.4 (
+      <a
+        href="/uniprotkb?query=ec:1.2.3.4"
+      >
+        UniProtKB
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="https://enzyme.expasy.org/EC/1.2.3.4"
+        rel="noopener"
+        target="_blank"
+      >
+        ENZYME
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="https://www.rhea-db.org/rhea?query=ec:1.2.3.4"
+        rel="noopener"
+        target="_blank"
+      >
+        Rhea
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+      )
+    </li>
+    <li>
+      EC:1.2.3.3 (
+      <a
+        href="/uniprotkb?query=ec:1.2.3.3"
+      >
+        UniProtKB
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="https://enzyme.expasy.org/EC/1.2.3.3"
+        rel="noopener"
+        target="_blank"
+      >
+        ENZYME
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="https://www.rhea-db.org/rhea?query=ec:1.2.3.3"
+        rel="noopener"
+        target="_blank"
+      >
+        Rhea
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+      )
+    </li>
+    <li>
+      EC:1.2.3.4 (
+      <a
+        href="/uniprotkb?query=ec:1.2.3.4"
+      >
+        UniProtKB
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="https://enzyme.expasy.org/EC/1.2.3.4"
+        rel="noopener"
+        target="_blank"
+      >
+        ENZYME
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="https://www.rhea-db.org/rhea?query=ec:1.2.3.4"
+        rel="noopener"
+        target="_blank"
+      >
+        Rhea
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+      )
+    </li>
+    <li>
+      EC:1.2.3.3 (
+      <a
+        href="/uniprotkb?query=ec:1.2.3.3"
+      >
+        UniProtKB
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="https://enzyme.expasy.org/EC/1.2.3.3"
+        rel="noopener"
+        target="_blank"
+      >
+        ENZYME
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="https://www.rhea-db.org/rhea?query=ec:1.2.3.3"
+        rel="noopener"
+        target="_blank"
+      >
+        Rhea
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+      )
+    </li>
+    <li>
+      <button
+        class="button tertiary expandable-list__action"
+        data-testid="expandable-message"
+        type="button"
+      >
+        Less items
+      </button>
+    </li>
   </ul>
 </DocumentFragment>
 `;
@@ -1190,6 +1623,18 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
           </a>
         </td>
       </tr>
+      <tr
+        data-end="8"
+        data-group-for="id value CHAIN"
+        data-start="2"
+      >
+        <td>
+          <strong>
+            Sequence: 
+          </strong>
+          original value → alternative value
+        </td>
+      </tr>
     </tbody>
   </table>
 </DocumentFragment>
@@ -1261,15 +1706,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_var_seq
 
 exports[`UniProtKBColumnConfiguration component should render column "ft_variant": ft_variant 1`] = `
 <DocumentFragment>
-  <div
-    class="loader-container"
-  >
-    <test-file-stub
-      classname="loader"
-      height="100"
-      width="100"
-    />
-  </div>
+  Variants
 </DocumentFragment>
 `;
 
@@ -1690,6 +2127,8 @@ exports[`UniProtKBColumnConfiguration component should render column "mass": mas
 </DocumentFragment>
 `;
 
+exports[`UniProtKBColumnConfiguration component should render column "match": match 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render column "organelle": organelle 1`] = `
 <DocumentFragment>
   <ul
@@ -1937,17 +2376,16 @@ exports[`UniProtKBColumnConfiguration component should render column "temp_depen
 exports[`UniProtKBColumnConfiguration component should render column "tools": tools 1`] = `
 <DocumentFragment>
   <div
-    class="dropdown-container"
+    aria-expanded="false"
+    aria-haspopup="true"
+    class="dropdown"
   >
     <button
-      class="button primary dropdown tertiary"
+      class="button tertiary"
       type="button"
     >
       Tools
     </button>
-    <div
-      class="dropdown-menu"
-    />
   </div>
 </DocumentFragment>
 `;
@@ -1980,6 +2418,8 @@ exports[`UniProtKBColumnConfiguration component should render column "virus_host
 exports[`UniProtKBColumnConfiguration component should render column "xref_abcd": xref_abcd 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_allergome": xref_allergome 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "xref_alphafolddb": xref_alphafolddb 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_antibodypedia": xref_antibodypedia 1`] = `<DocumentFragment />`;
 
@@ -2135,8 +2575,6 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_gene3
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_genecards": xref_genecards 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "xref_genedb": xref_genedb 1`] = `<DocumentFragment />`;
-
 exports[`UniProtKBColumnConfiguration component should render column "xref_geneid": xref_geneid 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_genereviews": xref_genereviews 1`] = `<DocumentFragment />`;
@@ -2192,6 +2630,8 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_lepro
 exports[`UniProtKBColumnConfiguration component should render column "xref_maizegdb": xref_maizegdb 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_malacards": xref_malacards 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "xref_mane-select": xref_mane-select 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_massive": xref_massive 1`] = `<DocumentFragment />`;
 
@@ -2348,6 +2788,8 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_veupa
 exports[`UniProtKBColumnConfiguration component should render column "xref_vgnc": xref_vgnc 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_wbparasite": xref_wbparasite 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "xref_wbparasitetranscriptprotein": xref_wbparasitetranscriptprotein 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_world-2dpage": xref_world-2dpage 1`] = `<DocumentFragment />`;
 

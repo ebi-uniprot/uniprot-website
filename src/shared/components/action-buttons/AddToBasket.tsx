@@ -5,6 +5,7 @@ import { groupBy } from 'lodash-es';
 import useBasket from '../../hooks/useBasket';
 
 import accessionToNamespace from '../../utils/accessionToNamespace';
+import { fromCleanMapper } from '../../utils/getIdKeyForNamespace';
 
 import { pluralise } from '../../utils/utils';
 import { Namespace } from '../../types/namespaces';
@@ -24,9 +25,14 @@ const AddToBasketButton = ({
 
   const isSingleEntry = !Array.isArray(selectedEntries);
 
-  const accessions = Array.isArray(selectedEntries)
-    ? selectedEntries
-    : [selectedEntries];
+  const accessions = Array.from(
+    new Set(
+      (Array.isArray(selectedEntries)
+        ? selectedEntries
+        : [selectedEntries]
+      ).map(fromCleanMapper)
+    )
+  );
 
   const n = accessions.length;
 

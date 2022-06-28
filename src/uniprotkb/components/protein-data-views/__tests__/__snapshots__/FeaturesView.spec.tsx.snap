@@ -6,51 +6,26 @@ exports[`FeaturesView component it renders without crashing 1`] = `
     Features
   </h3>
   <p>
-    Showing features for signal.
+    Showing features for 
+    <span
+      data-article-id="signal"
+    >
+      signal
+    </span>
+    .
   </p>
   <protvista-manager
     attributes="highlight displaystart displayend selectedid"
   >
-    <protvista-zoom-tool
-      length="21"
+    <div
+      class="loader-container"
     >
-      <span
-        class="nightingale-button-content"
-        slot="zoom-in"
-      >
-        <test-file-stub
-          height="19"
-        />
-      </span>
-      <span
-        class="nightingale-button-content"
-        slot="zoom-out"
-      >
-        <test-file-stub
-          height="19"
-        />
-      </span>
-      <span
-        class="nightingale-button-content"
-        slot="zoom-in-seq"
-      >
-        <test-file-stub
-          height="19"
-        />
-      </span>
-    </protvista-zoom-tool>
-    <protvista-navigation
-      length="21"
-    />
-    <protvista-track
-      layout="non-overlapping"
-      length="21"
-    />
-    <protvista-sequence
-      height="20"
-      length="21"
-      sequence="ASDASDASASDASDASDSASD"
-    />
+      <test-file-stub
+        classname="loader"
+        height="100"
+        width="100"
+      />
+    </div>
     <protvista-datatable
       filter-scroll="true"
     >
