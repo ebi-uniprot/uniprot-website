@@ -58,33 +58,35 @@ const renderGraph = (
     const [source, target] = link.split('|');
     targets.push(target);
 
-    const sourceEl = nodeDetails[source].getBoundingClientRect();
-    const targetEl = nodeDetails[target].getBoundingClientRect();
-    const x1 = sourceEl.x + sourceEl.width / 2 - xPosition;
-    const y1 = sourceEl.y + sourceEl.height - yPosition;
-    const targetMidPoint = targetEl.x + targetEl.width / 2 - xPosition;
+    const sourceEl = nodeDetails[source]?.getBoundingClientRect();
+    const targetEl = nodeDetails[target]?.getBoundingClientRect();
+    if (sourceEl && targetEl) {
+      const x1 = sourceEl.x + sourceEl.width / 2 - xPosition;
+      const y1 = sourceEl.y + sourceEl.height - yPosition;
+      const targetMidPoint = targetEl.x + targetEl.width / 2 - xPosition;
 
-    // Spacing the arrows based on the source's position whether it is to the left or right of the target in case of multiple parents
-    const count = targets.filter((t) => t === target).length;
-    if (count > 1) {
-      if (x1 < targetMidPoint) {
-        spacing -= SPACE_BETWEEN_ARROWS * count;
-      } else {
-        spacing += SPACE_BETWEEN_ARROWS * count;
+      // Spacing the arrows based on the source's position whether it is to the left or right of the target in case of multiple parents
+      const count = targets.filter((t) => t === target).length;
+      if (count > 1) {
+        if (x1 < targetMidPoint) {
+          spacing -= SPACE_BETWEEN_ARROWS * count;
+        } else {
+          spacing += SPACE_BETWEEN_ARROWS * count;
+        }
       }
-    }
 
-    const x2 = targetEl.x + targetEl.width / 2 - xPosition + spacing;
-    const y2 = targetEl.y - yPosition;
-    svg
-      .append('line')
-      .attr('x1', x1)
-      .attr('y1', y1)
-      .attr('x2', x2)
-      .attr('y2', y2)
-      .attr('stroke', '#000')
-      .attr('stroke-width', 1.5)
-      .attr('marker-end', 'url(#arrow)');
+      const x2 = targetEl.x + targetEl.width / 2 - xPosition + spacing;
+      const y2 = targetEl.y - yPosition;
+      svg
+        .append('line')
+        .attr('x1', x1)
+        .attr('y1', y1)
+        .attr('x2', x2)
+        .attr('y2', y2)
+        .attr('stroke', '#000')
+        .attr('stroke-width', 1.5)
+        .attr('marker-end', 'url(#arrow)');
+    }
   }
 };
 
