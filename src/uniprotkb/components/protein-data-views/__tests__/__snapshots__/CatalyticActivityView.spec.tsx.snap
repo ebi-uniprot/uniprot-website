@@ -10,7 +10,7 @@ exports[`CatalyticActivityView component should render catalytic activity 1`] = 
   <span
     class="text-block"
   >
-     Reaction name
+    Reaction name
     <div>
       This reaction proceeds in the 
       <span
@@ -114,7 +114,7 @@ exports[`CatalyticActivityView component should render catalytic activity when c
   <span
     class="text-block"
   >
-     Reaction name
+    Reaction name
     <div>
       This reaction proceeds in the 
       <span

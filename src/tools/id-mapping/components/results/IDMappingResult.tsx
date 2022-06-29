@@ -208,11 +208,11 @@ const IDMappingResult = () => {
         <PageIntro
           title={namespaceAndToolsLabels[Namespace.idmapping]}
           titlePostscript={
-            total && (
+            total ? (
               <small>
                 found for {detailsData?.from} → {detailsData?.to}
               </small>
-            )
+            ) : null
           }
           resultsCount={total}
         />

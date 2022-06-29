@@ -39,7 +39,7 @@ exports[`Entry view should render 1`] = `
               Isoform 3
             </a>
           </h4>
-           some reaction
+          some reaction
           <button
             aria-controls="0"
             aria-expanded="false"
@@ -3418,7 +3418,7 @@ exports[`Entry view should render for non-human entry 1`] = `
         <span
           class="text-block"
         >
-           an N-acetyl-alpha-D-galactosaminyl-(1-&gt;3)-[alpha-L-fucosyl-(1-&gt;2)]-beta-D-galactosyl derivative + H2O = acetate + an alpha-D-galactosaminyl-(1-&gt;3)-[alpha-L-fucosyl-(1-&gt;2)]-beta-D-galactosyl derivative
+          an N-acetyl-alpha-D-galactosaminyl-(1-&gt;3)-[alpha-L-fucosyl-(1-&gt;2)]-beta-D-galactosyl derivative + H2O = acetate + an alpha-D-galactosaminyl-(1-&gt;3)-[alpha-L-fucosyl-(1-&gt;2)]-beta-D-galactosyl derivative
           <button
             aria-controls="2"
             aria-expanded="false"
