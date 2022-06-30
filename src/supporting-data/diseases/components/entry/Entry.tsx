@@ -1,4 +1,4 @@
-import { RouteChildrenProps } from 'react-router-dom';
+import { Redirect, RouteChildrenProps } from 'react-router-dom';
 import { Loader, Card, InfoList } from 'franklin-sites';
 import cn from 'classnames';
 
@@ -12,6 +12,7 @@ import MedicalDisclaimer from '../../../../shared/components/MedicalDisclaimer';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
 import apiUrls from '../../../../shared/config/apiUrls';
+import { getEntryPath } from '../../../../app/config/urls';
 
 import {
   Namespace,
@@ -36,10 +37,19 @@ const columns = [
 const DiseasesEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   const accession = props.match?.params.accession;
 
+  let redirectTo = '';
+  if (accession && Number.isFinite(+accession)) {
+    redirectTo = `DI-${accession.padStart(5, '0')}`;
+  }
+
   const { data, loading, error, status, progress, isStale } =
     useDataApiWithStale<DiseasesAPIModel>(
-      apiUrls.entry(accession, Namespace.diseases)
+      redirectTo ? null : apiUrls.entry(accession, Namespace.diseases)
     );
+
+  if (redirectTo) {
+    return <Redirect to={getEntryPath(Namespace.diseases, redirectTo)} />;
+  }
 
   if (error || !accession || (!loading && !data)) {
     return <ErrorHandler status={status} />;
