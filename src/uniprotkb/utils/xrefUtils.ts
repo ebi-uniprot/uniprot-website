@@ -41,6 +41,7 @@ export const getDRImplicitXrefs = (
   Object.keys(implicitDatabaseDRAbsence).forEach((xref) => {
     implicitDatabaseDRAbsenceCheck[xref] = true;
   });
+  const implicitDatabaseDRPresenceData: { [key: string]: Xref } = {};
   xrefs.forEach((xref) => {
     const { database: name } = xref;
     if (!name) {
@@ -48,11 +49,13 @@ export const getDRImplicitXrefs = (
     }
     if (name in implicitDatabaseDRPresenceCheck) {
       implicitDatabaseDRPresenceCheck[name] = true;
+      implicitDatabaseDRPresenceData[name] = xref;
     }
     if (name in implicitDatabaseDRAbsenceCheck) {
       implicitDatabaseDRAbsenceCheck[name] = false;
     }
   });
+
   const foundXrefs: Xref[] = [];
   [
     [implicitDatabaseDRPresenceCheck, implicitDatabaseDRPresence],
@@ -67,11 +70,17 @@ export const getDRImplicitXrefs = (
         implicitNames.forEach((implicitName) => {
           const xref = implicitDatabaseXRefs.get(implicitName);
           if (xref) {
-            let property = {};
-            if (geneNames.length) {
-              property = {
-                GeneName: geneNames[0],
-              };
+            const property: Record<string, string> = {};
+            const geneName = geneNames?.[0];
+            if (geneName) {
+              property.GeneName = geneName;
+            }
+            // ClinGen and GenCC HGNC-contingent implicit xrefs require the HGNC ids to form URL
+            if (name === 'HGNC') {
+              const { id } = implicitDatabaseDRPresenceData[name];
+              if (id) {
+                property.id = id;
+              }
             }
             foundXrefs.push({
               ...xref,
