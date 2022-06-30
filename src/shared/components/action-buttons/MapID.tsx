@@ -6,8 +6,7 @@ import { fromCleanMapper } from '../../utils/getIdKeyForNamespace';
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { Namespace } from '../../types/namespaces';
 
-// Update to upper limit if needed
-const MAPID_LIMIT = +Infinity;
+const MAPID_LIMIT = 100_000;
 
 type MapIDButtonProps = {
   selectedEntries: string[];
