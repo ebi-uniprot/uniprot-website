@@ -218,7 +218,9 @@ const HelpEntry = ({
       <Redirect
         to={{
           pathname: LocationToPath[Location.HelpResults],
-          search: qs.stringify({ query: accession?.replace('_', ' ') || '*' }),
+          search: qs.stringify({
+            query: accession?.replaceAll('_', ' ') || '*',
+          }),
         }}
       />
     );
