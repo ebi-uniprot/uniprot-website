@@ -85,7 +85,7 @@ const KineticsTable = ({
 
 export const KineticsTableView = ({ data }: { data: KineticParameters }) => {
   const pHRegEx = /pH\s(([0-9]*[.])?[0-9]+)/;
-  const tempRegEx = /(([0-9]*[.])?[0-9]+)\sdegrees\sCelsius/;
+  const tempRegEx = /(([0-9]*[.])?[0-9]+)\sdegrees\sCelsius/i;
   const captureWordsInParanthesis = /\(((.+)(?: \((.+)\))?)\)/;
   const removeLeadingTrailingComma = /(^,)|(,$)/g;
 
@@ -179,7 +179,7 @@ export const KineticsTableView = ({ data }: { data: KineticParameters }) => {
   if (data.note?.texts) {
     const kcatRegEx = /\.\s/;
     // From the curation manual: kcat is expressed per unit of time, in sec(-1), min(-1) or h(-1).
-    const kcatConstantRegEx = /([0-9]*[.])?[0-9]+\s?[sec|min|h]+\s?\(-1\)/g;
+    const kcatConstantRegEx = /([0-9]*[.])?[0-9]+\s?[sec|min|h]+\s?\(-1\)/gi;
 
     data.note?.texts.forEach((text) => {
       if (text.value.includes('kcat')) {
@@ -191,7 +191,7 @@ export const KineticsTableView = ({ data }: { data: KineticParameters }) => {
           const constants = value.match(kcatConstantRegEx);
 
           if (constants && constants?.length > 1) {
-            const [pubMed] = value.match(/\(PubMed:\d+\)/) || [null];
+            const [pubMed] = value.match(/\(pubmed:\d+\)/i) || [null];
 
             // Exceptional case like P45470
             if (value.includes('respectively')) {
