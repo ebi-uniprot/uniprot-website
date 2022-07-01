@@ -331,7 +331,9 @@ exports[`Entry view should render 1`] = `
               <tr
                 data-id="row"
               >
-                <td>
+                <td
+                  class="unit"
+                >
                   2.0999999046325684 μM
                 </td>
                 <td>
@@ -393,7 +395,9 @@ exports[`Entry view should render 1`] = `
               <tr
                 data-id="row"
               >
-                <td>
+                <td
+                  class="unit"
+                >
                   1 unit1
                 </td>
                 <td />
@@ -3645,7 +3649,9 @@ exports[`Entry view should render for non-human entry 1`] = `
               <tr
                 data-id="row"
               >
-                <td>
+                <td
+                  class="unit"
+                >
                   340 μM
                 </td>
                 <td>

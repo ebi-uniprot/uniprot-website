@@ -2,21 +2,11 @@ import useCustomElement from '../../../shared/hooks/useCustomElement';
 
 import { TextView } from '../protein-data-views/FreeTextView';
 import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
-// import {
-//   reAC,
-//   needTextProcessingRE,
-//   rePubMedID,
-//   rePubMed,
-//   reUniProtKBAccession,
-//   reFamily,
-//   familyExtractor,
-//   reSubscript,
-//   reSuperscript,
-// } from '../../utils';
 
 import { KineticParameters } from '../../adapters/functionConverter';
-
 import { Evidence } from '../../types/modelTypes';
+
+import styles from './styles/kinetics-table.module.scss';
 
 type KinecticsTableRow = {
   key: string;
@@ -43,6 +33,8 @@ const KineticsTable = ({
     'protvista-datatable'
   );
 
+  const reSuperscript = /\(([+-]\d?)\)/;
+
   if (data && data.length) {
     return (
       <protvistaDataTableElement.name>
@@ -55,18 +47,34 @@ const KineticsTable = ({
             </tr>
           </thead>
           <tbody>
-            {data.map((value) => (
-              <tr data-id="row" key={value.key}>
-                <td>{value.constant}</td>
-                {value.substrate && <td>{value.substrate}</td>}
-                <td>{value.ph}</td>
-                <td>{value.temp}</td>
-                <td>{value.notes}</td>
-                <td>
-                  <UniProtKBEvidenceTag evidences={value.evidences} />
-                </td>
-              </tr>
-            ))}
+            {data.map((value) => {
+              const constant: { text: string; sup?: string | null } = {
+                text: '',
+              };
+              if (reSuperscript.test(value.constant)) {
+                [constant.text] = value.constant.split(reSuperscript);
+                const captured = value.constant.match(reSuperscript);
+                constant.sup = captured?.[1];
+              } else {
+                constant.text = value.constant;
+              }
+
+              return (
+                <tr data-id="row" key={value.key}>
+                  <td className={styles.unit}>
+                    {constant.text}
+                    {constant.sup && <sup>{constant.sup}</sup>}
+                  </td>
+                  {value.substrate && <td>{value.substrate}</td>}
+                  <td>{value.ph}</td>
+                  <td>{value.temp}</td>
+                  <td>{value.notes}</td>
+                  <td>
+                    <UniProtKBEvidenceTag evidences={value.evidences} />
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </protvistaDataTableElement.name>

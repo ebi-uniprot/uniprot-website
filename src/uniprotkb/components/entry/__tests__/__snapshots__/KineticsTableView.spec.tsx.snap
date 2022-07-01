@@ -30,7 +30,9 @@ exports[`Kinetics section should render table and notes section for exceptional 
         <tr
           data-id="row"
         >
-          <td>
+          <td
+            class="unit"
+          >
             0.38 mM
           </td>
           <td>
@@ -71,7 +73,9 @@ exports[`Kinetics section should render table and notes section for exceptional 
         <tr
           data-id="row"
         >
-          <td>
+          <td
+            class="unit"
+          >
             0.06 mM
           </td>
           <td>
@@ -164,7 +168,9 @@ exports[`Kinetics section should render table for Kinetics data  where two kcat 
         <tr
           data-id="row"
         >
-          <td>
+          <td
+            class="unit"
+          >
             200 nmol/min/mg
           </td>
           <td />
@@ -225,8 +231,13 @@ exports[`Kinetics section should render table for Kinetics data  where two kcat 
         <tr
           data-id="row"
         >
-          <td>
-            4.5 min(-1)
+          <td
+            class="unit"
+          >
+            4.5 min
+            <sup>
+              -1
+            </sup>
           </td>
           <td />
           <td />
@@ -261,8 +272,13 @@ exports[`Kinetics section should render table for Kinetics data  where two kcat 
         <tr
           data-id="row"
         >
-          <td>
-            9.9 min(-1)
+          <td
+            class="unit"
+          >
+            9.9 min
+            <sup>
+              -1
+            </sup>
           </td>
           <td />
           <td />
@@ -330,7 +346,9 @@ exports[`Kinetics section should render table for Kinetics section 1`] = `
         <tr
           data-id="row"
         >
-          <td>
+          <td
+            class="unit"
+          >
             438 μM
           </td>
           <td>
@@ -398,7 +416,9 @@ exports[`Kinetics section should render table for Kinetics section 1`] = `
         <tr
           data-id="row"
         >
-          <td>
+          <td
+            class="unit"
+          >
             471 nmol/h/mg
           </td>
           <td>
