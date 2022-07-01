@@ -305,7 +305,7 @@ const Download: FC<DownloadProps> = ({
         )}
       </section>
       {jobResultsLocation === Location.IDMappingResult && (
-        <Message level="warning" className="uniprot-grid-cell--span-12">
+        <Message level="info" className="uniprot-grid-cell--span-12">
           If you are experiencing any issue, feel free to try the{' '}
           <ExternalLink
             url="https://legacy.uniprot.org/uploadlists"
