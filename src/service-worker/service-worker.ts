@@ -1,6 +1,6 @@
 import {
   cleanupOutdatedCaches,
-  precacheAndRoute,
+  // precacheAndRoute,
   createHandlerBoundToURL,
 } from 'workbox-precaching';
 import { clientsClaim } from 'workbox-core';
@@ -36,8 +36,13 @@ self.addEventListener('message', (event) => {
 // https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-core#.clientsClaim
 clientsClaim();
 
-// eslint-disable-next-line no-underscore-dangle
-precacheAndRoute(self.__WB_MANIFEST);
+// TODO: only re-add whenever we're sure it's worth it
+// precacheAndRoute(
+//   // eslint-disable-next-line no-underscore-dangle
+//   self.__WB_MANIFEST,
+//   // Ignore all URL parameters
+//   { ignoreURLParametersMatching: [/.*/] }
+// );
 // this argument is the injection point for the webpack InjectManifest plugin,
 // injecting a list of all necessary assets to precache.
 

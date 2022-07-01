@@ -51,9 +51,10 @@ if (process.env.NODE_ENV !== 'development') {
       maxBreadcrumbs: 50,
       // Proportion of sessions being used to track performance
       // Adjust to a low value when we start getting enough data
-      tracesSampleRate: 0.1,
+      tracesSampleRate: 0.01,
       // Proportion of errors being reported
-      sampleRate: 0.4,
+      // Adjust, higher if we fix errors and end up not maxing out our quota
+      sampleRate: 0.05,
       // errors to be ignored completely
       ignoreErrors: [
         'chrome-extensions://', // errors caused by an extension
@@ -227,7 +228,7 @@ const HelpLandingPage = lazy(
 const HelpEntryPreviewPage = lazy(
   () =>
     import(
-      /* webpackChunkName: "help-entry-preview.nocache" */ '../../help/components/entry/EntryPreview'
+      /* webpackChunkName: "help-entry-preview.noprecache" */ '../../help/components/entry/EntryPreview'
     )
 );
 const HelpEntryPage = lazy(
