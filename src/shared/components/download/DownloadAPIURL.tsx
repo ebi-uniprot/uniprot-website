@@ -14,7 +14,29 @@ import { gtagFn } from '../../utils/logging';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
+import { Namespace } from '../../types/namespaces';
+
 import styles from './styles/download-api-url.module.scss';
+
+const reIdMapping = new RegExp(
+  `/idmapping/(?:(${Namespace.uniprotkb}|${Namespace.uniparc}|${Namespace.uniref})/)?(?:results/)?stream/`
+);
+
+export const getSearchURL = (streamURL: string, batchSize = 500) => {
+  const parsed = queryString.parseUrl(streamURL);
+  let { url } = parsed;
+  if (url.search(reIdMapping) >= 0) {
+    url = url.replace(reIdMapping, (_match, namespace) =>
+      namespace ? `/idmapping/${namespace}/results/` : '/idmapping/results/'
+    );
+  } else {
+    url = url.replace('/stream', '/search');
+  }
+  return queryString.stringifyUrl({
+    url,
+    query: { ...parsed.query, size: batchSize },
+  });
+};
 
 const DownloadAPIURL = ({
   apiURL,
@@ -50,12 +72,8 @@ const DownloadAPIURL = ({
   );
 
   const isStreamEndpoint = apiURL.includes('/stream');
-  const parsed = queryString.parseUrl(apiURL);
   const batchSize = 500;
-  const searchEndpoint = queryString.stringifyUrl({
-    url: parsed.url.replace('/stream', '/search'),
-    query: { ...parsed.query, size: batchSize },
-  });
+  const searchURL = getSearchURL(apiURL, batchSize);
 
   return (
     <div className={styles['api-url']}>
@@ -86,12 +104,12 @@ const DownloadAPIURL = ({
           >
             pagination
           </Link>
-          .<CodeBlock lightMode>{searchEndpoint}</CodeBlock>
+          .<CodeBlock lightMode>{searchURL}</CodeBlock>
           <section className="button-group">
             <Button
               variant="primary"
               className={styles['copy-button']}
-              onClick={() => handleCopyURL(searchEndpoint)}
+              onClick={() => handleCopyURL(searchURL)}
             >
               <CopyIcon />
               Copy
