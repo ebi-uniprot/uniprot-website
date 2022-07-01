@@ -5,14 +5,13 @@ import { generatePath, Link } from 'react-router-dom';
 import { InfoListItem } from 'franklin-sites/dist/types/components/info-list';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
-
-import { pluralise } from '../../../shared/utils/utils';
-
 import PDBView from './PDBView';
 import EMBLView from './EMBLView';
+import { RichText } from './FreeTextView';
 
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
+import { pluralise } from '../../../shared/utils/utils';
 import {
   databaseCategoryToString,
   viewProteinLinkDatabases,
@@ -54,7 +53,7 @@ const formatSuffixWithCount = (prefix: string, number: string) => {
   if (count <= 0) {
     return '';
   }
-  return ` ${count} ${pluralise(prefix, count)}`;
+  return `${count} ${pluralise(prefix, count)}`;
 };
 
 export const getPropertyString = (key?: string, value?: string) => {
@@ -203,7 +202,13 @@ export const XRef = ({
           text
         )
       )}
-      {propertyStrings}
+      <RichText>
+        {propertyStrings
+          // remove empty strings
+          .filter(Boolean)
+          // add space between strings
+          .join(' ')}
+      </RichText>
       {isoformNode && <> {isoformNode}</>}
     </>
   );

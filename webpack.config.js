@@ -279,12 +279,27 @@ module.exports = (env, argv) => {
           // TODO: remove limit when we manage to reduce size of entrypoint
           // For now, 3MB in production (molstar chunk is 2.2M!), 16M in dev
           maximumFileSizeToCacheInBytes: 1024 * 1024 * 3 * (isDev ? 4 : 1),
-          // exclude fonts from precaching because one specific browser will
-          // never need all fonts formats at the same time, will cache later
-          // whichever is actually used.
-          // Exclude sourcemaps too.
-          // Exclude chunks marked as "nocache" (big and/or not used much)
-          exclude: [/fonts/, /\.map$/, /\.nocache/],
+          exclude: [
+            // exclude fonts from precaching because one specific browser will
+            // never need all fonts formats at the same time, will cache later
+            // whichever is actually used.
+            /fonts/,
+            // Exclude sourcemaps too.
+            /\.map$/,
+            // Exclude chunks marked as "nocache" (big and/or not used much)
+            /\.noprecache/,
+            // Exclude LICENSE file
+            /LICENSE\.txt$/,
+            // Exclude images for PWA and other PWA-related stuff
+            /^mstile-/,
+            /^android-chrome-/,
+            /^favicon/,
+            /^apple-touch-icon/,
+            /manifest.json$/,
+            /browserconfig.xml$/,
+            // Exclude robots.txt
+            /robots.txt$/,
+          ],
         }),
       !isLiveReload &&
         !isTest &&
@@ -339,7 +354,7 @@ module.exports = (env, argv) => {
           },
           molstar: {
             test: /[\\/]node_modules[\\/](molstar)[\\/]/,
-            name: 'molstar',
+            name: 'molstar.noprecache',
             chunks: 'all',
           },
           // Commented, let webpack do it's optimisation/chunking job

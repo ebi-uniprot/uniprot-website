@@ -241,7 +241,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_catalyt
     >
       Isoform 3
     </h4>
-     some reaction
+    some reaction
     <div>
       This reaction proceeds in the 
       <span

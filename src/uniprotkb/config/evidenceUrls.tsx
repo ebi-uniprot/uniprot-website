@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router-dom';
 
 import ExternalLink from '../../shared/components/ExternalLink';
 
-import { getEntryPath } from '../../app/config/urls';
+import { getEntryPath, LocationToPath, Location } from '../../app/config/urls';
 import { processUrlTemplate } from '../components/protein-data-views/XRefView';
 
 import { Namespace } from '../../shared/types/namespaces';
@@ -70,13 +70,15 @@ const internalEvidenceUrls: Record<InternalSource, (value: string) => string> =
     PIRSR: (value) => getEntryPath(Namespace.unirule, value),
     Proteomes: (value) => getEntryPath(Namespace.proteomes, value),
     PubMed: (value) => getEntryPath(Namespace.citations, value),
-    SAM: () => 'https://www.uniprot.org/help/sam',
+    SAM: () =>
+      generatePath(LocationToPath[Location.HelpEntry], { accession: 'sam' }),
     RuleBase: (value) => getEntryPath(Namespace.unirule, value),
     SAAS: (value) => getEntryPath(Namespace.unirule, value),
     ARBA: (value) => getEntryPath(Namespace.arba, value),
     UniRule: (value) => getEntryPath(Namespace.unirule, value),
     UniProtKB: (value) => getEntryPath(Namespace.uniprotkb, value),
-    'MobiDB-lite': () => 'https://www.uniprot.org/help/MobiDB-lite',
+    'MobiDB-lite': () =>
+      generatePath(LocationToPath[Location.HelpEntry], { accession: 'sam' }),
   };
 
 const evidenceUrls: Record<ExternalSource, string> = {

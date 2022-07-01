@@ -34,11 +34,12 @@ const usePagination = <T extends APIModel, R extends APIModel>(
   usePrefetch(metaData.nextUrl);
   const [allResults, setAllResults] = useState<APIModel[]>([]);
 
+  // Reset conditions, when any of the things in the dep array changes
   useEffect(() => {
     setAllResults([]);
     setMetaData({ total: undefined, nextUrl: undefined });
     setUrl(initialApiUrl);
-  }, [initialApiUrl]);
+  }, [initialApiUrl, converter]);
 
   const { data, loading, progress, headers, error, status } = useDataApi<
     SearchResults<APIModel> & {

@@ -22,7 +22,7 @@ export const misspeltHelpTuple: RedirectEntry = [
 // Regular expression magic incantations 🪄
 const redirectMap = new Map<RedirectEntry[0], RedirectEntry[1]>([
   // main data
-  [/^\/uniprot(?<rest>\/.*)?$/i, `/${Namespace.uniprotkb}$<rest>`],
+  [/^\/(uniprot|entry)(?<rest>\/.*)?$/i, `/${Namespace.uniprotkb}$<rest>`],
   [/^\/unipark(?<rest>\/.*)?$/i, `/${Namespace.uniparc}$<rest>`],
   [/^\/proteome(?<rest>\/.*)?$/i, `/${Namespace.proteomes}$<rest>`],
   // supporting data

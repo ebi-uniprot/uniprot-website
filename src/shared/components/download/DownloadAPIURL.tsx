@@ -1,6 +1,7 @@
 import { Button, CodeBlock, CopyIcon } from 'franklin-sites';
 import { useCallback, useEffect } from 'react';
 import { generatePath, Link } from 'react-router-dom';
+import queryString from 'query-string';
 
 import { useMessagesDispatch } from '../../contexts/Messages';
 
@@ -49,6 +50,12 @@ const DownloadAPIURL = ({
   );
 
   const isStreamEndpoint = apiURL.includes('/stream');
+  const parsed = queryString.parseUrl(apiURL);
+  const batchSize = 500;
+  const searchEndpoint = queryString.stringifyUrl({
+    url: parsed.url.replace('/stream', '/search'),
+    query: { ...parsed.query, size: batchSize },
+  });
 
   return (
     <div className={styles['api-url']}>
@@ -70,8 +77,8 @@ const DownloadAPIURL = ({
         <>
           <br />
           <h4>API URL using the search endpoint</h4>
-          This endpoint is lighter and returns chunks of 25 results by default
-          at a time and requires&nbsp;
+          This endpoint is lighter and returns chunks of {batchSize} at a time
+          and requires&nbsp;
           <Link
             to={generatePath(LocationToPath[Location.HelpEntry], {
               accession: 'pagination',
@@ -79,17 +86,12 @@ const DownloadAPIURL = ({
           >
             pagination
           </Link>
-          .
-          <CodeBlock lightMode>
-            {apiURL.replace('/stream', '/search')}
-          </CodeBlock>
+          .<CodeBlock lightMode>{searchEndpoint}</CodeBlock>
           <section className="button-group">
             <Button
               variant="primary"
               className={styles['copy-button']}
-              onClick={() =>
-                handleCopyURL(apiURL.replace('/stream', '/search'))
-              }
+              onClick={() => handleCopyURL(searchEndpoint)}
             >
               <CopyIcon />
               Copy
