@@ -306,8 +306,7 @@ const Download: FC<DownloadProps> = ({
       </section>
       {jobResultsLocation === Location.IDMappingResult && (
         <Message level="warning" className="uniprot-grid-cell--span-12">
-          We are experiencing issues with ID mapping downloads. If you need it,
-          please use the{' '}
+          If you are experiencing any issue, feel free to try the{' '}
           <ExternalLink
             url="https://legacy.uniprot.org/uploadlists"
             rel="nofollow"
@@ -315,8 +314,8 @@ const Download: FC<DownloadProps> = ({
           >
             legacy website
           </ExternalLink>{' '}
-          until the issue is resolved or <ContactLink>contact us</ContactLink>{' '}
-          for help.
+          which will still be available for now, or{' '}
+          <ContactLink>contact us</ContactLink> for help.
         </Message>
       )}
     </>
