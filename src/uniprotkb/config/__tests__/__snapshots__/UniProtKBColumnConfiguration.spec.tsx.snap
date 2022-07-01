@@ -2279,7 +2279,7 @@ exports[`UniProtKBColumnConfiguration component should render column "reviewed":
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "rhea_id": rhea_id 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "rhea": rhea 1`] = `
 <DocumentFragment>
   <ul
     class="expandable-list no-bullet"

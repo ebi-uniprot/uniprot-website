@@ -4,11 +4,10 @@ import { captureException, captureMessage } from '@sentry/react';
 import { ScopeContext } from '@sentry/types';
 
 /* Page tracking */
-const titleMutationObserver = new MutationObserver(([record]) => {
-  console.log(record.target.textContent);
+const titleMutationObserver = new MutationObserver((records) => {
   try {
     gtag('config', 'UA-6228219-1', {
-      page_title: record.target.textContent,
+      page_title: records[0].target.textContent,
       send_page_view: true,
     });
   } catch {
