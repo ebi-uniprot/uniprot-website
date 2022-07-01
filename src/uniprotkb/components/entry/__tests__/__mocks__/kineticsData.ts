@@ -1,4 +1,6 @@
-const mock = {
+import { KineticParameters } from '../../../../adapters/functionConverter';
+
+const mock: { [key: string]: KineticParameters } = {
   data1: {
     maximumVelocities: [
       {

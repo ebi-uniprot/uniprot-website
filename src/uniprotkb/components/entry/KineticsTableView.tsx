@@ -71,9 +71,8 @@ const KineticsTable = ({
         </table>
       </protvistaDataTableElement.name>
     );
-  } else {
-    return null;
   }
+  return null;
 };
 
 export const KineticsTableView = ({ data }: { data: KineticParameters }) => {
@@ -84,22 +83,22 @@ export const KineticsTableView = ({ data }: { data: KineticParameters }) => {
 
   let km: KinecticsTableRow[] = [];
   let vmax: KinecticsTableRow[] = [];
-  let kcats: KinecticsTableRow[] = [];
-  let additionalNotes: string[] = [];
+  const kcats: KinecticsTableRow[] = [];
+  const additionalNotes: string[] = [];
 
   const excludePhTemp = (str: string) => {
     let newStr = str;
     const excludePH = pHRegEx.exec(newStr);
     if (excludePH?.length) {
-      newStr =
-        newStr?.substring(0, excludePH.index) +
-        newStr?.substring(excludePH.index + excludePH[0].length);
+      newStr = `${newStr?.substring(0, excludePH.index)}${newStr?.substring(
+        excludePH.index + excludePH[0].length
+      )}`;
     }
     const excludeTemp = tempRegEx.exec(newStr);
     if (excludeTemp?.length) {
-      newStr =
-        newStr?.substring(0, excludeTemp.index) +
-        newStr?.substring(excludeTemp.index + excludeTemp[0].length);
+      newStr = `${newStr?.substring(0, excludeTemp.index)}${newStr?.substring(
+        excludeTemp.index + excludeTemp[0].length
+      )}`;
     }
     newStr = newStr.replace(/\bat\b|\band\b/g, '');
     newStr = newStr.trim();
@@ -119,7 +118,7 @@ export const KineticsTableView = ({ data }: { data: KineticParameters }) => {
       moreInfo?.forEach((str) => {
         const possibleInfo = ['pH', 'degrees', 'in', 'above', 'below'];
         if (possibleInfo.some((e) => str.includes(e))) {
-          let match = str.match(captureWordsInParanthesis)?.[1] || '';
+          const match = str.match(captureWordsInParanthesis)?.[1] || '';
           // Do not include pH and temperature data in notes
           notes = excludePhTemp(match);
         } else {
@@ -148,7 +147,7 @@ export const KineticsTableView = ({ data }: { data: KineticParameters }) => {
       const [substrateInfo, condition] = mv.enzyme.split('(');
       let notes = substrateInfo.split('enzyme')?.[1];
       if (condition) {
-        let match =
+        const match =
           `(${condition}`.match(captureWordsInParanthesis)?.[1] || condition;
         if (['pH', 'degrees'].some((e) => match.includes(e))) {
           notes += excludePhTemp(match);
@@ -200,7 +199,7 @@ export const KineticsTableView = ({ data }: { data: KineticParameters }) => {
           }
         });
 
-        kcatsFreeText.map((value) => {
+        kcatsFreeText.forEach((value) => {
           const [constant] = value.match(kcatConstantRegEx) || [''];
 
           if (constant.length > 0) {
@@ -214,7 +213,8 @@ export const KineticsTableView = ({ data }: { data: KineticParameters }) => {
 
             const [info, pubMed] = substrateInfo.split('(PubMed:');
 
-            let [substrateNotes, phTempNotes] = info.split('(at');
+            let substrateNotes = info.split('(at')?.[0];
+            const phTempNotes = info.split('(at')?.[1];
 
             const evidences: Evidence[] = [];
             if (evidencesForWhole && pubMed) {
@@ -228,7 +228,7 @@ export const KineticsTableView = ({ data }: { data: KineticParameters }) => {
             const temp = phTempNotes?.match(tempRegEx)?.[1];
 
             if (phTempNotes) {
-              let match =
+              const match =
                 `(${phTempNotes}`.match(captureWordsInParanthesis)?.[1] ||
                 phTempNotes;
               if (['pH', 'degrees'].some((e) => match.includes(e))) {
