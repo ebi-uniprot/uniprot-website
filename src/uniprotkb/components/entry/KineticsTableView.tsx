@@ -16,7 +16,25 @@ import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
 
 import { KineticParameters } from '../../adapters/functionConverter';
 
-const KineticsTable = ({ columns, data }) => {
+import { Evidence } from '../../types/modelTypes';
+
+type KinecticsTableRow = {
+  key: string;
+  constant: string;
+  substrate?: string;
+  ph: string | undefined;
+  temp: string | undefined;
+  notes?: string;
+  evidences?: Evidence[];
+};
+
+const KineticsTable = ({
+  columns,
+  data,
+}: {
+  columns: string[];
+  data: KinecticsTableRow[];
+}) => {
   const protvistaDataTableElement = useCustomElement(
     () =>
       import(
@@ -59,16 +77,19 @@ const KineticsTable = ({ columns, data }) => {
 };
 
 export const KineticsTableView = ({ data }: { data: KineticParameters }) => {
-  const pHRegEX = /pH\s(([0-9]*[.])?[0-9]+)/;
+  const pHRegEx = /pH\s(([0-9]*[.])?[0-9]+)/;
   const tempRegEx = /(([0-9]*[.])?[0-9]+)\sdegrees\sCelsius/;
   const captureWordsInParanthesis = /\(((.+)(?: \((.+)\))?)\)/;
-  const removeLeadingTrailingChar = /(^,)|(,$)/g;
+  const removeLeadingTrailingComma = /(^,)|(,$)/g;
 
-  let [km, vmax, kcats, additionalNotes] = [[], [], [], []];
+  let km: KinecticsTableRow[] = [];
+  let vmax: KinecticsTableRow[] = [];
+  let kcats: KinecticsTableRow[] = [];
+  let additionalNotes: string[] = [];
 
   const excludePhTemp = (str: string) => {
     let newStr = str;
-    const excludePH = pHRegEX.exec(newStr);
+    const excludePH = pHRegEx.exec(newStr);
     if (excludePH?.length) {
       newStr =
         newStr?.substring(0, excludePH.index) +
@@ -82,13 +103,13 @@ export const KineticsTableView = ({ data }: { data: KineticParameters }) => {
     }
     newStr = newStr.replace(/\bat\b|\band\b/g, '');
     newStr = newStr.trim();
-    return newStr?.replace(removeLeadingTrailingChar, '');
+    return newStr?.replace(removeLeadingTrailingComma, '');
   };
 
   if (data.michaelisConstants) {
     km = data.michaelisConstants.map((km) => {
       let [substrate] = km.substrate.split('(');
-      const ph = km.substrate.match(pHRegEX)?.[1];
+      const ph = km.substrate.match(pHRegEx)?.[1];
       const temp = km.substrate.match(tempRegEx)?.[1];
 
       const moreInfo = km.substrate.match(
@@ -121,7 +142,7 @@ export const KineticsTableView = ({ data }: { data: KineticParameters }) => {
 
   if (data.maximumVelocities) {
     vmax = data.maximumVelocities.map((mv) => {
-      const ph = mv.enzyme.match(pHRegEX)?.[1];
+      const ph = mv.enzyme.match(pHRegEx)?.[1];
       const temp = mv.enzyme.match(tempRegEx)?.[1];
 
       const [substrateInfo, condition] = mv.enzyme.split('(');
@@ -157,15 +178,15 @@ export const KineticsTableView = ({ data }: { data: KineticParameters }) => {
       if (text.value.includes('kcat')) {
         const kcatValues = text.value.split(kcatRegEx);
         const evidencesForWhole = text.evidences;
-        const kcatsFreeText = [];
+        const kcatsFreeText: string[] = [];
 
         kcatValues.forEach((value) => {
           const constants = value.match(kcatConstantRegEx);
 
-          if (constants?.length > 1) {
+          if (constants && constants?.length > 1) {
             const [pubMed] = value.match(/\(PubMed:\d+\)/) || [null];
 
-            // Exceptional case P45470
+            // Exceptional case like P45470
             if (value.includes('respectively')) {
               additionalNotes.push(value);
             } else {
@@ -180,9 +201,9 @@ export const KineticsTableView = ({ data }: { data: KineticParameters }) => {
         });
 
         kcatsFreeText.map((value) => {
-          const [constant] = value.match(kcatConstantRegEx) || [0];
+          const [constant] = value.match(kcatConstantRegEx) || [''];
 
-          if (constant) {
+          if (constant.length > 0) {
             const brokenSentence = value.split(kcatConstantRegEx);
             let substrateInfo = '';
             brokenSentence.forEach((s) => {
@@ -195,15 +216,15 @@ export const KineticsTableView = ({ data }: { data: KineticParameters }) => {
 
             let [substrateNotes, phTempNotes] = info.split('(at');
 
-            const evidences = [];
+            const evidences: Evidence[] = [];
             if (evidencesForWhole && pubMed) {
-              evidencesForWhole.forEach((e) => {
-                if (pubMed.includes(e.id)) {
+              evidencesForWhole.forEach((e: Evidence) => {
+                if (e.id && pubMed.includes(e.id)) {
                   evidences.push(e);
                 }
               });
             }
-            const ph = phTempNotes?.match(pHRegEX)?.[1];
+            const ph = phTempNotes?.match(pHRegEx)?.[1];
             const temp = phTempNotes?.match(tempRegEx)?.[1];
 
             if (phTempNotes) {
@@ -220,7 +241,7 @@ export const KineticsTableView = ({ data }: { data: KineticParameters }) => {
 
             kcats.push({
               key: `kcat${constant}`,
-              constant: constant,
+              constant,
               notes: substrateNotes,
               ph,
               temp,
