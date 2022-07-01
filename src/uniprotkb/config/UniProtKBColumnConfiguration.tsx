@@ -48,6 +48,7 @@ import {
   KineticsView,
   CofactorView,
 } from '../components/entry/FunctionSection';
+// import KineticsTableView from '../components/entry/KineticsTableView';
 import {
   functionFeaturesToColumns,
   FunctionUIModel,

@@ -1,8 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { Card, Loader, Message } from 'franklin-sites';
 
-import useCustomElement from '../../../shared/hooks/useCustomElement';
-
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
@@ -12,6 +10,7 @@ import KeywordView from '../protein-data-views/KeywordView';
 import XRefView from '../protein-data-views/XRefView';
 import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
+import KineticsTableView from './KineticsTableView';
 
 import { hasContent } from '../../../shared/utils/utils';
 import {
@@ -48,217 +47,39 @@ export const AbsorptionView = ({ data }: { data: Absorption }) => (
   </>
 );
 
-const KineticsTable = ({ columns, data }) => {
-  const protvistaDataTableElement = useCustomElement(
-    () =>
-      import(
-        /* webpackChunkName: "protvista-datatable" */ 'protvista-datatable'
-      ),
-    'protvista-datatable'
-  );
-
-  if (data && data.length) {
-    return (
-      <protvistaDataTableElement.name>
-        <table>
-          <thead>
-            <tr>
-              {columns.map((name) => (
-                <th key={name}> {name} </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((value) => (
-              <tr data-id="row" key={value.key}>
-                <td>{value.constant}</td>
-                {value.substrate && <td>{value.substrate}</td>}
-                <td>{value.ph}</td>
-                <td>{value.temp}</td>
-                <td>{value.notes}</td>
-                <td>
-                  <UniProtKBEvidenceTag evidences={value.evidences} />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </protvistaDataTableElement.name>
-    );
-  } else {
-    return null;
-  }
-};
-
-export const KineticsView = ({ data }: { data: KineticParameters }) => {
-  const pHRegEX = /pH\s(([0-9]*[.])?[0-9]+)/;
-  const tempRegEx = /(([0-9]*[.])?[0-9]+)\sdegrees\sCelsius/;
-  const captureWordsInParanthesis = /\(([^)]+)\)/;
-  const removeLeadingTrailingChar = /(^,)|(,$)/g;
-
-  let km = [];
-  let vmax = [];
-  let kcats = [];
-  let additionalNotes = false;
-
-  const excludePhTemp = (str) => {
-    let newStr = str;
-    const excludePH = pHRegEX.exec(newStr);
-    if (excludePH?.length) {
-      newStr =
-        newStr?.substring(0, excludePH.index) +
-        newStr?.substring(excludePH.index + excludePH[0].length);
-    }
-    const excludeTemp = tempRegEx.exec(newStr);
-    if (excludeTemp?.length) {
-      newStr =
-        newStr?.substring(0, excludeTemp.index) +
-        newStr?.substring(excludeTemp.index + excludeTemp[0].length);
-    }
-    return newStr?.replace(removeLeadingTrailingChar, '');
-  };
-
-  if (data.michaelisConstants) {
-    km = data.michaelisConstants.map((km) => {
-      let [substrate] = km.substrate.split('(');
-      const ph = km.substrate.match(pHRegEX)?.[1];
-      const temp = km.substrate.match(tempRegEx)?.[1];
-
-      const moreInfo = km.substrate.match(
-        new RegExp(captureWordsInParanthesis, 'g')
-      );
-      let notes = '';
-      moreInfo?.forEach((str) => {
-        const possibleInfo = ['pH', 'degrees', 'in'];
-        if (['pH', 'degrees', 'in'].some((e) => str.includes(e))) {
-          let match = str.match(captureWordsInParanthesis)?.[1] || '';
-          // Do not include pH and temperature data in notes
-          notes = excludePhTemp(match);
-        } else {
-          // Sometimes the abbreviation of the substrate could be inside paranthesis, it has to be under the substrate column
-          substrate += str;
-        }
-      });
-
-      return {
-        key: `${km.constant}${km.substrate}`,
-        constant: `${km.constant}${km.unit.replace('uM', 'μM')}`,
-        substrate: substrate.trim(),
-        ph,
-        temp,
-        notes,
-        evidences: km.evidences,
-      };
-    });
-  }
-
-  if (data.maximumVelocities) {
-    vmax = data.maximumVelocities.map((mv) => {
-      const ph = mv.enzyme.match(pHRegEX)?.[1];
-      const temp = mv.enzyme.match(tempRegEx)?.[1];
-
-      const [substrateInfo, condition] = mv.enzyme.split('(');
-      let notes = substrateInfo.split('enzyme')?.[1];
-      if (condition) {
-        let match =
-          `(${condition}`.match(captureWordsInParanthesis)?.[1] || condition;
-        if (['pH', 'degrees'].some((e) => match.includes(e))) {
-          notes += excludePhTemp(match);
-        } else {
-          // Add the additional info to the Notes column
-          notes += match;
-        }
-      }
-
-      return {
-        key: `${mv.velocity}-${mv.enzyme}`,
-        constant: `${mv.velocity}${mv.unit}`,
-        ph,
-        temp,
-        notes: notes.trim(),
-        evidences: mv.evidences,
-      };
-    });
-  }
-
-  if (data.note?.texts) {
-    const kcatRegEx = /\)\.\s/;
-    // From the curation manual: kcat is expressed per unit of time, in sec(-1), min(-1) or h(-1).
-    const kcatConstantRegEx = /([0-9]*[.])?[0-9]+\s?[sec|min|h]+\s?\(-1\)/g;
-
-    data.note?.texts.forEach((text) => {
-      if (text.value.includes('kcat')) {
-        const kcatValues = text.value.split(kcatRegEx);
-        const evidencesForWhole = text.evidences;
-        kcatValues.forEach((value) => {
-          const constants = value.match(kcatConstantRegEx);
-
-          const brokenSentence = value.split(kcatConstantRegEx);
-          let substrateInfo = '';
-          brokenSentence.forEach((s) => {
-            if (!s?.includes('kcat') || !kcatConstantRegEx.test(s)) {
-              substrateInfo = s;
-            }
-          });
-
-          const [substrateNotes, phTemp] = substrateInfo.split('(at');
-          const pubMed = value.match(/PubMed:+(\d+)/g)?.join(',');
-
-          // TODO Deal with exception such as P45470 where kcat values could be wrapped in a sentence
-          let notes = [];
-          if (substrateNotes.includes('respectively')) {
-            const substrates = substrateNotes.split(/and|, respectively/);
-            notes = substrates
-              .filter((s) => !!s.trim().length)
-              .map((s) => {
-                return s.trim();
-              });
-          }
-
-          const evidences = [];
-          if (evidencesForWhole && pubMed) {
-            evidencesForWhole.forEach((e) => {
-              if (pubMed.includes(e.id)) {
-                evidences.push(e);
-              }
-            });
-          }
-          const ph = phTemp?.match(pHRegEX)?.[1];
-          const temp = phTemp?.match(tempRegEx)?.[1];
-
-          for (let i = 0; i < constants.length; i++) {
-            kcats.push({
-              key: `kcat${constants[i]}`,
-              constant: constants[i],
-              notes: notes.length > 0 ? notes[i] : substrateNotes,
-              ph,
-              temp,
-              evidences,
-            });
-          }
-        });
-      }
-      if (!text.value.includes('kcat')) {
-        additionalNotes = true;
-      }
-    });
-  }
-
-  const columns = ['pH', 'TEMPERATURE[C]', 'NOTES', 'EVIDENCE'];
-  return (
-    <>
-      <KineticsTable columns={['KM', 'SUBSTRATE', ...columns]} data={km} />
-      <KineticsTable columns={['Vmax', ...columns]} data={vmax} />
-      <KineticsTable columns={['kcat', ...columns]} data={kcats} />
-
-      {additionalNotes && (
-        <section className="text-block">
-          {data.note && <TextView comments={data.note.texts} />}
-        </section>
+export const KineticsView = ({ data }: { data: KineticParameters }) => (
+  <>
+    <section className="text-block">
+      {data.michaelisConstants && (
+        <ul className="no-bullet">
+          {data.michaelisConstants.map((km) => (
+            <li key={`${km.constant}-${km.substrate}`}>
+              K<sub>M</sub>
+              {`=${km.constant}${km.unit.replace('uM', 'μM')} for ${
+                km.substrate
+              } `}
+              <UniProtKBEvidenceTag evidences={km.evidences} />
+            </li>
+          ))}
+        </ul>
       )}
-    </>
-  );
-};
+      {data.maximumVelocities && (
+        <ul className="no-bullet">
+          {data.maximumVelocities.map((mv) => (
+            <li key={`${mv.velocity}-${mv.enzyme}`}>
+              V<sub>max</sub>
+              {`=${mv.velocity}${mv.unit} for ${mv.enzyme} `}
+              <UniProtKBEvidenceTag evidences={mv.evidences} />
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+    <section className="text-block">
+      {data.note && <TextView comments={data.note.texts} />}
+    </section>
+  </>
+);
 
 const BioPhysicoChemicalPropertiesView = ({
   data,
@@ -279,7 +100,7 @@ const BioPhysicoChemicalPropertiesView = ({
       {data.kinetics && (
         <>
           <h3>Kinetics</h3>
-          <KineticsView data={data.kinetics} />
+          <KineticsTableView data={data.kinetics} />
         </>
       )}
       {data.pHDependence && (
