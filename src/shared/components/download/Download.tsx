@@ -1,11 +1,12 @@
 import { useState, FC, ChangeEvent, useRef, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Button, LongNumber } from 'franklin-sites';
+import { Button, ExternalLink, LongNumber, Message } from 'franklin-sites';
 import cn from 'classnames';
 
 import ColumnSelect from '../column-select/ColumnSelect';
 import DownloadPreview from './DownloadPreview';
 import DownloadAPIURL from './DownloadAPIURL';
+import ContactLink from '../../../contact/components/ContactLink';
 
 import useColumnNames from '../../hooks/useColumnNames';
 import useJobFromUrl from '../../hooks/useJobFromUrl';
@@ -303,6 +304,21 @@ const Download: FC<DownloadProps> = ({
           />
         )}
       </section>
+      {jobResultsLocation === Location.IDMappingResult && (
+        <Message level="warning" className="uniprot-grid-cell--span-12">
+          We are experiencing issues with ID mapping downloads. If you need it,
+          please use the{' '}
+          <ExternalLink
+            url="https://legacy.uniprot.org/uploadlists"
+            rel="nofollow"
+            noIcon
+          >
+            legacy website
+          </ExternalLink>{' '}
+          until the issue is resolved or <ContactLink>contact us</ContactLink>{' '}
+          for help.
+        </Message>
+      )}
     </>
   );
 };
