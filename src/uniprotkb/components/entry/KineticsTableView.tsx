@@ -2,6 +2,17 @@ import useCustomElement from '../../../shared/hooks/useCustomElement';
 
 import { TextView } from '../protein-data-views/FreeTextView';
 import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
+// import {
+//   reAC,
+//   needTextProcessingRE,
+//   rePubMedID,
+//   rePubMed,
+//   reUniProtKBAccession,
+//   reFamily,
+//   familyExtractor,
+//   reSubscript,
+//   reSuperscript,
+// } from '../../utils';
 
 import { KineticParameters } from '../../adapters/functionConverter';
 
