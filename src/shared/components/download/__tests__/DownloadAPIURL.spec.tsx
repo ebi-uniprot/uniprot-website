@@ -1,6 +1,6 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 
-import DownloadAPIURL from '../DownloadAPIURL';
+import DownloadAPIURL, { getSearchURL } from '../DownloadAPIURL';
 
 import customRender from '../../../__test-helpers__/customRender';
 
@@ -59,5 +59,35 @@ describe('DownloadAPIURL', () => {
       })
     );
     expect(onCopy).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('getSearchURL', () => {
+  it('should get uniprotkb search URL', () => {
+    expect(
+      getSearchURL(
+        'https://rest.uniprot.org/uniprotkb/stream?format=json&query=NOD2'
+      )
+    ).toEqual(
+      'https://rest.uniprot.org/uniprotkb/search?format=json&query=NOD2&size=500'
+    );
+  });
+  it('should get idmapping non-uniprot search URL and with batch size of 500', () => {
+    expect(
+      getSearchURL(
+        'https://rest.uniprot.org/idmapping/stream/1b743f36b11f8e16969cf344b6c70236847b1183?format=tsv'
+      )
+    ).toEqual(
+      'https://rest.uniprot.org/idmapping/results/1b743f36b11f8e16969cf344b6c70236847b1183?format=tsv&size=500'
+    );
+  });
+  it('should get idmapping uniprotkb search URL and with batch size of 500', () => {
+    expect(
+      getSearchURL(
+        'https://rest.uniprot.org/idmapping/uniprotkb/results/stream/77035de28771bdd279b1c5ce66c3aebe8ec8b028?format=fasta'
+      )
+    ).toEqual(
+      'https://rest.uniprot.org/idmapping/uniprotkb/results/77035de28771bdd279b1c5ce66c3aebe8ec8b028?format=fasta&size=500'
+    );
   });
 });
