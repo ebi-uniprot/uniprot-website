@@ -43,6 +43,8 @@ if (process.env.NODE_ENV !== 'development') {
   const titleMutationObserver = new MutationObserver((records) => {
     try {
       gtag('config', 'UA-6228219-1', {
+        page_location: window.location.href,
+        page_path: window.location.pathname,
         page_title: records[0].target.textContent,
         send_page_view: true,
       });
