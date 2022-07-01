@@ -20,6 +20,7 @@ const HTMLHead = ({ title, children }: Props) => {
       renderedTitle = `${title}`;
     }
   }
+
   return (
     <Helmet>
       {renderedTitle ? <title>{renderedTitle}</title> : null}

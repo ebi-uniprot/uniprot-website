@@ -3,6 +3,23 @@
 import { captureException, captureMessage } from '@sentry/react';
 import { ScopeContext } from '@sentry/types';
 
+/* Page tracking */
+const titleMutationObserver = new MutationObserver(([record]) => {
+  console.log(record.target.textContent);
+  try {
+    gtag('config', 'UA-6228219-1', {
+      page_title: record.target.textContent,
+      send_page_view: true,
+    });
+  } catch {
+    /* */
+  }
+});
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+titleMutationObserver.observe(document.querySelector('title')!, {
+  childList: true,
+});
+
 // Expand as we add more events
 type CustomCategories = `console.${'log' | 'warn' | 'error'}`;
 
