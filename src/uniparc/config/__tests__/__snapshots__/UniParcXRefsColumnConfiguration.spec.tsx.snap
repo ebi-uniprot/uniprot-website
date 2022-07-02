@@ -4,7 +4,7 @@ exports[`UniParcXRefsColumnConfiguration component should render column "accessi
 <DocumentFragment>
   <span>
     <a
-      href="/uniprotkb/P07612"
+      href="/uniprotkb/P07612/entry"
     >
       P07612
     </a>

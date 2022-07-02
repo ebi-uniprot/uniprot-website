@@ -115,7 +115,7 @@ exports[`Computationally mapped isoforms should render correctly 1`] = `
             >
               <a
                 class="accession"
-                href="/uniprotkb/A0A0A0MRG2"
+                href="/uniprotkb/A0A0A0MRG2/entry"
               >
                 A0A0A0MRG2
               </a>
@@ -160,7 +160,7 @@ exports[`Computationally mapped isoforms should render correctly 1`] = `
             >
               <a
                 class="accession"
-                href="/uniprotkb/E9PG40"
+                href="/uniprotkb/E9PG40/entry"
               >
                 E9PG40
               </a>
@@ -205,7 +205,7 @@ exports[`Computationally mapped isoforms should render correctly 1`] = `
             >
               <a
                 class="accession"
-                href="/uniprotkb/H7C0V9"
+                href="/uniprotkb/H7C0V9/entry"
               >
                 H7C0V9
               </a>
@@ -250,7 +250,7 @@ exports[`Computationally mapped isoforms should render correctly 1`] = `
             >
               <a
                 class="accession"
-                href="/uniprotkb/H7C2L2"
+                href="/uniprotkb/H7C2L2/entry"
               >
                 H7C2L2
               </a>

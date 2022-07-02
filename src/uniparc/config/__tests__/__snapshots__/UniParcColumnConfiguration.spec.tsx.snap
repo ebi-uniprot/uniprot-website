@@ -1107,7 +1107,7 @@ exports[`UniParcColumnConfiguration component should render column "upi": upi 1`
   >
     <a
       class="accession"
-      href="/uniparc/UPI0000000001"
+      href="/uniparc/UPI0000000001/entry"
     >
       UPI0000000001
     </a>

@@ -287,7 +287,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                       >
                         <a
                           class="accession"
-                          href="/uniprotkb/P11413"
+                          href="/uniprotkb/P11413/entry"
                         >
                           P11413
                         </a>
@@ -361,7 +361,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                       >
                         <a
                           class="accession"
-                          href="/uniprotkb/P36871"
+                          href="/uniprotkb/P36871/entry"
                         >
                           P36871
                         </a>
@@ -726,7 +726,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                       >
                         <a
                           class="accession"
-                          href="/uniprotkb/P11413"
+                          href="/uniprotkb/P11413/entry"
                         >
                           P11413
                         </a>
@@ -801,7 +801,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                       >
                         <a
                           class="accession"
-                          href="/uniprotkb/P36871"
+                          href="/uniprotkb/P36871/entry"
                         >
                           P36871
                         </a>

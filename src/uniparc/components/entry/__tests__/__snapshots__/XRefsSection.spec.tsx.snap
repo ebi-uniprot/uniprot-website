@@ -87,7 +87,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
               <td>
                 <span>
                   <a
-                    href="/uniprotkb/P07612"
+                    href="/uniprotkb/P07612/entry"
                   >
                     P07612
                   </a>
@@ -145,7 +145,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                   class="xref-inactive"
                 >
                   <a
-                    href="/uniprotkb/P07612"
+                    href="/uniprotkb/P07612/entry"
                   >
                     P07612
                   </a>
@@ -206,7 +206,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
               <td>
                 <span>
                   <a
-                    href="/uniprotkb/A0A2I2MDI1"
+                    href="/uniprotkb/A0A2I2MDI1/entry"
                   >
                     A0A2I2MDI1
                   </a>
@@ -260,7 +260,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
               <td>
                 <span>
                   <a
-                    href="/uniprotkb/A0A7I8V511"
+                    href="/uniprotkb/A0A7I8V511/entry"
                   >
                     A0A7I8V511
                   </a>
@@ -314,7 +314,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
               <td>
                 <span>
                   <a
-                    href="/uniprotkb/Q0GNZ6"
+                    href="/uniprotkb/Q0GNZ6/entry"
                   >
                     Q0GNZ6
                   </a>
@@ -368,7 +368,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
               <td>
                 <span>
                   <a
-                    href="/uniprotkb/Q6RZL4"
+                    href="/uniprotkb/Q6RZL4/entry"
                   >
                     Q6RZL4
                   </a>
@@ -422,7 +422,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
               <td>
                 <span>
                   <a
-                    href="/uniprotkb/Q71TT2"
+                    href="/uniprotkb/Q71TT2/entry"
                   >
                     Q71TT2
                   </a>
@@ -476,7 +476,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
               <td>
                 <span>
                   <a
-                    href="/uniprotkb/Q76QK2"
+                    href="/uniprotkb/Q76QK2/entry"
                   >
                     Q76QK2
                   </a>
@@ -534,7 +534,7 @@ exports[`SequenceSection component should render the SequenceSection properly an
                   class="xref-inactive"
                 >
                   <a
-                    href="/uniprotkb/Q76ZT7"
+                    href="/uniprotkb/Q76ZT7/entry"
                   >
                     Q76ZT7
                   </a>

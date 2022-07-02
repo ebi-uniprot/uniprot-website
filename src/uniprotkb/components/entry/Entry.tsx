@@ -318,6 +318,9 @@ const Entry = () => {
         )
       }
     >
+      <HTMLHead>
+        <link rel="canonical" href={window.location.href} />
+      </HTMLHead>
       <Tabs active={match.params.subPage}>
         <Tab
           cache={!historyOldEntry}
