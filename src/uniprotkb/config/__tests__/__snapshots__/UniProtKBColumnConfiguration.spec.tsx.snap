@@ -1719,25 +1719,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_zn_fing
 exports[`UniProtKBColumnConfiguration component should render column "gene_names": gene_names 1`] = `
 <DocumentFragment>
   <span
-    style="font-weight: bolder;"
-  >
-    some Gene
-  </span>
-  <button
-    aria-expanded="false"
-    class="button tertiary ellipsis-reveal"
-    title="Show more"
-    type="button"
-  >
-    [...]
-  </button>
-</DocumentFragment>
-`;
-
-exports[`UniProtKBColumnConfiguration component should render column "gene_names": gene_names-expanded 1`] = `
-<DocumentFragment>
-  <span
-    style="font-weight: bolder;"
+    class="bolder"
   >
     some Gene
   </span>
@@ -1747,49 +1729,25 @@ exports[`UniProtKBColumnConfiguration component should render column "gene_names
 
 exports[`UniProtKBColumnConfiguration component should render column "gene_oln": gene_oln 1`] = `
 <DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  >
-    <li>
-      some locus
-    </li>
-  </ul>
+  some locus
 </DocumentFragment>
 `;
 
 exports[`UniProtKBColumnConfiguration component should render column "gene_orf": gene_orf 1`] = `
 <DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  >
-    <li>
-      some orf
-    </li>
-  </ul>
+  some orf
 </DocumentFragment>
 `;
 
 exports[`UniProtKBColumnConfiguration component should render column "gene_primary": gene_primary 1`] = `
 <DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  >
-    <li>
-      some Gene
-    </li>
-  </ul>
+  some Gene
 </DocumentFragment>
 `;
 
 exports[`UniProtKBColumnConfiguration component should render column "gene_synonym": gene_synonym 1`] = `
 <DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  >
-    <li>
-      some Syn
-    </li>
-  </ul>
+  some Syn
 </DocumentFragment>
 `;
 
