@@ -7,12 +7,6 @@ const useScrollToTop = (history: History) => {
     const unlisten = history.listen((location) => {
       if (previousPathname !== location.pathname) {
         window.scrollTo(0, 0);
-        try {
-          gtag('set', 'page_path', location.pathname);
-          gtag('event', 'page_view');
-        } catch {
-          /* */
-        }
       }
       previousPathname = location.pathname;
     });

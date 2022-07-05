@@ -37,3 +37,23 @@ if ('serviceWorker' in navigator) {
     }
   });
 }
+
+if (process.env.NODE_ENV !== 'development') {
+  /* Page tracking */
+  const titleMutationObserver = new MutationObserver((records) => {
+    try {
+      gtag('config', 'UA-6228219-1', {
+        page_location: window.location.href,
+        page_path: window.location.pathname,
+        page_title: records[0].target.textContent,
+        send_page_view: true,
+      });
+    } catch {
+      /* */
+    }
+  });
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  titleMutationObserver.observe(document.querySelector('title')!, {
+    childList: true,
+  });
+}

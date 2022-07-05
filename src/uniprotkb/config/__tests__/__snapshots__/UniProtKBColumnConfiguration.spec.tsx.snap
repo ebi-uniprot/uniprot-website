@@ -70,7 +70,7 @@ exports[`UniProtKBColumnConfiguration component should render column "accession"
   >
     <a
       class="accession"
-      href="/uniprotkb/P21802"
+      href="/uniprotkb/P21802/entry"
     >
       P21802
     </a>
@@ -2279,7 +2279,7 @@ exports[`UniProtKBColumnConfiguration component should render column "reviewed":
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "rhea_id": rhea_id 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "rhea": rhea 1`] = `
 <DocumentFragment>
   <ul
     class="expandable-list no-bullet"

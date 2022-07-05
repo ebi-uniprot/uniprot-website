@@ -107,7 +107,7 @@ exports[`UniRuleColumnConfiguration component should render column "template_ent
       >
         <a
           class="accession"
-          href="/uniprotkb/Q9QY05"
+          href="/uniprotkb/Q9QY05/entry"
         >
           Q9QY05
         </a>
@@ -119,7 +119,7 @@ exports[`UniRuleColumnConfiguration component should render column "template_ent
       >
         <a
           class="accession"
-          href="/uniprotkb/Q9Y581"
+          href="/uniprotkb/Q9Y581/entry"
         >
           Q9Y581
         </a>
