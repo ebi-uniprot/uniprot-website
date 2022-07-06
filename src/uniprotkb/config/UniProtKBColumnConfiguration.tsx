@@ -92,6 +92,7 @@ import { PeptideSearchMatches } from '../../tools/peptide-search/components/Pept
 
 import useDatabaseInfoMaps from '../../shared/hooks/useDatabaseInfoMaps';
 
+import { deepFindAllByKey } from '../../shared/utils/utils';
 import { getAllKeywords } from '../utils/KeywordsUtil';
 import externalUrls from '../../shared/config/externalUrls';
 import { getEntryPath, LocationToPath, Location } from '../../app/config/urls';
@@ -212,12 +213,23 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneNames, {
     'Name(s) of the gene(s) encoding the protein',
     'gene_name'
   ),
-  render: (data) => (
-    <CSVView
-      data={data[EntrySection.NamesAndTaxonomy].geneNamesData}
-      bolderFirst
-    />
-  ),
+  render: (data) => {
+    const [firstValue, ...restOfValues] = new Set(
+      deepFindAllByKey(
+        data[EntrySection.NamesAndTaxonomy].geneNamesData,
+        'value'
+      )
+    );
+    if (!firstValue) {
+      return null;
+    }
+    return (
+      <>
+        <span className={helper.bolder}>{firstValue}</span>
+        {restOfValues.length !== 0 && `, ${restOfValues.join(', ')}`}
+      </>
+    );
+  },
 });
 
 UniProtKBColumnConfiguration.set(
@@ -253,11 +265,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.genePrimary, {
 
     const names = geneNamesData?.map((geneNames) => geneNames.geneName?.value);
 
-    return (
-      <ExpandableList descriptionString="gene names" numberCollapsedItems={1}>
-        {names}
-      </ExpandableList>
-    );
+    return names?.join(', ');
   },
 });
 
@@ -274,11 +282,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOln, {
       geneNames.orderedLocusNames?.map((synonym) => synonym.value)
     );
 
-    return (
-      <ExpandableList descriptionString="gene names" numberCollapsedItems={1}>
-        {names}
-      </ExpandableList>
-    );
+    return names?.join(', ');
   },
 });
 
@@ -295,11 +299,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOrf, {
       geneNames.orfNames?.map((synonym) => synonym.value)
     );
 
-    return (
-      <ExpandableList descriptionString="gene names" numberCollapsedItems={1}>
-        {names}
-      </ExpandableList>
-    );
+    return names?.join(', ');
   },
 });
 
@@ -312,15 +312,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneSynonym, {
   render(data) {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
 
-    const names = geneNamesData?.flatMap((geneNames) => [
-      geneNames.synonyms?.map((synonym) => synonym.value),
-    ]);
-
-    return (
-      <ExpandableList descriptionString="gene names" numberCollapsedItems={1}>
-        {names}
-      </ExpandableList>
+    const names = geneNamesData?.flatMap((geneNames) =>
+      geneNames.synonyms?.map((synonym) => synonym.value)
     );
+
+    return names?.join(', ');
   },
 });
 

@@ -37,7 +37,11 @@ export const getPDBMirrorsInfo = (
 
 export type EntrySectionToDatabaseNames = Map<EntrySection, string[]>;
 
-// TODO: figure out where OTG and PRM go? https://www.ebi.ac.uk/panda/jira/browse/TRM-27105
+// NOTE: the categories OTG & PRM each map to a single DB: quickgo and uniprot/proteomes, respectively.
+// Both of these DBs are present outside of the standard xrefs sections: go-ribbon and names & taxonomy, respectively.
+// For this reason OTG & PRM are not currently found in the mapping below. However, if at some point
+// additional DBs are added then it will have to be decided where these categories should reside within the entry page.
+// For historical context view https://www.ebi.ac.uk/panda/jira/browse/TRM-27105
 export const getEntrySectionToDatabaseNames = (
   databaseCategoryToNames: DatabaseCategoryToNames
 ): EntrySectionToDatabaseNames => {
