@@ -6,7 +6,12 @@ import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
 import { KineticParameters } from '../../adapters/functionConverter';
 import { Evidence } from '../../types/modelTypes';
 
-import styles from './styles/kinetics-table.module.scss';
+import styles from '../../../shared/styles/helper.module.scss';
+
+const pHRegEx = /pH\s(([0-9]*[.])?[0-9]+)/;
+const tempRegEx = /(([0-9]*[.])?[0-9]+)\sdegrees\scelsius/i;
+const captureWordsInParanthesis = /\(((.+)(?: \((.+)\))?)\)/;
+const removeLeadingTrailingComma = /(^,)|(,$)/g;
 
 type KinecticsTableRow = {
   key: string;
@@ -42,7 +47,10 @@ const KineticsTable = ({
           <thead>
             <tr>
               {columns.map((name) => (
-                <th key={name}> {name} </th>
+                <th key={name} className={styles['no-text-transform']}>
+                  {' '}
+                  {name}{' '}
+                </th>
               ))}
             </tr>
           </thead>
@@ -61,7 +69,7 @@ const KineticsTable = ({
 
               return (
                 <tr data-id="row" key={value.key}>
-                  <td className={styles.unit}>
+                  <td className={styles['no-wrap']}>
                     {constant.text}
                     {constant.sup && <sup>{constant.sup}</sup>}
                   </td>
@@ -83,35 +91,30 @@ const KineticsTable = ({
   return null;
 };
 
-export const KineticsTableView = ({ data }: { data: KineticParameters }) => {
-  const pHRegEx = /pH\s(([0-9]*[.])?[0-9]+)/;
-  const tempRegEx = /(([0-9]*[.])?[0-9]+)\sdegrees\sCelsius/i;
-  const captureWordsInParanthesis = /\(((.+)(?: \((.+)\))?)\)/;
-  const removeLeadingTrailingComma = /(^,)|(,$)/g;
+const excludePhTemp = (str: string) => {
+  let newStr = str;
+  const excludePH = pHRegEx.exec(newStr);
+  if (excludePH?.length) {
+    newStr = `${newStr?.substring(0, excludePH.index)}${newStr?.substring(
+      excludePH.index + excludePH[0].length
+    )}`;
+  }
+  const excludeTemp = tempRegEx.exec(newStr);
+  if (excludeTemp?.length) {
+    newStr = `${newStr?.substring(0, excludeTemp.index)}${newStr?.substring(
+      excludeTemp.index + excludeTemp[0].length
+    )}`;
+  }
+  newStr = newStr.replace(/\bat\b|\band\b/g, '');
+  newStr = newStr.trim();
+  return newStr?.replace(removeLeadingTrailingComma, '');
+};
 
+export const extractFromFreeText = (data: KineticParameters) => {
   let km: KinecticsTableRow[] = [];
   let vmax: KinecticsTableRow[] = [];
   const kcats: KinecticsTableRow[] = [];
   const additionalNotes: string[] = [];
-
-  const excludePhTemp = (str: string) => {
-    let newStr = str;
-    const excludePH = pHRegEx.exec(newStr);
-    if (excludePH?.length) {
-      newStr = `${newStr?.substring(0, excludePH.index)}${newStr?.substring(
-        excludePH.index + excludePH[0].length
-      )}`;
-    }
-    const excludeTemp = tempRegEx.exec(newStr);
-    if (excludeTemp?.length) {
-      newStr = `${newStr?.substring(0, excludeTemp.index)}${newStr?.substring(
-        excludeTemp.index + excludeTemp[0].length
-      )}`;
-    }
-    newStr = newStr.replace(/\bat\b|\band\b/g, '');
-    newStr = newStr.trim();
-    return newStr?.replace(removeLeadingTrailingComma, '');
-  };
 
   if (data.michaelisConstants) {
     km = data.michaelisConstants.map((km) => {
@@ -266,6 +269,11 @@ export const KineticsTableView = ({ data }: { data: KineticParameters }) => {
     });
   }
 
+  return { km, vmax, kcats, additionalNotes };
+};
+
+export const KineticsTableView = ({ data }: { data: KineticParameters }) => {
+  const { km, vmax, kcats, additionalNotes } = extractFromFreeText(data);
   const columns = ['pH', 'TEMPERATURE[C]', 'NOTES', 'EVIDENCE'];
   return (
     <>

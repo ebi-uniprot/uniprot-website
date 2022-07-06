@@ -68,7 +68,7 @@ export const KineticsView = ({ data }: { data: KineticParameters }) => (
           {data.maximumVelocities.map((mv) => (
             <li key={`${mv.velocity}-${mv.enzyme}`}>
               V<sub>max</sub>
-              {`=${mv.velocity}${mv.unit} for ${mv.enzyme} `}
+              {`=${mv.velocity}${mv.unit} ${mv.enzyme} `}
               <UniProtKBEvidenceTag evidences={mv.evidences} />
             </li>
           ))}

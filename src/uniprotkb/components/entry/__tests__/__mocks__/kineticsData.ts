@@ -3,21 +3,6 @@ import { KineticParameters } from '../../../../adapters/functionConverter';
 // Examples : D4GUJ7, P45470, P0A006
 const mock: { [key: string]: KineticParameters } = {
   data1: {
-    maximumVelocities: [
-      {
-        velocity: 471,
-        unit: 'nmol/h/mg',
-        enzyme:
-          'enzyme for ATPase activity (at 42 degrees Celsius, pH 8 and 2 M NaCl)',
-        evidences: [
-          {
-            evidenceCode: 'ECO:0000269',
-            source: 'PubMed',
-            id: '24343376',
-          },
-        ],
-      },
-    ],
     michaelisConstants: [
       {
         constant: 438,
@@ -34,32 +19,6 @@ const mock: { [key: string]: KineticParameters } = {
     ],
   },
   data2: {
-    michaelisConstants: [
-      {
-        constant: 0.38,
-        unit: 'mM',
-        substrate: 'glyoxal (at pH 7.4 and 37 degrees Celsius)',
-        evidences: [
-          {
-            evidenceCode: 'ECO:0000269',
-            source: 'PubMed',
-            id: '26678554',
-          },
-        ],
-      },
-      {
-        constant: 0.06,
-        unit: 'mM',
-        substrate: 'methylglyoxal (at pH 7.4 and 37 degrees Celsius)',
-        evidences: [
-          {
-            evidenceCode: 'ECO:0000269',
-            source: 'PubMed',
-            id: '26678554',
-          },
-        ],
-      },
-    ],
     note: {
       texts: [
         {
@@ -82,20 +41,6 @@ const mock: { [key: string]: KineticParameters } = {
     },
   },
   data3: {
-    maximumVelocities: [
-      {
-        velocity: 200,
-        unit: 'nmol/min/mg',
-        enzyme: 'enzyme (below 1 mM arsenate)',
-        evidences: [
-          {
-            evidenceCode: 'ECO:0000269',
-            source: 'PubMed',
-            id: '8003493',
-          },
-        ],
-      },
-    ],
     note: {
       texts: [
         {
