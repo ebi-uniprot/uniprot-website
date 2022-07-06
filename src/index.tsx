@@ -38,22 +38,38 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+/* Page tracking */
 if (process.env.NODE_ENV !== 'development') {
-  /* Page tracking */
-  const titleMutationObserver = new MutationObserver((records) => {
-    try {
-      gtag('config', 'UA-6228219-1', {
-        page_location: window.location.href,
-        page_path: window.location.pathname,
-        page_title: records[0].target.textContent,
-        send_page_view: true,
-      });
-    } catch {
-      /* */
-    }
-  });
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  titleMutationObserver.observe(document.querySelector('title')!, {
+  const title = document.querySelector('title')!;
+
+  let previousHref: null | string;
+
+  // mutation observer callback
+  const mutationObserver = () => {
+    const currentHref = window.location.href;
+    if (title.dataset.loaded && previousHref !== currentHref) {
+      // try/catch for if gtag is not defined (tests/localhost/dev)
+      try {
+        gtag('config', 'UA-6228219-1', {
+          page_location: currentHref,
+          page_path: window.location.pathname,
+          page_title: title.textContent,
+          send_page_view: true,
+        });
+      } catch {
+        /* */
+      }
+      previousHref = currentHref;
+    }
+  };
+  // mutation observer, connect the observer callback
+  const titleMutationObserver = new MutationObserver(mutationObserver);
+
+  // start the observation of the title tag
+  titleMutationObserver.observe(title, {
     childList: true,
+    attributes: true,
+    attributeFilter: ['data-loaded'],
   });
 }

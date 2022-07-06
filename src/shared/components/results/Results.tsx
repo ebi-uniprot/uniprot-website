@@ -73,6 +73,7 @@ const Results = () => {
       title={`${params.query} in ${
         searchableNamespaceLabels[ns as SearchableNamespace]
       }${total !== undefined ? ` (${total})` : ''}`}
+      titleLoading={resultsDataInitialLoading}
     />
   );
 
