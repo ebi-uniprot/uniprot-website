@@ -340,9 +340,7 @@ exports[`Entry view should render 1`] = `
               </tr>
             </thead>
             <tbody>
-              <tr
-                data-id="row"
-              >
+              <tr>
                 <td
                   class="no-wrap"
                 >
@@ -414,9 +412,7 @@ exports[`Entry view should render 1`] = `
               </tr>
             </thead>
             <tbody>
-              <tr
-                data-id="row"
-              >
+              <tr>
                 <td
                   class="no-wrap"
                 >
@@ -3680,9 +3676,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               </tr>
             </thead>
             <tbody>
-              <tr
-                data-id="row"
-              >
+              <tr>
                 <td
                   class="no-wrap"
                 >

@@ -68,7 +68,7 @@ const KineticsTable = ({
               }
 
               return (
-                <tr data-id="row" key={value.key}>
+                <tr key={value.key}>
                   <td className={styles['no-wrap']}>
                     {constant.text}
                     {constant.sup && <sup>{constant.sup}</sup>}
