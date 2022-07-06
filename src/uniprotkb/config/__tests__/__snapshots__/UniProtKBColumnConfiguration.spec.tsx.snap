@@ -1933,7 +1933,7 @@ exports[`UniProtKBColumnConfiguration component should render column "kinetics":
         <sub>
           max
         </sub>
-        =1unit1 for enzyme1 
+        =1unit1 enzyme1 
         <button
           aria-controls="1"
           aria-expanded="false"

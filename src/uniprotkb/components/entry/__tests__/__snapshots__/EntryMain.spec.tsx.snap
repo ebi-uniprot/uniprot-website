@@ -307,22 +307,34 @@ exports[`Entry view should render 1`] = `
           <table>
             <thead>
               <tr>
-                <th>
+                <th
+                  class="no-text-transform"
+                >
                    KM 
                 </th>
-                <th>
+                <th
+                  class="no-text-transform"
+                >
                    SUBSTRATE 
                 </th>
-                <th>
+                <th
+                  class="no-text-transform"
+                >
                    pH 
                 </th>
-                <th>
+                <th
+                  class="no-text-transform"
+                >
                    TEMPERATURE[C] 
                 </th>
-                <th>
+                <th
+                  class="no-text-transform"
+                >
                    NOTES 
                 </th>
-                <th>
+                <th
+                  class="no-text-transform"
+                >
                    EVIDENCE 
                 </th>
               </tr>
@@ -332,7 +344,7 @@ exports[`Entry view should render 1`] = `
                 data-id="row"
               >
                 <td
-                  class="unit"
+                  class="no-wrap"
                 >
                   2.0999999046325684 μM
                 </td>
@@ -374,19 +386,29 @@ exports[`Entry view should render 1`] = `
           <table>
             <thead>
               <tr>
-                <th>
+                <th
+                  class="no-text-transform"
+                >
                    Vmax 
                 </th>
-                <th>
+                <th
+                  class="no-text-transform"
+                >
                    pH 
                 </th>
-                <th>
+                <th
+                  class="no-text-transform"
+                >
                    TEMPERATURE[C] 
                 </th>
-                <th>
+                <th
+                  class="no-text-transform"
+                >
                    NOTES 
                 </th>
-                <th>
+                <th
+                  class="no-text-transform"
+                >
                    EVIDENCE 
                 </th>
               </tr>
@@ -396,7 +418,7 @@ exports[`Entry view should render 1`] = `
                 data-id="row"
               >
                 <td
-                  class="unit"
+                  class="no-wrap"
                 >
                   1 unit1
                 </td>
@@ -3625,22 +3647,34 @@ exports[`Entry view should render for non-human entry 1`] = `
           <table>
             <thead>
               <tr>
-                <th>
+                <th
+                  class="no-text-transform"
+                >
                    KM 
                 </th>
-                <th>
+                <th
+                  class="no-text-transform"
+                >
                    SUBSTRATE 
                 </th>
-                <th>
+                <th
+                  class="no-text-transform"
+                >
                    pH 
                 </th>
-                <th>
+                <th
+                  class="no-text-transform"
+                >
                    TEMPERATURE[C] 
                 </th>
-                <th>
+                <th
+                  class="no-text-transform"
+                >
                    NOTES 
                 </th>
-                <th>
+                <th
+                  class="no-text-transform"
+                >
                    EVIDENCE 
                 </th>
               </tr>
@@ -3650,7 +3684,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 data-id="row"
               >
                 <td
-                  class="unit"
+                  class="no-wrap"
                 >
                   340 μM
                 </td>
