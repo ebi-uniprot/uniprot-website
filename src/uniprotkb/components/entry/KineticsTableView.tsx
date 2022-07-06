@@ -1,6 +1,6 @@
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 
-import { TextView } from '../protein-data-views/FreeTextView';
+import { RichText, TextView } from '../protein-data-views/FreeTextView';
 import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
 
 import { KineticParameters } from '../../adapters/functionConverter';
@@ -10,6 +10,7 @@ import styles from '../../../shared/styles/helper.module.scss';
 
 const pHRegEx = /pH\s(([0-9]*[.])?[0-9]+)/;
 const tempRegEx = /(([0-9]*[.])?[0-9]+)\sdegrees\scelsius/i;
+const muRegEx = /^u/;
 const captureWordsInParanthesis = /\(((.+)(?: \((.+)\))?)\)/;
 const removeLeadingTrailingComma = /(^,)|(,$)/g;
 
@@ -38,7 +39,7 @@ const KineticsTable = ({
     'protvista-datatable'
   );
 
-  const reSuperscript = /\(([+-]\d?)\)/;
+  const hasSubstrate = columns.includes('SUBSTRATE');
 
   if (data && data.length) {
     return (
@@ -55,34 +56,20 @@ const KineticsTable = ({
             </tr>
           </thead>
           <tbody>
-            {data.map((value) => {
-              const constant: { text: string; sup?: string | null } = {
-                text: '',
-              };
-              if (reSuperscript.test(value.constant)) {
-                [constant.text] = value.constant.split(reSuperscript);
-                const captured = value.constant.match(reSuperscript);
-                constant.sup = captured?.[1];
-              } else {
-                constant.text = value.constant;
-              }
-
-              return (
-                <tr key={value.key}>
-                  <td className={styles['no-wrap']}>
-                    {constant.text}
-                    {constant.sup && <sup>{constant.sup}</sup>}
-                  </td>
-                  {value.substrate && <td>{value.substrate}</td>}
-                  <td>{value.ph}</td>
-                  <td>{value.temp}</td>
-                  <td>{value.notes}</td>
-                  <td>
-                    <UniProtKBEvidenceTag evidences={value.evidences} />
-                  </td>
-                </tr>
-              );
-            })}
+            {data.map((value) => (
+              <tr key={value.key}>
+                <td className={styles['no-wrap']}>
+                  <RichText>{value.constant}</RichText>
+                </td>
+                {hasSubstrate && <td>{value.substrate}</td>}
+                <td>{value.ph}</td>
+                <td>{value.temp}</td>
+                <td>{value.notes}</td>
+                <td>
+                  <UniProtKBEvidenceTag evidences={value.evidences} />
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </protvistaDataTableElement.name>
@@ -140,7 +127,7 @@ export const extractFromFreeText = (data: KineticParameters) => {
 
       return {
         key: `${km.constant}${km.substrate}`,
-        constant: `${km.constant} ${km.unit.replace('uM', 'μM')}`,
+        constant: `${km.constant} ${km.unit.replace(muRegEx, 'μ')}`,
         substrate: substrate.trim(),
         ph,
         temp,
@@ -170,7 +157,7 @@ export const extractFromFreeText = (data: KineticParameters) => {
 
       return {
         key: `${mv.velocity}-${mv.enzyme}`,
-        constant: `${mv.velocity} ${mv.unit}`,
+        constant: `${mv.velocity} ${mv.unit.replace(muRegEx, 'μ')}`,
         ph,
         temp,
         notes: notes.trim(),
@@ -253,7 +240,7 @@ export const extractFromFreeText = (data: KineticParameters) => {
             kcats.push({
               key: `kcat${constant}`,
               constant,
-              notes: substrateNotes,
+              notes: substrateNotes.trim(),
               ph,
               temp,
               evidences,
@@ -275,19 +262,16 @@ export const extractFromFreeText = (data: KineticParameters) => {
 export const KineticsTableView = ({ data }: { data: KineticParameters }) => {
   const { km, vmax, kcats, additionalNotes } = extractFromFreeText(data);
   const columns = ['pH', 'TEMPERATURE[C]', 'NOTES', 'EVIDENCE'];
+
   return (
     <>
       <KineticsTable columns={['KM', 'SUBSTRATE', ...columns]} data={km} />
       <KineticsTable columns={['Vmax', ...columns]} data={vmax} />
       <KineticsTable columns={['kcat', ...columns]} data={kcats} />
 
-      {additionalNotes.length >= 1 && (
-        <section className="text-block">
-          {data.note && (
-            <TextView comments={[{ value: additionalNotes.join('\r\n') }]} />
-          )}
-        </section>
-      )}
+      {additionalNotes.map((note) => (
+        <TextView key={note} comments={[{ value: note }]} />
+      ))}
     </>
   );
 };

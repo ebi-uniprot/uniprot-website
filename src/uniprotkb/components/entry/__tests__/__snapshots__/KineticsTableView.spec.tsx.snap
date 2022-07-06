@@ -18,7 +18,7 @@ Object {
     },
   ],
   "key": "kcat4.5 min(-1)",
-  "notes": " with arsenate as substrate  2 uM arsenate",
+  "notes": "with arsenate as substrate  2 uM arsenate",
   "ph": undefined,
   "temp": undefined,
 }
@@ -35,7 +35,7 @@ Object {
     },
   ],
   "key": "kcat9.9 min(-1)",
-  "notes": " with arsenate as substrate  10 mM arsenate",
+  "notes": "with arsenate as substrate  10 mM arsenate",
   "ph": undefined,
   "temp": undefined,
 }

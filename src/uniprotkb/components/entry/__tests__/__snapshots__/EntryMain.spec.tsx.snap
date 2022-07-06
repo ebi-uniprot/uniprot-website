@@ -416,7 +416,7 @@ exports[`Entry view should render 1`] = `
                 <td
                   class="no-wrap"
                 >
-                  1 unit1
+                  1 μnit1
                 </td>
                 <td />
                 <td />
@@ -451,15 +451,11 @@ exports[`Entry view should render 1`] = `
             </tbody>
           </table>
         </protvista-datatable>
-        <section
+        <div
           class="text-block"
         >
-          <div
-            class="text-block"
-          >
-            value1.
-          </div>
-        </section>
+          value1.
+        </div>
         <h3>
           pH Dependence
         </h3>
