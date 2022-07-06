@@ -76,6 +76,7 @@ export type UniProtkbAPIModel = {
   annotationScore: number;
   entryAudit?: EntryAudit;
   references?: UniProtKBReference[];
+  // not there by default, even on an entry request
   lineages?: Lineage[];
   extraAttributes?: {
     countByCommentType?: Partial<Record<CommentType, number | undefined>>;
