@@ -1,9 +1,10 @@
-import { FC, ReactNode } from 'react';
+import { Fragment, ReactNode } from 'react';
 import { InfoList, ExpandableList } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
 import ExternalLink from '../ExternalLink';
 import SimpleView from '../views/SimpleView';
+import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
 
 import externalUrls from '../../config/externalUrls';
 import { getEntryPath } from '../../../app/config/urls';
@@ -11,13 +12,10 @@ import { getEntryPath } from '../../../app/config/urls';
 import * as logging from '../../utils/logging';
 
 import { Namespace } from '../../types/namespaces';
+import { Lineage } from '../../types/apiModel';
+import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
-import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
-import {
-  isOfLineageType,
-  Lineage,
-  TaxonomyDatum,
-} from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import styles from './styles/taxonomy-view.module.css';
 
 type TaxonomyDataProps = {
   data: TaxonomyDatum;
@@ -26,17 +24,7 @@ type TaxonomyDataProps = {
   noLink?: boolean;
 };
 
-export const TaxonomyLineage: FC<{ lineage: Lineage | string[] }> = ({
-  lineage,
-}) => {
-  if (isOfLineageType(lineage)) {
-    // TODO implement render for Lineage type
-    return null;
-  }
-  return <>{lineage.join(' > ')}</>;
-};
-
-export const TaxonomyId: FC<{ taxonId?: number }> = ({ taxonId }) => {
+export const TaxonomyId = ({ taxonId }: { taxonId?: number }) => {
   if (!taxonId) {
     return null;
   }
@@ -50,12 +38,12 @@ export const TaxonomyId: FC<{ taxonId?: number }> = ({ taxonId }) => {
   );
 };
 
-const TaxonomyView: FC<TaxonomyDataProps> = ({
+const TaxonomyView = ({
   data,
   displayOnlyID,
   className,
   noLink = false,
-}) => {
+}: TaxonomyDataProps) => {
   /* istanbul ignore if */
   if (!data.taxonId) {
     logging.warn('No taxon ID, this should not happen', { extra: { data } });
@@ -81,10 +69,38 @@ const TaxonomyView: FC<TaxonomyDataProps> = ({
   );
 };
 
-export const TaxonomyListView: FC<{
+export const TaxonomyLineage = ({
+  lineage,
+  displayOnlyID,
+}: {
+  lineage?: Lineage[];
+  displayOnlyID?: boolean;
+}) => (
+  <>
+    {lineage?.length
+      ? Array.from(lineage)
+          .reverse()
+          .map((data, index) => (
+            <Fragment key={data.taxonId}>
+              {index ? ' > ' : undefined}
+              <TaxonomyView
+                data={data}
+                displayOnlyID={displayOnlyID}
+                className={data.hidden ? styles['hidden-taxon'] : undefined}
+              />
+            </Fragment>
+          ))
+      : null}
+  </>
+);
+
+export const TaxonomyListView = ({
+  data,
+  hosts,
+}: {
   data?: TaxonomyDatum;
   hosts?: TaxonomyDatum[];
-}> = ({ data, hosts }) => {
+}) => {
   if (!data) {
     return null;
   }

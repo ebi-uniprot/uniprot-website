@@ -1959,7 +1959,25 @@ exports[`UniProtKBColumnConfiguration component should render column "length": l
 
 exports[`UniProtKBColumnConfiguration component should render column "lineage": lineage 1`] = `
 <DocumentFragment>
-  lineage 1
+  <a
+    class="hidden-taxon"
+    href="/taxonomy/9606"
+    title="Scientific Name (Common Name) (synonym), taxon ID 9606"
+  >
+    Scientific Name (Common Name) (synonym)
+  </a>
+</DocumentFragment>
+`;
+
+exports[`UniProtKBColumnConfiguration component should render column "lineage_ids": lineage_ids 1`] = `
+<DocumentFragment>
+  <a
+    class="hidden-taxon"
+    href="/taxonomy/9606"
+    title="Scientific Name (Common Name) (synonym), taxon ID 9606"
+  >
+    9606
+  </a>
 </DocumentFragment>
 `;
 
