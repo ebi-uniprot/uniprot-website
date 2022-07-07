@@ -577,7 +577,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_interac
         class="no-wrap"
       >
         <a
-          href="/uniprotkb/P12345#sequences"
+          href="/uniprotkb/P12345#P12345-1"
         >
           P12345-1
         </a>

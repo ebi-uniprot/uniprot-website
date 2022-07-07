@@ -2611,7 +2611,7 @@ exports[`Entry view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb/P12345#sequences"
+                    href="/uniprotkb/P12345#P12345-1"
                   >
                     gene1 PROC_12347 P12345-1
                   </a>
