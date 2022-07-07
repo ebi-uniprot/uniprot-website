@@ -7,7 +7,6 @@ import {
   RedoxPotentialComment,
   TemperatureDependenceComment,
   TextWithEvidence,
-  FreeTextComment,
 } from '../types/commentTypes';
 import KeywordCategory from '../types/keywordCategory';
 import { FunctionFeatures } from '../types/featureType';
@@ -236,16 +235,6 @@ const convertFunction = (
     });
   }
   convertedSection.commentsData.delete('BIOPHYSICOCHEMICAL PROPERTIES');
-
-  // Remove isoform MISCELLANEOUS comments as they go in the Sequence section
-  const miscellaneousComments = convertedSection.commentsData
-    ?.get('MISCELLANEOUS')
-    ?.filter((comment) => !(comment as FreeTextComment).molecule);
-
-  convertedSection.commentsData.set(
-    'MISCELLANEOUS',
-    miscellaneousComments || []
-  );
 
   convertedSection.geneNamesData = data?.genes;
   convertedSection.organismData = data?.organism;
