@@ -186,35 +186,44 @@ const Entry = () => {
     ) {
       const split = new URL(redirectedTo).pathname.split('/');
       const newEntry = split[split.length - 1];
-      dispatch(
-        addMessage({
-          id: 'accession-merge',
-          content: (
-            <>
-              {match.params.accession} has been merged into {newEntry}. You have
-              automatically been redirected. To see {match.params.accession}
-              &apos;s history,{' '}
-              <Link
-                to={getEntryPath(
-                  Namespace.uniprotkb,
-                  match.params.accession,
-                  TabLocation.History
-                )}
-              >
-                click here
-              </Link>
-              .
-            </>
-          ),
-          format: MessageFormat.IN_PAGE,
-          level: MessageLevel.SUCCESS,
-          tag: MessageTag.REDIRECT,
-        })
-      );
-      frame().then(() => {
-        history.replace(
-          getEntryPath(Namespace.uniprotkb, newEntry, TabLocation.Entry)
+      // If the redirection is because of ID or version in which case, the following message doesn't make sense
+      if (
+        !match?.params.accession.includes('_') &&
+        !match?.params.accession.includes('.')
+      ) {
+        dispatch(
+          addMessage({
+            id: 'accession-merge',
+            content: (
+              <>
+                {match.params.accession} has been merged into {newEntry}. You
+                have automatically been redirected. To see{' '}
+                {match.params.accession}
+                &apos;s history,{' '}
+                <Link
+                  to={getEntryPath(
+                    Namespace.uniprotkb,
+                    match.params.accession,
+                    TabLocation.History
+                  )}
+                >
+                  click here
+                </Link>
+                .
+              </>
+            ),
+            format: MessageFormat.IN_PAGE,
+            level: MessageLevel.SUCCESS,
+            tag: MessageTag.REDIRECT,
+          })
         );
+      }
+      frame().then(() => {
+        // If accession contains version, it should be redirected to History tab
+        const activeTab = match?.params.accession.includes('.')
+          ? TabLocation.History
+          : TabLocation.Entry;
+        history.replace(getEntryPath(Namespace.uniprotkb, newEntry, activeTab));
       });
     }
     // (I hope) I know what I'm doing here, I want to stick with whatever value

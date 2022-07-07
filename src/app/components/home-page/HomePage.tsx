@@ -12,6 +12,7 @@ import { HeroHeader, Loader, CitedIcon } from 'franklin-sites';
 
 import SearchContainer from '../../../shared/components/search/SearchContainer';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
+import HTMLHead from '../../../shared/components/HTMLHead';
 
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 
@@ -152,6 +153,8 @@ const HomePageHeader = memo(() => {
 
 const HomePage = () => (
   <main>
+    {/* Activate the HTML head logic, but no title, so uses default */}
+    <HTMLHead />
     <h1 className="visually-hidden">UniProt website home page</h1>
     <ErrorBoundary>
       <HomePageHeader />

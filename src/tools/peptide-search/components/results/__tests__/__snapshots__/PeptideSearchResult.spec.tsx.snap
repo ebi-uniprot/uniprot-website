@@ -323,7 +323,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     </td>
                     <td>
                       <span
-                        style="font-weight: bolder;"
+                        class="bolder"
                       >
                         G6PD
                       </span>
@@ -397,7 +397,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     </td>
                     <td>
                       <span
-                        style="font-weight: bolder;"
+                        class="bolder"
                       >
                         PGM1
                       </span>
@@ -763,7 +763,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     </td>
                     <td>
                       <span
-                        style="font-weight: bolder;"
+                        class="bolder"
                       >
                         G6PD
                       </span>
@@ -838,7 +838,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     </td>
                     <td>
                       <span
-                        style="font-weight: bolder;"
+                        class="bolder"
                       >
                         PGM1
                       </span>
