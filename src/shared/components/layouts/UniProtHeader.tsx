@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useRouteMatch, useLocation } from 'react-router-dom';
 import { Header, Dropdown, Button } from 'franklin-sites';
 import cn from 'classnames';
+import { WithContext, Organization } from 'schema-dts';
 
 import SearchContainer from '../search/SearchContainer';
 import ReleaseInfo from './ReleaseInfo';
@@ -10,6 +11,7 @@ import SecondaryItems from './SecondaryItems';
 import useNS from '../../hooks/useNS';
 import useJobFromUrl from '../../hooks/useJobFromUrl';
 import useMatchMedia from '../../hooks/useMatchMedia';
+import useStructuredData from '../../hooks/useStructuredData';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -104,11 +106,20 @@ const SearchContainerWithNamespace = () => {
   );
 };
 
+const organizationSchema: WithContext<Organization> = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  url: 'https://www.uniprot.org',
+  logo: 'https://www.uniprot.org/android-chrome-512x512.png',
+};
+
 const UniProtHeader = () => {
   const wideScreen = useMatchMedia(largeMediaQuery);
   const homeMatch = useRouteMatch(LocationToPath[Location.Home]);
 
   const isHomePage = Boolean(homeMatch?.isExact);
+
+  useStructuredData(organizationSchema);
 
   return (
     <Header
