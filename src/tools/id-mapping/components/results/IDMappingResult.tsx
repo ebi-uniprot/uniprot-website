@@ -1,12 +1,14 @@
 import { useMemo, lazy, Suspense } from 'react';
 import { Loader, PageIntro, Tab, Tabs } from 'franklin-sites';
 import { Link, useLocation } from 'react-router-dom';
+import { partition } from 'lodash-es';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
+import JobErrorPage from '../../../../shared/components/error-pages/JobErrorPage';
 
 import usePagination from '../../../../shared/hooks/usePagination';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
@@ -14,6 +16,9 @@ import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect';
 import useIDMappingDetails from '../../../../shared/hooks/useIDMappingDetails';
 import useDataApi from '../../../../shared/hooks/useDataApi';
+import { useMessagesDispatch } from '../../../../shared/contexts/Messages';
+
+import { addMessage } from '../../../../messages/state/messagesActions';
 
 import { rawDBToNamespace } from '../../utils';
 import toolsURLs from '../../../config/urls';
@@ -30,6 +35,7 @@ import {
 } from '../../../../app/config/urls';
 import {
   MappingAPIModel,
+  MappingErrorCode,
   MappingFlat,
 } from '../../types/idMappingSearchResults';
 import {
@@ -38,6 +44,10 @@ import {
 } from '../../../../shared/types/namespaces';
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import { IDMappingFormConfig } from '../../types/idMappingFormConfig';
+import {
+  MessageFormat,
+  MessageLevel,
+} from '../../../../messages/types/messagesTypes';
 
 const jobType = JobTypes.ID_MAPPING;
 const urls = toolsURLs(jobType);
@@ -103,6 +113,7 @@ const IDMappingResult = () => {
     loading: detailsLoading,
     error: detailsError,
   } = idMappingDetails || {};
+  const dispatchMessages = useMessagesDispatch();
 
   const [{ selectedFacets, query, sortColumn, sortDirection }] =
     getParamsFromURL(location.search);
@@ -175,6 +186,42 @@ const IDMappingResult = () => {
 
   if (!detailsData) {
     return <ErrorHandler />;
+  }
+
+  if (detailsData.errors) {
+    const [mappingErrors, mappingWarnings] = partition(
+      detailsData.errors,
+      ({ code }) => code in MappingErrorCode
+    );
+
+    if (mappingErrors.length) {
+      return (
+        <JobErrorPage
+          message={
+            <ul className="no-bullet">
+              {mappingErrors.map(({ code, message }) => (
+                <li key={code}>{message}</li>
+              ))}
+            </ul>
+          }
+        />
+      );
+    }
+    if (mappingWarnings) {
+      dispatchMessages(
+        addMessage({
+          content: (
+            <ul className="no-bullet">
+              {mappingWarnings.map(({ code, message }) => (
+                <li key={code}>{message}</li>
+              ))}
+            </ul>
+          ),
+          format: MessageFormat.POP_UP,
+          level: MessageLevel.WARNING,
+        })
+      );
+    }
   }
 
   let sidebar: JSX.Element;
