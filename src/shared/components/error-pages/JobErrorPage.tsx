@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { Message } from 'franklin-sites';
 
 import ErrorPage from './ErrorPage';
@@ -5,18 +6,21 @@ import ErrorPage from './ErrorPage';
 import ArtWork from './svgs/job-failed.svg';
 
 type Props = {
-  text: string;
+  message: ReactNode;
 };
 
-const ErrorMessage = ({ text }: Props) => (
+const ErrorMessage = ({ message }: Props) => (
   <Message level="failure">
     <h4>Job Failed</h4>
-    <span>{text}</span>
+    <span>{message}</span>
   </Message>
 );
 
-const JobErrorPage = ({ text }: Props) => (
-  <ErrorPage artwork={<ArtWork />} message={<ErrorMessage text={text} />} />
+const JobErrorPage = ({ message }: Props) => (
+  <ErrorPage
+    artwork={<ArtWork />}
+    message={<ErrorMessage message={message} />}
+  />
 );
 
 export default JobErrorPage;
