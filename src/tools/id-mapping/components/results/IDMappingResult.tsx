@@ -1,7 +1,6 @@
 import { useMemo, lazy, Suspense } from 'react';
 import { Loader, PageIntro, Tab, Tabs } from 'franklin-sites';
 import { Link, useLocation } from 'react-router-dom';
-import { partition } from 'lodash-es';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
@@ -25,6 +24,7 @@ import toolsURLs from '../../../config/urls';
 import idMappingConverter from '../../adapters/idMappingConverter';
 import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
 import apiUrls, { defaultFacets } from '../../../../shared/config/apiUrls';
+import * as logging from '../../../../shared/utils/logging';
 
 import { SearchResults } from '../../../../shared/types/results';
 import { JobTypes } from '../../../types/toolsJobTypes';
@@ -37,6 +37,7 @@ import {
   MappingAPIModel,
   MappingErrorCode,
   MappingFlat,
+  MappingWarningCode,
 } from '../../types/idMappingSearchResults';
 import {
   Namespace,
@@ -189,17 +190,15 @@ const IDMappingResult = () => {
   }
 
   if (detailsData.errors) {
-    const [mappingErrors, mappingWarnings] = partition(
-      detailsData.errors,
+    const errors = detailsData.errors.filter(
       ({ code }) => code in MappingErrorCode
     );
-
-    if (mappingErrors.length) {
+    if (errors.length) {
       return (
         <JobErrorPage
           message={
             <ul className="no-bullet">
-              {mappingErrors.map(({ code, message }) => (
+              {errors.map(({ code, message }) => (
                 <li key={code}>{message}</li>
               ))}
             </ul>
@@ -207,12 +206,15 @@ const IDMappingResult = () => {
         />
       );
     }
-    if (mappingWarnings) {
+    const warnings = detailsData.errors.filter(
+      ({ code }) => code in MappingWarningCode
+    );
+    if (warnings.length) {
       dispatchMessages(
         addMessage({
           content: (
             <ul className="no-bullet">
-              {mappingWarnings.map(({ code, message }) => (
+              {warnings.map(({ code, message }) => (
                 <li key={code}>{message}</li>
               ))}
             </ul>
@@ -220,6 +222,14 @@ const IDMappingResult = () => {
           format: MessageFormat.POP_UP,
           level: MessageLevel.WARNING,
         })
+      );
+    }
+    const unrecognized = detailsData.errors.filter(
+      ({ code }) => !(code in MappingErrorCode) || !(code in MappingWarningCode)
+    );
+    if (unrecognized) {
+      logging.warn(
+        `Unrecognized ID Mapping error codes found for job ID ${match.params.id} ${unrecognized}`
       );
     }
   }
