@@ -4,15 +4,19 @@ import ErrorPage from './ErrorPage';
 
 import ArtWork from './svgs/job-failed.svg';
 
-const ErrorMessage = () => (
+type Props = {
+  text: string;
+};
+
+const ErrorMessage = ({ text }: Props) => (
   <Message level="failure">
     <h4>Job Failed</h4>
-    <span>Custom message here</span>
+    <span>{text}</span>
   </Message>
 );
 
-const JobErrorPage = () => (
-  <ErrorPage artwork={<ArtWork />} message={<ErrorMessage />} />
+const JobErrorPage = ({ text }: Props) => (
+  <ErrorPage artwork={<ArtWork />} message={<ErrorMessage text={text} />} />
 );
 
 export default JobErrorPage;
