@@ -8,11 +8,27 @@ import { UniRefLiteAPIModel } from '../../../uniref/adapters/uniRefConverter';
 export type MappingAPIModel = {
   from: string;
   to: string | UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel;
-  failedIds?: string[]; // TODO handle this
+  failedIds?: string[];
+};
+
+export enum MappingWarningCode {
+  FiltersDisabled = 20,
+  EnrichmentDisabled = 21,
+}
+
+export enum MappingErrorCode {
+  TooManyTo = 40,
+  Other = 50,
+}
+
+type MappingError = {
+  code: MappingWarningCode | MappingErrorCode;
+  message: string;
 };
 
 export type MappingDetails = ServerParameters & {
   redirectURL?: string;
+  errors?: MappingError[];
 };
 
 export type IDMappingSearchResults = {
