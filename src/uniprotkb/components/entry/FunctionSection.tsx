@@ -193,6 +193,11 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
     data.commentsData.get('FUNCTION') as FreeTextComment[] | undefined
   )?.[0]?.texts?.[0]?.value;
 
+  // Remove isoform MISCELLANEOUS comments as they go in the Sequence section
+  const miscellaneousComments = data.commentsData
+    ?.get('MISCELLANEOUS')
+    ?.filter((comment) => !(comment as FreeTextComment).molecule);
+
   return (
     <Card
       header={
@@ -215,11 +220,7 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
         title={<span className="visually-hidden">function</span>}
       />
       <FreeTextView
-        comments={
-          data.commentsData.get('MISCELLANEOUS') as
-            | FreeTextComment[]
-            | undefined
-        }
+        comments={miscellaneousComments as FreeTextComment[] | undefined}
         title="miscellaneous"
       />
       {data.commentsData.get('CAUTION')?.length ? (
