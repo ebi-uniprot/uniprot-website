@@ -66,11 +66,16 @@ const GoRibbon = ({
 
   const [selectedSet, setSelectedSet] = useState('goslim_generic');
 
+  let taxonomyInfo;
+  if (organismData) {
+    taxonomyInfo = organismData.lineage
+      ? [...organismData.lineage, organismData.scientificName]
+      : [organismData.scientificName];
+  }
+
   // NOTE: loading is also available, do we want to do anything with it?
-  const { loading, slimmedData, selectedSlimSet, slimSets } = useGOData(
-    goTerms,
-    selectedSet
-  );
+  const { loading, slimmedData, selectedSlimSet, slimSets, defaultSlimSet } =
+    useGOData(goTerms, selectedSet, taxonomyInfo);
 
   const [elementLoaded, setElementLoaded] = useSafeState(false);
 
@@ -203,6 +208,7 @@ const GoRibbon = ({
             onChange={(e) => setSelectedSet(e.target.value)}
             value={selectedSet}
           >
+            {/* TODO add the default slimset */}
             {slimSets.map((slimSet) => (
               <option value={slimSet} key={slimSet}>
                 {slimSet.replace('goslim_', '').replace('_ribbon', '')}
