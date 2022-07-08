@@ -1,6 +1,8 @@
 import { useMemo, lazy, Suspense } from 'react';
-import { Loader, PageIntro, Tab, Tabs } from 'franklin-sites';
+import { Loader, Message, PageIntro, Tab, Tabs } from 'franklin-sites';
 import { Link, useLocation } from 'react-router-dom';
+import { partition } from 'lodash-es';
+import cn from 'classnames';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
@@ -15,9 +17,6 @@ import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect';
 import useIDMappingDetails from '../../../../shared/hooks/useIDMappingDetails';
 import useDataApi from '../../../../shared/hooks/useDataApi';
-import { useMessagesDispatch } from '../../../../shared/contexts/Messages';
-
-import { addMessage } from '../../../../messages/state/messagesActions';
 
 import { rawDBToNamespace } from '../../utils';
 import toolsURLs from '../../../config/urls';
@@ -38,6 +37,7 @@ import {
   MappingErrorCode,
   MappingFlat,
   MappingWarningCode,
+  MappingWarningsErrors,
 } from '../../types/idMappingSearchResults';
 import {
   Namespace,
@@ -45,10 +45,9 @@ import {
 } from '../../../../shared/types/namespaces';
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import { IDMappingFormConfig } from '../../types/idMappingFormConfig';
-import {
-  MessageFormat,
-  MessageLevel,
-} from '../../../../messages/types/messagesTypes';
+import { MessageLevel } from '../../../../messages/types/messagesTypes';
+
+import styles from './styles/id-mapping-result.module.scss';
 
 const jobType = JobTypes.ID_MAPPING;
 const urls = toolsURLs(jobType);
@@ -114,7 +113,6 @@ const IDMappingResult = () => {
     loading: detailsLoading,
     error: detailsError,
   } = idMappingDetails || {};
-  const dispatchMessages = useMessagesDispatch();
 
   const [{ selectedFacets, query, sortColumn, sortDirection }] =
     getParamsFromURL(location.search);
@@ -123,14 +121,18 @@ const IDMappingResult = () => {
     useDataApi<IDMappingFormConfig>(apiUrls.idMappingFields);
 
   // Query for results data from the idmapping endpoint
-  const initialApiUrl =
+  const initialApiUrl = (
     detailsData?.redirectURL &&
     urls.resultUrl(detailsData.redirectURL, {
       selectedFacets,
       query,
       sortColumn,
       sortDirection,
-    });
+    })
+  )?.replace(
+    'https://hx-rke-wp-webadmin-02-worker-1.caas.ebi.ac.uk',
+    'http://hx-rke-wp-webadmin-02-worker-1.caas.ebi.ac.uk:31393'
+  );
 
   const converter = useMemo(
     () => idMappingConverter(findUriLink(fieldsData, detailsData?.to)),
@@ -152,7 +154,7 @@ const IDMappingResult = () => {
 
   // Run facet query
   const facets = defaultFacets.get(namespaceOverride);
-  const facetsUrl =
+  const facetsUrl = (
     detailsData?.redirectURL &&
     facets &&
     urls.resultUrl(detailsData.redirectURL, {
@@ -160,15 +162,23 @@ const IDMappingResult = () => {
       size: 0,
       selectedFacets,
       query,
-    });
-  const facetsData =
-    useDataApiWithStale<SearchResults<UniProtkbAPIModel>>(facetsUrl);
+    })
+  )?.replace(
+    'https://hx-rke-wp-webadmin-02-worker-1.caas.ebi.ac.uk',
+    'http://hx-rke-wp-webadmin-02-worker-1.caas.ebi.ac.uk:31393'
+  );
 
-  const { loading: facetInititialLoading, isStale: facetHasStaleData } =
-    facetsData;
+  const facetsDataApiObject = useDataApiWithStale<
+    MappingWarningsErrors & SearchResults<UniProtkbAPIModel>
+  >(facetsUrl);
+
+  const {
+    loading: facetInititialLoading,
+    isStale: facetHasStaleData,
+    data: facetsData,
+  } = facetsDataApiObject;
 
   useMarkJobAsSeen(resultsDataObject.allResults.length, match?.params.id);
-
   if (!match || detailsError) {
     return <ErrorHandler />;
   }
@@ -188,17 +198,20 @@ const IDMappingResult = () => {
   if (!detailsData) {
     return <ErrorHandler />;
   }
-
-  if (detailsData.errors) {
-    const errors = detailsData.errors.filter(
+  const mappingErrors = [
+    ...new Set([...(detailsData.errors || []), ...(facetsData?.errors || [])]),
+  ];
+  if (mappingErrors) {
+    const [errorsRecognized, errorsUnrecognized] = partition(
+      mappingErrors,
       ({ code }) => code in MappingErrorCode
     );
-    if (errors.length) {
+    if (errorsRecognized.length) {
       return (
         <JobErrorPage
           message={
             <ul className="no-bullet">
-              {errors.map(({ code, message }) => (
+              {errorsRecognized.map(({ code, message }) => (
                 <li key={code}>{message}</li>
               ))}
             </ul>
@@ -206,30 +219,41 @@ const IDMappingResult = () => {
         />
       );
     }
-    const warnings = detailsData.errors.filter(
-      ({ code }) => code in MappingWarningCode
-    );
-    if (warnings.length) {
-      dispatchMessages(
-        addMessage({
-          content: (
-            <ul className="no-bullet">
-              {warnings.map(({ code, message }) => (
-                <li key={code}>{message}</li>
-              ))}
-            </ul>
-          ),
-          format: MessageFormat.POP_UP,
-          level: MessageLevel.WARNING,
-        })
+    if (errorsUnrecognized.length) {
+      logging.warn(
+        `Unrecognized ID Mapping error codes found for job ID ${match.params.id} ${errorsUnrecognized}`
       );
     }
-    const unrecognized = detailsData.errors.filter(
-      ({ code }) => !(code in MappingErrorCode) || !(code in MappingWarningCode)
+  }
+
+  const mappingWarnings = [
+    ...new Set([
+      ...(detailsData.warnings || []),
+      ...(facetsData?.warnings || []),
+    ]),
+  ];
+  let warningsNode;
+  if (mappingWarnings.length) {
+    const [warningsRecognized, warningsUnrecognized] = partition(
+      mappingWarnings,
+      ({ code }) => code in MappingWarningCode
     );
-    if (unrecognized) {
+    warningsNode = warningsRecognized.length && (
+      <Message level={MessageLevel.WARNING} className={styles.warnings}>
+        <ul
+          className={cn({
+            'no-bullet': warningsRecognized.length === 1,
+          })}
+        >
+          {warningsRecognized.map(({ message, code }) => (
+            <li key={code}>{message}</li>
+          ))}
+        </ul>
+      </Message>
+    );
+    if (warningsUnrecognized.length) {
       logging.warn(
-        `Unrecognized ID Mapping error codes found for job ID ${match.params.id} ${unrecognized}`
+        `Unrecognized ID Mapping warning codes found for job ID ${match.params.id} ${warningsUnrecognized}`
       );
     }
   }
@@ -248,7 +272,7 @@ const IDMappingResult = () => {
       } else {
         sidebar = (
           <ErrorBoundary>
-            <ResultsFacets dataApiObject={facetsData} />
+            <ResultsFacets dataApiObject={facetsDataApiObject} />
           </ErrorBoundary>
         );
       }
@@ -285,6 +309,7 @@ const IDMappingResult = () => {
       >
         <meta name="robots" content="noindex" />
       </HTMLHead>
+      {warningsNode}
       <Tabs active={match.params.subPage}>
         <Tab
           id={TabLocation.Overview}
