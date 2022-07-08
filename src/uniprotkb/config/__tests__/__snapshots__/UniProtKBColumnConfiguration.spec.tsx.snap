@@ -529,22 +529,74 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_disrupt
   <h4
     class="tiny"
   >
-    Isoform 4
+    <a
+      href="#Isoform_4"
+    >
+      Isoform 4
+    </a>
   </h4>
   <div
     class="text-block"
   >
     value.
+    <button
+      aria-controls="0"
+      aria-expanded="false"
+      class="svg-colour-unreviewed evidence-tag"
+      data-testid="evidence-tag-trigger"
+      type="button"
+    >
+      <test-file-stub
+        height="12"
+        width="12"
+      />
+      <span
+        class="evidence-tag__label"
+      >
+        1 automatic annotation
+      </span>
+    </button>
+    <div
+      class="evidence-tag-content "
+      data-testid="evidence-tag-content"
+      id="0"
+    />
   </div>
   <h4
     class="tiny"
   >
-    Isoform 4 dfs
+    <a
+      href="#Isoform_4_dfs"
+    >
+      Isoform 4 dfs
+    </a>
   </h4>
   <div
     class="text-block"
   >
     value.
+    <button
+      aria-controls="1"
+      aria-expanded="false"
+      class="svg-colour-unreviewed evidence-tag"
+      data-testid="evidence-tag-trigger"
+      type="button"
+    >
+      <test-file-stub
+        height="12"
+        width="12"
+      />
+      <span
+        class="evidence-tag__label"
+      >
+        1 automatic annotation
+      </span>
+    </button>
+    <div
+      class="evidence-tag-content "
+      data-testid="evidence-tag-content"
+      id="1"
+    />
   </div>
 </DocumentFragment>
 `;
