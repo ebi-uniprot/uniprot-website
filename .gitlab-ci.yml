@@ -114,6 +114,7 @@ deploy:
           $DEPLOY HH $CHART_PROD
         else
           $DEPLOY HX $CHART_FALLBACK
+          $DEPLOY HH $CHART_PROD
         fi
       elif [ "$CI_COMMIT_BRANCH" == "dev" ]; then
         $DEPLOY HH $CHART_DEV
