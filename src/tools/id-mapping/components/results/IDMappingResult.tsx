@@ -2,7 +2,6 @@ import { useMemo, lazy, Suspense } from 'react';
 import { Loader, Message, PageIntro, Tab, Tabs } from 'franklin-sites';
 import { Link, useLocation } from 'react-router-dom';
 import { partition } from 'lodash-es';
-import cn from 'classnames';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
@@ -179,6 +178,45 @@ const IDMappingResult = () => {
   } = facetsDataApiObject;
 
   useMarkJobAsSeen(resultsDataObject.allResults.length, match?.params.id);
+
+  const warnings = useMemo(() => {
+    const allWarnings = [
+      ...new Set([
+        ...(detailsData?.warnings || []),
+        ...(facetsData?.warnings || []),
+      ]),
+    ];
+    const [warningsRecognized, warningsUnrecognized] = partition(
+      allWarnings,
+      ({ code }) => code in MappingWarningCode
+    );
+    if (warningsUnrecognized.length) {
+      logging.warn(
+        `Unrecognized ID Mapping warning codes found for job ID ${match?.params.id} ${warningsUnrecognized}`
+      );
+    }
+    return warningsRecognized;
+  }, [detailsData?.warnings, facetsData?.warnings, match?.params.id]);
+
+  const errors = useMemo(() => {
+    const allErrors = [
+      ...new Set([
+        ...(detailsData?.errors || []),
+        ...(facetsData?.errors || []),
+      ]),
+    ];
+    const [errorsRecognized, errorsUnrecognized] = partition(
+      allErrors,
+      ({ code }) => code in MappingErrorCode
+    );
+    if (errorsUnrecognized.length) {
+      logging.warn(
+        `Unrecognized ID Mapping error codes found for job ID ${match?.params.id} ${errorsUnrecognized}`
+      );
+    }
+    return errorsRecognized;
+  }, [detailsData?.errors, facetsData?.errors, match?.params.id]);
+
   if (!match || detailsError) {
     return <ErrorHandler />;
   }
@@ -198,64 +236,19 @@ const IDMappingResult = () => {
   if (!detailsData) {
     return <ErrorHandler />;
   }
-  const mappingErrors = [
-    ...new Set([...(detailsData.errors || []), ...(facetsData?.errors || [])]),
-  ];
-  if (mappingErrors) {
-    const [errorsRecognized, errorsUnrecognized] = partition(
-      mappingErrors,
-      ({ code }) => code in MappingErrorCode
-    );
-    if (errorsRecognized.length) {
-      return (
-        <JobErrorPage
-          message={
-            <ul className="no-bullet">
-              {errorsRecognized.map(({ code, message }) => (
-                <li key={code}>{message}</li>
-              ))}
-            </ul>
-          }
-        />
-      );
-    }
-    if (errorsUnrecognized.length) {
-      logging.warn(
-        `Unrecognized ID Mapping error codes found for job ID ${match.params.id} ${errorsUnrecognized}`
-      );
-    }
-  }
 
-  const mappingWarnings = [
-    ...new Set([
-      ...(detailsData.warnings || []),
-      ...(facetsData?.warnings || []),
-    ]),
-  ];
-  let warningsNode;
-  if (mappingWarnings.length) {
-    const [warningsRecognized, warningsUnrecognized] = partition(
-      mappingWarnings,
-      ({ code }) => code in MappingWarningCode
+  if (errors.length) {
+    return (
+      <JobErrorPage
+        message={
+          <ul className="no-bullet">
+            {errors.map(({ code, message }) => (
+              <li key={code}>{message}</li>
+            ))}
+          </ul>
+        }
+      />
     );
-    warningsNode = warningsRecognized.length && (
-      <Message level={MessageLevel.WARNING} className={styles.warnings}>
-        <ul
-          className={cn({
-            'no-bullet': warningsRecognized.length === 1,
-          })}
-        >
-          {warningsRecognized.map(({ message, code }) => (
-            <li key={code}>{message}</li>
-          ))}
-        </ul>
-      </Message>
-    );
-    if (warningsUnrecognized.length) {
-      logging.warn(
-        `Unrecognized ID Mapping warning codes found for job ID ${match.params.id} ${warningsUnrecognized}`
-      );
-    }
   }
 
   let sidebar: JSX.Element;
@@ -309,7 +302,19 @@ const IDMappingResult = () => {
       >
         <meta name="robots" content="noindex" />
       </HTMLHead>
-      {warningsNode}
+      {warnings.length && (
+        <Message level={MessageLevel.WARNING} className={styles.warnings}>
+          {warnings.length === 1 ? (
+            warnings[0].message
+          ) : (
+            <ul>
+              {warnings.map(({ message, code }) => (
+                <li key={code}>{message}</li>
+              ))}
+            </ul>
+          )}
+        </Message>
+      )}
       <Tabs active={match.params.subPage}>
         <Tab
           id={TabLocation.Overview}
