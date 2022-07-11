@@ -1,15 +1,19 @@
-import { Fragment } from 'react';
+import { Fragment, memo } from 'react';
+import { useRouteMatch } from 'react-router-dom';
 import { groupBy } from 'lodash-es';
 import { EvidenceTag } from 'franklin-sites';
+
+import UniProtKBEntryPublications from './UniProtKBEntryPublications';
+import EvidenceLink from '../../config/evidenceUrls';
+
 import {
   getEvidenceCodeData,
   EvidenceData,
   getEcoNumberFromString,
 } from '../../config/evidenceCodes';
-import { Evidence } from '../../types/modelTypes';
+import { allSearchResultLocations } from '../../../app/config/urls';
 
-import UniProtKBEntryPublications from './UniProtKBEntryPublications';
-import EvidenceLink from '../../config/evidenceUrls';
+import { Evidence } from '../../types/modelTypes';
 
 enum evidenceTagSourceTypes {
   PUBMED = 'PubMed',
@@ -67,7 +71,8 @@ export const UniProtEvidenceTagContent = ({
 };
 
 const UniProtKBEvidenceTag = ({ evidences }: { evidences?: Evidence[] }) => {
-  if (!evidences) {
+  const searchPageMath = useRouteMatch(allSearchResultLocations);
+  if (searchPageMath?.isExact || !evidences) {
     return null;
   }
   const evidenceObj = groupBy(evidences, (evidence) => evidence.evidenceCode);
@@ -101,4 +106,4 @@ const UniProtKBEvidenceTag = ({ evidences }: { evidences?: Evidence[] }) => {
   );
 };
 
-export default UniProtKBEvidenceTag;
+export default memo(UniProtKBEvidenceTag);

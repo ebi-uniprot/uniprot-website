@@ -15,9 +15,7 @@ footer.footer {
   }
 
   img {
-    display: inline-block;
-    width: 100%;
-    height: auto;
+    margin-inline: auto;
   }
 
   // Consortium
@@ -25,7 +23,8 @@ footer.footer {
     &__uniprot {
       width: 100%;
 
-      & > svg {
+      & > img {
+        max-height: 70px;
         margin-bottom: 1rem;
       }
     }
@@ -47,13 +46,9 @@ footer.footer {
         }
       }
 
-      & svg {
-        display: block;
-        width: 100%;
-        height: auto;
-        // override .external-link style
-        margin: initial;
-        fill: black;
+      & img {
+        width: auto;
+        max-height: 50px;
       }
     }
   }
@@ -95,11 +90,6 @@ footer.footer {
       font-weight: bold;
     }
 
-    svg {
-      margin-left: initial;
-      margin-right: initial;
-    }
-
     &__core-data {
       white-space: nowrap;
     }
@@ -127,11 +117,6 @@ footer.footer {
 
     & > * {
       white-space: nowrap;
-    }
-
-    svg {
-      display: block;
-      fill: black;
     }
   }
 

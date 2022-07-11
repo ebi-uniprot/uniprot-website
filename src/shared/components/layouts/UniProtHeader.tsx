@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useRouteMatch, useLocation } from 'react-router-dom';
 import { Header, Dropdown, Button } from 'franklin-sites';
 import cn from 'classnames';
+import { WithContext, Organization } from 'schema-dts';
 
 import SearchContainer from '../search/SearchContainer';
 import ReleaseInfo from './ReleaseInfo';
@@ -10,6 +11,7 @@ import SecondaryItems from './SecondaryItems';
 import useNS from '../../hooks/useNS';
 import useJobFromUrl from '../../hooks/useJobFromUrl';
 import useMatchMedia from '../../hooks/useMatchMedia';
+import useStructuredData from '../../hooks/useStructuredData';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -17,7 +19,7 @@ import { Namespace, Searchspace, toolResults } from '../../types/namespaces';
 
 import styles from './styles/uniprot-header.module.scss';
 
-import Logo from '../../../images/uniprot-logo.svg';
+import Logo from '../../../images/uniprot-logo.img.svg';
 
 const toolsLinks = (
   <>
@@ -45,8 +47,6 @@ const sparqlLink = (
   </li>
 );
 
-// "large" breakpoint in Franklin
-const largeMediaQuery = 'only screen and (min-width: 1024px)';
 // just a bit more than "medium" breakpoint in Franklin (640px)
 const mediumPlusMediaQuery = 'only screen and (min-width: 840px)';
 // just a bit more than the "large" breakpoint in Franklin (1024px)
@@ -104,20 +104,29 @@ const SearchContainerWithNamespace = () => {
   );
 };
 
+const organizationSchema: WithContext<Organization> = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  url: 'https://www.uniprot.org',
+  logo: ['https://www.uniprot.org/android-chrome-512x512.png', Logo],
+};
+
 const UniProtHeader = () => {
-  const wideScreen = useMatchMedia(largeMediaQuery);
   const homeMatch = useRouteMatch(LocationToPath[Location.Home]);
 
   const isHomePage = Boolean(homeMatch?.isExact);
+
+  useStructuredData(organizationSchema);
 
   return (
     <Header
       isNegative={isHomePage}
       search={isHomePage ? <ReleaseInfo /> : <SearchContainerWithNamespace />}
       logo={
-        <Logo
-          width={wideScreen ? 100 : 80}
-          height={wideScreen ? 50 : 40}
+        <div
+          className={cn(styles.logo, {
+            [styles.home]: isHomePage,
+          })}
           aria-label="UniProt home page"
         />
       }

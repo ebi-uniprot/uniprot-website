@@ -15,10 +15,10 @@ import { SearchResults } from '../../../shared/types/results';
 
 import styles from './styles/non-critical.module.scss';
 
-import UniProtKBIllustration from '../../../images/uniprotkb_illustration.svg';
-import SpeciesIllustration from '../../../images/species_illustration.svg';
-import ClusterIllustration from '../../../images/cluster_illustration.svg';
-import ArchiveIllustration from '../../../images/archive_illustration.svg';
+import UniProtKBIllustration from '../../../images/uniprotkb_illustration.img.svg';
+import SpeciesIllustration from '../../../images/species_illustration.img.svg';
+import ClusterIllustration from '../../../images/cluster_illustration.img.svg';
+import ArchiveIllustration from '../../../images/archive_illustration.img.svg';
 
 const getNamespaceTo = (location: Location) => ({
   pathname: LocationToPath[location],
@@ -93,7 +93,15 @@ const CoreData = () => (
       title="Proteins"
       className={cn('uniprot-grid-cell--span-3', styles['core-data-tile'])}
       subtitle="UniProt Knowledgebase"
-      backgroundImage={<UniProtKBIllustration />}
+      backgroundImage={
+        <img
+          src={UniProtKBIllustration}
+          width={240}
+          height={240}
+          loading="lazy"
+          alt=""
+        />
+      }
       backgroundColor={colors.seaBlue}
       to={getNamespaceTo(Location.UniProtKBResults)}
       gradient
@@ -106,7 +114,15 @@ const CoreData = () => (
       title="Species"
       className="uniprot-grid-cell--span-3"
       subtitle="Proteomes"
-      backgroundImage={<SpeciesIllustration />}
+      backgroundImage={
+        <img
+          src={SpeciesIllustration}
+          width={240}
+          height={240}
+          loading="lazy"
+          alt=""
+        />
+      }
       backgroundColor={colors.proteomes}
       to={getNamespaceTo(Location.ProteomesResults)}
       gradient
@@ -118,7 +134,15 @@ const CoreData = () => (
       title="Protein Clusters"
       className="uniprot-grid-cell--span-3"
       subtitle="UniRef"
-      backgroundImage={<ClusterIllustration />}
+      backgroundImage={
+        <img
+          src={ClusterIllustration}
+          width={240}
+          height={240}
+          loading="lazy"
+          alt=""
+        />
+      }
       backgroundColor={colors.uniref}
       to={getNamespaceTo(Location.UniRefResults)}
       gradient
@@ -129,7 +153,15 @@ const CoreData = () => (
       title="Sequence Archive"
       className="uniprot-grid-cell--span-3"
       subtitle="UniParc"
-      backgroundImage={<ArchiveIllustration />}
+      backgroundImage={
+        <img
+          src={ArchiveIllustration}
+          width={240}
+          height={240}
+          loading="lazy"
+          alt=""
+        />
+      }
       backgroundColor={colors.uniparc}
       to={getNamespaceTo(Location.UniParcResults)}
       gradient

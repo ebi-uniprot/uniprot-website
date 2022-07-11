@@ -8,10 +8,10 @@ import colors from '../../../../node_modules/franklin-sites/src/styles/colours.j
 import { LocationToPath, Location } from '../../config/urls';
 import ftpUrls from '../../../shared/config/ftpUrls';
 
-import FTPIllustration from '../../../images/ftp_illustration.svg';
-import ProgrammaticIllustration from '../../../images/programmatic_illustration.svg';
-import TechDocIllustration from '../../../images/tech_doc_illustration.svg';
-import SubmitDataIllustration from '../../../images/submit-data_illustration.svg';
+import FTPIllustration from '../../../images/ftp_illustration.img.svg';
+import ProgrammaticIllustration from '../../../images/programmatic_illustration.img.svg';
+import TechDocIllustration from '../../../images/tech_doc_illustration.img.svg';
+import SubmitDataIllustration from '../../../images/submit-data_illustration.img.svg';
 
 import styles from './styles/non-critical.module.scss';
 
@@ -30,7 +30,15 @@ const UniProtData = () => (
     <Tile
       title="FTP Download"
       className="uniprot-grid-cell--span-3"
-      backgroundImage={<FTPIllustration />}
+      backgroundImage={
+        <img
+          src={FTPIllustration}
+          width={240}
+          height={240}
+          loading="lazy"
+          alt=""
+        />
+      }
       backgroundColor={colors.independence}
       url={ftpUrls.uniprot}
       gradient
@@ -40,7 +48,15 @@ const UniProtData = () => (
     <Tile
       title="Technical Documentation"
       className="uniprot-grid-cell--span-3"
-      backgroundImage={<TechDocIllustration />}
+      backgroundImage={
+        <img
+          src={TechDocIllustration}
+          width={240}
+          height={240}
+          loading="lazy"
+          alt=""
+        />
+      }
       backgroundColor={colors.independence}
       to={generatePath(LocationToPath[Location.HelpEntry], {
         accession: 'technical',
@@ -52,7 +68,15 @@ const UniProtData = () => (
     <Tile
       title="Programmatic Access"
       className="uniprot-grid-cell--span-3"
-      backgroundImage={<ProgrammaticIllustration />}
+      backgroundImage={
+        <img
+          src={ProgrammaticIllustration}
+          width={240}
+          height={240}
+          loading="lazy"
+          alt=""
+        />
+      }
       backgroundColor={colors.independence}
       to={generatePath(LocationToPath[Location.HelpEntry], {
         accession: 'programmatic_access',
@@ -64,7 +88,15 @@ const UniProtData = () => (
     <Tile
       title="Submit Data"
       className="uniprot-grid-cell--span-3"
-      backgroundImage={<SubmitDataIllustration />}
+      backgroundImage={
+        <img
+          src={SubmitDataIllustration}
+          width={240}
+          height={240}
+          loading="lazy"
+          alt=""
+        />
+      }
       backgroundColor={colors.independence}
       to={generatePath(LocationToPath[Location.HelpEntry], {
         accession: 'submissions',

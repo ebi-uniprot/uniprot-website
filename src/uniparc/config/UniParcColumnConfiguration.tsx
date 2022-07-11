@@ -24,6 +24,7 @@ import {
   UniParcXRef,
 } from '../adapters/uniParcConverter';
 import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
+import { TabLocation } from '../../uniprotkb/components/entry/Entry';
 
 export enum UniParcColumn {
   // Names & taxonomy
@@ -236,8 +237,11 @@ UniParcColumnConfiguration.set(UniParcColumn.accession, {
           <Link
             // id might be repeated because it's referring to different versions
             key={`${xref.id}-${xref.version}-${xref.database}-${xref.active}`}
-            // TODO: handle link to obsolete entry by linking to version page
-            to={getEntryPath(Namespace.uniprotkb, xref.id)}
+            to={getEntryPath(
+              Namespace.uniprotkb,
+              xref.id,
+              xref.active ? TabLocation.Entry : TabLocation.History
+            )}
           >
             <EntryTypeIcon entryType={xref.database} />
             {xref.id}

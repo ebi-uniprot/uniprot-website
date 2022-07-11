@@ -203,9 +203,8 @@ exports[`ContactForm should be disabled when submitting 1`] = `
       >
         Sending message
       </button>
-      <test-file-stub
-        classname="illustration"
-        viewbox="0 0 211 140"
+      <div
+        class="illustration"
       />
       <aside>
         <h2
@@ -474,9 +473,8 @@ exports[`ContactForm should render for feedback contact form 1`] = `
       >
         Send message
       </button>
-      <test-file-stub
-        classname="illustration"
-        viewbox="0 0 211 140"
+      <div
+        class="illustration"
       />
       <aside>
         <h2
@@ -745,9 +743,8 @@ exports[`ContactForm should render for generic contact form 1`] = `
       >
         Send message
       </button>
-      <test-file-stub
-        classname="illustration"
-        viewbox="0 0 211 140"
+      <div
+        class="illustration"
       />
       <aside>
         <h2

@@ -12,11 +12,13 @@ import {
 import { useHistory, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import { MainSearch, Button, SlidingPanel } from 'franklin-sites';
+import { SearchAction, WebSite, WithContext } from 'schema-dts';
 
 import ErrorBoundary from '../error-component/ErrorBoundary';
 
 import useJobFromUrl from '../../hooks/useJobFromUrl';
 import useIDMappingDetails from '../../hooks/useIDMappingDetails';
+import useStructuredData from '../../hooks/useStructuredData';
 import { useMessagesDispatch } from '../../contexts/Messages';
 
 import lazy from '../../utils/lazy';
@@ -119,6 +121,22 @@ type Props = {
   onSearchspaceChange: (searchspace: Searchspace) => void;
 };
 
+const webSiteSchemaFor = (namespace: Searchspace): WithContext<WebSite> => ({
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  url: 'https://www.uniprot.org',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: `https://www.uniprot.org/${
+        namespace === toolResults ? Namespace.uniprotkb : namespace
+      }?query={q}`,
+    },
+    'query-input': 'required name=q',
+  } as SearchAction,
+});
+
 const SearchContainer: FC<
   Props & Exclude<HTMLAttributes<HTMLDivElement>, 'role'>
 > = ({ isOnHomePage, searchspace, onSearchspaceChange, ...props }) => {
@@ -128,6 +146,8 @@ const SearchContainer: FC<
   // local state to hold the search value without modifying URL
   const [searchTerm, setSearchTerm] = useState<string>('');
   const handleClose = useCallback(() => setDisplayQueryBuilder(false), []);
+
+  useStructuredData(webSiteSchemaFor(searchspace));
 
   const dispatch = useMessagesDispatch();
   const idMappingDetails = useIDMappingDetails();

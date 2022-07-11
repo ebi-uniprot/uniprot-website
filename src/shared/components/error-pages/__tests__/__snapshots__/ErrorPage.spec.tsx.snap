@@ -6,8 +6,9 @@ exports[`ErrorPage component should render 1`] = `
     class="error-page-container"
     data-testid="test-id"
   >
-    <test-file-stub
-      classname="error-page-container__art-work"
+    <img
+      alt=""
+      class="error-page-container__art-work"
     />
     test message
   </div>

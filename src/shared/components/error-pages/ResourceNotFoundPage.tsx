@@ -10,7 +10,7 @@ import * as logging from '../../utils/logging';
 
 import { Namespace } from '../../types/namespaces';
 
-import ArtWork from './svgs/404.svg';
+import ArtWork from './svgs/404.img.svg';
 
 type RedirectEntry = [pattern: RegExp, replacement: string];
 
@@ -109,7 +109,7 @@ const ResourceNotFoundPage = () => {
         <meta name="robots" content="noindex" />
       </HTMLHead>
       <ErrorPage
-        artwork={<ArtWork />}
+        artwork={<img src={ArtWork} width="400" height="400" alt="" />}
         message={<ErrorMessage />}
         data-testid="error-page"
       />

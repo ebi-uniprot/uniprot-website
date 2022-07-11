@@ -10,6 +10,7 @@ import KeywordView from '../protein-data-views/KeywordView';
 import XRefView from '../protein-data-views/XRefView';
 import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
+import KineticsTableView from './KineticsTableView';
 
 import { hasContent } from '../../../shared/utils/utils';
 import {
@@ -67,7 +68,7 @@ export const KineticsView = ({ data }: { data: KineticParameters }) => (
           {data.maximumVelocities.map((mv) => (
             <li key={`${mv.velocity}-${mv.enzyme}`}>
               V<sub>max</sub>
-              {`=${mv.velocity}${mv.unit} for ${mv.enzyme} `}
+              {`=${mv.velocity}${mv.unit} ${mv.enzyme} `}
               <UniProtKBEvidenceTag evidences={mv.evidences} />
             </li>
           ))}
@@ -99,7 +100,7 @@ const BioPhysicoChemicalPropertiesView = ({
       {data.kinetics && (
         <>
           <h3>Kinetics</h3>
-          <KineticsView data={data.kinetics} />
+          <KineticsTableView data={data.kinetics} />
         </>
       )}
       {data.pHDependence && (
@@ -192,6 +193,11 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
     data.commentsData.get('FUNCTION') as FreeTextComment[] | undefined
   )?.[0]?.texts?.[0]?.value;
 
+  // Remove isoform MISCELLANEOUS comments as they go in the Sequence section
+  const miscellaneousComments = data.commentsData
+    ?.get('MISCELLANEOUS')
+    ?.filter((comment) => !(comment as FreeTextComment).molecule);
+
   return (
     <Card
       header={
@@ -214,11 +220,7 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
         title={<span className="visually-hidden">function</span>}
       />
       <FreeTextView
-        comments={
-          data.commentsData.get('MISCELLANEOUS') as
-            | FreeTextComment[]
-            | undefined
-        }
+        comments={miscellaneousComments as FreeTextComment[] | undefined}
         title="miscellaneous"
       />
       {data.commentsData.get('CAUTION')?.length ? (

@@ -3,6 +3,7 @@ import {
   DataTableWithLoader,
   DataListWithLoader,
   Loader,
+  EllipsisReveal,
 } from 'franklin-sites';
 import { useHistory, useLocation } from 'react-router-dom';
 
@@ -162,18 +163,20 @@ const ResultsData = ({
         />
       ) : (
         // Table view
-        <DataTableWithLoader
-          getIdKey={getIdKey}
-          columns={columns}
-          data={allResults}
-          loading={loading}
-          onSelectionChange={setSelectedItemFromEvent}
-          onHeaderClick={updateColumnSort}
-          onLoadMoreItems={handleLoadMoreRows}
-          hasMoreData={hasMoreData}
-          loaderComponent={loadComponent}
-          className={className}
-        />
+        <EllipsisReveal.Provider>
+          <DataTableWithLoader
+            getIdKey={getIdKey}
+            columns={columns}
+            data={allResults}
+            loading={loading}
+            onSelectionChange={setSelectedItemFromEvent}
+            onHeaderClick={updateColumnSort}
+            onLoadMoreItems={handleLoadMoreRows}
+            hasMoreData={hasMoreData}
+            loaderComponent={loadComponent}
+            className={className}
+          />
+        </EllipsisReveal.Provider>
       )}
     </div>
   );

@@ -19,13 +19,6 @@ $footer-peeking: 7em;
     background: white;
   }
 
-  .header:not(.header--negative)
-    > .header__logo
-    svg
-    path:not(.uniprot-logo-beta_svg__beta) {
-    fill: white;
-  }
-
   .main-content {
     flex: 1;
     min-height: calc(100vh - var(--top-header-margin) - #{$footer-peeking});

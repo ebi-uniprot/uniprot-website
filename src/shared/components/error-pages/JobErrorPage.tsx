@@ -3,7 +3,7 @@ import { Message } from 'franklin-sites';
 
 import ErrorPage from './ErrorPage';
 
-import ArtWork from './svgs/job-failed.svg';
+import ArtWork from './svgs/job-failed.img.svg';
 
 type Props = {
   message: ReactNode;
@@ -18,7 +18,7 @@ const ErrorMessage = ({ message }: Props) => (
 
 const JobErrorPage = ({ message }: Props) => (
   <ErrorPage
-    artwork={<ArtWork />}
+    artwork={<img src={ArtWork} width="400" height="400" alt="" />}
     message={<ErrorMessage message={message} />}
   />
 );

@@ -48,6 +48,7 @@ import {
   KineticsView,
   CofactorView,
 } from '../components/entry/FunctionSection';
+// import KineticsTableView from '../components/entry/KineticsTableView';
 import {
   functionFeaturesToColumns,
   FunctionUIModel,
@@ -201,6 +202,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinName, {
       <CSVView
         data={omit(proteinNamesData, 'contains')}
         bolderFirst={Boolean(proteinNamesData?.recommendedName)}
+        contextKey={UniProtKBColumn.proteinName}
       />
     );
   },
@@ -537,7 +539,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPolymorphism, {
   ),
   render: (data) => {
     const { polymorphism } = data[EntrySection.Sequence];
-    return <FreeTextView comments={polymorphism} noEvidence />;
+    return <FreeTextView comments={polymorphism} />;
   },
 });
 
@@ -603,7 +605,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCaution, {
     const cautionComments = data[EntrySection.Function].commentsData.get(
       'CAUTION'
     ) as FreeTextComment[] | undefined;
-    return <FreeTextView comments={cautionComments} noEvidence />;
+    return <FreeTextView comments={cautionComments} />;
   },
 });
 
@@ -743,7 +745,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccActivityRegulation, {
     const activityRegulationComments = data[
       EntrySection.Function
     ].commentsData.get('ACTIVITY REGULATION') as FreeTextComment[] | undefined;
-    return <FreeTextView comments={activityRegulationComments} noEvidence />;
+    return <FreeTextView comments={activityRegulationComments} />;
   },
 });
 
@@ -757,7 +759,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccFunction, {
     const functionComments = data[EntrySection.Function].commentsData.get(
       'FUNCTION'
     ) as FreeTextComment[] | undefined;
-    return <FreeTextView comments={functionComments} noEvidence />;
+    return <FreeTextView comments={functionComments} />;
   },
 });
 
@@ -789,7 +791,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPathway, {
     const pathwayComments = data[EntrySection.Function].commentsData.get(
       'PATHWAY'
     ) as FreeTextComment[] | undefined;
-    return <FreeTextView comments={pathwayComments} noEvidence />;
+    return <FreeTextView comments={pathwayComments} />;
   },
 });
 
@@ -935,7 +937,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccMiscellaneous, {
     const miscellaneousComments = data[EntrySection.Function].commentsData.get(
       'MISCELLANEOUS'
     ) as FreeTextComment[] | undefined;
-    return <FreeTextView comments={miscellaneousComments} noEvidence />;
+    return <FreeTextView comments={miscellaneousComments} />;
   },
 });
 
@@ -1062,7 +1064,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSubunit, {
     const subunitComments = data[EntrySection.Interaction].commentsData.get(
       'SUBUNIT'
     ) as FreeTextComment[] | undefined;
-    return <FreeTextView comments={subunitComments} noEvidence />;
+    return <FreeTextView comments={subunitComments} />;
   },
 });
 
@@ -1076,7 +1078,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDevelopmentalStage, {
     const developmentComments = data[EntrySection.Expression].commentsData.get(
       'DEVELOPMENTAL STAGE'
     ) as FreeTextComment[] | undefined;
-    return <FreeTextView comments={developmentComments} noEvidence />;
+    return <FreeTextView comments={developmentComments} />;
   },
 });
 
@@ -1090,7 +1092,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInduction, {
     const inductionComments = data[EntrySection.Expression].commentsData.get(
       'INDUCTION'
     ) as FreeTextComment[] | undefined;
-    return <FreeTextView comments={inductionComments} noEvidence />;
+    return <FreeTextView comments={inductionComments} />;
   },
 });
 
@@ -1104,7 +1106,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccTissueSpecificity, {
     const tissueComment = data[EntrySection.Expression].commentsData.get(
       'TISSUE SPECIFICITY'
     ) as FreeTextComment[] | undefined;
-    return <FreeTextView comments={tissueComment} noEvidence />;
+    return <FreeTextView comments={tissueComment} />;
   },
 });
 
@@ -1213,7 +1215,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDomain, {
     const domainData = data[EntrySection.FamilyAndDomains].commentsData.get(
       'DOMAIN'
     ) as FreeTextComment[] | undefined;
-    return <FreeTextView comments={domainData} noEvidence />;
+    return <FreeTextView comments={domainData} />;
   },
 });
 
@@ -1227,7 +1229,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPtm, {
     const ptmData = data[EntrySection.ProteinProcessing].commentsData.get(
       'PTM'
     ) as FreeTextComment[] | undefined;
-    return <FreeTextView comments={ptmData} noEvidence />;
+    return <FreeTextView comments={ptmData} />;
   },
 });
 
@@ -1241,7 +1243,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccAllergen, {
     const allergenData = data[EntrySection.DiseaseVariants].commentsData.get(
       'ALLERGEN'
     ) as FreeTextComment[] | undefined;
-    return <FreeTextView comments={allergenData} noEvidence />;
+    return <FreeTextView comments={allergenData} />;
   },
 });
 
@@ -1255,7 +1257,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccBiotechnology, {
     const biotechData = data[EntrySection.DiseaseVariants].commentsData.get(
       'BIOTECHNOLOGY'
     ) as FreeTextComment[] | undefined;
-    return <FreeTextView comments={biotechData} noEvidence />;
+    return <FreeTextView comments={biotechData} />;
   },
 });
 
@@ -1269,7 +1271,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDisruptionPhenotype, {
     const disruptionData = data[EntrySection.DiseaseVariants].commentsData.get(
       'DISRUPTION PHENOTYPE'
     ) as FreeTextComment[] | undefined;
-    return <FreeTextView comments={disruptionData} noEvidence />;
+    return <FreeTextView comments={disruptionData} />;
   },
 });
 
@@ -1304,7 +1306,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPharmaceutical, {
     const pharmaData = data[EntrySection.DiseaseVariants].commentsData.get(
       'PHARMACEUTICAL'
     ) as FreeTextComment[] | undefined;
-    return <FreeTextView comments={pharmaData} noEvidence />;
+    return <FreeTextView comments={pharmaData} />;
   },
 });
 
@@ -1318,7 +1320,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccToxicDose, {
     const toxicData = data[EntrySection.DiseaseVariants].commentsData.get(
       'TOXIC DOSE'
     ) as FreeTextComment[] | undefined;
-    return <FreeTextView comments={toxicData} noEvidence />;
+    return <FreeTextView comments={toxicData} />;
   },
 });
 
@@ -1380,7 +1382,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinFamilies, {
     const familiesData = data[EntrySection.FamilyAndDomains].commentsData.get(
       'SIMILARITY'
     ) as FreeTextComment[] | undefined;
-    return <FreeTextView comments={familiesData} noEvidence />;
+    return <FreeTextView comments={familiesData} />;
   },
 });
 
