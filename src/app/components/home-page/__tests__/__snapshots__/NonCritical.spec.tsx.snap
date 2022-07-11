@@ -75,7 +75,13 @@ exports[`non-critical HomePage component should render 1`] = `
         aria-hidden="true"
         class="tile__background-image"
       >
-        <test-file-stub />
+        <img
+          alt=""
+          height="240"
+          loading="lazy"
+          src="test-file-stub"
+          width="240"
+        />
       </div>
       <a
         class="tile__main-content"
@@ -144,7 +150,13 @@ exports[`non-critical HomePage component should render 1`] = `
         aria-hidden="true"
         class="tile__background-image"
       >
-        <test-file-stub />
+        <img
+          alt=""
+          height="240"
+          loading="lazy"
+          src="test-file-stub"
+          width="240"
+        />
       </div>
       <a
         class="tile__main-content"
@@ -177,7 +189,13 @@ exports[`non-critical HomePage component should render 1`] = `
         aria-hidden="true"
         class="tile__background-image"
       >
-        <test-file-stub />
+        <img
+          alt=""
+          height="240"
+          loading="lazy"
+          src="test-file-stub"
+          width="240"
+        />
       </div>
       <a
         class="tile__main-content"
@@ -210,7 +228,13 @@ exports[`non-critical HomePage component should render 1`] = `
         aria-hidden="true"
         class="tile__background-image"
       >
-        <test-file-stub />
+        <img
+          alt=""
+          height="240"
+          loading="lazy"
+          src="test-file-stub"
+          width="240"
+        />
       </div>
       <a
         class="tile__main-content"
@@ -616,7 +640,13 @@ exports[`non-critical HomePage component should render 1`] = `
         aria-hidden="true"
         class="tile__background-image"
       >
-        <test-file-stub />
+        <img
+          alt=""
+          height="240"
+          loading="lazy"
+          src="test-file-stub"
+          width="240"
+        />
       </div>
       <a
         class="tile__main-content"
@@ -644,7 +674,13 @@ exports[`non-critical HomePage component should render 1`] = `
         aria-hidden="true"
         class="tile__background-image"
       >
-        <test-file-stub />
+        <img
+          alt=""
+          height="240"
+          loading="lazy"
+          src="test-file-stub"
+          width="240"
+        />
       </div>
       <a
         class="tile__main-content"
@@ -672,7 +708,13 @@ exports[`non-critical HomePage component should render 1`] = `
         aria-hidden="true"
         class="tile__background-image"
       >
-        <test-file-stub />
+        <img
+          alt=""
+          height="240"
+          loading="lazy"
+          src="test-file-stub"
+          width="240"
+        />
       </div>
       <a
         class="tile__main-content"
@@ -700,7 +742,13 @@ exports[`non-critical HomePage component should render 1`] = `
         aria-hidden="true"
         class="tile__background-image"
       >
-        <test-file-stub />
+        <img
+          alt=""
+          height="240"
+          loading="lazy"
+          src="test-file-stub"
+          width="240"
+        />
       </div>
       <a
         class="tile__main-content"
@@ -891,7 +939,13 @@ exports[`non-critical HomePage component should render 1`] = `
         aria-hidden="true"
         class="tile__background-image"
       >
-        <test-file-stub />
+        <img
+          alt=""
+          height="240"
+          loading="lazy"
+          src="test-file-stub"
+          width="240"
+        />
       </div>
       <a
         class="external-link tile__main-content"
@@ -921,7 +975,13 @@ exports[`non-critical HomePage component should render 1`] = `
         aria-hidden="true"
         class="tile__background-image"
       >
-        <test-file-stub />
+        <img
+          alt=""
+          height="240"
+          loading="lazy"
+          src="test-file-stub"
+          width="240"
+        />
       </div>
       <a
         class="tile__main-content"
@@ -949,7 +1009,13 @@ exports[`non-critical HomePage component should render 1`] = `
         aria-hidden="true"
         class="tile__background-image"
       >
-        <test-file-stub />
+        <img
+          alt=""
+          height="240"
+          loading="lazy"
+          src="test-file-stub"
+          width="240"
+        />
       </div>
       <a
         class="tile__main-content"
@@ -977,7 +1043,13 @@ exports[`non-critical HomePage component should render 1`] = `
         aria-hidden="true"
         class="tile__background-image"
       >
-        <test-file-stub />
+        <img
+          alt=""
+          height="240"
+          loading="lazy"
+          src="test-file-stub"
+          width="240"
+        />
       </div>
       <a
         class="tile__main-content"

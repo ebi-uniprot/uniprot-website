@@ -121,7 +121,7 @@ type Props = {
   onSearchspaceChange: (searchspace: Searchspace) => void;
 };
 
-const webSiteSchema: WithContext<WebSite> = {
+const webSiteSchemaFor = (namespace: Searchspace): WithContext<WebSite> => ({
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   url: 'https://www.uniprot.org',
@@ -129,11 +129,13 @@ const webSiteSchema: WithContext<WebSite> = {
     '@type': 'SearchAction',
     target: {
       '@type': 'EntryPoint',
-      urlTemplate: 'https://www.uniprot.org/uniprotkb?query={q}',
+      urlTemplate: `https://www.uniprot.org/${
+        namespace === toolResults ? Namespace.uniprotkb : namespace
+      }?query={q}`,
     },
     'query-input': 'required name=q',
   } as SearchAction,
-};
+});
 
 const SearchContainer: FC<
   Props & Exclude<HTMLAttributes<HTMLDivElement>, 'role'>
@@ -145,7 +147,7 @@ const SearchContainer: FC<
   const [searchTerm, setSearchTerm] = useState<string>('');
   const handleClose = useCallback(() => setDisplayQueryBuilder(false), []);
 
-  useStructuredData(webSiteSchema);
+  useStructuredData(webSiteSchemaFor(searchspace));
 
   const dispatch = useMessagesDispatch();
   const idMappingDetails = useIDMappingDetails();
