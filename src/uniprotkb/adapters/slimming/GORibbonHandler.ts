@@ -251,49 +251,21 @@ export const getSubjects = (
 
 export const useGOData = (
   goTerms?: GroupedGoTerms,
-  slimSetName = 'goslim_agr',
-  taxonomy?: string[]
+  slimSetName = 'goslim_agr'
 ): {
   loading: boolean;
   slimmedData?: GOSlimmedData;
   selectedSlimSet?: SlimSet;
   slimSets?: string[];
-  defaultSlimSet?: SlimSet;
 } => {
   const { data: slimSetsData, loading: loadingSlimSets } =
     useDataApi<GOSLimSets>(goTerms && SLIM_SETS_URL);
 
-  const selectedSlimSet = slimSetsData?.goSlimSets.find(
+  let selectedSlimSet = slimSetsData?.goSlimSets.find(
     (slimSet) => slimSet.id === slimSetName
   );
 
-  const slimSets = slimSetsData?.goSlimSets.map((slimSet) => slimSet.id); // All of the available slimsets
-
-  let defaultSlimSet; // this is going to be the selected slimset
-  const slimSetByTaxon = {
-    goslim_plant: [
-      'Viridiplantae',
-      'Bangiophyceae',
-      'Florideophyceae',
-      'Stylonematophyceae',
-      'Rhodellophyceae',
-      'Compsopogonophyceae',
-    ],
-    prokaryotes: ['Bacteria', 'Archaea'],
-  };
-  // Check if the taxon matches a slimset
-  Object.entries(slimSetByTaxon).map(([key, value]) => {
-    const presentTaxon = taxonomy?.filter((t) => value.includes(t));
-    if (presentTaxon?.length) {
-      defaultSlimSet = slimSetsData?.goSlimSets.find(
-        (slimSet) => slimSet.id === key
-      );
-    } else {
-      defaultSlimSet = slimSetsData?.goSlimSets.find(
-        (slimSet) => slimSet.id === 'goslim_generic'
-      );
-    }
-  });
+  const slimSets = slimSetsData?.goSlimSets.map((slimSet) => slimSet.id);
 
   const slimmingUrl = useMemo(() => {
     const slimsToIds = selectedSlimSet?.associations
@@ -325,6 +297,5 @@ export const useGOData = (
     slimmedData,
     selectedSlimSet,
     slimSets,
-    defaultSlimSet,
   };
 };

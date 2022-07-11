@@ -66,18 +66,39 @@ const GoRibbon = ({
 
   const [selectedSet, setSelectedSet] = useState('goslim_generic');
 
-  let taxonomyInfo;
-  if (organismData) {
-    taxonomyInfo = organismData.lineage
-      ? [...organismData.lineage, organismData.scientificName]
-      : [organismData.scientificName];
-  }
-
   // NOTE: loading is also available, do we want to do anything with it?
-  const { loading, slimmedData, selectedSlimSet, slimSets, defaultSlimSet } =
-    useGOData(goTerms, selectedSet, taxonomyInfo);
+  const { loading, slimmedData, selectedSlimSet, slimSets } = useGOData(
+    goTerms,
+    selectedSet
+  );
 
   const [elementLoaded, setElementLoaded] = useSafeState(false);
+
+  // SlimSets based on Taxonomy
+  const slimSetByTaxon = {
+    goslim_plant: [
+      'Viridiplantae',
+      'Bangiophyceae',
+      'Florideophyceae',
+      'Stylonematophyceae',
+      'Rhodellophyceae',
+      'Compsopogonophyceae',
+    ],
+    prokaryotes: ['Bacteria', 'Archaea'],
+  };
+
+  useEffect(() => {
+    const taxonomyInfo = organismData?.lineage
+      ? [...organismData?.lineage, organismData.scientificName]
+      : [organismData?.scientificName];
+    // Check if the taxon matches a slimset
+    Object.entries(slimSetByTaxon).map(([key, value]) => {
+      const presentTaxon = taxonomyInfo?.filter((t) => value.includes(t));
+      if (presentTaxon?.length) {
+        setSelectedSet(key);
+      }
+    });
+  }, [organismData]);
 
   useEffect(() => {
     if ('customElements' in window) {
@@ -208,7 +229,6 @@ const GoRibbon = ({
             onChange={(e) => setSelectedSet(e.target.value)}
             value={selectedSet}
           >
-            {/* TODO add the default slimset */}
             {slimSets.map((slimSet) => (
               <option value={slimSet} key={slimSet}>
                 {slimSet.replace('goslim_', '').replace('_ribbon', '')}
