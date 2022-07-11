@@ -170,12 +170,11 @@ const IDMappingResult = () => {
 
   useMarkJobAsSeen(resultsDataObject.allResults.length, match?.params.id);
 
-  const warnings = useMemo(() => {
+  const [warnings, notCustomisable] = useMemo(() => {
     const allWarnings = uniqBy(
       [...(detailsData?.warnings || []), ...(facetsData?.warnings || [])],
       'code'
     );
-    console.log(allWarnings);
     const [warningsRecognized, warningsUnrecognized] = partition(
       allWarnings,
       ({ code }) => code in MappingWarningCode
@@ -187,7 +186,10 @@ const IDMappingResult = () => {
         } ${JSON.stringify(warningsUnrecognized)}`
       );
     }
-    return warningsRecognized;
+    const notCustomisable = warningsRecognized.some(
+      ({ code }) => code === MappingWarningCode.EnrichmentDisabled
+    );
+    return [warningsRecognized, notCustomisable];
   }, [detailsData?.warnings, facetsData?.warnings, match?.params.id]);
 
   const errors = useMemo(() => {
@@ -326,6 +328,7 @@ const IDMappingResult = () => {
               namespaceOverride={namespaceOverride}
               resultsDataObject={resultsDataObject}
               detailsData={detailsData}
+              notCustomisable={notCustomisable}
             />
           </Suspense>
         </Tab>
