@@ -2,7 +2,6 @@
 import { useMemo } from 'react';
 import queryString from 'query-string';
 import { groupBy } from 'lodash-es';
-import { SetRequired } from 'type-fest';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
@@ -261,7 +260,7 @@ export const useGOData = (
   const { data: slimSetsData, loading: loadingSlimSets } =
     useDataApi<GOSLimSets>(goTerms && SLIM_SETS_URL);
 
-  let selectedSlimSet = slimSetsData?.goSlimSets.find(
+  const selectedSlimSet = slimSetsData?.goSlimSets.find(
     (slimSet) => slimSet.id === slimSetName
   );
 

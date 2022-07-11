@@ -12,6 +12,7 @@ import useSafeState from '../../../shared/hooks/useSafeState';
 import externalUrls from '../../../shared/config/externalUrls';
 
 import { GOTermID, GroupedGoTerms } from '../../adapters/functionConverter';
+import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
 import {
   AGRRibbonGroup,
@@ -21,7 +22,6 @@ import {
   useGOData,
 } from '../../adapters/slimming/GORibbonHandler';
 import { GeneNamesData } from '../../adapters/namesAndTaxonomyConverter';
-import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
 import styles from './styles/go-ribbon.module.scss';
 
@@ -74,30 +74,36 @@ const GoRibbon = ({
 
   const [elementLoaded, setElementLoaded] = useSafeState(false);
 
-  // SlimSets based on Taxonomy
-  const slimSetByTaxon = {
-    goslim_plant: [
-      'Viridiplantae',
-      'Bangiophyceae',
-      'Florideophyceae',
-      'Stylonematophyceae',
-      'Rhodellophyceae',
-      'Compsopogonophyceae',
-    ],
-    prokaryotes: ['Bacteria', 'Archaea'],
-  };
-
   useEffect(() => {
-    const taxonomyInfo = organismData?.lineage
-      ? [...organismData?.lineage, organismData.scientificName]
-      : [organismData?.scientificName];
-    // Check if the taxon matches a slimset
-    Object.entries(slimSetByTaxon).map(([key, value]) => {
-      const presentTaxon = taxonomyInfo?.filter((t) => value.includes(t));
-      if (presentTaxon?.length) {
-        setSelectedSet(key);
-      }
-    });
+    if (organismData?.scientificName && organismData?.lineage) {
+      const taxonomyInfo = [
+        ...organismData.lineage,
+        organismData.scientificName,
+      ];
+
+      // SlimSets based on Taxonomy
+      const slimSetByTaxon = {
+        goslim_plant: [
+          'Viridiplantae',
+          'Bangiophyceae',
+          'Florideophyceae',
+          'Stylonematophyceae',
+          'Rhodellophyceae',
+          'Compsopogonophyceae',
+        ],
+        prokaryotes: ['Bacteria', 'Archaea'],
+      };
+
+      // Check if the taxon matches a slimset
+      Object.entries(slimSetByTaxon).forEach(([key, value]) => {
+        const presentTaxon = taxonomyInfo?.filter((t) =>
+          value.includes(String(t))
+        ); // Added String() to make Type happy as Lineage is Array of strings at the moment
+        if (presentTaxon?.length) {
+          setSelectedSet(key);
+        }
+      });
+    }
   }, [organismData]);
 
   useEffect(() => {
