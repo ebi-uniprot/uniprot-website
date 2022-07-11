@@ -10,6 +10,7 @@ import TemplateEntries from './TemplateEntries';
 import ConditionsAnnotations from '../../../shared/entry/ConditionsAnnotations';
 import EntryDownload from '../../../../shared/components/entry/EntryDownload';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
+import RelatedResults from '../../../../shared/components/results/RelatedResults';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 
@@ -35,6 +36,15 @@ const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
     return <ErrorHandler status={status} />;
   }
 
+  const hasRelated = Boolean(
+    data.statistics.reviewedProteinCount ||
+      data.statistics.unreviewedProteinCount
+  );
+
+  const relatedQuery = `(source:${
+    data.information.oldRuleNum || data.uniRuleId
+  })`;
+
   return (
     <SingleColumnLayout>
       <HTMLHead
@@ -54,6 +64,9 @@ const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
       <Source source={data.information.oldRuleNum} />
       <TemplateEntries entries={data.information.uniProtAccessions} />
       <ConditionsAnnotations data={data} />
+      {hasRelated && (
+        <RelatedResults relatedQuery={relatedQuery} relation="Annotated" />
+      )}
     </SingleColumnLayout>
   );
 };
