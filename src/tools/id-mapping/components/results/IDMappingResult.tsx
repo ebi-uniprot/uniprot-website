@@ -293,17 +293,21 @@ const IDMappingResult = () => {
       >
         <meta name="robots" content="noindex" />
       </HTMLHead>
-      {warnings.length && (
+      {!!warnings.length && (
         <Message level={MessageLevel.WARNING} className={styles.warnings}>
-          {warnings.length === 1 ? (
-            warnings[0].message
-          ) : (
-            <ul>
-              {warnings.map(({ message, code }) => (
-                <li key={code}>{message}</li>
-              ))}
-            </ul>
-          )}
+          <ul className="no-bullet">
+            {warnings.map(({ message, code }) => (
+              <li key={code}>
+                {message}
+                {code === MappingWarningCode.FiltersDisabled && (
+                  <span>
+                    . You can query the results by entering a search query in
+                    the search bar or by using the Advanced search.
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
         </Message>
       )}
       <Tabs active={match.params.subPage}>
