@@ -120,18 +120,14 @@ const IDMappingResult = () => {
     useDataApi<IDMappingFormConfig>(apiUrls.idMappingFields);
 
   // Query for results data from the idmapping endpoint
-  const initialApiUrl = (
+  const initialApiUrl =
     detailsData?.redirectURL &&
     urls.resultUrl(detailsData.redirectURL, {
       selectedFacets,
       query,
       sortColumn,
       sortDirection,
-    })
-  )?.replace(
-    'https://hx-rke-wp-webadmin-02-worker-1.caas.ebi.ac.uk',
-    'http://hx-rke-wp-webadmin-02-worker-1.caas.ebi.ac.uk:31393'
-  );
+    });
 
   const converter = useMemo(
     () => idMappingConverter(findUriLink(fieldsData, detailsData?.to)),
@@ -153,7 +149,7 @@ const IDMappingResult = () => {
 
   // Run facet query
   const facets = defaultFacets.get(namespaceOverride);
-  const facetsUrl = (
+  const facetsUrl =
     detailsData?.redirectURL &&
     facets &&
     urls.resultUrl(detailsData.redirectURL, {
@@ -161,12 +157,7 @@ const IDMappingResult = () => {
       size: 0,
       selectedFacets,
       query,
-    })
-  )?.replace(
-    'https://hx-rke-wp-webadmin-02-worker-1.caas.ebi.ac.uk',
-    'http://hx-rke-wp-webadmin-02-worker-1.caas.ebi.ac.uk:31393'
-  );
-
+    });
   const facetsDataApiObject = useDataApiWithStale<
     MappingWarningsErrors & SearchResults<UniProtkbAPIModel>
   >(facetsUrl);
