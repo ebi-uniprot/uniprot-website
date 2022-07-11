@@ -111,11 +111,11 @@ const getAccessionColumn =
       cell = (
         <>
           <Link
-            /**
-             * TODO: when we have entry history pages, we need to handle it
-             * differently (current website points to `/<accession>?version=*`)
-             */
-            to={getEntryPath(Namespace.uniprotkb, xref.id, TabLocation.Entry)}
+            to={getEntryPath(
+              Namespace.uniprotkb,
+              xref.id,
+              xref.active ? TabLocation.Entry : TabLocation.History
+            )}
           >
             {xref.id}
           </Link>
