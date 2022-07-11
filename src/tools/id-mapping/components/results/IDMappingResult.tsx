@@ -1,7 +1,7 @@
 import { useMemo, lazy, Suspense } from 'react';
 import { Loader, Message, PageIntro, Tab, Tabs } from 'franklin-sites';
 import { Link, useLocation } from 'react-router-dom';
-import { partition } from 'lodash-es';
+import { partition, uniqBy } from 'lodash-es';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
@@ -171,12 +171,11 @@ const IDMappingResult = () => {
   useMarkJobAsSeen(resultsDataObject.allResults.length, match?.params.id);
 
   const warnings = useMemo(() => {
-    const allWarnings = [
-      ...new Set([
-        ...(detailsData?.warnings || []),
-        ...(facetsData?.warnings || []),
-      ]),
-    ];
+    const allWarnings = uniqBy(
+      [...(detailsData?.warnings || []), ...(facetsData?.warnings || [])],
+      'code'
+    );
+    console.log(allWarnings);
     const [warningsRecognized, warningsUnrecognized] = partition(
       allWarnings,
       ({ code }) => code in MappingWarningCode
@@ -190,12 +189,10 @@ const IDMappingResult = () => {
   }, [detailsData?.warnings, facetsData?.warnings, match?.params.id]);
 
   const errors = useMemo(() => {
-    const allErrors = [
-      ...new Set([
-        ...(detailsData?.errors || []),
-        ...(facetsData?.errors || []),
-      ]),
-    ];
+    const allErrors = uniqBy(
+      [...(detailsData?.errors || []), ...(facetsData?.errors || [])],
+      'code'
+    );
     const [errorsRecognized, errorsUnrecognized] = partition(
       allErrors,
       ({ code }) => code in MappingErrorCode
