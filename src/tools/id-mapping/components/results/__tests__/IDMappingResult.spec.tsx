@@ -1,4 +1,4 @@
-import { act, fireEvent, screen, waitFor } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 
@@ -21,13 +21,13 @@ import { MappingDetails } from '../../../types/idMappingSearchResults';
 
 const mock = new MockAdapter(axios);
 mock
-  .onGet(/\/api\/idmapping\/results\/id1/)
+  .onGet(/\/idmapping\/results\/id1/)
   .reply(200, SimpleMappingData)
-  .onGet(/\/api\/idmapping\/results\/uniprotkb\/id2/)
+  .onGet(/\/idmapping\/uniprotkb\/results\/id2/)
   .reply(200, UniProtkbMapping)
   .onGet(/\/configure\/idmapping\/fields/)
   .reply(200, idMappingFields)
-  .onGet(/idmapping\/uniprotkb\/results\/tooManyIDsForFacets/)
+  .onGet(/\/idmapping\/uniprotkb\/results\/tooManyIDsForFacets/)
   .reply(200, tooManyIDsForFacetsResults);
 
 const renderIDMappingResult = (route: string, data: MappingDetails) =>
