@@ -151,8 +151,11 @@
   display: none;
 
   @include fs-breakpoints('large') {
+    /* putting the image here means no network load if not displayed */
+    background: url('../svgs/helper-contact.img.svg') no-repeat 0 0;
     display: initial;
     width: 75%;
+    aspect-ratio: 211/140;
     grid-area: illustration;
     justify-self: center;
     align-self: end;

@@ -55,7 +55,12 @@ exports[`HelpLandingPage should render 1`] = `
           <div
             class="illustrated-list-tile__image"
           >
-            <test-file-stub />
+            <img
+              alt=""
+              height="62"
+              src="test-file-stub"
+              width="52"
+            />
           </div>
           <ul
             class="illustrated-list-tile__list no-bullet"
@@ -107,7 +112,12 @@ exports[`HelpLandingPage should render 1`] = `
           <div
             class="illustrated-list-tile__image"
           >
-            <test-file-stub />
+            <img
+              alt=""
+              height="52"
+              src="test-file-stub"
+              width="52"
+            />
           </div>
           <ul
             class="illustrated-list-tile__list no-bullet"
@@ -152,7 +162,12 @@ exports[`HelpLandingPage should render 1`] = `
           <div
             class="illustrated-list-tile__image"
           >
-            <test-file-stub />
+            <img
+              alt=""
+              height="40"
+              src="test-file-stub"
+              width="52"
+            />
           </div>
           <ul
             class="illustrated-list-tile__list no-bullet"
@@ -190,7 +205,12 @@ exports[`HelpLandingPage should render 1`] = `
           <div
             class="illustrated-list-tile__image"
           >
-            <test-file-stub />
+            <img
+              alt=""
+              height="41"
+              src="test-file-stub"
+              width="52"
+            />
           </div>
           <ul
             class="illustrated-list-tile__list no-bullet"
@@ -228,7 +248,12 @@ exports[`HelpLandingPage should render 1`] = `
           <div
             class="illustrated-list-tile__image"
           >
-            <test-file-stub />
+            <img
+              alt=""
+              height="59"
+              src="test-file-stub"
+              width="52"
+            />
           </div>
           <ul
             class="illustrated-list-tile__list no-bullet"

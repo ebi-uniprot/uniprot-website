@@ -1,5 +1,5 @@
 import { Fragment, FC, ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
@@ -8,6 +8,7 @@ import {
   getEntryPathFor,
   LocationToPath,
   Location,
+  allSearchResultLocations,
 } from '../../../app/config/urls';
 import {
   reAC,
@@ -122,17 +123,13 @@ export const RichText = ({
   </>
 );
 
-type TextViewProps = { comments: TextWithEvidence[]; noEvidence?: boolean };
-
-export const TextView = ({ comments, noEvidence }: TextViewProps) => (
+export const TextView = ({ comments }: { comments: TextWithEvidence[] }) => (
   <div className="text-block">
     {comments.map((comment, index) => (
       // eslint-disable-next-line react/no-array-index-key
       <Fragment key={index}>
         <RichText addPeriod>{comment.value}</RichText>
-        {!noEvidence && comment.evidences && (
-          <UniProtKBEvidenceTag evidences={comment.evidences} />
-        )}
+        <UniProtKBEvidenceTag evidences={comment.evidences} />
       </Fragment>
     ))}
   </div>
@@ -143,7 +140,6 @@ type FreeTextProps = {
   title?: ReactNode;
   articleId?: string;
   showMolecule?: boolean;
-  noEvidence?: boolean;
 };
 
 const FreeTextView: FC<FreeTextProps> = ({
@@ -151,11 +147,13 @@ const FreeTextView: FC<FreeTextProps> = ({
   title,
   articleId,
   showMolecule = true,
-  noEvidence,
 }) => {
+  const searchPageMath = useRouteMatch(allSearchResultLocations);
+
   if (!comments?.length) {
     return null;
   }
+
   const freeTextData = comments.map(
     (item, index) =>
       item.texts && (
@@ -163,7 +161,7 @@ const FreeTextView: FC<FreeTextProps> = ({
         <Fragment key={index}>
           {showMolecule && item.molecule && (
             <h4 className="tiny">
-              {noEvidence ? (
+              {searchPageMath?.isExact ? (
                 `${item.molecule}`
               ) : (
                 <a href={`#${item.molecule.replaceAll(' ', '_')}`}>
@@ -172,7 +170,7 @@ const FreeTextView: FC<FreeTextProps> = ({
               )}
             </h4>
           )}
-          <TextView comments={item.texts} noEvidence={noEvidence} />
+          <TextView comments={item.texts} />
         </Fragment>
       )
   );

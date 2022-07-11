@@ -31,8 +31,6 @@ import { LocationToPath, Location } from '../../app/config/urls';
 
 import styles from './styles/contact-form.module.scss';
 
-import HelperContactImage from './svgs/helper-contact.svg';
-
 // ARIA hide all of these, are the state is available in the form already
 const validity = (
   <>
@@ -204,13 +202,7 @@ const ContactForm = () => {
           <Button type="submit" disabled={sending}>{`Send${
             sending ? 'ing' : ''
           } message`}</Button>
-          {/* TODO: after TRM-25295, make sure this is not even loaded on
-           * smaller screens when loaded as an image */}
-          <HelperContactImage
-            className={styles.illustration}
-            // override the viewBox in order to make it disappear a bit
-            viewBox="0 0 211 140"
-          />
+          <div className={styles.illustration} />
           <aside>
             <h2 className="small">Other ways to contact us</h2>
             {/* Link to switch the contact form */}

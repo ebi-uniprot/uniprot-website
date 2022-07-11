@@ -58,6 +58,7 @@ module.exports = (env, argv) => {
       filename: 'app.[contenthash:6].js',
       chunkFilename: '[name].[contenthash:6].js',
       clean: true,
+      assetModuleFilename: '[name].[contenthash:6][ext]',
     },
     devtool: (() => {
       // no sourcemap for tests
@@ -191,13 +192,14 @@ module.exports = (env, argv) => {
             },
           ],
         },
-        // SVGs in app and in franklin
+        // SVGs in app and in franklin that need to inherit colour
         {
           test: /\.svg$/i,
           include: [
             path.resolve(__dirname, 'src'),
             fs.realpathSync(`${__dirname}/node_modules/franklin-sites`),
           ],
+          exclude: [/\.img\.svg$/],
           issuer: /\.(t|j)sx?$/,
           loader: '@svgr/webpack',
         },
@@ -210,16 +212,10 @@ module.exports = (env, argv) => {
           ],
           loader: 'svg-inline-loader',
         },
+        // All kinds of images, including SVGs without styling needs
         {
-          test: /\.(jpe?g|png|gif|ico)$/i,
-          use: [
-            {
-              loader: 'file-loader',
-              options: {
-                name: '[name].[contenthash:6].[ext]',
-              },
-            },
-          ],
+          test: /\.(jpe?g|png|gif|ico|img\.svg)$/i,
+          type: 'asset/resource',
         },
       ],
     },

@@ -1,6 +1,7 @@
 import { Fragment, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import {
+  EllipsisReveal,
   InfoList,
   // EvidenceTag,
   // InformationIcon,
@@ -400,31 +401,36 @@ const groupedAnnotation = (
   if (type === 'protein name') {
     return (
       <ul className="no-bullet">
-        {typedAnnotations.map((annotation, index) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <li key={index}>
-            <CSVView
-              data={annotation.proteinDescription}
-              bolderFirst={Boolean(
-                annotation.proteinDescription?.recommendedName
-              )}
-            />
-            <ExceptionComponent annotationWithExceptions={annotation} />
-          </li>
-        ))}
+        <EllipsisReveal.Provider>
+          {typedAnnotations.map((annotation, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <li key={index}>
+              <CSVView
+                data={annotation.proteinDescription}
+                bolderFirst={Boolean(
+                  annotation.proteinDescription?.recommendedName
+                )}
+                contextKey="protein_name"
+              />
+              <ExceptionComponent annotationWithExceptions={annotation} />
+            </li>
+          ))}
+        </EllipsisReveal.Provider>
       </ul>
     );
   }
   if (type === 'gene name') {
     return (
       <ul className="no-bullet">
-        {typedAnnotations.map((annotation, index) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <li key={index}>
-            <CSVView data={annotation.gene} />
-            <ExceptionComponent annotationWithExceptions={annotation} />
-          </li>
-        ))}
+        <EllipsisReveal.Provider>
+          {typedAnnotations.map((annotation, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <li key={index}>
+              <CSVView data={annotation.gene} contextKey="gene name" />
+              <ExceptionComponent annotationWithExceptions={annotation} />
+            </li>
+          ))}
+        </EllipsisReveal.Provider>
       </ul>
     );
   }
