@@ -1,4 +1,4 @@
-import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 
@@ -13,6 +13,11 @@ import SimpleMappingDetails from '../__mocks__/SimpleMappingDetails';
 import UniProtkbMapping from '../__mocks__/UniProtkbMapping';
 import UniProtkbMappingDetails from '../__mocks__/UniProtkbMappingDetails';
 import idMappingFields from '../../__tests__/__mocks__/idMappingFormConfig';
+import tooManyIDsForFacetsResults from '../__mocks__/tooManyIDsForFacetsResults';
+import tooManyIDsForFacetsDetails from '../__mocks__/tooManyIDsForFacetsDetails';
+import tooManyIDsForMappingDetails from '../__mocks__/tooManyIDsForMappingDetails';
+
+import { MappingDetails } from '../../../types/idMappingSearchResults';
 
 const mock = new MockAdapter(axios);
 mock
@@ -21,48 +26,68 @@ mock
   .onGet(/\/api\/idmapping\/results\/uniprotkb\/id2/)
   .reply(200, UniProtkbMapping)
   .onGet(/\/configure\/idmapping\/fields/)
-  .reply(200, idMappingFields);
+  .reply(200, idMappingFields)
+  .onGet(/idmapping\/uniprotkb\/results\/tooManyIDsForFacets/)
+  .reply(200, tooManyIDsForFacetsResults);
+
+const renderIDMappingResult = (route: string, data: MappingDetails) =>
+  customRender(
+    <IDMappingDetailsContext.Provider
+      // eslint-disable-next-line react/jsx-no-constructed-context-values
+      value={{ loading: false, data }}
+    >
+      <IDMappingResult />
+    </IDMappingDetailsContext.Provider>,
+    {
+      route,
+    }
+  );
 
 describe('IDMappingResult tests', () => {
   it('should render simple from/to mapping', async () => {
-    customRender(
-      <IDMappingDetailsContext.Provider
-        // eslint-disable-next-line react/jsx-no-constructed-context-values
-        value={{ loading: false, data: SimpleMappingDetails }}
-      >
-        <IDMappingResult />
-      </IDMappingDetailsContext.Provider>,
-      {
-        route: '/id-mapping/id1/overview',
-        initialLocalStorage: {
-          'view-mode': 'table', // TODO: This should eventually be removed
-        },
-      }
-    );
+    renderIDMappingResult('/id-mapping/id1/overview', SimpleMappingDetails);
     expect(await screen.findByText('ENSMUSG00000029283')).toBeInTheDocument();
   });
 
   it('should render mapping to UniProtKB and apply filter', async () => {
-    const { history } = customRender(
-      <IDMappingDetailsContext.Provider
-        // eslint-disable-next-line react/jsx-no-constructed-context-values
-        value={{ loading: false, data: UniProtkbMappingDetails }}
-      >
-        <IDMappingResult />
-      </IDMappingDetailsContext.Provider>,
-
-      {
-        route: '/id-mapping/uniprotkb/id2/overview',
-        initialLocalStorage: {
-          'view-mode': 'table', // TODO: This should eventually be removed
-        },
-      }
+    const { history } = renderIDMappingResult(
+      '/id-mapping/uniprotkb/id2/overview',
+      UniProtkbMappingDetails
     );
     expect((await screen.findAllByText('Q9Z0H0')).length).toBe(2);
     const facetLink = screen.getByRole('link', { name: /Reviewed/ });
     fireEvent.click(facetLink);
     await waitFor(() => screen.getByRole('table'));
     expect(history.location.search).toEqual('?facets=reviewed%3Atrue');
+  });
+
+  it('should render error ID mapping not possible for too many IDs', async () => {
+    renderIDMappingResult(
+      '/id-mapping/uniprotkb/tooManyIDsForMappingDetails/overview',
+      tooManyIDsForMappingDetails
+    );
+    expect(
+      await screen.findByText(
+        'Id Mapping API is not supported for mapping results with "mapped to" IDs more than 500000'
+      )
+    ).toBeInTheDocument();
+  });
+
+  it('should render warning that facets not possible for too many IDs', async () => {
+    renderIDMappingResult(
+      '/id-mapping/uniprotkb/tooManyIDsForFacets/overview',
+      tooManyIDsForFacetsDetails
+    );
+    expect(
+      await screen.findByText(
+        /Filters are not supported for mapping results with IDs more than 10000/
+      )
+    ).toBeInTheDocument();
+    expect(
+      await screen.findByText(
+        /You can query the results by entering a search query in the search bar or by using the Advanced search/
+      )
+    ).toBeInTheDocument();
   });
 });
 
