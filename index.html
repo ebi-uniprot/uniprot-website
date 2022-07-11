@@ -12,10 +12,17 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/manifest.json" />
     <% } %> <% if (isDev) { %>
-    <!-- Prevent indexing when the website is not public ------------------------------>
-    <!-- also will have to visit https://support.google.com/webmasters/answer/9012289 to make sure things are OK after release -->
+    <!-- Prevent indexing when the website is not public -->
     <meta name="robots" content="noindex" />
     <% } else { %>
+    <!-- Loading optimisations -->
+    <link rel="preconnect" href="https://fonts.gstatic.com/" />
+    <link rel="preconnect" href="https://rest.uniprot.org/" />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css?family=Lato:400,700|Source+Sans+Pro:600,700&display=swap"
+    />
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script
       async
@@ -40,7 +47,7 @@
         send_page_view: false,
       });
     </script>
-    <!-- Hotjar Tracking Code for https://beta.uniprot.org -->
+    <!-- Hotjar Tracking Code -->
     <script>
       (function (h, o, t, j, a, r) {
         h.hj =

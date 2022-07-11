@@ -4,10 +4,10 @@ import cn from 'classnames';
 // eslint-disable-next-line import/no-relative-packages
 import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
 
-import BlastIllustration from '../../../images/blast_illustration.svg';
-import AlignIllustration from '../../../images/align_illustration.svg';
-import UploadListIllustration from '../../../images/id-mapping_illustration.svg';
-import PeptideSearchIllustration from '../../../images/peptide_search_illustration.svg';
+import BlastIllustration from '../../../images/blast_illustration.img.svg';
+import AlignIllustration from '../../../images/align_illustration.img.svg';
+import IDMappingIllustration from '../../../images/id-mapping_illustration.img.svg';
+import PeptideSearchIllustration from '../../../images/peptide_search_illustration.img.svg';
 
 import { jobTypeToPath } from '../../config/urls';
 
@@ -30,7 +30,15 @@ const AnalysisTools = () => (
     <Tile
       title="BLAST"
       className="uniprot-grid-cell--span-3"
-      backgroundImage={<BlastIllustration />}
+      backgroundImage={
+        <img
+          src={BlastIllustration}
+          width={240}
+          height={240}
+          loading="lazy"
+          alt=""
+        />
+      }
       backgroundColor={colors.blast}
       to={jobTypeToPath(JobTypes.BLAST)}
       gradient
@@ -41,7 +49,15 @@ const AnalysisTools = () => (
     <Tile
       title="Align"
       className="uniprot-grid-cell--span-3"
-      backgroundImage={<AlignIllustration />}
+      backgroundImage={
+        <img
+          src={AlignIllustration}
+          width={240}
+          height={240}
+          loading="lazy"
+          alt=""
+        />
+      }
       backgroundColor={colors.align}
       to={jobTypeToPath(JobTypes.ALIGN)}
       gradient
@@ -52,7 +68,15 @@ const AnalysisTools = () => (
     <Tile
       title="Search with Lists Map IDs"
       className="uniprot-grid-cell--span-3"
-      backgroundImage={<UploadListIllustration />}
+      backgroundImage={
+        <img
+          src={IDMappingIllustration}
+          width={240}
+          height={240}
+          loading="lazy"
+          alt=""
+        />
+      }
       backgroundColor={colors.idMapping}
       to={jobTypeToPath(JobTypes.ID_MAPPING)}
       gradient
@@ -63,7 +87,15 @@ const AnalysisTools = () => (
     <Tile
       title="Search Peptides"
       className="uniprot-grid-cell--span-3"
-      backgroundImage={<PeptideSearchIllustration />}
+      backgroundImage={
+        <img
+          src={PeptideSearchIllustration}
+          width={240}
+          height={240}
+          loading="lazy"
+          alt=""
+        />
+      }
       backgroundColor={colors.peptideSearch}
       to={jobTypeToPath(JobTypes.PEPTIDE_SEARCH)}
       gradient
