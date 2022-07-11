@@ -182,7 +182,9 @@ const IDMappingResult = () => {
     );
     if (warningsUnrecognized.length) {
       logging.warn(
-        `Unrecognized ID Mapping warning codes found for job ID ${match?.params.id} ${warningsUnrecognized}`
+        `Unrecognized ID Mapping warning codes found for job ID ${
+          match?.params.id
+        } ${JSON.stringify(warningsUnrecognized)}`
       );
     }
     return warningsRecognized;
@@ -199,7 +201,9 @@ const IDMappingResult = () => {
     );
     if (errorsUnrecognized.length) {
       logging.warn(
-        `Unrecognized ID Mapping error codes found for job ID ${match?.params.id} ${errorsUnrecognized}`
+        `Unrecognized ID Mapping error codes found for job ID ${
+          match?.params.id
+        } ${JSON.stringify(errorsUnrecognized)}`
       );
     }
     return errorsRecognized;
