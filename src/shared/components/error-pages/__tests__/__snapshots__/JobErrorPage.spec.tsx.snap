@@ -27,7 +27,9 @@ exports[`JobErrorPage component should render 1`] = `
             Job Failed
           </h4>
           <span>
-            Custom message here
+            <b>
+              Foo
+            </b>
           </span>
         </small>
       </section>
