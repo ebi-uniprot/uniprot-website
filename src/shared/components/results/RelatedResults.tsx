@@ -12,10 +12,11 @@ import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
 import { LocationToPath, Location } from '../../../app/config/urls';
 import { Namespace } from '../../types/namespaces';
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import { APIModel } from '../../types/apiModel';
 
 const getIdKey = getIdKeyFor(Namespace.uniprotkb);
-const cardRenderer = (cardData: UniProtkbAPIModel) => (
-  <UniProtKBCard data={cardData} isNotSelectable />
+const cardRenderer = (cardData: APIModel) => (
+  <UniProtKBCard data={cardData as UniProtkbAPIModel} isNotSelectable />
 );
 
 const RelatedResults = ({
@@ -69,7 +70,7 @@ const RelatedResults = ({
         Browse {pluralise('', total, 'all')} <LongNumber>{total}</LongNumber>{' '}
         {pluralise('entry', total, 'entries')}
       </Link>
-      <DataListWithLoader<UniProtkbAPIModel>
+      <DataListWithLoader
         getIdKey={getIdKey}
         data={allResults}
         loading={initialLoading}
