@@ -10,12 +10,18 @@ import FeaturesView, {
 } from '../../../shared/components/views/FeaturesView';
 
 import listFormat from '../../../shared/utils/listFormat';
-import { getURLToJobWithData } from '../../../app/config/urls';
+import {
+  getEntryPath,
+  getURLToJobWithData,
+  LocationToPath,
+} from '../../../app/config/urls';
 
 import { Evidence } from '../../types/modelTypes';
 import FeatureType from '../../types/featureType';
 import { Xref } from '../../../shared/types/apiModel';
 import { JobTypes } from '../../../tools/types/toolsJobTypes';
+import { Namespace } from '../../../shared/types/namespaces';
+import { generatePath, Link } from 'react-router-dom';
 
 type FeatureLocation = {
   value: number;
@@ -63,6 +69,7 @@ export const processFeaturesData = (
 ): ProcessedFeature[] =>
   data.map((feature): ProcessedFeature => {
     let s: string | undefined;
+    let description = feature.description || '';
     if (feature.alternativeSequence) {
       if (
         feature.alternativeSequence.originalSequence &&
@@ -80,6 +87,8 @@ export const processFeaturesData = (
       } else {
         s = 'Missing';
       }
+    } else if (feature.location.sequence) {
+      description = `In isoform ${feature.location.sequence}; ${description}`;
     } else {
       s = sequence?.substring(
         feature.location.start.value - 1,
@@ -95,7 +104,7 @@ export const processFeaturesData = (
       startModifier: feature.location.start.modifier,
       endModifier: feature.location.end.modifier,
       type: feature.type,
-      description: feature.description,
+      description: description,
       evidences: feature.evidences,
       sequence: s,
     };
@@ -116,6 +125,18 @@ const UniProtKBFeaturesView = ({
   if (processedData.length === 0) {
     return null;
   }
+
+  const wrapTags = (text: string, regex: RegExp, className?: string) => {
+    const textArray = text.split(regex);
+    return textArray.map((str) => {
+      if (regex.test(str)) {
+        return (
+          <Link to={getEntryPath(Namespace.uniprotkb, 'P12345-2')}>{str}</Link>
+        );
+      }
+      return str;
+    });
+  };
 
   const table = (
     <table className={classNames(!withDataTable && 'data-table--compact')}>
@@ -144,6 +165,10 @@ const UniProtKBFeaturesView = ({
               ? positionStart
               : `${positionStart}-${positionEnd}`;
 
+          const isoform = feature.description?.includes('isoform')
+            ? feature.description.match(/isoform\s([A-Z0-9]+\-\d+)/i)?.[1]
+            : null;
+
           return (
             <Fragment key={feature.protvistaFeatureId}>
               <tr
@@ -157,7 +182,24 @@ const UniProtKBFeaturesView = ({
                 <td>{feature.featureId}</td>
                 <td>{position}</td>
                 <td>
-                  {feature.description}
+                  {isoform
+                    ? feature.description
+                        ?.split(new RegExp(`(${isoform})`))
+                        .map((part) => {
+                          if (part === isoform) {
+                            return (
+                              <Link
+                                key={part}
+                                to={getEntryPath(Namespace.uniprotkb, part)}
+                              >
+                                {part}
+                              </Link>
+                            );
+                          } else {
+                            return part;
+                          }
+                        })
+                    : feature.description}
                   <UniProtKBEvidenceTag evidences={feature.evidences} />
                 </td>
                 <td>
