@@ -5,7 +5,7 @@ import ErrorPage from '../shared/components/error-pages/ErrorPage';
 
 import { LocationToPath, Location } from '../app/config/urls';
 
-import ArtWork from './svgs/empty-basket.svg';
+import ArtWork from './svgs/empty-basket.img.svg';
 
 const ErrorMessage = () => (
   <Message
@@ -49,7 +49,10 @@ const ErrorMessage = () => (
 );
 
 const EmptyBasket = () => (
-  <ErrorPage artwork={<ArtWork />} message={<ErrorMessage />} />
+  <ErrorPage
+    artwork={<img src={ArtWork} width="295" height="190" alt="" />}
+    message={<ErrorMessage />}
+  />
 );
 
 export default EmptyBasket;

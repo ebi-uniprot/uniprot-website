@@ -47,18 +47,4 @@ describe('FreeText component', () => {
       expect(screen.queryAllByRole('link')).toHaveLength(3);
     });
   });
-
-  describe('Free text CC, no inlined PubMeds, no evidence tag', () => {
-    beforeEach(() => {
-      customRender(<FreeTextView comments={[freeTextUIData[0]]} noEvidence />);
-    });
-
-    it('should not render pubmed links', () => {
-      expect(screen.queryAllByRole('link')).toHaveLength(0);
-    });
-
-    it('should not render evidence tags', () => {
-      expect(screen.queryByRole('button')).not.toBeInTheDocument();
-    });
-  });
 });

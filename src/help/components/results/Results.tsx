@@ -22,7 +22,7 @@ import { HelpAPIModel, HelpSearchResponse } from '../../adapters/helpConverter';
 
 import styles from './styles/results.module.scss';
 
-import HelperImage from './svgs/helper.svg';
+import HelperImage from './svgs/helper.img.svg';
 
 const dataRenderer = (article: HelpAPIModel) => (
   <HelpCard
@@ -142,7 +142,13 @@ const Results = ({
       {/* TODO: check and change this title when implementing Help */}
       <HTMLHead title={`${searchValue} in UniProt help`} />
       <div className={styles['results-header']}>
-        <HelperImage className={styles.helper} />
+        <img
+          src={HelperImage}
+          className={styles.helper}
+          width="290"
+          height="123"
+          alt=""
+        />
         <strong className={cn('tiny', styles.title)}>
           <HelpIcon width="0.7em" height="0.7em" /> Help search results
         </strong>

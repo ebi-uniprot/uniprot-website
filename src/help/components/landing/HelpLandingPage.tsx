@@ -11,6 +11,7 @@ import IllustratedListTile, {
   IllustratedListTileProps,
 } from './IllustratedListTile';
 import HTMLHead from '../../../shared/components/HTMLHead';
+import YouTubeEmbed from '../../../shared/components/YouTubeEmbed';
 
 import { searchableNamespaceLabels } from '../../../shared/types/namespaces';
 import {
@@ -19,14 +20,13 @@ import {
   getLocationEntryPathFor,
 } from '../../../app/config/urls';
 
-import DB from './svgs/db.svg';
-import Cog from './svgs/cog.svg';
-import TalkingPerson from './svgs/talking-person.svg';
-import Terminal from './svgs/terminal.svg';
-import Reader from './svgs/reader.svg';
+import DB from './svgs/db.img.svg';
+import Cog from './svgs/cog.img.svg';
+import TalkingPerson from './svgs/talking-person.img.svg';
+import Terminal from './svgs/terminal.img.svg';
+import Reader from './svgs/reader.img.svg';
 
 import landing from './styles/help-landing-page.module.scss';
-import YouTubeEmbed from '../../../shared/components/YouTubeEmbed';
 
 const getHelpEntryPath = getLocationEntryPathFor(Location.HelpEntry);
 
@@ -55,7 +55,7 @@ const tileData: IllustratedListTileProps[] = [
       pathname: LocationToPath[Location.HelpResults],
       search: '?query=data',
     },
-    image: <DB />,
+    image: <img src={DB} width="52" height="62" alt="" />,
   },
   {
     title: 'Get started',
@@ -77,7 +77,7 @@ const tileData: IllustratedListTileProps[] = [
       pathname: LocationToPath[Location.HelpResults],
       search: '?query=*&facets=category:Get started',
     },
-    image: <Cog />,
+    image: <img src={Cog} width="52" height="52" alt="" />,
   },
   {
     title: 'Training',
@@ -95,7 +95,7 @@ const tileData: IllustratedListTileProps[] = [
       pathname: LocationToPath[Location.HelpResults],
       search: '?query=training',
     },
-    image: <TalkingPerson />,
+    image: <img src={TalkingPerson} width="52" height="40" alt="" />,
   },
   {
     title: 'Technical corner',
@@ -110,7 +110,7 @@ const tileData: IllustratedListTileProps[] = [
       },
     ],
     moreTo: getHelpEntryPath('technical'),
-    image: <Terminal />,
+    image: <img src={Terminal} width="52" height="41" alt="" />,
   },
   {
     title: 'Biocuration',
@@ -131,7 +131,7 @@ const tileData: IllustratedListTileProps[] = [
       pathname: LocationToPath[Location.HelpResults],
       search: '?query=*&facets=category:biocuration',
     },
-    image: <Reader />,
+    image: <img src={Reader} width="52" height="59" alt="" />,
   },
   {
     title: 'About us',

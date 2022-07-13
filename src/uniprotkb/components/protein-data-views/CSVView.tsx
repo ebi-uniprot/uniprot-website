@@ -7,12 +7,14 @@ type CSVViewProps = {
   data?: Record<string, unknown> | Record<string, unknown>[];
   bolderFirst?: boolean;
   keyPredicate?: string;
+  contextKey?: string;
 };
 
 const CSVView: FC<CSVViewProps> = ({
   data,
   bolderFirst = false,
   keyPredicate = 'value',
+  contextKey,
 }) => {
   if (!data) {
     return null;
@@ -30,7 +32,7 @@ const CSVView: FC<CSVViewProps> = ({
         {firstValue}
       </span>
       {restOfValues.length !== 0 && (
-        <EllipsisReveal>
+        <EllipsisReveal contextKey={contextKey}>
           {', '}
           {restOfValues.join(', ')}
         </EllipsisReveal>

@@ -4,13 +4,11 @@ import customRender from '../../../__test-helpers__/customRender';
 
 import ErrorPage from '../ErrorPage';
 
-import ArtWork from '../svgs/error.svg';
-
 describe('ErrorPage component', () => {
   test('should render', () => {
     const { asFragment } = customRender(
       <ErrorPage
-        artwork={<ArtWork />}
+        artwork={<img alt="" />}
         message="test message"
         data-testid="test-id"
       />
