@@ -55,10 +55,14 @@ type UniProtKBXref = Omit<Xref, 'properties'> & {
   properties?: Array<{ key: string; value: string }>;
 };
 
+export type UniProtKBSimplifiedTaxonomy = Omit<TaxonomyDatum, 'lineage'> & {
+  lineage: string[];
+};
+
 export type UniProtkbAPIModel = {
   proteinDescription?: ProteinNamesData;
   genes?: GeneNamesData;
-  organism?: TaxonomyDatum;
+  organism?: UniProtKBSimplifiedTaxonomy;
   organismHosts?: TaxonomyDatum[];
   primaryAccession: string;
   secondaryAccessions?: string[];

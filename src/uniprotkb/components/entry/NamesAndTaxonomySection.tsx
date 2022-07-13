@@ -4,16 +4,16 @@ import ProteinNamesView from '../protein-data-views/ProteinNamesView';
 import GeneNamesView from '../protein-data-views/GeneNamesView';
 import ProteomesListView from '../protein-data-views/ProteomesView';
 import XRefView from '../protein-data-views/XRefView';
+import AccessionsView from '../protein-data-views/AccessionsView';
+import { TaxonomyListView } from '../../../shared/components/entry/TaxonomyView';
 
 import { hasContent, pluralise } from '../../../shared/utils/utils';
 
 import { NamesAndTaxonomyUIModel } from '../../adapters/namesAndTaxonomyConverter';
 
-import { TaxonomyListView } from '../../../shared/components/entry/TaxonomyView';
 import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
-import AccessionsView from '../protein-data-views/AccessionsView';
 
 type Props = {
   data: NamesAndTaxonomyUIModel;

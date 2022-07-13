@@ -12,7 +12,10 @@ import KeywordCategory from '../types/keywordCategory';
 import { FunctionFeatures } from '../types/featureType';
 import EntrySection from '../types/entrySection';
 import { convertSection, UIModel } from './sectionConverter';
-import { UniProtkbAPIModel } from './uniProtkbConverter';
+import {
+  UniProtkbAPIModel,
+  UniProtKBSimplifiedTaxonomy,
+} from './uniProtkbConverter';
 import { Evidence, GoEvidenceType } from '../types/modelTypes';
 import { Xref } from '../../shared/types/apiModel';
 
@@ -88,7 +91,7 @@ export type FunctionUIModel = {
   bioPhysicoChemicalProperties: BioPhysicoChemicalProperties;
   goTerms?: GroupedGoTerms;
   geneNamesData?: GeneNamesData;
-  organismData?: TaxonomyDatum;
+  organismData?: TaxonomyDatum | UniProtKBSimplifiedTaxonomy;
 } & UIModel;
 
 const keywordsCategories: KeywordCategory[] = [
