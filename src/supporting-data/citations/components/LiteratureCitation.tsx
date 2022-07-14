@@ -103,6 +103,7 @@ const Authors: FC<AuthorProps> = ({ authors, authoringGroup, limit = 10 }) => {
           <Link to={getLinkToAuthor(group)}>{group}</Link>
         </Fragment>
       ))}
+      <br />
       {displayedAuthors.map((author, index) => (
         // eslint-disable-next-line react/no-array-index-key
         <Fragment key={index}>
