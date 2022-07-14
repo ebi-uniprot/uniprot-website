@@ -1,4 +1,5 @@
 import { useMemo, Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { v1 } from 'uuid';
 import { Button } from 'franklin-sites';
@@ -10,18 +11,13 @@ import FeaturesView, {
 } from '../../../shared/components/views/FeaturesView';
 
 import listFormat from '../../../shared/utils/listFormat';
-import {
-  getEntryPath,
-  getURLToJobWithData,
-  LocationToPath,
-} from '../../../app/config/urls';
+import { getEntryPath, getURLToJobWithData } from '../../../app/config/urls';
 
 import { Evidence } from '../../types/modelTypes';
 import FeatureType from '../../types/featureType';
 import { Xref } from '../../../shared/types/apiModel';
 import { JobTypes } from '../../../tools/types/toolsJobTypes';
 import { Namespace } from '../../../shared/types/namespaces';
-import { generatePath, Link } from 'react-router-dom';
 
 type FeatureLocation = {
   value: number;
@@ -125,18 +121,13 @@ const UniProtKBFeaturesView = ({
   if (processedData.length === 0) {
     return null;
   }
-
-  const wrapTags = (text: string, regex: RegExp, className?: string) => {
-    const textArray = text.split(regex);
-    return textArray.map((str) => {
-      if (regex.test(str)) {
-        return (
-          <Link to={getEntryPath(Namespace.uniprotkb, 'P12345-2')}>{str}</Link>
-        );
-      }
-      return str;
-    });
-  };
+  const sortedData = useMemo(
+    () =>
+      processedData.sort((a, b) =>
+        a.start === b.start ? a.end - b.end : a.start - b.start
+      ),
+    [processedData]
+  );
 
   const table = (
     <table className={classNames(!withDataTable && 'data-table--compact')}>
@@ -150,7 +141,7 @@ const UniProtKBFeaturesView = ({
         </tr>
       </thead>
       <tbody>
-        {processedData.map((feature) => {
+        {sortedData.map((feature) => {
           const start =
             feature.startModifier === 'UNKNOWN' ? '?' : feature.start;
           const end = feature.endModifier === 'UNKNOWN' ? '?' : feature.end;
