@@ -119,6 +119,7 @@ export const formatCitationData = (citation: Citation) => {
     bookName: citation.bookName,
     publisher: citation.publisher,
     address: citation.address,
+    patentNumber: citation.patentNumber,
   };
 
   return { pubmedId, journalInfo };

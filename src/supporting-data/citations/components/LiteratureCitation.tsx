@@ -174,6 +174,7 @@ type JournalInfoProps = {
     bookName?: string;
     publisher?: string;
     address?: string;
+    patentNumber?: string;
   };
 };
 
@@ -192,6 +193,7 @@ export const JournalInfo: FC<JournalInfoProps> = ({
     bookName,
     publisher,
     address,
+    patentNumber,
   },
 }) => {
   let name = journal || doiId;
@@ -236,6 +238,7 @@ export const JournalInfo: FC<JournalInfoProps> = ({
       {volume && page && ':'}
       {page}
       {submissionDatabase && `Submitted to ${submissionDatabase} `}
+      {patentNumber && `Patent publication ${patentNumber} `}
       {publisher}
       {publisher && address && ', '}
       {address}
