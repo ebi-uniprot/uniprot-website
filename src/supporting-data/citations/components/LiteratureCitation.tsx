@@ -170,6 +170,10 @@ type JournalInfoProps = {
     submissionDatabase?: string;
     citationType?: CitationType;
     locator?: string;
+    editors?: string[];
+    bookName?: string;
+    publisher?: string;
+    address?: string;
   };
 };
 
@@ -184,14 +188,24 @@ export const JournalInfo: FC<JournalInfoProps> = ({
     submissionDatabase,
     citationType,
     locator,
+    editors,
+    bookName,
+    publisher,
+    address,
   },
 }) => {
-  const name = journal || doiId;
+  let name = journal || doiId;
+
+  if (citationType === 'book' && bookName) {
+    name =
+      editors !== undefined ? `${editors?.join(',')}; ${bookName}` : bookName;
+  }
+
   let page = null;
   if (firstPage) {
     page = firstPage;
     if (lastPage) {
-      page += `-${lastPage}`;
+      page += `-${lastPage} `;
     }
   }
 
@@ -222,6 +236,9 @@ export const JournalInfo: FC<JournalInfoProps> = ({
       {volume && page && ':'}
       {page}
       {submissionDatabase && `Submitted to ${submissionDatabase} `}
+      {publisher}
+      {publisher && address && ', '}
+      {address}
       {date}
     </>
   );
