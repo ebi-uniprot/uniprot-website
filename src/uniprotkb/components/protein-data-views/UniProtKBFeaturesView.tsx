@@ -100,7 +100,7 @@ export const processFeaturesData = (
       startModifier: feature.location.start.modifier,
       endModifier: feature.location.end.modifier,
       type: feature.type,
-      description: description,
+      description,
       evidences: feature.evidences,
       sequence: s,
     };
@@ -121,12 +121,9 @@ const UniProtKBFeaturesView = ({
   if (processedData.length === 0) {
     return null;
   }
-  const sortedData = useMemo(
-    () =>
-      processedData.sort((a, b) =>
-        a.start === b.start ? a.end - b.end : a.start - b.start
-      ),
-    [processedData]
+
+  processedData.sort((a, b) =>
+    a.start === b.start ? a.end - b.end : a.start - b.start
   );
 
   const table = (
@@ -141,7 +138,7 @@ const UniProtKBFeaturesView = ({
         </tr>
       </thead>
       <tbody>
-        {sortedData.map((feature) => {
+        {processedData.map((feature) => {
           const start =
             feature.startModifier === 'UNKNOWN' ? '?' : feature.start;
           const end = feature.endModifier === 'UNKNOWN' ? '?' : feature.end;
@@ -157,7 +154,7 @@ const UniProtKBFeaturesView = ({
               : `${positionStart}-${positionEnd}`;
 
           const isoform = feature.description?.includes('isoform')
-            ? feature.description.match(/isoform\s([A-Z0-9]+\-\d+)/i)?.[1]
+            ? feature.description.match(/isoform\s([A-Z0-9]+-\d+)/i)?.[1]
             : null;
 
           return (
@@ -186,9 +183,8 @@ const UniProtKBFeaturesView = ({
                                 {part}
                               </Link>
                             );
-                          } else {
-                            return part;
                           }
+                          return part;
                         })
                     : feature.description}
                   <UniProtKBEvidenceTag evidences={feature.evidences} />
