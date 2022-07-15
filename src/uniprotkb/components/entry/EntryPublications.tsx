@@ -128,7 +128,10 @@ const PublicationReference: FC<{
         <>
           <EntryTypeIcon entryType={source.name} />
           {url ? (
-            <ExternalLink url={url}>{source.name}</ExternalLink>
+            <>
+              <EntryTypeIcon entryType="computationally mapped" />
+              <ExternalLink url={url}>{source.name}</ExternalLink>
+            </>
           ) : (
             source.name
           )}
