@@ -109,10 +109,13 @@ deploy:
       DEPLOY=./${DEPLOY_REPO}/scripts/deploy.sh
       if [ "$CI_COMMIT_BRANCH" == "main" ]; then
         if [ "$DEPLOY_FALLBACK_ONLY" == "true" ]; then
+          echo 'Deploying fallback only'
           $DEPLOY HX $CHART_FALLBACK
         elif [ "$DEPLOY_PROD_ONLY" == "true" ]; then
+          echo 'Deploying production only' 
           $DEPLOY HH $CHART_PROD
         else
+          echo 'Deploying fallback then production' 
           $DEPLOY HX $CHART_FALLBACK
           $DEPLOY HH $CHART_PROD
         fi
