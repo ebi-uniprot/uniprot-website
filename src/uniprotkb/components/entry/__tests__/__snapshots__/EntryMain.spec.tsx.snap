@@ -2480,7 +2480,9 @@ exports[`Entry view should render 1`] = `
                   >
                     Chain
                   </td>
-                  <td>
+                  <td
+                    id="id value CHAIN"
+                  >
                     id value CHAIN
                   </td>
                   <td>
@@ -5645,7 +5647,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                   >
                     Chain
                   </td>
-                  <td>
+                  <td
+                    id="PRO_0000448571"
+                  >
                     PRO_0000448571
                   </td>
                   <td>
