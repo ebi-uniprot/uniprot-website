@@ -10,7 +10,7 @@ import { JobTypes } from '../../../types/toolsJobTypes';
 
 type PeptideSearchResultTableProps = {
   total?: number;
-  sortedResultsDataObject: {
+  resultsDataObject: {
     allResults: APIModel[];
     initialLoading: boolean;
     progress?: number | undefined;
@@ -25,7 +25,7 @@ type PeptideSearchResultTableProps = {
 
 const PeptideSearchResultTable = ({
   total,
-  sortedResultsDataObject,
+  resultsDataObject,
   accessions,
   jobSubmission,
 }: PeptideSearchResultTableProps) => {
@@ -36,12 +36,12 @@ const PeptideSearchResultTable = ({
     <>
       <ResultsButtons
         total={total || 0}
-        loadedTotal={sortedResultsDataObject.allResults.length}
+        loadedTotal={resultsDataObject.allResults.length}
         selectedEntries={selectedEntries}
         accessions={accessions}
       />
       <ResultsData
-        resultsDataObject={sortedResultsDataObject}
+        resultsDataObject={resultsDataObject}
         setSelectedItemFromEvent={setSelectedItemFromEvent}
         setSelectedEntries={setSelectedEntries}
         // TODO: change logic when peptide search API is able to return submitted jobSubmission information
