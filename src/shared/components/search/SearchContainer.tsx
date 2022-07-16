@@ -89,7 +89,7 @@ const examples: Record<SearchableNamespace, string[]> = {
     'Thornton',
     'J. Exp. Biol.',
     'COVID-19',
-    `${new Date().getFullYear()}`,
+    `published:${new Date().getFullYear()}`,
   ],
   [Namespace.diseases]: ['Alzheimer disease 3', 'Breast cancer', 'Dementia'],
   [Namespace.database]: ['PDB', 'IntAct', 'Pfam', 'GO', 'OMIM'],

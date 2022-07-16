@@ -7,6 +7,7 @@ import SingleColumnLayout from '../../../../shared/components/layouts/SingleColu
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import EntryDownload from '../../../../shared/components/entry/EntryDownload';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
+import RelatedResults from '../../../../shared/components/results/RelatedResults';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
@@ -64,6 +65,13 @@ const LocationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
       };
     });
 
+  const hasRelated = Boolean(
+    data.statistics.reviewedProteinCount ||
+      data.statistics.unreviewedProteinCount
+  );
+
+  const relatedQuery = `(cc_scl_term:${accession})`;
+
   return (
     <SingleColumnLayout>
       <HTMLHead
@@ -80,6 +88,7 @@ const LocationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
         </div>
         <InfoList infoData={infoData} />
       </Card>
+      {hasRelated && <RelatedResults relatedQuery={relatedQuery} />}
     </SingleColumnLayout>
   );
 };

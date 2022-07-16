@@ -1,12 +1,14 @@
 import { useMemo, lazy, Suspense } from 'react';
-import { Loader, PageIntro, Tab, Tabs } from 'franklin-sites';
+import { Loader, Message, PageIntro, Tab, Tabs } from 'franklin-sites';
 import { Link, useLocation } from 'react-router-dom';
+import { partition, uniqBy } from 'lodash-es';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
+import JobErrorPage from '../../../../shared/components/error-pages/JobErrorPage';
 
 import usePagination from '../../../../shared/hooks/usePagination';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
@@ -20,6 +22,7 @@ import toolsURLs from '../../../config/urls';
 import idMappingConverter from '../../adapters/idMappingConverter';
 import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
 import apiUrls, { defaultFacets } from '../../../../shared/config/apiUrls';
+import * as logging from '../../../../shared/utils/logging';
 
 import { SearchResults } from '../../../../shared/types/results';
 import { JobTypes } from '../../../types/toolsJobTypes';
@@ -30,7 +33,10 @@ import {
 } from '../../../../app/config/urls';
 import {
   MappingAPIModel,
+  MappingErrorCode,
   MappingFlat,
+  MappingWarningCode,
+  MappingWarningsErrors,
 } from '../../types/idMappingSearchResults';
 import {
   Namespace,
@@ -38,6 +44,9 @@ import {
 } from '../../../../shared/types/namespaces';
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import { IDMappingFormConfig } from '../../types/idMappingFormConfig';
+import { MessageLevel } from '../../../../messages/types/messagesTypes';
+
+import styles from './styles/id-mapping-result.module.scss';
 
 const jobType = JobTypes.ID_MAPPING;
 const urls = toolsURLs(jobType);
@@ -149,13 +158,58 @@ const IDMappingResult = () => {
       selectedFacets,
       query,
     });
-  const facetsData =
-    useDataApiWithStale<SearchResults<UniProtkbAPIModel>>(facetsUrl);
+  const facetsDataApiObject = useDataApiWithStale<
+    MappingWarningsErrors & SearchResults<UniProtkbAPIModel>
+  >(facetsUrl);
 
-  const { loading: facetInititialLoading, isStale: facetHasStaleData } =
-    facetsData;
+  const {
+    loading: facetInititialLoading,
+    isStale: facetHasStaleData,
+    data: facetsData,
+  } = facetsDataApiObject;
 
   useMarkJobAsSeen(resultsDataObject.allResults.length, match?.params.id);
+
+  const [warnings, notCustomisable] = useMemo(() => {
+    const allWarnings = uniqBy(
+      [...(detailsData?.warnings || []), ...(facetsData?.warnings || [])],
+      'code'
+    );
+    const [warningsRecognized, warningsUnrecognized] = partition(
+      allWarnings,
+      ({ code }) => code in MappingWarningCode
+    );
+    if (warningsUnrecognized.length) {
+      logging.warn(
+        `Unrecognized ID Mapping warning codes found for job ID ${
+          match?.params.id
+        } ${JSON.stringify(warningsUnrecognized)}`
+      );
+    }
+    const notCustomisable = warningsRecognized.some(
+      ({ code }) => code === MappingWarningCode.EnrichmentDisabled
+    );
+    return [warningsRecognized, notCustomisable];
+  }, [detailsData?.warnings, facetsData?.warnings, match?.params.id]);
+
+  const errors = useMemo(() => {
+    const allErrors = uniqBy(
+      [...(detailsData?.errors || []), ...(facetsData?.errors || [])],
+      'code'
+    );
+    const [errorsRecognized, errorsUnrecognized] = partition(
+      allErrors,
+      ({ code }) => code in MappingErrorCode
+    );
+    if (errorsUnrecognized.length) {
+      logging.warn(
+        `Unrecognized ID Mapping error codes found for job ID ${
+          match?.params.id
+        } ${JSON.stringify(errorsUnrecognized)}`
+      );
+    }
+    return errorsRecognized;
+  }, [detailsData?.errors, facetsData?.errors, match?.params.id]);
 
   if (!match || detailsError) {
     return <ErrorHandler />;
@@ -177,6 +231,20 @@ const IDMappingResult = () => {
     return <ErrorHandler />;
   }
 
+  if (errors.length) {
+    return (
+      <JobErrorPage
+        message={
+          <ul className="no-bullet">
+            {errors.map(({ code, message }) => (
+              <li key={code}>{message}</li>
+            ))}
+          </ul>
+        }
+      />
+    );
+  }
+
   let sidebar: JSX.Element;
   // Deciding what should be displayed on the sidebar
   switch (match.params.subPage) {
@@ -191,7 +259,7 @@ const IDMappingResult = () => {
       } else {
         sidebar = (
           <ErrorBoundary>
-            <ResultsFacets dataApiObject={facetsData} />
+            <ResultsFacets dataApiObject={facetsDataApiObject} />
           </ErrorBoundary>
         );
       }
@@ -228,6 +296,23 @@ const IDMappingResult = () => {
       >
         <meta name="robots" content="noindex" />
       </HTMLHead>
+      {!!warnings.length && (
+        <Message level={MessageLevel.WARNING} className={styles.warnings}>
+          <ul className="no-bullet">
+            {warnings.map(({ message, code }) => (
+              <li key={code}>
+                {message}
+                {code === MappingWarningCode.FiltersDisabled && (
+                  <span>
+                    . You can query the results by entering a search query in
+                    the search bar or by using the Advanced search.
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </Message>
+      )}
       <Tabs active={match.params.subPage}>
         <Tab
           id={TabLocation.Overview}
@@ -243,6 +328,7 @@ const IDMappingResult = () => {
               namespaceOverride={namespaceOverride}
               resultsDataObject={resultsDataObject}
               detailsData={detailsData}
+              notCustomisable={notCustomisable}
             />
           </Suspense>
         </Tab>

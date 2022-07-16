@@ -19,7 +19,13 @@ import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
 const getIdKey = getIdKeyFor(Namespace.uniprotkb);
 
-const UniProtKBCard = ({ data }: { data: UniProtkbAPIModel }) => {
+const UniProtKBCard = ({
+  data,
+  isNotSelectable,
+}: {
+  data: UniProtkbAPIModel;
+  isNotSelectable?: boolean;
+}) => {
   const id = getIdKey(data);
 
   const highlights = useMemo(() => getProteinHighlights(data), [data]);
@@ -40,7 +46,7 @@ const UniProtKBCard = ({ data }: { data: UniProtkbAPIModel }) => {
     <Card
       header={
         <>
-          <CardCheckboxCell id={id} />
+          {isNotSelectable ? null : <CardCheckboxCell id={id} />}
           <h2 className="small">
             <Link to={getEntryPath(Namespace.uniprotkb, id)}>
               <EntryTitle

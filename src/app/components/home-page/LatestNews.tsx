@@ -18,7 +18,7 @@ const insideUniProtAbstract2 =
   'We would like to invite the machine learning community to help UniProt by creating computational methods to predict metal binding sites across the whole of UniProtKB.';
 
 const proteinSpotlightAbstract =
-  "All organisms depend on sets of vital connections, on parts that link to one another to form an intricate and organised whole. Without these connections, all things physiological and metabolic would simply fall apart. Consider animals - for the sake of simplicity. First of all, they require a membrane of sorts, such as skin, to hold everything together and in one place. Skeletons, if they have one, form a scaffold to which is attached muscle. In turn, muscles help to hold various organs in place as does their surrounding connective tissue. Connective tissue can be seen as a sort of biological glue-cum-support that fills in the 'empty' spaces and is composed of cells and 'extracellular matrix' - which, broadly speaking, is a collection of highly organized protein fibres. One of these fibres is fibrillin. Fibrillin is not new to researchers. However, what has recently come as a surprise is the destiny of the C-terminal end of one fibrillin sequence after maturation. Contrary to what had been thought until now, this end is not simply discarded but is actually the sequence of another protein: a protein hormone, since named asprosin.";
+  'Ever had to deal with tiny polystyrene balls clinging to your carpet? Or admired the neat narrow grooves stamped onto a vinyl record? Perhaps you have just acquired a sleek viscose shirt. Polystyrene, PVC, vinyl, acrylic, rayon, viscose, nylon, PET, polyester - these are words we never think twice about as they slip into a conversation. Epoxy resin and polyurethane are another two, although perhaps less well known. Others are hidden behind more descriptive names such as the popular cling film we wrap around food, which is made out of polyethylene. And there are many more.';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -258,24 +258,24 @@ const LatestNews = () => {
       >
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/248/"
+            url="https://www.proteinspotlight.org/back_issues/249/"
             noIcon
           >
-            Two birds, one stone
+            Unnatural stuff
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/248/"
+          url="https://www.proteinspotlight.org/back_issues/249/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt248.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt249.jpg"
             alt=""
-            width="125.46"
-            height="86.65"
+            width="123"
+            height="129"
           />
         </ExternalLink>
         <p className={cn(styles['latest-news__abstract'])}>
