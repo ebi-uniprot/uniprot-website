@@ -31,7 +31,9 @@ const TextField = ({ field, handleChange, initialValue }: FieldProps) => {
         type={field.dataType === 'integer' ? 'number' : 'text'}
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        placeholder={field.example}
+        placeholder={
+          field.example || 'Enter a term to search, or the wildcard "*"'
+        }
       />
     </label>
   );

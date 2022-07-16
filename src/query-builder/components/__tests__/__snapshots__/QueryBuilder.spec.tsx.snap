@@ -181,7 +181,7 @@ exports[`QueryBuilder should render 1`] = `
               >
                 <input
                   data-testid="search-input"
-                  placeholder=""
+                  placeholder="human"
                   type="text"
                   value=""
                 />
@@ -265,7 +265,7 @@ exports[`QueryBuilder should render 1`] = `
               >
                 <input
                   data-testid="search-input"
-                  placeholder=""
+                  placeholder="chromosomal"
                   type="text"
                   value=""
                 />
