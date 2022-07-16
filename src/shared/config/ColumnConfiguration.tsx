@@ -6,11 +6,16 @@ import getLabelAndTooltip from '../utils/getLabelAndTooltip';
 import AnnotationCovered from '../../automatic-annotations/shared/column-renderers/AnnotationCovered';
 import TaxonomicScope from '../../automatic-annotations/shared/column-renderers/TaxonomicScope';
 import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { UniProtKBSimplifiedTaxonomy } from '../../uniprotkb/adapters/uniProtkbConverter';
 import { ARBAAPIModel } from '../../automatic-annotations/arba/adapters/arbaConverter';
 import { Namespace } from '../types/namespaces';
 
 const SharedColumnConfiguration = {
-  organism_id<Schema>(getter: (data: Schema) => TaxonomyDatum | undefined) {
+  organism_id<Schema>(
+    getter: (
+      data: Schema
+    ) => TaxonomyDatum | UniProtKBSimplifiedTaxonomy | undefined
+  ) {
     return {
       ...getLabelAndTooltip(
         'Organism ID',
@@ -24,7 +29,11 @@ const SharedColumnConfiguration = {
       },
     };
   },
-  organism<Schema>(getter: (data: Schema) => TaxonomyDatum | undefined) {
+  organism<Schema>(
+    getter: (
+      data: Schema
+    ) => TaxonomyDatum | UniProtKBSimplifiedTaxonomy | undefined
+  ) {
     return {
       ...getLabelAndTooltip(
         'Organism',

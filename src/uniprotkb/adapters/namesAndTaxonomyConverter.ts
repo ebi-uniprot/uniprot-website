@@ -1,6 +1,9 @@
 import { ValueWithEvidence } from '../types/modelTypes';
 import { Flag } from './sequenceConverter';
-import { UniProtkbAPIModel } from './uniProtkbConverter';
+import {
+  UniProtkbAPIModel,
+  UniProtKBSimplifiedTaxonomy,
+} from './uniProtkbConverter';
 import { convertSection, UIModel } from './sectionConverter';
 import EntrySection from '../types/entrySection';
 import { Xref } from '../../shared/types/apiModel';
@@ -42,7 +45,7 @@ export type NamesAndTaxonomyUIModel = {
   secondaryAccessions?: string[];
   proteinNamesData?: ProteinNamesData;
   geneNamesData?: GeneNamesData;
-  organismData?: TaxonomyDatum;
+  organismData?: UniProtKBSimplifiedTaxonomy;
   proteomesData?: Xref[];
   organismHosts?: TaxonomyDatum[];
   geneLocations?: GeneLocation[];

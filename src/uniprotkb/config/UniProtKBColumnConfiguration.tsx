@@ -362,13 +362,19 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.lineage, {
     'Hierarchical classification of the source organism',
     'taxonomic_lineage'
   ),
-  render(data) {
-    const { organismData } = data[EntrySection.NamesAndTaxonomy];
-    return (
-      organismData?.lineage && (
-        <TaxonomyLineage lineage={organismData.lineage as string[]} />
-      )
-    );
+  render({ lineages }) {
+    return <TaxonomyLineage lineage={lineages} />;
+  },
+});
+
+UniProtKBColumnConfiguration.set(UniProtKBColumn.lineageIds, {
+  ...getLabelAndTooltip(
+    'Lineage IDs',
+    'Hierarchical classification of the source organism (IDs)',
+    'taxonomic_lineage'
+  ),
+  render({ lineages }) {
+    return <TaxonomyLineage lineage={lineages} displayOnlyID />;
   },
 });
 

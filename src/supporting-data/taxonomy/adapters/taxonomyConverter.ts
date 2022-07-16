@@ -17,17 +17,7 @@ export type Lineage = Array<
   SetRequired<Omit<TaxonomyDatum, 'lineage'>, 'hidden' | 'rank'>
 >;
 
-// Temporary function to check lineage type while backend unifies its model
-export const isOfLineageType = (
-  lineage: Lineage | string[]
-): lineage is Lineage => {
-  if ((lineage as Lineage).some((item) => item.taxonId)) {
-    return true;
-  }
-  return false;
-};
-
-type Taxonomy = {
+export type TaxonomyDatum = {
   taxonId: number;
   scientificName?: string;
   synonyms?: string[];
@@ -38,18 +28,6 @@ type Taxonomy = {
   hidden?: boolean;
   rank?: Rank;
 };
-
-/**
- * @deprecated "lineage should be of type 'Lineage'"
- */
-type TaxonomyOld = Omit<Taxonomy, 'lineage'> & {
-  /**
-   * @deprecated "lineage should be of type 'Lineage'"
-   */
-  lineage?: string[];
-};
-
-export type TaxonomyDatum = Taxonomy | TaxonomyOld;
 
 export type Rank =
   | 'forma'
@@ -85,7 +63,7 @@ export type Rank =
   | 'no rank';
 
 export type TaxonomyAPIModel = SetRequired<
-  Taxonomy,
+  TaxonomyDatum,
   'mnemonic' | 'hidden' | 'rank' | 'lineage'
 > & {
   parent: TaxonomyDatum;

@@ -50,54 +50,63 @@ exports[`Taxonomy Card tests should render 1`] = `
             </strong>
             <a
               href="/taxonomy/10239"
+              title="Viruses, taxon ID 10239"
             >
               Viruses
             </a>
              &gt; 
             <a
               href="/taxonomy/2559587"
+              title="Riboviria, taxon ID 2559587"
             >
               Riboviria
             </a>
              &gt; 
             <a
               href="/taxonomy/2732397"
+              title="Pararnavirae, taxon ID 2732397"
             >
               Pararnavirae
             </a>
              &gt; 
             <a
               href="/taxonomy/2732409"
+              title="Artverviricota, taxon ID 2732409"
             >
               Artverviricota
             </a>
              &gt; 
             <a
               href="/taxonomy/2732514"
+              title="Revtraviricetes, taxon ID 2732514"
             >
               Revtraviricetes
             </a>
              &gt; 
             <a
               href="/taxonomy/2169561"
+              title="Ortervirales, taxon ID 2169561"
             >
               Ortervirales
             </a>
              &gt; 
             <a
               href="/taxonomy/11632"
+              title="Retroviridae, taxon ID 11632"
             >
               Retroviridae
             </a>
              &gt; 
             <a
               href="/taxonomy/327045"
+              title="Orthoretrovirinae, taxon ID 327045"
             >
               Orthoretrovirinae
             </a>
              &gt; 
             <a
               href="/taxonomy/11646"
+              title="Lentivirus, taxon ID 11646"
             >
               Lentivirus
             </a>
