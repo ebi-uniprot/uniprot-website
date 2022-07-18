@@ -214,7 +214,9 @@ exports[`HomePage component should render 1`] = `
             </li>
           </ul>
         </li>
-        <li>
+        <li
+          class="no-small"
+        >
           <span
             class="shortcuts__title"
           >

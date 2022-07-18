@@ -89,7 +89,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
               class="button-group results-buttons"
             >
               <button
-                class="button tertiary disabled"
+                class="button tertiary disabled no-small"
                 disabled=""
                 title="Select at least one entry to run a BLAST job"
                 type="button"
@@ -97,7 +97,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 BLAST
               </button>
               <button
-                class="button tertiary disabled"
+                class="button tertiary disabled no-small"
                 disabled=""
                 title="Select at least 2 entries to run an Align job"
                 type="button"
@@ -120,7 +120,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 Download
               </button>
               <button
-                class="button tertiary disabled"
+                class="button tertiary disabled no-small"
                 disabled=""
                 title="Select at least one entry to add to the basket"
                 type="button"
@@ -517,7 +517,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
               class="button-group results-buttons"
             >
               <button
-                class="button tertiary disabled"
+                class="button tertiary disabled no-small"
                 disabled=""
                 title="Select at least one entry to run a BLAST job"
                 type="button"
@@ -525,7 +525,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 BLAST
               </button>
               <button
-                class="button tertiary disabled"
+                class="button tertiary disabled no-small"
                 disabled=""
                 title="Select at least 2 entries to run an Align job"
                 type="button"
@@ -548,7 +548,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 Download
               </button>
               <button
-                class="button tertiary disabled"
+                class="button tertiary disabled no-small"
                 disabled=""
                 title="Select at least one entry to add to the basket"
                 type="button"

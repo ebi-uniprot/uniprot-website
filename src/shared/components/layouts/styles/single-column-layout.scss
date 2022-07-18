@@ -1,3 +1,5 @@
+@import 'franklin-sites/src/styles/mixins';
+
 .single-column-layout {
   min-height: 100%;
   display: flex;
@@ -5,7 +7,18 @@
   align-items: center;
 
   & > * {
-    width: 80vw;
+    // maximize use of space on smaller screens
+    width: 95vw;
     max-width: 160ch;
+
+    @include fs-breakpoints('medium') {
+      // a bit of room on the sides on medium screens
+      width: 90vw;
+    }
+
+    @include fs-breakpoints('large') {
+      // even more room on the sides on large screens
+      width: 80vw;
+    }
   }
 }

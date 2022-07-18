@@ -51,3 +51,8 @@ export const useReducedMotion = () =>
      */
     '(prefers-reduced-motion: reduce)'
   );
+
+// Small screen (as defined in Franklin)
+
+export const useSmallScreen = () =>
+  useMatchMedia('only screen and (max-width: 640px)');

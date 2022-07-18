@@ -22,7 +22,8 @@ const AnalysisTools = () => (
       'uniprot-grid',
       'uniprot-grid--centered',
       'uniprot-grid--with-bleed',
-      styles['home-page-section']
+      styles['home-page-section'],
+      styles['no-small']
     )}
     titleClassName="uniprot-grid-cell--span-12"
     noSidePadding
