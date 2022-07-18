@@ -321,7 +321,6 @@ const IDMappingResult = () => {
               Overview
             </Link>
           }
-          cache
         >
           <Suspense fallback={<Loader />}>
             <IDMappingResultTable

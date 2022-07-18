@@ -376,7 +376,6 @@ const BlastResult = () => {
               Overview
             </Link>
           }
-          cache
         >
           {actionBar}
           <Suspense fallback={<Loader />}>

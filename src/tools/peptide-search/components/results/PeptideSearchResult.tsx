@@ -232,7 +232,6 @@ const PeptideSearchResult = ({
               Overview
             </Link>
           }
-          cache
         >
           <Suspense fallback={<Loader />}>
             <PeptideSearchResultTable
