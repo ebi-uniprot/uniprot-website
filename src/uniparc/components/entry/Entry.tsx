@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, Redirect } from 'react-router-dom';
 import { stringify } from 'query-string';
 import { Loader, Tabs, Tab } from 'franklin-sites';
 
@@ -20,6 +20,7 @@ import ErrorBoundary from '../../../shared/components/error-component/ErrorBound
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 import useLocalStorage from '../../../shared/hooks/useLocalStorage';
 import useMatchWithRedirect from '../../../shared/hooks/useMatchWithRedirect';
+import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 import apiUrls from '../../../shared/config/apiUrls';
@@ -50,6 +51,7 @@ const Entry = () => {
     subPage?: TabLocation;
   }>(Location.UniParcEntry, TabLocation);
   const { search } = useLocation();
+  const smallScreen = useSmallScreen();
 
   const [columns] = useLocalStorage(
     `table columns for ${Namespace.uniparc} entry page` as const,
@@ -169,19 +171,29 @@ const Entry = () => {
         </Tab>
         <Tab
           title={
-            <Link
-              to={getEntryPath(
-                Namespace.uniparc,
-                match.params.accession,
-                TabLocation.FeatureViewer
-              )}
-            >
-              Feature viewer
-            </Link>
+            smallScreen ? null : (
+              <Link
+                to={getEntryPath(
+                  Namespace.uniparc,
+                  match.params.accession,
+                  TabLocation.FeatureViewer
+                )}
+              >
+                Feature viewer
+              </Link>
+            )
           }
           id={TabLocation.FeatureViewer}
         >
-          {transformedData.sequenceFeatures ? (
+          {smallScreen ? (
+            <Redirect
+              to={getEntryPath(
+                Namespace.uniparc,
+                match.params.accession,
+                TabLocation.Entry
+              )}
+            />
+          ) : (
             <>
               <HTMLHead
                 title={[
@@ -190,13 +202,15 @@ const Entry = () => {
                   searchableNamespaceLabels[Namespace.uniparc],
                 ]}
               />
-              <UniParcFeaturesView
-                data={transformedData.sequenceFeatures}
-                sequence={transformedData.sequence.value}
-              />
+              {transformedData.sequenceFeatures ? (
+                <UniParcFeaturesView
+                  data={transformedData.sequenceFeatures}
+                  sequence={transformedData.sequence.value}
+                />
+              ) : (
+                'No features available'
+              )}
             </>
-          ) : (
-            'No features available'
           )}
         </Tab>
       </Tabs>
