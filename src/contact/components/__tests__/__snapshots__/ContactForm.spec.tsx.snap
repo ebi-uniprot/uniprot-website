@@ -20,6 +20,45 @@ exports[`ContactForm should be disabled when submitting 1`] = `
       Send us general questions and suggestions using the form below
     </h2>
     <hr />
+    <div
+      class="message message--info"
+      role="status"
+    >
+      <div
+        class="message__side-border"
+      />
+      <test-file-stub
+        height="1.125em"
+        width="1.125em"
+      />
+      <section
+        class="message__content"
+      >
+        <small>
+          Frequently asked: issues accessing UniProt programmatically? Have a look at the 
+          <a
+            href="/help/api"
+          >
+            new API documentation
+          </a>
+           including changes to the 
+          <a
+            href="/help/return_fields"
+          >
+            return fields
+          </a>
+           (aka "columns") and specifically the 
+          <a
+            href="/help/return_fields_databases"
+          >
+            cross-references return fields
+          </a>
+           .
+        </small>
+      </section>
+    </div>
+    <br />
+    <br />
     <form
       aria-label="Contact form"
     >
@@ -561,6 +600,45 @@ exports[`ContactForm should render for generic contact form 1`] = `
       Send us general questions and suggestions using the form below
     </h2>
     <hr />
+    <div
+      class="message message--info"
+      role="status"
+    >
+      <div
+        class="message__side-border"
+      />
+      <test-file-stub
+        height="1.125em"
+        width="1.125em"
+      />
+      <section
+        class="message__content"
+      >
+        <small>
+          Frequently asked: issues accessing UniProt programmatically? Have a look at the 
+          <a
+            href="/help/api"
+          >
+            new API documentation
+          </a>
+           including changes to the 
+          <a
+            href="/help/return_fields"
+          >
+            return fields
+          </a>
+           (aka "columns") and specifically the 
+          <a
+            href="/help/return_fields_databases"
+          >
+            cross-references return fields
+          </a>
+           .
+        </small>
+      </section>
+    </div>
+    <br />
+    <br />
     <form
       aria-label="Contact form"
     >
