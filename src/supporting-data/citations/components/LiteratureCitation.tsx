@@ -208,7 +208,7 @@ export const JournalInfo: FC<JournalInfoProps> = ({
   if (firstPage) {
     page = firstPage;
     if (lastPage) {
-      page += `-${lastPage} `;
+      page += `-${lastPage}`;
     }
   }
 
@@ -237,7 +237,7 @@ export const JournalInfo: FC<JournalInfoProps> = ({
       )}
       {name} {volume}
       {volume && page && ':'}
-      {page && `{page} `}
+      {page && `${page} `}
       {submissionDatabase && `Submitted to ${submissionDatabase} `}
       {patentNumber && `Patent publication ${patentNumber} `}
       {publisher}
