@@ -65,17 +65,8 @@ const GoRibbon = ({
     'protvista-datatable'
   );
 
-  const [selectedSet, setSelectedSet] = useState('goslim_generic');
-
-  // NOTE: loading is also available, do we want to do anything with it?
-  const { loading, slimmedData, selectedSlimSet, slimSets } = useGOData(
-    goTerms,
-    selectedSet
-  );
-
-  const [elementLoaded, setElementLoaded] = useSafeState(false);
-
-  useEffect(() => {
+  const [selectedSet, setSelectedSet] = useState(() => {
+    let defaultSS = 'goslim_generic';
     if (organismData?.scientificName && organismData?.lineage) {
       const taxonomyInfo = [
         ...organismData.lineage,
@@ -101,11 +92,20 @@ const GoRibbon = ({
           (t) => value.includes(String(t)) // Lineage is Array of strings here
         );
         if (presentTaxon?.length) {
-          setSelectedSet(key);
+          defaultSS = key;
         }
       });
     }
-  }, [organismData]);
+    return defaultSS;
+  });
+
+  // NOTE: loading is also available, do we want to do anything with it?
+  const { loading, slimmedData, selectedSlimSet, slimSets } = useGOData(
+    goTerms,
+    selectedSet
+  );
+
+  const [elementLoaded, setElementLoaded] = useSafeState(false);
 
   useEffect(() => {
     if ('customElements' in window) {
