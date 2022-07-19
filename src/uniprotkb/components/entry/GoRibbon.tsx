@@ -97,9 +97,9 @@ const GoRibbon = ({
 
       // Check if the taxon matches a slimset
       Object.entries(slimSetByTaxon).forEach(([key, value]) => {
-        const presentTaxon = taxonomyInfo?.filter((t) =>
-          value.includes(String(t))
-        ); // Added String() to make Type happy as Lineage is Array of strings at the moment
+        const presentTaxon = taxonomyInfo?.filter(
+          (t) => value.includes(String(t)) // Lineage is Array of strings here
+        );
         if (presentTaxon?.length) {
           setSelectedSet(key);
         }
