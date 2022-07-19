@@ -22,6 +22,7 @@ import {
 } from '../../adapters/slimming/GORibbonHandler';
 import { GeneNamesData } from '../../adapters/namesAndTaxonomyConverter';
 import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { UniProtKBSimplifiedTaxonomy } from '../../adapters/uniProtkbConverter';
 
 import styles from './styles/go-ribbon.module.scss';
 
@@ -44,7 +45,7 @@ type GoRibbonType = {
   primaryAccession: string;
   goTerms?: GroupedGoTerms;
   geneNamesData?: GeneNamesData;
-  organismData?: TaxonomyDatum;
+  organismData?: TaxonomyDatum | UniProtKBSimplifiedTaxonomy;
 };
 
 const GoRibbon = ({

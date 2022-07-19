@@ -8,6 +8,7 @@ import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler
 import EntryDownload from '../../../../shared/components/entry/EntryDownload';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
 import MedicalDisclaimer from '../../../../shared/components/MedicalDisclaimer';
+import RelatedResults from '../../../../shared/components/results/RelatedResults';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
@@ -69,6 +70,13 @@ const DiseasesEntry = (props: RouteChildrenProps<{ accession: string }>) => {
       };
     });
 
+  const hasRelated = Boolean(
+    data.statistics?.reviewedProteinCount ||
+      data.statistics?.unreviewedProteinCount
+  );
+
+  const relatedQuery = `(cc_disease:${accession})`;
+
   return (
     <SingleColumnLayout>
       <HTMLHead
@@ -86,6 +94,7 @@ const DiseasesEntry = (props: RouteChildrenProps<{ accession: string }>) => {
         <InfoList infoData={infoData} />
         <MedicalDisclaimer />
       </Card>
+      {hasRelated && <RelatedResults relatedQuery={relatedQuery} />}
     </SingleColumnLayout>
   );
 };

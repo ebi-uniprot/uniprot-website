@@ -167,7 +167,7 @@ const UniProtKBFeaturesView = ({
                 <td data-filter="type" data-filter-value={feature.type}>
                   {feature.type}
                 </td>
-                <td>{feature.featureId}</td>
+                <td id={feature.featureId}>{feature.featureId}</td>
                 <td>{position}</td>
                 <td>
                   {isoform

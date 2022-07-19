@@ -43,6 +43,9 @@ const AutocompleteField: FC<{
           onSelect={handleSelect}
           title={label}
           value={value}
+          placeholder={
+            field.example || 'Enter a term to search, or the wildcard "*"'
+          }
         />
       )}
     </>

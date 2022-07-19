@@ -1,8 +1,10 @@
 import { convertSection, UIModel } from './sectionConverter';
 import { hasContent } from '../../shared/utils/utils';
 
-import { UniProtkbAPIModel } from './uniProtkbConverter';
-import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import {
+  UniProtkbAPIModel,
+  UniProtKBSimplifiedTaxonomy,
+} from './uniProtkbConverter';
 import { Xref } from '../../shared/types/apiModel';
 import KeywordCategory from '../types/keywordCategory';
 import { SubcellularLocationFeatures } from '../types/featureType';
@@ -58,7 +60,7 @@ export type GoXref = {
 
 export type SubcellularLocationUIModel = {
   primaryAccession: string;
-  organismData?: TaxonomyDatum;
+  organismData?: UniProtKBSimplifiedTaxonomy;
   goXrefs?: GoXref[];
 } & UIModel;
 
@@ -88,4 +90,5 @@ const convertSubcellularLocation = (
   }
   return subcellularLocationData;
 };
+
 export default convertSubcellularLocation;

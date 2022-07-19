@@ -594,33 +594,33 @@ exports[`non-critical HomePage component should render 1`] = `
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/248/"
+          href="https://www.proteinspotlight.org/back_issues/249/"
           rel="noopener"
           target="_blank"
         >
-          Two birds, one stone
+          Unnatural stuff
         </a>
       </h3>
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/248/"
+        href="https://www.proteinspotlight.org/back_issues/249/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
       >
         <img
           alt=""
-          height="86.65"
+          height="129"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt248.jpg"
-          width="125.46"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt249.jpg"
+          width="123"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          All  organisms  depend  on  sets  of  vital  connections,  on  parts  that  link  to  one  another  to  form  an  intricate  and  organised  whole.  Without  these  connections,  all  things  physiological  and  metabolic  would  simply  fall…
+          Ever  had  to  deal  with  tiny  polystyrene  balls  clinging  to  your  carpet?  Or  admired  the  neat  narrow  grooves  stamped  onto  a  vinyl  record?  Perhaps  you  have  just  acquired  a  sleek  viscose  shirt.  Polystyrene,  PVC,  vinyl,…
       </p>
     </article>
   </section>

@@ -285,7 +285,7 @@ describe('Download with ID mapping results', () => {
     fireEvent.change(formatSelect, { target: { value: FileFormat.tsv } });
     const downloadLink = screen.getByRole<HTMLAnchorElement>('link');
     expect(downloadLink.href).toEqual(
-      expect.stringContaining('/idmapping/results/uniprotkb/id2')
+      expect.stringContaining('/idmapping/uniprotkb/results/id2')
     );
     expect(await screen.findByText('Customize columns')).toBeInTheDocument();
   });

@@ -8,6 +8,7 @@ import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler
 import ConditionsAnnotations from '../../../shared/entry/ConditionsAnnotations';
 import EntryDownload from '../../../../shared/components/entry/EntryDownload';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
+import RelatedResults from '../../../../shared/components/results/RelatedResults';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 
@@ -34,6 +35,13 @@ const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
     return <ErrorHandler status={status} />;
   }
 
+  const hasRelated = Boolean(
+    data.statistics.reviewedProteinCount ||
+      data.statistics.unreviewedProteinCount
+  );
+
+  const relatedQuery = `(source:${accession})`;
+
   return (
     <SingleColumnLayout>
       <HTMLHead
@@ -52,6 +60,9 @@ const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
       </div>
       {/* there are no template entries for ARBA rules apparently */}
       <ConditionsAnnotations data={data} />
+      {hasRelated && (
+        <RelatedResults relatedQuery={relatedQuery} relation="Annotated" />
+      )}
     </SingleColumnLayout>
   );
 };

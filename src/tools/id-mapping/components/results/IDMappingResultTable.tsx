@@ -17,15 +17,18 @@ type IDMappingResultTableProps = {
   namespaceOverride: Namespace;
   resultsDataObject: PaginatedResults;
   detailsData?: MappingDetails;
+  notCustomisable?: boolean;
 };
 
 const IDMappingResultTable = ({
   namespaceOverride,
   resultsDataObject,
   detailsData,
+  notCustomisable = false,
 }: IDMappingResultTableProps) => {
   const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
     useItemSelect();
+
   return (
     <>
       <ResultsButtons
@@ -35,7 +38,9 @@ const IDMappingResultTable = ({
         namespaceOverride={namespaceOverride}
         disableCardToggle
         base={detailsData?.redirectURL}
-        notCustomisable={namespaceOverride === Namespace.idmapping}
+        notCustomisable={
+          notCustomisable || namespaceOverride === Namespace.idmapping
+        }
       />
       {resultsDataObject.failedIds && (
         <HeroContainer>

@@ -14,11 +14,9 @@ import {
 import * as logging from '../../../shared/utils/logging';
 
 import { SubcellularLocationComment } from '../../types/commentTypes';
-import {
-  Lineage,
-  TaxonomyDatum,
-} from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { Lineage } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { GoXref } from '../../adapters/subcellularLocationConverter';
+import { UniProtKBSimplifiedTaxonomy } from '../../adapters/uniProtkbConverter';
 
 // Import it lazily in order to isolate the libraries used only for this
 const SubCellViz =
@@ -65,7 +63,7 @@ const SubcellularLocationWithVizView: FC<
     primaryAccession?: string;
     comments?: SubcellularLocationComment[];
     goXrefs?: GoXref[];
-  } & Partial<Pick<TaxonomyDatum, 'taxonId' | 'lineage'>>
+  } & Partial<Pick<UniProtKBSimplifiedTaxonomy, 'taxonId' | 'lineage'>>
 > = ({ primaryAccession, comments, taxonId, lineage, goXrefs }) => {
   // Examples for different cases:
   // P05067      lots of UniProt & GO data
