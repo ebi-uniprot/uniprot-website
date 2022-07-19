@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JobErrorPage component should render 1`] = `
+<DocumentFragment>
+  <div
+    class="error-page-container"
+  >
+    <img
+      alt=""
+      class="error-page-container__art-work"
+      height="400"
+      src="test-file-stub"
+      width="400"
+    />
+    <div
+      class="message message--failure"
+      role="status"
+    >
+      <div
+        class="message__side-border"
+      />
+      <test-file-stub
+        height="1.125em"
+        width="1.125em"
+      />
+      <section
+        class="message__content"
+      >
+        <small>
+          <h4>
+            Job Failed
+          </h4>
+          <span>
+            <b>
+              Foo
+            </b>
+          </span>
+        </small>
+      </section>
+    </div>
+  </div>
+</DocumentFragment>
+`;

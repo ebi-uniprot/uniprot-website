@@ -8,6 +8,7 @@ import SingleColumnLayout from '../../../../shared/components/layouts/SingleColu
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import EntryDownload from '../../../../shared/components/entry/EntryDownload';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
+import RelatedResults from '../../../../shared/components/results/RelatedResults';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 
@@ -80,6 +81,13 @@ const KeywordsEntry = ({
       };
     });
 
+  const hasRelated = Boolean(
+    data.statistics.reviewedProteinCount ||
+      data.statistics.unreviewedProteinCount
+  );
+
+  const relatedQuery = `(keyword:${accession})`;
+
   return (
     <SingleColumnLayout>
       <HTMLHead
@@ -101,6 +109,7 @@ const KeywordsEntry = ({
         </div>
         <InfoList infoData={infoData} />
       </Card>
+      {hasRelated && <RelatedResults relatedQuery={relatedQuery} />}
     </SingleColumnLayout>
   );
 };

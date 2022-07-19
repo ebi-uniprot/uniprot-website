@@ -8,6 +8,7 @@ import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler
 import EntryDownload from '../../../../shared/components/entry/EntryDownload';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
 import ChildNavigation from './ChildNavigation';
+import RelatedResults from '../../../../shared/components/results/RelatedResults';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 
@@ -107,6 +108,13 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
     ...lastColumns.map(infoDataRenderer),
   ];
 
+  const hasRelated = Boolean(
+    data.statistics?.reviewedProteinCount ||
+      data.statistics?.unreviewedProteinCount
+  );
+
+  const relatedQuery = `(taxonomy_id:${accession})`;
+
   return (
     <SingleColumnLayout>
       <HTMLHead
@@ -133,6 +141,7 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
         </div>
         <InfoList infoData={infoData} columns />
       </Card>
+      {hasRelated && <RelatedResults relatedQuery={relatedQuery} />}
     </SingleColumnLayout>
   );
 };

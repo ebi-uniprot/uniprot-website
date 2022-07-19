@@ -55,10 +55,14 @@ type UniProtKBXref = Omit<Xref, 'properties'> & {
   properties?: Array<{ key: string; value: string }>;
 };
 
+export type UniProtKBSimplifiedTaxonomy = Omit<TaxonomyDatum, 'lineage'> & {
+  lineage: string[];
+};
+
 export type UniProtkbAPIModel = {
   proteinDescription?: ProteinNamesData;
   genes?: GeneNamesData;
-  organism?: TaxonomyDatum;
+  organism?: UniProtKBSimplifiedTaxonomy;
   organismHosts?: TaxonomyDatum[];
   primaryAccession: string;
   secondaryAccessions?: string[];
@@ -76,6 +80,7 @@ export type UniProtkbAPIModel = {
   annotationScore: number;
   entryAudit?: EntryAudit;
   references?: UniProtKBReference[];
+  // not there by default, even on an entry request
   lineages?: Lineage[];
   extraAttributes?: {
     countByCommentType?: Partial<Record<CommentType, number | undefined>>;
@@ -94,6 +99,7 @@ export type UniProtkbUIModel = {
   inactiveReason?: InactiveEntryReason;
   annotationScore: number;
   uniProtKBCrossReferences?: Xref[];
+  lineages?: Lineage[];
   [EntrySection.Function]: UIModel;
   [EntrySection.NamesAndTaxonomy]: NamesAndTaxonomyUIModel;
   [EntrySection.SubCellularLocation]: UIModel;
@@ -151,6 +157,7 @@ const uniProtKbConverter = (
     annotationScore: dataCopy.annotationScore,
     inactiveReason: dataCopy.inactiveReason,
     uniProtKBCrossReferences,
+    lineages: dataCopy.lineages,
     [EntrySection.Function]: convertFunction(
       dataCopy,
       databaseInfoMaps,

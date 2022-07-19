@@ -8,6 +8,7 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import * as logging from '../../../shared/utils/logging';
 
 import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { UniProtKBSimplifiedTaxonomy } from '../uniProtkbConverter';
 import {
   GoTerm,
   GroupedGoTerms,
@@ -143,7 +144,7 @@ export const getSubjects = (
   slimmedData: GOSlimmedData,
   primaryAccession: string,
   geneNamesData?: GeneNamesData,
-  organismData?: TaxonomyDatum
+  organismData?: TaxonomyDatum | UniProtKBSimplifiedTaxonomy
 ) => {
   const goTermsFlat = Array.from(goTerms.values()).flat();
 

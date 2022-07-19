@@ -1,4 +1,5 @@
 import { useMemo, Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { v1 } from 'uuid';
 import { Button } from 'franklin-sites';
@@ -10,12 +11,13 @@ import FeaturesView, {
 } from '../../../shared/components/views/FeaturesView';
 
 import listFormat from '../../../shared/utils/listFormat';
-import { getURLToJobWithData } from '../../../app/config/urls';
+import { getEntryPath, getURLToJobWithData } from '../../../app/config/urls';
 
 import { Evidence } from '../../types/modelTypes';
 import FeatureType from '../../types/featureType';
 import { Xref } from '../../../shared/types/apiModel';
 import { JobTypes } from '../../../tools/types/toolsJobTypes';
+import { Namespace } from '../../../shared/types/namespaces';
 
 type FeatureLocation = {
   value: number;
@@ -63,6 +65,7 @@ export const processFeaturesData = (
 ): ProcessedFeature[] =>
   data.map((feature): ProcessedFeature => {
     let s: string | undefined;
+    let description = feature.description || '';
     if (feature.alternativeSequence) {
       if (
         feature.alternativeSequence.originalSequence &&
@@ -80,6 +83,8 @@ export const processFeaturesData = (
       } else {
         s = 'Missing';
       }
+    } else if (feature.location.sequence) {
+      description = `In isoform ${feature.location.sequence}; ${description}`;
     } else {
       s = sequence?.substring(
         feature.location.start.value - 1,
@@ -95,7 +100,7 @@ export const processFeaturesData = (
       startModifier: feature.location.start.modifier,
       endModifier: feature.location.end.modifier,
       type: feature.type,
-      description: feature.description,
+      description,
       evidences: feature.evidences,
       sequence: s,
     };
@@ -116,6 +121,10 @@ const UniProtKBFeaturesView = ({
   if (processedData.length === 0) {
     return null;
   }
+
+  processedData.sort((a, b) =>
+    a.start === b.start ? a.end - b.end : a.start - b.start
+  );
 
   const table = (
     <table className={classNames(!withDataTable && 'data-table--compact')}>
@@ -144,6 +153,10 @@ const UniProtKBFeaturesView = ({
               ? positionStart
               : `${positionStart}-${positionEnd}`;
 
+          const isoform = feature.description?.includes('isoform')
+            ? feature.description.match(/isoform\s([A-Z0-9]+-\d+)/i)?.[1]
+            : null;
+
           return (
             <Fragment key={feature.protvistaFeatureId}>
               <tr
@@ -154,10 +167,26 @@ const UniProtKBFeaturesView = ({
                 <td data-filter="type" data-filter-value={feature.type}>
                   {feature.type}
                 </td>
-                <td>{feature.featureId}</td>
+                <td id={feature.featureId}>{feature.featureId}</td>
                 <td>{position}</td>
                 <td>
-                  {feature.description}
+                  {isoform
+                    ? feature.description
+                        ?.split(new RegExp(`(${isoform})`))
+                        .map((part) => {
+                          if (part === isoform) {
+                            return (
+                              <Link
+                                key={part}
+                                to={getEntryPath(Namespace.uniprotkb, part)}
+                              >
+                                {part}
+                              </Link>
+                            );
+                          }
+                          return part;
+                        })
+                    : feature.description}
                   <UniProtKBEvidenceTag evidences={feature.evidences} />
                 </td>
                 <td>
