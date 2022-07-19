@@ -17,23 +17,33 @@ type Props = {
   entryType?: string | EntryType;
 };
 
-const AccessionView = ({ id, namespace, entryType }: Props) => (
-  <span className={cn(helper['no-wrap'], styles['accession-view'])}>
-    {entryType && <EntryTypeIcon entryType={entryType} />}
-    <Link
-      to={getEntryPath(
-        namespace,
-        id,
-        namespace === Namespace.uniprotkb || namespace === Namespace.uniparc
-          ? 'entry'
-          : undefined
+const AccessionView = ({ id, namespace, entryType }: Props) => {
+  const reIds = /(?<acc>\w+-?\d*)(\[(?<start>\d+)-(?<end>\d+)\])?/;
+  const { acc, start, end } = id.match(reIds)?.groups || {};
+
+  return (
+    <span className={cn(helper['no-wrap'], styles['accession-view'])}>
+      {entryType && <EntryTypeIcon entryType={entryType} />}
+      <Link
+        to={getEntryPath(
+          namespace,
+          acc ? acc : id,
+          namespace === Namespace.uniprotkb || namespace === Namespace.uniparc
+            ? 'entry'
+            : undefined
+        )}
+        className={styles.accession}
+      >
+        {acc ? acc : id}
+      </Link>
+      {start && end && (
+        <span>
+          [{start}]-[{end}]
+        </span>
       )}
-      className={styles.accession}
-    >
-      {id}
-    </Link>
-    <BasketStatus id={id} />
-  </span>
-);
+      <BasketStatus id={id} />
+    </span>
+  );
+};
 
 export default AccessionView;

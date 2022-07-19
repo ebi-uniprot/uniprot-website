@@ -9,6 +9,7 @@ import FeaturesView, {
   LocationModifier,
   ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';
+import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 
 import listFormat from '../../../shared/utils/listFormat';
 import { getEntryPath, getURLToJobWithData } from '../../../app/config/urls';
@@ -192,21 +193,26 @@ const UniProtKBFeaturesView = ({
                 <td>
                   {/* Not using React Router link as this is copied into the table DOM */}
                   {feature.end - feature.start >= 2 && (
-                    <Button
-                      element="a"
-                      variant="tertiary"
-                      title="BLAST the sequence corresponding to this feature"
-                      href={getURLToJobWithData(
-                        JobTypes.BLAST,
-                        primaryAccession,
-                        {
-                          start: feature.start,
-                          end: feature.end,
-                        }
-                      )}
-                    >
-                      BLAST
-                    </Button>
+                    <>
+                      <Button
+                        element="a"
+                        variant="tertiary"
+                        title="BLAST the sequence corresponding to this feature"
+                        href={getURLToJobWithData(
+                          JobTypes.BLAST,
+                          primaryAccession,
+                          {
+                            start: feature.start,
+                            end: feature.end,
+                          }
+                        )}
+                      >
+                        BLAST
+                      </Button>
+                      <AddToBasketButton
+                        selectedEntries={`${primaryAccession}[${feature.start}-${feature.end}]`}
+                      />
+                    </>
                   )}
                   {/* <Button>Add</Button> */}
                 </td>

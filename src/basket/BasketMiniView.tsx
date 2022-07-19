@@ -69,8 +69,19 @@ const BasketMiniViewTab = ({
     setSelectedEntries([]);
   }, [namespace, setSelectedEntries]);
 
+  const reIds = /(?<id>\w+-?\d*)(\[(?<start>\d+)-(?<end>\d+)\])?/;
+
+  const trimmedAccessions = accessions.map((acc) => {
+    const { id } = acc.match(reIds)?.groups || {};
+    if (id) {
+      return id;
+    } else {
+      return acc;
+    }
+  });
+
   const initialApiUrl = useNSQuery({
-    accessions,
+    accessions: trimmedAccessions,
     overrideNS: namespace,
     withFacets: false,
     withColumns: false,
@@ -94,6 +105,13 @@ const BasketMiniViewTab = ({
       ),
     [namespace, columnNames, databaseInfoMaps]
   );
+  if (resultsDataObject.allResults.length) {
+    resultsDataObject.allResults.forEach((r, index) => {
+      if ((namespace = Namespace.uniprotkb)) {
+        r.primaryAccession = accessions[index];
+      }
+    });
+  }
 
   return (
     <>
