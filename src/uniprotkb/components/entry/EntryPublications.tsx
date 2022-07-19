@@ -56,6 +56,9 @@ const PublicationReference: FC<{
     if (source?.name === 'GeneRif') {
       return `https://www.ncbi.nlm.nih.gov/gene?Db=gene&Cmd=DetailsSearch&Term=${source.id}`;
     }
+    if (source?.name === 'GAD') {
+      return 'https://geneticassociationdb.nih.gov/';
+    }
     return null;
   }, [databaseInfoMaps, source]);
 

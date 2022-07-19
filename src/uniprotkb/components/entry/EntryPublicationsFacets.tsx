@@ -2,10 +2,11 @@ import { FC } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { getUniProtPublicationsQueryUrl } from '../../../shared/config/apiUrls';
+import ResultsFacets from '../../../shared/components/results/ResultsFacets';
 
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 
-import ResultsFacets from '../../../shared/components/results/ResultsFacets';
+import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
 import { getParamsFromURL } from '../../utils/resultsUtils';
 
@@ -25,6 +26,12 @@ const EntryPublicationsFacets: FC<{ accession: string }> = ({ accession }) => {
   const dataObject = useDataApiWithStale<{
     facets: FacetObject[];
   }>(url);
+
+  const { status, error } = dataObject;
+
+  if (error) {
+    return <ErrorHandler status={status} />;
+  }
 
   return <ResultsFacets dataApiObject={dataObject} />;
 };
