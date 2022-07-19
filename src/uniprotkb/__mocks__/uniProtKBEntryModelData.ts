@@ -24,7 +24,7 @@ const mock: UniProtkbAPIModel = {
     entryVersion: 20,
     sequenceVersion: 5,
   },
-  annotationScore: 2.0,
+  annotationScore: 1,
   organism: {
     scientificName: 'scientific name',
     commonName: 'common name',

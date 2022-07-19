@@ -66,9 +66,7 @@ import {
   SubcellularLocationComment,
   CommentType,
 } from '../types/commentTypes';
-import AnnotationScoreDoughnutChart, {
-  DoughnutChartSize,
-} from '../components/protein-data-views/AnnotationScoreDoughnutChart';
+import AnnotationScoreDoughnutChart from '../components/protein-data-views/AnnotationScoreDoughnutChart';
 import { KeywordList } from '../components/protein-data-views/KeywordView';
 // import { DatabaseList } from '../components/protein-data-views/XRefView';
 import DiseaseInvolvementView from '../components/protein-data-views/DiseaseInvolvementView';
@@ -860,10 +858,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.tempDependence, {
 UniProtKBColumnConfiguration.set(UniProtKBColumn.annotationScore, {
   ...getLabelAndTooltip('Annotation', 'Annotation score'),
   render: (data) => (
-    <AnnotationScoreDoughnutChart
-      score={data.annotationScore}
-      size={DoughnutChartSize.medium}
-    />
+    <AnnotationScoreDoughnutChart score={data.annotationScore} size="medium" />
   ),
 });
 

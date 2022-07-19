@@ -44,6 +44,7 @@ import {
 } from '../../supporting-data/citations/adapters/citationsConverter';
 import { DatabaseInfoMaps } from '../utils/database';
 import { PeptideSearchMatch } from '../../tools/peptide-search/components/PeptideSearchMatches';
+import { AnnotationScoreValue } from '../components/protein-data-views/AnnotationScoreDoughnutChart';
 
 // 🤷🏽
 type UniProtKBReference = Omit<Reference, 'citationId'> & {
@@ -77,7 +78,7 @@ export type UniProtkbAPIModel = {
   uniProtKBCrossReferences?: UniProtKBXref[];
   sequence: SequenceData;
   internalSection?: InternalSectionType;
-  annotationScore: number;
+  annotationScore: AnnotationScoreValue;
   entryAudit?: EntryAudit;
   references?: UniProtKBReference[];
   // not there by default, even on an entry request
@@ -97,7 +98,7 @@ export type UniProtkbUIModel = {
   proteinExistence: string;
   entryType?: EntryType;
   inactiveReason?: InactiveEntryReason;
-  annotationScore: number;
+  annotationScore: AnnotationScoreValue;
   uniProtKBCrossReferences?: Xref[];
   lineages?: Lineage[];
   [EntrySection.Function]: UIModel;

@@ -464,7 +464,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         entryVersion: 259,
         sequenceVersion: 4,
       },
-      annotationScore: 455.59999999999997,
+      annotationScore: 5,
       organism: {
         scientificName: 'Homo sapiens',
         commonName: 'Human',
@@ -10872,7 +10872,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         entryVersion: 212,
         sequenceVersion: 3,
       },
-      annotationScore: 214.89999999999998,
+      annotationScore: 5,
       organism: {
         scientificName: 'Homo sapiens',
         commonName: 'Human',
@@ -17381,7 +17381,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         entryVersion: 166,
         sequenceVersion: 1,
       },
-      annotationScore: 112.1,
+      annotationScore: 5,
       organism: {
         scientificName: 'Escherichia coli (strain K12)',
         taxonId: 83333,
@@ -19339,7 +19339,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         entryVersion: 207,
         sequenceVersion: 1,
       },
-      annotationScore: 232.29999999999998,
+      annotationScore: 5,
       organism: {
         scientificName: 'Homo sapiens',
         commonName: 'Human',
@@ -23223,7 +23223,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         entryVersion: 147,
         sequenceVersion: 4,
       },
-      annotationScore: 149.1,
+      annotationScore: 5,
       organism: {
         scientificName: 'Leuconostoc mesenteroides',
         taxonId: 1245,
@@ -26567,7 +26567,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         entryVersion: 184,
         sequenceVersion: 2,
       },
-      annotationScore: 189.1,
+      annotationScore: 5,
       organism: {
         scientificName: 'Homo sapiens',
         commonName: 'Human',
@@ -30228,7 +30228,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         entryVersion: 187,
         sequenceVersion: 1,
       },
-      annotationScore: 130.39999999999998,
+      annotationScore: 5,
       organism: {
         scientificName: 'Homo sapiens',
         commonName: 'Human',
@@ -32615,7 +32615,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         entryVersion: 243,
         sequenceVersion: 2,
       },
-      annotationScore: 452.7,
+      annotationScore: 5,
       organism: {
         scientificName: 'Homo sapiens',
         commonName: 'Human',
@@ -41259,7 +41259,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         entryVersion: 182,
         sequenceVersion: 5,
       },
-      annotationScore: 208.6,
+      annotationScore: 5,
       organism: {
         scientificName: 'Homo sapiens',
         commonName: 'Human',
@@ -46298,7 +46298,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         entryVersion: 174,
         sequenceVersion: 4,
       },
-      annotationScore: 142.79999999999998,
+      annotationScore: 5,
       organism: {
         scientificName: 'Homo sapiens',
         commonName: 'Human',
@@ -49540,7 +49540,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         entryVersion: 174,
         sequenceVersion: 3,
       },
-      annotationScore: 118.69999999999999,
+      annotationScore: 5,
       organism: {
         scientificName: 'Homo sapiens',
         commonName: 'Human',
@@ -52215,7 +52215,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         entryVersion: 135,
         sequenceVersion: 1,
       },
-      annotationScore: 114.5,
+      annotationScore: 5,
       organism: {
         scientificName: 'Arabidopsis thaliana',
         commonName: 'Mouse-ear cress',
@@ -54859,7 +54859,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         entryVersion: 166,
         sequenceVersion: 2,
       },
-      annotationScore: 215.7,
+      annotationScore: 5,
       organism: {
         scientificName: 'Arabidopsis thaliana',
         commonName: 'Mouse-ear cress',
@@ -58783,7 +58783,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         entryVersion: 164,
         sequenceVersion: 1,
       },
-      annotationScore: 103.9,
+      annotationScore: 5,
       organism: {
         scientificName: 'Saccharomyces cerevisiae (strain ATCC 204508 / S288c)',
         commonName: "Baker's yeast",
@@ -60792,7 +60792,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         entryVersion: 205,
         sequenceVersion: 1,
       },
-      annotationScore: 163.1,
+      annotationScore: 5,
       organism: {
         scientificName: 'Homo sapiens',
         commonName: 'Human',
@@ -64436,7 +64436,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         entryVersion: 160,
         sequenceVersion: 1,
       },
-      annotationScore: 109.99999999999999,
+      annotationScore: 5,
       organism: {
         scientificName: 'Homo sapiens',
         commonName: 'Human',
@@ -67990,7 +67990,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         entryVersion: 179,
         sequenceVersion: 2,
       },
-      annotationScore: 110.89999999999999,
+      annotationScore: 5,
       organism: {
         scientificName: 'Homo sapiens',
         commonName: 'Human',
@@ -71003,7 +71003,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         entryVersion: 152,
         sequenceVersion: 3,
       },
-      annotationScore: 106.99999999999999,
+      annotationScore: 5,
       organism: {
         scientificName: 'Homo sapiens',
         commonName: 'Human',
@@ -73429,7 +73429,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         entryVersion: 163,
         sequenceVersion: 2,
       },
-      annotationScore: 178.2,
+      annotationScore: 5,
       organism: {
         scientificName: 'Homo sapiens',
         commonName: 'Human',
@@ -76720,7 +76720,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         entryVersion: 172,
         sequenceVersion: 1,
       },
-      annotationScore: 109.39999999999999,
+      annotationScore: 5,
       organism: {
         scientificName: 'Homo sapiens',
         commonName: 'Human',
@@ -79746,7 +79746,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         entryVersion: 208,
         sequenceVersion: 1,
       },
-      annotationScore: 154.6,
+      annotationScore: 5,
       organism: {
         scientificName: 'Homo sapiens',
         commonName: 'Human',
@@ -83802,7 +83802,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         entryVersion: 177,
         sequenceVersion: 2,
       },
-      annotationScore: 215.6,
+      annotationScore: 5,
       organism: {
         scientificName: 'Homo sapiens',
         commonName: 'Human',
@@ -87196,7 +87196,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         entryVersion: 194,
         sequenceVersion: 2,
       },
-      annotationScore: 295.29999999999995,
+      annotationScore: 5,
       organism: {
         scientificName: 'Homo sapiens',
         commonName: 'Human',
@@ -92927,7 +92927,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         entryVersion: 143,
         sequenceVersion: 2,
       },
-      annotationScore: 81,
+      annotationScore: 5,
       organism: {
         scientificName: 'Homo sapiens',
         commonName: 'Human',
@@ -95126,7 +95126,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         entryVersion: 173,
         sequenceVersion: 1,
       },
-      annotationScore: 127.6,
+      annotationScore: 5,
       organism: {
         scientificName: 'Homo sapiens',
         commonName: 'Human',

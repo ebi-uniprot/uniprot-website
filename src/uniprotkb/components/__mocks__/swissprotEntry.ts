@@ -36,7 +36,7 @@ const mock: UniProtkbAPIModel = {
     entryVersion: 296,
     sequenceVersion: 3,
   },
-  annotationScore: 2845.2,
+  annotationScore: 5,
   organism: {
     scientificName: 'Homo sapiens',
     commonName: 'Human',

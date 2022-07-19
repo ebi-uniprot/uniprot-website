@@ -13,7 +13,7 @@ const mock: UniProtkbAPIModel = {
     entryVersion: 9,
     sequenceVersion: 1,
   },
-  annotationScore: 103.9,
+  annotationScore: 5,
   organism: {
     scientificName: 'Flavonifractor plautii',
     commonName: 'Fusobacterium plautii',
