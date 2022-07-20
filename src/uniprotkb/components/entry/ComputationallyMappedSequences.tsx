@@ -1,4 +1,4 @@
-import { useMemo, FC, ReactNode } from 'react';
+import { useMemo, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { DataTable, Message } from 'franklin-sites';
 
@@ -10,10 +10,11 @@ import AccessionView from '../../../shared/components/results/AccessionView';
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
-import apiUrls from '../../../shared/config/apiUrls';
 import useItemSelect from '../../../shared/hooks/useItemSelect';
+import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import { pluralise } from '../../../shared/utils/utils';
+import apiUrls from '../../../shared/config/apiUrls';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
@@ -41,49 +42,47 @@ type GeneCentricData = {
   proteomeId: string;
 };
 
-const ComputationalyMappedSequences: FC<{ primaryAccession: string }> = ({
-  primaryAccession,
-}) => {
-  const [selectedEntries, setSelectedItemFromEvent] = useItemSelect();
+const columns: Array<{
+  label: ReactNode;
+  name: string;
+  render: (data: ProteinEntryLight) => ReactNode;
+}> = [
+  {
+    label: 'Entry',
+    name: 'accession',
+    render: ({ id }) => (
+      <AccessionView id={id} namespace={Namespace.uniprotkb} />
+    ),
+  },
+  {
+    label: null,
+    name: 'reviewed',
+    render: ({ entryType }) => <EntryTypeIcon entryType={entryType} />,
+  },
+  {
+    label: 'Entry name',
+    name: 'uniProtkbId',
+    render: ({ uniProtkbId }) => uniProtkbId,
+  },
+  {
+    label: 'Gene name',
+    name: 'gene_name',
+    render: ({ geneName }) => geneName,
+  },
+  {
+    label: 'Length',
+    name: 'length',
+    render: ({ sequence }) => sequence.length,
+  },
+];
 
-  const columns = useMemo<
-    Array<{
-      label: ReactNode;
-      name: string;
-      render: (data: ProteinEntryLight) => ReactNode;
-    }>
-  >(
-    () => [
-      {
-        label: 'Entry',
-        name: 'accession',
-        render: ({ id }) => (
-          <AccessionView id={id} namespace={Namespace.uniprotkb} />
-        ),
-      },
-      {
-        label: null,
-        name: 'reviewed',
-        render: ({ entryType }) => <EntryTypeIcon entryType={entryType} />,
-      },
-      {
-        label: 'Entry name',
-        name: 'uniProtkbId',
-        render: ({ uniProtkbId }) => uniProtkbId,
-      },
-      {
-        label: 'Gene name',
-        name: 'gene_name',
-        render: ({ geneName }) => geneName,
-      },
-      {
-        label: 'Length',
-        name: 'length',
-        render: ({ sequence }) => sequence.length,
-      },
-    ],
-    []
-  );
+const ComputationalyMappedSequences = ({
+  primaryAccession,
+}: {
+  primaryAccession: string;
+}) => {
+  const smallScreen = useSmallScreen();
+  const [selectedEntries, setSelectedItemFromEvent] = useItemSelect();
 
   // Hooks
   const { data, loading, error, status } = useDataApi<GeneCentricData>(
@@ -150,7 +149,9 @@ const ComputationalyMappedSequences: FC<{ primaryAccession: string }> = ({
             density="compact"
             columns={columns}
             data={filteredData}
-            onSelectionChange={setSelectedItemFromEvent}
+            onSelectionChange={
+              smallScreen ? undefined : setSelectedItemFromEvent
+            }
           />
         </>
       )}

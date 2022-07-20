@@ -10,6 +10,8 @@ import { fromCleanMapper } from '../../utils/getIdKeyForNamespace';
 import { pluralise } from '../../utils/utils';
 import { Namespace } from '../../types/namespaces';
 
+import helper from '../../styles/helper.module.scss';
+
 type AddToBasketButtonProps = {
   selectedEntries: string | string[];
   setSelectedEntries?: Dispatch<SetStateAction<string[]>>;
@@ -112,6 +114,7 @@ const AddToBasketButton = ({
       title={title}
       disabled={disabled}
       onClick={finalRemove ? removeFromBasket : addToBasket}
+      className={helper['no-small']}
     >
       <BasketIcon />
       {finalRemove ? 'Remove' : 'Add'}

@@ -11,6 +11,8 @@ import FeaturesView, {
 } from '../../../shared/components/views/FeaturesView';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 
+import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
+
 import listFormat from '../../../shared/utils/listFormat';
 import { getEntryPath, getURLToJobWithData } from '../../../app/config/urls';
 
@@ -119,6 +121,8 @@ const UniProtKBFeaturesView = ({
     [features, sequence]
   );
 
+  const smallScreen = useSmallScreen();
+
   if (processedData.length === 0) {
     return null;
   }
@@ -135,7 +139,11 @@ const UniProtKBFeaturesView = ({
           <th>ID</th>
           <th>Position(s)</th>
           <th>Description</th>
-          <th>{/* Intentionaly left blank */}</th>
+          {smallScreen ? null : (
+            <th>
+              {/* Intentionally left blank, corresponds to tools/basket */}
+            </th>
+          )}
         </tr>
       </thead>
       <tbody>
@@ -190,31 +198,33 @@ const UniProtKBFeaturesView = ({
                     : feature.description}
                   <UniProtKBEvidenceTag evidences={feature.evidences} />
                 </td>
-                <td>
-                  {/* Not using React Router link as this is copied into the table DOM */}
-                  {feature.end - feature.start >= 2 && (
-                    <div className="button-group">
-                      <Button
-                        element="a"
-                        variant="tertiary"
-                        title="BLAST the sequence corresponding to this feature"
-                        href={getURLToJobWithData(
-                          JobTypes.BLAST,
-                          primaryAccession,
-                          {
-                            start: feature.start,
-                            end: feature.end,
-                          }
-                        )}
-                      >
-                        BLAST
-                      </Button>
-                      <AddToBasketButton
-                        selectedEntries={`${primaryAccession}[${feature.start}-${feature.end}]`}
-                      />
-                    </div>
-                  )}
-                </td>
+                {smallScreen ? null : (
+                  <td>
+                    {/* Not using React Router link as this is copied into the table DOM */}
+                    {feature.end - feature.start >= 2 && (
+                      <div className="button-group">
+                        <Button
+                          element="a"
+                          variant="tertiary"
+                          title="BLAST the sequence corresponding to this feature"
+                          href={getURLToJobWithData(
+                            JobTypes.BLAST,
+                            primaryAccession,
+                            {
+                              start: feature.start,
+                              end: feature.end,
+                            }
+                          )}
+                        >
+                          BLAST
+                        </Button>
+                        <AddToBasketButton
+                          selectedEntries={`${primaryAccession}[${feature.start}-${feature.end}]`}
+                        />
+                      </div>
+                    )}
+                  </td>
+                )}
               </tr>
               {feature.sequence && (
                 <tr

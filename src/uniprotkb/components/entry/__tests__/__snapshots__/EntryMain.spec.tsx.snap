@@ -3004,14 +3004,14 @@ exports[`Entry view should render 1`] = `
           class="button-group"
         >
           <a
-            class="button tertiary"
+            class="button tertiary no-small"
             href="/blast?ids=isoID1"
             title="Run a BLAST job against isoID1"
           >
             BLAST 1 isoform
           </a>
           <button
-            class="button tertiary disabled"
+            class="button tertiary disabled no-small"
             disabled=""
             title="Select at least 2 entries to run an Align job"
             type="button"
@@ -6964,7 +6964,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               Download
             </a>
             <button
-              class="button tertiary"
+              class="button tertiary no-small"
               title="Add 1 entry to the basket"
               type="button"
             >

@@ -12,6 +12,7 @@ import MemberLink from './MemberLink';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import usePrefetch from '../../../shared/hooks/usePrefetch';
 import useItemSelect from '../../../shared/hooks/useItemSelect';
+import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import { pluralise } from '../../../shared/utils/utils';
 import getNextURLFromHeaders from '../../../shared/utils/getNextURLFromHeaders';
@@ -304,6 +305,7 @@ export const MembersSection = ({
     }));
   }, [data, headers]);
 
+  const smallScreen = useSmallScreen();
   const [selectedEntries, setSelectedItemFromEvent] = useItemSelect();
 
   const { total, nextUrl } = metadata;
@@ -340,7 +342,7 @@ export const MembersSection = ({
         data={allResults}
         getIdKey={getKey}
         density="compact"
-        onSelectionChange={setSelectedItemFromEvent}
+        onSelectionChange={smallScreen ? undefined : setSelectedItemFromEvent}
       />
     </Card>
   );

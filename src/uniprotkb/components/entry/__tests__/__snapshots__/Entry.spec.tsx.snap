@@ -271,63 +271,59 @@ exports[`Entry basic should render main 1`] = `
           role="tabpanel"
         >
           <div
-            style="display: block;"
+            class="button-group"
           >
-            <div
-              class="button-group"
+            <a
+              class="button tertiary no-small"
+              href="/blast?ids=P21802"
+              title="Run a BLAST job against P21802"
             >
-              <a
-                class="button tertiary"
-                href="/blast?ids=P21802"
-                title="Run a BLAST job against P21802"
-              >
-                BLAST
-              </a>
-              <a
-                class="button tertiary"
-                href="/align?ids=P21802%2CisoID1"
-                title="Run an Align job against 2 entries"
-              >
-                Align
-              </a>
-              <div
-                aria-expanded="false"
-                aria-haspopup="true"
-                class="dropdown"
-              >
-                <button
-                  class="button tertiary"
-                  type="button"
-                >
-                  <test-file-stub />
-                  Download
-                </button>
-              </div>
+              BLAST
+            </a>
+            <a
+              class="button tertiary no-small"
+              href="/align?ids=P21802%2CisoID1"
+              title="Run an Align job against 2 entries"
+            >
+              Align
+            </a>
+            <div
+              aria-expanded="false"
+              aria-haspopup="true"
+              class="dropdown"
+            >
               <button
                 class="button tertiary"
-                title="Add 1 entry to the basket"
                 type="button"
               >
                 <test-file-stub />
-                Add
+                Download
               </button>
-              <a
-                class="button tertiary"
-                href="https://community.uniprot.org/bbsub/bbsub.html?accession=P21802"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Add a publication
-              </a>
-              <a
-                class="button tertiary"
-                href="/update?entry=P21802&entryType=Reviewed%20%28Swiss-Prot%29"
-              >
-                Entry feedback
-              </a>
             </div>
-            {{ EntryMain }}
+            <button
+              class="button tertiary no-small"
+              title="Add 1 entry to the basket"
+              type="button"
+            >
+              <test-file-stub />
+              Add
+            </button>
+            <a
+              class="button tertiary"
+              href="https://community.uniprot.org/bbsub/bbsub.html?accession=P21802"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Add a publication
+            </a>
+            <a
+              class="button tertiary"
+              href="/update?entry=P21802&entryType=Reviewed%20%28Swiss-Prot%29"
+            >
+              Entry feedback
+            </a>
           </div>
+          {{ EntryMain }}
         </div>
       </div>
     </section>

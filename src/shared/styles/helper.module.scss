@@ -1,3 +1,5 @@
+@import 'franklin-sites/src/styles/mixins';
+
 .stale,
 .disabled {
   opacity: 0.5;
@@ -19,4 +21,15 @@
 
 .no-text-transform {
   text-transform: none;
+}
+
+.no-small {
+  &,
+  &:global(.button) {
+    display: none;
+
+    @include fs-breakpoints('medium') {
+      display: initial;
+    }
+  }
 }

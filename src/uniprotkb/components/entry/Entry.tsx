@@ -332,7 +332,6 @@ const Entry = () => {
       </HTMLHead>
       <Tabs active={match.params.subPage}>
         <Tab
-          cache={!historyOldEntry}
           title={
             <Link
               className={historyOldEntry ? helper.disabled : undefined}
@@ -440,6 +439,17 @@ const Entry = () => {
           onFocus={EntryPublications.preload}
         >
           <Suspense fallback={<Loader />}>
+            <div className="button-group">
+              <CommunityAnnotationLink accession={match.params.accession} />
+              <a
+                href={externalUrls.CommunityCurationAdd(match.params.accession)}
+                className="button tertiary"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Add a publication
+              </a>
+            </div>
             <HTMLHead
               title={[
                 pageTitle,

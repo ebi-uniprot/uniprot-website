@@ -7,6 +7,7 @@ import {
   RedundantProteomeIcon,
   ObsoleteIcon,
   CommunityAnnotationIcon,
+  ComputerMappedIcon,
 } from 'franklin-sites';
 
 import './styles/entry-type-icon.scss';
@@ -21,6 +22,7 @@ export enum EntryType {
   EXCLUDED_PROTEOME,
   OTHER_PROTEOME,
   COMMUNITY_ANNOTATION,
+  COMPUTATIONAL_ANNOTATION,
 }
 
 export const getEntryTypeFromString = (entryTypeString?: string) => {
@@ -39,7 +41,7 @@ export const getEntryTypeFromString = (entryTypeString?: string) => {
   if (entryTypeString.match(/Swiss-Prot|reviewed|^sp\|$|^sp$/gi)) {
     return EntryType.REVIEWED;
   }
-  if (entryTypeString.match(/ORCID$/gi)) {
+  if (entryTypeString.match(/ORCID$|community/gi)) {
     return EntryType.COMMUNITY_ANNOTATION;
   }
   if (entryTypeString.match(/Reference|Representative/gi)) {
@@ -53,6 +55,9 @@ export const getEntryTypeFromString = (entryTypeString?: string) => {
   }
   if (entryTypeString.match(/Other\sproteome/gi)) {
     return EntryType.OTHER_PROTEOME;
+  }
+  if (entryTypeString.match(/Computational/gi)) {
+    return EntryType.COMPUTATIONAL_ANNOTATION;
   }
 
   return undefined;
@@ -141,6 +146,16 @@ export const EntryTypeIcon: FC<{
         title={title || 'Community annotation'}
       >
         <CommunityAnnotationIcon />
+      </span>
+    );
+  }
+  if (entryTypeToCheck === EntryType.COMPUTATIONAL_ANNOTATION) {
+    return (
+      <span
+        className="entry-title__status icon--computational-annotation"
+        title={title || 'Computational annotation'}
+      >
+        <ComputerMappedIcon />
       </span>
     );
   }

@@ -14,7 +14,7 @@ const UniProtFooter = lazy(
 const BaseLayout: FC = ({ children }) => (
   <div className="base-layout">
     <header className="main-header">
-      <ErrorBoundary>
+      <ErrorBoundary fallback={null}>
         <UniProtHeader />
       </ErrorBoundary>
     </header>

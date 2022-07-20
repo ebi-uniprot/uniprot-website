@@ -56,40 +56,15 @@ const PublicationReference: FC<{
     if (source?.name === 'GeneRif') {
       return `https://www.ncbi.nlm.nih.gov/gene?Db=gene&Cmd=DetailsSearch&Term=${source.id}`;
     }
+    if (source?.name === 'GAD') {
+      return 'https://geneticassociationdb.nih.gov/';
+    }
     return null;
   }, [databaseInfoMaps, source]);
 
   const groupedReferenceComments = groupBy(referenceComments, 'type');
 
   const infoListData = [
-    {
-      title: 'Source',
-      content: source && (
-        <>
-          <EntryTypeIcon entryType={source.name} />
-          {url ? (
-            <ExternalLink url={url}>{source.name}</ExternalLink>
-          ) : (
-            source.name
-          )}
-          {source.name === 'ORCID' && (
-            <>
-              {' '}
-              <ExternalLink url={`https://orcid.org/${source.id}`}>
-                {source.id}
-              </ExternalLink>
-              {' ('}
-              <ExternalLink
-                url={`//community.uniprot.org/bbsub/bbsubinfo.html?accession=${accession}`}
-              >
-                see community submission
-              </ExternalLink>
-              ).
-            </>
-          )}
-        </>
-      ),
-    },
     {
       title: 'Cited for',
       content:
@@ -149,6 +124,37 @@ const PublicationReference: FC<{
     {
       title: 'Categories',
       content: sourceCategories?.join(', '),
+    },
+    {
+      title: 'Source',
+      content: source && (
+        <>
+          <EntryTypeIcon entryType={source.name} />
+          {url ? (
+            <>
+              <EntryTypeIcon entryType="computationally mapped" />
+              <ExternalLink url={url}>{source.name}</ExternalLink>
+            </>
+          ) : (
+            source.name
+          )}
+          {source.name === 'ORCID' && (
+            <>
+              {' '}
+              <ExternalLink url={`https://orcid.org/${source.id}`}>
+                {source.id}
+              </ExternalLink>
+              {' ('}
+              <ExternalLink
+                url={`//community.uniprot.org/bbsub/bbsubinfo.html?accession=${accession}`}
+              >
+                see community submission
+              </ExternalLink>
+              ).
+            </>
+          )}
+        </>
+      ),
     },
   ];
   return <InfoList infoData={infoListData} isCompact className="text-block" />;

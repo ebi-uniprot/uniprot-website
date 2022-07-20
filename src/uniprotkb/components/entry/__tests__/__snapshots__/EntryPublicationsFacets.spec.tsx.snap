@@ -76,6 +76,12 @@ exports[`EntryPublication facets tests should render 1`] = `
               <a
                 href="/?facets=types%3A2"
               >
+                <span
+                  class="entry-title__status icon--reviewed"
+                  title="This marks a reviewed UniProtKB entry"
+                >
+                  <test-file-stub />
+                </span>
                 UniProtKB reviewed (Swiss-Prot) (24)
               </a>
             </li>
@@ -83,6 +89,12 @@ exports[`EntryPublication facets tests should render 1`] = `
               <a
                 href="/?facets=types%3A1"
               >
+                <span
+                  class="entry-title__status icon--computational-annotation"
+                  title="Computational annotation"
+                >
+                  <test-file-stub />
+                </span>
                 Computationally mapped (23)
               </a>
             </li>
@@ -90,6 +102,12 @@ exports[`EntryPublication facets tests should render 1`] = `
               <a
                 href="/?facets=types%3A0"
               >
+                <span
+                  class="entry-title__status icon--community-annotation"
+                  title="Community annotation"
+                >
+                  <test-file-stub />
+                </span>
                 Community mapped (1)
               </a>
             </li>

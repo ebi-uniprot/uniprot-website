@@ -78,7 +78,7 @@ exports[`CitationsColumnConfiguration component should render column "publicatio
 
 exports[`CitationsColumnConfiguration component should render column "reference": reference 1`] = `
 <DocumentFragment>
-  Insect Biochem Mol Biol 29:121-129(
+  Insect Biochem Mol Biol 29:121-129 (
   <time
     datetime="1999-01-01T00:00:00.000Z"
   >
