@@ -6,6 +6,8 @@ import EntryTypeIcon, { EntryType } from '../entry/EntryTypeIcon';
 
 import { getEntryPath } from '../../../app/config/urls';
 
+import { reIds } from '../../../tools/utils/urls';
+
 import { Namespace, SearchableNamespace } from '../../types/namespaces';
 
 import helper from '../../styles/helper.module.scss';
@@ -18,8 +20,7 @@ type Props = {
 };
 
 const AccessionView = ({ id, namespace, entryType }: Props) => {
-  const reIds = /(?<acc>\w+-?\d*)(\[(?<start>\d+)-(?<end>\d+)\])?/;
-  const { acc, start, end } = id.match(reIds)?.groups || {};
+  const { id: acc, start, end } = id.match(reIds)?.groups || { id };
 
   return (
     <span className={cn(helper['no-wrap'], styles['accession-view'])}>
@@ -27,14 +28,14 @@ const AccessionView = ({ id, namespace, entryType }: Props) => {
       <Link
         to={getEntryPath(
           namespace,
-          acc ? acc : id,
+          acc,
           namespace === Namespace.uniprotkb || namespace === Namespace.uniparc
             ? 'entry'
             : undefined
         )}
         className={styles.accession}
       >
-        {acc ? acc : id}
+        {acc}
       </Link>
       {start && end && (
         <span>

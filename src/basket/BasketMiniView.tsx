@@ -20,6 +20,9 @@ import {
   ColumnDescriptor,
   getColumnsToDisplay,
 } from '../shared/hooks/useColumns';
+
+import { reIds } from '../tools/utils/urls';
+
 import { APIModel } from '../shared/types/apiModel';
 import { UniProtKBColumn } from '../uniprotkb/types/columnTypes';
 import { UniRefColumn } from '../uniref/config/UniRefColumnConfiguration';
@@ -61,6 +64,16 @@ const BasketMiniViewTab = ({
   setBasket,
   closePanel,
 }: BasketMiniViewTabProps) => {
+  const subsetsMap = new Map();
+  accessions.forEach((acc) => {
+    const { id } = acc.match(reIds)?.groups || {};
+    if (id) {
+      subsetsMap.set(acc, id);
+    } else {
+      subsetsMap.set(acc, acc);
+    }
+  });
+
   const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
     useItemSelect();
 
@@ -69,19 +82,8 @@ const BasketMiniViewTab = ({
     setSelectedEntries([]);
   }, [namespace, setSelectedEntries]);
 
-  const reIds = /(?<id>\w+-?\d*)(\[(?<start>\d+)-(?<end>\d+)\])?/;
-
-  const trimmedAccessions = accessions.map((acc) => {
-    const { id } = acc.match(reIds)?.groups || {};
-    if (id) {
-      return id;
-    } else {
-      return acc;
-    }
-  });
-
   const initialApiUrl = useNSQuery({
-    accessions: trimmedAccessions,
+    accessions: Array.from(subsetsMap.values()),
     overrideNS: namespace,
     withFacets: false,
     withColumns: false,
@@ -105,9 +107,10 @@ const BasketMiniViewTab = ({
       ),
     [namespace, columnNames, databaseInfoMaps]
   );
+
   if (resultsDataObject.allResults.length) {
     resultsDataObject.allResults.forEach((r, index) => {
-      if ((namespace = Namespace.uniprotkb)) {
+      if (namespace == Namespace.uniprotkb) {
         r.primaryAccession = accessions[index];
       }
     });
@@ -122,6 +125,7 @@ const BasketMiniViewTab = ({
         setSelectedEntries={setSelectedEntries}
         accessions={accessions}
         namespaceOverride={namespace}
+        subsetsMap={subsetsMap}
         inBasket
         notCustomisable
       />

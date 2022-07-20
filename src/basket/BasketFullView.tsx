@@ -14,6 +14,8 @@ import usePagination from '../shared/hooks/usePagination';
 import useNSQuery from '../shared/hooks/useNSQuery';
 import useDataApiWithStale from '../shared/hooks/useDataApiWithStale';
 
+import { reIds } from '../tools/utils/urls';
+
 import { LocationToPath, Location, basketNamespaces } from '../app/config/urls';
 
 import {
@@ -34,6 +36,15 @@ const BasketFullView = () => {
   const namespace = fullViewMatch?.params.namespace || Namespace.uniprotkb;
   const subBasket = basket.get(namespace) || new Set();
   const accessions = Array.from(subBasket);
+  const subsetsMap = new Map();
+  accessions.forEach((acc) => {
+    const { id } = acc.match(reIds)?.groups || {};
+    if (id) {
+      subsetsMap.set(acc, id);
+    } else {
+      subsetsMap.set(acc, acc);
+    }
+  });
 
   // Below here similar (but not identical) to the Results component
   const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
@@ -41,7 +52,7 @@ const BasketFullView = () => {
 
   // Query for facets
   const initialApiFacetUrl = useNSQuery({
-    accessions,
+    accessions: Array.from(subsetsMap.values()),
     overrideNS: namespace,
     withFacets: true,
     withColumns: false,
@@ -58,7 +69,7 @@ const BasketFullView = () => {
 
   // Query for basket data
   const initialApiUrl = useNSQuery({
-    accessions,
+    accessions: Array.from(subsetsMap.values()),
     overrideNS: namespace,
     withFacets: false,
   });
@@ -92,6 +103,14 @@ const BasketFullView = () => {
     return <Loader progress={resultsDataProgress} />;
   }
 
+  if (resultsDataObject.allResults.length) {
+    resultsDataObject.allResults.forEach((r, index) => {
+      if (namespace == Namespace.uniprotkb) {
+        r.primaryAccession = accessions[index];
+      }
+    });
+  }
+
   return (
     <SideBarLayout
       sidebar={
@@ -123,6 +142,7 @@ const BasketFullView = () => {
         setSelectedEntries={setSelectedEntries}
         accessions={accessions}
         namespaceOverride={namespace}
+        subsetsMap={subsetsMap}
         inBasket
       />
       <ResultsData
