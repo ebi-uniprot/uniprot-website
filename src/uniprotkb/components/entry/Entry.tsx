@@ -332,7 +332,6 @@ const Entry = () => {
       </HTMLHead>
       <Tabs active={match.params.subPage}>
         <Tab
-          cache={!historyOldEntry}
           title={
             <Link
               className={historyOldEntry ? helper.disabled : undefined}
