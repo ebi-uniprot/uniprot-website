@@ -142,7 +142,6 @@ const ToolsDashboard = () => {
               <ToolboxIcon width="0.8em" /> Tool results
             </Link>
           }
-          withCloseButton
           position="right"
           size="medium"
           onClose={close}
@@ -233,7 +232,6 @@ export const Basket = () => {
               <BasketIcon width="0.8em" /> My Basket
             </Link>
           }
-          withCloseButton
           position="right"
           size="medium"
           onClose={close}
