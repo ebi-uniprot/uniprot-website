@@ -112,7 +112,6 @@ const ContextualHelpContainer = ({ articlePath, onClose }: Props) => {
     <SlidingPanel
       title={<NavigationBar localHistory={localHistoryRef.current} />}
       onClose={onClose}
-      withCloseButton
       className={styles['contextual-help-panel']}
       size="small"
       position="right"
