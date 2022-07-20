@@ -15,6 +15,7 @@ import useNSQuery from '../shared/hooks/useNSQuery';
 import useDataApiWithStale from '../shared/hooks/useDataApiWithStale';
 
 import { reIds } from '../tools/utils/urls';
+import { updateResultsWithAccessionSubsets } from './BasketMiniView';
 
 import { LocationToPath, Location, basketNamespaces } from '../app/config/urls';
 
@@ -101,13 +102,11 @@ const BasketFullView = () => {
   }
 
   // Replacing the full accession including subsets in the resultsData
-  if (resultsDataObject.allResults.length) {
-    resultsDataObject.allResults.forEach((r, index) => {
-      if (namespace == Namespace.uniprotkb) {
-        r.primaryAccession = accessions[index];
-      }
-    });
-  }
+  resultsDataObject.allResults = updateResultsWithAccessionSubsets(
+    resultsDataObject.allResults,
+    namespace,
+    accessions
+  );
 
   return (
     <SideBarLayout

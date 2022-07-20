@@ -27,6 +27,7 @@ import { APIModel } from '../shared/types/apiModel';
 import { UniProtKBColumn } from '../uniprotkb/types/columnTypes';
 import { UniRefColumn } from '../uniref/config/UniRefColumnConfiguration';
 import { UniParcColumn } from '../uniparc/config/UniParcColumnConfiguration';
+import { UniProtkbAPIModel } from '../uniprotkb/adapters/uniProtkbConverter';
 
 import helper from '../shared/styles/helper.module.scss';
 import styles from './styles/basket-mini-view.module.scss';
@@ -55,6 +56,21 @@ type BasketMiniViewTabProps = {
   columnNames: Array<UniProtKBColumn | UniRefColumn | UniParcColumn>;
   setBasket: Dispatch<SetStateAction<Basket>>;
   closePanel: () => void;
+};
+
+export const updateResultsWithAccessionSubsets = (
+  results: APIModel[],
+  namespace: Namespace,
+  accessions: string[]
+) => {
+  return results.map((r, index) => {
+    if (namespace === Namespace.uniprotkb) {
+      const entry: UniProtkbAPIModel = { ...r };
+      entry.primaryAccession = accessions[index];
+      return entry;
+    }
+    return r;
+  });
 };
 
 const BasketMiniViewTab = ({
@@ -105,13 +121,11 @@ const BasketMiniViewTab = ({
   );
 
   // Replacing the full accession including subsets in the resultsData
-  if (resultsDataObject.allResults.length) {
-    resultsDataObject.allResults.forEach((r, index) => {
-      if (namespace == Namespace.uniprotkb) {
-        r.primaryAccession = accessions[index];
-      }
-    });
-  }
+  resultsDataObject.allResults = updateResultsWithAccessionSubsets(
+    resultsDataObject.allResults,
+    namespace,
+    accessions
+  );
 
   return (
     <>
