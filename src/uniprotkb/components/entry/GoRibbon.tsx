@@ -65,7 +65,39 @@ const GoRibbon = ({
     'protvista-datatable'
   );
 
-  const [selectedSet, setSelectedSet] = useState('goslim_generic');
+  const [selectedSet, setSelectedSet] = useState(() => {
+    let defaultSS = 'goslim_generic';
+    if (organismData?.scientificName && organismData?.lineage) {
+      const taxonomyInfo = [
+        ...organismData.lineage,
+        organismData.scientificName,
+      ];
+
+      // SlimSets based on Taxonomy
+      const slimSetByTaxon = {
+        goslim_plant: [
+          'Viridiplantae',
+          'Bangiophyceae',
+          'Florideophyceae',
+          'Stylonematophyceae',
+          'Rhodellophyceae',
+          'Compsopogonophyceae',
+        ],
+        // prokaryotes: ['Bacteria', 'Archaea'],
+      };
+
+      // Check if the taxon matches a slimset
+      Object.entries(slimSetByTaxon).forEach(([key, value]) => {
+        const presentTaxon = taxonomyInfo?.filter(
+          (t) => value.includes(String(t)) // Lineage is Array of strings here
+        );
+        if (presentTaxon?.length) {
+          defaultSS = key;
+        }
+      });
+    }
+    return defaultSS;
+  });
 
   // NOTE: loading is also available, do we want to do anything with it?
   const { loading, slimmedData, selectedSlimSet, slimSets } = useGOData(
