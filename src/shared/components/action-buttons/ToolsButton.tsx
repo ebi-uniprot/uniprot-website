@@ -4,6 +4,8 @@ import { Button } from 'franklin-sites';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
+import helper from '../../styles/helper.module.scss';
+
 type ToolsButtonProps = {
   selectedEntries: string[];
   sequence?: string;
@@ -39,6 +41,7 @@ const ToolsButton: FC<ToolsButtonProps> = ({
               search: searchParams.toString(),
             }
       }
+      className={helper['no-small']}
     >
       {children}
     </Button>

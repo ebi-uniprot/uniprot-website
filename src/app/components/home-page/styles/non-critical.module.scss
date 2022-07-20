@@ -1,5 +1,6 @@
 @import 'franklin-sites/src/styles/colours';
 @import 'franklin-sites/src/styles/settings';
+@import 'franklin-sites/src/styles/mixins';
 @import '../../../../shared/styles/mixins';
 
 .home-page-section {
@@ -161,6 +162,14 @@ $latest-news-height: 18rem;
 
       -webkit-line-clamp: 4;
     }
+  }
+}
+
+.no-small {
+  display: none;
+
+  @include fs-breakpoints('medium') {
+    display: grid;
   }
 }
 

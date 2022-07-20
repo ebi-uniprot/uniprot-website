@@ -20,6 +20,7 @@ import useJobFromUrl from '../../hooks/useJobFromUrl';
 import useIDMappingDetails from '../../hooks/useIDMappingDetails';
 import useStructuredData from '../../hooks/useStructuredData';
 import { useMessagesDispatch } from '../../contexts/Messages';
+import { useSmallScreen } from '../../hooks/useMatchMedia';
 
 import lazy from '../../utils/lazy';
 import { addMessage } from '../../../messages/state/messagesActions';
@@ -137,6 +138,11 @@ const webSiteSchemaFor = (namespace: Searchspace): WithContext<WebSite> => ({
   } as SearchAction,
 });
 
+type MainSearchSecondaryButton = {
+  label: string;
+  action: () => void;
+};
+
 const SearchContainer: FC<
   Props & Exclude<HTMLAttributes<HTMLDivElement>, 'role'>
 > = ({ isOnHomePage, searchspace, onSearchspaceChange, ...props }) => {
@@ -213,32 +219,39 @@ const SearchContainer: FC<
     setSearchTerm(example);
   };
 
+  const smallScreen = useSmallScreen();
   const secondaryButtons = useMemo(
-    () => [
-      {
-        label:
-          // TODO:
-          // <span
-          //   onPointerOver={QueryBuilder.preload}
-          //   onFocus={QueryBuilder.preload}
-          // >
-          //   Advanced
-          // </span>
-          'Advanced',
-        action: () => {
-          setDisplayQueryBuilder((value) => !value);
+    () =>
+      [
+        {
+          label:
+            // TODO:
+            // <span
+            //   onPointerOver={QueryBuilder.preload}
+            //   onFocus={QueryBuilder.preload}
+            // >
+            //   Advanced
+            // </span>
+            'Advanced',
+          action: () => {
+            setDisplayQueryBuilder((value) => !value);
+          },
         },
-      },
-      {
-        label: 'List',
-        action: () => {
-          history.push({
-            pathname: LocationToPath[Location.IDMapping],
-          });
-        },
-      },
-    ],
-    [history]
+        smallScreen
+          ? null
+          : {
+              label: 'List',
+              action: () => {
+                history.push({
+                  pathname: LocationToPath[Location.IDMapping],
+                });
+              },
+            },
+      ].filter(
+        (x: MainSearchSecondaryButton | null): x is MainSearchSecondaryButton =>
+          Boolean(x)
+      ),
+    [history, smallScreen]
   );
 
   // reset the text content when there is a navigation to reflect what is in the
@@ -291,18 +304,6 @@ const SearchContainer: FC<
                 </>
               )}
             </div>
-            {/* 
-            Note: if user testing validates the "list" link in the input
-            remove this
-            <div>
-              <Button
-                variant="tertiary"
-                element={Link}
-                to={LocationToPath[Location.IDMapping]}
-              >
-                Search with a list of IDs
-              </Button>
-            </div> */}
           </div>
         )}
       </section>

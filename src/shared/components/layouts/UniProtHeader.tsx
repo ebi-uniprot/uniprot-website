@@ -65,7 +65,7 @@ const HeaderContent = ({ isHomePage }: { isHomePage: boolean }) => {
         toolsLinks
       ) : (
         // otherwise display all tools links in a dropdown
-        <li>
+        <li className={styles['no-small']}>
           <Dropdown
             visibleElement={<Button variant="tertiary">Tools</Button>}
             propChangeToClose={location}

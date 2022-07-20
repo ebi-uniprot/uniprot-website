@@ -30,7 +30,9 @@ footer.footer {
     }
 
     &__members {
-      display: flex;
+      @include fs-breakpoints('medium') {
+        display: flex;
+      }
       align-items: center;
 
       :not(:last-child) {
