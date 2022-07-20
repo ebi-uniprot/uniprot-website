@@ -92,13 +92,25 @@ exports[`FeaturesView component it renders without crashing 1`] = `
               />
             </td>
             <td>
-              <a
-                class="button tertiary"
-                href="/blast?ids=P05067[1-17]"
-                title="BLAST the sequence corresponding to this feature"
+              <div
+                class="button-group"
               >
-                BLAST
-              </a>
+                <a
+                  class="button tertiary"
+                  href="/blast?ids=P05067[1-17]"
+                  title="BLAST the sequence corresponding to this feature"
+                >
+                  BLAST
+                </a>
+                <button
+                  class="button tertiary"
+                  title="Add 1 entry to the basket"
+                  type="button"
+                >
+                  <test-file-stub />
+                  Add
+                </button>
+              </div>
             </td>
           </tr>
           <tr
