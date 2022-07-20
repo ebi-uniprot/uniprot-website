@@ -36,14 +36,11 @@ const BasketFullView = () => {
   const namespace = fullViewMatch?.params.namespace || Namespace.uniprotkb;
   const subBasket = basket.get(namespace) || new Set();
   const accessions = Array.from(subBasket);
+
   const subsetsMap = new Map();
   accessions.forEach((acc) => {
-    const { id } = acc.match(reIds)?.groups || {};
-    if (id) {
-      subsetsMap.set(acc, id);
-    } else {
-      subsetsMap.set(acc, acc);
-    }
+    const { id } = acc.match(reIds)?.groups || { acc };
+    subsetsMap.set(acc, id);
   });
 
   // Below here similar (but not identical) to the Results component
@@ -52,7 +49,7 @@ const BasketFullView = () => {
 
   // Query for facets
   const initialApiFacetUrl = useNSQuery({
-    accessions: Array.from(subsetsMap.values()),
+    accessions: Array.from(subsetsMap.values()), // Passing accessions without modifications in case of subsets
     overrideNS: namespace,
     withFacets: true,
     withColumns: false,
@@ -69,7 +66,7 @@ const BasketFullView = () => {
 
   // Query for basket data
   const initialApiUrl = useNSQuery({
-    accessions: Array.from(subsetsMap.values()),
+    accessions: Array.from(subsetsMap.values()), // Passing accessions without modifications in case of subsets
     overrideNS: namespace,
     withFacets: false,
   });
@@ -103,6 +100,7 @@ const BasketFullView = () => {
     return <Loader progress={resultsDataProgress} />;
   }
 
+  // Replacing the full accession including subsets in the resultsData
   if (resultsDataObject.allResults.length) {
     resultsDataObject.allResults.forEach((r, index) => {
       if (namespace == Namespace.uniprotkb) {

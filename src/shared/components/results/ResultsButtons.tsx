@@ -63,7 +63,7 @@ type ResultsButtonsProps = {
   disableCardToggle?: boolean; // Note: remove if we have card view for id mapping
   inBasket?: boolean;
   notCustomisable?: boolean;
-  subsetsMap: Map<string, string>;
+  subsetsMap?: Map<string, string>;
 };
 
 const ResultsButtons: FC<ResultsButtonsProps> = ({
@@ -159,10 +159,10 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
 
   const isMain = mainNamespaces.has(namespace);
 
-  // Download and ID mapping expects accessions without modifications
-  const selectedAccessions = Array.from(
-    new Set(selectedEntries.map((e) => subsetsMap.get(e) || e))
-  );
+  // Download and ID mapping expects accessions without modifications (applicable in Basket views)
+  const selectedAccWithoutSubset = subsetsMap
+    ? Array.from(new Set(selectedEntries.map((e) => subsetsMap.get(e) || e)))
+    : selectedEntries;
 
   return (
     <>
@@ -176,8 +176,12 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
           >
             <ErrorBoundary>
               <DownloadComponent
-                selectedEntries={selectedAccessions}
-                accessions={Array.from(new Set(subsetsMap.values()))} // Passing all accessions without modifications to Download
+                selectedEntries={selectedAccWithoutSubset}
+                accessions={
+                  subsetsMap
+                    ? Array.from(new Set(subsetsMap?.values()))
+                    : accessions
+                } // Passing all accessions without modifications to Download
                 totalNumberResults={total}
                 onClose={() => setDisplayDownloadPanel(false)}
                 namespace={namespace}
@@ -196,7 +200,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
         )}
         {isMain && namespace !== Namespace.proteomes && (
           <MapIDButton
-            selectedEntries={selectedAccessions}
+            selectedEntries={selectedAccWithoutSubset}
             namespace={namespace}
           />
         )}

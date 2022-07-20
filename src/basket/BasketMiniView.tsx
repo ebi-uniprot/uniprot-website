@@ -66,12 +66,8 @@ const BasketMiniViewTab = ({
 }: BasketMiniViewTabProps) => {
   const subsetsMap = new Map();
   accessions.forEach((acc) => {
-    const { id } = acc.match(reIds)?.groups || {};
-    if (id) {
-      subsetsMap.set(acc, id);
-    } else {
-      subsetsMap.set(acc, acc);
-    }
+    const { id } = acc.match(reIds)?.groups || { acc };
+    subsetsMap.set(acc, id);
   });
 
   const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
@@ -83,7 +79,7 @@ const BasketMiniViewTab = ({
   }, [namespace, setSelectedEntries]);
 
   const initialApiUrl = useNSQuery({
-    accessions: Array.from(subsetsMap.values()),
+    accessions: Array.from(subsetsMap.values()), // Passing accessions without modifications in case of subsets
     overrideNS: namespace,
     withFacets: false,
     withColumns: false,
@@ -108,6 +104,7 @@ const BasketMiniViewTab = ({
     [namespace, columnNames, databaseInfoMaps]
   );
 
+  // Replacing the full accession including subsets in the resultsData
   if (resultsDataObject.allResults.length) {
     resultsDataObject.allResults.forEach((r, index) => {
       if (namespace == Namespace.uniprotkb) {

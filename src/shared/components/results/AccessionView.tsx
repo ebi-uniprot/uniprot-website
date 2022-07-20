@@ -39,7 +39,7 @@ const AccessionView = ({ id, namespace, entryType }: Props) => {
       </Link>
       {start && end && (
         <span>
-          [{start}]-[{end}]
+          [{start}-{end}]
         </span>
       )}
       <BasketStatus id={id} />

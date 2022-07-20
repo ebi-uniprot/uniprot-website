@@ -193,7 +193,7 @@ const UniProtKBFeaturesView = ({
                 <td>
                   {/* Not using React Router link as this is copied into the table DOM */}
                   {feature.end - feature.start >= 2 && (
-                    <>
+                    <div className={'button-group'}>
                       <Button
                         element="a"
                         variant="tertiary"
@@ -212,9 +212,8 @@ const UniProtKBFeaturesView = ({
                       <AddToBasketButton
                         selectedEntries={`${primaryAccession}[${feature.start}-${feature.end}]`}
                       />
-                    </>
+                    </div>
                   )}
-                  {/* <Button>Add</Button> */}
                 </td>
               </tr>
               {feature.sequence && (
