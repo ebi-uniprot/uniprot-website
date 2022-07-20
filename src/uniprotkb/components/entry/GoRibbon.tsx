@@ -83,7 +83,7 @@ const GoRibbon = ({
           'Rhodellophyceae',
           'Compsopogonophyceae',
         ],
-        prokaryotes: ['Bacteria', 'Archaea'],
+        // prokaryotes: ['Bacteria', 'Archaea'],
       };
 
       // Check if the taxon matches a slimset
