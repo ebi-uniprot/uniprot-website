@@ -103,6 +103,7 @@ const Authors: FC<AuthorProps> = ({ authors, authoringGroup, limit = 10 }) => {
           <Link to={getLinkToAuthor(group)}>{group}</Link>
         </Fragment>
       ))}
+      <br />
       {displayedAuthors.map((author, index) => (
         // eslint-disable-next-line react/no-array-index-key
         <Fragment key={index}>
@@ -170,6 +171,11 @@ type JournalInfoProps = {
     submissionDatabase?: string;
     citationType?: CitationType;
     locator?: string;
+    editors?: string[];
+    bookName?: string;
+    publisher?: string;
+    address?: string;
+    patentNumber?: string;
   };
 };
 
@@ -184,9 +190,20 @@ export const JournalInfo: FC<JournalInfoProps> = ({
     submissionDatabase,
     citationType,
     locator,
+    editors,
+    bookName,
+    publisher,
+    address,
+    patentNumber,
   },
 }) => {
-  const name = journal || doiId;
+  let name = journal || doiId;
+
+  if (citationType === 'book' && bookName) {
+    name =
+      editors !== undefined ? `${editors?.join(',')}; ${bookName}` : bookName;
+  }
+
   let page = null;
   if (firstPage) {
     page = firstPage;
@@ -220,8 +237,12 @@ export const JournalInfo: FC<JournalInfoProps> = ({
       )}
       {name} {volume}
       {volume && page && ':'}
-      {page}
+      {page && `${page} `}
       {submissionDatabase && `Submitted to ${submissionDatabase} `}
+      {patentNumber && `Patent publication ${patentNumber} `}
+      {publisher}
+      {publisher && address && ', '}
+      {address}
       {date}
     </>
   );

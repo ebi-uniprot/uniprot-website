@@ -19,6 +19,7 @@ exports[`Publication component should render 1`] = `
         <div
           class="publication__authors"
         >
+          <br />
           <a
             href="/uniprotkb?query=lit_author:\\"Ota T.\\""
           >
@@ -147,7 +148,7 @@ exports[`Publication component should render 1`] = `
                   rel="noopener"
                   target="_blank"
                 >
-                  Nat. Genet. 36:40-45(
+                  Nat. Genet. 36:40-45 (
                   <time
                     datetime="2004-01-01T00:00:00.000Z"
                   >
