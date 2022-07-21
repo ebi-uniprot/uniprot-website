@@ -1683,7 +1683,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
               BLAST
             </a>
             <button
-              class="button tertiary"
+              class="button tertiary no-small"
               title="Add 1 entry to the basket"
               type="button"
             >

@@ -103,7 +103,7 @@ exports[`FeaturesView component it renders without crashing 1`] = `
                   BLAST
                 </a>
                 <button
-                  class="button tertiary"
+                  class="button tertiary no-small"
                   title="Add 1 entry to the basket"
                   type="button"
                 >

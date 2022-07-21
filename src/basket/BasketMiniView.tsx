@@ -62,16 +62,15 @@ export const updateResultsWithAccessionSubsets = (
   results: APIModel[],
   namespace: Namespace,
   accessions: string[]
-) => {
-  return results.map((r, index) => {
+) =>
+  results.map((r, index) => {
     if (namespace === Namespace.uniprotkb) {
-      const entry: UniProtkbAPIModel = { ...r };
+      const entry = { ...r } as UniProtkbAPIModel;
       entry.primaryAccession = accessions[index];
       return entry;
     }
     return r;
   });
-};
 
 const BasketMiniViewTab = ({
   accessions,
