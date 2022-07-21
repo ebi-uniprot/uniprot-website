@@ -8,6 +8,7 @@ import GOTermEvidenceTag from '../protein-data-views/GOTermEvidenceTag';
 
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 import useSafeState from '../../../shared/hooks/useSafeState';
+import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import externalUrls from '../../../shared/config/externalUrls';
 
@@ -54,6 +55,8 @@ const GoRibbon = ({
   geneNamesData,
   organismData,
 }: GoRibbonType) => {
+  const isSmallScreen = useSmallScreen();
+
   const nodeRef = useRef<HTMLElement>();
 
   const datatableElement = useCustomElement(
@@ -223,12 +226,14 @@ const GoRibbon = ({
   return (
     <div className="GoRibbon">
       <h3 data-article-id="gene_ontology">GO Annotations</h3>
-      <Helmet>
-        <script
-          type="module"
-          src="https://unpkg.com/@geneontology/wc-ribbon-strips@0.0.37/dist/wc-ribbon-strips/wc-ribbon-strips.esm.js"
-        />
-      </Helmet>
+      {!isSmallScreen && (
+        <Helmet>
+          <script
+            type="module"
+            src="https://unpkg.com/@geneontology/wc-ribbon-strips@0.0.37/dist/wc-ribbon-strips/wc-ribbon-strips.esm.js"
+          />
+        </Helmet>
+      )}
       {elementLoaded && slimSets && (
         <label className={styles['set-selector']}>
           <div>Slimming set:</div>

@@ -425,13 +425,15 @@ export const EntryHistoryList = ({ accession }: { accession: string }) => {
         </Button>
       </div>
       {data.length ? (
-        <DataTable
-          columns={columns}
-          data={data}
-          getIdKey={getIdKey}
-          density="compact"
-          onSelectionChange={setSelectedItemFromEvent}
-        />
+        <div className={helper['overflow-y-container']}>
+          <DataTable
+            columns={columns}
+            data={data}
+            getIdKey={getIdKey}
+            density="compact"
+            onSelectionChange={setSelectedItemFromEvent}
+          />
+        </div>
       ) : (
         'Sorry, there is no history information to show'
       )}

@@ -27,24 +27,7 @@ exports[`non-critical HomePage component should render 1`] = `
             new API documentation
           </a>
           .
-        </small>
-      </section>
-    </div>
-    <div
-      class="uniprot-grid-cell--span-12 message message--info"
-      role="status"
-    >
-      <div
-        class="message__side-border"
-      />
-      <test-file-stub
-        height="1.125em"
-        width="1.125em"
-      />
-      <section
-        class="message__content"
-      >
-        <small>
+          <br />
           If you still need it, the 
           <a
             class="external-link"

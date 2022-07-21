@@ -1,8 +1,9 @@
-import { lazy } from 'react';
+import { lazy, useState } from 'react';
 import { groupBy } from 'lodash-es';
-import { Card } from 'franklin-sites';
+import { Button, Card, Message } from 'franklin-sites';
 
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import EntrySection, {
   getEntrySectionNameAndId,
@@ -39,6 +40,8 @@ const StructureSection = ({
   crc64,
 }: Props) => {
   const databaseInfoMaps = useDatabaseInfoMaps();
+  const isSmallScreen = useSmallScreen();
+  const [displayStructure, setDisplayStructure] = useState(!isSmallScreen);
   if (!databaseInfoMaps) {
     return null;
   }
@@ -101,9 +104,22 @@ const StructureSection = ({
       id={EntrySection.Structure}
       data-entry-section
     >
-      <LazyComponent rootMargin="100px">
-        <StructureView primaryAccession={primaryAccession} />
-      </LazyComponent>
+      {displayStructure ? (
+        <LazyComponent rootMargin="100px">
+          <StructureView primaryAccession={primaryAccession} />
+        </LazyComponent>
+      ) : (
+        <>
+          <br />
+          <Message level="info">
+            The structure viewer has not automatically been loaded on this
+            device.
+          </Message>
+          <Button variant="secondary" onClick={() => setDisplayStructure(true)}>
+            Click to load the structure viewer
+          </Button>
+        </>
+      )}
       <FeaturesView
         primaryAccession={primaryAccession}
         features={data.featuresData}

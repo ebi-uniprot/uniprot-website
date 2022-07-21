@@ -90,7 +90,12 @@ const ContactForm = () => {
 
   return (
     <>
-      <HTMLHead title="Contact us" />
+      <HTMLHead title="Contact us">
+        <link
+          rel="canonical"
+          href={window.location.origin + window.location.pathname}
+        />
+      </HTMLHead>
       <PageIntro title="Contact us" />
       <section className={styles.container}>
         <h2 className="medium">{description}</h2>

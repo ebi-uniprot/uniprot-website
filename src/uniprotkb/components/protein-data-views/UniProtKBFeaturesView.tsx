@@ -9,6 +9,7 @@ import FeaturesView, {
   LocationModifier,
   ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';
+import { RichText } from './FreeTextView';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
@@ -179,23 +180,25 @@ const UniProtKBFeaturesView = ({
                 <td id={feature.featureId}>{feature.featureId}</td>
                 <td>{position}</td>
                 <td>
-                  {isoform
-                    ? feature.description
-                        ?.split(new RegExp(`(${isoform})`))
-                        .map((part) => {
-                          if (part === isoform) {
-                            return (
-                              <Link
-                                key={part}
-                                to={getEntryPath(Namespace.uniprotkb, part)}
-                              >
-                                {part}
-                              </Link>
-                            );
-                          }
-                          return part;
-                        })
-                    : feature.description}
+                  {isoform ? (
+                    feature.description
+                      ?.split(new RegExp(`(${isoform})`))
+                      .map((part) => {
+                        if (part === isoform) {
+                          return (
+                            <Link
+                              key={part}
+                              to={getEntryPath(Namespace.uniprotkb, part)}
+                            >
+                              {part}
+                            </Link>
+                          );
+                        }
+                        return <RichText>{part}</RichText>;
+                      })
+                  ) : (
+                    <RichText>{feature.description}</RichText>
+                  )}
                   <UniProtKBEvidenceTag evidences={feature.evidences} />
                 </td>
                 {smallScreen ? null : (
