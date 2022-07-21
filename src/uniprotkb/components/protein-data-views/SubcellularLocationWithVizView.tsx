@@ -5,6 +5,8 @@ import SubcellularLocationView from './SubcellularLocationView';
 import SubcellularLocationGOView from './SubcellularLocationGOView';
 import LazyComponent from '../../../shared/components/LazyComponent';
 
+import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
+
 import {
   getEvidenceCodeData,
   getEcoNumberFromGoEvidenceType,
@@ -70,6 +72,8 @@ const SubcellularLocationWithVizView: FC<
   // P11926      only GO data
   // Q00733      only notes
   // A0A2K3DA85  no data
+
+  const isSmallScreen = useSmallScreen();
 
   // Need lineage to determine if this protein is within a virus as swissbiopics is (currently) incompatible with viruses
   if ((!comments?.length && !goXrefs?.length) || !lineage) {
@@ -172,6 +176,10 @@ const SubcellularLocationWithVizView: FC<
       </Tab>
     </Tabs>
   );
+
+  if (isSmallScreen) {
+    return fallback;
+  }
 
   return (
     <LazyComponent fallback={fallback} rootMargin="50px">

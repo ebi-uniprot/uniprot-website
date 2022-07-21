@@ -4,6 +4,7 @@ import TransformedVariant from 'protvista-variation-adapter';
 import LazyComponent from '../LazyComponent';
 
 import useCustomElement from '../../hooks/useCustomElement';
+import { useSmallScreen } from '../../hooks/useMatchMedia';
 
 import FeatureTypeHelpMappings from '../../../help/config/featureTypeHelpMappings';
 
@@ -58,6 +59,8 @@ const FeaturesView = <
   trackHeight,
   withTitle = true,
 }: FeatureProps<T>) => {
+  const isSmallScreen = useSmallScreen();
+
   const managerElement = useCustomElement(
     /* istanbul ignore next */
     () =>
@@ -107,7 +110,10 @@ const FeaturesView = <
       )}
       <managerElement.name attributes="highlight displaystart displayend selectedid">
         {sequence && (
-          <LazyComponent rootMargin="50px">
+          <LazyComponent
+            rootMargin="50px"
+            render={isSmallScreen ? false : undefined}
+          >
             <VisualFeaturesView
               features={features}
               sequence={sequence}

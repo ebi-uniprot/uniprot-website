@@ -24,6 +24,8 @@ import { Sequence } from '../../../shared/types/sequence';
 import { ProteinExistence } from '../../../tools/blast/types/apiSequenceData';
 import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
+import helper from '../../../shared/styles/helper.module.scss';
+
 type ProteinEntryLight = {
   id: string;
   sequence: Sequence;
@@ -144,15 +146,17 @@ const ComputationalyMappedSequences = ({
             </Link>
           </div>
 
-          <DataTable
-            getIdKey={({ id }) => id}
-            density="compact"
-            columns={columns}
-            data={filteredData}
-            onSelectionChange={
-              smallScreen ? undefined : setSelectedItemFromEvent
-            }
-          />
+          <div className={helper['overflow-y-container']}>
+            <DataTable
+              getIdKey={({ id }) => id}
+              density="compact"
+              columns={columns}
+              data={filteredData}
+              onSelectionChange={
+                smallScreen ? undefined : setSelectedItemFromEvent
+              }
+            />
+          </div>
         </>
       )}
     </div>

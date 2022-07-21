@@ -12,6 +12,8 @@ import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
 import KineticsTableView from './KineticsTableView';
 
+import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
+
 import { hasContent } from '../../../shared/utils/utils';
 import {
   FunctionUIModel,
@@ -172,6 +174,8 @@ type Props = {
 };
 
 const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
+  const isSmallScreen = useSmallScreen();
+
   if (!hasContent(data)) {
     return null;
   }
@@ -240,6 +244,7 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
             | undefined
         }
         title="catalytic activity"
+        defaultHideAllReactions={isSmallScreen}
       />
       <CofactorView
         cofactors={
