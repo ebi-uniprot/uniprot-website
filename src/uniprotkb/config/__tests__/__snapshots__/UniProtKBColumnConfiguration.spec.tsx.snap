@@ -1672,13 +1672,25 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
           />
         </td>
         <td>
-          <a
-            class="button tertiary"
-            href="/blast?ids=P21802[2-8]"
-            title="BLAST the sequence corresponding to this feature"
+          <div
+            class="button-group"
           >
-            BLAST
-          </a>
+            <a
+              class="button tertiary"
+              href="/blast?ids=P21802[2-8]"
+              title="BLAST the sequence corresponding to this feature"
+            >
+              BLAST
+            </a>
+            <button
+              class="button tertiary no-small"
+              title="Add 1 entry to the basket"
+              type="button"
+            >
+              <test-file-stub />
+              Add
+            </button>
+          </div>
         </td>
       </tr>
       <tr

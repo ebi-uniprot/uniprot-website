@@ -14,6 +14,9 @@ import usePagination from '../shared/hooks/usePagination';
 import useNSQuery from '../shared/hooks/useNSQuery';
 import useDataApiWithStale from '../shared/hooks/useDataApiWithStale';
 
+import { reIds } from '../tools/utils/urls';
+import { updateResultsWithAccessionSubsets } from './BasketMiniView';
+
 import { LocationToPath, Location, basketNamespaces } from '../app/config/urls';
 
 import {
@@ -35,13 +38,19 @@ const BasketFullView = () => {
   const subBasket = basket.get(namespace) || new Set();
   const accessions = Array.from(subBasket);
 
+  const subsetsMap = new Map();
+  accessions.forEach((acc) => {
+    const { id } = acc.match(reIds)?.groups || { acc };
+    subsetsMap.set(acc, id);
+  });
+
   // Below here similar (but not identical) to the Results component
   const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
     useItemSelect();
 
   // Query for facets
   const initialApiFacetUrl = useNSQuery({
-    accessions,
+    accessions: Array.from(subsetsMap.values()), // Passing accessions without modifications in case of subsets
     overrideNS: namespace,
     withFacets: true,
     withColumns: false,
@@ -58,7 +67,7 @@ const BasketFullView = () => {
 
   // Query for basket data
   const initialApiUrl = useNSQuery({
-    accessions,
+    accessions: Array.from(subsetsMap.values()), // Passing accessions without modifications in case of subsets
     overrideNS: namespace,
     withFacets: false,
   });
@@ -92,6 +101,13 @@ const BasketFullView = () => {
     return <Loader progress={resultsDataProgress} />;
   }
 
+  // Replacing the full accession including subsets in the resultsData
+  resultsDataObject.allResults = updateResultsWithAccessionSubsets(
+    resultsDataObject.allResults,
+    namespace,
+    accessions
+  );
+
   return (
     <SideBarLayout
       sidebar={
@@ -123,6 +139,7 @@ const BasketFullView = () => {
         setSelectedEntries={setSelectedEntries}
         accessions={accessions}
         namespaceOverride={namespace}
+        subsetsMap={subsetsMap}
         inBasket
       />
       <ResultsData
