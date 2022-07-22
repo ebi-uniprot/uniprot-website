@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AccessionView should link only the accession leaving out the subset 1`] = `
+<DocumentFragment>
+  <span
+    class="no-wrap accession-view"
+  >
+    <a
+      class="accession"
+      href="/uniprotkb/P59594/entry"
+    >
+      P59594
+    </a>
+    <span>
+      [424-494]
+    </span>
+  </span>
+</DocumentFragment>
+`;

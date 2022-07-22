@@ -20,10 +20,14 @@ import {
   ColumnDescriptor,
   getColumnsToDisplay,
 } from '../shared/hooks/useColumns';
+
+import { reIds } from '../tools/utils/urls';
+
 import { APIModel } from '../shared/types/apiModel';
 import { UniProtKBColumn } from '../uniprotkb/types/columnTypes';
 import { UniRefColumn } from '../uniref/config/UniRefColumnConfiguration';
 import { UniParcColumn } from '../uniparc/config/UniParcColumnConfiguration';
+import { UniProtkbAPIModel } from '../uniprotkb/adapters/uniProtkbConverter';
 
 import helper from '../shared/styles/helper.module.scss';
 import styles from './styles/basket-mini-view.module.scss';
@@ -54,6 +58,20 @@ type BasketMiniViewTabProps = {
   closePanel: () => void;
 };
 
+export const updateResultsWithAccessionSubsets = (
+  results: APIModel[],
+  namespace: Namespace,
+  accessions: string[]
+) =>
+  results.map((r, index) => {
+    if (namespace === Namespace.uniprotkb) {
+      const entry = { ...r } as UniProtkbAPIModel;
+      entry.primaryAccession = accessions[index];
+      return entry;
+    }
+    return r;
+  });
+
 const BasketMiniViewTab = ({
   accessions,
   namespace,
@@ -61,6 +79,12 @@ const BasketMiniViewTab = ({
   setBasket,
   closePanel,
 }: BasketMiniViewTabProps) => {
+  const subsetsMap = new Map();
+  accessions.forEach((acc) => {
+    const { id } = acc.match(reIds)?.groups || { acc };
+    subsetsMap.set(acc, id);
+  });
+
   const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
     useItemSelect();
 
@@ -70,7 +94,7 @@ const BasketMiniViewTab = ({
   }, [namespace, setSelectedEntries]);
 
   const initialApiUrl = useNSQuery({
-    accessions,
+    accessions: Array.from(subsetsMap.values()), // Passing accessions without modifications in case of subsets
     overrideNS: namespace,
     withFacets: false,
     withColumns: false,
@@ -95,6 +119,13 @@ const BasketMiniViewTab = ({
     [namespace, columnNames, databaseInfoMaps]
   );
 
+  // Replacing the full accession including subsets in the resultsData
+  resultsDataObject.allResults = updateResultsWithAccessionSubsets(
+    resultsDataObject.allResults,
+    namespace,
+    accessions
+  );
+
   return (
     <>
       <ResultsButtons
@@ -104,6 +135,7 @@ const BasketMiniViewTab = ({
         setSelectedEntries={setSelectedEntries}
         accessions={accessions}
         namespaceOverride={namespace}
+        subsetsMap={subsetsMap}
         inBasket
         notCustomisable
       />

@@ -29,4 +29,11 @@ describe('AccessionView', () => {
       screen.queryByTitle(/reference Proteome entry/)
     ).not.toBeInTheDocument();
   });
+
+  it('should link only the accession leaving out the subset', () => {
+    const { asFragment } = customRender(
+      <AccessionView id="P59594[424-494]" namespace={Namespace.uniprotkb} />
+    );
+    expect(asFragment()).toMatchSnapshot();
+  });
 });
