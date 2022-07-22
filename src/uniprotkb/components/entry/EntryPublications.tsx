@@ -134,10 +134,12 @@ const PublicationReference: FC<{
             {url ? (
               <>
                 <EntryTypeIcon entryType="computationally mapped" />
-                <ExternalLink url={url}>{source.name}</ExternalLink>
+                {source.name}:<ExternalLink url={url}>{source.id}</ExternalLink>
               </>
             ) : (
-              source.name
+              <span>
+                {source.name}:{source.id}
+              </span>
             )}
             {source.name === 'ORCID' && (
               <>
