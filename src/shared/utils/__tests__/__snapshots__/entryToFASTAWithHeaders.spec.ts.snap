@@ -25,6 +25,21 @@ exports[`entryToFASTAWithHeaders modification should handle subsets 1`] = `
 QDF"
 `;
 
+exports[`entryToFASTAWithHeaders modification should handle variations, deletions 1`] = `
+">sp|P21802|uniprot_id|4-6>- rec full Name OS=scientific name OX=9606 GN=some Gene PE=1 SV=5
+SAPFMRF"
+`;
+
+exports[`entryToFASTAWithHeaders modification should handle variations, insertions 1`] = `
+">sp|P21802|uniprot_id|4>SLMN rec full Name OS=scientific name OX=9606 GN=some Gene PE=1 SV=5
+SAPSLMNQDF MRF"
+`;
+
+exports[`entryToFASTAWithHeaders modification should handle variations, replacements 1`] = `
+">sp|P21802|uniprot_id|4-6>XXXXXX rec full Name OS=scientific name OX=9606 GN=some Gene PE=1 SV=5
+SAPXXXXXXF MRF"
+`;
+
 exports[`entryToFASTAWithHeaders should handle UniParc entries 1`] = `
 ">UPI0000000001 status=true
 MGAAASIQTT VNTLSERISS KLEQEANASA QTKCDIEIGN FYIRQNHGCN LTVKNMCSAD

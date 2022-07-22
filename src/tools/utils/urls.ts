@@ -1,5 +1,4 @@
-export const reIds = /(?<id>\w+-?\d*)(\[(?<start>\d+)-(?<end>\d+)\])?/;
-// Note: also supporting isoform in regex
+import { reAccession } from '../../shared/utils/modifications';
 
 export type IdMaybeWithRange = {
   id: string;
@@ -13,14 +12,15 @@ export const parseIdsFromSearchParams = (
   searchParamIds
     .split(',')
     .map((searchParamId): IdMaybeWithRange => {
-      const { id, start, end } = searchParamId.match(reIds)?.groups || {};
+      const { accession, start, end } =
+        searchParamId.match(reAccession)?.groups || {};
       return start && end
         ? {
-            id,
+            id: accession,
             start: +start,
             end: +end,
           }
-        : { id };
+        : { id: accession };
     })
     .filter((idMaybeWithRange): idMaybeWithRange is IdMaybeWithRange =>
       Boolean(idMaybeWithRange)

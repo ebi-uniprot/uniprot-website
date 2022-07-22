@@ -1,5 +1,4 @@
 import {
-  FC,
   useState,
   Suspense,
   Dispatch,
@@ -66,7 +65,7 @@ type ResultsButtonsProps = {
   subsetsMap?: Map<string, string>;
 };
 
-const ResultsButtons: FC<ResultsButtonsProps> = ({
+const ResultsButtons = ({
   selectedEntries,
   setSelectedEntries,
   total,
@@ -78,7 +77,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
   inBasket = false,
   notCustomisable = false,
   subsetsMap,
-}) => {
+}: ResultsButtonsProps) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
   const {

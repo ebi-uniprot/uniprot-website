@@ -54,5 +54,29 @@ describe('entryToFASTAWithHeaders', () => {
         })
       ).toMatchSnapshot();
     });
+
+    it('should handle variations, replacements', () => {
+      expect(
+        entryToFASTAWithHeaders(uniProtKBEntryModelData, {
+          variations: [{ start: 4, end: 6, replacement: 'XXXXXX' }],
+        })
+      ).toMatchSnapshot();
+    });
+
+    it('should handle variations, deletions', () => {
+      expect(
+        entryToFASTAWithHeaders(uniProtKBEntryModelData, {
+          variations: [{ start: 4, end: 6, replacement: '-' }],
+        })
+      ).toMatchSnapshot();
+    });
+
+    it('should handle variations, insertions', () => {
+      expect(
+        entryToFASTAWithHeaders(uniProtKBEntryModelData, {
+          variations: [{ start: 4, end: 4, replacement: 'SLMN' }],
+        })
+      ).toMatchSnapshot();
+    });
   });
 });

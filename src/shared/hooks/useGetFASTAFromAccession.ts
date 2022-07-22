@@ -9,25 +9,28 @@ import entryToFASTAWithHeaders from '../utils/entryToFASTAWithHeaders';
 import accessionToNamespace from '../utils/accessionToNamespace';
 import { getIdKeyFor } from '../utils/getIdKeyForNamespace';
 
-import { IdMaybeWithRange } from '../../tools/utils/urls';
+import { AccessionWithModifications } from '../utils/modifications';
 import { Namespace } from '../types/namespaces';
 import { SearchResults } from '../types/results';
 import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
 import { UniRefLiteAPIModel } from '../../uniref/adapters/uniRefConverter';
 import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
 
-const groupByNamespace = ({ id }: IdMaybeWithRange) => accessionToNamespace(id);
+const groupByNamespace = ({ accession }: AccessionWithModifications) =>
+  accessionToNamespace(accession);
 
 const useGetFASTAFromAccesion = (
-  idsMaybeWithRange?: IdMaybeWithRange[] | null
+  accessionsWithModification?: AccessionWithModifications[] | null
 ) => {
   const [uniProtKBURL, uniRefURL, uniParcURL] = useMemo(() => {
-    const groups = groupBy(idsMaybeWithRange, groupByNamespace);
+    const groups = groupBy(accessionsWithModification, groupByNamespace);
 
     const uniProtKBURL = groups[Namespace.uniprotkb]?.length
       ? getAccessionsURL(
           Array.from(
-            new Set(groups[Namespace.uniprotkb].map(({ id }) => id))
+            new Set(
+              groups[Namespace.uniprotkb].map(({ accession }) => accession)
+            )
           ).sort(),
           {
             facets: null,
@@ -49,7 +52,7 @@ const useGetFASTAFromAccesion = (
     const uniRefURL = groups[Namespace.uniref]?.length
       ? getAccessionsURL(
           Array.from(
-            new Set(groups[Namespace.uniref].map(({ id }) => id))
+            new Set(groups[Namespace.uniref].map(({ accession }) => accession))
           ).sort(),
           {
             facets: null,
@@ -70,7 +73,7 @@ const useGetFASTAFromAccesion = (
     const uniParcURL = groups[Namespace.uniparc]?.length
       ? getAccessionsURL(
           Array.from(
-            new Set(groups[Namespace.uniparc].map(({ id }) => id))
+            new Set(groups[Namespace.uniparc].map(({ accession }) => accession))
           ).sort(),
           {
             facets: null,
@@ -81,7 +84,7 @@ const useGetFASTAFromAccesion = (
       : null;
 
     return [uniProtKBURL, uniRefURL, uniParcURL];
-  }, [idsMaybeWithRange]);
+  }, [accessionsWithModification]);
 
   const data = {
     [Namespace.uniprotkb]:
@@ -99,20 +102,21 @@ const useGetFASTAFromAccesion = (
   let fasta = '';
 
   if (!loading) {
-    for (const idMaybeWithRange of idsMaybeWithRange || []) {
-      const namespace = groupByNamespace(idMaybeWithRange);
+    for (const accessionWithModification of accessionsWithModification || []) {
+      const namespace = groupByNamespace(accessionWithModification);
       const entry = (
         data[namespace].data?.results as
           | undefined
           | Array<UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel>
-      )?.find((entry) => getIdKeyFor(namespace)(entry) === idMaybeWithRange.id);
+      )?.find(
+        (entry) =>
+          getIdKeyFor(namespace)(entry) === accessionWithModification.accession
+      );
       if (entry) {
-        fasta += `\n\n${entryToFASTAWithHeaders(entry, {
-          subsets:
-            idMaybeWithRange.start && idMaybeWithRange.end
-              ? [{ start: idMaybeWithRange.start, end: idMaybeWithRange.end }]
-              : [],
-        })}`;
+        fasta += `\n\n${entryToFASTAWithHeaders(
+          entry,
+          accessionWithModification.modifications
+        )}`;
       }
     }
   }

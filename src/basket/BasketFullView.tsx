@@ -50,7 +50,8 @@ const BasketFullView = () => {
 
   // Query for facets
   const initialApiFacetUrl = useNSQuery({
-    accessions: Array.from(subsetsMap.values()), // Passing accessions without modifications in case of subsets
+    // Passing accessions without modifications in case of subsets
+    accessions: Array.from(new Set(subsetsMap.values())),
     overrideNS: namespace,
     withFacets: true,
     withColumns: false,
@@ -67,7 +68,8 @@ const BasketFullView = () => {
 
   // Query for basket data
   const initialApiUrl = useNSQuery({
-    accessions: Array.from(subsetsMap.values()), // Passing accessions without modifications in case of subsets
+    // Passing accessions without modifications in case of subsets
+    accessions: Array.from(new Set(subsetsMap.values())),
     overrideNS: namespace,
     withFacets: false,
   });

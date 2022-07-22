@@ -94,7 +94,8 @@ const BasketMiniViewTab = ({
   }, [namespace, setSelectedEntries]);
 
   const initialApiUrl = useNSQuery({
-    accessions: Array.from(subsetsMap.values()), // Passing accessions without modifications in case of subsets
+    // Passing accessions without modifications in case of subsets
+    accessions: Array.from(new Set(subsetsMap.values())),
     overrideNS: namespace,
     withFacets: false,
     withColumns: false,

@@ -1,5 +1,9 @@
 import { formatFASTA } from 'franklin-sites';
 
+import * as logging from './logging';
+
+import { stringifyModifications, Modifications } from './modifications';
+
 import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
 import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
 import {
@@ -11,10 +15,6 @@ import {
   EntryType,
 } from '../components/entry/EntryTypeIcon';
 import { APISequenceData } from '../../tools/blast/types/apiSequenceData';
-
-type Subset = { start: number; end: number };
-
-export type Modifications = { subsets: Subset[] }; // keep open for variant for example?
 
 // build a "nicely"-formatted FASTA string
 // See https://www.uniprot.org/help/fasta-headers for current headers
@@ -32,16 +32,27 @@ const entryToFASTAWithHeaders = (
       ? entry.representativeMember.sequence.value
       : entry.sequence.value) || '';
 
-  const subsets = [];
   // if any change is required on the sequence, do it here
-  if (modifications) {
-    if (modifications.subsets.length) {
-      let subsetSequence = '';
-      for (const { start, end } of modifications.subsets) {
-        subsetSequence += sequence.slice(start - 1, end);
-        subsets.push(`${start}-${end}`);
+  if (modifications?.subsets?.length) {
+    let subsetSequence = '';
+    for (const { start, end } of modifications.subsets) {
+      subsetSequence += sequence.slice(start - 1, end);
+    }
+    sequence = subsetSequence;
+  }
+  // NOTE: doesn't really make sense to use subset & variations together
+  if (modifications?.variations?.length) {
+    // when applying multiple variations, keep track of sequence size changes
+    let sizeDiff = 0;
+    for (const { start, end, replacement } of modifications.variations) {
+      const before = sequence.substring(0, start - 1 + sizeDiff);
+      const after = sequence.substring(end + sizeDiff);
+      sequence = before + (replacement === '-' ? '' : replacement) + after;
+      // calculate by how much the sequence changed to apply right variations
+      sizeDiff = end - start + 1;
+      if (replacement !== '-') {
+        sizeDiff += replacement.length;
       }
-      sequence = subsetSequence;
     }
   }
 
@@ -97,12 +108,13 @@ const entryToFASTAWithHeaders = (
         optionalSV = `SV=${entry.entryAudit.sequenceVersion}`;
       }
       let optionalSubset = '';
-      if (subsets.length) {
-        optionalSubset = `|${subsets.join(',')}`;
+      if (modifications?.subsets || modifications?.variations) {
+        optionalSubset = `|${stringifyModifications(modifications)}`;
       }
       sequence = `>${db}|${entry.primaryAccession}|${entry.uniProtkbId}${optionalSubset} ${optionalProteinName}${optionalOS}${optionalOX}${optionalGN}PE=${pe} ${optionalSV}\n${sequence}`;
     }
   } catch {
+    logging.warn(`Couldn't generate a FASTA header`);
     // empty header 🤷🏽‍♂️
     sequence = `>\n${sequence}`;
   }
