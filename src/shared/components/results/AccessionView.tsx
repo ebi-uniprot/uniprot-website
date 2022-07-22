@@ -20,7 +20,7 @@ type Props = {
 };
 
 const AccessionView = ({ id, namespace, entryType }: Props) => {
-  const { id: acc, start, end } = id.match(reIds)?.groups || { id };
+  const { id: acc, start, end } = (id && id.match(reIds)?.groups) || { id };
 
   return (
     <span className={cn(helper['no-wrap'], styles['accession-view'])}>
