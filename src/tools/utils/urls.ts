@@ -1,4 +1,4 @@
-export const reIds = /(?<id>\w+-?\d*)(\[(?<start>\d+)-(?<end>\d+)\])?/;
+const reIds = /(?<id>\w+-?\d*)(\[(?<start>\d+)-(?<end>\d+)\])?/;
 // Note: also supporting isoform in regex
 
 export type IdMaybeWithRange = {
