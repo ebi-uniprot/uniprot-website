@@ -335,15 +335,17 @@ export const MembersSection = ({
         <AlignButton selectedEntries={selectedEntries} />
         <AddToBasket selectedEntries={selectedEntries} />
       </div>
-      <DataTableWithLoader
-        hasMoreData={total > allResults.length + 1}
-        onLoadMoreItems={() => nextUrl && setUrl(nextUrl)}
-        columns={columns}
-        data={allResults}
-        getIdKey={getKey}
-        density="compact"
-        onSelectionChange={smallScreen ? undefined : setSelectedItemFromEvent}
-      />
+      <div className={helper['overflow-y-container']}>
+        <DataTableWithLoader
+          hasMoreData={total > allResults.length + 1}
+          onLoadMoreItems={() => nextUrl && setUrl(nextUrl)}
+          columns={columns}
+          data={allResults}
+          getIdKey={getKey}
+          density="compact"
+          onSelectionChange={smallScreen ? undefined : setSelectedItemFromEvent}
+        />
+      </div>
     </Card>
   );
 };

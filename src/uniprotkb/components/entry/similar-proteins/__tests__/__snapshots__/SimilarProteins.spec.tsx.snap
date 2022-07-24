@@ -57,90 +57,94 @@ exports[`SimilarProteins tests should fetch data and render 1`] = `
           >
             UniRef100_P05067
           </a>
-          <table
-            class="data-table data-table--compact"
+          <div
+            class="overflow-y-container"
           >
-            <thead>
-              <tr>
-                <th
-                  class=""
-                />
-                <th
-                  class=""
-                >
-                  Protein name
-                </th>
-                <th
-                  class=""
-                >
-                  Organism
-                </th>
-                <th
-                  class=""
-                >
-                  Length
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <span
-                    class="entry-title__status icon--unreviewed"
-                    title="This marks an unreviewed UniProtKB entry"
+            <table
+              class="data-table data-table--compact"
+            >
+              <thead>
+                <tr>
+                  <th
+                    class=""
+                  />
+                  <th
+                    class=""
                   >
-                    <test-file-stub />
-                  </span>
-                </td>
-                <td>
-                  <a
-                    href="/uniprotkb/A0A2J8MQ83"
+                    Protein name
+                  </th>
+                  <th
+                    class=""
                   >
-                    Amyloid-beta A4 protein
-                  </a>
-                </td>
-                <td>
-                  <a
-                    href="/taxonomy/9598"
-                    title="Pan troglodytes (Chimpanzee), taxon ID 9598"
+                    Organism
+                  </th>
+                  <th
+                    class=""
                   >
-                    Pan troglodytes (Chimpanzee)
-                  </a>
-                </td>
-                <td>
-                  180
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <span
-                    class="entry-title__status icon--unreviewed"
-                    title="This marks an unreviewed UniProtKB entry"
-                  >
-                    <test-file-stub />
-                  </span>
-                </td>
-                <td>
-                  <a
-                    href="/uniprotkb/A0A2J8UKJ9"
-                  >
-                    Amyloid-beta A4 protein
-                  </a>
-                </td>
-                <td>
-                  <a
-                    href="/taxonomy/9601"
-                    title="Pongo abelii (Sumatran orangutan) (Pongo pygmaeus abelii), taxon ID 9601"
-                  >
-                    Pongo abelii (Sumatran orangutan) (Pongo pygmaeus abelii)
-                  </a>
-                </td>
-                <td>
-                  180
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                    Length
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <span
+                      class="entry-title__status icon--unreviewed"
+                      title="This marks an unreviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                  </td>
+                  <td>
+                    <a
+                      href="/uniprotkb/A0A2J8MQ83"
+                    >
+                      Amyloid-beta A4 protein
+                    </a>
+                  </td>
+                  <td>
+                    <a
+                      href="/taxonomy/9598"
+                      title="Pan troglodytes (Chimpanzee), taxon ID 9598"
+                    >
+                      Pan troglodytes (Chimpanzee)
+                    </a>
+                  </td>
+                  <td>
+                    180
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span
+                      class="entry-title__status icon--unreviewed"
+                      title="This marks an unreviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                  </td>
+                  <td>
+                    <a
+                      href="/uniprotkb/A0A2J8UKJ9"
+                    >
+                      Amyloid-beta A4 protein
+                    </a>
+                  </td>
+                  <td>
+                    <a
+                      href="/taxonomy/9601"
+                      title="Pongo abelii (Sumatran orangutan) (Pongo pygmaeus abelii), taxon ID 9601"
+                    >
+                      Pongo abelii (Sumatran orangutan) (Pongo pygmaeus abelii)
+                    </a>
+                  </td>
+                  <td>
+                    180
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
           <a
             href="/uniprotkb?query=(uniref_cluster_100:UniRef100_P05067) AND NOT (accession:P05067)"
           >
@@ -161,90 +165,94 @@ exports[`SimilarProteins tests should fetch data and render 1`] = `
           >
             UniRef100_P05067-4
           </a>
-          <table
-            class="data-table data-table--compact"
+          <div
+            class="overflow-y-container"
           >
-            <thead>
-              <tr>
-                <th
-                  class=""
-                />
-                <th
-                  class=""
-                >
-                  Protein name
-                </th>
-                <th
-                  class=""
-                >
-                  Organism
-                </th>
-                <th
-                  class=""
-                >
-                  Length
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <span
-                    class="entry-title__status icon--unreviewed"
-                    title="This marks an unreviewed UniProtKB entry"
+            <table
+              class="data-table data-table--compact"
+            >
+              <thead>
+                <tr>
+                  <th
+                    class=""
+                  />
+                  <th
+                    class=""
                   >
-                    <test-file-stub />
-                  </span>
-                </td>
-                <td>
-                  <a
-                    href="/uniprotkb/A0A2J8MQ83"
+                    Protein name
+                  </th>
+                  <th
+                    class=""
                   >
-                    Amyloid-beta A4 protein
-                  </a>
-                </td>
-                <td>
-                  <a
-                    href="/taxonomy/9598"
-                    title="Pan troglodytes (Chimpanzee), taxon ID 9598"
+                    Organism
+                  </th>
+                  <th
+                    class=""
                   >
-                    Pan troglodytes (Chimpanzee)
-                  </a>
-                </td>
-                <td>
-                  180
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <span
-                    class="entry-title__status icon--unreviewed"
-                    title="This marks an unreviewed UniProtKB entry"
-                  >
-                    <test-file-stub />
-                  </span>
-                </td>
-                <td>
-                  <a
-                    href="/uniprotkb/A0A2J8UKJ9"
-                  >
-                    Amyloid-beta A4 protein
-                  </a>
-                </td>
-                <td>
-                  <a
-                    href="/taxonomy/9601"
-                    title="Pongo abelii (Sumatran orangutan) (Pongo pygmaeus abelii), taxon ID 9601"
-                  >
-                    Pongo abelii (Sumatran orangutan) (Pongo pygmaeus abelii)
-                  </a>
-                </td>
-                <td>
-                  180
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                    Length
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <span
+                      class="entry-title__status icon--unreviewed"
+                      title="This marks an unreviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                  </td>
+                  <td>
+                    <a
+                      href="/uniprotkb/A0A2J8MQ83"
+                    >
+                      Amyloid-beta A4 protein
+                    </a>
+                  </td>
+                  <td>
+                    <a
+                      href="/taxonomy/9598"
+                      title="Pan troglodytes (Chimpanzee), taxon ID 9598"
+                    >
+                      Pan troglodytes (Chimpanzee)
+                    </a>
+                  </td>
+                  <td>
+                    180
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span
+                      class="entry-title__status icon--unreviewed"
+                      title="This marks an unreviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                  </td>
+                  <td>
+                    <a
+                      href="/uniprotkb/A0A2J8UKJ9"
+                    >
+                      Amyloid-beta A4 protein
+                    </a>
+                  </td>
+                  <td>
+                    <a
+                      href="/taxonomy/9601"
+                      title="Pongo abelii (Sumatran orangutan) (Pongo pygmaeus abelii), taxon ID 9601"
+                    >
+                      Pongo abelii (Sumatran orangutan) (Pongo pygmaeus abelii)
+                    </a>
+                  </td>
+                  <td>
+                    180
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
           <a
             href="/uniprotkb?query=(uniref_cluster_100:UniRef100_P05067-4) AND NOT (accession:P05067-4)"
           >
