@@ -17,15 +17,6 @@ exports[`FeaturesView component it renders without crashing 1`] = `
   <protvista-manager
     attributes="highlight displaystart displayend selectedid"
   >
-    <div
-      class="loader-container"
-    >
-      <test-file-stub
-        classname="loader"
-        height="100"
-        width="100"
-      />
-    </div>
     <protvista-datatable
       filter-scroll="true"
     >
