@@ -10,7 +10,6 @@ import FeaturesView, {
   ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';
 import { RichText } from './FreeTextView';
-import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
@@ -205,27 +204,23 @@ const UniProtKBFeaturesView = ({
                   <td>
                     {/* Not using React Router link as this is copied into the table DOM */}
                     {feature.end - feature.start >= 2 && (
-                      <div className="button-group">
-                        <Button
-                          element="a"
-                          variant="tertiary"
-                          title="BLAST the sequence corresponding to this feature"
-                          href={getURLToJobWithData(
-                            JobTypes.BLAST,
-                            primaryAccession,
-                            {
-                              start: feature.start,
-                              end: feature.end,
-                            }
-                          )}
-                        >
-                          BLAST
-                        </Button>
-                        <AddToBasketButton
-                          selectedEntries={`${primaryAccession}[${feature.start}-${feature.end}]`}
-                        />
-                      </div>
+                      <Button
+                        element="a"
+                        variant="tertiary"
+                        title="BLAST the sequence corresponding to this feature"
+                        href={getURLToJobWithData(
+                          JobTypes.BLAST,
+                          primaryAccession,
+                          {
+                            start: feature.start,
+                            end: feature.end,
+                          }
+                        )}
+                      >
+                        BLAST
+                      </Button>
                     )}
+                    {/* <Button>Add</Button> */}
                   </td>
                 )}
               </tr>

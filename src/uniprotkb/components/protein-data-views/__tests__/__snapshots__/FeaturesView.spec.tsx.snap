@@ -17,15 +17,6 @@ exports[`FeaturesView component it renders without crashing 1`] = `
   <protvista-manager
     attributes="highlight displaystart displayend selectedid"
   >
-    <div
-      class="loader-container"
-    >
-      <test-file-stub
-        classname="loader"
-        height="100"
-        width="100"
-      />
-    </div>
     <protvista-datatable
       filter-scroll="true"
     >
@@ -92,25 +83,13 @@ exports[`FeaturesView component it renders without crashing 1`] = `
               />
             </td>
             <td>
-              <div
-                class="button-group"
+              <a
+                class="button tertiary"
+                href="/blast?ids=P05067[1-17]"
+                title="BLAST the sequence corresponding to this feature"
               >
-                <a
-                  class="button tertiary"
-                  href="/blast?ids=P05067[1-17]"
-                  title="BLAST the sequence corresponding to this feature"
-                >
-                  BLAST
-                </a>
-                <button
-                  class="button tertiary no-small"
-                  title="Add 1 entry to the basket"
-                  type="button"
-                >
-                  <test-file-stub />
-                  Add
-                </button>
-              </div>
+                BLAST
+              </a>
             </td>
           </tr>
           <tr

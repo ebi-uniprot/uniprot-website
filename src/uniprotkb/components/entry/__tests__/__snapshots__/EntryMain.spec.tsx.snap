@@ -2434,15 +2434,6 @@ exports[`Entry view should render 1`] = `
         <protvista-manager
           attributes="highlight displaystart displayend selectedid"
         >
-          <div
-            class="loader-container"
-          >
-            <test-file-stub
-              classname="loader"
-              height="100"
-              width="100"
-            />
-          </div>
           <protvista-datatable
             filter-scroll="true"
           >
@@ -2514,25 +2505,13 @@ exports[`Entry view should render 1`] = `
                     />
                   </td>
                   <td>
-                    <div
-                      class="button-group"
+                    <a
+                      class="button tertiary"
+                      href="/blast?ids=P21802[2-8]"
+                      title="BLAST the sequence corresponding to this feature"
                     >
-                      <a
-                        class="button tertiary"
-                        href="/blast?ids=P21802[2-8]"
-                        title="BLAST the sequence corresponding to this feature"
-                      >
-                        BLAST
-                      </a>
-                      <button
-                        class="button tertiary no-small"
-                        title="Add 1 entry to the basket"
-                        type="button"
-                      >
-                        <test-file-stub />
-                        Add
-                      </button>
-                    </div>
+                      BLAST
+                    </a>
                   </td>
                 </tr>
                 <tr
@@ -4124,25 +4103,13 @@ exports[`Entry view should render for non-human entry 1`] = `
                     />
                   </td>
                   <td>
-                    <div
-                      class="button-group"
+                    <a
+                      class="button tertiary"
+                      href="/blast?ids=P0DTR4[180-402]"
+                      title="BLAST the sequence corresponding to this feature"
                     >
-                      <a
-                        class="button tertiary"
-                        href="/blast?ids=P0DTR4[180-402]"
-                        title="BLAST the sequence corresponding to this feature"
-                      >
-                        BLAST
-                      </a>
-                      <button
-                        class="button tertiary no-small"
-                        title="Add 1 entry to the basket"
-                        type="button"
-                      >
-                        <test-file-stub />
-                        Add
-                      </button>
-                    </div>
+                      BLAST
+                    </a>
                   </td>
                 </tr>
                 <tr
@@ -4350,25 +4317,13 @@ exports[`Entry view should render for non-human entry 1`] = `
                     />
                   </td>
                   <td>
-                    <div
-                      class="button-group"
+                    <a
+                      class="button tertiary"
+                      href="/blast?ids=P0DTR4[494-605]"
+                      title="BLAST the sequence corresponding to this feature"
                     >
-                      <a
-                        class="button tertiary"
-                        href="/blast?ids=P0DTR4[494-605]"
-                        title="BLAST the sequence corresponding to this feature"
-                      >
-                        BLAST
-                      </a>
-                      <button
-                        class="button tertiary no-small"
-                        title="Add 1 entry to the basket"
-                        type="button"
-                      >
-                        <test-file-stub />
-                        Add
-                      </button>
-                    </div>
+                      BLAST
+                    </a>
                   </td>
                 </tr>
                 <tr
@@ -4424,25 +4379,13 @@ exports[`Entry view should render for non-human entry 1`] = `
                     />
                   </td>
                   <td>
-                    <div
-                      class="button-group"
+                    <a
+                      class="button tertiary"
+                      href="/blast?ids=P0DTR4[502-765]"
+                      title="BLAST the sequence corresponding to this feature"
                     >
-                      <a
-                        class="button tertiary"
-                        href="/blast?ids=P0DTR4[502-765]"
-                        title="BLAST the sequence corresponding to this feature"
-                      >
-                        BLAST
-                      </a>
-                      <button
-                        class="button tertiary no-small"
-                        title="Add 1 entry to the basket"
-                        type="button"
-                      >
-                        <test-file-stub />
-                        Add
-                      </button>
-                    </div>
+                      BLAST
+                    </a>
                   </td>
                 </tr>
                 <tr
@@ -4498,25 +4441,13 @@ exports[`Entry view should render for non-human entry 1`] = `
                     />
                   </td>
                   <td>
-                    <div
-                      class="button-group"
+                    <a
+                      class="button tertiary"
+                      href="/blast?ids=P0DTR4[515-772]"
+                      title="BLAST the sequence corresponding to this feature"
                     >
-                      <a
-                        class="button tertiary"
-                        href="/blast?ids=P0DTR4[515-772]"
-                        title="BLAST the sequence corresponding to this feature"
-                      >
-                        BLAST
-                      </a>
-                      <button
-                        class="button tertiary no-small"
-                        title="Add 1 entry to the basket"
-                        type="button"
-                      >
-                        <test-file-stub />
-                        Add
-                      </button>
-                    </div>
+                      BLAST
+                    </a>
                   </td>
                 </tr>
                 <tr
@@ -5639,25 +5570,13 @@ exports[`Entry view should render for non-human entry 1`] = `
                     />
                   </td>
                   <td>
-                    <div
-                      class="button-group"
+                    <a
+                      class="button tertiary"
+                      href="/blast?ids=P0DTR4[1-27]"
+                      title="BLAST the sequence corresponding to this feature"
                     >
-                      <a
-                        class="button tertiary"
-                        href="/blast?ids=P0DTR4[1-27]"
-                        title="BLAST the sequence corresponding to this feature"
-                      >
-                        BLAST
-                      </a>
-                      <button
-                        class="button tertiary no-small"
-                        title="Add 1 entry to the basket"
-                        type="button"
-                      >
-                        <test-file-stub />
-                        Add
-                      </button>
-                    </div>
+                      BLAST
+                    </a>
                   </td>
                 </tr>
                 <tr
@@ -5695,25 +5614,13 @@ exports[`Entry view should render for non-human entry 1`] = `
                     A type blood N-acetyl-alpha-D-galactosamine deacetylase
                   </td>
                   <td>
-                    <div
-                      class="button-group"
+                    <a
+                      class="button tertiary"
+                      href="/blast?ids=P0DTR4[28-772]"
+                      title="BLAST the sequence corresponding to this feature"
                     >
-                      <a
-                        class="button tertiary"
-                        href="/blast?ids=P0DTR4[28-772]"
-                        title="BLAST the sequence corresponding to this feature"
-                      >
-                        BLAST
-                      </a>
-                      <button
-                        class="button tertiary no-small"
-                        title="Add 1 entry to the basket"
-                        type="button"
-                      >
-                        <test-file-stub />
-                        Add
-                      </button>
-                    </div>
+                      BLAST
+                    </a>
                   </td>
                 </tr>
                 <tr
@@ -6064,25 +5971,13 @@ exports[`Entry view should render for non-human entry 1`] = `
                     />
                   </td>
                   <td>
-                    <div
-                      class="button-group"
+                    <a
+                      class="button tertiary"
+                      href="/blast?ids=P0DTR4[180-402]"
+                      title="BLAST the sequence corresponding to this feature"
                     >
-                      <a
-                        class="button tertiary"
-                        href="/blast?ids=P0DTR4[180-402]"
-                        title="BLAST the sequence corresponding to this feature"
-                      >
-                        BLAST
-                      </a>
-                      <button
-                        class="button tertiary no-small"
-                        title="Add 1 entry to the basket"
-                        type="button"
-                      >
-                        <test-file-stub />
-                        Add
-                      </button>
-                    </div>
+                      BLAST
+                    </a>
                   </td>
                 </tr>
                 <tr
@@ -6138,25 +6033,13 @@ exports[`Entry view should render for non-human entry 1`] = `
                     />
                   </td>
                   <td>
-                    <div
-                      class="button-group"
+                    <a
+                      class="button tertiary"
+                      href="/blast?ids=P0DTR4[494-605]"
+                      title="BLAST the sequence corresponding to this feature"
                     >
-                      <a
-                        class="button tertiary"
-                        href="/blast?ids=P0DTR4[494-605]"
-                        title="BLAST the sequence corresponding to this feature"
-                      >
-                        BLAST
-                      </a>
-                      <button
-                        class="button tertiary no-small"
-                        title="Add 1 entry to the basket"
-                        type="button"
-                      >
-                        <test-file-stub />
-                        Add
-                      </button>
-                    </div>
+                      BLAST
+                    </a>
                   </td>
                 </tr>
                 <tr
@@ -6212,25 +6095,13 @@ exports[`Entry view should render for non-human entry 1`] = `
                     />
                   </td>
                   <td>
-                    <div
-                      class="button-group"
+                    <a
+                      class="button tertiary"
+                      href="/blast?ids=P0DTR4[502-765]"
+                      title="BLAST the sequence corresponding to this feature"
                     >
-                      <a
-                        class="button tertiary"
-                        href="/blast?ids=P0DTR4[502-765]"
-                        title="BLAST the sequence corresponding to this feature"
-                      >
-                        BLAST
-                      </a>
-                      <button
-                        class="button tertiary no-small"
-                        title="Add 1 entry to the basket"
-                        type="button"
-                      >
-                        <test-file-stub />
-                        Add
-                      </button>
-                    </div>
+                      BLAST
+                    </a>
                   </td>
                 </tr>
                 <tr
@@ -6286,25 +6157,13 @@ exports[`Entry view should render for non-human entry 1`] = `
                     />
                   </td>
                   <td>
-                    <div
-                      class="button-group"
+                    <a
+                      class="button tertiary"
+                      href="/blast?ids=P0DTR4[515-772]"
+                      title="BLAST the sequence corresponding to this feature"
                     >
-                      <a
-                        class="button tertiary"
-                        href="/blast?ids=P0DTR4[515-772]"
-                        title="BLAST the sequence corresponding to this feature"
-                      >
-                        BLAST
-                      </a>
-                      <button
-                        class="button tertiary no-small"
-                        title="Add 1 entry to the basket"
-                        type="button"
-                      >
-                        <test-file-stub />
-                        Add
-                      </button>
-                    </div>
+                      BLAST
+                    </a>
                   </td>
                 </tr>
                 <tr
