@@ -69,22 +69,27 @@ export const updateResultsWithAccessionSubsets = (
   }
   const getIdKey = getIdKeyFor(namespace);
   // for all the accessions in the basket
-  return accessions.map((accession) => {
-    let accessionToFind = accession;
-    if (namespace === Namespace.uniprotkb) {
-      // just find according to the part before the modifications
-      [accessionToFind] = accession.split('[');
-    }
-    // find the entry data in the API payload
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    let entry = results.find((result) => getIdKey(result) === accessionToFind)!;
-    if (namespace === Namespace.uniprotkb) {
-      entry = { ...entry }; // shallow copy
-      // change its accession
-      (entry as UniProtkbAPIModel).primaryAccession = accession;
-    }
-    return entry;
-  });
+  return accessions
+    .map((accession) => {
+      let accessionToFind = accession;
+      if (namespace === Namespace.uniprotkb) {
+        // just find according to the part before the modifications
+        [accessionToFind] = accession.split('[');
+      }
+      // find the entry data in the API payload
+      let entry = results.find(
+        (result) => getIdKey(result) === accessionToFind
+      );
+      if (namespace === Namespace.uniprotkb && entry) {
+        entry = { ...entry }; // shallow copy
+        // change its accession
+        (entry as UniProtkbAPIModel).primaryAccession = accession;
+      }
+      return entry;
+    })
+    .filter((entryOrNot: APIModel | undefined): entryOrNot is APIModel =>
+      Boolean(entryOrNot)
+    );
 };
 
 const BasketMiniViewTab = ({

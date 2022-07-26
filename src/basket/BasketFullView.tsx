@@ -56,6 +56,7 @@ const BasketFullView = () => {
     overrideNS: namespace,
     withFacets: true,
     withColumns: false,
+    size: 0,
   });
   const facetApiObject =
     useDataApiWithStale<SearchResults<APIModel>>(initialApiFacetUrl);
