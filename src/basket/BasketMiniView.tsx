@@ -94,11 +94,12 @@ const BasketMiniViewTab = ({
   setBasket,
   closePanel,
 }: BasketMiniViewTabProps) => {
-  const subsetsMap = new Map();
-  accessions.forEach((acc) => {
-    const { id } = acc.match(reIds)?.groups || { acc };
-    subsetsMap.set(acc, id);
-  });
+  const subsetsMap = new Map(
+    accessions.map((accession) => {
+      const { id } = accession.match(reIds)?.groups || { id: accession };
+      return [accession, id];
+    })
+  );
 
   const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
     useItemSelect();
