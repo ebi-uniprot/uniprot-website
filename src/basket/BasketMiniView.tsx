@@ -13,6 +13,9 @@ import usePagination from '../shared/hooks/usePagination';
 import useNSQuery from '../shared/hooks/useNSQuery';
 import useDatabaseInfoMaps from '../shared/hooks/useDatabaseInfoMaps';
 
+import { reIds } from '../tools/utils/urls';
+import { getIdKeyFor } from '../shared/utils/getIdKeyForNamespace';
+
 import { LocationToPath, Location } from '../app/config/urls';
 
 import { Namespace } from '../shared/types/namespaces';
@@ -20,8 +23,6 @@ import {
   ColumnDescriptor,
   getColumnsToDisplay,
 } from '../shared/hooks/useColumns';
-
-import { reIds } from '../tools/utils/urls';
 
 import { APIModel } from '../shared/types/apiModel';
 import { UniProtKBColumn } from '../uniprotkb/types/columnTypes';
@@ -62,15 +63,29 @@ export const updateResultsWithAccessionSubsets = (
   results: APIModel[],
   namespace: Namespace,
   accessions: string[]
-) =>
-  results.map((r, index) => {
+): APIModel[] => {
+  if (!results.length) {
+    return [];
+  }
+  const getIdKey = getIdKeyFor(namespace);
+  // for all the accessions in the basket
+  return accessions.map((accession) => {
+    let accessionToFind = accession;
     if (namespace === Namespace.uniprotkb) {
-      const entry = { ...r } as UniProtkbAPIModel;
-      entry.primaryAccession = accessions[index];
-      return entry;
+      // just find according to the part before the modifications
+      [accessionToFind] = accession.split('[');
     }
-    return r;
+    // find the entry data in the API payload
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    let entry = results.find((result) => getIdKey(result) === accessionToFind)!;
+    if (namespace === Namespace.uniprotkb) {
+      entry = { ...entry }; // shallow copy
+      // change its accession
+      (entry as UniProtkbAPIModel).primaryAccession = accession;
+    }
+    return entry;
   });
+};
 
 const BasketMiniViewTab = ({
   accessions,
@@ -94,7 +109,8 @@ const BasketMiniViewTab = ({
   }, [namespace, setSelectedEntries]);
 
   const initialApiUrl = useNSQuery({
-    accessions: Array.from(subsetsMap.values()), // Passing accessions without modifications in case of subsets
+    // Passing accessions without modifications in case of subsets
+    accessions: Array.from(new Set(subsetsMap.values())),
     overrideNS: namespace,
     withFacets: false,
     withColumns: false,
