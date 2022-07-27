@@ -14,12 +14,11 @@
   }
 
   &__sidebar {
+    flex: 0 0 30ch;
     @include scroll-shadow;
     position: sticky;
     top: var(--top-header-margin);
     max-height: calc(100vh - var(--top-header-margin));
-    min-width: 100px;
-    width: 30ch;
     padding: $gutter-size;
     overflow-y: auto;
     // TODO: validate with UX if that's a good thing to do
@@ -42,6 +41,9 @@
   }
 
   &__content {
-    width: calc(100vw - 30ch);
+    overflow-y: hidden;
+    /* -1px to avoid y scroll, don't ask me why... */
+    width: calc(100vw - 30ch - #{$gutter-size} - 1px);
+    flex: 0 0 calc(100vw - 30ch - #{$gutter-size} - 1px);
   }
 }
