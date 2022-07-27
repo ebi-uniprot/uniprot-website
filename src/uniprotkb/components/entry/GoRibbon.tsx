@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet-async';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
 import GOTermEvidenceTag from '../protein-data-views/GOTermEvidenceTag';
+import LazyComponent from '../../../shared/components/LazyComponent';
 
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 import useSafeState from '../../../shared/hooks/useSafeState';
@@ -227,12 +228,14 @@ const GoRibbon = ({
     <div className="GoRibbon">
       <h3 data-article-id="gene_ontology">GO Annotations</h3>
       {!isSmallScreen && (
-        <Helmet>
-          <script
-            type="module"
-            src="https://unpkg.com/@geneontology/wc-ribbon-strips@0.0.37/dist/wc-ribbon-strips/wc-ribbon-strips.esm.js"
-          />
-        </Helmet>
+        <LazyComponent fallback={null} rootMargin="50px">
+          <Helmet>
+            <script
+              type="module"
+              src="https://unpkg.com/@geneontology/wc-ribbon-strips@0.0.37/dist/wc-ribbon-strips/wc-ribbon-strips.esm.js"
+            />
+          </Helmet>
+        </LazyComponent>
       )}
       {elementLoaded && slimSets && (
         <label className={styles['set-selector']}>
