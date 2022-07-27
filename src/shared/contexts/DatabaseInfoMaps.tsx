@@ -1,7 +1,4 @@
 import { createContext, FC, useEffect, useMemo } from 'react';
-import { Loader } from 'franklin-sites';
-
-import ErrorHandler from '../components/error-pages/ErrorHandler';
 
 import useDataApi from '../hooks/useDataApi';
 
@@ -48,13 +45,10 @@ export const databaseInfoColumnsSanityCheck = (databaseInfo: DatabaseInfo) => {
 };
 
 export const DatabaseInfoMapsProvider: FC = ({ children }) => {
-  const { data, loading, progress, error, status } = useDataApi<DatabaseInfo>(
+  const { data } = useDataApi<DatabaseInfo>(
     apiUrls.allDatabases(Namespace.uniprotkb)
   );
-  const databaseInfoMaps = useMemo(
-    () => data && getDatabaseInfoMaps(data),
-    [data]
-  );
+  const databaseInfoMaps = useMemo(() => getDatabaseInfoMaps(data), [data]);
 
   useEffect(() => {
     // Sanity check for dynamic database info and static column definition
@@ -62,14 +56,6 @@ export const DatabaseInfoMapsProvider: FC = ({ children }) => {
       databaseInfoColumnsSanityCheck(data);
     }
   }, [data]);
-
-  if (loading) {
-    return <Loader progress={progress} />;
-  }
-
-  if (error || !databaseInfoMaps) {
-    return <ErrorHandler status={status} />;
-  }
 
   return (
     <DatabaseInfoMapsContext.Provider value={databaseInfoMaps}>
