@@ -261,11 +261,11 @@ export const useGOData = (
   const { data: slimSetsData, loading: loadingSlimSets } =
     useDataApi<GOSLimSets>(goTerms && SLIM_SETS_URL);
 
-  const selectedSlimSet = slimSetsData?.goSlimSets.find(
+  const selectedSlimSet = slimSetsData?.goSlimSets?.find(
     (slimSet) => slimSet.id === slimSetName
   );
 
-  const slimSets = slimSetsData?.goSlimSets.map((slimSet) => slimSet.id);
+  const slimSets = slimSetsData?.goSlimSets?.map((slimSet) => slimSet.id);
 
   const slimmingUrl = useMemo(() => {
     const slimsToIds = selectedSlimSet?.associations
