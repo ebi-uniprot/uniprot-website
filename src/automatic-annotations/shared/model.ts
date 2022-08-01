@@ -293,6 +293,20 @@ export type SAMFeatureSet = {
   conditions?: Condition[];
 };
 
+export type Ligand = {
+  name: string;
+  id?: string;
+  label?: string;
+  note?: string;
+};
+
+export type LigandPart = {
+  name?: string;
+  id?: string;
+  label?: string;
+  note?: string;
+};
+
 export type PositionFeatureSet = {
   positionalFeatures?: Array<{
     inGroup?: boolean;
@@ -301,6 +315,9 @@ export type PositionFeatureSet = {
     pattern?: string;
     position?: Range;
     annotationType?: 'ANNOTATION' | 'POSITIONAL_FEATURE';
+    ligand?: Ligand;
+    ligandPart?: LigandPart; // Referred https://www.uniprot.org/release-notes/forthcoming-changes
+    description?: string;
   }>;
   uniProtKBAccession?: {
     validAccession?: boolean;
