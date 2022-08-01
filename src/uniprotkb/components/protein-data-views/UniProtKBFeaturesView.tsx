@@ -42,8 +42,26 @@ export type FeatureData = {
     alternativeSequences?: string[];
   };
   evidences?: Evidence[];
-  featureCrossReference?: Xref;
+  featureCrossReferences?: Xref[];
+  ligand?: Ligand;
 }[];
+
+// TODO: update URL with release notes date when available
+// For Ligand and LigandPart context refer to https://www.uniprot.org/release-notes/forthcoming-changes
+
+export type Ligand = {
+  name: string;
+  id?: string;
+  label?: string;
+  note?: string;
+};
+
+export type LigandPart = {
+  name?: string;
+  id?: string;
+  label?: string;
+  note?: string;
+};
 
 export type ProtvistaFeature = {
   type: string;
