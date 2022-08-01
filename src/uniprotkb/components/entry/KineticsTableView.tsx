@@ -8,7 +8,7 @@ import { Evidence } from '../../types/modelTypes';
 
 import styles from '../../../shared/styles/helper.module.scss';
 
-const pHRegEx = /pH\s(([0-9]*[.])?[0-9]+)/;
+const pHRegEx = /pH\s(([0-9]*[.])?[0-9]+-?(([0-9]*[.])?[0-9]+)?)/;
 const tempRegEx = /(([0-9]*[.])?[0-9]+)\sdegrees\scelsius/i;
 const muRegEx = /^u/;
 const captureWordsInParanthesis = /\(((.+)(?: \((.+)\))?)\)/;

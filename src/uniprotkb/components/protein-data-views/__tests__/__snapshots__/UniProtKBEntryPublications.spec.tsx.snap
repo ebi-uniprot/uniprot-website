@@ -43,6 +43,7 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
         <div
           class="publication__authors"
         >
+          <br />
           <a
             href="/uniprotkb?query=lit_author:\\"Satpute-Krishnan P.\\""
           >
@@ -133,7 +134,7 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
                   rel="noopener"
                   target="_blank"
                 >
-                  Proc. Natl. Acad. Sci. U.S.A. 103:16532-16537(
+                  Proc. Natl. Acad. Sci. U.S.A. 103:16532-16537 (
                   <time
                     datetime="2006-01-01T00:00:00.000Z"
                   >
@@ -202,6 +203,7 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
         <div
           class="publication__authors"
         >
+          <br />
           <a
             href="/uniprotkb?query=lit_author:\\"Seamster P.E.\\""
           >
@@ -304,7 +306,7 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
                   rel="noopener"
                   target="_blank"
                 >
-                  Phys. Biol. 9:055005-055005(
+                  Phys. Biol. 9:055005-055005 (
                   <time
                     datetime="2012-01-01T00:00:00.000Z"
                   >
@@ -373,6 +375,7 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
         <div
           class="publication__authors"
         >
+          <br />
           <a
             href="/uniprotkb?query=lit_author:\\"Baumkotter F.\\""
           >
@@ -501,7 +504,7 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
                   rel="noopener"
                   target="_blank"
                 >
-                  J. Neurosci. 34:11159-11172(
+                  J. Neurosci. 34:11159-11172 (
                   <time
                     datetime="2014-01-01T00:00:00.000Z"
                   >

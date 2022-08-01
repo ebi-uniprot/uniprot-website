@@ -274,14 +274,14 @@ exports[`Entry basic should render main 1`] = `
             class="button-group"
           >
             <a
-              class="button tertiary"
+              class="button tertiary no-small"
               href="/blast?ids=P21802"
               title="Run a BLAST job against P21802"
             >
               BLAST
             </a>
             <a
-              class="button tertiary"
+              class="button tertiary no-small"
               href="/align?ids=P21802%2CisoID1"
               title="Run an Align job against 2 entries"
             >
@@ -301,7 +301,7 @@ exports[`Entry basic should render main 1`] = `
               </button>
             </div>
             <button
-              class="button tertiary"
+              class="button tertiary no-small"
               title="Add 1 entry to the basket"
               type="button"
             >

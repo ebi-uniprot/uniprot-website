@@ -35,9 +35,7 @@ const HomePageNonCritical = () => (
         >
           new API documentation
         </Link>
-        .
-      </Message>
-      <Message level="info" className="uniprot-grid-cell--span-12">
+        .<br />
         If you still need it, the{' '}
         <ExternalLink url="https://legacy.uniprot.org" rel="nofollow" noIcon>
           legacy version of the website

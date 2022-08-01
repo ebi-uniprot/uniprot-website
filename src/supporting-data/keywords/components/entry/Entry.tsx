@@ -1,7 +1,6 @@
 import { Loader, Card, InfoList } from 'franklin-sites';
-
+import { Redirect, RouteChildrenProps } from 'react-router-dom';
 import { LocationDescriptor } from 'history';
-import { RouteChildrenProps, Redirect } from 'react-router-dom';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';

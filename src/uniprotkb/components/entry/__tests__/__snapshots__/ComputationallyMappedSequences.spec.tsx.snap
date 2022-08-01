@@ -17,7 +17,7 @@ exports[`Computationally mapped isoforms should render correctly 1`] = `
       class="button-group"
     >
       <button
-        class="button tertiary disabled"
+        class="button tertiary disabled no-small"
         disabled=""
         title="Select at least one entry to run a BLAST job"
         type="button"
@@ -25,7 +25,7 @@ exports[`Computationally mapped isoforms should render correctly 1`] = `
         BLAST
       </button>
       <button
-        class="button tertiary disabled"
+        class="button tertiary disabled no-small"
         disabled=""
         title="Select at least 2 entries to run an Align job"
         type="button"
@@ -33,7 +33,7 @@ exports[`Computationally mapped isoforms should render correctly 1`] = `
         Align
       </button>
       <button
-        class="button tertiary disabled"
+        class="button tertiary disabled no-small"
         disabled=""
         title="Select at least one entry to add to the basket"
         type="button"
@@ -47,235 +47,239 @@ exports[`Computationally mapped isoforms should render correctly 1`] = `
         View all
       </a>
     </div>
-    <table
-      class="data-table data-table--compact"
+    <div
+      class="overflow-y-container"
     >
-      <thead>
-        <tr>
-          <th
-            class="data-table__header-cell--checkbox"
-          >
-            <div
+      <table
+        class="data-table data-table--compact"
+      >
+        <thead>
+          <tr>
+            <th
+              class="data-table__header-cell--checkbox"
+            >
+              <div
+                class="checkbox-cell"
+              >
+                <input
+                  id="0"
+                  type="checkbox"
+                />
+                <label
+                  aria-label="Selection control for all visible items"
+                  for="0"
+                />
+              </div>
+            </th>
+            <th
+              class=""
+            >
+              Entry
+            </th>
+            <th
+              class=""
+            />
+            <th
+              class=""
+            >
+              Entry name
+            </th>
+            <th
+              class=""
+            >
+              Gene name
+            </th>
+            <th
+              class=""
+            >
+              Length
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td
               class="checkbox-cell"
             >
               <input
-                id="0"
+                data-id="A0A0A0MRG2"
+                id="1"
                 type="checkbox"
               />
               <label
-                aria-label="Selection control for all visible items"
-                for="0"
+                aria-label="A0A0A0MRG2"
+                for="1"
+                title="click to select, shift+click for multiple selection"
               />
-            </div>
-          </th>
-          <th
-            class=""
-          >
-            Entry
-          </th>
-          <th
-            class=""
-          />
-          <th
-            class=""
-          >
-            Entry name
-          </th>
-          <th
-            class=""
-          >
-            Gene name
-          </th>
-          <th
-            class=""
-          >
-            Length
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td
-            class="checkbox-cell"
-          >
-            <input
-              data-id="A0A0A0MRG2"
-              id="1"
-              type="checkbox"
-            />
-            <label
-              aria-label="A0A0A0MRG2"
-              for="1"
-              title="click to select, shift+click for multiple selection"
-            />
-          </td>
-          <td>
-            <span
-              class="no-wrap accession-view"
-            >
-              <a
-                class="accession"
-                href="/uniprotkb/A0A0A0MRG2/entry"
+            </td>
+            <td>
+              <span
+                class="no-wrap accession-view"
               >
-                A0A0A0MRG2
-              </a>
-            </span>
-          </td>
-          <td>
-            <span
-              class="entry-title__status icon--unreviewed"
-              title="This marks an unreviewed UniProtKB entry"
-            >
-              <test-file-stub />
-            </span>
-          </td>
-          <td>
-            A0A0A0MRG2_HUMAN
-          </td>
-          <td>
-            APP
-          </td>
-          <td>
-            660
-          </td>
-        </tr>
-        <tr>
-          <td
-            class="checkbox-cell"
-          >
-            <input
-              data-id="E9PG40"
-              id="2"
-              type="checkbox"
-            />
-            <label
-              aria-label="E9PG40"
-              for="2"
-              title="click to select, shift+click for multiple selection"
-            />
-          </td>
-          <td>
-            <span
-              class="no-wrap accession-view"
-            >
-              <a
-                class="accession"
-                href="/uniprotkb/E9PG40/entry"
+                <a
+                  class="accession"
+                  href="/uniprotkb/A0A0A0MRG2/entry"
+                >
+                  A0A0A0MRG2
+                </a>
+              </span>
+            </td>
+            <td>
+              <span
+                class="entry-title__status icon--unreviewed"
+                title="This marks an unreviewed UniProtKB entry"
               >
-                E9PG40
-              </a>
-            </span>
-          </td>
-          <td>
-            <span
-              class="entry-title__status icon--unreviewed"
-              title="This marks an unreviewed UniProtKB entry"
+                <test-file-stub />
+              </span>
+            </td>
+            <td>
+              A0A0A0MRG2_HUMAN
+            </td>
+            <td>
+              APP
+            </td>
+            <td>
+              660
+            </td>
+          </tr>
+          <tr>
+            <td
+              class="checkbox-cell"
             >
-              <test-file-stub />
-            </span>
-          </td>
-          <td>
-            E9PG40_HUMAN
-          </td>
-          <td>
-            APP
-          </td>
-          <td>
-            714
-          </td>
-        </tr>
-        <tr>
-          <td
-            class="checkbox-cell"
-          >
-            <input
-              data-id="H7C0V9"
-              id="3"
-              type="checkbox"
-            />
-            <label
-              aria-label="H7C0V9"
-              for="3"
-              title="click to select, shift+click for multiple selection"
-            />
-          </td>
-          <td>
-            <span
-              class="no-wrap accession-view"
-            >
-              <a
-                class="accession"
-                href="/uniprotkb/H7C0V9/entry"
+              <input
+                data-id="E9PG40"
+                id="2"
+                type="checkbox"
+              />
+              <label
+                aria-label="E9PG40"
+                for="2"
+                title="click to select, shift+click for multiple selection"
+              />
+            </td>
+            <td>
+              <span
+                class="no-wrap accession-view"
               >
-                H7C0V9
-              </a>
-            </span>
-          </td>
-          <td>
-            <span
-              class="entry-title__status icon--unreviewed"
-              title="This marks an unreviewed UniProtKB entry"
-            >
-              <test-file-stub />
-            </span>
-          </td>
-          <td>
-            H7C0V9_HUMAN
-          </td>
-          <td>
-            APP
-          </td>
-          <td>
-            485
-          </td>
-        </tr>
-        <tr>
-          <td
-            class="checkbox-cell"
-          >
-            <input
-              data-id="H7C2L2"
-              id="4"
-              type="checkbox"
-            />
-            <label
-              aria-label="H7C2L2"
-              for="4"
-              title="click to select, shift+click for multiple selection"
-            />
-          </td>
-          <td>
-            <span
-              class="no-wrap accession-view"
-            >
-              <a
-                class="accession"
-                href="/uniprotkb/H7C2L2/entry"
+                <a
+                  class="accession"
+                  href="/uniprotkb/E9PG40/entry"
+                >
+                  E9PG40
+                </a>
+              </span>
+            </td>
+            <td>
+              <span
+                class="entry-title__status icon--unreviewed"
+                title="This marks an unreviewed UniProtKB entry"
               >
-                H7C2L2
-              </a>
-            </span>
-          </td>
-          <td>
-            <span
-              class="entry-title__status icon--unreviewed"
-              title="This marks an unreviewed UniProtKB entry"
+                <test-file-stub />
+              </span>
+            </td>
+            <td>
+              E9PG40_HUMAN
+            </td>
+            <td>
+              APP
+            </td>
+            <td>
+              714
+            </td>
+          </tr>
+          <tr>
+            <td
+              class="checkbox-cell"
             >
-              <test-file-stub />
-            </span>
-          </td>
-          <td>
-            H7C2L2_HUMAN
-          </td>
-          <td>
-            APP
-          </td>
-          <td>
-            181
-          </td>
-        </tr>
-      </tbody>
-    </table>
+              <input
+                data-id="H7C0V9"
+                id="3"
+                type="checkbox"
+              />
+              <label
+                aria-label="H7C0V9"
+                for="3"
+                title="click to select, shift+click for multiple selection"
+              />
+            </td>
+            <td>
+              <span
+                class="no-wrap accession-view"
+              >
+                <a
+                  class="accession"
+                  href="/uniprotkb/H7C0V9/entry"
+                >
+                  H7C0V9
+                </a>
+              </span>
+            </td>
+            <td>
+              <span
+                class="entry-title__status icon--unreviewed"
+                title="This marks an unreviewed UniProtKB entry"
+              >
+                <test-file-stub />
+              </span>
+            </td>
+            <td>
+              H7C0V9_HUMAN
+            </td>
+            <td>
+              APP
+            </td>
+            <td>
+              485
+            </td>
+          </tr>
+          <tr>
+            <td
+              class="checkbox-cell"
+            >
+              <input
+                data-id="H7C2L2"
+                id="4"
+                type="checkbox"
+              />
+              <label
+                aria-label="H7C2L2"
+                for="4"
+                title="click to select, shift+click for multiple selection"
+              />
+            </td>
+            <td>
+              <span
+                class="no-wrap accession-view"
+              >
+                <a
+                  class="accession"
+                  href="/uniprotkb/H7C2L2/entry"
+                >
+                  H7C2L2
+                </a>
+              </span>
+            </td>
+            <td>
+              <span
+                class="entry-title__status icon--unreviewed"
+                title="This marks an unreviewed UniProtKB entry"
+              >
+                <test-file-stub />
+              </span>
+            </td>
+            <td>
+              H7C2L2_HUMAN
+            </td>
+            <td>
+              APP
+            </td>
+            <td>
+              181
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </DocumentFragment>
 `;

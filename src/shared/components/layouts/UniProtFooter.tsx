@@ -208,7 +208,7 @@ const FooterShortcuts = () => (
         </li>
       </ul>
     </li>
-    <li>
+    <li className={helper['no-small']}>
       <span className={footer.shortcuts__title}>Tools</span>
       <ul className="no-bullet">
         <li>

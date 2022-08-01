@@ -1,5 +1,5 @@
 import { useMemo, useEffect, Suspense } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import { InPageNav, Loader, Tabs, Tab } from 'franklin-sites';
 import cn from 'classnames';
 import qs from 'query-string';
@@ -32,6 +32,7 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { useMessagesDispatch } from '../../../shared/contexts/Messages';
 import useMatchWithRedirect from '../../../shared/hooks/useMatchWithRedirect';
+import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 
@@ -115,6 +116,7 @@ const Entry = () => {
     TabLocation.Entry,
     legacyToNewSubPages
   );
+  const smallScreen = useSmallScreen();
 
   const { loading, data, status, error, redirectedTo, progress } =
     useDataApi<UniProtkbAPIModel>(
@@ -393,32 +395,44 @@ const Entry = () => {
         </Tab>
         <Tab
           title={
-            <Link
-              className={historyOldEntry ? helper.disabled : undefined}
-              tabIndex={historyOldEntry ? -1 : undefined}
-              to={getEntryPath(
-                Namespace.uniprotkb,
-                match.params.accession,
-                TabLocation.FeatureViewer
-              )}
-            >
-              Feature viewer
-            </Link>
+            smallScreen ? null : (
+              <Link
+                className={historyOldEntry ? helper.disabled : undefined}
+                tabIndex={historyOldEntry ? -1 : undefined}
+                to={getEntryPath(
+                  Namespace.uniprotkb,
+                  match.params.accession,
+                  TabLocation.FeatureViewer
+                )}
+              >
+                Feature viewer
+              </Link>
+            )
           }
           id={TabLocation.FeatureViewer}
           onPointerOver={FeatureViewer.preload}
           onFocus={FeatureViewer.preload}
         >
-          <Suspense fallback={<Loader />}>
-            <HTMLHead
-              title={[
-                pageTitle,
-                'Feature viewer',
-                searchableNamespaceLabels[Namespace.uniprotkb],
-              ]}
+          {smallScreen ? (
+            <Redirect
+              to={getEntryPath(
+                Namespace.uniprotkb,
+                match.params.accession,
+                TabLocation.Entry
+              )}
             />
-            <FeatureViewer accession={match.params.accession} />
-          </Suspense>
+          ) : (
+            <Suspense fallback={<Loader />}>
+              <HTMLHead
+                title={[
+                  pageTitle,
+                  'Feature viewer',
+                  searchableNamespaceLabels[Namespace.uniprotkb],
+                ]}
+              />
+              <FeatureViewer accession={match.params.accession} />
+            </Suspense>
+          )}
         </Tab>
         <Tab
           title={
@@ -439,6 +453,17 @@ const Entry = () => {
           onFocus={EntryPublications.preload}
         >
           <Suspense fallback={<Loader />}>
+            <div className="button-group">
+              <CommunityAnnotationLink accession={match.params.accession} />
+              <a
+                href={externalUrls.CommunityCurationAdd(match.params.accession)}
+                className="button tertiary"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Add a publication
+              </a>
+            </div>
             <HTMLHead
               title={[
                 pageTitle,

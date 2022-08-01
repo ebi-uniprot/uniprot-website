@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Card, Loader, DataListWithLoader, InfoList } from 'franklin-sites';
 import { Except, SetRequired, Simplify } from 'type-fest';
 import { groupBy, capitalize } from 'lodash-es';
+import { InfoListItem } from 'franklin-sites/dist/types/components/info-list';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
@@ -31,127 +32,164 @@ import { Namespace } from '../../../shared/types/namespaces';
 import { SearchResults } from '../../../shared/types/results';
 
 const PublicationReference: FC<{
-  reference: Reference;
+  references: Reference[];
   accession: string;
-}> = ({ reference, accession }) => {
-  const {
-    referencePositions,
-    referenceComments,
-    source,
-    sourceCategories,
-    communityAnnotation,
-    annotation,
-  } = reference;
-
+}> = ({ references, accession }) => {
   const databaseInfoMaps = useDatabaseInfoMaps();
-  const url = useMemo(() => {
-    if (!databaseInfoMaps) {
-      return null;
-    }
+
+  let url: string | null;
+  if (!databaseInfoMaps) {
+    url = null;
+  }
+  const infoListWithContent = references.map((reference) => {
+    const {
+      referencePositions,
+      referenceComments,
+      source,
+      sourceCategories,
+      communityAnnotation,
+      annotation,
+    } = reference;
+
     const databaseInfo =
-      source && databaseInfoMaps.databaseToDatabaseInfo[source.name];
+      source && databaseInfoMaps?.databaseToDatabaseInfo[source.name];
     if (databaseInfo?.uriLink && source?.id) {
-      return processUrlTemplate(databaseInfo.uriLink, { id: source.id });
+      url = processUrlTemplate(databaseInfo.uriLink, { id: source.id });
     }
     if (source?.name === 'GeneRif') {
-      return `https://www.ncbi.nlm.nih.gov/gene?Db=gene&Cmd=DetailsSearch&Term=${source.id}`;
+      url = `https://www.ncbi.nlm.nih.gov/gene?Db=gene&Cmd=DetailsSearch&Term=${source.id}`;
     }
-    return null;
-  }, [databaseInfoMaps, source]);
+    if (source?.name === 'GAD') {
+      url = 'https://geneticassociationdb.nih.gov/';
+    }
 
-  const groupedReferenceComments = groupBy(referenceComments, 'type');
+    const groupedReferenceComments = groupBy(referenceComments, 'type');
 
-  const infoListData = [
-    {
-      title: 'Source',
-      content: source && (
-        <>
-          <EntryTypeIcon entryType={source.name} />
-          {url ? (
-            <ExternalLink url={url}>{source.name}</ExternalLink>
-          ) : (
-            source.name
-          )}
-          {source.name === 'ORCID' && (
-            <>
-              {' '}
-              <ExternalLink url={`https://orcid.org/${source.id}`}>
-                {source.id}
-              </ExternalLink>
-              {' ('}
-              <ExternalLink
-                url={`//community.uniprot.org/bbsub/bbsubinfo.html?accession=${accession}`}
-              >
-                see community submission
-              </ExternalLink>
-              ).
-            </>
-          )}
-        </>
-      ),
-    },
-    {
-      title: 'Cited for',
-      content:
-        referencePositions &&
-        addBlastLinksToFreeText(referencePositions, accession).map(
-          (item, i) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <Fragment key={i}>
-              {i > 0 && ', '}
-              {item}
-            </Fragment>
-          )
-        ),
-    },
-    ...Object.entries(groupedReferenceComments).map(([type, comments]) => {
-      // Capitalise title
-      const title = capitalize(type);
-      return {
-        title,
-        content: (
-          <>
-            {comments.map((comment, i) => (
+    const infoListData = [
+      {
+        title: 'Cited for',
+        content:
+          referencePositions &&
+          addBlastLinksToFreeText(referencePositions, accession).map(
+            (item, i) => (
               // eslint-disable-next-line react/no-array-index-key
               <Fragment key={i}>
                 {i > 0 && ', '}
-                {type === 'STRAIN' ? (
-                  <Link
-                    to={{
-                      pathname: LocationToPath[Location.UniProtKBResults],
-                      search: `query=strain:"${comment.value}"`,
-                    }}
-                  >
-                    {comment.value}
-                  </Link>
-                ) : (
-                  comment.value
-                )}
+                {item}
               </Fragment>
-            ))}
+            )
+          ),
+      },
+      ...Object.entries(groupedReferenceComments).map(([type, comments]) => {
+        // Capitalise title
+        const title = capitalize(type);
+        return {
+          title,
+          content: (
+            <>
+              {comments.map((comment, i) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <Fragment key={i}>
+                  {i > 0 && ', '}
+                  {type === 'STRAIN' ? (
+                    <Link
+                      to={{
+                        pathname: LocationToPath[Location.UniProtKBResults],
+                        search: `query=strain:"${comment.value}"`,
+                      }}
+                    >
+                      {comment.value}
+                    </Link>
+                  ) : (
+                    comment.value
+                  )}
+                </Fragment>
+              ))}
+            </>
+          ),
+        };
+      }),
+      {
+        title: 'Annotation',
+        // both mutually exclusive
+        content: annotation || communityAnnotation?.comment,
+      },
+      {
+        title: 'Function',
+        content: communityAnnotation?.function,
+      },
+      {
+        title: 'Disease',
+        content: communityAnnotation?.disease,
+      },
+      {
+        title: 'Categories',
+        content: sourceCategories?.join(', '),
+      },
+      {
+        title: 'Source',
+        content: source && (
+          <>
+            <EntryTypeIcon entryType={source.name} />
+            {url ? (
+              <>
+                <EntryTypeIcon entryType="computationally mapped" />
+                {source.name}:<ExternalLink url={url}>{source.id}</ExternalLink>
+              </>
+            ) : (
+              <span>
+                {source.name}:{source.id}
+              </span>
+            )}
+            {source.name === 'ORCID' && (
+              <>
+                {' '}
+                <ExternalLink url={`https://orcid.org/${source.id}`}>
+                  {source.id}
+                </ExternalLink>
+                {' ('}
+                <ExternalLink
+                  url={`//community.uniprot.org/bbsub/bbsubinfo.html?accession=${accession}`}
+                >
+                  see community submission
+                </ExternalLink>
+                ).
+              </>
+            )}
           </>
         ),
-      };
-    }),
-    {
-      title: 'Annotation',
-      // both mutually exclusive
-      content: annotation || communityAnnotation?.comment,
-    },
-    {
-      title: 'Function',
-      content: communityAnnotation?.function,
-    },
-    {
-      title: 'Disease',
-      content: communityAnnotation?.disease,
-    },
-    {
-      title: 'Categories',
-      content: sourceCategories?.join(', '),
-    },
-  ];
-  return <InfoList infoData={infoListData} isCompact className="text-block" />;
+      },
+    ];
+    return infoListData;
+  });
+
+  // Merging all of them into one
+  let mergedInfoList: InfoListItem[] = [];
+  infoListWithContent.forEach((arr) => {
+    if (mergedInfoList.length) {
+      arr.forEach((obj, i) => {
+        if (
+          obj.title === mergedInfoList[i].title &&
+          obj.content !== undefined &&
+          mergedInfoList[i].content !== obj.content
+        ) {
+          mergedInfoList[i].content = (
+            <>
+              {mergedInfoList[i].content}
+              {', '}
+              {obj.content}
+            </>
+          );
+        }
+      });
+    } else {
+      mergedInfoList = [...arr];
+    }
+  });
+
+  return (
+    <InfoList infoData={mergedInfoList} isCompact className="text-block" />
+  );
 };
 
 const getIdKey = getIdKeyFor(Namespace.citations);
@@ -167,15 +205,10 @@ const cardRendererFor =
     (
       <Card>
         <LiteratureCitation data={data} headingLevel="h3" linkToEntry>
-          {data.references.map((reference, index) => (
-            <PublicationReference
-              reference={reference}
-              // No obvious key as there can be more than 1 for the same source
-              // eslint-disable-next-line react/no-array-index-key
-              key={index}
-              accession={accession}
-            />
-          ))}
+          <PublicationReference
+            references={data.references}
+            accession={accession}
+          />
         </LiteratureCitation>
       </Card>
     );

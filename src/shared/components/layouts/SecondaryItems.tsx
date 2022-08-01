@@ -18,6 +18,7 @@ import {
   SlidingPanel,
   Loader,
 } from 'franklin-sites';
+import cn from 'classnames';
 
 import ErrorBoundary from '../error-component/ErrorBoundary';
 
@@ -35,6 +36,7 @@ import { Namespace } from '../../types/namespaces';
 import { Status } from '../../../tools/types/toolsStatuses';
 import { ContactLocationState } from '../../../contact/adapters/contactFormAdapter';
 
+import helper from '../../styles/helper.module.scss';
 import styles from './styles/secondary-items.module.scss';
 
 const BasketMiniView = lazy(
@@ -116,7 +118,7 @@ const ToolsDashboard = () => {
           setDisplay(true);
         }}
         title="Tools dashboard"
-        className={styles['secondary-item']}
+        className={cn(styles['secondary-item'], helper['no-small'])}
         onPointerOver={Dashboard.preload}
         onFocus={Dashboard.preload}
       >
@@ -140,7 +142,6 @@ const ToolsDashboard = () => {
               <ToolboxIcon width="0.8em" /> Tool results
             </Link>
           }
-          withCloseButton
           position="right"
           size="medium"
           onClose={close}
@@ -203,7 +204,7 @@ export const Basket = () => {
           setDisplay(true);
         }}
         title="Basket"
-        className={styles['secondary-item']}
+        className={cn(styles['secondary-item'], helper['no-small'])}
         onPointerOver={BasketMiniView.preload}
         onFocus={BasketMiniView.preload}
       >
@@ -231,7 +232,6 @@ export const Basket = () => {
               <BasketIcon width="0.8em" /> My Basket
             </Link>
           }
-          withCloseButton
           position="right"
           size="medium"
           onClose={close}

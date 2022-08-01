@@ -99,6 +99,7 @@ export const SequenceInfo = ({
     <LazyComponent
       fallback={
         <div className={styles['lazy-fallback']}>
+          <InfoList infoData={infoData} />
           {dataToDisplay?.value || null}
         </div>
       }

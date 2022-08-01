@@ -9,6 +9,10 @@ import FeaturesView, {
   LocationModifier,
   ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';
+import { RichText } from './FreeTextView';
+import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
+
+import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import listFormat from '../../../shared/utils/listFormat';
 import { getEntryPath, getURLToJobWithData } from '../../../app/config/urls';
@@ -118,6 +122,8 @@ const UniProtKBFeaturesView = ({
     [features, sequence]
   );
 
+  const smallScreen = useSmallScreen();
+
   if (processedData.length === 0) {
     return null;
   }
@@ -134,7 +140,11 @@ const UniProtKBFeaturesView = ({
           <th>ID</th>
           <th>Position(s)</th>
           <th>Description</th>
-          <th>{/* Intentionaly left blank */}</th>
+          {smallScreen ? null : (
+            <th>
+              {/* Intentionally left blank, corresponds to tools/basket */}
+            </th>
+          )}
         </tr>
       </thead>
       <tbody>
@@ -170,46 +180,54 @@ const UniProtKBFeaturesView = ({
                 <td id={feature.featureId}>{feature.featureId}</td>
                 <td>{position}</td>
                 <td>
-                  {isoform
-                    ? feature.description
-                        ?.split(new RegExp(`(${isoform})`))
-                        .map((part) => {
-                          if (part === isoform) {
-                            return (
-                              <Link
-                                key={part}
-                                to={getEntryPath(Namespace.uniprotkb, part)}
-                              >
-                                {part}
-                              </Link>
-                            );
-                          }
-                          return part;
-                        })
-                    : feature.description}
+                  {isoform ? (
+                    feature.description
+                      ?.split(new RegExp(`(${isoform})`))
+                      .map((part) => {
+                        if (part === isoform) {
+                          return (
+                            <Link
+                              key={part}
+                              to={getEntryPath(Namespace.uniprotkb, part)}
+                            >
+                              {part}
+                            </Link>
+                          );
+                        }
+                        return <RichText>{part}</RichText>;
+                      })
+                  ) : (
+                    <RichText>{feature.description}</RichText>
+                  )}
                   <UniProtKBEvidenceTag evidences={feature.evidences} />
                 </td>
-                <td>
-                  {/* Not using React Router link as this is copied into the table DOM */}
-                  {feature.end - feature.start >= 2 && (
-                    <Button
-                      element="a"
-                      variant="tertiary"
-                      title="BLAST the sequence corresponding to this feature"
-                      href={getURLToJobWithData(
-                        JobTypes.BLAST,
-                        primaryAccession,
-                        {
-                          start: feature.start,
-                          end: feature.end,
-                        }
-                      )}
-                    >
-                      BLAST
-                    </Button>
-                  )}
-                  {/* <Button>Add</Button> */}
-                </td>
+                {smallScreen ? null : (
+                  <td>
+                    {/* Not using React Router link as this is copied into the table DOM */}
+                    {feature.end - feature.start >= 2 && (
+                      <div className="button-group">
+                        <Button
+                          element="a"
+                          variant="tertiary"
+                          title="BLAST the sequence corresponding to this feature"
+                          href={getURLToJobWithData(
+                            JobTypes.BLAST,
+                            primaryAccession,
+                            {
+                              start: feature.start,
+                              end: feature.end,
+                            }
+                          )}
+                        >
+                          BLAST
+                        </Button>
+                        <AddToBasketButton
+                          selectedEntries={`${primaryAccession}[${feature.start}-${feature.end}]`}
+                        />
+                      </div>
+                    )}
+                  </td>
+                )}
               </tr>
               {feature.sequence && (
                 <tr

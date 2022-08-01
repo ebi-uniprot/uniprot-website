@@ -54,9 +54,10 @@ if (process.env.NODE_ENV !== 'development') {
       tracesSampleRate: 0.01,
       // Proportion of errors being reported
       // Adjust, higher if we fix errors and end up not maxing out our quota
-      sampleRate: 0.05,
+      sampleRate: 0.02,
       // errors to be ignored completely
       ignoreErrors: [
+        'chrome-extension://', // errors caused by an extension
         'chrome-extensions://', // errors caused by an extension
         'Request aborted', // aborted network requests, expected to happen
       ],

@@ -12,6 +12,7 @@ import MemberLink from './MemberLink';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import usePrefetch from '../../../shared/hooks/usePrefetch';
 import useItemSelect from '../../../shared/hooks/useItemSelect';
+import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import { pluralise } from '../../../shared/utils/utils';
 import getNextURLFromHeaders from '../../../shared/utils/getNextURLFromHeaders';
@@ -304,6 +305,7 @@ export const MembersSection = ({
     }));
   }, [data, headers]);
 
+  const smallScreen = useSmallScreen();
   const [selectedEntries, setSelectedItemFromEvent] = useItemSelect();
 
   const { total, nextUrl } = metadata;
@@ -333,15 +335,17 @@ export const MembersSection = ({
         <AlignButton selectedEntries={selectedEntries} />
         <AddToBasket selectedEntries={selectedEntries} />
       </div>
-      <DataTableWithLoader
-        hasMoreData={total > allResults.length + 1}
-        onLoadMoreItems={() => nextUrl && setUrl(nextUrl)}
-        columns={columns}
-        data={allResults}
-        getIdKey={getKey}
-        density="compact"
-        onSelectionChange={setSelectedItemFromEvent}
-      />
+      <div className={helper['overflow-y-container']}>
+        <DataTableWithLoader
+          hasMoreData={total > allResults.length + 1}
+          onLoadMoreItems={() => nextUrl && setUrl(nextUrl)}
+          columns={columns}
+          data={allResults}
+          getIdKey={getKey}
+          density="compact"
+          onSelectionChange={smallScreen ? undefined : setSelectedItemFromEvent}
+        />
+      </div>
     </Card>
   );
 };

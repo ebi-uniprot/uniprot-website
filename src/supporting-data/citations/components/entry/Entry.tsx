@@ -1,5 +1,5 @@
-import { RouteChildrenProps } from 'react-router-dom';
 import { Loader, Card } from 'franklin-sites';
+import { RouteChildrenProps } from 'react-router-dom';
 import { SetOptional } from 'type-fest';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
