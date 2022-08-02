@@ -13,6 +13,13 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
     >
       U6MKN0 · rec full Name · scientific name
     </span>
+    <button
+      class="button tertiary sliding-panel__header__buttons"
+      title="Close panel"
+      type="button"
+    >
+      <test-file-stub />
+    </button>
   </div>
   <div
     class="sliding-panel__content"
@@ -160,6 +167,13 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
     >
       U6MKN0 · rec full Name · scientific name
     </span>
+    <button
+      class="button tertiary sliding-panel__header__buttons"
+      title="Close panel"
+      type="button"
+    >
+      <test-file-stub />
+    </button>
   </div>
   <div
     class="sliding-panel__content"

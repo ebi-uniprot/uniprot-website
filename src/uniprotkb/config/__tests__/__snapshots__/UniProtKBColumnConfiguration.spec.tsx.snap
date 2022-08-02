@@ -102,13 +102,13 @@ exports[`UniProtKBColumnConfiguration component should render column "annotation
       >
         <span
           class="doughnut-chart--medium__right-wrap__loader colour-sea-blue"
-          style="transform: rotate(72deg);"
+          style="transform: rotate(144deg);"
         />
       </span>
       <span
         class="doughnut-chart--medium__inner-circle"
       >
-        1/5
+        2/5
       </span>
     </span>
   </span>
@@ -1598,8 +1598,6 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_act_sit
 
 exports[`UniProtKBColumnConfiguration component should render column "ft_binding": ft_binding 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_ca_bind": ft_ca_bind 1`] = `<DocumentFragment />`;
-
 exports[`UniProtKBColumnConfiguration component should render column "ft_carbohyd": ft_carbohyd 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "ft_chain": ft_chain 1`] = `
@@ -1732,8 +1730,6 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_intrame
 
 exports[`UniProtKBColumnConfiguration component should render column "ft_lipid": ft_lipid 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_metal": ft_metal 1`] = `<DocumentFragment />`;
-
 exports[`UniProtKBColumnConfiguration component should render column "ft_mod_res": ft_mod_res 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "ft_motif": ft_motif 1`] = `<DocumentFragment />`;
@@ -1745,8 +1741,6 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_non_con
 exports[`UniProtKBColumnConfiguration component should render column "ft_non_std": ft_non_std 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "ft_non_ter": ft_non_ter 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render column "ft_np_bind": ft_np_bind 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "ft_peptide": ft_peptide 1`] = `<DocumentFragment />`;
 
@@ -2061,30 +2055,30 @@ exports[`UniProtKBColumnConfiguration component should render column "lit_pubmed
     </li>
     <li>
       <a
-        href="/citations/12346"
+        href="/citations/12345"
       >
-        12346
+        12345
       </a>
     </li>
     <li>
       <a
-        href="/citations/12347"
+        href="/citations/12345"
       >
-        12347
+        12345
       </a>
     </li>
     <li>
       <a
-        href="/citations/12348"
+        href="/citations/12345"
       >
-        12348
+        12345
       </a>
     </li>
     <li>
       <a
-        href="/citations/12349"
+        href="/citations/12345"
       >
-        12349
+        12345
       </a>
     </li>
     <li>
@@ -2114,44 +2108,44 @@ exports[`UniProtKBColumnConfiguration component should render column "lit_pubmed
     </li>
     <li>
       <a
-        href="/citations/12346"
+        href="/citations/12345"
       >
-        12346
+        12345
       </a>
     </li>
     <li>
       <a
-        href="/citations/12347"
+        href="/citations/12345"
       >
-        12347
+        12345
       </a>
     </li>
     <li>
       <a
-        href="/citations/12348"
+        href="/citations/12345"
       >
-        12348
+        12345
       </a>
     </li>
     <li>
       <a
-        href="/citations/12349"
+        href="/citations/12345"
       >
-        12349
+        12345
       </a>
     </li>
     <li>
       <a
-        href="/citations/12350"
+        href="/citations/12345"
       >
-        12350
+        12345
       </a>
     </li>
     <li>
       <a
-        href="/citations/12351"
+        href="/citations/12345"
       >
-        12351
+        12345
       </a>
     </li>
     <li>
