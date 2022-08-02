@@ -213,7 +213,7 @@ const UniProtKBFeaturesView = ({
                             </Link>
                           );
                         }
-                        return <RichText>{part}</RichText>;
+                        return <RichText key={part}>{part}</RichText>;
                       })
                   ) : (
                     <RichText>{feature.description}</RichText>
