@@ -137,15 +137,12 @@ export const functionFeaturesToColumns: Readonly<
 > = {
   Domain: UniProtKBColumn.ftDomain,
   Repeat: UniProtKBColumn.ftRepeat,
-  'Calcium binding': UniProtKBColumn.ftCaBind,
   'Zinc finger': UniProtKBColumn.ftZnFing,
   'DNA binding': UniProtKBColumn.ftDnaBind,
-  'Nucleotide binding': UniProtKBColumn.ftNpBind,
   Region: UniProtKBColumn.ftRegion,
   'Active site': UniProtKBColumn.ftActSite,
   'Coiled coil': UniProtKBColumn.ftCoiled,
   Motif: UniProtKBColumn.ftMotif,
-  'Metal binding': UniProtKBColumn.ftMetal,
   'Binding site': UniProtKBColumn.ftBinding,
   Site: UniProtKBColumn.ftSite,
 };

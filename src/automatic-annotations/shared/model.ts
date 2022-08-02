@@ -1,4 +1,8 @@
 import { Statistics } from '../../shared/types/apiModel';
+import {
+  Ligand,
+  LigandPart,
+} from '../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
 
 export type Information = {
   duplicates?: string[];
@@ -293,20 +297,6 @@ export type SAMFeatureSet = {
   conditions?: Condition[];
 };
 
-export type Ligand = {
-  name: string;
-  id?: string;
-  label?: string;
-  note?: string;
-};
-
-export type LigandPart = {
-  name?: string;
-  id?: string;
-  label?: string;
-  note?: string;
-};
-
 export type PositionFeatureSet = {
   positionalFeatures?: Array<{
     inGroup?: boolean;
@@ -316,7 +306,7 @@ export type PositionFeatureSet = {
     position?: Range;
     annotationType?: 'ANNOTATION' | 'POSITIONAL_FEATURE';
     ligand?: Ligand;
-    ligandPart?: LigandPart; // Referred https://www.uniprot.org/release-notes/forthcoming-changes
+    ligandPart?: LigandPart;
     description?: string;
   }>;
   uniProtKBAccession?: {

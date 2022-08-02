@@ -83,13 +83,13 @@ exports[`UniProtKBCard component should render 1`] = `
               >
                 <span
                   class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                  style="transform: rotate(72deg);"
+                  style="transform: rotate(144deg);"
                 />
               </span>
               <span
                 class="doughnut-chart--small__inner-circle"
               >
-                1/5
+                2/5
               </span>
             </span>
           </span>

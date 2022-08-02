@@ -12,15 +12,12 @@ export type DiseaseAndDrugsFeatures = 'Mutagenesis';
 export type FunctionFeatures =
   | 'Domain'
   | 'Repeat'
-  | 'Calcium binding'
   | 'Zinc finger'
   | 'DNA binding'
-  | 'Nucleotide binding'
   | 'Region'
   | 'Coiled coil'
   | 'Motif'
   | 'Active site'
-  | 'Metal binding'
   | 'Binding site'
   | 'Site';
 
