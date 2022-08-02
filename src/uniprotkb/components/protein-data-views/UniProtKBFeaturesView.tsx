@@ -44,6 +44,7 @@ export type FeatureData = {
   evidences?: Evidence[];
   featureCrossReferences?: Xref[];
   ligand?: Ligand;
+  ligandPart?: LigandPart;
 }[];
 
 // TODO: update URL with release notes date when available
