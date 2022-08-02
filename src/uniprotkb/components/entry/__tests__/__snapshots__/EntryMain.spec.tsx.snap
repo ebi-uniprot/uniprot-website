@@ -2480,7 +2480,15 @@ exports[`Entry view should render 1`] = `
                     2-8
                   </td>
                   <td>
-                    description value 123
+                    Ca
+                    <sup>
+                      2+
+                    </sup>
+                    ; Some note; Cu
+                    <sup>
+                      2+
+                    </sup>
+                    ; Some note
                     <button
                       aria-controls="48"
                       aria-expanded="false"
@@ -3856,6 +3864,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     87
                   </td>
                   <td>
+                    substrate
                     <button
                       aria-controls="17"
                       aria-expanded="false"
@@ -3931,6 +3940,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     123
                   </td>
                   <td>
+                    substrate
                     <button
                       aria-controls="19"
                       aria-expanded="false"
@@ -4006,6 +4016,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     126
                   </td>
                   <td>
+                    a divalent metal cation
                     <button
                       aria-controls="21"
                       aria-expanded="false"
@@ -4155,6 +4166,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     236
                   </td>
                   <td>
+                    substrate
                     <button
                       aria-controls="24"
                       aria-expanded="false"
@@ -4230,6 +4242,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     278
                   </td>
                   <td>
+                    a divalent metal cation
                     <button
                       aria-controls="26"
                       aria-expanded="false"

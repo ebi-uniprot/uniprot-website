@@ -1645,7 +1645,15 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
           2-8
         </td>
         <td>
-          description value 123
+          Ca
+          <sup>
+            2+
+          </sup>
+          ; Some note; Cu
+          <sup>
+            2+
+          </sup>
+          ; Some note
           <button
             aria-controls="0"
             aria-expanded="false"
