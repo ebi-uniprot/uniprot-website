@@ -115,6 +115,17 @@ export const processFeaturesData = (
       );
     }
 
+    if (feature.ligand || feature.ligandPart) {
+      description = [
+        feature.ligand?.name,
+        feature.ligand?.note,
+        feature.ligandPart?.name,
+        feature.ligandPart?.note,
+      ]
+        .filter(Boolean)
+        .join('; ');
+    }
+
     return {
       protvistaFeatureId: feature.featureId || v1(),
       featureId: feature.featureId,
