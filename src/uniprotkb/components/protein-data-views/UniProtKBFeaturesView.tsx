@@ -47,8 +47,7 @@ export type FeatureData = {
   ligandPart?: LigandPart;
 }[];
 
-// TODO: update URL with release notes date when available
-// For Ligand and LigandPart context refer to https://www.uniprot.org/release-notes/forthcoming-changes
+// For Ligand and LigandPart context refer to https://github.com/ebi-uniprot/uniprot-manual/blob/main/release-notes/2022-08-03-release.md#structuring-of-binding-site-annotations
 
 export type Ligand = {
   name: string;
