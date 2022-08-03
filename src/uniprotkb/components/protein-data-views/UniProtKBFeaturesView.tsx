@@ -42,8 +42,26 @@ export type FeatureData = {
     alternativeSequences?: string[];
   };
   evidences?: Evidence[];
-  featureCrossReference?: Xref;
+  featureCrossReferences?: Xref[];
+  ligand?: Ligand;
+  ligandPart?: LigandPart;
 }[];
+
+// For Ligand and LigandPart context refer to https://github.com/ebi-uniprot/uniprot-manual/blob/main/release-notes/2022-08-03-release.md#structuring-of-binding-site-annotations
+
+export type Ligand = {
+  name: string;
+  id?: string;
+  label?: string;
+  note?: string;
+};
+
+export type LigandPart = {
+  name?: string;
+  id?: string;
+  label?: string;
+  note?: string;
+};
 
 export type ProtvistaFeature = {
   type: string;
@@ -94,6 +112,17 @@ export const processFeaturesData = (
         feature.location.start.value - 1,
         feature.location.end.value
       );
+    }
+
+    if (feature.ligand || feature.ligandPart) {
+      description = [
+        feature.ligand?.name,
+        feature.ligand?.note,
+        feature.ligandPart?.name,
+        feature.ligandPart?.note,
+      ]
+        .filter(Boolean)
+        .join('; ');
     }
 
     return {
@@ -194,7 +223,7 @@ const UniProtKBFeaturesView = ({
                             </Link>
                           );
                         }
-                        return <RichText>{part}</RichText>;
+                        return <RichText key={part}>{part}</RichText>;
                       })
                   ) : (
                     <RichText>{feature.description}</RichText>

@@ -547,9 +547,52 @@ function annotationsToInfoData(
           <ul className="no-bullet">
             {featureSet.positionalFeatures?.map((pf, index) => (
               // eslint-disable-next-line react/no-array-index-key
-              <li key={index}>
-                {position(pf.position)}: {pf.type} - {pf.value}
-              </li>
+              <div key={index}>
+                <li>
+                  {position(pf.position)}: {pf.type}
+                </li>
+                {pf.ligand && (
+                  <li>
+                    Ligand: {pf.ligand?.name}
+                    {pf.ligand.id && pf.ligand.id.startsWith('ChEBI') && (
+                      <>
+                        {' ('}
+                        <ExternalLink
+                          url={externalUrls.ChEBI(
+                            pf.ligand.id.replace('ChEBI:', '')
+                          )}
+                        >
+                          {' '}
+                          {pf.ligand.id.replace('ChEBI:', '')}
+                        </ExternalLink>
+                        {') '}
+                      </>
+                    )}
+                    {pf.ligand.label} {pf.ligand.note}
+                    {pf.ligandPart && (
+                      <span>
+                        ; Ligand Part: {pf.ligandPart?.name}
+                        {pf.ligandPart.id && (
+                          <>
+                            {' ('}
+                            <ExternalLink
+                              url={externalUrls.ChEBI(
+                                pf.ligandPart.id.replace('ChEBI:', '')
+                              )}
+                            >
+                              {' '}
+                              {pf.ligandPart.id.replace('ChEBI:', '')}
+                            </ExternalLink>
+                            {') '}
+                          </>
+                        )}
+                        {pf.ligandPart.label} {pf.ligandPart.note}
+                      </span>
+                    )}
+                    {pf.description && `; ${pf.description}`}
+                  </li>
+                )}
+              </div>
             ))}
           </ul>
         ),

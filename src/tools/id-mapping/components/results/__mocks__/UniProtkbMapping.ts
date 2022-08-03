@@ -200,7 +200,7 @@ const mappingResults = {
           entryVersion: 164,
           sequenceVersion: 2,
         },
-        annotationScore: 107.80000000000001,
+        annotationScore: 5,
         organism: {
           scientificName: 'Mus musculus',
           commonName: 'Mouse',
@@ -2254,7 +2254,7 @@ const mappingResults = {
           entryVersion: 204,
           sequenceVersion: 1,
         },
-        annotationScore: 259.9,
+        annotationScore: 5,
         organism: {
           scientificName: 'Homo sapiens',
           commonName: 'Human',
@@ -6553,7 +6553,7 @@ const mappingResults = {
           entryVersion: 197,
           sequenceVersion: 2,
         },
-        annotationScore: 197.5,
+        annotationScore: 5,
         organism: {
           scientificName:
             'Saccharomyces cerevisiae (strain ATCC 204508 / S288c)',
@@ -8651,7 +8651,7 @@ const mappingResults = {
           entryVersion: 154,
           sequenceVersion: 1,
         },
-        annotationScore: 103.7,
+        annotationScore: 5,
         organism: {
           scientificName: 'Schizosaccharomyces pombe (strain 972 / ATCC 24843)',
           commonName: 'Fission yeast',

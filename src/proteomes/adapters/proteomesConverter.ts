@@ -1,6 +1,7 @@
 import { Lineage, Xref } from '../../shared/types/apiModel';
 import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { Citation } from '../../supporting-data/citations/adapters/citationsConverter';
+import { AnnotationScoreValue } from '../../uniprotkb/components/protein-data-views/AnnotationScoreDoughnutChart';
 
 export type GenomeAnnotation = {
   source: string;
@@ -73,7 +74,7 @@ export type ProteomesAPIModel = {
   components?: Component[];
   exclusionReasons?: string[];
   citations: Citation[];
-  annotationScore: number;
+  annotationScore: AnnotationScoreValue;
   superkingdom: string;
   proteomeCompletenessReport?: ProteomeCompletenessReport;
   genomeAssembly?: GenomeAssembly;

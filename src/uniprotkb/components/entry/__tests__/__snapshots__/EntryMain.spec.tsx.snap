@@ -2480,7 +2480,15 @@ exports[`Entry view should render 1`] = `
                     2-8
                   </td>
                   <td>
-                    description value 123
+                    Ca
+                    <sup>
+                      2+
+                    </sup>
+                    ; Some note; Cu
+                    <sup>
+                      2+
+                    </sup>
+                    ; Some note
                     <button
                       aria-controls="48"
                       aria-expanded="false"
@@ -3759,12 +3767,6 @@ exports[`Entry view should render for non-human entry 1`] = `
           </span>
           , 
           <span
-            data-article-id="metal"
-          >
-            metal binding
-          </span>
-          , 
-          <span
             data-article-id="region"
           >
             region
@@ -3848,7 +3850,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               <tbody>
                 <tr
                   data-end="87"
-                  data-id="14"
+                  data-id="12"
                   data-start="87"
                 >
                   <td
@@ -3862,7 +3864,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     87
                   </td>
                   <td>
-                    Substrate
+                    substrate
                     <button
                       aria-controls="17"
                       aria-expanded="false"
@@ -3912,7 +3914,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 </tr>
                 <tr
                   data-end="87"
-                  data-group-for="14"
+                  data-group-for="12"
                   data-start="87"
                 >
                   <td>
@@ -3924,7 +3926,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 </tr>
                 <tr
                   data-end="123"
-                  data-id="15"
+                  data-id="13"
                   data-start="123"
                 >
                   <td
@@ -3938,7 +3940,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     123
                   </td>
                   <td>
-                    Substrate
+                    substrate
                     <button
                       aria-controls="19"
                       aria-expanded="false"
@@ -3988,7 +3990,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 </tr>
                 <tr
                   data-end="123"
-                  data-group-for="15"
+                  data-group-for="13"
                   data-start="123"
                 >
                   <td>
@@ -4000,21 +4002,21 @@ exports[`Entry view should render for non-human entry 1`] = `
                 </tr>
                 <tr
                   data-end="126"
-                  data-id="12"
+                  data-id="14"
                   data-start="126"
                 >
                   <td
                     data-filter="type"
-                    data-filter-value="Metal binding"
+                    data-filter-value="Binding site"
                   >
-                    Metal binding
+                    Binding site
                   </td>
                   <td />
                   <td>
                     126
                   </td>
                   <td>
-                    Divalent metal cation
+                    a divalent metal cation
                     <button
                       aria-controls="21"
                       aria-expanded="false"
@@ -4064,7 +4066,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 </tr>
                 <tr
                   data-end="126"
-                  data-group-for="12"
+                  data-group-for="14"
                   data-start="126"
                 >
                   <td>
@@ -4150,7 +4152,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 </tr>
                 <tr
                   data-end="236"
-                  data-id="16"
+                  data-id="15"
                   data-start="236"
                 >
                   <td
@@ -4164,7 +4166,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     236
                   </td>
                   <td>
-                    Substrate
+                    substrate
                     <button
                       aria-controls="24"
                       aria-expanded="false"
@@ -4214,7 +4216,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 </tr>
                 <tr
                   data-end="236"
-                  data-group-for="16"
+                  data-group-for="15"
                   data-start="236"
                 >
                   <td>
@@ -4226,21 +4228,21 @@ exports[`Entry view should render for non-human entry 1`] = `
                 </tr>
                 <tr
                   data-end="278"
-                  data-id="13"
+                  data-id="16"
                   data-start="278"
                 >
                   <td
                     data-filter="type"
-                    data-filter-value="Metal binding"
+                    data-filter-value="Binding site"
                   >
-                    Metal binding
+                    Binding site
                   </td>
                   <td />
                   <td>
                     278
                   </td>
                   <td>
-                    Divalent metal cation
+                    a divalent metal cation
                     <button
                       aria-controls="26"
                       aria-expanded="false"
@@ -4290,7 +4292,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 </tr>
                 <tr
                   data-end="278"
-                  data-group-for="13"
+                  data-group-for="16"
                   data-start="278"
                 >
                   <td>

@@ -75,10 +75,10 @@ const LatestNews = () => {
               <h3 className="tiny">
                 <Link
                   to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: 'forthcoming-changes',
+                    accession: '2022-08-03-release',
                   })}
                 >
-                  Forthcoming changes
+                  UniProt release 2022_03
                 </Link>
               </h3>
               <p
@@ -87,7 +87,10 @@ const LatestNews = () => {
                   styles['latest-news__abstract--2-lines']
                 )}
               >
-                Planned changes for UniProt
+                Not just for proteins: new targets for ADP-ribosylation |
+                Annotation of biologically relevant ligands in UniProtKB using
+                ChEBI | Changes to the controlled vocabulary of human
+                diseases...
               </p>
             </article>
           </li>

@@ -1,8 +1,6 @@
 import { FC, ReactNode } from 'react';
 
-import AnnotationScoreDoughnutChart, {
-  DoughnutChartSize,
-} from './AnnotationScoreDoughnutChart';
+import AnnotationScoreDoughnutChart from './AnnotationScoreDoughnutChart';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import { ECNumbersView } from './ProteinNamesView';
 
@@ -81,10 +79,7 @@ const ProteinOverview: FC<{
 
   const { annotationScore } = data;
   const annotationScoreNode = typeof annotationScore !== 'undefined' && (
-    <AnnotationScoreDoughnutChart
-      score={annotationScore}
-      size={DoughnutChartSize.small}
-    />
+    <AnnotationScoreDoughnutChart score={annotationScore} size="small" />
   );
 
   return (
