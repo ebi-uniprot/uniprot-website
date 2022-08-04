@@ -1700,7 +1700,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
               width="12.5"
             />
           </a>
-          ) Some note; Cu
+          ) Some note of Cu
           <sup>
             2+
           </sup>
@@ -1723,7 +1723,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
               width="12.5"
             />
           </a>
-          ) Some note
+          ) Some note; description value 123
           <button
             aria-controls="0"
             aria-expanded="false"

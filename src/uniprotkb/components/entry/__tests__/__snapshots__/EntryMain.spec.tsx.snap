@@ -2535,7 +2535,7 @@ exports[`Entry view should render 1`] = `
                         width="12.5"
                       />
                     </a>
-                    ) Some note; Cu
+                    ) Some note of Cu
                     <sup>
                       2+
                     </sup>
@@ -2558,7 +2558,7 @@ exports[`Entry view should render 1`] = `
                         width="12.5"
                       />
                     </a>
-                    ) Some note
+                    ) Some note; description value 123
                     <button
                       aria-controls="48"
                       aria-expanded="false"
