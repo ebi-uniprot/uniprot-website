@@ -1681,11 +1681,49 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
           <sup>
             2+
           </sup>
-          ; Some note; Cu
+           (
+          <a
+            href="/uniprotkb?query=ft_binding:\\"ChEBICHEBI:3214\\""
+          >
+            UniProtKB
+          </a>
+           | 
+          <a
+            class="external-link"
+            href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=ChEBICHEBI:3214"
+            rel="noopener"
+            target="_blank"
+          >
+            ChEBI
+            <test-file-stub
+              data-testid="external-link-icon"
+              width="12.5"
+            />
+          </a>
+          ) Some note; Cu
           <sup>
             2+
           </sup>
-          ; Some note
+           (
+          <a
+            href="/uniprotkb?query=ft_binding:\\"ChEBICHEBI:3314\\""
+          >
+            UniProtKB
+          </a>
+           | 
+          <a
+            class="external-link"
+            href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=ChEBICHEBI:3314"
+            rel="noopener"
+            target="_blank"
+          >
+            ChEBI
+            <test-file-stub
+              data-testid="external-link-icon"
+              width="12.5"
+            />
+          </a>
+          ) Some note
           <button
             aria-controls="0"
             aria-expanded="false"
