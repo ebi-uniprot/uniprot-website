@@ -149,11 +149,23 @@ export const processFeaturesData = (
     }
 
     if (feature.ligand || feature.ligandPart) {
-      description = [feature.ligand, feature.ligandPart]
-        .filter((l): l is Ligand | LigandPart => Boolean(l))
-        // eslint-disable-next-line react/no-array-index-key
-        .map<ReactNode>((l, i) => <Ligand ligand={l} key={i} />)
-        .reduce((prev, curr) => [prev, '; ', curr]);
+      description = (
+        <>
+          {feature.ligand && <Ligand ligand={feature.ligand} key={1} />}
+          {feature.ligandPart && (
+            <>
+              {' of '}
+              <Ligand ligand={feature.ligandPart} key={2} />
+            </>
+          )}
+          {description && typeof description === 'string' && (
+            <>
+              {'; '}
+              <RichText>{description}</RichText>
+            </>
+          )}
+        </>
+      );
     }
 
     return {
