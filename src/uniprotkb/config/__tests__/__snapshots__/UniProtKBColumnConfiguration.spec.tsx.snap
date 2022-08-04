@@ -337,7 +337,39 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_cofacto
       </a>
     </h4>
     <span>
-      Cofactor Name 
+      Cofactor Name  (
+      <a
+        href="/uniprotkb?query=CHEBI:314"
+      >
+        UniProtKB
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="https://www.rhea-db.org/rhea?query=CHEBI:314"
+        rel="noopener"
+        target="_blank"
+      >
+        Rhea
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+      | 
+      <a
+        class="external-link"
+        href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:314"
+        rel="noopener"
+        target="_blank"
+      >
+        CHEBI:314
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+       )
       <button
         aria-controls="0"
         aria-expanded="false"

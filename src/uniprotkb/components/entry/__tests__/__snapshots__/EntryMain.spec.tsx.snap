@@ -187,7 +187,39 @@ exports[`Entry view should render 1`] = `
             </a>
           </h4>
           <span>
-            Cofactor Name 
+            Cofactor Name  (
+            <a
+              href="/uniprotkb?query=CHEBI:314"
+            >
+              UniProtKB
+            </a>
+             | 
+            <a
+              class="external-link"
+              href="https://www.rhea-db.org/rhea?query=CHEBI:314"
+              rel="noopener"
+              target="_blank"
+            >
+              Rhea
+              <test-file-stub
+                data-testid="external-link-icon"
+                width="12.5"
+              />
+            </a>
+            | 
+            <a
+              class="external-link"
+              href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:314"
+              rel="noopener"
+              target="_blank"
+            >
+              CHEBI:314
+              <test-file-stub
+                data-testid="external-link-icon"
+                width="12.5"
+              />
+            </a>
+             )
             <button
               aria-controls="2"
               aria-expanded="false"
@@ -3556,7 +3588,39 @@ exports[`Entry view should render for non-human entry 1`] = `
           class="text-block"
         >
           <span>
-            a divalent metal cation 
+            a divalent metal cation  (
+            <a
+              href="/uniprotkb?query=CHEBI:60240"
+            >
+              UniProtKB
+            </a>
+             | 
+            <a
+              class="external-link"
+              href="https://www.rhea-db.org/rhea?query=CHEBI:60240"
+              rel="noopener"
+              target="_blank"
+            >
+              Rhea
+              <test-file-stub
+                data-testid="external-link-icon"
+                width="12.5"
+              />
+            </a>
+            | 
+            <a
+              class="external-link"
+              href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:60240"
+              rel="noopener"
+              target="_blank"
+            >
+              CHEBI:60240
+              <test-file-stub
+                data-testid="external-link-icon"
+                width="12.5"
+              />
+            </a>
+             )
             <button
               aria-controls="3"
               aria-expanded="false"

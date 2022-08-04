@@ -51,7 +51,7 @@ const externalUrls: Record<string, (id: string | number) => string> = {
   CommunityCurationAdd: (id) =>
     `https://community.uniprot.org/bbsub/bbsub.html?accession=${id}`,
   ENZYME: (id) => `https://enzyme.expasy.org/EC/${id}`,
-  RheaSearch: (id) => `https://www.rhea-db.org/rhea?query=ec:${id}`,
+  RheaSearch: (id) => `https://www.rhea-db.org/rhea?query=${id}`,
   RheaEntry: (id) => `https://www.rhea-db.org/rhea/${id}`,
   ChEBI: (id) => `https://www.ebi.ac.uk/chebi/searchId.do?chebiId=${id}`,
 };

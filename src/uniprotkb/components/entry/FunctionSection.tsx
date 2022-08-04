@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { Card, Loader, Message } from 'franklin-sites';
+import { Link } from 'react-router-dom';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
@@ -11,8 +12,13 @@ import XRefView from '../protein-data-views/XRefView';
 import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
 import KineticsTableView from './KineticsTableView';
+import ExternalLink from '../../../shared/components/ExternalLink';
 
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
+
+import externalUrls from '../../../shared/config/externalUrls';
+
+import { Location, LocationToPath } from '../../../app/config/urls';
 
 import { hasContent } from '../../../shared/utils/utils';
 import {
@@ -153,6 +159,38 @@ export const CofactorView = ({ cofactors, title }: CofactorViewProps) => {
             cofactorComment.cofactors.map((cofactor) => (
               <span key={cofactor.name}>
                 {cofactor.name}{' '}
+                {cofactor.cofactorCrossReference &&
+                  cofactor.cofactorCrossReference.database === 'ChEBI' &&
+                  cofactor.cofactorCrossReference.id && (
+                    <>
+                      {' ('}
+                      <Link
+                        to={{
+                          pathname: LocationToPath[Location.UniProtKBResults],
+                          search: `query=${cofactor.cofactorCrossReference.id}`,
+                        }}
+                      >
+                        UniProtKB
+                      </Link>{' '}
+                      |{' '}
+                      <ExternalLink
+                        url={externalUrls.RheaSearch(
+                          cofactor.cofactorCrossReference.id
+                        )}
+                      >
+                        Rhea
+                      </ExternalLink>
+                      |{' '}
+                      <ExternalLink
+                        url={externalUrls.ChEBI(
+                          cofactor.cofactorCrossReference.id
+                        )}
+                      >
+                        {cofactor.cofactorCrossReference.id}
+                      </ExternalLink>{' '}
+                      )
+                    </>
+                  )}
                 {cofactor.evidences && (
                   <UniProtKBEvidenceTag evidences={cofactor.evidences} />
                 )}

@@ -140,7 +140,7 @@ export const ECNumbersView = ({
             ENZYME
           </ExternalLink>{' '}
           |{' '}
-          <ExternalLink url={externalUrls.RheaSearch(ecNumber.value)}>
+          <ExternalLink url={externalUrls.RheaSearch(`ec:${ecNumber.value}`)}>
             Rhea
           </ExternalLink>
           )
