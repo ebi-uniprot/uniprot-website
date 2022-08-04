@@ -2516,11 +2516,49 @@ exports[`Entry view should render 1`] = `
                     <sup>
                       2+
                     </sup>
-                    ; Some note; Cu
+                     (
+                    <a
+                      href="/uniprotkb?query=ft_binding:\\"ChEBICHEBI:3214\\""
+                    >
+                      UniProtKB
+                    </a>
+                     | 
+                    <a
+                      class="external-link"
+                      href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=ChEBICHEBI:3214"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      ChEBI
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                    ) Some note; Cu
                     <sup>
                       2+
                     </sup>
-                    ; Some note
+                     (
+                    <a
+                      href="/uniprotkb?query=ft_binding:\\"ChEBICHEBI:3314\\""
+                    >
+                      UniProtKB
+                    </a>
+                     | 
+                    <a
+                      class="external-link"
+                      href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=ChEBICHEBI:3314"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      ChEBI
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                    ) Some note
                     <button
                       aria-controls="48"
                       aria-expanded="false"
@@ -4080,7 +4118,26 @@ exports[`Entry view should render for non-human entry 1`] = `
                     126
                   </td>
                   <td>
-                    a divalent metal cation
+                    a divalent metal cation (
+                    <a
+                      href="/uniprotkb?query=ft_binding:\\"CHEBI:60240\\""
+                    >
+                      UniProtKB
+                    </a>
+                     | 
+                    <a
+                      class="external-link"
+                      href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:60240"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      ChEBI
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                    ) 
                     <button
                       aria-controls="21"
                       aria-expanded="false"
@@ -4306,7 +4363,26 @@ exports[`Entry view should render for non-human entry 1`] = `
                     278
                   </td>
                   <td>
-                    a divalent metal cation
+                    a divalent metal cation (
+                    <a
+                      href="/uniprotkb?query=ft_binding:\\"CHEBI:60240\\""
+                    >
+                      UniProtKB
+                    </a>
+                     | 
+                    <a
+                      class="external-link"
+                      href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:60240"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      ChEBI
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                    ) 
                     <button
                       aria-controls="26"
                       aria-expanded="false"
