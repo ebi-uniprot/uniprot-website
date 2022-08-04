@@ -1,4 +1,4 @@
-import { Fragment, lazy, useMemo } from 'react';
+import { Fragment, lazy, ReactNode, useMemo } from 'react';
 import TransformedVariant from 'protvista-variation-adapter';
 
 import LazyComponent from '../LazyComponent';
@@ -35,7 +35,7 @@ export type ProcessedFeature = {
   startModifier?: LocationModifier;
   endModifier?: LocationModifier;
   type: FeatureType;
-  description?: string;
+  description?: ReactNode;
   evidences?: Evidence[];
   sequence?: string;
   locations?: { fragments: Fragment[] }[];

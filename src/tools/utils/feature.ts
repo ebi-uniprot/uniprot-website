@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import urljoin from 'url-join';
 import { ProcessedFeature } from '../../shared/components/views/FeaturesView';
 import { getEvidenceLink } from '../../uniprotkb/config/evidenceUrls';
@@ -21,7 +22,7 @@ type TooltipFeature = {
   end: number;
   ftId?: string;
   evidences?: Evidence[];
-  description?: string;
+  description?: ReactNode;
 };
 
 export const prepareFeatureForTooltip = (
