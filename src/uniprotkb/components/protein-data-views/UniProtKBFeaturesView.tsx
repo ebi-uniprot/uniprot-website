@@ -1,4 +1,4 @@
-import { useMemo, Fragment } from 'react';
+import { useMemo, Fragment, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { v1 } from 'uuid';
@@ -11,11 +11,18 @@ import FeaturesView, {
 } from '../../../shared/components/views/FeaturesView';
 import { RichText } from './FreeTextView';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
+import ExternalLink from '../../../shared/components/ExternalLink';
 
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import listFormat from '../../../shared/utils/listFormat';
-import { getEntryPath, getURLToJobWithData } from '../../../app/config/urls';
+import {
+  getEntryPath,
+  getURLToJobWithData,
+  LocationToPath,
+  Location,
+} from '../../../app/config/urls';
+import externalUrls from '../../../shared/config/externalUrls';
 
 import { Evidence } from '../../types/modelTypes';
 import FeatureType from '../../types/featureType';
@@ -56,6 +63,7 @@ export type Ligand = {
   note?: string;
 };
 
+// Example: O14744
 export type LigandPart = {
   name?: string;
   id?: string;
@@ -65,7 +73,7 @@ export type LigandPart = {
 
 export type ProtvistaFeature = {
   type: string;
-  description: string;
+  description: ReactNode;
   evidences: Evidence[];
   start: number;
   end: number;
@@ -81,13 +89,39 @@ type FeatureProps = {
   withDataTable?: boolean;
 };
 
+const Ligand = ({ ligand }: { ligand: Ligand | LigandPart }) => {
+  const id = ligand.id?.replace('ChEBI:', '');
+  return (
+    <>
+      <RichText>{ligand.name}</RichText>
+      {id && (
+        <>
+          {' ('}
+          <Link
+            to={{
+              pathname: LocationToPath[Location.UniProtKBResults],
+              search: `query=ft_binding:"${id}"`,
+            }}
+          >
+            UniProtKB
+          </Link>
+          {' | '}
+          <ExternalLink url={externalUrls.ChEBI(id)}>ChEBI</ExternalLink>
+          {') '}
+        </>
+      )}
+      <RichText>{ligand?.note}</RichText>
+    </>
+  );
+};
+
 export const processFeaturesData = (
   data: FeatureData,
   sequence?: string
 ): ProcessedFeature[] =>
   data.map((feature): ProcessedFeature => {
     let s: string | undefined;
-    let description = feature.description || '';
+    let description: ReactNode = feature.description || '';
     if (feature.alternativeSequence) {
       if (
         feature.alternativeSequence.originalSequence &&
@@ -115,14 +149,11 @@ export const processFeaturesData = (
     }
 
     if (feature.ligand || feature.ligandPart) {
-      description = [
-        feature.ligand?.name,
-        feature.ligand?.note,
-        feature.ligandPart?.name,
-        feature.ligandPart?.note,
-      ]
-        .filter(Boolean)
-        .join('; ');
+      description = [feature.ligand, feature.ligandPart]
+        .filter((l): l is Ligand | LigandPart => Boolean(l))
+        // eslint-disable-next-line react/no-array-index-key
+        .map<ReactNode>((l, i) => <Ligand ligand={l} key={i} />)
+        .reduce((prev, curr) => [prev, '; ', curr]);
     }
 
     return {
@@ -192,10 +223,31 @@ const UniProtKBFeaturesView = ({
               ? positionStart
               : `${positionStart}-${positionEnd}`;
 
-          const isoform = feature.description?.includes('isoform')
-            ? feature.description.match(/isoform\s([A-Z0-9]+-\d+)/i)?.[1]
-            : null;
-
+          let { description } = feature;
+          if (typeof feature.description === 'string') {
+            const isoform = feature.description.match(
+              /isoform\s([A-Z0-9]+-\d+)/i
+            )?.[1];
+            if (isoform) {
+              description = feature.description
+                ?.split(new RegExp(`(${isoform})`))
+                .map((part) => {
+                  if (part === isoform) {
+                    return (
+                      <Link
+                        key={part}
+                        to={getEntryPath(Namespace.uniprotkb, part)}
+                      >
+                        {part}
+                      </Link>
+                    );
+                  }
+                  return <RichText key={part}>{part}</RichText>;
+                });
+            } else {
+              description = <RichText>{feature.description}</RichText>;
+            }
+          }
           return (
             <Fragment key={feature.protvistaFeatureId}>
               <tr
@@ -209,25 +261,7 @@ const UniProtKBFeaturesView = ({
                 <td id={feature.featureId}>{feature.featureId}</td>
                 <td>{position}</td>
                 <td>
-                  {isoform ? (
-                    feature.description
-                      ?.split(new RegExp(`(${isoform})`))
-                      .map((part) => {
-                        if (part === isoform) {
-                          return (
-                            <Link
-                              key={part}
-                              to={getEntryPath(Namespace.uniprotkb, part)}
-                            >
-                              {part}
-                            </Link>
-                          );
-                        }
-                        return <RichText key={part}>{part}</RichText>;
-                      })
-                  ) : (
-                    <RichText>{feature.description}</RichText>
-                  )}
+                  {description}
                   <UniProtKBEvidenceTag evidences={feature.evidences} />
                 </td>
                 {smallScreen ? null : (
