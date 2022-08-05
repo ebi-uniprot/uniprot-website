@@ -167,7 +167,7 @@ export const CofactorView = ({ cofactors, title }: CofactorViewProps) => {
                       <Link
                         to={{
                           pathname: LocationToPath[Location.UniProtKBResults],
-                          search: `query=${cofactor.cofactorCrossReference.id}`,
+                          search: `query=cc_cofactor_chebi:"${cofactor.cofactorCrossReference.id}"`,
                         }}
                       >
                         UniProtKB
