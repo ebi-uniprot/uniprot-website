@@ -189,7 +189,7 @@ exports[`Entry view should render 1`] = `
           <span>
             Cofactor Name  (
             <a
-              href="/uniprotkb?query=CHEBI:314"
+              href="/uniprotkb?query=cc_cofactor_chebi:\\"CHEBI:314\\""
             >
               UniProtKB
             </a>
@@ -3628,7 +3628,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           <span>
             a divalent metal cation  (
             <a
-              href="/uniprotkb?query=CHEBI:60240"
+              href="/uniprotkb?query=cc_cofactor_chebi:\\"CHEBI:60240\\""
             >
               UniProtKB
             </a>
