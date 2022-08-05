@@ -2,7 +2,7 @@ import { Statistics } from '../../shared/types/apiModel';
 import {
   Ligand,
   LigandPart,
-} from '../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
+} from '../../uniprotkb/components/protein-data-views/LigandDescriptionView';
 
 export type Information = {
   duplicates?: string[];

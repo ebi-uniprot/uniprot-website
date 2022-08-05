@@ -2516,7 +2516,7 @@ exports[`Entry view should render 1`] = `
                     <sup>
                       2+
                     </sup>
-                     (
+                     A2 (
                     <a
                       href="/uniprotkb?query=ft_binding:\\"ChEBICHEBI:3314\\""
                     >
@@ -2535,11 +2535,11 @@ exports[`Entry view should render 1`] = `
                         width="12.5"
                       />
                     </a>
-                    ) Some note of Ca
+                    ); Some note of Ca
                     <sup>
                       2+
                     </sup>
-                     (
+                     A1 (
                     <a
                       href="/uniprotkb?query=ft_binding:\\"ChEBICHEBI:3214\\""
                     >
@@ -2558,7 +2558,7 @@ exports[`Entry view should render 1`] = `
                         width="12.5"
                       />
                     </a>
-                    ) Some note; description value 123
+                    ); Some note; description value 123
                     <button
                       aria-controls="48"
                       aria-expanded="false"
@@ -4137,7 +4137,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
-                    ) 
+                    )
                     <button
                       aria-controls="21"
                       aria-expanded="false"
@@ -4382,7 +4382,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
-                    ) 
+                    )
                     <button
                       aria-controls="26"
                       aria-expanded="false"

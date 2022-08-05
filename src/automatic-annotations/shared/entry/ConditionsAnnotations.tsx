@@ -15,6 +15,7 @@ import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import CSVView from '../../../uniprotkb/components/protein-data-views/CSVView';
 import CatalyticActivityView from '../../../uniprotkb/components/protein-data-views/CatalyticActivityView';
 import { CofactorView } from '../../../uniprotkb/components/entry/FunctionSection';
+import LigandDescriptionView from '../../../uniprotkb/components/protein-data-views/LigandDescriptionView';
 
 import listFormat from '../../../shared/utils/listFormat';
 import { pluralise } from '../../../shared/utils/utils';
@@ -553,45 +554,11 @@ function annotationsToInfoData(
                 </li>
                 {pf.ligand && (
                   <li>
-                    {pf.ligandPart && (
-                      <span>
-                        {pf.ligandPart.name}
-                        {pf.ligandPart.id && (
-                          <>
-                            {' ('}
-                            <ExternalLink
-                              url={externalUrls.ChEBI(
-                                pf.ligandPart.id.replace('ChEBI:', '')
-                              )}
-                            >
-                              {' '}
-                              {pf.ligandPart.id.replace('ChEBI:', '')}
-                            </ExternalLink>
-                            {') '}
-                          </>
-                        )}
-                        {pf.ligandPart.label}{' '}
-                        {pf.ligandPart.note && `; ${pf.ligandPart.note}`}
-                        {' of '}
-                      </span>
-                    )}
-                    {pf.ligand?.name}
-                    {pf.ligand.id && pf.ligand.id.startsWith('ChEBI') && (
-                      <>
-                        {' ('}
-                        <ExternalLink
-                          url={externalUrls.ChEBI(
-                            pf.ligand.id.replace('ChEBI:', '')
-                          )}
-                        >
-                          {' '}
-                          {pf.ligand.id.replace('ChEBI:', '')}
-                        </ExternalLink>
-                        {') '}
-                      </>
-                    )}
-                    {pf.ligand.label} {pf.ligand.note && `; ${pf.ligand.note}`}
-                    {pf.description && `; ${pf.description}`}
+                    <LigandDescriptionView
+                      ligand={pf.ligand}
+                      ligandPart={pf.ligandPart}
+                      description={pf.description}
+                    />
                   </li>
                 )}
               </div>
