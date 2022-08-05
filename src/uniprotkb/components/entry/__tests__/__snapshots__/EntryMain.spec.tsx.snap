@@ -2516,7 +2516,7 @@ exports[`Entry view should render 1`] = `
                     <sup>
                       2+
                     </sup>
-                     (
+                     A2 (
                     <a
                       href="/uniprotkb?query=ft_binding:\\"ChEBICHEBI:3314\\""
                     >
@@ -2539,7 +2539,7 @@ exports[`Entry view should render 1`] = `
                     <sup>
                       2+
                     </sup>
-                     (
+                     A1 (
                     <a
                       href="/uniprotkb?query=ft_binding:\\"ChEBICHEBI:3214\\""
                     >

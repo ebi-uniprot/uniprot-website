@@ -15,6 +15,7 @@ import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import CSVView from '../../../uniprotkb/components/protein-data-views/CSVView';
 import CatalyticActivityView from '../../../uniprotkb/components/protein-data-views/CatalyticActivityView';
 import { CofactorView } from '../../../uniprotkb/components/entry/FunctionSection';
+import LigandDescriptionView from '../../../uniprotkb/components/protein-data-views/LigandDescriptionView';
 
 import listFormat from '../../../shared/utils/listFormat';
 import { pluralise } from '../../../shared/utils/utils';
@@ -42,7 +43,6 @@ import {
 } from '../../../uniprotkb/types/commentTypes';
 
 import styles from './styles/conditions-annotations.module.scss';
-import LigandDescriptionView from '../../../uniprotkb/components/protein-data-views/LigandDescriptionView';
 
 type AnnotationWithExceptions = Annotation & { exceptions?: RuleException[] };
 

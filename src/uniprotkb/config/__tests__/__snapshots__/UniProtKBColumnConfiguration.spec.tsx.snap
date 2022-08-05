@@ -1681,7 +1681,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
           <sup>
             2+
           </sup>
-           (
+           A2 (
           <a
             href="/uniprotkb?query=ft_binding:\\"ChEBICHEBI:3314\\""
           >
@@ -1704,7 +1704,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
           <sup>
             2+
           </sup>
-           (
+           A1 (
           <a
             href="/uniprotkb?query=ft_binding:\\"ChEBICHEBI:3214\\""
           >
