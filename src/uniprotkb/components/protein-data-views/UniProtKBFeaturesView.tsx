@@ -151,13 +151,13 @@ export const processFeaturesData = (
     if (feature.ligand || feature.ligandPart) {
       description = (
         <>
-          {feature.ligand && <Ligand ligand={feature.ligand} key={1} />}
           {feature.ligandPart && (
             <>
-              {' of '}
               <Ligand ligand={feature.ligandPart} key={2} />
+              {' of '}
             </>
           )}
+          {feature.ligand && <Ligand ligand={feature.ligand} key={1} />}
           {description && typeof description === 'string' && (
             <>
               {'; '}

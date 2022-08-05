@@ -1677,30 +1677,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
           2-8
         </td>
         <td>
-          Ca
-          <sup>
-            2+
-          </sup>
-           (
-          <a
-            href="/uniprotkb?query=ft_binding:\\"ChEBICHEBI:3214\\""
-          >
-            UniProtKB
-          </a>
-           | 
-          <a
-            class="external-link"
-            href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=ChEBICHEBI:3214"
-            rel="noopener"
-            target="_blank"
-          >
-            ChEBI
-            <test-file-stub
-              data-testid="external-link-icon"
-              width="12.5"
-            />
-          </a>
-          ) Some note of Cu
+          Cu
           <sup>
             2+
           </sup>
@@ -1714,6 +1691,29 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
           <a
             class="external-link"
             href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=ChEBICHEBI:3314"
+            rel="noopener"
+            target="_blank"
+          >
+            ChEBI
+            <test-file-stub
+              data-testid="external-link-icon"
+              width="12.5"
+            />
+          </a>
+          ) Some note of Ca
+          <sup>
+            2+
+          </sup>
+           (
+          <a
+            href="/uniprotkb?query=ft_binding:\\"ChEBICHEBI:3214\\""
+          >
+            UniProtKB
+          </a>
+           | 
+          <a
+            class="external-link"
+            href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=ChEBICHEBI:3214"
             rel="noopener"
             target="_blank"
           >
