@@ -553,25 +553,9 @@ function annotationsToInfoData(
                 </li>
                 {pf.ligand && (
                   <li>
-                    Ligand: {pf.ligand?.name}
-                    {pf.ligand.id && pf.ligand.id.startsWith('ChEBI') && (
-                      <>
-                        {' ('}
-                        <ExternalLink
-                          url={externalUrls.ChEBI(
-                            pf.ligand.id.replace('ChEBI:', '')
-                          )}
-                        >
-                          {' '}
-                          {pf.ligand.id.replace('ChEBI:', '')}
-                        </ExternalLink>
-                        {') '}
-                      </>
-                    )}
-                    {pf.ligand.label} {pf.ligand.note}
                     {pf.ligandPart && (
                       <span>
-                        ; Ligand Part: {pf.ligandPart?.name}
+                        {pf.ligandPart.name}
                         {pf.ligandPart.id && (
                           <>
                             {' ('}
@@ -586,9 +570,27 @@ function annotationsToInfoData(
                             {') '}
                           </>
                         )}
-                        {pf.ligandPart.label} {pf.ligandPart.note}
+                        {pf.ligandPart.label}{' '}
+                        {pf.ligandPart.note && `; ${pf.ligandPart.note}`}
+                        {' of '}
                       </span>
                     )}
+                    {pf.ligand?.name}
+                    {pf.ligand.id && pf.ligand.id.startsWith('ChEBI') && (
+                      <>
+                        {' ('}
+                        <ExternalLink
+                          url={externalUrls.ChEBI(
+                            pf.ligand.id.replace('ChEBI:', '')
+                          )}
+                        >
+                          {' '}
+                          {pf.ligand.id.replace('ChEBI:', '')}
+                        </ExternalLink>
+                        {') '}
+                      </>
+                    )}
+                    {pf.ligand.label} {pf.ligand.note && `; ${pf.ligand.note}`}
                     {pf.description && `; ${pf.description}`}
                   </li>
                 )}
