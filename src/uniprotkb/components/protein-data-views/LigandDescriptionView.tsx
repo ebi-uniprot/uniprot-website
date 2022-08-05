@@ -33,7 +33,7 @@ const LigandView = ({ ligand }: LigandViewProps) => {
   return (
     <>
       <RichText>{ligand.name}</RichText>
-      {ligand?.label && ` ${ligand?.label}`}
+      {ligand.label && ` ${ligand.label}`}
       {id && (
         <>
           {' ('}
@@ -50,7 +50,7 @@ const LigandView = ({ ligand }: LigandViewProps) => {
           {') '}
         </>
       )}
-      <RichText>{ligand?.note}</RichText>
+      <RichText>{ligand.note}</RichText>
     </>
   );
 };
