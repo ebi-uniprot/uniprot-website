@@ -47,10 +47,10 @@ const LigandView = ({ ligand }: LigandViewProps) => {
           </Link>
           {' | '}
           <ExternalLink url={externalUrls.ChEBI(id)}>ChEBI</ExternalLink>
-          {') '}
+          {')'}
         </>
       )}
-      <RichText>{ligand.note}</RichText>
+      {ligand.note && <RichText>{`; ${ligand.note}`}</RichText>}
     </>
   );
 };
