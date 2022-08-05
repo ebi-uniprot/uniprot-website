@@ -46,8 +46,7 @@ const LigandView = ({ ligand }: LigandViewProps) => {
             UniProtKB
           </Link>
           {' | '}
-          <ExternalLink url={externalUrls.ChEBI(id)}>ChEBI</ExternalLink>
-          {')'}
+          <ExternalLink url={externalUrls.ChEBI(id)}>ChEBI</ExternalLink>)
         </>
       )}
       {ligand.note && <RichText>{`; ${ligand.note}`}</RichText>}
