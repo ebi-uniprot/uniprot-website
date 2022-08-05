@@ -11,18 +11,15 @@ import FeaturesView, {
 } from '../../../shared/components/views/FeaturesView';
 import { RichText } from './FreeTextView';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
-import ExternalLink from '../../../shared/components/ExternalLink';
+import LigandDescriptionView, {
+  Ligand,
+  LigandPart,
+} from './LigandDescriptionView';
 
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import listFormat from '../../../shared/utils/listFormat';
-import {
-  getEntryPath,
-  getURLToJobWithData,
-  LocationToPath,
-  Location,
-} from '../../../app/config/urls';
-import externalUrls from '../../../shared/config/externalUrls';
+import { getEntryPath, getURLToJobWithData } from '../../../app/config/urls';
 
 import { Evidence } from '../../types/modelTypes';
 import FeatureType from '../../types/featureType';
@@ -54,23 +51,6 @@ export type FeatureData = {
   ligandPart?: LigandPart;
 }[];
 
-// For Ligand and LigandPart context refer to https://github.com/ebi-uniprot/uniprot-manual/blob/main/release-notes/2022-08-03-release.md#structuring-of-binding-site-annotations
-
-export type Ligand = {
-  name: string;
-  id?: string;
-  label?: string;
-  note?: string;
-};
-
-// Example: O14744
-export type LigandPart = {
-  name?: string;
-  id?: string;
-  label?: string;
-  note?: string;
-};
-
 export type ProtvistaFeature = {
   type: string;
   description: ReactNode;
@@ -87,32 +67,6 @@ type FeatureProps = {
   features: FeatureData;
   withTitle?: boolean;
   withDataTable?: boolean;
-};
-
-const Ligand = ({ ligand }: { ligand: Ligand | LigandPart }) => {
-  const id = ligand.id?.replace('ChEBI:', '');
-  return (
-    <>
-      <RichText>{ligand.name}</RichText>
-      {id && (
-        <>
-          {' ('}
-          <Link
-            to={{
-              pathname: LocationToPath[Location.UniProtKBResults],
-              search: `query=ft_binding:"${id}"`,
-            }}
-          >
-            UniProtKB
-          </Link>
-          {' | '}
-          <ExternalLink url={externalUrls.ChEBI(id)}>ChEBI</ExternalLink>
-          {') '}
-        </>
-      )}
-      <RichText>{ligand?.note}</RichText>
-    </>
-  );
 };
 
 export const processFeaturesData = (
@@ -148,23 +102,13 @@ export const processFeaturesData = (
       );
     }
 
-    if (feature.ligand || feature.ligandPart) {
+    if (feature.ligand) {
       description = (
-        <>
-          {feature.ligandPart && (
-            <>
-              <Ligand ligand={feature.ligandPart} key={2} />
-              {' of '}
-            </>
-          )}
-          {feature.ligand && <Ligand ligand={feature.ligand} key={1} />}
-          {description && typeof description === 'string' && (
-            <>
-              {'; '}
-              <RichText>{description}</RichText>
-            </>
-          )}
-        </>
+        <LigandDescriptionView
+          ligand={feature.ligand}
+          ligandPart={feature.ligandPart}
+          description={description}
+        />
       );
     }
 
