@@ -80,7 +80,7 @@ export const getPropertyLinkAttributes = (
   }
   const attribute = getDatabaseInfoAttribute(attributes, property);
   const id = xref.properties?.[property];
-  if (!id || !attribute || !attribute.uriLink) {
+  if (!id || !attribute?.uriLink) {
     return null;
   }
   const url = processUrlTemplate(attribute.uriLink, { [property]: id });
@@ -103,6 +103,7 @@ const propertyKeySet = new Set<PropertyKey>([
   PropertyKey.GeneId,
   PropertyKey.RefSeqNucleotideId,
   PropertyKey.RefSeqProteinId,
+  PropertyKey.NucleotideSequenceId,
 ]);
 
 export const XRef = ({
