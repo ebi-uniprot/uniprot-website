@@ -172,7 +172,7 @@ export const XRef = ({
   let text = id;
   if (implicit) {
     if (databaseType === 'SWISS-MODEL-Workspace') {
-      text = 'SWISS-MODEL-Workspace';
+      text = 'Submit a new modelling project…';
     } else if (
       (databaseType === 'ClinGen' || databaseType === 'GenCC') &&
       properties?.id
