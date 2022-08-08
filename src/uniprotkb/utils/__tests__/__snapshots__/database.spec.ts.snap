@@ -2976,6 +2976,8 @@ Object {
       "DMDM",
       "Allergome",
       "PHI-base",
+      "ClinGen",
+      "GenCC",
     ],
     "expression": Array [
       "Bgee",
