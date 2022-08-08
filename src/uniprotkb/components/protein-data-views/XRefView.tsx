@@ -169,14 +169,18 @@ export const XRef = ({
     params.crc64 = crc64;
   }
 
-  let text;
+  let text = id;
   if (implicit) {
-    text =
-      databaseType === 'SWISS-MODEL-Workspace'
-        ? 'Submit a new modelling project…'
-        : 'Search…';
-  } else {
-    text = id;
+    if (databaseType === 'SWISS-MODEL-Workspace') {
+      text = 'SWISS-MODEL-Workspace';
+    } else if (
+      (databaseType === 'ClinGen' || databaseType === 'GenCC') &&
+      properties?.id
+    ) {
+      text = properties?.id;
+    } else {
+      text = 'Search…';
+    }
   }
 
   // Remove links from the xref which are the same (ie same url and text).
