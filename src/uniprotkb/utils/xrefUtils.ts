@@ -58,6 +58,10 @@ export const getDRImplicitXrefs = (
     }
   });
   const geneName = geneNames?.[0];
+  const properties: Record<string, string> = {};
+  if (geneName) {
+    properties.GeneName = geneName;
+  }
   const foundXrefs: Xref[] = [];
   [
     [implicitDatabaseDRPresenceCheck, implicitDatabaseDRPresence],
@@ -89,7 +93,7 @@ export const getDRImplicitXrefs = (
             } else {
               foundXrefs.push({
                 ...xref,
-                properties: { GeneName: geneName },
+                properties,
               });
             }
           }
