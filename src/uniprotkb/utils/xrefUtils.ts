@@ -33,14 +33,12 @@ export const getDRImplicitXrefs = (
   geneNames: string[]
 ) => {
   // Get DR line contingent-implicit xrefs
-  const implicitDatabaseDRPresenceCheck: { [key: string]: boolean } = {};
-  Object.keys(implicitDatabaseDRPresence).forEach((xref) => {
-    implicitDatabaseDRPresenceCheck[xref] = false;
-  });
-  const implicitDatabaseDRAbsenceCheck: { [key: string]: boolean } = {};
-  Object.keys(implicitDatabaseDRAbsence).forEach((xref) => {
-    implicitDatabaseDRAbsenceCheck[xref] = true;
-  });
+  const implicitDatabaseDRPresenceCheck = Object.fromEntries(
+    Object.keys(implicitDatabaseDRAbsence).map((xref) => [xref, false])
+  );
+  const implicitDatabaseDRAbsenceCheck = Object.fromEntries(
+    Object.keys(implicitDatabaseDRAbsence).map((xref) => [xref, true])
+  );
   const implicitDatabaseDRPresenceData: { [key: string]: Xref } = {};
   xrefs.forEach((xref) => {
     const { database: name } = xref;
