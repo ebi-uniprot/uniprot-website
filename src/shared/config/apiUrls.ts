@@ -501,6 +501,24 @@ export const help = {
 export const news = {
   accession: (accession?: string) =>
     accession && joinUrl(apiPrefix, 'release-notes', accession),
+  search: ({
+    query,
+    sortColumn,
+    sortDirection = SortDirection.descend,
+  }: queryString.ParsedQuery) => {
+    if (sortColumn) {
+      `${sortColumn} ${getApiSortDirection(SortDirection[sortDirection])}`;
+    }
+    return `${joinUrl(
+      apiPrefix,
+      '/release-notes/search'
+    )}?${queryString.stringify({
+      query: [query || '*'].filter(Boolean).join(' AND '),
+      sort: `${sortColumn} ${getApiSortDirection(
+        SortDirection[sortDirection]
+      )}`,
+    })}`;
+  },
 };
 
 export const unisave = {

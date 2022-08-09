@@ -4,10 +4,12 @@ import { generatePath, Link } from 'react-router-dom';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
 
-// import useDataApi from '../../../shared/hooks/useDataApi';
+import useDataApi from '../../../shared/hooks/useDataApi';
 import { LocationToPath, Location } from '../../config/urls';
+import { news } from '../../../shared/config/apiUrls';
 
 import styles from './styles/non-critical.module.scss';
+import { SortDirection } from '../../../uniprotkb/types/resultsTypes';
 
 // TODO: Dynamically load content (TRM-25618 & TRM-25619)
 
@@ -43,6 +45,13 @@ const LatestNews = () => {
   // const insideUniProtData = useDataApi<string>(
   //   'https://www.blogger.com/feeds/2163876227102975905/posts/default'
   // );
+
+  const { data, loading, error, status, progress } = useDataApi(
+    news.search({
+      sortColumn: 'release_date',
+      sortDirection: SortDirection.descend,
+    })
+  );
 
   return (
     <HeroContainer
