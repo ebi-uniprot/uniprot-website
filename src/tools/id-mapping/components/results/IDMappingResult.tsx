@@ -16,6 +16,7 @@ import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect';
 import useIDMappingDetails from '../../../../shared/hooks/useIDMappingDetails';
 import useDataApi from '../../../../shared/hooks/useDataApi';
+import useColumnNames from '../../../../shared/hooks/useColumnNames';
 
 import { rawDBToNamespace } from '../../utils';
 import toolsURLs from '../../../config/urls';
@@ -119,6 +120,12 @@ const IDMappingResult = () => {
   const { loading: fieldsLoading, data: fieldsData } =
     useDataApi<IDMappingFormConfig>(apiUrls.idMappingFields);
 
+  const namespaceOverride = rawDBToNamespace(detailsData?.to);
+
+  const { columnNames } = useColumnNames({
+    namespaceOverride,
+  });
+
   // Query for results data from the idmapping endpoint
   const initialApiUrl =
     detailsData?.redirectURL &&
@@ -127,6 +134,7 @@ const IDMappingResult = () => {
       query,
       sortColumn,
       sortDirection,
+      columns: columnNames,
     });
 
   const converter = useMemo(
@@ -144,8 +152,6 @@ const IDMappingResult = () => {
     progress,
     total,
   } = resultsDataObject;
-
-  const namespaceOverride = rawDBToNamespace(detailsData?.to);
 
   // Run facet query
   const facets = defaultFacets.get(namespaceOverride);
