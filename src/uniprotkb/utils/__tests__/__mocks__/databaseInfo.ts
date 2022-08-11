@@ -4,7 +4,7 @@ import { DatabaseInfo } from '../../../types/databaseRefs';
 // showing it for when it is up and running again. Until then it will have no uriLink.
 
 // Source: /configure/uniprotkb/allDatabases
-// Retrieved: 2022-06-17
+// Retrieved: 2022-08-11
 const databaseInfo: DatabaseInfo = [
   {
     name: 'EMBL',
@@ -107,7 +107,7 @@ const databaseInfo: DatabaseInfo = [
       {
         name: 'NucleotideSequenceId',
         xmlTag: 'nucleotide sequence ID',
-        uriLink: 'https://www.ncbi.nlm.nih.gov/nuccore/%necleotideId',
+        uriLink: 'https://www.ncbi.nlm.nih.gov/nuccore/%NucleotideSequenceId',
       },
     ],
   },
@@ -327,7 +327,8 @@ const databaseInfo: DatabaseInfo = [
     name: 'IntAct',
     displayName: 'IntAct',
     category: 'PPI',
-    uriLink: 'https://www.ebi.ac.uk/intact/interactors/id:%id*',
+    uriLink:
+      'https://www.ebi.ac.uk/intact/search?query=id:%primaryAccession*#interactor',
     attributes: [
       {
         name: 'Interactions',

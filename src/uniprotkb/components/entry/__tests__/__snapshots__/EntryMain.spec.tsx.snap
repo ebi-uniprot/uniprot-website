@@ -7657,7 +7657,18 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
-                    NZ_WKPS01000046.1
+                    <a
+                      class="external-link"
+                      href="https://www.ncbi.nlm.nih.gov/nuccore/NZ_WKPS01000046.1"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      NZ_WKPS01000046.1
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
                   </li>
                 </ul>
               </div>

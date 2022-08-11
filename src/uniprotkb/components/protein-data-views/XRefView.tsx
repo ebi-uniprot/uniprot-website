@@ -80,7 +80,7 @@ export const getPropertyLinkAttributes = (
   }
   const attribute = getDatabaseInfoAttribute(attributes, property);
   const id = xref.properties?.[property];
-  if (!id || !attribute || !attribute.uriLink) {
+  if (!id || !attribute?.uriLink) {
     return null;
   }
   const url = processUrlTemplate(attribute.uriLink, { [property]: id });
@@ -103,6 +103,7 @@ const propertyKeySet = new Set<PropertyKey>([
   PropertyKey.GeneId,
   PropertyKey.RefSeqNucleotideId,
   PropertyKey.RefSeqProteinId,
+  PropertyKey.NucleotideSequenceId,
 ]);
 
 export const XRef = ({
@@ -169,14 +170,18 @@ export const XRef = ({
     params.crc64 = crc64;
   }
 
-  let text;
+  let text = id;
   if (implicit) {
-    text =
-      databaseType === 'SWISS-MODEL-Workspace'
-        ? 'Submit a new modelling project…'
-        : 'Search…';
-  } else {
-    text = id;
+    if (databaseType === 'SWISS-MODEL-Workspace') {
+      text = 'Submit a new modelling project…';
+    } else if (
+      (databaseType === 'ClinGen' || databaseType === 'GenCC') &&
+      properties?.id
+    ) {
+      text = properties?.id;
+    } else {
+      text = 'Search…';
+    }
   }
 
   // Remove links from the xref which are the same (ie same url and text).

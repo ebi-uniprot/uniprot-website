@@ -64,6 +64,8 @@ export const getEntrySectionToDatabaseNames = (
     'DMDM',
     'Allergome',
     'PHI-base',
+    'ClinGen', // Implicit
+    'GenCC', // Implicit
   ]);
   entrySectionToDatabaseNames.set(
     EntrySection.Expression,
