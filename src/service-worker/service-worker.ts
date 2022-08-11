@@ -117,15 +117,22 @@ registerRoute(
 // external images - Cache First
 registerRoute(
   new Route(
-    ({ request, url }) =>
-      request.destination === 'font' ||
-      request.destination === 'image' ||
-      // versioned scripts served from unpkg
-      (request.destination === 'script' &&
-        url.origin === 'https://unpkg.com' &&
-        /@\d/.test(url.pathname)) ||
-      // those are images, even if downloaded through XHR
-      url.origin === 'https://www.swissbiopics.org',
+    ({ request, url }) => {
+      // Don't cache the Google Analytics tracking gif
+      if (url.origin === 'https://www.google-analytics.com') {
+        return false;
+      }
+      return (
+        request.destination === 'font' ||
+        request.destination === 'image' ||
+        // versioned scripts served from unpkg
+        (request.destination === 'script' &&
+          url.origin === 'https://unpkg.com' &&
+          /@\d/.test(url.pathname)) ||
+        // those are images, even if downloaded through XHR
+        url.origin === 'https://www.swissbiopics.org'
+      );
+    },
     new CacheFirst({
       cacheName: CacheName.ImagesFontsAndScripts,
       plugins: [
