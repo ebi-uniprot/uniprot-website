@@ -1524,7 +1524,7 @@ Object {
       "category": "PPI",
       "displayName": "IntAct",
       "name": "IntAct",
-      "uriLink": "https://www.ebi.ac.uk/intact/interactors/id:%id*",
+      "uriLink": "https://www.ebi.ac.uk/intact/search?query=id:%primaryAccession*#interactor",
     },
     "InterPro": Object {
       "attributes": Array [
@@ -2325,7 +2325,7 @@ Object {
       "attributes": Array [
         Object {
           "name": "NucleotideSequenceId",
-          "uriLink": "https://www.ncbi.nlm.nih.gov/nuccore/%necleotideId",
+          "uriLink": "https://www.ncbi.nlm.nih.gov/nuccore/%NucleotideSequenceId",
           "xmlTag": "nucleotide sequence ID",
         },
       ],

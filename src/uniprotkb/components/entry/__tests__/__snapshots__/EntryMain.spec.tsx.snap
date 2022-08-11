@@ -7659,7 +7659,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     </a>
                     <a
                       class="external-link"
-                      href="https://www.ncbi.nlm.nih.gov/nuccore/%necleotideId"
+                      href="https://www.ncbi.nlm.nih.gov/nuccore/NZ_WKPS01000046.1"
                       rel="noopener"
                       target="_blank"
                     >
