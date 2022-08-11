@@ -36,10 +36,12 @@ self.addEventListener('message', (event) => {
 // https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-core#.clientsClaim
 clientsClaim();
 
-// Precache and route for app logic not activated yet!
+// eslint-disable-next-line no-underscore-dangle, @typescript-eslint/no-unused-vars
+const appFiles = self.__WB_MANIFEST;
+
+// // Precache and route for app logic not activated yet!
 // precacheAndRoute(
-//   // eslint-disable-next-line no-underscore-dangle
-//   self.__WB_MANIFEST,
+//   appFiles,
 //   // Ignore all URL parameters
 //   { ignoreURLParametersMatching: [/.*/] }
 // );
