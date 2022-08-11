@@ -270,6 +270,8 @@ module.exports = (env, argv) => {
         GIT_BRANCH: JSON.stringify(gitBranch),
       }),
       !isLiveReload &&
+        // Deactivated for now
+        false &&
         new (require('workbox-webpack-plugin').InjectManifest)({
           swSrc: `${__dirname}/src/service-worker/service-worker.ts`,
           // TODO: remove limit when we manage to reduce size of entrypoint

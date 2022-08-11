@@ -28,13 +28,10 @@ if ('serviceWorker' in navigator) {
   import(
     /* webpackChunkName: "service-worker-client" */ './service-worker/client'
   ).then((serviceWorkerModule) => {
-    if (globalThis.location.origin.includes('beta')) {
-      serviceWorkerModule.register();
-    } else {
-      // switch commented lines if we want to enable/disable service worker
-      // Use in case of emergency! (if something wrong with caching in production)
-      serviceWorkerModule.unregister();
-    }
+    serviceWorkerModule.register();
+    // switch commented lines if we want to enable/disable service worker
+    // Use in case of emergency! (if something wrong with caching in production)
+    // serviceWorkerModule.unregister();
   });
 }
 

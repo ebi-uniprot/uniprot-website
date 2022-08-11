@@ -1,10 +1,10 @@
 import {
   cleanupOutdatedCaches,
-  precacheAndRoute,
-  createHandlerBoundToURL,
+  // precacheAndRoute,
+  // createHandlerBoundToURL,
 } from 'workbox-precaching';
 import { clientsClaim } from 'workbox-core';
-import { registerRoute, NavigationRoute, Route } from 'workbox-routing';
+import { registerRoute /* , NavigationRoute */, Route } from 'workbox-routing';
 import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
@@ -20,8 +20,8 @@ declare const self: ServiceWorkerGlobalScope;
 const MINUTE = 60; // seconds
 const HOUR = 60 * MINUTE;
 const DAY = 24 * HOUR;
-const WEEK = 7 * DAY;
-const YEAR = 365 * DAY;
+// const WEEK = 7 * DAY;
+// const YEAR = 365 * DAY;
 
 // cleans caches that are not needed anymore
 // see: https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-precaching#.cleanupOutdatedCaches
@@ -36,12 +36,13 @@ self.addEventListener('message', (event) => {
 // https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-core#.clientsClaim
 clientsClaim();
 
-precacheAndRoute(
-  // eslint-disable-next-line no-underscore-dangle
-  self.__WB_MANIFEST,
-  // Ignore all URL parameters
-  { ignoreURLParametersMatching: [/.*/] }
-);
+// Precache and route for app logic not activated yet!
+// precacheAndRoute(
+//   // eslint-disable-next-line no-underscore-dangle
+//   self.__WB_MANIFEST,
+//   // Ignore all URL parameters
+//   { ignoreURLParametersMatching: [/.*/] }
+// );
 // this argument is the injection point for the webpack InjectManifest plugin,
 // injecting a list of all necessary assets to precache.
 
@@ -51,18 +52,18 @@ precacheAndRoute(
 
 /* routes: */
 
-// respond to all 'navigation' requests with this document (browsing)
-registerRoute(
-  new NavigationRoute(createHandlerBoundToURL(`${BASE_URL}index.html`), {
-    // Let the request fall through to the server that will handle either
-    // serving or redirecting. This is only triggered for "navigation" requests.
-    denylist: [
-      /^\/sitemap/,
-      /\?format=/,
-      /.+\/.+\.(fasta|gff|json|list|obo|rdf|tab|tsv|ttl|txt|xlsx|xml)$/i,
-    ],
-  })
-);
+// // respond to all 'navigation' requests with this document (browsing)
+// registerRoute(
+//   new NavigationRoute(createHandlerBoundToURL(`${BASE_URL}index.html`), {
+//     // Let the request fall through to the server that will handle either
+//     // serving or redirecting. This is only triggered for "navigation" requests.
+//     denylist: [
+//       /^\/sitemap/,
+//       /\?format=/,
+//       /.+\/.+\.(fasta|gff|json|list|obo|rdf|tab|tsv|ttl|txt|xlsx|xml)$/i,
+//     ],
+//   })
+// );
 
 // https://www.ebi.ac.uk/interpro/api/entry/interpro/protein/uniprot/A1L3X0?page_size=100&type=family
 // external APIs - Stale While Revalidate
@@ -102,7 +103,8 @@ registerRoute(
         }),
         new ExpirationPlugin({
           maxEntries: 500,
-          maxAgeSeconds: 4 * WEEK,
+          // maxAgeSeconds: 4 * WEEK,
+          maxAgeSeconds: 1 * DAY,
           purgeOnQuotaError: true,
         }),
       ],
@@ -128,7 +130,8 @@ registerRoute(
         new CacheableResponsePlugin({ statuses: [0, 200] }),
         new ExpirationPlugin({
           maxEntries: 150,
-          maxAgeSeconds: 5 * WEEK,
+          // maxAgeSeconds: 5 * WEEK,
+          maxAgeSeconds: 1 * DAY,
           purgeOnQuotaError: true,
         }),
       ],
@@ -155,7 +158,8 @@ registerRoute(
       plugins: [
         new ExpirationPlugin({
           maxEntries: 750,
-          maxAgeSeconds: 1 * YEAR,
+          // maxAgeSeconds: 1 * YEAR,
+          maxAgeSeconds: 1 * DAY,
           purgeOnQuotaError: true,
         }),
       ],
@@ -175,7 +179,8 @@ registerRoute(
         new BroadcastUpdatePlugin(),
         new ExpirationPlugin({
           maxEntries: 750,
-          maxAgeSeconds: 8 * WEEK,
+          // maxAgeSeconds: 8 * WEEK,
+          maxAgeSeconds: 1 * DAY,
           purgeOnQuotaError: true,
         }),
       ],
@@ -214,7 +219,7 @@ registerRoute(
       plugins: [
         new ExpirationPlugin({
           maxEntries: 800,
-          maxAgeSeconds: 8 * WEEK,
+          maxAgeSeconds: 1 * DAY,
           purgeOnQuotaError: true,
         }),
       ],
@@ -240,6 +245,8 @@ registerRoute(
           headersToCheck: [
             'x-uniprot-release-date',
             'x-uniprot-release',
+            // NOTE: deployment-date will be different depending on the endpoint
+            'x-api-deployment-date',
             // NOTE: "Content-Length" doesn't work for that now as it is
             // NOTE: inconsistently set by the server
             // 'Content-Length',
@@ -247,7 +254,8 @@ registerRoute(
         }),
         new ExpirationPlugin({
           maxEntries: 750,
-          maxAgeSeconds: 8 * WEEK,
+          // maxAgeSeconds: 8 * WEEK,
+          maxAgeSeconds: 1 * DAY,
           purgeOnQuotaError: true,
         }),
       ],
