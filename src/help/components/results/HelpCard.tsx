@@ -1,4 +1,4 @@
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from 'franklin-sites';
 

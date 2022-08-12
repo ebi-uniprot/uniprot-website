@@ -1,7 +1,6 @@
 import { ChangeEvent, useState, useEffect, useMemo, ReactNode } from 'react';
 import { RouteChildrenProps } from 'react-router-dom';
 import {
-  DataList,
   DataListWithLoader,
   HelpIcon,
   Loader,
@@ -12,33 +11,25 @@ import cn from 'classnames';
 import { debounce } from 'lodash-es';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
-import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
-import NoResultsPage from '../../../shared/components/error-pages/NoResultsPage';
 import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
-import ResultsFacets from '../../../shared/components/results/ResultsFacets';
 import HelpCard from './HelpCard';
+import SingleColumnLayout from '../../../shared/components/layouts/SingleColumnLayout';
+import HelpResultFacets from './HelpResultFacets';
 
-import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
+import usePagination from '../../../shared/hooks/usePagination';
 
 import {
   help as helpURL,
   news as newsURL,
 } from '../../../shared/config/apiUrls';
 import { parseQueryString } from '../../../shared/utils/url';
-
 import { LocationToPath, Location } from '../../../app/config/urls';
-import {
-  HelpAPIModel,
-  HelpSearchResponse,
-  HelpUIModel,
-} from '../../adapters/helpConverter';
+
+import { HelpAPIModel, HelpUIModel } from '../../adapters/helpConverter';
 
 import styles from './styles/results.module.scss';
 
 import HelperImage from './svgs/helper.img.svg';
-import SingleColumnLayout from '../../../shared/components/layouts/SingleColumnLayout';
-import usePagination from '../../../shared/hooks/usePagination';
-import HelpResultFacets from './HelpResultFacets';
 
 const dataRenderer = (article: HelpAPIModel) => (
   <HelpCard
@@ -75,7 +66,6 @@ const Results = ({
 
   const {
     initialLoading,
-    total,
     progress,
     allResults,
     hasMoreData,
@@ -113,7 +103,7 @@ const Results = ({
     replaceLocation(searchValue, isReleaseNotes);
 
     return replaceLocation.cancel;
-  }, [replaceLocation, searchValue]);
+  }, [replaceLocation, searchValue, isReleaseNotes]);
 
   const searchNode = (
     <div className={styles['results-header']}>
@@ -157,27 +147,11 @@ const Results = ({
     );
   }
 
-  //   if (dataObject.loading && !dataObject.data) {
-  //     main = <Loader progress={dataObject.progress} />;
-  //   } else if (dataObject.error || !dataObject.data) {
-  //     main = <ErrorHandler status={dataObject.status} />;
-  //   } else if (!dataObject.data.results.length) {
-  //     main = <NoResultsPage />;
-  //   } else {
-  //     main = (
-  //       <DataList
-  //         getIdKey={getIdKey}
-  //         data={dataObject.data.results}
-  //         dataRenderer={dataRenderer}
-  //       />
-  //     );
-  // }
-
   if (isReleaseNotes) {
     return (
       <SingleColumnLayout>
-        <HTMLHead title={'Release Notes'} />
-        <h1 className={'big'}>Release Notes</h1>
+        <HTMLHead title="Release Notes" />
+        <h1 className="big">Release Notes</h1>
         {searchNode}
         {main}
       </SingleColumnLayout>
@@ -200,7 +174,6 @@ const Results = ({
       {/* TODO: check and change this title when implementing Help */}
       <HTMLHead title={`${searchValue} in UniProt help`} />
       {searchNode}
-
       {main}
     </SideBarLayout>
   );

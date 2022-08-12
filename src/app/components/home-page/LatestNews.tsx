@@ -1,15 +1,10 @@
-import { HeroContainer, Loader } from 'franklin-sites';
+import { HeroContainer } from 'franklin-sites';
 import cn from 'classnames';
 import { generatePath, Link } from 'react-router-dom';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
-import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
-import useDataApi from '../../../shared/hooks/useDataApi';
 import { LocationToPath, Location } from '../../config/urls';
-import { news } from '../../../shared/config/apiUrls';
-
-import { HelpSearchResponse } from '../../../help/adapters/helpConverter';
 
 import styles from './styles/non-critical.module.scss';
 

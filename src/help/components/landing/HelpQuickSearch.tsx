@@ -30,7 +30,7 @@ const HelpQuickSearch = () => {
   const query = location?.state?.query || '';
   const [searchValue, setSearchValue] = useState<string>(query);
   const dataObject = useDataApiWithStale<HelpSearchResponse>(
-    query && helpURL.search({ query })
+    query && helpURL.search({ query, size: '500' })
   );
   const replaceQueryInHistory = useMemo(
     () =>

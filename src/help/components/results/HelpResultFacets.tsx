@@ -24,7 +24,7 @@ const HelpResultFacets: FC = () => {
   );
 
   const fallBackAppliedFacets = useMemo(() => {
-    const { facets } = parseQueryString(location.search);
+    const { facets } = parseQueryString(search);
     const facetValues = facets || '';
     return {
       loading: false,
@@ -44,7 +44,7 @@ const HelpResultFacets: FC = () => {
           }
         : undefined,
     };
-  }, [location.search]);
+  }, [search]);
 
   const { status, error } = dataObject;
 
