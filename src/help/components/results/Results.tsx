@@ -46,6 +46,7 @@ const dataRenderer = (article: HelpAPIModel) => (
     title={article.title}
     titleMatch={article.matches?.title?.[0]}
     contentMatch={article.matches?.content?.[0]}
+    releaseDate={article.releaseDate}
   />
 );
 
