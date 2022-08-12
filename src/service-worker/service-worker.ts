@@ -20,7 +20,7 @@ declare const self: ServiceWorkerGlobalScope;
 const MINUTE = 60; // seconds
 const HOUR = 60 * MINUTE;
 const DAY = 24 * HOUR;
-// const WEEK = 7 * DAY;
+const WEEK = 7 * DAY;
 // const YEAR = 365 * DAY;
 
 // cleans caches that are not needed anymore
@@ -106,7 +106,7 @@ registerRoute(
         new ExpirationPlugin({
           maxEntries: 500,
           // maxAgeSeconds: 4 * WEEK,
-          maxAgeSeconds: 1 * DAY,
+          maxAgeSeconds: 1 * WEEK,
           purgeOnQuotaError: true,
         }),
       ],
@@ -140,7 +140,7 @@ registerRoute(
         new ExpirationPlugin({
           maxEntries: 150,
           // maxAgeSeconds: 5 * WEEK,
-          maxAgeSeconds: 1 * DAY,
+          maxAgeSeconds: 2 * WEEK,
           purgeOnQuotaError: true,
         }),
       ],
@@ -168,7 +168,7 @@ registerRoute(
         new ExpirationPlugin({
           maxEntries: 750,
           // maxAgeSeconds: 1 * YEAR,
-          maxAgeSeconds: 1 * DAY,
+          maxAgeSeconds: 1 * WEEK,
           purgeOnQuotaError: true,
         }),
       ],
@@ -189,7 +189,7 @@ registerRoute(
         new ExpirationPlugin({
           maxEntries: 750,
           // maxAgeSeconds: 8 * WEEK,
-          maxAgeSeconds: 1 * DAY,
+          maxAgeSeconds: 1 * WEEK,
           purgeOnQuotaError: true,
         }),
       ],
@@ -208,7 +208,7 @@ registerRoute(
       plugins: [
         new ExpirationPlugin({
           maxEntries: 50,
-          maxAgeSeconds: 1 * DAY,
+          maxAgeSeconds: 2 * DAY,
           purgeOnQuotaError: true,
         }),
       ],
@@ -228,7 +228,7 @@ registerRoute(
       plugins: [
         new ExpirationPlugin({
           maxEntries: 800,
-          maxAgeSeconds: 1 * DAY,
+          maxAgeSeconds: 1 * WEEK,
           purgeOnQuotaError: true,
         }),
       ],
@@ -264,7 +264,7 @@ registerRoute(
         new ExpirationPlugin({
           maxEntries: 750,
           // maxAgeSeconds: 8 * WEEK,
-          maxAgeSeconds: 1 * DAY,
+          maxAgeSeconds: 1 * WEEK,
           purgeOnQuotaError: true,
         }),
       ],
