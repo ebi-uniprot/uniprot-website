@@ -85,7 +85,7 @@ const Results = ({
       : helpURL.search({
           ...parsed,
           queryFacets: parsed.facets,
-          // facets: 'category',
+          facets: 'category',
         })
   );
 
