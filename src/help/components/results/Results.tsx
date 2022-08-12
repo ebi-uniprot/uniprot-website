@@ -25,23 +25,27 @@ import {
 import { parseQueryString } from '../../../shared/utils/url';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
+import { APIModel } from '../../../shared/types/apiModel';
 import { HelpAPIModel, HelpUIModel } from '../../adapters/helpConverter';
 
 import styles from './styles/results.module.scss';
 
 import HelperImage from './svgs/helper.img.svg';
 
-const dataRenderer = (article: HelpAPIModel) => (
-  <HelpCard
-    id={article.id}
-    title={article.title}
-    titleMatch={article.matches?.title?.[0]}
-    contentMatch={article.matches?.content?.[0]}
-    releaseDate={article.releaseDate}
-  />
-);
+const dataRenderer = (article: APIModel) => {
+  const content = { ...article };
+  return (
+    <HelpCard
+      id={(content as HelpAPIModel).id}
+      title={(content as HelpAPIModel).title}
+      titleMatch={(content as HelpAPIModel).matches?.title?.[0]}
+      contentMatch={(content as HelpAPIModel).matches?.content?.[0]}
+      releaseDate={(content as HelpAPIModel).releaseDate}
+    />
+  );
+};
 
-const getIdKey = (article: HelpAPIModel) => article.id;
+const getIdKey = (article: APIModel) => (article as HelpAPIModel).id;
 
 type Props = {
   inPanel?: boolean;
