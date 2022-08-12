@@ -260,7 +260,12 @@ const SearchContainer: FC<
     const { query } = parseQueryString(location.search, { decode: true });
     // Using history here because history won't change, while location will
     if (
-      history.location.pathname.includes(LocationToPath[Location.HelpResults])
+      history.location.pathname.includes(
+        LocationToPath[Location.HelpResults]
+      ) ||
+      history.location.pathname.includes(
+        LocationToPath[Location.ReleaseNotesResults]
+      )
     ) {
       return;
     }

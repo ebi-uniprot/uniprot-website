@@ -1,15 +1,17 @@
-import { HeroContainer } from 'franklin-sites';
+import { HeroContainer, Loader } from 'franklin-sites';
 import cn from 'classnames';
 import { generatePath, Link } from 'react-router-dom';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
+import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import { LocationToPath, Location } from '../../config/urls';
 import { news } from '../../../shared/config/apiUrls';
 
+import { HelpSearchResponse } from '../../../help/adapters/helpConverter';
+
 import styles from './styles/non-critical.module.scss';
-import { SortDirection } from '../../../uniprotkb/types/resultsTypes';
 
 // TODO: Dynamically load content (TRM-25618 & TRM-25619)
 
@@ -46,12 +48,21 @@ const LatestNews = () => {
   //   'https://www.blogger.com/feeds/2163876227102975905/posts/default'
   // );
 
-  const { data, loading, error, status, progress } = useDataApi(
-    news.search({
-      sortColumn: 'release_date',
-      sortDirection: SortDirection.descend,
-    })
-  );
+  // TODO: To be removed after sorting out the article content for the Release notes
+  // const { data, loading, error, status, progress } = useDataApi<
+  //   HelpSearchResponse
+  // >(
+  //   news.search({query: '*'})
+  // );
+
+  // if (loading) {
+  //   return <Loader progress={progress} />;
+  // }
+
+  // if (error || !data) {
+  //   return <ErrorHandler status={status} />;
+  // }
+  // Implement logic to not show release notes under progress for the upcoming release
 
   return (
     <HeroContainer
@@ -73,12 +84,38 @@ const LatestNews = () => {
       >
         <div className={styles['latest-news__news-roll-heading']}>
           <h2>Latest News</h2>
-          {/* TODO: remove comment when we have a list page */}
-          {/* <ExternalLink url="https://www.uniprot.org/news?sort=created" noIcon>
+          <Link to={generatePath(LocationToPath[Location.ReleaseNotesResults])}>
             View archive
-          </ExternalLink> */}
+          </Link>
         </div>
         <ul className="no-bullet">
+          {/* TODO Display news dynamically using API after sorting out the article content */}
+          {/* {data.results.map((release) => (
+            <li key={release.id}>
+              <article>
+                <h3 className="tiny">
+                  <Link
+                    to={generatePath(
+                      LocationToPath[Location.ReleaseNotesEntry],
+                      {
+                        accession: release.id,
+                      }
+                    )}
+                  >
+                    {release.title}
+                  </Link>
+                </h3>
+                <p
+                className={cn(
+                  styles['latest-news__abstract'],
+                  styles['latest-news__abstract--2-lines']
+                )}
+              >
+                Article content
+              </p>
+              </article>
+            </li>
+          ))} */}
           <li>
             <article>
               <h3 className="tiny">

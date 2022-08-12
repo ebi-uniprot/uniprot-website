@@ -18,6 +18,8 @@ import { ARBAAPIModel } from '../../automatic-annotations/arba/adapters/arbaConv
 
 import { MappingAPIModel } from '../../tools/id-mapping/types/idMappingSearchResults';
 
+import { HelpAPIModel } from '../../help/adapters/helpConverter';
+
 import { Evidence } from '../../uniprotkb/types/modelTypes';
 
 export type APIModel =
@@ -33,7 +35,8 @@ export type APIModel =
   | LocationsAPIModel
   | UniRuleAPIModel
   | ARBAAPIModel
-  | MappingAPIModel;
+  | MappingAPIModel
+  | HelpAPIModel;
 
 export type Statistics = {
   reviewedProteinCount: number;
