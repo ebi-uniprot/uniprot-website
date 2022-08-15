@@ -101,6 +101,7 @@ export const WrappedRow = ({
   const setMSAAttributes = useCallback(
     (node): void => {
       if (node && msaElement.defined) {
+        // Just pick the sequence from the object as it's the only thing needed
         node.data = sequences.map(({ sequence }) => ({ sequence }));
         node.features = selectedMSAFeatures?.map((f) => ({
           ...f,
