@@ -13,13 +13,18 @@ import { UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithSt
 type EntryMainProps = {
   transformedData: UniParcUIModel;
   xrefs: UseDataAPIWithStaleState<UniParcAPIModel>;
+  totalNResults?: number;
 };
 
-const EntryMain: FC<EntryMainProps> = ({ transformedData, xrefs }) => (
+const EntryMain: FC<EntryMainProps> = ({
+  transformedData,
+  xrefs,
+  totalNResults,
+}) => (
   <>
     {UniParcEntryConfig.map(({ id, sectionContent }) => (
       <ErrorBoundary key={id}>
-        {sectionContent(transformedData, xrefs)}
+        {sectionContent(transformedData, xrefs, totalNResults)}
       </ErrorBoundary>
     ))}
   </>

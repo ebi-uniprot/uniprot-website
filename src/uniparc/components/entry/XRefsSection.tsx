@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react';
-import { Card, DataTableWithLoader, Loader } from 'franklin-sites';
+import { Card, DataTableWithLoader, Loader, Message } from 'franklin-sites';
 
 import CustomiseButton from '../../../shared/components/action-buttons/CustomiseButton';
+import ContactLink from '../../../contact/components/ContactLink';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useLocalStorage from '../../../shared/hooks/useLocalStorage';
@@ -38,17 +39,21 @@ type DataDBModel = Array<{
   linkedReason?: string;
 }>;
 
+const PAGE_SIZE = 25;
+const DATA_IMPORT_LIMIT = 10;
+
 const getIdKey = (xref: UniParcXRef) =>
-  `${xref.database}-${xref.id}-${xref.versionI}-${xref.active}-${xref.chain}`;
+  `${xref.database}-${xref.id}-${xref.version}-${xref.versionI}-${xref.active}-${xref.chain}`;
 
 const getTemplateMap = (dataDB?: DataDBModel) =>
   new Map(dataDB?.map((db) => [db.displayName, db.uriLink]));
 
 type Props = {
   xrefData: UseDataAPIWithStaleState<UniParcAPIModel>;
+  totalNResults?: number;
 };
 
-const XRefsSection = ({ xrefData }: Props) => {
+const XRefsSection = ({ xrefData, totalNResults }: Props) => {
   const { data: dataDB } = useDataApi<DataDBModel>(
     apiUrls.allDatabases(Namespace.uniparc)
   );
@@ -69,7 +74,7 @@ const XRefsSection = ({ xrefData }: Props) => {
     [columns, dataDB, firstSeen, lastSeen]
   );
 
-  const [nItemsToRender, setNItemsToRender] = useState(25);
+  const [nItemsToRender, setNItemsToRender] = useState(PAGE_SIZE);
 
   if (xrefData.loading && !xrefData.isStale) {
     return <Loader />;
@@ -84,19 +89,29 @@ const XRefsSection = ({ xrefData }: Props) => {
       header={<h2>{getEntrySectionNameAndId(EntrySection.XRefs).name}</h2>}
       className={xrefData.isStale ? helper.stale : undefined}
     >
+      {totalNResults && totalNResults >= DATA_IMPORT_LIMIT && (
+        <Message level="warning">
+          For performance reasons, this entry is not populated with all of its
+          cross-references because it has too many of them. If you do need to
+          retrieve all of them, feel free to{' '}
+          <ContactLink>Contact us</ContactLink>.
+        </Message>
+      )}
       <div className="button-group">
         <CustomiseButton namespace={Namespace.uniparc} />
       </div>
-      <DataTableWithLoader
-        onLoadMoreItems={() => setNItemsToRender((n) => n + 25)}
-        hasMoreData={
-          nItemsToRender < xrefData.data?.uniParcCrossReferences.length
-        }
-        data={xrefData.data.uniParcCrossReferences.slice(0, nItemsToRender)}
-        getIdKey={getIdKey}
-        density="compact"
-        columns={columnDescriptors}
-      />
+      <div className={helper['overflow-y-container']}>
+        <DataTableWithLoader
+          onLoadMoreItems={() => setNItemsToRender((n) => n + PAGE_SIZE)}
+          hasMoreData={
+            nItemsToRender < xrefData.data?.uniParcCrossReferences.length
+          }
+          data={xrefData.data.uniParcCrossReferences.slice(0, nItemsToRender)}
+          getIdKey={getIdKey}
+          density="compact"
+          columns={columnDescriptors}
+        />
+      </div>
     </Card>
   );
 };
