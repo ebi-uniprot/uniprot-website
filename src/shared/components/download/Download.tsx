@@ -41,6 +41,7 @@ type DownloadProps = {
   accessions?: string[];
   base?: string;
   supportedFormats?: FileFormat[];
+  notCustomisable?: boolean;
 };
 
 type ExtraContent = 'url' | 'preview';
@@ -56,6 +57,7 @@ const Download: FC<DownloadProps> = ({
   accessions,
   base,
   supportedFormats,
+  notCustomisable,
 }) => {
   const { columnNames } = useColumnNames();
   const { search: queryParamFromUrl } = useLocation();
@@ -109,7 +111,7 @@ const Download: FC<DownloadProps> = ({
   // endpoint while the stream endpoint is required for downloads
   let downloadBase = base;
   if (jobResultsLocation === Location.IDMappingResult) {
-    if (jobResultsNamespace) {
+    if (jobResultsNamespace && !notCustomisable) {
       downloadBase = downloadBase?.replace('/results/', '/results/stream/');
     } else {
       downloadBase = downloadBase?.replace('/results/', '/stream/');
