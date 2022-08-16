@@ -50,7 +50,7 @@
   }
 
   &__content {
-    width: calc(100vw - var(--sidebar-size) - #{$gutter-size});
-    flex: 0 1 calc(100vw - var(--sidebar-size) - #{$gutter-size});
+    width: calc(100vw - var(--sidebar-size) - #{$gutter-size} - 1rem);
+    flex: 0 1 calc(100vw - var(--sidebar-size) - #{$gutter-size} - 1rem);
   }
 }

@@ -4,12 +4,12 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
-import { getProteinsApiUrl } from '../../../shared/config/apiUrls';
+import { proteinsApi } from '../../../shared/config/apiUrls';
 
 const FeatureViewer = ({ accession }: { accession: string }) => {
   // just to make sure not to render protvista-uniprot if we won't get any data
   const { loading, data } = useDataApi<UniProtkbAPIModel>(
-    getProteinsApiUrl(accession)
+    proteinsApi.proteins(accession)
   );
 
   const protvistaElement = useCustomElement(
