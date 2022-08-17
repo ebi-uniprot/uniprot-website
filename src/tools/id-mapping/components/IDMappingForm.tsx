@@ -94,10 +94,10 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
   const reducedMotion = useReducedMotion();
 
   // actual form fields
-  const initialIDs = initialFormValues[IDMappingFields.ids]
-    .selected as string[];
   // Text of IDs from textarea
-  const [textIDs, setTextIDs] = useState<string>(initialIDs.join('\n'));
+  const [textIDs, setTextIDs] = useState<string>(
+    (initialFormValues[IDMappingFields.ids]?.selected as string[])?.join('\n')
+  );
   const [fromDb, setFromDb] = useState(
     initialFormValues[IDMappingFields.fromDb] as IDMappingFormValue
   );
