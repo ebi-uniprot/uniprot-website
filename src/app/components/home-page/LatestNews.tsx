@@ -43,20 +43,13 @@ const LatestNews = () => {
   //   'https://www.blogger.com/feeds/2163876227102975905/posts/default'
   // );
 
-  // TODO: To be removed after sorting out the article content for the Release notes
+  // TODO: implement part of TRM-28342
   // const { data, loading, error, status, progress } = useDataApi<
   //   HelpSearchResponse
   // >(
   //   news.search({query: '*'})
   // );
 
-  // if (loading) {
-  //   return <Loader progress={progress} />;
-  // }
-
-  // if (error || !data) {
-  //   return <ErrorHandler status={status} />;
-  // }
   // Implement logic to not show release notes under progress for the upcoming release
 
   return (
