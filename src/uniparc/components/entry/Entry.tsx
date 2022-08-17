@@ -17,6 +17,7 @@ import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
+import useDataApi from '../../../shared/hooks/useDataApi';
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 import useLocalStorage from '../../../shared/hooks/useLocalStorage';
 import useMatchWithRedirect from '../../../shared/hooks/useMatchWithRedirect';
@@ -82,11 +83,16 @@ const Entry = () => {
         .join(','),
     })}`;
   }, [baseURL, search, columns]);
-  const dataObject = useDataApiWithStale<UniParcAPIModel>(
+  const dataObject = useDataApi<UniParcAPIModel>(
     // Hack to have the backend only return the base object without xref data
     `${baseURL}?taxonIds=0`
   );
-  const xrefsDataObject = useDataApiWithStale<UniParcAPIModel>(xRefsURL);
+  const wholeXrefsDataObject = useDataApi<UniParcAPIModel>(baseURL);
+  const partialXrefsDataObject = useDataApiWithStale<UniParcAPIModel>(
+    baseURL === xRefsURL ? null : xRefsURL
+  );
+  const xrefsDataObject =
+    baseURL === xRefsURL ? wholeXrefsDataObject : partialXrefsDataObject;
 
   if (dataObject.error || !match?.params.accession || !match) {
     return <ErrorHandler status={dataObject.status} />;
@@ -166,6 +172,9 @@ const Entry = () => {
           <EntryMain
             transformedData={transformedData}
             xrefs={xrefsDataObject}
+            totalNResults={
+              wholeXrefsDataObject.data?.uniParcCrossReferences?.length
+            }
           />
         </Tab>
         <Tab

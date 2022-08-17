@@ -65,6 +65,7 @@ type Return<T extends JobTypes> = Readonly<{
       query?: string;
       sortColumn?: Column;
       sortDirection?: SortDirection;
+      columns?: Column[];
     }
   ) => string;
   detailsUrl?: (jobId: string) => string;
@@ -95,6 +96,7 @@ function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
             query,
             sortColumn,
             sortDirection,
+            columns,
           }
         ) =>
           `${redirectUrl}?${queryString.stringify({
@@ -111,6 +113,7 @@ function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
               sortColumn && sortDirection
                 ? `${sortColumn} ${getApiSortDirection(sortDirection)}`
                 : undefined,
+            fields: columns?.join(',') || undefined,
           })}`,
         detailsUrl: (jobId) => `${baseURL}/details/${jobId}`,
       });

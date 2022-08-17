@@ -8,10 +8,9 @@ export type IdMaybeWithRange = {
 };
 
 export const parseIdsFromSearchParams = (
-  searchParamIds: string
+  searchParamIds: string[]
 ): IdMaybeWithRange[] =>
   searchParamIds
-    .split(',')
     .map((searchParamId): IdMaybeWithRange => {
       const { id, start, end } = searchParamId.match(reIds)?.groups || {};
       return start && end

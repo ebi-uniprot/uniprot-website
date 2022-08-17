@@ -13,11 +13,17 @@ interface CustomLocationState<T> {
   parameters?: Partial<T>;
 }
 
+type SelectedType =
+  | string
+  | string[]
+  | number
+  | boolean
+  | SelectedTaxon
+  | SelectedTaxon[];
+
 export type FormValue = {
   fieldName: string;
-  selected?: Readonly<
-    string | string[] | number | boolean | SelectedTaxon | SelectedTaxon[]
-  >;
+  selected?: Readonly<SelectedType>;
   values?: Readonly<
     Array<{ label?: string; value?: string | boolean | number }>
   >;
@@ -43,19 +49,28 @@ function useInitialFormParameters<
   // Keep initial history.location?.search as we later remove this in a useEffect hook
   const historyLocationSearch = useRef(history.location?.search).current;
 
-  const parametersFromHistorySearch = useMemo(
-    () => new URLSearchParams(historyLocationSearch),
-    [historyLocationSearch]
-  );
+  const parametersFromHistorySearch = useMemo(() => {
+    if (!historyLocationSearch) {
+      return null;
+    }
+    const parameters = Object.fromEntries<SelectedType>(
+      new URLSearchParams(historyLocationSearch).entries()
+    );
+    // At this point everything is strings, change/parse specific fields
+    if (parameters.ids && typeof parameters.ids === 'string') {
+      parameters.ids = parameters.ids.split(/(?:\s+|,)/);
+    }
+    return parameters;
+  }, [historyLocationSearch]);
 
   const idsMaybeWithRange = useMemo(() => {
     if (!alignmentLocations.has(history.location.pathname)) {
       return null;
     }
-    for (const [key, value] of parametersFromHistorySearch) {
-      if (key === 'ids') {
-        return parseIdsFromSearchParams(value);
-      }
+    if (parametersFromHistorySearch?.ids) {
+      return parseIdsFromSearchParams(
+        parametersFromHistorySearch.ids as string[]
+      );
     }
     return null;
   }, [history.location.pathname, parametersFromHistorySearch]);
@@ -84,23 +99,18 @@ function useInitialFormParameters<
 
     // This will eventually be filled in
     const formValues: Partial<FormValues<Fields>> = {};
-    if (parametersFromHistoryState || parametersFromHistorySearch) {
-      const defaultValuesEntries = Object.entries<FormValue>(defaultFormValues);
-      for (const [key, field] of defaultValuesEntries) {
-        const fieldName = field.fieldName as keyof FormParameters;
-        formValues[key as Fields] = Object.freeze({
-          ...field,
-          selected:
-            // url params
-            (parametersFromHistorySearch &&
-              parametersFromHistorySearch.get(fieldName.toString())) ||
-            // history state
-            (parametersFromHistoryState &&
-              parametersFromHistoryState[fieldName]) ||
-            // default
-            field.selected,
-        } as FormValue);
-      }
+    for (const [key, field] of Object.entries<FormValue>(defaultFormValues)) {
+      const fieldName = field.fieldName as keyof FormParameters;
+      formValues[key as Fields] = Object.freeze({
+        ...field,
+        selected:
+          // url params
+          parametersFromHistorySearch?.[fieldName] ||
+          // history state
+          parametersFromHistoryState?.[fieldName] ||
+          // default
+          field.selected,
+      } as FormValue);
     }
 
     // ids parameter from the url has been passed so handle the fetched accessions once loaded

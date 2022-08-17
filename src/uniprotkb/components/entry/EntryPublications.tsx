@@ -138,7 +138,8 @@ const PublicationReference: FC<{
               </>
             ) : (
               <span>
-                {source.name}:{source.id}
+                {source.name}
+                {source.id && `:${source.id}`}
               </span>
             )}
             {source.name === 'ORCID' && (

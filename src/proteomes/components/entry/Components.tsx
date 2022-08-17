@@ -51,7 +51,7 @@ export const Components: FC<
               <Fragment key={id}>
                 {index ? ', ' : ''}
                 <ExternalLink
-                  url={externalUrls.ENABrowser(id as string)}
+                  url={externalUrls.NCBINucleotide(id as string)}
                   key={id}
                 >
                   {id}

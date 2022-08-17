@@ -10,7 +10,8 @@ const UniParcEntryConfig: {
   id: EntrySection;
   sectionContent: (
     entryData: UniParcUIModel,
-    xrefs: UseDataAPIWithStaleState<UniParcAPIModel>
+    xrefs: UseDataAPIWithStaleState<UniParcAPIModel>,
+    totalNResults?: number
   ) => JSX.Element;
 }[] = [
   {
@@ -24,8 +25,12 @@ const UniParcEntryConfig: {
   },
   {
     id: EntrySection.XRefs,
-    sectionContent: (_, xrefs) => (
-      <XRefsSection xrefData={xrefs} key={EntrySection.XRefs} />
+    sectionContent: (_, xrefs, totalNResults) => (
+      <XRefsSection
+        xrefData={xrefs}
+        totalNResults={totalNResults}
+        key={EntrySection.XRefs}
+      />
     ),
   },
 ];
