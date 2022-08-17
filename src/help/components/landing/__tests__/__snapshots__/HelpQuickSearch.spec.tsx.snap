@@ -78,7 +78,7 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
                       >
                         canonical
                       </span>
-                       sequence? To reduce redundancy, the UniProtKB/Swiss-Prot policy
+                       sequence? Each UniProtKB/Swiss-Prot entry contains all curated protein
                     </span>
                   </div>
                 </div>
@@ -134,41 +134,6 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
                     aria-hidden="true"
                     class="decorated-list-item__link"
                     data-testid="background-link"
-                    href="/help/conflict"
-                    tabindex="-1"
-                  />
-                  <div
-                    class="decorated-list-item__title tiny"
-                  >
-                    <a
-                      href="/help/conflict"
-                    >
-                      Sequence conflict
-                    </a>
-                  </div>
-                  <div
-                    class="decorated-list-item__content"
-                  >
-                    <span>
-                      This subsection of the 'Sequence' section reports difference(s) between the 
-                      <span
-                        class="match-highlight"
-                      >
-                        canonical
-                      </span>
-                       sequence
-                    </span>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div
-                  class="decorated-list-item decorated-list-item--has-link"
-                >
-                  <a
-                    aria-hidden="true"
-                    class="decorated-list-item__link"
-                    data-testid="background-link"
                     href="/help/retrieve_sets"
                     tabindex="-1"
                   />
@@ -204,6 +169,41 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
                     aria-hidden="true"
                     class="decorated-list-item__link"
                     data-testid="background-link"
+                    href="/help/conflict"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    <a
+                      href="/help/conflict"
+                    >
+                      Sequence conflict
+                    </a>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                      This subsection of the 'Sequence' section reports difference(s) between the 
+                      <span
+                        class="match-highlight"
+                      >
+                        canonical
+                      </span>
+                       sequence
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    class="decorated-list-item__link"
+                    data-testid="background-link"
                     href="/help/sequence_processing"
                     tabindex="-1"
                   />
@@ -226,7 +226,7 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
                       >
                         canonical
                       </span>
-                       sequence displayed by default
+                       sequence displayed by default in
                     </span>
                   </div>
                 </div>
@@ -238,7 +238,7 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
               <a
                 href="/help?query=canonical"
               >
-                Show all results (25)
+                Show all results (123)
               </a>
             </div>
           </div>

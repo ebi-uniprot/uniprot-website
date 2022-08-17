@@ -459,11 +459,10 @@ const App = () => {
               path={LocationToPath[Location.ReleaseNotesEntry]}
               component={HelpEntryPage}
             />
-            {/* TODO: add a search results view */}
-            {/* <Route
+            <Route
               path={LocationToPath[Location.ReleaseNotesResults]}
               component={HelpResults}
-            /> */}
+            />
             {/* Contact */}
             <Route
               path={LocationToPath[Location.ContactGeneric]}

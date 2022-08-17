@@ -1,24 +1,31 @@
 import { ChangeEvent, useState, useEffect, useMemo, ReactNode } from 'react';
 import { RouteChildrenProps } from 'react-router-dom';
-import { DataList, HelpIcon, Loader, SearchInput } from 'franklin-sites';
+import {
+  DataListWithLoader,
+  HelpIcon,
+  Loader,
+  SearchInput,
+} from 'franklin-sites';
 import qs from 'query-string';
 import cn from 'classnames';
 import { debounce } from 'lodash-es';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
-import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
-import NoResultsPage from '../../../shared/components/error-pages/NoResultsPage';
 import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
-import ResultsFacets from '../../../shared/components/results/ResultsFacets';
 import HelpCard from './HelpCard';
+import SingleColumnLayout from '../../../shared/components/layouts/SingleColumnLayout';
+import HelpResultFacets from './HelpResultFacets';
 
-import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
+import usePagination from '../../../shared/hooks/usePagination';
 
-import { help as helpURL } from '../../../shared/config/apiUrls';
+import {
+  help as helpURL,
+  news as newsURL,
+} from '../../../shared/config/apiUrls';
 import { parseQueryString } from '../../../shared/utils/url';
-
 import { LocationToPath, Location } from '../../../app/config/urls';
-import { HelpAPIModel, HelpSearchResponse } from '../../adapters/helpConverter';
+
+import { HelpAPIModel, HelpUIModel } from '../../adapters/helpConverter';
 
 import styles from './styles/results.module.scss';
 
@@ -30,6 +37,7 @@ const dataRenderer = (article: HelpAPIModel) => (
     title={article.title}
     titleMatch={article.matches?.title?.[0]}
     contentMatch={article.matches?.content?.[0]}
+    releaseDate={article.releaseDate}
   />
 );
 
@@ -42,6 +50,7 @@ type Props = {
 const Results = ({
   history,
   location,
+  match,
   inPanel,
 }: RouteChildrenProps & Props) => {
   const [searchValue, setSearchValue] = useState<string>(() => {
@@ -52,43 +61,35 @@ const Results = ({
     return query;
   });
 
+  const isReleaseNotes = match?.path.includes('release-notes');
   const parsed = parseQueryString(location.search);
-  const dataObject = useDataApiWithStale<HelpSearchResponse>(
-    helpURL.search({
-      ...parsed,
-      queryFacets: parsed.facets,
-      facets: 'category',
-    })
-  );
 
-  const fallBackAppliedFacets = useMemo(() => {
-    const { facets } = parseQueryString(location.search);
-    const facetValues = facets || '';
-    return {
-      loading: false,
-      data: facetValues
-        ? {
-            facets: [
-              {
-                label: 'Category',
-                name: 'category',
-                allowMultipleSelection: true,
-                values: facetValues.split(',').map((value) => ({
-                  value: value.replace('category:', ''),
-                  count: 0,
-                })),
-              },
-            ],
-          }
-        : undefined,
-    };
-  }, [location.search]);
+  const {
+    initialLoading,
+    progress,
+    allResults,
+    hasMoreData,
+    handleLoadMoreRows,
+  } = usePagination<HelpAPIModel, HelpUIModel>(
+    isReleaseNotes
+      ? newsURL.search({ ...parsed })
+      : helpURL.search({
+          ...parsed,
+          queryFacets: parsed.facets,
+          facets: 'category',
+        })
+  );
 
   const replaceLocation = useMemo(
     () =>
-      debounce((searchValue: string) => {
+      debounce((searchValue: string, isReleaseNotes) => {
         history.replace({
-          pathname: LocationToPath[Location.HelpResults],
+          pathname:
+            LocationToPath[
+              isReleaseNotes
+                ? Location.ReleaseNotesResults
+                : Location.HelpResults
+            ],
           search: qs.stringify({
             ...parseQueryString(history.location.search),
             query: searchValue || '*',
@@ -99,26 +100,61 @@ const Results = ({
   );
 
   useEffect(() => {
-    replaceLocation(searchValue);
+    replaceLocation(searchValue, isReleaseNotes);
 
     return replaceLocation.cancel;
-  }, [replaceLocation, searchValue]);
+  }, [replaceLocation, searchValue, isReleaseNotes]);
+
+  const searchNode = (
+    <div className={styles['results-header']}>
+      <img
+        src={HelperImage}
+        className={styles.helper}
+        width="290"
+        height="123"
+        alt=""
+      />
+      <strong className={cn('tiny', styles.title)}>
+        <HelpIcon width="0.7em" height="0.7em" />
+        {isReleaseNotes ? 'Release notes ' : 'Help '}search results
+      </strong>
+      <SearchInput
+        isLoading={initialLoading}
+        onChange={(event: ChangeEvent<HTMLInputElement>) =>
+          setSearchValue(event.target.value)
+        }
+        placeholder="Search"
+        value={searchValue}
+        autoFocus
+      />
+    </div>
+  );
 
   let main: ReactNode = null;
 
-  if (dataObject.loading && !dataObject.data) {
-    main = <Loader progress={dataObject.progress} />;
-  } else if (dataObject.error || !dataObject.data) {
-    main = <ErrorHandler status={dataObject.status} />;
-  } else if (!dataObject.data.results.length) {
-    main = <NoResultsPage />;
+  if (initialLoading) {
+    main = <Loader progress={progress} />;
   } else {
     main = (
-      <DataList
+      <DataListWithLoader<HelpUIModel>
         getIdKey={getIdKey}
-        data={dataObject.data.results}
+        data={allResults}
+        loading={initialLoading}
         dataRenderer={dataRenderer}
+        onLoadMoreItems={handleLoadMoreRows}
+        hasMoreData={hasMoreData}
       />
+    );
+  }
+
+  if (isReleaseNotes) {
+    return (
+      <SingleColumnLayout>
+        <HTMLHead title="Release Notes" />
+        <h1 className="big">Release Notes</h1>
+        {searchNode}
+        {main}
+      </SingleColumnLayout>
     );
   }
 
@@ -131,38 +167,13 @@ const Results = ({
       sidebar={
         <>
           <h1>Help results</h1>
-          <ResultsFacets
-            dataApiObject={
-              dataObject.data?.facets ? dataObject : fallBackAppliedFacets
-            }
-          />
+          <HelpResultFacets />
         </>
       }
     >
       {/* TODO: check and change this title when implementing Help */}
       <HTMLHead title={`${searchValue} in UniProt help`} />
-      <div className={styles['results-header']}>
-        <img
-          src={HelperImage}
-          className={styles.helper}
-          width="290"
-          height="123"
-          alt=""
-        />
-        <strong className={cn('tiny', styles.title)}>
-          <HelpIcon width="0.7em" height="0.7em" /> Help search results
-        </strong>
-        <SearchInput
-          isLoading={dataObject.loading}
-          onChange={(event: ChangeEvent<HTMLInputElement>) =>
-            setSearchValue(event.target.value)
-          }
-          placeholder="Search"
-          value={searchValue}
-          autoFocus
-        />
-      </div>
-
+      {searchNode}
       {main}
     </SideBarLayout>
   );

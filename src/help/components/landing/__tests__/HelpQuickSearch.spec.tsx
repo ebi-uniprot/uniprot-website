@@ -16,8 +16,8 @@ jest.mock('lodash-es', () => ({
 const mock = new MockAdapter(axios);
 
 mock
-  .onGet(/api\/help\/search\?facets=category&query=canonical&size=500/)
-  .reply(200, helpData);
+  .onGet(/api\/help\/search\?facets=category&query=canonical&size=5/)
+  .reply(200, helpData, { 'x-total-results': 123 });
 
 describe('HelpQuickSearch tests', () => {
   it('should render with input', async () => {

@@ -26,6 +26,7 @@ const arraySeparator = /\s*,\s*/;
 const defaultData: HelpEntryResponse = {
   id: '_preview',
   title: 'title',
+  type: 'help',
   categories: [],
   content: 'content',
   lastModified: new Date().toISOString(),
@@ -86,6 +87,7 @@ const EntryPreview = (
       {
         id: '_preview',
         title: title || '',
+        type: 'help',
         categories:
           categories?.replaceAll('_', ' ')?.split(arraySeparator) || [],
         content,

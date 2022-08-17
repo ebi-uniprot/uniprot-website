@@ -490,17 +490,20 @@ export const help = {
       sort,
       fields,
       facets,
-      // At the moment, only 254 pages available
-      // Getting all of them allows us to not use the pagination logic in this
-      // section of the website, isolating it more from the rest
-      size: size || 500,
+      size,
     })}`,
 };
 
-// Help endpoints
+// News endpoints
 export const news = {
   accession: (accession?: string) =>
     accession && joinUrl(apiPrefix, 'release-notes', accession),
+  search: ({ query, sort }: queryString.ParsedQuery) =>
+    `${joinUrl(apiPrefix, '/release-notes/search')}?${queryString.stringify({
+      query: [query || '*'].filter(Boolean).join(' AND '),
+      sort:
+        sort || `release_date ${getApiSortDirection(SortDirection.descend)}`,
+    })}`,
 };
 
 export const unisave = {
