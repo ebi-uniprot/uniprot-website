@@ -72,7 +72,7 @@ exports[`HelpCard tests should render the card component and find highlights 1`]
           >
             canonical
           </span>
-           sequence? To reduce redundancy, the UniProtKB/Swiss-Prot policy
+           sequence? Each UniProtKB/Swiss-Prot entry contains all curated protein
         </span>
       </div>
     </div>
