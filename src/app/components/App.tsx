@@ -51,7 +51,7 @@ if (process.env.NODE_ENV !== 'development') {
       maxBreadcrumbs: 50,
       // Proportion of sessions being used to track performance
       // Adjust to a low value when we start getting enough data
-      tracesSampleRate: 0.01,
+      // tracesSampleRate: 0.01, // Not able to use this data yet, so don't track
       // Proportion of errors being reported
       // Adjust, higher if we fix errors and end up not maxing out our quota
       sampleRate: 0.02,

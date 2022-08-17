@@ -99,9 +99,9 @@
     ]
   },
   "dependencies": {
-    "@sentry/react": "7.7.0",
-    "@sentry/tracing": "7.7.0",
-    "@sentry/types": "7.7.0",
+    "@sentry/react": "7.11.0",
+    "@sentry/tracing": "7.11.0",
+    "@sentry/types": "7.11.0",
     "@swissprot/rhea-reaction-visualizer": "0.0.21",
     "@swissprot/swissbiopics-visualizer": "0.0.28",
     "@types/gtag.js": "0.0.9",
