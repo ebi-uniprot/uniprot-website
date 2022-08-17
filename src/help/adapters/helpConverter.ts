@@ -8,6 +8,7 @@ export type HelpAPIModel = {
   releaseDate?: string; // specific to news / release notes
   categories?: string[];
 
+  type: 'help' | 'releaseNotes';
   content?: string;
 
   matches?: {

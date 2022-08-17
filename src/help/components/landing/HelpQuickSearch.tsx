@@ -30,7 +30,7 @@ const HelpQuickSearch = () => {
   const query = location?.state?.query || '';
   const [searchValue, setSearchValue] = useState<string>(query);
   const dataObject = useDataApiWithStale<HelpSearchResponse>(
-    query && helpURL.search({ query, size: '500' })
+    query && helpURL.search({ query, size: `${numberResultsInView}` })
   );
   const replaceQueryInHistory = useMemo(
     () =>
@@ -56,26 +56,24 @@ const HelpQuickSearch = () => {
   };
 
   const allArticles = dataObject.data?.results;
-  const infoData = allArticles
-    ?.slice(0, numberResultsInView)
-    .map(({ matches, title, id }) => {
-      const titleMatch = matches?.title?.[0];
-      const contentMatch = matches?.content?.[0];
-      const to = getLocationEntryPath(Location.HelpEntry, id);
-      return {
-        title: (
-          <Link to={to}>
-            {titleMatch ? <CleanHighlightMarkDown md={titleMatch} /> : title}
-          </Link>
-        ),
-        content: contentMatch ? (
-          <CleanHighlightMarkDown md={contentMatch} />
-        ) : (
-          ' '
-        ),
-        to,
-      };
-    });
+  const infoData = allArticles?.map(({ matches, title, id }) => {
+    const titleMatch = matches?.title?.[0];
+    const contentMatch = matches?.content?.[0];
+    const to = getLocationEntryPath(Location.HelpEntry, id);
+    return {
+      title: (
+        <Link to={to}>
+          {titleMatch ? <CleanHighlightMarkDown md={titleMatch} /> : title}
+        </Link>
+      ),
+      content: contentMatch ? (
+        <CleanHighlightMarkDown md={contentMatch} />
+      ) : (
+        ' '
+      ),
+      to,
+    };
+  });
 
   return (
     <div className={styles['help-quick-search']}>
@@ -97,11 +95,13 @@ const HelpQuickSearch = () => {
         <div className={styles['help-quick-search__results']}>
           <Card>
             <InfoList infoData={infoData} />
-            <div className={styles['help-quick-search__results__all-link']}>
-              <Link to={allArticlesLocation}>
-                Show all results ({allArticles.length})
-              </Link>
-            </div>
+            {dataObject.headers?.['x-total-results'] ? (
+              <div className={styles['help-quick-search__results__all-link']}>
+                <Link to={allArticlesLocation}>
+                  Show all results ({dataObject.headers?.['x-total-results']})
+                </Link>
+              </div>
+            ) : null}
           </Card>
         </div>
       )}
