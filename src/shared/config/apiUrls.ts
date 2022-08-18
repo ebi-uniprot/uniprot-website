@@ -283,7 +283,7 @@ export const getAccessionsURL = (
       // sort to improve possible cache hit
       [key]: Array.from(accessions).sort().join(','),
       query: [
-        query,
+        `(${query})`,
         createFacetsQueryString(
           selectedFacets.filter(excludeLocalBlastFacets)
         ) || undefined,
@@ -416,7 +416,7 @@ export const getDownloadUrl = ({
   } else {
     parameters.query = selected.length
       ? createSelectedQueryString(selected, selectedIdField)
-      : [query, createFacetsQueryString(selectedFacets)]
+      : [`(${query})`, createFacetsQueryString(selectedFacets)]
           .filter(Boolean)
           .join(' AND ');
   }
