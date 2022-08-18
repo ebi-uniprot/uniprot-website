@@ -2,6 +2,11 @@
   &--inline {
     display: flex;
     flex-wrap: wrap;
-    gap: 1ch;
+    margin-block: 1ch;
+    gap: 1.5ch;
+
+    & > * {
+      padding-block: 0.5ch;
+    }
   }
 }
