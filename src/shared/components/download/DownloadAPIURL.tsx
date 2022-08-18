@@ -39,7 +39,8 @@ export const getSearchURL = (streamURL: string, batchSize = 500) => {
   });
 };
 
-const SIZE_LIMIT = 5_000_000 as const;
+// NOTE: update as needed if backend limitations change!
+export const DOWNLOAD_SIZE_LIMIT = 5_000_000 as const;
 
 type Props = {
   apiURL: string;
@@ -74,7 +75,7 @@ const DownloadAPIURL = ({ apiURL, onCopy, onMount, count }: Props) => {
   );
 
   const isStreamEndpoint = apiURL.includes('/stream');
-  const disableStream = isStreamEndpoint && count > SIZE_LIMIT;
+  const disableStream = isStreamEndpoint && count > DOWNLOAD_SIZE_LIMIT;
   const batchSize = 500;
   const searchURL = getSearchURL(apiURL, batchSize);
 
@@ -90,7 +91,7 @@ const DownloadAPIURL = ({ apiURL, onCopy, onMount, count }: Props) => {
               {
                 '// the streaming endpoint is unavailable for queries of more than '
               }
-              <LongNumber>{SIZE_LIMIT}</LongNumber> results
+              <LongNumber>{DOWNLOAD_SIZE_LIMIT}</LongNumber> results
             </>
           ) : (
             apiURL
