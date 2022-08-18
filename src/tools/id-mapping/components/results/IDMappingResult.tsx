@@ -330,7 +330,9 @@ const IDMappingResult = () => {
         >
           <Suspense fallback={<Loader />}>
             <IDMappingResultTable
-              namespaceOverride={namespaceOverride}
+              namespaceOverride={
+                notCustomisable ? Namespace.idmapping : namespaceOverride
+              }
               resultsDataObject={resultsDataObject}
               detailsData={detailsData}
               notCustomisable={notCustomisable}

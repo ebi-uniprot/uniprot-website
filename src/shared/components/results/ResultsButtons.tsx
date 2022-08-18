@@ -186,6 +186,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
                 onClose={() => setDisplayDownloadPanel(false)}
                 namespace={namespace}
                 base={base}
+                notCustomisable={notCustomisable}
               />
             </ErrorBoundary>
           </SlidingPanel>
