@@ -5,7 +5,6 @@ import {
   UniProtkbAPIModel,
 } from '../adapters/uniProtkbConverter';
 import { GeneNamesData } from '../adapters/namesAndTaxonomyConverter';
-
 import { Property, PropertyKey } from '../types/modelTypes';
 
 export const hasExternalLinks = (transformedData: UniProtkbUIModel) =>
