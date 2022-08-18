@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { getColorByType } from 'protvista-track';
 import { MSAInput } from '../components/AlignmentView';
-import { FeatureData } from '../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
+import { FeatureDatum } from '../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
 import { ProcessedFeature } from '../../shared/components/views/FeaturesView';
 
 export const findSequenceSegments = (seq: string) => {

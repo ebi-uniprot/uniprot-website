@@ -1,3 +1,4 @@
+import { Chip } from 'franklin-sites';
 import * as logging from '../../shared/utils/logging';
 import { phosphorylate } from '../utils/aa';
 
@@ -45,12 +46,14 @@ const convertProteomicsPtmFeature = (feature: ProteomicsPtmFeature) => {
           Boolean(evidence)
         );
       return {
+        source: 'PTMeXchange',
         type: 'Modified residue (large scale)',
         location: {
           start: { value: absoluteLocation, modifier: 'EXACT' },
           end: { value: absoluteLocation, modifier: 'EXACT' },
         },
         description: phosphorylate(aa),
+        confidenceScore: 'Beta', // TODO: update when API provides this
         evidences,
       };
     })

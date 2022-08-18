@@ -1,6 +1,6 @@
 import { Evidence } from './modelTypes';
 import { Absorption, KineticParameters } from '../adapters/functionConverter';
-import { FeatureData } from '../components/protein-data-views/UniProtKBFeaturesView';
+import { FeatureDatum } from '../components/protein-data-views/UniProtKBFeaturesView';
 import { Interactant } from '../adapters/interactionConverter';
 import { Xref } from '../../shared/types/apiModel';
 
@@ -146,7 +146,7 @@ export type Isoform = {
   synonyms?: TextWithEvidence[];
   note?: { texts: TextWithEvidence[] };
   sequenceIds?: string[];
-  varSeqs?: FeatureData;
+  varSeqs?: FeatureDatum[];
 };
 
 export interface AlternativeProductsComment

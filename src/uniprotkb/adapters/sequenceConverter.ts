@@ -1,5 +1,5 @@
 import { groupBy } from 'lodash-es';
-import { FeatureData } from '../components/protein-data-views/UniProtKBFeaturesView';
+import { FeatureDatum } from '../components/protein-data-views/UniProtKBFeaturesView';
 import {
   getKeywordsForCategories,
   KeywordUIModel,
@@ -53,7 +53,7 @@ export type SequenceUIModel = {
   massSpectrometry?: MassSpectrometryComment[];
   polymorphism?: FreeTextComment[];
   rnaEditing?: RNAEditingComment[];
-  featuresData?: FeatureData;
+  featuresData?: FeatureDatum[];
   xrefData?: XrefUIModel[];
   lastUpdateDate?: string;
   entryAudit?: EntryAudit;

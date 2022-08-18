@@ -9,7 +9,7 @@ import {
 } from '../sequences';
 
 import { ProcessedFeature } from '../../../shared/components/views/FeaturesView';
-import { FeatureData } from '../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
+import { FeatureDatum } from '../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
 import { MSAInput } from '../../components/AlignmentView';
 
 // import featuresMock from '../__mocks__/features.json';

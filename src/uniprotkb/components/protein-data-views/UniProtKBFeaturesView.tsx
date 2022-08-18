@@ -32,7 +32,7 @@ type FeatureLocation = {
   modifier: LocationModifier;
 };
 
-export type FeatureData = {
+export type FeatureDatum = {
   type: FeatureType;
   featureId?: string;
   description?: string; // Sometimes you do have an empty string though
@@ -49,7 +49,7 @@ export type FeatureData = {
   featureCrossReferences?: Xref[];
   ligand?: Ligand;
   ligandPart?: LigandPart;
-}[];
+};
 
 export type ProtvistaFeature = {
   type: string;
@@ -64,13 +64,13 @@ export type ProtvistaFeature = {
 type FeatureProps = {
   primaryAccession: string;
   sequence?: string;
-  features: FeatureData;
+  features: FeatureDatum[];
   withTitle?: boolean;
   withDataTable?: boolean;
 };
 
 export const processFeaturesData = (
-  data: FeatureData,
+  data: FeatureDatum[],
   sequence?: string
 ): ProcessedFeature[] =>
   data.map((feature): ProcessedFeature => {

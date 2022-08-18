@@ -8,13 +8,13 @@ import extractAccession from './extractAccession';
 
 import { getAccessionsURL } from '../../../shared/config/apiUrls';
 
-import { FeatureData } from '../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
+import { FeatureDatum } from '../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { SearchResults } from '../../../shared/types/results';
 
 export type ParsedSequenceAndFeatures = SequenceObject & {
   accession: string;
-  features?: FeatureData;
+  features?: FeatureDatum[];
 };
 
 export type SequenceInfo = {

@@ -1,4 +1,4 @@
-import { FeatureData } from '../../UniProtKBFeaturesView';
+import { FeatureDatum } from '../../UniProtKBFeaturesView';
 
 const mock: FeatureData = [
   {
