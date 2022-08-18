@@ -34,6 +34,7 @@ export type ProteinProcessingFeatures =
   | 'Chain'
   | 'Peptide'
   | 'Modified residue'
+  | 'Modified residue (large scale)'
   | 'Lipidation'
   | 'Glycosylation'
   | 'Disulfide bond'
