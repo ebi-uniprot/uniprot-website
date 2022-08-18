@@ -296,6 +296,7 @@ const Download: FC<DownloadProps> = ({
             apiURL={downloadUrl.replace('download=true&', '')}
             onCopy={onClose}
             onMount={scrollExtraIntoView}
+            count={downloadAll ? totalNumberResults : nSelectedEntries}
           />
         )}
         {extraContent === 'preview' && (
