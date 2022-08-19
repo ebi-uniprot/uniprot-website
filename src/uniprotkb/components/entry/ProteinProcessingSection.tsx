@@ -63,6 +63,7 @@ const ProteinProcessingSection = ({
         primaryAccession={primaryAccession}
         features={[...featuresData, ...foo]}
         sequence={sequence}
+        showSourceColumn
       />
       <FreeTextView
         comments={commentsData.get('PTM') as FreeTextComment[] | undefined}

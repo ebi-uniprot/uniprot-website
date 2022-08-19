@@ -1,4 +1,3 @@
-import { Chip } from 'franklin-sites';
 import * as logging from '../../shared/utils/logging';
 import { phosphorylate } from '../utils/aa';
 

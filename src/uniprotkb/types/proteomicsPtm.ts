@@ -1,5 +1,7 @@
 // Correponds to eg https://www.ebi.ac.uk/proteins/api/proteomics-ptm/Q653S1
 
+import { ConfidenceScore } from '../components/protein-data-views/UniProtKBFeaturesView';
+
 export type ProteomicsPtm = {
   accession: string;
   entryName: string;
@@ -52,6 +54,7 @@ type Properties = {
   'PSM Count': string;
   'Final adjusted site probability': string;
   'Site probability': string;
+  'Confidence Score': ConfidenceScore; // TODO: subject to change - confirm when API is stable
 };
 
 type Xref = {

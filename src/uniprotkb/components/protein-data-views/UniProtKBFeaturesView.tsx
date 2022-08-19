@@ -2,7 +2,7 @@ import { useMemo, Fragment, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { v1 } from 'uuid';
-import { Button } from 'franklin-sites';
+import { Button, Chip } from 'franklin-sites';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import FeaturesView, {
@@ -32,6 +32,8 @@ type FeatureLocation = {
   modifier: LocationModifier;
 };
 
+export type ConfidenceScore = 'Gold' | 'Silver' | 'Bronze' | 'Beta'; // TODO: remove Unknown after out of demo
+
 export type FeatureDatum = {
   type: FeatureType;
   featureId?: string;
@@ -49,6 +51,8 @@ export type FeatureDatum = {
   featureCrossReferences?: Xref[];
   ligand?: Ligand;
   ligandPart?: LigandPart;
+  source?: string;
+  confidenceScore?: ConfidenceScore;
 };
 
 export type ProtvistaFeature = {
@@ -67,11 +71,13 @@ type FeatureProps = {
   features: FeatureDatum[];
   withTitle?: boolean;
   withDataTable?: boolean;
+  showSourceColumn?: boolean;
 };
 
 export const processFeaturesData = (
   data: FeatureDatum[],
-  sequence?: string
+  sequence?: string,
+  includeSource?: boolean
 ): ProcessedFeature[] =>
   data.map((feature): ProcessedFeature => {
     let s: string | undefined;
@@ -123,6 +129,8 @@ export const processFeaturesData = (
       description,
       evidences: feature.evidences,
       sequence: s,
+      source: includeSource ? feature.source || 'UniProt' : undefined,
+      confidenceScore: feature.confidenceScore,
     };
   });
 
@@ -132,10 +140,11 @@ const UniProtKBFeaturesView = ({
   features,
   withTitle = true,
   withDataTable = true,
+  showSourceColumn = false,
 }: FeatureProps) => {
   const processedData = useMemo(
-    () => processFeaturesData(features, sequence),
-    [features, sequence]
+    () => processFeaturesData(features, sequence, showSourceColumn),
+    [features, sequence, showSourceColumn]
   );
 
   const smallScreen = useSmallScreen();
@@ -155,6 +164,7 @@ const UniProtKBFeaturesView = ({
           <th data-filter="type">Type</th>
           <th>ID</th>
           <th>Position(s)</th>
+          {showSourceColumn && <th data-filter="source">Source</th>}
           <th>Description</th>
           {smallScreen ? null : (
             <th>
@@ -216,8 +226,18 @@ const UniProtKBFeaturesView = ({
                 </td>
                 <td id={feature.featureId}>{feature.featureId}</td>
                 <td>{position}</td>
+                {showSourceColumn && (
+                  <td data-filter="source" data-filter-value={feature.source}>
+                    {feature.source}
+                  </td>
+                )}
                 <td>
                   {description}
+                  {feature.confidenceScore && (
+                    <Chip className="secondary" compact>
+                      {feature.confidenceScore}
+                    </Chip>
+                  )}
                   <UniProtKBEvidenceTag evidences={feature.evidences} />
                 </td>
                 {smallScreen ? null : (
