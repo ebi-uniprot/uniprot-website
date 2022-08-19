@@ -91,7 +91,11 @@ const CoreData = () => (
     <h2 className="visually-hidden">UniProt core data</h2>
     <Tile
       title="Proteins"
-      className={cn('uniprot-grid-cell--span-3', styles['core-data-tile'])}
+      className={cn(
+        'uniprot-grid-cell--small-span-6',
+        'uniprot-grid-cell--medium-span-3',
+        styles['core-data-tile']
+      )}
       subtitle="UniProt Knowledgebase"
       backgroundImage={
         <img
@@ -112,7 +116,10 @@ const CoreData = () => (
     </Tile>
     <Tile
       title="Species"
-      className="uniprot-grid-cell--span-3"
+      className={cn(
+        'uniprot-grid-cell--small-span-6',
+        'uniprot-grid-cell--medium-span-3'
+      )}
       subtitle="Proteomes"
       backgroundImage={
         <img
@@ -132,7 +139,10 @@ const CoreData = () => (
     </Tile>
     <Tile
       title="Protein Clusters"
-      className="uniprot-grid-cell--span-3"
+      className={cn(
+        'uniprot-grid-cell--small-span-6',
+        'uniprot-grid-cell--medium-span-3'
+      )}
       subtitle="UniRef"
       backgroundImage={
         <img
@@ -151,7 +161,10 @@ const CoreData = () => (
     </Tile>
     <Tile
       title="Sequence Archive"
-      className="uniprot-grid-cell--span-3"
+      className={cn(
+        'uniprot-grid-cell--small-span-6',
+        'uniprot-grid-cell--medium-span-3'
+      )}
       subtitle="UniParc"
       backgroundImage={
         <img

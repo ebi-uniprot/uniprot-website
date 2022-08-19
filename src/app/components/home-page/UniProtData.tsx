@@ -29,7 +29,10 @@ const UniProtData = () => (
   >
     <Tile
       title="FTP Download"
-      className="uniprot-grid-cell--span-3"
+      className={cn(
+        'uniprot-grid-cell--small-span-6',
+        'uniprot-grid-cell--medium-span-3'
+      )}
       backgroundImage={
         <img
           src={FTPIllustration}
@@ -47,7 +50,10 @@ const UniProtData = () => (
     </Tile>
     <Tile
       title="Technical Documentation"
-      className="uniprot-grid-cell--span-3"
+      className={cn(
+        'uniprot-grid-cell--small-span-6',
+        'uniprot-grid-cell--medium-span-3'
+      )}
       backgroundImage={
         <img
           src={TechDocIllustration}
@@ -67,7 +73,10 @@ const UniProtData = () => (
     </Tile>
     <Tile
       title="Programmatic Access"
-      className="uniprot-grid-cell--span-3"
+      className={cn(
+        'uniprot-grid-cell--small-span-6',
+        'uniprot-grid-cell--medium-span-3'
+      )}
       backgroundImage={
         <img
           src={ProgrammaticIllustration}
@@ -87,7 +96,10 @@ const UniProtData = () => (
     </Tile>
     <Tile
       title="Submit Data"
-      className="uniprot-grid-cell--span-3"
+      className={cn(
+        'uniprot-grid-cell--small-span-6',
+        'uniprot-grid-cell--medium-span-3'
+      )}
       backgroundImage={
         <img
           src={SubmitDataIllustration}
