@@ -34,7 +34,6 @@ export type ProteinProcessingFeatures =
   | 'Chain'
   | 'Peptide'
   | 'Modified residue'
-  | 'Modified residue (large scale)'
   | 'Lipidation'
   | 'Glycosylation'
   | 'Disulfide bond'
@@ -49,7 +48,7 @@ export type FamilyAndDomainsFeatures =
   | 'Motif'
   | 'Compositional bias';
 
-type OtherType = 'Natural variant' | 'Other'; // For anything else
+type OtherType = 'Natural variant' | 'Modified residue (large scale)' | 'Other'; // For anything else
 
 type FeatureType =
   | OtherType

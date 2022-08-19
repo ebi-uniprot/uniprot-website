@@ -10,8 +10,8 @@ import { DatabaseInfoMaps } from '../utils/database';
 
 const keywordsCategories: KeywordCategory[] = ['PTM'];
 
-export const proteinProcessingFeaturesToColumns: Partial<
-  Readonly<Record<ProteinProcessingFeatures, UniProtKBColumn>>
+export const proteinProcessingFeaturesToColumns: Readonly<
+  Record<ProteinProcessingFeatures, UniProtKBColumn>
 > = {
   'Initiator methionine': UniProtKBColumn.ftInitMet,
   Signal: UniProtKBColumn.ftSignal,

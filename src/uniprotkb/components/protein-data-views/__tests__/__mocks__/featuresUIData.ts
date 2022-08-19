@@ -1,6 +1,6 @@
 import { FeatureDatum } from '../../UniProtKBFeaturesView';
 
-const mock: FeatureData = [
+const mock: FeatureDatum[] = [
   {
     type: 'Signal',
     location: {

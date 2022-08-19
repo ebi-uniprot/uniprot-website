@@ -16,7 +16,7 @@ import { FeatureDatum } from './UniProtKBFeaturesView';
 
 import styles from './styles/variation-view.module.scss';
 
-export const DiseaseVariants = ({ variants }: { variants: FeatureData }) => {
+export const DiseaseVariants = ({ variants }: { variants: FeatureDatum[] }) => {
   const dataTableElement = useCustomElement(
     /* istanbul ignore next */
     () =>

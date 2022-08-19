@@ -9,12 +9,12 @@ import {
 } from '../sequences';
 
 import { ProcessedFeature } from '../../../shared/components/views/FeaturesView';
-import { FeatureDatum } from '../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
 import { MSAInput } from '../../components/AlignmentView';
 
 // import featuresMock from '../__mocks__/features.json';
 // import sequenceChunkPairsMock from '../__mocks__/sequences.json';
 import { Align as alignment } from '../../components/__mocks__/msaMocks.json';
+import { FeatureDatum } from '../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
 
 describe('Tool sequences utils', () => {
   it('should find segments', () => {
@@ -233,7 +233,7 @@ describe('Tool sequences utils', () => {
               },
             },
           },
-        ] as FeatureData)
+        ] as FeatureDatum[])
       ).toHaveLength(0);
     });
     it('should return feature with EXACT locations', () => {
@@ -251,7 +251,7 @@ describe('Tool sequences utils', () => {
               },
             },
           },
-        ] as FeatureData)
+        ] as FeatureDatum[])
       ).toHaveLength(1);
     });
     it('should return empty array if no features provided', () => {

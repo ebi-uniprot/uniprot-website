@@ -1,64 +1,76 @@
 import * as logging from '../../shared/utils/logging';
 import { phosphorylate } from '../utils/aa';
 
-import { ProteomicsPtmFeature } from '../types/proteomicsPtm';
+import { ProteomicsPtmFeature, PTM } from '../types/proteomicsPtm';
 import { Evidence } from '../types/modelTypes';
 import { FeatureDatum } from '../components/protein-data-views/UniProtKBFeaturesView';
 
-const convertProteomicsPtmFeature = (feature: ProteomicsPtmFeature) => {
-  const evidenceCodes = [
-    ...new Set(feature.evidences.map((evidence) => evidence.code)),
-  ];
-  if (evidenceCodes.length !== 1) {
-    logging.error(
-      `Encountered number of evidence codes !== 1: ${evidenceCodes}`
-    );
-  }
-  const evidenceCode = evidenceCodes[0] as `ECO:${number}`;
-  return feature.ptms
-    .map((ptm): FeatureDatum | null => {
-      const aa = feature.peptide[ptm.position - 1];
-      const absoluteLocation = +feature.begin + ptm.position - 1;
-      if (!Number.isFinite(absoluteLocation)) {
-        logging.error(
-          `Encountered infinite number: feature.begin + ptm.position - 1 = ${feature.begin} + ${ptm.position} - 1`
-        );
-        return null;
-      }
-      const evidences = ptm.dbReferences
-        .map(({ properties }): Evidence | null => {
-          if (!('Pubmed ID' in properties)) {
-            logging.error(
-              `Pubmed ID not present - unclear what the source is: ${JSON.stringify(
-                properties
-              )}`
-            );
-            return null;
-          }
-          return {
-            evidenceCode,
-            source: 'PubMed',
-            id: properties['Pubmed ID'],
-          };
-        })
-        .filter((evidence: Evidence | null): evidence is Evidence =>
-          Boolean(evidence)
-        );
-      return {
-        source: 'PTMeXchange',
-        type: 'Modified residue (large scale)',
-        location: {
-          start: { value: absoluteLocation, modifier: 'EXACT' },
-          end: { value: absoluteLocation, modifier: 'EXACT' },
-        },
-        description: phosphorylate(aa),
-        confidenceScore: 'Beta', // TODO: update when API provides this
-        evidences,
-      };
-    })
-    .filter((ptm: FeatureDatum | null): ptm is FeatureDatum => Boolean(ptm));
+const convertProteomicsPtms = (
+  ptms: PTM[],
+  aa: string,
+  absolutePosition: number,
+  evidenceCode: `ECO:${number}`
+): FeatureDatum => {
+  const evidences = ptms.flatMap(({ dbReferences }) =>
+    dbReferences.map(
+      ({ properties }): Evidence => ({
+        evidenceCode,
+        source: 'PubMed',
+        id: properties['Pubmed ID'],
+      })
+    )
+  );
+
+  return {
+    source: 'PTMeXchange',
+    type: 'Modified residue (large scale)',
+    location: {
+      start: { value: absolutePosition, modifier: 'EXACT' },
+      end: { value: absolutePosition, modifier: 'EXACT' },
+    },
+    description: phosphorylate(aa),
+    confidenceScore: 'Beta', // TODO: update when API provides this
+    evidences,
+  };
 };
 
 export const convertProteomicsPtmFeatures = (
   features: ProteomicsPtmFeature[]
-) => features.flatMap((feature) => convertProteomicsPtmFeature(feature));
+) => {
+  const absolutePositionToPtms: Record<number, { ptms: PTM[]; aa: string }> =
+    {};
+  // TODO: get the shortest evidence.source.url
+  for (const feature of features) {
+    for (const ptm of feature.ptms) {
+      const absolutePosition = +feature.begin + ptm.position - 1;
+      if (!Number.isFinite(absolutePosition)) {
+        logging.error(
+          `Encountered infinite number: +feature.begin + ptm.position - 1 = ${+feature.begin} + ${
+            ptm.position
+          } - 1`
+        );
+        // eslint-disable-next-line no-continue
+        continue;
+      }
+      const aa = feature.peptide[ptm.position - 1];
+      if (absolutePosition in absolutePositionToPtms) {
+        absolutePositionToPtms[absolutePosition].ptms.push(ptm);
+        if (absolutePositionToPtms[absolutePosition].aa !== 'aa') {
+          logging.error(
+            `One PTM has different amino acid values: [${absolutePositionToPtms[absolutePosition].aa}, ${aa}]`
+          );
+        }
+      } else {
+        absolutePositionToPtms[absolutePosition] = { ptms: [ptm], aa };
+      }
+    }
+  }
+
+  // NOTE: we can expect the ECO code to be the same for all of the features
+  const evidenceCode = features[0].evidences[0].code as `ECO:${number}`;
+
+  return Object.entries(absolutePositionToPtms).map(
+    ([absolutePosition, { ptms, aa }]) =>
+      convertProteomicsPtms(ptms, aa, +absolutePosition, evidenceCode)
+  );
+};

@@ -19,7 +19,7 @@ export type ProteomicsPtmFeature = {
   evidences: Evidence[];
   peptide: string;
   unique: boolean;
-  ptms: Ptm[];
+  ptms: PTM[];
 };
 
 type Evidence = {
@@ -32,7 +32,7 @@ type Source = {
   url: string;
 };
 
-type Ptm = {
+export type PTM = {
   name: string;
   position: number;
   sources: string[];

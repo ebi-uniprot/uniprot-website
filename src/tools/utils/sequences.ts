@@ -103,7 +103,9 @@ export const getEndCoordinate = (sequence: string, endPosition: number) =>
 
 // Jie has said that if it is unknown, you can ignore value
 // These erroneous features are temporary and will eventually be removed
-export const removeFeaturesWithUnknownModifier = (features: FeatureData = []) =>
+export const removeFeaturesWithUnknownModifier = (
+  features: FeatureDatum[] = []
+) =>
   features
     .filter(
       ({ location: { start, end } }) =>

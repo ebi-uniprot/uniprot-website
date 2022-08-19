@@ -183,7 +183,7 @@ export const convertSequence = (
       );
       sequenceData.alternativeProducts.isoforms =
         sequenceData.alternativeProducts.isoforms.map((isoform) => {
-          const varSeqsToAdd: FeatureData = [];
+          const varSeqsToAdd: FeatureDatum[] = [];
           if (isoform.sequenceIds && varSeqs.length !== 0) {
             isoform.sequenceIds.forEach((sequenceId) => {
               const varSeqToAdd = varSeqs.find(
