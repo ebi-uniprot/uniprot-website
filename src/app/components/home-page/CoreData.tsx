@@ -118,7 +118,8 @@ const CoreData = () => (
       title="Species"
       className={cn(
         'uniprot-grid-cell--small-span-6',
-        'uniprot-grid-cell--medium-span-3'
+        'uniprot-grid-cell--medium-span-3',
+        styles['core-data-tile']
       )}
       subtitle="Proteomes"
       backgroundImage={
@@ -141,7 +142,8 @@ const CoreData = () => (
       title="Protein Clusters"
       className={cn(
         'uniprot-grid-cell--small-span-6',
-        'uniprot-grid-cell--medium-span-3'
+        'uniprot-grid-cell--medium-span-3',
+        styles['core-data-tile']
       )}
       subtitle="UniRef"
       backgroundImage={
@@ -163,7 +165,8 @@ const CoreData = () => (
       title="Sequence Archive"
       className={cn(
         'uniprot-grid-cell--small-span-6',
-        'uniprot-grid-cell--medium-span-3'
+        'uniprot-grid-cell--medium-span-3',
+        styles['core-data-tile']
       )}
       subtitle="UniParc"
       backgroundImage={

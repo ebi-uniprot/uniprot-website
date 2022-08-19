@@ -131,7 +131,7 @@ const NeedHelp = () => {
         className={cn(
           'uniprot-grid-cell--small-span-6',
           'uniprot-grid-cell--medium-span-3',
-          'uniprot-grid-cell--small-offset-7',
+          'uniprot-grid-cell--small-offset-1',
           'uniprot-grid-cell--medium-offset-10',
           styles['need-help__need-help-top']
         )}
@@ -143,7 +143,7 @@ const NeedHelp = () => {
         className={cn(
           'uniprot-grid-cell--small-span-6',
           'uniprot-grid-cell--medium-span-3',
-          'uniprot-grid-cell--small-offset-7',
+          'uniprot-grid-cell--small-offset-1',
           'uniprot-grid-cell--medium-offset-10',
           styles['need-help__need-help-bottom']
         )}
@@ -177,7 +177,7 @@ const NeedHelp = () => {
         className={cn(
           'uniprot-grid-cell--small-span-6',
           'uniprot-grid-cell--medium-span-3',
-          'uniprot-grid-cell--small-offset-1',
+          'uniprot-grid-cell--small-offset-7',
           'uniprot-grid-cell--medium-offset-7',
           styles['need-help__attend-training-top']
         )}
@@ -188,7 +188,7 @@ const NeedHelp = () => {
         className={cn(
           'uniprot-grid-cell--small-span-6',
           'uniprot-grid-cell--medium-span-3',
-          'uniprot-grid-cell--small-offset-1',
+          'uniprot-grid-cell--small-offset-7',
           'uniprot-grid-cell--medium-offset-7',
           styles['need-help__attend-training-bottom']
         )}
@@ -216,7 +216,7 @@ const NeedHelp = () => {
         className={cn(
           'uniprot-grid-cell--small-span-6',
           'uniprot-grid-cell--medium-span-3',
-          'uniprot-grid-cell--small-offset-7',
+          'uniprot-grid-cell--small-offset-1',
           'uniprot-grid-cell--medium-offset-4',
           styles['need-help__tutorial-videos-top']
         )}
@@ -232,7 +232,7 @@ const NeedHelp = () => {
         className={cn(
           'uniprot-grid-cell--small-span-6',
           'uniprot-grid-cell--medium-span-3',
-          'uniprot-grid-cell--small-offset-7',
+          'uniprot-grid-cell--small-offset-1',
           'uniprot-grid-cell--medium-offset-4',
           styles['need-help__tutorial-videos-bottom']
         )}
@@ -260,7 +260,8 @@ const NeedHelp = () => {
         className={cn(
           'uniprot-grid-cell--small-span-6',
           'uniprot-grid-cell--medium-span-3',
-          'uniprot-grid-cell--small-offset-1',
+          'uniprot-grid-cell--small-offset-7',
+          'uniprot-grid-cell--medium-offset-1',
           styles['need-help__next-up']
         )}
       >

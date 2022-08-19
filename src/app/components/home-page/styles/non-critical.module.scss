@@ -5,6 +5,14 @@
 
 .home-page-section {
   margin-bottom: $global-margin * 2;
+
+  /* A "small tablet" breakpoint */
+  @media only screen and (max-width: 900px) and (min-width: 640px) {
+    :global(.tile__description) {
+      /* Make the description part taller to fit everything */
+      transform: translate(0);
+    }
+  }
 }
 
 .core-data-tile {

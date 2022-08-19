@@ -126,7 +126,7 @@ exports[`non-critical HomePage component should render 1`] = `
       </small>
     </div>
     <div
-      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 tile tile-gradient"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 core-data-tile tile tile-gradient"
       style="--tile-background: #e56358;"
     >
       <div
@@ -165,7 +165,7 @@ exports[`non-critical HomePage component should render 1`] = `
       </small>
     </div>
     <div
-      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 tile tile-gradient"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 core-data-tile tile tile-gradient"
       style="--tile-background: #f2994c;"
     >
       <div
@@ -204,7 +204,7 @@ exports[`non-critical HomePage component should render 1`] = `
       </small>
     </div>
     <div
-      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 tile tile-gradient"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 core-data-tile tile tile-gradient"
       style="--tile-background: #88c19d;"
     >
       <div
@@ -754,7 +754,7 @@ exports[`non-critical HomePage component should render 1`] = `
     class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section need-help"
   >
     <div
-      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 uniprot-grid-cell--small-offset-7 uniprot-grid-cell--medium-offset-10 need-help__need-help-top"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 uniprot-grid-cell--small-offset-1 uniprot-grid-cell--medium-offset-10 need-help__need-help-top"
     >
       <h2>
         Need help?
@@ -764,7 +764,7 @@ exports[`non-critical HomePage component should render 1`] = `
       </p>
     </div>
     <div
-      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 uniprot-grid-cell--small-offset-7 uniprot-grid-cell--medium-offset-10 need-help__need-help-bottom"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 uniprot-grid-cell--small-offset-1 uniprot-grid-cell--medium-offset-10 need-help__need-help-bottom"
     >
       <a
         class="help-center-link"
@@ -804,7 +804,7 @@ exports[`non-critical HomePage component should render 1`] = `
       </a>
     </div>
     <div
-      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 uniprot-grid-cell--small-offset-1 uniprot-grid-cell--medium-offset-7 need-help__attend-training-top"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 uniprot-grid-cell--small-offset-7 uniprot-grid-cell--medium-offset-7 need-help__attend-training-top"
     >
       <img
         alt=""
@@ -815,7 +815,7 @@ exports[`non-critical HomePage component should render 1`] = `
       />
     </div>
     <div
-      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 uniprot-grid-cell--small-offset-1 uniprot-grid-cell--medium-offset-7 need-help__attend-training-bottom"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 uniprot-grid-cell--small-offset-7 uniprot-grid-cell--medium-offset-7 need-help__attend-training-bottom"
     >
       <h2
         class="small"
@@ -851,10 +851,10 @@ exports[`non-critical HomePage component should render 1`] = `
       </a>
     </div>
     <div
-      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 uniprot-grid-cell--small-offset-7 uniprot-grid-cell--medium-offset-4 need-help__tutorial-videos-top"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 uniprot-grid-cell--small-offset-1 uniprot-grid-cell--medium-offset-4 need-help__tutorial-videos-top"
     />
     <div
-      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 uniprot-grid-cell--small-offset-7 uniprot-grid-cell--medium-offset-4 need-help__tutorial-videos-bottom"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 uniprot-grid-cell--small-offset-1 uniprot-grid-cell--medium-offset-4 need-help__tutorial-videos-bottom"
     >
       <a
         class="external-link"
@@ -891,7 +891,7 @@ exports[`non-critical HomePage component should render 1`] = `
       </a>
     </div>
     <div
-      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 uniprot-grid-cell--small-offset-1 need-help__next-up"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 uniprot-grid-cell--small-offset-7 uniprot-grid-cell--medium-offset-1 need-help__next-up"
     >
       <div
         class="loader-container"
