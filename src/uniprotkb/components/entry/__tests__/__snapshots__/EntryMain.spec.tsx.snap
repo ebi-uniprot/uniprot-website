@@ -2932,10 +2932,11 @@ exports[`Entry view should render 1`] = `
                   class="expandable-list no-bullet"
                 >
                   <li>
+                     
                     <a
                       href="/keywords/KW-11111"
                     >
-                       #keyword value
+                      #keyword value
                     </a>
                     <button
                       aria-controls="49"
@@ -4827,17 +4828,19 @@ exports[`Entry view should render for non-human entry 1`] = `
                   class="expandable-list no-bullet"
                 >
                   <li>
+                     
                     <a
                       href="/keywords/KW-0326"
                     >
-                       #Glycosidase
+                      #Glycosidase
                     </a>
                   </li>
                   <li>
+                     
                     <a
                       href="/keywords/KW-0378"
                     >
-                       #Hydrolase
+                      #Hydrolase
                     </a>
                   </li>
                 </ul>
@@ -4860,10 +4863,11 @@ exports[`Entry view should render for non-human entry 1`] = `
                   class="expandable-list no-bullet"
                 >
                   <li>
+                     
                     <a
                       href="/keywords/KW-0479"
                     >
-                       #Metal-binding
+                      #Metal-binding
                     </a>
                   </li>
                 </ul>
@@ -6513,10 +6517,11 @@ exports[`Entry view should render for non-human entry 1`] = `
                   class="expandable-list no-bullet"
                 >
                   <li>
+                     
                     <a
                       href="/keywords/KW-0732"
                     >
-                       #Signal
+                      #Signal
                     </a>
                   </li>
                 </ul>
@@ -7608,10 +7613,11 @@ exports[`Entry view should render for non-human entry 1`] = `
                   class="expandable-list no-bullet"
                 >
                   <li>
+                     
                     <a
                       href="/keywords/KW-0002"
                     >
-                       #3D-structure
+                      #3D-structure
                     </a>
                   </li>
                 </ul>
