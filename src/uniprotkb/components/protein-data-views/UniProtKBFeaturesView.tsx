@@ -238,7 +238,10 @@ const UniProtKBFeaturesView = ({
                       {feature.confidenceScore}
                     </Chip>
                   )}
-                  <UniProtKBEvidenceTag evidences={feature.evidences} />
+                  <UniProtKBEvidenceTag
+                    evidences={feature.evidences}
+                    ptmConfidenceScore={feature.confidenceScore}
+                  />
                 </td>
                 {smallScreen ? null : (
                   <td>

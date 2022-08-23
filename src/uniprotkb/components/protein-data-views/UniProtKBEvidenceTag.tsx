@@ -14,6 +14,7 @@ import {
 import { allSearchResultLocations } from '../../../app/config/urls';
 
 import { Evidence } from '../../types/modelTypes';
+import { ConfidenceScore } from './UniProtKBFeaturesView';
 
 enum evidenceTagSourceTypes {
   PUBMED = 'PubMed',
@@ -24,28 +25,35 @@ enum evidenceTagSourceTypes {
 type UniProtEvidenceTagContentProps = {
   evidenceData: EvidenceData;
   evidences: Evidence[] | undefined;
+  ptmConfidenceScore?: ConfidenceScore;
 };
 
 export const UniProtEvidenceTagContent = ({
   evidenceData,
   evidences,
+  ptmConfidenceScore,
 }: UniProtEvidenceTagContentProps) => {
   if (!evidences?.length) {
     return null;
   }
   const groupedEvidences =
     evidences && groupBy(evidences, (evidence) => evidence.source);
-
   const {
     [evidenceTagSourceTypes.PUBMED]: publicationReferences,
     ...groupedEvidencesWithoutPubs
   } = groupedEvidences;
-
   return (
     <div>
       <h5 data-article-id="evidences">
         {evidenceData.label} <small>({evidenceData.description})</small>
       </h5>
+      {ptmConfidenceScore && (
+        <p style={{ paddingTop: 12 }}>
+          <h5>Confidence score: {ptmConfidenceScore}</h5>
+          This score has been used to reflect the strength of the evidence for
+          this modified site following reanalysis of available datasets.
+        </p>
+      )}
       {publicationReferences && (
         <UniProtKBEntryPublications
           pubmedIds={
@@ -70,7 +78,13 @@ export const UniProtEvidenceTagContent = ({
   );
 };
 
-const UniProtKBEvidenceTag = ({ evidences }: { evidences?: Evidence[] }) => {
+const UniProtKBEvidenceTag = ({
+  evidences,
+  ptmConfidenceScore,
+}: {
+  evidences?: Evidence[];
+  ptmConfidenceScore?: ConfidenceScore;
+}) => {
   const searchPageMath = useRouteMatch(allSearchResultLocations);
   if (searchPageMath?.isExact || !evidences) {
     return null;
@@ -98,6 +112,7 @@ const UniProtKBEvidenceTag = ({ evidences }: { evidences?: Evidence[] }) => {
             <UniProtEvidenceTagContent
               evidenceData={evidenceData}
               evidences={references}
+              ptmConfidenceScore={ptmConfidenceScore}
             />
           </EvidenceTag>
         );

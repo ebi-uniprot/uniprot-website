@@ -36,14 +36,9 @@ const ProteinProcessingSection = ({
     return <Loader />;
   }
 
-  console.log(data.featuresData);
-  console.log(proteomicsPtmData);
-
   const foo = proteomicsPtmData
     ? convertProteomicsPtmFeatures(proteomicsPtmData.features)
     : [];
-
-  console.log(foo);
 
   if (!hasContent(data)) {
     return null;

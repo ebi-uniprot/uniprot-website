@@ -11,8 +11,9 @@ const convertProteomicsPtms = (
   absolutePosition: number,
   evidenceCode: `ECO:${number}`
 ): FeatureDatum => {
+  // TODO: figure out when we have non PTM-exchange data
   const evidences = ptms.flatMap(({ dbReferences }) =>
-    dbReferences.map(
+    dbReferences?.map(
       ({ properties }): Evidence => ({
         evidenceCode,
         source: 'PubMed',
@@ -20,7 +21,6 @@ const convertProteomicsPtms = (
       })
     )
   );
-
   return {
     source: 'PTMeXchange',
     type: 'Modified residue (large scale)',
