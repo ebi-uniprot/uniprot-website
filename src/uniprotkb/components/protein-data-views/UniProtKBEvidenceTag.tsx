@@ -48,11 +48,11 @@ export const UniProtEvidenceTagContent = ({
         {evidenceData.label} <small>({evidenceData.description})</small>
       </h5>
       {ptmConfidenceScore && (
-        <p style={{ paddingTop: 12 }}>
+        <div style={{ paddingTop: '1rem' }}>
           <h5>Confidence score: {ptmConfidenceScore}</h5>
           This score has been used to reflect the strength of the evidence for
           this modified site following reanalysis of available datasets.
-        </p>
+        </div>
       )}
       {publicationReferences && (
         <UniProtKBEntryPublications

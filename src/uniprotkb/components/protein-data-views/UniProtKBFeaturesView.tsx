@@ -188,7 +188,7 @@ const UniProtKBFeaturesView = ({
             positionStart === positionEnd
               ? positionStart
               : `${positionStart}-${positionEnd}`;
-
+          console.log(feature);
           let { description } = feature;
           if (typeof feature.description === 'string') {
             const isoform = feature.description.match(
