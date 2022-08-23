@@ -39,7 +39,7 @@ exports[`EntryMain view should render 1`] = `
                 >
                   <test-file-stub />
                 </span>
-                Reference and representative proteome
+                Reference proteome
               </div>
             </div>
           </li>
