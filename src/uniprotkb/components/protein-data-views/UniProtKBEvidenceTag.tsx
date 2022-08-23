@@ -1,7 +1,7 @@
 import { Fragment, memo } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { groupBy } from 'lodash-es';
-import { EvidenceTag } from 'franklin-sites';
+import { EvidenceTag, ExpandableList } from 'franklin-sites';
 
 import UniProtKBEntryPublications from './UniProtKBEntryPublications';
 import EvidenceLink from '../../config/evidenceUrls';
@@ -63,17 +63,19 @@ export const UniProtEvidenceTagContent = ({
           }
         />
       )}
-      {Object.entries(groupedEvidencesWithoutPubs).map(
-        ([key, mappedEvidences], index) => (
-          <Fragment key={key || index}>
-            {mappedEvidences.map(({ id, url }: Evidence, index) => (
-              <div key={id || index}>
+      <ExpandableList
+        displayNumberOfHiddenItems
+        descriptionString="evidence links"
+      >
+        {Object.entries(groupedEvidencesWithoutPubs).map(
+          ([key, mappedEvidences]) =>
+            mappedEvidences.map(({ id, url }: Evidence, index) => (
+              <span key={id || index}>
                 <EvidenceLink source={key} value={id} url={url} />
-              </div>
-            ))}
-          </Fragment>
-        )
-      )}
+              </span>
+            ))
+        )}
+      </ExpandableList>
     </div>
   );
 };
