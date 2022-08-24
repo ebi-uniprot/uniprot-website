@@ -81,34 +81,40 @@ const DownloadAPIURL = ({ apiURL, onCopy, onMount, count }: Props) => {
 
   return (
     <div className={styles['api-url']}>
-      <div className={disableStream ? helper.disabled : undefined}>
-        <h4>API URL {isStreamEndpoint && ' using the streaming endpoint'}</h4>
-        {isStreamEndpoint &&
-          'This endpoint is resource-heavy but will return all requested results.'}
-        <CodeBlock lightMode>
-          {disableStream ? (
-            <>
-              {
-                '// the streaming endpoint is unavailable for queries of more than '
-              }
-              <LongNumber>{DOWNLOAD_SIZE_LIMIT}</LongNumber> results
-            </>
-          ) : (
-            apiURL
-          )}
-        </CodeBlock>
-        <section className="button-group">
-          <Button
-            variant="primary"
-            className={styles['copy-button']}
-            onClick={() => handleCopyURL(apiURL)}
-            disabled={disableStream}
-          >
-            <CopyIcon />
-            Copy
-          </Button>
-        </section>
-      </div>
+      <h4>API URL {isStreamEndpoint && ' using the streaming endpoint'}</h4>
+      {isStreamEndpoint &&
+        'This endpoint is resource-heavy but will return all requested results.'}
+      <CodeBlock
+        lightMode
+        className={disableStream ? helper.disabled : undefined}
+      >
+        {disableStream && (
+          <>
+            {
+              '// the streaming endpoint is unavailable for queries of more than '
+            }
+            <LongNumber>{DOWNLOAD_SIZE_LIMIT}</LongNumber> results
+            <br />
+          </>
+        )}
+        {apiURL}
+      </CodeBlock>
+      <section className="button-group">
+        <Button
+          variant="primary"
+          className={styles['copy-button']}
+          onClick={() => handleCopyURL(apiURL)}
+          disabled={disableStream}
+          title={
+            disableStream
+              ? 'Download size is too big, please restrict your search'
+              : undefined
+          }
+        >
+          <CopyIcon />
+          Copy
+        </Button>
+      </section>
       {isStreamEndpoint && (
         <>
           <br />
