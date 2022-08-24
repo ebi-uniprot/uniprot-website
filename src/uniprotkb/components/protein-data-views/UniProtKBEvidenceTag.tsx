@@ -16,6 +16,8 @@ import { allSearchResultLocations } from '../../../app/config/urls';
 import { Evidence } from '../../types/modelTypes';
 import { ConfidenceScore } from './UniProtKBFeaturesView';
 
+import style from './styles/uniprotkb-evidence-tag.module.scss';
+
 export enum EvidenceTagSourceTypes {
   PUBMED = 'PubMed',
   UNIPROT = 'UniProtKB',
@@ -48,7 +50,7 @@ export const UniProtEvidenceTagContent = ({
         {evidenceData.label} <small>({evidenceData.description})</small>
       </h5>
       {ptmConfidenceScore && (
-        <div style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
+        <div className={style['ptm-confidence-score']}>
           <h5>Confidence score: {ptmConfidenceScore}</h5>
           This score has been used to reflect the strength of the evidence for
           this modified site following reanalysis of available datasets.

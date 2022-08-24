@@ -12,7 +12,7 @@ import { MessageLevel } from '../../../messages/types/messagesTypes';
 import { Namespace } from '../../../shared/types/namespaces';
 import { SearchResults } from '../../../shared/types/results';
 
-import './styles/inline-publication.scss';
+import style from './styles/inline-publication.module.scss';
 
 const UniProtKBEntryPublications = ({ pubmedIds }: { pubmedIds: string[] }) => {
   const url = getAPIQueryUrl({
@@ -38,23 +38,25 @@ const UniProtKBEntryPublications = ({ pubmedIds }: { pubmedIds: string[] }) => {
 
   if (!results?.length) {
     return (
-      <ExpandableList
-        numberCollapsedItems={10}
-        displayNumberOfHiddenItems
-        descriptionString="PubMed/Europe PMC links"
-      >
-        {pubmedIds.map((pubmedId) => (
-          <>
-            <ExternalLink url={externalUrls.PubMed(pubmedId)}>
-              PubMed
-            </ExternalLink>
-            {'| '}
-            <ExternalLink url={externalUrls.EuropePMC(pubmedId)}>
-              Europe PMC
-            </ExternalLink>
-          </>
-        ))}
-      </ExpandableList>
+      <div className={style['fallback-publication']}>
+        <ExpandableList
+          numberCollapsedItems={10}
+          displayNumberOfHiddenItems
+          descriptionString="PubMed/Europe PMC links"
+        >
+          {pubmedIds.map((pubmedId) => (
+            <span key={pubmedId}>
+              <ExternalLink url={externalUrls.PubMed(pubmedId)}>
+                PubMed
+              </ExternalLink>
+              {'| '}
+              <ExternalLink url={externalUrls.EuropePMC(pubmedId)}>
+                Europe PMC
+              </ExternalLink>
+            </span>
+          ))}
+        </ExpandableList>
+      </div>
     );
   }
 
@@ -64,7 +66,7 @@ const UniProtKBEntryPublications = ({ pubmedIds }: { pubmedIds: string[] }) => {
         <LiteratureCitation
           key={`${citationData.citation.title}-${citationData.citation.citationType}-${citationData.citation.journal}`}
           data={citationData}
-          className="inline-publication"
+          className={style['inline-publication']}
           headingLevel="h5"
         />
       ))}
