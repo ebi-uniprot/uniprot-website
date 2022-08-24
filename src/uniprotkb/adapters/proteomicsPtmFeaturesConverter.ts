@@ -4,6 +4,7 @@ import { phosphorylate } from '../utils/aa';
 import { ProteomicsPtmFeature, PTM } from '../types/proteomicsPtm';
 import { Evidence } from '../types/modelTypes';
 import { FeatureDatum } from '../components/protein-data-views/UniProtKBFeaturesView';
+import { EvidenceTagSourceTypes } from '../components/protein-data-views/UniProtKBEvidenceTag';
 
 const convertProteomicsPtms = (
   ptms: PTM[],
@@ -21,7 +22,7 @@ const convertProteomicsPtms = (
       dbReferences?.flatMap(({ id, properties }): Evidence[] => [
         {
           evidenceCode,
-          source: 'PubMedFoo',
+          source: EvidenceTagSourceTypes.PUBMED,
           id: properties['Pubmed ID'],
         },
         {

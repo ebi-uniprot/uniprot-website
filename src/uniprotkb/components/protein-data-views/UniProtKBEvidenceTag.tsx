@@ -16,7 +16,7 @@ import { allSearchResultLocations } from '../../../app/config/urls';
 import { Evidence } from '../../types/modelTypes';
 import { ConfidenceScore } from './UniProtKBFeaturesView';
 
-enum evidenceTagSourceTypes {
+export enum EvidenceTagSourceTypes {
   PUBMED = 'PubMed',
   UNIPROT = 'UniProtKB',
   PROSITE_PRORULE = 'PROSITE-ProRule',
@@ -39,7 +39,7 @@ export const UniProtEvidenceTagContent = ({
   const groupedEvidences =
     evidences && groupBy(evidences, (evidence) => evidence.source);
   const {
-    [evidenceTagSourceTypes.PUBMED]: publicationReferences,
+    [EvidenceTagSourceTypes.PUBMED]: publicationReferences,
     ...groupedEvidencesWithoutPubs
   } = groupedEvidences;
   return (
