@@ -2431,7 +2431,7 @@ exports[`Entry view should render 1`] = `
       </div>
     </div>
   </section>
-  {{ ProteinProcessingSection }} 
+  {{ ProteinProcessingSection }}
   <section
     class="interaction-section card"
     data-entry-section="true"
@@ -5350,11 +5350,11 @@ exports[`Entry view should render for non-human entry 1`] = `
             </table>
           </protvista-datatable>
         </protvista-manager>
-        {{ VariationView }} 
+        {{ VariationView }}
       </div>
     </div>
   </section>
-  {{ ProteinProcessingSection }} 
+  {{ ProteinProcessingSection }}
   <section
     class="card"
     data-entry-section="true"
