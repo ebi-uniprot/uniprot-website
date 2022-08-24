@@ -21,6 +21,10 @@ jest.mock('../../protein-data-views/VariationView', () => ({
   __esModule: true,
   default: () => '{{ VariationView }} ',
 }));
+jest.mock('../ProteinProcessingSection', () => ({
+  __esModule: true,
+  default: () => '{{ ProteinProcessingSection }} ',
+}));
 
 describe('Entry view', () => {
   beforeAll(() => {
