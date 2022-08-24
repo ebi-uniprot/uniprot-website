@@ -1,6 +1,5 @@
 import * as logging from '../../shared/utils/logging';
 import { phosphorylate } from '../utils/aa';
-import externalUrls from '../../shared/config/externalUrls';
 
 import { ProteomicsPtmFeature, PTM } from '../types/proteomicsPtm';
 import { Evidence } from '../types/modelTypes';
@@ -13,21 +12,26 @@ const convertProteomicsPtms = (
   evidenceCode: `ECO:${number}`
 ): FeatureDatum => {
   // TODO: figure out when we have non PTM-exchange data
-  const evidences = ptms.flatMap(({ dbReferences }) =>
-    dbReferences?.flatMap(({ id, properties }): Evidence[] => [
-      {
-        evidenceCode,
-        source: 'PubMed',
-        id: properties['Pubmed ID'],
-      },
-      {
-        evidenceCode,
-        source: 'PRIDE',
-        id,
-        url: externalUrls.PRIDE(id),
-      },
-    ])
-  );
+  const evidences = [
+    {
+      evidenceCode,
+      source: 'PeptideAtlas',
+    },
+    ...ptms.flatMap(({ dbReferences }) =>
+      dbReferences?.flatMap(({ id, properties }): Evidence[] => [
+        {
+          evidenceCode,
+          source: 'PubMedFoo',
+          id: properties['Pubmed ID'],
+        },
+        {
+          evidenceCode,
+          source: 'PRIDE',
+          id,
+        },
+      ])
+    ),
+  ];
   return {
     source: 'PTMeXchange',
     type: 'Modified residue (large scale)',
@@ -62,7 +66,7 @@ export const convertProteomicsPtmFeatures = (
       const aa = feature.peptide[ptm.position - 1];
       if (absolutePosition in absolutePositionToPtms) {
         absolutePositionToPtms[absolutePosition].ptms.push(ptm);
-        if (absolutePositionToPtms[absolutePosition].aa !== 'aa') {
+        if (absolutePositionToPtms[absolutePosition].aa !== aa) {
           logging.error(
             `One PTM has different amino acid values: [${absolutePositionToPtms[absolutePosition].aa}, ${aa}]`
           );
