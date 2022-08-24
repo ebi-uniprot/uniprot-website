@@ -1,0 +1,719 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProteinProcessingSection should render when PTMeXchange is available 1`] = `
+<DocumentFragment>
+  <section
+    class="card"
+    data-entry-section="true"
+    id="ptm_processing"
+  >
+    <div
+      class="card__container"
+    >
+      <div
+        class="card__header card__header--with-separator"
+      >
+        <h2
+          data-article-id="ptm_processing_section"
+        >
+          PTM/Processing
+        </h2>
+      </div>
+      <div
+        class="card__content"
+      >
+        <h3>
+          Features
+        </h3>
+        <p>
+          Showing features for 
+          <span
+            data-article-id="chain"
+          >
+            chain
+          </span>
+          , 
+          <span
+            data-article-id="mod_res_large_scale"
+          >
+            modified residue (large scale)
+          </span>
+          .
+        </p>
+        <protvista-manager
+          attributes="highlight displaystart displayend selectedid"
+        >
+          <protvista-zoom-tool
+            length="10"
+          >
+            <span
+              class="nightingale-button-content"
+              slot="zoom-in"
+            >
+              <test-file-stub
+                height="19"
+              />
+            </span>
+            <span
+              class="nightingale-button-content"
+              slot="zoom-out"
+            >
+              <test-file-stub
+                height="19"
+              />
+            </span>
+            <span
+              class="nightingale-button-content"
+              slot="zoom-in-seq"
+            >
+              <test-file-stub
+                height="19"
+              />
+            </span>
+          </protvista-zoom-tool>
+          <protvista-navigation
+            length="10"
+          />
+          <protvista-track
+            layout="non-overlapping"
+            length="10"
+          />
+          <protvista-sequence
+            height="20"
+            length="10"
+            sequence="SAPSQDFMRF"
+          />
+          <protvista-datatable
+            filter-scroll="true"
+          >
+            <table
+              class=""
+            >
+              <thead>
+                <tr>
+                  <th
+                    data-filter="type"
+                  >
+                    Type
+                  </th>
+                  <th>
+                    ID
+                  </th>
+                  <th>
+                    Position(s)
+                  </th>
+                  <th
+                    data-filter="source"
+                  >
+                    Source
+                  </th>
+                  <th>
+                    Description
+                  </th>
+                  <th />
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  data-end="8"
+                  data-id="id value CHAIN"
+                  data-start="2"
+                >
+                  <td
+                    data-filter="type"
+                    data-filter-value="Chain"
+                  >
+                    Chain
+                  </td>
+                  <td
+                    id="id value CHAIN"
+                  >
+                    id value CHAIN
+                  </td>
+                  <td>
+                    2-8
+                  </td>
+                  <td
+                    data-filter="source"
+                    data-filter-value="UniProt"
+                  >
+                    UniProt
+                  </td>
+                  <td>
+                    Cu
+                    <sup>
+                      2+
+                    </sup>
+                     A2 (
+                    <a
+                      href="/uniprotkb?query=ft_binding:\\"ChEBICHEBI:3314\\""
+                    >
+                      UniProtKB
+                    </a>
+                     | 
+                    <a
+                      class="external-link"
+                      href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=ChEBICHEBI:3314"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      ChEBI
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                    ); Some note of Ca
+                    <sup>
+                      2+
+                    </sup>
+                     A1 (
+                    <a
+                      href="/uniprotkb?query=ft_binding:\\"ChEBICHEBI:3214\\""
+                    >
+                      UniProtKB
+                    </a>
+                     | 
+                    <a
+                      class="external-link"
+                      href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=ChEBICHEBI:3214"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      ChEBI
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                    ); Some note; description value 123
+                    <button
+                      aria-controls="4"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 publication
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="4"
+                    />
+                  </td>
+                  <td>
+                    <div
+                      class="button-group"
+                    >
+                      <a
+                        class="button tertiary"
+                        href="/blast?ids=P21802[2-8]"
+                        title="BLAST the sequence corresponding to this feature"
+                      >
+                        BLAST
+                      </a>
+                      <button
+                        class="button tertiary no-small"
+                        title="Add 1 entry to the basket"
+                        type="button"
+                      >
+                        <test-file-stub />
+                        Add
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr
+                  data-end="8"
+                  data-group-for="id value CHAIN"
+                  data-start="2"
+                >
+                  <td>
+                    <strong>
+                      Sequence: 
+                    </strong>
+                    original value → alternative value
+                  </td>
+                </tr>
+                <tr
+                  data-end="199"
+                  data-id="0"
+                  data-start="199"
+                >
+                  <td
+                    data-filter="type"
+                    data-filter-value="Modified residue (large scale)"
+                  >
+                    Modified residue (large scale)
+                  </td>
+                  <td />
+                  <td>
+                    199
+                  </td>
+                  <td
+                    data-filter="source"
+                    data-filter-value="PTMeXchange"
+                  >
+                    PTMeXchange
+                  </td>
+                  <td>
+                    Phosphoserine
+                    <button
+                      class="chip chip--compact secondary"
+                      type="button"
+                    >
+                      Beta
+                    </button>
+                    <button
+                      aria-controls="5"
+                      aria-expanded="false"
+                      class="svg-colour-unreviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        Combined sources
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="5"
+                    />
+                  </td>
+                  <td />
+                </tr>
+                <tr
+                  data-end="209"
+                  data-id="1"
+                  data-start="209"
+                >
+                  <td
+                    data-filter="type"
+                    data-filter-value="Modified residue (large scale)"
+                  >
+                    Modified residue (large scale)
+                  </td>
+                  <td />
+                  <td>
+                    209
+                  </td>
+                  <td
+                    data-filter="source"
+                    data-filter-value="PTMeXchange"
+                  >
+                    PTMeXchange
+                  </td>
+                  <td>
+                    Phosphoserine
+                    <button
+                      class="chip chip--compact secondary"
+                      type="button"
+                    >
+                      Beta
+                    </button>
+                    <button
+                      aria-controls="6"
+                      aria-expanded="false"
+                      class="svg-colour-unreviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        Combined sources
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="6"
+                    />
+                  </td>
+                  <td />
+                </tr>
+                <tr
+                  data-end="214"
+                  data-id="2"
+                  data-start="214"
+                >
+                  <td
+                    data-filter="type"
+                    data-filter-value="Modified residue (large scale)"
+                  >
+                    Modified residue (large scale)
+                  </td>
+                  <td />
+                  <td>
+                    214
+                  </td>
+                  <td
+                    data-filter="source"
+                    data-filter-value="PTMeXchange"
+                  >
+                    PTMeXchange
+                  </td>
+                  <td>
+                    Phosphoserine
+                    <button
+                      class="chip chip--compact secondary"
+                      type="button"
+                    >
+                      Beta
+                    </button>
+                    <button
+                      aria-controls="7"
+                      aria-expanded="false"
+                      class="svg-colour-unreviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        Combined sources
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="7"
+                    />
+                  </td>
+                  <td />
+                </tr>
+                <tr
+                  data-end="215"
+                  data-id="3"
+                  data-start="215"
+                >
+                  <td
+                    data-filter="type"
+                    data-filter-value="Modified residue (large scale)"
+                  >
+                    Modified residue (large scale)
+                  </td>
+                  <td />
+                  <td>
+                    215
+                  </td>
+                  <td
+                    data-filter="source"
+                    data-filter-value="PTMeXchange"
+                  >
+                    PTMeXchange
+                  </td>
+                  <td>
+                    Phosphoserine
+                    <button
+                      class="chip chip--compact secondary"
+                      type="button"
+                    >
+                      Beta
+                    </button>
+                    <button
+                      aria-controls="8"
+                      aria-expanded="false"
+                      class="svg-colour-unreviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        Combined sources
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="8"
+                    />
+                  </td>
+                  <td />
+                </tr>
+              </tbody>
+            </table>
+          </protvista-datatable>
+        </protvista-manager>
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;
+
+exports[`ProteinProcessingSection should render when no PTMeXchange is available 1`] = `
+<DocumentFragment>
+  <section
+    class="card"
+    data-entry-section="true"
+    id="ptm_processing"
+  >
+    <div
+      class="card__container"
+    >
+      <div
+        class="card__header card__header--with-separator"
+      >
+        <h2
+          data-article-id="ptm_processing_section"
+        >
+          PTM/Processing
+        </h2>
+      </div>
+      <div
+        class="card__content"
+      >
+        <h3>
+          Features
+        </h3>
+        <p>
+          Showing features for 
+          <span
+            data-article-id="signal"
+          >
+            signal
+          </span>
+          , 
+          <span
+            data-article-id="chain"
+          >
+            chain
+          </span>
+          .
+        </p>
+        <protvista-manager
+          attributes="highlight displaystart displayend selectedid"
+        >
+          <protvista-zoom-tool
+            length="772"
+          >
+            <span
+              class="nightingale-button-content"
+              slot="zoom-in"
+            >
+              <test-file-stub
+                height="19"
+              />
+            </span>
+            <span
+              class="nightingale-button-content"
+              slot="zoom-out"
+            >
+              <test-file-stub
+                height="19"
+              />
+            </span>
+            <span
+              class="nightingale-button-content"
+              slot="zoom-in-seq"
+            >
+              <test-file-stub
+                height="19"
+              />
+            </span>
+          </protvista-zoom-tool>
+          <protvista-navigation
+            length="772"
+          />
+          <protvista-track
+            layout="non-overlapping"
+            length="772"
+          />
+          <protvista-sequence
+            height="20"
+            length="772"
+            sequence="MRNRRKAVSLLTGLLVTAQLFPTAALAADSSESALNKAPGYQDFPAYYSDSAHADDQVTHPDVVVLEEPWNGYRYWAVYTPNVMRISIYENPSIVASSDGVHWVEPEGLSNPIEPQPPSTRYHNCDADMVYNAEYDAMMAYWNWADDQGGGVGAEVRLRISYDGVHWGVPVTYDEMTRVWSKPTSDAERQVADGEDDFITAIASPDRYDMLSPTIVYDDFRDVFILWANNTGDVGYQNGQANFVEMRYSDDGITWGEPVRVNGFLGLDENGQQLAPWHQDVQYVPDLKEFVCISQCFAGRNPDGSVLHLTTSKDGVNWEQVGTKPLLSPGPDGSWDDFQIYRSSFYYEPGSSAGDGTMRVWYSALQKDTNNKMVADSSGNLTIQAKSEDDRIWRIGYAENSFVEMMRVLLDDPGYTTPALVSGNSLMLSAETTSLPTGDVMKLETSFAPVDTSDQVVKYTSSDPDVATVDEFGTITGVSVGSARIMAETREGLSDDLEIAVVENPYTLIPQSNMTATATSVYGGTTEGPASNVLDGNVRTIWHTNYAPKDELPQSITVSFDQPYTVGRFVYTPRQNGTNGIISEYELYAIHQDGSKDLVASGSDWALDAKDKTVSFAPVEAVGLELKAIAGAGGFGTAAELNVYAYGPIEPAPVYVPVDDRDASLVFTGAWNSDSNGSFYEGTARYTNEIGASVEFTFVGTAIRWYGQNDVNFGAAEVYVDGVLAGEVNVYGPAAAQQLLFEADGLAYGKHTIRIVCVSPVVDFDYFSYVGE"
+          />
+          <protvista-datatable
+            filter-scroll="true"
+          >
+            <table
+              class=""
+            >
+              <thead>
+                <tr>
+                  <th
+                    data-filter="type"
+                  >
+                    Type
+                  </th>
+                  <th>
+                    ID
+                  </th>
+                  <th>
+                    Position(s)
+                  </th>
+                  <th>
+                    Description
+                  </th>
+                  <th />
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  data-end="27"
+                  data-id="0"
+                  data-start="1"
+                >
+                  <td
+                    data-filter="type"
+                    data-filter-value="Signal"
+                  >
+                    Signal
+                  </td>
+                  <td />
+                  <td>
+                    1-27
+                  </td>
+                  <td>
+                    <button
+                      aria-controls="1"
+                      aria-expanded="false"
+                      class="svg-colour-unreviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 automatic annotation
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="1"
+                    />
+                  </td>
+                  <td>
+                    <div
+                      class="button-group"
+                    >
+                      <a
+                        class="button tertiary"
+                        href="/blast?ids=P0DTR4[1-27]"
+                        title="BLAST the sequence corresponding to this feature"
+                      >
+                        BLAST
+                      </a>
+                      <button
+                        class="button tertiary no-small"
+                        title="Add 1 entry to the basket"
+                        type="button"
+                      >
+                        <test-file-stub />
+                        Add
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr
+                  data-end="27"
+                  data-group-for="0"
+                  data-start="1"
+                >
+                  <td>
+                    <strong>
+                      Sequence: 
+                    </strong>
+                    MRNRRKAVSLLTGLLVTAQLFPTAALA
+                  </td>
+                </tr>
+                <tr
+                  data-end="772"
+                  data-id="PRO_0000448571"
+                  data-start="28"
+                >
+                  <td
+                    data-filter="type"
+                    data-filter-value="Chain"
+                  >
+                    Chain
+                  </td>
+                  <td
+                    id="PRO_0000448571"
+                  >
+                    PRO_0000448571
+                  </td>
+                  <td>
+                    28-772
+                  </td>
+                  <td>
+                    A type blood N-acetyl-alpha-D-galactosamine deacetylase
+                  </td>
+                  <td>
+                    <div
+                      class="button-group"
+                    >
+                      <a
+                        class="button tertiary"
+                        href="/blast?ids=P0DTR4[28-772]"
+                        title="BLAST the sequence corresponding to this feature"
+                      >
+                        BLAST
+                      </a>
+                      <button
+                        class="button tertiary no-small"
+                        title="Add 1 entry to the basket"
+                        type="button"
+                      >
+                        <test-file-stub />
+                        Add
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr
+                  data-end="772"
+                  data-group-for="PRO_0000448571"
+                  data-start="28"
+                >
+                  <td>
+                    <strong>
+                      Sequence: 
+                    </strong>
+                    ADSSESALNKAPGYQDFPAYYSDSAHADDQVTHPDVVVLEEPWNGYRYWAVYTPNVMRISIYENPSIVASSDGVHWVEPEGLSNPIEPQPPSTRYHNCDADMVYNAEYDAMMAYWNWADDQGGGVGAEVRLRISYDGVHWGVPVTYDEMTRVWSKPTSDAERQVADGEDDFITAIASPDRYDMLSPTIVYDDFRDVFILWANNTGDVGYQNGQANFVEMRYSDDGITWGEPVRVNGFLGLDENGQQLAPWHQDVQYVPDLKEFVCISQCFAGRNPDGSVLHLTTSKDGVNWEQVGTKPLLSPGPDGSWDDFQIYRSSFYYEPGSSAGDGTMRVWYSALQKDTNNKMVADSSGNLTIQAKSEDDRIWRIGYAENSFVEMMRVLLDDPGYTTPALVSGNSLMLSAETTSLPTGDVMKLETSFAPVDTSDQVVKYTSSDPDVATVDEFGTITGVSVGSARIMAETREGLSDDLEIAVVENPYTLIPQSNMTATATSVYGGTTEGPASNVLDGNVRTIWHTNYAPKDELPQSITVSFDQPYTVGRFVYTPRQNGTNGIISEYELYAIHQDGSKDLVASGSDWALDAKDKTVSFAPVEAVGLELKAIAGAGGFGTAAELNVYAYGPIEPAPVYVPVDDRDASLVFTGAWNSDSNGSFYEGTARYTNEIGASVEFTFVGTAIRWYGQNDVNFGAAEVYVDGVLAGEVNVYGPAAAQQLLFEADGLAYGKHTIRIVCVSPVVDFDYFSYVGE
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </protvista-datatable>
+        </protvista-manager>
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;

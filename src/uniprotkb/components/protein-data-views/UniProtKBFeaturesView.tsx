@@ -233,7 +233,7 @@ const UniProtKBFeaturesView = ({
                 )}
                 <td>
                   {description}
-                  {feature.confidenceScore && (
+                  {!!feature.confidenceScore && (
                     <Chip className="secondary" compact>
                       {feature.confidenceScore}
                     </Chip>
