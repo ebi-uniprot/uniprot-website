@@ -24,42 +24,43 @@ type InternalSource =
 type ExternalSource =
   | 'Araport'
   | 'CGD'
+  | 'dictyBase'
+  | 'EcoGene'
   | 'EMBL'
-  | 'EPD'
   | 'Ensembl'
   | 'EnsemblBacteria'
   | 'EnsemblFungi'
   | 'EnsemblMetazoa'
   | 'EnsemblPlants'
   | 'EnsemblProtists'
+  | 'EPD'
+  | 'EuropePMC'
   | 'FlyBase'
   | 'HGNC'
-  | 'MGI'
   | 'MaxQB'
+  | 'MGI'
+  | 'MIM'
   | 'PDB'
-  | 'PIR'
-  | 'PROSITE'
-  | 'PROSITE-ProRule'
   | 'PeptideAtlas'
   | 'Pfam'
+  | 'PIR'
   | 'PomBase'
-  | 'RGD'
+  | 'PRIDE'
+  | 'PROSITE'
+  | 'PROSITE-ProRule'
+  | 'ProteomicsDB'
+  | 'Reference'
   | 'RefSeq'
+  | 'RGD'
   | 'SGD'
   | 'SMART'
-  | 'VGNC'
+  | 'TubercuList'
   | 'VectorBase'
+  | 'VGNC'
   | 'WBParaSite'
   | 'WormBase'
   | 'Xenbase'
-  | 'ZFIN'
-  | 'Reference'
-  | 'dictyBase'
-  | 'MIM'
-  | 'EcoGene'
-  | 'TubercuList'
-  | 'ProteomicsDB'
-  | 'EuropePMC';
+  | 'ZFIN';
 
 export type EvidenceSource = InternalSource | ExternalSource;
 
@@ -84,46 +85,47 @@ const internalEvidenceUrls: Record<InternalSource, (value: string) => string> =
 const evidenceUrls: Record<ExternalSource, string> = {
   Araport: 'https://apps.araport.org/thalemine/portal.do?externalids=%value',
   CGD: 'http://www.candidagenome.org/cgi-bin/locus.pl?dbid=%value',
+  dictyBase: 'http://dictybase.org/gene/%value',
+  EcoGene: 'http://www.ecogene.org/geneInfo.php?eg_id=%value',
   EMBL: 'https://www.ebi.ac.uk/ena/data/view/%value',
-  EPD: 'ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/proteomics_mapping/README',
   Ensembl: 'https://www.ensembl.org/id/%value',
   EnsemblBacteria: 'http://www.ensemblgenomes.org/id/%value',
   EnsemblFungi: 'http://www.ensemblgenomes.org/id/%value',
   EnsemblMetazoa: 'http://www.ensemblgenomes.org/id/%value',
   EnsemblPlants: 'http://www.ensemblgenomes.org/id/%value',
   EnsemblProtists: 'http://www.ensemblgenomes.org/id/%value',
+  EPD: 'ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/proteomics_mapping/README',
+  EuropePMC: 'https://europepmc.org/abstract/MED/%value',
   FlyBase: 'http://flybase.org/reports/%value.html',
   HGNC: 'https://www.genenames.org/cgi-bin/gene_symbol_report?hgnc_id=%value',
-  MGI: 'http://www.informatics.jax.org/marker/%value',
   MaxQB:
     'ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/proteomics_mapping/README',
+  MGI: 'http://www.informatics.jax.org/marker/%value',
+  MIM: 'http://www.omim.org/entry/%value',
   PDB: 'https://www.ebi.ac.uk/pdbe-srv/view/entry/%value',
-  PIR: 'http://pir.georgetown.edu/cgi-bin/nbrfget?uid=%value',
-  PROSITE: 'https://prosite.expasy.org/doc/%value',
-  'PROSITE-ProRule': 'https://prosite.expasy.org/unirule/%value',
   PeptideAtlas:
     'ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/proteomics_mapping/README',
   Pfam: 'http://pfam.xfam.org/family/%value',
+  PIR: 'http://pir.georgetown.edu/cgi-bin/nbrfget?uid=%value',
   PomBase: 'https://www.pombase.org/spombe/result/%value',
-  RGD: 'http://rgd.mcw.edu/tools/genes/genes_view.cgi?id=%value',
+  PRIDE: 'https://www.ebi.ac.uk/pride/archive/projects/%value',
+  PROSITE: 'https://prosite.expasy.org/doc/%value',
+  'PROSITE-ProRule': 'https://prosite.expasy.org/unirule/%value',
+  ProteomicsDB:
+    'ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/proteomics_mapping/README',
+  Reference: '',
   RefSeq: 'https://www.ncbi.nlm.nih.gov/protein/%value',
+  RGD: 'http://rgd.mcw.edu/tools/genes/genes_view.cgi?id=%value',
   SGD: 'https://www.yeastgenome.org/locus/%value',
   SMART: 'http://smart.embl.de/smart/do_annotation.pl?DOMAIN=%value',
-  VGNC: 'https://vertebrate.genenames.org/data/gene-symbol-report/#!/vgnc_id/%value',
+  TubercuList: 'https://mycobrowser.epfl.ch/genes/%value',
   VectorBase: 'https://www.vectorbase.org/id/%value',
+  VGNC: 'https://vertebrate.genenames.org/data/gene-symbol-report/#!/vgnc_id/%value',
   WBParaSite: 'http://parasite.wormbase.org/id/%value',
   WormBase: 'https://wormbase.org/species/c_elegans/cds/%value',
   Xenbase:
     'http://www.xenbase.org/gene/showgene.do?method=display&geneId=%value',
   ZFIN: 'http://zfin.org/cgi-bin/webdriver?MIval=aa-markerview.apg&OID=%value',
-  Reference: '',
-  dictyBase: 'http://dictybase.org/gene/%value',
-  MIM: 'http://www.omim.org/entry/%value',
-  EcoGene: 'http://www.ecogene.org/geneInfo.php?eg_id=%value',
-  TubercuList: 'https://mycobrowser.epfl.ch/genes/%value',
-  ProteomicsDB:
-    'ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/proteomics_mapping/README',
-  EuropePMC: 'https://europepmc.org/abstract/MED/%value',
 };
 
 export const formatEvidenceContent = (id: string) => {
