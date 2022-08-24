@@ -70,11 +70,12 @@ export const convertPtmexchangeFeatures = (
       }
       const aa = feature.peptide[ptm.position - 1];
       if (absolutePosition in absolutePositionToPtms) {
-        absolutePositionToPtms[absolutePosition].ptms.push(ptm);
         if (absolutePositionToPtms[absolutePosition].aa !== aa) {
           logging.error(
             `One PTM has different amino acid values: [${absolutePositionToPtms[absolutePosition].aa}, ${aa}]`
           );
+        } else {
+          absolutePositionToPtms[absolutePosition].ptms.push(ptm);
         }
       } else {
         absolutePositionToPtms[absolutePosition] = { ptms: [ptm], aa };

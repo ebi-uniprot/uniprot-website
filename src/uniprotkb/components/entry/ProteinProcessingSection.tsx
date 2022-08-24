@@ -40,7 +40,7 @@ const ProteinProcessingSection = ({
     ? convertPtmexchangeFeatures(proteomicsPtmData.features)
     : [];
 
-  if (!hasContent(data) || !convertedPtmexchangeFeatures.length) {
+  if (!hasContent(data) && !convertedPtmexchangeFeatures.length) {
     return null;
   }
   const { featuresData, keywordData, xrefData, commentsData } = data;
