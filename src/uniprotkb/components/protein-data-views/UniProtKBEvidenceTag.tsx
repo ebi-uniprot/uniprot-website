@@ -1,4 +1,4 @@
-import { Fragment, memo } from 'react';
+import { memo } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { groupBy } from 'lodash-es';
 import { EvidenceTag, ExpandableList } from 'franklin-sites';
@@ -48,7 +48,7 @@ export const UniProtEvidenceTagContent = ({
         {evidenceData.label} <small>({evidenceData.description})</small>
       </h5>
       {ptmConfidenceScore && (
-        <div style={{ paddingTop: '1rem' }}>
+        <div style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
           <h5>Confidence score: {ptmConfidenceScore}</h5>
           This score has been used to reflect the strength of the evidence for
           this modified site following reanalysis of available datasets.
@@ -63,19 +63,23 @@ export const UniProtEvidenceTagContent = ({
           }
         />
       )}
-      <ExpandableList
-        displayNumberOfHiddenItems
-        descriptionString="evidence links"
-      >
-        {Object.entries(groupedEvidencesWithoutPubs).map(
-          ([key, mappedEvidences]) =>
-            mappedEvidences.map(({ id, url }: Evidence, index) => (
+
+      {Object.entries(groupedEvidencesWithoutPubs).map(
+        ([key, mappedEvidences]) => (
+          <ExpandableList
+            numberCollapsedItems={10}
+            displayNumberOfHiddenItems
+            descriptionString={`${key} links`}
+            key={key}
+          >
+            {mappedEvidences.map(({ id, url }: Evidence, index) => (
               <span key={id || index}>
                 <EvidenceLink source={key} value={id} url={url} />
               </span>
-            ))
-        )}
-      </ExpandableList>
+            ))}
+          </ExpandableList>
+        )
+      )}
     </div>
   );
 };
