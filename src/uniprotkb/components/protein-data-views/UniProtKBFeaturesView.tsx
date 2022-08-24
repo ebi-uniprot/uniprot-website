@@ -32,7 +32,8 @@ type FeatureLocation = {
   modifier: LocationModifier;
 };
 
-export type ConfidenceScore = 'Gold' | 'Silver' | 'Bronze' | 'Beta'; // TODO: remove Unknown after out of demo
+// TODO: remove Beta when API provides confidence score
+export type ConfidenceScore = 'Gold' | 'Silver' | 'Bronze' | 'Beta';
 
 export type FeatureDatum = {
   type: FeatureType;
@@ -188,7 +189,6 @@ const UniProtKBFeaturesView = ({
             positionStart === positionEnd
               ? positionStart
               : `${positionStart}-${positionEnd}`;
-          console.log(feature);
           let { description } = feature;
           if (typeof feature.description === 'string') {
             const isoform = feature.description.match(

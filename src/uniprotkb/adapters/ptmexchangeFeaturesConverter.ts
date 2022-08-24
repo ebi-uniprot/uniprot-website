@@ -6,7 +6,7 @@ import { Evidence } from '../types/modelTypes';
 import { FeatureDatum } from '../components/protein-data-views/UniProtKBFeaturesView';
 import { EvidenceTagSourceTypes } from '../components/protein-data-views/UniProtKBEvidenceTag';
 
-const convertProteomicsPtms = (
+const convertPtmexchangePtms = (
   ptms: PTM[],
   aa: string,
   absolutePosition: number,
@@ -46,7 +46,7 @@ const convertProteomicsPtms = (
   };
 };
 
-export const convertProteomicsPtmFeatures = (
+export const convertPtmexchangeFeatures = (
   features: ProteomicsPtmFeature[]
 ) => {
   const absolutePositionToPtms: Record<number, { ptms: PTM[]; aa: string }> =
@@ -54,6 +54,10 @@ export const convertProteomicsPtmFeatures = (
   // TODO: get the shortest evidence.source.url
   for (const feature of features) {
     for (const ptm of feature.ptms) {
+      if (!ptm.sources?.includes('PTMeXchange')) {
+        // eslint-disable-next-line no-continue
+        continue;
+      }
       const absolutePosition = +feature.begin + ptm.position - 1;
       if (!Number.isFinite(absolutePosition)) {
         logging.error(
@@ -83,6 +87,6 @@ export const convertProteomicsPtmFeatures = (
 
   return Object.entries(absolutePositionToPtms).map(
     ([absolutePosition, { ptms, aa }]) =>
-      convertProteomicsPtms(ptms, aa, +absolutePosition, evidenceCode)
+      convertPtmexchangePtms(ptms, aa, +absolutePosition, evidenceCode)
   );
 };

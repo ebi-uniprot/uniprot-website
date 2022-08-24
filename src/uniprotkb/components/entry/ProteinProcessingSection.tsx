@@ -12,7 +12,7 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 
 import { hasContent } from '../../../shared/utils/utils';
 import { proteinsApi } from '../../../shared/config/apiUrls';
-import { convertProteomicsPtmFeatures } from '../../adapters/proteomicsPtmFeaturesConverter';
+import { convertPtmexchangeFeatures } from '../../adapters/ptmexchangeFeaturesConverter';
 
 import { FreeTextComment } from '../../types/commentTypes';
 import { ProteomicsPtm } from '../../types/proteomicsPtm';
@@ -36,11 +36,11 @@ const ProteinProcessingSection = ({
     return <Loader />;
   }
 
-  const foo = proteomicsPtmData
-    ? convertProteomicsPtmFeatures(proteomicsPtmData.features)
+  const convertedPtmexchangeFeatures = proteomicsPtmData
+    ? convertPtmexchangeFeatures(proteomicsPtmData.features)
     : [];
 
-  if (!hasContent(data)) {
+  if (!hasContent(data) || !convertedPtmexchangeFeatures.length) {
     return null;
   }
   const { featuresData, keywordData, xrefData, commentsData } = data;
@@ -56,9 +56,9 @@ const ProteinProcessingSection = ({
     >
       <FeaturesView
         primaryAccession={primaryAccession}
-        features={[...featuresData, ...foo]}
+        features={[...featuresData, ...convertedPtmexchangeFeatures]}
         sequence={sequence}
-        showSourceColumn
+        showSourceColumn={!!convertedPtmexchangeFeatures.length}
       />
       <FreeTextView
         comments={commentsData.get('PTM') as FreeTextComment[] | undefined}
