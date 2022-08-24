@@ -25,13 +25,18 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
       return config?.render(data) || null;
     };
 
+    let { proteomeType } = data;
+    if (proteomeType.toLowerCase().includes('representative')) {
+      proteomeType = 'Reference proteome';
+    }
+
     return [
       {
         title: 'Status',
         content: (
           <>
             <EntryTypeIcon entryType={data.proteomeType} />
-            {data.proteomeType}
+            {proteomeType}
             {data.exclusionReasons?.length ? (
               <> ({data.exclusionReasons.join(', ')})</>
             ) : null}

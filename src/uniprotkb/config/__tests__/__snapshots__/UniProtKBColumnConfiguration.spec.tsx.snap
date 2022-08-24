@@ -1913,10 +1913,11 @@ exports[`UniProtKBColumnConfiguration component should render column "keyword": 
     class="expandable-list no-bullet"
   >
     <li>
+       
       <a
         href="/keywords/KW-11111"
       >
-         #keyword value
+        #keyword value
       </a>
       <button
         aria-controls="0"
@@ -1951,10 +1952,11 @@ exports[`UniProtKBColumnConfiguration component should render column "keywordid"
     class="expandable-list no-bullet"
   >
     <li>
+       
       <a
         href="/keywords/KW-11111"
       >
-         #KW-11111
+        #KW-11111
       </a>
       <button
         aria-controls="0"
