@@ -66,7 +66,9 @@ const LatestNews = () => {
     >
       <div
         className={cn(
-          'uniprot-grid-cell--span-4',
+          'uniprot-grid-cell--small-span-12',
+          'uniprot-grid-cell--medium-span-4',
+          'uniprot-grid-cell--medium-offset-9',
           styles['latest-news__news-roll']
         )}
       >
@@ -215,35 +217,14 @@ const LatestNews = () => {
               </p>
             </article>
           </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2021-06-02-release',
-                  })}
-                >
-                  UniProt release 2021_03
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                The importance of being disordered | MobiDB-lite predictions for
-                intrinsically disordered regions | UniProtKB via AWS Open Data
-                and Amazo...
-              </p>
-            </article>
-          </li>
         </ul>
       </div>
       <div
         className={cn(
-          'uniprot-grid-cell--span-4',
-          styles['latest-news__middle']
+          'uniprot-grid-cell--small-span-12',
+          'uniprot-grid-cell--medium-span-4',
+          'uniprot-grid-cell--medium-offset-5',
+          styles['latest-news__blogspot']
         )}
       >
         <article>
@@ -312,7 +293,12 @@ const LatestNews = () => {
         </article>
       </div>
       <article
-        className={cn('uniprot-grid-cell--span-4', styles['latest-news__left'])}
+        className={cn(
+          'uniprot-grid-cell--small-span-12',
+          'uniprot-grid-cell--medium-span-4',
+          'uniprot-grid-cell--medium-offset-1',
+          styles['latest-news__spotlight']
+        )}
       >
         <h3>
           <ExternalLink

@@ -87,8 +87,13 @@ footer.footer {
     }
 
     li {
-      margin-bottom: 1em;
-      line-height: initial;
+      padding-block: 0.2em;
+
+      * > a {
+        display: inline-block;
+        padding-block: 0.5em;
+        line-height: initial;
+      }
     }
 
     &__title {
@@ -96,7 +101,6 @@ footer.footer {
       font-size: 1rem;
       display: block;
       padding-bottom: 1ch;
-      margin-bottom: 1ch;
       border-bottom: 1px solid $colour-weldon-blue;
       font-weight: bold;
     }
