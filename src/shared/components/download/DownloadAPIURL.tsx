@@ -16,7 +16,6 @@ import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { Namespace } from '../../types/namespaces';
 
-import helper from '../../styles/helper.module.scss';
 import styles from './styles/download-api-url.module.scss';
 
 const reIdMapping = new RegExp(
@@ -84,11 +83,8 @@ const DownloadAPIURL = ({ apiURL, onCopy, onMount, count }: Props) => {
       <h4>API URL {isStreamEndpoint && ' using the streaming endpoint'}</h4>
       {isStreamEndpoint &&
         'This endpoint is resource-heavy but will return all requested results.'}
-      <CodeBlock
-        lightMode
-        className={disableStream ? helper.disabled : undefined}
-      >
-        {disableStream && (
+      <CodeBlock lightMode>
+        {disableStream ? (
           <>
             {
               '// the streaming endpoint is unavailable for queries of more than '
@@ -96,8 +92,9 @@ const DownloadAPIURL = ({ apiURL, onCopy, onMount, count }: Props) => {
             <LongNumber>{DOWNLOAD_SIZE_LIMIT}</LongNumber> results
             <br />
           </>
+        ) : (
+          apiURL
         )}
-        {apiURL}
       </CodeBlock>
       <section className="button-group">
         <Button
