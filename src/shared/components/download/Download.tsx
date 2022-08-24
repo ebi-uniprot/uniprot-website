@@ -5,7 +5,7 @@ import cn from 'classnames';
 
 import ColumnSelect from '../column-select/ColumnSelect';
 import DownloadPreview from './DownloadPreview';
-import DownloadAPIURL from './DownloadAPIURL';
+import DownloadAPIURL, { DOWNLOAD_SIZE_LIMIT } from './DownloadAPIURL';
 import ContactLink from '../../../contact/components/ContactLink';
 
 import useColumnNames from '../../hooks/useColumnNames';
@@ -176,6 +176,8 @@ const Download: FC<DownloadProps> = ({
     [scrollExtraIntoView]
   );
 
+  const downloadCount = downloadAll ? totalNumberResults : nSelectedEntries;
+
   return (
     <>
       <label htmlFor="data-selection-false">
@@ -279,12 +281,20 @@ const Download: FC<DownloadProps> = ({
         <Button variant="secondary" onClick={onClose}>
           Cancel
         </Button>
+        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <a
-          href={downloadUrl}
-          className="button primary"
+          href={downloadCount > DOWNLOAD_SIZE_LIMIT ? undefined : downloadUrl}
+          className={cn('button', 'primary', {
+            disabled: downloadCount > DOWNLOAD_SIZE_LIMIT,
+          })}
+          title={
+            downloadCount > DOWNLOAD_SIZE_LIMIT
+              ? 'Download size is too big, please restrict your search'
+              : undefined
+          }
           target="_blank"
           rel="noreferrer"
-          onClick={onClose}
+          onClick={downloadCount > DOWNLOAD_SIZE_LIMIT ? undefined : onClose}
         >
           Download
         </a>
@@ -296,6 +306,7 @@ const Download: FC<DownloadProps> = ({
             apiURL={downloadUrl.replace('download=true&', '')}
             onCopy={onClose}
             onMount={scrollExtraIntoView}
+            count={downloadCount}
           />
         )}
         {extraContent === 'preview' && (

@@ -159,14 +159,16 @@ describe('Download with passed query and selectedQuery props', () => {
     );
     let downloadLink = screen.getByRole<HTMLAnchorElement>('link');
     expect(downloadLink.href).toEqual(
-      expect.stringContaining(queryString.stringify({ query }))
+      expect.stringContaining(queryString.stringify({ query: `(${query})` }))
     );
     fireEvent.click(
       screen.getByLabelText(`Download selected (${numberSelectedEntries})`)
     );
     downloadLink = screen.getByRole<HTMLAnchorElement>('link');
     expect(downloadLink.href).toEqual(
-      expect.stringContaining(queryString.stringify({ query: selectedQuery }))
+      expect.stringContaining(
+        queryString.stringify({ query: `(${selectedQuery})` })
+      )
     );
   });
 });
