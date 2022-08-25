@@ -50,7 +50,6 @@ export const convertPtmExchangeFeatures = (
 ) => {
   const absolutePositionToPtms: Record<number, { ptms: PTM[]; aa: string }> =
     {};
-  // TODO: get the shortest evidence.source.url
   for (const feature of features) {
     for (const ptm of feature.ptms) {
       if (!ptm.sources?.includes('PTMeXchange')) {

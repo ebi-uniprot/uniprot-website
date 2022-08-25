@@ -14,22 +14,15 @@ import { allSearchResultLocations } from '../../../app/config/urls';
 
 import { Evidence } from '../../types/modelTypes';
 import { ConfidenceScore } from './UniProtKBFeaturesView';
+import { EvidenceTagSourceTypes } from './UniProtKBEvidenceTag';
 
 import style from './styles/ptmexchange-evidence-tag.module.scss';
 
-export enum EvidenceTagSourceTypes {
-  PUBMED = 'PubMed',
-  UNIPROT = 'UniProtKB',
-  PROSITE_PRORULE = 'PROSITE-ProRule',
-}
-
-export type PtmExchangeEvidenceProps = {
-  evidences: Evidence[] | undefined;
-};
-
 export const PtmExchangeEvidence = ({
   evidences,
-}: PtmExchangeEvidenceProps) => {
+}: {
+  evidences?: Evidence[];
+}) => {
   if (!evidences?.length) {
     return null;
   }

@@ -23,7 +23,7 @@ export enum EvidenceTagSourceTypes {
 
 export type UniProtEvidenceTagContentProps = {
   evidenceData: EvidenceData;
-  evidences: Evidence[] | undefined;
+  evidences?: Evidence[];
 };
 
 export const UniProtEvidenceTagContent = ({
