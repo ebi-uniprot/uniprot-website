@@ -26,6 +26,7 @@ import FeatureType from '../../types/featureType';
 import { Xref } from '../../../shared/types/apiModel';
 import { JobTypes } from '../../../tools/types/toolsJobTypes';
 import { Namespace } from '../../../shared/types/namespaces';
+import PtmExchangeEvidenceTag from './PtmExchangeEvidenceTag';
 
 type FeatureLocation = {
   value: number;
@@ -238,10 +239,15 @@ const UniProtKBFeaturesView = ({
                       {feature.confidenceScore}
                     </Chip>
                   )}
-                  <UniProtKBEvidenceTag
-                    evidences={feature.evidences}
-                    ptmConfidenceScore={feature.confidenceScore}
-                  />
+                  {feature.source === 'PTMeXchange' &&
+                  feature.confidenceScore ? (
+                    <PtmExchangeEvidenceTag
+                      evidences={feature.evidences}
+                      confidenceScore={feature.confidenceScore}
+                    />
+                  ) : (
+                    <UniProtKBEvidenceTag evidences={feature.evidences} />
+                  )}
                 </td>
                 {smallScreen ? null : (
                   <td>

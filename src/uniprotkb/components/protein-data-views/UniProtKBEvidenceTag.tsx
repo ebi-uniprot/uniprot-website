@@ -14,9 +14,6 @@ import {
 import { allSearchResultLocations } from '../../../app/config/urls';
 
 import { Evidence } from '../../types/modelTypes';
-import { ConfidenceScore } from './UniProtKBFeaturesView';
-
-import style from './styles/uniprotkb-evidence-tag.module.scss';
 
 export enum EvidenceTagSourceTypes {
   PUBMED = 'PubMed',
@@ -24,16 +21,14 @@ export enum EvidenceTagSourceTypes {
   PROSITE_PRORULE = 'PROSITE-ProRule',
 }
 
-type UniProtEvidenceTagContentProps = {
+export type UniProtEvidenceTagContentProps = {
   evidenceData: EvidenceData;
   evidences: Evidence[] | undefined;
-  ptmConfidenceScore?: ConfidenceScore;
 };
 
 export const UniProtEvidenceTagContent = ({
   evidenceData,
   evidences,
-  ptmConfidenceScore,
 }: UniProtEvidenceTagContentProps) => {
   if (!evidences?.length) {
     return null;
@@ -49,13 +44,6 @@ export const UniProtEvidenceTagContent = ({
       <h5 data-article-id="evidences">
         {evidenceData.label} <small>({evidenceData.description})</small>
       </h5>
-      {ptmConfidenceScore && (
-        <div className={style['ptm-confidence-score']}>
-          <h5>Confidence score: {ptmConfidenceScore}</h5>
-          This score has been used to reflect the strength of the evidence for
-          this modified site following reanalysis of available datasets.
-        </div>
-      )}
       {publicationReferences && (
         <UniProtKBEntryPublications
           pubmedIds={
@@ -71,7 +59,7 @@ export const UniProtEvidenceTagContent = ({
           <ExpandableList
             numberCollapsedItems={10}
             displayNumberOfHiddenItems
-            descriptionString={`${key} links`}
+            descriptionString={`${key} sources`}
             key={key}
           >
             {mappedEvidences.map(({ id, url }: Evidence, index) => (
@@ -86,15 +74,9 @@ export const UniProtEvidenceTagContent = ({
   );
 };
 
-const UniProtKBEvidenceTag = ({
-  evidences,
-  ptmConfidenceScore,
-}: {
-  evidences?: Evidence[];
-  ptmConfidenceScore?: ConfidenceScore;
-}) => {
-  const searchPageMath = useRouteMatch(allSearchResultLocations);
-  if (searchPageMath?.isExact || !evidences) {
+const UniProtKBEvidenceTag = ({ evidences }: { evidences?: Evidence[] }) => {
+  const searchPageMatch = useRouteMatch(allSearchResultLocations);
+  if (searchPageMatch?.isExact || !evidences) {
     return null;
   }
   const evidenceObj = groupBy(evidences, (evidence) => evidence.evidenceCode);
@@ -120,7 +102,6 @@ const UniProtKBEvidenceTag = ({
             <UniProtEvidenceTagContent
               evidenceData={evidenceData}
               evidences={references}
-              ptmConfidenceScore={ptmConfidenceScore}
             />
           </EvidenceTag>
         );

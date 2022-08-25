@@ -6,7 +6,7 @@ import uniProtKbConverter from '../../../adapters/uniProtkbConverter';
 import ProteinProcessingSection from '../ProteinProcessingSection';
 
 import mockHumanData from '../../../__mocks__/uniProtKBEntryModelData';
-import mockPtmexchangeData from '../../../__mocks__/ptmexchangeData';
+import mockPtmExchangeData from '../../../__mocks__/ptmExchangeData';
 import mockNonHumanData from '../../../__mocks__/nonHumanEntryModelData';
 import databaseInfoMaps from '../../../utils/__tests__/__mocks__/databaseInfoMaps';
 import EntrySection from '../../../types/entrySection';
@@ -17,7 +17,7 @@ axiosMock
   .onGet(
     `https://www.ebi.ac.uk/proteins/api/proteomics-ptm/${mockHumanData.primaryAccession}`
   )
-  .reply(200, mockPtmexchangeData)
+  .reply(200, mockPtmExchangeData)
   // Assumed that flavonifractor plautii won't have PTMeXchange data
   .onGet(
     `https://www.ebi.ac.uk/proteins/api/proteomics-ptm/${mockNonHumanData.primaryAccession}`

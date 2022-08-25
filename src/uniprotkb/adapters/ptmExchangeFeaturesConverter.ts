@@ -6,13 +6,12 @@ import { Evidence } from '../types/modelTypes';
 import { FeatureDatum } from '../components/protein-data-views/UniProtKBFeaturesView';
 import { EvidenceTagSourceTypes } from '../components/protein-data-views/UniProtKBEvidenceTag';
 
-const convertPtmexchangePtms = (
+const convertPtmExchangePtms = (
   ptms: PTM[],
   aa: string,
   absolutePosition: number,
   evidenceCode: `ECO:${number}`
 ): FeatureDatum => {
-  // TODO: figure out when we have non PTM-exchange data
   const evidences = [
     {
       evidenceCode,
@@ -46,7 +45,7 @@ const convertPtmexchangePtms = (
   };
 };
 
-export const convertPtmexchangeFeatures = (
+export const convertPtmExchangeFeatures = (
   features: ProteomicsPtmFeature[]
 ) => {
   const absolutePositionToPtms: Record<number, { ptms: PTM[]; aa: string }> =
@@ -88,6 +87,6 @@ export const convertPtmexchangeFeatures = (
 
   return Object.entries(absolutePositionToPtms).map(
     ([absolutePosition, { ptms, aa }]) =>
-      convertPtmexchangePtms(ptms, aa, +absolutePosition, evidenceCode)
+      convertPtmExchangePtms(ptms, aa, +absolutePosition, evidenceCode)
   );
 };

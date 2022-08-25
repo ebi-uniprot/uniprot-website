@@ -1,0 +1,10 @@
+@import 'franklin-sites/src/styles/settings';
+
+.evidence-tag-content {
+  section {
+    padding-top: $global-padding;
+    .publications {
+      padding-top: $global-padding;
+    }
+  }
+}
