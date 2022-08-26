@@ -12,11 +12,11 @@ import { getEntryPath } from '../../../app/config/urls';
 
 import { DiseaseComment } from '../../types/commentTypes';
 import { Namespace } from '../../../shared/types/namespaces';
-import { FeatureData } from './UniProtKBFeaturesView';
+import { FeatureDatum } from './UniProtKBFeaturesView';
 
 import styles from './styles/variation-view.module.scss';
 
-export const DiseaseVariants = ({ variants }: { variants: FeatureData }) => {
+export const DiseaseVariants = ({ variants }: { variants: FeatureDatum[] }) => {
   const dataTableElement = useCustomElement(
     /* istanbul ignore next */
     () =>

@@ -11,6 +11,7 @@ import FeatureTypeHelpMappings from '../../../help/config/featureTypeHelpMapping
 import FeatureType from '../../../uniprotkb/types/featureType';
 import { UniParcProcessedFeature } from '../../../uniparc/components/entry/UniParcFeaturesView';
 import { Evidence } from '../../../uniprotkb/types/modelTypes';
+import { ConfidenceScore } from '../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
 
 import './styles/features-view.scss';
 
@@ -39,6 +40,8 @@ export type ProcessedFeature = {
   evidences?: Evidence[];
   sequence?: string;
   locations?: { fragments: Fragment[] }[];
+  source?: string;
+  confidenceScore?: ConfidenceScore;
 };
 
 type FeatureProps<T> = {

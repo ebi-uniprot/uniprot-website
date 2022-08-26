@@ -24,7 +24,7 @@ import EntrySection from '../types/entrySection';
 import FeatureType from '../types/featureType';
 
 import Comment, { CommentType } from '../types/commentTypes';
-import { FeatureData } from '../components/protein-data-views/UniProtKBFeaturesView';
+import { FeatureDatum } from '../components/protein-data-views/UniProtKBFeaturesView';
 import { Lineage, Xref } from '../../shared/types/apiModel';
 import { SequenceData } from '../../shared/components/entry/SequenceView';
 import {
@@ -74,7 +74,7 @@ export type UniProtkbAPIModel = {
   comments?: Comment[];
   keywords?: Keyword[];
   geneLocations?: GeneLocation[];
-  features?: FeatureData;
+  features?: FeatureDatum[];
   uniProtKBCrossReferences?: UniProtKBXref[];
   sequence: SequenceData;
   internalSection?: InternalSectionType;

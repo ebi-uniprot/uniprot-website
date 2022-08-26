@@ -1,0 +1,138 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PtmExchangeEvidenceTag components should render 1`] = `
+<DocumentFragment>
+  <button
+    aria-controls="0"
+    aria-expanded="true"
+    class="svg-colour-unreviewed evidence-tag"
+    data-testid="evidence-tag-trigger"
+    type="button"
+  >
+    <test-file-stub
+      height="12"
+      width="12"
+    />
+    <span
+      class="evidence-tag__label"
+    >
+      Combined sources
+    </span>
+  </button>
+  <div
+    class="evidence-tag-content evidence-tag-content--visible"
+    data-testid="evidence-tag-content"
+    id="0"
+  >
+    <section
+      class="evidence-tag-content"
+    >
+      <h5
+        data-article-id="evidences"
+      >
+        Automatic assertion inferred from combination of experimental and computational evidence 
+        <small>
+          (Information inferred from a combination of experimental and computational evidence, without manual validation)
+        </small>
+      </h5>
+      <section>
+        <h5>
+          Confidence score: Gold (coming soon)
+        </h5>
+        This score has been used to reflect the strength of the evidence for this modified site following reanalysis of available datasets.
+      </section>
+      <section>
+        <h5
+          class="small"
+        >
+          Reanalyzed Sources
+        </h5>
+        Coming soon
+      </section>
+      <section
+        class="styles.section"
+      >
+        <h5
+          class="small"
+        >
+          Original Sources
+        </h5>
+        <div>
+          <ul
+            class="expandable-list no-bullet"
+          >
+            <li>
+              <span />
+            </li>
+          </ul>
+          <ul
+            class="expandable-list no-bullet"
+          >
+            <li>
+              <span>
+                <a
+                  class="external-link"
+                  href="https://www.ebi.ac.uk/pride/archive/projects/PXD004939"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  PRIDE - PXD004939
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+              </span>
+            </li>
+            <li>
+              <span>
+                <a
+                  class="external-link"
+                  href="https://www.ebi.ac.uk/pride/archive/projects/PXD005241"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  PRIDE - PXD005241
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+              </span>
+            </li>
+            <li>
+              <span>
+                <a
+                  class="external-link"
+                  href="https://www.ebi.ac.uk/pride/archive/projects/PXD004705"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  PRIDE - PXD004705
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+              </span>
+            </li>
+          </ul>
+          <div
+            class="publications"
+          >
+            <div
+              class="loader-container"
+            >
+              <test-file-stub
+                classname="loader"
+                height="100"
+                width="100"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+  </div>
+</DocumentFragment>
+`;

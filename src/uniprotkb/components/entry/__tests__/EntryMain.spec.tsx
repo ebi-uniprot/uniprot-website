@@ -19,7 +19,11 @@ jest.mock('../similar-proteins/SimilarProteinsSection', () => ({
 }));
 jest.mock('../../protein-data-views/VariationView', () => ({
   __esModule: true,
-  default: () => '{{ VariationView }} ',
+  default: () => '{{ VariationView }}',
+}));
+jest.mock('../ProteinProcessingSection', () => ({
+  __esModule: true,
+  default: () => '{{ ProteinProcessingSection }}',
 }));
 
 describe('Entry view', () => {

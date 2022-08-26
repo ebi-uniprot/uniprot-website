@@ -453,8 +453,13 @@ export const getDownloadUrl = ({
   return `${endpoint}?${queryString.stringify(parameters)}`;
 };
 
-export const getProteinsApiUrl = (accession: string) =>
-  `https://www.ebi.ac.uk/proteins/api/proteins/${accession}`;
+const proteinsApiPrefix = 'https://www.ebi.ac.uk/proteins/api';
+export const proteinsApi = {
+  proteins: (accession: string) =>
+    joinUrl(proteinsApiPrefix, `/proteins/${accession}`),
+  proteomicsPtm: (accession: string) =>
+    joinUrl(proteinsApiPrefix, `/proteomics-ptm/${accession}`),
+};
 
 // Help endpoints
 export const help = {

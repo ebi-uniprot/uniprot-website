@@ -1,4 +1,4 @@
-import { Card } from 'franklin-sites';
+import { Card, Loader } from 'franklin-sites';
 
 import EntrySection, {
   getEntrySectionNameAndId,
@@ -8,9 +8,14 @@ import KeywordView from '../protein-data-views/KeywordView';
 import XRefView from '../protein-data-views/XRefView';
 import FreeTextView from '../protein-data-views/FreeTextView';
 
+import useDataApi from '../../../shared/hooks/useDataApi';
+
 import { hasContent } from '../../../shared/utils/utils';
+import { proteinsApi } from '../../../shared/config/apiUrls';
+import { convertPtmExchangeFeatures } from '../../adapters/ptmExchangeFeaturesConverter';
 
 import { FreeTextComment } from '../../types/commentTypes';
+import { ProteomicsPtm } from '../../types/proteomicsPtm';
 import { UIModel } from '../../adapters/sectionConverter';
 
 type Props = {
@@ -24,7 +29,18 @@ const ProteinProcessingSection = ({
   sequence,
   primaryAccession,
 }: Props) => {
-  if (!hasContent(data)) {
+  const { loading: proteomicsPtmLoading, data: proteomicsPtmData } =
+    useDataApi<ProteomicsPtm>(proteinsApi.proteomicsPtm(primaryAccession));
+
+  if (proteomicsPtmLoading) {
+    return <Loader />;
+  }
+
+  const convertedPtmExchangeFeatures = proteomicsPtmData
+    ? convertPtmExchangeFeatures(proteomicsPtmData.features)
+    : [];
+
+  if (!hasContent(data) && !convertedPtmExchangeFeatures.length) {
     return null;
   }
   const { featuresData, keywordData, xrefData, commentsData } = data;
@@ -40,8 +56,9 @@ const ProteinProcessingSection = ({
     >
       <FeaturesView
         primaryAccession={primaryAccession}
-        features={featuresData}
+        features={[...featuresData, ...convertedPtmExchangeFeatures]}
         sequence={sequence}
+        showSourceColumn={!!convertedPtmExchangeFeatures.length}
       />
       <FreeTextView
         comments={commentsData.get('PTM') as FreeTextComment[] | undefined}
