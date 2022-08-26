@@ -57,7 +57,7 @@ export const PtmExchangeEvidence = ({
             pubmedIds={
               publicationReferences
                 .map((reference: Evidence) => reference.id)
-                .filter((id?: string) => id) as string[]
+                .filter((id?: string): id is string => Boolean(id))
             }
           />
         </div>
