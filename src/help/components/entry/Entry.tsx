@@ -20,6 +20,7 @@ import qs from 'query-string';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import SingleColumnLayout from '../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
+import RelatedArticles from './RelatedArticles';
 
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 
@@ -256,6 +257,9 @@ const HelpEntry = ({
         <HelpEntryContent data={data} />
       </Card>
       {!isReleaseNotes && dateNode}
+      {!loading && accession && data.categories?.length ? (
+        <RelatedArticles current={accession} categories={data.categories} />
+      ) : null}
     </SingleColumnLayout>
   );
 };
