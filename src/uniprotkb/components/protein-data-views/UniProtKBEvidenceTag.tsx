@@ -46,11 +46,9 @@ export const UniProtEvidenceTagContent = ({
       </h5>
       {publicationReferences && (
         <UniProtKBEntryPublications
-          pubmedIds={
-            publicationReferences
-              .map((reference: Evidence) => reference.id)
-              .filter((id?: string) => id) as string[]
-          }
+          pubmedIds={publicationReferences
+            .map((reference: Evidence) => reference.id)
+            .filter((id?: string): id is string => Boolean(id))}
         />
       )}
 
