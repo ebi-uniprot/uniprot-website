@@ -3,7 +3,12 @@ import { useHistory, generatePath, useRouteMatch } from 'react-router-dom';
 
 import { LocationToPath, Location } from '../../app/config/urls';
 
-const useMatchWithRedirect = <T extends { subPage?: string }>(
+// Typos identified in Google Search Console of websites linking to wrong URL
+const weirdTypos = /^ |.html?$|;|&.*$/g;
+
+const useMatchWithRedirect = <
+  T extends { accession?: string; subPage?: string }
+>(
   location: Location,
   possibleSubPages: Record<string, string>,
   defaultSubPage?: string,
@@ -15,6 +20,25 @@ const useMatchWithRedirect = <T extends { subPage?: string }>(
   useEffect(() => {
     if (!match) {
       return;
+    }
+    if (
+      'accession' in match.params &&
+      typeof match.params.accession === 'string'
+    ) {
+      const { accession } = match.params;
+      const cleanedAccession = accession
+        .replaceAll(weirdTypos, '')
+        .toUpperCase();
+      if (accession !== cleanedAccession) {
+        history.replace({
+          ...history.location,
+          pathname: generatePath(LocationToPath[location], {
+            ...match.params,
+            accession: cleanedAccession,
+          }),
+        });
+        return;
+      }
     }
     const { subPage } = match.params;
     // if the subpage matches a redirect pattern, redirect to new subpage
