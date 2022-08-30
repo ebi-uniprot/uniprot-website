@@ -12,8 +12,6 @@ const ErrorHandler: FC<{ status?: number }> = ({ status }) => {
     case 500:
     case 503:
     default:
-      // TODO this could be improved, maybe automatic retries or
-      // showing a popup message with a timer saying retrying in n seconds
       return <ServiceUnavailablePage />;
   }
 };

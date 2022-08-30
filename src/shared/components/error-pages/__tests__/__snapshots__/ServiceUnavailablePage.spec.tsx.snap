@@ -30,9 +30,12 @@ exports[`ServiceUnavailablePage component should render 1`] = `
           <h4>
             This service is currently unavailable!
           </h4>
-          <span>
+          <div>
             Please try again later
-          </span>
+          </div>
+          <small>
+            We will reload this page for you in 2 seconds
+          </small>
         </small>
       </section>
     </div>
