@@ -61,7 +61,7 @@ const RelatedArticles = ({
 
   return (
     <>
-      <h2>related {pluralise('article', payload.total)}</h2>
+      <h2>Related {pluralise('article', payload.total)}</h2>
       <DataListWithLoader
         getIdKey={getIdKey}
         data={payload.allResults}
