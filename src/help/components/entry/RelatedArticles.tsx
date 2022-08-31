@@ -29,12 +29,14 @@ const RelatedArticles = ({
       .join(' AND ')} AND NOT id:${current}`,
     facets: null,
     fields: ['id', 'title'],
+    size: '5',
   });
   const andPayload = usePagination<HelpAPIModel, HelpUIModel>(initialANDApiUrl);
 
-  const useOR = andPayload.total === 0;
+  // Use OR query if no result with AND and there is more that 1 linked category
+  const useOR = andPayload.total === 0 && categories.length > 1;
 
-  // (Bigger) query for help articles if nothing with "AND"
+  // (Bigger) query for help articles
   const initialORApiUrl = useOR
     ? helpURL.search({
         query: `(${categories
@@ -42,6 +44,7 @@ const RelatedArticles = ({
           .join(' OR ')}) AND NOT id:${current}`,
         facets: null,
         fields: ['id', 'title'],
+        size: '5',
       })
     : undefined;
 
@@ -58,12 +61,7 @@ const RelatedArticles = ({
 
   return (
     <>
-      <h2>
-        Not what you are looking for? Here{' '}
-        {pluralise('is', payload.total, 'are')}{' '}
-        {payload.total > 25 ? 'some' : payload.total} related{' '}
-        {pluralise('article', payload.total)}
-      </h2>
+      <h2>related {pluralise('article', payload.total)}</h2>
       <DataListWithLoader
         getIdKey={getIdKey}
         data={payload.allResults}
@@ -71,7 +69,7 @@ const RelatedArticles = ({
         dataRenderer={cardRenderer}
         onLoadMoreItems={payload.handleLoadMoreRows}
         hasMoreData={payload.hasMoreData}
-        // clickToLoad
+        clickToLoad="Load more articles"
       />
     </>
   );
