@@ -310,7 +310,7 @@ const LatestNews = () => {
             url="https://www.proteinspotlight.org/back_issues/250/"
             noIcon
           >
-            Unnatural stuff
+            The colour red
           </ExternalLink>
         </h3>
         <ExternalLink
