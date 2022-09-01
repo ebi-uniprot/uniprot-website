@@ -24,7 +24,7 @@ import {
 
 import { Namespace } from '../types/namespaces';
 
-const fromSeparator = '|';
+const fromSeparator = '||';
 
 export const fromCleanMapper = (entry: string) => {
   if (entry.includes(fromSeparator)) {

@@ -80,14 +80,14 @@ describe('createSelectedQueryString', () => {
 
   it('should generate a query including all IDs, but removing from', () => {
     expect(
-      createSelectedQueryString(['z|a1', 'z|b2', 'y|c3'], UniProtKBColumn.id)
+      createSelectedQueryString(['z||a1', 'z||b2', 'y||c3'], UniProtKBColumn.id)
     ).toBe('id:a1 OR id:b2 OR id:c3');
   });
 
   it('should deduplicate IDs, but removing from', () => {
     expect(
       createSelectedQueryString(
-        ['z|a1', 'z|b2', 'y|c3', 'y|a1'],
+        ['z||a1', 'z||b2', 'y||c3', 'y||a1'],
         UniProtKBColumn.id
       )
     ).toBe('id:a1 OR id:b2 OR id:c3');
