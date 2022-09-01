@@ -54,6 +54,13 @@
 $latest-news-height: 18rem;
 
 .latest-news {
+  & :global(.chip) {
+    float: right;
+    background-color: $colour-pastel-blue;
+    border-color: $colour-pastel-blue;
+    margin-inline-end: -0.75 * $global-padding;
+  }
+
   @include fs-breakpoints('medium') {
     height: $latest-news-height;
   }
@@ -81,6 +88,10 @@ $latest-news-height: 18rem;
 
     .latest-news__abstract {
       margin-bottom: 0;
+    }
+
+    h3 {
+      width: 100%;
     }
   }
 

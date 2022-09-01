@@ -572,10 +572,23 @@ exports[`non-critical HomePage component should render 1`] = `
     <article
       class="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-4 uniprot-grid-cell--medium-offset-1 latest-news__spotlight"
     >
+      <button
+        class="chip secundary"
+        type="button"
+      >
+        <a
+          class="external-link"
+          href="https://www.proteinspotlight.org"
+          rel="noopener"
+          target="_blank"
+        >
+          Protein Spotlight
+        </a>
+      </button>
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/249/"
+          href="https://www.proteinspotlight.org/back_issues/250/"
           rel="noopener"
           target="_blank"
         >
@@ -585,7 +598,7 @@ exports[`non-critical HomePage component should render 1`] = `
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/249/"
+        href="https://www.proteinspotlight.org/back_issues/250/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
@@ -594,14 +607,14 @@ exports[`non-critical HomePage component should render 1`] = `
           alt=""
           height="129"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt249.jpg"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt250.jpg"
           width="123"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          Ever  had  to  deal  with  tiny  polystyrene  balls  clinging  to  your  carpet?  Or  admired  the  neat  narrow  grooves  stamped  onto  a  vinyl  record?  Perhaps  you  have  just  acquired  a  sleek  viscose  shirt.  Polystyrene,  PVC,  vinyl,…
+          Plants  cannot  walk.  Unable  to  drift  down  to  the  local  café,  attend  this  evening's  book  launch  or  gate-crash  a  party,  flowers  have  had  to  resort  to  other  ways  of  connecting.  True,  their  roots  may  wander  and  branches  may  wave,  but  really  what  appears  above…
       </p>
     </article>
   </section>

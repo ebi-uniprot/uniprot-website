@@ -1,4 +1,4 @@
-import { HeroContainer } from 'franklin-sites';
+import { Chip, HeroContainer } from 'franklin-sites';
 import cn from 'classnames';
 import { generatePath, Link } from 'react-router-dom';
 
@@ -17,7 +17,7 @@ const insideUniProtAbstract2 =
   'We would like to invite the machine learning community to help UniProt by creating computational methods to predict metal binding sites across the whole of UniProtKB.';
 
 const proteinSpotlightAbstract =
-  'Ever had to deal with tiny polystyrene balls clinging to your carpet? Or admired the neat narrow grooves stamped onto a vinyl record? Perhaps you have just acquired a sleek viscose shirt. Polystyrene, PVC, vinyl, acrylic, rayon, viscose, nylon, PET, polyester - these are words we never think twice about as they slip into a conversation. Epoxy resin and polyurethane are another two, although perhaps less well known. Others are hidden behind more descriptive names such as the popular cling film we wrap around food, which is made out of polyethylene. And there are many more.';
+  "Plants cannot walk. Unable to drift down to the local café, attend this evening's book launch or gate-crash a party, flowers have had to resort to other ways of connecting. True, their roots may wander and branches may wave, but really what appears above ground level is pretty moored.";
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -300,30 +300,35 @@ const LatestNews = () => {
           styles['latest-news__spotlight']
         )}
       >
+        <Chip className="secundary">
+          <ExternalLink url="https://www.proteinspotlight.org" noIcon>
+            Protein Spotlight
+          </ExternalLink>
+        </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/249/"
+            url="https://www.proteinspotlight.org/back_issues/250/"
             noIcon
           >
             Unnatural stuff
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/249/"
+          url="https://www.proteinspotlight.org/back_issues/250/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt249.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt250.jpg"
             alt=""
             width="123"
             height="129"
           />
         </ExternalLink>
         <p className={cn(styles['latest-news__abstract'])}>
-          {getWordsUpTo(proteinSpotlightAbstract, 250)}
+          {getWordsUpTo(proteinSpotlightAbstract, 300)}
         </p>
       </article>
     </HeroContainer>
