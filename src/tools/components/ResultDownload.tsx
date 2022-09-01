@@ -17,7 +17,7 @@ const options: Record<JobTypes, DownloadOptions<JobTypes>[]> = {
   [JobTypes.ALIGN]: [
     {
       format: 'aln-clustal_num',
-      description: 'Resulting alignment',
+      description: 'Resulting alignment in Clustal format',
       ext: 'txt',
     },
     { format: 'out', description: 'Raw output from Align', ext: 'txt' },
