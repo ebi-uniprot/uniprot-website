@@ -3,7 +3,6 @@ import { FileFormat } from '../../shared/types/resultsDownload';
 export const fileFormatsResultsDownload = [
   FileFormat.fastaCanonical,
   FileFormat.fastaCanonicalIsoform,
-  FileFormat.fastaSubsequence,
   FileFormat.tsv,
   FileFormat.excel,
   FileFormat.json,
