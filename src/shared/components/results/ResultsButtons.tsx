@@ -44,6 +44,7 @@ import {
   MessageFormat,
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
+import { FileFormat } from '../../types/resultsDownload';
 
 import styles from './styles/results-buttons.module.scss';
 
@@ -64,6 +65,7 @@ type ResultsButtonsProps = {
   inBasket?: boolean;
   notCustomisable?: boolean;
   subsetsMap?: Map<string, string>;
+  supportedFormats?: FileFormat[];
 };
 
 const ResultsButtons: FC<ResultsButtonsProps> = ({
@@ -78,6 +80,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
   inBasket = false,
   notCustomisable = false,
   subsetsMap,
+  supportedFormats,
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
@@ -187,6 +190,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
                 namespace={namespace}
                 base={base}
                 notCustomisable={notCustomisable}
+                supportedFormats={supportedFormats}
               />
             </ErrorBoundary>
           </SlidingPanel>
