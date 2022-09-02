@@ -63,7 +63,11 @@ const reSubsequenceFrom = new RegExp(
 );
 
 export const isSubsequenceFrom = (results: APIModel[]) =>
-  results.some(
+  // Note that current API implementation expects from IDs to be either:
+  //  1. 100% subsequence
+  //  2. 100% normal
+  // eg no mixture in one job
+  results.every(
     (result) =>
       'from' in result &&
       typeof result.from === 'string' &&
