@@ -4,6 +4,10 @@ import { RuleIdToRuleInfo } from '../components/IDMappingForm';
 
 import { Namespace } from '../../../shared/types/namespaces';
 import { IDMappingGroup } from '../types/idMappingFormConfig';
+import { APIModel } from '../../../shared/types/apiModel';
+import { reUniProtKBAccession } from '../../../uniprotkb/utils';
+import { nsToFileFormatsResultsDownload } from '../../../shared/config/resultsDownload';
+import { FileFormat } from '../../../shared/types/resultsDownload';
 
 // Memoize this as there could be lots of calls to this function as the user explores
 // the various from-to combinations. Also, the rule is an ideal key for the memoize's WeakMap.
@@ -50,4 +54,28 @@ export const rawDBToNamespace = (db?: string) => {
     return Namespace.uniparc;
   }
   return Namespace.idmapping;
+};
+
+const reSubsequence = /\[\d{1,5}-\d{1,5}\]/;
+const reSubsequenceFrom = new RegExp(
+  `(${reUniProtKBAccession.source})${reSubsequence.source}`,
+  'i'
+);
+
+export const isSubsequenceFrom = (results: APIModel[]) =>
+  results.some(
+    (result) =>
+      'from' in result &&
+      typeof result.from === 'string' &&
+      result.from.match(reSubsequenceFrom)
+  );
+
+export const getSupportedFormats = (
+  results: APIModel[],
+  namespace: Namespace
+) => {
+  const fileFormats = nsToFileFormatsResultsDownload[namespace];
+  return namespace === Namespace.uniprotkb && isSubsequenceFrom(results)
+    ? [FileFormat.fastaSubsequence, ...fileFormats]
+    : fileFormats;
 };
