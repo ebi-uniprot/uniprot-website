@@ -463,15 +463,20 @@ const VariationView = ({
                       {variantFeature.sourceType.replace(/_/g, ' ')}
                     </div>
                     {/* note that the type needs to be updated, xrefs is optional on association object */}
+                    {/* Also, some xrefs don't have URLs... type should be optional */}
                     {variantFeature.xrefs?.length ? (
                       <div>
                         <strong>Cross-references: </strong>
                         {variantFeature.xrefs?.map((xref) => (
                           <div key={`${xref.name}-${xref.id}`}>
                             {'- '}
-                            <ExternalLink url={xref.url}>
-                              {xref.name}: {xref.id}
-                            </ExternalLink>
+                            {xref.url ? (
+                              <ExternalLink url={xref.url}>
+                                {xref.name}: {xref.id}
+                              </ExternalLink>
+                            ) : (
+                              `${xref.name}: ${xref.id}`
+                            )}
                           </div>
                         ))}
                       </div>
