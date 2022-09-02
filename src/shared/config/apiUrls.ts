@@ -335,7 +335,7 @@ type Parameters = {
   fields?: string;
   sort?: string;
   includeIsoform?: boolean;
-  subSequence?: boolean;
+  subsequence?: boolean;
   size?: number;
   compressed?: boolean;
   download: true;
@@ -445,7 +445,7 @@ export const getDownloadUrl = ({
   if (fileFormat === FileFormat.fastaCanonicalIsoform) {
     parameters.includeIsoform = true;
   } else if (fileFormat === FileFormat.fastaSubsequence) {
-    parameters.subSequence = true;
+    parameters.subsequence = true;
   }
 
   if (size && !selected.length) {
