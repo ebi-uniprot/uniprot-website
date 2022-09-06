@@ -54,11 +54,9 @@ export const PtmExchangeEvidence = ({
         // Remove this className - using as a stopgap until data is imported into citations
         <div className={style.publications}>
           <UniProtKBEntryPublications
-            pubmedIds={
-              publicationReferences
-                .map((reference: Evidence) => reference.id)
-                .filter((id?: string): id is string => Boolean(id))
-            }
+            pubmedIds={publicationReferences
+              .map((reference: Evidence) => reference.id)
+              .filter((id?: string): id is string => Boolean(id))}
           />
         </div>
       )}
@@ -110,7 +108,10 @@ const PtmExchangeEvidenceTag = ({
           <small>({originalEvidenceData.description})</small>
         </h5>
         <section>
-          <h5>Confidence score: {confidenceScore} (coming soon)</h5>
+          <h5>
+            Confidence score: {confidenceScore}
+            {confidenceScore === 'Beta' && <>(coming soon)</>}
+          </h5>
           This score has been used to reflect the strength of the evidence for
           this modified site following reanalysis of available datasets.
         </section>
