@@ -48,13 +48,11 @@ type Properties = {
   'Pubmed ID': string;
   'PSM Score': string;
   'Dataset ID': string;
-  'Organism part': string;
-  'Binomial final adjusted q_value': string;
+  'Binomial final q value': string;
   'Universal Spectrum Id': string;
   'PSM Count': string;
-  'Final adjusted site probability': string;
-  'Site probability': string;
   'Confidence score': ConfidenceScore;
+  'Site probability': string;
 };
 
 type Xref = {

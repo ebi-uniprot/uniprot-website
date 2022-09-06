@@ -42,13 +42,12 @@ const convertPtmExchangePtms = (
       )
     )
   );
-  console.log(ptms, confidenceScores);
-  let confidenceScore: ConfidenceScore = 'Beta';
-  if (confidenceScores.length !== 1) {
+  let confidenceScore: ConfidenceScore = 'Bronze';
+  if (!confidenceScores.length) {
+    logging.error('PTMeXchange PTM has no confidence score');
+  } else if (confidenceScores.length > 1) {
     logging.error(
-      `One PTM has different confidence ${
-        confidenceScores.length
-      } scores: ${Array.from(confidenceScore)}`
+      `PTMeXchange PTM has a mixture of confidence scores: ${confidenceScores}`
     );
   } else {
     [confidenceScore] = confidenceScores;
