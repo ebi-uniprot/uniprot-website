@@ -37,7 +37,7 @@ exports[`PtmExchangeEvidenceTag components should render 1`] = `
       </h5>
       <section>
         <h5>
-          Confidence score: Gold (coming soon)
+          Confidence score: Gold
         </h5>
         This score has been used to reflect the strength of the evidence for this modified site following reanalysis of available datasets.
       </section>
