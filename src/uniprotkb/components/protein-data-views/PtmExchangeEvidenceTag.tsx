@@ -108,10 +108,7 @@ const PtmExchangeEvidenceTag = ({
           <small>({originalEvidenceData.description})</small>
         </h5>
         <section>
-          <h5>
-            Confidence score: {confidenceScore}
-            {confidenceScore === 'Beta' && <>(coming soon)</>}
-          </h5>
+          <h5>Confidence score: {confidenceScore}</h5>
           This score has been used to reflect the strength of the evidence for
           this modified site following reanalysis of available datasets.
         </section>

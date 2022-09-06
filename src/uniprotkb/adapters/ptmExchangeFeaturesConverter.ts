@@ -38,9 +38,7 @@ const convertPtmExchangePtms = (
   const confidenceScores = Array.from(
     new Set(
       ptms.flatMap(({ dbReferences }) =>
-        dbReferences.map(
-          ({ properties }) => properties['Confidence score'] || 'Beta'
-        )
+        dbReferences.map(({ properties }) => properties['Confidence score'])
       )
     )
   );

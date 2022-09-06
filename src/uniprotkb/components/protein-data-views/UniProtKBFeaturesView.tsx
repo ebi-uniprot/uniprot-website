@@ -34,7 +34,7 @@ type FeatureLocation = {
 };
 
 // TODO: remove Beta when API provides confidence score
-export type ConfidenceScore = 'Gold' | 'Silver' | 'Bronze' | 'Beta';
+export type ConfidenceScore = 'Gold' | 'Silver' | 'Bronze';
 
 export type FeatureDatum = {
   type: FeatureType;

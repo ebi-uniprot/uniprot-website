@@ -54,7 +54,7 @@ type Properties = {
   'PSM Count': string;
   'Final adjusted site probability': string;
   'Site probability': string;
-  'Confidence score': ConfidenceScore; // TODO: subject to change - confirm when API is stable; remove optional type
+  'Confidence score': ConfidenceScore;
 };
 
 type Xref = {
