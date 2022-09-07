@@ -10,7 +10,7 @@ import BasketStatus from '../../../basket/BasketStatus';
 import MemberLink from './MemberLink';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
-import usePrefetch from '../../../shared/hooks/usePrefetch';
+// import usePrefetch from '../../../shared/hooks/usePrefetch';
 import useItemSelect from '../../../shared/hooks/useItemSelect';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
@@ -279,7 +279,7 @@ export const MembersSection = ({
     total: 0,
     nextUrl: undefined,
   }));
-  usePrefetch(metadata.nextUrl);
+  // usePrefetch(metadata.nextUrl);
   const [allResults, setAllResults] = useState<UniRefMember[]>(() => [
     representativeMember,
   ]);

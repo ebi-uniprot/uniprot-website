@@ -9,7 +9,7 @@ import ExternalLink from '../../../shared/components/ExternalLink';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
-import usePrefetch from '../../../shared/hooks/usePrefetch';
+// import usePrefetch from '../../../shared/hooks/usePrefetch';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
@@ -233,7 +233,7 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
     total: number;
     nextUrl?: string;
   }>(() => ({ total: 0, nextUrl: undefined }));
-  usePrefetch(metaData.nextUrl);
+  // usePrefetch(metaData.nextUrl);
 
   const { data, loading, status, error, headers } =
     useDataApi<SearchResults<CitationsAPIModel>>(url);
