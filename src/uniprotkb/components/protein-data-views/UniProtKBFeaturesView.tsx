@@ -33,7 +33,6 @@ type FeatureLocation = {
   modifier: LocationModifier;
 };
 
-// TODO: remove Beta when API provides confidence score
 export type ConfidenceScore = 'Gold' | 'Silver' | 'Bronze';
 
 export type FeatureDatum = {
@@ -239,8 +238,7 @@ const UniProtKBFeaturesView = ({
                       {feature.confidenceScore}
                     </Chip>
                   )}
-                  {feature.source === 'PTMeXchange' &&
-                  feature.confidenceScore ? (
+                  {feature.source === 'PTMeXchange' ? (
                     <PtmExchangeEvidenceTag
                       evidences={feature.evidences}
                       confidenceScore={feature.confidenceScore}

@@ -42,7 +42,7 @@ const convertPtmExchangePtms = (
       )
     )
   );
-  let confidenceScore: ConfidenceScore = 'Bronze';
+  let confidenceScore: ConfidenceScore | undefined;
   if (!confidenceScores.length) {
     logging.error('PTMeXchange PTM has no confidence score');
   } else if (confidenceScores.length > 1) {
