@@ -5,7 +5,7 @@ import ErrorPage from './ErrorPage';
 
 import ArtWork from './svgs/503.img.svg';
 
-const BACKOFF = [2, 10, 30, 60] as const;
+const BACKOFF = [5] as const;
 const KEY = 'retry-index';
 
 const ServiceUnavailablePage = () => {
