@@ -45,7 +45,9 @@ const convertPtmExchangePtms = (
     logging.error('PTMeXchange PTM has no confidence score');
   } else if (confidenceScores.size > 1) {
     logging.error(
-      `PTMeXchange PTM has a mixture of confidence scores: ${confidenceScores}`
+      `PTMeXchange PTM has a mixture of confidence scores: ${Array.from(
+        confidenceScores
+      )}`
     );
   } else {
     [confidenceScore] = confidenceScores;
