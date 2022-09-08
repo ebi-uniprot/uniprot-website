@@ -4,7 +4,7 @@ import { DatabaseInfo } from '../../../types/databaseRefs';
 // showing it for when it is up and running again. Until then it will have no uriLink.
 
 // Source: /configure/uniprotkb/allDatabases
-// Retrieved: 2022-03-11
+// Retrieved: 2022-08-11
 const databaseInfo: DatabaseInfo = [
   {
     name: 'EMBL',
@@ -107,7 +107,7 @@ const databaseInfo: DatabaseInfo = [
       {
         name: 'NucleotideSequenceId',
         xmlTag: 'nucleotide sequence ID',
-        uriLink: 'https://www.ncbi.nlm.nih.gov/nuccore/%necleotideId',
+        uriLink: 'https://www.ncbi.nlm.nih.gov/nuccore/%NucleotideSequenceId',
       },
     ],
   },
@@ -211,8 +211,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'SWISS-MODEL-Workspace',
     displayName: 'SWISS-MODEL-Workspace',
     category: '3DS',
-    uriLink:
-      'http://salilab.org/modbase-cgi/model_search.cgi?searchkw=name&kword=%primaryAccession',
+    uriLink: 'https://swissmodel.expasy.org/interactive/?ac=%primaryAccession',
     attributes: [
       {
         name: 'Description',
@@ -328,7 +327,8 @@ const databaseInfo: DatabaseInfo = [
     name: 'IntAct',
     displayName: 'IntAct',
     category: 'PPI',
-    uriLink: 'https://www.ebi.ac.uk/intact/interactors/id:%id*',
+    uriLink:
+      'https://www.ebi.ac.uk/intact/search?query=id:%primaryAccession*#interactor',
     attributes: [
       {
         name: 'Interactions',
@@ -1069,18 +1069,6 @@ const databaseInfo: DatabaseInfo = [
     ],
   },
   {
-    name: 'GeneDB',
-    displayName: 'GeneDB',
-    category: 'GMA',
-    uriLink: 'https://www.genedb.org/gene/%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
     name: 'GeneID',
     displayName: 'GeneID',
     category: 'GMA',
@@ -1202,6 +1190,18 @@ const databaseInfo: DatabaseInfo = [
         name: 'GeneId',
         xmlTag: 'gene ID',
         uriLink: 'https://parasite.wormbase.org/id/%GeneId',
+      },
+    ],
+  },
+  {
+    name: 'WBParaSiteTranscriptProtein',
+    displayName: 'WBParaSite Transcript/Protein',
+    category: 'GMA',
+    uriLink: 'https://parasite.wormbase.org/id/%id',
+    attributes: [
+      {
+        name: 'Description',
+        xmlTag: 'description',
       },
     ],
   },
@@ -1379,6 +1379,34 @@ const databaseInfo: DatabaseInfo = [
     category: 'ORG',
     uriLink:
       'http://genatlas.medecine.univ-paris5.fr/fiche.php?symbol=%GeneName',
+    attributes: [
+      {
+        name: 'Description',
+        xmlTag: 'description',
+      },
+    ],
+    implicit: true,
+    linkedReason: 'DR:HGNC',
+  },
+  {
+    name: 'ClinGen',
+    displayName: 'ClinGen',
+    category: 'GVD',
+    uriLink: 'https://search.clinicalgenome.org/kb/genes/%id',
+    attributes: [
+      {
+        name: 'Description',
+        xmlTag: 'description',
+      },
+    ],
+    implicit: true,
+    linkedReason: 'DR:HGNC',
+  },
+  {
+    name: 'GenCC',
+    displayName: 'GenCC',
+    category: 'GVD',
+    uriLink: 'https://search.thegencc.org/genes/%id',
     attributes: [
       {
         name: 'Description',
@@ -2236,7 +2264,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'SFLD',
     displayName: 'SFLD',
     category: 'FMD',
-    uriLink: 'http://sfld.rbvi.ucsf.edu/django/lookup/%id',
+    uriLink: 'https://www.ebi.ac.uk/interpro/entry/sfld/%id',
     attributes: [
       {
         name: 'EntryName',
@@ -2477,6 +2505,18 @@ const databaseInfo: DatabaseInfo = [
       {
         name: 'hits',
         xmlTag: 'hits',
+      },
+    ],
+  },
+  {
+    name: 'AlphaFoldDB',
+    displayName: 'AlphaFoldDB',
+    category: '3DS',
+    uriLink: 'https://alphafold.ebi.ac.uk/entry/%id',
+    attributes: [
+      {
+        name: 'Description',
+        xmlTag: 'description',
       },
     ],
   },

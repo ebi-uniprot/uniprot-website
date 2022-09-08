@@ -7,8 +7,8 @@ const externalUrls: Record<string, (id: string | number) => string> = {
     `//www.ebi.ac.uk/QuickGO/annotations?geneProductId=${id}`,
   NCBI: (id) =>
     `https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?lvl=0&id=${id}`,
+  NCBINucleotide: (id) => `https://www.ncbi.nlm.nih.gov/nuccore/${id}`,
   ENA: (id) => `//www.ebi.ac.uk/ena/data/view/${id}`,
-  ENABrowser: (id) => `//www.ebi.ac.uk/ena/browser/view/${id}`,
   // protein centric
   InterPro: (id) => `https://www.ebi.ac.uk/interpro/protein/${id}`,
   Pfam: (id) => `http://pfam.xfam.org/protein/${id}`,
@@ -51,8 +51,9 @@ const externalUrls: Record<string, (id: string | number) => string> = {
   CommunityCurationAdd: (id) =>
     `https://community.uniprot.org/bbsub/bbsub.html?accession=${id}`,
   ENZYME: (id) => `https://enzyme.expasy.org/EC/${id}`,
-  RheaSearch: (id) => `https://www.rhea-db.org/rhea?query=ec:${id}`,
+  RheaSearch: (id) => `https://www.rhea-db.org/rhea?query=${id}`,
   RheaEntry: (id) => `https://www.rhea-db.org/rhea/${id}`,
+  ChEBI: (id) => `https://www.ebi.ac.uk/chebi/searchId.do?chebiId=${id}`,
 };
 
 export const getIntActQueryUrl = (

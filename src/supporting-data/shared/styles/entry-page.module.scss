@@ -1,5 +1,5 @@
 @import 'franklin-sites/src/styles/colours';
 
-.card {
+.card:global(.card) {
   background-color: $colour-platinum;
 }

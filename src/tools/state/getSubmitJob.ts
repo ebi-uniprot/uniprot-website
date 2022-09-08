@@ -50,7 +50,15 @@ const getSubmitJob =
       });
 
       if (!response.ok) {
-        throw new Error(`Request failed with status code ${response.status}`);
+        let message;
+        try {
+          message = getServerErrorDescription(await response.text());
+        } catch (e) {
+          /**/
+        }
+        throw new Error(
+          message || `Request failed with status code ${response.status}`
+        );
       }
 
       const remoteID = await getRemoteIDFromResponse(job.type, response);

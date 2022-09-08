@@ -116,11 +116,14 @@ const apiUrls = {
     namespace: Namespace = Namespace.uniprotkb
   ) =>
     format === FileFormat.fastaCanonicalIsoform
-      ? `${apiUrls.search(namespace)}?${queryString.stringify({
-          query: `accession:${accession}`,
-          includeIsoform: true,
-          format: fileFormatToUrlParameter[FileFormat.fastaCanonicalIsoform],
-        })}`
+      ? queryString.stringifyUrl({
+          url: apiUrls.search(namespace),
+          query: {
+            query: `accession:${accession}`,
+            includeIsoform: true,
+            format: fileFormatToUrlParameter[FileFormat.fastaCanonicalIsoform],
+          },
+        })
       : `${apiUrls.entry(accession, namespace)}.${
           fileFormatToUrlParameter[format]
         }`,
@@ -225,7 +228,7 @@ export const getAPIQueryUrl = ({
   }
   return `${apiUrls.search(namespace)}?${queryString.stringify({
     size,
-    query: `${[`(${query})`, createFacetsQueryString(selectedFacets)]
+    query: `${[query && `(${query})`, createFacetsQueryString(selectedFacets)]
       .filter(Boolean)
       .join(' AND ')}`,
     fields: columns?.join(',') || undefined,
@@ -283,7 +286,7 @@ export const getAccessionsURL = (
       // sort to improve possible cache hit
       [key]: Array.from(accessions).sort().join(','),
       query: [
-        query,
+        query && `(${query})`,
         createFacetsQueryString(
           selectedFacets.filter(excludeLocalBlastFacets)
         ) || undefined,
@@ -332,6 +335,7 @@ type Parameters = {
   fields?: string;
   sort?: string;
   includeIsoform?: boolean;
+  subsequence?: boolean;
   size?: number;
   compressed?: boolean;
   download: true;
@@ -416,7 +420,7 @@ export const getDownloadUrl = ({
   } else {
     parameters.query = selected.length
       ? createSelectedQueryString(selected, selectedIdField)
-      : [query, createFacetsQueryString(selectedFacets)]
+      : [query && `(${query})`, createFacetsQueryString(selectedFacets)]
           .filter(Boolean)
           .join(' AND ');
   }
@@ -440,6 +444,8 @@ export const getDownloadUrl = ({
 
   if (fileFormat === FileFormat.fastaCanonicalIsoform) {
     parameters.includeIsoform = true;
+  } else if (fileFormat === FileFormat.fastaSubsequence) {
+    parameters.subsequence = true;
   }
 
   if (size && !selected.length) {
@@ -453,8 +459,13 @@ export const getDownloadUrl = ({
   return `${endpoint}?${queryString.stringify(parameters)}`;
 };
 
-export const getProteinsApiUrl = (accession: string) =>
-  `https://www.ebi.ac.uk/proteins/api/proteins/${accession}`;
+const proteinsApiPrefix = 'https://www.ebi.ac.uk/proteins/api';
+export const proteinsApi = {
+  proteins: (accession: string) =>
+    joinUrl(proteinsApiPrefix, `/proteins/${accession}`),
+  proteomicsPtm: (accession: string) =>
+    joinUrl(proteinsApiPrefix, `/proteomics-ptm/${accession}`),
+};
 
 // Help endpoints
 export const help = {
@@ -490,17 +501,20 @@ export const help = {
       sort,
       fields,
       facets,
-      // At the moment, only 254 pages available
-      // Getting all of them allows us to not use the pagination logic in this
-      // section of the website, isolating it more from the rest
-      size: size || 500,
+      size,
     })}`,
 };
 
-// Help endpoints
+// News endpoints
 export const news = {
   accession: (accession?: string) =>
     accession && joinUrl(apiPrefix, 'release-notes', accession),
+  search: ({ query, sort }: queryString.ParsedQuery) =>
+    `${joinUrl(apiPrefix, '/release-notes/search')}?${queryString.stringify({
+      query: [query || '*'].filter(Boolean).join(' AND '),
+      sort:
+        sort || `release_date ${getApiSortDirection(SortDirection.descend)}`,
+    })}`,
 };
 
 export const unisave = {

@@ -21,14 +21,14 @@ const mock = new MockAdapter(axios);
 mock.onGet(/\/configure\/uniprotkb\/allDatabases/).reply(200, databaseInfo);
 
 describe('XRefView', () => {
-  test(`should render section`, () => {
+  it(`should render section`, () => {
     const { asFragment } = customRender(
       <XRefView xrefs={xrefs.standard} primaryAccession="P01234" />
     );
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test(`should remove duplicate links`, () => {
+  it(`should remove duplicate links`, () => {
     customRender(
       <XRefView xrefs={xrefs.duplicateLink} primaryAccession="P0A879" />
     );
@@ -37,7 +37,7 @@ describe('XRefView', () => {
 });
 
 describe('processUrlTemplate', () => {
-  test('should fill url', () => {
+  it('should fill url', () => {
     expect(
       processUrlTemplate('https://endpoint/%id/param=%Param', {
         id: '12',
@@ -48,7 +48,7 @@ describe('processUrlTemplate', () => {
 });
 
 describe('getPropertyLinkAttributes', () => {
-  test('should create snapshot', () => {
+  it('should create snapshot', () => {
     const databaseInfoPoint: DatabaseInfoPoint = {
       name: 'Ensembl eukaryotic genome annotation project',
       displayName: 'Ensembl',
@@ -87,7 +87,7 @@ describe('getPropertyLinkAttributes', () => {
 });
 
 describe('getDatabaseInfoAttribute', () => {
-  test('should find return database info attribute', () => {
+  it('should find return database info attribute', () => {
     expect(
       getDatabaseInfoAttribute(
         [
@@ -113,31 +113,36 @@ describe('getDatabaseInfoAttribute', () => {
 });
 
 describe('getPropertyString', () => {
-  test('should return empty string', () => {
+  it('should return empty string', () => {
     const propertyString = getPropertyString(PropertyKey.Status, '-');
     expect(propertyString).toEqual('');
   });
-  test('should append value', () => {
+
+  it('should append value', () => {
     const propertyString = getPropertyString(
       PropertyKey.PathwayName,
       'Amyloid fiber formation'
     );
     expect(propertyString).toEqual('Amyloid fiber formation');
   });
-  test('should append value and "hit"', () => {
+
+  it('should append value and "hit"', () => {
     const propertyString = getPropertyString(PropertyKey.MatchStatus, '1');
-    expect(propertyString).toEqual(' 1 hit');
+    expect(propertyString).toEqual('1 hit');
   });
-  test('should append value and "hits"', () => {
+
+  it('should append value and "hits"', () => {
     const propertyString = getPropertyString(PropertyKey.MatchStatus, '2');
-    expect(propertyString).toEqual(' 2 hits');
+    expect(propertyString).toEqual('2 hits');
   });
-  test('should if empty string if key is MatchStatus but value <= 0', () => {
+
+  it('should if empty string if key is MatchStatus but value <= 0', () => {
     const propertyString = getPropertyString(PropertyKey.MatchStatus, '0');
     expect(propertyString).toEqual('');
   });
-  test('should append value and "interactors"', () => {
+
+  it('should append value and "interactors"', () => {
     const propertyString = getPropertyString(PropertyKey.Interactions, '2');
-    expect(propertyString).toEqual(' 2 interactors');
+    expect(propertyString).toEqual('2 interactors');
   });
 });

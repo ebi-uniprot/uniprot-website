@@ -1,10 +1,9 @@
-import { HeroContainer } from 'franklin-sites';
+import { Chip, HeroContainer } from 'franklin-sites';
 import cn from 'classnames';
 import { generatePath, Link } from 'react-router-dom';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
 
-// import useDataApi from '../../../shared/hooks/useDataApi';
 import { LocationToPath, Location } from '../../config/urls';
 
 import styles from './styles/non-critical.module.scss';
@@ -18,7 +17,7 @@ const insideUniProtAbstract2 =
   'We would like to invite the machine learning community to help UniProt by creating computational methods to predict metal binding sites across the whole of UniProtKB.';
 
 const proteinSpotlightAbstract =
-  "The moment life emerged on earth, the fight - or indeed the right - to multiply began. The notion of battle is particularly true for microbes such as bacteria, fungi and viruses, that may frequently depend on hosts to replicate. Over the aeons, the art of infection and its twin image immunity have both had plenty of time to devise intricate strategies, either to attack the enemy or to fend it off, respectively. If on the offensive, one way of diminishing an opponent's strength would be to confiscate an element of their protective gear. Let's say a soldier's helmet, or their walkie-talkie, or their bullet-proof jacket, or their gun. This is precisely one of the schemes pathogens have thought up to weaken their host's immune response - and there are many different ways of achieving it. As an illustration, the rice pathogen Magnaporthe oryzae is a filamentous fungus that secretes proteins, known as effectors, into the plant cell, whose role is to weaken the plant's immune response one way or another. Recently, researchers characterized two M.oryzae effectors that go straight into the nucleus of host rice cells. What do they do there? Tamper with the expression of genes involved in the plant's immune response. Their name: HTR1 and HTR2, for Host Transcription Reprogramming 1 and 2.";
+  "Plants cannot walk. Unable to drift down to the local café, attend this evening's book launch or gate-crash a party, flowers have had to resort to other ways of connecting. True, their roots may wander and branches may wave, but really what appears above ground level is pretty moored.";
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -44,6 +43,15 @@ const LatestNews = () => {
   //   'https://www.blogger.com/feeds/2163876227102975905/posts/default'
   // );
 
+  // TODO: implement part of TRM-28342
+  // const { data, loading, error, status, progress } = useDataApi<
+  //   HelpSearchResponse
+  // >(
+  //   news.search({query: '*'})
+  // );
+
+  // Implement logic to not show release notes under progress for the upcoming release
+
   return (
     <HeroContainer
       className={cn(
@@ -58,18 +66,46 @@ const LatestNews = () => {
     >
       <div
         className={cn(
-          'uniprot-grid-cell--span-4',
+          'uniprot-grid-cell--small-span-12',
+          'uniprot-grid-cell--medium-span-4',
+          'uniprot-grid-cell--medium-offset-9',
           styles['latest-news__news-roll']
         )}
       >
         <div className={styles['latest-news__news-roll-heading']}>
           <h2>Latest News</h2>
-          {/* TODO: remove comment when we have a list page */}
-          {/* <ExternalLink url="https://www.uniprot.org/news?sort=created" noIcon>
+          <Link to={generatePath(LocationToPath[Location.ReleaseNotesResults])}>
             View archive
-          </ExternalLink> */}
+          </Link>
         </div>
         <ul className="no-bullet">
+          {/* TODO Display news dynamically using API after sorting out the article content */}
+          {/* {data.results.map((release) => (
+            <li key={release.id}>
+              <article>
+                <h3 className="tiny">
+                  <Link
+                    to={generatePath(
+                      LocationToPath[Location.ReleaseNotesEntry],
+                      {
+                        accession: release.id,
+                      }
+                    )}
+                  >
+                    {release.title}
+                  </Link>
+                </h3>
+                <p
+                className={cn(
+                  styles['latest-news__abstract'],
+                  styles['latest-news__abstract--2-lines']
+                )}
+              >
+                Article content
+              </p>
+              </article>
+            </li>
+          ))} */}
           <li>
             <article>
               <h3 className="tiny">
@@ -88,6 +124,30 @@ const LatestNews = () => {
                 )}
               >
                 Planned changes for UniProt
+              </p>
+            </article>
+          </li>
+          <li>
+            <article>
+              <h3 className="tiny">
+                <Link
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                    accession: '2022-08-03-release',
+                  })}
+                >
+                  UniProt release 2022_03
+                </Link>
+              </h3>
+              <p
+                className={cn(
+                  styles['latest-news__abstract'],
+                  styles['latest-news__abstract--2-lines']
+                )}
+              >
+                Not just for proteins: new targets for ADP-ribosylation |
+                Annotation of biologically relevant ligands in UniProtKB using
+                ChEBI | Changes to the controlled vocabulary of human
+                diseases...
               </p>
             </article>
           </li>
@@ -157,35 +217,14 @@ const LatestNews = () => {
               </p>
             </article>
           </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2021-06-02-release',
-                  })}
-                >
-                  UniProt release 2021_03
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                The importance of being disordered | MobiDB-lite predictions for
-                intrinsically disordered regions | UniProtKB via AWS Open Data
-                and Amazo...
-              </p>
-            </article>
-          </li>
         </ul>
       </div>
       <div
         className={cn(
-          'uniprot-grid-cell--span-4',
-          styles['latest-news__middle']
+          'uniprot-grid-cell--small-span-12',
+          'uniprot-grid-cell--medium-span-4',
+          'uniprot-grid-cell--medium-offset-5',
+          styles['latest-news__blogspot']
         )}
       >
         <article>
@@ -254,28 +293,38 @@ const LatestNews = () => {
         </article>
       </div>
       <article
-        className={cn('uniprot-grid-cell--span-4', styles['latest-news__left'])}
+        className={cn(
+          'uniprot-grid-cell--small-span-12',
+          'uniprot-grid-cell--medium-span-4',
+          'uniprot-grid-cell--medium-offset-1',
+          styles['latest-news__spotlight']
+        )}
       >
+        <Chip className="secundary">
+          <ExternalLink url="https://www.proteinspotlight.org" noIcon>
+            Protein Spotlight
+          </ExternalLink>
+        </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/247/"
+            url="https://www.proteinspotlight.org/back_issues/250/"
             noIcon
           >
-            Sapped
+            The colour red
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/247/"
+          url="https://www.proteinspotlight.org/back_issues/250/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt247.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt250.jpg"
             alt=""
-            width="125.46"
-            height="86.65"
+            width="123"
+            height="129"
           />
         </ExternalLink>
         <p className={cn(styles['latest-news__abstract'])}>

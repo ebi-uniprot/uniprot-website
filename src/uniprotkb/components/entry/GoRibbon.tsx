@@ -5,9 +5,11 @@ import { Helmet } from 'react-helmet-async';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
 import GOTermEvidenceTag from '../protein-data-views/GOTermEvidenceTag';
+import LazyComponent from '../../../shared/components/LazyComponent';
 
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 import useSafeState from '../../../shared/hooks/useSafeState';
+import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import externalUrls from '../../../shared/config/externalUrls';
 
@@ -22,6 +24,7 @@ import {
 } from '../../adapters/slimming/GORibbonHandler';
 import { GeneNamesData } from '../../adapters/namesAndTaxonomyConverter';
 import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { UniProtKBSimplifiedTaxonomy } from '../../adapters/uniProtkbConverter';
 
 import styles from './styles/go-ribbon.module.scss';
 
@@ -44,7 +47,7 @@ type GoRibbonType = {
   primaryAccession: string;
   goTerms?: GroupedGoTerms;
   geneNamesData?: GeneNamesData;
-  organismData?: TaxonomyDatum;
+  organismData?: TaxonomyDatum | UniProtKBSimplifiedTaxonomy;
 };
 
 const GoRibbon = ({
@@ -53,6 +56,8 @@ const GoRibbon = ({
   geneNamesData,
   organismData,
 }: GoRibbonType) => {
+  const isSmallScreen = useSmallScreen();
+
   const nodeRef = useRef<HTMLElement>();
 
   const datatableElement = useCustomElement(
@@ -64,7 +69,39 @@ const GoRibbon = ({
     'protvista-datatable'
   );
 
-  const [selectedSet, setSelectedSet] = useState('goslim_generic');
+  const [selectedSet, setSelectedSet] = useState(() => {
+    let defaultSS = 'goslim_generic';
+    if (organismData?.scientificName && organismData?.lineage) {
+      const taxonomyInfo = [
+        ...organismData.lineage,
+        organismData.scientificName,
+      ];
+
+      // SlimSets based on Taxonomy
+      const slimSetByTaxon = {
+        goslim_plant: [
+          'Viridiplantae',
+          'Bangiophyceae',
+          'Florideophyceae',
+          'Stylonematophyceae',
+          'Rhodellophyceae',
+          'Compsopogonophyceae',
+        ],
+        // prokaryotes: ['Bacteria', 'Archaea'],
+      };
+
+      // Check if the taxon matches a slimset
+      Object.entries(slimSetByTaxon).forEach(([key, value]) => {
+        const presentTaxon = taxonomyInfo?.filter(
+          (t) => value.includes(String(t)) // Lineage is Array of strings here
+        );
+        if (presentTaxon?.length) {
+          defaultSS = key;
+        }
+      });
+    }
+    return defaultSS;
+  });
 
   // NOTE: loading is also available, do we want to do anything with it?
   const { loading, slimmedData, selectedSlimSet, slimSets } = useGOData(
@@ -190,12 +227,16 @@ const GoRibbon = ({
   return (
     <div className="GoRibbon">
       <h3 data-article-id="gene_ontology">GO Annotations</h3>
-      <Helmet>
-        <script
-          type="module"
-          src="https://unpkg.com/@geneontology/wc-ribbon-strips@0.0.37/dist/wc-ribbon-strips/wc-ribbon-strips.esm.js"
-        />
-      </Helmet>
+      {!isSmallScreen && (
+        <LazyComponent fallback={null} rootMargin="50px">
+          <Helmet>
+            <script
+              type="module"
+              src="https://unpkg.com/@geneontology/wc-ribbon-strips@0.0.37/dist/wc-ribbon-strips/wc-ribbon-strips.esm.js"
+            />
+          </Helmet>
+        </LazyComponent>
+      )}
       {elementLoaded && slimSets && (
         <label className={styles['set-selector']}>
           <div>Slimming set:</div>

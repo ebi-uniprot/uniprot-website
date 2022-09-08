@@ -1,25 +1,29 @@
-import { Fragment } from 'react';
+import { memo } from 'react';
+import { useRouteMatch } from 'react-router-dom';
 import { groupBy } from 'lodash-es';
-import { EvidenceTag } from 'franklin-sites';
+import { EvidenceTag, ExpandableList } from 'franklin-sites';
+
+import UniProtKBEntryPublications from './UniProtKBEntryPublications';
+import EvidenceLink from '../../config/evidenceUrls';
+
 import {
   getEvidenceCodeData,
   EvidenceData,
   getEcoNumberFromString,
 } from '../../config/evidenceCodes';
+import { allSearchResultLocations } from '../../../app/config/urls';
+
 import { Evidence } from '../../types/modelTypes';
 
-import UniProtKBEntryPublications from './UniProtKBEntryPublications';
-import EvidenceLink from '../../config/evidenceUrls';
-
-enum evidenceTagSourceTypes {
+export enum EvidenceTagSourceTypes {
   PUBMED = 'PubMed',
   UNIPROT = 'UniProtKB',
   PROSITE_PRORULE = 'PROSITE-ProRule',
 }
 
-type UniProtEvidenceTagContentProps = {
+export type UniProtEvidenceTagContentProps = {
   evidenceData: EvidenceData;
-  evidences: Evidence[] | undefined;
+  evidences?: Evidence[];
 };
 
 export const UniProtEvidenceTagContent = ({
@@ -31,12 +35,10 @@ export const UniProtEvidenceTagContent = ({
   }
   const groupedEvidences =
     evidences && groupBy(evidences, (evidence) => evidence.source);
-
   const {
-    [evidenceTagSourceTypes.PUBMED]: publicationReferences,
+    [EvidenceTagSourceTypes.PUBMED]: publicationReferences,
     ...groupedEvidencesWithoutPubs
   } = groupedEvidences;
-
   return (
     <div>
       <h5 data-article-id="evidences">
@@ -44,22 +46,26 @@ export const UniProtEvidenceTagContent = ({
       </h5>
       {publicationReferences && (
         <UniProtKBEntryPublications
-          pubmedIds={
-            publicationReferences
-              .map((reference: Evidence) => reference.id)
-              .filter((id?: string) => id) as string[]
-          }
+          pubmedIds={publicationReferences
+            .map((reference: Evidence) => reference.id)
+            .filter((id?: string): id is string => Boolean(id))}
         />
       )}
+
       {Object.entries(groupedEvidencesWithoutPubs).map(
-        ([key, mappedEvidences], index) => (
-          <Fragment key={key || index}>
+        ([key, mappedEvidences]) => (
+          <ExpandableList
+            numberCollapsedItems={10}
+            displayNumberOfHiddenItems
+            descriptionString={`${key} sources`}
+            key={key}
+          >
             {mappedEvidences.map(({ id, url }: Evidence, index) => (
-              <div key={id || index}>
+              <span key={id || index}>
                 <EvidenceLink source={key} value={id} url={url} />
-              </div>
+              </span>
             ))}
-          </Fragment>
+          </ExpandableList>
         )
       )}
     </div>
@@ -67,7 +73,8 @@ export const UniProtEvidenceTagContent = ({
 };
 
 const UniProtKBEvidenceTag = ({ evidences }: { evidences?: Evidence[] }) => {
-  if (!evidences) {
+  const searchPageMatch = useRouteMatch(allSearchResultLocations);
+  if (searchPageMatch?.isExact || !evidences) {
     return null;
   }
   const evidenceObj = groupBy(evidences, (evidence) => evidence.evidenceCode);
@@ -101,4 +108,4 @@ const UniProtKBEvidenceTag = ({ evidences }: { evidences?: Evidence[] }) => {
   );
 };
 
-export default UniProtKBEvidenceTag;
+export default memo(UniProtKBEvidenceTag);

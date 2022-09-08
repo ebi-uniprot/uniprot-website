@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AxiosError } from 'axios';
 
-import usePrefetch from './usePrefetch';
+// import usePrefetch from './usePrefetch';
 import useDataApi from './useDataApi';
 
 import getNextURLFromHeaders from '../utils/getNextURLFromHeaders';
@@ -9,8 +9,8 @@ import getNextURLFromHeaders from '../utils/getNextURLFromHeaders';
 import { APIModel } from '../types/apiModel';
 import { SearchResults } from '../types/results';
 
-export type PaginatedResults = {
-  allResults: APIModel[];
+export type PaginatedResults<R extends APIModel = APIModel> = {
+  allResults: R[];
   initialLoading: boolean;
   progress?: number;
   hasMoreData: boolean;
@@ -24,24 +24,25 @@ export type PaginatedResults = {
 const usePagination = <T extends APIModel, R extends APIModel>(
   initialApiUrl?: string,
   converter?: (data: T[]) => R[]
-): PaginatedResults => {
+): PaginatedResults<R> => {
   const [url, setUrl] = useState(initialApiUrl);
   const [metaData, setMetaData] = useState<{
     total?: number;
     nextUrl?: string;
   }>(() => ({ total: undefined, nextUrl: undefined }));
 
-  usePrefetch(metaData.nextUrl);
-  const [allResults, setAllResults] = useState<APIModel[]>([]);
+  // usePrefetch(metaData.nextUrl);
+  const [allResults, setAllResults] = useState<R[]>([]);
 
+  // Reset conditions, when any of the things in the dep array changes
   useEffect(() => {
     setAllResults([]);
     setMetaData({ total: undefined, nextUrl: undefined });
     setUrl(initialApiUrl);
-  }, [initialApiUrl]);
+  }, [initialApiUrl, converter]);
 
   const { data, loading, progress, headers, error, status } = useDataApi<
-    SearchResults<APIModel> & {
+    SearchResults<T | R> & {
       failedIds?: string[];
     }
   >(url);
@@ -51,8 +52,10 @@ const usePagination = <T extends APIModel, R extends APIModel>(
       return;
     }
     const { results } = data;
-    const transformedResults = converter ? converter(results as T[]) : results;
-    const total: string | undefined = headers?.['x-total-records'];
+    const transformedResults = converter
+      ? converter(results as T[])
+      : (results as R[]);
+    const total: string | undefined = headers?.['x-total-results'];
     setAllResults((allRes) => [...allRes, ...transformedResults]);
     setMetaData(() => ({
       total: total ? parseInt(total, 10) : 0,

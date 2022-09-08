@@ -15,6 +15,8 @@ import { UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
 import { UniProtKBColumn } from '../../../types/columnTypes';
 import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
 
+import helper from '../../../../shared/styles/helper.module.scss';
+
 export const columns = [
   UniProtKBColumn.id,
   UniProtKBColumn.reviewed,
@@ -72,12 +74,14 @@ const SimilarProteinsTable = ({
   return (
     <>
       <Link to={unirefEntryUrl}>{cluster.id}</Link>
-      <DataTable
-        data={uniprotkbResults}
-        columns={columnConfig}
-        getIdKey={(row) => row.primaryAccession}
-        density="compact"
-      />
+      <div className={helper['overflow-y-container']}>
+        <DataTable
+          data={uniprotkbResults}
+          columns={columnConfig}
+          getIdKey={(row) => row.primaryAccession}
+          density="compact"
+        />
+      </div>
       <Link
         to={{
           pathname: LocationToPath[Location.UniProtKBResults],

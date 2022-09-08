@@ -48,7 +48,7 @@ export const getEntrySectionToDatabaseCategoryOrder = (
 };
 
 export const getDatabaseInfoMaps = (
-  databaseInfo: DatabaseInfo
+  databaseInfo: DatabaseInfo = []
 ): DatabaseInfoMaps => {
   const databaseCategoryToNames: DatabaseCategoryToNames = new Map();
   const databaseNameToCategory: DatabaseNameToCategory = new Map();

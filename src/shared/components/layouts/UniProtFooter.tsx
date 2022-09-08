@@ -16,8 +16,8 @@ import {
 import helper from '../../styles/helper.module.scss';
 import footer from './styles/footer.module.scss';
 
-import UniProtLogo from '../../../images/uniprot-logo.svg';
-import EMBLEBILogo from '../../../images/embl-ebi-logo.svg';
+import UniProtLogo from '../../../images/uniprot-logo.img.svg';
+import EMBLEBILogo from '../../../images/embl-ebi-logo.img.svg';
 import PIRLogo from '../../../images/pir-logo.jpg';
 import SIBLogo from '../../../images/sib-logo.png';
 import SERILogo from '../../../images/seri-logo.png';
@@ -31,7 +31,7 @@ const FooterConsortium = () => (
       className={footer.consortium__uniprot}
       title="UniProt home page"
     >
-      <UniProtLogo />
+      <img src={UniProtLogo} loading="lazy" alt="" width="152" height="70" />
     </Link>
     <div className={footer.consortium__members}>
       <ExternalLink
@@ -39,7 +39,7 @@ const FooterConsortium = () => (
         url="https://www.ebi.ac.uk/"
         title="European Bioinformatics Institute"
       >
-        <EMBLEBILogo />
+        <img src={EMBLEBILogo} loading="lazy" alt="" width="231" height="218" />
       </ExternalLink>
       <ExternalLink
         noIcon
@@ -208,7 +208,7 @@ const FooterShortcuts = () => (
         </li>
       </ul>
     </li>
-    <li>
+    <li className={helper['no-small']}>
       <span className={footer.shortcuts__title}>Tools</span>
       <ul className="no-bullet">
         <li>
@@ -350,7 +350,7 @@ const FooterFunding = () => (
       url="https://www.embl.org/"
       title="European Molecular Biology Laboratory"
     >
-      <EMBLEBILogo height="2.5em" width="8.11em" />
+      <img src={EMBLEBILogo} width="156" height="48" loading="lazy" alt="" />
     </ExternalLink>
     <ExternalLink
       noIcon

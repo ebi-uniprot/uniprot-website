@@ -1,9 +1,18 @@
 @import 'franklin-sites/src/styles/colours';
 @import 'franklin-sites/src/styles/settings';
+@import 'franklin-sites/src/styles/mixins';
 @import '../../../../shared/styles/mixins';
 
 .home-page-section {
   margin-bottom: $global-margin * 2;
+
+  /* A "small tablet" breakpoint */
+  @media only screen and (max-width: 900px) and (min-width: 640px) {
+    :global(.tile__description) {
+      /* Make the description part taller to fit everything */
+      transform: translate(0);
+    }
+  }
 }
 
 .core-data-tile {
@@ -21,7 +30,6 @@
     flex: 1;
   }
 
-  svg,
   a {
     display: inline-block;
     color: currentColor;
@@ -46,8 +54,16 @@
 $latest-news-height: 18rem;
 
 .latest-news {
-  grid-template-rows: calc(#{$latest-news-height} - #{$global-padding});
-  height: $latest-news-height;
+  & :global(.chip) {
+    float: right;
+    background-color: $colour-pastel-blue;
+    border-color: $colour-pastel-blue;
+    margin-inline-end: -0.75 * $global-padding;
+  }
+
+  @include fs-breakpoints('medium') {
+    height: $latest-news-height;
+  }
 
   h3,
   h4 {
@@ -60,23 +76,26 @@ $latest-news-height: 18rem;
   // Mess up with the order of cells in order to have the title in the last
   // "visible" cell cover semantically all 3 cells
   & > * {
-    grid-row-start: 1;
+    @include fs-breakpoints('medium') {
+      grid-row-start: 1;
+    }
     margin-bottom: $global-padding;
   }
 
-  &__left {
-    grid-column-start: 1 !important;
-
+  &__spotlight {
     padding: 0 $global-padding;
     background: $colour-sky-white;
 
     .latest-news__abstract {
       margin-bottom: 0;
     }
+
+    h3 {
+      width: 100%;
+    }
   }
 
-  &__middle {
-    grid-column-start: 5 !important;
+  &__blogspot {
     overflow: hidden;
 
     & > * {
@@ -97,7 +116,9 @@ $latest-news-height: 18rem;
     margin-bottom: 0;
     display: flex;
     flex-direction: column;
-    max-height: calc(#{$latest-news-height} - #{$global-padding});
+    @include fs-breakpoints('medium') {
+      max-height: calc(#{$latest-news-height} - #{$global-padding});
+    }
 
     &-heading {
       display: flex;
@@ -165,6 +186,14 @@ $latest-news-height: 18rem;
   }
 }
 
+.no-small {
+  display: none;
+
+  @include fs-breakpoints('medium') {
+    display: grid;
+  }
+}
+
 .need-help {
   // Because of Z-pattern:
   // Mess up with the order of cells in order to have the title in the last
@@ -176,8 +205,12 @@ $latest-news-height: 18rem;
   }
 
   &__next-up {
-    grid-column: 1 / span 3 !important;
-    grid-row: 1 / span 2;
+    grid-row: 3 / span 2;
+
+    @include fs-breakpoints('medium') {
+      grid-row-start: 1;
+    }
+
     align-self: stretch;
     background: $colour-sky-white;
 
@@ -221,16 +254,24 @@ $latest-news-height: 18rem;
     }
   }
 
-  &__tutorial-videos-top,
-  &__tutorial-videos-bottom {
-    grid-column-start: 4 !important;
+  &__tutorial-videos-top {
+    grid-row-start: 3;
+
+    @include fs-breakpoints('medium') {
+      grid-row-start: 1;
+    }
   }
 
   &__tutorial-videos-bottom {
     align-self: start;
-    grid-row-start: 2;
+    grid-row-start: 4;
+
+    @include fs-breakpoints('medium') {
+      grid-row-start: 2;
+    }
 
     a {
+      margin-block: 1ch;
       display: block;
       line-height: 2;
     }
@@ -238,8 +279,6 @@ $latest-news-height: 18rem;
 
   &__attend-training-top,
   &__attend-training-bottom {
-    grid-column-start: 7 !important;
-
     h2 > svg {
       color: $colour-sapphire-blue;
     }
@@ -257,11 +296,6 @@ $latest-news-height: 18rem;
 
   &__attend-training-bottom {
     grid-row-start: 2;
-  }
-
-  &__need-help-top,
-  &__need-help-bottom {
-    grid-column-start: 10 !important;
   }
 
   &__need-help-top {

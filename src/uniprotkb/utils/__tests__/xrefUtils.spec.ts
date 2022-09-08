@@ -6,7 +6,9 @@ import {
   getUnconditionalImplicitXrefs,
   getJoinedXrefs,
 } from '../xrefUtils';
-import implicitDatabaseXRefs from './__mocks__/implicitDatabaseXrefs';
+import databaseInfoMaps from './__mocks__/databaseInfoMaps';
+
+const { implicitDatabaseXRefs } = databaseInfoMaps;
 
 describe('xrefUtils tests', () => {
   test('should getDRImplicitXrefs', () => {
@@ -29,6 +31,11 @@ describe('xrefUtils tests', () => {
             id: 'HGNC:620',
             properties: { GeneName: 'APP' },
           },
+          {
+            database: 'HGNC',
+            id: 'HGNC:621',
+            properties: { GeneName: 'APP' },
+          },
         ],
         ['APP', 'A4', 'AD1']
       )
@@ -47,6 +54,26 @@ describe('xrefUtils tests', () => {
         database: 'GenAtlas',
         implicit: true,
         properties: { GeneName: 'APP' },
+      },
+      {
+        database: 'ClinGen',
+        implicit: true,
+        properties: { id: 'HGNC:620' },
+      },
+      {
+        database: 'ClinGen',
+        implicit: true,
+        properties: { id: 'HGNC:621' },
+      },
+      {
+        database: 'GenCC',
+        implicit: true,
+        properties: { id: 'HGNC:620' },
+      },
+      {
+        database: 'GenCC',
+        implicit: true,
+        properties: { id: 'HGNC:621' },
       },
       {
         database: 'SWISS-MODEL-Workspace',

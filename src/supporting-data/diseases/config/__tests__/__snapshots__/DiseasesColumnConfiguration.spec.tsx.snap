@@ -39,19 +39,100 @@ exports[`DiseasesColumnConfiguration component should render column "cross_refer
     class="expandable-list no-bullet"
   >
     <li>
-      MIM: 120435 (phenotype)
+      <span
+        class="no-wrap"
+      >
+        MIM: 
+        <a
+          class="external-link"
+          href="https://www.omim.org/entry/120435"
+          rel="noopener"
+          target="_blank"
+        >
+          120435
+          <test-file-stub
+            data-testid="external-link-icon"
+            width="12.5"
+          />
+        </a>
+         (phenotype)
+      </span>
     </li>
     <li>
-      MedGen: C0009405
+      <span
+        class="no-wrap"
+      >
+        MedGen: 
+        <a
+          class="external-link"
+          href="https://www.ncbi.nlm.nih.gov/medgen/C0009405"
+          rel="noopener"
+          target="_blank"
+        >
+          C0009405
+          <test-file-stub
+            data-testid="external-link-icon"
+            width="12.5"
+          />
+        </a>
+      </span>
     </li>
     <li>
-      MedGen: C1333990
+      <span
+        class="no-wrap"
+      >
+        MedGen: 
+        <a
+          class="external-link"
+          href="https://www.ncbi.nlm.nih.gov/medgen/C1333990"
+          rel="noopener"
+          target="_blank"
+        >
+          C1333990
+          <test-file-stub
+            data-testid="external-link-icon"
+            width="12.5"
+          />
+        </a>
+      </span>
     </li>
     <li>
-      MedGen: CN068508
+      <span
+        class="no-wrap"
+      >
+        MedGen: 
+        <a
+          class="external-link"
+          href="https://www.ncbi.nlm.nih.gov/medgen/CN068508"
+          rel="noopener"
+          target="_blank"
+        >
+          CN068508
+          <test-file-stub
+            data-testid="external-link-icon"
+            width="12.5"
+          />
+        </a>
+      </span>
     </li>
     <li>
-      MeSH: D003123
+      <span
+        class="no-wrap"
+      >
+        MeSH: 
+        <a
+          class="external-link"
+          href="https://meshb.nlm.nih.gov/record/ui?ui=D003123"
+          rel="noopener"
+          target="_blank"
+        >
+          D003123
+          <test-file-stub
+            data-testid="external-link-icon"
+            width="12.5"
+          />
+        </a>
+      </span>
     </li>
   </ul>
 </DocumentFragment>

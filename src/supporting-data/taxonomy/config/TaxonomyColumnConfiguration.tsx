@@ -1,4 +1,3 @@
-import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { ExpandableList } from 'franklin-sites';
 
@@ -7,11 +6,10 @@ import ExternalLink from '../../../shared/components/ExternalLink';
 import { getEntryPathFor } from '../../../app/config/urls';
 import { mapToLinks } from '../../../shared/components/MapTo';
 
-import { Lineage, TaxonomyAPIModel } from '../adapters/taxonomyConverter';
+import { TaxonomyAPIModel } from '../adapters/taxonomyConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 import { Namespace } from '../../../shared/types/namespaces';
-
-import styles from './styles/taxonomy-columns.module.css';
+import { TaxonomyLineage } from '../../../shared/components/entry/TaxonomyView';
 
 export enum TaxonomyColumn {
   commonName = 'common_name',
@@ -79,22 +77,7 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.id, {
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.lineage, {
   label: 'Lineage',
-  // TODO: modify when we have a common approach to represent lineages
-  render: ({ lineage }) =>
-    lineage?.length &&
-    Array.from(lineage as Lineage)
-      ?.reverse()
-      .map(({ taxonId, scientificName, commonName, hidden }, index) => (
-        <Fragment key={taxonId}>
-          {index ? ' > ' : undefined}
-          <Link
-            to={getEntryPath(taxonId)}
-            className={hidden ? styles['hidden-taxon'] : undefined}
-          >
-            {scientificName || commonName || taxonId}
-          </Link>
-        </Fragment>
-      )),
+  render: ({ lineage }) => <TaxonomyLineage lineage={lineage} />,
 });
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.links, {

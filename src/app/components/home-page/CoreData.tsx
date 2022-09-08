@@ -15,10 +15,10 @@ import { SearchResults } from '../../../shared/types/results';
 
 import styles from './styles/non-critical.module.scss';
 
-import UniProtKBIllustration from '../../../images/uniprotkb_illustration.svg';
-import SpeciesIllustration from '../../../images/species_illustration.svg';
-import ClusterIllustration from '../../../images/cluster_illustration.svg';
-import ArchiveIllustration from '../../../images/archive_illustration.svg';
+import UniProtKBIllustration from '../../../images/uniprotkb_illustration.img.svg';
+import SpeciesIllustration from '../../../images/species_illustration.img.svg';
+import ClusterIllustration from '../../../images/cluster_illustration.img.svg';
+import ArchiveIllustration from '../../../images/archive_illustration.img.svg';
 
 const getNamespaceTo = (location: Location) => ({
   pathname: LocationToPath[location],
@@ -91,9 +91,21 @@ const CoreData = () => (
     <h2 className="visually-hidden">UniProt core data</h2>
     <Tile
       title="Proteins"
-      className={cn('uniprot-grid-cell--span-3', styles['core-data-tile'])}
+      className={cn(
+        'uniprot-grid-cell--small-span-6',
+        'uniprot-grid-cell--medium-span-3',
+        styles['core-data-tile']
+      )}
       subtitle="UniProt Knowledgebase"
-      backgroundImage={<UniProtKBIllustration />}
+      backgroundImage={
+        <img
+          src={UniProtKBIllustration}
+          width={240}
+          height={240}
+          loading="lazy"
+          alt=""
+        />
+      }
       backgroundColor={colors.seaBlue}
       to={getNamespaceTo(Location.UniProtKBResults)}
       gradient
@@ -104,9 +116,21 @@ const CoreData = () => (
     </Tile>
     <Tile
       title="Species"
-      className="uniprot-grid-cell--span-3"
+      className={cn(
+        'uniprot-grid-cell--small-span-6',
+        'uniprot-grid-cell--medium-span-3',
+        styles['core-data-tile']
+      )}
       subtitle="Proteomes"
-      backgroundImage={<SpeciesIllustration />}
+      backgroundImage={
+        <img
+          src={SpeciesIllustration}
+          width={240}
+          height={240}
+          loading="lazy"
+          alt=""
+        />
+      }
       backgroundColor={colors.proteomes}
       to={getNamespaceTo(Location.ProteomesResults)}
       gradient
@@ -116,9 +140,21 @@ const CoreData = () => (
     </Tile>
     <Tile
       title="Protein Clusters"
-      className="uniprot-grid-cell--span-3"
+      className={cn(
+        'uniprot-grid-cell--small-span-6',
+        'uniprot-grid-cell--medium-span-3',
+        styles['core-data-tile']
+      )}
       subtitle="UniRef"
-      backgroundImage={<ClusterIllustration />}
+      backgroundImage={
+        <img
+          src={ClusterIllustration}
+          width={240}
+          height={240}
+          loading="lazy"
+          alt=""
+        />
+      }
       backgroundColor={colors.uniref}
       to={getNamespaceTo(Location.UniRefResults)}
       gradient
@@ -127,9 +163,21 @@ const CoreData = () => (
     </Tile>
     <Tile
       title="Sequence Archive"
-      className="uniprot-grid-cell--span-3"
+      className={cn(
+        'uniprot-grid-cell--small-span-6',
+        'uniprot-grid-cell--medium-span-3',
+        styles['core-data-tile']
+      )}
       subtitle="UniParc"
-      backgroundImage={<ArchiveIllustration />}
+      backgroundImage={
+        <img
+          src={ArchiveIllustration}
+          width={240}
+          height={240}
+          loading="lazy"
+          alt=""
+        />
+      }
       backgroundColor={colors.uniparc}
       to={getNamespaceTo(Location.UniParcResults)}
       gradient

@@ -11,6 +11,7 @@ import {
 import ExternalLink from '../../../shared/components/ExternalLink';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import { ECNumbersView } from './ProteinNamesView';
+import { RichText } from './FreeTextView';
 
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 
@@ -260,7 +261,7 @@ const CatalyticActivityView = ({
                 )}
               </h4>
             )}
-            {` ${reaction.name}`}
+            <RichText>{reaction.name}</RichText>
             {!noEvidence && reaction.evidences && (
               <UniProtKBEvidenceTag evidences={reaction.evidences} />
             )}

@@ -44,6 +44,7 @@ import {
   MessageFormat,
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
+import { FileFormat } from '../../types/resultsDownload';
 
 import styles from './styles/results-buttons.module.scss';
 
@@ -63,6 +64,8 @@ type ResultsButtonsProps = {
   disableCardToggle?: boolean; // Note: remove if we have card view for id mapping
   inBasket?: boolean;
   notCustomisable?: boolean;
+  subsetsMap?: Map<string, string>;
+  supportedFormats?: FileFormat[];
 };
 
 const ResultsButtons: FC<ResultsButtonsProps> = ({
@@ -76,6 +79,8 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
   disableCardToggle = false,
   inBasket = false,
   notCustomisable = false,
+  subsetsMap,
+  supportedFormats,
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
@@ -157,6 +162,11 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
 
   const isMain = mainNamespaces.has(namespace);
 
+  // Download and ID mapping expects accessions without modifications (applicable in Basket views)
+  const selectedAccWithoutSubset = subsetsMap
+    ? Array.from(new Set(selectedEntries.map((e) => subsetsMap.get(e) || e)))
+    : selectedEntries;
+
   return (
     <>
       {displayDownloadPanel && (
@@ -169,12 +179,18 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
           >
             <ErrorBoundary>
               <DownloadComponent
-                selectedEntries={selectedEntries}
-                accessions={accessions}
+                selectedEntries={selectedAccWithoutSubset}
+                accessions={
+                  subsetsMap
+                    ? Array.from(new Set(subsetsMap?.values()))
+                    : accessions
+                } // Passing all accessions without modifications to Download
                 totalNumberResults={total}
                 onClose={() => setDisplayDownloadPanel(false)}
                 namespace={namespace}
                 base={base}
+                notCustomisable={notCustomisable}
+                supportedFormats={supportedFormats}
               />
             </ErrorBoundary>
           </SlidingPanel>
@@ -189,7 +205,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
         )}
         {isMain && namespace !== Namespace.proteomes && (
           <MapIDButton
-            selectedEntries={selectedEntries}
+            selectedEntries={selectedAccWithoutSubset}
             namespace={namespace}
           />
         )}

@@ -28,7 +28,7 @@ const ErrorComponent = () => (
         <ExternalLink url="https://legacy.uniprot.org" rel="nofollow" noIcon>
           legacy version of the website
         </ExternalLink>{' '}
-        is available until the 2022_03 release.
+        is available until the 2022_04 release.
       </p>
     </Message>
   </div>

@@ -1,4 +1,4 @@
-import { FC, useState, Suspense } from 'react';
+import { useState, Suspense } from 'react';
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
 import {
@@ -10,6 +10,7 @@ import {
 
 import BlastButton from '../../shared/components/action-buttons/Blast';
 import AlignButton from '../../shared/components/action-buttons/Align';
+import MapIDButton from '../../shared/components/action-buttons/MapID';
 import AddToBasketButton from '../../shared/components/action-buttons/AddToBasket';
 import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
 
@@ -24,16 +25,17 @@ import lazy from '../../shared/utils/lazy';
 import { PublicServerParameters } from '../types/toolsServerParameters';
 import { Suggestions } from '../../query-builder/components/AutocompleteWrapper';
 import { JobTypes } from '../types/toolsJobTypes';
+import { Namespace } from '../../shared/types/namespaces';
 
 type ResubmitButtonProps<T extends JobTypes> = {
   jobType: T;
   inputParamsData?: PublicServerParameters[T];
 };
 
-export const ResubmitButton: FC<ResubmitButtonProps<JobTypes>> = ({
+export const ResubmitButton = ({
   jobType,
   inputParamsData,
-}) => {
+}: ResubmitButtonProps<JobTypes>) => {
   const history = useHistory();
 
   const [disabled, setDisabled] = useState(false);
@@ -99,6 +101,7 @@ export const ResubmitButton: FC<ResubmitButtonProps<JobTypes>> = ({
 };
 
 type ResultButtonsProps<T extends JobTypes> = {
+  namespace: Namespace;
   jobType: T;
   jobId: string;
   selectedEntries: string[];
@@ -111,14 +114,15 @@ const ResultDownload = lazy(
   () => import(/* webpackChunkName: "result-download" */ './ResultDownload')
 );
 
-const ResultButtons: FC<ResultButtonsProps<JobTypes>> = ({
+const ResultButtons = ({
+  namespace,
   jobType,
   jobId,
   selectedEntries,
   inputParamsData,
   nHits,
   isTableResultsFiltered,
-}) => {
+}: ResultButtonsProps<JobTypes>) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
   return (
@@ -146,7 +150,11 @@ const ResultButtons: FC<ResultButtonsProps<JobTypes>> = ({
       )}
       <div className="button-group">
         <BlastButton selectedEntries={selectedEntries} />
-        <AlignButton selectedEntries={selectedEntries} />
+        <AlignButton
+          selectedEntries={selectedEntries}
+          inputParamsData={inputParamsData}
+        />
+        <MapIDButton selectedEntries={selectedEntries} namespace={namespace} />
         <Button
           variant="tertiary"
           onPointerOver={ResultDownload.preload}

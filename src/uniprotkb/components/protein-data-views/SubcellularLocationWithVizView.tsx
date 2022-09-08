@@ -5,6 +5,8 @@ import SubcellularLocationView from './SubcellularLocationView';
 import SubcellularLocationGOView from './SubcellularLocationGOView';
 import LazyComponent from '../../../shared/components/LazyComponent';
 
+import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
+
 import {
   getEvidenceCodeData,
   getEcoNumberFromGoEvidenceType,
@@ -14,11 +16,9 @@ import {
 import * as logging from '../../../shared/utils/logging';
 
 import { SubcellularLocationComment } from '../../types/commentTypes';
-import {
-  Lineage,
-  TaxonomyDatum,
-} from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { Lineage } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { GoXref } from '../../adapters/subcellularLocationConverter';
+import { UniProtKBSimplifiedTaxonomy } from '../../adapters/uniProtkbConverter';
 
 // Import it lazily in order to isolate the libraries used only for this
 const SubCellViz =
@@ -65,13 +65,15 @@ const SubcellularLocationWithVizView: FC<
     primaryAccession?: string;
     comments?: SubcellularLocationComment[];
     goXrefs?: GoXref[];
-  } & Partial<Pick<TaxonomyDatum, 'taxonId' | 'lineage'>>
+  } & Partial<Pick<UniProtKBSimplifiedTaxonomy, 'taxonId' | 'lineage'>>
 > = ({ primaryAccession, comments, taxonId, lineage, goXrefs }) => {
   // Examples for different cases:
   // P05067      lots of UniProt & GO data
   // P11926      only GO data
   // Q00733      only notes
   // A0A2K3DA85  no data
+
+  const isSmallScreen = useSmallScreen();
 
   // Need lineage to determine if this protein is within a virus as swissbiopics is (currently) incompatible with viruses
   if ((!comments?.length && !goXrefs?.length) || !lineage) {
@@ -174,6 +176,10 @@ const SubcellularLocationWithVizView: FC<
       </Tab>
     </Tabs>
   );
+
+  if (isSmallScreen) {
+    return fallback;
+  }
 
   return (
     <LazyComponent fallback={fallback} rootMargin="50px">

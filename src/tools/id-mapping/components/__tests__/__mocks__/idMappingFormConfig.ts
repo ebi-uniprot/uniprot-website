@@ -1,7 +1,7 @@
 import { IDMappingFormConfig } from '../../../types/idMappingFormConfig';
 
 // Source: /api/configure/idmapping/fields
-// Retrieved: 2021-10-14
+// Retrieved: 2022-06-16
 const data: IDMappingFormConfig = {
   groups: [
     {
@@ -12,6 +12,8 @@ const data: IDMappingFormConfig = {
           name: 'UniProtKB',
           from: false,
           to: true,
+          ruleId: null,
+          uriLink: 'https://www.uniprot.org/uniprot/%id',
         },
         {
           displayName: 'UniProtKB AC/ID',
@@ -19,12 +21,15 @@ const data: IDMappingFormConfig = {
           from: true,
           to: false,
           ruleId: 1,
+          uriLink: 'https://www.uniprot.org/uniprot/%id',
         },
         {
           displayName: 'UniProtKB/Swiss-Prot',
           name: 'UniProtKB-Swiss-Prot',
           from: false,
           to: true,
+          ruleId: null,
+          uriLink: 'https://www.uniprot.org/uniprot/%id',
         },
         {
           displayName: 'UniParc',
@@ -32,6 +37,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 2,
+          uriLink: null,
         },
         {
           displayName: 'UniRef50',
@@ -39,6 +45,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 3,
+          uriLink: 'https://www.uniprot.org/uniref/%id',
         },
         {
           displayName: 'UniRef90',
@@ -46,6 +53,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 4,
+          uriLink: 'https://www.uniprot.org/uniref/%id',
         },
         {
           displayName: 'UniRef100',
@@ -53,6 +61,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 5,
+          uriLink: 'https://www.uniprot.org/uniref/%id',
         },
         {
           displayName: 'Gene Name',
@@ -60,6 +69,8 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 6,
+          uriLink:
+            'https://proteininformationresource.org/cgi-bin/nbrfget?uid=%id',
         },
         {
           displayName: 'CRC64',
@@ -67,6 +78,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: null,
         },
       ],
     },
@@ -79,6 +91,8 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink:
+            'https://www.ncbi.nlm.nih.gov/CCDS/CcdsBrowse.cgi?REQUEST=CCDS&GO=MainBrowse&DATA=%id',
         },
         {
           displayName: 'EMBL/GenBank/DDBJ',
@@ -86,6 +100,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://www.ebi.ac.uk/ena/data/view/%id',
         },
         {
           displayName: 'EMBL/GenBank/DDBJ CDS',
@@ -93,6 +108,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://www.ebi.ac.uk/ena/data/view/%id',
         },
         {
           displayName: 'PIR',
@@ -100,13 +116,24 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink:
+            'https://proteininformationresource.org/cgi-bin/nbrfget?uid=%id',
         },
         {
-          displayName: 'RefSeq',
-          name: 'RefSeq',
+          displayName: 'RefSeq Nucleotide',
+          name: 'RefSeq_Nucleotide',
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://www.ncbi.nlm.nih.gov/nuccore/%id',
+        },
+        {
+          displayName: 'RefSeq Protein',
+          name: 'RefSeq_Protein',
+          from: true,
+          to: true,
+          ruleId: 7,
+          uriLink: 'https://www.ncbi.nlm.nih.gov/protein/%id',
         },
       ],
     },
@@ -119,6 +146,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://www.ebi.ac.uk/pdbe-srv/view/entry/%id',
         },
       ],
     },
@@ -131,6 +159,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://thebiogrid.org/%id',
         },
         {
           displayName: 'ComplexPortal',
@@ -138,6 +167,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://www.ebi.ac.uk/complexportal/complex/%id',
         },
         {
           displayName: 'DIP',
@@ -145,6 +175,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://dip.doe-mbi.ucla.edu/dip/Browse.cgi?ID=%id',
         },
         {
           displayName: 'STRING',
@@ -152,6 +183,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://string-db.org/network/%id',
         },
       ],
     },
@@ -164,6 +196,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://www.ebi.ac.uk/chembldb/target/inspect/%id',
         },
         {
           displayName: 'DrugBank',
@@ -171,6 +204,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://www.drugbank.ca/drugs/%id',
         },
         {
           displayName: 'GuidetoPHARMACOLOGY',
@@ -178,6 +212,8 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink:
+            'http://www.guidetopharmacology.org/GRAC/ObjectDisplayForward?objectId=%id',
         },
         {
           displayName: 'SwissLipids',
@@ -185,6 +221,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://www.swisslipids.org/#/entity/%id/',
         },
       ],
     },
@@ -197,6 +234,8 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink:
+            'http://www.allergome.org/script/dettaglio.php?id_molecule=%id',
         },
         {
           displayName: 'CLAE',
@@ -204,6 +243,8 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink:
+            'https://mycoclap.fungalgenomics.ca/mycoCLAP/clap/GeneView/%id',
         },
         {
           displayName: 'ESTHER',
@@ -211,6 +252,8 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink:
+            'http://bioweb.supagro.inra.fr/ESTHER/gene_locus?name=%id&class=Gene_locus',
         },
         {
           displayName: 'MEROPS',
@@ -218,6 +261,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://www.ebi.ac.uk/merops/cgi-bin/pepsum?mid=%id',
         },
         {
           displayName: 'PeroxiBase',
@@ -225,6 +269,8 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink:
+            'http://peroxibase.toulouse.inra.fr/display_perox/view_perox/%id',
         },
         {
           displayName: 'REBASE',
@@ -232,6 +278,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'http://rebase.neb.com/rebase/enz/%id.html',
         },
         {
           displayName: 'TCDB',
@@ -239,6 +286,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'http://www.tcdb.org/search/result.php?tc=%id',
         },
       ],
     },
@@ -251,6 +299,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://glyconnect.expasy.org/browser/proteins/%id',
         },
       ],
     },
@@ -263,6 +312,8 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink:
+            'https://hive.biochemistry.gwu.edu/tools/biomuta/biomuta.php?gene=%id',
         },
         {
           displayName: 'DMDM',
@@ -270,6 +321,8 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink:
+            'http://bioinf.umbc.edu/dmdm/gene_prot_page.php?search_type=protein&id=%id',
         },
       ],
     },
@@ -282,6 +335,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://world-2dpage.expasy.org/repository/%id',
         },
       ],
     },
@@ -294,6 +348,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://assays.cancer.gov/%id',
         },
         {
           displayName: 'ProteomicsDB',
@@ -301,6 +356,8 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink:
+            'https://www.proteomicsdb.org/proteomicsdb/#protein/proteinDetails/%id',
         },
       ],
     },
@@ -313,6 +370,8 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink:
+            'https://dnasu.org/DNASU/AdvancedSearchOptions.do?geneName=%id',
         },
       ],
     },
@@ -325,6 +384,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://www.ensembl.org/id/%id',
         },
         {
           displayName: 'Ensembl Genomes',
@@ -332,6 +392,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'http://www.ensemblgenomes.org/id/%id',
         },
         {
           displayName: 'Ensembl Genomes Protein',
@@ -339,6 +400,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'http://www.ensemblgenomes.org/id/%id',
         },
         {
           displayName: 'Ensembl Genomes Transcript',
@@ -346,6 +408,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'http://www.ensemblgenomes.org/id/%id',
         },
         {
           displayName: 'Ensembl Protein',
@@ -353,6 +416,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://www.ensembl.org/id/%id',
         },
         {
           displayName: 'Ensembl Transcript',
@@ -360,13 +424,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
-        },
-        {
-          displayName: 'GeneDB',
-          name: 'GeneDB',
-          from: true,
-          to: true,
-          ruleId: 7,
+          uriLink: 'https://www.ensembl.org/id/%id',
         },
         {
           displayName: 'GeneID',
@@ -374,6 +432,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://www.ncbi.nlm.nih.gov/gene/%id',
         },
         {
           displayName: 'KEGG',
@@ -381,6 +440,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://www.genome.jp/dbget-bin/www_bget?%id',
         },
         {
           displayName: 'PATRIC',
@@ -388,6 +448,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://www.patricbrc.org/view/Feature/%id',
         },
         {
           displayName: 'UCSC',
@@ -395,6 +456,8 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink:
+            'https://genome.ucsc.edu/cgi-bin/hgLinkIn?resource=uniprot&id=%id',
         },
         {
           displayName: 'WBParaSite',
@@ -402,6 +465,15 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://parasite.wormbase.org/id/%id',
+        },
+        {
+          displayName: 'WBParaSite Transcript/Protein',
+          name: 'WBParaSite_Transcript-Protein',
+          from: true,
+          to: true,
+          ruleId: 7,
+          uriLink: 'https://parasite.wormbase.org/id/%id',
         },
       ],
     },
@@ -414,6 +486,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'http://www.arachnoserver.org/toxincard.html?id=%id',
         },
         {
           displayName: 'Araport',
@@ -421,6 +494,8 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink:
+            'https://apps.araport.org/thalemine/portal.do?externalids=%id',
         },
         {
           displayName: 'CGD',
@@ -428,6 +503,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'http://www.candidagenome.org/cgi-bin/locus.pl?dbid=%id',
         },
         {
           displayName: 'ConoServer',
@@ -435,6 +511,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'http://www.conoserver.org/?page=card&table=protein&id=%id',
         },
         {
           displayName: 'dictyBase',
@@ -442,6 +519,8 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink:
+            'http://dictybase.org/db/cgi-bin/gene_page.pl?primary_id=%id',
         },
         {
           displayName: 'EchoBASE',
@@ -449,6 +528,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'http://www.york.ac.uk/res/thomas/Gene.cfm?recordID=%id',
         },
         {
           displayName: 'euHCVdb',
@@ -456,6 +536,8 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink:
+            'https://euhcvdb.ibcp.fr/euHCVdb/do/displayHCVEntry?primaryAC=%id',
         },
         {
           displayName: 'FlyBase',
@@ -463,6 +545,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'http://flybase.org/reports/%id.html',
         },
         {
           displayName: 'GeneCards',
@@ -470,6 +553,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://www.genecards.org/cgi-bin/carddisp.pl?gene=%id',
         },
         {
           displayName: 'GeneReviews',
@@ -477,6 +561,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://www.ncbi.nlm.nih.gov/books/NBK1116/?term=%id',
         },
         {
           displayName: 'HGNC',
@@ -484,6 +569,8 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink:
+            'https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/%id',
         },
         {
           displayName: 'LegioList',
@@ -491,6 +578,8 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink:
+            'http://genolist.pasteur.fr/LegioList/genome.cgi?external_query+%id',
         },
         {
           displayName: 'Leproma',
@@ -498,6 +587,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://mycobrowser.epfl.ch/genes/%id',
         },
         {
           displayName: 'MaizeGDB',
@@ -505,6 +595,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://www.maizegdb.org/data_center/gene_product?id=%id',
         },
         {
           displayName: 'MGI',
@@ -512,6 +603,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'http://www.informatics.jax.org/marker/%id',
         },
         {
           displayName: 'MIM',
@@ -519,6 +611,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://www.omim.org/entry/%id',
         },
         {
           displayName: 'neXtProt',
@@ -526,6 +619,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://www.nextprot.org/entry/%id',
         },
         {
           displayName: 'Orphanet',
@@ -533,6 +627,8 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink:
+            'https://www.orpha.net/consor/cgi-bin/OC_Exp.php?Lng=GB&Expert=%id',
         },
         {
           displayName: 'PharmGKB',
@@ -540,6 +636,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://www.pharmgkb.org/gene/%id',
         },
         {
           displayName: 'PomBase',
@@ -547,6 +644,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://www.pombase.org/spombe/result/%id',
         },
         {
           displayName: 'PseudoCAP',
@@ -554,6 +652,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'http://www.pseudomonas.com/feature/show?locus_tag=%id',
         },
         {
           displayName: 'RGD',
@@ -561,6 +660,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'http://rgd.mcw.edu/tools/genes/genes_view.cgi?id=%id',
         },
         {
           displayName: 'SGD',
@@ -568,6 +668,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://www.yeastgenome.org/locus/%id',
         },
         {
           displayName: 'TubercuList',
@@ -575,6 +676,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://mycobrowser.epfl.ch/genes/%id',
         },
         {
           displayName: 'VEuPathDB',
@@ -582,6 +684,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://www.veupathdb.org/gene/%id',
         },
         {
           displayName: 'VGNC',
@@ -589,6 +692,8 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink:
+            'https://vertebrate.genenames.org/data/gene-symbol-report/#!/vgnc_id/%id',
         },
         {
           displayName: 'WormBase',
@@ -596,6 +701,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://wormbase.org/species/c_elegans/cds/%id',
         },
         {
           displayName: 'WormBase Protein',
@@ -603,6 +709,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://parasite.wormbase.org/id/%id',
         },
         {
           displayName: 'WormBase Transcript',
@@ -610,6 +717,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://parasite.wormbase.org/id/%id',
         },
         {
           displayName: 'Xenbase',
@@ -617,6 +725,8 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink:
+            'http://www.xenbase.org/gene/showgene.do?method=display&geneId=%id',
         },
         {
           displayName: 'ZFIN',
@@ -624,6 +734,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://zfin.org/%id',
         },
       ],
     },
@@ -636,6 +747,8 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink:
+            'http://eggnogdb.embl.de/#/app/results?seqid=%primaryAccession&target_nogs=%id',
         },
         {
           displayName: 'GeneTree',
@@ -643,6 +756,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'http://www.ensemblgenomes.org/id-genetree/%id',
         },
         {
           displayName: 'HOGENOM',
@@ -650,6 +764,8 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink:
+            'http://doua.prabi.fr/cgi-bin/acnuc-ac2tree?query=%id&db=HOGENOM6',
         },
         {
           displayName: 'OMA',
@@ -657,6 +773,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://omabrowser.org/oma/group/%id',
         },
         {
           displayName: 'OrthoDB',
@@ -664,6 +781,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://www.orthodb.org/?query=%id',
         },
         {
           displayName: 'TreeFam',
@@ -671,6 +789,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'http://www.treefam.org/family/%id',
         },
       ],
     },
@@ -683,6 +802,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://biocyc.org/getid?id=%id',
         },
         {
           displayName: 'PlantReactome',
@@ -690,6 +810,8 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink:
+            'https://plantreactome.gramene.org/PathwayBrowser/#/%id&FLG=%primaryAccession',
         },
         {
           displayName: 'Reactome',
@@ -697,6 +819,8 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink:
+            'https://www.reactome.org/PathwayBrowser/#%id&FLG=%primaryAccession',
         },
         {
           displayName: 'UniPathway',
@@ -704,6 +828,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: null,
         },
       ],
     },
@@ -716,6 +841,8 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink:
+            'http://chitars.md.biu.ac.il/bin/search.pl?searchtype=gene_name&searchstr=%id&%d=1',
         },
         {
           displayName: 'GeneWiki',
@@ -723,6 +850,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://en.wikipedia.org/wiki/%id',
         },
         {
           displayName: 'GenomeRNAi',
@@ -730,6 +858,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'http://genomernai.org/genedetails/%id',
         },
         {
           displayName: 'PHI-base',
@@ -737,6 +866,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'http://www.phi-base.org/searchFacet.htm?queryTerm=%id',
         },
       ],
     },
@@ -749,6 +879,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'http://www.collectf.org/%id',
         },
       ],
     },
@@ -761,6 +892,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink: 'https://disprot.org/%id',
         },
         {
           displayName: 'IDEAL',
@@ -768,6 +900,8 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
+          uriLink:
+            'http://idp1.force.cs.is.nagoya-u.ac.jp/IDEAL/ideal.php?id=%id',
         },
       ],
     },
@@ -778,7 +912,6 @@ const data: IDMappingFormConfig = {
       tos: [
         'CCDS',
         'PIR',
-        'RefSeq',
         'PDB',
         'BioGRID',
         'ComplexPortal',
@@ -803,12 +936,12 @@ const data: IDMappingFormConfig = {
         'ProteomicsDB',
         'DNASU',
         'Ensembl',
-        'GeneDB',
         'GeneID',
         'KEGG',
         'PATRIC',
         'UCSC',
         'WBParaSite',
+        'WBParaSite_Transcript-Protein',
         'ArachnoServer',
         'Araport',
         'CGD',
@@ -865,6 +998,8 @@ const data: IDMappingFormConfig = {
         'CRC64',
         'EMBL-GenBank-DDBJ',
         'EMBL-GenBank-DDBJ_CDS',
+        'RefSeq_Nucleotide',
+        'RefSeq_Protein',
         'Ensembl_Protein',
         'Ensembl_Transcript',
         'Ensembl_Genomes',
@@ -914,5 +1049,4 @@ const data: IDMappingFormConfig = {
     },
   ],
 };
-
 export default data;

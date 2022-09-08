@@ -28,7 +28,9 @@ export const PeptideSearchMatches = ({
           ) : (
             <>
               {matchSequence.slice(0, nVisible)}
-              <EllipsisReveal>{matchSequence.slice(nVisible)}</EllipsisReveal>
+              <EllipsisReveal contextKey="peptide_search_match">
+                {matchSequence.slice(nVisible)}
+              </EllipsisReveal>
             </>
           )}
         </li>

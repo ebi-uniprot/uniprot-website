@@ -1,6 +1,7 @@
 import { Fragment, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import {
+  EllipsisReveal,
   InfoList,
   // EvidenceTag,
   // InformationIcon,
@@ -14,6 +15,7 @@ import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import CSVView from '../../../uniprotkb/components/protein-data-views/CSVView';
 import CatalyticActivityView from '../../../uniprotkb/components/protein-data-views/CatalyticActivityView';
 import { CofactorView } from '../../../uniprotkb/components/entry/FunctionSection';
+import LigandDescriptionView from '../../../uniprotkb/components/protein-data-views/LigandDescriptionView';
 
 import listFormat from '../../../shared/utils/listFormat';
 import { pluralise } from '../../../shared/utils/utils';
@@ -400,31 +402,36 @@ const groupedAnnotation = (
   if (type === 'protein name') {
     return (
       <ul className="no-bullet">
-        {typedAnnotations.map((annotation, index) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <li key={index}>
-            <CSVView
-              data={annotation.proteinDescription}
-              bolderFirst={Boolean(
-                annotation.proteinDescription?.recommendedName
-              )}
-            />
-            <ExceptionComponent annotationWithExceptions={annotation} />
-          </li>
-        ))}
+        <EllipsisReveal.Provider>
+          {typedAnnotations.map((annotation, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <li key={index}>
+              <CSVView
+                data={annotation.proteinDescription}
+                bolderFirst={Boolean(
+                  annotation.proteinDescription?.recommendedName
+                )}
+                contextKey="protein_name"
+              />
+              <ExceptionComponent annotationWithExceptions={annotation} />
+            </li>
+          ))}
+        </EllipsisReveal.Provider>
       </ul>
     );
   }
   if (type === 'gene name') {
     return (
       <ul className="no-bullet">
-        {typedAnnotations.map((annotation, index) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <li key={index}>
-            <CSVView data={annotation.gene} />
-            <ExceptionComponent annotationWithExceptions={annotation} />
-          </li>
-        ))}
+        <EllipsisReveal.Provider>
+          {typedAnnotations.map((annotation, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <li key={index}>
+              <CSVView data={annotation.gene} contextKey="gene name" />
+              <ExceptionComponent annotationWithExceptions={annotation} />
+            </li>
+          ))}
+        </EllipsisReveal.Provider>
       </ul>
     );
   }
@@ -541,9 +548,20 @@ function annotationsToInfoData(
           <ul className="no-bullet">
             {featureSet.positionalFeatures?.map((pf, index) => (
               // eslint-disable-next-line react/no-array-index-key
-              <li key={index}>
-                {position(pf.position)}: {pf.type} - {pf.value}
-              </li>
+              <div key={index}>
+                <li>
+                  {position(pf.position)}: {pf.type}
+                </li>
+                {pf.ligand && (
+                  <li>
+                    <LigandDescriptionView
+                      ligand={pf.ligand}
+                      ligandPart={pf.ligandPart}
+                      description={pf.description}
+                    />
+                  </li>
+                )}
+              </div>
             ))}
           </ul>
         ),

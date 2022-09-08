@@ -16,6 +16,7 @@ export enum FileFormat {
   fastaCanonical = 'FASTA (canonical)',
   fastaCanonicalIsoform = 'FASTA (canonical & isoform)',
   fastaRepresentative = 'FASTA (representative)',
+  fastaSubsequence = 'FASTA (subsequence)',
   tsv = 'TSV',
   excel = 'Excel',
   xml = 'XML',

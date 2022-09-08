@@ -1,16 +1,15 @@
 import { Loader, Card, InfoList } from 'franklin-sites';
-import cn from 'classnames';
-
+import { Redirect, RouteChildrenProps } from 'react-router-dom';
 import { LocationDescriptor } from 'history';
-import { RouteChildrenProps, Redirect } from 'react-router-dom';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import EntryDownload from '../../../../shared/components/entry/EntryDownload';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
+import RelatedResults from '../../../../shared/components/results/RelatedResults';
 
-import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
+import useDataApi from '../../../../shared/hooks/useDataApi';
 
 import apiUrls from '../../../../shared/config/apiUrls';
 import { getEntryPathFor } from '../../../../app/config/urls';
@@ -24,7 +23,6 @@ import KeywordsColumnConfiguration, {
   KeywordsColumn,
 } from '../../config/KeywordsColumnConfiguration';
 
-import helper from '../../../../shared/styles/helper.module.scss';
 import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
 
 const columns = [
@@ -35,6 +33,7 @@ const columns = [
   KeywordsColumn.parents,
   KeywordsColumn.children,
   KeywordsColumn.links,
+  KeywordsColumn.graphical,
 ];
 
 const reNumber = /^\d+$/;
@@ -54,8 +53,8 @@ const KeywordsEntry = ({
     };
   }
 
-  const { data, loading, error, status, progress, isStale } =
-    useDataApiWithStale<KeywordsAPIModel>(
+  const { data, loading, error, status, progress } =
+    useDataApi<KeywordsAPIModel>(
       redirectTo ? undefined : apiUrls.entry(accession, Namespace.keywords)
     );
 
@@ -81,6 +80,13 @@ const KeywordsEntry = ({
       };
     });
 
+  const hasRelated = Boolean(
+    data.statistics.reviewedProteinCount ||
+      data.statistics.unreviewedProteinCount
+  );
+
+  const relatedQuery = `(keyword:${accession})`;
+
   return (
     <SingleColumnLayout>
       <HTMLHead
@@ -95,13 +101,14 @@ const KeywordsEntry = ({
         {searchableNamespaceLabels[Namespace.keywords]} - {data.keyword.name} (
         {data.keyword.id})
       </h1>
-      <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
+      <Card className={entryPageStyles.card}>
         <div className="button-group">
           <EntryDownload />
           <MapToDropdown statistics={data.statistics} />
         </div>
         <InfoList infoData={infoData} />
       </Card>
+      {hasRelated && <RelatedResults relatedQuery={relatedQuery} />}
     </SingleColumnLayout>
   );
 };

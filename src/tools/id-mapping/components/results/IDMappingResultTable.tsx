@@ -7,7 +7,7 @@ import { IDMappingFromContext } from './FromColumn';
 
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
 
-import { rawDBToNamespace } from '../../utils';
+import { getSupportedFormats, rawDBToNamespace } from '../../utils';
 
 import { Namespace } from '../../../../shared/types/namespaces';
 import { PaginatedResults } from '../../../../shared/hooks/usePagination';
@@ -17,15 +17,23 @@ type IDMappingResultTableProps = {
   namespaceOverride: Namespace;
   resultsDataObject: PaginatedResults;
   detailsData?: MappingDetails;
+  notCustomisable?: boolean;
 };
 
 const IDMappingResultTable = ({
   namespaceOverride,
   resultsDataObject,
   detailsData,
+  notCustomisable = false,
 }: IDMappingResultTableProps) => {
   const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
     useItemSelect();
+
+  const supportedFormats = getSupportedFormats(
+    resultsDataObject.allResults,
+    namespaceOverride
+  );
+
   return (
     <>
       <ResultsButtons
@@ -35,7 +43,10 @@ const IDMappingResultTable = ({
         namespaceOverride={namespaceOverride}
         disableCardToggle
         base={detailsData?.redirectURL}
-        notCustomisable={namespaceOverride === Namespace.idmapping}
+        notCustomisable={
+          notCustomisable || namespaceOverride === Namespace.idmapping
+        }
+        supportedFormats={supportedFormats}
       />
       {resultsDataObject.failedIds && (
         <HeroContainer>

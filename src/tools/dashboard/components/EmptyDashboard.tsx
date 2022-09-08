@@ -5,7 +5,7 @@ import ErrorPage from '../../../shared/components/error-pages/ErrorPage';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
-import ArtWork from './svg/empty-dashboard.svg';
+import ArtWork from './svg/empty-dashboard.img.svg';
 
 const ErrorMessage = () => (
   <Message
@@ -27,7 +27,10 @@ const ErrorMessage = () => (
 );
 
 const EmptyDashboard = () => (
-  <ErrorPage artwork={<ArtWork />} message={<ErrorMessage />} />
+  <ErrorPage
+    artwork={<img src={ArtWork} width="400" height="400" alt="" />}
+    message={<ErrorMessage />}
+  />
 );
 
 export default EmptyDashboard;

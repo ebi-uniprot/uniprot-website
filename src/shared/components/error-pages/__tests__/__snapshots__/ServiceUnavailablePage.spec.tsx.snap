@@ -5,8 +5,12 @@ exports[`ServiceUnavailablePage component should render 1`] = `
   <div
     class="error-page-container"
   >
-    <test-file-stub
-      classname="error-page-container__art-work"
+    <img
+      alt=""
+      class="error-page-container__art-work"
+      height="400"
+      src="test-file-stub"
+      width="400"
     />
     <div
       class="message message--failure"
@@ -26,9 +30,12 @@ exports[`ServiceUnavailablePage component should render 1`] = `
           <h4>
             This service is currently unavailable!
           </h4>
-          <span>
+          <div>
             Please try again later
-          </span>
+          </div>
+          <small>
+            We will reload this page for you in 5 seconds
+          </small>
         </small>
       </section>
     </div>

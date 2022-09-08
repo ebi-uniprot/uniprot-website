@@ -8,7 +8,7 @@ import {
   getKeywordsForCategories,
   KeywordUIModel,
 } from '../utils/KeywordsUtil';
-import { FeatureData } from '../components/protein-data-views/UniProtKBFeaturesView';
+import { FeatureDatum } from '../components/protein-data-views/UniProtKBFeaturesView';
 import EntrySection from '../types/entrySection';
 import KeywordCategory from '../types/keywordCategory';
 import FeatureType from '../types/featureType';
@@ -16,12 +16,13 @@ import { UniProtkbAPIModel } from './uniProtkbConverter';
 import { Xref } from '../../shared/types/apiModel';
 import { DatabaseInfoMaps } from '../utils/database';
 
-const reDiseaseAcronym = /^in (?<acronym>[^;]+);/i;
+const reDiseaseAcronymSentence = /^in [^;]+;/i;
+const reDiseaseAcronym = /[A-Z0-9-_]{2,}/g;
 
 export type UIModel = {
   commentsData: Map<CommentType, Comment[] | undefined>;
   keywordData: KeywordUIModel[];
-  featuresData: FeatureData;
+  featuresData: FeatureDatum[];
   xrefData: XrefUIModel[];
 };
 
@@ -53,10 +54,15 @@ export const convertSection = (
       if (commentType === 'DISEASE' && naturalVariants) {
         // Tie natural variants to specific diseases (not all will match)
         for (const variant of naturalVariants) {
-          // Extract acronym from the description
-          const acronym =
-            variant.description?.match(reDiseaseAcronym)?.groups?.acronym;
-          if (acronym && variant.featureId) {
+          if (!variant.featureId) {
+            continue; // eslint-disable-line no-continue
+          }
+          // Extract acronyms from the description
+          const [acronymSentence] =
+            variant.description?.match(reDiseaseAcronymSentence) || [];
+          for (const acronym of (acronymSentence || '').match(
+            reDiseaseAcronym
+          ) || []) {
             // Find a disease with that acronym and assign it this variant
             const comment = (commentsOfType as DiseaseComment[]).find(
               (comment) => comment.disease?.acronym === acronym

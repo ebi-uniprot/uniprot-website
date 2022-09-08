@@ -8,10 +8,11 @@ const isTruthy = (value: InputValue): value is number | string =>
 
 type Props = {
   title?: InputValue | InputValue[];
+  titleLoading?: boolean;
   children?: ReactNode;
 };
 
-const HTMLHead = ({ title, children }: Props) => {
+const HTMLHead = ({ title, titleLoading, children }: Props) => {
   let renderedTitle: string | undefined;
   if (title) {
     if (Array.isArray(title)) {
@@ -20,9 +21,13 @@ const HTMLHead = ({ title, children }: Props) => {
       renderedTitle = `${title}`;
     }
   }
+
   return (
     <Helmet>
-      {renderedTitle ? <title>{renderedTitle}</title> : null}
+      {/* If titleLoading undefined, or false, then set as "loaded" */}
+      {renderedTitle || titleLoading ? (
+        <title data-loaded={!titleLoading}>{renderedTitle}</title>
+      ) : null}
       {children}
     </Helmet>
   );

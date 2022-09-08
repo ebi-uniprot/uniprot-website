@@ -1,16 +1,19 @@
-import { RouteChildrenProps } from 'react-router-dom';
 import { Loader, Card, InfoList } from 'franklin-sites';
+import { Redirect, RouteChildrenProps } from 'react-router-dom';
 import cn from 'classnames';
+import { LocationDescriptor } from 'history';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import EntryDownload from '../../../../shared/components/entry/EntryDownload';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
+import RelatedResults from '../../../../shared/components/results/RelatedResults';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
 import apiUrls from '../../../../shared/config/apiUrls';
+import { getEntryPathFor } from '../../../../app/config/urls';
 
 import {
   Namespace,
@@ -38,13 +41,29 @@ const columns = [
   LocationsColumn.references,
 ];
 
+const reNumber = /^\d+$/;
+
 const LocationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   const accession = props.match?.params.accession;
 
+  let redirectTo: LocationDescriptor | null = null;
+  // If the accession is a number not prefixed with "SL-"
+  if (accession && reNumber.test(accession)) {
+    redirectTo = {
+      pathname: getEntryPathFor(Namespace.locations)(
+        `SL-${accession.padStart(4, '0')}`
+      ),
+    };
+  }
+
   const { data, loading, error, status, progress, isStale } =
     useDataApiWithStale<LocationsAPIModel>(
-      apiUrls.entry(accession, Namespace.locations)
+      redirectTo ? undefined : apiUrls.entry(accession, Namespace.locations)
     );
+
+  if (redirectTo) {
+    return <Redirect to={redirectTo} />;
+  }
 
   if (error || !accession || (!loading && !data)) {
     return <ErrorHandler status={status} />;
@@ -64,6 +83,13 @@ const LocationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
       };
     });
 
+  const hasRelated = Boolean(
+    data.statistics.reviewedProteinCount ||
+      data.statistics.unreviewedProteinCount
+  );
+
+  const relatedQuery = `(cc_scl_term:${accession})`;
+
   return (
     <SingleColumnLayout>
       <HTMLHead
@@ -80,6 +106,7 @@ const LocationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
         </div>
         <InfoList infoData={infoData} />
       </Card>
+      {hasRelated && <RelatedResults relatedQuery={relatedQuery} />}
     </SingleColumnLayout>
   );
 };

@@ -142,7 +142,6 @@ const HSPDetailPanel = ({
   return (
     <SlidingPanel
       title={title}
-      withCloseButton
       position="bottom"
       className={containerClass}
       onClose={onClose}

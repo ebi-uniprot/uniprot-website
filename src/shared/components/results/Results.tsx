@@ -47,7 +47,7 @@ const Results = () => {
     headers: facetHeaders,
     isStale: facetHasStaleData,
   } = facetApiObject;
-  const facetTotal = facetHeaders?.['x-total-records'];
+  const facetTotal = facetHeaders?.['x-total-results'];
 
   // Query for results data
   const initialApiUrl = useNSQuery({ withFacets: false });
@@ -73,6 +73,7 @@ const Results = () => {
       title={`${params.query} in ${
         searchableNamespaceLabels[ns as SearchableNamespace]
       }${total !== undefined ? ` (${total})` : ''}`}
+      titleLoading={resultsDataInitialLoading}
     />
   );
 

@@ -17,11 +17,6 @@ const featureColumnHeaders: Partial<
     articleId: 'binding',
   },
 
-  [UniProtKBColumn.ftCaBind]: {
-    tooltip: 'The position(s) of calcium binding region(s) within the protein',
-    articleId: 'ca_bind',
-  },
-
   [UniProtKBColumn.ftCarbohyd]: {
     tooltip:
       'Position and description of a covalently attached glycan group(s)',
@@ -91,11 +86,6 @@ const featureColumnHeaders: Partial<
     articleId: 'lipid',
   },
 
-  [UniProtKBColumn.ftMetal]: {
-    tooltip: 'Binding site for a metal ion',
-    articleId: 'metal',
-  },
-
   [UniProtKBColumn.ftModRes]: {
     tooltip:
       'Position and description of a post-translational modification (PTM) excluding lipids, glycans and protein cross-links',
@@ -117,11 +107,6 @@ const featureColumnHeaders: Partial<
   [UniProtKBColumn.ftNonCons]: {
     tooltip: 'Indicates that two residues in the sequence are not consecutive',
     articleId: 'non_cons',
-  },
-
-  [UniProtKBColumn.ftNpBind]: {
-    tooltip: 'Region in the protein which binds nucleotide phosphates',
-    articleId: 'np_bind',
   },
 
   [UniProtKBColumn.ftNonStd]: {

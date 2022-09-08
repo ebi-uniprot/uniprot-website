@@ -54,7 +54,9 @@ const ResultsFacets = memo<Props>(({ dataApiObject, namespaceOverride }) => {
 
   // Add relevant icons
   const facetsWithIcons = facets.map((facet) =>
-    facet.name === 'reviewed' || facet.name === 'proteome_type'
+    facet.name === 'reviewed' ||
+    facet.name === 'proteome_type' ||
+    facet.name === 'types' // Types is Publication's source
       ? {
           ...facet,
           values: facet.values?.map((facetValue) => ({

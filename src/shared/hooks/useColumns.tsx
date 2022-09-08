@@ -65,9 +65,10 @@ import ARBAColumnConfiguration from '../../automatic-annotations/arba/config/ARB
 
 import { IdMappingColumnConfiguration } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 
+import { DatabaseInfoMaps } from '../../uniprotkb/utils/database';
+
 import { MappingAPIModel } from '../../tools/id-mapping/types/idMappingSearchResults';
 import { Basket } from './useBasket';
-import { DatabaseInfoMaps } from '../../uniprotkb/utils/database';
 
 export type ColumnDescriptor<Datum = APIModel> = {
   name: string;
@@ -154,8 +155,22 @@ export const getColumnsToDisplay = (
         label: columnConfig.label,
         name: columnName,
         tooltip: columnConfig.tooltip,
-        render: (row: APIModel) =>
-          columnConfig.render(convertRow(row, namespace, databaseInfoMaps)),
+        render: (row: APIModel) => {
+          try {
+            return columnConfig.render(
+              convertRow(row, namespace, databaseInfoMaps)
+            );
+          } catch (error) {
+            if (!('inactiveReason' in row)) {
+              logging.warn(
+                `unable to render "${columnName}" in "${namespace}" for entry "${getIdKeyFor(
+                  namespace
+                )(row)}" `
+              );
+            } // otherwise, OK to fail, it's an inactive entry
+            return null;
+          }
+        },
       };
       if (sortableColumnToSortColumn?.has(columnName)) {
         return {

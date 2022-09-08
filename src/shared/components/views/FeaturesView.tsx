@@ -1,15 +1,17 @@
-import { Fragment, lazy, useMemo } from 'react';
+import { Fragment, lazy, ReactNode, useMemo } from 'react';
 import TransformedVariant from 'protvista-variation-adapter';
 
 import LazyComponent from '../LazyComponent';
 
 import useCustomElement from '../../hooks/useCustomElement';
+import { useSmallScreen } from '../../hooks/useMatchMedia';
 
 import FeatureTypeHelpMappings from '../../../help/config/featureTypeHelpMappings';
 
 import FeatureType from '../../../uniprotkb/types/featureType';
 import { UniParcProcessedFeature } from '../../../uniparc/components/entry/UniParcFeaturesView';
 import { Evidence } from '../../../uniprotkb/types/modelTypes';
+import { ConfidenceScore } from '../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
 
 import './styles/features-view.scss';
 
@@ -34,10 +36,12 @@ export type ProcessedFeature = {
   startModifier?: LocationModifier;
   endModifier?: LocationModifier;
   type: FeatureType;
-  description?: string;
+  description?: ReactNode;
   evidences?: Evidence[];
   sequence?: string;
   locations?: { fragments: Fragment[] }[];
+  source?: string;
+  confidenceScore?: ConfidenceScore;
 };
 
 type FeatureProps<T> = {
@@ -58,6 +62,8 @@ const FeaturesView = <
   trackHeight,
   withTitle = true,
 }: FeatureProps<T>) => {
+  const isSmallScreen = useSmallScreen();
+
   const managerElement = useCustomElement(
     /* istanbul ignore next */
     () =>
@@ -81,6 +87,7 @@ const FeaturesView = <
   if (features.length === 0) {
     return null;
   }
+  const ceDefined = managerElement.defined && datatableElement.defined;
 
   return (
     <>
@@ -105,18 +112,24 @@ const FeaturesView = <
           </p>
         </>
       )}
-      <managerElement.name attributes="highlight displaystart displayend selectedid">
-        {sequence && (
-          <LazyComponent rootMargin="50px">
-            <VisualFeaturesView
-              features={features}
-              sequence={sequence}
-              trackHeight={trackHeight}
-            />
-          </LazyComponent>
-        )}
-        <datatableElement.name filter-scroll>{table}</datatableElement.name>
-      </managerElement.name>
+      {ceDefined ? (
+        <managerElement.name attributes="highlight displaystart displayend selectedid">
+          {sequence && (
+            <LazyComponent
+              rootMargin="50px"
+              render={isSmallScreen ? false : undefined}
+              fallback={null}
+            >
+              <VisualFeaturesView
+                features={features}
+                sequence={sequence}
+                trackHeight={trackHeight}
+              />
+            </LazyComponent>
+          )}
+          <datatableElement.name filter-scroll>{table}</datatableElement.name>
+        </managerElement.name>
+      ) : null}
     </>
   );
 };

@@ -5,20 +5,20 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
   <div
     class="button-group"
   >
-    <button
-      class="button tertiary"
+    <a
+      class="button tertiary no-small"
+      href="/blast?ids=P05067-1%2CP05067-2"
       title="Run 2 BLAST jobs against the selected entries"
-      type="button"
     >
       BLAST 2 isoforms
-    </button>
-    <button
-      class="button tertiary"
+    </a>
+    <a
+      class="button tertiary no-small"
+      href="/align?ids=P05067-1%2CP05067-2"
       title="Run an Align job against 2 entries"
-      type="button"
     >
       Align 2 isoforms
-    </button>
+    </a>
   </div>
   <ul
     class="info-list info-list--columns"
@@ -84,7 +84,11 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
   <h3
     id="Isoform_APP770"
   >
-    P05067-1
+    <span
+      id="P05067-1"
+    >
+      P05067-1
+    </span>
   </h3>
   <p>
     This isoform has been chosen as the 
@@ -199,7 +203,7 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
         Download
       </a>
       <button
-        class="button tertiary"
+        class="button tertiary no-small"
         title="Add 1 entry to the basket"
         type="button"
       >
@@ -319,7 +323,11 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
   <h3
     id="Isoform_APP770-2"
   >
-    P05067-2
+    <span
+      id="P05067-2"
+    >
+      P05067-2
+    </span>
   </h3>
   <ul
     class="info-list info-list--columns"

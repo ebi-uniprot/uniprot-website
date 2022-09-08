@@ -26,6 +26,7 @@ const arraySeparator = /\s*,\s*/;
 const defaultData: HelpEntryResponse = {
   id: '_preview',
   title: 'title',
+  type: 'help',
   categories: [],
   content: 'content',
   lastModified: new Date().toISOString(),
@@ -44,7 +45,7 @@ const Category = ({ category }: { category: string }) => {
     )
   );
 
-  const total = +(headers?.['x-total-records'] || 0);
+  const total = +(headers?.['x-total-results'] || 0);
 
   if (!headers) {
     return <Chip>{category}</Chip>;
@@ -86,6 +87,7 @@ const EntryPreview = (
       {
         id: '_preview',
         title: title || '',
+        type: 'help',
         categories:
           categories?.replaceAll('_', ' ')?.split(arraySeparator) || [],
         content,

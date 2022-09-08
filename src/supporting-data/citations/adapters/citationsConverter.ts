@@ -115,7 +115,13 @@ export const formatCitationData = (citation: Citation) => {
     submissionDatabase: citation?.submissionDatabase,
     citationType: citation?.citationType,
     locator: citation?.locator,
+    editors: citation.editors,
+    bookName: citation.bookName,
+    publisher: citation.publisher,
+    address: citation.address,
+    patentNumber: citation.patentNumber,
   };
+
   return { pubmedId, journalInfo };
 };
 

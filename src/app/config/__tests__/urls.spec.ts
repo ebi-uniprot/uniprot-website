@@ -15,9 +15,9 @@ describe('getEntryPath', () => {
     );
   });
 
-  it('should correctly form canonical entry path to isoforms section', () => {
+  it('should correctly form canonical entry path to the specific isoform sequence', () => {
     expect(getEntryPath(Namespace.uniprotkb, 'P12345-2')).toEqual(
-      '/uniprotkb/P12345#sequences'
+      '/uniprotkb/P12345#P12345-2'
     );
   });
 

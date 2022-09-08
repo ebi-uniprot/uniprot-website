@@ -129,7 +129,7 @@ const PeptideSearchResult = ({
     headers: facetHeaders,
     isStale: facetHasStaleData,
   } = facetApiObject;
-  const facetTotal = facetHeaders?.['x-total-records'];
+  const facetTotal = facetHeaders?.['x-total-results'];
 
   const converter = useMemo(() => {
     const peps = jobSubmission.current?.parameters.peps;
@@ -147,28 +147,7 @@ const PeptideSearchResult = ({
     progress: resultsDataProgress,
   } = resultsDataObject;
 
-  const sortedResultsDataObject = useMemo(
-    () => ({
-      ...resultsDataObject,
-      // sort according to original order in jobSubmission result payload
-      allResults: Array.from(resultsDataObject.allResults).sort((a, b) => {
-        const accessionA = 'primaryAccession' in a && a.primaryAccession;
-        const accessionB = 'primaryAccession' in b && b.primaryAccession;
-        if (accessions && accessionA && accessionB) {
-          return (
-            accessions.indexOf(accessionA) - accessions.indexOf(accessionB)
-          );
-        }
-        return 0;
-      }),
-    }),
-    [accessions, resultsDataObject]
-  );
-
-  useMarkJobAsSeen(
-    sortedResultsDataObject?.allResults.length,
-    match?.params.id
-  );
+  useMarkJobAsSeen(resultsDataObject?.allResults.length, match?.params.id);
 
   let total: undefined | number;
   if (facetTotal !== undefined) {
@@ -253,12 +232,11 @@ const PeptideSearchResult = ({
               Overview
             </Link>
           }
-          cache
         >
           <Suspense fallback={<Loader />}>
             <PeptideSearchResultTable
               total={total}
-              sortedResultsDataObject={sortedResultsDataObject}
+              resultsDataObject={resultsDataObject}
               accessions={accessions}
               jobSubmission={jobSubmission}
             />

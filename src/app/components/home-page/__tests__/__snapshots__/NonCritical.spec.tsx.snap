@@ -27,24 +27,7 @@ exports[`non-critical HomePage component should render 1`] = `
             new API documentation
           </a>
           .
-        </small>
-      </section>
-    </div>
-    <div
-      class="uniprot-grid-cell--span-12 message message--info"
-      role="status"
-    >
-      <div
-        class="message__side-border"
-      />
-      <test-file-stub
-        height="1.125em"
-        width="1.125em"
-      />
-      <section
-        class="message__content"
-      >
-        <small>
+          <br />
           If you still need it, the 
           <a
             class="external-link"
@@ -54,7 +37,7 @@ exports[`non-critical HomePage component should render 1`] = `
           >
             legacy version of the website
           </a>
-           is available until the 2022_03 release.
+           is available until the 2022_04 release.
         </small>
       </section>
     </div>
@@ -68,14 +51,20 @@ exports[`non-critical HomePage component should render 1`] = `
       UniProt core data
     </h2>
     <div
-      class="uniprot-grid-cell--span-3 core-data-tile tile tile-gradient"
-      style="--tile-background: #00639a; width: 100%;"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 core-data-tile tile tile-gradient"
+      style="--tile-background: #00639a;"
     >
       <div
         aria-hidden="true"
         class="tile__background-image"
       >
-        <test-file-stub />
+        <img
+          alt=""
+          height="240"
+          loading="lazy"
+          src="test-file-stub"
+          width="240"
+        />
       </div>
       <a
         class="tile__main-content"
@@ -137,14 +126,20 @@ exports[`non-critical HomePage component should render 1`] = `
       </small>
     </div>
     <div
-      class="uniprot-grid-cell--span-3 tile tile-gradient"
-      style="--tile-background: #e56358; width: 100%;"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 core-data-tile tile tile-gradient"
+      style="--tile-background: #e56358;"
     >
       <div
         aria-hidden="true"
         class="tile__background-image"
       >
-        <test-file-stub />
+        <img
+          alt=""
+          height="240"
+          loading="lazy"
+          src="test-file-stub"
+          width="240"
+        />
       </div>
       <a
         class="tile__main-content"
@@ -170,14 +165,20 @@ exports[`non-critical HomePage component should render 1`] = `
       </small>
     </div>
     <div
-      class="uniprot-grid-cell--span-3 tile tile-gradient"
-      style="--tile-background: #f2994c; width: 100%;"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 core-data-tile tile tile-gradient"
+      style="--tile-background: #f2994c;"
     >
       <div
         aria-hidden="true"
         class="tile__background-image"
       >
-        <test-file-stub />
+        <img
+          alt=""
+          height="240"
+          loading="lazy"
+          src="test-file-stub"
+          width="240"
+        />
       </div>
       <a
         class="tile__main-content"
@@ -203,14 +204,20 @@ exports[`non-critical HomePage component should render 1`] = `
       </small>
     </div>
     <div
-      class="uniprot-grid-cell--span-3 tile tile-gradient"
-      style="--tile-background: #88c19d; width: 100%;"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 core-data-tile tile tile-gradient"
+      style="--tile-background: #88c19d;"
     >
       <div
         aria-hidden="true"
         class="tile__background-image"
       >
-        <test-file-stub />
+        <img
+          alt=""
+          height="240"
+          loading="lazy"
+          src="test-file-stub"
+          width="240"
+        />
       </div>
       <a
         class="tile__main-content"
@@ -240,7 +247,7 @@ exports[`non-critical HomePage component should render 1`] = `
     class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section"
   >
     <div
-      class="uniprot-grid-cell--span-3"
+      class="uniprot-grid-cell--small-span-4 uniprot-grid-cell--medium-span-3"
     >
       <h2
         class="supporting-data__header"
@@ -249,7 +256,7 @@ exports[`non-critical HomePage component should render 1`] = `
       </h2>
     </div>
     <div
-      class="uniprot-grid-cell--span-3"
+      class="uniprot-grid-cell--small-span-4 uniprot-grid-cell--medium-span-3"
     >
       <div
         class="decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
@@ -266,56 +273,8 @@ exports[`non-critical HomePage component should render 1`] = `
       </div>
     </div>
     <div
-      class="uniprot-grid-cell--span-3"
+      class="uniprot-grid-cell--small-span-4 uniprot-grid-cell--medium-span-3"
     >
-      <div
-        class="decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
-      >
-        <div
-          class="decorated-list-item__content"
-        >
-          <a
-            href="/locations?query=*"
-          >
-            Subcellular locations
-          </a>
-        </div>
-      </div>
-    </div>
-    <div
-      class="uniprot-grid-cell--span-3"
-    >
-      <div
-        class="decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
-      >
-        <div
-          class="decorated-list-item__content"
-        >
-          <a
-            href="/unirule?query=*"
-          >
-            UniRule automatic annotation
-          </a>
-        </div>
-      </div>
-    </div>
-    <div
-      class="uniprot-grid-cell--span-3"
-      style="display: inline-flex;"
-    >
-      <div
-        class="decorated-list-item decorated-list-item--compact decorated-list-item--inline decorated-list-item--alt-style"
-      >
-        <div
-          class="decorated-list-item__content"
-        >
-          <a
-            href="/diseases?query=*"
-          >
-            Diseases
-          </a>
-        </div>
-      </div>
       <div
         class="decorated-list-item decorated-list-item--compact decorated-list-item--inline decorated-list-item--alt-style"
       >
@@ -331,7 +290,7 @@ exports[`non-critical HomePage component should render 1`] = `
       </div>
     </div>
     <div
-      class="uniprot-grid-cell--span-3"
+      class="uniprot-grid-cell--small-span-4 uniprot-grid-cell--medium-span-3"
     >
       <div
         class="decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
@@ -348,7 +307,24 @@ exports[`non-critical HomePage component should render 1`] = `
       </div>
     </div>
     <div
-      class="uniprot-grid-cell--span-3"
+      class="uniprot-grid-cell--small-span-4 uniprot-grid-cell--medium-span-3"
+    >
+      <div
+        class="decorated-list-item decorated-list-item--compact decorated-list-item--inline decorated-list-item--alt-style"
+      >
+        <div
+          class="decorated-list-item__content"
+        >
+          <a
+            href="/diseases?query=*"
+          >
+            Human diseases
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      class="uniprot-grid-cell--small-span-4 uniprot-grid-cell--medium-span-3"
     >
       <div
         class="decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
@@ -365,7 +341,7 @@ exports[`non-critical HomePage component should render 1`] = `
       </div>
     </div>
     <div
-      class="uniprot-grid-cell--span-3"
+      class="uniprot-grid-cell--small-span-4 uniprot-grid-cell--medium-span-3"
     >
       <div
         class="decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
@@ -374,9 +350,33 @@ exports[`non-critical HomePage component should render 1`] = `
           class="decorated-list-item__content"
         >
           <a
+            href="/locations?query=*"
+          >
+            Subcellular locations
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3"
+    >
+      <div
+        class="decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
+      >
+        <div
+          class="decorated-list-item__content"
+        >
+          Automatic annotations: 
+          <a
+            href="/unirule?query=*"
+          >
+            UniRule
+          </a>
+           & 
+          <a
             href="/arba?query=*"
           >
-            ARBA automatic annotation
+            ARBA
           </a>
         </div>
       </div>
@@ -386,7 +386,7 @@ exports[`non-critical HomePage component should render 1`] = `
     class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section latest-news"
   >
     <div
-      class="uniprot-grid-cell--span-4 latest-news__news-roll"
+      class="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-4 uniprot-grid-cell--medium-offset-9 latest-news__news-roll"
     >
       <div
         class="latest-news__news-roll-heading"
@@ -394,6 +394,11 @@ exports[`non-critical HomePage component should render 1`] = `
         <h2>
           Latest News
         </h2>
+        <a
+          href="/release-notes"
+        >
+          View archive
+        </a>
       </div>
       <ul
         class="no-bullet"
@@ -413,6 +418,24 @@ exports[`non-critical HomePage component should render 1`] = `
               class="latest-news__abstract latest-news__abstract--2-lines"
             >
               Planned changes for UniProt
+            </p>
+          </article>
+        </li>
+        <li>
+          <article>
+            <h3
+              class="tiny"
+            >
+              <a
+                href="/release-notes/2022-08-03-release"
+              >
+                UniProt release 2022_03
+              </a>
+            </h3>
+            <p
+              class="latest-news__abstract latest-news__abstract--2-lines"
+            >
+              Not just for proteins: new targets for ADP-ribosylation | Annotation of biologically relevant ligands in UniProtKB using ChEBI | Changes to the controlled vocabulary of human diseases...
             </p>
           </article>
         </li>
@@ -470,28 +493,10 @@ exports[`non-critical HomePage component should render 1`] = `
             </p>
           </article>
         </li>
-        <li>
-          <article>
-            <h3
-              class="tiny"
-            >
-              <a
-                href="/release-notes/2021-06-02-release"
-              >
-                UniProt release 2021_03
-              </a>
-            </h3>
-            <p
-              class="latest-news__abstract latest-news__abstract--2-lines"
-            >
-              The importance of being disordered | MobiDB-lite predictions for intrinsically disordered regions | UniProtKB via AWS Open Data and Amazo...
-            </p>
-          </article>
-        </li>
       </ul>
     </div>
     <div
-      class="uniprot-grid-cell--span-4 latest-news__middle"
+      class="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-4 uniprot-grid-cell--medium-offset-5 latest-news__blogspot"
     >
       <article>
         <a
@@ -565,43 +570,56 @@ exports[`non-critical HomePage component should render 1`] = `
       </article>
     </div>
     <article
-      class="uniprot-grid-cell--span-4 latest-news__left"
+      class="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-4 uniprot-grid-cell--medium-offset-1 latest-news__spotlight"
     >
-      <h3>
+      <button
+        class="chip secundary"
+        type="button"
+      >
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/247/"
+          href="https://www.proteinspotlight.org"
           rel="noopener"
           target="_blank"
         >
-          Sapped
+          Protein Spotlight
+        </a>
+      </button>
+      <h3>
+        <a
+          class="external-link"
+          href="https://www.proteinspotlight.org/back_issues/250/"
+          rel="noopener"
+          target="_blank"
+        >
+          The colour red
         </a>
       </h3>
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/247/"
+        href="https://www.proteinspotlight.org/back_issues/250/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
       >
         <img
           alt=""
-          height="86.65"
+          height="129"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt247.jpg"
-          width="125.46"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt250.jpg"
+          width="123"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          The  moment  life  emerged  on  earth,  the  fight  -  or  indeed  the  right  -  to  multiply  began.  The  notion  of  battle  is  particularly  true  for  microbes  such  as  bacteria,  fungi  and  viruses,  that  may  frequently  depend  on  hosts  to  replicate.  Over  the  aeons,  the  art…
+          Plants  cannot  walk.  Unable  to  drift  down  to  the  local  café,  attend  this  evening's  book  launch  or  gate-crash  a  party,  flowers  have  had  to  resort  to  other  ways  of  connecting.  True,  their  roots  may  wander  and  branches  may  wave,  but  really  what  appears  above…
       </p>
     </article>
   </section>
   <section
-    class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section"
+    class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section no-small"
   >
     <h2
       class="uniprot-grid-cell--span-12 hero-container__title big"
@@ -610,13 +628,19 @@ exports[`non-critical HomePage component should render 1`] = `
     </h2>
     <div
       class="uniprot-grid-cell--span-3 tile tile-gradient"
-      style="--tile-background: #00A6D5; width: 100%;"
+      style="--tile-background: #00A6D5;"
     >
       <div
         aria-hidden="true"
         class="tile__background-image"
       >
-        <test-file-stub />
+        <img
+          alt=""
+          height="240"
+          loading="lazy"
+          src="test-file-stub"
+          width="240"
+        />
       </div>
       <a
         class="tile__main-content"
@@ -638,13 +662,19 @@ exports[`non-critical HomePage component should render 1`] = `
     </div>
     <div
       class="uniprot-grid-cell--span-3 tile tile-gradient"
-      style="--tile-background: #B8CE48; width: 100%;"
+      style="--tile-background: #B8CE48;"
     >
       <div
         aria-hidden="true"
         class="tile__background-image"
       >
-        <test-file-stub />
+        <img
+          alt=""
+          height="240"
+          loading="lazy"
+          src="test-file-stub"
+          width="240"
+        />
       </div>
       <a
         class="tile__main-content"
@@ -666,13 +696,19 @@ exports[`non-critical HomePage component should render 1`] = `
     </div>
     <div
       class="uniprot-grid-cell--span-3 tile tile-gradient"
-      style="--tile-background: #357B92; width: 100%;"
+      style="--tile-background: #357B92;"
     >
       <div
         aria-hidden="true"
         class="tile__background-image"
       >
-        <test-file-stub />
+        <img
+          alt=""
+          height="240"
+          loading="lazy"
+          src="test-file-stub"
+          width="240"
+        />
       </div>
       <a
         class="tile__main-content"
@@ -694,13 +730,19 @@ exports[`non-critical HomePage component should render 1`] = `
     </div>
     <div
       class="uniprot-grid-cell--span-3 tile tile-gradient"
-      style="--tile-background: #A748BD; width: 100%;"
+      style="--tile-background: #A748BD;"
     >
       <div
         aria-hidden="true"
         class="tile__background-image"
       >
-        <test-file-stub />
+        <img
+          alt=""
+          height="240"
+          loading="lazy"
+          src="test-file-stub"
+          width="240"
+        />
       </div>
       <a
         class="tile__main-content"
@@ -725,7 +767,7 @@ exports[`non-critical HomePage component should render 1`] = `
     class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section need-help"
   >
     <div
-      class="uniprot-grid-cell--span-3 need-help__need-help-top"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 uniprot-grid-cell--small-offset-1 uniprot-grid-cell--medium-offset-10 need-help__need-help-top"
     >
       <h2>
         Need help?
@@ -735,7 +777,7 @@ exports[`non-critical HomePage component should render 1`] = `
       </p>
     </div>
     <div
-      class="uniprot-grid-cell--span-3 need-help__need-help-bottom"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 uniprot-grid-cell--small-offset-1 uniprot-grid-cell--medium-offset-10 need-help__need-help-bottom"
     >
       <a
         class="help-center-link"
@@ -775,7 +817,7 @@ exports[`non-critical HomePage component should render 1`] = `
       </a>
     </div>
     <div
-      class="uniprot-grid-cell--span-3 need-help__attend-training-top"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 uniprot-grid-cell--small-offset-7 uniprot-grid-cell--medium-offset-7 need-help__attend-training-top"
     >
       <img
         alt=""
@@ -786,7 +828,7 @@ exports[`non-critical HomePage component should render 1`] = `
       />
     </div>
     <div
-      class="uniprot-grid-cell--span-3 need-help__attend-training-bottom"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 uniprot-grid-cell--small-offset-7 uniprot-grid-cell--medium-offset-7 need-help__attend-training-bottom"
     >
       <h2
         class="small"
@@ -822,10 +864,10 @@ exports[`non-critical HomePage component should render 1`] = `
       </a>
     </div>
     <div
-      class="uniprot-grid-cell--span-3 need-help__tutorial-videos-top"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 uniprot-grid-cell--small-offset-1 uniprot-grid-cell--medium-offset-4 need-help__tutorial-videos-top"
     />
     <div
-      class="uniprot-grid-cell--span-3 need-help__tutorial-videos-bottom"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 uniprot-grid-cell--small-offset-1 uniprot-grid-cell--medium-offset-4 need-help__tutorial-videos-bottom"
     >
       <a
         class="external-link"
@@ -862,7 +904,7 @@ exports[`non-critical HomePage component should render 1`] = `
       </a>
     </div>
     <div
-      class="uniprot-grid-cell--span-3 need-help__next-up"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 uniprot-grid-cell--small-offset-7 uniprot-grid-cell--medium-offset-1 need-help__next-up"
     >
       <div
         class="loader-container"
@@ -884,14 +926,20 @@ exports[`non-critical HomePage component should render 1`] = `
       UniProt data
     </h2>
     <div
-      class="uniprot-grid-cell--span-3 tile tile-gradient"
-      style="--tile-background: #4e5a71; width: 100%;"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 tile tile-gradient"
+      style="--tile-background: #4e5a71;"
     >
       <div
         aria-hidden="true"
         class="tile__background-image"
       >
-        <test-file-stub />
+        <img
+          alt=""
+          height="240"
+          loading="lazy"
+          src="test-file-stub"
+          width="240"
+        />
       </div>
       <a
         class="external-link tile__main-content"
@@ -914,14 +962,20 @@ exports[`non-critical HomePage component should render 1`] = `
       </small>
     </div>
     <div
-      class="uniprot-grid-cell--span-3 tile tile-gradient"
-      style="--tile-background: #4e5a71; width: 100%;"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 tile tile-gradient"
+      style="--tile-background: #4e5a71;"
     >
       <div
         aria-hidden="true"
         class="tile__background-image"
       >
-        <test-file-stub />
+        <img
+          alt=""
+          height="240"
+          loading="lazy"
+          src="test-file-stub"
+          width="240"
+        />
       </div>
       <a
         class="tile__main-content"
@@ -942,14 +996,20 @@ exports[`non-critical HomePage component should render 1`] = `
       </small>
     </div>
     <div
-      class="uniprot-grid-cell--span-3 tile tile-gradient"
-      style="--tile-background: #4e5a71; width: 100%;"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 tile tile-gradient"
+      style="--tile-background: #4e5a71;"
     >
       <div
         aria-hidden="true"
         class="tile__background-image"
       >
-        <test-file-stub />
+        <img
+          alt=""
+          height="240"
+          loading="lazy"
+          src="test-file-stub"
+          width="240"
+        />
       </div>
       <a
         class="tile__main-content"
@@ -970,14 +1030,20 @@ exports[`non-critical HomePage component should render 1`] = `
       </small>
     </div>
     <div
-      class="uniprot-grid-cell--span-3 tile tile-gradient"
-      style="--tile-background: #4e5a71; width: 100%;"
+      class="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-3 tile tile-gradient"
+      style="--tile-background: #4e5a71;"
     >
       <div
         aria-hidden="true"
         class="tile__background-image"
       >
-        <test-file-stub />
+        <img
+          alt=""
+          height="240"
+          loading="lazy"
+          src="test-file-stub"
+          width="240"
+        />
       </div>
       <a
         class="tile__main-content"

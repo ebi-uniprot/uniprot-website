@@ -24,6 +24,7 @@ import {
 } from '../adapters/uniParcConverter';
 import { ColumnDescriptor } from '../../shared/hooks/useColumns';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
+import { TabLocation } from '../../uniprotkb/components/entry/Entry';
 
 export enum UniParcXRefsColumn {
   // Names & taxonomy
@@ -110,11 +111,11 @@ const getAccessionColumn =
       cell = (
         <>
           <Link
-            /**
-             * TODO: when we have entry history pages, we need to handle it
-             * differently (current website points to `/<accession>?version=*`)
-             */
-            to={getEntryPath(Namespace.uniprotkb, xref.id)}
+            to={getEntryPath(
+              Namespace.uniprotkb,
+              xref.id,
+              xref.active ? TabLocation.Entry : TabLocation.History
+            )}
           >
             {xref.id}
           </Link>

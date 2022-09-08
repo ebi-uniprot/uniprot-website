@@ -31,8 +31,6 @@ import { LocationToPath, Location } from '../../app/config/urls';
 
 import styles from './styles/contact-form.module.scss';
 
-import HelperContactImage from './svgs/helper-contact.svg';
-
 // ARIA hide all of these, are the state is available in the form already
 const validity = (
   <>
@@ -92,11 +90,50 @@ const ContactForm = () => {
 
   return (
     <>
-      <HTMLHead title="Contact us" />
+      <HTMLHead title="Contact us">
+        <link
+          rel="canonical"
+          href={window.location.origin + window.location.pathname}
+        />
+      </HTMLHead>
       <PageIntro title="Contact us" />
       <section className={styles.container}>
         <h2 className="medium">{description}</h2>
         <hr />
+        {isUpdate ? null : (
+          <>
+            <Message level="info">
+              Frequently asked: issues accessing UniProt programmatically? Have
+              a look at the{' '}
+              <Link
+                to={generatePath(LocationToPath[Location.HelpEntry], {
+                  accession: 'api',
+                })}
+              >
+                new API documentation
+              </Link>{' '}
+              including changes to the{' '}
+              <Link
+                to={generatePath(LocationToPath[Location.HelpEntry], {
+                  accession: 'return_fields',
+                })}
+              >
+                return fields
+              </Link>{' '}
+              (aka &quot;columns&quot;) and specifically the{' '}
+              <Link
+                to={generatePath(LocationToPath[Location.HelpEntry], {
+                  accession: 'return_fields_databases',
+                })}
+              >
+                cross-references return fields
+              </Link>{' '}
+              .
+            </Message>
+            <br />
+            <br />
+          </>
+        )}
         <form aria-label="Contact form" onSubmit={handleSubmit}>
           {/* Name */}
           <label className={styles.label} htmlFor={`name-${id}`}>
@@ -204,13 +241,7 @@ const ContactForm = () => {
           <Button type="submit" disabled={sending}>{`Send${
             sending ? 'ing' : ''
           } message`}</Button>
-          {/* TODO: after TRM-25295, make sure this is not even loaded on
-           * smaller screens when loaded as an image */}
-          <HelperContactImage
-            className={styles.illustration}
-            // override the viewBox in order to make it disappear a bit
-            viewBox="0 0 211 140"
-          />
+          <div className={styles.illustration} />
           <aside>
             <h2 className="small">Other ways to contact us</h2>
             {/* Link to switch the contact form */}
@@ -244,7 +275,7 @@ const ContactForm = () => {
           <ExternalLink url="https://legacy.uniprot.org" rel="nofollow" noIcon>
             legacy version of the website
           </ExternalLink>{' '}
-          is available until the 2022_03 release.
+          is available until the 2022_04 release.
         </Message>
       </section>
     </>

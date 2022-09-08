@@ -1,4 +1,12 @@
-import { useMemo, Fragment, useRef, useEffect, useState } from 'react';
+import {
+  useMemo,
+  Fragment,
+  useRef,
+  useEffect,
+  useState,
+  lazy,
+  Suspense,
+} from 'react';
 import { Loader } from 'franklin-sites';
 import joinUrl from 'url-join';
 import { groupBy, intersection, union } from 'lodash-es';
@@ -7,16 +15,23 @@ import cn from 'classnames';
 import { ProteinsAPIVariation } from 'protvista-variation-adapter/dist/es/variants';
 import { transformData, TransformedVariant } from 'protvista-variation-adapter';
 
-import VisualVariationView from './VisualVariationView';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useCustomElement from '../../../shared/hooks/useCustomElement';
+import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import apiUrls from '../../../shared/config/apiUrls';
 
 import styles from './styles/variation-view.module.scss';
+
+const VisualVariationView = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "visual-variation-view" */ './VisualVariationView'
+    )
+);
 
 const sortByLocation = (a: TransformedVariant, b: TransformedVariant) => {
   const aStart = +a.start;
@@ -108,6 +123,8 @@ const VariationView = ({
   title,
   onlyTable = false,
 }: VariationViewProps) => {
+  const isSmallScreen = useSmallScreen();
+
   const { loading, data, progress, error, status } =
     useDataApi<ProteinsAPIVariation>(
       joinUrl(apiUrls.variation, primaryAccession)
@@ -206,275 +223,298 @@ const VariationView = ({
   }
 
   const table = (
-    <table>
-      <thead>
-        <tr>
-          <th>
-            Variant
-            <br />
-            ID(s)
-          </th>
-          <th>Position(s)</th>
-          <th>Change</th>
-          <th>Description</th>
-          <th>
-            Disease
-            <br />
-            association
-          </th>
-          <th>Provenance</th>
-        </tr>
-      </thead>
-      <tbody>
-        {filteredVariants.map((variantFeature) => {
-          let position = variantFeature.start;
-          if (variantFeature.start !== variantFeature.end) {
-            position += `-${variantFeature.end}`;
-          }
+    <dataTableElement.name filter-scroll>
+      <table>
+        <thead>
+          <tr>
+            <th>
+              Variant
+              <br />
+              ID(s)
+            </th>
+            <th>Position(s)</th>
+            <th>Change</th>
+            <th>Description</th>
+            <th>
+              Disease
+              <br />
+              association
+            </th>
+            <th>Provenance</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredVariants.map((variantFeature) => {
+            let position = variantFeature.start;
+            if (variantFeature.start !== variantFeature.end) {
+              position += `-${variantFeature.end}`;
+            }
 
-          return (
-            <Fragment key={variantFeature.protvistaFeatureId}>
-              <tr
-                data-id={variantFeature.protvistaFeatureId}
-                data-start={variantFeature.start}
-                data-end={variantFeature.end}
-              >
-                <td>
-                  {Array.from(
-                    // note that the type needs to be updated, xrefs is optional on association object
-                    new Set(variantFeature.xrefs?.map((xref) => xref.id))
-                  )
-                    .sort(sortIDByUniProtFirst)
-                    .map((id, i) => (
-                      <Fragment key={id}>
-                        {i !== 0 && <br />}
-                        <span
-                          className={cn({ [styles.bold]: isUniProtID(id) })}
-                        >
-                          {id}
-                        </span>
-                      </Fragment>
-                    ))}
-                </td>
-                <td>{position}</td>
-                <td className={styles.change}>
-                  {variantFeature.wildType}
-                  {'>'}
-                  {variantFeature.alternativeSequence || <em>missing</em>}
-                </td>
-                <td>
-                  {variantFeature.descriptions &&
-                    Array.from(variantFeature.descriptions)
-                      .sort(sortDescriptionByUniProtFirst)
-                      .map((description) => {
-                        const isUniProtDescription =
-                          hasUniProtSource(description);
-                        const uniProtEvidences =
-                          isUniProtDescription &&
-                          variantFeature.evidences
-                            ?.filter(isUniProtEvidence)
-                            .map((evidence) => ({
-                              evidenceCode: evidence.code as `ECO:${number}`,
-                              id: evidence.source.id,
-                              source: evidence.source.name,
-                              url: evidence.source.url,
-                            }));
-                        return (
-                          <div
-                            key={description.value}
-                            className={cn({
-                              [styles.bold]: isUniProtDescription,
-                            })}
+            return (
+              <Fragment key={variantFeature.protvistaFeatureId}>
+                <tr
+                  data-id={variantFeature.protvistaFeatureId}
+                  data-start={variantFeature.start}
+                  data-end={variantFeature.end}
+                >
+                  <td>
+                    {Array.from(
+                      // note that the type needs to be updated, xrefs is optional on association object
+                      new Set(variantFeature.xrefs?.map((xref) => xref.id))
+                    )
+                      .sort(sortIDByUniProtFirst)
+                      .map((id, i) => (
+                        <Fragment key={id}>
+                          {i !== 0 && <br />}
+                          <span
+                            className={cn({ [styles.bold]: isUniProtID(id) })}
                           >
-                            {`${description.value} (${description.sources.join(
-                              ', '
-                            )})`}
-                            {uniProtEvidences && (
-                              <UniProtKBEvidenceTag
-                                evidences={uniProtEvidences}
-                              />
-                            )}
-                          </div>
-                        );
-                      })}
-                </td>
-                <td>
-                  {variantFeature.association &&
-                  variantFeature.association.length > 0
-                    ? 'Yes'
-                    : 'No'}
-                </td>
-                <td>
-                  {Array.from(
-                    new Set(
-                      // 'uniprot' gets injected somehow in
-                      // 'protvista-variation-adapter' transformData, remove it
-                      variantFeature.xrefNames.map((name) =>
-                        name === 'uniprot' ? 'UniProt' : name
+                            {id}
+                          </span>
+                        </Fragment>
+                      ))}
+                  </td>
+                  <td>{position}</td>
+                  <td className={styles.change}>
+                    {variantFeature.wildType ||
+                    variantFeature.alternativeSequence ? (
+                      <>
+                        {variantFeature.wildType || <em>missing</em>}
+                        {'>'}
+                        {variantFeature.alternativeSequence || <em>missing</em>}
+                      </>
+                    ) : (
+                      <em>missing</em>
+                    )}
+                  </td>
+                  <td>
+                    {variantFeature.descriptions &&
+                      Array.from(variantFeature.descriptions)
+                        .sort(sortDescriptionByUniProtFirst)
+                        .map((description) => {
+                          const isUniProtDescription =
+                            hasUniProtSource(description);
+                          const uniProtEvidences =
+                            isUniProtDescription &&
+                            variantFeature.evidences
+                              ?.filter(isUniProtEvidence)
+                              .map((evidence) => ({
+                                evidenceCode: evidence.code as `ECO:${number}`,
+                                id: evidence.source.id,
+                                source: evidence.source.name,
+                                url: evidence.source.url,
+                              }));
+                          return (
+                            <div
+                              key={description.value}
+                              className={cn({
+                                [styles.bold]: isUniProtDescription,
+                              })}
+                            >
+                              {`${
+                                description.value
+                              } (${description.sources.join(', ')})`}
+                              {uniProtEvidences && (
+                                <UniProtKBEvidenceTag
+                                  evidences={uniProtEvidences}
+                                />
+                              )}
+                            </div>
+                          );
+                        })}
+                  </td>
+                  <td>
+                    {variantFeature.association &&
+                    variantFeature.association.length > 0
+                      ? 'Yes'
+                      : 'No'}
+                  </td>
+                  <td>
+                    {Array.from(
+                      new Set(
+                        // 'uniprot' gets injected somehow in
+                        // 'protvista-variation-adapter' transformData, remove it
+                        variantFeature.xrefNames.map((name) =>
+                          name === 'uniprot' ? 'UniProt' : name
+                        )
                       )
                     )
-                  )
-                    .sort(sortProvenanceByUniProtFirst)
-                    .map((name, i) => (
-                      <Fragment key={name}>
-                        {i !== 0 && <br />}
-                        <span
-                          className={cn({ [styles.bold]: isUniProt(name) })}
-                        >
-                          {name}
-                        </span>
-                      </Fragment>
-                    ))}
-                </td>
-              </tr>
-              <tr
-                data-group-for={variantFeature.protvistaFeatureId}
-                data-start={variantFeature.start}
-                data-end={variantFeature.end}
-              >
-                <td>
-                  <div>
-                    <strong>Consequence: </strong>
-                    {variantFeature.consequenceType}
-                  </div>
-                  {variantFeature.predictions?.length ? (
-                    <div>
-                      <strong>Predictions: </strong>
-                      {variantFeature.predictions?.map((pred) => (
-                        <div
-                          key={[
-                            pred.predAlgorithmNameType,
-                            pred.predictionValType,
-                            pred.score,
-                            pred.sources,
-                          ].join('-')}
-                        >
-                          {`- ${pred.predAlgorithmNameType}: ${pred.predictionValType} (${pred.score})`}
-                        </div>
-                      ))}
-                    </div>
-                  ) : null}
-                  <div>
-                    <strong>Somatic: </strong>{' '}
-                    {variantFeature.somaticStatus === 1 ? 'Yes' : 'No'}
-                  </div>
-                  {variantFeature.clinicalSignificances?.length ? (
-                    <div>
-                      <strong>Clinical significances: </strong>
-                      {variantFeature.clinicalSignificances?.map(
-                        (clinicalSignificance) => (
-                          <div
-                            key={`${clinicalSignificance.sources.join('-')}-${
-                              clinicalSignificance.type
-                            }`}
+                      .sort(sortProvenanceByUniProtFirst)
+                      .map((name, i) => (
+                        <Fragment key={name}>
+                          {i !== 0 && <br />}
+                          <span
+                            className={cn({ [styles.bold]: isUniProt(name) })}
                           >
-                            {`- ${
-                              clinicalSignificance.type
-                            } (${clinicalSignificance.sources.join(', ')})`}
-                          </div>
-                        )
-                      )}
-                    </div>
-                  ) : null}
-                  {variantFeature.populationFrequencies?.length ? (
+                            {name}
+                          </span>
+                        </Fragment>
+                      ))}
+                  </td>
+                </tr>
+                <tr
+                  data-group-for={variantFeature.protvistaFeatureId}
+                  data-start={variantFeature.start}
+                  data-end={variantFeature.end}
+                >
+                  <td>
                     <div>
-                      <strong>Population frequencies: </strong>
-                      {variantFeature.populationFrequencies?.map(
-                        (populationFrequency) => (
+                      <strong>Consequence: </strong>
+                      {variantFeature.consequenceType}
+                    </div>
+                    {variantFeature.predictions?.length ? (
+                      <div>
+                        <strong>Predictions: </strong>
+                        {variantFeature.predictions?.map((pred) => (
                           <div
-                            key={`${populationFrequency.source}-${populationFrequency.populationName}`}
+                            key={[
+                              pred.predAlgorithmNameType,
+                              pred.predictionValType,
+                              pred.score,
+                              pred.sources,
+                            ].join('-')}
                           >
-                            {`- ${populationFrequency.populationName}: ${populationFrequency.frequency} (${populationFrequency.source})`}
+                            {`- ${pred.predAlgorithmNameType}: ${pred.predictionValType} (${pred.score})`}
                           </div>
-                        )
-                      )}
-                    </div>
-                  ) : null}
-                  <div>
-                    <strong>Accession: </strong> {variantFeature.accession}
-                  </div>
-                  {variantFeature.codon && (
+                        ))}
+                      </div>
+                    ) : null}
                     <div>
-                      <strong>Codon: </strong> {variantFeature.codon}
+                      <strong>Somatic: </strong>{' '}
+                      {variantFeature.somaticStatus === 1 ? 'Yes' : 'No'}
                     </div>
-                  )}
-                  <div>
-                    <strong>Consequence type: </strong>{' '}
-                    {variantFeature.consequenceType}
-                  </div>
-                  <div>
-                    <strong>Cytogenetic band: </strong>{' '}
-                    {variantFeature.cytogeneticBand}
-                  </div>
-                  <div>
-                    <strong>Genomic location: </strong>{' '}
-                    {variantFeature.genomicLocation}
-                  </div>
-                  {variantFeature.locations?.length ? (
+                    {variantFeature.clinicalSignificances?.length ? (
+                      <div>
+                        <strong>Clinical significances: </strong>
+                        {variantFeature.clinicalSignificances?.map(
+                          (clinicalSignificance) => (
+                            <div
+                              key={`${clinicalSignificance.sources.join('-')}-${
+                                clinicalSignificance.type
+                              }`}
+                            >
+                              {`- ${
+                                clinicalSignificance.type
+                              } (${clinicalSignificance.sources.join(', ')})`}
+                            </div>
+                          )
+                        )}
+                      </div>
+                    ) : null}
+                    {variantFeature.populationFrequencies?.length ? (
+                      <div>
+                        <strong>Population frequencies: </strong>
+                        {variantFeature.populationFrequencies?.map(
+                          (populationFrequency) => (
+                            <div
+                              key={`${populationFrequency.source}-${populationFrequency.populationName}`}
+                            >
+                              {`- ${populationFrequency.populationName}: ${populationFrequency.frequency} (${populationFrequency.source})`}
+                            </div>
+                          )
+                        )}
+                      </div>
+                    ) : null}
                     <div>
-                      <strong>Locations: </strong>
-                      {variantFeature.locations?.map((location) => (
-                        <div key={`${location.loc}-${location.seqId}`}>
-                          {`- ${location.loc} (${location.source}:${location.seqId})`}
-                        </div>
-                      ))}
+                      <strong>Accession: </strong> {variantFeature.accession}
                     </div>
-                  ) : null}
-                  {variantFeature.association?.length ? (
+                    {variantFeature.codon && (
+                      <div>
+                        <strong>Codon: </strong> {variantFeature.codon}
+                      </div>
+                    )}
                     <div>
-                      <strong>Disease association: </strong>
-                      {variantFeature.association?.map((association) => (
-                        <div
-                          key={`${association.name}-${association.description}`}
-                        >
-                          {'- '}
-                          {association.name}
-                        </div>
-                      ))}
+                      <strong>Consequence type: </strong>{' '}
+                      {variantFeature.consequenceType}
                     </div>
-                  ) : null}
-                  <div>
-                    <strong>Source type: </strong>{' '}
-                    {variantFeature.sourceType.replace(/_/g, ' ')}
-                  </div>
-                  {/* note that the type needs to be updated, xrefs is optional on association object */}
-                  {variantFeature.xrefs?.length ? (
                     <div>
-                      <strong>Cross-references: </strong>
-                      {variantFeature.xrefs?.map((xref) => (
-                        <div key={`${xref.name}-${xref.id}`}>
-                          {'- '}
-                          <ExternalLink url={xref.url}>
-                            {xref.name}: {xref.id}
-                          </ExternalLink>
-                        </div>
-                      ))}
+                      <strong>Cytogenetic band: </strong>{' '}
+                      {variantFeature.cytogeneticBand}
                     </div>
-                  ) : null}
-                </td>
-              </tr>
-            </Fragment>
-          );
-        })}
-      </tbody>
-    </table>
+                    <div>
+                      <strong>Genomic location: </strong>{' '}
+                      {variantFeature.genomicLocation}
+                    </div>
+                    {variantFeature.locations?.length ? (
+                      <div>
+                        <strong>Locations: </strong>
+                        {variantFeature.locations?.map((location) => (
+                          <div key={`${location.loc}-${location.seqId}`}>
+                            {`- ${location.loc} (${location.source}:${location.seqId})`}
+                          </div>
+                        ))}
+                      </div>
+                    ) : null}
+                    {variantFeature.association?.length ? (
+                      <div>
+                        <strong>Disease association: </strong>
+                        {variantFeature.association?.map((association) => (
+                          <div
+                            key={`${association.name}-${association.description}`}
+                          >
+                            {'- '}
+                            {association.name}
+                          </div>
+                        ))}
+                      </div>
+                    ) : null}
+                    <div>
+                      <strong>Source type: </strong>{' '}
+                      {variantFeature.sourceType.replace(/_/g, ' ')}
+                    </div>
+                    {/* note that the type needs to be updated, xrefs is optional on association object */}
+                    {/* Also, some xrefs don't have URLs... type should be optional */}
+                    {variantFeature.xrefs?.length ? (
+                      <div>
+                        <strong>Cross-references: </strong>
+                        {variantFeature.xrefs?.map((xref) => (
+                          <div key={`${xref.name}-${xref.id}`}>
+                            {'- '}
+                            {xref.url ? (
+                              <ExternalLink url={xref.url}>
+                                {xref.name}: {xref.id}
+                              </ExternalLink>
+                            ) : (
+                              `${xref.name}: ${xref.id}`
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    ) : null}
+                  </td>
+                </tr>
+              </Fragment>
+            );
+          })}
+        </tbody>
+      </table>
+    </dataTableElement.name>
   );
 
-  if (onlyTable) {
-    return <dataTableElement.name filter-scroll>{table}</dataTableElement.name>;
+  const fallback = (
+    <div>
+      {title && <h3>{title}</h3>}
+      {table}
+    </div>
+  );
+
+  if (onlyTable || isSmallScreen) {
+    return fallback;
   }
 
   return (
-    <div>
-      {title && <h3>{title}</h3>}
-      <managerElement.name
-        attributes="highlight displaystart displayend activefilters filters selectedid"
-        ref={managerRef}
-      >
-        {!onlyTable && <VisualVariationView {...transformedData} />}
-        <dataTableElement.name filter-scroll>{table}</dataTableElement.name>
-      </managerElement.name>
-    </div>
+    <Suspense fallback={fallback}>
+      <div>
+        {title && <h3>{title}</h3>}
+        <managerElement.name
+          attributes="highlight displaystart displayend activefilters filters selectedid"
+          ref={managerRef}
+        >
+          <VisualVariationView {...transformedData} />
+          {table}
+        </managerElement.name>
+      </div>
+    </Suspense>
   );
 };
 

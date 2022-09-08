@@ -24,7 +24,7 @@ import EntrySection from '../types/entrySection';
 import FeatureType from '../types/featureType';
 
 import Comment, { CommentType } from '../types/commentTypes';
-import { FeatureData } from '../components/protein-data-views/UniProtKBFeaturesView';
+import { FeatureDatum } from '../components/protein-data-views/UniProtKBFeaturesView';
 import { Lineage, Xref } from '../../shared/types/apiModel';
 import { SequenceData } from '../../shared/components/entry/SequenceView';
 import {
@@ -44,6 +44,7 @@ import {
 } from '../../supporting-data/citations/adapters/citationsConverter';
 import { DatabaseInfoMaps } from '../utils/database';
 import { PeptideSearchMatch } from '../../tools/peptide-search/components/PeptideSearchMatches';
+import { AnnotationScoreValue } from '../components/protein-data-views/AnnotationScoreDoughnutChart';
 
 // 🤷🏽
 type UniProtKBReference = Omit<Reference, 'citationId'> & {
@@ -55,10 +56,14 @@ type UniProtKBXref = Omit<Xref, 'properties'> & {
   properties?: Array<{ key: string; value: string }>;
 };
 
+export type UniProtKBSimplifiedTaxonomy = Omit<TaxonomyDatum, 'lineage'> & {
+  lineage: string[];
+};
+
 export type UniProtkbAPIModel = {
   proteinDescription?: ProteinNamesData;
   genes?: GeneNamesData;
-  organism?: TaxonomyDatum;
+  organism?: UniProtKBSimplifiedTaxonomy;
   organismHosts?: TaxonomyDatum[];
   primaryAccession: string;
   secondaryAccessions?: string[];
@@ -69,13 +74,14 @@ export type UniProtkbAPIModel = {
   comments?: Comment[];
   keywords?: Keyword[];
   geneLocations?: GeneLocation[];
-  features?: FeatureData;
+  features?: FeatureDatum[];
   uniProtKBCrossReferences?: UniProtKBXref[];
   sequence: SequenceData;
   internalSection?: InternalSectionType;
-  annotationScore: number;
+  annotationScore: AnnotationScoreValue;
   entryAudit?: EntryAudit;
   references?: UniProtKBReference[];
+  // not there by default, even on an entry request
   lineages?: Lineage[];
   extraAttributes?: {
     countByCommentType?: Partial<Record<CommentType, number | undefined>>;
@@ -92,8 +98,9 @@ export type UniProtkbUIModel = {
   proteinExistence: string;
   entryType?: EntryType;
   inactiveReason?: InactiveEntryReason;
-  annotationScore: number;
+  annotationScore: AnnotationScoreValue;
   uniProtKBCrossReferences?: Xref[];
+  lineages?: Lineage[];
   [EntrySection.Function]: UIModel;
   [EntrySection.NamesAndTaxonomy]: NamesAndTaxonomyUIModel;
   [EntrySection.SubCellularLocation]: UIModel;
@@ -151,6 +158,7 @@ const uniProtKbConverter = (
     annotationScore: dataCopy.annotationScore,
     inactiveReason: dataCopy.inactiveReason,
     uniProtKBCrossReferences,
+    lineages: dataCopy.lineages,
     [EntrySection.Function]: convertFunction(
       dataCopy,
       databaseInfoMaps,

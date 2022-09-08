@@ -10,8 +10,9 @@ import BasketStatus from '../../../basket/BasketStatus';
 import MemberLink from './MemberLink';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
-import usePrefetch from '../../../shared/hooks/usePrefetch';
+// import usePrefetch from '../../../shared/hooks/usePrefetch';
 import useItemSelect from '../../../shared/hooks/useItemSelect';
+import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import { pluralise } from '../../../shared/utils/utils';
 import getNextURLFromHeaders from '../../../shared/utils/getNextURLFromHeaders';
@@ -278,7 +279,7 @@ export const MembersSection = ({
     total: 0,
     nextUrl: undefined,
   }));
-  usePrefetch(metadata.nextUrl);
+  // usePrefetch(metadata.nextUrl);
   const [allResults, setAllResults] = useState<UniRefMember[]>(() => [
     representativeMember,
   ]);
@@ -299,11 +300,12 @@ export const MembersSection = ({
     const { results } = data;
     setAllResults((allRes) => [...allRes, ...results]);
     setMetadata(() => ({
-      total: +(headers?.['x-total-records'] || 0),
+      total: +(headers?.['x-total-results'] || 0),
       nextUrl: getNextURLFromHeaders(headers),
     }));
   }, [data, headers]);
 
+  const smallScreen = useSmallScreen();
   const [selectedEntries, setSelectedItemFromEvent] = useItemSelect();
 
   const { total, nextUrl } = metadata;
@@ -333,15 +335,17 @@ export const MembersSection = ({
         <AlignButton selectedEntries={selectedEntries} />
         <AddToBasket selectedEntries={selectedEntries} />
       </div>
-      <DataTableWithLoader
-        hasMoreData={total > allResults.length + 1}
-        onLoadMoreItems={() => nextUrl && setUrl(nextUrl)}
-        columns={columns}
-        data={allResults}
-        getIdKey={getKey}
-        density="compact"
-        onSelectionChange={setSelectedItemFromEvent}
-      />
+      <div className={helper['overflow-y-container']}>
+        <DataTableWithLoader
+          hasMoreData={total > allResults.length + 1}
+          onLoadMoreItems={() => nextUrl && setUrl(nextUrl)}
+          columns={columns}
+          data={allResults}
+          getIdKey={getKey}
+          density="compact"
+          onSelectionChange={smallScreen ? undefined : setSelectedItemFromEvent}
+        />
+      </div>
     </Card>
   );
 };

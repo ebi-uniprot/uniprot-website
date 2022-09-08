@@ -33,14 +33,13 @@ export const getDRImplicitXrefs = (
   geneNames: string[]
 ) => {
   // Get DR line contingent-implicit xrefs
-  const implicitDatabaseDRPresenceCheck: { [key: string]: boolean } = {};
-  Object.keys(implicitDatabaseDRPresence).forEach((xref) => {
-    implicitDatabaseDRPresenceCheck[xref] = false;
-  });
-  const implicitDatabaseDRAbsenceCheck: { [key: string]: boolean } = {};
-  Object.keys(implicitDatabaseDRAbsence).forEach((xref) => {
-    implicitDatabaseDRAbsenceCheck[xref] = true;
-  });
+  const implicitDatabaseDRPresenceCheck = Object.fromEntries(
+    Object.keys(implicitDatabaseDRPresence).map((xref) => [xref, false])
+  );
+  const implicitDatabaseDRAbsenceCheck = Object.fromEntries(
+    Object.keys(implicitDatabaseDRAbsence).map((xref) => [xref, true])
+  );
+  const implicitDatabaseDRPresenceData: { [key: string]: Xref[] } = {};
   xrefs.forEach((xref) => {
     const { database: name } = xref;
     if (!name) {
@@ -48,11 +47,21 @@ export const getDRImplicitXrefs = (
     }
     if (name in implicitDatabaseDRPresenceCheck) {
       implicitDatabaseDRPresenceCheck[name] = true;
+      if (name in implicitDatabaseDRPresenceData) {
+        implicitDatabaseDRPresenceData[name].push(xref);
+      } else {
+        implicitDatabaseDRPresenceData[name] = [xref];
+      }
     }
     if (name in implicitDatabaseDRAbsenceCheck) {
       implicitDatabaseDRAbsenceCheck[name] = false;
     }
   });
+  const geneName = geneNames?.[0];
+  const properties: Record<string, string> = {};
+  if (geneName) {
+    properties.GeneName = geneName;
+  }
   const foundXrefs: Xref[] = [];
   [
     [implicitDatabaseDRPresenceCheck, implicitDatabaseDRPresence],
@@ -67,16 +76,26 @@ export const getDRImplicitXrefs = (
         implicitNames.forEach((implicitName) => {
           const xref = implicitDatabaseXRefs.get(implicitName);
           if (xref) {
-            let property = {};
-            if (geneNames.length) {
-              property = {
-                GeneName: geneNames[0],
-              };
+            // ClinGen and GenCC HGNC-contingent implicit xrefs require the HGNC ids to form URL
+            if (
+              name === 'HGNC' &&
+              (implicitName === 'ClinGen' || implicitName === 'GenCC') &&
+              implicitDatabaseDRPresenceData[name]
+            ) {
+              implicitDatabaseDRPresenceData[name].forEach(({ id }) => {
+                if (id) {
+                  foundXrefs.push({
+                    ...xref,
+                    properties: { id },
+                  });
+                }
+              });
+            } else {
+              foundXrefs.push({
+                ...xref,
+                properties,
+              });
             }
-            foundXrefs.push({
-              ...xref,
-              properties: property,
-            });
           }
         });
       }
@@ -272,7 +291,6 @@ export const getXrefsForSection = (
     if (!name) {
       return;
     }
-    // eslint-disable-next-line no-param-reassign
     if (!databasesForSection.includes(name)) {
       return;
     }

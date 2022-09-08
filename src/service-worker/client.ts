@@ -24,7 +24,7 @@ const dropCache = async (cacheName: string) => {
 
 const ONE_DAY = 1000 * 60 * 60 * 24;
 
-export function register() {
+export async function register() {
   if (LIVE_RELOAD) {
     return;
   }
@@ -73,24 +73,30 @@ export function register() {
     skipWaiting();
   });
 
-  workbox.register();
+  try {
+    workbox.register();
 
-  setInterval(() => {
-    workbox.update();
-  }, ONE_DAY);
+    // Try to updat the service worker at least once a day
+    setInterval(() => {
+      workbox.update();
+    }, ONE_DAY);
+  } catch {
+    // Might fail, it's fine, it's progressive enhancement
+    // e.g. in Firefox private browsing: "The operation is insecure"
+  }
 }
 
 // will remove any existing service worker.
 // Might be needed if an issue is detected after deployement.
-export function unregister() {
+export async function unregister() {
   if (LIVE_RELOAD) {
     return;
   }
-  navigator.serviceWorker.ready
-    .then((registration) => {
-      registration.unregister();
-    })
-    .catch((error) => {
-      logging.error(error);
-    });
+
+  try {
+    const registration = await navigator.serviceWorker.ready;
+    await registration.unregister();
+  } catch {
+    /* */
+  }
 }

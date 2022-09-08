@@ -1,25 +1,29 @@
 import { useMemo, lazy, Suspense } from 'react';
-import { Loader, PageIntro, Tab, Tabs } from 'franklin-sites';
+import { Loader, Message, PageIntro, Tab, Tabs } from 'franklin-sites';
 import { Link, useLocation } from 'react-router-dom';
+import { partition, uniqBy } from 'lodash-es';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
+import JobErrorPage from '../../../../shared/components/error-pages/JobErrorPage';
 
 import usePagination from '../../../../shared/hooks/usePagination';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
-import useDatabaseInfoMaps from '../../../../shared/hooks/useDatabaseInfoMaps';
 import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect';
 import useIDMappingDetails from '../../../../shared/hooks/useIDMappingDetails';
+import useDataApi from '../../../../shared/hooks/useDataApi';
+import useColumnNames from '../../../../shared/hooks/useColumnNames';
 
 import { rawDBToNamespace } from '../../utils';
 import toolsURLs from '../../../config/urls';
 import idMappingConverter from '../../adapters/idMappingConverter';
 import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
-import { defaultFacets } from '../../../../shared/config/apiUrls';
+import apiUrls, { defaultFacets } from '../../../../shared/config/apiUrls';
+import * as logging from '../../../../shared/utils/logging';
 
 import { SearchResults } from '../../../../shared/types/results';
 import { JobTypes } from '../../../types/toolsJobTypes';
@@ -30,13 +34,20 @@ import {
 } from '../../../../app/config/urls';
 import {
   MappingAPIModel,
+  MappingErrorCode,
   MappingFlat,
+  MappingWarningCode,
+  MappingWarningsErrors,
 } from '../../types/idMappingSearchResults';
 import {
   Namespace,
   namespaceAndToolsLabels,
 } from '../../../../shared/types/namespaces';
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
+import { IDMappingFormConfig } from '../../types/idMappingFormConfig';
+import { MessageLevel } from '../../../../messages/types/messagesTypes';
+
+import styles from './styles/id-mapping-result.module.scss';
 
 const jobType = JobTypes.ID_MAPPING;
 const urls = toolsURLs(jobType);
@@ -64,6 +75,20 @@ const APIRequest = lazy(
     )
 );
 
+export const findUriLink = (fields?: IDMappingFormConfig, dbName?: string) => {
+  if (!fields || !dbName) {
+    return null;
+  }
+  for (const group of fields.groups) {
+    for (const item of group.items) {
+      if (item.name === dbName) {
+        return item.uriLink;
+      }
+    }
+  }
+  return null;
+};
+
 enum TabLocation {
   Overview = 'overview',
   InputParameters = 'input-parameters',
@@ -82,21 +107,24 @@ const IDMappingResult = () => {
     Location.IDMappingResult,
     TabLocation
   );
-
-  const databaseInfoMaps = useDatabaseInfoMaps();
   const idMappingDetails = useIDMappingDetails();
   const {
     data: detailsData,
     loading: detailsLoading,
     error: detailsError,
-    progress: detailsProgress,
   } = idMappingDetails || {};
 
   const [{ selectedFacets, query, sortColumn, sortDirection }] =
     getParamsFromURL(location.search);
 
-  const toDBInfo =
-    detailsData && databaseInfoMaps?.databaseToDatabaseInfo[detailsData.to];
+  const { loading: fieldsLoading, data: fieldsData } =
+    useDataApi<IDMappingFormConfig>(apiUrls.idMappingFields);
+
+  const namespaceOverride = rawDBToNamespace(detailsData?.to);
+
+  const { columnNames } = useColumnNames({
+    namespaceOverride,
+  });
 
   // Query for results data from the idmapping endpoint
   const initialApiUrl =
@@ -106,9 +134,13 @@ const IDMappingResult = () => {
       query,
       sortColumn,
       sortDirection,
+      columns: columnNames,
     });
 
-  const converter = useMemo(() => idMappingConverter(toDBInfo), [toDBInfo]);
+  const converter = useMemo(
+    () => idMappingConverter(findUriLink(fieldsData, detailsData?.to)),
+    [fieldsData, detailsData?.to]
+  );
 
   const resultsDataObject = usePagination<MappingAPIModel, MappingFlat>(
     initialApiUrl,
@@ -121,8 +153,6 @@ const IDMappingResult = () => {
     total,
   } = resultsDataObject;
 
-  const namespaceOverride = rawDBToNamespace(detailsData?.to);
-
   // Run facet query
   const facets = defaultFacets.get(namespaceOverride);
   const facetsUrl =
@@ -134,13 +164,58 @@ const IDMappingResult = () => {
       selectedFacets,
       query,
     });
-  const facetsData =
-    useDataApiWithStale<SearchResults<UniProtkbAPIModel>>(facetsUrl);
+  const facetsDataApiObject = useDataApiWithStale<
+    MappingWarningsErrors & SearchResults<UniProtkbAPIModel>
+  >(facetsUrl);
 
-  const { loading: facetInititialLoading, isStale: facetHasStaleData } =
-    facetsData;
+  const {
+    loading: facetInititialLoading,
+    isStale: facetHasStaleData,
+    data: facetsData,
+  } = facetsDataApiObject;
 
   useMarkJobAsSeen(resultsDataObject.allResults.length, match?.params.id);
+
+  const [warnings, notCustomisable] = useMemo(() => {
+    const allWarnings = uniqBy(
+      [...(detailsData?.warnings || []), ...(facetsData?.warnings || [])],
+      'code'
+    );
+    const [warningsRecognized, warningsUnrecognized] = partition(
+      allWarnings,
+      ({ code }) => code in MappingWarningCode
+    );
+    if (warningsUnrecognized.length) {
+      logging.warn(
+        `Unrecognized ID Mapping warning codes found for job ID ${
+          match?.params.id
+        } ${JSON.stringify(warningsUnrecognized)}`
+      );
+    }
+    const notCustomisable = warningsRecognized.some(
+      ({ code }) => code === MappingWarningCode.EnrichmentDisabled
+    );
+    return [warningsRecognized, notCustomisable];
+  }, [detailsData?.warnings, facetsData?.warnings, match?.params.id]);
+
+  const errors = useMemo(() => {
+    const allErrors = uniqBy(
+      [...(detailsData?.errors || []), ...(facetsData?.errors || [])],
+      'code'
+    );
+    const [errorsRecognized, errorsUnrecognized] = partition(
+      allErrors,
+      ({ code }) => code in MappingErrorCode
+    );
+    if (errorsUnrecognized.length) {
+      logging.warn(
+        `Unrecognized ID Mapping error codes found for job ID ${
+          match?.params.id
+        } ${JSON.stringify(errorsUnrecognized)}`
+      );
+    }
+    return errorsRecognized;
+  }, [detailsData?.errors, facetsData?.errors, match?.params.id]);
 
   if (!match || detailsError) {
     return <ErrorHandler />;
@@ -154,12 +229,26 @@ const IDMappingResult = () => {
     return <Loader progress={progress} />;
   }
 
-  if (detailsLoading) {
-    return <Loader progress={detailsProgress} />;
+  if (detailsLoading || fieldsLoading) {
+    return <Loader />;
   }
 
   if (!detailsData) {
     return <ErrorHandler />;
+  }
+
+  if (errors.length) {
+    return (
+      <JobErrorPage
+        message={
+          <ul className="no-bullet">
+            {errors.map(({ code, message }) => (
+              <li key={code}>{message}</li>
+            ))}
+          </ul>
+        }
+      />
+    );
   }
 
   let sidebar: JSX.Element;
@@ -176,7 +265,7 @@ const IDMappingResult = () => {
       } else {
         sidebar = (
           <ErrorBoundary>
-            <ResultsFacets dataApiObject={facetsData} />
+            <ResultsFacets dataApiObject={facetsDataApiObject} />
           </ErrorBoundary>
         );
       }
@@ -193,11 +282,11 @@ const IDMappingResult = () => {
         <PageIntro
           title={namespaceAndToolsLabels[Namespace.idmapping]}
           titlePostscript={
-            total && (
+            total ? (
               <small>
                 found for {detailsData?.from} → {detailsData?.to}
               </small>
-            )
+            ) : null
           }
           resultsCount={total}
         />
@@ -213,6 +302,23 @@ const IDMappingResult = () => {
       >
         <meta name="robots" content="noindex" />
       </HTMLHead>
+      {!!warnings.length && (
+        <Message level={MessageLevel.WARNING} className={styles.warnings}>
+          <ul className="no-bullet">
+            {warnings.map(({ message, code }) => (
+              <li key={code}>
+                {message}
+                {code === MappingWarningCode.FiltersDisabled && (
+                  <span>
+                    . You can query the results by entering a search query in
+                    the search bar or by using the Advanced search.
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </Message>
+      )}
       <Tabs active={match.params.subPage}>
         <Tab
           id={TabLocation.Overview}
@@ -221,13 +327,15 @@ const IDMappingResult = () => {
               Overview
             </Link>
           }
-          cache
         >
           <Suspense fallback={<Loader />}>
             <IDMappingResultTable
-              namespaceOverride={namespaceOverride}
+              namespaceOverride={
+                notCustomisable ? Namespace.idmapping : namespaceOverride
+              }
               resultsDataObject={resultsDataObject}
               detailsData={detailsData}
+              notCustomisable={notCustomisable}
             />
           </Suspense>
         </Tab>

@@ -1,4 +1,8 @@
 import { Statistics } from '../../shared/types/apiModel';
+import {
+  Ligand,
+  LigandPart,
+} from '../../uniprotkb/components/protein-data-views/LigandDescriptionView';
 
 export type Information = {
   duplicates?: string[];
@@ -301,6 +305,9 @@ export type PositionFeatureSet = {
     pattern?: string;
     position?: Range;
     annotationType?: 'ANNOTATION' | 'POSITIONAL_FEATURE';
+    ligand?: Ligand;
+    ligandPart?: LigandPart;
+    description?: string;
   }>;
   uniProtKBAccession?: {
     validAccession?: boolean;

@@ -1,18 +1,17 @@
 import { Fragment } from 'react';
 import { isEqual, partition, sortBy, uniqWith } from 'lodash-es';
 import { InfoList, ExpandableList } from 'franklin-sites';
-import { Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router-dom';
 import { InfoListItem } from 'franklin-sites/dist/types/components/info-list';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
-
-import { pluralise } from '../../../shared/utils/utils';
-
 import PDBView from './PDBView';
 import EMBLView from './EMBLView';
+import { RichText } from './FreeTextView';
 
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
+import { pluralise } from '../../../shared/utils/utils';
 import {
   databaseCategoryToString,
   viewProteinLinkDatabases,
@@ -54,7 +53,7 @@ const formatSuffixWithCount = (prefix: string, number: string) => {
   if (count <= 0) {
     return '';
   }
-  return ` ${count} ${pluralise(prefix, count)}`;
+  return `${count} ${pluralise(prefix, count)}`;
 };
 
 export const getPropertyString = (key?: string, value?: string) => {
@@ -81,7 +80,7 @@ export const getPropertyLinkAttributes = (
   }
   const attribute = getDatabaseInfoAttribute(attributes, property);
   const id = xref.properties?.[property];
-  if (!id || !attribute || !attribute.uriLink) {
+  if (!id || !attribute?.uriLink) {
     return null;
   }
   const url = processUrlTemplate(attribute.uriLink, { [property]: id });
@@ -104,6 +103,7 @@ const propertyKeySet = new Set<PropertyKey>([
   PropertyKey.GeneId,
   PropertyKey.RefSeqNucleotideId,
   PropertyKey.RefSeqProteinId,
+  PropertyKey.NucleotideSequenceId,
 ]);
 
 export const XRef = ({
@@ -142,7 +142,18 @@ export const XRef = ({
   if (isoformId) {
     isoformNode = (
       <>
-        [<a href={`#${isoformId}`}>{isoformId}</a>]
+        [
+        <Link
+          to={{
+            pathname: generatePath(LocationToPath[Location.UniProtKBEntry], {
+              accession: primaryAccession,
+            }),
+            hash: isoformId,
+          }}
+        >
+          {isoformId}
+        </Link>
+        ]
       </>
     );
   }
@@ -159,14 +170,18 @@ export const XRef = ({
     params.crc64 = crc64;
   }
 
-  let text;
+  let text = id;
   if (implicit) {
-    text =
-      databaseType === 'SWISS-MODEL-Workspace'
-        ? 'Submit a new modelling project…'
-        : 'Search…';
-  } else {
-    text = id;
+    if (databaseType === 'SWISS-MODEL-Workspace') {
+      text = 'Submit a new modelling project…';
+    } else if (
+      (databaseType === 'ClinGen' || databaseType === 'GenCC') &&
+      properties?.id
+    ) {
+      text = properties?.id;
+    } else {
+      text = 'Search…';
+    }
   }
 
   // Remove links from the xref which are the same (ie same url and text).
@@ -192,7 +207,13 @@ export const XRef = ({
           text
         )
       )}
-      {propertyStrings}
+      <RichText>
+        {propertyStrings
+          // remove empty strings
+          .filter(Boolean)
+          // add space between strings
+          .join(' ')}
+      </RichText>
       {isoformNode && <> {isoformNode}</>}
     </>
   );

@@ -1,8 +1,7 @@
-import { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import useNS from './useNS';
-import useViewMode from './useViewMode';
+import useViewMode, { ViewMode } from './useViewMode';
 import useColumnNames from './useColumnNames';
 
 import { getParamsFromURL } from '../../uniprotkb/utils/resultsUtils';
@@ -19,6 +18,8 @@ type Arg = {
   withQuery?: boolean;
   accessions?: string[];
   overrideNS?: Namespace;
+  overrideView?: ViewMode;
+  overrideQuery?: string;
   facetsNotApplied?: boolean;
   getSequence?: boolean;
 };
@@ -30,6 +31,8 @@ const useNSQuery = ({
   withQuery = true,
   accessions,
   overrideNS,
+  overrideView,
+  overrideQuery,
   facetsNotApplied,
   getSequence = false,
 }: Arg = {}) => {
@@ -49,7 +52,7 @@ const useNSQuery = ({
   let queryColumns: Column[] | undefined = columnNames;
 
   // TODO: put this into useColumnNames
-  if (viewMode === 'cards') {
+  if ((overrideView || viewMode) === 'cards') {
     // TODO: Do similar things for the rest of namespaces
     if (namespace === Namespace.uniprotkb) {
       queryColumns = fieldsForUniProtKBCards;
@@ -58,40 +61,23 @@ const useNSQuery = ({
     }
   }
 
-  const url = useMemo(() => {
-    if (!(query || accessions?.length)) {
-      return undefined;
-    }
+  if (!(overrideQuery || query || accessions?.length)) {
+    return undefined;
+  }
 
-    const options = {
-      namespace,
-      query: withQuery ? query : undefined,
-      columns: withColumns ? queryColumns : undefined,
-      selectedFacets: facetsNotApplied ? undefined : selectedFacets,
-      facets: withFacets ? undefined : null,
-      sortColumn,
-      sortDirection,
-      size,
-    };
-    return accessions
-      ? getAccessionsURL(accessions, options)
-      : getAPIQueryUrl(options);
-  }, [
-    query,
-    accessions,
+  const options = {
     namespace,
-    withFacets,
-    withColumns,
-    withQuery,
-    queryColumns,
-    facetsNotApplied,
-    selectedFacets,
+    query: withQuery ? overrideQuery || query : undefined,
+    columns: withColumns ? queryColumns : undefined,
+    selectedFacets: facetsNotApplied ? undefined : selectedFacets,
+    facets: withFacets ? undefined : null,
     sortColumn,
     sortDirection,
     size,
-  ]);
-
-  return url;
+  };
+  return accessions
+    ? getAccessionsURL(accessions, options)
+    : getAPIQueryUrl(options);
 };
 
 export default useNSQuery;

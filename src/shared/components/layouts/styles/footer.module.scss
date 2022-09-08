@@ -2,22 +2,28 @@
 @import 'franklin-sites/src/styles/mixins';
 
 footer.footer {
-  // Make the whole footer texts be a portion of the default size of the rest
-  font-size: 0.75rem;
   padding: 1rem;
   background: $colour-platinum;
   // Wait a bit on the first load to give a chance to the main content to load
   // and push the footer down before appearing
   animation: appear 0.25s 1 0.5s both;
 
+  @include fs-breakpoints('medium') {
+    // Make the whole footer texts be a portion of the default size of the rest
+    font-size: 0.8rem;
+  }
+
+  :global(.hero-container) {
+    margin-block: 0;
+    padding-block: 0;
+  }
+
   p {
     margin-bottom: 1em;
   }
 
   img {
-    display: inline-block;
-    width: 100%;
-    height: auto;
+    margin-inline: auto;
   }
 
   // Consortium
@@ -25,13 +31,16 @@ footer.footer {
     &__uniprot {
       width: 100%;
 
-      & > svg {
+      & > img {
+        max-height: 70px;
         margin-bottom: 1rem;
       }
     }
 
     &__members {
-      display: flex;
+      @include fs-breakpoints('medium') {
+        display: flex;
+      }
       align-items: center;
 
       :not(:last-child) {
@@ -47,13 +56,9 @@ footer.footer {
         }
       }
 
-      & svg {
-        display: block;
-        width: 100%;
-        height: auto;
-        // override .external-link style
-        margin: initial;
-        fill: black;
+      & img {
+        width: auto;
+        max-height: 50px;
       }
     }
   }
@@ -64,6 +69,7 @@ footer.footer {
 
   // Shortcuts
   .shortcuts {
+    margin-top: $global-margin;
     grid-area: 1 / 4 / span 2 / span 6;
     display: flex;
     flex-direction: row;
@@ -81,8 +87,13 @@ footer.footer {
     }
 
     li {
-      margin-bottom: 1em;
-      line-height: initial;
+      padding-block: 0.2em;
+
+      * > a {
+        display: inline-block;
+        padding-block: 0.5em;
+        line-height: initial;
+      }
     }
 
     &__title {
@@ -90,14 +101,8 @@ footer.footer {
       font-size: 1rem;
       display: block;
       padding-bottom: 1ch;
-      margin-bottom: 1ch;
       border-bottom: 1px solid $colour-weldon-blue;
       font-weight: bold;
-    }
-
-    svg {
-      margin-left: initial;
-      margin-right: initial;
     }
 
     &__core-data {
@@ -127,11 +132,6 @@ footer.footer {
 
     & > * {
       white-space: nowrap;
-    }
-
-    svg {
-      display: block;
-      fill: black;
     }
   }
 

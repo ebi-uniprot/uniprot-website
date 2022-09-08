@@ -16,7 +16,13 @@ exports[`HomePage component should render 1`] = `
           href="/"
           title="UniProt home page"
         >
-          <test-file-stub />
+          <img
+            alt=""
+            height="70"
+            loading="lazy"
+            src="test-file-stub"
+            width="152"
+          />
         </a>
         <div
           class="consortium__members"
@@ -28,7 +34,13 @@ exports[`HomePage component should render 1`] = `
             target="_blank"
             title="European Bioinformatics Institute"
           >
-            <test-file-stub />
+            <img
+              alt=""
+              height="218"
+              loading="lazy"
+              src="test-file-stub"
+              width="231"
+            />
           </a>
           <a
             class="external-link"
@@ -202,7 +214,9 @@ exports[`HomePage component should render 1`] = `
             </li>
           </ul>
         </li>
-        <li>
+        <li
+          class="no-small"
+        >
           <span
             class="shortcuts__title"
           >
@@ -452,9 +466,12 @@ exports[`HomePage component should render 1`] = `
           target="_blank"
           title="European Molecular Biology Laboratory"
         >
-          <test-file-stub
-            height="2.5em"
-            width="8.11em"
+          <img
+            alt=""
+            height="48"
+            loading="lazy"
+            src="test-file-stub"
+            width="156"
           />
         </a>
         <a

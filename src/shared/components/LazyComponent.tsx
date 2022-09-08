@@ -65,7 +65,7 @@ const LazyComponent: FC<Props> = ({
     );
   }
 
-  return <div ref={ref}>{fallback}</div>;
+  return <div ref={ref}>{render === false ? null : fallback}</div>;
 };
 
 export default LazyComponent;

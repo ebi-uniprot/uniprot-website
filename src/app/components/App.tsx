@@ -51,13 +51,15 @@ if (process.env.NODE_ENV !== 'development') {
       maxBreadcrumbs: 50,
       // Proportion of sessions being used to track performance
       // Adjust to a low value when we start getting enough data
-      tracesSampleRate: 0.15,
+      // tracesSampleRate: 0.01, // Not able to use this data yet, so don't track
       // Proportion of errors being reported
-      sampleRate: 0.5,
+      // Adjust, higher if we fix errors and end up not maxing out our quota
+      sampleRate: 0.02,
       // errors to be ignored completely
       ignoreErrors: [
-        // errors caused by an extension
-        'chrome-extensions://',
+        'chrome-extension://', // errors caused by an extension
+        'chrome-extensions://', // errors caused by an extension
+        'Request aborted', // aborted network requests, expected to happen
       ],
       // Programmatically filter out errors from Sentry
       // beforeSend(event, hint){
@@ -227,7 +229,7 @@ const HelpLandingPage = lazy(
 const HelpEntryPreviewPage = lazy(
   () =>
     import(
-      /* webpackChunkName: "help-entry-preview.nocache" */ '../../help/components/entry/EntryPreview'
+      /* webpackChunkName: "help-entry-preview.noprecache" */ '../../help/components/entry/EntryPreview'
     )
 );
 const HelpEntryPage = lazy(
@@ -457,11 +459,10 @@ const App = () => {
               path={LocationToPath[Location.ReleaseNotesEntry]}
               component={HelpEntryPage}
             />
-            {/* TODO: add a search results view */}
-            {/* <Route
+            <Route
               path={LocationToPath[Location.ReleaseNotesResults]}
               component={HelpResults}
-            /> */}
+            />
             {/* Contact */}
             <Route
               path={LocationToPath[Location.ContactGeneric]}

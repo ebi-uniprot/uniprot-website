@@ -11,6 +11,7 @@ import XRefView from '../protein-data-views/XRefView';
 import LazyComponent from '../../../shared/components/LazyComponent';
 
 import useCustomElement from '../../../shared/hooks/useCustomElement';
+import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import { hasContent } from '../../../shared/utils/utils';
 import { getIntActQueryUrl } from '../../../shared/config/externalUrls';
@@ -98,6 +99,7 @@ const InteractionViewer = lazy(
 );
 
 const InteractionSection = ({ data, primaryAccession }: Props) => {
+  const isSmallScreen = useSmallScreen();
   const tableData = useMemo(
     () =>
       Array.from(
@@ -148,7 +150,10 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
       {tableData.length ? (
         <>
           <h3 data-article-id="binary_interactions">Binary interactions</h3>
-          <LazyComponent rootMargin="50px">
+          <LazyComponent
+            rootMargin="50px"
+            render={isSmallScreen ? false : undefined}
+          >
             <InteractionViewer accession={primaryAccession} />
           </LazyComponent>
           <datatableElement.name filter-scroll>

@@ -2,7 +2,7 @@
   "entryType": "Inactive",
   "primaryAccession": "Q00007",
   "uniProtId": "2ABA_HUMAN",
-  "annotationScore": 0.0,
+  "annotationScore": 0,
   "inactiveReason": {
     "inactiveReasonType": "DEMERGED",
     "mergeDemergeTo": ["P63151", "P63150"]

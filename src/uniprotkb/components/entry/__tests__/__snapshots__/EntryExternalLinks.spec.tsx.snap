@@ -218,7 +218,7 @@ exports[`Entry - External Links view should render 1`] = `
                     </a>
                     Model [
                     <a
-                      href="#Q9NXB0-1"
+                      href="/uniprotkb/P21802#Q9NXB0-1"
                     >
                       Q9NXB0-1
                     </a>
@@ -294,7 +294,7 @@ exports[`Entry - External Links view should render 1`] = `
                   <li>
                     <a
                       class="external-link"
-                      href="http://salilab.org/modbase-cgi/model_search.cgi?searchkw=name&kword=P21802"
+                      href="https://swissmodel.expasy.org/interactive/?ac=P21802"
                       rel="noopener"
                       target="_blank"
                     >

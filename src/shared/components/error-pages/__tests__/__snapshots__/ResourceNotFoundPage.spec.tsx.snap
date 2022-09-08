@@ -6,8 +6,12 @@ exports[`ResourceNotFoundPage component should render 1`] = `
     class="error-page-container"
     data-testid="error-page"
   >
-    <test-file-stub
-      classname="error-page-container__art-work"
+    <img
+      alt=""
+      class="error-page-container__art-work"
+      height="400"
+      src="test-file-stub"
+      width="400"
     />
     <div
       class="message message--failure"

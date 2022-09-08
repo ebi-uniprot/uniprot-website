@@ -35,24 +35,12 @@ const HomePageNonCritical = () => (
         >
           new API documentation
         </Link>
-        .
-      </Message>
-      <Message level="info" className="uniprot-grid-cell--span-12">
-        {
-          // Temporary
-          globalThis?.location.origin.includes('beta') ? (
-            <>
-              Due to ongoing tests ahead of our official release, you might
-              experience performance issues. Thank you for your understanding.
-              <br />
-            </>
-          ) : null
-        }
+        .<br />
         If you still need it, the{' '}
         <ExternalLink url="https://legacy.uniprot.org" rel="nofollow" noIcon>
           legacy version of the website
         </ExternalLink>{' '}
-        is available until the 2022_03 release.
+        is available until the 2022_04 release.
       </Message>
     </div>
 

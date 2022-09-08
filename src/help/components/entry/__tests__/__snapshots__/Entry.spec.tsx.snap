@@ -23,15 +23,15 @@ exports[`Help entry tests should render the Entry component 1`] = `
             class="card__content"
           >
             <div>
-              <p>
-                <strong>
-                  What is the canonical sequence?
-                </strong>
-              </p>
+              <h2
+                id="what-is-the-canonical-sequence"
+              >
+                What is the canonical sequence?
+              </h2>
               
 
               <p>
-                To reduce redundancy, the UniProtKB/Swiss-Prot policy is to describe all the protein products encoded by one gene in a given species in a single entry. We choose for each entry a canonical sequence based on at least one of the following criteria:
+                Each UniProtKB/Swiss-Prot entry contains all curated protein products encoded by a given gene in a given species or strain. For each UniProtKB/Swiss-Prot entry, we choose a canonical (or representative) sequence for display that should conform to at least one of the following criteria:
               </p>
               
 
@@ -39,17 +39,28 @@ exports[`Help entry tests should render the Entry component 1`] = `
                 
 
                 <li>
-                  It is the most prevalent.
+                  It is functional;
                 </li>
                 
 
                 <li>
-                  It is the most similar to orthologous sequences found in other species.
+                  It is widely expressed;
                 </li>
                 
 
                 <li>
-                  By virtue of its length or amino acid composition, it allows the clearest description of domains, isoforms, polymorphisms, post-translational modifications, etc.
+                  It is encoded by conserved exons found in orthologous sequences;
+                </li>
+                
+
+                <li>
+                  It is identical to consensus sequences chosen by other resources and genome curation efforts such as CCDS and MANE (see also 
+                  <a
+                    href="/help/human_proteome"
+                  >
+                    UniProt's human proteome
+                  </a>
+                   )
                 </li>
                 
 
@@ -62,25 +73,73 @@ exports[`Help entry tests should render the Entry component 1`] = `
               
 
               <p>
-                Note that for organisms for which the genome sequence is completed, we choose the protein sequence derived from genome translation, unless it is clearly established that a different polymorphism is more frequent for a given position.
+                Sequences chosen according to these criteria generally allow the description of the majority of functionally important 
+                <a
+                  href="/help/domain"
+                >
+                  domains
+                </a>
+                , 
+                <a
+                  href="/help/motif"
+                >
+                  motifs
+                </a>
+                , 
+                <a
+                  href="/help/site"
+                >
+                  sites
+                </a>
+                , and 
+                <a
+                  href="/help/ptm_processing_section"
+                >
+                  post-translational modifications
+                </a>
+                , naturally occurring 
+                <a
+                  href="/help/variant"
+                >
+                  variants
+                </a>
+                 with functional and clinical significance, and other 
+                <a
+                  href="/help/sequence_annotation"
+                >
+                  sequence features
+                </a>
+                .
               </p>
               
 
               <p>
-                Differences to other sequences are documented in the 'Sequence' section (in the flat file FT keys: VAR_SEQ, CONFLICT, VARIANT, ...). Additional information can be found in the 'Alternative sequence' subsection.
+                Additional information can be found in the 
+                <a
+                  href="/help/var_seq"
+                >
+                  'Alternative sequence'
+                </a>
+                 subsection.
               </p>
               
 
               <p>
-                The various UniProtKB distribution formats (Flat Text, XML, RDF/XML) display only the canonical sequence. The website's 'Sequences' section displays the canonical sequence, but for convenience it offers also a view of the isoforms that are described in the 'Alternative sequence' subsection.
+                The various UniProtKB distribution formats (Flat Text, XML, RDF/XML) display only the canonical sequence. The website's 
+                <a
+                  href="/help/sequences_section"
+                >
+                  'Sequences'
+                </a>
+                 section displays the canonical sequence, but for convenience it offers also a view of the isoforms that are described in the 'Alternative sequence' subsection.
               </p>
               
 
-              <p>
-                <strong>
-                  Are all isoforms described in one UniProtKB/Swiss-Prot entry?
-                </strong>
-              </p>
+              <h2
+                id="are-all-isoforms-described-in-one-uniprotkbswiss-prot-entry"
+              >
+                Are all isoforms described in one UniProtKB/Swiss-Prot entry?
+              </h2>
               
 
               <p>
@@ -91,7 +150,7 @@ exports[`Help entry tests should render the Entry component 1`] = `
               <p>
                 Example: 
                 <a
-                  href="/uniprot/P42284#sequences"
+                  href="/uniprotkb/P42284#sequences"
                 >
                   isoforms derived from the lola gene (Drosophila melanogaster)
                 </a>
@@ -103,11 +162,11 @@ exports[`Help entry tests should render the Entry component 1`] = `
               </p>
               
 
-              <p>
-                <strong>
-                  How can I retrieve isoform sequences?
-                </strong>
-              </p>
+              <h2
+                id="how-can-i-retrieve-isoform-sequences"
+              >
+                How can I retrieve isoform sequences?
+              </h2>
               
 
               <p>
@@ -129,17 +188,19 @@ exports[`Help entry tests should render the Entry component 1`] = `
               <p>
                 Query-derived sets of canonical sequences alone or canonical and isoform sequences can also be downloaded in FASTA format (see 
                 <a
-                  href="/faq/38"
+                  href="/help/retrieve_sets"
                 >
                   How to retrieve sets of UniProtKB protein sequences?
                 </a>
-                ).
+                 ).
               </p>
               
 
-              <p>
-                See also:
-              </p>
+              <h2
+                id="see-also"
+              >
+                See also
+              </h2>
               
 
               <ul>
@@ -147,7 +208,7 @@ exports[`Help entry tests should render the Entry component 1`] = `
 
                 <li>
                   <a
-                    href="/faq/25"
+                    href="/help/cds_protein_definition"
                   >
                     What are UniProtKB's criteria for defining a CDS as a protein?
                   </a>
@@ -156,7 +217,7 @@ exports[`Help entry tests should render the Entry component 1`] = `
 
                 <li>
                   <a
-                    href="/faq/21"
+                    href="/help/protein_diversity"
                   >
                     How are protein sequence variety and protein diversity represented in UniProtKB?
                   </a>
@@ -165,7 +226,7 @@ exports[`Help entry tests should render the Entry component 1`] = `
 
                 <li>
                   <a
-                    href="/manual/sequence_length"
+                    href="/help/sequence_length"
                   >
                     Sequence length
                   </a>
@@ -174,7 +235,7 @@ exports[`Help entry tests should render the Entry component 1`] = `
 
                 <li>
                   <a
-                    href="/manual/alternative_products"
+                    href="/help/alternative_products"
                   >
                     Alternative products
                   </a>
@@ -183,7 +244,7 @@ exports[`Help entry tests should render the Entry component 1`] = `
 
                 <li>
                   <a
-                    href="/manual/var_seq"
+                    href="/help/var_seq"
                   >
                     Alternative sequence
                   </a>
@@ -192,7 +253,7 @@ exports[`Help entry tests should render the Entry component 1`] = `
 
                 <li>
                   <a
-                    href="/manual/conflict"
+                    href="/help/conflict"
                   >
                     Sequence conflict
                   </a>
@@ -212,9 +273,9 @@ exports[`Help entry tests should render the Entry component 1`] = `
         <small>
            Page last modified: 
           <time
-            datetime="2021-07-16T00:00:00.000Z"
+            datetime="2022-04-28T00:00:00.000Z"
           >
-            Fri Jul 16 2021
+            Thu Apr 28 2022
           </time>
         </small>
       </div>

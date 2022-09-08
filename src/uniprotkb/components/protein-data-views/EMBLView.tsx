@@ -11,7 +11,22 @@ import * as logging from '../../../shared/utils/logging';
 import { Xref } from '../../../shared/types/apiModel';
 import { PropertyKey } from '../../types/modelTypes';
 
-import EMBLXrefProperties from '../../config/emblXrefPropertiesData.json';
+const EMBLXrefProperties: Record<string, string> = {
+  Genomic_DNA: 'Genomic DNA Translation',
+  Genomic_RNA: 'Genomic RNA Translation',
+  Other_DNA: 'Other DNA Translation',
+  Other_RNA: 'Other RNA Translation',
+  Transcribed_RNA: 'Transcribed RNA Translation',
+  Unassigned_DNA: 'Unassigned DNA Translation',
+  Unassigned_RNA: 'Unassigned RNA Translation',
+  Viral_cRNA: 'Viral cRNA Translation',
+  mRNA: 'mRNA Translation',
+  ALT_FRAME: 'Frameshift',
+  ALT_INIT: 'Different initiation',
+  ALT_SEQ: 'Sequence problems.',
+  ALT_TERM: 'Different termination.',
+  NOT_ANNOTATED_CDS: 'No translation available.',
+};
 
 const processData = (xrefs: Xref[]) =>
   xrefs.flatMap(({ id, properties, additionalIds }) => {
@@ -23,11 +38,8 @@ const processData = (xrefs: Xref[]) =>
     return allIds.map((sequenceId) => ({
       sequenceId,
       proteinId: ProteinId === '-' ? null : ProteinId,
-      moleculeType:
-        MoleculeType &&
-        EMBLXrefProperties[MoleculeType as keyof typeof EMBLXrefProperties],
-      status:
-        Status && EMBLXrefProperties[Status as keyof typeof EMBLXrefProperties],
+      moleculeType: MoleculeType && EMBLXrefProperties[MoleculeType],
+      status: Status && EMBLXrefProperties[Status],
     }));
   });
 
@@ -173,7 +185,7 @@ const EMBLView = ({ xrefs }: { xrefs: Xref[] }) => {
                     </ExternalLink>
                     )
                   </td>
-                  <td>{d.moleculeType}</td>
+                  <td>{d.moleculeType.replace(/translation/i, '')}</td>
                   <td>{d.status}</td>
                 </tr>
               )

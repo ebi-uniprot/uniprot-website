@@ -3,12 +3,14 @@ import {
   DataTableWithLoader,
   DataListWithLoader,
   Loader,
+  EllipsisReveal,
 } from 'franklin-sites';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import useNS from '../../hooks/useNS';
 import useColumns, { ColumnDescriptor } from '../../hooks/useColumns';
 import useViewMode from '../../hooks/useViewMode';
+import { useSmallScreen } from '../../hooks/useMatchMedia';
 
 import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
@@ -68,6 +70,8 @@ const ResultsData = ({
     hasMoreData,
     progress,
   } = resultsDataObject;
+
+  const smallScreen = useSmallScreen();
 
   // All complex values that only change when the namespace changes
   const [getIdKey, getEntryPathForEntry, cardRenderer] = useMemo(() => {
@@ -154,7 +158,7 @@ const ResultsData = ({
           data={allResults}
           loading={loading}
           dataRenderer={cardRenderer}
-          onSelectionChange={setSelectedItemFromEvent}
+          onSelectionChange={smallScreen ? undefined : setSelectedItemFromEvent}
           onLoadMoreItems={handleLoadMoreRows}
           hasMoreData={hasMoreData}
           loaderComponent={loadComponent}
@@ -162,18 +166,22 @@ const ResultsData = ({
         />
       ) : (
         // Table view
-        <DataTableWithLoader
-          getIdKey={getIdKey}
-          columns={columns}
-          data={allResults}
-          loading={loading}
-          onSelectionChange={setSelectedItemFromEvent}
-          onHeaderClick={updateColumnSort}
-          onLoadMoreItems={handleLoadMoreRows}
-          hasMoreData={hasMoreData}
-          loaderComponent={loadComponent}
-          className={className}
-        />
+        <EllipsisReveal.Provider>
+          <DataTableWithLoader
+            getIdKey={getIdKey}
+            columns={columns}
+            data={allResults}
+            loading={loading}
+            onSelectionChange={
+              smallScreen ? undefined : setSelectedItemFromEvent
+            }
+            onHeaderClick={updateColumnSort}
+            onLoadMoreItems={handleLoadMoreRows}
+            hasMoreData={hasMoreData}
+            loaderComponent={loadComponent}
+            className={className}
+          />
+        </EllipsisReveal.Provider>
       )}
     </div>
   );

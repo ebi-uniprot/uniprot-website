@@ -1,18 +1,26 @@
+import { ReactNode } from 'react';
 import { Message } from 'franklin-sites';
 
 import ErrorPage from './ErrorPage';
 
-import ArtWork from './svgs/job-failed.svg';
+import ArtWork from './svgs/job-failed.img.svg';
 
-const ErrorMessage = () => (
+type Props = {
+  message: ReactNode;
+};
+
+const ErrorMessage = ({ message }: Props) => (
   <Message level="failure">
     <h4>Job Failed</h4>
-    <span>Custom message here</span>
+    <span>{message}</span>
   </Message>
 );
 
-const JobErrorPage = () => (
-  <ErrorPage artwork={<ArtWork />} message={<ErrorMessage />} />
+const JobErrorPage = ({ message }: Props) => (
+  <ErrorPage
+    artwork={<img src={ArtWork} width="400" height="400" alt="" />}
+    message={<ErrorMessage message={message} />}
+  />
 );
 
 export default JobErrorPage;

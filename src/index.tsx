@@ -28,12 +28,45 @@ if ('serviceWorker' in navigator) {
   import(
     /* webpackChunkName: "service-worker-client" */ './service-worker/client'
   ).then((serviceWorkerModule) => {
-    if (globalThis.location.origin.includes('beta')) {
-      serviceWorkerModule.register();
-    } else {
-      // switch commented lines if we want to enable/disable service worker
-      // Use in case of emergency! (if something wrong with caching in production)
-      serviceWorkerModule.unregister();
+    serviceWorkerModule.register();
+    // switch commented lines if we want to enable/disable service worker
+    // Use in case of emergency! (if something wrong with caching in production)
+    // serviceWorkerModule.unregister();
+  });
+}
+
+/* Page tracking */
+if (process.env.NODE_ENV !== 'development') {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const title = document.querySelector('title')!;
+
+  let previousHref: null | string;
+
+  // mutation observer callback
+  const mutationObserver = () => {
+    const currentHref = window.location.href;
+    if (title.dataset.loaded && previousHref !== currentHref) {
+      // try/catch for if gtag is not defined (tests/localhost/dev)
+      try {
+        gtag('config', 'UA-6228219-1', {
+          page_location: currentHref,
+          page_path: window.location.pathname,
+          page_title: title.textContent,
+          send_page_view: true,
+        });
+      } catch {
+        /* */
+      }
+      previousHref = currentHref;
     }
+  };
+  // mutation observer, connect the observer callback
+  const titleMutationObserver = new MutationObserver(mutationObserver);
+
+  // start the observation of the title tag
+  titleMutationObserver.observe(title, {
+    childList: true,
+    attributes: true,
+    attributeFilter: ['data-loaded'],
   });
 }

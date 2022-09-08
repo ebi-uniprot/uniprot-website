@@ -74,6 +74,7 @@ UniRuleColumnConfiguration.set(UniRuleColumn.predictedProteinName, {
       <CSVView
         data={proteinDescription}
         bolderFirst={Boolean(proteinDescription.recommendedName)}
+        contextKey={UniRuleColumn.predictedProteinName}
       />
     );
   },

@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, Redirect } from 'react-router-dom';
 import { stringify } from 'query-string';
 import { Loader, Tabs, Tab } from 'franklin-sites';
 
@@ -17,9 +17,11 @@ import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
+import useDataApi from '../../../shared/hooks/useDataApi';
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 import useLocalStorage from '../../../shared/hooks/useLocalStorage';
 import useMatchWithRedirect from '../../../shared/hooks/useMatchWithRedirect';
+import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 import apiUrls from '../../../shared/config/apiUrls';
@@ -50,6 +52,7 @@ const Entry = () => {
     subPage?: TabLocation;
   }>(Location.UniParcEntry, TabLocation);
   const { search } = useLocation();
+  const smallScreen = useSmallScreen();
 
   const [columns] = useLocalStorage(
     `table columns for ${Namespace.uniparc} entry page` as const,
@@ -80,11 +83,16 @@ const Entry = () => {
         .join(','),
     })}`;
   }, [baseURL, search, columns]);
-  const dataObject = useDataApiWithStale<UniParcAPIModel>(
+  const dataObject = useDataApi<UniParcAPIModel>(
     // Hack to have the backend only return the base object without xref data
     `${baseURL}?taxonIds=0`
   );
-  const xrefsDataObject = useDataApiWithStale<UniParcAPIModel>(xRefsURL);
+  const wholeXrefsDataObject = useDataApi<UniParcAPIModel>(baseURL);
+  const partialXrefsDataObject = useDataApiWithStale<UniParcAPIModel>(
+    baseURL === xRefsURL ? null : xRefsURL
+  );
+  const xrefsDataObject =
+    baseURL === xRefsURL ? wholeXrefsDataObject : partialXrefsDataObject;
 
   if (dataObject.error || !match?.params.accession || !match) {
     return <ErrorHandler status={dataObject.status} />;
@@ -138,7 +146,6 @@ const Entry = () => {
     >
       <Tabs active={match.params.subPage}>
         <Tab
-          cache
           title={
             <Link
               to={getEntryPath(
@@ -165,23 +172,36 @@ const Entry = () => {
           <EntryMain
             transformedData={transformedData}
             xrefs={xrefsDataObject}
+            totalNResults={
+              wholeXrefsDataObject.data?.uniParcCrossReferences?.length
+            }
           />
         </Tab>
         <Tab
           title={
-            <Link
-              to={getEntryPath(
-                Namespace.uniparc,
-                match.params.accession,
-                TabLocation.FeatureViewer
-              )}
-            >
-              Feature viewer
-            </Link>
+            smallScreen ? null : (
+              <Link
+                to={getEntryPath(
+                  Namespace.uniparc,
+                  match.params.accession,
+                  TabLocation.FeatureViewer
+                )}
+              >
+                Feature viewer
+              </Link>
+            )
           }
           id={TabLocation.FeatureViewer}
         >
-          {transformedData.sequenceFeatures ? (
+          {smallScreen ? (
+            <Redirect
+              to={getEntryPath(
+                Namespace.uniparc,
+                match.params.accession,
+                TabLocation.Entry
+              )}
+            />
+          ) : (
             <>
               <HTMLHead
                 title={[
@@ -190,13 +210,15 @@ const Entry = () => {
                   searchableNamespaceLabels[Namespace.uniparc],
                 ]}
               />
-              <UniParcFeaturesView
-                data={transformedData.sequenceFeatures}
-                sequence={transformedData.sequence.value}
-              />
+              {transformedData.sequenceFeatures ? (
+                <UniParcFeaturesView
+                  data={transformedData.sequenceFeatures}
+                  sequence={transformedData.sequence.value}
+                />
+              ) : (
+                'No features available'
+              )}
             </>
-          ) : (
-            'No features available'
           )}
         </Tab>
       </Tabs>

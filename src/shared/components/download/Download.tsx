@@ -1,11 +1,12 @@
 import { useState, FC, ChangeEvent, useRef, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Button, LongNumber } from 'franklin-sites';
+import { Button, ExternalLink, LongNumber, Message } from 'franklin-sites';
 import cn from 'classnames';
 
 import ColumnSelect from '../column-select/ColumnSelect';
 import DownloadPreview from './DownloadPreview';
-import DownloadAPIURL from './DownloadAPIURL';
+import DownloadAPIURL, { DOWNLOAD_SIZE_LIMIT } from './DownloadAPIURL';
+import ContactLink from '../../../contact/components/ContactLink';
 
 import useColumnNames from '../../hooks/useColumnNames';
 import useJobFromUrl from '../../hooks/useJobFromUrl';
@@ -40,6 +41,7 @@ type DownloadProps = {
   accessions?: string[];
   base?: string;
   supportedFormats?: FileFormat[];
+  notCustomisable?: boolean;
 };
 
 type ExtraContent = 'url' | 'preview';
@@ -55,6 +57,7 @@ const Download: FC<DownloadProps> = ({
   accessions,
   base,
   supportedFormats,
+  notCustomisable,
 }) => {
   const { columnNames } = useColumnNames();
   const { search: queryParamFromUrl } = useLocation();
@@ -108,7 +111,7 @@ const Download: FC<DownloadProps> = ({
   // endpoint while the stream endpoint is required for downloads
   let downloadBase = base;
   if (jobResultsLocation === Location.IDMappingResult) {
-    if (jobResultsNamespace) {
+    if (jobResultsNamespace && !notCustomisable) {
       downloadBase = downloadBase?.replace('/results/', '/results/stream/');
     } else {
       downloadBase = downloadBase?.replace('/results/', '/stream/');
@@ -172,6 +175,8 @@ const Download: FC<DownloadProps> = ({
     },
     [scrollExtraIntoView]
   );
+
+  const downloadCount = downloadAll ? totalNumberResults : nSelectedEntries;
 
   return (
     <>
@@ -276,12 +281,20 @@ const Download: FC<DownloadProps> = ({
         <Button variant="secondary" onClick={onClose}>
           Cancel
         </Button>
+        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <a
-          href={downloadUrl}
-          className="button primary"
+          href={downloadCount > DOWNLOAD_SIZE_LIMIT ? undefined : downloadUrl}
+          className={cn('button', 'primary', {
+            disabled: downloadCount > DOWNLOAD_SIZE_LIMIT,
+          })}
+          title={
+            downloadCount > DOWNLOAD_SIZE_LIMIT
+              ? 'Download size is too big, please restrict your search'
+              : undefined
+          }
           target="_blank"
           rel="noreferrer"
-          onClick={onClose}
+          onClick={downloadCount > DOWNLOAD_SIZE_LIMIT ? undefined : onClose}
         >
           Download
         </a>
@@ -293,6 +306,7 @@ const Download: FC<DownloadProps> = ({
             apiURL={downloadUrl.replace('download=true&', '')}
             onCopy={onClose}
             onMount={scrollExtraIntoView}
+            count={downloadCount}
           />
         )}
         {extraContent === 'preview' && (
@@ -303,6 +317,20 @@ const Download: FC<DownloadProps> = ({
           />
         )}
       </section>
+      {jobResultsLocation === Location.IDMappingResult && (
+        <Message level="info" className="uniprot-grid-cell--span-12">
+          If you are experiencing any issue, feel free to try the{' '}
+          <ExternalLink
+            url="https://legacy.uniprot.org/uploadlists"
+            rel="nofollow"
+            noIcon
+          >
+            legacy website
+          </ExternalLink>{' '}
+          which will still be available for now, or{' '}
+          <ContactLink>contact us</ContactLink> for help.
+        </Message>
+      )}
     </>
   );
 };

@@ -1,28 +1,42 @@
-import { useMemo, Fragment } from 'react';
+import { useMemo, Fragment, ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { v1 } from 'uuid';
-import { Button } from 'franklin-sites';
+import { Button, Chip } from 'franklin-sites';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import FeaturesView, {
   LocationModifier,
   ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';
+import { RichText } from './FreeTextView';
+import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
+import LigandDescriptionView, {
+  Ligand,
+  LigandPart,
+} from './LigandDescriptionView';
+
+import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import listFormat from '../../../shared/utils/listFormat';
-import { getURLToJobWithData } from '../../../app/config/urls';
+import { getEntryPath, getURLToJobWithData } from '../../../app/config/urls';
 
 import { Evidence } from '../../types/modelTypes';
 import FeatureType from '../../types/featureType';
 import { Xref } from '../../../shared/types/apiModel';
 import { JobTypes } from '../../../tools/types/toolsJobTypes';
+import { Namespace } from '../../../shared/types/namespaces';
+import PtmExchangeEvidenceTag from './PtmExchangeEvidenceTag';
 
 type FeatureLocation = {
   value: number;
   modifier: LocationModifier;
 };
 
-export type FeatureData = {
+// TODO: remove Beta when API provides confidence score
+export type ConfidenceScore = 'Gold' | 'Silver' | 'Bronze' | 'Beta';
+
+export type FeatureDatum = {
   type: FeatureType;
   featureId?: string;
   description?: string; // Sometimes you do have an empty string though
@@ -36,12 +50,16 @@ export type FeatureData = {
     alternativeSequences?: string[];
   };
   evidences?: Evidence[];
-  featureCrossReference?: Xref;
-}[];
+  featureCrossReferences?: Xref[];
+  ligand?: Ligand;
+  ligandPart?: LigandPart;
+  source?: string;
+  confidenceScore?: ConfidenceScore;
+};
 
 export type ProtvistaFeature = {
   type: string;
-  description: string;
+  description: ReactNode;
   evidences: Evidence[];
   start: number;
   end: number;
@@ -52,17 +70,20 @@ export type ProtvistaFeature = {
 type FeatureProps = {
   primaryAccession: string;
   sequence?: string;
-  features: FeatureData;
+  features: FeatureDatum[];
   withTitle?: boolean;
   withDataTable?: boolean;
+  showSourceColumn?: boolean;
 };
 
 export const processFeaturesData = (
-  data: FeatureData,
-  sequence?: string
+  data: FeatureDatum[],
+  sequence?: string,
+  includeSource?: boolean
 ): ProcessedFeature[] =>
   data.map((feature): ProcessedFeature => {
     let s: string | undefined;
+    let description: ReactNode = feature.description || '';
     if (feature.alternativeSequence) {
       if (
         feature.alternativeSequence.originalSequence &&
@@ -80,10 +101,22 @@ export const processFeaturesData = (
       } else {
         s = 'Missing';
       }
+    } else if (feature.location.sequence) {
+      description = `In isoform ${feature.location.sequence}; ${description}`;
     } else {
       s = sequence?.substring(
         feature.location.start.value - 1,
         feature.location.end.value
+      );
+    }
+
+    if (feature.ligand) {
+      description = (
+        <LigandDescriptionView
+          ligand={feature.ligand}
+          ligandPart={feature.ligandPart}
+          description={description}
+        />
       );
     }
 
@@ -95,9 +128,11 @@ export const processFeaturesData = (
       startModifier: feature.location.start.modifier,
       endModifier: feature.location.end.modifier,
       type: feature.type,
-      description: feature.description,
+      description,
       evidences: feature.evidences,
       sequence: s,
+      source: includeSource ? feature.source || 'UniProt' : undefined,
+      confidenceScore: feature.confidenceScore,
     };
   });
 
@@ -107,15 +142,22 @@ const UniProtKBFeaturesView = ({
   features,
   withTitle = true,
   withDataTable = true,
+  showSourceColumn = false,
 }: FeatureProps) => {
   const processedData = useMemo(
-    () => processFeaturesData(features, sequence),
-    [features, sequence]
+    () => processFeaturesData(features, sequence, showSourceColumn),
+    [features, sequence, showSourceColumn]
   );
+
+  const smallScreen = useSmallScreen();
 
   if (processedData.length === 0) {
     return null;
   }
+
+  processedData.sort((a, b) =>
+    a.start === b.start ? a.end - b.end : a.start - b.start
+  );
 
   const table = (
     <table className={classNames(!withDataTable && 'data-table--compact')}>
@@ -124,8 +166,13 @@ const UniProtKBFeaturesView = ({
           <th data-filter="type">Type</th>
           <th>ID</th>
           <th>Position(s)</th>
+          {showSourceColumn && <th data-filter="source">Source</th>}
           <th>Description</th>
-          <th>{/* Intentionaly left blank */}</th>
+          {smallScreen ? null : (
+            <th>
+              {/* Intentionally left blank, corresponds to tools/basket */}
+            </th>
+          )}
         </tr>
       </thead>
       <tbody>
@@ -143,7 +190,31 @@ const UniProtKBFeaturesView = ({
             positionStart === positionEnd
               ? positionStart
               : `${positionStart}-${positionEnd}`;
-
+          let { description } = feature;
+          if (typeof feature.description === 'string') {
+            const isoform = feature.description.match(
+              /isoform\s([A-Z0-9]+-\d+)/i
+            )?.[1];
+            if (isoform) {
+              description = feature.description
+                ?.split(new RegExp(`(${isoform})`))
+                .map((part) => {
+                  if (part === isoform) {
+                    return (
+                      <Link
+                        key={part}
+                        to={getEntryPath(Namespace.uniprotkb, part)}
+                      >
+                        {part}
+                      </Link>
+                    );
+                  }
+                  return <RichText key={part}>{part}</RichText>;
+                });
+            } else {
+              description = <RichText>{feature.description}</RichText>;
+            }
+          }
           return (
             <Fragment key={feature.protvistaFeatureId}>
               <tr
@@ -154,33 +225,57 @@ const UniProtKBFeaturesView = ({
                 <td data-filter="type" data-filter-value={feature.type}>
                   {feature.type}
                 </td>
-                <td>{feature.featureId}</td>
+                <td id={feature.featureId}>{feature.featureId}</td>
                 <td>{position}</td>
+                {showSourceColumn && (
+                  <td data-filter="source" data-filter-value={feature.source}>
+                    {feature.source}
+                  </td>
+                )}
                 <td>
-                  {feature.description}
-                  <UniProtKBEvidenceTag evidences={feature.evidences} />
-                </td>
-                <td>
-                  {/* Not using React Router link as this is copied into the table DOM */}
-                  {feature.end - feature.start >= 2 && (
-                    <Button
-                      element="a"
-                      variant="tertiary"
-                      title="BLAST the sequence corresponding to this feature"
-                      href={getURLToJobWithData(
-                        JobTypes.BLAST,
-                        primaryAccession,
-                        {
-                          start: feature.start,
-                          end: feature.end,
-                        }
-                      )}
-                    >
-                      BLAST
-                    </Button>
+                  {description}
+                  {!!feature.confidenceScore && (
+                    <Chip className="secondary" compact>
+                      {feature.confidenceScore}
+                    </Chip>
                   )}
-                  {/* <Button>Add</Button> */}
+                  {feature.source === 'PTMeXchange' &&
+                  feature.confidenceScore ? (
+                    <PtmExchangeEvidenceTag
+                      evidences={feature.evidences}
+                      confidenceScore={feature.confidenceScore}
+                    />
+                  ) : (
+                    <UniProtKBEvidenceTag evidences={feature.evidences} />
+                  )}
                 </td>
+                {smallScreen ? null : (
+                  <td>
+                    {/* Not using React Router link as this is copied into the table DOM */}
+                    {feature.end - feature.start >= 2 && (
+                      <div className="button-group">
+                        <Button
+                          element="a"
+                          variant="tertiary"
+                          title="BLAST the sequence corresponding to this feature"
+                          href={getURLToJobWithData(
+                            JobTypes.BLAST,
+                            primaryAccession,
+                            {
+                              start: feature.start,
+                              end: feature.end,
+                            }
+                          )}
+                        >
+                          BLAST
+                        </Button>
+                        <AddToBasketButton
+                          selectedEntries={`${primaryAccession}[${feature.start}-${feature.end}]`}
+                        />
+                      </div>
+                    )}
+                  </td>
+                )}
               </tr>
               {feature.sequence && (
                 <tr

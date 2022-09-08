@@ -7,13 +7,15 @@ import {
   RedoxPotentialComment,
   TemperatureDependenceComment,
   TextWithEvidence,
-  FreeTextComment,
 } from '../types/commentTypes';
 import KeywordCategory from '../types/keywordCategory';
 import { FunctionFeatures } from '../types/featureType';
 import EntrySection from '../types/entrySection';
 import { convertSection, UIModel } from './sectionConverter';
-import { UniProtkbAPIModel } from './uniProtkbConverter';
+import {
+  UniProtkbAPIModel,
+  UniProtKBSimplifiedTaxonomy,
+} from './uniProtkbConverter';
 import { Evidence, GoEvidenceType } from '../types/modelTypes';
 import { Xref } from '../../shared/types/apiModel';
 
@@ -89,7 +91,7 @@ export type FunctionUIModel = {
   bioPhysicoChemicalProperties: BioPhysicoChemicalProperties;
   goTerms?: GroupedGoTerms;
   geneNamesData?: GeneNamesData;
-  organismData?: TaxonomyDatum;
+  organismData?: TaxonomyDatum | UniProtKBSimplifiedTaxonomy;
 } & UIModel;
 
 const keywordsCategories: KeywordCategory[] = [
@@ -135,15 +137,12 @@ export const functionFeaturesToColumns: Readonly<
 > = {
   Domain: UniProtKBColumn.ftDomain,
   Repeat: UniProtKBColumn.ftRepeat,
-  'Calcium binding': UniProtKBColumn.ftCaBind,
   'Zinc finger': UniProtKBColumn.ftZnFing,
   'DNA binding': UniProtKBColumn.ftDnaBind,
-  'Nucleotide binding': UniProtKBColumn.ftNpBind,
   Region: UniProtKBColumn.ftRegion,
   'Active site': UniProtKBColumn.ftActSite,
   'Coiled coil': UniProtKBColumn.ftCoiled,
   Motif: UniProtKBColumn.ftMotif,
-  'Metal binding': UniProtKBColumn.ftMetal,
   'Binding site': UniProtKBColumn.ftBinding,
   Site: UniProtKBColumn.ftSite,
 };
@@ -236,16 +235,6 @@ const convertFunction = (
     });
   }
   convertedSection.commentsData.delete('BIOPHYSICOCHEMICAL PROPERTIES');
-
-  // Remove isoform MISCELLANEOUS comments as they go in the Sequence section
-  const miscellaneousComments = convertedSection.commentsData
-    ?.get('MISCELLANEOUS')
-    ?.filter((comment) => !(comment as FreeTextComment).molecule);
-
-  convertedSection.commentsData.set(
-    'MISCELLANEOUS',
-    miscellaneousComments || []
-  );
 
   convertedSection.geneNamesData = data?.genes;
   convertedSection.organismData = data?.organism;

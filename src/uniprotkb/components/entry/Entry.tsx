@@ -1,5 +1,5 @@
 import { useMemo, useEffect, Suspense } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import { InPageNav, Loader, Tabs, Tab } from 'franklin-sites';
 import cn from 'classnames';
 import qs from 'query-string';
@@ -32,6 +32,7 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { useMessagesDispatch } from '../../../shared/contexts/Messages';
 import useMatchWithRedirect from '../../../shared/hooks/useMatchWithRedirect';
+import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 
@@ -115,6 +116,7 @@ const Entry = () => {
     TabLocation.Entry,
     legacyToNewSubPages
   );
+  const smallScreen = useSmallScreen();
 
   const { loading, data, status, error, redirectedTo, progress } =
     useDataApi<UniProtkbAPIModel>(
@@ -186,35 +188,44 @@ const Entry = () => {
     ) {
       const split = new URL(redirectedTo).pathname.split('/');
       const newEntry = split[split.length - 1];
-      dispatch(
-        addMessage({
-          id: 'accession-merge',
-          content: (
-            <>
-              {match.params.accession} has been merged into {newEntry}. You have
-              automatically been redirected. To see {match.params.accession}
-              &apos;s history,{' '}
-              <Link
-                to={getEntryPath(
-                  Namespace.uniprotkb,
-                  match.params.accession,
-                  TabLocation.History
-                )}
-              >
-                click here
-              </Link>
-              .
-            </>
-          ),
-          format: MessageFormat.IN_PAGE,
-          level: MessageLevel.SUCCESS,
-          tag: MessageTag.REDIRECT,
-        })
-      );
-      frame().then(() => {
-        history.replace(
-          getEntryPath(Namespace.uniprotkb, newEntry, TabLocation.Entry)
+      // If the redirection is because of ID or version in which case, the following message doesn't make sense
+      if (
+        !match?.params.accession.includes('_') &&
+        !match?.params.accession.includes('.')
+      ) {
+        dispatch(
+          addMessage({
+            id: 'accession-merge',
+            content: (
+              <>
+                {match.params.accession} has been merged into {newEntry}. You
+                have automatically been redirected. To see{' '}
+                {match.params.accession}
+                &apos;s history,{' '}
+                <Link
+                  to={getEntryPath(
+                    Namespace.uniprotkb,
+                    match.params.accession,
+                    TabLocation.History
+                  )}
+                >
+                  click here
+                </Link>
+                .
+              </>
+            ),
+            format: MessageFormat.IN_PAGE,
+            level: MessageLevel.SUCCESS,
+            tag: MessageTag.REDIRECT,
+          })
         );
+      }
+      frame().then(() => {
+        // If accession contains version, it should be redirected to History tab
+        const activeTab = match?.params.accession.includes('.')
+          ? TabLocation.History
+          : TabLocation.Entry;
+        history.replace(getEntryPath(Namespace.uniprotkb, newEntry, activeTab));
       });
     }
     // (I hope) I know what I'm doing here, I want to stick with whatever value
@@ -318,9 +329,11 @@ const Entry = () => {
         )
       }
     >
+      <HTMLHead>
+        <link rel="canonical" href={window.location.href} />
+      </HTMLHead>
       <Tabs active={match.params.subPage}>
         <Tab
-          cache={!historyOldEntry}
           title={
             <Link
               className={historyOldEntry ? helper.disabled : undefined}
@@ -382,32 +395,44 @@ const Entry = () => {
         </Tab>
         <Tab
           title={
-            <Link
-              className={historyOldEntry ? helper.disabled : undefined}
-              tabIndex={historyOldEntry ? -1 : undefined}
-              to={getEntryPath(
-                Namespace.uniprotkb,
-                match.params.accession,
-                TabLocation.FeatureViewer
-              )}
-            >
-              Feature viewer
-            </Link>
+            smallScreen ? null : (
+              <Link
+                className={historyOldEntry ? helper.disabled : undefined}
+                tabIndex={historyOldEntry ? -1 : undefined}
+                to={getEntryPath(
+                  Namespace.uniprotkb,
+                  match.params.accession,
+                  TabLocation.FeatureViewer
+                )}
+              >
+                Feature viewer
+              </Link>
+            )
           }
           id={TabLocation.FeatureViewer}
           onPointerOver={FeatureViewer.preload}
           onFocus={FeatureViewer.preload}
         >
-          <Suspense fallback={<Loader />}>
-            <HTMLHead
-              title={[
-                pageTitle,
-                'Feature viewer',
-                searchableNamespaceLabels[Namespace.uniprotkb],
-              ]}
+          {smallScreen ? (
+            <Redirect
+              to={getEntryPath(
+                Namespace.uniprotkb,
+                match.params.accession,
+                TabLocation.Entry
+              )}
             />
-            <FeatureViewer accession={match.params.accession} />
-          </Suspense>
+          ) : (
+            <Suspense fallback={<Loader />}>
+              <HTMLHead
+                title={[
+                  pageTitle,
+                  'Feature viewer',
+                  searchableNamespaceLabels[Namespace.uniprotkb],
+                ]}
+              />
+              <FeatureViewer accession={match.params.accession} />
+            </Suspense>
+          )}
         </Tab>
         <Tab
           title={
@@ -428,6 +453,17 @@ const Entry = () => {
           onFocus={EntryPublications.preload}
         >
           <Suspense fallback={<Loader />}>
+            <div className="button-group">
+              <CommunityAnnotationLink accession={match.params.accession} />
+              <a
+                href={externalUrls.CommunityCurationAdd(match.params.accession)}
+                className="button tertiary"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Add a publication
+              </a>
+            </div>
             <HTMLHead
               title={[
                 pageTitle,

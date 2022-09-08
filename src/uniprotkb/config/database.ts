@@ -37,7 +37,11 @@ export const getPDBMirrorsInfo = (
 
 export type EntrySectionToDatabaseNames = Map<EntrySection, string[]>;
 
-// TODO: figure out where OTG and PRM go? https://www.ebi.ac.uk/panda/jira/browse/TRM-27105
+// NOTE: the categories OTG & PRM each map to a single DB: quickgo and uniprot/proteomes, respectively.
+// Both of these DBs are present outside of the standard xrefs sections: go-ribbon and names & taxonomy, respectively.
+// For this reason OTG & PRM are not currently found in the mapping below. However, if at some point
+// additional DBs are added then it will have to be decided where these categories should reside within the entry page.
+// For historical context view https://www.ebi.ac.uk/panda/jira/browse/TRM-27105
 export const getEntrySectionToDatabaseNames = (
   databaseCategoryToNames: DatabaseCategoryToNames
 ): EntrySectionToDatabaseNames => {
@@ -60,6 +64,8 @@ export const getEntrySectionToDatabaseNames = (
     'DMDM',
     'Allergome',
     'PHI-base',
+    'ClinGen', // Implicit
+    'GenCC', // Implicit
   ]);
   entrySectionToDatabaseNames.set(
     EntrySection.Expression,
@@ -158,6 +164,8 @@ export const getEntrySectionToDatabaseNames = (
         'HUGE', // Implicit
         'Rouge', // Implicit
         'GenAtlas', // Implicit
+        'ClinGen', // Implicit
+        'GenCC', // Implicit
         ...PDBMirrors,
       ],
     })
@@ -172,7 +180,7 @@ export const implicitDatabaseDRPresence: { [key: string]: string[] } = {
   PDB: ['PDBe-KB'], // eg P05067
   MIM: ['SOURCE_MIM'], // eg P05067
   MGI: ['SOURCE_MGI'], // eg E9PXF8
-  HGNC: ['GenAtlas'], // eg Q9Y263
+  HGNC: ['GenAtlas', 'ClinGen', 'GenCC'], // eg Q9Y263
 };
 
 // If each of the keys are not present then show the value

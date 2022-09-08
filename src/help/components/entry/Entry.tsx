@@ -1,5 +1,10 @@
 import { useCallback, MouseEventHandler, useMemo, useEffect } from 'react';
-import { generatePath, RouteChildrenProps, useHistory } from 'react-router-dom';
+import {
+  generatePath,
+  Redirect,
+  RouteChildrenProps,
+  useHistory,
+} from 'react-router-dom';
 import { Card, Loader } from 'franklin-sites';
 import { marked } from 'marked';
 import {
@@ -10,10 +15,12 @@ import {
   IOptions,
 } from 'sanitize-html';
 import cn from 'classnames';
+import qs from 'query-string';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
 import SingleColumnLayout from '../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
+import RelatedArticles from './RelatedArticles';
 
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 
@@ -190,7 +197,6 @@ const HelpEntry = ({
     data: loadedData,
     loading,
     error,
-    status,
     progress,
     isStale,
   } = useDataApiWithStale<HelpEntryResponse>(url);
@@ -209,7 +215,16 @@ const HelpEntry = ({
   }
 
   if (error || !data) {
-    return <ErrorHandler status={status} />;
+    return (
+      <Redirect
+        to={{
+          pathname: LocationToPath[Location.HelpResults],
+          search: qs.stringify({
+            query: accession?.replaceAll('_', ' ') || '*',
+          }),
+        }}
+      />
+    );
   }
 
   if (inPanel) {
@@ -242,6 +257,9 @@ const HelpEntry = ({
         <HelpEntryContent data={data} />
       </Card>
       {!isReleaseNotes && dateNode}
+      {!loading && accession && data.categories?.length ? (
+        <RelatedArticles current={accession} categories={data.categories} />
+      ) : null}
     </SingleColumnLayout>
   );
 };

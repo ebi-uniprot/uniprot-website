@@ -26,7 +26,7 @@ export const KeywordItem = ({ id, value }: KeywordItempProps) => {
   if (!id || !value) {
     return null;
   }
-  return <Link to={getEntryPath(Namespace.keywords, id)}>{` #${value}`}</Link>;
+  return <Link to={getEntryPath(Namespace.keywords, id)}>#{value}</Link>;
 };
 
 export const KeywordList = ({ keywords, idOnly, inline }: KeywordListProps) => {
@@ -38,6 +38,7 @@ export const KeywordList = ({ keywords, idOnly, inline }: KeywordListProps) => {
     return (
       // eslint-disable-next-line react/no-array-index-key
       <Fragment key={index}>
+        {' '}
         <KeywordItem id={id} value={idOnly ? id : name} />
         {!inline && <UniProtKBEvidenceTag evidences={evidences} />}
       </Fragment>

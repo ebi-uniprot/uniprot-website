@@ -12,12 +12,15 @@ import {
 import { useHistory, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import { MainSearch, Button, SlidingPanel } from 'franklin-sites';
+import { SearchAction, WebSite, WithContext } from 'schema-dts';
 
 import ErrorBoundary from '../error-component/ErrorBoundary';
 
 import useJobFromUrl from '../../hooks/useJobFromUrl';
 import useIDMappingDetails from '../../hooks/useIDMappingDetails';
+import useStructuredData from '../../hooks/useStructuredData';
 import { useMessagesDispatch } from '../../contexts/Messages';
+import { useSmallScreen } from '../../hooks/useMatchMedia';
 
 import lazy from '../../utils/lazy';
 import { addMessage } from '../../../messages/state/messagesActions';
@@ -87,7 +90,7 @@ const examples: Record<SearchableNamespace, string[]> = {
     'Thornton',
     'J. Exp. Biol.',
     'COVID-19',
-    `${new Date().getFullYear()}`,
+    `published:${new Date().getFullYear()}`,
   ],
   [Namespace.diseases]: ['Alzheimer disease 3', 'Breast cancer', 'Dementia'],
   [Namespace.database]: ['PDB', 'IntAct', 'Pfam', 'GO', 'OMIM'],
@@ -119,6 +122,27 @@ type Props = {
   onSearchspaceChange: (searchspace: Searchspace) => void;
 };
 
+const webSiteSchemaFor = (namespace: Searchspace): WithContext<WebSite> => ({
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  url: 'https://www.uniprot.org',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: `https://www.uniprot.org/${
+        namespace === toolResults ? Namespace.uniprotkb : namespace
+      }?query={q}`,
+    },
+    'query-input': 'required name=q',
+  } as SearchAction,
+});
+
+type MainSearchSecondaryButton = {
+  label: string;
+  action: () => void;
+};
+
 const SearchContainer: FC<
   Props & Exclude<HTMLAttributes<HTMLDivElement>, 'role'>
 > = ({ isOnHomePage, searchspace, onSearchspaceChange, ...props }) => {
@@ -128,6 +152,8 @@ const SearchContainer: FC<
   // local state to hold the search value without modifying URL
   const [searchTerm, setSearchTerm] = useState<string>('');
   const handleClose = useCallback(() => setDisplayQueryBuilder(false), []);
+
+  useStructuredData(webSiteSchemaFor(searchspace));
 
   const dispatch = useMessagesDispatch();
   const idMappingDetails = useIDMappingDetails();
@@ -193,32 +219,39 @@ const SearchContainer: FC<
     setSearchTerm(example);
   };
 
+  const smallScreen = useSmallScreen();
   const secondaryButtons = useMemo(
-    () => [
-      {
-        label:
-          // TODO:
-          // <span
-          //   onPointerOver={QueryBuilder.preload}
-          //   onFocus={QueryBuilder.preload}
-          // >
-          //   Advanced
-          // </span>
-          'Advanced',
-        action: () => {
-          setDisplayQueryBuilder((value) => !value);
+    () =>
+      [
+        {
+          label:
+            // TODO:
+            // <span
+            //   onPointerOver={QueryBuilder.preload}
+            //   onFocus={QueryBuilder.preload}
+            // >
+            //   Advanced
+            // </span>
+            'Advanced',
+          action: () => {
+            setDisplayQueryBuilder((value) => !value);
+          },
         },
-      },
-      {
-        label: 'List',
-        action: () => {
-          history.push({
-            pathname: LocationToPath[Location.IDMapping],
-          });
-        },
-      },
-    ],
-    [history]
+        smallScreen
+          ? null
+          : {
+              label: 'List',
+              action: () => {
+                history.push({
+                  pathname: LocationToPath[Location.IDMapping],
+                });
+              },
+            },
+      ].filter(
+        (x: MainSearchSecondaryButton | null): x is MainSearchSecondaryButton =>
+          Boolean(x)
+      ),
+    [history, smallScreen]
   );
 
   // reset the text content when there is a navigation to reflect what is in the
@@ -227,7 +260,12 @@ const SearchContainer: FC<
     const { query } = parseQueryString(location.search, { decode: true });
     // Using history here because history won't change, while location will
     if (
-      history.location.pathname.includes(LocationToPath[Location.HelpResults])
+      history.location.pathname.includes(
+        LocationToPath[Location.HelpResults]
+      ) ||
+      history.location.pathname.includes(
+        LocationToPath[Location.ReleaseNotesResults]
+      )
     ) {
       return;
     }
@@ -271,18 +309,6 @@ const SearchContainer: FC<
                 </>
               )}
             </div>
-            {/* 
-            Note: if user testing validates the "list" link in the input
-            remove this
-            <div>
-              <Button
-                variant="tertiary"
-                element={Link}
-                to={LocationToPath[Location.IDMapping]}
-              >
-                Search with a list of IDs
-              </Button>
-            </div> */}
           </div>
         )}
       </section>

@@ -12,7 +12,6 @@ import {
 } from '../../shared/types/namespaces';
 import { databaseToNamespace } from '../../tools/blast/config/BlastFormData';
 
-import EntrySection from '../../uniprotkb/types/entrySection';
 import { FormParameters as IdMappingFormParameters } from '../../tools/id-mapping/types/idMappingFormParameters';
 import { FormParameters as BLASTFormParameters } from '../../tools/blast/types/blastFormParameters';
 import { Job, FinishedJob } from '../../tools/types/toolsJob';
@@ -220,11 +219,12 @@ export const getEntryPath = (
   subPage?: string
 ) => {
   const acc = `${accession}`;
+  // Isoform case
   if (namespace === Namespace.uniprotkb && acc.includes('-')) {
     return `${generatePath(EntryLocations[namespace], {
       accession: acc.split('-')[0],
       subPage,
-    })}#${EntrySection.Sequence}`;
+    })}#${acc}`;
   }
   return generatePath(EntryLocations[namespace], {
     accession: acc,

@@ -1,4 +1,4 @@
-const reIds = /(?<id>\w+-?\d*)(\[(?<start>\d+)-(?<end>\d+)\])?/;
+export const reIds = /(?<id>\w+-?\d*)(\[(?<start>\d+)-(?<end>\d+)\])?/;
 // Note: also supporting isoform in regex
 
 export type IdMaybeWithRange = {
@@ -8,10 +8,9 @@ export type IdMaybeWithRange = {
 };
 
 export const parseIdsFromSearchParams = (
-  searchParamIds: string
+  searchParamIds: string[]
 ): IdMaybeWithRange[] =>
   searchParamIds
-    .split(',')
     .map((searchParamId): IdMaybeWithRange => {
       const { id, start, end } = searchParamId.match(reIds)?.groups || {};
       return start && end

@@ -1,10 +1,10 @@
 import {
   cleanupOutdatedCaches,
-  precacheAndRoute,
-  createHandlerBoundToURL,
+  // precacheAndRoute,
+  // createHandlerBoundToURL,
 } from 'workbox-precaching';
 import { clientsClaim } from 'workbox-core';
-import { registerRoute, NavigationRoute, Route } from 'workbox-routing';
+import { registerRoute /* , NavigationRoute */, Route } from 'workbox-routing';
 import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
@@ -21,7 +21,7 @@ const MINUTE = 60; // seconds
 const HOUR = 60 * MINUTE;
 const DAY = 24 * HOUR;
 const WEEK = 7 * DAY;
-const YEAR = 365 * DAY;
+// const YEAR = 365 * DAY;
 
 // cleans caches that are not needed anymore
 // see: https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-precaching#.cleanupOutdatedCaches
@@ -36,8 +36,15 @@ self.addEventListener('message', (event) => {
 // https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-core#.clientsClaim
 clientsClaim();
 
-// eslint-disable-next-line no-underscore-dangle
-precacheAndRoute(self.__WB_MANIFEST);
+// eslint-disable-next-line no-underscore-dangle, @typescript-eslint/no-unused-vars
+const appFiles = self.__WB_MANIFEST;
+
+// // Precache and route for app logic not activated yet!
+// precacheAndRoute(
+//   appFiles,
+//   // Ignore all URL parameters
+//   { ignoreURLParametersMatching: [/.*/] }
+// );
 // this argument is the injection point for the webpack InjectManifest plugin,
 // injecting a list of all necessary assets to precache.
 
@@ -47,18 +54,18 @@ precacheAndRoute(self.__WB_MANIFEST);
 
 /* routes: */
 
-// respond to all 'navigation' requests with this document (browsing)
-registerRoute(
-  new NavigationRoute(createHandlerBoundToURL(`${BASE_URL}index.html`), {
-    // Let the request fall through to the server that will handle either
-    // serving or redirecting. This is only triggered for "navigation" requests.
-    denylist: [
-      /^\/sitemap/,
-      /\?format=/,
-      /.+\/.+\.(fasta|gff|json|list|obo|rdf|tab|tsv|ttl|txt|xlsx|xml)$/i,
-    ],
-  })
-);
+// // respond to all 'navigation' requests with this document (browsing)
+// registerRoute(
+//   new NavigationRoute(createHandlerBoundToURL(`${BASE_URL}index.html`), {
+//     // Let the request fall through to the server that will handle either
+//     // serving or redirecting. This is only triggered for "navigation" requests.
+//     denylist: [
+//       /^\/sitemap/,
+//       /\?format=/,
+//       /.+\/.+\.(fasta|gff|json|list|obo|rdf|tab|tsv|ttl|txt|xlsx|xml)$/i,
+//     ],
+//   })
+// );
 
 // https://www.ebi.ac.uk/interpro/api/entry/interpro/protein/uniprot/A1L3X0?page_size=100&type=family
 // external APIs - Stale While Revalidate
@@ -98,7 +105,8 @@ registerRoute(
         }),
         new ExpirationPlugin({
           maxEntries: 500,
-          maxAgeSeconds: 4 * WEEK,
+          // maxAgeSeconds: 4 * WEEK,
+          maxAgeSeconds: 1 * WEEK,
           purgeOnQuotaError: true,
         }),
       ],
@@ -109,22 +117,30 @@ registerRoute(
 // external images - Cache First
 registerRoute(
   new Route(
-    ({ request, url }) =>
-      request.destination === 'font' ||
-      request.destination === 'image' ||
-      // versioned scripts served from unpkg
-      (request.destination === 'script' &&
-        url.origin === 'https://unpkg.com' &&
-        /@\d/.test(url.pathname)) ||
-      // those are images, even if downloaded through XHR
-      url.origin === 'https://www.swissbiopics.org',
+    ({ request, url }) => {
+      // Don't cache the Google Analytics tracking gif
+      if (url.origin === 'https://www.google-analytics.com') {
+        return false;
+      }
+      return (
+        request.destination === 'font' ||
+        request.destination === 'image' ||
+        // versioned scripts served from unpkg
+        (request.destination === 'script' &&
+          url.origin === 'https://unpkg.com' &&
+          /@\d/.test(url.pathname)) ||
+        // those are images, even if downloaded through XHR
+        url.origin === 'https://www.swissbiopics.org'
+      );
+    },
     new CacheFirst({
       cacheName: CacheName.ImagesFontsAndScripts,
       plugins: [
         new CacheableResponsePlugin({ statuses: [0, 200] }),
         new ExpirationPlugin({
           maxEntries: 150,
-          maxAgeSeconds: 5 * WEEK,
+          // maxAgeSeconds: 5 * WEEK,
+          maxAgeSeconds: 2 * WEEK,
           purgeOnQuotaError: true,
         }),
       ],
@@ -151,7 +167,8 @@ registerRoute(
       plugins: [
         new ExpirationPlugin({
           maxEntries: 750,
-          maxAgeSeconds: 1 * YEAR,
+          // maxAgeSeconds: 1 * YEAR,
+          maxAgeSeconds: 1 * WEEK,
           purgeOnQuotaError: true,
         }),
       ],
@@ -171,7 +188,8 @@ registerRoute(
         new BroadcastUpdatePlugin(),
         new ExpirationPlugin({
           maxEntries: 750,
-          maxAgeSeconds: 8 * WEEK,
+          // maxAgeSeconds: 8 * WEEK,
+          maxAgeSeconds: 1 * WEEK,
           purgeOnQuotaError: true,
         }),
       ],
@@ -190,7 +208,7 @@ registerRoute(
       plugins: [
         new ExpirationPlugin({
           maxEntries: 50,
-          maxAgeSeconds: 1 * DAY,
+          maxAgeSeconds: 2 * DAY,
           purgeOnQuotaError: true,
         }),
       ],
@@ -210,7 +228,7 @@ registerRoute(
       plugins: [
         new ExpirationPlugin({
           maxEntries: 800,
-          maxAgeSeconds: 8 * WEEK,
+          maxAgeSeconds: 1 * WEEK,
           purgeOnQuotaError: true,
         }),
       ],
@@ -222,7 +240,7 @@ registerRoute(
 const needsFreshData = /\/(contact|status)\//;
 
 // stale while revalidate until we find a way to read and process the
-// 'x-release-date' header and dump the cache when that changes
+// 'x-uniprot-release-date' header and dump the cache when that changes
 // UniProt website API - Stale While Revalidate
 registerRoute(
   new Route(
@@ -234,8 +252,10 @@ registerRoute(
       plugins: [
         new BroadcastUpdatePlugin({
           headersToCheck: [
-            'x-release-date',
-            'x-release-number',
+            'x-uniprot-release-date',
+            'x-uniprot-release',
+            // NOTE: deployment-date will be different depending on the endpoint
+            'x-api-deployment-date',
             // NOTE: "Content-Length" doesn't work for that now as it is
             // NOTE: inconsistently set by the server
             // 'Content-Length',
@@ -243,7 +263,8 @@ registerRoute(
         }),
         new ExpirationPlugin({
           maxEntries: 750,
-          maxAgeSeconds: 8 * WEEK,
+          // maxAgeSeconds: 8 * WEEK,
+          maxAgeSeconds: 1 * WEEK,
           purgeOnQuotaError: true,
         }),
       ],

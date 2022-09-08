@@ -2,14 +2,17 @@ import { Link } from 'react-router-dom';
 import { ExpandableList } from 'franklin-sites';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
+import KeywordsGraph from '../components/entry/KeywordsGraph';
 
 import { getEntryPathFor } from '../../../app/config/urls';
 import externalUrls from '../../../shared/config/externalUrls';
 import { mapToLinks } from '../../../shared/components/MapTo';
 
-import { KeywordsAPIModel } from '../adapters/keywordsConverter';
+import { KeywordsAPIModel, KeywordsLite } from '../adapters/keywordsConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 import { Namespace } from '../../../shared/types/namespaces';
+
+const CUTOFF = 10;
 
 export enum KeywordsColumn {
   category = 'category',
@@ -24,6 +27,7 @@ export enum KeywordsColumn {
   links = 'links',
   statistics = 'statistics',
   synonyms = 'synonyms',
+  graphical = 'graph',
 }
 
 export const defaultColumns = [
@@ -150,6 +154,100 @@ KeywordsColumnConfiguration.set(KeywordsColumn.statistics, {
       )}
     </ExpandableList>
   ),
+});
+
+KeywordsColumnConfiguration.set(KeywordsColumn.graphical, {
+  label: 'Graphical',
+  render: ({ keyword, parents, children }) => {
+    // If the number of nodes are more than the cutoff, no graph is drawn
+    if (
+      (children && children?.length > CUTOFF) ||
+      (parents && parents?.length > CUTOFF)
+    ) {
+      return null;
+    }
+
+    type tlevels = {
+      [key: number]: string[];
+    };
+
+    const levels: tlevels = {};
+    const links: Set<string> = new Set();
+    const keywordIdMap: Map<string, string> = new Map();
+    const ancestorHierarchy: string[] = [];
+
+    // Ancestors
+    const findHierarchy = (obj: KeywordsLite, str: string) => {
+      keywordIdMap.set(obj.keyword.name, obj.keyword.id);
+      let hierarchyString = str;
+      hierarchyString += `${obj.keyword?.name}|`;
+      obj.children?.forEach((el) => {
+        if (el.children?.length) {
+          findHierarchy(el, hierarchyString);
+        } else {
+          keywordIdMap.set(el.keyword.name, el.keyword.id);
+          hierarchyString += `${el.keyword.name}`;
+        }
+      });
+      if (!ancestorHierarchy.some((str) => str === hierarchyString)) {
+        ancestorHierarchy.push(hierarchyString);
+      }
+    };
+
+    if (children?.length) {
+      children.forEach((child) => {
+        findHierarchy(child, '');
+      });
+    }
+
+    ancestorHierarchy.forEach((h) => {
+      const nodes = h.split('|').reverse().filter(Boolean);
+      // Finding the levels of each node
+      for (let i = 0; i < nodes.length; i += 1) {
+        if (levels[i]) {
+          if (!Object.values(levels).flat().includes(nodes[i])) {
+            levels[i].push(nodes[i]);
+          }
+        } else {
+          levels[i] = [nodes[i]];
+        }
+      }
+
+      // Populating the links
+      const fullHierarchy = `${keyword?.name}|${h}`;
+      const ptcHierarchy = fullHierarchy.split('|').reverse().filter(Boolean);
+      for (let i = 0; i < ptcHierarchy.length - 1; i += 1) {
+        const link = `${ptcHierarchy[i]}|${ptcHierarchy[i + 1]}`;
+        links.add(link);
+      }
+    });
+
+    // Adding the keyword into the levels after the ancestors
+    const presentAncestorsCount = Object.keys(levels).length;
+    if (keyword?.name && keyword?.id) {
+      keywordIdMap.set(keyword.name, keyword.id);
+      levels[presentAncestorsCount] = [keyword.name];
+    }
+
+    // Descendants
+    if (parents?.length) {
+      levels[presentAncestorsCount + 1] = [];
+      parents.forEach((desc) => {
+        levels[presentAncestorsCount + 1].push(desc.keyword.name);
+        links.add(`${keyword?.name}|${desc.keyword.name}`);
+        keywordIdMap.set(desc.keyword.name, desc.keyword.id);
+      });
+    }
+
+    return (
+      <KeywordsGraph
+        nodes={levels}
+        links={links}
+        keywords={keywordIdMap}
+        currentKeyword={keyword?.id}
+      />
+    );
+  },
 });
 
 export default KeywordsColumnConfiguration;

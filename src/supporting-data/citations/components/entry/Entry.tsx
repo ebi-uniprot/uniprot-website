@@ -1,5 +1,5 @@
-import { RouteChildrenProps } from 'react-router-dom';
 import { Loader, Card } from 'franklin-sites';
+import { RouteChildrenProps } from 'react-router-dom';
 import { SetOptional } from 'type-fest';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
@@ -7,6 +7,7 @@ import SingleColumnLayout from '../../../../shared/components/layouts/SingleColu
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import EntryDownload from '../../../../shared/components/entry/EntryDownload';
 import LiteratureCitation from '../LiteratureCitation';
+import RelatedResults from '../../../../shared/components/results/RelatedResults';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
@@ -35,6 +36,15 @@ const CitationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
     return <Loader progress={progress} />;
   }
 
+  const hasRelated = Boolean(
+    data.statistics?.reviewedProteinCount ||
+      data.statistics?.unreviewedProteinCount ||
+      data.statistics?.communityMappedProteinCount ||
+      data.statistics?.computationallyMappedProteinCount
+  );
+
+  const relatedQuery = `(lit_citation_id:${accession}) OR (computational_pubmed_id:${accession}) OR (community_pubmed_id:${accession})`;
+
   return (
     <SingleColumnLayout>
       <HTMLHead
@@ -52,6 +62,7 @@ const CitationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
         </div>
         <LiteratureCitation data={data} displayAll headingLevel="h2" />
       </Card>
+      {hasRelated && <RelatedResults relatedQuery={relatedQuery} />}
     </SingleColumnLayout>
   );
 };

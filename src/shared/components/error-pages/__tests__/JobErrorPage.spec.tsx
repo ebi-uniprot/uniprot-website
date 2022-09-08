@@ -4,7 +4,7 @@ import JobErrorPage from '../JobErrorPage';
 
 describe('JobErrorPage component', () => {
   test('should render', () => {
-    const { asFragment } = customRender(<JobErrorPage />);
+    const { asFragment } = customRender(<JobErrorPage message={<b>Foo</b>} />);
     expect(asFragment()).toMatchSnapshot();
   });
 });

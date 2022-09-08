@@ -60,7 +60,13 @@ exports[`UniProtKBEvidenceTag components should render automatic  2`] = `
           (Automatically imported)
         </small>
       </h5>
-      <div />
+      <ul
+        class="expandable-list no-bullet"
+      >
+        <li>
+          <span />
+        </li>
+      </ul>
     </div>
   </div>
 </DocumentFragment>
@@ -126,20 +132,26 @@ exports[`UniProtKBEvidenceTag components should render automatic annotation 2`] 
           (Inferred from sequence model)
         </small>
       </h5>
-      <div>
-        <a
-          class="external-link"
-          href="https://prosite.expasy.org/unirule/PRU10023"
-          rel="noopener"
-          target="_blank"
-        >
-          UniRule PROSITE-ProRule: PRU10023
-          <test-file-stub
-            data-testid="external-link-icon"
-            width="12.5"
-          />
-        </a>
-      </div>
+      <ul
+        class="expandable-list no-bullet"
+      >
+        <li>
+          <span>
+            <a
+              class="external-link"
+              href="https://prosite.expasy.org/unirule/PRU10023"
+              rel="noopener"
+              target="_blank"
+            >
+              UniRule PROSITE-ProRule: PRU10023
+              <test-file-stub
+                data-testid="external-link-icon"
+                width="12.5"
+              />
+            </a>
+          </span>
+        </li>
+      </ul>
     </div>
   </div>
 </DocumentFragment>

@@ -99,6 +99,7 @@ export const SequenceInfo = ({
     <LazyComponent
       fallback={
         <div className={styles['lazy-fallback']}>
+          <InfoList infoData={infoData} />
           {dataToDisplay?.value || null}
         </div>
       }
@@ -225,7 +226,9 @@ export const IsoformInfo = ({
   const name = isoformData.isoformIds.join(', ');
   return (
     <Fragment key={isoformData.isoformIds.join('')}>
-      <h3 id={`Isoform_${isoformData.name.value || name}`}>{name}</h3>
+      <h3 id={`Isoform_${isoformData.name.value || name}`}>
+        <span id={name}>{name}</span>
+      </h3>
       {isoformData.isoformSequenceStatus === 'Displayed' && (
         <p>
           {'This isoform has been chosen as the '}

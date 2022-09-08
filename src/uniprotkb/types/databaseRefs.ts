@@ -11,13 +11,16 @@ export enum DatabaseCategory {
   PATHWAY = 'EAP',
   PHYLOGENOMIC = 'PLG',
   GENETIC_VARIATION = 'GVD',
-  GENE_ONTOLOGY = 'OTG',
   PROTEOMIC = 'PROTEOMIC',
-  PROTEOMES = 'PRM',
   PROTOCOL = 'PAM',
   PTM = 'PTM',
   SEQUENCE = 'SEQ',
   STRUCTURE = '3DS',
+  // NOTE: the following categories are not used. See:
+  //  - note at getEntrySectionToDatabaseNames
+  //  - https://www.ebi.ac.uk/panda/jira/browse/TRM-27105
+  GENE_ONTOLOGY = 'OTG',
+  PROTEOMES = 'PRM',
 }
 
 export type AttributesItem = {

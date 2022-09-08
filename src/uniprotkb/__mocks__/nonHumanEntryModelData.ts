@@ -1,19 +1,19 @@
 import { UniProtkbAPIModel } from '../adapters/uniProtkbConverter';
 
 // Source: /api/uniprotkb/P0DTR4
-// Retrieved: 2021-10-15
+// Retrieved: 2022-08-02
 const mock: UniProtkbAPIModel = {
   entryType: 'UniProtKB reviewed (Swiss-Prot)',
   primaryAccession: 'P0DTR4',
   uniProtkbId: 'ADAC_FLAPL',
   entryAudit: {
     firstPublicDate: '2019-11-13',
-    lastAnnotationUpdateDate: '2021-06-02',
+    lastAnnotationUpdateDate: '2022-08-03',
     lastSequenceUpdateDate: '2019-11-13',
-    entryVersion: 7,
+    entryVersion: 10,
     sequenceVersion: 1,
   },
-  annotationScore: 105.9,
+  annotationScore: 5,
   organism: {
     scientificName: 'Flavonifractor plautii',
     commonName: 'Fusobacterium plautii',
@@ -381,7 +381,65 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
-      type: 'Metal binding',
+      type: 'Binding site',
+      location: {
+        start: {
+          value: 87,
+          modifier: 'EXACT',
+        },
+        end: {
+          value: 87,
+          modifier: 'EXACT',
+        },
+      },
+      description: '',
+      evidences: [
+        {
+          evidenceCode: 'ECO:0000269',
+          source: 'PubMed',
+          id: '31182795',
+        },
+        {
+          evidenceCode: 'ECO:0007744',
+          source: 'PDB',
+          id: '6N1B',
+        },
+      ],
+      ligand: {
+        name: 'substrate',
+      },
+    },
+    {
+      type: 'Binding site',
+      location: {
+        start: {
+          value: 123,
+          modifier: 'EXACT',
+        },
+        end: {
+          value: 123,
+          modifier: 'EXACT',
+        },
+      },
+      description: '',
+      evidences: [
+        {
+          evidenceCode: 'ECO:0000269',
+          source: 'PubMed',
+          id: '31182795',
+        },
+        {
+          evidenceCode: 'ECO:0007744',
+          source: 'PDB',
+          id: '6N1B',
+        },
+      ],
+      ligand: {
+        name: 'substrate',
+      },
+    },
+    {
+      type: 'Binding site',
       location: {
         start: {
           value: 126,
@@ -392,7 +450,13 @@ const mock: UniProtkbAPIModel = {
           modifier: 'EXACT',
         },
       },
-      description: 'Divalent metal cation',
+      description: '',
+      featureCrossReferences: [
+        {
+          database: 'ChEBI',
+          id: 'CHEBI:60240',
+        },
+      ],
       evidences: [
         {
           evidenceCode: 'ECO:0000269',
@@ -410,9 +474,42 @@ const mock: UniProtkbAPIModel = {
           id: '6N1B',
         },
       ],
+      ligand: {
+        name: 'a divalent metal cation',
+        id: 'ChEBI:CHEBI:60240',
+      },
     },
     {
-      type: 'Metal binding',
+      type: 'Binding site',
+      location: {
+        start: {
+          value: 236,
+          modifier: 'EXACT',
+        },
+        end: {
+          value: 236,
+          modifier: 'EXACT',
+        },
+      },
+      description: '',
+      evidences: [
+        {
+          evidenceCode: 'ECO:0000269',
+          source: 'PubMed',
+          id: '31182795',
+        },
+        {
+          evidenceCode: 'ECO:0007744',
+          source: 'PDB',
+          id: '6N1B',
+        },
+      ],
+      ligand: {
+        name: 'substrate',
+      },
+    },
+    {
+      type: 'Binding site',
       location: {
         start: {
           value: 278,
@@ -423,7 +520,13 @@ const mock: UniProtkbAPIModel = {
           modifier: 'EXACT',
         },
       },
-      description: 'Divalent metal cation',
+      description: '',
+      featureCrossReferences: [
+        {
+          database: 'ChEBI',
+          id: 'CHEBI:60240',
+        },
+      ],
       evidences: [
         {
           evidenceCode: 'ECO:0000269',
@@ -441,84 +544,10 @@ const mock: UniProtkbAPIModel = {
           id: '6N1B',
         },
       ],
-    },
-    {
-      type: 'Binding site',
-      location: {
-        start: {
-          value: 87,
-          modifier: 'EXACT',
-        },
-        end: {
-          value: 87,
-          modifier: 'EXACT',
-        },
+      ligand: {
+        name: 'a divalent metal cation',
+        id: 'ChEBI:CHEBI:60240',
       },
-      description: 'Substrate',
-      evidences: [
-        {
-          evidenceCode: 'ECO:0000269',
-          source: 'PubMed',
-          id: '31182795',
-        },
-        {
-          evidenceCode: 'ECO:0007744',
-          source: 'PDB',
-          id: '6N1B',
-        },
-      ],
-    },
-    {
-      type: 'Binding site',
-      location: {
-        start: {
-          value: 123,
-          modifier: 'EXACT',
-        },
-        end: {
-          value: 123,
-          modifier: 'EXACT',
-        },
-      },
-      description: 'Substrate',
-      evidences: [
-        {
-          evidenceCode: 'ECO:0000269',
-          source: 'PubMed',
-          id: '31182795',
-        },
-        {
-          evidenceCode: 'ECO:0007744',
-          source: 'PDB',
-          id: '6N1B',
-        },
-      ],
-    },
-    {
-      type: 'Binding site',
-      location: {
-        start: {
-          value: 236,
-          modifier: 'EXACT',
-        },
-        end: {
-          value: 236,
-          modifier: 'EXACT',
-        },
-      },
-      description: 'Substrate',
-      evidences: [
-        {
-          evidenceCode: 'ECO:0000269',
-          source: 'PubMed',
-          id: '31182795',
-        },
-        {
-          evidenceCode: 'ECO:0007744',
-          source: 'PDB',
-          id: '6N1B',
-        },
-      ],
     },
     {
       type: 'Mutagenesis',
@@ -702,9 +731,9 @@ const mock: UniProtkbAPIModel = {
           'An enzymatic pathway in the human gut microbiome that converts A to universal O type blood.',
         publicationDate: '2019',
         journal: 'Nat. Microbiol.',
-        firstPage: '0',
-        lastPage: '0',
-        volume: '0',
+        firstPage: '1475',
+        lastPage: '1485',
+        volume: '4',
       },
       referencePositions: [
         'NUCLEOTIDE SEQUENCE [GENOMIC DNA]',
@@ -790,7 +819,7 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
-      database: 'SMR',
+      database: 'AlphaFoldDB',
       id: 'P0DTR4',
       properties: [
         {
@@ -800,8 +829,8 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
-      database: 'GeneID',
-      id: '60838703',
+      database: 'SMR',
+      id: 'P0DTR4',
       properties: [
         {
           key: 'Description',
@@ -839,20 +868,6 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:0047157',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'F:myelin-proteolipid O-palmitoyltransferase activity',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:RHEA',
-        },
-      ],
-    },
-    {
-      database: 'GO',
       id: 'GO:0008152',
       properties: [
         {
@@ -876,20 +891,6 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'MatchStatus',
           value: '1',
-        },
-      ],
-    },
-    {
-      database: 'Gene3D',
-      id: '2.60.120.260',
-      properties: [
-        {
-          key: 'EntryName',
-          value: '-',
-        },
-        {
-          key: 'MatchStatus',
-          value: '2',
         },
       ],
     },
@@ -1091,8 +1092,7 @@ const mock: UniProtkbAPIModel = {
       Chain: 1,
       Domain: 1,
       Region: 3,
-      'Metal binding': 2,
-      'Binding site': 3,
+      'Binding site': 5,
       Mutagenesis: 5,
     },
     uniParcId: 'UPI000246C4A6',
