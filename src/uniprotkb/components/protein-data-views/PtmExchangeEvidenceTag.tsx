@@ -54,11 +54,9 @@ export const PtmExchangeEvidence = ({
         // Remove this className - using as a stopgap until data is imported into citations
         <div className={style.publications}>
           <UniProtKBEntryPublications
-            pubmedIds={
-              publicationReferences
-                .map((reference: Evidence) => reference.id)
-                .filter((id?: string): id is string => Boolean(id))
-            }
+            pubmedIds={publicationReferences
+              .map((reference: Evidence) => reference.id)
+              .filter((id?: string): id is string => Boolean(id))}
           />
         </div>
       )}

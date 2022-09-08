@@ -1,8 +1,0 @@
-{
-  "testRegex": "[^\\/]+\\.(test|spec)\\.[jt]s$",
-  "globalSetup": "./setup.mjs",
-  "globalTeardown": "./teardown.js",
-  "testEnvironment": "./test-environment.js",
-  "setupFilesAfterEnv": ["./setup-after-env.js"],
-  "testTimeout": 30000
-}
