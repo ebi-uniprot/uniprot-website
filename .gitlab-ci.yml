@@ -1,6 +1,6 @@
 include:
   - project: 'uniprot/front-end/front-end-deploy'
-    file: 'templates/.gitlab-ci-template.yml'
+    file: '.gitlab-ci-template.yml'
 
 variables:
   CHART_PROD: 'uniprot-website-prod'

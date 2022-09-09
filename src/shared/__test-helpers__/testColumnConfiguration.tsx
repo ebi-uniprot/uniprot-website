@@ -3,7 +3,7 @@ import { ColumnConfiguration } from '../types/columnConfiguration';
 import customRender from './customRender';
 
 function testColumnConfiguration<
-  Column,
+  Column extends string,
   UIModel extends Record<string, unknown>
 >(columnConfiguration: ColumnConfiguration<Column, UIModel>, data: UIModel) {
   test.each(Array.from(columnConfiguration.entries()))(

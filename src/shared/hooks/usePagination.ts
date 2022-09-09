@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AxiosError } from 'axios';
 
-import usePrefetch from './usePrefetch';
+// import usePrefetch from './usePrefetch';
 import useDataApi from './useDataApi';
 
 import getNextURLFromHeaders from '../utils/getNextURLFromHeaders';
@@ -31,7 +31,7 @@ const usePagination = <T extends APIModel, R extends APIModel>(
     nextUrl?: string;
   }>(() => ({ total: undefined, nextUrl: undefined }));
 
-  usePrefetch(metaData.nextUrl);
+  // usePrefetch(metaData.nextUrl);
   const [allResults, setAllResults] = useState<R[]>([]);
 
   // Reset conditions, when any of the things in the dep array changes

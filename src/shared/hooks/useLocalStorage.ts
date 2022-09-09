@@ -8,6 +8,8 @@ import {
 import { frame } from 'timing-functions';
 import { JsonValue } from 'type-fest';
 
+import * as logging from '../utils/logging';
+
 import { Namespace } from '../types/namespaces';
 
 export type UserPreferenceKey =
@@ -22,6 +24,23 @@ export type UserPreferenceKey =
   // basket content
   | 'basket';
 
+const wrappedGet: typeof window.localStorage.getItem = (key) => {
+  try {
+    return window.localStorage.getItem(key);
+  } catch {
+    logging.warn('Error accessing localStorage');
+  }
+  return null;
+};
+
+const wrappedSet: typeof window.localStorage.setItem = (key, value) => {
+  try {
+    window.localStorage.setItem(key, value);
+  } catch {
+    logging.warn('Error accessing localStorage');
+  }
+};
+
 // Shared cache to avoid reading from disk in a blocking way multiple times when
 // multiple hooks are used across the page.
 // Exporting for test usage only
@@ -32,11 +51,10 @@ const initialiser = <T extends JsonValue>(
   defaultValueStr: string
 ): T => {
   // Initialisation
-  const inStore =
-    localStorageCache.get(key) ?? window.localStorage.getItem(key);
+  const inStore = localStorageCache.get(key) ?? wrappedGet(key);
   if (typeof inStore !== 'string') {
     localStorageCache.set(key, defaultValueStr);
-    window.localStorage.setItem(key, defaultValueStr);
+    wrappedSet(key, defaultValueStr);
     return JSON.parse(defaultValueStr);
   }
   return JSON.parse(inStore);
@@ -71,7 +89,7 @@ function useLocalStorage<T extends JsonValue>(
             : valueOrSetter;
         const stringified = JSON.stringify(valueToStore);
         localStorageCache.set(key, stringified);
-        window.localStorage.setItem(key, stringified);
+        wrappedSet(key, stringified);
         // Dispatch asyncronously because otherwise the react logic wouldn't let
         // us setState in the event listener
         frame().then(() =>
@@ -105,7 +123,7 @@ function useLocalStorage<T extends JsonValue>(
         setState(JSON.parse(defaultValueStr));
         const stringified = defaultValueStr;
         localStorageCache.set(key, stringified);
-        window.localStorage.setItem(key, stringified);
+        wrappedSet(key, stringified);
       } else {
         const parsed = JSON.parse(newValue);
         // update state accordingly

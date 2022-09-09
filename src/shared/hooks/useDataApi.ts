@@ -14,6 +14,8 @@ import {
 import { Namespace } from '../types/namespaces';
 import { UserPreferenceKey } from './useLocalStorage';
 
+type CustomError = AxiosError<{ messages?: string[] }>;
+
 const invalidFieldMessage = /Invalid fields parameter value '(?<field>[^']*)'/;
 const namespacedURL = new RegExp(
   `api/(?<namespace>${Object.values(Namespace).join('|')})/search`
@@ -35,7 +37,7 @@ export type UseDataAPIState<T> = {
   status?: AxiosResponse['status'];
   statusText?: AxiosResponse['statusText'];
   headers?: Record<string, string>;
-  error?: AxiosError<{ messages?: string[] }>;
+  error?: CustomError;
   redirectedTo?: string;
   url?: string | null;
 };
@@ -56,7 +58,7 @@ type Action<T> =
       originalURL?: string;
       progress?: 1;
     }
-  | { type: ActionType.ERROR; error: AxiosError };
+  | { type: ActionType.ERROR; error: CustomError };
 
 // eslint-disable-next-line consistent-return
 const createReducer =
@@ -190,7 +192,7 @@ function useDataApi<T>(
         });
       },
       // catch error
-      (error: AxiosError) => {
+      (error: CustomError) => {
         if (axios.isCancel(error) || didCancel) {
           return;
         }

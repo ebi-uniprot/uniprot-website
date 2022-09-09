@@ -34,7 +34,7 @@ exports[`ServiceUnavailablePage component should render 1`] = `
             Please try again later
           </div>
           <small>
-            We will reload this page for you in 2 seconds
+            We will reload this page for you in 5 seconds
           </small>
         </small>
       </section>
