@@ -1,5 +1,7 @@
 import { ProteomicsPtm } from '../types/proteomicsPtm';
 
+// Source: https://www.ebi.ac.uk/proteins/api/proteomics-ptm/Q653S1
+// Retrieved: 2022-09-06
 // TODO: replace this with a human entry when it is released
 const data: ProteomicsPtm = {
   accession: 'Q653S1',
@@ -41,14 +43,13 @@ const data: ProteomicsPtm = {
               id: 'PXD002222',
               properties: {
                 'Pubmed ID': '26112675',
+                'Confidence score': 'Bronze',
                 'PSM Score': '0.9997',
                 'Dataset ID': 'PXD002222',
-                'Organism part': 'Leaf',
-                'Binomial final adjusted q_value': '0.045922419',
+                'Binomial final q value': '0.04592241907878227',
                 'Universal Spectrum Id':
-                  'mzspec:PXD002222:Rice_leaf_0h_phospho_test3.06648.06648.2:AAES[Phospho]DVNVSS[Phospho]PR/2',
+                  'mzspec:PXD002222:Rice_leaf_0h_phospho_test3:scan:06648:AAES[Phospho]DVNVSS[Phospho]PR/2',
                 'PSM Count': '9',
-                'Final adjusted site probability': '0.846743589',
                 'Site probability': '0.847',
               },
             },
@@ -88,14 +89,13 @@ const data: ProteomicsPtm = {
               id: 'PXD004939',
               properties: {
                 'Pubmed ID': '28054942',
-                'PSM Score': '1',
+                'Confidence score': 'Bronze',
+                'PSM Score': '1.0',
                 'Dataset ID': 'PXD004939',
-                'Organism part': 'Leaf',
-                'Binomial final adjusted q_value': '0.030906711',
+                'Binomial final q value': '0.03090671081048205',
                 'Universal Spectrum Id':
-                  'mzspec:PXD004939:Rice_phos_ABA_12h_20per_F1_R3.08788.08788.2:AAESDVNVSS[Phospho]PR/2',
+                  'mzspec:PXD004939:Rice_phos_ABA_12h_20per_F1_R3:scan:08788:AAESDVNVSS[Phospho]PR/2',
                 'PSM Count': '31',
-                'Final adjusted site probability': '0.9195',
                 'Site probability': '0.9195',
               },
             },
@@ -103,14 +103,13 @@ const data: ProteomicsPtm = {
               id: 'PXD004705',
               properties: {
                 'Pubmed ID': '28439285',
-                'PSM Score': '1',
+                'Confidence score': 'Bronze',
+                'PSM Score': '1.0',
                 'Dataset ID': 'PXD004705',
-                'Organism part': 'Leaf',
-                'Binomial final adjusted q_value': '0.011462836',
+                'Binomial final q value': '0.011462835656555523',
                 'Universal Spectrum Id':
-                  'mzspec:PXD004705:Rice_phos_BR_12h_20per_F1_R3.08038.08038.2:AAESDVNVSS[Phospho]PR/2',
+                  'mzspec:PXD004705:Rice_phos_BR_12h_20per_F1_R3:scan:08038:AAESDVNVSS[Phospho]PR/2',
                 'PSM Count': '31',
-                'Final adjusted site probability': '0.9763',
                 'Site probability': '0.9763',
               },
             },
@@ -118,14 +117,13 @@ const data: ProteomicsPtm = {
               id: 'PXD002222',
               properties: {
                 'Pubmed ID': '26112675',
+                'Confidence score': 'Bronze',
                 'PSM Score': '0.9997',
                 'Dataset ID': 'PXD002222',
-                'Organism part': 'Leaf',
-                'Binomial final adjusted q_value': '0.026956683',
+                'Binomial final q value': '0.026956683114549247',
                 'Universal Spectrum Id':
-                  'mzspec:PXD002222:Rice_leaf_0h_phospho_test2.05381.05381.2:AAESDVNVSS[Phospho]PR/2',
+                  'mzspec:PXD002222:Rice_leaf_0h_phospho_test2:scan:05381:AAESDVNVSS[Phospho]PR/2',
                 'PSM Count': '5',
-                'Final adjusted site probability': '0.920728568',
                 'Site probability': '0.9285',
               },
             },
@@ -165,14 +163,13 @@ const data: ProteomicsPtm = {
               id: 'PXD012764',
               properties: {
                 'Pubmed ID': '31424513',
+                'Confidence score': 'Bronze',
                 'PSM Score': '0.9768',
                 'Dataset ID': 'PXD012764',
-                'Organism part': 'Root',
-                'Binomial final adjusted q_value': '0.027506723',
+                'Binomial final q value': '0.02750672317530977',
                 'Universal Spectrum Id':
-                  'mzspec:PXD012764:P17540_180109014405.17507.17507.2:[iTRAQ8plex]AAESDVNVS[Phospho]S[Phospho]PR/2',
+                  'mzspec:PXD012764:P17540_180109014405:scan:17507:[iTRAQ8plex]AAESDVNVS[Phospho]S[Phospho]PR/2',
                 'PSM Count': '9',
-                'Final adjusted site probability': '0.935969356',
                 'Site probability': '0.9582',
               },
             },
@@ -187,92 +184,14 @@ const data: ProteomicsPtm = {
               id: 'PXD012764',
               properties: {
                 'Pubmed ID': '31424513',
+                'Confidence score': 'Bronze',
                 'PSM Score': '0.9768',
                 'Dataset ID': 'PXD012764',
-                'Organism part': 'Root',
-                'Binomial final adjusted q_value': '0.034642812',
+                'Binomial final q value': '0.03464281201761908',
                 'Universal Spectrum Id':
-                  'mzspec:PXD012764:P17540_180109014405.17507.17507.2:[iTRAQ8plex]AAESDVNVS[Phospho]S[Phospho]PR/2',
+                  'mzspec:PXD012764:P17540_180109014405:scan:17507:[iTRAQ8plex]AAESDVNVS[Phospho]S[Phospho]PR/2',
                 'PSM Count': '4',
-                'Final adjusted site probability': '0.912978736',
                 'Site probability': '0.9582',
-              },
-            },
-          ],
-        },
-      ],
-    },
-    {
-      type: 'PROTEOMICS_PTM',
-      begin: '193',
-      end: '205',
-      xrefs: [
-        {
-          name: 'Proteomes',
-          id: 'UP000059680',
-          url: 'https://www.uniprot.org/proteomes/UP000059680',
-        },
-      ],
-      evidences: [
-        {
-          code: 'ECO:0007829',
-          source: {
-            id: 'LDKVENSGHVEGR',
-            url: 'https://www.ebi.ac.uk/pride/peptidome/peptidedetails?keyword=LDKVENSGHVEGR&proteinAccession=Q653S1',
-          },
-        },
-      ],
-      peptide: 'LDKVENSGHVEGR',
-      unique: true,
-      ptms: [
-        {
-          name: 'Phosphorylation',
-          position: 7,
-          sources: ['PTMeXchange'],
-          dbReferences: [
-            {
-              id: 'PXD004939',
-              properties: {
-                'Pubmed ID': '28054942',
-                'PSM Score': '1',
-                'Dataset ID': 'PXD004939',
-                'Organism part': 'Leaf',
-                'Binomial final adjusted q_value': '9.25E-10',
-                'Universal Spectrum Id':
-                  'mzspec:PXD004939:Rice_phos_ABA_12h_20per_F1_R3.04860.04860.2:LDKVENS[Phospho]GHVEGR/2',
-                'PSM Count': '6',
-                'Final adjusted site probability': '0.999999982',
-                'Site probability': '1',
-              },
-            },
-            {
-              id: 'PXD005241',
-              properties: {
-                'Pubmed ID': '28382632',
-                'PSM Score': '0.9796',
-                'Dataset ID': 'PXD005241',
-                'Organism part': 'Panicles',
-                'Binomial final adjusted q_value': '0.022752762',
-                'Universal Spectrum Id':
-                  'mzspec:PXD005241:Rice_phos_mature_panicles__TiO2_25per_F3_R1_raw.08068.08068.2:LDKVENS[Phospho]GHVEGR/2',
-                'PSM Count': '1',
-                'Final adjusted site probability': '0.899024906',
-                'Site probability': '1',
-              },
-            },
-            {
-              id: 'PXD004705',
-              properties: {
-                'Pubmed ID': '28439285',
-                'PSM Score': '1',
-                'Dataset ID': 'PXD004705',
-                'Organism part': 'Leaf',
-                'Binomial final adjusted q_value': '5.46E-12',
-                'Universal Spectrum Id':
-                  'mzspec:PXD004705:Rice_phos_Nip_0h_20per_F1_R1.04737.04737.2:LDKVENS[Phospho]GHVEGR/2',
-                'PSM Count': '8',
-                'Final adjusted site probability': '1',
-                'Site probability': '1',
               },
             },
           ],
@@ -281,5 +200,4 @@ const data: ProteomicsPtm = {
     },
   ],
 };
-
 export default data;
