@@ -38,9 +38,8 @@ const AlignResultOverview = lazy(
   () => import(/* webpackChunkName: "align-overview" */ './AlignResultOverview')
 );
 // phylogenetic-tree
-const AlignResultPhyloTree = lazy(
-  () =>
-    import(/* webpackChunkName: "align-phylotree" */ './AlignResultPhyloTree')
+const AlignResultTrees = lazy(
+  () => import(/* webpackChunkName: "align-trees" */ './AlignResultTrees')
 );
 // percent-identity-matrix
 const AlignResultPIM = lazy(
@@ -70,7 +69,7 @@ const APIRequest = lazy(
 
 enum TabLocation {
   Overview = 'overview',
-  PhyloTree = 'phylogenetic-tree',
+  Trees = 'trees',
   PIM = 'percent-identity-matrix',
   TextOutput = 'text-output',
   InputParameters = 'input-parameters',
@@ -196,18 +195,18 @@ const AlignResult = () => {
           </Suspense>
         </Tab>
         <Tab
-          id={TabLocation.PhyloTree}
+          id={TabLocation.Trees}
           title={
-            <Link to={changePathnameOnly(basePath + TabLocation.PhyloTree)}>
-              Phylogenetic Tree
+            <Link to={changePathnameOnly(basePath + TabLocation.Trees)}>
+              Trees
             </Link>
           }
         >
-          <HTMLHead title={[title, 'Phylogenetic Tree']} />
+          <HTMLHead title={[title, 'Trees']} />
           {actionBar}
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
-              <AlignResultPhyloTree
+              <AlignResultTrees
                 id={match.params.id}
                 sequenceInfo={sequenceInfo}
                 selectedEntries={selectedEntries}
