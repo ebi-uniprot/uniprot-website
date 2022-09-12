@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`inputParamsXMLToObject tests should transform an XML string of input params to an object 1`] = `
-Object {
+{
   "hmmiterations": "5",
   "outfmt": "clustal_num",
   "program": "clustalo",

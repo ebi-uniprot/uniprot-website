@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires, global-require, consistent-return */
 const path = require('path');
 const fs = require('fs');
 
@@ -127,12 +128,10 @@ module.exports = (env, argv) => {
         {
           test: /\.(js|jsx|tsx|ts)$/,
           exclude:
-            /node_modules\/((?!protvista-msa|react-msa-viewer|franklin-sites|protvista-uniprot|p-map|aggregate-error).*)/,
+            /node_modules\/((?!protvista-msa|react-msa-viewer|franklin-sites|protvista-uniprot|molstar).*)/,
           use: {
             loader: 'babel-loader',
-            options: {
-              cacheDirectory: true,
-            },
+            options: { cacheDirectory: true },
           },
         },
         /**
@@ -141,9 +140,7 @@ module.exports = (env, argv) => {
          * */
         {
           test: /\.worker\.js$/,
-          use: {
-            loader: 'worker-loader',
-          },
+          use: { loader: 'worker-loader' },
         },
         // Stylesheets
         {
@@ -316,26 +313,28 @@ module.exports = (env, argv) => {
       // when updating webpack check this URL to adapt the different default
       // https://webpack.js.org/plugins/split-chunks-plugin/#optimizationsplitchunks
       splitChunks: {
-        chunks: 'async',
-        // 30k, default min size of chunks anyway
-        minSize: 30 * 1024,
-        // 244k, order of magnitude of recommendation for max size of chunks
-        // maxSize: 244 * 1024, // Molstar is so big there's no point really...
-        minChunks: 1,
-        maxAsyncRequests: 6,
-        maxInitialRequests: 4,
-        automaticNameDelimiter: '~',
+        chunks: 'all',
         cacheGroups: {
           geneontology: {
             // list the package to extract into its own bundle, plus all its
             // dependencies used *only* by it (use `yarn why <dependency>` to find)
-            test: /[\\/]node_modules[\\/]@geneontology|amigo2-instance-data|react-icons|react-popper|react-transition-group|popper\.js|underscore|bbop-core[\\/]/,
+            test: /[\\/]node_modules[\\/](@geneontology|amigo2-instance-data|react-icons|react-popper|react-transition-group|popper\.js|underscore|bbop-core)[\\/]/,
             name: 'geneontology',
             chunks: 'all',
           },
           sibSubcell: {
-            test: /[\\/]node_modules[\\/]@swissprot\/swissbiopics-visualizer|tippy\.js[\\/]/,
+            test: /[\\/]node_modules[\\/]@swissprot[\\/]swissbiopics-visualizer[\\/]/,
             name: 'sib-subcell',
+            chunks: 'all',
+          },
+          sentry: {
+            test: /[\\/]node_modules[\\/]@sentry[\\/]/,
+            name: 'sentry',
+            chunks: 'all',
+          },
+          'sanitize-html': {
+            test: /[\\/]node_modules[\\/](sanitize-html|entities|htmlparser2|domhandler|domutils|dom-serializer|domelementtype)[\\/]/,
+            name: 'sanitize-html',
             chunks: 'all',
           },
           react: {
@@ -349,7 +348,7 @@ module.exports = (env, argv) => {
             chunks: 'all',
           },
           molstar: {
-            test: /[\\/]node_modules[\\/](molstar)[\\/]/,
+            test: /[\\/]node_modules[\\/]molstar[\\/]/,
             name: 'molstar.noprecache',
             chunks: 'all',
           },
@@ -380,10 +379,6 @@ module.exports = (env, argv) => {
       },
     };
   }
-
-  // Performance measurement:
-  // const SMWP = require('speed-measure-webpack-plugin');
-  // return new SMWP().wrap(config);
 
   return config;
 };

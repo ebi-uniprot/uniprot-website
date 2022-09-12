@@ -146,7 +146,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                     </sup>
                      A2 (
                     <a
-                      href="/uniprotkb?query=ft_binding:\\"ChEBICHEBI:3314\\""
+                      href="/uniprotkb?query=ft_binding:"ChEBICHEBI:3314""
                     >
                       UniProtKB
                     </a>
@@ -169,7 +169,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                     </sup>
                      A1 (
                     <a
-                      href="/uniprotkb?query=ft_binding:\\"ChEBICHEBI:3214\\""
+                      href="/uniprotkb?query=ft_binding:"ChEBICHEBI:3214""
                     >
                       UniProtKB
                     </a>

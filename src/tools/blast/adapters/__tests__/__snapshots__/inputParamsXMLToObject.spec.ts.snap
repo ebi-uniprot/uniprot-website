@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`inputParamsXMLToObject tests should transform an XML string of input params to an object 1`] = `
-Object {
+{
   "align": "0",
   "alignments": "250",
   "compstats": "F",
@@ -20,7 +20,7 @@ EVDDMLREVSDGSGEINIQQFAALLSK",
 `;
 
 exports[`inputParamsXMLToObject tests should transform an XML string of input params with taxons to an object 1`] = `
-Object {
+{
   "align": "0",
   "alignments": "100",
   "compstats": "F",

@@ -1,6 +1,3 @@
-/**
- * @jest-environment node
- */
 import { Dispatch, MutableRefObject } from 'react';
 import { sleep } from 'timing-functions';
 import axios from 'axios';
