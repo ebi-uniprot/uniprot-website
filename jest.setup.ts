@@ -3,15 +3,6 @@ import 'interaction-viewer';
 
 import { resetUuidV1 } from './__mocks__/uuid';
 
-const nodeCrypto = require('crypto');
-
-global.crypto = {
-  ...global.crypto,
-  getRandomValues(buffer) {
-    return nodeCrypto.randomFillSync(buffer);
-  },
-};
-
 global.gtag = () => {
   /* */
 };

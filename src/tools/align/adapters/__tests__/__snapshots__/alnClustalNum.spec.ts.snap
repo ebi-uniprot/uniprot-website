@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`alnClustalNum parser should match snapshot 1`] = `
-Object {
+{
   "conservation": "* *:  ::: : : *.*:. :.   *:*:***:* .:* :********:  ****::.**.**. *: .*.  :*:: .*** **:***: *********:**********:* **:**  .**: ****: ** ***.***",
-  "sequences": Array [
-    Object {
+  "sequences": [
+    {
       "name": "sp|P69905|HBA_HUMAN",
       "sequence": "M-LSPADKTNVKAAWGKVGAHAGEYGAEALERMFLSFPTTKTYFPHFDLSHGSAQVKGHG-KVADALTNAVAHVDDMPNALSALSDLHAHKLRVDPVNFKLLSHCLLVTLAAHLPAEFTPAVHASLDKFLASVSTVLTSKY-",
     },
-    Object {
+    {
       "name": "sp|P01942|HBA_MOUSE",
       "sequence": "MVLSGEDKSNIKAAWGKIGGHGAEYGAEALERMFASFPTTKTYFPHFDVSHGSAQVKGHGKKVADALASAAGHLDDLPGALSALSDLHAHKLRVDPVNFKLLSHCLLVTLASHHPADFTPAVHASLDKFLASVSTVLTSKYR",
     },
-    Object {
+    {
       "name": "sp|P13786|HBAZ_CAPHI",
       "sequence": "MSLTRTERTIILSLWSKISTQADVIGTETLERLFSCYPQAKTYFPHFDLHSGSAQLRAHGSKVVAAVGDAVKSIDNVTSALSKLSELHAYVLRVDPVNFKFLSHCLLVTLASHFPADFTADAHAAWDKFLSIVSGVLTEKYR",
     },
@@ -21,18 +21,18 @@ Object {
 `;
 
 exports[`alnClustalNum parser should match snapshot 2`] = `
-Object {
+{
   "conservation": "           ::::::::::**********",
-  "sequences": Array [
-    Object {
+  "sequences": [
+    {
       "name": "a",
       "sequence": "-AAAAAAAAAAAAAAAAAAAAAAAAAAAA-",
     },
-    Object {
+    {
       "name": "b",
       "sequence": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
     },
-    Object {
+    {
       "name": "c",
       "sequence": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
     },

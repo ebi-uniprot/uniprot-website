@@ -7,27 +7,13 @@ module.exports = function (api) {
       [
         '@babel/preset-env',
         {
-          targets: {
-            chrome: '80',
-            edge: '18',
-            firefox: '68',
-            safari: '13',
-          },
           useBuiltIns: 'usage',
-          corejs: { version: 3 },
+          corejs: { version: '3.25.1', proposals: true },
         },
       ],
-      [
-        '@babel/preset-react',
-        {
-          runtime: 'automatic',
-        },
-      ],
+      ['@babel/preset-react', { runtime: 'automatic' }],
       '@babel/preset-typescript',
     ],
-    plugins: [
-      '@babel/plugin-transform-runtime',
-      '@babel/plugin-proposal-class-properties',
-    ],
+    plugins: ['@babel/plugin-transform-runtime'],
   };
 };

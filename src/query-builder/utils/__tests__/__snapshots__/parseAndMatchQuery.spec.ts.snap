@@ -1,20 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`query parser and validator with GO field 1`] = `
-Array [
-  Object {
+[
+  {
     "id": 0,
     "logicOperator": "AND",
-    "queryBits": Object {
+    "queryBits": {
       "go": "0002381",
       "go_evidence": "exp",
     },
-    "searchTerm": Object {
+    "searchTerm": {
       "id": "gene_ontology",
       "itemType": "sibling_group",
       "label": "Gene Ontology [GO]",
-      "siblings": Array [
-        Object {
+      "siblings": [
+        {
           "autoComplete": "/suggester?dict=go&query=?",
           "autoCompleteQueryTerm": "go",
           "dataType": "string",
@@ -24,115 +24,115 @@ Array [
           "itemType": "single",
           "term": "go",
         },
-        Object {
+        {
           "dataType": "string",
-          "evidenceGroups": Array [
-            Object {
+          "evidenceGroups": [
+            {
               "groupName": "Any",
-              "items": Array [
-                Object {
+              "items": [
+                {
                   "code": "any",
                   "name": "Any assertion method",
                 },
-                Object {
+                {
                   "code": "manual",
                   "name": "Any manual assertion",
                 },
-                Object {
+                {
                   "code": "automatic",
                   "name": "Any automatic assertion",
                 },
               ],
             },
-            Object {
+            {
               "groupName": "Manual assertions",
-              "items": Array [
-                Object {
+              "items": [
+                {
                   "code": "exp",
                   "name": "Inferred from experiment [EXP]",
                 },
-                Object {
+                {
                   "code": "iba",
                   "name": "Inferred from biological aspect of ancestor [IBA]",
                 },
-                Object {
+                {
                   "code": "ic",
                   "name": "Inferred by curator [IC]",
                 },
-                Object {
+                {
                   "code": "ida",
                   "name": "Inferred from direct assay [IDA]",
                 },
-                Object {
+                {
                   "code": "iep",
                   "name": "Inferred from expression pattern [IEP]",
                 },
-                Object {
+                {
                   "code": "igc",
                   "name": "Inferred from genomic context [IGC]",
                 },
-                Object {
+                {
                   "code": "igi",
                   "name": "Inferred from genetic interaction [IGI]",
                 },
-                Object {
+                {
                   "code": "imp",
                   "name": "Inferred from mutant phenotype [IMP]",
                 },
-                Object {
+                {
                   "code": "ipi",
                   "name": "Inferred from physical interaction [IPI]",
                 },
-                Object {
+                {
                   "code": "isa",
                   "name": "Inferred from sequence alignment [ISA]",
                 },
-                Object {
+                {
                   "code": "ism",
                   "name": "Inferred from sequence mode [ISM]",
                 },
-                Object {
+                {
                   "code": "iso",
                   "name": "Inferred from sequence orthology [ISO]",
                 },
-                Object {
+                {
                   "code": "iss",
                   "name": "Inferred from sequence or structural similarity [ISS]",
                 },
-                Object {
+                {
                   "code": "nas",
                   "name": "Non-traceable author statement [NAS]",
                 },
-                Object {
+                {
                   "code": "tas",
                   "name": "Traceable author statement [TAS]",
                 },
-                Object {
+                {
                   "code": "hda",
                   "name": "Inferred from high throughput direct assay [HDA]",
                 },
-                Object {
+                {
                   "code": "hmp",
                   "name": "Inferred from high throughput mutant phenotype [HMP]",
                 },
-                Object {
+                {
                   "code": "hgi",
                   "name": "Inferred from high throughput genetic interaction [HGI]",
                 },
-                Object {
+                {
                   "code": "hep",
                   "name": "Interred from high throughput expression pattern [HEP]",
                 },
-                Object {
+                {
                   "code": "htp",
                   "name": "Inferred from high throughput experiment [HTP]",
                 },
               ],
             },
-            Object {
+            {
               "groupName": "Automatic assertions",
-              "items": Array [
-                Object {
+              "items": [
+                {
                   "code": "iea",
                   "name": "Inferred from electronic annotation [IEA]",
                 },
@@ -152,14 +152,14 @@ Array [
 `;
 
 exports[`query parser and validator with autocomplete field 1`] = `
-Array [
-  Object {
+[
+  {
     "id": 0,
     "logicOperator": "AND",
-    "queryBits": Object {
+    "queryBits": {
       "taxonomy_id": "9606",
     },
-    "searchTerm": Object {
+    "searchTerm": {
       "autoComplete": "/suggester?dict=taxonomy&query=?",
       "autoCompleteQueryTerm": "taxonomy_id",
       "dataType": "string",
@@ -175,14 +175,14 @@ Array [
 `;
 
 exports[`query parser and validator with one xref 1`] = `
-Array [
-  Object {
+[
+  {
     "id": 0,
     "logicOperator": "AND",
-    "queryBits": Object {
+    "queryBits": {
       "xref": "gluco-fructose",
     },
-    "searchTerm": Object {
+    "searchTerm": {
       "dataType": "string",
       "fieldType": "general",
       "id": "xref_pdb",
@@ -196,14 +196,14 @@ Array [
 `;
 
 exports[`query parser and validator with valid and invalid fields 1`] = `
-Array [
-  Object {
+[
+  {
     "id": 0,
     "logicOperator": "AND",
-    "queryBits": Object {
+    "queryBits": {
       "gene": "ydj1",
     },
-    "searchTerm": Object {
+    "searchTerm": {
       "dataType": "string",
       "example": "ydj1",
       "fieldType": "general",
@@ -217,14 +217,14 @@ Array [
 `;
 
 exports[`query parser and validator with valid and invalid fields 2`] = `
-Array [
-  Object {
+[
+  {
     "id": 1,
     "logicOperator": "AND",
-    "queryBits": Object {
+    "queryBits": {
       "invalid": "blahblah",
     },
-    "searchTerm": Object {
+    "searchTerm": {
       "dataType": "string",
       "fieldType": "general",
       "id": "",
@@ -237,14 +237,14 @@ Array [
 `;
 
 exports[`query parser and validator with xrefs, two of which are any 1`] = `
-Array [
-  Object {
+[
+  {
     "id": 0,
     "logicOperator": "AND",
-    "queryBits": Object {
+    "queryBits": {
       "xref": "gluco-fructose",
     },
-    "searchTerm": Object {
+    "searchTerm": {
       "dataType": "string",
       "fieldType": "general",
       "id": "xref_pdb",
@@ -254,13 +254,13 @@ Array [
       "valuePrefix": "pdb-",
     },
   },
-  Object {
+  {
     "id": 1,
     "logicOperator": "AND",
-    "queryBits": Object {
+    "queryBits": {
       "xref": "some value",
     },
-    "searchTerm": Object {
+    "searchTerm": {
       "dataType": "string",
       "fieldType": "general",
       "id": "xref_embl",
@@ -270,13 +270,13 @@ Array [
       "valuePrefix": "embl-",
     },
   },
-  Object {
+  {
     "id": 2,
     "logicOperator": "AND",
-    "queryBits": Object {
+    "queryBits": {
       "xref": "xyz",
     },
-    "searchTerm": Object {
+    "searchTerm": {
       "dataType": "string",
       "fieldType": "general",
       "id": "xref_any",
@@ -285,13 +285,13 @@ Array [
       "term": "xref",
     },
   },
-  Object {
+  {
     "id": 3,
     "logicOperator": "AND",
-    "queryBits": Object {
+    "queryBits": {
       "xref": "xyz-value",
     },
-    "searchTerm": Object {
+    "searchTerm": {
       "dataType": "string",
       "fieldType": "general",
       "id": "xref_any",

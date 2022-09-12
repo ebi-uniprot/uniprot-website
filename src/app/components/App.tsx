@@ -9,6 +9,11 @@ import {
 import { Helmet } from 'react-helmet-async';
 import { Loader } from 'franklin-sites';
 import { sleep } from 'timing-functions';
+import {
+  init as SentryInit,
+  reactRouterV5Instrumentation,
+} from '@sentry/react';
+import { Integrations as SentryIntegrations } from '@sentry/tracing';
 
 import BaseLayout from '../../shared/components/layouts/BaseLayout';
 import SingleColumnLayout from '../../shared/components/layouts/SingleColumnLayout';
@@ -32,43 +37,37 @@ import pkg from '../../../package.json';
 import './styles/app.scss';
 
 if (process.env.NODE_ENV !== 'development') {
-  Promise.all([
-    import(/* webpackChunkName: "sentry" */ '@sentry/react'),
-    import(/* webpackChunkName: "sentry" */ '@sentry/tracing'),
-  ]).then(([sentryReact, sentryTracing]) => {
-    sentryReact.init({
-      // Key
-      dsn: 'https://474bb7c44e8b4a99ba4e408b5a64569b@o308327.ingest.sentry.io/5996901',
-      // Release name in order to track which version is causing which report
-      release: `${pkg.name}@${pkg.version}#${GIT_COMMIT_HASH}`,
-      //
-      integrations: [
-        new sentryTracing.Integrations.BrowserTracing({
-          routingInstrumentation:
-            sentryReact.reactRouterV5Instrumentation(history),
-        }),
-      ],
-      maxBreadcrumbs: 50,
-      // Proportion of sessions being used to track performance
-      // Adjust to a low value when we start getting enough data
-      // tracesSampleRate: 0.01, // Not able to use this data yet, so don't track
-      // Proportion of errors being reported
-      // Adjust, higher if we fix errors and end up not maxing out our quota
-      sampleRate: 0.02,
-      // errors to be ignored completely
-      ignoreErrors: [
-        'chrome-extension://', // errors caused by an extension
-        'chrome-extensions://', // errors caused by an extension
-        'Request aborted', // aborted network requests, expected to happen
-      ],
-      // Programmatically filter out errors from Sentry
-      // beforeSend(event, hint){
-      //   if (/* condition to discard error */) {
-      //     return null;
-      //   }
-      //   return event;
-      // },
-    });
+  SentryInit({
+    // Key
+    dsn: 'https://474bb7c44e8b4a99ba4e408b5a64569b@o308327.ingest.sentry.io/5996901',
+    // Release name in order to track which version is causing which report
+    release: `${pkg.name}@${pkg.version}#${GIT_COMMIT_HASH}`,
+    //
+    integrations: [
+      new SentryIntegrations.BrowserTracing({
+        routingInstrumentation: reactRouterV5Instrumentation(history),
+      }),
+    ],
+    maxBreadcrumbs: 50,
+    // Proportion of sessions being used to track performance
+    // Adjust to a low value when we start getting enough data
+    // tracesSampleRate: 0.01, // Not able to use this data yet, so don't track
+    // Proportion of errors being reported
+    // Adjust, higher if we fix errors and end up not maxing out our quota
+    sampleRate: 0.02,
+    // errors to be ignored completely
+    ignoreErrors: [
+      'chrome-extension://', // errors caused by an extension
+      'chrome-extensions://', // errors caused by an extension
+      'Request aborted', // aborted network requests, expected to happen
+    ],
+    // Programmatically filter out errors from Sentry
+    // beforeSend(event, hint){
+    //   if (/* condition to discard error */) {
+    //     return null;
+    //   }
+    //   return event;
+    // },
   });
 }
 
@@ -319,6 +318,7 @@ const App = () => {
             />
             {/* Entry pages */}
             {/* Main namespaces */}
+
             <Route
               path={LocationToPath[Location.UniProtKBEntry]}
               component={UniProtKBEntryPage}

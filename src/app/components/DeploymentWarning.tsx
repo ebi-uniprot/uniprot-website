@@ -1,5 +1,6 @@
 import { Message } from 'franklin-sites';
 import { useState } from 'react';
+
 import style from './styles/deployment-warning.module.scss';
 
 const reUniProtOrg = /^https?:\/\/www\.uniprot\.org/;

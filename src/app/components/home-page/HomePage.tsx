@@ -10,7 +10,6 @@ import {
 import { generatePath, Link } from 'react-router-dom';
 import { HeroHeader, Loader, CitedIcon } from 'franklin-sites';
 
-import SearchContainer from '../../../shared/components/search/SearchContainer';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import HTMLHead from '../../../shared/components/HTMLHead';
 
@@ -24,6 +23,13 @@ import {
 
 import helper from '../../../shared/styles/helper.module.scss';
 import './styles/home-page.scss';
+
+const SearchContainer = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "search-container" */ '../../../shared/components/search/SearchContainer'
+    )
+);
 
 const HomePageNonCritical = lazy(
   () => import(/* webpackChunkName: "home-page-non-critical" */ './NonCritical')
@@ -134,18 +140,20 @@ const HomePageHeader = memo(() => {
       footer={mission}
     >
       <div className="uniprot-grid uniprot-grid--centered">
-        <SearchContainer
-          searchspace={selectedNamespace}
-          onSearchspaceChange={useCallback((namespace) => {
-            setSelectedNamespace(namespace as SearchableNamespace);
-            const textInput: HTMLInputElement | null = document.querySelector(
-              'form.main-search input[type="text"]'
-            );
-            textInput?.focus();
-          }, [])}
-          className="uniprot-grid-cell--span-12"
-          isOnHomePage
-        />
+        <Suspense fallback={null}>
+          <SearchContainer
+            searchspace={selectedNamespace}
+            onSearchspaceChange={useCallback((namespace) => {
+              setSelectedNamespace(namespace as SearchableNamespace);
+              const textInput: HTMLInputElement | null = document.querySelector(
+                'form.main-search input[type="text"]'
+              );
+              textInput?.focus();
+            }, [])}
+            className="uniprot-grid-cell--span-12"
+            isOnHomePage
+          />
+        </Suspense>
       </div>
     </HeroHeader>
   );
