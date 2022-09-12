@@ -128,7 +128,7 @@ module.exports = (env, argv) => {
         {
           test: /\.(js|jsx|tsx|ts)$/,
           exclude:
-            /node_modules\/((?!protvista-msa|react-msa-viewer|franklin-sites|protvista-uniprot|molstar).*)/,
+            /node_modules\/((?!protvista-msa|react-msa-viewer|franklin-sites|protvista-uniprot|p-map|aggregate-error|molstar).*)/,
           use: {
             loader: 'babel-loader',
             options: { cacheDirectory: true },
