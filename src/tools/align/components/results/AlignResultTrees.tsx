@@ -63,13 +63,7 @@ const AlignResultTrees: FC<AlignResultTreesProps> = ({
               name="tree"
               type="radio"
               checked={!showPhyloTree}
-              onChange={() => {
-                setShowPhyloTree(false);
-                // if (showDistance && !alignLabels) {
-                //   setShowDistance(true);
-                //   setAlignLabels(true);
-                // }
-              }}
+              onChange={() => setShowPhyloTree(false)}
             />
             Guide tree
           </label>
