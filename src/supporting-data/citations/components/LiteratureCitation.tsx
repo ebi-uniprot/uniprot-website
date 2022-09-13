@@ -257,7 +257,7 @@ export const JournalInfo: FC<JournalInfoProps> = ({
 };
 
 type StatisticsProps = {
-  statistics: CitationsAPIModel['statistics'];
+  statistics?: CitationsAPIModel['statistics'];
   id: number | string;
 };
 

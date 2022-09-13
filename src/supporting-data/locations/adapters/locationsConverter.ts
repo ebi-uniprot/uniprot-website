@@ -30,7 +30,7 @@ export type LocationsLite = {
 export type LocationsAPIModel = LocationsLite & {
   isA?: LocationsLite[];
   partOf?: LocationsLite[];
-  statistics: Statistics;
+  statistics?: Statistics;
   links?: string[];
   references?: string[];
 };

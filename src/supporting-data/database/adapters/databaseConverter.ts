@@ -10,7 +10,7 @@ export type DatabaseAPIModel = {
   name: string;
   id: string;
   server: string;
-  statistics: Statistics;
+  statistics?: Statistics;
 };
 
 export type DatabaseUIModel = DatabaseAPIModel & {

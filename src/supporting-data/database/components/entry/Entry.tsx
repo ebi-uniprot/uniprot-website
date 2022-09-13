@@ -62,8 +62,8 @@ const DatabaseEntry = (props: RouteChildrenProps<{ accession: string }>) => {
     });
 
   const hasRelated = Boolean(
-    data.statistics.reviewedProteinCount ||
-      data.statistics.unreviewedProteinCount
+    data.statistics?.reviewedProteinCount ||
+      data.statistics?.unreviewedProteinCount
   );
 
   const relatedQuery = `(database:${data.abbrev})`;

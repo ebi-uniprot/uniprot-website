@@ -25,7 +25,7 @@ export type KeywordsLite = {
 
 export type KeywordsAPIModel = KeywordsLite & {
   accession?: string;
-  statistics: Statistics;
+  statistics?: Statistics;
   parents?: KeywordsLite[];
 };
 

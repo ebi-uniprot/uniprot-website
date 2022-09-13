@@ -203,7 +203,7 @@ const enrichStatistics = (
 };
 
 type Props = {
-  statistics: Partial<Statistics> | undefined;
+  statistics?: Partial<Statistics> | undefined;
   accession?: string;
   fieldNameOverride?: string;
 };

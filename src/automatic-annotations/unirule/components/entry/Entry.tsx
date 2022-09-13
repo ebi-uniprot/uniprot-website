@@ -37,8 +37,8 @@ const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   }
 
   const hasRelated = Boolean(
-    data.statistics.reviewedProteinCount ||
-      data.statistics.unreviewedProteinCount
+    data.statistics?.reviewedProteinCount ||
+      data.statistics?.unreviewedProteinCount
   );
 
   const relatedQuery = `(source:${
