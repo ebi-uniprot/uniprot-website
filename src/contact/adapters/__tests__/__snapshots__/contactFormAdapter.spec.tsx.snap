@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Test contact form adapter should parse the inputs and generate a generic form 1`] = `
-Object {
+{
   "email": "pat@pencaster.co.uk",
   "message": "I would like this entry to be updated
 

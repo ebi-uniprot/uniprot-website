@@ -21,55 +21,55 @@ exports[`Publication component should render 1`] = `
         >
           <br />
           <a
-            href="/uniprotkb?query=lit_author:\\"Ota T.\\""
+            href="/uniprotkb?query=lit_author:"Ota T.""
           >
             Ota T.
           </a>
           , 
           <a
-            href="/uniprotkb?query=lit_author:\\"Suzuki Y.\\""
+            href="/uniprotkb?query=lit_author:"Suzuki Y.""
           >
             Suzuki Y.
           </a>
           , 
           <a
-            href="/uniprotkb?query=lit_author:\\"Nishikawa T.\\""
+            href="/uniprotkb?query=lit_author:"Nishikawa T.""
           >
             Nishikawa T.
           </a>
           , 
           <a
-            href="/uniprotkb?query=lit_author:\\"Otsuki T.\\""
+            href="/uniprotkb?query=lit_author:"Otsuki T.""
           >
             Otsuki T.
           </a>
           , 
           <a
-            href="/uniprotkb?query=lit_author:\\"Sugiyama T.\\""
+            href="/uniprotkb?query=lit_author:"Sugiyama T.""
           >
             Sugiyama T.
           </a>
           , 
           <a
-            href="/uniprotkb?query=lit_author:\\"Irie R.\\""
+            href="/uniprotkb?query=lit_author:"Irie R.""
           >
             Irie R.
           </a>
           , 
           <a
-            href="/uniprotkb?query=lit_author:\\"Wakamatsu A.\\""
+            href="/uniprotkb?query=lit_author:"Wakamatsu A.""
           >
             Wakamatsu A.
           </a>
           , 
           <a
-            href="/uniprotkb?query=lit_author:\\"Hayashi K.\\""
+            href="/uniprotkb?query=lit_author:"Hayashi K.""
           >
             Hayashi K.
           </a>
           , 
           <a
-            href="/uniprotkb?query=lit_author:\\"Sato H.\\""
+            href="/uniprotkb?query=lit_author:"Sato H.""
           >
             Sato H.
           </a>
@@ -83,7 +83,7 @@ exports[`Publication component should render 1`] = `
           </button>
           , 
           <a
-            href="/uniprotkb?query=lit_author:\\"Sugano S.\\""
+            href="/uniprotkb?query=lit_author:"Sugano S.""
           >
             Sugano S.
           </a>

@@ -339,7 +339,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_cofacto
     <span>
       Cofactor Name  (
       <a
-        href="/uniprotkb?query=cc_cofactor_chebi:\\"CHEBI:314\\""
+        href="/uniprotkb?query=cc_cofactor_chebi:"CHEBI:314""
       >
         UniProtKB
       </a>
@@ -1683,7 +1683,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
           </sup>
            A2 (
           <a
-            href="/uniprotkb?query=ft_binding:\\"ChEBICHEBI:3314\\""
+            href="/uniprotkb?query=ft_binding:"ChEBICHEBI:3314""
           >
             UniProtKB
           </a>
@@ -1706,7 +1706,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
           </sup>
            A1 (
           <a
-            href="/uniprotkb?query=ft_binding:\\"ChEBICHEBI:3214\\""
+            href="/uniprotkb?query=ft_binding:"ChEBICHEBI:3214""
           >
             UniProtKB
           </a>
@@ -2406,7 +2406,7 @@ exports[`UniProtKBColumnConfiguration component should render column "rhea": rhe
       >
         12345 ( 
         <a
-          href="/uniprotkb?query=(cc_catalytic_activity:\\"rhea:12345\\")"
+          href="/uniprotkb?query=(cc_catalytic_activity:"rhea:12345")"
         >
           UniProtKB 
           <test-file-stub

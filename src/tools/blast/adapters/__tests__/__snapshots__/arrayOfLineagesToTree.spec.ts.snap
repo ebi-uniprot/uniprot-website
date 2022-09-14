@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`arrayOfLineagesToTree tests should handle mismatching lineage lengths 1`] = `
-Object {
-  "children": Array [
-    Object {
-      "children": Array [
-        Object {
-          "children": Array [
-            Object {
-              "children": Array [
-                Object {
-                  "children": Array [
-                    Object {
-                      "children": Array [],
+{
+  "children": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "children": [],
                       "count": 1,
                       "depth": 5,
                       "name": "Saccharomycotina",
@@ -32,10 +32,10 @@ Object {
           "depth": 2,
           "name": "Fungi",
         },
-        Object {
-          "children": Array [
-            Object {
-              "children": Array [],
+        {
+          "children": [
+            {
+              "children": [],
               "count": 1,
               "depth": 3,
               "name": "Chordata",
@@ -58,14 +58,14 @@ Object {
 `;
 
 exports[`arrayOfLineagesToTree tests should transform an array of lineages to a taxonomy tree 1`] = `
-Object {
-  "children": Array [
-    Object {
-      "children": Array [
-        Object {
-          "children": Array [
-            Object {
-              "children": Array [],
+{
+  "children": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "children": [],
               "count": 1,
               "depth": 3,
               "name": "Chordata",
@@ -75,10 +75,10 @@ Object {
           "depth": 2,
           "name": "Metazoa",
         },
-        Object {
-          "children": Array [
-            Object {
-              "children": Array [],
+        {
+          "children": [
+            {
+              "children": [],
               "count": 1,
               "depth": 3,
               "name": "Dikarya",

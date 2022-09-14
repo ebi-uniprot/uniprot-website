@@ -1,35 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`phylotree should match snapshot 1`] = `
-Array [
-  Object {
+exports[`newicktree should match snapshot 1`] = `
+[
+  {
     "distance": 0.11515,
     "distanceFromRoot": 0.11515,
     "name": "EMBOSS_001",
   },
-  Object {
+  {
     "distance": 0.08485,
     "distanceFromRoot": 0.08485,
     "name": "EMBOSS_002",
   },
-  Object {
+  {
     "distance": 0.24848,
     "distanceFromRoot": 0.24848,
     "name": "EMBOSS_003",
   },
-  Object {
-    "children": Array [
-      Object {
+  {
+    "children": [
+      {
         "distance": 0.11515,
         "distanceFromRoot": 0.11515,
         "name": "EMBOSS_001",
       },
-      Object {
+      {
         "distance": 0.08485,
         "distanceFromRoot": 0.08485,
         "name": "EMBOSS_002",
       },
-      Object {
+      {
         "distance": 0.24848,
         "distanceFromRoot": 0.24848,
         "name": "EMBOSS_003",
@@ -39,31 +39,31 @@ Array [
 ]
 `;
 
-exports[`phylotree should match snapshot 2`] = `
-Array [
-  Object {
+exports[`newicktree should match snapshot 2`] = `
+[
+  {
     "distance": 0.41968,
     "distanceFromRoot": 0.41968,
     "name": "sp|P69786|PTGCB_ECOLI",
   },
-  Object {
+  {
     "distance": 0.35432,
     "distanceFromRoot": 0.42261000000000004,
     "name": "sp|P11166|GTR1_HUMAN",
   },
-  Object {
+  {
     "distance": 0.33133,
     "distanceFromRoot": 0.39962000000000003,
     "name": "sp|Q9NY64|GTR8_HUMAN",
   },
-  Object {
-    "children": Array [
-      Object {
+  {
+    "children": [
+      {
         "distance": 0.35432,
         "distanceFromRoot": 0.42261000000000004,
         "name": "sp|P11166|GTR1_HUMAN",
       },
-      Object {
+      {
         "distance": 0.33133,
         "distanceFromRoot": 0.39962000000000003,
         "name": "sp|Q9NY64|GTR8_HUMAN",
@@ -72,21 +72,21 @@ Array [
     "distance": 0.0437,
     "distanceFromRoot": 0.06829,
   },
-  Object {
+  {
     "distance": 0.40344,
     "distanceFromRoot": 0.42803,
     "name": "sp|O43826|G6PT1_HUMAN",
   },
-  Object {
-    "children": Array [
-      Object {
-        "children": Array [
-          Object {
+  {
+    "children": [
+      {
+        "children": [
+          {
             "distance": 0.35432,
             "distanceFromRoot": 0.42261000000000004,
             "name": "sp|P11166|GTR1_HUMAN",
           },
-          Object {
+          {
             "distance": 0.33133,
             "distanceFromRoot": 0.39962000000000003,
             "name": "sp|Q9NY64|GTR8_HUMAN",
@@ -95,7 +95,7 @@ Array [
         "distance": 0.0437,
         "distanceFromRoot": 0.06829,
       },
-      Object {
+      {
         "distance": 0.40344,
         "distanceFromRoot": 0.42803,
         "name": "sp|O43826|G6PT1_HUMAN",
@@ -104,29 +104,29 @@ Array [
     "distance": 0.02459,
     "distanceFromRoot": 0.02459,
   },
-  Object {
+  {
     "distance": 0.40268,
     "distanceFromRoot": 0.41664,
     "name": "sp|Q9BUM1|G6PC3_HUMAN",
   },
-  Object {
+  {
     "distance": 0.20504,
     "distanceFromRoot": 0.39978,
     "name": "sp|P31639|SC5A2_HUMAN",
   },
-  Object {
+  {
     "distance": 0.20646,
     "distanceFromRoot": 0.4012,
     "name": "sp|P13866|SC5A1_HUMAN",
   },
-  Object {
-    "children": Array [
-      Object {
+  {
+    "children": [
+      {
         "distance": 0.20504,
         "distanceFromRoot": 0.39978,
         "name": "sp|P31639|SC5A2_HUMAN",
       },
-      Object {
+      {
         "distance": 0.20646,
         "distanceFromRoot": 0.4012,
         "name": "sp|P13866|SC5A1_HUMAN",
@@ -135,21 +135,21 @@ Array [
     "distance": 0.18078,
     "distanceFromRoot": 0.19474,
   },
-  Object {
-    "children": Array [
-      Object {
+  {
+    "children": [
+      {
         "distance": 0.40268,
         "distanceFromRoot": 0.41664,
         "name": "sp|Q9BUM1|G6PC3_HUMAN",
       },
-      Object {
-        "children": Array [
-          Object {
+      {
+        "children": [
+          {
             "distance": 0.20504,
             "distanceFromRoot": 0.39978,
             "name": "sp|P31639|SC5A2_HUMAN",
           },
-          Object {
+          {
             "distance": 0.20646,
             "distanceFromRoot": 0.4012,
             "name": "sp|P13866|SC5A1_HUMAN",
@@ -162,24 +162,24 @@ Array [
     "distance": 0.00974,
     "distanceFromRoot": 0.01396,
   },
-  Object {
+  {
     "distance": 0.04415,
     "distanceFromRoot": 0.45547000000000004,
     "name": "sp|Q9LH76|RHM3_ARATH",
   },
-  Object {
+  {
     "distance": 0.0373,
     "distanceFromRoot": 0.44862,
     "name": "sp|Q9LPG6|RHM2_ARATH",
   },
-  Object {
-    "children": Array [
-      Object {
+  {
+    "children": [
+      {
         "distance": 0.04415,
         "distanceFromRoot": 0.45547000000000004,
         "name": "sp|Q9LH76|RHM3_ARATH",
       },
-      Object {
+      {
         "distance": 0.0373,
         "distanceFromRoot": 0.44862,
         "name": "sp|Q9LPG6|RHM2_ARATH",
@@ -188,21 +188,21 @@ Array [
     "distance": 0.02382,
     "distanceFromRoot": 0.41132,
   },
-  Object {
+  {
     "distance": 0.07315,
     "distanceFromRoot": 0.46065,
     "name": "sp|Q9SYM5|RHM1_ARATH",
   },
-  Object {
-    "children": Array [
-      Object {
-        "children": Array [
-          Object {
+  {
+    "children": [
+      {
+        "children": [
+          {
             "distance": 0.04415,
             "distanceFromRoot": 0.45547000000000004,
             "name": "sp|Q9LH76|RHM3_ARATH",
           },
-          Object {
+          {
             "distance": 0.0373,
             "distanceFromRoot": 0.44862,
             "name": "sp|Q9LPG6|RHM2_ARATH",
@@ -211,7 +211,7 @@ Array [
         "distance": 0.02382,
         "distanceFromRoot": 0.41132,
       },
-      Object {
+      {
         "distance": 0.07315,
         "distanceFromRoot": 0.46065,
         "name": "sp|Q9SYM5|RHM1_ARATH",
@@ -220,24 +220,24 @@ Array [
     "distance": 0.33259,
     "distanceFromRoot": 0.3875,
   },
-  Object {
+  {
     "distance": 0.07519,
     "distanceFromRoot": 0.45933999999999997,
     "name": "sp|P15280|GLGS2_ORYSJ",
   },
-  Object {
+  {
     "distance": 0.07866,
     "distanceFromRoot": 0.46281,
     "name": "sp|P55228|GLGS_ARATH",
   },
-  Object {
-    "children": Array [
-      Object {
+  {
+    "children": [
+      {
         "distance": 0.07519,
         "distanceFromRoot": 0.45933999999999997,
         "name": "sp|P15280|GLGS2_ORYSJ",
       },
-      Object {
+      {
         "distance": 0.07866,
         "distanceFromRoot": 0.46281,
         "name": "sp|P55228|GLGS_ARATH",
@@ -246,24 +246,24 @@ Array [
     "distance": 0.16844,
     "distanceFromRoot": 0.38415,
   },
-  Object {
+  {
     "distance": 0.1862,
     "distanceFromRoot": 0.45794999999999997,
     "name": "sp|P55230|GLGL2_ARATH",
   },
-  Object {
+  {
     "distance": 0.19318,
     "distanceFromRoot": 0.46492999999999995,
     "name": "sp|P55229|GLGL1_ARATH",
   },
-  Object {
-    "children": Array [
-      Object {
+  {
+    "children": [
+      {
         "distance": 0.1862,
         "distanceFromRoot": 0.45794999999999997,
         "name": "sp|P55230|GLGL2_ARATH",
       },
-      Object {
+      {
         "distance": 0.19318,
         "distanceFromRoot": 0.46492999999999995,
         "name": "sp|P55229|GLGL1_ARATH",
@@ -272,16 +272,16 @@ Array [
     "distance": 0.05604,
     "distanceFromRoot": 0.27175,
   },
-  Object {
-    "children": Array [
-      Object {
-        "children": Array [
-          Object {
+  {
+    "children": [
+      {
+        "children": [
+          {
             "distance": 0.07519,
             "distanceFromRoot": 0.45933999999999997,
             "name": "sp|P15280|GLGS2_ORYSJ",
           },
-          Object {
+          {
             "distance": 0.07866,
             "distanceFromRoot": 0.46281,
             "name": "sp|P55228|GLGS_ARATH",
@@ -290,14 +290,14 @@ Array [
         "distance": 0.16844,
         "distanceFromRoot": 0.38415,
       },
-      Object {
-        "children": Array [
-          Object {
+      {
+        "children": [
+          {
             "distance": 0.1862,
             "distanceFromRoot": 0.45794999999999997,
             "name": "sp|P55230|GLGL2_ARATH",
           },
-          Object {
+          {
             "distance": 0.19318,
             "distanceFromRoot": 0.46492999999999995,
             "name": "sp|P55229|GLGL1_ARATH",
@@ -310,18 +310,18 @@ Array [
     "distance": 0.1608,
     "distanceFromRoot": 0.21571,
   },
-  Object {
-    "children": Array [
-      Object {
-        "children": Array [
-          Object {
-            "children": Array [
-              Object {
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
                 "distance": 0.04415,
                 "distanceFromRoot": 0.45547000000000004,
                 "name": "sp|Q9LH76|RHM3_ARATH",
               },
-              Object {
+              {
                 "distance": 0.0373,
                 "distanceFromRoot": 0.44862,
                 "name": "sp|Q9LPG6|RHM2_ARATH",
@@ -330,7 +330,7 @@ Array [
             "distance": 0.02382,
             "distanceFromRoot": 0.41132,
           },
-          Object {
+          {
             "distance": 0.07315,
             "distanceFromRoot": 0.46065,
             "name": "sp|Q9SYM5|RHM1_ARATH",
@@ -339,16 +339,16 @@ Array [
         "distance": 0.33259,
         "distanceFromRoot": 0.3875,
       },
-      Object {
-        "children": Array [
-          Object {
-            "children": Array [
-              Object {
+      {
+        "children": [
+          {
+            "children": [
+              {
                 "distance": 0.07519,
                 "distanceFromRoot": 0.45933999999999997,
                 "name": "sp|P15280|GLGS2_ORYSJ",
               },
-              Object {
+              {
                 "distance": 0.07866,
                 "distanceFromRoot": 0.46281,
                 "name": "sp|P55228|GLGS_ARATH",
@@ -357,14 +357,14 @@ Array [
             "distance": 0.16844,
             "distanceFromRoot": 0.38415,
           },
-          Object {
-            "children": Array [
-              Object {
+          {
+            "children": [
+              {
                 "distance": 0.1862,
                 "distanceFromRoot": 0.45794999999999997,
                 "name": "sp|P55230|GLGL2_ARATH",
               },
-              Object {
+              {
                 "distance": 0.19318,
                 "distanceFromRoot": 0.46492999999999995,
                 "name": "sp|P55229|GLGL1_ARATH",
@@ -381,23 +381,23 @@ Array [
     "distance": 0.05069,
     "distanceFromRoot": 0.05491,
   },
-  Object {
-    "children": Array [
-      Object {
-        "children": Array [
-          Object {
+  {
+    "children": [
+      {
+        "children": [
+          {
             "distance": 0.40268,
             "distanceFromRoot": 0.41664,
             "name": "sp|Q9BUM1|G6PC3_HUMAN",
           },
-          Object {
-            "children": Array [
-              Object {
+          {
+            "children": [
+              {
                 "distance": 0.20504,
                 "distanceFromRoot": 0.39978,
                 "name": "sp|P31639|SC5A2_HUMAN",
               },
-              Object {
+              {
                 "distance": 0.20646,
                 "distanceFromRoot": 0.4012,
                 "name": "sp|P13866|SC5A1_HUMAN",
@@ -410,18 +410,18 @@ Array [
         "distance": 0.00974,
         "distanceFromRoot": 0.01396,
       },
-      Object {
-        "children": Array [
-          Object {
-            "children": Array [
-              Object {
-                "children": Array [
-                  Object {
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
                     "distance": 0.04415,
                     "distanceFromRoot": 0.45547000000000004,
                     "name": "sp|Q9LH76|RHM3_ARATH",
                   },
-                  Object {
+                  {
                     "distance": 0.0373,
                     "distanceFromRoot": 0.44862,
                     "name": "sp|Q9LPG6|RHM2_ARATH",
@@ -430,7 +430,7 @@ Array [
                 "distance": 0.02382,
                 "distanceFromRoot": 0.41132,
               },
-              Object {
+              {
                 "distance": 0.07315,
                 "distanceFromRoot": 0.46065,
                 "name": "sp|Q9SYM5|RHM1_ARATH",
@@ -439,16 +439,16 @@ Array [
             "distance": 0.33259,
             "distanceFromRoot": 0.3875,
           },
-          Object {
-            "children": Array [
-              Object {
-                "children": Array [
-                  Object {
+          {
+            "children": [
+              {
+                "children": [
+                  {
                     "distance": 0.07519,
                     "distanceFromRoot": 0.45933999999999997,
                     "name": "sp|P15280|GLGS2_ORYSJ",
                   },
-                  Object {
+                  {
                     "distance": 0.07866,
                     "distanceFromRoot": 0.46281,
                     "name": "sp|P55228|GLGS_ARATH",
@@ -457,14 +457,14 @@ Array [
                 "distance": 0.16844,
                 "distanceFromRoot": 0.38415,
               },
-              Object {
-                "children": Array [
-                  Object {
+              {
+                "children": [
+                  {
                     "distance": 0.1862,
                     "distanceFromRoot": 0.45794999999999997,
                     "name": "sp|P55230|GLGL2_ARATH",
                   },
-                  Object {
+                  {
                     "distance": 0.19318,
                     "distanceFromRoot": 0.46492999999999995,
                     "name": "sp|P55229|GLGL1_ARATH",
@@ -485,23 +485,23 @@ Array [
     "distance": 0.00422,
     "distanceFromRoot": 0.00422,
   },
-  Object {
-    "children": Array [
-      Object {
+  {
+    "children": [
+      {
         "distance": 0.41968,
         "distanceFromRoot": 0.41968,
         "name": "sp|P69786|PTGCB_ECOLI",
       },
-      Object {
-        "children": Array [
-          Object {
-            "children": Array [
-              Object {
+      {
+        "children": [
+          {
+            "children": [
+              {
                 "distance": 0.35432,
                 "distanceFromRoot": 0.42261000000000004,
                 "name": "sp|P11166|GTR1_HUMAN",
               },
-              Object {
+              {
                 "distance": 0.33133,
                 "distanceFromRoot": 0.39962000000000003,
                 "name": "sp|Q9NY64|GTR8_HUMAN",
@@ -510,7 +510,7 @@ Array [
             "distance": 0.0437,
             "distanceFromRoot": 0.06829,
           },
-          Object {
+          {
             "distance": 0.40344,
             "distanceFromRoot": 0.42803,
             "name": "sp|O43826|G6PT1_HUMAN",
@@ -519,23 +519,23 @@ Array [
         "distance": 0.02459,
         "distanceFromRoot": 0.02459,
       },
-      Object {
-        "children": Array [
-          Object {
-            "children": Array [
-              Object {
+      {
+        "children": [
+          {
+            "children": [
+              {
                 "distance": 0.40268,
                 "distanceFromRoot": 0.41664,
                 "name": "sp|Q9BUM1|G6PC3_HUMAN",
               },
-              Object {
-                "children": Array [
-                  Object {
+              {
+                "children": [
+                  {
                     "distance": 0.20504,
                     "distanceFromRoot": 0.39978,
                     "name": "sp|P31639|SC5A2_HUMAN",
                   },
-                  Object {
+                  {
                     "distance": 0.20646,
                     "distanceFromRoot": 0.4012,
                     "name": "sp|P13866|SC5A1_HUMAN",
@@ -548,18 +548,18 @@ Array [
             "distance": 0.00974,
             "distanceFromRoot": 0.01396,
           },
-          Object {
-            "children": Array [
-              Object {
-                "children": Array [
-                  Object {
-                    "children": Array [
-                      Object {
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
                         "distance": 0.04415,
                         "distanceFromRoot": 0.45547000000000004,
                         "name": "sp|Q9LH76|RHM3_ARATH",
                       },
-                      Object {
+                      {
                         "distance": 0.0373,
                         "distanceFromRoot": 0.44862,
                         "name": "sp|Q9LPG6|RHM2_ARATH",
@@ -568,7 +568,7 @@ Array [
                     "distance": 0.02382,
                     "distanceFromRoot": 0.41132,
                   },
-                  Object {
+                  {
                     "distance": 0.07315,
                     "distanceFromRoot": 0.46065,
                     "name": "sp|Q9SYM5|RHM1_ARATH",
@@ -577,16 +577,16 @@ Array [
                 "distance": 0.33259,
                 "distanceFromRoot": 0.3875,
               },
-              Object {
-                "children": Array [
-                  Object {
-                    "children": Array [
-                      Object {
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
                         "distance": 0.07519,
                         "distanceFromRoot": 0.45933999999999997,
                         "name": "sp|P15280|GLGS2_ORYSJ",
                       },
-                      Object {
+                      {
                         "distance": 0.07866,
                         "distanceFromRoot": 0.46281,
                         "name": "sp|P55228|GLGS_ARATH",
@@ -595,14 +595,14 @@ Array [
                     "distance": 0.16844,
                     "distanceFromRoot": 0.38415,
                   },
-                  Object {
-                    "children": Array [
-                      Object {
+                  {
+                    "children": [
+                      {
                         "distance": 0.1862,
                         "distanceFromRoot": 0.45794999999999997,
                         "name": "sp|P55230|GLGL2_ARATH",
                       },
-                      Object {
+                      {
                         "distance": 0.19318,
                         "distanceFromRoot": 0.46492999999999995,
                         "name": "sp|P55229|GLGL1_ARATH",
@@ -628,26 +628,26 @@ Array [
 ]
 `;
 
-exports[`phylotree should match snapshot 3`] = `
-Array [
-  Object {
+exports[`newicktree should match snapshot 3`] = `
+[
+  {
     "distance": 0.00572,
     "distanceFromRoot": 0.10462,
     "name": "tr|A0A4W2DUN1|A0A4W2DUN1_BOBOX",
   },
-  Object {
+  {
     "distance": -0.00572,
     "distanceFromRoot": 0.10462,
     "name": "tr|A0A4W2C324|A0A4W2C324_BOBOX",
   },
-  Object {
-    "children": Array [
-      Object {
+  {
+    "children": [
+      {
         "distance": 0.00572,
         "distanceFromRoot": 0.10462,
         "name": "tr|A0A4W2DUN1|A0A4W2DUN1_BOBOX",
       },
-      Object {
+      {
         "distance": -0.00572,
         "distanceFromRoot": 0.10462,
         "name": "tr|A0A4W2C324|A0A4W2C324_BOBOX",
@@ -656,24 +656,24 @@ Array [
     "distance": 0.01309,
     "distanceFromRoot": 0.0989,
   },
-  Object {
+  {
     "distance": 0.01478,
     "distanceFromRoot": 0.12335,
     "name": "tr|A0A452E559|A0A452E559_CAPHI",
   },
-  Object {
+  {
     "distance": 0.01345,
     "distanceFromRoot": 0.12202,
     "name": "tr|W5NYX9|W5NYX9_SHEEP",
   },
-  Object {
-    "children": Array [
-      Object {
+  {
+    "children": [
+      {
         "distance": 0.01478,
         "distanceFromRoot": 0.12335,
         "name": "tr|A0A452E559|A0A452E559_CAPHI",
       },
-      Object {
+      {
         "distance": 0.01345,
         "distanceFromRoot": 0.12202,
         "name": "tr|W5NYX9|W5NYX9_SHEEP",
@@ -682,16 +682,16 @@ Array [
     "distance": 0.02276,
     "distanceFromRoot": 0.10857,
   },
-  Object {
-    "children": Array [
-      Object {
-        "children": Array [
-          Object {
+  {
+    "children": [
+      {
+        "children": [
+          {
             "distance": 0.00572,
             "distanceFromRoot": 0.10462,
             "name": "tr|A0A4W2DUN1|A0A4W2DUN1_BOBOX",
           },
-          Object {
+          {
             "distance": -0.00572,
             "distanceFromRoot": 0.10462,
             "name": "tr|A0A4W2C324|A0A4W2C324_BOBOX",
@@ -700,14 +700,14 @@ Array [
         "distance": 0.01309,
         "distanceFromRoot": 0.0989,
       },
-      Object {
-        "children": Array [
-          Object {
+      {
+        "children": [
+          {
             "distance": 0.01478,
             "distanceFromRoot": 0.12335,
             "name": "tr|A0A452E559|A0A452E559_CAPHI",
           },
-          Object {
+          {
             "distance": 0.01345,
             "distanceFromRoot": 0.12202,
             "name": "tr|W5NYX9|W5NYX9_SHEEP",
@@ -720,29 +720,29 @@ Array [
     "distance": 0.0316,
     "distanceFromRoot": 0.08581,
   },
-  Object {
+  {
     "distance": 0.41697,
     "distanceFromRoot": 0.8340799999999999,
     "name": "tr|A0A4D9C315|A0A4D9C315_SALSN",
   },
-  Object {
+  {
     "distance": 0.40736,
     "distanceFromRoot": 0.8469,
     "name": "tr|F7VZH6|F7VZH6_SORMK",
   },
-  Object {
+  {
     "distance": 0.38474,
     "distanceFromRoot": 0.8242799999999999,
     "name": "tr|E1ZD54|E1ZD54_CHLVA",
   },
-  Object {
-    "children": Array [
-      Object {
+  {
+    "children": [
+      {
         "distance": 0.40736,
         "distanceFromRoot": 0.8469,
         "name": "tr|F7VZH6|F7VZH6_SORMK",
       },
-      Object {
+      {
         "distance": 0.38474,
         "distanceFromRoot": 0.8242799999999999,
         "name": "tr|E1ZD54|E1ZD54_CHLVA",
@@ -751,21 +751,21 @@ Array [
     "distance": 0.01557,
     "distanceFromRoot": 0.43953999999999993,
   },
-  Object {
+  {
     "distance": 0.39018,
     "distanceFromRoot": 0.8141499999999999,
     "name": "tr|D8U2K8|D8U2K8_VOLCA",
   },
-  Object {
-    "children": Array [
-      Object {
-        "children": Array [
-          Object {
+  {
+    "children": [
+      {
+        "children": [
+          {
             "distance": 0.40736,
             "distanceFromRoot": 0.8469,
             "name": "tr|F7VZH6|F7VZH6_SORMK",
           },
-          Object {
+          {
             "distance": 0.38474,
             "distanceFromRoot": 0.8242799999999999,
             "name": "tr|E1ZD54|E1ZD54_CHLVA",
@@ -774,7 +774,7 @@ Array [
         "distance": 0.01557,
         "distanceFromRoot": 0.43953999999999993,
       },
-      Object {
+      {
         "distance": 0.39018,
         "distanceFromRoot": 0.8141499999999999,
         "name": "tr|D8U2K8|D8U2K8_VOLCA",
@@ -783,23 +783,23 @@ Array [
     "distance": 0.00686,
     "distanceFromRoot": 0.4239699999999999,
   },
-  Object {
-    "children": Array [
-      Object {
+  {
+    "children": [
+      {
         "distance": 0.41697,
         "distanceFromRoot": 0.8340799999999999,
         "name": "tr|A0A4D9C315|A0A4D9C315_SALSN",
       },
-      Object {
-        "children": Array [
-          Object {
-            "children": Array [
-              Object {
+      {
+        "children": [
+          {
+            "children": [
+              {
                 "distance": 0.40736,
                 "distanceFromRoot": 0.8469,
                 "name": "tr|F7VZH6|F7VZH6_SORMK",
               },
-              Object {
+              {
                 "distance": 0.38474,
                 "distanceFromRoot": 0.8242799999999999,
                 "name": "tr|E1ZD54|E1ZD54_CHLVA",
@@ -808,7 +808,7 @@ Array [
             "distance": 0.01557,
             "distanceFromRoot": 0.43953999999999993,
           },
-          Object {
+          {
             "distance": 0.39018,
             "distanceFromRoot": 0.8141499999999999,
             "name": "tr|D8U2K8|D8U2K8_VOLCA",
@@ -821,24 +821,24 @@ Array [
     "distance": 0.01039,
     "distanceFromRoot": 0.4171099999999999,
   },
-  Object {
+  {
     "distance": -0.0236,
     "distanceFromRoot": 0.8336099999999999,
     "name": "tr|A0A3Q7SLA2|A0A3Q7SLA2_VULVU",
   },
-  Object {
+  {
     "distance": 0.0236,
     "distanceFromRoot": 0.8336099999999999,
     "name": "tr|A0A063CEB7|A0A063CEB7_USTVR",
   },
-  Object {
-    "children": Array [
-      Object {
+  {
+    "children": [
+      {
         "distance": -0.0236,
         "distanceFromRoot": 0.8336099999999999,
         "name": "tr|A0A3Q7SLA2|A0A3Q7SLA2_VULVU",
       },
-      Object {
+      {
         "distance": 0.0236,
         "distanceFromRoot": 0.8336099999999999,
         "name": "tr|A0A063CEB7|A0A063CEB7_USTVR",
@@ -847,25 +847,25 @@ Array [
     "distance": 0.40329,
     "distanceFromRoot": 0.8100099999999999,
   },
-  Object {
-    "children": Array [
-      Object {
-        "children": Array [
-          Object {
+  {
+    "children": [
+      {
+        "children": [
+          {
             "distance": 0.41697,
             "distanceFromRoot": 0.8340799999999999,
             "name": "tr|A0A4D9C315|A0A4D9C315_SALSN",
           },
-          Object {
-            "children": Array [
-              Object {
-                "children": Array [
-                  Object {
+          {
+            "children": [
+              {
+                "children": [
+                  {
                     "distance": 0.40736,
                     "distanceFromRoot": 0.8469,
                     "name": "tr|F7VZH6|F7VZH6_SORMK",
                   },
-                  Object {
+                  {
                     "distance": 0.38474,
                     "distanceFromRoot": 0.8242799999999999,
                     "name": "tr|E1ZD54|E1ZD54_CHLVA",
@@ -874,7 +874,7 @@ Array [
                 "distance": 0.01557,
                 "distanceFromRoot": 0.43953999999999993,
               },
-              Object {
+              {
                 "distance": 0.39018,
                 "distanceFromRoot": 0.8141499999999999,
                 "name": "tr|D8U2K8|D8U2K8_VOLCA",
@@ -887,14 +887,14 @@ Array [
         "distance": 0.01039,
         "distanceFromRoot": 0.4171099999999999,
       },
-      Object {
-        "children": Array [
-          Object {
+      {
+        "children": [
+          {
             "distance": -0.0236,
             "distanceFromRoot": 0.8336099999999999,
             "name": "tr|A0A3Q7SLA2|A0A3Q7SLA2_VULVU",
           },
-          Object {
+          {
             "distance": 0.0236,
             "distanceFromRoot": 0.8336099999999999,
             "name": "tr|A0A063CEB7|A0A063CEB7_USTVR",
@@ -907,24 +907,24 @@ Array [
     "distance": 0.01385,
     "distanceFromRoot": 0.4067199999999999,
   },
-  Object {
+  {
     "distance": 0.01909,
     "distanceFromRoot": 0.79074,
     "name": "tr|G3WPD0|G3WPD0_SARHA",
   },
-  Object {
+  {
     "distance": 0.02382,
     "distanceFromRoot": 0.7954699999999999,
     "name": "tr|A0A4X2K630|A0A4X2K630_VOMUR",
   },
-  Object {
-    "children": Array [
-      Object {
+  {
+    "children": [
+      {
         "distance": 0.01909,
         "distanceFromRoot": 0.79074,
         "name": "tr|G3WPD0|G3WPD0_SARHA",
       },
-      Object {
+      {
         "distance": 0.02382,
         "distanceFromRoot": 0.7954699999999999,
         "name": "tr|A0A4X2K630|A0A4X2K630_VOMUR",
@@ -933,27 +933,27 @@ Array [
     "distance": 0.37878,
     "distanceFromRoot": 0.77165,
   },
-  Object {
-    "children": Array [
-      Object {
-        "children": Array [
-          Object {
-            "children": Array [
-              Object {
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
                 "distance": 0.41697,
                 "distanceFromRoot": 0.8340799999999999,
                 "name": "tr|A0A4D9C315|A0A4D9C315_SALSN",
               },
-              Object {
-                "children": Array [
-                  Object {
-                    "children": Array [
-                      Object {
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
                         "distance": 0.40736,
                         "distanceFromRoot": 0.8469,
                         "name": "tr|F7VZH6|F7VZH6_SORMK",
                       },
-                      Object {
+                      {
                         "distance": 0.38474,
                         "distanceFromRoot": 0.8242799999999999,
                         "name": "tr|E1ZD54|E1ZD54_CHLVA",
@@ -962,7 +962,7 @@ Array [
                     "distance": 0.01557,
                     "distanceFromRoot": 0.43953999999999993,
                   },
-                  Object {
+                  {
                     "distance": 0.39018,
                     "distanceFromRoot": 0.8141499999999999,
                     "name": "tr|D8U2K8|D8U2K8_VOLCA",
@@ -975,14 +975,14 @@ Array [
             "distance": 0.01039,
             "distanceFromRoot": 0.4171099999999999,
           },
-          Object {
-            "children": Array [
-              Object {
+          {
+            "children": [
+              {
                 "distance": -0.0236,
                 "distanceFromRoot": 0.8336099999999999,
                 "name": "tr|A0A3Q7SLA2|A0A3Q7SLA2_VULVU",
               },
-              Object {
+              {
                 "distance": 0.0236,
                 "distanceFromRoot": 0.8336099999999999,
                 "name": "tr|A0A063CEB7|A0A063CEB7_USTVR",
@@ -995,14 +995,14 @@ Array [
         "distance": 0.01385,
         "distanceFromRoot": 0.4067199999999999,
       },
-      Object {
-        "children": Array [
-          Object {
+      {
+        "children": [
+          {
             "distance": 0.01909,
             "distanceFromRoot": 0.79074,
             "name": "tr|G3WPD0|G3WPD0_SARHA",
           },
-          Object {
+          {
             "distance": 0.02382,
             "distanceFromRoot": 0.7954699999999999,
             "name": "tr|A0A4X2K630|A0A4X2K630_VOMUR",
@@ -1015,34 +1015,34 @@ Array [
     "distance": 0.01403,
     "distanceFromRoot": 0.39286999999999994,
   },
-  Object {
+  {
     "distance": 0.34443,
     "distanceFromRoot": 0.72327,
     "name": "tr|A0A3R7N5S8|A0A3R7N5S8_PENVA",
   },
-  Object {
-    "children": Array [
-      Object {
-        "children": Array [
-          Object {
-            "children": Array [
-              Object {
-                "children": Array [
-                  Object {
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
                     "distance": 0.41697,
                     "distanceFromRoot": 0.8340799999999999,
                     "name": "tr|A0A4D9C315|A0A4D9C315_SALSN",
                   },
-                  Object {
-                    "children": Array [
-                      Object {
-                        "children": Array [
-                          Object {
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
                             "distance": 0.40736,
                             "distanceFromRoot": 0.8469,
                             "name": "tr|F7VZH6|F7VZH6_SORMK",
                           },
-                          Object {
+                          {
                             "distance": 0.38474,
                             "distanceFromRoot": 0.8242799999999999,
                             "name": "tr|E1ZD54|E1ZD54_CHLVA",
@@ -1051,7 +1051,7 @@ Array [
                         "distance": 0.01557,
                         "distanceFromRoot": 0.43953999999999993,
                       },
-                      Object {
+                      {
                         "distance": 0.39018,
                         "distanceFromRoot": 0.8141499999999999,
                         "name": "tr|D8U2K8|D8U2K8_VOLCA",
@@ -1064,14 +1064,14 @@ Array [
                 "distance": 0.01039,
                 "distanceFromRoot": 0.4171099999999999,
               },
-              Object {
-                "children": Array [
-                  Object {
+              {
+                "children": [
+                  {
                     "distance": -0.0236,
                     "distanceFromRoot": 0.8336099999999999,
                     "name": "tr|A0A3Q7SLA2|A0A3Q7SLA2_VULVU",
                   },
-                  Object {
+                  {
                     "distance": 0.0236,
                     "distanceFromRoot": 0.8336099999999999,
                     "name": "tr|A0A063CEB7|A0A063CEB7_USTVR",
@@ -1084,14 +1084,14 @@ Array [
             "distance": 0.01385,
             "distanceFromRoot": 0.4067199999999999,
           },
-          Object {
-            "children": Array [
-              Object {
+          {
+            "children": [
+              {
                 "distance": 0.01909,
                 "distanceFromRoot": 0.79074,
                 "name": "tr|G3WPD0|G3WPD0_SARHA",
               },
-              Object {
+              {
                 "distance": 0.02382,
                 "distanceFromRoot": 0.7954699999999999,
                 "name": "tr|A0A4X2K630|A0A4X2K630_VOMUR",
@@ -1104,7 +1104,7 @@ Array [
         "distance": 0.01403,
         "distanceFromRoot": 0.39286999999999994,
       },
-      Object {
+      {
         "distance": 0.34443,
         "distanceFromRoot": 0.72327,
         "name": "tr|A0A3R7N5S8|A0A3R7N5S8_PENVA",
@@ -1113,18 +1113,18 @@ Array [
     "distance": 0.32463,
     "distanceFromRoot": 0.37883999999999995,
   },
-  Object {
-    "children": Array [
-      Object {
-        "children": Array [
-          Object {
-            "children": Array [
-              Object {
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
                 "distance": 0.00572,
                 "distanceFromRoot": 0.10462,
                 "name": "tr|A0A4W2DUN1|A0A4W2DUN1_BOBOX",
               },
-              Object {
+              {
                 "distance": -0.00572,
                 "distanceFromRoot": 0.10462,
                 "name": "tr|A0A4W2C324|A0A4W2C324_BOBOX",
@@ -1133,14 +1133,14 @@ Array [
             "distance": 0.01309,
             "distanceFromRoot": 0.0989,
           },
-          Object {
-            "children": Array [
-              Object {
+          {
+            "children": [
+              {
                 "distance": 0.01478,
                 "distanceFromRoot": 0.12335,
                 "name": "tr|A0A452E559|A0A452E559_CAPHI",
               },
-              Object {
+              {
                 "distance": 0.01345,
                 "distanceFromRoot": 0.12202,
                 "name": "tr|W5NYX9|W5NYX9_SHEEP",
@@ -1153,29 +1153,29 @@ Array [
         "distance": 0.0316,
         "distanceFromRoot": 0.08581,
       },
-      Object {
-        "children": Array [
-          Object {
-            "children": Array [
-              Object {
-                "children": Array [
-                  Object {
-                    "children": Array [
-                      Object {
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
                         "distance": 0.41697,
                         "distanceFromRoot": 0.8340799999999999,
                         "name": "tr|A0A4D9C315|A0A4D9C315_SALSN",
                       },
-                      Object {
-                        "children": Array [
-                          Object {
-                            "children": Array [
-                              Object {
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
                                 "distance": 0.40736,
                                 "distanceFromRoot": 0.8469,
                                 "name": "tr|F7VZH6|F7VZH6_SORMK",
                               },
-                              Object {
+                              {
                                 "distance": 0.38474,
                                 "distanceFromRoot": 0.8242799999999999,
                                 "name": "tr|E1ZD54|E1ZD54_CHLVA",
@@ -1184,7 +1184,7 @@ Array [
                             "distance": 0.01557,
                             "distanceFromRoot": 0.43953999999999993,
                           },
-                          Object {
+                          {
                             "distance": 0.39018,
                             "distanceFromRoot": 0.8141499999999999,
                             "name": "tr|D8U2K8|D8U2K8_VOLCA",
@@ -1197,14 +1197,14 @@ Array [
                     "distance": 0.01039,
                     "distanceFromRoot": 0.4171099999999999,
                   },
-                  Object {
-                    "children": Array [
-                      Object {
+                  {
+                    "children": [
+                      {
                         "distance": -0.0236,
                         "distanceFromRoot": 0.8336099999999999,
                         "name": "tr|A0A3Q7SLA2|A0A3Q7SLA2_VULVU",
                       },
-                      Object {
+                      {
                         "distance": 0.0236,
                         "distanceFromRoot": 0.8336099999999999,
                         "name": "tr|A0A063CEB7|A0A063CEB7_USTVR",
@@ -1217,14 +1217,14 @@ Array [
                 "distance": 0.01385,
                 "distanceFromRoot": 0.4067199999999999,
               },
-              Object {
-                "children": Array [
-                  Object {
+              {
+                "children": [
+                  {
                     "distance": 0.01909,
                     "distanceFromRoot": 0.79074,
                     "name": "tr|G3WPD0|G3WPD0_SARHA",
                   },
-                  Object {
+                  {
                     "distance": 0.02382,
                     "distanceFromRoot": 0.7954699999999999,
                     "name": "tr|A0A4X2K630|A0A4X2K630_VOMUR",
@@ -1237,7 +1237,7 @@ Array [
             "distance": 0.01403,
             "distanceFromRoot": 0.39286999999999994,
           },
-          Object {
+          {
             "distance": 0.34443,
             "distanceFromRoot": 0.72327,
             "name": "tr|A0A3R7N5S8|A0A3R7N5S8_PENVA",
@@ -1250,25 +1250,25 @@ Array [
     "distance": 0.04971,
     "distanceFromRoot": 0.054209999999999994,
   },
-  Object {
+  {
     "distance": 0.02205,
     "distanceFromRoot": 0.02655,
     "name": "tr|A0A341C794|A0A341C794_NEOAA",
   },
-  Object {
-    "children": Array [
-      Object {
-        "children": Array [
-          Object {
-            "children": Array [
-              Object {
-                "children": Array [
-                  Object {
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
                     "distance": 0.00572,
                     "distanceFromRoot": 0.10462,
                     "name": "tr|A0A4W2DUN1|A0A4W2DUN1_BOBOX",
                   },
-                  Object {
+                  {
                     "distance": -0.00572,
                     "distanceFromRoot": 0.10462,
                     "name": "tr|A0A4W2C324|A0A4W2C324_BOBOX",
@@ -1277,14 +1277,14 @@ Array [
                 "distance": 0.01309,
                 "distanceFromRoot": 0.0989,
               },
-              Object {
-                "children": Array [
-                  Object {
+              {
+                "children": [
+                  {
                     "distance": 0.01478,
                     "distanceFromRoot": 0.12335,
                     "name": "tr|A0A452E559|A0A452E559_CAPHI",
                   },
-                  Object {
+                  {
                     "distance": 0.01345,
                     "distanceFromRoot": 0.12202,
                     "name": "tr|W5NYX9|W5NYX9_SHEEP",
@@ -1297,29 +1297,29 @@ Array [
             "distance": 0.0316,
             "distanceFromRoot": 0.08581,
           },
-          Object {
-            "children": Array [
-              Object {
-                "children": Array [
-                  Object {
-                    "children": Array [
-                      Object {
-                        "children": Array [
-                          Object {
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
                             "distance": 0.41697,
                             "distanceFromRoot": 0.8340799999999999,
                             "name": "tr|A0A4D9C315|A0A4D9C315_SALSN",
                           },
-                          Object {
-                            "children": Array [
-                              Object {
-                                "children": Array [
-                                  Object {
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
                                     "distance": 0.40736,
                                     "distanceFromRoot": 0.8469,
                                     "name": "tr|F7VZH6|F7VZH6_SORMK",
                                   },
-                                  Object {
+                                  {
                                     "distance": 0.38474,
                                     "distanceFromRoot": 0.8242799999999999,
                                     "name": "tr|E1ZD54|E1ZD54_CHLVA",
@@ -1328,7 +1328,7 @@ Array [
                                 "distance": 0.01557,
                                 "distanceFromRoot": 0.43953999999999993,
                               },
-                              Object {
+                              {
                                 "distance": 0.39018,
                                 "distanceFromRoot": 0.8141499999999999,
                                 "name": "tr|D8U2K8|D8U2K8_VOLCA",
@@ -1341,14 +1341,14 @@ Array [
                         "distance": 0.01039,
                         "distanceFromRoot": 0.4171099999999999,
                       },
-                      Object {
-                        "children": Array [
-                          Object {
+                      {
+                        "children": [
+                          {
                             "distance": -0.0236,
                             "distanceFromRoot": 0.8336099999999999,
                             "name": "tr|A0A3Q7SLA2|A0A3Q7SLA2_VULVU",
                           },
-                          Object {
+                          {
                             "distance": 0.0236,
                             "distanceFromRoot": 0.8336099999999999,
                             "name": "tr|A0A063CEB7|A0A063CEB7_USTVR",
@@ -1361,14 +1361,14 @@ Array [
                     "distance": 0.01385,
                     "distanceFromRoot": 0.4067199999999999,
                   },
-                  Object {
-                    "children": Array [
-                      Object {
+                  {
+                    "children": [
+                      {
                         "distance": 0.01909,
                         "distanceFromRoot": 0.79074,
                         "name": "tr|G3WPD0|G3WPD0_SARHA",
                       },
-                      Object {
+                      {
                         "distance": 0.02382,
                         "distanceFromRoot": 0.7954699999999999,
                         "name": "tr|A0A4X2K630|A0A4X2K630_VOMUR",
@@ -1381,7 +1381,7 @@ Array [
                 "distance": 0.01403,
                 "distanceFromRoot": 0.39286999999999994,
               },
-              Object {
+              {
                 "distance": 0.34443,
                 "distanceFromRoot": 0.72327,
                 "name": "tr|A0A3R7N5S8|A0A3R7N5S8_PENVA",
@@ -1394,7 +1394,7 @@ Array [
         "distance": 0.04971,
         "distanceFromRoot": 0.054209999999999994,
       },
-      Object {
+      {
         "distance": 0.02205,
         "distanceFromRoot": 0.02655,
         "name": "tr|A0A341C794|A0A341C794_NEOAA",
@@ -1403,29 +1403,29 @@ Array [
     "distance": 0.0045,
     "distanceFromRoot": 0.0045,
   },
-  Object {
+  {
     "distance": 0.01507,
     "distanceFromRoot": 0.01507,
     "name": "tr|A0A2Y9PRR0|A0A2Y9PRR0_DELLE",
   },
-  Object {
+  {
     "distance": 0.00569,
     "distanceFromRoot": 0.01146,
     "name": "tr|A0A2U4BVN1|A0A2U4BVN1_TURTR",
   },
-  Object {
+  {
     "distance": 0.00528,
     "distanceFromRoot": 0.01105,
     "name": "tr|A0A484H0K8|A0A484H0K8_SOUCH",
   },
-  Object {
-    "children": Array [
-      Object {
+  {
+    "children": [
+      {
         "distance": 0.00569,
         "distanceFromRoot": 0.01146,
         "name": "tr|A0A2U4BVN1|A0A2U4BVN1_TURTR",
       },
-      Object {
+      {
         "distance": 0.00528,
         "distanceFromRoot": 0.01105,
         "name": "tr|A0A484H0K8|A0A484H0K8_SOUCH",
@@ -1434,22 +1434,22 @@ Array [
     "distance": 0.00577,
     "distanceFromRoot": 0.00577,
   },
-  Object {
-    "children": Array [
-      Object {
-        "children": Array [
-          Object {
-            "children": Array [
-              Object {
-                "children": Array [
-                  Object {
-                    "children": Array [
-                      Object {
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
                         "distance": 0.00572,
                         "distanceFromRoot": 0.10462,
                         "name": "tr|A0A4W2DUN1|A0A4W2DUN1_BOBOX",
                       },
-                      Object {
+                      {
                         "distance": -0.00572,
                         "distanceFromRoot": 0.10462,
                         "name": "tr|A0A4W2C324|A0A4W2C324_BOBOX",
@@ -1458,14 +1458,14 @@ Array [
                     "distance": 0.01309,
                     "distanceFromRoot": 0.0989,
                   },
-                  Object {
-                    "children": Array [
-                      Object {
+                  {
+                    "children": [
+                      {
                         "distance": 0.01478,
                         "distanceFromRoot": 0.12335,
                         "name": "tr|A0A452E559|A0A452E559_CAPHI",
                       },
-                      Object {
+                      {
                         "distance": 0.01345,
                         "distanceFromRoot": 0.12202,
                         "name": "tr|W5NYX9|W5NYX9_SHEEP",
@@ -1478,29 +1478,29 @@ Array [
                 "distance": 0.0316,
                 "distanceFromRoot": 0.08581,
               },
-              Object {
-                "children": Array [
-                  Object {
-                    "children": Array [
-                      Object {
-                        "children": Array [
-                          Object {
-                            "children": Array [
-                              Object {
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
                                 "distance": 0.41697,
                                 "distanceFromRoot": 0.8340799999999999,
                                 "name": "tr|A0A4D9C315|A0A4D9C315_SALSN",
                               },
-                              Object {
-                                "children": Array [
-                                  Object {
-                                    "children": Array [
-                                      Object {
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
                                         "distance": 0.40736,
                                         "distanceFromRoot": 0.8469,
                                         "name": "tr|F7VZH6|F7VZH6_SORMK",
                                       },
-                                      Object {
+                                      {
                                         "distance": 0.38474,
                                         "distanceFromRoot": 0.8242799999999999,
                                         "name": "tr|E1ZD54|E1ZD54_CHLVA",
@@ -1509,7 +1509,7 @@ Array [
                                     "distance": 0.01557,
                                     "distanceFromRoot": 0.43953999999999993,
                                   },
-                                  Object {
+                                  {
                                     "distance": 0.39018,
                                     "distanceFromRoot": 0.8141499999999999,
                                     "name": "tr|D8U2K8|D8U2K8_VOLCA",
@@ -1522,14 +1522,14 @@ Array [
                             "distance": 0.01039,
                             "distanceFromRoot": 0.4171099999999999,
                           },
-                          Object {
-                            "children": Array [
-                              Object {
+                          {
+                            "children": [
+                              {
                                 "distance": -0.0236,
                                 "distanceFromRoot": 0.8336099999999999,
                                 "name": "tr|A0A3Q7SLA2|A0A3Q7SLA2_VULVU",
                               },
-                              Object {
+                              {
                                 "distance": 0.0236,
                                 "distanceFromRoot": 0.8336099999999999,
                                 "name": "tr|A0A063CEB7|A0A063CEB7_USTVR",
@@ -1542,14 +1542,14 @@ Array [
                         "distance": 0.01385,
                         "distanceFromRoot": 0.4067199999999999,
                       },
-                      Object {
-                        "children": Array [
-                          Object {
+                      {
+                        "children": [
+                          {
                             "distance": 0.01909,
                             "distanceFromRoot": 0.79074,
                             "name": "tr|G3WPD0|G3WPD0_SARHA",
                           },
-                          Object {
+                          {
                             "distance": 0.02382,
                             "distanceFromRoot": 0.7954699999999999,
                             "name": "tr|A0A4X2K630|A0A4X2K630_VOMUR",
@@ -1562,7 +1562,7 @@ Array [
                     "distance": 0.01403,
                     "distanceFromRoot": 0.39286999999999994,
                   },
-                  Object {
+                  {
                     "distance": 0.34443,
                     "distanceFromRoot": 0.72327,
                     "name": "tr|A0A3R7N5S8|A0A3R7N5S8_PENVA",
@@ -1575,7 +1575,7 @@ Array [
             "distance": 0.04971,
             "distanceFromRoot": 0.054209999999999994,
           },
-          Object {
+          {
             "distance": 0.02205,
             "distanceFromRoot": 0.02655,
             "name": "tr|A0A341C794|A0A341C794_NEOAA",
@@ -1584,19 +1584,19 @@ Array [
         "distance": 0.0045,
         "distanceFromRoot": 0.0045,
       },
-      Object {
+      {
         "distance": 0.01507,
         "distanceFromRoot": 0.01507,
         "name": "tr|A0A2Y9PRR0|A0A2Y9PRR0_DELLE",
       },
-      Object {
-        "children": Array [
-          Object {
+      {
+        "children": [
+          {
             "distance": 0.00569,
             "distanceFromRoot": 0.01146,
             "name": "tr|A0A2U4BVN1|A0A2U4BVN1_TURTR",
           },
-          Object {
+          {
             "distance": 0.00528,
             "distanceFromRoot": 0.01105,
             "name": "tr|A0A484H0K8|A0A484H0K8_SOUCH",

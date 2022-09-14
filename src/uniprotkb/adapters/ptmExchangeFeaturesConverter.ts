@@ -3,7 +3,10 @@ import { phosphorylate } from '../utils/aa';
 
 import { ProteomicsPtmFeature, PTM } from '../types/proteomicsPtm';
 import { Evidence } from '../types/modelTypes';
-import { FeatureDatum } from '../components/protein-data-views/UniProtKBFeaturesView';
+import {
+  ConfidenceScore,
+  FeatureDatum,
+} from '../components/protein-data-views/UniProtKBFeaturesView';
 import { EvidenceTagSourceTypes } from '../components/protein-data-views/UniProtKBEvidenceTag';
 
 const convertPtmExchangePtms = (
@@ -32,6 +35,24 @@ const convertPtmExchangePtms = (
       ])
     ),
   ];
+  const confidenceScores = new Set(
+    ptms.flatMap(({ dbReferences }) =>
+      dbReferences.map(({ properties }) => properties['Confidence score'])
+    )
+  );
+  let confidenceScore: ConfidenceScore | undefined;
+  if (!confidenceScores.size) {
+    logging.error('PTMeXchange PTM has no confidence score');
+  } else if (confidenceScores.size > 1) {
+    logging.error(
+      `PTMeXchange PTM has a mixture of confidence scores: ${Array.from(
+        confidenceScores
+      )}`
+    );
+  } else {
+    [confidenceScore] = confidenceScores;
+  }
+
   return {
     source: 'PTMeXchange',
     type: 'Modified residue (large scale)',
@@ -40,7 +61,7 @@ const convertPtmExchangePtms = (
       end: { value: absolutePosition, modifier: 'EXACT' },
     },
     description: phosphorylate(aa),
-    confidenceScore: 'Beta', // TODO: update when API provides this
+    confidenceScore,
     evidences,
   };
 };

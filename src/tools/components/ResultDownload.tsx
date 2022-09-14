@@ -27,6 +27,11 @@ const options: Record<JobTypes, DownloadOptions<JobTypes>[]> = {
       description: 'Phylogenetic tree in Newick notation',
       ext: 'txt',
     },
+    {
+      format: 'tree',
+      description: 'Guide tree in Newick notation',
+      ext: 'txt',
+    },
     { format: 'pim', description: 'Percent identity matrix', ext: 'txt' },
     {
       format: 'submission',

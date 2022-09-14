@@ -84,8 +84,8 @@ const LocationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
     });
 
   const hasRelated = Boolean(
-    data.statistics.reviewedProteinCount ||
-      data.statistics.unreviewedProteinCount
+    data.statistics?.reviewedProteinCount ||
+      data.statistics?.unreviewedProteinCount
   );
 
   const relatedQuery = `(cc_scl_term:${accession})`;

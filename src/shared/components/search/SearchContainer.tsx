@@ -1,7 +1,6 @@
 import {
   useState,
   useEffect,
-  FC,
   Fragment,
   HTMLAttributes,
   useCallback,
@@ -116,12 +115,6 @@ const rawQueryClean = (raw: string) =>
     // "not app and human oR whatever" -> "NOT app AND human OR whatever"
     .replace(reSearchSpecialWords, (match) => match.toUpperCase()) || '*';
 
-type Props = {
-  isOnHomePage?: boolean;
-  searchspace: Searchspace;
-  onSearchspaceChange: (searchspace: Searchspace) => void;
-};
-
 const webSiteSchemaFor = (namespace: Searchspace): WithContext<WebSite> => ({
   '@context': 'https://schema.org',
   '@type': 'WebSite',
@@ -143,9 +136,18 @@ type MainSearchSecondaryButton = {
   action: () => void;
 };
 
-const SearchContainer: FC<
-  Props & Exclude<HTMLAttributes<HTMLDivElement>, 'role'>
-> = ({ isOnHomePage, searchspace, onSearchspaceChange, ...props }) => {
+type Props = {
+  isOnHomePage?: boolean;
+  searchspace: Searchspace;
+  onSearchspaceChange: (searchspace: Searchspace) => void;
+} & Exclude<HTMLAttributes<HTMLDivElement>, 'role'>;
+
+const SearchContainer = ({
+  isOnHomePage,
+  searchspace,
+  onSearchspaceChange,
+  ...props
+}: Props) => {
   const history = useHistory();
   const location = useLocation();
   const [displayQueryBuilder, setDisplayQueryBuilder] = useState(false);
@@ -332,4 +334,7 @@ const SearchContainer: FC<
   );
 };
 
+// Used everywhere, but somehow pulls a lot of uniprotkb code with it.
+// At the moment used lazy-loaded (but not much advantage, it's always used).
+// TODO: investigate why this component pulls so much with it
 export default SearchContainer;

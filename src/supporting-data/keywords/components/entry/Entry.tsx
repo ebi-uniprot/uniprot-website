@@ -81,8 +81,8 @@ const KeywordsEntry = ({
     });
 
   const hasRelated = Boolean(
-    data.statistics.reviewedProteinCount ||
-      data.statistics.unreviewedProteinCount
+    data.statistics?.reviewedProteinCount ||
+      data.statistics?.unreviewedProteinCount
   );
 
   const relatedQuery = `(keyword:${accession})`;

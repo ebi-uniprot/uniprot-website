@@ -113,8 +113,9 @@ type Props = {
   nResults?: number;
 };
 const EntryDownload = ({ nResults }: Props) => {
-  const match =
-    useRouteMatch<{ namespace: Namespace; accession: string }>(allEntryPages);
+  const match = useRouteMatch<{ namespace: Namespace; accession: string }>(
+    allEntryPages
+  );
   const { namespace, accession } = match?.params || {};
   const messagesDispatch = useMessagesDispatch();
 

@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 import { Loader } from 'franklin-sites';
 
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-import PhyloTree from './PhyloTree';
+import NewickTree from './NewickTree';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 
@@ -11,29 +11,30 @@ import toolsURLs from '../../../config/urls';
 import { JobTypes } from '../../../types/toolsJobTypes';
 import { SequenceInfo } from '../../utils/useSequenceInfo';
 
-import './styles/AlignResultPhyloTree.scss';
+import './styles/AlignResultTrees.scss';
 
 const alignURLs = toolsURLs(JobTypes.ALIGN);
 
-type AlignResultPhyloTreeProps = {
+type AlignResultTreesProps = {
   id: string;
   sequenceInfo: SequenceInfo;
   selectedEntries: string[];
   handleEntrySelection: (rowId: string) => void;
 };
 
-const AlignResultPhyloTree: FC<AlignResultPhyloTreeProps> = ({
+const AlignResultTrees: FC<AlignResultTreesProps> = ({
   id,
   sequenceInfo,
   selectedEntries,
   handleEntrySelection,
 }) => {
+  const [showPhyloTree, setShowPhyloTree] = useState(true);
   const [showDistance, setShowDistance] = useState(true);
   const [alignLabels, setAlignLabels] = useState(true);
   const [circularLayout, setCircularLayout] = useState(false);
 
   const { loading, data, error, status } = useDataApi<string>(
-    alignURLs.resultUrl(id, { format: 'phylotree' })
+    alignURLs.resultUrl(id, { format: showPhyloTree ? 'phylotree' : 'tree' })
   );
 
   if (error || !(loading || data)) {
@@ -41,9 +42,32 @@ const AlignResultPhyloTree: FC<AlignResultPhyloTreeProps> = ({
   }
 
   return (
-    <section className="align-result-phylotree">
-      <h5>Phylogenetic tree</h5>
+    <section className="align-result-trees">
+      <h2 className="tiny">{showPhyloTree ? 'Phylogenetic' : 'Guide'} tree</h2>
       <section className="controls">
+        <fieldset>
+          Tree type:
+          <label>
+            <input
+              aria-label="phylogenetic tree"
+              name="tree"
+              type="radio"
+              checked={showPhyloTree}
+              onChange={() => setShowPhyloTree(true)}
+            />
+            Phylogenetic tree
+          </label>
+          <label>
+            <input
+              aria-label="guide tree"
+              name="tree"
+              type="radio"
+              checked={!showPhyloTree}
+              onChange={() => setShowPhyloTree(false)}
+            />
+            Guide tree
+          </label>
+        </fieldset>
         <fieldset>
           Layout:
           <label>
@@ -71,7 +95,7 @@ const AlignResultPhyloTree: FC<AlignResultPhyloTreeProps> = ({
           Branch length:
           <label title="Branch lengths are proportional to calculated distances, labels are aligned">
             <input
-              aria-label="phylotree view (with distance), with aligned labels"
+              aria-label="newicktree view (with distance), with aligned labels"
               name="distance"
               type="radio"
               checked={showDistance && alignLabels}
@@ -84,10 +108,11 @@ const AlignResultPhyloTree: FC<AlignResultPhyloTreeProps> = ({
           </label>
           <label title="Branch lengths are proportional to calculated distances">
             <input
-              aria-label="phylotree view (with distance)"
+              aria-label="newicktree view (with distance)"
               name="distance"
               type="radio"
               checked={showDistance && !alignLabels}
+              // disabled={!showPhyloTree}
               onChange={() => {
                 setShowDistance(true);
                 setAlignLabels(false);
@@ -110,7 +135,7 @@ const AlignResultPhyloTree: FC<AlignResultPhyloTreeProps> = ({
       {loading ? (
         <Loader />
       ) : (
-        <PhyloTree
+        <NewickTree
           newick={data}
           showDistance={showDistance}
           alignLabels={alignLabels}
@@ -124,4 +149,4 @@ const AlignResultPhyloTree: FC<AlignResultPhyloTreeProps> = ({
   );
 };
 
-export default AlignResultPhyloTree;
+export default AlignResultTrees;

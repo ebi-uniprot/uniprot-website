@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { Link, useRouteMatch, useLocation } from 'react-router-dom';
 import { Header, Dropdown, Button } from 'franklin-sites';
 import cn from 'classnames';
 import { WithContext, Organization } from 'schema-dts';
 
-import SearchContainer from '../search/SearchContainer';
 import ReleaseInfo from './ReleaseInfo';
 import SecondaryItems from './SecondaryItems';
 
@@ -20,6 +19,13 @@ import { Namespace, Searchspace, toolResults } from '../../types/namespaces';
 import styles from './styles/uniprot-header.module.scss';
 
 import Logo from '../../../images/uniprot-logo.img.svg';
+
+const SearchContainer = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "search-container" */ '../search/SearchContainer'
+    )
+);
 
 const toolsLinks = (
   <>
@@ -95,12 +101,14 @@ const SearchContainerWithNamespace = () => {
   }, [searchspace]);
 
   return (
-    <SearchContainer
-      searchspace={selectedSearchspace as Searchspace}
-      onSearchspaceChange={(searchspace: Searchspace) => {
-        setSelectedSearchspace(searchspace);
-      }}
-    />
+    <Suspense fallback={null}>
+      <SearchContainer
+        searchspace={selectedSearchspace as Searchspace}
+        onSearchspaceChange={(searchspace: Searchspace) => {
+          setSelectedSearchspace(searchspace);
+        }}
+      />
+    </Suspense>
   );
 };
 

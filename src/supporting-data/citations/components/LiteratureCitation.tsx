@@ -257,7 +257,7 @@ export const JournalInfo: FC<JournalInfoProps> = ({
 };
 
 type StatisticsProps = {
-  statistics: CitationsAPIModel['statistics'];
+  statistics?: CitationsAPIModel['statistics'];
   id: number | string;
 };
 
@@ -346,14 +346,14 @@ const Statistics: FC<StatisticsProps> = ({ statistics, id }) => {
   );
 };
 
-const LiteratureCitation: FC<
-  {
-    data: SetOptional<CitationsAPIModel, 'statistics'>;
-    displayAll?: boolean;
-    headingLevel?: `h${1 | 2 | 3 | 4 | 5 | 6}`;
-    linkToEntry?: boolean;
-  } & HTMLAttributes<HTMLElement>
-> = ({
+type LiteratureCitationProps = {
+  data: SetOptional<CitationsAPIModel, 'statistics'>;
+  displayAll?: boolean;
+  headingLevel?: `h${1 | 2 | 3 | 4 | 5 | 6}`;
+  linkToEntry?: boolean;
+} & HTMLAttributes<HTMLElement>;
+
+const LiteratureCitation = ({
   data,
   displayAll,
   headingLevel = 'h5',
@@ -361,7 +361,7 @@ const LiteratureCitation: FC<
   linkToEntry,
   className,
   ...props
-}) => {
+}: LiteratureCitationProps) => {
   const { citation, statistics } = data;
   const { title, authors, literatureAbstract, authoringGroup } = citation;
   const { pubmedId, journalInfo } = formatCitationData(citation);

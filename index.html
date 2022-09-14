@@ -64,9 +64,46 @@
       })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
     </script>
     <% } %>
+    <style>
+      #root > .fallback {
+        height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        animation: fallback-appear 1s 1 10s both;
+      }
+
+      @keyframes fallback-appear {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
   </head>
 
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div class="fallback" data-nosnippet>
+        <div>
+          <h1>UniProt website fallback message</h1>
+          If you are not seeing anything on this page, it might be for multiple
+          reasons:
+          <ul>
+            <li>
+              You might have JavaScript disabled: make sure to enable JavaScript
+              on your browser, or use a browser that supports JavaScript.
+            </li>
+            <li>
+              You might have an outdated browser: make sure that your browser is
+              up to date as older versions might not work with the new website.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

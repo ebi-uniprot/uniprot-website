@@ -146,7 +146,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                     </sup>
                      A2 (
                     <a
-                      href="/uniprotkb?query=ft_binding:\\"ChEBICHEBI:3314\\""
+                      href="/uniprotkb?query=ft_binding:"ChEBICHEBI:3314""
                     >
                       UniProtKB
                     </a>
@@ -169,7 +169,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                     </sup>
                      A1 (
                     <a
-                      href="/uniprotkb?query=ft_binding:\\"ChEBICHEBI:3214\\""
+                      href="/uniprotkb?query=ft_binding:"ChEBICHEBI:3214""
                     >
                       UniProtKB
                     </a>
@@ -188,7 +188,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                     </a>
                     ); Some note; description value 123
                     <button
-                      aria-controls="4"
+                      aria-controls="3"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -207,7 +207,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="4"
+                      id="3"
                     />
                   </td>
                   <td>
@@ -245,9 +245,9 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                   </td>
                 </tr>
                 <tr
-                  data-end="199"
+                  data-end="209"
                   data-id="0"
-                  data-start="199"
+                  data-start="209"
                 >
                   <td
                     data-filter="type"
@@ -257,7 +257,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                   </td>
                   <td />
                   <td>
-                    199
+                    209
                   </td>
                   <td
                     data-filter="source"
@@ -271,7 +271,61 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                       class="chip chip--compact secondary"
                       type="button"
                     >
-                      Beta
+                      Bronze
+                    </button>
+                    <button
+                      aria-controls="4"
+                      aria-expanded="false"
+                      class="svg-colour-unreviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        Combined sources
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="4"
+                    />
+                  </td>
+                  <td />
+                </tr>
+                <tr
+                  data-end="214"
+                  data-id="1"
+                  data-start="214"
+                >
+                  <td
+                    data-filter="type"
+                    data-filter-value="Modified residue (large scale)"
+                  >
+                    Modified residue (large scale)
+                  </td>
+                  <td />
+                  <td>
+                    214
+                  </td>
+                  <td
+                    data-filter="source"
+                    data-filter-value="PTMeXchange"
+                  >
+                    PTMeXchange
+                  </td>
+                  <td>
+                    Phosphoserine
+                    <button
+                      class="chip chip--compact secondary"
+                      type="button"
+                    >
+                      Bronze
                     </button>
                     <button
                       aria-controls="5"
@@ -299,116 +353,8 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                   <td />
                 </tr>
                 <tr
-                  data-end="209"
-                  data-id="1"
-                  data-start="209"
-                >
-                  <td
-                    data-filter="type"
-                    data-filter-value="Modified residue (large scale)"
-                  >
-                    Modified residue (large scale)
-                  </td>
-                  <td />
-                  <td>
-                    209
-                  </td>
-                  <td
-                    data-filter="source"
-                    data-filter-value="PTMeXchange"
-                  >
-                    PTMeXchange
-                  </td>
-                  <td>
-                    Phosphoserine
-                    <button
-                      class="chip chip--compact secondary"
-                      type="button"
-                    >
-                      Beta
-                    </button>
-                    <button
-                      aria-controls="6"
-                      aria-expanded="false"
-                      class="svg-colour-unreviewed evidence-tag"
-                      data-testid="evidence-tag-trigger"
-                      type="button"
-                    >
-                      <test-file-stub
-                        height="12"
-                        width="12"
-                      />
-                      <span
-                        class="evidence-tag__label"
-                      >
-                        Combined sources
-                      </span>
-                    </button>
-                    <div
-                      class="evidence-tag-content "
-                      data-testid="evidence-tag-content"
-                      id="6"
-                    />
-                  </td>
-                  <td />
-                </tr>
-                <tr
-                  data-end="214"
-                  data-id="2"
-                  data-start="214"
-                >
-                  <td
-                    data-filter="type"
-                    data-filter-value="Modified residue (large scale)"
-                  >
-                    Modified residue (large scale)
-                  </td>
-                  <td />
-                  <td>
-                    214
-                  </td>
-                  <td
-                    data-filter="source"
-                    data-filter-value="PTMeXchange"
-                  >
-                    PTMeXchange
-                  </td>
-                  <td>
-                    Phosphoserine
-                    <button
-                      class="chip chip--compact secondary"
-                      type="button"
-                    >
-                      Beta
-                    </button>
-                    <button
-                      aria-controls="7"
-                      aria-expanded="false"
-                      class="svg-colour-unreviewed evidence-tag"
-                      data-testid="evidence-tag-trigger"
-                      type="button"
-                    >
-                      <test-file-stub
-                        height="12"
-                        width="12"
-                      />
-                      <span
-                        class="evidence-tag__label"
-                      >
-                        Combined sources
-                      </span>
-                    </button>
-                    <div
-                      class="evidence-tag-content "
-                      data-testid="evidence-tag-content"
-                      id="7"
-                    />
-                  </td>
-                  <td />
-                </tr>
-                <tr
                   data-end="215"
-                  data-id="3"
+                  data-id="2"
                   data-start="215"
                 >
                   <td
@@ -433,10 +379,10 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                       class="chip chip--compact secondary"
                       type="button"
                     >
-                      Beta
+                      Bronze
                     </button>
                     <button
-                      aria-controls="8"
+                      aria-controls="6"
                       aria-expanded="false"
                       class="svg-colour-unreviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -455,7 +401,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="8"
+                      id="6"
                     />
                   </td>
                   <td />

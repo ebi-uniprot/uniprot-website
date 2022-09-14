@@ -1,4 +1,8 @@
-import { getTreeData } from '../index';
+import { getSupportedFormats, getTreeData, isSubsequenceFrom } from '../index';
+
+import { APIModel } from '../../../../shared/types/apiModel';
+import { Namespace } from '../../../../shared/types/namespaces';
+import { FileFormat } from '../../../../shared/types/resultsDownload';
 
 describe('getTreeData', () => {
   const groups = [
@@ -95,5 +99,35 @@ describe('getTreeData', () => {
         ],
       },
     ]);
+  });
+});
+
+const subsequenceData = [{ from: 'P05067[1-12345]' }] as APIModel[];
+const notSubsequenceData = [{ from: 'P05067' }] as APIModel[];
+
+describe('isSubsequenceFrom', () => {
+  it('should return true for from with subsequence specified', () => {
+    expect(isSubsequenceFrom(subsequenceData)).toBe(true);
+  });
+  it('should return false for from with normal accession', () => {
+    expect(isSubsequenceFrom(notSubsequenceData)).toBe(false);
+  });
+});
+
+describe('getSupportedFormats', () => {
+  it('should include FASTA (subsequence) true for from with subsequence specified and namespace=UniProtKB', () => {
+    expect(getSupportedFormats(subsequenceData, Namespace.uniprotkb)).toContain(
+      FileFormat.fastaSubsequence
+    );
+  });
+  it('should return false should return true for from with subsequence specified and namespace=UniRef', () => {
+    expect(
+      getSupportedFormats(subsequenceData, Namespace.uniref)
+    ).not.toContain(FileFormat.fastaSubsequence);
+  });
+  it('should return false for from with normal accession and namespace=UniProtKB', () => {
+    expect(
+      getSupportedFormats(notSubsequenceData, Namespace.uniprotkb)
+    ).not.toContain(FileFormat.fastaSubsequence);
   });
 });
