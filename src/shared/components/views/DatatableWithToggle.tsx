@@ -28,9 +28,9 @@ const DatatableWithToggle = ({ table }: { table: JSX.Element }) => {
       } else {
         tableEl.expandTable = false;
         tableContainerRef?.current?.scrollIntoView({
-          behaviour: 'smooth',
-          block: 'start',
-        }); // block:'center' doesn't work, behaves very differently when the table is so long on expansion
+          behavior: 'smooth',
+          block: 'start', // block:'center' places the table following the collapsed table in view (in case of very long tables)🤷‍♀️
+        });
         setTableState('Expand');
       }
     }
