@@ -25,7 +25,7 @@
     "clear-test-cache": "jest --clearCache",
     "prepare": "husky install"
   },
-  "browserslist": "defaults, Firefox > 80, Chrome > 80, Edge > 80, cover 80% in CN, not dead",
+  "browserslist": "defaults, Firefox > 70, Chrome > 79, Edge > 79, cover 80% in CN, not dead",
   "jest": {
     "coverageReporters": [
       "json-summary",
