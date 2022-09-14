@@ -4,7 +4,7 @@ import useCustomElement from '../../../shared/hooks/useCustomElement';
 import './styles/nightingale-zoom-tool.scss';
 
 // Icons and icon size TBD once designed.
-const iconSize = 19;
+export const iconSize = 19;
 
 const NightingaleZoomTool = ({ length }: { length: number }) => {
   const protvistaZoomToolElement = useCustomElement(

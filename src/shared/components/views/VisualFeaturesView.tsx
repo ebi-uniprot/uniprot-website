@@ -1,8 +1,17 @@
 import { useCallback } from 'react';
+import { FullViewIcon } from 'franklin-sites';
+import { Link, useParams } from 'react-router-dom';
 
-import NightingaleZoomTool from '../../../uniprotkb/components/protein-data-views/NightingaleZoomTool';
+import NightingaleZoomTool, {
+  iconSize,
+} from '../../../uniprotkb/components/protein-data-views/NightingaleZoomTool';
+import { TabLocation } from '../../../uniprotkb/components/entry/Entry';
 
 import useCustomElement from '../../hooks/useCustomElement';
+import { getEntryPath } from '../../../app/config/urls';
+import { Namespace } from '../../types/namespaces';
+
+import './styles/visual-features-view.scss';
 
 // Can't use arrow function because of TS generic annotation
 // eslint-disable-next-line react/function-component-definition
@@ -35,6 +44,8 @@ function VisualFeaturesView<T>({
     'protvista-sequence'
   );
 
+  const params = useParams();
+
   const setTrackData = useCallback(
     (node): void => {
       if (node && trackElement.defined) {
@@ -53,6 +64,17 @@ function VisualFeaturesView<T>({
   return ceDefined ? (
     <>
       <NightingaleZoomTool length={sequence.length} />
+      <Link
+        to={getEntryPath(
+          Namespace.uniprotkb,
+          params.accession,
+          TabLocation.FeatureViewer
+        )}
+        className={'full-view'}
+      >
+        <FullViewIcon height={iconSize} className={'icon'} />
+      </Link>
+
       <navigationElement.name length={sequence.length} />
       <trackElement.name
         ref={setTrackData}

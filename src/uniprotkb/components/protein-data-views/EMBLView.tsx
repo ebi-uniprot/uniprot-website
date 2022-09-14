@@ -1,6 +1,7 @@
 import { Loader } from 'franklin-sites';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
+import DatatableWithToggle from '../../../shared/components/views/DatatableWithToggle';
 
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
@@ -111,89 +112,88 @@ const EMBLView = ({ xrefs }: { xrefs: Xref[] }) => {
     return null;
   }
 
-  return (
-    <datatableElement.name>
-      <table>
-        <thead>
-          <tr>
-            <th>Sequence</th>
-            <th>Protein</th>
-            <th>Molecule Type</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map(
-            (d) =>
-              d &&
-              d.proteinId &&
-              d.sequenceId && (
-                <tr key={`${d.sequenceId}-${d.proteinId}-${d.moleculeType}`}>
-                  <td>
-                    {d.sequenceId}
-                    {' ('}
-                    <ExternalLink
-                      url={processUrlTemplate(emblDnaLink, {
-                        ProteinId: d.sequenceId,
-                      })}
-                    >
-                      EMBL
-                    </ExternalLink>
-                    {' | '}
-                    <ExternalLink
-                      url={processUrlTemplate(genBankDnaLink, {
-                        ProteinId: d.sequenceId,
-                      })}
-                    >
-                      GenBank
-                    </ExternalLink>
-                    {' | '}
-                    <ExternalLink
-                      url={processUrlTemplate(ddbjDnaLink, {
-                        ProteinId: d.sequenceId,
-                      })}
-                    >
-                      DDBJ
-                    </ExternalLink>
-                    )
-                  </td>
-                  <td>
-                    {d.proteinId}
-                    {' ('}
-                    <ExternalLink
-                      url={processUrlTemplate(emblProteinLink, {
-                        id: d.proteinId,
-                      })}
-                    >
-                      EMBL
-                    </ExternalLink>
-                    {' | '}
-                    <ExternalLink
-                      url={processUrlTemplate(genBankProteinLink, {
-                        id: d.proteinId,
-                      })}
-                    >
-                      GenBank
-                    </ExternalLink>
-                    {' | '}
-                    <ExternalLink
-                      url={processUrlTemplate(ddbjProteinLink, {
-                        id: d.proteinId,
-                      })}
-                    >
-                      DDBJ
-                    </ExternalLink>
-                    )
-                  </td>
-                  <td>{d.moleculeType.replace(/translation/i, '')}</td>
-                  <td>{d.status}</td>
-                </tr>
-              )
-          )}
-        </tbody>
-      </table>
-    </datatableElement.name>
+  const table = (
+    <table>
+      <thead>
+        <tr>
+          <th>Sequence</th>
+          <th>Protein</th>
+          <th>Molecule Type</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {data.map(
+          (d) =>
+            d &&
+            d.proteinId &&
+            d.sequenceId && (
+              <tr key={`${d.sequenceId}-${d.proteinId}-${d.moleculeType}`}>
+                <td>
+                  {d.sequenceId}
+                  {' ('}
+                  <ExternalLink
+                    url={processUrlTemplate(emblDnaLink, {
+                      ProteinId: d.sequenceId,
+                    })}
+                  >
+                    EMBL
+                  </ExternalLink>
+                  {' | '}
+                  <ExternalLink
+                    url={processUrlTemplate(genBankDnaLink, {
+                      ProteinId: d.sequenceId,
+                    })}
+                  >
+                    GenBank
+                  </ExternalLink>
+                  {' | '}
+                  <ExternalLink
+                    url={processUrlTemplate(ddbjDnaLink, {
+                      ProteinId: d.sequenceId,
+                    })}
+                  >
+                    DDBJ
+                  </ExternalLink>
+                  )
+                </td>
+                <td>
+                  {d.proteinId}
+                  {' ('}
+                  <ExternalLink
+                    url={processUrlTemplate(emblProteinLink, {
+                      id: d.proteinId,
+                    })}
+                  >
+                    EMBL
+                  </ExternalLink>
+                  {' | '}
+                  <ExternalLink
+                    url={processUrlTemplate(genBankProteinLink, {
+                      id: d.proteinId,
+                    })}
+                  >
+                    GenBank
+                  </ExternalLink>
+                  {' | '}
+                  <ExternalLink
+                    url={processUrlTemplate(ddbjProteinLink, {
+                      id: d.proteinId,
+                    })}
+                  >
+                    DDBJ
+                  </ExternalLink>
+                  )
+                </td>
+                <td>{d.moleculeType.replace(/translation/i, '')}</td>
+                <td>{d.status}</td>
+              </tr>
+            )
+        )}
+      </tbody>
+    </table>
   );
+  return <DatatableWithToggle table={table} />;
 };
 
 export default EMBLView;

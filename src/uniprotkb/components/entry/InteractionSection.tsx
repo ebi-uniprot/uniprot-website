@@ -9,6 +9,7 @@ import EntrySection, {
 import FreeTextView from '../protein-data-views/FreeTextView';
 import XRefView from '../protein-data-views/XRefView';
 import LazyComponent from '../../../shared/components/LazyComponent';
+import DatatableWithToggle from '../../../shared/components/views/DatatableWithToggle';
 
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
@@ -129,6 +130,90 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
     | FreeTextComment[]
     | undefined;
 
+  const table = (
+    <table>
+      <thead>
+        <tr>
+          <th data-filter="type">Type</th>
+          <th data-filter="entry_1">Entry 1</th>
+          <th>Entry 2</th>
+          <th>Number of experiments</th>
+          <th>Intact</th>
+        </tr>
+      </thead>
+      <tbody>
+        {tableData.map((interaction) => (
+          <tr
+            key={`${interaction.interactantOne.intActId}${interaction.interactantTwo.intActId}`}
+          >
+            <td
+              data-filter="type"
+              data-filter-value={interaction.organismDiffer ? 'XENO' : 'BINARY'}
+            >
+              {/* NOTE: Add 'SELF' */}
+              {interaction.organismDiffer ? 'XENO' : 'BINARY'}
+            </td>
+            <td
+              data-filter="entry_1"
+              data-filter-value={
+                interaction.interactantOne.uniProtKBAccession || 'Other'
+              }
+            >
+              {interaction.interactantOne.uniProtKBAccession ? (
+                <Link
+                  to={getEntryPath(
+                    Namespace.uniprotkb,
+                    interaction.interactantOne.uniProtKBAccession
+                  )}
+                >
+                  {interaction.interactantOne.geneName}{' '}
+                  {interaction.interactantOne.chainId}{' '}
+                  {interaction.interactantOne.uniProtKBAccession}
+                </Link>
+              ) : (
+                <>
+                  {interaction.interactantOne.geneName}{' '}
+                  {interaction.interactantOne.chainId}
+                </>
+              )}
+            </td>
+            <td>
+              {interaction.interactantTwo.uniProtKBAccession ? (
+                <Link
+                  to={getEntryPath(
+                    Namespace.uniprotkb,
+                    interaction.interactantTwo.uniProtKBAccession
+                  )}
+                >
+                  {interaction.interactantTwo.geneName}{' '}
+                  {interaction.interactantTwo.chainId}{' '}
+                  {interaction.interactantTwo.uniProtKBAccession}
+                </Link>
+              ) : (
+                <>
+                  {interaction.interactantTwo.geneName}{' '}
+                  {interaction.interactantTwo.chainId}
+                </>
+              )}
+            </td>
+            <td>{interaction.numberOfExperiments}</td>
+            <td>
+              <ExternalLink
+                url={getIntActQueryUrl(
+                  interaction.interactantOne.intActId,
+                  interaction.interactantTwo.intActId,
+                  interaction.interactantOne.uniProtKBAccession
+                )}
+              >
+                {interaction.interactantOne.intActId},{' '}
+                {interaction.interactantTwo.intActId}
+              </ExternalLink>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
   return (
     <Card
       header={
@@ -156,92 +241,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
           >
             <InteractionViewer accession={primaryAccession} />
           </LazyComponent>
-          <datatableElement.name filter-scroll>
-            <table>
-              <thead>
-                <tr>
-                  <th data-filter="type">Type</th>
-                  <th data-filter="entry_1">Entry 1</th>
-                  <th>Entry 2</th>
-                  <th>Number of experiments</th>
-                  <th>Intact</th>
-                </tr>
-              </thead>
-              <tbody>
-                {tableData.map((interaction) => (
-                  <tr
-                    key={`${interaction.interactantOne.intActId}${interaction.interactantTwo.intActId}`}
-                  >
-                    <td
-                      data-filter="type"
-                      data-filter-value={
-                        interaction.organismDiffer ? 'XENO' : 'BINARY'
-                      }
-                    >
-                      {/* NOTE: Add 'SELF' */}
-                      {interaction.organismDiffer ? 'XENO' : 'BINARY'}
-                    </td>
-                    <td
-                      data-filter="entry_1"
-                      data-filter-value={
-                        interaction.interactantOne.uniProtKBAccession || 'Other'
-                      }
-                    >
-                      {interaction.interactantOne.uniProtKBAccession ? (
-                        <Link
-                          to={getEntryPath(
-                            Namespace.uniprotkb,
-                            interaction.interactantOne.uniProtKBAccession
-                          )}
-                        >
-                          {interaction.interactantOne.geneName}{' '}
-                          {interaction.interactantOne.chainId}{' '}
-                          {interaction.interactantOne.uniProtKBAccession}
-                        </Link>
-                      ) : (
-                        <>
-                          {interaction.interactantOne.geneName}{' '}
-                          {interaction.interactantOne.chainId}
-                        </>
-                      )}
-                    </td>
-                    <td>
-                      {interaction.interactantTwo.uniProtKBAccession ? (
-                        <Link
-                          to={getEntryPath(
-                            Namespace.uniprotkb,
-                            interaction.interactantTwo.uniProtKBAccession
-                          )}
-                        >
-                          {interaction.interactantTwo.geneName}{' '}
-                          {interaction.interactantTwo.chainId}{' '}
-                          {interaction.interactantTwo.uniProtKBAccession}
-                        </Link>
-                      ) : (
-                        <>
-                          {interaction.interactantTwo.geneName}{' '}
-                          {interaction.interactantTwo.chainId}
-                        </>
-                      )}
-                    </td>
-                    <td>{interaction.numberOfExperiments}</td>
-                    <td>
-                      <ExternalLink
-                        url={getIntActQueryUrl(
-                          interaction.interactantOne.intActId,
-                          interaction.interactantTwo.intActId,
-                          interaction.interactantOne.uniProtKBAccession
-                        )}
-                      >
-                        {interaction.interactantOne.intActId},{' '}
-                        {interaction.interactantTwo.intActId}
-                      </ExternalLink>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </datatableElement.name>
+          <DatatableWithToggle table={table} />
         </>
       ) : null}
 
