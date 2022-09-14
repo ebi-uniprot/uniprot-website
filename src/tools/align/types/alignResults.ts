@@ -3,13 +3,13 @@
 
 export type AlignResults = string;
 
-export type PhyloTreeNode = {
+export type NewickTreeNode = {
   name?: string;
   distance?: number;
   distanceFromRoot?: number;
-  children?: PhyloTreeNode[];
+  children?: NewickTreeNode[];
 };
-export type PhyloTree = PhyloTreeNode;
+export type NewickTree = NewickTreeNode;
 
 export type PIMRow = { name: string; accession?: string; values: number[] };
 export type PIM = PIMRow[];

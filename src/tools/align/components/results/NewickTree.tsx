@@ -9,17 +9,17 @@ import AlignLabel from './AlignLabel';
 import useSize from '../../../../shared/hooks/useSize';
 import { useReducedMotion } from '../../../../shared/hooks/useMatchMedia';
 
-import phylotree from '../../adapters/phylotree';
+import newicktree from '../../adapters/newicktree';
 
 import extractAccession from '../../utils/extractAccession';
 import { polarToX, polarToY } from '../../utils/trigonometry';
 import pathMaker from '../../utils/pathMaker';
 import customLayout, { CustomHierarchyNode } from '../../utils/customLayout';
 
-import { PhyloTreeNode } from '../../types/alignResults';
+import { NewickTreeNode } from '../../types/alignResults';
 import { SequenceInfo } from '../../utils/useSequenceInfo';
 
-import './styles/PhyloTree.scss';
+import './styles/NewickTree.scss';
 
 const DURATION = 500;
 const DEBOUNCE_DELAY = 250;
@@ -46,7 +46,7 @@ interface Cancelable {
   flush(): void;
 }
 
-type PhyloTreeProps = {
+type NewickTreeProps = {
   newick?: string;
   showDistance: boolean;
   alignLabels: boolean;
@@ -56,7 +56,7 @@ type PhyloTreeProps = {
   handleEntrySelection: (rowId: string) => void;
 };
 
-const PhyloTree: FC<PhyloTreeProps> = ({
+const NewickTree: FC<NewickTreeProps> = ({
   newick,
   showDistance,
   alignLabels,
@@ -76,8 +76,8 @@ const PhyloTree: FC<PhyloTreeProps> = ({
 
   const width = size?.width || 0;
 
-  const [root, maxDistance, hasNegative] = useMemo(() => {
-    const parsed = phylotree(newick);
+  const [root, maxDistance, maxDepth, hasNegative] = useMemo(() => {
+    const parsed = newicktree(newick);
     const root = hierarchy(parsed)
       .sum((node) => node.distance || 0)
       // sort to have smallest total branches at the top
@@ -86,6 +86,7 @@ const PhyloTree: FC<PhyloTreeProps> = ({
     return [
       root,
       max(nodes.map((node) => node.data.distanceFromRoot || 0)) || 0,
+      max(root.leaves().map((leaf) => leaf.depth)) || 1,
       nodes.some((node) => (node.data.distance || 0) < 0),
     ];
   }, [newick]);
@@ -95,7 +96,7 @@ const PhyloTree: FC<PhyloTreeProps> = ({
       return;
     }
 
-    const clusterLayout = cluster<PhyloTreeNode>();
+    const clusterLayout = cluster<NewickTreeNode>();
     // ensures same space everywhere
     clusterLayout.separation(() => 1);
     const customizeLayout = customLayout().maxDistance(maxDistance);
@@ -243,7 +244,7 @@ const PhyloTree: FC<PhyloTreeProps> = ({
           .merge(labels)
           .transition()
           .duration(duration)
-          .delay((d) => (reducedMotionRef.current ? 0 : 25 * d.depth))
+          .delay((d) => duration * (d.depth / maxDepth))
           .attr('opacity', 1)
           .attr('y', -14) // alignment to the middle of the line
           .attr('x', ({ coords: { deg } }) =>
@@ -291,7 +292,7 @@ const PhyloTree: FC<PhyloTreeProps> = ({
           .merge(endLinks)
           .transition()
           .duration(duration)
-          .delay((d) => (reducedMotionRef.current ? 0 : 25 * d.depth))
+          .delay((d) => duration * (d.depth / maxDepth))
           .attr('d', (d) => {
             const fakeTarget = { coords: { ...d.coords } };
             if (alignLabels) {
@@ -321,9 +322,7 @@ const PhyloTree: FC<PhyloTreeProps> = ({
           .merge(links)
           .transition()
           .duration(duration)
-          .delay(({ target }) =>
-            reducedMotionRef.current ? 0 : 25 * target.depth
-          )
+          .delay(({ target }) => duration * (target.depth / maxDepth))
           .attr('d', pm);
       },
       DEBOUNCE_DELAY
@@ -334,7 +333,7 @@ const PhyloTree: FC<PhyloTreeProps> = ({
       redrawRef.current?.cancel();
       svg.selectAll('g.links path').remove();
     };
-  }, [maxDistance, root]);
+  }, [maxDepth, maxDistance, root]);
 
   useEffect(() => {
     if (typeof width !== 'undefined') {
@@ -344,7 +343,7 @@ const PhyloTree: FC<PhyloTreeProps> = ({
 
   return (
     <>
-      <svg ref={svgRef} className="phylotree">
+      <svg ref={svgRef} className="newicktree">
         <g className="container">
           <g className="links" />
           <g className="labels">
@@ -383,4 +382,4 @@ const PhyloTree: FC<PhyloTreeProps> = ({
   );
 };
 
-export default PhyloTree;
+export default NewickTree;
