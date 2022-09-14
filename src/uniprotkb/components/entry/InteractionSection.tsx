@@ -11,7 +11,6 @@ import XRefView from '../protein-data-views/XRefView';
 import LazyComponent from '../../../shared/components/LazyComponent';
 import DatatableWithToggle from '../../../shared/components/views/DatatableWithToggle';
 
-import useCustomElement from '../../../shared/hooks/useCustomElement';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import { hasContent } from '../../../shared/utils/utils';
@@ -111,15 +110,6 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
         )?.[0]?.interactions || []
       ).sort(interactionSorter),
     [data]
-  );
-
-  const datatableElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(
-        /* webpackChunkName: "protvista-datatable" */ 'protvista-datatable'
-      ),
-    'protvista-datatable'
   );
 
   if (!hasContent(data)) {

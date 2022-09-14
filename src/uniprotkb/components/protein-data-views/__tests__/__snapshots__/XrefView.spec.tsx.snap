@@ -5,26 +5,38 @@ exports[`XRefView should render section 1`] = `
   <h3>
     Chemistry
   </h3>
-  <protvista-datatable>
-    <table>
-      <thead>
-        <tr>
-          <th>
-            Sequence
-          </th>
-          <th>
-            Protein
-          </th>
-          <th>
-            Molecule Type
-          </th>
-          <th>
-            Status
-          </th>
-        </tr>
-      </thead>
-      <tbody />
-    </table>
-  </protvista-datatable>
+  <div
+    class="datatable-with-toggle"
+  >
+    <protvista-datatable
+      filter-scroll="true"
+    >
+      <table>
+        <thead>
+          <tr>
+            <th>
+              Sequence
+            </th>
+            <th>
+              Protein
+            </th>
+            <th>
+              Molecule Type
+            </th>
+            <th>
+              Status
+            </th>
+          </tr>
+        </thead>
+        <tbody />
+      </table>
+    </protvista-datatable>
+    <button
+      class="button primary toggle-button"
+      type="button"
+    >
+      Expand table
+    </button>
+  </div>
 </DocumentFragment>
 `;

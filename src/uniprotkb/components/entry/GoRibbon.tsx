@@ -8,7 +8,6 @@ import GOTermEvidenceTag from '../protein-data-views/GOTermEvidenceTag';
 import LazyComponent from '../../../shared/components/LazyComponent';
 import DatatableWithToggle from '../../../shared/components/views/DatatableWithToggle';
 
-import useCustomElement from '../../../shared/hooks/useCustomElement';
 import useSafeState from '../../../shared/hooks/useSafeState';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
@@ -60,15 +59,6 @@ const GoRibbon = ({
   const isSmallScreen = useSmallScreen();
 
   const nodeRef = useRef<HTMLElement>();
-
-  const datatableElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(
-        /* webpackChunkName: "protvista-datatable" */ 'protvista-datatable'
-      ),
-    'protvista-datatable'
-  );
 
   const [selectedSet, setSelectedSet] = useState(() => {
     let defaultSS = 'goslim_generic';

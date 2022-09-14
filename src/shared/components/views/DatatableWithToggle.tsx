@@ -38,7 +38,7 @@ const DatatableWithToggle = ({ table }: { table: JSX.Element }) => {
 
   if (datatableElement.defined) {
     return (
-      <div ref={tableContainerRef} className={'datatable-with-toggle'}>
+      <div ref={tableContainerRef} className="datatable-with-toggle">
         <datatableElement.name ref={tableRef} filter-scroll>
           {table}
         </datatableElement.name>
@@ -50,15 +50,14 @@ const DatatableWithToggle = ({ table }: { table: JSX.Element }) => {
         <Button
           variant="primary"
           onClick={() => toggleTableState()}
-          className={'toggle-button'}
+          className="toggle-button"
         >
           {tableState} table
         </Button>
       </div>
     );
-  } else {
-    return null;
   }
+  return null;
 };
 
 export default DatatableWithToggle;

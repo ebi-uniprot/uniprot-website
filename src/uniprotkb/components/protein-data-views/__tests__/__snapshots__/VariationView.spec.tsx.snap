@@ -6,269 +6,279 @@ exports[`VariationView component renders on data 1`] = `
     <h3>
       some title
     </h3>
-    <protvista-datatable
-      filter-scroll="true"
+    <div
+      class="datatable-with-toggle"
     >
-      <table>
-        <thead>
-          <tr>
-            <th>
-              Variant
-              <br />
-              ID(s)
-            </th>
-            <th>
-              Position(s)
-            </th>
-            <th>
-              Change
-            </th>
-            <th>
-              Description
-            </th>
-            <th>
-              Disease
-              <br />
-              association
-            </th>
-            <th>
-              Provenance
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            data-end="10"
-            data-id="featureB"
-            data-start="8"
-          >
-            <td />
-            <td>
-              8-10
-            </td>
-            <td
-              class="change"
+      <protvista-datatable
+        filter-scroll="true"
+      >
+        <table>
+          <thead>
+            <tr>
+              <th>
+                Variant
+                <br />
+                ID(s)
+              </th>
+              <th>
+                Position(s)
+              </th>
+              <th>
+                Change
+              </th>
+              <th>
+                Description
+              </th>
+              <th>
+                Disease
+                <br />
+                association
+              </th>
+              <th>
+                Provenance
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              data-end="10"
+              data-id="featureB"
+              data-start="8"
             >
-              B&gt;
-              <em>
-                missing
-              </em>
-            </td>
-            <td>
-              <div
-                class=""
+              <td />
+              <td>
+                8-10
+              </td>
+              <td
+                class="change"
               >
-                a description (uniprot)
-              </div>
-            </td>
-            <td>
-              No
-            </td>
-            <td />
-          </tr>
-          <tr
-            data-end="10"
-            data-group-for="featureB"
-            data-start="8"
-          >
-            <td>
-              <div>
-                <strong>
-                  Consequence: 
-                </strong>
-              </div>
-              <div>
-                <strong>
-                  Somatic: 
-                </strong>
-                 Yes
-              </div>
-              <div>
-                <strong>
-                  Accession: 
-                </strong>
-                 NC_000021.9:g.26170608A&gt;C
-              </div>
-              <div>
-                <strong>
-                  Consequence type: 
-                </strong>
-                 
-              </div>
-              <div>
-                <strong>
-                  Cytogenetic band: 
-                </strong>
-                 
-              </div>
-              <div>
-                <strong>
-                  Genomic location: 
-                </strong>
-                 
-              </div>
-              <div>
-                <strong>
-                  Source type: 
-                </strong>
-                 large scale study
-              </div>
-            </td>
-          </tr>
-          <tr
-            data-end="10"
-            data-id="featureA"
-            data-start="10"
-          >
-            <td>
-              <span
-                class=""
-              >
-                rs1446208112
-              </span>
-            </td>
-            <td>
-              10
-            </td>
-            <td
-              class="change"
+                B&gt;
+                <em>
+                  missing
+                </em>
+              </td>
+              <td>
+                <div
+                  class=""
+                >
+                  a description (uniprot)
+                </div>
+              </td>
+              <td>
+                No
+              </td>
+              <td />
+            </tr>
+            <tr
+              data-end="10"
+              data-group-for="featureB"
+              data-start="8"
             >
-              L&gt;A
-            </td>
-            <td />
-            <td>
-              No
-            </td>
-            <td>
-              <span
-                class=""
+              <td>
+                <div>
+                  <strong>
+                    Consequence: 
+                  </strong>
+                </div>
+                <div>
+                  <strong>
+                    Somatic: 
+                  </strong>
+                   Yes
+                </div>
+                <div>
+                  <strong>
+                    Accession: 
+                  </strong>
+                   NC_000021.9:g.26170608A&gt;C
+                </div>
+                <div>
+                  <strong>
+                    Consequence type: 
+                  </strong>
+                   
+                </div>
+                <div>
+                  <strong>
+                    Cytogenetic band: 
+                  </strong>
+                   
+                </div>
+                <div>
+                  <strong>
+                    Genomic location: 
+                  </strong>
+                   
+                </div>
+                <div>
+                  <strong>
+                    Source type: 
+                  </strong>
+                   large scale study
+                </div>
+              </td>
+            </tr>
+            <tr
+              data-end="10"
+              data-id="featureA"
+              data-start="10"
+            >
+              <td>
+                <span
+                  class=""
+                >
+                  rs1446208112
+                </span>
+              </td>
+              <td>
+                10
+              </td>
+              <td
+                class="change"
               >
-                TOPMed
-              </span>
-              <br />
-              <span
-                class=""
-              >
-                gnomAD
-              </span>
-            </td>
-          </tr>
-          <tr
-            data-end="10"
-            data-group-for="featureA"
-            data-start="10"
-          >
-            <td>
-              <div>
-                <strong>
-                  Consequence: 
-                </strong>
-                missense
-              </div>
-              <div>
-                <strong>
-                  Predictions: 
-                </strong>
+                L&gt;A
+              </td>
+              <td />
+              <td>
+                No
+              </td>
+              <td>
+                <span
+                  class=""
+                >
+                  TOPMed
+                </span>
+                <br />
+                <span
+                  class=""
+                >
+                  gnomAD
+                </span>
+              </td>
+            </tr>
+            <tr
+              data-end="10"
+              data-group-for="featureA"
+              data-start="10"
+            >
+              <td>
                 <div>
-                  - PolyPhen: benign (0.001)
+                  <strong>
+                    Consequence: 
+                  </strong>
+                  missense
                 </div>
                 <div>
-                  - SIFT: tolerated (0.26)
-                </div>
-              </div>
-              <div>
-                <strong>
-                  Somatic: 
-                </strong>
-                 No
-              </div>
-              <div>
-                <strong>
-                  Accession: 
-                </strong>
-                 NC_000021.9:g.26170608A&gt;C
-              </div>
-              <div>
-                <strong>
-                  Codon: 
-                </strong>
-                 TTG/GTG
-              </div>
-              <div>
-                <strong>
-                  Consequence type: 
-                </strong>
-                 missense
-              </div>
-              <div>
-                <strong>
-                  Cytogenetic band: 
-                </strong>
-                 21q21.3
-              </div>
-              <div>
-                <strong>
-                  Genomic location: 
-                </strong>
-                 NC_000021.9:g.26170608A&gt;C
-              </div>
-              <div>
-                <strong>
-                  Locations: 
-                </strong>
-                <div>
-                  - p.Leu5Val (Ensembl:ENST00000346798)
+                  <strong>
+                    Predictions: 
+                  </strong>
+                  <div>
+                    - PolyPhen: benign (0.001)
+                  </div>
+                  <div>
+                    - SIFT: tolerated (0.26)
+                  </div>
                 </div>
                 <div>
-                  - c.13T&gt;G (Ensembl:ENST00000346798)
-                </div>
-              </div>
-              <div>
-                <strong>
-                  Source type: 
-                </strong>
-                 large scale study
-              </div>
-              <div>
-                <strong>
-                  Cross-references: 
-                </strong>
-                <div>
-                  - 
-                  <a
-                    class="external-link"
-                    href=" https://www.ncbi.nlm.nih.gov/snp/rs1446208112#frequency_tab"
-                    rel="noopener"
-                    target="_blank"
-                  >
-                    TOPMed: rs1446208112
-                    <test-file-stub
-                      data-testid="external-link-icon"
-                      width="12.5"
-                    />
-                  </a>
+                  <strong>
+                    Somatic: 
+                  </strong>
+                   No
                 </div>
                 <div>
-                  - 
-                  <a
-                    class="external-link"
-                    href=" http://gnomad.broadinstitute.org/awesome?query=rs1446208112"
-                    rel="noopener"
-                    target="_blank"
-                  >
-                    gnomAD: rs1446208112
-                    <test-file-stub
-                      data-testid="external-link-icon"
-                      width="12.5"
-                    />
-                  </a>
+                  <strong>
+                    Accession: 
+                  </strong>
+                   NC_000021.9:g.26170608A&gt;C
                 </div>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </protvista-datatable>
+                <div>
+                  <strong>
+                    Codon: 
+                  </strong>
+                   TTG/GTG
+                </div>
+                <div>
+                  <strong>
+                    Consequence type: 
+                  </strong>
+                   missense
+                </div>
+                <div>
+                  <strong>
+                    Cytogenetic band: 
+                  </strong>
+                   21q21.3
+                </div>
+                <div>
+                  <strong>
+                    Genomic location: 
+                  </strong>
+                   NC_000021.9:g.26170608A&gt;C
+                </div>
+                <div>
+                  <strong>
+                    Locations: 
+                  </strong>
+                  <div>
+                    - p.Leu5Val (Ensembl:ENST00000346798)
+                  </div>
+                  <div>
+                    - c.13T&gt;G (Ensembl:ENST00000346798)
+                  </div>
+                </div>
+                <div>
+                  <strong>
+                    Source type: 
+                  </strong>
+                   large scale study
+                </div>
+                <div>
+                  <strong>
+                    Cross-references: 
+                  </strong>
+                  <div>
+                    - 
+                    <a
+                      class="external-link"
+                      href=" https://www.ncbi.nlm.nih.gov/snp/rs1446208112#frequency_tab"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      TOPMed: rs1446208112
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                  </div>
+                  <div>
+                    - 
+                    <a
+                      class="external-link"
+                      href=" http://gnomad.broadinstitute.org/awesome?query=rs1446208112"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      gnomAD: rs1446208112
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </protvista-datatable>
+      <button
+        class="button primary toggle-button"
+        type="button"
+      >
+        Expand table
+      </button>
+    </div>
   </div>
 </DocumentFragment>
 `;

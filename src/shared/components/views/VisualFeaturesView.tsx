@@ -70,9 +70,9 @@ function VisualFeaturesView<T>({
           params.accession,
           TabLocation.FeatureViewer
         )}
-        className={'full-view'}
+        className="full-view"
       >
-        <FullViewIcon height={iconSize} className={'icon'} />
+        <FullViewIcon height={iconSize} className="icon" />
       </Link>
 
       <navigationElement.name length={sequence.length} />

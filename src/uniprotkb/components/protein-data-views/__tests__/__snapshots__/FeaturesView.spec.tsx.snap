@@ -17,108 +17,118 @@ exports[`FeaturesView component it renders without crashing 1`] = `
   <protvista-manager
     attributes="highlight displaystart displayend selectedid"
   >
-    <protvista-datatable
-      filter-scroll="true"
+    <div
+      class="datatable-with-toggle"
     >
-      <table
-        class=""
+      <protvista-datatable
+        filter-scroll="true"
       >
-        <thead>
-          <tr>
-            <th
-              data-filter="type"
-            >
-              Type
-            </th>
-            <th>
-              ID
-            </th>
-            <th>
-              Position(s)
-            </th>
-            <th>
-              Description
-            </th>
-            <th />
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            data-end="17"
-            data-id="0"
-            data-start="1"
-          >
-            <td
-              data-filter="type"
-              data-filter-value="Signal"
-            >
-              Signal
-            </td>
-            <td />
-            <td>
-              1-17
-            </td>
-            <td>
-              <button
-                aria-controls="1"
-                aria-expanded="false"
-                class="svg-colour-reviewed evidence-tag"
-                data-testid="evidence-tag-trigger"
-                type="button"
+        <table
+          class=""
+        >
+          <thead>
+            <tr>
+              <th
+                data-filter="type"
               >
-                <test-file-stub
-                  height="12"
-                  width="12"
-                />
-                <span
-                  class="evidence-tag__label"
-                >
-                  3 publications
-                </span>
-              </button>
-              <div
-                class="evidence-tag-content "
-                data-testid="evidence-tag-content"
-                id="1"
-              />
-            </td>
-            <td>
-              <div
-                class="button-group"
+                Type
+              </th>
+              <th>
+                ID
+              </th>
+              <th>
+                Position(s)
+              </th>
+              <th>
+                Description
+              </th>
+              <th />
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              data-end="17"
+              data-id="0"
+              data-start="1"
+            >
+              <td
+                data-filter="type"
+                data-filter-value="Signal"
               >
-                <a
-                  class="button tertiary"
-                  href="/blast?ids=P05067[1-17]"
-                  title="BLAST the sequence corresponding to this feature"
-                >
-                  BLAST
-                </a>
+                Signal
+              </td>
+              <td />
+              <td>
+                1-17
+              </td>
+              <td>
                 <button
-                  class="button tertiary no-small"
-                  title="Add 1 entry to the basket"
+                  aria-controls="1"
+                  aria-expanded="false"
+                  class="svg-colour-reviewed evidence-tag"
+                  data-testid="evidence-tag-trigger"
                   type="button"
                 >
-                  <test-file-stub />
-                  Add
+                  <test-file-stub
+                    height="12"
+                    width="12"
+                  />
+                  <span
+                    class="evidence-tag__label"
+                  >
+                    3 publications
+                  </span>
                 </button>
-              </div>
-            </td>
-          </tr>
-          <tr
-            data-end="17"
-            data-group-for="0"
-            data-start="1"
-          >
-            <td>
-              <strong>
-                Sequence: 
-              </strong>
-              ASDASDASASDASDASD
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </protvista-datatable>
+                <div
+                  class="evidence-tag-content "
+                  data-testid="evidence-tag-content"
+                  id="1"
+                />
+              </td>
+              <td>
+                <div
+                  class="button-group"
+                >
+                  <a
+                    class="button tertiary"
+                    href="/blast?ids=P05067[1-17]"
+                    title="BLAST the sequence corresponding to this feature"
+                  >
+                    BLAST
+                  </a>
+                  <button
+                    class="button tertiary no-small"
+                    title="Add 1 entry to the basket"
+                    type="button"
+                  >
+                    <test-file-stub />
+                    Add
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr
+              data-end="17"
+              data-group-for="0"
+              data-start="1"
+            >
+              <td>
+                <strong>
+                  Sequence: 
+                </strong>
+                ASDASDASASDASDASD
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </protvista-datatable>
+      <button
+        class="button primary toggle-button"
+        type="button"
+      >
+        Expand table
+      </button>
+    </div>
   </protvista-manager>
 </DocumentFragment>
 `;

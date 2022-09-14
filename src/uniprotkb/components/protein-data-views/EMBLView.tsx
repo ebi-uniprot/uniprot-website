@@ -3,7 +3,6 @@ import { Loader } from 'franklin-sites';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import DatatableWithToggle from '../../../shared/components/views/DatatableWithToggle';
 
-import useCustomElement from '../../../shared/hooks/useCustomElement';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
 import { getDatabaseInfoAttribute, processUrlTemplate } from './XRefView';
@@ -52,14 +51,6 @@ export type ProtvistaPDB = {
 };
 
 const EMBLView = ({ xrefs }: { xrefs: Xref[] }) => {
-  const datatableElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(
-        /* webpackChunkName: "protvista-datatable" */ 'protvista-datatable'
-      ),
-    'protvista-datatable'
-  );
   const data = processData(xrefs);
   const databaseInfoMaps = useDatabaseInfoMaps();
 

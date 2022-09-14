@@ -183,14 +183,6 @@ const VariationView = ({
       import(/* webpackChunkName: "protvista-manager" */ 'protvista-manager'),
     'protvista-manager'
   );
-  const dataTableElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(
-        /* webpackChunkName: "protvista-datatable" */ 'protvista-datatable'
-      ),
-    'protvista-datatable'
-  );
 
   if (loading) {
     return (
@@ -493,7 +485,7 @@ const VariationView = ({
   const fallback = (
     <div>
       {title && <h3>{title}</h3>}
-      {table}
+      <DatatableWithToggle table={table} />
     </div>
   );
 
