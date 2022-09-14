@@ -1,8 +1,8 @@
 // see parsing ideas here: https://stackoverflow.com/a/38311111 and rest of page
 
-import { PhyloTree, PhyloTreeNode } from '../types/alignResults';
+import { NewickTree, NewickTreeNode } from '../types/alignResults';
 
-const assignDistanceFromRoot = (node: PhyloTreeNode, isRoot = false) => {
+const assignDistanceFromRoot = (node: NewickTreeNode, isRoot = false) => {
   if (
     !node.children ||
     (typeof node.distanceFromRoot === 'undefined' && !isRoot)
@@ -23,9 +23,9 @@ const assignDistanceFromRoot = (node: PhyloTreeNode, isRoot = false) => {
 const WHITESPACE = /\s+/g;
 const TOKENIZER = /([;(),:])/;
 
-const phylotree = (string?: string): PhyloTree => {
-  const ancestors: PhyloTreeNode[] = [];
-  let tree: PhyloTree = {};
+const newicktree = (string?: string): NewickTree => {
+  const ancestors: NewickTreeNode[] = [];
+  let tree: NewickTree = {};
   let subtree;
 
   if (!string) {
@@ -49,7 +49,7 @@ const phylotree = (string?: string): PhyloTree => {
           tree = subtree;
           break;
         case ')': // preceding name (optional)
-          tree = ancestors.pop() as PhyloTreeNode;
+          tree = ancestors.pop() as NewickTreeNode;
           break;
         case ',': {
           // another branch
@@ -106,4 +106,4 @@ const phylotree = (string?: string): PhyloTree => {
   return tree;
 };
 
-export default phylotree;
+export default newicktree;

@@ -1,11 +1,12 @@
 import { Button, Dropdown } from 'franklin-sites';
+import { useRouteMatch } from 'react-router-dom';
 
 import ToolsButton from './ToolsButton';
 
 import { fromCleanMapper } from '../../utils/getIdKeyForNamespace';
 import { pluralise } from '../../utils/utils';
 
-import { Location } from '../../../app/config/urls';
+import { Location, LocationToPath } from '../../../app/config/urls';
 import { JobTypes } from '../../../tools/types/toolsJobTypes';
 import { PublicServerParameters } from '../../../tools/types/toolsServerParameters';
 
@@ -33,6 +34,7 @@ const AlignButton = ({
   textSuffix,
   inputParamsData,
 }: AlignButtonProps) => {
+  const blastMatch = useRouteMatch(LocationToPath[Location.BlastResult]);
   const cleanedSelectedEntries = Array.from(
     new Set(selectedEntries.map(fromCleanMapper))
   );
@@ -44,7 +46,7 @@ const AlignButton = ({
     'sequence' in inputParamsData &&
     inputParamsData.sequence;
 
-  if (sequence) {
+  if (sequence && blastMatch) {
     return (
       <Dropdown
         visibleElement={

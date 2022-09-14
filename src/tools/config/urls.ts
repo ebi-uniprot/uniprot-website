@@ -26,6 +26,7 @@ export type ResultFormat = {
     // ClustalW:
     // http://web.mit.edu/meme_v4.11.4/share/doc/clustalw-format.html
     | 'aln-clustal_num'
+    | 'tree' // Guide Tree
     | 'phylotree' // Phylogenetic Tree
     | 'pim' // Percent Identity Matrix
     | 'submission'; // Submission Details (according to doc in JSON, but it looks like it's actually XML)

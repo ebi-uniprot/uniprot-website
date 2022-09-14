@@ -65,6 +65,7 @@ export function formParametersToServerParameters<T extends JobTypes>(
         serverParameters = {
           email: DEFAULT_EMAIL,
           outfmt: 'clustal_num',
+          guidetreeout: true,
           // from form
           sequence,
           order,

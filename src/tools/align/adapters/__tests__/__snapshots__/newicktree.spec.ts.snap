@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`phylotree should match snapshot 1`] = `
+exports[`newicktree should match snapshot 1`] = `
 [
   {
     "distance": 0.11515,
@@ -39,7 +39,7 @@ exports[`phylotree should match snapshot 1`] = `
 ]
 `;
 
-exports[`phylotree should match snapshot 2`] = `
+exports[`newicktree should match snapshot 2`] = `
 [
   {
     "distance": 0.41968,
@@ -628,7 +628,7 @@ exports[`phylotree should match snapshot 2`] = `
 ]
 `;
 
-exports[`phylotree should match snapshot 3`] = `
+exports[`newicktree should match snapshot 3`] = `
 [
   {
     "distance": 0.00572,

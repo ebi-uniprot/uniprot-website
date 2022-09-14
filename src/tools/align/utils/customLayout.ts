@@ -2,9 +2,10 @@ import { HierarchyPointNode } from 'd3';
 
 import { polarToX, polarToY } from './trigonometry';
 
-import { PhyloTreeNode } from '../types/alignResults';
+import { NewickTreeNode } from '../types/alignResults';
 
-export interface CustomHierarchyNode extends HierarchyPointNode<PhyloTreeNode> {
+export interface CustomHierarchyNode
+  extends HierarchyPointNode<NewickTreeNode> {
   links(): {
     source: CustomHierarchyNode;
     target: CustomHierarchyNode;
@@ -27,7 +28,7 @@ const customLayout = () => {
   let showDistance = true;
   let circularLayout = true;
 
-  const outputFn = (node: HierarchyPointNode<PhyloTreeNode>) => {
+  const outputFn = (node: HierarchyPointNode<NewickTreeNode>) => {
     // recursively do the same for the whole tree
     node.children?.map(outputFn);
 
