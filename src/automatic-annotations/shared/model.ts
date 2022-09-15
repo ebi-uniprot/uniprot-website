@@ -327,7 +327,7 @@ export type AAModel = {
   otherRules?: CaseRule[];
   samFeatureSets?: SAMFeatureSet[];
   positionFeatureSets?: PositionFeatureSet[];
-  statistics: Statistics;
+  statistics?: Statistics;
   createdDate: string; // YYYY-MM-DD
   modifiedDate: string; // YYYY-MM-DD
 };
