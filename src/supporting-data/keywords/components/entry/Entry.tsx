@@ -96,6 +96,7 @@ const KeywordsEntry = ({
         ]}
       >
         <meta name="description" content={data.definition} />
+        <link rel="canonical" href={window.location.href} />
       </HTMLHead>
       <h1>
         {searchableNamespaceLabels[Namespace.keywords]} - {data.keyword.name} (
