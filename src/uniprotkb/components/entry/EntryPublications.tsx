@@ -59,9 +59,8 @@ const PublicationReference: FC<{
     if (source?.name === 'GeneRif') {
       url = `https://www.ncbi.nlm.nih.gov/gene?Db=gene&Cmd=DetailsSearch&Term=${source.id}`;
     }
-    if (source?.name === 'GAD') {
-      url = 'https://geneticassociationdb.nih.gov/';
-    }
+    // if (source?.name === 'GAD') => don't inject a link
+    // This DB is dead so we only display the accession, but no link to point to
 
     const groupedReferenceComments = groupBy(referenceComments, 'type');
 
