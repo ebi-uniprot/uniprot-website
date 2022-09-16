@@ -247,7 +247,14 @@ export const JournalInfo: FC<JournalInfoProps> = ({
     </>
   );
 
-  const url = doiId ? externalUrls.DOI(doiId) : getLocatorUrl(locator, name);
+  let url;
+  if (doiId) {
+    url = externalUrls.DOI(doiId);
+  } else if (patentNumber) {
+    url = externalUrls.EspacenetPatent(patentNumber);
+  } else {
+    url = getLocatorUrl(locator, name);
+  }
 
   if (!url) {
     return content;

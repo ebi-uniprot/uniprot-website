@@ -54,6 +54,8 @@ const externalUrls: Record<string, (id: string | number) => string> = {
   RheaSearch: (id) => `https://www.rhea-db.org/rhea?query=${id}`,
   RheaEntry: (id) => `https://www.rhea-db.org/rhea/${id}`,
   ChEBI: (id) => `https://www.ebi.ac.uk/chebi/searchId.do?chebiId=${id}`,
+  EspacenetPatent: (id) =>
+    `https://worldwide.espacenet.com/textdoc?DB=EPODOC&IDX=${id}`,
 };
 
 export const getIntActQueryUrl = (
