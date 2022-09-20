@@ -20,13 +20,13 @@ export type KeywordsLite = {
   synonyms?: string[];
   geneOntologies?: GO[];
   category?: KeywordNameID;
-  children?: KeywordsLite[];
+  parents?: KeywordsLite[];
 };
 
 export type KeywordsAPIModel = KeywordsLite & {
   accession?: string;
   statistics?: Statistics;
-  parents?: KeywordsLite[];
+  children?: KeywordsLite[];
 };
 
 export type KeywordsUIModel = KeywordsAPIModel & {
