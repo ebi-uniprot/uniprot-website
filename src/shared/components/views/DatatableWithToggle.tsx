@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import { Button } from 'franklin-sites';
+import { frame } from 'timing-functions';
 
 import useCustomElement from '../../hooks/useCustomElement';
 
@@ -19,7 +20,7 @@ const DatatableWithToggle = ({ table }: { table: JSX.Element }) => {
     'protvista-datatable'
   );
 
-  const toggleTableState = () => {
+  const toggleTableState = async () => {
     const tableEl = tableRef?.current;
     if (tableEl) {
       if (tableState === 'Expand') {
@@ -27,11 +28,12 @@ const DatatableWithToggle = ({ table }: { table: JSX.Element }) => {
         setTableState('Collapse');
       } else {
         tableEl.expandTable = false;
+        setTableState('Expand');
+        await frame();
         tableContainerRef?.current?.scrollIntoView({
           behavior: 'smooth',
-          block: 'start', // block:'center' places the table following the collapsed table in view (in case of very long tables)🤷‍♀️
+          block: 'center',
         });
-        setTableState('Expand');
       }
     }
   };
