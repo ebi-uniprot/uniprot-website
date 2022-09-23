@@ -32,7 +32,8 @@ const SharedColumnConfiguration = {
   organism<Schema>(
     getter: (
       data: Schema
-    ) => TaxonomyDatum | UniProtKBSimplifiedTaxonomy | undefined
+    ) => TaxonomyDatum | UniProtKBSimplifiedTaxonomy | undefined,
+    strainGetter?: (data: Schema) => string | undefined
   ) {
     return {
       ...getLabelAndTooltip(
@@ -42,7 +43,10 @@ const SharedColumnConfiguration = {
       ),
       render: (data: Schema) => {
         const taxonomyData = getter(data);
-        return taxonomyData && <TaxonomyView data={taxonomyData} />;
+        const strain = strainGetter?.(data);
+        return (
+          taxonomyData && <TaxonomyView data={taxonomyData} strain={strain} />
+        );
       },
     };
   },

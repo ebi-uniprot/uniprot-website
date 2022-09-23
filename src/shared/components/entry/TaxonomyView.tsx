@@ -23,13 +23,6 @@ import { UniProtKBSimplifiedTaxonomy } from '../../../uniprotkb/adapters/uniProt
 
 import styles from './styles/taxonomy-view.module.css';
 
-type TaxonomyDataProps = {
-  data: TaxonomyDatum | UniProtKBSimplifiedTaxonomy;
-  displayOnlyID?: boolean;
-  className?: string;
-  noLink?: boolean;
-};
-
 export const TaxonomyId = ({ taxonId }: { taxonId?: number }) => {
   if (!taxonId) {
     return null;
@@ -44,8 +37,18 @@ export const TaxonomyId = ({ taxonId }: { taxonId?: number }) => {
   );
 };
 
+type TaxonomyDataProps = {
+  data: TaxonomyDatum | UniProtKBSimplifiedTaxonomy;
+  // To be used only for Proteomes
+  strain?: string;
+  displayOnlyID?: boolean;
+  className?: string;
+  noLink?: boolean;
+};
+
 const TaxonomyView = ({
   data,
+  strain,
   displayOnlyID,
   className,
   noLink = false,
@@ -54,7 +57,9 @@ const TaxonomyView = ({
 
   const termValue = `${scientificName || taxonId}${
     commonName ? ` (${commonName})` : ''
-  }${synonyms?.length ? ` (${synonyms.join(', ')})` : ''}`;
+  }${synonyms?.length ? ` (${synonyms.join(', ')})` : ''}${
+    strain ? ` (${strain})` : ''
+  }`;
 
   return (
     <SimpleView

@@ -72,7 +72,10 @@ ProteomesColumnConfiguration.set(
 
 ProteomesColumnConfiguration.set(
   ProteomesColumn.organism,
-  SharedColumnConfiguration.organism(({ taxonomy }: Schema) => taxonomy)
+  SharedColumnConfiguration.organism(
+    ({ taxonomy }: Schema) => taxonomy,
+    ({ strain }: Schema) => strain
+  )
 );
 
 ProteomesColumnConfiguration.set(ProteomesColumn.components, {
