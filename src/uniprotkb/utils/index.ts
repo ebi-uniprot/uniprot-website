@@ -89,4 +89,5 @@ export const needTextProcessingRE = new RegExp(
   'i'
 );
 
-export const familyExtractor = /( the |\. )([^.]+ (?:sub)?family)/;
+export const familyExtractor =
+  /( the |\. )([^.]+ (?:sub|super|sub-sub)?family)/;

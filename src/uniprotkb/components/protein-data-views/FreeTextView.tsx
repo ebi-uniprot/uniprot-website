@@ -55,21 +55,6 @@ export const RichText = ({
           </Fragment>
         );
       }
-      const accession = part.match(reUniProtKBAccession)?.[0];
-      if (reAC.test(part) && accession) {
-        // Replace any occurrences of "AC <accession>" with "AC "<link to accession>
-        // eg A0A075B6S6
-        return (
-          // eslint-disable-next-line react/no-array-index-key
-          <Fragment key={index}>
-            {/* Somehow the part kept "AC ", so put it back */}
-            {part.startsWith('AC ') ? `AC ` : ''}
-            <Link to={getEntryPath(Namespace.uniprotkb, accession)}>
-              {accession}
-            </Link>
-          </Fragment>
-        );
-      }
       if (reFamily.test(part)) {
         return part.split(familyExtractor).map((familyPart) => {
           if (familyPart.endsWith('family')) {
@@ -88,6 +73,21 @@ export const RichText = ({
           }
           return familyPart;
         });
+      }
+      const accession = part.match(reUniProtKBAccession)?.[0];
+      if (reAC.test(part) && accession) {
+        // Replace any occurrences of "AC <accession>" with "AC "<link to accession>
+        // eg A0A075B6S6
+        return (
+          // eslint-disable-next-line react/no-array-index-key
+          <Fragment key={index}>
+            {/* Somehow the part kept "AC ", so put it back */}
+            {part.startsWith('AC ') ? `AC ` : ''}
+            <Link to={getEntryPath(Namespace.uniprotkb, accession)}>
+              {accession}
+            </Link>
+          </Fragment>
+        );
       }
       if (reSubscript.test(part)) {
         return (
