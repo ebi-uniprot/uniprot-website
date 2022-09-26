@@ -1,8 +1,8 @@
 import { Loader } from 'franklin-sites';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
+import DatatableWithToggle from '../../../shared/components/views/DatatableWithToggle';
 
-import useCustomElement from '../../../shared/hooks/useCustomElement';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
 import { getPDBMirrorsInfo } from '../../config/database';
@@ -48,15 +48,6 @@ const PDBView = ({ xrefs }: { xrefs: Xref[] }) => {
    * Eventually it might make sense to just use protvista-structure and
    * protvista-datatable.
    */
-  const datatableElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(
-        /* webpackChunkName: "protvista-datatable" */ 'protvista-datatable'
-      ),
-    'protvista-datatable'
-  );
-
   const data = processData(xrefs);
 
   const databaseInfoMaps = useDatabaseInfoMaps();
@@ -68,7 +59,7 @@ const PDBView = ({ xrefs }: { xrefs: Xref[] }) => {
   const { databaseToDatabaseInfo } = databaseInfoMaps;
 
   return (
-    <datatableElement.name>
+    <DatatableWithToggle>
       <table>
         <thead>
           <tr>
@@ -114,7 +105,7 @@ const PDBView = ({ xrefs }: { xrefs: Xref[] }) => {
           )}
         </tbody>
       </table>
-    </datatableElement.name>
+    </DatatableWithToggle>
   );
 };
 
