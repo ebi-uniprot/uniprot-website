@@ -184,7 +184,7 @@ const EMBLView = ({ xrefs }: { xrefs: Xref[] }) => {
       </tbody>
     </table>
   );
-  return <DatatableWithToggle table={table} />;
+  return <DatatableWithToggle>{table}</DatatableWithToggle>;
 };
 
 export default EMBLView;

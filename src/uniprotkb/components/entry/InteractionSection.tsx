@@ -231,7 +231,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
           >
             <InteractionViewer accession={primaryAccession} />
           </LazyComponent>
-          <DatatableWithToggle table={table} />
+          <DatatableWithToggle>{table}</DatatableWithToggle>
         </>
       ) : null}
 

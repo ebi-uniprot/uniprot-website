@@ -69,7 +69,7 @@ export const DiseaseVariants = ({ variants }: { variants: FeatureDatum[] }) => {
     </table>
   );
 
-  return <DatatableWithToggle table={table} />;
+  return <DatatableWithToggle>{table}</DatatableWithToggle>;
 };
 
 type DiseaseInvolvementEntryProps = {

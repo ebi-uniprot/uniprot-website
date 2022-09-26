@@ -117,7 +117,7 @@ const FeaturesView = <
               />
             </LazyComponent>
           )}
-          <DatatableWithToggle table={table} />
+          <DatatableWithToggle>{table}</DatatableWithToggle>
         </managerElement.name>
       ) : null}
     </>

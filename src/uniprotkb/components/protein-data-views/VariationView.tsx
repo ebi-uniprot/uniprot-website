@@ -485,7 +485,7 @@ const VariationView = ({
   const fallback = (
     <div>
       {title && <h3>{title}</h3>}
-      <DatatableWithToggle table={table} />
+      <DatatableWithToggle>{table}</DatatableWithToggle>
     </div>
   );
 
@@ -502,7 +502,7 @@ const VariationView = ({
           ref={managerRef}
         >
           <VisualVariationView {...transformedData} />
-          <DatatableWithToggle table={table} />
+          <DatatableWithToggle>{table}</DatatableWithToggle>
         </managerElement.name>
       </div>
     </Suspense>

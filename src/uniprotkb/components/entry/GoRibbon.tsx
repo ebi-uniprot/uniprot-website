@@ -274,7 +274,9 @@ const GoRibbon = ({
         </label>
       )}
       {elementLoaded && ribbon}
-      {!!filteredGoTerms.length && <DatatableWithToggle table={table} />}
+      {!!filteredGoTerms.length && (
+        <DatatableWithToggle>{table}</DatatableWithToggle>
+      )}
     </div>
   );
 };

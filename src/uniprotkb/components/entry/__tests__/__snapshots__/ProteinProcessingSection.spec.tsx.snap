@@ -74,9 +74,9 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
           <a
             class="full-view"
             href="/uniprotkb/undefined/feature-viewer"
+            title="View in the Feature Viewer"
           >
             <test-file-stub
-              classname="icon"
               height="19"
             />
           </a>
@@ -509,9 +509,9 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
           <a
             class="full-view"
             href="/uniprotkb/undefined/feature-viewer"
+            title="View in the Feature Viewer"
           >
             <test-file-stub
-              classname="icon"
               height="19"
             />
           </a>
