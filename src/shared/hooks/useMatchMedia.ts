@@ -56,3 +56,5 @@ export const useReducedMotion = () =>
 
 export const useSmallScreen = () =>
   useMatchMedia('only screen and (max-width: 640px)');
+
+export const useTouchScreen = () => useMatchMedia('(pointer: coarse)');

@@ -17,6 +17,7 @@ import { transformData, TransformedVariant } from 'protvista-variation-adapter';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
+import DatatableWithToggle from '../../../shared/components/views/DatatableWithToggle';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useCustomElement from '../../../shared/hooks/useCustomElement';
@@ -182,14 +183,6 @@ const VariationView = ({
       import(/* webpackChunkName: "protvista-manager" */ 'protvista-manager'),
     'protvista-manager'
   );
-  const dataTableElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(
-        /* webpackChunkName: "protvista-datatable" */ 'protvista-datatable'
-      ),
-    'protvista-datatable'
-  );
 
   if (loading) {
     return (
@@ -223,278 +216,276 @@ const VariationView = ({
   }
 
   const table = (
-    <dataTableElement.name filter-scroll>
-      <table>
-        <thead>
-          <tr>
-            <th>
-              Variant
-              <br />
-              ID(s)
-            </th>
-            <th>Position(s)</th>
-            <th>Change</th>
-            <th>Description</th>
-            <th>
-              Disease
-              <br />
-              association
-            </th>
-            <th>Provenance</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredVariants.map((variantFeature) => {
-            let position = variantFeature.start;
-            if (variantFeature.start !== variantFeature.end) {
-              position += `-${variantFeature.end}`;
-            }
+    <table>
+      <thead>
+        <tr>
+          <th>
+            Variant
+            <br />
+            ID(s)
+          </th>
+          <th>Position(s)</th>
+          <th>Change</th>
+          <th>Description</th>
+          <th>
+            Disease
+            <br />
+            association
+          </th>
+          <th>Provenance</th>
+        </tr>
+      </thead>
+      <tbody>
+        {filteredVariants.map((variantFeature) => {
+          let position = variantFeature.start;
+          if (variantFeature.start !== variantFeature.end) {
+            position += `-${variantFeature.end}`;
+          }
 
-            return (
-              <Fragment key={variantFeature.protvistaFeatureId}>
-                <tr
-                  data-id={variantFeature.protvistaFeatureId}
-                  data-start={variantFeature.start}
-                  data-end={variantFeature.end}
-                >
-                  <td>
-                    {Array.from(
-                      // note that the type needs to be updated, xrefs is optional on association object
-                      new Set(variantFeature.xrefs?.map((xref) => xref.id))
-                    )
-                      .sort(sortIDByUniProtFirst)
-                      .map((id, i) => (
-                        <Fragment key={id}>
-                          {i !== 0 && <br />}
-                          <span
-                            className={cn({ [styles.bold]: isUniProtID(id) })}
-                          >
-                            {id}
-                          </span>
-                        </Fragment>
-                      ))}
-                  </td>
-                  <td>{position}</td>
-                  <td className={styles.change}>
-                    {variantFeature.wildType ||
-                    variantFeature.alternativeSequence ? (
-                      <>
-                        {variantFeature.wildType || <em>missing</em>}
-                        {'>'}
-                        {variantFeature.alternativeSequence || <em>missing</em>}
-                      </>
-                    ) : (
-                      <em>missing</em>
-                    )}
-                  </td>
-                  <td>
-                    {variantFeature.descriptions &&
-                      Array.from(variantFeature.descriptions)
-                        .sort(sortDescriptionByUniProtFirst)
-                        .map((description) => {
-                          const isUniProtDescription =
-                            hasUniProtSource(description);
-                          const uniProtEvidences =
-                            isUniProtDescription &&
-                            variantFeature.evidences
-                              ?.filter(isUniProtEvidence)
-                              .map((evidence) => ({
-                                evidenceCode: evidence.code as `ECO:${number}`,
-                                id: evidence.source.id,
-                                source: evidence.source.name,
-                                url: evidence.source.url,
-                              }));
-                          return (
-                            <div
-                              key={description.value}
-                              className={cn({
-                                [styles.bold]: isUniProtDescription,
-                              })}
-                            >
-                              {`${
-                                description.value
-                              } (${description.sources.join(', ')})`}
-                              {uniProtEvidences && (
-                                <UniProtKBEvidenceTag
-                                  evidences={uniProtEvidences}
-                                />
-                              )}
-                            </div>
-                          );
-                        })}
-                  </td>
-                  <td>
-                    {variantFeature.association &&
-                    variantFeature.association.length > 0
-                      ? 'Yes'
-                      : 'No'}
-                  </td>
-                  <td>
-                    {Array.from(
-                      new Set(
-                        // 'uniprot' gets injected somehow in
-                        // 'protvista-variation-adapter' transformData, remove it
-                        variantFeature.xrefNames.map((name) =>
-                          name === 'uniprot' ? 'UniProt' : name
-                        )
-                      )
-                    )
-                      .sort(sortProvenanceByUniProtFirst)
-                      .map((name, i) => (
-                        <Fragment key={name}>
-                          {i !== 0 && <br />}
-                          <span
-                            className={cn({ [styles.bold]: isUniProt(name) })}
-                          >
-                            {name}
-                          </span>
-                        </Fragment>
-                      ))}
-                  </td>
-                </tr>
-                <tr
-                  data-group-for={variantFeature.protvistaFeatureId}
-                  data-start={variantFeature.start}
-                  data-end={variantFeature.end}
-                >
-                  <td>
-                    <div>
-                      <strong>Consequence: </strong>
-                      {variantFeature.consequenceType}
-                    </div>
-                    {variantFeature.predictions?.length ? (
-                      <div>
-                        <strong>Predictions: </strong>
-                        {variantFeature.predictions?.map((pred) => (
+          return (
+            <Fragment key={variantFeature.protvistaFeatureId}>
+              <tr
+                data-id={variantFeature.protvistaFeatureId}
+                data-start={variantFeature.start}
+                data-end={variantFeature.end}
+              >
+                <td>
+                  {Array.from(
+                    // note that the type needs to be updated, xrefs is optional on association object
+                    new Set(variantFeature.xrefs?.map((xref) => xref.id))
+                  )
+                    .sort(sortIDByUniProtFirst)
+                    .map((id, i) => (
+                      <Fragment key={id}>
+                        {i !== 0 && <br />}
+                        <span
+                          className={cn({ [styles.bold]: isUniProtID(id) })}
+                        >
+                          {id}
+                        </span>
+                      </Fragment>
+                    ))}
+                </td>
+                <td>{position}</td>
+                <td className={styles.change}>
+                  {variantFeature.wildType ||
+                  variantFeature.alternativeSequence ? (
+                    <>
+                      {variantFeature.wildType || <em>missing</em>}
+                      {'>'}
+                      {variantFeature.alternativeSequence || <em>missing</em>}
+                    </>
+                  ) : (
+                    <em>missing</em>
+                  )}
+                </td>
+                <td>
+                  {variantFeature.descriptions &&
+                    Array.from(variantFeature.descriptions)
+                      .sort(sortDescriptionByUniProtFirst)
+                      .map((description) => {
+                        const isUniProtDescription =
+                          hasUniProtSource(description);
+                        const uniProtEvidences =
+                          isUniProtDescription &&
+                          variantFeature.evidences
+                            ?.filter(isUniProtEvidence)
+                            .map((evidence) => ({
+                              evidenceCode: evidence.code as `ECO:${number}`,
+                              id: evidence.source.id,
+                              source: evidence.source.name,
+                              url: evidence.source.url,
+                            }));
+                        return (
                           <div
-                            key={[
-                              pred.predAlgorithmNameType,
-                              pred.predictionValType,
-                              pred.score,
-                              pred.sources,
-                            ].join('-')}
+                            key={description.value}
+                            className={cn({
+                              [styles.bold]: isUniProtDescription,
+                            })}
                           >
-                            {`- ${pred.predAlgorithmNameType}: ${pred.predictionValType} (${pred.score})`}
-                          </div>
-                        ))}
-                      </div>
-                    ) : null}
-                    <div>
-                      <strong>Somatic: </strong>{' '}
-                      {variantFeature.somaticStatus === 1 ? 'Yes' : 'No'}
-                    </div>
-                    {variantFeature.clinicalSignificances?.length ? (
-                      <div>
-                        <strong>Clinical significances: </strong>
-                        {variantFeature.clinicalSignificances?.map(
-                          (clinicalSignificance) => (
-                            <div
-                              key={`${clinicalSignificance.sources.join('-')}-${
-                                clinicalSignificance.type
-                              }`}
-                            >
-                              {`- ${
-                                clinicalSignificance.type
-                              } (${clinicalSignificance.sources.join(', ')})`}
-                            </div>
-                          )
-                        )}
-                      </div>
-                    ) : null}
-                    {variantFeature.populationFrequencies?.length ? (
-                      <div>
-                        <strong>Population frequencies: </strong>
-                        {variantFeature.populationFrequencies?.map(
-                          (populationFrequency) => (
-                            <div
-                              key={`${populationFrequency.source}-${populationFrequency.populationName}`}
-                            >
-                              {`- ${populationFrequency.populationName}: ${populationFrequency.frequency} (${populationFrequency.source})`}
-                            </div>
-                          )
-                        )}
-                      </div>
-                    ) : null}
-                    <div>
-                      <strong>Accession: </strong> {variantFeature.accession}
-                    </div>
-                    {variantFeature.codon && (
-                      <div>
-                        <strong>Codon: </strong> {variantFeature.codon}
-                      </div>
-                    )}
-                    <div>
-                      <strong>Consequence type: </strong>{' '}
-                      {variantFeature.consequenceType}
-                    </div>
-                    <div>
-                      <strong>Cytogenetic band: </strong>{' '}
-                      {variantFeature.cytogeneticBand}
-                    </div>
-                    <div>
-                      <strong>Genomic location: </strong>{' '}
-                      {variantFeature.genomicLocation}
-                    </div>
-                    {variantFeature.locations?.length ? (
-                      <div>
-                        <strong>Locations: </strong>
-                        {variantFeature.locations?.map((location) => (
-                          <div key={`${location.loc}-${location.seqId}`}>
-                            {`- ${location.loc} (${location.source}:${location.seqId})`}
-                          </div>
-                        ))}
-                      </div>
-                    ) : null}
-                    {variantFeature.association?.length ? (
-                      <div>
-                        <strong>Disease association: </strong>
-                        {variantFeature.association?.map((association) => (
-                          <div
-                            key={`${association.name}-${association.description}`}
-                          >
-                            {'- '}
-                            {association.name}
-                          </div>
-                        ))}
-                      </div>
-                    ) : null}
-                    <div>
-                      <strong>Source type: </strong>{' '}
-                      {variantFeature.sourceType.replace(/_/g, ' ')}
-                    </div>
-                    {/* note that the type needs to be updated, xrefs is optional on association object */}
-                    {/* Also, some xrefs don't have URLs... type should be optional */}
-                    {variantFeature.xrefs?.length ? (
-                      <div>
-                        <strong>Cross-references: </strong>
-                        {variantFeature.xrefs?.map((xref) => (
-                          <div key={`${xref.name}-${xref.id}`}>
-                            {'- '}
-                            {xref.url ? (
-                              <ExternalLink url={xref.url}>
-                                {xref.name}: {xref.id}
-                              </ExternalLink>
-                            ) : (
-                              `${xref.name}: ${xref.id}`
+                            {`${description.value} (${description.sources.join(
+                              ', '
+                            )})`}
+                            {uniProtEvidences && (
+                              <UniProtKBEvidenceTag
+                                evidences={uniProtEvidences}
+                              />
                             )}
                           </div>
-                        ))}
-                      </div>
-                    ) : null}
-                  </td>
-                </tr>
-              </Fragment>
-            );
-          })}
-        </tbody>
-      </table>
-    </dataTableElement.name>
+                        );
+                      })}
+                </td>
+                <td>
+                  {variantFeature.association &&
+                  variantFeature.association.length > 0
+                    ? 'Yes'
+                    : 'No'}
+                </td>
+                <td>
+                  {Array.from(
+                    new Set(
+                      // 'uniprot' gets injected somehow in
+                      // 'protvista-variation-adapter' transformData, remove it
+                      variantFeature.xrefNames.map((name) =>
+                        name === 'uniprot' ? 'UniProt' : name
+                      )
+                    )
+                  )
+                    .sort(sortProvenanceByUniProtFirst)
+                    .map((name, i) => (
+                      <Fragment key={name}>
+                        {i !== 0 && <br />}
+                        <span
+                          className={cn({ [styles.bold]: isUniProt(name) })}
+                        >
+                          {name}
+                        </span>
+                      </Fragment>
+                    ))}
+                </td>
+              </tr>
+              <tr
+                data-group-for={variantFeature.protvistaFeatureId}
+                data-start={variantFeature.start}
+                data-end={variantFeature.end}
+              >
+                <td>
+                  <div>
+                    <strong>Consequence: </strong>
+                    {variantFeature.consequenceType}
+                  </div>
+                  {variantFeature.predictions?.length ? (
+                    <div>
+                      <strong>Predictions: </strong>
+                      {variantFeature.predictions?.map((pred) => (
+                        <div
+                          key={[
+                            pred.predAlgorithmNameType,
+                            pred.predictionValType,
+                            pred.score,
+                            pred.sources,
+                          ].join('-')}
+                        >
+                          {`- ${pred.predAlgorithmNameType}: ${pred.predictionValType} (${pred.score})`}
+                        </div>
+                      ))}
+                    </div>
+                  ) : null}
+                  <div>
+                    <strong>Somatic: </strong>{' '}
+                    {variantFeature.somaticStatus === 1 ? 'Yes' : 'No'}
+                  </div>
+                  {variantFeature.clinicalSignificances?.length ? (
+                    <div>
+                      <strong>Clinical significances: </strong>
+                      {variantFeature.clinicalSignificances?.map(
+                        (clinicalSignificance) => (
+                          <div
+                            key={`${clinicalSignificance.sources.join('-')}-${
+                              clinicalSignificance.type
+                            }`}
+                          >
+                            {`- ${
+                              clinicalSignificance.type
+                            } (${clinicalSignificance.sources.join(', ')})`}
+                          </div>
+                        )
+                      )}
+                    </div>
+                  ) : null}
+                  {variantFeature.populationFrequencies?.length ? (
+                    <div>
+                      <strong>Population frequencies: </strong>
+                      {variantFeature.populationFrequencies?.map(
+                        (populationFrequency) => (
+                          <div
+                            key={`${populationFrequency.source}-${populationFrequency.populationName}`}
+                          >
+                            {`- ${populationFrequency.populationName}: ${populationFrequency.frequency} (${populationFrequency.source})`}
+                          </div>
+                        )
+                      )}
+                    </div>
+                  ) : null}
+                  <div>
+                    <strong>Accession: </strong> {variantFeature.accession}
+                  </div>
+                  {variantFeature.codon && (
+                    <div>
+                      <strong>Codon: </strong> {variantFeature.codon}
+                    </div>
+                  )}
+                  <div>
+                    <strong>Consequence type: </strong>{' '}
+                    {variantFeature.consequenceType}
+                  </div>
+                  <div>
+                    <strong>Cytogenetic band: </strong>{' '}
+                    {variantFeature.cytogeneticBand}
+                  </div>
+                  <div>
+                    <strong>Genomic location: </strong>{' '}
+                    {variantFeature.genomicLocation}
+                  </div>
+                  {variantFeature.locations?.length ? (
+                    <div>
+                      <strong>Locations: </strong>
+                      {variantFeature.locations?.map((location) => (
+                        <div key={`${location.loc}-${location.seqId}`}>
+                          {`- ${location.loc} (${location.source}:${location.seqId})`}
+                        </div>
+                      ))}
+                    </div>
+                  ) : null}
+                  {variantFeature.association?.length ? (
+                    <div>
+                      <strong>Disease association: </strong>
+                      {variantFeature.association?.map((association) => (
+                        <div
+                          key={`${association.name}-${association.description}`}
+                        >
+                          {'- '}
+                          {association.name}
+                        </div>
+                      ))}
+                    </div>
+                  ) : null}
+                  <div>
+                    <strong>Source type: </strong>{' '}
+                    {variantFeature.sourceType.replace(/_/g, ' ')}
+                  </div>
+                  {/* note that the type needs to be updated, xrefs is optional on association object */}
+                  {/* Also, some xrefs don't have URLs... type should be optional */}
+                  {variantFeature.xrefs?.length ? (
+                    <div>
+                      <strong>Cross-references: </strong>
+                      {variantFeature.xrefs?.map((xref) => (
+                        <div key={`${xref.name}-${xref.id}`}>
+                          {'- '}
+                          {xref.url ? (
+                            <ExternalLink url={xref.url}>
+                              {xref.name}: {xref.id}
+                            </ExternalLink>
+                          ) : (
+                            `${xref.name}: ${xref.id}`
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  ) : null}
+                </td>
+              </tr>
+            </Fragment>
+          );
+        })}
+      </tbody>
+    </table>
   );
 
   const fallback = (
     <div>
       {title && <h3>{title}</h3>}
-      {table}
+      <DatatableWithToggle>{table}</DatatableWithToggle>
     </div>
   );
 
@@ -511,7 +502,7 @@ const VariationView = ({
           ref={managerRef}
         >
           <VisualVariationView {...transformedData} />
-          {table}
+          <DatatableWithToggle>{table}</DatatableWithToggle>
         </managerElement.name>
       </div>
     </Suspense>

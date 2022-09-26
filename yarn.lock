@@ -10357,6 +10357,17 @@ protvista-datatable@3.5.5:
     type-fest "^1.2.1"
     uuid "^8.3.1"
 
+protvista-datatable@3.7.1:
+  version "3.7.1"
+  resolved "https://registry.yarnpkg.com/protvista-datatable/-/protvista-datatable-3.7.1.tgz#ac8dd8e7f48e7993807e8ca50b8e64ae22593cd6"
+  integrity sha512-QGey27Ij+tb99a0EKW5sgPI8M63o1S2OTAVfAchfyLhGscCvuUsjzUCBitqEsldCAT1eDo8GDSdVi9i/0opipg==
+  dependencies:
+    lit-element "^2.4.0"
+    lit-html "^1.3.0"
+    protvista-utils "^3.5.7"
+    type-fest "^1.2.1"
+    uuid "^8.3.1"
+
 protvista-feature-adapter@3.5.1, protvista-feature-adapter@^3.5.1:
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/protvista-feature-adapter/-/protvista-feature-adapter-3.5.1.tgz#72e3ab0e793a9988e5a1e299fd82a38f287314ca"
@@ -10508,6 +10519,11 @@ protvista-utils@3.4.0, protvista-utils@^3.4.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/protvista-utils/-/protvista-utils-3.4.0.tgz#2d21e8730d2818f8d2dd16d965a185473a7b3bb4"
   integrity sha512-4VRstRv2U1z/BL6Yw8mLJNQu2Aheh89PdNoHWkK5KVxtpxaKPMUqIzGZ+8XHduhQwvjw12iwz+WWv+d+6OK+Pw==
+
+protvista-utils@^3.5.7:
+  version "3.5.7"
+  resolved "https://registry.yarnpkg.com/protvista-utils/-/protvista-utils-3.5.7.tgz#69b3994cac2f03a1040c3cc3c747cbab05156e37"
+  integrity sha512-nZCTBDzTqrKprrgaobEklFOgdh4t3jfz+nBI2pZ4q2cakuQc3LRjzIlUUlnVZ4FjYctEAI53vuGUHreKtF3KuA==
 
 protvista-variation-adapter@3.5.6, protvista-variation-adapter@^3.5.6:
   version "3.5.6"

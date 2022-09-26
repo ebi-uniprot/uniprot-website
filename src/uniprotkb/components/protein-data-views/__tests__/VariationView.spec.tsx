@@ -4,6 +4,7 @@ import { act } from 'react-dom/test-utils';
 import VariationView from '../VariationView';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
+import customRender from '../../../../shared/__test-helpers__/customRender';
 
 jest.mock('../../../../shared/hooks/useDataApi');
 // Mock this because this is only the visual bit and jest has issues with ES
@@ -59,7 +60,7 @@ describe('VariationView component', () => {
       data: { features: [{}] },
     });
     await act(async () => {
-      const { asFragment } = render(
+      const { asFragment } = customRender(
         <VariationView primaryAccession="P05067" title="some title" onlyTable />
       );
       expect(asFragment()).toMatchSnapshot();

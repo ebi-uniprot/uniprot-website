@@ -2,6 +2,7 @@ import { Fragment, lazy, ReactNode, useMemo } from 'react';
 import TransformedVariant from 'protvista-variation-adapter';
 
 import LazyComponent from '../LazyComponent';
+import DatatableWithToggle from './DatatableWithToggle';
 
 import useCustomElement from '../../hooks/useCustomElement';
 import { useSmallScreen } from '../../hooks/useMatchMedia';
@@ -12,8 +13,6 @@ import FeatureType from '../../../uniprotkb/types/featureType';
 import { UniParcProcessedFeature } from '../../../uniparc/components/entry/UniParcFeaturesView';
 import { Evidence } from '../../../uniprotkb/types/modelTypes';
 import { ConfidenceScore } from '../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
-
-import './styles/features-view.scss';
 
 const VisualFeaturesView = lazy(
   () =>
@@ -70,14 +69,6 @@ const FeaturesView = <
       import(/* webpackChunkName: "protvista-manager" */ 'protvista-manager'),
     'protvista-manager'
   );
-  const datatableElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(
-        /* webpackChunkName: "protvista-datatable" */ 'protvista-datatable'
-      ),
-    'protvista-datatable'
-  );
 
   const featureTypes = useMemo(
     () => Array.from(new Set<FeatureType>(features.map(({ type }) => type))),
@@ -87,7 +78,6 @@ const FeaturesView = <
   if (features.length === 0) {
     return null;
   }
-  const ceDefined = managerElement.defined && datatableElement.defined;
 
   return (
     <>
@@ -112,7 +102,7 @@ const FeaturesView = <
           </p>
         </>
       )}
-      {ceDefined ? (
+      {managerElement.defined ? (
         <managerElement.name attributes="highlight displaystart displayend selectedid">
           {sequence && (
             <LazyComponent
@@ -127,7 +117,7 @@ const FeaturesView = <
               />
             </LazyComponent>
           )}
-          <datatableElement.name filter-scroll>{table}</datatableElement.name>
+          <DatatableWithToggle>{table}</DatatableWithToggle>
         </managerElement.name>
       ) : null}
     </>

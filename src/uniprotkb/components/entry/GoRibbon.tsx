@@ -6,8 +6,8 @@ import ExternalLink from '../../../shared/components/ExternalLink';
 import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
 import GOTermEvidenceTag from '../protein-data-views/GOTermEvidenceTag';
 import LazyComponent from '../../../shared/components/LazyComponent';
+import DatatableWithToggle from '../../../shared/components/views/DatatableWithToggle';
 
-import useCustomElement from '../../../shared/hooks/useCustomElement';
 import useSafeState from '../../../shared/hooks/useSafeState';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
@@ -59,15 +59,6 @@ const GoRibbon = ({
   const isSmallScreen = useSmallScreen();
 
   const nodeRef = useRef<HTMLElement>();
-
-  const datatableElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(
-        /* webpackChunkName: "protvista-datatable" */ 'protvista-datatable'
-      ),
-    'protvista-datatable'
-  );
 
   const [selectedSet, setSelectedSet] = useState(() => {
     let defaultSS = 'goslim_generic';
@@ -224,6 +215,36 @@ const GoRibbon = ({
     );
   }
 
+  const table = (
+    <table>
+      <thead>
+        <tr>
+          <th>Aspect</th>
+          <th>Term</th>
+        </tr>
+      </thead>
+      <tbody>
+        {filteredGoTerms.map(
+          (goTerm) =>
+            goTerm.id && (
+              <tr key={goTerm.id}>
+                <td>{goTerm.aspect}</td>
+                <td>
+                  <ExternalLink url={externalUrls.QuickGO(goTerm.id)}>
+                    {goTerm.termDescription || goTerm.id}
+                  </ExternalLink>
+                  <UniProtKBEvidenceTag evidences={goTerm.evidences} />
+                  <GOTermEvidenceTag
+                    evidence={goTerm.properties?.GoEvidenceType}
+                  />
+                </td>
+              </tr>
+            )
+        )}
+      </tbody>
+    </table>
+  );
+
   return (
     <div className="GoRibbon">
       <h3 data-article-id="gene_ontology">GO Annotations</h3>
@@ -254,35 +275,7 @@ const GoRibbon = ({
       )}
       {elementLoaded && ribbon}
       {!!filteredGoTerms.length && (
-        <datatableElement.name filter-scroll>
-          <table>
-            <thead>
-              <tr>
-                <th>Aspect</th>
-                <th>Term</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredGoTerms.map(
-                (goTerm) =>
-                  goTerm.id && (
-                    <tr key={goTerm.id}>
-                      <td>{goTerm.aspect}</td>
-                      <td>
-                        <ExternalLink url={externalUrls.QuickGO(goTerm.id)}>
-                          {goTerm.termDescription || goTerm.id}
-                        </ExternalLink>
-                        <UniProtKBEvidenceTag evidences={goTerm.evidences} />
-                        <GOTermEvidenceTag
-                          evidence={goTerm.properties?.GoEvidenceType}
-                        />
-                      </td>
-                    </tr>
-                  )
-              )}
-            </tbody>
-          </table>
-        </datatableElement.name>
+        <DatatableWithToggle>{table}</DatatableWithToggle>
       )}
     </div>
   );

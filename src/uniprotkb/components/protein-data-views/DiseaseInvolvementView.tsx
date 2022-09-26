@@ -4,8 +4,8 @@ import { InfoList, ExpandableList } from 'franklin-sites';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import { XRef } from './XRefView';
+import DatatableWithToggle from '../../../shared/components/views/DatatableWithToggle';
 
-import useCustomElement from '../../../shared/hooks/useCustomElement';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
 import { getEntryPath } from '../../../app/config/urls';
@@ -17,68 +17,59 @@ import { FeatureDatum } from './UniProtKBFeaturesView';
 import styles from './styles/variation-view.module.scss';
 
 export const DiseaseVariants = ({ variants }: { variants: FeatureDatum[] }) => {
-  const dataTableElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(
-        /* webpackChunkName: "protvista-datatable" */ 'protvista-datatable'
-      ),
-    'protvista-datatable'
+  const table = (
+    <table>
+      <thead>
+        <tr>
+          <th>Variant ID</th>
+          <th>Position(s)</th>
+          <th>Change</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        {variants.map((variant, i) => {
+          let position = `${variant.location.start.value}`;
+          if (variant.location.start.value !== variant.location.end.value) {
+            position += `-${variant.location.end.value}`;
+          }
+
+          return (
+            // eslint-disable-next-line react/no-array-index-key
+            <Fragment key={i}>
+              <tr>
+                <td>{variant.featureId}</td>
+                <td>{position}</td>
+                <td className={styles.change}>
+                  {variant.alternativeSequence?.originalSequence ||
+                  variant.alternativeSequence?.alternativeSequences?.[0] ? (
+                    <>
+                      {variant.alternativeSequence?.originalSequence || (
+                        <em>missing</em>
+                      )}
+                      {'>'}
+                      {variant.alternativeSequence
+                        ?.alternativeSequences?.[0] || <em>missing</em>}
+                    </>
+                  ) : (
+                    <em>missing</em>
+                  )}
+                </td>
+                <td>
+                  {variant.description}
+                  {variant.evidences && (
+                    <UniProtKBEvidenceTag evidences={variant.evidences} />
+                  )}
+                </td>
+              </tr>
+            </Fragment>
+          );
+        })}
+      </tbody>
+    </table>
   );
 
-  return (
-    <dataTableElement.name filter-scroll>
-      <table>
-        <thead>
-          <tr>
-            <th>Variant ID</th>
-            <th>Position(s)</th>
-            <th>Change</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          {variants.map((variant, i) => {
-            let position = `${variant.location.start.value}`;
-            if (variant.location.start.value !== variant.location.end.value) {
-              position += `-${variant.location.end.value}`;
-            }
-
-            return (
-              // eslint-disable-next-line react/no-array-index-key
-              <Fragment key={i}>
-                <tr>
-                  <td>{variant.featureId}</td>
-                  <td>{position}</td>
-                  <td className={styles.change}>
-                    {variant.alternativeSequence?.originalSequence ||
-                    variant.alternativeSequence?.alternativeSequences?.[0] ? (
-                      <>
-                        {variant.alternativeSequence?.originalSequence || (
-                          <em>missing</em>
-                        )}
-                        {'>'}
-                        {variant.alternativeSequence
-                          ?.alternativeSequences?.[0] || <em>missing</em>}
-                      </>
-                    ) : (
-                      <em>missing</em>
-                    )}
-                  </td>
-                  <td>
-                    {variant.description}
-                    {variant.evidences && (
-                      <UniProtKBEvidenceTag evidences={variant.evidences} />
-                    )}
-                  </td>
-                </tr>
-              </Fragment>
-            );
-          })}
-        </tbody>
-      </table>
-    </dataTableElement.name>
-  );
+  return <DatatableWithToggle>{table}</DatatableWithToggle>;
 };
 
 type DiseaseInvolvementEntryProps = {

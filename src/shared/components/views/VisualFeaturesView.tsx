@@ -1,8 +1,20 @@
 import { useCallback } from 'react';
+import { FullViewIcon } from 'franklin-sites';
+import { Link, useParams } from 'react-router-dom';
 
-import NightingaleZoomTool from '../../../uniprotkb/components/protein-data-views/NightingaleZoomTool';
+import NightingaleZoomTool, {
+  iconSize,
+} from '../../../uniprotkb/components/protein-data-views/NightingaleZoomTool';
 
 import useCustomElement from '../../hooks/useCustomElement';
+
+import { getEntryPath } from '../../../app/config/urls';
+import { gtagFn } from '../../utils/logging';
+
+import { TabLocation } from '../../../uniprotkb/components/entry/Entry';
+import { Namespace } from '../../types/namespaces';
+
+import styles from './styles/visual-features-view.module.scss';
 
 // Can't use arrow function because of TS generic annotation
 // eslint-disable-next-line react/function-component-definition
@@ -35,6 +47,8 @@ function VisualFeaturesView<T>({
     'protvista-sequence'
   );
 
+  const params = useParams<{ accession: string }>();
+
   const setTrackData = useCallback(
     (node): void => {
       if (node && trackElement.defined) {
@@ -53,6 +67,24 @@ function VisualFeaturesView<T>({
   return ceDefined ? (
     <>
       <NightingaleZoomTool length={sequence.length} />
+      <Link
+        to={getEntryPath(
+          Namespace.uniprotkb,
+          params.accession,
+          TabLocation.FeatureViewer
+        )}
+        title="View in the Feature Viewer"
+        onClick={() => {
+          gtagFn('event', 'feature viewer', {
+            event_category: 'go to full view',
+            event_label: params.accession,
+          });
+        }}
+        className={styles['full-view']}
+      >
+        <FullViewIcon height={iconSize} />
+      </Link>
+
       <navigationElement.name length={sequence.length} />
       <trackElement.name
         ref={setTrackData}
