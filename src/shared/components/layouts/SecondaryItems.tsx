@@ -54,6 +54,7 @@ const Dashboard = lazy(
 );
 
 const secondaryItemIconSize = '1.4em';
+const SEVEN_DAYS = 1000 * 60 * 60 * 24 * 7;
 
 const getArrowX = (element: HTMLSpanElement) => {
   const bcr = element.getBoundingClientRect();
@@ -71,16 +72,16 @@ const statusesToNotify = new Set([
 const ToolsDashboard = () => {
   const tools = useToolsState();
 
-  const count = useMemo(
-    () =>
-      Object.values(tools ?? {}).filter(
-        (job) =>
-          'seen' in job &&
-          job.seen === false &&
-          statusesToNotify.has(job.status)
-      ).length,
-    [tools]
-  );
+  const count = useMemo(() => {
+    const now = new Date();
+    return Object.values(tools ?? {}).filter(
+      (job) =>
+        'seen' in job &&
+        job.seen === false &&
+        statusesToNotify.has(job.status) &&
+        now.getTime() - new Date(job.timeCreated).getTime() < SEVEN_DAYS
+    ).length;
+  }, [tools]);
 
   const [display, setDisplay] = useState(false);
   const close = useCallback(() => setDisplay(false), []);
