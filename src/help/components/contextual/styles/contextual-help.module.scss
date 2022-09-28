@@ -32,8 +32,8 @@ $help-height: 35em;
 }
 
 .contextual-help-panel {
-  block-size: $help-height;
-  margin-block-start: calc(50vh - 0.5 * $help-height);
+  block-size: max($help-height, 50vh);
+  margin-block-start: calc(50vh - 0.5 * max($help-height, 50vh));
   z-index: 2147483641;
 
   :global(.sliding-panel__header) {
@@ -45,8 +45,7 @@ $help-height: 35em;
     overscroll-behavior: contain;
   }
 
-  :global(.error-page-container) svg {
+  :global(.error-page-container) img {
     width: 50%;
-    height: 50%;
   }
 }
