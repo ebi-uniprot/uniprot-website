@@ -75,7 +75,7 @@ const EntryPreview = (
       return [defaultData];
     }
     const {
-      attributes: { title, categories, ...otherAttributes },
+      attributes: { title, categories, type, ...otherAttributes },
       body,
     } = fm<{
       title?: string;
@@ -153,6 +153,16 @@ const EntryPreview = (
                   {parsedData.title ? '✅' : '❌ a title needs to be provided'}
                 </dt>
                 <dd>{parsedData.title}</dd>
+              </dl>
+              <dl>
+                <dt>
+                  type{' '}
+                  {parsedData.type === 'help' ||
+                  parsedData.type === 'releaseNotes'
+                    ? '✅'
+                    : '❌ invalid type'}
+                </dt>
+                <dd>{parsedData.type}</dd>
               </dl>
               <dl>
                 <dt>
