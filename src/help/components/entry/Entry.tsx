@@ -82,6 +82,10 @@ export const getCleanTextOptions = (headingLevel: HeadingLevels): IOptions => ({
       ...Object.values(styles),
     ],
   },
+  allowedAttributes: {
+    ...cleanTextDefaultOptions.allowedAttributes,
+    img: ['src', 'width', 'height', 'alt'],
+  },
   transformTags: {
     ...getTransformTags(headingLevel),
     a: aTransformer,
