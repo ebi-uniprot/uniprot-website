@@ -33,7 +33,7 @@ import { HelpSearchResponse } from '../../adapters/helpConverter';
 
 import styles from './styles/contextual-help.module.scss';
 
-const ContextualHepRouterContent = ({
+const ContextualHelpRouterContent = ({
   globalHistory,
 }: {
   globalHistory: History;
@@ -118,7 +118,7 @@ const ContextualHelpContainer = ({ articlePath, onClose }: Props) => {
     >
       <ErrorBoundary>
         <Router history={localHistoryRef.current}>
-          <ContextualHepRouterContent globalHistory={globalHistory} />
+          <ContextualHelpRouterContent globalHistory={globalHistory} />
         </Router>
       </ErrorBoundary>
     </SlidingPanel>

@@ -34,7 +34,7 @@ import cleanText, {
   HeadingLevels,
 } from '../../../shared/utils/cleanText';
 import parseDate from '../../../shared/utils/parseDate';
-import { gtagFn } from '../../../shared/utils/logging';
+import * as logging from '../../../shared/utils/logging';
 
 import { HelpEntryResponse } from '../../adapters/helpConverter';
 import { LocationToPath, Location } from '../../../app/config/urls';
@@ -121,7 +121,7 @@ export const HelpEntryContent = ({
         } else {
           // analytics, similar as in InstrumentedExternalLink
           const url = new URL(href);
-          gtagFn('event', url.origin, {
+          logging.gtagFn('event', url.origin, {
             event_category: 'outbound link',
             event_label: url,
             transport: 'beacon',
@@ -200,6 +200,14 @@ const HelpEntry = ({
     progress,
     isStale,
   } = useDataApiWithStale<HelpEntryResponse>(url);
+
+  useEffect(() => {
+    if (inPanel && error) {
+      logging.warn('contextual help article loading error', {
+        extra: { data: accession },
+      });
+    }
+  }, [inPanel, error, accession]);
 
   const data = overrideContent || loadedData;
 

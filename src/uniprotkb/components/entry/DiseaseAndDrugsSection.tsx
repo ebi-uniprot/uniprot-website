@@ -43,7 +43,7 @@ const DiseaseAndDrugsSection = ({
   return (
     <Card
       header={
-        <h2 data-article-id="pathology_and_biotech_section">
+        <h2 data-article-id="disease_phenotypes_variants_section">
           {nameAndId.name}
         </h2>
       }

@@ -2212,7 +2212,7 @@ exports[`Entry view should render 1`] = `
         class="card__header card__header--with-separator"
       >
         <h2
-          data-article-id="pathology_and_biotech_section"
+          data-article-id="disease_phenotypes_variants_section"
         >
           Disease & Variants
         </h2>
@@ -5061,7 +5061,7 @@ exports[`Entry view should render for non-human entry 1`] = `
         class="card__header card__header--with-separator"
       >
         <h2
-          data-article-id="pathology_and_biotech_section"
+          data-article-id="disease_phenotypes_variants_section"
         >
           Phenotypes & Variants
         </h2>
