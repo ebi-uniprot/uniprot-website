@@ -80,14 +80,10 @@ export const reUniProtKBAccession =
 export const reAC = new RegExp(`(?:AC ${reUniProtKBAccession.source})`, 'i');
 export const rePubMedID = /\d{7,8}/;
 export const rePubMed = new RegExp(`(?:pubmed:${rePubMedID.source})`, 'i');
-export const reFamily = /^Belongs to the .+family/i;
 export const reSubscript = /\(\d+\)/;
 export const reSuperscript = /\(\d?[+-]\)|\(-\d\)/;
 
 export const needTextProcessingRE = new RegExp(
-  `(${rePubMed.source}|${reAC.source}|By similarity|${reFamily.source}|${reSubscript.source}|${reSuperscript.source})`,
+  `(${rePubMed.source}|${reAC.source}|By similarity|${reSubscript.source}|${reSuperscript.source})`,
   'i'
 );
-
-export const familyExtractor =
-  /( the |\. )([^.]+ (?:sub|super|sub-sub)?family)/;
