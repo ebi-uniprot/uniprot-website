@@ -12,7 +12,7 @@ const SimilarityView = ({ children }: { children?: string }) => {
       key={term}
       to={{
         pathname: LocationToPath[Location.UniProtKBResults],
-        search: `query=(family:"${term}")`,
+        search: `query=(family:"${term.replace(/^\.\s?/, '')}")`,
       }}
     >
       {term}
