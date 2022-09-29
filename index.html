@@ -74,6 +74,14 @@
         animation: fallback-appear 1s 1 10s both;
       }
 
+      #root > .fallback > div {
+        max-width: 60ch;
+      }
+
+      #root > .fallback li {
+        margin-bottom: 1em;
+      }
+
       @keyframes fallback-appear {
         from {
           opacity: 0;
@@ -94,12 +102,20 @@
           reasons:
           <ul>
             <li>
-              You might have JavaScript disabled: make sure to enable JavaScript
-              on your browser, or use a browser that supports JavaScript.
+              <strong>You might have JavaScript disabled</strong>: make sure to
+              enable JavaScript on your browser, or use a browser that supports
+              JavaScript.
             </li>
             <li>
-              You might have an outdated browser: make sure that your browser is
-              up to date as older versions might not work with the new website.
+              <strong>You might have an outdated browser</strong>: make sure
+              that your browser is up to date as older versions might not work
+              with the new website.
+            </li>
+            <li>
+              <strong>There might have been a network issue</strong>: ensure
+              that your connectivity is stable and try to reload the page to see
+              if it solves the issue.
+              <button onClick="location.reload();">Reload this page</button>
             </li>
           </ul>
         </div>
