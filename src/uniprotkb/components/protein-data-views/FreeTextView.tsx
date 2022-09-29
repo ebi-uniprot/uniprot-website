@@ -110,13 +110,13 @@ export const TextView = ({
   type,
 }: {
   comments: TextWithEvidence[];
-  type: FreeTextType;
+  type?: FreeTextType;
 }) => (
   <div className="text-block">
     {comments.map((comment, index) => (
       // eslint-disable-next-line react/no-array-index-key
       <Fragment key={index}>
-        {type === 'SIMILARITY' ? (
+        {type && type === 'SIMILARITY' ? (
           <SimilarityView>{comment.value}</SimilarityView>
         ) : (
           <RichText addPeriod>{comment.value}</RichText>
