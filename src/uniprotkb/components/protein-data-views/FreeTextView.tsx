@@ -2,12 +2,11 @@ import { Fragment, FC, ReactNode } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
+import SimilarityView from './SimilarityView';
 
 import {
   getEntryPath,
   getEntryPathFor,
-  LocationToPath,
-  Location,
   allSearchResultLocations,
 } from '../../../app/config/urls';
 import {
@@ -16,14 +15,16 @@ import {
   rePubMedID,
   rePubMed,
   reUniProtKBAccession,
-  reFamily,
-  familyExtractor,
   reSubscript,
   reSuperscript,
 } from '../../utils';
 
 import { Namespace } from '../../../shared/types/namespaces';
-import { FreeTextComment, TextWithEvidence } from '../../types/commentTypes';
+import {
+  FreeTextComment,
+  FreeTextType,
+  TextWithEvidence,
+} from '../../types/commentTypes';
 
 import helper from '../../../shared/styles/helper.module.scss';
 
@@ -54,25 +55,6 @@ export const RichText = ({
             <Link to={getEntryPathForCitation(pubMedID)}>{pubMedID}</Link>
           </Fragment>
         );
-      }
-      if (reFamily.test(part)) {
-        return part.split(familyExtractor).map((familyPart) => {
-          if (familyPart.endsWith('family')) {
-            return (
-              // eslint-disable-next-line react/no-array-index-key
-              <Link
-                key={familyPart}
-                to={{
-                  pathname: LocationToPath[Location.UniProtKBResults],
-                  search: `query=(family:"${familyPart}")`,
-                }}
-              >
-                {familyPart}
-              </Link>
-            );
-          }
-          return familyPart;
-        });
       }
       const accession = part.match(reUniProtKBAccession)?.[0];
       if (reAC.test(part) && accession) {
@@ -123,12 +105,22 @@ export const RichText = ({
   </>
 );
 
-export const TextView = ({ comments }: { comments: TextWithEvidence[] }) => (
+export const TextView = ({
+  comments,
+  type,
+}: {
+  comments: TextWithEvidence[];
+  type?: FreeTextType;
+}) => (
   <div className="text-block">
     {comments.map((comment, index) => (
       // eslint-disable-next-line react/no-array-index-key
       <Fragment key={index}>
-        <RichText addPeriod>{comment.value}</RichText>
+        {type && type === 'SIMILARITY' ? (
+          <SimilarityView>{comment.value}</SimilarityView>
+        ) : (
+          <RichText addPeriod>{comment.value}</RichText>
+        )}
         <UniProtKBEvidenceTag evidences={comment.evidences} />
       </Fragment>
     ))}
@@ -170,7 +162,7 @@ const FreeTextView: FC<FreeTextProps> = ({
               )}
             </h4>
           )}
-          <TextView comments={item.texts} />
+          <TextView comments={item.texts} type={item.commentType} />
         </Fragment>
       )
   );
