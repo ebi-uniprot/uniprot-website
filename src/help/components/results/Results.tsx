@@ -172,7 +172,11 @@ const Results = ({
       }
     >
       {/* TODO: check and change this title when implementing Help */}
-      <HTMLHead title={`${searchValue} in UniProt help`} />
+      <HTMLHead
+        title={`Search ${searchValue} in UniProt ${
+          isReleaseNotes ? 'release notes' : 'help'
+        }`}
+      />
       {searchNode}
       {main}
     </SideBarLayout>

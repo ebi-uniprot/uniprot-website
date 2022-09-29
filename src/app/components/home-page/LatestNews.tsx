@@ -75,7 +75,7 @@ const LatestNews = () => {
         <div className={styles['latest-news__news-roll-heading']}>
           <h2>Latest News</h2>
           <Link to={generatePath(LocationToPath[Location.ReleaseNotesResults])}>
-            View archive
+            <small>View release archive</small>
           </Link>
         </div>
         <ul className="no-bullet">

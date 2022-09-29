@@ -70,11 +70,22 @@ const Results = () => {
 
   const helmet = ns && (
     <HTMLHead
-      title={`${params.query} in ${
+      title={`Search ${params.query} in ${
         searchableNamespaceLabels[ns as SearchableNamespace]
       }${total !== undefined ? ` (${total})` : ''}`}
       titleLoading={resultsDataInitialLoading}
-    />
+    >
+      <meta
+        name="description"
+        content={`Search results in the ${
+          searchableNamespaceLabels[ns as SearchableNamespace]
+        } dataset of UniProt`}
+      />
+      <link
+        rel="canonical"
+        href={`${window.location.origin}${window.location.pathname}?query=*`}
+      />
+    </HTMLHead>
   );
 
   if (facetInitialLoading && resultsDataInitialLoading && !facetHasStaleData) {
