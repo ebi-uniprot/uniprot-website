@@ -25,6 +25,7 @@ describe('tools adapter tests', () => {
         expect(Array.from(formData.entries())).toEqual([
           ['email', 'uuw_dev@uniprot.org'],
           ['outfmt', 'clustal_num'],
+          ['addformats', 'true'],
           ['guidetreeout', 'true'],
           ['sequence', 'ATGC'],
           ['order', 'input'],

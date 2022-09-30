@@ -18,6 +18,7 @@ export type ServerParameters = {
   gtiterations?: number;
   hmmiterations?: number;
   outfmt?: string;
+  addformats?: boolean;
   order?: 'aligned' | 'input';
   stype?: string;
   sequence: string; // sequence

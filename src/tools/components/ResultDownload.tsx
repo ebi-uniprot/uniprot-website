@@ -17,7 +17,37 @@ const options: Record<JobTypes, DownloadOptions<JobTypes>[]> = {
   [JobTypes.ALIGN]: [
     {
       format: 'aln-clustal_num',
+      description: 'Resulting alignment in Clustal format with numbers',
+      ext: 'txt',
+    },
+    {
+      format: 'aln-clustal',
       description: 'Resulting alignment in Clustal format',
+      ext: 'txt',
+    },
+    {
+      format: 'aln-fasta',
+      description: 'FASTA',
+      ext: 'txt',
+    },
+    {
+      format: 'aln-msf',
+      description: 'MSF',
+      ext: 'txt',
+    },
+    {
+      format: 'aln-phylip',
+      description: 'PHYLIP',
+      ext: 'txt',
+    },
+    {
+      format: 'aln-selex',
+      description: 'SELEX',
+      ext: 'txt',
+    },
+    {
+      format: 'aln-nexus',
+      description: 'NEXUS',
       ext: 'txt',
     },
     { format: 'out', description: 'Raw output from Align', ext: 'txt' },
@@ -43,6 +73,7 @@ const options: Record<JobTypes, DownloadOptions<JobTypes>[]> = {
     { format: 'out', description: 'Raw output from BLAST', ext: 'txt' },
     { format: 'xml', description: 'XML output', ext: 'xml' },
     { format: 'json', description: 'JSON output', ext: 'json' },
+    { format: 'csv', description: 'CSV output', ext: 'csv' },
     { format: 'ids', description: 'List of matching identifiers', ext: 'txt' },
     { format: 'accs', description: 'List of matching accessions', ext: 'txt' },
     {
