@@ -73,7 +73,7 @@ const options: Record<JobTypes, DownloadOptions<JobTypes>[]> = {
     { format: 'out', description: 'Raw output from BLAST', ext: 'txt' },
     { format: 'xml', description: 'XML output', ext: 'xml' },
     { format: 'json', description: 'JSON output', ext: 'json' },
-    { format: 'csv', description: 'CSV output', ext: 'csv' },
+    { format: 'tsv', description: 'TSV output', ext: 'tsv' },
     { format: 'ids', description: 'List of matching identifiers', ext: 'txt' },
     { format: 'accs', description: 'List of matching accessions', ext: 'txt' },
     {
