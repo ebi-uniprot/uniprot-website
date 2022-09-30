@@ -23,7 +23,7 @@ const externalUrls: Record<string, (id: string | number) => string> = {
       'G3DSA:',
       ''
     )}`,
-  HAMAPEntry: (id) => `//hamap.expasy.org/signature/${id}`,
+  HAMAPEntry: (id) => `//hamap.expasy.org/unirule/${id}`,
   PIRSFEntry: (id) =>
     `https://proteininformationresource.org/cgi-bin/ipcSF?id=${id}`,
   PRINTSEntry: (id) =>
@@ -31,7 +31,7 @@ const externalUrls: Record<string, (id: string | number) => string> = {
   PANTHEREntry: (id) =>
     `http://www.pantherdb.org/panther/family.do?clsAccession=${id}`,
   PfamEntry: (id) => `//pfam.xfam.org/family/${id}`,
-  PROSITEEntry: (id) => `//prosite.expasy.org/${id}`,
+  PROSITEEntry: (id) => `//prosite.expasy.org/unirule/${id}`,
   SFLDEntry: (id) => `http://sfld.rbvi.ucsf.edu/django/family/${id}/`,
   SMARTEntry: (id) =>
     `http://smart.embl-heidelberg.de/smart/do_annotation.pl?DOMAIN=${id}`,
