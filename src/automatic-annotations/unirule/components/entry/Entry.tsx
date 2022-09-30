@@ -1,4 +1,4 @@
-import { RouteChildrenProps } from 'react-router-dom';
+import { Redirect, RouteChildrenProps } from 'react-router-dom';
 import { Loader } from 'franklin-sites';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
@@ -15,6 +15,7 @@ import RelatedResults from '../../../../shared/components/results/RelatedResults
 import useDataApi from '../../../../shared/hooks/useDataApi';
 
 import apiUrls from '../../../../shared/config/apiUrls';
+import { getEntryPath } from '../../../../app/config/urls';
 
 import {
   Namespace,
@@ -34,6 +35,10 @@ const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   if (error || !accession || !data) {
     return <ErrorHandler status={status} />;
+  }
+
+  if (accession !== data.uniRuleId) {
+    return <Redirect to={getEntryPath(Namespace.unirule, data.uniRuleId)} />;
   }
 
   const hasRelated = Boolean(
