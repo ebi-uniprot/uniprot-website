@@ -63,6 +63,13 @@ const examples: Record<SearchableNamespace, string[]> = {
     'P05067',
     'organism_id:9606',
   ],
+  [Namespace.alphafold]: [
+    'Insulin',
+    'APP',
+    'Human',
+    'P05067',
+    'organism_id:9606',
+  ], // AlphaFold, same as UniProtKB
   [Namespace.uniref]: [
     'Transcription factors',
     'identity:1.0',

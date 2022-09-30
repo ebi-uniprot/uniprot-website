@@ -7,8 +7,9 @@ import useColumnNames from './useColumnNames';
 import { getParamsFromURL } from '../../uniprotkb/utils/resultsUtils';
 import { getAccessionsURL, getAPIQueryUrl } from '../config/apiUrls';
 import fieldsForUniProtKBCards from '../../uniprotkb/config/UniProtKBCardConfiguration';
-import { Column } from '../config/columns';
 
+import { Column } from '../config/columns';
+import { UniProtKBColumn } from '../../uniprotkb/types/columnTypes';
 import { Namespace } from '../types/namespaces';
 
 type Arg = {
@@ -49,12 +50,17 @@ const useNSQuery = ({
   const [{ query, selectedFacets, sortColumn, sortDirection }] =
     getParamsFromURL(queryParamFromUrl);
 
-  let queryColumns: Column[] | undefined = columnNames;
+  let queryColumns: Column[] | undefined = columnNames?.filter(
+    (c) => c !== UniProtKBColumn.alphafold
+  );
 
   // TODO: put this into useColumnNames
   if ((overrideView || viewMode) === 'cards') {
     // TODO: Do similar things for the rest of namespaces
-    if (namespace === Namespace.uniprotkb) {
+    if (
+      namespace === Namespace.uniprotkb ||
+      namespace === Namespace.alphafold
+    ) {
       queryColumns = fieldsForUniProtKBCards;
     } else {
       queryColumns = undefined;
@@ -66,7 +72,8 @@ const useNSQuery = ({
   }
 
   const options = {
-    namespace,
+    namespace:
+      namespace === Namespace.alphafold ? Namespace.uniprotkb : namespace,
     query: withQuery ? overrideQuery || query : undefined,
     columns: withColumns ? queryColumns : undefined,
     selectedFacets: facetsNotApplied ? undefined : selectedFacets,

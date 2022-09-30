@@ -74,7 +74,10 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
   );
 
   const { loading, data, progress } = useDataApi<ReceivedFieldData>(
-    apiUrls.resultsFields(namespace, isEntryPage)
+    apiUrls.resultsFields(
+      namespace === Namespace.alphafold ? Namespace.uniprotkb : namespace,
+      isEntryPage
+    )
   );
 
   // Exclude the primaryKeyColumns in the tabs as users can't toggle selection

@@ -16,15 +16,18 @@ import { getIdKeyFor } from '../../../shared/utils/getIdKeyForNamespace';
 import { Namespace } from '../../../shared/types/namespaces';
 
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
+import AlphaFoldView from '../../../shared/components/results/AlphaFoldView';
 
 const getIdKey = getIdKeyFor(Namespace.uniprotkb);
 
 const UniProtKBCard = ({
   data,
   isNotSelectable,
+  alphaFold,
 }: {
   data: UniProtkbAPIModel;
   isNotSelectable?: boolean;
+  alphaFold?: boolean;
 }) => {
   const id = getIdKey(data);
 
@@ -63,6 +66,7 @@ const UniProtKBCard = ({
       links={highlights}
     >
       <ProteinOverview data={data} />
+      {alphaFold && <AlphaFoldView accession={data.primaryAccession} />}
       {keywords?.length ? (
         <small>
           <KeywordList keywords={keywords} inline />

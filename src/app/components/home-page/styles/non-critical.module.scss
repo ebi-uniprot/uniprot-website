@@ -44,6 +44,33 @@
   }
 }
 
+.extra-links {
+  & > * {
+    position: relative;
+
+    text-shadow: -1px -1px 0 white, 1px 1px 0 white;
+  }
+
+  & img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: auto;
+    opacity: 0.5;
+    filter: blur(1px);
+
+    & ~ * {
+      position: relative;
+    }
+  }
+
+  & .alphafold-img {
+    right: 2em;
+    opacity: 0.75;
+  }
+}
+
 .supporting-data {
   &__header {
     margin: 0;

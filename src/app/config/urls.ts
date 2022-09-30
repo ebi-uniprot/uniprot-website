@@ -36,6 +36,7 @@ export enum Location {
   Home = 'Home',
   // Main data
   UniProtKBResults = 'UniProtKBResults',
+  AlphaFoldResults = 'AlphaFoldResults',
   UniProtKBEntry = 'UniProtKBEntry',
   UniRefEntry = 'UniRefEntry',
   UniRefResults = 'UniRefResults',
@@ -88,6 +89,7 @@ export const LocationToPath: Record<Location, string> = {
   // Main data
   [Location.UniProtKBEntry]: `/${Namespace.uniprotkb}/:accession/:subPage?`,
   [Location.UniProtKBResults]: `/${Namespace.uniprotkb}`,
+  [Location.AlphaFoldResults]: `/${Namespace.alphafold}`,
   [Location.UniRefEntry]: `/${Namespace.uniref}/:accession`,
   [Location.UniRefResults]: `/${Namespace.uniref}`,
   [Location.UniParcEntry]: `/${Namespace.uniparc}/:accession/:subPage?`,
@@ -141,6 +143,7 @@ export const LocationToPath: Record<Location, string> = {
 export const SearchResultsLocations: Record<SearchableNamespace, string> = {
   // Main data
   [Namespace.uniprotkb]: LocationToPath[Location.UniProtKBResults],
+  [Namespace.alphafold]: LocationToPath[Location.AlphaFoldResults],
   [Namespace.uniref]: LocationToPath[Location.UniRefResults],
   [Namespace.uniparc]: LocationToPath[Location.UniParcResults],
   [Namespace.proteomes]: LocationToPath[Location.ProteomesResults],
@@ -180,6 +183,7 @@ export const allSupportingDataAndAAEntryLocations = `/:namespace(${Array.from(
 export const EntryLocations: Record<SearchableNamespace, string> = {
   // Main data
   [Namespace.uniprotkb]: LocationToPath[Location.UniProtKBEntry],
+  [Namespace.alphafold]: LocationToPath[Location.UniProtKBEntry],
   [Namespace.uniref]: LocationToPath[Location.UniRefEntry],
   [Namespace.uniparc]: LocationToPath[Location.UniParcEntry],
   [Namespace.proteomes]: LocationToPath[Location.ProteomesEntry],
@@ -198,6 +202,7 @@ export const EntryLocations: Record<SearchableNamespace, string> = {
 export const searchLocations: Record<SearchableNamespace, string> = {
   // Main data
   [Namespace.uniprotkb]: LocationToPath[Location.UniProtKBResults],
+  [Namespace.alphafold]: LocationToPath[Location.AlphaFoldResults],
   [Namespace.uniref]: LocationToPath[Location.UniRefResults],
   [Namespace.uniparc]: LocationToPath[Location.UniParcResults],
   [Namespace.proteomes]: LocationToPath[Location.ProteomesResults],

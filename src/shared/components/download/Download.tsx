@@ -126,7 +126,8 @@ const Download: FC<DownloadProps> = ({
     compressed,
     selected: urlSelected,
     selectedIdField,
-    namespace,
+    namespace:
+      namespace === Namespace.alphafold ? Namespace.uniprotkb : namespace,
     accessions,
     base: downloadBase,
   };
