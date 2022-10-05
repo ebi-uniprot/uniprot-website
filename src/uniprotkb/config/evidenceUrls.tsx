@@ -8,18 +8,19 @@ import { processUrlTemplate } from '../components/protein-data-views/XRefView';
 import { Namespace } from '../../shared/types/namespaces';
 
 type InternalSource =
+  | 'ARBA'
+  | 'Google'
   | 'HAMAP-Rule'
+  | 'MobiDB-lite'
   | 'PIRNR'
   | 'PIRSR'
   | 'Proteomes'
   | 'PubMed'
-  | 'SAM'
-  | 'MobiDB-lite'
   | 'RuleBase'
   | 'SAAS' // Obsolete?
-  | 'ARBA'
-  | 'UniRule'
-  | 'UniProtKB';
+  | 'SAM'
+  | 'UniProtKB'
+  | 'UniRule';
 
 type ExternalSource =
   | 'Araport'
@@ -66,20 +67,22 @@ export type EvidenceSource = InternalSource | ExternalSource;
 
 const internalEvidenceUrls: Record<InternalSource, (value: string) => string> =
   {
+    ARBA: (value) => getEntryPath(Namespace.arba, value),
+    Google: () =>
+      generatePath(LocationToPath[Location.HelpEntry], { accession: 'google' }),
     'HAMAP-Rule': (value) => getEntryPath(Namespace.unirule, value),
+    'MobiDB-lite': () =>
+      generatePath(LocationToPath[Location.HelpEntry], { accession: 'sam' }),
     PIRNR: (value) => getEntryPath(Namespace.unirule, value),
     PIRSR: (value) => getEntryPath(Namespace.unirule, value),
     Proteomes: (value) => getEntryPath(Namespace.proteomes, value),
     PubMed: (value) => getEntryPath(Namespace.citations, value),
-    SAM: () =>
-      generatePath(LocationToPath[Location.HelpEntry], { accession: 'sam' }),
     RuleBase: (value) => getEntryPath(Namespace.unirule, value),
     SAAS: (value) => getEntryPath(Namespace.unirule, value),
-    ARBA: (value) => getEntryPath(Namespace.arba, value),
-    UniRule: (value) => getEntryPath(Namespace.unirule, value),
-    UniProtKB: (value) => getEntryPath(Namespace.uniprotkb, value),
-    'MobiDB-lite': () =>
+    SAM: () =>
       generatePath(LocationToPath[Location.HelpEntry], { accession: 'sam' }),
+    UniProtKB: (value) => getEntryPath(Namespace.uniprotkb, value),
+    UniRule: (value) => getEntryPath(Namespace.unirule, value),
   };
 
 const evidenceUrls: Record<ExternalSource, string> = {
