@@ -51,6 +51,7 @@ export const getParamsFromURL = (
     direct,
     fields, // Handled in useColumnNames
     view, // Handled in useViewMode
+    ids, // Handles in ToolsButton
     ...restParams
   } = parseQueryString(url);
 
