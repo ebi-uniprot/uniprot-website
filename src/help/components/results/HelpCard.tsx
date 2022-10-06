@@ -40,14 +40,14 @@ const HelpCard = ({
       }
       headerSeparator={false}
     >
-      {date && date < now && (
-        <>
-          <time className={styles.emphasized} dateTime={date.toISOString()}>
-            {date.toDateString()}
-          </time>
-          <br />
-        </>
+      {date && date < now ? (
+        <time className={styles.emphasized} dateTime={date.toISOString()}>
+          {date.toDateString()}
+        </time>
+      ) : (
+        <span className={styles.emphasized}>unreleased</span>
       )}
+      <br />
       {contentMatch && <CleanHighlightMarkDown md={contentMatch} />}
     </Card>
   );
