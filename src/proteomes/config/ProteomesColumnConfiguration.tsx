@@ -123,7 +123,7 @@ ProteomesColumnConfiguration.set(ProteomesColumn.lineage, {
 ProteomesColumnConfiguration.set(ProteomesColumn.cpd, {
   ...getLabelAndTooltip(
     'CPD',
-    'Complete Proteome Detector (CPD) is an algorithm which employs statistical evaluation of the completeness and quality of proteomes in UniProt',
+    "Complete Proteome Detector (CPD) is an algorithm which employs statistical evaluation of the completeness and quality of proteomes in UniProt, by looking at the sizes of taxonomically close proteomes. Possible values are 'Standard', 'Close to standard (high value)', 'Close to standard (low value)', 'Outlier (high value)', 'Outlier (low value)' or 'Unknown'.",
     'assessing_proteomes'
   ),
   render: ({ proteomeCompletenessReport }) =>
