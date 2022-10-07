@@ -1,8 +1,12 @@
 import { memo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 import { Card } from 'franklin-sites';
 
-import { getLocationEntryPath, Location } from '../../../app/config/urls';
+import {
+  getLocationEntryPath,
+  Location,
+  LocationToPath,
+} from '../../../app/config/urls';
 
 import CleanHighlightMarkDown from './CleanHighlightMarkDown';
 import parseDate from '../../../shared/utils/parseDate';
@@ -24,7 +28,13 @@ const HelpCard = ({
   contentMatch,
   releaseDate,
 }: Props) => {
-  const to = getLocationEntryPath(Location.HelpEntry, id);
+  const isReleaseNote = Boolean(
+    useRouteMatch(LocationToPath[Location.ReleaseNotesResults])
+  );
+  const to = getLocationEntryPath(
+    isReleaseNote ? Location.ReleaseNotesEntry : Location.HelpEntry,
+    id
+  );
   const now = new Date();
   const date = releaseDate ? parseDate(releaseDate) : null;
 
@@ -40,14 +50,18 @@ const HelpCard = ({
       }
       headerSeparator={false}
     >
-      {date && date < now ? (
-        <time className={styles.emphasized} dateTime={date.toISOString()}>
-          {date.toDateString()}
-        </time>
-      ) : (
-        <span className={styles.emphasized}>unreleased</span>
+      {isReleaseNote && (
+        <>
+          {date && date < now ? (
+            <time className={styles.emphasized} dateTime={date.toISOString()}>
+              {date.toDateString()}
+            </time>
+          ) : (
+            <span className={styles.emphasized}>unreleased</span>
+          )}
+          <br />
+        </>
       )}
-      <br />
       {contentMatch && <CleanHighlightMarkDown md={contentMatch} />}
     </Card>
   );

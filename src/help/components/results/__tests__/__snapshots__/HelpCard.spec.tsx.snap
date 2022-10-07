@@ -25,14 +25,7 @@ exports[`HelpCard tests should render the card component 1`] = `
       </div>
       <div
         class="card__content"
-      >
-        <span
-          class="emphasized"
-        >
-          unreleased
-        </span>
-        <br />
-      </div>
+      />
     </div>
   </section>
 </DocumentFragment>
@@ -72,12 +65,6 @@ exports[`HelpCard tests should render the card component and find highlights 1`]
       <div
         class="card__content"
       >
-        <span
-          class="emphasized"
-        >
-          unreleased
-        </span>
-        <br />
         <span>
           What is the 
           <span
