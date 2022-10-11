@@ -30,6 +30,17 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
       proteomeType = 'Reference proteome';
     }
 
+    let genomeAssemblyContent;
+    if (data.genomeAssembly?.assemblyId) {
+      genomeAssemblyContent = (
+        <>
+          {data.genomeAssembly.assemblyId}
+          {data.genomeAssembly.source
+            ? ` from ${data.genomeAssembly.source}`
+            : ''}
+        </>
+      );
+    }
     return [
       {
         title: 'Status',
@@ -89,16 +100,17 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
             Genome assembly and annotation
           </span>
         ),
-        content: data.genomeAssembly?.assemblyId &&
-          data.genomeAssembly.genomeAssemblyUrl && (
-            <ExternalLink url={data.genomeAssembly.genomeAssemblyUrl}>{`${
-              data.genomeAssembly.assemblyId
-            }${
-              data.genomeAssembly.source
-                ? ` from ${data.genomeAssembly.source}`
-                : ''
-            }`}</ExternalLink>
-          ),
+        content: data.genomeAssembly?.assemblyId && (
+          <>
+            {data.genomeAssembly.genomeAssemblyUrl ? (
+              <ExternalLink url={data.genomeAssembly.genomeAssemblyUrl}>
+                {genomeAssemblyContent}
+              </ExternalLink>
+            ) : (
+              genomeAssemblyContent
+            )}
+          </>
+        ),
       },
       {
         title: 'Genome representation',
