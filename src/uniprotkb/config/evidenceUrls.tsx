@@ -69,7 +69,9 @@ const internalEvidenceUrls: Record<InternalSource, (value: string) => string> =
   {
     ARBA: (value) => getEntryPath(Namespace.arba, value),
     Google: () =>
-      generatePath(LocationToPath[Location.HelpEntry], { accession: 'google' }),
+      generatePath(LocationToPath[Location.HelpEntry], {
+        accession: 'ProtNLM',
+      }),
     'HAMAP-Rule': (value) => getEntryPath(Namespace.unirule, value),
     'MobiDB-lite': () =>
       generatePath(LocationToPath[Location.HelpEntry], { accession: 'sam' }),
