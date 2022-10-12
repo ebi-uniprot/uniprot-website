@@ -56,14 +56,13 @@ KeywordsColumnConfiguration.set(KeywordsColumn.category, {
 // NOTE: since these will be used in an info list, we need to return null when
 // NOTE: no content, otherwise it gets a truthy empty fragment instead
 KeywordsColumnConfiguration.set(KeywordsColumn.children, {
-  // Warning, inconsistent naming in data! TODO: backend change
   label: 'Ancestors',
-  render: ({ children }) =>
-    children?.length ? (
+  render: ({ parents }) =>
+    parents?.length ? (
       <ExpandableList descriptionString="ancestors" displayNumberOfHiddenItems>
-        {children?.map((child) => (
-          <Link key={child.keyword.id} to={getEntryPath(child.keyword.id)}>
-            {child.keyword.name}
+        {parents?.map((parent) => (
+          <Link key={parent.keyword.id} to={getEntryPath(parent.keyword.id)}>
+            {parent.keyword.name}
           </Link>
         ))}
       </ExpandableList>
@@ -101,17 +100,16 @@ KeywordsColumnConfiguration.set(KeywordsColumn.name, {
 });
 
 KeywordsColumnConfiguration.set(KeywordsColumn.parents, {
-  // Warning, inconsistent naming in data! TODO: backend change
   label: 'Descendants',
-  render: ({ parents }) =>
-    parents?.length ? (
+  render: ({ children }) =>
+    children?.length ? (
       <ExpandableList
         descriptionString="descendants"
         displayNumberOfHiddenItems
       >
-        {parents?.map((parent) => (
-          <Link key={parent.keyword.id} to={getEntryPath(parent.keyword.id)}>
-            {parent.keyword.name}
+        {children?.map((child) => (
+          <Link key={child.keyword.id} to={getEntryPath(child.keyword.id)}>
+            {child.keyword.name}
           </Link>
         ))}
       </ExpandableList>
@@ -181,8 +179,8 @@ KeywordsColumnConfiguration.set(KeywordsColumn.graphical, {
       keywordIdMap.set(obj.keyword.name, obj.keyword.id);
       let hierarchyString = str;
       hierarchyString += `${obj.keyword?.name}|`;
-      obj.children?.forEach((el) => {
-        if (el.children?.length) {
+      obj.parents?.forEach((el) => {
+        if (el.parents?.length) {
           findHierarchy(el, hierarchyString);
         } else {
           keywordIdMap.set(el.keyword.name, el.keyword.id);
@@ -194,9 +192,9 @@ KeywordsColumnConfiguration.set(KeywordsColumn.graphical, {
       }
     };
 
-    if (children?.length) {
-      children.forEach((child) => {
-        findHierarchy(child, '');
+    if (parents?.length) {
+      parents.forEach((parent) => {
+        findHierarchy(parent, '');
       });
     }
 
@@ -230,9 +228,9 @@ KeywordsColumnConfiguration.set(KeywordsColumn.graphical, {
     }
 
     // Descendants
-    if (parents?.length) {
+    if (children?.length) {
       levels[presentAncestorsCount + 1] = [];
-      parents.forEach((desc) => {
+      children.forEach((desc) => {
         levels[presentAncestorsCount + 1].push(desc.keyword.name);
         links.add(`${keyword?.name}|${desc.keyword.name}`);
         keywordIdMap.set(desc.keyword.name, desc.keyword.id);

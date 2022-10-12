@@ -1,7 +1,7 @@
 import { KeywordsAPIModel } from '../adapters/keywordsConverter';
 
 // Source: /api/keywords/search?query=site&size=2
-// Retrieved: 2021-10-15
+// Proposed change as of 21/09/2022
 const mock: KeywordsAPIModel[] = [
   {
     keyword: {
@@ -24,7 +24,7 @@ const mock: KeywordsAPIModel[] = [
       name: 'Molecular function',
       id: 'KW-9992',
     },
-    children: [
+    parents: [
       {
         keyword: {
           name: 'Molecular function',
@@ -57,7 +57,7 @@ const mock: KeywordsAPIModel[] = [
       name: 'Ligand',
       id: 'KW-9993',
     },
-    children: [
+    parents: [
       {
         keyword: {
           name: 'Calcium',
@@ -71,7 +71,7 @@ const mock: KeywordsAPIModel[] = [
           name: 'Ligand',
           id: 'KW-9993',
         },
-        children: [
+        parents: [
           {
             keyword: {
               name: 'Ligand',
