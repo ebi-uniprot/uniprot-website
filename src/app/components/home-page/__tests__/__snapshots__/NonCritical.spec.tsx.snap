@@ -240,7 +240,7 @@ exports[`non-critical HomePage component should render 1`] = `
         class="decorated-list-item__content"
       >
         <a
-          href="/uniprotkb?query=(database:google)"
+          href="/uniprotkb?query=(source:google)"
           title="Browse entries with ProtNLM predictions"
         >
           <h2

@@ -58,7 +58,7 @@ const ExtraLinks = () => (
       <Link
         to={{
           pathname: LocationToPath[Location.UniProtKBResults],
-          search: `query=(database:google)`,
+          search: `query=(source:google)`,
         }}
         title="Browse entries with ProtNLM predictions"
       >
