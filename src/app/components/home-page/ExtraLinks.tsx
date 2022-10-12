@@ -55,7 +55,16 @@ const ExtraLinks = () => (
         'uniprot-grid-cell--medium-span-4'
       )}
     >
-      ???
+      <Link
+        to={{
+          pathname: LocationToPath[Location.UniProtKBResults],
+          search: `query=(database:google)`,
+        }}
+        title="Browse entries with ProtNLM predictions"
+      >
+        <h2 className="medium">ProtNLM Predictions</h2>
+        Explore all the entries annotated with Google&apos;s ProtNLM predictions
+      </Link>
     </DecoratedListItem>
     <DecoratedListItem
       compact
