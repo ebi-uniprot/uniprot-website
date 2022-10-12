@@ -239,7 +239,17 @@ exports[`non-critical HomePage component should render 1`] = `
       <div
         class="decorated-list-item__content"
       >
-        ???
+        <a
+          href="/uniprotkb?query=(database:google)"
+          title="Browse entries with ProtNLM predictions"
+        >
+          <h2
+            class="medium"
+          >
+            ProtNLM Predictions
+          </h2>
+          Explore all the entries annotated with Google's ProtNLM predictions
+        </a>
       </div>
     </div>
     <div
