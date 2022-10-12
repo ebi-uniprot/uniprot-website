@@ -86,6 +86,7 @@ const convertRow = (
   switch (namespace) {
     // Main namespaces
     case Namespace.uniprotkb:
+    case Namespace.alphafold:
       return (
         databaseInfoMaps &&
         uniProtKbConverter(row as UniProtkbAPIModel, databaseInfoMaps)
@@ -126,6 +127,7 @@ const convertRow = (
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const ColumnConfigurations: Partial<Record<Namespace, Map<any, any>>> = {
   [Namespace.uniprotkb]: UniProtKBColumnConfiguration,
+  [Namespace.alphafold]: UniProtKBColumnConfiguration,
   [Namespace.uniref]: UniRefColumnConfiguration,
   [Namespace.uniparc]: UniParcColumnConfiguration,
   [Namespace.proteomes]: ProteomesColumnConfiguration,
@@ -217,7 +219,9 @@ const useColumns = (
     // For now, assume no configure endpoint for supporting data
     // TODO: change this when the backend is fixed https://www.ebi.ac.uk/panda/jira/browse/TRM-26571
     namespace !== 'id-mapping' && mainNamespaces.has(namespace)
-      ? apiUrls.resultsFields(namespace)
+      ? apiUrls.resultsFields(
+          namespace === Namespace.alphafold ? Namespace.uniprotkb : namespace
+        )
       : null
   );
 

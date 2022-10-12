@@ -5,6 +5,8 @@
 //     <above> | paste -s -d, -
 // Note: cc_similarity exists as a search field but is not present as a result field
 export enum UniProtKBColumn {
+  alphafold = 'alphafold',
+  //
   absorption = 'absorption',
   accession = 'accession',
   annotationScore = 'annotation_score',

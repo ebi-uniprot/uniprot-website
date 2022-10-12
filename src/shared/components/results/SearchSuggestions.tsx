@@ -43,7 +43,7 @@ const SearchSuggestions = ({
     // also serves to delay the requests below to prioritise getting the results
     total &&
     // Only for UniProtKB
-    namespace === Namespace.uniprotkb &&
+    (namespace === Namespace.uniprotkb || namespace === Namespace.alphafold) &&
     // Only for queries with content
     !!query?.length &&
     // And only simple queries
@@ -51,7 +51,7 @@ const SearchSuggestions = ({
 
   const { data } = useDataApi<MatchedFieldsResponse>(
     shouldSuggest
-      ? `${apiUrls.search(namespace)}?${qs.stringify({
+      ? `${apiUrls.search(Namespace.uniprotkb)}?${qs.stringify({
           size: 0,
           query,
           showSingleTermMatchedFields: true,
@@ -62,7 +62,7 @@ const SearchSuggestions = ({
   // Data to enrich the suggestions with nice labels
   const { data: searchTermsData } = useDataApi<SearchTermType[]>(
     shouldSuggest && data?.matchedFields?.length
-      ? apiUrls.queryBuilderTerms(namespace)
+      ? apiUrls.queryBuilderTerms(Namespace.uniprotkb)
       : undefined
   );
 

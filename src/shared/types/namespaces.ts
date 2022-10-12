@@ -20,10 +20,13 @@ export enum Namespace {
   arba = 'arba',
   // UniSave
   unisave = 'unisave',
+  // temp AlphaFold
+  alphafold = 'alphafold',
 }
 
 export const mainNamespaces = new Set<Namespace>([
   Namespace.uniprotkb,
+  Namespace.alphafold,
   Namespace.uniref,
   Namespace.uniparc,
   Namespace.proteomes,
@@ -57,6 +60,7 @@ export type SearchableNamespace = Exclude<
 export const searchableNamespaceLabels: Record<SearchableNamespace, string> = {
   // Main data
   [Namespace.uniprotkb]: 'UniProtKB',
+  [Namespace.alphafold]: 'UniProtKB & AlphaFold predictions',
   [Namespace.uniref]: 'UniRef',
   [Namespace.uniparc]: 'UniParc',
   [Namespace.proteomes]: 'Proteomes',

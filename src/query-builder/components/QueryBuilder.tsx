@@ -118,7 +118,13 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
     useIDMappingDetails() || {};
   const { data: searchTermsData, loading: searchTermsLoading } = useDataApi<
     SearchTermType[]
-  >(namespace ? apiUrls.queryBuilderTerms(namespace) : undefined);
+  >(
+    namespace
+      ? apiUrls.queryBuilderTerms(
+          namespace === Namespace.alphafold ? Namespace.uniprotkb : namespace
+        )
+      : undefined
+  );
 
   const loading = idMappingDetailsLoading || searchTermsLoading;
   useEffect(() => {

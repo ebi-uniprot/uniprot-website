@@ -132,6 +132,29 @@ const LatestNews = () => {
               <h3 className="tiny">
                 <Link
                   to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                    accession: '2022-10-12-release',
+                  })}
+                >
+                  UniProt release 2022_04
+                </Link>
+              </h3>
+              <p
+                className={cn(
+                  styles['latest-news__abstract'],
+                  styles['latest-news__abstract--2-lines']
+                )}
+              >
+                The (phenolic) Rings of Power | UniProtKB news: Protein
+                embeddings | Changes to the controlled vocabulary of human
+                diseases | Changes to the controlled vocabulary for PTMs
+              </p>
+            </article>
+          </li>
+          <li>
+            <article>
+              <h3 className="tiny">
+                <Link
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
                     accession: '2022-08-03-release',
                   })}
                 >

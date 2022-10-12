@@ -2,46 +2,6 @@
 
 exports[`non-critical HomePage component should render 1`] = `
 <DocumentFragment>
-  <div
-    class="uniprot-grid uniprot-grid--centered home-page-section"
-  >
-    <div
-      class="uniprot-grid-cell--span-12 message message--info"
-      role="status"
-    >
-      <div
-        class="message__side-border"
-      />
-      <test-file-stub
-        height="1.125em"
-        width="1.125em"
-      />
-      <section
-        class="message__content"
-      >
-        <small>
-          Accessing UniProt programmatically? Have a look at the 
-          <a
-            href="/help/api"
-          >
-            new API documentation
-          </a>
-          .
-          <br />
-          If you still need it, the 
-          <a
-            class="external-link"
-            href="https://legacy.uniprot.org"
-            rel="noopener nofollow"
-            target="_blank"
-          >
-            legacy version of the website
-          </a>
-           is available until the 2022_04 release.
-        </small>
-      </section>
-    </div>
-  </div>
   <section
     class="uniprot-grid uniprot-grid--centered home-page-section"
   >
@@ -244,6 +204,85 @@ exports[`non-critical HomePage component should render 1`] = `
     </div>
   </section>
   <section
+    class="uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section extra-links"
+  >
+    <div
+      class="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-4 decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
+    >
+      <div
+        class="decorated-list-item__content"
+      >
+        <img
+          alt=""
+          class="alphafold-img"
+          height="569"
+          loading="lazy"
+          src="test-file-stub"
+          width="438"
+        />
+        <a
+          href="/alphafold?query=*"
+          title="Browse entries highlighting AlphaFold predictions"
+        >
+          <h2
+            class="medium"
+          >
+            AlphaFold structures
+          </h2>
+          Search with all the power of the UniProt search engine for proteins with an AlphaFold prediction provided by DeepMind
+        </a>
+      </div>
+    </div>
+    <div
+      class="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-4 decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
+    >
+      <div
+        class="decorated-list-item__content"
+      >
+        <a
+          href="/uniprotkb?query=(source:google)"
+          title="Browse entries with ProtNLM predictions"
+        >
+          <h2
+            class="medium"
+          >
+            ProtNLM Predictions
+          </h2>
+          Explore all the entries annotated with Google's ProtNLM predictions
+        </a>
+      </div>
+    </div>
+    <div
+      class="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-4 decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
+    >
+      <div
+        class="decorated-list-item__content"
+      >
+        <img
+          alt=""
+          height="202"
+          loading="lazy"
+          src="test-file-stub"
+          width="201"
+        />
+        <a
+          class="external-link"
+          href="https://covid-19.uniprot.org/"
+          rel="noopener"
+          target="_blank"
+          title="Browse entries highlighting AlphaFold predictions"
+        >
+          <h2
+            class="medium"
+          >
+            UniProt COVID-19 portal
+          </h2>
+          UniProt portal for the latest SARS-CoV-2 coronavirus protein entries and receptors, updated independent of the general UniProt release cycle
+        </a>
+      </div>
+    </div>
+  </section>
+  <section
     class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section"
   >
     <div
@@ -420,6 +459,24 @@ exports[`non-critical HomePage component should render 1`] = `
               class="latest-news__abstract latest-news__abstract--2-lines"
             >
               Planned changes for UniProt
+            </p>
+          </article>
+        </li>
+        <li>
+          <article>
+            <h3
+              class="tiny"
+            >
+              <a
+                href="/release-notes/2022-10-12-release"
+              >
+                UniProt release 2022_04
+              </a>
+            </h3>
+            <p
+              class="latest-news__abstract latest-news__abstract--2-lines"
+            >
+              The (phenolic) Rings of Power | UniProtKB news: Protein embeddings | Changes to the controlled vocabulary of human diseases | Changes to the controlled vocabulary for PTMs
             </p>
           </article>
         </li>
