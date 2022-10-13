@@ -7,12 +7,12 @@ const familyExtractor = /( the |\. )([^.]+ (?:sub|super|sub-sub)?family)/;
 const subFamilyRegEx = /(subfamily|sub-subfamily)+/;
 
 const SimilarityView = ({ children }: { children?: string }) => {
-  const familyLink = (term: string) => (
+  const familyLink = (term: string, link?: string) => (
     <Link
       key={term}
       to={{
         pathname: LocationToPath[Location.UniProtKBResults],
-        search: `query=(family:"${term.replace(/^\.\s?/, '')}")`,
+        search: `query=(family:"${link || term}")`,
       }}
     >
       {term}
@@ -20,8 +20,9 @@ const SimilarityView = ({ children }: { children?: string }) => {
   );
   return (
     <>
-      {children?.split(familyRegEx).map((part, index, { length }) =>
-        part.split(familyExtractor).map((familyPart) => {
+      {children?.split(familyRegEx).map((part, index, { length }) => {
+        let encounteredFamilies = '';
+        return part.split(familyExtractor).map((familyPart) => {
           if (familyPart.endsWith('family')) {
             // Separate subfamily and sub-sub family if present
             if (subFamilyRegEx.test(familyPart)) {
@@ -32,16 +33,24 @@ const SimilarityView = ({ children }: { children?: string }) => {
                   families.push(`${subFamilies[i]}${subFamilies[i + 1]}`);
                 }
               }
-              return families.map((name) => familyLink(name));
+              return families.map((name) => {
+                const link = `${encounteredFamilies} ${name.replace(
+                  /^\.\s?/,
+                  ''
+                )}`;
+                encounteredFamilies = link;
+                return familyLink(name, link);
+              });
             }
+            encounteredFamilies = familyPart;
             return familyLink(familyPart);
           }
           if (index + 1 === length && !part.endsWith('.')) {
             return `${part}.`;
           }
           return familyPart;
-        })
-      )}
+        });
+      })}
     </>
   );
 };
