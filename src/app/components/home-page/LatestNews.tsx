@@ -325,7 +325,8 @@ const LatestNews = () => {
       >
         <Chip className="secundary">
           <ExternalLink url="https://www.proteinspotlight.org" noIcon>
-            Protein Spotlight
+            <span className={styles['ps-logo-protein-color']}>protein</span>
+            <span className={styles['ps-logo-spotlight-color']}>spotlight</span>
           </ExternalLink>
         </Chip>
         <h3>
