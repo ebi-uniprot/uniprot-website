@@ -1,7 +1,7 @@
 import { capitalize } from 'lodash-es';
 import joinUrl from 'url-join';
 
-const ftpUniProt = 'https://ftp.ebi.ac.uk/pub/databases/uniprot/'; // To be reverted back to https://ftp.uniprot.org/pub/databases/uniprot/ once the PIR issue is solved
+const ftpUniProt = 'https://ftp.uniprot.org/pub/databases/uniprot/';
 
 const ftpUrls = {
   uniprot: ftpUniProt,
