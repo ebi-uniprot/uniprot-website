@@ -1,6 +1,6 @@
 import { useState, FC, ChangeEvent, useRef, useCallback } from 'react';
-import { useLocation } from 'react-router-dom';
-import { Button, LongNumber } from 'franklin-sites';
+import { generatePath, Link, useLocation } from 'react-router-dom';
+import { Button, LongNumber, Message } from 'franklin-sites';
 import cn from 'classnames';
 
 import ColumnSelect from '../column-select/ColumnSelect';
@@ -18,10 +18,10 @@ import {
   fileFormatsWithColumns,
   nsToFileFormatsResultsDownload,
 } from '../../config/resultsDownload';
+import { Location, LocationToPath } from '../../../app/config/urls';
 
 import { FileFormat } from '../../types/resultsDownload';
 import { Namespace } from '../../types/namespaces';
-import { Location } from '../../../app/config/urls';
 
 import sticky from '../../styles/sticky.module.scss';
 import styles from './styles/download.module.scss';
@@ -300,6 +300,21 @@ const Download: FC<DownloadProps> = ({
         </a>
       </section>
       <section ref={extraContentRef}>
+        {downloadCount > DOWNLOAD_SIZE_LIMIT && (
+          <Message level="info">
+            Download size is too big, please restrict your search. If the
+            results exceeed the download limit of 5,000,000, it is recommended
+            to use{' '}
+            <Link
+              to={generatePath(LocationToPath[Location.HelpEntry], {
+                accession: 'pagination',
+              })}
+            >
+              pagination
+            </Link>
+            .
+          </Message>
+        )}
         {extraContent === 'url' && (
           <DownloadAPIURL
             // Remove the download attribute as it's unnecessary for API access
