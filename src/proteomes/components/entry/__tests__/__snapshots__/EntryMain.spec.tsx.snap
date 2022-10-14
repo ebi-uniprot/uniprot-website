@@ -81,7 +81,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 20,600 
                 <a
-                  href="https://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/reference_proteomes/Eukaryota/UP000005640/UP000005640_9606.fasta.gz"
+                  href="https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/reference_proteomes/Eukaryota/UP000005640/UP000005640_9606.fasta.gz"
                 >
                   Download one protein sequence per gene (FASTA)
                 </a>

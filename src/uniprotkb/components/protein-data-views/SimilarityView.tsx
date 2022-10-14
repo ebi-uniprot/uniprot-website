@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 const familyRegEx = /(Belongs to the .+family)/i;
-const familyExtractor = /( the |\. )(.*(?:sub|super|sub-sub)?family)/;
+const familyExtractor = /( the |\. )([^.]+(?:sub|super|sub-sub)?family)/;
 const subFamilyRegEx = /(subfamily|sub-subfamily)+/;
 
 const SimilarityView = ({ children }: { children?: string }) => {
