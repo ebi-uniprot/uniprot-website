@@ -115,12 +115,28 @@ const PeptideSearchResult = ({
     [jobResultData]
   );
 
+  const excessAccessions = accessions && accessions?.length > 1000;
+  //  // Query for facets
+  //  const initialApiFacetUrl = useNSQuery({
+  //   size: 0,
+  //   withFacets: true,
+  //   withColumns: false,
+  //   accessions,
+  // });
+  // const facetApiObject = excessAccessions ? {
+  //   loading: false,
+  //   headers: {},
+  //   isStale: false,
+  // } : useDataApiWithStale<SearchResults<UniProtkbAPIModel>>(initialApiFacetUrl);
+  // const facetTotal = facetApiObject?.headers?.['x-total-results'];
+  const batchSize = 1000;
+  let acc = accessions?.slice(0, batchSize);
   // Query for facets
   const initialApiFacetUrl = useNSQuery({
     size: 0,
     withFacets: true,
     withColumns: false,
-    accessions,
+    accessions: acc,
   });
   const facetApiObject =
     useDataApiWithStale<SearchResults<UniProtkbAPIModel>>(initialApiFacetUrl);
@@ -136,11 +152,19 @@ const PeptideSearchResult = ({
     return peps ? partialRight(peptideSearchConverter, peps) : undefined;
   }, [jobSubmission]);
 
+  const results = [];
+
   // Query for results data
-  const initialApiUrl = useNSQuery({ accessions, getSequence: true });
+  let initialApiUrl = useNSQuery({ accessions: acc, getSequence: true });
   // TODO: if the user didn't submit this jobSubmission there is no way to get the initial sequence. In the
   // future the API may provide this information in which case we would want to fetch and show
-  const resultsDataObject = usePagination(initialApiUrl, converter);
+  let resultsDataObject = usePagination(initialApiUrl, converter);
+  results.push(resultsDataObject);
+
+  acc = accessions && accessions.slice(batchSize, batchSize + batchSize);
+  initialApiUrl = useNSQuery({ accessions: acc, getSequence: true });
+  results.push(resultsDataObject);
+  debugger;
   const {
     initialLoading: resultsDataInitialLoading,
     total: resultsDataTotal,
@@ -199,6 +223,9 @@ const PeptideSearchResult = ({
       break;
   }
 
+  if (excessAccessions) {
+    sidebar = <div className="sidebar-layout__sidebar-content--empty" />;
+  }
   const basePath = `/peptide-search/${match.params.id}/`;
 
   return (
