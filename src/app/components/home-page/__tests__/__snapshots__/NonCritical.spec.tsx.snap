@@ -632,7 +632,7 @@ exports[`non-critical HomePage component should render 1`] = `
       class="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-4 uniprot-grid-cell--medium-offset-1 latest-news__spotlight"
     >
       <button
-        class="chip secundary"
+        class="chip"
         type="button"
       >
         <a
@@ -646,6 +646,7 @@ exports[`non-critical HomePage component should render 1`] = `
           >
             protein
           </span>
+           
           <span
             class="ps-logo-spotlight-color"
           >
