@@ -112,6 +112,7 @@ const IDMappingResult = () => {
     data: detailsData,
     loading: detailsLoading,
     error: detailsError,
+    status: detailsStatus,
   } = idMappingDetails || {};
 
   const [{ selectedFacets, query, sortColumn, sortDirection }] =
@@ -218,7 +219,7 @@ const IDMappingResult = () => {
   }, [detailsData?.errors, facetsData?.errors, match?.params.id]);
 
   if (!match || detailsError) {
-    return <ErrorHandler />;
+    return <ErrorHandler status={detailsStatus} />;
   }
 
   if (
