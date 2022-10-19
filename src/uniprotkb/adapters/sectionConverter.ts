@@ -16,7 +16,7 @@ import { UniProtkbAPIModel } from './uniProtkbConverter';
 import { Xref } from '../../shared/types/apiModel';
 import { DatabaseInfoMaps } from '../utils/database';
 
-const reDiseaseAcronymSentence = /^in [^;]+;/i;
+const reDiseaseAcronymSentence = /^in [^;]+(;|$)/i;
 const reDiseaseAcronym = /[A-Z0-9-_]{2,}/g;
 
 export type UIModel = {
