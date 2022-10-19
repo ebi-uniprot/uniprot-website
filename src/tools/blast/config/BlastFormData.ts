@@ -60,6 +60,10 @@ const formData: Readonly<BlastFormValues> = deepFreeze({
       { value: 'uniprotkb', label: 'UniProtKB' },
       { value: 'uniprotkb_pdb', label: 'UniProtKB with 3D structure (PDB)' },
       {
+        value: 'afdb',
+        label: 'UniProtKB with 3D structure predictions (AlphaFold)',
+      },
+      {
         value: 'uniprotkb_reference_proteomes',
         label: 'UniProtKB reference proteomes',
       },
@@ -161,7 +165,7 @@ export const excludeTaxonForDB = (db: BlastFormValue['selected']) =>
 export const databaseToNamespace = (
   database: Database
 ): Namespace.uniprotkb | Namespace.uniparc | Namespace.uniref | undefined => {
-  if (database.startsWith(Namespace.uniprotkb)) {
+  if (database.startsWith(Namespace.uniprotkb) || database === 'afdb') {
     return Namespace.uniprotkb;
   }
   if (database.startsWith(Namespace.uniparc)) {

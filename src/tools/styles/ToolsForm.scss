@@ -13,6 +13,10 @@
   flex-direction: row;
   margin-bottom: 2rem;
 
+  &__buttons {
+    align-items: center;
+  }
+
   &__item {
     display: inline-block;
     margin-right: 2rem;
