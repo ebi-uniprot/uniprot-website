@@ -173,9 +173,9 @@ const Results = ({
     >
       {/* TODO: check and change this title when implementing Help */}
       <HTMLHead
-        title={`Search ${searchValue} in UniProt ${
+        title={`${searchValue} in UniProt ${
           isReleaseNotes ? 'release notes' : 'help'
-        }`}
+        } search`}
       />
       {searchNode}
       {main}

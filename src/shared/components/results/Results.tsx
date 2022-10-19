@@ -70,9 +70,9 @@ const Results = () => {
 
   const helmet = ns && (
     <HTMLHead
-      title={`Search ${params.query} in ${
+      title={`${params.query} in ${
         searchableNamespaceLabels[ns as SearchableNamespace]
-      }${total !== undefined ? ` (${total})` : ''}`}
+      } search${total !== undefined ? ` (${total})` : ''}`}
       titleLoading={resultsDataInitialLoading}
     >
       <meta
