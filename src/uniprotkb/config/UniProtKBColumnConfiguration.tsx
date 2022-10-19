@@ -185,7 +185,9 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.alphafold, {
     <span
       style={{ fontFamily: '"IBM Plex Sans", Helvetica, Arial, sans-serif' }}
     >
-      AlphaFold
+      has AlphaFold
+      <br />
+      prediction?
     </span>
   ),
   render: (data) => <AlphaFoldView accession={data.primaryAccession} />,
