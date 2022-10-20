@@ -11,7 +11,7 @@ const externalUrls: Record<string, (id: string | number) => string> = {
   ENA: (id) => `//www.ebi.ac.uk/ena/data/view/${id}`,
   // protein centric
   InterPro: (id) => `https://www.ebi.ac.uk/interpro/protein/${id}`,
-  Pfam: (id) => `http://pfam.xfam.org/protein/${id}`,
+  Pfam: (id) => `https://www.ebi.ac.uk/interpro/protein/uniprot/${id}`,
   SMART: (id) => `https://smart.embl.de/smart/show_motifs.pl?ID=${id}`,
   PROSITE: (id) =>
     `https://prosite.expasy.org/cgi-bin/prosite/PSScan.cgi?seq=${id}&output=nice`,
@@ -30,7 +30,7 @@ const externalUrls: Record<string, (id: string | number) => string> = {
     `http://www.bioinf.manchester.ac.uk/cgi-bin/dbbrowser/sprint/searchprintss.cgi?prints_accn=${id}&display_opts=Prints&category=None&queryform=false&regexpr=off`,
   PANTHEREntry: (id) =>
     `http://www.pantherdb.org/panther/family.do?clsAccession=${id}`,
-  PfamEntry: (id) => `//pfam.xfam.org/family/${id}`,
+  PfamEntry: (id) => `https://www.ebi.ac.uk/interpro/entry/pfam/${id}`,
   PROSITEEntry: (id) => `//prosite.expasy.org/unirule/${id}`,
   SFLDEntry: (id) => `http://sfld.rbvi.ucsf.edu/django/family/${id}/`,
   SMARTEntry: (id) =>

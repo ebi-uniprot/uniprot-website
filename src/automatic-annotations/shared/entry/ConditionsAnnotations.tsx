@@ -234,7 +234,15 @@ const conditionsToInfoData = (
           if (!value) {
             return null;
           }
-          const url = externalUrls.InterProSearch(value);
+
+          let url = externalUrls.InterProSearch(value);
+          // Yet to be decided if it appies to both source rule amd signature
+          if (value.startsWith('PRU') || value.startsWith('PS')) {
+            url = externalUrls.PROSITEEntry(value);
+          } else if (value.startsWith('MF')) {
+            url = externalUrls.HAMAPEntry(value);
+          }
+
           return (
             <Fragment key={value}>
               {listFormat(index, array, 'or')}
