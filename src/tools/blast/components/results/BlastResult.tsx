@@ -10,7 +10,7 @@ import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import HSPDetailPanel, { HSPDetailPanelProps } from './HSPDetailPanel';
 import BlastResultSidebar from './BlastResultSidebar';
-import ResultButtons from '../../../components/ResultButtons';
+import ResultsButtons from '../../../../shared/components/results/ResultsButtons';
 
 import useDataApi, {
   UseDataAPIState,
@@ -18,6 +18,8 @@ import useDataApi, {
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect';
+import useColumnNames from '../../../../shared/hooks/useColumnNames';
+import useNS from '../../../../shared/hooks/useNS';
 
 import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
 import {
@@ -227,12 +229,10 @@ const BlastResult = () => {
     [hitsFilteredByLocalFacets]
   );
 
-  let namespace = Namespace.uniprotkb;
-  if (blastData?.dbs[0].name.startsWith('uniref')) {
-    namespace = Namespace.uniref;
-  } else if (blastData?.dbs[0].name === 'uniparc') {
-    namespace = Namespace.uniparc;
-  }
+  let namespace = useNS() || Namespace.uniprotkb;
+  const { columnNames: columns } = useColumnNames({
+    namespaceOverride: namespace,
+  });
 
   // get data from accessions endpoint with search applied
   const { loading: accessionsLoading, data: accessionsData } =
@@ -244,24 +244,13 @@ const BlastResult = () => {
             selectedFacets: urlParams.selectedFacets,
             facets: [],
             query,
-            // Most of the needed data is already in the BLAST JSON payload
-            columns: [
-              // UniProtKB
-              namespace === Namespace.uniprotkb && 'accession',
-              // "organism_name" returns the whole taxon object with lineage
-              namespace === Namespace.uniprotkb && 'organism_name',
-              // for the detail panel
-              namespace === Namespace.uniprotkb && 'protein_name',
-              // UniRef
-              namespace === Namespace.uniref && 'id',
-              namespace === Namespace.uniref && 'name',
-              namespace === Namespace.uniref && 'common_taxon',
-              // UniParc
-              namespace === Namespace.uniparc && 'upi',
-            ].filter((x: string | boolean): x is string => Boolean(x)),
+            columns: columns.filter((x: string | boolean): x is string =>
+              Boolean(x)
+            ),
           }),
         [
           accessionsFilteredByLocalFacets,
+          columns,
           namespace,
           query,
           urlParams.selectedFacets,
@@ -288,7 +277,16 @@ const BlastResult = () => {
   // Hits filtered out by server facets don't have "extra"
   // This could be improved by filtering things out in filteredBlastData??
   const hitsFiltered = useMemo(
-    () => (data?.hits ? data.hits.filter((hit) => hit.extra) : []),
+    () =>
+      data?.hits
+        ? data.hits
+            .filter((hit) => hit.extra)
+            .map((hit) => {
+              const merge = { ...hit, ...hit.extra }; // For the respective column renderers to fetch the fields
+              delete merge.extra;
+              return merge;
+            })
+        : [],
     [data]
   );
 
@@ -336,14 +334,13 @@ const BlastResult = () => {
   }
 
   const actionBar = (
-    <ResultButtons
-      namespace={namespace}
-      jobType={jobType}
-      jobId={match.params.id}
+    <ResultsButtons
+      namespaceOverride={namespace}
+      disableCardToggle={true}
+      total={resultTableData?.hits.length || 0}
+      loadedTotal={resultTableData?.hits.length || 0}
       selectedEntries={selectedEntries}
-      inputParamsData={inputParamsData.data}
-      nHits={blastData.hits.length}
-      isTableResultsFiltered={blastData?.hits.length !== hitsFiltered.length}
+      accessions={accessionsFilteredByLocalFacets}
     />
   );
 

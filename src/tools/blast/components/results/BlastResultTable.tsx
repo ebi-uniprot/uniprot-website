@@ -6,10 +6,8 @@ import {
   useMemo,
   Dispatch,
   SetStateAction,
-  ReactNode,
 } from 'react';
 import { DataTable, Chip, Loader, Button } from 'franklin-sites';
-import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import { Except } from 'type-fest';
 
@@ -17,20 +15,14 @@ import { Except } from 'type-fest';
 import colors from '../../../../../node_modules/franklin-sites/src/styles/colours.json';
 
 import { HSPDetailPanelProps } from './HSPDetailPanel';
-import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
 
 import useStaggeredRenderingHelper from '../../../../shared/hooks/useStaggeredRenderingHelper';
 import useCustomElement from '../../../../shared/hooks/useCustomElement';
+import useColumns from '../../../../shared/hooks/useColumns';
 
-import { getEntryPath } from '../../../../app/config/urls';
-
-import {
-  Namespace,
-  SearchableNamespace,
-} from '../../../../shared/types/namespaces';
-
-import { EnrichedBlastHit } from './BlastResult';
+import { SearchableNamespace } from '../../../../shared/types/namespaces';
 import { BlastResults, BlastHsp, BlastHit } from '../../types/blastResults';
+import { EnrichedBlastHit } from './BlastResult';
 
 import './styles/BlastResultTable.scss';
 
@@ -240,14 +232,6 @@ const BlastSummaryHsps = ({
   );
 };
 
-type ColumnRenderer = {
-  label: ReactNode;
-  render: (hit: BlastHit | EnrichedBlastHit) => ReactNode;
-  name: string;
-  width?: string;
-  ellipsis?: boolean;
-};
-
 type BlastResultTableProps = {
   data: BlastResults | null;
   setSelectedItemFromEvent: (event: MouseEvent | KeyboardEvent) => void;
@@ -332,109 +316,36 @@ const BlastResultTable = ({
 
   const queryLen = data?.query_len;
   const NavigationElementName = navigationElement.name;
-  const columns = useMemo<Array<ColumnRenderer>>(() => {
-    if (queryLen === undefined) {
-      return [];
-    }
-    const columns: Array<ColumnRenderer> = [];
-    columns.push({
-      label: 'Accession',
-      name: 'accession',
-      render: ({ hit_acc, hit_db }) => (
-        <Link to={getEntryPath(namespace, hit_acc)}>
-          <EntryTypeIcon entryType={hit_db} />
-          {hit_acc}
-        </Link>
-      ),
-    });
-    if (namespace === Namespace.uniprotkb) {
-      columns.push({
-        label: 'Gene',
-        name: 'gene',
-        render: ({ hit_uni_gn }) => hit_uni_gn,
-      });
-      columns.push({
-        label: 'Protein',
-        name: 'protein',
-        render: ({ hit_uni_de }) => hit_uni_de,
-        ellipsis: true,
-      });
-      columns.push({
-        label: 'Organism',
-        name: 'organism',
-        render: ({ hit_uni_ox, hit_uni_os }) => (
-          <Link to={getEntryPath(Namespace.taxonomy, hit_uni_ox)}>
-            {hit_uni_os}
-          </Link>
-        ),
-        ellipsis: true,
-      });
-    } else if (namespace === Namespace.uniref) {
-      columns.push({
-        label: 'Cluster name',
-        name: 'cluster_name',
-        render: (data) =>
-          'extra' in data &&
-          data.extra &&
-          'name' in data.extra &&
-          data.extra.name.replace('Cluster: ', ''),
-        ellipsis: true,
-      });
-      columns.push({
-        label: 'Common taxon',
-        name: 'common_taxon',
-        render: (data) =>
-          'extra' in data &&
-          data.extra &&
-          'commonTaxon' in data.extra && (
-            <Link
-              to={getEntryPath(
-                Namespace.taxonomy,
-                data.extra.commonTaxon.taxonId
-              )}
-            >
-              {data.extra.commonTaxon.scientificName}
-            </Link>
-          ),
-        ellipsis: true,
-      });
-    }
-    columns.push({
-      label: (
-        <div className="query-sequence-wrapper">
-          <NavigationElementName
-            ref={queryColumnHeaderRef}
-            length={queryLen}
-            title="Query"
-          />
-        </div>
-      ),
-      name: 'alignment',
-      width: '40vw',
-      render: (hit) => (
-        <BlastSummaryHsps
-          hsps={hit.hit_hsps}
-          queryLength={queryLen}
-          hitLength={hit.hit_len}
-          hitAccession={hit.hit_acc}
-          setHspDetailPanel={setHspDetailPanel}
-          selectedScoring={selectedScoring}
-          setSelectedScoring={setSelectedScoring}
-          maxScorings={maxScorings}
-        />
-      ),
-    });
 
-    return columns;
-  }, [
-    queryLen,
-    queryColumnHeaderRef,
-    setHspDetailPanel,
-    selectedScoring,
-    maxScorings,
-    namespace,
-    NavigationElementName,
-  ]);
+  const [columns] = useColumns(namespace);
+
+  const trackColumn = {
+    label: (
+      <div className="query-sequence-wrapper">
+        <NavigationElementName
+          ref={queryColumnHeaderRef}
+          length={queryLen}
+          title="Query"
+        />
+      </div>
+    ),
+    name: 'alignment',
+    width: '40vw',
+    render: (hit: EnrichedBlastHit) => (
+      <BlastSummaryHsps
+        hsps={hit.hit_hsps}
+        queryLength={queryLen || 0}
+        hitLength={hit.hit_len}
+        hitAccession={hit.hit_acc}
+        setHspDetailPanel={setHspDetailPanel}
+        selectedScoring={selectedScoring}
+        setSelectedScoring={setSelectedScoring}
+        maxScorings={maxScorings}
+      />
+    ),
+  };
+
+  const cols = [...(columns || []), trackColumn];
 
   if (loading && !hitsRef.current.length) {
     return <Loader />;
@@ -449,10 +360,9 @@ const BlastResultTable = ({
       className={loading ? 'loading-data-table' : undefined}
       getIdKey={({ hit_acc }) => hit_acc}
       density="compact"
-      columns={columns}
+      columns={cols}
       data={hitsRef.current.slice(0, nItemsToRender)}
       onSelectionChange={setSelectedItemFromEvent}
-      fixedLayout
     />
   );
 };
