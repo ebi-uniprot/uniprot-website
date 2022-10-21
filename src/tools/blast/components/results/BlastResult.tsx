@@ -185,6 +185,7 @@ export const enrich = (
 
 const BlastResult = () => {
   const location = useLocation();
+
   const match = useMatchWithRedirect<Params>(Location.BlastResult, TabLocation);
 
   const [hspDetailPanel, setHspDetailPanel] = useState<Except<
@@ -229,7 +230,13 @@ const BlastResult = () => {
     [hitsFilteredByLocalFacets]
   );
 
-  let namespace = useNS() || Namespace.uniprotkb;
+  let namespace = Namespace.uniprotkb;
+  if (location.pathname.includes('uniref')) {
+    namespace = Namespace.uniref;
+  } else if (location.pathname.includes('uniparc')) {
+    namespace = Namespace.uniparc;
+  }
+
   const { columnNames: columns } = useColumnNames({
     namespaceOverride: namespace,
   });
