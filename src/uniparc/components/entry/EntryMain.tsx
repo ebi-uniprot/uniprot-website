@@ -1,4 +1,5 @@
-import { FC } from 'react';
+import { Suspense } from 'react';
+import { Loader } from 'franklin-sites';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
@@ -16,16 +17,18 @@ type EntryMainProps = {
   totalNResults?: number;
 };
 
-const EntryMain: FC<EntryMainProps> = ({
+const EntryMain = ({
   transformedData,
   xrefs,
   totalNResults,
-}) => (
+}: EntryMainProps) => (
   <>
     {UniParcEntryConfig.map(({ id, sectionContent }) => (
-      <ErrorBoundary key={id}>
-        {sectionContent(transformedData, xrefs, totalNResults)}
-      </ErrorBoundary>
+      <Suspense fallback={<Loader />}>
+        <ErrorBoundary key={id}>
+          {sectionContent(transformedData, xrefs, totalNResults)}
+        </ErrorBoundary>
+      </Suspense>
     ))}
   </>
 );

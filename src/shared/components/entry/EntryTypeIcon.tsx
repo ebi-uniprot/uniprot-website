@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import {
   SwissProtIcon,
   TremblIcon,
@@ -63,12 +62,19 @@ export const getEntryTypeFromString = (entryTypeString?: string) => {
   return undefined;
 };
 
-export const EntryTypeIcon: FC<{
+type EntryTypeIconProps = {
   entryType?: EntryType | string;
   entryAccession?: string;
   entryId?: string;
   title?: string;
-}> = ({ entryType, entryAccession, entryId, title }) => {
+};
+
+export const EntryTypeIcon = ({
+  entryType,
+  entryAccession,
+  entryId,
+  title,
+}: EntryTypeIconProps) => {
   let entryTypeToCheck = entryType;
   if (typeof entryType === 'string') {
     entryTypeToCheck = getEntryTypeFromString(entryType);
