@@ -160,7 +160,7 @@ export const extractFromFreeText = (data: KineticParameters) => {
         constant: `${mv.velocity} ${mv.unit.replace(muRegEx, 'μ')}`,
         ph,
         temp,
-        notes: notes.trim(),
+        notes: notes?.trim(),
         evidences: mv.evidences,
       };
     });
