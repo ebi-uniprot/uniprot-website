@@ -284,16 +284,7 @@ const BlastResult = () => {
   // Hits filtered out by server facets don't have "extra"
   // This could be improved by filtering things out in filteredBlastData??
   const hitsFiltered = useMemo(
-    () =>
-      data?.hits
-        ? data.hits
-            .filter((hit) => hit.extra)
-            .map((hit) => {
-              const merge = { ...hit, ...hit.extra }; // For the respective column renderers to fetch the fields
-              delete merge.extra;
-              return merge;
-            })
-        : [],
+    () => (data?.hits ? data.hits.filter((hit) => hit.extra) : []),
     [data]
   );
 

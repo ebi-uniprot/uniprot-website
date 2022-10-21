@@ -18,13 +18,18 @@ import { HSPDetailPanelProps } from './HSPDetailPanel';
 
 import useStaggeredRenderingHelper from '../../../../shared/hooks/useStaggeredRenderingHelper';
 import useCustomElement from '../../../../shared/hooks/useCustomElement';
-import useColumns from '../../../../shared/hooks/useColumns';
+import useColumns, {
+  ColumnDescriptor,
+} from '../../../../shared/hooks/useColumns';
 
 import { SearchableNamespace } from '../../../../shared/types/namespaces';
 import { BlastResults, BlastHsp, BlastHit } from '../../types/blastResults';
 import { EnrichedBlastHit } from './BlastResult';
 
 import './styles/BlastResultTable.scss';
+import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
+import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
+import { UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
 
 const scoringDict: Partial<Record<keyof BlastHsp, string>> = {
   hsp_identity: 'Identity',
@@ -240,6 +245,9 @@ type BlastResultTableProps = {
   namespace: SearchableNamespace;
 };
 
+type BlastTableResultsData = EnrichedBlastHit &
+  (UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel);
+
 const BlastResultTable = ({
   data,
   setSelectedItemFromEvent,
@@ -248,13 +256,17 @@ const BlastResultTable = ({
   namespace,
 }: BlastResultTableProps) => {
   // logic to keep stale data available
-  const hitsRef = useRef<BlastHit[]>([]);
+  const hitsRef = useRef<BlastTableResultsData[]>([]);
 
   const [selectedScoring, setSelectedScoring] =
     useState<keyof BlastHsp>('hsp_identity');
 
   if (data?.hits) {
-    hitsRef.current = data?.hits || [];
+    const hits = data?.hits.map((hit: EnrichedBlastHit) => {
+      const merge = { ...hit, ...hit.extra }; // For the respective column renderers to fetch the fields
+      return merge;
+    });
+    hitsRef.current = hits || [];
   }
 
   const nItemsToRender = useStaggeredRenderingHelper(
@@ -349,7 +361,10 @@ const BlastResultTable = ({
     ),
   };
 
-  const cols = [...(columnsByNamespace || []), trackColumn];
+  const cols: ColumnDescriptor<BlastTableResultsData>[] = [
+    ...(columnsByNamespace || []),
+    trackColumn,
+  ];
 
   if (loading && !hitsRef.current.length) {
     return <Loader />;
