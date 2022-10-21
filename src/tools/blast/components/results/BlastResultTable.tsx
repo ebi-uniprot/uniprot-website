@@ -318,6 +318,10 @@ const BlastResultTable = ({
   const NavigationElementName = navigationElement.name;
 
   const [columns] = useColumns(namespace);
+  let columnsByNamespace = columns?.map((column) => {
+    column.sortable = undefined;
+    return column;
+  });
 
   const trackColumn = {
     label: (
@@ -345,7 +349,7 @@ const BlastResultTable = ({
     ),
   };
 
-  const cols = [...(columns || []), trackColumn];
+  const cols = [...(columnsByNamespace || []), trackColumn];
 
   if (loading && !hitsRef.current.length) {
     return <Loader />;
