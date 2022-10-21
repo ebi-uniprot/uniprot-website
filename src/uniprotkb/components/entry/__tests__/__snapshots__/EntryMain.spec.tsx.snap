@@ -6250,7 +6250,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <li>
                     <a
                       class="external-link"
-                      href="http://pfam.xfam.org/protein/P0DTR4"
+                      href="https://www.ebi.ac.uk/interpro/protein/uniprot/P0DTR4"
                       rel="noopener"
                       target="_blank"
                     >
