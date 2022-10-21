@@ -2,6 +2,7 @@
 import { lazy } from 'react';
 import { Link } from 'react-router-dom';
 import {
+  DoughnutChart,
   ExpandableList,
   LongNumber,
   SearchIcon,
@@ -66,7 +67,6 @@ import {
   SubcellularLocationComment,
   CommentType,
 } from '../types/commentTypes';
-import AnnotationScoreDoughnutChart from '../components/protein-data-views/AnnotationScoreDoughnutChart';
 import { KeywordList } from '../components/protein-data-views/KeywordView';
 // import { DatabaseList } from '../components/protein-data-views/XRefView';
 import DiseaseInvolvementView from '../components/protein-data-views/DiseaseInvolvementView';
@@ -872,7 +872,12 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.tempDependence, {
 UniProtKBColumnConfiguration.set(UniProtKBColumn.annotationScore, {
   ...getLabelAndTooltip('Annotation', 'Annotation score'),
   render: (data) => (
-    <AnnotationScoreDoughnutChart score={data.annotationScore} size="medium" />
+    <span title="Annotation Score">
+      <strong>Annotation score:</strong>
+      <DoughnutChart percent={data.annotationScore * 20} size="medium">
+        {`${data.annotationScore}/5`}
+      </DoughnutChart>
+    </span>
   ),
 });
 

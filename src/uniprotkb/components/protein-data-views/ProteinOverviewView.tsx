@@ -1,36 +1,27 @@
-import { FC, ReactNode } from 'react';
+import { Fragment, memo, ReactNode } from 'react';
+import { DoughnutChart, InfoList } from 'franklin-sites';
 
-import AnnotationScoreDoughnutChart from './AnnotationScoreDoughnutChart';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import { ECNumbersView } from './ProteinNamesView';
 
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
+import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 
 const existenceRE = /^\d: /;
 
-const ProteinOverview: FC<{
-  // Note: it would be good to eventually use RenderColumnsInCard here
-  // which would involve either converting UniProtkbAPIModel to UniProtkbUIModel
-  // or refactoring UniProtKBColumnConfiguration to use UniProtkbAPIModel.
-  data?: Partial<UniProtkbAPIModel>;
-}> = ({ data }) => {
-  if (!data) {
-    return null;
-  }
+type Props = { data: Partial<UniProtkbAPIModel>; inCard?: boolean };
+
+const ProteinOverview = ({ data, inCard }: Props) => {
   const name =
     data.proteinDescription?.recommendedName?.fullName.value ||
     data.proteinDescription?.submissionNames?.[0].fullName.value;
-  const nameNode = name && `${name} · `;
 
   const ecNumberNode = data.proteinDescription?.recommendedName?.ecNumbers && (
-    <>
-      <ECNumbersView
-        ecNumbers={data.proteinDescription?.recommendedName?.ecNumbers}
-        noEvidence
-        noLinks
-      />
-      {' · '}
-    </>
+    <ECNumbersView
+      ecNumbers={data.proteinDescription?.recommendedName?.ecNumbers}
+      noEvidence
+      noLinks
+    />
   );
 
   let organismNameNode: ReactNode;
@@ -38,62 +29,103 @@ const ProteinOverview: FC<{
     data.organism &&
     (data.organism.scientificName || data.organism.taxonId)
   ) {
-    organismNameNode = (
-      <>
-        <TaxonomyView data={data.organism} />
-        {' · '}
-      </>
-    );
+    organismNameNode = <TaxonomyView data={data.organism} />;
   }
 
-  let geneNameListNode;
+  let geneNameListNode: string | undefined;
   if (data.genes) {
-    geneNameListNode = (
-      <>
-        <strong>Gene:</strong>{' '}
-        {data.genes
-          .map(
-            (geneName) =>
-              `${
-                geneName.geneName?.value ||
-                geneName.orderedLocusNames
-                  ?.map((name) => name.value)
-                  .join(', ') ||
-                geneName.orfNames?.map((name) => name.value).join(', ')
-              }${
-                geneName.synonyms
-                  ? ` (${geneName.synonyms
-                      ?.map((synonym) => synonym.value)
-                      .join(', ')})`
-                  : ''
-              }`
-          )
-          .join('; ')}
-        {' · '}
-      </>
+    geneNameListNode = data.genes
+      .map(
+        (geneName) =>
+          `${
+            geneName.geneName?.value ||
+            geneName.orderedLocusNames?.map((name) => name.value).join(', ') ||
+            geneName.orfNames?.map((name) => name.value).join(', ')
+          }${
+            geneName.synonyms
+              ? ` (${geneName.synonyms
+                  ?.map((synonym) => synonym.value)
+                  .join(', ')})`
+              : ''
+          }`
+      )
+      .join('; ');
+  }
+
+  const proteinExistence = data.proteinExistence?.replace(existenceRE, '');
+
+  const annotationScoreNode = data.annotationScore && (
+    <DoughnutChart percent={data.annotationScore * 20} size="small">
+      {`${data.annotationScore}/5`}
+    </DoughnutChart>
+  );
+
+  if (inCard) {
+    return (
+      <div>
+        {[
+          name,
+          organismNameNode,
+          ecNumberNode,
+          geneNameListNode && (
+            <>
+              <strong>Gene:</strong> {geneNameListNode}
+            </>
+          ),
+          data.sequence?.length && `${data.sequence.length} amino acids`,
+          proteinExistence,
+          annotationScoreNode && (
+            <>
+              <strong>Annotation score:</strong> {annotationScoreNode}
+            </>
+          ),
+        ]
+          .filter(Boolean)
+          .map((node, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <Fragment key={index}>
+              {index ? ' · ' : null}
+              {node}
+            </Fragment>
+          ))}
+      </div>
     );
   }
 
-  const sequenceLengthNode =
-    data.sequence && `${data.sequence.length} amino acids · `;
+  const infoData = [
+    {
+      title: <span data-article-id="protein_names">Protein</span>,
+      content: name,
+    },
+    {
+      title: <span data-article-id="entry_status">Status</span>,
+      content: (
+        <>
+          <EntryTypeIcon entryType={data.entryType} />
+          {data.entryType}
+        </>
+      ),
+    },
+    {
+      title: <span data-article-id="organism-name">Organism</span>,
+      content: organismNameNode,
+    },
+    {
+      title: <span data-article-id="gene_name">Gene</span>,
+      content: geneNameListNode,
+    },
+    { title: 'Amino acids', content: data.sequence?.length },
+    {
+      title: <span data-article-id="protein_existence">Protein existence</span>,
+      content: proteinExistence,
+    },
+    {
+      title: <span data-article-id="annotation_score">Annotation score</span>,
+      content: annotationScoreNode,
+    },
+  ];
 
-  const { annotationScore } = data;
-  const annotationScoreNode = typeof annotationScore !== 'undefined' && (
-    <AnnotationScoreDoughnutChart score={annotationScore} size="small" />
-  );
-
-  return (
-    <section>
-      {nameNode}
-      {organismNameNode}
-      {ecNumberNode}
-      {geneNameListNode}
-      {sequenceLengthNode}
-      {data.proteinExistence &&
-        `${data.proteinExistence.replace(existenceRE, '')} · `}
-      {annotationScoreNode}
-    </section>
-  );
+  return <InfoList columns infoData={infoData} />;
 };
 
-export default ProteinOverview;
+export default memo(ProteinOverview);

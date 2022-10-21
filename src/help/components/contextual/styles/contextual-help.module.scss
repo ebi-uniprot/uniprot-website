@@ -1,21 +1,14 @@
 @import 'franklin-sites/src/styles/colours';
+
 @import '../../../../shared/styles/mixins';
 
 [data-article-id] {
+  /* main styles loaded earlier here src/app/components/styles/app.scss */
   cursor: pointer;
 
   &::after {
-    content: 'i';
-    padding-inline-start: 0.1rem;
-    font-size: 0.75rem;
-    font-family: Bookman, Garamond, serif;
-    position: relative;
-    line-height: 1rem;
-    vertical-align: super;
-  }
-
-  thead &::after {
-    display: none;
+    cursor: inherit;
+    opacity: 1;
   }
 
   [data-tippy-root] &::after {
