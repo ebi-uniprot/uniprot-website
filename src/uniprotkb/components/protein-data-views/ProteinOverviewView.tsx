@@ -1,4 +1,4 @@
-import { memo, ReactNode } from 'react';
+import { Fragment, memo, ReactNode } from 'react';
 import { DoughnutChart, InfoList } from 'franklin-sites';
 
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
@@ -82,10 +82,11 @@ const ProteinOverview = ({ data, inCard }: Props) => {
         ]
           .filter(Boolean)
           .map((node, index) => (
-            <>
+            // eslint-disable-next-line react/no-array-index-key
+            <Fragment key={index}>
               {index ? ' · ' : null}
               {node}
-            </>
+            </Fragment>
           ))}
       </div>
     );
