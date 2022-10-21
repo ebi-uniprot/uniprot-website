@@ -11,7 +11,8 @@ const externalUrls: Record<string, (id: string | number) => string> = {
   ENA: (id) => `//www.ebi.ac.uk/ena/data/view/${id}`,
   // protein centric
   InterPro: (id) => `https://www.ebi.ac.uk/interpro/protein/${id}`,
-  Pfam: (id) => `https://www.ebi.ac.uk/interpro/protein/uniprot/${id}`,
+  Pfam: (id) =>
+    `https://www.ebi.ac.uk/interpro/protein/UniProt/${id}/entry/pfam/`,
   SMART: (id) => `https://smart.embl.de/smart/show_motifs.pl?ID=${id}`,
   PROSITE: (id) =>
     `https://prosite.expasy.org/cgi-bin/prosite/PSScan.cgi?seq=${id}&output=nice`,
