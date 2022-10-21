@@ -16,10 +16,8 @@ type EntryMainProps = {
 const EntryMain = ({ transformedData }: EntryMainProps) => (
   <>
     {UniRefEntryConfig.map(({ id, sectionContent }) => (
-      <Suspense fallback={<Loader />}>
-        <ErrorBoundary key={id}>
-          {sectionContent(transformedData)}
-        </ErrorBoundary>
+      <Suspense fallback={<Loader />} key={id}>
+        <ErrorBoundary>{sectionContent(transformedData)}</ErrorBoundary>
       </Suspense>
     ))}
   </>

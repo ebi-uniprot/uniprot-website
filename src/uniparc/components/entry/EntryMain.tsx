@@ -24,8 +24,8 @@ const EntryMain = ({
 }: EntryMainProps) => (
   <>
     {UniParcEntryConfig.map(({ id, sectionContent }) => (
-      <Suspense fallback={<Loader />}>
-        <ErrorBoundary key={id}>
+      <Suspense fallback={<Loader />} key={id}>
+        <ErrorBoundary>
           {sectionContent(transformedData, xrefs, totalNResults)}
         </ErrorBoundary>
       </Suspense>

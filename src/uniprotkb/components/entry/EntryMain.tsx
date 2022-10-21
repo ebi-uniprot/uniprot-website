@@ -17,10 +17,8 @@ type EntryMainProps = {
 const EntryMain = ({ transformedData }: EntryMainProps) => (
   <>
     {UniProtKBEntryConfig.map(({ id, sectionContent }) => (
-      <Suspense fallback={<Loader />}>
-        <ErrorBoundary key={id}>
-          {sectionContent(transformedData)}
-        </ErrorBoundary>
+      <Suspense fallback={<Loader />} key={id}>
+        <ErrorBoundary>{sectionContent(transformedData)}</ErrorBoundary>
       </Suspense>
     ))}
 
