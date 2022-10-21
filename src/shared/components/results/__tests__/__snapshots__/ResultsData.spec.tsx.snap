@@ -55,7 +55,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__content"
             >
-              <section>
+              <div>
                 Glucose-6-phosphate 1-dehydrogenase · 
                 <a
                   href="/taxonomy/9606"
@@ -68,39 +68,36 @@ exports[`ResultsData component should render the card view with the correct numb
                   Gene:
                 </strong>
                  G6PD · 515 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
                 <span
-                  title="Annotation Score"
+                  class="doughnut-chart--small colour-platinum"
                 >
-                  <strong>
-                    Annotation score:
-                  </strong>
                   <span
-                    class="doughnut-chart--small colour-platinum"
+                    class="doughnut-chart--small__left-wrap"
                   >
                     <span
-                      class="doughnut-chart--small__left-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
                     <span
-                      class="doughnut-chart--small__right-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
-                    <span
-                      class="doughnut-chart--small__inner-circle"
-                    >
-                      5/5
-                    </span>
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
                   </span>
                 </span>
-              </section>
+              </div>
               <small>
                 <div
                   class="keyword-view--inline"
@@ -240,7 +237,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__content"
             >
-              <section>
+              <div>
                 Glucose-1-phosphatase · 
                 <a
                   href="/taxonomy/83333"
@@ -253,39 +250,36 @@ exports[`ResultsData component should render the card view with the correct numb
                   Gene:
                 </strong>
                  agp · 413 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
                 <span
-                  title="Annotation Score"
+                  class="doughnut-chart--small colour-platinum"
                 >
-                  <strong>
-                    Annotation score:
-                  </strong>
                   <span
-                    class="doughnut-chart--small colour-platinum"
+                    class="doughnut-chart--small__left-wrap"
                   >
                     <span
-                      class="doughnut-chart--small__left-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
                     <span
-                      class="doughnut-chart--small__right-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
-                    <span
-                      class="doughnut-chart--small__inner-circle"
-                    >
-                      5/5
-                    </span>
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
                   </span>
                 </span>
-              </section>
+              </div>
               <small>
                 <div
                   class="keyword-view--inline"
@@ -371,7 +365,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__content"
             >
-              <section>
+              <div>
                 Glucose-6-phosphate 1-dehydrogenase · 
                 <a
                   href="/taxonomy/1245"
@@ -384,39 +378,36 @@ exports[`ResultsData component should render the card view with the correct numb
                   Gene:
                 </strong>
                  zwf · 486 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
                 <span
-                  title="Annotation Score"
+                  class="doughnut-chart--small colour-platinum"
                 >
-                  <strong>
-                    Annotation score:
-                  </strong>
                   <span
-                    class="doughnut-chart--small colour-platinum"
+                    class="doughnut-chart--small__left-wrap"
                   >
                     <span
-                      class="doughnut-chart--small__left-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
                     <span
-                      class="doughnut-chart--small__right-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
-                    <span
-                      class="doughnut-chart--small__inner-circle"
-                    >
-                      5/5
-                    </span>
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
                   </span>
                 </span>
-              </section>
+              </div>
               <small>
                 <div
                   class="keyword-view--inline"
@@ -514,7 +505,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__content"
             >
-              <section>
+              <div>
                 Sodium/glucose cotransporter 1 · 
                 <a
                   href="/taxonomy/9606"
@@ -527,39 +518,36 @@ exports[`ResultsData component should render the card view with the correct numb
                   Gene:
                 </strong>
                  SLC5A1 (NAGT, SGLT1) · 664 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
                 <span
-                  title="Annotation Score"
+                  class="doughnut-chart--small colour-platinum"
                 >
-                  <strong>
-                    Annotation score:
-                  </strong>
                   <span
-                    class="doughnut-chart--small colour-platinum"
+                    class="doughnut-chart--small__left-wrap"
                   >
                     <span
-                      class="doughnut-chart--small__left-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
                     <span
-                      class="doughnut-chart--small__right-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
-                    <span
-                      class="doughnut-chart--small__inner-circle"
-                    >
-                      5/5
-                    </span>
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
                   </span>
                 </span>
-              </section>
+              </div>
               <small>
                 <div
                   class="keyword-view--inline"
@@ -693,7 +681,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__content"
             >
-              <section>
+              <div>
                 Hexokinase-1 · 
                 <a
                   href="/taxonomy/3702"
@@ -706,39 +694,36 @@ exports[`ResultsData component should render the card view with the correct numb
                   Gene:
                 </strong>
                  HXK1 (GIN2) · 496 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
                 <span
-                  title="Annotation Score"
+                  class="doughnut-chart--small colour-platinum"
                 >
-                  <strong>
-                    Annotation score:
-                  </strong>
                   <span
-                    class="doughnut-chart--small colour-platinum"
+                    class="doughnut-chart--small__left-wrap"
                   >
                     <span
-                      class="doughnut-chart--small__left-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
                     <span
-                      class="doughnut-chart--small__right-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
-                    <span
-                      class="doughnut-chart--small__inner-circle"
-                    >
-                      5/5
-                    </span>
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
                   </span>
                 </span>
-              </section>
+              </div>
               <small>
                 <div
                   class="keyword-view--inline"
@@ -842,7 +827,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__content"
             >
-              <section>
+              <div>
                 ADP-glucose phosphorylase · 
                 <a
                   href="/taxonomy/3702"
@@ -855,39 +840,36 @@ exports[`ResultsData component should render the card view with the correct numb
                   Gene:
                 </strong>
                  At5g18200 · 351 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
                 <span
-                  title="Annotation Score"
+                  class="doughnut-chart--small colour-platinum"
                 >
-                  <strong>
-                    Annotation score:
-                  </strong>
                   <span
-                    class="doughnut-chart--small colour-platinum"
+                    class="doughnut-chart--small__left-wrap"
                   >
                     <span
-                      class="doughnut-chart--small__left-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
                     <span
-                      class="doughnut-chart--small__right-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
-                    <span
-                      class="doughnut-chart--small__inner-circle"
-                    >
-                      5/5
-                    </span>
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
                   </span>
                 </span>
-              </section>
+              </div>
               <small>
                 <div
                   class="keyword-view--inline"
@@ -991,7 +973,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__content"
             >
-              <section>
+              <div>
                 Phosphoglucomutase-1 · 
                 <a
                   href="/taxonomy/9606"
@@ -1004,39 +986,36 @@ exports[`ResultsData component should render the card view with the correct numb
                   Gene:
                 </strong>
                  PGM1 · 562 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
                 <span
-                  title="Annotation Score"
+                  class="doughnut-chart--small colour-platinum"
                 >
-                  <strong>
-                    Annotation score:
-                  </strong>
                   <span
-                    class="doughnut-chart--small colour-platinum"
+                    class="doughnut-chart--small__left-wrap"
                   >
                     <span
-                      class="doughnut-chart--small__left-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
                     <span
-                      class="doughnut-chart--small__right-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
-                    <span
-                      class="doughnut-chart--small__inner-circle"
-                    >
-                      5/5
-                    </span>
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
                   </span>
                 </span>
-              </section>
+              </div>
               <small>
                 <div
                   class="keyword-view--inline"
@@ -1182,7 +1161,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__content"
             >
-              <section>
+              <div>
                 Phosphopentomutase · 
                 <a
                   href="/taxonomy/9606"
@@ -1195,39 +1174,36 @@ exports[`ResultsData component should render the card view with the correct numb
                   Gene:
                 </strong>
                  PGM2 · 612 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
                 <span
-                  title="Annotation Score"
+                  class="doughnut-chart--small colour-platinum"
                 >
-                  <strong>
-                    Annotation score:
-                  </strong>
                   <span
-                    class="doughnut-chart--small colour-platinum"
+                    class="doughnut-chart--small__left-wrap"
                   >
                     <span
-                      class="doughnut-chart--small__left-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
                     <span
-                      class="doughnut-chart--small__right-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
-                    <span
-                      class="doughnut-chart--small__inner-circle"
-                    >
-                      5/5
-                    </span>
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
                   </span>
                 </span>
-              </section>
+              </div>
               <small>
                 <div
                   class="keyword-view--inline"
@@ -1343,7 +1319,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__content"
             >
-              <section>
+              <div>
                 Sodium/glucose cotransporter 2 · 
                 <a
                   href="/taxonomy/9606"
@@ -1356,39 +1332,36 @@ exports[`ResultsData component should render the card view with the correct numb
                   Gene:
                 </strong>
                  SLC5A2 (SGLT2) · 672 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
                 <span
-                  title="Annotation Score"
+                  class="doughnut-chart--small colour-platinum"
                 >
-                  <strong>
-                    Annotation score:
-                  </strong>
                   <span
-                    class="doughnut-chart--small colour-platinum"
+                    class="doughnut-chart--small__left-wrap"
                   >
                     <span
-                      class="doughnut-chart--small__left-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
                     <span
-                      class="doughnut-chart--small__right-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
-                    <span
-                      class="doughnut-chart--small__inner-circle"
-                    >
-                      5/5
-                    </span>
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
                   </span>
                 </span>
-              </section>
+              </div>
               <small>
                 <div
                   class="keyword-view--inline"
@@ -1516,7 +1489,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__content"
             >
-              <section>
+              <div>
                 GDH/6PGL endoplasmic bifunctional protein · 
                 <a
                   href="/taxonomy/9606"
@@ -1529,39 +1502,36 @@ exports[`ResultsData component should render the card view with the correct numb
                   Gene:
                 </strong>
                  H6PD (GDH) · 791 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
                 <span
-                  title="Annotation Score"
+                  class="doughnut-chart--small colour-platinum"
                 >
-                  <strong>
-                    Annotation score:
-                  </strong>
                   <span
-                    class="doughnut-chart--small colour-platinum"
+                    class="doughnut-chart--small__left-wrap"
                   >
                     <span
-                      class="doughnut-chart--small__left-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
                     <span
-                      class="doughnut-chart--small__right-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
-                    <span
-                      class="doughnut-chart--small__inner-circle"
-                    >
-                      5/5
-                    </span>
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
                   </span>
                 </span>
-              </section>
+              </div>
               <small>
                 <div
                   class="keyword-view--inline"
@@ -1695,7 +1665,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__content"
             >
-              <section>
+              <div>
                 Protein DELAY OF GERMINATION 1 · 
                 <a
                   href="/taxonomy/3702"
@@ -1708,39 +1678,36 @@ exports[`ResultsData component should render the card view with the correct numb
                   Gene:
                 </strong>
                  DOG1 (GSQ5) · 291 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
                 <span
-                  title="Annotation Score"
+                  class="doughnut-chart--small colour-platinum"
                 >
-                  <strong>
-                    Annotation score:
-                  </strong>
                   <span
-                    class="doughnut-chart--small colour-platinum"
+                    class="doughnut-chart--small__left-wrap"
                   >
                     <span
-                      class="doughnut-chart--small__left-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
                     <span
-                      class="doughnut-chart--small__right-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
-                    <span
-                      class="doughnut-chart--small__inner-circle"
-                    >
-                      5/5
-                    </span>
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
                   </span>
                 </span>
-              </section>
+              </div>
               <small>
                 <div
                   class="keyword-view--inline"
@@ -1850,7 +1817,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__content"
             >
-              <section>
+              <div>
                 Vacuolar import and degradation protein 24 · 
                 <a
                   href="/taxonomy/559292"
@@ -1863,39 +1830,36 @@ exports[`ResultsData component should render the card view with the correct numb
                   Gene:
                 </strong>
                  VID24 (GID4) · 362 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
                 <span
-                  title="Annotation Score"
+                  class="doughnut-chart--small colour-platinum"
                 >
-                  <strong>
-                    Annotation score:
-                  </strong>
                   <span
-                    class="doughnut-chart--small colour-platinum"
+                    class="doughnut-chart--small__left-wrap"
                   >
                     <span
-                      class="doughnut-chart--small__left-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
                     <span
-                      class="doughnut-chart--small__right-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
-                    <span
-                      class="doughnut-chart--small__inner-circle"
-                    >
-                      5/5
-                    </span>
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
                   </span>
                 </span>
-              </section>
+              </div>
               <small>
                 <div
                   class="keyword-view--inline"
@@ -1993,7 +1957,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__content"
             >
-              <section>
+              <div>
                 Solute carrier family 2, facilitated glucose transporter member 1 · 
                 <a
                   href="/taxonomy/9606"
@@ -2006,39 +1970,36 @@ exports[`ResultsData component should render the card view with the correct numb
                   Gene:
                 </strong>
                  SLC2A1 (GLUT1) · 492 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
                 <span
-                  title="Annotation Score"
+                  class="doughnut-chart--small colour-platinum"
                 >
-                  <strong>
-                    Annotation score:
-                  </strong>
                   <span
-                    class="doughnut-chart--small colour-platinum"
+                    class="doughnut-chart--small__left-wrap"
                   >
                     <span
-                      class="doughnut-chart--small__left-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
                     <span
-                      class="doughnut-chart--small__right-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
-                    <span
-                      class="doughnut-chart--small__inner-circle"
-                    >
-                      5/5
-                    </span>
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
                   </span>
                 </span>
-              </section>
+              </div>
               <small>
                 <div
                   class="keyword-view--inline"
@@ -2184,7 +2145,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__content"
             >
-              <section>
+              <div>
                 Glucose-6-phosphatase catalytic subunit 1 · 
                 <a
                   href="/taxonomy/9606"
@@ -2197,39 +2158,36 @@ exports[`ResultsData component should render the card view with the correct numb
                   Gene:
                 </strong>
                  G6PC1 (G6PC, G6PT) · 357 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
                 <span
-                  title="Annotation Score"
+                  class="doughnut-chart--small colour-platinum"
                 >
-                  <strong>
-                    Annotation score:
-                  </strong>
                   <span
-                    class="doughnut-chart--small colour-platinum"
+                    class="doughnut-chart--small__left-wrap"
                   >
                     <span
-                      class="doughnut-chart--small__left-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
                     <span
-                      class="doughnut-chart--small__right-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
-                    <span
-                      class="doughnut-chart--small__inner-circle"
-                    >
-                      5/5
-                    </span>
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
                   </span>
                 </span>
-              </section>
+              </div>
               <small>
                 <div
                   class="keyword-view--inline"
@@ -2351,7 +2309,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__content"
             >
-              <section>
+              <div>
                 UTP--glucose-1-phosphate uridylyltransferase · 
                 <a
                   href="/taxonomy/9606"
@@ -2364,39 +2322,36 @@ exports[`ResultsData component should render the card view with the correct numb
                   Gene:
                 </strong>
                  UGP2 (UGP1) · 508 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
                 <span
-                  title="Annotation Score"
+                  class="doughnut-chart--small colour-platinum"
                 >
-                  <strong>
-                    Annotation score:
-                  </strong>
                   <span
-                    class="doughnut-chart--small colour-platinum"
+                    class="doughnut-chart--small__left-wrap"
                   >
                     <span
-                      class="doughnut-chart--small__left-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
                     <span
-                      class="doughnut-chart--small__right-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
-                    <span
-                      class="doughnut-chart--small__inner-circle"
-                    >
-                      5/5
-                    </span>
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
                   </span>
                 </span>
-              </section>
+              </div>
               <small>
                 <div
                   class="keyword-view--inline"
@@ -2530,7 +2485,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__content"
             >
-              <section>
+              <div>
                 Solute carrier family 2, facilitated glucose transporter member 8 · 
                 <a
                   href="/taxonomy/9606"
@@ -2543,39 +2498,36 @@ exports[`ResultsData component should render the card view with the correct numb
                   Gene:
                 </strong>
                  SLC2A8 (GLUT8, GLUTX1) · 477 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
                 <span
-                  title="Annotation Score"
+                  class="doughnut-chart--small colour-platinum"
                 >
-                  <strong>
-                    Annotation score:
-                  </strong>
                   <span
-                    class="doughnut-chart--small colour-platinum"
+                    class="doughnut-chart--small__left-wrap"
                   >
                     <span
-                      class="doughnut-chart--small__left-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
                     <span
-                      class="doughnut-chart--small__right-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
-                    <span
-                      class="doughnut-chart--small__inner-circle"
-                    >
-                      5/5
-                    </span>
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
                   </span>
                 </span>
-              </section>
+              </div>
               <small>
                 <div
                   class="keyword-view--inline"
@@ -2661,7 +2613,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__content"
             >
-              <section>
+              <div>
                 Phosphoglucomutase · 
                 <a
                   href="/taxonomy/7227"
@@ -2674,39 +2626,36 @@ exports[`ResultsData component should render the card view with the correct numb
                   Gene:
                 </strong>
                  Pgm1 · 560 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
                 <span
-                  title="Annotation Score"
+                  class="doughnut-chart--small colour-platinum"
                 >
-                  <strong>
-                    Annotation score:
-                  </strong>
                   <span
-                    class="doughnut-chart--small colour-platinum"
+                    class="doughnut-chart--small__left-wrap"
                   >
                     <span
-                      class="doughnut-chart--small__left-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
                     <span
-                      class="doughnut-chart--small__right-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
-                    <span
-                      class="doughnut-chart--small__inner-circle"
-                    >
-                      5/5
-                    </span>
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
                   </span>
                 </span>
-              </section>
+              </div>
               <small>
                 <div
                   class="keyword-view--inline"
@@ -2810,7 +2759,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__content"
             >
-              <section>
+              <div>
                 Glucose 1,6-bisphosphate synthase · 
                 <a
                   href="/taxonomy/9606"
@@ -2823,39 +2772,36 @@ exports[`ResultsData component should render the card view with the correct numb
                   Gene:
                 </strong>
                  PGM2L1 (BM32A) · 622 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
                 <span
-                  title="Annotation Score"
+                  class="doughnut-chart--small colour-platinum"
                 >
-                  <strong>
-                    Annotation score:
-                  </strong>
                   <span
-                    class="doughnut-chart--small colour-platinum"
+                    class="doughnut-chart--small__left-wrap"
                   >
                     <span
-                      class="doughnut-chart--small__left-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
                     <span
-                      class="doughnut-chart--small__right-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
-                    <span
-                      class="doughnut-chart--small__inner-circle"
-                    >
-                      5/5
-                    </span>
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
                   </span>
                 </span>
-              </section>
+              </div>
               <small>
                 <div
                   class="keyword-view--inline"
@@ -2965,7 +2911,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__content"
             >
-              <section>
+              <div>
                 Phosphoglucomutase 2 · 
                 <a
                   href="/taxonomy/559292"
@@ -2978,39 +2924,36 @@ exports[`ResultsData component should render the card view with the correct numb
                   Gene:
                 </strong>
                  PGM2 (GA-5, GAL5) · 569 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
                 <span
-                  title="Annotation Score"
+                  class="doughnut-chart--small colour-platinum"
                 >
-                  <strong>
-                    Annotation score:
-                  </strong>
                   <span
-                    class="doughnut-chart--small colour-platinum"
+                    class="doughnut-chart--small__left-wrap"
                   >
                     <span
-                      class="doughnut-chart--small__left-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
                     <span
-                      class="doughnut-chart--small__right-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
-                    <span
-                      class="doughnut-chart--small__inner-circle"
-                    >
-                      5/5
-                    </span>
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
                   </span>
                 </span>
-              </section>
+              </div>
               <small>
                 <div
                   class="keyword-view--inline"
@@ -3108,7 +3051,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__content"
             >
-              <section>
+              <div>
                 Solute carrier family 2, facilitated glucose transporter member 12 · 
                 <a
                   href="/taxonomy/9606"
@@ -3121,39 +3064,36 @@ exports[`ResultsData component should render the card view with the correct numb
                   Gene:
                 </strong>
                  SLC2A12 (GLUT12) · 617 amino acids · Evidence at transcript level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
                 <span
-                  title="Annotation Score"
+                  class="doughnut-chart--small colour-platinum"
                 >
-                  <strong>
-                    Annotation score:
-                  </strong>
                   <span
-                    class="doughnut-chart--small colour-platinum"
+                    class="doughnut-chart--small__left-wrap"
                   >
                     <span
-                      class="doughnut-chart--small__left-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
                     <span
-                      class="doughnut-chart--small__right-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
-                    <span
-                      class="doughnut-chart--small__inner-circle"
-                    >
-                      5/5
-                    </span>
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
                   </span>
                 </span>
-              </section>
+              </div>
               <small>
                 <div
                   class="keyword-view--inline"
@@ -3233,7 +3173,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__content"
             >
-              <section>
+              <div>
                 Solute carrier family 2, facilitated glucose transporter member 7 · 
                 <a
                   href="/taxonomy/9606"
@@ -3246,39 +3186,36 @@ exports[`ResultsData component should render the card view with the correct numb
                   Gene:
                 </strong>
                  SLC2A7 (GLUT7) · 512 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
                 <span
-                  title="Annotation Score"
+                  class="doughnut-chart--small colour-platinum"
                 >
-                  <strong>
-                    Annotation score:
-                  </strong>
                   <span
-                    class="doughnut-chart--small colour-platinum"
+                    class="doughnut-chart--small__left-wrap"
                   >
                     <span
-                      class="doughnut-chart--small__left-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
                     <span
-                      class="doughnut-chart--small__right-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
-                    <span
-                      class="doughnut-chart--small__inner-circle"
-                    >
-                      5/5
-                    </span>
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
                   </span>
                 </span>
-              </section>
+              </div>
               <small>
                 <div
                   class="keyword-view--inline"
@@ -3364,7 +3301,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__content"
             >
-              <section>
+              <div>
                 Glucose-6-phosphatase 3 · 
                 <a
                   href="/taxonomy/9606"
@@ -3377,39 +3314,36 @@ exports[`ResultsData component should render the card view with the correct numb
                   Gene:
                 </strong>
                  G6PC3 (UGRP) · 346 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
                 <span
-                  title="Annotation Score"
+                  class="doughnut-chart--small colour-platinum"
                 >
-                  <strong>
-                    Annotation score:
-                  </strong>
                   <span
-                    class="doughnut-chart--small colour-platinum"
+                    class="doughnut-chart--small__left-wrap"
                   >
                     <span
-                      class="doughnut-chart--small__left-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
                     <span
-                      class="doughnut-chart--small__right-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
-                    <span
-                      class="doughnut-chart--small__inner-circle"
-                    >
-                      5/5
-                    </span>
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
                   </span>
                 </span>
-              </section>
+              </div>
               <small>
                 <div
                   class="keyword-view--inline"
@@ -3513,7 +3447,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__content"
             >
-              <section>
+              <div>
                 Solute carrier family 2, facilitated glucose transporter member 14 · 
                 <a
                   href="/taxonomy/9606"
@@ -3526,39 +3460,36 @@ exports[`ResultsData component should render the card view with the correct numb
                   Gene:
                 </strong>
                  SLC2A14 (GLUT14) · 520 amino acids · Evidence at transcript level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
                 <span
-                  title="Annotation Score"
+                  class="doughnut-chart--small colour-platinum"
                 >
-                  <strong>
-                    Annotation score:
-                  </strong>
                   <span
-                    class="doughnut-chart--small colour-platinum"
+                    class="doughnut-chart--small__left-wrap"
                   >
                     <span
-                      class="doughnut-chart--small__left-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
                     <span
-                      class="doughnut-chart--small__right-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
-                    <span
-                      class="doughnut-chart--small__inner-circle"
-                    >
-                      5/5
-                    </span>
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
                   </span>
                 </span>
-              </section>
+              </div>
               <small>
                 <div
                   class="keyword-view--inline"
@@ -3668,7 +3599,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__content"
             >
-              <section>
+              <div>
                 Solute carrier family 2, facilitated glucose transporter member 3 · 
                 <a
                   href="/taxonomy/9606"
@@ -3681,39 +3612,36 @@ exports[`ResultsData component should render the card view with the correct numb
                   Gene:
                 </strong>
                  SLC2A3 (GLUT3) · 496 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
                 <span
-                  title="Annotation Score"
+                  class="doughnut-chart--small colour-platinum"
                 >
-                  <strong>
-                    Annotation score:
-                  </strong>
                   <span
-                    class="doughnut-chart--small colour-platinum"
+                    class="doughnut-chart--small__left-wrap"
                   >
                     <span
-                      class="doughnut-chart--small__left-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
                     <span
-                      class="doughnut-chart--small__right-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
-                    <span
-                      class="doughnut-chart--small__inner-circle"
-                    >
-                      5/5
-                    </span>
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
                   </span>
                 </span>
-              </section>
+              </div>
               <small>
                 <div
                   class="keyword-view--inline"
@@ -3817,7 +3745,7 @@ exports[`ResultsData component should render the card view with the correct numb
             <div
               class="card__content"
             >
-              <section>
+              <div>
                 Solute carrier family 2, facilitated glucose transporter member 6 · 
                 <a
                   href="/taxonomy/9606"
@@ -3830,39 +3758,36 @@ exports[`ResultsData component should render the card view with the correct numb
                   Gene:
                 </strong>
                  SLC2A6 (GLUT6) · 507 amino acids · Evidence at protein level · 
+                <strong>
+                  Annotation score:
+                </strong>
+                 
                 <span
-                  title="Annotation Score"
+                  class="doughnut-chart--small colour-platinum"
                 >
-                  <strong>
-                    Annotation score:
-                  </strong>
                   <span
-                    class="doughnut-chart--small colour-platinum"
+                    class="doughnut-chart--small__left-wrap"
                   >
                     <span
-                      class="doughnut-chart--small__left-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
                     <span
-                      class="doughnut-chart--small__right-wrap"
-                    >
-                      <span
-                        class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                        style="transform: rotate(180deg);"
-                      />
-                    </span>
-                    <span
-                      class="doughnut-chart--small__inner-circle"
-                    >
-                      5/5
-                    </span>
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(180deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    5/5
                   </span>
                 </span>
-              </section>
+              </div>
               <small>
                 <div
                   class="keyword-view--inline"

@@ -2,7 +2,163 @@
 
 exports[`ProteinOverview component should render 1`] = `
 <DocumentFragment>
-  <section>
+  <ul
+    class="info-list info-list--columns"
+  >
+    <li>
+      <div
+        class="decorated-list-item"
+      >
+        <div
+          class="decorated-list-item__title tiny"
+        >
+          Protein
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          Amyloid-beta precursor protein
+        </div>
+      </div>
+    </li>
+    <li>
+      <div
+        class="decorated-list-item"
+      >
+        <div
+          class="decorated-list-item__title tiny"
+        >
+          Status
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          <span
+            class="entry-title__status icon--reviewed"
+            title="This marks a reviewed UniProtKB entry"
+          >
+            <test-file-stub />
+          </span>
+          UniProtKB reviewed (Swiss-Prot)
+        </div>
+      </div>
+    </li>
+    <li>
+      <div
+        class="decorated-list-item"
+      >
+        <div
+          class="decorated-list-item__title tiny"
+        >
+          Organism
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          <a
+            href="/taxonomy/9606"
+            title="Homo sapiens (Human), taxon ID 9606"
+          >
+            Homo sapiens (Human)
+          </a>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div
+        class="decorated-list-item"
+      >
+        <div
+          class="decorated-list-item__title tiny"
+        >
+          Gene
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          APP (A4, AD1)
+        </div>
+      </div>
+    </li>
+    <li>
+      <div
+        class="decorated-list-item"
+      >
+        <div
+          class="decorated-list-item__title tiny"
+        >
+          Amino acids
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          770
+        </div>
+      </div>
+    </li>
+    <li>
+      <div
+        class="decorated-list-item"
+      >
+        <div
+          class="decorated-list-item__title tiny"
+        >
+          Protein existence
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          Evidence at protein level
+        </div>
+      </div>
+    </li>
+    <li>
+      <div
+        class="decorated-list-item"
+      >
+        <div
+          class="decorated-list-item__title tiny"
+        >
+          Annotation score
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          <span
+            class="doughnut-chart--small colour-platinum"
+          >
+            <span
+              class="doughnut-chart--small__left-wrap"
+            >
+              <span
+                class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                style="transform: rotate(180deg);"
+              />
+            </span>
+            <span
+              class="doughnut-chart--small__right-wrap"
+            >
+              <span
+                class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                style="transform: rotate(180deg);"
+              />
+            </span>
+            <span
+              class="doughnut-chart--small__inner-circle"
+            >
+              5/5
+            </span>
+          </span>
+        </div>
+      </div>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`ProteinOverview component should render, in card variant 1`] = `
+<DocumentFragment>
+  <div>
     Amyloid-beta precursor protein · 
     <a
       href="/taxonomy/9606"
@@ -15,38 +171,35 @@ exports[`ProteinOverview component should render 1`] = `
       Gene:
     </strong>
      APP (A4, AD1) · 770 amino acids · Evidence at protein level · 
+    <strong>
+      Annotation score:
+    </strong>
+     
     <span
-      title="Annotation Score"
+      class="doughnut-chart--small colour-platinum"
     >
-      <strong>
-        Annotation score:
-      </strong>
       <span
-        class="doughnut-chart--small colour-platinum"
+        class="doughnut-chart--small__left-wrap"
       >
         <span
-          class="doughnut-chart--small__left-wrap"
-        >
-          <span
-            class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-            style="transform: rotate(180deg);"
-          />
-        </span>
+          class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+          style="transform: rotate(180deg);"
+        />
+      </span>
+      <span
+        class="doughnut-chart--small__right-wrap"
+      >
         <span
-          class="doughnut-chart--small__right-wrap"
-        >
-          <span
-            class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-            style="transform: rotate(180deg);"
-          />
-        </span>
-        <span
-          class="doughnut-chart--small__inner-circle"
-        >
-          5/5
-        </span>
+          class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+          style="transform: rotate(180deg);"
+        />
+      </span>
+      <span
+        class="doughnut-chart--small__inner-circle"
+      >
+        5/5
       </span>
     </span>
-  </section>
+  </div>
 </DocumentFragment>
 `;

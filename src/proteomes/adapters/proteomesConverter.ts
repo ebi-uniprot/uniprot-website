@@ -1,7 +1,7 @@
 import { Lineage, Xref } from '../../shared/types/apiModel';
 import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { Citation } from '../../supporting-data/citations/adapters/citationsConverter';
-import { AnnotationScoreValue } from '../../uniprotkb/components/protein-data-views/AnnotationScoreDoughnutChart';
+import { AnnotationScoreValue } from '../../uniprotkb/adapters/uniProtkbConverter';
 
 export type GenomeAnnotation = {
   source: string;
