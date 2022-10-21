@@ -12,7 +12,11 @@ exports[`ProteinOverview component should render 1`] = `
         <div
           class="decorated-list-item__title tiny"
         >
-          Protein
+          <span
+            data-article-id="protein_names"
+          >
+            Protein
+          </span>
         </div>
         <div
           class="decorated-list-item__content"
@@ -28,7 +32,11 @@ exports[`ProteinOverview component should render 1`] = `
         <div
           class="decorated-list-item__title tiny"
         >
-          Status
+          <span
+            data-article-id="entry_status"
+          >
+            Status
+          </span>
         </div>
         <div
           class="decorated-list-item__content"
@@ -50,7 +58,11 @@ exports[`ProteinOverview component should render 1`] = `
         <div
           class="decorated-list-item__title tiny"
         >
-          Organism
+          <span
+            data-article-id="organism-name"
+          >
+            Organism
+          </span>
         </div>
         <div
           class="decorated-list-item__content"
@@ -71,7 +83,11 @@ exports[`ProteinOverview component should render 1`] = `
         <div
           class="decorated-list-item__title tiny"
         >
-          Gene
+          <span
+            data-article-id="gene_name"
+          >
+            Gene
+          </span>
         </div>
         <div
           class="decorated-list-item__content"
@@ -103,7 +119,11 @@ exports[`ProteinOverview component should render 1`] = `
         <div
           class="decorated-list-item__title tiny"
         >
-          Protein existence
+          <span
+            data-article-id="protein_existence"
+          >
+            Protein existence
+          </span>
         </div>
         <div
           class="decorated-list-item__content"
@@ -119,7 +139,11 @@ exports[`ProteinOverview component should render 1`] = `
         <div
           class="decorated-list-item__title tiny"
         >
-          Annotation score
+          <span
+            data-article-id="annotation_score"
+          >
+            Annotation score
+          </span>
         </div>
         <div
           class="decorated-list-item__content"
