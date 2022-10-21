@@ -236,8 +236,7 @@ const conditionsToInfoData = (
           }
 
           let url = externalUrls.InterProSearch(value);
-          // Yet to be decided if it appies to both source rule amd signature
-          if (value.startsWith('PRU') || value.startsWith('PS')) {
+          if (value.startsWith('PS')) {
             url = externalUrls.PROSITEEntry(value);
           } else if (value.startsWith('MF')) {
             url = externalUrls.HAMAPEntry(value);

@@ -13,9 +13,9 @@ const Source = ({ source }: { source?: Information['oldRuleNum'] }) => {
   }
   let url = externalUrls.InterProSearch(source);
   if (source.startsWith('PRU')) {
-    url = externalUrls.PROSITEEntry(source);
+    url = externalUrls.ProRule(source);
   } else if (source.startsWith('MF')) {
-    url = externalUrls.HAMAPEntry(source);
+    url = externalUrls.HAMAPRule(source);
   }
 
   return (
