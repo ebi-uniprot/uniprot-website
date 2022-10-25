@@ -16,7 +16,8 @@ describe('UniProtKBEvidenceTag components', () => {
       },
     ];
     const { asFragment } = customRender(
-      <UniProtKBEvidenceTag evidences={evidences} />
+      <UniProtKBEvidenceTag evidences={evidences} />,
+      { route: `/uniprotkb/P05067` }
     );
     expect(asFragment()).toMatchSnapshot();
 
@@ -39,7 +40,8 @@ describe('UniProtKBEvidenceTag components', () => {
       },
     ];
     const { asFragment } = customRender(
-      <UniProtKBEvidenceTag evidences={evidences} />
+      <UniProtKBEvidenceTag evidences={evidences} />,
+      { route: `/uniprotkb/P05067` }
     );
     expect(asFragment()).toMatchSnapshot();
 
@@ -55,7 +57,8 @@ describe('UniProtKBEvidenceTag components', () => {
       },
     ];
     const { asFragment } = customRender(
-      <UniProtKBEvidenceTag evidences={evidences} />
+      <UniProtKBEvidenceTag evidences={evidences} />,
+      { route: `/uniprotkb/P05067` }
     );
     expect(asFragment()).toMatchSnapshot();
 

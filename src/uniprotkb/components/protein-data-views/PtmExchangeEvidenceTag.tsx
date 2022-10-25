@@ -10,7 +10,7 @@ import {
   getEvidenceCodeData,
   getEcoNumberFromString,
 } from '../../config/evidenceCodes';
-import { allSearchResultLocations } from '../../../app/config/urls';
+import { allEntryPages } from '../../../app/config/urls';
 
 import { Evidence } from '../../types/modelTypes';
 import { ConfidenceScore } from './UniProtKBFeaturesView';
@@ -71,8 +71,8 @@ const PtmExchangeEvidenceTag = ({
   evidences?: Evidence[];
   confidenceScore?: ConfidenceScore;
 }) => {
-  const searchPageMatch = useRouteMatch(allSearchResultLocations);
-  if (searchPageMatch?.isExact || !evidences) {
+  const entryPageMatch = useRouteMatch(allEntryPages);
+  if (!entryPageMatch || !evidences) {
     return null;
   }
 

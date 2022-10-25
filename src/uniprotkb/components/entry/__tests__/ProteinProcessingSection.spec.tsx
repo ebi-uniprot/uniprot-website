@@ -33,7 +33,8 @@ describe('ProteinProcessingSection', () => {
         sequence={transformedData[EntrySection.Sequence].sequence.value}
         primaryAccession={transformedData.primaryAccession}
         key={EntrySection.ProteinProcessing}
-      />
+      />,
+      { route: `/uniprotkb/P05067/entry` }
     );
     await screen.findByText('PTM/Processing');
     expect(asFragment()).toMatchSnapshot();
@@ -50,7 +51,8 @@ describe('ProteinProcessingSection', () => {
         sequence={transformedData[EntrySection.Sequence].sequence.value}
         primaryAccession={transformedData.primaryAccession}
         key={EntrySection.ProteinProcessing}
-      />
+      />,
+      { route: `/uniprotkb/P05067/entry` }
     );
     await screen.findByText('PTM/Processing');
     expect(asFragment()).toMatchSnapshot();

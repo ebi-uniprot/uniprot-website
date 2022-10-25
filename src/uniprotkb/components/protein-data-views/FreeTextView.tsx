@@ -7,7 +7,7 @@ import SimilarityView from './SimilarityView';
 import {
   getEntryPath,
   getEntryPathFor,
-  allSearchResultLocations,
+  allEntryPages,
 } from '../../../app/config/urls';
 import {
   reAC,
@@ -140,7 +140,7 @@ const FreeTextView: FC<FreeTextProps> = ({
   articleId,
   showMolecule = true,
 }) => {
-  const searchPageMath = useRouteMatch(allSearchResultLocations);
+  const entryPageMatch = useRouteMatch(allEntryPages);
 
   if (!comments?.length) {
     return null;
@@ -153,7 +153,7 @@ const FreeTextView: FC<FreeTextProps> = ({
         <Fragment key={index}>
           {showMolecule && item.molecule && (
             <h4 className="tiny">
-              {searchPageMath?.isExact ? (
+              {!entryPageMatch ? (
                 `${item.molecule}`
               ) : (
                 <a href={`#${item.molecule.replaceAll(' ', '_')}`}>

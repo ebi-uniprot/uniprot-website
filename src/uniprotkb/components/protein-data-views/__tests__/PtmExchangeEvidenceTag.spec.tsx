@@ -18,7 +18,8 @@ describe('PtmExchangeEvidenceTag components', () => {
       { evidenceCode: 'ECO:0007829', source: 'PRIDE', id: 'PXD004705' },
     ];
     const { asFragment } = customRender(
-      <PtmExchangeEvidenceTag evidences={evidences} confidenceScore="Gold" />
+      <PtmExchangeEvidenceTag evidences={evidences} confidenceScore="Gold" />,
+      { route: `/uniprotkb/P05067/entry` }
     );
     const button = screen.getByRole('button');
     fireEvent.click(button);

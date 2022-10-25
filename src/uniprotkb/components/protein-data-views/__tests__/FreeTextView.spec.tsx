@@ -8,7 +8,9 @@ import freeTextUIData from './__mocks__/freeTextUIData';
 describe('FreeText component', () => {
   describe('Free text CC', () => {
     beforeEach(() => {
-      customRender(<FreeTextView comments={[freeTextUIData[0]]} />);
+      customRender(<FreeTextView comments={[freeTextUIData[0]]} />, {
+        route: `/uniprotkb/P05067/entry`,
+      });
     });
 
     it('should not render pubmed links', () => {
@@ -24,7 +26,9 @@ describe('FreeText component', () => {
 
   describe('Free text CC with inlined PubMeds', () => {
     beforeEach(() => {
-      customRender(<FreeTextView comments={[freeTextUIData[1]]} />);
+      customRender(<FreeTextView comments={[freeTextUIData[1]]} />, {
+        route: `/uniprotkb/P05067/entry`,
+      });
     });
 
     it('should not render pubmed links', () => {
@@ -40,7 +44,9 @@ describe('FreeText component', () => {
 
   describe('Free text CC, with inlined PubMeds and AC<accession>', () => {
     beforeEach(() => {
-      customRender(<FreeTextView comments={[freeTextUIData[2]]} />);
+      customRender(<FreeTextView comments={[freeTextUIData[2]]} />, {
+        route: `/uniprotkb/P05067/entry`,
+      });
     });
 
     it('should render pubmed and AC links', () => {
