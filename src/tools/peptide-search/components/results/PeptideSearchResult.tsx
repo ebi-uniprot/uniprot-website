@@ -35,6 +35,7 @@ import { FinishedJob } from '../../../types/toolsJob';
 import { ToolsState } from '../../../state/toolsInitialState';
 
 import helper from '../../../../shared/styles/helper.module.scss';
+import usePaginatedAccessions from '../../../../shared/hooks/usePaginatedAccessions';
 
 const jobType = JobTypes.PEPTIDE_SEARCH;
 const urls = toolsURLs(jobType);
@@ -116,27 +117,13 @@ const PeptideSearchResult = ({
   );
 
   const excessAccessions = accessions && accessions?.length > 1000;
-  //  // Query for facets
-  //  const initialApiFacetUrl = useNSQuery({
-  //   size: 0,
-  //   withFacets: true,
-  //   withColumns: false,
-  //   accessions,
-  // });
-  // const facetApiObject = excessAccessions ? {
-  //   loading: false,
-  //   headers: {},
-  //   isStale: false,
-  // } : useDataApiWithStale<SearchResults<UniProtkbAPIModel>>(initialApiFacetUrl);
-  // const facetTotal = facetApiObject?.headers?.['x-total-results'];
-  const batchSize = 1000;
-  let acc = accessions?.slice(0, batchSize);
+
   // Query for facets
   const initialApiFacetUrl = useNSQuery({
     size: 0,
     withFacets: true,
     withColumns: false,
-    accessions: acc,
+    accessions: excessAccessions ? [] : accessions,
   });
   const facetApiObject =
     useDataApiWithStale<SearchResults<UniProtkbAPIModel>>(initialApiFacetUrl);
@@ -152,19 +139,15 @@ const PeptideSearchResult = ({
     return peps ? partialRight(peptideSearchConverter, peps) : undefined;
   }, [jobSubmission]);
 
-  const results = [];
+  // const batchSize = 1000;
+  // let acc = accessions?.slice(0, batchSize);
 
-  // Query for results data
-  let initialApiUrl = useNSQuery({ accessions: acc, getSequence: true });
+  // const initialApiUrl = useNSQuery({ accessions: acc, getSequence: true });
   // TODO: if the user didn't submit this jobSubmission there is no way to get the initial sequence. In the
   // future the API may provide this information in which case we would want to fetch and show
-  let resultsDataObject = usePagination(initialApiUrl, converter);
-  results.push(resultsDataObject);
+  // const resultsDataObject = usePagination(initialApiUrl, converter);
+  const resultsDataObject = usePaginatedAccessions(accessions, converter);
 
-  acc = accessions && accessions.slice(batchSize, batchSize + batchSize);
-  initialApiUrl = useNSQuery({ accessions: acc, getSequence: true });
-  results.push(resultsDataObject);
-  debugger;
   const {
     initialLoading: resultsDataInitialLoading,
     total: resultsDataTotal,
@@ -189,7 +172,8 @@ const PeptideSearchResult = ({
     (!jobResultLoading &&
       !resultsDataInitialLoading &&
       !facetInititialLoading &&
-      !total) ||
+      !total &&
+      !excessAccessions) ||
     (!jobResultLoading && accessions?.length === 0) ||
     total === 0
   ) {
