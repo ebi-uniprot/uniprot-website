@@ -275,7 +275,7 @@ const ContactForm = () => {
           <ExternalLink url="https://legacy.uniprot.org" rel="nofollow" noIcon>
             legacy version of the website
           </ExternalLink>{' '}
-          is available until the 2022_04 release.
+          is available until the 2022_05 release.
         </Message>
       </section>
     </>
