@@ -38,7 +38,8 @@ describe('Entry view', () => {
     const { asFragment } = customRender(
       <EntryMain
         transformedData={uniProtKbConverter(mockData, databaseInfoMaps)}
-      />
+      />,
+      { route: `/uniprotkb/P05067/entry` }
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -52,7 +53,8 @@ describe('Entry view', () => {
           nonHumanEntryData,
           databaseInfoMaps
         )}
-      />
+      />,
+      { route: `/uniprotkb/P05067/entry` }
     );
     expect(asFragment()).toMatchSnapshot();
   });

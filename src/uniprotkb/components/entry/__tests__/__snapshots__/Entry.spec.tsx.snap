@@ -145,52 +145,181 @@ exports[`Entry basic should render main 1`] = `
             P21802 · uniprot_id
           </span>
         </h1>
-        <section>
-          rec full Name · 
-          <a
-            href="/taxonomy/9606"
-            title="scientific name (common name) (synonyms 1), taxon ID 9606"
-          >
-            scientific name (common name) (synonyms 1)
-          </a>
-           · EC:1.2.3.4 · 
-          <strong>
-            Gene:
-          </strong>
-           some Gene (some Syn) · 10 amino acids · Evidence at protein level · 
-          <span
-            title="Annotation Score"
-          >
-            <strong>
-              Annotation score:
-            </strong>
-            <span
-              class="doughnut-chart--small colour-platinum"
+        <ul
+          class="info-list info-list--columns"
+        >
+          <li>
+            <div
+              class="decorated-list-item"
             >
-              <span
-                class="doughnut-chart--small__left-wrap"
+              <div
+                class="decorated-list-item__title tiny"
               >
                 <span
-                  class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                  style="transform: rotate(0deg);"
-                />
-              </span>
-              <span
-                class="doughnut-chart--small__right-wrap"
+                  data-article-id="protein_names"
+                >
+                  Protein
+                </span>
+              </div>
+              <div
+                class="decorated-list-item__content"
+              >
+                rec full Name
+              </div>
+            </div>
+          </li>
+          <li>
+            <div
+              class="decorated-list-item"
+            >
+              <div
+                class="decorated-list-item__title tiny"
               >
                 <span
-                  class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                  style="transform: rotate(144deg);"
-                />
-              </span>
-              <span
-                class="doughnut-chart--small__inner-circle"
+                  data-article-id="entry_status"
+                >
+                  Status
+                </span>
+              </div>
+              <div
+                class="decorated-list-item__content"
               >
-                2/5
-              </span>
-            </span>
-          </span>
-        </section>
+                <span
+                  class="entry-title__status icon--reviewed"
+                  title="This marks a reviewed UniProtKB entry"
+                >
+                  <test-file-stub />
+                </span>
+                UniProtKB reviewed (Swiss-Prot)
+              </div>
+            </div>
+          </li>
+          <li>
+            <div
+              class="decorated-list-item"
+            >
+              <div
+                class="decorated-list-item__title tiny"
+              >
+                <span
+                  data-article-id="organism-name"
+                >
+                  Organism
+                </span>
+              </div>
+              <div
+                class="decorated-list-item__content"
+              >
+                <a
+                  href="/taxonomy/9606"
+                  title="scientific name (common name) (synonyms 1), taxon ID 9606"
+                >
+                  scientific name (common name) (synonyms 1)
+                </a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div
+              class="decorated-list-item"
+            >
+              <div
+                class="decorated-list-item__title tiny"
+              >
+                <span
+                  data-article-id="gene_name"
+                >
+                  Gene
+                </span>
+              </div>
+              <div
+                class="decorated-list-item__content"
+              >
+                some Gene (some Syn)
+              </div>
+            </div>
+          </li>
+          <li>
+            <div
+              class="decorated-list-item"
+            >
+              <div
+                class="decorated-list-item__title tiny"
+              >
+                Amino acids
+              </div>
+              <div
+                class="decorated-list-item__content"
+              >
+                10
+              </div>
+            </div>
+          </li>
+          <li>
+            <div
+              class="decorated-list-item"
+            >
+              <div
+                class="decorated-list-item__title tiny"
+              >
+                <span
+                  data-article-id="protein_existence"
+                >
+                  Protein existence
+                </span>
+              </div>
+              <div
+                class="decorated-list-item__content"
+              >
+                Evidence at protein level
+              </div>
+            </div>
+          </li>
+          <li>
+            <div
+              class="decorated-list-item"
+            >
+              <div
+                class="decorated-list-item__title tiny"
+              >
+                <span
+                  data-article-id="annotation_score"
+                >
+                  Annotation score
+                </span>
+              </div>
+              <div
+                class="decorated-list-item__content"
+              >
+                <span
+                  class="doughnut-chart--small colour-platinum"
+                >
+                  <span
+                    class="doughnut-chart--small__left-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                      style="transform: rotate(0deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__right-wrap"
+                  >
+                    <span
+                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                      style="transform: rotate(144deg);"
+                    />
+                  </span>
+                  <span
+                    class="doughnut-chart--small__inner-circle"
+                  >
+                    2/5
+                  </span>
+                </span>
+              </div>
+            </div>
+          </li>
+        </ul>
       </section>
       <div
         class="tabs"

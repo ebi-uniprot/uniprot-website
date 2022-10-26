@@ -18,56 +18,12 @@ exports[`CatalyticActivityView component should render catalytic activity 1`] = 
       >
         forward
       </span>
-      <button
-        aria-controls="0"
-        aria-expanded="false"
-        class="svg-colour-reviewed evidence-tag"
-        data-testid="evidence-tag-trigger"
-        type="button"
-      >
-        <test-file-stub
-          height="12"
-          width="12"
-        />
-        <span
-          class="evidence-tag__label"
-        >
-          1 publication
-        </span>
-      </button>
-      <div
-        class="evidence-tag-content "
-        data-testid="evidence-tag-content"
-        id="0"
-      />
        and the 
       <span
         data-testid="direction-text"
       >
         backward
       </span>
-      <button
-        aria-controls="1"
-        aria-expanded="false"
-        class="svg-colour-reviewed evidence-tag"
-        data-testid="evidence-tag-trigger"
-        type="button"
-      >
-        <test-file-stub
-          height="12"
-          width="12"
-        />
-        <span
-          class="evidence-tag__label"
-        >
-          1 publication
-        </span>
-      </button>
-      <div
-        class="evidence-tag-content "
-        data-testid="evidence-tag-content"
-        id="1"
-      />
        directions.
     </div>
     <div>
@@ -122,56 +78,12 @@ exports[`CatalyticActivityView component should render catalytic activity when c
       >
         forward
       </span>
-      <button
-        aria-controls="0"
-        aria-expanded="false"
-        class="svg-colour-reviewed evidence-tag"
-        data-testid="evidence-tag-trigger"
-        type="button"
-      >
-        <test-file-stub
-          height="12"
-          width="12"
-        />
-        <span
-          class="evidence-tag__label"
-        >
-          1 publication
-        </span>
-      </button>
-      <div
-        class="evidence-tag-content "
-        data-testid="evidence-tag-content"
-        id="0"
-      />
        and the 
       <span
         data-testid="direction-text"
       >
         backward
       </span>
-      <button
-        aria-controls="1"
-        aria-expanded="false"
-        class="svg-colour-reviewed evidence-tag"
-        data-testid="evidence-tag-trigger"
-        type="button"
-      >
-        <test-file-stub
-          height="12"
-          width="12"
-        />
-        <span
-          class="evidence-tag__label"
-        >
-          1 publication
-        </span>
-      </button>
-      <div
-        class="evidence-tag-content "
-        data-testid="evidence-tag-content"
-        id="1"
-      />
        directions.
     </div>
     <div>
@@ -223,28 +135,6 @@ exports[`ReactionDirection component should render ReactionDirection when one ph
       forward
     </span>
      direction.
-    <button
-      aria-controls="0"
-      aria-expanded="false"
-      class="svg-colour-reviewed evidence-tag"
-      data-testid="evidence-tag-trigger"
-      type="button"
-    >
-      <test-file-stub
-        height="12"
-        width="12"
-      />
-      <span
-        class="evidence-tag__label"
-      >
-        1 publication
-      </span>
-    </button>
-    <div
-      class="evidence-tag-content "
-      data-testid="evidence-tag-content"
-      id="0"
-    />
   </div>
 </DocumentFragment>
 `;
@@ -258,56 +148,12 @@ exports[`ReactionDirection component should render ReactionDirection when two ph
     >
       forward
     </span>
-    <button
-      aria-controls="0"
-      aria-expanded="false"
-      class="svg-colour-reviewed evidence-tag"
-      data-testid="evidence-tag-trigger"
-      type="button"
-    >
-      <test-file-stub
-        height="12"
-        width="12"
-      />
-      <span
-        class="evidence-tag__label"
-      >
-        1 publication
-      </span>
-    </button>
-    <div
-      class="evidence-tag-content "
-      data-testid="evidence-tag-content"
-      id="0"
-    />
      and the 
     <span
       data-testid="direction-text"
     >
       backward
     </span>
-    <button
-      aria-controls="1"
-      aria-expanded="false"
-      class="svg-colour-reviewed evidence-tag"
-      data-testid="evidence-tag-trigger"
-      type="button"
-    >
-      <test-file-stub
-        height="12"
-        width="12"
-      />
-      <span
-        class="evidence-tag__label"
-      >
-        1 publication
-      </span>
-    </button>
-    <div
-      class="evidence-tag-content "
-      data-testid="evidence-tag-content"
-      id="1"
-    />
      directions.
   </div>
 </DocumentFragment>

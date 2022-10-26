@@ -57,6 +57,7 @@ function inputToCurl<T extends JobTypes>(
   if (jobType === JobTypes.PEPTIDE_SEARCH && !input) {
     inputEntries.push(['peps', '<enter_your_peptide_or_peptides_here>']);
   }
+  const possibleQuotes = jobType === JobTypes.ID_MAPPING ? '"' : '';
   let command = 'curl';
 
   let first = true;
@@ -73,7 +74,9 @@ function inputToCurl<T extends JobTypes>(
       }
     } else {
       // Add indentation if needed, and key/value
-      command += `${first ? '' : '    '} --form '${key}=${value}' \\\n`;
+      command += `${
+        first ? '' : '    '
+      } --form '${key}=${possibleQuotes}${value}${possibleQuotes}' \\\n`;
     }
     first = false;
   }

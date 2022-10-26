@@ -61,30 +61,7 @@ exports[`FeaturesView component it renders without crashing 1`] = `
               <td>
                 1-17
               </td>
-              <td>
-                <button
-                  aria-controls="1"
-                  aria-expanded="false"
-                  class="svg-colour-reviewed evidence-tag"
-                  data-testid="evidence-tag-trigger"
-                  type="button"
-                >
-                  <test-file-stub
-                    height="12"
-                    width="12"
-                  />
-                  <span
-                    class="evidence-tag__label"
-                  >
-                    3 publications
-                  </span>
-                </button>
-                <div
-                  class="evidence-tag-content "
-                  data-testid="evidence-tag-content"
-                  id="1"
-                />
-              </td>
+              <td />
               <td>
                 <div
                   class="button-group"

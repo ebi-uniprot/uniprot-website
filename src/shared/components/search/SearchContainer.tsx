@@ -126,6 +126,7 @@ const webSiteSchemaFor = (namespace: Searchspace): WithContext<WebSite> => ({
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   url: 'https://www.uniprot.org',
+  name: 'UniProt',
   potentialAction: {
     '@type': 'SearchAction',
     target: {

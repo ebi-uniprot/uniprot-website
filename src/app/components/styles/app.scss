@@ -23,6 +23,27 @@
   }
 }
 
+/* contextual help */
+/* global style now to avoid layout shift when loading logic later */
+[data-article-id] {
+  &::after {
+    content: 'i';
+    cursor: wait;
+    padding-inline-start: 0.1rem;
+    font-size: 0.75rem;
+    font-family: Bookman, Garamond, serif;
+    position: relative;
+    line-height: 1rem;
+    vertical-align: super;
+    opacity: 0.5; /* overriden whenever the logic loads */
+    transition: opacity 250ms ease-in-out;
+  }
+
+  thead &::after {
+    display: none;
+  }
+}
+
 protvista-datatable:not(:defined) > table {
   width: 100%;
   overflow-x: auto;
@@ -32,6 +53,15 @@ protvista-datatable:not(:defined) > table {
   & td,
   & th {
     border: 1px solid grey;
+  }
+}
+
+protvista-manager {
+  &:hover,
+  &:focus-within {
+    & path.rectangle.feature {
+      stroke: gray;
+    }
   }
 }
 

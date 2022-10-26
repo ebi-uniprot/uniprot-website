@@ -235,7 +235,7 @@ export type SType =
 export type Sequence = string;
 
 // https://www.ebi.ac.uk/Tools/services/rest/ncbiblast/parameterdetails/database
-// There are 512 possible values, maybe not needed to list them all
+// There are 548 possible values, maybe not needed to list them all
 // Database
 export type Database =
   | 'uniprotkb'
@@ -252,6 +252,7 @@ export type Database =
   | 'uniprotkb_mammals'
   | 'uniprotkb_nematoda'
   | 'uniprotkb_pdb'
+  | 'afdb'
   | 'uniprotkb_reference_proteomes'
   | 'uniprotkb_refprotswissprot'
   | 'uniprotkb_rodents'

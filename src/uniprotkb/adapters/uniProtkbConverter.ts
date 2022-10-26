@@ -44,7 +44,6 @@ import {
 } from '../../supporting-data/citations/adapters/citationsConverter';
 import { DatabaseInfoMaps } from '../utils/database';
 import { PeptideSearchMatch } from '../../tools/peptide-search/components/PeptideSearchMatches';
-import { AnnotationScoreValue } from '../components/protein-data-views/AnnotationScoreDoughnutChart';
 
 // 🤷🏽
 type UniProtKBReference = Omit<Reference, 'citationId'> & {
@@ -55,6 +54,8 @@ type UniProtKBReference = Omit<Reference, 'citationId'> & {
 type UniProtKBXref = Omit<Xref, 'properties'> & {
   properties?: Array<{ key: string; value: string }>;
 };
+
+export type AnnotationScoreValue = 1 | 2 | 3 | 4 | 5;
 
 export type UniProtKBSimplifiedTaxonomy = Omit<TaxonomyDatum, 'lineage'> & {
   lineage: string[];

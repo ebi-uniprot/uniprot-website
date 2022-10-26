@@ -11,10 +11,14 @@ const externalUrls: Record<string, (id: string | number) => string> = {
   ENA: (id) => `//www.ebi.ac.uk/ena/data/view/${id}`,
   // protein centric
   InterPro: (id) => `https://www.ebi.ac.uk/interpro/protein/${id}`,
-  Pfam: (id) => `http://pfam.xfam.org/protein/${id}`,
+  Pfam: (id) =>
+    `https://www.ebi.ac.uk/interpro/protein/UniProt/${id}/entry/pfam/`,
   SMART: (id) => `https://smart.embl.de/smart/show_motifs.pl?ID=${id}`,
   PROSITE: (id) =>
     `https://prosite.expasy.org/cgi-bin/prosite/PSScan.cgi?seq=${id}&output=nice`,
+  // rule
+  HAMAPRule: (id) => `//hamap.expasy.org/unirule/${id}`,
+  ProRule: (id) => `//prosite.expasy.org/unirule/${id}`,
   // domain & families centric
   CDDEntry: (id) =>
     `//www.ncbi.nlm.nih.gov/Structure/cdd/cddsrv.cgi?uid=${id}}`,
@@ -23,15 +27,15 @@ const externalUrls: Record<string, (id: string | number) => string> = {
       'G3DSA:',
       ''
     )}`,
-  HAMAPEntry: (id) => `//hamap.expasy.org/unirule/${id}`,
+  HAMAPEntry: (id) => `//hamap.expasy.org/signature/${id}`,
   PIRSFEntry: (id) =>
     `https://proteininformationresource.org/cgi-bin/ipcSF?id=${id}`,
   PRINTSEntry: (id) =>
     `http://www.bioinf.manchester.ac.uk/cgi-bin/dbbrowser/sprint/searchprintss.cgi?prints_accn=${id}&display_opts=Prints&category=None&queryform=false&regexpr=off`,
   PANTHEREntry: (id) =>
     `http://www.pantherdb.org/panther/family.do?clsAccession=${id}`,
-  PfamEntry: (id) => `//pfam.xfam.org/family/${id}`,
-  PROSITEEntry: (id) => `//prosite.expasy.org/unirule/${id}`,
+  PfamEntry: (id) => `https://www.ebi.ac.uk/interpro/entry/pfam/${id}`,
+  PROSITEEntry: (id) => `//prosite.expasy.org/${id}`,
   SFLDEntry: (id) => `http://sfld.rbvi.ucsf.edu/django/family/${id}/`,
   SMARTEntry: (id) =>
     `http://smart.embl-heidelberg.de/smart/do_annotation.pl?DOMAIN=${id}`,

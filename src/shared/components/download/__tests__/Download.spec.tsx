@@ -250,18 +250,17 @@ describe('Download with ID mapping results', () => {
           base={SimpleMappingDetails.redirectURL}
         />
       </IDMappingDetailsContext.Provider>,
-      {
-        route: `id-mapping/id1`,
-      }
+      { route: `/id-mapping/id1` }
     );
     const formatSelect = screen.getByTestId('file-format-select');
     fireEvent.change(formatSelect, { target: { value: FileFormat.tsv } });
     const downloadLink = screen.getByRole<HTMLAnchorElement>('link');
     expect(downloadLink.href).toEqual(
-      expect.stringContaining('/idmapping/results/id1')
+      expect.stringContaining('/idmapping/stream/id1')
     );
     expect(screen.queryByText('Customize columns')).not.toBeInTheDocument();
   });
+
   it('should display column selection for results which map to a non-uniprot namespace and have correct download link', async () => {
     customRender(
       <IDMappingDetailsContext.Provider
@@ -277,7 +276,7 @@ describe('Download with ID mapping results', () => {
         />
       </IDMappingDetailsContext.Provider>,
       {
-        route: 'id-mapping/id2',
+        route: '/id-mapping/id2',
         initialLocalStorage: {
           'table columns for uniprotkb': initialColumns,
         },
@@ -287,7 +286,7 @@ describe('Download with ID mapping results', () => {
     fireEvent.change(formatSelect, { target: { value: FileFormat.tsv } });
     const downloadLink = screen.getByRole<HTMLAnchorElement>('link');
     expect(downloadLink.href).toEqual(
-      expect.stringContaining('/idmapping/uniprotkb/results/id2')
+      expect.stringContaining('/idmapping/uniprotkb/stream/id2')
     );
     expect(await screen.findByText('Customize columns')).toBeInTheDocument();
   });

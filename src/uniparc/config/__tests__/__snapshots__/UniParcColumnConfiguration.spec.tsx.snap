@@ -25,7 +25,7 @@ exports[`UniParcColumnConfiguration component should render column "Pfam": Pfam 
       >
         <a
           class="external-link"
-          href="//pfam.xfam.org/family/PF02442"
+          href="https://www.ebi.ac.uk/interpro/entry/pfam/PF02442"
           rel="noopener"
           target="_blank"
         >

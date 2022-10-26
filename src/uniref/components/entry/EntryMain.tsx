@@ -1,4 +1,5 @@
-import { FC, memo } from 'react';
+import { memo, Suspense } from 'react';
+import { Loader } from 'franklin-sites';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
@@ -12,10 +13,12 @@ type EntryMainProps = {
   transformedData: UniRefUIModel;
 };
 
-const EntryMain: FC<EntryMainProps> = ({ transformedData }) => (
+const EntryMain = ({ transformedData }: EntryMainProps) => (
   <>
     {UniRefEntryConfig.map(({ id, sectionContent }) => (
-      <ErrorBoundary key={id}>{sectionContent(transformedData)}</ErrorBoundary>
+      <Suspense fallback={<Loader />} key={id}>
+        <ErrorBoundary>{sectionContent(transformedData)}</ErrorBoundary>
+      </Suspense>
     ))}
   </>
 );

@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { memo } from 'react';
 import { Card } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
@@ -20,30 +20,24 @@ import AlphaFoldView from '../../../shared/components/results/AlphaFoldView';
 
 const getIdKey = getIdKeyFor(Namespace.uniprotkb);
 
-const UniProtKBCard = ({
-  data,
-  isNotSelectable,
-  alphaFold,
-}: {
+type Props = {
   data: UniProtkbAPIModel;
   isNotSelectable?: boolean;
   alphaFold?: boolean;
-}) => {
+};
+
+const UniProtKBCard = ({ data, isNotSelectable, alphaFold }: Props) => {
   const id = getIdKey(data);
 
-  const highlights = useMemo(() => getProteinHighlights(data), [data]);
+  const highlights = getProteinHighlights(data);
 
-  const keywords = useMemo(() => {
-    if (!data.keywords) {
-      return null;
-    }
-    // We only want to display keywords from 3 groups, not all of them
-    return getKeywordsForCategories(data.keywords, [
+  const keywords =
+    data.keywords &&
+    getKeywordsForCategories(data.keywords, [
       'Molecular function',
       'Biological process',
       'Disease',
     ]).flatMap(({ keywords }) => keywords);
-  }, [data.keywords]);
 
   return (
     <Card
@@ -65,7 +59,7 @@ const UniProtKBCard = ({
       headerSeparator={false}
       links={highlights}
     >
-      <ProteinOverview data={data} />
+      <ProteinOverview data={data} inCard />
       {alphaFold && <AlphaFoldView accession={data.primaryAccession} />}
       {keywords?.length ? (
         <small>
@@ -76,4 +70,4 @@ const UniProtKBCard = ({
   );
 };
 
-export default UniProtKBCard;
+export default memo(UniProtKBCard);

@@ -81,7 +81,7 @@ const namespaceFindYour: Record<SearchableNamespace, string> = {
   [Namespace.unirule]: 'curated UniRule rule',
   [Namespace.arba]: 'generated ARBA rule',
   // AlphaFold
-  [Namespace.alphafold]: 'protein with AlphaFold prediction',
+  [Namespace.alphafold]: 'protein and its AlphaFold prediction status',
 };
 
 const HomePageHeader = memo(() => {

@@ -48,7 +48,7 @@ exports[`UniProtKBCard component should render 1`] = `
       <div
         class="card__content"
       >
-        <section>
+        <div>
           rec full Name · 
           <a
             href="/taxonomy/9606"
@@ -61,39 +61,36 @@ exports[`UniProtKBCard component should render 1`] = `
             Gene:
           </strong>
            some Gene (some Syn) · 10 amino acids · Evidence at protein level · 
+          <strong>
+            Annotation score:
+          </strong>
+           
           <span
-            title="Annotation Score"
+            class="doughnut-chart--small colour-platinum"
           >
-            <strong>
-              Annotation score:
-            </strong>
             <span
-              class="doughnut-chart--small colour-platinum"
+              class="doughnut-chart--small__left-wrap"
             >
               <span
-                class="doughnut-chart--small__left-wrap"
-              >
-                <span
-                  class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                  style="transform: rotate(0deg);"
-                />
-              </span>
+                class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                style="transform: rotate(0deg);"
+              />
+            </span>
+            <span
+              class="doughnut-chart--small__right-wrap"
+            >
               <span
-                class="doughnut-chart--small__right-wrap"
-              >
-                <span
-                  class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                  style="transform: rotate(144deg);"
-                />
-              </span>
-              <span
-                class="doughnut-chart--small__inner-circle"
-              >
-                2/5
-              </span>
+                class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                style="transform: rotate(144deg);"
+              />
+            </span>
+            <span
+              class="doughnut-chart--small__inner-circle"
+            >
+              2/5
             </span>
           </span>
-        </section>
+        </div>
       </div>
     </div>
     <div

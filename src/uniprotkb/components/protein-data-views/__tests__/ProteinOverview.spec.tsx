@@ -14,6 +14,13 @@ describe('ProteinOverview component', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
+  test('should render, in card variant', () => {
+    const { asFragment } = customRender(
+      <ProteinOverview data={swissprotData} inCard />
+    );
+    expect(asFragment()).toMatchSnapshot();
+  });
+
   test('should render', () => {
     const submissionData = {
       ...swissprotData,

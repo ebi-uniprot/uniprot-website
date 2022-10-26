@@ -102,9 +102,9 @@ export const selectDatabases =
     exclude?: string[];
   }) =>
     [
-      ...categories.flatMap(
+      ...(categories?.flatMap(
         (category) => databaseCategoryToNames.get(category) || []
-      ),
+      ) || []),
       ...include,
     ].filter((db) => !exclude.includes(db));
 

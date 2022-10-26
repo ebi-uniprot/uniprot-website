@@ -1,10 +1,10 @@
-import { render } from '@testing-library/react';
+import customRender from '../../../__test-helpers__/customRender';
 
 import ErrorComponent from '../ErrorComponent';
 
 describe('ErrorComponent', () => {
   test('should render', () => {
-    const { asFragment } = render(<ErrorComponent />);
+    const { asFragment } = customRender(<ErrorComponent />);
     expect(asFragment()).toMatchSnapshot();
   });
 });

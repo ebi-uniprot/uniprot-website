@@ -11,13 +11,11 @@ const Source = ({ source }: { source?: Information['oldRuleNum'] }) => {
   if (source.startsWith('RU')) {
     return <div>Source ID: {source}</div>;
   }
-  let url;
+  let url = externalUrls.InterProSearch(source);
   if (source.startsWith('PRU')) {
-    url = externalUrls.PROSITEEntry(source);
+    url = externalUrls.ProRule(source);
   } else if (source.startsWith('MF')) {
-    url = externalUrls.HAMAPEntry(source);
-  } else {
-    url = externalUrls.InterProSearch(source);
+    url = externalUrls.HAMAPRule(source);
   }
 
   return (

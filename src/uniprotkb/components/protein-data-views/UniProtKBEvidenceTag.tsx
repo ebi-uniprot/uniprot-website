@@ -11,7 +11,7 @@ import {
   EvidenceData,
   getEcoNumberFromString,
 } from '../../config/evidenceCodes';
-import { allSearchResultLocations } from '../../../app/config/urls';
+import { allEntryPages } from '../../../app/config/urls';
 
 import { Evidence } from '../../types/modelTypes';
 
@@ -73,8 +73,8 @@ export const UniProtEvidenceTagContent = ({
 };
 
 const UniProtKBEvidenceTag = ({ evidences }: { evidences?: Evidence[] }) => {
-  const searchPageMatch = useRouteMatch(allSearchResultLocations);
-  if (searchPageMatch?.isExact || !evidences) {
+  const entryPageMatch = useRouteMatch(allEntryPages);
+  if (!entryPageMatch || !evidences) {
     return null;
   }
   const evidenceObj = groupBy(evidences, (evidence) => evidence.evidenceCode);

@@ -135,28 +135,6 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
             </td>
             <td>
               in dbSNP:rs13447459
-              <button
-                aria-controls="0"
-                aria-expanded="false"
-                class="svg-colour-reviewed evidence-tag"
-                data-testid="evidence-tag-trigger"
-                type="button"
-              >
-                <test-file-stub
-                  height="12"
-                  width="12"
-                />
-                <span
-                  class="evidence-tag__label"
-                >
-                  1 publication
-                </span>
-              </button>
-              <div
-                class="evidence-tag-content "
-                data-testid="evidence-tag-content"
-                id="0"
-              />
             </td>
           </tr>
           <tr>
@@ -173,28 +151,6 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
             </td>
             <td>
               in dbSNP:rs13447492
-              <button
-                aria-controls="1"
-                aria-expanded="false"
-                class="svg-colour-reviewed evidence-tag"
-                data-testid="evidence-tag-trigger"
-                type="button"
-              >
-                <test-file-stub
-                  height="12"
-                  width="12"
-                />
-                <span
-                  class="evidence-tag__label"
-                >
-                  1 publication
-                </span>
-              </button>
-              <div
-                class="evidence-tag-content "
-                data-testid="evidence-tag-content"
-                id="1"
-              />
             </td>
           </tr>
         </tbody>

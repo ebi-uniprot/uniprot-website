@@ -25,6 +25,14 @@ exports[`ErrorComponent should render 1`] = `
           </h5>
           <p>
             You can try to reload the page, use the rest of this page, or go back to the previous page.
+            <br />
+            Make sure that 
+            <a
+              href="/help/browser_support"
+            >
+              your browser is up to date
+            </a>
+             as older versions might not work with the new website.
           </p>
           <p>
             If the error persists, please 
@@ -47,7 +55,7 @@ exports[`ErrorComponent should render 1`] = `
             >
               legacy version of the website
             </a>
-             is available until the 2022_04 release.
+             is available until the 2022_05 release.
           </p>
         </small>
       </section>
