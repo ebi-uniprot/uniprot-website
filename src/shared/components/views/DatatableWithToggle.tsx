@@ -50,13 +50,13 @@ const DatatableWithToggle: FC = ({ children }) => {
   if (datatableElement.defined) {
     return (
       <div className="datatable-with-toggle">
-        <datatableElement.name
+        {/* <datatableElement.name
           ref={tableRef}
           filter-scroll
           expandtable={expandTable ? '' : undefined}
-        >
-          {children}
-        </datatableElement.name>
+        > */}
+        {children}
+        {/* </datatableElement.name> */}
         {/* TODO show button only when the content exceeds visible area of the table  
         {tableRef?.current?.rows.length > 7 && (
           

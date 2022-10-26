@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Loader } from 'franklin-sites';
 
+import { NightingaleManager } from '../../nightingale/manager/NightingaleManager';
 import AlignmentOverview from './AlignmentOverview';
 import AlignLabel from '../align/components/results/AlignLabel';
 
@@ -146,17 +147,8 @@ const AlignOverview = ({
       ),
     'protvista-navigation'
   );
-  const managerElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(/* webpackChunkName: "protvista-manager" */ 'protvista-manager'),
-    'protvista-manager'
-  );
   const ceDefined =
-    trackElement.defined &&
-    navigationElement.defined &&
-    msaElement.defined &&
-    managerElement.defined;
+    trackElement.defined && navigationElement.defined && msaElement.defined;
 
   const setFeatureTrackData = useCallback(
     (node): void => {
@@ -235,7 +227,7 @@ const AlignOverview = ({
         ))}
       </div>
       <div className="track">
-        <managerElement.name
+        <NightingaleManager
           ref={managerRef}
           attributes="displaystart displayend"
         >
@@ -248,7 +240,7 @@ const AlignOverview = ({
             hidelabel
             {...conservationOptions}
           />
-        </managerElement.name>
+        </NightingaleManager>
       </div>
       <span className="right-coord">
         {alignment.map((s) => (

@@ -17,10 +17,10 @@ import { transformData, TransformedVariant } from 'protvista-variation-adapter';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
+import { NightingaleManager } from '../../../nightingale/manager/NightingaleManager';
 import DatatableWithToggle from '../../../shared/components/views/DatatableWithToggle';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
-import useCustomElement from '../../../shared/hooks/useCustomElement';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import apiUrls from '../../../shared/config/apiUrls';
@@ -175,13 +175,6 @@ const VariationView = ({
   const filteredVariants = useMemo(
     () => sortedVariants && applyFilters(sortedVariants, filters),
     [sortedVariants, filters]
-  );
-
-  const managerElement = useCustomElement(
-    /* istanbul ignore next */
-    () =>
-      import(/* webpackChunkName: "protvista-manager" */ 'protvista-manager'),
-    'protvista-manager'
   );
 
   if (loading) {
@@ -497,13 +490,13 @@ const VariationView = ({
     <Suspense fallback={fallback}>
       <div>
         {title && <h3>{title}</h3>}
-        <managerElement.name
+        <NightingaleManager
           attributes="highlight displaystart displayend activefilters filters selectedid"
           ref={managerRef}
         >
           <VisualVariationView {...transformedData} />
           <DatatableWithToggle>{table}</DatatableWithToggle>
-        </managerElement.name>
+        </NightingaleManager>
       </div>
     </Suspense>
   );
