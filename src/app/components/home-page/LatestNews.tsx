@@ -17,7 +17,7 @@ const insideUniProtAbstract2 =
   'We would like to invite the machine learning community to help UniProt by creating computational methods to predict metal binding sites across the whole of UniProtKB.';
 
 const proteinSpotlightAbstract =
-  "Plants cannot walk. Unable to drift down to the local café, attend this evening's book launch or gate-crash a party, flowers have had to resort to other ways of connecting. True, their roots may wander and branches may wave, but really what appears above ground level is pretty moored.";
+  "How bland Nature would be without colour. How drab a walk through the woods, how dull a visit to the zoo. From the bright pink of a rose to the emerald green of a beetle and the deep blue of a bird's feather, colour is everywhere. More prosaically, the colours we see are the result of daylight bouncing off molecules known as pigments";
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -331,21 +331,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/250/"
+            url="https://www.proteinspotlight.org/back_issues/251/"
             noIcon
           >
-            The colour red
+            The many lives of colour
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/250/"
+          url="https://www.proteinspotlight.org/back_issues/251/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt250.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt251.jpg"
             alt=""
             width="123"
             height="129"
