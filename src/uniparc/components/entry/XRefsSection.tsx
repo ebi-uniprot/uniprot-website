@@ -40,7 +40,7 @@ type DataDBModel = Array<{
 }>;
 
 const PAGE_SIZE = 25;
-const DATA_IMPORT_LIMIT = 10;
+const DATA_IMPORT_LIMIT = 10_000;
 
 const getIdKey = (xref: UniParcXRef) =>
   `${xref.database}-${xref.id}-${xref.version}-${xref.versionI}-${xref.active}-${xref.chain}`;
