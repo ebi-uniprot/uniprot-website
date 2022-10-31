@@ -23,7 +23,7 @@ import useColumns, {
 } from '../../../../shared/hooks/useColumns';
 
 import { SearchableNamespace } from '../../../../shared/types/namespaces';
-import { BlastResults, BlastHsp, BlastHit } from '../../types/blastResults';
+import { BlastResults, BlastHsp } from '../../types/blastResults';
 import { EnrichedBlastHit } from './BlastResult';
 
 import './styles/BlastResultTable.scss';
