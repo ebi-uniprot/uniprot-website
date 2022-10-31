@@ -19,7 +19,6 @@ import useItemSelect from '../../../../shared/hooks/useItemSelect';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect';
 import useColumnNames from '../../../../shared/hooks/useColumnNames';
-import useNS from '../../../../shared/hooks/useNS';
 
 import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
 import {
@@ -301,7 +300,7 @@ const BlastResult = () => {
       : { ...blastData, hits: hitsFiltered };
   }, [accessionsLoading, blastData, hitsFiltered]);
 
-  if (blastLoading) {
+  if (loading) {
     return <Loader progress={blastProgress} />;
   }
 
@@ -334,7 +333,7 @@ const BlastResult = () => {
   const actionBar = (
     <ResultsButtons
       namespaceOverride={namespace}
-      disableCardToggle={true}
+      disableCardToggle
       total={resultTableData?.hits.length || 0}
       loadedTotal={resultTableData?.hits.length || 0}
       selectedEntries={selectedEntries}

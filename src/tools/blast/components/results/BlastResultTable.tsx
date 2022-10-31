@@ -30,6 +30,7 @@ import './styles/BlastResultTable.scss';
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
 import { UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
+import NoResultsPage from '../../../../shared/components/error-pages/NoResultsPage';
 
 const scoringDict: Partial<Record<keyof BlastHsp, string>> = {
   hsp_identity: 'Identity',
@@ -265,7 +266,7 @@ const BlastResultTable = ({
     const hits = data?.hits.map((hit: EnrichedBlastHit) => {
       const merge = { ...hit, ...hit.extra }; // For the respective column renderers to fetch the fields
       return merge;
-    });
+    }) as BlastTableResultsData[] | undefined;
     hitsRef.current = hits || [];
   }
 
@@ -330,10 +331,9 @@ const BlastResultTable = ({
   const NavigationElementName = navigationElement.name;
 
   const [columns] = useColumns(namespace);
-  let columnsByNamespace = columns?.map((column) => {
-    column.sortable = undefined;
-    return column;
-  });
+  // Disable sorting, as we want to keep the BLAST sorting (for now...);
+  // If anything, we might want to sort by BLAST result values before anything
+  const columnsByNamespace = columns?.map(({ sortable, ...column }) => column);
 
   const trackColumn = {
     label: (
@@ -370,8 +370,8 @@ const BlastResultTable = ({
     return <Loader />;
   }
 
-  if (!data) {
-    return null;
+  if (!hitsRef.current.length) {
+    return <NoResultsPage />;
   }
 
   return (

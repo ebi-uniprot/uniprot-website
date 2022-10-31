@@ -1,7 +1,5 @@
 /* eslint-disable camelcase */
 /* Results as given by the server */
-
-import { EnrichedBlastHit } from '../components/results/BlastResult';
 import { Program, SType, Filter, Matrix } from './blastServerParameters';
 
 // Definitions taken from https://www.ncbi.nlm.nih.gov/data_specs/dtd/NCBI_BlastOutput2.mod.dtd
@@ -69,7 +67,7 @@ export type BlastResults = {
   start: string; // date, job start
   end: string; // date, job completion
   search: string; // duration, job duration
-  hits: EnrichedBlastHit[];
+  hits: BlastHit[];
 };
 
 export enum BlastFacet {
