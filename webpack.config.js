@@ -150,7 +150,6 @@ module.exports = (env, argv) => {
             path.resolve(__dirname, 'src'),
             // We use realpathSync otherwise doesn't work with symlinks
             fs.realpathSync(`${__dirname}/node_modules/franklin-sites`),
-            fs.realpathSync(`${__dirname}/node_modules/rheostat`),
             fs.realpathSync(`${__dirname}/node_modules/molstar/build`),
             fs.realpathSync(
               `${__dirname}/node_modules/tippy.js/dist/tippy.css`
