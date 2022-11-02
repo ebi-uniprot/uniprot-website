@@ -6,10 +6,10 @@ import { partialRight } from 'lodash-es';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 import useNSQuery from '../../../../shared/hooks/useNSQuery';
-import usePagination from '../../../../shared/hooks/usePagination';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 import { useToolsState } from '../../../../shared/contexts/Tools';
 import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect';
+import usePaginatedAccessions from '../../../../shared/hooks/usePaginatedAccessions';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
@@ -35,7 +35,6 @@ import { FinishedJob } from '../../../types/toolsJob';
 import { ToolsState } from '../../../state/toolsInitialState';
 
 import helper from '../../../../shared/styles/helper.module.scss';
-import usePaginatedAccessions from '../../../../shared/hooks/usePaginatedAccessions';
 
 const jobType = JobTypes.PEPTIDE_SEARCH;
 const urls = toolsURLs(jobType);

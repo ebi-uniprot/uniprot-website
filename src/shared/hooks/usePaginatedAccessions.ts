@@ -1,30 +1,18 @@
 import { useEffect, useState } from 'react';
-import { AxiosError } from 'axios';
 
 import useDataApi from './useDataApi';
+import useNSQuery from './useNSQuery';
 
 import { APIModel } from '../types/apiModel';
 import { SearchResults } from '../types/results';
-import useNSQuery from './useNSQuery';
+import { PaginatedResults } from './usePagination';
 
-const BATCHSIZE = 20;
-
-export type usePaginatedAccessions<R extends APIModel = APIModel> = {
-  allResults: R[];
-  initialLoading: boolean;
-  progress?: number;
-  hasMoreData: boolean;
-  handleLoadMoreRows?: () => void;
-  total?: number;
-  failedIds?: string[];
-  error?: AxiosError<{ messages?: string[] }>;
-  status?: number | undefined;
-};
+const BATCHSIZE = 1000;
 
 const usePaginatedAccessions = <T extends APIModel, R extends APIModel>(
   accessions?: string[],
   converter?: (data: T[]) => R[]
-): usePaginatedAccessions<R> => {
+): PaginatedResults<R> => {
   const [metaData, setMetaData] = useState({
     batchStart: 0,
     accessionBatch: accessions?.slice(0, BATCHSIZE),
