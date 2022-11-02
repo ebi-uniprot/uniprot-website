@@ -1,5 +1,5 @@
 import { MouseEventHandler, useCallback, useEffect, useState } from 'react';
-import { useRouteMatch, useHistory } from 'react-router-dom';
+import { useRouteMatch, useHistory, generatePath } from 'react-router-dom';
 import { frame } from 'timing-functions';
 
 import ContextualHelpContainer from './ContextualHelpContainer';
@@ -49,7 +49,10 @@ const ContextualHelp = () => {
       ) {
         if (smallScreen || element.dataset.articleId.match(/^http(s?)/)) {
           // External link, open in new tab
-          window.open(element.dataset.articleId, 'external_help');
+          const target = generatePath(LocationToPath[Location.HelpEntry], {
+            accession: element.dataset.articleId,
+          });
+          window.open(target.replace('%23', '#'), 'external_help');
         } else {
           setArticlePath(element.dataset.articleId);
           setDisplayButton(false);

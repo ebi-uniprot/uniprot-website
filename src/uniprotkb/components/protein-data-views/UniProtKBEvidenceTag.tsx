@@ -22,11 +22,13 @@ export enum EvidenceTagSourceTypes {
 }
 
 export type UniProtEvidenceTagContentProps = {
+  evidenceCode: string;
   evidenceData: EvidenceData;
   evidences?: Evidence[];
 };
 
 export const UniProtEvidenceTagContent = ({
+  evidenceCode,
   evidenceData,
   evidences,
 }: UniProtEvidenceTagContentProps) => {
@@ -41,7 +43,7 @@ export const UniProtEvidenceTagContent = ({
   } = groupedEvidences;
   return (
     <div>
-      <h5 data-article-id="evidences">
+      <h5 data-article-id={`evidences#${evidenceCode}`}>
         {evidenceData.label} <small>({evidenceData.description})</small>
       </h5>
       {publicationReferences && (
@@ -98,6 +100,7 @@ const UniProtKBEvidenceTag = ({ evidences }: { evidences?: Evidence[] }) => {
             key={evidenceCode}
           >
             <UniProtEvidenceTagContent
+              evidenceCode={evidenceCode}
               evidenceData={evidenceData}
               evidences={references}
             />
