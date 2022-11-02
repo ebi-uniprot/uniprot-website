@@ -7,6 +7,7 @@ import HTMLHead from '../../../shared/components/HTMLHead';
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import EntryMain from './EntryMain';
 import UniParcFeaturesView from './UniParcFeaturesView';
+import { StructuralPrediction } from './StructuralPrediction';
 import XRefsFacets from './XRefsFacets';
 import BasketStatus from '../../../basket/BasketStatus';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
@@ -44,6 +45,7 @@ import '../../../shared/components/entry/styles/entry-page.scss';
 export enum TabLocation {
   Entry = 'entry',
   FeatureViewer = 'feature-viewer',
+  StructuralPrediction = 'structural-prediction',
 }
 
 const Entry = () => {
@@ -220,6 +222,31 @@ const Entry = () => {
               )}
             </>
           )}
+        </Tab>
+        <Tab
+          title={
+            <Link
+              to={getEntryPath(
+                Namespace.uniparc,
+                match.params.accession,
+                TabLocation.StructuralPrediction
+              )}
+            >
+              Structural prediction
+            </Link>
+          }
+          id={TabLocation.StructuralPrediction}
+        >
+          <>
+            <HTMLHead
+              title={[
+                transformedData.uniParcId,
+                'Structural prediction',
+                searchableNamespaceLabels[Namespace.uniparc],
+              ]}
+            />
+            <StructuralPrediction sequence={transformedData.sequence.value} />
+          </>
         </Tab>
       </Tabs>
     </SideBarLayout>
