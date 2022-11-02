@@ -69,11 +69,10 @@ const usePaginatedAccessions = <T extends APIModel, R extends APIModel>(
     setAllResults((allRes) => [...allRes, ...transformedResults]);
     const { batchStart: prevBatchStart } = metaData;
     const newBatchStart = prevBatchStart + BATCHSIZE;
-
     setMetaData({
       batchStart: newBatchStart,
       accessionBatch:
-        newBatchStart < total - BATCHSIZE
+        newBatchStart < (total || 0) - BATCHSIZE
           ? accessions?.slice(newBatchStart, newBatchStart + BATCHSIZE)
           : accessions?.slice(newBatchStart),
     });
