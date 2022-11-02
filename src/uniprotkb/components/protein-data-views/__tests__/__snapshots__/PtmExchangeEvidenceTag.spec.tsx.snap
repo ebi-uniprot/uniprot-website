@@ -28,7 +28,7 @@ exports[`PtmExchangeEvidenceTag components should render 1`] = `
       class="evidence-tag-content"
     >
       <h5
-        data-article-id="evidences"
+        data-article-id="evidences#ECO:0007829"
       >
         Automatic assertion inferred from combination of experimental and computational evidence 
         <small>

@@ -100,10 +100,9 @@ const PtmExchangeEvidenceTag = ({
           ? 'svg-colour-reviewed'
           : 'svg-colour-unreviewed'
       }
-      key={originalEvidenceCode}
     >
       <section className={style['evidence-tag-content']}>
-        <h5 data-article-id="evidences">
+        <h5 data-article-id={`evidences#${originalEvidenceCode}`}>
           {originalEvidenceData.label}{' '}
           <small>({originalEvidenceData.description})</small>
         </h5>
