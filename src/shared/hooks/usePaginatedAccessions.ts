@@ -7,7 +7,7 @@ import { APIModel } from '../types/apiModel';
 import { SearchResults } from '../types/results';
 import useNSQuery from './useNSQuery';
 
-const BATCHSIZE = 1000;
+const BATCHSIZE = 20;
 
 export type usePaginatedAccessions<R extends APIModel = APIModel> = {
   allResults: R[];
@@ -89,7 +89,8 @@ const usePaginatedAccessions = <T extends APIModel, R extends APIModel>(
 
   const hasMoreData = total ? total > allResults.length : false;
 
-  const initialLoading = loading && allResults.length === 0;
+  const initialLoading =
+    loading && accessionBatch === accessions?.slice(0, BATCHSIZE);
 
   return {
     allResults,
