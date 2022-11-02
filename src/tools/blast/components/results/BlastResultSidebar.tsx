@@ -61,10 +61,6 @@ const BlastResultSidebar = memo<BlastResultSidebarProps>(
       return <Loader />;
     }
 
-    if (!accessions?.length) {
-      return null;
-    }
-
     return (
       <>
         <BlastResultLocalFacets allHits={allHits} namespace={namespace} />

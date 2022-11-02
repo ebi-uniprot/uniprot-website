@@ -262,7 +262,7 @@ const BlastResultTable = ({
   const [selectedScoring, setSelectedScoring] =
     useState<keyof BlastHsp>('hsp_identity');
 
-  if (data?.hits) {
+  if (!loading) {
     const hits = data?.hits.map((hit: EnrichedBlastHit) => {
       const merge = { ...hit, ...hit.extra }; // For the respective column renderers to fetch the fields
       return merge;

@@ -300,7 +300,7 @@ const BlastResult = () => {
       : { ...blastData, hits: hitsFiltered };
   }, [accessionsLoading, blastData, hitsFiltered]);
 
-  if (loading) {
+  if (blastLoading) {
     return <Loader progress={blastProgress} />;
   }
 
@@ -349,9 +349,11 @@ const BlastResult = () => {
         <PageIntro
           title={namespaceAndToolsLabels[jobType]}
           titlePostscript={
-            <small>found in {namespaceAndToolsLabels[namespace]}</small>
+            !loading && (
+              <small>found in {namespaceAndToolsLabels[namespace]}</small>
+            )
           }
-          resultsCount={hitsFiltered.length}
+          resultsCount={loading ? undefined : hitsFiltered.length}
         />
       }
       sidebar={sidebar}

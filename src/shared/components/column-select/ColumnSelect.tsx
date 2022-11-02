@@ -2,7 +2,6 @@ import { FC, useCallback, useMemo } from 'react';
 import { AccordionSearch, Tabs, Tab, Loader } from 'franklin-sites';
 import { difference } from 'lodash-es';
 
-import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
 import ColumnSelectDragDrop from './ColumnSelectDragDrop';
 
 import useDataApi from '../../hooks/useDataApi';
@@ -105,9 +104,9 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
       >
         <AccordionSearch
           accordionData={tabData}
-          onSelect={(_accordionId: string, itemId: UniProtKBColumn) =>
-            handleSelect(itemId)
-          }
+          onSelect={(_accordionId: string, itemId: string) => {
+            handleSelect(itemId as Column);
+          }}
           selected={selectedColumnsInTab}
           placeholder="Search for available columns"
           columns
