@@ -1,6 +1,6 @@
 import { useMemo, useRef, lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
-import { Loader, PageIntro, Tab, Tabs } from 'franklin-sites';
+import { Loader, Message, PageIntro, Tab, Tabs } from 'franklin-sites';
 import { partialRight } from 'lodash-es';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
@@ -139,13 +139,8 @@ const PeptideSearchResult = ({
     return peps ? partialRight(peptideSearchConverter, peps) : undefined;
   }, [jobSubmission]);
 
-  // const batchSize = 1000;
-  // let acc = accessions?.slice(0, batchSize);
-
-  // const initialApiUrl = useNSQuery({ accessions: acc, getSequence: true });
   // TODO: if the user didn't submit this jobSubmission there is no way to get the initial sequence. In the
   // future the API may provide this information in which case we would want to fetch and show
-  // const resultsDataObject = usePagination(initialApiUrl, converter);
   const resultsDataObject = usePaginatedAccessions(accessions, converter);
 
   const {
@@ -245,6 +240,13 @@ const PeptideSearchResult = ({
           }
         >
           <Suspense fallback={<Loader />}>
+            {excessAccessions && (
+              <Message level="warning">
+                Filters are not supported for peptide results if the matches are
+                more than 1000.
+              </Message>
+            )}
+
             <PeptideSearchResultTable
               total={total}
               resultsDataObject={resultsDataObject}

@@ -3,18 +3,18 @@ import { AxiosError } from 'axios';
 
 import useDataApi from './useDataApi';
 
-import getNextURLFromHeaders from '../utils/getNextURLFromHeaders';
-
 import { APIModel } from '../types/apiModel';
 import { SearchResults } from '../types/results';
 import useNSQuery from './useNSQuery';
+
+const BATCHSIZE = 1000;
 
 export type usePaginatedAccessions<R extends APIModel = APIModel> = {
   allResults: R[];
   initialLoading: boolean;
   progress?: number;
   hasMoreData: boolean;
-  handleLoadMoreRows: () => void;
+  handleLoadMoreRows?: () => void;
   total?: number;
   failedIds?: string[];
   error?: AxiosError<{ messages?: string[] }>;
@@ -23,38 +23,39 @@ export type usePaginatedAccessions<R extends APIModel = APIModel> = {
 
 const usePaginatedAccessions = <T extends APIModel, R extends APIModel>(
   accessions?: string[],
-  //   initialApiUrl?: string,
   converter?: (data: T[]) => R[]
 ): usePaginatedAccessions<R> => {
-  const batchSize = 1000;
+  const [metaData, setMetaData] = useState({
+    batchStart: 0,
+    accessionBatch: accessions?.slice(0, BATCHSIZE),
+  });
 
-  const [batchStart, setBatchStart] = useState(0);
+  const [allResults, setAllResults] = useState<R[]>([]);
 
-  const initialApiUrl = useNSQuery({
-    accessions: accessions?.slice(batchStart, batchSize),
+  const initialUrl = useNSQuery({
+    accessions: metaData.accessionBatch,
     getSequence: true,
   });
 
-  const [url, setUrl] = useState(initialApiUrl);
-  const [metaData, setMetaData] = useState<{
-    total?: number;
-    // nextUrl?: string;
-  }>(() => ({ total: undefined }));
+  const [batchUrl, setBatchUrl] = useState(initialUrl);
 
-  const [allResults, setAllResults] = useState<R[]>([]);
+  const total = accessions?.length;
 
   // Reset conditions, when any of the things in the dep array changes
   useEffect(() => {
     setAllResults([]);
-    setMetaData({ total: undefined });
-    // setUrl(initialApiUrl);
+    setMetaData({
+      batchStart: 0,
+      accessionBatch: accessions?.slice(0, BATCHSIZE),
+    });
+    setBatchUrl(undefined);
   }, [accessions, converter]);
 
-  const { data, loading, progress, headers, error, status } = useDataApi<
+  const { data, loading, progress, error, status } = useDataApi<
     SearchResults<T | R> & {
       failedIds?: string[];
     }
-  >(url);
+  >(batchUrl);
 
   useEffect(() => {
     if (!data) {
@@ -64,32 +65,32 @@ const usePaginatedAccessions = <T extends APIModel, R extends APIModel>(
     const transformedResults = converter
       ? converter(results as T[])
       : (results as R[]);
-    const total: number | undefined = accessions?.length;
+
     setAllResults((allRes) => [...allRes, ...transformedResults]);
-    setMetaData(() => ({
-      total: total || 0,
-      //   nextUrl: getNextURLFromHeaders(headers),
-    }));
-    setBatchStart(batchStart + batchSize);
+    const { batchStart: prevBatchStart } = metaData;
+    const newBatchStart = prevBatchStart + BATCHSIZE;
+
+    setMetaData({
+      batchStart: newBatchStart,
+      accessionBatch:
+        newBatchStart < total - BATCHSIZE
+          ? accessions?.slice(newBatchStart, newBatchStart + BATCHSIZE)
+          : accessions?.slice(newBatchStart),
+    });
   }, [data, converter]);
-  console.log(allResults);
-  //   useEffect(() => {
-  //       setUrl()
-  //   }, [batchSize]);
 
-  const { total } = metaData;
+  const { accessionBatch } = metaData;
 
-  let nextUrl = useNSQuery({
-    accessions:
-      batchStart < batchSize && accessions?.slice(batchStart, batchSize),
+  const url = useNSQuery({
+    accessions: accessionBatch,
     getSequence: true,
   });
 
-  const handleLoadMoreRows = () => nextUrl && setUrl(nextUrl);
+  const handleLoadMoreRows = () => url && setBatchUrl(url);
 
   const hasMoreData = total ? total > allResults.length : false;
 
-  const initialLoading = loading && url === initialApiUrl;
+  const initialLoading = loading && allResults.length === 0;
 
   return {
     allResults,
