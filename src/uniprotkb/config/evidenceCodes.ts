@@ -33,12 +33,10 @@ export const ecoCode = {
   MI: 312,
   AI: 313,
   AA: 256,
-  MIXM: 244,
-  MIXA: 213,
+  MIXM: 7744,
+  MIXA: 7829,
   SGNM: 260,
   SGNA: 259,
-  CMBA: 7829,
-  CMBM: 7744,
 };
 
 export type EcoCode = keyof typeof ecoCode;
@@ -258,22 +256,6 @@ export const ecoCodeToData = {
     description:
       'Match to InterPro member signature evidence used in automatic assertion',
     labelRender: () => labels.INTERPRO,
-  },
-  [ecoCode.CMBA]: {
-    manual: false,
-    label:
-      'Automatic assertion inferred from combination of experimental and computational evidence',
-    description:
-      'Information inferred from a combination of experimental and computational evidence, without manual validation',
-    labelRender: () => labels.COMBINED,
-  },
-  [ecoCode.CMBM]: {
-    manual: true,
-    label:
-      'Manual assertion inferred from combination of experimental and computational evidence',
-    description:
-      'Combinatorial computational and experimental evidence used in manual assertion.',
-    labelRender: () => labels.COMBINED,
   },
 };
 
