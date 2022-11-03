@@ -133,7 +133,8 @@ export const ecoCodeToData = {
   [ecoCode.ISS]: {
     manual: true,
     label: 'Manual assertion inferred from sequence similarity',
-    description: 'Inferred from sequence or structural similarity',
+    description:
+      'Inferred from sequence or structural similarity (Not an exact ECO match)',
     labelRender: () => labels.SIMILARITY,
   },
   [ecoCode.ISO]: {
@@ -180,7 +181,8 @@ export const ecoCodeToData = {
   [ecoCode.RCA]: {
     manual: true,
     label: 'Manual assertion based on experiment',
-    description: 'Inferred from reviewed computational analysis',
+    description:
+      'Inferred from reviewed computational analysis (Not an exact ECO match) ',
   },
   [ecoCode.TAS]: {
     manual: true,
