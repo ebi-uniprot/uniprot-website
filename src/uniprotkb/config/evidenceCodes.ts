@@ -50,6 +50,8 @@ enum labels {
   PUBLICATION = 'publication',
   AA = 'automatic annotation',
   SEQ_ANA = 'Sequence analysis',
+  UNIRULE_ANA = 'UniRule annotation', // HAMAP-Rule (taken from Legacy as reference)
+  PROSITE_RULE = 'PROSITE-ProRule annotation',
 }
 
 const publicationCountRenderer = (evidences: Evidence[]) => {
@@ -73,132 +75,145 @@ const rulesCountRenderer = (evidences: Evidence[]) => {
   return `${length} ${pluralise(labels.AA, length)}`;
 };
 
+const manualLabelRenderer = (evidences: Evidence[]) => {
+  let label = labels.SEQ_ANA;
+  for (const evidence of evidences) {
+    const source = evidence.source;
+    if (source === 'PROSITE-ProRule') {
+      label = labels.PROSITE_RULE;
+    } else if (source === 'HAMAP-Rule') {
+      label = labels.UNIRULE_ANA;
+    }
+  }
+  return label;
+};
+
 export const ecoCodeToData = {
   [ecoCode.EXP]: {
     manual: true,
     label: 'Manual assertion based on experiment',
-    description: 'Inferred from experiment',
+    content: 'Inferred from experiment',
     labelRender: publicationCountRenderer,
   },
   [ecoCode.HTP]: {
     manual: true,
     label: 'Manual assertion based on experiment',
-    description: 'Inferred from high throughput experiment',
+    content: 'Inferred from high throughput experiment',
   },
   [ecoCode.IDA]: {
     manual: true,
     label: 'Manual assertion based on experiment',
-    description: 'Inferred from direct assay',
+    content: 'Inferred from direct assay',
   },
   [ecoCode.HDA]: {
     manual: true,
     label: 'Manual assertion based on experiment',
-    description: 'Inferred from high throughput direct assay',
+    content: 'Inferred from high throughput direct assay',
   },
   [ecoCode.IPI]: {
     manual: true,
     label: 'Manual assertion based on experiment',
-    description: 'Inferred from physical interaction',
+    content: 'Inferred from physical interaction',
   },
   [ecoCode.IMP]: {
     manual: true,
     label: 'Manual assertion based on experiment',
-    description: 'Inferred from mutant phenotype',
+    content: 'Inferred from mutant phenotype',
   },
   [ecoCode.HMP]: {
     manual: true,
     label: 'Manual assertion based on experiment',
-    description: 'Inferred from high throughput mutant phenotype',
+    content: 'Inferred from high throughput mutant phenotype',
   },
   [ecoCode.IGI]: {
     manual: true,
     label: 'Manual assertion based on experiment',
-    description: 'Inferred from genetic interaction',
+    content: 'Inferred from genetic interaction',
   },
   [ecoCode.HGI]: {
     manual: true,
     label: 'Manual assertion based on experiment',
-    description: 'Inferred from high throughput genetic interaction',
+    content: 'Inferred from high throughput genetic interaction',
   },
   [ecoCode.IEP]: {
     manual: true,
     label: 'Manual assertion based on experiment',
-    description: 'Inferred from expression pattern',
+    content: 'Inferred from expression pattern',
   },
   [ecoCode.HEP]: {
     manual: true,
     label: 'Manual assertion based on experiment',
-    description: 'Inferred from high throughput expression pattern',
+    content: 'Inferred from high throughput expression pattern',
   },
   [ecoCode.ISS]: {
     manual: true,
     label: 'Manual assertion inferred from sequence similarity',
-    description:
+    content:
       'Inferred from sequence or structural similarity (Not an exact ECO match)',
     labelRender: () => labels.SIMILARITY,
   },
   [ecoCode.ISO]: {
     manual: true,
     label: 'Manual assertion based on experiment',
-    description: 'Inferred from sequence orthology',
+    content: 'Inferred from sequence orthology',
   },
   [ecoCode.ISA]: {
     manual: true,
     label: 'Manual assertion based on experiment',
-    description: 'Inferred from sequence alignment',
+    content: 'Inferred from sequence alignment',
   },
   [ecoCode.ISM]: {
-    manual: false,
-    label: 'Automatic assertion according to rules',
-    description: 'Inferred from sequence model',
-    labelRender: rulesCountRenderer,
+    manual: true,
+    label: 'Manual assertion according to rules',
+    content: 'Inferred from sequence model',
+    labelRender: manualLabelRenderer,
   },
   [ecoCode.IGC]: {
     manual: true,
     label: 'Manual assertion based on experiment',
-    description: 'Inferred from genomic context',
+    content: 'Inferred from genomic context',
   },
   [ecoCode.IBA]: {
     manual: true,
     label: 'Manual assertion based on experiment',
-    description: 'Inferred from biological aspect of ancestor',
+    content: 'Inferred from biological aspect of ancestor',
   },
   [ecoCode.IBD]: {
     manual: true,
     label: 'Manual assertion based on experiment',
-    description: 'Inferred from biological aspect of descendant',
+    content: 'Inferred from biological aspect of descendant',
   },
   [ecoCode.IKR]: {
     manual: true,
     label: 'Manual assertion based on experiment',
-    description: 'Inferred from key residues',
+    content: 'Inferred from key residues',
   },
   [ecoCode.IRD]: {
     manual: true,
     label: 'Manual assertion based on experiment',
-    description: 'Inferred from rapid divergence',
+    content: 'Inferred from rapid divergence',
   },
   [ecoCode.RCA]: {
     manual: true,
     label: 'Manual assertion based on experiment',
-    description:
+    content:
       'Inferred from reviewed computational analysis (Not an exact ECO match) ',
   },
   [ecoCode.TAS]: {
     manual: true,
     label: 'Manual assertion based on experiment',
-    description: 'Traceable author statement',
+    content: 'Traceable author statement',
   },
   [ecoCode.NAS]: {
     manual: true,
     label: 'Manual assertion based on opinion',
-    description: 'Non-traceable author statement',
+    content: 'Non-traceable author statement',
     labelRender: publicationCountRenderer,
   },
   [ecoCode.IC]: {
     manual: true,
-    label: 'Manual assertion inferred from experiment',
-    description: 'Inferred by curator',
+    label: 'Manual assertion inferred by curator',
+    content: 'Inferred by curator',
     labelRender: (evidences: Evidence[]) =>
       evidences.some((evidence) => evidence.source)
         ? publicationCountRenderer(evidences)
@@ -207,55 +222,55 @@ export const ecoCodeToData = {
   [ecoCode.ND]: {
     manual: true,
     label: 'Manual assertion based on experiment',
-    description: 'No biological data available',
+    content: 'No biological data available',
   },
   [ecoCode.IEA]: {
     manual: false,
     label: 'Manual assertion based on experiment',
-    description: 'Inferred from electronic annotation',
+    content: 'Inferred from electronic annotation',
   },
   [ecoCode.MI]: {
     manual: true,
     label: 'Manual assertion inferred from database entries',
-    description: 'Manually imported',
+    content: 'Manually imported',
     labelRender: () => labels.IMPORTED,
   },
   [ecoCode.AI]: {
     manual: false,
     label: 'Automatic assertion inferred from database entries',
-    description: 'Automatically imported',
+    content: 'Automatically imported',
     labelRender: () => labels.IMPORTED,
   },
   [ecoCode.AA]: {
     manual: false,
     label: 'Automatic assertion according to rules',
-    description: 'Automatically inferred from sequence model',
+    content: 'Automatically inferred from sequence model',
     labelRender: rulesCountRenderer,
   },
   [ecoCode.MIXM]: {
     manual: true,
     label:
       'Manual assertion inferred from combination of experimental and computational evidence',
-    description: 'Combinatorial evidence used in manual assertion',
+    content: 'Combinatorial evidence used in manual assertion',
     labelRender: () => labels.COMBINED,
   },
   [ecoCode.MIXA]: {
     manual: false,
     label:
       'Automatic assertion inferred from combination of experimental and computational evidence',
-    description: 'Combinatorial evidence used in automatic assertion',
+    content: 'Combinatorial evidence used in automatic assertion',
     labelRender: () => labels.COMBINED,
   },
   [ecoCode.SGNM]: {
     manual: true,
     label: 'Manual assertion inferred from signature match',
-    description:
+    content:
       'Match to InterPro member signature evidence used in manual assertion',
   },
   [ecoCode.SGNA]: {
     manual: false,
     label: 'Automatic assertion inferred from signature match',
-    description:
+    content:
       'Match to InterPro member signature evidence used in automatic assertion',
     labelRender: () => labels.INTERPRO,
   },
@@ -264,7 +279,7 @@ export const ecoCodeToData = {
 export type EvidenceData = {
   manual: boolean;
   label: string;
-  description: string;
+  content: string;
   labelRender?: (evidences: Evidence[]) => string;
 };
 
