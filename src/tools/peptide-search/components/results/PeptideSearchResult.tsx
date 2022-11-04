@@ -1,6 +1,13 @@
 import { useMemo, useRef, lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
-import { Loader, Message, PageIntro, Tab, Tabs } from 'franklin-sites';
+import {
+  Loader,
+  LongNumber,
+  Message,
+  PageIntro,
+  Tab,
+  Tabs,
+} from 'franklin-sites';
 import { partialRight } from 'lodash-es';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
@@ -73,6 +80,8 @@ type Params = {
   subPage?: TabLocation;
 };
 
+const MAX_FACETS = 1_000;
+
 const PeptideSearchResult = ({
   toolsState,
 }: {
@@ -115,7 +124,7 @@ const PeptideSearchResult = ({
     [jobResultData]
   );
 
-  const excessAccessions = accessions && accessions?.length > 1000;
+  const excessAccessions = accessions && accessions?.length > MAX_FACETS;
 
   // Query for facets
   const initialApiFacetUrl = useNSQuery({
@@ -241,8 +250,8 @@ const PeptideSearchResult = ({
           <Suspense fallback={<Loader />}>
             {excessAccessions && (
               <Message level="warning">
-                Filters are not supported for peptide results if the matches are
-                more than 1000.
+                Filters are not supported for peptide results if there are more
+                than <LongNumber>{MAX_FACETS}</LongNumber> matches.
               </Message>
             )}
 

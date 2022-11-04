@@ -13,37 +13,30 @@ const usePaginatedAccessions = <T extends APIModel, R extends APIModel>(
   accessions?: string[],
   converter?: (data: T[]) => R[]
 ): PaginatedResults<R> => {
-  const [metaData, setMetaData] = useState({
-    batchStart: 0,
-    accessionBatch: accessions?.slice(0, BATCHSIZE),
-  });
-
-  const [allResults, setAllResults] = useState<R[]>([]);
-
-  const initialUrl = useNSQuery({
-    accessions: metaData.accessionBatch,
+  const total = accessions?.length;
+  const initialApiUrl = useNSQuery({
+    accessions: accessions?.slice(0, BATCHSIZE),
     getSequence: true,
   });
+  const [batchStart, setBatchStart] = useState(0);
 
-  const [batchUrl, setBatchUrl] = useState(initialUrl);
-
-  const total = accessions?.length;
+  // usePrefetch(metaData.nextUrl);
+  const [allResults, setAllResults] = useState<R[]>([]);
 
   // Reset conditions, when any of the things in the dep array changes
   useEffect(() => {
     setAllResults([]);
-    setMetaData({
-      batchStart: 0,
-      accessionBatch: accessions?.slice(0, BATCHSIZE),
-    });
-    setBatchUrl(undefined);
-  }, [accessions, converter]);
+    setBatchStart(0);
+  }, [initialApiUrl, converter]);
 
   const { data, loading, progress, error, status } = useDataApi<
-    SearchResults<T | R> & {
-      failedIds?: string[];
-    }
-  >(batchUrl);
+    SearchResults<T | R>
+  >(
+    useNSQuery({
+      accessions: accessions?.slice(batchStart, batchStart + BATCHSIZE),
+      getSequence: true,
+    })
+  );
 
   useEffect(() => {
     if (!data) {
@@ -55,30 +48,15 @@ const usePaginatedAccessions = <T extends APIModel, R extends APIModel>(
       : (results as R[]);
 
     setAllResults((allRes) => [...allRes, ...transformedResults]);
-    const { batchStart: prevBatchStart } = metaData;
-    const newBatchStart = prevBatchStart + BATCHSIZE;
-    setMetaData({
-      batchStart: newBatchStart,
-      accessionBatch:
-        newBatchStart < (total || 0) - BATCHSIZE
-          ? accessions?.slice(newBatchStart, newBatchStart + BATCHSIZE)
-          : accessions?.slice(newBatchStart),
-    });
   }, [data, converter]);
 
-  const { accessionBatch } = metaData;
-
-  const url = useNSQuery({
-    accessions: accessionBatch,
-    getSequence: true,
-  });
-
-  const handleLoadMoreRows = () => url && setBatchUrl(url);
+  const handleLoadMoreRows = () => {
+    setBatchStart((batchStart) => batchStart + BATCHSIZE);
+  };
 
   const hasMoreData = total ? total > allResults.length : false;
 
-  const initialLoading =
-    loading && accessionBatch === accessions?.slice(0, BATCHSIZE);
+  const initialLoading = loading && batchStart === 0;
 
   return {
     allResults,
@@ -87,7 +65,6 @@ const usePaginatedAccessions = <T extends APIModel, R extends APIModel>(
     hasMoreData,
     handleLoadMoreRows,
     total,
-    failedIds: data?.failedIds,
     error,
     status,
   };
