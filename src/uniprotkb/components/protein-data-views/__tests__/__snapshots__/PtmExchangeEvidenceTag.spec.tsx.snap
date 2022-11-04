@@ -32,7 +32,7 @@ exports[`PtmExchangeEvidenceTag components should render 1`] = `
       >
         Automatic assertion inferred from combination of experimental and computational evidence 
         <small>
-          (Information inferred from a combination of experimental and computational evidence, without manual validation)
+          (Combinatorial evidence used in automatic assertion)
         </small>
       </h5>
       <section>

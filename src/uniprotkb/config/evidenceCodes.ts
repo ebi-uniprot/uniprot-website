@@ -33,12 +33,10 @@ export const ecoCode = {
   MI: 312,
   AI: 313,
   AA: 256,
-  MIXM: 244,
-  MIXA: 213,
+  MIXM: 7744,
+  MIXA: 7829,
   SGNM: 260,
   SGNA: 259,
-  CMBA: 7829,
-  CMBM: 7744,
 };
 
 export type EcoCode = keyof typeof ecoCode;
@@ -52,6 +50,8 @@ enum labels {
   PUBLICATION = 'publication',
   AA = 'automatic annotation',
   SEQ_ANA = 'Sequence analysis',
+  UNIRULE_ANA = 'UniRule annotation', // HAMAP-Rule (taken from Legacy as reference)
+  PROSITE_RULE = 'PROSITE-ProRule annotation',
 }
 
 const publicationCountRenderer = (evidences: Evidence[]) => {
@@ -73,6 +73,19 @@ const rulesCountRenderer = (evidences: Evidence[]) => {
     return labels.SEQ_ANA;
   }
   return `${length} ${pluralise(labels.AA, length)}`;
+};
+
+const manualLabelRenderer = (evidences: Evidence[]) => {
+  let label = labels.SEQ_ANA;
+  for (const evidence of evidences) {
+    const { source } = evidence;
+    if (source === 'PROSITE-ProRule') {
+      label = labels.PROSITE_RULE;
+    } else if (source === 'HAMAP-Rule') {
+      label = labels.UNIRULE_ANA;
+    }
+  }
+  return label;
 };
 
 export const ecoCodeToData = {
@@ -135,7 +148,8 @@ export const ecoCodeToData = {
   [ecoCode.ISS]: {
     manual: true,
     label: 'Manual assertion inferred from sequence similarity',
-    description: 'Inferred from sequence or structural similarity',
+    description:
+      'Inferred from sequence or structural similarity (Not an exact ECO match)',
     labelRender: () => labels.SIMILARITY,
   },
   [ecoCode.ISO]: {
@@ -149,10 +163,10 @@ export const ecoCodeToData = {
     description: 'Inferred from sequence alignment',
   },
   [ecoCode.ISM]: {
-    manual: false,
-    label: 'Automatic assertion according to rules',
+    manual: true,
+    label: 'Manual assertion according to rules',
     description: 'Inferred from sequence model',
-    labelRender: rulesCountRenderer,
+    labelRender: manualLabelRenderer,
   },
   [ecoCode.IGC]: {
     manual: true,
@@ -182,7 +196,8 @@ export const ecoCodeToData = {
   [ecoCode.RCA]: {
     manual: true,
     label: 'Manual assertion based on experiment',
-    description: 'Inferred from reviewed computational analysis',
+    description:
+      'Inferred from reviewed computational analysis (Not an exact ECO match) ',
   },
   [ecoCode.TAS]: {
     manual: true,
@@ -197,7 +212,7 @@ export const ecoCodeToData = {
   },
   [ecoCode.IC]: {
     manual: true,
-    label: 'Manual assertion inferred from experiment',
+    label: 'Manual assertion inferred by curator',
     description: 'Inferred by curator',
     labelRender: (evidences: Evidence[]) =>
       evidences.some((evidence) => evidence.source)
@@ -258,22 +273,6 @@ export const ecoCodeToData = {
     description:
       'Match to InterPro member signature evidence used in automatic assertion',
     labelRender: () => labels.INTERPRO,
-  },
-  [ecoCode.CMBA]: {
-    manual: false,
-    label:
-      'Automatic assertion inferred from combination of experimental and computational evidence',
-    description:
-      'Information inferred from a combination of experimental and computational evidence, without manual validation',
-    labelRender: () => labels.COMBINED,
-  },
-  [ecoCode.CMBM]: {
-    manual: true,
-    label:
-      'Manual assertion inferred from combination of experimental and computational evidence',
-    description:
-      'Combinatorial computational and experimental evidence used in manual assertion.',
-    labelRender: () => labels.COMBINED,
   },
 };
 
