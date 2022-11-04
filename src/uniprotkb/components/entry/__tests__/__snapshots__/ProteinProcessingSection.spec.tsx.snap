@@ -575,7 +575,7 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
                       <button
                         aria-controls="1"
                         aria-expanded="false"
-                        class="svg-colour-unreviewed evidence-tag"
+                        class="svg-colour-reviewed evidence-tag"
                         data-testid="evidence-tag-trigger"
                         type="button"
                       >
@@ -586,7 +586,7 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
                         <span
                           class="evidence-tag__label"
                         >
-                          1 automatic annotation
+                          Sequence analysis
                         </span>
                       </button>
                       <div

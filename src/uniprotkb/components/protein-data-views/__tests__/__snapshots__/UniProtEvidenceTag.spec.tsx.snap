@@ -55,7 +55,7 @@ exports[`UniProtKBEvidenceTag components should render automatic  2`] = `
       <h5
         data-article-id="evidences#ECO:0000313"
       >
-        Automatic assertion inferred from database entries 
+        Automatic assertion inferred from database entries
         <small>
           (Automatically imported)
         </small>
@@ -77,7 +77,7 @@ exports[`UniProtKBEvidenceTag components should render automatic annotation 1`] 
   <button
     aria-controls="0"
     aria-expanded="false"
-    class="svg-colour-unreviewed evidence-tag"
+    class="svg-colour-reviewed evidence-tag"
     data-testid="evidence-tag-trigger"
     type="button"
   >
@@ -88,7 +88,7 @@ exports[`UniProtKBEvidenceTag components should render automatic annotation 1`] 
     <span
       class="evidence-tag__label"
     >
-      1 automatic annotation
+      PROSITE-ProRule annotation
     </span>
   </button>
   <div
@@ -104,7 +104,7 @@ exports[`UniProtKBEvidenceTag components should render automatic annotation 2`] 
   <button
     aria-controls="0"
     aria-expanded="true"
-    class="svg-colour-unreviewed evidence-tag"
+    class="svg-colour-reviewed evidence-tag"
     data-testid="evidence-tag-trigger"
     type="button"
   >
@@ -115,7 +115,7 @@ exports[`UniProtKBEvidenceTag components should render automatic annotation 2`] 
     <span
       class="evidence-tag__label"
     >
-      1 automatic annotation
+      PROSITE-ProRule annotation
     </span>
   </button>
   <div
@@ -127,7 +127,7 @@ exports[`UniProtKBEvidenceTag components should render automatic annotation 2`] 
       <h5
         data-article-id="evidences#ECO:0000255"
       >
-        Automatic assertion according to rules 
+        Manual assertion according to rules
         <small>
           (Inferred from sequence model)
         </small>
@@ -212,7 +212,7 @@ exports[`UniProtKBEvidenceTag components should render publications count 2`] = 
       <h5
         data-article-id="evidences#ECO:0000269"
       >
-        Manual assertion based on experiment 
+        Manual assertion based on experiment
         <small>
           (Inferred from experiment)
         </small>

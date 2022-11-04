@@ -78,7 +78,7 @@ const rulesCountRenderer = (evidences: Evidence[]) => {
 const manualLabelRenderer = (evidences: Evidence[]) => {
   let label = labels.SEQ_ANA;
   for (const evidence of evidences) {
-    const source = evidence.source;
+    const { source } = evidence;
     if (source === 'PROSITE-ProRule') {
       label = labels.PROSITE_RULE;
     } else if (source === 'HAMAP-Rule') {
