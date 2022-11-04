@@ -45,7 +45,7 @@ export const UniProtEvidenceTagContent = ({
     <div>
       <h5 data-article-id={`evidences#${evidenceCode}`}>
         {evidenceData.label}
-        {/* {evidenceData.label} <small>({evidenceData.content})</small> */}
+        {/* {evidenceData.label} <small>({evidenceData.description})</small> */}
       </h5>
       {publicationReferences && (
         <UniProtKBEntryPublications
