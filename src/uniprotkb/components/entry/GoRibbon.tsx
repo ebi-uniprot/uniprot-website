@@ -233,7 +233,10 @@ const GoRibbon = ({
                   <ExternalLink url={externalUrls.QuickGO(goTerm.id)}>
                     {goTerm.termDescription || goTerm.id}
                   </ExternalLink>
-                  <UniProtKBEvidenceTag evidences={goTerm.evidences} />
+                  <UniProtKBEvidenceTag
+                    evidences={goTerm.evidences}
+                    goTermEvidence
+                  />
                   <GOTermEvidenceTag
                     evidence={goTerm.properties?.GoEvidenceType}
                   />
