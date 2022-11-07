@@ -1,15 +1,22 @@
 import { useMemo, useRef, lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
-import { Loader, PageIntro, Tab, Tabs } from 'franklin-sites';
+import {
+  Loader,
+  LongNumber,
+  Message,
+  PageIntro,
+  Tab,
+  Tabs,
+} from 'franklin-sites';
 import { partialRight } from 'lodash-es';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 import useNSQuery from '../../../../shared/hooks/useNSQuery';
-import usePagination from '../../../../shared/hooks/usePagination';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 import { useToolsState } from '../../../../shared/contexts/Tools';
 import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect';
+import usePaginatedAccessions from '../../../../shared/hooks/usePaginatedAccessions';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
@@ -73,6 +80,8 @@ type Params = {
   subPage?: TabLocation;
 };
 
+const MAX_FACETS = 1_000;
+
 const PeptideSearchResult = ({
   toolsState,
 }: {
@@ -115,12 +124,14 @@ const PeptideSearchResult = ({
     [jobResultData]
   );
 
+  const excessAccessions = accessions && accessions?.length > MAX_FACETS;
+
   // Query for facets
   const initialApiFacetUrl = useNSQuery({
     size: 0,
     withFacets: true,
     withColumns: false,
-    accessions,
+    accessions: excessAccessions ? [] : accessions,
   });
   const facetApiObject =
     useDataApiWithStale<SearchResults<UniProtkbAPIModel>>(initialApiFacetUrl);
@@ -136,11 +147,10 @@ const PeptideSearchResult = ({
     return peps ? partialRight(peptideSearchConverter, peps) : undefined;
   }, [jobSubmission]);
 
-  // Query for results data
-  const initialApiUrl = useNSQuery({ accessions, getSequence: true });
   // TODO: if the user didn't submit this jobSubmission there is no way to get the initial sequence. In the
   // future the API may provide this information in which case we would want to fetch and show
-  const resultsDataObject = usePagination(initialApiUrl, converter);
+  const resultsDataObject = usePaginatedAccessions(accessions, converter);
+
   const {
     initialLoading: resultsDataInitialLoading,
     total: resultsDataTotal,
@@ -165,7 +175,8 @@ const PeptideSearchResult = ({
     (!jobResultLoading &&
       !resultsDataInitialLoading &&
       !facetInititialLoading &&
-      !total) ||
+      !total &&
+      !excessAccessions) ||
     (!jobResultLoading && accessions?.length === 0) ||
     total === 0
   ) {
@@ -199,6 +210,9 @@ const PeptideSearchResult = ({
       break;
   }
 
+  if (excessAccessions) {
+    sidebar = <div className="sidebar-layout__sidebar-content--empty" />;
+  }
   const basePath = `/peptide-search/${match.params.id}/`;
 
   return (
@@ -234,6 +248,13 @@ const PeptideSearchResult = ({
           }
         >
           <Suspense fallback={<Loader />}>
+            {excessAccessions && (
+              <Message level="warning">
+                Filters are not supported for peptide results if there are more
+                than <LongNumber>{MAX_FACETS}</LongNumber> matches.
+              </Message>
+            )}
+
             <PeptideSearchResultTable
               total={total}
               resultsDataObject={resultsDataObject}
