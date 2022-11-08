@@ -10,7 +10,7 @@ import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import HSPDetailPanel, { HSPDetailPanelProps } from './HSPDetailPanel';
 import BlastResultSidebar from './BlastResultSidebar';
-import ResultsButtons from '../../../../shared/components/results/ResultsButtons';
+import ResultButtons from '../../../components/ResultButtons';
 
 import useDataApi, {
   UseDataAPIState,
@@ -331,13 +331,14 @@ const BlastResult = () => {
   }
 
   const actionBar = (
-    <ResultsButtons
-      namespaceOverride={namespace}
-      disableCardToggle
-      total={resultTableData?.hits.length || 0}
-      loadedTotal={resultTableData?.hits.length || 0}
+    <ResultButtons
+      namespace={namespace}
+      jobType={jobType}
+      jobId={match.params.id}
       selectedEntries={selectedEntries}
-      accessions={accessionsFilteredByLocalFacets}
+      inputParamsData={inputParamsData.data}
+      nHits={blastData.hits.length}
+      isTableResultsFiltered={blastData?.hits.length !== hitsFiltered.length}
     />
   );
 
