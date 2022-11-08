@@ -13,6 +13,7 @@ import AlignButton from '../../shared/components/action-buttons/Align';
 import MapIDButton from '../../shared/components/action-buttons/MapID';
 import AddToBasketButton from '../../shared/components/action-buttons/AddToBasket';
 import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
+import CustomiseButton from '../../shared/components/action-buttons/CustomiseButton';
 
 import { serverParametersToFormParameters } from '../adapters/parameters';
 
@@ -165,6 +166,9 @@ const ResultButtons = ({
           Download
         </Button>
         <AddToBasketButton selectedEntries={selectedEntries} />
+        {jobType === JobTypes.BLAST && (
+          <CustomiseButton namespace={namespace} />
+        )}
         <ResubmitButton inputParamsData={inputParamsData} jobType={jobType} />
       </div>
     </>
