@@ -5,11 +5,13 @@ import { EvidenceTag, ExpandableList } from 'franklin-sites';
 
 import UniProtKBEntryPublications from './UniProtKBEntryPublications';
 import EvidenceLink from '../../config/evidenceUrls';
+import { pluralise } from '../../../shared/utils/utils';
 
 import {
   getEvidenceCodeData,
   EvidenceData,
   getEcoNumberFromString,
+  labels,
 } from '../../config/evidenceCodes';
 import { allEntryPages } from '../../../app/config/urls';
 
@@ -25,12 +27,14 @@ export type UniProtEvidenceTagContentProps = {
   evidenceCode: string;
   evidenceData: EvidenceData;
   evidences?: Evidence[];
+  useDescriptionAsLabel?: boolean;
 };
 
 export const UniProtEvidenceTagContent = ({
   evidenceCode,
   evidenceData,
   evidences,
+  useDescriptionAsLabel,
 }: UniProtEvidenceTagContentProps) => {
   if (!evidences?.length) {
     return null;
@@ -44,7 +48,7 @@ export const UniProtEvidenceTagContent = ({
   return (
     <div>
       <h5 data-article-id={`evidences#${evidenceCode}`}>
-        {evidenceData.label} <small>({evidenceData.description})</small>
+        {useDescriptionAsLabel ? evidenceData.description : evidenceData.label}
       </h5>
       {publicationReferences && (
         <UniProtKBEntryPublications
@@ -74,7 +78,13 @@ export const UniProtEvidenceTagContent = ({
   );
 };
 
-const UniProtKBEvidenceTag = ({ evidences }: { evidences?: Evidence[] }) => {
+const UniProtKBEvidenceTag = ({
+  evidences,
+  goTermEvidence,
+}: {
+  evidences?: Evidence[];
+  goTermEvidence?: boolean;
+}) => {
   const entryPageMatch = useRouteMatch(allEntryPages);
   if (!entryPageMatch || !evidences) {
     return null;
@@ -89,9 +99,17 @@ const UniProtKBEvidenceTag = ({ evidences }: { evidences?: Evidence[] }) => {
         if (!evidenceData) {
           return null;
         }
+        const preferrredLabel =
+          evidenceData.labelRender?.(references) ||
+          (goTermEvidence
+            ? `${references.length} ${pluralise(
+                labels.PUBLICATION,
+                references.length
+              )}`
+            : evidenceData.label);
         return (
           <EvidenceTag
-            label={evidenceData.labelRender?.(references) || evidenceData.label}
+            label={preferrredLabel}
             className={
               evidenceData.manual
                 ? 'svg-colour-reviewed'
@@ -103,6 +121,7 @@ const UniProtKBEvidenceTag = ({ evidences }: { evidences?: Evidence[] }) => {
               evidenceCode={evidenceCode}
               evidenceData={evidenceData}
               evidences={references}
+              useDescriptionAsLabel={goTermEvidence}
             />
           </EvidenceTag>
         );

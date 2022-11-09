@@ -55,10 +55,7 @@ exports[`UniProtKBEvidenceTag components should render automatic  2`] = `
       <h5
         data-article-id="evidences#ECO:0000313"
       >
-        Automatic assertion inferred from database entries 
-        <small>
-          (Automatically imported)
-        </small>
+        Automatic assertion inferred from database entries
       </h5>
       <ul
         class="expandable-list no-bullet"
@@ -127,10 +124,7 @@ exports[`UniProtKBEvidenceTag components should render automatic annotation 2`] 
       <h5
         data-article-id="evidences#ECO:0000255"
       >
-        Manual assertion according to rules 
-        <small>
-          (Inferred from sequence model)
-        </small>
+        Manual assertion according to rules
       </h5>
       <ul
         class="expandable-list no-bullet"
@@ -212,10 +206,7 @@ exports[`UniProtKBEvidenceTag components should render publications count 2`] = 
       <h5
         data-article-id="evidences#ECO:0000269"
       >
-        Manual assertion based on experiment 
-        <small>
-          (Inferred from experiment)
-        </small>
+        Manual assertion based on experiment
       </h5>
       <div
         class="loader-container"
