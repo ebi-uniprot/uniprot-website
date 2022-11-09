@@ -41,7 +41,7 @@ export const ecoCode = {
 
 export type EcoCode = keyof typeof ecoCode;
 
-enum labels {
+export enum labels {
   IMPORTED = 'Imported',
   COMBINED = 'Combined sources',
   INTERPRO = 'InterPro annotation',

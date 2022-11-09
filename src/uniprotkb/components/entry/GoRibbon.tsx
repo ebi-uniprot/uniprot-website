@@ -233,12 +233,12 @@ const GoRibbon = ({
                   <ExternalLink url={externalUrls.QuickGO(goTerm.id)}>
                     {goTerm.termDescription || goTerm.id}
                   </ExternalLink>
+                  <GOTermEvidenceTag
+                    evidence={goTerm.properties?.GoEvidenceType}
+                  />
                   <UniProtKBEvidenceTag
                     evidences={goTerm.evidences}
                     goTermEvidence
-                  />
-                  <GOTermEvidenceTag
-                    evidence={goTerm.properties?.GoEvidenceType}
                   />
                 </td>
               </tr>
@@ -280,6 +280,12 @@ const GoRibbon = ({
       {!!filteredGoTerms.length && (
         <DatatableWithToggle>{table}</DatatableWithToggle>
       )}
+      <ExternalLink
+        url={externalUrls.QuickGOAnnotations(primaryAccession)}
+        className={styles['quickgo-link']}
+      >
+        Complete GO annotation on QuickGO{' '}
+      </ExternalLink>
     </div>
   );
 };

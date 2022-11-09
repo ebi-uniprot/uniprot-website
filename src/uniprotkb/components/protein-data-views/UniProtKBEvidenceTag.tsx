@@ -10,10 +10,13 @@ import {
   getEvidenceCodeData,
   EvidenceData,
   getEcoNumberFromString,
+  publicationCountRenderer,
+  labels,
 } from '../../config/evidenceCodes';
 import { allEntryPages } from '../../../app/config/urls';
 
 import { Evidence } from '../../types/modelTypes';
+import { pluralise } from '../../../shared/utils/utils';
 
 export enum EvidenceTagSourceTypes {
   PUBMED = 'PubMed',
@@ -99,7 +102,12 @@ const UniProtKBEvidenceTag = ({
         }
         const preferrredLabel =
           evidenceData.labelRender?.(references) ||
-          (goTermEvidence ? evidenceData.description : evidenceData.label);
+          (goTermEvidence
+            ? `${references.length} ${pluralise(
+                labels.PUBLICATION,
+                references.length
+              )}`
+            : evidenceData.label);
         return (
           <EvidenceTag
             label={preferrredLabel}
