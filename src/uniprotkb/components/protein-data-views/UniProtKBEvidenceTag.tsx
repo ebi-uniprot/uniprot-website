@@ -5,18 +5,17 @@ import { EvidenceTag, ExpandableList } from 'franklin-sites';
 
 import UniProtKBEntryPublications from './UniProtKBEntryPublications';
 import EvidenceLink from '../../config/evidenceUrls';
+import { pluralise } from '../../../shared/utils/utils';
 
 import {
   getEvidenceCodeData,
   EvidenceData,
   getEcoNumberFromString,
-  publicationCountRenderer,
   labels,
 } from '../../config/evidenceCodes';
 import { allEntryPages } from '../../../app/config/urls';
 
 import { Evidence } from '../../types/modelTypes';
-import { pluralise } from '../../../shared/utils/utils';
 
 export enum EvidenceTagSourceTypes {
   PUBMED = 'PubMed',
@@ -28,7 +27,7 @@ export type UniProtEvidenceTagContentProps = {
   evidenceCode: string;
   evidenceData: EvidenceData;
   evidences?: Evidence[];
-  useDescriptionAsLabel?: Boolean;
+  useDescriptionAsLabel?: boolean;
 };
 
 export const UniProtEvidenceTagContent = ({
@@ -84,7 +83,7 @@ const UniProtKBEvidenceTag = ({
   goTermEvidence,
 }: {
   evidences?: Evidence[];
-  goTermEvidence?: Boolean;
+  goTermEvidence?: boolean;
 }) => {
   const entryPageMatch = useRouteMatch(allEntryPages);
   if (!entryPageMatch || !evidences) {
