@@ -7,17 +7,31 @@ const familyExtractor = /( the |\. )([^.]+(?:sub|super|sub-sub)?family)/;
 const subFamilyRegEx = /(subfamily|sub-subfamily)+/;
 
 const SimilarityView = ({ children }: { children?: string }) => {
-  const familyLink = (term: string, link?: string) => (
-    <Link
-      key={term}
-      to={{
-        pathname: LocationToPath[Location.UniProtKBResults],
-        search: `query=(family:"${link || term}")`,
-      }}
-    >
-      {term}
-    </Link>
-  );
+  const familyLink = (term: string, link?: string) => {
+    let family = term;
+    let plainText;
+    // if it ends up with the full string 'Belongs to the x.x.x family'
+    const exceptionRegEx = /(belongs to the )/i;
+    if (exceptionRegEx.test(term)) {
+      [plainText, family] = term
+        .split(exceptionRegEx)
+        .filter((entry) => /\S/.test(entry));
+    }
+    return (
+      <>
+        {plainText && `${plainText} `}
+        <Link
+          key={family}
+          to={{
+            pathname: LocationToPath[Location.UniProtKBResults],
+            search: `query=(family:"${link || family}")`,
+          }}
+        >
+          {family}
+        </Link>
+      </>
+    );
+  };
   return (
     <>
       {children?.split(familyRegEx).map((part, index, { length }) => {
