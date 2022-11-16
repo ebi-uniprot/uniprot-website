@@ -148,6 +148,7 @@ const ContactForm = () => {
               maxLength={100}
               onChange={handleChange}
               defaultValue={locationState?.formValues?.name}
+              data-hj-allow
             />
             {validity}
           </span>
@@ -166,6 +167,7 @@ const ContactForm = () => {
               maxLength={100}
               onChange={handleChange}
               defaultValue={locationState?.formValues?.email}
+              data-hj-allow
             />
             {validity}
           </span>
@@ -187,6 +189,7 @@ const ContactForm = () => {
               defaultValue={
                 locationState?.formValues?.subject || subjectDefault
               }
+              data-hj-allow
             />
             {validity}
           </span>
@@ -203,6 +206,7 @@ const ContactForm = () => {
               minLength={1}
               onChange={handleChange}
               defaultValue={locationState?.formValues?.message}
+              data-hj-allow
             />
             {validity}
           </span>

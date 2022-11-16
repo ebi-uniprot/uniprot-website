@@ -333,6 +333,7 @@ const AlignForm = ({ initialFormValues }: Props) => {
                     setJobNameEdited(Boolean(event.target.value));
                     setJobName({ ...jobName, selected: event.target.value });
                   }}
+                  data-hj-allow
                 />
               </label>
             </section>

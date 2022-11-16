@@ -72,6 +72,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
         class="input"
       >
         <input
+          data-hj-allow="true"
           id="name-0"
           maxlength="100"
           name="name"
@@ -106,6 +107,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
         class="input"
       >
         <input
+          data-hj-allow="true"
           id="email-0"
           maxlength="100"
           minlength="4"
@@ -142,6 +144,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
         class="input"
       >
         <input
+          data-hj-allow="true"
           id="subject-0"
           maxlength="100"
           minlength="1"
@@ -178,6 +181,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
         class="input input__message"
       >
         <textarea
+          data-hj-allow="true"
           id="message-0"
           minlength="1"
           name="message"
@@ -343,6 +347,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
         class="input"
       >
         <input
+          data-hj-allow="true"
           id="name-0"
           maxlength="100"
           name="name"
@@ -377,6 +382,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
         class="input"
       >
         <input
+          data-hj-allow="true"
           id="email-0"
           maxlength="100"
           minlength="4"
@@ -413,6 +419,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
         class="input"
       >
         <input
+          data-hj-allow="true"
           id="subject-0"
           maxlength="100"
           minlength="1"
@@ -449,6 +456,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
         class="input input__message"
       >
         <textarea
+          data-hj-allow="true"
           id="message-0"
           minlength="1"
           name="message"
@@ -652,6 +660,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
         class="input"
       >
         <input
+          data-hj-allow="true"
           id="name-0"
           maxlength="100"
           name="name"
@@ -686,6 +695,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
         class="input"
       >
         <input
+          data-hj-allow="true"
           id="email-0"
           maxlength="100"
           minlength="4"
@@ -722,6 +732,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
         class="input"
       >
         <input
+          data-hj-allow="true"
           id="subject-0"
           maxlength="100"
           minlength="1"
@@ -758,6 +769,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
         class="input input__message"
       >
         <textarea
+          data-hj-allow="true"
           id="message-0"
           minlength="1"
           name="message"

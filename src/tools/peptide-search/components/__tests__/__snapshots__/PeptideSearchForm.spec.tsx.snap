@@ -34,6 +34,7 @@ exports[`PeptideSearchForm test Renders the form 1`] = `
           aria-label="Protein sequence(s) of at least 2 aminoacids"
           autocomplete="off"
           class="tools-form-raw-text-input"
+          data-hj-allow="true"
           name="peps"
           placeholder="Protein sequence(s) of at least 2 aminoacids"
           spellcheck="false"
@@ -94,6 +95,7 @@ exports[`PeptideSearchForm test Renders the form 1`] = `
             Name your Peptide Search job
             <input
               autocomplete="off"
+              data-hj-allow="true"
               maxlength="100"
               name="title"
               placeholder=""my job title""

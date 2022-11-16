@@ -314,6 +314,7 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
               className="tools-form-raw-text-input"
               value={textIDs}
               onChange={(event) => setTextIDs(event.target.value)}
+              data-hj-allow
             />
             {parsedIDs.length > 0 && (
               <Message level="info">
@@ -407,6 +408,7 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
                     setJobNameEdited(Boolean(event.target.value));
                     setJobName({ ...jobName, selected: event.target.value });
                   }}
+                  data-hj-allow
                 />
               </label>
             </section>

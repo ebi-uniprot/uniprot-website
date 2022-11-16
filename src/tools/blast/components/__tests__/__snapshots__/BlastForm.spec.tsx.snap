@@ -201,6 +201,7 @@ exports[`BlastForm test Renders the form 1`] = `
             Name your BLAST job
             <input
               autocomplete="off"
+              data-hj-allow="true"
               maxlength="100"
               name="title"
               placeholder=""my job title""

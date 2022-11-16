@@ -314,6 +314,7 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
               onChange={(event) =>
                 setPeps((peps) => ({ ...peps, selected: event.target.value }))
               }
+              data-hj-allow
             />
           </section>
           <section className="tools-form-section">
@@ -364,6 +365,7 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
                     setJobNameEdited(Boolean(event.target.value));
                     setJobName({ ...jobName, selected: event.target.value });
                   }}
+                  data-hj-allow
                 />
               </label>
             </section>
