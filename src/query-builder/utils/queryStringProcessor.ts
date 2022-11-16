@@ -58,7 +58,7 @@ export const stringify = (clauses: Clause[] = []): string => {
   return queryAccumulator;
 };
 
-const clauseSplitter = / *(AND|OR|NOT) */;
+const clauseSplitter = / *\b(AND|OR|NOT)\b */;
 const clauseMatcher = /^\(*(\w+):"?([^")]*)"?\)*$/;
 const splitClause = (
   clause: string
