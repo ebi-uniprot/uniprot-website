@@ -4515,9 +4515,14 @@ exports[`Entry view should render for non-human entry 1`] = `
                         <span
                           class="evidence-tag__label"
                         >
-                          IEA:UniProtKB-KW
+                          Source:UniProtKB-KW
                         </span>
                       </button>
+                      <div
+                        class="evidence-tag-content "
+                        data-testid="evidence-tag-content"
+                        id="31"
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -4551,9 +4556,14 @@ exports[`Entry view should render for non-human entry 1`] = `
                         <span
                           class="evidence-tag__label"
                         >
-                          IEA:UniProtKB-KW
+                          Source:UniProtKB-KW
                         </span>
                       </button>
+                      <div
+                        class="evidence-tag-content "
+                        data-testid="evidence-tag-content"
+                        id="32"
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -4587,9 +4597,14 @@ exports[`Entry view should render for non-human entry 1`] = `
                         <span
                           class="evidence-tag__label"
                         >
-                          IEA:UniProtKB-KW
+                          Source:UniProtKB-KW
                         </span>
                       </button>
+                      <div
+                        class="evidence-tag-content "
+                        data-testid="evidence-tag-content"
+                        id="33"
+                      />
                     </td>
                   </tr>
                 </tbody>

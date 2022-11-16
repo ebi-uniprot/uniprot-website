@@ -21,13 +21,17 @@ const GOTermEvidenceTag = ({ evidence }: { evidence?: GoEvidenceType }) => {
     return null;
   }
 
+  const codeRegEx = /(.*):/;
+  const match = codeRegEx.exec(evidence)?.[1] || '';
   return (
     <EvidenceTag
-      label={evidence}
+      label={evidence.replace(match, 'Source')}
       className={
         evidenceData?.manual ? 'svg-colour-reviewed' : 'svg-colour-unreviewed'
       }
-    />
+    >
+      <h5 data-article-id={`evidences#${match}`}>{evidenceData.description}</h5>
+    </EvidenceTag>
   );
 };
 
