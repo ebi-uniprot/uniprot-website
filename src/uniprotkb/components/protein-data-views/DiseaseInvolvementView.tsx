@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { InfoList, ExpandableList } from 'franklin-sites';
+import { InfoList, ExpandableList, ExternalLink } from 'franklin-sites';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import { XRef } from './XRefView';
@@ -15,6 +15,7 @@ import { Namespace } from '../../../shared/types/namespaces';
 import { FeatureDatum } from './UniProtKBFeaturesView';
 
 import styles from './styles/variation-view.module.scss';
+import externalUrls from '../../../shared/config/externalUrls';
 
 export const DiseaseVariants = ({ variants }: { variants: FeatureDatum[] }) => {
   const table = (
@@ -43,14 +44,17 @@ export const DiseaseVariants = ({ variants }: { variants: FeatureDatum[] }) => {
                 <td className={styles.change}>
                   {variant.alternativeSequence?.originalSequence ||
                   variant.alternativeSequence?.alternativeSequences?.[0] ? (
-                    <>
+                    <ExternalLink
+                      url={externalUrls.variant(variant.featureId || '')}
+                      noIcon
+                    >
                       {variant.alternativeSequence?.originalSequence || (
                         <em>missing</em>
                       )}
                       {'>'}
                       {variant.alternativeSequence
                         ?.alternativeSequences?.[0] || <em>missing</em>}
-                    </>
+                    </ExternalLink>
                   ) : (
                     <em>missing</em>
                   )}
