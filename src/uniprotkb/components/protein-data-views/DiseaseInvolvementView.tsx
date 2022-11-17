@@ -35,6 +35,12 @@ export const DiseaseVariants = ({ variants }: { variants: FeatureDatum[] }) => {
             position += `-${variant.location.end.value}`;
           }
 
+          let [description, rsID] = [variant.description, ''];
+          const dbSNPRegEx = /dbsnp:(rs\d*)/i;
+          if (description && dbSNPRegEx.test(description)) {
+            [description, rsID] = description.split(dbSNPRegEx).filter(Boolean);
+          }
+
           return (
             // eslint-disable-next-line react/no-array-index-key
             <Fragment key={i}>
@@ -60,7 +66,14 @@ export const DiseaseVariants = ({ variants }: { variants: FeatureDatum[] }) => {
                   )}
                 </td>
                 <td>
-                  {variant.description}
+                  {description}
+                  {rsID && (
+                    <>
+                      <ExternalLink url={externalUrls.dbSNP(rsID)}>
+                        dbSNP:{rsID}
+                      </ExternalLink>
+                    </>
+                  )}
                   {variant.evidences && (
                     <UniProtKBEvidenceTag evidences={variant.evidences} />
                   )}
