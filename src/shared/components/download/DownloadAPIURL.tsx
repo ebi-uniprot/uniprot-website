@@ -39,7 +39,7 @@ export const getSearchURL = (streamURL: string, batchSize = 500) => {
 };
 
 // NOTE: update as needed if backend limitations change!
-export const DOWNLOAD_SIZE_LIMIT = 5_000_000 as const;
+export const DOWNLOAD_SIZE_LIMIT = 10_000_000 as const;
 
 type Props = {
   apiURL: string;
