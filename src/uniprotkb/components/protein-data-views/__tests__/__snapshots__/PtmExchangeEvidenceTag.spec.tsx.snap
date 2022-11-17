@@ -78,7 +78,7 @@ exports[`PtmExchangeEvidenceTag components should render 1`] = `
                   rel="noopener"
                   target="_blank"
                 >
-                  PRIDE - PXD004939
+                  PRIDE: PXD004939
                   <test-file-stub
                     data-testid="external-link-icon"
                     width="12.5"
@@ -94,7 +94,7 @@ exports[`PtmExchangeEvidenceTag components should render 1`] = `
                   rel="noopener"
                   target="_blank"
                 >
-                  PRIDE - PXD005241
+                  PRIDE: PXD005241
                   <test-file-stub
                     data-testid="external-link-icon"
                     width="12.5"
@@ -110,7 +110,7 @@ exports[`PtmExchangeEvidenceTag components should render 1`] = `
                   rel="noopener"
                   target="_blank"
                 >
-                  PRIDE - PXD004705
+                  PRIDE: PXD004705
                   <test-file-stub
                     data-testid="external-link-icon"
                     width="12.5"

@@ -2,7 +2,7 @@
 
 exports[`Evidence urls EvidenceLink should return a plain value if unknown source 1`] = `
 <DocumentFragment>
-  rule_id
+  &lt;Unknown source&gt;: rule_id
 </DocumentFragment>
 `;
 
@@ -14,7 +14,7 @@ exports[`Evidence urls EvidenceLink should return the correct external link JSX 
     rel="noopener"
     target="_blank"
   >
-    rule_id
+    Ensembl: rule_id
     <test-file-stub
       data-testid="external-link-icon"
       width="12.5"
@@ -28,7 +28,7 @@ exports[`Evidence urls EvidenceLink should return the correct internal link JSX 
   <a
     href="/arba/rule_id"
   >
-    rule_id
+    ARBA: rule_id
   </a>
 </DocumentFragment>
 `;

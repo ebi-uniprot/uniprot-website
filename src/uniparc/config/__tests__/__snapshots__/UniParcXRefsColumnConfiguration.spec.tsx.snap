@@ -70,7 +70,7 @@ exports[`UniParcXRefsColumnConfiguration component should render column "ncbiGi"
     rel="noopener"
     target="_blank"
   >
-    138624
+    RefSeq: 138624
     <test-file-stub
       data-testid="external-link-icon"
       width="12.5"
