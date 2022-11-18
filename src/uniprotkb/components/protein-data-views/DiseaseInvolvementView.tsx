@@ -9,13 +9,13 @@ import DatatableWithToggle from '../../../shared/components/views/DatatableWithT
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
 import { getEntryPath } from '../../../app/config/urls';
+import externalUrls from '../../../shared/config/externalUrls';
 
 import { DiseaseComment } from '../../types/commentTypes';
 import { Namespace } from '../../../shared/types/namespaces';
 import { FeatureDatum } from './UniProtKBFeaturesView';
 
 import styles from './styles/variation-view.module.scss';
-import externalUrls from '../../../shared/config/externalUrls';
 
 export const uniprotVariantLink = (variant: FeatureDatum) =>
   variant.alternativeSequence?.originalSequence ||
