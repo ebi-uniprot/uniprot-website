@@ -46,9 +46,11 @@ const externalUrls: Record<string, (id: string | number) => string> = {
   InterProEntry: (id) => `https://www.ebi.ac.uk/interpro/entry/InterPro/${id}/`,
   InterProSearch: (searchTerm) =>
     `https://www.ebi.ac.uk/interpro/search/text/${searchTerm}`,
-  // variants
-  variant: (id) => `https://web.expasy.org/variant_pages/${id}.html`,
+  // variation
+  UniProt: (id) => `https://web.expasy.org/variant_pages/${id}.html`,
   dbSNP: (id) => `https://www.ncbi.nlm.nih.gov/snp/${id}`,
+  Ensembl: (id) =>
+    `http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=${id}`,
   // citations
   DOI: (id) => `https://dx.doi.org/${id}`,
   PubMed: (id) => `https://pubmed.ncbi.nlm.nih.gov/${id}`,

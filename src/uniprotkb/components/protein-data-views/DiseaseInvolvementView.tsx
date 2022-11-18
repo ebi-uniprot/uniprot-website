@@ -17,6 +17,21 @@ import { FeatureDatum } from './UniProtKBFeaturesView';
 import styles from './styles/variation-view.module.scss';
 import externalUrls from '../../../shared/config/externalUrls';
 
+export const uniprotVariantLink = (variant: FeatureDatum) => {
+  return variant.alternativeSequence?.originalSequence ||
+    variant.alternativeSequence?.alternativeSequences?.[0] ? (
+    <ExternalLink url={externalUrls.UniProt(variant.featureId || '')} noIcon>
+      {variant.alternativeSequence?.originalSequence || <em>missing</em>}
+      {'>'}
+      {variant.alternativeSequence?.alternativeSequences?.[0] || (
+        <em>missing</em>
+      )}
+    </ExternalLink>
+  ) : (
+    <em>missing</em>
+  );
+};
+
 export const DiseaseVariants = ({ variants }: { variants: FeatureDatum[] }) => {
   const table = (
     <table>
@@ -47,24 +62,7 @@ export const DiseaseVariants = ({ variants }: { variants: FeatureDatum[] }) => {
               <tr>
                 <td>{variant.featureId}</td>
                 <td>{position}</td>
-                <td className={styles.change}>
-                  {variant.alternativeSequence?.originalSequence ||
-                  variant.alternativeSequence?.alternativeSequences?.[0] ? (
-                    <ExternalLink
-                      url={externalUrls.variant(variant.featureId || '')}
-                      noIcon
-                    >
-                      {variant.alternativeSequence?.originalSequence || (
-                        <em>missing</em>
-                      )}
-                      {'>'}
-                      {variant.alternativeSequence
-                        ?.alternativeSequences?.[0] || <em>missing</em>}
-                    </ExternalLink>
-                  ) : (
-                    <em>missing</em>
-                  )}
-                </td>
+                <td className={styles.change}>{uniprotVariantLink(variant)}</td>
                 <td>
                   {description}
                   {rsID && (
