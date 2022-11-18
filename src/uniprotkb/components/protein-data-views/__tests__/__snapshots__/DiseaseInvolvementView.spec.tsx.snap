@@ -131,10 +131,29 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
             <td
               class="change"
             >
-              Q&gt;P
+              <a
+                class="external-link"
+                href="https://web.expasy.org/variant_pages/VAR_019255.html"
+                rel="noopener"
+                target="_blank"
+              >
+                Q&gt;P
+              </a>
             </td>
             <td>
-              in dbSNP:rs13447459
+              in 
+              <a
+                class="external-link"
+                href="https://www.ncbi.nlm.nih.gov/snp/rs13447459"
+                rel="noopener"
+                target="_blank"
+              >
+                dbSNP:rs13447459
+                <test-file-stub
+                  data-testid="external-link-icon"
+                  width="12.5"
+                />
+              </a>
             </td>
           </tr>
           <tr>
@@ -147,10 +166,29 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
             <td
               class="change"
             >
-              I&gt;V
+              <a
+                class="external-link"
+                href="https://web.expasy.org/variant_pages/VAR_019256.html"
+                rel="noopener"
+                target="_blank"
+              >
+                I&gt;V
+              </a>
             </td>
             <td>
-              in dbSNP:rs13447492
+              in 
+              <a
+                class="external-link"
+                href="https://www.ncbi.nlm.nih.gov/snp/rs13447492"
+                rel="noopener"
+                target="_blank"
+              >
+                dbSNP:rs13447492
+                <test-file-stub
+                  data-testid="external-link-icon"
+                  width="12.5"
+                />
+              </a>
             </td>
           </tr>
         </tbody>

@@ -1472,27 +1472,26 @@ const getXrefColumn = (databaseName: string) => {
           })}
         </>
       );
-    } else {
-      const xrefs = data?.uniProtKBCrossReferences?.filter(
-        ({ database }) => database?.toLowerCase() === databaseName
-      );
-      const database = xrefs?.[0]?.database;
-      if (!database) {
-        // This is fine - the entry just doesn't have xrefs for this DB so just render nothing
-        return null;
-      }
-      const xrefsGoupedByDatabase = {
-        database,
-        xrefs,
-      };
-      return (
-        <DatabaseList
-          xrefsGoupedByDatabase={xrefsGoupedByDatabase}
-          primaryAccession={data.primaryAccession}
-          databaseToDatabaseInfo={databaseInfoMaps.databaseToDatabaseInfo}
-        />
-      );
     }
+    const xrefs = data?.uniProtKBCrossReferences?.filter(
+      ({ database }) => database?.toLowerCase() === databaseName
+    );
+    const database = xrefs?.[0]?.database;
+    if (!database) {
+      // This is fine - the entry just doesn't have xrefs for this DB so just render nothing
+      return null;
+    }
+    const xrefsGoupedByDatabase = {
+      database,
+      xrefs,
+    };
+    return (
+      <DatabaseList
+        xrefsGoupedByDatabase={xrefsGoupedByDatabase}
+        primaryAccession={data.primaryAccession}
+        databaseToDatabaseInfo={databaseInfoMaps.databaseToDatabaseInfo}
+      />
+    );
   };
   return {
     label: () => <Label />,

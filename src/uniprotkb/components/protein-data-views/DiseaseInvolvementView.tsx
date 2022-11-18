@@ -17,9 +17,9 @@ import { FeatureDatum } from './UniProtKBFeaturesView';
 import styles from './styles/variation-view.module.scss';
 import externalUrls from '../../../shared/config/externalUrls';
 
-export const uniprotVariantLink = (variant: FeatureDatum) => {
-  return variant.alternativeSequence?.originalSequence ||
-    variant.alternativeSequence?.alternativeSequences?.[0] ? (
+export const uniprotVariantLink = (variant: FeatureDatum) =>
+  variant.alternativeSequence?.originalSequence ||
+  variant.alternativeSequence?.alternativeSequences?.[0] ? (
     <ExternalLink url={externalUrls.UniProt(variant.featureId || '')} noIcon>
       {variant.alternativeSequence?.originalSequence || <em>missing</em>}
       {'>'}
@@ -30,7 +30,6 @@ export const uniprotVariantLink = (variant: FeatureDatum) => {
   ) : (
     <em>missing</em>
   );
-};
 
 export const DiseaseVariants = ({ variants }: { variants: FeatureDatum[] }) => {
   const table = (
@@ -66,11 +65,9 @@ export const DiseaseVariants = ({ variants }: { variants: FeatureDatum[] }) => {
                 <td>
                   {description}
                   {rsID && (
-                    <>
-                      <ExternalLink url={externalUrls.dbSNP(rsID)}>
-                        dbSNP:{rsID}
-                      </ExternalLink>
-                    </>
+                    <ExternalLink url={externalUrls.dbSNP(rsID)}>
+                      dbSNP:{rsID}
+                    </ExternalLink>
                   )}
                   {variant.evidences && (
                     <UniProtKBEvidenceTag evidences={variant.evidences} />
