@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { InfoList, ExpandableList } from 'franklin-sites';
+import { InfoList, ExpandableList, ExternalLink } from 'franklin-sites';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import { XRef } from './XRefView';
@@ -9,12 +9,27 @@ import DatatableWithToggle from '../../../shared/components/views/DatatableWithT
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
 import { getEntryPath } from '../../../app/config/urls';
+import externalUrls from '../../../shared/config/externalUrls';
 
 import { DiseaseComment } from '../../types/commentTypes';
 import { Namespace } from '../../../shared/types/namespaces';
 import { FeatureDatum } from './UniProtKBFeaturesView';
 
 import styles from './styles/variation-view.module.scss';
+
+export const uniprotVariantLink = (variant: FeatureDatum) =>
+  variant.alternativeSequence?.originalSequence ||
+  variant.alternativeSequence?.alternativeSequences?.[0] ? (
+    <ExternalLink url={externalUrls.UniProt(variant.featureId || '')} noIcon>
+      {variant.alternativeSequence?.originalSequence || <em>missing</em>}
+      {'>'}
+      {variant.alternativeSequence?.alternativeSequences?.[0] || (
+        <em>missing</em>
+      )}
+    </ExternalLink>
+  ) : (
+    <em>missing</em>
+  );
 
 export const DiseaseVariants = ({ variants }: { variants: FeatureDatum[] }) => {
   const table = (
@@ -34,29 +49,26 @@ export const DiseaseVariants = ({ variants }: { variants: FeatureDatum[] }) => {
             position += `-${variant.location.end.value}`;
           }
 
+          let [description, rsID] = [variant.description, ''];
+          const dbSNPRegEx = /dbsnp:(rs\d*)/i;
+          if (description && dbSNPRegEx.test(description)) {
+            [description, rsID] = description.split(dbSNPRegEx).filter(Boolean);
+          }
+
           return (
             // eslint-disable-next-line react/no-array-index-key
             <Fragment key={i}>
               <tr>
                 <td>{variant.featureId}</td>
                 <td>{position}</td>
-                <td className={styles.change}>
-                  {variant.alternativeSequence?.originalSequence ||
-                  variant.alternativeSequence?.alternativeSequences?.[0] ? (
-                    <>
-                      {variant.alternativeSequence?.originalSequence || (
-                        <em>missing</em>
-                      )}
-                      {'>'}
-                      {variant.alternativeSequence
-                        ?.alternativeSequences?.[0] || <em>missing</em>}
-                    </>
-                  ) : (
-                    <em>missing</em>
-                  )}
-                </td>
+                <td className={styles.change}>{uniprotVariantLink(variant)}</td>
                 <td>
-                  {variant.description}
+                  {description}
+                  {rsID && (
+                    <ExternalLink url={externalUrls.dbSNP(rsID)}>
+                      dbSNP:{rsID}
+                    </ExternalLink>
+                  )}
                   {variant.evidences && (
                     <UniProtKBEvidenceTag evidences={variant.evidences} />
                   )}

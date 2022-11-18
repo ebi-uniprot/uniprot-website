@@ -2052,7 +2052,52 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_cptc"
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_ctd": xref_ctd 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "xref_dbsnp": xref_dbsnp 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "xref_dbsnp": xref_dbsnp 1`] = `
+<DocumentFragment>
+  <div>
+    <a
+      class="external-link"
+      href="https://web.expasy.org/variant_pages/id value CHAIN.html"
+      rel="noopener"
+      target="_blank"
+    >
+      original value&gt;alternative value
+    </a>
+    <span
+      class="no-wrap"
+    >
+       db id ( 
+      <a
+        class="external-link"
+        href="https://www.ncbi.nlm.nih.gov/snp/db id"
+        rel="noopener"
+        target="_blank"
+      >
+        dbSNP
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+       | 
+      <a
+        class="external-link"
+        href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=db id"
+        rel="noopener"
+        target="_blank"
+      >
+        Ensembl
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+       ) 
+    </span>
+    <br />
+  </div>
+</DocumentFragment>
+`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_depod": xref_depod 1`] = `<DocumentFragment />`;
 

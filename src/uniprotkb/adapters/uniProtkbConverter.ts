@@ -102,6 +102,7 @@ export type UniProtkbUIModel = {
   annotationScore: AnnotationScoreValue;
   uniProtKBCrossReferences?: Xref[];
   lineages?: Lineage[];
+  features?: FeatureDatum[];
   [EntrySection.Function]: UIModel;
   [EntrySection.NamesAndTaxonomy]: NamesAndTaxonomyUIModel;
   [EntrySection.SubCellularLocation]: UIModel;
@@ -160,6 +161,7 @@ const uniProtKbConverter = (
     inactiveReason: dataCopy.inactiveReason,
     uniProtKBCrossReferences,
     lineages: dataCopy.lineages,
+    features: dataCopy.features,
     [EntrySection.Function]: convertFunction(
       dataCopy,
       databaseInfoMaps,

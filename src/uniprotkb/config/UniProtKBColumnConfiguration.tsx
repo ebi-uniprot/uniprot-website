@@ -69,7 +69,9 @@ import {
 } from '../types/commentTypes';
 import { KeywordList } from '../components/protein-data-views/KeywordView';
 // import { DatabaseList } from '../components/protein-data-views/XRefView';
-import DiseaseInvolvementView from '../components/protein-data-views/DiseaseInvolvementView';
+import DiseaseInvolvementView, {
+  uniprotVariantLink,
+} from '../components/protein-data-views/DiseaseInvolvementView';
 import CatalyticActivityView, {
   getRheaId,
   isRheaReactionReference,
@@ -1436,6 +1438,40 @@ const getXrefColumn = (databaseName: string) => {
     const databaseInfoMaps = useDatabaseInfoMaps();
     if (!databaseInfoMaps) {
       return null;
+    }
+
+    if (databaseName === 'dbsnp') {
+      const features = data?.features;
+      return (
+        <>
+          {features?.map((feature) => {
+            const { featureId, featureCrossReferences } = feature;
+            const dbSNPRef = featureCrossReferences?.[0];
+            return (
+              <div key={featureId}>
+                {dbSNPRef?.id && (
+                  <>
+                    {uniprotVariantLink(feature)}
+                    <span className={helper['no-wrap']}>
+                      {` ${dbSNPRef.id}`}
+                      {' ( '}
+                      <ExternalLink url={externalUrls.dbSNP(dbSNPRef.id)}>
+                        dbSNP
+                      </ExternalLink>
+                      {' | '}
+                      <ExternalLink url={externalUrls.Ensembl(dbSNPRef.id)}>
+                        Ensembl
+                      </ExternalLink>
+                      {' ) '}
+                    </span>
+                    <br />
+                  </>
+                )}
+              </div>
+            );
+          })}
+        </>
+      );
     }
     const xrefs = data?.uniProtKBCrossReferences?.filter(
       ({ database }) => database?.toLowerCase() === databaseName
