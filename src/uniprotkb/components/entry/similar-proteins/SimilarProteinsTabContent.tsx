@@ -42,8 +42,7 @@ const getUniprotkbQuery = (cluster: UniRefLiteAPIModel, isoforms: string[]) =>
     cluster.id
   })${isoforms
     .map(
-      (isoform) =>
-        ` AND NOT (accession:${isoform.replace(canonicalIsoformRE, '')})`
+      (isoform) => ` NOT (accession:${isoform.replace(canonicalIsoformRE, '')})`
     )
     .join('')}`;
 

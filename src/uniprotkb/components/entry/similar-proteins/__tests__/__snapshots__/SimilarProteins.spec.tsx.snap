@@ -146,7 +146,7 @@ exports[`SimilarProteins tests should fetch data and render 1`] = `
             </table>
           </div>
           <a
-            href="/uniprotkb?query=(uniref_cluster_100:UniRef100_P05067) AND NOT (accession:P05067)"
+            href="/uniprotkb?query=(uniref_cluster_100:UniRef100_P05067) NOT (accession:P05067)"
           >
             Show all (2) UniProtKB entries
           </a>
@@ -254,7 +254,7 @@ exports[`SimilarProteins tests should fetch data and render 1`] = `
             </table>
           </div>
           <a
-            href="/uniprotkb?query=(uniref_cluster_100:UniRef100_P05067-4) AND NOT (accession:P05067-4)"
+            href="/uniprotkb?query=(uniref_cluster_100:UniRef100_P05067-4) NOT (accession:P05067-4)"
           >
             Show all (2) UniProtKB entries
           </a>

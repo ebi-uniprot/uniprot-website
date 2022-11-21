@@ -26,7 +26,7 @@ const RelatedArticles = ({
   const initialANDApiUrl = helpURL.search({
     query: `${categories
       .map((category) => `category:"${category}"`)
-      .join(' AND ')} AND NOT id:${current}`,
+      .join(' AND ')} NOT id:${current}`,
     facets: null,
     fields: ['id', 'title'],
     size: '5',
@@ -41,7 +41,7 @@ const RelatedArticles = ({
     ? helpURL.search({
         query: `(${categories
           .map((category) => `category:"${category}"`)
-          .join(' OR ')}) AND NOT id:${current}`,
+          .join(' OR ')}) NOT id:${current}`,
         facets: null,
         fields: ['id', 'title'],
         size: '5',
