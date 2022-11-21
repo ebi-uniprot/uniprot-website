@@ -55,6 +55,8 @@ const PublicationReference: FC<{
       source && databaseInfoMaps?.databaseToDatabaseInfo[source.name];
     if (databaseInfo?.uriLink && source?.id) {
       url = processUrlTemplate(databaseInfo.uriLink, { id: source.id });
+    } else {
+      url = null;
     }
     if (source?.name === 'GeneRif') {
       url = `https://www.ncbi.nlm.nih.gov/gene?Db=gene&Cmd=DetailsSearch&Term=${source.id}`;
@@ -138,23 +140,24 @@ const PublicationReference: FC<{
             ) : (
               <span>
                 {source.name}
-                {source.id && `:${source.id}`}
+                {source.name === 'ORCID' && source.id ? (
+                  <>
+                    {': '}
+                    <ExternalLink url={`https://orcid.org/${source.id}`}>
+                      {source.id}
+                    </ExternalLink>
+                    {' ('}
+                    <ExternalLink
+                      url={`//community.uniprot.org/bbsub/bbsubinfo.html?accession=${accession}`}
+                    >
+                      see community submission
+                    </ExternalLink>
+                    ).
+                  </>
+                ) : (
+                  <>{source.id && `:${source.id}`}</>
+                )}
               </span>
-            )}
-            {source.name === 'ORCID' && (
-              <>
-                {' '}
-                <ExternalLink url={`https://orcid.org/${source.id}`}>
-                  {source.id}
-                </ExternalLink>
-                {' ('}
-                <ExternalLink
-                  url={`//community.uniprot.org/bbsub/bbsubinfo.html?accession=${accession}`}
-                >
-                  see community submission
-                </ExternalLink>
-                ).
-              </>
             )}
           </>
         ),
@@ -176,7 +179,7 @@ const PublicationReference: FC<{
           mergedInfoList[i].content = (
             <>
               {mergedInfoList[i].content}
-              {', '}
+              {mergedInfoList[i].content && ', '}
               {obj.content}
             </>
           );
