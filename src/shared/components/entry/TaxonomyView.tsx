@@ -142,7 +142,7 @@ export const TaxonomyListView = ({
   const infoListData: { title: ReactNode; content: ReactNode }[] = [];
   if (data.scientificName && data.taxonId) {
     infoListData.push({
-      title: 'Organism',
+      title: <span data-article-id="organism-name">Organism</span>,
       content: (
         <>
           <TaxonomyView data={data} />
@@ -185,7 +185,7 @@ export const TaxonomyListView = ({
   }
   if (hosts) {
     infoListData.push({
-      title: 'Virus hosts',
+      title: <span data-article-id="virus_host">Virus hosts</span>,
       content: (
         <ExpandableList
           displayNumberOfHiddenItems

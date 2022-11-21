@@ -1815,9 +1815,7 @@ exports[`Entry view should render 1`] = `
             </ul>
           </li>
         </ul>
-        <h3
-          data-article-id="organism-name"
-        >
+        <h3>
           Organism names
         </h3>
         <ul
@@ -1830,7 +1828,11 @@ exports[`Entry view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Organism
+                <span
+                  data-article-id="organism-name"
+                >
+                  Organism
+                </span>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -1929,7 +1931,11 @@ exports[`Entry view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Virus hosts
+                <span
+                  data-article-id="virus_host"
+                >
+                  Virus hosts
+                </span>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -4964,9 +4970,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             </div>
           </li>
         </ul>
-        <h3
-          data-article-id="organism-name"
-        >
+        <h3>
           Organism names
         </h3>
         <ul
@@ -4979,7 +4983,11 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Organism
+                <span
+                  data-article-id="organism-name"
+                >
+                  Organism
+                </span>
               </div>
               <div
                 class="decorated-list-item__content"

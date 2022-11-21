@@ -27,7 +27,7 @@ const ProteomesView = ({ data, isCompact = false }: Props) => (
             ),
           },
           {
-            title: 'Component',
+            title: <span data-article-id="proteome_component">Component</span>,
             content: proteome.properties?.Component,
           },
         ]}

@@ -56,13 +56,13 @@ const NamesAndTaxonomySection = ({ data, primaryAccession }: Props) => {
           <GeneNamesView geneNamesData={data.geneNamesData} />
         </>
       )}
-      <h3 data-article-id="organism-name">Organism names</h3>
+      <h3>Organism names</h3>
       <TaxonomyListView data={data.organismData} hosts={data.organismHosts} />
       <h3>Accessions</h3>
       <AccessionsView data={data} />
       {!!data.proteomesData?.length && (
         <>
-          <h3 data-article-id="proteomes_manual">Proteome</h3>
+          <h3 data-article-id="proteomes_manual">Proteomes</h3>
           <ProteomesListView data={data.proteomesData} />
         </>
       )}
