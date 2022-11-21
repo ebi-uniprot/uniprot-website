@@ -2,7 +2,11 @@ import { DecoratedListItem, ExternalLink } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
-import { Location, LocationToPath } from '../../config/urls';
+import {
+  getLocationEntryPath,
+  Location,
+  LocationToPath,
+} from '../../config/urls';
 
 import styles from './styles/non-critical.module.scss';
 
@@ -63,8 +67,17 @@ const ExtraLinks = () => (
         title="Browse entries with ProtNLM predictions"
       >
         <h2 className="medium">ProtNLM Predictions</h2>
-        Explore all the entries annotated with Google&apos;s ProtNLM predictions
+        Browse all the entries annotated with Google&apos;s ProtNLM predictions
       </Link>
+      <br />
+      <br />
+      <small>
+        <Link
+          to={{ pathname: getLocationEntryPath(Location.HelpEntry, 'ProtNLM') }}
+        >
+          What is ProtNLM?
+        </Link>
+      </small>
     </DecoratedListItem>
     <DecoratedListItem
       compact

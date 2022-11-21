@@ -248,8 +248,17 @@ exports[`non-critical HomePage component should render 1`] = `
           >
             ProtNLM Predictions
           </h2>
-          Explore all the entries annotated with Google's ProtNLM predictions
+          Browse all the entries annotated with Google's ProtNLM predictions
         </a>
+        <br />
+        <br />
+        <small>
+          <a
+            href="/help/ProtNLM"
+          >
+            What is ProtNLM?
+          </a>
+        </small>
       </div>
     </div>
     <div
