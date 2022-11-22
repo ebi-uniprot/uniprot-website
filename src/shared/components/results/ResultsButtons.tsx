@@ -66,6 +66,7 @@ type ResultsButtonsProps = {
   notCustomisable?: boolean;
   subsetsMap?: Map<string, string>;
   supportedFormats?: FileFormat[];
+  excludeColumns?: boolean;
 };
 
 const ResultsButtons: FC<ResultsButtonsProps> = ({
@@ -81,6 +82,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
   notCustomisable = false,
   subsetsMap,
   supportedFormats,
+  excludeColumns = false,
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
@@ -191,6 +193,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
                 base={base}
                 notCustomisable={notCustomisable}
                 supportedFormats={supportedFormats}
+                excludeColumns={excludeColumns}
               />
             </ErrorBoundary>
           </SlidingPanel>

@@ -104,6 +104,8 @@ const ComponentsButtons = ({
                     ? fileFormatsResultsDownloadForRedundant
                     : undefined
                 }
+                // List of proteins has to be downloaded. In that case, the default proteome columns must not be set
+                excludeColumns
               />
             </ErrorBoundary>
           </SlidingPanel>

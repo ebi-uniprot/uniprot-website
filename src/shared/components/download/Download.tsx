@@ -41,6 +41,7 @@ type DownloadProps = {
   base?: string;
   supportedFormats?: FileFormat[];
   notCustomisable?: boolean;
+  excludeColumns?: boolean;
 };
 
 type ExtraContent = 'url' | 'preview';
@@ -57,6 +58,7 @@ const Download: FC<DownloadProps> = ({
   base,
   supportedFormats,
   notCustomisable,
+  excludeColumns = false,
 }) => {
   const { columnNames } = useColumnNames();
   const { search: queryParamFromUrl } = useLocation();
@@ -103,8 +105,8 @@ const Download: FC<DownloadProps> = ({
 
   const hasColumns =
     fileFormatsWithColumns.has(fileFormat) &&
-    namespace !== Namespace.idmapping &&
-    namespace !== Namespace.unisave;
+    !excludeColumns &&
+    namespace !== Namespace.idmapping;
 
   // The ID Mapping URL provided from the job details is for the paginated results
   // endpoint while the stream endpoint is required for downloads

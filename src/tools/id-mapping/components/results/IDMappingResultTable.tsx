@@ -46,6 +46,7 @@ const IDMappingResultTable = ({
         notCustomisable={
           notCustomisable || namespaceOverride === Namespace.idmapping
         }
+        excludeColumns={namespaceOverride === Namespace.idmapping}
         supportedFormats={supportedFormats}
       />
       {resultsDataObject.failedIds && (
