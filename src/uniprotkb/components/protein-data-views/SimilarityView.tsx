@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
@@ -18,10 +19,9 @@ const SimilarityView = ({ children }: { children?: string }) => {
         .filter((entry) => /\S/.test(entry));
     }
     return (
-      <>
+      <Fragment key={family}>
         {plainText && `${plainText} `}
         <Link
-          key={family}
           to={{
             pathname: LocationToPath[Location.UniProtKBResults],
             search: `query=(family:"${link || family}")`,
@@ -29,7 +29,7 @@ const SimilarityView = ({ children }: { children?: string }) => {
         >
           {family}
         </Link>
-      </>
+      </Fragment>
     );
   };
   return (
