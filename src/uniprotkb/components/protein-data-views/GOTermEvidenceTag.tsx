@@ -30,7 +30,9 @@ const GOTermEvidenceTag = ({ evidence }: { evidence?: GoEvidenceType }) => {
         evidenceData?.manual ? 'svg-colour-reviewed' : 'svg-colour-unreviewed'
       }
     >
-      <h5 data-article-id={`evidences#${match}`}>{evidenceData.description}</h5>
+      <h5 data-article-id="evidences#evidence-types-that-are-used-in-go-annotation">
+        {evidenceData.description}
+      </h5>
     </EvidenceTag>
   );
 };
