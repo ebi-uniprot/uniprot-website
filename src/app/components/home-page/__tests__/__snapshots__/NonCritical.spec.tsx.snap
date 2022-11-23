@@ -666,17 +666,17 @@ exports[`non-critical HomePage component should render 1`] = `
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/251/"
+          href="https://www.proteinspotlight.org/back_issues/252/"
           rel="noopener"
           target="_blank"
         >
-          The many lives of colour
+          Delayed
         </a>
       </h3>
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/251/"
+        href="https://www.proteinspotlight.org/back_issues/252/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
@@ -685,14 +685,14 @@ exports[`non-critical HomePage component should render 1`] = `
           alt=""
           height="129"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt251.jpg"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt252.jpg"
           width="123"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          How  bland  Nature  would  be  without  colour.  How  drab  a  walk  through  the  woods,  how  dull  a  visit  to  the  zoo.  From  the  bright  pink  of  a  rose  to  the  emerald  green  of  a  beetle  and  the  deep  blue  of  a  bird's  feather,  colour  is  everywhere.  More  prosaically,…
+          Better  safe  than  sorry.  Leaving  -  whatever  or  whoever  it  may  be  -  is  always  better  when  executed  with  some  forethought  and  organisation.  Cells  sometimes  behave  similarly.
       </p>
     </article>
   </section>

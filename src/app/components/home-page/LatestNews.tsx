@@ -17,7 +17,7 @@ const insideUniProtAbstract2 =
   'We would like to invite the machine learning community to help UniProt by creating computational methods to predict metal binding sites across the whole of UniProtKB.';
 
 const proteinSpotlightAbstract =
-  "How bland Nature would be without colour. How drab a walk through the woods, how dull a visit to the zoo. From the bright pink of a rose to the emerald green of a beetle and the deep blue of a bird's feather, colour is everywhere. More prosaically, the colours we see are the result of daylight bouncing off molecules known as pigments";
+  'Better safe than sorry. Leaving - whatever or whoever it may be - is always better when executed with some forethought and organisation. Cells sometimes behave similarly.';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -331,21 +331,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/251/"
+            url="https://www.proteinspotlight.org/back_issues/252/"
             noIcon
           >
-            The many lives of colour
+            Delayed
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/251/"
+          url="https://www.proteinspotlight.org/back_issues/252/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt251.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt252.jpg"
             alt=""
             width="123"
             height="129"
