@@ -169,13 +169,8 @@ ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
     if (!proteinCount) {
       return 0;
     }
-    // Excluded not supported at the moment, need to wait for TRM-28011
-    if (proteomeType === 'Excluded') {
-      return <LongNumber>{proteinCount}</LongNumber>;
-    }
-    // const shouldPointToUniParc =
-    //   proteomeType === 'Excluded' || proteomeType === 'Redundant proteome';
-    const shouldPointToUniParc = proteomeType === 'Redundant proteome';
+    const shouldPointToUniParc =
+      proteomeType === 'Excluded' || proteomeType === 'Redundant proteome';
     return (
       <Link
         to={{
@@ -188,7 +183,12 @@ ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
           search: `query=${shouldPointToUniParc ? 'upid' : 'proteome'}:${id}`,
         }}
       >
-        <LongNumber>{proteinCount}</LongNumber>
+        {/* Excluded not supported at the moment, need to wait for TRM-28011 */}
+        {proteomeType === 'Excluded' ? (
+          'Browse UniParc entries'
+        ) : (
+          <LongNumber>{proteinCount}</LongNumber>
+        )}
       </Link>
     );
   },
