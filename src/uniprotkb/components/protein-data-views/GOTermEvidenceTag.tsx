@@ -30,7 +30,7 @@ const GOTermEvidenceTag = ({ evidence }: { evidence?: GoEvidenceType }) => {
         evidenceData?.manual ? 'svg-colour-reviewed' : 'svg-colour-unreviewed'
       }
     >
-      <h5 data-article-id="gene_ontology#list-of-go-evidence-codes-found-in-uniprotkb">
+      <h5 data-article-id="evidences#evidence-types-used-for-go-annotations">
         {evidenceData.description}
       </h5>
     </EvidenceTag>
