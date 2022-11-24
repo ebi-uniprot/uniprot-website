@@ -29,7 +29,7 @@ export const ecoCode = {
   NAS: 303,
   IC: 305,
   ND: 307,
-  IEA: 501,
+  IEA: 7669,
   MI: 312,
   AI: 313,
   AA: 256,
