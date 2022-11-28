@@ -305,8 +305,9 @@ const Download: FC<DownloadProps> = ({
         {downloadCount > DOWNLOAD_SIZE_LIMIT && (
           <Message level="info">
             Download size is too big, please restrict your search. If the
-            results exceeed the download limit of 5,000,000, it is recommended
-            to use{' '}
+            results exceeed the download limit of{' '}
+            <LongNumber>{DOWNLOAD_SIZE_LIMIT}</LongNumber>, it is recommended to
+            use{' '}
             <Link
               to={generatePath(LocationToPath[Location.HelpEntry], {
                 accession: 'pagination',
