@@ -94,11 +94,7 @@ const ExtraLinks = () => (
         alt=""
         loading="lazy"
       />
-      <ExternalLink
-        noIcon
-        url="https://covid-19.uniprot.org/"
-        title="Browse entries highlighting AlphaFold predictions"
-      >
+      <ExternalLink noIcon url="https://covid-19.uniprot.org/">
         <h2 className="medium">UniProt COVID-19 portal</h2>
         UniProt portal for the latest SARS-CoV-2 coronavirus protein entries and
         receptors, updated independent of the general UniProt release cycle
