@@ -3,6 +3,28 @@
 exports[`IDMappingForm test Renders the form 1`] = `
 <DocumentFragment>
   <div
+    class="message message--warning"
+    role="status"
+  >
+    <div
+      class="message__side-border"
+    />
+    <test-file-stub
+      height="1.125em"
+      width="1.125em"
+    />
+    <section
+      class="message__content"
+    >
+      <small>
+        <strong>
+          Maintenance of this service
+        </strong>
+         will be happening on 06/12/2022 from 13:00:00 to 17:00:00. There should not be any downtime, but if any issue arises during this time please retry after the maintenance window.
+      </small>
+    </section>
+  </div>
+  <div
     class="page-intro"
   >
     <h1
