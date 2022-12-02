@@ -10,7 +10,7 @@ import {
   useEffect,
 } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Chip, PageIntro, SpinnerIcon } from 'franklin-sites';
+import { Chip, Message, PageIntro, SpinnerIcon } from 'franklin-sites';
 import { sleep } from 'timing-functions';
 import cn from 'classnames';
 import { truncate } from 'lodash-es';
@@ -284,6 +284,14 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
 
   return (
     <>
+      <Message level="warning">
+        <strong>Maintenance of this service</strong> will be happening on{' '}
+        {new Date('2022-12-06T08:00:00-05:00').toLocaleDateString()} from{' '}
+        {new Date('2022-12-06T08:00:00-05:00').toLocaleTimeString()} to{' '}
+        {new Date('2022-12-06T12:00:00-05:00').toLocaleTimeString()}. There
+        should not be any downtime, but if any issue arises during this time
+        please retry after the maintenance window.
+      </Message>
       <HTMLHead title={title} />
       <PageIntro title={title} />
       <form
