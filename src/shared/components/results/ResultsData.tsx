@@ -1,4 +1,11 @@
-import { Dispatch, SetStateAction, useEffect, useMemo, useRef } from 'react';
+import {
+  Dispatch,
+  Fragment,
+  SetStateAction,
+  useEffect,
+  useMemo,
+  useRef,
+} from 'react';
 import {
   DataTableWithLoader,
   DataListWithLoader,
@@ -157,13 +164,14 @@ const ResultsData = ({
 
   return (
     <div className="results-data">
-      {warnings && (
+      {/* Display warning for wildcard searches. It is not related to any warning from ID mapping */}
+      {warnings && !displayIdMappingColumns && (
         <Message level="warning">
           {warnings.map((warning) => {
             const [firstPart, linkContent, lastPart] =
-              warning?.message.split(/(help page)/);
+              warning.message.split(/(help page)/);
             return (
-              <>
+              <Fragment key={warning.code}>
                 {firstPart}
                 <Link
                   to={generatePath(LocationToPath[Location.HelpEntry], {
@@ -173,7 +181,7 @@ const ResultsData = ({
                   {linkContent}
                 </Link>
                 {lastPart}
-              </>
+              </Fragment>
             );
           })}
         </Message>
