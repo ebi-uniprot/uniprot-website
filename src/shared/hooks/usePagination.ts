@@ -7,7 +7,7 @@ import useDataApi from './useDataApi';
 import getNextURLFromHeaders from '../utils/getNextURLFromHeaders';
 
 import { APIModel } from '../types/apiModel';
-import { SearchResults } from '../types/results';
+import { SearchResults, SearchResultsWarning } from '../types/results';
 
 export type PaginatedResults<R extends APIModel = APIModel> = {
   allResults: R[];
@@ -19,6 +19,7 @@ export type PaginatedResults<R extends APIModel = APIModel> = {
   failedIds?: string[];
   error?: AxiosError<{ messages?: string[] }>;
   status?: number | undefined;
+  warnings?: SearchResultsWarning[];
 };
 
 const usePagination = <T extends APIModel, R extends APIModel>(
@@ -29,7 +30,8 @@ const usePagination = <T extends APIModel, R extends APIModel>(
   const [metaData, setMetaData] = useState<{
     total?: number;
     nextUrl?: string;
-  }>(() => ({ total: undefined, nextUrl: undefined }));
+    warnings?: SearchResultsWarning[];
+  }>(() => ({ total: undefined, nextUrl: undefined, warnings: undefined }));
 
   // usePrefetch(metaData.nextUrl);
   const [allResults, setAllResults] = useState<R[]>([]);
@@ -51,7 +53,7 @@ const usePagination = <T extends APIModel, R extends APIModel>(
     if (!data) {
       return;
     }
-    const { results } = data;
+    const { results, warnings } = data;
     const transformedResults = converter
       ? converter(results as T[])
       : (results as R[]);
@@ -60,10 +62,11 @@ const usePagination = <T extends APIModel, R extends APIModel>(
     setMetaData({
       total: total ? parseInt(total, 10) : 0,
       nextUrl: getNextURLFromHeaders(headers),
+      warnings,
     });
   }, [data, headers, converter]);
 
-  const { total, nextUrl } = metaData;
+  const { total, nextUrl, warnings } = metaData;
 
   const handleLoadMoreRows = () => nextUrl && setUrl(nextUrl);
 
@@ -81,6 +84,7 @@ const usePagination = <T extends APIModel, R extends APIModel>(
     failedIds: data?.failedIds,
     error,
     status,
+    warnings,
   };
 };
 

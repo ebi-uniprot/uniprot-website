@@ -4,8 +4,9 @@ import {
   DataListWithLoader,
   Loader,
   EllipsisReveal,
+  Message,
 } from 'franklin-sites';
-import { useHistory, useLocation } from 'react-router-dom';
+import { generatePath, Link, useHistory, useLocation } from 'react-router-dom';
 
 import useNS from '../../hooks/useNS';
 import useColumns, { ColumnDescriptor } from '../../hooks/useColumns';
@@ -15,7 +16,11 @@ import { useSmallScreen } from '../../hooks/useMatchMedia';
 import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 
-import { getEntryPathFor } from '../../../app/config/urls';
+import {
+  getEntryPathFor,
+  Location,
+  LocationToPath,
+} from '../../../app/config/urls';
 import getCardRenderer from '../../config/resultsCardRenderers';
 
 import { Namespace, SearchableNamespace } from '../../types/namespaces';
@@ -69,6 +74,7 @@ const ResultsData = ({
     handleLoadMoreRows,
     hasMoreData,
     progress,
+    warnings,
   } = resultsDataObject;
 
   const smallScreen = useSmallScreen();
@@ -151,6 +157,27 @@ const ResultsData = ({
 
   return (
     <div className="results-data">
+      {warnings && (
+        <Message level="warning">
+          {warnings.map((warning) => {
+            const [firstPart, linkContent, lastPart] =
+              warning?.message.split(/(help page)/);
+            return (
+              <>
+                {firstPart}
+                <Link
+                  to={generatePath(LocationToPath[Location.HelpEntry], {
+                    accession: 'wildcard',
+                  })}
+                >
+                  {linkContent}
+                </Link>
+                {lastPart}
+              </>
+            );
+          })}
+        </Message>
+      )}
       {viewMode === 'cards' && !displayIdMappingColumns ? (
         // Card view
         <DataListWithLoader<APIModel>
