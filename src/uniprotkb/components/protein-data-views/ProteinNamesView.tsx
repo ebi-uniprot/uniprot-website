@@ -70,45 +70,6 @@ const ProteinNamesViewFlat = ({
   );
 };
 
-const ProteinDescriptionView = ({
-  proteinDescription,
-}: {
-  proteinDescription?: ProteinDescription;
-}) => {
-  if (!proteinDescription) {
-    return null;
-  }
-  return (
-    <>
-      <ProteinNamesViewFlat names={proteinDescription.recommendedName} />
-      {proteinDescription.recommendedName?.ecNumbers?.length && (
-        <small>
-          <ECNumbersView
-            ecNumbers={proteinDescription.recommendedName?.ecNumbers}
-            orientation={'vertical'}
-          />
-        </small>
-      )}
-      {proteinDescription.alternativeNames && (
-        <>
-          {' '}
-          <strong>Alternative names: </strong>
-          {proteinDescription.alternativeNames.map(
-            (alternativeName, index): JSX.Element => (
-              <Fragment key={alternativeName.fullName.value}>
-                <ProteinNamesViewFlat names={alternativeName} />
-                {index <
-                  (proteinDescription.alternativeNames?.length || 0) - 1 &&
-                  ', '}
-              </Fragment>
-            )
-          )}
-        </>
-      )}
-    </>
-  );
-};
-
 type ECNumbersViewProps = {
   ecNumbers?: ValueWithEvidence[];
   noEvidence?: boolean;
@@ -169,6 +130,45 @@ export const ECNumbersView = ({
         ))
       ) : (
         <ExpandableList>{content}</ExpandableList>
+      )}
+    </>
+  );
+};
+
+const ProteinDescriptionView = ({
+  proteinDescription,
+}: {
+  proteinDescription?: ProteinDescription;
+}) => {
+  if (!proteinDescription) {
+    return null;
+  }
+  return (
+    <>
+      <ProteinNamesViewFlat names={proteinDescription.recommendedName} />
+      {proteinDescription.recommendedName?.ecNumbers?.length && (
+        <small>
+          <ECNumbersView
+            ecNumbers={proteinDescription.recommendedName?.ecNumbers}
+            orientation="vertical"
+          />
+        </small>
+      )}
+      {proteinDescription.alternativeNames && (
+        <>
+          {' '}
+          <strong>Alternative names: </strong>
+          {proteinDescription.alternativeNames.map(
+            (alternativeName, index): JSX.Element => (
+              <Fragment key={alternativeName.fullName.value}>
+                <ProteinNamesViewFlat names={alternativeName} />
+                {index <
+                  (proteinDescription.alternativeNames?.length || 0) - 1 &&
+                  ', '}
+              </Fragment>
+            )
+          )}
+        </>
       )}
     </>
   );
