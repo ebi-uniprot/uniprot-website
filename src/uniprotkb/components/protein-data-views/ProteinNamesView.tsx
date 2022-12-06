@@ -86,11 +86,13 @@ const ProteinDescriptionView = ({
           {' '}
           <strong>Alternative names: </strong>
           {proteinDescription.alternativeNames.map(
-            (alternativeName): JSX.Element => (
-              <ProteinNamesViewFlat
-                names={alternativeName}
-                key={alternativeName.fullName.value}
-              />
+            (alternativeName, index): JSX.Element => (
+              <Fragment key={alternativeName.fullName.value}>
+                <ProteinNamesViewFlat names={alternativeName} />
+                {index <
+                  (proteinDescription.alternativeNames?.length || 0) - 1 &&
+                  ', '}
+              </Fragment>
             )
           )}
         </>
