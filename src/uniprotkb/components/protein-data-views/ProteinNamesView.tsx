@@ -81,6 +81,14 @@ const ProteinDescriptionView = ({
   return (
     <>
       <ProteinNamesViewFlat names={proteinDescription.recommendedName} />
+      {proteinDescription.recommendedName?.ecNumbers?.length && (
+        <small>
+          <ECNumbersView
+            ecNumbers={proteinDescription.recommendedName?.ecNumbers}
+            orientation={'vertical'}
+          />
+        </small>
+      )}
       {proteinDescription.alternativeNames && (
         <>
           {' '}
@@ -116,16 +124,7 @@ export const ECNumbersView = ({
 }: ECNumbersViewProps) => {
   const content = ecNumbers?.map((ecNumber) => (
     <Fragment key={ecNumber.value}>
-      {noEvidence ? (
-        `EC:${ecNumber.value}`
-      ) : (
-        <NameWithEvidence
-          data={{
-            ...ecNumber,
-            value: `EC:${ecNumber.value}`,
-          }}
-        />
-      )}
+      {`EC:${ecNumber.value}`}
       {noLinks ? null : (
         <>
           {' ('}
@@ -147,6 +146,9 @@ export const ECNumbersView = ({
           </ExternalLink>
           )
         </>
+      )}
+      {!noEvidence && ecNumber.evidences?.length && (
+        <UniProtKBEvidenceTag evidences={ecNumber.evidences} />
       )}
     </Fragment>
   ));
