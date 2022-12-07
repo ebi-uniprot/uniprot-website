@@ -18,23 +18,6 @@ describe('PeptideSearchForm test', () => {
     component = customRender(<PeptideSearchForm />);
   });
 
-  let mockDate: jest.SpyInstance;
-  let mockTime: jest.SpyInstance;
-
-  beforeAll(() => {
-    mockDate = jest
-      .spyOn(Date.prototype, 'toLocaleDateString')
-      .mockReturnValue('<date>');
-    mockTime = jest
-      .spyOn(Date.prototype, 'toLocaleTimeString')
-      .mockReturnValue('<time>');
-  });
-
-  afterAll(() => {
-    mockDate.mockRestore();
-    mockTime.mockRestore();
-  });
-
   it('Renders the form', () => {
     const { asFragment } = component;
     expect(asFragment()).toMatchSnapshot();
