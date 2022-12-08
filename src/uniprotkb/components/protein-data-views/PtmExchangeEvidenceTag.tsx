@@ -93,7 +93,7 @@ const PtmExchangeEvidenceTag = ({
     <EvidenceTag
       label={
         originalEvidenceData.labelRender?.(originalEvidences) ||
-        originalEvidenceData.label
+        originalEvidenceData.label(originalEvidences)
       }
       className={
         originalEvidenceData.manual
@@ -103,7 +103,7 @@ const PtmExchangeEvidenceTag = ({
     >
       <section className={style['evidence-tag-content']}>
         <h5 data-article-id={`evidences#${originalEvidenceCode}`}>
-          {originalEvidenceData.label}{' '}
+          {originalEvidenceData.label(originalEvidences)}{' '}
           <small>({originalEvidenceData.description})</small>
         </h5>
         <section>
