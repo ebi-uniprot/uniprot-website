@@ -61,14 +61,14 @@ const publicationCountRenderer = (evidences: Evidence[]) => {
     : labels.CURATED;
 };
 
-const isSAMPhobius = (evidences: Evidence[]) => {
-  return evidences.some(
+const isSAMPhobius = (evidences: Evidence[]) =>
+  evidences.some(
     (evidence) =>
       typeof evidence.source !== 'undefined' &&
       evidence.source === 'SAM' &&
       evidence.id === 'Phobius'
   );
-};
+
 const rulesCountRenderer = (evidences: Evidence[]) => {
   const { length } = evidences;
   if (isSAMPhobius(evidences)) {
