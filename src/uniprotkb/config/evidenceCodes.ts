@@ -61,15 +61,17 @@ const publicationCountRenderer = (evidences: Evidence[]) => {
     : labels.CURATED;
 };
 
-const rulesCountRenderer = (evidences: Evidence[]) => {
-  const { length } = evidences;
-  const isSAMPhobius = evidences.some(
+const isSAMPhobius = (evidences: Evidence[]) => {
+  return evidences.some(
     (evidence) =>
       typeof evidence.source !== 'undefined' &&
       evidence.source === 'SAM' &&
       evidence.id === 'Phobius'
   );
-  if (isSAMPhobius) {
+};
+const rulesCountRenderer = (evidences: Evidence[]) => {
+  const { length } = evidences;
+  if (isSAMPhobius(evidences)) {
     return labels.SEQ_ANA;
   }
   return `${length} ${pluralise(labels.AA, length)}`;
@@ -244,14 +246,8 @@ export const ecoCodeToData = {
   },
   [ecoCode.AA]: {
     manual: false,
-
     label: (evidences: Evidence[]) =>
-      evidences.some(
-        (evidence) =>
-          typeof evidence.source !== 'undefined' &&
-          evidence.source === 'SAM' &&
-          evidence.id === 'Phobius'
-      )
+      isSAMPhobius(evidences)
         ? 'Automatic assertion according to sequence analysis'
         : 'Automatic assertion according to rules',
     description: 'Automatically inferred from sequence model',
