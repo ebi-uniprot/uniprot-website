@@ -48,7 +48,9 @@ export const UniProtEvidenceTagContent = ({
   return (
     <div>
       <h5 data-article-id={`evidences#${evidenceCode}`}>
-        {useDescriptionAsLabel ? evidenceData.description : evidenceData.label}
+        {useDescriptionAsLabel
+          ? evidenceData.description
+          : evidenceData.label(evidences)}
       </h5>
       {publicationReferences && (
         <UniProtKBEntryPublications
@@ -106,7 +108,7 @@ const UniProtKBEvidenceTag = ({
                 labels.PUBLICATION,
                 references.length
               )}`
-            : evidenceData.label);
+            : evidenceData.label(references));
         return (
           <EvidenceTag
             label={preferrredLabel}
