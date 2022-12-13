@@ -1992,6 +1992,8 @@ exports[`UniProtKBColumnConfiguration component should render column "virus_host
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_abcd": xref_abcd 1`] = `<DocumentFragment />`;
 
+exports[`UniProtKBColumnConfiguration component should render column "xref_agr": xref_agr 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render column "xref_allergome": xref_allergome 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_alphafolddb": xref_alphafolddb 1`] = `<DocumentFragment />`;
