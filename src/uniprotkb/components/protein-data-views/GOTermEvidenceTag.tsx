@@ -31,7 +31,7 @@ const GOTermEvidenceTag = ({ evidence }: { evidence?: GoEvidenceType }) => {
       }
     >
       <h5 data-article-id="evidences#evidence-types-used-for-go-annotations">
-        {evidenceData.description}
+        {evidenceData.evidenceTagContentHeadingForGO}
       </h5>
     </EvidenceTag>
   );

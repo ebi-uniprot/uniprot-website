@@ -75,7 +75,7 @@ const rulesCountRenderer = (evidences: Evidence[]) => {
   return `${length} ${pluralise(labels.AA, length)}`;
 };
 
-const manualLabelRenderer = (evidences: Evidence[]) => {
+const manualevidenceTagLabeler = (evidences: Evidence[]) => {
   let label = labels.SEQ_ANA;
   for (const evidence of evidences) {
     const { source } = evidence;
@@ -91,200 +91,220 @@ const manualLabelRenderer = (evidences: Evidence[]) => {
 export const ecoCodeToData = {
   [ecoCode.EXP]: {
     manual: true,
-    label: () => 'Manual assertion based on experiment',
-    description: 'Inferred from experiment',
-    labelRender: publicationCountRenderer,
+    evidenceTagContentHeading: () => 'Manual assertion based on experiment',
+    evidenceTagContentHeadingForGO: 'Inferred from experiment',
+    evidenceTagLabel: publicationCountRenderer,
   },
   [ecoCode.HTP]: {
     manual: true,
-    label: () => 'Manual assertion based on experiment',
-    description: 'Inferred from high throughput experiment',
+    evidenceTagContentHeading: () => 'Manual assertion based on experiment',
+    evidenceTagContentHeadingForGO: 'Inferred from high throughput experiment',
   },
   [ecoCode.IDA]: {
     manual: true,
-    label: () => 'Manual assertion based on experiment',
-    description: 'Inferred from direct assay',
+    evidenceTagContentHeading: () => 'Manual assertion based on experiment',
+    evidenceTagContentHeadingForGO: 'Inferred from direct assay',
   },
   [ecoCode.HDA]: {
     manual: true,
-    label: () => 'Manual assertion based on experiment',
-    description: 'Inferred from high throughput direct assay',
+    evidenceTagContentHeading: () => 'Manual assertion based on experiment',
+    evidenceTagContentHeadingForGO:
+      'Inferred from high throughput direct assay',
   },
   [ecoCode.IPI]: {
     manual: true,
-    label: () => 'Manual assertion based on experiment',
-    description: 'Inferred from physical interaction',
+    evidenceTagContentHeading: () => 'Manual assertion based on experiment',
+    evidenceTagContentHeadingForGO: 'Inferred from physical interaction',
   },
   [ecoCode.IMP]: {
     manual: true,
-    label: () => 'Manual assertion based on experiment',
-    description: 'Inferred from mutant phenotype',
+    evidenceTagContentHeading: () => 'Manual assertion based on experiment',
+    evidenceTagContentHeadingForGO: 'Inferred from mutant phenotype',
   },
   [ecoCode.HMP]: {
     manual: true,
-    label: () => 'Manual assertion based on experiment',
-    description: 'Inferred from high throughput mutant phenotype',
+    evidenceTagContentHeading: () => 'Manual assertion based on experiment',
+    evidenceTagContentHeadingForGO:
+      'Inferred from high throughput mutant phenotype',
   },
   [ecoCode.IGI]: {
     manual: true,
-    label: () => 'Manual assertion based on experiment',
-    description: 'Inferred from genetic interaction',
+    evidenceTagContentHeading: () => 'Manual assertion based on experiment',
+    evidenceTagContentHeadingForGO: 'Inferred from genetic interaction',
   },
   [ecoCode.HGI]: {
     manual: true,
-    label: () => 'Manual assertion based on experiment',
-    description: 'Inferred from high throughput genetic interaction',
+    evidenceTagContentHeading: () => 'Manual assertion based on experiment',
+    evidenceTagContentHeadingForGO:
+      'Inferred from high throughput genetic interaction',
   },
   [ecoCode.IEP]: {
     manual: true,
-    label: () => 'Manual assertion based on experiment',
-    description: 'Inferred from expression pattern',
+    evidenceTagContentHeading: () => 'Manual assertion based on experiment',
+    evidenceTagContentHeadingForGO: 'Inferred from expression pattern',
   },
   [ecoCode.HEP]: {
     manual: true,
-    label: () => 'Manual assertion based on experiment',
-    description: 'Inferred from high throughput expression pattern',
+    evidenceTagContentHeading: () => 'Manual assertion based on experiment',
+    evidenceTagContentHeadingForGO:
+      'Inferred from high throughput expression pattern',
   },
   [ecoCode.ISS]: {
     manual: true,
-    label: () => 'Manual assertion inferred from sequence similarity',
-    description: 'Inferred from sequence or structural similarity',
-    labelRender: () => labels.SIMILARITY,
+    evidenceTagContentHeading: () =>
+      'Manual assertion inferred from sequence similarity',
+    evidenceTagContentHeadingForGO:
+      'Inferred from sequence or structural similarity',
+    evidenceTagLabel: () => labels.SIMILARITY,
   },
   [ecoCode.ISO]: {
     manual: true,
-    label: () => 'Manual assertion based on experiment',
-    description: 'Inferred from sequence orthology',
+    evidenceTagContentHeading: () => 'Manual assertion based on experiment',
+    evidenceTagContentHeadingForGO: 'Inferred from sequence orthology',
   },
   [ecoCode.ISA]: {
     manual: true,
-    label: () => 'Manual assertion based on experiment',
-    description: 'Inferred from sequence alignment',
+    evidenceTagContentHeading: () => 'Manual assertion based on experiment',
+    evidenceTagContentHeadingForGO: 'Inferred from sequence alignment',
   },
   [ecoCode.ISM]: {
     manual: true,
-    label: (evidences: Evidence[]) =>
+    evidenceTagContentHeading: (evidences: Evidence[]) =>
       evidences.some((evidence) => evidence.source)
         ? 'Manual assertion according to rules'
         : 'Manual assertion according to sequence analysis',
-    description: 'Inferred from sequence model',
-    labelRender: manualLabelRenderer,
+    evidenceTagContentHeadingForGO: 'Inferred from sequence model',
+    evidenceTagLabel: manualevidenceTagLabeler,
   },
   [ecoCode.IGC]: {
     manual: true,
-    label: () => 'Manual assertion based on experiment',
-    description: 'Inferred from genomic context',
+    evidenceTagContentHeading: () => 'Manual assertion based on experiment',
+    evidenceTagContentHeadingForGO: 'Inferred from genomic context',
   },
   [ecoCode.IBA]: {
     manual: true,
-    label: () => 'Manual assertion based on experiment',
-    description: 'Inferred from biological aspect of ancestor',
+    evidenceTagContentHeading: () => 'Manual assertion based on experiment',
+    evidenceTagContentHeadingForGO:
+      'Inferred from biological aspect of ancestor',
   },
   [ecoCode.IBD]: {
     manual: true,
-    label: () => 'Manual assertion based on experiment',
-    description: 'Inferred from biological aspect of descendant',
+    evidenceTagContentHeading: () => 'Manual assertion based on experiment',
+    evidenceTagContentHeadingForGO:
+      'Inferred from biological aspect of descendant',
   },
   [ecoCode.IKR]: {
     manual: true,
-    label: () => 'Manual assertion based on experiment',
-    description: 'Inferred from key residues',
+    evidenceTagContentHeading: () => 'Manual assertion based on experiment',
+    evidenceTagContentHeadingForGO: 'Inferred from key residues',
   },
   [ecoCode.IRD]: {
     manual: true,
-    label: () => 'Manual assertion based on experiment',
-    description: 'Inferred from rapid divergence',
+    evidenceTagContentHeading: () => 'Manual assertion based on experiment',
+    evidenceTagContentHeadingForGO: 'Inferred from rapid divergence',
   },
   [ecoCode.RCA]: {
     manual: true,
-    label: () => 'Manual assertion based on experiment',
-    description: 'Inferred from reviewed computational analysis',
+    evidenceTagContentHeading: () => 'Manual assertion based on experiment',
+    evidenceTagContentHeadingForGO:
+      'Inferred from reviewed computational analysis',
   },
   [ecoCode.TAS]: {
     manual: true,
-    label: () => 'Manual assertion based on experiment',
-    description: 'Traceable author statement',
+    evidenceTagContentHeading: () => 'Manual assertion based on experiment',
+    evidenceTagContentHeadingForGO: 'Traceable author statement',
   },
   [ecoCode.NAS]: {
     manual: true,
-    label: () => 'Manual assertion based on opinion',
-    description: 'Non-traceable author statement',
-    labelRender: publicationCountRenderer,
+    evidenceTagContentHeading: () => 'Manual assertion based on opinion',
+    evidenceTagContentHeadingForGO: 'Non-traceable author statement',
+    evidenceTagLabel: publicationCountRenderer,
   },
   [ecoCode.IC]: {
     manual: true,
-    label: () => 'Manual assertion inferred by curator',
-    description: 'Inferred by curator',
-    labelRender: (evidences: Evidence[]) =>
+    evidenceTagContentHeading: () => 'Manual assertion inferred by curator',
+    evidenceTagContentHeadingForGO: 'Inferred by curator',
+    evidenceTagLabel: (evidences: Evidence[]) =>
       evidences.some((evidence) => evidence.source)
         ? publicationCountRenderer(evidences)
         : 'Curated',
   },
   [ecoCode.ND]: {
     manual: true,
-    label: () => 'Manual assertion based on experiment',
-    description: 'No biological data available',
+    evidenceTagContentHeading: () => 'Manual assertion based on experiment',
+    evidenceTagContentHeadingForGO: 'No biological data available',
   },
   [ecoCode.IEA]: {
     manual: false,
-    label: () => 'Manual assertion based on experiment',
-    description: 'Inferred from electronic annotation',
+    evidenceTagContentHeading: () => 'Manual assertion based on experiment',
+    evidenceTagContentHeadingForGO: 'Inferred from electronic annotation',
   },
   [ecoCode.MI]: {
     manual: true,
-    label: () => 'Manual assertion inferred from database entries',
-    description: 'Manually imported',
-    labelRender: () => labels.IMPORTED,
+    evidenceTagContentHeading: () =>
+      'Manual assertion inferred from database entries',
+    evidenceTagContentHeadingForGO: 'Manually imported',
+    evidenceTagLabel: () => labels.IMPORTED,
   },
   [ecoCode.AI]: {
     manual: false,
-    label: () => 'Automatic assertion inferred from database entries',
-    description: 'Automatically imported',
-    labelRender: () => labels.IMPORTED,
+    evidenceTagContentHeading: () =>
+      'Automatic assertion inferred from database entries',
+    evidenceTagContentHeadingForGO: 'Automatically imported',
+    evidenceTagLabel: () => labels.IMPORTED,
   },
   [ecoCode.AA]: {
     manual: false,
-    label: (evidences: Evidence[]) =>
-      isSAMEvidence(evidences) // All SAM evidences are categorised as 'Sequence analysis'
+    evidenceTagContentHeading: (evidences: Evidence[]) =>
+      /* 
+      Sequence Analysis Methods (SAM) evidences should be labeled as 'Sequence analysis' with AA flag.
+      For more info - https://www.uniprot.org/help/sam 
+    */
+      isSAMEvidence(evidences)
         ? 'Automatic assertion according to sequence analysis'
         : 'Automatic assertion according to rules',
-    description: 'Automatically inferred from sequence model',
-    labelRender: rulesCountRenderer,
+    evidenceTagContentHeadingForGO:
+      'Automatically inferred from sequence model',
+    evidenceTagLabel: rulesCountRenderer,
   },
   [ecoCode.MIXM]: {
     manual: true,
-    label: () =>
+    evidenceTagContentHeading: () =>
       'Manual assertion inferred from combination of experimental and computational evidence',
-    description: 'Combinatorial evidence used in manual assertion',
-    labelRender: () => labels.COMBINED,
+    evidenceTagContentHeadingForGO:
+      'Combinatorial evidence used in manual assertion',
+    evidenceTagLabel: () => labels.COMBINED,
   },
   [ecoCode.MIXA]: {
     manual: false,
-    label: () =>
+    evidenceTagContentHeading: () =>
       'Automatic assertion inferred from combination of experimental and computational evidence',
-    description: 'Combinatorial evidence used in automatic assertion',
-    labelRender: () => labels.COMBINED,
+    evidenceTagContentHeadingForGO:
+      'Combinatorial evidence used in automatic assertion',
+    evidenceTagLabel: () => labels.COMBINED,
   },
   [ecoCode.SGNM]: {
     manual: true,
-    label: () => 'Manual assertion inferred from signature match',
-    description:
+    evidenceTagContentHeading: () =>
+      'Manual assertion inferred from signature match',
+    evidenceTagContentHeadingForGO:
       'Match to InterPro member signature evidence used in manual assertion',
   },
   [ecoCode.SGNA]: {
     manual: false,
-    label: () => 'Automatic assertion inferred from signature match',
-    description:
+    evidenceTagContentHeading: () =>
+      'Automatic assertion inferred from signature match',
+    evidenceTagContentHeadingForGO:
       'Match to InterPro member signature evidence used in automatic assertion',
-    labelRender: () => labels.INTERPRO,
+    evidenceTagLabel: () => labels.INTERPRO,
   },
 };
 
 export type EvidenceData = {
   manual: boolean;
-  label: (evidences: Evidence[]) => string;
-  description: string;
-  labelRender?: (evidences: Evidence[]) => string;
+  evidenceTagContentHeading: (evidences: Evidence[]) => string;
+  evidenceTagContentHeadingForGO: string;
+  evidenceTagLabel?: (evidences: Evidence[]) => string;
 };
 
 export const getEcoNumberFromString = (eco: string) => {

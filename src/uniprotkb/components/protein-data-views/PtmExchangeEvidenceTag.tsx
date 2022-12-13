@@ -92,8 +92,8 @@ const PtmExchangeEvidenceTag = ({
   return (
     <EvidenceTag
       label={
-        originalEvidenceData.labelRender?.(originalEvidences) ||
-        originalEvidenceData.label(originalEvidences)
+        originalEvidenceData.evidenceTagLabel?.(originalEvidences) ||
+        originalEvidenceData.evidenceTagContentHeading(originalEvidences)
       }
       className={
         originalEvidenceData.manual
@@ -103,8 +103,7 @@ const PtmExchangeEvidenceTag = ({
     >
       <section className={style['evidence-tag-content']}>
         <h5 data-article-id={`evidences#${originalEvidenceCode}`}>
-          {originalEvidenceData.label(originalEvidences)}{' '}
-          <small>({originalEvidenceData.description})</small>
+          {originalEvidenceData.evidenceTagContentHeading(originalEvidences)}
         </h5>
         <section>
           {/* TODO: confirm final confidence score subsection */}

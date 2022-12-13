@@ -27,14 +27,14 @@ export type UniProtEvidenceTagContentProps = {
   evidenceCode: string;
   evidenceData: EvidenceData;
   evidences?: Evidence[];
-  useDescriptionAsLabel?: boolean;
+  useGOEvidenceContent?: boolean;
 };
 
 export const UniProtEvidenceTagContent = ({
   evidenceCode,
   evidenceData,
   evidences,
-  useDescriptionAsLabel,
+  useGOEvidenceContent,
 }: UniProtEvidenceTagContentProps) => {
   if (!evidences?.length) {
     return null;
@@ -48,9 +48,9 @@ export const UniProtEvidenceTagContent = ({
   return (
     <div>
       <h5 data-article-id={`evidences#${evidenceCode}`}>
-        {useDescriptionAsLabel
-          ? evidenceData.description
-          : evidenceData.label(evidences)}
+        {useGOEvidenceContent
+          ? evidenceData.evidenceTagContentHeadingForGO
+          : evidenceData.evidenceTagContentHeading(evidences)}
       </h5>
       {publicationReferences && (
         <UniProtKBEntryPublications
@@ -102,13 +102,13 @@ const UniProtKBEvidenceTag = ({
           return null;
         }
         const preferrredLabel =
-          evidenceData.labelRender?.(references) ||
+          evidenceData.evidenceTagLabel?.(references) ||
           (goTermEvidence
             ? `${references.length} ${pluralise(
                 labels.PUBLICATION,
                 references.length
               )}`
-            : evidenceData.label(references));
+            : evidenceData.evidenceTagContentHeading(references));
         return (
           <EvidenceTag
             label={preferrredLabel}
@@ -123,7 +123,7 @@ const UniProtKBEvidenceTag = ({
               evidenceCode={evidenceCode}
               evidenceData={evidenceData}
               evidences={references}
-              useDescriptionAsLabel={goTermEvidence}
+              useGOEvidenceContent={goTermEvidence}
             />
           </EvidenceTag>
         );
