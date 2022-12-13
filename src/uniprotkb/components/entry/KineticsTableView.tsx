@@ -105,23 +105,27 @@ export const extractFromFreeText = (data: KineticParameters) => {
 
   if (data.michaelisConstants) {
     km = data.michaelisConstants.map((km) => {
-      let [substrate] = km.substrate.split('(');
+      let [substrate] = km.substrate.split(' ('); // Ignore splitting the substrate name when '()' is part of it
       const ph = km.substrate.match(pHRegEx)?.[1];
       const temp = km.substrate.match(tempRegEx)?.[1];
 
-      const moreInfo = km.substrate.match(
+      const [moreInfo] = km.substrate.match(
         new RegExp(captureWordsInParanthesis, 'g')
-      );
+      ) || [null];
+
+      const additionInfo = moreInfo?.match(/\((.*?)\)/g);
       let notes = '';
-      moreInfo?.forEach((str) => {
-        const possibleInfo = ['pH', 'degrees', 'in', 'above', 'below'];
-        if (possibleInfo.some((e) => str.includes(e))) {
-          const match = str.match(captureWordsInParanthesis)?.[1] || '';
-          // Do not include pH and temperature data in notes
-          notes = excludePhTemp(match);
-        } else {
-          // Sometimes the abbreviation of the substrate could be inside paranthesis, it has to be under the substrate column
-          substrate += str;
+      additionInfo?.forEach((str) => {
+        if (!substrate.includes(str)) {
+          const possibleInfo = ['pH', 'degrees', 'in', 'above', 'below'];
+          if (possibleInfo.some((e) => str.includes(e))) {
+            const match = str.match(captureWordsInParanthesis)?.[1] || '';
+            // Do not include pH and temperature data in notes
+            notes = excludePhTemp(match);
+          } else {
+            // Sometimes the abbreviation of the substrate could be inside paranthesis, it has to be under the substrate column
+            substrate += str;
+          }
         }
       });
 
@@ -179,7 +183,6 @@ export const extractFromFreeText = (data: KineticParameters) => {
 
         kcatValues.forEach((value) => {
           const constants = value.match(kcatConstantRegEx);
-
           if (constants && constants?.length > 1) {
             const [pubMed] = value.match(/\(pubmed:\d+\)/i) || [null];
 
@@ -189,7 +192,7 @@ export const extractFromFreeText = (data: KineticParameters) => {
             } else {
               const substrates = value.split(/and/);
               substrates?.forEach((v) => {
-                kcatsFreeText.push(`${v}${pubMed}`);
+                kcatsFreeText.push(pubMed ? `${v}${pubMed}` : v);
               });
             }
           } else {
@@ -240,7 +243,7 @@ export const extractFromFreeText = (data: KineticParameters) => {
             kcats.push({
               key: `kcat${constant}`,
               constant,
-              notes: substrateNotes.trim(),
+              notes: substrateNotes !== '.' ? substrateNotes.trim() : undefined,
               ph,
               temp,
               evidences,

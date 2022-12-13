@@ -46,7 +46,8 @@ const GoRibbon = lazy(
 export const AbsorptionView = ({ data }: { data: Absorption }) => (
   <>
     <section className="text-block">
-      {`Abs(max) = ${data.approximate && '~'}${data.max}nm`}
+      Abs(max) = {data.approximate && '~'}
+      {data.max}nm
     </section>
     <section className="text-block">
       {data.note && <TextView comments={data.note.texts} />}
