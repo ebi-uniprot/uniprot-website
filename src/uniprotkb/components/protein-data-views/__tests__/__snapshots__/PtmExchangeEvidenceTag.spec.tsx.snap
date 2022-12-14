@@ -30,10 +30,7 @@ exports[`PtmExchangeEvidenceTag components should render 1`] = `
       <h5
         data-article-id="evidences#ECO:0007829"
       >
-        Automatic assertion inferred from combination of experimental and computational evidence 
-        <small>
-          (Combinatorial evidence used in automatic assertion)
-        </small>
+        Automatic assertion inferred from combination of experimental and computational evidence
       </h5>
       <section>
         <h5
