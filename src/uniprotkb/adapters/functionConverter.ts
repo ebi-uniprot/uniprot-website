@@ -223,7 +223,12 @@ const convertFunction = (
           (obj: keyof KineticParameters, src: keyof KineticParameters) =>
             (obj || []).concat(src)
         );
-        convertedSection.bioPhysicoChemicalProperties.kinetics = { ...result };
+        // Extract note from the array and add it as the object as expected
+        const [mergedNote] = result.note || [undefined];
+        convertedSection.bioPhysicoChemicalProperties.kinetics = {
+          ...result,
+          note: mergedNote,
+        };
       }
       if ((bpcProperty as pHDependenceComment).phDependence) {
         convertedSection.bioPhysicoChemicalProperties.pHDependence = (
