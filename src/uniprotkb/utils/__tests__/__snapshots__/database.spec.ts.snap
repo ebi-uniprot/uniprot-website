@@ -3137,7 +3137,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "BindingDB",
     ],
     "names_and_taxonomy": [
-      "AGR",
       "ArachnoServer",
       "Araport",
       "CGD",

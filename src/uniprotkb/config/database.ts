@@ -100,7 +100,6 @@ export const getEntrySectionToDatabaseNames = (
     })
   );
   entrySectionToDatabaseNames.set(EntrySection.NamesAndTaxonomy, [
-    'AGR',
     'ArachnoServer',
     'Araport',
     'CGD',
