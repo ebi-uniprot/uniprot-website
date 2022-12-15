@@ -125,6 +125,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "GeneCards",
       "GeneReviews",
       "HGNC",
+      "AGR",
       "GenAtlas",
       "HPA",
       "LegioList",
@@ -234,6 +235,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
   },
   "databaseNameToCategory": {
     "ABCD": "PAM",
+    "AGR": "ORG",
     "Allergome": "PFAM",
     "AlphaFoldDB": "3DS",
     "Antibodypedia": "PAM",
@@ -437,6 +439,18 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "name": "ABCD",
       "uriLink": "https://web.expasy.org/cgi-bin/abcd/search_abcd.pl?input=%id",
     },
+    "AGR": {
+      "attributes": [
+        {
+          "name": "Description",
+          "xmlTag": "description",
+        },
+      ],
+      "category": "ORG",
+      "displayName": "AGR",
+      "name": "AGR",
+      "uriLink": "https://www.alliancegenome.org/gene/%id",
+    },
     "Allergome": {
       "attributes": [
         {
@@ -507,7 +521,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "3DS",
       "displayName": "BMRB",
       "name": "BMRB",
-      "uriLink": "http://www.bmrb.wisc.edu/data_library/summary/protein.php?uniprot=%id",
+      "uriLink": "https://bmrb.io/data_library/summary/protein.php?uniprot=%id",
     },
     "BRENDA": {
       "attributes": [
@@ -1991,7 +2005,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "PROTEOMIC",
       "displayName": "PRIDE",
       "name": "PRIDE",
-      "uriLink": "https://www.ebi.ac.uk/pride/searchSummary.do?queryTypeSelected=identification%20accession%20number&identificationAccessionNumber=%id",
+      "uriLink": "https://www.ebi.ac.uk/pride/peptidome/peptidesearch?keyword=%id",
     },
     "PRINTS": {
       "attributes": [

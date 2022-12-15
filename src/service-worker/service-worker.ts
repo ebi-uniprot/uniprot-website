@@ -203,9 +203,20 @@ registerRoute(
     ({ url }) =>
       url.origin === 'https://rest.uniprot.org' &&
       url.pathname.includes('configure'),
-    new CacheFirst({
+    new StaleWhileRevalidate({
       cacheName: CacheName.WebsiteAPIStatic,
       plugins: [
+        new BroadcastUpdatePlugin({
+          headersToCheck: [
+            'x-uniprot-release-date',
+            'x-uniprot-release',
+            // NOTE: deployment-date will be different depending on the endpoint
+            'x-api-deployment-date',
+            // NOTE: "Content-Length" doesn't work for that now as it is
+            // NOTE: inconsistently set by the server
+            // 'Content-Length',
+          ],
+        }),
         new ExpirationPlugin({
           maxEntries: 50,
           maxAgeSeconds: 2 * DAY,
@@ -226,6 +237,17 @@ registerRoute(
     new StaleWhileRevalidate({
       cacheName: CacheName.WebsiteAPITextContent,
       plugins: [
+        new BroadcastUpdatePlugin({
+          headersToCheck: [
+            'x-uniprot-release-date',
+            'x-uniprot-release',
+            // NOTE: deployment-date will be different depending on the endpoint
+            'x-api-deployment-date',
+            // NOTE: "Content-Length" doesn't work for that now as it is
+            // NOTE: inconsistently set by the server
+            // 'Content-Length',
+          ],
+        }),
         new ExpirationPlugin({
           maxEntries: 800,
           maxAgeSeconds: 1 * WEEK,

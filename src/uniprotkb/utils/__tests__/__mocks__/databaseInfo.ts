@@ -171,8 +171,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'BMRB',
     displayName: 'BMRB',
     category: '3DS',
-    uriLink:
-      'http://www.bmrb.wisc.edu/data_library/summary/protein.php?uniprot=%id',
+    uriLink: 'https://bmrb.io/data_library/summary/protein.php?uniprot=%id',
     attributes: [
       {
         name: 'Description',
@@ -877,8 +876,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'PRIDE',
     displayName: 'PRIDE',
     category: 'PROTEOMIC',
-    uriLink:
-      'https://www.ebi.ac.uk/pride/searchSummary.do?queryTypeSelected=identification%20accession%20number&identificationAccessionNumber=%id',
+    uriLink: 'https://www.ebi.ac.uk/pride/peptidome/peptidesearch?keyword=%id',
     attributes: [
       {
         name: 'Description',
@@ -1370,6 +1368,18 @@ const databaseInfo: DatabaseInfo = [
       {
         name: 'GeneName',
         xmlTag: 'gene designation',
+      },
+    ],
+  },
+  {
+    name: 'AGR',
+    displayName: 'AGR',
+    category: 'ORG',
+    uriLink: 'https://www.alliancegenome.org/gene/%id',
+    attributes: [
+      {
+        name: 'Description',
+        xmlTag: 'description',
       },
     ],
   },
