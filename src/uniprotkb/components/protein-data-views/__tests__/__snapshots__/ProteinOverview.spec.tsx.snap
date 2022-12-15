@@ -21,7 +21,31 @@ exports[`ProteinOverview component should render 1`] = `
         <div
           class="decorated-list-item__content"
         >
-          Amyloid-beta precursor protein
+          <strong>
+            Amyloid-beta precursor protein
+          </strong>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div
+        class="decorated-list-item"
+      >
+        <div
+          class="decorated-list-item__title tiny"
+        >
+          <span
+            data-article-id="gene_name"
+          >
+            Gene
+          </span>
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          <strong>
+            APP (A4, AD1)
+          </strong>
         </div>
       </div>
     </li>
@@ -73,26 +97,6 @@ exports[`ProteinOverview component should render 1`] = `
           >
             Homo sapiens (Human)
           </a>
-        </div>
-      </div>
-    </li>
-    <li>
-      <div
-        class="decorated-list-item"
-      >
-        <div
-          class="decorated-list-item__title tiny"
-        >
-          <span
-            data-article-id="gene_name"
-          >
-            Gene
-          </span>
-        </div>
-        <div
-          class="decorated-list-item__content"
-        >
-          APP (A4, AD1)
         </div>
       </div>
     </li>

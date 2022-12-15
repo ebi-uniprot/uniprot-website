@@ -95,7 +95,11 @@ const ProteinOverview = ({ data, inCard }: Props) => {
   const infoData = [
     {
       title: <span data-article-id="protein_names">Protein</span>,
-      content: name,
+      content: <strong>{name}</strong>,
+    },
+    {
+      title: <span data-article-id="gene_name">Gene</span>,
+      content: <strong>{geneNameListNode}</strong>,
     },
     {
       title: <span data-article-id="entry_status">Status</span>,
@@ -109,10 +113,6 @@ const ProteinOverview = ({ data, inCard }: Props) => {
     {
       title: <span data-article-id="organism-name">Organism</span>,
       content: organismNameNode,
-    },
-    {
-      title: <span data-article-id="gene_name">Gene</span>,
-      content: geneNameListNode,
     },
     { title: 'Amino acids', content: data.sequence?.length },
     {
