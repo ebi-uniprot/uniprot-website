@@ -44,7 +44,7 @@ exports[`ProteinOverview component should render 1`] = `
           class="decorated-list-item__content"
         >
           <strong>
-            APP (A4, AD1)
+            APP
           </strong>
         </div>
       </div>

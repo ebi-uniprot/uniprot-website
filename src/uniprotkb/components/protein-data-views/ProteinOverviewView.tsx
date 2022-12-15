@@ -34,22 +34,31 @@ const ProteinOverview = ({ data, inCard }: Props) => {
 
   let geneNameListNode: string | undefined;
   if (data.genes) {
-    geneNameListNode = data.genes
-      .map(
-        (geneName) =>
-          `${
-            geneName.geneName?.value ||
-            geneName.orderedLocusNames?.map((name) => name.value).join(', ') ||
-            geneName.orfNames?.map((name) => name.value).join(', ')
-          }${
-            geneName.synonyms
-              ? ` (${geneName.synonyms
-                  ?.map((synonym) => synonym.value)
-                  .join(', ')})`
-              : ''
-          }`
-      )
-      .join('; ');
+    if (inCard) {
+      geneNameListNode = data.genes
+        .map(
+          (geneName) =>
+            `${
+              geneName.geneName?.value ||
+              geneName.orderedLocusNames
+                ?.map((name) => name.value)
+                .join(', ') ||
+              geneName.orfNames?.map((name) => name.value).join(', ')
+            }${
+              geneName.synonyms
+                ? ` (${geneName.synonyms
+                    ?.map((synonym) => synonym.value)
+                    .join(', ')})`
+                : ''
+            }`
+        )
+        .join('; ');
+    } else {
+      geneNameListNode = data.genes
+        .map((geneName) => geneName.geneName?.value)
+        .filter(Boolean)
+        .join('; ');
+    }
   }
 
   const proteinExistence = data.proteinExistence?.replace(existenceRE, '');
@@ -95,11 +104,11 @@ const ProteinOverview = ({ data, inCard }: Props) => {
   const infoData = [
     {
       title: <span data-article-id="protein_names">Protein</span>,
-      content: <strong>{name}</strong>,
+      content: name && <strong>{name}</strong>,
     },
     {
       title: <span data-article-id="gene_name">Gene</span>,
-      content: <strong>{geneNameListNode}</strong>,
+      content: geneNameListNode && <strong>{geneNameListNode}</strong>,
     },
     {
       title: <span data-article-id="entry_status">Status</span>,

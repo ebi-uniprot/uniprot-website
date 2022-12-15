@@ -187,7 +187,7 @@ exports[`Entry basic should render main 1`] = `
                 class="decorated-list-item__content"
               >
                 <strong>
-                  some Gene (some Syn)
+                  some Gene
                 </strong>
               </div>
             </div>
