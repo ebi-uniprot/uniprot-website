@@ -438,6 +438,23 @@ exports[`HomePage component should render 1`] = `
             />
           </a>
         </p>
+        <p>
+          <a
+            class="external-link"
+            href="https://globalbiodata.org/scientific-activities/global-core-biodata-resources/"
+            rel="noopener"
+            target="_blank"
+          >
+            UniProt is a GBC global core biodata resource
+            <img
+              alt=""
+              height="115"
+              loading="lazy"
+              src="test-file-stub"
+              width="270"
+            />
+          </a>
+        </p>
       </div>
       <div
         class="funding"

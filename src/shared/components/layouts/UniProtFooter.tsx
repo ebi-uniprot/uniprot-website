@@ -22,6 +22,7 @@ import PIRLogo from '../../../images/pir-logo.jpg';
 import SIBLogo from '../../../images/sib-logo.png';
 import SERILogo from '../../../images/seri-logo.png';
 import ElixirCDRLogo from '../../../images/elixir-cdr.png';
+import GBCGCBRLogo from '../../../images/gbc-gcbr.img.svg';
 import CTSLogo from '../../../images/core-trust-seal-logo.png';
 
 const FooterConsortium = () => (
@@ -324,6 +325,15 @@ const FooterContactAndElixir = () => (
         title="Core Trust Seal assessment information"
       >
         <img src={CTSLogo} loading="lazy" alt="" width="425" height="401" />
+      </ExternalLink>
+    </p>
+    <p>
+      <ExternalLink
+        noIcon
+        url="https://globalbiodata.org/scientific-activities/global-core-biodata-resources/"
+      >
+        UniProt is a GBC global core biodata resource
+        <img src={GBCGCBRLogo} loading="lazy" alt="" width="270" height="115" />
       </ExternalLink>
     </p>
   </div>
