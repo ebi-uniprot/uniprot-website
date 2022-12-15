@@ -1,4 +1,4 @@
-import { groupBy } from 'lodash-es';
+import { groupBy, mergeWith } from 'lodash-es';
 import {
   CommentType,
   AbsorptionComment,
@@ -213,9 +213,17 @@ const convertFunction = (
         ).absorption;
       }
       if ((bpcProperty as KineticsComment).kineticParameters) {
-        convertedSection.bioPhysicoChemicalProperties.kinetics = (
-          bpcProperty as KineticsComment
-        ).kineticParameters;
+        const existingData =
+          convertedSection.bioPhysicoChemicalProperties.kinetics;
+        const newData = (bpcProperty as KineticsComment).kineticParameters;
+        const toBeMerged = [existingData, newData];
+        const result = mergeWith(
+          {},
+          ...toBeMerged,
+          (obj: keyof KineticParameters, src: keyof KineticParameters) =>
+            (obj || []).concat(src)
+        );
+        convertedSection.bioPhysicoChemicalProperties.kinetics = { ...result };
       }
       if ((bpcProperty as pHDependenceComment).phDependence) {
         convertedSection.bioPhysicoChemicalProperties.pHDependence = (
