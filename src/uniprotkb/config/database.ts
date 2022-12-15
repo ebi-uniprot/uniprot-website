@@ -100,6 +100,7 @@ export const getEntrySectionToDatabaseNames = (
     })
   );
   entrySectionToDatabaseNames.set(EntrySection.NamesAndTaxonomy, [
+    'AGR',
     'ArachnoServer',
     'Araport',
     'CGD',
@@ -159,7 +160,11 @@ export const getEntrySectionToDatabaseNames = (
   entrySectionToDatabaseNames.set(
     EntrySection.ExternalLinks,
     databaseSelector({
-      categories: [DatabaseCategory.MISCELLANEOUS, DatabaseCategory.PROTOCOL],
+      categories: [
+        DatabaseCategory.MISCELLANEOUS,
+        DatabaseCategory.PROTOCOL,
+        DatabaseCategory.ORGANISM,
+      ],
       include: [
         'HUGE', // Implicit
         'Rouge', // Implicit
