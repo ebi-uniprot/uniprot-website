@@ -271,7 +271,9 @@ exports[`Entry view should render 1`] = `
             />
           </div>
         </section>
-        <h3>
+        <h3
+          data-article-id="biophysicochemical_properties#1-absorption"
+        >
           Absorption
         </h3>
         <section
@@ -332,7 +334,9 @@ exports[`Entry view should render 1`] = `
             id="5"
           />
         </section>
-        <h3>
+        <h3
+          data-article-id="biophysicochemical_properties#2-kinetic-parameters"
+        >
           Kinetics
         </h3>
         <protvista-datatable>
@@ -488,7 +492,9 @@ exports[`Entry view should render 1`] = `
         >
           value1.
         </div>
-        <h3>
+        <h3
+          data-article-id="biophysicochemical_properties#3-ph-dependence"
+        >
           pH Dependence
         </h3>
         <div
@@ -518,7 +524,9 @@ exports[`Entry view should render 1`] = `
             id="8"
           />
         </div>
-        <h3>
+        <h3
+          data-article-id="biophysicochemical_properties#4-rodex-potential"
+        >
           Redox Potential
         </h3>
         <div
@@ -548,7 +556,9 @@ exports[`Entry view should render 1`] = `
             id="9"
           />
         </div>
-        <h3>
+        <h3
+          data-article-id="biophysicochemical_properties#5-temperature-dependence"
+        >
           Temperature Dependence
         </h3>
         <div
@@ -3633,7 +3643,9 @@ exports[`Entry view should render for non-human entry 1`] = `
             id="5"
           />
         </div>
-        <h3>
+        <h3
+          data-article-id="biophysicochemical_properties#2-kinetic-parameters"
+        >
           Kinetics
         </h3>
         <protvista-datatable>
@@ -3713,7 +3725,9 @@ exports[`Entry view should render for non-human entry 1`] = `
             </tbody>
           </table>
         </protvista-datatable>
-        <h3>
+        <h3
+          data-article-id="biophysicochemical_properties#3-ph-dependence"
+        >
           pH Dependence
         </h3>
         <div
