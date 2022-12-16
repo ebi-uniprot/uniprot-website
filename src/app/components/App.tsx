@@ -12,6 +12,7 @@ import { sleep } from 'timing-functions';
 import {
   init as SentryInit,
   reactRouterV5Instrumentation,
+  Replay,
 } from '@sentry/react';
 import { Integrations as SentryIntegrations } from '@sentry/tracing';
 
@@ -47,6 +48,7 @@ if (process.env.NODE_ENV !== 'development') {
       new SentryIntegrations.BrowserTracing({
         routingInstrumentation: reactRouterV5Instrumentation(history),
       }),
+      new Replay(),
     ],
     maxBreadcrumbs: 50,
     // Proportion of sessions being used to track performance
@@ -68,6 +70,8 @@ if (process.env.NODE_ENV !== 'development') {
     //   }
     //   return event;
     // },
+    replaysSessionSampleRate: 0.001,
+    replaysOnErrorSampleRate: 1.0,
   });
 }
 
