@@ -186,8 +186,11 @@ export const extractFromFreeText = (data: KineticParameters) => {
           if (constants && constants?.length > 1) {
             const [pubMed] = value.match(/\(pubmed:\d+\)/i) || [null];
 
-            // Exceptional case like P45470
-            if (value.includes('respectively')) {
+            // Exceptional case like P45470, B0F481
+            if (
+              value.includes('respectively') ||
+              (value.match(/and/g)?.length || 0) > 1
+            ) {
               additionalNotes.push(value);
             } else {
               const substrates = value.split(/and/);

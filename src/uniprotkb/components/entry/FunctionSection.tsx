@@ -102,31 +102,41 @@ const BioPhysicoChemicalPropertiesView = ({
     <>
       {data.absorption && (
         <>
-          <h3>Absorption</h3>
+          <h3 data-article-id="biophysicochemical_properties#1-absorption">
+            Absorption
+          </h3>
           <AbsorptionView data={data.absorption} />
         </>
       )}
       {data.kinetics && (
         <>
-          <h3>Kinetics</h3>
+          <h3 data-article-id="biophysicochemical_properties#2-kinetic-parameters">
+            Kinetics
+          </h3>
           <KineticsTableView data={data.kinetics} />
         </>
       )}
       {data.pHDependence && (
         <>
-          <h3>pH Dependence</h3>
+          <h3 data-article-id="biophysicochemical_properties#3-ph-dependence">
+            pH Dependence
+          </h3>
           <TextView comments={data.pHDependence} />
         </>
       )}
       {data.redoxPotential && (
         <>
-          <h3>Redox Potential</h3>
+          <h3 data-article-id="biophysicochemical_properties#4-rodex-potential">
+            Redox Potential
+          </h3>
           <TextView comments={data.redoxPotential} />
         </>
       )}
       {data.temperatureDependence && (
         <>
-          <h3>Temperature Dependence</h3>
+          <h3 data-article-id="biophysicochemical_properties#5-temperature-dependence">
+            Temperature Dependence
+          </h3>
           <TextView comments={data.temperatureDependence} />
         </>
       )}
