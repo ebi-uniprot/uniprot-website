@@ -57,17 +57,17 @@ exports[`ResultsData component should render the card view with the correct numb
             >
               <div>
                 Glucose-6-phosphate 1-dehydrogenase · 
+                <strong>
+                  Gene:
+                </strong>
+                 G6PD · 
                 <a
                   href="/taxonomy/9606"
                   title="Homo sapiens (Human), taxon ID 9606"
                 >
                   Homo sapiens (Human)
                 </a>
-                 · EC:1.1.1.49 · 
-                <strong>
-                  Gene:
-                </strong>
-                 G6PD · 515 amino acids · Evidence at protein level · 
+                 · EC:1.1.1.49 · 515 amino acids · Evidence at protein level · 
                 <strong>
                   Annotation score:
                 </strong>
@@ -239,17 +239,17 @@ exports[`ResultsData component should render the card view with the correct numb
             >
               <div>
                 Glucose-1-phosphatase · 
+                <strong>
+                  Gene:
+                </strong>
+                 agp · 
                 <a
                   href="/taxonomy/83333"
                   title="Escherichia coli (strain K12), taxon ID 83333"
                 >
                   Escherichia coli (strain K12)
                 </a>
-                 · EC:3.1.3.10 · 
-                <strong>
-                  Gene:
-                </strong>
-                 agp · 413 amino acids · Evidence at protein level · 
+                 · EC:3.1.3.10 · 413 amino acids · Evidence at protein level · 
                 <strong>
                   Annotation score:
                 </strong>
@@ -367,17 +367,17 @@ exports[`ResultsData component should render the card view with the correct numb
             >
               <div>
                 Glucose-6-phosphate 1-dehydrogenase · 
+                <strong>
+                  Gene:
+                </strong>
+                 zwf · 
                 <a
                   href="/taxonomy/1245"
                   title="Leuconostoc mesenteroides, taxon ID 1245"
                 >
                   Leuconostoc mesenteroides
                 </a>
-                 · EC:1.1.1.363 · 
-                <strong>
-                  Gene:
-                </strong>
-                 zwf · 486 amino acids · Evidence at protein level · 
+                 · EC:1.1.1.363 · 486 amino acids · Evidence at protein level · 
                 <strong>
                   Annotation score:
                 </strong>
@@ -507,17 +507,17 @@ exports[`ResultsData component should render the card view with the correct numb
             >
               <div>
                 Sodium/glucose cotransporter 1 · 
+                <strong>
+                  Gene:
+                </strong>
+                 SLC5A1 (NAGT, SGLT1) · 
                 <a
                   href="/taxonomy/9606"
                   title="Homo sapiens (Human), taxon ID 9606"
                 >
                   Homo sapiens (Human)
                 </a>
-                 · 
-                <strong>
-                  Gene:
-                </strong>
-                 SLC5A1 (NAGT, SGLT1) · 664 amino acids · Evidence at protein level · 
+                 · 664 amino acids · Evidence at protein level · 
                 <strong>
                   Annotation score:
                 </strong>
@@ -683,17 +683,17 @@ exports[`ResultsData component should render the card view with the correct numb
             >
               <div>
                 Hexokinase-1 · 
+                <strong>
+                  Gene:
+                </strong>
+                 HXK1 (GIN2) · 
                 <a
                   href="/taxonomy/3702"
                   title="Arabidopsis thaliana (Mouse-ear cress), taxon ID 3702"
                 >
                   Arabidopsis thaliana (Mouse-ear cress)
                 </a>
-                 · EC:2.7.1.1 · 
-                <strong>
-                  Gene:
-                </strong>
-                 HXK1 (GIN2) · 496 amino acids · Evidence at protein level · 
+                 · EC:2.7.1.1 · 496 amino acids · Evidence at protein level · 
                 <strong>
                   Annotation score:
                 </strong>
@@ -829,17 +829,17 @@ exports[`ResultsData component should render the card view with the correct numb
             >
               <div>
                 ADP-glucose phosphorylase · 
+                <strong>
+                  Gene:
+                </strong>
+                 At5g18200 · 
                 <a
                   href="/taxonomy/3702"
                   title="Arabidopsis thaliana (Mouse-ear cress), taxon ID 3702"
                 >
                   Arabidopsis thaliana (Mouse-ear cress)
                 </a>
-                 · EC:2.7.7.- · 
-                <strong>
-                  Gene:
-                </strong>
-                 At5g18200 · 351 amino acids · Evidence at protein level · 
+                 · EC:2.7.7.- · 351 amino acids · Evidence at protein level · 
                 <strong>
                   Annotation score:
                 </strong>
@@ -975,17 +975,17 @@ exports[`ResultsData component should render the card view with the correct numb
             >
               <div>
                 Phosphoglucomutase-1 · 
+                <strong>
+                  Gene:
+                </strong>
+                 PGM1 · 
                 <a
                   href="/taxonomy/9606"
                   title="Homo sapiens (Human), taxon ID 9606"
                 >
                   Homo sapiens (Human)
                 </a>
-                 · EC:5.4.2.2 · 
-                <strong>
-                  Gene:
-                </strong>
-                 PGM1 · 562 amino acids · Evidence at protein level · 
+                 · EC:5.4.2.2 · 562 amino acids · Evidence at protein level · 
                 <strong>
                   Annotation score:
                 </strong>
@@ -1163,17 +1163,17 @@ exports[`ResultsData component should render the card view with the correct numb
             >
               <div>
                 Phosphopentomutase · 
+                <strong>
+                  Gene:
+                </strong>
+                 PGM2 · 
                 <a
                   href="/taxonomy/9606"
                   title="Homo sapiens (Human), taxon ID 9606"
                 >
                   Homo sapiens (Human)
                 </a>
-                 · EC:5.4.2.7 · 
-                <strong>
-                  Gene:
-                </strong>
-                 PGM2 · 612 amino acids · Evidence at protein level · 
+                 · EC:5.4.2.7 · 612 amino acids · Evidence at protein level · 
                 <strong>
                   Annotation score:
                 </strong>
@@ -1321,17 +1321,17 @@ exports[`ResultsData component should render the card view with the correct numb
             >
               <div>
                 Sodium/glucose cotransporter 2 · 
+                <strong>
+                  Gene:
+                </strong>
+                 SLC5A2 (SGLT2) · 
                 <a
                   href="/taxonomy/9606"
                   title="Homo sapiens (Human), taxon ID 9606"
                 >
                   Homo sapiens (Human)
                 </a>
-                 · 
-                <strong>
-                  Gene:
-                </strong>
-                 SLC5A2 (SGLT2) · 672 amino acids · Evidence at protein level · 
+                 · 672 amino acids · Evidence at protein level · 
                 <strong>
                   Annotation score:
                 </strong>
@@ -1491,17 +1491,17 @@ exports[`ResultsData component should render the card view with the correct numb
             >
               <div>
                 GDH/6PGL endoplasmic bifunctional protein · 
+                <strong>
+                  Gene:
+                </strong>
+                 H6PD (GDH) · 
                 <a
                   href="/taxonomy/9606"
                   title="Homo sapiens (Human), taxon ID 9606"
                 >
                   Homo sapiens (Human)
                 </a>
-                 · 
-                <strong>
-                  Gene:
-                </strong>
-                 H6PD (GDH) · 791 amino acids · Evidence at protein level · 
+                 · 791 amino acids · Evidence at protein level · 
                 <strong>
                   Annotation score:
                 </strong>
@@ -1667,17 +1667,17 @@ exports[`ResultsData component should render the card view with the correct numb
             >
               <div>
                 Protein DELAY OF GERMINATION 1 · 
+                <strong>
+                  Gene:
+                </strong>
+                 DOG1 (GSQ5) · 
                 <a
                   href="/taxonomy/3702"
                   title="Arabidopsis thaliana (Mouse-ear cress), taxon ID 3702"
                 >
                   Arabidopsis thaliana (Mouse-ear cress)
                 </a>
-                 · 
-                <strong>
-                  Gene:
-                </strong>
-                 DOG1 (GSQ5) · 291 amino acids · Evidence at protein level · 
+                 · 291 amino acids · Evidence at protein level · 
                 <strong>
                   Annotation score:
                 </strong>
@@ -1819,17 +1819,17 @@ exports[`ResultsData component should render the card view with the correct numb
             >
               <div>
                 Vacuolar import and degradation protein 24 · 
+                <strong>
+                  Gene:
+                </strong>
+                 VID24 (GID4) · 
                 <a
                   href="/taxonomy/559292"
                   title="Saccharomyces cerevisiae (strain ATCC 204508 / S288c) (Baker's yeast), taxon ID 559292"
                 >
                   Saccharomyces cerevisiae (strain ATCC 204508 / S288c) (Baker's yeast)
                 </a>
-                 · 
-                <strong>
-                  Gene:
-                </strong>
-                 VID24 (GID4) · 362 amino acids · Evidence at protein level · 
+                 · 362 amino acids · Evidence at protein level · 
                 <strong>
                   Annotation score:
                 </strong>
@@ -1959,17 +1959,17 @@ exports[`ResultsData component should render the card view with the correct numb
             >
               <div>
                 Solute carrier family 2, facilitated glucose transporter member 1 · 
+                <strong>
+                  Gene:
+                </strong>
+                 SLC2A1 (GLUT1) · 
                 <a
                   href="/taxonomy/9606"
                   title="Homo sapiens (Human), taxon ID 9606"
                 >
                   Homo sapiens (Human)
                 </a>
-                 · 
-                <strong>
-                  Gene:
-                </strong>
-                 SLC2A1 (GLUT1) · 492 amino acids · Evidence at protein level · 
+                 · 492 amino acids · Evidence at protein level · 
                 <strong>
                   Annotation score:
                 </strong>
@@ -2147,17 +2147,17 @@ exports[`ResultsData component should render the card view with the correct numb
             >
               <div>
                 Glucose-6-phosphatase catalytic subunit 1 · 
+                <strong>
+                  Gene:
+                </strong>
+                 G6PC1 (G6PC, G6PT) · 
                 <a
                   href="/taxonomy/9606"
                   title="Homo sapiens (Human), taxon ID 9606"
                 >
                   Homo sapiens (Human)
                 </a>
-                 · EC:3.1.3.9 · 
-                <strong>
-                  Gene:
-                </strong>
-                 G6PC1 (G6PC, G6PT) · 357 amino acids · Evidence at protein level · 
+                 · EC:3.1.3.9 · 357 amino acids · Evidence at protein level · 
                 <strong>
                   Annotation score:
                 </strong>
@@ -2311,17 +2311,17 @@ exports[`ResultsData component should render the card view with the correct numb
             >
               <div>
                 UTP--glucose-1-phosphate uridylyltransferase · 
+                <strong>
+                  Gene:
+                </strong>
+                 UGP2 (UGP1) · 
                 <a
                   href="/taxonomy/9606"
                   title="Homo sapiens (Human), taxon ID 9606"
                 >
                   Homo sapiens (Human)
                 </a>
-                 · EC:2.7.7.9 · 
-                <strong>
-                  Gene:
-                </strong>
-                 UGP2 (UGP1) · 508 amino acids · Evidence at protein level · 
+                 · EC:2.7.7.9 · 508 amino acids · Evidence at protein level · 
                 <strong>
                   Annotation score:
                 </strong>
@@ -2487,17 +2487,17 @@ exports[`ResultsData component should render the card view with the correct numb
             >
               <div>
                 Solute carrier family 2, facilitated glucose transporter member 8 · 
+                <strong>
+                  Gene:
+                </strong>
+                 SLC2A8 (GLUT8, GLUTX1) · 
                 <a
                   href="/taxonomy/9606"
                   title="Homo sapiens (Human), taxon ID 9606"
                 >
                   Homo sapiens (Human)
                 </a>
-                 · 
-                <strong>
-                  Gene:
-                </strong>
-                 SLC2A8 (GLUT8, GLUTX1) · 477 amino acids · Evidence at protein level · 
+                 · 477 amino acids · Evidence at protein level · 
                 <strong>
                   Annotation score:
                 </strong>
@@ -2615,17 +2615,17 @@ exports[`ResultsData component should render the card view with the correct numb
             >
               <div>
                 Phosphoglucomutase · 
+                <strong>
+                  Gene:
+                </strong>
+                 Pgm1 · 
                 <a
                   href="/taxonomy/7227"
                   title="Drosophila melanogaster (Fruit fly), taxon ID 7227"
                 >
                   Drosophila melanogaster (Fruit fly)
                 </a>
-                 · EC:5.4.2.2 · 
-                <strong>
-                  Gene:
-                </strong>
-                 Pgm1 · 560 amino acids · Evidence at protein level · 
+                 · EC:5.4.2.2 · 560 amino acids · Evidence at protein level · 
                 <strong>
                   Annotation score:
                 </strong>
@@ -2761,17 +2761,17 @@ exports[`ResultsData component should render the card view with the correct numb
             >
               <div>
                 Glucose 1,6-bisphosphate synthase · 
+                <strong>
+                  Gene:
+                </strong>
+                 PGM2L1 (BM32A) · 
                 <a
                   href="/taxonomy/9606"
                   title="Homo sapiens (Human), taxon ID 9606"
                 >
                   Homo sapiens (Human)
                 </a>
-                 · EC:2.7.1.106 · 
-                <strong>
-                  Gene:
-                </strong>
-                 PGM2L1 (BM32A) · 622 amino acids · Evidence at protein level · 
+                 · EC:2.7.1.106 · 622 amino acids · Evidence at protein level · 
                 <strong>
                   Annotation score:
                 </strong>
@@ -2913,17 +2913,17 @@ exports[`ResultsData component should render the card view with the correct numb
             >
               <div>
                 Phosphoglucomutase 2 · 
+                <strong>
+                  Gene:
+                </strong>
+                 PGM2 (GA-5, GAL5) · 
                 <a
                   href="/taxonomy/559292"
                   title="Saccharomyces cerevisiae (strain ATCC 204508 / S288c) (Baker's yeast), taxon ID 559292"
                 >
                   Saccharomyces cerevisiae (strain ATCC 204508 / S288c) (Baker's yeast)
                 </a>
-                 · EC:5.4.2.2 · 
-                <strong>
-                  Gene:
-                </strong>
-                 PGM2 (GA-5, GAL5) · 569 amino acids · Evidence at protein level · 
+                 · EC:5.4.2.2 · 569 amino acids · Evidence at protein level · 
                 <strong>
                   Annotation score:
                 </strong>
@@ -3053,17 +3053,17 @@ exports[`ResultsData component should render the card view with the correct numb
             >
               <div>
                 Solute carrier family 2, facilitated glucose transporter member 12 · 
+                <strong>
+                  Gene:
+                </strong>
+                 SLC2A12 (GLUT12) · 
                 <a
                   href="/taxonomy/9606"
                   title="Homo sapiens (Human), taxon ID 9606"
                 >
                   Homo sapiens (Human)
                 </a>
-                 · 
-                <strong>
-                  Gene:
-                </strong>
-                 SLC2A12 (GLUT12) · 617 amino acids · Evidence at transcript level · 
+                 · 617 amino acids · Evidence at transcript level · 
                 <strong>
                   Annotation score:
                 </strong>
@@ -3175,17 +3175,17 @@ exports[`ResultsData component should render the card view with the correct numb
             >
               <div>
                 Solute carrier family 2, facilitated glucose transporter member 7 · 
+                <strong>
+                  Gene:
+                </strong>
+                 SLC2A7 (GLUT7) · 
                 <a
                   href="/taxonomy/9606"
                   title="Homo sapiens (Human), taxon ID 9606"
                 >
                   Homo sapiens (Human)
                 </a>
-                 · 
-                <strong>
-                  Gene:
-                </strong>
-                 SLC2A7 (GLUT7) · 512 amino acids · Evidence at protein level · 
+                 · 512 amino acids · Evidence at protein level · 
                 <strong>
                   Annotation score:
                 </strong>
@@ -3303,17 +3303,17 @@ exports[`ResultsData component should render the card view with the correct numb
             >
               <div>
                 Glucose-6-phosphatase 3 · 
+                <strong>
+                  Gene:
+                </strong>
+                 G6PC3 (UGRP) · 
                 <a
                   href="/taxonomy/9606"
                   title="Homo sapiens (Human), taxon ID 9606"
                 >
                   Homo sapiens (Human)
                 </a>
-                 · EC:3.1.3.9 · 
-                <strong>
-                  Gene:
-                </strong>
-                 G6PC3 (UGRP) · 346 amino acids · Evidence at protein level · 
+                 · EC:3.1.3.9 · 346 amino acids · Evidence at protein level · 
                 <strong>
                   Annotation score:
                 </strong>
@@ -3449,17 +3449,17 @@ exports[`ResultsData component should render the card view with the correct numb
             >
               <div>
                 Solute carrier family 2, facilitated glucose transporter member 14 · 
+                <strong>
+                  Gene:
+                </strong>
+                 SLC2A14 (GLUT14) · 
                 <a
                   href="/taxonomy/9606"
                   title="Homo sapiens (Human), taxon ID 9606"
                 >
                   Homo sapiens (Human)
                 </a>
-                 · 
-                <strong>
-                  Gene:
-                </strong>
-                 SLC2A14 (GLUT14) · 520 amino acids · Evidence at transcript level · 
+                 · 520 amino acids · Evidence at transcript level · 
                 <strong>
                   Annotation score:
                 </strong>
@@ -3601,17 +3601,17 @@ exports[`ResultsData component should render the card view with the correct numb
             >
               <div>
                 Solute carrier family 2, facilitated glucose transporter member 3 · 
+                <strong>
+                  Gene:
+                </strong>
+                 SLC2A3 (GLUT3) · 
                 <a
                   href="/taxonomy/9606"
                   title="Homo sapiens (Human), taxon ID 9606"
                 >
                   Homo sapiens (Human)
                 </a>
-                 · 
-                <strong>
-                  Gene:
-                </strong>
-                 SLC2A3 (GLUT3) · 496 amino acids · Evidence at protein level · 
+                 · 496 amino acids · Evidence at protein level · 
                 <strong>
                   Annotation score:
                 </strong>
@@ -3747,17 +3747,17 @@ exports[`ResultsData component should render the card view with the correct numb
             >
               <div>
                 Solute carrier family 2, facilitated glucose transporter member 6 · 
+                <strong>
+                  Gene:
+                </strong>
+                 SLC2A6 (GLUT6) · 
                 <a
                   href="/taxonomy/9606"
                   title="Homo sapiens (Human), taxon ID 9606"
                 >
                   Homo sapiens (Human)
                 </a>
-                 · 
-                <strong>
-                  Gene:
-                </strong>
-                 SLC2A6 (GLUT6) · 507 amino acids · Evidence at protein level · 
+                 · 507 amino acids · Evidence at protein level · 
                 <strong>
                   Annotation score:
                 </strong>

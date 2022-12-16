@@ -188,17 +188,17 @@ exports[`ProteinOverview component should render, in card variant 1`] = `
 <DocumentFragment>
   <div>
     Amyloid-beta precursor protein · 
+    <strong>
+      Gene:
+    </strong>
+     APP (A4, AD1) · 
     <a
       href="/taxonomy/9606"
       title="Homo sapiens (Human), taxon ID 9606"
     >
       Homo sapiens (Human)
     </a>
-     · 
-    <strong>
-      Gene:
-    </strong>
-     APP (A4, AD1) · 770 amino acids · Evidence at protein level · 
+     · 770 amino acids · Evidence at protein level · 
     <strong>
       Annotation score:
     </strong>

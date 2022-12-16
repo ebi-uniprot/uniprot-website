@@ -74,13 +74,13 @@ const ProteinOverview = ({ data, inCard }: Props) => {
       <div>
         {[
           name,
-          organismNameNode,
-          ecNumberNode,
           geneNameListNode && (
             <>
               <strong>Gene:</strong> {geneNameListNode}
             </>
           ),
+          organismNameNode,
+          ecNumberNode,
           data.sequence?.length && `${data.sequence.length} amino acids`,
           proteinExistence,
           annotationScoreNode && (
