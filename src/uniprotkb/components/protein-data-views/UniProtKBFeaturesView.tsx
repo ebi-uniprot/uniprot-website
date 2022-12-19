@@ -237,7 +237,7 @@ const UniProtKBFeaturesView = ({
                     feature.featureId?.startsWith('PRO') &&
                     typeof feature.description === 'string'
                       ? stringToID(feature.description)
-                      : `${feature.featureId}_description`
+                      : `description${position}`
                   }
                 >
                   {description}
