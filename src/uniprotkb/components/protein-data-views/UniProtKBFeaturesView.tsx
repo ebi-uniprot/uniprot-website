@@ -20,6 +20,7 @@ import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import listFormat from '../../../shared/utils/listFormat';
 import { getEntryPath, getURLToJobWithData } from '../../../app/config/urls';
+import { stringToID } from '../../utils';
 
 import { Evidence } from '../../types/modelTypes';
 import FeatureType from '../../types/featureType';
@@ -231,7 +232,14 @@ const UniProtKBFeaturesView = ({
                     {feature.source}
                   </td>
                 )}
-                <td>
+                <td
+                  id={
+                    feature.featureId?.startsWith('PRO') &&
+                    typeof feature.description === 'string'
+                      ? stringToID(feature.description)
+                      : `${feature.featureId}_description`
+                  }
+                >
                   {description}
                   {!!feature.confidenceScore && (
                     <Chip className="secondary" compact>
