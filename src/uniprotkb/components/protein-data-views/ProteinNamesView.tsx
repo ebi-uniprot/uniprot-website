@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { InfoList, ExpandableList } from 'franklin-sites';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
@@ -22,18 +22,18 @@ const ProteinName = ({
 }: {
   value: string;
   withLink: boolean;
-}) => {
-  const location = useLocation();
-  return (
-    <>
-      {withLink ? (
-        <Link to={`${location.pathname}#${stringToID(value)}`}>{value}</Link>
-      ) : (
-        value
-      )}
-    </>
-  );
-};
+}) => (
+  <>
+    {withLink ? (
+      // eslint-disable-next-line uniprot-website/use-config-location
+      <Link to={(location) => ({ ...location, hash: stringToID(value) })}>
+        {value}
+      </Link>
+    ) : (
+      value
+    )}
+  </>
+);
 
 export const NameWithEvidence = ({
   data,
