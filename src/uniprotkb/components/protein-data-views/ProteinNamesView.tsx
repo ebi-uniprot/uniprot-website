@@ -16,15 +16,24 @@ import {
 } from '../../adapters/namesAndTaxonomyConverter';
 import { ValueWithEvidence } from '../../types/modelTypes';
 
-const displayName = (value: string, withLink: boolean, path: string) => (
-  <>
-    {withLink ? (
-      <Link to={`${path}#${stringToID(value)}`}>{value}</Link>
-    ) : (
-      value
-    )}
-  </>
-);
+const ProteinName = ({
+  value,
+  withLink,
+}: {
+  value: string;
+  withLink: boolean;
+}) => {
+  const location = useLocation();
+  return (
+    <>
+      {withLink ? (
+        <Link to={`${location.pathname}#${stringToID(value)}`}>{value}</Link>
+      ) : (
+        value
+      )}
+    </>
+  );
+};
 
 export const NameWithEvidence = ({
   data,
@@ -32,21 +41,17 @@ export const NameWithEvidence = ({
 }: {
   data: ValueWithEvidence;
   withLink?: boolean;
-}) => {
-  const location = useLocation();
-
-  return (
-    <>
-      {displayName(data.value, withLink, location.pathname)}
-      {data.evidences && (
-        <>
-          {' '}
-          <UniProtKBEvidenceTag evidences={data.evidences} />
-        </>
-      )}
-    </>
-  );
-};
+}) => (
+  <>
+    <ProteinName value={data.value} withLink={withLink} />
+    {data.evidences && (
+      <>
+        {' '}
+        <UniProtKBEvidenceTag evidences={data.evidences} />
+      </>
+    )}
+  </>
+);
 
 type ProteinNamesViewFlatProps = {
   names?: ProteinNames;
@@ -59,15 +64,13 @@ const ProteinNamesViewFlat = ({
   noEvidence = false,
   withLink = false,
 }: ProteinNamesViewFlatProps) => {
-  const location = useLocation();
-
   if (!names) {
     return null;
   }
   return (
     <>
       {noEvidence ? (
-        displayName(names.fullName.value, withLink, location.pathname)
+        <ProteinName value={names.fullName.value} withLink={withLink} />
       ) : (
         <NameWithEvidence data={names.fullName} withLink={withLink} />
       )}
