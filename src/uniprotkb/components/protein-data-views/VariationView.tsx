@@ -242,6 +242,15 @@ const VariationView = ({
             position += `-${variantFeature.end}`;
           }
 
+          const uniProtEvidences = variantFeature.evidences
+            ?.filter(isUniProtEvidence)
+            .map((evidence) => ({
+              evidenceCode: evidence.code as `ECO:${number}`,
+              id: evidence.source.id,
+              source: evidence.source.name,
+              url: evidence.source.url,
+            }));
+
           return (
             <Fragment key={variantFeature.protvistaFeatureId}>
               <tr
@@ -280,22 +289,12 @@ const VariationView = ({
                   )}
                 </td>
                 <td>
-                  {variantFeature.descriptions &&
+                  {variantFeature.descriptions?.length ? (
                     Array.from(variantFeature.descriptions)
                       .sort(sortDescriptionByUniProtFirst)
                       .map((description) => {
                         const isUniProtDescription =
                           hasUniProtSource(description);
-                        const uniProtEvidences =
-                          isUniProtDescription &&
-                          variantFeature.evidences
-                            ?.filter(isUniProtEvidence)
-                            .map((evidence) => ({
-                              evidenceCode: evidence.code as `ECO:${number}`,
-                              id: evidence.source.id,
-                              source: evidence.source.name,
-                              url: evidence.source.url,
-                            }));
                         return (
                           <div
                             key={description.value}
@@ -306,14 +305,17 @@ const VariationView = ({
                             {`${description.value} (${description.sources.join(
                               ', '
                             )})`}
-                            {uniProtEvidences && (
+                            {isUniProtDescription && (
                               <UniProtKBEvidenceTag
                                 evidences={uniProtEvidences}
                               />
                             )}
                           </div>
                         );
-                      })}
+                      })
+                  ) : (
+                    <UniProtKBEvidenceTag evidences={uniProtEvidences} />
+                  )}
                 </td>
                 <td>
                   {variantFeature.association &&
