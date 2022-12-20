@@ -68,6 +68,22 @@
     border: 0.5em solid $colour-gainsborough;
     border-bottom-width: 1em;
   }
+
+  figure {
+    border: 0.5em solid $colour-gainsborough;
+    margin-block: 1em;
+
+    & img {
+      /* reset border if we have an image inside a figure */
+      border: initial;
+    }
+
+    & figcaption {
+      background: $colour-gainsborough;
+      text-align: center;
+      font-style: italic;
+    }
+  }
 }
 
 .last-updated-help {
