@@ -62,6 +62,8 @@ export const transfromProperties = (properties: Property[]) => {
   return o;
 };
 
+export const stringToID = (str: string) => str.replace(/\s/g, '_');
+
 // This function is useful because our API returns arrays of objects of shape: { key: x, value: y}
 export const getPropertyValue = (
   properties: Property[],
