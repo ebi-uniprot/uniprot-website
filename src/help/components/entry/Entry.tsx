@@ -117,6 +117,9 @@ export const HelpEntryContent = ({
         const { href } = event.target;
         // If clicks are within the UniProt client
         if (sameAppURL.test(href)) {
+          if (event.metaKey || event.ctrlKey || event.shiftKey) {
+            return; // default behaviour of opening a new tab or new window
+          }
           // Don't navigate away!
           event.preventDefault();
           // And just replace the current URL with the next page

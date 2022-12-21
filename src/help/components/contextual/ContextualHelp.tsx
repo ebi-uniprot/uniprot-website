@@ -81,8 +81,8 @@ const ContextualHelp = () => {
 
   const handleButtonClick = useCallback<MouseEventHandler<HTMLAnchorElement>>(
     (event) => {
-      if (event.metaKey || event.ctrlKey) {
-        return; // default behaviour of opening a new tab
+      if (event.metaKey || event.ctrlKey || event.shiftKey) {
+        return; // default behaviour of opening a new tab or new window
       }
       event.preventDefault();
       setDisplayButton(false);

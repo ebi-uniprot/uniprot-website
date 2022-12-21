@@ -41,7 +41,7 @@ const NavigationBar = ({ localHistory }: { localHistory: MemoryHistory }) => {
       <Link
         to={LocationToPath[Location.HelpResults]}
         onClick={(event) => {
-          if (!event.metaKey && !event.ctrlKey) {
+          if (!event.metaKey && !event.ctrlKey && !event.shiftKey) {
             event.preventDefault();
             localHistory.push(LocationToPath[Location.HelpResults]);
           }

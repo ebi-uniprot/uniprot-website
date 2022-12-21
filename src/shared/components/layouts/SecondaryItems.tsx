@@ -111,8 +111,8 @@ const ToolsDashboard = () => {
         ref={ref}
         to={LocationToPath[Location.Dashboard]}
         onClick={(event) => {
-          if (event.metaKey || event.ctrlKey) {
-            return; // default behaviour of opening a new tab
+          if (event.metaKey || event.ctrlKey || event.shiftKey) {
+            return; // default behaviour of opening a new tab or new window
           }
           event.preventDefault();
           gtagFn('event', 'dashboard render', { event_category: 'panel' });
@@ -197,8 +197,8 @@ export const Basket = () => {
           namespace: Namespace.uniprotkb,
         })}
         onClick={(event) => {
-          if (event.metaKey || event.ctrlKey) {
-            return; // default behaviour of opening a new tab
+          if (event.metaKey || event.ctrlKey || event.shiftKey) {
+            return; // default behaviour of opening a new tab or new window
           }
           event.preventDefault();
           gtagFn('event', 'basket render', { event_category: 'panel' });
