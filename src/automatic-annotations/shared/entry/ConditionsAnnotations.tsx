@@ -230,12 +230,12 @@ const conditionsToInfoData = (
       let range: ReactNode = null;
       if (condition.range?.start?.value && condition.range.end?.value) {
         if (condition.range.start.value === condition.range.end.value) {
-          range = ` matches exactly ${condition.range.start.value} ${pluralise(
+          range = ` has exactly ${condition.range.start.value} ${pluralise(
             'hit',
             condition.range.start.value
           )}`;
         } else {
-          range = ` matches between ${condition.range.start.value} and ${
+          range = ` has between ${condition.range.start.value} and ${
             condition.range.end.value
           } ${pluralise('hit', condition.range.end.value)}`;
         }
