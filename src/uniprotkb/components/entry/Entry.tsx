@@ -353,12 +353,9 @@ const Entry = () => {
             <>
               <div className="button-group">
                 <BlastButton selectedEntries={[match.params.accession]} />
-                <AlignButton
-                  selectedEntries={[
-                    match.params.accession,
-                    ...listOfIsoformAccessions,
-                  ]}
-                />
+                {listOfIsoformAccessions.length > 1 && (
+                  <AlignButton selectedEntries={listOfIsoformAccessions} />
+                )}
                 <EntryDownload />
                 <AddToBasketButton selectedEntries={match.params.accession} />
                 <CommunityAnnotationLink accession={match.params.accession} />

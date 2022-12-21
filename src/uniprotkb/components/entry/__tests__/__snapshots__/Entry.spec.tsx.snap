@@ -413,13 +413,6 @@ exports[`Entry basic should render main 1`] = `
             >
               BLAST
             </a>
-            <a
-              class="button tertiary no-small"
-              href="/align?ids=P21802%2CisoID1"
-              title="Run an Align job against 2 entries"
-            >
-              Align
-            </a>
             <div
               aria-expanded="false"
               aria-haspopup="true"
