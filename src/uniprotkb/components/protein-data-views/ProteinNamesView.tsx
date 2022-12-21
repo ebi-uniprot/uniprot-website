@@ -6,8 +6,8 @@ import ExternalLink from '../../../shared/components/ExternalLink';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
 import externalUrls from '../../../shared/config/externalUrls';
-
 import { Location, LocationToPath } from '../../../app/config/urls';
+import { stringToID } from '../../utils';
 
 import {
   ProteinNames,
@@ -16,9 +16,34 @@ import {
 } from '../../adapters/namesAndTaxonomyConverter';
 import { ValueWithEvidence } from '../../types/modelTypes';
 
-export const NameWithEvidence = ({ data }: { data: ValueWithEvidence }) => (
+const ProteinName = ({
+  value,
+  withLink,
+}: {
+  value: string;
+  withLink: boolean;
+}) => (
   <>
-    {data.value}
+    {withLink ? (
+      // eslint-disable-next-line uniprot-website/use-config-location
+      <Link to={(location) => ({ ...location, hash: stringToID(value) })}>
+        {value}
+      </Link>
+    ) : (
+      value
+    )}
+  </>
+);
+
+export const NameWithEvidence = ({
+  data,
+  withLink = false,
+}: {
+  data: ValueWithEvidence;
+  withLink?: boolean;
+}) => (
+  <>
+    <ProteinName value={data.value} withLink={withLink} />
     {data.evidences && (
       <>
         {' '}
@@ -31,11 +56,13 @@ export const NameWithEvidence = ({ data }: { data: ValueWithEvidence }) => (
 type ProteinNamesViewFlatProps = {
   names?: ProteinNames;
   noEvidence?: boolean;
+  withLink?: boolean;
 };
 
 const ProteinNamesViewFlat = ({
   names,
   noEvidence = false,
+  withLink = false,
 }: ProteinNamesViewFlatProps) => {
   if (!names) {
     return null;
@@ -43,9 +70,9 @@ const ProteinNamesViewFlat = ({
   return (
     <>
       {noEvidence ? (
-        `${names.fullName.value}`
+        <ProteinName value={names.fullName.value} withLink={withLink} />
       ) : (
-        <NameWithEvidence data={names.fullName} />
+        <NameWithEvidence data={names.fullName} withLink={withLink} />
       )}
       {names.shortNames && (
         <>
@@ -145,7 +172,10 @@ const ProteinDescriptionView = ({
   }
   return (
     <>
-      <ProteinNamesViewFlat names={proteinDescription.recommendedName} />
+      <ProteinNamesViewFlat
+        names={proteinDescription.recommendedName}
+        withLink
+      />
       {proteinDescription.recommendedName?.ecNumbers?.length && (
         <small>
           <ECNumbersView
@@ -157,7 +187,7 @@ const ProteinDescriptionView = ({
       {proteinDescription.alternativeNames && (
         <>
           {' '}
-          <strong>Alternative names: </strong>
+          <i>Alternative names: </i>
           {proteinDescription.alternativeNames.map(
             (alternativeName, index): JSX.Element => (
               <Fragment key={alternativeName.fullName.value}>

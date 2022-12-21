@@ -967,7 +967,12 @@ exports[`Entry view should render 1`] = `
                   class="expandable-list no-bullet"
                 >
                   <li>
-                    containsrec full Name 
+                    <a
+                      href="/uniprotkb/P05067/entry#containsrec_full_Name"
+                    >
+                      containsrec full Name
+                    </a>
+                     
                     <button
                       aria-controls="17"
                       aria-expanded="false"
@@ -1078,9 +1083,9 @@ exports[`Entry view should render 1`] = `
                       </ul>
                     </small>
                      
-                    <strong>
+                    <i>
                       Alternative names: 
-                    </strong>
+                    </i>
                     containsa full alt Name 
                     <button
                       aria-controls="20"
@@ -3828,7 +3833,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <td>
                       87
                     </td>
-                    <td>
+                    <td
+                      id="description87"
+                    >
                       substrate
                       <button
                         aria-controls="17"
@@ -3904,7 +3911,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <td>
                       123
                     </td>
-                    <td>
+                    <td
+                      id="description123"
+                    >
                       substrate
                       <button
                         aria-controls="19"
@@ -3980,7 +3989,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <td>
                       126
                     </td>
-                    <td>
+                    <td
+                      id="description126"
+                    >
                       a divalent metal cation (
                       <a
                         href="/uniprotkb?query=ft_binding:"CHEBI:60240""
@@ -4075,7 +4086,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <td>
                       180-402
                     </td>
-                    <td>
+                    <td
+                      id="description180-402"
+                    >
                       Deacetylase activity
                       <button
                         aria-controls="23"
@@ -4149,7 +4162,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <td>
                       236
                     </td>
-                    <td>
+                    <td
+                      id="description236"
+                    >
                       substrate
                       <button
                         aria-controls="24"
@@ -4225,7 +4240,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <td>
                       278
                     </td>
-                    <td>
+                    <td
+                      id="description278"
+                    >
                       a divalent metal cation (
                       <a
                         href="/uniprotkb?query=ft_binding:"CHEBI:60240""
@@ -4320,7 +4337,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <td>
                       494-605
                     </td>
-                    <td>
+                    <td
+                      id="description494-605"
+                    >
                       F5/8 type C
                       <button
                         aria-controls="28"
@@ -4394,7 +4413,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <td>
                       502-765
                     </td>
-                    <td>
+                    <td
+                      id="description502-765"
+                    >
                       CBM32 carbohydrate-binding domain
                       <button
                         aria-controls="29"
@@ -4468,7 +4489,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <td>
                       515-772
                     </td>
-                    <td>
+                    <td
+                      id="description515-772"
+                    >
                       Not required for activity on soluble substrates
                       <button
                         aria-controls="30"
@@ -5236,7 +5259,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <td>
                       90
                     </td>
-                    <td>
+                    <td
+                      id="description90"
+                    >
                       Loss of deacetylase activity.
                       <button
                         aria-controls="43"
@@ -5290,7 +5315,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <td>
                       125
                     </td>
-                    <td>
+                    <td
+                      id="description125"
+                    >
                       5-fold reduction in deacetylase rate.
                       <button
                         aria-controls="44"
@@ -5344,7 +5371,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <td>
                       126
                     </td>
-                    <td>
+                    <td
+                      id="description126"
+                    >
                       Dramatic reduction in deacetylase rate.
                       <button
                         aria-controls="45"
@@ -5398,7 +5427,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <td>
                       278
                     </td>
-                    <td>
+                    <td
+                      id="description278"
+                    >
                       Very dramatic reduction in deacetylase rate.
                       <button
                         aria-controls="46"
@@ -5452,7 +5483,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <td>
                       341
                     </td>
-                    <td>
+                    <td
+                      id="description341"
+                    >
                       3000-fold reduction in deacetylase rate.
                       <button
                         aria-controls="47"
@@ -5773,7 +5806,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <td>
                       180-402
                     </td>
-                    <td>
+                    <td
+                      id="description180-402"
+                    >
                       Deacetylase activity
                       <button
                         aria-controls="52"
@@ -5847,7 +5882,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <td>
                       494-605
                     </td>
-                    <td>
+                    <td
+                      id="description494-605"
+                    >
                       F5/8 type C
                       <button
                         aria-controls="53"
@@ -5921,7 +5958,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <td>
                       502-765
                     </td>
-                    <td>
+                    <td
+                      id="description502-765"
+                    >
                       CBM32 carbohydrate-binding domain
                       <button
                         aria-controls="54"
@@ -5995,7 +6034,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <td>
                       515-772
                     </td>
-                    <td>
+                    <td
+                      id="description515-772"
+                    >
                       Not required for activity on soluble substrates
                       <button
                         aria-controls="55"
