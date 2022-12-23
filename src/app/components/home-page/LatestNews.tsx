@@ -17,7 +17,7 @@ const insideUniProtAbstract2 =
   'UniProt is brought to you by a large team of dedicated scientists who have worked for over 20 years to produce a comprehensive view of protein sequence and biology.';
 
 const proteinSpotlightAbstract =
-  'Better safe than sorry. Leaving - whatever or whoever it may be - is always better when executed with some forethought and organisation. Cells sometimes behave similarly.';
+  'Stress. We know what it feels like. Though we may be the only living organism to have turned it into a fertile and imaginative piece of conversation, every single living species on this planet is prone to stress and its effects.';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -354,21 +354,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/252/"
+            url="https://www.proteinspotlight.org/back_issues/253/"
             noIcon
           >
-            Delayed
+            A heated legacy
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/252/"
+          url="https://www.proteinspotlight.org/back_issues/253/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt252.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt253.jpg"
             alt=""
             width="123"
             height="129"
