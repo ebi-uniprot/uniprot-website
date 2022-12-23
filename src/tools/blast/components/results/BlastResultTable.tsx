@@ -34,13 +34,13 @@ import NoResultsPage from '../../../../shared/components/error-pages/NoResultsPa
 
 const scoringDict: Partial<Record<keyof BlastHsp, string>> = {
   hsp_identity: 'Identity',
-  hsp_bit_score: 'Score',
+  hsp_score: 'Score',
   hsp_expect: 'E-value',
 };
 
 const scoringColorDict: Partial<Record<keyof BlastHsp, string>> = {
   hsp_identity: colors.sapphireBlue,
-  hsp_bit_score: colors.coyoteBrown,
+  hsp_score: colors.coyoteBrown,
   hsp_expect: colors.outerSpace,
 };
 
@@ -92,7 +92,7 @@ const BlastSummaryTrack = ({
               // rescale for percents
               opacity /= 100;
               break;
-            case 'hsp_bit_score':
+            case 'hsp_score':
               opacity /= max;
               break;
             default:
@@ -195,9 +195,7 @@ const BlastSummaryHsps = ({
   const [first, ...rest] = useMemo<BlastHsp[]>(
     () =>
       // Operate on a copy to not mutate the original data
-      Array.from(hsps).sort(
-        (hspA, hspB) => hspB.hsp_bit_score - hspA.hsp_bit_score
-      ),
+      Array.from(hsps).sort((hspA, hspB) => hspB.hsp_score - hspA.hsp_score),
     [hsps]
   );
 
@@ -304,11 +302,11 @@ const BlastResultTable = ({
 
   const maxScorings = useMemo<Partial<Record<keyof BlastHsp, number>>>(() => {
     if (!data?.hits) {
-      return { hsp_identity: 100, hsp_bit_score: 1, hsp_expect: 1 };
+      return { hsp_identity: 100, hsp_score: 1, hsp_expect: 1 };
     }
     const output = {
       hsp_identity: -Infinity,
-      hsp_bit_score: -Infinity,
+      hsp_score: -Infinity,
       hsp_expect: -Infinity,
     };
     for (const hit of data.hits) {
@@ -316,8 +314,8 @@ const BlastResultTable = ({
         if (output.hsp_identity < hsp.hsp_identity) {
           output.hsp_identity = hsp.hsp_identity;
         }
-        if (output.hsp_bit_score < hsp.hsp_bit_score) {
-          output.hsp_bit_score = hsp.hsp_bit_score;
+        if (output.hsp_score < hsp.hsp_score) {
+          output.hsp_score = hsp.hsp_score;
         }
         if (output.hsp_expect < hsp.hsp_expect) {
           output.hsp_expect = hsp.hsp_expect;

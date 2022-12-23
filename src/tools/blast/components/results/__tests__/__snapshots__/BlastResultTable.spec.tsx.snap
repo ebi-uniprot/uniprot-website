@@ -226,10 +226,10 @@ Hit length: 486"
                     7.1%
                   </button>
                   <button
-                    class="chip chip--compact hsp_bit_score secondary"
+                    class="chip chip--compact hsp_score secondary"
                     type="button"
                   >
-                    41.5874
+                    96
                   </button>
                   <button
                     class="chip chip--compact hsp_expect secondary"
