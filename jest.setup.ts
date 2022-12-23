@@ -4,7 +4,10 @@ import 'interaction-viewer';
 import { resetUuidV1 } from './__mocks__/uuid';
 
 global.gtag = () => {
-  /* */
+  /* google tag manager */
+};
+global.hj = () => {
+  /* hotjar */
 };
 
 // useCustomElement always says that the component is defined for tests
