@@ -306,7 +306,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
           >
             legacy version of the website
           </a>
-           is available until the 2022_05 release.
+           is available until the 2023_01 release.
         </small>
       </section>
     </div>
@@ -580,7 +580,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
           >
             legacy version of the website
           </a>
-           is available until the 2022_05 release.
+           is available until the 2023_01 release.
         </small>
       </section>
     </div>
@@ -893,7 +893,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
           >
             legacy version of the website
           </a>
-           is available until the 2022_05 release.
+           is available until the 2023_01 release.
         </small>
       </section>
     </div>
