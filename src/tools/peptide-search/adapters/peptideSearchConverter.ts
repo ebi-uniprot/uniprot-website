@@ -8,7 +8,7 @@ export const getMatches = (
   const matches: PeptideSearchMatch[] = [];
 
   for (const matchSequence of matchSequences) {
-    let start = entrySequence.indexOf(matchSequence, 0);
+    let start = entrySequence.indexOf(matchSequence.toUpperCase(), 0);
     while (start !== -1) {
       matches.push({
         matchSequence,
@@ -17,7 +17,7 @@ export const getMatches = (
       });
 
       // find the next match
-      start = entrySequence.indexOf(matchSequence, start + 1);
+      start = entrySequence.indexOf(matchSequence.toUpperCase(), start + 1);
     }
   }
 
