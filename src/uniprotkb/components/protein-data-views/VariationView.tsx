@@ -11,6 +11,7 @@ import { Loader } from 'franklin-sites';
 import joinUrl from 'url-join';
 import { groupBy, intersection, union } from 'lodash-es';
 import cn from 'classnames';
+import { PartialDeep, SetRequired } from 'type-fest';
 
 import { ProteinsAPIVariation } from 'protvista-variation-adapter/dist/es/variants';
 import { transformData, TransformedVariant } from 'protvista-variation-adapter';
@@ -24,6 +25,8 @@ import useCustomElement from '../../../shared/hooks/useCustomElement';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import apiUrls from '../../../shared/config/apiUrls';
+
+import { Evidence } from '../../types/modelTypes';
 
 import styles from './styles/variation-view.module.scss';
 
@@ -45,8 +48,14 @@ const sortByLocation = (a: TransformedVariant, b: TransformedVariant) => {
   return aStart - bStart;
 };
 
-type Evidence = Exclude<TransformedVariant['evidences'], undefined>[0];
-type Description = Exclude<TransformedVariant['descriptions'], undefined>[0];
+type ProteinsAPIEvidence = SetRequired<
+  PartialDeep<Exclude<TransformedVariant['evidences'], undefined>[number]>,
+  'code'
+>;
+type Description = Exclude<
+  TransformedVariant['descriptions'],
+  undefined
+>[number];
 type Source = Description['sources'][0];
 
 const isUniProtID = (id: string) => id.startsWith('VAR_');
@@ -61,9 +70,6 @@ const sortDescriptionByUniProtFirst = (a: Description, b: Description) =>
 const isUniProt = (string: string) => string === 'UniProt';
 const sortProvenanceByUniProtFirst = (a: string, b: string) =>
   +isUniProt(b) - +isUniProt(a);
-
-const isUniProtEvidence = (evidence: Evidence) =>
-  evidence.code === 'ECO:0000269';
 
 type ObjWithVariants = { variants: TransformedVariant[] };
 
@@ -242,14 +248,15 @@ const VariationView = ({
             position += `-${variantFeature.end}`;
           }
 
-          const uniProtEvidences = variantFeature.evidences
-            ?.filter(isUniProtEvidence)
-            .map((evidence) => ({
-              evidenceCode: evidence.code as `ECO:${number}`,
-              id: evidence.source.id,
-              source: evidence.source.name,
-              url: evidence.source.url,
-            }));
+          const uniProtEvidences = variantFeature.evidences?.map(
+            (evidence: ProteinsAPIEvidence) =>
+              ({
+                evidenceCode: evidence.code,
+                id: evidence?.source?.id,
+                source: evidence?.source?.name,
+                url: evidence?.source?.url,
+              } as Evidence)
+          );
 
           return (
             <Fragment key={variantFeature.protvistaFeatureId}>
@@ -292,27 +299,19 @@ const VariationView = ({
                   {variantFeature.descriptions?.length ? (
                     Array.from(variantFeature.descriptions)
                       .sort(sortDescriptionByUniProtFirst)
-                      .map((description) => {
-                        const isUniProtDescription =
-                          hasUniProtSource(description);
-                        return (
-                          <div
-                            key={description.value}
-                            className={cn({
-                              [styles.bold]: isUniProtDescription,
-                            })}
-                          >
-                            {`${description.value} (${description.sources.join(
-                              ', '
-                            )})`}
-                            {isUniProtDescription && (
-                              <UniProtKBEvidenceTag
-                                evidences={uniProtEvidences}
-                              />
-                            )}
-                          </div>
-                        );
-                      })
+                      .map((description) => (
+                        <div
+                          key={description.value}
+                          className={cn({
+                            [styles.bold]: hasUniProtSource(description),
+                          })}
+                        >
+                          {`${description.value} (${description.sources.join(
+                            ', '
+                          )})`}
+                          <UniProtKBEvidenceTag evidences={uniProtEvidences} />
+                        </div>
+                      ))
                   ) : (
                     <UniProtKBEvidenceTag evidences={uniProtEvidences} />
                   )}
