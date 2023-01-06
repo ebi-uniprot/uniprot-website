@@ -221,11 +221,9 @@ export const IsoformInfo = ({
         isoformData.note.texts.map((note) => note.value).join(', '),
     },
   ];
-  // TODO isoformData.sequenceIds is used to get the features for
-  // splice variants - they need to be somehow displayed
-  const name = isoformData.isoformIds.join(', ');
+  const [name] = isoformData.isoformIds;
   return (
-    <Fragment key={isoformData.isoformIds.join('')}>
+    <Fragment key={name}>
       <h3 id={`Isoform_${isoformData.name.value || name}`}>
         <span id={name}>{name}</span>
       </h3>
@@ -469,9 +467,9 @@ const SequenceView = ({ accession, data }: SequenceViewProps) => {
     );
   }
 
-  const allIsoformIds = data.alternativeProducts.isoforms
-    .map((isoform) => isoform.isoformIds)
-    .flat();
+  const allIsoformIds = data.alternativeProducts.isoforms.map(
+    (isoform) => isoform.isoformIds[0]
+  );
 
   return (
     <>
