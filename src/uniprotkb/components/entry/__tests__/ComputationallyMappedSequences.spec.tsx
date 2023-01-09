@@ -5,7 +5,7 @@ import ComputationalyMappedSequences from '../ComputationallyMappedSequences';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import customRender from '../../../../shared/__test-helpers__/customRender';
 
-import data from './__mocks__/genecentric.json';
+import data from './__mocks__/genecentric';
 
 jest.mock('../../../../shared/hooks/useDataApi');
 
@@ -42,10 +42,10 @@ describe('Computationally mapped isoforms', () => {
   });
 
   it('should return nothing if no related proteins in data', () => {
-    const { relatedProteins: _, ...partialData } = data;
+    const { relatedProteins: _, ...partialData } = data.results[0];
     (useDataApi as jest.Mock).mockReturnValue({
       loading: false,
-      data: partialData,
+      data: { results: [partialData] },
     });
 
     const { container } = customRender(

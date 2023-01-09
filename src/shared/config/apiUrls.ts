@@ -104,7 +104,10 @@ const apiUrls = {
     joinUrl(apiPrefix, `/${namespace}/stream`),
   variation: 'https://www.ebi.ac.uk/proteins/api/variation', // TODO: Back end plan to add this endpoint to the k8s deployment (uniprot/beta/api). When this happens update this URL accordingly
   genecentric: (accession: string) =>
-    joinUrl(apiPrefix, '/genecentric/', accession),
+    queryString.stringifyUrl({
+      url: joinUrl(apiPrefix, '/genecentric/search'),
+      query: { query: `accession:${accession}` },
+    }),
   idMappingFields: joinUrl(apiPrefix, '/configure/idmapping/fields'),
   entry: (id: string | undefined, namespace: Namespace) =>
     id && joinUrl(apiPrefix, namespace, id),

@@ -147,12 +147,12 @@ exports[`Computationally mapped isoforms should render correctly 1`] = `
               class="checkbox-cell"
             >
               <input
-                data-id="E9PG40"
+                data-id="H7C2L2"
                 id="2"
                 type="checkbox"
               />
               <label
-                aria-label="E9PG40"
+                aria-label="H7C2L2"
                 for="2"
                 title="click to select, shift+click for multiple selection"
               />
@@ -163,9 +163,9 @@ exports[`Computationally mapped isoforms should render correctly 1`] = `
               >
                 <a
                   class="accession"
-                  href="/uniprotkb/E9PG40/entry"
+                  href="/uniprotkb/H7C2L2/entry"
                 >
-                  E9PG40
+                  H7C2L2
                 </a>
               </span>
             </td>
@@ -178,13 +178,13 @@ exports[`Computationally mapped isoforms should render correctly 1`] = `
               </span>
             </td>
             <td>
-              E9PG40_HUMAN
+              H7C2L2_HUMAN
             </td>
             <td>
               APP
             </td>
             <td>
-              714
+              181
             </td>
           </tr>
           <tr>
@@ -237,12 +237,12 @@ exports[`Computationally mapped isoforms should render correctly 1`] = `
               class="checkbox-cell"
             >
               <input
-                data-id="H7C2L2"
+                data-id="E9PG40"
                 id="4"
                 type="checkbox"
               />
               <label
-                aria-label="H7C2L2"
+                aria-label="E9PG40"
                 for="4"
                 title="click to select, shift+click for multiple selection"
               />
@@ -253,9 +253,9 @@ exports[`Computationally mapped isoforms should render correctly 1`] = `
               >
                 <a
                   class="accession"
-                  href="/uniprotkb/H7C2L2/entry"
+                  href="/uniprotkb/E9PG40/entry"
                 >
-                  H7C2L2
+                  E9PG40
                 </a>
               </span>
             </td>
@@ -268,13 +268,13 @@ exports[`Computationally mapped isoforms should render correctly 1`] = `
               </span>
             </td>
             <td>
-              H7C2L2_HUMAN
+              E9PG40_HUMAN
             </td>
             <td>
               APP
             </td>
             <td>
-              181
+              714
             </td>
           </tr>
         </tbody>
