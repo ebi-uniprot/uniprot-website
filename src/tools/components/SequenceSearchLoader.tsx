@@ -167,7 +167,7 @@ const SequenceSearchLoader = forwardRef<
       const pastedContent = event.clipboardData.getData('text/plain');
       // use a Set to remove duplicate
       const potentialAccessions = new Set(
-        pastedContent.split(/\W+/).map((text) => text.toUpperCase())
+        pastedContent.split(/[\s,;]+/).map((text) => text.toUpperCase())
       );
       if (!potentialAccessions.size) {
         return;
