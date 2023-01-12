@@ -11,10 +11,7 @@ import BasketStatus from '../../../basket/BasketStatus';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import EntryDownload from '../../../shared/components/entry/EntryDownload';
-import {
-  MapToConfig,
-  MapToDropdownBasic,
-} from '../../../shared/components/MapTo';
+import { MapToDropdownBasic } from '../../../shared/components/MapTo';
 
 import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
