@@ -258,7 +258,7 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
     });
   };
 
-  useEffect(() => setSubmitDisabled(textIDs.trim().length === 0), [textIDs]);
+  useEffect(() => setSubmitDisabled(isInvalid(parsedIDs)), [parsedIDs]);
 
   useTextFileInput({
     inputRef: fileInputRef,
