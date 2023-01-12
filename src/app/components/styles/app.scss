@@ -73,6 +73,10 @@ protvista-manager {
   z-index: 10 !important;
 }
 
+.zoom-image-container img {
+  width: 100%;
+}
+
 // Debug utility to show heading levels
 // @for $i from 1 through 6 {
 //   h#{$i} {
