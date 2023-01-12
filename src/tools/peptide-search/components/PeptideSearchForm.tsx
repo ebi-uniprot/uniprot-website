@@ -111,8 +111,11 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
   const [submitDisabled, setSubmitDisabled] = useState(true);
   // used when the form is about to be submitted to the server
   const [sending, setSending] = useState(false);
-  // flag to see if the user manually changed the title
-  const [jobNameEdited, setJobNameEdited] = useState(false);
+  // flag to see if a title has been set (either user, or predefined)
+  const [jobNameEdited, setJobNameEdited] = useState(
+    // default to true if it's been set through the history state
+    Boolean(initialFormValues[PeptideSearchFields.name].selected)
+  );
 
   // actual form fields
   const [peps, setPeps] = useState<

@@ -13,6 +13,7 @@ import {
   TreeSelect,
   SpinnerIcon,
   Loader,
+  LongNumber,
 } from 'franklin-sites';
 import { sleep } from 'timing-functions';
 import cn from 'classnames';
@@ -61,6 +62,10 @@ import { SelectedTaxon } from '../../types/toolsFormData';
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 
+const ID_MAPPING_LIMIT = 100_000;
+const isInvalid = (ids: IDMappingFormValue['selected']) =>
+  !Array.isArray(ids) || !ids.length || ids.length > ID_MAPPING_LIMIT;
+
 const title = namespaceAndToolsLabels[JobTypes.ID_MAPPING];
 
 export type TreeDataNode = {
@@ -93,6 +98,19 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
   const history = useHistory();
   const reducedMotion = useReducedMotion();
 
+  // used when the form submission needs to be disabled
+  const [submitDisabled, setSubmitDisabled] = useState(() =>
+    // default ids value will tell us if submit should be disabled or not
+    isInvalid(initialFormValues[IDMappingFields.ids].selected)
+  );
+  // used when the form is about to be submitted to the server
+  const [sending, setSending] = useState(false);
+  // flag to see if a title has been set (either user, or predefined)
+  const [jobNameEdited, setJobNameEdited] = useState(
+    // default to true if it's been set through the history state
+    Boolean(initialFormValues[IDMappingFields.name].selected)
+  );
+
   // actual form fields
   // Text of IDs from textarea
   const [textIDs, setTextIDs] = useState<string>(
@@ -112,11 +130,6 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
   const [jobName, setJobName] = useState(
     initialFormValues[IDMappingFields.name]
   );
-  // flag to see if the user manually changed the title
-  const [jobNameEdited, setJobNameEdited] = useState(false);
-
-  const [submitDisabled, setSubmitDisabled] = useState(false);
-  const [sending, setSending] = useState(false);
 
   const [dbNameToDbInfo, ruleIdToRuleInfo]: [
     DbNameToDbInfo | undefined | null,
@@ -299,7 +312,8 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
         <fieldset>
           <section className="tools-form-section__item tools-form-section__item--full-width">
             <legend>
-              Enter your IDs or
+              Enter one of more IDs (<LongNumber>{ID_MAPPING_LIMIT}</LongNumber>{' '}
+              max). You may also
               <label className="tools-form-section__file-input">
                 load from a text file
                 <input type="file" ref={fileInputRef} />
@@ -318,8 +332,8 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
             />
             {parsedIDs.length > 0 && (
               <Message level="info">
-                Your input contains {parsedIDs.length}{' '}
-                {pluralise('ID', parsedIDs.length)}
+                Your input contains <LongNumber>{parsedIDs.length}</LongNumber>
+                {pluralise(' ID', parsedIDs.length)}
               </Message>
             )}
           </section>
@@ -430,9 +444,11 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
                 disabled={submitDisabled}
                 onClick={submitIDMappingJob}
               >
-                {`Map ${
-                  parsedIDs.length ? `${parsedIDs.length} ` : ''
-                } ${pluralise('ID', parsedIDs.length)}`}
+                Map{' '}
+                {parsedIDs.length ? (
+                  <LongNumber>{parsedIDs.length}</LongNumber>
+                ) : null}
+                {pluralise(' ID', parsedIDs.length)}
               </button>
             </section>
           </section>

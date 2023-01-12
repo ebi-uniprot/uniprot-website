@@ -19,7 +19,7 @@ exports[`IDMappingForm test Renders the form 1`] = `
         class="tools-form-section__item tools-form-section__item--full-width"
       >
         <legend>
-          Enter your IDs or
+          Enter one of more IDs (100,000 max). You may also
           <label
             class="tools-form-section__file-input"
           >

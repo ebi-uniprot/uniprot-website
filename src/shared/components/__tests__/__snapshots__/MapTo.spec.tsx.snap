@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MapToDropdown should render the advanced component with basic config 1`] = `
+<DocumentFragment>
+  <div
+    aria-expanded="true"
+    aria-haspopup="true"
+    class="dropdown"
+  >
+    <button
+      class="button tertiary"
+      type="button"
+    >
+      View proteins
+    </button>
+    <div
+      class="dropdown__content"
+    >
+      <ul>
+        <li>
+          <a
+            href="/uniprotkb?query=(source:ARBA00013665)"
+          >
+            UniProtKB (618)
+          </a>
+        </li>
+        <li>
+          <a
+            href="/uniprotkb?facets=reviewed:true&query=(source:ARBA00013665)"
+          >
+            UniProtKB reviewed (Swiss-Prot) (10)
+          </a>
+        </li>
+        <li>
+          <a
+            href="/uniprotkb?facets=reviewed:false&query=(source:ARBA00013665)"
+          >
+            UniProtKB unreviewed (TrEMBL) (608)
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`MapToDropdownBasic should render the basic component 1`] = `
+<DocumentFragment>
+  <div
+    aria-expanded="true"
+    aria-haspopup="true"
+    class="dropdown"
+  >
+    <button
+      class="button tertiary"
+      type="button"
+    >
+      Map to
+    </button>
+    <div
+      class="dropdown__content"
+    >
+      <ul>
+        <li>
+          <a
+            href="/path"
+          >
+            UniParc (10)
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</DocumentFragment>
+`;

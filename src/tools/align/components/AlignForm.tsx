@@ -123,8 +123,11 @@ const AlignForm = ({ initialFormValues }: Props) => {
   );
   // used when the form is about to be submitted to the server
   const [sending, setSending] = useState(false);
-  // flag to see if the user manually changed the title
-  const [jobNameEdited, setJobNameEdited] = useState(false);
+  // flag to see if a title has been set (either user, or predefined)
+  const [jobNameEdited, setJobNameEdited] = useState(
+    // default to true if it's been set through the history state
+    Boolean(initialFormValues[AlignFields.name].selected)
+  );
   // store parsed sequence objects
   const [parsedSequences, setParsedSequences] = useState<SequenceObject[]>(
     sequenceProcessor(
