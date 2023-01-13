@@ -331,9 +331,17 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
               data-hj-allow
             />
             {parsedIDs.length > 0 && (
-              <Message level="info">
+              <Message
+                level={parsedIDs.length > ID_MAPPING_LIMIT ? 'failure' : 'info'}
+              >
                 Your input contains <LongNumber>{parsedIDs.length}</LongNumber>
                 {pluralise(' ID', parsedIDs.length)}
+                {parsedIDs.length > ID_MAPPING_LIMIT && (
+                  <>
+                    . Only up to <LongNumber>{ID_MAPPING_LIMIT}</LongNumber>{' '}
+                    supported
+                  </>
+                )}
               </Message>
             )}
           </section>
