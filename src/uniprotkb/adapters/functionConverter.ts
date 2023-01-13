@@ -137,7 +137,6 @@ export const functionFeaturesToColumns: Readonly<
 > = {
   Domain: UniProtKBColumn.ftDomain,
   Repeat: UniProtKBColumn.ftRepeat,
-  'Zinc finger': UniProtKBColumn.ftZnFing,
   'DNA binding': UniProtKBColumn.ftDnaBind,
   Region: UniProtKBColumn.ftRegion,
   'Active site': UniProtKBColumn.ftActSite,

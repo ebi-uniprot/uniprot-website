@@ -18,6 +18,7 @@ export const familyAndDomainsFeaturesToColumns: Readonly<
   Repeat: UniProtKBColumn.ftRepeat,
   Motif: UniProtKBColumn.ftMotif,
   'Compositional bias': UniProtKBColumn.ftCompbias,
+  'Zinc finger': UniProtKBColumn.ftZnFing,
 };
 
 const featuresCategories = Object.keys(

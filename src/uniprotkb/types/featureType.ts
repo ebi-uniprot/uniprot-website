@@ -12,7 +12,6 @@ export type DiseaseAndDrugsFeatures = 'Mutagenesis';
 export type FunctionFeatures =
   | 'Domain'
   | 'Repeat'
-  | 'Zinc finger'
   | 'DNA binding'
   | 'Region'
   | 'Coiled coil'
@@ -46,7 +45,8 @@ export type FamilyAndDomainsFeatures =
   | 'Region'
   | 'Repeat'
   | 'Motif'
-  | 'Compositional bias';
+  | 'Compositional bias'
+  | 'Zinc finger';
 
 type OtherType = 'Natural variant' | 'Modified residue (large scale)' | 'Other'; // For anything else
 
