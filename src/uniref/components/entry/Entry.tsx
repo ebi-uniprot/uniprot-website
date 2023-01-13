@@ -1,5 +1,6 @@
 import { useRouteMatch } from 'react-router-dom';
 import { Loader } from 'franklin-sites';
+import { partition } from 'lodash-es';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
@@ -10,6 +11,7 @@ import BasketStatus from '../../../basket/BasketStatus';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import EntryDownload from '../../../shared/components/entry/EntryDownload';
+import { MapToDropdownBasic } from '../../../shared/components/MapTo';
 
 import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
@@ -73,6 +75,11 @@ const Entry = () => {
 
   const transformedData = uniRefConverter(data);
 
+  const [uniParcMembers, uniProtKBMembers] = partition(
+    transformedData.members,
+    (member) => member.startsWith('UPI')
+  );
+
   return (
     <SideBarLayout
       sidebar={<MembersFacets accession={accession} />}
@@ -100,6 +107,42 @@ const Entry = () => {
             }
             <EntryDownload nResults={transformedData.memberCount} />
             <AddToBasketButton selectedEntries={accession} />
+            <MapToDropdownBasic
+              config={[
+                {
+                  key: 'proteinCount',
+                  count: uniProtKBMembers.length,
+                  label: 'UniProtKB',
+                  to: {
+                    pathname: LocationToPath[Location.IDMapping],
+                    state: {
+                      parameters: {
+                        ids: uniProtKBMembers,
+                        name: `${accession} UniProtKB members`,
+                      },
+                    },
+                  },
+                },
+                {
+                  key: 'uniparcCount',
+                  count: uniParcMembers.length,
+                  label: 'UniParc',
+                  to: {
+                    pathname: LocationToPath[Location.IDMapping],
+                    state: {
+                      parameters: {
+                        ids: uniParcMembers,
+                        from: 'UniParc',
+                        to: 'UniParc',
+                        name: `${accession} UniParc members`,
+                      },
+                    },
+                  },
+                },
+              ]}
+            >
+              Map to proteins
+            </MapToDropdownBasic>
           </div>
         </ErrorBoundary>
       }

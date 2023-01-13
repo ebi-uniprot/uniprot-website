@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { Link, LinkProps, useRouteMatch } from 'react-router-dom';
 import { Button, LongNumber, Dropdown } from 'franklin-sites';
 import { SetOptional } from 'type-fest';
@@ -156,12 +156,14 @@ const namespaceToUniProtKBFieldMap = new Map([
 ]);
 
 type EnrichedStatistics = {
-  key: keyof Statistics | 'proteinCount';
+  key: keyof Statistics | 'proteinCount' | 'uniparcCount';
   count: number;
   label: ReactNode;
-  text: ReactNode;
+  text?: ReactNode;
   to: LinkProps['to'];
 };
+
+export type MapToConfig = EnrichedStatistics[];
 
 const statFilter = (
   s: SetOptional<EnrichedStatistics, 'count'> | undefined
@@ -171,7 +173,7 @@ const enrichStatistics = (
   statistics: Partial<Statistics>,
   fieldName: string,
   accession: string
-): EnrichedStatistics[] => {
+): MapToConfig => {
   const entries = statistics && Object.entries(statistics);
 
   // Prepend a compound value for UniProtKB reviewed + unreviewed
@@ -202,18 +204,52 @@ const enrichStatistics = (
   return mapped.filter(statFilter);
 };
 
-type Props = {
+type MapToDropdownBasic = {
+  children: ReactNode;
+  config: MapToConfig;
+};
+
+/**
+ * Basic component, only in charge of rendering the markup, needs to come with a
+ * config object already defined with links
+ */
+export const MapToDropdownBasic = ({
+  children,
+  config,
+}: MapToDropdownBasic) => (
+  <Dropdown visibleElement={<Button variant="tertiary">{children}</Button>}>
+    <ul>
+      {config.map(({ key, count, label, to }) =>
+        count ? (
+          <li key={key}>
+            {/* eslint-disable-next-line uniprot-website/use-config-location */}
+            <Link to={to}>
+              {label} (<LongNumber>{count}</LongNumber>)
+            </Link>
+          </li>
+        ) : undefined
+      )}
+    </ul>
+  </Dropdown>
+);
+
+type MapToDropdownProps = {
+  children?: ReactNode;
   statistics?: Partial<Statistics> | undefined;
   accession?: string;
   fieldNameOverride?: string;
 };
 
-export const MapToDropdown: FC<Props> = ({
+/**
+ * Advanced component, in charge of rendering the markup and also generating the
+ * the config object containing the links
+ */
+export const MapToDropdown = ({
   statistics,
   accession,
   children = 'View proteins',
   fieldNameOverride,
-}) => {
+}: MapToDropdownProps) => {
   const match = useRouteMatch<{ namespace: Namespace; accession: string }>(
     allSupportingDataAndAAEntryLocations
   );
@@ -237,18 +273,9 @@ export const MapToDropdown: FC<Props> = ({
   }
 
   return (
-    <Dropdown visibleElement={<Button variant="tertiary">{children}</Button>}>
-      <ul>
-        {enrichedStatistics.map(({ key, count, label, to }) => (
-          <li key={key}>
-            {/* eslint-disable-next-line uniprot-website/use-config-location */}
-            <Link to={to}>
-              {label} (<LongNumber>{count}</LongNumber>)
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </Dropdown>
+    <MapToDropdownBasic config={enrichedStatistics}>
+      {children}
+    </MapToDropdownBasic>
   );
 };
 
@@ -265,9 +292,11 @@ export const mapToLinks = (
   }
   const enrichedStatistics = enrichStatistics(statistics, fieldName, accession);
   // eslint-disable-next-line consistent-return
-  return enrichedStatistics.map(({ text, to, key }) => ({
-    name: text,
-    link: to,
-    key,
-  }));
+  return enrichedStatistics
+    .filter((stat) => 'text' in stat)
+    .map((stat) => ({
+      name: stat.text,
+      link: stat.to,
+      key: stat.key,
+    }));
 };
