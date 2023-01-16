@@ -29,6 +29,8 @@ import { JobTypes } from '../../../tools/types/toolsJobTypes';
 import { Namespace } from '../../../shared/types/namespaces';
 import PtmExchangeEvidenceTag from './PtmExchangeEvidenceTag';
 
+import styles from './styles/uniprotkb-features-view.module.scss';
+
 type FeatureLocation = {
   value: number;
   modifier: LocationModifier;
@@ -242,9 +244,16 @@ const UniProtKBFeaturesView = ({
                 >
                   {description}
                   {!!feature.confidenceScore && (
-                    <Chip className="secondary" compact>
-                      {feature.confidenceScore}
-                    </Chip>
+                    <span data-article-id="mod_res_large_scale#what-is-the-goldsilverbronze-criterion">
+                      <Chip
+                        className={`secondary ${
+                          styles[feature.confidenceScore]
+                        }`}
+                        compact
+                      >
+                        {feature.confidenceScore}
+                      </Chip>
+                    </span>
                   )}
                   {feature.source === 'PTMeXchange' ? (
                     <PtmExchangeEvidenceTag
