@@ -341,6 +341,16 @@ const ProteinNamesView = ({
       ),
     });
   }
+  if (proteinNames.allergenName) {
+    infoData.push({
+      title: 'Allergen name',
+      content: noEvidence ? (
+        <>{proteinNames.allergenName.value}</>
+      ) : (
+        <NameWithEvidence data={proteinNames.allergenName} />
+      ),
+    });
+  }
 
   if (proteinNames.cdAntigenNames) {
     infoData.push({
