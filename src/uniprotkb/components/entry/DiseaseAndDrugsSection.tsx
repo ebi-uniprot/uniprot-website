@@ -61,7 +61,7 @@ const DiseaseAndDrugsSection = ({
         comments={
           data.commentsData.get('ALLERGEN') as FreeTextComment[] | undefined
         }
-        title="allergen"
+        title="allergenic properties"
       />
       <FreeTextView
         comments={
