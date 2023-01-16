@@ -34,7 +34,7 @@ exports[`PtmExchangeEvidenceTag components should render 1`] = `
       </h5>
       <section>
         <h5
-          data-article-id="mod_res_large_scale#confidence-score"
+          data-article-id="mod_res_large_scale#what-is-the-goldsilverbronze-criterion"
         >
           Confidence score: Gold
         </h5>

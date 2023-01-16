@@ -283,12 +283,16 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                       id="description209"
                     >
                       Phosphoserine
-                      <button
-                        class="chip chip--compact secondary"
-                        type="button"
+                      <span
+                        data-article-id="mod_res_large_scale#what-is-the-goldsilverbronze-criterion"
                       >
-                        Bronze
-                      </button>
+                        <button
+                          class="chip chip--compact secondary Bronze"
+                          type="button"
+                        >
+                          Bronze
+                        </button>
+                      </span>
                       <button
                         aria-controls="4"
                         aria-expanded="false"
@@ -339,12 +343,16 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                       id="description214"
                     >
                       Phosphoserine
-                      <button
-                        class="chip chip--compact secondary"
-                        type="button"
+                      <span
+                        data-article-id="mod_res_large_scale#what-is-the-goldsilverbronze-criterion"
                       >
-                        Bronze
-                      </button>
+                        <button
+                          class="chip chip--compact secondary Bronze"
+                          type="button"
+                        >
+                          Bronze
+                        </button>
+                      </span>
                       <button
                         aria-controls="5"
                         aria-expanded="false"
@@ -395,12 +403,16 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                       id="description215"
                     >
                       Phosphoserine
-                      <button
-                        class="chip chip--compact secondary"
-                        type="button"
+                      <span
+                        data-article-id="mod_res_large_scale#what-is-the-goldsilverbronze-criterion"
                       >
-                        Bronze
-                      </button>
+                        <button
+                          class="chip chip--compact secondary Bronze"
+                          type="button"
+                        >
+                          Bronze
+                        </button>
+                      </span>
                       <button
                         aria-controls="6"
                         aria-expanded="false"
