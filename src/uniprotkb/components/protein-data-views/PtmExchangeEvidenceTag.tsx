@@ -106,8 +106,7 @@ const PtmExchangeEvidenceTag = ({
           {originalEvidenceData.evidenceTagContentHeading(originalEvidences)}
         </h5>
         <section>
-          {/* TODO: confirm final confidence score subsection */}
-          <h5 data-article-id="mod_res_large_scale#confidence-score">
+          <h5 data-article-id="mod_res_large_scale#what-is-the-goldsilverbronze-criterion">
             Confidence score: {confidenceScore || 'Unknown'}
           </h5>
           This score has been used to reflect the strength of the evidence for

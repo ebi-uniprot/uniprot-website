@@ -1,0 +1,13 @@
+@import 'franklin-sites/src/styles/colours';
+
+.Gold {
+  --main-chip-color: #{$colour-reviewed};
+}
+
+.Silver {
+  --main-chip-color: #{$colour-weldon-blue};
+}
+
+.Bronze {
+  --main-chip-color: #{$colour-bronze};
+}
