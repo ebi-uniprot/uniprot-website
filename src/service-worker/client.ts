@@ -64,9 +64,13 @@ export async function register() {
   try {
     workbox.register();
 
-    // Try to updat the service worker at least once a day
+    // Try to update the service worker at least once a day
     setInterval(() => {
-      workbox.update();
+      try {
+        workbox.update();
+      } catch {
+        /* */
+      }
     }, ONE_DAY);
   } catch {
     // Might fail, it's fine, it's progressive enhancement
