@@ -54,7 +54,7 @@ exports[`Entry view should render 1`] = `
             <span
               class="evidence-tag__label"
             >
-              1 automatic annotation
+              automatic annotation
             </span>
           </button>
           <div
@@ -234,7 +234,7 @@ exports[`Entry view should render 1`] = `
               <span
                 class="evidence-tag__label"
               >
-                1 automatic annotation
+                automatic annotation
               </span>
             </button>
             <div
@@ -261,7 +261,7 @@ exports[`Entry view should render 1`] = `
               <span
                 class="evidence-tag__label"
               >
-                1 automatic annotation
+                automatic annotation
               </span>
             </button>
             <div
@@ -1838,7 +1838,7 @@ exports[`Entry view should render 1`] = `
                       <span
                         class="evidence-tag__label"
                       >
-                        1 automatic annotation
+                        automatic annotation
                       </span>
                     </button>
                     <div
@@ -1876,7 +1876,7 @@ exports[`Entry view should render 1`] = `
                       <span
                         class="evidence-tag__label"
                       >
-                        1 automatic annotation
+                        automatic annotation
                       </span>
                     </button>
                     <div
@@ -1952,7 +1952,7 @@ exports[`Entry view should render 1`] = `
                       <span
                         class="evidence-tag__label"
                       >
-                        1 automatic annotation
+                        automatic annotation
                       </span>
                     </button>
                     <div
@@ -2008,7 +2008,7 @@ exports[`Entry view should render 1`] = `
                   <span
                     class="evidence-tag__label"
                   >
-                    1 automatic annotation
+                    automatic annotation
                   </span>
                 </button>
                 <div
@@ -2288,7 +2288,7 @@ exports[`Entry view should render 1`] = `
                     <span
                       class="evidence-tag__label"
                     >
-                      1 automatic annotation
+                      automatic annotation
                     </span>
                   </button>
                   <div
@@ -2311,7 +2311,7 @@ exports[`Entry view should render 1`] = `
                     <span
                       class="evidence-tag__label"
                     >
-                      1 automatic annotation
+                      automatic annotation
                     </span>
                   </button>
                   <div
@@ -2338,7 +2338,7 @@ exports[`Entry view should render 1`] = `
                     <span
                       class="evidence-tag__label"
                     >
-                      1 automatic annotation
+                      automatic annotation
                     </span>
                   </button>
                   <div
@@ -2406,7 +2406,7 @@ exports[`Entry view should render 1`] = `
             <span
               class="evidence-tag__label"
             >
-              1 automatic annotation
+              automatic annotation
             </span>
           </button>
           <div
@@ -2449,7 +2449,7 @@ exports[`Entry view should render 1`] = `
                       <span
                         class="evidence-tag__label"
                       >
-                        1 automatic annotation
+                        automatic annotation
                       </span>
                     </button>
                     <div
@@ -2539,7 +2539,7 @@ exports[`Entry view should render 1`] = `
             <span
               class="evidence-tag__label"
             >
-              1 automatic annotation
+              automatic annotation
             </span>
           </button>
           <div
@@ -2575,7 +2575,7 @@ exports[`Entry view should render 1`] = `
             <span
               class="evidence-tag__label"
             >
-              1 automatic annotation
+              automatic annotation
             </span>
           </button>
           <div
@@ -3236,7 +3236,7 @@ exports[`Entry view should render 1`] = `
             <span
               class="evidence-tag__label"
             >
-              1 automatic annotation
+              automatic annotation
             </span>
           </button>
           <div
@@ -3271,7 +3271,7 @@ exports[`Entry view should render 1`] = `
             <span
               class="evidence-tag__label"
             >
-              1 automatic annotation
+              automatic annotation
             </span>
           </button>
           <div
@@ -3306,7 +3306,7 @@ exports[`Entry view should render 1`] = `
                 <span
                   class="evidence-tag__label"
                 >
-                  1 automatic annotation
+                  automatic annotation
                 </span>
               </button>
               <div
@@ -3333,7 +3333,7 @@ exports[`Entry view should render 1`] = `
                 <span
                   class="evidence-tag__label"
                 >
-                  1 automatic annotation
+                  automatic annotation
                 </span>
               </button>
               <div
