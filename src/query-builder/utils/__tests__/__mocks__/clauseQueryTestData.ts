@@ -185,16 +185,27 @@ const testData = [
     ],
   },
   {
-    description: 'should handle siblings with evidence tags',
-    queryString:
-      '((cc_cofactor_chebi:"CHEBI:12345") AND (ccev_cofactor_chebi:manual))',
+    description: 'should handle experimental evidence',
+    queryString: '(cc_cofactor_chebi_exp:"CHEBI:12345")',
+    clauses: [
+      {
+        id: 0,
+        searchTerm: idToSearchTerm.chebi_term,
+        queryBits: {
+          cc_cofactor_chebi_exp: 'CHEBI:12345',
+        },
+      },
+    ],
+  },
+  {
+    description: 'should handle lack of experimental evidence',
+    queryString: '(cc_cofactor_chebi:"CHEBI:12345")',
     clauses: [
       {
         id: 0,
         searchTerm: idToSearchTerm.chebi_term,
         queryBits: {
           cc_cofactor_chebi: 'CHEBI:12345',
-          ccev_cofactor_chebi: 'manual',
         },
       },
     ],
@@ -202,15 +213,14 @@ const testData = [
   {
     description: 'should handle more complex query',
     queryString:
-      '((ft_sites:my_site) AND (ftlen_sites:[10 TO 20]) AND (ftev_sites:automatic)) AND (gene:my_gene)',
+      '((ft_sites_exp:my_site) AND (ftlen_sites:[10 TO 20])) AND (gene:my_gene)',
     clauses: [
       {
         id: 0,
         searchTerm: idToSearchTerm.sites,
         queryBits: {
-          ft_sites: 'my_site',
+          ft_sites_exp: 'my_site',
           ftlen_sites: '[10 TO 20]',
-          ftev_sites: 'automatic',
         },
       },
       {
@@ -223,6 +233,7 @@ const testData = [
       },
     ],
   },
+
   {
     description: 'should handle GO term with experimental evidence level',
     queryString: '(go_exp:0002381)',
