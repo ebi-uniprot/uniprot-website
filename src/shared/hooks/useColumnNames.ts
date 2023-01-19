@@ -26,6 +26,7 @@ type UseColumnNameReturn = {
   setColumnNames: Dispatch<SetStateAction<Column[]>>;
   fromUrl: boolean;
   invalidUrlColumnNames: InvalidParamValue | undefined;
+  invalidUrlSortColumn: string | undefined;
 };
 
 const useColumnNames = ({
@@ -35,7 +36,8 @@ const useColumnNames = ({
   displayPeptideSearchMatchColumns,
 }: UseColumnNameArgs = {}): UseColumnNameReturn => {
   const ns = useNS(namespaceOverride) || Namespace.uniprotkb;
-  const { fields: columnNamesFromUrl } = parseQueryString(useLocation().search);
+  const { fields: columnNamesFromUrl, sort: sortNameFromUrl } =
+    parseQueryString(useLocation().search);
   const [columnNamesFromStorage, setColumnNames] = useLocalStorage<Column[]>(
     `table columns for ${ns}` as const,
     nsToDefaultColumns(ns)
@@ -43,7 +45,15 @@ const useColumnNames = ({
 
   let columnNames: Column[] = columnNamesFromStorage;
   let invalidUrlColumnNames: InvalidParamValue | undefined;
+  let invalidUrlSortColumn: string | undefined;
   let fromUrl = false;
+
+  if (ns && sortNameFromUrl) {
+    const columnConfig = ColumnConfigurations[ns];
+    if (columnConfig && !columnConfig.has(sortNameFromUrl)) {
+      invalidUrlSortColumn = sortNameFromUrl;
+    }
+  }
 
   if (columnNamesFromUrl && ns && ns !== Namespace.idmapping) {
     const columnsAsArray = Array.isArray(columnNamesFromUrl)
@@ -78,7 +88,13 @@ const useColumnNames = ({
     columnNames = [UniProtKBColumn.sequence, ...columnNames];
   }
 
-  return { columnNames, setColumnNames, fromUrl, invalidUrlColumnNames };
+  return {
+    columnNames,
+    setColumnNames,
+    fromUrl,
+    invalidUrlColumnNames,
+    invalidUrlSortColumn,
+  };
 };
 
 export default useColumnNames;
