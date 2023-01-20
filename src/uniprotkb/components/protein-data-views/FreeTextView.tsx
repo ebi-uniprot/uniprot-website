@@ -26,8 +26,6 @@ import {
   TextWithEvidence,
 } from '../../types/commentTypes';
 
-import helper from '../../../shared/styles/helper.module.scss';
-
 const needsNewLineRE = /^\)\.\s+/;
 
 const getEntryPathForCitation = getEntryPathFor(Namespace.citations);
@@ -169,11 +167,7 @@ const FreeTextView: FC<FreeTextProps> = ({
 
   return (
     <>
-      {title && (
-        <h3 className={helper.capitalize} data-article-id={articleId}>
-          {title}
-        </h3>
-      )}
+      {title && <h3 data-article-id={articleId}>{title}</h3>}
       {freeTextData}
     </>
   );

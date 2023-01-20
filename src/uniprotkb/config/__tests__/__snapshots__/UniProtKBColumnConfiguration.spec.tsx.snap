@@ -613,37 +613,27 @@ exports[`UniProtKBColumnConfiguration component should render column "comment_co
     class="expandable-list no-bullet"
   >
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         alternative products (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         biophysicochemical properties (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         catalytic activity (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         cofactor (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         disease (1)
       </span>
     </li>
@@ -666,86 +656,62 @@ exports[`UniProtKBColumnConfiguration component should render column "comment_co
     class="expandable-list no-bullet"
   >
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         alternative products (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         biophysicochemical properties (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         catalytic activity (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         cofactor (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         disease (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         disruption phenotype (2)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         interaction (2)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         mass spectrometry (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         rna editing (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         sequence caution (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         subcellular location (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         web resource (1)
       </span>
     </li>

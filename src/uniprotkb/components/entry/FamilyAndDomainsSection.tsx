@@ -45,7 +45,7 @@ const FamilyAndDomainsSection = ({
         comments={
           data.commentsData.get('DOMAIN') as FreeTextComment[] | undefined
         }
-        title="domain"
+        title="Domain"
         articleId="domain_cc"
       />
       <FreeTextView

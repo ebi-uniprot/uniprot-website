@@ -37,14 +37,14 @@ const ExpressionSection = ({ data, primaryAccession }: Props) => {
             | FreeTextComment[]
             | undefined
         }
-        title="tissue specificity"
+        title="Tissue specificity"
         articleId="tissue_specificity"
       />
       <FreeTextView
         comments={
           data.commentsData.get('INDUCTION') as FreeTextComment[] | undefined
         }
-        title="induction"
+        title="Induction"
         articleId="induction"
       />
       <FreeTextView
@@ -53,7 +53,7 @@ const ExpressionSection = ({ data, primaryAccession }: Props) => {
             | FreeTextComment[]
             | undefined
         }
-        title="developmental stage"
+        title="Developmental stage"
         articleId="developmental_stage"
       />
       <KeywordView keywords={data.keywordData} />

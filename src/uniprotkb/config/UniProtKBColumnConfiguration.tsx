@@ -925,7 +925,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.commentCount, {
           {Object.keys(counts)
             .sort()
             .map((comment) => (
-              <span className={helper.capitalize} key={comment}>
+              <span key={comment}>
                 {`${comment.toLowerCase()} (${counts[comment as CommentType]})`}
               </span>
             ))}

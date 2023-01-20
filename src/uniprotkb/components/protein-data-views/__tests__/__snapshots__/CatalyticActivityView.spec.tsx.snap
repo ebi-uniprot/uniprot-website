@@ -2,9 +2,7 @@
 
 exports[`CatalyticActivityView component should render catalytic activity 1`] = `
 <DocumentFragment>
-  <h3
-    class="capitalize"
-  >
+  <h3>
     Catalytic activity
   </h3>
   <span

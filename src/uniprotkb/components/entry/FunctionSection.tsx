@@ -37,8 +37,6 @@ import {
   FreeTextComment,
 } from '../../types/commentTypes';
 
-import helper from '../../../shared/styles/helper.module.scss';
-
 const GoRibbon = lazy(
   () => import(/* webpackChunkName: "go-ribbon" */ './GoRibbon')
 );
@@ -155,7 +153,7 @@ export const CofactorView = ({ cofactors, title }: CofactorViewProps) => {
   }
   return (
     <>
-      {title && <h3 className={helper.capitalize}>{title}</h3>}
+      {title && <h3>{title}</h3>}
       {cofactors.map((cofactorComment, index) => (
         // eslint-disable-next-line react/no-array-index-key
         <section className="text-block" key={index}>
@@ -274,7 +272,7 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
       />
       <FreeTextView
         comments={miscellaneousComments as FreeTextComment[] | undefined}
-        title="miscellaneous"
+        title="Miscellaneous"
       />
       {data.commentsData.get('CAUTION')?.length ? (
         <Message level="warning">
@@ -282,7 +280,7 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
             comments={
               data.commentsData.get('CAUTION') as FreeTextComment[] | undefined
             }
-            title="caution"
+            title="Caution"
           />
         </Message>
       ) : undefined}
@@ -292,14 +290,14 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
             | CatalyticActivityComment[]
             | undefined
         }
-        title="catalytic activity"
+        title="Catalytic activity"
         defaultHideAllReactions={isSmallScreen}
       />
       <CofactorView
         cofactors={
           data.commentsData.get('COFACTOR') as CofactorComment[] | undefined
         }
-        title="cofactor"
+        title="Cofactor"
       />
       <FreeTextView
         comments={
@@ -307,7 +305,7 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
             | FreeTextComment[]
             | undefined
         }
-        title="activity regulation"
+        title="Activity regulation"
       />
       <FreeTextView
         comments={
@@ -315,7 +313,7 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
             | FreeTextComment[]
             | undefined
         }
-        title="biotechnology"
+        title="Biotechnology"
       />
       <BioPhysicoChemicalPropertiesView
         data={data.bioPhysicoChemicalProperties}
@@ -324,7 +322,7 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
         comments={
           data.commentsData.get('PATHWAY') as FreeTextComment[] | undefined
         }
-        title="pathway"
+        title="Pathway"
       />
       <FeaturesView
         primaryAccession={primaryAccession}
