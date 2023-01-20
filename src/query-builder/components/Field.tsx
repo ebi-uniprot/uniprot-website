@@ -4,6 +4,7 @@ import RangeField from './RangeField';
 import EnumField from './EnumField';
 import TextField from './TextField';
 import EvidenceField from './EvidenceField';
+import ExperimentalEvidenceField from './ExperimentalEvidenceField';
 import AutocompleteField from './AutocompleteField';
 
 import { QueryBit, SearchTermType } from '../types/searchTypes';
@@ -25,6 +26,9 @@ const Field: FC<FieldProps> = ({
   switch (true) {
     case Boolean(autoComplete):
       GenericField = AutocompleteField;
+      break;
+    case dataType === 'boolean' && fieldType === 'experimental_evidence':
+      GenericField = ExperimentalEvidenceField;
       break;
     case dataType === 'enum' || dataType === 'boolean':
       GenericField = EnumField;
