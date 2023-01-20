@@ -69,7 +69,8 @@ const splitClause = (
   }
   return [match[1], match[2]];
 };
-const evidenceOrLengthKey = /^(\w\w)(ev|len)_/;
+const lengthKey = /^(\w\w)(len)_/;
+const experimentalEvidenceKey = /^(?<term>\w+)_exp/;
 const goKey = /^go(_(?<evidence>\w+))?/;
 
 const getEmptyClause = (id: number): Clause => ({
@@ -115,16 +116,40 @@ export const parse = (queryString = '', startId = 0): Clause[] => {
       // for every other item (even) should be the content of the clause
       const [key, value] = splitClause(chunk);
 
-      // evidence or length
-      const evidenceOrLengthMatch = key?.match(evidenceOrLengthKey);
-      if (key && evidenceOrLengthMatch) {
+      // length
+      const lengthMatch = key?.match(lengthKey);
+      if (key && lengthMatch) {
         const correspondingClause = clauses.find(({ searchTerm }) =>
-          searchTerm.term.startsWith(evidenceOrLengthMatch[1])
+          searchTerm.term.startsWith(lengthMatch[1])
         );
         if (correspondingClause) {
-          // if it's an evidence or length key, mopdify the last inserted
+          // if it's a length key, modify the last inserted
           // corresponding clause and skip
           correspondingClause.queryBits[key] = value;
+          continue; // eslint-disable-line no-continue
+        }
+      }
+
+      // experimental evidence
+      const experimentalEvidenceMatchTerm = key?.match(experimentalEvidenceKey)
+        ?.groups?.term;
+      if (key && experimentalEvidenceMatchTerm) {
+        const correspondingClause = clauses.find(
+          ({ searchTerm }) => searchTerm.term === experimentalEvidenceMatchTerm
+        );
+        if (correspondingClause) {
+          if (value === 'true') {
+            // Need to:
+            //  1. Add query bit for term with _exp
+            //  2. Remove original query bit for term
+            //  3. Keep any other query bits
+            const { [experimentalEvidenceMatchTerm]: queryBitValue, ...rest } =
+              correspondingClause.queryBits;
+            correspondingClause.queryBits = {
+              ...rest,
+              [key]: queryBitValue,
+            };
+          }
           continue; // eslint-disable-line no-continue
         }
       }
