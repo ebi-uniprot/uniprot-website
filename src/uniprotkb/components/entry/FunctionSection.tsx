@@ -166,44 +166,47 @@ export const CofactorView = ({ cofactors, title }: CofactorViewProps) => {
           )}
           {cofactorComment.cofactors &&
             cofactorComment.cofactors.map((cofactor) => (
-              <span key={cofactor.name}>
-                {cofactor.name}{' '}
-                {cofactor.cofactorCrossReference &&
-                  cofactor.cofactorCrossReference.database === 'ChEBI' &&
-                  cofactor.cofactorCrossReference.id && (
-                    <>
-                      {' ('}
-                      <Link
-                        to={{
-                          pathname: LocationToPath[Location.UniProtKBResults],
-                          search: `query=cc_cofactor_chebi:"${cofactor.cofactorCrossReference.id}"`,
-                        }}
-                      >
-                        UniProtKB
-                      </Link>{' '}
-                      |{' '}
-                      <ExternalLink
-                        url={externalUrls.RheaSearch(
-                          cofactor.cofactorCrossReference.id
-                        )}
-                      >
-                        Rhea
-                      </ExternalLink>
-                      |{' '}
-                      <ExternalLink
-                        url={externalUrls.ChEBI(
-                          cofactor.cofactorCrossReference.id
-                        )}
-                      >
-                        {cofactor.cofactorCrossReference.id}
-                      </ExternalLink>{' '}
-                      )
-                    </>
+              <>
+                <span key={cofactor.name}>
+                  {cofactor.name}{' '}
+                  {cofactor.cofactorCrossReference &&
+                    cofactor.cofactorCrossReference.database === 'ChEBI' &&
+                    cofactor.cofactorCrossReference.id && (
+                      <>
+                        {' ('}
+                        <Link
+                          to={{
+                            pathname: LocationToPath[Location.UniProtKBResults],
+                            search: `query=cc_cofactor_chebi:"${cofactor.cofactorCrossReference.id}"`,
+                          }}
+                        >
+                          UniProtKB
+                        </Link>{' '}
+                        |{' '}
+                        <ExternalLink
+                          url={externalUrls.RheaSearch(
+                            cofactor.cofactorCrossReference.id
+                          )}
+                        >
+                          Rhea
+                        </ExternalLink>
+                        |{' '}
+                        <ExternalLink
+                          url={externalUrls.ChEBI(
+                            cofactor.cofactorCrossReference.id
+                          )}
+                        >
+                          {cofactor.cofactorCrossReference.id}
+                        </ExternalLink>{' '}
+                        )
+                      </>
+                    )}
+                  {cofactor.evidences && (
+                    <UniProtKBEvidenceTag evidences={cofactor.evidences} />
                   )}
-                {cofactor.evidences && (
-                  <UniProtKBEvidenceTag evidences={cofactor.evidences} />
-                )}
-              </span>
+                </span>
+                <br />
+              </>
             ))}
           {cofactorComment.note && (
             <TextView comments={cofactorComment.note.texts} />

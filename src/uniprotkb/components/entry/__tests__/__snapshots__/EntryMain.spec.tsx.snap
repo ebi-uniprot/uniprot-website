@@ -239,6 +239,7 @@ exports[`Entry view should render 1`] = `
               id="2"
             />
           </span>
+          <br />
           <div
             class="text-block"
           >
@@ -3645,6 +3646,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               id="3"
             />
           </span>
+          <br />
         </section>
         <h3>
           Activity regulation
