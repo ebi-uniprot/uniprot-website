@@ -146,13 +146,14 @@ export const extractFromFreeText = (data: KineticParameters) => {
       const ph = mv.enzyme.match(pHRegEx)?.[1];
       const temp = mv.enzyme.match(tempRegEx)?.[1];
 
-      const [substrateInfo, condition] = mv.enzyme.split('(');
+      const [substrateInfo, condition] = mv.enzyme.split(' (');
       let notes = substrateInfo.split('enzyme')?.[1];
       if (condition) {
         const match =
           `(${condition}`.match(captureWordsInParanthesis)?.[1] || condition;
         if (['pH', 'degrees'].some((e) => match.includes(e))) {
-          notes += excludePhTemp(match);
+          const additionalInfo = excludePhTemp(match);
+          notes += (notes && additionalInfo && `, `) + additionalInfo;
         } else {
           // Add the additional info to the Notes column
           notes += match;
