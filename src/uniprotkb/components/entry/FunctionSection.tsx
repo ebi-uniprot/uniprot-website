@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, Fragment } from 'react';
 import { Card, Loader, Message } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
@@ -20,7 +20,7 @@ import externalUrls from '../../../shared/config/externalUrls';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 
-import { hasContent } from '../../../shared/utils/utils';
+import { hasContent, pluralise } from '../../../shared/utils/utils';
 import {
   FunctionUIModel,
   BioPhysicoChemicalProperties,
@@ -151,9 +151,14 @@ export const CofactorView = ({ cofactors, title }: CofactorViewProps) => {
   if (!cofactors?.length) {
     return null;
   }
+
   return (
     <>
       {title && <h3>{title}</h3>}
+      <div className="text-block">
+        Protein has {cofactors.length} cofactor binding{' '}
+        {pluralise('site', cofactors.length)}:
+      </div>
       {cofactors.map((cofactorComment, index) => (
         // eslint-disable-next-line react/no-array-index-key
         <section className="text-block" key={index}>
@@ -166,8 +171,8 @@ export const CofactorView = ({ cofactors, title }: CofactorViewProps) => {
           )}
           {cofactorComment.cofactors &&
             cofactorComment.cofactors.map((cofactor) => (
-              <>
-                <span key={cofactor.name}>
+              <Fragment key={cofactor.name}>
+                <span>
                   {cofactor.name}{' '}
                   {cofactor.cofactorCrossReference &&
                     cofactor.cofactorCrossReference.database === 'ChEBI' &&
@@ -206,10 +211,10 @@ export const CofactorView = ({ cofactors, title }: CofactorViewProps) => {
                   )}
                 </span>
                 <br />
-              </>
+              </Fragment>
             ))}
           {cofactorComment.note && (
-            <TextView comments={cofactorComment.note.texts} />
+            <TextView comments={cofactorComment.note.texts}>Note: </TextView>
           )}
         </section>
       ))}

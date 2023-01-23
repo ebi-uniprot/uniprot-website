@@ -170,6 +170,11 @@ exports[`Entry view should render 1`] = `
         <h3>
           Cofactor
         </h3>
+        <div
+          class="text-block"
+        >
+          Protein has 1 cofactor binding site:
+        </div>
         <section
           class="text-block"
         >
@@ -243,7 +248,7 @@ exports[`Entry view should render 1`] = `
           <div
             class="text-block"
           >
-            value2.
+            Note: value2.
             <button
               aria-controls="3"
               aria-expanded="false"
@@ -2320,7 +2325,7 @@ exports[`Entry view should render 1`] = `
                 <div
                   class="text-block"
                 >
-                  value.
+                  Note: value.
                   <button
                     aria-controls="46"
                     aria-expanded="false"
@@ -3586,6 +3591,11 @@ exports[`Entry view should render for non-human entry 1`] = `
         <h3>
           Cofactor
         </h3>
+        <div
+          class="text-block"
+        >
+          Protein has 1 cofactor binding site:
+        </div>
         <section
           class="text-block"
         >

@@ -106,11 +106,14 @@ export const RichText = ({
 export const TextView = ({
   comments,
   type,
+  children,
 }: {
   comments: TextWithEvidence[];
   type?: FreeTextType;
+  children?: ReactNode;
 }) => (
   <div className="text-block">
+    {children}
     {comments.map((comment, index) => (
       // eslint-disable-next-line react/no-array-index-key
       <Fragment key={index}>
