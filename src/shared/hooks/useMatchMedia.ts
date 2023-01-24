@@ -42,7 +42,6 @@ export default useMatchMedia;
 // Specific cases that need to be reused throughout the codebase
 
 // Reduced motion
-
 export const useReducedMotion = () =>
   useMatchMedia(
     /** NOTE: This query means that an unsupported browser will default to this
@@ -53,8 +52,11 @@ export const useReducedMotion = () =>
   );
 
 // Small screen (as defined in Franklin)
-
 export const useSmallScreen = () =>
   useMatchMedia('only screen and (max-width: 640px)');
+
+// Medium screen (as defined in Franklin)
+export const useMediumScreen = () =>
+  useMatchMedia('only screen and (max-width: 1024px)');
 
 export const useTouchScreen = () => useMatchMedia('(pointer: coarse)');
