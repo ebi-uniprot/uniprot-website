@@ -460,21 +460,13 @@ const EntryHistory = ({ accession }: { accession: string }) => {
     const v2 = versions[1] || 0;
     const min = Math.min(v1, v2);
     const max = Math.max(v1, v2);
-    const pathname = getEntryPath(
-      Namespace.uniprotkb,
-      accession,
-      TabLocation.History
-    );
     return (
       <Card
         header={
           <>
             {title}
             <span>
-              {'Comparing version '}
-              <Link to={{ pathname, search: `version=${min}` }}>{min}</Link>
-              {' to version '}
-              <Link to={{ pathname, search: `version=${max}` }}>{max}</Link>
+              Comparing version {min} to version {max}
             </span>
           </>
         }
