@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { partition, uniqBy } from 'lodash-es';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
-import { SidebarLayout } from '../../../../shared/components/layouts/SideBarLayouttest';
+import { SidebarLayout } from '../../../../shared/components/layouts/SideBarLayout';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';

@@ -21,7 +21,7 @@ import usePaginatedAccessions from '../../../../shared/hooks/usePaginatedAccessi
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
-import { SidebarLayout } from '../../../../shared/components/layouts/SideBarLayouttest';
+import { SidebarLayout } from '../../../../shared/components/layouts/SideBarLayout';
 import NoResultsPage from '../../../../shared/components/error-pages/NoResultsPage';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 

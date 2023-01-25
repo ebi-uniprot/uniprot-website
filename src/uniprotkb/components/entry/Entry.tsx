@@ -20,7 +20,7 @@ import BlastButton from '../../../shared/components/action-buttons/Blast';
 import AlignButton from '../../../shared/components/action-buttons/Align';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import EntryDownload from '../../../shared/components/entry/EntryDownload';
-import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayouttest';
+import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import BasketStatus from '../../../basket/BasketStatus';

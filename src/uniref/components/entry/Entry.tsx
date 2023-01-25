@@ -13,7 +13,7 @@ import BlastButton from '../../../shared/components/action-buttons/Blast';
 import EntryDownload from '../../../shared/components/entry/EntryDownload';
 import { MapToDropdownBasic } from '../../../shared/components/MapTo';
 
-import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayouttest';
+import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
