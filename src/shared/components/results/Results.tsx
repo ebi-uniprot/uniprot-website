@@ -10,7 +10,7 @@ import usePagination from '../../hooks/usePagination';
 import HTMLHead from '../HTMLHead';
 import ResultsData from './ResultsData';
 import ResultsFacets from './ResultsFacets';
-import { SidebarLayout } from '../layouts/SidebarLayout';
+import { SidebarLayout } from '../layouts/SideBarLayouttest';
 import NoResultsPage from '../error-pages/NoResultsPage';
 import ErrorHandler from '../error-pages/ErrorHandler';
 import ErrorBoundary from '../error-component/ErrorBoundary';

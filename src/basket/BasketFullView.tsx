@@ -4,7 +4,7 @@ import { Loader, PageIntro } from 'franklin-sites';
 import HTMLHead from '../shared/components/HTMLHead';
 import ResultsData from '../shared/components/results/ResultsData';
 import EmptyBasket from './EmptyBasket';
-import { SidebarLayout } from '../shared/components/layouts/SidebarLayout';
+import { SidebarLayout } from '../shared/components/layouts/SideBarLayouttest';
 import ResultsFacets from '../shared/components/results/ResultsFacets';
 import ResultsButtons from '../shared/components/results/ResultsButtons';
 

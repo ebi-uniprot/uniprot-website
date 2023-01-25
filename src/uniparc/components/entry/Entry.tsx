@@ -13,7 +13,7 @@ import BlastButton from '../../../shared/components/action-buttons/Blast';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import EntryDownload from '../../../shared/components/entry/EntryDownload';
 
-import { SidebarLayout } from '../../../shared/components/layouts/SidebarLayout';
+import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayouttest';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 

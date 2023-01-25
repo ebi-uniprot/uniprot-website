@@ -11,7 +11,7 @@ import cn from 'classnames';
 import { debounce } from 'lodash-es';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
-import { SidebarLayout } from '../../../shared/components/layouts/SidebarLayout';
+import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayouttest';
 import HelpCard from './HelpCard';
 import { SingleColumnLayout } from '../../../shared/components/layouts/SingleColumnLayout';
 import HelpResultFacets from './HelpResultFacets';

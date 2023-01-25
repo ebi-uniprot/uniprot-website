@@ -5,7 +5,7 @@ import cn from 'classnames';
 import { Except } from 'type-fest';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
-import { SidebarLayout } from '../../../../shared/components/layouts/SidebarLayout';
+import { SidebarLayout } from '../../../../shared/components/layouts/SideBarLayouttest';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import HSPDetailPanel, { HSPDetailPanelProps } from './HSPDetailPanel';
