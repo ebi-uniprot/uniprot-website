@@ -4,7 +4,7 @@ import { Loader, PageIntro, Tabs, Tab } from 'franklin-sites';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
-import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
+import { SingleColumnLayout } from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import ResultButtons from '../../../components/ResultButtons';
 

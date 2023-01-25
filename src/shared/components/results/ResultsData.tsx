@@ -15,6 +15,8 @@ import {
 } from 'franklin-sites';
 import { generatePath, Link, useHistory, useLocation } from 'react-router-dom';
 
+import DidYouMean from './DidYouMean';
+
 import useNS from '../../hooks/useNS';
 import useColumns, { ColumnDescriptor } from '../../hooks/useColumns';
 import useViewMode from '../../hooks/useViewMode';
@@ -35,8 +37,7 @@ import { APIModel } from '../../types/apiModel';
 import { PaginatedResults } from '../../hooks/usePagination';
 import { Basket } from '../../hooks/useBasket';
 
-import './styles/warning.scss';
-import './styles/results-data.scss';
+import styles from './styles/results-data.module.scss';
 
 type Props = {
   resultsDataObject: PaginatedResults;
@@ -46,9 +47,9 @@ type Props = {
   columnsOverride?: ColumnDescriptor<APIModel>[];
   displayIdMappingColumns?: boolean;
   basketSetter?: Dispatch<SetStateAction<Basket>>;
-  className?: string;
   disableCardToggle?: boolean;
   displayPeptideSearchMatchColumns?: boolean;
+  didYouMean?: boolean;
 };
 
 const ResultsData = ({
@@ -60,8 +61,8 @@ const ResultsData = ({
   displayIdMappingColumns,
   basketSetter,
   disableCardToggle = false,
-  className,
   displayPeptideSearchMatchColumns,
+  didYouMean,
 }: Props) => {
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
   const { viewMode } = useViewMode(namespaceOverride, disableCardToggle);
@@ -82,6 +83,7 @@ const ResultsData = ({
     hasMoreData,
     progress,
     warnings,
+    suggestions,
   } = resultsDataObject;
 
   const smallScreen = useSmallScreen();
@@ -163,7 +165,7 @@ const ResultsData = ({
   }
 
   return (
-    <div className="results-data">
+    <>
       {/* Display warning for wildcard searches. It is not related to any warning from ID mapping */}
       {warnings && !displayIdMappingColumns && (
         <Message level="warning">
@@ -197,7 +199,7 @@ const ResultsData = ({
           onLoadMoreItems={handleLoadMoreRows}
           hasMoreData={hasMoreData}
           loaderComponent={loadComponent}
-          className={className}
+          className={styles['results-data']}
         />
       ) : (
         // Table view
@@ -214,11 +216,19 @@ const ResultsData = ({
             onLoadMoreItems={handleLoadMoreRows}
             hasMoreData={hasMoreData}
             loaderComponent={loadComponent}
-            className={className}
+            className={styles['results-data']}
           />
         </EllipsisReveal.Provider>
       )}
-    </div>
+      {!hasMoreData && didYouMean && (
+        <div className={styles['did-you-mean-wrapper']}>
+          <DidYouMean
+            suggestions={suggestions}
+            heading={<h2>Not what you were looking for?</h2>}
+          />
+        </div>
+      )}
+    </>
   );
 };
 

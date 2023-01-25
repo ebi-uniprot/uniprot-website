@@ -13,7 +13,7 @@ import BlastButton from '../../../shared/components/action-buttons/Blast';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import EntryDownload from '../../../shared/components/entry/EntryDownload';
 
-import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
+import { SidebarLayout } from '../../../shared/components/layouts/SidebarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
@@ -106,15 +106,11 @@ const Entry = () => {
 
   const entrySidebar = <XRefsFacets xrefs={xrefsDataObject} />;
 
-  const emptySidebar = (
-    <div className="sidebar-layout__sidebar-content--empty" />
-  );
-
   let sidebar;
 
   switch (match.params.subPage) {
     case TabLocation.FeatureViewer:
-      sidebar = emptySidebar;
+      sidebar = null;
       break;
 
     default:
@@ -123,27 +119,22 @@ const Entry = () => {
   }
 
   return (
-    <SideBarLayout
-      sidebar={sidebar}
-      className="entry-page"
-      title={
-        <ErrorBoundary>
-          <HTMLHead
-            title={[
-              transformedData.uniParcId,
-              searchableNamespaceLabels[Namespace.uniparc],
-            ]}
+    <SidebarLayout sidebar={sidebar} noOverflow className="entry-page">
+      <HTMLHead
+        title={[
+          transformedData.uniParcId,
+          searchableNamespaceLabels[Namespace.uniparc],
+        ]}
+      />
+      <ErrorBoundary>
+        <h1>
+          <EntryTitle
+            mainTitle="UniParc"
+            optionalTitle={transformedData.uniParcId}
           />
-          <h1>
-            <EntryTitle
-              mainTitle="UniParc"
-              optionalTitle={transformedData.uniParcId}
-            />
-            <BasketStatus id={transformedData.uniParcId} className="small" />
-          </h1>
-        </ErrorBoundary>
-      }
-    >
+          <BasketStatus id={transformedData.uniParcId} className="small" />
+        </h1>
+      </ErrorBoundary>
       <Tabs active={match.params.subPage}>
         <Tab
           title={
@@ -211,10 +202,12 @@ const Entry = () => {
                 ]}
               />
               {transformedData.sequenceFeatures ? (
-                <UniParcFeaturesView
-                  data={transformedData.sequenceFeatures}
-                  sequence={transformedData.sequence.value}
-                />
+                <div className="wider-tab-content">
+                  <UniParcFeaturesView
+                    data={transformedData.sequenceFeatures}
+                    sequence={transformedData.sequence.value}
+                  />
+                </div>
               ) : (
                 'No features available'
               )}
@@ -222,7 +215,7 @@ const Entry = () => {
           )}
         </Tab>
       </Tabs>
-    </SideBarLayout>
+    </SidebarLayout>
   );
 };
 

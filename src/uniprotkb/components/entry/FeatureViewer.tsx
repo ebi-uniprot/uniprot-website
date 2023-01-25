@@ -29,7 +29,10 @@ const FeatureViewer = ({ accession }: { accession: string }) => {
 
   return (
     // margin in order to not have the feedback/help buttons cover the viewer
-    <section style={{ marginInlineEnd: '1.2rem' }}>
+    <section
+      style={{ marginInlineEnd: '1.2rem' }}
+      className="wider-tab-content"
+    >
       <protvistaElement.name accession={accession} />
     </section>
   );

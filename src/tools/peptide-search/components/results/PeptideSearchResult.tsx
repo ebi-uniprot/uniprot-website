@@ -21,7 +21,7 @@ import usePaginatedAccessions from '../../../../shared/hooks/usePaginatedAccessi
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
-import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
+import { SidebarLayout } from '../../../../shared/components/layouts/SidebarLayout';
 import NoResultsPage from '../../../../shared/components/error-pages/NoResultsPage';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 
@@ -42,6 +42,7 @@ import { FinishedJob } from '../../../types/toolsJob';
 import { ToolsState } from '../../../state/toolsInitialState';
 
 import helper from '../../../../shared/styles/helper.module.scss';
+import sidebarStyles from '../../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 
 const jobType = JobTypes.PEPTIDE_SEARCH;
 const urls = toolsURLs(jobType);
@@ -195,7 +196,7 @@ const PeptideSearchResult = ({
   switch (match.params.subPage) {
     case TabLocation.InputParameters:
     case TabLocation.APIRequest:
-      sidebar = <div className="sidebar-layout__sidebar-content--empty" />;
+      sidebar = <div className={sidebarStyles['empty-sidebar']} />;
       break;
 
     default:
@@ -211,30 +212,26 @@ const PeptideSearchResult = ({
   }
 
   if (excessAccessions) {
-    sidebar = <div className="sidebar-layout__sidebar-content--empty" />;
+    sidebar = <div className={sidebarStyles['empty-sidebar']} />;
   }
   const basePath = `/peptide-search/${match.params.id}/`;
 
   return (
-    <SideBarLayout
-      title={
-        <PageIntro
-          title={namespaceAndToolsLabels[JobTypes.PEPTIDE_SEARCH]}
-          titlePostscript={
-            total && (
-              <small>
-                found in {namespaceAndToolsLabels[Namespace.uniprotkb]}
-              </small>
-            )
-          }
-          resultsCount={total}
-        />
-      }
-      sidebar={sidebar}
-    >
+    <SidebarLayout sidebar={sidebar}>
       <HTMLHead title={title}>
         <meta name="robots" content="noindex" />
       </HTMLHead>
+      <PageIntro
+        title={namespaceAndToolsLabels[JobTypes.PEPTIDE_SEARCH]}
+        titlePostscript={
+          total && (
+            <small>
+              found in {namespaceAndToolsLabels[Namespace.uniprotkb]}
+            </small>
+          )
+        }
+        resultsCount={total}
+      />
       <Tabs
         active={match.params.subPage}
         className={jobResultLoading ? helper.stale : undefined}
@@ -299,7 +296,7 @@ const PeptideSearchResult = ({
           </Suspense>
         </Tab>
       </Tabs>
-    </SideBarLayout>
+    </SidebarLayout>
   );
 };
 

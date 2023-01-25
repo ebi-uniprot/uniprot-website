@@ -470,6 +470,7 @@ const EntryHistory = ({ accession }: { accession: string }) => {
             </span>
           </>
         }
+        className="wider-tab-content"
       >
         <div className="button-group">
           <Button
@@ -512,7 +513,7 @@ const EntryHistory = ({ accession }: { accession: string }) => {
     );
   }
   return (
-    <Card header={title}>
+    <Card header={title} className="wider-tab-content">
       <EntryHistoryList accession={accession} />
     </Card>
   );

@@ -108,7 +108,12 @@ const UniParcFeaturesView: FC<{
   );
 
   return (
-    <FeaturesView features={processedData} table={table} sequence={sequence} />
+    <FeaturesView
+      features={processedData}
+      table={table}
+      sequence={sequence}
+      noLinkToFullView
+    />
   );
 };
 export default UniParcFeaturesView;

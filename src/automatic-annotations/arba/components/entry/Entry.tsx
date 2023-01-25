@@ -2,7 +2,7 @@ import { RouteChildrenProps } from 'react-router-dom';
 import { Loader } from 'franklin-sites';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
-import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
+import { SingleColumnLayout } from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 
 import ConditionsAnnotations from '../../../shared/entry/ConditionsAnnotations';
