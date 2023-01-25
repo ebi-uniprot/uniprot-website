@@ -17,7 +17,7 @@ const insideUniProtAbstract2 =
   'UniProt is brought to you by a large team of dedicated scientists who have worked for over 20 years to produce a comprehensive view of protein sequence and biology.';
 
 const proteinSpotlightAbstract =
-  'Stress. We know what it feels like. Though we may be the only living organism to have turned it into a fertile and imaginative piece of conversation, every single living species on this planet is prone to stress and its effects.';
+  'Too much of anything is never good. Excess alcohol, and our faculties are impaired. Excess heat, and drought spreads. Excess cold, and vineyards die. Too much, too, of what is paradoxically essential to life frequently turns out to be toxic.';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -354,21 +354,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/253/"
+            url="https://www.proteinspotlight.org/back_issues/254/"
             noIcon
           >
-            A heated legacy
+            On a tightrope
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/253/"
+          url="https://www.proteinspotlight.org/back_issues/254/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt253.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt254.jpg"
             alt=""
             width="123"
             height="129"
