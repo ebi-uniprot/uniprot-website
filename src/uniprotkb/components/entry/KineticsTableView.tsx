@@ -6,7 +6,8 @@ import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
 import { KineticParameters } from '../../adapters/functionConverter';
 import { Evidence } from '../../types/modelTypes';
 
-import styles from '../../../shared/styles/helper.module.scss';
+import helper from '../../../shared/styles/helper.module.scss';
+import styles from './styles/kinetics-table.module.scss';
 
 const pHRegEx = /pH\s(([0-9]*[.])?[0-9]+-?(([0-9]*[.])?[0-9]+)?)/;
 const tempRegEx = /(([0-9]*[.])?[0-9]+)\sdegrees\scelsius/i;
@@ -44,11 +45,11 @@ const KineticsTable = ({
   if (data && data.length) {
     return (
       <protvistaDataTableElement.name>
-        <table>
+        <table className={styles['kinetics-table']}>
           <thead>
             <tr>
               {columns.map((name) => (
-                <th key={name} className={styles['no-text-transform']}>
+                <th key={name} className={helper['no-text-transform']}>
                   {' '}
                   {name}{' '}
                 </th>
@@ -58,7 +59,7 @@ const KineticsTable = ({
           <tbody>
             {data.map((value) => (
               <tr key={value.key}>
-                <td className={styles['no-wrap']}>
+                <td className={helper['no-wrap']}>
                   <RichText>{value.constant}</RichText>
                 </td>
                 {hasSubstrate && <td>{value.substrate}</td>}

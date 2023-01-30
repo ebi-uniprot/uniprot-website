@@ -341,8 +341,19 @@ exports[`Entry view should render 1`] = `
         >
           Kinetics
         </h3>
+        <h4
+          class="tiny"
+        >
+          <a
+            href="#Isoform_3"
+          >
+            Isoform 3
+          </a>
+        </h4>
         <protvista-datatable>
-          <table>
+          <table
+            class="kinetics-table"
+          >
             <thead>
               <tr>
                 <th
@@ -419,7 +430,9 @@ exports[`Entry view should render 1`] = `
           </table>
         </protvista-datatable>
         <protvista-datatable>
-          <table>
+          <table
+            class="kinetics-table"
+          >
             <thead>
               <tr>
                 <th
@@ -3724,7 +3737,9 @@ exports[`Entry view should render for non-human entry 1`] = `
           Kinetics
         </h3>
         <protvista-datatable>
-          <table>
+          <table
+            class="kinetics-table"
+          >
             <thead>
               <tr>
                 <th
