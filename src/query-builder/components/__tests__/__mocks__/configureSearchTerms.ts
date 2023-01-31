@@ -147,89 +147,12 @@ const configureSearchTerms = [
                 autoCompleteQueryTerm: 'cc_cofactor_chebi',
               },
               {
-                id: 'ccev_cofactor_chebi',
+                id: 'cc_cofactor_chebi_exp',
                 itemType: 'single',
-                term: 'ccev_cofactor_chebi',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'manual',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
+                term: 'cc_cofactor_chebi_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
+                example: '29105',
               },
             ],
           },
@@ -247,89 +170,12 @@ const configureSearchTerms = [
                 example: 'subunit',
               },
               {
-                id: 'ccev_cofactor_note',
+                id: 'cc_cofactor_note_exp',
                 itemType: 'single',
-                term: 'ccev_cofactor_note',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'ECO_0000269',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
+                term: 'cc_cofactor_note_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
+                example: 'subunit',
               },
             ],
           },
@@ -351,92 +197,15 @@ const configureSearchTerms = [
                 term: 'cc_bpcp',
                 dataType: 'string',
                 fieldType: 'general',
-                example: '"some value"',
+                example: 'prosthetic',
               },
               {
-                id: 'ccev_bpcp',
+                id: 'cc_bpcp_exp',
                 itemType: 'single',
-                term: 'ccev_bpcp',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'automatic',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
+                term: 'cc_bpcp_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
+                example: 'prosthetic',
               },
             ],
           },
@@ -454,89 +223,12 @@ const configureSearchTerms = [
                 example: 'prosthetic',
               },
               {
-                id: 'ccev_bpcp_absorption',
+                id: 'cc_bpcp_absorption_exp',
                 itemType: 'single',
-                term: 'ccev_bpcp_absorption',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'ECO_0000213',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
+                term: 'cc_bpcp_absorption_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
+                example: 'prosthetic',
               },
             ],
           },
@@ -554,89 +246,12 @@ const configureSearchTerms = [
                 example: 'aspartate',
               },
               {
-                id: 'ccev_bpcp_kinetics',
+                id: 'cc_bpcp_kinetics_exp',
                 itemType: 'single',
-                term: 'ccev_bpcp_kinetics',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'experimental',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
+                term: 'cc_bpcp_kinetics_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
+                example: 'aspartate',
               },
             ],
           },
@@ -654,89 +269,12 @@ const configureSearchTerms = [
                 example: 'optimum',
               },
               {
-                id: 'ccev_bpcp_ph_dependence',
+                id: 'cc_bpcp_ph_dependence_exp',
                 itemType: 'single',
-                term: 'ccev_bpcp_ph_dependence',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'ECO_0000305',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
+                term: 'cc_bpcp_ph_dependence_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
+                example: 'optimum',
               },
             ],
           },
@@ -754,89 +292,12 @@ const configureSearchTerms = [
                 example: 'siroheme',
               },
               {
-                id: 'ccev_bpcp_redox_potential',
+                id: 'cc_bpcp_redox_potential_exp',
                 itemType: 'single',
-                term: 'ccev_bpcp_redox_potential',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'manual',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
+                term: 'cc_bpcp_redox_potential_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
+                example: 'siroheme',
               },
             ],
           },
@@ -854,89 +315,12 @@ const configureSearchTerms = [
                 example: '*',
               },
               {
-                id: 'ccev_bpcp_temp_dependence',
+                id: 'cc_bpcp_temp_dependence_exp',
                 itemType: 'single',
-                term: 'ccev_bpcp_temp_dependence',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'manual',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
+                term: 'cc_bpcp_temp_dependence_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
+                example: '*',
               },
             ],
           },
@@ -959,89 +343,12 @@ const configureSearchTerms = [
             autoCompleteQueryTerm: 'cc_catalytic_activity',
           },
           {
-            id: 'ccev_catalytic_activity',
+            id: 'cc_catalytic_activity_exp',
             itemType: 'single',
-            term: 'ccev_catalytic_activity',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'cc_catalytic_activity_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'tyrosine',
           },
         ],
       },
@@ -1059,89 +366,12 @@ const configureSearchTerms = [
             example: 'inhibited',
           },
           {
-            id: 'ccev_activity_regulation',
+            id: 'cc_activity_regulation_exp',
             itemType: 'single',
-            term: 'ccev_activity_regulation',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'cc_activity_regulation_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'inhibited',
           },
         ],
       },
@@ -1159,89 +389,12 @@ const configureSearchTerms = [
             example: 'enzyme',
           },
           {
-            id: 'ccev_function',
+            id: 'cc_function_exp',
             itemType: 'single',
-            term: 'ccev_function',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'experimental',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'cc_function_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'enzyme',
           },
         ],
       },
@@ -1259,89 +412,12 @@ const configureSearchTerms = [
             example: 'kinase',
           },
           {
-            id: 'ccev_caution',
+            id: 'cc_caution_exp',
             itemType: 'single',
-            term: 'ccev_caution',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'cc_caution_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'kinase',
           },
         ],
       },
@@ -1372,89 +448,12 @@ const configureSearchTerms = [
                 example: '[0 TO 100]',
               },
               {
-                id: 'ftev_sites',
+                id: 'ft_sites_exp',
                 itemType: 'single',
-                term: 'ftev_sites',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'manual',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
+                term: 'ft_sites_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
+                example: 'translocation',
               },
             ],
           },
@@ -1480,197 +479,12 @@ const configureSearchTerms = [
                 example: '[0 TO 100]',
               },
               {
-                id: 'ftev_act_site',
+                id: 'ft_act_site_exp',
                 itemType: 'single',
-                term: 'ftev_act_site',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'manual',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            id: 'sites_metal_binding',
-            label: 'Metal binding',
-            itemType: 'sibling_group',
-            siblings: [
-              {
-                id: 'ft_metal',
-                itemType: 'single',
-                term: 'ft_metal',
-                dataType: 'string',
-                fieldType: 'general',
+                term: 'ft_act_site_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
                 example: 'phosphocysteine',
-              },
-              {
-                id: 'ftlen_metal',
-                itemType: 'single',
-                term: 'ftlen_metal',
-                dataType: 'integer',
-                fieldType: 'range',
-                example: '[0 TO 100]',
-              },
-              {
-                id: 'ftev_metal',
-                itemType: 'single',
-                term: 'ftev_metal',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'manual',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
               },
             ],
           },
@@ -1686,6 +500,8 @@ const configureSearchTerms = [
                 dataType: 'string',
                 fieldType: 'general',
                 example: 'phosphocysteine',
+                autoComplete: '/suggester?dict=binding&query=?',
+                autoCompleteQueryTerm: 'ft_binding',
               },
               {
                 id: 'ftlen_binding',
@@ -1696,89 +512,12 @@ const configureSearchTerms = [
                 example: '[0 TO 100]',
               },
               {
-                id: 'ftev_binding',
+                id: 'ft_binding_exp',
                 itemType: 'single',
-                term: 'ftev_binding',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'any',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
+                term: 'ft_binding_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
+                example: 'phosphocysteine',
               },
             ],
           },
@@ -1804,197 +543,12 @@ const configureSearchTerms = [
                 example: '[0 TO 100]',
               },
               {
-                id: 'ftev_site',
+                id: 'ft_site_exp',
                 itemType: 'single',
-                term: 'ftev_site',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'any',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-      {
-        id: 'calcium_binding',
-        label: 'Calcium binding',
-        itemType: 'sibling_group',
-        siblings: [
-          {
-            id: 'ft_ca_bind',
-            itemType: 'single',
-            term: 'ft_ca_bind',
-            dataType: 'string',
-            fieldType: 'general',
-            example: 'site',
-          },
-          {
-            id: 'ftlen_ca_bind',
-            itemType: 'single',
-            term: 'ftlen_ca_bind',
-            dataType: 'integer',
-            fieldType: 'range',
-            example: '[0 TO 100]',
-          },
-          {
-            id: 'ftev_ca_bind',
-            itemType: 'single',
-            term: 'ftev_ca_bind',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'any',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
+                term: 'ft_site_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
+                example: 'phosphocysteine',
               },
             ],
           },
@@ -2022,197 +576,12 @@ const configureSearchTerms = [
             example: '[0 TO 100]',
           },
           {
-            id: 'ftev_dna_bind',
+            id: 'ft_dna_bind_exp',
             itemType: 'single',
-            term: 'ftev_dna_bind',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'any',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-      {
-        id: 'nucleotide_binding',
-        label: 'Nucleotide binding',
-        itemType: 'sibling_group',
-        siblings: [
-          {
-            id: 'ft_np_bind',
-            itemType: 'single',
-            term: 'ft_np_bind',
-            dataType: 'string',
-            fieldType: 'general',
-            example: 'NADP',
-          },
-          {
-            id: 'ftlen_np_bind',
-            itemType: 'single',
-            term: 'ftlen_np_bind',
-            dataType: 'integer',
-            fieldType: 'range',
-            example: '[0 TO 100]',
-          },
-          {
-            id: 'ftev_np_bind',
-            itemType: 'single',
-            term: 'ftev_np_bind',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'any',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'ft_dna_bind_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: '*',
           },
         ],
       },
@@ -2230,89 +599,12 @@ const configureSearchTerms = [
             example: 'metabolism',
           },
           {
-            id: 'ccev_pathway',
+            id: 'cc_pathway_exp',
             itemType: 'single',
-            term: 'ccev_pathway',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'any',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'cc_pathway_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'metabolism',
           },
         ],
       },
@@ -2330,89 +622,12 @@ const configureSearchTerms = [
             example: 'abscisic',
           },
           {
-            id: 'ccev_miscellaneous',
+            id: 'cc_miscellaneous_exp',
             itemType: 'single',
-            term: 'ccev_miscellaneous',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'any',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'cc_miscellaneous_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'abscisic',
           },
         ],
       },
@@ -2444,89 +659,12 @@ const configureSearchTerms = [
                 autoCompleteQueryTerm: 'cc_scl_term',
               },
               {
-                id: 'ccev_scl_term',
+                id: 'cc_scl_term_exp',
                 itemType: 'single',
-                term: 'ccev_scl_term',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'manual',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
+                term: 'cc_scl_term_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
+                example: 'membrane',
               },
             ],
           },
@@ -2544,89 +682,12 @@ const configureSearchTerms = [
                 example: 'membrane',
               },
               {
-                id: 'ccev_scl_note',
+                id: 'cc_scl_note_exp',
                 itemType: 'single',
-                term: 'ccev_scl_note',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'manual',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
+                term: 'cc_scl_note_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
+                example: 'membrane',
               },
             ],
           },
@@ -2654,89 +715,12 @@ const configureSearchTerms = [
             example: '[0 TO 100]',
           },
           {
-            id: 'ftev_transmem',
+            id: 'ft_transmem_exp',
             itemType: 'single',
-            term: 'ftev_transmem',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'ft_transmem_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'forming',
           },
         ],
       },
@@ -2762,89 +746,12 @@ const configureSearchTerms = [
             example: '[0 TO 100]',
           },
           {
-            id: 'ftev_topo_dom',
+            id: 'ft_topo_dom_exp',
             itemType: 'single',
-            term: 'ftev_topo_dom',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'ft_topo_dom_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'forming',
           },
         ],
       },
@@ -2870,89 +777,12 @@ const configureSearchTerms = [
             example: '[0 TO 100]',
           },
           {
-            id: 'ftev_intramem',
+            id: 'ft_intramem_exp',
             itemType: 'single',
-            term: 'ftev_intramem',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'ft_intramem_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'forming',
           },
         ],
       },
@@ -2977,89 +807,12 @@ const configureSearchTerms = [
             example: 'nephrotic',
           },
           {
-            id: 'ccev_disease',
+            id: 'cc_disease_exp',
             itemType: 'single',
-            term: 'ccev_disease',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'cc_disease_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'nephrotic',
           },
         ],
       },
@@ -3077,89 +830,12 @@ const configureSearchTerms = [
             example: 'allergic',
           },
           {
-            id: 'ccev_allergen',
+            id: 'cc_allergen_exp',
             itemType: 'single',
-            term: 'ccev_allergen',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'cc_allergen_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'allergic',
           },
         ],
       },
@@ -3177,89 +853,12 @@ const configureSearchTerms = [
             example: 'intracistenal',
           },
           {
-            id: 'ccev_toxic_dose',
+            id: 'cc_toxic_dose_exp',
             itemType: 'single',
-            term: 'ccev_toxic_dose',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'cc_toxic_dose_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'intracistenal',
           },
         ],
       },
@@ -3277,89 +876,12 @@ const configureSearchTerms = [
             example: 'vaccine',
           },
           {
-            id: 'ccev_biotechnology',
+            id: 'cc_biotechnology_exp',
             itemType: 'single',
-            term: 'ccev_biotechnology',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'cc_biotechnology_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'vaccine',
           },
         ],
       },
@@ -3377,89 +899,12 @@ const configureSearchTerms = [
             example: 'peptide',
           },
           {
-            id: 'ccev_pharmaceutical',
+            id: 'cc_pharmaceutical_exp',
             itemType: 'single',
-            term: 'ccev_pharmaceutical',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'cc_pharmaceutical_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'peptide',
           },
         ],
       },
@@ -3477,89 +922,12 @@ const configureSearchTerms = [
             example: 'infected',
           },
           {
-            id: 'ccev_disruption_phenotype',
+            id: 'cc_disruption_phenotype_exp',
             itemType: 'single',
-            term: 'ccev_disruption_phenotype',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'any',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'cc_disruption_phenotype_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'infected',
           },
         ],
       },
@@ -3585,89 +953,12 @@ const configureSearchTerms = [
             example: '[0 TO 100]',
           },
           {
-            id: 'ftev_mutagen',
+            id: 'ft_mutagen_exp',
             itemType: 'single',
-            term: 'ftev_mutagen',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'ft_mutagen_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'phosphatase',
           },
         ],
       },
@@ -3692,89 +983,12 @@ const configureSearchTerms = [
             example: 'mitosis',
           },
           {
-            id: 'ccev_ptm',
+            id: 'cc_ptm_exp',
             itemType: 'single',
-            term: 'ccev_ptm',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'any',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'cc_ptm_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'mitosis',
           },
         ],
       },
@@ -3800,89 +1014,12 @@ const configureSearchTerms = [
             example: '[0 TO 100]',
           },
           {
-            id: 'ftev_mod_res',
+            id: 'ft_mod_res_exp',
             itemType: 'single',
-            term: 'ftev_mod_res',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'ft_mod_res_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'phosphoserine',
           },
         ],
       },
@@ -3908,89 +1045,12 @@ const configureSearchTerms = [
             example: '[0 TO 100]',
           },
           {
-            id: 'ftev_lipid',
+            id: 'ft_lipid_exp',
             itemType: 'single',
-            term: 'ftev_lipid',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'ft_lipid_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'cysteine',
           },
         ],
       },
@@ -4016,89 +1076,12 @@ const configureSearchTerms = [
             example: '[0 TO 100]',
           },
           {
-            id: 'ftev_carbohyd',
+            id: 'ft_carbohyd_exp',
             itemType: 'single',
-            term: 'ftev_carbohyd',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'ft_carbohyd_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'cysteine',
           },
         ],
       },
@@ -4124,89 +1107,12 @@ const configureSearchTerms = [
             example: '[0 TO 100]',
           },
           {
-            id: 'ftev_disulfid',
+            id: 'ft_disulfid_exp',
             itemType: 'single',
-            term: 'ftev_disulfid',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'ft_disulfid_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'reversible',
           },
         ],
       },
@@ -4232,89 +1138,12 @@ const configureSearchTerms = [
             example: '[0 TO 100]',
           },
           {
-            id: 'ftev_crosslnk',
+            id: 'ft_crosslnk_exp',
             itemType: 'single',
-            term: 'ftev_crosslnk',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'ft_crosslnk_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'lysine',
           },
         ],
       },
@@ -4345,89 +1174,12 @@ const configureSearchTerms = [
                 example: '[0 TO 100]',
               },
               {
-                id: 'ftev_molecule_processing',
+                id: 'ft_molecule_processing_exp',
                 itemType: 'single',
-                term: 'ftev_molecule_processing',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'manual',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
+                term: 'ft_molecule_processing_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
+                example: 'disulfide',
               },
             ],
           },
@@ -4453,89 +1205,12 @@ const configureSearchTerms = [
                 example: '[0 TO 100]',
               },
               {
-                id: 'ftev_chain',
+                id: 'ft_chain_exp',
                 itemType: 'single',
-                term: 'ftev_chain',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'manual',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
+                term: 'ft_chain_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
+                example: 'kinase',
               },
             ],
           },
@@ -4561,89 +1236,12 @@ const configureSearchTerms = [
                 example: '[0 TO 100]',
               },
               {
-                id: 'ftev_init_met',
+                id: 'ft_init_met_exp',
                 itemType: 'single',
-                term: 'ftev_init_met',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'manual',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
+                term: 'ft_init_met_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
+                example: 'Removed',
               },
             ],
           },
@@ -4669,89 +1267,12 @@ const configureSearchTerms = [
                 example: '[0 TO 100]',
               },
               {
-                id: 'ftev_peptide',
+                id: 'ft_peptide_exp',
                 itemType: 'single',
-                term: 'ftev_peptide',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'any',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
+                term: 'ft_peptide_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
+                example: 'Removed',
               },
             ],
           },
@@ -4777,89 +1298,12 @@ const configureSearchTerms = [
                 example: '[0 TO 100]',
               },
               {
-                id: 'ftev_signal',
+                id: 'ft_signal_exp',
                 itemType: 'single',
-                term: 'ftev_signal',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'manual',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
+                term: 'ft_signal_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
+                example: 'cleaved',
               },
             ],
           },
@@ -4885,89 +1329,12 @@ const configureSearchTerms = [
                 example: '[0 TO 100]',
               },
               {
-                id: 'ftev_propep',
+                id: 'ft_propep_exp',
                 itemType: 'single',
-                term: 'ftev_propep',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'manual',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
+                term: 'ft_propep_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
+                example: 'Activation peptide',
               },
             ],
           },
@@ -4993,89 +1360,12 @@ const configureSearchTerms = [
                 example: '[0 TO 100]',
               },
               {
-                id: 'ftev_transit',
+                id: 'ft_transit_exp',
                 itemType: 'single',
-                term: 'ftev_transit',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'manual',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
+                term: 'ft_transit_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
+                example: 'Mitochondrion',
               },
             ],
           },
@@ -5102,89 +1392,12 @@ const configureSearchTerms = [
             example: 'brain',
           },
           {
-            id: 'ccev_developmental_stage',
+            id: 'cc_developmental_stage_exp',
             itemType: 'single',
-            term: 'ccev_developmental_stage',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'cc_developmental_stage_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'brain',
           },
         ],
       },
@@ -5202,89 +1415,12 @@ const configureSearchTerms = [
             example: 'calcium',
           },
           {
-            id: 'ccev_induction',
+            id: 'cc_induction_exp',
             itemType: 'single',
-            term: 'ccev_induction',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'cc_induction_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'calcium',
           },
         ],
       },
@@ -5302,89 +1438,12 @@ const configureSearchTerms = [
             example: 'pancreas',
           },
           {
-            id: 'ccev_tissue_specificity',
+            id: 'cc_tissue_specificity_exp',
             itemType: 'single',
-            term: 'ccev_tissue_specificity',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'cc_tissue_specificity_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'pancreas',
           },
         ],
       },
@@ -5418,89 +1477,12 @@ const configureSearchTerms = [
             example: 'homodimer',
           },
           {
-            id: 'ccev_subunit',
+            id: 'cc_subunit_exp',
             itemType: 'single',
-            term: 'ccev_subunit',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'cc_subunit_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'homodimer',
           },
         ],
       },
@@ -5558,89 +1540,12 @@ const configureSearchTerms = [
                 example: '[0 TO 100]',
               },
               {
-                id: 'ftev_secstruct',
+                id: 'ft_secstruct_exp',
                 itemType: 'single',
-                term: 'ftev_secstruct',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'manual',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
+                term: 'ft_secstruct_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
+                example: '*',
               },
             ],
           },
@@ -5666,89 +1571,12 @@ const configureSearchTerms = [
                 example: '[0 TO 100]',
               },
               {
-                id: 'ftev_helix',
+                id: 'ft_helix_exp',
                 itemType: 'single',
-                term: 'ftev_helix',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'manual',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
+                term: 'ft_helix_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
+                example: '*',
               },
             ],
           },
@@ -5774,89 +1602,12 @@ const configureSearchTerms = [
                 example: '[0 TO 100]',
               },
               {
-                id: 'ftev_turn',
+                id: 'ft_turn_exp',
                 itemType: 'single',
-                term: 'ftev_turn',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'manual',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
+                term: 'ft_turn_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
+                example: '*',
               },
             ],
           },
@@ -5882,89 +1633,12 @@ const configureSearchTerms = [
                 example: '[0 TO 100]',
               },
               {
-                id: 'ftev_strand',
+                id: 'ft_strand_exp',
                 itemType: 'single',
-                term: 'ftev_strand',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'manual',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
+                term: 'ft_strand_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
+                example: '*',
               },
             ],
           },
@@ -6014,89 +1688,12 @@ const configureSearchTerms = [
                 example: 'tissues',
               },
               {
-                id: 'ccev_ap',
+                id: 'cc_ap_exp',
                 itemType: 'single',
-                term: 'ccev_ap',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'manual',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
+                term: 'cc_ap_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
+                example: 'tissues',
               },
             ],
           },
@@ -6114,89 +1711,12 @@ const configureSearchTerms = [
                 example: '*',
               },
               {
-                id: 'ccev_ap_apu',
+                id: 'cc_ap_apu_exp',
                 itemType: 'single',
-                term: 'ccev_ap_apu',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'any',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
+                term: 'cc_ap_apu_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
+                example: '*',
               },
             ],
           },
@@ -6214,89 +1734,12 @@ const configureSearchTerms = [
                 example: 'experimental',
               },
               {
-                id: 'ccev_ap_as',
+                id: 'cc_ap_as_exp',
                 itemType: 'single',
-                term: 'ccev_ap_as',
-                dataType: 'string',
-                fieldType: 'evidence',
+                term: 'cc_ap_as_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
                 example: 'experimental',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
               },
             ],
           },
@@ -6314,89 +1757,12 @@ const configureSearchTerms = [
                 example: 'acetylalanine',
               },
               {
-                id: 'ccev_ap_ai',
+                id: 'cc_ap_ai_exp',
                 itemType: 'single',
-                term: 'ccev_ap_ai',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'any',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
+                term: 'cc_ap_ai_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
+                example: 'acetylalanine',
               },
             ],
           },
@@ -6414,89 +1780,12 @@ const configureSearchTerms = [
                 example: 'translation',
               },
               {
-                id: 'ccev_ap_rf',
+                id: 'cc_ap_rf_exp',
                 itemType: 'single',
-                term: 'ccev_ap_rf',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'manual',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
+                term: 'cc_ap_rf_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
+                example: 'translation',
               },
             ],
           },
@@ -6521,89 +1810,12 @@ const configureSearchTerms = [
                 example: 'translated',
               },
               {
-                id: 'ccev_sequence_caution',
+                id: 'cc_sequence_caution_exp',
                 itemType: 'single',
-                term: 'ccev_sequence_caution',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'any',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
+                term: 'cc_sequence_caution_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
+                example: 'translated',
               },
             ],
           },
@@ -6666,89 +1878,12 @@ const configureSearchTerms = [
                 example: 'sequence',
               },
               {
-                id: 'ccev_sc_misc',
+                id: 'cc_sc_misc_exp',
                 itemType: 'single',
-                term: 'ccev_sc_misc',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'any',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
+                term: 'cc_sc_misc_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
+                example: 'sequence',
               },
             ],
           },
@@ -6768,89 +1903,12 @@ const configureSearchTerms = [
             example: 'electrospray',
           },
           {
-            id: 'ccev_mass_spectrometry',
+            id: 'cc_mass_spectrometry_exp',
             itemType: 'single',
-            term: 'ccev_mass_spectrometry',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'cc_mass_spectrometry_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'electrospray',
           },
         ],
       },
@@ -6868,89 +1926,12 @@ const configureSearchTerms = [
             example: 'transcript',
           },
           {
-            id: 'ccev_polymorphism',
+            id: 'cc_polymorphism_exp',
             itemType: 'single',
-            term: 'ccev_polymorphism',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'cc_polymorphism_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'transcript',
           },
         ],
       },
@@ -6968,89 +1949,12 @@ const configureSearchTerms = [
             example: 'target',
           },
           {
-            id: 'ccev_rna_editing',
+            id: 'cc_rna_editing_exp',
             itemType: 'single',
-            term: 'ccev_rna_editing',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'cc_rna_editing_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'target',
           },
         ],
       },
@@ -7081,89 +1985,12 @@ const configureSearchTerms = [
                 example: '[0 TO 100]',
               },
               {
-                id: 'ftev_variants',
+                id: 'ft_variants_exp',
                 itemType: 'single',
-                term: 'ftev_variants',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'manual',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
+                term: 'ft_variants_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
+                example: 'colorectal',
               },
             ],
           },
@@ -7189,89 +2016,12 @@ const configureSearchTerms = [
                 example: '[0 TO 100]',
               },
               {
-                id: 'ftev_variant',
+                id: 'ft_variant_exp',
                 itemType: 'single',
-                term: 'ftev_variant',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'manual',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
+                term: 'ft_variant_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
+                example: 'colorectal',
               },
             ],
           },
@@ -7297,89 +2047,12 @@ const configureSearchTerms = [
                 example: '[0 TO 100]',
               },
               {
-                id: 'ftev_var_seq',
+                id: 'ft_var_seq_exp',
                 itemType: 'single',
-                term: 'ftev_var_seq',
-                dataType: 'string',
-                fieldType: 'evidence',
-                example: 'manual',
-                evidenceGroups: [
-                  {
-                    groupName: 'Any',
-                    items: [
-                      {
-                        name: 'Any assertion method',
-                        code: 'any',
-                      },
-                      {
-                        name: 'Any manual assertion',
-                        code: 'manual',
-                      },
-                      {
-                        name: 'Any automatic assertion',
-                        code: 'automatic',
-                      },
-                      {
-                        name: 'Any experimental assertion',
-                        code: 'experimental',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Manual assertions',
-                    items: [
-                      {
-                        name: 'Experimental',
-                        code: 'ECO_0000269',
-                      },
-                      {
-                        name: 'Non-traceable author statement',
-                        code: 'ECO_0000303',
-                      },
-                      {
-                        name: 'Curator inference',
-                        code: 'ECO_0000305',
-                      },
-                      {
-                        name: 'Sequence similarity',
-                        code: 'ECO_0000250',
-                      },
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000255',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000244',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000312',
-                      },
-                    ],
-                  },
-                  {
-                    groupName: 'Automatic assertions',
-                    items: [
-                      {
-                        name: 'Sequence model',
-                        code: 'ECO_0000256',
-                      },
-                      {
-                        name: 'Combinatorial',
-                        code: 'ECO_0000213',
-                      },
-                      {
-                        name: 'Imported information',
-                        code: 'ECO_0000313',
-                      },
-                      {
-                        name: 'Sequence motif match (InterPro)',
-                        code: 'ECO_0000259',
-                      },
-                    ],
-                  },
-                ],
+                term: 'ft_var_seq_exp',
+                dataType: 'boolean',
+                fieldType: 'experimental_evidence',
+                example: 'isoform',
               },
             ],
           },
@@ -7407,89 +2080,12 @@ const configureSearchTerms = [
             example: '[0 TO 100]',
           },
           {
-            id: 'ftev_non_std',
+            id: 'ft_non_std_exp',
             itemType: 'single',
-            term: 'ftev_non_std',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'ft_non_std_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'selenocysteine',
           },
         ],
       },
@@ -7515,89 +2111,12 @@ const configureSearchTerms = [
             example: '[0 TO 100]',
           },
           {
-            id: 'ftev_non_ter',
+            id: 'ft_non_ter_exp',
             itemType: 'single',
-            term: 'ftev_non_ter',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'ft_non_ter_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: '*',
           },
         ],
       },
@@ -7623,89 +2142,12 @@ const configureSearchTerms = [
             example: '[0 TO 100]',
           },
           {
-            id: 'ftev_non_cons',
+            id: 'ft_non_cons_exp',
             itemType: 'single',
-            term: 'ftev_non_cons',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'ft_non_cons_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: '*',
           },
         ],
       },
@@ -7731,89 +2173,12 @@ const configureSearchTerms = [
             example: '[0 TO 100]',
           },
           {
-            id: 'ftev_conflict',
+            id: 'ft_conflict_exp',
             itemType: 'single',
-            term: 'ftev_conflict',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'ft_conflict_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: '*',
           },
         ],
       },
@@ -7839,89 +2204,12 @@ const configureSearchTerms = [
             example: '[0 TO 100]',
           },
           {
-            id: 'ftev_unsure',
+            id: 'ft_unsure_exp',
             itemType: 'single',
-            term: 'ftev_unsure',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'ft_unsure_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: '*',
           },
         ],
       },
@@ -7947,89 +2235,12 @@ const configureSearchTerms = [
             example: '[0 TO 100]',
           },
           {
-            id: 'ftev_positional',
+            id: 'ft_positional_exp',
             itemType: 'single',
-            term: 'ftev_positional',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'ft_positional_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'colorectal',
           },
         ],
       },
@@ -8041,6 +2252,7 @@ const configureSearchTerms = [
         dataType: 'boolean',
         fieldType: 'general',
         example: 'true',
+        regex: '^true|false$',
         values: [
           {
             name: 'Yes',
@@ -8107,6 +2319,7 @@ const configureSearchTerms = [
         dataType: 'boolean',
         fieldType: 'general',
         example: 'true',
+        regex: '^true|false$',
         values: [
           {
             name: 'Yes',
@@ -8190,89 +2403,12 @@ const configureSearchTerms = [
             example: '[0 TO 100]',
           },
           {
-            id: 'ftev_domain',
+            id: 'ft_domain_exp',
             itemType: 'single',
-            term: 'ftev_domain',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'ft_domain_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'phosphatase',
           },
         ],
       },
@@ -8290,89 +2426,12 @@ const configureSearchTerms = [
             example: 'conformation',
           },
           {
-            id: 'ccev_domain',
+            id: 'cc_domain_exp',
             itemType: 'single',
-            term: 'ccev_domain',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'any',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'cc_domain_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'conformation',
           },
         ],
       },
@@ -8407,89 +2466,12 @@ const configureSearchTerms = [
             example: '[0 TO 100]',
           },
           {
-            id: 'ftev_coiled',
+            id: 'ft_coiled_exp',
             itemType: 'single',
-            term: 'ftev_coiled',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'ft_coiled_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: '*',
           },
         ],
       },
@@ -8515,89 +2497,12 @@ const configureSearchTerms = [
             example: '[0 TO 100]',
           },
           {
-            id: 'ftev_compbias',
+            id: 'ft_compbias_exp',
             itemType: 'single',
-            term: 'ftev_compbias',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'ft_compbias_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'glu-rich',
           },
         ],
       },
@@ -8623,89 +2528,12 @@ const configureSearchTerms = [
             example: '[0 TO 100]',
           },
           {
-            id: 'ftev_motif',
+            id: 'ft_motif_exp',
             itemType: 'single',
-            term: 'ftev_motif',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'ft_motif_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'motif',
           },
         ],
       },
@@ -8731,89 +2559,12 @@ const configureSearchTerms = [
             example: '[0 TO 100]',
           },
           {
-            id: 'ftev_region',
+            id: 'ft_region_exp',
             itemType: 'single',
-            term: 'ftev_region',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'ft_region_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'motif',
           },
         ],
       },
@@ -8839,89 +2590,12 @@ const configureSearchTerms = [
             example: '[0 TO 100]',
           },
           {
-            id: 'ftev_repeat',
+            id: 'ft_repeat_exp',
             itemType: 'single',
-            term: 'ftev_repeat',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'ft_repeat_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'motif',
           },
         ],
       },
@@ -8939,89 +2613,12 @@ const configureSearchTerms = [
             example: 'phosphatase',
           },
           {
-            id: 'ccev_similarity',
+            id: 'cc_similarity_exp',
             itemType: 'single',
-            term: 'ccev_similarity',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'cc_similarity_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'phosphatase',
           },
         ],
       },
@@ -9047,89 +2644,12 @@ const configureSearchTerms = [
             example: '[0 TO 100]',
           },
           {
-            id: 'ftev_zn_fing',
+            id: 'ft_zn_fing_exp',
             itemType: 'single',
-            term: 'ftev_zn_fing',
-            dataType: 'string',
-            fieldType: 'evidence',
-            example: 'manual',
-            evidenceGroups: [
-              {
-                groupName: 'Any',
-                items: [
-                  {
-                    name: 'Any assertion method',
-                    code: 'any',
-                  },
-                  {
-                    name: 'Any manual assertion',
-                    code: 'manual',
-                  },
-                  {
-                    name: 'Any automatic assertion',
-                    code: 'automatic',
-                  },
-                  {
-                    name: 'Any experimental assertion',
-                    code: 'experimental',
-                  },
-                ],
-              },
-              {
-                groupName: 'Manual assertions',
-                items: [
-                  {
-                    name: 'Experimental',
-                    code: 'ECO_0000269',
-                  },
-                  {
-                    name: 'Non-traceable author statement',
-                    code: 'ECO_0000303',
-                  },
-                  {
-                    name: 'Curator inference',
-                    code: 'ECO_0000305',
-                  },
-                  {
-                    name: 'Sequence similarity',
-                    code: 'ECO_0000250',
-                  },
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000255',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000244',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000312',
-                  },
-                ],
-              },
-              {
-                groupName: 'Automatic assertions',
-                items: [
-                  {
-                    name: 'Sequence model',
-                    code: 'ECO_0000256',
-                  },
-                  {
-                    name: 'Combinatorial',
-                    code: 'ECO_0000213',
-                  },
-                  {
-                    name: 'Imported information',
-                    code: 'ECO_0000313',
-                  },
-                  {
-                    name: 'Sequence motif match (InterPro)',
-                    code: 'ECO_0000259',
-                  },
-                ],
-              },
-            ],
+            term: 'ft_zn_fing_exp',
+            dataType: 'boolean',
+            fieldType: 'experimental_evidence',
+            example: 'UBP',
           },
         ],
       },
@@ -10138,6 +3658,15 @@ const configureSearchTerms = [
             valuePrefix: 'hgnc-',
           },
           {
+            id: 'xref_agr',
+            label: 'AGR',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'agr-',
+          },
+          {
             id: 'xref_hpa',
             label: 'HPA',
             itemType: 'single',
@@ -10860,89 +4389,12 @@ const configureSearchTerms = [
         example: 'lck',
       },
       {
-        id: 'ccev_webresource',
+        id: 'cc_webresource_exp',
         itemType: 'single',
-        term: 'ccev_webresource',
-        dataType: 'string',
-        fieldType: 'evidence',
-        example: 'manual',
-        evidenceGroups: [
-          {
-            groupName: 'Any',
-            items: [
-              {
-                name: 'Any assertion method',
-                code: 'any',
-              },
-              {
-                name: 'Any manual assertion',
-                code: 'manual',
-              },
-              {
-                name: 'Any automatic assertion',
-                code: 'automatic',
-              },
-              {
-                name: 'Any experimental assertion',
-                code: 'experimental',
-              },
-            ],
-          },
-          {
-            groupName: 'Manual assertions',
-            items: [
-              {
-                name: 'Experimental',
-                code: 'ECO_0000269',
-              },
-              {
-                name: 'Non-traceable author statement',
-                code: 'ECO_0000303',
-              },
-              {
-                name: 'Curator inference',
-                code: 'ECO_0000305',
-              },
-              {
-                name: 'Sequence similarity',
-                code: 'ECO_0000250',
-              },
-              {
-                name: 'Sequence model',
-                code: 'ECO_0000255',
-              },
-              {
-                name: 'Combinatorial',
-                code: 'ECO_0000244',
-              },
-              {
-                name: 'Imported information',
-                code: 'ECO_0000312',
-              },
-            ],
-          },
-          {
-            groupName: 'Automatic assertions',
-            items: [
-              {
-                name: 'Sequence model',
-                code: 'ECO_0000256',
-              },
-              {
-                name: 'Combinatorial',
-                code: 'ECO_0000213',
-              },
-              {
-                name: 'Imported information',
-                code: 'ECO_0000313',
-              },
-              {
-                name: 'Sequence motif match (InterPro)',
-                code: 'ECO_0000259',
-              },
-            ],
-          },
-        ],
+        term: 'cc_webresource_exp',
+        dataType: 'boolean',
+        fieldType: 'experimental_evidence',
+        example: 'lck',
       },
     ],
   },
