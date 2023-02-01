@@ -2,10 +2,12 @@ import { getAllTerm } from './clause';
 
 import { Clause, Operator } from '../types/searchTypes';
 
+const reExperimentalEvidenceKey = /^(?<term>\w+)_exp/;
+
 export const stringify = (clauses: Clause[] = []): string => {
   let queryAccumulator = '';
   for (const clause of clauses) {
-    const query = Object.entries(clause.queryBits)
+    let query = Object.entries(clause.queryBits)
       // filter out empty fields
       .filter(([, value]) => value);
 
@@ -16,6 +18,32 @@ export const stringify = (clauses: Clause[] = []): string => {
 
     let queryJoined: string;
     const joinSeperator: Operator = 'AND';
+
+    // Experimental evidence requires some swapping around of query bits.
+    // Ideally this would have happened within the handleChange of the ExperimentalEvidencField
+    // but only access to the _exp query bit is available there.
+    const experimentalEvidenceTerm = clause.searchTerm?.siblings?.find(
+      (s) => s?.fieldType === 'experimental_evidence'
+    );
+    if (experimentalEvidenceTerm) {
+      const experimentalEvidenceValue =
+        clause.queryBits[experimentalEvidenceTerm.term];
+      // Remove experimental evidence term from the query bits as we just want to use the value
+      query = query.filter(([key]) => key !== experimentalEvidenceTerm.term);
+      // If user has specified something other than "any" then swap the normal term eg
+      // foo is swapped for foo_exp
+      if (experimentalEvidenceValue === 'true') {
+        const experimentalEvidenceMatchTerm =
+          experimentalEvidenceTerm.term.match(reExperimentalEvidenceKey)?.groups
+            ?.term;
+        query = query.map(([key, value]) =>
+          key === experimentalEvidenceMatchTerm
+            ? [experimentalEvidenceTerm.term, value]
+            : [key, value]
+        );
+      }
+    }
+
     if ('go' in clause.queryBits || 'go_evidence' in clause.queryBits) {
       const goEvidence = clause.queryBits?.go_evidence;
       const goKey = `go${
@@ -70,7 +98,6 @@ const splitClause = (
   return [match[1], match[2]];
 };
 const lengthKey = /^(\w\w)(len)_/;
-const experimentalEvidenceKey = /^(?<term>\w+)_exp/;
 const goKey = /^go(_(?<evidence>\w+))?/;
 
 const getEmptyClause = (id: number): Clause => ({
@@ -131,25 +158,15 @@ export const parse = (queryString = '', startId = 0): Clause[] => {
       }
 
       // experimental evidence
-      const experimentalEvidenceMatchTerm = key?.match(experimentalEvidenceKey)
-        ?.groups?.term;
+      const experimentalEvidenceMatchTerm = key?.match(
+        reExperimentalEvidenceKey
+      )?.groups?.term;
       if (key && experimentalEvidenceMatchTerm) {
         const correspondingClause = clauses.find(
           ({ searchTerm }) => searchTerm.term === experimentalEvidenceMatchTerm
         );
         if (correspondingClause) {
-          if (value === 'true') {
-            // Need to:
-            //  1. Add query bit for term with _exp
-            //  2. Remove original query bit for term
-            //  3. Keep any other query bits
-            const { [experimentalEvidenceMatchTerm]: queryBitValue, ...rest } =
-              correspondingClause.queryBits;
-            correspondingClause.queryBits = {
-              ...rest,
-              [key]: queryBitValue,
-            };
-          }
+          correspondingClause.queryBits[key] = value;
           continue; // eslint-disable-line no-continue
         }
       }
