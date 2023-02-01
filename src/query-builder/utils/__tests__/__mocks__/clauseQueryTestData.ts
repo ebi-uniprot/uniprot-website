@@ -192,7 +192,8 @@ const testData = [
         id: 0,
         searchTerm: idToSearchTerm.chebi_term,
         queryBits: {
-          cc_cofactor_chebi_exp: 'CHEBI:12345',
+          cc_cofactor_chebi: 'CHEBI:12345',
+          cc_cofactor_chebi_exp: 'true',
         },
       },
     ],
