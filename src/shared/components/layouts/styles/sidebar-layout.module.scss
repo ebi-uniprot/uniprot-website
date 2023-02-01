@@ -23,7 +23,6 @@
     padding: $global-padding;
     grid-row: 1 / -1;
     grid-column: 1 / 3;
-    // flex: 0 1 var(--sidebar-size);
     @include scroll-shadow($colour-sky-white);
     position: sticky;
     top: 0;
