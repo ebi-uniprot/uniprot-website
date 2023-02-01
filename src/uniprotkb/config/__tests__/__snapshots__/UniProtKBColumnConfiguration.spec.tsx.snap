@@ -295,6 +295,11 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_caution
 
 exports[`UniProtKBColumnConfiguration component should render column "cc_cofactor": cc_cofactor 1`] = `
 <DocumentFragment>
+  <div
+    class="text-block"
+  >
+    Protein has 1 cofactor binding site:
+  </div>
   <section
     class="text-block"
   >
@@ -342,10 +347,11 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_cofacto
       </a>
        )
     </span>
+    <br />
     <div
       class="text-block"
     >
-      value2.
+      Note: value2.
     </div>
   </section>
 </DocumentFragment>
@@ -595,7 +601,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_subcell
     <div
       class="text-block"
     >
-      value.
+      Note: value.
     </div>
   </section>
 </DocumentFragment>
@@ -613,37 +619,27 @@ exports[`UniProtKBColumnConfiguration component should render column "comment_co
     class="expandable-list no-bullet"
   >
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         alternative products (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         biophysicochemical properties (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         catalytic activity (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         cofactor (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         disease (1)
       </span>
     </li>
@@ -666,86 +662,62 @@ exports[`UniProtKBColumnConfiguration component should render column "comment_co
     class="expandable-list no-bullet"
   >
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         alternative products (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         biophysicochemical properties (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         catalytic activity (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         cofactor (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         disease (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         disruption phenotype (2)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         interaction (2)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         mass spectrometry (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         rna editing (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         sequence caution (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         subcellular location (1)
       </span>
     </li>
     <li>
-      <span
-        class="capitalize"
-      >
+      <span>
         web resource (1)
       </span>
     </li>

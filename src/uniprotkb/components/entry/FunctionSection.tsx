@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, Fragment } from 'react';
 import { Card, Loader, Message } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
@@ -20,7 +20,7 @@ import externalUrls from '../../../shared/config/externalUrls';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 
-import { hasContent } from '../../../shared/utils/utils';
+import { hasContent, pluralise } from '../../../shared/utils/utils';
 import {
   FunctionUIModel,
   BioPhysicoChemicalProperties,
@@ -36,8 +36,6 @@ import {
   CofactorComment,
   FreeTextComment,
 } from '../../types/commentTypes';
-
-import helper from '../../../shared/styles/helper.module.scss';
 
 const GoRibbon = lazy(
   () => import(/* webpackChunkName: "go-ribbon" */ './GoRibbon')
@@ -153,9 +151,14 @@ export const CofactorView = ({ cofactors, title }: CofactorViewProps) => {
   if (!cofactors?.length) {
     return null;
   }
+
   return (
     <>
-      {title && <h3 className={helper.capitalize}>{title}</h3>}
+      {title && <h3>{title}</h3>}
+      <div className="text-block">
+        Protein has {cofactors.length} cofactor binding{' '}
+        {pluralise('site', cofactors.length)}:
+      </div>
       {cofactors.map((cofactorComment, index) => (
         // eslint-disable-next-line react/no-array-index-key
         <section className="text-block" key={index}>
@@ -168,47 +171,50 @@ export const CofactorView = ({ cofactors, title }: CofactorViewProps) => {
           )}
           {cofactorComment.cofactors &&
             cofactorComment.cofactors.map((cofactor) => (
-              <span key={cofactor.name}>
-                {cofactor.name}{' '}
-                {cofactor.cofactorCrossReference &&
-                  cofactor.cofactorCrossReference.database === 'ChEBI' &&
-                  cofactor.cofactorCrossReference.id && (
-                    <>
-                      {' ('}
-                      <Link
-                        to={{
-                          pathname: LocationToPath[Location.UniProtKBResults],
-                          search: `query=cc_cofactor_chebi:"${cofactor.cofactorCrossReference.id}"`,
-                        }}
-                      >
-                        UniProtKB
-                      </Link>{' '}
-                      |{' '}
-                      <ExternalLink
-                        url={externalUrls.RheaSearch(
-                          cofactor.cofactorCrossReference.id
-                        )}
-                      >
-                        Rhea
-                      </ExternalLink>
-                      |{' '}
-                      <ExternalLink
-                        url={externalUrls.ChEBI(
-                          cofactor.cofactorCrossReference.id
-                        )}
-                      >
-                        {cofactor.cofactorCrossReference.id}
-                      </ExternalLink>{' '}
-                      )
-                    </>
+              <Fragment key={cofactor.name}>
+                <span>
+                  {cofactor.name}{' '}
+                  {cofactor.cofactorCrossReference &&
+                    cofactor.cofactorCrossReference.database === 'ChEBI' &&
+                    cofactor.cofactorCrossReference.id && (
+                      <>
+                        {' ('}
+                        <Link
+                          to={{
+                            pathname: LocationToPath[Location.UniProtKBResults],
+                            search: `query=cc_cofactor_chebi:"${cofactor.cofactorCrossReference.id}"`,
+                          }}
+                        >
+                          UniProtKB
+                        </Link>{' '}
+                        |{' '}
+                        <ExternalLink
+                          url={externalUrls.RheaSearch(
+                            cofactor.cofactorCrossReference.id
+                          )}
+                        >
+                          Rhea
+                        </ExternalLink>
+                        |{' '}
+                        <ExternalLink
+                          url={externalUrls.ChEBI(
+                            cofactor.cofactorCrossReference.id
+                          )}
+                        >
+                          {cofactor.cofactorCrossReference.id}
+                        </ExternalLink>{' '}
+                        )
+                      </>
+                    )}
+                  {cofactor.evidences && (
+                    <UniProtKBEvidenceTag evidences={cofactor.evidences} />
                   )}
-                {cofactor.evidences && (
-                  <UniProtKBEvidenceTag evidences={cofactor.evidences} />
-                )}
-              </span>
+                </span>
+                <br />
+              </Fragment>
             ))}
           {cofactorComment.note && (
-            <TextView comments={cofactorComment.note.texts} />
+            <TextView comments={cofactorComment.note.texts}>Note: </TextView>
           )}
         </section>
       ))}
@@ -274,7 +280,7 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
       />
       <FreeTextView
         comments={miscellaneousComments as FreeTextComment[] | undefined}
-        title="miscellaneous"
+        title="Miscellaneous"
       />
       {data.commentsData.get('CAUTION')?.length ? (
         <Message level="warning">
@@ -282,7 +288,7 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
             comments={
               data.commentsData.get('CAUTION') as FreeTextComment[] | undefined
             }
-            title="caution"
+            title="Caution"
           />
         </Message>
       ) : undefined}
@@ -292,14 +298,14 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
             | CatalyticActivityComment[]
             | undefined
         }
-        title="catalytic activity"
+        title="Catalytic activity"
         defaultHideAllReactions={isSmallScreen}
       />
       <CofactorView
         cofactors={
           data.commentsData.get('COFACTOR') as CofactorComment[] | undefined
         }
-        title="cofactor"
+        title="Cofactor"
       />
       <FreeTextView
         comments={
@@ -307,7 +313,7 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
             | FreeTextComment[]
             | undefined
         }
-        title="activity regulation"
+        title="Activity regulation"
       />
       <FreeTextView
         comments={
@@ -315,7 +321,7 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
             | FreeTextComment[]
             | undefined
         }
-        title="biotechnology"
+        title="Biotechnology"
       />
       <BioPhysicoChemicalPropertiesView
         data={data.bioPhysicoChemicalProperties}
@@ -324,7 +330,7 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
         comments={
           data.commentsData.get('PATHWAY') as FreeTextComment[] | undefined
         }
-        title="pathway"
+        title="Pathway"
       />
       <FeaturesView
         primaryAccession={primaryAccession}

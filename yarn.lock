@@ -10037,10 +10037,10 @@ protvista-track@^3.8.4:
     lodash-es "^4.17.11"
     protvista-zoomable "^3.8.4"
 
-protvista-uniprot@2.9.5:
-  version "2.9.5"
-  resolved "https://registry.yarnpkg.com/protvista-uniprot/-/protvista-uniprot-2.9.5.tgz#a3816bc0ce5fdb74e923e7d6179bb0a56b68b062"
-  integrity sha512-GqxEzl7pbsK/Q2RwayrCavySdj2tmFLqK1oFpH7+YQoyz3revXhL1mY82dquvZ8ntrmEwUy91BL6zTAwYTPW4Q==
+protvista-uniprot@2.10.2:
+  version "2.10.2"
+  resolved "https://registry.yarnpkg.com/protvista-uniprot/-/protvista-uniprot-2.10.2.tgz#dc05f1fab3978347db42abe5274592796470dd31"
+  integrity sha512-cdxObYggEjGOmt9THFrknSxDNIOyoq2n4eWDJ7s+Rz1s9GbEBs/1znGTSCQ0WktDViokSa9u+XO2jJ0jcJzWhQ==
   dependencies:
     core-js "^3.13.0"
     data-loader "^2.9.1"

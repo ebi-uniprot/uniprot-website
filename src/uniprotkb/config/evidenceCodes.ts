@@ -67,13 +67,14 @@ const isSAMEvidence = (evidences: Evidence[]) =>
       typeof evidence.source !== 'undefined' && evidence.source === 'SAM'
   );
 
-const rulesCountRenderer = (evidences: Evidence[]) => {
-  const { length } = evidences;
-  if (isSAMEvidence(evidences)) {
-    return labels.SEQ_ANA;
-  }
-  return `${length} ${pluralise(labels.AA, length)}`;
-};
+// Commenting the below code. We might still need this if we decide to show the number of rules in the tag
+// const rulesCountRenderer = (evidences: Evidence[]) => {
+//   const { length } = evidences;
+//   if (isSAMEvidence(evidences)) {
+//     return labels.SEQ_ANA;
+//   }
+//   return `${length} ${pluralise(labels.AA, length)}`;
+// };
 
 const manualevidenceTagLabeler = (evidences: Evidence[]) => {
   let label = labels.SEQ_ANA;
@@ -265,7 +266,7 @@ export const ecoCodeToData = {
         : 'Automatic assertion according to rules',
     evidenceTagContentHeadingForGO:
       'Automatically inferred from sequence model',
-    evidenceTagLabel: rulesCountRenderer,
+    evidenceTagLabel: () => labels.AA,
   },
   [ecoCode.MIXM]: {
     manual: true,

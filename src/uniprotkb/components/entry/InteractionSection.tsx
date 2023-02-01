@@ -218,7 +218,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
       {comments && (
         <FreeTextView
           comments={comments}
-          title="subunit"
+          title="Subunit"
           articleId="subunit_structure"
         />
       )}

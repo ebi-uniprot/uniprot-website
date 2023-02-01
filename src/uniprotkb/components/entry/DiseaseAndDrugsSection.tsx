@@ -61,7 +61,7 @@ const DiseaseAndDrugsSection = ({
         comments={
           data.commentsData.get('ALLERGEN') as FreeTextComment[] | undefined
         }
-        title="allergenic properties"
+        title="Allergenic properties"
       />
       <FreeTextView
         comments={
@@ -69,7 +69,7 @@ const DiseaseAndDrugsSection = ({
             | FreeTextComment[]
             | undefined
         }
-        title="disruption phenotype"
+        title="Disruption phenotype"
       />
       <FreeTextView
         comments={
@@ -77,13 +77,13 @@ const DiseaseAndDrugsSection = ({
             | FreeTextComment[]
             | undefined
         }
-        title="pharmaceutical"
+        title="Pharmaceutical"
       />
       <FreeTextView
         comments={
           data.commentsData.get('TOXIC DOSE') as FreeTextComment[] | undefined
         }
-        title="toxic dose"
+        title="Toxic dose"
       />
       <FeaturesView
         primaryAccession={primaryAccession}

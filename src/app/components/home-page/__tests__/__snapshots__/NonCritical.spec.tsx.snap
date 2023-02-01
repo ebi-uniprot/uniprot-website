@@ -2,6 +2,55 @@
 
 exports[`non-critical HomePage component should render 1`] = `
 <DocumentFragment>
+  <div
+    class="uniprot-grid uniprot-grid--centered home-page-section"
+  >
+    <div
+      class="uniprot-grid-cell--span-12 message message--info"
+      role="status"
+    >
+      <div
+        class="message__side-border"
+      />
+      <test-file-stub
+        height="1.125em"
+        width="1.125em"
+      />
+      <section
+        class="message__content"
+      >
+        <small>
+          We need your help to understand how data is reused by biomedical resources! We have developed 2 surveys for 
+          <a
+            class="external-link"
+            href="https://forms.gle/YwDc59mJcZ91rbsj8"
+            rel="noopener"
+            target="_blank"
+          >
+            users of biomedical resources
+            <test-file-stub
+              data-testid="external-link-icon"
+              width="12.5"
+            />
+          </a>
+          and for 
+          <a
+            class="external-link"
+            href="https://forms.gle/Fxy5iSqPzj4SCpzT7"
+            rel="noopener"
+            target="_blank"
+          >
+            resource providers
+            <test-file-stub
+              data-testid="external-link-icon"
+              width="12.5"
+            />
+          </a>
+          . Please help by filling the appropriate one in by February 21
+        </small>
+      </section>
+    </div>
+  </div>
   <section
     class="uniprot-grid uniprot-grid--centered home-page-section"
   >
@@ -684,17 +733,17 @@ exports[`non-critical HomePage component should render 1`] = `
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/253/"
+          href="https://www.proteinspotlight.org/back_issues/254/"
           rel="noopener"
           target="_blank"
         >
-          A heated legacy
+          On a tightrope
         </a>
       </h3>
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/253/"
+        href="https://www.proteinspotlight.org/back_issues/254/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
@@ -703,14 +752,14 @@ exports[`non-critical HomePage component should render 1`] = `
           alt=""
           height="129"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt253.jpg"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt254.jpg"
           width="123"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          Stress.  We  know  what  it  feels  like.  Though  we  may  be  the  only  living  organism  to  have  turned  it  into  a  fertile  and  imaginative  piece  of  conversation,  every  single  living  species  on  this  planet  is  prone  to  stress  and  its  effects.
+          Too  much  of  anything  is  never  good.  Excess  alcohol,  and  our  faculties  are  impaired.  Excess  heat,  and  drought  spreads.  Excess  cold,  and  vineyards  die.  Too  much,  too,  of  what  is  paradoxically  essential  to  life  frequently  turns  out  to  be  toxic.
       </p>
     </article>
   </section>

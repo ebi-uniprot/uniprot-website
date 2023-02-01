@@ -22,10 +22,8 @@ exports[`Entry view should render 1`] = `
       <div
         class="card__content"
       >
-        <h3
-          class="capitalize"
-        >
-          catalytic activity
+        <h3>
+          Catalytic activity
         </h3>
         <span
           class="text-block"
@@ -54,7 +52,7 @@ exports[`Entry view should render 1`] = `
             <span
               class="evidence-tag__label"
             >
-              1 automatic annotation
+              automatic annotation
             </span>
           </button>
           <div
@@ -169,11 +167,14 @@ exports[`Entry view should render 1`] = `
             />
           </div>
         </span>
-        <h3
-          class="capitalize"
-        >
-          cofactor
+        <h3>
+          Cofactor
         </h3>
+        <div
+          class="text-block"
+        >
+          Protein has 1 cofactor binding site:
+        </div>
         <section
           class="text-block"
         >
@@ -234,7 +235,7 @@ exports[`Entry view should render 1`] = `
               <span
                 class="evidence-tag__label"
               >
-                1 automatic annotation
+                automatic annotation
               </span>
             </button>
             <div
@@ -243,10 +244,11 @@ exports[`Entry view should render 1`] = `
               id="2"
             />
           </span>
+          <br />
           <div
             class="text-block"
           >
-            value2.
+            Note: value2.
             <button
               aria-controls="3"
               aria-expanded="false"
@@ -261,7 +263,7 @@ exports[`Entry view should render 1`] = `
               <span
                 class="evidence-tag__label"
               >
-                1 automatic annotation
+                automatic annotation
               </span>
             </button>
             <div
@@ -1838,7 +1840,7 @@ exports[`Entry view should render 1`] = `
                       <span
                         class="evidence-tag__label"
                       >
-                        1 automatic annotation
+                        automatic annotation
                       </span>
                     </button>
                     <div
@@ -1876,7 +1878,7 @@ exports[`Entry view should render 1`] = `
                       <span
                         class="evidence-tag__label"
                       >
-                        1 automatic annotation
+                        automatic annotation
                       </span>
                     </button>
                     <div
@@ -1952,7 +1954,7 @@ exports[`Entry view should render 1`] = `
                       <span
                         class="evidence-tag__label"
                       >
-                        1 automatic annotation
+                        automatic annotation
                       </span>
                     </button>
                     <div
@@ -2008,7 +2010,7 @@ exports[`Entry view should render 1`] = `
                   <span
                     class="evidence-tag__label"
                   >
-                    1 automatic annotation
+                    automatic annotation
                   </span>
                 </button>
                 <div
@@ -2288,7 +2290,7 @@ exports[`Entry view should render 1`] = `
                     <span
                       class="evidence-tag__label"
                     >
-                      1 automatic annotation
+                      automatic annotation
                     </span>
                   </button>
                   <div
@@ -2311,7 +2313,7 @@ exports[`Entry view should render 1`] = `
                     <span
                       class="evidence-tag__label"
                     >
-                      1 automatic annotation
+                      automatic annotation
                     </span>
                   </button>
                   <div
@@ -2323,7 +2325,7 @@ exports[`Entry view should render 1`] = `
                 <div
                   class="text-block"
                 >
-                  value.
+                  Note: value.
                   <button
                     aria-controls="46"
                     aria-expanded="false"
@@ -2338,7 +2340,7 @@ exports[`Entry view should render 1`] = `
                     <span
                       class="evidence-tag__label"
                     >
-                      1 automatic annotation
+                      automatic annotation
                     </span>
                   </button>
                   <div
@@ -2406,7 +2408,7 @@ exports[`Entry view should render 1`] = `
             <span
               class="evidence-tag__label"
             >
-              1 automatic annotation
+              automatic annotation
             </span>
           </button>
           <div
@@ -2449,7 +2451,7 @@ exports[`Entry view should render 1`] = `
                       <span
                         class="evidence-tag__label"
                       >
-                        1 automatic annotation
+                        automatic annotation
                       </span>
                     </button>
                     <div
@@ -2507,10 +2509,8 @@ exports[`Entry view should render 1`] = `
             </div>
           </li>
         </ul>
-        <h3
-          class="capitalize"
-        >
-          disruption phenotype
+        <h3>
+          Disruption phenotype
         </h3>
         <h4
           class="tiny"
@@ -2539,7 +2539,7 @@ exports[`Entry view should render 1`] = `
             <span
               class="evidence-tag__label"
             >
-              1 automatic annotation
+              automatic annotation
             </span>
           </button>
           <div
@@ -2575,7 +2575,7 @@ exports[`Entry view should render 1`] = `
             <span
               class="evidence-tag__label"
             >
-              1 automatic annotation
+              automatic annotation
             </span>
           </button>
           <div
@@ -3236,7 +3236,7 @@ exports[`Entry view should render 1`] = `
             <span
               class="evidence-tag__label"
             >
-              1 automatic annotation
+              automatic annotation
             </span>
           </button>
           <div
@@ -3271,7 +3271,7 @@ exports[`Entry view should render 1`] = `
             <span
               class="evidence-tag__label"
             >
-              1 automatic annotation
+              automatic annotation
             </span>
           </button>
           <div
@@ -3306,7 +3306,7 @@ exports[`Entry view should render 1`] = `
                 <span
                   class="evidence-tag__label"
                 >
-                  1 automatic annotation
+                  automatic annotation
                 </span>
               </button>
               <div
@@ -3333,7 +3333,7 @@ exports[`Entry view should render 1`] = `
                 <span
                   class="evidence-tag__label"
                 >
-                  1 automatic annotation
+                  automatic annotation
                 </span>
               </button>
               <div
@@ -3446,9 +3446,7 @@ exports[`Entry view should render for non-human entry 1`] = `
       <div
         class="card__content"
       >
-        <h3
-          class="capitalize"
-        >
+        <h3>
           <span
             class="visually-hidden"
           >
@@ -3490,10 +3488,8 @@ exports[`Entry view should render for non-human entry 1`] = `
             id="0"
           />
         </div>
-        <h3
-          class="capitalize"
-        >
-          miscellaneous
+        <h3>
+          Miscellaneous
         </h3>
         <div
           class="text-block"
@@ -3522,10 +3518,8 @@ exports[`Entry view should render for non-human entry 1`] = `
             id="1"
           />
         </div>
-        <h3
-          class="capitalize"
-        >
-          catalytic activity
+        <h3>
+          Catalytic activity
         </h3>
         <span
           class="text-block"
@@ -3594,11 +3588,14 @@ exports[`Entry view should render for non-human entry 1`] = `
             />
           </div>
         </span>
-        <h3
-          class="capitalize"
-        >
-          cofactor
+        <h3>
+          Cofactor
         </h3>
+        <div
+          class="text-block"
+        >
+          Protein has 1 cofactor binding site:
+        </div>
         <section
           class="text-block"
         >
@@ -3659,11 +3656,10 @@ exports[`Entry view should render for non-human entry 1`] = `
               id="3"
             />
           </span>
+          <br />
         </section>
-        <h3
-          class="capitalize"
-        >
-          activity regulation
+        <h3>
+          Activity regulation
         </h3>
         <div
           class="text-block"
@@ -3692,10 +3688,8 @@ exports[`Entry view should render for non-human entry 1`] = `
             id="4"
           />
         </div>
-        <h3
-          class="capitalize"
-        >
-          biotechnology
+        <h3>
+          Biotechnology
         </h3>
         <div
           class="text-block"
@@ -6183,10 +6177,9 @@ exports[`Entry view should render for non-human entry 1`] = `
           </div>
         </protvista-manager>
         <h3
-          class="capitalize"
           data-article-id="domain_cc"
         >
-          domain
+          Domain
         </h3>
         <div
           class="text-block"
