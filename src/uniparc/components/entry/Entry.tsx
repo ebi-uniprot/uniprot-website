@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { useLocation, Link, Redirect } from 'react-router-dom';
 import { stringify } from 'query-string';
 import { Loader, Tabs, Tab } from 'franklin-sites';
+import cn from 'classnames';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
@@ -39,6 +40,7 @@ import {
   searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
 
+import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../../shared/components/entry/styles/entry-page.scss';
 
 export enum TabLocation {
@@ -119,7 +121,11 @@ const Entry = () => {
   }
 
   return (
-    <SidebarLayout sidebar={sidebar} noOverflow className="entry-page">
+    <SidebarLayout
+      sidebar={sidebar}
+      noOverflow
+      className={cn('entry-page', sticky['sticky-tabs-container'])}
+    >
       <HTMLHead
         title={[
           transformedData.uniParcId,
