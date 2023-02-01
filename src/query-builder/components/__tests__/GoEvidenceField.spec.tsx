@@ -1,32 +1,32 @@
 import { render, fireEvent, screen } from '@testing-library/react';
 
-import EvidenceField, { EvidenceFieldProps } from '../EvidenceField';
+import GoEvidenceField, { GoEvidenceFieldProps } from '../GoEvidenceField';
 import { idToSearchTerm } from './__mocks__/configureSearchTerms';
 
-const props: EvidenceFieldProps = {
+const props: GoEvidenceFieldProps = {
   handleChange: jest.fn(),
   field: idToSearchTerm.go_evidence,
   initialValue: { go_evidence: 'manual' },
 };
 
-describe('EvidenceField component', () => {
+describe('GoEvidenceField component', () => {
   beforeEach(() => {
     (props.handleChange as jest.Mock).mockClear();
   });
 
   test('should render', () => {
-    const { asFragment } = render(<EvidenceField {...props} />);
+    const { asFragment } = render(<GoEvidenceField {...props} />);
     expect(asFragment()).toMatchSnapshot();
   });
 
   test('should initialise', () => {
-    render(<EvidenceField {...props} />);
+    render(<GoEvidenceField {...props} />);
     const select = screen.getByRole<HTMLSelectElement>('combobox');
     expect(select.value).toBe('manual');
   });
 
   test('should change evidence', () => {
-    render(<EvidenceField {...props} />);
+    render(<GoEvidenceField {...props} />);
     const evidenceSelect = screen.getByRole('combobox');
     fireEvent.change(evidenceSelect, {
       target: { value: 'automatic' },

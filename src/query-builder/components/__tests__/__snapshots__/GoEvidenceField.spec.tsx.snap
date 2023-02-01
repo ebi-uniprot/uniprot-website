@@ -1,0 +1,143 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GoEvidenceField component should render 1`] = `
+<DocumentFragment>
+  <label>
+    Evidence
+    <select>
+      <optgroup
+        label="Any"
+      >
+        <option
+          value="any"
+        >
+          Any assertion method
+        </option>
+        <option
+          value="manual"
+        >
+          Any manual assertion
+        </option>
+        <option
+          value="automatic"
+        >
+          Any automatic assertion
+        </option>
+      </optgroup>
+      <optgroup
+        label="Manual assertions"
+      >
+        <option
+          value="exp"
+        >
+          Inferred from experiment [EXP]
+        </option>
+        <option
+          value="iba"
+        >
+          Inferred from biological aspect of ancestor [IBA]
+        </option>
+        <option
+          value="ic"
+        >
+          Inferred by curator [IC]
+        </option>
+        <option
+          value="ida"
+        >
+          Inferred from direct assay [IDA]
+        </option>
+        <option
+          value="iep"
+        >
+          Inferred from expression pattern [IEP]
+        </option>
+        <option
+          value="igc"
+        >
+          Inferred from genomic context [IGC]
+        </option>
+        <option
+          value="igi"
+        >
+          Inferred from genetic interaction [IGI]
+        </option>
+        <option
+          value="imp"
+        >
+          Inferred from mutant phenotype [IMP]
+        </option>
+        <option
+          value="ipi"
+        >
+          Inferred from physical interaction [IPI]
+        </option>
+        <option
+          value="isa"
+        >
+          Inferred from sequence alignment [ISA]
+        </option>
+        <option
+          value="ism"
+        >
+          Inferred from sequence mode [ISM]
+        </option>
+        <option
+          value="iso"
+        >
+          Inferred from sequence orthology [ISO]
+        </option>
+        <option
+          value="iss"
+        >
+          Inferred from sequence or structural similarity [ISS]
+        </option>
+        <option
+          value="nas"
+        >
+          Non-traceable author statement [NAS]
+        </option>
+        <option
+          value="tas"
+        >
+          Traceable author statement [TAS]
+        </option>
+        <option
+          value="hda"
+        >
+          Inferred from high throughput direct assay [HDA]
+        </option>
+        <option
+          value="hmp"
+        >
+          Inferred from high throughput mutant phenotype [HMP]
+        </option>
+        <option
+          value="hgi"
+        >
+          Inferred from high throughput genetic interaction [HGI]
+        </option>
+        <option
+          value="hep"
+        >
+          Interred from high throughput expression pattern [HEP]
+        </option>
+        <option
+          value="htp"
+        >
+          Inferred from high throughput experiment [HTP]
+        </option>
+      </optgroup>
+      <optgroup
+        label="Automatic assertions"
+      >
+        <option
+          value="iea"
+        >
+          Inferred from electronic annotation [IEA]
+        </option>
+      </optgroup>
+    </select>
+  </label>
+</DocumentFragment>
+`;
