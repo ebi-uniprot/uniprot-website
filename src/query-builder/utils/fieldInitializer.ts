@@ -16,6 +16,19 @@ const initializer = (
     return initialValue.go_evidence;
   }
 
+  // The presence of the term indicates user only wants experimental evidence
+  if (initialValue && field.fieldType === 'experimental_evidence') {
+    return String(field.term in initialValue);
+  }
+
+  if (initialValue && initialValue[`${field.term}_exp`]) {
+    return initialValue[`${field.term}_exp`];
+  }
+
+  if (initialValue && initialValue[`${field.autoCompleteQueryTerm}_exp`]) {
+    return initialValue[`${field.autoCompleteQueryTerm}_exp`];
+  }
+
   if (field.term === 'xref' && initialValue?.database) {
     return '*';
   }
