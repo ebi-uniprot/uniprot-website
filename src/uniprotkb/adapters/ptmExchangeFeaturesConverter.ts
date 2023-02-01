@@ -53,8 +53,13 @@ const convertPtmExchangePtms = (
     [confidenceScore] = confidenceScores;
   }
 
+  const sources = ptms.flatMap(({ sources }) =>
+    sources.map((source) => source)
+  );
+  const [source] = sources || [''];
+
   return {
-    source: 'PTMeXchange',
+    source,
     type: 'Modified residue (large scale)',
     location: {
       start: { value: absolutePosition, modifier: 'EXACT' },
@@ -73,10 +78,6 @@ export const convertPtmExchangeFeatures = (
     {};
   for (const feature of features) {
     for (const ptm of feature.ptms) {
-      if (!ptm.sources?.includes('PTMeXchange')) {
-        // eslint-disable-next-line no-continue
-        continue;
-      }
       const absolutePosition = +feature.begin + ptm.position - 1;
       if (!Number.isFinite(absolutePosition)) {
         logging.error(
