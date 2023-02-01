@@ -17,7 +17,7 @@ import {
 import { Integrations as SentryIntegrations } from '@sentry/tracing';
 
 import BaseLayout from '../../shared/components/layouts/BaseLayout';
-import SingleColumnLayout from '../../shared/components/layouts/SingleColumnLayout';
+import { SingleColumnLayout } from '../../shared/components/layouts/SingleColumnLayout';
 import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
 import GDPR from '../../shared/components/gdpr/GDPR';
 import DeploymentWarning from './DeploymentWarning';
@@ -322,7 +322,6 @@ const App = () => {
             />
             {/* Entry pages */}
             {/* Main namespaces */}
-
             <Route
               path={LocationToPath[Location.UniProtKBEntry]}
               component={UniProtKBEntryPage}

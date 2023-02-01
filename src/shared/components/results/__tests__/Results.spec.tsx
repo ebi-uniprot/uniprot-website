@@ -4,8 +4,19 @@ import Results from '../Results';
 
 import customRender from '../../../__test-helpers__/customRender';
 
-import '../../../../uniprotkb/components/__mocks__/mockApi';
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
+
+import '../../../../uniprotkb/components/__mocks__/mockApi';
+
+jest.mock('../SearchSuggestions', () => ({
+  __esModule: true,
+  default: () => '{{ SearchSuggestions }}',
+}));
+
+jest.mock('../DidYouMean', () => ({
+  __esModule: true,
+  default: () => '{{ DidYouMean }}',
+}));
 
 describe('Results component', () => {
   // Testing the button, and testing the 2 views, this is probably enough

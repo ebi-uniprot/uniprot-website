@@ -1,37 +1,26 @@
-import { lazy, Suspense, FC } from 'react';
+import { ReactNode } from 'react';
 
 import UniProtHeader from './UniProtHeader';
 
 import ErrorBoundary from '../error-component/ErrorBoundary';
 import MessageManagerContainer from '../../../messages/components/MessageManagerContainer';
 
-import './styles/base-layout.scss';
+import styles from './styles/base-layout.module.scss';
 
-const UniProtFooter = lazy(
-  () => import(/* webpackChunkName: "footer" */ './UniProtFooter')
-);
-
-const BaseLayout: FC = ({ children }) => (
-  <div className="base-layout">
-    <header className="main-header">
+const BaseLayout = ({ children }: { children: ReactNode }) => (
+  <div className={styles['base-layout']}>
+    <header className={styles['main-header']}>
       <ErrorBoundary fallback={null}>
         <UniProtHeader />
       </ErrorBoundary>
     </header>
-    <section className="in-page-messages">
+    <section className={styles['in-page-messages']}>
       <ErrorBoundary fallback={null}>
         <MessageManagerContainer />
       </ErrorBoundary>
     </section>
-    <div className="main-content">
+    <div className={styles['main-content']}>
       <ErrorBoundary>{children}</ErrorBoundary>
-    </div>
-    <div className="footer">
-      <ErrorBoundary>
-        <Suspense fallback={null}>
-          <UniProtFooter />
-        </Suspense>
-      </ErrorBoundary>
     </div>
   </div>
 );

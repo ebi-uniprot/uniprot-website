@@ -171,6 +171,7 @@ const BasketMiniViewTab = ({
       />
       {/* both classnames from Franklin */}
       <div className="button-group sliding-panel__button-row">
+        {' '}
         <Button
           variant="secondary"
           onClick={() => {

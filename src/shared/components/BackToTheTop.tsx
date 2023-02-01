@@ -5,9 +5,12 @@ import cn from 'classnames';
 import useScrollInfo from '../hooks/useScrollInfo';
 
 import styles from './styles/back-to-the-top.module.scss';
+import baseLayoutStyles from './layouts/styles/base-layout.module.scss';
 
 const BackToTheTop = () => {
-  const { direction, scrollY } = useScrollInfo();
+  const { direction, scrollY } = useScrollInfo(
+    `.${baseLayoutStyles['main-content']}`
+  );
 
   const visible = direction === 'up' && scrollY > 750;
 

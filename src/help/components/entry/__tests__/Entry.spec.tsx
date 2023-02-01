@@ -15,6 +15,11 @@ const mock = new MockAdapter(axios);
 
 mock.onGet(/api\/help\/canonical_and_isoforms/).reply(200, mockData);
 
+jest.mock('../../../../shared/components/layouts/UniProtFooter', () => ({
+  __esModule: true,
+  default: () => '{{ Footer }}',
+}));
+
 describe('Help entry tests', () => {
   it('should render the Entry component', async () => {
     const { asFragment } = customRender(
