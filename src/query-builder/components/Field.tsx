@@ -3,7 +3,7 @@ import { FC } from 'react';
 import RangeField from './RangeField';
 import EnumField from './EnumField';
 import TextField from './TextField';
-import EvidenceField from './EvidenceField';
+import GoEvidenceField from './GoEvidenceField';
 import ExperimentalEvidenceField from './ExperimentalEvidenceField';
 import AutocompleteField from './AutocompleteField';
 
@@ -27,9 +27,6 @@ const Field: FC<FieldProps> = ({
     case Boolean(autoComplete):
       GenericField = AutocompleteField;
       break;
-    case dataType === 'boolean' && fieldType === 'experimental_evidence':
-      GenericField = ExperimentalEvidenceField;
-      break;
     case dataType === 'enum' || dataType === 'boolean':
       GenericField = EnumField;
       break;
@@ -37,8 +34,11 @@ const Field: FC<FieldProps> = ({
     case dataType === 'integer' && fieldType === 'range':
       GenericField = RangeField;
       break;
+    case dataType === 'string' && fieldType === 'experimental_evidence':
+      GenericField = ExperimentalEvidenceField;
+      break;
     case dataType === 'string' && fieldType === 'evidence':
-      GenericField = EvidenceField;
+      GenericField = GoEvidenceField;
       break;
     case dataType === 'string':
     case dataType === 'integer':
