@@ -1548,6 +1548,11 @@ exports[`UniProtKBColumnConfiguration component should render column "keywordid"
 
 exports[`UniProtKBColumnConfiguration component should render column "kinetics": kinetics 1`] = `
 <DocumentFragment>
+  <h4
+    class="tiny"
+  >
+    Isoform 3
+  </h4>
   <section
     class="text-block"
   >

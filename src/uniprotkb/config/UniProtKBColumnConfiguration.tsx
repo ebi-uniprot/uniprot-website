@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { lazy } from 'react';
+import { Fragment, lazy } from 'react';
 import { Link } from 'react-router-dom';
 import {
   DoughnutChart,
@@ -793,9 +793,19 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.kinetics, {
     const { bioPhysicoChemicalProperties } = data[
       EntrySection.Function
     ] as FunctionUIModel;
+
     return (
       bioPhysicoChemicalProperties.kinetics && (
-        <KineticsView data={bioPhysicoChemicalProperties.kinetics} />
+        <>
+          {Object.entries(bioPhysicoChemicalProperties.kinetics).map(
+            ([key, value]) => (
+              <Fragment key={key}>
+                {key !== 'canonical' && <h4 className="tiny">{key}</h4>}
+                <KineticsView data={value} />
+              </Fragment>
+            )
+          )}
+        </>
       )
     );
   },
