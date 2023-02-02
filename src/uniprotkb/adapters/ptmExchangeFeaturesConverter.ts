@@ -37,20 +37,20 @@ const convertPtmExchangePtms = (
   ];
   const confidenceScores = new Set(
     ptms.flatMap(({ dbReferences }) =>
-      dbReferences.map(({ properties }) => properties['Confidence score'])
+      dbReferences?.map(({ properties }) => properties['Confidence score'])
     )
   );
   let confidenceScore: ConfidenceScore | undefined;
-  if (!confidenceScores.size) {
-    logging.error('PTMeXchange PTM has no confidence score');
-  } else if (confidenceScores.size > 1) {
-    logging.error(
-      `PTMeXchange PTM has a mixture of confidence scores: ${Array.from(
-        confidenceScores
-      )}`
-    );
-  } else {
-    [confidenceScore] = confidenceScores;
+  if (confidenceScores.size) {
+    if (confidenceScores.size > 1) {
+      logging.error(
+        `PTMeXchange PTM has a mixture of confidence scores: ${Array.from(
+          confidenceScores
+        )}`
+      );
+    } else {
+      [confidenceScore] = confidenceScores;
+    }
   }
 
   const sources = ptms.flatMap(({ sources }) =>
