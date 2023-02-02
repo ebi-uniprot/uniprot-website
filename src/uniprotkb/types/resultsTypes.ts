@@ -23,23 +23,17 @@ export enum ColumnSelectTab {
 }
 
 export type SelectedColumn = {
-  tabId: ColumnSelectTab;
-  accordionId: string;
   itemId: Column;
   label: string;
 };
 
 export type FieldDatum = {
   id: string;
-  title: string;
-  items: {
-    id: Column;
-    label: string;
-    sortField?: string;
-  }[];
+  label: string;
+  items?: FieldDatum[];
 };
 
-export type FieldData = Partial<Record<ColumnSelectTab, FieldDatum[]>>;
+export type FieldData = FieldDatum[];
 
 export type ReceivedField = {
   name: Column;
