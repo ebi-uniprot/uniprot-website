@@ -89,7 +89,7 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
   }
   const fieldDataForSelectedColumns = removableSelectedColumns
     .map((itemId) => {
-      const label = getLabel(fieldData, itemId);
+      const label = getLabel(fieldData, namespace, itemId);
       return (
         label !== null && {
           itemId,

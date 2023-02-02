@@ -1,4 +1,5 @@
 import { Bubble } from 'franklin-sites';
+import { memoize } from 'lodash-es';
 
 import { getBEMClassName as bem } from '../../../utils/utils';
 
@@ -11,6 +12,7 @@ import {
   FieldDatum,
   SelectedColumn,
 } from '../../../../uniprotkb/types/resultsTypes';
+import { Namespace } from '../../../types/namespaces';
 
 type PreparedField = {
   id: Column;
@@ -95,21 +97,30 @@ export const getTabTitle = (
   </div>
 );
 
-export const getLabel = (
+const getLabelInner = (
   fieldData: FieldData | FieldDatum,
   id: string
 ): string | null => {
   if (Array.isArray(fieldData)) {
     for (const item of fieldData) {
-      const label = getLabel(item, id);
+      const label = getLabelInner(item, id);
       if (label) {
         return label;
       }
     }
   } else if (fieldData.items) {
-    return getLabel(fieldData.items, id);
+    return getLabelInner(fieldData.items, id);
   } else if (fieldData.id === id) {
     return fieldData.label;
   }
   return null;
 };
+
+export const getLabel = memoize(
+  (
+    fieldData: FieldData | FieldDatum,
+    _namespace: Namespace,
+    id: string
+  ): string | null => getLabelInner(fieldData, id),
+  (_fieldData, namespace, id) => `${namespace}${id}`
+);
