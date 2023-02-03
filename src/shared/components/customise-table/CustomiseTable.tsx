@@ -29,6 +29,7 @@ const CustomiseTable = ({ onClose, namespace }: CustomiseTableProps) => {
     }` as const,
     defaultColumns
   );
+
   const [columns, setColumns] = useState(localStorageColumns);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -40,8 +41,7 @@ const CustomiseTable = ({ onClose, namespace }: CustomiseTableProps) => {
 
   const handleReset = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLocalStorageColumns(defaultColumns);
-    frame().then(onClose);
+    setColumns(defaultColumns);
   };
 
   return (
