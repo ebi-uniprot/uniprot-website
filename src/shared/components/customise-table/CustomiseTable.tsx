@@ -1,4 +1,4 @@
-import { FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
 import { Button } from 'franklin-sites';
 import { useRouteMatch } from 'react-router-dom';
 import cn from 'classnames';
@@ -23,22 +23,24 @@ type CustomiseTableProps = {
 const CustomiseTable = ({ onClose, namespace }: CustomiseTableProps) => {
   const isEntryPage = Boolean(useRouteMatch(allEntryPages));
   const defaultColumns = nsToDefaultColumns(namespace, isEntryPage);
-  const [columns, setColumns] = useLocalStorage(
+  const [localStorageColumns, setLocalStorageColumns] = useLocalStorage(
     `table columns for ${namespace}${
       isEntryPage ? ' entry page' : ''
     }` as const,
     defaultColumns
   );
+  const [columns, setColumns] = useState(localStorageColumns);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onClose();
+    setLocalStorageColumns(columns);
+    // Have to delay closing otherwise sometimes it doesn't save
+    frame().then(onClose);
   };
 
   const handleReset = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setColumns(defaultColumns);
-    // Have to delay closing otherwise sometimes it doesn't save
+    setLocalStorageColumns(defaultColumns);
     frame().then(onClose);
   };
 
