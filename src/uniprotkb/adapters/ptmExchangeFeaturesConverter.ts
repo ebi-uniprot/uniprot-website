@@ -30,7 +30,7 @@ const convertPtmExchangePtms = (
         {
           evidenceCode,
           source: 'PRIDE',
-          id,
+          id: id === 'Glue project' ? 'PXD012174' : id, // Glue project dataset is quite old and the 'PXD' ID is provided by PRIDE themselves
         },
       ])
     ),
@@ -54,7 +54,7 @@ const convertPtmExchangePtms = (
   }
 
   const sources = ptms.flatMap(({ sources }) =>
-    sources.map((source) => source)
+    sources?.map((source) => source)
   );
   const [source] = sources || [''];
 
