@@ -16,6 +16,7 @@ type CustomiseTableProps = {
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
   onReset: (e: FormEvent<HTMLFormElement>) => void;
   onChange: (columns: Column[]) => void;
+  onCancel: () => void;
 };
 
 const CustomiseTable = ({
@@ -25,6 +26,7 @@ const CustomiseTable = ({
   onSubmit,
   onReset,
   onChange,
+  onCancel,
 }: CustomiseTableProps) => (
   <form
     onSubmit={onSubmit}
@@ -48,6 +50,9 @@ const CustomiseTable = ({
       >
         <Button variant="secondary" type="reset">
           Reset to default
+        </Button>
+        <Button variant="secondary" onClick={onCancel}>
+          Cancel
         </Button>
         <Button type="submit">Save</Button>
       </div>

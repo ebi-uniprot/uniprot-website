@@ -46,7 +46,7 @@ const CustomiseButton = ({ namespace }: { namespace: Namespace }) => {
     save();
   };
 
-  const handleClose = (reason: string) => {
+  const handleClose = (reason?: string) => {
     if (reason === 'outside') {
       save();
     }
@@ -73,6 +73,7 @@ const CustomiseButton = ({ namespace }: { namespace: Namespace }) => {
                 isEntryPage={isEntryPage}
                 namespace={namespace}
                 columns={columns}
+                onCancel={handleClose}
                 onChange={setColumns}
                 onReset={handleReset}
                 onSubmit={handleSubmit}
