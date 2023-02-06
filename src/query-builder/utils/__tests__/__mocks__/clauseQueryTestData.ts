@@ -1,6 +1,6 @@
 import { Clause } from '../../../types/searchTypes';
 
-import { idToSearchTerm } from '../../../components/__tests__/__mocks__/configureSearchTerms';
+import { getSearchTerm } from '../../../components/__tests__/__mocks__/configureSearchTerms';
 import { getAllTerm } from '../../clause';
 
 const testData = [
@@ -10,7 +10,7 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: idToSearchTerm.id_field,
+        searchTerm: getSearchTerm('id_field'),
         queryBits: {
           id: 'blah blah',
         },
@@ -23,7 +23,7 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: idToSearchTerm.id_field,
+        searchTerm: getSearchTerm('id_field'),
         logicOperator: 'NOT',
         queryBits: {
           id: 'blah',
@@ -37,7 +37,7 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: idToSearchTerm.organism_name_field,
+        searchTerm: getSearchTerm('organism_name_field'),
         queryBits: {
           organism_name: 'Homo sap',
         },
@@ -50,7 +50,7 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: idToSearchTerm.organism_name_field,
+        searchTerm: getSearchTerm('organism_name_field'),
         queryBits: {
           organism_id: '9606',
         },
@@ -63,7 +63,7 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: idToSearchTerm.ftlen_sites,
+        searchTerm: getSearchTerm('ftlen_sites'),
         queryBits: {
           ftlen_sites: '[10 TO 100]',
         },
@@ -76,7 +76,7 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: idToSearchTerm.ftlen_sites,
+        searchTerm: getSearchTerm('ftlen_sites'),
         queryBits: {
           ftlen_sites: '[10 TO *]',
         },
@@ -89,7 +89,7 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: idToSearchTerm.date_created,
+        searchTerm: getSearchTerm('date_created'),
         queryBits: {
           date_created: '[2018-03-04 TO 2018-03-08]',
         },
@@ -102,7 +102,7 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: idToSearchTerm.existence,
+        searchTerm: getSearchTerm('existence'),
         queryBits: {
           existence: 'predicted',
         },
@@ -115,7 +115,7 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: idToSearchTerm.xref_pdb,
+        searchTerm: getSearchTerm('xref_pdb'),
         queryBits: {
           xref: 'pdb-Something',
         },
@@ -128,7 +128,7 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: idToSearchTerm.id_xref_any,
+        searchTerm: getSearchTerm('id_xref_any'),
         queryBits: {
           xref: 'Something',
         },
@@ -156,7 +156,7 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: idToSearchTerm.id_xref_embl,
+        searchTerm: getSearchTerm('id_xref_embl'),
         queryBits: {
           database: 'embl',
         },
@@ -169,14 +169,14 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: idToSearchTerm.id_field,
+        searchTerm: getSearchTerm('id_field'),
         queryBits: {
           id: 'blah',
         },
       },
       {
         id: 1,
-        searchTerm: idToSearchTerm.protein_name_field,
+        searchTerm: getSearchTerm('protein_name_field'),
         logicOperator: 'OR',
         queryBits: {
           protein_name: 'My protein',
@@ -190,7 +190,7 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: idToSearchTerm.chebi_term,
+        searchTerm: getSearchTerm('chebi_term'),
         queryBits: {
           cc_cofactor_chebi: 'CHEBI:12345',
           cc_cofactor_chebi_exp: 'true',
@@ -204,7 +204,7 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: idToSearchTerm.chebi_term,
+        searchTerm: getSearchTerm('chebi_term'),
         queryBits: {
           cc_cofactor_chebi: 'CHEBI:12345',
         },
@@ -218,7 +218,7 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: idToSearchTerm.sites_any,
+        searchTerm: getSearchTerm('sites_any'),
         queryBits: {
           ft_sites: 'my_site',
           ft_sites_exp: 'true',
@@ -227,7 +227,7 @@ const testData = [
       },
       {
         id: 1,
-        searchTerm: idToSearchTerm.gene_field,
+        searchTerm: getSearchTerm('gene_field'),
         logicOperator: 'AND',
         queryBits: {
           gene: 'my_gene',
@@ -242,7 +242,7 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: idToSearchTerm.gene_ontology,
+        searchTerm: getSearchTerm('gene_ontology'),
         queryBits: {
           go: '0002381',
           go_evidence: 'exp',
@@ -257,7 +257,7 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: idToSearchTerm.gene_ontology,
+        searchTerm: getSearchTerm('gene_ontology'),
         queryBits: {
           go: '*',
         },
@@ -271,7 +271,7 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: idToSearchTerm.gene_ontology,
+        searchTerm: getSearchTerm('gene_ontology'),
         queryBits: {
           All: 'homo sapiens',
         },

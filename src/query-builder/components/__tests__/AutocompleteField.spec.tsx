@@ -2,9 +2,9 @@ import { render, screen } from '@testing-library/react';
 
 import AutocompleteField from '../AutocompleteField';
 
-import { idToSearchTerm } from './__mocks__/configureSearchTerms';
+import { getSearchTerm } from './__mocks__/configureSearchTerms';
 
-const field = idToSearchTerm.organism_name_field;
+const field = getSearchTerm('organism_name_field');
 
 describe('AutocompleteField', () => {
   test('Autocomplete field should be initialised with id', () => {

@@ -4812,9 +4812,16 @@ const configureSearchTerms = [
 ] as SearchTermType[];
 // TODO: remove type casting from configureSearchTerms https://www.ebi.ac.uk/panda/jira/browse/TRM-26787
 
-export const idToSearchTerm = keyBy(
-  flatten(configureSearchTerms),
+const idToSearchTerm = keyBy(
+  flatten(configureSearchTerms).filter(({ itemType }) => itemType !== 'group'),
   ({ id }) => id
 );
+
+export const getSearchTerm = (id: string) => {
+  if (id in idToSearchTerm) {
+    return idToSearchTerm[id];
+  }
+  throw new Error(`${id} not in search term mock data`);
+};
 
 export default configureSearchTerms;

@@ -1,11 +1,11 @@
 import { render, fireEvent, screen } from '@testing-library/react';
 
 import GoEvidenceField, { GoEvidenceFieldProps } from '../GoEvidenceField';
-import { idToSearchTerm } from './__mocks__/configureSearchTerms';
+import { getSearchTerm } from './__mocks__/configureSearchTerms';
 
 const props: GoEvidenceFieldProps = {
   handleChange: jest.fn(),
-  field: idToSearchTerm.go_evidence,
+  field: getSearchTerm('go_evidence'),
   initialValue: { go_evidence: 'manual' },
 };
 
