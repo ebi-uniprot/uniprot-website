@@ -128,7 +128,7 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: getSearchTerm('id_xref_any'),
+        searchTerm: getSearchTerm('xref_any'),
         queryBits: {
           xref: 'Something',
         },
@@ -156,7 +156,7 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: getSearchTerm('id_xref_embl'),
+        searchTerm: getSearchTerm('xref_embl'),
         queryBits: {
           database: 'embl',
         },
