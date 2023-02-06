@@ -7,11 +7,13 @@ import {
   useRef,
   useCallback,
 } from 'react';
-import { TreeSelect, Loader, Message, ExternalLink } from 'franklin-sites';
+import { TreeSelect, Loader, Message } from 'franklin-sites';
 import { formatTooltip } from 'protvista-feature-adapter';
 
 import Wrapped from './Wrapped';
 import Overview from './Overview';
+
+import ExternalLink from '../../shared/components/ExternalLink';
 
 import {
   MsaColorScheme,

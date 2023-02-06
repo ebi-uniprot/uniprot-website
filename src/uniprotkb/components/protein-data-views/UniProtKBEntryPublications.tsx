@@ -1,6 +1,7 @@
-import { ExpandableList, ExternalLink, Loader, Message } from 'franklin-sites';
+import { ExpandableList, Loader, Message } from 'franklin-sites';
 
 import LiteratureCitation from '../../../supporting-data/citations/components/LiteratureCitation';
+import ExternalLink from '../../../shared/components/ExternalLink';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 

@@ -1,6 +1,8 @@
-import { DecoratedListItem, ExternalLink } from 'franklin-sites';
+import { DecoratedListItem } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
+
+import ExternalLink from '../../../shared/components/ExternalLink';
 
 import {
   getLocationEntryPath,
