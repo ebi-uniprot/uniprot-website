@@ -68,10 +68,11 @@ const CustomiseButton = ({ namespace }: { namespace: Namespace }) => {
   const handleClose = (reason: 'outside' | 'button' | 'cancel') => {
     if (reason === 'outside') {
       save();
+    } else {
+      // If user closes but doesn't save, resync component state with local storage state
+      setColumns(localStorageColumns);
     }
     logEvent(reason);
-    // If user closes but doens't save resync component state with local storage state
-    setColumns(localStorageColumns);
     close();
   };
 
