@@ -13,6 +13,7 @@ import styles from './styles/customise-button.module.scss';
 import { allEntryPages } from '../../../app/config/urls';
 import { nsToDefaultColumns } from '../../config/columns';
 import useLocalStorage from '../../hooks/useLocalStorage';
+import { gtagFn } from '../../utils/logging';
 
 const CustomiseTable = lazy(
   () =>
@@ -20,6 +21,23 @@ const CustomiseTable = lazy(
       /* webpackChunkName: "customise" */ '../customise-table/CustomiseTable'
     )
 );
+
+/*
+| Reason  | User clicked               |
+|---------|----------------------------|
+| outside | outside the panel          |
+| button  | top right close (x) button |
+| cancel  | cancel                     |
+| submit  | save                       |
+*/
+type Reason = 'outside' | 'button' | 'cancel' | 'submit';
+
+// Log the way in which users are closing the customise table panel
+const logEvent = (reason: Reason) => {
+  gtagFn('event', 'Column Select Close', {
+    event_category: reason,
+  });
+};
 
 const CustomiseButton = ({ namespace }: { namespace: Namespace }) => {
   const [displayCustomisePanel, setDisplayCustomisePanel] = useState(false);
@@ -43,13 +61,15 @@ const CustomiseButton = ({ namespace }: { namespace: Namespace }) => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    logEvent('submit');
     save();
   };
 
-  const handleClose = (reason?: string) => {
+  const handleClose = (reason: 'outside' | 'button' | 'cancel') => {
     if (reason === 'outside') {
       save();
     }
+    logEvent(reason);
     close();
   };
 
