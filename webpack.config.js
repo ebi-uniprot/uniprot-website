@@ -8,57 +8,35 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const jsonImporter = require('node-sass-json-importer');
 const childProcess = require('child_process');
+// custom plugins
+const LegacyModuleSplitPlugin = require('./webpack-plugins/legacy-module-split-plugin');
+
 // some plugins are conditionally-loaded as they are also conditionally used.
 
-module.exports = (env, argv) => {
-  const isDev = argv.mode === 'development';
-  const isLiveReload = !!env.WEBPACK_SERVE;
-  const isTest = env.TEST;
-  const gitCommitHash = childProcess
-    .execSync('git rev-parse --short HEAD')
-    .toString()
-    .trim();
-  const gitCommitState = childProcess
-    .execSync('git status --porcelain')
-    .toString();
-  const gitBranch =
-    env.GIT_BRANCH ||
-    childProcess.execSync('git symbolic-ref --short HEAD').toString();
-  let publicPath = '/';
-  if (env.PUBLIC_PATH) {
-    // if we have an array, it means we've probably overriden env in the CLI
-    // from a predefined env in a yarn/npm script
-    if (Array.isArray(env.PUBLIC_PATH)) {
-      // so we take the last one
-      publicPath = env.PUBLIC_PATH[env.PUBLIC_PATH.length - 1];
-    } else {
-      publicPath = env.PUBLIC_PATH;
-    }
-  }
+const legacyModuleSplitPlugin = new LegacyModuleSplitPlugin();
 
-  let apiPrefix;
-  if (env.API_PREFIX) {
-    // if we have an array, it means we've probably overriden env in the CLI
-    // from a predefined env in a yarn/npm script
-    if (Array.isArray(env.API_PREFIX)) {
-      // so we take the last one
-      apiPrefix = env.API_PREFIX[env.API_PREFIX.length - 1];
-    } else {
-      apiPrefix = env.API_PREFIX;
-    }
-  } else {
-    throw new Error('API_PREFIX must be set');
-  }
+const getConfigFor = ({
+  isModern,
+  isDev,
+  isLiveReload,
+  isTest,
+  gitCommitHash,
+  gitCommitState,
+  gitBranch,
+  publicPath,
+  apiPrefix,
+}) => {
+  const bundleName = isModern ? 'modern' : 'legacy';
 
   const config = {
+    name: bundleName,
     context: __dirname,
     entry: [path.resolve(__dirname, 'src/index.tsx')],
     output: {
       path: path.resolve(__dirname, 'build'),
       publicPath,
-      filename: 'app.[contenthash:6].js',
-      chunkFilename: '[name].[contenthash:6].js',
-      clean: true,
+      filename: `${bundleName}.app.[chunkhash:6].js`,
+      chunkFilename: `${bundleName}.[name].[chunkhash:6].js`,
       assetModuleFilename: '[name].[contenthash:6][ext]',
     },
     devtool: (() => {
@@ -131,7 +109,31 @@ module.exports = (env, argv) => {
             /node_modules\/((?!protvista-msa|react-msa-viewer|franklin-sites|protvista-uniprot|p-map|aggregate-error|molstar).*)/,
           use: {
             loader: 'babel-loader',
-            options: { cacheDirectory: true },
+            options: {
+              cacheDirectory: true,
+              presets: [
+                [
+                  '@babel/preset-env',
+                  {
+                    useBuiltIns: 'usage',
+                    corejs: { version: '3.25.1', proposals: true },
+                    targets:
+                      isModern && !isTest
+                        ? {
+                            esmodules: true,
+                          }
+                        : {
+                            esmodules: false,
+                            browsers:
+                              'defaults, Firefox >= 35, Chrome >= 40, Edge >= 12, Safari >= 9, cover 95% in CN, not dead',
+                          },
+                  },
+                ],
+                ['@babel/preset-react', { runtime: 'automatic' }],
+                '@babel/preset-typescript',
+              ],
+              plugins: ['@babel/plugin-transform-runtime'],
+            },
           },
         },
         /**
@@ -228,6 +230,7 @@ module.exports = (env, argv) => {
         process: 'process/browser',
       }),
       !isLiveReload &&
+        isModern &&
         // Copy static (or near-static) files
         new CopyPlugin({
           patterns: [
@@ -250,14 +253,19 @@ module.exports = (env, argv) => {
           ],
         }),
       new HtmlWebPackPlugin({
-        template: `${__dirname}/index.html`,
+        template: `${__dirname}/index.ejs`,
         filename: 'index.html',
-        templateParameters: () => ({
+        inject: false,
+        templateParameters: (_compilation, assets, _assetTags, options) => ({
           isDev,
           isLiveReload,
+          options,
+          assets,
         }),
       }),
+      legacyModuleSplitPlugin,
       new DefinePlugin({
+        MODERN_BUNDLE: JSON.stringify(isModern),
         BASE_URL: JSON.stringify(publicPath),
         API_PREFIX: JSON.stringify(apiPrefix),
         LIVE_RELOAD: JSON.stringify(isLiveReload),
@@ -266,6 +274,7 @@ module.exports = (env, argv) => {
         GIT_BRANCH: JSON.stringify(gitBranch),
       }),
       !isLiveReload &&
+        isModern &&
         new (require('workbox-webpack-plugin').InjectManifest)({
           swSrc: `${__dirname}/src/service-worker/service-worker.ts`,
           // TODO: remove limit when we manage to reduce size of entrypoint
@@ -293,17 +302,20 @@ module.exports = (env, argv) => {
             /robots.txt$/,
           ],
         }),
+      // commented only while debugging
       !isLiveReload &&
         !isTest &&
         new (require('webpack-bundle-analyzer').BundleAnalyzerPlugin)({
           analyzerMode: 'disabled',
           generateStatsFile: true,
           statsOptions: { source: false },
+          statsFilename: `${bundleName}.stats.json`,
         }),
       !isLiveReload &&
         new MiniCssExtractPlugin({
-          filename: '[name].[contenthash:6].css',
-          chunkFilename: '[name].[contenthash:6].css',
+          filename: `styles.[contenthash:6].css`,
+          chunkFilename: `styles.[contenthash:6].css`,
+          ignoreOrder: true,
         }),
     ].filter(Boolean),
     // END PLUGINS
@@ -367,8 +379,63 @@ module.exports = (env, argv) => {
     },
   };
 
+  return config;
+};
+
+module.exports = (env, argv) => {
+  const isDev = argv.mode === 'development';
+  const isLiveReload = !!env.WEBPACK_SERVE;
+  const isTest = env.TEST;
+  const gitCommitHash = childProcess
+    .execSync('git rev-parse --short HEAD')
+    .toString()
+    .trim();
+  const gitCommitState = childProcess
+    .execSync('git status --porcelain')
+    .toString();
+  const gitBranch =
+    env.GIT_BRANCH ||
+    childProcess.execSync('git symbolic-ref --short HEAD').toString();
+  let publicPath = '/';
+  if (env.PUBLIC_PATH) {
+    // if we have an array, it means we've probably overriden env in the CLI
+    // from a predefined env in a yarn/npm script
+    if (Array.isArray(env.PUBLIC_PATH)) {
+      // so we take the last one
+      publicPath = env.PUBLIC_PATH[env.PUBLIC_PATH.length - 1];
+    } else {
+      publicPath = env.PUBLIC_PATH;
+    }
+  }
+
+  let apiPrefix;
+  if (env.API_PREFIX) {
+    // if we have an array, it means we've probably overriden env in the CLI
+    // from a predefined env in a yarn/npm script
+    if (Array.isArray(env.API_PREFIX)) {
+      // so we take the last one
+      apiPrefix = env.API_PREFIX[env.API_PREFIX.length - 1];
+    } else {
+      apiPrefix = env.API_PREFIX;
+    }
+  } else {
+    throw new Error('API_PREFIX must be set');
+  }
+
+  const modernConfig = getConfigFor({
+    isModern: true,
+    isDev,
+    isLiveReload,
+    isTest,
+    gitCommitHash,
+    gitCommitState,
+    gitBranch,
+    publicPath,
+    apiPrefix,
+  });
+
   if (isLiveReload) {
-    config.devServer = {
+    modernConfig.devServer = {
       compress: true,
       host: 'localhost',
       historyApiFallback: true,
@@ -379,5 +446,21 @@ module.exports = (env, argv) => {
     };
   }
 
-  return config;
+  if (!isDev) {
+    const legacyConfig = getConfigFor({
+      isModern: false,
+      isDev,
+      isLiveReload,
+      isTest,
+      gitCommitHash,
+      gitCommitState,
+      gitBranch,
+      publicPath,
+      apiPrefix,
+    });
+
+    return [legacyConfig, modernConfig];
+  }
+
+  return modernConfig;
 };
