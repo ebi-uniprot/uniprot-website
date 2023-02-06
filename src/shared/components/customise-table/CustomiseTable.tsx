@@ -5,9 +5,9 @@ import cn from 'classnames';
 import ColumnSelect from '../column-select/ColumnSelect';
 
 import { Namespace } from '../../types/namespaces';
+import { Column } from '../../config/columns';
 
 import sticky from '../../styles/sticky.module.scss';
-import { Column } from '../../config/columns';
 
 type CustomiseTableProps = {
   isEntryPage: boolean;
