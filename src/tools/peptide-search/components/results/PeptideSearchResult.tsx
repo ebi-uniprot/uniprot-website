@@ -81,7 +81,7 @@ type Params = {
   subPage?: TabLocation;
 };
 
-const MAX_FACETS = 1_000;
+export const MAX_FACETS = 1_000;
 
 const PeptideSearchResult = ({
   toolsState,
