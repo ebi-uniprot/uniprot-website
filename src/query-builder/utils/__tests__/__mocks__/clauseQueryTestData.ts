@@ -218,9 +218,10 @@ const testData = [
     clauses: [
       {
         id: 0,
-        searchTerm: idToSearchTerm.sites,
+        searchTerm: idToSearchTerm.sites_any,
         queryBits: {
-          ft_sites_exp: 'my_site',
+          ft_sites: 'my_site',
+          ft_sites_exp: 'true',
           ftlen_sites: '[10 TO 20]',
         },
       },
