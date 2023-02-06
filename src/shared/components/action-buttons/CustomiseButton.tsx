@@ -70,6 +70,8 @@ const CustomiseButton = ({ namespace }: { namespace: Namespace }) => {
       save();
     }
     logEvent(reason);
+    // If user closes but doens't save resync component state with local storage state
+    setColumns(localStorageColumns);
     close();
   };
 
