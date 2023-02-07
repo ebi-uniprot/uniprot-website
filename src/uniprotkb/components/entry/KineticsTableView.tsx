@@ -14,6 +14,7 @@ const tempRegEx = /(([0-9]*[.])?[0-9]+)\sdegrees\scelsius/i;
 const muRegEx = /^u/;
 const captureWordsInParanthesis = /\(((.+)(?: \((.+)\))?)\)/;
 const removeLeadingTrailingComma = /(^,)|(,$)/g;
+// const kineticsConstRegEx = /\(\d?[+-]\)|\(-\d\)|\(\d+\)/g;
 
 type KinecticsTableRow = {
   key: string;
@@ -62,10 +63,16 @@ const KineticsTable = ({
                 <td className={helper['no-wrap']}>
                   <RichText>{value.constant}</RichText>
                 </td>
-                {hasSubstrate && <td>{value.substrate}</td>}
+                {hasSubstrate && (
+                  <td>
+                    <RichText>{value.substrate}</RichText>
+                  </td>
+                )}
                 <td>{value.ph}</td>
                 <td>{value.temp}</td>
-                <td>{value.notes}</td>
+                <td>
+                  <RichText>{value.notes}</RichText>
+                </td>
                 <td>
                   <UniProtKBEvidenceTag evidences={value.evidences} />
                 </td>
@@ -175,7 +182,8 @@ export const extractFromFreeText = (data: KineticParameters) => {
   if (data.note?.texts) {
     const kcatRegEx = /\.\s/;
     // From the curation manual: kcat is expressed per unit of time, in sec(-1), min(-1) or h(-1).
-    const kcatConstantRegEx = /([0-9]*[.])?[0-9]+\s?[sec|min|h]+\s?\(-1\)/gi;
+    const kcatConstantRegEx =
+      /([0-9]*[.])?[0-9]+([x*]10\(\d+\))?\s?[sec|min|h]+\s?\(-1\)/gi;
 
     data.note?.texts.forEach((text) => {
       if (text.value.includes('kcat')) {
