@@ -234,9 +234,9 @@ const VariationView = ({
           <th>Change</th>
           <th>Description</th>
           <th>
-            Disease
+            Clinical
             <br />
-            association
+            significance
           </th>
           <th>Provenance</th>
         </tr>
@@ -317,10 +317,23 @@ const VariationView = ({
                   )}
                 </td>
                 <td>
-                  {variantFeature.association &&
-                  variantFeature.association.length > 0
-                    ? 'Yes'
-                    : 'No'}
+                  {variantFeature.clinicalSignificances?.map(
+                    (clinicalSignificance, i) => (
+                      // eslint-disable-next-line react/no-array-index-key
+                      <Fragment key={i}>
+                        {i !== 0 && <br />}
+                        <span
+                          key={`${clinicalSignificance.sources.join('-')}-${
+                            clinicalSignificance.type
+                          }`}
+                        >
+                          {`${
+                            clinicalSignificance.type
+                          } (${clinicalSignificance.sources.join(', ')})`}
+                        </span>
+                      </Fragment>
+                    )
+                  )}
                 </td>
                 <td>
                   {Array.from(
@@ -376,24 +389,6 @@ const VariationView = ({
                     <strong>Somatic: </strong>{' '}
                     {variantFeature.somaticStatus === 1 ? 'Yes' : 'No'}
                   </div>
-                  {variantFeature.clinicalSignificances?.length ? (
-                    <div>
-                      <strong>Clinical significances: </strong>
-                      {variantFeature.clinicalSignificances?.map(
-                        (clinicalSignificance) => (
-                          <div
-                            key={`${clinicalSignificance.sources.join('-')}-${
-                              clinicalSignificance.type
-                            }`}
-                          >
-                            {`- ${
-                              clinicalSignificance.type
-                            } (${clinicalSignificance.sources.join(', ')})`}
-                          </div>
-                        )
-                      )}
-                    </div>
-                  ) : null}
                   {variantFeature.populationFrequencies?.length ? (
                     <div>
                       <strong>Population frequencies: </strong>
