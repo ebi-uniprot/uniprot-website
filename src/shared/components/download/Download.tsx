@@ -264,7 +264,7 @@ const Download: FC<DownloadProps> = ({
       {redirectToIDMapping && (
         <Message level="warning">
           To download the peptide search results of more than{' '}
-          <LongNumber>{MAX_FACETS}</LongNumber> matches, we recommend using{' '}
+          <LongNumber>{MAX_FACETS}</LongNumber> matches, please use the{' '}
           <Link
             to={{
               pathname: LocationToPath[Location.IDMapping],
