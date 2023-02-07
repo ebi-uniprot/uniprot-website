@@ -6,7 +6,7 @@ import cn from 'classnames';
 import ColumnSelect from '../column-select/ColumnSelect';
 import DownloadPreview from './DownloadPreview';
 import DownloadAPIURL, { DOWNLOAD_SIZE_LIMIT } from './DownloadAPIURL';
-import { MAX_FACETS } from '../../../tools/peptide-search/components/results/PeptideSearchResult';
+import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../../tools/peptide-search/components/results/PeptideSearchResult';
 
 import useColumnNames from '../../hooks/useColumnNames';
 import useJobFromUrl from '../../hooks/useJobFromUrl';
@@ -184,7 +184,7 @@ const Download: FC<DownloadProps> = ({
   // Peptide search download for matches exceeding the threshold
   const redirectToIDMapping =
     jobResultsLocation === Location.PeptideSearchResult &&
-    downloadCount > MAX_FACETS;
+    downloadCount > MAX_PEPTIDE_FACETS_OR_DOWNLOAD;
 
   return (
     <>
@@ -264,7 +264,8 @@ const Download: FC<DownloadProps> = ({
       {redirectToIDMapping && (
         <Message level="warning">
           To download the peptide search results of more than{' '}
-          <LongNumber>{MAX_FACETS}</LongNumber> matches, please use the{' '}
+          <LongNumber>{MAX_PEPTIDE_FACETS_OR_DOWNLOAD}</LongNumber> matches,
+          please use the{' '}
           <Link
             to={{
               pathname: LocationToPath[Location.IDMapping],

@@ -30,7 +30,11 @@ import {
   Namespace,
   namespaceAndToolsLabels,
 } from '../../../../shared/types/namespaces';
-import { Location, changePathnameOnly } from '../../../../app/config/urls';
+import {
+  Location,
+  changePathnameOnly,
+  LocationToPath,
+} from '../../../../app/config/urls';
 import peptideSearchConverter from '../../adapters/peptideSearchConverter';
 
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
@@ -81,7 +85,7 @@ type Params = {
   subPage?: TabLocation;
 };
 
-export const MAX_FACETS = 1_000;
+export const MAX_PEPTIDE_FACETS_OR_DOWNLOAD = 1_000;
 
 const PeptideSearchResult = ({
   toolsState,
@@ -125,7 +129,8 @@ const PeptideSearchResult = ({
     [jobResultData]
   );
 
-  const excessAccessions = accessions && accessions?.length > MAX_FACETS;
+  const excessAccessions =
+    accessions && accessions?.length > MAX_PEPTIDE_FACETS_OR_DOWNLOAD;
 
   // Query for facets
   const initialApiFacetUrl = useNSQuery({
@@ -247,8 +252,23 @@ const PeptideSearchResult = ({
           <Suspense fallback={<Loader />}>
             {excessAccessions && (
               <Message level="warning">
-                Filters are not supported for peptide results if there are more
-                than <LongNumber>{MAX_FACETS}</LongNumber> matches.
+                To filter the peptide search results of more than{' '}
+                <LongNumber>{MAX_PEPTIDE_FACETS_OR_DOWNLOAD}</LongNumber>{' '}
+                matches, please use the{' '}
+                <Link
+                  to={{
+                    pathname: LocationToPath[Location.IDMapping],
+                    state: {
+                      parameters: {
+                        ids: accessions,
+                        name: `Peptide search matches`,
+                      },
+                    },
+                  }}
+                >
+                  ID Mapping
+                </Link>{' '}
+                service.
               </Message>
             )}
 
