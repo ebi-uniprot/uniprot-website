@@ -2,6 +2,7 @@ import useCustomElement from '../../../shared/hooks/useCustomElement';
 
 import { RichText, TextView } from '../protein-data-views/FreeTextView';
 import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
+import { needTextProcessingRE } from '../../utils';
 
 import { KineticParameters } from '../../adapters/functionConverter';
 import { Evidence } from '../../types/modelTypes';
@@ -14,7 +15,7 @@ const tempRegEx = /(([0-9]*[.])?[0-9]+)\sdegrees\scelsius/i;
 const muRegEx = /^u/;
 const captureWordsInParanthesis = /\(((.+)(?: \((.+)\))?)\)/;
 const removeLeadingTrailingComma = /(^,)|(,$)/g;
-// const kineticsConstRegEx = /\(\d?[+-]\)|\(-\d\)|\(\d+\)/g;
+const kineticsConstRegEx = /\(\d?[+-]\)|\(-\d\)|\(\d+\)/g;
 
 type KinecticsTableRow = {
   key: string;
@@ -61,7 +62,19 @@ const KineticsTable = ({
             {data.map((value) => (
               <tr key={value.key}>
                 <td className={helper['no-wrap']}>
-                  <RichText>{value.constant}</RichText>
+                  {value.constant
+                    ?.split(needTextProcessingRE)
+                    .map((part, index) =>
+                      // Support right formatting for scientific notations present in kinetic specific constants
+                      kineticsConstRegEx.test(part) ? (
+                        // eslint-disable-next-line react/no-array-index-key
+                        <sup key={index}>
+                          {part.substring(1, part.length - 1)}
+                        </sup>
+                      ) : (
+                        part
+                      )
+                    )}
                 </td>
                 {hasSubstrate && (
                   <td>
