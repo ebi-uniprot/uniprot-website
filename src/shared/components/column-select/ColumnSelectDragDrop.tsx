@@ -24,6 +24,9 @@ const ColumnSelectDragDrop: FC<ColumnSelectDragDropProps> = ({
   const previousColumns = useRef(columns);
 
   useEffect(() => {
+    // This useEffect scrolls to the rightmost of the drag and drop list whenever
+    // a user selects a new column. This is to make it clear to the user that
+    // their column selection has been registered and is present in the list.
     if (columns.length > previousColumns.current.length) {
       const dndList = document.querySelector('.column-select-drag-drop__list');
       if (dndList) {
