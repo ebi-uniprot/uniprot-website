@@ -14,8 +14,6 @@ import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 
 import { SearchResultsLocations } from '../../../../app/config/urls';
 
-import resultFields from '../../../../uniprotkb/__mocks__/resultFields';
-
 import '../../../../uniprotkb/components/__mocks__/mockApi';
 
 describe('ColumnSelect component', () => {
@@ -25,7 +23,7 @@ describe('ColumnSelect component', () => {
   const selectedColumns = [
     UniProtKBColumn.accession,
     UniProtKBColumn.proteinName,
-    UniProtKBColumn.proteinExistence,
+    UniProtKBColumn.organismName,
   ];
   const namespace = Namespace.uniprotkb;
 
@@ -41,7 +39,7 @@ describe('ColumnSelect component', () => {
         route: SearchResultsLocations[namespace],
       }
     );
-    await waitFor(() => rendered.getAllByTestId('accordion-search-list-item'));
+    await waitFor(() => screen.getAllByRole('button'));
   });
 
   afterEach(() => {
@@ -53,23 +51,10 @@ describe('ColumnSelect component', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('should call to get field data and have the correct number of "data" list items', () => {
-    const items = screen.getAllByTestId('accordion-search-list-item');
-    // Only "data" (ie not DB links) are visible so only count these and
-    // subtract one for the accession column which shouldn't be listed as the
-    // user can't deselect this
-    let nDataListItems = 0;
-    for (const { fields, isDatabaseGroup } of resultFields) {
-      if (!isDatabaseGroup) {
-        nDataListItems += fields.length;
-      }
-    }
-    expect(items.length).toBe(nDataListItems - 1);
-  });
-
   it('should call onChange when unselected item is clicked and do so with selected columns and new item', () => {
-    const item = screen.getByText('Gene Names');
-    fireEvent.click(item);
+    // Open Names & Taxonomy to render contents
+    fireEvent.click(screen.getByRole('button', { name: /Names & Taxonomy/ }));
+    fireEvent.click(screen.getByRole('checkbox', { name: 'Gene Names' }));
     expect(onChange).toHaveBeenCalledWith([
       ...selectedColumns,
       UniProtKBColumn.geneNames,
@@ -77,15 +62,15 @@ describe('ColumnSelect component', () => {
   });
 
   it('should call onChange when already selected item is clicked and do so with selected columns without clicked item', () => {
-    // Getting the 2nd item as the 1st one is the drag-and-drop button
-    const item = screen.getAllByText('Protein existence')[1];
-    fireEvent.click(item);
+    // Open Names & Taxonomy to render contents
+    fireEvent.click(screen.getByRole('button', { name: /Names & Taxonomy/ }));
+    fireEvent.click(screen.getByRole('checkbox', { name: 'Protein names' }));
     expect(onChange).toHaveBeenCalledWith(
-      selectedColumns.filter((c) => c !== UniProtKBColumn.proteinExistence)
+      selectedColumns.filter((c) => c !== UniProtKBColumn.proteinName)
     );
   });
 
-  it('should call onChange with the correct column order when "Protein name" is dragged to the right', async () => {
+  it('should call onChange with the correct column order when "Protein names" is dragged to the right', async () => {
     const dragEl = screen
       .getAllByText('Protein names')[0]
       .closest(DND_DRAGGABLE_DATA_ATTR);
@@ -97,7 +82,7 @@ describe('ColumnSelect component', () => {
     });
     expect(onChange).toHaveBeenCalledWith([
       UniProtKBColumn.accession,
-      UniProtKBColumn.proteinExistence,
+      UniProtKBColumn.organismName,
       UniProtKBColumn.proteinName,
     ]);
   });

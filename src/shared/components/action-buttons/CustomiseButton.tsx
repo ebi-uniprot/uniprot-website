@@ -24,20 +24,20 @@ const CustomiseTable = lazy(
 );
 
 /*
-| Reason  | User clicked               |
-|---------|----------------------------|
-| outside | outside the panel          |
-| button  | top right close (x) button |
-| cancel  | cancel                     |
-| submit  | save                       |
+| Reason     | User action                |
+|------------|----------------------------|
+| button     | top right close (x) button |
+| outside    | clicked outside the panel  |
+| navigation | navigated away             |
+| escape     | pressed escape key         |
+| cancel     | pressed cancel button      |
+| submit     | pressed save button        |
 */
 type SlidingPanelReason =
   | Parameters<
       Exclude<ComponentProps<typeof SlidingPanel>['onClose'], undefined>
     >[0];
-
 type FormReason = 'cancel' | 'submit';
-
 type Reason = SlidingPanelReason | FormReason;
 
 // Log the way in which users are closing the customise table panel
@@ -59,7 +59,7 @@ const CustomiseButton = ({ namespace }: { namespace: Namespace }) => {
   );
   const [columns, setColumns] = useState(localStorageColumns);
 
-  const close = () => setDisplayCustomisePanel(false);
+  const close = () => displayCustomisePanel && setDisplayCustomisePanel(false);
 
   const save = () => {
     setLocalStorageColumns(columns);
@@ -89,6 +89,10 @@ const CustomiseButton = ({ namespace }: { namespace: Namespace }) => {
     setColumns(defaultColumns);
   };
 
+  const handleCancel = () => {
+    handleClose('cancel');
+  };
+
   return (
     <>
       {displayCustomisePanel && (
@@ -104,10 +108,10 @@ const CustomiseButton = ({ namespace }: { namespace: Namespace }) => {
                 isEntryPage={isEntryPage}
                 namespace={namespace}
                 columns={columns}
-                onCancel={() => handleClose('cancel')}
                 onChange={setColumns}
                 onReset={handleReset}
                 onSubmit={handleSubmit}
+                onCancel={handleCancel}
               />
             </ErrorBoundary>
           </SlidingPanel>
