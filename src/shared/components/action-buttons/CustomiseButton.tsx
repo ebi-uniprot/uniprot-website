@@ -31,7 +31,7 @@ const CustomiseTable = lazy(
 | cancel  | cancel                     |
 | submit  | save                       |
 */
-type Reason = 'outside' | 'button' | 'cancel' | 'submit';
+type Reason = Parameters<Exclude<ComponentProps<typeof SlidingPanel>['onClose'], undefined>>[0] | 'submit';
 
 // Log the way in which users are closing the customise table panel
 const logEvent = (reason: Reason) => {
