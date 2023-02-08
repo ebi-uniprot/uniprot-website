@@ -31,7 +31,11 @@ const CustomiseTable = lazy(
 | cancel  | cancel                     |
 | submit  | save                       |
 */
-type Reason = Parameters<Exclude<ComponentProps<typeof SlidingPanel>['onClose'], undefined>>[0] | 'submit';
+type Reason =
+  | Parameters<
+      Exclude<ComponentProps<typeof SlidingPanel>['onClose'], undefined>
+    >[0]
+  | 'submit';
 
 // Log the way in which users are closing the customise table panel
 const logEvent = (reason: Reason) => {
@@ -52,7 +56,7 @@ const CustomiseButton = ({ namespace }: { namespace: Namespace }) => {
   );
   const [columns, setColumns] = useState(localStorageColumns);
 
-  const close = () => setDisplayCustomisePanel(false);
+  const close = () => displayCustomisePanel && setDisplayCustomisePanel(false);
 
   const save = () => {
     setLocalStorageColumns(columns);
