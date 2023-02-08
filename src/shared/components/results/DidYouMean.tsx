@@ -180,10 +180,8 @@ const DidYouMean = ({
     );
   }
   // Other namespace suggestions
-  for (const [namespace, suggestions] of orderBy(
-    Array.from(otherNamespaceSuggestions.current.entries()),
-    ([, suggestions]) => suggestions[0].hits,
-    'desc'
+  for (const [namespace, suggestions] of Array.from(
+    otherNamespaceSuggestions.current.entries()
   )) {
     suggestionNodes.push(
       <QuerySuggestionListItem
@@ -192,6 +190,10 @@ const DidYouMean = ({
         key={namespace}
       />
     );
+    // If UniProtKB suggestion available, stop there
+    if (namespace === Namespace.uniprotkb) {
+      break;
+    }
   }
   // Peptide Search suggestion
   const potentialPeptide = query?.toUpperCase() || '';
