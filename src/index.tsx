@@ -69,4 +69,10 @@ if (process.env.NODE_ENV !== 'development') {
     attributes: true,
     attributeFilter: ['data-loaded'],
   });
+
+  if (window && typeof window.hj === 'function') {
+    window.hj('identify', null, {
+      Bundle: MODERN_BUNDLE ? 'modern' : 'legacy',
+    });
+  }
 }
