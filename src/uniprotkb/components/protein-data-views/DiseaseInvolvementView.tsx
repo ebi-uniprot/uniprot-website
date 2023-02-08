@@ -1,10 +1,11 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { InfoList, ExpandableList, ExternalLink } from 'franklin-sites';
+import { InfoList, ExpandableList } from 'franklin-sites';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import { XRef } from './XRefView';
 import DatatableWithToggle from '../../../shared/components/views/DatatableWithToggle';
+import ExternalLink from '../../../shared/components/ExternalLink';
 
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 

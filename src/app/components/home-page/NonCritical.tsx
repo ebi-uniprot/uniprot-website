@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { ExternalLink, Message } from 'franklin-sites';
+import { Message } from 'franklin-sites';
 import cn from 'classnames';
 
 // Sections
@@ -10,6 +10,8 @@ import LatestNews from './LatestNews';
 import AnalysisTools from './AnalysisTools';
 import NeedHelp from './NeedHelp';
 import UniProtData from './UniProtData';
+
+import ExternalLink from '../../../shared/components/ExternalLink';
 
 import styles from './styles/non-critical.module.scss';
 

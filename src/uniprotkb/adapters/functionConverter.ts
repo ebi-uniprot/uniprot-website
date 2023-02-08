@@ -1,4 +1,4 @@
-import { groupBy, mergeWith } from 'lodash-es';
+import { groupBy } from 'lodash-es';
 import {
   CommentType,
   AbsorptionComment,
@@ -53,7 +53,7 @@ export type KineticParameters = {
 
 export type BioPhysicoChemicalProperties = {
   absorption?: Absorption;
-  kinetics?: KineticParameters;
+  kinetics?: { [key: string]: KineticParameters };
   pHDependence?: TextWithEvidence[];
   redoxPotential?: TextWithEvidence[];
   temperatureDependence?: TextWithEvidence[];
@@ -214,19 +214,10 @@ const convertFunction = (
       if ((bpcProperty as KineticsComment).kineticParameters) {
         const existingData =
           convertedSection.bioPhysicoChemicalProperties.kinetics;
-        const newData = (bpcProperty as KineticsComment).kineticParameters;
-        const toBeMerged = [existingData, newData];
-        const result = mergeWith(
-          {},
-          ...toBeMerged,
-          (obj: keyof KineticParameters, src: keyof KineticParameters) =>
-            (obj || []).concat(src)
-        );
-        // Extract note from the array and add it as the object as expected
-        const [mergedNote] = result.note || [undefined];
+        const isoform = bpcProperty.molecule || 'canonical';
         convertedSection.bioPhysicoChemicalProperties.kinetics = {
-          ...result,
-          note: mergedNote,
+          ...existingData,
+          [isoform]: (bpcProperty as KineticsComment).kineticParameters || {},
         };
       }
       if ((bpcProperty as pHDependenceComment).phDependence) {

@@ -6,7 +6,7 @@ import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
 // import EntryDownload from '../../../shared/components/entry/EntryDownload';
-import SingleColumnLayout from '../../../shared/components/layouts/SingleColumnLayout';
+import { SingleColumnLayout } from '../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import AccessionView from '../../../shared/components/results/AccessionView';
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';

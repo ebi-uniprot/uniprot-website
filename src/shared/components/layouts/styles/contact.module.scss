@@ -1,13 +1,7 @@
 @import 'franklin-sites/src/styles/colours';
 
-.social {
-  white-space: nowrap;
-  display: flex;
-  gap: 0.5em;
-
-  svg {
-    height: 2em;
-    fill: $colour-weldon-blue;
-    color: $colour-weldon-blue;
-  }
+.social svg {
+  height: 2em;
+  fill: $colour-weldon-blue;
+  color: $colour-weldon-blue;
 }

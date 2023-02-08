@@ -111,7 +111,16 @@ const BioPhysicoChemicalPropertiesView = ({
           <h3 data-article-id="biophysicochemical_properties#2-kinetic-parameters">
             Kinetics
           </h3>
-          <KineticsTableView data={data.kinetics} />
+          {Object.entries(data.kinetics).map(([key, value]) => (
+            <Fragment key={key}>
+              {key !== 'canonical' && (
+                <h4 className="tiny">
+                  <a href={`#${key.replaceAll(' ', '_')}`}>{key}</a>
+                </h4>
+              )}
+              <KineticsTableView data={value} />
+            </Fragment>
+          ))}
         </>
       )}
       {data.pHDependence && (

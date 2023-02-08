@@ -81,6 +81,7 @@ const EntryExternalLinks = ({ transformedData }: EntryExternalLinksProps) => {
       header={
         <h2>{getEntrySectionNameAndId(EntrySection.ExternalLinks).name}</h2>
       }
+      className="wider-tab-content"
     >
       {webResourceComments?.length ? (
         <>

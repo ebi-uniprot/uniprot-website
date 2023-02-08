@@ -3,11 +3,28 @@
 
 .entry-page {
   *[id] {
-    scroll-margin-top: calc(var(--top-header-margin) + #{$global-margin * 0.5});
+    scroll-margin-top: 4.2em;
   }
 
   & .tabs__header {
     margin: 1rem 0.125rem;
     width: calc(100% - 1rem);
+  }
+
+  // expand content of tab if they contain a specific class
+  & .tabs:has(.wider-tab-content) {
+    & > [role='tabpanel'] {
+      // make the tab content start further on the left, covering the sidebar
+      margin-inline-start: calc(-1 * var(--sidebar-size));
+    }
+
+    & > [role='tablist'] {
+      // make the tab list container start further on the left, covering sidebar
+      margin-inline-start: calc(-1 * var(--sidebar-size) + 0.125rem);
+      // keep the tab list at the same position
+      padding-inline-start: var(--sidebar-size);
+      // expand the tab list container to finish at the same place
+      width: calc(100% - 1rem + var(--sidebar-size));
+    }
   }
 }

@@ -170,9 +170,9 @@ const getConfigFor = ({
               options: {
                 modules: {
                   auto: true, // only for files containing ".module." in name
-                  // class name to hash, but also keep name in development
+                  // class name to hash, but also keep name for debug in dev
                   localIdentName: `${
-                    isDev ? '[local]#' : ''
+                    isDev ? '[local]🐛' : ''
                   }[contenthash:base64:5]`,
                 },
               },

@@ -20,7 +20,7 @@ import BlastButton from '../../../shared/components/action-buttons/Blast';
 import AlignButton from '../../../shared/components/action-buttons/Align';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import EntryDownload from '../../../shared/components/entry/EntryDownload';
-import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
+import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import BasketStatus from '../../../basket/BasketStatus';
@@ -66,6 +66,7 @@ import {
 
 import helper from '../../../shared/styles/helper.module.scss';
 import sticky from '../../../shared/styles/sticky.module.scss';
+import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import '../../../shared/components/entry/styles/entry-page.scss';
 
 export enum TabLocation {
@@ -281,18 +282,14 @@ const Entry = () => {
   }
 
   const entrySidebar = (
-    <InPageNav sections={sections} rootElement=".sidebar-layout__content" />
+    <InPageNav sections={sections} rootElement={`.${sidebarStyles.content}`} />
   );
 
   const publicationsSideBar = (
     <EntryPublicationsFacets accession={match.params.accession} />
   );
 
-  const emptySidebar = (
-    <div className="sidebar-layout__sidebar-content--empty" />
-  );
-
-  let sidebar = emptySidebar;
+  let sidebar = null;
   if (!isObsolete) {
     if (match.params.subPage === TabLocation.Publications) {
       sidebar = publicationsSideBar;
@@ -302,36 +299,32 @@ const Entry = () => {
   }
 
   return (
-    <SideBarLayout
+    <SidebarLayout
       sidebar={sidebar}
+      noOverflow
       className={cn('entry-page', sticky['sticky-tabs-container'])}
-      title={
-        historyOldEntry ? (
-          <h1>{match.params.accession}</h1>
-        ) : (
-          <ErrorBoundary>
-            <HTMLHead
-              title={[
-                pageTitle,
-                searchableNamespaceLabels[Namespace.uniprotkb],
-              ]}
-            />
-            <h1>
-              <EntryTitle
-                mainTitle={data.primaryAccession}
-                optionalTitle={data.uniProtkbId}
-                entryType={data.entryType}
-              />
-              <BasketStatus id={data.primaryAccession} className="small" />
-            </h1>
-            <ProteinOverview data={data} />
-          </ErrorBoundary>
-        )
-      }
     >
       <HTMLHead>
         <link rel="canonical" href={window.location.href} />
       </HTMLHead>
+      {historyOldEntry ? (
+        <h1>{match.params.accession}</h1>
+      ) : (
+        <ErrorBoundary>
+          <HTMLHead
+            title={[pageTitle, searchableNamespaceLabels[Namespace.uniprotkb]]}
+          />
+          <h1>
+            <EntryTitle
+              mainTitle={data.primaryAccession}
+              optionalTitle={data.uniProtkbId}
+              entryType={data.entryType}
+            />
+            <BasketStatus id={data.primaryAccession} className="small" />
+          </h1>
+          <ProteinOverview data={data} />
+        </ErrorBoundary>
+      )}
       <Tabs active={match.params.subPage}>
         <Tab
           title={
@@ -528,7 +521,7 @@ const Entry = () => {
           </Suspense>
         </Tab>
       </Tabs>
-    </SideBarLayout>
+    </SidebarLayout>
   );
 };
 

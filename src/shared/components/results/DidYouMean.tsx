@@ -100,11 +100,17 @@ type NamespaceSuggestions = Map<SearchableNamespace, Suggestion[]>;
 
 const TIMEOUT = 3_000;
 
+const defaultHeading = <h1 className="small">Sorry, no results were found!</h1>;
+
 type DidYouMeanProps = {
   suggestions?: Suggestion[];
+  heading?: ReactNode;
 };
 
-const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
+const DidYouMean = ({
+  suggestions,
+  heading = defaultHeading,
+}: DidYouMeanProps) => {
   const currentNamespace = useNS();
   const location = useLocation();
   // Blocks a render until we have all network results, or we have timed out
@@ -216,11 +222,11 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
 
   return (
     <Message level="info" className={styles['did-you-mean-message']}>
-      <h1 className="small">Sorry, no results were found!</h1>
+      {heading}
       {content}
       {renderContent && (
         <>
-          Can&apos;t find what you are looking for? Please{' '}
+          If you can&apos;t find what you are looking for, please{' '}
           <ContactLink>contact us</ContactLink>.
           {currentNamespace === Namespace.uniparc ? (
             <p>
