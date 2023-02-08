@@ -31,7 +31,14 @@ const CustomiseTable = lazy(
 | cancel  | cancel                     |
 | submit  | save                       |
 */
-type Reason = Parameters<Exclude<ComponentProps<typeof SlidingPanel>['onClose'], undefined>>[0] | 'submit';
+type SlidingPanelReason =
+  | Parameters<
+      Exclude<ComponentProps<typeof SlidingPanel>['onClose'], undefined>
+    >[0];
+
+type FormReason = 'cancel' | 'submit';
+
+type Reason = SlidingPanelReason | FormReason;
 
 // Log the way in which users are closing the customise table panel
 const logEvent = (reason: Reason) => {
@@ -66,7 +73,7 @@ const CustomiseButton = ({ namespace }: { namespace: Namespace }) => {
     save();
   };
 
-  const handleClose = (reason: 'outside' | 'button' | 'cancel') => {
+  const handleClose = (reason: Reason) => {
     if (reason === 'outside') {
       save();
     } else {
@@ -97,7 +104,7 @@ const CustomiseButton = ({ namespace }: { namespace: Namespace }) => {
                 isEntryPage={isEntryPage}
                 namespace={namespace}
                 columns={columns}
-                onCancel={handleClose}
+                onCancel={() => handleClose('cancel')}
                 onChange={setColumns}
                 onReset={handleReset}
                 onSubmit={handleSubmit}
