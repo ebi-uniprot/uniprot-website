@@ -5,15 +5,16 @@ import { frame } from 'timing-functions';
 
 import ErrorBoundary from '../error-component/ErrorBoundary';
 
+import useLocalStorage from '../../hooks/useLocalStorage';
+
 import lazy from '../../utils/lazy';
+import { gtagFn } from '../../utils/logging';
+import { nsToDefaultColumns } from '../../config/columns';
+import { allEntryPages } from '../../../app/config/urls';
 
 import { Namespace } from '../../types/namespaces';
 
 import styles from './styles/customise-button.module.scss';
-import { allEntryPages } from '../../../app/config/urls';
-import { nsToDefaultColumns } from '../../config/columns';
-import useLocalStorage from '../../hooks/useLocalStorage';
-import { gtagFn } from '../../utils/logging';
 
 const CustomiseTable = lazy(
   () =>
