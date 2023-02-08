@@ -1,4 +1,4 @@
-import { FormEvent, Suspense, useState } from 'react';
+import { FormEvent, Suspense, useState, ComponentProps } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { Button, EditIcon, SlidingPanel } from 'franklin-sites';
 import { frame } from 'timing-functions';
