@@ -6,6 +6,7 @@ import cn from 'classnames';
 import ColumnSelect from '../column-select/ColumnSelect';
 import DownloadPreview from './DownloadPreview';
 import DownloadAPIURL, { DOWNLOAD_SIZE_LIMIT } from './DownloadAPIURL';
+import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../../tools/peptide-search/components/results/PeptideSearchResult';
 
 import useColumnNames from '../../hooks/useColumnNames';
 import useJobFromUrl from '../../hooks/useJobFromUrl';
@@ -180,6 +181,11 @@ const Download: FC<DownloadProps> = ({
 
   const downloadCount = downloadAll ? totalNumberResults : nSelectedEntries;
 
+  // Peptide search download for matches exceeding the threshold
+  const redirectToIDMapping =
+    jobResultsLocation === Location.PeptideSearchResult &&
+    downloadCount > MAX_PEPTIDE_FACETS_OR_DOWNLOAD;
+
   return (
     <>
       <label htmlFor="data-selection-false">
@@ -190,7 +196,7 @@ const Download: FC<DownloadProps> = ({
           value="false"
           checked={!downloadAll}
           onChange={handleDownloadAllChange}
-          disabled={nSelectedEntries === 0}
+          disabled={nSelectedEntries === 0 || redirectToIDMapping}
         />
         Download selected (<LongNumber>{nSelectedEntries}</LongNumber>)
       </label>
@@ -202,6 +208,7 @@ const Download: FC<DownloadProps> = ({
           value="true"
           checked={downloadAll}
           onChange={handleDownloadAllChange}
+          disabled={redirectToIDMapping}
         />
         Download all (<LongNumber>{totalNumberResults}</LongNumber>)
       </label>
@@ -213,6 +220,7 @@ const Download: FC<DownloadProps> = ({
             data-testid="file-format-select"
             value={fileFormat}
             onChange={(e) => setFileFormat(e.target.value as FileFormat)}
+            disabled={redirectToIDMapping}
           >
             {fileFormats.map((format) => (
               <option value={format} key={format}>
@@ -234,6 +242,7 @@ const Download: FC<DownloadProps> = ({
               value="true"
               checked={compressed}
               onChange={handleCompressedChange}
+              disabled={redirectToIDMapping}
             />
             Yes
           </label>
@@ -245,11 +254,35 @@ const Download: FC<DownloadProps> = ({
               value="false"
               checked={!compressed}
               onChange={handleCompressedChange}
+              disabled={redirectToIDMapping}
             />
             No
           </label>
         </fieldset>
       )}
+      {/* Peptide search download for matches exceeding the threshold */}
+      {redirectToIDMapping && (
+        <Message level="warning">
+          To download peptide search results of more than{' '}
+          <LongNumber>{MAX_PEPTIDE_FACETS_OR_DOWNLOAD}</LongNumber> matches,
+          please use the{' '}
+          <Link
+            to={{
+              pathname: LocationToPath[Location.IDMapping],
+              state: {
+                parameters: {
+                  ids: accessions,
+                  name: `Peptide search matches`,
+                },
+              },
+            }}
+          >
+            ID Mapping
+          </Link>{' '}
+          service.
+        </Message>
+      )}
+
       {hasColumns && (
         <>
           <legend>Customize columns</legend>
@@ -268,12 +301,17 @@ const Download: FC<DownloadProps> = ({
           styles['action-buttons']
         )}
       >
-        <Button variant="tertiary" onClick={() => displayExtraContent('url')}>
+        <Button
+          variant="tertiary"
+          onClick={() => displayExtraContent('url')}
+          disabled={redirectToIDMapping}
+        >
           Generate URL for API
         </Button>
         <Button
           variant="tertiary"
           onClick={() => displayExtraContent('preview')}
+          disabled={redirectToIDMapping}
         >
           Preview{' '}
           {namespace === Namespace.unisave && !selectedEntries.length
@@ -287,7 +325,8 @@ const Download: FC<DownloadProps> = ({
         <a
           href={downloadCount > DOWNLOAD_SIZE_LIMIT ? undefined : downloadUrl}
           className={cn('button', 'primary', {
-            disabled: downloadCount > DOWNLOAD_SIZE_LIMIT,
+            disabled:
+              downloadCount > DOWNLOAD_SIZE_LIMIT || redirectToIDMapping,
           })}
           title={
             downloadCount > DOWNLOAD_SIZE_LIMIT
