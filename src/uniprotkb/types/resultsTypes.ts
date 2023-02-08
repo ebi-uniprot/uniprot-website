@@ -17,11 +17,6 @@ export const getApiSortDirection = (direction: SortDirection) =>
 
 export type SelectedFacet = { name: string; value: string };
 
-export enum ColumnSelectTab {
-  data = 'Data',
-  links = 'External links',
-}
-
 export type SelectedColumn = {
   itemId: Column;
   label: string;

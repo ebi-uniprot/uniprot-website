@@ -1,16 +1,11 @@
-import { Bubble } from 'franklin-sites';
 import { memoize } from 'lodash-es';
-
-import { getBEMClassName as bem } from '../../../utils/utils';
 
 import { Column } from '../../../config/columns';
 import {
-  ColumnSelectTab,
   FieldData,
   ReceivedField,
   ReceivedFieldData,
   FieldDatum,
-  SelectedColumn,
 } from '../../../../uniprotkb/types/resultsTypes';
 import { Namespace } from '../../../types/namespaces';
 
@@ -72,30 +67,6 @@ export const prepareFieldData = (
   }
   return prepared;
 };
-
-export const getTabTitle = (
-  tabId: ColumnSelectTab,
-  columns: SelectedColumn[]
-) => (
-  <div
-    className={bem({
-      b: 'column-select',
-      e: 'tab-title',
-    })}
-  >
-    {tabId}
-    <Bubble
-      size="small"
-      className={bem({
-        b: 'column-select',
-        e: ['tab-title', 'count'],
-        m: columns.length ? 'visible' : 'hidden',
-      })}
-    >
-      {columns.length}
-    </Bubble>
-  </div>
-);
 
 const getLabelInner = (
   fieldData: FieldData | FieldDatum,
