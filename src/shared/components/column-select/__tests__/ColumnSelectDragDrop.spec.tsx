@@ -10,7 +10,6 @@ import ColumnSelectDragDrop, {
 } from '../ColumnSelectDragDrop';
 
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
-import { ColumnSelectTab } from '../../../../uniprotkb/types/resultsTypes';
 
 // TODO: test that some other way, the testing library for react-beautiful-dnd
 // TODO: seems to be outdated (or will soon be) because it's firing warnings
@@ -21,24 +20,9 @@ describe('ColumnSelectDragDrop component', () => {
   beforeEach(async () => {
     props = {
       columns: [
-        {
-          tabId: ColumnSelectTab.data,
-          accordionId: 'Names & Taxonomy',
-          itemId: UniProtKBColumn.id,
-          label: 'Entry Name',
-        },
-        {
-          tabId: ColumnSelectTab.data,
-          accordionId: 'Names & Taxonomy',
-          itemId: UniProtKBColumn.proteinName,
-          label: 'Protein names',
-        },
-        {
-          tabId: ColumnSelectTab.data,
-          accordionId: 'Names & Taxonomy',
-          itemId: UniProtKBColumn.geneNames,
-          label: 'Gene Names',
-        },
+        { itemId: UniProtKBColumn.id, label: 'Entry Name' },
+        { itemId: UniProtKBColumn.proteinName, label: 'Protein names' },
+        { itemId: UniProtKBColumn.geneNames, label: 'Gene Names' },
       ],
       onDragDrop: jest.fn(),
       onRemove: jest.fn(),

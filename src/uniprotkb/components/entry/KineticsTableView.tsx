@@ -2,6 +2,7 @@ import useCustomElement from '../../../shared/hooks/useCustomElement';
 
 import { RichText, TextView } from '../protein-data-views/FreeTextView';
 import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
+import { needTextProcessingRE } from '../../utils';
 
 import { KineticParameters } from '../../adapters/functionConverter';
 import { Evidence } from '../../types/modelTypes';
@@ -14,6 +15,7 @@ const tempRegEx = /(([0-9]*[.])?[0-9]+)\sdegrees\scelsius/i;
 const muRegEx = /^u/;
 const captureWordsInParanthesis = /\(((.+)(?: \((.+)\))?)\)/;
 const removeLeadingTrailingComma = /(^,)|(,$)/g;
+const kineticsConstRegEx = /\(\d?[+-]\)|\(-\d\)|\(\d+\)/g;
 
 type KinecticsTableRow = {
   key: string;
@@ -60,12 +62,30 @@ const KineticsTable = ({
             {data.map((value) => (
               <tr key={value.key}>
                 <td className={helper['no-wrap']}>
-                  <RichText>{value.constant}</RichText>
+                  {value.constant
+                    ?.split(needTextProcessingRE)
+                    .map((part, index) =>
+                      // Support right formatting for scientific notations present in kinetic specific constants
+                      kineticsConstRegEx.test(part) ? (
+                        // eslint-disable-next-line react/no-array-index-key
+                        <sup key={index}>
+                          {part.substring(1, part.length - 1)}
+                        </sup>
+                      ) : (
+                        part
+                      )
+                    )}
                 </td>
-                {hasSubstrate && <td>{value.substrate}</td>}
+                {hasSubstrate && (
+                  <td>
+                    <RichText>{value.substrate}</RichText>
+                  </td>
+                )}
                 <td>{value.ph}</td>
                 <td>{value.temp}</td>
-                <td>{value.notes}</td>
+                <td>
+                  <RichText>{value.notes}</RichText>
+                </td>
                 <td>
                   <UniProtKBEvidenceTag evidences={value.evidences} />
                 </td>
@@ -151,13 +171,15 @@ export const extractFromFreeText = (data: KineticParameters) => {
       let notes = substrateInfo.split('enzyme')?.[1];
       if (condition) {
         const match =
-          `(${condition}`.match(captureWordsInParanthesis)?.[1] || condition;
-        if (['pH', 'degrees'].some((e) => match.includes(e))) {
-          const additionalInfo = excludePhTemp(match);
-          notes += (notes && additionalInfo && `, `) + additionalInfo;
-        } else {
-          // Add the additional info to the Notes column
-          notes += match;
+          `(${condition}`.match(captureWordsInParanthesis)?.[1] || '';
+        // If anything is inside paranthesis, process it to populate the right column
+        if (match) {
+          if (['pH', 'degrees'].some((e) => match.includes(e))) {
+            const additionalInfo = excludePhTemp(match);
+            notes += (notes && additionalInfo && `, `) + additionalInfo;
+          } else {
+            notes += ` (${condition}`;
+          }
         }
       }
 
@@ -175,7 +197,8 @@ export const extractFromFreeText = (data: KineticParameters) => {
   if (data.note?.texts) {
     const kcatRegEx = /\.\s/;
     // From the curation manual: kcat is expressed per unit of time, in sec(-1), min(-1) or h(-1).
-    const kcatConstantRegEx = /([0-9]*[.])?[0-9]+\s?[sec|min|h]+\s?\(-1\)/gi;
+    const kcatConstantRegEx =
+      /([0-9]*[.])?[0-9]+([x*]10\(\d+\))?\s?[sec|min|h]+\s?\(-1\)/gi;
 
     data.note?.texts.forEach((text) => {
       if (text.value.includes('kcat')) {
