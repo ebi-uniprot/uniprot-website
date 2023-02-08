@@ -263,7 +263,7 @@ const Download: FC<DownloadProps> = ({
       {/* Peptide search download for matches exceeding the threshold */}
       {redirectToIDMapping && (
         <Message level="warning">
-          To download the peptide search results of more than{' '}
+          To download peptide search results of more than{' '}
           <LongNumber>{MAX_PEPTIDE_FACETS_OR_DOWNLOAD}</LongNumber> matches,
           please use the{' '}
           <Link
