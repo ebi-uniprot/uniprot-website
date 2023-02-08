@@ -252,7 +252,7 @@ const PeptideSearchResult = ({
           <Suspense fallback={<Loader />}>
             {excessAccessions && (
               <Message level="warning">
-                To filter the peptide search results of more than{' '}
+                To filter peptide search results of more than{' '}
                 <LongNumber>{MAX_PEPTIDE_FACETS_OR_DOWNLOAD}</LongNumber>{' '}
                 matches, please use the{' '}
                 <Link
