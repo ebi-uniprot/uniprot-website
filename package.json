@@ -12,7 +12,6 @@
     "build:dev": "rimraf build && webpack --env API_PREFIX=https://rest.uniprot.org --env PUBLIC_PATH=/uniprot/front-end/dev/ --env GIT_BRANCH=$CI_COMMIT_BRANCH --mode development",
     "build:prod": "rimraf build && webpack --env API_PREFIX=https://rest.uniprot.org --env GIT_BRANCH=$CI_COMMIT_BRANCH --mode production",
     "lint-fix": "eslint src --ext .ts,.tsx --fix",
-    "analyse": "webpack-bundle-analyzer build/stats.json",
     "jest-coverage-ratchet": "jest-coverage-ratchet",
     "coverage-bump": "npm-run-all test:unit jest-coverage-ratchet",
     "prettier": "prettier src --write",
