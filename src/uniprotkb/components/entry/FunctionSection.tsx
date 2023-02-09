@@ -5,7 +5,10 @@ import { Link } from 'react-router-dom';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
-import FreeTextView, { TextView } from '../protein-data-views/FreeTextView';
+import FreeTextView, {
+  RichText,
+  TextView,
+} from '../protein-data-views/FreeTextView';
 import CatalyticActivityView from '../protein-data-views/CatalyticActivityView';
 import KeywordView from '../protein-data-views/KeywordView';
 import XRefView from '../protein-data-views/XRefView';
@@ -182,7 +185,7 @@ export const CofactorView = ({ cofactors, title }: CofactorViewProps) => {
             cofactorComment.cofactors.map((cofactor) => (
               <Fragment key={cofactor.name}>
                 <span>
-                  {cofactor.name}{' '}
+                  <RichText>{cofactor.name}</RichText>{' '}
                   {cofactor.cofactorCrossReference &&
                     cofactor.cofactorCrossReference.database === 'ChEBI' &&
                     cofactor.cofactorCrossReference.id && (
