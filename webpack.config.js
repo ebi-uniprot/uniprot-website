@@ -20,6 +20,7 @@ const getConfigFor = ({
   isDev,
   isLiveReload,
   isTest,
+  hasStats,
   gitCommitHash,
   gitCommitState,
   gitBranch,
@@ -302,9 +303,7 @@ const getConfigFor = ({
             /robots.txt$/,
           ],
         }),
-      // commented only while debugging
-      !isLiveReload &&
-        !isTest &&
+      hasStats &&
         new (require('webpack-bundle-analyzer').BundleAnalyzerPlugin)({
           analyzerMode: 'disabled',
           generateStatsFile: true,
@@ -427,6 +426,7 @@ module.exports = (env, argv) => {
     isDev,
     isLiveReload,
     isTest,
+    hasStats: !!env.STATS,
     gitCommitHash,
     gitCommitState,
     gitBranch,
@@ -452,6 +452,7 @@ module.exports = (env, argv) => {
       isDev,
       isLiveReload,
       isTest,
+      hasStats: !!env.STATS,
       gitCommitHash,
       gitCommitState,
       gitBranch,
