@@ -11,6 +11,7 @@ import { Loader } from 'franklin-sites';
 import { sleep } from 'timing-functions';
 import {
   init as SentryInit,
+  setTag as sentrySetTag,
   reactRouterV5Instrumentation,
   Replay,
 } from '@sentry/react';
@@ -73,6 +74,7 @@ if (process.env.NODE_ENV !== 'development') {
     replaysSessionSampleRate: 0.001,
     replaysOnErrorSampleRate: 1.0,
   });
+  sentrySetTag('bundle', MODERN_BUNDLE ? 'modern' : 'legacy');
 }
 
 // Async loading of page components
