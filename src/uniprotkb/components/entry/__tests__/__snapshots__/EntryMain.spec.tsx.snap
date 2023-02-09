@@ -4652,7 +4652,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           <h3
             data-article-id="gene_ontology"
           >
-            GO Annotations
+            GO annotations
           </h3>
           <div
             class="datatable-with-toggle"
