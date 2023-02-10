@@ -104,11 +104,7 @@ const getCheckJobStatus =
         dispatch(
           updateJob(job.internalID, {
             timeLastUpdate: Date.now(),
-            status: status as
-              | Status.NOT_FOUND
-              | Status.RUNNING
-              | Status.FAILURE
-              | Status.ERRORED,
+            status,
           })
         );
         return;
