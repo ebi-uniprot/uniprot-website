@@ -319,7 +319,7 @@ const getConfigFor = ({
     ].filter(Boolean),
     // END PLUGINS
     optimization: {
-      runtimeChunk: true,
+      runtimeChunk: isLiveReload ? 'single' : true,
       // when updating webpack check this URL to adapt the different default
       // https://webpack.js.org/plugins/split-chunks-plugin/#optimizationsplitchunks
       splitChunks: {
