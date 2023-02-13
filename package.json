@@ -9,10 +9,9 @@
     "start:dev": "webpack serve --env API_PREFIX=https://wwwdev.ebi.ac.uk/uniprot/beta/api --mode development",
     "start:prod": "webpack serve --env API_PREFIX=https://rest.uniprot.org --mode development",
     "start:fallback": "webpack serve --env API_PREFIX=http://hx-rke-wp-webadmin-02-worker-1.caas.ebi.ac.uk:31393 --mode development",
-    "build:dev": "webpack --env API_PREFIX=https://rest.uniprot.org --env PUBLIC_PATH=/uniprot/front-end/dev/ --env GIT_BRANCH=$CI_COMMIT_BRANCH --mode development",
-    "build:prod": "webpack --env API_PREFIX=https://rest.uniprot.org --env GIT_BRANCH=$CI_COMMIT_BRANCH --mode production",
+    "build:dev": "rimraf build && webpack --env API_PREFIX=https://rest.uniprot.org --env PUBLIC_PATH=/uniprot/front-end/dev/ --env GIT_BRANCH=$CI_COMMIT_BRANCH --mode development",
+    "build:prod": "rimraf build && webpack --env API_PREFIX=https://rest.uniprot.org --env GIT_BRANCH=$CI_COMMIT_BRANCH --mode production",
     "lint-fix": "eslint src --ext .ts,.tsx --fix",
-    "analyse": "webpack-bundle-analyzer build/stats.json",
     "jest-coverage-ratchet": "jest-coverage-ratchet",
     "coverage-bump": "npm-run-all test:unit jest-coverage-ratchet",
     "prettier": "prettier src --write",
@@ -25,7 +24,6 @@
     "clear-test-cache": "jest --clearCache",
     "prepare": "husky install"
   },
-  "browserslist": "defaults, Firefox >= 70, Chrome >= 79, Edge >= 79, Safari >= 12, cover 80% in CN, not dead",
   "jest": {
     "coverageReporters": [
       "json-summary",
@@ -212,6 +210,7 @@
     "process": "0.11.10",
     "react-beautiful-dnd-test-utils": "3.2.1",
     "react-test-renderer": "17.0.2",
+    "rimraf": "4.1.2",
     "sass": "1.55.0",
     "sass-loader": "13.1.0",
     "style-loader": "3.3.1",
