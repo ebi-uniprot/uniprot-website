@@ -36,7 +36,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script
       async
-      src="https://www.googletagmanager.com/gtag/js?id=UA-6228219-1"
+      src="https://www.googletagmanager.com/gtag/js?id=G-V6TXEC4BDF"
     ></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -45,6 +45,19 @@
       }
       gtag('js', new Date());
 
+      // GA4
+      gtag('config', 'G-V6TXEC4BDF', {
+        anonymize_ip: true,
+        allow_google_signals: false,
+        allow_ad_personalization_signals: false,
+        restricted_data_processing: true,
+        custom_map: {
+          dimension1: 'result_view',
+          metric1: 'result_view_set',
+        },
+        send_page_view: false,
+      });
+      // UA
       gtag('config', 'UA-6228219-1', {
         anonymize_ip: true,
         allow_google_signals: false,
