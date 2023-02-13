@@ -103,13 +103,14 @@ export const processFeaturesData = (
       } else {
         s = 'Missing';
       }
-    } else if (feature.location.sequence) {
-      description = `In isoform ${feature.location.sequence}; ${description}`;
     } else {
       s = sequence?.substring(
         feature.location.start.value - 1,
         feature.location.end.value
       );
+    }
+    if (feature.location.sequence) {
+      description = `In isoform ${feature.location.sequence}; ${description}`;
     }
 
     if (feature.ligand) {
