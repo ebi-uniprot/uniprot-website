@@ -256,7 +256,7 @@ const getConfigFor = ({
       new HtmlWebPackPlugin({
         template: `${__dirname}/index.ejs`,
         filename: 'index.html',
-        inject: false,
+        inject: isLiveReload,
         templateParameters: (_compilation, assets, _assetTags, options) => ({
           isDev,
           isLiveReload,
