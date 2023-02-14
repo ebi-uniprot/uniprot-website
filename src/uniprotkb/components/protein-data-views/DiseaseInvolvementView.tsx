@@ -50,10 +50,17 @@ export const DiseaseVariants = ({ variants }: { variants: FeatureDatum[] }) => {
             position += `-${variant.location.end.value}`;
           }
 
-          let [description, rsID] = [variant.description, ''];
-          const dbSNPRegEx = /dbsnp:(rs\d*)/i;
+          let { description } = variant;
+          let rsIDs: string[] | undefined = [];
+
+          const dbSNPRegEx = /dbsnp:rs\d*/gi;
           if (description && dbSNPRegEx.test(description)) {
-            [description, rsID] = description.split(dbSNPRegEx).filter(Boolean);
+            const matches = description.match(dbSNPRegEx);
+            rsIDs = matches?.map((match) => {
+              const [, rsId] = match.split(/dbsnp:/i);
+              return rsId;
+            });
+            [description] = description.split(dbSNPRegEx).filter(Boolean);
           }
 
           return (
@@ -65,11 +72,11 @@ export const DiseaseVariants = ({ variants }: { variants: FeatureDatum[] }) => {
                 <td className={styles.change}>{uniprotVariantLink(variant)}</td>
                 <td>
                   {description}
-                  {rsID && (
-                    <ExternalLink url={externalUrls.dbSNP(rsID)}>
+                  {rsIDs?.map((rsID) => (
+                    <ExternalLink url={externalUrls.dbSNP(rsID)} key={rsID}>
                       dbSNP:{rsID}
                     </ExternalLink>
-                  )}
+                  ))}
                   {variant.evidences && (
                     <UniProtKBEvidenceTag evidences={variant.evidences} />
                   )}
