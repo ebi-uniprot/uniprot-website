@@ -18,6 +18,17 @@ import { FeatureDatum } from './UniProtKBFeaturesView';
 
 import styles from './styles/variation-view.module.scss';
 
+const sortByLocation = (a: FeatureDatum, b: FeatureDatum) => {
+  const aStart = +a.location.start.value;
+  const aEnd = a.location.end.value ? +a.location.end.value : -Infinity;
+  const bStart = +b.location.start.value;
+  const bEnd = b.location.end.value ? +b.location.end.value : -Infinity;
+  if (aStart === bStart) {
+    return aEnd - bEnd;
+  }
+  return aStart - bStart;
+};
+
 export const uniprotVariantLink = (variant: FeatureDatum) =>
   variant.alternativeSequence?.originalSequence ||
   variant.alternativeSequence?.alternativeSequences?.[0] ? (
@@ -54,6 +65,10 @@ export const DiseaseVariants = ({ variants }: { variants: FeatureDatum[] }) => {
           const dbSNPRegEx = /dbsnp:(rs\d*)/i;
           if (description && dbSNPRegEx.test(description)) {
             [description, rsID] = description.split(dbSNPRegEx).filter(Boolean);
+          }
+
+          if (variant.location.sequence) {
+            description = `In isoform ${variant.location.sequence}; ${description}`;
           }
 
           return (
@@ -165,7 +180,7 @@ export const DiseaseInvolvementEntry = ({
     </>
   );
 
-  const variantList = Object.values(variants || {});
+  const variantList = Object.values(variants || {}).sort(sortByLocation);
 
   return (
     <>
