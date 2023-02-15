@@ -135,13 +135,8 @@ export const getAspect = (term: GOAspectName | GOAspectShort) =>
 export const functionFeaturesToColumns: Readonly<
   Record<FunctionFeatures, UniProtKBColumn>
 > = {
-  Domain: UniProtKBColumn.ftDomain,
-  Repeat: UniProtKBColumn.ftRepeat,
   'DNA binding': UniProtKBColumn.ftDnaBind,
-  Region: UniProtKBColumn.ftRegion,
   'Active site': UniProtKBColumn.ftActSite,
-  'Coiled coil': UniProtKBColumn.ftCoiled,
-  Motif: UniProtKBColumn.ftMotif,
   'Binding site': UniProtKBColumn.ftBinding,
   Site: UniProtKBColumn.ftSite,
 };
