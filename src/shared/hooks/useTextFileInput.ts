@@ -17,7 +17,7 @@ type UseTextFileInputProps = {
 
 // Magic regular expression to catch some non-writable characters
 // Avoid handling unicode for now as might not be supported enough
-const writableRE = /[\w\s-=+*;><"'/\\.#:;|,]/gi;
+const writableRE = /[\w\s-=+*;><"'/\\.#:;|,[\]]/gi;
 
 /**
  * given a file input element, sets up all event handlers to handle drag-n-drop
