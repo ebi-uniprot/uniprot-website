@@ -12,7 +12,6 @@ import {
 
 import styles from './styles/non-critical.module.scss';
 
-import AlphaFoldImg from '../../../images/alphafold.png';
 import CovidPortalImg from '../../../images/covid-portal.png';
 
 const ExtraLinks = () => (
@@ -33,24 +32,28 @@ const ExtraLinks = () => (
         'uniprot-grid-cell--medium-span-4'
       )}
     >
-      <img
-        src={AlphaFoldImg}
-        width="438"
-        height="569"
-        alt=""
-        loading="lazy"
-        className={styles['alphafold-img']}
-      />
       <Link
         to={{
-          pathname: LocationToPath[Location.AlphaFoldResults],
-          search: `query=*`,
+          pathname: LocationToPath[Location.UniProtKBResults],
+          search: `query=(evidence_exp:true)`,
         }}
-        title="Browse entries highlighting AlphaFold predictions"
+        title="Browse entries with experimental evidences"
       >
-        <h2 className="medium">AlphaFold structures</h2>
-        Search with all the power of the UniProt search engine for proteins with
-        an AlphaFold prediction provided by DeepMind
+        <h2 className="medium">Experimental evidences</h2>
+        Search through UniProtKB for all entries containing experimental
+        evidences
+        <br />
+        <br />
+        <small>
+          <Link
+            to={{
+              pathname: getLocationEntryPath(Location.HelpEntry, 'evidences'),
+              hash: 'ECO:0000269',
+            }}
+          >
+            What are experimental evidences?
+          </Link>
+        </small>
       </Link>
     </DecoratedListItem>
     <DecoratedListItem

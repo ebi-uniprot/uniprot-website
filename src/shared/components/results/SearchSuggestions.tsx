@@ -43,7 +43,7 @@ const SearchSuggestions = ({
     // also serves to delay the requests below to prioritise getting the results
     total &&
     // Only for UniProtKB
-    (namespace === Namespace.uniprotkb || namespace === Namespace.alphafold) &&
+    namespace === Namespace.uniprotkb &&
     // Only for queries with content
     !!query?.length &&
     // And only simple queries

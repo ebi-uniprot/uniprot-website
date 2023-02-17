@@ -261,25 +261,27 @@ exports[`non-critical HomePage component should render 1`] = `
       <div
         class="decorated-list-item__content"
       >
-        <img
-          alt=""
-          class="alphafold-img"
-          height="569"
-          loading="lazy"
-          src="test-file-stub"
-          width="438"
-        />
         <a
-          href="/alphafold?query=*"
-          title="Browse entries highlighting AlphaFold predictions"
+          href="/uniprotkb?query=(evidence_exp:true)"
+          title="Browse entries with experimental evidences"
         >
           <h2
             class="medium"
           >
-            AlphaFold structures
+            Experimental evidences
           </h2>
-          Search with all the power of the UniProt search engine for proteins with an AlphaFold prediction provided by DeepMind
+          Search through UniProtKB for all entries containing experimental evidences
+          <br />
+          <br />
+          <small />
         </a>
+        <small>
+          <a
+            href="/help/evidences#ECO:0000269"
+          >
+            What are experimental evidences?
+          </a>
+        </small>
       </div>
     </div>
     <div

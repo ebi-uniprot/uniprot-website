@@ -52,8 +52,6 @@ export const getIdKeyFor = (
           (data as UniProtkbAPIModel).primaryAccession
         }`;
       };
-    case Namespace.alphafold:
-      return (data) => (data as UniProtkbAPIModel).primaryAccession;
     case Namespace.uniref:
       return (data) => {
         const { from } = data as UniRefLiteAPIModel;
