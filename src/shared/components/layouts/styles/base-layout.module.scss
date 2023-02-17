@@ -26,6 +26,6 @@
 
   & .main-content {
     grid-area: main-content;
-    overflow-y: auto;
+    overflow-y: scroll;
   }
 }
