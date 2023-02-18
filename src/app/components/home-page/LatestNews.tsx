@@ -17,7 +17,7 @@ const insideUniProtAbstract2 =
   'UniProt is brought to you by a large team of dedicated scientists who have worked for over 20 years to produce a comprehensive view of protein sequence and biology.';
 
 const proteinSpotlightAbstract =
-  'Too much of anything is never good. Excess alcohol, and our faculties are impaired. Excess heat, and drought spreads. Excess cold, and vineyards die. Too much, too, of what is paradoxically essential to life frequently turns out to be toxic.';
+  'It has been a long time since I saw a plug hanging from the side of a bathtub. Remember the small triangular ring the chain dangled from, and the actual plug at the other end - usually a piece of black and slimy rubber that fitted perfectly into the plug hole. As a child, the perfection of the fit used to fascinate me and I would sit in the bath, pulling the plug out and pushing it back in again, fighting against the swirl and dynamics of flowing water. The system is straightforward enough.';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -354,21 +354,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/254/"
+            url="https://www.proteinspotlight.org/back_issues/255/"
             noIcon
           >
-            On a tightrope
+            On the end of a leash
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/254/"
+          url="https://www.proteinspotlight.org/back_issues/255/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt254.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt255.jpg"
             alt=""
             width="123"
             height="129"
