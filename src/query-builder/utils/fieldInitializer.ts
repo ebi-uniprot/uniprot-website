@@ -21,14 +21,15 @@ const initializer = (
     return '*';
   }
 
-  // Deal with autocomplete fields (they use 'autoCompleteQueryTerm')
-  // instead of 'term'
+  // Deal with autocomplete fields as they have two terms with different behavior:
+  //   1. autoCompleteQueryTerm: for ID searches eg organism_id
+  //   2. term: for text searches eg organism_name
   if (initialValue && field.autoCompleteQueryTerm) {
     if (Object.keys(initialValue).includes(field.autoCompleteQueryTerm)) {
-      // Exact id search with _id suffix
+      // ID search
       return initialValue[field.autoCompleteQueryTerm];
     }
-    // Text search with _name suffix
+    // Text search
     return isAutoCompleteQueryId ? '' : initialValue[field.term];
   }
 
