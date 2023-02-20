@@ -5,7 +5,8 @@ const dateRange = /^\[(\*|\d{4}-\d{2}-\d{2}) TO (\*|\d{4}-\d{2}-\d{2})\]$/;
 
 const initializer = (
   field: SearchTermType,
-  initialValue?: QueryBit
+  initialValue?: QueryBit,
+  isAutoCompleteQueryId = false
 ): string | [from: string, to: string] => {
   // specific case for free text search
   if (field.term === 'All') {
@@ -22,12 +23,13 @@ const initializer = (
 
   // Deal with autocomplete fields (they use 'autoCompleteQueryTerm')
   // instead of 'term'
-  if (
-    initialValue &&
-    field.autoCompleteQueryTerm &&
-    initialValue[field.autoCompleteQueryTerm]
-  ) {
-    return initialValue[field.autoCompleteQueryTerm];
+  if (initialValue && field.autoCompleteQueryTerm) {
+    if (Object.keys(initialValue).includes(field.autoCompleteQueryTerm)) {
+      // Exact id search with _id suffix
+      return initialValue[field.autoCompleteQueryTerm];
+    }
+    // Text search with _name suffix
+    return isAutoCompleteQueryId ? '' : initialValue[field.term];
   }
 
   // no value? bail
