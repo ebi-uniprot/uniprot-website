@@ -49,7 +49,10 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
             <EntryTypeIcon entryType={data.proteomeType} />
             {proteomeType}
             {data.exclusionReasons?.length ? (
-              <> ({data.exclusionReasons.join(', ')})</>
+              <span data-article-id="proteome_exclusion_reasons">
+                {' '}
+                ({data.exclusionReasons.join(', ')})
+              </span>
             ) : null}
           </>
         ),

@@ -44,20 +44,38 @@ export const Components: FC<
       {
         label: 'Genome accession(s)',
         name: 'genome_accession',
-        render: ({ proteomeCrossReferences }) =>
+        render: ({ proteomeCrossReferences, genomeAnnotation }) =>
           proteomeCrossReferences
             ?.filter(({ database, id }) => id && database === genomeAccessionDB)
-            .map(({ id }, index) => (
-              <Fragment key={id}>
-                {index ? ', ' : ''}
-                <ExternalLink
-                  url={externalUrls.NCBINucleotide(id as string)}
-                  key={id}
-                >
-                  {id}
-                </ExternalLink>
-              </Fragment>
-            )),
+            .map(({ id }, index) => {
+              let url;
+              switch (genomeAnnotation.source) {
+                case 'Refseq':
+                  url = externalUrls.NCBINucleotide(id as string);
+                  break;
+                case 'ENA/EMBL':
+                  url = externalUrls.ENABrowser(id as string);
+                  break;
+                case 'Ensembl':
+                  url = externalUrls.Ensembl(id as string);
+                  break;
+                default:
+                  url = '';
+                  break;
+              }
+              return (
+                <Fragment key={id}>
+                  {index ? ', ' : ''}
+                  {url ? (
+                    <ExternalLink url={url} key={id}>
+                      {id}
+                    </ExternalLink>
+                  ) : (
+                    id
+                  )}
+                </Fragment>
+              );
+            }),
       },
       {
         label: 'Protein count',
