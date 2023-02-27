@@ -2,55 +2,6 @@
 
 exports[`non-critical HomePage component should render 1`] = `
 <DocumentFragment>
-  <div
-    class="uniprot-grid uniprot-grid--centered home-page-section"
-  >
-    <div
-      class="uniprot-grid-cell--span-12 message message--info"
-      role="status"
-    >
-      <div
-        class="message__side-border"
-      />
-      <test-file-stub
-        height="1.125em"
-        width="1.125em"
-      />
-      <section
-        class="message__content"
-      >
-        <small>
-          We need your help to understand how data is reused by biomedical resources! We have developed 2 surveys for 
-          <a
-            class="external-link"
-            href="https://forms.gle/YwDc59mJcZ91rbsj8"
-            rel="noopener"
-            target="_blank"
-          >
-            users of biomedical resources
-            <test-file-stub
-              data-testid="external-link-icon"
-              width="12.5"
-            />
-          </a>
-          and for 
-          <a
-            class="external-link"
-            href="https://forms.gle/Fxy5iSqPzj4SCpzT7"
-            rel="noopener"
-            target="_blank"
-          >
-            resource providers
-            <test-file-stub
-              data-testid="external-link-icon"
-              width="12.5"
-            />
-          </a>
-          . Please help by filling the appropriate one in by February 21
-        </small>
-      </section>
-    </div>
-  </div>
   <section
     class="uniprot-grid uniprot-grid--centered home-page-section"
   >
