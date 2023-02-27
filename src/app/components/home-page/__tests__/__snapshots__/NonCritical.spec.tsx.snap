@@ -207,36 +207,7 @@ exports[`non-critical HomePage component should render 1`] = `
     class="uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section extra-links"
   >
     <div
-      class="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-4 decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
-    >
-      <div
-        class="decorated-list-item__content"
-      >
-        <a
-          href="/uniprotkb?query=(evidence_exp:true)"
-          title="Browse entries with experimental evidences"
-        >
-          <h2
-            class="medium"
-          >
-            Experimental evidences
-          </h2>
-          Search through UniProtKB for all entries containing experimental evidences
-          <br />
-          <br />
-          <small />
-        </a>
-        <small>
-          <a
-            href="/help/evidences#ECO:0000269"
-          >
-            What are experimental evidences?
-          </a>
-        </small>
-      </div>
-    </div>
-    <div
-      class="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-4 decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
+      class="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-6 decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
     >
       <div
         class="decorated-list-item__content"
@@ -264,7 +235,7 @@ exports[`non-critical HomePage component should render 1`] = `
       </div>
     </div>
     <div
-      class="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-4 decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
+      class="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-6 decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
     >
       <div
         class="decorated-list-item__content"

@@ -29,39 +29,7 @@ const ExtraLinks = () => (
       altStyle
       className={cn(
         'uniprot-grid-cell--small-span-12',
-        'uniprot-grid-cell--medium-span-4'
-      )}
-    >
-      <Link
-        to={{
-          pathname: LocationToPath[Location.UniProtKBResults],
-          search: `query=(evidence_exp:true)`,
-        }}
-        title="Browse entries with experimental evidences"
-      >
-        <h2 className="medium">Experimental evidences</h2>
-        Search through UniProtKB for all entries containing experimental
-        evidences
-        <br />
-        <br />
-        <small>
-          <Link
-            to={{
-              pathname: getLocationEntryPath(Location.HelpEntry, 'evidences'),
-              hash: 'ECO:0000269',
-            }}
-          >
-            What are experimental evidences?
-          </Link>
-        </small>
-      </Link>
-    </DecoratedListItem>
-    <DecoratedListItem
-      compact
-      altStyle
-      className={cn(
-        'uniprot-grid-cell--small-span-12',
-        'uniprot-grid-cell--medium-span-4'
+        'uniprot-grid-cell--medium-span-6'
       )}
     >
       <Link
@@ -89,7 +57,7 @@ const ExtraLinks = () => (
       altStyle
       className={cn(
         'uniprot-grid-cell--small-span-12',
-        'uniprot-grid-cell--medium-span-4'
+        'uniprot-grid-cell--medium-span-6'
       )}
     >
       <img
