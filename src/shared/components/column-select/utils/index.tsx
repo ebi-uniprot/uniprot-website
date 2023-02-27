@@ -1,16 +1,13 @@
-import { Bubble } from 'franklin-sites';
-
-import { getBEMClassName as bem } from '../../../utils/utils';
+import { memoize } from 'lodash-es';
 
 import { Column } from '../../../config/columns';
 import {
-  ColumnSelectTab,
   FieldData,
   ReceivedField,
   ReceivedFieldData,
   FieldDatum,
-  SelectedColumn,
 } from '../../../../uniprotkb/types/resultsTypes';
+import { Namespace } from '../../../types/namespaces';
 
 type PreparedField = {
   id: Column;
@@ -34,90 +31,67 @@ export const prepareFieldData = (
   exclude?: Column[]
 ): FieldData => {
   if (!fieldData?.length) {
-    return {};
+    return [];
   }
-  const dataTab: FieldDatum[] = [];
-  const linksTab: FieldDatum[] = [];
-  const linksAdded: Record<string, boolean> = {};
+  const dataFields: FieldDatum[] = [];
+  const externalFields: FieldDatum[] = [];
   fieldData.forEach(({ groupName, fields, isDatabaseGroup, id }) => {
     const items = prepareFields(fields, exclude);
     if (items.length) {
       const group = {
         id,
-        title: groupName,
+        label: groupName,
         items,
       };
       if (isDatabaseGroup) {
-        if (!linksAdded[groupName]) {
-          linksTab.push(group);
-          linksAdded[groupName] = true;
-        }
+        externalFields.push(group);
       } else {
-        dataTab.push(group);
+        dataFields.push(group);
       }
     }
   });
-  const prepared: FieldData = {};
-  if (dataTab.length) {
-    prepared[ColumnSelectTab.data] = dataTab;
+  const prepared = [];
+  if (dataFields.length) {
+    prepared.push({
+      label: 'UniProt Data',
+      id: 'uniprot-data',
+      items: dataFields,
+    });
   }
-  if (linksTab.length) {
-    prepared[ColumnSelectTab.links] = linksTab;
+  if (externalFields.length) {
+    prepared.push({
+      label: 'External Resources',
+      id: 'external-resources',
+      items: externalFields,
+    });
   }
   return prepared;
 };
 
-export const getTabTitle = (
-  tabId: ColumnSelectTab,
-  columns: SelectedColumn[]
-) => (
-  <div
-    className={bem({
-      b: 'column-select',
-      e: 'tab-title',
-    })}
-  >
-    {tabId}
-    <Bubble
-      size="small"
-      className={bem({
-        b: 'column-select',
-        e: ['tab-title', 'count'],
-        m: columns.length ? 'visible' : 'hidden',
-      })}
-    >
-      {columns.length}
-    </Bubble>
-  </div>
-);
-
-export const getFieldDataForColumns = (
-  columns: Column[],
-  fieldData: FieldData
-) => {
-  /*
-  For each column (a string enum) searches through the result field structure
-  to find the associated information:
-    -tabId
-    -accordionId
-    -itemId
-    -label
-  */
-  const selected: SelectedColumn[] = new Array(columns.length);
-  Object.entries(fieldData).forEach(([tabId, tabData = []]) => {
-    tabData.forEach(({ id: accordionId, items }) => {
-      items.forEach(({ id: itemId, label }) => {
-        const index = columns.indexOf(itemId);
-        if (index >= 0) {
-          selected[index] = {
-            tabId: tabId as ColumnSelectTab,
-            accordionId,
-            itemId,
-            label,
-          };
-        }
-      });
-    });
-  });
-  return selected;
+const getLabelInner = (
+  fieldData: FieldData | FieldDatum,
+  id: string
+): string | null => {
+  if (Array.isArray(fieldData)) {
+    for (const item of fieldData) {
+      const label = getLabelInner(item, id);
+      if (label) {
+        return label;
+      }
+    }
+  } else if (fieldData.items) {
+    return getLabelInner(fieldData.items, id);
+  } else if (fieldData.id === id) {
+    return fieldData.label;
+  }
+  return null;
 };
+
+export const getLabel = memoize(
+  (
+    fieldData: FieldData | FieldDatum,
+    _namespace: Namespace,
+    id: string
+  ): string | null => getLabelInner(fieldData, id),
+  (_fieldData, namespace, id) => `${namespace}${id}`
+);

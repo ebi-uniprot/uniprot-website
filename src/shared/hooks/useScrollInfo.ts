@@ -3,7 +3,9 @@ import { schedule, sleep } from 'timing-functions';
 
 type Direction = null | 'up' | 'down';
 
-const useScrollInfo = (): { direction: Direction; scrollY: number } => {
+const useScrollInfo = (
+  selector: string
+): { direction: Direction; scrollY: number } => {
   const [direction, setDirection] = useState<Direction>(null);
   const [previousScrollY, setPreviousScrollY] = useState(0);
   // Keep it also in a ref as we don't want to create a new function everytime
@@ -13,14 +15,14 @@ const useScrollInfo = (): { direction: Direction; scrollY: number } => {
   const inactiveTimeout = useRef<number | null>(null);
 
   // Function to do a scroll position check
-  const updateScrollDirection = useCallback(async () => {
+  const updateScrollDirection = useCallback(async (element: Element) => {
     // First thing, remove scheduling flag, we'll handle it now
     willCheckFlag.current = false;
     if (inactiveTimeout.current) {
       // Cancel any inactivity timeout callback
       window.clearTimeout(inactiveTimeout.current);
     }
-    const currentScrollY = window.scrollY;
+    const currentScrollY = element.scrollTop;
     const direction =
       previousScrollYRef.current - currentScrollY > 0 ? 'up' : 'down';
     previousScrollYRef.current = currentScrollY;
@@ -33,20 +35,27 @@ const useScrollInfo = (): { direction: Direction; scrollY: number } => {
   }, []);
 
   useEffect(() => {
-    const scrollHandler = async () => {
-      // Check if we already scheduled a scroll check
-      if (!willCheckFlag.current) {
+    const scrollHandler = async (event: Event) => {
+      if (
+        // Check if we already scheduled a scroll check
+        !willCheckFlag.current &&
+        event.target &&
+        event.target instanceof Element
+      ) {
         willCheckFlag.current = true;
         await sleep(500); // wait a bit
         await schedule(500); // make sure to not interrupt anything important
-        updateScrollDirection();
+        updateScrollDirection(event.target);
       }
     };
-    window.addEventListener('scroll', scrollHandler, { passive: true });
+    const scrollableElement = document.querySelector(selector);
+    scrollableElement?.addEventListener('scroll', scrollHandler, {
+      passive: true,
+    });
     return () => {
-      window.removeEventListener('scroll', scrollHandler);
+      scrollableElement?.removeEventListener('scroll', scrollHandler);
     };
-  }, [updateScrollDirection]);
+  }, [selector, updateScrollDirection]);
 
   return { direction, scrollY: previousScrollY };
 };

@@ -17,7 +17,7 @@ const insideUniProtAbstract2 =
   'UniProt is brought to you by a large team of dedicated scientists who have worked for over 20 years to produce a comprehensive view of protein sequence and biology.';
 
 const proteinSpotlightAbstract =
-  'Too much of anything is never good. Excess alcohol, and our faculties are impaired. Excess heat, and drought spreads. Excess cold, and vineyards die. Too much, too, of what is paradoxically essential to life frequently turns out to be toxic.';
+  'It has been a long time since I saw a plug hanging from the side of a bathtub. Remember the small triangular ring the chain dangled from, and the actual plug at the other end - usually a piece of black and slimy rubber that fitted perfectly into the plug hole. As a child, the perfection of the fit used to fascinate me and I would sit in the bath, pulling the plug out and pushing it back in again, fighting against the swirl and dynamics of flowing water. The system is straightforward enough.';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -124,6 +124,28 @@ const LatestNews = () => {
                 )}
               >
                 Planned changes for UniProt
+              </p>
+            </article>
+          </li>
+          <li>
+            <article>
+              <h3 className="tiny">
+                <Link
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                    accession: '2023-03-01-release',
+                  })}
+                >
+                  UniProt release 2023_01
+                </Link>
+              </h3>
+              <p
+                className={cn(
+                  styles['latest-news__abstract'],
+                  styles['latest-news__abstract--2-lines']
+                )}
+              >
+                Killing me softly | Cross-references to GlyCosmos | Change to
+                the cross-references to Gene3D | Changes to the controlled...
               </p>
             </article>
           </li>
@@ -241,27 +263,6 @@ const LatestNews = () => {
               </p>
             </article>
           </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2021-11-17-release',
-                  })}
-                >
-                  UniProt release 2021_04
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                ZTGC: bacteriophages reinvent the DNA alphabet
-              </p>
-            </article>
-          </li>
         </ul>
       </div>
       <div
@@ -354,21 +355,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/254/"
+            url="https://www.proteinspotlight.org/back_issues/255/"
             noIcon
           >
-            On a tightrope
+            On the end of a leash
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/254/"
+          url="https://www.proteinspotlight.org/back_issues/255/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt254.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt255.jpg"
             alt=""
             width="123"
             height="129"

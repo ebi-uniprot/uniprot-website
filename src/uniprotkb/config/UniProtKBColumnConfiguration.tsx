@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { lazy } from 'react';
+import { Fragment, lazy } from 'react';
 import { Link } from 'react-router-dom';
 import {
   DoughnutChart,
@@ -86,7 +86,6 @@ import EntryTypeIcon, {
   EntryType,
 } from '../../shared/components/entry/EntryTypeIcon';
 import AccessionView from '../../shared/components/results/AccessionView';
-import AlphaFoldView from '../../shared/components/results/AlphaFoldView';
 import CSVView from '../components/protein-data-views/CSVView';
 import { DatabaseList } from '../components/protein-data-views/XRefView';
 import { PeptideSearchMatches } from '../../tools/peptide-search/components/PeptideSearchMatches';
@@ -180,19 +179,6 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.accession, {
   render: (data) => (
     <AccessionView id={data.primaryAccession} namespace={Namespace.uniprotkb} />
   ),
-});
-
-UniProtKBColumnConfiguration.set(UniProtKBColumn.alphafold, {
-  label: (
-    <span
-      style={{ fontFamily: '"IBM Plex Sans", Helvetica, Arial, sans-serif' }}
-    >
-      has AlphaFold
-      <br />
-      prediction?
-    </span>
-  ),
-  render: (data) => <AlphaFoldView accession={data.primaryAccession} />,
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.id, {
@@ -793,9 +779,19 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.kinetics, {
     const { bioPhysicoChemicalProperties } = data[
       EntrySection.Function
     ] as FunctionUIModel;
+
     return (
       bioPhysicoChemicalProperties.kinetics && (
-        <KineticsView data={bioPhysicoChemicalProperties.kinetics} />
+        <>
+          {Object.entries(bioPhysicoChemicalProperties.kinetics).map(
+            ([key, value]) => (
+              <Fragment key={key}>
+                {key !== 'canonical' && <h4 className="tiny">{key}</h4>}
+                <KineticsView data={value} />
+              </Fragment>
+            )
+          )}
+        </>
       )
     );
   },

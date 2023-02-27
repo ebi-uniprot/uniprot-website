@@ -3,7 +3,7 @@
 exports[`Entry - External Links view should render 1`] = `
 <DocumentFragment>
   <section
-    class="card"
+    class="wider-tab-content card"
   >
     <div
       class="card__container"

@@ -49,6 +49,7 @@ type FeatureProps<T> = {
   trackHeight?: number;
   sequence?: string;
   withTitle?: boolean;
+  noLinkToFullView?: boolean;
 };
 
 // ProcessedFeature | TransformedVariant | UniParcProcessedFeature
@@ -60,6 +61,7 @@ const FeaturesView = <
   table,
   trackHeight,
   withTitle = true,
+  noLinkToFullView,
 }: FeatureProps<T>) => {
   const isSmallScreen = useSmallScreen();
 
@@ -114,6 +116,7 @@ const FeaturesView = <
                 features={features}
                 sequence={sequence}
                 trackHeight={trackHeight}
+                noLinkToFullView={noLinkToFullView}
               />
             </LazyComponent>
           )}

@@ -207,7 +207,7 @@ export const XRef = ({
           text
         )
       )}
-      <RichText>
+      <RichText noLink>
         {propertyStrings
           // remove empty strings
           .filter(Boolean)

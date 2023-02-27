@@ -21,7 +21,6 @@ import { UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithSt
 import { Namespace } from '../../../shared/types/namespaces';
 
 import helper from '../../../shared/styles/helper.module.scss';
-import '../../../shared/components/results/styles/results-data.scss';
 import './styles/XRefsSection.scss';
 
 type DataDBModel = Array<{

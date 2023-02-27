@@ -11,13 +11,14 @@ import { Loader } from 'franklin-sites';
 import { sleep } from 'timing-functions';
 import {
   init as SentryInit,
+  setTag as sentrySetTag,
   reactRouterV5Instrumentation,
   Replay,
 } from '@sentry/react';
 import { Integrations as SentryIntegrations } from '@sentry/tracing';
 
 import BaseLayout from '../../shared/components/layouts/BaseLayout';
-import SingleColumnLayout from '../../shared/components/layouts/SingleColumnLayout';
+import { SingleColumnLayout } from '../../shared/components/layouts/SingleColumnLayout';
 import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
 import GDPR from '../../shared/components/gdpr/GDPR';
 import DeploymentWarning from './DeploymentWarning';
@@ -73,6 +74,7 @@ if (process.env.NODE_ENV !== 'development') {
     replaysSessionSampleRate: 0.001,
     replaysOnErrorSampleRate: 1.0,
   });
+  sentrySetTag('bundle', MODERN_BUNDLE ? 'modern' : 'legacy');
 }
 
 // Async loading of page components
@@ -322,7 +324,6 @@ const App = () => {
             />
             {/* Entry pages */}
             {/* Main namespaces */}
-
             <Route
               path={LocationToPath[Location.UniProtKBEntry]}
               component={UniProtKBEntryPage}

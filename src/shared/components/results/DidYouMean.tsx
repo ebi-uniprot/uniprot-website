@@ -100,11 +100,17 @@ type NamespaceSuggestions = Map<SearchableNamespace, Suggestion[]>;
 
 const TIMEOUT = 3_000;
 
+const defaultHeading = <h1 className="small">Sorry, no results were found!</h1>;
+
 type DidYouMeanProps = {
   suggestions?: Suggestion[];
+  heading?: ReactNode;
 };
 
-const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
+const DidYouMean = ({
+  suggestions,
+  heading = defaultHeading,
+}: DidYouMeanProps) => {
   const currentNamespace = useNS();
   const location = useLocation();
   // Blocks a render until we have all network results, or we have timed out
@@ -174,10 +180,8 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
     );
   }
   // Other namespace suggestions
-  for (const [namespace, suggestions] of orderBy(
-    Array.from(otherNamespaceSuggestions.current.entries()),
-    ([, suggestions]) => suggestions[0].hits,
-    'desc'
+  for (const [namespace, suggestions] of Array.from(
+    otherNamespaceSuggestions.current.entries()
   )) {
     suggestionNodes.push(
       <QuerySuggestionListItem
@@ -186,6 +190,10 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
         key={namespace}
       />
     );
+    // If UniProtKB suggestion available, stop there
+    if (namespace === Namespace.uniprotkb) {
+      break;
+    }
   }
   // Peptide Search suggestion
   const potentialPeptide = query?.toUpperCase() || '';
@@ -216,11 +224,11 @@ const DidYouMean = ({ suggestions }: DidYouMeanProps) => {
 
   return (
     <Message level="info" className={styles['did-you-mean-message']}>
-      <h1 className="small">Sorry, no results were found!</h1>
+      {heading}
       {content}
       {renderContent && (
         <>
-          Can&apos;t find what you are looking for? Please{' '}
+          If you can&apos;t find what you are looking for, please{' '}
           <ContactLink>contact us</ContactLink>.
           {currentNamespace === Namespace.uniparc ? (
             <p>

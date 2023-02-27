@@ -16,7 +16,6 @@ import { UseDataAPIWithStaleState } from '../../hooks/useDataApiWithStale';
 import { FacetObject, FacetValue } from '../../types/results';
 
 import helper from '../../styles/helper.module.scss';
-import './styles/results-data.scss';
 
 const getDecoratedFacetLabel = (facetValue: FacetValue) => {
   const { label } = facetValue;

@@ -5,7 +5,7 @@ import cn from 'classnames';
 import { Except } from 'type-fest';
 
 import HTMLHead from '../../../../shared/components/HTMLHead';
-import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
+import { SidebarLayout } from '../../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import HSPDetailPanel, { HSPDetailPanelProps } from './HSPDetailPanel';
@@ -50,6 +50,7 @@ import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter'
 import { UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
 
 import helper from '../../../../shared/styles/helper.module.scss';
+import sidebarStyles from '../../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 
 const jobType = JobTypes.BLAST;
 const urls = toolsURLs(jobType);
@@ -314,7 +315,7 @@ const BlastResult = () => {
     case TabLocation.TextOutput:
     case TabLocation.InputParameters:
     case TabLocation.APIRequest:
-      sidebar = <div className="sidebar-layout__sidebar-content--empty" />;
+      sidebar = <div className={sidebarStyles['empty-sidebar']} />;
       break;
 
     default:
@@ -345,23 +346,19 @@ const BlastResult = () => {
   const basePath = `/blast/${namespace}/${match.params.id}/`;
 
   return (
-    <SideBarLayout
-      title={
-        <PageIntro
-          title={namespaceAndToolsLabels[jobType]}
-          titlePostscript={
-            !loading && (
-              <small>found in {namespaceAndToolsLabels[namespace]}</small>
-            )
-          }
-          resultsCount={loading ? undefined : hitsFiltered.length}
-        />
-      }
-      sidebar={sidebar}
-    >
+    <SidebarLayout sidebar={sidebar}>
       <HTMLHead title={title}>
         <meta name="robots" content="noindex" />
       </HTMLHead>
+      <PageIntro
+        title={namespaceAndToolsLabels[jobType]}
+        titlePostscript={
+          !loading && (
+            <small>found in {namespaceAndToolsLabels[namespace]}</small>
+          )
+        }
+        resultsCount={loading ? undefined : hitsFiltered.length}
+      />
       <Tabs
         active={match.params.subPage}
         className={accessionsLoading ? helper.stale : undefined}
@@ -476,7 +473,7 @@ const BlastResult = () => {
           onClose={() => setHspDetailPanel(null)}
         />
       )}
-    </SideBarLayout>
+    </SidebarLayout>
   );
 };
 

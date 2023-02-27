@@ -17,6 +17,7 @@ import { RunningJob, FinishedJob } from '../types/toolsJob';
 import { Status } from '../types/toolsStatuses';
 import { BlastResults } from '../blast/types/blastResults';
 import { JobTypes } from '../types/toolsJobTypes';
+import { MappingError } from '../id-mapping/types/idMappingSearchResults';
 
 const possibleStatuses = new Set(Object.values(Status));
 
@@ -76,6 +77,20 @@ const getCheckJobStatus =
         // job was already finished, and is still in the same state on the server
         return;
       }
+      if (job.type === JobTypes.ID_MAPPING && status === Status.FAILURE) {
+        const errorResponse: { jobStatus: Status; errors?: MappingError[] } =
+          await response.json();
+        if (errorResponse.errors?.[0]) {
+          const error = errorResponse.errors[0];
+          dispatch(
+            updateJob(job.internalID, {
+              timeLastUpdate: Date.now(),
+              status,
+              errorDescription: error.message,
+            })
+          );
+        }
+      }
       if (
         status === Status.NOT_FOUND ||
         status === Status.RUNNING ||
@@ -85,11 +100,7 @@ const getCheckJobStatus =
         dispatch(
           updateJob(job.internalID, {
             timeLastUpdate: Date.now(),
-            status: status as
-              | Status.NOT_FOUND
-              | Status.RUNNING
-              | Status.FAILURE
-              | Status.ERRORED,
+            status,
           })
         );
         return;

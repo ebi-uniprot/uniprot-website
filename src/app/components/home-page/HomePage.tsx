@@ -35,6 +35,13 @@ const HomePageNonCritical = lazy(
   () => import(/* webpackChunkName: "home-page-non-critical" */ './NonCritical')
 );
 
+const UniProtFooter = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "footer" */ '../../../shared/components/layouts/UniProtFooter'
+    )
+);
+
 const mission = (
   <>
     <Link
@@ -80,8 +87,6 @@ const namespaceFindYour: Record<SearchableNamespace, string> = {
   // Annotations
   [Namespace.unirule]: 'curated UniRule rule',
   [Namespace.arba]: 'generated ARBA rule',
-  // AlphaFold
-  [Namespace.alphafold]: 'protein and its AlphaFold prediction status',
 };
 
 const HomePageHeader = memo(() => {
@@ -162,19 +167,26 @@ const HomePageHeader = memo(() => {
 });
 
 const HomePage = () => (
-  <main>
-    {/* Activate the HTML head logic, but no title, so uses default */}
-    <HTMLHead />
-    <h1 className="visually-hidden">UniProt website home page</h1>
+  <>
+    <main>
+      {/* Activate the HTML head logic, but no title, so uses default */}
+      <HTMLHead />
+      <h1 className="visually-hidden">UniProt website home page</h1>
+      <ErrorBoundary>
+        <HomePageHeader />
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <Suspense fallback={<Loader />}>
+          <HomePageNonCritical />
+        </Suspense>
+      </ErrorBoundary>
+    </main>
     <ErrorBoundary>
-      <HomePageHeader />
-    </ErrorBoundary>
-    <ErrorBoundary>
-      <Suspense fallback={<Loader />}>
-        <HomePageNonCritical />
+      <Suspense fallback={null}>
+        <UniProtFooter />
       </Suspense>
     </ErrorBoundary>
-  </main>
+  </>
 );
 
 export default HomePage;

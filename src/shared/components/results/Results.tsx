@@ -10,7 +10,7 @@ import usePagination from '../../hooks/usePagination';
 import HTMLHead from '../HTMLHead';
 import ResultsData from './ResultsData';
 import ResultsFacets from './ResultsFacets';
-import SideBarLayout from '../layouts/SideBarLayout';
+import { SidebarLayout } from '../layouts/SideBarLayout';
 import NoResultsPage from '../error-pages/NoResultsPage';
 import ErrorHandler from '../error-pages/ErrorHandler';
 import ErrorBoundary from '../error-component/ErrorBoundary';
@@ -116,7 +116,7 @@ const Results = () => {
   }
 
   return (
-    <SideBarLayout sidebar={<ResultsFacets dataApiObject={facetApiObject} />}>
+    <SidebarLayout sidebar={<ResultsFacets dataApiObject={facetApiObject} />}>
       {helmet}
       <ResultsDataHeader
         total={total}
@@ -137,8 +137,9 @@ const Results = () => {
         resultsDataObject={resultsDataObject}
         setSelectedItemFromEvent={setSelectedItemFromEvent}
         setSelectedEntries={setSelectedEntries}
+        didYouMean
       />
-    </SideBarLayout>
+    </SidebarLayout>
   );
 };
 

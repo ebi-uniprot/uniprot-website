@@ -1,0 +1,36 @@
+@import 'franklin-sites/src/styles/common/z-index';
+@import '../../../styles/settings';
+
+.base-layout {
+  display: grid;
+  grid-template-areas:
+    'main-header'
+    'in-page-messages'
+    'main-content';
+  grid-template-rows: auto auto minmax(0, 1fr);
+  max-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  & header {
+    height: var(--top-header-margin);
+  }
+
+  & .main-header {
+    grid-area: main-header;
+
+    /* fix to have a dropdown within it not go below other content */
+    :global(.header__navigation) {
+      z-index: 2;
+    }
+  }
+
+  & .in-page-messages {
+    grid-area: in-page-messages;
+  }
+
+  & .main-content {
+    grid-area: main-content;
+    overflow-y: scroll;
+  }
+}

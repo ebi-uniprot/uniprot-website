@@ -30,9 +30,9 @@ exports[`VariationView component renders on data 1`] = `
                 Description
               </th>
               <th>
-                Disease
+                Clinical
                 <br />
-                association
+                significance
               </th>
               <th>
                 Provenance
@@ -64,9 +64,7 @@ exports[`VariationView component renders on data 1`] = `
                   a description (uniprot)
                 </div>
               </td>
-              <td>
-                No
-              </td>
+              <td />
               <td />
             </tr>
             <tr
@@ -139,9 +137,7 @@ exports[`VariationView component renders on data 1`] = `
                 L&gt;A
               </td>
               <td />
-              <td>
-                No
-              </td>
+              <td />
               <td>
                 <span
                   class=""

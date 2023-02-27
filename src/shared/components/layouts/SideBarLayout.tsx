@@ -1,33 +1,46 @@
-import { FC, ReactNode } from 'react';
+import { lazy, Suspense, ReactNode } from 'react';
 import cn from 'classnames';
 
 import ErrorBoundary from '../error-component/ErrorBoundary';
 
-import './styles/side-bar-layout.scss';
+import styles from './styles/sidebar-layout.module.scss';
 
-type SideBarLayoutProps = {
-  title?: ReactNode;
+const UniProtFooter = lazy(
+  () => import(/* webpackChunkName: "footer" */ './UniProtFooter')
+);
+
+type SidebarLayoutProps = {
   sidebar: ReactNode;
   className?: string;
+  noOverflow?: boolean;
+  children: ReactNode;
 };
 
-const SideBarLayout: FC<SideBarLayoutProps> = ({
-  title,
+export const SidebarLayout = ({
   sidebar,
   children,
   className,
-}) => (
-  <div className={cn('sidebar-layout', className)}>
-    <section className="sidebar-layout__sidebar">
-      <ErrorBoundary>{sidebar}</ErrorBoundary>
-    </section>
-    <section className="sidebar-layout__content">
+  noOverflow,
+}: SidebarLayoutProps) => (
+  <>
+    <div
+      className={cn(
+        styles['sidebar-layout'],
+        { [styles['no-overflow']]: noOverflow },
+        className
+      )}
+    >
+      <aside className={styles.sidebar}>
+        <ErrorBoundary>{sidebar}</ErrorBoundary>
+      </aside>
+      <main className={styles.content}>
+        <ErrorBoundary>{children}</ErrorBoundary>
+      </main>
+    </div>
+    <Suspense fallback={null}>
       <ErrorBoundary>
-        <section className="sidebar-layout__title">{title}</section>
+        <UniProtFooter />
       </ErrorBoundary>
-      <ErrorBoundary>{children}</ErrorBoundary>
-    </section>
-  </div>
+    </Suspense>
+  </>
 );
-
-export default SideBarLayout;

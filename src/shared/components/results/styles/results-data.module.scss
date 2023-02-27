@@ -1,0 +1,40 @@
+@import 'franklin-sites/src/styles/colours';
+@import 'franklin-sites/src/styles/settings';
+
+@import '../../../styles/settings';
+
+.results-data {
+  width: 100%;
+
+  // only apply to the top-level table we don't want inner tables to be affected
+  &:global(.data-table) > thead th {
+    /* is !important still needed? */
+    top: $action-buttons-height !important;
+  }
+
+  // Note: shouldn't use protvista-datatable in results
+  &:global(.data-table) protvista-datatable thead :global(.pd-group-trigger) {
+    // override when using it inside a results table
+    display: none;
+  }
+
+  &:global(.data-table) table thead,
+  &:global(.data-table) table th {
+    background-color: $colour-independence;
+    z-index: inherit;
+  }
+
+  &:global(.data-table) td > :global(.info-list) {
+    margin: 0;
+  }
+}
+
+.did-you-mean-wrapper {
+  /* make sure the wrapper uses 100% of the remaining width */
+  width: calc(100vw - var(--sidebar-size));
+  /* so that DidYouMean component is visually centred _before_ any scrolling */
+  display: grid;
+  padding-block: 5 * $global-padding;
+  justify-items: center;
+  align-items: center;
+}

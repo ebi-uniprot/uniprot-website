@@ -2,55 +2,6 @@
 
 exports[`non-critical HomePage component should render 1`] = `
 <DocumentFragment>
-  <div
-    class="uniprot-grid uniprot-grid--centered home-page-section"
-  >
-    <div
-      class="uniprot-grid-cell--span-12 message message--info"
-      role="status"
-    >
-      <div
-        class="message__side-border"
-      />
-      <test-file-stub
-        height="1.125em"
-        width="1.125em"
-      />
-      <section
-        class="message__content"
-      >
-        <small>
-          We need your help to understand how data is reused by biomedical resources! We have developed 2 surveys for 
-          <a
-            class="external-link"
-            href="https://forms.gle/YwDc59mJcZ91rbsj8"
-            rel="noopener"
-            target="_blank"
-          >
-            users of biomedical resources
-            <test-file-stub
-              data-testid="external-link-icon"
-              width="12.5"
-            />
-          </a>
-          and for 
-          <a
-            class="external-link"
-            href="https://forms.gle/Fxy5iSqPzj4SCpzT7"
-            rel="noopener"
-            target="_blank"
-          >
-            resource providers
-            <test-file-stub
-              data-testid="external-link-icon"
-              width="12.5"
-            />
-          </a>
-          . Please help by filling the appropriate one in by February 21
-        </small>
-      </section>
-    </div>
-  </div>
   <section
     class="uniprot-grid uniprot-grid--centered home-page-section"
   >
@@ -261,25 +212,27 @@ exports[`non-critical HomePage component should render 1`] = `
       <div
         class="decorated-list-item__content"
       >
-        <img
-          alt=""
-          class="alphafold-img"
-          height="569"
-          loading="lazy"
-          src="test-file-stub"
-          width="438"
-        />
         <a
-          href="/alphafold?query=*"
-          title="Browse entries highlighting AlphaFold predictions"
+          href="/uniprotkb?query=(evidence_exp:true)"
+          title="Browse entries with experimental evidences"
         >
           <h2
             class="medium"
           >
-            AlphaFold structures
+            Experimental evidences
           </h2>
-          Search with all the power of the UniProt search engine for proteins with an AlphaFold prediction provided by DeepMind
+          Search through UniProtKB for all entries containing experimental evidences
+          <br />
+          <br />
+          <small />
         </a>
+        <small>
+          <a
+            href="/help/evidences#ECO:0000269"
+          >
+            What are experimental evidences?
+          </a>
+        </small>
       </div>
     </div>
     <div
@@ -525,6 +478,24 @@ exports[`non-critical HomePage component should render 1`] = `
               class="tiny"
             >
               <a
+                href="/release-notes/2023-03-01-release"
+              >
+                UniProt release 2023_01
+              </a>
+            </h3>
+            <p
+              class="latest-news__abstract latest-news__abstract--2-lines"
+            >
+              Killing me softly | Cross-references to GlyCosmos | Change to the cross-references to Gene3D | Changes to the controlled...
+            </p>
+          </article>
+        </li>
+        <li>
+          <article>
+            <h3
+              class="tiny"
+            >
+              <a
                 href="/release-notes/2022-12-14-release"
               >
                 UniProt release 2022_05
@@ -606,24 +577,6 @@ exports[`non-critical HomePage component should render 1`] = `
               class="latest-news__abstract latest-news__abstract--2-lines"
             >
               A phospholipase for clear vision | Cross-references to MANE-Select
-            </p>
-          </article>
-        </li>
-        <li>
-          <article>
-            <h3
-              class="tiny"
-            >
-              <a
-                href="/release-notes/2021-11-17-release"
-              >
-                UniProt release 2021_04
-              </a>
-            </h3>
-            <p
-              class="latest-news__abstract latest-news__abstract--2-lines"
-            >
-              ZTGC: bacteriophages reinvent the DNA alphabet
             </p>
           </article>
         </li>
@@ -733,17 +686,17 @@ exports[`non-critical HomePage component should render 1`] = `
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/254/"
+          href="https://www.proteinspotlight.org/back_issues/255/"
           rel="noopener"
           target="_blank"
         >
-          On a tightrope
+          On the end of a leash
         </a>
       </h3>
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/254/"
+        href="https://www.proteinspotlight.org/back_issues/255/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
@@ -752,14 +705,14 @@ exports[`non-critical HomePage component should render 1`] = `
           alt=""
           height="129"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt254.jpg"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt255.jpg"
           width="123"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          Too  much  of  anything  is  never  good.  Excess  alcohol,  and  our  faculties  are  impaired.  Excess  heat,  and  drought  spreads.  Excess  cold,  and  vineyards  die.  Too  much,  too,  of  what  is  paradoxically  essential  to  life  frequently  turns  out  to  be  toxic.
+          It  has  been  a  long  time  since  I  saw  a  plug  hanging  from  the  side  of  a  bathtub.  Remember  the  small  triangular  ring  the  chain  dangled  from,  and  the  actual  plug  at  the  other  end  -  usually  a  piece  of  black  and  slimy  rubber  that  fitted  perfectly  into  the…
       </p>
     </article>
   </section>

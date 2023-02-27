@@ -31,7 +31,7 @@ export enum MappingErrorCode {
   Other = 50,
 }
 
-type MappingError = {
+export type MappingError = {
   code: MappingErrorCode;
   message: string;
 };

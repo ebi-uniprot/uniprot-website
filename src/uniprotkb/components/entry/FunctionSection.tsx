@@ -5,7 +5,10 @@ import { Link } from 'react-router-dom';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
-import FreeTextView, { TextView } from '../protein-data-views/FreeTextView';
+import FreeTextView, {
+  RichText,
+  TextView,
+} from '../protein-data-views/FreeTextView';
 import CatalyticActivityView from '../protein-data-views/CatalyticActivityView';
 import KeywordView from '../protein-data-views/KeywordView';
 import XRefView from '../protein-data-views/XRefView';
@@ -111,7 +114,16 @@ const BioPhysicoChemicalPropertiesView = ({
           <h3 data-article-id="biophysicochemical_properties#2-kinetic-parameters">
             Kinetics
           </h3>
-          <KineticsTableView data={data.kinetics} />
+          {Object.entries(data.kinetics).map(([key, value]) => (
+            <Fragment key={key}>
+              {key !== 'canonical' && (
+                <h4 className="tiny">
+                  <a href={`#${key.replaceAll(' ', '_')}`}>{key}</a>
+                </h4>
+              )}
+              <KineticsTableView data={value} />
+            </Fragment>
+          ))}
         </>
       )}
       {data.pHDependence && (
@@ -173,7 +185,7 @@ export const CofactorView = ({ cofactors, title }: CofactorViewProps) => {
             cofactorComment.cofactors.map((cofactor) => (
               <Fragment key={cofactor.name}>
                 <span>
-                  {cofactor.name}{' '}
+                  <RichText>{cofactor.name}</RichText>{' '}
                   {cofactor.cofactorCrossReference &&
                     cofactor.cofactorCrossReference.database === 'ChEBI' &&
                     cofactor.cofactorCrossReference.id && (

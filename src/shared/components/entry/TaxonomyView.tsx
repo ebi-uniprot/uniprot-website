@@ -87,7 +87,7 @@ export const TaxonomyLineage = ({
       ? Array.from(lineage)
           .reverse()
           .map((data, index) => (
-            <Fragment key={data.taxonId || data.scientificName || index}>
+            <Fragment key={data.taxonId || index}>
               {index ? ' > ' : undefined}
               {data.taxonId ? (
                 <TaxonomyView

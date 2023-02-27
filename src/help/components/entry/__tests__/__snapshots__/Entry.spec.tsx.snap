@@ -5,9 +5,7 @@ exports[`Help entry tests should render the Entry component 1`] = `
   <div
     class="single-column-layout"
   >
-    <main
-      class="single-column-layout__main"
-    >
+    <main>
       <h1
         class="big"
       >
@@ -281,5 +279,6 @@ exports[`Help entry tests should render the Entry component 1`] = `
       </div>
     </main>
   </div>
+  {{ Footer }}
 </DocumentFragment>
 `;
