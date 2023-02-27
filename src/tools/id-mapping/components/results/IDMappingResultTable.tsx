@@ -1,4 +1,4 @@
-import { ExpandableList, HeroContainer } from 'franklin-sites';
+import { ExpandableList, HeroContainer, LongNumber } from 'franklin-sites';
 
 import ResultsData from '../../../../shared/components/results/ResultsData';
 import ResultsButtons from '../../../../shared/components/results/ResultsButtons';
@@ -34,6 +34,8 @@ const IDMappingResultTable = ({
     namespaceOverride
   );
 
+  const inputIDs = detailsData?.ids.split(',');
+
   return (
     <>
       <ResultsButtons
@@ -49,6 +51,16 @@ const IDMappingResultTable = ({
         excludeColumns={namespaceOverride === Namespace.idmapping}
         supportedFormats={supportedFormats}
       />
+      {inputIDs && (
+        <HeroContainer>
+          <strong>
+            <LongNumber>{inputIDs.length}</LongNumber>
+          </strong>{' '}
+          ID
+          {inputIDs.length > 1 ? 's' : ''} are mapped to{' '}
+          <LongNumber>{resultsDataObject.total || 0}</LongNumber> results
+        </HeroContainer>
+      )}
       {resultsDataObject.failedIds && (
         <HeroContainer>
           <strong>{resultsDataObject.failedIds.length}</strong> ID

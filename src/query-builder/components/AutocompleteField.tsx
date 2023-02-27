@@ -15,7 +15,7 @@ const AutocompleteField: FC<{
     () => initializer(field, initialValue) as string
   );
   const [selectedId, setSelectedId] = useState<string | undefined>(
-    () => initializer(field, initialValue) as string
+    () => initializer(field, initialValue, true) as string
   );
 
   const { autoComplete, term, label, id, autoCompleteQueryTerm } = field;

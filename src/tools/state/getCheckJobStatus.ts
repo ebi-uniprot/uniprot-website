@@ -78,9 +78,9 @@ const getCheckJobStatus =
         return;
       }
       if (job.type === JobTypes.ID_MAPPING && status === Status.FAILURE) {
-        const errorResponse: { jobStatus: Status; errors: MappingError[] } =
+        const errorResponse: { jobStatus: Status; errors?: MappingError[] } =
           await response.json();
-        if (errorResponse) {
+        if (errorResponse.errors?.[0]) {
           const error = errorResponse.errors[0];
           dispatch(
             updateJob(job.internalID, {

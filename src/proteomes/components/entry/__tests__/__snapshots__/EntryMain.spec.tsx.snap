@@ -400,7 +400,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="https://www.ncbi.nlm.nih.gov/nuccore/CM000663"
+                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000663"
                   rel="noopener"
                   target="_blank"
                 >
@@ -446,7 +446,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="https://www.ncbi.nlm.nih.gov/nuccore/CM000664"
+                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000664"
                   rel="noopener"
                   target="_blank"
                 >
@@ -492,7 +492,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="https://www.ncbi.nlm.nih.gov/nuccore/CM000665"
+                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000665"
                   rel="noopener"
                   target="_blank"
                 >
@@ -538,7 +538,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="https://www.ncbi.nlm.nih.gov/nuccore/CM000666"
+                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000666"
                   rel="noopener"
                   target="_blank"
                 >
@@ -584,7 +584,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="https://www.ncbi.nlm.nih.gov/nuccore/CM000667"
+                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000667"
                   rel="noopener"
                   target="_blank"
                 >
@@ -630,7 +630,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="https://www.ncbi.nlm.nih.gov/nuccore/CM000668"
+                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000668"
                   rel="noopener"
                   target="_blank"
                 >
@@ -676,7 +676,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="https://www.ncbi.nlm.nih.gov/nuccore/CM000669"
+                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000669"
                   rel="noopener"
                   target="_blank"
                 >
@@ -722,7 +722,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="https://www.ncbi.nlm.nih.gov/nuccore/CM000670"
+                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000670"
                   rel="noopener"
                   target="_blank"
                 >
@@ -768,7 +768,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="https://www.ncbi.nlm.nih.gov/nuccore/CM000671"
+                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000671"
                   rel="noopener"
                   target="_blank"
                 >
@@ -814,7 +814,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="https://www.ncbi.nlm.nih.gov/nuccore/CM000672"
+                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000672"
                   rel="noopener"
                   target="_blank"
                 >
@@ -860,7 +860,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="https://www.ncbi.nlm.nih.gov/nuccore/CM000673"
+                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000673"
                   rel="noopener"
                   target="_blank"
                 >
@@ -906,7 +906,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="https://www.ncbi.nlm.nih.gov/nuccore/CM000674"
+                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000674"
                   rel="noopener"
                   target="_blank"
                 >
@@ -952,7 +952,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="https://www.ncbi.nlm.nih.gov/nuccore/CM000675"
+                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000675"
                   rel="noopener"
                   target="_blank"
                 >
@@ -998,7 +998,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="https://www.ncbi.nlm.nih.gov/nuccore/CM000676"
+                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000676"
                   rel="noopener"
                   target="_blank"
                 >
@@ -1044,7 +1044,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="https://www.ncbi.nlm.nih.gov/nuccore/CM000677"
+                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000677"
                   rel="noopener"
                   target="_blank"
                 >
@@ -1090,7 +1090,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="https://www.ncbi.nlm.nih.gov/nuccore/CM000678"
+                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000678"
                   rel="noopener"
                   target="_blank"
                 >
@@ -1136,7 +1136,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="https://www.ncbi.nlm.nih.gov/nuccore/CM000679"
+                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000679"
                   rel="noopener"
                   target="_blank"
                 >
@@ -1182,7 +1182,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="https://www.ncbi.nlm.nih.gov/nuccore/CM000680"
+                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000680"
                   rel="noopener"
                   target="_blank"
                 >
@@ -1228,7 +1228,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="https://www.ncbi.nlm.nih.gov/nuccore/CM000681"
+                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000681"
                   rel="noopener"
                   target="_blank"
                 >
@@ -1274,7 +1274,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="https://www.ncbi.nlm.nih.gov/nuccore/CM000682"
+                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000682"
                   rel="noopener"
                   target="_blank"
                 >
@@ -1320,7 +1320,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="https://www.ncbi.nlm.nih.gov/nuccore/CM000683"
+                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000683"
                   rel="noopener"
                   target="_blank"
                 >
@@ -1366,7 +1366,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="https://www.ncbi.nlm.nih.gov/nuccore/CM000684"
+                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000684"
                   rel="noopener"
                   target="_blank"
                 >
@@ -1412,7 +1412,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="https://www.ncbi.nlm.nih.gov/nuccore/CM000685"
+                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000685"
                   rel="noopener"
                   target="_blank"
                 >
@@ -1458,7 +1458,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="https://www.ncbi.nlm.nih.gov/nuccore/CM000686"
+                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=CM000686"
                   rel="noopener"
                   target="_blank"
                 >
@@ -1504,7 +1504,7 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   class="external-link"
-                  href="https://www.ncbi.nlm.nih.gov/nuccore/J01415"
+                  href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?v=J01415"
                   rel="noopener"
                   target="_blank"
                 >

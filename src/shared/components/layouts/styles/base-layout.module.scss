@@ -18,6 +18,11 @@
 
   & .main-header {
     grid-area: main-header;
+
+    /* fix to have a dropdown within it not go below other content */
+    :global(.header__navigation) {
+      z-index: 2;
+    }
   }
 
   & .in-page-messages {

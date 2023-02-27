@@ -30,20 +30,30 @@ const needsNewLineRE = /^\)\.\s+/;
 
 const getEntryPathForCitation = getEntryPathFor(Namespace.citations);
 
-export const RichText = ({
-  children,
-  addPeriod,
-}: {
+type RichTextProps = {
+  /**
+   * Text to parse and enrich
+   */
   children?: string;
+  /**
+   * Wether to add periods (if missing) at the end. To be used if it's meant to
+   * be a sentence
+   */
   addPeriod?: boolean;
-}) => (
+  /**
+   * Just do enrichments that don't involve adding links. Only the visual ones
+   */
+  noLink?: boolean;
+};
+
+export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => (
   <>
     {children?.split(needTextProcessingRE).map((part, index, { length }) => {
       // Capturing group will allow split to conserve that bit in the split parts
       // NOTE: rePubMed and reAC should be using a lookbehind eg `/(?<=pubmed:)(\d{7,8})/i` but
       // it is not supported in Safari yet. It's OK, we just get more chunks when splitting
       const pubMedID = part.match(rePubMedID)?.[0];
-      if (rePubMed.test(part) && pubMedID) {
+      if (rePubMed.test(part) && pubMedID && !noLink) {
         // PubMed ID, insert a link
         // eg A0A075B6S6
         return (
@@ -55,7 +65,7 @@ export const RichText = ({
         );
       }
       const accession = part.match(reUniProtKBAccession)?.[0];
-      if (reAC.test(part) && accession) {
+      if (reAC.test(part) && accession && !noLink) {
         // Replace any occurrences of "AC <accession>" with "AC "<link to accession>
         // eg A0A075B6S6
         return (
@@ -103,15 +113,13 @@ export const RichText = ({
   </>
 );
 
-export const TextView = ({
-  comments,
-  type,
-  children,
-}: {
+type TextViewProps = {
   comments: TextWithEvidence[];
   type?: FreeTextType;
   children?: ReactNode;
-}) => (
+};
+
+export const TextView = ({ comments, type, children }: TextViewProps) => (
   <div className="text-block">
     {children}
     {comments.map((comment, index) => (
