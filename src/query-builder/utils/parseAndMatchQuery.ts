@@ -10,10 +10,13 @@ type STTWithParent = SearchTermType & {
 export const flatten = (searchTermData: STTWithParent[]): STTWithParent[] =>
   searchTermData.flatMap((searchTermDatum: STTWithParent) => {
     if (searchTermDatum.siblings) {
-      return flatten(searchTermDatum.siblings).map((st) => ({
-        ...st,
-        parent: searchTermDatum,
-      }));
+      return [
+        searchTermDatum,
+        ...flatten(searchTermDatum.siblings).map((st) => ({
+          ...st,
+          parent: searchTermDatum,
+        })),
+      ];
     }
     if (searchTermDatum.items) {
       return flatten(searchTermDatum.items);

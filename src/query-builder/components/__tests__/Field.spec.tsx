@@ -4,7 +4,7 @@ import Field from '../Field';
 
 import { DataType, SearchTermType } from '../../types/searchTypes';
 
-import { idToSearchTerm } from './__mocks__/configureSearchTerms';
+import { getSearchTerm } from './__mocks__/configureSearchTerms';
 
 const handleChange = jest.fn();
 
@@ -12,7 +12,7 @@ describe('Clause component', () => {
   it('should render a `text` field', () => {
     const { asFragment } = render(
       <Field
-        field={idToSearchTerm.accession_field}
+        field={getSearchTerm('accession_field')}
         handleChange={handleChange}
       />
     );
@@ -22,7 +22,7 @@ describe('Clause component', () => {
   it('should render a `text` field with initial value', () => {
     const { asFragment } = render(
       <Field
-        field={idToSearchTerm.accession_field}
+        field={getSearchTerm('accession_field')}
         handleChange={handleChange}
         initialValue={{ accession: 'P12345' }}
       />
@@ -32,28 +32,31 @@ describe('Clause component', () => {
 
   it('should render a `date` field with range', () => {
     const { asFragment } = render(
-      <Field field={idToSearchTerm.date_created} handleChange={handleChange} />
+      <Field
+        field={getSearchTerm('date_created')}
+        handleChange={handleChange}
+      />
     );
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('should render an `enum` field', () => {
     const { asFragment } = render(
-      <Field field={idToSearchTerm.existence} handleChange={handleChange} />
+      <Field field={getSearchTerm('existence')} handleChange={handleChange} />
     );
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('should render an `integer` field', () => {
     const { asFragment } = render(
-      <Field field={idToSearchTerm.ftlen_sites} handleChange={handleChange} />
+      <Field field={getSearchTerm('ftlen_sites')} handleChange={handleChange} />
     );
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('should render an `integer` `range` field', () => {
     const { asFragment } = render(
-      <Field field={idToSearchTerm.ftlen_sites} handleChange={handleChange} />
+      <Field field={getSearchTerm('ftlen_sites')} handleChange={handleChange} />
     );
     expect(asFragment()).toMatchSnapshot();
   });
