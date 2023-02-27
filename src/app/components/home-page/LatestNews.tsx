@@ -132,6 +132,28 @@ const LatestNews = () => {
               <h3 className="tiny">
                 <Link
                   to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                    accession: '2023-03-01-release',
+                  })}
+                >
+                  UniProt release 2023_01
+                </Link>
+              </h3>
+              <p
+                className={cn(
+                  styles['latest-news__abstract'],
+                  styles['latest-news__abstract--2-lines']
+                )}
+              >
+                Killing me softly | Cross-references to GlyCosmos | Change to
+                the cross-references to Gene3D | Changes to the controlled...
+              </p>
+            </article>
+          </li>
+          <li>
+            <article>
+              <h3 className="tiny">
+                <Link
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
                     accession: '2022-12-14-release',
                   })}
                 >
@@ -238,27 +260,6 @@ const LatestNews = () => {
               >
                 A phospholipase for clear vision | Cross-references to
                 MANE-Select
-              </p>
-            </article>
-          </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2021-11-17-release',
-                  })}
-                >
-                  UniProt release 2021_04
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                ZTGC: bacteriophages reinvent the DNA alphabet
               </p>
             </article>
           </li>
