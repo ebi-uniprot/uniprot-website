@@ -67,14 +67,11 @@ const isSAMEvidence = (evidences: Evidence[]) =>
       typeof evidence.source !== 'undefined' && evidence.source === 'SAM'
   );
 
-// Commenting the below code. We might still need this if we decide to show the number of rules in the tag
-// const rulesCountRenderer = (evidences: Evidence[]) => {
-//   const { length } = evidences;
-//   if (isSAMEvidence(evidences)) {
-//     return labels.SEQ_ANA;
-//   }
-//   return `${length} ${pluralise(labels.AA, length)}`;
-// };
+const isProtNLMEvidence = (evidences: Evidence[]) =>
+  evidences.some(
+    (evidence) =>
+      typeof evidence.source !== 'undefined' && evidence.source === 'Google'
+  );
 
 const manualevidenceTagLabeler = (evidences: Evidence[]) => {
   let label = labels.SEQ_ANA;
@@ -256,14 +253,21 @@ export const ecoCodeToData = {
   },
   [ecoCode.AA]: {
     manual: false,
-    evidenceTagContentHeading: (evidences: Evidence[]) =>
-      /* 
-      Sequence Analysis Methods (SAM) evidences should be labeled as 'Sequence analysis' with AA flag.
-      For more info - https://www.uniprot.org/help/sam 
-    */
-      isSAMEvidence(evidences)
-        ? 'Automatic assertion according to sequence analysis'
-        : 'Automatic assertion according to rules',
+    evidenceTagContentHeading: (evidences: Evidence[]) => {
+      if (isSAMEvidence(evidences)) {
+        /**
+         * Sequence Analysis Methods (SAM) evidences should be labeled as
+         * 'Sequence analysis' with AA flag.
+         * For more info - https://www.uniprot.org/help/sam
+         */
+        return 'Automatic assertion according to sequence analysis';
+      }
+      if (isProtNLMEvidence(evidences)) {
+        // TODO: update when TRM-28958 has settled on a specific wording
+        return 'Automatic assertion';
+      }
+      return 'Automatic assertion according to rules';
+    },
     evidenceTagContentHeadingForGO:
       'Automatically inferred from sequence model',
     evidenceTagLabel: () => labels.AA,
