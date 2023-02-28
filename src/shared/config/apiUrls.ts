@@ -256,6 +256,7 @@ type GetOptions = {
   facets?: Facets[] | null;
   size?: number;
   query?: string;
+  noSort?: boolean;
 };
 
 export const getAccessionsURL = (
@@ -269,6 +270,7 @@ export const getAccessionsURL = (
     facets,
     size,
     query,
+    noSort,
   }: GetOptions = {}
 ) => {
   if (!(accessions && accessions.length)) {
@@ -283,11 +285,15 @@ export const getAccessionsURL = (
   } else if (namespace === Namespace.uniparc) {
     key = 'upis';
   }
+  let accs = accessions;
+  if (!noSort) {
+    // sort to improve possible cache hit
+    accs = Array.from(accessions).sort();
+  }
   return `${joinUrl(apiPrefix, `/${namespace}/${key}`)}?${queryString.stringify(
     {
       size,
-      // sort to improve possible cache hit
-      [key]: Array.from(accessions).sort().join(','),
+      [key]: accs.join(','),
       query: [
         query && `(${query})`,
         createFacetsQueryString(

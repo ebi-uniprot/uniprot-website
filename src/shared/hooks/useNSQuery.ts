@@ -23,6 +23,7 @@ type Arg = {
   overrideQuery?: string;
   facetsNotApplied?: boolean;
   getSequence?: boolean;
+  noSort?: boolean;
 };
 
 const useNSQuery = ({
@@ -36,6 +37,7 @@ const useNSQuery = ({
   overrideQuery,
   facetsNotApplied,
   getSequence = false,
+  noSort = false,
 }: Arg = {}) => {
   const namespace = useNS(overrideNS) || Namespace.uniprotkb;
   const location = useLocation();
@@ -81,6 +83,7 @@ const useNSQuery = ({
     sortColumn,
     sortDirection,
     size,
+    noSort,
   };
   return accessions
     ? getAccessionsURL(accessions, options)
