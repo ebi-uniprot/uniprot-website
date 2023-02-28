@@ -461,6 +461,12 @@ const App = () => {
             />
             {/* Release notes */}
             <Route
+              path={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                accession: '_preview',
+              })}
+              component={HelpEntryPreviewPage}
+            />
+            <Route
               path={LocationToPath[Location.ReleaseNotesEntry]}
               component={HelpEntryPage}
             />
