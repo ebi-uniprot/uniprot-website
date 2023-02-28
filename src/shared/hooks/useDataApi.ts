@@ -243,6 +243,8 @@ function useDataApi<T>(
               // Clean up any wrong type of value, and the faulty value too
               column && typeof column === 'string' && column !== invalidField
           );
+          // If no valid columns then store undefined which will cause the
+          // default columns to be used.
           const correctArray = JSON.stringify(
             noFaults.length ? noFaults : undefined
           );
