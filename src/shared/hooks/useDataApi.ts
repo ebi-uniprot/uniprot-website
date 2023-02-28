@@ -238,12 +238,13 @@ function useDataApi<T>(
           const faultyArray: string[] = JSON.parse(
             localStorage.getItem(key) as string
           );
+          const noFaults = faultyArray.filter(
+            (column) =>
+              // Clean up any wrong type of value, and the faulty value too
+              column && typeof column === 'string' && column !== invalidField
+          );
           const correctArray = JSON.stringify(
-            faultyArray.filter(
-              (column) =>
-                // Clean up any wrong type of value, and the faulty value too
-                column && typeof column === 'string' && column !== invalidField
-            )
+            noFaults.length ? noFaults : undefined
           );
           localStorage.setItem(key, correctArray);
           // Signals to all useLocalStorage hooks in use to rerender
