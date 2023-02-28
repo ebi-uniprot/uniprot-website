@@ -1,11 +1,13 @@
 import { useEffect, useReducer, useRef } from 'react';
 import axios, { AxiosResponse, AxiosError, AxiosRequestConfig } from 'axios';
+import joinUrl from 'url-join';
 
 import { useMessagesDispatch } from '../contexts/Messages';
 
 import fetchData from '../utils/fetchData';
 import { addMessage } from '../../messages/state/messagesActions';
 import * as logging from '../utils/logging';
+import { apiPrefix } from '../config/apiUrls';
 
 import {
   MessageFormat,
@@ -18,7 +20,11 @@ type CustomError = AxiosError<{ messages?: string[] }>;
 
 const invalidFieldMessage = /Invalid fields parameter value '(?<field>[^']*)'/;
 const namespacedURL = new RegExp(
-  `api/(?<namespace>${Object.values(Namespace).join('|')})/search`
+  joinUrl(
+    apiPrefix,
+    `(?<namespace>${Object.values(Namespace).join('|')})`,
+    'search'
+  )
 );
 
 // TODO: possible improvement:
