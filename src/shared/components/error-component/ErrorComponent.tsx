@@ -1,8 +1,6 @@
 import { Message } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
-import ExternalLink from '../ExternalLink';
-
 import { getLocationEntryPath, Location } from '../../../app/config/urls';
 
 import styles from './styles/error-component.module.scss';
@@ -31,13 +29,6 @@ const ErrorComponent = () => (
           report this bug here
         </a>
         .
-      </p>
-      <p>
-        If you still need it, the{' '}
-        <ExternalLink url="https://legacy.uniprot.org" rel="nofollow" noIcon>
-          legacy version of the website
-        </ExternalLink>{' '}
-        is available until the 2023_01 release.
       </p>
     </Message>
   </div>

@@ -274,13 +274,6 @@ const ContactForm = () => {
             </ul>
           </aside>
         </form>
-        <Message level="info" className="uniprot-grid-cell--span-12">
-          If you still need it, the{' '}
-          <ExternalLink url="https://legacy.uniprot.org" rel="nofollow" noIcon>
-            legacy version of the website
-          </ExternalLink>{' '}
-          is available until the 2023_01 release.
-        </Message>
       </section>
     </>
   );
