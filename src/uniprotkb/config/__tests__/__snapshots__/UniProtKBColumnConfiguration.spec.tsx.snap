@@ -34,21 +34,6 @@ exports[`UniProtKBColumnConfiguration component should render column "accession"
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "alphafold": alphafold 1`] = `
-<DocumentFragment>
-  <span
-    class="no-wrap accession-view"
-    style="color: gray; font-weight: 600; font-family: "IBM Plex Sans", Helvetica, Arial, sans-serif;"
-    title="Loading prediction"
-  >
-    AlphaFold 
-    <test-file-stub
-      width="2ch"
-    />
-  </span>
-</DocumentFragment>
-`;
-
 exports[`UniProtKBColumnConfiguration component should render column "annotation_score": annotation_score 1`] = `
 <DocumentFragment>
   <span

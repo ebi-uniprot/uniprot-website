@@ -207,34 +207,7 @@ exports[`non-critical HomePage component should render 1`] = `
     class="uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section extra-links"
   >
     <div
-      class="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-4 decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
-    >
-      <div
-        class="decorated-list-item__content"
-      >
-        <img
-          alt=""
-          class="alphafold-img"
-          height="569"
-          loading="lazy"
-          src="test-file-stub"
-          width="438"
-        />
-        <a
-          href="/alphafold?query=*"
-          title="Browse entries highlighting AlphaFold predictions"
-        >
-          <h2
-            class="medium"
-          >
-            AlphaFold structures
-          </h2>
-          Search with all the power of the UniProt search engine for proteins with an AlphaFold prediction provided by DeepMind
-        </a>
-      </div>
-    </div>
-    <div
-      class="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-4 decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
+      class="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-6 decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
     >
       <div
         class="decorated-list-item__content"
@@ -262,7 +235,7 @@ exports[`non-critical HomePage component should render 1`] = `
       </div>
     </div>
     <div
-      class="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-4 decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
+      class="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-6 decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
     >
       <div
         class="decorated-list-item__content"
@@ -476,6 +449,24 @@ exports[`non-critical HomePage component should render 1`] = `
               class="tiny"
             >
               <a
+                href="/release-notes/2023-03-01-release"
+              >
+                UniProt release 2023_01
+              </a>
+            </h3>
+            <p
+              class="latest-news__abstract latest-news__abstract--2-lines"
+            >
+              Killing me softly | Cross-references to GlyCosmos | Change to the cross-references to Gene3D | Changes to the controlled...
+            </p>
+          </article>
+        </li>
+        <li>
+          <article>
+            <h3
+              class="tiny"
+            >
+              <a
                 href="/release-notes/2022-12-14-release"
               >
                 UniProt release 2022_05
@@ -557,24 +548,6 @@ exports[`non-critical HomePage component should render 1`] = `
               class="latest-news__abstract latest-news__abstract--2-lines"
             >
               A phospholipase for clear vision | Cross-references to MANE-Select
-            </p>
-          </article>
-        </li>
-        <li>
-          <article>
-            <h3
-              class="tiny"
-            >
-              <a
-                href="/release-notes/2021-11-17-release"
-              >
-                UniProt release 2021_04
-              </a>
-            </h3>
-            <p
-              class="latest-news__abstract latest-news__abstract--2-lines"
-            >
-              ZTGC: bacteriophages reinvent the DNA alphabet
             </p>
           </article>
         </li>
