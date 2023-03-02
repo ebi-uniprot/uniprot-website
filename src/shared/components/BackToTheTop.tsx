@@ -18,7 +18,11 @@ const BackToTheTop = () => {
     <Button
       title="scroll to the top of the page"
       className={cn(styles.button, { [styles.visible]: visible })}
-      onClick={() => window.scrollTo(0, 0)}
+      onClick={() =>
+        document
+          .querySelector(`.${baseLayoutStyles['main-content']}`)
+          ?.scrollTo(0, 0)
+      }
       aria-hidden={!visible}
       tabIndex={visible ? 0 : -1}
     >
