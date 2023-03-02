@@ -71,6 +71,10 @@ protvista-manager {
 // TODO: remove as part of TRM-26871
 .protvista-uniprot-structure__structure protvista-structure {
   z-index: 10 !important;
+
+  & .msp-viewport-controls {
+    display: none;
+  }
 }
 
 .zoom-image-container img {
