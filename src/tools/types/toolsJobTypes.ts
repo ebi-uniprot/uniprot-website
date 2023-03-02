@@ -3,4 +3,5 @@ export enum JobTypes {
   ALIGN = 'align',
   ID_MAPPING = 'id mapping',
   PEPTIDE_SEARCH = 'peptide search',
+  ASYNC_DOWNLOAD = 'async download',
 }

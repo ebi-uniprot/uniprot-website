@@ -202,7 +202,8 @@ export const defaultFacets = new Map<Namespace, Facets[]>([
   [Namespace.unirule, uniRuleDefaultFacets],
   [Namespace.arba, arbaDefaultFacets],
 ]);
-type QueryUrlProps = {
+
+type ApiUrlOptions = {
   namespace?: Namespace;
   query?: string;
   // TODO: change to set of possible fields (if possible, depending on namespace)
@@ -213,7 +214,8 @@ type QueryUrlProps = {
   facets?: Facets[] | null;
   size?: number;
 };
-export const getAPIQueryUrl = ({
+
+export const getAPIQueryParams = ({
   namespace = Namespace.uniprotkb,
   query = '*',
   columns = [],
@@ -222,14 +224,14 @@ export const getAPIQueryUrl = ({
   sortDirection = SortDirection.ascend,
   facets,
   size,
-}: QueryUrlProps = {}) => {
+}: ApiUrlOptions = {}) => {
   let facetField = facets;
   // if null or empty list, don't set default, only for undefined
   // note: could this be moved to useNSQuery?
   if (facetField === undefined) {
     facetField = defaultFacets.get(namespace);
   }
-  return `${apiUrls.search(namespace)}?${queryString.stringify({
+  return {
     size,
     query: `${[query && `(${query})`, createFacetsQueryString(selectedFacets)]
       .filter(Boolean)
@@ -240,8 +242,14 @@ export const getAPIQueryUrl = ({
       sortColumn && sortColumn !== ('score' as SortableColumn)
         ? `${sortColumn} ${getApiSortDirection(SortDirection[sortDirection])}`
         : undefined,
-  })}`;
+  };
 };
+
+export const getAPIQueryUrl = (options: ApiUrlOptions = {}) =>
+  queryString.stringifyUrl({
+    url: apiUrls.search(options.namespace || Namespace.uniprotkb),
+    query: getAPIQueryParams(options),
+  });
 
 const localBlastFacets = Object.values(BlastFacet) as string[];
 const excludeLocalBlastFacets = ({ name }: SelectedFacet) =>
@@ -459,21 +467,21 @@ export const getDownloadUrl = ({
     parameters.compressed = true;
   }
 
-  return `${endpoint}?${queryString.stringify(parameters)}`;
+  return queryString.stringifyUrl({ url: endpoint, query: parameters });
 };
 
 const proteinsApiPrefix = 'https://www.ebi.ac.uk/proteins/api';
 export const proteinsApi = {
   proteins: (accession: string) =>
-    joinUrl(proteinsApiPrefix, `/proteins/${accession}`),
+    joinUrl(proteinsApiPrefix, 'proteins', accession),
   proteomicsPtm: (accession: string) =>
-    joinUrl(proteinsApiPrefix, `/proteomics-ptm/${accession}`),
+    joinUrl(proteinsApiPrefix, 'proteomics-ptm', accession),
 };
 
 // Help endpoints
 export const help = {
   accession: (accession?: string) =>
-    accession && joinUrl(apiPrefix, '/help', accession),
+    accession && joinUrl(apiPrefix, 'help', accession),
   search: ({
     query,
     sort,
@@ -482,30 +490,33 @@ export const help = {
     facets = helpDefaultFacets,
     size,
   }: queryString.ParsedQuery) =>
-    `${joinUrl(apiPrefix, '/help/search')}?${queryString.stringify({
-      query: [
-        query || '*',
-        ...(Array.isArray(queryFacets)
-          ? queryFacets
-          : (queryFacets || '').split(',')
-        )
+    queryString.stringifyUrl({
+      url: joinUrl(apiPrefix, 'help/search'),
+      query: {
+        query: [
+          query || '*',
+          ...(Array.isArray(queryFacets)
+            ? queryFacets
+            : (queryFacets || '').split(',')
+          )
+            .filter(Boolean)
+            // Sort in order to improve cache hits
+            .sort()
+            .map((facet) => {
+              const [facetName, facetValue] = (facet || '').split(':');
+              return `(${facetName}:${
+                facetValue.includes(' ') ? `"${facetValue}"` : facetValue
+              })`;
+            }),
+        ]
           .filter(Boolean)
-          // Sort in order to improve cache hits
-          .sort()
-          .map((facet) => {
-            const [facetName, facetValue] = (facet || '').split(':');
-            return `(${facetName}:${
-              facetValue.includes(' ') ? `"${facetValue}"` : facetValue
-            })`;
-          }),
-      ]
-        .filter(Boolean)
-        .join(' AND '),
-      sort,
-      fields,
-      facets,
-      size,
-    })}`,
+          .join(' AND '),
+        sort,
+        fields,
+        facets,
+        size,
+      },
+    }),
 };
 
 // News endpoints

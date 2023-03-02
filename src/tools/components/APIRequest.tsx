@@ -38,6 +38,10 @@ const documentation = new Map<JobTypes, string>([
     JobTypes.PEPTIDE_SEARCH,
     'https://research.bioinformatics.udel.edu/peptidematchws/',
   ],
+  [
+    JobTypes.ASYNC_DOWNLOAD,
+    `${API_PREFIX}/docs/?urls.primaryName=asyncdownload#/job/submitJob`, // TODO: determine final URL
+  ],
 ]);
 
 function inputToCurl<T extends JobTypes>(

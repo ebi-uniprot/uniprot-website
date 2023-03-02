@@ -3,6 +3,7 @@
 // as returned by https://www.ebi.ac.uk/Tools/services/rest/ncbiblast/status/{jobId}
 // as returned by https://www.ebi.ac.uk/Tools/services/rest/clustalo/status/{jobId}
 export enum Status {
+  NEW = 'NEW', // specific to async-download, TODO: replace with QUEUED
   CREATED = 'CREATED', // not from the server, for internal use
   ERRORED = 'ERRORED', // according to www-prod, for problems with the tool
   FAILURE = 'FAILURE', // according to www-prod, when something else in the pipeline failed (LSF issues, etc.)
