@@ -36,6 +36,7 @@ export const defaultColumns = [
   TaxonomyColumn.commonName,
   TaxonomyColumn.scientificName,
   TaxonomyColumn.lineage,
+  TaxonomyColumn.links,
 ];
 
 export const primaryKeyColumns = [TaxonomyColumn.id];
