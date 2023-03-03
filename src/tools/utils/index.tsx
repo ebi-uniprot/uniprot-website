@@ -17,10 +17,13 @@ import { JobTypes } from '../types/toolsJobTypes';
 import { Status } from '../types/toolsStatuses';
 import { LocationStateFromJobLink } from '../hooks/useMarkJobAsSeen';
 
+const reHex = /^[a-f\d]+$/;
+
 const validServerID: Record<JobTypes, RegExp> = {
   [JobTypes.ALIGN]: /^clustalo-R\d{8}(-\w+){4}$/,
   [JobTypes.BLAST]: /^ncbiblast-R\d{8}(-\w+){4}$/,
-  [JobTypes.ID_MAPPING]: /^[a-f\d]+$/,
+  [JobTypes.ASYNC_DOWNLOAD]: reHex,
+  [JobTypes.ID_MAPPING]: reHex,
   [JobTypes.PEPTIDE_SEARCH]: /^[A-Z\d]+$/i,
 };
 
@@ -73,6 +76,7 @@ export const getStatusFromResponse = async (
     case JobTypes.BLAST:
       status = (await response.text()) as Status;
       break;
+    case JobTypes.ASYNC_DOWNLOAD:
     case JobTypes.ID_MAPPING:
       if (response.status >= 400) {
         status = Status.FAILURE;
