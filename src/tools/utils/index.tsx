@@ -39,6 +39,7 @@ export const getRemoteIDFromResponse = async (
     case JobTypes.BLAST:
       remoteID = await response.text();
       break;
+    case JobTypes.ASYNC_DOWNLOAD:
     case JobTypes.ID_MAPPING:
       remoteID = (await response.json())?.jobId;
       break;
