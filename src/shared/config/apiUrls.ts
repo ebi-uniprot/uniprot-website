@@ -349,7 +349,7 @@ type Parameters = {
   subsequence?: boolean;
   size?: number;
   compressed?: boolean;
-  download: true;
+  download?: true;
 };
 
 export type DownloadUrlOptions = {
@@ -367,6 +367,7 @@ export type DownloadUrlOptions = {
   namespace: Namespace;
   accessions?: string[];
   idMappingPrefix?: string;
+  download?: boolean;
 };
 
 export const getDownloadUrl = ({
@@ -383,6 +384,7 @@ export const getDownloadUrl = ({
   selectedIdField,
   namespace,
   accessions,
+  download = true,
 }: DownloadUrlOptions) => {
   // If the consumer of this fn has passed specified a size we have to use the search endpoint
   // otherwise use download/stream which is much quicker but doesn't allow specification of size
@@ -397,11 +399,12 @@ export const getDownloadUrl = ({
 
   let endpoint = apiUrls.download(namespace);
   if (base) {
-    if (base.startsWith(apiPrefix)) {
-      endpoint = base;
-    } else {
-      endpoint = joinUrl(apiPrefix, base);
-    }
+    // TODO: Uncomment temp comment
+    // if (base.startsWith(apiPrefix)) {
+    endpoint = base;
+    // } else {
+    // endpoint = joinUrl(apiPrefix, base);
+    // }
   } else if (accessions) {
     endpoint = joinUrl(apiPrefix, `/${namespace}/${accessionKey}`);
   } else if (size) {
@@ -411,8 +414,11 @@ export const getDownloadUrl = ({
   // fallback to json if something goes wrong
   const parameters: Parameters = {
     format: fileFormatToUrlParameter[fileFormat] || FileFormat.json,
-    download: true,
   };
+
+  if (download) {
+    parameters.download = true;
+  }
 
   if (accessions) {
     parameters[accessionKey] = Array.from(

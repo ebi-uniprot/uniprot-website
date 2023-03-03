@@ -4,7 +4,6 @@ import joinUrl from 'url-join';
 
 import {
   apiPrefix,
-  DownloadUrlOptions,
   getAPIQueryParams,
   getDownloadUrl,
 } from '../../shared/config/apiUrls';
@@ -16,6 +15,7 @@ import { JobTypes } from '../types/toolsJobTypes';
 import { Column } from '../../shared/config/columns';
 import { SortableColumn } from '../../uniprotkb/types/columnTypes';
 import { Namespace } from '../../shared/types/namespaces';
+import { FormParameters as AsyncDownloadFP } from '../async-download/types/asyncDownloadFormParameters';
 
 type CommonResultFormats =
   | 'out' // raw output of the tool
@@ -116,7 +116,7 @@ function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
 }
 
 type AsyncDownloadReturn = Readonly<{
-  runUrl: (options: DownloadUrlOptions) => string;
+  runUrl: (options: AsyncDownloadFP) => string;
   statusUrl: (jobId: string) => string;
   resultUrl: (redirectUrl: string) => string;
   detailsUrl?: (jobId: string) => string;
@@ -125,10 +125,15 @@ type AsyncDownloadReturn = Readonly<{
 export function asyncDownloadUrlObjectCreator(
   namespace: Namespace
 ): AsyncDownloadReturn {
-  const baseURL = joinUrl(apiPrefix, namespace, 'download');
+  // const baseURL = joinUrl(apiPrefix, namespace, 'download');
+  const baseURL = joinUrl(
+    'http://hx-rke-wp-webadmin-35-worker-9.caas.ebi.ac.uk:32007',
+    namespace,
+    'download'
+  );
   return deepFreeze({
-    runUrl: (options: DownloadUrlOptions) =>
-      getDownloadUrl({ ...options, base: baseURL }),
+    runUrl: (options: AsyncDownloadFP) =>
+      getDownloadUrl({ ...options, base: joinUrl(baseURL, 'run') }),
     statusUrl: (jobId) => joinUrl(baseURL, 'status', jobId),
     resultUrl: (redirectUrl) => redirectUrl,
     detailsUrl: (jobId) => joinUrl(baseURL, 'details', jobId),

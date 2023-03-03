@@ -56,8 +56,8 @@ const getSubmitJob =
     try {
       const { url, body } =
         job.type === JobTypes.ASYNC_DOWNLOAD
-          ? getFormJobUrlAndBody(job)
-          : getAsyncDownloadUrlAndBody(job);
+          ? getAsyncDownloadUrlAndBody(job)
+          : getFormJobUrlAndBody(job);
 
       // we use plain fetch as through Axios we cannot block redirects
       const response = await window.fetch(url, {

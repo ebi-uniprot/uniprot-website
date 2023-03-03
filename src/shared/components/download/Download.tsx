@@ -10,6 +10,7 @@ import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../../tools/peptide-search/co
 
 import useColumnNames from '../../hooks/useColumnNames';
 import useJobFromUrl from '../../hooks/useJobFromUrl';
+import { useToolsDispatch } from '../../contexts/Tools';
 
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 
@@ -21,8 +22,11 @@ import {
 } from '../../config/resultsDownload';
 import { Location, LocationToPath } from '../../../app/config/urls';
 
+import { createJob } from '../../../tools/state/toolsActions';
+
 import { FileFormat } from '../../types/resultsDownload';
 import { Namespace } from '../../types/namespaces';
+import { JobTypes } from '../../../tools/types/toolsJobTypes';
 
 import sticky from '../../styles/sticky.module.scss';
 import styles from './styles/download.module.scss';
@@ -63,6 +67,7 @@ const Download: FC<DownloadProps> = ({
 }) => {
   const { columnNames } = useColumnNames();
   const { search: queryParamFromUrl } = useLocation();
+  const dispatchTools = useToolsDispatch();
 
   const fileFormats =
     supportedFormats || nsToFileFormatsResultsDownload[namespace];
@@ -164,6 +169,20 @@ const Download: FC<DownloadProps> = ({
 
   const handleCompressedChange = (e: ChangeEvent<HTMLInputElement>) =>
     setCompressed(e.target.value === 'true');
+
+  const handleGenerateFile = () => {
+    // We emit an action containing only the parameters and the type of job
+    // the reducer will be in charge of generating a proper job object for
+    // internal state. Dispatching after history.push so that pop-up messages (as a
+    // side-effect of createJob) cannot mount immediately before navigating away.
+    dispatchTools(
+      createJob(
+        { ...downloadOptions, compressed: false, download: false },
+        JobTypes.ASYNC_DOWNLOAD,
+        'foo'
+      )
+    );
+  };
 
   const extraContentRef = useRef<HTMLElement>(null);
 
@@ -308,6 +327,14 @@ const Download: FC<DownloadProps> = ({
         >
           Generate URL for API
         </Button>
+        <Button
+          variant="tertiary"
+          onClick={handleGenerateFile}
+          disabled={redirectToIDMapping}
+        >
+          Generate File
+        </Button>
+
         <Button
           variant="tertiary"
           onClick={() => displayExtraContent('preview')}
