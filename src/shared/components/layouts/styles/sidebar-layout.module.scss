@@ -48,6 +48,10 @@
     grid-row: 1 / -1;
     /* If we want an expanded main content case, make it start on column 2 */
     grid-column: 3 / 4;
+    @media print {
+      /* cover the full width when printing */
+      grid-column: 1 / 4;
+    }
     background-color: $colour-sky-white;
     padding-inline: $gutter-size;
 
