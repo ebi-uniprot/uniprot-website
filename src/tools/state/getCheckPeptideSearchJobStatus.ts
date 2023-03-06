@@ -1,6 +1,10 @@
 import { Dispatch, MutableRefObject } from 'react';
 
-import { getStatusFromResponse, getJobMessage } from '../utils';
+import {
+  getStatusFromResponse,
+  getJobMessage,
+  getCurrentStateOfJob,
+} from '../utils';
 import * as logging from '../../shared/utils/logging';
 
 import toolsURLs from '../config/urls';
@@ -37,13 +41,7 @@ const getCheckPeptideSearchJobStatus =
 
       const [status] = await getStatusFromResponse(job.type, response);
 
-      // stateRef not hydrated yet
-      if (!stateRef.current) {
-        return;
-      }
-      // get a new reference to the job
-      const currentStateOfJob = stateRef.current[job.internalID];
-      // check that the job is still in the state (it might have been removed)
+      const currentStateOfJob = getCurrentStateOfJob(job, stateRef);
       if (!currentStateOfJob) {
         return;
       }

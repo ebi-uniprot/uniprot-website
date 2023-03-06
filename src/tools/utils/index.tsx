@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { AxiosResponse } from 'axios';
 import { LocationDescriptor } from 'history';
 
+import { MutableRefObject } from 'react';
 import { pluralise } from '../../shared/utils/utils';
 
 import { Location, jobTypeToPath } from '../../app/config/urls';
@@ -16,6 +17,7 @@ import { Job } from '../types/toolsJob';
 import { JobTypes } from '../types/toolsJobTypes';
 import { Status } from '../types/toolsStatuses';
 import { LocationStateFromJobLink } from '../hooks/useMarkJobAsSeen';
+import { ToolsState } from '../state/toolsInitialState';
 
 const reHex = /^[a-f\d]+$/;
 
@@ -204,4 +206,21 @@ export const checkForResponseError = (response: Response, status: Status) => {
   if (!response.ok && status !== Status.FAILURE && status !== Status.ERRORED) {
     throw new Error(`${response.status}: ${response.statusText}`);
   }
+};
+
+export const getCurrentStateOfJob = (
+  job: Job,
+  stateRef: MutableRefObject<ToolsState>
+) => {
+  // stateRef not hydrated yet
+  if (!stateRef.current) {
+    return null;
+  }
+  // get a new reference to the job
+  const currentStateOfJob = stateRef.current[job.internalID];
+  // check that the job is still in the state (it might have been removed)
+  if (!currentStateOfJob) {
+    return null;
+  }
+  return currentStateOfJob;
 };

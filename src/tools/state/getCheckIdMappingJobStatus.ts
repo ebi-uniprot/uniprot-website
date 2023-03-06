@@ -5,6 +5,7 @@ import {
   getStatusFromResponse,
   getJobMessage,
   checkForResponseError,
+  getCurrentStateOfJob,
 } from '../utils';
 import * as logging from '../../shared/utils/logging';
 
@@ -46,16 +47,11 @@ const getCheckIdMappingJobStatus =
 
       checkForResponseError(response, status);
 
-      // stateRef not hydrated yet
-      if (!stateRef.current) {
-        return;
-      }
-      // get a new reference to the job
-      let currentStateOfJob = stateRef.current[job.internalID];
-      // check that the job is still in the state (it might have been removed)
+      const currentStateOfJob = getCurrentStateOfJob(job, stateRef);
       if (!currentStateOfJob) {
         return;
       }
+
       if (
         status === Status.FINISHED &&
         currentStateOfJob.status === Status.FINISHED
