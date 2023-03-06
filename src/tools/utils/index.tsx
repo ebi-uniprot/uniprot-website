@@ -224,3 +224,7 @@ export const getCurrentStateOfJob = (
   }
   return currentStateOfJob;
 };
+
+export const isJobAlreadyFinished = (status: Status, currentStateOfJob: Job) =>
+  // job was already finished, and is still in the same state on the server
+  status === Status.FINISHED && currentStateOfJob.status === Status.FINISHED;

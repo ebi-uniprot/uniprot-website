@@ -6,6 +6,7 @@ import {
   getJobMessage,
   checkForResponseError,
   getCurrentStateOfJob,
+  isJobAlreadyFinished,
 } from '../utils';
 import * as logging from '../../shared/utils/logging';
 
@@ -55,13 +56,10 @@ const getCheckAsyncDownloadJobStatus =
         return;
       }
 
-      if (
-        status === Status.FINISHED &&
-        currentStateOfJob.status === Status.FINISHED
-      ) {
-        // job was already finished, and is still in the same state on the server
+      if (isJobAlreadyFinished(status, currentStateOfJob)) {
         return;
       }
+
       if (job.type === JobTypes.ID_MAPPING && status === Status.FAILURE) {
         const errorResponse: { jobStatus: Status; errors?: MappingError[] } =
           await response.json();

@@ -5,6 +5,7 @@ import {
   getJobMessage,
   checkForResponseError,
   getCurrentStateOfJob,
+  isJobAlreadyFinished,
 } from '../utils';
 import * as logging from '../../shared/utils/logging';
 
@@ -56,13 +57,10 @@ const getCheckAlignJobStatus =
         return;
       }
 
-      if (
-        status === Status.FINISHED &&
-        currentStateOfJob.status === Status.FINISHED
-      ) {
-        // job was already finished, and is still in the same state on the server
+      if (isJobAlreadyFinished(status, currentStateOfJob)) {
         return;
       }
+
       if (
         status === Status.NOT_FOUND ||
         status === Status.RUNNING ||

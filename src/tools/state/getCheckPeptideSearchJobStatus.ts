@@ -4,6 +4,7 @@ import {
   getStatusFromResponse,
   getJobMessage,
   getCurrentStateOfJob,
+  isJobAlreadyFinished,
 } from '../utils';
 import * as logging from '../../shared/utils/logging';
 
@@ -46,13 +47,10 @@ const getCheckPeptideSearchJobStatus =
         return;
       }
 
-      if (
-        status === Status.FINISHED &&
-        currentStateOfJob.status === Status.FINISHED
-      ) {
-        // job was already finished, and is still in the same state on the server
+      if (isJobAlreadyFinished(status, currentStateOfJob)) {
         return;
       }
+
       if (unfinishedStatuses.has(status)) {
         dispatch(
           updateJob(job.internalID, {
