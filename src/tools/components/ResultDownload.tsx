@@ -113,6 +113,7 @@ const options: Record<JobTypes, DownloadOptions<JobTypes>[]> = {
   ] as DownloadOptions<JobTypes.BLAST>[],
   [JobTypes.ID_MAPPING]: [],
   [JobTypes.PEPTIDE_SEARCH]: [],
+  [JobTypes.ASYNC_DOWNLOAD]: [],
 };
 
 const defaultFormat: Record<JobTypes, ResultFormat[JobTypes]> = {
@@ -120,6 +121,7 @@ const defaultFormat: Record<JobTypes, ResultFormat[JobTypes]> = {
   [JobTypes.BLAST]: 'out',
   [JobTypes.ID_MAPPING]: 'out', // TODO: check after implementing
   [JobTypes.PEPTIDE_SEARCH]: 'out', // TODO: check after implementing
+  [JobTypes.ASYNC_DOWNLOAD]: 'out', // TODO: check after implementing
 };
 
 type ResultDownloadProps = {
