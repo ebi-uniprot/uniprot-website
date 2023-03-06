@@ -127,7 +127,7 @@ export function asyncDownloadUrlObjectCreator(
 ): AsyncDownloadReturn {
   // const baseURL = joinUrl(apiPrefix, namespace, 'download');
   const baseURL = joinUrl(
-    'http://hx-rke-wp-webadmin-35-worker-9.caas.ebi.ac.uk:32007',
+    'http://hx-rke-wp-webadmin-35-worker-9.caas.ebi.ac.uk:30024',
     namespace,
     'download'
   );

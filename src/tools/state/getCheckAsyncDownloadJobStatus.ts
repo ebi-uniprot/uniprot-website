@@ -37,83 +37,90 @@ const getCheckAsyncDownloadJobStatus =
     );
     try {
       // we use plain fetch as through Axios we cannot block redirects
-      const response = await window.fetch(urlConfig.statusUrl(job.remoteID), {
-        headers: {
-          Accept: 'text/plain,application/json',
-        },
-        method: 'GET',
-        redirect: 'error',
-      });
-
-      const [status, idMappingResultsUrl] = await getStatusFromResponse(
-        job.type,
-        response
-      );
-
-      checkForResponseError(response, status);
-
-      const currentStateOfJob = getCurrentStateOfJob(job, stateRef);
-      if (!currentStateOfJob) {
-        return;
-      }
-
-      if (isJobAlreadyFinished(status, currentStateOfJob)) {
-        return;
-      }
-
-      if (job.type === JobTypes.ID_MAPPING && status === Status.FAILURE) {
-        const errorResponse: { jobStatus: Status; errors?: MappingError[] } =
-          await response.json();
-        if (errorResponse.errors?.[0]) {
-          const error = errorResponse.errors[0];
-          dispatch(
-            updateJob(job.internalID, {
-              timeLastUpdate: Date.now(),
-              status,
-              errorDescription: error.message,
-            })
-          );
-        }
-      }
-
-      if (isJobIncomplete(status)) {
-        dispatch(
-          updateJob(job.internalID, {
-            timeLastUpdate: Date.now(),
-            status,
+      try {
+        const response = await window
+          .fetch(urlConfig.statusUrl(job.remoteID), {
+            headers: {
+              Accept: 'text/plain,application/json',
+            },
+            method: 'GET',
+            // Return a network error when a request is met with a redirect.
+            // We don't want to fetch async download payloads as they will be huge.
+            redirect: 'error',
           })
-        );
-        return;
+          .catch((reason) => {
+            console.log(reason);
+          });
+      } catch {
+        console.log('here');
       }
 
-      // only ID Mapping jobs
-      const resultsResponse = await fetchData(idMappingResultsUrl, undefined, {
-        method: 'HEAD',
-      });
+      // const [status] = await getStatusFromResponse(job.type, response);
 
-      // get a new reference to the job
-      currentStateOfJob = stateRef.current[job.internalID];
-      // check that the job is still in the state (it might have been removed)
-      if (!currentStateOfJob) {
-        return;
-      }
+      // checkForResponseError(response, status);
 
-      const now = Date.now();
+      // const currentStateOfJob = getCurrentStateOfJob(job, stateRef);
+      // if (!currentStateOfJob) {
+      //   return;
+      // }
 
-      const hits: string = resultsResponse.headers['x-total-results'] || '0';
+      // if (isJobAlreadyFinished(status, currentStateOfJob)) {
+      //   return;
+      // }
 
-      dispatch(
-        updateJob(job.internalID, {
-          timeLastUpdate: now,
-          timeFinished: now,
-          seen: false,
-          status,
-          data: { hits: +hits },
-        })
-      );
-      messagesDispatch(
-        addMessage(getJobMessage({ job: currentStateOfJob, nHits: +hits }))
-      );
+      // if (job.type === JobTypes.ID_MAPPING && status === Status.FAILURE) {
+      //   const errorResponse: { jobStatus: Status; errors?: MappingError[] } =
+      //     await response.json();
+      //   if (errorResponse.errors?.[0]) {
+      //     const error = errorResponse.errors[0];
+      //     dispatch(
+      //       updateJob(job.internalID, {
+      //         timeLastUpdate: Date.now(),
+      //         status,
+      //         errorDescription: error.message,
+      //       })
+      //     );
+      //   }
+      // }
+
+      // if (isJobIncomplete(status)) {
+      //   dispatch(
+      //     updateJob(job.internalID, {
+      //       timeLastUpdate: Date.now(),
+      //       status,
+      //     })
+      //   );
+      //   return;
+      // }
+
+      // // only ID Mapping jobs
+      // const resultsResponse = await fetchData(idMappingResultsUrl, undefined, {
+      //   method: 'HEAD',
+      // });
+
+      // // get a new reference to the job
+      // currentStateOfJob = stateRef.current[job.internalID];
+      // // check that the job is still in the state (it might have been removed)
+      // if (!currentStateOfJob) {
+      //   return;
+      // }
+
+      // const now = Date.now();
+
+      // const hits: string = resultsResponse.headers['x-total-results'] || '0';
+
+      // dispatch(
+      //   updateJob(job.internalID, {
+      //     timeLastUpdate: now,
+      //     timeFinished: now,
+      //     seen: false,
+      //     status,
+      //     data: { hits: +hits },
+      //   })
+      // );
+      // messagesDispatch(
+      //   addMessage(getJobMessage({ job: currentStateOfJob, nHits: +hits }))
+      // );
     } catch (error) {
       if (error instanceof Error || typeof error === 'string') {
         logging.error(error);
