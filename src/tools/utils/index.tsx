@@ -107,7 +107,7 @@ export const getStatusFromResponse = async (
   }
 
   if (!status || !statuses.includes(status)) {
-    throw new Error(`The server didn't return a valid status`);
+    throw new Error(`Got an unexpected status of "${status}" from the server`);
   }
 
   return [status, idMappingResultsUrl];

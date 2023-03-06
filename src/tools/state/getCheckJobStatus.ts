@@ -13,7 +13,6 @@ import { RunningJob, FinishedJob } from '../types/toolsJob';
 import { Status } from '../types/toolsStatuses';
 import { JobTypes } from '../types/toolsJobTypes';
 
-export const possibleStatuses = new Set(Object.values(Status));
 export const unfinishedStatuses = new Set([
   Status.NOT_FOUND,
   Status.RUNNING,

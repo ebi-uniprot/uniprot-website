@@ -4,7 +4,7 @@ import { getStatusFromResponse, getJobMessage } from '../utils';
 import * as logging from '../../shared/utils/logging';
 
 import toolsURLs from '../config/urls';
-import { possibleStatuses, unfinishedStatuses } from './getCheckJobStatus';
+import { unfinishedStatuses } from './getCheckJobStatus';
 
 import { updateJob } from './toolsActions';
 import { addMessage } from '../../messages/state/messagesActions';
@@ -47,12 +47,7 @@ const getCheckPeptideSearchJobStatus =
       if (!currentStateOfJob) {
         return;
       }
-      // check that the status we got from the server is something expected
-      if (!possibleStatuses.has(status)) {
-        throw new Error(
-          `got an unexpected status of "${status}" from the server`
-        );
-      }
+
       if (
         status === Status.FINISHED &&
         currentStateOfJob.status === Status.FINISHED

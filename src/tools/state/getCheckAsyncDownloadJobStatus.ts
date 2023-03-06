@@ -60,12 +60,6 @@ const getCheckAsyncDownloadJobStatus =
       if (!currentStateOfJob) {
         return;
       }
-      // check that the status we got from the server is something expected
-      if (!possibleStatuses.has(status)) {
-        throw new Error(
-          `got an unexpected status of "${status}" from the server`
-        );
-      }
       if (
         status === Status.FINISHED &&
         currentStateOfJob.status === Status.FINISHED
