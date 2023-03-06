@@ -2,7 +2,11 @@ import { Dispatch, MutableRefObject } from 'react';
 import { AxiosResponse } from 'axios';
 
 import fetchData from '../../shared/utils/fetchData';
-import { getStatusFromResponse, getJobMessage } from '../utils';
+import {
+  getStatusFromResponse,
+  getJobMessage,
+  checkForResponseError,
+} from '../utils';
 import * as logging from '../../shared/utils/logging';
 
 import toolsURLs from '../config/urls';
@@ -17,8 +21,6 @@ import { RunningJob, FinishedJob } from '../types/toolsJob';
 import { Status } from '../types/toolsStatuses';
 import { BlastResults } from '../blast/types/blastResults';
 import { JobTypes } from '../types/toolsJobTypes';
-
-const possibleStatuses = new Set(Object.values(Status));
 
 const getCheckBlastJobStatus =
   (
@@ -41,13 +43,8 @@ const getCheckBlastJobStatus =
 
       const [status] = await getStatusFromResponse(job.type, response);
 
-      if (
-        !response.ok &&
-        status !== Status.FAILURE &&
-        status !== Status.ERRORED
-      ) {
-        throw new Error(`${response.status}: ${response.statusText}`);
-      }
+      checkForResponseError(response, status);
+
       // stateRef not hydrated yet
       if (!stateRef.current) {
         return;

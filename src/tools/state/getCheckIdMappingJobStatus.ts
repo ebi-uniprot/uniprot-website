@@ -1,7 +1,11 @@
 import { Dispatch, MutableRefObject } from 'react';
 
 import fetchData from '../../shared/utils/fetchData';
-import { getStatusFromResponse, getJobMessage } from '../utils';
+import {
+  getStatusFromResponse,
+  getJobMessage,
+  checkForResponseError,
+} from '../utils';
 import * as logging from '../../shared/utils/logging';
 
 import toolsURLs from '../config/urls';
@@ -16,8 +20,6 @@ import { RunningJob, FinishedJob } from '../types/toolsJob';
 import { Status } from '../types/toolsStatuses';
 import { JobTypes } from '../types/toolsJobTypes';
 import { MappingError } from '../id-mapping/types/idMappingSearchResults';
-
-const possibleStatuses = new Set(Object.values(Status));
 
 const getCheckIdMappingJobStatus =
   (
@@ -42,13 +44,8 @@ const getCheckIdMappingJobStatus =
         response
       );
 
-      if (
-        !response.ok &&
-        status !== Status.FAILURE &&
-        status !== Status.ERRORED
-      ) {
-        throw new Error(`${response.status}: ${response.statusText}`);
-      }
+      checkForResponseError(response, status);
+
       // stateRef not hydrated yet
       if (!stateRef.current) {
         return;

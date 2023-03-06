@@ -1,7 +1,11 @@
 import { Dispatch, MutableRefObject } from 'react';
 
 import fetchData from '../../shared/utils/fetchData';
-import { getStatusFromResponse, getJobMessage } from '../utils';
+import {
+  getStatusFromResponse,
+  getJobMessage,
+  checkForResponseError,
+} from '../utils';
 import * as logging from '../../shared/utils/logging';
 
 import { asyncDownloadUrlObjectCreator } from '../config/urls';
@@ -43,13 +47,8 @@ const getCheckAsyncDownloadJobStatus =
         response
       );
 
-      if (
-        !response.ok &&
-        status !== Status.FAILURE &&
-        status !== Status.ERRORED
-      ) {
-        throw new Error(`${response.status}: ${response.statusText}`);
-      }
+      checkForResponseError(response, status);
+
       // stateRef not hydrated yet
       if (!stateRef.current) {
         return;

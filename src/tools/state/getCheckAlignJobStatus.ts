@@ -1,6 +1,10 @@
 import { Dispatch, MutableRefObject } from 'react';
 
-import { getStatusFromResponse, getJobMessage } from '../utils';
+import {
+  getStatusFromResponse,
+  getJobMessage,
+  checkForResponseError,
+} from '../utils';
 import * as logging from '../../shared/utils/logging';
 
 import toolsURLs from '../config/urls';
@@ -43,13 +47,9 @@ const getCheckAlignJobStatus =
       });
 
       const [status] = await getStatusFromResponse(job.type, response);
-      if (
-        !response.ok &&
-        status !== Status.FAILURE &&
-        status !== Status.ERRORED
-      ) {
-        throw new Error(`${response.status}: ${response.statusText}`);
-      }
+
+      checkForResponseError(response, status);
+
       // stateRef not hydrated yet
       if (!stateRef.current) {
         return;
