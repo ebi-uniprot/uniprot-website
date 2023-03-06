@@ -36,25 +36,28 @@ const getCheckAsyncDownloadJobStatus =
       (job.parameters as FormParameters[JobTypes.ASYNC_DOWNLOAD]).namespace
     );
     try {
-      // we use plain fetch as through Axios we cannot block redirects
-      try {
-        const response = await window
-          .fetch(urlConfig.statusUrl(job.remoteID), {
+      /*
+      Access to fetch at 'http://hx-rke-wp-webadmin-35-worker-9.caas.ebi.ac.uk:31210/uniprotkb/download/results/f9049c38631176ac76741e92c432aaf982f293db' from origin 'http://localhost:8080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
+      */
+      const response = await window
+        // .fetch(urlConfig.statusUrl(job.remoteID), {
+        .fetch(
+          'http://hx-rke-wp-webadmin-35-worker-9.caas.ebi.ac.uk:31210/uniprotkb/download/results/f9049c38631176ac76741e92c432aaf982f293db',
+          {
             headers: {
               Accept: 'text/plain,application/json',
             },
-            method: 'GET',
+            method: 'HEAD',
             // Return a network error when a request is met with a redirect.
             // We don't want to fetch async download payloads as they will be huge.
-            redirect: 'error',
-          })
-          .catch((reason) => {
-            console.log(reason);
-          });
-      } catch {
-        console.log('here');
-      }
+            // redirect: 'error',
+          }
+        )
+        .catch((reason) => {
+          console.log(reason);
+        });
 
+      console.log(response);
       // const [status] = await getStatusFromResponse(job.type, response);
 
       // checkForResponseError(response, status);
