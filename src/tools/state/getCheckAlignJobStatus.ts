@@ -6,6 +6,7 @@ import {
   checkForResponseError,
   getCurrentStateOfJob,
   isJobAlreadyFinished,
+  isJobIncomplete,
 } from '../utils';
 import * as logging from '../../shared/utils/logging';
 
@@ -61,12 +62,7 @@ const getCheckAlignJobStatus =
         return;
       }
 
-      if (
-        status === Status.NOT_FOUND ||
-        status === Status.RUNNING ||
-        status === Status.FAILURE ||
-        status === Status.ERRORED
-      ) {
+      if (isJobIncomplete(status)) {
         dispatch(
           updateJob(job.internalID, {
             timeLastUpdate: Date.now(),

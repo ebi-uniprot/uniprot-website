@@ -5,11 +5,11 @@ import {
   getJobMessage,
   getCurrentStateOfJob,
   isJobAlreadyFinished,
+  isJobIncomplete,
 } from '../utils';
 import * as logging from '../../shared/utils/logging';
 
 import toolsURLs from '../config/urls';
-import { unfinishedStatuses } from './getCheckJobStatus';
 
 import { updateJob } from './toolsActions';
 import { addMessage } from '../../messages/state/messagesActions';
@@ -18,7 +18,6 @@ import { ToolsState } from './toolsInitialState';
 import { ToolsAction } from './toolsReducers';
 import { MessagesAction } from '../../messages/state/messagesReducers';
 import { RunningJob, FinishedJob } from '../types/toolsJob';
-import { Status } from '../types/toolsStatuses';
 import { JobTypes } from '../types/toolsJobTypes';
 
 const getCheckPeptideSearchJobStatus =
@@ -51,7 +50,7 @@ const getCheckPeptideSearchJobStatus =
         return;
       }
 
-      if (unfinishedStatuses.has(status)) {
+      if (isJobIncomplete(status)) {
         dispatch(
           updateJob(job.internalID, {
             timeLastUpdate: Date.now(),
@@ -60,11 +59,12 @@ const getCheckPeptideSearchJobStatus =
         );
         return;
       }
-      const now = Date.now();
+
       let hits = 0;
       if (!response.bodyUsed) {
         hits = (await response.text()).split(/,/)?.length || 0;
       }
+      const now = Date.now();
       dispatch(
         updateJob(job.internalID, {
           timeLastUpdate: now,

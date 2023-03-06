@@ -7,6 +7,7 @@ import {
   checkForResponseError,
   getCurrentStateOfJob,
   isJobAlreadyFinished,
+  isJobIncomplete,
 } from '../utils';
 import * as logging from '../../shared/utils/logging';
 
@@ -71,12 +72,8 @@ const getCheckIdMappingJobStatus =
           );
         }
       }
-      if (
-        status === Status.NOT_FOUND ||
-        status === Status.RUNNING ||
-        status === Status.FAILURE ||
-        status === Status.ERRORED
-      ) {
+
+      if (isJobIncomplete(status)) {
         dispatch(
           updateJob(job.internalID, {
             timeLastUpdate: Date.now(),
@@ -85,7 +82,6 @@ const getCheckIdMappingJobStatus =
         );
         return;
       }
-      // job finished, handle differently depending on job type
 
       if (idMappingResultsUrl) {
         // only ID Mapping jobs
