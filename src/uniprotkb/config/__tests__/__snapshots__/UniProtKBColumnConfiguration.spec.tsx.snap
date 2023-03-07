@@ -2175,6 +2175,8 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_genom
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_glyconnect": xref_glyconnect 1`] = `<DocumentFragment />`;
 
+exports[`UniProtKBColumnConfiguration component should render column "xref_glycosmos": xref_glycosmos 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render column "xref_glygen": xref_glygen 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_go": xref_go 1`] = `<DocumentFragment />`;
