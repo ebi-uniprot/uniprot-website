@@ -354,7 +354,7 @@ export type DownloadUrlOptions = {
   base?: string;
   query?: string;
   columns?: string[];
-  selectedFacets: SelectedFacet[];
+  selectedFacets?: SelectedFacet[];
   sortColumn?: SortableColumn;
   sortDirection?: SortDirection;
   fileFormat: FileFormat;
