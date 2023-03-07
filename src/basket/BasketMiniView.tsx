@@ -159,6 +159,7 @@ const BasketMiniViewTab = ({
         namespaceOverride={namespace}
         subsetsMap={subsetsMap}
         inBasket
+        inBasketMini
         notCustomisable
       />
       <ResultsData
