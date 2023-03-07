@@ -216,6 +216,7 @@ export enum UniProtKBColumn {
   xrefGenevisible = 'xref_genevisible',
   xrefGenewiki = 'xref_genewiki',
   xrefGenomernai = 'xref_genomernai',
+  xrefGlycosmos = 'xref_glycosmos',
   xrefGlyGen = 'xref_glygen',
   xrefGlyconnect = 'xref_glyconnect',
   xrefGo = 'xref_go',
