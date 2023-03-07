@@ -48,7 +48,7 @@ const getCheckBlastJobStatus =
 
       checkForResponseError(response, status);
 
-      const currentStateOfJob = getCurrentStateOfJob(job, stateRef);
+      let currentStateOfJob = getCurrentStateOfJob(job, stateRef);
       if (!currentStateOfJob) {
         return;
       }
@@ -67,63 +67,59 @@ const getCheckBlastJobStatus =
         return;
       }
 
-      if (job.type === JobTypes.BLAST) {
-        // only BLAST jobs
-        let response: AxiosResponse<BlastResults> | null = null;
-        try {
-          response = await fetchData<BlastResults>(
-            urlConfig.resultUrl(job.remoteID, { format: 'json' })
-          );
-        } catch (error) {
-          if (error instanceof Error || typeof error === 'string') {
-            logging.error(error);
-          }
+      let resultsResponse: AxiosResponse<BlastResults> | null = null;
+      try {
+        resultsResponse = await fetchData<BlastResults>(
+          urlConfig.resultUrl(job.remoteID, { format: 'json' })
+        );
+      } catch (error) {
+        if (error instanceof Error || typeof error === 'string') {
+          logging.error(error);
         }
+      }
 
-        const results = response?.data;
+      const results = resultsResponse?.data;
 
-        // get a new reference to the job
-        currentStateOfJob = stateRef.current[job.internalID];
-        // check that the job is still in the state (it might have been removed)
-        if (!currentStateOfJob) {
-          return;
-        }
+      // get a new reference to the job
+      currentStateOfJob = getCurrentStateOfJob(job, stateRef);
+      if (!currentStateOfJob) {
+        return;
+      }
 
-        const now = Date.now();
+      const now = Date.now();
 
-        if (!results?.hits) {
-          dispatch(
-            updateJob(job.internalID, {
-              timeLastUpdate: now,
-              status: Status.FAILURE,
-            })
-          );
-          throw new Error(
-            response?.data &&
-              `"${JSON.stringify(
-                response?.data
-              )}" is not a valid result for this job`
-          );
-        }
-
+      if (!results?.hits) {
         dispatch(
           updateJob(job.internalID, {
             timeLastUpdate: now,
-            timeFinished: now,
-            seen: false,
-            status,
-            data: { hits: results.hits.length },
+            status: Status.FAILURE,
           })
         );
-        messagesDispatch(
-          addMessage(
-            getJobMessage({
-              job: currentStateOfJob,
-              nHits: results.hits.length,
-            })
-          )
+        throw new Error(
+          resultsResponse?.data &&
+            `"${JSON.stringify(
+              resultsResponse?.data
+            )}" is not a valid result for this job`
         );
       }
+
+      dispatch(
+        updateJob(job.internalID, {
+          timeLastUpdate: now,
+          timeFinished: now,
+          seen: false,
+          status,
+          data: { hits: results.hits.length },
+        })
+      );
+      messagesDispatch(
+        addMessage(
+          getJobMessage({
+            job: currentStateOfJob,
+            nHits: results.hits.length,
+          })
+        )
+      );
     } catch (error) {
       if (error instanceof Error || typeof error === 'string') {
         logging.error(error);
