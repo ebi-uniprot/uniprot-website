@@ -79,6 +79,8 @@ export const getStatusFromResponse = async (
       status = (await response.text()) as Status;
       break;
     case JobTypes.ASYNC_DOWNLOAD:
+      status = (await response.json()).jobStatus;
+      break;
     case JobTypes.ID_MAPPING:
       if (response.status >= 400) {
         status = Status.FAILURE;
