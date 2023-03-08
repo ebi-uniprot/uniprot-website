@@ -49,7 +49,7 @@ const getCheckIdMappingJobStatus =
 
       checkForResponseError(response, status);
 
-      const currentStateOfJob = getCurrentStateOfJob(job, stateRef);
+      let currentStateOfJob = getCurrentStateOfJob(job, stateRef);
       if (!currentStateOfJob) {
         return;
       }
@@ -83,32 +83,40 @@ const getCheckIdMappingJobStatus =
         return;
       }
 
-      if (idMappingResultsUrl) {
-        // only ID Mapping jobs
-        const response = await fetchData(idMappingResultsUrl, undefined, {
-          method: 'HEAD',
-        });
-        // get a new reference to the job
-        currentStateOfJob = stateRef.current[job.internalID];
-        // check that the job is still in the state (it might have been removed)
-        if (!currentStateOfJob) {
-          return;
-        }
-        const now = Date.now();
-        const hits: string = response.headers['x-total-results'] || '0';
-        dispatch(
-          updateJob(job.internalID, {
-            timeLastUpdate: now,
-            timeFinished: now,
-            seen: false,
-            status,
-            data: { hits: +hits },
-          })
-        );
-        messagesDispatch(
-          addMessage(getJobMessage({ job: currentStateOfJob, nHits: +hits }))
-        );
+      if (!idMappingResultsUrl) {
+        return;
       }
+      // only ID Mapping jobs
+      const resultsResponse = await fetchData(idMappingResultsUrl, undefined, {
+        method: 'HEAD',
+      });
+
+      // get a new reference to the job
+      currentStateOfJob = getCurrentStateOfJob(job, stateRef);
+      if (!currentStateOfJob) {
+        return;
+      }
+
+      // check that the job is still in the state (it might have been removed)
+      currentStateOfJob = getCurrentStateOfJob(job, stateRef);
+      if (!currentStateOfJob) {
+        return;
+      }
+
+      const now = Date.now();
+      const hits: string = resultsResponse.headers['x-total-results'] || '0';
+      dispatch(
+        updateJob(job.internalID, {
+          timeLastUpdate: now,
+          timeFinished: now,
+          seen: false,
+          status,
+          data: { hits: +hits },
+        })
+      );
+      messagesDispatch(
+        addMessage(getJobMessage({ job: currentStateOfJob, nHits: +hits }))
+      );
     } catch (error) {
       if (error instanceof Error || typeof error === 'string') {
         logging.error(error);
