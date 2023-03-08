@@ -1342,21 +1342,27 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccToxicDose, {
   },
 });
 
+// PMIDs currently bounded to 8 digits but no need to be that specific
+// as we basically want to exclude CI-* & IND* citation ID formats
+const rePubMedId = /^\d+$/;
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.litPubmedId, {
-  ...getLabelAndTooltip('Citation ID', 'Mapped PubMed ID'),
+  ...getLabelAndTooltip('PubMed ID', 'Mapped PubMed ID'),
   render: (data) => (
     <ExpandableList descriptionString="IDs" displayNumberOfHiddenItems>
-      {data.references?.map(
-        (reference) =>
-          reference.citation && (
-            <Link
-              key={reference.citation.id}
-              to={getEntryPath(Namespace.citations, reference.citation.id)}
-            >
-              {reference.citation.id}
-            </Link>
-          )
-      )}
+      {data.references
+        ?.filter((reference) => reference.citation?.id.match(rePubMedId))
+        ?.map(
+          (reference) =>
+            reference.citation && (
+              <Link
+                key={reference.citation.id}
+                to={getEntryPath(Namespace.citations, reference.citation.id)}
+              >
+                {reference.citation.id}
+              </Link>
+            )
+        )}
     </ExpandableList>
   ),
 });
