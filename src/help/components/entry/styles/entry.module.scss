@@ -48,7 +48,7 @@
 
   /* copied from Franklin's CodeBlock component styles */
   pre {
-    display: inline-block;
+    display: block; /* except this which is different */
     background: $colour-yankees-blue;
     color: $white;
     font-family: $code-font-family;
