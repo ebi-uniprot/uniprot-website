@@ -196,7 +196,6 @@ export const IsoformInfo = ({
                     search: `ids=${canonicalAccession}[${location.start.value}-${location.end.value}]`,
                   }}
                 >{`${location.start.value}-${location.end.value}: `}</Link>
-                {`${location.start.value}-${location.end.value}: `}
                 {alternativeSequence && alternativeSequence.originalSequence ? (
                   <span className={styles.modifications}>{`${
                     alternativeSequence.originalSequence
