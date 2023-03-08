@@ -53,7 +53,6 @@ const getCheckPeptideSearchJobStatus =
       if (isJobIncomplete(status)) {
         dispatch(
           updateJob(job.internalID, {
-            timeLastUpdate: Date.now(),
             status,
           })
         );
@@ -64,11 +63,9 @@ const getCheckPeptideSearchJobStatus =
       if (!response.bodyUsed) {
         hits = (await response.text()).split(/,/)?.length || 0;
       }
-      const now = Date.now();
       dispatch(
         updateJob(job.internalID, {
-          timeLastUpdate: now,
-          timeFinished: now,
+          timeFinished: Date.now(),
           seen: false,
           status,
           data: { hits },

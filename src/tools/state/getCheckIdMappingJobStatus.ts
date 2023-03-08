@@ -65,7 +65,6 @@ const getCheckIdMappingJobStatus =
           const error = errorResponse.errors[0];
           dispatch(
             updateJob(job.internalID, {
-              timeLastUpdate: Date.now(),
               status,
               errorDescription: error.message,
             })
@@ -76,7 +75,6 @@ const getCheckIdMappingJobStatus =
       if (isJobIncomplete(status)) {
         dispatch(
           updateJob(job.internalID, {
-            timeLastUpdate: Date.now(),
             status,
           })
         );
@@ -103,12 +101,10 @@ const getCheckIdMappingJobStatus =
         return;
       }
 
-      const now = Date.now();
       const hits: string = resultsResponse.headers['x-total-results'] || '0';
       dispatch(
         updateJob(job.internalID, {
-          timeLastUpdate: now,
-          timeFinished: now,
+          timeFinished: Date.now(),
           seen: false,
           status,
           data: { hits: +hits },

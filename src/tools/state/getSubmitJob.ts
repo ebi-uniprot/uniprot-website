@@ -89,13 +89,10 @@ const getSubmitJob =
         return;
       }
 
-      const now = Date.now();
       dispatch(
         updateJob(job.internalID, {
           status: Status.RUNNING,
           remoteID,
-          timeSubmitted: now,
-          timeLastUpdate: now,
         })
       );
     } catch (error) {
@@ -115,7 +112,6 @@ const getSubmitJob =
       dispatch(
         updateJob(job.internalID, {
           status: Status.FAILURE,
-          timeLastUpdate: Date.now(),
           errorDescription,
         })
       );

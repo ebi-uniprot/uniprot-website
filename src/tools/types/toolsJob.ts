@@ -39,7 +39,7 @@ export type DataForDashboard = {
   [JobTypes.BLAST]: { hits: number };
   [JobTypes.ID_MAPPING]: { hits: number; idMappingTarget: IDMappingNamespace };
   [JobTypes.PEPTIDE_SEARCH]: never;
-  [JobTypes.ASYNC_DOWNLOAD]: { hits: number; format: FileFormat };
+  [JobTypes.ASYNC_DOWNLOAD]: { size: number; format: FileFormat };
 };
 
 export interface FinishedJob<T extends JobTypes> extends BaseJob<T> {

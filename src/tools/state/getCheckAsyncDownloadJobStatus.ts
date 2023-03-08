@@ -60,7 +60,6 @@ const getCheckAsyncDownloadJobStatus =
           const error = errorResponse.errors[0];
           dispatch(
             updateJob(job.internalID, {
-              timeLastUpdate: Date.now(),
               status,
               errorDescription: error.message,
             })
@@ -70,7 +69,6 @@ const getCheckAsyncDownloadJobStatus =
       if (isJobIncomplete(status)) {
         dispatch(
           updateJob(job.internalID, {
-            timeLastUpdate: Date.now(),
             status,
           })
         );
@@ -93,11 +91,9 @@ const getCheckAsyncDownloadJobStatus =
         return;
       }
 
-      const now = Date.now();
       dispatch(
         updateJob(job.internalID, {
-          timeLastUpdate: now,
-          timeFinished: now,
+          timeFinished: Date.now(),
           seen: false,
           status,
           // data: { fileSize: .... }, // TODO: add this

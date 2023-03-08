@@ -65,18 +65,15 @@ const getCheckAlignJobStatus =
       if (isJobIncomplete(status)) {
         dispatch(
           updateJob(job.internalID, {
-            timeLastUpdate: Date.now(),
             status,
           })
         );
         return;
       }
 
-      const now = Date.now();
       dispatch(
         updateJob(job.internalID, {
-          timeLastUpdate: now,
-          timeFinished: now,
+          timeFinished: Date.now(),
           seen: false,
           status,
         })

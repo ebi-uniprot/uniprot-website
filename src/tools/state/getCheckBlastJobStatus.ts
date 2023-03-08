@@ -60,7 +60,6 @@ const getCheckBlastJobStatus =
       if (isJobIncomplete(status)) {
         dispatch(
           updateJob(job.internalID, {
-            timeLastUpdate: Date.now(),
             status,
           })
         );
@@ -86,12 +85,9 @@ const getCheckBlastJobStatus =
         return;
       }
 
-      const now = Date.now();
-
       if (!results?.hits) {
         dispatch(
           updateJob(job.internalID, {
-            timeLastUpdate: now,
             status: Status.FAILURE,
           })
         );
@@ -105,8 +101,6 @@ const getCheckBlastJobStatus =
 
       dispatch(
         updateJob(job.internalID, {
-          timeLastUpdate: now,
-          timeFinished: now,
           seen: false,
           status,
           data: { hits: results.hits.length },
