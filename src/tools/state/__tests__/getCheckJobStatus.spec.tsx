@@ -102,7 +102,6 @@ describe('checkJobStatus', () => {
           id: runningJob.internalID,
           partialJob: {
             status: Status.NOT_FOUND,
-            timeLastUpdate: Date.now(),
           },
         },
         type: UPDATE_JOB,
@@ -125,7 +124,6 @@ describe('checkJobStatus', () => {
           id: runningJob.internalID,
           partialJob: {
             status: Status.FAILURE,
-            timeLastUpdate: Date.now(),
           },
         },
         type: UPDATE_JOB,
@@ -148,7 +146,6 @@ describe('checkJobStatus', () => {
         id: runningJob.internalID,
         partialJob: {
           status: Status.RUNNING,
-          timeLastUpdate: Date.now(),
         },
       },
       type: UPDATE_JOB,
@@ -168,7 +165,6 @@ describe('checkJobStatus', () => {
         id: runningJob.internalID,
         partialJob: {
           status: Status.FAILURE,
-          timeLastUpdate: Date.now(),
         },
       },
       type: UPDATE_JOB,
@@ -188,7 +184,6 @@ describe('checkJobStatus', () => {
         id: runningJob.internalID,
         partialJob: {
           status: Status.ERRORED,
-          timeLastUpdate: Date.now(),
         },
       },
       type: UPDATE_JOB,
@@ -211,7 +206,6 @@ describe('checkJobStatus', () => {
         id: runningJob.internalID,
         partialJob: {
           status: Status.FINISHED,
-          timeLastUpdate: Date.now(),
           timeFinished: Date.now(),
           seen: false,
           data: { hits: 1 },
