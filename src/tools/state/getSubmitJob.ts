@@ -93,6 +93,7 @@ const getSubmitJob =
         updateJob(job.internalID, {
           status: Status.RUNNING,
           remoteID,
+          timeSubmitted: Date.now(),
         })
       );
     } catch (error) {

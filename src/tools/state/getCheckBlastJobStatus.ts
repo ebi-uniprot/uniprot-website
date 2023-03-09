@@ -101,6 +101,7 @@ const getCheckBlastJobStatus =
 
       dispatch(
         updateJob(job.internalID, {
+          timeFinished: Date.now(),
           seen: false,
           status,
           data: { hits: results.hits.length },
