@@ -223,8 +223,11 @@ export const IsoformInfo = ({
   const [name] = isoformData.isoformIds;
   return (
     <Fragment key={name}>
-      <h3 id={`Isoform_${isoformData.name.value || name}`}>
-        <span id={name}>{name}</span>
+      <h3 id={isoformData.name.value && `Isoform_${isoformData.name.value}`}>
+        <span id={isoformData.name.value}>
+          {' '}
+          <span id={name}>{name}</span>
+        </span>
       </h3>
       {isoformData.isoformSequenceStatus === 'Displayed' && (
         <p>

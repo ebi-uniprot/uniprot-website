@@ -3123,9 +3123,14 @@ exports[`Entry view should render 1`] = `
           id="Isoform_name"
         >
           <span
-            id="isoID1"
+            id="name"
           >
-            isoID1
+             
+            <span
+              id="isoID1"
+            >
+              isoID1
+            </span>
           </span>
         </h3>
         <ul
