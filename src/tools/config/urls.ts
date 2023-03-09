@@ -135,7 +135,9 @@ export function asyncDownloadUrlObjectCreator(
     runUrl: (options: AsyncDownloadFP) =>
       getDownloadUrl({ ...options, base: joinUrl(baseURL, 'run') }),
     statusUrl: (jobId) => joinUrl(baseURL, 'status', jobId),
-    resultUrl: (redirectUrl) => redirectUrl,
+    resultUrl: (jobId) =>
+      // TODO: remove the replace
+      `${joinUrl(baseURL, 'results', jobId).replace(':30024', ':31210')}.gz`,
     detailsUrl: (jobId) => joinUrl(baseURL, 'details', jobId),
   });
 }
