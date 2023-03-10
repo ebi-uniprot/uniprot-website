@@ -80,9 +80,11 @@ const InputParameters = ({
                   return {
                     title: key,
                     content: (
-                      <CodeBlock lightMode>{`${(value as SelectedTaxon[]).map(
-                        (taxon) => taxon.id
-                      )}`}</CodeBlock>
+                      <CodeBlock lightMode>
+                        {(value as SelectedTaxon[])
+                          .map((taxon) => taxon.id)
+                          .join(',')}
+                      </CodeBlock>
                     ),
                   };
                 }

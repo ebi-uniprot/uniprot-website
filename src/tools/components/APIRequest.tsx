@@ -12,6 +12,7 @@ import toolsURLs from '../config/urls';
 import { PublicServerParameters } from '../types/toolsServerParameters';
 import { JobTypes } from '../types/toolsJobTypes';
 import { FormParameters as PeptideSearchFormParameters } from '../peptide-search/types/peptideSearchFormParameters';
+import { SelectedTaxon } from '../types/toolsFormData';
 
 import styles from './styles/extra-tabs.module.css';
 
@@ -67,6 +68,12 @@ function inputToCurl<T extends JobTypes>(
       // append key/value to the URL string
       if (key === 'peps' && value === '<enter_your_peptide_or_peptides_here>') {
         command += `${first ? ' --data "' : '&'}${key}=${value}`;
+      } else if (key === 'taxIds' && Array.isArray(value)) {
+        command += `${first ? ' --data "' : '&'}${key}=${(
+          value as SelectedTaxon[]
+        )
+          .map((taxon) => taxon.id)
+          .join(',')}`;
       } else {
         command += `${first ? ' --data "' : '&'}${key}=${encodeURIComponent(
           value
