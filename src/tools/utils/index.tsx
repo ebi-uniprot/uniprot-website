@@ -178,21 +178,25 @@ export const getJobMessage = ({
     jobName = '';
   }
 
-  let link;
+  let jobNameNode;
   if (url) {
-    link = (
+    jobNameNode = (
       <a href={url} target="_blank" rel="noreferrer">
         {jobName}
       </a>
     );
-  } else if ('remoteID' in job && job.remoteID && nHits !== 0) {
+  } else if (
+    'remoteID' in job &&
+    job.remoteID &&
+    (nHits !== 0 || fileSizeBytes !== 0)
+  ) {
     const location = {
       pathname: jobTypeToPath(job.type, job),
       state: { internalID: job.internalID },
     };
-    link = <Link to={location}>{jobName}</Link>;
+    jobNameNode = <Link to={location}>{jobName}</Link>;
   } else {
-    link = jobName;
+    jobNameNode = jobName;
   }
 
   let quantityMessage;
@@ -217,7 +221,7 @@ export const getJobMessage = ({
     ...message,
     content: (
       <>
-        {job.type} job {link}
+        {job.type} job {jobNameNode}
         {' finished'}
         {quantityMessage}
       </>
