@@ -38,6 +38,8 @@ import { JobTypes } from '../../types/toolsJobTypes';
 import { LocationStateFromJobLink } from '../../hooks/useMarkJobAsSeen';
 
 import './styles/Dashboard.scss';
+import { FormParameters } from '../../types/toolsFormParameters';
+import { asyncDownloadUrlObjectCreator } from '../../config/urls';
 
 const stopPropagation = (
   event: MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement>
@@ -304,12 +306,22 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
   const dispatch = useToolsDispatch();
   const reducedMotion = useReducedMotion();
 
+  // For async download
+  let jobUrl: string | undefined;
+  // For everything else
   let jobLink: LocationDescriptor<LocationStateFromJobLink> | undefined;
   if ('remoteID' in job && job.status === Status.FINISHED && !hasExpired) {
-    jobLink = {
-      pathname: jobTypeToPath(job.type, job),
-      state: { internalID: job.internalID },
-    };
+    if (job.type === JobTypes.ASYNC_DOWNLOAD) {
+      const urlConfig = asyncDownloadUrlObjectCreator(
+        (job.parameters as FormParameters[JobTypes.ASYNC_DOWNLOAD]).namespace
+      );
+      jobUrl = urlConfig.resultUrl(job.remoteID);
+    } else {
+      jobLink = {
+        pathname: jobTypeToPath(job.type, job),
+        state: { internalID: job.internalID },
+      };
+    }
   }
 
   const handleDelete = () => {
@@ -359,6 +371,25 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
   const noResults =
     'data' in job && job.data && 'hits' in job.data && job.data.hits === 0;
 
+  let jobIdNode;
+  if ('remoteID' in job) {
+    if (!noResults) {
+      if (jobUrl) {
+        // Async download
+        jobIdNode = (
+          <a href={jobUrl} target="_blank" rel="noreferrer">
+            {job.remoteID}
+          </a>
+        );
+      }
+      if (jobLink) {
+        jobIdNode = <Link to={jobLink}>{job.remoteID}</Link>;
+      }
+    } else {
+      jobIdNode = job.remoteID;
+    }
+  }
+
   return (
     <Card
       ref={ref}
@@ -396,14 +427,7 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
       <span className="dashboard__body__actions">
         <Actions job={job} onDelete={handleDelete} />
       </span>
-      <span className="dashboard__body__id">
-        {'remoteID' in job &&
-          (jobLink && !noResults ? (
-            <Link to={jobLink}>{job.remoteID}</Link>
-          ) : (
-            job.remoteID
-          ))}
-      </span>
+      <span className="dashboard__body__id">{jobIdNode}</span>
     </Card>
   );
 });
