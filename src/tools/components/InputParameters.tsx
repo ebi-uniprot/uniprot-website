@@ -8,6 +8,7 @@ import { UseDataAPIState } from '../../shared/hooks/useDataApi';
 import { PublicServerParameters } from '../types/toolsServerParameters';
 import { JobTypes } from '../types/toolsJobTypes';
 import { FormParameters as PeptideSearchFormParameters } from '../peptide-search/types/peptideSearchFormParameters';
+import { SelectedTaxon } from '../types/toolsFormData';
 
 import styles from './styles/extra-tabs.module.css';
 
@@ -22,7 +23,7 @@ type InputParametersProps = {
   jobType: JobTypes;
 };
 
-const fieldsToHide = new Set(['redirectURL']);
+const fieldsToHide = new Set(['redirectURL', 'taxidlist']);
 
 const InputParameters = ({
   id,
@@ -74,10 +75,22 @@ const InputParameters = ({
           <InfoList
             infoData={Object.entries(inputParameters || {})
               .filter(([key, value]) => !fieldsToHide.has(key) && value)
-              .map(([key, value]) => ({
-                title: key,
-                content: <CodeBlock lightMode>{`${value}`}</CodeBlock>,
-              }))}
+              .map(([key, value]) => {
+                if (key === 'taxIds' && Array.isArray(value)) {
+                  return {
+                    title: key,
+                    content: (
+                      <CodeBlock lightMode>{`${(value as SelectedTaxon[]).map(
+                        (taxon) => taxon.id
+                      )}`}</CodeBlock>
+                    ),
+                  };
+                }
+                return {
+                  title: key,
+                  content: <CodeBlock lightMode>{`${value}`}</CodeBlock>,
+                };
+              })}
           />
         )}
       </section>
