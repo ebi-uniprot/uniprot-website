@@ -1,0 +1,19 @@
+@import 'franklin-sites/src/styles/settings';
+
+.generate {
+  width: 100%;
+  display: inline-block;
+
+  .name {
+    margin-top: 1.25rem;
+  }
+
+  [name='title'] {
+    font-family: monospace;
+    min-width: 25ch;
+  }
+
+  .copy-button {
+    margin-inline-start: auto;
+  }
+}

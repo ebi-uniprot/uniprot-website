@@ -10,7 +10,6 @@ import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../../tools/peptide-search/co
 
 import useColumnNames from '../../hooks/useColumnNames';
 import useJobFromUrl from '../../hooks/useJobFromUrl';
-import { useToolsDispatch } from '../../contexts/Tools';
 
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 
@@ -22,14 +21,13 @@ import {
 } from '../../config/resultsDownload';
 import { Location, LocationToPath } from '../../../app/config/urls';
 
-import { createJob } from '../../../tools/state/toolsActions';
-
 import { FileFormat } from '../../types/resultsDownload';
 import { Namespace } from '../../types/namespaces';
 import { JobTypes } from '../../../tools/types/toolsJobTypes';
 
 import sticky from '../../styles/sticky.module.scss';
 import styles from './styles/download.module.scss';
+import DownloadGenerate from './DownloadGenerate';
 
 export const getPreviewFileFormat = (fileFormat: FileFormat) =>
   fileFormat === FileFormat.excel ? FileFormat.tsv : fileFormat;
@@ -49,7 +47,7 @@ type DownloadProps = {
   excludeColumns?: boolean;
 };
 
-type ExtraContent = 'url' | 'preview';
+type ExtraContent = 'url' | 'generate' | 'preview';
 
 const Download: FC<DownloadProps> = ({
   query,
@@ -67,7 +65,6 @@ const Download: FC<DownloadProps> = ({
 }) => {
   const { columnNames } = useColumnNames();
   const { search: queryParamFromUrl } = useLocation();
-  const dispatchTools = useToolsDispatch();
 
   const fileFormats =
     supportedFormats || nsToFileFormatsResultsDownload[namespace];
@@ -169,20 +166,6 @@ const Download: FC<DownloadProps> = ({
 
   const handleCompressedChange = (e: ChangeEvent<HTMLInputElement>) =>
     setCompressed(e.target.value === 'true');
-
-  const handleGenerateFile = () => {
-    // We emit an action containing only the parameters and the type of job
-    // the reducer will be in charge of generating a proper job object for
-    // internal state. Dispatching after history.push so that pop-up messages (as a
-    // side-effect of createJob) cannot mount immediately before navigating away.
-    dispatchTools(
-      createJob(
-        { ...downloadOptions, compressed: false, download: false },
-        JobTypes.ASYNC_DOWNLOAD,
-        new Date().toLocaleString()
-      )
-    );
-  };
 
   const extraContentRef = useRef<HTMLElement>(null);
 
@@ -329,7 +312,7 @@ const Download: FC<DownloadProps> = ({
         </Button>
         <Button
           variant="tertiary"
-          onClick={handleGenerateFile}
+          onClick={() => displayExtraContent('generate')}
           disabled={redirectToIDMapping}
         >
           Generate File
@@ -389,6 +372,14 @@ const Download: FC<DownloadProps> = ({
             // Remove the download attribute as it's unnecessary for API access
             apiURL={downloadUrl.replace('download=true&', '')}
             onCopy={onClose}
+            onMount={scrollExtraIntoView}
+            count={downloadCount}
+          />
+        )}
+        {extraContent === 'generate' && (
+          <DownloadGenerate
+            downloadOptions={downloadOptions}
+            onSubmit={onClose}
             onMount={scrollExtraIntoView}
             count={downloadCount}
           />
