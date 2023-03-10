@@ -211,8 +211,8 @@ export const getJobMessage = ({
   } else if (typeof fileSizeBytes !== 'undefined') {
     quantityMessage = (
       <>
-        {', generated file of size '}
-        <BytesNumber>{fileSizeBytes}</BytesNumber>
+        {', '}
+        <BytesNumber>{fileSizeBytes}</BytesNumber> file generated
       </>
     );
   }

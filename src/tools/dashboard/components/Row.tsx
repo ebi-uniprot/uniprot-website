@@ -18,6 +18,7 @@ import {
   WarningTriangleIcon,
   Bubble,
   Button,
+  BytesNumber,
 } from 'franklin-sites';
 import { LocationDescriptor } from 'history';
 
@@ -133,9 +134,10 @@ const Seen = ({ job }: { job: FailedJob | FinishedJob<JobTypes> }) => {
 interface NiceStatusProps {
   job: Job;
   jobLink?: LocationDescriptor;
+  jobUrl?: string;
 }
 
-const NiceStatus = ({ job, jobLink }: NiceStatusProps) => {
+const NiceStatus = ({ job, jobLink, jobUrl }: NiceStatusProps) => {
   switch (job.status) {
     case Status.CREATED:
     case Status.RUNNING:
@@ -166,8 +168,32 @@ const NiceStatus = ({ job, jobLink }: NiceStatusProps) => {
     case Status.NOT_FOUND:
       return <>Job not found on the server</>;
     case Status.FINISHED: {
-      if (!jobLink) {
+      if (!jobLink && !jobUrl) {
         return null;
+      }
+      if (jobUrl) {
+        // Async download
+        const fileSizeBytes =
+          ('data' in job &&
+            job.data &&
+            'fileSizeBytes' in job.data &&
+            job.data.fileSizeBytes) ||
+          0;
+        return (
+          <>
+            {fileSizeBytes ? (
+              <a href={jobUrl} target="_blank" rel="noreferrer">
+                Completed
+              </a>
+            ) : (
+              'Completed'
+            )}
+            <br />
+            <span className="dashboard__body__notify_message">
+              <BytesNumber>{fileSizeBytes}</BytesNumber> file generated
+            </span>
+          </>
+        );
       }
       // either a BLAST or ID Mapping job could have those
       if ('data' in job && job.data && 'hits' in job.data) {
@@ -426,7 +452,7 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
         )}
       </span>
       <span className="dashboard__body__status">
-        <NiceStatus job={job} jobLink={jobLink} />
+        <NiceStatus job={job} jobLink={jobLink} jobUrl={jobUrl} />
       </span>
       <span className="dashboard__body__actions">
         <Actions job={job} onDelete={handleDelete} />
