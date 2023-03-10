@@ -197,7 +197,9 @@ const getCheckJobStatus =
 
         let hits = 0;
         if (!response.bodyUsed) {
-          hits = (await response.text()).split(/,/)?.length || 0;
+          hits =
+            (await response.text()).split(/\s*,\s*/).filter(Boolean)?.length ||
+            0;
         }
         dispatch(
           updateJob(job.internalID, {
