@@ -3,6 +3,7 @@ import { AxiosResponse } from 'axios';
 import { LocationDescriptor } from 'history';
 
 import { MutableRefObject } from 'react';
+import { LongNumber } from 'franklin-sites';
 import { pluralise } from '../../shared/utils/utils';
 
 import { Location, jobTypeToPath } from '../../app/config/urls';
@@ -141,12 +142,14 @@ export const getServerErrorDescription = (error: ServerError | string) => {
 type getJobMessageProps = {
   job: Job;
   nHits?: number;
+  fileSizeBytes?: number;
   errorDescription?: string;
 };
 
 export const getJobMessage = ({
   job,
   nHits,
+  fileSizeBytes,
   errorDescription,
 }: getJobMessageProps) => {
   const message = {
@@ -182,9 +185,22 @@ export const getJobMessage = ({
       state: { internalID: job.internalID },
     };
   }
-  let hitsMessage = '';
+  let quantityMessage;
   if (typeof nHits !== 'undefined') {
-    hitsMessage = `, found ${nHits} ${pluralise('hit', nHits)}`;
+    quantityMessage = (
+      <>
+        {', found '}
+        <LongNumber>{nHits}</LongNumber>
+        {` ${pluralise('hit', nHits)}`}
+      </>
+    );
+  } else if (typeof fileSizeBytes !== 'undefined') {
+    quantityMessage = (
+      <>
+        {', generated file of size '}
+        <LongNumber>{fileSizeBytes}</LongNumber>
+      </>
+    );
   }
 
   return {
@@ -193,7 +209,8 @@ export const getJobMessage = ({
       <>
         {job.type} job{' '}
         {location ? <Link to={location}>{jobName}</Link> : jobName}
-        {` finished${hitsMessage}`}
+        {' finished'}
+        {quantityMessage}
       </>
     ),
     level: MessageLevel.SUCCESS,

@@ -178,6 +178,14 @@ const getCheckJobStatus =
         );
       } else if (job.type === JobTypes.ASYNC_DOWNLOAD) {
         // Only Async Download jobs
+        // HEAD the generated file to get file size
+        const response = await fetchData(
+          urlConfig.resultUrl(job.remoteID, {}),
+          undefined,
+          {
+            method: 'HEAD',
+          }
+        );
 
         // get a new reference to the job
         currentStateOfJob = getCurrentStateOfJob(job, stateRef);
@@ -185,16 +193,18 @@ const getCheckJobStatus =
           return;
         }
 
+        const fileSizeBytes = +response.headers['content-length'] || 0;
+
         dispatch(
           updateJob(job.internalID, {
             timeFinished: Date.now(),
             seen: false,
             status,
-            // data: { fileSize: .... }, // TODO: add this
+            data: { fileSizeBytes },
           })
         );
         messagesDispatch(
-          addMessage(getJobMessage({ job: currentStateOfJob })) // TODO: add fileSize
+          addMessage(getJobMessage({ job: currentStateOfJob, fileSizeBytes }))
         );
       } else if (job.type === JobTypes.PEPTIDE_SEARCH) {
         // Only Peptide Search jobs

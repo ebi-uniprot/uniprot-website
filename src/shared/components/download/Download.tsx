@@ -179,7 +179,7 @@ const Download: FC<DownloadProps> = ({
       createJob(
         { ...downloadOptions, compressed: false, download: false },
         JobTypes.ASYNC_DOWNLOAD,
-        'foo'
+        new Date().toLocaleString()
       )
     );
   };
