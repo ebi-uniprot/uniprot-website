@@ -81,6 +81,12 @@ protvista-manager {
   width: 100%;
 }
 
+@for $i from 1 through 6 {
+  h#{$i}[data-article-id] {
+    display: inline-block;
+  }
+}
+
 // Debug utility to show heading levels
 // @for $i from 1 through 6 {
 //   h#{$i} {
