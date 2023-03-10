@@ -3,7 +3,7 @@ import { AxiosResponse } from 'axios';
 import { LocationDescriptor } from 'history';
 
 import { MutableRefObject } from 'react';
-import { LongNumber } from 'franklin-sites';
+import { BytesNumber, LongNumber } from 'franklin-sites';
 import { pluralise } from '../../shared/utils/utils';
 
 import { Location, jobTypeToPath } from '../../app/config/urls';
@@ -198,7 +198,7 @@ export const getJobMessage = ({
     quantityMessage = (
       <>
         {', generated file of size '}
-        <LongNumber>{fileSizeBytes}</LongNumber>
+        <BytesNumber>{fileSizeBytes}</BytesNumber>
       </>
     );
   }
