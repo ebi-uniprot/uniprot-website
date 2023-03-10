@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { AxiosResponse } from 'axios';
-import { LocationDescriptor } from 'history';
 
 import { MutableRefObject } from 'react';
 import { BytesNumber, LongNumber } from 'franklin-sites';
@@ -17,7 +16,6 @@ import {
 import { Job } from '../types/toolsJob';
 import { JobTypes } from '../types/toolsJobTypes';
 import { Status } from '../types/toolsStatuses';
-import { LocationStateFromJobLink } from '../hooks/useMarkJobAsSeen';
 import { ToolsState } from '../state/toolsInitialState';
 
 const reHex = /^[a-f\d]+$/;
@@ -144,6 +142,7 @@ type getJobMessageProps = {
   nHits?: number;
   fileSizeBytes?: number;
   errorDescription?: string;
+  url?: string;
 };
 
 export const getJobMessage = ({
@@ -151,6 +150,7 @@ export const getJobMessage = ({
   nHits,
   fileSizeBytes,
   errorDescription,
+  url,
 }: getJobMessageProps) => {
   const message = {
     id: job.internalID,
@@ -178,13 +178,23 @@ export const getJobMessage = ({
     jobName = '';
   }
 
-  let location: LocationDescriptor<LocationStateFromJobLink> | undefined;
-  if ('remoteID' in job && job.remoteID && nHits !== 0) {
-    location = {
+  let link;
+  if (url) {
+    link = (
+      <a href={url} target="_blank" rel="noreferrer">
+        {jobName}
+      </a>
+    );
+  } else if ('remoteID' in job && job.remoteID && nHits !== 0) {
+    const location = {
       pathname: jobTypeToPath(job.type, job),
       state: { internalID: job.internalID },
     };
+    link = <Link to={location}>{jobName}</Link>;
+  } else {
+    link = jobName;
   }
+
   let quantityMessage;
   if (typeof nHits !== 'undefined') {
     quantityMessage = (
@@ -207,8 +217,7 @@ export const getJobMessage = ({
     ...message,
     content: (
       <>
-        {job.type} job{' '}
-        {location ? <Link to={location}>{jobName}</Link> : jobName}
+        {job.type} job {link}
         {' finished'}
         {quantityMessage}
       </>
