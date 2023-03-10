@@ -236,16 +236,20 @@ const Actions = ({ job, onDelete }: ActionsProps) => {
       >
         {job.saved ? '★' : '☆'}
       </button>
-      <button
-        type="button"
-        title="resubmit this job"
-        onClick={(event) => {
-          event.stopPropagation();
-          history.push(jobTypeToPath(job.type), { parameters: job.parameters });
-        }}
-      >
-        <ReSubmitIcon />
-      </button>
+      {job.type !== JobTypes.ASYNC_DOWNLOAD && (
+        <button
+          type="button"
+          title="resubmit this job"
+          onClick={(event) => {
+            event.stopPropagation();
+            history.push(jobTypeToPath(job.type), {
+              parameters: job.parameters,
+            });
+          }}
+        >
+          <ReSubmitIcon />
+        </button>
+      )}
       <button
         type="button"
         title="delete this job"
