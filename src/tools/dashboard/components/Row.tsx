@@ -167,7 +167,7 @@ const NiceStatus = ({ job, jobLink }: NiceStatusProps) => {
       if (!jobLink) {
         return null;
       }
-      // either a BLAST or ID Mapping job could have those
+      // either a BLAST, ID Mapping, or Peptide Search job could have those
       if ('data' in job && job.data && 'hits' in job.data) {
         const actualHits = job.data.hits;
         let expectedHits: number | undefined;
@@ -179,7 +179,10 @@ const NiceStatus = ({ job, jobLink }: NiceStatusProps) => {
           // ID Mapping-specific
           expectedHits = job.parameters.ids.length;
         }
-        if (expectedHits !== undefined && actualHits !== expectedHits) {
+        if (
+          (expectedHits !== undefined && actualHits !== expectedHits) ||
+          actualHits === 0
+        ) {
           const hitText = pluralise('hit', actualHits);
           return (
             <>
@@ -190,7 +193,11 @@ const NiceStatus = ({ job, jobLink }: NiceStatusProps) => {
                 <Link to={jobLink}>Completed</Link>
               )}{' '}
               <span
-                title={`${actualHits} ${hitText} results found instead of the requested ${expectedHits}`}
+                title={`${actualHits} ${hitText} found${
+                  expectedHits
+                    ? ` instead of the requested ${expectedHits}`
+                    : ''
+                }`}
               >
                 ({actualHits ? `${actualHits} ${hitText}` : 'no results found'})
               </span>
