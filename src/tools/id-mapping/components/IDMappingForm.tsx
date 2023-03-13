@@ -439,7 +439,7 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
             className={cn('tools-form-section', sticky['sticky-bottom-right'])}
           >
             <section className="button-group tools-form-section__buttons">
-              {sending && !reducedMotion && (
+              {!sending && !reducedMotion && (
                 <>
                   <SpinnerIcon />
                   &nbsp;

@@ -17,6 +17,7 @@ export type ServerParameters = {
   [JobTypes.BLAST]: BlastSP;
   [JobTypes.ID_MAPPING]: IDMappingSP;
   [JobTypes.PEPTIDE_SEARCH]: PeptideSearchSP;
+  [JobTypes.ASYNC_DOWNLOAD]: never;
 };
 
 export type PublicServerParameters = {

@@ -379,7 +379,6 @@ const Download: FC<DownloadProps> = ({
         {extraContent === 'generate' && (
           <DownloadGenerate
             downloadOptions={downloadOptions}
-            onSubmit={onClose}
             onMount={scrollExtraIntoView}
             count={downloadCount}
           />
