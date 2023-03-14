@@ -2,7 +2,7 @@
 
 exports[`HelpLandingPage should render 1`] = `
 <DocumentFragment>
-  <div
+  <main
     class="uniprot-grid uniprot-grid--centered help-landing"
   >
     <div
@@ -469,6 +469,6 @@ exports[`HelpLandingPage should render 1`] = `
         </div>
       </section>
     </div>
-  </div>
+  </main>
 </DocumentFragment>
 `;
