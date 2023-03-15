@@ -18,7 +18,7 @@ const DownloadPreview = ({
   previewUrl: string;
   previewFileFormat: FileFormat;
 }) => {
-  const scrollRef = useScrollIntoViewRef();
+  const scrollRef = useScrollIntoViewRef<HTMLDivElement>();
   const options = useMemo(() => {
     const headers: Record<string, string> = {};
     const accept = fileFormatToContentType[previewFileFormat];

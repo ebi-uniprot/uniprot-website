@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef } from 'react';
 
-const useScrollIntoViewRef = () => {
-  const ref = useRef<HTMLElement>(null);
+const useScrollIntoViewRef = <T extends HTMLElement>() => {
+  const ref = useRef<T>(null);
   useLayoutEffect(() => {
     ref.current?.scrollIntoView();
   }, []);

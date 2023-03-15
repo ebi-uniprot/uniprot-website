@@ -49,7 +49,7 @@ type Props = {
 };
 
 const DownloadAPIURL = ({ apiURL, onCopy, count }: Props) => {
-  const scrollRef = useScrollIntoViewRef();
+  const scrollRef = useScrollIntoViewRef<HTMLDivElement>();
   const dispatch = useMessagesDispatch();
   const handleCopyURL = useCallback(
     async (text: string) => {

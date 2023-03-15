@@ -2,7 +2,6 @@ import { FormEvent, useState, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { LongNumber, Message, SpinnerIcon } from 'franklin-sites';
 import { sleep } from 'timing-functions';
-import cn from 'classnames';
 
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import { useToolsDispatch } from '../../../shared/contexts/Tools';
@@ -21,7 +20,6 @@ import { LocationToPath, Location } from '../../../app/config/urls';
 import { JobTypes } from '../../types/toolsJobTypes';
 import { FileFormat } from '../../../shared/types/resultsDownload';
 
-import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 
 const isExcel = (downloadUrlOptions: DownloadUrlOptions) =>
@@ -53,7 +51,7 @@ const AsyncDownloadForm = ({
   const dispatchTools = useToolsDispatch();
   const history = useHistory();
   const reducedMotion = useReducedMotion();
-  const scrollRef = useScrollIntoViewRef();
+  const scrollRef = useScrollIntoViewRef<HTMLFormElement>();
 
   // used when the form submission needs to be disabled
   const [submitDisabled, setSubmitDisabled] = useState(() =>
