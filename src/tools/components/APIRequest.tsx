@@ -7,7 +7,7 @@ import ErrorHandler from '../../shared/components/error-pages/ErrorHandler';
 
 import { UseDataAPIState } from '../../shared/hooks/useDataApi';
 
-import toolsURLs, { asyncDownloadUrlObjectCreator } from '../config/urls';
+import toolsURLs from '../config/urls';
 
 import { PublicServerParameters } from '../types/toolsServerParameters';
 import { JobTypes } from '../types/toolsJobTypes';
@@ -88,10 +88,6 @@ function inputToCurl<T extends JobTypes>(
   if (jobType === JobTypes.PEPTIDE_SEARCH) {
     // Peptide Search doesn't support form data, needs to be in URL encoded
     command += '" \\\n     --verbose \\\n';
-  }
-  if (jobType === JobTypes.ASYNC_DOWNLOAD) {
-    // TODO: fix
-    command += `     ${asyncDownloadUrlObjectCreator(jobType).runUrl}`;
   } else {
     command += `     ${toolsURLs(jobType).runUrl}`;
   }

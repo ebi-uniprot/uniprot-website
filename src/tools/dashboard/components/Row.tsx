@@ -168,9 +168,6 @@ const NiceStatus = ({ job, jobLink, jobUrl }: NiceStatusProps) => {
     case Status.NOT_FOUND:
       return <>Job not found on the server</>;
     case Status.FINISHED: {
-      if (!jobLink && !jobUrl) {
-        return null;
-      }
       if (jobUrl) {
         // Async download
         const fileSizeBytes =
@@ -195,45 +192,50 @@ const NiceStatus = ({ job, jobLink, jobUrl }: NiceStatusProps) => {
           </>
         );
       }
-      // either a BLAST or ID Mapping job could have those
-      if ('data' in job && job.data && 'hits' in job.data) {
-        const actualHits = job.data.hits;
-        let expectedHits: number | undefined;
-        if ('hits' in job.parameters) {
-          // BLAST-specific
-          expectedHits = job.parameters.hits;
+      if (jobLink) {
+        // either a BLAST or ID Mapping job could have those
+        if ('data' in job && job.data && 'hits' in job.data && jobLink) {
+          const actualHits = job.data.hits;
+          let expectedHits: number | undefined;
+          if ('hits' in job.parameters) {
+            // BLAST-specific
+            expectedHits = job.parameters.hits;
+          }
+          if ('ids' in job.parameters) {
+            // ID Mapping-specific
+            expectedHits = job.parameters.ids.length;
+          }
+          if (expectedHits !== undefined && actualHits !== expectedHits) {
+            const hitText = pluralise('hit', actualHits);
+            return (
+              <>
+                {actualHits === 0 ? (
+                  <span>Completed</span>
+                ) : (
+                  // eslint-disable-next-line uniprot-website/use-config-location
+                  <Link to={jobLink}>Completed</Link>
+                )}{' '}
+                <span
+                  title={`${actualHits} ${hitText} results found instead of the requested ${expectedHits}`}
+                >
+                  (
+                  {actualHits ? `${actualHits} ${hitText}` : 'no results found'}
+                  )
+                </span>
+                <Seen job={job} />
+              </>
+            );
+          }
         }
-        if ('ids' in job.parameters) {
-          // ID Mapping-specific
-          expectedHits = job.parameters.ids.length;
-        }
-        if (expectedHits !== undefined && actualHits !== expectedHits) {
-          const hitText = pluralise('hit', actualHits);
-          return (
-            <>
-              {actualHits === 0 ? (
-                <span>Completed</span>
-              ) : (
-                // eslint-disable-next-line uniprot-website/use-config-location
-                <Link to={jobLink}>Completed</Link>
-              )}{' '}
-              <span
-                title={`${actualHits} ${hitText} results found instead of the requested ${expectedHits}`}
-              >
-                ({actualHits ? `${actualHits} ${hitText}` : 'no results found'})
-              </span>
-              <Seen job={job} />
-            </>
-          );
-        }
+        return (
+          <>
+            {/* eslint-disable-next-line uniprot-website/use-config-location */}
+            <Link to={jobLink}>Completed</Link>
+            <Seen job={job} />
+          </>
+        );
       }
-      return (
-        <>
-          {/* eslint-disable-next-line uniprot-website/use-config-location */}
-          <Link to={jobLink}>Completed</Link>
-          <Seen job={job} />
-        </>
-      );
+      return null;
     }
     default:
       logging.warn(`Job status not handled: ${job}`);

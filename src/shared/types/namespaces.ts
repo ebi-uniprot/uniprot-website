@@ -91,6 +91,7 @@ export const namespaceAndToolsLabels: Record<Namespace | JobTypes, string> = {
   // Tools
   [JobTypes.ID_MAPPING]: 'Retrieve/ID mapping',
   [JobTypes.ALIGN]: 'Align',
+  [JobTypes.ASYNC_DOWNLOAD]: 'Generate file',
   [JobTypes.BLAST]: 'BLAST',
   [JobTypes.PEPTIDE_SEARCH]: 'Peptide search',
 };

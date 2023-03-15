@@ -16,6 +16,10 @@ interface BaseJob<T extends JobTypes> {
   seen: boolean;
 }
 
+export interface NewJob extends BaseJob<JobTypes> {
+  status: Status.NEW;
+}
+
 export interface CreatedJob extends BaseJob<JobTypes> {
   status: Status.CREATED;
 }
@@ -50,4 +54,9 @@ export interface FinishedJob<T extends JobTypes> extends BaseJob<T> {
   data?: DataForDashboard[T];
 }
 
-export type Job = CreatedJob | FailedJob | RunningJob | FinishedJob<JobTypes>;
+export type Job =
+  | NewJob
+  | CreatedJob
+  | FailedJob
+  | RunningJob
+  | FinishedJob<JobTypes>;

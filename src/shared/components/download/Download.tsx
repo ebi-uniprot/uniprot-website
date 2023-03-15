@@ -1,5 +1,5 @@
 import { useState, FC, ChangeEvent, useCallback } from 'react';
-import { generatePath, Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Button, LongNumber, Message } from 'franklin-sites';
 import cn from 'classnames';
 
