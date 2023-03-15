@@ -174,6 +174,34 @@ const Download: FC<DownloadProps> = ({
   }, []);
 
   const downloadCount = downloadAll ? totalNumberResults : nSelectedEntries;
+  const isLarge = downloadCount > DOWNLOAD_SIZE_LIMIT;
+
+  let extraContentNode: JSX.Element | undefined;
+  if (extraContent === 'url') {
+    extraContentNode = (
+      <DownloadAPIURL
+        // Remove the download attribute as it's unnecessary for API access
+        apiURL={downloadUrl.replace('download=true&', '')}
+        onCopy={onClose}
+        count={downloadCount}
+      />
+    );
+  } else if (extraContent === 'generate') {
+    extraContentNode = (
+      <AsyncDownloadForm
+        downloadUrlOptions={downloadOptions}
+        count={downloadCount}
+        initialFormValues={defaultFormValues}
+      />
+    );
+  } else if (extraContent === 'preview') {
+    extraContentNode = (
+      <DownloadPreview
+        previewUrl={previewUrl}
+        previewFileFormat={previewFileFormat}
+      />
+    );
+  }
 
   // Peptide search download for matches exceeding the threshold
   const redirectToIDMapping =
@@ -304,14 +332,6 @@ const Download: FC<DownloadProps> = ({
         </Button>
         <Button
           variant="tertiary"
-          onClick={() => displayExtraContent('generate')}
-          disabled={redirectToIDMapping}
-        >
-          Generate File
-        </Button>
-
-        <Button
-          variant="tertiary"
           onClick={() => displayExtraContent('preview')}
           disabled={redirectToIDMapping}
         >
@@ -325,62 +345,19 @@ const Download: FC<DownloadProps> = ({
         </Button>
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <a
-          href={downloadCount > DOWNLOAD_SIZE_LIMIT ? undefined : downloadUrl}
-          className={cn('button', 'primary', {
-            disabled:
-              downloadCount > DOWNLOAD_SIZE_LIMIT || redirectToIDMapping,
-          })}
+          href={isLarge ? undefined : downloadUrl}
+          className={cn('button', 'primary')}
           title={
-            downloadCount > DOWNLOAD_SIZE_LIMIT
-              ? 'Download size is too big, please restrict your search'
-              : undefined
+            isLarge ? 'Download with a Generate File job' : 'Download file'
           }
           target="_blank"
           rel="noreferrer"
-          onClick={downloadCount > DOWNLOAD_SIZE_LIMIT ? undefined : onClose}
+          onClick={() => (isLarge ? displayExtraContent('generate') : onClose)}
         >
           Download
         </a>
       </section>
-      <section>
-        {downloadCount > DOWNLOAD_SIZE_LIMIT && (
-          <Message level="info">
-            Download size is too big, please restrict your search. If the
-            results exceeed the download limit of{' '}
-            <LongNumber>{DOWNLOAD_SIZE_LIMIT}</LongNumber>, it is recommended to
-            use{' '}
-            <Link
-              to={generatePath(LocationToPath[Location.HelpEntry], {
-                accession: 'pagination',
-              })}
-            >
-              pagination
-            </Link>
-            .
-          </Message>
-        )}
-        {extraContent === 'url' && (
-          <DownloadAPIURL
-            // Remove the download attribute as it's unnecessary for API access
-            apiURL={downloadUrl.replace('download=true&', '')}
-            onCopy={onClose}
-            count={downloadCount}
-          />
-        )}
-        {extraContent === 'generate' && (
-          <AsyncDownloadForm
-            downloadUrlOptions={downloadOptions}
-            count={downloadCount}
-            initialFormValues={defaultFormValues}
-          />
-        )}
-        {extraContent === 'preview' && (
-          <DownloadPreview
-            previewUrl={previewUrl}
-            previewFileFormat={previewFileFormat}
-          />
-        )}
-      </section>
+      <section>{extraContentNode}</section>
     </>
   );
 };
