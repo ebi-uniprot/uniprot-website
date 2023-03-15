@@ -1,6 +1,6 @@
 import { FormEvent, useState, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
-import { SpinnerIcon } from 'franklin-sites';
+import { LongNumber, Message, SpinnerIcon } from 'franklin-sites';
 import { sleep } from 'timing-functions';
 import cn from 'classnames';
 
@@ -24,14 +24,19 @@ import { FileFormat } from '../../../shared/types/resultsDownload';
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 
-const isExcel = (downloadOptions: DownloadUrlOptions) =>
-  downloadOptions.fileFormat === FileFormat.excel;
+const isExcel = (downloadUrlOptions: DownloadUrlOptions) =>
+  downloadUrlOptions.fileFormat === FileFormat.excel;
 
-const isUncompressed = (downloadOptions: DownloadUrlOptions) =>
-  !downloadOptions.compressed;
+const isUncompressed = (downloadUrlOptions: DownloadUrlOptions) =>
+  !downloadUrlOptions.compressed;
 
-const isInvalid = (name: string, downloadOptions: DownloadUrlOptions) =>
-  !name || isExcel(downloadOptions) || isUncompressed(downloadOptions);
+const isInvalid = (name: string, downloadUrlOptions: DownloadUrlOptions) =>
+  !name || isExcel(downloadUrlOptions) || isUncompressed(downloadUrlOptions);
+
+const getPotentialJobName = (
+  count: number,
+  downloadUrlOptions: DownloadUrlOptions
+) => `${downloadUrlOptions.namespace}-${count}`;
 
 type Props = {
   initialFormValues: Readonly<AsyncDownloadFormValues>;
@@ -105,7 +110,7 @@ const AsyncDownloadForm = ({
     if (jobNameEdited) {
       return;
     }
-    const potentialJobName = `${downloadUrlOptions.namespace}-${count}`;
+    const potentialJobName = getPotentialJobName(count, downloadUrlOptions);
     setJobName((jobName: AsyncDownloadFormValue) => {
       if (jobName.selected === potentialJobName) {
         // avoid unecessary rerender by keeping the same object
@@ -113,7 +118,7 @@ const AsyncDownloadForm = ({
       }
       return { ...jobName, selected: potentialJobName };
     });
-  }, [count, downloadUrlOptions.namespace, jobNameEdited]);
+  }, [count, downloadUrlOptions, downloadUrlOptions.namespace, jobNameEdited]);
 
   useEffect(() => {
     setSubmitDisabled(isInvalid(jobName.selected, downloadUrlOptions));
@@ -126,8 +131,17 @@ const AsyncDownloadForm = ({
       ref={scrollRef}
     >
       <fieldset>
-        <section className="tools-form-section">
-          <section className="tools-form-section__item">
+        <section className="tools-form-section tools-form-section--compact">
+          <section className="tools-form-section__item tools-form-section__item--full-width">
+            <Message>
+              Your download request is too large (
+              <LongNumber>{count}</LongNumber>
+              ) for immediate download.
+              <br />
+              Please submit a &quot;Generate File&quot; job instead.
+            </Message>
+          </section>
+          <section className="tools-form-section__item tools-form-section__item--compact">
             <label>
               Name your Generate File job
               <input
@@ -154,17 +168,31 @@ const AsyncDownloadForm = ({
             </label>
           </section>
         </section>
-        <section
-          className={cn('tools-form-section', sticky['sticky-bottom-right'])}
-        >
-          <section className="button-group tools-form-section__buttons">
+        {isInvalid(jobName.selected, downloadUrlOptions) && (
+          <section className="tools-form-section tools-form-section__item tools-form-section__item--full-width">
+            {isExcel(downloadUrlOptions) && (
+              <Message level="failure">
+                Excel file format not supported for Generate File jobs. Please
+                select a different format. You can select TSV as an alternative
+                to Excel.
+              </Message>
+            )}
+            {isUncompressed(downloadUrlOptions) && (
+              <Message level="failure">
+                File must be compressed for Generate File jobs. Please select
+                compressed to proceed.
+              </Message>
+            )}
+          </section>
+        )}
+        <section className="tools-form-section tools-form-section--right">
+          <section className="button-group tools-form-section__buttons ">
             {sending && !reducedMotion && (
               <>
                 <SpinnerIcon />
                 &nbsp;
               </>
             )}
-            <input className="button secondary" type="reset" />
             <button
               className="button primary"
               type="submit"
