@@ -8,6 +8,7 @@ const apiURL = 'https://foo.org';
 
 describe('DownloadAPIURL', () => {
   const onCopy = jest.fn();
+  Element.prototype.scrollIntoView = jest.fn();
 
   beforeEach(() => {
     onCopy.mockReset();
