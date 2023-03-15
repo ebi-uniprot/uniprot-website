@@ -1,17 +1,12 @@
 import { FormEvent, useState, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
-import {
-  Message,
-  TreeSelect,
-  SpinnerIcon,
-  Loader,
-  LongNumber,
-} from 'franklin-sites';
+import { SpinnerIcon } from 'franklin-sites';
 import { sleep } from 'timing-functions';
 import cn from 'classnames';
 
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import { useToolsDispatch } from '../../../shared/contexts/Tools';
+import useScrollIntoViewRef from '../../../shared/hooks/useScrollIntoView';
 
 import { createJob } from '../../state/toolsActions';
 
@@ -53,6 +48,7 @@ const AsyncDownloadForm = ({
   const dispatchTools = useToolsDispatch();
   const history = useHistory();
   const reducedMotion = useReducedMotion();
+  const scrollRef = useScrollIntoViewRef();
 
   // used when the form submission needs to be disabled
   const [submitDisabled, setSubmitDisabled] = useState(() =>
@@ -127,6 +123,7 @@ const AsyncDownloadForm = ({
     <form
       onSubmit={submitAsyncDownloadJob}
       aria-label="Async download job submission form"
+      ref={scrollRef}
     >
       <fieldset>
         <section className="tools-form-section">
@@ -161,7 +158,7 @@ const AsyncDownloadForm = ({
           className={cn('tools-form-section', sticky['sticky-bottom-right'])}
         >
           <section className="button-group tools-form-section__buttons">
-            {!sending && !reducedMotion && (
+            {sending && !reducedMotion && (
               <>
                 <SpinnerIcon />
                 &nbsp;

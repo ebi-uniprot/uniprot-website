@@ -1,4 +1,4 @@
-import { useState, FC, ChangeEvent, useRef, useCallback } from 'react';
+import { useState, FC, ChangeEvent, useCallback } from 'react';
 import { generatePath, Link, useLocation } from 'react-router-dom';
 import { Button, LongNumber, Message } from 'franklin-sites';
 import cn from 'classnames';
@@ -11,6 +11,8 @@ import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../../tools/peptide-search/co
 import useColumnNames from '../../hooks/useColumnNames';
 import useJobFromUrl from '../../hooks/useJobFromUrl';
 
+import AsyncDownloadForm from '../../../tools/async-download/components/AsyncDownloadForm';
+
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 
 import { getDownloadUrl, DownloadUrlOptions } from '../../config/apiUrls';
@@ -19,15 +21,15 @@ import {
   fileFormatsWithColumns,
   nsToFileFormatsResultsDownload,
 } from '../../config/resultsDownload';
+import defaultFormValues from '../../../tools/async-download/config/asyncDownloadFormData';
+
 import { Location, LocationToPath } from '../../../app/config/urls';
 
 import { FileFormat } from '../../types/resultsDownload';
 import { Namespace } from '../../types/namespaces';
-import { JobTypes } from '../../../tools/types/toolsJobTypes';
 
 import sticky from '../../styles/sticky.module.scss';
 import styles from './styles/download.module.scss';
-import DownloadGenerate from './DownloadGenerate';
 
 export const getPreviewFileFormat = (fileFormat: FileFormat) =>
   fileFormat === FileFormat.excel ? FileFormat.tsv : fileFormat;
@@ -167,19 +169,9 @@ const Download: FC<DownloadProps> = ({
   const handleCompressedChange = (e: ChangeEvent<HTMLInputElement>) =>
     setCompressed(e.target.value === 'true');
 
-  const extraContentRef = useRef<HTMLElement>(null);
-
-  const scrollExtraIntoView = useCallback(() => {
-    extraContentRef.current?.scrollIntoView();
+  const displayExtraContent = useCallback((content: ExtraContent) => {
+    setExtraContent(content);
   }, []);
-
-  const displayExtraContent = useCallback(
-    (content: ExtraContent) => {
-      setExtraContent(content);
-      scrollExtraIntoView();
-    },
-    [scrollExtraIntoView]
-  );
 
   const downloadCount = downloadAll ? totalNumberResults : nSelectedEntries;
 
@@ -350,7 +342,7 @@ const Download: FC<DownloadProps> = ({
           Download
         </a>
       </section>
-      <section ref={extraContentRef}>
+      <section>
         {downloadCount > DOWNLOAD_SIZE_LIMIT && (
           <Message level="info">
             Download size is too big, please restrict your search. If the
@@ -372,22 +364,20 @@ const Download: FC<DownloadProps> = ({
             // Remove the download attribute as it's unnecessary for API access
             apiURL={downloadUrl.replace('download=true&', '')}
             onCopy={onClose}
-            onMount={scrollExtraIntoView}
             count={downloadCount}
           />
         )}
         {extraContent === 'generate' && (
-          <DownloadGenerate
-            downloadOptions={downloadOptions}
-            onMount={scrollExtraIntoView}
+          <AsyncDownloadForm
+            downloadUrlOptions={downloadOptions}
             count={downloadCount}
+            initialFormValues={defaultFormValues}
           />
         )}
         {extraContent === 'preview' && (
           <DownloadPreview
             previewUrl={previewUrl}
             previewFileFormat={previewFileFormat}
-            onMount={scrollExtraIntoView}
           />
         )}
       </section>

@@ -1,9 +1,10 @@
 import { Button, CodeBlock, CopyIcon, LongNumber } from 'franklin-sites';
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 import queryString from 'query-string';
 
 import { useMessagesDispatch } from '../../contexts/Messages';
+import useScrollIntoViewRef from '../../hooks/useScrollIntoView';
 
 import {
   copyFailureMessage,
@@ -44,15 +45,11 @@ export const DOWNLOAD_SIZE_LIMIT = 10_000_000 as const;
 type Props = {
   apiURL: string;
   onCopy: () => void;
-  onMount: () => void;
   count: number;
 };
 
-const DownloadAPIURL = ({ apiURL, onCopy, onMount, count }: Props) => {
-  useEffect(() => {
-    onMount();
-  }, [onMount]);
-
+const DownloadAPIURL = ({ apiURL, onCopy, count }: Props) => {
+  const scrollRef = useScrollIntoViewRef();
   const dispatch = useMessagesDispatch();
   const handleCopyURL = useCallback(
     async (text: string) => {
@@ -79,7 +76,7 @@ const DownloadAPIURL = ({ apiURL, onCopy, onMount, count }: Props) => {
   const searchURL = getSearchURL(apiURL, batchSize);
 
   return (
-    <div className={styles['api-url']}>
+    <div className={styles['api-url']} ref={scrollRef}>
       <h4>API URL {isStreamEndpoint && ' using the streaming endpoint'}</h4>
       {isStreamEndpoint &&
         'This endpoint is resource-heavy but will return all requested results.'}
