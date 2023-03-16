@@ -112,6 +112,8 @@ exports[`IDMappingForm test Renders the form 1`] = `
         <section
           class="button-group tools-form-section__buttons"
         >
+          <test-file-stub />
+           
           <input
             class="button secondary"
             type="reset"
