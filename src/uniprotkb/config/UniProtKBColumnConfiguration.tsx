@@ -86,7 +86,6 @@ import EntryTypeIcon, {
   EntryType,
 } from '../../shared/components/entry/EntryTypeIcon';
 import AccessionView from '../../shared/components/results/AccessionView';
-import AlphaFoldView from '../../shared/components/results/AlphaFoldView';
 import CSVView from '../components/protein-data-views/CSVView';
 import { DatabaseList } from '../components/protein-data-views/XRefView';
 import { PeptideSearchMatches } from '../../tools/peptide-search/components/PeptideSearchMatches';
@@ -180,19 +179,6 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.accession, {
   render: (data) => (
     <AccessionView id={data.primaryAccession} namespace={Namespace.uniprotkb} />
   ),
-});
-
-UniProtKBColumnConfiguration.set(UniProtKBColumn.alphafold, {
-  label: (
-    <span
-      style={{ fontFamily: '"IBM Plex Sans", Helvetica, Arial, sans-serif' }}
-    >
-      has AlphaFold
-      <br />
-      prediction?
-    </span>
-  ),
-  render: (data) => <AlphaFoldView accession={data.primaryAccession} />,
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.id, {
@@ -1356,21 +1342,27 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccToxicDose, {
   },
 });
 
+// PMIDs currently bounded to 8 digits but no need to be that specific
+// as we basically want to exclude CI-* & IND* citation ID formats
+const rePubMedId = /^\d+$/;
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.litPubmedId, {
-  ...getLabelAndTooltip('Citation ID', 'Mapped PubMed ID'),
+  ...getLabelAndTooltip('PubMed ID', 'Mapped PubMed ID'),
   render: (data) => (
     <ExpandableList descriptionString="IDs" displayNumberOfHiddenItems>
-      {data.references?.map(
-        (reference) =>
-          reference.citation && (
-            <Link
-              key={reference.citation.id}
-              to={getEntryPath(Namespace.citations, reference.citation.id)}
-            >
-              {reference.citation.id}
-            </Link>
-          )
-      )}
+      {data.references
+        ?.filter((reference) => reference.citation?.id.match(rePubMedId))
+        ?.map(
+          (reference) =>
+            reference.citation && (
+              <Link
+                key={reference.citation.id}
+                to={getEntryPath(Namespace.citations, reference.citation.id)}
+              >
+                {reference.citation.id}
+              </Link>
+            )
+        )}
     </ExpandableList>
   ),
 });

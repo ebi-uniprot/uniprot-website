@@ -1,4 +1,10 @@
-import { FormEvent, Suspense, useState, ComponentProps } from 'react';
+import {
+  FormEvent,
+  Suspense,
+  useState,
+  ComponentProps,
+  useEffect,
+} from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { Button, EditIcon, SlidingPanel } from 'franklin-sites';
 import { frame } from 'timing-functions';
@@ -58,6 +64,10 @@ const CustomiseButton = ({ namespace }: { namespace: Namespace }) => {
     defaultColumns
   );
   const [columns, setColumns] = useState(localStorageColumns);
+
+  useEffect(() => {
+    setColumns(localStorageColumns);
+  }, [localStorageColumns]);
 
   const close = () => displayCustomisePanel && setDisplayCustomisePanel(false);
 

@@ -23,7 +23,7 @@ export const misspeltHelpTuple: RedirectEntry = [
 const redirectMap = new Map<RedirectEntry[0], RedirectEntry[1]>([
   // main data
   [
-    /^\/(uniprot|entry|comment)(?<rest>\/.*)?$/i,
+    /^\/(uniprot|entry|comment|alphafold)(?<rest>\/.*)?$/i,
     `/${Namespace.uniprotkb}$<rest>`,
   ],
   [/^\/unipark(?<rest>\/.*)?$/i, `/${Namespace.uniparc}$<rest>`],

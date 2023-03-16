@@ -123,17 +123,13 @@ export function formParametersToServerParameters<T extends JobTypes>(
       }
       break;
     case JobTypes.PEPTIDE_SEARCH: {
-      const {
-        peps,
-        taxIds,
-        lEQi,
-        // not available on current endpoint
-        spOnly,
-      } = formParameters as FormParameters[JobTypes.PEPTIDE_SEARCH];
+      const { peps, taxIds, lEQi, spOnly } =
+        formParameters as FormParameters[JobTypes.PEPTIDE_SEARCH];
       serverParameters = {
         // replace any white space with a FASTA comment line before processing
         peps: sequenceProcessor(peps.split(/\s+/).join('\n>\n'))
           .map((processedSequence) => processedSequence.sequence)
+          .filter((s) => s.trim()) // Filter out empty lines
           .join(','),
         taxIds: stringifyTaxa(taxIds) || '',
         lEQi,

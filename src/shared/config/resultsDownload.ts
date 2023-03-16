@@ -60,7 +60,6 @@ export const fileFormatsWithColumns = new Set([
 
 export const nsToFileFormatsResultsDownload: Record<Namespace, FileFormat[]> = {
   [Namespace.uniprotkb]: fileFormatsResultsDownloadUniProtKB,
-  [Namespace.alphafold]: fileFormatsResultsDownloadUniProtKB,
   [Namespace.uniref]: fileFormatsResultsDownloadUniRef,
   [Namespace.uniparc]: fileFormatsResultsDownloadUniParc,
   [Namespace.proteomes]: fileFormatsResultsDownloadProteomes,

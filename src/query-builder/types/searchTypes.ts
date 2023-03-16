@@ -4,7 +4,11 @@ export type ItemType = 'group' | 'sibling_group' | 'single';
 
 export type DataType = 'boolean' | 'date' | 'enum' | 'integer' | 'string';
 
-export type FieldType = 'evidence' | 'general' | 'range';
+export type FieldType =
+  | 'evidence'
+  | 'general'
+  | 'range'
+  | 'experimental_evidence';
 
 type EvidenceGroup = {
   groupName: string;

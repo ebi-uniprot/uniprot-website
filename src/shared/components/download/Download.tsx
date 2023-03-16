@@ -47,6 +47,7 @@ type DownloadProps = {
   supportedFormats?: FileFormat[];
   notCustomisable?: boolean;
   excludeColumns?: boolean;
+  inBasketMini?: boolean;
 };
 
 type ExtraContent = 'url' | 'generate' | 'preview';
@@ -64,6 +65,7 @@ const Download: FC<DownloadProps> = ({
   supportedFormats,
   notCustomisable,
   excludeColumns = false,
+  inBasketMini = false,
 }) => {
   const { columnNames } = useColumnNames();
   const { search: queryParamFromUrl } = useLocation();
@@ -125,19 +127,22 @@ const Download: FC<DownloadProps> = ({
   }
 
   const downloadOptions: DownloadUrlOptions = {
-    query: urlQuery,
-    selectedFacets,
-    sortColumn,
-    sortDirection,
     fileFormat,
     compressed,
     selected: urlSelected,
     selectedIdField,
-    namespace:
-      namespace === Namespace.alphafold ? Namespace.uniprotkb : namespace,
+    namespace,
     accessions,
     base: downloadBase,
   };
+
+  if (!inBasketMini) {
+    downloadOptions.query = urlQuery;
+    downloadOptions.selectedFacets = selectedFacets;
+    downloadOptions.sortColumn = sortColumn;
+    downloadOptions.sortDirection = sortDirection;
+  }
+
   if (hasColumns) {
     downloadOptions.columns = selectedColumns;
   }

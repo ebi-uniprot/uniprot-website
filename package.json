@@ -6,10 +6,10 @@
   "license": "MIT",
   "scripts": {
     "start": "npm run start:prod",
-    "start:dev": "webpack serve --env API_PREFIX=https://wwwdev.ebi.ac.uk/uniprot/beta/api --mode development",
+    "start:dev": "webpack serve --env API_PREFIX=https://wwwdev.ebi.ac.uk/uniprot/api --mode development",
     "start:prod": "webpack serve --env API_PREFIX=https://rest.uniprot.org --mode development",
     "start:fallback": "webpack serve --env API_PREFIX=http://hx-rke-wp-webadmin-02-worker-1.caas.ebi.ac.uk:31393 --mode development",
-    "build:dev": "rimraf build && webpack --env API_PREFIX=https://rest.uniprot.org --env PUBLIC_PATH=/uniprot/front-end/dev/ --env GIT_BRANCH=$CI_COMMIT_BRANCH --mode development",
+    "build:dev": "rimraf build && webpack --env API_PREFIX=https://wwwdev.ebi.ac.uk/uniprot/api --env PUBLIC_PATH=/uniprot/front-end/dev/ --env GIT_BRANCH=$CI_COMMIT_BRANCH --mode development",
     "build:prod": "rimraf build && webpack --env API_PREFIX=https://rest.uniprot.org --env GIT_BRANCH=$CI_COMMIT_BRANCH --mode production",
     "lint-fix": "eslint src --ext .ts,.tsx --fix",
     "jest-coverage-ratchet": "jest-coverage-ratchet",

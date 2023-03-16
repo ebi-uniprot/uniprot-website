@@ -12,7 +12,6 @@ import {
 
 import styles from './styles/non-critical.module.scss';
 
-import AlphaFoldImg from '../../../images/alphafold.png';
 import CovidPortalImg from '../../../images/covid-portal.png';
 
 const ExtraLinks = () => (
@@ -30,35 +29,7 @@ const ExtraLinks = () => (
       altStyle
       className={cn(
         'uniprot-grid-cell--small-span-12',
-        'uniprot-grid-cell--medium-span-4'
-      )}
-    >
-      <img
-        src={AlphaFoldImg}
-        width="438"
-        height="569"
-        alt=""
-        loading="lazy"
-        className={styles['alphafold-img']}
-      />
-      <Link
-        to={{
-          pathname: LocationToPath[Location.AlphaFoldResults],
-          search: `query=*`,
-        }}
-        title="Browse entries highlighting AlphaFold predictions"
-      >
-        <h2 className="medium">AlphaFold structures</h2>
-        Search with all the power of the UniProt search engine for proteins with
-        an AlphaFold prediction provided by DeepMind
-      </Link>
-    </DecoratedListItem>
-    <DecoratedListItem
-      compact
-      altStyle
-      className={cn(
-        'uniprot-grid-cell--small-span-12',
-        'uniprot-grid-cell--medium-span-4'
+        'uniprot-grid-cell--medium-span-6'
       )}
     >
       <Link
@@ -86,7 +57,7 @@ const ExtraLinks = () => (
       altStyle
       className={cn(
         'uniprot-grid-cell--small-span-12',
-        'uniprot-grid-cell--medium-span-4'
+        'uniprot-grid-cell--medium-span-6'
       )}
     >
       <img

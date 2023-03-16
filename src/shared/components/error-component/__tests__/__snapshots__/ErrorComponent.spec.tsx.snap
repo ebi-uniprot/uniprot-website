@@ -45,18 +45,6 @@ exports[`ErrorComponent should render 1`] = `
             </a>
             .
           </p>
-          <p>
-            If you still need it, the 
-            <a
-              class="external-link"
-              href="https://legacy.uniprot.org"
-              rel="noopener nofollow"
-              target="_blank"
-            >
-              legacy version of the website
-            </a>
-             is available until the 2023_01 release.
-          </p>
         </small>
       </section>
     </div>

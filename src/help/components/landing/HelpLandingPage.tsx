@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { CommunityAnnotationIcon, PageIntro } from 'franklin-sites';
 import cn from 'classnames';
@@ -12,6 +13,7 @@ import IllustratedListTile, {
 } from './IllustratedListTile';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import YouTubeEmbed from '../../../shared/components/YouTubeEmbed';
+import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
 import { searchableNamespaceLabels } from '../../../shared/types/namespaces';
 import {
@@ -27,6 +29,13 @@ import Terminal from './svgs/terminal.img.svg';
 import Reader from './svgs/reader.img.svg';
 
 import landing from './styles/help-landing-page.module.scss';
+
+const UniProtFooter = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "footer" */ '../../../shared/components/layouts/UniProtFooter'
+    )
+);
 
 const getHelpEntryPath = getLocationEntryPathFor(Location.HelpEntry);
 
@@ -163,63 +172,70 @@ const tileData: IllustratedListTileProps[] = [
 ];
 
 const HelpLandingPage = () => (
-  <div
-    className={cn(
-      'uniprot-grid uniprot-grid--centered',
-      landing['help-landing']
-    )}
-  >
-    <HTMLHead title="Help" />
-    <PageIntro title="Help center" className="uniprot-grid-cell--span-12" />
-    <div className="uniprot-grid-cell--span-9">
-      <HelpQuickSearch />
-      <div className={landing['help-landing__tiles']}>
-        {tileData.map((data) => (
-          <IllustratedListTile key={data.title} {...data} />
-        ))}
-      </div>
-    </div>
-    <div className="uniprot-grid-cell--span-3">
-      <section className={landing['help-landing__faqs']}>
-        <h2 className="small">Suggested FAQs</h2>
-        <ul className="no-bullet">
-          <li>
-            <Link to={getHelpEntryPath('disease_query')}>
-              How can I get all the proteins involved in a given disease?
-            </Link>
-          </li>
-          <li>
-            <Link to={getHelpEntryPath('canonical_and_isoforms')}>
-              What is the canonical sequence?
-            </Link>
-          </li>
-          <li>
-            <Link to={getHelpEntryPath('reference_proteome')}>
-              What are reference proteomes?
-            </Link>
-          </li>
-        </ul>
-        <Link
-          to={{
-            pathname: LocationToPath[Location.HelpResults],
-            search: '?query=*&facets=category:faq',
-          }}
-        >
-          View all FAQs
-        </Link>
-      </section>
-      <section className={landing['help-landing__contact']}>
-        <Contact />
-      </section>
-      <section className={landing['help-landing__videos']}>
-        <h4>Help videos</h4>
-        <div className={landing['help-landing__videos__list']}>
-          <YouTubeEmbed id="yp1O1gDK8oA" title="How to search UniProtKB" />
-          {/* TODO: include more videos as they become available */}
+  <>
+    <main
+      className={cn(
+        'uniprot-grid uniprot-grid--centered',
+        landing['help-landing']
+      )}
+    >
+      <HTMLHead title="Help" />
+      <PageIntro title="Help center" className="uniprot-grid-cell--span-12" />
+      <div className="uniprot-grid-cell--span-9">
+        <HelpQuickSearch />
+        <div className={landing['help-landing__tiles']}>
+          {tileData.map((data) => (
+            <IllustratedListTile key={data.title} {...data} />
+          ))}
         </div>
-      </section>
-    </div>
-  </div>
+      </div>
+      <div className="uniprot-grid-cell--span-3">
+        <section className={landing['help-landing__faqs']}>
+          <h2 className="small">Suggested FAQs</h2>
+          <ul className="no-bullet">
+            <li>
+              <Link to={getHelpEntryPath('disease_query')}>
+                How can I get all the proteins involved in a given disease?
+              </Link>
+            </li>
+            <li>
+              <Link to={getHelpEntryPath('canonical_and_isoforms')}>
+                What is the canonical sequence?
+              </Link>
+            </li>
+            <li>
+              <Link to={getHelpEntryPath('reference_proteome')}>
+                What are reference proteomes?
+              </Link>
+            </li>
+          </ul>
+          <Link
+            to={{
+              pathname: LocationToPath[Location.HelpResults],
+              search: '?query=*&facets=category:faq',
+            }}
+          >
+            View all FAQs
+          </Link>
+        </section>
+        <section className={landing['help-landing__contact']}>
+          <Contact />
+        </section>
+        <section className={landing['help-landing__videos']}>
+          <h4>Help videos</h4>
+          <div className={landing['help-landing__videos__list']}>
+            <YouTubeEmbed id="yp1O1gDK8oA" title="How to search UniProtKB" />
+            {/* TODO: include more videos as they become available */}
+          </div>
+        </section>
+      </div>
+    </main>
+    <ErrorBoundary>
+      <Suspense fallback={null}>
+        <UniProtFooter />
+      </Suspense>
+    </ErrorBoundary>
+  </>
 );
 
 export default HelpLandingPage;

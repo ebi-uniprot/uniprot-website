@@ -63,6 +63,7 @@ type ResultsButtonsProps = {
   base?: string;
   disableCardToggle?: boolean; // Note: remove if we have card view for id mapping
   inBasket?: boolean;
+  inBasketMini?: boolean;
   notCustomisable?: boolean;
   subsetsMap?: Map<string, string>;
   supportedFormats?: FileFormat[];
@@ -79,6 +80,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
   base,
   disableCardToggle = false,
   inBasket = false,
+  inBasketMini = false,
   notCustomisable = false,
   subsetsMap,
   supportedFormats,
@@ -214,6 +216,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
                 notCustomisable={notCustomisable}
                 supportedFormats={supportedFormats}
                 excludeColumns={excludeColumns}
+                inBasketMini={inBasketMini}
               />
             </ErrorBoundary>
           </SlidingPanel>

@@ -4,17 +4,17 @@ import initializer from '../utils/fieldInitializer';
 
 import { QueryBit, SearchTermType } from '../types/searchTypes';
 
-export type EvidenceFieldProps = {
+export type GoEvidenceFieldProps = {
   field: SearchTermType;
   handleChange: (queryBit: QueryBit) => void;
   initialValue?: QueryBit;
 };
 
-const EvidenceField = ({
+const GoEvidenceField = ({
   field,
   handleChange,
   initialValue,
-}: EvidenceFieldProps) => {
+}: GoEvidenceFieldProps) => {
   const [value, setValue] = useState(
     () => initializer(field, initialValue) as string
   );
@@ -47,4 +47,4 @@ const EvidenceField = ({
   );
 };
 
-export default EvidenceField;
+export default GoEvidenceField;

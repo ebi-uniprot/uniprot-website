@@ -196,7 +196,6 @@ export const IsoformInfo = ({
                     search: `ids=${canonicalAccession}[${location.start.value}-${location.end.value}]`,
                   }}
                 >{`${location.start.value}-${location.end.value}: `}</Link>
-                {`${location.start.value}-${location.end.value}: `}
                 {alternativeSequence && alternativeSequence.originalSequence ? (
                   <span className={styles.modifications}>{`${
                     alternativeSequence.originalSequence
@@ -224,8 +223,11 @@ export const IsoformInfo = ({
   const [name] = isoformData.isoformIds;
   return (
     <Fragment key={name}>
-      <h3 id={`Isoform_${isoformData.name.value || name}`}>
-        <span id={name}>{name}</span>
+      <h3 id={isoformData.name.value && `Isoform_${isoformData.name.value}`}>
+        <span id={isoformData.name.value}>
+          {' '}
+          <span id={name}>{name}</span>
+        </span>
       </h3>
       {isoformData.isoformSequenceStatus === 'Displayed' && (
         <p>

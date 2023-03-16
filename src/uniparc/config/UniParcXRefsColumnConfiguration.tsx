@@ -125,8 +125,13 @@ const getAccessionColumn =
     } else {
       const template = xref.database && templateMap.get(xref.database);
       if (template) {
+        let { id } = xref;
+        // NOTE: exception for FusionGDB we need to remove the underscore number
+        if (xref.database === 'FusionGDB') {
+          id = id.replace(/_\d+$/, '');
+        }
         cell = (
-          <ExternalLink url={template.replace('%id', xref.id)}>
+          <ExternalLink url={template.replace('%id', id)}>
             {xref.id}
             {xref.chain && ` (chain ${xref.chain})`}
           </ExternalLink>

@@ -17,6 +17,7 @@ const usePaginatedAccessions = <T extends APIModel, R extends APIModel>(
   const initialApiUrl = useNSQuery({
     accessions: accessions?.slice(0, BATCHSIZE),
     getSequence: true,
+    noSort: true,
   });
   const [batchStart, setBatchStart] = useState(0);
 
@@ -35,6 +36,7 @@ const usePaginatedAccessions = <T extends APIModel, R extends APIModel>(
     useNSQuery({
       accessions: accessions?.slice(batchStart, batchStart + BATCHSIZE),
       getSequence: true,
+      noSort: true,
     })
   );
 

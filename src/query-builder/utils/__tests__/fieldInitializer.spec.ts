@@ -1,11 +1,11 @@
 import initializer from '../fieldInitializer';
 
-import { idToSearchTerm } from '../../components/__tests__/__mocks__/configureSearchTerms';
+import { getSearchTerm } from '../../components/__tests__/__mocks__/configureSearchTerms';
 
 describe('field initializer', () => {
   it('should return autocomplete name value when provided', () => {
     expect(
-      initializer(idToSearchTerm.organism_name_field, {
+      initializer(getSearchTerm('organism_name_field'), {
         organism_name: 'human',
       })
     ).toEqual('human');
@@ -13,7 +13,7 @@ describe('field initializer', () => {
   it('should return autocomplete id value when provided', () => {
     expect(
       initializer(
-        idToSearchTerm.organism_name_field,
+        getSearchTerm('organism_name_field'),
         {
           organism_id: '9606',
         },

@@ -8,6 +8,7 @@ import { IDMappingFromContext } from './FromColumn';
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
 
 import { getSupportedFormats, rawDBToNamespace } from '../../utils';
+import { pluralise } from '../../../../shared/utils/utils';
 
 import { Namespace } from '../../../../shared/types/namespaces';
 import { PaginatedResults } from '../../../../shared/hooks/usePagination';
@@ -36,6 +37,9 @@ const IDMappingResultTable = ({
 
   const inputIDs = detailsData?.ids.split(',');
 
+  const inputLength: number = inputIDs?.length || 0;
+  const failedLength: number = resultsDataObject.failedIds?.length || 0;
+
   return (
     <>
       <ResultsButtons
@@ -53,22 +57,24 @@ const IDMappingResultTable = ({
       />
       {inputIDs && (
         <HeroContainer>
-          <strong>
-            <LongNumber>{inputIDs.length}</LongNumber>
-          </strong>{' '}
-          ID
-          {inputIDs.length > 1 ? 's' : ''} are mapped to{' '}
-          <LongNumber>{resultsDataObject.total || 0}</LongNumber> results
-        </HeroContainer>
-      )}
-      {resultsDataObject.failedIds && (
-        <HeroContainer>
-          <strong>{resultsDataObject.failedIds.length}</strong> ID
-          {resultsDataObject.failedIds.length === 1 ? ' was' : 's were'} not
-          mapped:
-          <ExpandableList descriptionString="IDs" numberCollapsedItems={0}>
-            {resultsDataObject.failedIds}
-          </ExpandableList>
+          <div>
+            <strong>
+              <LongNumber>{inputLength - failedLength}</LongNumber>
+            </strong>{' '}
+            {pluralise('ID', inputLength - failedLength)}{' '}
+            {pluralise('was', inputLength - failedLength, 'were')} mapped to{' '}
+            <LongNumber>{resultsDataObject.total || 0}</LongNumber>{' '}
+            {pluralise('result', resultsDataObject.total || 0)}
+          </div>
+          {failedLength > 0 && (
+            <div>
+              <strong>{failedLength}</strong> ID{' '}
+              {pluralise('was', failedLength, 'were')} not mapped:
+              <ExpandableList descriptionString="IDs" numberCollapsedItems={0}>
+                {resultsDataObject.failedIds}
+              </ExpandableList>
+            </div>
+          )}
         </HeroContainer>
       )}
       <IDMappingFromContext.Provider

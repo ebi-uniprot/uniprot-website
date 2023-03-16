@@ -11,6 +11,7 @@ import {
 } from '../../../app/config/urls';
 import {
   reAC,
+  reIsoform,
   needTextProcessingRE,
   rePubMedID,
   rePubMed,
@@ -64,21 +65,36 @@ export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => (
           </Fragment>
         );
       }
-      const accession = part.match(reUniProtKBAccession)?.[0];
-      if (reAC.test(part) && accession && !noLink) {
-        // Replace any occurrences of "AC <accession>" with "AC "<link to accession>
-        // eg A0A075B6S6
-        return (
-          // eslint-disable-next-line react/no-array-index-key
-          <Fragment key={index}>
-            {/* Somehow the part kept "AC ", so put it back */}
-            {part.startsWith('AC ') ? `AC ` : ''}
-            <Link to={getEntryPath(Namespace.uniprotkb, accession)}>
-              {accession}
-            </Link>
-          </Fragment>
-        );
+      if (!noLink) {
+        const accession = part.match(reUniProtKBAccession)?.[0];
+        if (reAC.test(part) && accession) {
+          // Replace any occurrences of "AC <accession>" with "AC "<link to accession>
+          // eg A0A075B6S6
+          return (
+            // eslint-disable-next-line react/no-array-index-key
+            <Fragment key={index}>
+              {/* Somehow the part kept "AC ", so put it back */}
+              {part.startsWith('AC ') ? `AC ` : ''}
+              <Link to={getEntryPath(Namespace.uniprotkb, accession)}>
+                {accession}
+              </Link>
+            </Fragment>
+          );
+        }
+        const isoformMatch = part.match(reIsoform)?.[0];
+        if (isoformMatch) {
+          const [text, isoform] = isoformMatch.split(' ');
+          return (
+            // eslint-disable-next-line react/no-array-index-key
+            <Fragment key={index}>
+              {text}{' '}
+              {/* eslint-disable-next-line uniprot-website/use-config-location */}
+              <Link to={{ hash: `Isoform_${isoform}` }}>{isoform}</Link>
+            </Fragment>
+          );
+        }
       }
+
       if (reSubscript.test(part)) {
         return (
           // eslint-disable-next-line react/no-array-index-key

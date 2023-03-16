@@ -101,8 +101,6 @@ export const nsToDefaultColumns = (
   switch (namespace) {
     case Namespace.uniprotkb:
       return defaultUniProtKBColumns;
-    case Namespace.alphafold:
-      return [UniProtKBColumn.alphafold, ...defaultUniProtKBColumns];
     case Namespace.uniref:
       return defaultUniRefColumns;
     case Namespace.uniparc:
@@ -147,8 +145,6 @@ export const nsToPrimaryKeyColumns = (
   switch (namespace) {
     case Namespace.uniprotkb:
       return primaryKeyColumnsUniProtKB;
-    case Namespace.alphafold:
-      return [...primaryKeyColumnsUniProtKB, UniProtKBColumn.alphafold];
     case Namespace.uniref:
       return primaryKeyColumnsUniRef;
     case Namespace.uniparc:

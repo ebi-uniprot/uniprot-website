@@ -323,7 +323,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
 
     // navigate to the dashboard, not immediately, to give the impression that
     // something is happening
-    sleep(1000).then(() => {
+    sleep(1000).then(async () => {
       // We emit an action containing only the parameters and the type of job
       // the reducer will be in charge of generating a proper job object for
       // internal state. Dispatching after history.push so that pop-up messages (as a
@@ -341,6 +341,10 @@ const BlastForm = ({ initialFormValues }: Props) => {
           }
         }
         dispatchTools(createJob(multipleParameters[i], JobTypes.BLAST, name));
+        // Ensure there's a bit of wait between creating the jobs in order to
+        // have different creation times and have consistent ordering.
+        // eslint-disable-next-line no-await-in-loop
+        await sleep(0);
       }
 
       history.push(LocationToPath[Location.Dashboard], {

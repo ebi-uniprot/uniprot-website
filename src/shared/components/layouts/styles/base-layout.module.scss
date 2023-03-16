@@ -12,6 +12,10 @@
   overflow-x: hidden;
   overflow-y: auto;
 
+  @media print {
+    overflow: initial;
+  }
+
   & header {
     height: var(--top-header-margin);
   }
@@ -32,5 +36,9 @@
   & .main-content {
     grid-area: main-content;
     overflow-y: scroll;
+
+    @media print {
+      overflow: initial;
+    }
   }
 }

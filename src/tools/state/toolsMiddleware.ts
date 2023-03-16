@@ -88,7 +88,7 @@ const toolsMiddleware = (
     const now = Date.now();
     for (const [internalID, job] of Object.entries(stateRef.current ?? {})) {
       if (now - job.timeCreated > AUTO_DELETE_TIME && !job.saved) {
-        // job is older than 7 days
+        // job is older than 14 days
         dispatch(deleteJob(internalID));
       } else if (job.status === Status.FINISHED) {
         // job is finished and should still be present on the server
