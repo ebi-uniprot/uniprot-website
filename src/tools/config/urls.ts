@@ -126,7 +126,7 @@ type AsyncDownloadReturn = Readonly<{
 export function asyncDownloadUrlObjectCreator(
   namespace: Namespace
 ): AsyncDownloadReturn {
-  // TODO: remove hardcoded baseURL
+  // TODO: remove when done testing
   // const baseURL = joinUrl(apiPrefix, namespace, 'download');
   const baseURL = joinUrl(
     'http://hx-rke-wp-webadmin-35-worker-9.caas.ebi.ac.uk:30880',
@@ -138,7 +138,7 @@ export function asyncDownloadUrlObjectCreator(
       getDownloadUrl({ ...options, base: joinUrl(baseURL, 'run') }),
     statusUrl: (jobId) => joinUrl(baseURL, 'status', jobId),
     resultUrl: (jobId) =>
-      // TODO: remove the replace
+      // TODO: remove when done testing
       joinUrl(baseURL, 'results', jobId).replace(':30880', ':31660'),
     detailsUrl: (jobId) => joinUrl(baseURL, 'details', jobId),
   });

@@ -179,6 +179,8 @@ const Download: FC<DownloadProps> = ({
   }, []);
 
   const downloadCount = downloadAll ? totalNumberResults : nSelectedEntries;
+  // TODO: remove when done testing
+  // const isLarge = true || downloadCount > DOWNLOAD_SIZE_LIMIT;
   const isLarge = downloadCount > DOWNLOAD_SIZE_LIMIT;
 
   let extraContentNode: JSX.Element | undefined;
