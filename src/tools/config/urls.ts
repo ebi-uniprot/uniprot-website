@@ -73,7 +73,7 @@ type Return<T extends JobTypes> = Readonly<{
       columns?: Column[];
     }
   ) => string;
-  detailsUrl?: (jobId: string, namespace?: Namespace) => string;
+  detailsUrl?: (jobId: string) => string;
 }>;
 
 function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
@@ -89,7 +89,7 @@ function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
       baseURL = joinUrl(apiPrefix, 'idmapping');
       return deepFreeze({
         runUrl: `${baseURL}/run`,
-        statusUrl: (jobId) => `${baseURL}/status/${jobId}`,
+        statusUrl: (jobId) => joinUrl(baseURL, 'status', jobId),
         resultUrl: (redirectUrl, extra) =>
           queryString.stringifyUrl({
             url: redirectUrl,
@@ -102,16 +102,17 @@ function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
         'https://research.bioinformatics.udel.edu/peptidematchws/asyncrest';
       return deepFreeze({
         runUrl: baseURL,
-        statusUrl: (jobId) => `${baseURL}/jobs/${jobId}`,
-        resultUrl: (jobId) => `${baseURL}/jobs/${jobId}`,
+        statusUrl: (jobId) => joinUrl(baseURL, 'jobs', jobId),
+        resultUrl: (jobId) => joinUrl(baseURL, 'jobs', jobId),
       });
     default:
     //
   }
   return deepFreeze({
-    runUrl: `${baseURL}/run`,
-    statusUrl: (jobId) => `${baseURL}/status/${jobId}`,
-    resultUrl: (jobId, { format }) => `${baseURL}/result/${jobId}/${format}`,
+    runUrl: joinUrl(baseURL, 'run'),
+    statusUrl: (jobId) => joinUrl(baseURL, 'status', jobId),
+    resultUrl: (jobId, { format }) =>
+      joinUrl(baseURL, 'result', jobId, format || ''),
   });
 }
 

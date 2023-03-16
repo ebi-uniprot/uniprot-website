@@ -119,9 +119,11 @@ const options: Record<JobTypes, DownloadOptions<JobTypes>[]> = {
 const defaultFormat: Record<JobTypes, ResultFormat[JobTypes]> = {
   [JobTypes.ALIGN]: 'aln-clustal_num',
   [JobTypes.BLAST]: 'out',
-  [JobTypes.ID_MAPPING]: 'out', // TODO: check after implementing
-  [JobTypes.PEPTIDE_SEARCH]: 'out', // TODO: check after implementing
-  [JobTypes.ASYNC_DOWNLOAD]: 'out', // TODO: check after implementing
+  // 'out' is listed for the below but not really used, it's just to keep the
+  // types happy. Download format will be dependent on namespace of results.
+  [JobTypes.ID_MAPPING]: 'out',
+  [JobTypes.PEPTIDE_SEARCH]: 'out',
+  [JobTypes.ASYNC_DOWNLOAD]: 'out',
 };
 
 type ResultDownloadProps = {

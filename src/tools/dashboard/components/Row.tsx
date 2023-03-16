@@ -32,15 +32,15 @@ import { useToolsDispatch } from '../../../shared/contexts/Tools';
 import { getBEMClassName as bem, pluralise } from '../../../shared/utils/utils';
 import parseDate from '../../../shared/utils/parseDate';
 import * as logging from '../../../shared/utils/logging';
+import { asyncDownloadUrlObjectCreator } from '../../config/urls';
 
 import { FailedJob, Job, FinishedJob } from '../../types/toolsJob';
 import { Status } from '../../types/toolsStatuses';
 import { JobTypes } from '../../types/toolsJobTypes';
 import { LocationStateFromJobLink } from '../../hooks/useMarkJobAsSeen';
+import { FormParameters } from '../../types/toolsFormParameters';
 
 import './styles/Dashboard.scss';
-import { FormParameters } from '../../types/toolsFormParameters';
-import { asyncDownloadUrlObjectCreator } from '../../config/urls';
 
 const stopPropagation = (
   event: MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement>

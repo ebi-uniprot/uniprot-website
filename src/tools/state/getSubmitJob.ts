@@ -34,7 +34,6 @@ const getFormJobUrlAndBody = (job: CreatedJob) => {
 };
 
 const getAsyncDownloadUrlAndBody = (job: CreatedJob) => {
-  // TODO: can we remove the typecase here?
   const parameters = job.parameters as FormParameters[JobTypes.ASYNC_DOWNLOAD];
   return {
     url: asyncDownloadUrlObjectCreator(parameters.namespace).runUrl(parameters),

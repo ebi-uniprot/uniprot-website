@@ -88,9 +88,8 @@ function inputToCurl<T extends JobTypes>(
   if (jobType === JobTypes.PEPTIDE_SEARCH) {
     // Peptide Search doesn't support form data, needs to be in URL encoded
     command += '" \\\n     --verbose \\\n';
-  } else {
-    command += `     ${toolsURLs(jobType).runUrl}`;
   }
+  command += `     ${toolsURLs(jobType).runUrl}`;
   return command;
 }
 

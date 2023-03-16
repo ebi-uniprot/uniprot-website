@@ -293,9 +293,8 @@ export const jobTypeToPath = (type: JobTypes, job?: Job) => {
         id: (job as FinishedJob<JobTypes.PEPTIDE_SEARCH>).remoteID,
         subPage: 'overview',
       });
-    // TODO: add when we want to view original results page for generated file
     // case JobTypes.ASYNC_DOWNLOAD:
-    //   return null;
+    // TODO: add when we want to view original results page for generated file
     default:
     //
   }
