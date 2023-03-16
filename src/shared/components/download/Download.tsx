@@ -352,7 +352,9 @@ const Download: FC<DownloadProps> = ({
           }
           target="_blank"
           rel="noreferrer"
-          onClick={() => (isLarge ? displayExtraContent('generate') : onClose)}
+          onClick={() =>
+            isLarge ? displayExtraContent('generate') : onClose()
+          }
         >
           Download
         </a>
