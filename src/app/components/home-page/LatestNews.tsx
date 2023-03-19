@@ -17,7 +17,7 @@ const insideUniProtAbstract2 =
   'UniProt is brought to you by a large team of dedicated scientists who have worked for over 20 years to produce a comprehensive view of protein sequence and biology.';
 
 const proteinSpotlightAbstract =
-  'It has been a long time since I saw a plug hanging from the side of a bathtub. Remember the small triangular ring the chain dangled from, and the actual plug at the other end - usually a piece of black and slimy rubber that fitted perfectly into the plug hole. As a child, the perfection of the fit used to fascinate me and I would sit in the bath, pulling the plug out and pushing it back in again, fighting against the swirl and dynamics of flowing water. The system is straightforward enough.';
+  'It is one of the many mysteries of our existence. How does life begin? What gives the first nudge? Is there, for that matter, a primordial poke? Over the millennia, scholars have tried to define the actual notion of life as a whole - which may seem obvious to some, but just sit down for a while and give it a thought.';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -36,7 +36,7 @@ const getWordsUpTo = (text: string, max: number) => {
 // eslint-disable-next-line arrow-body-style
 const LatestNews = () => {
   // CORS issues if using those directly
-  // const proteinsSpotlightData = useDataApi<string>(
+  // const proteinSpotlightData = useDataApi<string>(
   //   'https://www.proteinspotlight.org/atom.xml'
   // );
   // const insideUniProtData = useDataApi<string>(
@@ -355,21 +355,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/255/"
+            url="https://www.proteinspotlight.org/back_issues/256/"
             noIcon
           >
-            On the end of a leash
+            In the beginning
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/255/"
+          url="https://www.proteinspotlight.org/back_issues/256/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt255.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt256.jpg"
             alt=""
             width="123"
             height="129"
