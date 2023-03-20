@@ -404,7 +404,6 @@ export const getDownloadUrl = ({
 
   let endpoint = apiUrls.download(namespace);
   if (base) {
-    // TODO: remove when done testing
     if (base.startsWith(apiPrefix)) {
       endpoint = base;
     } else {
