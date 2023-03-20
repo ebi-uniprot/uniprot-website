@@ -131,12 +131,12 @@ const AsyncDownloadForm = ({
       <fieldset>
         <section className="tools-form-section tools-form-section--compact">
           <section className="tools-form-section__item tools-form-section__item--full-width">
-            <h4>Submit A File Generation Job</h4>
+            <h4>File Generation Needed</h4>
             Your download request is too large (<LongNumber>{count}</LongNumber>
             ) for immediate download.
             <br />
-            Please submit a File Generation job to create a file on the UniProt
-            server which you can download when ready.
+            Please submit a job to generate this file on the UniProt server
+            which you can download when ready.
           </section>
           <section className="tools-form-section__item tools-form-section__item--compact">
             <label>
