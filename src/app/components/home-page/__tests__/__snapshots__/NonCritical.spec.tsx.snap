@@ -657,17 +657,17 @@ exports[`non-critical HomePage component should render 1`] = `
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/255/"
+          href="https://www.proteinspotlight.org/back_issues/256/"
           rel="noopener"
           target="_blank"
         >
-          On the end of a leash
+          In the beginning
         </a>
       </h3>
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/255/"
+        href="https://www.proteinspotlight.org/back_issues/256/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
@@ -676,14 +676,14 @@ exports[`non-critical HomePage component should render 1`] = `
           alt=""
           height="129"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt255.jpg"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt256.jpg"
           width="123"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          It  has  been  a  long  time  since  I  saw  a  plug  hanging  from  the  side  of  a  bathtub.  Remember  the  small  triangular  ring  the  chain  dangled  from,  and  the  actual  plug  at  the  other  end  -  usually  a  piece  of  black  and  slimy  rubber  that  fitted  perfectly  into  the…
+          It  is  one  of  the  many  mysteries  of  our  existence.  How  does  life  begin?  What  gives  the  first  nudge?  Is  there,  for  that  matter,  a  primordial  poke?  Over  the  millennia,  scholars  have  tried  to  define  the  actual  notion  of  life  as  a  whole  -  which  may  seem…
       </p>
     </article>
   </section>

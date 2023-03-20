@@ -94,11 +94,8 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
     invalidUrlViewMode,
     fromUrl: viewModeIsFromUrl,
   } = useViewMode(namespaceOverride, disableCardToggle);
-  const {
-    invalidUrlColumnNames,
-    invalidUrlSortColumn,
-    fromUrl: columnNamesAreFromUrl,
-  } = useColumnNames({ namespaceOverride });
+  const { invalidUrlColumnNames, fromUrl: columnNamesAreFromUrl } =
+    useColumnNames({ namespaceOverride });
   const history = useHistory();
   const dispatch = useMessagesDispatch();
 
@@ -110,11 +107,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
       invalidUrlColumnNames,
     ].filter(Boolean) as InvalidParamValue[];
     const [, unknownParams] = getParamsFromURL(history.location.search);
-    if (
-      invalidParamValues.length ||
-      unknownParams.length ||
-      invalidUrlSortColumn
-    ) {
+    if (invalidParamValues.length || unknownParams.length) {
       const content = (
         <>
           {invalidParamValues.length > 0 && (
@@ -142,16 +135,6 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
               </ul>
             </>
           )}
-          {invalidUrlSortColumn && (
-            <>
-              Invalid sorting parameters:
-              <ul>
-                <li>
-                  <b>{invalidUrlSortColumn}</b>
-                </li>
-              </ul>
-            </>
-          )}
         </>
       );
       dispatch(
@@ -159,9 +142,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
           id: 'invalid url params',
           content,
           format: MessageFormat.POP_UP,
-          level: invalidUrlSortColumn
-            ? MessageLevel.FAILURE
-            : MessageLevel.WARNING,
+          level: MessageLevel.WARNING,
           displayTime: 15_000,
         })
       );
@@ -171,7 +152,6 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
     history.location.search,
     invalidUrlColumnNames,
     invalidUrlViewMode,
-    invalidUrlSortColumn,
   ]);
 
   const handleToggleView = (event: ChangeEvent<HTMLInputElement>) => {
