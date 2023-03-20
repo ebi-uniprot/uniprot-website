@@ -12,13 +12,34 @@ import {
 import { addMessage } from '../../messages/state/messagesActions';
 import { updateJob } from './toolsActions';
 
-import toolsURLs from '../config/urls';
+import toolsURLs, { asyncDownloadUrlObjectCreator } from '../config/urls';
 
 import { ToolsAction } from './toolsReducers';
 import { ToolsState } from './toolsInitialState';
 import { MessagesAction } from '../../messages/state/messagesReducers';
 import { Status } from '../types/toolsStatuses';
 import { CreatedJob } from '../types/toolsJob';
+import { JobTypes } from '../types/toolsJobTypes';
+import { FormParameters } from '../types/toolsFormParameters';
+
+const getFormJobUrlAndBody = (job: CreatedJob) => {
+  // specific logic to transform FormParameters to ServerParameters
+  let formData;
+  try {
+    formData = formParametersToServerParameters(job.type, job.parameters);
+  } catch {
+    throw new Error('Internal error');
+  }
+  return { url: toolsURLs(job.type).runUrl, body: formData };
+};
+
+const getAsyncDownloadUrlAndBody = (job: CreatedJob) => {
+  const parameters = job.parameters as FormParameters[JobTypes.ASYNC_DOWNLOAD];
+  return {
+    url: asyncDownloadUrlObjectCreator(parameters.namespace).runUrl(parameters),
+    body: undefined,
+  };
+};
 
 const getSubmitJob =
   (
@@ -32,19 +53,16 @@ const getSubmitJob =
       return;
     }
     try {
-      // specific logic to transform FormParameters to ServerParameters
-      let formData;
-      try {
-        formData = formParametersToServerParameters(job.type, job.parameters);
-      } catch {
-        throw new Error('Internal error');
-      }
+      const { url, body } =
+        job.type === JobTypes.ASYNC_DOWNLOAD
+          ? getAsyncDownloadUrlAndBody(job)
+          : getFormJobUrlAndBody(job);
 
       // we use plain fetch as through Axios we cannot block redirects
-      const response = await window.fetch(toolsURLs(job.type).runUrl, {
+      const response = await window.fetch(url, {
         headers: { Accept: 'text/plain,application/json' },
         method: 'POST',
-        body: formData,
+        body,
         // 'manual' to block redirect is the bit we cannot do with Axios
         redirect: 'manual',
       });
@@ -70,13 +88,11 @@ const getSubmitJob =
         return;
       }
 
-      const now = Date.now();
       dispatch(
         updateJob(job.internalID, {
           status: Status.RUNNING,
           remoteID,
-          timeSubmitted: now,
-          timeLastUpdate: now,
+          timeSubmitted: Date.now(),
         })
       );
     } catch (error) {
@@ -96,7 +112,6 @@ const getSubmitJob =
       dispatch(
         updateJob(job.internalID, {
           status: Status.FAILURE,
-          timeLastUpdate: Date.now(),
           errorDescription,
         })
       );

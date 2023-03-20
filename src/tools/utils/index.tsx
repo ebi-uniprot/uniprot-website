@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import { AxiosResponse } from 'axios';
-import { LocationDescriptor } from 'history';
 
+import { MutableRefObject } from 'react';
+import { BytesNumber, LongNumber } from 'franklin-sites';
 import { pluralise } from '../../shared/utils/utils';
 
 import { Location, jobTypeToPath } from '../../app/config/urls';
@@ -15,12 +16,15 @@ import {
 import { Job } from '../types/toolsJob';
 import { JobTypes } from '../types/toolsJobTypes';
 import { Status } from '../types/toolsStatuses';
-import { LocationStateFromJobLink } from '../hooks/useMarkJobAsSeen';
+import { ToolsState } from '../state/toolsInitialState';
+
+const reHex = /^[a-f\d]+$/;
 
 const validServerID: Record<JobTypes, RegExp> = {
   [JobTypes.ALIGN]: /^clustalo-R\d{8}(-\w+){4}$/,
   [JobTypes.BLAST]: /^ncbiblast-R\d{8}(-\w+){4}$/,
-  [JobTypes.ID_MAPPING]: /^[a-f\d]+$/,
+  [JobTypes.ASYNC_DOWNLOAD]: reHex,
+  [JobTypes.ID_MAPPING]: reHex,
   [JobTypes.PEPTIDE_SEARCH]: /^[A-Z\d]+$/i,
 };
 
@@ -39,6 +43,7 @@ export const getRemoteIDFromResponse = async (
     case JobTypes.BLAST:
       remoteID = await response.text();
       break;
+    case JobTypes.ASYNC_DOWNLOAD:
     case JobTypes.ID_MAPPING:
       remoteID = (await response.json())?.jobId;
       break;
@@ -72,6 +77,9 @@ export const getStatusFromResponse = async (
     case JobTypes.BLAST:
       status = (await response.text()) as Status;
       break;
+    case JobTypes.ASYNC_DOWNLOAD:
+      status = (await response.json()).jobStatus;
+      break;
     case JobTypes.ID_MAPPING:
       if (response.status >= 400) {
         status = Status.FAILURE;
@@ -102,7 +110,7 @@ export const getStatusFromResponse = async (
   }
 
   if (!status || !statuses.includes(status)) {
-    throw new Error(`The server didn't return a valid status`);
+    throw new Error(`Got an unexpected status of "${status}" from the server`);
   }
 
   return [status, idMappingResultsUrl];
@@ -132,13 +140,17 @@ export const getServerErrorDescription = (error: ServerError | string) => {
 type getJobMessageProps = {
   job: Job;
   nHits?: number;
+  fileSizeBytes?: number;
   errorDescription?: string;
+  url?: string;
 };
 
 export const getJobMessage = ({
   job,
   nHits,
+  fileSizeBytes,
   errorDescription,
+  url,
 }: getJobMessageProps) => {
   const message = {
     id: job.internalID,
@@ -166,25 +178,52 @@ export const getJobMessage = ({
     jobName = '';
   }
 
-  let location: LocationDescriptor<LocationStateFromJobLink> | undefined;
-  if ('remoteID' in job && job.remoteID && nHits !== 0) {
-    location = {
+  let jobNameNode;
+  if (url) {
+    jobNameNode = (
+      <a href={url} target="_blank" rel="noreferrer">
+        {jobName}
+      </a>
+    );
+  } else if (
+    'remoteID' in job &&
+    job.remoteID &&
+    (nHits !== 0 || fileSizeBytes !== 0)
+  ) {
+    const location = {
       pathname: jobTypeToPath(job.type, job),
       state: { internalID: job.internalID },
     };
+    jobNameNode = <Link to={location}>{jobName}</Link>;
+  } else {
+    jobNameNode = jobName;
   }
-  let hitsMessage = '';
+
+  let quantityMessage;
   if (typeof nHits !== 'undefined') {
-    hitsMessage = `, found ${nHits} ${pluralise('hit', nHits)}`;
+    quantityMessage = (
+      <>
+        {', found '}
+        <LongNumber>{nHits}</LongNumber>
+        {` ${pluralise('hit', nHits)}`}
+      </>
+    );
+  } else if (typeof fileSizeBytes !== 'undefined') {
+    quantityMessage = (
+      <>
+        {', '}
+        <BytesNumber>{fileSizeBytes}</BytesNumber> file generated
+      </>
+    );
   }
 
   return {
     ...message,
     content: (
       <>
-        {job.type} job{' '}
-        {location ? <Link to={location}>{jobName}</Link> : jobName}
-        {` finished${hitsMessage}`}
+        {job.type} job {jobNameNode}
+        {' finished'}
+        {quantityMessage}
       </>
     ),
     level: MessageLevel.SUCCESS,
@@ -194,3 +233,41 @@ export const getJobMessage = ({
 // Truncate label: Homo sapiens (Man/Human/HUMAN) [9606] --> Homo sapiens [9606]
 export const truncateTaxonLabel = (label: string) =>
   label.replace(/ *\([^)]*\) */g, ' ');
+
+export const checkForResponseError = (response: Response, status: Status) => {
+  if (!response.ok && status !== Status.FAILURE && status !== Status.ERRORED) {
+    throw new Error(`${response.status}: ${response.statusText}`);
+  }
+};
+
+export const getCurrentStateOfJob = (
+  job: Job,
+  stateRef: MutableRefObject<ToolsState>
+) => {
+  // stateRef not hydrated yet
+  if (!stateRef.current) {
+    return null;
+  }
+  // get a new reference to the job
+  const currentStateOfJob = stateRef.current[job.internalID];
+  // check that the job is still in the state (it might have been removed)
+  if (!currentStateOfJob) {
+    return null;
+  }
+  return currentStateOfJob;
+};
+
+export const isJobAlreadyFinished = (status: Status, currentStateOfJob: Job) =>
+  // job was already finished, and is still in the same state on the server
+  status === Status.FINISHED && currentStateOfJob.status === Status.FINISHED;
+
+const incompleteStatuses = new Set([
+  Status.NEW,
+  Status.NOT_FOUND,
+  Status.RUNNING,
+  Status.FAILURE,
+  Status.ERRORED,
+]);
+
+export const isJobIncomplete = (status: Status) =>
+  incompleteStatuses.has(status);

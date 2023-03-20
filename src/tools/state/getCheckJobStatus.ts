@@ -2,10 +2,17 @@ import { Dispatch, MutableRefObject } from 'react';
 import { AxiosResponse } from 'axios';
 
 import fetchData from '../../shared/utils/fetchData';
-import { getStatusFromResponse, getJobMessage } from '../utils';
+import {
+  getStatusFromResponse,
+  getJobMessage,
+  isJobIncomplete,
+  getCurrentStateOfJob,
+  isJobAlreadyFinished,
+  checkForResponseError,
+} from '../utils';
 import * as logging from '../../shared/utils/logging';
 
-import toolsURLs from '../config/urls';
+import toolsURLs, { asyncDownloadUrlObjectCreator } from '../config/urls';
 
 import { updateJob } from './toolsActions';
 import { addMessage } from '../../messages/state/messagesActions';
@@ -18,8 +25,7 @@ import { Status } from '../types/toolsStatuses';
 import { BlastResults } from '../blast/types/blastResults';
 import { JobTypes } from '../types/toolsJobTypes';
 import { MappingError } from '../id-mapping/types/idMappingSearchResults';
-
-const possibleStatuses = new Set(Object.values(Status));
+import { FormParameters } from '../types/toolsFormParameters';
 
 const getCheckJobStatus =
   (
@@ -28,7 +34,15 @@ const getCheckJobStatus =
     messagesDispatch: Dispatch<MessagesAction>
   ) =>
   async (job: RunningJob | FinishedJob<JobTypes>) => {
-    const urlConfig = toolsURLs(job.type);
+    // const urlConfig = toolsURLs(job.type);
+    const urlConfig =
+      job.type === JobTypes.ASYNC_DOWNLOAD
+        ? asyncDownloadUrlObjectCreator(
+            (job.parameters as FormParameters[JobTypes.ASYNC_DOWNLOAD])
+              .namespace
+          )
+        : toolsURLs(job.type);
+
     try {
       // we use plain fetch as through Axios we cannot block redirects
       const response = await window.fetch(urlConfig.statusUrl(job.remoteID), {
@@ -46,35 +60,19 @@ const getCheckJobStatus =
       );
 
       if (
-        !response.ok &&
-        status !== Status.FAILURE &&
-        status !== Status.ERRORED &&
         // When doing Peptide Search weird redirects happen and mess this up
         job.type !== JobTypes.PEPTIDE_SEARCH
       ) {
-        throw new Error(`${response.status}: ${response.statusText}`);
+        checkForResponseError(response, status);
       }
-      // stateRef not hydrated yet
-      if (!stateRef.current) {
-        return;
-      }
+
       // get a new reference to the job
-      let currentStateOfJob = stateRef.current[job.internalID];
+      let currentStateOfJob = getCurrentStateOfJob(job, stateRef);
       // check that the job is still in the state (it might have been removed)
       if (!currentStateOfJob) {
         return;
       }
-      // check that the status we got from the server is something expected
-      if (!possibleStatuses.has(status)) {
-        throw new Error(
-          `got an unexpected status of "${status}" from the server`
-        );
-      }
-      if (
-        status === Status.FINISHED &&
-        currentStateOfJob.status === Status.FINISHED
-      ) {
-        // job was already finished, and is still in the same state on the server
+      if (isJobAlreadyFinished(status, currentStateOfJob)) {
         return;
       }
       if (job.type === JobTypes.ID_MAPPING && status === Status.FAILURE) {
@@ -91,15 +89,9 @@ const getCheckJobStatus =
           );
         }
       }
-      if (
-        status === Status.NOT_FOUND ||
-        status === Status.RUNNING ||
-        status === Status.FAILURE ||
-        status === Status.ERRORED
-      ) {
+      if (isJobIncomplete(status)) {
         dispatch(
           updateJob(job.internalID, {
-            timeLastUpdate: Date.now(),
             status,
           })
         );
@@ -122,18 +114,15 @@ const getCheckJobStatus =
         const results = response?.data;
 
         // get a new reference to the job
-        currentStateOfJob = stateRef.current[job.internalID];
+        currentStateOfJob = getCurrentStateOfJob(job, stateRef);
         // check that the job is still in the state (it might have been removed)
         if (!currentStateOfJob) {
           return;
         }
 
-        const now = Date.now();
-
         if (!results?.hits) {
           dispatch(
             updateJob(job.internalID, {
-              timeLastUpdate: now,
               status: Status.FAILURE,
             })
           );
@@ -147,8 +136,7 @@ const getCheckJobStatus =
 
         dispatch(
           updateJob(job.internalID, {
-            timeLastUpdate: now,
-            timeFinished: now,
+            timeFinished: Date.now(),
             seen: false,
             status,
             data: { hits: results.hits.length },
@@ -169,20 +157,17 @@ const getCheckJobStatus =
         });
 
         // get a new reference to the job
-        currentStateOfJob = stateRef.current[job.internalID];
+        currentStateOfJob = getCurrentStateOfJob(job, stateRef);
         // check that the job is still in the state (it might have been removed)
         if (!currentStateOfJob) {
           return;
         }
 
-        const now = Date.now();
-
         const hits: string = response.headers['x-total-results'] || '0';
 
         dispatch(
           updateJob(job.internalID, {
-            timeLastUpdate: now,
-            timeFinished: now,
+            timeFinished: Date.now(),
             seen: false,
             status,
             data: { hits: +hits },
@@ -191,10 +176,41 @@ const getCheckJobStatus =
         messagesDispatch(
           addMessage(getJobMessage({ job: currentStateOfJob, nHits: +hits }))
         );
+      } else if (job.type === JobTypes.ASYNC_DOWNLOAD) {
+        // Only Async Download jobs
+        const resultUrl = urlConfig.resultUrl(job.remoteID, {});
+        // HEAD the generated file to get file size
+        const response = await fetchData(resultUrl, undefined, {
+          method: 'HEAD',
+        });
+
+        // get a new reference to the job
+        currentStateOfJob = getCurrentStateOfJob(job, stateRef);
+        if (!currentStateOfJob) {
+          return;
+        }
+
+        const fileSizeBytes = +response.headers['content-length'] || 0;
+
+        dispatch(
+          updateJob(job.internalID, {
+            timeFinished: Date.now(),
+            seen: false,
+            status,
+            data: { fileSizeBytes },
+          })
+        );
+        messagesDispatch(
+          addMessage(
+            getJobMessage({
+              job: currentStateOfJob,
+              fileSizeBytes,
+              url: resultUrl,
+            })
+          )
+        );
       } else if (job.type === JobTypes.PEPTIDE_SEARCH) {
         // Only Peptide Search jobs
-        const now = Date.now();
-
         let hits = 0;
         if (!response.bodyUsed) {
           hits =
@@ -203,8 +219,7 @@ const getCheckJobStatus =
         }
         dispatch(
           updateJob(job.internalID, {
-            timeLastUpdate: now,
-            timeFinished: now,
+            timeFinished: Date.now(),
             seen: false,
             status,
             data: { hits },
@@ -215,11 +230,9 @@ const getCheckJobStatus =
         );
       } else {
         // Align
-        const now = Date.now();
         dispatch(
           updateJob(job.internalID, {
-            timeLastUpdate: now,
-            timeFinished: now,
+            timeFinished: Date.now(),
             seen: false,
             status,
           })

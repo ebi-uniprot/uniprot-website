@@ -13,8 +13,21 @@
   flex-direction: row;
   margin-bottom: 2rem;
 
+  &--compact {
+    margin-top: 1rem;
+    margin-bottom: 0rem;
+  }
+
+  &--right {
+    float: right;
+  }
+
   &__buttons {
     align-items: center;
+
+    button {
+      font-weight: bold;
+    }
   }
 
   &__item {
@@ -41,6 +54,11 @@
 
     &--hidden {
       display: none;
+    }
+
+    &--compact {
+      margin-top: 1rem;
+      margin-bottom: 0rem;
     }
   }
 
