@@ -183,7 +183,7 @@ const AsyncDownloadForm = ({
           </section>
         )}
         <section className="tools-form-section tools-form-section--right">
-          <section className="button-group tools-form-section__buttons ">
+          <section className="button-group tools-form-section__buttons">
             {sending && !reducedMotion && (
               <>
                 <SpinnerIcon />
