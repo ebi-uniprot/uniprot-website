@@ -405,11 +405,11 @@ export const getDownloadUrl = ({
   let endpoint = apiUrls.download(namespace);
   if (base) {
     // TODO: remove when done testing
-    // if (base.startsWith(apiPrefix)) {
-    endpoint = base;
-    // } else {
-    // endpoint = joinUrl(apiPrefix, base);
-    // }
+    if (base.startsWith(apiPrefix)) {
+      endpoint = base;
+    } else {
+      endpoint = joinUrl(apiPrefix, base);
+    }
   } else if (accessions) {
     endpoint = joinUrl(apiPrefix, `/${namespace}/${accessionKey}`);
   } else if (size) {

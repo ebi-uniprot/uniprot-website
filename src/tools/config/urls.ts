@@ -126,20 +126,12 @@ type AsyncDownloadReturn = Readonly<{
 export function asyncDownloadUrlObjectCreator(
   namespace: Namespace
 ): AsyncDownloadReturn {
-  // TODO: remove when done testing
-  // const baseURL = joinUrl(apiPrefix, namespace, 'download');
-  const baseURL = joinUrl(
-    'http://hx-rke-wp-webadmin-35-worker-9.caas.ebi.ac.uk:30880',
-    namespace,
-    'download'
-  );
+  const baseURL = joinUrl(apiPrefix, namespace, 'download');
   return deepFreeze({
     runUrl: (options) =>
       getDownloadUrl({ ...options, base: joinUrl(baseURL, 'run') }),
     statusUrl: (jobId) => joinUrl(baseURL, 'status', jobId),
-    resultUrl: (jobId) =>
-      // TODO: remove when done testing
-      joinUrl(baseURL, 'results', jobId).replace(':30880', ':31660'),
+    resultUrl: (jobId) => joinUrl(baseURL, 'results', jobId),
     detailsUrl: (jobId) => joinUrl(baseURL, 'details', jobId),
   });
 }
