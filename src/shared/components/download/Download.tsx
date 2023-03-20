@@ -355,7 +355,7 @@ const Download: FC<DownloadProps> = ({
           href={isLarge ? undefined : downloadUrl}
           className={cn('button', 'primary')}
           title={
-            isLarge ? 'Download with a Generate File job' : 'Download file'
+            isLarge ? 'Download with a File Generation job' : 'Download file'
           }
           target="_blank"
           rel="noreferrer"
