@@ -245,7 +245,7 @@ const NiceStatus = ({ job, jobLink, jobUrl }: NiceStatusProps) => {
       return null;
     }
     default:
-      logging.warn(`Job status not handled: ${job}`);
+      logging.warn(`Job status not handled: ${JSON.stringify(job)}`);
       return null;
   }
 };
