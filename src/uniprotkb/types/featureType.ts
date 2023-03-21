@@ -44,7 +44,10 @@ export type FamilyAndDomainsFeatures =
   | 'Zinc finger'
   | 'Coiled coil';
 
-type OtherType = 'Natural variant' | 'Modified residue (large scale)' | 'Other'; // For anything else
+type OtherType =
+  | 'Natural variant'
+  | 'Modified residue (large scale data)'
+  | 'Other'; // For anything else
 
 type FeatureType =
   | OtherType

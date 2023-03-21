@@ -60,7 +60,7 @@ const convertPtmExchangePtms = (
 
   return {
     source,
-    type: 'Modified residue (large scale)',
+    type: 'Modified residue (large scale data)',
     location: {
       start: { value: absolutePosition, modifier: 'EXACT' },
       end: { value: absolutePosition, modifier: 'EXACT' },
