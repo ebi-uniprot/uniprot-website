@@ -201,89 +201,90 @@ export const extractFromFreeText = (data: KineticParameters) => {
       /([0-9]*[.])?[0-9]+([x*]10\(\d+\))?\s?[sec|min|h]+\s?\(-1\)/gi;
 
     data.note?.texts.forEach((text) => {
-      if (text.value.includes('kcat')) {
-        const kcatValues = text.value.split(kcatRegEx);
-        const evidencesForWhole = text.evidences;
-        const kcatsFreeText: string[] = [];
+      // if (text.value.includes('kcat')) {
+      //   const kcatValues = text.value.split(kcatRegEx);
+      //   const evidencesForWhole = text.evidences;
+      //   const kcatsFreeText: string[] = [];
 
-        kcatValues.forEach((value) => {
-          const constants = value.match(kcatConstantRegEx);
-          if (constants && constants?.length > 1) {
-            const [pubMed] = value.match(/\(pubmed:\d+\)/i) || [null];
+      //   kcatValues.forEach((value) => {
+      //     const constants = value.match(kcatConstantRegEx);
+      //     if (constants && constants?.length > 1) {
+      //       const [pubMed] = value.match(/\(pubmed:\d+\)/i) || [null];
 
-            // Exceptional case like P45470, B0F481
-            if (
-              value.includes('respectively') ||
-              (value.match(/and/g)?.length || 0) > 1
-            ) {
-              additionalNotes.push(value);
-            } else {
-              const substrates = value.split(/and/);
-              substrates?.forEach((v) => {
-                kcatsFreeText.push(pubMed ? `${v}${pubMed}` : v);
-              });
-            }
-          } else {
-            kcatsFreeText.push(value);
-          }
-        });
+      //       // Exceptional case like P45470, B0F481
+      //       if (
+      //         value.includes('respectively') ||
+      //         (value.match(/and/g)?.length || 0) > 1
+      //       ) {
+      //         additionalNotes.push(value);
+      //       } else {
+      //         const substrates = value.split(/and/);
+      //         substrates?.forEach((v) => {
+      //           kcatsFreeText.push(pubMed ? `${v}${pubMed}` : v);
+      //         });
+      //       }
+      //     } else {
+      //       kcatsFreeText.push(value);
+      //     }
+      //   });
 
-        kcatsFreeText.forEach((value) => {
-          const [constant] = value.match(kcatConstantRegEx) || [''];
+      //   kcatsFreeText.forEach((value) => {
+      //     const [constant] = value.match(kcatConstantRegEx) || [''];
 
-          if (constant.length > 0) {
-            const brokenSentence = value.split(kcatConstantRegEx);
-            let substrateInfo = '';
-            brokenSentence.forEach((s) => {
-              if (!s?.includes('kcat') || !kcatConstantRegEx.test(s)) {
-                substrateInfo = s;
-              }
-            });
+      //     if (constant.length > 0) {
+      //       const brokenSentence = value.split(kcatConstantRegEx);
+      //       let substrateInfo = '';
+      //       brokenSentence.forEach((s) => {
+      //         if (!s?.includes('kcat') || !kcatConstantRegEx.test(s)) {
+      //           substrateInfo = s;
+      //         }
+      //       });
 
-            const [info, pubMed] = substrateInfo.split('(PubMed:');
+      //       const [info, pubMed] = substrateInfo.split('(PubMed:');
 
-            let substrateNotes = info.split('(at')?.[0];
-            const phTempNotes = info.split('(at')?.[1];
+      //       let substrateNotes = info.split('(at')?.[0];
+      //       const phTempNotes = info.split('(at')?.[1];
 
-            const evidences: Evidence[] = [];
-            if (evidencesForWhole && pubMed) {
-              evidencesForWhole.forEach((e: Evidence) => {
-                if (e.id && pubMed.includes(e.id)) {
-                  evidences.push(e);
-                }
-              });
-            }
-            const ph = phTempNotes?.match(pHRegEx)?.[1];
-            const temp = phTempNotes?.match(tempRegEx)?.[1];
+      //       const evidences: Evidence[] = [];
+      //       if (evidencesForWhole && pubMed) {
+      //         evidencesForWhole.forEach((e: Evidence) => {
+      //           if (e.id && pubMed.includes(e.id)) {
+      //             evidences.push(e);
+      //           }
+      //         });
+      //       }
+      //       const ph = phTempNotes?.match(pHRegEx)?.[1];
+      //       const temp = phTempNotes?.match(tempRegEx)?.[1];
 
-            if (phTempNotes) {
-              const match =
-                `(${phTempNotes}`.match(captureWordsInParanthesis)?.[1] ||
-                phTempNotes;
-              if (['pH', 'degrees'].some((e) => match.includes(e))) {
-                substrateNotes += excludePhTemp(match);
-              } else {
-                // Add the additional info to the Notes column
-                substrateNotes += match;
-              }
-            }
+      //       if (phTempNotes) {
+      //         const match =
+      //           `(${phTempNotes}`.match(captureWordsInParanthesis)?.[1] ||
+      //           phTempNotes;
+      //         if (['pH', 'degrees'].some((e) => match.includes(e))) {
+      //           substrateNotes += excludePhTemp(match);
+      //         } else {
+      //           // Add the additional info to the Notes column
+      //           substrateNotes += match;
+      //         }
+      //       }
 
-            kcats.push({
-              key: `kcat${constant}`,
-              constant,
-              notes: substrateNotes !== '.' ? substrateNotes.trim() : undefined,
-              ph,
-              temp,
-              evidences,
-            });
-          } else {
-            additionalNotes.push(value);
-          }
-        });
-      }
-      if (!text.value.includes('kcat')) {
-        additionalNotes.push(text.value);
-      }
+      //       kcats.push({
+      //         key: `kcat${constant}`,
+      //         constant,
+      //         notes: substrateNotes !== '.' ? substrateNotes.trim() : undefined,
+      //         ph,
+      //         temp,
+      //         evidences,
+      //       });
+      //     } else {
+      //       additionalNotes.push(value);
+      //     }
+      //   });
+      // }
+      // if (!text.value.includes('kcat')) {
+      //   additionalNotes.push(text.value);
+      // }
+      additionalNotes.push(text.value);
     });
   }
 
@@ -298,7 +299,7 @@ export const KineticsTableView = ({ data }: { data: KineticParameters }) => {
     <>
       <KineticsTable columns={['KM', 'SUBSTRATE', ...columns]} data={km} />
       <KineticsTable columns={['Vmax', ...columns]} data={vmax} />
-      <KineticsTable columns={['kcat', ...columns]} data={kcats} />
+      {/* <KineticsTable columns={['kcat', ...columns]} data={kcats} /> */}
 
       {additionalNotes.map((note) => (
         <TextView key={note} comments={[{ value: note }]} />
