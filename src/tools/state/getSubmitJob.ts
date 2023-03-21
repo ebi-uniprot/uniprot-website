@@ -88,13 +88,22 @@ const getSubmitJob =
         return;
       }
 
-      dispatch(
-        updateJob(job.internalID, {
-          status: Status.RUNNING,
-          remoteID,
-          timeSubmitted: Date.now(),
-        })
-      );
+      if (job.type === JobTypes.ASYNC_DOWNLOAD) {
+        dispatch(
+          updateJob(job.internalID, {
+            status: Status.NEW,
+            remoteID,
+          })
+        );
+      } else {
+        dispatch(
+          updateJob(job.internalID, {
+            status: Status.RUNNING,
+            remoteID,
+            timeSubmitted: Date.now(),
+          })
+        );
+      }
     } catch (error) {
       let errorDescription = 'Unexpected error';
       if (error instanceof Object && 'response' in error) {

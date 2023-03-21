@@ -7,6 +7,7 @@ import {
   MouseEvent,
   KeyboardEvent,
   ChangeEvent,
+  ReactNode,
 } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import {
@@ -131,6 +132,16 @@ const Seen = ({ job }: { job: FailedJob | FinishedJob<JobTypes> }) => {
   );
 };
 
+const SpinningNotify = ({ children }: { children: ReactNode }) => (
+  <>
+    {children} <SpinnerIcon width="12" height="12" />
+    <br />
+    <span className="dashboard__body__notify_message">
+      We will notify you when your results are ready
+    </span>
+  </>
+);
+
 interface NiceStatusProps {
   job: Job;
   jobLink?: LocationDescriptor;
@@ -139,27 +150,12 @@ interface NiceStatusProps {
 
 const NiceStatus = ({ job, jobLink, jobUrl }: NiceStatusProps) => {
   switch (job.status) {
-    case Status.NEW:
-      return (
-        <>
-          Queued <SpinnerIcon width="12" height="12" />
-          <br />
-          <span className="dashboard__body__notify_message">
-            We will notify you when your results are ready
-          </span>
-        </>
-      );
     case Status.CREATED:
+      return <SpinningNotify>Created</SpinningNotify>;
+    case Status.NEW:
+      return <SpinningNotify>Queued</SpinningNotify>;
     case Status.RUNNING:
-      return (
-        <>
-          Running <SpinnerIcon width="12" height="12" />
-          <br />
-          <span className="dashboard__body__notify_message">
-            We will notify you when your results are ready
-          </span>
-        </>
-      );
+      return <SpinningNotify>Running</SpinningNotify>;
     case Status.FAILURE:
     case Status.ERRORED:
       return (

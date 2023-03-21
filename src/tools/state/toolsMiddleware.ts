@@ -19,10 +19,10 @@ const POLLING_INTERVAL = 1000 * 3; // 3 seconds
 const EXPIRED_INTERVAL = 1000 * 60 * 15; // 15 minutes
 const AUTO_DELETE_TIME = 1000 * 60 * 60 * 24 * 14; // 2 weeks
 
+const checkableJobs = new Set([Status.CREATED, Status.RUNNING, Status.NEW]);
+
 const getJobsToCheck = (state: ToolsState) =>
-  Object.values(state ?? {}).filter(
-    (job) => job.status === Status.CREATED || job.status === Status.RUNNING
-  );
+  Object.values(state ?? {}).filter((job) => checkableJobs.has(job.status));
 
 const toolsMiddleware = (
   dispatch: Dispatch<ToolsAction>,
@@ -45,7 +45,10 @@ const toolsMiddleware = (
     if (job.status === Status.CREATED) {
       return submitJob(job);
     }
-    if (job.status === Status.RUNNING) {
+    if (
+      job.status === Status.RUNNING ||
+      job.status === Status.NEW // Async download queued status
+    ) {
       return checkJobStatus(job);
     }
   };
@@ -53,7 +56,6 @@ const toolsMiddleware = (
   // main loop to poll job statuses
   const pollJobs = async () => {
     let jobsToCheck = getJobsToCheck(stateRef.current);
-
     await pMap(jobsToCheck, pollJobMapper, { concurrency: 4 });
 
     // reset flag

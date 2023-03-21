@@ -18,6 +18,7 @@ interface BaseJob<T extends JobTypes> {
 
 export interface NewJob extends BaseJob<JobTypes> {
   status: Status.NEW;
+  remoteID: string;
 }
 
 export interface CreatedJob extends BaseJob<JobTypes> {
