@@ -20,7 +20,7 @@ import { addMessage } from '../../messages/state/messagesActions';
 import { ToolsState } from './toolsInitialState';
 import { ToolsAction } from './toolsReducers';
 import { MessagesAction } from '../../messages/state/messagesReducers';
-import { RunningJob, FinishedJob } from '../types/toolsJob';
+import { RunningJob, FinishedJob, NewJob } from '../types/toolsJob';
 import { Status } from '../types/toolsStatuses';
 import { BlastResults } from '../blast/types/blastResults';
 import { JobTypes } from '../types/toolsJobTypes';
@@ -33,8 +33,7 @@ const getCheckJobStatus =
     stateRef: MutableRefObject<ToolsState>,
     messagesDispatch: Dispatch<MessagesAction>
   ) =>
-  async (job: RunningJob | FinishedJob<JobTypes>) => {
-    // const urlConfig = toolsURLs(job.type);
+  async (job: NewJob | RunningJob | FinishedJob<JobTypes>) => {
     const urlConfig =
       job.type === JobTypes.ASYNC_DOWNLOAD
         ? asyncDownloadUrlObjectCreator(
@@ -53,7 +52,6 @@ const getCheckJobStatus =
         // 'manual' to block redirect is the bit we cannot do with Axios
         redirect: job.type === JobTypes.ID_MAPPING ? 'follow' : 'manual',
       });
-
       const [status, idMappingResultsUrl] = await getStatusFromResponse(
         job.type,
         response
