@@ -139,6 +139,16 @@ interface NiceStatusProps {
 
 const NiceStatus = ({ job, jobLink, jobUrl }: NiceStatusProps) => {
   switch (job.status) {
+    case Status.NEW:
+      return (
+        <>
+          Queued <SpinnerIcon width="12" height="12" />
+          <br />
+          <span className="dashboard__body__notify_message">
+            We will notify you when your results are ready
+          </span>
+        </>
+      );
     case Status.CREATED:
     case Status.RUNNING:
       return (
