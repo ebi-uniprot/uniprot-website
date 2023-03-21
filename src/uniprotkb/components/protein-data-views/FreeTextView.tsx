@@ -26,7 +26,6 @@ import {
   FreeTextType,
   TextWithEvidence,
 } from '../../types/commentTypes';
-import { map } from 'd3';
 
 const needsNewLineRE = /^\)\.\s+/;
 
