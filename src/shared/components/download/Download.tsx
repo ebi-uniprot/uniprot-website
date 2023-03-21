@@ -180,6 +180,8 @@ const Download: FC<DownloadProps> = ({
 
   const downloadCount = downloadAll ? totalNumberResults : nSelectedEntries;
   const isLarge = downloadCount > DOWNLOAD_SIZE_LIMIT;
+  const isUniprotkb = namespace === Namespace.uniprotkb;
+  const isAsyncDownload = isLarge && isUniprotkb;
 
   let extraContentNode: JSX.Element | undefined;
   if (extraContent === 'url') {
@@ -350,15 +352,17 @@ const Download: FC<DownloadProps> = ({
         </Button>
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <a
-          href={isLarge ? undefined : downloadUrl}
+          href={isAsyncDownload ? undefined : downloadUrl}
           className={cn('button', 'primary')}
           title={
-            isLarge ? 'Download with a File Generation job' : 'Download file'
+            isAsyncDownload
+              ? 'Download with a File Generation job'
+              : 'Download file'
           }
           target="_blank"
           rel="noreferrer"
           onClick={() =>
-            isLarge ? displayExtraContent('generate') : onClose()
+            isAsyncDownload ? displayExtraContent('generate') : onClose()
           }
         >
           Download
