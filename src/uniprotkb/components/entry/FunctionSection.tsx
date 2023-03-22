@@ -166,7 +166,7 @@ export const CofactorView = ({ cofactors, title }: CofactorViewProps) => {
 
   return (
     <>
-      {title && <h3>{title}</h3>}
+      {title && <h3 data-article-id="cofactor">{title}</h3>}
       <div className="text-block">
         Protein has {cofactors.length} cofactor binding{' '}
         {pluralise('site', cofactors.length)}:
@@ -326,6 +326,7 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
             | undefined
         }
         title="Activity regulation"
+        articleId="activity_regulation"
       />
       <FreeTextView
         comments={
@@ -334,6 +335,7 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
             | undefined
         }
         title="Biotechnology"
+        articleId="biotechnological_use"
       />
       <BioPhysicoChemicalPropertiesView
         data={data.bioPhysicoChemicalProperties}
@@ -343,6 +345,7 @@ const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
           data.commentsData.get('PATHWAY') as FreeTextComment[] | undefined
         }
         title="Pathway"
+        articleId="pathway"
       />
       <FeaturesView
         primaryAccession={primaryAccession}
