@@ -93,6 +93,7 @@ const getCheckJobStatus =
       }
       if (
         status === Status.NOT_FOUND ||
+        status === Status.QUEUED ||
         status === Status.RUNNING ||
         status === Status.FAILURE ||
         status === Status.ERRORED

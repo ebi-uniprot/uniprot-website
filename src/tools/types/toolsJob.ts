@@ -29,7 +29,7 @@ export interface FailedJob extends BaseJob<JobTypes> {
 }
 
 export interface RunningJob extends BaseJob<JobTypes> {
-  status: Status.RUNNING;
+  status: Status.RUNNING | Status.QUEUED;
   remoteID: string;
   timeSubmitted: number;
 }

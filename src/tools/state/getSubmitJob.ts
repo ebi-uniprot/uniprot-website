@@ -73,7 +73,7 @@ const getSubmitJob =
       const now = Date.now();
       dispatch(
         updateJob(job.internalID, {
-          status: Status.RUNNING,
+          status: Status.QUEUED,
           remoteID,
           timeSubmitted: now,
           timeLastUpdate: now,

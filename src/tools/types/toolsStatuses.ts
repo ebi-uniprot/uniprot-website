@@ -6,6 +6,7 @@ export enum Status {
   CREATED = 'CREATED', // not from the server, for internal use
   ERRORED = 'ERRORED', // according to www-prod, for problems with the tool
   FAILURE = 'FAILURE', // according to www-prod, when something else in the pipeline failed (LSF issues, etc.)
+  QUEUED = 'QUEUED', // according to www-prod, when in a queue and not being processed yet
   RUNNING = 'RUNNING',
   FINISHED = 'FINISHED',
   NOT_FOUND = 'NOT_FOUND',

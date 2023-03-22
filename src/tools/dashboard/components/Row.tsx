@@ -128,6 +128,12 @@ const Seen = ({ job }: { job: FailedJob | FinishedJob<JobTypes> }) => {
   );
 };
 
+const statusToText = {
+  [Status.CREATED]: 'Created',
+  [Status.QUEUED]: 'Queued',
+  [Status.RUNNING]: 'Running',
+};
+
 interface NiceStatusProps {
   job: Job;
   jobLink?: LocationDescriptor;
@@ -136,10 +142,11 @@ interface NiceStatusProps {
 const NiceStatus = ({ job, jobLink }: NiceStatusProps) => {
   switch (job.status) {
     case Status.CREATED:
+    case Status.QUEUED:
     case Status.RUNNING:
       return (
         <>
-          Running <SpinnerIcon width="12" height="12" />
+          {statusToText[job.status]} <SpinnerIcon width="12" height="12" />
           <br />
           <span className="dashboard__body__notify_message">
             We will notify you when your results are ready

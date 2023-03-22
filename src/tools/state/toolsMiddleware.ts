@@ -21,7 +21,10 @@ const AUTO_DELETE_TIME = 1000 * 60 * 60 * 24 * 14; // 2 weeks
 
 const getJobsToCheck = (state: ToolsState) =>
   Object.values(state ?? {}).filter(
-    (job) => job.status === Status.CREATED || job.status === Status.RUNNING
+    (job) =>
+      job.status === Status.CREATED ||
+      job.status === Status.QUEUED ||
+      job.status === Status.RUNNING
   );
 
 const toolsMiddleware = (
@@ -45,7 +48,7 @@ const toolsMiddleware = (
     if (job.status === Status.CREATED) {
       return submitJob(job);
     }
-    if (job.status === Status.RUNNING) {
+    if (job.status === Status.RUNNING || job.status === Status.QUEUED) {
       return checkJobStatus(job);
     }
   };
