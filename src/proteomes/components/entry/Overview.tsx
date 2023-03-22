@@ -120,7 +120,7 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
         content: renderColumnContent(ProteomesColumn.genomeRepresentation),
       },
       {
-        title: 'Pan proteome',
+        title: <span data-article-id="pan_proteomes">Pan proteome</span>,
         content: data.panproteome && <PanProteome proteome={data} />,
       },
       {
