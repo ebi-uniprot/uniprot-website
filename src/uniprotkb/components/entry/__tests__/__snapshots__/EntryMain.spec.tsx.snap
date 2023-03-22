@@ -22,7 +22,9 @@ exports[`Entry view should render 1`] = `
       <div
         class="card__content"
       >
-        <h3>
+        <h3
+          data-article-id="catalytic_activity"
+        >
           Catalytic activity
         </h3>
         <span
@@ -167,7 +169,9 @@ exports[`Entry view should render 1`] = `
             />
           </div>
         </span>
-        <h3>
+        <h3
+          data-article-id="cofactor"
+        >
           Cofactor
         </h3>
         <div
@@ -2522,7 +2526,9 @@ exports[`Entry view should render 1`] = `
             </div>
           </li>
         </ul>
-        <h3>
+        <h3
+          data-article-id="disruption_phenotype"
+        >
           Disruption phenotype
         </h3>
         <h4
@@ -3536,7 +3542,9 @@ exports[`Entry view should render for non-human entry 1`] = `
             id="1"
           />
         </div>
-        <h3>
+        <h3
+          data-article-id="catalytic_activity"
+        >
           Catalytic activity
         </h3>
         <span
@@ -3606,7 +3614,9 @@ exports[`Entry view should render for non-human entry 1`] = `
             />
           </div>
         </span>
-        <h3>
+        <h3
+          data-article-id="cofactor"
+        >
           Cofactor
         </h3>
         <div
@@ -3676,7 +3686,9 @@ exports[`Entry view should render for non-human entry 1`] = `
           </span>
           <br />
         </section>
-        <h3>
+        <h3
+          data-article-id="activity_regulation"
+        >
           Activity regulation
         </h3>
         <div
@@ -3706,7 +3718,9 @@ exports[`Entry view should render for non-human entry 1`] = `
             id="4"
           />
         </div>
-        <h3>
+        <h3
+          data-article-id="biotechnological_use"
+        >
           Biotechnology
         </h3>
         <div

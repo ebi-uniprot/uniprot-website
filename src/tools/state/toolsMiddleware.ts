@@ -19,7 +19,12 @@ const POLLING_INTERVAL = 1000 * 3; // 3 seconds
 const EXPIRED_INTERVAL = 1000 * 60 * 15; // 15 minutes
 const AUTO_DELETE_TIME = 1000 * 60 * 60 * 24 * 14; // 2 weeks
 
-const checkableJobs = new Set([Status.CREATED, Status.RUNNING, Status.NEW]);
+const checkableJobs = new Set([
+  Status.CREATED,
+  Status.RUNNING,
+  Status.NEW,
+  Status.QUEUED,
+]);
 
 const getJobsToCheck = (state: ToolsState) =>
   Object.values(state ?? {}).filter((job) => checkableJobs.has(job.status));
@@ -47,7 +52,8 @@ const toolsMiddleware = (
     }
     if (
       job.status === Status.RUNNING ||
-      job.status === Status.NEW // Async download queued status
+      job.status === Status.QUEUED ||
+      job.status === Status.NEW
     ) {
       return checkJobStatus(job);
     }

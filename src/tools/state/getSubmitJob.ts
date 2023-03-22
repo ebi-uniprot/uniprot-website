@@ -98,7 +98,7 @@ const getSubmitJob =
       } else {
         dispatch(
           updateJob(job.internalID, {
-            status: Status.RUNNING,
+            status: Status.QUEUED,
             remoteID,
             timeSubmitted: Date.now(),
           })

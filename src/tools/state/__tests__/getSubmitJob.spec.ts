@@ -128,7 +128,7 @@ describe('submitJob', () => {
     });
   });
 
-  it('should dispatch a running job', async () => {
+  it('should dispatch a job', async () => {
     (window.fetch as jest.Mock).mockImplementationOnce(() =>
       Promise.resolve({
         ok: true,
@@ -142,7 +142,7 @@ describe('submitJob', () => {
       payload: {
         id: createdJob.internalID,
         partialJob: {
-          status: Status.RUNNING,
+          status: Status.QUEUED,
           remoteID: serverUUID,
           timeSubmitted: Date.now(),
         },

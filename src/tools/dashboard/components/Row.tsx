@@ -153,6 +153,7 @@ const NiceStatus = ({ job, jobLink, jobUrl }: NiceStatusProps) => {
     case Status.CREATED:
       return <SpinningNotify>Created</SpinningNotify>;
     case Status.NEW:
+    case Status.QUEUED:
       return <SpinningNotify>Queued</SpinningNotify>;
     case Status.RUNNING:
       return <SpinningNotify>Running</SpinningNotify>;

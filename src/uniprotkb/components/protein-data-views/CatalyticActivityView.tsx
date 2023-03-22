@@ -232,7 +232,7 @@ const CatalyticActivityView = ({
   let firstRheaId: number;
   return (
     <>
-      {title && <h3>{title}</h3>}
+      {title && <h3 data-article-id="catalytic_activity">{title}</h3>}
       {comments.map(({ molecule, reaction, physiologicalReactions }, index) => {
         if (!reaction) {
           return null;

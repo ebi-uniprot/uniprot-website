@@ -263,6 +263,7 @@ export const isJobAlreadyFinished = (status: Status, currentStateOfJob: Job) =>
 
 const incompleteStatuses = new Set([
   Status.NEW,
+  Status.QUEUED,
   Status.NOT_FOUND,
   Status.RUNNING,
   Status.FAILURE,
