@@ -112,12 +112,8 @@ const PtmExchangeEvidenceTag = ({
           This score has been used to reflect the strength of the evidence for
           this modified site following reanalysis of available datasets.
         </section>
-        <section>
-          <h5 className="small">Reanalyzed Sources</h5>
-          Coming soon
-        </section>
         <section className="styles.section">
-          <h5 className="small">Original Sources</h5>
+          <h5 className="small">Evidence</h5>
           <PtmExchangeEvidence evidences={originalEvidences} />
         </section>
       </section>

@@ -49,7 +49,7 @@ type RichTextProps = {
 
 export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => (
   <>
-    {children?.split(needTextProcessingRE).map((part, index, { length }) => {
+    {children?.split(needTextProcessingRE).map((part, index, mappedArr) => {
       // Capturing group will allow split to conserve that bit in the split parts
       // NOTE: rePubMed and reAC should be using a lookbehind eg `/(?<=pubmed:)(\d{7,8})/i` but
       // it is not supported in Safari yet. It's OK, we just get more chunks when splitting
@@ -94,8 +94,14 @@ export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => (
           );
         }
       }
-
       if (reSubscript.test(part)) {
+        // Exceptional case to handle scientific notations present in kinetic specific constants. Example: 5.38x10(2) has be to superscript
+        if (mappedArr[index - 1].endsWith('x10')) {
+          return (
+            // eslint-disable-next-line react/no-array-index-key
+            <sup key={index}>{part.substring(1, part.length - 1)}</sup>
+          );
+        }
         return (
           // eslint-disable-next-line react/no-array-index-key
           <sub key={index}>{part.substring(1, part.length - 1)}</sub>
@@ -120,7 +126,7 @@ export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => (
         );
       }
       // If the last section doesn't end with a period, add it
-      if (addPeriod && index + 1 === length && !part.endsWith('.')) {
+      if (addPeriod && index + 1 === mappedArr.length && !part.endsWith('.')) {
         return `${part}.`;
       }
       // use plain text as such

@@ -36,7 +36,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
           <span
             data-article-id="mod_res_large_scale"
           >
-            modified residue (large scale)
+            modified residue (large scale data)
           </span>
           .
         </p>
@@ -271,9 +271,9 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                   >
                     <td
                       data-filter="type"
-                      data-filter-value="Modified residue (large scale)"
+                      data-filter-value="Modified residue (large scale data)"
                     >
-                      Modified residue (large scale)
+                      Modified residue (large scale data)
                     </td>
                     <td />
                     <td>
@@ -331,9 +331,9 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                   >
                     <td
                       data-filter="type"
-                      data-filter-value="Modified residue (large scale)"
+                      data-filter-value="Modified residue (large scale data)"
                     >
-                      Modified residue (large scale)
+                      Modified residue (large scale data)
                     </td>
                     <td />
                     <td>
@@ -391,9 +391,9 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                   >
                     <td
                       data-filter="type"
-                      data-filter-value="Modified residue (large scale)"
+                      data-filter-value="Modified residue (large scale data)"
                     >
-                      Modified residue (large scale)
+                      Modified residue (large scale data)
                     </td>
                     <td />
                     <td>

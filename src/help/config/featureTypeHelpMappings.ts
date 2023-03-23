@@ -29,7 +29,7 @@ const FeatureTypeHelpMappings: Omit<Record<FeatureType, string>, 'Other'> = {
   Chain: 'chain',
   Peptide: 'peptide',
   'Modified residue': 'mod_res',
-  'Modified residue (large scale)': 'mod_res_large_scale',
+  'Modified residue (large scale data)': 'mod_res_large_scale',
   Lipidation: 'lipid',
   Glycosylation: 'carbohyd',
   'Disulfide bond': 'disulfid',
