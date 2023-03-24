@@ -58,11 +58,19 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
         ),
       },
       {
-        title: <span data-article-id="proteome_redundancy">Protein count</span>,
+        title: (
+          <span data-article-id="proteome_terminology#protein-count">
+            Protein count
+          </span>
+        ),
         content: renderColumnContent(ProteomesColumn.proteinCount),
       },
       {
-        title: 'Gene count',
+        title: (
+          <span data-article-id="proteome_terminology#gene-count">
+            Gene count
+          </span>
+        ),
         content: data.geneCount ? (
           <>
             <LongNumber>{data.geneCount}</LongNumber>
@@ -99,7 +107,7 @@ export const Overview = ({ data }: { data: ProteomesUIModel }) => {
       },
       {
         title: (
-          <span data-article-id="https://www.ensembl.org/Help/Faq?id=216">
+          <span data-article-id="proteome_terminology#genome-assembly">
             Genome assembly and annotation
           </span>
         ),
