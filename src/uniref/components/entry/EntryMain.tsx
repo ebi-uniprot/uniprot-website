@@ -5,8 +5,6 @@ import ErrorBoundary from '../../../shared/components/error-component/ErrorBound
 
 import UniRefEntryConfig from '../../config/UniRefEntryConfig';
 
-import { isSameEntry } from '../../../shared/utils/utils';
-
 import { UniRefUIModel } from '../../adapters/uniRefConverter';
 
 type EntryMainProps = {
@@ -23,4 +21,4 @@ const EntryMain = ({ transformedData }: EntryMainProps) => (
   </>
 );
 
-export default memo(EntryMain, isSameEntry);
+export default memo(EntryMain);
