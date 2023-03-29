@@ -1,44 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Kinetics section Additional notes contain kcat expceptional case while kcat is empty 1`] = `
+exports[`Kinetics section Kcat values are shown in notes 1`] = `
 [
-  "kcat is 118.44 min(-1) and 20.80 min (-1) for glyoxalase activity with glyoxal (GO) and methylglyoxal (MGO) as substrate, respectively (at pH 7.4 and 37 degrees Celsius) (PubMed:26678554)",
-  "The apparent kcat of MGO and GO degradation is 0.29 sec(-1), and 0.42 sec(-1), respectively (at 22 degrees Celsius) (PubMed:26774339).",
+  "kcat is 118.44 min(-1) and 20.80 min (-1) for glyoxalase activity with glyoxal (GO) and methylglyoxal (MGO) as substrate, respectively (at pH 7.4 and 37 degrees Celsius) (PubMed:26678554). The apparent kcat of MGO and GO degradation is 0.29 sec(-1), and 0.42 sec(-1), respectively (at 22 degrees Celsius) (PubMed:26774339).",
 ]
 `;
 
-exports[`Kinetics section Kcats should be populated when one or more values are combined in a sentence 1`] = `
-{
-  "constant": "4.5 min(-1)",
-  "evidences": [
-    {
-      "evidenceCode": "ECO:0000269",
-      "id": "10606519",
-      "source": "PubMed",
-    },
-  ],
-  "key": "kcat4.5 min(-1)",
-  "notes": "with arsenate as substrate  2 uM arsenate",
-  "ph": undefined,
-  "temp": undefined,
-}
-`;
-
-exports[`Kinetics section Kcats should be populated when one or more values are combined in a sentence 2`] = `
-{
-  "constant": "9.9 min(-1)",
-  "evidences": [
-    {
-      "evidenceCode": "ECO:0000269",
-      "id": "10606519",
-      "source": "PubMed",
-    },
-  ],
-  "key": "kcat9.9 min(-1)",
-  "notes": "with arsenate as substrate  10 mM arsenate",
-  "ph": undefined,
-  "temp": undefined,
-}
+exports[`Kinetics section Kcat values are shown in notes 2`] = `
+[
+  "kcat is 4.5 min(-1) with arsenate as substrate (at 2 uM arsenate) and kcat is 9.9 min(-1) with arsenate as substrate (at 10 mM arsenate) (PubMed:10606519).",
+]
 `;
 
 exports[`Kinetics section should return respective rows for KM 1`] = `

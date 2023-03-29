@@ -51,7 +51,7 @@ exports[`EntryMain view should render 1`] = `
                 class="decorated-list-item__title tiny"
               >
                 <span
-                  data-article-id="proteome_redundancy"
+                  data-article-id="proteome_terminology#protein-count"
                 >
                   Protein count
                 </span>
@@ -74,7 +74,11 @@ exports[`EntryMain view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Gene count
+                <span
+                  data-article-id="proteome_terminology#gene-count"
+                >
+                  Gene count
+                </span>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -137,7 +141,7 @@ exports[`EntryMain view should render 1`] = `
                 class="decorated-list-item__title tiny"
               >
                 <span
-                  data-article-id="https://www.ensembl.org/Help/Faq?id=216"
+                  data-article-id="proteome_terminology#genome-assembly"
                 >
                   Genome assembly and annotation
                 </span>
