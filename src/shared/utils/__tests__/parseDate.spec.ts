@@ -59,4 +59,10 @@ describe('parseEdgeCases', () => {
     expect(parsed?.getFullYear()).toBe(2021);
     expect(parsed?.getMonth()).toBe(11);
   });
+
+  it('should parse date "20220329"', () => {
+    const parsed = parseEdgeCases('20220329');
+    expect(parsed?.getFullYear()).toBe(2022);
+    expect(parsed?.getMonth()).toBe(2);
+  });
 });
