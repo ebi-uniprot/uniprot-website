@@ -137,6 +137,7 @@ const IDMappingResult = () => {
       sortColumn,
       sortDirection,
       columns: columnNames,
+      facets: [],
     });
 
   const converter = useMemo(
