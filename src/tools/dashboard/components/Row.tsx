@@ -20,6 +20,7 @@ import {
   Bubble,
   Button,
   BytesNumber,
+  Chip,
 } from 'franklin-sites';
 import { LocationDescriptor } from 'history';
 
@@ -448,7 +449,10 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
         ],
       })}
     >
-      <span className="dashboard__body__type">{job.type}</span>
+      <span className="dashboard__body__type">
+        {job.type}
+        {job.type === JobTypes.ASYNC_DOWNLOAD && <Chip>beta</Chip>}
+      </span>
       <span className="dashboard__body__name">
         <Name id={job.internalID}>{job.title}</Name>
       </span>

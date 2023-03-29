@@ -1,6 +1,6 @@
 import { FormEvent, useState, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
-import { LongNumber, Message, SpinnerIcon } from 'franklin-sites';
+import { LongNumber, Message, SpinnerIcon, Chip } from 'franklin-sites';
 import { sleep } from 'timing-functions';
 
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
@@ -131,7 +131,9 @@ const AsyncDownloadForm = ({
       <fieldset>
         <section className="tools-form-section tools-form-section--compact">
           <section className="tools-form-section__item tools-form-section__item--full-width">
-            <h4>File Generation Needed</h4>
+            <h4>
+              File Generation Needed <Chip compact>beta</Chip>
+            </h4>
             Your download request is too large (<LongNumber>{count}</LongNumber>
             ) for immediate download.
             <br />
