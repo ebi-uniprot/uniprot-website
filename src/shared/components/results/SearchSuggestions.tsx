@@ -93,10 +93,9 @@ const SearchSuggestions = ({
           modifiedQueryBit[`${k}_exact`] = v;
           searchValue = v;
         });
-        clause.queryBits = modifiedQueryBit;
-        return clause;
+        return { ...clause, queryBits: modifiedQueryBit };
       }
-      return clause;
+      return { ...clause };
     });
   }
 
@@ -130,7 +129,8 @@ const SearchSuggestions = ({
           .sort((a, b) => b.hits - a.hits)
       );
     }
-  }, [data, searchTermsData, searchValue]);
+    return null;
+  }, [data, searchTermsData, exactMatch, searchValue]);
 
   /* Use useLayoutEffect and useState to display the elements, calculate their
   size and wrapping, and update (through react renders) iteratively in order to
