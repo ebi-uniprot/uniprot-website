@@ -76,6 +76,7 @@ const formData: Readonly<BlastFormValues> = deepFreeze({
   },
   [BlastFields.taxons]: {
     fieldName: 'taxIDs',
+    selected: [],
   },
   [BlastFields.excludedtaxons]: {
     fieldName: 'negativeTaxIDs',

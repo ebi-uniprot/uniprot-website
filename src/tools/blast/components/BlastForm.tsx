@@ -172,8 +172,6 @@ const BlastForm = ({ initialFormValues }: Props) => {
     Boolean(initialFormValues[BlastFields.name].selected)
   );
 
-  // console.log(state);
-
   // actual form fields
   const [database, setDatabase] = useState(
     initialFormValues[
@@ -181,9 +179,6 @@ const BlastForm = ({ initialFormValues }: Props) => {
     ] as BlastFormValues[BlastFields.database]
   );
   const excludeTaxonField = excludeTaxonForDB(database.selected);
-  const [taxIDs, setTaxIDs] = useState(
-    initialFormValues[BlastFields.taxons] as BlastFormValues[BlastFields.taxons]
-  );
   // TODO: to eventually incorporate into the form
   const [negativeTaxIDs, setNegativeTaxIDs] = useState(
     initialFormValues[
@@ -223,7 +218,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
       return;
     }
 
-    const selected = (taxIDs.selected || []) as SelectedTaxon[];
+    const selected = state[BlastFields.taxons].selected as SelectedTaxon[];
 
     // If already there, don't add again
     if (selected.some((taxon: SelectedTaxon) => taxon.id === id)) {
@@ -231,19 +226,17 @@ const BlastForm = ({ initialFormValues }: Props) => {
     }
 
     const label = truncateTaxonLabel(path);
-
-    setTaxIDs({
-      ...taxIDs,
-      selected: [{ id, label }, ...selected],
-    });
+    dispatch(updateValue(BlastFields.taxons, [{ id, label }, ...selected]));
   };
 
   const removeTaxonFormValue = (id: string | number) => {
-    const selected = (taxIDs.selected || []) as SelectedTaxon[];
-    setTaxIDs({
-      ...taxIDs,
-      selected: selected.filter((taxon: SelectedTaxon) => taxon.id !== id),
-    });
+    const selected = state[BlastFields.taxons].selected as SelectedTaxon[];
+    dispatch(
+      updateValue(
+        BlastFields.taxons,
+        selected.filter((taxon: SelectedTaxon) => taxon.id !== id)
+      )
+    );
   };
 
   // form event handlers
@@ -253,7 +246,6 @@ const BlastForm = ({ initialFormValues }: Props) => {
     // reset all form state to defaults
     dispatch({ type: 'reset' });
     setDatabase(defaultFormValues[BlastFields.database]);
-    setTaxIDs(defaultFormValues[BlastFields.taxons]);
     setNegativeTaxIDs(defaultFormValues[BlastFields.excludedtaxons]);
     setThreshold(defaultFormValues[BlastFields.threshold]);
     setMatrix(defaultFormValues[BlastFields.matrix]);
@@ -274,7 +266,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
   const submitBlastJob = (event: FormEvent | MouseEvent) => {
     event.preventDefault();
 
-    if (!state?.sequence.selected) {
+    if (!state[BlastFields.sequence].selected) {
       return;
     }
 
@@ -285,11 +277,13 @@ const BlastForm = ({ initialFormValues }: Props) => {
     // transformation of FormParameters into ServerParameters happens in the
     // tools middleware
     const parameters: FormParameters = {
-      stype: state.stype.selected as SType,
-      program: state.program.selected as FormParameters['program'],
-      sequence: state?.sequence?.selected as Sequence,
+      stype: state[BlastFields.stype].selected as SType,
+      program: state[BlastFields.program].selected as FormParameters['program'],
+      sequence: state[BlastFields.sequence].selected as Sequence,
       database: database.selected as Database,
-      taxIDs: excludeTaxonField ? [] : (taxIDs.selected as SelectedTaxon[]),
+      taxIDs: excludeTaxonField
+        ? []
+        : (state[BlastFields.taxons].selected as SelectedTaxon[]),
       negativeTaxIDs: excludeTaxonField
         ? []
         : (negativeTaxIDs.selected as SelectedTaxon[]),
@@ -362,7 +356,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
         .map((parsedSequence) => parsedSequence.raw)
         .join('\n');
 
-      if (rawSequence === state?.sequence?.selected) {
+      if (rawSequence === state[BlastFields.sequence]?.selected) {
         return;
       }
 
@@ -382,7 +376,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
       setSubmitDisabled(isInvalid(parsedSequences));
       dispatch(updateValue(BlastFields.program));
     },
-    [jobNameEdited, state?.sequence?.selected]
+    [jobNameEdited, state[BlastFields.sequence]?.selected]
   );
 
   // file handling
@@ -469,18 +463,18 @@ const BlastForm = ({ initialFormValues }: Props) => {
                 }
               )}
             >
-              {((taxIDs.selected as SelectedTaxon[]) || []).map(
-                ({ label, id }: SelectedTaxon) => (
-                  <div key={label}>
-                    <Chip
-                      onRemove={() => removeTaxonFormValue(id)}
-                      className="secondary"
-                    >
-                      {label}
-                    </Chip>
-                  </div>
-                )
-              )}
+              {(
+                (state[BlastFields.taxons]?.selected as SelectedTaxon[]) || []
+              ).map(({ label, id }: SelectedTaxon) => (
+                <div key={label}>
+                  <Chip
+                    onRemove={() => removeTaxonFormValue(id)}
+                    className="secondary"
+                  >
+                    {label}
+                  </Chip>
+                </div>
+              ))}
             </section>
           </section>
           <section className="tools-form-section">
