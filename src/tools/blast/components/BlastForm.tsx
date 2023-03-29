@@ -8,6 +8,7 @@ import {
   useRef,
   Dispatch,
   SetStateAction,
+  useReducer,
 } from 'react';
 import {
   Chip,
@@ -29,6 +30,10 @@ import SequenceSearchLoader, {
 import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
 
 import { addMessage } from '../../../messages/state/messagesActions';
+import {
+  getBlastFormDataInit,
+  getBlastFormDataReducer,
+} from '../state/blastFormReducer';
 
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
@@ -144,6 +149,11 @@ const BlastForm = ({ initialFormValues }: Props) => {
   const history = useHistory();
   const reducedMotion = useReducedMotion();
 
+  const [state, dispatch] = useReducer(
+    getBlastFormDataReducer(getBlastFormDataInit(defaultFormValues)),
+    getBlastFormDataInit(defaultFormValues)
+  );
+
   // used when the form submission needs to be disabled
   const [submitDisabled, setSubmitDisabled] = useState(() =>
     // default sequence value will tell us if submit should be disabled or not
@@ -160,22 +170,10 @@ const BlastForm = ({ initialFormValues }: Props) => {
     // default to true if it's been set through the history state
     Boolean(initialFormValues[BlastFields.name].selected)
   );
-  // store parsed sequence objects
-  const [parsedSequences, setParsedSequences] = useState<SequenceObject[]>(
-    sequenceProcessor(
-      `${initialFormValues[BlastFields.sequence].selected || ''}`
-    )
-  );
+
+  // console.log(state);
 
   // actual form fields
-  const [stype, setSType] = useState(
-    initialFormValues[BlastFields.stype] as BlastFormValues[BlastFields.stype]
-  );
-  const [program, setProgram] = useState(
-    initialFormValues[
-      BlastFields.program
-    ] as BlastFormValues[BlastFields.program]
-  );
   const [sequence, setSequence] = useState(
     initialFormValues[
       BlastFields.sequence
@@ -257,10 +255,8 @@ const BlastForm = ({ initialFormValues }: Props) => {
     event.preventDefault();
 
     // reset all form state to defaults
-    setParsedSequences([]);
-
-    setSType(defaultFormValues[BlastFields.stype]);
-    setProgram(defaultFormValues[BlastFields.program]);
+    dispatch({ type: 'reset' });
+    // setParsedSequences([]);
     setSequence(defaultFormValues[BlastFields.sequence]);
     setDatabase(defaultFormValues[BlastFields.database]);
     setTaxIDs(defaultFormValues[BlastFields.taxons]);
@@ -295,8 +291,8 @@ const BlastForm = ({ initialFormValues }: Props) => {
     // transformation of FormParameters into ServerParameters happens in the
     // tools middleware
     const parameters: FormParameters = {
-      stype: stype.selected as SType,
-      program: program.selected as FormParameters['program'],
+      stype: state.stype.selected as SType,
+      program: state.program.selected as FormParameters['program'],
       sequence: sequence.selected as Sequence,
       database: database.selected as Database,
       taxIDs: excludeTaxonField ? [] : (taxIDs.selected as SelectedTaxon[]),
@@ -307,7 +303,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
       // remove "auto", and transform into corresponding matrix
       matrix:
         matrix.selected === 'auto'
-          ? getAutoMatrixFor(parsedSequences[0]?.sequence)
+          ? getAutoMatrixFor(state.parsedSequences[0]?.sequence)
           : (matrix.selected as Matrix),
       filter: filter.selected as Filter,
       gapped: gapped.selected as GapAlign,
@@ -316,7 +312,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
       hsps: (parseInt(hsps.selected as string, 10) || undefined) as HSPs,
     };
 
-    const multipleParameters = parsedSequences.map((parsedSequence) => ({
+    const multipleParameters = state.parsedSequences.map((parsedSequence) => ({
       ...parameters,
       sequence: parsedSequence.raw as Sequence,
     }));
@@ -328,12 +324,12 @@ const BlastForm = ({ initialFormValues }: Props) => {
       // the reducer will be in charge of generating a proper job object for
       // internal state. Dispatching after history.push so that pop-up messages (as a
       // side-effect of createJob) cannot mount immediately before navigating away.
-      for (let i = 0; i < parsedSequences.length; i += 1) {
+      for (let i = 0; i < state.parsedSequences.length; i += 1) {
         // take extracted name by default
-        let { name = '' } = parsedSequences[i];
+        let { name = '' } = state.parsedSequences[i];
         if (jobNameEdited) {
           // if one was submitted by user, and we only have one sequence, use it
-          if (parsedSequences.length === 1) {
+          if (state.parsedSequences.length === 1) {
             name = jobName.selected as string;
           } else {
             // if we have more sequences, append a counter
@@ -356,7 +352,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
   // effects
   // set the "Auto" matrix to the have the correct label depending on sequence
   useEffect(() => {
-    const autoMatrix = getAutoMatrixFor(parsedSequences[0]?.sequence);
+    const autoMatrix = getAutoMatrixFor(state.parsedSequences[0]?.sequence);
     setMatrix((matrix) => ({
       ...matrix,
       values: [
@@ -364,7 +360,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
         ...(matrix.values || []).filter((option) => option.value !== 'auto'),
       ],
     }));
-  }, [parsedSequences]);
+  }, [state.parsedSequences]);
 
   const onSequenceChange = useCallback(
     (parsedSequences: SequenceObject[]) => {
@@ -387,31 +383,13 @@ const BlastForm = ({ initialFormValues }: Props) => {
           return { ...jobName, selected: potentialJobName };
         });
       }
-
-      setParsedSequences(parsedSequences);
+      dispatch({
+        type: 'update',
+        payload: { id: 'parsedSequences', value: parsedSequences },
+      });
       setSequence((sequence) => ({ ...sequence, selected: rawSequence }));
       setSubmitDisabled(isInvalid(parsedSequences));
-
-      const mightBeDNA = parsedSequences[0]?.likelyType === 'na';
-
-      setSType((stype) => {
-        // we want protein by default
-        const selected = mightBeDNA ? 'dna' : 'protein';
-        if (stype.selected === selected) {
-          // avoid unecessary rerender by keeping the same object
-          return stype;
-        }
-        return { ...stype, selected };
-      });
-      setProgram((program) => {
-        // we want protein by default
-        const selected = mightBeDNA ? 'blastx' : 'blastp';
-        if (program.selected === selected) {
-          // avoid unecessary rerender by keeping the same object
-          return program;
-        }
-        return { ...program, selected };
-      });
+      dispatch({ type: 'update', payload: { id: BlastFields.program } });
     },
     [jobNameEdited, sequence.selected]
   );
@@ -467,7 +445,9 @@ const BlastForm = ({ initialFormValues }: Props) => {
             <SequenceSubmission
               placeholder="Protein or nucleotide sequence(s) in FASTA format."
               onChange={onSequenceChange}
-              value={parsedSequences.map((sequence) => sequence.raw).join('\n')}
+              value={state.parsedSequences
+                .map((sequence) => sequence.raw)
+                .join('\n')}
             />
           </section>
           <section className="tools-form-section">
@@ -546,8 +526,22 @@ const BlastForm = ({ initialFormValues }: Props) => {
             </summary>
             <section className="tools-form-section">
               {[
-                [stype, setSType],
-                [program, setProgram],
+                [
+                  state[BlastFields.stype],
+                  (value) =>
+                    dispatch({
+                      type: 'update',
+                      payload: { id: BlastFields.stype, value },
+                    }),
+                ],
+                [
+                  state[BlastFields.program],
+                  (value) =>
+                    dispatch({
+                      type: 'update',
+                      payload: { id: BlastFields.program, value },
+                    }),
+                ],
                 [threshold, setThreshold],
                 [matrix, setMatrix],
                 [filter, setFilter],
@@ -582,9 +576,9 @@ const BlastForm = ({ initialFormValues }: Props) => {
                 disabled={submitDisabled}
                 onClick={submitBlastJob}
               >
-                {parsedSequences.length <= 1
+                {state.parsedSequences.length <= 1
                   ? 'Run BLAST'
-                  : `BLAST ${parsedSequences.length} sequences`}
+                  : `BLAST ${state.parsedSequences.length} sequences`}
               </button>
             </section>
           </section>
