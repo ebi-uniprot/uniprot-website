@@ -7,6 +7,7 @@ import {
   MouseEvent,
   KeyboardEvent,
   ChangeEvent,
+  ReactNode,
 } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import {
@@ -18,6 +19,8 @@ import {
   WarningTriangleIcon,
   Bubble,
   Button,
+  BytesNumber,
+  Chip,
 } from 'franklin-sites';
 import { LocationDescriptor } from 'history';
 
@@ -31,11 +34,13 @@ import { useToolsDispatch } from '../../../shared/contexts/Tools';
 import { getBEMClassName as bem, pluralise } from '../../../shared/utils/utils';
 import parseDate from '../../../shared/utils/parseDate';
 import * as logging from '../../../shared/utils/logging';
+import { asyncDownloadUrlObjectCreator } from '../../config/urls';
 
 import { FailedJob, Job, FinishedJob } from '../../types/toolsJob';
 import { Status } from '../../types/toolsStatuses';
 import { JobTypes } from '../../types/toolsJobTypes';
 import { LocationStateFromJobLink } from '../../hooks/useMarkJobAsSeen';
+import { FormParameters } from '../../types/toolsFormParameters';
 
 import './styles/Dashboard.scss';
 
@@ -128,31 +133,31 @@ const Seen = ({ job }: { job: FailedJob | FinishedJob<JobTypes> }) => {
   );
 };
 
-const statusToText = {
-  [Status.CREATED]: 'Created',
-  [Status.QUEUED]: 'Queued',
-  [Status.RUNNING]: 'Running',
-};
+const SpinningNotify = ({ children }: { children: ReactNode }) => (
+  <>
+    {children} <SpinnerIcon width="12" height="12" />
+    <br />
+    <span className="dashboard__body__notify_message">
+      We will notify you when your results are ready
+    </span>
+  </>
+);
 
 interface NiceStatusProps {
   job: Job;
   jobLink?: LocationDescriptor;
+  jobUrl?: string;
 }
 
-const NiceStatus = ({ job, jobLink }: NiceStatusProps) => {
+const NiceStatus = ({ job, jobLink, jobUrl }: NiceStatusProps) => {
   switch (job.status) {
     case Status.CREATED:
+      return <SpinningNotify>Created</SpinningNotify>;
+    case Status.NEW:
     case Status.QUEUED:
+      return <SpinningNotify>Queued</SpinningNotify>;
     case Status.RUNNING:
-      return (
-        <>
-          {statusToText[job.status]} <SpinnerIcon width="12" height="12" />
-          <br />
-          <span className="dashboard__body__notify_message">
-            We will notify you when your results are ready
-          </span>
-        </>
-      );
+      return <SpinningNotify>Running</SpinningNotify>;
     case Status.FAILURE:
     case Status.ERRORED:
       return (
@@ -171,58 +176,84 @@ const NiceStatus = ({ job, jobLink }: NiceStatusProps) => {
     case Status.NOT_FOUND:
       return <>Job not found on the server</>;
     case Status.FINISHED: {
-      if (!jobLink) {
-        return null;
+      if (jobUrl) {
+        // Async download
+        const fileSizeBytes =
+          ('data' in job &&
+            job.data &&
+            'fileSizeBytes' in job.data &&
+            job.data.fileSizeBytes) ||
+          0;
+        return (
+          <>
+            {fileSizeBytes ? (
+              <a href={jobUrl} target="_blank" rel="noreferrer">
+                Completed
+              </a>
+            ) : (
+              'Completed'
+            )}
+            <br />
+            <span className="dashboard__body__notify_message">
+              <BytesNumber>{fileSizeBytes}</BytesNumber> file generated
+            </span>
+          </>
+        );
       }
-      // either a BLAST, ID Mapping, or Peptide Search job could have those
-      if ('data' in job && job.data && 'hits' in job.data) {
-        const actualHits = job.data.hits;
-        let expectedHits: number | undefined;
-        if ('hits' in job.parameters) {
-          // BLAST-specific
-          expectedHits = job.parameters.hits;
+      if (jobLink) {
+        // either a BLAST, ID Mapping, or Peptide Search job could have those
+        if ('data' in job && job.data && 'hits' in job.data) {
+          const actualHits = job.data.hits;
+          let expectedHits: number | undefined;
+          if ('hits' in job.parameters) {
+            // BLAST-specific
+            expectedHits = job.parameters.hits;
+          }
+          if ('ids' in job.parameters) {
+            // ID Mapping-specific
+            expectedHits = job.parameters.ids.length;
+          }
+          if (
+            (expectedHits !== undefined && actualHits !== expectedHits) ||
+            actualHits === 0
+          ) {
+            const hitText = pluralise('hit', actualHits);
+            return (
+              <>
+                {actualHits === 0 ? (
+                  <span>Completed</span>
+                ) : (
+                  // eslint-disable-next-line uniprot-website/use-config-location
+                  <Link to={jobLink}>Completed</Link>
+                )}{' '}
+                <span
+                  title={`${actualHits} ${hitText} found${
+                    expectedHits
+                      ? ` instead of the requested ${expectedHits}`
+                      : ''
+                  }`}
+                >
+                  (
+                  {actualHits ? `${actualHits} ${hitText}` : 'no results found'}
+                  )
+                </span>
+                <Seen job={job} />
+              </>
+            );
+          }
         }
-        if ('ids' in job.parameters) {
-          // ID Mapping-specific
-          expectedHits = job.parameters.ids.length;
-        }
-        if (
-          (expectedHits !== undefined && actualHits !== expectedHits) ||
-          actualHits === 0
-        ) {
-          const hitText = pluralise('hit', actualHits);
-          return (
-            <>
-              {actualHits === 0 ? (
-                <span>Completed</span>
-              ) : (
-                // eslint-disable-next-line uniprot-website/use-config-location
-                <Link to={jobLink}>Completed</Link>
-              )}{' '}
-              <span
-                title={`${actualHits} ${hitText} found${
-                  expectedHits
-                    ? ` instead of the requested ${expectedHits}`
-                    : ''
-                }`}
-              >
-                ({actualHits ? `${actualHits} ${hitText}` : 'no results found'})
-              </span>
-              <Seen job={job} />
-            </>
-          );
-        }
+        return (
+          <>
+            {/* eslint-disable-next-line uniprot-website/use-config-location */}
+            <Link to={jobLink}>Completed</Link>
+            <Seen job={job} />
+          </>
+        );
       }
-      return (
-        <>
-          {/* eslint-disable-next-line uniprot-website/use-config-location */}
-          <Link to={jobLink}>Completed</Link>
-          <Seen job={job} />
-        </>
-      );
+      return null;
     }
     default:
-      logging.warn(`Job status not handled: ${job}`);
+      logging.warn(`Job status not handled: ${JSON.stringify(job)}`);
       return null;
   }
 };
@@ -248,16 +279,20 @@ const Actions = ({ job, onDelete }: ActionsProps) => {
       >
         {job.saved ? '★' : '☆'}
       </button>
-      <button
-        type="button"
-        title="resubmit this job"
-        onClick={(event) => {
-          event.stopPropagation();
-          history.push(jobTypeToPath(job.type), { parameters: job.parameters });
-        }}
-      >
-        <ReSubmitIcon />
-      </button>
+      {job.type !== JobTypes.ASYNC_DOWNLOAD && (
+        <button
+          type="button"
+          title="resubmit this job"
+          onClick={(event) => {
+            event.stopPropagation();
+            history.push(jobTypeToPath(job.type), {
+              parameters: job.parameters,
+            });
+          }}
+        >
+          <ReSubmitIcon />
+        </button>
+      )}
       <button
         type="button"
         title="delete this job"
@@ -318,12 +353,22 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
   const dispatch = useToolsDispatch();
   const reducedMotion = useReducedMotion();
 
+  // For async download
+  let jobUrl: string | undefined;
+  // For everything else
   let jobLink: LocationDescriptor<LocationStateFromJobLink> | undefined;
   if ('remoteID' in job && job.status === Status.FINISHED && !hasExpired) {
-    jobLink = {
-      pathname: jobTypeToPath(job.type, job),
-      state: { internalID: job.internalID },
-    };
+    if (job.type === JobTypes.ASYNC_DOWNLOAD) {
+      const urlConfig = asyncDownloadUrlObjectCreator(
+        (job.parameters as FormParameters[JobTypes.ASYNC_DOWNLOAD]).namespace
+      );
+      jobUrl = urlConfig.resultUrl(job.remoteID);
+    } else {
+      jobLink = {
+        pathname: jobTypeToPath(job.type, job),
+        state: { internalID: job.internalID },
+      };
+    }
   }
 
   const handleDelete = () => {
@@ -373,6 +418,25 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
   const noResults =
     'data' in job && job.data && 'hits' in job.data && job.data.hits === 0;
 
+  let jobIdNode;
+  if ('remoteID' in job) {
+    if (!noResults) {
+      if (jobUrl) {
+        // Async download
+        jobIdNode = (
+          <a href={jobUrl} target="_blank" rel="noreferrer">
+            {job.remoteID}
+          </a>
+        );
+      }
+      if (jobLink) {
+        jobIdNode = <Link to={jobLink}>{job.remoteID}</Link>;
+      }
+    } else {
+      jobIdNode = job.remoteID;
+    }
+  }
+
   return (
     <Card
       ref={ref}
@@ -385,7 +449,10 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
         ],
       })}
     >
-      <span className="dashboard__body__type">{job.type}</span>
+      <span className="dashboard__body__type">
+        {job.type}
+        {job.type === JobTypes.ASYNC_DOWNLOAD && <Chip>beta</Chip>}
+      </span>
       <span className="dashboard__body__name">
         <Name id={job.internalID}>{job.title}</Name>
       </span>
@@ -405,19 +472,12 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
         )}
       </span>
       <span className="dashboard__body__status">
-        <NiceStatus job={job} jobLink={jobLink} />
+        <NiceStatus job={job} jobLink={jobLink} jobUrl={jobUrl} />
       </span>
       <span className="dashboard__body__actions">
         <Actions job={job} onDelete={handleDelete} />
       </span>
-      <span className="dashboard__body__id">
-        {'remoteID' in job &&
-          (jobLink && !noResults ? (
-            <Link to={jobLink}>{job.remoteID}</Link>
-          ) : (
-            job.remoteID
-          ))}
-      </span>
+      <span className="dashboard__body__id">{jobIdNode}</span>
     </Card>
   );
 });

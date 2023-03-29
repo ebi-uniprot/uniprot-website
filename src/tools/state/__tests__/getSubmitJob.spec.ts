@@ -60,7 +60,6 @@ describe('submitJob', () => {
           id: createdJob.internalID,
           partialJob: {
             status: Status.FAILURE,
-            timeLastUpdate: Date.now(),
             errorDescription:
               'Could not run job: Request failed with status code 500',
           },
@@ -95,7 +94,6 @@ describe('submitJob', () => {
           id: createdJob.internalID,
           partialJob: {
             status: Status.FAILURE,
-            timeLastUpdate: Date.now(),
             errorDescription:
               "Could not run job: The server didn't return a valid ID",
           },
@@ -147,7 +145,6 @@ describe('submitJob', () => {
           status: Status.QUEUED,
           remoteID: serverUUID,
           timeSubmitted: Date.now(),
-          timeLastUpdate: Date.now(),
         },
       },
       type: UPDATE_JOB,
