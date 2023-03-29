@@ -6,6 +6,10 @@
   & > * {
     /* stack all elements on top of each other */
     grid-area: 1 / 1;
+
+    &:last-child {
+      z-index: 0;
+    }
   }
 
   & img {
