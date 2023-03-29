@@ -12,8 +12,10 @@ export const getBlastFormDataInit = (
 });
 
 export const blastFormDataUpdateReducer = (state, action) => {
-  const { payload } = action;
-  switch (payload.id) {
+  const {
+    payload: { id, value },
+  } = action;
+  switch (id) {
     case BlastFields.stype: {
       const mightBeDNA = state.parsedSequences[0]?.likelyType === 'na';
       const selected = mightBeDNA ? 'dna' : 'protein';
@@ -31,8 +33,7 @@ export const blastFormDataUpdateReducer = (state, action) => {
     case BlastFields.program: {
       const mightBeDNA = state.parsedSequences[0]?.likelyType === 'na';
       // If value explicitly provided use this otherwise we want protein by default
-      const selected =
-        payload.value.selected || (mightBeDNA ? 'blastx' : 'blastp');
+      const selected = value?.selected || (mightBeDNA ? 'blastx' : 'blastp');
       if (state[BlastFields.program].selected === selected) {
         // avoid unecessary rerender by keeping the same object
         return state;
@@ -46,9 +47,16 @@ export const blastFormDataUpdateReducer = (state, action) => {
       };
     }
     case 'parsedSequences':
-      return { ...state, parsedSequences: payload.value };
-    default:
-      return state;
+      return { ...state, parsedSequences: value };
+    default: {
+      return {
+        ...state,
+        [id]: {
+          ...state[id],
+          selected: value.selected,
+        },
+      };
+    }
   }
 };
 
