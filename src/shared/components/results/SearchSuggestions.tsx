@@ -8,11 +8,18 @@ import useDataApi from '../../hooks/useDataApi';
 import apiUrls from '../../config/apiUrls';
 import listFormat from '../../utils/listFormat';
 import { flatten } from '../../../query-builder/utils/parseAndMatchQuery';
+import {
+  parse,
+  stringify,
+} from '../../../query-builder/utils/queryStringProcessor';
 
 import { Namespace } from '../../types/namespaces';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
-import { SearchTermType } from '../../../query-builder/types/searchTypes';
+import {
+  Clause,
+  SearchTermType,
+} from '../../../query-builder/types/searchTypes';
 import { MatchedField } from '../../types/results';
 
 import helper from '../../styles/helper.module.scss';
@@ -23,6 +30,7 @@ type MatchedFieldsResponse = {
 
 const simpleQuery = /^[a-zA-Z0-9]+$/;
 const finalBrackets = / \[[A-Z]+\]$/;
+const exactMatchSearchTerms = ['gene', 'ec'];
 
 const SearchSuggestions = ({
   query,
@@ -38,16 +46,23 @@ const SearchSuggestions = ({
   const ref = useRef<HTMLElement>(null);
 
   // We try to not have a request if not needed, under these conditions:
-  const shouldSuggest =
-    // Only when there are results
+  const validQueryWithContent = // Only when there are results
     // also serves to delay the requests below to prioritise getting the results
     total &&
     // Only for UniProtKB
     namespace === Namespace.uniprotkb &&
     // Only for queries with content
-    !!query?.length &&
-    // And only simple queries
+    !!query?.length;
+
+  const shouldSuggest =
+    validQueryWithContent &&
+    // And for simple queries
     simpleQuery.test(query);
+
+  // For exact match query. Example: gene -> gene_exact, ec -> ec_exact
+  const exactMatch =
+    validQueryWithContent &&
+    exactMatchSearchTerms.some((term) => query.includes(term));
 
   const { data } = useDataApi<MatchedFieldsResponse>(
     shouldSuggest
@@ -66,31 +81,56 @@ const SearchSuggestions = ({
       : undefined
   );
 
-  const searchTerms = useMemo(() => {
-    if (!searchTermsData || !data?.matchedFields?.length) {
-      return null;
-    }
-    const flattenedTerms = flatten(searchTermsData);
+  const parsedQuery = parse(query);
+  let modifiedClauses: Clause[] = [];
+  let searchValue = '';
+  if (exactMatch) {
+    modifiedClauses = parsedQuery.map((clause) => {
+      if (exactMatchSearchTerms.includes(clause.searchTerm.term)) {
+        const queryBit = clause.queryBits;
+        const modifiedQueryBit: Record<string, string> = {};
+        Object.entries(queryBit).forEach(([k, v]) => {
+          modifiedQueryBit[`${k}_exact`] = v;
+          searchValue = v;
+        });
+        clause.queryBits = modifiedQueryBit;
+        return clause;
+      }
+      return clause;
+    });
+  }
 
-    return (
-      data.matchedFields
-        .map((matchField) => {
-          const term = flattenedTerms.find(
-            ({ term }) => term === matchField.name
-          );
-          return {
-            ...matchField,
-            label:
-              (term?.label || term?.parent?.label)?.replace(
-                finalBrackets,
-                ''
-              ) || matchField.name,
-          };
-        })
-        // Sort by number of hits, from more to less
-        .sort((a, b) => b.hits - a.hits)
-    );
-  }, [data, searchTermsData]);
+  const searchTerms = useMemo(() => {
+    if (exactMatch && searchValue) {
+      return [{ name: searchValue, label: searchValue }];
+    }
+
+    if (simpleQuery) {
+      if (!searchTermsData || !data?.matchedFields?.length) {
+        return null;
+      }
+
+      const flattenedTerms = flatten(searchTermsData);
+      return (
+        data.matchedFields
+          .map((matchField) => {
+            const term = flattenedTerms.find(
+              ({ term }) => term === matchField.name
+            );
+            return {
+              ...matchField,
+              label:
+                (term?.label || term?.parent?.label)?.replace(
+                  finalBrackets,
+                  ''
+                ) || matchField.name,
+            };
+          })
+          // Sort by number of hits, from more to less
+          .sort((a, b) => b.hits - a.hits)
+      );
+    }
+  }, [data, searchTermsData, searchValue]);
 
   /* Use useLayoutEffect and useState to display the elements, calculate their
   size and wrapping, and update (through react renders) iteratively in order to
@@ -152,10 +192,28 @@ const SearchSuggestions = ({
     <span ref={ref}>
       <small>
         {' '}
-        or search &quot;{query}&quot; as a {visibleFragments}
-        {hiddenFragments.length ? (
-          <EllipsisReveal>{hiddenFragments}</EllipsisReveal>
-        ) : null}
+        {shouldSuggest && (
+          <>
+            or search &quot;{query}&quot; as a {visibleFragments}
+            {hiddenFragments.length ? (
+              <EllipsisReveal>{hiddenFragments}</EllipsisReveal>
+            ) : null}
+          </>
+        )}
+        {exactMatch && modifiedClauses.length > 0 && (
+          <>
+            or show only exact matches for{' '}
+            <Link
+              // eslint-disable-next-line uniprot-website/use-config-location
+              to={(location) => ({
+                ...location,
+                search: `query=${stringify(modifiedClauses)}`,
+              })}
+            >
+              {searchValue}
+            </Link>
+          </>
+        )}
       </small>
     </span>
   );
