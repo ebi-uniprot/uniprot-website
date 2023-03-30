@@ -75,11 +75,7 @@ import { SelectedTaxon } from '../../types/toolsFormData';
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 
-const BLAST_LIMIT = 20;
-const isInvalid = (parsedSequences: SequenceObject[]) =>
-  !parsedSequences.length ||
-  parsedSequences.length > BLAST_LIMIT ||
-  parsedSequences.some((parsedSequence) => !parsedSequence.valid);
+export const BLAST_LIMIT = 20;
 
 const title = namespaceAndToolsLabels[JobTypes.BLAST];
 
@@ -156,15 +152,6 @@ const BlastForm = ({ initialFormValues }: Props) => {
     getBlastFormDataInit(defaultFormValues)
   );
 
-  // used when the form submission needs to be disabled
-  const [submitDisabled, setSubmitDisabled] = useState(() =>
-    // default sequence value will tell us if submit should be disabled or not
-    isInvalid(
-      sequenceProcessor(
-        `${initialFormValues[BlastFields.sequence].selected || ''}`
-      )
-    )
-  );
   // used when the form is about to be submitted to the server
   const [sending, setSending] = useState(false);
   // flag to see if a title has been set (either user, or predefined)
@@ -268,7 +255,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
       return;
     }
 
-    setSubmitDisabled(true);
+    dispatch(updateFormState('submitDisabled', true));
     setSending(true);
 
     // here we should just transform input values into FormParameters,
@@ -359,7 +346,6 @@ const BlastForm = ({ initialFormValues }: Props) => {
       }
       dispatch(updateFormState('parsedSequences', parsedSequences));
       dispatch(updateFormState(BlastFields.sequence, rawSequence));
-      setSubmitDisabled(isInvalid(parsedSequences));
     },
     [jobNameEdited, state]
   );
@@ -529,7 +515,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
               <button
                 className="button primary"
                 type="submit"
-                disabled={submitDisabled}
+                disabled={state.submitDisabled}
                 onClick={submitBlastJob}
               >
                 {state.parsedSequences.length <= 1
