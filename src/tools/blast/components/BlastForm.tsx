@@ -360,7 +360,6 @@ const BlastForm = ({ initialFormValues }: Props) => {
       dispatch(updateFormState('parsedSequences', parsedSequences));
       dispatch(updateFormState(BlastFields.sequence, rawSequence));
       setSubmitDisabled(isInvalid(parsedSequences));
-      dispatch(updateFormState(BlastFields.program));
     },
     [jobNameEdited, state]
   );
