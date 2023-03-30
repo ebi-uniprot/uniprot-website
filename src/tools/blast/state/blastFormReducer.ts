@@ -1,4 +1,5 @@
 import { sequenceProcessor } from 'franklin-sites';
+import { getAutoMatrixFor } from '../components/BlastForm';
 
 import { BlastFormValues, BlastFields } from '../config/BlastFormData';
 
@@ -30,6 +31,9 @@ export const blastFormDataUpdateReducer = (state, action) => {
         },
       };
     }
+    // case BlastFields.matrix: {
+
+    // }
     case BlastFields.program: {
       const mightBeDNA = state.parsedSequences[0]?.likelyType === 'na';
       // If value explicitly provided use this otherwise we want protein by default
@@ -46,8 +50,23 @@ export const blastFormDataUpdateReducer = (state, action) => {
         },
       };
     }
-    case 'parsedSequences':
-      return { ...state, parsedSequences: value };
+    case 'parsedSequences': {
+      // set the "Auto" matrix to the have the correct label depending on sequence
+      const autoMatrix = getAutoMatrixFor(value[0]?.sequence);
+      return {
+        ...state,
+        parsedSequences: value,
+        [BlastFields.matrix]: {
+          ...state[BlastFields.matrix],
+          values: [
+            { label: `Auto - ${autoMatrix}`, value: 'auto' },
+            ...state[BlastFields.matrix].values.filter(
+              (option) => option.value !== 'auto'
+            ),
+          ],
+        },
+      };
+    }
     default: {
       return {
         ...state,

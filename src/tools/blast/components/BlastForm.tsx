@@ -1,7 +1,6 @@
 import {
   FC,
   useState,
-  useEffect,
   useCallback,
   FormEvent,
   MouseEvent,
@@ -42,7 +41,7 @@ import { useMessagesDispatch } from '../../../shared/contexts/Messages';
 
 import { truncateTaxonLabel } from '../../utils';
 import { createJob } from '../../state/toolsActions';
-import { updateValue } from '../state/blastFormActions';
+import { updateFormState } from '../state/blastFormActions';
 
 import { JobTypes } from '../../types/toolsJobTypes';
 import { FormParameters } from '../types/blastFormParameters';
@@ -85,7 +84,9 @@ const isInvalid = (parsedSequences: SequenceObject[]) =>
 const title = namespaceAndToolsLabels[JobTypes.BLAST];
 
 // https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3848038/
-const getAutoMatrixFor = (sequence?: string): FormParameters['matrix'] => {
+export const getAutoMatrixFor = (
+  sequence?: string
+): FormParameters['matrix'] => {
   if (!sequence?.length) {
     return 'BLOSUM62';
   }
@@ -190,9 +191,6 @@ const BlastForm = ({ initialFormValues }: Props) => {
       BlastFields.threshold
     ] as BlastFormValues[BlastFields.threshold]
   );
-  const [matrix, setMatrix] = useState(
-    initialFormValues[BlastFields.matrix] as BlastFormValues[BlastFields.matrix]
-  );
   const [filter, setFilter] = useState(
     initialFormValues[BlastFields.filter] as BlastFormValues[BlastFields.filter]
   );
@@ -205,6 +203,8 @@ const BlastForm = ({ initialFormValues }: Props) => {
   const [hsps, setHsps] = useState(
     initialFormValues[BlastFields.hsps] as BlastFormValues[BlastFields.hsps]
   );
+
+  console.log(state);
 
   // extra job-related fields
   const [jobName, setJobName] = useState(
@@ -226,16 +226,15 @@ const BlastForm = ({ initialFormValues }: Props) => {
     }
 
     const label = truncateTaxonLabel(path);
-    dispatch(updateValue(BlastFields.taxons, [{ id, label }, ...selected]));
+    dispatch(updateFormState(BlastFields.taxons, [{ id, label }, ...selected]));
   };
 
   const removeTaxonFormValue = (id: string | number) => {
     const selected = state[BlastFields.taxons].selected as SelectedTaxon[];
     dispatch(
-      updateValue(
-        BlastFields.taxons,
-        selected.filter((taxon: SelectedTaxon) => taxon.id !== id)
-      )
+      updateFormState(BlastFields.taxons, {
+        selected: selected.filter((taxon: SelectedTaxon) => taxon.id !== id),
+      })
     );
   };
 
@@ -248,7 +247,6 @@ const BlastForm = ({ initialFormValues }: Props) => {
     setDatabase(defaultFormValues[BlastFields.database]);
     setNegativeTaxIDs(defaultFormValues[BlastFields.excludedtaxons]);
     setThreshold(defaultFormValues[BlastFields.threshold]);
-    setMatrix(defaultFormValues[BlastFields.matrix]);
     setFilter(defaultFormValues[BlastFields.filter]);
     setGapped(defaultFormValues[BlastFields.gapped]);
     setHits(defaultFormValues[BlastFields.hits]);
@@ -290,9 +288,9 @@ const BlastForm = ({ initialFormValues }: Props) => {
       threshold: threshold.selected as Exp,
       // remove "auto", and transform into corresponding matrix
       matrix:
-        matrix.selected === 'auto'
+        state[BlastFields.matrix].selected === 'auto'
           ? getAutoMatrixFor(state.parsedSequences[0]?.sequence)
-          : (matrix.selected as Matrix),
+          : (state[BlastFields.matrix].selected as Matrix),
       filter: filter.selected as Filter,
       gapped: gapped.selected as GapAlign,
       // transform string into number
@@ -338,18 +336,6 @@ const BlastForm = ({ initialFormValues }: Props) => {
   };
 
   // effects
-  // set the "Auto" matrix to the have the correct label depending on sequence
-  useEffect(() => {
-    const autoMatrix = getAutoMatrixFor(state.parsedSequences[0]?.sequence);
-    setMatrix((matrix) => ({
-      ...matrix,
-      values: [
-        { label: `Auto - ${autoMatrix}`, value: 'auto' },
-        ...(matrix.values || []).filter((option) => option.value !== 'auto'),
-      ],
-    }));
-  }, [state.parsedSequences]);
-
   const onSequenceChange = useCallback(
     (parsedSequences: SequenceObject[]) => {
       const rawSequence = parsedSequences
@@ -371,12 +357,12 @@ const BlastForm = ({ initialFormValues }: Props) => {
           return { ...jobName, selected: potentialJobName };
         });
       }
-      dispatch(updateValue('parsedSequences', parsedSequences));
-      dispatch(updateValue(BlastFields.sequence, rawSequence));
+      dispatch(updateFormState('parsedSequences', parsedSequences));
+      dispatch(updateFormState(BlastFields.sequence, rawSequence));
       setSubmitDisabled(isInvalid(parsedSequences));
-      dispatch(updateValue(BlastFields.program));
+      dispatch(updateFormState(BlastFields.program));
     },
-    [jobNameEdited, state[BlastFields.sequence]?.selected]
+    [jobNameEdited, state]
   );
 
   // file handling
@@ -524,7 +510,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
                   key={(state[stateItem] as BlastFormValue).fieldName}
                   formValue={state[stateItem] as BlastFormValue}
                   updateFormValue={(value) =>
-                    dispatch(updateValue(stateItem, value))
+                    dispatch(updateFormState(stateItem, value))
                   }
                 />
               ))}
