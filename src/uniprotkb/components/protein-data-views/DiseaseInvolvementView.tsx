@@ -123,6 +123,10 @@ export const DiseaseInvolvementEntry = ({
   const databaseInfoMaps = useDatabaseInfoMaps();
   const { disease, note } = comment;
 
+  if (!disease && !note) {
+    return null;
+  }
+
   const diseaseRE =
     disease?.acronym && new RegExp(` ${disease.acronym}(;|,| |$)`);
 
@@ -141,10 +145,6 @@ export const DiseaseInvolvementEntry = ({
         return diseaseRE.test(diseasePart);
       })
       .sort(sortByLocation);
-
-  if (!disease && !note) {
-    return null;
-  }
 
   const infoData = [];
 

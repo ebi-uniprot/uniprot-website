@@ -141,7 +141,7 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
               </a>
             </td>
             <td>
-              in AD
+              in AD; supposed to be rendered with the disease
             </td>
           </tr>
           <tr>
@@ -164,7 +164,7 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
               </a>
             </td>
             <td>
-              in AD; observed
+              in AD
             </td>
           </tr>
         </tbody>

@@ -5,7 +5,7 @@ import DiseaseInvolvement from '../DiseaseInvolvementView';
 import diseaseInvolvementUIData from './__mocks__/diseaseInvolvementUIData';
 
 describe('DiseaseInvolvement', () => {
-  test('should render DiseaseInvolvement', () => {
+  it('should render DiseaseInvolvement', () => {
     const { asFragment } = customRender(
       <DiseaseInvolvement
         comments={diseaseInvolvementUIData.comments}
@@ -15,5 +15,17 @@ describe('DiseaseInvolvement', () => {
       />
     );
     expect(asFragment()).toMatchSnapshot();
+  });
+
+  it('should not render DiseaseInvolvement when no disease data', () => {
+    const { container } = customRender(
+      <DiseaseInvolvement
+        comments={[]}
+        features={diseaseInvolvementUIData.features}
+        primaryAccession="P05067"
+        includeTitle
+      />
+    );
+    expect(container).toBeEmptyDOMElement();
   });
 });
