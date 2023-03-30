@@ -27,6 +27,7 @@ export const getBlastFormDataInit = (
       `${defaultFormValues[BlastFields.sequence].selected || ''}`
     )
   ),
+  // used when the form is about to be submitted to the server
   sending: false,
 });
 
@@ -53,32 +54,43 @@ export const blastFormDataUpdateReducer = (state, action) => {
       // Set Submit Disabled according to sequence
       const submitDisabled = isInvalid(parsedSequences);
 
-      // Set the "Auto" matrix according to sequence
-      const autoMatrix = getAutoMatrixFor(parsedSequences[0]?.sequence);
-      const matrix = {
-        ...state[BlastFields.matrix],
-        values: [
-          { label: `Auto - ${autoMatrix}`, value: 'auto' },
-          ...state[BlastFields.matrix].values.filter(
-            (option) => option.value !== 'auto'
-          ),
-        ],
-      };
+      // Set the "Auto" matrix according to sequence if user didn't already set
+      const matrix = state[BlastFields.matrix].userSelected
+        ? state[BlastFields.matrix]
+        : {
+            ...state[BlastFields.matrix],
+            values: [
+              {
+                label: `Auto - ${getAutoMatrixFor(
+                  parsedSequences[0]?.sequence
+                )}`,
+                value: 'auto',
+              },
+              ...state[BlastFields.matrix].values.filter(
+                (option) => option.value !== 'auto'
+              ),
+            ],
+          };
 
-      // Set Program according to sequence
       const mightBeDNA = parsedSequences[0]?.likelyType === 'na';
-      const program = {
-        ...state[BlastFields.program],
-        selected: mightBeDNA ? 'blastx' : 'blastp',
-      };
 
-      // Set Sequence Type according to sequence
-      const stype = {
-        ...state[BlastFields.stype],
-        selected: mightBeDNA ? 'dna' : 'protein',
-      };
+      // Set Program according to sequence, if user didn't already set
+      const program = state[BlastFields.program].userSelected
+        ? state[BlastFields.program]
+        : {
+            ...state[BlastFields.program],
+            selected: mightBeDNA ? 'blastx' : 'blastp',
+          };
 
-      // Set Job Name if the user didn't manually set this
+      // Set Sequence Type according to sequence, if user didn't already set
+      const stype = state[BlastFields.stype].userSelected
+        ? state[BlastFields.stype]
+        : {
+            ...state[BlastFields.stype],
+            selected: mightBeDNA ? 'dna' : 'protein',
+          };
+
+      // Set Job Name, if user didn't already set
       const name =
         state[BlastFields.name].userSelected && state[BlastFields.name].selected
           ? state[BlastFields.name]
@@ -86,6 +98,7 @@ export const blastFormDataUpdateReducer = (state, action) => {
               ...state[BlastFields.name],
               selected: parsedSequences[0]?.name || '',
             };
+
       return {
         ...state,
         parsedSequences,
@@ -98,7 +111,6 @@ export const blastFormDataUpdateReducer = (state, action) => {
       };
     }
     case 'sending':
-      // used when the form is about to be submitted to the server
       return {
         ...state,
         submitDisabled: true,
