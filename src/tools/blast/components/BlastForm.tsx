@@ -165,11 +165,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
     state[BlastFields.database].selected
   );
   // TODO: to eventually incorporate negativeTaxIDs into the form
-  const [threshold, setThreshold] = useState(
-    initialFormValues[
-      BlastFields.threshold
-    ] as BlastFormValues[BlastFields.threshold]
-  );
+
   const [filter, setFilter] = useState(
     initialFormValues[BlastFields.filter] as BlastFormValues[BlastFields.filter]
   );
@@ -223,7 +219,6 @@ const BlastForm = ({ initialFormValues }: Props) => {
 
     // reset all form state to defaults
     dispatch({ type: 'reset' });
-    setThreshold(defaultFormValues[BlastFields.threshold]);
     setFilter(defaultFormValues[BlastFields.filter]);
     setGapped(defaultFormValues[BlastFields.gapped]);
     setHits(defaultFormValues[BlastFields.hits]);
@@ -262,7 +257,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
       negativeTaxIDs: excludeTaxonField
         ? []
         : (state[BlastFields.excludedtaxons].selected as SelectedTaxon[]),
-      threshold: threshold.selected as Exp,
+      threshold: state[BlastFields.threshold].selected as Exp,
       // remove "auto", and transform into corresponding matrix
       matrix:
         state[BlastFields.matrix].selected === 'auto'
