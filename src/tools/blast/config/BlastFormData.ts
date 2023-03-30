@@ -11,6 +11,7 @@ export type BlastFormValue = {
   values?: Readonly<
     Array<{ label?: string; value?: string | boolean | number }>
   >;
+  userSelected?: boolean;
 };
 
 export enum BlastFields {

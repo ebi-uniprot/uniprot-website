@@ -1,7 +1,6 @@
 import {
   FC,
   useState,
-  useCallback,
   FormEvent,
   MouseEvent,
   useRef,
@@ -19,7 +18,6 @@ import {
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
 import cn from 'classnames';
-import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
 
 import HTMLHead from '../../../shared/components/HTMLHead';
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
@@ -148,17 +146,12 @@ const BlastForm = ({ initialFormValues }: Props) => {
   const reducedMotion = useReducedMotion();
 
   const [state, dispatch] = useReducer(
-    getBlastFormDataReducer(getBlastFormDataInit(defaultFormValues)),
-    getBlastFormDataInit(defaultFormValues)
+    getBlastFormDataReducer(getBlastFormDataInit(initialFormValues)),
+    getBlastFormDataInit(initialFormValues)
   );
 
   // used when the form is about to be submitted to the server
   const [sending, setSending] = useState(false);
-  // flag to see if a title has been set (either user, or predefined)
-  const [jobNameEdited, setJobNameEdited] = useState(
-    // default to true if it's been set through the history state
-    Boolean(initialFormValues[BlastFields.name].selected)
-  );
 
   // actual form fields
   const excludeTaxonField = excludeTaxonForDB(
@@ -168,11 +161,6 @@ const BlastForm = ({ initialFormValues }: Props) => {
   // TODO: to eventually incorporate negativeTaxIDs into the form
 
   console.log(state);
-
-  // extra job-related fields
-  const [jobName, setJobName] = useState(
-    initialFormValues[BlastFields.name] as BlastFormValues[BlastFields.name]
-  );
 
   // taxon field handlers
   const updateTaxonFormValue = (path: string, id?: string) => {
@@ -195,9 +183,10 @@ const BlastForm = ({ initialFormValues }: Props) => {
   const removeTaxonFormValue = (id: string | number) => {
     const selected = state[BlastFields.taxons].selected as SelectedTaxon[];
     dispatch(
-      updateFormState(BlastFields.taxons, {
-        selected: selected.filter((taxon: SelectedTaxon) => taxon.id !== id),
-      })
+      updateFormState(
+        BlastFields.taxons,
+        selected.filter((taxon: SelectedTaxon) => taxon.id !== id)
+      )
     );
   };
 
@@ -207,8 +196,6 @@ const BlastForm = ({ initialFormValues }: Props) => {
 
     // reset all form state to defaults
     dispatch({ type: 'reset' });
-
-    setJobName(defaultFormValues[BlastFields.name]);
 
     // imperatively reset SequenceSearchLoader... 😷
     // eslint-disable-next-line no-unused-expressions
@@ -272,13 +259,13 @@ const BlastForm = ({ initialFormValues }: Props) => {
       for (let i = 0; i < state.parsedSequences.length; i += 1) {
         // take extracted name by default
         let { name = '' } = state.parsedSequences[i];
-        if (jobNameEdited) {
+        if (state[BlastFields.name].userSelected) {
           // if one was submitted by user, and we only have one sequence, use it
           if (state.parsedSequences.length === 1) {
-            name = jobName.selected as string;
+            name = state[BlastFields.name].selected as string;
           } else {
             // if we have more sequences, append a counter
-            name = `${jobName.selected as string} - ${i + 1}`;
+            name = `${state[BlastFields.name].selected as string} - ${i + 1}`;
           }
         }
         dispatchTools(createJob(multipleParameters[i], JobTypes.BLAST, name));
@@ -294,38 +281,11 @@ const BlastForm = ({ initialFormValues }: Props) => {
     });
   };
 
-  // effects
-  const onSequenceChange = useCallback(
-    (parsedSequences: SequenceObject[]) => {
-      const rawSequence = parsedSequences
-        .map((parsedSequence) => parsedSequence.raw)
-        .join('\n');
-
-      if (rawSequence === state[BlastFields.sequence]?.selected) {
-        return;
-      }
-
-      if (!jobNameEdited) {
-        // if the user didn't manually change the title, autofill it
-        setJobName((jobName) => {
-          const potentialJobName = parsedSequences[0]?.name || '';
-          if (jobName.selected === potentialJobName) {
-            // avoid unecessary rerender by keeping the same object
-            return jobName;
-          }
-          return { ...jobName, selected: potentialJobName };
-        });
-      }
-      dispatch(updateFormState('parsedSequences', parsedSequences));
-      dispatch(updateFormState(BlastFields.sequence, rawSequence));
-    },
-    [jobNameEdited, state]
-  );
-
   // file handling
   useTextFileInput({
     inputRef: fileInputRef,
-    onFileContent: (content) => onSequenceChange(sequenceProcessor(content)),
+    onFileContent: (content) =>
+      dispatch(updateFormState('parsedSequences', sequenceProcessor(content))),
     onError: (error) =>
       dispatchMessages(
         addMessage({
@@ -353,7 +313,10 @@ const BlastForm = ({ initialFormValues }: Props) => {
               UniProt ID (e.g. P05067 or A4_HUMAN or UPI0000000001).
             </legend>
             <div className="import-sequence-section">
-              <SequenceSearchLoader ref={sslRef} onLoad={onSequenceChange} />
+              <SequenceSearchLoader
+                ref={sslRef}
+                onLoad={(s) => dispatch(updateFormState('parsedSequences', s))}
+              />
             </div>
           </section>
         </fieldset>
@@ -372,7 +335,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
             </legend>
             <SequenceSubmission
               placeholder="Protein or nucleotide sequence(s) in FASTA format."
-              onChange={onSequenceChange}
+              onChange={(s) => dispatch(updateFormState('parsedSequences', s))}
               value={state.parsedSequences
                 .map((sequence) => sequence.raw)
                 .join('\n')}
@@ -435,19 +398,22 @@ const BlastForm = ({ initialFormValues }: Props) => {
                   autoComplete="off"
                   maxLength={100}
                   style={{
-                    width: `${(jobName.selected as string).length + 2}ch`,
+                    width: `${
+                      (state[BlastFields.name].selected as string).length + 2
+                    }ch`,
                   }}
                   placeholder={'"my job title"'}
-                  value={jobName.selected as string}
+                  value={state[BlastFields.name].selected as string}
                   onFocus={(event) => {
-                    if (!jobNameEdited) {
+                    if (!state[BlastFields.name].userSelected) {
                       event.target.select();
                     }
                   }}
-                  onChange={(event) => {
-                    setJobNameEdited(Boolean(event.target.value));
-                    setJobName({ ...jobName, selected: event.target.value });
-                  }}
+                  onChange={(event) =>
+                    dispatch(
+                      updateFormState(BlastFields.name, event.target.value)
+                    )
+                  }
                   data-hj-allow
                 />
               </label>
@@ -472,7 +438,8 @@ const BlastForm = ({ initialFormValues }: Props) => {
                   key={(state[stateItem] as BlastFormValue).fieldName}
                   formValue={state[stateItem] as BlastFormValue}
                   updateFormValue={(value) =>
-                    dispatch(updateFormState(stateItem, value))
+                    'selected' in value &&
+                    dispatch(updateFormState(stateItem, value.selected))
                   }
                 />
               ))}

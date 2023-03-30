@@ -22,6 +22,11 @@ export const getBlastFormDataInit = (
       `${defaultFormValues[BlastFields.sequence].selected || ''}`
     )
   ),
+  [BlastFields.name]: {
+    ...defaultFormValues[BlastFields.name],
+    // default to true if it's been set through the history state
+    userSelected: Boolean(defaultFormValues[BlastFields.name].selected),
+  },
 });
 
 export const blastFormDataUpdateReducer = (state, action) => {
@@ -31,6 +36,18 @@ export const blastFormDataUpdateReducer = (state, action) => {
   switch (id) {
     case 'parsedSequences': {
       const parsedSequences = value;
+
+      // Only proceed if the raw sequence has changed
+      const rawSequence = parsedSequences
+        .map((parsedSequence) => parsedSequence.raw)
+        .join('\n');
+      if (rawSequence === state[BlastFields.sequence]?.selected) {
+        return state;
+      }
+      const sequence = {
+        ...[BlastFields.sequence],
+        selected: rawSequence,
+      };
 
       // Set Submit Disabled according to sequence
       const submitDisabled = isInvalid(parsedSequences);
@@ -60,12 +77,22 @@ export const blastFormDataUpdateReducer = (state, action) => {
         selected: mightBeDNA ? 'dna' : 'protein',
       };
 
+      // Set Job Name if the user didn't manually set this
+      const name = state[BlastFields.name].userSelected
+        ? state[BlastFields.name]
+        : {
+            ...state[BlastFields.name],
+            selected: parsedSequences[0]?.name || '',
+          };
+      console.log('here');
       return {
         ...state,
         parsedSequences,
         submitDisabled,
         [BlastFields.matrix]: matrix,
+        [BlastFields.name]: name,
         [BlastFields.program]: program,
+        [BlastFields.sequence]: sequence,
         [BlastFields.stype]: stype,
       };
     }
@@ -74,7 +101,8 @@ export const blastFormDataUpdateReducer = (state, action) => {
         ...state,
         [id]: {
           ...state[id],
-          selected: value.selected,
+          selected: value,
+          userSelected: true,
         },
       };
     }
