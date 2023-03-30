@@ -143,9 +143,9 @@ const formData: Readonly<BlastFormValues> = deepFreeze({
   },
   [BlastFields.hsps]: {
     fieldName: 'hsps',
-    selected: undefined,
+    selected: 'All',
     values: [
-      { value: undefined, label: 'All' },
+      { value: 'All' },
       { value: 1 },
       { value: 2 },
       { value: 5 },
