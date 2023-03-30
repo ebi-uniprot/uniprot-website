@@ -74,7 +74,7 @@ export const blastFormDataUpdateReducer = (state, action) => {
         ...state,
         [id]: {
           ...state[id],
-          selected: value,
+          selected: value.selected,
         },
       };
     }

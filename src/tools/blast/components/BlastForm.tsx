@@ -161,12 +161,9 @@ const BlastForm = ({ initialFormValues }: Props) => {
   );
 
   // actual form fields
-  const [database, setDatabase] = useState(
-    initialFormValues[
-      BlastFields.database
-    ] as BlastFormValues[BlastFields.database]
+  const excludeTaxonField = excludeTaxonForDB(
+    state[BlastFields.database].selected
   );
-  const excludeTaxonField = excludeTaxonForDB(database.selected);
   // TODO: to eventually incorporate into the form
   const [negativeTaxIDs, setNegativeTaxIDs] = useState(
     initialFormValues[
@@ -231,7 +228,6 @@ const BlastForm = ({ initialFormValues }: Props) => {
 
     // reset all form state to defaults
     dispatch({ type: 'reset' });
-    setDatabase(defaultFormValues[BlastFields.database]);
     setNegativeTaxIDs(defaultFormValues[BlastFields.excludedtaxons]);
     setThreshold(defaultFormValues[BlastFields.threshold]);
     setFilter(defaultFormValues[BlastFields.filter]);
@@ -265,7 +261,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
       stype: state[BlastFields.stype].selected as SType,
       program: state[BlastFields.program].selected as FormParameters['program'],
       sequence: state[BlastFields.sequence].selected as Sequence,
-      database: database.selected as Database,
+      database: state[BlastFields.database].selected as Database,
       taxIDs: excludeTaxonField
         ? []
         : (state[BlastFields.taxons].selected as SelectedTaxon[]),
@@ -407,7 +403,12 @@ const BlastForm = ({ initialFormValues }: Props) => {
             />
           </section>
           <section className="tools-form-section">
-            <FormSelect formValue={database} updateFormValue={setDatabase} />
+            <FormSelect
+              formValue={state[BlastFields.database]}
+              updateFormValue={(value) =>
+                dispatch(updateFormState(BlastFields.database, value))
+              }
+            />
             <section
               className={cn(
                 'tools-form-section__item',
