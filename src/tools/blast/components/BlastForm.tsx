@@ -167,9 +167,6 @@ const BlastForm = ({ initialFormValues }: Props) => {
 
   // TODO: to eventually incorporate negativeTaxIDs into the form
 
-  const [hits, setHits] = useState(
-    initialFormValues[BlastFields.hits] as BlastFormValues[BlastFields.hits]
-  );
   const [hsps, setHsps] = useState(
     initialFormValues[BlastFields.hsps] as BlastFormValues[BlastFields.hsps]
   );
@@ -214,7 +211,6 @@ const BlastForm = ({ initialFormValues }: Props) => {
 
     // reset all form state to defaults
     dispatch({ type: 'reset' });
-    setHits(defaultFormValues[BlastFields.hits]);
     setHsps(defaultFormValues[BlastFields.hsps]);
 
     setJobName(defaultFormValues[BlastFields.name]);
@@ -259,7 +255,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
       filter: state[BlastFields.filter].selected as Filter,
       gapped: state[BlastFields.gapped].selected as GapAlign,
       // transform string into number
-      hits: parseInt(hits.selected as string, 10) as Scores,
+      hits: parseInt(state[BlastFields.hits].selected as string, 10) as Scores,
       hsps: (parseInt(hsps.selected as string, 10) || undefined) as HSPs,
     };
 
