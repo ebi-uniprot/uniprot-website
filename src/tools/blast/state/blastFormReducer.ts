@@ -13,6 +13,11 @@ export const getBlastFormDataInit = (
   defaultFormValues: Readonly<BlastFormValues>
 ) => ({
   ...defaultFormValues,
+  [BlastFields.name]: {
+    ...defaultFormValues[BlastFields.name],
+    // default to true if it's been set through the history state
+    userSelected: Boolean(defaultFormValues[BlastFields.name].selected),
+  },
   parsedSequences: sequenceProcessor(
     `${defaultFormValues[BlastFields.sequence].selected || ''}`
   ),
@@ -22,11 +27,7 @@ export const getBlastFormDataInit = (
       `${defaultFormValues[BlastFields.sequence].selected || ''}`
     )
   ),
-  [BlastFields.name]: {
-    ...defaultFormValues[BlastFields.name],
-    // default to true if it's been set through the history state
-    userSelected: Boolean(defaultFormValues[BlastFields.name].selected),
-  },
+  sending: false,
 });
 
 export const blastFormDataUpdateReducer = (state, action) => {
@@ -84,7 +85,6 @@ export const blastFormDataUpdateReducer = (state, action) => {
             ...state[BlastFields.name],
             selected: parsedSequences[0]?.name || '',
           };
-      console.log('here');
       return {
         ...state,
         parsedSequences,
@@ -96,6 +96,13 @@ export const blastFormDataUpdateReducer = (state, action) => {
         [BlastFields.stype]: stype,
       };
     }
+    case 'sending':
+      // used when the form is about to be submitted to the server
+      return {
+        ...state,
+        submitDisabled: true,
+        sending: true,
+      };
     default: {
       return {
         ...state,

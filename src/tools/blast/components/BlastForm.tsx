@@ -1,6 +1,5 @@
 import {
   FC,
-  useState,
   FormEvent,
   MouseEvent,
   useRef,
@@ -150,9 +149,6 @@ const BlastForm = ({ initialFormValues }: Props) => {
     getBlastFormDataInit(initialFormValues)
   );
 
-  // used when the form is about to be submitted to the server
-  const [sending, setSending] = useState(false);
-
   // actual form fields
   const excludeTaxonField = excludeTaxonForDB(
     state[BlastFields.database].selected
@@ -211,8 +207,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
       return;
     }
 
-    dispatch(updateFormState('submitDisabled', true));
-    setSending(true);
+    dispatch(updateFormState('sending', true));
 
     // here we should just transform input values into FormParameters,
     // transformation of FormParameters into ServerParameters happens in the
@@ -449,7 +444,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
             className={cn('tools-form-section', sticky['sticky-bottom-right'])}
           >
             <section className="button-group tools-form-section__buttons">
-              {sending && !reducedMotion && (
+              {state.sending && !reducedMotion && (
                 <>
                   <SpinnerIcon />
                   &nbsp;
