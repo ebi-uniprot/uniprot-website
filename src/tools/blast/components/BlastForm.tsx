@@ -164,11 +164,9 @@ const BlastForm = ({ initialFormValues }: Props) => {
   const excludeTaxonField = excludeTaxonForDB(
     state[BlastFields.database].selected
   );
+
   // TODO: to eventually incorporate negativeTaxIDs into the form
 
-  const [gapped, setGapped] = useState(
-    initialFormValues[BlastFields.gapped] as BlastFormValues[BlastFields.gapped]
-  );
   const [hits, setHits] = useState(
     initialFormValues[BlastFields.hits] as BlastFormValues[BlastFields.hits]
   );
@@ -216,7 +214,6 @@ const BlastForm = ({ initialFormValues }: Props) => {
 
     // reset all form state to defaults
     dispatch({ type: 'reset' });
-    setGapped(defaultFormValues[BlastFields.gapped]);
     setHits(defaultFormValues[BlastFields.hits]);
     setHsps(defaultFormValues[BlastFields.hsps]);
 
@@ -260,7 +257,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
           ? getAutoMatrixFor(state.parsedSequences[0]?.sequence)
           : (state[BlastFields.matrix].selected as Matrix),
       filter: state[BlastFields.filter].selected as Filter,
-      gapped: gapped.selected as GapAlign,
+      gapped: state[BlastFields.gapped].selected as GapAlign,
       // transform string into number
       hits: parseInt(hits.selected as string, 10) as Scores,
       hsps: (parseInt(hsps.selected as string, 10) || undefined) as HSPs,
