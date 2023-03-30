@@ -27,7 +27,7 @@ import InitialFormParametersProvider from '../../components/InitialFormParameter
 
 import { addMessage } from '../../../messages/state/messagesActions';
 import {
-  getBlastFormDataInit,
+  getBlastFormDataInitialState,
   getBlastFormDataReducer,
 } from '../state/blastFormReducer';
 
@@ -38,7 +38,7 @@ import { useMessagesDispatch } from '../../../shared/contexts/Messages';
 
 import { truncateTaxonLabel } from '../../utils';
 import { createJob } from '../../state/toolsActions';
-import { updateFormState } from '../state/blastFormActions';
+import { resetFormState, updateFormState } from '../state/blastFormActions';
 
 import { JobTypes } from '../../types/toolsJobTypes';
 import { FormParameters } from '../types/blastFormParameters';
@@ -145,8 +145,8 @@ const BlastForm = ({ initialFormValues }: Props) => {
   const reducedMotion = useReducedMotion();
 
   const [state, dispatch] = useReducer(
-    getBlastFormDataReducer(getBlastFormDataInit(initialFormValues)),
-    getBlastFormDataInit(initialFormValues)
+    getBlastFormDataReducer(getBlastFormDataInitialState(initialFormValues)),
+    getBlastFormDataInitialState(initialFormValues)
   );
 
   // actual form fields
@@ -154,9 +154,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
     state[BlastFields.database].selected
   );
 
-  // TODO: to eventually incorporate negativeTaxIDs into the form
-
-  console.log(state);
+  // TODO: eventually incorporate negativeTaxIDs into the form
 
   // taxon field handlers
   const updateTaxonFormValue = (path: string, id?: string) => {
@@ -191,7 +189,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
     event.preventDefault();
 
     // reset all form state to defaults
-    dispatch({ type: 'reset' });
+    dispatch(resetFormState());
 
     // imperatively reset SequenceSearchLoader... 😷
     // eslint-disable-next-line no-unused-expressions

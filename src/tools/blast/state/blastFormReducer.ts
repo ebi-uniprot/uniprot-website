@@ -1,15 +1,21 @@
 import { sequenceProcessor } from 'franklin-sites';
 import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
+import { ActionType } from 'typesafe-actions';
 import { BLAST_LIMIT, getAutoMatrixFor } from '../components/BlastForm';
+import * as blastFormActions from './blastFormActions';
 
-import { BlastFormValues, BlastFields } from '../config/BlastFormData';
+import {
+  BlastFormValues,
+  BlastFields,
+  BlastFormValue,
+} from '../config/BlastFormData';
 
 const isInvalid = (parsedSequences: SequenceObject[]) =>
   !parsedSequences.length ||
   parsedSequences.length > BLAST_LIMIT ||
   parsedSequences.some((parsedSequence) => !parsedSequence.valid);
 
-export const getBlastFormDataInit = (
+export const getBlastFormDataInitialState = (
   defaultFormValues: Readonly<BlastFormValues>
 ) => ({
   ...defaultFormValues,
@@ -31,13 +37,16 @@ export const getBlastFormDataInit = (
   sending: false,
 });
 
-export const blastFormDataUpdateReducer = (state, action) => {
+export const blastFormDataUpdateReducer = (
+  state: BlastFormState,
+  action: ActionType<typeof blastFormActions.updateFormState>
+) => {
   const {
     payload: { id, value },
   } = action;
   switch (id) {
     case 'parsedSequences': {
-      const parsedSequences = value;
+      const parsedSequences = value as SequenceObject[];
 
       // Only proceed if the raw sequence has changed
       const rawSequence = parsedSequences
@@ -55,6 +64,7 @@ export const blastFormDataUpdateReducer = (state, action) => {
       const submitDisabled = isInvalid(parsedSequences);
 
       // Set the "Auto" matrix according to sequence if user didn't already set
+      // TODO: still update values even if user selected
       const matrix = state[BlastFields.matrix].userSelected
         ? state[BlastFields.matrix]
         : {
@@ -66,7 +76,7 @@ export const blastFormDataUpdateReducer = (state, action) => {
                 )}`,
                 value: 'auto',
               },
-              ...state[BlastFields.matrix].values.filter(
+              ...(state[BlastFields.matrix].values || []).filter(
                 (option) => option.value !== 'auto'
               ),
             ],
@@ -117,10 +127,14 @@ export const blastFormDataUpdateReducer = (state, action) => {
         sending: true,
       };
     default: {
+      if (typeof state[id] !== 'object') {
+        throw new Error('Should only be instance of BlastFormValue');
+      }
+      const blastFormValue = state[id] as BlastFormValue;
       return {
         ...state,
         [id]: {
-          ...state[id],
+          ...blastFormValue,
           selected: value,
           userSelected: true,
         },
@@ -129,13 +143,24 @@ export const blastFormDataUpdateReducer = (state, action) => {
   }
 };
 
+type BlastFormState = ReturnType<typeof getBlastFormDataInitialState>;
+
+export type BlastFormActionPayloadId =
+  | BlastFields
+  | 'parsedSequences'
+  | 'submitDisabled'
+  | 'sending';
+
+export type BlastFormAction = ActionType<typeof blastFormActions>;
+
 export const getBlastFormDataReducer =
-  (defaultFormValues: Readonly<BlastFormValues>) => (state, action) => {
+  (defaultFormValues: Readonly<BlastFormValues>) =>
+  (state: BlastFormState, action: BlastFormAction): BlastFormState => {
     switch (action.type) {
-      case 'update':
+      case blastFormActions.UPDATE:
         return blastFormDataUpdateReducer(state, action);
-      case 'reset':
-        return defaultFormValues;
+      case blastFormActions.RESET:
+        return getBlastFormDataInitialState(defaultFormValues);
       default:
         return state;
     }
