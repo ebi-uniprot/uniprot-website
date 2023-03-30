@@ -141,19 +141,7 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
               </a>
             </td>
             <td>
-              in 
-              <a
-                class="external-link"
-                href="https://www.ncbi.nlm.nih.gov/snp/rs13447459"
-                rel="noopener"
-                target="_blank"
-              >
-                dbSNP:rs13447459
-                <test-file-stub
-                  data-testid="external-link-icon"
-                  width="12.5"
-                />
-              </a>
+              in AD
             </td>
           </tr>
           <tr>
@@ -176,19 +164,7 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
               </a>
             </td>
             <td>
-              in 
-              <a
-                class="external-link"
-                href="https://www.ncbi.nlm.nih.gov/snp/rs13447492"
-                rel="noopener"
-                target="_blank"
-              >
-                dbSNP:rs13447492
-                <test-file-stub
-                  data-testid="external-link-icon"
-                  width="12.5"
-                />
-              </a>
+              in AD; observed
             </td>
           </tr>
         </tbody>

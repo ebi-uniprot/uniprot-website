@@ -344,6 +344,21 @@ exports[`Entry basic should render main 1`] = `
           <div
             aria-controls="0"
             class="tabs__header__item"
+            data-target="variants-viewer"
+            data-testid="tab-title"
+            role="tab"
+          >
+            <a
+              class="disabled"
+              href="/uniprotkb/P21802/variants-viewer"
+              tabindex="-1"
+            >
+              Variants viewer
+            </a>
+          </div>
+          <div
+            aria-controls="0"
+            class="tabs__header__item"
             data-target="feature-viewer"
             data-testid="tab-title"
             role="tab"

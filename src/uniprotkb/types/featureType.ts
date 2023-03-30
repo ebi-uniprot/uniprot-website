@@ -7,7 +7,7 @@ export type SequenceFeatures =
   | 'Non-terminal residue'
   | 'Alternative sequence';
 
-export type DiseaseAndDrugsFeatures = 'Mutagenesis';
+export type DiseaseAndDrugsFeatures = 'Mutagenesis' | 'Natural variant';
 
 export type FunctionFeatures =
   | 'DNA binding'
@@ -44,10 +44,7 @@ export type FamilyAndDomainsFeatures =
   | 'Zinc finger'
   | 'Coiled coil';
 
-type OtherType =
-  | 'Natural variant'
-  | 'Modified residue (large scale data)'
-  | 'Other'; // For anything else
+type OtherType = 'Modified residue (large scale data)' | 'Other'; // For anything else
 
 type FeatureType =
   | OtherType

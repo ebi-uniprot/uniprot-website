@@ -2,10 +2,10 @@
 
 exports[`VariationView component renders on data 1`] = `
 <DocumentFragment>
-  <div>
-    <h3>
+  <section>
+    <h2>
       some title
-    </h3>
+    </h2>
     <div
       class="datatable-with-toggle"
     >
@@ -275,7 +275,7 @@ exports[`VariationView component renders on data 1`] = `
         Expand table
       </button>
     </div>
-  </div>
+  </section>
 </DocumentFragment>
 `;
 
@@ -305,12 +305,15 @@ exports[`VariationView component renders on loading 1`] = `
 
 exports[`VariationView component renders on no data 1`] = `
 <DocumentFragment>
-  <div>
+  <section
+    class="wider-tab-content"
+    style="margin-inline-end: 1.2rem;"
+  >
     <div
       class="no-data"
     >
       No variation information available for P05067
     </div>
-  </div>
+  </section>
 </DocumentFragment>
 `;

@@ -12,7 +12,10 @@ const keywordsCategories: KeywordCategory[] = ['Disease'];
 
 export const diseaseAndDrugsFeaturesToColumns: Readonly<
   Record<DiseaseAndDrugsFeatures, UniProtKBColumn>
-> = { Mutagenesis: UniProtKBColumn.ftMutagen };
+> = {
+  Mutagenesis: UniProtKBColumn.ftMutagen,
+  'Natural variant': UniProtKBColumn.ftVariant,
+};
 
 const featuresCategories = Object.keys(
   diseaseAndDrugsFeaturesToColumns

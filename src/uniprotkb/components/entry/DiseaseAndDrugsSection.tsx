@@ -55,6 +55,7 @@ const DiseaseAndDrugsSection = ({
         comments={
           data.commentsData.get('DISEASE') as DiseaseComment[] | undefined
         }
+        features={data.featuresData}
         primaryAccession={primaryAccession}
         includeTitle
       />

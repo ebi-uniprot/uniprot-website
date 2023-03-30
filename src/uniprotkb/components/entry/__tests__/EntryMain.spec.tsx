@@ -17,10 +17,6 @@ jest.mock('../similar-proteins/SimilarProteinsSection', () => ({
   __esModule: true,
   default: () => '{{ SimilarProteinsSection }}',
 }));
-jest.mock('../../protein-data-views/VariationView', () => ({
-  __esModule: true,
-  default: () => '{{ VariationView }}',
-}));
 jest.mock('../ProteinProcessingSection', () => ({
   __esModule: true,
   default: () => '{{ ProteinProcessingSection }}',
@@ -38,6 +34,7 @@ describe('Entry view', () => {
     const { asFragment } = customRender(
       <EntryMain
         transformedData={uniProtKbConverter(mockData, databaseInfoMaps)}
+        hasImportedVariants={false}
       />,
       { route: `/uniprotkb/P05067/entry` }
     );
@@ -53,6 +50,7 @@ describe('Entry view', () => {
           nonHumanEntryData,
           databaseInfoMaps
         )}
+        hasImportedVariants={false}
       />,
       { route: `/uniprotkb/P05067/entry` }
     );
