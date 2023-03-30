@@ -79,12 +79,13 @@ export const blastFormDataUpdateReducer = (state, action) => {
       };
 
       // Set Job Name if the user didn't manually set this
-      const name = state[BlastFields.name].userSelected
-        ? state[BlastFields.name]
-        : {
-            ...state[BlastFields.name],
-            selected: parsedSequences[0]?.name || '',
-          };
+      const name =
+        state[BlastFields.name].userSelected && state[BlastFields.name].selected
+          ? state[BlastFields.name]
+          : {
+              ...state[BlastFields.name],
+              selected: parsedSequences[0]?.name || '',
+            };
       return {
         ...state,
         parsedSequences,
