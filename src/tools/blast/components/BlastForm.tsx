@@ -1,12 +1,4 @@
-import {
-  FC,
-  FormEvent,
-  MouseEvent,
-  useRef,
-  Dispatch,
-  SetStateAction,
-  useReducer,
-} from 'react';
+import { FC, FormEvent, MouseEvent, useRef, useReducer } from 'react';
 import {
   Chip,
   SequenceSubmission,
@@ -27,7 +19,7 @@ import InitialFormParametersProvider from '../../components/InitialFormParameter
 
 import { addMessage } from '../../../messages/state/messagesActions';
 import {
-  getBlastFormDataInitialState,
+  getBlastFormInitialState,
   getBlastFormDataReducer,
 } from '../state/blastFormReducer';
 
@@ -38,7 +30,12 @@ import { useMessagesDispatch } from '../../../shared/contexts/Messages';
 
 import { truncateTaxonLabel } from '../../utils';
 import { createJob } from '../../state/toolsActions';
-import { resetFormState, updateFormState } from '../state/blastFormActions';
+import {
+  resetFormState,
+  updateParsedSequences,
+  updateSelected,
+  updateSending,
+} from '../state/blastFormActions';
 
 import { JobTypes } from '../../types/toolsJobTypes';
 import { FormParameters } from '../types/blastFormParameters';
@@ -97,7 +94,7 @@ export const getAutoMatrixFor = (
 
 const FormSelect: FC<{
   formValue: BlastFormValue;
-  updateFormValue: Dispatch<SetStateAction<BlastFormValue>>;
+  updateFormValue: (selected: BlastFormValue['selected']) => void;
 }> = ({ formValue, updateFormValue }) => {
   if (!formValue) {
     return null;
@@ -109,9 +106,7 @@ const FormSelect: FC<{
         {label}
         <select
           value={formValue.selected as string}
-          onChange={(e) =>
-            updateFormValue({ ...formValue, selected: e.target.value })
-          }
+          onChange={(e) => updateFormValue(e.target.value)}
         >
           {formValue.values &&
             formValue.values.map((optionItem) => (
@@ -144,14 +139,15 @@ const BlastForm = ({ initialFormValues }: Props) => {
   const history = useHistory();
   const reducedMotion = useReducedMotion();
 
-  const [state, dispatch] = useReducer(
-    getBlastFormDataReducer(getBlastFormDataInitialState(initialFormValues)),
-    getBlastFormDataInitialState(initialFormValues)
-  );
+  const [{ parsedSequences, formValues, sending, submitDisabled }, dispatch] =
+    useReducer(
+      getBlastFormDataReducer(initialFormValues),
+      getBlastFormInitialState(initialFormValues)
+    );
 
   // actual form fields
   const excludeTaxonField = excludeTaxonForDB(
-    state[BlastFields.database].selected
+    formValues[BlastFields.database].selected
   );
 
   // TODO: eventually incorporate negativeTaxIDs into the form
@@ -163,7 +159,8 @@ const BlastForm = ({ initialFormValues }: Props) => {
       return;
     }
 
-    const selected = state[BlastFields.taxons].selected as SelectedTaxon[];
+    const selected = (formValues[BlastFields.taxons].selected ||
+      []) as SelectedTaxon[];
 
     // If already there, don't add again
     if (selected.some((taxon: SelectedTaxon) => taxon.id === id)) {
@@ -171,13 +168,14 @@ const BlastForm = ({ initialFormValues }: Props) => {
     }
 
     const label = truncateTaxonLabel(path);
-    dispatch(updateFormState(BlastFields.taxons, [{ id, label }, ...selected]));
+    dispatch(updateSelected(BlastFields.taxons, [{ id, label }, ...selected]));
   };
 
   const removeTaxonFormValue = (id: string | number) => {
-    const selected = state[BlastFields.taxons].selected as SelectedTaxon[];
+    const selected = (formValues[BlastFields.taxons].selected ||
+      []) as SelectedTaxon[];
     dispatch(
-      updateFormState(
+      updateSelected(
         BlastFields.taxons,
         selected.filter((taxon: SelectedTaxon) => taxon.id !== id)
       )
@@ -201,43 +199,50 @@ const BlastForm = ({ initialFormValues }: Props) => {
   const submitBlastJob = (event: FormEvent | MouseEvent) => {
     event.preventDefault();
 
-    if (!state[BlastFields.sequence].selected) {
+    if (!formValues[BlastFields.sequence].selected) {
       return;
     }
 
-    dispatch(updateFormState('sending', true));
+    dispatch(updateSending());
 
     // here we should just transform input values into FormParameters,
     // transformation of FormParameters into ServerParameters happens in the
     // tools middleware
     const parameters: FormParameters = {
-      stype: state[BlastFields.stype].selected as SType,
-      program: state[BlastFields.program].selected as FormParameters['program'],
-      sequence: state[BlastFields.sequence].selected as Sequence,
-      database: state[BlastFields.database].selected as Database,
+      stype: formValues[BlastFields.stype].selected as SType,
+      program: formValues[BlastFields.program]
+        .selected as FormParameters['program'],
+      sequence: formValues[BlastFields.sequence].selected as Sequence,
+      database: formValues[BlastFields.database].selected as Database,
       taxIDs: excludeTaxonField
         ? []
-        : (state[BlastFields.taxons].selected as SelectedTaxon[]),
+        : (formValues[BlastFields.taxons].selected as SelectedTaxon[]),
       negativeTaxIDs: excludeTaxonField
         ? []
-        : (state[BlastFields.excludedtaxons].selected as SelectedTaxon[]),
-      threshold: state[BlastFields.threshold].selected as Exp,
+        : (formValues[BlastFields.excludedtaxons].selected as SelectedTaxon[]),
+      threshold: formValues[BlastFields.threshold].selected as Exp,
       // remove "auto", and transform into corresponding matrix
       matrix:
-        state[BlastFields.matrix].selected === 'auto'
-          ? getAutoMatrixFor(state.parsedSequences[0]?.sequence)
-          : (state[BlastFields.matrix].selected as Matrix),
-      filter: state[BlastFields.filter].selected as Filter,
-      gapped: state[BlastFields.gapped].selected as GapAlign,
+        formValues[BlastFields.matrix].selected === 'auto'
+          ? getAutoMatrixFor(parsedSequences[0]?.sequence)
+          : (formValues[BlastFields.matrix].selected as Matrix),
+      filter: formValues[BlastFields.filter].selected as Filter,
+      gapped: formValues[BlastFields.gapped].selected as GapAlign,
       // transform string into number
-      hits: parseInt(state[BlastFields.hits].selected as string, 10) as Scores,
+      hits: parseInt(
+        formValues[BlastFields.hits].selected as string,
+        10
+      ) as Scores,
       hsps:
-        state[BlastFields.hsps].selected === 'All'
+        formValues[BlastFields.hsps].selected === 'All'
           ? undefined
-          : (parseInt(state[BlastFields.hsps].selected as string, 10) as HSPs),
+          : (parseInt(
+              formValues[BlastFields.hsps].selected as string,
+              10
+            ) as HSPs),
     };
 
-    const multipleParameters = state.parsedSequences.map((parsedSequence) => ({
+    const multipleParameters = parsedSequences.map((parsedSequence) => ({
       ...parameters,
       sequence: parsedSequence.raw as Sequence,
     }));
@@ -249,16 +254,18 @@ const BlastForm = ({ initialFormValues }: Props) => {
       // the reducer will be in charge of generating a proper job object for
       // internal state. Dispatching after history.push so that pop-up messages (as a
       // side-effect of createJob) cannot mount immediately before navigating away.
-      for (let i = 0; i < state.parsedSequences.length; i += 1) {
+      for (let i = 0; i < parsedSequences.length; i += 1) {
         // take extracted name by default
-        let { name = '' } = state.parsedSequences[i];
-        if (state[BlastFields.name].userSelected) {
+        let { name = '' } = parsedSequences[i];
+        if (formValues[BlastFields.name].userSelected) {
           // if one was submitted by user, and we only have one sequence, use it
-          if (state.parsedSequences.length === 1) {
-            name = state[BlastFields.name].selected as string;
+          if (parsedSequences.length === 1) {
+            name = formValues[BlastFields.name].selected as string;
           } else {
             // if we have more sequences, append a counter
-            name = `${state[BlastFields.name].selected as string} - ${i + 1}`;
+            name = `${formValues[BlastFields.name].selected as string} - ${
+              i + 1
+            }`;
           }
         }
         dispatchTools(createJob(multipleParameters[i], JobTypes.BLAST, name));
@@ -278,7 +285,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
   useTextFileInput({
     inputRef: fileInputRef,
     onFileContent: (content) =>
-      dispatch(updateFormState('parsedSequences', sequenceProcessor(content))),
+      dispatch(updateParsedSequences(sequenceProcessor(content))),
     onError: (error) =>
       dispatchMessages(
         addMessage({
@@ -308,7 +315,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
             <div className="import-sequence-section">
               <SequenceSearchLoader
                 ref={sslRef}
-                onLoad={(s) => dispatch(updateFormState('parsedSequences', s))}
+                onLoad={(s) => dispatch(updateParsedSequences(s))}
               />
             </div>
           </section>
@@ -328,17 +335,15 @@ const BlastForm = ({ initialFormValues }: Props) => {
             </legend>
             <SequenceSubmission
               placeholder="Protein or nucleotide sequence(s) in FASTA format."
-              onChange={(s) => dispatch(updateFormState('parsedSequences', s))}
-              value={state.parsedSequences
-                .map((sequence) => sequence.raw)
-                .join('\n')}
+              onChange={(s) => dispatch(updateParsedSequences(s))}
+              value={parsedSequences.map((sequence) => sequence.raw).join('\n')}
             />
           </section>
           <section className="tools-form-section">
             <FormSelect
-              formValue={state[BlastFields.database]}
+              formValue={formValues[BlastFields.database]}
               updateFormValue={(value) =>
-                dispatch(updateFormState(BlastFields.database, value))
+                dispatch(updateSelected(BlastFields.database, value))
               }
             />
             <section
@@ -368,7 +373,8 @@ const BlastForm = ({ initialFormValues }: Props) => {
               )}
             >
               {(
-                (state[BlastFields.taxons]?.selected as SelectedTaxon[]) || []
+                (formValues[BlastFields.taxons]?.selected as SelectedTaxon[]) ||
+                []
               ).map(({ label, id }: SelectedTaxon) => (
                 <div key={label}>
                   <Chip
@@ -392,19 +398,20 @@ const BlastForm = ({ initialFormValues }: Props) => {
                   maxLength={100}
                   style={{
                     width: `${
-                      (state[BlastFields.name].selected as string).length + 2
+                      (formValues[BlastFields.name].selected as string).length +
+                      2
                     }ch`,
                   }}
                   placeholder={'"my job title"'}
-                  value={state[BlastFields.name].selected as string}
+                  value={formValues[BlastFields.name].selected as string}
                   onFocus={(event) => {
-                    if (!state[BlastFields.name].userSelected) {
+                    if (!formValues[BlastFields.name].userSelected) {
                       event.target.select();
                     }
                   }}
                   onChange={(event) =>
                     dispatch(
-                      updateFormState(BlastFields.name, event.target.value)
+                      updateSelected(BlastFields.name, event.target.value)
                     )
                   }
                   data-hj-allow
@@ -428,11 +435,10 @@ const BlastForm = ({ initialFormValues }: Props) => {
                 BlastFields.hsps,
               ].map((stateItem) => (
                 <FormSelect
-                  key={(state[stateItem] as BlastFormValue).fieldName}
-                  formValue={state[stateItem] as BlastFormValue}
-                  updateFormValue={(value) =>
-                    'selected' in value &&
-                    dispatch(updateFormState(stateItem, value.selected))
+                  key={(formValues[stateItem] as BlastFormValue).fieldName}
+                  formValue={formValues[stateItem] as BlastFormValue}
+                  updateFormValue={(value: BlastFormValue['selected']) =>
+                    dispatch(updateSelected(stateItem, value))
                   }
                 />
               ))}
@@ -442,7 +448,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
             className={cn('tools-form-section', sticky['sticky-bottom-right'])}
           >
             <section className="button-group tools-form-section__buttons">
-              {state.sending && !reducedMotion && (
+              {sending && !reducedMotion && (
                 <>
                   <SpinnerIcon />
                   &nbsp;
@@ -452,12 +458,12 @@ const BlastForm = ({ initialFormValues }: Props) => {
               <button
                 className="button primary"
                 type="submit"
-                disabled={state.submitDisabled}
+                disabled={submitDisabled}
                 onClick={submitBlastJob}
               >
-                {state.parsedSequences.length <= 1
+                {parsedSequences.length <= 1
                   ? 'Run BLAST'
-                  : `BLAST ${state.parsedSequences.length} sequences`}
+                  : `BLAST ${parsedSequences.length} sequences`}
               </button>
             </section>
           </section>

@@ -1,28 +1,37 @@
 import { sequenceProcessor } from 'franklin-sites';
 import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
 import { ActionType } from 'typesafe-actions';
+
 import { BLAST_LIMIT, getAutoMatrixFor } from '../components/BlastForm';
+
 import * as blastFormActions from './blastFormActions';
 
-import {
-  BlastFormValues,
-  BlastFields,
-  BlastFormValue,
-} from '../config/BlastFormData';
+import { BlastFormValues, BlastFields } from '../config/BlastFormData';
+
+type BlastFormState = {
+  formValues: BlastFormValues;
+  parsedSequences: SequenceObject[];
+  submitDisabled: boolean;
+  sending: boolean;
+};
+
+export type BlastFormAction = ActionType<typeof blastFormActions>;
 
 const isInvalid = (parsedSequences: SequenceObject[]) =>
   !parsedSequences.length ||
   parsedSequences.length > BLAST_LIMIT ||
   parsedSequences.some((parsedSequence) => !parsedSequence.valid);
 
-export const getBlastFormDataInitialState = (
+export const getBlastFormInitialState = (
   defaultFormValues: Readonly<BlastFormValues>
-) => ({
-  ...defaultFormValues,
-  [BlastFields.name]: {
-    ...defaultFormValues[BlastFields.name],
-    // default to true if it's been set through the history state
-    userSelected: Boolean(defaultFormValues[BlastFields.name].selected),
+): BlastFormState => ({
+  formValues: {
+    ...defaultFormValues,
+    [BlastFields.name]: {
+      ...defaultFormValues[BlastFields.name],
+      // default to true if it's been set through the history state
+      userSelected: Boolean(defaultFormValues[BlastFields.name].selected),
+    },
   },
   parsedSequences: sequenceProcessor(
     `${defaultFormValues[BlastFields.sequence].selected || ''}`
@@ -37,130 +46,122 @@ export const getBlastFormDataInitialState = (
   sending: false,
 });
 
-export const blastFormDataUpdateReducer = (
+export const blastFormParsedSequencesReducer = (
   state: BlastFormState,
-  action: ActionType<typeof blastFormActions.updateFormState>
+  {
+    payload: parsedSequences,
+  }: ActionType<typeof blastFormActions.updateParsedSequences>
 ) => {
-  const {
-    payload: { id, value },
-  } = action;
-  switch (id) {
-    case 'parsedSequences': {
-      const parsedSequences = value as SequenceObject[];
+  const { formValues } = state;
 
-      // Only proceed if the raw sequence has changed
-      const rawSequence = parsedSequences
-        .map((parsedSequence) => parsedSequence.raw)
-        .join('\n');
-      if (rawSequence === state[BlastFields.sequence]?.selected) {
-        return state;
-      }
-      const sequence = {
-        ...[BlastFields.sequence],
-        selected: rawSequence,
-      };
-
-      // Set Submit Disabled according to sequence
-      const submitDisabled = isInvalid(parsedSequences);
-
-      // Set the "Auto" matrix according to sequence if user didn't already set
-      // TODO: still update values even if user selected
-      const matrix = state[BlastFields.matrix].userSelected
-        ? state[BlastFields.matrix]
-        : {
-            ...state[BlastFields.matrix],
-            values: [
-              {
-                label: `Auto - ${getAutoMatrixFor(
-                  parsedSequences[0]?.sequence
-                )}`,
-                value: 'auto',
-              },
-              ...(state[BlastFields.matrix].values || []).filter(
-                (option) => option.value !== 'auto'
-              ),
-            ],
-          };
-
-      const mightBeDNA = parsedSequences[0]?.likelyType === 'na';
-
-      // Set Program according to sequence, if user didn't already set
-      const program = state[BlastFields.program].userSelected
-        ? state[BlastFields.program]
-        : {
-            ...state[BlastFields.program],
-            selected: mightBeDNA ? 'blastx' : 'blastp',
-          };
-
-      // Set Sequence Type according to sequence, if user didn't already set
-      const stype = state[BlastFields.stype].userSelected
-        ? state[BlastFields.stype]
-        : {
-            ...state[BlastFields.stype],
-            selected: mightBeDNA ? 'dna' : 'protein',
-          };
-
-      // Set Job Name, if user didn't already set
-      const name =
-        state[BlastFields.name].userSelected && state[BlastFields.name].selected
-          ? state[BlastFields.name]
-          : {
-              ...state[BlastFields.name],
-              selected: parsedSequences[0]?.name || '',
-            };
-
-      return {
-        ...state,
-        parsedSequences,
-        submitDisabled,
-        [BlastFields.matrix]: matrix,
-        [BlastFields.name]: name,
-        [BlastFields.program]: program,
-        [BlastFields.sequence]: sequence,
-        [BlastFields.stype]: stype,
-      };
-    }
-    case 'sending':
-      return {
-        ...state,
-        submitDisabled: true,
-        sending: true,
-      };
-    default: {
-      if (typeof state[id] !== 'object') {
-        throw new Error('Should only be instance of BlastFormValue');
-      }
-      const blastFormValue = state[id] as BlastFormValue;
-      return {
-        ...state,
-        [id]: {
-          ...blastFormValue,
-          selected: value,
-          userSelected: true,
-        },
-      };
-    }
+  // Only proceed if the raw sequence has changed
+  const rawSequence = parsedSequences
+    .map((parsedSequence) => parsedSequence.raw)
+    .join('\n');
+  if (rawSequence === formValues[BlastFields.sequence]?.selected) {
+    return state;
   }
+  const sequence = {
+    ...formValues[BlastFields.sequence],
+    selected: rawSequence,
+  };
+
+  // Set Submit Disabled according to sequence
+  const submitDisabled = isInvalid(parsedSequences);
+
+  // Set the "Auto" matrix according to sequence if user didn't already set
+  // TODO: still update values even if user selected
+  const matrix = formValues[BlastFields.matrix].userSelected
+    ? formValues[BlastFields.matrix]
+    : {
+        ...formValues[BlastFields.matrix],
+        values: [
+          {
+            label: `Auto - ${getAutoMatrixFor(parsedSequences[0]?.sequence)}`,
+            value: 'auto',
+          },
+          ...(formValues[BlastFields.matrix].values || []).filter(
+            (option) => option.value !== 'auto'
+          ),
+        ],
+      };
+
+  const mightBeDNA = parsedSequences[0]?.likelyType === 'na';
+
+  // Set Program according to sequence, if user didn't already set
+  const program = formValues[BlastFields.program].userSelected
+    ? formValues[BlastFields.program]
+    : {
+        ...formValues[BlastFields.program],
+        selected: mightBeDNA ? 'blastx' : 'blastp',
+      };
+
+  // Set Sequence Type according to sequence, if user didn't already set
+  const stype = formValues[BlastFields.stype].userSelected
+    ? formValues[BlastFields.stype]
+    : {
+        ...formValues[BlastFields.stype],
+        selected: mightBeDNA ? 'dna' : 'protein',
+      };
+
+  // Set Job Name, if user didn't already set
+  const name =
+    formValues[BlastFields.name].userSelected &&
+    formValues[BlastFields.name].selected
+      ? formValues[BlastFields.name]
+      : {
+          ...formValues[BlastFields.name],
+          selected: parsedSequences[0]?.name || '',
+        };
+
+  return {
+    ...state,
+    parsedSequences,
+    submitDisabled,
+    formValues: {
+      ...formValues,
+      [BlastFields.matrix]: matrix,
+      [BlastFields.name]: name,
+      [BlastFields.program]: program,
+      [BlastFields.sequence]: sequence,
+      [BlastFields.stype]: stype,
+    },
+  };
 };
 
-type BlastFormState = ReturnType<typeof getBlastFormDataInitialState>;
-
-export type BlastFormActionPayloadId =
-  | BlastFields
-  | 'parsedSequences'
-  | 'submitDisabled'
-  | 'sending';
-
-export type BlastFormAction = ActionType<typeof blastFormActions>;
+export const blastFormUpdateSelectedReducer = (
+  state: BlastFormValues,
+  {
+    payload: { id, selected },
+  }: ActionType<typeof blastFormActions.updateSelected>
+) => ({
+  ...state,
+  [id]: {
+    ...state[id],
+    selected,
+    userSelected: true,
+  },
+});
 
 export const getBlastFormDataReducer =
   (defaultFormValues: Readonly<BlastFormValues>) =>
   (state: BlastFormState, action: BlastFormAction): BlastFormState => {
     switch (action.type) {
-      case blastFormActions.UPDATE:
-        return blastFormDataUpdateReducer(state, action);
+      case blastFormActions.UPDATE_PARSED_SEQUENCES:
+        return blastFormParsedSequencesReducer(state, action);
+      case blastFormActions.UPDATE_SELECTED:
+        return {
+          ...state,
+          formValues: blastFormUpdateSelectedReducer(state.formValues, action),
+        };
+      case blastFormActions.UPDATE_SENDING:
+        return {
+          ...state,
+          submitDisabled: true,
+          sending: true,
+        };
       case blastFormActions.RESET:
-        return getBlastFormDataInitialState(defaultFormValues);
+        return getBlastFormInitialState(defaultFormValues);
       default:
         return state;
     }

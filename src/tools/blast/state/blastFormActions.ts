@@ -1,20 +1,21 @@
 // import { BlastFormValue } from '../config/BlastFormData';
 import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
 import { action } from 'typesafe-actions';
-import { BlastFormValue } from '../config/BlastFormData';
+import { BlastFields, BlastFormValue } from '../config/BlastFormData';
 
-import { BlastFormActionPayloadId } from './blastFormReducer';
-
-export const UPDATE = 'UPDATE';
+export const UPDATE_SELECTED = 'UPDATE_SELECTED';
+export const UPDATE_PARSED_SEQUENCES = 'UPDATE_PARSED_SEQUENCES';
+export const UPDATE_SENDING = 'UPDATE_SENDING';
 export const RESET = 'RESET';
 
-export type BlastUpdateFormValue =
-  | BlastFormValue['selected']
-  | SequenceObject[];
+export const updateSelected = (
+  id: BlastFields,
+  selected: BlastFormValue['selected']
+) => action(UPDATE_SELECTED, { id, selected });
 
-export const updateFormState = (
-  id: BlastFormActionPayloadId,
-  value: BlastUpdateFormValue
-) => action(UPDATE, { id, value });
+export const updateParsedSequences = (parsedSequences: SequenceObject[]) =>
+  action(UPDATE_PARSED_SEQUENCES, parsedSequences);
+
+export const updateSending = () => action(UPDATE_SENDING);
 
 export const resetFormState = () => action(RESET);

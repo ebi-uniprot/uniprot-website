@@ -77,7 +77,6 @@ const formData: Readonly<BlastFormValues> = deepFreeze({
   },
   [BlastFields.taxons]: {
     fieldName: 'taxIDs',
-    selected: [],
   },
   [BlastFields.excludedtaxons]: {
     fieldName: 'negativeTaxIDs',
@@ -104,7 +103,7 @@ const formData: Readonly<BlastFormValues> = deepFreeze({
       // "auto" will be replaced by the correct matrix value on submission
       // but we need to have a distinc value here to not have 2 <option> with
       // same values
-      { label: 'Auto - PAM30', value: 'auto' },
+      { label: 'Auto - BLOSUM62', value: 'auto' },
       { value: 'BLOSUM45' },
       { value: 'BLOSUM62' },
       { value: 'BLOSUM80' },
