@@ -141,7 +141,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
 
   const [{ parsedSequences, formValues, sending, submitDisabled }, dispatch] =
     useReducer(
-      getBlastFormDataReducer(initialFormValues),
+      getBlastFormDataReducer(defaultFormValues),
       getBlastFormInitialState(initialFormValues)
     );
 
