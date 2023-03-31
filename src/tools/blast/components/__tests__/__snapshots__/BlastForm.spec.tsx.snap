@@ -462,8 +462,8 @@ exports[`BlastForm test Renders the form 1`] = `
               HSPs per hit
               <select>
                 <option
-                  data-testid="HSPs per hit-undefined"
-                  value="undefined"
+                  data-testid="HSPs per hit-All"
+                  value="All"
                 >
                   All
                 </option>
