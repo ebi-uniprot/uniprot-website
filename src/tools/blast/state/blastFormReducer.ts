@@ -69,22 +69,20 @@ export const blastFormParsedSequencesReducer = (
   // Set Submit Disabled according to sequence
   const submitDisabled = isInvalid(parsedSequences);
 
-  // Set the "Auto" matrix according to sequence if user didn't already set
-  // TODO: still update values even if user selected
-  const matrix = formValues[BlastFields.matrix].userSelected
-    ? formValues[BlastFields.matrix]
-    : {
-        ...formValues[BlastFields.matrix],
-        values: [
-          {
-            label: `Auto - ${getAutoMatrixFor(parsedSequences[0]?.sequence)}`,
-            value: 'auto',
-          },
-          ...(formValues[BlastFields.matrix].values || []).filter(
-            (option) => option.value !== 'auto'
-          ),
-        ],
-      };
+  // Set the "Auto" matrix according to sequence. The selected value
+  // isn't changed just which of the values is marked as auto.
+  const matrix = {
+    ...formValues[BlastFields.matrix],
+    values: [
+      {
+        label: `Auto - ${getAutoMatrixFor(parsedSequences[0]?.sequence)}`,
+        value: 'auto',
+      },
+      ...(formValues[BlastFields.matrix].values || []).filter(
+        (option) => option.value !== 'auto'
+      ),
+    ],
+  };
 
   const mightBeDNA = parsedSequences[0]?.likelyType === 'na';
 
