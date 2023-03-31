@@ -112,6 +112,58 @@ const mock: { comments: DiseaseComment[]; features: FeatureDatum[] } = {
       type: 'Natural variant',
       location: {
         start: {
+          value: 99,
+          modifier: 'EXACT',
+        },
+        end: {
+          value: 99,
+          modifier: 'EXACT',
+        },
+      },
+      description: 'not a disease',
+      evidences: [
+        {
+          evidenceCode: 'ECO:0000269',
+          source: 'Reference',
+          id: 'Ref.4',
+        },
+      ],
+      featureId: 'VAR_019256',
+      alternativeSequence: {
+        originalSequence: 'I',
+        alternativeSequences: ['V'],
+      },
+    },
+    {
+      type: 'Active site',
+      location: {
+        start: {
+          value: 99,
+          modifier: 'EXACT',
+        },
+        end: {
+          value: 99,
+          modifier: 'EXACT',
+        },
+      },
+      description: 'not a disease',
+      evidences: [
+        {
+          evidenceCode: 'ECO:0000269',
+          source: 'Reference',
+          id: 'Ref.4',
+        },
+      ],
+      featureId: 'VAR_019256',
+      alternativeSequence: {
+        originalSequence: 'I',
+        alternativeSequences: ['V'],
+      },
+    },
+    {
+      type: 'Natural variant',
+      location: {
+        start: {
           value: 100,
           modifier: 'EXACT',
         },
