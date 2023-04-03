@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import qs from 'query-string';
 
 import { SearchTextLink } from './SearchSuggestions';
@@ -36,7 +35,7 @@ const OrganismSuggestion = ({
     return (
       <>
         {' '}
-        or restrict search to "<b>{taxonID}</b>" to{' '}
+        or restrict search to &quot;<b>{taxonID}</b>&quot; to{' '}
         <SearchTextLink query={query} text="exclude lower taxonomic ranks" />
       </>
     );

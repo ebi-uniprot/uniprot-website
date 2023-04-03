@@ -20,7 +20,7 @@ const TaxonomyLevelsSuggestion = ({ query }: { query: string }) => {
         {searchByOrganism ? (
           <>
             {' '}
-            or expand search to "<b>{searchValue}</b>" to{' '}
+            or expand search to &quot;<b>{searchValue}</b>&quot; to{' '}
             <SearchTextLink
               query={modifiedQuery}
               text="include lower taxonomic ranks"

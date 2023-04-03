@@ -25,6 +25,7 @@ export const SearchTextLink = ({
   text: string;
 }) => (
   <Link
+    // eslint-disable-next-line uniprot-website/use-config-location
     to={() => ({
       search: `query=${query}`,
     })}
