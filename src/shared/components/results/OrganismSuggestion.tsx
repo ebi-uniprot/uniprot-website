@@ -32,7 +32,7 @@ const OrganismSuggestion = ({
     }
   }, [data]);
 
-  if (organismExists) {
+  if (organismExists && !query.includes('proteome')) {
     return (
       <>
         {' '}
