@@ -1,36 +1,17 @@
 import ProteomeSuggestion from './ProteomeSuggestion';
-import { SearchTextLink, taxonHierarchySearchTerms } from './SearchSuggestions';
-
 import {
-  parse,
-  stringify,
-} from '../../../query-builder/utils/queryStringProcessor';
-
-import { Clause } from '../../../query-builder/types/searchTypes';
-
+  modifyQueryWithSuggestions,
+  SearchTextLink,
+  taxonHierarchySearchTerms,
+} from './SearchSuggestions';
 import OrganismSuggestion from './OrganismSuggestion';
 
 const TaxonomyLevelsSuggestion = ({ query }: { query: string }) => {
-  let modifiedClauses: Clause[] = [];
-
-  let searchValue = '';
-
-  const parsedQuery = parse(query);
-  modifiedClauses = parsedQuery.map((clause) => {
-    if (taxonHierarchySearchTerms.includes(clause.searchTerm.term)) {
-      const queryBit = clause.queryBits;
-      const modifiedQueryBit: Record<string, string> = {};
-      Object.entries(queryBit).forEach(([k, v]) => {
-        const suggestion = k === 'taxonomy_id' ? 'organism_id' : 'taxonomy_id';
-        modifiedQueryBit[suggestion] = v;
-        searchValue = v;
-      });
-      return { ...clause, queryBits: modifiedQueryBit };
-    }
-    return { ...clause };
-  });
-
-  const modifiedQuery = stringify(modifiedClauses);
+  const { modifiedQuery, searchValue } = modifyQueryWithSuggestions(
+    query,
+    'taxon',
+    taxonHierarchySearchTerms
+  );
 
   if (query !== modifiedQuery) {
     const searchByOrganism = query.includes('organism');
