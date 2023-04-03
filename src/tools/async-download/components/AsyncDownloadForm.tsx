@@ -137,8 +137,10 @@ const AsyncDownloadForm = ({
             Your download request is too large (<LongNumber>{count}</LongNumber>
             ) for immediate download.
             <br />
-            Please submit a job to generate this file on the UniProt server
-            which you can download when ready.
+            <span data-article-id="file-generation-download">
+              Please submit a job to generate this file on the UniProt server
+              which you can download when ready.
+            </span>
           </section>
           <section className="tools-form-section__item tools-form-section__item--compact">
             <label>
