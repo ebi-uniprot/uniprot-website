@@ -1,11 +1,31 @@
+import { Link } from 'react-router-dom';
+
 import AdvancedSearchSuggestion from './AdvancedSearchSuggestion';
 import ExactFieldSuggestion from './ExactFieldSuggestion';
+import TaxonomyLevelsSuggestion from './TaxonomyLevelsSuggestion';
 
 import { Namespace } from '../../types/namespaces';
 
 const simpleQuery = /^[a-zA-Z0-9]+$/;
 
 export const exactMatchSearchTerms = ['gene', 'ec'];
+export const taxonHierarchySearchTerms = ['taxonomy_id', 'organism_id'];
+
+export const SearchTextLink = ({
+  query,
+  text,
+}: {
+  query: string;
+  text: string;
+}) => (
+  <Link
+    to={() => ({
+      search: `query=${query}`,
+    })}
+  >
+    {text}
+  </Link>
+);
 
 const SearchSuggestions = ({
   query,
@@ -31,6 +51,9 @@ const SearchSuggestions = ({
         {simpleQuery.test(query) && <AdvancedSearchSuggestion query={query} />}
         {exactMatchSearchTerms.some((term) => query.includes(term)) && (
           <ExactFieldSuggestion query={query} />
+        )}
+        {taxonHierarchySearchTerms.some((term) => query.includes(term)) && (
+          <TaxonomyLevelsSuggestion query={query} />
         )}
       </>
     );

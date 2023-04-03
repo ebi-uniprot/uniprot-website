@@ -1,10 +1,9 @@
-import { Link } from 'react-router-dom';
+import { exactMatchSearchTerms, SearchTextLink } from './SearchSuggestions';
 
 import {
   parse,
   stringify,
 } from '../../../query-builder/utils/queryStringProcessor';
-import { exactMatchSearchTerms } from './SearchSuggestions';
 
 import { Clause } from '../../../query-builder/types/searchTypes';
 
@@ -33,15 +32,7 @@ const ExactFieldSuggestion = ({ query }: { query: string }) => {
       <small>
         {' '}
         or show only exact matches for{' '}
-        <Link
-          // eslint-disable-next-line uniprot-website/use-config-location
-          to={(location) => ({
-            ...location,
-            search: `query=${modifiedQuery}`,
-          })}
-        >
-          {searchValue}
-        </Link>
+        <SearchTextLink query={modifiedQuery} text={searchValue} />
       </small>
     );
   }
