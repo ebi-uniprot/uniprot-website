@@ -17,7 +17,7 @@ const TaxonomyLevelsSuggestion = ({ query }: { query: string }) => {
     const searchByOrganism = query.includes('organism');
     return (
       <small>
-        {searchByOrganism ? (
+        {searchByOrganism && !query.includes('proteome') ? (
           <>
             {' '}
             or expand search to &quot;<b>{searchValue}</b>&quot; to{' '}
@@ -25,9 +25,7 @@ const TaxonomyLevelsSuggestion = ({ query }: { query: string }) => {
               query={modifiedQuery}
               text="include lower taxonomic ranks"
             />
-            {!query.includes('proteome') && (
-              <ProteomeSuggestion query={query} organismID={searchValue} />
-            )}
+            <ProteomeSuggestion query={query} organismID={searchValue} />
           </>
         ) : (
           <OrganismSuggestion query={modifiedQuery} taxonID={searchValue} />
