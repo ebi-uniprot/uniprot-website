@@ -50,3 +50,16 @@ exports[`SearchSuggestions should render suggestions 1`] = `
   </span>
 </DocumentFragment>
 `;
+
+exports[`SearchSuggestions should render suggestions for fields that support exact match 1`] = `
+<DocumentFragment>
+  <small>
+     or show only exact matches for 
+    <a
+      href="/?query=(gene_exact:app)"
+    >
+      app
+    </a>
+  </small>
+</DocumentFragment>
+`;

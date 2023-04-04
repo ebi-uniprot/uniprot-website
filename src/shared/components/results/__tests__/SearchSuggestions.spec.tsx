@@ -87,4 +87,21 @@ describe('SearchSuggestions', () => {
     await screen.findByText('or search "eve"', { exact: false });
     expect(asFragment()).toMatchSnapshot();
   });
+
+  it('should render suggestions for fields that support exact match', async () => {
+    const { asFragment } = customRender(
+      <SearchSuggestions
+        query="gene:app"
+        namespace={Namespace.uniprotkb}
+        total={100}
+      />
+    );
+
+    await screen.findByText('or show only exact matches for', { exact: false });
+    expect(screen.getByRole('link', { name: 'app' })).toHaveAttribute(
+      'href',
+      '/?query=(gene_exact:app)'
+    );
+    expect(asFragment()).toMatchSnapshot();
+  });
 });
