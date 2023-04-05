@@ -6,12 +6,16 @@ import {
   isValidServerID,
   truncateTaxonLabel,
   ServerError,
+  isJobIncomplete,
+  isJobAlreadyFinished,
 } from '..';
 
 import { JobTypes } from '../../types/toolsJobTypes';
 
 import createdJob from '../../__mocks__/internal-jobs/created';
 import runningJob from '../../__mocks__/internal-jobs/running';
+import { Status } from '../../types/toolsStatuses';
+import { Job } from '../../types/toolsJob';
 
 describe('isValidServerID', () => {
   it('should recognise a valid server ID', () => {
@@ -93,5 +97,27 @@ describe('truncateTaxonLabel', () => {
     expect(truncateTaxonLabel('Homo sapiens [9606]')).toEqual(
       'Homo sapiens [9606]'
     );
+  });
+});
+
+describe('isJobIncomplete', () => {
+  it('should return true for running status', () => {
+    expect(isJobIncomplete(Status.RUNNING)).toEqual(true);
+  });
+  it('should return false for finished status', () => {
+    expect(isJobIncomplete(Status.FINISHED)).toEqual(false);
+  });
+});
+
+describe('isJobAlreadyFinished', () => {
+  it('should return false for job not finished on the server', () => {
+    expect(
+      isJobAlreadyFinished(Status.RUNNING, { status: Status.FINISHED } as Job)
+    ).toEqual(false);
+  });
+  it('should return true for job already finished on the server', () => {
+    expect(
+      isJobAlreadyFinished(Status.FINISHED, { status: Status.FINISHED } as Job)
+    ).toEqual(true);
   });
 });

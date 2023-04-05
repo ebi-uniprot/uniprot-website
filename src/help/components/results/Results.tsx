@@ -115,7 +115,7 @@ const Results = ({
         alt=""
       />
       <strong className={cn('tiny', styles.title)}>
-        <HelpIcon width="0.7em" height="0.7em" />
+        <HelpIcon width="0.7em" height="0.7em" />{' '}
         {isReleaseNotes ? 'Release notes ' : 'Help '}search results
       </strong>
       <SearchInput

@@ -71,6 +71,7 @@ const toolsReducers = (
       const updatedJob = {
         ...originalJob,
         ...action.payload.partialJob,
+        timeLastUpdate: Date.now(),
       } as Job;
 
       store.set(action.payload.id, updatedJob);
