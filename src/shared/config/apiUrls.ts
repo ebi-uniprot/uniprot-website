@@ -230,20 +230,27 @@ export const getAPIQueryUrl = ({
   if (facetField === undefined) {
     facetField = defaultFacets.get(namespace);
 
-    // TODO Refreshing of the facets
     // Exceptional case for showing proteome facet in UniProtKB search if the query is about an organism
-    const proteomeFacet = FacetsEnum.Proteome;
-    if (
-      query.includes('organism_id') &&
-      namespace === Namespace.uniprotkb &&
-      facetField &&
-      !facetField.includes(proteomeFacet)
-    ) {
-      const index =
-        facetField?.findIndex((facet) => facet === FacetsEnum.ModelOrganism) ||
-        facetField.length - 1;
-      facetField?.splice(index + 1, 0, proteomeFacet);
-      facetField?.push(proteomeFacet);
+    if (namespace === Namespace.uniprotkb && facetField) {
+      const proteomeFacet = FacetsEnum.Proteome;
+      if (
+        query.includes('organism_id') &&
+        !facetField.includes(proteomeFacet)
+      ) {
+        const index =
+          facetField.findIndex((facet) => facet === FacetsEnum.ModelOrganism) +
+            1 || facetField.length;
+
+        facetField.splice(index, 0, proteomeFacet);
+      } else if (
+        !query.includes('organism_id') &&
+        facetField.includes(proteomeFacet)
+      ) {
+        const index = facetField.findIndex(
+          (facet) => facet === FacetsEnum.Proteome
+        );
+        facetField.splice(index, 1);
+      }
     }
   }
 
