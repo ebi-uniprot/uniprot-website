@@ -324,7 +324,7 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
             <section className="tools-form-section__item tools-form-section__item--taxon-select">
               <AutocompleteWrapper
                 placeholder="Enter taxon names or IDs to include"
-                url={uniProtKBApiUrls.taxonomySuggester}
+                url={uniProtKBApiUrls.organismSuggester}
                 onSelect={updateTaxonFormValue}
                 title="Restrict by taxonomy"
                 clearOnSelect
