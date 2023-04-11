@@ -103,12 +103,12 @@ const DiseaseAndDrugsSection = ({
             <img src={variantsImg} width="1944" height="1024" alt="" />
             <div>
               <p>
-                We are now providing the &quot;Disease & Variants&quot; viewer
-                on its own tab.
+                We now provide the &quot;Disease & Variants&quot; viewer
+                in its own tab.
               </p>
               <p>
-                The viewer provides UniProt and other sources of variants from
-                ClinVar, dbSNP, etc.
+                The viewer provides variants from UniProt as well as other 
+                sources including ClinVar and dbSNP.
               </p>
               <p>
                 <Link
