@@ -84,17 +84,19 @@ const SearchSuggestions = ({
     !!query?.length;
 
   if (validQueryWithContent) {
-    return (
-      <>
-        {simpleQuery.test(query) && <AdvancedSearchSuggestion query={query} />}
-        {exactMatchSearchTerms.some((term) => query.includes(term)) && (
-          <ExactFieldSuggestion query={query} />
-        )}
-        {taxonHierarchySearchTerms.some((term) => query.includes(term)) && (
-          <TaxonomyLevelsSuggestion query={query} />
-        )}
-      </>
-    );
+    if (simpleQuery.test(query)) {
+      return <AdvancedSearchSuggestion query={query} />;
+    }
+    if (
+      exactMatchSearchTerms.some((term) => query.includes(term)) &&
+      !query.includes('exact')
+    ) {
+      return <ExactFieldSuggestion query={query} />;
+    }
+    if (taxonHierarchySearchTerms.some((term) => query.includes(term))) {
+      return <TaxonomyLevelsSuggestion query={query} />;
+    }
+    // Add more suggestions in the future here
   }
   return null;
 };
