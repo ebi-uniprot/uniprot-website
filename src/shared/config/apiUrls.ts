@@ -21,7 +21,6 @@ import {
 import {
   Facets as UniProtKBFacets,
   defaultFacets as uniProtKBDefaultFacets,
-  FacetsEnum,
 } from '../../uniprotkb/config/UniProtKBFacetConfiguration';
 import {
   Facets as UniRefFacets,
@@ -231,29 +230,6 @@ export const getAPIQueryParams = ({
   // note: could this be moved to useNSQuery?
   if (facetField === undefined) {
     facetField = defaultFacets.get(namespace);
-
-    // Exceptional case for showing proteome facet in UniProtKB search if the query is about an organism
-    if (namespace === Namespace.uniprotkb && facetField) {
-      const proteomeFacet = FacetsEnum.Proteome;
-      if (
-        query.includes('organism_id') &&
-        !facetField.includes(proteomeFacet)
-      ) {
-        const index =
-          facetField.findIndex((facet) => facet === FacetsEnum.ModelOrganism) +
-            1 || facetField.length;
-
-        facetField.splice(index, 0, proteomeFacet);
-      } else if (
-        !query.includes('organism_id') &&
-        facetField.includes(proteomeFacet)
-      ) {
-        const index = facetField.findIndex(
-          (facet) => facet === FacetsEnum.Proteome
-        );
-        facetField.splice(index, 1);
-      }
-    }
   }
 
   return {
