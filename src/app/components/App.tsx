@@ -1,4 +1,4 @@
-import { lazy, Suspense, FC } from 'react';
+import { lazy, Suspense, FC, Component, LazyExoticComponent } from 'react';
 import {
   Route,
   Switch,
@@ -33,6 +33,7 @@ import {
   Location,
   LocationToPath,
 } from '../config/urls';
+import { Namespace, SearchableNamespace } from '../../shared/types/namespaces';
 
 import pkg from '../../../package.json';
 
@@ -85,6 +86,13 @@ const GenericResultsPage = lazy(
   () =>
     import(
       /* webpackChunkName: "generic-results" */ '../../shared/components/results/Results'
+    )
+);
+// Landing pages
+const UniProtKBLandingPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "uniprotkb-landing" */ '../../uniprotkb/components/landing-page/LandingPage'
     )
 );
 // Main namespaces
@@ -284,20 +292,43 @@ const BackToTheTop = lazy(() =>
 );
 
 // Helper component to render a landing page or the results page depending on
-// the presence of absence of a querystring
+// the presence of absence of a query
 const ResultsOrLanding =
   (ResultsPage: FC<RouteChildrenProps>, LandingPage: FC<RouteChildrenProps>) =>
-  (props: RouteChildrenProps) =>
-    props.location.search ? (
-      <ResultsPage {...props} />
-    ) : (
-      <LandingPage {...props} />
-    );
+  (props: RouteChildrenProps) => {
+    const urlSP = new URLSearchParams(props.location.search);
+    // There's a query in the URL
+    if (urlSP.has('query')) {
+      // Somehow the query is empty (e.g. user-edited)
+      if (!urlSP.get('query')) {
+        // Redirect to star search
+        return <Redirect to={{ ...props.location, search: 'query=*' }} />;
+      }
+      return <ResultsPage {...props} />;
+    }
+    // If no query, redirect to landing page
+    return <LandingPage {...props} />;
+  };
 
-// NOTE: remove whenever we start implementing landing pages
-const RedirectToStarSearch = ({ location }: RouteChildrenProps) => (
-  <Redirect to={{ ...location, search: 'query=*' }} />
-);
+const RedirectToStarSearch = (props: RouteChildrenProps) => {
+  const params = props.match?.params as
+    | { namespace: SearchableNamespace }
+    | undefined;
+  let LandingPage: LazyExoticComponent<Component> | Component;
+  switch (params?.namespace) {
+    case Namespace.uniprotkb:
+      LandingPage = UniProtKBLandingPage;
+      break;
+    // NOTE: add cases whenever we start implementing other landing pages
+    default:
+      return <Redirect to={{ ...props.location, search: 'query=*' }} />;
+  }
+  return (
+    <SingleColumnLayout>
+      <LandingPage {...props} />
+    </SingleColumnLayout>
+  );
+};
 
 const App = () => {
   useScrollToTop(history);
