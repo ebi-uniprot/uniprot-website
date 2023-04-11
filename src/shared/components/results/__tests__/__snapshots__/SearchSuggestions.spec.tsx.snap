@@ -1,5 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`SearchSuggestions should render proteome suggestions given an organism id 1`] = `
+<DocumentFragment>
+  <small>
+     or expand search to "
+    <b>
+      9606
+    </b>
+    " to 
+    <a
+      href="/?query=(taxonomy_id:9606)"
+    >
+      include lower taxonomic ranks
+    </a>
+     or restrict to reference proteome 
+    <a
+      href="/?query=organism_id:9606 AND (proteome:UP000005640)"
+    >
+      UP000005640
+    </a>
+  </small>
+</DocumentFragment>
+`;
+
 exports[`SearchSuggestions should render suggestions 1`] = `
 <DocumentFragment>
   <span>
@@ -48,6 +71,23 @@ exports[`SearchSuggestions should render suggestions 1`] = `
       </a>
     </small>
   </span>
+</DocumentFragment>
+`;
+
+exports[`SearchSuggestions should render suggestions for fields that has different taxon level 1`] = `
+<DocumentFragment>
+  <small>
+     or restrict search to "
+    <b>
+      9606
+    </b>
+    " to 
+    <a
+      href="/?query=(organism_id:9606)"
+    >
+      exclude lower taxonomic ranks
+    </a>
+  </small>
 </DocumentFragment>
 `;
 
