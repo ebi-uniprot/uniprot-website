@@ -1,12 +1,14 @@
 import { Card } from 'franklin-sites';
 
-import EntrySection, {
-  getEntrySectionNameAndId,
-} from '../../types/entrySection';
 import KeywordView from '../protein-data-views/KeywordView';
 import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import SubcellularLocationWithVizView from '../protein-data-views/SubcellularLocationWithVizView';
+
 import { hasContent } from '../../../shared/utils/utils';
+
+import EntrySection, {
+  getEntrySectionNameAndId,
+} from '../../types/entrySection';
 
 import { SubcellularLocationComment } from '../../types/commentTypes';
 import { SubcellularLocationUIModel } from '../../adapters/subcellularLocationConverter';

@@ -168,8 +168,6 @@ const Entry = () => {
             disabled = !hasExternalLinks(transformedData);
             break;
           case EntrySection.SimilarProteins:
-          case EntrySection.DiseaseVariants:
-          case EntrySection.PhenotypesVariants:
             disabled = false;
             break;
           case EntrySection.SubCellularLocation:
