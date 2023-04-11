@@ -14,7 +14,7 @@ import usePagination from '../../../../shared/hooks/usePagination';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect';
-import useIDMappingDetails from '../../../../shared/hooks/useIDMappingDetails';
+import { useIDMappingDetails } from '../../../../shared/contexts/IDMappingDetails';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import useColumnNames from '../../../../shared/hooks/useColumnNames';
 

@@ -6,7 +6,7 @@ import FeaturesView, {
   ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';
 
-import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import { useDatabaseInfoMaps } from '../../../shared/contexts/UniProtData';
 
 import externalUrls from '../../../shared/config/externalUrls';
 import { stringToColour } from '../../../shared/utils/color';

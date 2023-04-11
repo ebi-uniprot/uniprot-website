@@ -29,7 +29,7 @@ import CommunityAnnotationLink from './CommunityAnnotationLink';
 import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
-import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import { useDatabaseInfoMaps } from '../../../shared/contexts/UniProtData';
 import { useMessagesDispatch } from '../../../shared/contexts/Messages';
 import useMatchWithRedirect from '../../../shared/hooks/useMatchWithRedirect';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';

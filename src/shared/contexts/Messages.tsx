@@ -1,4 +1,4 @@
-import { createContext, Dispatch, FC, useReducer } from 'react';
+import { createContext, Dispatch, useReducer, ReactNode } from 'react';
 
 import messagesInitialState, {
   MessagesState,
@@ -17,7 +17,7 @@ export const MessagesDispatchContext = createContext<Dispatch<MessagesAction>>(
 export const MessagesStateContext =
   createContext<MessagesState>(messagesInitialState);
 
-export const MessagesProvider: FC = ({ children }) => {
+export const MessagesProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(messagesReducers, messagesInitialState);
 
   return (

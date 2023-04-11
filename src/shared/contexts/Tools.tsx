@@ -1,11 +1,11 @@
 import {
   createContext,
   Dispatch,
-  FC,
   useReducer,
   useEffect,
   useRef,
   useMemo,
+  ReactNode,
 } from 'react';
 
 import { useMessagesDispatch } from './Messages';
@@ -23,7 +23,7 @@ export const ToolsDispatchContext = createContext<Dispatch<ToolsAction>>(() => {
 
 export const ToolsStateContext = createContext<ToolsState>(toolsInitialState);
 
-export const ToolsProvider: FC = ({ children }) => {
+export const ToolsProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(toolsReducers, toolsInitialState);
   const messagesDispatch = useMessagesDispatch();
 

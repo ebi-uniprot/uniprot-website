@@ -9,7 +9,7 @@ import PDBView from './PDBView';
 import EMBLView from './EMBLView';
 import { RichText } from './FreeTextView';
 
-import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import { useDatabaseInfoMaps } from '../../../shared/contexts/UniProtData';
 
 import { pluralise } from '../../../shared/utils/utils';
 import {

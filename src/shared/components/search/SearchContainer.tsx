@@ -16,7 +16,7 @@ import { SearchAction, WebSite, WithContext } from 'schema-dts';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 
 import useJobFromUrl from '../../hooks/useJobFromUrl';
-import useIDMappingDetails from '../../hooks/useIDMappingDetails';
+import { useIDMappingDetails } from '../../contexts/IDMappingDetails';
 import useStructuredData from '../../hooks/useStructuredData';
 import { useMessagesDispatch } from '../../contexts/Messages';
 import { useSmallScreen } from '../../hooks/useMatchMedia';

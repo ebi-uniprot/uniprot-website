@@ -10,8 +10,8 @@ import { BinIcon, Button } from 'franklin-sites';
 
 import useDataApi from './useDataApi';
 import useNS from './useNS';
-import useDatabaseInfoMaps from './useDatabaseInfoMaps';
 import useColumnNames from './useColumnNames';
+import { useDatabaseInfoMaps } from '../contexts/UniProtData';
 
 import apiUrls from '../config/apiUrls';
 import { getIdKeyFor } from '../utils/getIdKeyForNamespace';

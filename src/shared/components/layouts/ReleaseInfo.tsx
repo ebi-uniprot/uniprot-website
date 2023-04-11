@@ -1,30 +1,20 @@
 import { Link } from 'react-router-dom';
-import { Method } from 'axios';
 import cn from 'classnames';
 
-import useDataApi from '../../hooks/useDataApi';
+import { useUniProtDataVersion } from '../../contexts/UniProtData';
 
-import apiUrls from '../../config/apiUrls';
 import { getLocationEntryPath, Location } from '../../../app/config/urls';
-
-import { Namespace } from '../../types/namespaces';
 
 import helper from '../../styles/helper.module.scss';
 import blurLoading from '../../styles/blur-loading.module.scss';
 import './styles/release-info.scss';
 
-const fetchOptions: { method: Method } = { method: 'HEAD' };
-
 const today = new Date();
 
 const ReleaseInfo = () => {
-  // TODO: replace with statistics endpoint
-  const { headers } = useDataApi(
-    apiUrls.queryBuilderTerms(Namespace.uniprotkb),
-    fetchOptions
-  );
-  // NOTE: don't use release number as date, might be different
-  const releaseNumber = headers?.['x-uniprot-release'];
+  // NOTE: release numbers don't correspond to dates, even if they look like it
+  const release = useUniProtDataVersion();
+
   return (
     <span
       className={cn(
@@ -35,13 +25,18 @@ const ReleaseInfo = () => {
     >
       <span
         className={cn(
-          { [blurLoading['blur-loading__placeholder']]: !releaseNumber },
+          { [blurLoading['blur-loading__placeholder']]: !release },
           'release-info__release_number'
         )}
       >
-        {releaseNumber ? (
-          <Link to={getLocationEntryPath(Location.HelpEntry, 'downloads')}>
-            Release {releaseNumber}
+        {release ? (
+          <Link
+            to={getLocationEntryPath(Location.HelpEntry, 'downloads')}
+            title={`UniProt release ${
+              release.releaseNumber
+            } released on ${release.releaseDate.toDateString()}`}
+          >
+            Release {release.releaseNumber}
           </Link>
         ) : (
           `Release ${today.getFullYear()}_00`

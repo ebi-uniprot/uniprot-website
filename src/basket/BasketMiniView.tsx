@@ -11,7 +11,7 @@ import useBasket, { Basket } from '../shared/hooks/useBasket';
 import useItemSelect from '../shared/hooks/useItemSelect';
 import usePagination from '../shared/hooks/usePagination';
 import useNSQuery from '../shared/hooks/useNSQuery';
-import useDatabaseInfoMaps from '../shared/hooks/useDatabaseInfoMaps';
+import { useDatabaseInfoMaps } from '../shared/contexts/UniProtData';
 
 import { reIds } from '../tools/utils/urls';
 import { getIdKeyFor } from '../shared/utils/getIdKeyForNamespace';
