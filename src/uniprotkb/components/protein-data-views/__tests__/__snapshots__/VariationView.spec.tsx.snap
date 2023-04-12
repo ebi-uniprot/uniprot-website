@@ -306,8 +306,7 @@ exports[`VariationView component renders on loading 1`] = `
 exports[`VariationView component renders on no data 1`] = `
 <DocumentFragment>
   <section
-    class="wider-tab-content"
-    style="margin-inline-end: 1.2rem;"
+    class="wider-tab-content hotjar-margin"
   >
     <div
       class="no-data"

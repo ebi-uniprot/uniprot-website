@@ -81,6 +81,11 @@ protvista-manager {
   width: 100%;
 }
 
+// margin in order to not have the feedback/help buttons cover the viewer
+.hotjar-margin {
+  margin-inline-end: 1.2rem;
+}
+
 @for $i from 1 through 6 {
   h#{$i}[data-article-id] {
     display: inline-block;

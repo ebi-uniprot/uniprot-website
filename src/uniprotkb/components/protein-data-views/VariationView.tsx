@@ -204,10 +204,7 @@ const VariationView = ({
     !filteredVariants
   ) {
     return (
-      <section
-        style={{ marginInlineEnd: '1.2rem' }}
-        className="wider-tab-content"
-      >
+      <section className="wider-tab-content hotjar-margin">
         {title && <h3>{title}</h3>}
         <div className={styles['no-data']}>
           No variation information available for {primaryAccession}
@@ -483,10 +480,7 @@ const VariationView = ({
   }
 
   return (
-    <section
-      style={{ marginInlineEnd: '1.2rem' }}
-      className="wider-tab-content"
-    >
+    <section className="wider-tab-content hotjar-margin">
       {title && <h2>{title}</h2>}
       <managerElement.name
         attributes="highlight displaystart displayend activefilters filters selectedid"
