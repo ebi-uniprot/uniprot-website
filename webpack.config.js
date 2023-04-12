@@ -439,6 +439,9 @@ module.exports = (env, argv) => {
       compress: true,
       host: 'localhost',
       historyApiFallback: true,
+      devMiddleware: {
+        stats: 'errors-only',
+      },
       open: {
         // use a browser specified in the user's environment, otherwise use default
         app: process.env.BROWSER,
