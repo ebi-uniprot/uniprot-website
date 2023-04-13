@@ -68,7 +68,8 @@ const mock: { comments: DiseaseComment[]; features: FeatureDatum[] } = {
           modifier: 'EXACT',
         },
       },
-      description: 'in AD; supposed to be rendered with the disease',
+      description:
+        'in AD; supposed to be rendered with the disease; Italian type; dbSNP:rs63750579',
       evidences: [
         {
           evidenceCode: 'ECO:0000269',
