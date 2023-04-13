@@ -35,6 +35,10 @@
     &::-webkit-scrollbar {
       display: none;
     }
+    // Hides the facets as they appear until the page content loads
+    @media only screen and (max-width: 640px) {
+      display: none;
+    }
   }
 
   & .empty-sidebar {
@@ -48,6 +52,10 @@
     grid-row: 1 / -1;
     /* If we want an expanded main content case, make it start on column 2 */
     grid-column: 3 / 4;
+    // Small screen
+    @media only screen and (max-width: 640px) {
+      grid-column: 1 / 4;
+    }
     @media print {
       /* cover the full width when printing */
       grid-column: 1 / 4;
