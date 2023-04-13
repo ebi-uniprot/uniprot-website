@@ -2603,7 +2603,6 @@ exports[`Entry view should render 1`] = `
             id="50"
           />
         </div>
-        Variants
       </div>
     </div>
   </section>
@@ -3887,9 +3886,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             <protvista-datatable
               filter-scroll="true"
             >
-              <table
-                class=""
-              >
+              <table>
                 <thead>
                   <tr>
                     <th
@@ -5009,9 +5006,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             <protvista-datatable
               filter-scroll="true"
             >
-              <table
-                class=""
-              >
+              <table>
                 <thead>
                   <tr>
                     <th
@@ -5323,7 +5318,6 @@ exports[`Entry view should render for non-human entry 1`] = `
             </button>
           </div>
         </protvista-manager>
-        {{ VariationView }}
       </div>
     </div>
   </section>
@@ -5556,9 +5550,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             <protvista-datatable
               filter-scroll="true"
             >
-              <table
-                class=""
-              >
+              <table>
                 <thead>
                   <tr>
                     <th
