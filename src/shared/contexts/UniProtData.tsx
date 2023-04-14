@@ -1,4 +1,4 @@
-import { createContext, FC, useEffect, useMemo } from 'react';
+import { createContext, useEffect, useMemo, ReactNode } from 'react';
 
 import useDataApi from '../hooks/useDataApi';
 
@@ -15,6 +15,13 @@ import { Namespace } from '../types/namespaces';
 import { UniProtKBColumn } from '../../uniprotkb/types/columnTypes';
 import { DatabaseInfo } from '../../uniprotkb/types/databaseRefs';
 
+export type UniProtDataVersion = {
+  releaseNumber: string;
+  releaseDate: Date;
+};
+
+export const UniProtDataVersionContext =
+  createContext<UniProtDataVersion | null>(null);
 export const DatabaseInfoMapsContext = createContext<DatabaseInfoMaps | null>(
   null
 );
@@ -44,10 +51,20 @@ export const databaseInfoColumnsSanityCheck = (databaseInfo: DatabaseInfo) => {
   }
 };
 
-export const DatabaseInfoMapsProvider: FC = ({ children }) => {
-  const { data } = useDataApi<DatabaseInfo>(
+export const UniProtDataProvider = ({ children }: { children: ReactNode }) => {
+  const { data, headers } = useDataApi<DatabaseInfo>(
     apiUrls.allDatabases(Namespace.uniprotkb)
   );
+
+  const uniProtDataVersion = useMemo(() => {
+    if (!headers) {
+      return null;
+    }
+    return {
+      releaseNumber: headers['x-uniprot-release'],
+      releaseDate: new Date(headers['x-uniprot-release-date']),
+    };
+  }, [headers]);
   const databaseInfoMaps = useMemo(() => getDatabaseInfoMaps(data), [data]);
 
   useEffect(() => {
@@ -58,8 +75,10 @@ export const DatabaseInfoMapsProvider: FC = ({ children }) => {
   }, [data]);
 
   return (
-    <DatabaseInfoMapsContext.Provider value={databaseInfoMaps}>
-      {children}
-    </DatabaseInfoMapsContext.Provider>
+    <UniProtDataVersionContext.Provider value={uniProtDataVersion}>
+      <DatabaseInfoMapsContext.Provider value={databaseInfoMaps}>
+        {children}
+      </DatabaseInfoMapsContext.Provider>
+    </UniProtDataVersionContext.Provider>
   );
 };

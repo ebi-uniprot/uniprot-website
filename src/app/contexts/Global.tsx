@@ -8,7 +8,7 @@ import { Router } from 'react-router-dom';
 // app own context providers
 import { MessagesProvider } from '../../shared/contexts/Messages';
 import { ToolsProvider } from '../../shared/contexts/Tools';
-import { DatabaseInfoMapsProvider } from '../../shared/contexts/DatabaseInfoMaps';
+import { UniProtDataProvider } from '../../shared/contexts/UniProtData';
 import { IDMappingDetailsProvider } from '../../shared/contexts/IDMappingDetails';
 
 import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
@@ -24,9 +24,9 @@ const GlobalContext: FC = ({ children }) => (
           <MessagesProvider>
             {/* Order is important, tools needs to be within messages */}
             <ToolsProvider>
-              <DatabaseInfoMapsProvider>
+              <UniProtDataProvider>
                 <IDMappingDetailsProvider>{children}</IDMappingDetailsProvider>
-              </DatabaseInfoMapsProvider>
+              </UniProtDataProvider>
             </ToolsProvider>
           </MessagesProvider>
         </FranklinSite>

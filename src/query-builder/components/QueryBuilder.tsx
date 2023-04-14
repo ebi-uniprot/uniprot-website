@@ -16,7 +16,7 @@ import colors from '../../../node_modules/franklin-sites/src/styles/colours.json
 
 import ClauseList from './ClauseList';
 
-import { useMessagesDispatch } from '../../shared/contexts/Messages';
+import useMessagesDispatch from '../../shared/hooks/useMessagesDispatch';
 import useDataApi from '../../shared/hooks/useDataApi';
 import useJobFromUrl from '../../shared/hooks/useJobFromUrl';
 import useIDMappingDetails from '../../shared/hooks/useIDMappingDetails';

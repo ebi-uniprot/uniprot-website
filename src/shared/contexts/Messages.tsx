@@ -1,4 +1,4 @@
-import { createContext, Dispatch, FC, useReducer } from 'react';
+import { createContext, Dispatch, useReducer, ReactNode } from 'react';
 
 import messagesInitialState, {
   MessagesState,
@@ -6,7 +6,6 @@ import messagesInitialState, {
 import messagesReducers, {
   MessagesAction,
 } from '../../messages/state/messagesReducers';
-import getContextHook from './getContextHook';
 
 export const MessagesDispatchContext = createContext<Dispatch<MessagesAction>>(
   () => {
@@ -17,7 +16,7 @@ export const MessagesDispatchContext = createContext<Dispatch<MessagesAction>>(
 export const MessagesStateContext =
   createContext<MessagesState>(messagesInitialState);
 
-export const MessagesProvider: FC = ({ children }) => {
+export const MessagesProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(messagesReducers, messagesInitialState);
 
   return (
@@ -28,7 +27,3 @@ export const MessagesProvider: FC = ({ children }) => {
     </MessagesDispatchContext.Provider>
   );
 };
-
-// Need to put the hooks here, otherwise there's a circular dependency issue
-export const useMessagesDispatch = getContextHook(MessagesDispatchContext);
-export const useMessagesState = getContextHook(MessagesStateContext);

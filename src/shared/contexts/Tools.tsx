@@ -1,21 +1,20 @@
 import {
   createContext,
   Dispatch,
-  FC,
   useReducer,
   useEffect,
   useRef,
   useMemo,
+  ReactNode,
 } from 'react';
 
-import { useMessagesDispatch } from './Messages';
+import useMessagesDispatch from '../hooks/useMessagesDispatch';
 
 import toolsInitialState, {
   ToolsState,
 } from '../../tools/state/toolsInitialState';
 import toolsMiddleware from '../../tools/state/toolsMiddleware';
 import toolsReducers, { ToolsAction } from '../../tools/state/toolsReducers';
-import getContextHook from './getContextHook';
 
 export const ToolsDispatchContext = createContext<Dispatch<ToolsAction>>(() => {
   /* */
@@ -23,7 +22,7 @@ export const ToolsDispatchContext = createContext<Dispatch<ToolsAction>>(() => {
 
 export const ToolsStateContext = createContext<ToolsState>(toolsInitialState);
 
-export const ToolsProvider: FC = ({ children }) => {
+export const ToolsProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(toolsReducers, toolsInitialState);
   const messagesDispatch = useMessagesDispatch();
 
@@ -49,7 +48,3 @@ export const ToolsProvider: FC = ({ children }) => {
     </ToolsDispatchContext.Provider>
   );
 };
-
-// Need to put the hooks here, otherwise there's a circular dependency issue
-export const useToolsDispatch = getContextHook(ToolsDispatchContext);
-export const useToolsState = getContextHook(ToolsStateContext);

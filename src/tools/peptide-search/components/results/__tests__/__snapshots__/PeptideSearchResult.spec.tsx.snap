@@ -493,9 +493,14 @@ exports[`PeptideSearchResult should render with the correct number of results in
           class="release-info no-wrap blur-loading__item"
         >
           <span
-            class="blur-loading__placeholder release-info__release_number"
+            class="release-info__release_number"
           >
-            Release 2023_00
+            <a
+              href="/help/downloads"
+              title="UniProt release 2023_01 released on Wed Mar 01 2023"
+            >
+              Release 2023_01
+            </a>
           </span>
            | 
           <a
@@ -1430,9 +1435,14 @@ exports[`PeptideSearchResult should render with the correct number of results in
           class="release-info no-wrap blur-loading__item"
         >
           <span
-            class="blur-loading__placeholder release-info__release_number"
+            class="release-info__release_number"
           >
-            Release 2023_00
+            <a
+              href="/help/downloads"
+              title="UniProt release 2023_01 released on Wed Mar 01 2023"
+            >
+              Release 2023_01
+            </a>
           </span>
            | 
           <a

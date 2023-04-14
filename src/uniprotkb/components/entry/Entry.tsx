@@ -31,7 +31,7 @@ import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
-import { useMessagesDispatch } from '../../../shared/contexts/Messages';
+import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 import useMatchWithRedirect from '../../../shared/hooks/useMatchWithRedirect';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 

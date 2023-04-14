@@ -1,17 +1,5 @@
-import { useContext } from 'react';
+import getContextHook from '../contexts/getContextHook';
 
-import { DatabaseInfoMapsContext } from '../contexts/DatabaseInfoMaps';
+import { DatabaseInfoMapsContext } from '../contexts/UniProtData';
 
-import * as logging from '../utils/logging';
-
-const useDatabaseInfoMaps = () => {
-  const context = useContext(DatabaseInfoMapsContext);
-  if (context === undefined) {
-    logging.error(
-      'useDatabaseInfoMaps must be used within a DatabaseInfoMapsProvider'
-    );
-  }
-  return context;
-};
-
-export default useDatabaseInfoMaps;
+export default getContextHook(DatabaseInfoMapsContext);

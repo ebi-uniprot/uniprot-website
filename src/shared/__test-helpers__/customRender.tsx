@@ -17,7 +17,10 @@ import {
   MessagesStateContext,
 } from '../contexts/Messages';
 import { ToolsDispatchContext, ToolsStateContext } from '../contexts/Tools';
-import { DatabaseInfoMapsContext } from '../contexts/DatabaseInfoMaps';
+import {
+  DatabaseInfoMapsContext,
+  UniProtDataVersionContext,
+} from '../contexts/UniProtData';
 
 import { MessagesState } from '../../messages/state/messagesInitialState';
 import { MessagesAction } from '../../messages/state/messagesReducers';
@@ -51,6 +54,10 @@ type WrapperProps = RenderOptions &
   >;
 
 const dbInfoMaps = getDatabaseInfoMaps(databaseInfo);
+const uniProtDataVersion = {
+  releaseNumber: '2023_01',
+  releaseDate: new Date('01-March-2023'),
+};
 
 class Wrapper extends Component<WrapperProps> {
   constructor(props: WrapperProps) {
@@ -82,11 +89,15 @@ class Wrapper extends Component<WrapperProps> {
               <ToolsDispatchContext.Provider value={toolsDispatch}>
                 <ToolsStateContext.Provider value={toolsState}>
                   <DatabaseInfoMapsContext.Provider value={dbInfoMaps}>
-                    {path ? (
-                      <Route path={path} render={() => children} />
-                    ) : (
-                      children
-                    )}
+                    <UniProtDataVersionContext.Provider
+                      value={uniProtDataVersion}
+                    >
+                      {path ? (
+                        <Route path={path} render={() => children} />
+                      ) : (
+                        children
+                      )}
+                    </UniProtDataVersionContext.Provider>
                   </DatabaseInfoMapsContext.Provider>
                 </ToolsStateContext.Provider>
               </ToolsDispatchContext.Provider>

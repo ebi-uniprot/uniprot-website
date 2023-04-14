@@ -31,8 +31,8 @@ import { addMessage } from '../../../messages/state/messagesActions';
 
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
-import { useToolsDispatch } from '../../../shared/contexts/Tools';
-import { useMessagesDispatch } from '../../../shared/contexts/Messages';
+import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
+import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 
 import { createJob } from '../../state/toolsActions';
 
