@@ -3,7 +3,7 @@ import { Loader } from 'franklin-sites';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import DatatableWithToggle from '../../../shared/components/views/DatatableWithToggle';
 
-import { useDatabaseInfoMaps } from '../../../shared/contexts/UniProtData';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
 import { getDatabaseInfoAttribute, processUrlTemplate } from './XRefView';
 import * as logging from '../../../shared/utils/logging';

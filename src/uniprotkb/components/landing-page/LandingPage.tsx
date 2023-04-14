@@ -3,7 +3,7 @@ import { Card, Loader, LongNumber } from 'franklin-sites';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
-import { useUniProtDataVersion } from '../../../shared/contexts/UniProtData';
+import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
 import useDataApi from '../../../shared/hooks/useDataApi';
 
 import styles from './styles/landing-page.module.scss';

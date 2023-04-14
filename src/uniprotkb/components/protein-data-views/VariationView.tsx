@@ -1,12 +1,4 @@
-import {
-  useMemo,
-  Fragment,
-  useRef,
-  useEffect,
-  useState,
-  lazy,
-  Suspense,
-} from 'react';
+import { useMemo, Fragment, useRef, useEffect, useState, lazy } from 'react';
 import { Loader } from 'franklin-sites';
 import joinUrl from 'url-join';
 import { groupBy, intersection, union } from 'lodash-es';
@@ -212,12 +204,12 @@ const VariationView = ({
     !filteredVariants
   ) {
     return (
-      <div>
+      <section className="wider-tab-content hotjar-margin">
         {title && <h3>{title}</h3>}
         <div className={styles['no-data']}>
           No variation information available for {primaryAccession}
         </div>
-      </div>
+      </section>
     );
   }
 
@@ -478,30 +470,26 @@ const VariationView = ({
     </table>
   );
 
-  const fallback = (
-    <div>
-      {title && <h3>{title}</h3>}
-      <DatatableWithToggle>{table}</DatatableWithToggle>
-    </div>
-  );
-
   if (onlyTable || isSmallScreen) {
-    return fallback;
+    return (
+      <section>
+        {title && <h2>{title}</h2>}
+        <DatatableWithToggle>{table}</DatatableWithToggle>
+      </section>
+    );
   }
 
   return (
-    <Suspense fallback={fallback}>
-      <div>
-        {title && <h3>{title}</h3>}
-        <managerElement.name
-          attributes="highlight displaystart displayend activefilters filters selectedid"
-          ref={managerRef}
-        >
-          <VisualVariationView {...transformedData} />
-          <DatatableWithToggle>{table}</DatatableWithToggle>
-        </managerElement.name>
-      </div>
-    </Suspense>
+    <section className="wider-tab-content hotjar-margin">
+      {title && <h2>{title}</h2>}
+      <managerElement.name
+        attributes="highlight displaystart displayend activefilters filters selectedid"
+        ref={managerRef}
+      >
+        <VisualVariationView {...transformedData} />
+        <DatatableWithToggle>{table}</DatatableWithToggle>
+      </managerElement.name>
+    </section>
   );
 };
 

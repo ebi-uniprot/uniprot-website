@@ -14,7 +14,7 @@ import useDataApi from '../../../../shared/hooks/useDataApi';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 import useNSQuery from '../../../../shared/hooks/useNSQuery';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
-import { useToolsState } from '../../../../shared/contexts/Tools';
+import useToolsState from '../../../../shared/hooks/useToolsState';
 import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect';
 import usePaginatedAccessions from '../../../../shared/hooks/usePaginatedAccessions';
 

@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 import queryString from 'query-string';
 
-import { useMessagesDispatch } from '../../contexts/Messages';
+import useMessagesDispatch from '../../hooks/useMessagesDispatch';
 import useScrollIntoViewRef from '../../hooks/useScrollIntoView';
 
 import {

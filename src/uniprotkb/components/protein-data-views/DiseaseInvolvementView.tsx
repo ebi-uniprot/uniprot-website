@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { InfoList, ExpandableList } from 'franklin-sites';
 
@@ -7,7 +7,7 @@ import { XRef } from './XRefView';
 import DatatableWithToggle from '../../../shared/components/views/DatatableWithToggle';
 import ExternalLink from '../../../shared/components/ExternalLink';
 
-import { useDatabaseInfoMaps } from '../../../shared/contexts/UniProtData';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
 import { getEntryPath } from '../../../app/config/urls';
 import externalUrls from '../../../shared/config/externalUrls';
@@ -107,21 +107,44 @@ export const DiseaseVariants = ({ variants }: { variants: FeatureDatum[] }) => {
   return <DatatableWithToggle>{table}</DatatableWithToggle>;
 };
 
+const reDiseaseAcronymSentence = /^in [^;]+(;|$)/i;
+
 type DiseaseInvolvementEntryProps = {
   comment: DiseaseComment;
+  features?: FeatureDatum[];
   accession: string;
 };
 
 export const DiseaseInvolvementEntry = ({
   comment,
+  features,
   accession,
 }: DiseaseInvolvementEntryProps) => {
   const databaseInfoMaps = useDatabaseInfoMaps();
-  const { disease, note, variants } = comment;
+  const { disease, note } = comment;
 
   if (!disease && !note) {
     return null;
   }
+
+  const diseaseRE =
+    disease?.acronym && new RegExp(` ${disease.acronym}(;|,| |$)`);
+
+  const diseaseVariants =
+    diseaseRE &&
+    features
+      ?.filter((feature) => {
+        if (!disease.acronym || feature.type !== 'Natural variant') {
+          return false;
+        }
+        const match = feature.description?.match(reDiseaseAcronymSentence);
+        if (!match) {
+          return false;
+        }
+        const [diseasePart] = match;
+        return diseaseRE.test(diseasePart);
+      })
+      .sort(sortByLocation);
 
   const infoData = [];
 
@@ -187,8 +210,6 @@ export const DiseaseInvolvementEntry = ({
     </>
   );
 
-  const variantList = Object.values(variants || {}).sort(sortByLocation);
-
   return (
     <>
       <h4>
@@ -202,10 +223,10 @@ export const DiseaseInvolvementEntry = ({
       </h4>
       <span className="text-block">{evidenceNodes}</span>
       <InfoList infoData={infoData} />
-      {variantList?.length ? (
+      {diseaseVariants && diseaseVariants.length ? (
         <>
           <h5>Natural variants in {disease?.acronym}</h5>
-          <DiseaseVariants variants={variantList} />
+          <DiseaseVariants variants={diseaseVariants} />
         </>
       ) : null}
     </>
@@ -214,18 +235,21 @@ export const DiseaseInvolvementEntry = ({
 
 type DiseaseInvolvementProps = {
   comments?: DiseaseComment[];
+  features?: FeatureDatum[];
   primaryAccession: string;
   includeTitle?: boolean;
 };
 
 export const DiseaseInvolvementView = ({
   comments,
+  features,
   primaryAccession: accession,
   includeTitle = false,
 }: DiseaseInvolvementProps) => {
   if (!comments?.length) {
     return null;
   }
+
   return (
     <>
       {includeTitle && (
@@ -236,6 +260,7 @@ export const DiseaseInvolvementView = ({
           // eslint-disable-next-line react/no-array-index-key
           key={index}
           comment={comment}
+          features={features}
           accession={accession}
         />
       ))}
@@ -243,4 +268,4 @@ export const DiseaseInvolvementView = ({
   );
 };
 
-export default DiseaseInvolvementView;
+export default memo(DiseaseInvolvementView);

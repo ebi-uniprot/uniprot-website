@@ -98,9 +98,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
             <protvista-datatable
               filter-scroll="true"
             >
-              <table
-                class=""
-              >
+              <table>
                 <thead>
                   <tr>
                     <th
@@ -559,9 +557,7 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
             <protvista-datatable
               filter-scroll="true"
             >
-              <table
-                class=""
-              >
+              <table>
                 <thead>
                   <tr>
                     <th

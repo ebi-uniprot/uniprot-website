@@ -1,6 +1,5 @@
 import { useMemo, Fragment, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import classNames from 'classnames';
 import { v1 } from 'uuid';
 import { Button, Chip } from 'franklin-sites';
 
@@ -73,8 +72,7 @@ type FeatureProps = {
   primaryAccession: string;
   sequence?: string;
   features: FeatureDatum[];
-  withTitle?: boolean;
-  withDataTable?: boolean;
+  inResultsTable?: boolean;
   showSourceColumn?: boolean;
 };
 
@@ -143,8 +141,7 @@ const UniProtKBFeaturesView = ({
   primaryAccession,
   sequence,
   features,
-  withTitle = true,
-  withDataTable = true,
+  inResultsTable,
   showSourceColumn = false,
 }: FeatureProps) => {
   const processedData = useMemo(
@@ -163,10 +160,10 @@ const UniProtKBFeaturesView = ({
   );
 
   const table = (
-    <table className={classNames(!withDataTable && 'data-table--compact')}>
+    <table>
       <thead>
         <tr>
-          <th data-filter="type">Type</th>
+          {inResultsTable ? <th>Type</th> : <th data-filter="type">Type</th>}
           <th>ID</th>
           <th>Position(s)</th>
           {showSourceColumn && <th data-filter="source">Source</th>}
@@ -225,9 +222,13 @@ const UniProtKBFeaturesView = ({
                 data-start={feature.start}
                 data-end={feature.end}
               >
-                <td data-filter="type" data-filter-value={feature.type}>
-                  {feature.type}
-                </td>
+                {inResultsTable ? (
+                  <td>{feature.type}</td>
+                ) : (
+                  <td data-filter="type" data-filter-value={feature.type}>
+                    {feature.type}
+                  </td>
+                )}
                 <td id={feature.featureId}>{feature.featureId}</td>
                 <td>{position}</td>
                 {showSourceColumn && (
@@ -312,15 +313,13 @@ const UniProtKBFeaturesView = ({
     </table>
   );
 
-  return withDataTable ? (
+  return (
     <FeaturesView
       features={processedData}
       sequence={sequence}
       table={table}
-      withTitle={withTitle}
+      withTitle={!inResultsTable}
     />
-  ) : (
-    table
   );
 };
 

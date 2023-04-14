@@ -29,7 +29,7 @@ import { updateJob, deleteJob } from '../../state/toolsActions';
 import { jobTypeToPath } from '../../../app/config/urls';
 
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
-import { useToolsDispatch } from '../../../shared/contexts/Tools';
+import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
 
 import { getBEMClassName as bem, pluralise } from '../../../shared/utils/utils';
 import parseDate from '../../../shared/utils/parseDate';

@@ -66,7 +66,7 @@ describe('BlastForm test', () => {
     expect(jobNameField.value).toBe('some_FASTA_header');
   });
 
-  it("Don't set a name automatically when user entered one", () => {
+  it("Doesn't set a name automatically when user entered one", () => {
     const textArea = screen.getByTestId('sequence-submission-input');
     const jobNameField = screen.getByRole<HTMLSelectElement>('textbox', {
       name: 'Name your BLAST job',
@@ -79,6 +79,31 @@ describe('BlastForm test', () => {
       target: { value: `>some_FASTA_header extra info\n${aaSequence}` },
     });
     expect(jobNameField.value).toBe('My job name');
+  });
+
+  it("Doesn't set the program automatically when user selected one", () => {
+    const textArea = screen.getByTestId('sequence-submission-input');
+    const programSelect = screen.getByRole<HTMLSelectElement>('combobox', {
+      name: 'Program',
+    });
+    fireEvent.change(programSelect, {
+      target: { value: 'blastx' },
+    });
+    expect(programSelect.value).toBe('blastx');
+    fireEvent.change(textArea, {
+      target: { value: `>some_FASTA_header extra info\n${aaSequence}` },
+    });
+    expect(programSelect.value).toBe('blastx');
+  });
+
+  it("Doesn't set the sequence type automatically when user selected one", () => {
+    const textArea = screen.getByTestId('sequence-submission-input');
+    const sequenceTypeSelect = screen.getByRole<HTMLSelectElement>('combobox', {
+      name: 'Sequence type',
+    });
+    fireEvent.change(sequenceTypeSelect, { target: { value: 'dna' } });
+    fireEvent.change(textArea, { target: { value: aaSequence } });
+    expect(sequenceTypeSelect.value).toBe('dna');
   });
 
   it('Informs the user about the automatic matrix based on the sequence', () => {

@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { Fragment, lazy } from 'react';
+import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import {
   DoughnutChart,
@@ -11,7 +11,6 @@ import {
 } from 'franklin-sites';
 import { omit } from 'lodash-es';
 
-import LazyComponent from '../../shared/components/LazyComponent';
 import ExternalLink from '../../shared/components/ExternalLink';
 import SimpleView from '../../shared/components/views/SimpleView';
 import { ECNumbersView } from '../components/protein-data-views/ProteinNamesView';
@@ -90,7 +89,7 @@ import CSVView from '../components/protein-data-views/CSVView';
 import { DatabaseList } from '../components/protein-data-views/XRefView';
 import { PeptideSearchMatches } from '../../tools/peptide-search/components/PeptideSearchMatches';
 
-import { useDatabaseInfoMaps } from '../../shared/contexts/UniProtData';
+import useDatabaseInfoMaps from '../../shared/hooks/useDatabaseInfoMaps';
 
 import { deepFindAllByKey } from '../../shared/utils/utils';
 import { getAllKeywords } from '../utils/KeywordsUtil';
@@ -117,13 +116,6 @@ import { ProteinDescription } from '../adapters/namesAndTaxonomyConverter';
 
 import helper from '../../shared/styles/helper.module.scss';
 
-const VariationView = lazy(
-  () =>
-    import(
-      /* webpackChunkName: "variation-view" */ '../components/protein-data-views/VariationView'
-    )
-);
-
 export const defaultColumns = [
   UniProtKBColumn.accession,
   UniProtKBColumn.reviewed,
@@ -149,7 +141,7 @@ const getFeatureColumn = (
         <FeaturesView
           primaryAccession={data.primaryAccession}
           features={featuresData.filter((feature) => feature.type === type)}
-          withDataTable={false}
+          inResultsTable
         />
       )
     );
@@ -474,19 +466,6 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccMassSpectrometry, {
     const { massSpectrometry } = data[EntrySection.Sequence];
     return massSpectrometry && <MassSpectrometryView data={massSpectrometry} />;
   },
-});
-
-UniProtKBColumnConfiguration.set(UniProtKBColumn.ftVariant, {
-  ...getLabelAndTooltip(
-    'Natural Variants',
-    'Description of a natural variant of the protein',
-    'variant'
-  ),
-  render: (data) => (
-    <LazyComponent fallback="Variants">
-      <VariationView primaryAccession={data.primaryAccession} onlyTable />
-    </LazyComponent>
-  ),
 });
 
 function addFeaturesToConfiguration<T extends FeatureType>(

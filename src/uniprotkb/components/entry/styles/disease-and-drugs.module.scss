@@ -1,0 +1,19 @@
+.variants {
+  display: grid;
+  place-items: center center;
+  text-align: center;
+
+  & > * {
+    /* stack all elements on top of each other */
+    grid-area: 1 / 1;
+
+    &:last-child {
+      z-index: 0;
+    }
+  }
+
+  & img {
+    opacity: 0.2;
+    filter: blur(1px);
+  }
+}

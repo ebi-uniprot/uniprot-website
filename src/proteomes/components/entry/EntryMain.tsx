@@ -5,8 +5,6 @@ import ErrorBoundary from '../../../shared/components/error-component/ErrorBound
 
 import ProteomesEntryConfig from '../../config/ProteomesEntryConfig';
 
-import { isSameEntry } from '../../../shared/utils/utils';
-
 import { ProteomesUIModel } from '../../adapters/proteomesConverter';
 
 type EntryMainProps = {
@@ -23,4 +21,4 @@ const EntryMain = ({ transformedData }: EntryMainProps) => (
   </>
 );
 
-export default memo(EntryMain, isSameEntry);
+export default memo(EntryMain);

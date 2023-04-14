@@ -1,85 +1,193 @@
 import { DiseaseComment } from '../../../../types/commentTypes';
+import { FeatureDatum } from '../../UniProtKBFeaturesView';
 
-const mock: DiseaseComment[] = [
-  {
-    commentType: 'DISEASE',
-    disease: {
-      diseaseId: 'Alzheimers',
-      diseaseAccession: 'ASDASDAS',
-      acronym: 'AD',
-      description: 'Some description',
-      diseaseCrossReference: {
-        database: 'EMBL',
-        id: 'some ref id',
-        properties: {
-          prop1: 'value1',
+const mock: { comments: DiseaseComment[]; features: FeatureDatum[] } = {
+  comments: [
+    {
+      commentType: 'DISEASE',
+      disease: {
+        diseaseId: 'Alzheimers',
+        diseaseAccession: 'ASDASDAS',
+        acronym: 'AD',
+        description: 'Some description',
+        diseaseCrossReference: {
+          database: 'EMBL',
+          id: 'some ref id',
+          properties: {
+            prop1: 'value1',
+          },
+          isoformId: 'some isoform',
         },
-        isoformId: 'some isoform',
+        evidences: [],
       },
-      evidences: [],
+      note: {
+        texts: [
+          {
+            value: 'Some disease note',
+          },
+        ],
+      },
     },
-    note: {
-      texts: [
+  ],
+  features: [
+    {
+      type: 'Natural variant',
+      location: {
+        start: {
+          value: 22,
+          modifier: 'EXACT',
+        },
+        end: {
+          value: 22,
+          modifier: 'EXACT',
+        },
+      },
+      description: 'in ADDDD; not supposed to be rendered with the disease',
+      evidences: [
         {
-          value: 'Some disease note',
+          evidenceCode: 'ECO:0000269',
+          source: 'Reference',
+          id: 'Ref.4',
         },
       ],
-    },
-    variants: {
-      VAR_019255: {
-        type: 'Natural variant',
-        location: {
-          start: {
-            value: 23,
-            modifier: 'EXACT',
-          },
-          end: {
-            value: 23,
-            modifier: 'EXACT',
-          },
-        },
-        description: 'in dbSNP:rs13447459',
-        evidences: [
-          {
-            evidenceCode: 'ECO:0000269',
-            source: 'Reference',
-            id: 'Ref.4',
-          },
-        ],
-        featureId: 'VAR_019255',
-        alternativeSequence: {
-          originalSequence: 'Q',
-          alternativeSequences: ['P'],
-        },
-      },
-      VAR_019256: {
-        type: 'Natural variant',
-        location: {
-          start: {
-            value: 99,
-            modifier: 'EXACT',
-          },
-          end: {
-            value: 99,
-            modifier: 'EXACT',
-          },
-        },
-        description: 'in dbSNP:rs13447492',
-        evidences: [
-          {
-            evidenceCode: 'ECO:0000269',
-            source: 'Reference',
-            id: 'Ref.4',
-          },
-        ],
-        featureId: 'VAR_019256',
-        alternativeSequence: {
-          originalSequence: 'I',
-          alternativeSequences: ['V'],
-        },
+      featureId: 'VAR_019255',
+      alternativeSequence: {
+        originalSequence: 'Q',
+        alternativeSequences: ['P'],
       },
     },
-  },
-];
+    {
+      type: 'Natural variant',
+      location: {
+        start: {
+          value: 23,
+          modifier: 'EXACT',
+        },
+        end: {
+          value: 23,
+          modifier: 'EXACT',
+        },
+      },
+      description:
+        'in AD; supposed to be rendered with the disease; Italian type; dbSNP:rs63750579',
+      evidences: [
+        {
+          evidenceCode: 'ECO:0000269',
+          source: 'Reference',
+          id: 'Ref.4',
+        },
+      ],
+      featureId: 'VAR_019255',
+      alternativeSequence: {
+        originalSequence: 'Q',
+        alternativeSequences: ['P'],
+      },
+    },
+    {
+      type: 'Natural variant',
+      location: {
+        start: {
+          value: 99,
+          modifier: 'EXACT',
+        },
+        end: {
+          value: 99,
+          modifier: 'EXACT',
+        },
+      },
+      description: 'in AD',
+      evidences: [
+        {
+          evidenceCode: 'ECO:0000269',
+          source: 'Reference',
+          id: 'Ref.4',
+        },
+      ],
+      featureId: 'VAR_019256',
+      alternativeSequence: {
+        originalSequence: 'I',
+        alternativeSequences: ['V'],
+      },
+    },
+    {
+      type: 'Natural variant',
+      location: {
+        start: {
+          value: 99,
+          modifier: 'EXACT',
+        },
+        end: {
+          value: 99,
+          modifier: 'EXACT',
+        },
+      },
+      description: 'not a disease',
+      evidences: [
+        {
+          evidenceCode: 'ECO:0000269',
+          source: 'Reference',
+          id: 'Ref.4',
+        },
+      ],
+      featureId: 'VAR_019256',
+      alternativeSequence: {
+        originalSequence: 'I',
+        alternativeSequences: ['V'],
+      },
+    },
+    {
+      type: 'Active site',
+      location: {
+        start: {
+          value: 99,
+          modifier: 'EXACT',
+        },
+        end: {
+          value: 99,
+          modifier: 'EXACT',
+        },
+      },
+      description: 'not a disease',
+      evidences: [
+        {
+          evidenceCode: 'ECO:0000269',
+          source: 'Reference',
+          id: 'Ref.4',
+        },
+      ],
+      featureId: 'VAR_019256',
+      alternativeSequence: {
+        originalSequence: 'I',
+        alternativeSequences: ['V'],
+      },
+    },
+    {
+      type: 'Natural variant',
+      location: {
+        start: {
+          value: 100,
+          modifier: 'EXACT',
+        },
+        end: {
+          value: 100,
+          modifier: 'EXACT',
+        },
+      },
+      description: 'in dbSNP:rs13447492',
+      evidences: [
+        {
+          evidenceCode: 'ECO:0000269',
+          source: 'Reference',
+          id: 'Ref.4',
+        },
+      ],
+      featureId: 'VAR_999999',
+      alternativeSequence: {
+        originalSequence: 'I',
+        alternativeSequences: ['V'],
+      },
+    },
+  ],
+};
 
 export default mock;

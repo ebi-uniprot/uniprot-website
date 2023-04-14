@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
-import { useUniProtDataVersion } from '../../contexts/UniProtData';
+import useUniProtDataVersion from '../../hooks/useUniProtDataVersion';
 
 import { getLocationEntryPath, Location } from '../../../app/config/urls';
 

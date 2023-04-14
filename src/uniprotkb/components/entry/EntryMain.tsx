@@ -6,19 +6,23 @@ import MedicalDisclaimer from '../../../shared/components/MedicalDisclaimer';
 
 import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 
-import { isSameEntry } from '../../../shared/utils/utils';
-
 import { UniProtkbUIModel } from '../../adapters/uniProtkbConverter';
 
 type EntryMainProps = {
   transformedData: UniProtkbUIModel;
+  hasImportedVariants: boolean;
 };
 
-const EntryMain = ({ transformedData }: EntryMainProps) => (
+const EntryMain = ({
+  transformedData,
+  hasImportedVariants,
+}: EntryMainProps) => (
   <>
     {UniProtKBEntryConfig.map(({ id, sectionContent }) => (
       <Suspense fallback={<Loader />} key={id}>
-        <ErrorBoundary>{sectionContent(transformedData)}</ErrorBoundary>
+        <ErrorBoundary>
+          {sectionContent(transformedData, hasImportedVariants)}
+        </ErrorBoundary>
       </Suspense>
     ))}
 
@@ -26,4 +30,4 @@ const EntryMain = ({ transformedData }: EntryMainProps) => (
   </>
 );
 
-export default memo(EntryMain, isSameEntry);
+export default memo(EntryMain);

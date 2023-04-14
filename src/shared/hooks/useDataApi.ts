@@ -2,7 +2,7 @@ import { useEffect, useReducer, useRef } from 'react';
 import axios, { AxiosResponse, AxiosError, AxiosRequestConfig } from 'axios';
 import joinUrl from 'url-join';
 
-import { useMessagesDispatch } from '../contexts/Messages';
+import useMessagesDispatch from './useMessagesDispatch';
 
 import fetchData from '../utils/fetchData';
 import { addMessage } from '../../messages/state/messagesActions';

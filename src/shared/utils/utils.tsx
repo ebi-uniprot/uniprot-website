@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { RequireAtLeastOne } from 'type-fest';
+
 import { getURLToJobWithData } from '../../app/config/urls';
 import { JobTypes } from '../../tools/types/toolsJobTypes';
 
@@ -77,21 +77,6 @@ export const hasContent = (obj: Record<string | number | symbol, unknown>) =>
     }
     return typeof val !== 'undefined';
   });
-
-type TransformedData = {
-  transformedData: RequireAtLeastOne<
-    Record<string, unknown>,
-    'id' | 'primaryAccession'
-  >;
-};
-
-export const isSameEntry = (
-  { transformedData: prev }: TransformedData,
-  { transformedData: next }: TransformedData
-) =>
-  prev?.primaryAccession !== undefined
-    ? prev.primaryAccession === next.primaryAccession
-    : prev.id === next.id;
 
 export function* deepFindAllByKey<T = string>(
   input: unknown,

@@ -16,10 +16,10 @@ import colors from '../../../node_modules/franklin-sites/src/styles/colours.json
 
 import ClauseList from './ClauseList';
 
-import { useMessagesDispatch } from '../../shared/contexts/Messages';
+import useMessagesDispatch from '../../shared/hooks/useMessagesDispatch';
 import useDataApi from '../../shared/hooks/useDataApi';
 import useJobFromUrl from '../../shared/hooks/useJobFromUrl';
-import { useIDMappingDetails } from '../../shared/contexts/IDMappingDetails';
+import useIDMappingDetails from '../../shared/hooks/useIDMappingDetails';
 
 import { createEmptyClause, defaultQueryFor, getNextId } from '../utils/clause';
 import { pluralise } from '../../shared/utils/utils';

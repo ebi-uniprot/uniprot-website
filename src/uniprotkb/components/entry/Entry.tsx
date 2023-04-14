@@ -1,6 +1,7 @@
 import { useMemo, useEffect, Suspense } from 'react';
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import { InPageNav, Loader, Tabs, Tab } from 'franklin-sites';
+import joinUrl from 'url-join';
 import cn from 'classnames';
 import qs from 'query-string';
 import { frame } from 'timing-functions';
@@ -29,8 +30,8 @@ import CommunityAnnotationLink from './CommunityAnnotationLink';
 import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
-import { useDatabaseInfoMaps } from '../../../shared/contexts/UniProtData';
-import { useMessagesDispatch } from '../../../shared/contexts/Messages';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 import useMatchWithRedirect from '../../../shared/hooks/useMatchWithRedirect';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
@@ -71,6 +72,7 @@ import '../../../shared/components/entry/styles/entry-page.scss';
 
 export enum TabLocation {
   Entry = 'entry',
+  VariantsViewer = 'variants-viewer',
   FeatureViewer = 'feature-viewer',
   Publications = 'publications',
   ExternalLinks = 'external-links',
@@ -83,6 +85,13 @@ const FeatureViewer = lazy(
   () =>
     import(
       /* webpackChunkName: "uniprotkb-entry-feature-viewer" */ './FeatureViewer'
+    )
+);
+
+const VariationView = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "uniprotkb-entry-variation-view" */ '../protein-data-views/VariationView'
     )
 );
 
@@ -124,6 +133,12 @@ const Entry = () => {
       apiUrls.entry(match?.params.accession, Namespace.uniprotkb)
     );
 
+  const variantsHeadPayload = useDataApi(
+    match?.params.accession &&
+      joinUrl(apiUrls.variation, match?.params.accession),
+    { method: 'HEAD' }
+  );
+
   const databaseInfoMaps = useDatabaseInfoMaps();
 
   const [transformedData, pageTitle] = useMemo(() => {
@@ -153,8 +168,6 @@ const Entry = () => {
             disabled = !hasExternalLinks(transformedData);
             break;
           case EntrySection.SimilarProteins:
-          case EntrySection.DiseaseVariants:
-          case EntrySection.PhenotypesVariants:
             disabled = false;
             break;
           case EntrySection.SubCellularLocation:
@@ -289,6 +302,9 @@ const Entry = () => {
     isObsolete ||
     (redirectedTo && match?.params.subPage === TabLocation.History);
 
+  const hasImportedVariants =
+    !variantsHeadPayload.loading && variantsHeadPayload.status === 200;
+
   if (error || !match?.params.accession || !transformedData) {
     return <ErrorHandler status={status} />;
   }
@@ -391,9 +407,44 @@ const Entry = () => {
                   Entry feedback
                 </ContactLink>
               </div>
-              <EntryMain transformedData={transformedData} />
+              <EntryMain
+                transformedData={transformedData}
+                hasImportedVariants={hasImportedVariants}
+              />
             </>
           )}
+        </Tab>
+        <Tab
+          title={
+            <Link
+              className={hasImportedVariants ? undefined : helper.disabled}
+              tabIndex={hasImportedVariants ? undefined : -1}
+              to={getEntryPath(
+                Namespace.uniprotkb,
+                match.params.accession,
+                TabLocation.VariantsViewer
+              )}
+            >
+              Variants viewer
+            </Link>
+          }
+          id={TabLocation.VariantsViewer}
+          onPointerOver={VariationView.preload}
+          onFocus={VariationView.preload}
+        >
+          <Suspense fallback={<Loader />}>
+            <HTMLHead
+              title={[
+                pageTitle,
+                'Variants viewer',
+                searchableNamespaceLabels[Namespace.uniprotkb],
+              ]}
+            />
+            <VariationView
+              primaryAccession={match.params.accession}
+              title="Variants"
+            />
+          </Suspense>
         </Tab>
         <Tab
           title={

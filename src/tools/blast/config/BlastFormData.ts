@@ -11,6 +11,7 @@ export type BlastFormValue = {
   values?: Readonly<
     Array<{ label?: string; value?: string | boolean | number }>
   >;
+  userSelected?: boolean;
 };
 
 export enum BlastFields {
@@ -102,7 +103,7 @@ const formData: Readonly<BlastFormValues> = deepFreeze({
       // "auto" will be replaced by the correct matrix value on submission
       // but we need to have a distinc value here to not have 2 <option> with
       // same values
-      { label: 'Auto - PAM30', value: 'auto' },
+      { label: 'Auto - BLOSUM62', value: 'auto' },
       { value: 'BLOSUM45' },
       { value: 'BLOSUM62' },
       { value: 'BLOSUM80' },
@@ -142,9 +143,9 @@ const formData: Readonly<BlastFormValues> = deepFreeze({
   },
   [BlastFields.hsps]: {
     fieldName: 'hsps',
-    selected: undefined,
+    selected: 'All',
     values: [
-      { value: undefined, label: 'All' },
+      { value: 'All' },
       { value: 1 },
       { value: 2 },
       { value: 5 },
