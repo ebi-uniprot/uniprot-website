@@ -10,7 +10,7 @@ import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 // import usePrefetch from '../../../shared/hooks/usePrefetch';
-import { useDatabaseInfoMaps } from '../../../shared/contexts/UniProtData';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 import LiteratureCitation from '../../../supporting-data/citations/components/LiteratureCitation';

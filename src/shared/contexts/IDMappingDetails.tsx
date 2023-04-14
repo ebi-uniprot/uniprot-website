@@ -3,7 +3,6 @@ import { createContext, ReactNode } from 'react';
 import useDataApi, { UseDataAPIState } from '../hooks/useDataApi';
 import useJobFromUrl from '../hooks/useJobFromUrl';
 
-import getContextHook from './getContextHook';
 import toolsURLs from '../../tools/config/urls';
 
 import { JobTypes } from '../../tools/types/toolsJobTypes';
@@ -36,6 +35,3 @@ export const IDMappingDetailsProvider = ({
     </IDMappingDetailsContext.Provider>
   );
 };
-
-// Need to put the hooks here, otherwise there's a circular dependency issue
-export const useIDMappingDetails = getContextHook(IDMappingDetailsContext);

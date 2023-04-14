@@ -29,7 +29,7 @@ import FirstTimeSelection from './FirstTimeSelection';
 import useNS from '../../hooks/useNS';
 import useViewMode, { ViewMode } from '../../hooks/useViewMode';
 import useColumnNames from '../../hooks/useColumnNames';
-import { useMessagesDispatch } from '../../contexts/Messages';
+import useMessagesDispatch from '../../hooks/useMessagesDispatch';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 import lazy from '../../utils/lazy';

@@ -2,7 +2,6 @@ import { createContext, useEffect, useMemo, ReactNode } from 'react';
 
 import useDataApi from '../hooks/useDataApi';
 
-import getContextHook from './getContextHook';
 import {
   DatabaseInfoMaps,
   getDatabaseInfoMaps,
@@ -83,7 +82,3 @@ export const UniProtDataProvider = ({ children }: { children: ReactNode }) => {
     </UniProtDataVersionContext.Provider>
   );
 };
-
-// Need to put the hooks here, otherwise there's a circular dependency issue
-export const useUniProtDataVersion = getContextHook(UniProtDataVersionContext);
-export const useDatabaseInfoMaps = getContextHook(DatabaseInfoMapsContext);

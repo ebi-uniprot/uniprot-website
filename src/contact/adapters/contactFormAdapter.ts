@@ -11,7 +11,7 @@ import { AxiosRequestConfig } from 'axios';
 import { LocationDescriptor } from 'history';
 
 import useDataApi from '../../shared/hooks/useDataApi';
-import { useMessagesDispatch } from '../../shared/contexts/Messages';
+import useMessagesDispatch from '../../shared/hooks/useMessagesDispatch';
 
 import apiUrls from '../../shared/config/apiUrls';
 import { addMessage } from '../../messages/state/messagesActions';

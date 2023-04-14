@@ -13,7 +13,7 @@ import { Dropdown, DownloadIcon, Button, LongNumber } from 'franklin-sites';
 // eslint-disable-next-line import/no-relative-packages
 import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
 
-import { useMessagesDispatch } from '../../contexts/Messages';
+import useMessagesDispatch from '../../hooks/useMessagesDispatch';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 import apiUrls from '../../config/apiUrls';

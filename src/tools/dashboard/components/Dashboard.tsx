@@ -14,7 +14,7 @@ import HTMLHead from '../../../shared/components/HTMLHead';
 import Row from './Row';
 import EmptyDashboard from './EmptyDashboard';
 
-import { useToolsState } from '../../../shared/contexts/Tools';
+import useToolsState from '../../../shared/hooks/useToolsState';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 

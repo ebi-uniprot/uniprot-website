@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react';
 import { Message } from 'franklin-sites';
 
-import { useMessagesDispatch } from '../../shared/contexts/Messages';
+import useMessagesDispatch from '../../shared/hooks/useMessagesDispatch';
 
 import { deleteMessage } from '../state/messagesActions';
 

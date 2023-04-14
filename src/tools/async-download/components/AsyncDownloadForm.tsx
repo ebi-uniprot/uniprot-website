@@ -4,7 +4,7 @@ import { LongNumber, Message, SpinnerIcon, Chip } from 'franklin-sites';
 import { sleep } from 'timing-functions';
 
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
-import { useToolsDispatch } from '../../../shared/contexts/Tools';
+import useToolsDispatch from '../../../shared/hooks/useToolsDispatch';
 import useScrollIntoViewRef from '../../../shared/hooks/useScrollIntoView';
 
 import { createJob } from '../../state/toolsActions';
