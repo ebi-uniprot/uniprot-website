@@ -90,6 +90,7 @@ describe('Disease and Drugs data converter', () => {
         ],
         ['TOXIC DOSE', []],
         ['PHARMACEUTICAL', []],
+        ['BIOTECHNOLOGY', []],
       ]),
       featuresData: [],
       keywordData: [],
