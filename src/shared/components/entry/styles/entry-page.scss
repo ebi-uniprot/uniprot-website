@@ -1,4 +1,5 @@
 @import 'franklin-sites/src/styles/settings';
+@import 'franklin-sites/src/styles/mixins';
 @import '../../../styles/settings';
 
 .entry-page {
@@ -13,18 +14,20 @@
 
   // expand content of tab if they contain a specific class
   & .tabs:has(.wider-tab-content) {
-    & > [role='tabpanel'] {
-      // make the tab content start further on the left, covering the sidebar
-      margin-inline-start: calc(-1 * var(--sidebar-size));
-    }
+    @include fs-breakpoints('medium') {
+      & > [role='tabpanel'] {
+        // make the tab content start further on the left, covering the sidebar
+        margin-inline-start: calc(-1 * var(--sidebar-size));
+      }
 
-    & > [role='tablist'] {
-      // make the tab list container start further on the left, covering sidebar
-      margin-inline-start: calc(-1 * var(--sidebar-size) + 0.125rem);
-      // keep the tab list at the same position
-      padding-inline-start: var(--sidebar-size);
-      // expand the tab list container to finish at the same place
-      width: calc(100% - 1rem + var(--sidebar-size));
+      & > [role='tablist'] {
+        // make the tab list container start further on the left, covering sidebar
+        margin-inline-start: calc(-1 * var(--sidebar-size) + 0.125rem);
+        // keep the tab list at the same position
+        padding-inline-start: var(--sidebar-size);
+        // expand the tab list container to finish at the same place
+        width: calc(100% - 1rem + var(--sidebar-size));
+      }
     }
   }
 }

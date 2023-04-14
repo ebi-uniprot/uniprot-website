@@ -3,6 +3,8 @@ import cn from 'classnames';
 
 import ErrorBoundary from '../error-component/ErrorBoundary';
 
+import { useSmallScreen } from '../../hooks/useMatchMedia';
+
 import styles from './styles/sidebar-layout.module.scss';
 
 const UniProtFooter = lazy(
@@ -21,26 +23,32 @@ export const SidebarLayout = ({
   children,
   className,
   noOverflow,
-}: SidebarLayoutProps) => (
-  <>
-    <div
-      className={cn(
-        styles['sidebar-layout'],
-        { [styles['no-overflow']]: noOverflow },
-        className
-      )}
-    >
-      <aside className={styles.sidebar}>
-        <ErrorBoundary>{sidebar}</ErrorBoundary>
-      </aside>
-      <main className={styles.content}>
-        <ErrorBoundary>{children}</ErrorBoundary>
-      </main>
-    </div>
-    <Suspense fallback={null}>
-      <ErrorBoundary>
-        <UniProtFooter />
-      </ErrorBoundary>
-    </Suspense>
-  </>
-);
+}: SidebarLayoutProps) => {
+  const smallScreen = useSmallScreen();
+
+  return (
+    <>
+      <div
+        className={cn(
+          styles['sidebar-layout'],
+          { [styles['no-overflow']]: noOverflow },
+          className
+        )}
+      >
+        {!smallScreen && (
+          <aside className={styles.sidebar}>
+            <ErrorBoundary>{sidebar}</ErrorBoundary>
+          </aside>
+        )}
+        <main className={styles.content}>
+          <ErrorBoundary>{children}</ErrorBoundary>
+        </main>
+      </div>
+      <Suspense fallback={null}>
+        <ErrorBoundary>
+          <UniProtFooter />
+        </ErrorBoundary>
+      </Suspense>
+    </>
+  );
+};
