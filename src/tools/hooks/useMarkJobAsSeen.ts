@@ -1,7 +1,8 @@
 import { useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { useToolsState, useToolsDispatch } from '../../shared/contexts/Tools';
+import useToolsDispatch from '../../shared/hooks/useToolsDispatch';
+import useToolsState from '../../shared/hooks/useToolsState';
 
 import { updateJob } from '../state/toolsActions';
 

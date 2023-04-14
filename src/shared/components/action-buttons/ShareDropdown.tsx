@@ -6,7 +6,7 @@ import { createPath } from 'history';
 import useNS from '../../hooks/useNS';
 import useColumnNames from '../../hooks/useColumnNames';
 import useViewMode from '../../hooks/useViewMode';
-import { useMessagesDispatch } from '../../contexts/Messages';
+import useMessagesDispatch from '../../hooks/useMessagesDispatch';
 
 import {
   copyFailureMessage,

@@ -7,7 +7,7 @@ import { XRef } from './XRefView';
 import DatatableWithToggle from '../../../shared/components/views/DatatableWithToggle';
 import ExternalLink from '../../../shared/components/ExternalLink';
 
-import { useDatabaseInfoMaps } from '../../../shared/contexts/UniProtData';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
 import { getEntryPath } from '../../../app/config/urls';
 import externalUrls from '../../../shared/config/externalUrls';

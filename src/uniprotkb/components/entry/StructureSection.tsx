@@ -2,7 +2,7 @@ import { lazy, useState } from 'react';
 import { groupBy } from 'lodash-es';
 import { Button, Card, Message } from 'franklin-sites';
 
-import { useDatabaseInfoMaps } from '../../../shared/contexts/UniProtData';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 
 import EntrySection, {

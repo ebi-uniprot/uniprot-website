@@ -90,7 +90,7 @@ import CSVView from '../components/protein-data-views/CSVView';
 import { DatabaseList } from '../components/protein-data-views/XRefView';
 import { PeptideSearchMatches } from '../../tools/peptide-search/components/PeptideSearchMatches';
 
-import { useDatabaseInfoMaps } from '../../shared/contexts/UniProtData';
+import useDatabaseInfoMaps from '../../shared/hooks/useDatabaseInfoMaps';
 
 import { deepFindAllByKey } from '../../shared/utils/utils';
 import { getAllKeywords } from '../utils/KeywordsUtil';

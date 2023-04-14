@@ -4,10 +4,9 @@ import { groupBy } from 'lodash-es';
 
 import MessageHub from './MessageHub';
 
-import {
-  useMessagesState,
-  useMessagesDispatch,
-} from '../../shared/contexts/Messages';
+import useMessagesDispatch from '../../shared/hooks/useMessagesDispatch';
+import useMessagesState from '../../shared/hooks/useMessagesState';
+
 import { deleteMessage } from '../state/messagesActions';
 
 import { getLocationForPathname } from '../../shared/utils/url';

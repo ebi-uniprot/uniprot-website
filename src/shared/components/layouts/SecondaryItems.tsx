@@ -24,7 +24,7 @@ import ErrorBoundary from '../error-component/ErrorBoundary';
 
 import useBasket from '../../hooks/useBasket';
 import useSafeState from '../../hooks/useSafeState';
-import { useToolsState } from '../../contexts/Tools';
+import useToolsState from '../../hooks/useToolsState';
 
 import lazy from '../../utils/lazy';
 import { pluralise } from '../../utils/utils';

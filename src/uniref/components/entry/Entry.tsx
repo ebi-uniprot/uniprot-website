@@ -18,7 +18,7 @@ import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
-import { useMessagesDispatch } from '../../../shared/contexts/Messages';
+import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 
