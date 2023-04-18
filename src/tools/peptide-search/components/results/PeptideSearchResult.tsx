@@ -166,11 +166,12 @@ const PeptideSearchResult = ({
   useMarkJobAsSeen(resultsDataObject?.allResults.length, match?.params.id);
 
   let total: undefined | number;
-  if (facetTotal !== undefined) {
-    total = +facetTotal;
-  }
   if (resultsDataTotal !== undefined) {
     total = +resultsDataTotal;
+  }
+  // needs to be set at the end to avoid being overidden
+  if (facetTotal !== undefined) {
+    total = +facetTotal;
   }
 
   if (jobResultError || !match) {

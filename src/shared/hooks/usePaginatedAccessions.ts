@@ -56,7 +56,10 @@ const usePaginatedAccessions = <T extends APIModel, R extends APIModel>(
     setBatchStart((batchStart) => batchStart + BATCHSIZE);
   };
 
-  const hasMoreData = total ? total > allResults.length : false;
+  // if the number of results is less than BATCHSIZE, there is no more data to be loaded
+  const hasMoreData = total
+    ? allResults.length >= BATCHSIZE && total > allResults.length
+    : false;
 
   const initialLoading = loading && batchStart === 0;
 
