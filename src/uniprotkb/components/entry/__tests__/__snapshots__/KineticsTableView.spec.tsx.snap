@@ -12,6 +12,16 @@ exports[`Kinetics section Kcat values are shown in notes 2`] = `
 ]
 `;
 
+exports[`Kinetics section Kcat values are shown in notes 3`] = `
+[
+  {
+    "evidenceCode": "ECO:0000269",
+    "id": "10606519",
+    "source": "PubMed",
+  },
+]
+`;
+
 exports[`Kinetics section should return respective rows for KM 1`] = `
 {
   "constant": "438 μM",

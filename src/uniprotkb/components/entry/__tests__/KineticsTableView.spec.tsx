@@ -17,5 +17,8 @@ describe('Kinetics section', () => {
 
     const { notes: kcatNotes } = extractFromFreeText(mock.data3);
     expect(kcatNotes).toMatchSnapshot();
+
+    const { kcatEvidences } = extractFromFreeText(mock.data3);
+    expect(kcatEvidences).toMatchSnapshot();
   });
 });

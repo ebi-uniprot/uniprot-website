@@ -108,6 +108,7 @@ export const extractFromFreeText = (data: KineticParameters) => {
   let km: KinecticsTableRow[] = [];
   let vmax: KinecticsTableRow[] = [];
   const notes: string[] = [];
+  const kcatEvidences: Evidence[] = [];
 
   if (data.michaelisConstants) {
     km = data.michaelisConstants.map((km) => {
@@ -182,14 +183,15 @@ export const extractFromFreeText = (data: KineticParameters) => {
   if (data.note?.texts) {
     data.note?.texts.forEach((text) => {
       notes.push(text.value);
+      text.evidences?.forEach((evidence) => kcatEvidences.push(evidence));
     });
   }
 
-  return { km, vmax, notes };
+  return { km, vmax, notes, kcatEvidences };
 };
 
 export const KineticsTableView = ({ data }: { data: KineticParameters }) => {
-  const { km, vmax, notes } = extractFromFreeText(data);
+  const { km, vmax, notes, kcatEvidences } = extractFromFreeText(data);
   const columns = ['pH', 'TEMPERATURE[C]', 'NOTES', 'EVIDENCE'];
 
   return (
@@ -198,7 +200,10 @@ export const KineticsTableView = ({ data }: { data: KineticParameters }) => {
       <KineticsTable columns={['Vmax', ...columns]} data={vmax} />
 
       {notes.map((note) => (
-        <TextView key={note} comments={[{ value: note }]} />
+        <TextView
+          key={note}
+          comments={[{ value: note, evidences: kcatEvidences }]}
+        />
       ))}
     </>
   );
