@@ -657,17 +657,17 @@ exports[`non-critical HomePage component should render 1`] = `
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/256/"
+          href="https://www.proteinspotlight.org/back_issues/257/"
           rel="noopener"
           target="_blank"
         >
-          In the beginning
+          The slime inside us
         </a>
       </h3>
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/256/"
+        href="https://www.proteinspotlight.org/back_issues/257/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
@@ -676,14 +676,14 @@ exports[`non-critical HomePage component should render 1`] = `
           alt=""
           height="129"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt256.jpg"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt257.jpg"
           width="123"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          It  is  one  of  the  many  mysteries  of  our  existence.  How  does  life  begin?  What  gives  the  first  nudge?  Is  there,  for  that  matter,  a  primordial  poke?  Over  the  millennia,  scholars  have  tried  to  define  the  actual  notion  of  life  as  a  whole  -  which  may  seem…
+          When  I  was  small,  I  used  to  visit  an  elderly  lady  who  lived  next  door  to  us.  With  her,  I  would  make  rice-filled  frogs.  The  kind  you  can  fling  from  one  end  of  a  room  to  land  flat,  with  a  plod  and  no  bounce,  onto  the  arm  of  a  chair  or  the  back  of…
       </p>
     </article>
   </section>

@@ -17,7 +17,7 @@ const insideUniProtAbstract2 =
   'UniProt is brought to you by a large team of dedicated scientists who have worked for over 20 years to produce a comprehensive view of protein sequence and biology.';
 
 const proteinSpotlightAbstract =
-  'It is one of the many mysteries of our existence. How does life begin? What gives the first nudge? Is there, for that matter, a primordial poke? Over the millennia, scholars have tried to define the actual notion of life as a whole - which may seem obvious to some, but just sit down for a while and give it a thought.';
+  'When I was small, I used to visit an elderly lady who lived next door to us. With her, I would make rice-filled frogs. The kind you can fling from one end of a room to land flat, with a plod and no bounce, onto the arm of a chair or the back of a sofa. In the 1970s, these colourful frogs haunted every household in the UK.';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -355,21 +355,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/256/"
+            url="https://www.proteinspotlight.org/back_issues/257/"
             noIcon
           >
-            In the beginning
+            The slime inside us
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/256/"
+          url="https://www.proteinspotlight.org/back_issues/257/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt256.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt257.jpg"
             alt=""
             width="123"
             height="129"
