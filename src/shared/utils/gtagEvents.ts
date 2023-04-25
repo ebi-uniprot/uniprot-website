@@ -58,7 +58,7 @@ export const gtagFn: Gtag.Gtag = (...args) => {
 };
 
 /* istanbul ignore next */
-export const sendGtagEvent = (
+const sendGtagEvent = (
   eventName: GaEventName,
   parameters?: Record<string, string>
 ) => {
