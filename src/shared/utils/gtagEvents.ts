@@ -74,12 +74,9 @@ export const sendGtagEventApiData = (
 
 export const sendGtagEventViewMode = (
   event: 'render' | 'mode_click' | 'mode_popup_click',
-  viewMode: ViewMode
+  viewMode: NonNullable<ViewMode>
 ) => {
-  sendGtagEvent(
-    `results_view_${event}`,
-    viewMode ? { view_mode: viewMode } : undefined
-  );
+  sendGtagEvent(`results_view_${event}`, { view_mode: viewMode });
 };
 
 export const sendGtagEventFeatureDataTableViewClick = (
