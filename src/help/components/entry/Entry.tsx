@@ -35,6 +35,7 @@ import cleanText, {
 } from '../../../shared/utils/cleanText';
 import parseDate from '../../../shared/utils/parseDate';
 import * as logging from '../../../shared/utils/logging';
+import { sendGtagEventOutboundLinkClick } from '../../../shared/utils/gtagEvents';
 
 import { HelpEntryResponse } from '../../adapters/helpConverter';
 import { LocationToPath, Location } from '../../../app/config/urls';
@@ -128,11 +129,7 @@ export const HelpEntryContent = ({
         } else {
           // analytics, similar as in InstrumentedExternalLink
           const url = new URL(href);
-          logging.gtagFn('event', url.origin, {
-            event_category: 'outbound link',
-            event_label: url,
-            transport: 'beacon',
-          });
+          sendGtagEventOutboundLinkClick(url.toString());
         }
       }
     },
