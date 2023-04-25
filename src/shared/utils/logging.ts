@@ -3,8 +3,30 @@
 import { captureException, captureMessage } from '@sentry/react';
 import { ScopeContext } from '@sentry/types';
 
-// Expand as we add more events
-type CustomCategories = `console.${'log' | 'warn' | 'error'}`;
+export type GaEventName =
+  | 'api_data_load_fail'
+  | 'api_data_load_success'
+  | 'copy_api_url_click'
+  | 'copy_fasta_click'
+  | 'copy_share_results_url_click'
+  | 'feature_data_table_view_click'
+  | 'feature_viewer_full_view_click'
+  | 'outbound_link_click'
+  | 'panel_advanced_search_close'
+  | 'panel_advanced_search_open'
+  | 'panel_basket_close'
+  | 'panel_basket_open'
+  | 'panel_customise_columns_close'
+  | 'panel_customise_columns_open'
+  | 'panel_help_close'
+  | 'panel_help_open'
+  | 'panel_job_dashboard_close'
+  | 'panel_job_dashboard_open'
+  | 'panel_results_download_close'
+  | 'panel_results_download_open'
+  | 'results_view_mode_click'
+  | 'results_view_mode_popup_click'
+  | 'results_view_render';
 
 const isProduction = process.env.NODE_ENV !== 'development';
 const isTest = process.env.NODE_ENV === 'test';
@@ -49,12 +71,10 @@ export const gtagFn: Gtag.Gtag = (...args) => {
 
 /* istanbul ignore next */
 export const sendGtagEvent = (
-  eventCategory: CustomCategories | Gtag.EventNames | string,
-  message?: any,
-  data?: Partial<ScopeContext>
+  eventName: GaEventName,
+  parameters: Record<string, string>
 ) => {
-  const event = createGtagEvent(message, data);
-  gtag('event', eventCategory, event);
+  gtagFn('event', eventName, parameters);
 };
 
 type LoggingHelper = (
@@ -63,22 +83,8 @@ type LoggingHelper = (
 ) => void;
 
 /* istanbul ignore next */
-export const log: LoggingHelper = (message, context) => {
-  if (isProduction) {
-    sendGtagEvent('console.log', message.toString(), context);
-    captureMessage(message.toString(), {
-      ...(context || {}),
-      level: 'log',
-    });
-  } else if (!isTest) {
-    console.log(message, context);
-  }
-};
-
-/* istanbul ignore next */
 export const warn: LoggingHelper = (message, context) => {
   if (isProduction) {
-    sendGtagEvent('console.warn', message.toString(), context);
     captureMessage(message.toString(), {
       ...(context || {}),
       level: 'warning',
@@ -91,7 +97,6 @@ export const warn: LoggingHelper = (message, context) => {
 /* istanbul ignore next */
 export const error: LoggingHelper = (message, context) => {
   if (isProduction) {
-    sendGtagEvent('exception', message.toString(), context);
     captureException(message, context);
   }
   if (!isTest) {
