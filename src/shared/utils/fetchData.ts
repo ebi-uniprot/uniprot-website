@@ -1,7 +1,7 @@
 import axios, { AxiosPromise, AxiosRequestConfig, CancelToken } from 'axios';
 
 import { keysToLowerCase } from './utils';
-import { gtagFn } from './logging';
+import { sendGtagEventApiData } from './gtagEvents';
 
 axios.interceptors.response.use((response) => {
   if (
@@ -45,16 +45,10 @@ export default function fetchData<T>(
 
   promise.then(
     () => {
-      gtagFn('event', 'success', {
-        event_category: 'data load',
-        event_label: url,
-      });
+      sendGtagEventApiData('success', url);
     },
     () => {
-      gtagFn('event', 'error', {
-        event_category: 'data load',
-        event_label: url,
-      });
+      sendGtagEventApiData('fail', url);
     }
   );
 
