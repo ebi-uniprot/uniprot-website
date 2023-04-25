@@ -9,7 +9,7 @@ import useLocalStorage from '../../hooks/useLocalStorage';
 
 import lazy from '../../utils/lazy';
 import {
-  PanelFormCloseMethod,
+  PanelFormCloseReason,
   sendGtagEventPanelCustomiseColumnsClose,
 } from '../../utils/gtagEvents';
 import { Column, nsToDefaultColumns } from '../../config/columns';
@@ -27,7 +27,7 @@ const CustomiseTable = lazy(
 );
 
 // Log the way in which users are closing the customise table panel
-const logEvent = (reason: PanelFormCloseMethod, columns: Column[]) => {
+const logEvent = (reason: PanelFormCloseReason, columns: Column[]) => {
   sendGtagEventPanelCustomiseColumnsClose(reason, columns);
 };
 
@@ -61,7 +61,7 @@ const CustomiseButton = ({ namespace }: { namespace: Namespace }) => {
     save();
   };
 
-  const handleClose = (reason: PanelFormCloseMethod) => {
+  const handleClose = (reason: PanelFormCloseReason) => {
     if (reason === 'outside') {
       save();
     } else {

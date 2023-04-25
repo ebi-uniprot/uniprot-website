@@ -31,7 +31,7 @@ export type GaEventName =
   | 'results_view_render';
 
 /*
-| Method     | User action                |
+| Reason     | User action                |
 |------------|----------------------------|
 | x-button   | top right close (x) button |
 | outside    | clicked outside the panel  |
@@ -40,11 +40,11 @@ export type GaEventName =
 | cancel     | pressed cancel button      |
 | submit     | pressed save button        |
 */
-export type PanelCloseMethod =
+export type PanelCloseReason =
   | Parameters<
       Exclude<ComponentProps<typeof SlidingPanel>['onClose'], undefined>
     >[0];
-export type PanelFormCloseMethod = PanelCloseMethod | 'submit' | 'cancel';
+export type PanelFormCloseReason = PanelCloseReason | 'submit' | 'cancel';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -127,39 +127,39 @@ export const sendGtagEventPanelHelpOpen = (helpArticle: string) => {
 
 export const sendGtagEventPanelClose = (
   panel: 'help' | 'basket' | 'job_dashboard',
-  panelCloseMethod: PanelCloseMethod
+  panelCloseReason: PanelCloseReason
 ) => {
   sendGtagEvent(`panel_${panel}_close`, {
-    panel_close_method: panelCloseMethod,
+    panel_close_reason: panelCloseReason,
   });
 };
 
 export const sendGtagEventPanelCustomiseColumnsClose = (
-  panelCloseMethod: PanelFormCloseMethod,
+  panelCloseReason: PanelFormCloseReason,
   columns: Column[]
 ) => {
   sendGtagEvent('panel_customise_columns_close', {
-    panel_close_method: panelCloseMethod,
+    panel_close_reason: panelCloseReason,
     columns: columns.join(','),
   });
 };
 
 export const sendGtagEventPanelAdvancedSearchClose = (
-  panelCloseMethod: PanelFormCloseMethod,
+  panelCloseReason: PanelFormCloseReason,
   query: string
 ) => {
   sendGtagEvent('panel_advanced_search_close', {
-    panel_close_method: panelCloseMethod,
+    panel_close_reason: panelCloseReason,
     advanced_query: query,
   });
 };
 
 export const sendGtagEventPanelResultsDownloadClose = (
-  panelCloseMethod: PanelFormCloseMethod,
+  panelCloseReason: PanelFormCloseReason,
   downloadMethod: 'url' | 'async'
 ) => {
   sendGtagEvent('panel_results_download_close', {
-    panel_close_method: panelCloseMethod,
+    panel_close_reason: panelCloseReason,
     download_method: downloadMethod,
   });
 };
