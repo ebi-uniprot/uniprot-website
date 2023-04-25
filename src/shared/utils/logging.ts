@@ -6,6 +6,7 @@ import { ScopeContext } from '@sentry/types';
 export type GaEventName =
   | 'api_data_load_fail'
   | 'api_data_load_success'
+  | 'cache_update'
   | 'copy_api_url_click'
   | 'copy_fasta_click'
   | 'copy_share_results_url_click'
