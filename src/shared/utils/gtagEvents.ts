@@ -4,7 +4,7 @@ import { SlidingPanel } from 'franklin-sites';
 import { Column } from '../config/columns';
 import { ViewMode } from '../hooks/useViewMode';
 
-export type GaEventName =
+type GtagEventName =
   | 'api_data_load_fail'
   | 'api_data_load_success'
   | 'cache_update'
@@ -48,7 +48,7 @@ export type PanelFormCloseReason = PanelCloseReason | 'submit' | 'cancel';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-export const gtagFn: Gtag.Gtag = (...args) => {
+const gtagFn: Gtag.Gtag = (...args) => {
   // Prevent crashing if not defined (like in dev mode)
   if (typeof globalThis.gtag === 'function') {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -59,7 +59,7 @@ export const gtagFn: Gtag.Gtag = (...args) => {
 
 /* istanbul ignore next */
 const sendGtagEvent = (
-  eventName: GaEventName,
+  eventName: GtagEventName,
   parameters?: Record<string, string>
 ) => {
   gtagFn('event', eventName, parameters);
