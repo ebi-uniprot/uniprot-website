@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 
 import useCustomElement from '../../hooks/useCustomElement';
 
-import { gtagFn } from '../../utils/logging';
+import { sendGtagEventFeatureDataTableViewClick } from '../../utils/gtagEvents';
 
 import './styles/datatable-toggle.scss';
 
@@ -36,10 +36,10 @@ const DatatableWithToggle: FC = ({ children }) => {
           block: 'center',
         });
       }
-      gtagFn('event', 'feature viewer', {
-        event_category: `datatable ${expandTable ? 'expanded' : 'collapsed'}`,
-        event_label: params.accession,
-      });
+      sendGtagEventFeatureDataTableViewClick(
+        params.accession,
+        expandTable ? 'expanded' : 'collapsed'
+      );
     }
     // If first render was previous render, then it's not the first anymore...
     if (firstRenderRef.current) {
