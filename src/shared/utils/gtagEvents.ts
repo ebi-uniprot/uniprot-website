@@ -1,3 +1,6 @@
+import { ComponentProps } from 'react';
+import { SlidingPanel } from 'franklin-sites';
+
 import { Column } from '../config/columns';
 import { ViewMode } from '../hooks/useViewMode';
 
@@ -27,8 +30,21 @@ export type GaEventName =
   | 'results_view_mode_popup_click'
   | 'results_view_render';
 
-type PanelCloseMethod = 'x-button' | 'outside' | 'navigation' | 'escape';
-type PanelFormCloseMethod = PanelCloseMethod | 'submit' | 'cancel';
+/*
+| Method     | User action                |
+|------------|----------------------------|
+| x-button   | top right close (x) button |
+| outside    | clicked outside the panel  |
+| navigation | navigated away             |
+| escape     | pressed escape key         |
+| cancel     | pressed cancel button      |
+| submit     | pressed save button        |
+*/
+export type PanelCloseMethod =
+  | Parameters<
+      Exclude<ComponentProps<typeof SlidingPanel>['onClose'], undefined>
+    >[0];
+export type PanelFormCloseMethod = PanelCloseMethod | 'submit' | 'cancel';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -108,7 +124,7 @@ export const sendGtagEventPanelOpen = (
   sendGtagEvent(`panel_${panel}_open`);
 };
 
-export const sendGtagEventPanelHelpOpen = (helpArticle) => {
+export const sendGtagEventPanelHelpOpen = (helpArticle: string) => {
   sendGtagEvent('panel_help_open', { help_article: helpArticle });
 };
 
@@ -131,7 +147,7 @@ export const sendGtagEventPanelCustomiseColumnsClose = (
   });
 };
 
-export const sendGaEventPanelAdvancedSearchClose = (
+export const sendGtagEventPanelAdvancedSearchClose = (
   panelCloseMethod: PanelFormCloseMethod,
   query: string
 ) => {
@@ -141,12 +157,22 @@ export const sendGaEventPanelAdvancedSearchClose = (
   });
 };
 
-export const sendGaEventPanelResultsDownloadClose = (
+export const sendGtagEventPanelResultsDownloadClose = (
   panelCloseMethod: PanelFormCloseMethod,
   downloadMethod: 'url' | 'async'
 ) => {
   sendGtagEvent('panel_results_download_close', {
     panel_close_method: panelCloseMethod,
     download_method: downloadMethod,
+  });
+};
+
+export const sendGtagEventCacheUpdate = (
+  updatedURL: string,
+  cacheName: string
+) => {
+  sendGtagEvent('cache_update', {
+    updated_url: updatedURL,
+    cache_name: cacheName,
   });
 };
