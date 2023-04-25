@@ -7,7 +7,7 @@ import SideButtons from './SideButtons';
 
 import useMatchMedia from '../../../shared/hooks/useMatchMedia';
 
-import { gtagFn } from '../../../shared/utils/logging';
+import { gtagFn, sendGtagEvent } from '../../../shared/utils/logging';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 
@@ -98,11 +98,8 @@ const ContextualHelp = () => {
   }, []);
 
   useEffect(() => {
-    if (displayButton === false && shouldBeVisible) {
-      gtagFn('event', 'help render', {
-        event_category: 'panel',
-        event_label: articlePath,
-      });
+    if (displayButton === false && shouldBeVisible && articlePath) {
+      sendGtagEvent('panel_help_open', { article_path: articlePath });
     }
   }, [articlePath, displayButton, shouldBeVisible]);
 

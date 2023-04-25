@@ -31,7 +31,10 @@ export async function register() {
     }
     // Now, we're sure it's a message from 'workbox-broadcast-update' library
     const { cacheName, updatedURL } = data.payload as UpdatePayload;
-    sendGtagEvent('cache_update', { updatedURL, cacheName });
+    sendGtagEvent('cache_update', {
+      updated_url: updatedURL,
+      cache_name: cacheName,
+    });
 
     if (cacheName === CacheName.WebsiteAPI) {
       // drop the quickGO cache whenever we drop the website API cache
