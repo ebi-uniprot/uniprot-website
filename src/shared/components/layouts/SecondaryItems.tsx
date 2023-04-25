@@ -28,7 +28,7 @@ import useToolsState from '../../hooks/useToolsState';
 
 import lazy from '../../utils/lazy';
 import { pluralise } from '../../utils/utils';
-import { gtagFn } from '../../utils/logging';
+import { sendGtagEventPanelOpen } from '../../utils/gtagEvents';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -115,7 +115,7 @@ const ToolsDashboard = () => {
             return; // default behaviour of opening a new tab or new window
           }
           event.preventDefault();
-          gtagFn('event', 'dashboard render', { event_category: 'panel' });
+          sendGtagEventPanelOpen('job_dashboard');
           setDisplay(true);
         }}
         title="Tools dashboard"
@@ -201,7 +201,7 @@ export const Basket = () => {
             return; // default behaviour of opening a new tab or new window
           }
           event.preventDefault();
-          gtagFn('event', 'basket render', { event_category: 'panel' });
+          sendGtagEventPanelOpen('basket');
           setDisplay(true);
         }}
         title="Basket"
