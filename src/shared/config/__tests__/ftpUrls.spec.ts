@@ -1,4 +1,5 @@
-import { simplifyQuery } from '../ftpUrls';
+import { getUniprotkbFtpUrl, simplifyQuery } from '../ftpUrls';
+import { FileFormat } from '../../types/resultsDownload';
 
 describe('simplifyQuery', () => {
   const testCases: [string, string | null][] = [
@@ -34,4 +35,25 @@ describe('simplifyQuery', () => {
       expect(simplifyQuery(query)).toEqual(simplifiedQuery);
     }
   );
+});
+
+describe('getUniprotkbFtpUrl', () => {
+  it('should generate FTP link', () => {
+    expect(
+      getUniprotkbFtpUrl(
+        'https://rest.uniprot.org/uniprotkb/stream?compressed=true&download=true&format=xml&query=(*) AND (reviewed:true)',
+        FileFormat.xml
+      )
+    ).toEqual(
+      'https://ftp.uniprot.org/pub/databases/uniprot/knowledgebase/complete/uniprot_sprot.xml.gz'
+    );
+  });
+  it('should not generate FTP link', () => {
+    expect(
+      getUniprotkbFtpUrl(
+        'https://rest.uniprot.org/uniprotkb/stream?compressed=true&download=true&format=fasta&query=(*)',
+        FileFormat.fastaCanonical
+      )
+    ).toEqual(null);
+  });
 });

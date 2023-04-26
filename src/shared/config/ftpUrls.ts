@@ -33,6 +33,9 @@ const restQueryToFtpFilename = new Map([
   ['reviewed:false', 'uniprot_trembl'],
 ]);
 
+// This goes from an array of regexs with named capture groups to a
+// a template string which will replace the capture group name
+// eg $<bool> with the matched value.
 const reToSimple = new Map([
   [
     [
@@ -60,12 +63,10 @@ export const simplifyQuery = (query: string) => {
 export const getUniprotkbFtpUrl = (downloadUrl: string, format: FileFormat) => {
   const parsed = queryString.parseUrl(downloadUrl);
   const { query } = parsed.query;
-
   const q = Array.isArray(query) ? query[0] : query;
   if (!q) {
     return null;
   }
-
   const simplifiedQuery = simplifyQuery(q);
   if (!simplifiedQuery) {
     return null;
