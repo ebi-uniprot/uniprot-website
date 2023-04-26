@@ -22,28 +22,29 @@ const ftpUrls = {
     ),
 };
 
-const restFormatToFtpFormat = {
-  [FileFormat.fastaCanonical]: 'fasta',
-  [FileFormat.text]: 'dat',
-  [FileFormat.xml]: 'xml',
-};
+const restFormatToFtpFormat = new Map([
+  [FileFormat.fastaCanonical, 'fasta'],
+  [FileFormat.text, 'dat'],
+  [FileFormat.xml, 'xml'],
+]);
 
-const restQueryToFtpFilename = {
-  'reviewed:true': 'uniprot_sprot',
-  'reviewed:false': 'uniprot_trembl',
-};
+const restQueryToFtpFilename = new Map([
+  ['reviewed:true', 'uniprot_sprot'],
+  ['reviewed:false', 'uniprot_trembl'],
+]);
+
+const simplifiedQuery = new Map([
+  ['(reviewed:true)', 'reviewed:true'],
+  ['(*) and (reviewed:true)', 'reviewed:true'],
+  ['(reviewed:true) and (*)', 'reviewed:true'],
+  ['(reviewed:false)', 'reviewed:false'],
+  ['(*) and (reviewed:false)', 'reviewed:false'],
+  ['(reviewed:false) and (*)', 'reviewed:false'],
+]);
 
 const simplifyQuery = (query: string) => {
-  const simplified = {
-    '(reviewed:true)': 'reviewed:true',
-    '(*) and (reviewed:true)': 'reviewed:true',
-    '(reviewed:true) and (*)': 'reviewed:true',
-    '(reviewed:false)': 'reviewed:false',
-    '(*) and (reviewed:false)': 'reviewed:false',
-    '(reviewed:false) and (*)': 'reviewed:false',
-  };
   const q = query.trim().toLowerCase();
-  return simplified[q] || q;
+  return simplifiedQuery.get(q) || q;
 };
 
 export const getUniprotkbFtpUrl = (downloadUrl: string, format: FileFormat) => {
@@ -53,11 +54,11 @@ export const getUniprotkbFtpUrl = (downloadUrl: string, format: FileFormat) => {
   if (!q) {
     return null;
   }
-  const ftpFilename = restQueryToFtpFilename[simplifyQuery(q)];
+  const ftpFilename = restQueryToFtpFilename.get(simplifyQuery(q));
   if (!ftpFilename) {
     return null;
   }
-  const ftpFormat = restFormatToFtpFormat[format];
+  const ftpFormat = restFormatToFtpFormat.get(format);
   if (!ftpFormat) {
     return null;
   }
