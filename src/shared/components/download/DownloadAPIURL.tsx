@@ -44,11 +44,12 @@ export const DOWNLOAD_SIZE_LIMIT = 10_000_000 as const;
 
 type Props = {
   apiURL: string;
+  ftpURL?: string;
   onCopy: () => void;
   count: number;
 };
 
-const DownloadAPIURL = ({ apiURL, onCopy, count }: Props) => {
+const DownloadAPIURL = ({ apiURL, ftpURL, onCopy, count }: Props) => {
   const scrollRef = useScrollIntoViewRef<HTMLDivElement>();
   const dispatch = useMessagesDispatch();
   const handleCopyURL = useCallback(
@@ -77,6 +78,31 @@ const DownloadAPIURL = ({ apiURL, onCopy, count }: Props) => {
 
   return (
     <div className={styles['api-url']} ref={scrollRef}>
+      {ftpURL && (
+        <>
+          <br />
+          <h4>FTP URL</h4>
+          This file is available on the{' '}
+          <Link
+            to={generatePath(LocationToPath[Location.HelpEntry], {
+              accession: 'downloads',
+            })}
+          >
+            UniProt FTP server
+          </Link>
+          <CodeBlock lightMode>{ftpURL}</CodeBlock>
+          <section className="button-group">
+            <Button
+              variant="primary"
+              className={styles['copy-button']}
+              onClick={() => handleCopyURL(ftpURL)}
+            >
+              <CopyIcon />
+              Copy
+            </Button>
+          </section>
+        </>
+      )}
       <h4>API URL {isStreamEndpoint && ' using the streaming endpoint'}</h4>
       {isStreamEndpoint &&
         'This endpoint is resource-heavy but will return all requested results.'}

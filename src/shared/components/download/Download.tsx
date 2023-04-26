@@ -193,6 +193,7 @@ const Download: FC<DownloadProps> = ({
       <DownloadAPIURL
         // Remove the download attribute as it's unnecessary for API access
         apiURL={downloadUrl.replace('download=true&', '')}
+        ftpURL={ftpUrl}
         onCopy={onClose}
         count={downloadCount}
       />
@@ -216,7 +217,7 @@ const Download: FC<DownloadProps> = ({
     extraContentNode = (
       <>
         <h4>File Available On FTP Server</h4>
-        This file is available on the UniProt FTP server for download:
+        This file is available on the UniProt FTP server:
         <br />
         <ExternalLink url={ftpUrl}>{ftpUrl}</ExternalLink>
       </>
