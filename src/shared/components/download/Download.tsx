@@ -1,5 +1,5 @@
 import { useState, FC, ChangeEvent, useCallback } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, generatePath, useLocation } from 'react-router-dom';
 import { Button, ExternalLink, LongNumber, Message } from 'franklin-sites';
 import cn from 'classnames';
 
@@ -184,8 +184,9 @@ const Download: FC<DownloadProps> = ({
   const isUniprotkb = namespace === Namespace.uniprotkb;
   const isAsyncDownload = isLarge && isUniprotkb;
   const ftpUrl =
-    namespace === Namespace.uniprotkb &&
-    getUniprotkbFtpUrl(downloadUrl, fileFormat);
+    namespace === Namespace.uniprotkb
+      ? getUniprotkbFtpUrl(downloadUrl, fileFormat)
+      : null;
 
   let extraContentNode: JSX.Element | undefined;
   if (extraContent === 'url') {
@@ -217,7 +218,15 @@ const Download: FC<DownloadProps> = ({
     extraContentNode = (
       <>
         <h4>File Available On FTP Server</h4>
-        This file is available on the UniProt FTP server:
+        This file is available compressed on the{' '}
+        <Link
+          to={generatePath(LocationToPath[Location.HelpEntry], {
+            accession: 'downloads',
+          })}
+        >
+          UniProt FTP server
+        </Link>
+        :
         <br />
         <ExternalLink url={ftpUrl}>{ftpUrl}</ExternalLink>
       </>

@@ -44,7 +44,7 @@ export const DOWNLOAD_SIZE_LIMIT = 10_000_000 as const;
 
 type Props = {
   apiURL: string;
-  ftpURL?: string;
+  ftpURL?: string | null;
   onCopy: () => void;
   count: number;
 };
@@ -82,7 +82,7 @@ const DownloadAPIURL = ({ apiURL, ftpURL, onCopy, count }: Props) => {
         <>
           <br />
           <h4>FTP URL</h4>
-          This file is available on the{' '}
+          This file is available compressed on the{' '}
           <Link
             to={generatePath(LocationToPath[Location.HelpEntry], {
               accession: 'downloads',
