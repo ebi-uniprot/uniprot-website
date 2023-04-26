@@ -118,10 +118,10 @@ const DiseaseAndDrugsSection = ({
                   to={getEntryPath(
                     Namespace.uniprotkb,
                     primaryAccession,
-                    TabLocation.VariantsViewer
+                    TabLocation.VariantViewer
                   )}
                 >
-                  Go to variants tabs <FullViewIcon width="0.75em" />
+                  Go to variant viewer <FullViewIcon width="0.75em" />
                 </Link>
               </p>
             </div>
