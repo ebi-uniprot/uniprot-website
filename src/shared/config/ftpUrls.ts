@@ -33,28 +33,44 @@ const restQueryToFtpFilename = new Map([
   ['reviewed:false', 'uniprot_trembl'],
 ]);
 
-const simplifiedQuery = new Map([
-  ['(reviewed:true)', 'reviewed:true'],
-  ['(*) and (reviewed:true)', 'reviewed:true'],
-  ['(reviewed:true) and (*)', 'reviewed:true'],
-  ['(reviewed:false)', 'reviewed:false'],
-  ['(*) and (reviewed:false)', 'reviewed:false'],
-  ['(reviewed:false) and (*)', 'reviewed:false'],
+const reToSimple = new Map([
+  [
+    [
+      /^\(*reviewed:(?<bool>false|true)\)*(?:\s+and\s+\(*\*\)*)?$/,
+      /^(?:\(*\*\)*\s+and\s+)?\(*reviewed:(?<bool>false|true)\)*$/,
+    ],
+    'reviewed:$<bool>',
+  ],
 ]);
 
-const simplifyQuery = (query: string) => {
+export const simplifyQuery = (query: string) => {
   const q = query.trim().toLowerCase();
-  return simplifiedQuery.get(q) || q;
+  for (const [res, simple] of reToSimple) {
+    for (const re of res) {
+      const matches = Object.entries(q.match(re)?.groups || {});
+      if (matches.length === 1) {
+        const [k, v] = matches[0];
+        return simple.replace(`$<${k}>`, v);
+      }
+    }
+  }
+  return null;
 };
 
 export const getUniprotkbFtpUrl = (downloadUrl: string, format: FileFormat) => {
   const parsed = queryString.parseUrl(downloadUrl);
   const { query } = parsed.query;
+
   const q = Array.isArray(query) ? query[0] : query;
   if (!q) {
     return null;
   }
-  const ftpFilename = restQueryToFtpFilename.get(simplifyQuery(q));
+
+  const simplifiedQuery = simplifyQuery(q);
+  if (!simplifiedQuery) {
+    return null;
+  }
+  const ftpFilename = restQueryToFtpFilename.get(simplifiedQuery);
   if (!ftpFilename) {
     return null;
   }
