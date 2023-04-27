@@ -57,6 +57,18 @@ export const alignFormParsedSequencesReducer = (
   // Set Submit Disabled according to sequence
   const submitDisabled = isInvalid(parsedSequences);
 
+  // Only proceed if the raw sequence has changed
+  const rawSequence = parsedSequences
+    .map((parsedSequence) => parsedSequence.raw)
+    .join('\n');
+  if (rawSequence === formValues[AlignFields.sequence]?.selected) {
+    return state;
+  }
+  const sequence = {
+    ...formValues[AlignFields.sequence],
+    selected: rawSequence,
+  };
+
   // Set Job Name, if user didn't already set
   let potentialJobName = '';
   if (!formValues[AlignFields.name].userSelected) {
@@ -83,18 +95,6 @@ export const alignFormParsedSequencesReducer = (
           ...formValues[AlignFields.name],
           selected: potentialJobName,
         };
-
-  // Only proceed if the raw sequence has changed
-  const rawSequence = parsedSequences
-    .map((parsedSequence) => parsedSequence.raw)
-    .join('\n');
-  if (rawSequence === formValues[AlignFields.sequence]?.selected) {
-    return state;
-  }
-  const sequence = {
-    ...formValues[AlignFields.sequence],
-    selected: rawSequence,
-  };
 
   // actual form fields
   const order = formValues[AlignFields.order].userSelected
