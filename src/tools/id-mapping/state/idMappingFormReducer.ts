@@ -59,7 +59,6 @@ export const idMappingFormInputTextIDsReducer = (
   let potentialJobName = '';
   if (!formValues[IDMappingFields.name].userSelected) {
     // if the user didn't manually change the title, autofill it
-    console.log('parsedIDs', parsedIDs);
     const firstParsedID = parsedIDs[0];
     if (parsedIDs.length > 0) {
       potentialJobName = `${firstParsedID}${
