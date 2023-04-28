@@ -144,6 +144,11 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
     );
   };
 
+  const parsedSequences = useMemo(
+    () => splitAndTidyText(peptideSequence),
+    [peptideSequence]
+  );
+
   // form event handlers
   const handleReset = (event: FormEvent) => {
     event.preventDefault();
@@ -193,11 +198,6 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
       );
     });
   };
-
-  const parsedSequences = useMemo(
-    () => splitAndTidyText(peptideSequence),
-    [peptideSequence]
-  );
 
   // file handling
   useTextFileInput({

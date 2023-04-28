@@ -1,5 +1,5 @@
 import { ActionType } from 'typesafe-actions';
-import { truncate } from 'lodash';
+import { truncate } from 'lodash-es';
 
 import { PEPTIDE_SEARCH_LIMIT } from '../components/PeptideSearchForm';
 import * as peptideSearchFormActions from './peptideSearchFormActions';
