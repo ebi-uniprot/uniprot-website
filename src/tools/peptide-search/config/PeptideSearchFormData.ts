@@ -8,6 +8,7 @@ export type PeptideSearchFormValue = {
   values?: Readonly<
     Array<{ label?: string; value?: string | boolean | number }>
   >;
+  userSelected?: boolean;
 };
 
 export enum PeptideSearchFields {
