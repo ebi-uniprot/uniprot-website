@@ -103,7 +103,13 @@ const DiseaseAndDrugsSection = ({
         <section>
           <h3>Variants</h3>
           <div className={styles.variants}>
-            <img src={variantsImg} width="1944" height="1024" alt="" />
+            <img
+              src={variantsImg}
+              width="1944"
+              height="1024"
+              alt=""
+              loading="lazy"
+            />
             <div>
               <p>
                 We now provide the &quot;Disease & Variants&quot; viewer in its
