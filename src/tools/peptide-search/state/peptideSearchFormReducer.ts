@@ -12,7 +12,7 @@ import {
 
 type PeptideSearchFormState = {
   formValues: PeptideSearchFormValues;
-  peptideSequence: string;
+  parsedSequences: string[];
   submitDisabled: boolean;
   sending: boolean;
 };
@@ -39,8 +39,7 @@ export const getPeptideSearchFormInitialState = (
       ),
     },
   },
-  peptideSequence:
-    (defaultFormValues[PeptideSearchFields.peps].selected as string) || '',
+  parsedSequences: [],
   // used when the form submission needs to be disabled
   submitDisabled: isInvalid(
     splitAndTidyText(
@@ -86,12 +85,11 @@ export const peptideSearchFormSequenceReducer = (
         };
 
   // actual form fields
-  const peps = formValues[PeptideSearchFields.peps].userSelected
-    ? formValues[PeptideSearchFields.peps]
-    : {
-        ...formValues[PeptideSearchFields.peps],
-        selected: formValues[PeptideSearchFields.peps].selected,
-      };
+  // Set peps to raw peptide sequence no matter what
+  const peps = {
+    ...formValues[PeptideSearchFields.peps],
+    selected: peptideSequence,
+  };
 
   const taxIds = formValues[PeptideSearchFields.taxIds].userSelected
     ? formValues[PeptideSearchFields.taxIds]
@@ -116,7 +114,7 @@ export const peptideSearchFormSequenceReducer = (
 
   return {
     ...state,
-    peptideSequence,
+    parsedSequences,
     submitDisabled,
     formValues: {
       ...formValues,
