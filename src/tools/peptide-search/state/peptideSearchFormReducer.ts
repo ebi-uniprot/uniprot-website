@@ -26,6 +26,15 @@ const isInvalid = (parsedSequences: string[]) =>
   parsedSequences.length > PEPTIDE_SEARCH_LIMIT ||
   parsedSequences.some((parsedSequence) => parsedSequence.length < 2);
 
+const getJobNameFromSequences = (parsedSequences: string[]) => {
+  if (parsedSequences.length === 0) {
+    return '';
+  }
+  return `${truncate(parsedSequences[0])}${
+    parsedSequences.length > 1 ? ` +${parsedSequences.length - 1}` : ''
+  }`;
+};
+
 export const getPeptideSearchFormInitialState = (
   defaultFormValues: Readonly<PeptideSearchFormValues>
 ): PeptideSearchFormState => ({
@@ -65,15 +74,13 @@ export const peptideSearchFormSequenceReducer = (
 
   // Set Job Name, if user didn't already set
   const name =
-    (formValues[PeptideSearchFields.name].userSelected &&
-      formValues[PeptideSearchFields.name].selected) ||
-    parsedSequences.length === 0
+    formValues[PeptideSearchFields.name].userSelected &&
+    formValues[PeptideSearchFields.name].selected
       ? formValues[PeptideSearchFields.name]
       : {
           ...formValues[PeptideSearchFields.name],
-          selected: `${truncate(parsedSequences[0])}${
-            parsedSequences.length > 1 ? ` +${parsedSequences.length - 1}` : ''
-          }`,
+          userSelected: false,
+          selected: getJobNameFromSequences(parsedSequences),
         };
 
   // actual form fields
