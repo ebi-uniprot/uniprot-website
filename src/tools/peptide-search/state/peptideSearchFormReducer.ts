@@ -64,24 +64,16 @@ export const peptideSearchFormSequenceReducer = (
   const submitDisabled = isInvalid(parsedSequences);
 
   // Set Job Name, if user didn't already set
-  let potentialJobName = '';
-  if (!formValues[PeptideSearchFields.name].userSelected) {
-    // if the user didn't manually change the title, autofill it
-    const firstParsedSequence = parsedSequences[0];
-    if (parsedSequences.length > 0) {
-      potentialJobName = `${truncate(firstParsedSequence)}${
-        parsedSequences.length > 1 ? ` +${parsedSequences.length - 1}` : ''
-      }`;
-    }
-  }
-
   const name =
-    formValues[PeptideSearchFields.name].userSelected &&
-    formValues[PeptideSearchFields.name].selected
+    (formValues[PeptideSearchFields.name].userSelected &&
+      formValues[PeptideSearchFields.name].selected) ||
+    parsedSequences.length === 0
       ? formValues[PeptideSearchFields.name]
       : {
           ...formValues[PeptideSearchFields.name],
-          selected: potentialJobName,
+          selected: `${truncate(parsedSequences[0])}${
+            parsedSequences.length > 1 ? ` +${parsedSequences.length - 1}` : ''
+          }`,
         };
 
   // actual form fields
