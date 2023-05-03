@@ -26,7 +26,7 @@ const isInvalid = (parsedSequences: string[]) =>
   parsedSequences.length > PEPTIDE_SEARCH_LIMIT ||
   parsedSequences.some((parsedSequence) => parsedSequence.length < 2);
 
-const getJobNameFromSequences = (parsedSequences: string[]) => {
+const getJobName = (parsedSequences: string[]) => {
   if (parsedSequences.length === 0) {
     return '';
   }
@@ -80,7 +80,7 @@ export const peptideSearchFormSequenceReducer = (
       : {
           ...formValues[PeptideSearchFields.name],
           userSelected: false,
-          selected: getJobNameFromSequences(parsedSequences),
+          selected: getJobName(parsedSequences),
         };
 
   // actual form fields
