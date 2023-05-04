@@ -1,6 +1,6 @@
 import { Workbox } from 'workbox-window';
 
-import * as logging from '../shared/utils/logging';
+import { sendGtagEventCacheUpdate } from '../shared/utils/gtagEvents';
 
 import { needsReload } from './reload-flag';
 
@@ -31,9 +31,8 @@ export async function register() {
     }
     // Now, we're sure it's a message from 'workbox-broadcast-update' library
     const { cacheName, updatedURL } = data.payload as UpdatePayload;
-    logging.log(
-      `An update to "${updatedURL}" caused the whole "${cacheName}" cache to be dropped`
-    );
+    sendGtagEventCacheUpdate(updatedURL, cacheName);
+
     if (cacheName === CacheName.WebsiteAPI) {
       // drop the quickGO cache whenever we drop the website API cache
       // it should happen on UniProt data update

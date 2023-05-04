@@ -1,10 +1,4 @@
-import {
-  FormEvent,
-  Suspense,
-  useState,
-  ComponentProps,
-  useEffect,
-} from 'react';
+import { FormEvent, Suspense, useState, useEffect } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { Button, EditIcon, SlidingPanel } from 'franklin-sites';
 import { frame } from 'timing-functions';
@@ -14,8 +8,11 @@ import ErrorBoundary from '../error-component/ErrorBoundary';
 import useLocalStorage from '../../hooks/useLocalStorage';
 
 import lazy from '../../utils/lazy';
-import { gtagFn } from '../../utils/logging';
-import { nsToDefaultColumns } from '../../config/columns';
+import {
+  PanelFormCloseReason,
+  sendGtagEventPanelCustomiseColumnsClose,
+} from '../../utils/gtagEvents';
+import { Column, nsToDefaultColumns } from '../../config/columns';
 import { allEntryPages } from '../../../app/config/urls';
 
 import { Namespace } from '../../types/namespaces';
@@ -29,28 +26,9 @@ const CustomiseTable = lazy(
     )
 );
 
-/*
-| Reason     | User action                |
-|------------|----------------------------|
-| button     | top right close (x) button |
-| outside    | clicked outside the panel  |
-| navigation | navigated away             |
-| escape     | pressed escape key         |
-| cancel     | pressed cancel button      |
-| submit     | pressed save button        |
-*/
-type SlidingPanelReason =
-  | Parameters<
-      Exclude<ComponentProps<typeof SlidingPanel>['onClose'], undefined>
-    >[0];
-type FormReason = 'cancel' | 'submit';
-type Reason = SlidingPanelReason | FormReason;
-
 // Log the way in which users are closing the customise table panel
-const logEvent = (reason: Reason) => {
-  gtagFn('event', 'Column Select Close', {
-    event_category: reason,
-  });
+const logEvent = (reason: PanelFormCloseReason, columns: Column[]) => {
+  sendGtagEventPanelCustomiseColumnsClose(reason, columns);
 };
 
 const CustomiseButton = ({ namespace }: { namespace: Namespace }) => {
@@ -79,18 +57,18 @@ const CustomiseButton = ({ namespace }: { namespace: Namespace }) => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    logEvent('submit');
+    logEvent('submit', columns);
     save();
   };
 
-  const handleClose = (reason: Reason) => {
+  const handleClose = (reason: PanelFormCloseReason) => {
     if (reason === 'outside') {
       save();
     } else {
       // If user closes but doesn't save, resync component state with local storage state
       setColumns(localStorageColumns);
     }
-    logEvent(reason);
+    logEvent(reason, columns);
     close();
   };
 

@@ -6,7 +6,7 @@ import useColumnNames from './useColumnNames';
 import useLocalStorage from './useLocalStorage';
 
 import { parseQueryString } from '../utils/url';
-import { gtagFn } from '../utils/logging';
+import { sendGtagEventViewMode } from '../utils/gtagEvents';
 
 import { Namespace } from '../types/namespaces';
 import { InvalidParamValue } from '../../uniprotkb/utils/resultsUtils';
@@ -72,11 +72,9 @@ const useViewMode = (
   }
 
   useEffect(() => {
-    gtagFn('event', 'render results', {
-      event_category: 'result view',
-      event_label: viewMode,
-      result_view: viewMode,
-    });
+    if (viewMode) {
+      sendGtagEventViewMode('render', viewMode);
+    }
   }, [viewMode]);
 
   const setViewMode = useCallback(

@@ -37,7 +37,7 @@ import {
   getParamsFromURL,
   InvalidParamValue,
 } from '../../../uniprotkb/utils/resultsUtils';
-import { gtagFn } from '../../utils/logging';
+import { sendGtagEventViewMode } from '../../utils/gtagEvents';
 
 import { Namespace, mainNamespaces } from '../../types/namespaces';
 import {
@@ -155,12 +155,9 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
   ]);
 
   const handleToggleView = (event: ChangeEvent<HTMLInputElement>) => {
-    gtagFn('event', 'normal selection', {
-      event_category: 'result view',
-      event_label: event.target.value,
-      result_view: event.target.value,
-      result_view_set: 1,
-    });
+    if (viewMode) {
+      sendGtagEventViewMode('mode_click', viewMode);
+    }
     setViewMode(event.target.value as ViewMode);
   };
 

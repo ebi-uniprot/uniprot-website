@@ -9,7 +9,7 @@ import NightingaleZoomTool, {
 import useCustomElement from '../../hooks/useCustomElement';
 
 import { getEntryPath } from '../../../app/config/urls';
-import { gtagFn } from '../../utils/logging';
+import { sendGtagEventFeatureViewerFullViewClick } from '../../utils/gtagEvents';
 
 import { TabLocation } from '../../../uniprotkb/components/entry/Entry';
 import { Namespace } from '../../types/namespaces';
@@ -78,10 +78,7 @@ function VisualFeaturesView<T>({
           )}
           title="View in the Feature Viewer"
           onClick={() => {
-            gtagFn('event', 'feature viewer', {
-              event_category: 'go to full view',
-              event_label: params.accession,
-            });
+            sendGtagEventFeatureViewerFullViewClick(params.accession);
           }}
           className={styles['full-view']}
         >
