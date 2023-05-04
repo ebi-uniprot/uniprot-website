@@ -1,4 +1,4 @@
-import { useState, FC, ChangeEvent, useCallback } from 'react';
+import { useState, FC, ChangeEvent, useCallback, useEffect } from 'react';
 import { Link, generatePath, useLocation } from 'react-router-dom';
 import { Button, ExternalLink, LongNumber, Message } from 'franklin-sites';
 import cn from 'classnames';
@@ -188,6 +188,16 @@ const Download: FC<DownloadProps> = ({
       ? getUniprotkbFtpUrl(downloadUrl, fileFormat)
       : null;
 
+  useEffect(() => {
+    if (extraContent) {
+      if (ftpUrl) {
+        setExtraContent('ftp');
+      } else if (isAsyncDownload) {
+        setExtraContent('generate');
+      }
+    }
+  }, [extraContent, ftpUrl, isAsyncDownload, onClose]);
+
   let extraContentNode: JSX.Element | undefined;
   if (extraContent === 'url') {
     extraContentNode = (
@@ -197,21 +207,6 @@ const Download: FC<DownloadProps> = ({
         ftpURL={ftpUrl}
         onCopy={onClose}
         count={downloadCount}
-      />
-    );
-  } else if (extraContent === 'generate') {
-    extraContentNode = (
-      <AsyncDownloadForm
-        downloadUrlOptions={downloadOptions}
-        count={downloadCount}
-        initialFormValues={defaultFormValues}
-      />
-    );
-  } else if (extraContent === 'preview') {
-    extraContentNode = (
-      <DownloadPreview
-        previewUrl={previewUrl}
-        previewFileFormat={previewFileFormat}
       />
     );
   } else if (extraContent === 'ftp' && ftpUrl) {
@@ -230,6 +225,21 @@ const Download: FC<DownloadProps> = ({
         <br />
         <ExternalLink url={ftpUrl}>{ftpUrl}</ExternalLink>
       </>
+    );
+  } else if (extraContent === 'generate') {
+    extraContentNode = (
+      <AsyncDownloadForm
+        downloadUrlOptions={downloadOptions}
+        count={downloadCount}
+        initialFormValues={defaultFormValues}
+      />
+    );
+  } else if (extraContent === 'preview') {
+    extraContentNode = (
+      <DownloadPreview
+        previewUrl={previewUrl}
+        previewFileFormat={previewFileFormat}
+      />
     );
   }
 
