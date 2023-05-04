@@ -1,6 +1,6 @@
 import { useState, FC, ChangeEvent, useCallback } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Button, LongNumber, Message } from 'franklin-sites';
+import { Link, generatePath, useLocation } from 'react-router-dom';
+import { Button, ExternalLink, LongNumber, Message } from 'franklin-sites';
 import cn from 'classnames';
 
 import ColumnSelect from '../column-select/ColumnSelect';
@@ -22,6 +22,7 @@ import {
   nsToFileFormatsResultsDownload,
 } from '../../config/resultsDownload';
 import defaultFormValues from '../../../tools/async-download/config/asyncDownloadFormData';
+import { getUniprotkbFtpUrl } from '../../config/ftpUrls';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 
@@ -50,7 +51,7 @@ type DownloadProps = {
   inBasketMini?: boolean;
 };
 
-type ExtraContent = 'url' | 'generate' | 'preview';
+type ExtraContent = 'url' | 'generate' | 'preview' | 'ftp';
 
 const Download: FC<DownloadProps> = ({
   query,
@@ -182,6 +183,10 @@ const Download: FC<DownloadProps> = ({
   const isLarge = downloadCount > DOWNLOAD_SIZE_LIMIT;
   const isUniprotkb = namespace === Namespace.uniprotkb;
   const isAsyncDownload = isLarge && isUniprotkb;
+  const ftpUrl =
+    namespace === Namespace.uniprotkb
+      ? getUniprotkbFtpUrl(downloadUrl, fileFormat)
+      : null;
 
   let extraContentNode: JSX.Element | undefined;
   if (extraContent === 'url') {
@@ -189,6 +194,7 @@ const Download: FC<DownloadProps> = ({
       <DownloadAPIURL
         // Remove the download attribute as it's unnecessary for API access
         apiURL={downloadUrl.replace('download=true&', '')}
+        ftpURL={ftpUrl}
         onCopy={onClose}
         count={downloadCount}
       />
@@ -207,6 +213,23 @@ const Download: FC<DownloadProps> = ({
         previewUrl={previewUrl}
         previewFileFormat={previewFileFormat}
       />
+    );
+  } else if (extraContent === 'ftp' && ftpUrl) {
+    extraContentNode = (
+      <>
+        <h4>File Available On FTP Server</h4>
+        This file is available compressed on the{' '}
+        <Link
+          to={generatePath(LocationToPath[Location.HelpEntry], {
+            accession: 'downloads',
+          })}
+        >
+          UniProt FTP server
+        </Link>
+        :
+        <br />
+        <ExternalLink url={ftpUrl}>{ftpUrl}</ExternalLink>
+      </>
     );
   }
 
@@ -352,7 +375,7 @@ const Download: FC<DownloadProps> = ({
         </Button>
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <a
-          href={isAsyncDownload ? undefined : downloadUrl}
+          href={isAsyncDownload || ftpUrl ? undefined : downloadUrl}
           className={cn('button', 'primary')}
           title={
             isAsyncDownload
@@ -361,9 +384,15 @@ const Download: FC<DownloadProps> = ({
           }
           target="_blank"
           rel="noreferrer"
-          onClick={() =>
-            isAsyncDownload ? displayExtraContent('generate') : onClose()
-          }
+          onClick={() => {
+            if (ftpUrl) {
+              displayExtraContent('ftp');
+            } else if (isAsyncDownload) {
+              displayExtraContent('generate');
+            } else {
+              onClose();
+            }
+          }}
         >
           Download
         </a>
