@@ -1,12 +1,10 @@
 import {
-  useState,
-  useCallback,
   FormEvent,
   MouseEvent,
   useRef,
   FC,
-  Dispatch,
-  SetStateAction,
+  useReducer,
+  useCallback,
 } from 'react';
 import {
   SequenceSubmission,
@@ -25,9 +23,17 @@ import HTMLHead from '../../../shared/components/HTMLHead';
 import SequenceSearchLoader from '../../components/SequenceSearchLoader';
 import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
 
-import { pluralise } from '../../../shared/utils/utils';
-
 import { addMessage } from '../../../messages/state/messagesActions';
+import {
+  getAlignFormDataReducer,
+  getAlignFormInitialState,
+} from '../state/alignFormReducer';
+import {
+  resetFormState,
+  updateParsedSequences,
+  updateSelected,
+  updateSending,
+} from '../state/alignFormActions';
 
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
@@ -55,17 +61,13 @@ import {
 import sticky from '../../../shared/styles/sticky.module.scss';
 import '../../styles/ToolsForm.scss';
 
-const ALIGN_LIMIT = 100;
-const isInvalid = (parsedSequences: SequenceObject[]) =>
-  parsedSequences.length > ALIGN_LIMIT ||
-  parsedSequences.some((parsedSequence) => !parsedSequence.valid) ||
-  parsedSequences.length <= 1;
+export const ALIGN_LIMIT = 100;
 
 const title = namespaceAndToolsLabels[JobTypes.ALIGN];
 
 const FormSelect: FC<{
   formValue: AlignFormValue;
-  updateFormValue: Dispatch<SetStateAction<AlignFormValue>>;
+  updateFormValue: (selected: AlignFormValue['selected']) => void;
 }> = ({ formValue, updateFormValue }) => {
   if (!formValue) {
     return null;
@@ -77,9 +79,7 @@ const FormSelect: FC<{
         {label}
         <select
           value={formValue.selected as string}
-          onChange={(e) =>
-            updateFormValue({ ...formValue, selected: e.target.value })
-          }
+          onChange={(e) => updateFormValue(e.target.value)}
         >
           {formValue.values &&
             formValue.values.map((optionItem) => (
@@ -112,57 +112,18 @@ const AlignForm = ({ initialFormValues }: Props) => {
   const history = useHistory();
   const reducedMotion = useReducedMotion();
 
-  // used when the form submission needs to be disabled
-  const [submitDisabled, setSubmitDisabled] = useState(() =>
-    // default sequence value will tell us if submit should be disabled or not
-    isInvalid(
-      sequenceProcessor(
-        `${initialFormValues[AlignFields.sequence].selected || ''}`
-      )
-    )
-  );
-  // used when the form is about to be submitted to the server
-  const [sending, setSending] = useState(false);
-  // flag to see if a title has been set (either user, or predefined)
-  const [jobNameEdited, setJobNameEdited] = useState(
-    // default to true if it's been set through the history state
-    Boolean(initialFormValues[AlignFields.name].selected)
-  );
-  // store parsed sequence objects
-  const [parsedSequences, setParsedSequences] = useState<SequenceObject[]>(
-    sequenceProcessor(
-      `${initialFormValues[AlignFields.sequence].selected || ''}`
-    )
-  );
-
-  // actual form fields
-  const [sequence, setSequence] = useState(
-    initialFormValues[
-      AlignFields.sequence
-    ] as AlignFormValues[AlignFields.sequence]
-  );
-  const [order, setOrder] = useState(
-    initialFormValues[AlignFields.order] as AlignFormValues[AlignFields.order]
-  );
-  const [iterations, setIterations] = useState(
-    initialFormValues[
-      AlignFields.iterations
-    ] as AlignFormValues[AlignFields.iterations]
-  );
-
-  // extra job-related fields
-  const [jobName, setJobName] = useState(initialFormValues[AlignFields.name]);
+  const [{ parsedSequences, formValues, sending, submitDisabled }, dispatch] =
+    useReducer(
+      getAlignFormDataReducer(defaultFormValues),
+      getAlignFormInitialState(initialFormValues)
+    );
 
   // form event handlers
   const handleReset = (event: FormEvent) => {
     event.preventDefault();
 
     // reset all form state to defaults
-    setParsedSequences([]);
-
-    setSequence(defaultFormValues[AlignFields.sequence]);
-
-    setJobName(defaultFormValues[AlignFields.name]);
+    dispatch(resetFormState());
 
     // imperatively reset SequenceSearchLoader... 😷
     // eslint-disable-next-line no-unused-expressions
@@ -174,20 +135,22 @@ const AlignForm = ({ initialFormValues }: Props) => {
   const submitAlignJob = (event: FormEvent | MouseEvent) => {
     event.preventDefault();
 
-    if (!sequence.selected) {
+    if (!formValues[AlignFields.sequence].selected) {
       return;
     }
 
-    setSubmitDisabled(true);
-    setSending(true);
+    dispatch(updateSending());
 
     // here we should just transform input values into FormParameters,
     // transformation of FormParameters into ServerParameters happens in the
     // tools middleware
     const parameters: FormParameters = {
-      sequence: sequence.selected as ServerParameters['sequence'],
-      order: order.selected as ServerParameters['order'],
-      iterations: iterations.selected as ServerParameters['iterations'],
+      sequence: formValues[AlignFields.sequence]
+        .selected as ServerParameters['sequence'],
+      order: formValues[AlignFields.order]
+        .selected as ServerParameters['order'],
+      iterations: formValues[AlignFields.iterations]
+        .selected as ServerParameters['iterations'],
     };
 
     // navigate to the dashboard, not immediately, to give the impression that
@@ -201,61 +164,30 @@ const AlignForm = ({ initialFormValues }: Props) => {
       // internal state. Dispatching after history.push so that pop-up messages (as a
       // side-effect of createJob) cannot mount immediately before navigating away.
       dispatchTools(
-        createJob(parameters, JobTypes.ALIGN, jobName.selected as string)
+        createJob(
+          parameters,
+          JobTypes.ALIGN,
+          formValues[AlignFields.name].selected as string
+        )
       );
     });
   };
 
-  const onSequenceChange = useCallback(
-    (parsedSequences: SequenceObject[]) => {
-      if (!jobNameEdited) {
-        // if the user didn't manually change the title, autofill it
-        const firstName = parsedSequences.find((item) => item.name)?.name;
-        let potentialJobName = '';
-        if (firstName) {
-          potentialJobName = firstName;
-          if (parsedSequences.length > 1) {
-            potentialJobName += ` +${parsedSequences.length - 1}`;
-          }
-        } else if (parsedSequences.length) {
-          potentialJobName = `${parsedSequences.length} ${pluralise(
-            'sequence',
-            parsedSequences.length
-          )}`;
-        }
-        setJobName((jobName) => {
-          if (jobName.selected === potentialJobName) {
-            // avoid unecessary rerender by keeping the same object
-            return jobName;
-          }
-          return { ...jobName, selected: potentialJobName };
-        });
-      }
-
-      setParsedSequences(parsedSequences);
-      setSequence((sequence) => ({
-        ...sequence,
-        selected: parsedSequences
-          .map((parsedSequence) => parsedSequence.raw)
-          .join('\n'),
-      }));
-      setSubmitDisabled(isInvalid(parsedSequences));
-    },
-    [jobNameEdited]
-  );
-
   // specific logic to prepend loaded sequences instead of just replacing
   const onSequenceLoad = useCallback(
     (parsedRetrievedSequences: SequenceObject[]) => {
-      onSequenceChange([...parsedRetrievedSequences, ...parsedSequences]);
+      dispatch(
+        updateParsedSequences([...parsedRetrievedSequences, ...parsedSequences])
+      );
     },
-    [onSequenceChange, parsedSequences]
+    [parsedSequences]
   );
 
   // file handling
   useTextFileInput({
     inputRef: fileInputRef,
-    onFileContent: (content) => onSequenceChange(sequenceProcessor(content)),
+    onFileContent: (content) =>
+      dispatch(updateParsedSequences(sequenceProcessor(content))),
     onError: (error) =>
       dispatchMessages(
         addMessage({
@@ -309,7 +241,7 @@ const AlignForm = ({ initialFormValues }: Props) => {
             </legend>
             <SequenceSubmission
               placeholder="Protein or nucleotide sequences in FASTA format."
-              onChange={onSequenceChange}
+              onChange={(s) => dispatch(updateParsedSequences(s))}
               value={parsedSequences.map((sequence) => sequence.raw).join('\n')}
             />
           </section>
@@ -323,19 +255,23 @@ const AlignForm = ({ initialFormValues }: Props) => {
                   autoComplete="off"
                   maxLength={100}
                   style={{
-                    width: `${(jobName.selected as string).length + 2}ch`,
+                    width: `${
+                      (formValues[AlignFields.name].selected as string).length +
+                      2
+                    }ch`,
                   }}
                   placeholder="my job title"
-                  value={jobName.selected as string}
+                  value={formValues[AlignFields.name].selected as string}
                   onFocus={(event) => {
-                    if (!jobNameEdited) {
+                    if (!formValues[AlignFields.name].userSelected) {
                       event.target.select();
                     }
                   }}
-                  onChange={(event) => {
-                    setJobNameEdited(Boolean(event.target.value));
-                    setJobName({ ...jobName, selected: event.target.value });
-                  }}
+                  onChange={(event) =>
+                    dispatch(
+                      updateSelected(AlignFields.name, event.target.value)
+                    )
+                  }
                   data-hj-allow
                 />
               </label>
@@ -346,15 +282,12 @@ const AlignForm = ({ initialFormValues }: Props) => {
               <span>Advanced parameters</span>
             </summary>
             <section className="tools-form-section">
-              {[
-                [order, setOrder],
-                [iterations, setIterations],
-              ].map(([stateItem, setStateItem]) => (
+              {[AlignFields.order, AlignFields.iterations].map((stateItem) => (
                 <FormSelect
-                  key={(stateItem as AlignFormValue).fieldName}
-                  formValue={stateItem as AlignFormValue}
-                  updateFormValue={
-                    setStateItem as Dispatch<SetStateAction<AlignFormValue>>
+                  key={(formValues[stateItem] as AlignFormValue).fieldName}
+                  formValue={formValues[stateItem] as AlignFormValue}
+                  updateFormValue={(value: AlignFormValue['selected']) =>
+                    dispatch(updateSelected(stateItem, value))
                   }
                 />
               ))}

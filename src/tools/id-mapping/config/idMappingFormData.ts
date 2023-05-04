@@ -5,6 +5,7 @@ import { SelectedTaxon } from '../../types/toolsFormData';
 export type IDMappingFormValue = {
   fieldName: string;
   selected?: Readonly<string | string[] | number | SelectedTaxon>;
+  userSelected?: boolean;
 };
 
 export enum IDMappingFields {
