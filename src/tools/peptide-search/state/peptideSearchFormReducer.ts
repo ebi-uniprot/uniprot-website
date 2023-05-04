@@ -12,7 +12,7 @@ import {
 
 type PeptideSearchFormState = {
   formValues: PeptideSearchFormValues;
-  peptideSequence: string;
+  parsedSequences: string[];
   submitDisabled: boolean;
   sending: boolean;
 };
@@ -25,6 +25,15 @@ const isInvalid = (parsedSequences: string[]) =>
   parsedSequences.length === 0 ||
   parsedSequences.length > PEPTIDE_SEARCH_LIMIT ||
   parsedSequences.some((parsedSequence) => parsedSequence.length < 2);
+
+const getJobName = (parsedSequences: string[]) => {
+  if (parsedSequences.length === 0) {
+    return '';
+  }
+  return `${truncate(parsedSequences[0])}${
+    parsedSequences.length > 1 ? ` +${parsedSequences.length - 1}` : ''
+  }`;
+};
 
 export const getPeptideSearchFormInitialState = (
   defaultFormValues: Readonly<PeptideSearchFormValues>
@@ -39,8 +48,7 @@ export const getPeptideSearchFormInitialState = (
       ),
     },
   },
-  peptideSequence:
-    (defaultFormValues[PeptideSearchFields.peps].selected as string) || '',
+  parsedSequences: [],
   // used when the form submission needs to be disabled
   submitDisabled: isInvalid(
     splitAndTidyText(
@@ -54,44 +62,33 @@ export const getPeptideSearchFormInitialState = (
 export const peptideSearchFormSequenceReducer = (
   state: PeptideSearchFormState,
   {
-    payload: peptideSequence,
+    payload: peptideSequences,
   }: ActionType<typeof peptideSearchFormActions.updatePeptideSequences>
 ) => {
   const { formValues } = state;
 
-  const parsedSequences = splitAndTidyText(peptideSequence);
+  const parsedSequences = splitAndTidyText(peptideSequences);
 
   // Set Submit Disabled according to sequence
   const submitDisabled = isInvalid(parsedSequences);
 
   // Set Job Name, if user didn't already set
-  let potentialJobName = '';
-  if (!formValues[PeptideSearchFields.name].userSelected) {
-    // if the user didn't manually change the title, autofill it
-    const firstParsedSequence = parsedSequences[0];
-    if (parsedSequences.length > 0) {
-      potentialJobName = `${truncate(firstParsedSequence)}${
-        parsedSequences.length > 1 ? ` +${parsedSequences.length - 1}` : ''
-      }`;
-    }
-  }
-
   const name =
     formValues[PeptideSearchFields.name].userSelected &&
     formValues[PeptideSearchFields.name].selected
       ? formValues[PeptideSearchFields.name]
       : {
           ...formValues[PeptideSearchFields.name],
-          selected: potentialJobName,
+          userSelected: false,
+          selected: getJobName(parsedSequences),
         };
 
   // actual form fields
-  const peps = formValues[PeptideSearchFields.peps].userSelected
-    ? formValues[PeptideSearchFields.peps]
-    : {
-        ...formValues[PeptideSearchFields.peps],
-        selected: formValues[PeptideSearchFields.peps].selected,
-      };
+  // Set peps to raw peptide sequences no matter what
+  const peps = {
+    ...formValues[PeptideSearchFields.peps],
+    selected: peptideSequences,
+  };
 
   const taxIds = formValues[PeptideSearchFields.taxIds].userSelected
     ? formValues[PeptideSearchFields.taxIds]
@@ -116,7 +113,7 @@ export const peptideSearchFormSequenceReducer = (
 
   return {
     ...state,
-    peptideSequence,
+    parsedSequences,
     submitDisabled,
     formValues: {
       ...formValues,

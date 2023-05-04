@@ -22,6 +22,18 @@ export type IDMappingFormAction = ActionType<typeof idMappingFormActions>;
 const isInvalid = (ids: IDMappingFormValue['selected']) =>
   !Array.isArray(ids) || !ids.length || ids.length > ID_MAPPING_LIMIT;
 
+const getJobName = (parsedIDs: string[], formValues: IDMappingFormValues) => {
+  if (parsedIDs.length > 0) {
+    const firstParsedID = parsedIDs[0];
+    const fromDb = formValues[IDMappingFields.fromDb].selected;
+    const toDb = formValues[IDMappingFields.toDb].selected;
+    return `${firstParsedID}${
+      parsedIDs.length > 1 ? ` +${parsedIDs.length - 1}` : ''
+    } ${fromDb} → ${toDb}`;
+  }
+  return '';
+};
+
 export const getIDMappingFormInitialState = (
   defaultFormValues: Readonly<IDMappingFormValues>
 ): IDMappingFormState => ({
@@ -56,26 +68,14 @@ export const idMappingFormInputTextIDsReducer = (
   const submitDisabled = isInvalid(parsedIDs);
 
   // Set Job Name, if user didn't already set
-  let potentialJobName = '';
-  if (!formValues[IDMappingFields.name].userSelected) {
-    // if the user didn't manually change the title, autofill it
-    const firstParsedID = parsedIDs[0];
-    if (parsedIDs.length > 0) {
-      potentialJobName = `${firstParsedID}${
-        parsedIDs.length > 1 ? ` +${parsedIDs.length - 1}` : ''
-      } ${formValues[IDMappingFields.fromDb].selected} → ${
-        formValues[IDMappingFields.toDb].selected
-      }`;
-    }
-  }
-
   const name =
     formValues[IDMappingFields.name].userSelected &&
     formValues[IDMappingFields.name].selected
       ? formValues[IDMappingFields.name]
       : {
           ...formValues[IDMappingFields.name],
-          selected: potentialJobName,
+          userSelected: false,
+          selected: getJobName(parsedIDs, formValues),
         };
 
   // actual form fields

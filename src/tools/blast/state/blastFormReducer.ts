@@ -109,6 +109,7 @@ export const blastFormParsedSequencesReducer = (
       ? formValues[BlastFields.name]
       : {
           ...formValues[BlastFields.name],
+          userSelected: false,
           selected: parsedSequences[0]?.name || '',
         };
 

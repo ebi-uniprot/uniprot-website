@@ -22,6 +22,24 @@ const isInvalid = (parsedSequences: SequenceObject[]) =>
   parsedSequences.length <= 1 ||
   parsedSequences.some((parsedSequence) => !parsedSequence.valid);
 
+const getJobName = (parsedSequences: SequenceObject[]) => {
+  const firstName = parsedSequences.find((item) => item.name)?.name;
+  if (firstName) {
+    let jobName = firstName;
+    if (parsedSequences.length > 1) {
+      jobName += ` +${parsedSequences.length - 1}`;
+    }
+    return jobName;
+  }
+  if (parsedSequences.length) {
+    return `${parsedSequences.length} ${pluralise(
+      'sequence',
+      parsedSequences.length
+    )}`;
+  }
+  return '';
+};
+
 export const getAlignFormInitialState = (
   defaultFormValues: Readonly<AlignFormValues>
 ): AlignFormState => ({
@@ -70,30 +88,14 @@ export const alignFormParsedSequencesReducer = (
   };
 
   // Set Job Name, if user didn't already set
-  let potentialJobName = '';
-  if (!formValues[AlignFields.name].userSelected) {
-    // if the user didn't manually change the title, autofill it
-    const firstName = parsedSequences.find((item) => item.name)?.name;
-    if (firstName) {
-      potentialJobName = firstName;
-      if (parsedSequences.length > 1) {
-        potentialJobName += ` +${parsedSequences.length - 1}`;
-      }
-    } else if (parsedSequences.length) {
-      potentialJobName = `${parsedSequences.length} ${pluralise(
-        'sequence',
-        parsedSequences.length
-      )}`;
-    }
-  }
-
   const name =
     formValues[AlignFields.name].userSelected &&
     formValues[AlignFields.name].selected
       ? formValues[AlignFields.name]
       : {
           ...formValues[AlignFields.name],
-          selected: potentialJobName,
+          userSelected: false,
+          selected: getJobName(parsedSequences),
         };
 
   // actual form fields

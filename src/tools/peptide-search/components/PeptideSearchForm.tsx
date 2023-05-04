@@ -1,4 +1,4 @@
-import { FC, FormEvent, MouseEvent, useMemo, useRef, useReducer } from 'react';
+import { FC, FormEvent, MouseEvent, useRef, useReducer } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Chip, PageIntro, SpinnerIcon } from 'franklin-sites';
 import { sleep } from 'timing-functions';
@@ -27,7 +27,6 @@ import {
 } from '../state/peptideSearchFormActions';
 
 import { truncateTaxonLabel } from '../../utils';
-import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
 
 import { JobTypes } from '../../types/toolsJobTypes';
 import { FormParameters } from '../types/peptideSearchFormParameters';
@@ -104,7 +103,7 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
   const history = useHistory();
   const reducedMotion = useReducedMotion();
 
-  const [{ peptideSequence, formValues, sending, submitDisabled }, dispatch] =
+  const [{ parsedSequences, formValues, sending, submitDisabled }, dispatch] =
     useReducer(
       getPeptideSearchFormDataReducer(defaultFormValues),
       getPeptideSearchFormInitialState(initialFormValues)
@@ -143,11 +142,6 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
       )
     );
   };
-
-  const parsedSequences = useMemo(
-    () => splitAndTidyText(peptideSequence),
-    [peptideSequence]
-  );
 
   // form event handlers
   const handleReset = (event: FormEvent) => {
@@ -244,7 +238,7 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
               aria-label="Protein sequence(s) of at least 2 aminoacids"
               placeholder="Protein sequence(s) of at least 2 aminoacids"
               className="tools-form-raw-text-input"
-              value={peptideSequence}
+              value={formValues[PeptideSearchFields.peps].selected as string}
               onChange={(event) =>
                 dispatch(updatePeptideSequences(event.target.value))
               }
