@@ -5,8 +5,7 @@ import { sleep } from 'timing-functions';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
-import sideButtonStyles from './styles/side-buttons.module.scss';
-import baseStyles from '../../../shared/components/layouts/styles/base-layout.module.scss';
+import styles from './styles/side-buttons.module.scss';
 
 type Props = {
   displayHelp: boolean;
@@ -17,36 +16,6 @@ const SideButtons = ({ displayHelp, onClick }: Props) => {
   const [displayFeedback, setDisplayFeedback] = useState(false);
 
   useEffect(() => {
-    // Checking if there is a scroll bar
-    const mainContent = document?.querySelector<HTMLElement>(
-      `.${baseStyles['main-content']}`
-    );
-    const scrollBarWidth =
-      mainContent && mainContent.offsetWidth - mainContent.clientWidth;
-
-    if (scrollBarWidth) {
-      const hjButton = document.querySelector<HTMLElement>(
-        '#_hj_feedback_container div button'
-      );
-
-      const sideButton = document?.querySelector<HTMLElement>(
-        `.${sideButtonStyles['side-button']}`
-      );
-      const sideButtonHelp = document?.querySelector<HTMLElement>(
-        `.${sideButtonStyles.help}`
-      );
-
-      if (hjButton) {
-        hjButton.style.right = '17px';
-      }
-      if (sideButton) {
-        sideButton.style.right = '17px';
-      }
-      if (sideButtonHelp) {
-        sideButtonHelp.style.right = '17px';
-      }
-    }
-
     sleep(3000).then(() => {
       // If there's already Hotjar's feedback, don't do anything
       if (document.querySelector('._hj_feedback_container')) {
@@ -57,15 +26,11 @@ const SideButtons = ({ displayHelp, onClick }: Props) => {
   });
 
   return (
-    <span className={sideButtonStyles.container}>
+    <span className={styles.container}>
       <a
-        className={cn(
-          sideButtonStyles['side-button'],
-          sideButtonStyles.feedback,
-          {
-            [sideButtonStyles.visible]: displayFeedback,
-          }
-        )}
+        className={cn(styles['side-button'], styles.feedback, {
+          [styles.visible]: displayFeedback,
+        })}
         target="_blank"
         href="https://goo.gl/forms/VrAGbqg2XFg6Mpbh1"
         rel="noopener noreferrer"
@@ -77,8 +42,8 @@ const SideButtons = ({ displayHelp, onClick }: Props) => {
         to={LocationToPath[Location.HelpResults]}
         onClick={onClick}
         tabIndex={-1}
-        className={cn(sideButtonStyles['side-button'], sideButtonStyles.help, {
-          [sideButtonStyles.visible]: displayHelp,
+        className={cn(styles['side-button'], styles.help, {
+          [styles.visible]: displayHelp,
         })}
       >
         Help
