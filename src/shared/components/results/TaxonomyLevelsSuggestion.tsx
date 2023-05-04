@@ -13,7 +13,7 @@ const TaxonomyLevelsSuggestion = ({ query }: { query: string }) => {
     taxonHierarchySearchTerms
   );
 
-  if (query !== modifiedQuery) {
+  if (query !== modifiedQuery && searchValue) {
     const searchByOrganism = query.includes('organism');
     return (
       <small>
