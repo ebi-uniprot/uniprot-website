@@ -263,8 +263,8 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
             </section>
             <section className="tools-form-section__item tools-form-section__item--selected-taxon">
               {(
-                (formValues[PeptideSearchFields.taxIds]
-                  .selected as SelectedTaxon[]) || []
+                (formValues[PeptideSearchFields.taxIds].selected ||
+                  []) as SelectedTaxon[]
               ).map(({ label, id }: SelectedTaxon) => (
                 <div key={label}>
                   <Chip

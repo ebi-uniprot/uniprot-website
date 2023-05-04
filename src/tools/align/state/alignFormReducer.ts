@@ -19,8 +19,8 @@ export type AlignFormAction = ActionType<typeof alignFormActions>;
 
 const isInvalid = (parsedSequences: SequenceObject[]) =>
   parsedSequences.length > ALIGN_LIMIT ||
-  parsedSequences.some((parsedSequence) => !parsedSequence.valid) ||
-  parsedSequences.length <= 1;
+  parsedSequences.length <= 1 ||
+  parsedSequences.some((parsedSequence) => !parsedSequence.valid);
 
 export const getAlignFormInitialState = (
   defaultFormValues: Readonly<AlignFormValues>
