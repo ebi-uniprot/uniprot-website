@@ -62,12 +62,12 @@ export const getPeptideSearchFormInitialState = (
 export const peptideSearchFormSequenceReducer = (
   state: PeptideSearchFormState,
   {
-    payload: peptideSequence,
+    payload: peptideSequences,
   }: ActionType<typeof peptideSearchFormActions.updatePeptideSequences>
 ) => {
   const { formValues } = state;
 
-  const parsedSequences = splitAndTidyText(peptideSequence);
+  const parsedSequences = splitAndTidyText(peptideSequences);
 
   // Set Submit Disabled according to sequence
   const submitDisabled = isInvalid(parsedSequences);
@@ -84,10 +84,10 @@ export const peptideSearchFormSequenceReducer = (
         };
 
   // actual form fields
-  // Set peps to raw peptide sequence no matter what
+  // Set peps to raw peptide sequences no matter what
   const peps = {
     ...formValues[PeptideSearchFields.peps],
-    selected: peptideSequence,
+    selected: peptideSequences,
   };
 
   const taxIds = formValues[PeptideSearchFields.taxIds].userSelected
