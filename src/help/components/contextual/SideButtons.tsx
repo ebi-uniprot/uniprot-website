@@ -1,4 +1,4 @@
-import { useEffect, useState, MouseEventHandler } from 'react';
+import { useEffect, useState, MouseEventHandler, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import { sleep } from 'timing-functions';
@@ -25,20 +25,13 @@ const SideButtons = ({ displayHelp, onClick }: Props) => {
       mainContent && mainContent.offsetWidth - mainContent.clientWidth;
 
     if (scrollBarWidth) {
-      const hjButton = document.querySelector<HTMLElement>(
-        '#_hj_feedback_container div button'
-      );
-
       const sideButton = document?.querySelector<HTMLElement>(
         `.${sideButtonStyles['side-button']}`
       );
       const sideButtonHelp = document?.querySelector<HTMLElement>(
-        `.${sideButtonStyles.help}`
+        `.${sideButtonStyles['help']}`
       );
-
-      if (hjButton) {
-        hjButton.style.right = '17px';
-      }
+      // console.log(sideButtonHelp)
       if (sideButton) {
         sideButton.style.right = '17px';
       }
