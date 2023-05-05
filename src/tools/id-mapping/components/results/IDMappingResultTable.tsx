@@ -9,6 +9,7 @@ import useItemSelect from '../../../../shared/hooks/useItemSelect';
 
 import { getSupportedFormats, rawDBToNamespace } from '../../utils';
 import { pluralise } from '../../../../shared/utils/utils';
+import splitAndTidyText from '../../../../shared/utils/splitAndTidyText';
 
 import { Namespace } from '../../../../shared/types/namespaces';
 import { PaginatedResults } from '../../../../shared/hooks/usePagination';
@@ -35,7 +36,7 @@ const IDMappingResultTable = ({
     namespaceOverride
   );
 
-  const inputIDs = detailsData?.ids.split(',');
+  const inputIDs = splitAndTidyText(detailsData?.ids);
 
   const inputLength: number = inputIDs?.length || 0;
   const failedLength: number = resultsDataObject.failedIds?.length || 0;
