@@ -44,10 +44,6 @@ describe('Family and Domains data converter', () => {
               database: 'MobiDB',
               xrefs: [{ database: 'MobiDB', implicit: true }],
             },
-            {
-              database: 'ProtoNet',
-              xrefs: [{ database: 'ProtoNet', implicit: true }],
-            },
           ],
         },
       ],
